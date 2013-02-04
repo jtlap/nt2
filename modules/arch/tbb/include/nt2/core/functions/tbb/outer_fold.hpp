@@ -173,8 +173,54 @@ namespace nt2
 //==============================================================================
 // tbb + noSIMD
 //==============================================================================
-namespace nt2 { namespace ext
+namespace nt2
 {
+  namespace details
+  {
+    template <class X, class N, class B, class U>
+    BOOST_FORCEINLINE typename X::value_type
+    outer_fold_step(X const& in, const std::size_t& p, const std::size_t& mbound, N const& neutral, B const& bop, U const& uop);
+
+    template<class A0, class A1, class A2, class A3, class A4>
+    struct outer_reduce_scal
+    {
+      outer_reduce_scal( A0& out, A1& in, A2 const& n, A3 const& bop
+                       , A4 const& uop, std::size_t const& ibound
+                       , std::size_t const& obound, std::size_t const& mbound
+                       )
+      : out_(out), in_(in), neutral_(n), bop_(bop), uop_(uop)
+      , ibound_(ibound), obound_(obound), mbound_(mbound)
+      {}
+
+      void operator()(tbb::blocked_range<std::ptrdiff_t> const& r) const
+      {
+        std::size_t id_;
+        std::size_t o_;
+
+        for(std::ptrdiff_t o = r.begin(); o < r.end(); ++o)
+        {
+          o_  = o*ibound_;
+          for(std::size_t i = 0; i < ibound_; ++i)
+          {
+            id_ = i+o_;
+            nt2::run(out_, id_, details::outer_fold_step(in_,id_,mbound_,neutral_,bop_,uop_));
+          }
+        }
+      }
+
+      A0&                     out_;
+      A1&                      in_;
+      A2                  neutral_;
+      A3                      bop_;
+      A4                      uop_;
+      std::size_t          ibound_;
+      std::size_t          obound_;
+      std::size_t          mbound_;
+    };
+  }
+
+  namespace ext
+  {
   //============================================================================
   // Generates outer_fold
   //============================================================================
@@ -193,7 +239,32 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
     {
-
+      extent_type ext = in.extent();
+      std::size_t ibound = boost::fusion::at_c<0>(ext);
+      std::size_t mbound = boost::fusion::at_c<1>(ext);
+      std::ptrdiff_t obound = boost::fusion::at_c<2>(ext);
+      const std::size_t grain = obound/tbb::task_scheduler_init::default_num_threads();
+      details::outer_reduce_scal< A0,A1,A2,A3,A4> ored( out, in, neutral, bop
+                                                      , uop, ibound,obound
+                                                      , mbound
+                                                      );
+#ifndef BOOST_NO_EXCEPTIONS
+      boost::exception_ptr exception;
+      try
+      {
+#endif
+        tbb::parallel_for( tbb::blocked_range<std::ptrdiff_t>(0,obound,grain)
+                         , ored
+                         );
+#ifndef BOOST_NO_EXCEPTIONS
+      }
+      catch(...)
+      {
+        exception = boost::current_exception();
+      }
+      if(exception)
+        boost::rethrow_exception(exception);
+#endif
     }
 
   };

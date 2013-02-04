@@ -31,17 +31,44 @@ namespace nt2 {
   {
     // Create the correct functor for tbb::parallel reduce according to the
     // requested Site.
+
     template<class A0, class A1, class A2, class A3, class A4, class Target, class Value>
-    struct apply_inner_reduce
+    struct inner_reduce_simd
     {
       typedef Target target_type;
       typedef Value   value_type;
 
-      apply_inner_reduce(A0& out, A1& in, A2 const& n, A3 const& bop, A4 const& uop
-               , std::size_t const& bound, std::size_t const& ibound)
+      inner_reduce_simd( A0& out, A1& in, A2 const& n, A3 const& bop, A4 const& uop
+                       , std::size_t const& bound, std::size_t const& ibound)
       : out_(out), in_(in), neutral_(n), bop_(bop), uop_(uop)
       , bound_(bound), ibound_(ibound)
       {}
+
+      void operator()(tbb::blocked_range<std::ptrdiff_t> const& r) const
+      {
+        static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
+
+
+        for(std::ptrdiff_t j = r.begin(); j < r.end(); ++j)
+        {
+          std::size_t k = j*bound_;
+          target_type vec_out_ = neutral_(nt2::meta::as_<target_type>());
+          nt2::run(out_, j, neutral_(meta::as_<value_type>()));
+
+          for(std::size_t i = 0; i < ibound_; i+=N)
+            vec_out_ = bop_( vec_out_
+                                   , nt2::run( in_
+                                             , i+k, meta::as_<target_type>()));
+
+
+          nt2::run(out_, j, uop_(vec_out_));
+
+          for(std::size_t i = ibound_; i < bound_; ++i)
+            nt2::run(out_, j
+                     , bop_( nt2::run(out_, j, meta::as_<value_type>())
+                                   , nt2::run(in_, i+k, meta::as_<value_type>())));
+        }
+      }
 
       A0&                     out_;
       A1&                      in_;
@@ -52,80 +79,7 @@ namespace nt2 {
       std::size_t          ibound_;
     };
 
-    template<class A0, class A1, class A2, class A3, class A4, class Target, class Value>
-    struct inner_reduce_simd
-    : public apply_inner_reduce<A0,A1,A2,A3,A4,Target,Value>
-    {
-      typedef Target target_type;
-      typedef Value   value_type;
-      typedef apply_inner_reduce<A0,A1,A2,A3,A4,Target,Value> parent;
 
-      inner_reduce_simd( A0& out, A1& in, A2 const& n, A3 const& bop, A4 const& uop
-                       , std::size_t const& bound, std::size_t const& ibound)
-      : parent(out,in,n,bop,uop,bound,ibound)
-      {}
-
-      void operator()(tbb::blocked_range<std::ptrdiff_t> const& r) const
-      {
-        static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
-
-
-        for(std::ptrdiff_t j = r.begin(); j < r.end(); ++j)
-        {
-          std::size_t k = j*parent::bound_;
-          target_type vec_out_ = neutral_(nt2::meta::as_<target_type>());
-          nt2::run(parent::out_, j, neutral_(meta::as_<value_type>()));
-
-          for(std::size_t i = 0; i < parent::ibound_; i+=N)
-            vec_out_ = parent::bop_( vec_out_
-                                   , nt2::run( parent::in_
-                                             , i+k, meta::as_<target_type>()));
-
-
-          nt2::run(parent::out_, j, parent::uop_(vec_out_));
-
-          for(std::size_t i = parent::ibound_; i < parent::bound_; ++i)
-            nt2::run(parent::out_, j
-                     , parent::bop_( nt2::run(parent::out_, j, meta::as_<value_type>())
-                                   , nt2::run(parent::in_, i+k, meta::as_<value_type>())));
-        }
-      }
-    };
-
-    template <class X, class N, class B, class U>
-    BOOST_FORCEINLINE typename X::value_type
-    inner_fold_step(X const& in, const std::size_t& p, N const& neutral, B const& bop, U const& uop);
-
-    template<class A0, class A1, class A2, class A3, class A4, class Target, class Value>
-    struct inner_reduce_scal
-    : public apply_inner_reduce<A0,A1,A2,A3,A4,Target,Value>
-    {
-      typedef Target target_type;
-      typedef Value   value_type;
-      typedef apply_inner_reduce<A0,A1,A2,A3,A4,Target,Value> parent;
-
-      inner_reduce_scal( A0& out, A1& in, A2 const& n, A3 const& bop, A4 const& uop
-                       , std::size_t const& bound, std::size_t const& ibound)
-      : parent(out,in,n,bop,uop,bound,ibound)
-      {}
-
-      void operator()(tbb::blocked_range<std::ptrdiff_t> const& r) const
-      {
-        static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
-        for(std::ptrdiff_t j = r.begin(); j < r.end(); ++j)
-        {
-          std::size_t k = j*parent::ibound;
-          nt2::run(parent::out_, j
-                  , details::inner_fold_step( parent::in_
-                                            , k
-                                            , parent::neutral_
-                                            , parent::bop_
-                                            , parent::uop_
-                                            )
-                  );
-        }
-      }
-    };
   }
 
   namespace ext
@@ -194,9 +148,50 @@ namespace nt2 {
 //==============================================================================
 // tbb + noSIMD
 //==============================================================================
-namespace nt2 { namespace ext
+namespace nt2
 {
+  namespace details
+  {
+    template <class X, class N, class B, class U>
+    BOOST_FORCEINLINE typename X::value_type
+    inner_fold_step(X const& in, const std::size_t& p, N const& neutral, B const& bop, U const& uop);
 
+    template<class A0, class A1, class A2, class A3, class A4>
+    struct inner_reduce_scal
+    {
+      inner_reduce_scal( A0& out, A1& in, A2 const& n, A3 const& bop, A4 const& uop
+                       , std::size_t const& ibound)
+      : out_(out), in_(in), neutral_(n), bop_(bop), uop_(uop)
+      , ibound_(ibound)
+      {}
+
+      void operator()(tbb::blocked_range<std::ptrdiff_t> const& r) const
+      {
+        for(std::ptrdiff_t j = r.begin(); j < r.end(); ++j)
+        {
+          std::size_t k = j*ibound_;
+          nt2::run(out_, j
+                  , details::inner_fold_step( in_
+                                            , k
+                                            , neutral_
+                                            , bop_
+                                            , uop_
+                                            )
+                  );
+        }
+      }
+
+      A0&                     out_;
+      A1&                      in_;
+      A2                  neutral_;
+      A3                      bop_;
+      A4                      uop_;
+      std::size_t          ibound_;
+    };
+  }
+
+  namespace ext
+  {
   //============================================================================
   // Generates inner_fold
   //============================================================================
@@ -219,10 +214,8 @@ namespace nt2 { namespace ext
       std::size_t ibound = boost::fusion::at_c<0>(ext);
       std::ptrdiff_t obound = nt2::numel(boost::fusion::pop_front(ext));
       const std::size_t grain = obound/tbb::task_scheduler_init::default_num_threads();
-      details::inner_reduce_scal< A0,A1,A2,A3,A4
-                                , target_type
-                                , value_type> ared( out, in, neutral, bop
-                                                  , uop, bound, ibound);
+      details::inner_reduce_scal<A0,A1,A2,A3,A4> ared( out, in, neutral, bop
+                                                      , uop, ibound);
 #ifndef BOOST_NO_EXCEPTIONS
       boost::exception_ptr exception;
       try
