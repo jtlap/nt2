@@ -8,6 +8,7 @@
 ##############################################################################
 
 set( SOURCES
+    enumerate.cpp
    )
 
 nt2_module_add_tests(type.complex.swar.simd.unit ${SOURCES})

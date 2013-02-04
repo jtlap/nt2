@@ -17,8 +17,8 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_, tag::cpu_
                                     , (A0)(T)
-                                    , (scalar_< unspecified_<A0> >)
-                                      (target_< scalar_< unspecified_<T> > >)
+                                    , (scalar_< arithmetic_<A0> >)
+                                      (target_< scalar_< arithmetic_<T> > >)
                                     )
   {
     typedef typename T::type result_type;
@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_, tag::cpu_
                                     , (A0)(T)
-                                    , (scalar_< unspecified_<A0> >)
+                                    , (scalar_< arithmetic_<A0> >)
                                       (target_< scalar_< logical_<T> > >)
                                     )
   {
@@ -45,7 +45,7 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_, tag::cpu_
                                     , (T)
-                                    , (target_< scalar_< unspecified_<T> > >)
+                                    , (target_< scalar_< arithmetic_<T> > >)
                                     )
   {
     typedef typename T::type result_type;
