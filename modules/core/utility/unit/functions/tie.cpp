@@ -12,14 +12,7 @@
 #include <nt2/include/functions/tie.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
-
-template <class T> struct extent_
-{
-  typedef typename T::extent_type type;
-};
 
 NT2_TEST_CASE( extent )
 {
@@ -32,8 +25,8 @@ NT2_TEST_CASE( extent )
   table<short>  s;
   table<char>   c;
 
-  NT2_TEST_EXPR_TYPE( nt2::tie(d)       , extent_<_>, (of_size_<1>) );
-  NT2_TEST_EXPR_TYPE( nt2::tie(f,d)     , extent_<_>, (of_size_<1>) );
-  NT2_TEST_EXPR_TYPE( nt2::tie(f,d,s)   , extent_<_>, (of_size_<1>) );
-  NT2_TEST_EXPR_TYPE( nt2::tie(c,f,d,s) , extent_<_>, (of_size_<1>) );
+  NT2_TEST_EQUAL( nt2::tie(d)       , d.extent() );
+  NT2_TEST_EQUAL( nt2::tie(f,d)     , f.extent() );
+  NT2_TEST_EQUAL( nt2::tie(f,d,s)   , f.extent() );
+  NT2_TEST_EQUAL( nt2::tie(c,f,d,s) , c.extent() );
 }
