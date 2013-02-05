@@ -260,7 +260,7 @@ namespace nt2 { namespace ext
     typedef A2 result_type;
     NT2_FUNCTOR_CALL(3)
     {
-      return result_type( real(a2),
+      return result_type( real(a2)
                         , fma(a0, nt2::imag(a1), nt2::imag(a2))
                         );
     }
@@ -276,7 +276,7 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     NT2_FUNCTOR_CALL(3)
     {
-      return result_type( a0*nt2::real(a1),
+      return result_type( a0*nt2::real(a1)
                         , fma(a0, nt2::imag(a1), nt2::imag(a2))
                         );
     }
