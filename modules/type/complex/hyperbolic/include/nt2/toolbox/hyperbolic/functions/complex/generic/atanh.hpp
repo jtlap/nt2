@@ -133,11 +133,11 @@ namespace nt2 { namespace ext
         alpha = if_else(test, tmp_alpha, alpha);
         r = if_else(lt(alpha, alpha_crossover),
                     nt2::log1p(alpha) - nt2::log1p(-alpha),
-                    nt2::log(one + two*x + xx) - std::log(sqr(x-one))
+                    nt2::log(one + two*x + xx) - nt2::log(sqr(x-one))
           )/Four<rtype>();
         //compute the imaginary part
         // y^2 is negligible:
-        i =  std::atan2(two*y, one - xx);
+        i =  nt2::atan2(two*y, one - xx);
         i =  if_else(logical_or(gtymax, gtxmax), Pi<rtype>(), i);
         rtype tmp_i = if_else(ltymin, atan2(two*y, one),
                               nt2::atan2(two*y, one - yy));
