@@ -12,6 +12,7 @@
 #include <nt2/include/functions/linspace.hpp>
 #include <nt2/include/functions/predecessor.hpp>
 #include <nt2/include/functions/globalall.hpp>
+#include <nt2/include/functions/of_size.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -123,17 +124,6 @@ NT2_TEST_CASE_TPL( linspace_best, NT2_REAL_TYPES )
 
   for(size_t i = 1; i <= 257; ++i)
     ref(i) =  T(-1)+T(i-1)/128;
-
-  NT2_TEST_EQUAL(z,ref);
-}
-NT2_TEST_CASE_TPL( linspace_cplx, (double)(float) )
-{
-  typedef std::complex<T> cT; 
-  nt2::table<cT> z = nt2::linspace(cT(-1, -1), cT(1, 1), 257);
-  nt2::table<cT> ref(nt2::of_size(1,257));
-
-  for(size_t i = 1; i <= 257; ++i)
-    ref(i) =  cT(-1, -1)+cT(T(i-1)/128, T(i-1)/128);
 
   NT2_TEST_EQUAL(z,ref);
 }
