@@ -12,6 +12,7 @@
 #include <boost/simd/toolbox/swar/functions/enumerate.hpp>
 #include <boost/simd/include/functions/simd/splat.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
 #include <boost/simd/sdk/meta/as_arithmetic.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -28,7 +29,8 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename meta::scalar_of<result_type>::type s_t;
       result_type that;
-      for(std::size_t i=0;i<result_type::static_size;++i) that[i] = a0 + i;
+      for(std::size_t i=0;i<result_type::static_size;++i)
+        that[i] = a0 + i;
       return that;
     }
   };
@@ -72,7 +74,8 @@ namespace boost { namespace simd { namespace ext
     result_type operator()(A0 const& a0, A1 const& a1, T const& ) const
     {
       result_type that;
-      for(std::size_t i=0;i<result_type::static_size;++i) that[i] = a0 + a1*i;;
+      for(std::size_t i=0;i<result_type::static_size;++i)
+        that[i] = a0 + a1*i;;
       return that;
     }
   };

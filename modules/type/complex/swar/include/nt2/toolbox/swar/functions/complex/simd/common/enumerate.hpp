@@ -8,10 +8,13 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_SWAR_FUNCTIONS_COMPLEX_SIMD_COMMON_ENUMERATE_HPP_INCLUDED
 #define NT2_TOOLBOX_SWAR_FUNCTIONS_COMPLEX_SIMD_COMMON_ENUMERATE_HPP_INCLUDED
+
 #include <nt2/toolbox/swar/functions/enumerate.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/splat.hpp>
+#include <nt2/sdk/complex/hierarchy.hpp>
+#include <nt2/sdk/complex/meta/as_real.hpp>
 
 namespace nt2 { namespace ext
 {
