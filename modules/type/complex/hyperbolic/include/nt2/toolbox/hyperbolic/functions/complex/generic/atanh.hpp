@@ -42,6 +42,8 @@
 #include <nt2/include/functions/simd/safe_max.hpp>
 #include <nt2/include/functions/simd/safe_min.hpp>
 #include <nt2/include/constants/four.hpp>
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/constants/log_2.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/three.hpp>
@@ -127,14 +129,18 @@ namespace nt2 { namespace ext
         tmp_alpha =  if_else(gt(y, one),  two / (x + y*y/x), tmp_alpha);
         // Big x and y: divide alpha through by x*y:
         tmp_alpha =  if_else(gtymax, (two/y) / (x/y + y/x), tmp_alpha);
-        // Big x or y are infinite: the result is 0
+        // x or y are infinite: the result is 0
         tmp_alpha = if_zero_else(logical_or(eq(y,inf), eq(x, inf)), tmp_alpha);
 
         alpha = if_else(test, tmp_alpha, alpha);
         r = if_else(lt(alpha, alpha_crossover),
                     nt2::log1p(alpha) - nt2::log1p(-alpha),
                     nt2::log(one + two*x + xx) - nt2::log(sqr(x-one))
-          )/Four<rtype>();
+          );
+        test = logical_and(eq(x, one), ltymin);
+//         test =  logical_andnot(eq(x, one), test);
+        r = if_else(test, -(nt2::Two<rtype>() * (nt2::log(y) - nt2::Log_2<rtype>())), r);
+        r /= Four<rtype>();
         //compute the imaginary part
         // y^2 is negligible:
         i =  nt2::atan2(two*y, one - xx);
