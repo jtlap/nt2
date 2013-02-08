@@ -217,7 +217,7 @@ namespace boost { namespace simd
 
       template< int  A
               , int  B
-              , bool InfAB = A<2&&B<2
+              , bool InfAB = (A<2&&B<2)
               , bool SupAB = (A>=2||A==-1)&&(B>=2||B==-1)
               > struct sel {};
 

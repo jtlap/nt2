@@ -11,6 +11,8 @@
 
 #include <boost/simd/toolbox/swar/functions/shuffle.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/mpl/apply.hpp>
+#include <boost/mpl/int.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

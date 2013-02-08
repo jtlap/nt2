@@ -31,7 +31,7 @@ struct mirror_
 {
   template<class Index, class Cardinal>
   struct apply
-       : boost::mpl::int_ < (Index::value < Cardinal::value/2)
+       : boost::mpl::int_ < (Cardinal::value/2 > Index::value)
                           ? Index::value
                           : (Cardinal::value - 1 - Index::value)
                           >
@@ -119,14 +119,14 @@ struct low0_upshuffled_
 {
   template<class Index, class Cardinal>
   struct apply  : boost::mpl
-                ::int_< (Index::value < Cardinal::value/2) ? Index::value : -1 > {};
+                ::int_< (Cardinal::value/2 > Index::value) ? Index::value : -1 > {};
 };
 
 struct lowshuffled_up0_
 {
   template<class Index, class Cardinal>
   struct apply  : boost::mpl
-                ::int_< (Index::value < Cardinal::value/2) ? -1 : Index::value > {};
+                ::int_< (Cardinal::value/2 > Index::value) ? -1 : Index::value > {};
 };
 
 NT2_TEST_CASE_TPL( shuffle_optim, (float)(int32_t)(uint32_t) )

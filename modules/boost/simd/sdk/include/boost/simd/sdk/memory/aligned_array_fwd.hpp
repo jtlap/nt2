@@ -13,7 +13,9 @@
 
 namespace boost { namespace simd { namespace memory
 {
-  template<class T, std::size_t N, std::size_t Align = BOOST_SIMD_ARCH_ALIGNMENT>
+  template< class T
+          , std::size_t N
+          , std::size_t Align = (BOOST_SIMD_ARCH_ALIGNMENT>N)?N:BOOST_SIMD_ARCH_ALIGNMENT>
   struct aligned_array;
 } } }
 

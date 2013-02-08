@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace details
 
   // Generate the the correct mask
   template<class P, class Card, char Offset, char Idx, char Inc>
-  struct generate_ : boost::mpl::char_<(index_<P,Card,Idx>::value<0?-1:(Offset+Inc))>
+  struct generate_ : boost::mpl::char_<((0>index_<P,Card,Idx>::value)?-1:(Offset+Inc))>
   {};
 
   // Permute specialization
