@@ -18,15 +18,15 @@ namespace boost { namespace simd { namespace memory
   template< class T
           , std::size_t N
           , std::size_t Align = (BOOST_SIMD_ARCH_ALIGNMENT > (N*sizeof(T)))
-                              ? (  ( ( (N*sizeof(T))
-                                     | (N*sizeof(T)) >> 1
-                                     | (N*sizeof(T)) >> 2
-                                     | (N*sizeof(T)) >> 4
-                                     | (N*sizeof(T)) >> 8
-                                     | (N*sizeof(T)) >> 16
-                                     )
-                                     >> 1
-                                   ) + 1
+                              ? ( ( ( (N*sizeof(T))
+                                    | (N*sizeof(T)) >> 1
+                                    | (N*sizeof(T)) >> 2
+                                    | (N*sizeof(T)) >> 4
+                                    | (N*sizeof(T)) >> 8
+                                    | (N*sizeof(T)) >> 16
+                                    )
+                                    >> 1
+                                  ) + 1
                                 )
                               : BOOST_SIMD_ARCH_ALIGNMENT
           >
