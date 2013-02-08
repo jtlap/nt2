@@ -32,14 +32,8 @@ namespace boost { namespace simd { namespace meta
     BOOST_STATIC_CONSTANT(std::size_t, value = (x5 >> 1) + 1   );
     typedef boost::mpl::size_t<value> type;
   };
-
-  // INTERNAL ONLY
-  template<>
-  struct prev_power_of_2_c<0>
-  {
-    BOOST_STATIC_CONSTANT(std::size_t, value = 0              );
-    typedef boost::mpl::size_t<value> type;
-  };
+  template<std::size_t N>
+  std::size_t const prev_power_of_2_c<N>::value;
 
   //////////////////////////////////////////////////////////////////////////////
   // Integral meta-function computing the power of 2 less or equal to any
@@ -69,14 +63,8 @@ namespace boost { namespace simd { namespace meta
     BOOST_STATIC_CONSTANT(std::size_t, value = x5 + 1          );
     typedef boost::mpl::size_t<value> type;
   };
-
-  // INTERNAL ONLY
-  template<>
-  struct next_power_of_2_c<0>
-  {
-    BOOST_STATIC_CONSTANT(std::size_t, value = 0              );
-    typedef boost::mpl::size_t<value> type;
-  };
+  template<std::size_t N>
+  std::size_t const next_power_of_2_c<N>::value;
 
   //////////////////////////////////////////////////////////////////////////////
   // Integral meta-function computing the power of 2 greater or equal to any
