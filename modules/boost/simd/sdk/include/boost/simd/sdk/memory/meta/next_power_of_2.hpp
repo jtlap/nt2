@@ -60,13 +60,13 @@ namespace boost { namespace simd { namespace meta
   template<std::size_t N>
   struct next_power_of_2_c
   {
-    BOOST_STATIC_CONSTANT(std::size_t, x0    = N-1            );
-    BOOST_STATIC_CONSTANT(std::size_t, x1    = x0 | (x0 >> 1) );
-    BOOST_STATIC_CONSTANT(std::size_t, x2    = x1 | (x1 >> 1) );
-    BOOST_STATIC_CONSTANT(std::size_t, x3    = x2 | (x2 >> 1) );
-    BOOST_STATIC_CONSTANT(std::size_t, x4    = x3 | (x3 >> 1) );
-    BOOST_STATIC_CONSTANT(std::size_t, x5    = x4 | (x4 >> 1) );
-    BOOST_STATIC_CONSTANT(std::size_t, value = x5 + 1         );
+    BOOST_STATIC_CONSTANT(std::size_t, x0    = N-1             );
+    BOOST_STATIC_CONSTANT(std::size_t, x1    = x0 | (x0 >>  1) );
+    BOOST_STATIC_CONSTANT(std::size_t, x2    = x1 | (x1 >>  2) );
+    BOOST_STATIC_CONSTANT(std::size_t, x3    = x2 | (x2 >>  4) );
+    BOOST_STATIC_CONSTANT(std::size_t, x4    = x3 | (x3 >>  8) );
+    BOOST_STATIC_CONSTANT(std::size_t, x5    = x4 | (x4 >> 16) );
+    BOOST_STATIC_CONSTANT(std::size_t, value = x5 + 1          );
     typedef boost::mpl::size_t<value> type;
   };
 
