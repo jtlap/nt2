@@ -10,6 +10,7 @@
 #define BOOST_SIMD_SDK_MEMORY_ALIGNED_ARRAY_FWD_HPP_INCLUDED
 
 #include <boost/simd/sdk/config/arch.hpp>
+#include <boost/simd/sdk/memory/meta/next_power_of_2.hpp>
 
 namespace boost { namespace simd { namespace memory
 {
@@ -18,15 +19,7 @@ namespace boost { namespace simd { namespace memory
   template< class T
           , std::size_t N
           , std::size_t Align = (BOOST_SIMD_ARCH_ALIGNMENT > (N*sizeof(T)))
-                              ? ( ( ( (N*sizeof(T))
-                                    | (N*sizeof(T)) >>  1 | (N*sizeof(T)) >>  2 | (N*sizeof(T)) >>  3 | (N*sizeof(T)) >>  4
-                                    | (N*sizeof(T)) >>  5 | (N*sizeof(T)) >>  6 | (N*sizeof(T)) >>  7 | (N*sizeof(T)) >>  8
-                                    | (N*sizeof(T)) >>  9 | (N*sizeof(T)) >> 10 | (N*sizeof(T)) >> 11 | (N*sizeof(T)) >> 12
-                                    | (N*sizeof(T)) >> 13 | (N*sizeof(T)) >> 14 | (N*sizeof(T)) >> 15 | (N*sizeof(T)) >> 16
-                                    )
-                                    >> 1
-                                  ) + 1
-                                )
+                              ? meta::prev_power_of_2_c< N*sizeof(T) >::value
                               : BOOST_SIMD_ARCH_ALIGNMENT
           >
   struct aligned_array;
