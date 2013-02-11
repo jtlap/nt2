@@ -8,43 +8,35 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_MULTIPLIES_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_MULTIPLIES_HPP_INCLUDED
+
 #include <nt2/toolbox/operator/functions/multiplies.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
-#include <nt2/include/functions/minus.hpp>
 #include <nt2/include/functions/pure.hpp>
-#include <nt2/include/functions/any.hpp>
-#include <nt2/include/functions/none.hpp>
-#include <nt2/include/functions/logical_or.hpp>
-#include <nt2/include/functions/logical_and.hpp>
-#include <nt2/include/functions/unary_minus.hpp>
 #include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/if_zero_else.hpp>
-#include <nt2/include/functions/copysign.hpp>
-#include <nt2/include/functions/is_inf.hpp>
-#include <nt2/include/functions/is_finite.hpp>
-#include <nt2/include/functions/is_nan.hpp>
-#include <nt2/include/functions/is_invalid.hpp>
 #include <nt2/include/functions/is_real.hpp>
 #include <nt2/include/functions/is_imag.hpp>
-#include <nt2/include/constants/inf.hpp>
-#include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/zero.hpp>
-#include <nt2/include/constants/false.hpp>
-#include <nt2/include/functions/plus.hpp>
-#include <nt2/sdk/complex/complex.hpp>
-#include <nt2/sdk/complex/imaginary.hpp>
+#include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/if_zero_else.hpp>
+#include <nt2/include/functions/is_finite.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
+#include <nt2/include/functions/simd/any.hpp>
+#include <nt2/include/functions/simd/all.hpp>
+#include <nt2/include/functions/simd/logical_or.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
+#include <nt2/sdk/complex/hierarchy.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
-#include <nt2/include/functions/bitwise_cast.hpp>
 
 namespace nt2 { namespace ext
 {
   // complex/complex
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)
-                                     , ((generic_< complex_< arithmetic_<A0> > >))
-                                     ((generic_< complex_< arithmetic_<A0> > >))
-                                     )
+                            , ((generic_< complex_< arithmetic_<A0> > >))
+                              ((generic_< complex_< arithmetic_<A0> > >))
+                            )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
@@ -94,7 +86,7 @@ namespace nt2 { namespace ext
 
   // complex/real
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
-                              , ((generic_< arithmetic_<A0> >))
+                            , ((generic_< arithmetic_<A0> >))
                               ((generic_< complex_< arithmetic_<A1> > >))
     )
   {
@@ -112,7 +104,7 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
-                              , ((generic_< complex_< arithmetic_<A0> > >))
+                            , ((generic_< complex_< arithmetic_<A0> > >))
                               ((generic_< arithmetic_<A1> >))
     )
   {
@@ -129,7 +121,7 @@ namespace nt2 { namespace ext
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
-                              , ((generic_< dry_ < arithmetic_<A0> > >))
+                            , ((generic_< dry_ < arithmetic_<A0> > >))
                               ((generic_< complex_< arithmetic_<A1> > >))
     )
   {
@@ -140,7 +132,7 @@ namespace nt2 { namespace ext
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
-                              , ((generic_< complex_< arithmetic_<A0> > >))
+                            , ((generic_< complex_< arithmetic_<A0> > >))
                               ((generic_< dry_ < arithmetic_<A1> > >))
     )
   {
@@ -153,7 +145,7 @@ namespace nt2 { namespace ext
 
   // complex/imaginary
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
-                              , ((generic_< imaginary_< arithmetic_<A0> > >))
+                            , ((generic_< imaginary_< arithmetic_<A0> > >))
                               ((generic_< complex_< arithmetic_<A1> > >))
     )
   {
@@ -172,7 +164,7 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
-                              , ((generic_< complex_< arithmetic_<A0> > >))
+                            , ((generic_< complex_< arithmetic_<A0> > >))
                               ((generic_< imaginary_< arithmetic_<A1> > >))
     )
   {
@@ -193,7 +185,7 @@ namespace nt2 { namespace ext
 
   // imaginary/real
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
-                              , ((generic_< arithmetic_<A0> >))
+                            , ((generic_< arithmetic_<A0> >))
                               ((generic_< imaginary_< arithmetic_<A1> > >))
     )
   {
@@ -205,7 +197,7 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
-                              , ((generic_< imaginary_< arithmetic_<A0> > >))
+                            , ((generic_< imaginary_< arithmetic_<A0> > >))
                               ((generic_< arithmetic_<A1> >))
     )
   {
@@ -218,7 +210,7 @@ namespace nt2 { namespace ext
 
   // imaginary/imaginary
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
-                              , ((generic_< imaginary_< arithmetic_<A0> > >))
+                            , ((generic_< imaginary_< arithmetic_<A0> > >))
                               ((generic_< imaginary_< arithmetic_<A1> > >))
     )
   {
@@ -230,7 +222,7 @@ namespace nt2 { namespace ext
   };
   // dry/dry
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
-                              , ((generic_< dry_< arithmetic_<A0> > >))
+                            , ((generic_< dry_< arithmetic_<A0> > >))
                               ((generic_< dry_< arithmetic_<A1> > >))
     )
   {
@@ -242,7 +234,7 @@ namespace nt2 { namespace ext
   };
   // dry/imaginary
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
-                              , ((generic_< dry_< arithmetic_<A0> > >))
+                            , ((generic_< dry_< arithmetic_<A0> > >))
                               ((generic_< imaginary_< arithmetic_<A1> > >))
     )
   {
@@ -254,7 +246,7 @@ namespace nt2 { namespace ext
   };
   // imaginary/dry
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
-                              , ((generic_< imaginary_< arithmetic_<A0> > >))
+                            , ((generic_< imaginary_< arithmetic_<A0> > >))
                               ((generic_< dry_< arithmetic_<A1> > >))
     )
   {
