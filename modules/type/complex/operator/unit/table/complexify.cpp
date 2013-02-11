@@ -45,7 +45,11 @@ NT2_TEST_CASE_TPL( complexify1, BOOST_SIMD_REAL_TYPES )
 }
 NT2_TEST_CASE_TPL( complexify2, BOOST_SIMD_REAL_TYPES )
 {
+#ifdef BOOST_SIMD_NO_INVALIDS
   typedef typename nt2::meta::as_imaginary<T>::type ciT;
+#else
+  typedef typename nt2::meta::as_complex<T>::type ciT;
+#endif
   nt2::table<T>   a00 = nt2::ones(3, 3, nt2::meta::as_<T>());
   NT2_DISPLAY(a00);
   nt2::table<ciT> a0 = ciT(1)*a00;
