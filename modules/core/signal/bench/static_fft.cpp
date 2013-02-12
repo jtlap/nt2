@@ -21,7 +21,7 @@
 #include <boost/assert.hpp>
 #include <boost/foreach.hpp>
 #include <boost/noncopyable.hpp>
-#if !defined( BOOST_NO_EXCEPTIONS ) || defined( _MSC_VER )
+#if defined( BOOST_NO_EXCEPTIONS ) || !defined( _MSC_VER )
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_real_distribution.hpp>
 #else
@@ -106,7 +106,7 @@ namespace bench
     private:
         void randomize( aligned_array & data )
         {
-            #if defined( BOOST_NO_EXCEPTIONS ) && !defined( _MSC_VER )
+            #if !defined( BOOST_NO_EXCEPTIONS ) && defined( _MSC_VER )
                 BOOST_FOREACH( T & scalar, data ) { scalar = roll<T>( constants::test_data_range_minimum, constants::test_data_range_maximum ); }
             #else
                 boost::random::uniform_real_distribution<T> const distribution( constants::test_data_range_minimum, constants::test_data_range_maximum );
@@ -119,7 +119,7 @@ namespace bench
         aligned_array real_data_;
         aligned_array imag_data_;
 
-    #if defined( BOOST_NO_EXCEPTIONS ) && !defined( _MSC_VER )
+    #if defined( BOOST_NO_EXCEPTIONS ) || !defined( _MSC_VER )
         boost::random::mt19937 prng_;
     #endif
     } random_data;
@@ -342,22 +342,24 @@ namespace bench
     template <class Benchmark>
     void do_perform_benchmark( char const * const benchmark_name, std::size_t const length )
     {
-        typedef nt2::details::cycles_t           cycles_t          ;
-        typedef nt2::details::seconds_t          seconds_t         ;
-        typedef nt2::unit   ::benchmark_result_t benchmark_result_t;
+        typedef nt2::unit::benchmark_result<nt2::details::cycles_t>    cycles_t;
+        typedef nt2::unit::benchmark_result<double>                   seconds_t;
 
         double const benchmark_run_time( 0.6 );
 
         std::printf( "%s (%u):\t\t", benchmark_name, static_cast<unsigned int>( length ) );
 
         Benchmark benchmark( length );
-        benchmark_result_t const benchmark_result( nt2::unit::perform_benchmark( benchmark, benchmark_run_time ) );
+        cycles_t  benchmark_result_c;
+        seconds_t benchmark_result_s;
+        nt2::unit::perform_benchmark( benchmark, benchmark_run_time, benchmark_result_c );
+        nt2::unit::perform_benchmark( benchmark, benchmark_run_time, benchmark_result_s );
 
         std::printf
         (
             "%.2f cycles/value,\t %.2f microseconds/array\n",
-            static_cast<double>( benchmark_result.first ) / benchmark.number_of_values(),
-            benchmark_result.second * 1000000
+            static_cast<double>( benchmark_result_c.median ) / benchmark.number_of_values(),
+            benchmark_result_s.median * 1000000
         );
     }
 
@@ -389,8 +391,10 @@ namespace bench
 //...zzz...nt2 bechmark framework broken...extern "C" int main( int /*argc*/, char * /*argv*/[] )
 NT2_TEST_CASE( test_fft )
 {
+#ifndef BOOST_NO_EXCEPTIONS
     try
     {
+#endif
     #ifdef _WIN32
         BOOST_VERIFY( ::SetProcessAffinityMask( ::GetCurrentProcess(),                             1 ) );
         BOOST_VERIFY( ::SetPriorityClass      ( ::GetCurrentProcess(), REALTIME_PRIORITY_CLASS       ) );
@@ -399,6 +403,7 @@ NT2_TEST_CASE( test_fft )
 
         bench::do_test();
         //...zzz...return EXIT_SUCCESS;
+#ifndef BOOST_NO_EXCEPTIONS
     }
     catch ( std::exception const & e )
     {
@@ -410,4 +415,5 @@ NT2_TEST_CASE( test_fft )
         std::puts( "Unknown failure." );
         //...zzz...return EXIT_FAILURE;
     }
+#endif
 }
