@@ -8,36 +8,51 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_ATANH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_ATANH_HPP_INCLUDED
-#include <nt2/toolbox/hyperbolic/functions/atanh.hpp>
-#include <nt2/include/functions/log.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/minusone.hpp>
-#include <nt2/include/functions/logical_andnot.hpp>
-#include <nt2/include/functions/all.hpp>
-#include <nt2/include/functions/none.hpp>
-#include <nt2/sdk/complex/meta/as_complex.hpp>
-#include <nt2/sdk/complex/meta/as_real.hpp>
-#include <nt2/sdk/complex/meta/as_dry.hpp>
-#include <nt2/include/functions/is_real.hpp>
-#include <nt2/include/functions/is_inf.hpp>
-#include <nt2/include/functions/is_invalid.hpp>
-#include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/if_zero_else.hpp>
-#include <nt2/include/functions/if_allbits_else.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <nt2/include/functions/min.hpp>
-#include <nt2/include/functions/safe_max.hpp>
-#include <nt2/include/functions/safe_min.hpp>
 
+#include <nt2/toolbox/hyperbolic/functions/atanh.hpp>
+#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/include/functions/is_invalid.hpp>
+#include <nt2/include/functions/is_real.hpp>
+#include <nt2/include/functions/log.hpp>
+#include <nt2/include/functions/simd/atan2.hpp>
+#include <nt2/include/functions/simd/log1p.hpp>
+#include <nt2/include/functions/simd/sqrt.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/negif.hpp>
+#include <nt2/include/functions/simd/minusone.hpp>
+#include <nt2/include/functions/simd/oneplus.hpp>
+#include <nt2/include/functions/simd/logical_andnot.hpp>
+#include <nt2/include/functions/simd/logical_or.hpp>
+#include <nt2/include/functions/simd/logical_and.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/all.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/is_less.hpp>
+#include <nt2/include/functions/simd/is_less_equal.hpp>
+#include <nt2/include/functions/simd/is_greater.hpp>
+#include <nt2/include/functions/simd/is_ltz.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/if_zero_else.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/simd/safe_max.hpp>
+#include <nt2/include/functions/simd/safe_min.hpp>
 #include <nt2/include/constants/four.hpp>
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/constants/log_2.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/three.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/valmax.hpp>
 #include <nt2/include/constants/smallestposval.hpp>
+#include <nt2/sdk/complex/meta/as_complex.hpp>
+#include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -114,17 +129,21 @@ namespace nt2 { namespace ext
         tmp_alpha =  if_else(gt(y, one),  two / (x + y*y/x), tmp_alpha);
         // Big x and y: divide alpha through by x*y:
         tmp_alpha =  if_else(gtymax, (two/y) / (x/y + y/x), tmp_alpha);
-        // Big x or y are infinite: the result is 0
+        // x or y are infinite: the result is 0
         tmp_alpha = if_zero_else(logical_or(eq(y,inf), eq(x, inf)), tmp_alpha);
 
         alpha = if_else(test, tmp_alpha, alpha);
         r = if_else(lt(alpha, alpha_crossover),
                     nt2::log1p(alpha) - nt2::log1p(-alpha),
-                    nt2::log(one + two*x + xx) - std::log(sqr(x-one))
-          )/Four<rtype>();
+                    nt2::log(one + two*x + xx) - nt2::log(sqr(x-one))
+          );
+        test = logical_and(eq(x, one), ltymin);
+//         test =  logical_andnot(eq(x, one), test);
+        r = if_else(test, -(nt2::Two<rtype>() * (nt2::log(y) - nt2::Log_2<rtype>())), r);
+        r /= Four<rtype>();
         //compute the imaginary part
         // y^2 is negligible:
-        i =  std::atan2(two*y, one - xx);
+        i =  nt2::atan2(two*y, one - xx);
         i =  if_else(logical_or(gtymax, gtxmax), Pi<rtype>(), i);
         rtype tmp_i = if_else(ltymin, atan2(two*y, one),
                               nt2::atan2(two*y, one - yy));
@@ -192,7 +211,8 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::atanh_, tag::cpu_, (A0)
-                              , (generic_< imaginary_< arithmetic_<A0> > >)
+                            , (generic_< imaginary_< arithmetic_<A0> > >
+                            )
     )
   {
     typedef typename meta::as_real<A0>::type rtype;
@@ -206,7 +226,8 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::atanh_, tag::cpu_, (A0)
-                              , (generic_< dry_< arithmetic_<A0> > >)
+                            , (generic_< dry_< arithmetic_<A0> > >
+                            )
     )
   {
     typedef typename meta::as_real<A0>::type rtype;

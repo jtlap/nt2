@@ -10,12 +10,15 @@
 #ifndef NT2_CORE_FUNCTIONS_DETAILS_LINSPACE_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_DETAILS_LINSPACE_HPP_INCLUDED
 
+#include <nt2/core/functions/linspace.hpp>
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/enumerate.hpp>
 #include <nt2/include/functions/minusone.hpp>
+#include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/is_equal.hpp>
 #include <nt2/sdk/meta/constant_adaptor.hpp>
-
+#include <nt2/sdk/meta/scalar_of.hpp>
 
 namespace nt2 { namespace tag { struct linspace_; }}
 

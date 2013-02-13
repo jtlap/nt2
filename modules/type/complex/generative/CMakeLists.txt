@@ -7,25 +7,20 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-set( SOURCES
-  abs.cpp
-  arg.cpp
-  average.cpp
-  ceil.cpp
-  conj.cpp
-  dist.cpp
-  floor.cpp
-  fma.cpp
-  trunc.cpp
-  round.cpp
-  max.cpp
-  min.cpp
-  minusone.cpp
-  oneminus.cpp
-  oneplus.cpp
-  rsqrt.cpp
-  sqr.cpp
-  sqrt.cpp
-  )
+cmake_minimum_required(VERSION 2.6)
 
-nt2_module_add_tests(type.complex.arithmetic.simd.unit ${SOURCES})
+if(NOT DEFINED NT2_SOURCE_ROOT AND DEFINED ENV{NT2_SOURCE_ROOT})
+  set(NT2_SOURCE_ROOT $ENV{NT2_SOURCE_ROOT})
+endif()
+if(NOT DEFINED NT2_ROOT AND DEFINED ENV{NT2_ROOT})
+  set(NT2_ROOT $ENV{NT2_ROOT})
+endif()
+if(DEFINED NT2_SOURCE_ROOT)
+  list(APPEND CMAKE_MODULE_PATH ${NT2_SOURCE_ROOT}/cmake)
+endif()
+if(DEFINED NT2_ROOT)
+  list(APPEND CMAKE_MODULE_PATH ${NT2_ROOT}/cmake)
+endif()
+
+include(NT2Module)
+nt2_module_main(type.complex.generative)

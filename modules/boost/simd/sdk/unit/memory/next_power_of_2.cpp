@@ -36,6 +36,7 @@ NT2_TEST_CASE(next_power_of_2)
   NT2_TEST_EQUAL( (next_power_of_2< int_<0x14> >::value), 0x20 );
   NT2_TEST_EQUAL( (next_power_of_2< int_<0x33> >::value), 0x40 );
   NT2_TEST_EQUAL( (next_power_of_2< int_<0x6A> >::value), 0x80 );
+  NT2_TEST_EQUAL( (next_power_of_2< int_<0x201> >::value), 0x400 );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -58,4 +59,5 @@ NT2_TEST_CASE(next_power_of_2_c)
   NT2_TEST_EQUAL( (next_power_of_2_c< 0x14 >::value), 0x20U );
   NT2_TEST_EQUAL( (next_power_of_2_c< 0x33 >::value), 0x40U );
   NT2_TEST_EQUAL( (next_power_of_2_c< 0x6A >::value), 0x80U );
+  NT2_TEST_EQUAL( (next_power_of_2_c< 0x201 >::value), 0x400U );
 }

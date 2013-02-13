@@ -7,25 +7,8 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-set( SOURCES
-  abs.cpp
-  arg.cpp
-  average.cpp
-  ceil.cpp
-  conj.cpp
-  dist.cpp
-  floor.cpp
-  fma.cpp
-  trunc.cpp
-  round.cpp
-  max.cpp
-  min.cpp
-  minusone.cpp
-  oneminus.cpp
-  oneplus.cpp
-  rsqrt.cpp
-  sqr.cpp
-  sqrt.cpp
-  )
+SET( SOURCES
+     linspace.cpp
+   )
 
-nt2_module_add_tests(type.complex.arithmetic.simd.unit ${SOURCES})
+nt2_module_add_tests(type.complex.generative.table.unit ${SOURCES})

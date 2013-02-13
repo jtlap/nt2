@@ -12,6 +12,7 @@
 #include <nt2/include/functions/linspace.hpp>
 #include <nt2/include/functions/predecessor.hpp>
 #include <nt2/include/functions/globalall.hpp>
+#include <nt2/include/functions/of_size.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests.hpp>

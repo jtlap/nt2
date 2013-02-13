@@ -6,27 +6,24 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2 function tie"
+#define NT2_UNIT_MODULE "nt2::linspace function"
 
 #include <nt2/table.hpp>
-#include <nt2/include/functions/tie.hpp>
+#include <nt2/include/functions/linspace.hpp>
+#include <nt2/include/functions/of_size.hpp>
+#include <nt2/sdk/complex/complex.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
-NT2_TEST_CASE( extent )
+NT2_TEST_CASE_TPL( linspace_cplx, (double)(float) )
 {
-  using nt2::table;
-  using nt2::of_size_;
-  using boost::mpl::_;
+  typedef std::complex<T> cT;
+  nt2::table<cT> z = nt2::linspace(cT(-1, -1), cT(1, 1), 257);
+  nt2::table<cT> ref(nt2::of_size(1,257));
 
-  table<double> d;
-  table<float>  f;
-  table<short>  s;
-  table<char>   c;
+  for(size_t i = 1; i <= 257; ++i)
+    ref(i) =  cT(-1, -1)+cT(T(i-1)/128, T(i-1)/128);
 
-  NT2_TEST_EQUAL( nt2::tie(d).extent()       , d.extent() );
-  NT2_TEST_EQUAL( nt2::tie(f,d).extent()     , f.extent() );
-  NT2_TEST_EQUAL( nt2::tie(f,d,s).extent()   , f.extent() );
-  NT2_TEST_EQUAL( nt2::tie(c,f,d,s).extent() , c.extent() );
+  NT2_TEST_EQUAL(z, ref);
 }

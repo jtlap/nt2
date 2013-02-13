@@ -25,8 +25,8 @@ NT2_TEST_CASE_TPL( freqspace, (double) )
   a(1) = 8; a(2) = 24;
 
   nt2::tie(f1) = freqspace(10);
-  NT2_TEST_ULP_EQUAL(f1, nt2::_(T(0), T(0.2), T(1)), 0.5);
+  NT2_TEST_ULP_EQUAL(f1, nt2::_(T(0), T(0.2), T(1)), 2);
 
   nt2::tie(f1,f2) = freqspace(10);
-  NT2_TEST_ULP_EQUAL(f1, nt2::_(T(-1), T(0.2), T(0.8)), 0.5);
+  NT2_TEST_ULP_EQUAL(f1, nt2::_(T(-1), T(0.2), T(0.8)), 2);
 }

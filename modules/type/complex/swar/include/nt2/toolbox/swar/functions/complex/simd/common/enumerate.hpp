@@ -8,43 +8,63 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_SWAR_FUNCTIONS_COMPLEX_SIMD_COMMON_ENUMERATE_HPP_INCLUDED
 #define NT2_TOOLBOX_SWAR_FUNCTIONS_COMPLEX_SIMD_COMMON_ENUMERATE_HPP_INCLUDED
+
 #include <nt2/toolbox/swar/functions/enumerate.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/real.hpp>
+#include <nt2/include/functions/splat.hpp>
+#include <nt2/sdk/complex/hierarchy.hpp>
+#include <nt2/sdk/complex/meta/as_real.hpp>
 
 namespace nt2 { namespace ext
 {
-
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::enumerate_, tag::cpu_
-                               , (A0)(X)(T)
-                               , ((simd_< complex_<arithmetic_<A0> > ,X>))
-                               ((target_< simd_< complex_<arithmetic_<T> >,X > >))
-    )
-{
-  typedef typename T::type result_type;
-
-  result_type operator()(A0 const& a0, T const& ) const
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::enumerate_, tag::cpu_
+                            , (A0)(T)
+                            , ((generic_< arithmetic_<A0> >))
+                              ((target_< generic_< complex_<arithmetic_<T> > > >))
+                            )
   {
-    typedef typename meta::as_real<A0>::type            r_t;
-    typedef typename meta::scalar_of<r_t>::type         s_t;
-    return result_type(enumerate<s_t>(nt2::real(a0), r_t(nt2::imag(a0))));
-  }
-};
+    typedef typename T::type result_type;
 
-  NT2_FUNCTOR_IMPLEMENTATION (nt2::tag::enumerate_, tag::cpu_
-                                      , (A0)(A1)(X)(T)
-                                      , ((simd_< complex_<arithmetic_<A0> > ,X>))
-                                      ((simd_< complex_<arithmetic_<A1> > ,X>))
-                                      ((target_< simd_< complex_<arithmetic_<T> >,X> > ))
-    )
+    result_type operator()(A0 const& a0, T const& ) const
+    {
+      typedef typename meta::as_real<result_type>::type r_t;
+      return result_type( enumerate<r_t>(a0) );
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::enumerate_, tag::cpu_
+                            , (A0)(T)
+                            , ((generic_< complex_<arithmetic_<A0> > >))
+                              ((target_< generic_< complex_<arithmetic_<T> > > >))
+                            )
+  {
+    typedef typename T::type result_type;
+
+    result_type operator()(A0 const& a0, T const& ) const
+    {
+      typedef typename meta::as_real<result_type>::type r_t;
+      return result_type( enumerate<r_t>(nt2::real(a0))
+                        , splat<r_t>(nt2::imag(a0))
+                        );
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::enumerate_, tag::cpu_
+                            , (A0)(A1)(T)
+                            , ((generic_< complex_<arithmetic_<A0> > >))
+                              ((generic_< complex_<arithmetic_<A1> > >))
+                              ((target_< generic_< complex_<arithmetic_<T> > > > ))
+                            )
   {
     typedef typename T::type result_type;
 
     result_type operator()(A0 const& a0, A1 const& a1, T const& ) const
     {
-      typedef typename meta::as_real<A0>::type            r_t;
-      typedef typename meta::scalar_of<r_t>::type         s_t;
-      return result_type(enumerate<s_t>(real(a0), real(a1)), enumerate<s_t>(imag(a0), imag(a1)));
+      typedef typename meta::as_real<result_type>::type r_t;
+      return result_type( enumerate<r_t>(real(a0), real(a1))
+                        , enumerate<r_t>(imag(a0), imag(a1))
+                        );
     }
   };
 } }

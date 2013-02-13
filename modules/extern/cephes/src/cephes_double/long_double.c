@@ -375,7 +375,7 @@ extern NT2_EXTERN_CEPHES_DECL long double cephes_floorl ( long double x )
 extern int cephes_fresnl ( double xxa, double *ssa, double *cca );
 extern NT2_EXTERN_CEPHES_DECL int cephes_fresnll ( long double xxa, long double *ssa, long double *cca )
 {
-    cephes_fresnl(xxa, (double*)ssa, (double*)cca);
+    return cephes_fresnl(xxa, (double*)ssa, (double*)cca);
 }
 
 extern double cephes_frexp ( double x, int *pw2 );
