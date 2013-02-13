@@ -301,7 +301,7 @@ NT2_TEST_CASE_TPL( quadgk_functor_cplx, NT2_REAL_TYPES )
   typedef typename nt2::meta::as_complex<T>::type cT;
   typedef nt2::table<cT> tab_t ;
   cT cx[] = { cT(1, 1),cT(1, -1)};
-  tab_t x(nt2::of_size(1, 4), &cx[0], &cx[2]);
+  tab_t x(nt2::of_size(1, 2), &cx[0], &cx[2]);
 
   //output<tab_t,T>
  nt2::tic();

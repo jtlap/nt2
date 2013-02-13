@@ -37,7 +37,7 @@ namespace nt2
     size_t nbres = nt2::numel(x);
     rtab_t res(of_size(1, nbres));
     real_t  err = Zero<real_t>();
-    ptrdiff_t warn = 0;
+    size_t warn = 0;
     size_t fcnt = 0;
     if (numel(x) == 0)
     {
