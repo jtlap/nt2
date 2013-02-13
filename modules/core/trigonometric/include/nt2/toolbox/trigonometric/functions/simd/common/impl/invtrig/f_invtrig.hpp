@@ -39,7 +39,7 @@
 #include <nt2/include/constants/pio_2.hpp>
 #include <nt2/include/constants/pio_4.hpp>
 #include <nt2/include/constants/half.hpp>
-#include <nt2/sdk/simd/meta/as_logical.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 
 namespace nt2
 {
