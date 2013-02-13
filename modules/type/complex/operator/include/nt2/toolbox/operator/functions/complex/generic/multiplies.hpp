@@ -128,7 +128,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return multiplies(a1, a0);
+      return nt2::multiplies(a1, a0);
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
@@ -178,8 +178,8 @@ namespace nt2 { namespace ext
       r_type i = if_zero_else(logical_and(is_invalid_i1, is_imag_a1), i1);
       i = if_else(logical_and(is_eqz(a1),is_invalid_i1), nt2::Nan<r_type>(), i);
       r = if_zero_else(is_eqz(a1), r);
-      return  if_else(is_imag_a1, multiplies(a0, pure(a1)),
-                      if_else(is_real_a1, multiplies(a0, real(a1)),
+      return  if_else(is_imag_a1, nt2::multiplies(a0, pure(a1)),
+                      if_else(is_real_a1, nt2::multiplies(a0, real(a1)),
                               result_type(r, i)
                         )
         );
@@ -196,7 +196,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return multiplies(a1, a0);
+      return nt2::multiplies(a1, a0);
     }
   };
 
@@ -209,7 +209,7 @@ namespace nt2 { namespace ext
     typedef typename meta::call < tag::multiplies_(A1, A0)>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return multiplies(a1, a0);
+      return nt2::multiplies(a1, a0);
     }
   };
 
