@@ -31,6 +31,40 @@ namespace nt2 {
   {
     // Create the correct functor for tbb::parallel reduce according to the
     // requested Site.
+    template<class A1, class A2, class A3, class Target>
+    struct bop_reduce_simd
+    {
+      typedef Target target_type;
+
+      bop_reduce_simd(target_type const& vec, A1& in, A3 const& bop, std::size_t const& k)
+      : vec_out_(vec), in_(in), bop_(bop), k_(k)
+      {}
+
+      bop_reduce_simd(bop_reduce_simd& src, tbb::split)
+      : in_(src.in_), bop_(src.bop_), k_(src.k_)
+      { vec_out_ = neutral_(nt2::meta::as_<target_type>()); }
+
+      void operator()(tbb::blocked_range<std::size_t> const& r)
+      {
+        static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
+        for(std::size_t i = r.begin(); i < r.end(); i+=N)
+        {
+          vec_out_ = bop_( vec_out_
+                         , nt2::run( in_
+                                   , i+k_, meta::as_<target_type>()));
+        }
+      }
+
+      void join( bop_reduce_simd& rhs ) { vec_out_ = bop_(vec_out_,rhs.vec_out_); }
+
+      target_type         vec_out_;
+      A1&                      in_;
+      A2                  neutral_;
+      A3                      bop_;
+      std::size_t               k_;
+    };
+
+
 
     template<class A0, class A1, class A2, class A3, class A4, class Target, class Value>
     struct inner_reduce_simd
@@ -48,20 +82,29 @@ namespace nt2 {
       {
         static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
 
-
         for(std::ptrdiff_t j = r.begin(); j < r.end(); ++j)
         {
           std::size_t k = j*bound_;
-          target_type vec_out_ = neutral_(nt2::meta::as_<target_type>());
           nt2::run(out_, j, neutral_(meta::as_<value_type>()));
 
-          for(std::size_t i = 0; i < ibound_; i+=N)
-            vec_out_ = bop_( vec_out_
-                                   , nt2::run( in_
-                                             , i+k, meta::as_<target_type>()));
+          bop_reduce_simd<A1,A2,A3,target_type> boppy( neutral_(nt2::meta::as_<target_type>())
+                                                     , in_
+                                                     , bop_
+                                                     , k
+                                                     );
 
+          std::size_t chunk = ibound_/tbb::task_scheduler_init::default_num_threads();
+          std::size_t grain = r.grainsize()==0
+                            ? (chunk<N)
+                              ? ibound_
+                              : chunk
+                            : ibound_;
 
-          nt2::run(out_, j, uop_(vec_out_));
+          tbb::parallel_reduce( tbb::blocked_range<std::size_t>(0,ibound_,grain)
+                              , boppy
+                              );
+
+          nt2::run(out_, j, uop_(boppy.vec_out_));
 
           for(std::size_t i = ibound_; i < bound_; ++i)
             nt2::run(out_, j
