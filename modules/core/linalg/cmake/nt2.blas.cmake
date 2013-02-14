@@ -47,48 +47,40 @@ set(NT2_BLAS_FOUND FALSE)
 
       nt2_module_tool(is_multicore RESULT_VARIABLE RESULT_VAR OUTPUT_QUIET)
       if(RESULT_VAR EQUAL -1 OR RESULT_VAR EQUAL 1)
-        set(NT2_ARCH_MULTICORE FALSE)
         find_library(NT2_MKL_SEQ NAMES mkl_sequential mkl_sequential_dll
                      PATHS ${NT2_MKL_LIBRARY_DIR}
                      PATH_SUFFIXES ${NT2_MKL_LIBRARY_SUFFIXES}
                     )
         set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} ${NT2_MKL_SEQ})
       else()
-        if(NT2_COMPILER_ICC)
+        # avoid re-checking for OpenMP every time
+        if(NOT DEFINED OpenMP_CXX_FLAGS)
+          find_package(OpenMP QUIET)
+        endif()
+        if(NT2_COMPILER_ICC OR NT2_COMPILER_MSVC OR NOT OPENMP_FOUND)
           find_library(NT2_MKL_INTEL_THREAD NAMES mkl_intel_thread mkl_intel_thread_dll
                        PATHS ${NT2_MKL_LIBRARY_DIR}
                        PATH_SUFFIXES ${NT2_MKL_LIBRARY_SUFFIXES}
                       )
-          set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} ${NT2_MKL_INTEL_THREAD})
-          if(UNIX)
-            set(NT2_BLAS_LINK_FLAGS "-openmp")
-          elseif(WIN32)
-            set(NT2_BLAS_LINK_FLAGS "/Qopenmp")
-          endif()
-          set(NT2_ARCH_MULTICORE TRUE)
-        elseif(NT2_COMPILER_MSVC)
-          find_library(NT2_MKL_INTEL_THREAD NAMES mkl_intel_thread_dll
-                       PATHS ${NT2_MKL_LIBRARY_DIR}
+          file(TO_CMAKE_PATH "$ENV{LIBRARY_PATH}" LIBRARY_PATH)
+          find_library(NT2_INTEL_OMP NAMES iomp5 iomp5md libiomp5md
+                       PATHS ${LIBRARY_PATH}
                        PATH_SUFFIXES ${NT2_MKL_LIBRARY_SUFFIXES}
                       )
-          set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} ${NT2_ICC_LIB_ROOT}/libiomp5md.lib)
+          set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} ${NT2_MKL_INTEL_THREAD} ${NT2_INTEL_OMP})
         elseif(NT2_COMPILER_GCC_LIKE)
           find_library(NT2_MKL_GNU_THREAD NAMES mkl_gnu_thread
                        PATHS ${NT2_MKL_LIBRARY_DIR}
                        PATH_SUFFIXES ${NT2_MKL_LIBRARY_SUFFIXES}
                       )
           set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} ${NT2_MKL_GNU_THREAD})
-          # avoid re-checking for OpenMP every time
-          if(NOT DEFINED OpenMP_CXX_FLAGS)
-            find_package(OpenMP QUIET)
-          endif()
           set(NT2_BLAS_LINK_FLAGS ${OpenMP_CXX_FLAGS})
         endif()
-      endif()
 
-      if(UNIX)
-        find_package(Threads)
-        set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+        if(UNIX)
+          find_package(Threads)
+          set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+        endif()
       endif()
 
       find_library(NT2_MKL_CORE NAMES mkl_core mkl_core_dll
@@ -100,7 +92,7 @@ set(NT2_BLAS_FOUND FALSE)
       if(NT2_MKL_SEQ AND NT2_MKL_CORE)
         set(NT2_BLAS_FOUND TRUE)
         set(NT2_LAPACK_FOUND TRUE)
-      elseif(NT2_MKL_GNU_THREAD OR NT2_MKL_INTEL_THREAD)
+      elseif(NT2_MKL_GNU_THREAD OR (NT2_MKL_INTEL_THREAD AND NT2_INTEL_OMP))
         if(NT2_MKL_CORE)
           set(NT2_BLAS_FOUND TRUE)
           set(NT2_LAPACK_FOUND TRUE)
