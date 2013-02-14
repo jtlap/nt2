@@ -28,6 +28,7 @@
 #include <nt2/include/functions/is_invalid.hpp>
 #include <nt2/include/functions/is_real.hpp>
 #include <nt2/include/functions/is_imag.hpp>
+#include <nt2/include/functions/simd/fma.hpp>
 #include <nt2/include/functions/all.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/nan.hpp>
@@ -53,9 +54,7 @@ namespace nt2 { namespace ext
       const r_type b = nt2::imag(a0);
       const r_type c = nt2::real(a1);
       const r_type d = nt2::imag(a1);
-      r_type x = a*c-b*d;
-      r_type y = a*d+b*c;
-      result_type r(a*c-b*d, a*d+b*c);
+      result_type r(fma(a,c,-b*d), fma(a,d,b*c));
 #ifndef BOOST_SIMD_NO_INVALIDS
       typedef typename meta::as_logical<r_type>::type l_type;
       typedef typename meta::as_imaginary<r_type>::type i_type;
