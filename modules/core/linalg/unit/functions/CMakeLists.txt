@@ -25,6 +25,7 @@ SET( SOURCES
   hankel.cpp
   hilb.cpp
   invhilb.cpp
+  jordbloc.cpp
   magic.cpp
   pascal.cpp
   toeplitz.cpp
