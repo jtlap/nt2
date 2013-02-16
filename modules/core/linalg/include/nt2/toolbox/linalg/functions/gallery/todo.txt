@@ -8,12 +8,12 @@
     clement     Clement matrix -- tridiagonal with zero diagonal entries.             | done
     compar      Comparison matrices.                                                  | done
     condex      Counter-examples to matrix condition number estimators.               | done
-    cycol       Matrix whose columns repeat cyclically.
+    cycol       Matrix whose columns repeat cyclically.                               | done
     dorr        Dorr matrix -- diagonally dominant, ill-conditioned, tridiagonal.     | done
                 (One or three output arguments, sparse)                               |
     dramadah    Matrix of ones and zeroes whose inverse has large integer entries.    | done
     fiedler     Fiedler matrix -- symmetric.                                          | done
-    forsythe    Forsythe matrix -- a perturbed Jordan block.
+    forsythe    Forsythe matrix -- a perturbed Jordan block.                          | done
     frank       Frank matrix -- ill-conditioned eigenvalues.
     gcdmat      GCD matrix.
     gearmat     Gear matrix.
@@ -26,7 +26,7 @@
     invhess     Inverse of an upper Hessenberg matrix.
     invol       Involutory matrix.
     ipjfact     Hankel matrix with factorial elements. (Two output arguments)
-    jordbloc    Jordan block matrix.
+    jordbloc    Jordan block matrix.                                                  | done
     kahan       Kahan matrix -- upper trapezoidal.
     kms         Kac-Murdock-Szego Toeplitz matrix.
     krylov      Krylov matrix.

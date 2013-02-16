@@ -21,6 +21,7 @@ SET( SOURCES
   dorr.cpp
   dramadah.cpp
   fiedler.cpp
+  forsythe.cpp
   hadamard.cpp
   hankel.cpp
   hilb.cpp
