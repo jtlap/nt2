@@ -28,6 +28,7 @@ SET( SOURCES
   invhilb.cpp
   jordbloc.cpp
   magic.cpp
+  minij.cpp
   pascal.cpp
   toeplitz.cpp
   tridiag.cpp

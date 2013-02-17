@@ -18,7 +18,14 @@
  * \defgroup algebra_forsythe forsythe
  *
  * \par Description
- * forsythe matrix
+ * forsythe forsythe matrix (perturbed jordan block).
+ *    a = forsythe(n,alpha,lambda) is the n-by-n matrix
+ *    equal to the jordan block with eigenvalue lambda with the
+ *    exception that a(n,1) = alpha.
+ *    alpha defaults to sqrt(eps) and lambda to 0.
+ *
+ *    the characteristic polynomial of a is given by
+ *       det(a-t*In) = (lambda-t)^n - alpha*(-1)^n.
  *
  * \par Header file
  *
@@ -26,13 +33,6 @@
  * #include <nt2/include/functions/forsythe.hpp>
  * \endcode
  *
- *
- * \synopsis
- *
- * \param x the fundamental column of the matrix,
- *        x is always treated as a big column vector
- *
- * \param n (optinnal) the number of column of the matrix (default is numel(x(_))
  *
 **/
 //==============================================================================
@@ -51,33 +51,27 @@ namespace nt2 { namespace tag
     };
   }
 
+  NT2_FUNCTION_IMPLEMENTATION(tag::forsythe_, forsythe, 2)
   NT2_FUNCTION_IMPLEMENTATION(tag::forsythe_, forsythe, 3)
+  NT2_FUNCTION_IMPLEMENTATION(tag::forsythe_, forsythe, 4)
 
   template<class T, class A0>
-  typename meta::call<tag::forsythe_(const A0 &, const T &, const T &)>::type
+  typename meta::call<tag::forsythe_(const A0 &,  typename meta::as_<T>::type const &)>::type
   forsythe(const A0& n)
   {
-    return nt2::forsythe(n, nt2::Sqrteps<T>(), nt2::Zero<T>());
+    return nt2::forsythe(n, nt2::meta::as_<T>());
   }
   template<class T, class A0, class A1>
-  typename meta::call<tag::forsythe_(const A0 &, const A1 , const A1 &)>::type
+  typename meta::call<tag::forsythe_(const A0 &, const A1&,  typename meta::as_<T>::type const &)>::type
   forsythe(const A0& n, const A1& alpha)
   {
-    return nt2::forsythe(n, alpha, nt2::Zero<A1>());
+    return nt2::forsythe(n, alpha, nt2::meta::as_<T>());
   }
-  template<class A0, class A1,  class Target>
-  typename meta::call<tag::forsythe_(const A0 &,const A1 &,typename Target::type const &)>::type
-  forsythe(const A0& n, const A1& alpha, const Target&)
+  template<class T, class A0, class A1,  class A2>
+  typename meta::call<tag::forsythe_(const A0 &, const A1&, const A2&, typename meta::as_<T>::type const &)>::type
+  forsythe(const A0& n, const A1& alpha, const A2& lambda)
   {
-    typedef typename Target::type t_t;
-    return nt2::forsythe(n,t_t(alpha), nt2::Zero<t_t>());
-  }
-  template<class A0, class A1,  class A2, class Target>
-  typename meta::call<tag::forsythe_(const A0 &, typename Target::type const &, typename Target::type const &)>::type
-  forsythe(const A0& n, const A1& alpha, const A2& lambda, const Target&)
-  {
-    typedef typename Target::type t_t;
-    return nt2::forsythe(n,t_t(alpha), t_t(lambda));
+    return nt2::forsythe(n,alpha, lambda,nt2::meta::as_<T>());
   }
 
 }

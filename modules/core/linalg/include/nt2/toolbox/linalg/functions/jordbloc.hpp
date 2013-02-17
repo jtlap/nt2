@@ -18,20 +18,14 @@
  *
  * \par Description
  * jordbloc matrix
+ * is the n-by-n jordan block
+ *   with eigenvalue lambda.  lambda = 1 is the default.
  *
  * \par Header file
  *
  * \code
  * #include <nt2/include/functions/jordbloc.hpp>
  * \endcode
- *
- *
- * \synopsis
- *
- * \param x the fundamental column of the matrix,
- *        x is always treated as a big column vector
- *
- * \param n (optinnal) the number of column of the matrix (default is numel(x(_))
  *
 **/
 //==============================================================================
