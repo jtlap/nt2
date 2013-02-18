@@ -6,16 +6,23 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2 buffer bench"
+#ifndef BUFFER_TEST_HPP_INCLUDED
+#define BUFFER_TEST_HPP_INCLUDED
 
-#include <boost/simd/sdk/memory/allocator.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/sdk/memory/container.hpp>
+#include <nt2/core/functions/of_size.hpp>
+#include <nt2/include/functions/as_size.hpp>
+#include <nt2/core/container/table/semantic.hpp>
+#include <boost/simd/sdk/memory/allocator.hpp>
 
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <iostream>
 #include <vector>
 
-template<class Buffer> NT2_EXPERIMENT(buffer_test)
+template<class Buffer>
+struct  buffer_test
+      : public nt2::details::base_experiment
 {
   public:
   buffer_test(std::size_t sz)
@@ -36,18 +43,20 @@ template<class Buffer> NT2_EXPERIMENT(buffer_test)
   virtual void info(std::ostream& os) const { os << up; }
 
   private:
-  std::size_t     up;
-  mutable Buffer  data, data2;
+  std::size_t               up;
+  mutable Buffer data, data2;
 };
 
-
-template<class T, class A>
-NT2_EXPERIMENT(buffer_test< std::vector<T,A> >)
+template<class T>
+struct  buffer_test< nt2::memory::container<T,nt2::settings()> >
+      : public nt2::details::base_experiment
 {
   public:
+  typedef nt2::memory::container<T,nt2::settings()> buffer_t;
+
   buffer_test(std::size_t sz)
         : NT2_EXPRIMENT_CTOR(1.,"cycles/elements")
-        , up(sz), data(sz), data2(sz)
+        , up(sz), data(), data2(nt2::as_size(sz))
   {}
 
   virtual void run() const
@@ -64,7 +73,7 @@ NT2_EXPERIMENT(buffer_test< std::vector<T,A> >)
 
   private:
   std::size_t     up;
-  mutable Buffer  data, data2;
+  mutable buffer_t  data, data2;
 };
 
 #endif

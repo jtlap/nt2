@@ -7,5 +7,8 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-nt2_module_use_modules(test.benchmark)
-ADD_SUBDIRECTORY(table)
+SET( SOURCES
+  sum.cpp
+   )
+
+nt2_module_add_tests(core.reduction.table.bench ${SOURCES})

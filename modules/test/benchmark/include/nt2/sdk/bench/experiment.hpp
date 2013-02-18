@@ -22,7 +22,7 @@
  @brief Definition of an Experiment
 **/
 #define NT2_EXPERIMENT(Type)                      \
-class Type : public nt2::details::base_experiment \
+class BOOST_DISPATCH_PP_STRIP(Type) : public nt2::details::base_experiment \
 /**/
 
 /*!

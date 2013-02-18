@@ -7,5 +7,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-nt2_module_use_modules(test.unit)
+nt2_module_use_modules(test.benchmark)
 ADD_SUBDIRECTORY(simd)
+ADD_SUBDIRECTORY(table)
