@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_GALLERY_FORSYTHE_HPP_INCLUDED
 #include <nt2/toolbox/linalg/functions/forsythe.hpp>
 #include <nt2/include/functions/jordbloc.hpp>
-#include <nt2/include/functions/from_diag.hpp>
+#include <nt2/include/functions/deltaf.hpp>
 #include <nt2/include/functions/ones.hpp>
 
 namespace nt2 {namespace ext
@@ -56,14 +56,12 @@ namespace nt2 {namespace ext
   {
     typedef typename T::type t_t;
     typedef typename meta::call<tag::jordbloc_(A0 const&, t_t)>::type           T1;
-    typedef typename meta::call<tag::One(size_t, size_t, T)>::type              T2;
-    typedef typename meta::call<tag::from_diag_(T2, ptrdiff_t)>::type           T3;
+    typedef typename meta::call<tag::deltaf_(A0 const&, A0 const&, ptrdiff_t, T)>::type    T3;
     typedef typename meta::call<tag::multiplies_(t_t, T3) >::type               T5;
     typedef typename meta::call<tag::plus_(T1, T5)>::type              result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& n, A1 const& alpha, A2 const& l, T const &)
     {
-      ptrdiff_t h = -ptrdiff_t(n-1);
-      return nt2::jordbloc(n, t_t(l))+t_t(alpha)*nt2::from_diag(nt2::ones(size_t(1), size_t(1), T()),h);
+      return nt2::jordbloc(n, t_t(l))+t_t(alpha)*nt2::deltaf(n, 1, n, n, T());
     }
   };
 
