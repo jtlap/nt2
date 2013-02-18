@@ -17,8 +17,7 @@
  * \defgroup algebra_minij minij
  *
  * \par Description
-%%*
-matrix with A(i,j) = MIN(i,j).
+ * matrix with a(i,j) = min(i,j).
  *
  *    properties:
  *    a has eigenvalues 0.25*sqr(sec((1:n)*pi/(2*n+1))).
