@@ -20,7 +20,7 @@ namespace nt2 {namespace ext
                               (A0)(T),
                               (scalar_<integer_<A0> >)
                               (target_<scalar_<floating_<T> > >)
-                             )
+                            )
   {
     typedef typename T::type t_t;
     typedef typename nt2::meta::call<nt2::tag::forsythe_(const A0&, const t_t&, const t_t&, T)>::type result_type;
@@ -36,7 +36,7 @@ namespace nt2 {namespace ext
                               (scalar_<integer_<A0> >)
                               (scalar_<unspecified_<A1> >)
                               (target_<scalar_<floating_<T> > >)
-                             )
+                            )
   {
     typedef typename T::type t_t;
     typedef typename nt2::meta::call<nt2::tag::forsythe_(const A0&, const t_t&, const t_t&, T)>::type result_type;
@@ -73,7 +73,7 @@ namespace nt2 {namespace ext
                               (scalar_<integer_<A0> >)
                             )
   {
-    typedef double t_t,;
+    typedef double t_t;
     BOOST_DISPATCH_RETURNS(1, (A0 const& n),
                            (nt2::forsythe(n, nt2::meta::as_<double>()))
                           )
