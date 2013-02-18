@@ -23,6 +23,7 @@ SET( SOURCES
   fiedler.cpp
   forsythe.cpp
   frank.cpp
+  gcdmat.cpp
   hadamard.cpp
   hankel.cpp
   hilb.cpp
