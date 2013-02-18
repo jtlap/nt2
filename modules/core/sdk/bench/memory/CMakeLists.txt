@@ -11,7 +11,6 @@ SET( SOURCES
    allocation.cpp
    array_buffer.cpp
    buffer.cpp
-   container_index.cpp
    container_subscript.cpp
    container_subscript_2D.cpp
    container_subscript_3D.cpp

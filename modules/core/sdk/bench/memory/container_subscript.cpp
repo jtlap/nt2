@@ -12,10 +12,9 @@
 #include <nt2/core/functions/of_size.hpp>
 #include <nt2/core/container/table/semantic.hpp>
 
+#include <nt2/sdk/bench/benchmark.hpp>
 #include <iostream>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/details/helpers.hpp>
-#include <nt2/sdk/unit/perform_benchmark.hpp>
+#include <vector>
 
 template<class T> struct container_1D_test
 {

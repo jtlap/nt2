@@ -7,5 +7,5 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-nt2_module_use_modules(test.unit core.utility)
+nt2_module_use_modules(test.benchmark core.utility)
 ADD_SUBDIRECTORY(memory)

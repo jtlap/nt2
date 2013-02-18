@@ -40,25 +40,31 @@ template<class Buffer> NT2_EXPERIMENT(buffer_test)
   mutable Buffer  data, data2;
 };
 
-#define NT2_BUFFER_EXP(T,N)                                                 \
-NT2_RUN_EXPERIMENT_TPL( buffer_test                                         \
-                      , (nt2::memory::buffer<T>)                            \
-                        (std::vector<T,boost::simd::memory::allocator<T> >) \
-                      , (1 << N)                                            \
-                      )                                                     \
-/**/
 
-NT2_BUFFER_EXP(double , 2);
-NT2_BUFFER_EXP(double , 4);
-NT2_BUFFER_EXP(double , 8);
-NT2_BUFFER_EXP(double , 16);
+template<class T, class A>
+NT2_EXPERIMENT(buffer_test< std::vector<T,A> >)
+{
+  public:
+  buffer_test(std::size_t sz)
+        : NT2_EXPRIMENT_CTOR(1.,"cycles/elements")
+        , up(sz), data(sz), data2(sz)
+  {}
 
-NT2_BUFFER_EXP(float , 2);
-NT2_BUFFER_EXP(float , 4);
-NT2_BUFFER_EXP(float , 8);
-NT2_BUFFER_EXP(float , 16);
+  virtual void run() const
+  {
+    for(std::size_t i = 0; i < up; ++i) data[i] = data2[i];
+  }
 
-NT2_BUFFER_EXP(char , 2);
-NT2_BUFFER_EXP(char , 4);
-NT2_BUFFER_EXP(char , 8);
-NT2_BUFFER_EXP(char , 16);
+  virtual double compute(nt2::benchmark_result_t const& r) const
+  {
+    return r.first/double(up);
+  }
+
+  virtual void info(std::ostream& os) const { os << up; }
+
+  private:
+  std::size_t     up;
+  mutable Buffer  data, data2;
+};
+
+#endif
