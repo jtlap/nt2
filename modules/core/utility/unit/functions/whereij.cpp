@@ -45,6 +45,22 @@ NT2_TEST_CASE_TPL( whereij_1, NT2_TYPES)
   NT2_DISPLAY(h);
 }
 
+
+// NT2_TEST_CASE_TPL( whereij_lambda, NT2_TYPES)
+// {
+//   namespace bl = boost::lambda;
+//   nt2::table<T> a = nt2::rif(nt2::of_size(3, 3), nt2::meta::as_<T>()),
+//     b = nt2::zeros(nt2::of_size(3, 3), nt2::meta::as_<T>()),
+//     e, f;
+
+//   e = nt2::whereij(        (bl::_1 <= bl::_2),  a, b);
+//   NT2_DISPLAY(e);
+//   NT2_DISPLAY(nt2::triu(a));
+//   NT2_TEST_EQUAL(e, nt2::triu(a));
+//   f = nt2::whereij((bl::_1 == bl::_2),  a, b);
+//   NT2_TEST_EQUAL(f, nt2::from_diag(nt2::diag_of(a)));
+// }
+
 struct fct1
 {
 
