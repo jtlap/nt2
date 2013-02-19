@@ -25,6 +25,7 @@ SET( SOURCES
   frank.cpp
   gcdmat.cpp
   gearmat.cpp
+  grcar.cpp
   hadamard.cpp
   hankel.cpp
   hilb.cpp
