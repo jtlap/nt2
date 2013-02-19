@@ -35,18 +35,8 @@ namespace nt2
   }
 
   /*!
-    @brief Apply element-by-element binary operation to two expressions
-    with singleton expansion enabled
-
-    whereij(f,a,b) applies the element-by-element binary @pfo @c f to expressions
-    @c a and @c b, with singleton expansion enabled.
-
-    The corresponding dimensions of @c a and @c b must be equal to each other
-    or equal to one. Whenever a dimension of @c a or @c b is singleton (i.e equal
-    to one), whereij virtually replicates the array along that dimension to match
-    the other array.
-
-    @param f Binary Polymorphic Function object to apply to indices
+    @brief Act as : for i for j r(i, j) = f(i, j) ? a(i, j) : b(i, j)
+    @param f Binary Polymorphic Function object to apply to 0 based indices
     @param a First expression to process
     @param b Second expression to process
   **/

@@ -22,30 +22,9 @@
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <boost/lambda/lambda.hpp>
-
-NT2_TEST_CASE_TPL( whereij_1, NT2_TYPES)
-{
-  nt2::table<T> a = nt2::rif(nt2::of_size(3, 3), nt2::meta::as_<T>()),
-                b = nt2::zeros(nt2::of_size(3, 3), nt2::meta::as_<T>()),
-                e, f, g, h;
-
-  e = nt2::whereij(nt2::functor<nt2::tag::is_less_equal_>(),  a, b);
-  NT2_DISPLAY(e);
-  NT2_DISPLAY(nt2::triu(a));
-  NT2_TEST_EQUAL(e, nt2::triu(a));
-  f = whereij(nt2::functor<nt2::tag::is_equal_>(),  a, b);
-  NT2_TEST_EQUAL(f, nt2::from_diag(nt2::diag_of(a)));
-  NT2_TEST_EQUAL( nt2::whereij(nt2::functor<nt2::tag::is_equal_>(),  a, b), f);
-  g = nt2::whereij(nt2::functor<nt2::tag::is_equal_>(),  a, nt2::zeros(3, nt2::meta::as_<T>()));
-  NT2_TEST_EQUAL(g, nt2::from_diag(nt2::diag_of(a)));
-  h = nt2::whereij(nt2::functor<nt2::tag::is_equal_>(),  a, nt2::Zero<T>());
-  NT2_TEST_EQUAL(h, nt2::from_diag(nt2::diag_of(a)));
-  NT2_DISPLAY(nt2::from_diag(nt2::diag_of(a)));
-  NT2_DISPLAY(h);
-}
-
-
+//#include <boost/lambda/lambda.hpp>
+//boost lambda codes hard bool return types preventing the code to work
+//we have to use phoenix here when corrected
 // NT2_TEST_CASE_TPL( whereij_lambda, NT2_TYPES)
 // {
 //   namespace bl = boost::lambda;
@@ -60,6 +39,27 @@ NT2_TEST_CASE_TPL( whereij_1, NT2_TYPES)
 //   f = nt2::whereij((bl::_1 == bl::_2),  a, b);
 //   NT2_TEST_EQUAL(f, nt2::from_diag(nt2::diag_of(a)));
 // }
+
+NT2_TEST_CASE_TPL( whereij_1, NT2_TYPES)
+{
+  nt2::table<T> a = nt2::rif(nt2::of_size(3, 3), nt2::meta::as_<T>()),
+                b = nt2::zeros(nt2::of_size(3, 3), nt2::meta::as_<T>()),
+                e, f, g, h;
+
+  e = nt2::whereij(nt2::functor<nt2::tag::is_less_equal_>(),  a, b);
+  NT2_DISPLAY(e);
+  NT2_DISPLAY(nt2::triu(a));
+  NT2_TEST_EQUAL(e, nt2::triu(a));
+  f = whereij(nt2::functor<nt2::tag::is_equal_>(),  a, b);
+  NT2_TEST_EQUAL(f, nt2::from_diag(nt2::diag_of(a)));
+  g = nt2::whereij(nt2::functor<nt2::tag::is_equal_>(),  a, nt2::zeros(3, nt2::meta::as_<T>()));
+  NT2_TEST_EQUAL(g, nt2::from_diag(nt2::diag_of(a)));
+  h = nt2::whereij(nt2::functor<nt2::tag::is_equal_>(),  a, nt2::Zero<T>());
+  NT2_TEST_EQUAL(h, nt2::from_diag(nt2::diag_of(a)));
+  NT2_DISPLAY(nt2::from_diag(nt2::diag_of(a)));
+  NT2_DISPLAY(h);
+}
+
 
 struct fct1
 {
@@ -87,13 +87,23 @@ struct fct2
 
 };
 
+struct fct3
+{
+
+  template < class A0, class A1>
+  typename nt2::meta::as_logical<A0>::type
+  operator ()(const A0& i, const A1& j) const
+  {
+    return nt2::logical_and(nt2::eq(i, size_t(1) ), nt2::eq(j, size_t(2)));
+  }
+
+};
 
 NT2_TEST_CASE_TPL( whereij_func, NT2_TYPES)
 {
-  namespace bl = boost::lambda;
   nt2::table<T> a = nt2::rif(nt2::of_size(3, 3), nt2::meta::as_<T>()),
     b = nt2::zeros(nt2::of_size(3, 3), nt2::meta::as_<T>()),
-    e, f;
+    e, f, g;
 
   e = whereij(fct1(),  a, b);
   NT2_DISPLAY(e);
@@ -102,4 +112,6 @@ NT2_TEST_CASE_TPL( whereij_func, NT2_TYPES)
   f = whereij(fct2(),  a, b);
   NT2_TEST_EQUAL(f, nt2::from_diag(nt2::diag_of(a)));
   NT2_TEST_EQUAL(f, nt2::diagonal(a));
+  g = whereij(fct3(),  a, b);
+  NT2_DISPLAY(g);
 }

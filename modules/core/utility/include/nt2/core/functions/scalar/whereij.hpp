@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
                                              A1 const& a1,
                                              A2 const& a2) const
     {
-      return if_else(a0(1, 1),a1,a2);
+      return if_else(a0(0, 0),a1,a2);
     }
   };
 } }

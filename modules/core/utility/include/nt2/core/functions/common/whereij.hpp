@@ -29,13 +29,6 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename A0::extent_type                                      ext_t;
-
-    typedef typename boost::proto::result_of::
-                     child_c<A0&,0>::value_type                        child0_t;
-    typedef typename boost::simd::ext::adapt_data<child0_t,Data>::type    ad0_t;
-
-    typedef typename boost::proto::result_of::
-                     child_c<A0&,1>::value_type                        child1_t;
     typedef typename Data::type                                     result_type;
     typedef typename meta::as_index<result_type>::type                      i_t;
     typedef typename result_of::as_subscript<ext_t,i_t>::type               s_t;
@@ -44,9 +37,10 @@ namespace nt2 { namespace ext
     {
       ext_t ex = boost::proto::child_c<0>(a0).extent();
       s_t pos  = as_subscript(a0.extent(),enumerate<i_t>(p));
+      i_t i = as_index(ex, pos);
       return if_else(boost::proto::value(boost::proto::child_c<2>(a0))(pos[0], pos[1])
-                    , run(boost::proto::child_c<0>(a0), as_index(ex, pos), ad0_t())
-                    , run(boost::proto::child_c<1>(a0), as_index(ex, pos), ad0_t())
+                    , run(boost::proto::child_c<0>(a0), i, t)
+                    , run(boost::proto::child_c<1>(a0), i, t)
                     );
     }
   };
