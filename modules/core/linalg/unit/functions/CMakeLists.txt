@@ -24,6 +24,7 @@ SET( SOURCES
   forsythe.cpp
   frank.cpp
   gcdmat.cpp
+  gearmat.cpp
   hadamard.cpp
   hankel.cpp
   hilb.cpp
