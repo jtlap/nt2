@@ -28,6 +28,7 @@ SET( SOURCES
   grcar.cpp
   hadamard.cpp
   hankel.cpp
+  hanowa.cpp
   hilb.cpp
   invhilb.cpp
   jordbloc.cpp
