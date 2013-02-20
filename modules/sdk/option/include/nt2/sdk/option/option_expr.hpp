@@ -17,6 +17,7 @@
 
 #include <boost/proto/extends.hpp>
 #include <boost/proto/make_expr.hpp>
+#include <boost/proto/operators.hpp>
 
 namespace nt2 { namespace details
 {
@@ -93,21 +94,6 @@ namespace nt2 { namespace details
       return def;
     }
   };
-
-  /// This is an ad hoc solutio, - To be fixed
-  template<class A0, class A1>
-  BOOST_FORCEINLINE
-  typename boost::proto::result_of
-  ::make_expr < boost::proto::tag::comma
-              , option_expr<A0> const &
-              , option_expr<A1> const &
-              >::type
-  operator,( option_expr<A0> const & a0, option_expr<A1> const & a1 )
-  {
-    return boost::proto
-                ::make_expr<boost::proto
-                                 ::tag::comma>(boost::cref(a0),boost::cref(a1));
-  }
 } }
 
 #endif
