@@ -21,14 +21,17 @@
 template<class T> bool check_ulp_fundamental()
 {
   T value(1), different_value;
+  std::vector< nt2::details::failed_value<T,T> >  fails;
 
   different_value = value + 16*std::numeric_limits<T>::epsilon();
 
   std::cout << "Check for: " << typeid(T).name() << "\t";
-  T u0     = nt2::unit::max_ulp(value,value);
-  std::cout << "max_ulp(a,a) = " << int(u0) << "\t";
-  T u1     = nt2::unit::max_ulp(value,different_value);
-  std::cout << "max_ulp(a,b) = " << int(u1) << "\t";
+  T u0     = nt2::unit::max_ulp(value,value,0.5,fails);
+  std::cout << "max_ulp(a,a) = " << u0 << "\t";
+
+  fails.clear();
+  T u1     = nt2::unit::max_ulp(value,different_value,8,fails);
+  std::cout << "max_ulp(a,b) = " << u1 << "\t";
   std::cout << ((!u0 && u1==8) ? "OK" : "NOT OK") << "\n";
 
   return !u0 && u1==8;
@@ -37,6 +40,7 @@ template<class T> bool check_ulp_fundamental()
 template<class T> bool check_ulp_sequence()
 {
   std::vector<T> values(17), different_values(17);
+  std::vector< nt2::details::failed_value<T,T> >  fails;
 
   for(std::size_t i=0;i<values.size();++i)
     values[i] = different_values[i] = T(1);
@@ -45,10 +49,12 @@ template<class T> bool check_ulp_sequence()
   different_values[7] += 5*std::numeric_limits<T>::epsilon();
 
   std::cout << "Check for: " << typeid(T).name() << "\t";
-  T u0     = nt2::unit::max_ulp(values,values);
-  std::cout << "max_ulp(a,a) = " << int(u0) << "\t";
-  T u1     = nt2::unit::max_ulp(values,different_values);
-  std::cout << "max_ulp(a,b) = " << int(u1) << "\t";
+  T u0     = nt2::unit::max_ulp(values,values,0.5,fails);
+  std::cout << "max_ulp(a,a) = " << u0 << "\t";
+
+  fails.clear();
+  T u1     = nt2::unit::max_ulp(values,different_values,8,fails);
+  std::cout << "max_ulp(a,b) = " << u1 << "\t";
   std::cout << ((!u0 && u1==8) ? "OK" : "NOT OK")  << "\n";
 
   return (!u0 && u1==8);

@@ -41,7 +41,7 @@ namespace nt2
   namespace unit
   {
     template<class T>
-    T const& eval(T const& t)
+    BOOST_FORCEINLINE T const& eval(T const& t)
     {
       return t;
     }

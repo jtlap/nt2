@@ -15,6 +15,7 @@
   @brief Logical comparison testing macros
 **/
 
+#include <iomanip>
 #include <iostream>
 #include <nt2/sdk/unit/stats.hpp>
 #include <nt2/sdk/unit/details/eval.hpp>
@@ -35,6 +36,7 @@ do                                                    \
     nt2::unit::fail ( #A " " #OP " " #B               \
                     , __LINE__,BOOST_CURRENT_FUNCTION \
                     );                                \
+    std::setprecision(20);                            \
     std::cout << #A << ": \n" << (A) << std::endl;    \
     std::cout << #B << ": \n" << (B) << std::endl;    \
   }                                                   \
@@ -66,6 +68,7 @@ do                                                      \
     nt2::unit::fail ( #A " == " #B                      \
                     , __LINE__,BOOST_CURRENT_FUNCTION   \
                     );                                  \
+    std::setprecision(20);                              \
     std::cout << #A << ": \n" << (A) << std::endl;      \
     std::cout << #B << ": \n" << (B) << std::endl;      \
   }                                                     \
@@ -97,6 +100,7 @@ do                                                        \
     nt2::unit::fail ( #A " != " #B                        \
                     , __LINE__,BOOST_CURRENT_FUNCTION     \
                     );                                    \
+    std::setprecision(20);                                \
     std::cout << #A << ": \n" << (A) << std::endl;        \
     std::cout << #B << ": \n" << (B) << std::endl;        \
   }                                                       \
