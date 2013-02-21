@@ -32,13 +32,3 @@ NT2_TEST_CASE( container_isreal )
 
   NT2_TEST( nt2::isreal( a) );
 }
-
-NT2_TEST_CASE( container_isreal_cplx )
-{
-  typedef std::complex<float> cT;
-  nt2::table<cT> a = nt2::ones(4, nt2::meta::as_<cT>());
-
-  NT2_TEST( nt2::isreal( a) );
-  a(2, 2) = cT(0, 1);
-  NT2_TEST( !nt2::isreal( a) );
-}
