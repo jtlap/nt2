@@ -6,101 +6,60 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.ieee toolbox - modf/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.ieee components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created by jt the 04/12/2010
-///
 #include <boost/simd/toolbox/ieee/include/functions/modf.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <boost/simd/include/functions/trunc.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/half.hpp>
 #include <boost/simd/include/functions/frac.hpp>
-
-#include <boost/type_traits/is_same.hpp>
+#include <boost/simd/include/functions/trunc.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/fusion/include/vector_tie.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/toolbox/constant/constant.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
-
-NT2_TEST_CASE_TPL ( modf_real__1_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL( modf, BOOST_SIMD_TYPES)
 {
-
   using boost::simd::modf;
   using boost::simd::tag::modf_;
-  typedef typename boost::dispatch::meta::as_floating<T>::type ftype;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<modf_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef boost::fusion::vector<T,T> wished_r_t;
 
+  NT2_TEST_TYPE_IS( (typename boost::dispatch::meta::call<modf_(T)>::type)
+                  , (std::pair<T,T>)
+                  );
 
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-   T f, n;
-  T a[6] = {T(0), T(1), T(1.5), boost::simd::Inf<T>(), boost::simd::Minf<T>(), boost::simd::Nan<T>()};
+  {
+    T e;
+    T m;
 
-  for(int i=0; i < 6; i++)
-    {
-      modf(a[i], n, f);
-      NT2_TEST_EQUAL(f, boost::simd::frac(a[i]));
-      NT2_TEST_EQUAL(n, boost::simd::trunc(a[i]));
-    }
-} // end of test for floating_
+    modf(T(1.5), m, e);
+    NT2_TEST_EQUAL(m, boost::simd::trunc(T(1.5)));
+    NT2_TEST_EQUAL(e, T(.5));
+  }
 
-NT2_TEST_CASE_TPL ( modf_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
-{
+  {
+    T e;
+    T m;
 
-  using boost::simd::modf;
-  using boost::simd::tag::modf_;
-  typedef typename boost::dispatch::meta::as_floating<T>::type ftype;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<modf_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef boost::fusion::vector<T,T> wished_r_t;
+    m = modf(T(1.5), e);
+    NT2_TEST_EQUAL(m, boost::simd::trunc(T(1.5)));
+    NT2_TEST_EQUAL(e, T(.5));
+  }
 
+  {
+    T e;
+    T m;
 
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  T f, n;
-  T a[6] = {T(0), T(1), T(10), T(-10), boost::simd::Valmin<T>(), boost::simd::Valmax<T>()};
+    boost::fusion::vector_tie(m,e) = modf(T(1.5));
+    NT2_TEST_EQUAL(m, boost::simd::trunc(T(1.5)));
+    NT2_TEST_EQUAL(e, T(.5));
+  }
 
-  for(int i=0; i < 6; i++)
-    {
-      modf(a[i], n, f);
-      NT2_TEST_EQUAL(f, boost::simd::Zero<T>());
-      NT2_TEST_EQUAL(n, boost::simd::trunc(a[i]));
-    }
-} // end of test for unsigned_int_
+  {
+    std::pair<T,T> p;
 
-NT2_TEST_CASE_TPL ( modf_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
-{
-
-  using boost::simd::modf;
-  using boost::simd::tag::modf_;
-  typedef typename boost::dispatch::meta::as_floating<T>::type ftype;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<modf_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef boost::fusion::vector<T,T> wished_r_t;
-
-
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  T f, n;
-  T a[6] = {T(0), T(1), T(10), boost::simd::Valmin<T>(), boost::simd::Valmax<T>()};
-
-  for(int i=0; i < 5; i++)
-    {
-      modf(a[i], n, f);
-      NT2_TEST_EQUAL(f, boost::simd::Zero<T>());
-      NT2_TEST_EQUAL(n, boost::simd::trunc(a[i]));
-    }
-
-} // end of test for signed_int_
+    p = modf(T(1.5));
+    NT2_TEST_EQUAL(p.first  , boost::simd::trunc(T(1.5)));
+    NT2_TEST_EQUAL(p.second , T(.5));
+  }
+}

@@ -19,32 +19,10 @@
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
-#include <boost/fusion/tuple.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// reference based Implementation
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_, boost::simd::tag::simd_,
-                      (A0)(X),
-                      ((simd_ < floating_<A0>,X > ))
-                    )
-  {
-    typedef typename meta::as_integer<A0>::type            itype;
-    typedef boost::fusion::tuple<A0,A0,itype>        result_type;
 
-    inline result_type operator()(A0 const& a0) const
-    {
-      result_type res;
-      boost::fusion::at_c<2>(res) =
-        nt2::rem_pio2(a0,
-                      boost::fusion::at_c<0>(res),
-                      boost::fusion::at_c<1>(res)
-                     );
-      return res;
-    }
-  };
 
   NT2_FUNCTOR_IMPLEMENTATION(  nt2::tag::rem_pio2_, tag::cpu_, (A0)(X)
                             , ((simd_<floating_<A0>,X>))
@@ -74,63 +52,6 @@ namespace nt2 { namespace ext
       xc = load<A0>(&txc[0], 0);
       return load<result_type>(&tmp[0], 0);
     }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_, tag::cpu_,
-                             (A0)(A1)(X),
-                             ((simd_ <floating_<A0>,X  > ))
-                             ((simd_ <floating_<A0>,X  > ))
-                             ((simd_ <floating_<A0>,X  > ))
-                             ((target_ <unspecified_<A1> >))
-                 )
-  {
-    typedef typename meta::as_integer<A0>::type result_type;
-    inline result_type operator()(A0 const& a0, A0 & xr, A0& xc, A1 const&) const
-    {
-      typedef typename A1::type selector;
-      return rempio2<selector, void>::rem(a0, xr, xc);
-    }
-  private:
-    template < class T, class dummy = void> struct rempio2
-    {
-      static inline result_type rem(A0 const& x, A0 & xr, A0& xc)
-      {
-        BOOST_ASSERT_MSG(false, "wrong target for rem_pio2");
-        return Zero<result_type>();
-      }
-    };
-
-    template < class dummy> struct rempio2 < big_, dummy>
-    {
-      static inline result_type rem(A0 const& x, A0 & xr, A0& xc)
-      {
-        return nt2::rem_pio2(x, xr, xc);
-      }
-    };
-
-    template < class dummy> struct rempio2 < very_small_, dummy >
-    {
-      static inline result_type rem(A0 const& x, A0 & xr, A0& xc)
-      {
-        return nt2::rem_pio2_straight(x, xr, xc);
-      }
-    };
-
-    template < class dummy> struct rempio2 < small_, dummy >
-    {
-      static inline result_type rem(A0 const& x, A0 & xr, A0& xc)
-      {
-        return nt2::rem_pio2_cephes(x, xr, xc);
-      }
-    };
-
-    template < class dummy> struct rempio2 < medium_, dummy >
-    {
-      static inline result_type rem(A0 const& x, A0 & xr, A0& xc)
-      {
-        return nt2::rem_pio2_medium(x, xr, xc);
-      }
-    };
   };
 
 } }

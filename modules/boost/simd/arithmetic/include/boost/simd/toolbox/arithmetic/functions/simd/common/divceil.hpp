@@ -15,6 +15,7 @@
 #include <boost/simd/include/functions/simd/ceil.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>
 #include <boost/simd/include/functions/simd/divs.hpp>
+#include <boost/simd/include/functions/simd/minusone.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/functions/simd/divides.hpp>
 #include <boost/simd/include/constants/one.hpp>
@@ -22,68 +23,74 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                              ((simd_<arithmetic_<A0>,X>))
-                            )
+                                   , ((simd_<arithmetic_<A0>,X>))
+                                     ((simd_<arithmetic_<A0>,X>))
+                                   )
   {
     typedef typename dispatch::meta::as_floating<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return ceil(tofloat(a0)/tofloat(a1)); }
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return boost::simd::ceil(boost::simd::tofloat(a0)/boost::simd::tofloat(a1)); }
   };
-
+  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)(X)
-                            , ((simd_<unsigned_<A0>,X>))
-                              ((simd_<unsigned_<A0>,X>))
-                            )
+                                   , ((simd_<unsigned_<A0>,X>))
+                                     ((simd_<unsigned_<A0>,X>))
+                                   )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return rdivide(a0+a1-One<A0>(), a1); }
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return boost::simd::rdivide(boost::simd::minusone(a0+a1), a1); }
   };
-
+  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)(X)
-                            , ((simd_<int16_<A0>,X>))
-                              ((simd_<int16_<A0>,X>))
-                            )
+                                   , ((simd_<int16_<A0>,X>))
+                                     ((simd_<int16_<A0>,X>))
+                                   )
   {
     typedef A0 result_type;
-
+    
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::scalar_of<A0>::type           stype;
       typedef typename dispatch::meta::upgrade<stype>::type          itype;
       typedef simd::native<itype,X>                       ivtype;
       ivtype a0l, a0h, a1l, a1h;
-      boost::fusion::tie(a0l, a0h) = split(a0);
-      boost::fusion::tie(a1l, a1h) = split(a1);
-      return bitwise_cast<A0>(group(divceil(a0l, a1l),divceil(a0h, a1h)));
+      boost::simd::split(a0, a0l, a0h );
+      boost::simd::split(a1, a1l, a1h );
+      return boost::simd::bitwise_cast<A0>(
+        boost::simd::group(boost::simd::divceil(a0l, a1l),
+                           boost::simd::divceil(a0h, a1h))
+      );
     }
   };
-
+  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)(X)
-                            , ((simd_<int8_<A0>,X>))
-                              ((simd_<int8_<A0>,X>))
-                            )
+                                   , ((simd_<int8_<A0>,X>))
+                                     ((simd_<int8_<A0>,X>))
+                                   )
   {
     typedef A0 result_type;
-
+    
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::scalar_of<A0>::type           stype;
       typedef typename dispatch::meta::upgrade<stype>::type          itype;
       typedef simd::native<itype, X>                      ivtype;
       ivtype a0l, a0h, a1l, a1h;
-      boost::fusion::tie(a0l, a0h) = split(a0);
-      boost::fusion::tie(a1l, a1h) = split(a1);
-      return simd::bitwise_cast<A0>(group(divceil(a0l, a1l),divceil(a0h, a1h) ));
+      boost::simd::split(a0, a0l, a0h );
+      boost::simd::split(a1, a1l, a1h );
+      return boost::simd::bitwise_cast<A0>(
+        boost::simd::group(boost::simd::divceil(a0l, a1l),
+                           boost::simd::divceil(a0h, a1h) )
+      );
     }
   };
-
+  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)(X)
-                            , ((simd_<floating_<A0>,X>))
-                              ((simd_<floating_<A0>,X>))
-                            )
+                                   , ((simd_<floating_<A0>,X>))
+                                     ((simd_<floating_<A0>,X>))
+                                   )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return ceil(a0/a1); }
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return boost::simd::ceil(a0/a1); }
   };
 } } }
 

@@ -6,93 +6,60 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 ieee toolbox - modf/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of ieee components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created by jt the 04/12/2010
-///
 #include <nt2/toolbox/ieee/include/functions/modf.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <nt2/include/functions/trunc.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/half.hpp>
 #include <nt2/include/functions/frac.hpp>
-
-#include <boost/type_traits/is_same.hpp>
+#include <nt2/include/functions/trunc.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_signed.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/meta/downgrade.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/type_traits/common_type.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <boost/fusion/include/vector_tie.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
-
-NT2_TEST_CASE_TPL ( modf_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL( modf, BOOST_SIMD_TYPES)
 {
-
   using nt2::modf;
   using nt2::tag::modf_;
 
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<modf_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::call<modf_(T)>::type wished_r_t;
+  NT2_TEST_TYPE_IS( (typename nt2::meta::call<modf_(T)>::type)
+                  , (std::pair<T,T>)
+                  );
 
+  {
+    T e;
+    T m;
 
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
+    modf(T(1.5), m, e);
+    NT2_TEST_EQUAL(m, nt2::trunc(T(1.5)));
+    NT2_TEST_EQUAL(e, T(.5));
+  }
 
-} // end of test for floating_
+  {
+    T e;
+    T m;
 
-NT2_TEST_CASE_TPL ( modf_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
-{
+    m = modf(T(1.5), e);
+    NT2_TEST_EQUAL(m, nt2::trunc(T(1.5)));
+    NT2_TEST_EQUAL(e, T(.5));
+  }
 
-  using nt2::modf;
-  using nt2::tag::modf_;
+  {
+    T e;
+    T m;
 
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<modf_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::call<modf_(T)>::type wished_r_t;
+    boost::fusion::vector_tie(m,e) = modf(T(1.5));
+    NT2_TEST_EQUAL(m, nt2::trunc(T(1.5)));
+    NT2_TEST_EQUAL(e, T(.5));
+  }
 
+  {
+    std::pair<T,T> p;
 
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
-
-} // end of test for unsigned_int_
-
-NT2_TEST_CASE_TPL ( modf_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
-{
-
-  using nt2::modf;
-  using nt2::tag::modf_;
-
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<modf_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::call<modf_(T)>::type wished_r_t;
-
-
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
-
-} // end of test for signed_int_
+    p = modf(T(1.5));
+    NT2_TEST_EQUAL(p.first  , nt2::trunc(T(1.5)));
+    NT2_TEST_EQUAL(p.second , T(.5));
+  }
+}

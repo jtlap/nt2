@@ -17,6 +17,7 @@
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/include/functions/logical_or.hpp>
 #include <nt2/include/functions/if_zero_else.hpp>
+#include <boost/fusion/include/std_pair.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -25,10 +26,10 @@ namespace nt2 { namespace ext
                              (generic_ < complex_<floating_ < A0> > > )
                              (generic_ < complex_<floating_ < A0> > > )
                              (generic_ < complex_<floating_ < A0> > > )
-                             )
+                            )
   {
-    typedef int result_type;
-    inline int operator()(A0 const& a0,A0 & a1,A0 & a2) const
+    typedef void result_type;
+    inline void operator()(A0 const& a0,A0 & a1,A0 & a2) const
     {
       typedef typename meta::as_real<A0>::type rtype;
       rtype c, s, ch, sh;
@@ -40,7 +41,6 @@ namespace nt2 { namespace ext
       rtype i2 = if_zero_else(logical_or(is_imag(a0), is_real(a0)), -s*sh);
       a1 =  A0(r1, i1);
       a2 =  A0(r2, i2);
-      return 0;
     }
   };
 
@@ -49,17 +49,16 @@ namespace nt2 { namespace ext
                              (generic_ < imaginary_<floating_ < A0> > > )
                              (generic_ < dry_<floating_ < A1> > > )
                              (generic_ < imaginary_<floating_ < A0> > > )
-                             )
+                            )
   {
-    typedef int result_type;
-    inline int operator()(A0 const& a0,A1 & a1,A0 & a2) const
+    typedef void result_type;
+    inline void operator()(A0 const& a0,A1 & a1,A0 & a2) const
     {
       typedef typename meta::as_real<A0>::type rtype;
       rtype ch, sh;
       sinhcosh(nt2::imag(a0), sh, ch);
       a1 =  bitwise_cast<A1>(ch);
       a2 =  bitwise_cast<A0>(-sh);
-      return 0;
     }
   };
 
@@ -68,17 +67,16 @@ namespace nt2 { namespace ext
                              (generic_ < dry_<floating_ < A0> > > )
                              (generic_ < dry_<floating_ < A0> > > )
                              (generic_ < dry_<floating_ < A0> > > )
-                             )
+                            )
   {
-    typedef int result_type;
-    inline int operator()(A0 const& a0,A0 & a1,A0 & a2) const
+    typedef void result_type;
+    inline void operator()(A0 const& a0,A0 & a1,A0 & a2) const
     {
       typedef typename meta::as_real<A0>::type rtype;
       rtype c, s;
       sincos(nt2::real(a0), s, c);
       a1 =  bitwise_cast<A0>(c);
       a2 =  bitwise_cast<A0>(s);
-      return 0;
     }
   };
 
@@ -87,7 +85,7 @@ namespace nt2 { namespace ext
                              (A0),
                              (generic_ < complex_<floating_ < A0> > > )
                              (generic_ < complex_<floating_ < A0> > > )
-                             )
+                            )
   {
     typedef A0 result_type;
     inline A0 operator()(A0 const& a0,A0 & a2) const
@@ -101,15 +99,15 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::sincos_, tag::cpu_,
                              (A0),
                              (generic_ < complex_<floating_<A0> > > )
-                             )
+                            )
   {
-    typedef boost::fusion::tuple<A0, A0>           result_type;
+    typedef std::pair<A0, A0>           result_type;
     NT2_FUNCTOR_CALL(1)
-      {
-        result_type res;
-        sincos(a0, boost::fusion::at_c<0>(res), boost::fusion::at_c<1>(res));
-        return res;
-      }
+    {
+      result_type res;
+      sincos(a0, res.first, res.second);
+      return res;
+    }
   };
 } }
 

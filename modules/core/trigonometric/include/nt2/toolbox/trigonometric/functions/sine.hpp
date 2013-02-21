@@ -63,7 +63,7 @@
  * is delegated to the double precision routines.
  * \par Advices
  * \arg If there is no restrictions ever on your angles and you care for precision
- * use nt2::sine<big_> which is equivalent to nt2::cos
+ * use nt2::sine<big_> which is equivalent to nt2::sin
  * \arg if you do not care for precision you can use
  * nt2::sine<medium_> or nt2::sine<small_>
  * that will be accurate for their proper range and degrade
@@ -84,7 +84,7 @@
  * results everywhere and have anyhow a big_ proportion of small_ angles.
  * This is even more true (if possible) in simd and the more k is big_, because
  * of the kth power
- * \parFor instance in the medium_ float case:
+ * \par For instance in the medium_ float case:
  * \arg  if angles are equidistributed  on \f$[0 2^16*\pi]\f$,
  * the \f$p(0, 20*\pi)\f$ will be
  * less than \f$2^11\f$ and thus in sse2 there will be 1 quadruple over

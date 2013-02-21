@@ -59,9 +59,8 @@ namespace nt2 { namespace tag
     **/
     struct rem_2pi_ : ext::elementwise_<rem_2pi_> { typedef ext::elementwise_<rem_2pi_> parent; };
   }
-  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::rem_2pi_, rem_2pi,(A0 const&)(A0&)(A0&),1)
-  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::rem_2pi_, rem_2pi,(A0 const&),1)
-  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::rem_2pi_, rem_2pi,(A0 const&)(A0&)(A0&)(A1 const&),2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::rem_2pi_, rem_2pi,1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::rem_2pi_, rem_2pi,2)
 }
 
 #endif

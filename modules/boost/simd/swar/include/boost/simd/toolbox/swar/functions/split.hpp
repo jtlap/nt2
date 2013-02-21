@@ -6,75 +6,73 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SPLIT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SPLIT_HPP_INCLUDED
+
+/*!
+  @file
+  @brief Definition of split function
+**/
+
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_swar
- * \defgroup boost_simd_swar_split split
- *
- * \par Description
- * takes one SIMD vector of elements of size n
- * and returns two vectors of same type containing respectively
- * the first and last half elements of the input but in vectors
- * in which element size is 2*n
- * \par
- * Of course the applicability is conditionned by the existence of compatible
- * SIMD vector types
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/split.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::split_(A0)>::type
- *     split(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of split
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * \par
- * This is a swar operation. As such it has not real interest outside
- * SIMD mode.
- * \par
- * Such an operation is a transform of an SIMD vector, that will return
- * vectors obtained on a non necessarily elementwise basis from the inputs
- * elements
- * \par
- * If usable and used in scalar mode, it reduces to the operation
- * on a one element vector.
- *
-**/
-
-namespace boost { namespace simd { namespace tag
+namespace boost { namespace simd
+{
+  namespace tag
   {
-    /*!
-     * \brief Define the tag split_ of functor split
-     *        in namespace boost::simd::tag for toolbox boost.simd.swar
-    **/
-    struct split_ : ext::elementwise_<split_> { typedef ext::elementwise_<split_> parent; };
+    /// @brief Hierarchy tag for split function
+    struct split_ : ext::elementwise_<split_>
+    {
+      typedef ext::elementwise_<split_> parent;
+    };
   }
+
+  /*!
+    @brief SIMD register type-based split
+
+    @c split splits a SIMD register @c v in two SIMD register of half the
+    cardinal of @c v containing the same value than @c v but transtyped to
+    their associated scalar type.
+
+    @param a0 Value to split
+
+    @return A Fusion Sequence containing the two sub-part of @c a0
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::split_, split, 1)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::split_, split, (A0 const &)(A1&)(A1&), 2)
+
+  /*!
+    @brief SIMD register type-based split
+
+    @c split splits a SIMD register @c v in two SIMD register of half the
+    cardinal of @c v containing the same value than @c v but transtyped to
+    their associated scalar type.
+
+    @param a0 Value to split
+    @param a1 L-Value that will receive the second sub-part of @c a0
+
+    @return The first sub-part of @c a0
+  **/
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL( tag::split_, split
+                                            , (A0 const &)(A1&)
+                                            , 2
+                                            )
+
+  /*!
+    @brief SIMD register type-based split
+
+    @c split splits a SIMD register @c v in two SIMD register of half the
+    cardinal of @c v containing the same value than @c v but transtyped to
+    their associated scalar type.
+
+    @param a0 Value to split
+    @param a1 L-Value that will receive the first sub-part of @c a0
+    @param a2 L-Value that will receive the second sub-part of @c a0
+  **/
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL( tag::split_, split
+                                            , (A0 const &)(A1&)(A1&)
+                                            , 2
+                                            )
 } }
 
 #endif
-
-// modified by jt the 25/12/2010

@@ -6,56 +6,117 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - two_prod/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of arithmetic components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created by jt the 01/12/2010
-///
 #include <nt2/toolbox/arithmetic/include/functions/two_prod.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_signed.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/meta/downgrade.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/type_traits/common_type.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/eps.hpp>
+#include <nt2//include/constants/one.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2//include/functions/unary_minus.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/fusion/include/vector_tie.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
-#include <nt2/toolbox/constant/constant.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/include/functions/splat.hpp>
-
-#include <nt2/include/functions/load.hpp>
-
-
-NT2_TEST_CASE_TPL ( two_prod_real__2_0,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL( two_prod, NT2_SIMD_REAL_TYPES)
 {
   using nt2::two_prod;
   using nt2::tag::two_prod_;
-  using nt2::load;
   using boost::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef typename boost::dispatch::meta::as_floating<T,T>::type r0_t;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<two_prod_(vT,vT)>::type r_t;
-  typedef typename nt2::meta::call<two_prod_(T,T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef boost::fusion::tuple<vT,vT> wished_r_t;
 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  // two_prod is tested by correct_fma
+  typedef native<T,BOOST_SIMD_DEFAULT_EXTENSION>   vT;
 
-} // end of test for floating_
+  NT2_TEST_TYPE_IS( (typename boost::dispatch::meta::call<two_prod_(vT,vT)>::type)
+                  , (std::pair<vT,vT>)
+                  );
+
+  vT inf_    = nt2::Inf<vT>();
+  vT zero_   = nt2::Zero<vT>();
+  vT one_    = nt2::One<vT>();
+  vT eps_    = nt2::Eps<vT>();
+  vT meps2_   = -eps_*eps_;
+
+  {
+    vT s,r;
+
+    two_prod(inf_,one_, s, r);
+    NT2_TEST_EQUAL(s, inf_);
+    NT2_TEST_EQUAL(r, zero_);
+
+    two_prod(one_, inf_, s, r);
+    NT2_TEST_EQUAL(s, inf_);
+    NT2_TEST_EQUAL(r, zero_);
+
+    two_prod(one_ + eps_, one_ - eps_, s, r);
+    NT2_TEST_EQUAL(s, one_);
+    NT2_TEST_EQUAL(r, meps2_);
+
+    two_prod(one_ - eps_,one_ + eps_, s, r);
+    NT2_TEST_EQUAL(s, one_);
+    NT2_TEST_EQUAL(r, meps2_);
+  }
+
+  {
+    vT s,r;
+
+    s = two_prod(inf_,one_, r);
+    NT2_TEST_EQUAL(s, inf_);
+    NT2_TEST_EQUAL(r, zero_);
+
+    s = two_prod(one_, inf_, r);
+    NT2_TEST_EQUAL(s, inf_);
+    NT2_TEST_EQUAL(r, zero_);
+
+    s = two_prod(one_ + eps_, one_ - eps_, r);
+    NT2_TEST_EQUAL(s, one_);
+    NT2_TEST_EQUAL(r, meps2_);
+
+    s = two_prod(one_ - eps_,one_ + eps_, r);
+    NT2_TEST_EQUAL(s, one_);
+    NT2_TEST_EQUAL(r, meps2_);
+  }
+
+  {
+    vT s,r;
+
+    boost::fusion::vector_tie(s,r) = two_prod(inf_,one_);
+    NT2_TEST_EQUAL(s, inf_);
+    NT2_TEST_EQUAL(r, zero_);
+
+    boost::fusion::vector_tie(s,r) = two_prod(one_, inf_);
+    NT2_TEST_EQUAL(s, inf_);
+    NT2_TEST_EQUAL(r, zero_);
+
+    boost::fusion::vector_tie(s,r) = two_prod(one_ + eps_, one_ - eps_);
+    NT2_TEST_EQUAL(s, one_);
+    NT2_TEST_EQUAL(r, meps2_);
+
+    boost::fusion::vector_tie(s,r) = two_prod(one_ - eps_,one_ + eps_);
+    NT2_TEST_EQUAL(s, one_);
+    NT2_TEST_EQUAL(r, meps2_);
+  }
+
+  {
+    std::pair<vT,vT> p;
+
+    p = two_prod(inf_,one_);
+    NT2_TEST_EQUAL(p.first, inf_);
+    NT2_TEST_EQUAL(p.second, zero_);
+
+    p = two_prod(one_, inf_);
+    NT2_TEST_EQUAL(p.first, inf_);
+    NT2_TEST_EQUAL(p.second, zero_);
+
+    p = two_prod(one_ + eps_, one_ - eps_);
+    NT2_TEST_EQUAL(p.first, one_);
+    NT2_TEST_EQUAL(p.second, meps2_);
+
+    p = two_prod(one_ - eps_,one_ + eps_);
+    NT2_TEST_EQUAL(p.first, one_);
+    NT2_TEST_EQUAL(p.second, meps2_);
+  }
+}

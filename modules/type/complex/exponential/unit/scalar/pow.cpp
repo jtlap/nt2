@@ -52,7 +52,7 @@ NT2_TEST_CASE_TPL ( pow4,  NT2_REAL_TYPES)
   for(int i=1; i <= 3; i++) a(i) =  cT(i, i);
   NT2_DISPLAY(a);
 
-  nt2::table<cT> b = nt2::ones(1, 3, nt2::meta::as_<T>());
+  nt2::table<cT> b = nt2::ones(1, 3, nt2::meta::as_<cT>());
   for(int i=1; i <= 3; i++) b(i) = cT(i-1);
   NT2_DISPLAY(b);
 

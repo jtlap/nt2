@@ -33,7 +33,7 @@ SET( SOURCES
   mantissa.cpp
 #  ldexp.cpp
   ilogb.cpp
-#  frexp.cpp
+  frexp.cpp
   frac.cpp
 #  fast_ldexp.cpp
 #  fast_frexp.cpp

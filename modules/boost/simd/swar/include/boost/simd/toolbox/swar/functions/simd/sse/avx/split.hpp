@@ -38,23 +38,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::split_
-                                    , boost::simd::tag::avx_
-                                    , (A0)
-                                    , ((simd_<single_<A0>,boost::simd::tag::avx_>))
-                                    )
-  {
-    typedef typename dispatch::meta::upgrade<A0>::type                 utype;
-    typedef boost::fusion::tuple<utype,utype>                    result_type;
-
-    BOOST_FORCEINLINE result_type operator()(const A0 & a0)const
-    {
-      result_type res;
-      split(a0, boost::fusion::at_c<0>(res), boost::fusion::at_c<1>(res));
-      return res;
-    }
-  };
-
   //============================================================================
   // Implementation when type is arithmetic_
   //============================================================================
@@ -98,23 +81,6 @@ namespace boost { namespace simd { namespace ext
       split(a01, ha010, ha011);
       a2 = _mm256_castsi128_si256(ha010);
       a2 = _mm256_insertf128_si256(a2, ha011, 1);
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::split_
-                                    , boost::simd::tag::avx_
-                                    , (A0)
-                                    , ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
-                                    )
-  {
-    typedef typename dispatch::meta::upgrade<A0>::type                 utype;
-    typedef boost::fusion::tuple<utype,utype>                    result_type;
-
-    BOOST_FORCEINLINE result_type operator()(const A0 & a0)const
-    {
-      result_type res;
-      split(a0, boost::fusion::at_c<0>(res), boost::fusion::at_c<1>(res));
-      return res;
     }
   };
 } } }

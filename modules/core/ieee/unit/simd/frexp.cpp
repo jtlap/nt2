@@ -6,55 +6,64 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 ieee toolbox - frexp/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of ieee components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created by jt the 04/12/2010
-///
 #include <nt2/toolbox/ieee/include/functions/frexp.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <nt2/include/functions/mantissa.hpp>
-#include <nt2/include/functions/exponent.hpp>
-
-#include <boost/type_traits/is_same.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/half.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_signed.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/meta/downgrade.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/type_traits/common_type.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <boost/fusion/include/vector_tie.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/load.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
-
-NT2_TEST_CASE_TPL ( frexp_real__1_0,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL( frexp, NT2_SIMD_REAL_TYPES)
 {
   using nt2::frexp;
   using nt2::tag::frexp_;
-  using nt2::load;
-  using boost::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<frexp_(vT)>::type r_t;
-  typedef typename nt2::meta::call<frexp_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
 
-} // end of test for floating_
+  using boost::simd::native;
+  typedef native<T,NT2_SIMD_DEFAULT_EXTENSION>            vT;
+  typedef typename nt2::meta::as_integer<vT,signed>::type viT;
+
+  NT2_TEST_TYPE_IS( (typename nt2::meta::call<frexp_(vT)>::type)
+                  , (std::pair<vT,viT>)
+                  );
+
+  {
+    viT e;
+    vT  m;
+
+    frexp(nt2::One<vT>(), m, e);
+    NT2_TEST_EQUAL(m, nt2::Half<vT>());
+    NT2_TEST_EQUAL(e, nt2::One<viT>());
+  }
+
+  {
+    viT e;
+    vT  m;
+
+    m = frexp(nt2::One<vT>(), e);
+    NT2_TEST_EQUAL(m, nt2::Half<vT>());
+    NT2_TEST_EQUAL(e, nt2::One<viT>());
+  }
+
+  {
+    viT e;
+    vT  m;
+
+    boost::fusion::vector_tie(m,e) = frexp(nt2::One<vT>());
+    NT2_TEST_EQUAL(m, nt2::Half<vT>());
+    NT2_TEST_EQUAL(e, nt2::One<viT>());
+  }
+
+  {
+    std::pair<vT,viT> p;
+
+    p = frexp(nt2::One<vT>());
+    NT2_TEST_EQUAL(p.first  , nt2::Half<vT>());
+    NT2_TEST_EQUAL(p.second , nt2::One<viT>());
+  }
+}

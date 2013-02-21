@@ -7,72 +7,58 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 /*!
- * \file
+  @file
+  @brief Definition of sincos function
 **/
+
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SINCOS_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SINCOS_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup trigonometric
- * \defgroup trigonometric_sincos sincos
- *
- * \par Description
- * simultaneous sine and cosine.
- * \arg tie(si,co) = sincos(a) returns the sine and cosine of a.
- * \arg si = sincos(a,co) returns the sine of a and put the cosine of a in co.
- * \arg sincos(a,si,co) returns 0 and and put the sine of a in si and the cosine cosine of a in co.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/sincos.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template<class A0> inline
- *   typename boost::dispatch::meta::call<tag::sincos(A0 const&,A0 const&)
- *                                       >::type
- *   sincos(A0 const& a);
- *
- *   template<class A0> inline
- *   A0 sincos(A0 const& a,A0,A0& si);
- *
- *   template<class A0> inline
- *   int sincos(A0 const& a,A0,A0& si,A0& co);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of sincos
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
-
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag sincos_ of functor sincos
-     *        in namespace nt2::tag for toolbox trigonometric
-    **/
+    /// @brief Hierarchy tag for sincos function
     struct sincos_ : ext::elementwise_<sincos_> { typedef ext::elementwise_<sincos_> parent; };
   }
+  /*!
+    @brief sincos
+
+    @c sincos compute simultaneously the sin and cos of the input
+
+    @param a0 angle in radian
+
+    @return A Fusion Sequence containing the sin and cos of @c a0
+  **/
 
   NT2_FUNCTION_IMPLEMENTATION(tag::sincos_, sincos, 1)
-  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sincos_, sincos,(A0 const&)(A1&),2)
-  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sincos_, sincos,(A0 const&)(A1&)(A2&),3)
 
-}
+  /*!
+    @brief sincos
+
+    @c sincos compute simultaneously the sin and cos of the input
+
+    @param a0 angle in radian
+    @param a1 L-Value that will receive the sin off @c a0
+
+    @return A Fusion Sequence containing the cos of @c a0
+  **/
+
+
+   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sincos_, sincos,(A0 const&)(A1&),2)
+
+  /*!
+    @brief  sincos
+
+    @c sincos compute simultaneously the sin and cos of the input
+
+    @param a0 angle in radian
+    @param a1 L-Value that will receive the sin off @c a0
+    @param a1 L-Value that will receive the cos off @c a0
+
+  **/
+   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sincos_, sincos,(A0 const&)(A1&)(A2&),3)
+
+    }
 
 #endif
 
-// modified by jt the 25/12/2010

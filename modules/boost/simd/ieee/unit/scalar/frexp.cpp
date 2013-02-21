@@ -6,44 +6,60 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.ieee toolbox - frexp/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.ieee components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created by jt the 04/12/2010
-///
 #include <boost/simd/toolbox/ieee/include/functions/frexp.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <boost/simd/include/functions/mantissa.hpp>
-#include <boost/simd/include/functions/exponent.hpp>
-
-#include <boost/type_traits/is_same.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/half.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/fusion/include/vector_tie.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/toolbox/constant/constant.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
-
-NT2_TEST_CASE_TPL ( frexp_real__1_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL( frexp, BOOST_SIMD_SIMD_REAL_TYPES)
 {
-
   using boost::simd::frexp;
   using boost::simd::tag::frexp_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<frexp_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef boost::fusion::vector<T,typename boost::dispatch::meta::as_integer<T,signed>::type> wished_r_t;
 
+  typedef typename boost::dispatch::meta::as_integer<T,signed>::type iT;
 
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
+  NT2_TEST_TYPE_IS( (typename boost::dispatch::meta::call<frexp_(T)>::type)
+                  , (std::pair<T,iT>)
+                  );
 
-  iT e;
-  T m = frexp(boost::simd::One<T>(), e);
-  NT2_TEST_EQUAL(m, boost::simd::Half<T>());
-  NT2_TEST_EQUAL(e, 1);
-} // end of test for floating_
+  {
+    iT e;
+    T  m;
+
+    frexp(boost::simd::One<T>(), m, e);
+    NT2_TEST_EQUAL(m, boost::simd::Half<T>());
+    NT2_TEST_EQUAL(e, boost::simd::One<iT>());
+  }
+
+  {
+    iT e;
+    T  m;
+
+    m = frexp(boost::simd::One<T>(), e);
+    NT2_TEST_EQUAL(m, boost::simd::Half<T>());
+    NT2_TEST_EQUAL(e, boost::simd::One<iT>());
+  }
+
+  {
+    iT e;
+    T  m;
+
+    boost::fusion::vector_tie(m,e) = frexp(boost::simd::One<T>());
+    NT2_TEST_EQUAL(m, boost::simd::Half<T>());
+    NT2_TEST_EQUAL(e, boost::simd::One<iT>());
+  }
+
+  {
+    std::pair<T,iT> p;
+
+    p = frexp(boost::simd::One<T>());
+    NT2_TEST_EQUAL(p.first  , boost::simd::Half<T>());
+    NT2_TEST_EQUAL(p.second , boost::simd::One<iT>());
+  }
+}

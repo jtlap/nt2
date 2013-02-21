@@ -6,62 +6,84 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_TWO_SPLIT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_TWO_SPLIT_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_two_split two_split
- *
- * \par Description
- * TODO Put description here
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/two_split.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::two_split_(A0)>::type
- *     two_split(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of two_split
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
+  @file
+  @brief Definition of the two_split function
 **/
 
-namespace boost { namespace simd { namespace tag
+namespace boost { namespace simd
+{
+  namespace tag
   {
-    /*!
-     * \brief Define the tag two_split_ of functor two_split
-     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
-    **/
-    struct two_split_ : ext::elementwise_<two_split_> { typedef ext::elementwise_<two_split_> parent; };
+    /// @brief Hierarchy tag for two_split function
+    struct two_split_ : ext::elementwise_<two_split_>
+    {
+      typedef ext::elementwise_<two_split_> parent;
+    };
   }
+
+  /*!
+    @brief
+
+    For any real @c a0, two_split computes two reals @c r0 and @c r1 so that:
+
+    @code
+    a0 = r0+r1
+    @endcode
+
+    and where @c r0 and @c r1 bit pattern don't overlap.
+
+    @param a0 Value to split
+
+    @return A Fusion Sequence containing @c a0+a1 and the residual.
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::two_split_, two_split, 1)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::two_split_, two_split,(A0 const&)(A0&), 1)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::two_split_, two_split,(A0 const&)(A0&)(A0&), 1)
+
+  /*!
+    @brief
+
+    For any real @c a0, two_split computes two reals @c r0 and @c r1 so that:
+
+    @code
+    a0 = r0+r1
+    @endcode
+
+    and where @c r0 and @c r1 bit pattern don't overlap.
+
+    @param a0 Value to split
+    @param a1 L-Value that will receive @c a0+a1
+
+    @return The sum residual.
+  **/
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL( tag::two_split_, two_split
+                                            , (A0 const&)(A1&)
+                                            , 2
+                                            )
+
+  /*!
+    @brief
+
+    For any real @c a0, two_split computes two reals @c r0 and @c r1 so that:
+
+    @code
+    a0 = r0+r1
+    @endcode
+
+    and where @c r0 and @c r1 bit pattern don't overlap.
+
+    @param a0 Value to split
+    @param a1 L-Value that will receive @c a0+a1.
+    @param a2 L-Value that will receive @c a0+a1 residual.
+  **/
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL( tag::two_split_, two_split
+                                            , (A0 const&)(A1&)(A2&)
+                                            , 3
+                                            )
 } }
 
 #endif
-
-// modified by jt the 25/12/2010

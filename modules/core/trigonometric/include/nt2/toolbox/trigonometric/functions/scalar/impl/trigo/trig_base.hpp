@@ -128,18 +128,18 @@ namespace nt2
           static const sint_type de = static_cast<sint_type>(sizeof(sint_type)*8-1);   // size in bits of the scalar types minus one
           if (is_invalid(a0)) return Nan<A0>(); //Nan or Inf input
           const A0 x =  nt2::abs(a0);
-          A0 xr = Nan<A0>(), xc;
-          const int_type n = redu_t::reduce(x, xr, xc);
+          A0 xr = Nan<A0>();
+          const int_type n = redu_t::reduce(x, xr);
           const int_type swap_bit = n&One<int_type>();
           const int_type sign_bit = shli(b_xor(swap_bit, (n&2)>>1), de);
           A0 z = sqr(xr);
           if (swap_bit)
           {
-            z = eval_t::sin_eval(z, xr, xc);
+            z = eval_t::sin_eval(z, xr);
           }
           else
           {
-            z = eval_t::cos_eval(z, xr, xc);
+            z = eval_t::cos_eval(z);
           }
           return b_xor(z,sign_bit);
         }
@@ -149,18 +149,18 @@ namespace nt2
           static const sint_type de = static_cast<sint_type>(sizeof(sint_type)*8-1);
           if (is_invalid(a0)) return Nan<A0>();
           const A0 x =  nt2::abs(a0);
-          A0 xr = Nan<A0>(), xc;
-          const int_type n = redu_t::reduce(x, xr, xc);
+          A0 xr = Nan<A0>();
+          const int_type n = redu_t::reduce(x, xr);
           const int_type swap_bit = n&One<int_type>();
           const A0 sign_bit = b_xor(bitofsign(a0), shli(n&Two<int_type>(), de-1));
           A0 z = sqr(xr);
           if (swap_bit)
           {
-            z = eval_t::cos_eval(z, xr, xc);
+            z = eval_t::cos_eval(z);
           }
           else
           {
-            z = eval_t::sin_eval(z, xr, xc);
+            z = eval_t::sin_eval(z, xr);
           }
           return b_xor(z,sign_bit);
         }
@@ -170,9 +170,9 @@ namespace nt2
           if (is_invalid(a0)||redu_t::tan_invalid(a0)) return Nan<A0>();
           if (is_eqz(a0)) return a0;
           const A0 x =  nt2::abs(a0);
-          A0 xr = Nan<A0>(), xc, y;
-          const int_type n = redu_t::reduce(x, xr, xc);
-          y = eval_t::tan_eval(xr, xc, 1-((n&1)<<1));
+          A0 xr = Nan<A0>(), y;
+          const int_type n = redu_t::reduce(x, xr);
+          y = eval_t::tan_eval(xr, 1-((n&1)<<1));
           // 1 -- n even
           //-1 -- n odd
           return b_xor(y, bitofsign(a0));
@@ -184,9 +184,9 @@ namespace nt2
           const A0 x = nt2::abs(a0);
           const A0 bos =  bitofsign(a0);
           if (!a0) return b_or(Inf<A0>(), bos);
-          A0 xr = Nan<A0>(), xc;
-          const int_type n = redu_t::reduce(x, xr, xc);
-          const A0 y = eval_t::cot_eval(xr, xc, 1-((n&1)<<1));
+          A0 xr = Nan<A0>();
+          const int_type n = redu_t::reduce(x, xr);
+          const A0 y = eval_t::cot_eval(xr, 1-((n&1)<<1));
           return b_xor(y, bos);
         }
 
@@ -196,8 +196,8 @@ namespace nt2
           if (is_invalid(a0)) { c = Nan<A0>(); return c; }
           const A0 x =  nt2::abs(a0);
           static const sint_type de = static_cast<sint_type>(sizeof(sint_type)*8-1);
-          A0 xr, xc;
-          const int_type n = redu_t::reduce(x, xr, xc);
+          A0 xr;
+          const int_type n = redu_t::reduce(x, xr);
           const int_type swap_bit = n&One<int_type>();
           const A0 z = sqr(xr);
           const int_type cos_sign_bit = shli(b_xor(swap_bit, (n&Two<int_type>())>>1), de);
@@ -205,13 +205,13 @@ namespace nt2
 
           if (is_nez(swap_bit))
           {
-            c = eval_t::sin_eval(z, xr, xc);
-            s = eval_t::cos_eval(z, xr, xc);
+            c = eval_t::sin_eval(z, xr);
+            s = eval_t::cos_eval(z);
           }
           else
           {
-            c = eval_t::cos_eval(z, xr, xc);
-            s = eval_t::sin_eval(z, xr, xc);
+            c = eval_t::cos_eval(z);
+            s = eval_t::sin_eval(z, xr);
           }
           c = b_xor(c,cos_sign_bit);
           return b_xor(s,sin_sign_bit);
@@ -223,7 +223,7 @@ namespace nt2
           if(not_in_range(a0))
             return Nan<A0>();
           else
-            return eval_t::cos_eval(sqr(x), x, Zero<A0>());
+            return eval_t::cos_eval(sqr(x));
         }
 
 
@@ -233,7 +233,7 @@ namespace nt2
           if(not_in_range(a0))
             return Nan<A0>();
           else
-            return eval_t::sin_eval(sqr(x), x, Zero<A0>());
+            return eval_t::sin_eval(sqr(x), x);
         }
 
         static inline A0 tana(const A0& a0, const fast&)
@@ -259,8 +259,8 @@ namespace nt2
           if(not_in_range(a0)){c = Nan<A0>(); return c; }
           A0 x =  scale(a0);
           A0 z =  sqr(x);
-          c = eval_t::cos_eval(z, x, Zero<A0>());
-          return eval_t::sin_eval(z, x, Zero<A0>());
+          c = eval_t::cos_eval(z);
+          return eval_t::sin_eval(z, x);
         }
 
         static inline bool not_in_range(const A0& a0)

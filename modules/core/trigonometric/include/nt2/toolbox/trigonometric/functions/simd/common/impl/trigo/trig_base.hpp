@@ -66,7 +66,7 @@ namespace nt2
           const A0 a0 = a0_n;
           const A0 x = nt2::abs(a0);
           A0 xr = Nan<A0>(), xc;
-          const int_type n =  redu_t::reduce(x, xr, xc);
+          const int_type n =  redu_t::reduce(x, xr); //, xc);
           const int_type swap_bit = n&One<int_type>();
           const int_type sign_bit = shli(b_xor(swap_bit, shri(n&Two<int_type>(), 1)), Maxleftshift<sint_type>());
           const A0 z = sqr(xr);
@@ -87,7 +87,7 @@ namespace nt2
           const A0 a0 = a0_n;
           const A0 x = nt2::abs(a0);
           A0 xr = Nan<A0>(), xc;
-          const int_type n = redu_t::reduce(x, xr, xc);
+          const int_type n = redu_t::reduce(x, xr); //, xc);
           const int_type swap_bit = n&One<int_type>();
           const A0 sign_bit = b_xor(bitofsign(a0),
                                     shli(n&Two<int_type>(),Maxleftshift<sint_type>()-1));
@@ -107,8 +107,8 @@ namespace nt2
         {
           const A0 a0 = a0_n;
           const A0 x =  nt2::abs(a0);
-          A0 xr = Nan<A0>(), xc;
-          const int_type n = redu_t::reduce(x, xr, xc);
+          A0 xr = Nan<A0>(); //, xc;
+          const int_type n = redu_t::reduce(x, xr); //, xc);
           const A0 y = eval_t::tan_eval(xr, oneminus(shli((n&One<int_type>()), 1)));
           // 1 -- n even  -1 -- n odd
           const bA0 testnan = redu_t::tan_invalid(a0);
@@ -125,8 +125,8 @@ namespace nt2
 
           const A0 a0 = a0_n;
           const A0 x = nt2::abs(a0);
-          A0 xr = Nan<A0>(), xc;
-          const int_type n = redu_t::reduce(x, xr, xc);
+          A0 xr = Nan<A0>(); //, xc;
+          const int_type n = redu_t::reduce(x, xr); //, xc);
           const A0 y = eval_t::cot_eval(xr, oneminus(shli((n&One<int_type>()), 1)));
           // 1 -- n even -1 -- n odd
           const bA0 testnan = redu_t::cot_invalid(a0);
@@ -148,8 +148,8 @@ namespace nt2
         {
           const A0 a0 = a0_n;
           const A0 x =  nt2::abs(a0);
-          A0 xr = Nan<A0>(), xc;
-          const int_type n = redu_t::reduce(x, xr, xc);
+          A0 xr = Nan<A0>(); //, xc;
+          const int_type n = redu_t::reduce(x, xr); //, xc);
           const int_type swap_bit = n&One<int_type>();
           const A0 z = nt2::sqr(xr);
           const int_type cos_sign_bit = shli(b_xor(swap_bit, shri(n&Two<int_type>(), 1)),  Maxleftshift<sint_type>());
