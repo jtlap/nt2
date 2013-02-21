@@ -7,6 +7,13 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-nt2_module_use_modules(unit)
-ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(general)
+SET( SOURCES
+  db.cpp
+  pow2db.cpp
+  mag2db.cpp
+  db2pow.cpp
+  db2mag.cpp
+# List of scalar test files for toolbox polynomials
+   )
+
+nt2_module_add_tests(core.signal.scalar.unit ${SOURCES})

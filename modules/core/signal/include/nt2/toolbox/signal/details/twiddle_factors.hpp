@@ -14,7 +14,7 @@
     #define _USE_MATH_DEFINES
 #endif
 
-#include <nt2/signal/static_sincos.hpp>
+#include <nt2/toolbox/signal/details/static_sincos.hpp>
 
 #include <nt2/include/functions/scalar/sincospi.hpp>
 #include <nt2/include/functions/simd/sinecosine.hpp>
