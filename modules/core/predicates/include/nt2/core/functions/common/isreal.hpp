@@ -10,9 +10,10 @@
 #define NT2_CORE_FUNCTIONS_COMMON_ISREAL_HPP_INCLUDED
 
 #include <nt2/core/functions/isreal.hpp>
-#include <nt2/include/functions/all.hpp>
+#include <nt2/sdk/complex/meta/is_complex.hpp>
+#include <nt2/include/functions/globalall.hpp>
 #include <nt2/include/functions/is_real.hpp>
-
+#include <boost/mpl/bool.hpp>
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isreal_, tag::cpu_
@@ -25,12 +26,20 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0& a0) const
     {
-      typedef typename nt2::meta::scalar_of<A0>::type sA0;
-      //      if(nt2::meta::is_real<sA0>::type::value)  return true;
-      if(nt2::all(nt2::is_real(a0(_)))(1))      return true;
-      return false;
-
+      typedef typename A0::value_type value_type;
+      typedef typename nt2::meta::is_complex<value_type>::type choice_t;
+      return do_it(a0, choice_t());
     }
+  private:
+    static inline bool do_it(const A0& a0, boost::mpl::true_ const&)
+    {
+      return nt2::globalall(nt2::is_real(a0));
+    }
+    static inline bool do_it(const A0&, boost::mpl::false_ const &)
+    {
+      return true;
+    }
+
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isreal_, tag::cpu_
