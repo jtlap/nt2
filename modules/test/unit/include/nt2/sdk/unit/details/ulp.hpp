@@ -32,6 +32,15 @@ namespace nt2 { namespace details
     std::size_t index;
   };
 
+  /// ULP test is a success
+  NT2_TEST_UNIT_DECL void ulp_pass(const char* desc, double ulpd, double N);
+
+  /// ULP test is a failure
+  NT2_TEST_UNIT_DECL
+  void ulp_fail ( const char* desc, const char* f, int line
+                , std::size_t size, double N
+                );
+
   /// Default implementation of max_ulps forward to generic ulpdist
   template<class A,class B>
   BOOST_FORCEINLINE double max_ulps(A const& a, B const& b )

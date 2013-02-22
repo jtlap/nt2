@@ -49,8 +49,7 @@ NT2_TEST_CASE_TPL ( remquo_real__2_0,  (double))
   // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   iT n = 0;
-  int32_t n1;
-  T r, r1;
+  T r;
 
   remquo(nt2::Nan<double>(), T(1), r, n);
   NT2_TEST_EQUAL(r, nt2::Nan<double>());
@@ -60,6 +59,9 @@ NT2_TEST_CASE_TPL ( remquo_real__2_0,  (double))
   NT2_TEST_EQUAL(n, 0);
 
 #ifdef BOOST_SIMD_HAS_REMQUO
+  int32_t n1;
+  T r1;
+
   T a[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
   T b[9] = {2, 3, 4, 5, 6, 7, 8, 9, 10};
 
@@ -90,8 +92,7 @@ NT2_TEST_CASE_TPL ( remquo_real__2_0f,  (float))
   // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   iT n = 0;
-  int32_t n1;
-  T r, r1;
+  T r;
 
   remquo(nt2::Nan<float>(), T(1), r, n);
   NT2_TEST_EQUAL(r, nt2::Nan<float>());
@@ -101,6 +102,9 @@ NT2_TEST_CASE_TPL ( remquo_real__2_0f,  (float))
   NT2_TEST_EQUAL(n, 0);
 
 #ifdef BOOST_SIMD_HAS_REMQUO
+  int32_t n1;
+  T r1;
+
   T a[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
   T b[9] = {2, 3, 4, 5, 6, 7, 8, 9, 10};
 

@@ -66,8 +66,10 @@ NT2_TEST_CASE_TPL( load_offset,  BOOST_SIMD_SIMD_TYPES)
   BOOST_SIMD_ALIGNED_TYPE(T) data[ cardinal_of<vT>::value*3 ];
   for(size_t i=0;i<cardinal_of<vT>::value*3;++i) data[i] = T(1+i);
 
+  std::ptrdiff_t off = cardinal_of<vT>::value;
+
   {
-    r_t v = boost::simd::load<vT>(&data[cardinal_of<vT>::value],-cardinal_of<vT>::value);
+    r_t v = boost::simd::load<vT>(&data[cardinal_of<vT>::value],-off);
     for(size_t j=0;j<cardinal_of<vT>::value;++j)
       NT2_TEST_EQUAL(v[j] , data[j]);
   }
@@ -79,7 +81,7 @@ NT2_TEST_CASE_TPL( load_offset,  BOOST_SIMD_SIMD_TYPES)
   }
 
   {
-    r_t v = boost::simd::load<vT>(&data[cardinal_of<vT>::value],+cardinal_of<vT>::value);
+    r_t v = boost::simd::load<vT>(&data[cardinal_of<vT>::value],+off);
     for(size_t j=0;j<cardinal_of<vT>::value;++j)
       NT2_TEST_EQUAL(v[j] , data[j+2*cardinal_of<vT>::value]);
   }

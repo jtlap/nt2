@@ -22,6 +22,48 @@
 #include <nt2/sdk/unit/details/ulp.hpp>
 #include <boost/current_function.hpp>
 
+namespace nt2 { namespace details
+{
+  template<typename A, typename B>
+  void test_ulp_equal ( const char* desc
+                      , const char* func, int line
+                      , A const& a, B const& b
+                      , double N
+                      )
+  {
+    typedef BOOST_TYPEOF(nt2::unit::eval(a))                        a_t;
+    typedef BOOST_TYPEOF(nt2::unit::eval(b))                        b_t;
+    typedef typename nt2::details::max_ulp_<a_t,b_t>::failure_type  f_t;
+
+    std::vector< f_t > ulps;
+    double ulpd = nt2::unit::max_ulp( nt2::unit::eval(a)
+                                    , nt2::unit::eval(b)
+                                    , N, ulps
+                                    );
+    if( ulps.empty() )
+    {
+      ::nt2::details::ulp_pass( desc, ulpd, N );
+    }
+    else
+    {
+      ::nt2::details::ulp_fail( desc, func, line, ulps.size(),N);
+
+      std::cout << std::setprecision(20);
+
+      BOOST_FOREACH ( f_t const & f, ulps )
+      {
+        std::cout << "\tlhs: "  << f.value
+                  << ", rhs: "  << f.desired_value
+                  << ", ULP: "  << f.ulp_error
+                  << ", @( "    << f.index << " )";
+        std::cout << std::endl;
+      }
+
+      std::cout << std::endl;
+    }
+  }
+} }
+
 /*!
   @brief Check for absolute precision
 
@@ -31,51 +73,17 @@
   @usage
   @include test_ulp.cpp
 **/
-#define NT2_TEST_ULP_EQUAL(A, B, N)                                     \
-do                                                                      \
-{                                                                       \
-  nt2::unit::test_count()++;                                            \
-                                                                        \
-  typedef BOOST_TYPEOF_TPL(nt2::unit::eval(A))          a_t;            \
-  typedef BOOST_TYPEOF_TPL(nt2::unit::eval(B))          b_t;            \
-  typedef typename nt2::details::max_ulp_<a_t,b_t>::failure_type f_t;   \
-                                                                        \
-  std::vector< f_t > ulps;                                              \
-  double ulpd = nt2::unit::max_ulp( nt2::unit::eval(A)                  \
-                                  , nt2::unit::eval(B)                  \
-                                  , N, ulps                             \
-                                  );                                    \
-  if( ulps.empty() )                                                    \
-  {                                                                     \
-    ::nt2::unit::pass( #A " == " #B );                                  \
-    std::cout << "   with a maximum ULP distance of "                   \
-              << ulpd                                                   \
-              << " within a " << N << " ULP tolerance."                 \
-              << std::endl << std::endl;                                \
-  }                                                                     \
-  else                                                                  \
-  {                                                                     \
-    ::nt2::unit::fail(#A " == " #B, __LINE__, BOOST_CURRENT_FUNCTION ); \
-    std::cout << "   because the ULP distance for the following "       \
-              << ulps.size() << " values exceeded the maximum "         \
-              << "tolerance of " << N << " ULPs."                       \
-              << std::endl;                                             \
-                                                                        \
-    std::cout << std::setprecision(20);                                 \
-                                                                        \
-    BOOST_FOREACH ( f_t const & f, ulps )                               \
-    {                                                                   \
-      std::cout << "\tvalue: "  << f.value                              \
-                << ", target: " << f.desired_value                      \
-                << ", ULP: "    << f.ulp_error                          \
-                << ", index: "  << f.index;                             \
-      std::cout << std::endl;                                           \
-    }                                                                   \
-                                                                        \
-    std::cout << std::endl;                                             \
-  }                                                                     \
-}                                                                       \
-while(0)                                                                \
+#define NT2_TEST_ULP_EQUAL(A, B, N)                               \
+do                                                                \
+{                                                                 \
+  nt2::unit::test_count()++;                                      \
+                                                                  \
+  nt2::details::test_ulp_equal( #A " == " #B                      \
+                              , BOOST_CURRENT_FUNCTION, __LINE__  \
+                              , A, B, N                           \
+                              );                                  \
+}                                                                 \
+while(0)                                                          \
 /**/
 
 #endif

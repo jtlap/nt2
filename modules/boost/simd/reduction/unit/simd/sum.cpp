@@ -76,7 +76,7 @@ NT2_TEST_CASE_TPL ( sum_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  int c = cardinal_of<n_t>();
+  std::size_t c = cardinal_of<n_t>::value;
   NT2_TEST_ULP_EQUAL(sum(boost::simd::One<vT>()), T(c), 0);
   NT2_TEST_ULP_EQUAL(sum(boost::simd::Two<vT>()), T(2*c), 0);
   NT2_TEST_ULP_EQUAL(sum(boost::simd::Zero<vT>()), boost::simd::Zero<sr_t>(), 0);

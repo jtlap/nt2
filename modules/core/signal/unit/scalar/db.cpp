@@ -26,15 +26,12 @@
 
 NT2_TEST_CASE_TPL ( db_real__1_0,  NT2_REAL_TYPES)
 {
-
   using nt2::db;
   using nt2::tag::db_;
-  NT2_DISPLAY(db(T(1), T(2)));
+
   NT2_TEST_ULP_EQUAL(T(10)*log10(T(0.5)), db(T(1), T(2)), 0.5);
   NT2_TEST_ULP_EQUAL(T(10)*log10(T(0.5)), db(T(1), nt2::voltage_, T(2)), 0.5);
   NT2_TEST_ULP_EQUAL(T(10)*log10(T(0.25)), db(T(0.5)), 0.5);
   NT2_TEST_ULP_EQUAL(T(10)*log10(T(0.25)), db(T(0.5), nt2::voltage_), 0.5);
   NT2_TEST_ULP_EQUAL(T(10)*log10(T(0.5)), db(T(0.5), nt2::power_), 0.5);
-} // end of test for floating_
-
-
+}
