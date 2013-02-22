@@ -30,6 +30,7 @@ SET( SOURCES
   hankel.cpp
   hanowa.cpp
   hilb.cpp
+  house.cpp
   invhilb.cpp
   jordbloc.cpp
   magic.cpp
