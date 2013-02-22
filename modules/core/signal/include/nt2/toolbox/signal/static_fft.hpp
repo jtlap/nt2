@@ -528,7 +528,7 @@ namespace detail
     T const (* BOOST_DISPATCH_RESTRICT sign_flipper_aux())[ 4 ]
     {
         unsigned int const mzero_shift( sizeof( T ) * 8 - 1 );
-        unsigned int const cardinal   ( 4                   );
+        static unsigned int const cardinal = 4;
 
         static T const BOOST_SIMD_ALIGN_ON( BOOST_SIMD_CONFIG_ALIGNMENT )
             flipper[ cardinal ] = { e0 << mzero_shift, e1 << mzero_shift, e2 << mzero_shift, e3 << mzero_shift };
