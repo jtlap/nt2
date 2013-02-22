@@ -19,6 +19,7 @@ set( SOURCES
   abs.cpp
   arg.cpp
   dist.cpp
+  hypot.cpp
   sqrt.cpp
   fma.cpp
   average.cpp
