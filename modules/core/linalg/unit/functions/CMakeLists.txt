@@ -32,6 +32,7 @@ SET( SOURCES
   hilb.cpp
   house.cpp
   invhess.cpp
+  invol.cpp
   invhilb.cpp
   jordbloc.cpp
   magic.cpp
