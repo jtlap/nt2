@@ -34,6 +34,7 @@ SET( SOURCES
   invhess.cpp
   invol.cpp
   invhilb.cpp
+  ipjfact.cpp
   jordbloc.cpp
   magic.cpp
   minij.cpp
