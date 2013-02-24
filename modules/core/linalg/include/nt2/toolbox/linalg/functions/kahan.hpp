@@ -87,12 +87,8 @@ namespace nt2 { namespace ext
   struct  size_of<tag::kahan_, Domain, N, Expr>
   {
     typedef _2D                               result_type;
-    typedef typename  boost::proto::result_of::child_c<Expr&,0>::type      tmp_type;
-    typedef typename  meta::strip<tmp_type>::type                            s_type;
-    typedef typename  nt2::meta::is_scalar<s_type> ::type                  choice_t;
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
-      NT2_DISPLAY(boost::proto::value((boost::proto::child_c<2>(e))));
       return boost::proto::value(boost::proto::child_c<2>(e));
     }
   };
