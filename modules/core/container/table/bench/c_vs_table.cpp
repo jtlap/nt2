@@ -155,7 +155,7 @@ NT2_EXPERIMENT(raw_C)
     return r.second/1e3;
   }
 
-  virtual void info(std::ostream& os) const { os << d0 << "x" << d1; }
+  virtual void info(std::ostream& os) const { os << d; }
 
   virtual void reset() const
   {
