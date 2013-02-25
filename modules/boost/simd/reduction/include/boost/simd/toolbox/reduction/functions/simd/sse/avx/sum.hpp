@@ -11,8 +11,7 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
 #include <boost/simd/toolbox/reduction/functions/sum.hpp>
-#include <boost/simd/include/functions/simd/sum.hpp>
-#include <boost/simd/include/functions/simd/multiplies.hpp>
+#include <boost/simd/include/constants/one.hpp>
 
 // /////////////////////////////////////////////////////////////////////////////
 // // Implementation when type  is arithmetic_
@@ -23,34 +22,34 @@ namespace boost { namespace simd { namespace ext
                                     (A0),
                                     ((simd_<double_<A0>,boost::simd::tag::sse_>))
                                     ((simd_<double_<A0>,boost::simd::tag::sse_>))
-                                    )
+                                   )
   {
     typedef typename meta::scalar_of<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-      {
-        A0 r = _mm256_dp_pd(a0, One<A0>(), 0x3);
-        return r[0];
-      }
+    {
+      A0 r = _mm256_dp_pd(a0, One<A0>(), 0x3);
+      return r[0];
+    }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sum_, boost::simd::tag::avx_,
                                     (A0),
                                     ((simd_<single_<A0>,boost::simd::tag::avx_>))
                                     ((simd_<single_<A0>,boost::simd::tag::avx_>))
-                                    )
+                                   )
   {
     typedef typename meta::scalar_of<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-      {
-        A0 r = _mm256_dp_ps(a0, One<A0>(), 0xFF);
-        return r[0]+r[4];
-// this in another solution for floats,  perhaps speedier ?
-// x3 = _mm256_add_ps(x0, _mm256_movehdup_ps(x0));
-// x4 = _mm256_unpackhi_ps(x3, x3)  ;
-// x4 = _mm256_add_ps(x3, x4)  ;
-// x5 = _mm256_permute2f128_ps(x4, x4, 0x01)  ;
-// x5 = _mm256_add_ps(x5, x4)  ;
-      }
+    {
+      A0 r = _mm256_dp_ps(a0, One<A0>(), 0xFF);
+      return r[0]+r[4];
+      // this in another solution for floats,  perhaps speedier ?
+      // x3 = _mm256_add_ps(x0, _mm256_movehdup_ps(x0));
+      // x4 = _mm256_unpackhi_ps(x3, x3)  ;
+      // x4 = _mm256_add_ps(x3, x4)  ;
+      // x5 = _mm256_permute2f128_ps(x4, x4, 0x01)  ;
+      // x5 = _mm256_add_ps(x5, x4)  ;
+    }
   };
 
 } } }
