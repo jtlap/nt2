@@ -21,43 +21,45 @@
 
 namespace nt2
 {
-    static unsigned long long get_timer_resolution()
-    {
-        LARGE_INTEGER frequency;
-        BOOST_VERIFY( ::QueryPerformanceFrequency( &frequency ) );
-        return frequency.QuadPart;
-    }
+  static unsigned long long get_timer_resolution()
+  {
+    LARGE_INTEGER frequency;
+    BOOST_VERIFY( ::QueryPerformanceFrequency( &frequency ) );
 
-    static double const timer_ticks_per_microsecond( get_timer_resolution() / 1000000.0 );
+    return frequency.QuadPart;
+  }
 
-    NT2_SDK_TIMING_DECL time_quantum_t time_quantum()
-    {
-        // http://support.microsoft.com/kb/172338
-        BOOST_ASSERT_MSG
-        (
-            timer_ticks_per_microsecond == get_timer_resolution(),
-            "MSDN explicitly states for QueryPerformanceFrequency: 'The frequency cannot change while the system is running.'"
-        );
-        /// \todo Also add http://msdn.microsoft.com/en-us/library/ms684208(VS.85).aspx.
-        ///                                   (18.10.2012.) (Domagoj Saric)
-        /// \todo Assert these no longer apply:
-        /// http://support.microsoft.com/kb/274323 (http://bullet.googlecode.com/svn/tags/bullet-2.72-release/src/LinearMath/btQuickprof.h)
-        /// http://www.virtualdub.org/blog/pivot/entry.php?id=106.
-        ///                                   (18.10.2012.) (Domagoj Saric)
-        #ifdef __GNUC__
-        __asm__ ("" :::"memory" );
-        #else
-        ::_ReadWriteBarrier();
-        #endif
-        LARGE_INTEGER result;
-        BOOST_VERIFY( ::QueryPerformanceCounter( &result ) );
-        #ifdef __GNUC__
-        __asm__ ("" :::"memory" );
-        #else
-        ::_ReadWriteBarrier();
-        #endif
-        return result.QuadPart;
-    }
+  static double const timer_ticks_per_microsecond( get_timer_resolution() / 1000000.0 );
+
+  NT2_SDK_TIMING_DECL time_quantum_t time_quantum()
+  {
+    // http://support.microsoft.com/kb/172338
+    BOOST_ASSERT_MSG
+    (
+      timer_ticks_per_microsecond == ( get_timer_resolution() / 1000000.0 ),
+      "MSDN explicitly states for QueryPerformanceFrequency: "
+      "'The frequency cannot change while the system is running.'"
+    );
+    /// \todo Also add http://msdn.microsoft.com/en-us/library/ms684208(VS.85).aspx.
+    ///                                   (18.10.2012.) (Domagoj Saric)
+    /// \todo Assert these no longer apply:
+    /// http://support.microsoft.com/kb/274323 (http://bullet.googlecode.com/svn/tags/bullet-2.72-release/src/LinearMath/btQuickprof.h)
+    /// http://www.virtualdub.org/blog/pivot/entry.php?id=106.
+    ///                                   (18.10.2012.) (Domagoj Saric)
+    #ifdef __GNUC__
+    __asm__ ("" :::"memory" );
+    #else
+    ::_ReadWriteBarrier();
+    #endif
+    LARGE_INTEGER result;
+    BOOST_VERIFY( ::QueryPerformanceCounter( &result ) );
+    #ifdef __GNUC__
+    __asm__ ("" :::"memory" );
+    #else
+    ::_ReadWriteBarrier();
+    #endif
+    return result.QuadPart;
+  }
 }
 
 //==============================================================================
