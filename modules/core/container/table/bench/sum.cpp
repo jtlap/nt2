@@ -6,189 +6,93 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2 container sum"
-
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/of_size.hpp>
-#include <nt2/toolbox/operator/operator.hpp>
-#include <nt2/include/functions/function.hpp>
 #include <nt2/include/functions/sum.hpp>
+#include <nt2/include/functions/plus.hpp>
 
-#include <nt2/sdk/timing/now.hpp>
-#include <nt2/sdk/unit/details/helpers.hpp>
-#include <nt2/sdk/unit/perform_benchmark.hpp>
-#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/bench/benchmark.hpp>
 
-template<class T> struct outer_4D_test
+template< typename T, int N
+        , class Tag = boost::dispatch::default_site<void>::type
+        >
+NT2_EXPERIMENT(sum_over)
 {
-  outer_4D_test(std::size_t m, std::size_t n, std::size_t o,std::size_t p,T const& min, T const& max )
-    : a0(nt2::of_size(m,n,o,p)), a1(nt2::of_size(m,n,o,p))
-      ,M(m),N(n),O(o),P(p)
+  public:
+  sum_over( std::size_t s0, std::size_t s1 )
+          : NT2_EXPRIMENT_CTOR(1.,"cycles/operations")
+          , d0(s0), d1(s1)
+  {}
+
+  virtual void run() const { a1 = nt2::sum(a0,N); }
+
+  virtual double compute(nt2::benchmark_result_t const& r) const
   {
-    for(std::size_t l=1;l<=P; ++l)
-      for(std::size_t k=1; k<=O; ++k)
-        for(std::size_t j=1; j<=N; ++j)
-          for(std::size_t i=1; i<=M; ++i)
-            a1(i,j,k,l)  = a0(i,j,k,l) = roll<T>(min,max);
+    return r.first/double(d0*d1);
   }
 
-  void operator()()
+  virtual void info(std::ostream& os) const { os << d0 << "x" << d1; }
+
+  virtual void reset() const
   {
-    a1 = nt2::sum(a0,4);
+    a0.resize(nt2::of_size(d0,d1));
+    a1.resize(nt2::of_size( N==1 ? 1 : d0
+                          , N==2 ? 1 : d1
+                          )
+                );
+
+    for(std::size_t i=1; i<=d0*d1; ++i) a0(i) = T(1);
   }
 
-  void reset() {}
-
-  nt2::container::table<T, nt2::settings(nt2::_4D)> a0,a1;
-  std::size_t M,N,O,P;
-};
-
-template<class T> struct inner_4D_test
-{
-  inner_4D_test(std::size_t m, std::size_t n, std::size_t o,std::size_t p,T const& min, T const& max )
-    : a0(nt2::of_size(m,n,o,p)), a1(nt2::of_size(m,n,o,p))
-      ,M(m),N(n),O(o),P(p)
-  {
-    for(std::size_t l=1;l<=P; ++l)
-      for(std::size_t k=1; k<=O; ++k)
-        for(std::size_t j=1; j<=N; ++j)
-          for(std::size_t i=1; i<=M; ++i)
-            a1(i,j,k,l)  = a0(i,j,k,l) = roll<T>(min,max);
-  }
-
-  void operator()()
-  {
-    a1 = nt2::sum(a0,1);
-  }
-
-  void reset() {}
-
-  nt2::container::table<T, nt2::settings(nt2::_4D)> a0,a1;
-  std::size_t M,N,O,P;
-};
-
-template<class T> struct partial_4D_test
-{
-  partial_4D_test(std::size_t m, std::size_t n, std::size_t o,std::size_t p,T const& min, T const& max )
-    : a0(nt2::of_size(m,n,o,p)), a1(nt2::of_size(m,n,o,p))
-      ,M(m),N(n),O(o),P(p)
-  {
-    for(std::size_t l=1;l<=P; ++l)
-      for(std::size_t k=1; k<=O; ++k)
-        for(std::size_t j=1; j<=N; ++j)
-          for(std::size_t i=1; i<=M; ++i)
-            a1(i,j,k,l)  = a0(i,j,k,l) = roll<T>(min,max);
-  }
-
-  void operator()()
-  {
-    a1 = nt2::sum(a0,3);
-  }
-
-  void reset() {}
-
-  nt2::container::table<T, nt2::settings(nt2::_4D)> a0,a1;
-  std::size_t M,N,O,P;
-};
-
-template<class T> struct total_4D_test
-{
-  total_4D_test(std::size_t m, std::size_t n, std::size_t o,std::size_t p,T const& min, T const& max )
-    : a0(nt2::of_size(m,n,o,p)), a1(nt2::of_size(m,n,o,p))
-      ,M(m),N(n),O(o),P(p)
-  {
-    for(std::size_t l=1;l<=P; ++l)
-      for(std::size_t k=1; k<=O; ++k)
-        for(std::size_t j=1; j<=N; ++j)
-          for(std::size_t i=1; i<=M; ++i)
-            a1(i,j,k,l)  = a0(i,j,k,l) = roll<T>(min,max);
-  }
-
-  void operator()()
-  {
-    a1 = nt2::sum(a0(nt2::_));
-  }
-
-  void reset() {}
-
-  nt2::container::table<T, nt2::settings(nt2::_4D)> a0,a1;
-  std::size_t M,N,O,P;
+  private:
+          std::size_t                               d0,d1;
+  mutable nt2::container::table<T, nt2::settings()> a0,a1;
 };
 
 
-template<class T> void do_test_()
-{
-  std::cout << "\tOuter_fold\n";
-  std::cout << "Size\ttable (c/e)\ttable (s)\n";
+#define NT2_SUM_EXP(T,D,N)                                        \
+NT2_RUN_EXPERIMENT_TPL( sum_over, ((T,D)), (1<<N,1<<N) )          \
+NT2_RUN_EXPERIMENT_TPL( sum_over, ((T,D)), ((1<<N)-1,(1<<N)-1 ) ) \
+NT2_RUN_EXPERIMENT_TPL( sum_over, ((T,D)), (1   ,1<<N) )          \
+NT2_RUN_EXPERIMENT_TPL( sum_over, ((T,D)), (1<<N,1   ) )          \
+/**/
 
-  for(int N=4;N<=64;N*=2)
-  {
-    std::cout.precision(3);
-    std::cout << N << "^4\t";
-    outer_4D_test<T> tt(N,N,N,N,-.28319, .28319);
-    nt2::unit::benchmark_result<nt2::details::cycles_t> dv;
-    nt2::unit::perform_benchmark( tt, 1., dv);
-    nt2::unit::benchmark_result<double> tv;
-    nt2::unit::perform_benchmark( tt, 1., tv);
-    std::cout << std::scientific << dv.median/(double)(N*N*N) << "\t";
-    std::cout << std::scientific << tv.median << "\n";
+NT2_SUM_EXP(double , 1,  4 );
+NT2_SUM_EXP(double , 1,  5 );
+NT2_SUM_EXP(double , 1,  6 );
+NT2_SUM_EXP(double , 1,  7 );
+NT2_SUM_EXP(double , 1,  8 );
+NT2_SUM_EXP(double , 1,  9 );
+NT2_SUM_EXP(double , 1, 10 );
+NT2_SUM_EXP(double , 1, 11 );
+NT2_SUM_EXP(double , 1, 12 );
 
-  }
+NT2_SUM_EXP(float , 1,  4 );
+NT2_SUM_EXP(float , 1,  5 );
+NT2_SUM_EXP(float , 1,  6 );
+NT2_SUM_EXP(float , 1,  7 );
+NT2_SUM_EXP(float , 1,  8 );
+NT2_SUM_EXP(float , 1,  9 );
+NT2_SUM_EXP(float , 1, 10 );
+NT2_SUM_EXP(float , 1, 11 );
+NT2_SUM_EXP(float , 1, 12 );
 
-  std::cout << "\tPartial_fold\n";
-  std::cout << "Size\ttable (c/e)\ttable (s)\n";
+NT2_SUM_EXP(double , 2,  4 );
+NT2_SUM_EXP(double , 2,  5 );
+NT2_SUM_EXP(double , 2,  6 );
+NT2_SUM_EXP(double , 2,  7 );
+NT2_SUM_EXP(double , 2,  8 );
+NT2_SUM_EXP(double , 2,  9 );
+NT2_SUM_EXP(double , 2, 10 );
+NT2_SUM_EXP(double , 2, 11 );
+NT2_SUM_EXP(double , 2, 12 );
 
-  for(int N=4;N<=64;N*=2)
-  {
-    std::cout.precision(3);
-    std::cout << N << "^4\t";
-    partial_4D_test<T> tt(N,N,N,N,-.28319, .28319);
-    nt2::unit::benchmark_result<nt2::details::cycles_t> dv;
-    nt2::unit::perform_benchmark( tt, 1., dv);
-    nt2::unit::benchmark_result<double> tv;
-    nt2::unit::perform_benchmark( tt, 1., tv);
-    std::cout << std::scientific << dv.median/(double)(N*N*N) << "\t";
-    std::cout << std::scientific << tv.median << "\n";
-
-  }
-
-  std::cout << "\tInner_fold\n";
-  std::cout << "Size\ttable (c/e)\ttable (s)\n";
-
-  for(int N=4;N<=64;N*=2)
-  {
-    std::cout.precision(3);
-    std::cout << N << "^4\t";
-    inner_4D_test<T> tt(N,N,N,N,-.28319, .28319);
-    nt2::unit::benchmark_result<nt2::details::cycles_t> dv;
-    nt2::unit::perform_benchmark( tt, 1., dv);
-    nt2::unit::benchmark_result<double> tv;
-    nt2::unit::perform_benchmark( tt, 1., tv);
-    std::cout << std::scientific << dv.median/(double)(N*N*N) << "\t";
-    std::cout << std::scientific << tv.median << "\n";
-
-  }
-
-  std::cout << "\tTotal_fold\n";
-  std::cout << "Size\ttable (c/e)\ttable (s)\n";
-
-  for(int N=4;N<=64;N*=2)
-  {
-    std::cout.precision(3);
-    std::cout << N << "^4\t";
-    total_4D_test<T> tt(N,N,N,N,-.28319, .28319);
-    nt2::unit::benchmark_result<nt2::details::cycles_t> dv;
-    nt2::unit::perform_benchmark( tt, 1., dv);
-    nt2::unit::benchmark_result<double> tv;
-    nt2::unit::perform_benchmark( tt, 1., tv);
-    std::cout << std::scientific << dv.median/(double)(N*N*N) << "\t";
-    std::cout << std::scientific << tv.median << "\n";
-
-  }
-
-}
-
-NT2_TEST_CASE_TPL( sum, (double)(float) )
-{
-  do_test_<T>();
-}
+NT2_SUM_EXP(float , 2,  4 );
+NT2_SUM_EXP(float , 2,  5 );
+NT2_SUM_EXP(float , 2,  6 );
+NT2_SUM_EXP(float , 2,  7 );
+NT2_SUM_EXP(float , 2,  8 );
+NT2_SUM_EXP(float , 2,  9 );
+NT2_SUM_EXP(float , 2, 10 );
+NT2_SUM_EXP(float , 2, 11 );
+NT2_SUM_EXP(float , 2, 12 );
