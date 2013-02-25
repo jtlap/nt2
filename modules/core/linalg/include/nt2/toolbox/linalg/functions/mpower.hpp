@@ -15,9 +15,11 @@
 #include <nt2/sdk/meta/value_as.hpp>
 #include <nt2/core/utility/max_extent.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
+#include <nt2/sdk/complex/meta/is_complex.hpp>
 #include <nt2/include/functions/isscalar.hpp>
 #include <nt2/include/functions/issquare.hpp>
 #include <nt2/include/functions/extent.hpp>
+#include <boost/mpl/if.hpp>
 #include <boost/assert.hpp>
 
 namespace nt2
@@ -71,7 +73,14 @@ namespace nt2 { namespace ext
   template<class Domain, int N, class Expr>
   struct  value_type<tag::mpower_,Domain,N,Expr>
         : meta::value_as<Expr,0>
-  {};
+  {
+    typedef typename  boost::proto::result_of::child_c<Expr&,0>::value_type::value_type v0_t;
+    typedef typename  boost::proto::result_of::child_c<Expr&,1>::value_type::value_type v1_t;
+    typedef typename  meta::is_complex<v0_t>::type                                  iscplx_0;
+    typedef typename  meta::is_complex<v1_t>::type                                  iscplx_1;
+    typedef typename  boost::mpl::if_<iscplx_0, v0_t, v1_t>::type                       t0_t;
+    typedef typename  boost::mpl::if_<iscplx_1, v1_t, t0_t>::type                       type;
+  };
 } }
 
 #endif
