@@ -63,7 +63,7 @@ namespace nt2 { namespace ext
       #pragma omp parallel
       {
         #pragma omp for schedule(static)
-        for(std::ptrdiff_t j = 0; j != obound; ++j)
+        for(std::ptrdiff_t j = 0; j < obound; ++j)
         {
           std::size_t k = j*bound;
           target_type vec_out = neutral(nt2::meta::as_<target_type>());;
