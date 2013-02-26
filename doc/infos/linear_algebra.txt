@@ -23,11 +23,11 @@ norm                |  norm                               |     Vector and matri
 normest             |  normest                            |     2-norm estimate                                                   |  core/linalg
 null                |  null                               |     Null space                                                        |  core/linalg
 orth                |  orth                               |     Range space of matrix                                             |  core/linalg
-rank                |  rank                               |     Rank of matrix                                                    |
+rank                |  rank                               |     Rank of matrix                                                    |  core/linalg
 rcond               |  rcond  TODO                        |     Matrix reciprocal condition number estimate                       |
 rref                |  rref                               |     Reduced row echelon form                                          |  core/linalg
-subspace            |  subspace TODO                      |     Angle between two subspaces                                       |
-trace               |  trace                              |     Sum of diagonal elementsces                                       |  core/linalg
+subspace            |  subspace TODO                      |     Angle between two subspaces                                       |  core/linalg/scalar
+trace               |  trace                              |     Sum of diagonal elements                                          |  core/linalg
 
 Matlab              |                nt2                  |                   Description                                         |      note
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
