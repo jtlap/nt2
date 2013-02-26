@@ -6,141 +6,85 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2 container runner"
-
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/toolbox/operator/operator.hpp>
 #include <nt2/include/functions/function.hpp>
-#include <nt2/include/functions/cos.hpp>
 #include <nt2/include/functions/fast_cos.hpp>
-#include <nt2/include/functions/sin.hpp>
 #include <nt2/include/functions/fast_sin.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 
-#include <nt2/sdk/timing/now.hpp>
-#include <nt2/sdk/unit/details/helpers.hpp>
-#include <nt2/sdk/unit/perform_benchmark.hpp>
-#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/bench/benchmark.hpp>
 
-template<class T> struct table_test
+template< typename T
+        , typename Tag = boost::dispatch::default_site<void>::type
+        >
+NT2_EXPERIMENT(small_table)
 {
-  table_test(int n, int m, T const& min, T const& max )
-      : a0(nt2::of_size(n,m)), a1(nt2::of_size(n,m)), a2(nt2::of_size(n,m))
-      , N(n), M(m)
+  public:
+  small_table ( std::size_t s0, std::size_t s1, bool status = false )
+              : NT2_EXPRIMENT_CTOR(1.,status ? "cycles/elements" : "% overhead")
+              , d0(s0), d1(s1)
+              , is_ref(status)
+  {}
+
+  virtual void run() const
   {
-    for(int j=1; j<=M; ++j)
-      for(int i=1; i<=N; ++i)
-        a1(i, j) = a2(i, j) = a0(i, j) = roll<T>(min,max);
+    a2 = nt2::sqrt(nt2::fast_cos(a0)/nt2::fast_sin(a0) + a1*a1/a0);
   }
 
-  void operator()()
+  virtual double compute(nt2::benchmark_result_t const& r) const
   {
-    a1 = nt2::sqrt(nt2::cos(a0)/nt2::sin(a0) + a2*a2/a1);
+    if(is_ref)
+    {
+      reference = r;
+      return r.first/double(d0*d1);
+    }
+    else
+    {
+      return  (100.*(double(r.first)-double(reference.first)))
+            / double(reference.first);
+    }
   }
 
-  void reset() {}
+  virtual void info(std::ostream& os) const { os << d0 << "x" << d1; }
 
-  nt2::container::table<T> a0,a1,a2;
-  int N,M;
+  virtual void reset() const
+  {
+    a0.resize(nt2::of_size(d0,d1));
+    a1.resize(nt2::of_size(d0,d1));
+    a2.resize(nt2::of_size(d0,d1));
+
+    roll ( a0, -.28319, .28319 );
+    roll ( a1, -.28319, .28319 );
+  }
+
+  private:
+          std::size_t               d0,d1;
+          bool                      is_ref;
+  mutable nt2::container::table<T>  a0,a1,a2;
+  static nt2::benchmark_result_t    reference;
 };
 
-template<class T> struct vector_test
-{
-  vector_test(int n, int m, T const& min, T const& max )
-      : a0(n*m), a1(n*m), a2(n*m)
-      , N(n), M(m)
-  {
-    for(int i=0; i<M*N; ++i)
-      a2[i] = a1[i] = a0[i] = roll<T>(min,max);
-  }
+template< typename T, typename Tag>
+nt2::benchmark_result_t small_table<T,Tag>::reference;
 
-  void operator()()
-  {
-    for(int i=0; i<M*N; ++i)
-      a1[i] = std::sqrt(std::cos(a0[i])/std::sin(a0[i]) + a2[i]*a2[i]/a1[i]);
-  }
+#define NT2_TABLE_EXP(T,N)                                              \
+NT2_RUN_EXPERIMENT_TPL( small_table, (T), ((1<<N/2) , (1<<N/2),true));  \
+NT2_RUN_EXPERIMENT_TPL( small_table, (T), (1        , 1<<N         ));  \
+NT2_RUN_EXPERIMENT_TPL( small_table, (T), (1<<N     , 1            ))   \
+/**/
 
-  void reset() {}
+NT2_TABLE_EXP(double ,  4 );
+NT2_TABLE_EXP(double ,  6 );
+NT2_TABLE_EXP(double ,  8 );
+NT2_TABLE_EXP(double , 10 );
+NT2_TABLE_EXP(double , 12 );
+NT2_TABLE_EXP(double , 14 );
 
-  std::vector<T> a0,a1,a2;
-  int N,M;
-};
-
-template<class T> struct vector_omp_test
-{
-  vector_omp_test(int n, int m, T const& min, T const& max )
-      : a0(n*m), a1(n*m), a2(n*m)
-      , N(n), M(m)
-  {
-    for(int i=0; i<M*N; ++i)
-      a2[i] = a1[i] = a0[i] = roll<T>(min,max);
-  }
-
-  void operator()()
-  {
-    #pragma omp parallel for
-    for(int i=0; i<M*N; ++i)
-      a1[i] = std::sqrt(std::cos(a0[i])/std::sin(a0[i]) + a2[i]*a2[i]/a1[i]);
-  }
-
-  void reset() {}
-
-  std::vector<T> a0,a1,a2;
-  int N,M;
-};
-
-template<class T> void run_test(std::size_t h, std::size_t w)
-{
-  table_test<T> tt(h,w,-.28319, .28319);
-  nt2::unit::benchmark_result<nt2::details::cycles_t> dv;
-  nt2::unit::perform_benchmark( tt, 1., dv);
-  nt2::unit::benchmark_result<double> tv;
-  nt2::unit::perform_benchmark( tt, 1., tv);
-  std::cout << std::scientific << dv.median/(double)(h*w) << "\t";
-  std::cout << std::scientific << tv.median << "\t";
-
-  vector_test<T> vv(h,w,-.28319, .28319);
-  nt2::unit::benchmark_result<nt2::details::cycles_t> dw;
-  nt2::unit::perform_benchmark( vv, 1., dw);
-  nt2::unit::benchmark_result<double> tw;
-  nt2::unit::perform_benchmark( vv, 1., tw);
-  std::cout << std::scientific << dw.median/(double)(h*w) << "\t";
-  std::cout << std::scientific << tw.median << "\t";
-
-  vector_omp_test<T> vo(h,w,-.28319, .28319);
-  nt2::unit::benchmark_result<nt2::details::cycles_t> dow;
-  nt2::unit::perform_benchmark( vo, 1., dow);
-  nt2::unit::benchmark_result<double> tow;
-  nt2::unit::perform_benchmark( vo, 1., tow);
-  std::cout << std::scientific << dow.median/(double)(h*w) << "\t";
-  std::cout << std::scientific << tow.median << "\t";
-  std::cout << std::fixed << (double)dw.median/dv.median << "\t";
-  std::cout << std::fixed << (double)tw.median/tv.median << "\t";
-  std::cout << std::fixed << (double)dow.median/dv.median << "\t";
-  std::cout << std::fixed << (double)tow.median/tv.median << "\n";
-}
-
-template<class T> void do_test()
-{
-  std::cout << "Size\ttable (c/e)\ttable (s)\tvector (c/e)\tvector (s)";
-  std::cout << "\tOvec (c/e)\tvOvec (s) \tG(c/e)\tG(s)\tOG(c/e)\tOG(s)\n";
-
-  for(int N=4;N<=4096;N*=4)
-  {
-    std::cout.precision(3);
-    std::cout << N*N << "*1" << "\t";
-    run_test<T>(N*N,1);
-
-    std::cout << "1*" << N*N << "\t";
-    run_test<T>(1,N*N);
-
-    std::cout << N << "*" << N << "\t";
-    run_test<T>(N,N);
-  }
-}
-
-NT2_TEST_CASE_TPL( asymmetric_table, (double)(float) )
-{
-  do_test<T>();
-}
+NT2_TABLE_EXP(float ,  4 );
+NT2_TABLE_EXP(float ,  6 );
+NT2_TABLE_EXP(float ,  8 );
+NT2_TABLE_EXP(float , 10 );
+NT2_TABLE_EXP(float , 12 );
+NT2_TABLE_EXP(float , 14 );
