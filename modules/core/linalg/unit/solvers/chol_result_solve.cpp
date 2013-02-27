@@ -32,5 +32,5 @@ NT2_TEST_CASE_TPL(chol_result, NT2_REAL_TYPES)
 
   NT2_DISPLAY(a);
   NT2_DISPLAY(b);
-  NT2_TEST_ULP_EQUAL(bb, mtimes(aa, f.x()), 0.5);
+  NT2_TEST_ULP_EQUAL(bb, mtimes(aa, f.x()), 1.0);
 }
