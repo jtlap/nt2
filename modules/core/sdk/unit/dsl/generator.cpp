@@ -137,6 +137,12 @@ struct is_nt2_basic_expr< nt2::container::expression< boost::proto::basic_expr<T
 template<class T, class S>
 struct is_nt2_basic_expr< nt2::table<T, S> > : is_nt2_basic_expr< nt2::container::expression< typename nt2::table<T, S>::proto_base_expr, nt2::memory::container<T, S>& > > {};
 
+template<class T, class S>
+struct is_nt2_basic_expr< nt2::table_view<T, S> > : is_nt2_basic_expr< typename nt2::table_view<T, S>::parent > {};
+
+template<class T, class S>
+struct is_nt2_basic_expr< nt2::table_shared_view<T, S> > : is_nt2_basic_expr< typename nt2::table_shared_view<T, S>::parent > {};
+
 template<class Expr>
 void expr_lifetime_0(Expr const&)
 {
@@ -178,10 +184,10 @@ void expr_lifetime_2_t(Expr const&)
   NT2_TEST( !boost::is_const<child1>::value     );
 
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child0>::value_type
-                  , (container_ref< container<T, S> >)
+                  , (container_ref<T, S>)
                   );
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child1>::value_type
-                  , (container_ref< container<T, S> >)
+                  , (container_ref<T, S>)
                   );
 }
 
@@ -210,10 +216,10 @@ void expr_lifetime_2_ts(Expr const&)
   NT2_TEST( !boost::is_const<child1>::value     );
 
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child0>::value_type
-                  , (container_shared_ref< container<T, S> >)
+                  , (container_shared_ref<T, S>)
                   );
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child1>::value_type
-                  , (container_ref< container<T, S> >)
+                  , (container_ref<T, S>)
                   );
 }
 
@@ -241,7 +247,7 @@ void expr_lifetime_2_i(Expr const&)
   NT2_TEST( !boost::is_const<child1>::value     );
 
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child0>::value_type
-                  , (container_ref< container<T, S> >)
+                  , (container_ref<T, S>)
                   );
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child1>::value_type
                   , T
@@ -272,7 +278,7 @@ void expr_lifetime_2_ir(Expr const&)
   NT2_TEST( !boost::is_const<child1>::value     );
 
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child0>::value_type
-                  , (container_ref< container<T, S> >)
+                  , (container_ref<T, S>)
                   );
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child1>::value_type
                   , T&
@@ -349,7 +355,7 @@ void expr_lifetime_tie_ts(Expr const&)
   NT2_TEST( !boost::is_const<child0>::value     );
 
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child0>::value_type
-                  , (container_shared_ref< container<T, S>, true>)
+                  , (container_shared_ref<T, S, true>)
                   );
 }
 

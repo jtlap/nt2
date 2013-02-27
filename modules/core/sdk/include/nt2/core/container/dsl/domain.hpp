@@ -217,8 +217,8 @@ namespace nt2 { namespace container
 
   template<class Expr, class T>
   struct as_view_impl_term
+       : boost::remove_const<Expr>
   {
-    typedef Expr type;
   };
 
   template<class Expr, class T, class S>
@@ -248,7 +248,7 @@ namespace nt2 { namespace container
   template<class T, class Tag = typename T::proto_tag>
   struct as_view_impl
   {
-    typedef T type;
+    typedef typename boost::remove_const<T>::type type;
     static BOOST_FORCEINLINE T& call(T& t)
     {
       return t;
@@ -290,12 +290,12 @@ namespace nt2 { namespace container
     // Construct an expression from a non-expression
     // - by value unless manually called with a reference
     // - semantic is same as terminal value
-    template<class T, class Dummy = void, class Sema = typename boost::remove_const<T>::type>
+    template<class T, class Dummy = void, class Sema = void>
     struct as_child : boost::proto::callable
     {
       typedef typename boost::remove_const<T>::type term_t;
       typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<term_t> > expr_t;
-      typedef expression<expr_t, Sema> result_type;
+      typedef expression<expr_t, typename boost::mpl::if_< boost::is_void<Sema>, typename boost::remove_const<T>::type, Sema >::type> result_type;
       BOOST_FORCEINLINE result_type operator()(typename boost::add_reference<T>::type t) const
       {
         return result_type(expr_t::make(t));
@@ -335,7 +335,7 @@ namespace nt2 { namespace container
       }
     };
 
-    template<class T, class Tag, bool Schedule = true>
+    template<class T, class Tag, bool Schedule = boost::is_same<typename T::proto_domain, domain>::value>
     struct as_child_expr
          : as_child_elementwise<T, meta::is_elementwise<Tag>::value || !Schedule >
     {
