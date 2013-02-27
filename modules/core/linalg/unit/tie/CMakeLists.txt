@@ -12,12 +12,13 @@ SET( SOURCES
      chol.cpp
      full_lu_solve.cpp
      full_qr_solve.cpp
-     geneig.cpp
+#     geneig.cpp
      linsolve.cpp
      lsq_lse_solve.cpp
      lu.cpp
      planerot.cpp
      qr.cpp
+#     qrinsert.cpp
      rref.cpp
      schur.cpp
      svd.cpp
