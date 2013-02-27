@@ -24,12 +24,17 @@ namespace nt2
   {
     BOOST_DISPATCH_NOINLINE intermediate_result_t
     perform_benchmark_impl( base_experiment const& test, nt2::seconds_t const d );
+
+    NT2_TEST_BENCHMARK_DECL extern benchmark_result_t reference_timing_value;
   }
 
   NT2_TEST_BENCHMARK_DECL BOOST_DISPATCH_NOINLINE
   benchmark_result_t perform_benchmark( details::base_experiment const& test
                                       , nt2::seconds_t const duration
                                       );
+
+  NT2_TEST_BENCHMARK_DECL BOOST_DISPATCH_NOINLINE
+  benchmark_result_t& reference_timing();
 }
 
 #endif

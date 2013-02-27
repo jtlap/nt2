@@ -22,6 +22,8 @@ namespace nt2
     static std::vector<nt2::cycles_t      > individual_measurement_cycles;
     static std::vector<nt2::time_quantum_t> individual_measurement_time_quantums;
 
+    NT2_TEST_BENCHMARK_DECL benchmark_result_t reference_timing_value;
+
     BOOST_DISPATCH_NOINLINE intermediate_result_t
     perform_benchmark_impl( base_experiment const& test, nt2::seconds_t const d )
     {
@@ -73,5 +75,11 @@ namespace nt2
             ( irs.first - details::cycles_overhead
             , to_microseconds(irs.second - details::quantums_overhead)
             );
+  }
+
+  NT2_TEST_BENCHMARK_DECL BOOST_DISPATCH_NOINLINE
+  benchmark_result_t& reference_timing()
+  {
+    return details::reference_timing_value;
   }
 }
