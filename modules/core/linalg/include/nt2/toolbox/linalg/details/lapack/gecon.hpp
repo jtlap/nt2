@@ -13,13 +13,72 @@
 
 namespace nt2
 {
+  /*
+    (excerpt adapted from xgecon.f file commentaries)
+
+    DATA TYPE can mean float, double, std::complex<float>, std::complex<double>
+
+    BASE TYPE can mean respectively float, double, float, double
+
+    In some cases only two of these types types are available
+    the two real or the two std::complex ones.
+    CAPITALIZED PARAMETERS are FORTRAN parameters who are not used directly
+    in the C++ calls, but through the workspace parameter,
+    their use is transparent for the caller (see lapackworkspace.hh)
+
+    *
+    **  purpose
+    **  =======
+    **
+    **  xgecon estimates the reciprocal of the condition number of a general
+    **  DATA TYPE matrix a, in either the 1-norm or the infinity-norm, using
+    **  the lu factorization computed by cgetrf.
+    **
+    **  an estimate is obtained for norm(inv(a)), and the reciprocal of the
+    **  condition number is computed as
+    **     rcond = 1 / ( norm(a) * norm(inv(a)) ).
+    **
+    **  arguments
+    **  =========
+    **
+    **  norm    (input) char
+    **          specifies whether the 1-norm condition number or the
+    **          infinity-norm condition number is required:
+    **          = '1' or 'o':  1-norm;
+    **          = 'i':         infinity-norm.
+    **
+    **  n       (input) long int
+    **          the order of the matrix a.  n >= 0.
+    **
+    **  a       (input) DATA TYPE array, dimension (lda,n)
+    **          the factors l and u from the factorization a = p*l*u
+    **          as computed by cgetrf.
+    **
+    **  lda     (input) long int
+    **          the leading dimension of the array a.  lda >= max(1,n).
+    **
+    **  anorm   (input) BASE DATA TYPE
+    **          if norm = '1' or 'o', the 1-norm of the original matrix a.
+    **          if norm = 'i', the infinity-norm of the original matrix a.
+    **
+    **  rcond   (output) BASE DATA TYPE
+    **          the reciprocal of the condition number of the matrix a,
+    **          computed as rcond = 1/(norm(a) * norm(inv(a))).
+    **
+    **
+    **
+    **  info    (output) long int
+    **          = 0:  successful exit
+    **          < 0:  if info = -i, the i-th argument had an illegal value
+    **
+    **/
   namespace details
   {
     extern "C"
     {
       void NT2_F77NAME(cgecon)(const char* norm, const nt2_la_int* n, const nt2_la_complex* a,
-                           const nt2_la_int* lda, const float* anorm, float* rcond,
-                           nt2_la_complex* work, float* rwork, nt2_la_int* info);
+                               const nt2_la_int* lda, const float* anorm, float* rcond,
+                               nt2_la_complex* work, float* rwork, nt2_la_int* info);
       void NT2_F77NAME(dgecon)(const char* norm, const nt2_la_int* n, const double* a,
                            const nt2_la_int* lda, const double* anorm, double* rcond,
                            double* work, nt2_la_int* iwork, nt2_la_int* info);

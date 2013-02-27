@@ -8,21 +8,22 @@
 ##############################################################################
 
 SET( SOURCES
-     chol.cpp
-     lu.cpp
-     qr.cpp
-     svd.cpp
-     schur.cpp
-     symeig.cpp
      balance.cpp
-     rref.cpp
-     planerot.cpp
-     linsolve.cpp
-     full_qr_solve.cpp
+     chol.cpp
      full_lu_solve.cpp
-     svd_solve.cpp
-     tr_solve.cpp
+     full_qr_solve.cpp
+     geneig.cpp
+     linsolve.cpp
      lsq_lse_solve.cpp
+     lu.cpp
+     planerot.cpp
+     qr.cpp
+     rref.cpp
+     schur.cpp
+     svd.cpp
+     svd_solve.cpp
+     symeig.cpp
+     tr_solve.cpp
    )
 
 nt2_module_add_tests(core.linalg.tie.unit ${SOURCES})

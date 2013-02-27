@@ -9,9 +9,11 @@
 
 SET( SOURCES
   cond.cpp
+  det.cpp
   norm.cpp
   normest.cpp
   rank.cpp
+  rcond.cpp
   subspace.cpp
   trace.cpp
   vecnorm.cpp

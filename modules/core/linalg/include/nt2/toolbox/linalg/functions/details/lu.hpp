@@ -128,7 +128,6 @@ namespace nt2 { namespace details
       , n_( nt2::width(xpr)  )
       , ldlu_( lu_.leading_size() )
       , ipiv_(nt2::of_size(nt2::min(n_, m_), 1))
-      , rc_(base_t(-1))
       , info_(0)
       , p_(of_size(0, 1))
       , ip_(of_size(0, 1))
@@ -141,7 +140,6 @@ namespace nt2 { namespace details
     lu_result(lu_result const& src)
       : a_(src.a_) , lu_(src.lu_), m_( src.m_ ), n_( src.n_ )
       , ldlu_( src.ldlu_ ) , ipiv_(src.ipiv_)
-      , rc_(src.rc_)
       , info_(src.info_) , w_(src.w_)
       , p_(src.p_), ip_(src.ip_), pl_(src.pl_), invt_(src.invt_)
     {}
@@ -154,7 +152,6 @@ namespace nt2 { namespace details
       n_      = src.n_;
       ldlu_   = src.ldlu_;
       ipiv_   = src.ipiv_;
-      rc_     = src.rc_;
       info_   = src.info_;
       w_      = src.w_;
       p_      = src.p_;
@@ -261,13 +258,12 @@ namespace nt2 { namespace details
     //==========================================================================
     base_t rcond(char c = '1')
     {
-      if (c !=  '1' || rc_ == base_t(-1))
-      {
-        char norm = c;
-        base_t anorm = nt2::details::lange(&norm,  &n_,  &n_, lu_.raw(), &ldlu_);
-        nt2::details::gecon(&norm, &n_,  lu_.raw(), &ldlu_, &anorm, &rc_, &info_);
-      }
-      return rc_;
+      base_t rc = 0;
+      tab_t aa = a_;
+      char norm = (c == 1) ? '1' : ((c == 0) ? 'o' : c);
+      base_t anorm = nt2::details::lange(&norm,  &n_,  &n_, aa.raw(), &ldlu_);
+      nt2::details::gecon(&norm, &n_,  lu_.raw(), &ldlu_, &anorm, &rc, &info_);
+      return rc;
     }
 
     //==========================================================================
@@ -380,8 +376,8 @@ namespace nt2 { namespace details
       {
         if (warn)
         {
-          rc_ = rcond();
-          NT2_WARNING ( (rc_ >= nt2::Eps<base_t>())
+          base_t rc = rcond();
+          NT2_WARNING ( (rc >= nt2::Eps<base_t>())
                         , "Matrix is close to singular or badly scaled."
                         " Results may be inaccurate."
             );
@@ -402,6 +398,7 @@ namespace nt2 { namespace details
       btab_t ferr(of_size(nrhs, 1)), berr(of_size(nrhs, 1));
       btab_t r_(of_size(n_, 1)), c_(of_size(n_, 1));
       char equed = 'N';
+      base_t rc = rcond();
       nt2::details::gesvx(nt2::details::lapack_option('F'),
                           nt2::details::lapack_option('N'),
                           &n_, &nrhs,
@@ -413,7 +410,7 @@ namespace nt2 { namespace details
                           c_.raw(),
                           b.raw(), &ldb,
                           x.raw(), &ldx,
-                          &rc_,
+                          &rc,
                           ferr.raw(),
                           berr.raw(),
                           &info_,
@@ -427,7 +424,6 @@ namespace nt2 { namespace details
     nt2_la_int                     m_,n_;
     nt2_la_int                     ldlu_;
     ibuf_t                         ipiv_;
-    base_t                           rc_;
     nt2_la_int                     info_;
     workspace_t                       w_;
     tab_t                             p_;
