@@ -22,10 +22,9 @@ template< typename T
 NT2_EXPERIMENT(small_table)
 {
   public:
-  small_table ( std::size_t s0, std::size_t s1, bool status = false )
-              : NT2_EXPRIMENT_CTOR(1.,status ? "cycles/elements" : "% overhead")
+  small_table ( std::size_t s0, std::size_t s1 )
+              : NT2_EXPRIMENT_CTOR(1.,"cycles/elements")
               , d0(s0), d1(s1)
-              , is_ref(status)
   {}
 
   virtual void run() const
@@ -35,16 +34,7 @@ NT2_EXPERIMENT(small_table)
 
   virtual double compute(nt2::benchmark_result_t const& r) const
   {
-    if(is_ref)
-    {
-      reference = r;
-      return r.first/double(d0*d1);
-    }
-    else
-    {
-      return  (100.*(double(r.first)-double(reference.first)))
-            / double(reference.first);
-    }
+    return r.first/double(d0*d1);
   }
 
   virtual void info(std::ostream& os) const { os << d0 << "x" << d1; }
@@ -63,14 +53,9 @@ NT2_EXPERIMENT(small_table)
           std::size_t               d0,d1;
           bool                      is_ref;
   mutable nt2::container::table<T>  a0,a1,a2;
-  static nt2::benchmark_result_t    reference;
 };
 
-template< typename T, typename Tag>
-nt2::benchmark_result_t small_table<T,Tag>::reference;
-
 #define NT2_TABLE_EXP(T,N)                                              \
-NT2_RUN_EXPERIMENT_TPL( small_table, (T), ((1<<N/2) , (1<<N/2),true));  \
 NT2_RUN_EXPERIMENT_TPL( small_table, (T), (1        , 1<<N         ));  \
 NT2_RUN_EXPERIMENT_TPL( small_table, (T), (1<<N     , 1            ))   \
 /**/
