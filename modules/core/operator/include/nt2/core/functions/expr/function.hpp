@@ -117,26 +117,21 @@ namespace nt2 { namespace ext
                                       )
                 >::type Idx;
 
-    typedef nt2::memory::
-            container< typename A0::value_type
-                     , nt2::settings(typename A0::settings_type, typename Idx::extent_type, nt2::shared_)
-                     > container;
-    typedef nt2::memory::
-            container< typename A0::value_type
-                     , nt2::settings(typename A0::settings_type, typename Idx::extent_type)
-                     > container_no_shared;
-    typedef nt2::memory::container_shared_ref<container> container_ref;
-    typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<container_ref> > expr;
-    typedef nt2::container::expression<expr, container_no_shared&> type;
+    typedef nt2::settings settings(typename A0::settings_type, typename Idx::extent_type);
+
+    // FIXME: inject Idx::extent_type
+    typedef typename container::as_view_impl<A0>::type type;
+
+    typedef typename type::parent nt2_expr;
+    typedef typename nt2_expr::proto_base_expr basic_expr;
+    typedef typename type::container_ref container_ref;
 
     static type call(A0& a0, I const& indices)
     {
       Idx idx = nt2::function_index(indices, a0.extent(), meta::as_<typename A0::indexes_type>());
       std::size_t b = nt2::run(idx, 0u, meta::as_<std::size_t>());
-      std::size_t e = nt2::run(idx, nt2::numel(idx.extent())-1u, meta::as_<std::size_t>())+1u;
-      typename A0::value_type* p = const_cast<typename A0::value_type*>(a0.raw());
 
-      return type(expr::make(container_ref(boost::make_shared<container>(idx.extent(), nt2::share(p+b, p+e)))));
+      return nt2_expr(basic_expr::make(container_ref(boost::proto::value(a0), a0.raw()+b, idx.extent())));
     }
   };
 

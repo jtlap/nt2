@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
     operator()(A0& a0, A1& a1) const
     {
       a0.resize(a1.extent());
-      nt2::transform(a0, a1);
+      nt2::transform(container::as_view(a0), a1);
       return a0;
     }
   };
@@ -67,7 +67,7 @@ namespace nt2 { namespace ext
     {
       a0.resize(a1.extent());
       if(a0.raw() != a1.raw())
-        nt2::transform(a0, a1);
+        nt2::transform(container::as_view(a0), a1);
       return a0;
     }
   };
@@ -114,7 +114,7 @@ namespace nt2 { namespace ext
 
       if(red == 1)
       {
-        nt2::inner_fold( a0
+        nt2::inner_fold( container::as_view(a0)
                        , input
                        , typename nt2::make_functor<Neutral1, A0>::type()
                        , typename nt2::make_functor<O1, A0>::type()
@@ -123,7 +123,7 @@ namespace nt2 { namespace ext
       }
       else
       {
-        nt2::outer_fold( reshape(a0, of_size(lo, hi))
+        nt2::outer_fold( reshape(container::as_view(a0), of_size(lo, hi))
                        , reshape(input, of_size(lo, inner, hi))
                        , typename nt2::make_functor<Neutral1, A0>::type()
                        , typename nt2::make_functor<O1, A0>::type()
@@ -187,7 +187,7 @@ namespace nt2 { namespace ext
 
       if(red == 1)
       {
-        nt2::inner_scan( a0
+        nt2::inner_scan( container::as_view(a0)
                        , input
                        , typename nt2::make_functor<Neutral1, A0>::type()
                        , typename nt2::make_functor<O1, A0>::type()
@@ -196,12 +196,12 @@ namespace nt2 { namespace ext
       }
       else
       {
-        nt2::outer_scan( reshape(a0, of_size(lo, inner, hi))
-                         , reshape(input, of_size(lo, inner, hi))
-                         , typename nt2::make_functor<Neutral1, A0>::type()
-                         , typename nt2::make_functor<O1, A0>::type()
-                         , typename nt2::make_functor<T1, A0>::type()
-                         );
+        nt2::outer_scan( reshape(container::as_view(a0), of_size(lo, inner, hi))
+                       , reshape(input, of_size(lo, inner, hi))
+                       , typename nt2::make_functor<Neutral1, A0>::type()
+                       , typename nt2::make_functor<O1, A0>::type()
+                       , typename nt2::make_functor<T1, A0>::type()
+                       );
       }
 
       return a0;

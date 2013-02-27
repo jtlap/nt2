@@ -10,46 +10,71 @@
 #define NT2_SDK_MEMORY_CONTAINER_REF_HPP_INCLUDED
 
 #include <nt2/sdk/memory/adapted/container_ref.hpp>
+#include <nt2/core/settings/specific_data.hpp>
 
 namespace nt2 { namespace memory
 {
   //============================================================================
   /*!
-   * container is the base class handling a container semantic, layout and
-   * memory used by the nt2 proto terminal class. It is built from a value
-   * \c Type and a list of \c Settings describing how it should behave both at
-   * runtime and compile-time.
+   * container_ref is like container, but instead of wrapping a buffer it wraps
+   * a pointer. Copying a container_ref does not copy any data.
    *
    * \tparam Type    Value type to store in the table
    * \tparam Setting Options list describing the behavior of the container
    **/
   //============================================================================
-  template<class Container>
+  template<class T, class S>
   struct container_ref
   {
-    typedef Container                           base_t;
-    typedef typename base_t::value_type         value_type;
-    typedef typename base_t::size_type          size_type;
-    typedef typename base_t::extent_type        extent_type;
-    typedef typename base_t::order_type         order_type;
-    typedef typename base_t::specific_data_type specific_data_type;
+    typedef typename boost::remove_const<T>::type                value_type;
+    typedef std::size_t                                          size_type;
 
-    typedef typename boost::dispatch::meta::scalar_of<base_t&>::type        reference;
-    typedef typename boost::dispatch::meta::scalar_of<base_t const&>::type const_reference;
+    typedef typename meta::option < S
+                                  , tag::semantic_
+                                  , tag::table_
+                                  >::type                            semantic_t;
+    typedef typename meta::normalize<semantic_t,value_type,S>::type  settings_type;
 
-    typedef typename boost::mpl::if_< boost::is_const<base_t>
-                                    , typename base_t::const_pointer
-                                    , typename base_t::pointer
-                                    >::type                             pointer;
+    typedef typename meta::option<settings_type, tag::of_size_>::type        extent_type;
+    typedef typename meta::option<settings_type, tag::storage_order_>::type  order_type;
 
-    typedef typename base_t::const_pointer                        const_pointer;
-    typedef pointer                                                    iterator;
+    typedef typename specific_data< typename boost::dispatch::
+                                             default_site<T>::type
+                                  , value_type
+                                  >::type                        specific_data_type;
 
-    container_ref() : base_(0), ptr(0)
+    typedef T&                                                   reference;
+    typedef T const&                                             const_reference;
+    typedef T*                                                   pointer;
+    typedef T const*                                             const_pointer;
+
+    typedef pointer                                              iterator;
+
+    typedef typename boost::mpl::
+           if_< boost::is_const<T>
+              , container<value_type, S> const
+              , container<value_type, S>
+              >::type base_t;
+
+
+    container_ref() : ptr(0)
     {
     }
 
-    container_ref(Container& b) : base_(&b), ptr(b.raw())
+    template<class U, class S2>
+    container_ref(container_ref<U, S2> const& other) : ptr(other.ptr), sz(other.sz), specific(other.specific)
+    {
+    }
+
+    container_ref(pointer p, extent_type const& sz_) : ptr(p), sz(sz_)
+    {
+    }
+
+    container_ref(base_t& c) : ptr(c.raw()), sz(c.extent()), specific(c.specifics())
+    {
+    }
+
+    container_ref(base_t& c, pointer p, extent_type const& sz_) : ptr(p), sz(sz_), specific(c.specifics())
     {
     }
 
@@ -71,10 +96,9 @@ namespace nt2 { namespace memory
      */
     //==========================================================================
     template<class Size>
-    void resize( Size const& szs ) const
+    void resize( Size const& ) const
     {
-      base_->resize(szs);
-      ptr = base_->raw();
+      // do nothing
     }
 
     //==========================================================================
@@ -82,10 +106,9 @@ namespace nt2 { namespace memory
      * @brief Add element at end of container, reshape to 1D
      */
     //==========================================================================
-    void push_back( value_type const& t )
+    void push_back( value_type const& )
     {
-      base_->push_back(t);
-      ptr = base_->raw();
+      // do nothing
     }
 
     //==========================================================================
@@ -97,7 +120,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     BOOST_FORCEINLINE extent_type const& extent() const
     {
-      return base_->extent();
+      return sz;
     }
 
     //==========================================================================
@@ -108,7 +131,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     BOOST_FORCEINLINE size_type size() const
     {
-      return base_->size();
+      return numel(sz);
     }
 
     //==========================================================================
@@ -138,7 +161,7 @@ namespace nt2 { namespace memory
      * value, \c false otherwise.
      */
     //==========================================================================
-    BOOST_FORCEINLINE bool empty() const { return base_->empty(); }
+    BOOST_FORCEINLINE bool empty() const { return size() == 0u; }
 
     //==========================================================================
     /*!
@@ -152,21 +175,21 @@ namespace nt2 { namespace memory
      * Return the begin of the data
      */
     //==========================================================================
-    BOOST_FORCEINLINE iterator       begin() const { return base_->begin(); }
+    BOOST_FORCEINLINE iterator       begin() const { return ptr; }
 
     //==========================================================================
     /*!
      * Return the end of the data
      */
     //==========================================================================
-    BOOST_FORCEINLINE iterator       end() const   { return base_->end(); }
+    BOOST_FORCEINLINE iterator       end() const   { return ptr + size(); }
 
     //==========================================================================
     // Linear Random Access
     //==========================================================================
     BOOST_FORCEINLINE reference operator[](size_type i) const
     {
-      return (*base_)[i];
+      return ptr[i];
     }
 
     //==========================================================================
@@ -179,18 +202,20 @@ namespace nt2 { namespace memory
      * @return A reference to the specific data of the container.
      **/
     //==========================================================================
-    specific_data_type&  specifics() const { return base_->specifics(); }
-
-    Container& base() const { return *base_; }
+    specific_data_type&  specifics() const { return specific; }
 
     //==========================================================================
     // Check if a position is safely R/W in the current container
     //==========================================================================
-    BOOST_FORCEINLINE bool is_safe(size_type p) const { return base_->is_safe(p); }
+    BOOST_FORCEINLINE bool is_safe(size_type p) const { return p == 0u || p < size(); }
 
   private:
-    Container*                  base_;
-    mutable pointer             ptr;
+    template<class U, class S2>
+    friend struct container_ref;
+
+    pointer                     ptr;
+    extent_type                 sz;
+    mutable specific_data_type  specific;
   };
 
   //============================================================================
@@ -200,8 +225,8 @@ namespace nt2 { namespace memory
    * \param y Second \c container to swap
    **/
   //============================================================================
-  template<class Container> inline
-  void swap(container_ref<Container>& x, container_ref<Container>& y)  { x.swap(y); }
+  template<class T, class S> inline
+  void swap(container_ref<T, S>& x, container_ref<T, S>& y)  { x.swap(y); }
 } }
 
 #endif

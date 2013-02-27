@@ -65,78 +65,237 @@ namespace nt2 { namespace meta
 
 namespace nt2 { namespace container
 {
-  // Convert terminal of containers to terminals of container_ref
-  template<class T, class Dummy = void>
-  struct as_container_ref
+  template<class T, class S = nt2::settings()>
+  struct table_view
+       : expression< boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term< memory::container_ref<T, S> >, 0l >
+                   , memory::container<T, S>&
+                   >
+  {
+    typedef memory::container_ref<T, S> container_ref;
+    typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<container_ref>, 0l > basic_expr;
+    typedef memory::container<T, S>& semantic;
+    typedef expression<basic_expr, semantic> parent;
+
+    BOOST_FORCEINLINE
+    table_view( parent const& expr )
+              : parent(expr)
+    {
+    }
+
+    BOOST_FORCEINLINE
+    table_view( expression< boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term< memory::container<T, S> >, 0l >
+                          , memory::container<T, S>
+                          > & expr
+              )
+              : parent(basic_expr::make(boost::proto::value(expr)))
+    {
+    }
+
+    BOOST_FORCEINLINE
+    table_view( expression< boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term< memory::container<T, S>& >, 0l >
+                          , memory::container<T, S>&
+                          > const& expr
+              )
+              : parent(basic_expr::make(boost::proto::value(expr)))
+    {
+    }
+
+    template<class S2>
+    BOOST_FORCEINLINE
+    table_view( table_view<T, S2> const& expr )
+              : parent(basic_expr::make(boost::proto::value(expr)))
+    {
+    }
+
+    using parent::operator=;
+  };
+
+  template<class T, class S>
+  struct table_view<T const, S>
+       : expression< boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term< memory::container_ref<T const, S> >, 0l >
+                   , memory::container<T, S> const&
+                   >
+  {
+    typedef memory::container_ref<T const, S> container_ref;
+    typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<container_ref>, 0l > basic_expr;
+    typedef memory::container<T, S> const& semantic;
+    typedef expression<basic_expr, semantic> parent;
+
+    BOOST_FORCEINLINE
+    table_view( parent const& expr )
+              : parent(expr)
+    {
+    }
+
+    BOOST_FORCEINLINE
+    table_view( expression< boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term< memory::container<T, S> >, 0l >
+                          , memory::container<T, S>
+                          > const& expr
+              )
+              : parent(basic_expr::make(boost::proto::value(expr)))
+    {
+    }
+
+    BOOST_FORCEINLINE
+    table_view( expression< boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term< memory::container<T, S> const& >, 0l >
+                          , memory::container<T, S> const&
+                          > const& expr
+              )
+              : parent(basic_expr::make(boost::proto::value(expr)))
+    {
+    }
+
+    template<class U, class S2>
+    BOOST_FORCEINLINE
+    table_view( table_view<U, S2> const& expr )
+              : parent(basic_expr::make(boost::proto::value(expr)))
+    {
+    }
+
+    using parent::operator=;
+  };
+
+  template<class T, class S = nt2::settings()>
+  struct table_shared_view
+       : expression< boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term< memory::container_shared_ref< T, S, false > >, 0l >
+                   , memory::container<T, S>&
+                   >
+  {
+    typedef memory::container_shared_ref< T, S, false > container_ref;
+    typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<container_ref>, 0l > basic_expr;
+    typedef memory::container<T, S>& semantic;
+    typedef expression<basic_expr, semantic> parent;
+
+    BOOST_FORCEINLINE
+    table_shared_view( parent const& expr )
+                     : parent(expr)
+    {
+    }
+
+    template<class S2, bool Own>
+    BOOST_FORCEINLINE
+    table_shared_view( expression< boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term< memory::container_shared_ref< T, S2, Own > >, 0l >
+                                 , memory::container<T, S2>&
+                                 > const& expr
+                     )
+                     : parent(basic_expr::make(boost::proto::value(expr)))
+    {
+    }
+
+    using parent::operator=;
+  };
+
+  template<class T, class S>
+  struct table_shared_view<T const, S>
+       : expression< boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term< memory::container_shared_ref< T const, S, false > >, 0l >
+                   , memory::container<T, S> const&
+                   >
+  {
+    typedef memory::container_shared_ref< T const, S, false > container_ref;
+    typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<container_ref>, 0l > basic_expr;
+    typedef memory::container<T, S> const& semantic;
+    typedef expression<basic_expr, semantic> parent;
+
+    BOOST_FORCEINLINE
+    table_shared_view( parent const& expr )
+                     : parent(expr)
+    {
+    }
+
+    template<class U, class S2, bool Own>
+    BOOST_FORCEINLINE
+    table_shared_view( expression< boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term< memory::container_shared_ref< U, S2, Own > >, 0l >
+                                 , memory::container<U, S2> /*const?*/&
+                                 > const& expr
+                     )
+                     : parent(basic_expr::make(boost::proto::value(expr)))
+    {
+    }
+
+    using parent::operator=;
+  };
+
+  template<class Expr, class T>
+  struct as_view_impl_term
+  {
+    typedef Expr type;
+  };
+
+  template<class Expr, class T, class S>
+  struct as_view_impl_term< Expr, memory::container<T, S>& >
+  {
+    typedef table_view<T, S> type;
+  };
+
+  template<class Expr, class T, class S>
+  struct as_view_impl_term< Expr, memory::container<T, S> const& >
+  {
+    typedef table_view<T const, S> type;
+  };
+
+  template<class Expr, class T, class S>
+  struct as_view_impl_term< Expr, memory::container_shared_ref<T, S, true> & >
+  {
+    typedef table_shared_view<T, S> type;
+  };
+
+  template<class Expr, class T, class S>
+  struct as_view_impl_term< Expr, memory::container_shared_ref<T, S, true> const& >
+  {
+    typedef table_shared_view<T, S> type;
+  };
+
+  template<class T, class Tag = typename T::proto_tag>
+  struct as_view_impl
   {
     typedef T type;
-    static BOOST_FORCEINLINE typename boost::add_reference<T>::type
-    call(typename boost::add_reference<T>::type t)
+    static BOOST_FORCEINLINE T& call(T& t)
     {
       return t;
     }
   };
 
   template<class T>
-  struct as_container_ref<T, typename boost::enable_if_c< meta::is_container<T>::value && !meta::is_container_ref<T>::value >::type>
+  struct as_view_impl<T, boost::proto::tag::terminal>
   {
-    typedef memory::container_ref<typename boost::remove_reference<T>::type> const type;
-    static BOOST_FORCEINLINE type
-    call(T& t)
+    typedef typename as_view_impl_term<T, typename boost::proto::result_of::value<T&>::type>::type type;
+    static BOOST_FORCEINLINE type call(T& t)
     {
       return type(t);
     }
   };
 
-  template<class Container, bool Own>
-  struct as_container_ref< memory::container_shared_ref<Container, Own> >
+  template<class T>
+  BOOST_FORCEINLINE
+  typename as_view_impl<T>::type as_view(T& t)
   {
-    typedef memory::container_shared_ref<Container> const type;
-    static BOOST_FORCEINLINE type
-    call(memory::container_shared_ref<Container, Own>& t)
-    {
-      return type(t.base());
-    }
-  };
-
-  template<class Container, bool Own>
-  struct as_container_ref< memory::container_shared_ref<Container, Own> const >
-  {
-    typedef memory::container_shared_ref<Container> const type;
-    static BOOST_FORCEINLINE type
-    call(memory::container_shared_ref<Container, Own> const& t)
-    {
-      return type(t.base());
-    }
-  };
-
-  // Convert container_ref to container for semantic
-  template<class T, class Dummy = void>
-  struct as_container_noref
-  {
-    typedef T type;
-  };
+    return as_view_impl<T>::call(t);
+  }
 
   template<class T>
-  struct as_container_noref<T, typename boost::enable_if< typename meta::is_container_ref<T>::type >::type>
+  BOOST_FORCEINLINE
+  typename as_view_impl<T const>::type as_view(T const& t)
   {
-    typedef typename T::base_t type0;
-    typedef typename boost::mpl::if_< boost::is_const<T>, type0 const&, type0&>::type type;
-  };
+    return as_view_impl<T const>::call(t);
+  }
 
-  /* The nt2 container domain has special rules so that children are held by value and
-   * containers are held by a container_ref value */
+  /* The nt2 container domain has special rules so that children are held by value,
+   * non-elementwise operations get scheduled and
+   * containers are held by reference or as a container_ref value */
   struct  domain
         : boost::proto::domain< container::generator_transform<domain>
                               , container::grammar
                               >
   {
-    template<class T, class Dummy = void>
+    // Construct an expression from a non-expression
+    // - by value unless manually called with a reference
+    // - semantic is same as terminal value
+    template<class T, class Dummy = void, class Sema = typename boost::remove_const<T>::type>
     struct as_child : boost::proto::callable
     {
       typedef typename boost::remove_const<T>::type term_t;
       typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<term_t> > expr_t;
-      typedef expression<expr_t, typename as_container_noref<term_t>::type> result_type;
+      typedef expression<expr_t, Sema> result_type;
       BOOST_FORCEINLINE result_type operator()(typename boost::add_reference<T>::type t) const
       {
         return result_type(expr_t::make(t));
@@ -157,6 +316,7 @@ namespace nt2 { namespace container
       }
     };
 
+    // Schedule non-elementwise expression, return terminal (shared owning container_ref)
     template<class T>
     struct as_child_elementwise<T, false>
          : boost::proto::callable
@@ -181,21 +341,33 @@ namespace nt2 { namespace container
     {
     };
 
-    // Existing terminals get unpacked and re-created (necessary for table)
-    template<class T, bool Schedule>
-    struct as_child_expr<T, boost::proto::tag::terminal, Schedule>
+    // Scheduled terminals: converted to views
+    template<class T>
+    struct as_child_expr<T, boost::proto::tag::terminal, true>
+     : boost::proto::callable
+    {
+      typedef typename as_view_impl<T>::type result_type;
+
+      BOOST_FORCEINLINE result_type operator()(T& t) const
+      {
+        return as_view_impl<T>::call(t);
+      }
+    };
+
+    // Non-scheduled terminals: ensure tables are held by reference
+    template<class T>
+    struct as_child_expr<T, boost::proto::tag::terminal, false>
      : boost::proto::callable
     {
       typedef typename boost::proto::result_of::value<T&>::value_type value_type;
       typedef typename boost::mpl::if_< boost::is_const<T>, typename boost::add_const<value_type>::type, value_type >::type type;
-      typedef typename as_container_ref<type>::type term;
-
-      typedef as_child<term> impl;
+      typedef typename boost::mpl::if_c< meta::is_container<value_type>::value && !meta::is_container_ref<value_type>::value, type&, type >::type type_ref;
+      typedef as_child<type_ref, void, typename boost::dispatch::meta::semantic_of<T&>::type> impl;
       typedef typename impl::result_type result_type;
 
       BOOST_FORCEINLINE result_type operator()(T& t) const
       {
-        return impl()(as_container_ref<type>::call(boost::proto::value(t)));
+        return impl()(boost::proto::value(t));
       }
     };
 
@@ -204,5 +376,26 @@ namespace nt2 { namespace container
          : as_child_expr<T, typename T::proto_tag> {};
   };
 } }
+
+namespace boost { namespace dispatch { namespace meta
+{
+  template<class T, class S>
+  struct semantic_of< nt2::container::table_view<T, S> >
+  {
+    typedef typename nt2::container::table_view<T, S>::semantic type;
+  };
+
+  template<class T, class S>
+  struct semantic_of< nt2::container::table_shared_view<T, S> >
+  {
+    typedef typename nt2::container::table_shared_view<T, S>::semantic type;
+  };
+} } }
+
+namespace nt2
+{
+  using nt2::container::table_view;
+  using nt2::container::table_shared_view;
+}
 
 #endif

@@ -17,88 +17,49 @@
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/make_shared.hpp>
 
+#include <nt2/core/settings/option.hpp>
+#include <nt2/core/settings/forward/semantic.hpp>
+#include <nt2/core/container/table/semantic.hpp>
+
+#include <boost/dispatch/meta/terminal_of_shared.hpp>
+
 namespace nt2 { namespace meta
 {
   //============================================================================
   // Register container as a proper container
   //============================================================================
-  template<class Container, bool Own>
-  struct  is_container< memory::container_shared_ref<Container, Own> >
+  template<class T, class S, bool Own>
+  struct  is_container< memory::container_shared_ref<T, S, Own> >
         : boost::mpl::true_ {};
 
-  template<class Container, bool Own>
-  struct  is_container_ref< memory::container_shared_ref<Container, Own> >
+  template<class T, class S, bool Own>
+  struct  is_container_ref< memory::container_shared_ref<T, S, Own> >
         : boost::mpl::true_ {};
 } }
 
 namespace boost { namespace dispatch { namespace meta
 {
   //============================================================================
-  // scalar_of specializations
-  //============================================================================
-  template<class Container, bool Own>
-  struct  scalar_of< nt2::memory::container_shared_ref<Container, Own> >
-        : scalar_of<Container>
-  {
-  };
-
-  template<class Container, bool Own>
-  struct  scalar_of< nt2::memory::container_shared_ref<Container, Own> const >
-        : scalar_of<Container>
-  {
-  };
-
-  template<class Container, bool Own>
-  struct  scalar_of< nt2::memory::container_shared_ref<Container, Own>& >
-        : scalar_of<Container&>
-  {
-  };
-
-  template<class Container, bool Own>
-  struct  scalar_of< nt2::memory::container_shared_ref<Container, Own> const& >
-        : scalar_of<Container const&>
-  {
-  };
-
-  //============================================================================
   // value_of specializations
   //============================================================================
-  template<class Container, bool Own>
-  struct value_of< nt2::memory::container_shared_ref<Container, Own> >
-   : value_of<Container>
+  template<class T, class S, bool Own>
+  struct value_of< nt2::memory::container_shared_ref<T, S, Own> >
   {
-  };
-
-  template<class Container, bool Own>
-  struct value_of< nt2::memory::container_shared_ref<Container, Own> const >
-   : value_of<Container>
-  {
-  };
-
-  template<class Container, bool Own>
-  struct value_of< nt2::memory::container_shared_ref<Container, Own>& >
-   : value_of<Container>
-  {
-  };
-
-  template<class Container, bool Own>
-  struct value_of< nt2::memory::container_shared_ref<Container, Own> const& >
-   : value_of<Container>
-  {
+    typedef T& type;
   };
 
   //============================================================================
   // model_of specialization
   //============================================================================
-  template<class Container, bool Own>
-  struct model_of< nt2::memory::container_shared_ref<Container, Own> >
+  template<class T, class S, bool Own>
+  struct model_of< nt2::memory::container_shared_ref<T, S, Own> >
   {
     struct type
     {
       template<class X>
       struct apply
       {
-        typedef nt2::memory::container_shared_ref<X, Own> type;
+        typedef nt2::memory::container_shared_ref<X, S, Own> type;
       };
     };
   };
@@ -106,27 +67,31 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   // container hierarchy
   //============================================================================
-  template<class Container, bool Own, class Origin>
-  struct hierarchy_of< nt2::memory::container_shared_ref<Container, Own>, Origin >
-   : hierarchy_of< Container, Origin >
+  template<class T, class S, bool Own, class Origin>
+  struct hierarchy_of< nt2::memory::container_shared_ref<T, S, Own>, Origin >
   {
+    typedef typename nt2::meta::option < S
+                                      , nt2::tag::semantic_
+                                      , nt2::tag::table_
+                                      >::type                   semantic_t;
+    typedef typename semantic_t::template apply<T,S,Origin>::type type;
   };
 
   template<class T, class S>
   struct terminal_of_shared< nt2::memory::container<T, S> >
   {
     typedef nt2::memory::container<T, S>                        container;
-    typedef nt2::memory::container_shared_ref<container, true>  container_ref;
+    typedef nt2::memory::container_shared_ref<T, S, true>       container_ref;
     typedef boost::proto::basic_expr< boost::proto::tag::terminal
                                     , boost::proto::term<container_ref>
                                     , 0
                                     >                           basic_expr;
     typedef nt2::container::expression< basic_expr
-                                      , container
+                                      , container&
                                       >                         type;
     static type make()
     {
-      return type(basic_expr::make(container_ref(boost::make_shared<container>())));
+      return type(basic_expr::make(container_ref()));
     }
   };
 } } }
