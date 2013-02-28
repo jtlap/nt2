@@ -24,14 +24,14 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::reduce_, tag::cpu_
-                              , (A0)
-                              , ((ast_<A0, nt2::container::domain>))
+                            , (A0)
+                            , ((ast_<A0, nt2::container::domain>))
                             )
   {
 
     typedef typename A0::value_type value_type;
     typedef typename nt2::meta::call<nt2::tag::colon_(size_t, size_t)>::type                     T1;
-    typedef typename nt2::meta::call<nt2::tag::function_(const A0&, size_t, T1)>::type  result_type;
+    typedef typename nt2::meta::call<nt2::tag::function_(const typename A0::nt2_expression&, size_t, T1)>::type  result_type;
     NT2_FUNCTOR_CALL(1)
     {
       size_t na0 =  nt2::numel(a0);
@@ -40,20 +40,21 @@ namespace nt2 { namespace ext
       {
         if (nt2::is_nez(a0(i))) {idx = i; break;}
       }
+
       return a0(nt2::One<size_t>(), _(idx,na0));
     }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::reduce_, tag::cpu_
-                              , (A0)(A1)
-                              , ((ast_<A0, nt2::container::domain>))
+                            , (A0)(A1)
+                            , ((ast_<A0, nt2::container::domain>))
                               (scalar_<floating_<A1> > )
                             )
   {
 
     typedef typename A0::value_type value_type;
     typedef typename nt2::meta::call<nt2::tag::colon_(size_t, size_t)>::type                     T1;
-    typedef typename nt2::meta::call<nt2::tag::function_(const A0&, size_t, T1)>::type  result_type;
+    typedef typename nt2::meta::call<nt2::tag::function_(const typename A0::nt2_expression&, size_t, T1)>::type  result_type;
     NT2_FUNCTOR_CALL(2)
     {
       size_t na0 =  nt2::numel(a0);
@@ -63,19 +64,20 @@ namespace nt2 { namespace ext
       {
         if (nt2::gt(nt2::abs(a0(i)), thresh)) {idx = i; break;}
       }
-      return a0(nt2::One<size_t>(), _(idx,na0));
+      //return a0(nt2::One<size_t>(), _(idx,na0));
+      return result_type();
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::reduce_, tag::cpu_
-                              , (A0)(A1)
-                              , ((ast_<A0, nt2::container::domain>))
+                            , (A0)(A1)
+                            , ((ast_<A0, nt2::container::domain>))
                               (unspecified_<A1>  )
                             )
   {
 
     typedef typename A0::value_type value_type;
     typedef typename nt2::meta::call<nt2::tag::colon_(size_t, size_t)>::type                     T1;
-    typedef typename nt2::meta::call<nt2::tag::function_(const A0&, size_t, T1)>::type  result_type;
+    typedef typename nt2::meta::call<nt2::tag::function_(const typename A0::nt2_expression&, size_t, T1)>::type  result_type;
     NT2_FUNCTOR_CALL(2)
     {
       size_t na0 =  nt2::numel(a0);

@@ -95,8 +95,7 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(A0& a0, A1 const& a1) const
     {
-      typedef typename A0::parent parent;
-      static_cast<parent&>(a0) = a1;
+      static_cast<typename A0::nt2_expression&>(a0) = a1;
     }
   };
 

@@ -180,7 +180,12 @@ namespace nt2 { namespace container
   struct expression : expression_scalar<Expr, Result, meta::is_scalar<Result>::value>
   {
     //==========================================================================
-    /*! Type of the parent expression                                         */
+    // This type
+    //==========================================================================
+    typedef expression nt2_expression;
+
+    //==========================================================================
+    // Type of the parent expression
     //==========================================================================
     BOOST_PROTO_BASIC_EXTENDS(Expr, expression, domain)
 

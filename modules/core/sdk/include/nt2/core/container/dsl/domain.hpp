@@ -74,7 +74,7 @@ namespace nt2 { namespace container
     typedef memory::container_ref<T, S> container_ref;
     typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<container_ref>, 0l > basic_expr;
     typedef memory::container<T, S>& semantic;
-    typedef expression<basic_expr, semantic> parent;
+    typedef expression<basic_expr, semantic> nt2_expression;
 
     typedef typename container_ref::iterator iterator;
     typedef typename container_ref::const_iterator const_iterator;
@@ -90,8 +90,13 @@ namespace nt2 { namespace container
     }
 
     BOOST_FORCEINLINE
-    table_view( parent const& expr )
-              : parent(expr)
+    table_view()
+    {
+    }
+
+    BOOST_FORCEINLINE
+    table_view( nt2_expression const& expr )
+              : nt2_expression(expr)
     {
     }
 
@@ -100,7 +105,7 @@ namespace nt2 { namespace container
                           , memory::container<T, S>
                           > & expr
               )
-              : parent(basic_expr::make(boost::proto::value(expr)))
+              : nt2_expression(basic_expr::make(boost::proto::value(expr)))
     {
     }
 
@@ -109,18 +114,18 @@ namespace nt2 { namespace container
                           , memory::container<T, S>&
                           > const& expr
               )
-              : parent(basic_expr::make(boost::proto::value(expr)))
+              : nt2_expression(basic_expr::make(boost::proto::value(expr)))
     {
     }
 
     template<class S2>
     BOOST_FORCEINLINE
     table_view( table_view<T, S2> const& expr )
-              : parent(basic_expr::make(boost::proto::value(expr)))
+              : nt2_expression(basic_expr::make(boost::proto::value(expr)))
     {
     }
 
-    using parent::operator=;
+    using nt2_expression::operator=;
   };
 
   template<class T, class S>
@@ -132,7 +137,7 @@ namespace nt2 { namespace container
     typedef memory::container_ref<T const, S> container_ref;
     typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<container_ref>, 0l > basic_expr;
     typedef memory::container<T, S> const& semantic;
-    typedef expression<basic_expr, semantic> parent;
+    typedef expression<basic_expr, semantic> nt2_expression;
 
     typedef typename container_ref::iterator iterator;
     typedef typename container_ref::const_iterator const_iterator;
@@ -148,8 +153,13 @@ namespace nt2 { namespace container
     }
 
     BOOST_FORCEINLINE
-    table_view( parent const& expr )
-              : parent(expr)
+    table_view()
+    {
+    }
+
+    BOOST_FORCEINLINE
+    table_view( nt2_expression const& expr )
+              : nt2_expression(expr)
     {
     }
 
@@ -158,7 +168,7 @@ namespace nt2 { namespace container
                           , memory::container<T, S>
                           > const& expr
               )
-              : parent(basic_expr::make(boost::proto::value(expr)))
+              : nt2_expression(basic_expr::make(boost::proto::value(expr)))
     {
     }
 
@@ -167,18 +177,18 @@ namespace nt2 { namespace container
                           , memory::container<T, S> const&
                           > const& expr
               )
-              : parent(basic_expr::make(boost::proto::value(expr)))
+              : nt2_expression(basic_expr::make(boost::proto::value(expr)))
     {
     }
 
     template<class U, class S2>
     BOOST_FORCEINLINE
     table_view( table_view<U, S2> const& expr )
-              : parent(basic_expr::make(boost::proto::value(expr)))
+              : nt2_expression(basic_expr::make(boost::proto::value(expr)))
     {
     }
 
-    using parent::operator=;
+    using nt2_expression::operator=;
   };
 
   template<class T, class S = nt2::settings()>
@@ -190,7 +200,7 @@ namespace nt2 { namespace container
     typedef memory::container_shared_ref< T, S, false > container_ref;
     typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<container_ref>, 0l > basic_expr;
     typedef memory::container<T, S>& semantic;
-    typedef expression<basic_expr, semantic> parent;
+    typedef expression<basic_expr, semantic> nt2_expression;
 
     typedef typename container_ref::iterator iterator;
     typedef typename container_ref::const_iterator const_iterator;
@@ -206,8 +216,13 @@ namespace nt2 { namespace container
     }
 
     BOOST_FORCEINLINE
-    table_shared_view( parent const& expr )
-                     : parent(expr)
+    table_shared_view()
+    {
+    }
+
+    BOOST_FORCEINLINE
+    table_shared_view( nt2_expression const& expr )
+                     : nt2_expression(expr)
     {
     }
 
@@ -217,11 +232,11 @@ namespace nt2 { namespace container
                                  , memory::container<T, S2>&
                                  > const& expr
                      )
-                     : parent(basic_expr::make(boost::proto::value(expr)))
+                     : nt2_expression(basic_expr::make(boost::proto::value(expr)))
     {
     }
 
-    using parent::operator=;
+    using nt2_expression::operator=;
   };
 
   template<class T, class S>
@@ -233,7 +248,7 @@ namespace nt2 { namespace container
     typedef memory::container_shared_ref< T const, S, false > container_ref;
     typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<container_ref>, 0l > basic_expr;
     typedef memory::container<T, S> const& semantic;
-    typedef expression<basic_expr, semantic> parent;
+    typedef expression<basic_expr, semantic> nt2_expression;
 
     typedef typename container_ref::iterator iterator;
     typedef typename container_ref::const_iterator const_iterator;
@@ -249,8 +264,13 @@ namespace nt2 { namespace container
     }
 
     BOOST_FORCEINLINE
-    table_shared_view( parent const& expr )
-                     : parent(expr)
+    table_shared_view()
+    {
+    }
+
+    BOOST_FORCEINLINE
+    table_shared_view( nt2_expression const& expr )
+                     : nt2_expression(expr)
     {
     }
 
@@ -260,11 +280,11 @@ namespace nt2 { namespace container
                                  , memory::container<U, S2> /*const?*/&
                                  > const& expr
                      )
-                     : parent(basic_expr::make(boost::proto::value(expr)))
+                     : nt2_expression(basic_expr::make(boost::proto::value(expr)))
     {
     }
 
-    using parent::operator=;
+    using nt2_expression::operator=;
   };
 
   template<class Expr, class T>
