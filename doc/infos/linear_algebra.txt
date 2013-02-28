@@ -39,7 +39,7 @@ cholupdate          |  cholupdate TODO                    |     Rank 1 update to
 funm                |  funm    TODO                       |     Evaluate general matrix function                                  |
 ichol               |  ichol   TODO                       |     Incomplete Cholesky factorization                                 |
 ilu                 |  ilu     TODO                       |     Sparse incomplete LU factorization                                |
-inv                 |  inv                                |     Matrix inverse                                                    |  core/linalg
+inv                 |  inv                                |     Matrix inverse                                                    |  core/linalg UNFINISHED
 ldl                 |  ldl     TOFINISH                   |     Block LDL' factorization for Hermitian indefinite matrices        |  core/linalg/factorization
 linsolve            |  linsolve                           |     Solve linear system of equations                                  |  core/linalg
 lscov               |  lscov   TODO                       |     Least-squares solution in presence of known covariance            |
@@ -49,8 +49,8 @@ luinc               |  luinc   TODO                       |     Sparse incomplet
 pinv                |  pinv                               |     Moore-Penrose pseudoinverse of matrix                             |  core/linalg
 planerot            |  planerot                           |     Givens plane rotation                                             |  core/linalg/general
 qr                  |  qr                                 |     Orthogonal-triangular decomposition                               |  core/linalg
-qrdelete            |  qrdelete  TODO                     |     Remove column or row from QR factorization                        |
-qrinsert            |  qrinsert  TODO                     |     Insert column or row into QR factorization                        |
+qrdelete            |  qrdelete                           |     Remove column or row from QR factorization                        |  core/linalg
+qrinsert            |  qrinsert                           |     Insert column or row into QR factorization                        |  core/linalg
 qrupdate            |  qrupdate  TODO                     |     Rank 1 update to QR factorization                                 |
 qz                  |  qz TODO                            |     QZ factorization for generalized eigenvalues                      |
 
@@ -73,8 +73,8 @@ ordschur            | ordschur TODO                       |    Reorder eigenvalu
 poly                | poly                                |    Polynomial with specified roots                                    |  core/linalg/general
 polyeig             | polyeig TODO                        |    Polynomial eigenvalue problem                                      |
 rsf2csf             | rsf2csf TODO                        |    Convert real Schur form to complex Schur form                      |
-schur               | schur                               |    Schur decomposition                                                |
-sqrtm               | sqrtm                               |    Matrix square root                                                 |
+schur               | schur                               |    Schur decomposition                                                |  core/linalg
+sqrtm               | sqrtm                               |    Matrix square root                                                 |  core/linalg/general
 ss2tf               | ss2tf TODO                          |    Convert state-space filter parameters to transfer function form    |
 svd                 | svd                                 |    Singular value decomposition                                       |  core/linalg/tied
 svds                | svds                                |    Find singular values and vectors                                   |
@@ -87,10 +87,6 @@ TODO list for Linear Algebra
 ============================================================================================================================================================
 condeig             |  condeig TODO                       |     Condition number with respect to eigenvalues                      |
 condest             |  1-norm  TODO                       |     condition number estimate                                         |
-det                 |  det     TODO                       |     Matrix determinant                                                |
-rcond               |  rcond  TODO                        |     Matrix reciprocal condition number estimate                       |
-subspace            |  subspace TODO                      |     Angle between two subspaces                                       |
-subspace            |  subspace TODO                      |     Angle between two subspaces                                       |
 cholinc             |  cholinc TODO                       |     Sparse incomplete Cholesky and Cholesky-Infinity factorizations   |
 cholupdate          |  cholupdate TODO                    |     Rank 1 update to Cholesky factorization                           |
 funm                |  funm    TODO                       |     Evaluate general matrix function                                  |
@@ -101,7 +97,6 @@ lscov               |  lscov   TODO                       |     Least-squares so
 lsqnonneg           |  lsqnonneg TODO                     |     Solve nonnegative least-squares constraints problem               |
 luinc               |  luinc   TODO                       |     Sparse incomplete LU factorization                                |
 qrdelete            |  qrdelete  TODO                     |     Remove column or row from QR factorization                        |
-qrinsert            |  qrinsert  TODO                     |     Insert column or row into QR factorization                        |
 qrupdate            |  qrdelete  TODO                     |     Rank 1 update to QR factorization                                 |
 qz                  |  qz TODO                            |     QZ factorization for generalized eigenvalues                      |
 cdf2rdf             | cdf2rdf  TODO                       |     Convert complex diagonal form to real block diagonal form         |

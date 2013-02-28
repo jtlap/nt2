@@ -119,7 +119,7 @@ namespace nt2 { namespace ext
            BOOST_AUTO_TPL(p, nt2::rowvect(nt2::cons(k, k+1)));
            tie(g,z) = nt2::planerot(r1(p,j));
            r1(p, j) = z;
-//           tie(g,r1(p,j)) = nt2::planerot(r1(p,j)); // doesnot compile
+           //           tie(g,r1(p,j)) = nt2::planerot(r1(p,j)); // doesnot compile
            if (k < n)
            {
              table<value_t> rr = r1(p,nt2::_(k+1, n));
@@ -181,112 +181,4 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-// [mx,nx] = size(x);
-// [mq,nq] = size(Q);
-// [m,n] = size(R);
 
-// if isequal(orient,'col') && (n==0)
-//    [Q,R] = qr(x);
-//    return;
-// end
-
-// if isequal(orient,'row') && (m==0)
-//    [Q,R] = qr(x);
-//    return;
-// end
-
-// % Error checking
-// if (mq ~= nq)
-//     error(message('MATLAB:qrinsert:QNotSquare'))
-// elseif (nq ~= m)
-//     error(message('MATLAB:qrinsert:InnerDimQRfactors'))
-// elseif (j <= 0)
-//     error(message('MATLAB:qrinsert:NegInsertionIndex'))
-// end
-
-// switch orient
-// case 'col'
-
-//     if (j > n+1)
-//         error(message('MATLAB:qrinsert:InvalidInsertionIndex'))
-//     elseif (mx ~= m) || (nx ~= 1)
-//         error(message('MATLAB:qrinsert:WrongSizeInsertedCol'))
-//     end
-
-//     % Make room and insert x before j-th column.
-//     R(:,j+1:n+1) = R(:,j:n);
-//     R(:,j) = Q'*x;
-//     n = n+1;
-
-//     % Now R has nonzeros below the diagonal in the j-th column,
-//     % and "extra" zeros on the diagonal in later columns.
-//     %    R = [x x x x x         [x x x x x
-//     %         0 x x x x    G     0 x x x x
-//     %         0 0 + x x   --->   0 0 * * *
-//     %         0 0 + 0 x          0 0 0 * *
-//     %         0 0 + 0 0]         0 0 0 0 *]
-//     % Use Givens rotations to zero the +'s, one at a time, from bottom to top.
-//     %
-//     % Q is treated to (the transpose of) the same rotations.
-//     %    Q = [x x x x x    G'   [x x * * *
-//     %         x x x x x   --->   x x * * *
-//     %         x x x x x          x x * * *
-//     %         x x x x x          x x * * *
-//     %         x x x x x]         x x * * *]
-
-//     for k = m-1:-1:j
-//         p = k:k+1;
-//         [G,R(p,j)] = planerot(R(p,j));
-//         if k < n
-//             R(p,k+1:n) = G*R(p,k+1:n);
-//         end
-//         Q(:,p) = Q(:,p)*G';
-//     end
-
-// case 'row'
-
-//     if (j > m+1)
-//         error(message('MATLAB:qrinsert:InvalidInsertionIndex'))
-//     elseif (mx ~= 1) || (nx ~= n)
-//         error(message('MATLAB:qrinsert:WrongSizeInsertedRow'))
-//     end
-
-//     R = [x; R];
-//     Q = [1 zeros(1,m,class(R)); zeros(m,1) Q];
-
-//     % Now R is upper Hessenberg.
-//     %    R = [x x x x         [* * * *
-//     %         + x x x    G       * * *
-//     %           + x x   --->       * *
-//     %             + x                *
-//     %               +          0 0 0 0
-//     %         0 0 0 0          0 0 0 0
-//     %         0 0 0 0]         0 0 0 0]
-//     % Use Givens rotations to zero the +'s, one at a time, from top to bottom.
-//     %
-//     % Q is treated to (the transpose of) the same rotations and then a row
-//     % permutation, p, to shuffle row 1 down to row j.
-//     %    Q = [1 | 0 0 0 0 0         [# # # # # #         [* * * * * *
-//     %         --|----------          -----------          -----------
-//     %         0 | x x x x x    G'    * * * * * *    p     * * * * * *
-//     %         0 | x x x x x   --->   * * * * * *   --->   # # # # # #
-//     %         0 | x x x x x          * * * * * *          * * * * * *
-//     %         0 | x x x x x          * * * * * *          * * * * * *
-//     %         0 | x x x x x]         * * * * * *]         * * * * * *]
-
-//     for i = 1 : min(m,n)
-//         p = i : i+1;
-//         [G,R(p,i)] = planerot(R(p,i));
-//         R(p,i+1:n) = G * R(p,i+1:n);
-//         Q(:,p) = Q(:,p) * G';
-//     end
-
-//     % This permutes row 1 of Q*R to row j of Q(p,:)*R
-//     if (j ~= 1)
-//         p = [2:j, 1, j+1:m+1];
-//         Q = Q(p,:);
-//     end
-
-// otherwise
-//     error(message('MATLAB:qrinsert:InvalidInput5'));
-// end
