@@ -25,6 +25,7 @@ SET( SOURCES
      svd.cpp
      svd_solve.cpp
      symeig.cpp
+     tiepb.cpp
      tr_solve.cpp
    )
 
