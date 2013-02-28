@@ -20,6 +20,8 @@
 #include <nt2/include/functions/expand.hpp>
 #include <nt2/include/functions/rif.hpp>
 #include <nt2/include/functions/max.hpp>
+#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/norm.hpp>
 #include <nt2/include/functions/prod.hpp>
 #include <nt2/include/functions/eps.hpp>
 #include <nt2/include/functions/frexp.hpp>
@@ -258,12 +260,20 @@ namespace nt2 { namespace details
     //==========================================================================
     base_t rcond(char c = '1')
     {
-      base_t rc = 0;
-      tab_t aa = a_;
-      char norm = (c == 1) ? '1' : ((c == 0) ? 'o' : c);
-      base_t anorm = nt2::details::lange(&norm,  &n_,  &n_, aa.raw(), &ldlu_);
-      nt2::details::gecon(&norm, &n_,  lu_.raw(), &ldlu_, &anorm, &rc, &info_);
-      return rc;
+      /* this method which is presumably faster provides results that depend on
+      // the lapack used version
+      // it seems that gecon is buggy (J.T.L. 28/2/2013)
+      //
+      //   base_t rc = 0;
+      //   tab_t aa = a_;
+      //   char norm = (c == 1) ? '1' : ((c == 0) ? 'o' : c);
+      //   base_t anorm = nt2::details::lange(&norm,  &n_,  &n_, aa.raw(), &ldlu_);
+      //   nt2::details::gecon(&norm, &n_,  lu_.raw(), &ldlu_, &anorm, &rc, &info_);
+      //   return rc;
+      //
+        So we switch to a direct computation
+      */
+      return nt2::rec(nt2::norm(a_, c)*nt2::norm(inv(false), c));
     }
 
     //==========================================================================
@@ -381,6 +391,7 @@ namespace nt2 { namespace details
                         , "Matrix is close to singular or badly scaled."
                         " Results may be inaccurate."
             );
+          return invt_;  /* it has been calculated by rcond */
         }
         invt_ = lu_;
         nt2::details::getri(&n_, invt_.raw(), &ldlu_, ipiv_.raw(), &info_, w_);

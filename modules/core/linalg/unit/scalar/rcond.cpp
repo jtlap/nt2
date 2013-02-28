@@ -17,6 +17,9 @@
 #include <nt2/include/constants/oneo_10.hpp>
 #include <nt2/include/functions/binomial.hpp>
 #include <nt2/include/functions/kms.hpp>
+#include <nt2/include/functions/norm.hpp>
+#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/inv.hpp>
 
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -38,14 +41,6 @@ NT2_TEST_CASE_TPL(rcond, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(rcond(n+n, 1), nt2::Oneo_10<T>(), 0);
   NT2_DISPLAY(nt2::binomial(4, nt2::meta::as_<T>()));
   NT2_TEST_ULP_EQUAL(rcond(nt2::binomial(4, nt2::meta::as_<T>())), T(0.125), 1);
+
   NT2_TEST_ULP_EQUAL(rcond(nt2::kms<T>(4)), T( 1.481481481481481481e-01), 1);
-  nt2::table<T> z, b = nt2::binomial(4, nt2::meta::as_<T>());
-  nt2::table<T> r(nt2::of_size(1, 16));
- for(int i=1; i <= 16; ++i)
- {
-   z = b;
-   z(i)+= T(10.0)*nt2::Eps<T>();
-   r(i) = rcond(z);
- }
- NT2_DISPLAY(r);
 }
