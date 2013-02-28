@@ -114,6 +114,25 @@ namespace nt2 { namespace ext
       return transform()(expr::make(A0c()(a0), A1c()(a1)));
     }
   };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::assign_, tag::cpu_
+                            , (A0)(A1)
+                            , ((ast_<A0, nt2::container::domain>))
+                              (unspecified_<A1>)
+                            )
+  {
+    typedef nt2::container::domain::template as_child_expr<A0, typename A0::proto_tag, false> A0c;
+    typedef nt2::container::domain::template as_child<A1 const> A1c;
+    typedef boost::proto::basic_expr< boost::proto::tag::assign, boost::proto::list2<typename A0c::result_type, typename A1c::result_type>, 2l > expr;
+    typedef container::generator_transform<nt2::container::domain> transform;
+    typedef typename transform::template result<transform(expr const&)>::type result_type;
+
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(A0& a0, A1 const& a1) const
+    {
+      return transform()(expr::make(A0c()(a0), A1c()(a1)));
+    }
+  };
 } }
 
 #endif

@@ -133,14 +133,14 @@ NT2_TEST_CASE( scalar_size )
   typedef float T;
 
   table<T> a0 = T(42);
-  NT2_TEST_EQUAL( a0.extent(), of_size(1 ) );
+  NT2_TEST_EQUAL( a0.extent(), of_size(1) );
   NT2_TEST_EQUAL( T(a0(1)), T(42) );
 
   table<T> a1;
-  NT2_TEST_EQUAL( a1.extent(), of_size(0 ) );
+  NT2_TEST_EQUAL( a1.extent(), of_size(0) );
 
   a1 = T(42);
-  NT2_TEST_EQUAL( a1.extent(), of_size(1 ) );
+  NT2_TEST_EQUAL( a1.extent(), of_size(1) );
   NT2_TEST_EQUAL( T(a0(1)), T(42) );
 }
 
