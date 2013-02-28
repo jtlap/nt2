@@ -65,7 +65,14 @@ namespace nt2 { namespace memory
       os << boost::fusion::as_vector(composites_);
     }
 
-    private:
+    //XXXMathias: needed for iterator-to-pointer conversion in container_ref constructor
+    //TODO: find a better way to deal with this?
+    operator P const&() const
+    {
+      return composites_;
+    }
+
+  private:
     friend class boost::iterator_core_access;
     template<class,class,class> friend class composite_iterator;
 
@@ -148,7 +155,6 @@ namespace nt2 { namespace memory
       return that;
     }
 
-    private:
     P composites_;
   };
 

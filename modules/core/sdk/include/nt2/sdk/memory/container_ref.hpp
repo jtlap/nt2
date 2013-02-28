@@ -43,22 +43,32 @@ namespace nt2 { namespace memory
                                   , value_type
                                   >::type                        specific_data_type;
 
-    typedef T&                                                   reference;
-    typedef T const&                                             const_reference;
-    typedef T*                                                   pointer;
-    typedef T const*                                             const_pointer;
-
-    typedef pointer                                              iterator;
-    typedef iterator                                             const_iterator;
+    typedef typename boost::mpl::
+            if_< boost::is_const<T>
+               , container<value_type, S> const
+               , container<value_type, S>
+               >::type base_t;
 
     typedef typename boost::mpl::
-           if_< boost::is_const<T>
-              , container<value_type, S> const
-              , container<value_type, S>
-              >::type base_t;
+            if_< boost::is_const<T>
+               , typename base_t::const_reference
+               , typename base_t::reference
+               >::type                                           reference;
+    typedef typename boost::mpl::
+            if_< boost::is_const<T>
+               , typename base_t::const_pointer
+               , typename base_t::pointer
+               >::type                                           pointer;
+    typedef typename boost::mpl::
+            if_< boost::is_const<T>
+               , typename base_t::const_iterator
+               , typename base_t::iterator
+               >::type                                           iterator;
+    typedef typename base_t::const_reference                     const_reference;
+    typedef typename base_t::const_pointer                       const_pointer;
+    typedef typename base_t::const_iterator                      const_iterator;
 
-
-    container_ref() : ptr(0)
+    container_ref() : ptr()
     {
     }
 
@@ -169,28 +179,28 @@ namespace nt2 { namespace memory
      * Return the begin of the raw memory
      */
     //==========================================================================
-    BOOST_FORCEINLINE pointer       raw() const { return ptr; }
+    BOOST_FORCEINLINE pointer        raw() const { return ptr; }
 
     //==========================================================================
     /*!
      * Return the begin of the data
      */
     //==========================================================================
-    BOOST_FORCEINLINE iterator       begin() const { return ptr; }
+    BOOST_FORCEINLINE iterator       begin() const { return iterator(ptr); }
 
     //==========================================================================
     /*!
      * Return the end of the data
      */
     //==========================================================================
-    BOOST_FORCEINLINE iterator       end() const   { return ptr + size(); }
+    BOOST_FORCEINLINE iterator       end() const   { return begin() + size(); }
 
     //==========================================================================
     // Linear Random Access
     //==========================================================================
     BOOST_FORCEINLINE reference operator[](size_type i) const
     {
-      return ptr[i];
+      return begin()[i];
     }
 
     //==========================================================================
