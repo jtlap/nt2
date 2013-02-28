@@ -43,13 +43,13 @@ NT2_TEST_CASE_TPL ( qrinsert, NT2_REAL_TYPES)
   NT2_DISPLAY(q1);
   NT2_DISPLAY(r1);
   NT2_DISPLAY( nt2::mtimes(q1, r1));
-  NT2_TEST_ULP_EQUAL(nt2::mtimes(q1, r1),  nt2::cath(nt2::cath(b(nt2::_, 1),x), b(nt2::_, nt2::_(2, 4))), T(4.0));
+  NT2_TEST_ULP_EQUAL(nt2::mtimes(q1, r1),  nt2::cath(nt2::cath(b(nt2::_, 1),x), b(nt2::_, nt2::_(2, 4))), T(20.0));
 
   nt2::tie(q1, r1) = nt2::qrinsert(q, r, 2, nt2::rowvect(x), 'r');
   NT2_DISPLAY(q1);
   NT2_DISPLAY(r1);
   NT2_DISPLAY( nt2::mtimes(q1, r1));
-  NT2_TEST_ULP_EQUAL(nt2::mtimes(q1, r1),  nt2::catv(nt2::catv(b(1, nt2::_),nt2::rowvect(x)), b(nt2::_(2, 4), nt2::_)), T(4.0));
+  NT2_TEST_ULP_EQUAL(nt2::mtimes(q1, r1),  nt2::catv(nt2::catv(b(1, nt2::_),nt2::rowvect(x)), b(nt2::_(2, 4), nt2::_)), T(20.0));
 
 
 }
