@@ -29,14 +29,15 @@ namespace nt2
     return frequency.QuadPart;
   }
 
-  static double const timer_ticks_per_microsecond( get_timer_resolution() / 1000000.0 );
+  static unsigned long long const timer_resolution           ( get_timer_resolution()                                        );
+  static double             const timer_ticks_per_microsecond( static_cast<signed long long>( timer_resolution ) / 1000000.0 );
 
   NT2_SDK_TIMING_DECL time_quantum_t time_quantum()
   {
     // http://support.microsoft.com/kb/172338
     BOOST_ASSERT_MSG
     (
-      timer_ticks_per_microsecond == ( get_timer_resolution() / 1000000.0 ),
+      timer_resolution == get_timer_resolution(),
       "MSDN explicitly states for QueryPerformanceFrequency: "
       "'The frequency cannot change while the system is running.'"
     );
