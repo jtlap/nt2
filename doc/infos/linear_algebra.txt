@@ -96,8 +96,7 @@ ldl                 |  ldl     TODO                       |     Block LDL' facto
 lscov               |  lscov   TODO                       |     Least-squares solution in presence of known covariance            |
 lsqnonneg           |  lsqnonneg TODO                     |     Solve nonnegative least-squares constraints problem               |
 luinc               |  luinc   TODO                       |     Sparse incomplete LU factorization                                |
-qrdelete            |  qrdelete  TODO                     |     Remove column or row from QR factorization                        |
-qrupdate            |  qrdelete  TODO                     |     Rank 1 update to QR factorization                                 |
+qrupdate            |  qrupdate  TODO                     |     Rank 1 update to QR factorization                                 |
 qz                  |  qz TODO                            |     QZ factorization for generalized eigenvalues                      |
 cdf2rdf             | cdf2rdf  TODO                       |     Convert complex diagonal form to real block diagonal form         |
 eigs                | eigs   TODO                         |     Largest eigenvalues and eigenvectors of matrix                    |

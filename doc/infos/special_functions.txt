@@ -48,6 +48,6 @@ betaln              |  betaln     TODO                    |     Logarithm of bet
 ellipj              |  ellipj     TODO                    |     Jacobi elliptic functions                                         | a bunch of elliptic function are available
 ellipke             |  ellipke    TODO                    |     Complete elliptic integrals of first and second kind              | but do not know exact correspondance
 erfcx               |  erfcx     TODO                     |     Scaled complementary error function                               |
-expint              |  expint    TODO                     |     Exponential integral                                              | core/euler
+expint              |  expint                             |     Exponential integral                                              | core/euler
 ============================================================================================================================================================
 ============================================================================================================================================================

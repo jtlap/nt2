@@ -83,7 +83,7 @@ cplxpair            |  cplxpair TODO                      |     Sort complex num
 i                   |  I<T>()                             |     Imaginary unit (for type T)                                       |      type/complex
 imag                |  imag                               |     Imaginary part of complex number                                  |      type/complex
 isreal              |  isreal                             |     Check if all arrays elemnt are real                               |      core/predicates
-j                   |  TODO                               |     Imaginary unit                                                    |
+j                   |                                     |     Imaginary unit                                                    |      not relevant
 real                |  real                               |     Real part of complex number                                       |      type/complex
 sign                |  sign                               |     Signum function                                                   |      core/arithmetic
 unwrap              |  unwrap TODO                        |     Correct phase angles to produce smoother phase plots              |
@@ -140,7 +140,6 @@ roots               |  roots                              |     Polynomial roots
 TODO list for Elementary Math
 ============================================================================================================================================================
 cplxpair            |  cplxpair TODO                      |     Sort complex numbers into complex conjugate pairs                 |
-j                   |  TODO                               |     Imaginary unit                                                    |
 unwrap              |  unwrap TODO                        |     Correct phase angles to produce smoother phase plots              |
 nchoosek            |  nchoosek  TODO                     |     Binomial coefficient or all combinations                          |
 perms               |  perms  TODO                        |     All possible permutations                                         |

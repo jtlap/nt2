@@ -63,7 +63,7 @@ isinteger           |  is_integral<>                      |     Determine if inp
 islogical           |  is_logical<>                       |     Determine if input is logical array                               |  meta-function
 ismatrix            |  ismatrix                           |     Determine whether input is matrix                                 |  core/predicates
 isnan               |  is_nan                             |     Array elements that are NaN                                       |  core/predicates
-isnumeric           |                                     |     Determine if input is numeric array                               |  unrelevant
+isnumeric           |                                     |     Determine if input is numeric array                               |  irrelevant
 isrow               |  isrow                              |     Determine whether input is row vector                             |  core/predicates
 isscalar            |  isscalar                           |     Determine whether input is scalar                                 |  core/predicates
 issparse            |                                     |     Determine whether input is sparse                                 |  still not implemented
@@ -83,7 +83,7 @@ Matlab              |                Nt2                  |                   De
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Operators :  + - * / \ ^ -F¢ Matrix and array arithmetic-A
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ctranspose          |                                     |     Complex conjugate transpose                                       |  todo
+ctranspose          |  ctrans, ct                         |     Complex conjugate transpose                                       |  core/restructuring
 minus               |  sub                                |     Minus                                                             |  core/operator
 mpower              |  mpower                             |     Matrix power                                                      |  core/algebra
 plus                |  plus                               |     Plus                                                              |  core/operator
@@ -168,7 +168,7 @@ flipdim             | flipdim                             | Flip array along spe
 fliplr              | fliplr                              | Flip matrix left to right                                             |  core/restructuring
 flipud              | flipud                              | Flip matrix up to down                                                |  core/restructuring
 horzcat             | horzcat                             | Concatenate arrays horizontally                                       |  core/restructuring
-inline              |                                     | Construct inline object                                               |  not relevant
+inline              |                                     | Construct inline object                                               |  not relevant use lambda functions
 ipermute            | ipermute TODO                       | Inverse permute dimensions of N-D array                               |
 permute             | permute  TODO                       | Rearrange dimensions of N-D array                                     |
 repmat              | repmat                              | Replicate and tile array                                              |  core/generative
@@ -189,9 +189,9 @@ Matlab              |                Nt2                  |                   De
 Specialized Matrices
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 compan              | compan                              | Companion matrix                                                      |  core/polynom
-gallery             | TODO (some are done)                | Test matrices                                                         |
-hadamard            | TODO                                | Hadamard matrix                                                       |
-hankel              | TODO                                | Hankel matrix                                                         |
+gallery             | TODO (many are done)                | Test matrices                                                         |  core/linalg/gallery 28/61
+hadamard            | hadamard                            | Hadamard matrix                                                       |  core/linalg/gallery
+hankel              | hankel                              | Hankel matrix                                                         |  core/linalg/gallery
 hilb                | hilb                                | Hilbert matrix                                                        |  core/linalg/gallery
 invhilb             | invhilb                             | Inverse of Hilbert matrix                                             |  core/linalg/gallery
 magic               | magic                               | Magic square                                                          |  core/linalg/gallery
@@ -216,8 +216,6 @@ ipermute            | ipermute TODO                       | Inverse permute dime
 permute             | permute  TODO                       | Rearrange dimensions of N-D array                                     |
 shiftdim            | shiftdim TODO                       | Shift dimensions                                                      |
 sortrows            | sortrows TODO                       | Sort rows in ascending order                                          |
-gallery             | TODO (some are done)                | Test matrices                                                         |
-hadamard            | TODO                                | Hadamard matrix                                                       |
-hankel              | TODO                                | Hankel matrix                                                         |
+gallery             | TODO (many are done)                | Test matrices                                                         |
 ============================================================================================================================================================
 ============================================================================================================================================================
