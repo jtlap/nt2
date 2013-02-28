@@ -10,7 +10,6 @@
 #define NT2_DSL_FUNCTIONS_CONTAINER_RUN_HPP_INCLUDED
 
 #include <nt2/dsl/functions/run.hpp>
-#include <nt2/include/functor.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/transform.hpp>
@@ -22,8 +21,10 @@
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/terminal.hpp>
 #include <nt2/include/functions/firstnonsingleton.hpp>
-#include <nt2/core/container/table/table.hpp>
+#include <nt2/core/container/table/category.hpp>
+#include <nt2/sdk/meta/is_container.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
+#include <boost/proto/traits.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_reference.hpp>
 #include <numeric>
@@ -257,11 +258,16 @@ namespace nt2 { namespace ext
                               ))
                             )
   {
+    typedef typename boost::proto::result_of::value<A0>::value_type value_type;
+
+    // avoid copying table
     typedef typename boost::mpl::
-            if_< boost::is_reference< typename boost::proto::result_of::value<A0>::value_type >
-               , A0
-               , A0&
-               >::type
+            if_c< meta::is_container<value_type>::value
+                  && !meta::is_container_ref<value_type>::value
+                  && !boost::is_reference<value_type>::value
+                , A0&
+                , A0
+                >::type
     result_type;
     BOOST_FORCEINLINE result_type operator()(A0& a0) const
     {
