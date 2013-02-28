@@ -258,9 +258,9 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename boost::mpl::
-            if_< boost::is_reference< typename boost::dispatch::meta::semantic_of<A0>::type >
-               , A0&
+            if_< boost::is_reference< typename boost::proto::result_of::value<A0>::value_type >
                , A0
+               , A0&
                >::type
     result_type;
     BOOST_FORCEINLINE result_type operator()(A0& a0) const
