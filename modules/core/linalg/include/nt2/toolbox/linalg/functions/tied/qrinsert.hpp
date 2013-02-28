@@ -15,8 +15,7 @@
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/horzcat.hpp>
 #include <nt2/include/functions/vertcat.hpp>
-#include <nt2/include/functions/rowvect.hpp>
-#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/ctrans.hpp>
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/cons.hpp>
 #include <nt2/include/functions/conj.hpp>
@@ -116,7 +115,7 @@ namespace nt2 { namespace ext
         //          x x x x x]         x x * * *]
          for(size_t k = m-1; k >= j; --k)
          {
-           BOOST_AUTO_TPL(p, nt2::rowvect(nt2::cons(k, k+1)));
+           BOOST_AUTO_TPL(p, nt2::cons(k, k+1));
            tie(g,z) = nt2::planerot(r1(p,j));
            r1(p, j) = z;
            //           tie(g,r1(p,j)) = nt2::planerot(r1(p,j)); // doesnot compile
@@ -126,7 +125,7 @@ namespace nt2 { namespace ext
              r1(p,nt2::_(k+1, n)) = nt2::mtimes(g, rr);
            }
            table<value_t> qq = q1(nt2::_,p);
-           q1(nt2::_,p) = nt2::mtimes(qq, nt2::trans(nt2::conj(g)));
+           q1(nt2::_,p) = nt2::mtimes(qq, nt2::ct(g));
          }
 
       }
@@ -157,13 +156,13 @@ namespace nt2 { namespace ext
 
         for(size_t i = 1; i <= nt2::min(m,n); ++i)
         {
-          BOOST_AUTO_TPL(p, nt2::rowvect(nt2::cons(i, i+1)));
+          BOOST_AUTO_TPL(p, nt2::cons(i, i+1));
           tie(g,z) = nt2::planerot(r1(p,i));
           r1(p, i) = z;
           table<value_t> rr = r1(p,nt2::_(i+1, n));
           r1(p,nt2::_(i+1, n)) = nt2::mtimes(g, rr);
           table<value_t> qq = q1(nt2::_,p);
-          q1(nt2::_,p) = nt2::mtimes(qq, nt2::trans(nt2::conj(g)));;
+          q1(nt2::_,p) = nt2::mtimes(qq, nt2::ct(g));;
         }
         // This permutes row 1 of Q*R to row j of Q(p,:)*R
         if (j != 1)
