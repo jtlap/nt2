@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_PLANEROT_HPP_INCLUDED
-#define NT2_TOOLBOX_LINALG_FUNCTIONS_PLANEROT_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_QRINSERT_HPP_INCLUDED
+#define NT2_TOOLBOX_LINALG_FUNCTIONS_QRINSERT_HPP_INCLUDED
 
 #include <nt2/options.hpp>
 #include <nt2/include/functor.hpp>
@@ -17,32 +17,31 @@
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
 
+
 namespace nt2
 {
   namespace tag
   {
-    struct planerot_ :  ext::tieable_<planerot_>
+    struct qrinsert_ :  ext::tieable_<qrinsert_>
     {
-      typedef ext::tieable_<planerot_>  parent;
+      typedef ext::tieable_<qrinsert_>  parent;
     };
   }
 
-  /**
-   * @brief Perform Planerot computation
-   *
-   **/
-  NT2_FUNCTION_IMPLEMENTATION(tag::planerot_, planerot, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::qrinsert_, qrinsert, 4)
+  NT2_FUNCTION_IMPLEMENTATION(tag::qrinsert_, qrinsert, 5)
+
 }
 
 namespace nt2 { namespace ext
 {
   template<class Domain, int N, class Expr>
-  struct  size_of<tag::planerot_,Domain,N,Expr>
+  struct  size_of<tag::qrinsert_,Domain,N,Expr>
         : meta::size_as<Expr,0>
   {};
 
   template<class Domain, int N, class Expr>
-  struct  value_type<tag::planerot_,Domain,N,Expr>
+  struct  value_type<tag::qrinsert_,Domain,N,Expr>
         : meta::value_as<Expr,0>
   {};
 } }

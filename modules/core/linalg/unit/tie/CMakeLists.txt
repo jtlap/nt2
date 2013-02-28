@@ -18,7 +18,7 @@ SET( SOURCES
      lu.cpp
      planerot.cpp
      qr.cpp
-#     qrinsert.cpp
+     qrinsert.cpp
      rref.cpp
      schur.cpp
      svd.cpp
