@@ -122,7 +122,7 @@ namespace nt2 { namespace ext
     // FIXME: inject Idx::extent_type
     typedef typename container::as_view_impl<A0>::type type;
 
-    typedef typename type::parent nt2_expr;
+    typedef typename type::nt2_expression nt2_expr;
     typedef typename nt2_expr::proto_base_expr basic_expr;
     typedef typename type::container_ref container_ref;
 
