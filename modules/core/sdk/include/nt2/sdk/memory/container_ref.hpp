@@ -49,6 +49,7 @@ namespace nt2 { namespace memory
     typedef T const*                                             const_pointer;
 
     typedef pointer                                              iterator;
+    typedef iterator                                             const_iterator;
 
     typedef typename boost::mpl::
            if_< boost::is_const<T>

@@ -76,6 +76,19 @@ namespace nt2 { namespace container
     typedef memory::container<T, S>& semantic;
     typedef expression<basic_expr, semantic> parent;
 
+    typedef typename container_ref::iterator iterator;
+    typedef typename container_ref::const_iterator const_iterator;
+
+    iterator begin() const
+    {
+      return boost::proto::value(*this).begin();
+    }
+
+    iterator end() const
+    {
+      return boost::proto::value(*this).end();
+    }
+
     BOOST_FORCEINLINE
     table_view( parent const& expr )
               : parent(expr)
@@ -120,6 +133,19 @@ namespace nt2 { namespace container
     typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<container_ref>, 0l > basic_expr;
     typedef memory::container<T, S> const& semantic;
     typedef expression<basic_expr, semantic> parent;
+
+    typedef typename container_ref::iterator iterator;
+    typedef typename container_ref::const_iterator const_iterator;
+
+    iterator begin() const
+    {
+      return boost::proto::value(*this).begin();
+    }
+
+    iterator end() const
+    {
+      return boost::proto::value(*this).end();
+    }
 
     BOOST_FORCEINLINE
     table_view( parent const& expr )
@@ -166,6 +192,19 @@ namespace nt2 { namespace container
     typedef memory::container<T, S>& semantic;
     typedef expression<basic_expr, semantic> parent;
 
+    typedef typename container_ref::iterator iterator;
+    typedef typename container_ref::const_iterator const_iterator;
+
+    iterator begin() const
+    {
+      return boost::proto::value(*this).begin();
+    }
+
+    iterator end() const
+    {
+      return boost::proto::value(*this).end();
+    }
+
     BOOST_FORCEINLINE
     table_shared_view( parent const& expr )
                      : parent(expr)
@@ -195,6 +234,19 @@ namespace nt2 { namespace container
     typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<container_ref>, 0l > basic_expr;
     typedef memory::container<T, S> const& semantic;
     typedef expression<basic_expr, semantic> parent;
+
+    typedef typename container_ref::iterator iterator;
+    typedef typename container_ref::const_iterator const_iterator;
+
+    iterator begin() const
+    {
+      return boost::proto::value(*this).begin();
+    }
+
+    iterator end() const
+    {
+      return boost::proto::value(*this).end();
+    }
 
     BOOST_FORCEINLINE
     table_shared_view( parent const& expr )
