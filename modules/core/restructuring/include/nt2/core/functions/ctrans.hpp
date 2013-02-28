@@ -34,6 +34,7 @@ namespace nt2
    */
   //============================================================================
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ctrans_, ctrans, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ctrans_, ctranspose, 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ctrans_, ct    , 1)
 }
 

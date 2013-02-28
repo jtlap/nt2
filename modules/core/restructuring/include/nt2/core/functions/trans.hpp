@@ -37,6 +37,7 @@ namespace nt2
    */
   //============================================================================
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::trans_, trans, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::trans_, transpose, 1)
 }
 
 namespace nt2 { namespace ext
