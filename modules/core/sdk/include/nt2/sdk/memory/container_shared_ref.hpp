@@ -188,7 +188,7 @@ namespace nt2 { namespace memory
      * Return the begin of the data
      */
     //==========================================================================
-    BOOST_FORCEINLINE iterator       begin() const { return Own ? base_->being() : iterator(ptr); }
+    BOOST_FORCEINLINE iterator       begin() const { return Own ? base_->begin() : iterator(ptr); }
 
     //==========================================================================
     /*!
