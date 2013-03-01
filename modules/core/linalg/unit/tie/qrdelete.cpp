@@ -37,13 +37,13 @@ NT2_TEST_CASE_TPL ( qrdelete, NT2_REAL_TYPES)
   NT2_DISPLAY(p);
 
   table_t zz = nt2::mtimes(nt2::trans(p), nt2::mtimes(q, r));
-  NT2_TEST_ULP_EQUAL(zz, b, T(3.0));
+  NT2_TEST_ULP_EQUAL(zz, b, T(16.0));
   table_t q1(nt2::of_size(4, 4)), r1(nt2::of_size(4, 3));
   nt2::tie(q1, r1) = nt2::qrdelete(q, r, 2);
   NT2_DISPLAY(q1);
   NT2_DISPLAY(r1);
   NT2_DISPLAY( nt2::mtimes(q1, r1));
-  NT2_TEST_ULP_EQUAL(nt2::mtimes(q1, r1),  nt2::cath(b(nt2::_, 1), b(nt2::_, nt2::_(3, 4))), T(4.0));
+  NT2_TEST_ULP_EQUAL(nt2::mtimes(q1, r1),  nt2::cath(b(nt2::_, 1), b(nt2::_, nt2::_(3, 4))), T(16.0));
   std::cout << "//////////////////////////////////////" << std::endl;
   nt2::tie(q1, r1) = nt2::qrdelete(q, r, 2, 'r');
   NT2_DISPLAY(q1);
