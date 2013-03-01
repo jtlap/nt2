@@ -42,6 +42,7 @@
 #include <nt2/toolbox/linalg/details/lapack/gesvx.hpp>
 #include <nt2/toolbox/linalg/details/lapack/lange.hpp>
 #include <boost/dispatch/details/ignore_unused.hpp>
+#include <nt2/core/container/table/table.hpp>
 
 // TODO:
 // these are the kind of syntaxes to be enforced by nt2::chol
@@ -273,7 +274,7 @@ namespace nt2 { namespace details
       //
         So we switch to a direct computation
       */
-      return nt2::rec(nt2::norm(a_, c)*nt2::norm(inv(false), c));
+      return nt2::rec(nt2::norm(a_, c)*nt2::norm(this->inv(false), c));
     }
 
     //==========================================================================
