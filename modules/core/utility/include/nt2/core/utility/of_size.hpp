@@ -252,7 +252,7 @@ namespace nt2
             , typename  boost::disable_if                                      \
                         < boost::fusion::traits::is_sequence<I0> >::type* = 0) \
     {                                                                          \
-      BOOST_PP_REPEAT(n,M2,M2)                                                 \
+      BOOST_PP_REPEAT(n,M2,M2D)                                                \
       BOOST_PP_REPEAT(n,M1,~)                                                  \
       BOOST_PP_REPEAT_FROM_TO(n,NT2_MAX_DIMENSIONS,M3,~)                       \
     }                                                                          \
