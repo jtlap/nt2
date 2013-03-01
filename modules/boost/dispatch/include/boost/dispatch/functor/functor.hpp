@@ -224,7 +224,6 @@ namespace boost { namespace dispatch
     #undef n_size
     #undef c1
     #undef c0
-    #undef param2
     #undef param
     #undef call_operator
 
