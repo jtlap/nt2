@@ -49,7 +49,7 @@ NT2_TEST_CASE_TPL ( qrdelete, NT2_REAL_TYPES)
   NT2_DISPLAY(q1);
   NT2_DISPLAY(r1);
   NT2_DISPLAY( nt2::mtimes(q1, r1));
-  NT2_TEST_ULP_EQUAL(nt2::mtimes(q1, r1),  nt2::catv(b(1, nt2::_), b(nt2::_(3, 4), nt2::_)), T(8.0));
+  NT2_TEST_ULP_EQUAL(nt2::mtimes(q1, r1),  nt2::catv(b(1, nt2::_), b(nt2::_(3, 4), nt2::_)), T(16.0));
 
 
 }
