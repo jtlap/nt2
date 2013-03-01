@@ -18,7 +18,9 @@
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/rif.hpp>
 #include <nt2/include/functions/cif.hpp>
+#include <nt2/include/functions/trans.hpp>
 #include <nt2/include/functions/isequal.hpp>
+#include <nt2/include/functions/ones.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -175,11 +177,11 @@ NT2_TEST_CASE( mtimes_aliasing )
   b =  nt2::mtimes(a0, a1);
   a0=  nt2::mtimes(a0, a1);
 
-  NT2_TEST(isequal(a0, b));
+  NT2_TEST_EQUAL(a0, b);
 
   a0 = a1;
   a0 =  nt2::mtimes(a0, a0);
-  NT2_TEST(isequal(a0, b));
+  NT2_TEST_EQUAL(a0, b);
   display("a0", a0);
 }
 NT2_TEST_CASE( mtimes_aliasing_2 )
@@ -193,7 +195,7 @@ NT2_TEST_CASE( mtimes_aliasing_2 )
   b =  nt2::mtimes(a0, a1);
   a0=  nt2::mtimes(a0, a1);
 
-  NT2_TEST(isequal(a0, b));
+  NT2_TEST_EQUAL(a0, b);
 
   display("a0", a0);
 }
@@ -209,8 +211,24 @@ NT2_TEST_CASE_TPL( mtimes_aliasing_3, NT2_REAL_TYPES)
   b =  nt2::mtimes(a0, a1);
   a0=  nt2::mtimes(a0, a1);
 
-  NT2_TEST(isequal(a0, b));
+  NT2_TEST_EQUAL(a0, b);
 
   NT2_DISPLAY(b);
   display("a0", a0);
+}
+
+
+NT2_TEST_CASE_TPL ( table1, NT2_REAL_TYPES)
+{
+  nt2::table<T> a = nt2::ones(3,5);
+  nt2::table<T> b = nt2::mtimes(nt2::trans(a), a);
+  NT2_DISPLAY(b);
+  NT2_TEST_EQUAL(b, nt2::ones(5, 5, nt2::meta::as_<T>())*T(3.0));
+}
+NT2_TEST_CASE_TPL ( table2,NT2_REAL_TYPES)
+{  
+  nt2::table<T, nt2::of_size_<3,5> > a = nt2::ones(3,5);
+  nt2::table<T, nt2::of_size_<5,5> > b = nt2::mtimes(nt2::trans(a), a); 
+  NT2_DISPLAY(b);
+  NT2_TEST_EQUAL(b, nt2::ones(5, 5, nt2::meta::as_<T>())*T(3.0));
 }

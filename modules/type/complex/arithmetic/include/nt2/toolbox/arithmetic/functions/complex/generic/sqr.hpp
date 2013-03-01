@@ -12,8 +12,8 @@
 #include <nt2/toolbox/constant/common.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/any.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/any.hpp>
 #include <nt2/include/functions/is_invalid.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>

@@ -14,7 +14,6 @@
 /// created  by jt the 21/02/2011
 ///
 #include <nt2/toolbox/predicates/include/functions/is_ord.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

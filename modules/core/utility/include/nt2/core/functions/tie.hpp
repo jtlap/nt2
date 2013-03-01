@@ -24,8 +24,13 @@
 #include <boost/fusion/include/as_vector.hpp>
 
 #include <boost/dispatch/details/parameters.hpp>
+#include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/seq/for_each_product.hpp>
+#include <boost/preprocessor/seq/size.hpp>
+#include <boost/preprocessor/arithmetic/inc.hpp>
+#include <boost/preprocessor/cat.hpp>
 
 namespace nt2
 {
@@ -42,21 +47,31 @@ namespace nt2
    * Tie terminals for multi-return function handling
    */
   //============================================================================
-#define M0(z,n,t)                                                                 \
-template<BOOST_PP_ENUM_PARAMS(n,class A)> BOOST_FORCEINLINE                       \
-typename boost::dispatch::meta::                                                  \
-         call<tag::tie_(BOOST_PP_ENUM_BINARY_PARAMS(n, A, t & BOOST_PP_INTERCEPT))>::type \
-tie(BOOST_PP_ENUM_BINARY_PARAMS(n,A,t & a))                                       \
-{                                                                                 \
-  return typename boost::dispatch::make_functor<tag::tie_, A0>::type()            \
-         (BOOST_PP_ENUM_PARAMS(n, a));                                            \
-}                                                                                 \
-/**/
+  #define param(r,_,i,b) (BOOST_PP_CAT(A,i) BOOST_PP_CAT(c,b) &)
 
-// FIXME: needs perfect forwarding
-BOOST_PP_REPEAT_FROM_TO(1,BOOST_DISPATCH_MAX_META_ARITY,M0,BOOST_PP_EMPTY())
-BOOST_PP_REPEAT_FROM_TO(1,BOOST_DISPATCH_MAX_META_ARITY,M0,const)
-#undef M0
+  #define c0
+  #define c1 const
+  #define bits(z, n, _) ((0)(1))
+
+  #define call_operator(r, constness)                                          \
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::tie_, tie, BOOST_PP_SEQ_FOR_EACH_I_R(r,param,~,constness), BOOST_PP_SEQ_SIZE(constness))
+  /**/
+
+  #define M0(z,n,t)                                                            \
+  BOOST_PP_SEQ_FOR_EACH_PRODUCT_R(                                             \
+      z,                                                                       \
+      call_operator                                                            \
+    , BOOST_PP_REPEAT(n, bits, ~)                                              \
+  )                                                                            \
+  /**/
+  BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),M0,~)
+
+  #undef M0
+  #undef bits
+  #undef c1
+  #undef c0
+  #undef param
+  #undef call_operator
 }
 
 //==============================================================================

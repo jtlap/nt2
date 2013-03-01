@@ -15,7 +15,6 @@
 ///
 #include <boost/simd/toolbox/ieee/include/functions/saturate.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>

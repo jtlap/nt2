@@ -17,14 +17,29 @@ SET( SOURCES
   clement.cpp
   compar.cpp
   condex.cpp
+  cycol.cpp
   dorr.cpp
   dramadah.cpp
   fiedler.cpp
+  forsythe.cpp
+  frank.cpp
+  gcdmat.cpp
+  gearmat.cpp
+  grcar.cpp
   hadamard.cpp
   hankel.cpp
+  hanowa.cpp
   hilb.cpp
+  house.cpp
+  invhess.cpp
+  invol.cpp
   invhilb.cpp
+  ipjfact.cpp
+  jordbloc.cpp
+  kahan.cpp
+  kms.cpp
   magic.cpp
+  minij.cpp
   pascal.cpp
   toeplitz.cpp
   tridiag.cpp

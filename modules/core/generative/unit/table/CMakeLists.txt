@@ -12,6 +12,8 @@ SET( SOURCES
   cif.cpp
   colon.cpp
   cols.cpp
+  deltac.cpp
+  deltaf.cpp  
   eye.cpp
   falses.cpp
   fill_pattern.cpp

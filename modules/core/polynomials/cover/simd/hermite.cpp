@@ -15,7 +15,6 @@
 ///
 #include <nt2/toolbox/polynomials/include/functions/hermite.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/boost_math/include/functions/hermite.hpp>
 

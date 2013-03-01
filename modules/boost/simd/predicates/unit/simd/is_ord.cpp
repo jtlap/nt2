@@ -15,8 +15,8 @@
 ///
 #include <boost/simd/toolbox/predicates/include/functions/is_ord.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/include/functions/negate.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>

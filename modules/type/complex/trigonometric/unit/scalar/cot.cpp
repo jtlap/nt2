@@ -14,7 +14,6 @@
 /// created by jt the 08/12/2010
 ///
 #include <nt2/include/functions/cot.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/tan.hpp>
 #include <boost/type_traits/is_same.hpp>

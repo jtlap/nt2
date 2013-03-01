@@ -15,7 +15,6 @@
 ///
 #include <boost/simd/toolbox/arithmetic/include/functions/divround.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/iround.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
 
@@ -35,7 +34,6 @@ NT2_TEST_CASE_TPL ( divround_real__2_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<divround_(T,T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::common_type<T,T>::type wished_r_t;
 
 
@@ -60,7 +58,6 @@ NT2_TEST_CASE_TPL ( divround_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
   typedef typename boost::dispatch::meta::call<divround_(T,T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::common_type<T,T>::type wished_r_t;
 
 
@@ -81,7 +78,6 @@ NT2_TEST_CASE_TPL ( divround_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef typename boost::dispatch::meta::call<divround_(T,T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::common_type<T,T>::type wished_r_t;
 
 

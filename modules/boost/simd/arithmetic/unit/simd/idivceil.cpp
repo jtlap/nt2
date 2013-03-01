@@ -15,7 +15,6 @@
 ///
 #include <boost/simd/toolbox/arithmetic/include/functions/idivceil.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/ceil.hpp>
 #include <boost/simd/include/functions/toint.hpp>
 

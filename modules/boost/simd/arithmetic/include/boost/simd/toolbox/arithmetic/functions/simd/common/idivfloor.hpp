@@ -9,6 +9,13 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_IDIVFLOOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_IDIVFLOOR_HPP_INCLUDED
 
+#include <boost/simd/toolbox/arithmetic/functions/idivfloor.hpp>
+#include <boost/simd/include/functions/simd/idivceil.hpp>
+#include <boost/simd/include/functions/simd/toint.hpp>
+#include <boost/simd/include/functions/simd/divides.hpp>
+#include <boost/simd/include/functions/simd/floor.hpp>
+#include <boost/simd/include/functions/simd/negate.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivfloor_, tag::cpu_

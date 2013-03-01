@@ -14,7 +14,6 @@
 /// created  by jt the 05/03/2011
 ///
 #include <nt2/toolbox/libc/include/functions/atan.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/atan.hpp>
 
 #include <boost/type_traits/is_same.hpp>

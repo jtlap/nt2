@@ -15,7 +15,7 @@
 ///
 #include <boost/simd/toolbox/predicates/include/functions/is_gtz.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
+#include <boost/simd/include/functions/negate.hpp>
 #include <boost/simd/include/functions/shli.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/type_traits/is_same.hpp>

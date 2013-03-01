@@ -13,7 +13,7 @@
 
 namespace nt2
 {
-  void mt19937stream_::seed(std::size_t s)
+  void mt19937stream_::seed(uint32_t s)
   {
     generator_.seed(s);
   }

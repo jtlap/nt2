@@ -29,28 +29,9 @@ NT2_TEST_CASE_TPL ( enumerate, BOOST_SIMD_SIMD_TYPES)
   typedef native<cT,ext_t> vT;
   typedef typename boost::dispatch::meta::call<enumerate_(cT, as_<vT> )>::type r_t;
 
-  std::cout << enumerate<vT>(cT(10,5)) << std::endl;
   for(std::size_t i=0; i < vT::static_size;++i)
     NT2_TEST_EQUAL(enumerate<vT>(cT(10,5))[i], cT(i+10,5));
 
-  std::cout << enumerate<vT>(cT(10,5),cT(2,1)) << std::endl;
   for(std::size_t i=0; i < vT::static_size;++i)
     NT2_TEST_EQUAL(enumerate<vT>(cT(10,5),cT(2,1))[i], cT(2*i+10,i+5));
-}
-
-NT2_TEST_CASE_TPL ( enumerate_from_int, BOOST_SIMD_SIMD_TYPES)
-{
-  using boost::simd::native;
-  using boost::simd::enumerate;
-  using boost::dispatch::meta::as_;
-  using boost::simd::tag::enumerate_;
-
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef std::complex<int> cT;
-  typedef native<cT,ext_t> vT;
-  typedef typename boost::dispatch::meta::call<enumerate_(cT, as_<vT> )>::type r_t;
-
-  std::cout << enumerate<vT>(cT(10,5)) << std::endl;
-  for(std::size_t i=0; i < vT::static_size;++i)
-    NT2_TEST_EQUAL(enumerate<vT>(cT(10,5))[i], cT(i+10,5));
 }

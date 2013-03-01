@@ -22,7 +22,6 @@
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/globalmax.hpp>
 #include <nt2/include/functions/isulpequal.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/inv.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 

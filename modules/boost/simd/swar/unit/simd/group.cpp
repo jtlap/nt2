@@ -15,7 +15,6 @@
 ///
 #include <boost/simd/toolbox/swar/include/functions/group.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/enumerate.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -53,18 +52,13 @@ NT2_TEST_CASE_TPL ( group_groupable__2_0, BOOST_SIMD_SIMD_GROUPABLE_TYPES)
 
   // specific values tests
   NT2_TEST_EQUAL(group(One<vT>(),  One<vT>())[0],  One<sr_t>());
-  std::cout << "group(One<vT>(),  One<vT>())" << group(One<vT>(),  One<vT>()) << "-> " << One<sr_t>() << std::endl;
   NT2_TEST_EQUAL(group(Zero<vT>(), Zero<vT>())[0], Zero<sr_t>());
-  std::cout << "group(Zero<vT>(),  Zero<vT>())" << group(Zero<vT>(),  Zero<vT>()) << "-> " << Zero<sr_t>() << std::endl;
   NT2_TEST_EQUAL(group(Valmax<vT>()/Two<vT>(), Valmax<vT>()/Two<vT>())[0], Inf<sr_t>());
-  std::cout << "group(Valmax<vT>(),  Valmax<vT>())" << group(Valmax<vT>()/Two<vT>(),  Valmax<vT>()/Two<vT>()) << std::endl<< "-> " << Inf<sr_t>() << std::endl;
   NT2_TEST_EQUAL(group(Valmin<vT>()/Two<vT>(), Valmin<vT>()/Two<vT>())[0], Minf<sr_t>());
-  std::cout << "group(Valmin<vT>()/Two<vT>(),  Valmin<vT>()/Two<vT>())" << group(Valmin<vT>()/Two<vT>(),  Valmin<vT>()/Two<vT>()) << "-> " << Minf<sr_t>() << std::endl;
   NT2_TEST_EQUAL(group(Valmax<vT>(), Valmax<vT>())[0], Inf<sr_t>());
-  std::cout << "group(Valmax<vT>(),  Valmax<vT>())" << group(Valmax<vT>(),  Valmax<vT>()) << std::endl<< "-> " << Inf<sr_t>() << std::endl;
   NT2_TEST_EQUAL(group(Valmin<vT>(), Valmin<vT>())[0], Minf<sr_t>());
-  std::cout << "group(Valmin<vT>(),  Valmin<vT>())" << group(Valmin<vT>(),  Valmin<vT>()) << "-> " << Minf<sr_t>() << std::endl;
 } // end of test for groupable_
+
 NT2_TEST_CASE_TPL ( group_groupable__2_1,  BOOST_SIMD_SIMD_GROUPABLE_TYPES)
 {
   using boost::simd::group;
@@ -91,18 +85,13 @@ NT2_TEST_CASE_TPL ( group_groupable__2_1,  BOOST_SIMD_SIMD_GROUPABLE_TYPES)
 
   // specific values tests
   NT2_TEST_EQUAL(group(One<vT>(),  One<vT>())[1],  One<sr_t>());
-  std::cout << "group(One<vT>(),  One<vT>())" << group(One<vT>(),  One<vT>()) << "-> " << One<sr_t>() << std::endl;
   NT2_TEST_EQUAL(group(Zero<vT>(), Zero<vT>())[1], Zero<sr_t>());
-  std::cout << "group(Zero<vT>(),  Zero<vT>())" << group(Zero<vT>(),  Zero<vT>()) << "-> " << Zero<sr_t>() << std::endl;
   NT2_TEST_EQUAL(group(Valmax<vT>()/Two<vT>(), Valmax<vT>()/Two<vT>())[1], Inf<sr_t>());
-  std::cout << "group(Valmax<vT>(),  Valmax<vT>())" << group(Valmax<vT>()/Two<vT>(),  Valmax<vT>()/Two<vT>()) << "-> " << Inf<sr_t>() << std::endl;
   NT2_TEST_EQUAL(group(Valmin<vT>()/Two<vT>(), Valmin<vT>()/Two<vT>())[1], Minf<sr_t>());
-  std::cout << "group(Valmin<vT>()/Two<vT>(),  Valmin<vT>()/Two<vT>())" << group(Valmin<vT>()/Two<vT>(),  Valmin<vT>()/Two<vT>()) << "-> " << Minf<sr_t>() << std::endl;
   NT2_TEST_EQUAL(group(Valmax<vT>(), Valmax<vT>())[1], Inf<sr_t>());
-  std::cout << "group(Valmax<vT>(),  Valmax<vT>())" << group(Valmax<vT>(),  Valmax<vT>()) << "-> " << Inf<sr_t>() << std::endl;
   NT2_TEST_EQUAL(group(Valmin<vT>(), Valmin<vT>())[1], Minf<sr_t>());
-  std::cout << "group(Valmin<vT>(),  Valmin<vT>())" << group(Valmin<vT>(),  Valmin<vT>()) << "-> " << Minf<sr_t>() << std::endl;
 } // end of test for groupable_
+
 NT2_TEST_CASE_TPL ( group_groupable__3_1,  BOOST_SIMD_SIMD_GROUPABLE_TYPES)
 {
   using boost::simd::group;
@@ -130,13 +119,12 @@ NT2_TEST_CASE_TPL ( group_groupable__3_1,  BOOST_SIMD_SIMD_GROUPABLE_TYPES)
   // specific values tests
 
   size_t n = cardinal_of<vT>::value;
-  std::cout << boost::simd::enumerate<vT>(T(0))<< " " << boost::simd::enumerate<vT>(T(n)) << " -> " << group(boost::simd::enumerate<vT>(T(0)),  boost::simd::enumerate<vT>(T(n))) << std::endl;
   for(size_t i=0; i < cardinal_of<vT>::value; i++)
   {
     NT2_TEST_EQUAL(group(boost::simd::enumerate<vT>(T(0)),  boost::simd::enumerate<vT>(T(n)))[i],  T(i));
   }
-
 } // end of test for groupable_
+
 NT2_TEST_CASE_TPL ( group_groupable__4_1,  (int32_t))
 {
   using boost::simd::group;
@@ -164,11 +152,13 @@ NT2_TEST_CASE_TPL ( group_groupable__4_1,  (int32_t))
   // specific values tests
 
   size_t n = cardinal_of<vT>::value;
-  int32_t s = 32767 - n;
-  std::cout << boost::simd::enumerate<vT>(T(s))<< " " << boost::simd::enumerate<vT>(T(s+n)) << " -> " << group(boost::simd::enumerate<vT>(T(s)),  boost::simd::enumerate<vT>(T(s+n))) << std::endl;
+  int32_t s = 32767 - int32_t(n);
   for(size_t i=0; i < cardinal_of<vT>::value; i++)
   {
-    NT2_TEST_EQUAL(group(boost::simd::enumerate<vT>(T(s)),  boost::simd::enumerate<vT>(T(s+n)))[i],  T(s+i));
+    NT2_TEST_EQUAL(group( boost::simd::enumerate<vT>(T(s))
+                        , boost::simd::enumerate<vT>(T(s+n))
+                        )[i]
+                  ,  T(s+i)
+                  );
   }
-
 } // end of test for groupable_

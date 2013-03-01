@@ -29,7 +29,7 @@ namespace nt2 { namespace ext
                                        )
   {
     BOOST_DISPATCH_RETURNS(2, (const A0& a0, const A1 epsi),
-                           (nt2::factorization::svd<A0>(a0, 'O', 'N').orth(epsi))
+                           (nt2::factorization::svd<A0>(a0, 'A', 'N').orth(epsi))
                            )
   };
 
@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
   {
     typedef typename A0::value_type               value_type;
     BOOST_DISPATCH_RETURNS(1, (const A0& a0),
-                           (nt2::factorization::svd<A0>(a0, 'O', 'N').orth(Mone<value_type>()))
+                           (nt2::factorization::svd<A0>(a0, 'A', 'N').orth(Mone<value_type>()))
                            )
   };
 

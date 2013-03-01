@@ -16,7 +16,6 @@
 #include <nt2/toolbox/arithmetic/include/functions/rsqrt.hpp>
 #include <nt2/toolbox/arithmetic/include/functions/sqr.hpp>
 #include <nt2/toolbox/arithmetic/include/functions/rec.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/constants/i.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -35,7 +34,6 @@ NT2_TEST_CASE_TPL ( rsqrt_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<rsqrt_(cT)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef cT wished_r_t;
 
 

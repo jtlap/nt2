@@ -14,7 +14,6 @@
 /// created  by jt the 07/03/2011
 ///
 #include <nt2/toolbox/boost_math/include/functions/cyl_bessel_j.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

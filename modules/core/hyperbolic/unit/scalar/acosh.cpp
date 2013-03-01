@@ -14,7 +14,6 @@
 /// created  by jt the 20/01/2011
 ///
 #include <nt2/toolbox/hyperbolic/include/functions/acosh.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/exponential/constants.hpp>
 extern "C" { long double cephes_acoshl(long double); }
 

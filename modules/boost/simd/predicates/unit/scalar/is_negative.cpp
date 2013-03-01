@@ -15,7 +15,6 @@
 ///
 #include <boost/simd/toolbox/predicates/include/functions/is_negative.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/bitofsign.hpp>
 
@@ -35,7 +34,6 @@ NT2_TEST_CASE_TPL ( is_negative_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<is_negative_(T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef boost::simd::logical<T> wished_r_t;
 
 
@@ -66,7 +64,6 @@ NT2_TEST_CASE_TPL ( is_negative_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYP
   typedef typename boost::dispatch::meta::call<is_negative_(T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef boost::simd::logical<T> wished_r_t;
 
 
@@ -90,7 +87,6 @@ NT2_TEST_CASE_TPL ( is_negative_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   typedef typename boost::dispatch::meta::call<is_negative_(T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef boost::simd::logical<T> wished_r_t;
 
 

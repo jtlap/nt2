@@ -7,14 +7,14 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-nt2_module_use_modules(unit core.utility core.random)
+nt2_module_use_modules(test.benchmark core.utility core.random)
 
 SET( SOURCES
   c_vs_table.cpp
   small_table.cpp
-  redundant_loads.cpp
-  plus.cpp
-  subscript.cpp
+  #redundant_loads.cpp
+  #plus.cpp
+#  subscript.cpp
   sum.cpp
 #  fluid.cpp
 # List of scalar test files for toolbox fuzzy

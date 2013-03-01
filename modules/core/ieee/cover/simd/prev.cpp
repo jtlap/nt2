@@ -15,7 +15,6 @@
 ///
 #include <nt2/toolbox/ieee/include/functions/prev.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/predecessor.hpp>
 #include <nt2/include/constants/eps_related.hpp>

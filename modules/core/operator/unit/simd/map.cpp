@@ -19,6 +19,7 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/allbits.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>

@@ -14,8 +14,8 @@
 /// created  by jt the 21/02/2011
 ///
 #include <boost/simd/toolbox/predicates/include/functions/is_invalid.hpp>
+#include <boost/simd/include/functions/negate.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
 #include <boost/type_traits/is_same.hpp>

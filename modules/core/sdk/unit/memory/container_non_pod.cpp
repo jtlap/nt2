@@ -313,7 +313,7 @@ NT2_TEST_CASE( container_push_back )
 
   NT2_TEST_EQUAL( a.extent(), nt2::of_size(2*3+7) );
   for(std::ptrdiff_t i=0; i<2*3; ++i)
-    NT2_TEST_EQUAL( a[i].s, "copied" );
+    NT2_TEST_EQUAL( a[i].s, std::string("copied") );
   for(std::ptrdiff_t i=0; i<7; ++i)
-    NT2_TEST_EQUAL( a[2*3+i].s, "copied" );
+    NT2_TEST_EQUAL( a[2*3+i].s, std::string("copied") );
 }

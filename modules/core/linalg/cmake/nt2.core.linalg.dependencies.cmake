@@ -14,7 +14,7 @@ if(NOT NT2_BLAS_FOUND OR NOT NT2_LAPACK_FOUND)
 else()
   set(NT2_CORE.LINALG_DEPENDENCIES_LIBRARIES ${NT2_BLAS_LIBRARIES} ${NT2_LAPACK_LIBRARIES})
   set(NT2_CORE.LINALG_LINK_FLAGS ${NT2_BLAS_LINK_FLAGS})
-  set(NT2_CORE.LINALG_DEPENDENCIES_EXTRA sdk.functor core.arithmetic core.exponential core.trigonometric type.complex.sdk)
+  set(NT2_CORE.LINALG_DEPENDENCIES_EXTRA sdk.functor core.arithmetic core.random core.combinatorial core.exponential core.trigonometric type.complex.sdk)
 endif()
 
 foreach(library ${NT2_LAPACK_LIBRARIES})

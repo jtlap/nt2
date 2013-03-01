@@ -10,7 +10,7 @@
 ##****************************************************************************
 ##*     Toolbox crlibm unit tests
 ##****************************************************************************
-nt2_module_use_modules( unit
+nt2_module_use_modules( test.unit
                         core.arithmetic   core.ieee core.trigonometric
                         core.exponential  core.hyperbolic
                       )

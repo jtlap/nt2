@@ -8,13 +8,18 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_COMPLEX_GENERIC_EXP10_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_COMPLEX_GENERIC_EXP10_HPP_INCLUDED
+
 #include <nt2/toolbox/exponential/functions/exp10.hpp>
-#include <nt2/include/functions/sincos.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
+#include <nt2/include/functions/is_real.hpp>
+#include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/multiplies.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
+#include <nt2/include/functions/simd/sincos.hpp>
+#include <nt2/include/functions/simd/is_equal.hpp>
+#include <nt2/include/functions/simd/logical_or.hpp>
 #include <nt2/include/constants/log_10.hpp>
-#include <nt2/include/functions/is_equal.hpp>
-#include <nt2/include/functions/logical_or.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>

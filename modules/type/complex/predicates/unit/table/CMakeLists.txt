@@ -9,6 +9,7 @@
 
 SET( SOURCES
   ishermitian.cpp
+  isreal.cpp
 # List of table test files for toolbox predicates
    )
 

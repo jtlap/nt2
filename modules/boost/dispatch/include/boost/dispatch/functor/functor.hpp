@@ -72,6 +72,9 @@ namespace boost { namespace dispatch
   //============================================================================
   template<class Tag, class EvalContext> struct functor
   {
+    typedef Tag         tag_type;
+    typedef EvalContext context_type;
+
     template<class Sig> struct result;
 
     #if (   !defined(BOOST_NO_VARIADIC_TEMPLATES)               \
@@ -221,7 +224,6 @@ namespace boost { namespace dispatch
     #undef n_size
     #undef c1
     #undef c0
-    #undef param2
     #undef param
     #undef call_operator
 

@@ -8,6 +8,7 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_OPTIMIZATION_FUNCTIONS_DETAILS_NELDER_IMPL_HPP_INCLUDED
 #define NT2_TOOLBOX_OPTIMIZATION_FUNCTIONS_DETAILS_NELDER_IMPL_HPP_INCLUDED
+
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/inbtrue.hpp>
 #include <nt2/include/functions/globalmin.hpp>
@@ -21,6 +22,7 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/half.hpp>
+#include <nt2/include/constants/eps.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/toolbox/optimization/options.hpp>
 #include <nt2/core/container/table/table.hpp>

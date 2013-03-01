@@ -17,7 +17,6 @@
 #include <nt2/include/functions/rif.hpp>
 #include <nt2/include/functions/isulpequal.hpp>
 
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>

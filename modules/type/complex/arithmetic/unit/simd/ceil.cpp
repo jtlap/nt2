@@ -21,7 +21,6 @@
 #include <nt2/include/functions/ceil.hpp>
 #include <nt2/include/functions/cos.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

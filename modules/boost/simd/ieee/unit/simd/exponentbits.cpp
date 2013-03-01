@@ -15,7 +15,6 @@
 ///
 #include <boost/simd/toolbox/ieee/include/functions/exponentbits.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/ldexp.hpp>
 #include <boost/simd/include/functions/exponent.hpp>
 #include <boost/simd/include/functions/bits.hpp>

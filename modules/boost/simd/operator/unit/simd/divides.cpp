@@ -15,7 +15,6 @@
 ///
 #include <boost/simd/toolbox/operator/include/functions/divides.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -49,7 +48,6 @@ NT2_TEST_CASE_TPL ( divides_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(divides(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
   NT2_TEST_EQUAL(divides(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0], boost::simd::Inf<sr_t>());
   NT2_TEST_EQUAL(divides(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Nan<sr_t>());
-  std::cout << divides(boost::simd::One<vT>(), boost::simd::Two<vT>()) << std::endl;
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( divides_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
@@ -73,5 +71,4 @@ NT2_TEST_CASE_TPL ( divides_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   NT2_TEST_EQUAL(divides(boost::simd::One<vT>(), boost::simd::One<vT>())[0], boost::simd::One<sr_t>());
   NT2_TEST_EQUAL(divides(boost::simd::One<vT>(),boost::simd::Two<vT>())[0], boost::simd::Zero<sr_t>());
   NT2_TEST_EQUAL(divides(boost::simd::Zero<vT>(),boost::simd::Two<vT>())[0], boost::simd::Zero<sr_t>());
-  std::cout << divides(boost::simd::One<vT>(), boost::simd::Two<vT>()) << std::endl;
 } // end of test for integer_

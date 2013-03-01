@@ -30,17 +30,6 @@ namespace nt2
   /**
    * @brief Perform Planerot computation
    *
-   * For any given matrix expression, performs a Planerot factorization of
-   * said matrix using the specified output layout for the Planerot method.
-   *
-   * Contrary to the nt2::factorization::planerot function which performs a partial evaluation of
-   * said decomposition, nt2::planerot returns a result similar to the Matlab interface,
-   * making it useful for Matlab like usage.
-   *
-   * @param  xpr  Matrix expression to factorize
-   *
-   * @return A tuple-like type containing the factorized matrix and an indicator
-   * of the success of the factorization
    **/
   NT2_FUNCTION_IMPLEMENTATION(tag::planerot_, planerot, 1)
 }

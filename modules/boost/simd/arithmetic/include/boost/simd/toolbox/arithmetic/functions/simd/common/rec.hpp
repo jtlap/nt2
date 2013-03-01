@@ -12,6 +12,7 @@
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/simd/sdk/simd/meta/is_real_convertible.hpp>
 #include <boost/simd/include/constants/digits.hpp>
+#include <boost/simd/include/functions/simd/divides.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>
 
 namespace boost { namespace simd { namespace ext

@@ -14,7 +14,6 @@
 /// created by jt the 08/12/2010
 ///
 #include <nt2/toolbox/exponential/include/functions/pow_abs.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/ones.hpp>

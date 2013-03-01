@@ -15,7 +15,6 @@
 ///
 #include <nt2/toolbox/elliptic/include/functions/ellpe.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 extern "C" {long double cephes_ellpel(long double);}
 
 #include <boost/type_traits/is_same.hpp>

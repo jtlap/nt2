@@ -15,7 +15,6 @@
 ///
 #include <nt2/toolbox/ieee/include/functions/mantissa.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/frexp.hpp>
 
 #include <boost/type_traits/is_same.hpp>

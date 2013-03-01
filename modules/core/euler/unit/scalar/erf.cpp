@@ -14,7 +14,6 @@
 /// created  by jt the 22/02/2011
 ///
 #include <nt2/toolbox/euler/include/functions/erf.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 extern "C" {long double cephes_erfl(long double);}
 
 #include <boost/type_traits/is_same.hpp>

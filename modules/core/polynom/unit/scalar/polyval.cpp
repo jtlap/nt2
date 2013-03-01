@@ -14,7 +14,6 @@
 /// created  by jt the 06/03/2011
 ///
 #include <nt2/include/functions/polyval.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/polyfit.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -76,7 +75,8 @@ NT2_TEST_CASE_TPL ( polyval_real__2_0,  NT2_REAL_TYPES)
   NT2_DISPLAY(y);
   nt2::table<T> yy(nt2::of_size(2, 2)); yy(1) = T(6); yy(2) = T(11);yy(3) = T(18);yy(4) = T(26);
   NT2_DISPLAY(yy);
-  NT2_TEST_ULP_EQUAL(y, yy, 1.0)
+
+  NT2_TEST_ULP_EQUAL(y, yy, 1.0);
   tie(y, delta) = polyval(p, xx, r, df, normr);
   NT2_DISPLAY(y);
   NT2_DISPLAY(delta);

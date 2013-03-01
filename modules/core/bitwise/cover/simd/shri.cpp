@@ -15,7 +15,6 @@
 ///
 #include <nt2/toolbox/bitwise/include/functions/shri.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/twopower.hpp>
 

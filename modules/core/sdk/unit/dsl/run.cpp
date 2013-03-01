@@ -13,6 +13,7 @@
 #include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/sum.hpp>
+#include <nt2/include/functions/cons.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
@@ -147,6 +148,22 @@ NT2_TEST_CASE( element_wise )
                     , boost::mpl::identity<boost::mpl::_>
                     , iT
                     );
+}
+
+NT2_TEST_CASE( assign_op )
+{
+  using nt2::table;
+  using nt2::of_size;
+  using nt2::cons;
+  using nt2::reshape;
+  using nt2::_;
+  typedef float T;
+
+  table<T> out = cons<T>(of_size(2, 2), 1, 2, 3, 4);
+  T d = T(5);
+  out(_, 1) *= d;
+
+  NT2_TEST_EQUAL(out, cons<T>(of_size(2, 2), 5, 10, 3, 4));
 }
 
 NT2_TEST_CASE( reduction_size )

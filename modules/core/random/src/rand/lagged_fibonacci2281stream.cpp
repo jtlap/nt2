@@ -13,7 +13,7 @@
 
 namespace nt2
 {
-  void lagged_fibonacci2281stream_::seed(std::size_t s)
+  void lagged_fibonacci2281stream_::seed(uint32_t s)
   {
     generator_.seed(s);
   }

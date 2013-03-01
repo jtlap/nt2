@@ -65,7 +65,7 @@ namespace nt2
   *
   * @see ctic()
   **/
-  inline details::cycles_t  ctoc( bool display = true )
+  inline cycles_t  ctoc( bool display = true )
   {
     return details::cycle_timer.toc(display);
   }

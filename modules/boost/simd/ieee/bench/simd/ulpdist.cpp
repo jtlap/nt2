@@ -13,8 +13,8 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/toolbox/ieee/include/functions/ulpdist.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
-#include <nt2/sdk/unit/bench_includes.hpp>
+#include <nt2/sdk/bench/benchmark.hpp>
+#include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

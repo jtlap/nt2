@@ -21,7 +21,6 @@
 #include <nt2/include/functions/rsqrt.hpp>
 #include <nt2/include/functions/cos.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -84,12 +83,12 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   }
   {
     typedef vcT r_t;
-    NT2_TEST_ULP_EQUAL(nt2::rsqrt(nt2::Inf<vdT>())[0], nt2::rec(nt2::Inf<T>()),1);
+    NT2_TEST_ULP_EQUAL(nt2::rsqrt(nt2::Inf<vdT>())[0], cT(nt2::rec(nt2::Inf<cT>())),1);
     NT2_TEST_ULP_EQUAL(nt2::rsqrt(nt2::Minf<vdT>())[0], nt2::rec(cT(nt2::Zero<T>(), nt2::Inf<T>())),1);
     NT2_TEST_ULP_EQUAL(nt2::rsqrt(nt2::Mone<vdT>())[0], nt2::rec(cT(nt2::Zero<T>(), nt2::One<T>())),1);
-    NT2_TEST_ULP_EQUAL(nt2::rsqrt(nt2::Nan<vdT>())[0], nt2::rec(nt2::Nan<T>()),1);
-    NT2_TEST_ULP_EQUAL(nt2::rsqrt(nt2::One<vdT>())[0], nt2::rec(nt2::One<T>()),1);
-    NT2_TEST_ULP_EQUAL(nt2::rsqrt(nt2::Zero<vdT>())[0], nt2::rec(nt2::Zero<T>()),1);
+    NT2_TEST_ULP_EQUAL(nt2::rsqrt(nt2::Nan<vdT>())[0], nt2::rec(nt2::Nan<cT>()),1);
+    NT2_TEST_ULP_EQUAL(nt2::rsqrt(nt2::One<vdT>())[0], nt2::rec(nt2::One<cT>()),1);
+    NT2_TEST_ULP_EQUAL(nt2::rsqrt(nt2::Zero<vdT>())[0], nt2::rec(nt2::Zero<cT>()),1);
   }
 } // end of test for floating_
 

@@ -14,7 +14,6 @@
 /// created  by jt the 01/03/2011
 ///
 #include <nt2/toolbox/cephes/include/functions/cosh.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/cosh.hpp>
 

@@ -15,7 +15,6 @@
 ///
 #include <nt2/toolbox/exponential/include/functions/expm1.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/log1p.hpp>
 #include <nt2/include/functions/sqrt1pm1.hpp>

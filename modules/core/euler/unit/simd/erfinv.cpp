@@ -15,7 +15,6 @@
 ///
 #include <nt2/toolbox/euler/include/functions/erfinv.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/splat.hpp>
 extern "C" {long double cephes_erfinvl(long double);}
 

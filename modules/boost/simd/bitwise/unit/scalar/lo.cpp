@@ -15,7 +15,6 @@
 ///
 #include <boost/simd/toolbox/bitwise/include/functions/lo.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 
 #include <boost/type_traits/is_same.hpp>
@@ -37,7 +36,6 @@ NT2_TEST_CASE_TPL ( lo_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<lo_(T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef dtype wished_r_t;
 
 
@@ -63,7 +61,6 @@ NT2_TEST_CASE_TPL ( lo_int64__1_0,  BOOST_SIMD_INT_64_TYPES)
   typedef typename boost::dispatch::meta::call<lo_(T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef dtype wished_r_t;
 
 
@@ -88,7 +85,6 @@ NT2_TEST_CASE_TPL ( lo_int32__1_0,  BOOST_SIMD_INT_32_TYPES)
   typedef typename boost::dispatch::meta::call<lo_(T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef dtype wished_r_t;
 
 
@@ -112,7 +108,6 @@ NT2_TEST_CASE_TPL ( lo_int16__1_0,  BOOST_SIMD_INT_16_TYPES)
   typedef typename boost::dispatch::meta::call<lo_(T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef dtype wished_r_t;
 
 

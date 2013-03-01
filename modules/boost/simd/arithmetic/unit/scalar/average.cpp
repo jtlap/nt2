@@ -16,7 +16,6 @@
 /// for integer values average does not,coincide with (a0+a1)/2 by at most one unit.
 #include <boost/simd/toolbox/arithmetic/include/functions/average.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -33,7 +32,6 @@ NT2_TEST_CASE_TPL ( average_real__2_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<average_(T,T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -59,7 +57,6 @@ NT2_TEST_CASE_TPL ( average_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef typename boost::dispatch::meta::call<average_(T,T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -82,7 +79,6 @@ NT2_TEST_CASE_TPL ( average_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
   typedef typename boost::dispatch::meta::call<average_(T,T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 

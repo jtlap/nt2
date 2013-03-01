@@ -14,7 +14,6 @@
 /// created by jt the 08/12/2010
 ///
 #include <nt2/toolbox/exponential/include/functions/log1p.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/expm1.hpp>
 #include <nt2/include/functions/sqrt1pm1.hpp>

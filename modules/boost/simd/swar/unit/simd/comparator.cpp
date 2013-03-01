@@ -15,7 +15,7 @@
 ///
 #include <boost/simd/toolbox/swar/include/functions/comparator.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <boost/simd/include/functions/all.hpp>
 #include <boost/simd/include/functions/max.hpp>
@@ -25,6 +25,7 @@
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>

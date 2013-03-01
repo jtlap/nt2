@@ -15,7 +15,6 @@
 ///
 #include <nt2/include/functions/cauinv.hpp>
 #include <nt2/include/functions/caucdf.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/constants/invpi.hpp>
 #include <nt2/include/functions/linspace.hpp>
 #include <nt2/include/functions/rif.hpp>

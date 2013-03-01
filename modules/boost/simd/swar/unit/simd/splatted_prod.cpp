@@ -15,7 +15,7 @@
 ///
 #include <boost/simd/toolbox/swar/include/functions/splatted_prod.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/include/functions/prod.hpp>
 
 #include <boost/type_traits/is_same.hpp>

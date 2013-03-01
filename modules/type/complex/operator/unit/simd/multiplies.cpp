@@ -15,6 +15,18 @@
 ///
 #include <nt2/include/functions/multiplies.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
+#include <nt2/include/functions/splat.hpp>
+#include <nt2/include/functions/real.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
+#include <nt2/sdk/meta/as_signed.hpp>
+#include <nt2/sdk/meta/upgrade.hpp>
+#include <nt2/sdk/meta/downgrade.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 

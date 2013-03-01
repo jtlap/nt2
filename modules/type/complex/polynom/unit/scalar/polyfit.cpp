@@ -14,7 +14,6 @@
 /// created  by jt the 06/03/2011
 ///
 #include <nt2/include/functions/polyfit.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/polyval.hpp>
 #include <nt2/include/functions/isulpequal.hpp>
 #include <boost/type_traits/is_same.hpp>

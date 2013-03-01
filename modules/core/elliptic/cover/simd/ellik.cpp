@@ -15,7 +15,6 @@
 ///
 #include <nt2/toolbox/elliptic/include/functions/ellik.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 extern "C" {long double cephes_ellikl(long double,long double);}
 #include <nt2/toolbox/trigonometric/constants.hpp>

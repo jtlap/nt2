@@ -88,4 +88,6 @@ namespace boost { namespace dispatch { namespace meta
   };
 } } }
 
+#include <boost/simd/toolbox/operator/specific/common.hpp>
+
 #endif

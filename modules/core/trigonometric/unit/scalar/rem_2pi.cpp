@@ -14,8 +14,8 @@
 /// created  by jt the 11/02/2011
 ///
 #include <nt2/toolbox/trigonometric/include/functions/rem_2pi.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/twopi.hpp>
 
@@ -28,7 +28,6 @@ NT2_TEST_CASE_TPL ( rem_2pi_targeted, NT2_REAL_TYPES)
   using nt2::tag::rem_2pi_;
   using nt2::ulpdist;
 
-  nt2::uint32_t n;
   T x = nt2::Pi<T>(), xr, xc;
   rem_2pi(x, xr, xc, nt2::meta::as_<nt2::big_>());
   NT2_TEST( ulpdist(xr,  nt2::Pi<T>()) <= 0.5
@@ -80,5 +79,4 @@ NT2_TEST_CASE_TPL ( rem_2pi_targeted, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(xr,r, 20);
   rem_2pi(x, xr, xc, nt2::meta::as_<nt2::small_>());
   NT2_TEST_ULP_EQUAL(xr,r, 20);
-
 }

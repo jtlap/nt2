@@ -14,7 +14,6 @@
 /// created  by jt the 06/03/2011
 ///
 #include <nt2/toolbox/polynomials/include/functions/plevl.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <vector>
 

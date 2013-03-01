@@ -12,6 +12,7 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/functions/simd/is_not_less_equal.hpp>
+#include <boost/simd/include/functions/simd/is_gtz.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

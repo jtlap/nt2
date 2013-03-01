@@ -15,34 +15,27 @@
 ///
 #include <nt2/toolbox/arithmetic/include/functions/fma.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
-
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/minf.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/constants/mone.hpp>
+#include <nt2/toolbox/constant/common.hpp>
 
 NT2_TEST_CASE_TPL ( fma_real__3_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
-
   using nt2::fma;
   using nt2::tag::fma_;
   typedef std::complex<T> cT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<fma_(cT,cT,cT)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef cT wished_r_t;
-
 
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
-
+  NT2_TEST_TYPE_IS(  typename boost::dispatch::meta::call<fma_(cT,cT,cT)>::type, cT );
 
   // specific values tests
   NT2_TEST_EQUAL(fma(cT(nt2::Inf<T>()), cT(nt2::Inf<T>()), cT(nt2::Inf<T>())), cT(nt2::Inf<T>()));

@@ -341,6 +341,14 @@ namespace nt2 { namespace container
     BOOST_FORCEINLINE extent_type const& extent() const { return size_.data(); }
 
     //==========================================================================
+    // Return current expression extent
+    //==========================================================================
+    BOOST_FORCEINLINE std::size_t size() const
+    {
+      return nt2::numel(extent());
+    }
+
+    //==========================================================================
     // Return current expression base indexes
     //==========================================================================
     BOOST_FORCEINLINE indexes_type indexes() const { return indexes_type(); }

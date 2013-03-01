@@ -15,7 +15,6 @@
 ///
 #include <boost/simd/toolbox/ieee/include/functions/bitfloating.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/bitinteger.hpp>
 
 #include <boost/type_traits/is_same.hpp>
@@ -34,7 +33,6 @@ NT2_TEST_CASE_TPL ( bitfloating_int_convert__1_0,  BOOST_SIMD_INT_CONVERT_TYPES)
   typedef typename boost::dispatch::meta::call<bitfloating_(T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
@@ -53,7 +51,6 @@ NT2_TEST_CASE_TPL ( bitfloating_uint_convert__1_0,  BOOST_SIMD_UINT_CONVERT_TYPE
   typedef typename boost::dispatch::meta::call<bitfloating_(T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 

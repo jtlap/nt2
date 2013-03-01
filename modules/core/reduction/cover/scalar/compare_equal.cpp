@@ -14,7 +14,6 @@
 /// created  by jt the 18/02/2011
 ///
 #include <nt2/toolbox/reduction/include/functions/compare_equal.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/all.hpp>
 #include <nt2/include/functions/is_equal.hpp>

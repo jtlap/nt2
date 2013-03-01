@@ -14,7 +14,6 @@
 /// created by jt the 04/12/2010
 ///
 #include <nt2/toolbox/ieee/include/functions/negation.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/sign.hpp>
 
 #include <boost/type_traits/is_same.hpp>

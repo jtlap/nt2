@@ -12,7 +12,7 @@
 #include <nt2/toolbox/arithmetic/functions/fma.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
-#include <nt2/include/functions/logical_and.hpp>
+#include <nt2/include/functions/simd/logical_and.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/if_zero_else.hpp>
 #include <nt2/include/functions/if_allbits_else.hpp>
@@ -20,11 +20,11 @@
 #include <nt2/include/functions/is_real.hpp>
 #include <nt2/include/functions/is_imag.hpp>
 #include <nt2/include/functions/is_nez.hpp>
+#include <nt2/include/functions/multiplies.hpp>
+#include <nt2/include/functions/simd/any.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
-#include <nt2/include/functions/any.hpp>
-#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/plus.hpp>
-#include <nt2/include/functions/seladd.hpp>
+#include <nt2/include/functions/simd/seladd.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>

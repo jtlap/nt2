@@ -9,17 +9,13 @@
 #ifndef NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_SIMD_COMMON_GCD_HPP_INCLUDED
 #define NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_SIMD_COMMON_GCD_HPP_INCLUDED
 #include <nt2/toolbox/combinatorial/functions/gcd.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/functions/simd/seladd.hpp>
 #include <nt2/include/functions/simd/is_nez.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/simd/round.hpp>
+#include <nt2/include/functions/simd/is_flint.hpp>
 #include <nt2/include/functions/simd/rem.hpp>
 #include <nt2/include/functions/simd/any.hpp>
-#include <nt2/include/functions/simd/bitwise_ornot.hpp>
-#include <nt2/include/functions/simd/is_flint.hpp>
+#include <nt2/include/functions/simd/logical_and.hpp>
 #include <nt2/include/functions/simd/if_else_zero.hpp>
-#include <nt2/include/functions/simd/if_else_allbits.hpp>
 #include <nt2/include/functions/simd/if_zero_else.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 /////////////////////////////////////////////////////////////////////////////
@@ -41,7 +37,7 @@ namespace nt2 { namespace ext
       while (nt2::any(t))
       {
         A0 r = if_else_zero(t, rem(a, b));
-        a = b;
+        a = if_else(t, b, a);
         b = r;
         t =  is_nez(b);
       }
@@ -72,7 +68,7 @@ namespace nt2 { namespace ext
       while (nt2::any(t))
       {
         A0 r = if_zero_else(t, rem(a, b));
-        a = b;
+        a = if_else(t, b, a);
         b = r;
         t = is_nez(b);
       }

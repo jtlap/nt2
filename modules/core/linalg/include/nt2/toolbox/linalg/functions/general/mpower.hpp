@@ -22,6 +22,7 @@
 #include <nt2/include/functions/isdiagonal.hpp>
 #include <nt2/include/functions/schur.hpp>
 #include <nt2/include/functions/mtimes.hpp>
+#include <nt2/include/functions/complexify.hpp>
 #include <nt2/include/functions/power.hpp>
 #include <nt2/include/functions/round.hpp>
 #include <nt2/include/functions/trunc.hpp>
@@ -39,13 +40,14 @@
 #include <nt2/include/functions/norm.hpp>
 #include <nt2/include/functions/isscalar.hpp>
 #include <nt2/include/constants/one.hpp>
-
+#include <nt2/sdk/complex/meta/is_complex.hpp>
+#include <boost/mpl/bool.hpp>
 namespace nt2{ namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mpower_, tag::cpu_
                               , (A0)(N0)(A1)(N1)
                               , ((node_<A0, nt2::tag::mpower_, N0, nt2::container::domain>))
-                                ((node_<A1, nt2::tag::tie_ , N1, nt2::container::domain>))
+                              ((node_<A1, nt2::tag::tie_ , N1, nt2::container::domain>))
                             )
   {
     typedef void                                                    result_type;
@@ -53,6 +55,7 @@ namespace nt2{ namespace ext
     typedef typename boost::proto::result_of::child_c<A0&,0>::type          In0;
     typedef typename boost::proto::result_of::child_c<A0&,1>::type          In1;
     typedef typename A0::value_type                                  value_type;
+    typedef std::complex<value_type>                                  cplx_type;
     BOOST_FORCEINLINE result_type operator()(const A0& a0, A1& a1 ) const
     {
       const In0& a  = boost::proto::child_c<0>(a0);
@@ -61,21 +64,21 @@ namespace nt2{ namespace ext
       bool s0 =  nt2::isscalar(a);
       bool s1 =  nt2::isscalar(b);
       if (s0 && s1)
-        {
-          value_type aa = a,  bb = b;
-          doit0(aa, bb, r);
+      {
+        value_type aa = a,  bb = b;
+        doit0(aa, bb, r);
 
-        }
+      }
       else if(s0)
-        {
-          value_type aa = a;
-            doit1(aa, b, r);
-        }
+      {
+        value_type aa = a;
+        doit1(aa, b, r);
+      }
       else if(s1)
-        {
-          value_type bb = b;
-          doit2(a, bb, r);
-        }
+      {
+        value_type bb = b;
+        doit2(a, bb, r);
+      }
     }
   private:
     BOOST_FORCEINLINE static void doit0(const value_type& a, value_type& b, Out0& r)
@@ -92,62 +95,75 @@ namespace nt2{ namespace ext
     BOOST_FORCEINLINE static void doit2(const T& a, value_type& b, Out0& r)
     {
       r.resize(extent(a));
-      typedef typename A0::index_type       index_type;
+      typedef typename A0::index_type        index_type;
       typedef table<value_type, index_type> result_type;
+      typedef table<cplx_type>                  ct_type;
       bool is_ltz_b = is_ltz(b);
       if(is_ltz(b)) b = -b;
       value_type m = nt2::trunc(b);
       value_type f = b-m;
-      result_type q, t;
-      // tie(q, t) = schur(a,'N'/*"complex"*/); // t is complex schur form.        result_type e, v;
-      if (false && isdiagonal(t))
+      ct_type q, t;
+      nt2::tie(q, t) = schur(nt2::complexify(a),'N'); // t is complex schur form.        result_type e, v;
+      if (isdiagonal(t))
+      {
+        t = nt2::from_diag(nt2::pow(diag_of(t), m));
+        if(is_ltz_b) t = nt2::inv(t);
+        BOOST_AUTO_TPL(z, nt2::mtimes(q, nt2::mtimes(t, nt2::trans(nt2::conj(q)))));
+        transtype(r, z, typename nt2::meta::is_complex<value_type>::type());
+        return;
+      }
+      else
+      { //use iterative method
+        r = nt2::eye(nt2::size(a), meta::as_<value_type>());
+        result_type rf = r;
+        if (m)
         {
-          t = nt2::from_diag(nt2::pow(diag_of(t), m));
-          if(is_ltz_b) t = nt2::inv(t);
-          r = nt2::mtimes(q, nt2::mtimes(t, nt2::trans(nt2::conj(q))));
+          result_type a00 = a;
+          while (m >= nt2::One<value_type>())
+          {
+            if (nt2::is_odd(m))
+            {
+              r =  nt2::mtimes(a00, r);
+            }
+            a00 =  nt2::mtimes(a00, a00);
+            m =  nt2::trunc(m/2); //Half<value_type>(); or >> 1
+          }
+        }
+        if(!f)
+        {
+          if(is_ltz_b) r = nt2::inv(r);
           return;
         }
-      else
-        { //use iterative method
-          r = nt2::eye(nt2::size(a), meta::as_<value_type>());
-          result_type rf = r;
-          if (m)
+        else
+        {
+          result_type a00 = nt2::sqrtm(a);
+          value_type thresh = nt2::Half<value_type>();
+          while (f > Zero<value_type>())
+          {
+            if (f >= thresh)
             {
-              result_type a00 = a;
-              while (m >= nt2::One<value_type>())
-                {
-                  if (nt2::is_odd(m))
-                    {
-                      r =  nt2::mtimes(a00, r);
-                    }
-                  a00 =  nt2::mtimes(a00, a00);
-                  m =  nt2::trunc(m/2); //Half<value_type>(); or >> 1
-                }
+              rf = nt2::mtimes(rf, a00);
+              f -= thresh;
             }
-          if(!f)
-            {
-              if(is_ltz_b) r = nt2::inv(r);
-              return;
-            }
-          else
-            {
-              result_type a00 = nt2::sqrtm(a);
-              value_type thresh = nt2::Half<value_type>();
-              while (f > Zero<value_type>())
-                {
-                  if (f >= thresh)
-                    {
-                      rf = nt2::mtimes(rf, a00);
-                      f -= thresh;
-                    }
-                  thresh *= nt2::Half<value_type>();
-                  a00 =  nt2::sqrtm(a00);
-                }
-            }
-          r= nt2::mtimes(r, rf);
-          if(is_ltz_b) r = nt2::inv(r);
+            thresh *= nt2::Half<value_type>();
+            a00 =  nt2::sqrtm(a00);
+          }
         }
+        r= nt2::mtimes(r, rf);
+        if(is_ltz_b) r = nt2::inv(r);
+      }
     }
+    template < class T1, class T2>
+      BOOST_FORCEINLINE static void transtype(T1& r, T2& z, boost::mpl::true_ const &)
+    {
+      r = z;
+    }
+    template < class T1, class T2 >
+      BOOST_FORCEINLINE static void transtype(T1& r, T2& z, boost::mpl::false_ const &)
+    {
+      r =  real(z);
+    }
+
   };
 
 } }

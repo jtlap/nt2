@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_FINITE_HPP_INCLUDED
 
 #include <boost/simd/toolbox/predicates/functions/is_finite.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/simd/include/functions/simd/is_eqz.hpp>
 #include <boost/simd/include/constants/true.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
@@ -17,9 +18,9 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_finite_, tag::cpu_, (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::is_finite_, tag::cpu_, (A0)(X)
+                                    , ((simd_<arithmetic_<A0>,X>))
+                                    )
   {
     typedef typename meta::as_logical<A0>::type result_type;
     inline result_type operator()(const A0&) const
@@ -28,11 +29,12 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_finite_, tag::cpu_, (A0)(X)
-                            , ((simd_<floating_<A0>,X>))
-                           )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::is_finite_, tag::cpu_, (A0)(X)
+                                    , ((simd_<floating_<A0>,X>))
+                                    )
   {
     typedef typename meta::as_logical<A0>::type result_type;
+
     #ifdef BOOST_SIMD_NO_INFINITIES
     inline result_type operator()(const A0&) const { return True<result_type>(); }
     #else

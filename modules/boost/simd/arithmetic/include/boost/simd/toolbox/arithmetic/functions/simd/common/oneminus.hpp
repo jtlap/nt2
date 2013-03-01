@@ -8,9 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ONEMINUS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ONEMINUS_HPP_INCLUDED
+
 #include <boost/simd/toolbox/arithmetic/functions/oneminus.hpp>
-#include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/functions/simd/min.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
+#include <boost/simd/include/constants/one.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

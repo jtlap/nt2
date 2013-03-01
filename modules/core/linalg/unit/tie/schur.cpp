@@ -13,14 +13,15 @@
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/schur.hpp>
+#include <nt2/include/functions/complexify.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/conj.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/trans.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/globalmax.hpp>
 #include <nt2/include/functions/isulpequal.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -42,6 +43,24 @@ NT2_TEST_CASE_TPL ( schur, NT2_REAL_TYPES)
   NT2_DISPLAY(t);
   NT2_DISPLAY(nt2::mtimes(nt2::mtimes(z, t), nt2::trans(z)));
   NT2_TEST_ULP_EQUAL(b, nt2::mtimes(nt2::mtimes(z, t), nt2::trans(z)), 20.0);
+}
+
+NT2_TEST_CASE_TPL ( schurc, NT2_REAL_TYPES)
+{
+  typedef std::complex<T> cT;
+  typedef nt2::table<cT> table_t;
+  table_t z, t, b = nt2::ones(4, 4, nt2::meta::as_<cT>())
+                + T(10)*nt2::eye(4, 4, nt2::meta::as_<cT>());
+  b(1, 1) = 1;
+  NT2_DISPLAY(b);
+  t = nt2::schur(b);
+  NT2_DISPLAY(t); // triu matrix
+
+  nt2::tie(z, t) = nt2::schur(b); //complex
+  NT2_DISPLAY(z);
+  NT2_DISPLAY(t);
+  NT2_DISPLAY(nt2::mtimes(nt2::mtimes(z, t), nt2::trans(z)));
+  NT2_TEST_ULP_EQUAL(b, nt2::mtimes(nt2::mtimes(z, t), nt2::trans(nt2::conj(z))), 20.0);
 }
 
 

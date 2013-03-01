@@ -107,7 +107,7 @@ NT2_TEST_CASE( tofloat_long_long )
   using nt2::splat;
   typedef boost::simd::native<long long, boost::simd::tag::sse_> vT;
 
-  long long i = -9223372036854775808ULL;
+  long long i = boost::simd::Valmin<long long>();
   NT2_TEST_EQUAL(tofloat(i), tofloat(splat<vT>(i))[0]);
 }
 #endif

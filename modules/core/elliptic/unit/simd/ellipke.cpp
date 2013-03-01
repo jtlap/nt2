@@ -15,7 +15,6 @@
 ///
 #include <nt2/toolbox/elliptic/include/functions/ellipke.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
 extern "C" {long double cephes_ellikl(long double,long double);}
 #include <nt2/toolbox/trigonometric/constants.hpp>
@@ -35,7 +34,7 @@ extern "C" {long double cephes_ellikl(long double,long double);}
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/include/functions/splat.hpp>
+#include <nt2/include/functions/divides.hpp>
 
 #include <nt2/include/functions/load.hpp>
 

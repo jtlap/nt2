@@ -20,6 +20,7 @@
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/globalsum.hpp>
+#include <nt2/include/functions/globalmax.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/eps.hpp>

@@ -10,76 +10,67 @@
 
 #include <boost/simd/sdk/memory/allocator.hpp>
 #include <nt2/sdk/memory/fixed_allocator.hpp>
-
+#include <nt2/sdk/bench/benchmark.hpp>
 #include <iostream>
-#include <nt2/sdk/timing/now.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/details/helpers.hpp>
-#include <nt2/sdk/unit/perform_benchmark.hpp>
+#include <vector>
 
-template<class T> struct std_allocation_test
+template<class Allocator> NT2_EXPERIMENT(allocation_test)
 {
-  std_allocation_test(int n) : N(n) {}
+  public:
 
-  ~std_allocation_test()
+  typedef typename Allocator::pointer pointer;
+
+  allocation_test(int n) : NT2_EXPRIMENT_CTOR(1.,"cycles/elements"), N(n)
   {
-    for(int n=0;n<a0.size();++n) alloc.deallocate(a0[n],N);
+    a0.reserve(n);
   }
 
-  void operator()() { a0.push_back(alloc.allocate(N)); }
-  void reset() {}
-  std::allocator<T> alloc;
-  std::vector<T*> a0;
+  ~allocation_test() { reset(); }
+
+  virtual void run() const
+  {
+    a0.push_back(alloc.allocate(N));
+  }
+
+  virtual double compute(nt2::benchmark_result_t const& r) const
+  {
+    return r.first/double(N);
+  }
+
+  virtual void info(std::ostream& os) const { os << N; }
+
+  virtual void reset() const
+  {
+    for(std::size_t n=0;n<a0.size();++n) alloc.deallocate(a0[n],N);
+    a0.clear();
+  }
+
+  private:
+  mutable Allocator alloc;
+  mutable std::vector<pointer> a0;
   int N;
 };
 
-template<class T> struct simd_allocation_test
-{
-  simd_allocation_test(int n) : N(n) {}
+#define NT2_ALLOCATION_EXP(T,N)                             \
+NT2_RUN_EXPERIMENT_TPL( allocation_test                          \
+                      , (std::allocator<T>)                 \
+                        (boost::simd::memory::allocator<T>) \
+                        (nt2::memory::fixed_allocator<T>)   \
+                      , (1 <<  N)                           \
+                      )                                     \
+/**/
 
-  ~simd_allocation_test()
-  {
-    for(int n=0;n<a0.size();++n) alloc.deallocate(a0[n],N);
-  }
+NT2_ALLOCATION_EXP(double, 0);
+NT2_ALLOCATION_EXP(double, 4);
+NT2_ALLOCATION_EXP(double, 8);
+NT2_ALLOCATION_EXP(double,16);
 
-  void operator()() { a0.push_back(alloc.allocate(N)); }
-  void reset() {}
-  boost::simd::memory::allocator<T> alloc;
-  std::vector<T*> a0;
-  int N;
-};
+NT2_ALLOCATION_EXP(float, 0);
+NT2_ALLOCATION_EXP(float, 4);
+NT2_ALLOCATION_EXP(float, 8);
+NT2_ALLOCATION_EXP(float,16);
 
-template<class T> struct fixed_allocation_test
-{
-  fixed_allocation_test(int n) : data(n), alloc(&data[0],&data[0]+n) {}
-
-  void operator()() { a0.push_back(alloc.allocate(data.size())); }
-  void reset() {}
-  std::vector<T> data;
-  nt2::memory::fixed_allocator<T>  alloc;
-  std::vector<T*> a0;
-};
-
-NT2_TEST_CASE_TPL( allocation_test, NT2_TYPES )
-{
-  for(int N = 1; N <= 1*65536*256; N *= 4)
-  {
-    fixed_allocation_test<T>  i(N);
-    simd_allocation_test<T>   g(N);
-    std_allocation_test<T>    f(N);
-
-    std::cout << "Allocating " << N << " elements.\n";
-    nt2::unit::benchmark_result<nt2::details::cycles_t> dv;
-    nt2::unit::perform_benchmark(f, 1., dv);
-    std::cout << "std::allocator   : " << dv.median/double(N) << " cpe\n";
-
-    nt2::unit::benchmark_result<nt2::details::cycles_t> dw;
-    nt2::unit::perform_benchmark(g, 1., dw);
-    std::cout << "simd::allocator  : " << dw.median/double(N) << " cpe\n";
-
-    nt2::unit::benchmark_result<nt2::details::cycles_t> du;
-    nt2::unit::perform_benchmark(i, 1., du);
-    std::cout << "fixed allocator : " << du.median/double(N) << " cpe\n";
-    std::cout << "\n";
-  }
-}
+NT2_ALLOCATION_EXP(char, 0);
+NT2_ALLOCATION_EXP(char, 4);
+NT2_ALLOCATION_EXP(char, 8);
+NT2_ALLOCATION_EXP(char,16);

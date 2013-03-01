@@ -15,7 +15,6 @@
 ///
 #include <boost/simd/toolbox/arithmetic/include/functions/tofloat.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -111,7 +110,7 @@ NT2_TEST_CASE( tofloat_long_long )
   using boost::simd::splat;
   typedef boost::simd::native<long long, boost::simd::tag::sse_> vT;
 
-  long long i = -9223372036854775808ULL;
+  long long i = boost::simd::Valmin<long long>();
   NT2_TEST_EQUAL(tofloat(i), tofloat(splat<vT>(i))[0]);
 }
 #endif

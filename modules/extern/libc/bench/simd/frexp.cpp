@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/libc/include/functions/frexp.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/bench/benchmark.hpp>
 
 //////////////////////////////////////////////////////////////////////////////
 // Runtime benchmark for functor<frexp_> from libc

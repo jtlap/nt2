@@ -14,7 +14,6 @@
 /// created  by jt the 04/03/2011
 ///
 #include <nt2/toolbox/fuzzy/include/functions/tolerant_trunc.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/two.hpp>

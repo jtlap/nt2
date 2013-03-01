@@ -23,7 +23,7 @@ namespace nt2 { namespace ext
     typedef typename meta::strip<A0>::type                            base_t;
     typedef typename base_t::value_type                              value_t;
     typedef typename base_t::settings_type                        settings_t;
-    typedef details::lu_result< table<value_t,settings_t> >      result_type;
+    typedef details::lu_result< container::table<value_t,settings_t> >      result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {

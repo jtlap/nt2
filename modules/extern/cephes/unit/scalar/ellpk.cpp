@@ -14,7 +14,6 @@
 /// created  by jt the 01/03/2011
 ///
 #include <nt2/toolbox/cephes/include/functions/ellpk.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/ellpk.hpp>
 
 #include <boost/type_traits/is_same.hpp>

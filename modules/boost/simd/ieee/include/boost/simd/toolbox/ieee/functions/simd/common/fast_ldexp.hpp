@@ -14,9 +14,10 @@
 #include <boost/simd/include/constants/properties.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/functions/simd/bitwise_or.hpp>
 #include <boost/simd/include/functions/simd/bitwise_andnot.hpp>
+#include <boost/simd/include/functions/simd/bitwise_or.hpp>
 #include <boost/simd/include/functions/simd/shli.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -101,6 +102,5 @@ namespace boost { namespace simd { namespace ext
     }
   };
 } } }
-
 
 #endif

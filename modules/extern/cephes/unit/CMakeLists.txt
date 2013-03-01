@@ -11,7 +11,7 @@
 ##*     Toolbox cephes unit tests
 ##****************************************************************************
 
-nt2_module_use_modules( unit
+nt2_module_use_modules( test.unit
                         core.arithmetic   core.euler
                         core.exponential  core.trigonometric
                         core.bessel       core.hyperbolic

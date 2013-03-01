@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_PREDICATES_FUNCTIONS_COMPLEX_GENERIC_IS_NOT_INFINITE_HPP_INCLUDED
 
 #include <nt2/toolbox/predicates/functions/is_not_infinite.hpp>
-#include <nt2/include/functions/logical_or.hpp>
+#include <nt2/include/functions/logical_and.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/sdk/complex/complex.hpp>
@@ -26,8 +26,9 @@ namespace nt2 { namespace ext
                             , (generic_< complex_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename  meta::as_real<A0>::type rA0;
+    typedef typename meta::as_real<A0>::type rA0;
     typedef typename meta::as_logical<rA0>::type result_type;
+
     NT2_FUNCTOR_CALL(1)
     {
       return logical_and(is_not_infinite(nt2::imag(a0)),is_not_infinite(nt2::real(a0)));
@@ -35,23 +36,25 @@ namespace nt2 { namespace ext
   };
 
   // imaginary
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_infinite_, tag::cpu_, (A0),
-                              (generic_< imaginary_< arithmetic_<A0> > > )
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_infinite_, tag::cpu_, (A0)
+                            , (generic_< imaginary_< arithmetic_<A0> > > )
                             )
   {
-    typedef typename  meta::as_real<A0>::type rA0;
+    typedef typename meta::as_real<A0>::type rA0;
     typedef typename meta::as_logical<rA0>::type result_type;
+
     NT2_FUNCTOR_CALL(1)
     {
       return is_not_infinite(nt2::imag(a0));
     }
   };
+
   // dry
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_infinite_, tag::cpu_, (A0),
-                              (generic_< dry_< arithmetic_<A0> > > )
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_infinite_, tag::cpu_, (A0)
+                            , (generic_< dry_< arithmetic_<A0> > > )
                             )
   {
-    typedef typename  meta::as_real<A0>::type rA0;
+    typedef typename meta::as_real<A0>::type rA0;
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {

@@ -31,9 +31,9 @@ namespace nt2 { namespace ext
       result_type a(a0);
       result_type b(a1);
       while (b) {
-	const result_type  r = a % b;
-	a = b;
-	b = r;
+        const result_type  r = a % b;
+        a = b;
+        b = r;
       }
       return a;
     }
@@ -42,31 +42,31 @@ namespace nt2 { namespace ext
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
+//Implementation when type A0 is floating_
 /////////////////////////////////////////////////////////////////////////////
-// namespace nt2 { namespace ext
-// {
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gcd_, tag::cpu_
-//                             , (A0)
-//                             , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)
-//                             )
-//   {
-//     typedef A0 result_type;
-//     NT2_FUNCTOR_CALL_REPEAT(2)
-//     {
-//       result_type a(a0);
-//       result_type b(a1);
-//       if (!b) return a;
-//       if (!is_flint(a)||!is_flint(b)) return Nan<result_type>();
-//       while (b) {
-//         result_type  r  = rem(a, b);
-//         a = b;
-//         b = r;
-//       }
-//       return a;
-//     }
-//   };
-// } }
+namespace nt2 { namespace ext
+{
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gcd_, tag::cpu_
+                            , (A0)
+                            , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
+    {
+      result_type a(a0);
+      result_type b(a1);
+      if (!b) return a;
+      if (!is_flint(a)||!is_flint(b)) return Nan<result_type>();
+      while (b) {
+        result_type  r  = rem(a, b);
+        a = b;
+        b = r;
+      }
+      return a;
+    }
+  };
+} }
 
 
 #endif

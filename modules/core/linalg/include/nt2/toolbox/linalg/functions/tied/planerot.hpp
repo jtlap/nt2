@@ -13,11 +13,9 @@
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/hypot.hpp>
-#include <nt2/include/functions/first_index.hpp>
-#include <nt2/include/functions/last_index.hpp>
 #include <nt2/include/constants/zero.hpp>
-#include <cstring>
 
 namespace nt2 { namespace ext
 {
@@ -41,7 +39,7 @@ namespace nt2 { namespace ext
     {
 
       child0& rot(boost::proto::child_c<0>(a1));
-      rot = eye(of_size(2, 2), meta::as_<value_t>());
+      rot = nt2::eye(of_size(2, 2), meta::as_<value_t>());
       const value_t x1 = boost::proto::child_c<0>(a0)(first_index<1>(boost::proto::child_c<0>(a0)));
       const value_t x2 = boost::proto::child_c<0>(a0)(last_index<1>(boost::proto::child_c<0>(a0)));
       value_t r = nt2::hypot(x1, x2);
@@ -69,7 +67,6 @@ namespace nt2 { namespace ext
       tab_t y(of_size(2, 1));
       y(1) = r; y(2) = nt2::Zero<value_t>();
       boost::proto::child_c<1>(a1) = y;
-      //      boost::proto::child_c<1>(a1) = nt2::resize(r, 2, 1); //DOES NOT COMPILE ?!
     }
 
   };

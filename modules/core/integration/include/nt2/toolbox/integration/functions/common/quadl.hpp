@@ -17,6 +17,7 @@
 #include <nt2/include/constants/valmax.hpp>
 #include <nt2/include/constants/sqrt_1o_5.hpp>
 #include <nt2/include/constants/sqrt_2o_3.hpp>
+#include <nt2/include/constants/smallestposval.hpp>
 #include <nt2/include/functions/rowvect.hpp>
 #include <nt2/include/functions/eps.hpp>
 #include <nt2/include/functions/diff.hpp>

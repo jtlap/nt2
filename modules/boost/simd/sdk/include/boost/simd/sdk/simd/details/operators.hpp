@@ -109,6 +109,21 @@ operator BOOST_PP_CAT(Op, =)                                                   \
   a0 = operator Op(a0, a1);                                                    \
   return a0;                                                                   \
 }                                                                              \
+template<class A0, class A1>                                                   \
+BOOST_FORCEINLINE                                                              \
+typename                                                                       \
+enable_if< mpl::and_< is_value<A0>, is_value<A1> >                             \
+         , A0 const&                                                           \
+         >::type                                                               \
+operator BOOST_PP_CAT(Op, =)                                                   \
+(                                                                              \
+  A0 const & a0,                                                               \
+  A1 const & a1                                                                \
+)                                                                              \
+{                                                                              \
+  a0 = operator Op(a0, a1);                                                    \
+  return a0;                                                                   \
+}                                                                              \
 /**/
 
 namespace boost { namespace simd

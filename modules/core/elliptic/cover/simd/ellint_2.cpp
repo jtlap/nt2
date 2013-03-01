@@ -15,7 +15,6 @@
 ///
 #include <nt2/toolbox/elliptic/include/functions/ellint_2.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <boost/math/special_functions.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>

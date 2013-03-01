@@ -11,9 +11,10 @@
 
 #include <boost/simd/toolbox/boolean/functions/selsub.hpp>
 #include <boost/simd/include/functions/simd/if_else_zero.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
+#include <boost/simd/include/functions/simd/negate.hpp>
 #include <boost/simd/sdk/meta/size.hpp>
 #include <boost/mpl/equal_to.hpp>
-#include <boost/simd/include/functions/simd/minus.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

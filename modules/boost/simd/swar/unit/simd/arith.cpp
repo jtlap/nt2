@@ -30,13 +30,10 @@ NT2_TEST_CASE_TPL ( arith, BOOST_SIMD_SIMD_TYPES)
   typedef native<T,ext_t>               vT;
   typedef typename boost::dispatch::meta::call<arith_(T, as_<vT> )>::type r_t;
 
-  std::cout << arith<vT>() << std::endl;
   for(std::size_t i=0; i < vT::static_size;++i)
     NT2_TEST_EQUAL(arith<vT>()[i], T(i));
-  std::cout << arith<vT>(T(10)) << std::endl;
   for(std::size_t i=0; i < vT::static_size;++i)
     NT2_TEST_EQUAL(arith<vT>(T(10))[i], T(i+10));
-  std::cout << arith<vT>(T(10), T(2.0)) << std::endl;
   for(std::size_t i=0; i < vT::static_size;++i)
     NT2_TEST_EQUAL(arith<vT>(T(10), T(2.0))[i], T(10 + T(2.0)*i));
 }
@@ -51,10 +48,9 @@ NT2_TEST_CASE_TPL ( arith_from_int, BOOST_SIMD_SIMD_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>               vT;
   typedef typename boost::dispatch::meta::call<arith_(int, as_<vT> )>::type r_t;
-  std::cout << arith<vT>(int(10)) << std::endl;
+
   for(std::size_t i=0; i < vT::static_size;++i)
     NT2_TEST_EQUAL(arith<vT>(int(10))[i], T(10 + i));
-  std::cout << arith<vT>(int(10), T(2.0)) << std::endl;
   for(std::size_t i=0; i < vT::static_size;++i)
     NT2_TEST_EQUAL(arith<vT>(int(10), T(2.0))[i], T(10 + T(2.0)*i));
 }

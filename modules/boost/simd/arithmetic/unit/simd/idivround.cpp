@@ -15,7 +15,6 @@
 ///
 #include <boost/simd/toolbox/arithmetic/include/functions/idivround.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/iround.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
 

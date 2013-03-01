@@ -14,7 +14,6 @@
 /// created by jt the 30/11/2010
 ///
 #include <nt2/toolbox/arithmetic/include/functions/abs.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/constants/i.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -32,10 +31,7 @@ NT2_TEST_CASE_TPL ( abs_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<abs_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename std::complex<T> cT;
-  typedef typename nt2::meta::as_imaginary<T>::type ciT;
-  typedef typename nt2::meta::as_dry<T>::type dT;
   typedef T wished_r_t;
 
 

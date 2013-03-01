@@ -8,16 +8,17 @@
 ##############################################################################
 
 set( SOURCES
-  is_equal.cpp
-  is_not_equal.cpp
-  plus.cpp
-  minus.cpp
-  multiplies.cpp
-  divides.cpp
-  imag.cpp
-  real.cpp
-  i.cpp
-  sqrti.cpp
+    divides.cpp
+    i.cpp
+    imag.cpp
+    is_equal.cpp
+    is_not_equal.cpp
+    minus.cpp
+    multiplies.cpp
+    plus.cpp
+    real.cpp
+    sqrti.cpp
+    value.cpp
    )
 
 nt2_module_add_tests(type.complex.operator.scalar.unit ${SOURCES})

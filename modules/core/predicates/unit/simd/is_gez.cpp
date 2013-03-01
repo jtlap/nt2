@@ -16,7 +16,7 @@
 #include <nt2/toolbox/predicates/include/functions/is_gez.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/simd/logical.hpp>
-
+#include <nt2/include/functions/negate.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
@@ -33,6 +33,7 @@
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/load.hpp>
+#include <nt2/include/functions/unary_minus.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
 #include <boost/dispatch/details/ignore_unused.hpp>
 

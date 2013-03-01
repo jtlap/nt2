@@ -17,7 +17,6 @@
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/atan2.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/extract.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -57,6 +56,6 @@ NT2_TEST_CASE_TPL ( sqrt1pm1_real__1_0,  NT2_SIMD_REAL_TYPES)
     NT2_TEST_ULP_EQUAL(nt2::sqrt1pm1(nt2::One<vcT>())[0],  cT(nt2::Sqrt_2<T>()-nt2::One<T>()), 2);
     NT2_TEST_ULP_EQUAL(nt2::sqrt1pm1(vcT(nt2::Eps<vT>()))[0], cT(nt2::Eps<T>()*nt2::Half<T>()), 2);
     NT2_TEST_ULP_EQUAL(nt2::sqrt1pm1(vcT(nt2::Mone<vT>(),nt2::Two<vT>() ))[0], cT(0, 1), 2);
-    NT2_TEST_ULP_EQUAL(nt2::sqrt1pm1(nt2::Zero<vT>())[0],  cT(nt2::Zero<T>()), 0);
+    NT2_TEST_ULP_EQUAL(nt2::sqrt1pm1(nt2::Zero<vcT>())[0],  cT(nt2::Zero<T>()), 0);
   } // end of test for floating_
 }

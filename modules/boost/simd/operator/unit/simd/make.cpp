@@ -15,7 +15,6 @@
 ///
 #include <boost/simd/toolbox/operator/include/functions/make.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -27,14 +26,15 @@
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
 
-int fibo(int n)
+
+template<class T> T fibo(std::size_t n)
 {
   if(n == 0) return 0;
   if(n == 1) return 1;
-  return fibo(n-1) + fibo(n-2);
+  return fibo<T>(n-1) + fibo<T>(n-2);
 }
 
-#define M1(z, n, t) T(fibo(n))
+#define M1(z, n, t) fibo<T>(n)
 #define M0(z, n, t)                                                            \
 template<class T>                                                              \
 struct make_fibo<T, n>                                                         \
@@ -57,5 +57,5 @@ NT2_TEST_CASE_TPL ( make_fibonnaci,  BOOST_SIMD_SIMD_TYPES)
   typedef boost::simd::native<T, BOOST_SIMD_DEFAULT_EXTENSION> vT;
   vT x = make_fibo<T>::call();
   for(std::size_t i=0; i!=boost::simd::meta::cardinal_of<vT>::value; ++i)
-    NT2_TEST_EQUAL(x[i], T(fibo(i)));
+    NT2_TEST_EQUAL(x[i], fibo<T>(i));
 }

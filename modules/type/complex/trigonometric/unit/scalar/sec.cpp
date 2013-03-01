@@ -15,7 +15,6 @@
 ///
 #include <nt2/include/functions/sec.hpp>
 #include <nt2/include/functions/sech.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>

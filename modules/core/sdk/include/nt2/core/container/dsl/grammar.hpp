@@ -13,7 +13,12 @@
 
 namespace nt2 { namespace container
 {
-  typedef boost::proto::_ grammar;
+  /// INTERNAL ONLY
+  /// NT2 grammar is matching nothing as we use an external, non grammar
+  /// based system of expression validation based on incremental type resolution
+  /// This allows us to control how combo of nodes are constructed and make
+  /// proto usage restricted to its generic tree structure and transforms.
+  typedef boost::proto::not_<boost::proto::_> grammar;
 } }
 
 #endif

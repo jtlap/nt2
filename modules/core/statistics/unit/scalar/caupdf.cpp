@@ -14,7 +14,6 @@
 /// created  by jt the 22/02/2011
 ///
 #include <nt2/include/functions/caupdf.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/constants/invpi.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>

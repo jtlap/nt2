@@ -15,7 +15,6 @@
 ///
 #include <boost/simd/toolbox/operator/include/functions/plus.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -72,5 +71,4 @@ NT2_TEST_CASE_TPL ( plus_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   NT2_TEST_EQUAL(plus(boost::simd::One<vT>(), boost::simd::One<vT>())[0], boost::simd::Two<sr_t>());
   NT2_TEST_EQUAL(plus(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0], boost::simd::One<sr_t>());
   NT2_TEST_EQUAL(plus(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
-  std::cout << plus(boost::simd::One<vT>(), boost::simd::One<vT>()) << std::endl;
 } // end of test for integer_

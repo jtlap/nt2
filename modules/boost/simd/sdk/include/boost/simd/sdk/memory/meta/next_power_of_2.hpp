@@ -63,6 +63,10 @@ namespace boost { namespace simd { namespace meta
     BOOST_STATIC_CONSTANT(std::size_t, value = x5 + 1          );
     typedef boost::mpl::size_t<value> type;
   };
+
+  // MSVC warning fix
+  template<> struct next_power_of_2_c<0> : boost::mpl::size_t<0> {};
+
   template<std::size_t N>
   std::size_t const next_power_of_2_c<N>::value;
 

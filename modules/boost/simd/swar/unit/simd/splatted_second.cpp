@@ -15,7 +15,7 @@
 ///
 #include <boost/simd/toolbox/swar/include/functions/splatted_second.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>

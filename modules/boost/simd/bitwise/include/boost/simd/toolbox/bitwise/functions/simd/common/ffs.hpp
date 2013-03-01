@@ -17,6 +17,7 @@
 #include <boost/simd/include/functions/simd/shli.hpp>
 #include <boost/simd/include/functions/simd/shri.hpp>
 #include <boost/simd/include/functions/simd/seladd.hpp>
+#include <boost/simd/include/functions/simd/unary_minus.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/sdk/simd/meta/biggest_integer.hpp>

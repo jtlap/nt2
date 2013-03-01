@@ -16,21 +16,16 @@
 #include <nt2/include/functions/cosh.hpp>
 #include <nt2/include/functions/cos.hpp>
 #include <nt2/include/functions/mul_i.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_signed.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/meta/downgrade.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/type_traits/common_type.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/minf.hpp>
+#include <nt2/include/constants/mone.hpp>
+#include <nt2/include/constants/eps.hpp>
 
 
 NT2_TEST_CASE_TPL ( cosh_real__1_0,  NT2_REAL_TYPES)
@@ -39,8 +34,6 @@ NT2_TEST_CASE_TPL ( cosh_real__1_0,  NT2_REAL_TYPES)
   using nt2::cosh;
   using nt2::tag::cosh_;
   typedef std::complex<T> cT;
-  double ulpd;
-  ulpd=0.0;
   const int N = 20;
   T Pie =  nt2::Pi <T>()-nt2::Eps<T>();
   cT inputs[N] =
@@ -94,7 +87,7 @@ NT2_TEST_CASE_TPL ( cosh_real__1_0,  NT2_REAL_TYPES)
      std::cout << i << " input = " << inputs[i] << " -> " << results[i] << std::endl;
      NT2_TEST_EQUAL(nt2::cosh(inputs[i]), results[i]);
      NT2_TEST_EQUAL(nt2::cosh(-inputs[i]), nt2::cosh(inputs[i]));
-     NT2_TEST_EQUAL(nt2::cosh(inputs[i]), std::cos(nt2::mul_i(inputs[i])));
+     NT2_TEST_EQUAL(nt2::cosh(inputs[i]), nt2::cos(nt2::mul_i(inputs[i])));
    }
 
 } // end of test for floating_

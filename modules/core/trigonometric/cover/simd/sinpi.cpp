@@ -15,7 +15,6 @@
 ///
 #include <nt2/toolbox/trigonometric/include/functions/sinpi.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
 extern "C" {extern long double cephes_sinl(long double);}

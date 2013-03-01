@@ -46,22 +46,19 @@ namespace nt2 { namespace ext
       std::size_t obound = nt2::numel(boost::fusion::pop_front(ext));
       target_type vec_out;
 
-      for(std::size_t j = 0, k = 0; j < obound; ++j, k+=bound)
+      for(std::size_t j = 0, k = 0; j != obound; ++j, k+=bound)
       {
-        nt2::run(out, j, neutral(nt2::meta::as_<value_type>()));
         vec_out = neutral(nt2::meta::as_<target_type>());
 
-        for(std::size_t i = 0; i < ibound; i+=N)
-          vec_out = bop(vec_out,nt2::run(in, i+k, meta::as_<target_type>()));
+        for(std::size_t i = 0; i != ibound; i+=N)
+          vec_out = bop(vec_out, nt2::run(in, i+k, meta::as_<target_type>()));
 
-        nt2::run(out, j, uop(vec_out));
+        value_type s_out = uop(vec_out);
 
-        for(std::size_t i = ibound; i < bound; ++i)
-          nt2::run( out, j
-                  , bop( nt2::run(out, j, meta::as_<value_type>())
-                       , nt2::run(in, i+k, meta::as_<value_type>())
-                       )
-                  );
+        for(std::size_t i = ibound; i != bound; ++i)
+          s_out = bop(s_out, nt2::run(in, i+k, meta::as_<value_type>()));
+
+        nt2::run(out, j, s_out);
 
       }
     }

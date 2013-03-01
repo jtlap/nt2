@@ -14,7 +14,6 @@
 /// created  by jt the 18/02/2011
 ///
 #include <nt2/toolbox/reduction/include/functions/compare_greater_equal.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/all.hpp>
 
 #include <boost/type_traits/is_same.hpp>

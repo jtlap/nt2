@@ -14,10 +14,9 @@
 /// created  by jt the 21/02/2011
 ///
 #include <boost/simd/toolbox/predicates/include/functions/is_nan.hpp>
+#include <boost/simd/include/functions/negate.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
-
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -26,7 +25,6 @@
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
-
 
 NT2_TEST_CASE_TPL ( is_nan_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {

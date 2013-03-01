@@ -15,7 +15,6 @@
 ///
 #include <nt2/toolbox/fuzzy/include/functions/definitely_greater.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/successor.hpp>
 #include <nt2/include/functions/is_greater.hpp>

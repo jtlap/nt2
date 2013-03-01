@@ -14,7 +14,6 @@
 /// created  by jt the 07/03/2011
 ///
 #include <nt2/toolbox/combinatorial/include/functions/primes.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/saturate.hpp>
 
@@ -54,11 +53,9 @@ NT2_TEST_CASE_TPL ( primes_integer__1_0,  (int32_t))//NT2_INTEGRAL_TYPES)
    {
      NT2_TEST_EQUAL(p[i-1], myp(i));
    }
- nt2::tic();
+
  nt2::table<T> myp1 = primes(T(100000));
- nt2::toc();
  NT2_DISPLAY(primes(T(100)));
  nt2::table<T> myp9 = primes(T(9));
  NT2_DISPLAY(myp9);
-
 }

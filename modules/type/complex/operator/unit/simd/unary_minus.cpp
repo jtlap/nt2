@@ -13,40 +13,27 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 28/11/2010
 ///
-#include <nt2/include/functions/bitwise_cast.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/extract.hpp>
-#include <nt2/include/functions/imag.hpp>
-#include <nt2/include/functions/real.hpp>
+
 #include <nt2/include/functions/unary_minus.hpp>
-#include <nt2/include/functions/cos.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/real.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <boost/simd/include/native.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_signed.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/type_traits/common_type.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-
-#include <nt2/toolbox/constant/constant.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/include/functions/splat.hpp>
-
-#include <nt2/include/functions/load.hpp>
+#include <nt2/toolbox/constant/common.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/minf.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/mone.hpp>
+#include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/dry.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>
-#include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
+
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 
 NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
@@ -59,43 +46,37 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef native<ciT ,ext_t>                         vciT;
   typedef typename nt2::meta::as_dry<T>::type          dT;
   typedef native<dT ,ext_t>                           vdT;
-  double ulpd;
-  ulpd=0.0;
 
   // specific values tests
   {
-    typedef vcT r_t;
-    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::splat<vcT>(cT(T(1.1),T(1.6))))[0], cT(T(-1.1),T(-1.6)), 0);
+    NT2_TEST_EQUAL(nt2::unary_minus(nt2::splat<vcT>(cT(T(1.1),T(1.6))))[0], cT(T(-1.1),T(-1.6)));
   }
   {
-    typedef vdT r_t;
-    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::Inf<vcT>())[0], nt2::Minf<vdT>()[0],0);
-    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::Minf<vcT>())[0], nt2::Inf<vdT>()[0],0);
-    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::Mone<vcT>())[0], nt2::One<vdT>()[0],0);
-    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::Nan<vcT>())[0], nt2::Nan<vdT>()[0],0);
-    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::One<vcT>())[0], nt2::Mone<vdT>()[0],0);
-    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::Zero<vcT>())[0], nt2::Zero<vdT>()[0],0);
+    NT2_TEST_EQUAL(nt2::unary_minus(nt2::Inf<vcT>())[0], nt2::Minf<vcT>()[0]);
+    NT2_TEST_EQUAL(nt2::unary_minus(nt2::Minf<vcT>())[0], nt2::Inf<vcT>()[0]);
+    NT2_TEST_EQUAL(nt2::unary_minus(nt2::Mone<vcT>())[0], nt2::One<vcT>()[0]);
+    NT2_TEST_EQUAL(nt2::unary_minus(nt2::Nan<vcT>())[0], nt2::Nan<vcT>()[0]);
+    NT2_TEST_EQUAL(nt2::unary_minus(nt2::One<vcT>())[0], nt2::Mone<vcT>()[0]);
+    NT2_TEST_EQUAL(nt2::unary_minus(nt2::Zero<vcT>())[0], nt2::Zero<vcT>()[0]);
   }
   {
-    typedef vciT r_t;
-    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::splat<vciT>(ciT(T(-1.1))))[0], ciT(T(1.1)),0);
-    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::splat<vciT>(ciT(T(1.1))))[0],  ciT(T(-1.1)),0);
-    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::Inf<vciT>())[0], nt2::Minf<ciT>(),0);
-    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::Minf<vciT>())[0],nt2::Inf<ciT>(),0);
-    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::Mone<vciT>())[0],nt2::One<ciT>(),0);
-    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::Nan<vciT>())[0], nt2::Nan<ciT>(),0);
-    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::One<vciT>())[0], nt2::Mone<ciT>(),0);
-    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::Zero<vciT>())[0], nt2::Zero<ciT>(),0);
+    NT2_TEST_EQUAL(nt2::unary_minus(nt2::splat<vciT>(ciT(T(-1.1))))[0], ciT(T( 1.1)) );
+    NT2_TEST_EQUAL(nt2::unary_minus(nt2::splat<vciT>(ciT(T(1.1))))[0],ciT(T(-1.1)));
+    NT2_TEST_EQUAL(nt2::unary_minus(nt2::Inf<vciT>())[0], nt2::Minf<ciT>());
+    NT2_TEST_EQUAL(nt2::unary_minus(nt2::Minf<vciT>())[0],nt2::Inf<ciT>());
+    NT2_TEST_EQUAL(nt2::unary_minus(nt2::Mone<vciT>())[0],nt2::One<ciT>());
+    NT2_TEST_EQUAL(nt2::unary_minus(nt2::Nan<vciT>())[0], nt2::Nan<ciT>());
+    NT2_TEST_EQUAL(nt2::unary_minus(nt2::One<vciT>())[0], nt2::Mone<ciT>());
+    NT2_TEST_EQUAL(nt2::unary_minus(nt2::Zero<vciT>())[0], nt2::Zero<ciT>());
   }
   {
-    typedef vdT r_t;
-    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::splat<vdT>(dT(T(-1.1))))[0], dT(T(1.1)),0);
-    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::splat<vdT>(dT(T(1.1))))[0],  dT(T(-1.1)),0);
-    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::Inf<vdT>())[0], nt2::Minf<dT>(),0);
-    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::Minf<vdT>())[0], nt2::Inf<dT>(),0);
-    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::Mone<vdT>())[0], nt2::One<dT>(),0);
-    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::Nan<vdT>())[0], nt2::Nan<dT>(),0);
-    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::One<vdT>())[0], nt2::Mone<dT>(),0);
-    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::Zero<vdT>())[0], nt2::Zero<dT>(),0);
+    NT2_TEST_EQUAL(nt2::unary_minus(nt2::splat<vdT>(dT(T(-1.1))))[0], dT(T(1.1)));
+    NT2_TEST_EQUAL(nt2::unary_minus(nt2::splat<vdT>(dT(T(1.1))))[0],  dT(T(-1.1)));
+    NT2_TEST_EQUAL(nt2::unary_minus(nt2::Inf<vdT>())[0], nt2::Minf<dT>());
+    NT2_TEST_EQUAL(nt2::unary_minus(nt2::Minf<vdT>())[0], nt2::Inf<dT>());
+    NT2_TEST_EQUAL(nt2::unary_minus(nt2::Mone<vdT>())[0], nt2::One<dT>());
+    NT2_TEST_EQUAL(nt2::unary_minus(nt2::Nan<vdT>())[0], nt2::Nan<dT>());
+    NT2_TEST_EQUAL(nt2::unary_minus(nt2::One<vdT>())[0], nt2::Mone<dT>());
+    NT2_TEST_EQUAL(nt2::unary_minus(nt2::Zero<vdT>())[0], nt2::Zero<dT>());
   }
 } // end of test for floating_

@@ -39,7 +39,7 @@ NT2_TEST_CASE( store_sequence )
   using boost::simd::tag::store_;
 
   double d = 3.4;
-  float  f = 1.8;
+  float  f = 1.8f;
   char   c = 'a';
   double sd;
   float  sf;
@@ -62,11 +62,8 @@ NT2_TEST_CASE( store_pointer_of_sequence )
   using boost::simd::tag::store_;
 
   double d = 3.4;
-  float  f = 1.8;
+  float  f = 1.8f;
   char   c = 'a';
-  double sd;
-  float  sf;
-  char   sc;
 
   boost::fusion::vector<double,float,char> v,dest;
   boost::fusion::vector<double,float,char> s(d,f,c);

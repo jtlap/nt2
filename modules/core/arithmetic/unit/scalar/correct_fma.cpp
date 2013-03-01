@@ -15,7 +15,6 @@
 ///
 ///
 #include <nt2/toolbox/arithmetic/include/functions/correct_fma.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/constants/eps_related.hpp>
 
 #include <boost/type_traits/is_same.hpp>
