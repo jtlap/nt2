@@ -7,7 +7,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/signal/static_fft.hpp>
+#include <nt2/toolbox/signal/static_fft.hpp>
 
 #include <nt2/sdk/bench/experiment.hpp>
 #include <nt2/sdk/bench/perform_benchmark.hpp>
