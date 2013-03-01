@@ -197,7 +197,7 @@ namespace nt2
       for(std::size_t i = msz; i != static_size; ++i) data_[i] = 1u;
       data_[static_size-1] *= value_type(numel(details::pop_front_c<msz>(other)));
 
-      BOOST_PP_REPEAT(NT2_MAX_DIMENSIONS,M2,CHECK_DATA)
+      BOOST_PP_REPEAT(NT2_MAX_DIMENSIONS,M2,M2DATA)
     }
 
     //==========================================================================
@@ -252,7 +252,7 @@ namespace nt2
             , typename  boost::disable_if                                      \
                         < boost::fusion::traits::is_sequence<I0> >::type* = 0) \
     {                                                                          \
-      BOOST_PP_REPEAT(n,M2,CHECK_D)                                            \
+      BOOST_PP_REPEAT(n,M2,M2)                                                 \
       BOOST_PP_REPEAT(n,M1,~)                                                  \
       BOOST_PP_REPEAT_FROM_TO(n,NT2_MAX_DIMENSIONS,M3,~)                       \
     }                                                                          \
