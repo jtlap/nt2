@@ -168,6 +168,17 @@ namespace nt2
       default_(boost::mpl::size_t<static_size-1>(), boost::mpl::size_t<((D0 < 0) ? 1u : 0u)>());
     }
 
+    #define M2(z,n,t)                                     \
+    BOOST_ASSERT_MSG( valid_size_parameter(D##n,t(n),n)   \
+                    , "of_size_ constructor parameter "   \
+                      BOOST_PP_STRINGIZE(BOOST_PP_INC(n)) \
+                      " is invalid."                      \
+                    );                                    \
+    /**/
+
+    #define M2D(n)    d##n
+    #define M2DATA(n) ((static_size > std::size_t(n)) ? data_[n]: D##n)
+
     //==========================================================================
     // Constructor from a Fusion sequence:
     // - smaller sequence are padded with 1
@@ -179,17 +190,14 @@ namespace nt2
                         < boost::fusion::traits::is_sequence<Sz> >::type* = 0
             )
     {
-      BOOST_ASSERT_MSG( !static_status
-                      , "Invalid construction of a static of_size "
-                        "from a Fusion Sequence of dynamic values"
-                      );
-
       static const std::size_t osz = boost::fusion::result_of::size<Sz>::type::value;
       static const std::size_t msz = (osz < static_size) ? osz : static_size;
       details::copy(details::pop_back_c<osz - msz>(other),&data_[0]);
 
       for(std::size_t i = msz; i != static_size; ++i) data_[i] = 1u;
       data_[static_size-1] *= value_type(numel(details::pop_front_c<msz>(other)));
+
+      BOOST_PP_REPEAT(NT2_MAX_DIMENSIONS,M2,CHECK_DATA)
     }
 
     //==========================================================================
@@ -204,16 +212,12 @@ namespace nt2
                         < meta::is_iterator<Iterator> >::type*   = 0
             )
     {
-      BOOST_ASSERT_MSG( !static_status
-                      , "Invalid construction of a static of_size "
-                        "from a range of dynamic values"
-                      );
-
       const std::size_t osz = e - b;
       const std::size_t msz = (osz < static_size) ? osz : static_size;
 
       BOOST_ASSERT_MSG( full_of_one(b,msz,e)
-                      , "Size mismatch at of_size construction"
+                      , "Construction of of_size from a Range failed because "
+                        "of Range size mismatch."
                       );
 
       nt2::memory::cast_copy(b, b+msz, &data_[0]);
@@ -226,21 +230,6 @@ namespace nt2
     // - larger constructions are valid as long as said values don't violate
     //   static properties. No compression occurs
     //==========================================================================
-    #define M2(z,n,t)                                                          \
-    BOOST_ASSERT_MSG( ( (D##n >= 0)                                            \
-                      ? std::equal_to<std::size_t>()(d##n, D##n)               \
-                      : ( static_size<=std::size_t(n)                          \
-                        ? (std::size_t(d##n)==1u)                              \
-                        : true                                                 \
-                        )                                                      \
-                      )                                                        \
-                    , "of_size_ constructor parameter "                        \
-                      BOOST_PP_STRINGIZE(BOOST_PP_INC(n))                      \
-                      " invalid with respect to of_size_ "                     \
-                      "numbers of dimensions."                                 \
-                    );                                                         \
-    /**/
-
     #define M1(z,n,t) fill(   (D##n < 0)                                       \
                             ? std::size_t(d##n)                                \
                             : std::size_t(D##n)                                \
@@ -263,7 +252,7 @@ namespace nt2
             , typename  boost::disable_if                                      \
                         < boost::fusion::traits::is_sequence<I0> >::type* = 0) \
     {                                                                          \
-      BOOST_PP_REPEAT(n,M2,~)                                                  \
+      BOOST_PP_REPEAT(n,M2,CHECK_D)                                            \
       BOOST_PP_REPEAT(n,M1,~)                                                  \
       BOOST_PP_REPEAT_FROM_TO(n,NT2_MAX_DIMENSIONS,M3,~)                       \
     }                                                                          \
@@ -274,6 +263,8 @@ namespace nt2
     #undef M0
     #undef M1
     #undef M2
+    #undef M2D
+    #undef M2DATA
     #undef M3
 
     //==========================================================================
@@ -308,6 +299,18 @@ namespace nt2
     std::size_t const*  data() const { return &data_[0]; }
 
     private:
+
+    static
+    bool valid_size_parameter(std::ptrdiff_t Dn, std::size_t tn, std::size_t n)
+    {
+      return  ( Dn >= 0
+              ? std::equal_to<std::size_t>()(tn, Dn)
+              : ( static_size <= n
+                ? (std::size_t(tn)==1u) : true
+                )
+              );
+    }
+
     template<class Iterator, class Offset>
     static inline bool full_of_one(Iterator b, Offset o, Iterator e)
     {
