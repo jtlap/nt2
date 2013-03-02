@@ -18,7 +18,7 @@
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/rif.hpp>
 #include <nt2/include/functions/cif.hpp>
-#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/isequal.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -226,9 +226,9 @@ NT2_TEST_CASE_TPL ( table1, NT2_REAL_TYPES)
   NT2_TEST_EQUAL(b, nt2::ones(5, 5, nt2::meta::as_<T>())*T(3.0));
 }
 NT2_TEST_CASE_TPL ( table2,NT2_REAL_TYPES)
-{  
+{
   nt2::table<T, nt2::of_size_<3,5> > a = nt2::ones(3,5);
-  nt2::table<T, nt2::of_size_<5,5> > b = nt2::mtimes(nt2::trans(a), a); 
+  nt2::table<T, nt2::of_size_<5,5> > b = nt2::mtimes(nt2::trans(a), a);
   NT2_DISPLAY(b);
   NT2_TEST_EQUAL(b, nt2::ones(5, 5, nt2::meta::as_<T>())*T(3.0));
 }

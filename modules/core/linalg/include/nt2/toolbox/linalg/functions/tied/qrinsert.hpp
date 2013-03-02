@@ -15,7 +15,7 @@
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/horzcat.hpp>
 #include <nt2/include/functions/vertcat.hpp>
-#include <nt2/include/functions/ctrans.hpp>
+#include <nt2/include/functions/ctranspose.hpp>
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/cons.hpp>
 #include <nt2/include/functions/conj.hpp>
@@ -86,7 +86,6 @@ namespace nt2 { namespace ext
       size_t j =         boost::proto::child_c<2>(a0);
       BOOST_AUTO_TPL(x,  boost::proto::child_c<3>(a0));
       table<value_t, nt2::of_size_<2, 2> >  g;
-      table<value_t, nt2::of_size_<2, 1> >  z;
       size_t n = size(r, 2);
       size_t m = size(r, 1);
       if (orient == 'c')
@@ -94,10 +93,10 @@ namespace nt2 { namespace ext
         // Make room and insert x before j-th column.
         r1.resize(nt2::of_size(m, n+1));
         q1 = q;
-         r1(nt2::_,nt2::_(1, j-1))  = r(nt2::_,nt2::_(1, j-1));
-         r1(nt2::_,nt2::_(j+1, n+1)) = r(nt2::_,nt2::_(j, n));
-         r1(nt2::_,j) = nt2::mtimes(nt2::trans(nt2::conj(q)), x);
-         ++n;
+        r1(nt2::_,nt2::_(1, j-1))  = r(nt2::_,nt2::_(1, j-1));
+        r1(nt2::_,nt2::_(j+1, n+1)) = r(nt2::_,nt2::_(j, n));
+        r1(nt2::_,j) = nt2::mtimes(nt2::ct(q), x);
+        ++n;
         //  now r has nonzeros below the diagonal in the j-th column,
         //  and "extra" zeros on the diagonal in later columns.
         //     r = [x x x x x         [x x x x x
@@ -116,16 +115,12 @@ namespace nt2 { namespace ext
          for(size_t k = m-1; k >= j; --k)
          {
            BOOST_AUTO_TPL(p, nt2::cons(k, k+1));
-           tie(g,z) = nt2::planerot(r1(p,j));
-           r1(p, j) = z;
-           //           tie(g,r1(p,j)) = nt2::planerot(r1(p,j)); // doesnot compile
+           nt2::tie(g,r1(p,j)) = nt2::planerot(r1(p,j));
            if (k < n)
            {
-             table<value_t> rr = r1(p,nt2::_(k+1, n));
-             r1(p,nt2::_(k+1, n)) = nt2::mtimes(g, rr);
+             r1(p,nt2::_(k+1, n)) = nt2::mtimes(g, r1(p,nt2::_(k+1, n)));
            }
-           table<value_t> qq = q1(nt2::_,p);
-           q1(nt2::_,p) = nt2::mtimes(qq, nt2::ct(g));
+           q1(nt2::_,p) = nt2::mtimes(q1(nt2::_,p), nt2::ct(g));
          }
 
       }
@@ -157,14 +152,11 @@ namespace nt2 { namespace ext
         for(size_t i = 1; i <= nt2::min(m,n); ++i)
         {
           BOOST_AUTO_TPL(p, nt2::cons(i, i+1));
-          tie(g,z) = nt2::planerot(r1(p,i));
-          r1(p, i) = z;
-          table<value_t> rr = r1(p,nt2::_(i+1, n));
-          r1(p,nt2::_(i+1, n)) = nt2::mtimes(g, rr);
-          table<value_t> qq = q1(nt2::_,p);
-          q1(nt2::_,p) = nt2::mtimes(qq, nt2::ct(g));;
+          nt2::tie(g,r1(p,i)) = nt2::planerot(r1(p,i));
+          r1(p,nt2::_(i+1, n)) = nt2::mtimes(g, r1(p,nt2::_(i+1, n)));
+          q1(nt2::_,p) = nt2::mtimes(q1(nt2::_,p), nt2::ct(g));
         }
-        // This permutes row 1 of Q*R to row j of Q(p,:)*R
+        // this permutes row 1 of q*r to row j of q(p,:)*r
         if (j != 1)
         {
           BOOST_AUTO_TPL(p, nt2::cath(nt2::cath(nt2::_(size_t(2), j), size_t(1)), nt2::_(j+1, m+1)));

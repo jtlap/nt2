@@ -83,7 +83,7 @@ cplxpair            |  cplxpair TODO                      |     Sort complex num
 i                   |  I<T>()                             |     Imaginary unit (for type T)                                       |      type/complex
 imag                |  imag                               |     Imaginary part of complex number                                  |      type/complex
 isreal              |  isreal                             |     Check if all arrays elemnt are real                               |      core/predicates
-j                   |                                     |     Imaginary unit                                                    |      not relevant
+j                   |                                     |     Imaginary unit                                                    |      not relevant see i
 real                |  real                               |     Real part of complex number                                       |      type/complex
 sign                |  sign                               |     Signum function                                                   |      core/arithmetic
 unwrap              |  unwrap TODO                        |     Correct phase angles to produce smoother phase plots              |

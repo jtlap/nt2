@@ -10,7 +10,7 @@
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/toeplitz.hpp>
-#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/cons.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/constants/i.hpp>

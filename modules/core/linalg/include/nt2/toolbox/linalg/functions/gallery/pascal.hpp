@@ -12,7 +12,7 @@
 #include <nt2/toolbox/linalg/functions/pascal.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/colon.hpp>
-#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/rot90.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/is_even.hpp>

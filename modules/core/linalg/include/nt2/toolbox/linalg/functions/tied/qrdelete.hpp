@@ -16,7 +16,7 @@
 #include <nt2/include/functions/horzcat.hpp>
 #include <nt2/include/functions/vertcat.hpp>
 #include <nt2/include/functions/rowvect.hpp>
-#include <nt2/include/functions/ctrans.hpp>
+#include <nt2/include/functions/ctranspose.hpp>
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/cons.hpp>
 #include <nt2/include/functions/planerot.hpp>
@@ -87,7 +87,6 @@ namespace nt2 { namespace ext
       BOOST_AUTO_TPL(r,  boost::proto::child_c<1>(a0));
       size_t j =         boost::proto::child_c<2>(a0);
       table<value_t, nt2::of_size_<2, 2> >  g;
-      table<value_t, nt2::of_size_<2, 1> >  z;
       size_t n = size(r, 2);
       size_t m = size(r, 1);
       if (orient == 'c')
@@ -108,15 +107,12 @@ namespace nt2 { namespace ext
         for(size_t k = j; k <= nt2::min(n,m-1); ++k)
         {
           BOOST_AUTO_TPL(p, nt2::cons(k, k+1));
-          tie(g,z) = nt2::planerot(r1(p,k));
-          r1(p, k) = z;
-           if (k < n)
+          tie(g,r1(p, k)) = nt2::planerot(r1(p,k));
+          if (k < n)
            {
-             tab_t rr = r1(p,nt2::_(k+1, n));
-             r1(p,nt2::_(k+1, n)) = nt2::mtimes(g, rr);
+             r1(p,nt2::_(k+1, n)) = nt2::mtimes(g,r1(p,nt2::_(k+1, n)));
            }
-           tab_t qq = q1(nt2::_,p);
-           q1(nt2::_,p) = nt2::mtimes(qq, nt2::ct(g));
+          q1(nt2::_,p) = nt2::mtimes(q1(nt2::_,p), nt2::ct(g));
          }
         // if q is not square, q is from economy size qr(a,0).
         // both q and r need further adjustments.
@@ -138,7 +134,6 @@ namespace nt2 { namespace ext
           q1 = q(p,nt2::_);
         }
         table<value_t, _1D> fqrt =  nt2::colvect(q1(1,nt2::_));
-        //        table<value_t     > fqrt =  nt2::colvect(q1(1,nt2::_));
         //  fqrt is the transpose of the first row of q.
         //  fqrt = [x         [1
         //          -          -
@@ -172,12 +167,11 @@ namespace nt2 { namespace ext
         for(size_t i = m; i >= 2; --i)
         {
           BOOST_AUTO_TPL(p, nt2::cons(i-1, i));
-          tie(g,z) = nt2::planerot(fqrt(p));
-          fqrt(p) = z;
-          tab_t rr = r1(p,nt2::_(i-1, n));
-          r1(p,nt2::_(i-1, n)) = nt2::mtimes(g, rr);
-          tab_t qq = q1(nt2::_,p);
-          q1(nt2::_,p) = nt2::mtimes(qq, nt2::ct(g));
+          nt2::tie(g, fqrt(p)) = nt2::planerot(fqrt(p));
+          //       tab_t rr = r1(p,nt2::_(i-1, n));
+          r1(p,nt2::_(i-1, n)) = nt2::mtimes(g, r1(p,nt2::_(i-1, n)));
+         //      tab_t qq = q1(nt2::_,p);
+          q1(nt2::_,p) = nt2::mtimes(q1(nt2::_,p), nt2::ct(g));
         }
         //  the boxed off (---) parts of q and r are the desired factors.
         tab_t qq = q1(nt2::_(2, nt2::end_),_(2, nt2::end_));

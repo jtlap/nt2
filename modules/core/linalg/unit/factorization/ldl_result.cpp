@@ -12,7 +12,7 @@
 #include <nt2/include/functions/ldl.hpp>
 #include <nt2/include/functions/inv.hpp>
 #include <nt2/include/functions/ones.hpp>
-#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/band.hpp>
 #include <nt2/sdk/unit/tests.hpp>

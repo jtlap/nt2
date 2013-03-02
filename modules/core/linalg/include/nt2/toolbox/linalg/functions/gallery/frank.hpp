@@ -13,7 +13,7 @@
 #include <nt2/include/functions/triu.hpp>
 #include <nt2/include/functions/fliplr.hpp>
 #include <nt2/include/functions/flipud.hpp>
-#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/transpose.hpp>
 
 namespace nt2 {namespace ext
 {
@@ -42,7 +42,7 @@ namespace nt2 {namespace ext
     typedef typename meta::call<tag::frank1_(A0 const&,T)>::type  T1;
     typedef typename meta::call<tag::fliplr_(T1)>::type           T2;
     typedef typename meta::call<tag::flipud_(T2)>::type           T3;
-    typedef typename meta::call<tag::trans_(T3)>::type   result_type;
+    typedef typename meta::call<tag::transpose_(T3)>::type   result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& n, T const &)
     {
       return nt2::trans(nt2::flipud(nt2::fliplr(nt2::frank1(n, T()))));

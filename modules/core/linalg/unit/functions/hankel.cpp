@@ -10,7 +10,7 @@
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/hankel.hpp>
-#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/linspace.hpp>
 #include <nt2/include/functions/fliplr.hpp>
 #include <nt2/include/functions/cons.hpp>

@@ -6,15 +6,15 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::trans function"
+#define NT2_UNIT_MODULE "nt2::ctrans function"
 
 #include <nt2/table.hpp>
-#include <nt2/include/functions/transpose.hpp>
+#include <nt2/include/functions/ctranspose.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
-NT2_TEST_CASE_TPL( trans, NT2_TYPES )
+NT2_TEST_CASE_TPL( ctranspose, NT2_TYPES )
 {
   nt2::table<T> z, x( nt2::of_size(5,4) ),y( nt2::of_size(4,5) );
 
@@ -22,7 +22,7 @@ NT2_TEST_CASE_TPL( trans, NT2_TYPES )
     for(int i=1;i<=4;i++)
       x(j, i) = y(i,j) = i + 10*j;
 
-  z = nt2::trans(y);
+  z = nt2::ctrans(y);
 
   for(std::size_t i=1;i<=nt2::numel(x);i++)
     NT2_TEST_EQUAL( x(i),z(i) );

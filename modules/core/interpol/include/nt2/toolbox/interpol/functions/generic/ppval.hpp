@@ -11,7 +11,7 @@
 
 #include <nt2/include/functions/bsearch.hpp>
 #include <nt2/include/functions/width.hpp>
-#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/vertcat.hpp>
 #include <nt2/core/container/table/table.hpp>
 

@@ -25,7 +25,7 @@
 #include <nt2/include/functions/linspace.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/is_even.hpp>
-#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/eye.hpp>

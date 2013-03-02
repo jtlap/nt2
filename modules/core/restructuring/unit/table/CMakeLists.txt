@@ -12,7 +12,7 @@ SET( SOURCES
   blkdiag.cpp
   cat.cpp
   colvect.cpp
-  ctrans.cpp
+  ctranspose.cpp
   diag_of.cpp
   expand.cpp
   expand_to.cpp

@@ -6,12 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_TRANS_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_TRANS_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_TRANSPOSE_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_TRANSPOSE_HPP_INCLUDED
 
 /*!
  * \file
- * \brief Defines and implements the nt2::trans function
+ * \brief Defines and implements the nt2::transpose function
  */
 
 #include <nt2/include/functor.hpp>
@@ -23,27 +23,27 @@ namespace nt2
 {
   namespace tag
   {
-    struct trans_ : ext::elementwise_<trans_>
+    struct transpose_ : ext::elementwise_<transpose_>
     {
-      typedef ext::elementwise_<trans_> parent;
+      typedef ext::elementwise_<transpose_> parent;
     };
   }
 
   //============================================================================
   /*!
-   * transpose a matrix
+   * transposepose a matrix
    *
    * \param xpr 2D table (must verify is_matrix(a))
    */
   //============================================================================
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::trans_, trans, 1)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::trans_, transpose, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::transpose_, transpose, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::transpose_, trans, 1)
 }
 
 namespace nt2 { namespace ext
 {
   template<class Domain, int N, class Expr>
-  struct size_of<tag::trans_,Domain,N,Expr>
+  struct size_of<tag::transpose_,Domain,N,Expr>
   {
     typedef _2D result_type;
 
@@ -57,7 +57,7 @@ namespace nt2 { namespace ext
   };
 
   template<class Domain, int N, class Expr>
-  struct  value_type<nt2::tag::trans_,Domain,N,Expr>
+  struct  value_type<nt2::tag::transpose_,Domain,N,Expr>
         : meta::value_as<Expr,0>
   {};
 } }
