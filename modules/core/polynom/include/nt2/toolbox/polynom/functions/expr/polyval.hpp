@@ -22,7 +22,7 @@
 #include <nt2/sdk/meta/fusion.hpp>
 #include <boost/fusion/adapted/array.hpp>
 #include <nt2/include/functions/tie.hpp>
-#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/transpose.hpp>
 #include <nt2/sdk/error/warning.hpp>
 #include <nt2/core/container/table/table.hpp>
 

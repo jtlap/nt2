@@ -13,7 +13,6 @@
 #include <nt2/include/functions/asum1.hpp>
 #include <nt2/include/functions/vecnorm.hpp>
 #include <nt2/include/functions/mtimes.hpp>
-//#include <nt2/include/functions/trans.hpp>
 #include <nt2/include/functions/none.hpp>
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/ones.hpp>

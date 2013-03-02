@@ -16,7 +16,7 @@
 #include <nt2/include/functions/qr.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/mtimes.hpp>
-#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/rowvect.hpp>
 
 #include <nt2/sdk/unit/module.hpp>

@@ -14,7 +14,7 @@
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/mtimes.hpp>
-#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/transpose.hpp>
 
 namespace nt2 { namespace ext
 {

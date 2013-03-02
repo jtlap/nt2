@@ -14,7 +14,7 @@
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/isequal.hpp>
-#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/transpose.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>

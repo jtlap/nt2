@@ -9,7 +9,7 @@
 #define NT2_UNIT_MODULE "nt2::trans function"
 
 #include <nt2/table.hpp>
-#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/transpose.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>

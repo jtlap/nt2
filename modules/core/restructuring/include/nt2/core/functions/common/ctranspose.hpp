@@ -6,16 +6,16 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_COMMON_CTRANS_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_COMMON_CTRANS_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_COMMON_CTRANSPOSE_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_COMMON_CTRANSPOSE_HPP_INCLUDED
 
-#include <nt2/core/functions/ctrans.hpp>
-#include <nt2/include/functions/trans.hpp>
+#include <nt2/core/functions/ctranspose.hpp>
+#include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/conj.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ctrans_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ctranspose_, tag::cpu_
                             , (A0)
                             , ((ast_<A0, nt2::container::domain>)) )
   {
@@ -24,7 +24,7 @@ namespace nt2 { namespace ext
                            )
        };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ctrans_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ctranspose_, tag::cpu_
                             , (A0)
                             , (scalar_<unspecified_<A0> >) )
   {

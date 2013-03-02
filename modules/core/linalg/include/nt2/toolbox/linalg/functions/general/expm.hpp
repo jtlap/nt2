@@ -22,7 +22,7 @@
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/length.hpp>
-#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/conj.hpp>
 #include <nt2/include/functions/linsolve.hpp>
 #include <nt2/include/functions/length.hpp>

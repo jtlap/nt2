@@ -16,7 +16,7 @@
 #include <nt2/include/functions/horzcat.hpp>
 #include <nt2/include/functions/vertcat.hpp>
 #include <nt2/include/functions/rowvect.hpp>
-#include <nt2/include/functions/ctrans.hpp>
+#include <nt2/include/functions/ctranspose.hpp>
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/cons.hpp>
 #include <nt2/include/functions/planerot.hpp>

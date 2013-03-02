@@ -28,7 +28,7 @@
 #include <nt2/include/functions/cospi.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/eye.hpp>

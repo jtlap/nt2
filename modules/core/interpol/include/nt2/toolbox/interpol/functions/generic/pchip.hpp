@@ -33,7 +33,7 @@
 #include <nt2/include/functions/isreal.hpp>
 #include <nt2/include/functions/colvect.hpp>
 #include <nt2/include/functions/rowvect.hpp>
-#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/reshape.hpp>
 #include <nt2/include/functions/vertcat.hpp>
 #include <nt2/include/functions/multiplies.hpp>

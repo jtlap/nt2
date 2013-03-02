@@ -11,7 +11,7 @@
 
 #include <nt2/toolbox/linalg/functions/rot90.hpp>
 #include <nt2/dsl/functions/run.hpp>
-#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/flipud.hpp>
 #include <nt2/include/functions/fliplr.hpp>
 

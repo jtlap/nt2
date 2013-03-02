@@ -6,12 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_CTRANS_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_CTRANS_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_CTRANSPOSE_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_CTRANSPOSE_HPP_INCLUDED
 
 /*!
  * \file
- * \brief Defines and implements the nt2::ctrans function
+ * \brief Defines and implements the nt2::ctranspose function
  */
 
 #include <nt2/include/functor.hpp>
@@ -20,9 +20,9 @@ namespace nt2
 {
   namespace tag
   {
-    struct ctrans_ : ext::elementwise_<ctrans_>
+    struct ctranspose_ : ext::elementwise_<ctranspose_>
     {
-      typedef ext::elementwise_<ctrans_> parent;
+      typedef ext::elementwise_<ctranspose_> parent;
     };
   }
 
@@ -33,9 +33,9 @@ namespace nt2
    * \param xpr 2D table (must verify is_matrix(a))
    */
   //============================================================================
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ctrans_, ctrans, 1)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ctrans_, ctranspose, 1)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ctrans_, ct    , 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ctranspose_, ctranspose, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ctranspose_, ctrans, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ctranspose_, ct    , 1)
 }
 
 

@@ -17,7 +17,7 @@
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/mtimes.hpp>
-#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/conj.hpp>
 #include <nt2/include/functions/center.hpp>
 #include <nt2/include/functions/horzcat.hpp>
@@ -37,7 +37,7 @@ namespace nt2 { namespace ext
     typedef typename meta::call<tag::ifvectvert_(A0 const&)>::type T0;
     typedef typename meta::call<tag::center_(T0, size_t)>::type T1;
     typedef typename meta::call<tag::conj_(T1)>::type T2;
-    typedef typename meta::call<tag::trans_(T2)>::type T3;
+    typedef typename meta::call<tag::transpose_(T2)>::type T3;
     typedef typename meta::call<tag::mtimes_(T3, T1)>::type T4;
     typedef typename A0::value_type value_type;
     typedef typename meta::call<tag::multiplies_(T4,value_type)>::type result_type;
@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
     typedef typename meta::call<tag::ifvectvert_(A0 const&)>::type T0;
     typedef typename meta::call<tag::center_(T0, size_t)>::type T1;
     typedef typename meta::call<tag::conj_(T1)>::type T2;
-    typedef typename meta::call<tag::trans_(T2)>::type T3;
+    typedef typename meta::call<tag::transpose_(T2)>::type T3;
     typedef typename meta::call<tag::mtimes_(T3, T1)>::type T4;
     typedef typename A0::value_type value_type;
     typedef typename meta::call<tag::multiplies_(T4, value_type)>::type result_type;

@@ -11,7 +11,7 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/idxy_bilinear.hpp>
 #include <nt2/include/functions/linspace.hpp>
-#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/isequal.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>

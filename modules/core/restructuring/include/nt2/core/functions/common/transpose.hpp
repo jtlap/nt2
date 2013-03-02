@@ -6,10 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_COMMON_TRANS_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_COMMON_TRANS_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_COMMON_TRANSPOSE_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_COMMON_TRANSPOSE_HPP_INCLUDED
 
-#include <nt2/core/functions/trans.hpp>
+#include <nt2/core/functions/transpose.hpp>
 #include <nt2/include/functions/run.hpp>
 #include <nt2/include/functions/sub2ind.hpp>
 #include <nt2/include/functions/ind2sub.hpp>
@@ -20,7 +20,7 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
                             , (A0)(State)(Data)(N)
-                            , ((node_<A0, nt2::tag::trans_, N, nt2::container::domain>))
+                            , ((node_<A0, nt2::tag::transpose_, N, nt2::container::domain>))
                               (generic_< integer_<State> >)
                               ((unspecified_<Data>))
                             )

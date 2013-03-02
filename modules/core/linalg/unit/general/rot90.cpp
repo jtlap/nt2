@@ -12,7 +12,7 @@
 #include <nt2/include/functions/rot90.hpp>
 #include <nt2/include/functions/fliplr.hpp>
 #include <nt2/include/functions/flipud.hpp>
-#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/repmat.hpp>
 #include <nt2/include/functions/cif.hpp>
 #include <nt2/include/functions/repnum.hpp>

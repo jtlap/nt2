@@ -8,7 +8,7 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_GALLERY_MAGIC_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_GALLERY_MAGIC_HPP_INCLUDED
-#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/mod.hpp>
 #include <nt2/include/functions/sx.hpp>
