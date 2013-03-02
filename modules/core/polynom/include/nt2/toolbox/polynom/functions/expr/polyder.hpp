@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
     typedef typename A0::value_type value_type;
     typedef typename nt2::meta::call<nt2::tag::colon_(value_type, value_type, value_type)>::type T0;
     typedef typename nt2::meta::call<nt2::tag::colon_(size_t, size_t)>::type                     T1;
-    typedef typename nt2::meta::call<nt2::tag::function_(const A0&, size_t, T1)>::type           T2;
+    typedef typename nt2::meta::call<nt2::tag::function_(const typename A0::nt2_expression&, size_t, T1)>::type           T2;
     typedef typename nt2::meta::call<nt2::tag::multiplies_(T2, T0)>::type               result_type;
     NT2_FUNCTOR_CALL(1)
     {

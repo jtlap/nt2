@@ -138,10 +138,10 @@ template<class T, class S>
 struct is_nt2_basic_expr< nt2::table<T, S> > : is_nt2_basic_expr< nt2::container::expression< typename nt2::table<T, S>::proto_base_expr, nt2::memory::container<T, S>& > > {};
 
 template<class T, class S>
-struct is_nt2_basic_expr< nt2::table_view<T, S> > : is_nt2_basic_expr< typename nt2::table_view<T, S>::parent > {};
+struct is_nt2_basic_expr< nt2::table_view<T, S> > : is_nt2_basic_expr< typename nt2::table_view<T, S>::nt2_expression > {};
 
 template<class T, class S>
-struct is_nt2_basic_expr< nt2::table_shared_view<T, S> > : is_nt2_basic_expr< typename nt2::table_shared_view<T, S>::parent > {};
+struct is_nt2_basic_expr< nt2::table_shared_view<T, S> > : is_nt2_basic_expr< typename nt2::table_shared_view<T, S>::nt2_expression > {};
 
 template<class Expr>
 void expr_lifetime_0(Expr const&)
