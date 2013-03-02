@@ -26,7 +26,8 @@ SET( SOURCES
 #  resize.cpp
   rowvect.cpp
 #  squeeze.cpp
-#  trans.cpp
+#  transpose.cpp
+#  ctranspose.cpp
 #  vertcat.cpp
 # List of simd test files for toolbox generative
    )
