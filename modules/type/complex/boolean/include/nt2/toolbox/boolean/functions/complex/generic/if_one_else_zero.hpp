@@ -18,13 +18,13 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::if_one_else_zero_, tag::cpu_, (A0)
-                            ,  (generic_< complex_<floating_<A0> > >)
+                            ,  (generic_< complex_<unspecified_<A0> > >)
                             )
   {
     typedef A0 result_type;
     result_type  operator()(A0 const& a0) const
     {
-      return if_one_else_zero(is_nez(a0));
+      return nt2::if_one_else_zero(is_nez(a0));
     }
   };
 } }
