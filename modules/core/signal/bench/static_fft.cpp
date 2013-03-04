@@ -367,7 +367,6 @@ extern "C" int main( int /*argc*/, char * /*argv*/[] )
     {
         bench::do_test();
         //...zzz...return EXIT_SUCCESS;
-#ifndef BOOST_NO_EXCEPTIONS
     }
     catch ( std::exception const & e )
     {
@@ -381,5 +380,5 @@ extern "C" int main( int /*argc*/, char * /*argv*/[] )
     }
 #else
     bench::do_test();
-#endif // _DEBUG*/
+#endif // _DEBUG
 }
