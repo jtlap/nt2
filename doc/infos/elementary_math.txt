@@ -86,7 +86,7 @@ isreal              |  isreal                             |     Check if all arr
 j                   |                                     |     Imaginary unit                                                    |      not relevant see i
 real                |  real                               |     Real part of complex number                                       |      type/complex
 sign                |  sign                               |     Signum function                                                   |      core/arithmetic
-unwrap              |  unwrap TODO                        |     Correct phase angles to produce smoother phase plots              |
+unwrap              |  unwrap                             |     Correct phase angles to produce smoother phase plots              |      core/signal
 
 
 Matlab              |                nt2                  |                   Description                                         |      note
@@ -140,7 +140,6 @@ roots               |  roots                              |     Polynomial roots
 TODO list for Elementary Math
 ============================================================================================================================================================
 cplxpair            |  cplxpair TODO                      |     Sort complex numbers into complex conjugate pairs                 |
-unwrap              |  unwrap TODO                        |     Correct phase angles to produce smoother phase plots              |
 nchoosek            |  nchoosek  TODO                     |     Binomial coefficient or all combinations                          |
 residue             |  residue TODO                       |     Convert between partial fraction expansion and poly coefficients  |
 ============================================================================================================================================================
