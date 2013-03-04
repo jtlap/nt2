@@ -64,8 +64,8 @@ namespace nt2 { namespace ext
       {
         if (nt2::gt(nt2::abs(a0(i)), thresh)) {idx = i; break;}
       }
-      //return a0(nt2::One<size_t>(), _(idx,na0));
-      return result_type();
+
+      return a0(nt2::One<size_t>(), _(idx,na0));
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::reduce_, tag::cpu_
