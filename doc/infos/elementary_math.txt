@@ -112,7 +112,7 @@ gcd                 |  gcd                                |     Greatest common 
 isprime             |  is_prime                           |     Array elements that are prime numbers                             |      core/combinatorial
 lcm ime             |  lcm                                |     Least common multiple                                             |      core/combinatorial
 nchoosek            |  nchoosek  TODO, cnp                |     Binomial coefficient or all combinations                          |      core/combinatorial
-perms               |  perms  TODO                        |     All possible permutations                                         |
+perms               |  perms                              |     All possible permutations                                         |      core/combinatorial
 primes              |  primes                             |     Generate list of prime numbers                                    |      core/combinatorial
 rat                 |  rat                                |     Rational fraction approximation                                   |      core/combinatorial
 rats                |  NOT IMPLEMENTED                    |     Rational fraction approximation                                   |
@@ -142,7 +142,6 @@ TODO list for Elementary Math
 cplxpair            |  cplxpair TODO                      |     Sort complex numbers into complex conjugate pairs                 |
 unwrap              |  unwrap TODO                        |     Correct phase angles to produce smoother phase plots              |
 nchoosek            |  nchoosek  TODO                     |     Binomial coefficient or all combinations                          |
-perms               |  perms  TODO                        |     All possible permutations                                         |
 residue             |  residue TODO                       |     Convert between partial fraction expansion and poly coefficients  |
 ============================================================================================================================================================
 ============================================================================================================================================================
