@@ -9,7 +9,10 @@
 #ifndef NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_PERMSN_HPP_INCLUDED
 #define NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_PERMSN_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
-#include <nt2/core/container/table/table.hpp>
+#include <nt2/sdk/meta/size_as.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
+#include <nt2/core/container/dsl/size.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
 #include <nt2/include/functions/prod.hpp>
 #include <nt2/include/functions/min.hpp>
 

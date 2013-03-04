@@ -18,7 +18,7 @@
 #include <nt2/include/functions/colon.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/core/container/table/table.hpp>
-#include <nt2/table.hpp>
+#include <nt2/include/functions/assign.hpp>
 #include <algorithm>
 
 namespace nt2 { namespace ext

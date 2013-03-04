@@ -15,6 +15,7 @@
 #include <nt2/include/functions/prod.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/colon.hpp>
+#include <nt2/include/functions/assign.hpp>
 
 namespace nt2 { namespace ext
 {
