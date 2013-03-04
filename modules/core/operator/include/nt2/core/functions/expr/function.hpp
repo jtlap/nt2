@@ -124,7 +124,7 @@ namespace nt2 { namespace ext
 
     typedef typename type::nt2_expression nt2_expr;
     typedef typename nt2_expr::proto_base_expr basic_expr;
-    typedef typename type::container_ref container_ref;
+    typedef typename type::proto_child0 container_ref;
 
     static type call(A0& a0, I const& indices)
     {

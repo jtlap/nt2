@@ -81,11 +81,13 @@ namespace nt2 { namespace memory
     {
     }
 
-    container_ref(base_t& c) : ptr(c.raw()), sz(c.extent()), specific(c.specifics())
+    template<class Base>
+    container_ref(Base& c) : ptr(c.raw()), sz(c.extent()), specific(c.specifics())
     {
     }
 
-    container_ref(base_t& c, pointer p, extent_type const& sz_) : ptr(p), sz(sz_), specific(c.specifics())
+    template<class Base>
+    container_ref(Base& c, pointer p, extent_type const& sz_) : ptr(p), sz(sz_), specific(c.specifics())
     {
     }
 
