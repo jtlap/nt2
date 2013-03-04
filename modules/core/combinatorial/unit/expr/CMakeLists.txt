@@ -8,10 +8,12 @@
 ##############################################################################
 
 SET( SOURCES
-  primes.cpp
+  combs.cpp
   factor.cpp
   is_prime.cpp
-  combs.cpp
+  perms.cpp
+  permsn.cpp
+  primes.cpp
 # List of scalar test files for toolbox combinatorial
    )
 
