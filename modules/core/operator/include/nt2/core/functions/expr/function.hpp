@@ -34,6 +34,76 @@
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 
+namespace nt2 { namespace meta
+{
+  // TODO: move elsewhere
+  template<class T, class S>
+  struct add_settings
+  {
+    typedef nt2::settings type(T, S);
+  };
+
+  template<class T, class S>
+  struct add_settings<T&, S>
+  {
+    typedef typename add_settings<T, S>::type& type;
+  };
+
+  template<class T, class S>
+  struct add_settings<T const, S>
+  {
+    typedef typename add_settings<T, S>::type const type;
+  };
+
+  template<class T, class S, class S2>
+  struct add_settings< memory::container<T, S>, S2 >
+  {
+    typedef memory::container<T, typename add_settings<S, S2>::type> type;
+  };
+
+  template<class T, class S, class S2>
+  struct add_settings< memory::container_ref<T, S>, S2 >
+  {
+    typedef memory::container_ref<T, typename add_settings<S, S2>::type> type;
+  };
+
+  template<class T, class S, bool Own, class S2>
+  struct add_settings< memory::container_shared_ref<T, S, Own>, S2 >
+  {
+    typedef memory::container_shared_ref<T, typename add_settings<S, S2>::type, Own> type;
+  };
+
+  template<class T, class S>
+  struct add_settings< boost::proto::basic_expr<boost::proto::tag::terminal, boost::proto::term<T>, 0l>, S >
+  {
+    typedef boost::proto::basic_expr<boost::proto::tag::terminal, boost::proto::term<typename add_settings<T, S>::type>, 0l> type;
+  };
+
+  template<class Expr, class Semantic, class S>
+  struct add_settings< nt2::container::expression<Expr, Semantic>, S >
+  {
+    typedef nt2::container::expression<typename add_settings<Expr, S>::type, typename add_settings<Semantic, S>::type> type;
+  };
+
+  template<class T, class S, class S2>
+  struct add_settings< container::table_view<T, S>, S2 >
+  {
+    typedef container::table_view<T, typename add_settings<S, S2>::type> type;
+  };
+
+  template<class T, class S, class S2>
+  struct add_settings< container::table_shared_view<T, S>, S2 >
+  {
+    typedef container::table_shared_view<T, typename add_settings<S, S2>::type> type;
+  };
+
+  template<class T, class S, class S2>
+  struct add_settings< container::table<T, S>, S2 >
+  {
+    typedef container::table<T, typename add_settings<S, S2>::type> type;
+  };
+} }
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::assign_, tag::cpu_
@@ -119,8 +189,8 @@ namespace nt2 { namespace ext
 
     typedef nt2::settings settings(typename A0::settings_type, typename Idx::extent_type);
 
-    // FIXME: inject Idx::extent_type
-    typedef typename container::as_view_impl<A0>::type type;
+    typedef typename container::as_view_impl<A0>::type type0;
+    typedef typename meta::add_settings<type0, typename Idx::extent_type>::type type;
 
     typedef typename type::nt2_expression nt2_expr;
     typedef typename nt2_expr::proto_base_expr basic_expr;
