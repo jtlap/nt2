@@ -12,7 +12,6 @@ SET( SOURCES
   is_included.cpp
   is_simd_logical.cpp
   none.cpp
-  at_i.cpp
   hmsb.cpp
   sum.cpp
   second.cpp

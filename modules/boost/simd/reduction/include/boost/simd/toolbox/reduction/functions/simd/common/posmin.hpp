@@ -15,10 +15,10 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::posmin_, tag::cpu_,
-                         (A0)(X),
-                         ((simd_<arithmetic_<A0>,X>))
-                        )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::posmin_, tag::cpu_
+                                    , (A0)(X)
+                                    , ((simd_<arithmetic_<A0>,X>))
+                                    )
   {
       typedef typename meta::scalar_of<A0>::type stype;
       typedef typename dispatch::meta::as_integer<stype, signed>::type result_type;
@@ -27,12 +27,15 @@ namespace boost { namespace simd { namespace ext
     {
       result_type p = 0;
       stype m = a0[0];
-      for(size_t i=1; i < boost::simd::meta::cardinal_of<A0>::value; i++)// TODO UNROLL
+
+      // TODO UNROLL
+      for(size_t i=1; i < boost::simd::meta::cardinal_of<A0>::value; i++)
       {
-        if (m > a0[i]) { m = a0[i]; p = static_cast<result_type>(i); }
+        if (m > a0[i])  { m = a0[i]; p = static_cast<result_type>(i); }
       }
       return p;
     }
   };
 } } }
+
 #endif
