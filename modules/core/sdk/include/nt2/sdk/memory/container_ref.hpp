@@ -68,26 +68,39 @@ namespace nt2 { namespace memory
     typedef typename base_t::const_pointer                       const_pointer;
     typedef typename base_t::const_iterator                      const_iterator;
 
-    container_ref() : ptr()
+    container_ref() : ptr(), base_()
     {
     }
 
     template<class U, class S2>
-    container_ref(container_ref<U, S2> const& other) : ptr(other.ptr), sz(other.sz), specific(other.specific)
+    container_ref(container_ref<U, S2> const& other) : ptr(other.ptr), sz(other.sz), base_(other.base_)
     {
     }
 
-    container_ref(pointer p, extent_type const& sz_) : ptr(p), sz(sz_)
+    container_ref(pointer p, extent_type const& sz_) : ptr(p), sz(sz_), base_()
     {
     }
 
-    template<class Base>
-    container_ref(Base& c) : ptr(c.raw()), sz(c.extent()), specific(c.specifics())
+    template<class U, class S2>
+    container_ref(container<U, S2>& c) : ptr(c.raw()), sz(c.extent()), base_(&c)
+    {
+    }
+    template<class U, class S2>
+    container_ref(container<U, S2> const& c) : ptr(c.raw()), sz(c.extent()), base_()
     {
     }
 
-    template<class Base>
-    container_ref(Base& c, pointer p, extent_type const& sz_) : ptr(p), sz(sz_), specific(c.specifics())
+    template<class U, class S2>
+    container_ref(container<U, S2>& c, pointer p, extent_type const& sz_) : ptr(p), sz(sz_), base_(&c)
+    {
+    }
+    template<class U, class S2>
+    container_ref(container<U, S2> const& c, pointer p, extent_type const& sz_) : ptr(p), sz(sz_), base_()
+    {
+    }
+
+    template<class U, class S2>
+    container_ref(container_ref<U, S2> const& c, pointer p, extent_type const& sz_) : ptr(p), sz(sz_), base_(c.base_)
     {
     }
 
@@ -215,12 +228,14 @@ namespace nt2 { namespace memory
      * @return A reference to the specific data of the container.
      **/
     //==========================================================================
-    specific_data_type&  specifics() const { return specific; }
+    specific_data_type&  specifics() const { BOOST_ASSERT_MSG(0, "not implemented"); }
 
     //==========================================================================
     // Check if a position is safely R/W in the current container
     //==========================================================================
     BOOST_FORCEINLINE bool is_safe(size_type p) const { return p == 0u || p < size(); }
+
+    container_base* base() const { return base_; }
 
   private:
     template<class U, class S2>
@@ -228,7 +243,7 @@ namespace nt2 { namespace memory
 
     pointer                     ptr;
     extent_type                 sz;
-    mutable specific_data_type  specific;
+    container_base*             base_;
   };
 
   //============================================================================

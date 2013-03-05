@@ -116,7 +116,13 @@ namespace nt2 { namespace ext
 
     result_type operator()(A0& a0, I0& i0) const
     {
-      nt2::erase(boost::proto::child_c<0>(a0), boost::proto::child_c<0>(boost::proto::child_c<1>(a0)));
+      typedef typename A0::proto_child0::proto_child0 container_ref;
+      typedef typename container_ref::base_t base_t;
+      typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<base_t&>, 0l> basic_expr;
+      typedef nt2::container::expression<basic_expr, base_t&> nt2_expr;
+
+      nt2_expr c(basic_expr::make(static_cast<base_t&>(*boost::proto::value(boost::proto::child_c<0>(a0)).base())));
+      nt2::erase(c, boost::proto::child_c<0>(boost::proto::child_c<1>(a0)));
       return a0;
     }
   };

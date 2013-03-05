@@ -38,7 +38,7 @@ namespace nt2 { namespace memory
    * \tparam Setting Options list describing the behavior of the container
    **/
   //============================================================================
-  template<class T, class S> class container
+  template<class T, class S> class container : public container_base
   {
   public:
     //==========================================================================

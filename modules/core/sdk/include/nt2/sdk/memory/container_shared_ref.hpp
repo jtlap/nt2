@@ -18,8 +18,8 @@ namespace nt2 { namespace memory
 {
   //============================================================================
   /*!
-   * container_ref is like container, but instead of wrapping a buffer it wraps
-   * a pointer. Copying a container_ref does not copy any data.
+   * container_shared_ref is like container_ref, but references a shared_ptr
+   * to a container to keep it alive.
    *
    * \tparam Type    Value type to store in the table
    * \tparam Setting Options list describing the behavior of the container
@@ -72,8 +72,6 @@ namespace nt2 { namespace memory
 
     container_shared_ref() : ptr()
     {
-      if(Own)
-        base_ = boost::make_shared<base_t>();
     }
 
     template<class U, class S2, bool Own2>
@@ -81,8 +79,8 @@ namespace nt2 { namespace memory
     {
     }
 
-    template<bool Own2>
-    container_shared_ref(container_shared_ref<T, S, Own2> const& other, pointer p, extent_type const& sz_) : ptr(p), sz(sz_), base_(other.base_)
+    template<class U, class S2, bool Own2>
+    container_shared_ref(container_shared_ref<U, S2, Own2> const& other, pointer p, extent_type const& sz_) : ptr(p), sz(sz_), base_(other.base_)
     {
     }
 
@@ -106,8 +104,7 @@ namespace nt2 { namespace memory
     template<class Size>
     void resize( Size const& sz_ ) const
     {
-      if(Own)
-        base_->resize(sz_);
+      // do nothing
     }
 
     //==========================================================================
@@ -117,8 +114,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     void push_back( value_type const& v )
     {
-      if(Own)
-        base_->push_back(v);
+      // do nothing
     }
 
     //==========================================================================
@@ -130,10 +126,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     BOOST_FORCEINLINE extent_type const& extent() const
     {
-      if(Own)
-        return base_->extent();
-      else
-        return sz;
+      return sz;
     }
 
     //==========================================================================
@@ -181,14 +174,14 @@ namespace nt2 { namespace memory
      * Return the begin of the raw memory
      */
     //==========================================================================
-    BOOST_FORCEINLINE pointer        raw() const { return Own ? base_->raw() : ptr; }
+    BOOST_FORCEINLINE pointer        raw() const { return ptr; }
 
     //==========================================================================
     /*!
      * Return the begin of the data
      */
     //==========================================================================
-    BOOST_FORCEINLINE iterator       begin() const { return Own ? base_->begin() : iterator(ptr); }
+    BOOST_FORCEINLINE iterator       begin() const { return iterator(ptr); }
 
     //==========================================================================
     /*!
@@ -215,7 +208,183 @@ namespace nt2 { namespace memory
      * @return A reference to the specific data of the container.
      **/
     //==========================================================================
-    specific_data_type&  specifics() const { return base_->specifics(); }
+    specific_data_type&  specifics() const { BOOST_ASSERT_MSG(0, "unimplemented"); }
+
+    //==========================================================================
+    // Check if a position is safely R/W in the current container
+    //==========================================================================
+    BOOST_FORCEINLINE bool is_safe(size_type p) const { return p == 0u || p < size(); }
+
+    boost::shared_ptr<container_base> base() const { return base_; }
+
+  private:
+    template<class U, class S2, bool Own2>
+    friend struct container_shared_ref;
+
+    pointer                                  ptr;
+    extent_type                              sz;
+    boost::shared_ptr<container_base>        base_;
+  };
+
+  // this is really just a container adaptor with shallow copying
+  template<class T, class S>
+  struct container_shared_ref<T, S, true>
+  {
+    typedef T                                                    value_type;
+    typedef std::size_t                                          size_type;
+
+    typedef typename meta::option < S
+                                  , tag::semantic_
+                                  , tag::table_
+                                  >::type                            semantic_t;
+    typedef typename meta::normalize<semantic_t,value_type,S>::type  settings_type;
+
+    typedef typename meta::option<settings_type, tag::of_size_>::type        extent_type;
+    typedef typename meta::option<settings_type, tag::storage_order_>::type  order_type;
+
+    typedef typename specific_data< typename boost::dispatch::
+                                             default_site<T>::type
+                                  , value_type
+                                  >::type                        specific_data_type;
+
+    typedef container<value_type, S>                             base_t;
+
+    typedef typename base_t::reference                           reference;
+    typedef typename base_t::const_reference                     const_reference;
+    typedef typename base_t::pointer                             pointer;
+    typedef typename base_t::const_pointer                       const_pointer;
+    typedef typename base_t::iterator                            iterator;
+    typedef typename base_t::const_iterator                      const_iterator;
+
+    container_shared_ref() : base_(boost::make_shared<base_t>())
+    {
+    }
+
+    //==========================================================================
+    /**!
+     * Swap the contents of two container of same type and settings
+     * \param x First \c container to swap
+     * \param y Second \c container to swap
+     **/
+    //==========================================================================
+    BOOST_FORCEINLINE void swap(container_shared_ref& y)
+    {
+      boost::swap(*this, y);
+    }
+
+    //==========================================================================
+    /*!
+     * @brief Resize a container using new dimensions set
+     */
+    //==========================================================================
+    template<class Size>
+    void resize( Size const& sz_ ) const
+    {
+      base_->resize(sz_);
+    }
+
+    //==========================================================================
+    /*!
+     * @brief Add element at end of container, reshape to 1D
+     */
+    //==========================================================================
+    void push_back( value_type const& v )
+    {
+      base_->push_back(v);
+    }
+
+    //==========================================================================
+    /*!
+     * @brief Return the container dimensions set
+     * @return A reference to a constant Fusion RandomAccessSequence containing
+     * the size of the container over each of its dimensions.
+     **/
+    //==========================================================================
+    BOOST_FORCEINLINE extent_type const& extent() const
+    {
+      return base_->extent();
+    }
+
+    //==========================================================================
+    /*!
+     * @brief Return the container number of element
+     * @return The number of logical element stored in the buffer.
+     **/
+    //==========================================================================
+    BOOST_FORCEINLINE size_type size() const
+    {
+      return numel(extent());
+    }
+
+    //==========================================================================
+    /*!
+     * @brief Return the container number of element along the main dimension
+     *
+     * leading_size retrieves the number of element of the leading dimension in
+     * a settings independant way.
+     *
+     * @return The number of elements stored on the main dimension
+     */
+    //==========================================================================
+    BOOST_FORCEINLINE size_type leading_size() const
+    {
+      typedef typename boost::mpl
+                            ::apply < order_type
+                                    , boost::mpl::size_t<extent_type::static_size>
+                                    , boost::mpl::size_t<0U>
+                                    >::type                     dim_t;
+      return extent()[dim_t::value];
+    }
+
+    //==========================================================================
+    /*!
+     * @brief Check for container emptyness
+     * @return A boolean that evaluates to \c true if the container stores no
+     * value, \c false otherwise.
+     */
+    //==========================================================================
+    BOOST_FORCEINLINE bool empty() const { return size() == 0u; }
+
+    //==========================================================================
+    /*!
+     * Return the begin of the raw memory
+     */
+    //==========================================================================
+    BOOST_FORCEINLINE pointer        raw() const { return base_->raw(); }
+
+    //==========================================================================
+    /*!
+     * Return the begin of the data
+     */
+    //==========================================================================
+    BOOST_FORCEINLINE iterator       begin() const { return base_->begin(); }
+
+    //==========================================================================
+    /*!
+     * Return the end of the data
+     */
+    //==========================================================================
+    BOOST_FORCEINLINE iterator       end() const   { return begin() + size(); }
+
+    //==========================================================================
+    // Linear Random Access
+    //==========================================================================
+    BOOST_FORCEINLINE reference operator[](size_type i) const
+    {
+      return begin()[i];
+    }
+
+    //==========================================================================
+    /*!
+     * @brief Access to the architecture specific container data
+     * As the inner structure of a container may change with the hardware
+     * configuration, a specific data segment is provided to gather informations
+     * that may be required for proper operation on said configuration.
+     *
+     * @return A reference to the specific data of the container.
+     **/
+    //==========================================================================
+    specific_data_type&  specifics() const { base_->specifics(); }
 
     //==========================================================================
     // Check if a position is safely R/W in the current container
@@ -226,9 +395,7 @@ namespace nt2 { namespace memory
     template<class U, class S2, bool Own2>
     friend struct container_shared_ref;
 
-    pointer                     ptr;
-    extent_type                 sz;
-    boost::shared_ptr<base_t>   base_;
+    boost::shared_ptr<base_t>                base_;
   };
 
   //============================================================================
