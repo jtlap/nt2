@@ -17,17 +17,17 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_one_else_zero_, tag::cpu_, (A0)
-                            , (scalar_< logical_<A0> >)
-                            )
+                                   , (scalar_< logical_<A0> >)
+                                   )
   {
     typedef typename A0::value_type result_type;
     inline result_type operator()(const A0 & a0) const
-      { return a0 ? One<result_type>() : Zero<result_type>(); }
+    { return a0 ? One<result_type>() : Zero<result_type>(); }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_one_else_zero_, tag::cpu_, (A0)
-                            , (scalar_< unspecified_<A0> >)
-                            )
+                                   , (scalar_< unspecified_<A0> >)
+                                   )
   {
     typedef A0 result_type;
     inline result_type operator()(const A0 & a0) const

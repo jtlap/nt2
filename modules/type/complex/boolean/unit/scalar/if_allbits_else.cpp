@@ -16,7 +16,6 @@
 #include <nt2/include/functions/if_allbits_else.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/allbits.hpp>
-#include <nt2/include/constants/allbits.hpp>
 #include <nt2/include/constants/cnan.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>

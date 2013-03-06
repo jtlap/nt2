@@ -8,23 +8,19 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BOOLEAN_FUNCTIONS_COMPLEX_GENERIC_IF_ONE_ELSE_ZERO_HPP_INCLUDED
 #define NT2_TOOLBOX_BOOLEAN_FUNCTIONS_COMPLEX_GENERIC_IF_ONE_ELSE_ZERO_HPP_INCLUDED
-
 #include <nt2/toolbox/boolean/functions/if_one_else_zero.hpp>
-#include <nt2/include/functions/real.hpp>
-#include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/is_nez.hpp>
-#include <nt2/sdk/simd/logical.hpp>
 
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::if_one_else_zero_, tag::cpu_, (A0)
-                            ,  (generic_< complex_<unspecified_<A0> > >)
+                            ,  (generic_< complex_<floating_<A0> > >)
                             )
   {
     typedef A0 result_type;
     result_type  operator()(A0 const& a0) const
     {
-      return nt2::if_one_else_zero(is_nez(a0));
+      return result_type(nt2::if_one_else_zero(nt2::is_nez(a0)));
     }
   };
 } }

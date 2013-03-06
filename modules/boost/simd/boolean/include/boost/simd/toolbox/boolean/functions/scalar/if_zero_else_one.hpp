@@ -11,8 +11,8 @@
 #include <boost/simd/toolbox/boolean/functions/if_zero_else_one.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/one.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -22,7 +22,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename A0::value_type result_type;
     inline result_type operator()(const A0 & a0) const
-    { return a0 ? Zero<result_type>() : One<result_type>(); }
+      { return a0 ? Zero<result_type>() : One<result_type>(); }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_zero_else_one_, tag::cpu_, (A0)
@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
     inline result_type operator()(const A0 & a0) const
-      { return  is_nez(a0) ? Zero<result_type>() : One<result_type>(); }
+    { return boost::simd::is_nez(a0) ? Zero<A0>() : One<A0>(); }
   };
 } } }
 
