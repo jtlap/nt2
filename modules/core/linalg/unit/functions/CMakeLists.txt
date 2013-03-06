@@ -38,6 +38,7 @@ SET( SOURCES
   jordbloc.cpp
   kahan.cpp
   kms.cpp
+  krylov.cpp
   magic.cpp
   minij.cpp
   pascal.cpp
