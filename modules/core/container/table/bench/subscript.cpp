@@ -6,172 +6,214 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2 container subscript"
+#include <nt2/table.hpp>
+#include <nt2/sdk/bench/benchmark.hpp>
 
-#include <nt2/core/container/table/table.hpp>
-#include <nt2/include/functions/of_size.hpp>
-#include <nt2/toolbox/operator/operator.hpp>
-#include <nt2/include/functions/function.hpp>
+struct _1D {};
+struct _2D {};
 
-#include <nt2/sdk/timing/now.hpp>
-#include <nt2/sdk/unit/details/helpers.hpp>
-#include <nt2/sdk/unit/perform_benchmark.hpp>
-#include <nt2/sdk/unit/module.hpp>
+template< typename Container
+        , typename Dims
+        , typename Tag = boost::dispatch::default_site<void>::type
+        >
+class test_subscript;
 
-namespace subscript_test {
+template<typename T>
+NT2_EXPERIMENT((test_subscript<nt2::table<T>, _1D>))
+{
+  public:
+  test_subscript( std::size_t s0, bool status = false )
+                : NT2_EXPRIMENT_CTOR(1.,status ? "cycles/elements" : "speed-up")
+                , d0(s0)
+                , is_ref(status)
+  {}
 
-  template<class T> struct table_2D_test
+  virtual void run() const
   {
-    table_2D_test(std::size_t n, std::size_t m, T const& min, T const& max)
-      : a0(nt2::of_size(n,m)), a1(nt2::of_size(n,m)), N(n), M(m)
-    {
-      for (std::size_t j = 1; j <= M; ++j)
-        for (std::size_t i = 1; i <= N; ++i)
-          a1(i, j) = roll<T>(min,max);
-    }
+    for (std::size_t i=1; i <= d0; i++)
+      a0(i) = a1(i);
+  }
 
-    void operator()()
-    {
-      for (std::size_t j = 1; j <= M; j++)
-        for (std::size_t i = 1; i <= N; i++)
-        {
-          a0(i,j) = a1(i,j);
-        }
-    }
-
-  void reset() {}
-
-    nt2::container::table<T, nt2::_2D> a0, a1;
-    std::size_t N, M;
-  };
-
-  template<class T> struct vector_2D_test
+  virtual double compute(nt2::benchmark_result_t const& r) const
   {
-    vector_2D_test(std::size_t n, std::size_t m, T const& min, T const& max)
-      : a0(n*m), a1(n*m), N(n), M(m)
+    if(is_ref)
     {
-      for(std::size_t i = 0; i < M*N; ++i)
-        a1[i] = roll<T>(min,max);
+      nt2::reference_timing().second = double(r.first);
+      return r.first/double(d0);
     }
-
-    void operator()()
+    else
     {
-      for (std::size_t j = 0; j < M; j++)
-        for (std::size_t i = 0; i < N; i++)
-          a0[i + j * N] = a1[i + j * N];
-    }
-
-  void reset() {}
-
-    std::vector<T> a0, a1;
-    std::size_t N, M;
-  };
-
-  template<class T> void do_2D_test()
-  {
-    std::cout << "Size\ttable (c/e)\ttable (s)\tvector (c/e)\tvector (s)\tG(c/e)\tG(s)\n";
-
-    for(int N=1;N<=2048;N*=2)
-    {
-      std::cout.precision(3);
-      std::cout << N << "^2\t";
-      table_2D_test<T> tt(N,N,-.28319, .28319);
-      nt2::unit::benchmark_result<nt2::details::cycles_t> dv;
-      nt2::unit::perform_benchmark( tt, 1., dv);
-      nt2::unit::benchmark_result<double> tv;
-      nt2::unit::perform_benchmark( tt, 1., tv);
-      std::cout << std::scientific << dv.median/(double)(N*N) << "\t";
-      std::cout << std::scientific << tv.median << "\t";
-      vector_2D_test<T> vv(N,N,-.28319, .28319);
-      nt2::unit::benchmark_result<nt2::details::cycles_t> dw;
-      nt2::unit::perform_benchmark( vv, 1., dw);
-      nt2::unit::benchmark_result<double> tw;
-      nt2::unit::perform_benchmark( vv, 1., tw);
-      std::cout << std::scientific << dw.median/(double)(N*N) << "\t";
-      std::cout << std::scientific << tw.median << "\t";
-
-      std::cout << std::fixed << (double)dw.median/dv.median << "\t";
-      std::cout << std::fixed << (double)tw.median/tv.median << "\n";
+      return nt2::reference_timing().first / nt2::reference_timing().second;
     }
   }
 
-  template<class T> struct table_1D_test
+  virtual void info(std::ostream& os) const { os << d0; }
+
+  virtual void reset() const
   {
-    table_1D_test(std::size_t n, T const& min, T const& max)
-      : a0(nt2::of_size(n)), a1(nt2::of_size(n)), N(n)
-    {
-      for (std::size_t i = 1; i <= N; ++i)
-        a1(i) = roll<T>(min,max);
-    }
+    a0.resize(nt2::of_size(d0));
+    a1.resize(nt2::of_size(d0));
 
-    void operator()()
-    {
-      for (std::size_t i = 1; i <= N; i++)
-        a0(i) = a1(i);
-    }
+    nt2::roll ( a1, -100, 100 );
+  }
 
-  void reset() {}
+  private:
+          std::size_t               d0;
+          bool                      is_ref;
+  mutable nt2::table<T>             a0,a1;
+};
 
-    nt2::container::table<T, nt2::_1D> a0, a1;
-    std::size_t N;
-  };
+template<typename T>
+NT2_EXPERIMENT((test_subscript<nt2::table<T>, _2D>))
+{
+  public:
+  test_subscript( std::size_t s0, std::size_t s1, bool status = false )
+                : NT2_EXPRIMENT_CTOR(1.,status ? "cycles/elements" : "speed-up")
+                , d0(s0), d1(s1)
+                , is_ref(status)
+  {}
 
-  template<class T> struct vector_1D_test
+  virtual void run() const
   {
-    vector_1D_test(std::size_t n, T const& min, T const& max)
-      : a0(n), a1(n), N(n)
-    {
-      for (std::size_t i = 0; i < N; ++i)
-        a1[i] = roll<T>(min,max);
-    }
+    for (std::size_t j=1; j <= d1; j++)
+      for (std::size_t i=1; i <= d0; i++)
+        a0(i,j) = a1(i,j);
+  }
 
-    void operator()()
-    {
-      for (std::size_t i = 0; i < N; i++)
-        a0[i] = a1[i];
-    }
-
-  void reset() {}
-
-    std::vector<T> a0, a1;
-    std::size_t N;
-  };
-
-  template<class T> void do_1D_test()
+  virtual double compute(nt2::benchmark_result_t const& r) const
   {
-    std::cout << "Size\ttable (c/e)\ttable (s)\tvector (c/e)\tvector (s)\tG(c/e)\tG(s)\n";
-
-    for(int N=1;N<=2048;N*=2)
+    if(is_ref)
     {
-      std::cout.precision(3);
-      std::cout << N*N << "\t";
-      table_1D_test<T> tt(N*N,-.28319, .28319);
-      nt2::unit::benchmark_result<nt2::details::cycles_t> dv;
-      nt2::unit::perform_benchmark( tt, 1., dv);
-      nt2::unit::benchmark_result<double> tv;
-      nt2::unit::perform_benchmark( tt, 1., tv);
-      std::cout << std::scientific << dv.median/(double)(N*N) << "\t";
-      std::cout << std::scientific << tv.median << "\t";
-      vector_1D_test<T> vv(N*N,-.28319, .28319);
-      nt2::unit::benchmark_result<nt2::details::cycles_t> dw;
-      nt2::unit::perform_benchmark( vv, 1., dw);
-      nt2::unit::benchmark_result<double> tw;
-      nt2::unit::perform_benchmark( vv, 1., tw);
-      std::cout << std::scientific << dw.median/(double)(N*N) << "\t";
-      std::cout << std::scientific << tw.median << "\t";
-
-      std::cout << std::fixed << (double)dw.median/dv.median << "\t";
-      std::cout << std::fixed << (double)tw.median/tv.median << "\n";
+      nt2::reference_timing().second = double(r.first);
+      return r.first/double(d0*d1);
+    }
+    else
+    {
+      return nt2::reference_timing().first / nt2::reference_timing().second;
     }
   }
-}
 
-NT2_TEST_CASE_TPL( subscript_1D, (char)(short)(float)(double) )
-{
-  subscript_test::do_1D_test<T>();
-}
+  virtual void info(std::ostream& os) const { os << d0 << "x" << d1; }
 
-NT2_TEST_CASE_TPL( subscript_2D, (char)(short)(float)(double) )
+  virtual void reset() const
+  {
+    a0.resize(nt2::of_size(d0,d1));
+    a1.resize(nt2::of_size(d0,d1));
+
+    nt2::roll ( a1, -100, 100 );
+  }
+
+  private:
+          std::size_t               d0,d1;
+          bool                      is_ref;
+  mutable nt2::table<T>             a0,a1;
+};
+
+template<typename T>
+NT2_EXPERIMENT((test_subscript<std::vector<T>, _1D>))
 {
-  subscript_test::do_2D_test<T>();
-}
+  public:
+  test_subscript( std::size_t s0)
+                : NT2_EXPRIMENT_CTOR(1.,"cycles/elements")
+                , d0(s0)
+  {}
+
+  virtual void run() const
+  {
+    for(std::size_t i=0; i<d0; ++i) a0[i] = a1[i];
+  }
+
+  virtual double compute(nt2::benchmark_result_t const& r) const
+  {
+    nt2::reference_timing() = r;
+    return r.first/double(d0);
+  }
+
+  virtual void info(std::ostream& os) const { os << d0; }
+
+  virtual void reset() const
+  {
+    a0.resize(d0);
+    a1.resize(d0);
+
+    nt2::roll ( a1, -.28319, .28319 );
+  }
+
+  private:
+          std::size_t               d0;
+          bool                      is_ref;
+  mutable std::vector<T>            a0,a1;
+};
+
+template<typename T>
+NT2_EXPERIMENT((test_subscript<std::vector<T>, _2D>))
+{
+  public:
+  test_subscript( std::size_t s0, std::size_t s1)
+                : NT2_EXPRIMENT_CTOR(1.,"cycles/elements")
+                , d0(s0), d1(s1)
+  {}
+
+  virtual void run() const
+  {
+    for(std::size_t j=0; j<d1; ++j)
+      for(std::size_t i=0; i<d0; ++i)
+        a0[i+j*d0] = a1[i+j*d0];
+  }
+
+  virtual double compute(nt2::benchmark_result_t const& r) const
+  {
+    nt2::reference_timing() = r;
+    return r.first/double(d0*d1);
+  }
+
+  virtual void info(std::ostream& os) const { os << d0 << "x" << d1; }
+
+  virtual void reset() const
+  {
+    a0.resize(d0*d1);
+    a1.resize(d0*d1);
+
+    nt2::roll ( a1, -.28319, .28319 );
+  }
+
+  private:
+          std::size_t               d0,d1;
+          bool                      is_ref;
+  mutable std::vector<T>            a0,a1;
+};
+
+#define NT2_TABLE_EXP(T,N)                                                      \
+NT2_RUN_EXPERIMENT_TPL( test_subscript, ((std::vector<T>,_1D)) , (1<<N ));      \
+NT2_RUN_EXPERIMENT_TPL( test_subscript, ((nt2::table<T>,_1D))  , (1<<N ,true)); \
+NT2_RUN_EXPERIMENT_TPL( test_subscript, ((nt2::table<T>,_1D))  , (1<<N ));      \
+NT2_RUN_EXPERIMENT_TPL( test_subscript, ((std::vector<T>,_2D)) , (1<<N,1<<N ));      \
+NT2_RUN_EXPERIMENT_TPL( test_subscript, ((nt2::table<T>,_2D))  , (1<<N,1<<N,true)); \
+NT2_RUN_EXPERIMENT_TPL( test_subscript, ((nt2::table<T>,_2D))  , (1<<N,1<<N ));      \
+/**/
+
+NT2_TABLE_EXP(double ,  1 );
+NT2_TABLE_EXP(double ,  2 );
+NT2_TABLE_EXP(double ,  3 );
+NT2_TABLE_EXP(double ,  4 );
+NT2_TABLE_EXP(double ,  5 );
+NT2_TABLE_EXP(double ,  6 );
+NT2_TABLE_EXP(double ,  7 );
+NT2_TABLE_EXP(double ,  8 );
+NT2_TABLE_EXP(double ,  9 );
+NT2_TABLE_EXP(double , 10 );
+NT2_TABLE_EXP(double , 11 );
+NT2_TABLE_EXP(double , 12 );
+
+NT2_TABLE_EXP(float ,  1 );
+NT2_TABLE_EXP(float ,  2 );
+NT2_TABLE_EXP(float ,  3 );
+NT2_TABLE_EXP(float ,  4 );
+NT2_TABLE_EXP(float ,  5 );
+NT2_TABLE_EXP(float ,  6 );
+NT2_TABLE_EXP(float ,  7 );
+NT2_TABLE_EXP(float ,  8 );
+NT2_TABLE_EXP(float ,  9 );
+NT2_TABLE_EXP(float , 10 );
+NT2_TABLE_EXP(float , 11 );
+NT2_TABLE_EXP(float , 12 );
