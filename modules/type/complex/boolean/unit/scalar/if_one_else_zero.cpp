@@ -1,21 +1,3 @@
-<<<<<<< HEAD
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 boost.simd.boolean toolbox - if_one_else_zero/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.boolean components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 18/02/2011
-///
-#include <nt2/include/functions/if_one_else_zero.hpp>
-=======
 //==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
@@ -33,20 +15,12 @@
 #include <nt2/include/constants/true.hpp>
 #include <nt2/include/constants/false.hpp>
 #include <nt2/toolbox/constant/common.hpp>
->>>>>>> master
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <complex>
-<<<<<<< HEAD
-#include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/zero.hpp>
-#include <nt2/include/constants/false.hpp>
-#include <nt2/include/constants/true.hpp>
-#include <nt2/include/constants/inf.hpp>
-#include <nt2/include/constants/minf.hpp>
-#include <nt2/include/constants/nan.hpp>
+
 
 NT2_TEST_CASE_TPL ( if_one_else_zero_real__2_0,  NT2_REAL_TYPES)
 {
@@ -54,15 +28,6 @@ NT2_TEST_CASE_TPL ( if_one_else_zero_real__2_0,  NT2_REAL_TYPES)
   using boost::simd::if_one_else_zero;
   using boost::simd::tag::if_one_else_zero_;
   using boost::simd::logical;
-=======
-#include <nt2/sdk/simd/logical.hpp>
-NT2_TEST_CASE_TPL ( if_one_else_zero_real__2_0,  NT2_REAL_TYPES)
-{
-
-  using nt2::if_one_else_zero;
-  using nt2::tag::if_one_else_zero_;
-  using nt2::logical;
->>>>>>> master
   typedef std::complex<T> cT;
   typedef typename nt2::meta::call<if_one_else_zero_(cT)>::type r_t;
   typedef typename nt2:: meta::as_complex<T>::type wished_r_t;
