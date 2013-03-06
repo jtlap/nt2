@@ -39,6 +39,7 @@ SET( SOURCES
   kahan.cpp
   kms.cpp
   krylov.cpp
+  lauchli.cpp
   magic.cpp
   minij.cpp
   pascal.cpp
