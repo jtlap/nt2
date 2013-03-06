@@ -14,6 +14,7 @@
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/extract.hpp>
 #include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/arg.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
