@@ -14,6 +14,10 @@
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
+#include <nt2/include/constants/maxinit.hpp> // This include is sort of weird
+// as the file do not uses maxinit
+// but it is necessary to include this somewhere for changing the to the  complex
+// ordering used in max complex determination.
 
 namespace nt2 { namespace ext
 {
