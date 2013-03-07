@@ -40,6 +40,7 @@ SET( SOURCES
   kms.cpp
   krylov.cpp
   lauchli.cpp
+  lehmer.cpp
   magic.cpp
   minij.cpp
   pascal.cpp
