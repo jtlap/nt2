@@ -41,6 +41,7 @@ SET( SOURCES
   krylov.cpp
   lauchli.cpp
   lehmer.cpp
+  leslie.cpp
   magic.cpp
   minij.cpp
   pascal.cpp
