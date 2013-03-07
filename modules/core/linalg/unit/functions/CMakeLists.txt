@@ -38,6 +38,11 @@ SET( SOURCES
   jordbloc.cpp
   kahan.cpp
   kms.cpp
+  krylov.cpp
+  lauchli.cpp
+  lehmer.cpp
+  leslie.cpp
+  lesp.cpp
   magic.cpp
   minij.cpp
   pascal.cpp

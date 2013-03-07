@@ -19,6 +19,7 @@
 #include <nt2/include/functions/along.hpp>
 #include <nt2/include/functions/if_one_else_zero.hpp>
 #include <nt2/include/functions/cumsum.hpp>
+#include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/is_less.hpp>
 #include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/assign.hpp>
@@ -102,7 +103,7 @@ namespace nt2 { namespace ext
         out = a;
       else
       {
-        BOOST_AUTO_TPL(idx, nt2::cath(size_t(1), _(size_t(1), m-1)));
+        BOOST_AUTO_TPL(idx, nt2::cath(size_t(1), _(size_t(1), nt2::minusone(m))));
         BOOST_AUTO_TPL(d, nt2::along(a, idx, dim)-a);
         BOOST_AUTO_TPL(p, Twopi<value_t>()*(if_one_else_zero(nt2::gt(d, tol))-
                                             if_one_else_zero(nt2::lt(d, -tol))));
