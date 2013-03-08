@@ -45,7 +45,7 @@ namespace nt2 {
 
   }
 
-  typename meta::call<tag::leslie_(const ptrdiff_t &, meta::as_<double> const &)>::type
+  meta::call<tag::leslie_(const ptrdiff_t &, meta::as_<double> const &)>::type
   leslie(ptrdiff_t n)
   {
     return nt2::leslie(n,  meta::as_<double>());
