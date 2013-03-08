@@ -38,7 +38,7 @@ namespace nt2
                             )
         };
   }
-  typename meta::call<tag::lesp_(const ptrdiff_t &, meta::as_<double> const &)>::type
+  meta::call<tag::lesp_(const ptrdiff_t &, meta::as_<double> const &)>::type
   lesp(ptrdiff_t n)
   {
     return nt2::lesp(n,  meta::as_<double>());
