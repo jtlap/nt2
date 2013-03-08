@@ -44,19 +44,20 @@ namespace nt2
                              )
                             )
         };
-
-    meta::call<tag::lotkin_(const ptrdiff_t &, meta::as_<double> const &)>::type
-    lotkin(ptrdiff_t n)
-    {
-      return nt2::lotkin(n,  meta::as_<double>());
-    }
-    template<class T>
-    typename meta::call<tag::lotkin_(const ptrdiff_t &, typename meta::as_<T> const &)>::type
-    lotkin(ptrdiff_t n)
-    {
-      return nt2::lotkin(n,  meta::as_<T>());
-    }
   }
+
+  meta::call<tag::lotkin_(const ptrdiff_t &, meta::as_<double> const &)>::type
+  lotkin(ptrdiff_t n)
+  {
+    return nt2::lotkin(n,  meta::as_<double>());
+  }
+  template<class T>
+  typename meta::call<tag::lotkin_(const ptrdiff_t &, typename meta::as_<T> const &)>::type
+  lotkin(ptrdiff_t n)
+  {
+    return nt2::lotkin(n,  meta::as_<T>());
+  }
+
 }
 
 

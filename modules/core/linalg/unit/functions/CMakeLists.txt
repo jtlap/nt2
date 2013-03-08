@@ -46,6 +46,7 @@ SET( SOURCES
   lotkin.cpp
   magic.cpp
   minij.cpp
+  moler.cpp
   pascal.cpp
   toeplitz.cpp
   tridiag.cpp

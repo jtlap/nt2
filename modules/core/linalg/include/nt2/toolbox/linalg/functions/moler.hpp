@@ -6,47 +6,52 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_LOTKIN_HPP_INCLUDED
-#define NT2_TOOLBOX_LINALG_FUNCTIONS_LOTKIN_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_MOLER_HPP_INCLUDED
+#define NT2_TOOLBOX_LINALG_FUNCTIONS_MOLER_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
 /*!
  * \ingroup algebra
- * \defgroup algebra_lotkin lotkin
+ * \defgroup algebra_moler moler
  *
- *    a = lotkin(n) is the hilbert matrix with its first row
- *    altered to all ones.  a is unsymmetric, ill-conditioned, and has
- *    many negative eigenvalues of small magnitude. its inverse has
- *    integer entries and is known explicitly.
+ * moler  moler matrix (symmetric positive definite).
+ *    a = moler(n,alpha) is the symmetric positive definite
+ *    n-by-n matrix u'*u, where u = triw(n,n,alpha).
+ *
+ *    for the default alpha = -1, a(i,j) = min(i,j)-2, and a(i,i) = i.
+ *    one of the eigenvalues of a is small.
+ *
+ *    Nash [1] attributes the alpha = -1 matrix to Moler.
  *
  *    Reference:
- *    M. Lotkin, A set of test matrices, M.T.A.C., 9 (1955), pp. 153-161.
- *
+ *    [1] J. C. Nash, Compact Numerical Methods for Computers: Linear
+ *    Algebra and Function Minimisation, second edition, Adam Hilger,
+ *    Bristol, 1990 (Appendix 1).
  *
  * \par Header file
  *
  * \code
- * #include <nt2/include/functions/lotkin.hpp>
+ * #include <nt2/include/functions/moler.hpp>
  * \endcode
  *
  **/
 //==============================================================================
-// lotkin actual class forward declaration
+// moler actual class forward declaration
 //==============================================================================
 
 namespace nt2 { namespace tag
   {
     /*!
-     * \brief Define the tag lotkin_ of functor lotkin
+     * \brief Define the tag moler_ of functor moler
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct lotkin_ : boost::dispatch::tag::formal_
+    struct moler_ : boost::dispatch::tag::formal_
     {
       typedef boost::dispatch::tag::formal_ parent;
     };
   }
 
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::lotkin_, lotkin, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::moler_, moler, 2)
 
 }
 
