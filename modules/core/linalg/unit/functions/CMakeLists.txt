@@ -48,7 +48,9 @@ SET( SOURCES
   minij.cpp
   moler.cpp
   orthog.cpp
+#  parter.cpp
   pascal.cpp
+  pei.cpp
   toeplitz.cpp
   tridiag.cpp
   triw.cpp
