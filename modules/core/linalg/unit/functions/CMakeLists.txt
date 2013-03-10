@@ -47,6 +47,7 @@ SET( SOURCES
   magic.cpp
   minij.cpp
   moler.cpp
+  orthog.cpp
   pascal.cpp
   toeplitz.cpp
   tridiag.cpp
