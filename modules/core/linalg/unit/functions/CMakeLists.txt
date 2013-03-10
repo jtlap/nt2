@@ -51,6 +51,7 @@ SET( SOURCES
 #  parter.cpp
   pascal.cpp
   pei.cpp
+  prolate.cpp
   toeplitz.cpp
   tridiag.cpp
   triw.cpp
