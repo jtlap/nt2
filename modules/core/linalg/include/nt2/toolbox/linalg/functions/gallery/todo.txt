@@ -25,36 +25,36 @@
     jordbloc    Jordan block matrix.                                                  | done
     kahan       Kahan matrix -- upper trapezoidal.                                    | done
     kms         Kac-Murdock-Szego Toeplitz matrix.                                    | done
-    krylov      Krylov matrix.
-    lauchli     Lauchli matrix -- rectangular.
-    lehmer      Lehmer matrix -- symmetric positive definite.
-    leslie      Leslie matrix.
-    lesp        Tridiagonal matrix with real, sensitive eigenvalues.
-    lotkin      Lotkin matrix.
-    minij       Symmetric positive definite matrix MIN(i,j).
-    moler       Moler matrix -- symmetric positive definite.
+    krylov      Krylov matrix.                                                        | done
+    lauchli     Lauchli matrix -- rectangular.                                        | done
+    lehmer      Lehmer matrix -- symmetric positive definite.                         | done
+    leslie      Leslie matrix.                                                        | done
+    lesp        Tridiagonal matrix with real, sensitive eigenvalues.                  | done
+    lotkin      Lotkin matrix.                                                        | done
+    minij       Symmetric positive definite matrix MIN(i,j).                          | done
+    moler       Moler matrix -- symmetric positive definite.                          | done
     neumann     Singular matrix from the discrete Neumann problem (sparse).
     normaldata  Array of arbitrary data from standard normal distribution
-    orthog      Orthogonal and nearly orthogonal matrices.
-    parter      Parter matrix -- a Toeplitz matrix with singular values near PI.
-    pei         Pei matrix.
-    poisson     Block tridiagonal matrix from Poisson's equation (sparse).
-    prolate     Prolate matrix -- symmetric, ill-conditioned Toeplitz matrix.
+    orthog      Orthogonal and nearly orthogonal matrices.                            | done
+    parter      Parter matrix -- a Toeplitz matrix with singular values near pi.      | done
+    pei         Pei matrix.                                                           | done
+    poisson     Block tridiagonal matrix from Poisson's equation                      | (sparse) and need kron.
+    prolate     Prolate matrix -- symmetric, ill-conditioned Toeplitz matrix.         | done
     qmult       Pre-multiply matrix by random orthogonal matrix.
     randcolu    Random matrix with normalized cols and specified singular values.
     randcorr    Random correlation matrix with specified eigenvalues.
     randhess    Random, orthogonal upper Hessenberg matrix.
     randjorth   Random J-orthogonal (hyperbolic, pseudo-orthogonal) matrix.
     rando       Random matrix with elements -1, 0 or 1.
-    randsvd     Random matrix with pre-assigned singular values and specified bandwidth.
-    redheff     Matrix of 0s and 1s of Redheffer.
-    riemann     Matrix associated with the Riemann hypothesis.
+    randsvd     Random matrix with pre-assigned sing. values and specified bandwidth.
+    redheff     Matrix of 0s and 1s of Redheffer.                                     | done
+    riemann     Matrix associated with the Riemann hypothesis.                        | done
     ris         Ris matrix -- a symmetric Hankel matrix.
     sampling    Nonsymmetric matrix with integer, ill conditioned eigenvalues.
     smoke       Smoke matrix -- complex, with a "smoke ring" pseudospectrum.
     toeppd      Symmetric positive definite Toeplitz matrix.
     toeppen     Pentadiagonal Toeplitz matrix (sparse).
-    tridiag     Tridiagonal matrix (sparse).                                          | done
+    tridiag     Tridiagonal matrix.                                                   | done (but to be sparse)
     triw        Upper triangular matrix discussed by Wilkinson and others.            | done
     uniformdata Array of arbitrary data from standard uniform distribution
     wathen      Wathen matrix -- a finite element matrix (sparse, random entries).
