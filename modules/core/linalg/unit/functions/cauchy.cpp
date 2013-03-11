@@ -10,6 +10,9 @@
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/cauchy.hpp>
+#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/cif.hpp>
+#include <nt2/include/functions/rif.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
@@ -25,13 +28,7 @@ NT2_TEST_CASE_TPL ( cauchy_ints, NT2_REAL_TYPES)
 
   nt2::table<T> v =  cauchy(a0);
   nt2::display("v", v);
-
-  for(int i=1; i <= 3; i++)
-  {
-    for(int j=1; j <= 3; j++)
-    {
-      NT2_TEST_EQUAL(T(1.)/T((i+j)), v(i, j));
-    }
-  }
+  nt2::table<T> z = nt2::rec(nt2::cif(3, nt2::meta::as_<T>())+nt2::rif(3, nt2::meta::as_<T>()));
+  NT2_TEST_EQUAL(v, z);
 }
 
