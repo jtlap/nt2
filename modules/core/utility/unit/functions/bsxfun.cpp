@@ -17,7 +17,12 @@
 #include <nt2/include/functions/mean.hpp>
 #include <nt2/include/functions/isequal.hpp>
 #include <nt2/include/functions/reshape.hpp>
-
+#include <nt2/include/functions/colvect.hpp>
+#include <nt2/include/functions/rowvect.hpp>
+#include <nt2/include/functions/colon.hpp>
+#include <nt2/include/functions/plus.hpp>
+#include <nt2/include/functions/transpose.hpp>
+#include <nt2/include/functions/cons.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -76,4 +81,26 @@ NT2_TEST_CASE_TPL( bsxfun_aliasing, NT2_REAL_TYPES)
    c = bsxfun(f,  a, m);
    a = bsxfun(f,  a, m);
    NT2_TEST(isequal(a, c));
+}
+
+
+NT2_TEST_CASE_TPL( bsxfun_4, NT2_REAL_TYPES)
+{
+  nt2::table<T> m3 =nt2::cons(nt2::of_size(3, 3),
+                                         T(0.5),  T(-0.5),  T(-1.5),
+                                         T(1.5),  T( 0.5),  T(-0.5),
+                                         T(2.5),  T( 1.5),  T( 0.5));
+  nt2::table<T> v = nt2::bsxfun(nt2::functor<nt2::tag::plus_>(),
+                                nt2::_(T(1.5), T(3.5)),
+                                nt2::colvect(-nt2::_(T(1), T(3))));
+  NT2_DISPLAY(v);
+  NT2_DISPLAY(m3);
+  NT2_TEST_EQUAL(v, m3);
+  nt2::table<T> a0 = nt2::_(T(1.5), T(3.5));
+  nt2::table<T> a1 =nt2::colvect(-nt2::_(T(1), T(3)));
+  nt2::table<T> v1 = nt2::bsxfun(nt2::functor<nt2::tag::plus_>(),a0, a1);
+  NT2_DISPLAY(a0);
+  NT2_DISPLAY(a1);
+  NT2_DISPLAY(v1);
+  NT2_TEST_EQUAL(v1, m3);
 }
