@@ -13,6 +13,7 @@
 #include <nt2/include/functions/simd/fma.hpp>
 #include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/functions/simd/enumerate.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
 #include <nt2/core/container/extremum/extremum.hpp>
 #include <nt2/sdk/meta/as_signed.hpp>
 #include <nt2/sdk/meta/is_signed.hpp>
@@ -107,7 +108,7 @@ namespace nt2 { namespace details
   unity_colon_value(T const& l, Pos const& p, Target const&)
   {
     typedef typename Target::type type;
-    return  nt2::enumerate<type>(p+l);
+    return  nt2::enumerate<type>(p)+l;
   }
 
   /// INTERNAL ONLY
