@@ -13,8 +13,6 @@
 #include <nt2/include/functions/cif.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/constants/half.hpp>
-#include <nt2/include/functions/colon.hpp>
-#include <nt2/include/functions/cauchy.hpp>
 
 namespace nt2
 {
@@ -29,7 +27,7 @@ namespace nt2
     {
       typedef typename T::type t_t;
       BOOST_DISPATCH_RETURNS(2, (A0 const& n, T const& t),
-                             (nt2::cauchy(nt2::_(t_t(1.5), t_t(n+0.5)), -nt2::_(t_t(1), t_t(n))))
+                             (nt2::rec(rif(n, T())-nt2::cif(n, T())+nt2::Half<t_t>()))
                             )
         };
   }
