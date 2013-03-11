@@ -53,6 +53,7 @@ SET( SOURCES
   pei.cpp
   prolate.cpp
   redheff.cpp
+  riemann.cpp
   toeplitz.cpp
   tridiag.cpp
   triw.cpp
