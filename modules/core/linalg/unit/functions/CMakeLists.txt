@@ -56,6 +56,7 @@ SET( SOURCES
   riemann.cpp
   ris.cpp
   sampling.cpp
+  smoke.cpp
   toeplitz.cpp
   tridiag.cpp
   triw.cpp
