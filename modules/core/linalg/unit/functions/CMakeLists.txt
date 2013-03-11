@@ -54,6 +54,7 @@ SET( SOURCES
   prolate.cpp
   redheff.cpp
   riemann.cpp
+  ris.cpp
   toeplitz.cpp
   tridiag.cpp
   triw.cpp
