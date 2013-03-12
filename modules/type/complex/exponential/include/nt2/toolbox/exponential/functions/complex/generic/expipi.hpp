@@ -14,9 +14,9 @@
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/is_imag.hpp>
 #include <nt2/include/functions/simd/exp.hpp>
-#include <nt2/include/functions/logical_or.hpp>
-#include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/is_equal.hpp>
+#include <nt2/include/functions/simd/logical_or.hpp>
+#include <nt2/include/functions/simd/exp.hpp>
+#include <nt2/include/functions/simd/is_equal.hpp>
 #include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/include/functions/simd/sincospi.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
