@@ -13,14 +13,14 @@
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/is_imag.hpp>
+#include <nt2/include/functions/multiplies.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/include/functions/simd/exp.hpp>
 #include <nt2/include/functions/simd/logical_or.hpp>
 #include <nt2/include/functions/simd/exp.hpp>
 #include <nt2/include/functions/simd/is_equal.hpp>
-#include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/include/functions/simd/sincospi.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/inf.hpp>
