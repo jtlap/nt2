@@ -57,8 +57,7 @@ namespace boost { namespace simd { namespace tag
     struct touint_ : ext::elementwise_<touint_> { typedef ext::elementwise_<touint_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::touint_, touint, 1)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::touint_, ifix, 1)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::touint_, itrunc, 1)
+
 } }
 
 #endif
