@@ -20,6 +20,8 @@
 #include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/include/functions/simd/sincospi.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/zero.hpp>
