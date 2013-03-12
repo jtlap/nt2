@@ -11,6 +11,8 @@
 #include <nt2/toolbox/reduction/functions/inbtrue.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/zero.hpp>
 
 namespace nt2 { namespace ext
 {

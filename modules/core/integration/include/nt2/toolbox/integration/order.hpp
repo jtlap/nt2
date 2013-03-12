@@ -30,6 +30,7 @@ namespace nt2
        typedef typename container::table<r_type> tab_t;
        if (sort)
        {
+//Thist is not in use for now, but may be in othr integration processes not yet implanted
 //         reverse = wpts(begin_) > wpts(end_);
 //         if (reverse)
 //           std::swap(wpts(begin_), wpts(end_));

@@ -14,7 +14,7 @@
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/sdk/simd/logical.hpp>
-#include <nt2/table.hpp>
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::if_else_allbits_, tag::cpu_, (A0)(A1)

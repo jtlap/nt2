@@ -13,8 +13,6 @@
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/if_one_else_zero.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
-// #include <nt2/sdk/complex/meta/as_real.hpp>
-// #include <nt2/sdk/complex/meta/as_dry.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -40,30 +38,6 @@ namespace nt2 { namespace ext
       return nt2::nbtrue(if_one_else_zero(a0));
     }
   };
-
-
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nbtrue_, tag::cpu_, (A0)
-//                             , (generic_< imaginary_< arithmetic_<A0> > >)
-//                             )
-//   {
-//     typedef meta::as_real<A0>::type result_type;
-//     NT2_FUNCTOR_CALL(1)
-//     {
-//       return nt2::nbtrue(is_nez(a0));
-//     }
-//   };
-
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nbtrue_, tag::cpu_, (A0)
-//                             , (generic_< dry_< arithmetic_<A0> > >)
-//                             )
-//   {
-//     typedef meta::as_real<A0>::type result_type;
-//     NT2_FUNCTOR_CALL(1)
-//     {
-//       return nt2::nbtrue(is_nez(nt2::real(a0)));
-//     }
-//   };
-
 } }
 
 #endif

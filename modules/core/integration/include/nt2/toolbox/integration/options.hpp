@@ -129,12 +129,6 @@ namespace nt2
 
 
   };
-
-//   // integ params for complex < T >  are those of T.
-//   template<class T, template < class > class V, typename TAG>
-//   struct integ_params < V<T>, TAG> :
-//   integ_params<T, TAG>{};
-
 }
 
 namespace nt2 { namespace details

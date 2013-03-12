@@ -34,7 +34,6 @@
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/orth.hpp>
 #include <nt2/include/functions/triw.hpp>
-#include <nt2/table.hpp>
 
 namespace nt2 { namespace ext
 {

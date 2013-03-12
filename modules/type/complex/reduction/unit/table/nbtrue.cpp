@@ -34,7 +34,7 @@
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 #include <nt2/sdk/meta/type_id.hpp>
 
-NT2_TEST_CASE_TPL( nbtrue_scalar, (float)(double))//NT2_TYPES )
+NT2_TEST_CASE_TPL( nbtrue_scalar, NT2_REAL_TYPES )
 {
   typedef std::complex<T> cT;
   cT x = nt2::nbtrue(cT(1));
@@ -62,8 +62,6 @@ NT2_TEST_CASE_TPL( nbtrue_expr, NT2_REAL_TYPES )
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
       y(i,j) = (i > j) || (j == 2)|| (i == 1);
-  NT2_DISPLAY(nbtrue(y));
-  sy  = nt2::nbtrue(y);NT2_DISPLAY(sy);
   sy  = nt2::nbtrue(y, 1);
   sy2 = nt2::real(nt2::sum(y, 1));
   NT2_TEST_EQUAL(sy2, sy);
@@ -75,9 +73,6 @@ NT2_TEST_CASE_TPL( nbtrue_expr, NT2_REAL_TYPES )
   NT2_TEST_EQUAL(sy2, sy);
   sy = nt2::nbtrue(y(_));
   sy2 =  nt2::real(nt2::sum(y(_)));
-//   sy = nt2::nbtrue(y(_));
-//   sy2 =  nt2::cast<itype_t>(nt2::sum(y(_)));
-//   NT2_TEST_EQUAL(sy2, sy);
  }
 
 
