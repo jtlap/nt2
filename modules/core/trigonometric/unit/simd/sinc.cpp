@@ -59,7 +59,7 @@ NT2_TEST_CASE_TPL ( sinc_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(sinc(nt2::Minf<vT>())[0], nt2::Zero<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(sinc(nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(sinc(nt2::Pi<vT>()/nt2::splat<T>(2))[0],  T(2)/(nt2::Pi<T>()), 0.5);
-  NT2_TEST_ULP_EQUAL(sinc(nt2::Pi<vT>()/nt2::splat<T>(4))[0], nt2::sin(nt2::Pi<T>()/T(4))*T(4)/(nt2::Pi<T>()), 0.5);
+  NT2_TEST_ULP_EQUAL(sinc(nt2::Pi<vT>()/nt2::splat<T>(4))[0], nt2::sin(nt2::Pi<T>()/T(4))*T(4)/(nt2::Pi<T>()), 1.0);
   NT2_TEST_ULP_EQUAL(sinc(nt2::Zero<vT>()[0]), nt2::One<sr_t>(), 0.5);
 } // end of test for floating_
 

@@ -109,7 +109,7 @@ namespace nt2 { namespace details
   struct is_definitely_not_vector
   {
     static const std::size_t n = Seq::static_size;
-    static const bool value = n > 1 && meta::mpl_safe_at_c<typename Seq::values_type, 1, boost::mpl::long_<1> >::type::value != -1;
+    static const bool value = n == 0 || (n > 1 && meta::mpl_safe_at_c<typename Seq::values_type, 1, boost::mpl::long_<1> >::type::value != -1);
     typedef boost::mpl::bool_<value> type;
   };
 

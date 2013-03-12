@@ -14,6 +14,8 @@ SET( SOURCES
   if_allbits_else.cpp
   if_one_else_zero.cpp
   if_zero_else_one.cpp
+  seladd.cpp
+  selsub.cpp
 # List of scalar test files for toolbox boolean
    )
 

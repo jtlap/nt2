@@ -43,9 +43,20 @@ SET( SOURCES
   lehmer.cpp
   leslie.cpp
   lesp.cpp
+  lotkin.cpp
   magic.cpp
   minij.cpp
+  moler.cpp
+  orthog.cpp
+  parter.cpp
   pascal.cpp
+  pei.cpp
+  prolate.cpp
+  redheff.cpp
+  riemann.cpp
+  ris.cpp
+  sampling.cpp
+  smoke.cpp
   toeplitz.cpp
   tridiag.cpp
   triw.cpp

@@ -1,11 +1,11 @@
-/*******************************************************************************
- *         Copyright 2003-2012 LASMEA UMR 6602 CNRS/U.B.P
- *         Copyright 2011-2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_GALLERY_TRIDIAG_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_GALLERY_TRIDIAG_HPP_INCLUDED
 #include <nt2/toolbox/linalg/functions/tridiag.hpp>
@@ -192,35 +192,6 @@ namespace nt2{ namespace ext
     }
   };
 
- //  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tridiag_, tag::cpu_,
-//                               (A0)(A1)(A2),
-//                               ((ast_<A0, nt2::container::domain>))
-//                               ((ast_<A1, nt2::container::domain>))
-//                               ((ast_<A2, nt2::container::domain>))
-//     )
-//   {
-//     typedef typename nt2::meta::call<nt2::tag::colvect_(const A0&)>::type        S0;
-//     typedef typename nt2::meta::call<nt2::tag::colvect_(const A1&)>::type        S1;
-//     typedef typename nt2::meta::call<nt2::tag::colvect_(const A2&)>::type        S2;
-//     typedef typename nt2::meta::call<nt2::tag::from_diag_(S0, ptrdiff_t)>::type  T0;
-//     typedef typename nt2::meta::call<nt2::tag::from_diag_(S1)>::type             T1;
-//     typedef typename nt2::meta::call<nt2::tag::from_diag_(S2, ptrdiff_t)>::type  T2;
-//     typedef typename nt2::meta::call<nt2::tag::plus_(T0, T1)>::type              T3;
-//     typedef typename nt2::meta::call<nt2::tag::plus_(T3, T2)>::type   zz;  typedef int result_type;
-
-//     BOOST_FORCEINLINE result_type operator()(A0 const& lower,
-//                                              A1 const& diag,
-//                                              A2 const& super) const
-//     {
-//       NT2_DISPLAY(nt2::from_diag(nt2::colvect(super),ptrdiff_t(1)));
-//       NT2_DISPLAY(nt2::from_diag(nt2::colvect(diag)));
-//       NT2_DISPLAY(nt2::from_diag(nt2::colvect(lower),ptrdiff_t(-1)));
-//       return 0;
-// //       return (nt2::from_diag(nt2::colvect(super),ptrdiff_t(1))+
-// //               nt2::from_diag(nt2::colvect(diag))) +
-// //         nt2::from_diag(nt2::colvect(lower),ptrdiff_t(-1));
-//     }
-//   };
 
  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tridiag_, tag::cpu_,
                               (A0)(A1)(A2),

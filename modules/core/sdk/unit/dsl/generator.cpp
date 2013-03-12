@@ -94,6 +94,9 @@ NT2_TEST_CASE( semantic_of )
                       )
                     );
 
+  /* FIXME: scalar expressions are not supported,
+   * to be completely removed                     */
+  #if 0
   NT2_TEST_EXPR_TYPE( a0(boost::proto::as_expr(1))
                     , semantic_of<_>
                     , T&
@@ -103,6 +106,7 @@ NT2_TEST_CASE( semantic_of )
                     , semantic_of<_>
                     , T
                     );
+  #endif
 
   NT2_TEST_EXPR_TYPE( a0 + T(1)
                     , semantic_of<_>
