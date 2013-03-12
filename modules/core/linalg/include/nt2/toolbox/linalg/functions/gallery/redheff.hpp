@@ -15,6 +15,7 @@
 #include <nt2/include/functions/oneplus.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/rem.hpp>
+#include <nt2/include/functions/logical_or.hpp>
 
 namespace nt2
 {
