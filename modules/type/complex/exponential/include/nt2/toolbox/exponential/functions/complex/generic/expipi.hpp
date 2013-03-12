@@ -12,11 +12,17 @@
 #include <nt2/toolbox/exponential/functions/expipi.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
+#include <nt2/include/functions/is_imag.hpp>
 #include <nt2/include/functions/simd/exp.hpp>
-#include <nt2/include/functions/mul_i.hpp>
+#include <nt2/include/functions/logical_or.hpp>
+#include <nt2/include/functions/exp.hpp>
+#include <nt2/include/functions/is_equal.hpp>
 #include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/include/functions/simd/sincospi.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/constants/pi.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
@@ -35,7 +41,7 @@ namespace nt2 { namespace ext
       rtype c, s;
       sincospi(nt2::real(a0), s, c);
       rtype rho = nt2::exp(-nt2::Pi<rtype>()*nt2::imag(a0));
-      return if_else(logical_or(is_imag(a0), eq(nt2::imag(a0), nt2::Inf<rtype>())),
+      return  nt2::if_else(logical_or(is_imag(a0), eq(nt2::imag(a0), nt2::Inf<rtype>())),
                      result_type(rho, Zero<rtype>()),
                      rho*result_type(c, s));
     }
