@@ -12,7 +12,7 @@
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/sdk/meta/type_id.hpp>
-#include <nt2/table.hpp>
+
 namespace nt2
 {
   namespace details
@@ -29,10 +29,7 @@ namespace nt2
       // is_nan(b).
       X tmp = nt2::multiplies(b, nt2::Half<real_t>());
       X x = nt2::fma(a, nt2::Half<real_t>(), tmp);
-//      container::table<X> xx(x);
       V fx = f(x);
-// //         if (is_notfinite(fx))
-// //             warning("Infinite or Not-a-Number value encountered.");
       return nt2::multiplies((b-a), f(x));
   }
   }

@@ -37,7 +37,6 @@
 #include <nt2/toolbox/integration/options.hpp>
 #include <nt2/toolbox/integration/waypoints.hpp>
 #include <nt2/toolbox/integration/fudge.hpp>
-#include <nt2/table.hpp>
 
 namespace nt2 { namespace details
 {
@@ -138,8 +137,6 @@ namespace nt2 { namespace ext
       details::mtc_impl<input_t, value_t> q;
       q.compute(f, x, o);
       result_type that = {q.result(), q.lasterror(),q.nbeval(),q.ok(), q.warn()};
-      //      NT2_DISPLAY(q.warn());
-//      o.display_options();
       return that;
     }
   };

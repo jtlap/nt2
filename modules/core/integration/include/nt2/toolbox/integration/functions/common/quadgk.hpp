@@ -54,7 +54,6 @@
 #include <nt2/sdk/complex/meta/is_complex.hpp>
 
 #include <boost/mpl/bool.hpp>
-#include <nt2/table.hpp>
 
 namespace nt2 { namespace details
 {
@@ -202,9 +201,6 @@ namespace nt2 { namespace details
     {
       if (t)
       {
-//         std::cout << "q = " << q << std::endl << "  warn = " << w << std::endl;
-//         std::cout << "fcnt_ = " << f.fcnt() << std::endl;
-//         std::cout << "nb_   = " << nb_  << std::endl;
         fcnt_ = f.fcnt();
         res_ = q;
         setwarn(w);
@@ -214,14 +210,9 @@ namespace nt2 { namespace details
     template < class FUNC >
     void vadapt(FUNC f)
     {
-      NT2_DISPLAY("vadapt");
-//      std::cout << std::setprecision(15) << std::scientific << std::endl;
       real_t pathlen;
       itab_t tmp;
-      NT2_DISPLAY(interval_);
-      NT2_DISPLAY(f.interval_);
       details::split(f.interval_, minintervalcount_, tmp, pathlen);
-      NT2_DISPLAY(tmp);
       interval_ = tmp;
       if (pathlen == 0)
       {
@@ -229,7 +220,7 @@ namespace nt2 { namespace details
         input_t xx =  nt2::fma(f.interval_(begin_), nt2::Half<real_t>(), tmp);
         input_t d = (f.interval_(end_)-f.interval_(begin_));
 
-        result_t r = nt2::multiplies(f(xx), d); //details::midparea<result_t, value_t>(f, f.interval_(begin_), f.interval_(end_));
+        result_t r = nt2::multiplies(f(xx), d);
         res_ = r;
         errbnd_ =  nt2::abs(r);
         return;
@@ -295,18 +286,16 @@ namespace nt2 { namespace details
         itab_t midpt1 = nt2::rowvect(midpt(notff)); midpt = midpt1;
         itab_t z = catv(catv(catv(subs(begin_,nt2::_),midpt),midpt),subs(end_,nt2::_));
         subs = reshape(z,2,numel(z)/2);
-//         std::cout << " inbtrue(notff) " <<  nt2::inbtrue(notff)<< std::endl;
       }
     }
 
     template < class F >
     inline void adjust_and_call(const  F &f)
     {
-      NT2_DISPLAY("adjust_and_call");
       bool fina = nt2::is_finite(a_);
       bool finb = nt2::is_finite(b_);
       if(fina && finb)
-      { NT2_DISPLAY("fina && finb");
+      {
         vadapt(transform<F, details::fina_finb, input_t, value_t>(f, a_, b_, interval_));
       }
       else

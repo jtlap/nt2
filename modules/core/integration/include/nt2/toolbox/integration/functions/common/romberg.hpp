@@ -16,13 +16,9 @@
 #include <nt2/toolbox/integration/fudge.hpp>
 #include <nt2/toolbox/integration/order.hpp>
 #include <nt2/toolbox/integration/split.hpp>
-//#include <nt2/toolbox/integration/int_transforms.hpp>
-
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/zero.hpp>
-
-
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/eps.hpp>
 #include <nt2/include/functions/exp2.hpp>
@@ -35,9 +31,7 @@
 #include <nt2/include/functions/rowvect.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/sdk/complex/meta/is_complex.hpp>
-
 #include <boost/mpl/bool.hpp>
-//#include <nt2/table.hpp>
 
 namespace nt2 { namespace details
 {
@@ -105,8 +99,6 @@ namespace nt2 { namespace details
         res_(begin_) = res_(end_);
         res_.resize(nt2::of_size(1, 1));
       }
-//       NT2_DISPLAY(o.return_waypoints);
-//       NT2_DISPLAY(res_);
     }
 
   private :
@@ -129,7 +121,6 @@ namespace nt2 { namespace details
     template < class X >
     void init( const o_t & o, const X&x)
     {
-      o.display_options();
       details::prepare_waypoints(o, x, wpts_);
       warn_ = 0;
       fcnt_ = 0;
@@ -140,8 +131,6 @@ namespace nt2 { namespace details
       maxstep_ = o.maxstep;
       singular_a_ = o.singular_a;
       singular_b_ = o.singular_b;
-//       if(singular_a_) tol_ = fast_ldexp(tol_, -4);
-//       if(singular_b_) tol_ = fast_ldexp(tol_, -4);
     }
 
     template <bool test, class FUNC>
@@ -179,10 +168,6 @@ namespace nt2 { namespace details
         if ( (e1  <= tol_*nt2::max(nt2::abs(int_), One<real_t>())))
         {
          steps_ = i-nbextrap_+2;
-//          NT2_DISPLAY(nt2::abs(int_-oldint_));
-//          NT2_DISPLAY(steps_);
-//          NT2_DISPLAY(tol_);
-//          NT2_DISPLAY(nt2::abs(dint_));
          return int_;
         }
         h0 *= nt2::Half<real_t>();
