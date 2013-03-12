@@ -20,13 +20,14 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <complex>
-#include <nt2/sdk/simd/logical.hpp>
+
+
 NT2_TEST_CASE_TPL ( if_one_else_zero_real__2_0,  NT2_REAL_TYPES)
 {
 
-  using nt2::if_one_else_zero;
-  using nt2::tag::if_one_else_zero_;
-  using nt2::logical;
+  using boost::simd::if_one_else_zero;
+  using boost::simd::tag::if_one_else_zero_;
+  using boost::simd::logical;
   typedef std::complex<T> cT;
   typedef typename nt2::meta::call<if_one_else_zero_(cT)>::type r_t;
   typedef typename nt2:: meta::as_complex<T>::type wished_r_t;

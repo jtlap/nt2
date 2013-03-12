@@ -19,7 +19,7 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::if_zero_else_one_
                                       , tag::cpu_
                                       , (A0)(X)
-                                      , ((simd_<fundamental_<A0>,X>))
+                                      , ((simd_<unspecified_<A0>,X>))
                                 )
   {
     typedef A0 result_type;
@@ -38,7 +38,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename A0::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return if_else(a0, Zero<A0>(), One<A0>());
+      return if_else(a0, Zero<result_type>(), One<result_type>());
     }
   };
 } } }

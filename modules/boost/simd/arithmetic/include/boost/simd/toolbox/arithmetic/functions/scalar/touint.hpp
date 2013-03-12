@@ -23,14 +23,9 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< integer_<A0> >)
                             )
   {
-    typedef A0 result_type;
+    typedef typename dispatch::meta::as_integer<A0, unsigned> ::type result_type;
 
-    BOOST_FORCEINLINE
-    #ifdef BOOST_PROTO_STRICT_RESULT_OF
-    result_type
-    #else
-    A0 const&
-    #endif
+    BOOST_FORCEINLINE  result_type
     operator()(A0 const& a0) const
     {
       return a0;

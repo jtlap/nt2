@@ -13,11 +13,7 @@
  * \file
  * \brief Defines and implements the nt2::quad function
  */
-
-#include <nt2/include/functor.hpp>
-#include <nt2/sdk/option/options.hpp>
-#include <nt2/toolbox/integration/options.hpp>
-#include <nt2/include/functions/horzcat.hpp>
+#include <nt2/toolbox/integration/interface.hpp>
 
 namespace nt2
 {
@@ -27,90 +23,104 @@ namespace nt2
     {
       typedef ext::unspecified_<quad_> parent;
     };
+
+    // definition  of abstol constant for quad method
+    BOOST_SIMD_CONSTANT_REGISTER( Quadabstol, double
+                                  , 0, 0x3a83126f             //1.0e-3
+                                  , 0x3eb0c6f7a0b5ed8dll      //1.0e-6
+      );
   }
+
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Quadabstol, Quadabstol);
+
+  // specialization of abstol for quad method
+  template<class T, class V> struct integ_params<T, V, tag::quad_>
+  : integ_params<T, V, void>
+  {
+    typedef typename nt2::integ_params<T, V, void>::real_t real_t;
+    static real_t        abstol(){return Quadabstol<real_t>(); }
+    static size_t    maxintvcnt(){return 512; }
+  };
 
   //============================================================================
   /*!
    * Apply quad algorithm to integrate a function over a real interval
    *
    * \param func  Function to optimize
-   * \param x    required points in the interval in ascending order
-   *             (x can be replaced by 2 abscissae a and b)
+   * \param x    required points in the interval or 2 abscissae a and b
    * \param opt   Options pack related to the tolerance handling
    *
    * \return  a tuple containing the results of the integration, the last error value,
    * the number of required function evaluation and a boolean
    * notifying success of the whole process.
+   *
+   *    q = quad(fun,a,b) tries to approximate the integral of scalar-valued
+   *    function fun from a to b to within a default error of nt2::Quadabstol<real_t>()
+   *    where real_t can be float (1.0e-3) or double (1.0e-6) using recursive
+   *    adaptive simpson quadrature. fun is a function handle. the function
+   *    y=fun(x) should accept a vector argument x and return a vector result
+   *    y, the integrand evaluated at each element of x.
+   *
+   * This routine mimics matlab quad, but has some behavioural differences.
+   * including options passing and obtaining results
+   *
+   * 1 -When matlab subdivides the initial interval [a, b] each subinterval is
+   *    given the same tolerance as the initial one which can not insure a total
+   *    result with the correct tolerance.
+   *    Th nt2 quad function uses a tolerance proportional to the length on such
+   *    cases in order the sum of all the partial errors stays above the global
+   *    absolute error tolerance.
+   *    As this can bring to needlessly bring to too small intervals a theshhold
+   *    depending of the maximum of subdivision allowed (maxintvcnt_) is used.
+   *
+   * 2- a and b can be singular for f,  but contrarily to matlab, there is no
+   *    automatic detection and the options singular_a_ and singular_b_ are by
+   *    default set to false
+   *
+   * 3- as in matlab on can give way points through the computation must go
+   *    a and b are always added (but never duplicated)
+   *    the way points mustn't be singular and in proper order
+   *    if the option return_waypoints is set to true the result is a vector of
+   *    cumulated integrals from a to wi. Peculiarly result(begin_) is 0 and
+   *    result(end_) is the integral from a to b.
+   *
+   * 4- the abscissae can be complex and the integral a path integral through the
+   *    lines following the way points in their given order.
    */
   //============================================================================
-  template<class T,class F, class X> BOOST_FORCEINLINE
-  typename boost::dispatch::meta
-                ::call<tag::quad_( F
-                                  , X
-                                  , details::integration_settings<T> const&
-                                  )
-                      >::type
+
+
+  template<class F, class X> BOOST_FORCEINLINE
+  typename details::integration<F, X, tag::quad_>::result_type
   quad(F f, X x)
   {
-    typename boost::dispatch::make_functor<tag::quad_, F>::type callee;
-    return callee ( f
-                  ,x
-                  , details::integration_settings<T>()
-                  );
+    return details::integration<F, X, tag::quad_>::call(f, x);
   }
 
-  template<class T,class F, class X, class Xpr>
-  BOOST_FORCEINLINE
-  typename boost::dispatch::meta
-                ::call<tag::quad_( F
-                                  , X
-                                  , details::integration_settings<T> const&
-                                  )
-                  >::type
+  template<class F, class X, class Xpr> BOOST_FORCEINLINE
+  typename details::integration<F, X, tag::quad_>::result_type
   quad(F f, X x, nt2::details::option_expr<Xpr> const& opt)
   {
-    typename boost::dispatch::make_functor<tag::quad_, F>::type callee;
-    return callee ( f
-                    , x
-                    , details::integration_settings<T>(opt)
-      );
+    return details::integration<F, X, tag::quad_>::call(f, x, opt);
   }
 
-
-  template<class T,class F, class A, class B> BOOST_FORCEINLINE
-  typename boost::dispatch::meta
-                ::call<tag::quad_( F
-                                   , typename boost::dispatch::meta
-                                          ::call<tag::horzcat_(A, B)>::type
-                                   , details::integration_settings<T> const&
-    )
-                  >::type
-  quad(F f, A a, B b)
+  template<class F, class A> BOOST_FORCEINLINE
+  typename details::integration<F, typename details::h2_t<A>::ab_t, tag::quad_>::result_type
+  quad(F f, A a, A b)
   {
-    typename boost::dispatch::make_functor<tag::quad_, F>::type callee;
-    return callee ( f
-                    , nt2::cath(static_cast <T>(a),static_cast <T>(b)),
-                    details::integration_settings<T>()
-                  );
+    typedef typename details::h2_t<A>::ab_t ab_t;
+    return details::integration<F, ab_t, tag::quad_>::call(f, nt2::cath(a, b));
   }
 
-  template<class T,class F, class A, class B, class Xpr>
-  BOOST_FORCEINLINE
-  typename boost::dispatch::meta
-                ::call<tag::quad_( F
-                                   , typename boost::dispatch::meta
-                                         ::call<tag::horzcat_(A, B)>::type
-                                   , details::integration_settings<Xpr> const&
-                         )
-                      >::type
-  quad(F f, A a, B b, nt2::details::option_expr<Xpr> const& opt)
+  template<class F, class A, class Xpr> BOOST_FORCEINLINE
+  typename details::integration<F, typename details::h2_t<A>::ab_t, tag::quad_>::result_type
+  quad(F f, A a, A b, nt2::details::option_expr<Xpr> const& opt)
   {
-    typename boost::dispatch::make_functor<tag::quad_, F>::type callee;
-    return callee ( f
-                    , nt2::cath(static_cast<T>(a), static_cast<T>(b))
-                    , details::integration_settings<T>(opt)
-                  );
+    typedef typename details::h2_t<A>::ab_t ab_t;
+    return details::integration<F, ab_t, tag::quad_>::call(f, nt2::cath(a, b), opt);
   }
+
+
 }
 
 #endif

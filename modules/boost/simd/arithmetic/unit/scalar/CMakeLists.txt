@@ -61,6 +61,7 @@ SET( SOURCES
   average.cpp
   abs.cpp
   toint.cpp
+  touint.cpp
   tofloat.cpp
 # List of scalar test files for toolbox arithmetic
    )

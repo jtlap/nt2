@@ -94,6 +94,7 @@ namespace nt2 { namespace details
       return def;
     }
   };
+
 } }
 
 #endif

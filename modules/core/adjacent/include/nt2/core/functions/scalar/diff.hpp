@@ -22,7 +22,7 @@ namespace nt2 { namespace ext
                             , (scalar_<unspecified_<A0> >)
                             )
   {
-    typedef container::table<A0, of_size_<0> > result_type;
+    typedef typename container::table<A0, of_size_<0> > result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       return result_type();
@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
                               (scalar_<integer_<A1> >)
                             )
   {
-    typedef  container::table<A0, of_size_<0> > result_type;
+    typedef typename container::table<A0, of_size_<0> > result_type;
     BOOST_FORCEINLINE result_type operator()( A0 const&
                                             , A1 const&
                                             ) const
@@ -53,7 +53,7 @@ namespace nt2 { namespace ext
                               (scalar_<integer_<A2> >)
                             )
   {
-    typedef  container::table<A0, of_size_<0> > result_type;
+    typedef typename container::table<A0, of_size_<0> > result_type;
     BOOST_FORCEINLINE result_type operator()( A0 const&
                                             , A1 const&
                                             , A2 const&

@@ -11,6 +11,8 @@
 
 #include <nt2/toolbox/boolean/functions/if_zero_else_one.hpp>
 #include <nt2/include/functions/is_nez.hpp>
+#include <nt2/sdk/simd/logical.hpp>
+
 
 namespace nt2 { namespace ext
 {

@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
                                                         , boost::simd::meta::cardinal_of<A1>
                                                         >
                                   )
-                                , ((simd_<fundamental_<A0>,X>))
+                                , ((simd_<unspecified_<A0>,X>))
                                   ((simd_<arithmetic_<A1>,X>))
                                 )
   {

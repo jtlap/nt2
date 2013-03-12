@@ -15,6 +15,7 @@
 #include <boost/simd/include/functions/simd/bitwise_and.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/toolbox/swar/functions/details/shuffle.hpp>
+#include <boost/dispatch/meta/downgrade.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

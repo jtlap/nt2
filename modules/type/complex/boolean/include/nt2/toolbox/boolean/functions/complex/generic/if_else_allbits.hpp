@@ -39,7 +39,6 @@ namespace nt2 { namespace ext
       return result_type(if_else_allbits(is_nez(a0), real(a1)), if_else_allbits(is_nez(a0), imag(a1)));
     }
   };
-
 } }
 
 

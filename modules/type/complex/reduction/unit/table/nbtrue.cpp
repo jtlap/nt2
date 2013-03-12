@@ -25,27 +25,29 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/ten.hpp>
+#include <nt2/include/constants/real.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/meta/type_id.hpp>
 
-NT2_TEST_CASE_TPL( nbtrue_scalar, (float)(double))//NT2_TYPES )
+NT2_TEST_CASE_TPL( nbtrue_scalar, NT2_REAL_TYPES )
 {
   typedef std::complex<T> cT;
   cT x = nt2::nbtrue(cT(1));
-  NT2_TEST_EQUAL( x, cT(1) );
+  NT2_TEST_EQUAL( x, T(1) );
 
   x = nt2::nbtrue(cT(1),1);
-  NT2_TEST_EQUAL( x, cT(1) );
+  NT2_TEST_EQUAL( x, T(1) );
 
   x = nt2::nbtrue(cT(1),2);
-  NT2_TEST_EQUAL( x, cT(1)) ;
+  NT2_TEST_EQUAL( x, T(1)) ;
 
   x = nt2::nbtrue(cT(0),2);
-  NT2_TEST_EQUAL( x, cT(0)) ;
+  NT2_TEST_EQUAL( x, T(0)) ;
 
 }
 
@@ -56,59 +58,21 @@ NT2_TEST_CASE_TPL( nbtrue_expr, NT2_REAL_TYPES )
   typedef typename nt2::meta::as_integer<T>::type itype_t;
   nt2::table<cT> y( nt2::of_size(5,3) );
   nt2::table<cT> y1;
-  nt2::table<cT> sy1, sy, sy2, sy3;
+  nt2::table<T> sy1, sy, sy2, sy3;
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
       y(i,j) = (i > j) || (j == 2)|| (i == 1);
-  display("y", y);
   sy  = nt2::nbtrue(y, 1);
-  sy2 = nt2::sum(y, 1);
-  for(int j=1;j<=3;j++)
-    NT2_TEST_EQUAL(sy2(j) , sy(j));
-  NT2_DISPLAY(sy);
-  NT2_DISPLAY(sy2);
-
+  sy2 = nt2::real(nt2::sum(y, 1));
+  NT2_TEST_EQUAL(sy2, sy);
   sy = nt2::nbtrue(y, 2);
-  sy2 =  nt2::sum(y, 2);
-  for(int j=1;j<=5;j++)
-    NT2_TEST_EQUAL(sy2(j) , sy(j));
-  NT2_DISPLAY(sy);
-  NT2_DISPLAY(sy2);
-
+  sy2 =  nt2::real(nt2::sum(y, 2));
+  NT2_TEST_EQUAL(sy2, sy);
   sy = nt2::nbtrue(y, 3);
-  sy2 =  nt2::sum(y, 3);
-  for(int j=1;j<=3;j++)
-    for(int i=1;i<=5;i++)
-      NT2_TEST_EQUAL(sy2(i, j), sy(i, j));
-  NT2_DISPLAY(sy);
-  NT2_DISPLAY(sy2);
-
+  sy2 =  nt2::real(nt2::sum(y, 3));
+  NT2_TEST_EQUAL(sy2, sy);
   sy = nt2::nbtrue(y(_));
-  sy2 =  nt2::sum(y(_));
-  NT2_DISPLAY(sy);
-  NT2_DISPLAY(sy2);
-
+  sy2 =  nt2::real(nt2::sum(y(_)));
  }
 
-NT2_TEST_CASE_TPL( nbtrue_expr1, NT2_REAL_TYPES )
-{
-  typedef std::complex<T> cT;
-  typedef typename nt2::meta::as_logical<cT>::type lT;
-  nt2::table<cT> y( nt2::of_size(5,3) );
-  for(int j=1;j<=3;j++)
-    for(int i=1;i<=5;i++)
-      y(i,j) = (i > j) || (j == 2)|| (i == 1) ? T(1) : nt2::Nan<T>() ;
-  display("y", y);
-  nt2::table<cT> r1 = nt2::repnum(T(5), 1, 3);
 
-  NT2_DISPLAY(nbtrue(y));
-  NT2_DISPLAY(nbtrue(nt2::is_not_nan(y)));
-  NT2_TEST_EQUAL(nbtrue(y), r1);
-  NT2_DISPLAY(nt2::is_not_nan(y));
-  NT2_DISPLAY(nt2::if_one_else_zero(nt2::is_not_nan(y)));
-  NT2_DISPLAY(nt2::sum(nt2::if_one_else_zero(nt2::is_not_nan(y))));
-  nt2::table<cT> s = nt2::if_one_else_zero(nt2::is_not_nan(y));
-  NT2_DISPLAY(s);
-  NT2_DISPLAY(nt2::sum(s));
-
-}
