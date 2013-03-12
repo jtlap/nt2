@@ -17,7 +17,7 @@
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/deltaf.hpp>
-#include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/selsub.hpp>
 namespace nt2
 {
 
@@ -45,10 +45,11 @@ namespace nt2
                               )
    {
      typedef typename T::type t_t;
+     typedef typename nt2::meta::as_<std::complex<t_t> > cT;
      BOOST_DISPATCH_RETURNS(3, (A0 const& n, A1 const& k,T const& t),
-                            (nt2::if_else(nt2::is_eqz(t_t(k)),
-                                          nt2::smoke(n, T())-nt2::deltaf(n, 1, nt2::of_size(n, n), T()),
-                                          nt2::smoke(n, T()))
+                            (nt2::selsub(nt2::is_eqz(t_t(k)),
+                                         nt2::smoke(n, T()),
+                                         nt2::deltaf(n, 1, nt2::of_size(n, n), cT()))
                             )
                            )
        };
