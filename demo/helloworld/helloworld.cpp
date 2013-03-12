@@ -13,6 +13,6 @@ int main()
 
   x = 40.0 * y + 2.0;
 
-  std::cout << x << "\n";
+  NT2_DISPLAY(x);
 }
 //]

@@ -58,11 +58,13 @@ parallel code.
 
 [c++]
 ``
-  std::cout << x << "\n";
+  NT2_DISPLAY(x);
 }
 ``
 
 Finally, we send =x= to the standard output stream. Any __NT2__ containers can
-be streamed to any standard compliant stream like object.
+be streamed to any standard compliant stream like object. This can be done
+either directly using =std::cout= or by using the NT2_DISPLAY macro that will
+mimic the way Matlab displays containers.
 
 [endsect]
