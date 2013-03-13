@@ -14,9 +14,6 @@
 #include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/colon.hpp>
 #include <nt2/include/functions/linspace.hpp>
-#include <nt2/include/functions/multiplies.hpp>
-#include <nt2/include/functions/sx.hpp>
-#include <nt2/include/functions/reshape.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
@@ -34,7 +31,7 @@ NT2_TEST_CASE_TPL ( toeppd, NT2_REAL_TYPES)
                              nt2::linspace(T(0),T(1),3)) );
   NT2_TEST_ULP_EQUAL(nt2::toeppd(3,nt2::_(T(1), T(3)), nt2::linspace(T(0),T(1),3)),
                      m3, 0.5);
-  NT2_DISPLAY(nt2::toeppd(3, 3, nt2::meta::as_<T>()));
+  NT2_DISPLAY(nt2::toeppd(3, 3, nt2::meta::as_<T>())); //these 3 matrices are random and so not tested but for the build
   NT2_DISPLAY(nt2::toeppd<T>(3));
   NT2_DISPLAY(nt2::toeppd<T>(3, 4));
 }
