@@ -20,7 +20,7 @@
 namespace boost { namespace simd
 {
   template<class T, class U, class UnOp>
-  UnOp transform(T const* begin, T* const end, U* out, UnOp f)
+  U* transform(T const* begin, T const* end, U* out, UnOp f)
   {
     typedef boost::simd::native<T, BOOST_SIMD_DEFAULT_EXTENSION> vT;
     typedef boost::simd::native<U, BOOST_SIMD_DEFAULT_EXTENSION> vU;
@@ -47,11 +47,11 @@ namespace boost { namespace simd
     for(; begin!=end; ++begin, ++end)
       *out = f(*begin);
 
-    return f;
+    return out;
   }
 
   template<class T1, class T2, class U, class BinOp>
-  BinOp transform(T1 const* begin1, T1 const* end, T2 const* begin2, U* out, BinOp f)
+  U* transform(T1 const* begin1, T1 const* end, T2 const* begin2, U* out, BinOp f)
   {
     typedef boost::simd::native<T1, BOOST_SIMD_DEFAULT_EXTENSION> vT1;
     typedef boost::simd::native<T2, BOOST_SIMD_DEFAULT_EXTENSION> vT2;
@@ -73,13 +73,13 @@ namespace boost { namespace simd
       *out = f(*begin1, *begin2);
 
     for(; begin1!=end3; begin1 += N, begin2 += N, end += N)
-      simd::store(f(simd::unaligned_load<vT>(begin1), simd::unaligned_load<vT2>(begin2)), out);
+      simd::store(f(simd::unaligned_load<vT1>(begin1), simd::unaligned_load<vT2>(begin2)), out);
 
     // epilogue
     for(; begin1!=end; ++begin1, ++end)
       *out = f(*begin1, *begin2);
 
-    return f;
+    return out;
   }
 
   template<class T, class U, class F>
@@ -98,11 +98,11 @@ namespace boost { namespace simd
     T const* end2 = simd::align_on(begin, N * sizeof(T));
     T const* end3 = end2 + (end - end2)/N*N;
 
+    vU cur = simd::splat<vU>(init);
+
     // prologue
     for(; begin!=end2; ++begin)
       init = f(init, *begin);
-
-    vU cur = simd::splat<vU>(init);
 
     for(; begin!=end3; begin =+ N)
       cur = f(cur, boost::simd::load<vT>(begin));
