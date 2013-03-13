@@ -28,6 +28,7 @@ SET( SOURCES
     pack.cpp
     logical.cpp
     transform.cpp
+    algorithm.cpp
     range.cpp
    )
 

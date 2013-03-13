@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_SDK_SIMD_ALGORITHM_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_ALGORITHM_HPP_INCLUDED
 
-#include <boost/simd/sdk/native.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/include/functions/load.hpp>
 #include <boost/simd/include/functions/store.hpp>
 #include <boost/simd/include/functions/unaligned_load.hpp>
@@ -37,14 +37,14 @@ namespace boost { namespace simd
     T const* end3 = end2 + (end - end2)/N*N;
 
     // prologue
-    for(; begin!=end2; ++begin, ++end)
+    for(; begin!=end2; ++begin, ++out)
       *out = f(*begin);
 
-    for(; begin!=end3; begin += N, end += N)
+    for(; begin!=end3; begin += N, out += N)
       simd::store(f(simd::unaligned_load<vT>(begin)), out);
 
     // epilogue
-    for(; begin!=end; ++begin, ++end)
+    for(; begin!=end; ++begin, ++out)
       *out = f(*begin);
 
     return out;
@@ -57,9 +57,9 @@ namespace boost { namespace simd
     typedef boost::simd::native<T2, BOOST_SIMD_DEFAULT_EXTENSION> vT2;
     typedef boost::simd::native<U, BOOST_SIMD_DEFAULT_EXTENSION> vU;
 
-    BOOST_MPL_ASSERT_MSG( vT1::static_size == vT2::static_size == vU::static_size
+    BOOST_MPL_ASSERT_MSG( vT1::static_size == vT2::static_size && vT1::static_size == vU::static_size
                         , BOOST_SIMD_TRANSFORM_INPUT_OUTPUT_NOT_SAME_SIZE
-                        , (T, U)
+                        , (T1, T2, U)
                         );
 
     static const std::size_t N = vU::static_size;
@@ -69,14 +69,14 @@ namespace boost { namespace simd
     T1 const* end3 = end2 + (end - end2)/N*N;
 
     // prologue
-    for(; begin1!=end2; ++begin1, ++begin2, ++end)
+    for(; begin1!=end2; ++begin1, ++begin2, ++out)
       *out = f(*begin1, *begin2);
 
-    for(; begin1!=end3; begin1 += N, begin2 += N, end += N)
+    for(; begin1!=end3; begin1 += N, begin2 += N, out += N)
       simd::store(f(simd::unaligned_load<vT1>(begin1), simd::unaligned_load<vT2>(begin2)), out);
 
     // epilogue
-    for(; begin1!=end; ++begin1, ++end)
+    for(; begin1!=end; ++begin1, ++begin2, ++out)
       *out = f(*begin1, *begin2);
 
     return out;
@@ -104,7 +104,7 @@ namespace boost { namespace simd
     for(; begin!=end2; ++begin)
       init = f(init, *begin);
 
-    for(; begin!=end3; begin =+ N)
+    for(; begin!=end3; begin += N)
       cur = f(cur, boost::simd::load<vT>(begin));
 
     // reduce cur
