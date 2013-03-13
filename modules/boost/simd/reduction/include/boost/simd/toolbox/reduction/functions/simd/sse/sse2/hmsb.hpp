@@ -9,57 +9,66 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_HMSB_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_HMSB_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+
 #include <boost/simd/toolbox/reduction/functions/hmsb.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/dispatch/attributes.hpp>
+#include <cstddef>
 
 namespace boost { namespace simd { namespace ext
 {
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is type8
-  /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hmsb_, boost::simd::tag::sse2_,
-                       (A0),
-                       ((simd_<type8_<A0>,boost::simd::tag::sse_>))
-                      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::hmsb_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_ < type8_<A0>
+                                              , boost::simd::tag::sse_
+                                              >
+                                      ))
+                                    )
   {
-    typedef uint32_t result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    typedef std::size_t result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       return _mm_movemask_epi8(a0);
     }
   };
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is type32
-  /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hmsb_, boost::simd::tag::sse2_,
-                       (A0),
-                       ((simd_<type32_<A0>,boost::simd::tag::sse_>))
-                      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::hmsb_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_ < type32_<A0>
+                                              , boost::simd::tag::sse_
+                                              >
+                                      ))
+                                    )
   {
-    typedef uint32_t result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    typedef std::size_t result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       typedef typename dispatch::meta::as_floating<A0>::type type;
       return _mm_movemask_ps(bitwise_cast<type>(a0));
     }
   };
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is type64
-  /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hmsb_, boost::simd::tag::sse2_,
-                       (A0),
-                       ((simd_<type64_<A0>,boost::simd::tag::sse_>))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::hmsb_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_ < type64_<A0>
+                                              , boost::simd::tag::sse_
+                                              >
+                                      ))
                       )
   {
-    typedef uint32_t result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    typedef std::size_t result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       typedef typename dispatch::meta::as_floating<A0>::type type;
       return _mm_movemask_pd(bitwise_cast<type>(a0));
     }
   };
+
 } } }
+
 #endif
 #endif

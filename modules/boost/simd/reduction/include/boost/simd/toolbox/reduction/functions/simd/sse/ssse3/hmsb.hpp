@@ -11,29 +11,32 @@
 #ifdef BOOST_SIMD_HAS_SSSE3_SUPPORT
 
 #include <boost/simd/toolbox/reduction/functions/hmsb.hpp>
-#include <boost/simd/include/functions/simd/make.hpp>
-#include <boost/simd/sdk/meta/make_dependent.hpp>
+#include <boost/dispatch/attributes.hpp>
+#include <cstddef>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hmsb_, boost::simd::tag::ssse3_,
-                       (A0),
-                       ((simd_<type16_<A0>,boost::simd::tag::sse_>))
-                      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::hmsb_
+                                    , boost::simd::tag::ssse3_
+                                    , (A0)
+                                    , ((simd_ < type16_<A0>
+                                              , boost::simd::tag::sse_
+                                              >
+                                      ))
+                                    )
   {
-    typedef uint32_t result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    typedef std::size_t result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      typedef typename meta::make_dependent<int8_t, A0>::type int8;
-      typedef native<int8, boost::simd::tag::sse_> type8;
-      const type8 mask =  make<type8>( 0x1,0x3,0x5,0x7,0x9,0xB,0xD,0xF,
-                                       0x80,0x80,0x80,0x80,0x80,0x80,0x80,0x80
+      __m128i mask =  _mm_setr_epi8 ( 0x01,0x03,0x05,0x07,0x09,0x0B,0x0D,0x0F
+                                    , 0x80,0x80,0x80,0x80,0x80,0x80,0x80,0x80
+                                    );
 
-                               );
-      type8 r = _mm_shuffle_epi8(bitwise_cast<type8>(a0), mask);
-      return _mm_movemask_epi8(r);
+      return _mm_movemask_epi8(_mm_shuffle_epi8(bitwise_cast<__m128i>(a0),mask));
     }
   };
+
 } } }
+
 #endif
 #endif

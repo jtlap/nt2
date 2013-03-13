@@ -9,8 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_HMSB_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_HMSB_HPP_INCLUDED
 #include <boost/simd/toolbox/reduction/functions/hmsb.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/include/functions/simd/bits.hpp>
+#include <boost/simd/include/functions/simd/genmask.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <climits>
@@ -46,8 +46,7 @@ namespace boost { namespace simd { namespace ext
     typedef std::size_t result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_arithmetic<A0>::type tgt_t;
-      return boost::simd::hmsb(bitwise_cast<tgt_t>(a0));
+      return boost::simd::hmsb(boost::simd::genmask(a0));
     }
   };
 } } }
