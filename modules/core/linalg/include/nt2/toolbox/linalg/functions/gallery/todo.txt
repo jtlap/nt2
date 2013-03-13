@@ -49,11 +49,11 @@
     randsvd     Random matrix with pre-assigned sing. values and specified bandwidth.
     redheff     Matrix of 0s and 1s of Redheffer.                                     | done
     riemann     Matrix associated with the Riemann hypothesis.                        | done
-    ris         Ris matrix -- a symmetric Hankel matrix.
-    sampling    Nonsymmetric matrix with integer, ill conditioned eigenvalues.
-    smoke       Smoke matrix -- complex, with a "smoke ring" pseudospectrum.
-    toeppd      Symmetric positive definite Toeplitz matrix.
-    toeppen     Pentadiagonal Toeplitz matrix (sparse).
+    ris         Ris matrix -- a symmetric Hankel matrix.                              | done
+    sampling    Nonsymmetric matrix with integer, ill conditioned eigenvalues.        | done
+    smoke       Smoke matrix -- complex, with a "smoke ring" pseudospectrum.          | done
+    toeppd      Symmetric positive definite Toeplitz matrix.                          | done
+    toeppen     Pentadiagonal Toeplitz matrix (sparse).                               | done (but to be sparse)
     tridiag     Tridiagonal matrix.                                                   | done (but to be sparse)
     triw        Upper triangular matrix discussed by Wilkinson and others.            | done
     uniformdata Array of arbitrary data from standard uniform distribution
