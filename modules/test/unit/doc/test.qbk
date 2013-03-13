@@ -48,7 +48,7 @@ In __NT2__, a test case can be defined either as:
   }
   ``
 
-In both case, the test case name should be unique. Additionnaly, good testing
+In both case, the test case name should be unique. Additionally, good testing
 practices recommend to have fine grain test case to simplify test management.
 
 After compiling and launching the test, you should end up with the following
@@ -84,8 +84,8 @@ They are accessible in the [headerref nt2/sdk/unit/tests/basic.hpp] file.
 * [macroref NT2_TEST_ERROR]
 * [macroref NT2_TEST_COMPLETE]
 
-[heading Relationnal Tests]
-Relationnal tests compares the equality, inequality or ordering of values. Test
+[heading Relational Tests]
+Relational tests compares the equality, inequality or ordering of values. Test
 is considered successful if values compares equal, non-equal or properly ordered.
 Such tests include:
 
@@ -135,18 +135,70 @@ Let's now complete our simple test by checking a very simple arithmetic axiom:
 [endsect]
 
 [section Writing custom tests]
+Macros provided by this module should cover the basic needs of any proper unit
+test base. However, NT2.Test.Unit exposes its internal elements so custom test
+protocol can be defined. This section will go over the various element available
+to do so.
+
+[section Test status counters]
+Tests failure and success are the biggest informations we have to handle while
+writing a custom test protocol. Counters for the number of test and the number
+of failured tests are available via the following functions from the
+[headerref nt2/sdk/unit/stats.hpp] file:
+
+* [funcref nt2::unit::error_count ]
+* [funcref nt2::unit::test_count  ]
+
+Those functions return mutable reference to the corresponding global counter.
+As an example, the [macroref NT2_TEST ] macro is defined as :
+
+[c++]
+``
+#define NT2_TEST(X)                                             \
+( ::nt2::unit::test_count()++                                   \
+, (X) ? ::nt2::unit::pass(#X)                                   \
+      : ::nt2::unit::fail(#X, __LINE__, BOOST_CURRENT_FUNCTION) \
+)                                                               \
+``
+
+We will go over [funcref nt2::unit::pass ]  and [funcref nt2::unit::fail] soon
+but basically [macroref NT2_TEST ] increase the number of test and go over
+checking if =X= is true.
+[endsect]
+
+[section Predefined testing functions]
+To be able to fill these coutner properly, we need to actually do some test.
+[headerref nt2/sdk/unit/stats.hpp] provides some predefined simple test functions:
+
+* [funcref nt2::unit::pass  ]
+* [funcref nt2::unit::fail  ]
+* [funcref nt2::unit::error ]
+
+[endsect]
+
+[section Test building blocks]
+[endsect]
+
+[section Example: NT2_TEST_COMPARE_TO_FILE]
+In this example, we'll build a test can compare the result of a function call
+to the value stored in a file. This is a very simple example and making it a
+complete working macro handling sequence and other fancy cases is left as an
+exercise.
+
+[endsect]
+
 [endsect]
 
 [section Rationale on precision testing]
 
-[Are these two floating computations results similar enough ?]
+["Are these two floating computations results similar enough ?]
 
 This is maybe the most difficult question to answer when implementing and
 validating numerical algorithms. Various methods are often found in existing
 testing frameworks or are used by developers. But, in the same way floating-point
 arithmetic can be tricky, floating-point comparisons are even trickier.
 
-[important  In the rest of this section, we take for granted that the basic
+[note  In the rest of this section, we take for granted that the basic
 notions of floating-point computations and their related problems is known by
 the reader. If not, we strongly recommend having a deep look at
 [@http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html Goldberg's paper
@@ -171,7 +223,7 @@ The IEEE 754 specification -followed by all modern floating-point hardware-
 requires that the result of an elementary arithmetic operation (addition,
 subtraction, multiplication, division, and square root) be within 0.5 ULP of the
 mathematically exact result -that is, that it be the best possible result.
-Achieving 0.5-1 ULP for computationnaly complex functions like transcendental functions is what
+Achieving 0.5-1 ULP for computationally complex functions like transcendental functions is what
 a proper numerical library should aim for, and that's what __NT2__ actually try
 to achieve.
 
@@ -187,7 +239,7 @@ The full algorithm can be expressed in standard C++ in the following way:
 
 Put in an other way, one can estimate the =ulpdist= between two floating point
 numbers as the number of representable floating points values between them. This
-estimation leads ot the following properties:
+estimation leads to the following properties:
 
 * The =ulpdist= between =N= and =N+N*epsilon= is equal to =0.5=
 * The =ulpdist= between =N= and =N+N*epsilon/2= is equal to =0=
@@ -195,6 +247,22 @@ estimation leads ot the following properties:
   conversion (they are exceptions as for fully representable reals), their
  =ulpdist= will be around 2^26.5 (~10^8). For example, =ulpdist(double(Pi<float>()),Pi<double>())=
  is equal to =9.84293e+07=
+
+[endsect]
+
+[section Taking ULP in consideration in your tests]
+What to do then when writing an unit test that handles floating points number ?
+You basically have two cases :
+
+* The value you compare must be equal by design. In this case, use
+[macroref NT2_TEST_EQUAL] to clearly state your intent. One such case can be
+for example functions that construct a floating point value bitwise (like for
+example =ldexp=).
+* The value you compare are the results of an undetermined number of other
+floating point operations. In this case, use [macroref NT2_TEST_ULP_EQUAL] and
+try to estimate the maximum amount of ULP your implementation should give. This
+can be either done by a strict analysis of the function behavior or by some guess
+work.
 
 [endsect]
 

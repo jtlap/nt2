@@ -17,19 +17,11 @@ HIDE_UNDOC_CLASSES     = YES
 HIDE_SCOPE_NAMES       = YES
 INLINE_INFO            = YES
 INTERNAL_DOCS          = NO
-INPUT                  = ../include/nt2/sdk/unit/ ../include/nt2/sdk/unit/tests
+INPUT                  = ../include/nt2/sdk/unit/
+INPUT                 += ../include/nt2/sdk/unit/tests
 FULL_PATH_NAMES        = NO
 INHERIT_DOCS           = NO
-SEARCH_INCLUDES        = YES
 RECURSIVE              = NO
-ENABLE_PREPROCESSING   = YES
-MACRO_EXPANSION        = YES
-PREDEFINED             = NT2_DOXYGEN_ONLY
 EXPAND_AS_DEFINED      = BOOST_PP_EMPTY BOOST_PP_COMMA NT2_TEST_UNIT_DECL
 EXPAND_ONLY_PREDEF     = YES
 SKIP_FUNCTION_MACROS   = YES
-
-################################################################################
-# Some useful aliases
-################################################################################
-ALIASES   = "usage=@par Usage:"
