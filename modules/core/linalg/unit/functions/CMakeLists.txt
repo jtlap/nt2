@@ -58,6 +58,7 @@ SET( SOURCES
   sampling.cpp
   smoke.cpp
   toeplitz.cpp
+  toeppd.cpp
   tridiag.cpp
   triw.cpp
   vandermonde.cpp
