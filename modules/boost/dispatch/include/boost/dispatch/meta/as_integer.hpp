@@ -62,7 +62,7 @@ namespace boost { namespace dispatch { namespace meta
    *
    * @include as_integer.cpp
    */
-#if defined(NT2_DOXYGEN_ONLY)
+#if defined(DOXYGEN_ONLY)
   template<class T, class Sign = typename meta::sign_of<T>::type >
   struct  as_integer
   {};

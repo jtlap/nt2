@@ -46,7 +46,7 @@ return typename boost::dispatch::make_functor<Tag, A0>::type()                 \
 ////////////////////////////////////////////////////////////////////////////////
 // Generate a complete function implementation
 ////////////////////////////////////////////////////////////////////////////////
-#ifdef NT2_DOXYGEN_ONLY
+#ifdef DOXYGEN_ONLY
 #define BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(Tag, Name, N)      \
 template<BOOST_PP_ENUM_PARAMS(N,class A)>                         \
 unspecified Name( BOOST_PP_ENUM_BINARY_PARAMS(N, A, const& a) );  \
@@ -69,7 +69,7 @@ Name( BOOST_PP_ENUM_BINARY_PARAMS(N, A, const& a) )                            \
 ////////////////////////////////////////////////////////////////////////////////
 // Generate a complete function implementation with a specific prototype
 ////////////////////////////////////////////////////////////////////////////////
-#ifdef NT2_DOXYGEN_ONLY
+#ifdef DOXYGEN_ONLY
 #define BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(Tag, Name, Args, N)  \
 template<BOOST_PP_ENUM_PARAMS(N, class A)>                              \
 unspecified Name( BOOST_PP_ENUM ( BOOST_PP_SEQ_SIZE(Args                \

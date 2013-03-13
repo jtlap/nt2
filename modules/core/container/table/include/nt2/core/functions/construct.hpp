@@ -30,7 +30,7 @@ namespace nt2
     };
   }
 
-  #if defined(NT2_DOXYGEN_ONLY)
+  #if defined(DOXYGEN_ONLY)
   /*!
     @brief Extension point for container construction
 

@@ -13,7 +13,7 @@
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_same.hpp>
 
-#if defined(NT2_DOXYGEN_ONLY)
+#if defined(DOXYGEN_ONLY)
 namespace boost { namespace dispatch { namespace meta
 {
   /**

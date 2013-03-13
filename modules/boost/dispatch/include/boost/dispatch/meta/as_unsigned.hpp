@@ -61,7 +61,7 @@ namespace boost { namespace dispatch { namespace meta
    *
    * @include as_unsigned.cpp
    */
-#if defined(NT2_DOXYGEN_ONLY)
+#if defined(DOXYGEN_ONLY)
   template<typename T> struct as_unsigned {};
 #else
   template<typename T>

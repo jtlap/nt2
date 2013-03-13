@@ -62,7 +62,7 @@ namespace boost { namespace dispatch { namespace meta
    *
    * @include as_floating.cpp
    **/
-#if defined(NT2_DOXYGEN_ONLY)
+#if defined(DOXYGEN_ONLY)
   template<typename... Args> struct  as_floating {};
 #else
   template<class A0, class A1 = void, class A2 = void, class A3 = void>

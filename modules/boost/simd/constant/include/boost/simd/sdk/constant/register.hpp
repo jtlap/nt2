@@ -29,7 +29,7 @@
  * \param DOUBLE Double value of the constant
  */
 //==============================================================================
-#if defined(NT2_DOXYGEN_ONLY)
+#if defined(DOXYGEN_ONLY)
 #define BOOST_SIMD_CONSTANT_REGISTER(TAG,TYPE,INT,FLOAT,DOUBLE) \
 struct TAG  : boost::simd::ext::pure_constant_<TAG>             \
 {                                                               \

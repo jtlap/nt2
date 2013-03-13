@@ -17,7 +17,7 @@
 #include <boost/config.hpp>
 #include <boost/preprocessor/facilities/is_empty.hpp>
 
-#if defined(NT2_DOXYGEN_ONLY)
+#if defined(DOXYGEN_ONLY)
 /*!
  * @brief Mark a function as candidate for no inlining
  *

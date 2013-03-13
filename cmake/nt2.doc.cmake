@@ -151,7 +151,7 @@ macro(nt2_doc_doxygen file)
   file(READ ${absolute} DOXYGEN_CONTENT)
   # Add proper BOOST path to this Doxygen for PP purpose
   set(DXY_PP     "SEARCH_INCLUDES=YES\nENABLE_PREPROCESSING=YES\nMACRO_EXPANSION=YES\n")
-  set(DXY_PDEF   "PREDEFINED=NT2_DOXYGEN_ONLY\n")
+  set(DXY_PDEF   "PREDEFINED=DOXYGEN_ONLY\n")
   set(DXY_EX)
   if(EXISTS ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}/examples)
     set(DXY_EX     "EXAMPLE_PATH = ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}/examples\n")
