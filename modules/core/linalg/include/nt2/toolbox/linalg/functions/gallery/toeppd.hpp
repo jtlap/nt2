@@ -84,7 +84,7 @@ namespace nt2
   {
     return nt2::toeppd(n, n, nt2::meta::as_<double>());
   }
-  nt2::meta::call<nt2::tag::toeppd_(const ptrdiff_t &, const ptrdiff_t &, typename nt2::meta::as_<double> const &)>::type
+  nt2::meta::call<nt2::tag::toeppd_(const ptrdiff_t &, const ptrdiff_t &, nt2::meta::as_<double> const &)>::type
   toeppd(ptrdiff_t n, ptrdiff_t m)
   {
     return nt2::toeppd(n, m, nt2::meta::as_<double>());
