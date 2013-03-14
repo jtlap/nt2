@@ -26,11 +26,13 @@ template<class T> bool check_ulp_fundamental()
   different_value = value + 16*std::numeric_limits<T>::epsilon();
 
   std::cout << "Check for: " << typeid(T).name() << "\t";
-  T u0     = nt2::unit::max_ulp(value,value,0.5,fails);
+  double u0 = 0;
+  bool ok = nt2::unit::max_ulp(value,value,0.5,fails,u0);
   std::cout << "max_ulp(a,a) = " << u0 << "\t";
 
   fails.clear();
-  T u1     = nt2::unit::max_ulp(value,different_value,8,fails);
+  double u1 = 0;
+  ok = nt2::unit::max_ulp(value,different_value,8,fails, u1);
   std::cout << "max_ulp(a,b) = " << u1 << "\t";
   std::cout << ((!u0 && u1==8) ? "OK" : "NOT OK") << "\n";
 
@@ -49,11 +51,13 @@ template<class T> bool check_ulp_sequence()
   different_values[7] += 5*std::numeric_limits<T>::epsilon();
 
   std::cout << "Check for: " << typeid(T).name() << "\t";
-  T u0     = nt2::unit::max_ulp(values,values,0.5,fails);
+  double u0 = 0;
+  bool ok = nt2::unit::max_ulp(values,values,0.5,fails,u0);
   std::cout << "max_ulp(a,a) = " << u0 << "\t";
 
   fails.clear();
-  T u1     = nt2::unit::max_ulp(values,different_values,8,fails);
+  double u1 = 0;
+  ok = nt2::unit::max_ulp(values,different_values,8,fails, u1);
   std::cout << "max_ulp(a,b) = " << u1 << "\t";
   std::cout << ((!u0 && u1==8) ? "OK" : "NOT OK")  << "\n";
 

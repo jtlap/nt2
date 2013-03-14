@@ -36,7 +36,7 @@ namespace nt2 { namespace details
     typedef typename nt2::details::max_ulp_<a_t,b_t>::failure_type  f_t;
 
     std::vector< f_t > ulps;
-    double ulpd;
+    double ulpd = 0;
 
     bool ok = nt2::unit::max_ulp( nt2::unit::eval(a)
                                 , nt2::unit::eval(b)
