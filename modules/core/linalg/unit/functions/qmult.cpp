@@ -22,9 +22,9 @@ NT2_TEST_CASE_TPL ( qmult, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_<T> ta_t;
   nt2::table<T> qa =  nt2::qmult(nt2::eye(4, nt2::meta::as_<T>()));
-  NT2_TEST_ULP_EQUAL(nt2::mtimes(nt2::transpose(qa), qa), nt2::eye(4, nt2::meta::as_<T>()), 2); //check qa is orthogonal
+  NT2_TEST_ULP_EQUAL(nt2::mtimes(nt2::transpose(qa), qa), nt2::eye(4, nt2::meta::as_<T>()), 5); //check qa is orthogonal
   qa = nt2::qmult<T>(3);
-  NT2_TEST_ULP_EQUAL(nt2::mtimes(nt2::transpose(qa), qa), nt2::eye(3, nt2::meta::as_<T>()), 2); //check qa is orthogonal
+  NT2_TEST_ULP_EQUAL(nt2::mtimes(nt2::transpose(qa), qa), nt2::eye(3, nt2::meta::as_<T>()), 5); //check qa is orthogonal
 }
 
 

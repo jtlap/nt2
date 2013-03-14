@@ -16,9 +16,8 @@
  * \defgroup algebra_qmult qmult
  *
  * qmult pre-multiply matrix by random orthogonal matrix.
- *    qmult(a) returns q*a where q is a random real orthogonal matrix
- *    from the haar distribution of dimension the number of rows in a.
- *    special case: if a is a scalar then qmult(a) is the same as qmult(eye(a)).
+ *    qmult(a) returns q*a where q is a random real orthogonal matrix.
+ *    qmult<T>(n) is the same as qmult(eye(n, as_<T>())).
  *
  *    called by randcolu, randcorr, randjorth, randsvd.
  *
