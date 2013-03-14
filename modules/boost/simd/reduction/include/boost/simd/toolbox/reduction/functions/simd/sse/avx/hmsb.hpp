@@ -91,8 +91,7 @@ namespace boost { namespace simd { namespace ext
       r_t a00 = _mm256_extractf128_si256(a0, 0);
       r_t a01 = _mm256_extractf128_si256(a0, 1);
 
-      return      result_type(_mm_movemask_epi8(a00))
-              | ( result_type(_mm_movemask_epi8(a01)) << 8 );
+      return hmsb(a00) | (hmsb(a01)<<8);
     }
   };
 } } }
