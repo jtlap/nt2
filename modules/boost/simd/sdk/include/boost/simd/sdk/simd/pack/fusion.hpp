@@ -70,7 +70,7 @@ namespace boost { namespace fusion { namespace extension
                                 , typename base::reference
                                 >::type                             type;
 
-      static type call(Sequence& seq) { return seq[Index::value+1]; }
+      static type call(Sequence& seq) { return seq[Index::value]; }
     };
   };
 
