@@ -52,6 +52,7 @@ SET( SOURCES
   pascal.cpp
   pei.cpp
   prolate.cpp
+  qmult.cpp
   randhess.cpp
   redheff.cpp
   riemann.cpp
