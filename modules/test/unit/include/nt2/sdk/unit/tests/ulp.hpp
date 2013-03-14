@@ -36,30 +36,39 @@ namespace nt2 { namespace details
     typedef typename nt2::details::max_ulp_<a_t,b_t>::failure_type  f_t;
 
     std::vector< f_t > ulps;
-    double ulpd = nt2::unit::max_ulp( nt2::unit::eval(a)
-                                    , nt2::unit::eval(b)
-                                    , N, ulps
-                                    );
-    if( ulps.empty() )
+    double ulpd;
+
+    bool ok = nt2::unit::max_ulp( nt2::unit::eval(a)
+                                , nt2::unit::eval(b)
+                                , N, ulps, ulpd
+                                );
+    if(ok)
     {
-      ::nt2::details::ulp_pass( desc, ulpd, N );
+      if( ulps.empty() )
+      {
+        ::nt2::details::ulp_pass( desc, ulpd, N );
+      }
+      else
+      {
+        ::nt2::details::ulp_fail( desc, func, line, ulps.size(),N, ok);
+
+        std::cout << std::setprecision(20);
+
+        BOOST_FOREACH ( f_t const & f, ulps )
+        {
+          std::cout << "\tlhs: "  << f.value
+                    << ", rhs: "  << f.desired_value
+                    << ", ULP: "  << f.ulp_error
+                    << ", @( "    << f.index << " )";
+          std::cout << std::endl;
+        }
+
+        std::cout << std::endl;
+      }
     }
     else
     {
-      ::nt2::details::ulp_fail( desc, func, line, ulps.size(),N);
-
-      std::cout << std::setprecision(20);
-
-      BOOST_FOREACH ( f_t const & f, ulps )
-      {
-        std::cout << "\tlhs: "  << f.value
-                  << ", rhs: "  << f.desired_value
-                  << ", ULP: "  << f.ulp_error
-                  << ", @( "    << f.index << " )";
-        std::cout << std::endl;
-      }
-
-      std::cout << std::endl;
+      ::nt2::details::ulp_fail( desc, func, line, ulps.size(),N, ok);
     }
   }
 } }

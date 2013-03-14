@@ -38,7 +38,7 @@ namespace nt2 { namespace details
   /// ULP test is a failure
   NT2_TEST_UNIT_DECL
   void ulp_fail ( const char* desc, const char* f, int line
-                , std::size_t size, double N
+                , std::size_t size, double N, bool ok
                 );
 
   /// Default implementation of max_ulps forward to generic ulpdist
@@ -69,9 +69,10 @@ namespace nt2 { namespace details
     typedef failed_value<A,B> failure_type;
 
     template<class VF>
-    BOOST_FORCEINLINE double
+    BOOST_FORCEINLINE bool
     operator()( A const& a, B const& b
               , double max_ulpd, VF& fails, std::size_t i
+              , double& ru
               ) const
     {
       double d = max_ulps ( nt2::details::smallest_a( nt2::value(a)
@@ -88,7 +89,9 @@ namespace nt2 { namespace details
         fails.push_back(f);
       }
 
-      return d;
+      ru = d;
+
+      return true;
     }
   };
 
@@ -133,9 +136,10 @@ namespace nt2 { namespace details
     typedef failed_value<A,B> failure_type;
 
     template<class VF>
-    BOOST_FORCEINLINE double
+    BOOST_FORCEINLINE bool
     operator()( A const& a, B const& b
               , double max_ulpd, VF& fails, std::size_t i
+              , double& ru
               ) const
     {
       double d =  max_ulp_seq_<0,boost::fusion::result_of
@@ -147,7 +151,9 @@ namespace nt2 { namespace details
         fails.push_back(f);
       }
 
-      return d;
+      ru =  d;
+
+      return true;
     }
   };
 
@@ -166,12 +172,13 @@ namespace nt2 { namespace details
     /// jump into the proper eval() member functions depending on this
     /// status.
     template<class VF>
-    BOOST_FORCEINLINE double
+    BOOST_FORCEINLINE bool
     operator()( A const& a, B const& b
               , double max_ulpd, VF& fails, std::size_t i
+              , double& ru
               ) const
     {
-      return max_ulp_value_<A,B>()(a, b, max_ulpd, fails, i);
+      return max_ulp_value_<A,B>()(a, b, max_ulpd, fails, i, ru);
     }
   };
 
@@ -185,29 +192,40 @@ namespace nt2 { namespace details
                         >                         failure_type;
 
     template<class VF>
-    BOOST_FORCEINLINE double
+    BOOST_FORCEINLINE bool
     operator()( A const& a, B const& b
               , double max_ulpd, VF& fails, std::size_t i
+              , double& ru
               ) const
     {
-      double res = 0;
-
-      typename A::const_iterator ab = a.begin();
-      typename A::const_iterator ae = a.end();
-      typename B::const_iterator bb = b.begin();
-
-      while(ab != ae)
+      if( std::distance(b.begin(),b.end()) == std::distance(a.begin(),a.end()))
       {
-        res = std::max( res
-                      , max_ulp_< typename A::value_type
-                                , typename B::value_type
-                                >()(*ab,*bb,max_ulpd,fails,i++)
-                      );
-        ab++;
-        bb++;
-      }
+        double res = 0;
 
-      return res;
+        typename A::const_iterator ab = a.begin();
+        typename A::const_iterator ae = a.end();
+        typename B::const_iterator bb = b.begin();
+
+        while(ab != ae)
+        {
+          double r;
+          max_ulp_< typename A::value_type
+                  , typename B::value_type
+                  >()(*ab,*bb,max_ulpd,fails,i++,r);
+
+          res = std::max(res,r);
+          ab++;
+          bb++;
+        }
+
+        ru = res;
+
+        return true;
+      }
+      else
+      {
+        return false;
+      }
     }
   };
 
@@ -218,17 +236,22 @@ namespace nt2 { namespace details
     typedef failed_value<typename A::value_type, B> failure_type;
 
     template<class VF>
-    BOOST_FORCEINLINE double
+    BOOST_FORCEINLINE bool
     operator()( A const& a, B const& b
               , double max_ulpd, VF& fails, std::size_t i
+              , double& ru
               ) const
     {
-      BOOST_ASSERT_MSG( (std::distance(a.begin(),a.end()) == 1)
-                      , "Sequence is not of size 1"
-                      );
-      return max_ulp_<typename A::value_type,B>() ( *a.begin(),b
-                                                  , max_ulpd,fails,i
-                                                  );
+      if( std::distance(a.begin(),a.end()) == 1)
+      {
+        return max_ulp_<typename A::value_type,B>() ( *a.begin(),b
+                                                    , max_ulpd,fails,i, ru
+                                                    );
+      }
+      else
+      {
+        return false;
+      }
     }
   };
 
@@ -239,17 +262,22 @@ namespace nt2 { namespace details
     typedef failed_value<A, typename B::value_type> failure_type;
 
     template<class VF>
-    BOOST_FORCEINLINE double
+    BOOST_FORCEINLINE bool
     operator()( A const& a, B const& b
               , double max_ulpd, VF& fails , std::size_t i
+              , double& ru
               ) const
     {
-      BOOST_ASSERT_MSG( (std::distance(b.begin(),b.end()) == 1)
-                      , "Sequence is not of size 1"
-                      );
-      return  max_ulp_<A, typename B::value_type>() ( a,*b.begin()
-                                                    , max_ulpd,fails,i
+      if( std::distance(b.begin(),b.end()) == 1)
+      {
+        return max_ulp_<typename A::value_type,B>() ( a,*b.begin()
+                                                    , max_ulpd,fails,i, ru
                                                     );
+      }
+      else
+      {
+        return false;
+      }
     }
   };
 } }
@@ -260,9 +288,9 @@ namespace nt2 { namespace unit
   /// given ulp tolerance
   template<class A, class B, class VF>
   BOOST_FORCEINLINE
-  double max_ulp( A const& a, B const& b, double max_ulpd, VF& fails )
+  bool max_ulp( A const& a, B const& b, double max_ulpd, VF& fails, double& ru )
   {
-    return details::max_ulp_<A,B>()(a,b,max_ulpd,fails,0);
+    return details::max_ulp_<A,B>()(a,b,max_ulpd,fails,0,ru);
   }
 } }
 

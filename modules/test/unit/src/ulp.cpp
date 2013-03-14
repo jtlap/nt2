@@ -43,13 +43,18 @@ namespace nt2 { namespace details
 
   NT2_TEST_UNIT_DECL
   void ulp_fail ( const char* desc, const char* f, int line
-                , std::size_t size, double N
+                , std::size_t size, double N, bool ok
                 )
   {
     ::nt2::unit::fail(desc, line, f );
-    std::cout << "   because the ULP distance for the following "
-              << size << " values exceeded the maximum "
-              << "tolerance of " << N << " ULPs."
-              << std::endl;
+
+    if(ok)
+      std::cout << "   because the ULP distance for the following "
+                << size << " values exceeded the maximum "
+                << "tolerance of " << N << " ULPs."
+                << std::endl;
+    else
+      std::cout << "   because of mismatched sequence size." << std::endl;
+
   }
 } }
