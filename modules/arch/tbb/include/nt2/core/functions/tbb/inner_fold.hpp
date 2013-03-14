@@ -31,37 +31,51 @@ namespace nt2 {
   {
     // Create the correct functor for tbb::parallel reduce according to the
     // requested Site.
-    template<class A1, class A2, class A3, class Target>
+    template<class A0, class A1, class A2, class A3, class Target>
     struct bop_reduce_simd
     {
       typedef Target target_type;
 
-      bop_reduce_simd(target_type const& vec, A1& in, A3 const& bop, std::size_t const& k)
-      : vec_out_(vec), in_(in), bop_(bop), k_(k)
-      {}
+      bop_reduce_simd( A0& out, A1& in, A2 const& n, A3 const& bop
+                     , std::ptrdiff_t const& begin
+                     , std::size_t const& jump
+                     )
+      : out_(out), in_(in), neutral_(n), bop_(bop)
+      , begin_(begin), jump_(jump)
+      {
+        vec_out_ = neutral_(nt2::meta::as_<target_type>());
+        k_        = begin_;
+      }
 
       bop_reduce_simd(bop_reduce_simd& src, tbb::split)
-      : in_(src.in_), bop_(src.bop_), k_(src.k_)
-      { vec_out_ = neutral_(nt2::meta::as_<target_type>()); }
+      : out_(src.out_), in_(src.in_), neutral_(src.neutral_), bop_(src.bop_)
+      , begin_(src.begin_), jump_(src.jump_)
+      {
+        vec_out_ = neutral_(nt2::meta::as_<target_type>());
+        k_ = (src.k_++)*jump_;
+      }
 
       void operator()(tbb::blocked_range<std::size_t> const& r)
       {
         static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
+        //std::cout << "bound : " << bound_ << std::endl;
+        //std::cout << "begin : " << r.begin() << "end : " << r.end() << std::endl;
         for(std::size_t i = r.begin(); i < r.end(); i+=N)
-        {
           vec_out_ = bop_( vec_out_
                          , nt2::run( in_
                                    , i+k_, meta::as_<target_type>()));
-        }
       }
 
-      void join( bop_reduce_simd& rhs ) { vec_out_ = bop_(vec_out_,rhs.vec_out_); }
+      void join(bop_reduce_simd& rhs) { vec_out_ = bop_(vec_out_, rhs.vec_out_); }
 
       target_type         vec_out_;
+      A0&                     out_;
       A1&                      in_;
       A2                  neutral_;
       A3                      bop_;
       std::size_t               k_;
+      std::ptrdiff_t        begin_;
+      std::size_t           jump_;
     };
 
 
@@ -81,36 +95,40 @@ namespace nt2 {
       void operator()(tbb::blocked_range<std::ptrdiff_t> const& r) const
       {
         static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
-
+        std::size_t chunk = ibound_/tbb::task_scheduler_init::default_num_threads();
+        std::size_t ichunk = (chunk==0)?ibound_:(chunk/N)*N;
+        std::size_t leftover = bound_-ibound_;
+        std::size_t new_ibound_ = (ibound_<N)?0:ibound_;
+        std::size_t grain = r.is_divisible()
+                          ? new_ibound_
+                          : ichunk;
+        std::size_t jump = r.is_divisible()
+                         ? bound_
+                         : ichunk;
+        //std::cout << "jump : " << jump << std::endl;
+        //std::cout << "ichunk : " << ichunk << "grain : " << grain << std::endl;
+        //std::cout << "begin : " << r.begin() << "end : " << r.end() << std::endl;
         for(std::ptrdiff_t j = r.begin(); j < r.end(); ++j)
         {
           std::size_t k = j*bound_;
           nt2::run(out_, j, neutral_(meta::as_<value_type>()));
 
-          bop_reduce_simd<A1,A2,A3,target_type> boppy( neutral_(nt2::meta::as_<target_type>())
-                                                     , in_
-                                                     , bop_
-                                                     , k
-                                                     );
+          bop_reduce_simd< A0,A1,A2,A3
+                         , target_type> boppy( out_, in_, neutral_, bop_, r.begin(), jump);
 
-          std::size_t chunk = ibound_/tbb::task_scheduler_init::default_num_threads();
-          std::size_t grain = r.grainsize()==0
-                            ? (chunk<N)
-                              ? ibound_
-                              : chunk
-                            : ibound_;
-
-          tbb::parallel_reduce( tbb::blocked_range<std::size_t>(0,ibound_,grain)
+          tbb::parallel_reduce( tbb::blocked_range<std::size_t>(0,new_ibound_,grain)
                               , boppy
                               );
 
           nt2::run(out_, j, uop_(boppy.vec_out_));
-
-          for(std::size_t i = ibound_; i < bound_; ++i)
+          // std::cout << "vec : " << uop_(boppy.vec_out_) << std::endl;
+          // std::cout << out_(1) << std::endl;
+          for(std::size_t i = bound_-leftover; i < bound_; ++i)
             nt2::run(out_, j
-                     , bop_( nt2::run(out_, j, meta::as_<value_type>())
-                                   , nt2::run(in_, i+k, meta::as_<value_type>())));
+                    , bop_( nt2::run( out_, j, meta::as_<value_type>())
+                                    , nt2::run(in_, i+k, meta::as_<value_type>())));
         }
+
       }
 
       A0&                     out_;
@@ -156,7 +174,11 @@ namespace nt2 {
         std::size_t bound  = boost::fusion::at_c<0>(ext);
         std::size_t ibound = (boost::fusion::at_c<0>(ext)/N) * N;
         std::ptrdiff_t obound = nt2::numel(boost::fusion::pop_front(ext));
-        std::size_t     grain = obound/tbb::task_scheduler_init::default_num_threads();
+        std::size_t condition = obound/tbb::task_scheduler_init::default_num_threads();
+        std::size_t     grain = (condition == 0)
+                              ? obound
+                              : condition;
+        //std::cout << "obound : " << obound << "grain : " << grain << std::endl;
         details::inner_reduce_simd< A0,A1,A2,A3,A4
                                   , target_type
                                   , value_type> ared( out, in, neutral, bop
