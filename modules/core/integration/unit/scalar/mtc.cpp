@@ -9,7 +9,6 @@
 #define NT2_UNIT_MODULE "nt2 integration toolbox - mtc"
 
 #include <iostream>
-#include <nt2/sdk/timing/tic.hpp>
 #include <nt2/include/functions/mtc.hpp>
 #include <nt2/toolbox/integration/output.hpp>
 #include <nt2/toolbox/integration/options.hpp>
@@ -65,9 +64,7 @@ NT2_TEST_CASE_TPL( mtc_real_out, NT2_REAL_TYPES )
   using nt2::integration::output;
   typedef nt2::table<T> tab_t;
   tab_t x =  nt2::cons(nt2::of_size(2, 2), T(0), T(0), T(1), T(1));
-  nt2::tic();
   BOOST_AUTO_TPL(res, (mtc(f(), x, options [ nt2::limits::maxfunccnt_ = 100000 ])));
-  nt2::toc();
   std::cout << "Integrals:" << res.integrals << ") with error " << res.errors
             << " after " << res.eval_count <<  " evaluations\n";
   NT2_TEST_LESSER_EQUAL(nt2::dist(res.integrals(1), nt2::Pi<T>()/4), res.errors);
@@ -93,9 +90,7 @@ NT2_TEST_CASE_TPL( mtc_cplx_out, NT2_REAL_TYPES )
   typedef nt2::table<T> tab_t;
   tab_t x =  nt2::cons(nt2::of_size(2, 2), T(0), T(0), T(1), T(1));
   NT2_DISPLAY(x);
-  nt2::tic();
   BOOST_AUTO_TPL(res, (mtc(g(), x, options [ nt2::limits::maxfunccnt_ = 100000 ])));
-  nt2::toc();
   std::cout << "Integrals:" << res.integrals << ") with error " << res.errors
             << " after " << res.eval_count <<  " evaluations\n";
   NT2_TEST_LESSER_EQUAL(nt2::dist(res.integrals(1), cT(0.5, 0.5)), res.errors);
@@ -111,9 +106,7 @@ NT2_TEST_CASE_TPL( mtc_flt_out2, NT2_REAL_TYPES )
   typedef nt2::table<T> tab_t;
   tab_t x =  nt2::cons(nt2::of_size(2, 2, 2), T(0), T(0), T(1), T(1), T(-1), T(-1), T(0), T(0));
   NT2_DISPLAY(x);
-  nt2::tic();
   BOOST_AUTO_TPL(res, (mtc(f(), x, options [ nt2::limits::maxfunccnt_ = 100000 ])));
-  nt2::toc();
   std::cout << "Integrals:" << res.integrals << ") with error " << res.errors
             << " after " << res.eval_count <<  " evaluations\n";
   NT2_TEST_LESSER_EQUAL(nt2::dist(res.integrals(1), nt2::Pi<T>()/2), res.errors);

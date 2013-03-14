@@ -9,7 +9,6 @@
 #define NT2_UNIT_MODULE "nt2 integration toolbox - primitive"
 
 #include <iostream>
-#include <nt2/sdk/timing/tic.hpp>
 #include <nt2/toolbox/integration/primitive.hpp>
 #include <nt2/include/functions/quad.hpp>
 #include <nt2/toolbox/integration/output.hpp>
@@ -59,11 +58,9 @@ NT2_TEST_CASE_TPL( primitive_cplx_inout2, NT2_REAL_TYPES )
   using nt2::primitive;
   using nt2::options;
   using nt2::integration::output;
-  nt2::tic();
 //  primitive<nt2::tag::quad_>(f(), nt2::linspace(T(0), T(5), 10));
 
    BOOST_AUTO_TPL(res, (primitive<nt2::tag::quad_>(f(), nt2::linspace(T(0), T(5)))));
-   nt2::toc();
    std::cout << "Integrals:" << res.integrals << ") with error " << res.errors
              << " after " << res.eval_count <<  " evaluations\n";
    NT2_TEST_ULP_EQUAL(res.integrals(nt2::end_), T(12.5), 2);
