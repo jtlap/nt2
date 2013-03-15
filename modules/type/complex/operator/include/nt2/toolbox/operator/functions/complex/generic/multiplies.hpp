@@ -33,18 +33,19 @@
 #include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/nan.hpp>
-#include <nt2/sdk/complex/complex.hpp>
-#include <nt2/sdk/complex/imaginary.hpp>
+#include <nt2/sdk/complex/hierarchy.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/complex/meta/as_imaginary.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
 
 namespace nt2 { namespace ext
 {
   // complex/complex
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)
-                              , ((generic_< complex_< arithmetic_<A0> > >))
+                            , ((generic_< complex_< arithmetic_<A0> > >))
                               ((generic_< complex_< arithmetic_<A0> > >))
-    )
+                            )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
@@ -95,9 +96,9 @@ namespace nt2 { namespace ext
 
   // complex/real
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
-                              , ((generic_< arithmetic_<A0> >))
+                            , ((generic_< arithmetic_<A0> >))
                               ((generic_< complex_< arithmetic_<A1> > >))
-    )
+                            )
   {
     typedef A1 result_type;
     typedef A0 r_type;
@@ -120,9 +121,9 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
-                              , ((generic_< complex_< arithmetic_<A0> > >))
+                            , ((generic_< complex_< arithmetic_<A0> > >))
                               ((generic_< arithmetic_<A1> >))
-    )
+                            )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
@@ -131,9 +132,9 @@ namespace nt2 { namespace ext
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
-                              , ((generic_< dry_ < arithmetic_<A0> > >))
+                            , ((generic_< dry_ < arithmetic_<A0> > >))
                               ((generic_< complex_< arithmetic_<A1> > >))
-    )
+                            )
   {
     typedef A1 result_type;
     NT2_FUNCTOR_CALL(2)
@@ -142,9 +143,9 @@ namespace nt2 { namespace ext
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
-                              , ((generic_< complex_< arithmetic_<A0> > >))
+                            , ((generic_< complex_< arithmetic_<A0> > >))
                               ((generic_< dry_ < arithmetic_<A1> > >))
-    )
+                            )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
@@ -155,9 +156,9 @@ namespace nt2 { namespace ext
 
   // complex/imaginary
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
-                              , ((generic_< imaginary_< arithmetic_<A0> > >))
+                            , ((generic_< imaginary_< arithmetic_<A0> > >))
                               ((generic_< complex_< arithmetic_<A1> > >))
-    )
+                            )
   {
     typedef A1 result_type;
     typedef typename meta::as_real<A0>::type r_type;
@@ -188,9 +189,9 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
-                              , ((generic_< complex_< arithmetic_<A0> > >))
+                            , ((generic_< complex_< arithmetic_<A0> > >))
                               ((generic_< imaginary_< arithmetic_<A1> > >))
-    )
+                            )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
@@ -201,9 +202,9 @@ namespace nt2 { namespace ext
 
   // imaginary/real
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
-                              , ((generic_< arithmetic_<A0> >))
+                            , ((generic_< arithmetic_<A0> >))
                               ((generic_< imaginary_< arithmetic_<A1> > >))
-    )
+                            )
   {
     typedef typename meta::call < tag::multiplies_(A1, A0)>::type result_type;
     NT2_FUNCTOR_CALL(2)
@@ -213,9 +214,9 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
-                              , ((generic_< imaginary_< arithmetic_<A0> > >))
+                            , ((generic_< imaginary_< arithmetic_<A0> > >))
                               ((generic_< arithmetic_<A1> >))
-    )
+                            )
   {
 #ifdef BOOST_SIMD_NO_INVALIDS
     typedef A0 result_type;
@@ -242,9 +243,9 @@ namespace nt2 { namespace ext
 
   // imaginary/imaginary
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
-                              , ((generic_< imaginary_< arithmetic_<A0> > >))
+                            , ((generic_< imaginary_< arithmetic_<A0> > >))
                               ((generic_< imaginary_< arithmetic_<A1> > >))
-    )
+                            )
   {
 #ifdef BOOST_SIMD_NO_INVALIDS
     typedef typename meta::as_dry<A0>::type result_type;
@@ -265,9 +266,9 @@ namespace nt2 { namespace ext
   };
   // dry/dry
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
-                              , ((generic_< dry_< arithmetic_<A0> > >))
+                            , ((generic_< dry_< arithmetic_<A0> > >))
                               ((generic_< dry_< arithmetic_<A1> > >))
-    )
+                            )
   {
     typedef typename meta::as_dry<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
@@ -277,9 +278,9 @@ namespace nt2 { namespace ext
   };
   // dry/imaginary
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
-                              , ((generic_< dry_< arithmetic_<A0> > >))
+                            , ((generic_< dry_< arithmetic_<A0> > >))
                               ((generic_< imaginary_< arithmetic_<A1> > >))
-    )
+                            )
   {
     typedef typename meta::as_real<A0>::type r_type;
     typedef typename meta::call<tag::multiplies_(r_type, A1)>::type result_type;
@@ -290,9 +291,9 @@ namespace nt2 { namespace ext
   };
   // imaginary/dry
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
-                              , ((generic_< imaginary_< arithmetic_<A0> > >))
+                            , ((generic_< imaginary_< arithmetic_<A0> > >))
                               ((generic_< dry_< arithmetic_<A1> > >))
-    )
+                            )
   {
     typedef typename meta::as_real<A0>::type r_type;
     typedef typename meta::call<tag::multiplies_(r_type, A0)>::type result_type;
