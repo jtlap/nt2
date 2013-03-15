@@ -41,6 +41,7 @@
 #include <nt2/include/functions/repnum.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/average.hpp>
+#include <nt2/include/functions/globalany.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/simd/logical.hpp>
@@ -76,14 +77,15 @@ namespace nt2 { namespace ext
       nt2::table<index_type>  i(of_size(1, w));
       nt2::table<bindex_type> toiter = nt2::gt(ihi, nt2::oneplus(ilo));
       nt2::table<bvalue_type> ok;
-      bindex_type tmp =  nt2::any(toiter)(1);
-      while (bool(tmp)){
+      bindex_type tmp =  nt2::globalany(toiter);
+      while (bool(tmp))
+      {
         i =  nt2::if_else(toiter, nt2::average(ihi, ilo), i);
         ok =  nt2::gt(xx(first_index<1>(xx), i), xi);
         ihi = nt2::if_else(ok,i,ihi);
         ilo = nt2::if_else(ok,ilo,i);
         toiter =  nt2::gt(ihi, nt2::oneplus(ilo));
-        tmp = nt2::any(toiter)(1);
+        tmp = nt2::globalany(toiter);
       }
       return ilo;
     }
