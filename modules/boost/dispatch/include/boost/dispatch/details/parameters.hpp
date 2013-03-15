@@ -9,16 +9,14 @@
 #ifndef BOOST_DISPATCH_DETAILS_PARAMETERS_HPP_INCLUDED
 #define BOOST_DISPATCH_DETAILS_PARAMETERS_HPP_INCLUDED
 
-//==============================================================================
-// Maximum arity for meta-function
-//==============================================================================
+/// INTERNAL ONLY
+/// Maximum arity for meta-function
 #ifndef BOOST_DISPATCH_MAX_META_ARITY
 #define BOOST_DISPATCH_MAX_META_ARITY 12
 #endif
 
-//==============================================================================
-// Maximum arity for function calls
-//==============================================================================
+/// INTERNAL ONLY
+/// Maximum arity for function calls
 #ifndef BOOST_DISPATCH_MAX_ARITY
 #define BOOST_DISPATCH_MAX_ARITY 6
 #endif
