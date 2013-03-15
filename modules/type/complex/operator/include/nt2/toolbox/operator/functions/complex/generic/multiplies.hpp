@@ -12,31 +12,31 @@
 #include <nt2/toolbox/operator/functions/multiplies.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
-#include <nt2/include/functions/minus.hpp>
-#include <nt2/include/functions/plus.hpp>
 #include <nt2/include/functions/pure.hpp>
-#include <nt2/include/functions/any.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
+#include <nt2/include/functions/simd/any.hpp>
+#include <nt2/include/functions/simd/fma.hpp>
+#include <nt2/include/functions/simd/all.hpp>
+#include <nt2/include/functions/simd/is_nez.hpp>
+#include <nt2/include/functions/simd/is_invalid.hpp>
 #include <nt2/include/functions/logical_or.hpp>
 #include <nt2/include/functions/logical_and.hpp>
 #include <nt2/include/functions/logical_andnot.hpp>
-#include <nt2/include/functions/unary_minus.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/if_zero_else.hpp>
 #include <nt2/include/functions/if_else_zero.hpp>
 #include <nt2/include/functions/is_finite.hpp>
-#include <nt2/include/functions/is_nez.hpp>
-#include <nt2/include/functions/is_invalid.hpp>
+#include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/is_real.hpp>
 #include <nt2/include/functions/is_imag.hpp>
-#include <nt2/include/functions/simd/fma.hpp>
-#include <nt2/include/functions/all.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
-#include <nt2/include/functions/bitwise_cast.hpp>
 
 namespace nt2 { namespace ext
 {
