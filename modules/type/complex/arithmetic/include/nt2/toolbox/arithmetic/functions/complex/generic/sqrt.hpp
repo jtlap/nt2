@@ -32,15 +32,18 @@
 #include <nt2/include/functions/simd/plus.hpp>
 #include <nt2/include/functions/simd/sign.hpp>
 #include <nt2/include/functions/simd/all.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/include/constants/sqrt_2o_2.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/nan.hpp>
+#include <nt2/sdk/complex/hierarchy.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 
 namespace nt2 { namespace ext
 {
