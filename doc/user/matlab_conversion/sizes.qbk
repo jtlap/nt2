@@ -65,5 +65,7 @@ as Matlab does. However:
 
 # a scalar value can be affected to a table transforming it in a singleton matrix (i.e. 1x1)
 # a singleton matrix, can be affected to a scalar
+# however take care that NT2 is not prone to allow type mixity. For instance if you multiply a table
+  of `float` by a scalar, the scalar has to be a `float`.
 
 [endsect]

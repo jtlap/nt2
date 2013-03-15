@@ -5,7 +5,7 @@ Matlab has few predefined mathematical constants. __NT2__ a lot more.
 We urge to use __NT2__ constants whereever possible, they all begin with an upper case character,
 and need a type and are called as nullary template functions.
 
-In the following table `T` is the current data type and the __MATLAB__ defult corresponds to `double`.
+In the following table `T` is the current data type and the __MATLAB__ default corresponds to `double`.
 
 [table:id Mathematical constants
 [[__MATLAB__  ][ __NT2__             ][ Description                         ]]

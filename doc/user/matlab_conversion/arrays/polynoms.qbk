@@ -11,9 +11,9 @@
 [[`polyfit   `][`polyfit `][ Polynomial curve fitting                                                ]]
 [[`polyint   `][`polyint `][ Integrate polynomial analytically                                       ]]
 [[`polyval   `][`polyval `][ Polynomial evaluation                                                   ]]
-[[`polyvalm  `][`polyvalm`TODO][ Matrix polynomial evaluation                                            ]]
+[[`polyvalm  `][`polyvalm`][ Matrix polynomial evaluation                                            ]]
 [[`residue   `][`residue `TODO][ Convert between partial fraction expansion and polynomial coefficients  ]]
-[[`roots     `][`roots   `TODO][ Polynomial roots                                                        ]]
+[[`roots     `][`roots   `][ Polynomial roots                                                        ]]
 ]
 [endsect]
 

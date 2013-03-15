@@ -1,6 +1,6 @@
 [section Usual operators and functions]
 
-We will find here a catlogue of main __MATLAB__ mathematical functions and the equivalent in __NT2__
+We will find here a catalogue of main __MATLAB__ mathematical functions and the equivalent in __NT2__
 
 [note The rationale of this documentation is the following:
 
@@ -30,7 +30,7 @@ opertors do not exist in Matlab, we will not speak of them in this section see ?
 
 [section Elementary Mathematics]
 
-All these functions are "elementwise", they act as well on a scalar a table of scalars on an
+All these functions are "elementwise", they act as well on a scalar, a table of scalars or on an
 array expression of such, by mapping the usual function on each element.
 
 

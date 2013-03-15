@@ -7,9 +7,10 @@ choices are to be made in __NT2__, for instance:
 
 Will `*`  be used for matlab `*` or `.*` ?
 
-
-The choice is the following: using __NT2__ all operators are by default treated as elementwise and
-algebraic operators are replaced by function calls.
+The choice will in fact be linked to semantics.
+For instance using __NT2__ `table` which have a tableau semantic,
+all operators are by default treated as elementwise and
+algebraic operators (when they apply) are replaced by function calls.
 
 However classes can modify the meaning of an operator an the conditions of appliance, `*`,
 for instance can have a different semantic with `table`,`matrix` or `polynomials`.
@@ -18,12 +19,12 @@ Here we treat of the translation of __MATLAB__ operators on `table` or `expressi
 
 [table:id Arithmetic and algebraic operators
 [[__MATLAB__  ][ __NT2__             ][ Description                         ]]
-[[`ctranspose`][ `transconj`         ][ Complex conjugate transpose         ]]
+[[`ctranspose`][ `ctranspose`        ][ Complex conjugate transpose         ]]
 [[`minus`     ][ `-` or `minus`      ][ Minus                               ]]
 [[`mpower`    ][ `mpower`            ][ Matrix power                        ]]
 [[`plus`      ][ `+` or `plus`       ][ Plus                                ]]
 [[`times`     ][ `*` or `multiplies` ][ Array multiply                      ]]
-[[`transpos`e ][ `trans`             ][ Transpose                           ]]
+[[`transpose` ][ `transpose`         ][ Transpose                           ]]
 [[`uminus`    ][ `-` or `unary_minus`][ Unary minus                         ]]
 [[`uplus`     ][ `+` or `unary_plus` ][ Unary plus                          ]]
 [[`+`         ][ `+` or `plus`       ][ Addition                            ]]
@@ -34,8 +35,8 @@ Here we treat of the translation of __MATLAB__ operators on `table` or `expressi
 [[`^`         ][ `mpower`            ][ Matrix power                        ]]
 [[`\\`        ][ `mldivides`         ][ Backslash or left matrix divide     ]]
 [[`\/`        ][ `mrdivides`         ][ Slash or right matrix divide        ]]
-[[`''`        ][ `transconj`         ][ Transpose and conjugate             ]]
-[[`.''`       ][ `trans`             ][ Nonconjugated transpose             ]]
+[[`''`        ][ `ctranspose`        ][ Transpose and conjugate             ]]
+[[`.''`       ][ `transpose`         ][ Nonconjugated transpose             ]]
 [[`.*`        ][ `*` or `multiplies` ][ Array multiplication (element-wise) ]]
 [[`.^`        ][ `pow`               ][ Array power (element-wise)          ]]
 [[`.\`\`      ][ `rdivides`          ][ Left array divide (element-wise)    ]]
