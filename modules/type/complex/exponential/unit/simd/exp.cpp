@@ -15,20 +15,28 @@
 ///
 #include <nt2/include/functions/exp.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/atan2.hpp>
+#include <nt2/include/functions/unary_minus.hpp>
+#include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/extract.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/minf.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/pi.hpp>
+#include <nt2/include/constants/pio_2.hpp>
+#include <nt2/include/constants/mzero.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/mone.hpp>
+
+#include <nt2/toolbox/constant/common.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/dry.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>
-#include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
+
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 
 NT2_TEST_CASE_TPL ( exp_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {

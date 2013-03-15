@@ -8,17 +8,28 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_SQR_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_SQR_HPP_INCLUDED
+
 #include <nt2/toolbox/arithmetic/functions/sqr.hpp>
-#include <nt2/toolbox/constant/common.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
+#include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/is_real.hpp>
+#include <nt2/include/functions/is_imag.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/include/functions/simd/any.hpp>
-#include <nt2/include/functions/is_invalid.hpp>
+#include <nt2/include/functions/simd/is_invalid.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
+#include <nt2/include/functions/simd/logical_or.hpp>
+#include <nt2/include/functions/simd/logical_andnot.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/include/constants/two.hpp>
+#include <nt2/sdk/complex/hierarchy.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -46,8 +57,8 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqr_, tag::cpu_, (A0)
-                              , (generic_< imaginary_< arithmetic_<A0> > >)
-    )
+                            , (generic_< imaginary_< arithmetic_<A0> > >)
+                            )
   {
     typedef typename meta::as_real<A0>::type rtype;
     typedef typename meta::as_dry<rtype>::type result_type;
@@ -58,8 +69,8 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqr_, tag::cpu_, (A0)
-                              , (generic_< dry_< arithmetic_<A0> > >)
-    )
+                            , (generic_< dry_< arithmetic_<A0> > >)
+                            )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
