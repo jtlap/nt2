@@ -22,7 +22,7 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
+#include <boost/dispatch/meta/ignore_unused.hpp>
 
 
 NT2_TEST_CASE_TPL ( logical_not_integer__1_0,  BOOST_SIMD_INTEGRAL_TYPES)

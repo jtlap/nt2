@@ -31,12 +31,12 @@
 #include <nt2/sdk/unit/module.hpp>
 
 #include <nt2/toolbox/constant/constant.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
+#include <boost/dispatch/meta/ignore_unused.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/load.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
+#include <boost/dispatch/meta/ignore_unused.hpp>
 
 
 NT2_TEST_CASE_TPL ( select_real__3_0,  NT2_SIMD_REAL_TYPES)

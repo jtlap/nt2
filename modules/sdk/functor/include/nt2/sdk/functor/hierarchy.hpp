@@ -21,7 +21,7 @@
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <boost/type_traits/common_type.hpp>
 
-#include <boost/dispatch/details/ignore_unused.hpp>
+#include <boost/dispatch/meta/ignore_unused.hpp>
 
 namespace nt2
 {

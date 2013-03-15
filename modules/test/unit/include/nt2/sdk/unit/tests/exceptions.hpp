@@ -18,7 +18,7 @@
 #include <iostream>
 #include <nt2/sdk/unit/stats.hpp>
 #include <boost/dispatch/preprocessor/strip.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
+#include <boost/dispatch/meta/ignore_unused.hpp>
 
 /*!
   @brief Check exception being thrown

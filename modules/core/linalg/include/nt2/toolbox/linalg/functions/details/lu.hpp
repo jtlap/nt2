@@ -41,7 +41,7 @@
 #include <nt2/toolbox/linalg/details/lapack/getri.hpp>
 #include <nt2/toolbox/linalg/details/lapack/gesvx.hpp>
 #include <nt2/toolbox/linalg/details/lapack/lange.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
+#include <boost/dispatch/meta/ignore_unused.hpp>
 #include <nt2/core/container/table/table.hpp>
 
 // TODO:

@@ -31,7 +31,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
+#include <boost/dispatch/meta/ignore_unused.hpp>
 
 
 NT2_TEST_CASE_TPL ( ellint_2_real__1_0,  NT2_REAL_TYPES)

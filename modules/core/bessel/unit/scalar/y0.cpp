@@ -30,7 +30,7 @@ extern "C" {long double cephes_y0l(long double);}
 #include <nt2/sdk/unit/module.hpp>
 
 #include <nt2/toolbox/constant/constant.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
+#include <boost/dispatch/meta/ignore_unused.hpp>
 
 
 NT2_TEST_CASE_TPL ( y0_real__1_0,  NT2_REAL_TYPES)
