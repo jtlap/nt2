@@ -8,13 +8,11 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_COMPLEX_FUNCTIONS_GENERIC_PURE_HPP_INCLUDED
 #define NT2_TOOLBOX_COMPLEX_FUNCTIONS_GENERIC_PURE_HPP_INCLUDED
-#include <nt2/toolbox/complex/functions/pure.hpp>
-#include <nt2/toolbox/constant/common.hpp>
+
 #include <nt2/toolbox/complex/functions/pure.hpp>
 #include <nt2/include/constants/zero.hpp>
-#include <nt2/sdk/complex/imaginary.hpp>
+#include <nt2/sdk/complex/hierarchy.hpp>
 #include <nt2/sdk/complex/meta/as_imaginary.hpp>
-#include <nt2/sdk/complex/meta/as_dry.hpp>
 
 namespace nt2 { namespace ext
 {
