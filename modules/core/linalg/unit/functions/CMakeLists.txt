@@ -53,6 +53,8 @@ SET( SOURCES
   pei.cpp
   prolate.cpp
   qmult.cpp
+  randcolu.cpp
+#  randcorr.cpp
   randhess.cpp
   redheff.cpp
   riemann.cpp
