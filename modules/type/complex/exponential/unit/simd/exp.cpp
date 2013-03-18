@@ -28,7 +28,6 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/mone.hpp>
 
-#include <nt2/toolbox/constant/common.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/dry.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>

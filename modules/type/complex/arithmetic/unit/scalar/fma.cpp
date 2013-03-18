@@ -28,7 +28,6 @@
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/minf.hpp>
 
-#include <nt2/toolbox/constant/common.hpp>
 
 NT2_TEST_CASE_TPL ( fma_real__3_0, BOOST_SIMD_REAL_TYPES)
 {

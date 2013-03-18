@@ -19,7 +19,6 @@
 #include <boost/simd/include/native.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/toolbox/constant/common.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>

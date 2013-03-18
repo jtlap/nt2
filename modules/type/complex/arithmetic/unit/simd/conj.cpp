@@ -23,7 +23,6 @@
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/nan.hpp>
-#include <nt2/toolbox/constant/common.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/complex/meta/as_imaginary.hpp>

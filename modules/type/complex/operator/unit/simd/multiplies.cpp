@@ -16,7 +16,6 @@
 #include <nt2/include/functions/multiplies.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/extract.hpp>
-#include <nt2/toolbox/constant/common.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/one.hpp>

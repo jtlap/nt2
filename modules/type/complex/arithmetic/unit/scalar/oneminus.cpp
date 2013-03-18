@@ -25,7 +25,6 @@
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/two.hpp>
-#include <nt2/toolbox/constant/common.hpp>
 
 NT2_TEST_CASE_TPL ( oneminus_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {

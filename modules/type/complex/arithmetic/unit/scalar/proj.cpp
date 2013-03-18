@@ -21,7 +21,6 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/complex/meta/as_imaginary.hpp>
-#include <nt2/toolbox/constant/common.hpp>
 
 NT2_TEST_CASE_TPL ( proj_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {

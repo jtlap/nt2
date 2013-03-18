@@ -25,7 +25,6 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/minf.hpp>
-#include <nt2/toolbox/constant/common.hpp>
 
 NT2_TEST_CASE_TPL ( is_eqz_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {

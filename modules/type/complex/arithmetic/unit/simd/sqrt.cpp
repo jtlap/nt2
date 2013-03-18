@@ -17,7 +17,6 @@
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/extract.hpp>
 #include <nt2/include/functions/unary_minus.hpp>
-#include <nt2/toolbox/constant/common.hpp>
 #include <nt2/include/constants/cnan.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/one.hpp>
