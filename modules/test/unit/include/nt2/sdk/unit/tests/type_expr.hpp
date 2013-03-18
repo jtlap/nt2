@@ -113,29 +113,25 @@
   @usage
   @include test_type_is.cpp
 **/
-#define NT2_TEST_TYPE_IS(T, Type)                                       \
-{                                                                       \
-  nt2::unit::test_count()++;                                            \
-  std::cout << " * Test type   `"                                       \
-            << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(T)) << "`\n"    \
-            << "          is   `"                                       \
-            << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Type)) << "`\n" \
-            << "         aka   `"                                       \
-            << nt2::type_id<BOOST_DISPATCH_PP_STRIP(Type)>() << "`\n";  \
-  if(boost::is_same < BOOST_DISPATCH_PP_STRIP(Type)                     \
-                    , BOOST_DISPATCH_PP_STRIP(T)                        \
-                    >::value                                            \
-    )                                                                   \
-  {                                                                     \
-    std::cout << " **passed**\n\n";                                     \
-  }                                                                     \
-  else                                                                  \
-  {                                                                     \
-    nt2::unit::error_count()++;                                         \
-    std::cout << " **failed** is `"                                     \
-              << nt2::type_id<BOOST_DISPATCH_PP_STRIP(T)>()             \
-              << "`\n\n";                                               \
-  }                                                                     \
-}                                                                       \
+#define NT2_TEST_TYPE_IS(T, Type)                                              \
+{                                                                              \
+  nt2::unit::test_count()++;                                                   \
+  std::cout << " * Test type   `"                                              \
+            << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(T)) << "`\n"           \
+            << "          is   `"                                              \
+            << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Type)) << "`\n"        \
+            << "         aka   `"                                              \
+            << nt2::type_id<BOOST_DISPATCH_PP_STRIP(Type)>() << "`\n";         \
+                                                                               \
+   nt2::details::                                                              \
+   check_type_equality< BOOST_DISPATCH_PP_STRIP(Type)                          \
+                      , BOOST_DISPATCH_PP_STRIP(T)                             \
+                      >( boost::mpl::bool_                                     \
+                         < boost::is_same< BOOST_DISPATCH_PP_STRIP(Type)       \
+                                         , BOOST_DISPATCH_PP_STRIP(T)          \
+                                         >::value                              \
+                         >()                                                   \
+                       );                                                      \
+}                                                                              \
 
 #endif

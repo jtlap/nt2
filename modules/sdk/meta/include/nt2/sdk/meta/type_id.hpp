@@ -14,6 +14,7 @@
 * @brief Defines types to string conversion utility functions
 **/
 #include <nt2/sdk/meta/details/demangle.hpp>
+#include <boost/mpl/bool.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/is_reference.hpp>
 #include <boost/type_traits/remove_reference.hpp>
@@ -44,11 +45,12 @@ namespace nt2
   **/
   template<typename T> inline std::string type_id()
   {
+    typedef boost::is_const<typename boost::remove_reference<T>::type>  const_t;
+    typedef boost::is_reference<T>                                      ref_t;
+
     std::string s = details::demangle(typeid(T).name());
-    if(boost::is_const<typename boost::remove_reference<T>::type>::value)
-      s += " const";
-    if(boost::is_reference<T>::value)
-      s += "&";
+    details::add_const(s, boost::mpl::bool_<const_t::value>());
+    details::add_ref(s, boost::mpl::bool_<ref_t::value>());
     return s;
   }
 

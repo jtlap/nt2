@@ -12,6 +12,7 @@
 
 #include <nt2/sdk/meta/type_id.hpp>
 #include <boost/mpl/apply.hpp>
+#include <boost/mpl/bool.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/type_traits/is_same.hpp>
 
@@ -40,6 +41,21 @@ namespace nt2 { namespace details
   template<class T> std::string type_id_identity(T const&)
   {
     return nt2::type_id<typename T::type>();
+  }
+
+  /// INTERNAL ONLY - Remove MSVC W4 spurrious warning
+  template<class Type, class Target> inline void
+  check_type_equality( boost::mpl::true_ const& )
+  {
+    std::cout << " **passed**\n\n";
+  }
+
+  /// INTERNAL ONLY - Remove MSVC W4 spurrious warning
+  template<class Type, class Target> inline void
+  check_type_equality( boost::mpl::false_ const& )
+  {
+    nt2::unit::error_count()++;
+    std::cout << " **failed** is `" << nt2::type_id<Target>() << "`\n\n";
   }
 } }
 

@@ -43,6 +43,27 @@ namespace nt2 {  namespace details
     return out;
     #endif
   }
+  /// INTERNAL ONLY
+  /// Prevent spurrious warning on MSVC
+  inline void add_const(std::string& s, boost::mpl::true_ const&)
+  {
+    s += " const";
+  }
+
+  /// INTERNAL ONLY
+  /// Prevent spurrious warning on MSVC
+  inline void add_ref(std::string& s, boost::mpl::true_ const&)
+  {
+    s += "&";
+  }
+
+  /// INTERNAL ONLY
+  /// Prevent spurrious warning on MSVC
+  inline void add_const(std::string&, boost::mpl::false_ const&) {}
+
+  /// INTERNAL ONLY
+  /// Prevent spurrious warning on MSVC
+  inline void add_ref(std::string&, boost::mpl::false_ const&) {}
 } }
 
 #endif
