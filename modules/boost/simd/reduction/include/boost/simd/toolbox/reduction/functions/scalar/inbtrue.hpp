@@ -10,9 +10,9 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_INBTRUE_HPP_INCLUDED
 
 #include <boost/simd/toolbox/reduction/functions/inbtrue.hpp>
+#include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/include/functions/is_nez.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
