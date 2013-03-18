@@ -23,8 +23,8 @@
 #include <nt2/include/constants/zero.hpp>
 
 #include <nt2/sdk/complex/complex.hpp>
-#include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_imaginary.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
 
 NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
