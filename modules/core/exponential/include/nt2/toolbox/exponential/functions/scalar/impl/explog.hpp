@@ -15,13 +15,11 @@
 #include <nt2/core/numeric/functions/details/scalar/impl/explog/d_expo_reduction.hpp>
 #include <nt2/core/numeric/functions/details/scalar/impl/explog/expo_finalization.hpp>
 #include <nt2/core/numeric/functions/details/scalar/impl/explog/expo_base.hpp>
-
-// #include <nt2/core/numeric/functions/details/scalar/impl/explog/f_log_approximation.hpp>
-// #include <nt2/core/numeric/functions/details/scalar/impl/explog/f_log_finalization.hpp>
-// #include <nt2/core/numeric/functions/details/scalar/impl/explog/d_log_approximation.hpp>
-// #include <nt2/core/numeric/functions/details/scalar/impl/explog/d_log_finalization.hpp>
-// #include <nt2/core/numeric/functions/details/scalar/impl/explog/log_base.hpp>
 #include <nt2/core/numeric/functions/details/scalar/impl/explog/f_log.hpp>  //TO DO
-namespace impl = nt2::details::internal;
+
+namespace nt2
+{
+  namespace impl = nt2::details::internal;
+}
 
 #endif

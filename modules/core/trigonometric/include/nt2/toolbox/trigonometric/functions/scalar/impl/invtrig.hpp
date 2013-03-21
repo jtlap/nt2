@@ -16,7 +16,10 @@
 #include <nt2/toolbox/trigonometric/functions/scalar/impl/invtrig/f_invtrig.hpp>
 #include <nt2/toolbox/trigonometric/functions/scalar/impl/invtrig/d_invtrig.hpp>
 
-namespace impl = nt2::details::internal;
+namespace nt2
+{
+  namespace impl = nt2::details::internal;
+}
 
 
 #endif

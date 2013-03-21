@@ -15,6 +15,10 @@
 #include <nt2/toolbox/exponential/functions/scalar/impl/selection_tags.hpp>
 #include <nt2/toolbox/exponential/functions/scalar/impl/logs/f_log.hpp>
 #include <nt2/toolbox/exponential/functions/scalar/impl/logs/d_log.hpp>
-namespace impl = nt2::details::internal;
+namespace nt2
+{
+  namespace impl = nt2::details::internal;
+}
+
 
 #endif
