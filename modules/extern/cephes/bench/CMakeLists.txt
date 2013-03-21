@@ -11,5 +11,5 @@
 ##*     Toolbox cephes bench tests
 ##****************************************************************************
 
-nt2_module_use_modules(test.unit)
+nt2_module_use_modules(test.benchmark)
 ADD_SUBDIRECTORY(scalar)

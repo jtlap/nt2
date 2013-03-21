@@ -12,6 +12,7 @@
 // timing Test behavior of boost_math components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/boost_math/include/functions/ellint3_3.hpp>
+#include <nt2/include/constants/pi.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
