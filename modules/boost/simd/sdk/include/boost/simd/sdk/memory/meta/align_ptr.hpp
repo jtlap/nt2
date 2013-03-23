@@ -86,7 +86,7 @@ struct align_ptr<T,n>                                                          \
                                                                                \
   static type value(T* const pointer)                                          \
   {                                                                            \
-    __assume(pointer % n == 0);                                                \
+    __assume((std::size_t)(pointer) % n == 0);                                 \
     return static_cast<type>(pointer);                                         \
   }                                                                            \
 };                                                                             \
