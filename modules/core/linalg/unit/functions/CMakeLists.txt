@@ -54,7 +54,7 @@ SET( SOURCES
   prolate.cpp
   qmult.cpp
   randcolu.cpp
-#  randcorr.cpp
+  randcorr.cpp
   randhess.cpp
   redheff.cpp
   riemann.cpp
