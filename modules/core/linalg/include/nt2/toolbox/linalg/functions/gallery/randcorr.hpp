@@ -60,7 +60,6 @@ namespace nt2 { namespace ext
       nt2::table<v_t> x0 =  nt2::rand(size_t(1), size_t(n), T());
       v_t f = v_t(n)/nt2::globalsum(x0);
       x0 *= f;
-      NT2_DISPLAY(x0);
       return nt2::randcorr(x0, size_t(n), size_t(k));
     }
   };
@@ -103,7 +102,6 @@ namespace nt2 { namespace ext
                        "x elements must be strictly  positive");
       BOOST_ASSERT_MSG(nt2::abs(nt2::globalsum(x0)-value_t(numel(x0))) <= value_t(100)*nt2::Eps<value_t>(),
                        "x norm must be length(x)");
-      NT2_DISPLAY(x0);
       return  boost::proto::
         make_expr<nt2::tag::randcorr_, container::domain>
         (boost::cref(x0)
@@ -150,12 +148,7 @@ namespace nt2 { namespace ext
       size_t k = boost::proto::child_c<1>(in);
       size_t m = boost::proto::child_c<2>(in);
       size_t n = numel(x);
-      NT2_DISPLAY(x);
-      NT2_DISPLAY(nt2::from_diag(x));
-      NT2_DISPLAY(nt2::expand(nt2::from_diag(x), nt2::of_size(m, n)));
-
       BOOST_AUTO_TPL(a, nt2::expand(nt2::from_diag(x), nt2::of_size(m, n)));
-      NT2_DISPLAY(a);
       tab_t aa;
       if (!k)
       {
@@ -166,14 +159,11 @@ namespace nt2 { namespace ext
       {
         aa = a;
       }
-      NT2_DISPLAY(aa);
       do
       {
         tab_t diaga = nt2::diag_of(aa);
         nt2::table<size_t> y = nt2::find(nt2::lt(diaga, nt2::One<value_t>()));
         nt2::table<size_t> z = nt2::find(nt2::gt(diaga, nt2::One<value_t>()));
-//         NT2_DISPLAY(aa);
-//         NT2_DISPLAY(diaga);
         if(nt2::isempty(y) || nt2::isempty(z)) break;
         size_t i = y(nt2::iceil(nt2::rand(nt2::meta::as_<value_t>())*nt2::numel(y)));
         size_t j = z(nt2::iceil(nt2::rand(nt2::meta::as_<value_t>())*nt2::numel(z)));
