@@ -12,30 +12,39 @@
 #include <nt2/core/settings/option.hpp>
 #include <nt2/sdk/memory/fixed_allocator.hpp>
 #include <nt2/core/settings/storage_duration.hpp>
+#include <boost/dispatch/meta/value_of.hpp>
 
 namespace nt2
 {
-  //============================================================================
-  // When container shares memory, use a dynamic_ buffer with a fixed_allocator
-  //============================================================================
+  /*!
+    @brief Memory ownership tag representing shared memory
+
+    This tag indicates that current Container shares its memory with an
+    external source to which it delegates the memory handling (including clean
+    up of said memory).
+  **/
   struct shared_
   {
-    template<class T, class S> struct apply
+    template<class Container> struct apply
     {
-      typedef allocator_< memory::fixed_allocator<T> >              alloc_t;
-      typedef typename dynamic_::template apply<T,S,alloc_t>::type  type;
+      typedef typename boost::dispatch::meta::value_of<Container>::type value_t;
+      typedef memory::fixed_allocator<value_t>                          alloc_t;
+      typedef typename dynamic_::apply<Container,alloc_t>::type         type;
     };
   };
 
-  //============================================================================
-  // When memory is owned by the container, buffer dependd on storage_duration
-  //============================================================================
+  /*!
+    @brief Memory ownership tag representing owned memory
+
+    This tag indicates that current Container owns its own memory and
+    handles it on its own, including clean-up of said memory.
+  **/
   struct owned_
   {
-    template<class T, class S> struct apply
+    template<class Container> struct apply
     {
-      typedef typename meta::option<S,tag::storage_duration_>::type sd_t;
-      typedef typename sd_t::template apply<T,S>::type              type;
+      typedef typename meta::option<Container,tag::storage_duration_>::type sd_t;
+      typedef typename sd_t::template apply<Container>::type                type;
     };
   };
 }

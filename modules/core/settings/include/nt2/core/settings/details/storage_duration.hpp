@@ -12,81 +12,74 @@
 #include <nt2/core/settings/size.hpp>
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/allocator.hpp>
-#include <nt2/sdk/memory/array_buffer.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/sdk/memory/array_buffer.hpp>
+#include <nt2/sdk/memory/forward/container.hpp>
 #include <nt2/sdk/meta/make_aligned_allocator.hpp>
-#include <boost/mpl/fold.hpp>
-#include <boost/mpl/times.hpp>
+#include <boost/dispatch/meta/value_of.hpp>
 #include <boost/mpl/size_t.hpp>
 #include <boost/mpl/assert.hpp>
+#include <boost/mpl/times.hpp>
+#include <boost/mpl/fold.hpp>
 
 namespace nt2
 {
-  //============================================================================
    /*!
     * Default storage duration settings.
    **/
-  //============================================================================
   struct dynamic_
   {
-    //==========================================================================
-    // If specified, use Alloc as an allocator
-    //==========================================================================
-    template<typename T, typename S, typename Alloc = void> struct apply
+    template<typename Container, typename Alloc = void> struct apply
     {
-      //========================================================================
-      // Make the allocator aligned if needed
-      //========================================================================
-      typedef typename
-              meta::make_aligned_allocator<typename Alloc::type>::type alloc_t;
-
-      //========================================================================
-      // Make me an buffer sandwich with a proper allocator
-      //========================================================================
-      typedef typename alloc_t::template rebind<T>::other allocator_type;
-      typedef memory::buffer<T,allocator_type>            type;
+      /*
+        We build a buffer using Container value_type and a potentially
+        adapted allocator
+      */
+      typedef typename boost::dispatch::meta::value_of<Container>::type value_t;
+      typedef typename meta::make_aligned_allocator<Alloc>::type        alloc_t;
+      typedef typename alloc_t::template rebind<value_t>::other     allocator_t;
+      typedef memory::buffer<value_t,allocator_t>                   type;
     };
 
-    //==========================================================================
-    // By default, ask for the settings allocator type
-    //==========================================================================
-    template<typename T, typename S> struct apply<T,S>
+    /// INTERNAL ONLY
+    template<typename Container> struct apply<Container>
     {
-      typedef typename meta::option<S,tag::allocator_>::type  allocator_type;
-      typedef typename apply<T,S,allocator_type>::type        type;
+      // If no allocator is specified, we compute the one from the options
+      typedef typename meta::option<Container, tag::allocator_>::type alloc_t;
+      typedef typename apply<Container,alloc_t>::type                 type;
     };
   };
 
-  //============================================================================
   // When using automatic memory, we rely on array_buffer to store our data
-  //============================================================================
   struct automatic_
   {
-    template <typename T, typename S, typename D = void>
+    template <typename Container, typename D = void>
     struct apply
     {
-      typedef typename meta::option<S,tag::of_size_>::type  size_;
+      // TODO: make this capacity_ and have capicity_ default be current of_size_
+      // so we can fix Issue #390
 
-      //========================================================================
-      // If you trigger this assertion, you specified an automatic storage for
-      // a container with a dynamic size. Check your container settings.
-      //========================================================================
+      typedef typename meta::option<Container, tag::of_size_>::type size_;
+
+      //*************************** STATIC ASSERT ****************************//
+      //         Automatic storage option have been set for a container       //
+      //          with a dynamic size. Check your container settings.         //
+      //*************************** STATIC ASSERT ****************************//
       BOOST_MPL_ASSERT_MSG
       ( (size_::static_status)
       , SETTINGS_MISMATCH_AUTOMATIC_STORAGE_REQUESTED_WITH_DYNAMIC_SIZES
       , (size_)
       );
 
-      //========================================================================
-      // Make me an array_buffer sandwich of proper size
-      //========================================================================
+      /// INTERNAL ONLY Compute total size
       typedef typename boost::mpl::fold < typename size_::values_type
                                         , boost::mpl::size_t<1>
                                         , boost::mpl::times < boost::mpl::_1
                                                             , boost::mpl::_2
                                                             >
-                                        >::type           dims_t;
-      typedef memory::array_buffer<T,dims_t>              type;
+                                        >::type                         dims_t;
+      typedef typename boost::dispatch::meta::value_of<Container>::type value_t;
+      typedef memory::array_buffer<value_t,dims_t>                      type;
     };
   };
 }

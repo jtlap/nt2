@@ -10,19 +10,22 @@
 #define NT2_CORE_SETTINGS_SEMANTIC_HPP_INCLUDED
 
 #include <nt2/core/settings/forward/semantic.hpp>
-#include <nt2/core/settings/option.hpp>
 
-namespace nt2
+namespace nt2 { namespace tag
 {
-  namespace tag { struct table_; }
-
-  namespace meta
+  struct semantic_
   {
-    template<class Default> struct option<tag::table_, tag::semantic_, Default>
-    {
-      typedef tag::table_ type;
-    };
-  }
-}
+    template<class T, class Dummy = void>
+    struct apply : boost::mpl::false_
+    {};
+
+    typedef nt2::no_semantic_ default_type;
+  };
+
+  template<class Dummy>
+  struct semantic_::apply<nt2::no_semantic_, Dummy>
+                      : boost::mpl::true_
+  {};
+} }
 
 #endif

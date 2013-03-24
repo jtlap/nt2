@@ -6,87 +6,137 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2::settings buffer is an option"
-
 #include <nt2/core/settings/buffer.hpp>
 #include <nt2/core/settings/settings.hpp>
-
+#include <nt2/sdk/memory/buffer.hpp>
+#include "local_semantic.hpp"
+#include <vector>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
-//==============================================================================
-// Pass some buffer_ as an option
-//==============================================================================
-NT2_TEST_CASE( buffer_ )
+NT2_TEST_CASE( buffer_concept )
 {
-  using nt2::buffer_;
+  using std::vector;
+  using nt2::built_in_;
   using boost::mpl::_;
   using nt2::meta::option;
+  using nt2::meta::match_option;
   using nt2::memory::buffer;
 
-  NT2_TEST_EXPR_TYPE( buffer_<>()
-                    , (option< _, nt2::tag::buffer_>)
-                    , (buffer_<>)
+  NT2_TEST( (match_option< built_in_  , nt2::tag::buffer_>::value) );
+  NT2_TEST( (match_option< vector<int>, nt2::tag::buffer_>::value) );
+}
+
+NT2_TEST_CASE( single_buffer_ )
+{
+  using nt2::built_in_;
+  using nt2::meta::option;
+  using std::vector;
+  using boost::mpl::_;
+
+  NT2_TEST_EXPR_TYPE( built_in_()
+                    , (option< _, nt2::tag::buffer_, some_semantic_>)
+                    , (built_in_)
                     );
 
-  NT2_TEST_EXPR_TYPE( (buffer_< buffer<int> >() )
-                    , (option< _, nt2::tag::buffer_>)
-                    , (buffer_< buffer<int> >)
+  NT2_TEST_EXPR_TYPE( vector<int>()
+                    , (option< _, nt2::tag::buffer_, some_semantic_>)
+                    , (std::vector<int>)
                     );
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Pass some buffer_ as default and check everythign go out properly
-////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE( buffer_default )
 {
-  using nt2::buffer_;
-  using nt2::memory::buffer;
+  using nt2::built_in_;
   using nt2::meta::option;
+  using std::vector;
   using boost::mpl::_;
+  using nt2::settings;
 
-  NT2_TEST_EXPR_TYPE( buffer_<>()
-                    , (option< void, nt2::tag::buffer_,_>)
-                    , (buffer_<>)
-                    );
+  NT2_TEST_TYPE_IS( (option < settings()
+                            , nt2::tag::buffer_
+                            , some_semantic_
+                            >::type
+                    )
+                  , built_in_
+                  );
 
-  NT2_TEST_EXPR_TYPE( (buffer_< buffer<int> >())
-                    , (option< void, nt2::tag::buffer_,_>)
-                    , (buffer_< buffer<int> >)
-                    );
+  NT2_TEST_TYPE_IS( (option < settings(int,void*)
+                            , nt2::tag::buffer_
+                            , some_semantic_
+                            >::type
+                    )
+                  , built_in_
+                  );
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Pass some buffer_ as a setting
-////////////////////////////////////////////////////////////////////////////////
-nt2::settings s_no_buffer(nt2::buffer_<>)
+NT2_TEST_CASE( single_settings_buffer_ )
 {
-  return nt2::settings();
-}
-
-nt2::settings s_int_buffer(nt2::buffer_< nt2::memory::buffer<int> >)
-{
-  return nt2::settings();
-}
-
-NT2_TEST_CASE( setting_buffer_ )
-{
-  using nt2::buffer_;
+  using std::vector;
   using nt2::settings;
   using nt2::meta::option;
   using boost::mpl::_;
-  using nt2::memory::buffer;
 
-  NT2_TEST_EXPR_TYPE( (s_no_buffer)
-                    , (option<_ , nt2::tag::buffer_>)
-                    , (buffer_<>)
-                    );
+  NT2_TEST_TYPE_IS( (option < settings(vector<float>)
+                            , nt2::tag::buffer_
+                            , some_semantic_
+                            >::type
+                    )
+                  , (vector<float>)
+                  );
+}
 
-  NT2_TEST_EXPR_TYPE( s_int_buffer
-                    , (option<_ , nt2::tag::buffer_>)
-                    , (buffer_< buffer<int> >)
-                    );
+NT2_TEST_CASE( multi_settings_buffer_ )
+{
+  using std::vector;
+  using nt2::settings;
+  using nt2::meta::option;
+  using boost::mpl::_;
+
+  NT2_TEST_TYPE_IS( (option < settings(vector<float>,vector<int>)
+                            , nt2::tag::buffer_
+                            , some_semantic_
+                            >::type
+                    )
+                  , vector<float>
+                  );
+
+  NT2_TEST_TYPE_IS( (option < settings(vector<int>,vector<float>)
+                            , nt2::tag::buffer_
+                            , some_semantic_
+                            >::type
+                    )
+                  , vector<int>
+                  );
+}
+
+NT2_TEST_CASE( nested_settings_buffer_ )
+{
+  using std::vector;
+  using nt2::settings;
+  using nt2::meta::option;
+  using boost::mpl::_;
+
+  NT2_TEST_TYPE_IS( (option < settings( settings(void*,int)
+                                      , settings(vector<int>,vector<float>)
+                                      )
+                            , nt2::tag::buffer_
+                            , some_semantic_
+                            >::type
+                    )
+                  , vector<int>
+                  );
+
+  NT2_TEST_TYPE_IS( (option < settings( settings(void*,int)
+                                      , settings(vector<float>,vector<int>)
+                                      )
+                            , nt2::tag::buffer_
+                            , some_semantic_
+                            >::type
+                    )
+                  , vector<float>
+                  );
 }

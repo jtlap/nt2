@@ -1,105 +1,175 @@
 //==============================================================================
-//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2::storage_order "
-
+#include <nt2/core/settings/option.hpp>
+#include <nt2/core/settings/settings.hpp>
 #include <nt2/core/settings/storage_order.hpp>
-#include <nt2/sdk/meta/permute_view.hpp>
-
-#include <boost/array.hpp>
-#include <boost/fusion/adapted/array.hpp>
+#include "local_semantic.hpp"
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// storage order apply
-////////////////////////////////////////////////////////////////////////////////
-template<class T, class U>
-struct matlab_apply_ : nt2::matlab_order_::apply<T, U> {};
+#include <nt2/sdk/meta/permute_view.hpp>
+#include <boost/fusion/adapted/array.hpp>
+#include <boost/array.hpp>
 
 template<class T, class U>
-struct fortran_apply_ : nt2::fortran_order_::apply<T, U> {};
+struct column_major_apply_ : nt2::column_major_::apply<T, U> {};
 
 template<class T, class U>
-struct C_apply_ : nt2::C_order_::apply<T, U> {};
+struct row_major_apply_ : nt2::row_major_::apply<T, U> {};
 
-NT2_TEST_CASE( storage_order_apply)
+NT2_TEST_CASE( storage_order_concept )
 {
-  using boost::mpl::apply;
-  using nt2::matlab_order_;
-  using nt2::fortran_order_;
-  using nt2::C_order_;
+  using nt2::meta::option;
+  using nt2::meta::match_option;
+  using boost::mpl::size_t;
   using boost::mpl::_;
 
-  typedef boost::mpl::size_t<4> size;
-  typedef boost::mpl::size_t<0> dim_0;
-  typedef boost::mpl::size_t<1> dim_1;
-  typedef boost::mpl::size_t<2> dim_2;
-  typedef boost::mpl::size_t<3> dim_3;
+  {
+    typedef option<nt2::column_major_, nt2::tag::storage_order_, some_semantic_> opt;
+    NT2_TEST( (match_option< nt2::column_major_, nt2::tag::storage_order_ >::value) );
+    NT2_TEST_EXPR_TYPE((size_t<0>()),(column_major_apply_<size_t<4>,_>),(size_t<0>));
+    NT2_TEST_EXPR_TYPE((size_t<1>()),(column_major_apply_<size_t<4>,_>),(size_t<1>));
+    NT2_TEST_EXPR_TYPE((size_t<2>()),(column_major_apply_<size_t<4>,_>),(size_t<2>));
+    NT2_TEST_EXPR_TYPE((size_t<3>()),(column_major_apply_<size_t<4>,_>),(size_t<3>));
+  }
 
-  //////////////////////////////////////////////////////////////////////////////
-  // matlab_storage order
-  //////////////////////////////////////////////////////////////////////////////
-  NT2_TEST_EXPR_TYPE((dim_0()),(C_apply_<size,_>),(boost::mpl::size_t<3>));
-  NT2_TEST_EXPR_TYPE((dim_1()),(C_apply_<size,_>),(boost::mpl::size_t<2>));
-  NT2_TEST_EXPR_TYPE((dim_2()),(C_apply_<size,_>),(boost::mpl::size_t<1>));
-  NT2_TEST_EXPR_TYPE((dim_3()),(C_apply_<size,_>),(boost::mpl::size_t<0>));
+  {
+    typedef option<nt2::row_major_, nt2::tag::storage_order_, some_semantic_> opt;
 
-  //////////////////////////////////////////////////////////////////////////////
-  // fortran_storage order
-  //////////////////////////////////////////////////////////////////////////////
-  NT2_TEST_EXPR_TYPE((dim_0()),(fortran_apply_<size,_>),(boost::mpl::size_t<0>));
-  NT2_TEST_EXPR_TYPE((dim_1()),(fortran_apply_<size,_>),(boost::mpl::size_t<1>));
-  NT2_TEST_EXPR_TYPE((dim_2()),(fortran_apply_<size,_>),(boost::mpl::size_t<2>));
-  NT2_TEST_EXPR_TYPE((dim_3()),(fortran_apply_<size,_>),(boost::mpl::size_t<3>));
-
-  //////////////////////////////////////////////////////////////////////////////
-  // C_storage order
-  //////////////////////////////////////////////////////////////////////////////
-  NT2_TEST_EXPR_TYPE((dim_0()),(matlab_apply_<size,_>),(boost::mpl::size_t<0>));
-  NT2_TEST_EXPR_TYPE((dim_1()),(matlab_apply_<size,_>),(boost::mpl::size_t<1>));
-  NT2_TEST_EXPR_TYPE((dim_2()),(matlab_apply_<size,_>),(boost::mpl::size_t<2>));
-  NT2_TEST_EXPR_TYPE((dim_3()),(matlab_apply_<size,_>),(boost::mpl::size_t<3>));
+    NT2_TEST( (match_option< nt2::row_major_, nt2::tag::storage_order_ >::value) );
+    NT2_TEST_EXPR_TYPE((size_t<0>()),(row_major_apply_<size_t<4>,_>),(size_t<3>));
+    NT2_TEST_EXPR_TYPE((size_t<1>()),(row_major_apply_<size_t<4>,_>),(size_t<2>));
+    NT2_TEST_EXPR_TYPE((size_t<2>()),(row_major_apply_<size_t<4>,_>),(size_t<1>));
+    NT2_TEST_EXPR_TYPE((size_t<3>()),(row_major_apply_<size_t<4>,_>),(size_t<0>));
+  }
 }
 
-NT2_TEST_CASE( storage_order_permute_view )
+NT2_TEST_CASE( single_storage_order_ )
 {
-  using boost::array;
-  using nt2::meta::permute_view;
-  using nt2::matlab_order_;
-  using nt2::C_order_;
-  using nt2::fortran_order_;
-  using boost::fusion::at_c;
+  using nt2::column_major_;
+  using nt2::row_major_;
+  using nt2::meta::option;
+  using boost::mpl::_;
 
-  typedef const boost::array<std::size_t,4> Seq;
-  Seq sizes = {{5,2,4,3}};
+  NT2_TEST_EXPR_TYPE( (column_major_())
+                      ,(option< _, nt2::tag::storage_order_, some_semantic_>)
+                      ,(column_major_)
+                      );
 
-  permute_view<Seq,C_order_> C_permuted(sizes);
+  NT2_TEST_EXPR_TYPE( (row_major_())
+                      ,(option< _, nt2::tag::storage_order_, some_semantic_>)
+                      ,(row_major_)
+                      );
+}
 
-  NT2_TEST_EQUAL( at_c<0>(sizes), at_c<3>(C_permuted));
-  NT2_TEST_EQUAL( at_c<1>(sizes), at_c<2>(C_permuted));
-  NT2_TEST_EQUAL( at_c<2>(sizes), at_c<1>(C_permuted));
-  NT2_TEST_EQUAL( at_c<3>(sizes), at_c<0>(C_permuted));
+NT2_TEST_CASE( storage_order_default )
+{
+  using nt2::column_major_;
+  using nt2::row_major_;
+  using nt2::settings;
+  using nt2::meta::option;
 
-  permute_view<Seq,matlab_order_> matlab_permuted(sizes);
+  NT2_TEST_TYPE_IS( (option < settings()
+                            , nt2::tag::storage_order_
+                            , some_semantic_
+                            >::type
+                    )
+                  , column_major_
+                  );
 
-  NT2_TEST_EQUAL( at_c<0>(sizes), at_c<0>(matlab_permuted));
-  NT2_TEST_EQUAL( at_c<1>(sizes), at_c<1>(matlab_permuted));
-  NT2_TEST_EQUAL( at_c<2>(sizes), at_c<2>(matlab_permuted));
-  NT2_TEST_EQUAL( at_c<3>(sizes), at_c<3>(matlab_permuted));
+  NT2_TEST_TYPE_IS( (option < settings(int,void*)
+                            , nt2::tag::storage_order_
+                            , some_semantic_
+                            >::type
+                    )
+                  , column_major_
+                  );
+}
 
-  permute_view<Seq,fortran_order_> fortran_permuted(sizes);
+NT2_TEST_CASE( single_settings_storage_order_ )
+{
+  using nt2::column_major_;
+  using nt2::row_major_;
+  using nt2::settings;
+  using nt2::meta::option;
+  using boost::mpl::_;
 
-  NT2_TEST_EQUAL( at_c<0>(sizes), at_c<0>(fortran_permuted));
-  NT2_TEST_EQUAL( at_c<1>(sizes), at_c<1>(fortran_permuted));
-  NT2_TEST_EQUAL( at_c<2>(sizes), at_c<2>(fortran_permuted));
-  NT2_TEST_EQUAL( at_c<3>(sizes), at_c<3>(fortran_permuted));
+  NT2_TEST_TYPE_IS( (option < settings(column_major_)
+                            , nt2::tag::storage_order_
+                            , some_semantic_
+                            >::type
+                    )
+                  , (column_major_)
+                  );
+
+  NT2_TEST_TYPE_IS( (option < settings(row_major_)
+                            , nt2::tag::storage_order_
+                            , some_semantic_
+                            >::type
+                    )
+                  , (row_major_)
+                  );
+}
+
+NT2_TEST_CASE( multi_settings_storage_order_ )
+{
+  using nt2::column_major_;
+  using nt2::row_major_;
+  using nt2::settings;
+  using nt2::meta::option;
+  using boost::mpl::_;
+
+  NT2_TEST_TYPE_IS( (option < settings(column_major_,row_major_)
+                            , nt2::tag::storage_order_
+                            , some_semantic_
+                            >::type
+                    )
+                  , column_major_
+                  );
+
+  NT2_TEST_TYPE_IS( (option < settings(row_major_,column_major_)
+                            , nt2::tag::storage_order_
+                            , some_semantic_
+                            >::type
+                    )
+                  , row_major_
+                  );
+}
+
+NT2_TEST_CASE( nested_settings_storage_order_ )
+{
+  using nt2::column_major_;
+  using nt2::row_major_;
+  using nt2::settings;
+  using nt2::meta::option;
+  using boost::mpl::_;
+
+  NT2_TEST_TYPE_IS( (option < settings( settings(void*,int)
+                                      , settings(column_major_,row_major_)
+                                      )
+                            , nt2::tag::storage_order_
+                            , some_semantic_
+                            >::type
+                    )
+                  , column_major_
+                  );
+
+  NT2_TEST_TYPE_IS( (option < settings( settings(void*,int)
+                                      , settings(row_major_,column_major_)
+                                      )
+                            , nt2::tag::storage_order_
+                            , some_semantic_
+                            >::type
+                    )
+                  , (row_major_)
+                  );
 }

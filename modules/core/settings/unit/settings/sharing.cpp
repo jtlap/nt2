@@ -6,199 +6,216 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/core/settings/sharing.hpp>
+#include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/settings.hpp>
-
-#include <nt2/core/container/table/semantic.hpp>
+#include <nt2/core/settings/sharing.hpp>
+#include <nt2/core/settings/storage_duration.hpp>
+#include <nt2/sdk/memory/container.hpp>
+#include "local_semantic.hpp"
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Pass some sharing_ as an option
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( sharing_ )
+NT2_TEST_CASE( sharing_concept )
 {
-  using nt2::owned_;
+  using nt2::meta::option;
+  using nt2::meta::match_option;
+
+  {
+    typedef option<nt2::shared_, nt2::tag::sharing_, some_semantic_> opt;
+
+    NT2_TEST( (match_option< nt2::shared_, nt2::tag::sharing_ >::value) );
+  }
+
+  {
+    typedef option<nt2::owned_, nt2::tag::sharing_, some_semantic_> opt;
+
+    NT2_TEST( (match_option< nt2::owned_, nt2::tag::sharing_ >::value) );
+  }
+}
+
+NT2_TEST_CASE( single_sharing_ )
+{
   using nt2::shared_;
+  using nt2::owned_;
   using nt2::meta::option;
   using boost::mpl::_;
 
-  NT2_TEST_EXPR_TYPE( shared_()
-                    , (option< _, nt2::tag::sharing_>)
-                    , (shared_)
-                    );
+  NT2_TEST_EXPR_TYPE( (shared_())
+                      ,(option< _, nt2::tag::sharing_, some_semantic_>)
+                      ,(shared_)
+                      );
 
-  NT2_TEST_EXPR_TYPE( owned_()
-                    , (option< _, nt2::tag::sharing_>)
-                    , (owned_)
-                    );
+  NT2_TEST_EXPR_TYPE( (owned_())
+                      ,(option< _, nt2::tag::sharing_, some_semantic_>)
+                      ,(owned_)
+                      );
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Pass some sharing_ as default and check everythign go out properly
-////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE( sharing_default )
 {
-  using nt2::owned_;
   using nt2::shared_;
+  using nt2::owned_;
+  using nt2::settings;
   using nt2::meta::option;
-  using boost::mpl::_;
 
-  NT2_TEST_EXPR_TYPE( owned_()
-                    , (option< void, nt2::tag::sharing_,_>)
-                    , (owned_)
-                    );
+  NT2_TEST_TYPE_IS( (option < settings()
+                            , nt2::tag::sharing_
+                            , some_semantic_
+                            >::type
+                    )
+                  , owned_
+                  );
 
-  NT2_TEST_EXPR_TYPE( shared_()
-                    , (option< void, nt2::tag::sharing_,_>)
-                    , (shared_)
-                    );
+  NT2_TEST_TYPE_IS( (option < settings(int,void*)
+                            , nt2::tag::sharing_
+                            , some_semantic_
+                            >::type
+                    )
+                  , owned_
+                  );
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Pass some sharing_ as a setting
-////////////////////////////////////////////////////////////////////////////////
-nt2::settings own   (nt2::shared_, nt2::owned_)
+NT2_TEST_CASE( single_settings_sharing_ )
 {
-  return nt2::settings();
-}
-
-nt2::settings share (nt2::owned_ , nt2::shared_)
-{
-  return nt2::settings();
-}
-
-NT2_TEST_CASE( setting_sharing_ )
-{
-  using nt2::owned_;
   using nt2::shared_;
+  using nt2::owned_;
   using nt2::settings;
   using nt2::meta::option;
   using boost::mpl::_;
 
-  NT2_TEST_EXPR_TYPE( own
-                    , (option<_ , nt2::tag::sharing_>)
-                    , (owned_)
-                    );
+  NT2_TEST_TYPE_IS( (option < settings(shared_)
+                            , nt2::tag::sharing_
+                            , some_semantic_
+                            >::type
+                    )
+                  , (shared_)
+                  );
 
-  NT2_TEST_EXPR_TYPE( share
-                    , (option<_ , nt2::tag::sharing_>)
-                    , (shared_)
-                    );
+  NT2_TEST_TYPE_IS( (option < settings(owned_)
+                            , nt2::tag::sharing_
+                            , some_semantic_
+                            >::type
+                    )
+                  , (owned_)
+                  );
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Pass some storage_duration_ as a default setting
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( setting_sharing_default )
+NT2_TEST_CASE( multi_settings_sharing_ )
 {
-  using nt2::owned_;
   using nt2::shared_;
+  using nt2::owned_;
   using nt2::settings;
   using nt2::meta::option;
   using boost::mpl::_;
 
-  NT2_TEST_EXPR_TYPE( shared_()
-                    , (option < settings(long, int)
-                              , nt2::tag::sharing_
-                              ,_
-                              >
-                      )
-                    , (shared_)
-                    );
+  NT2_TEST_TYPE_IS( (option < settings(shared_,owned_)
+                            , nt2::tag::sharing_
+                            , some_semantic_
+                            >::type
+                    )
+                  , shared_
+                  );
 
-  NT2_TEST_EXPR_TYPE( owned_()
-                    , (option < settings(long, int)
-                              , nt2::tag::sharing_
-                              ,_
-                              >
-                      )
-                    , (owned_)
-                    );
+  NT2_TEST_TYPE_IS( (option < settings(owned_,shared_)
+                            , nt2::tag::sharing_
+                            , some_semantic_
+                            >::type
+                    )
+                  , owned_
+                  );
 }
 
-template<class U, class T, class S>
+NT2_TEST_CASE( nested_settings_sharing_ )
+{
+  using nt2::shared_;
+  using nt2::owned_;
+  using nt2::settings;
+  using nt2::meta::option;
+  using boost::mpl::_;
+
+  NT2_TEST_TYPE_IS( (option < settings( settings(void*,int)
+                                      , settings(shared_,owned_)
+                                      )
+                            , nt2::tag::sharing_
+                            , some_semantic_
+                            >::type
+                    )
+                  , shared_
+                  );
+
+  NT2_TEST_TYPE_IS( (option < settings( settings(void*,int)
+                                      , settings(owned_,shared_)
+                                      )
+                            , nt2::tag::sharing_
+                            , some_semantic_
+                            >::type
+                    )
+                  , (owned_)
+                  );
+}
+
+template<class U, class C>
 struct  apply_
 {
-  typedef typename boost::mpl::apply <U , T, S>::type type;
+  typedef typename boost::mpl::apply <U , C>::type type;
 };
 
-////////////////////////////////////////////////////////////////////////////////
-// Verify buffer generation for shared_
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( shared_apply )
+NT2_TEST_CASE( shared_output )
 {
   using boost::mpl::_;
   using nt2::settings;
   using nt2::shared_;
-  using nt2::allocator_;
+  using nt2::memory::container;
   using nt2::memory::buffer;
-  using nt2::tag::table_;
   using nt2::memory::fixed_allocator;
-  using nt2::meta::normalize;
 
   NT2_TEST_EXPR_TYPE( shared_()
                     , (apply_ < _
-                              , int
-                              , normalize
-                                < table_
-                                , int
-                                , settings( shared_ )
-                                >::type
+                              , container<int, settings(), some_semantic_>
                               >
                       )
                     , (buffer<int, fixed_allocator<int> >)
                     );
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Verify buffer generation for owned_
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( owned_apply )
+NT2_TEST_CASE( owned_output )
 {
   using boost::mpl::_;
+  using boost::mpl::integral_c;
+  using nt2::owned_;
   using nt2::settings;
   using nt2::of_size_;
-  using nt2::owned_;
-  using nt2::automatic_;
   using nt2::dynamic_;
-  using nt2::allocator_;
+  using nt2::automatic_;
   using nt2::memory::buffer;
+  using nt2::memory::container;
   using nt2::memory::array_buffer;
-  using boost::simd::allocator;
+  using nt2::memory::fixed_allocator;
   using boost::simd::allocator_adaptor;
-  using nt2::meta::normalize;
-  using nt2::tag::table_;
 
   NT2_TEST_EXPR_TYPE( owned_()
                     , (apply_ < _
-                              , int
-                              , normalize
-                                < table_
-                                , int
-                                , settings( automatic_
-                                          , of_size_<2,2>
-                                          )
-                                >::type
+                              , container < int
+                                          , settings(automatic_, of_size_<2,7>)
+                                          , some_semantic_
+                                          >
                               >
                       )
-                    , (array_buffer<int, boost::mpl::integral_c<size_t,4> >)
+                    , (array_buffer<int, integral_c<std::size_t,14> >)
                     );
 
   NT2_TEST_EXPR_TYPE( owned_()
                     , (apply_ < _
-                              , int
-                              , normalize
-                                < table_
-                                , int
-                                , settings( dynamic_
-                                          , of_size_<2,2>
-                                          , allocator_< std::allocator<int> >
-                                          )
-                                >::type
+                              , container < int
+                                          , settings( dynamic_
+                                                    , of_size_<2,2>
+                                                    , std::allocator<int>
+                                                    )
+                                          , some_semantic_
+                                          >
                               >
                       )
                     , (buffer<int,allocator_adaptor<std::allocator<int> > >)

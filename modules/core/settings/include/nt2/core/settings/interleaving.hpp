@@ -10,22 +10,27 @@
 #define NT2_CORE_SETTINGS_INTERLEAVING_HPP_INCLUDED
 
 #include <nt2/core/settings/forward/interleaving.hpp>
-#include <nt2/core/settings/option.hpp>
 
-namespace nt2
+namespace nt2 { namespace tag
 {
-  namespace meta
+  struct interleaving_
   {
-    template<class Default> struct option<interleaved_, tag::interleaving_, Default>
-    {
-      typedef interleaved_ type;
-    };
+    template<class T, class Dummy = void>
+    struct apply : boost::mpl::false_
+    {};
 
-    template<class Default> struct option<deinterleaved_, tag::interleaving_, Default>
-    {
-      typedef deinterleaved_ type;
-    };
-  }
-}
+    typedef nt2::interleaved_ default_type;
+  };
+
+  template<class Dummy>
+  struct interleaving_::apply<nt2::interleaved_, Dummy>
+                      : boost::mpl::true_
+  {};
+
+  template<class Dummy>
+  struct interleaving_::apply<nt2::deinterleaved_, Dummy>
+                      : boost::mpl::true_
+  {};
+} }
 
 #endif

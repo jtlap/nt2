@@ -17,26 +17,25 @@ namespace nt2
   /*! Current container memory is interleaved
    **/
   //============================================================================
-  struct interleaved_ : boost::mpl::false_ {};
+  struct interleaved_
+  {
+    typedef boost::mpl::false_  interleaving_type;
+  };
 
   //============================================================================
   /*! Current container memory is deinterleaved, ie use multiple container for
       composite type.
    **/
   //============================================================================
-  struct deinterleaved_ : boost::mpl::true_  {};
+  struct deinterleaved_
+  {
+    typedef boost::mpl::true_  interleaving_type;
+  };
 
   namespace tag
   {
-    //==========================================================================
-    /*!
-     * Option tag for interleaving options
-     **/
-    //==========================================================================
-    struct interleaving_ {};
+    struct interleaving_;
   }
-
-
 }
 
 #endif

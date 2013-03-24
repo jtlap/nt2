@@ -10,25 +10,33 @@
 #define NT2_CORE_SETTINGS_INDEX_HPP_INCLUDED
 
 #include <nt2/core/settings/forward/index.hpp>
-#include <nt2/core/settings/option.hpp>
+#include <nt2/sdk/parameters.hpp>
 
-namespace nt2
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <cstddef>
+
+namespace nt2 { namespace tag
 {
-  namespace meta
+  //==========================================================================
+  // Make options extracting the ID from id_
+  //==========================================================================
+  struct index_
   {
-    //==========================================================================
-    // Make options extracting the ID from id_
-    //==========================================================================
-    template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,std::ptrdiff_t I)
-            , class Default
-            >
-    struct option < index_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,I)>
-                  , tag::index_, Default
-                  >
-    {
-      typedef index_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,I)>  type;
-    };
-  }
-}
+    template<class T, class Dummy = void>
+    struct apply : boost::mpl::false_
+    {};
+
+    typedef nt2::matlab_index_ default_type;
+  };
+
+  template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t I)
+          , class Dummy
+          >
+  struct index_::apply< nt2::index_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,I)>
+                      , Dummy
+                      >
+                  : boost::mpl::true_
+  {};
+} }
 
 #endif

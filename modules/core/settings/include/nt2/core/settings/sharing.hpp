@@ -9,26 +9,29 @@
 #ifndef NT2_CORE_SETTINGS_SHARING_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_SHARING_HPP_INCLUDED
 
-#include <boost/cstdint.hpp>
-#include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/forward/sharing.hpp>
 
-namespace nt2
+namespace nt2 { namespace tag
 {
-
-  namespace meta
+  struct sharing_
   {
-    template<class Default> struct option<shared_, tag::sharing_, Default>
-    {
-      typedef shared_ type;
-    };
+    template<class T, class Dummy = void>
+    struct apply : boost::mpl::false_
+    {};
 
-    template<class Default> struct option<owned_, tag::sharing_, Default>
-    {
-      typedef owned_ type;
-    };
-  }
-}
+    typedef nt2::owned_ default_type;
+  };
+
+  template<class Dummy>
+  struct sharing_::apply<nt2::shared_, Dummy>
+                  : boost::mpl::true_
+  {};
+
+  template<class Dummy>
+  struct sharing_::apply<nt2::owned_, Dummy>
+                  : boost::mpl::true_
+  {};
+} }
 
 #include <nt2/core/settings/details/sharing.hpp>
 

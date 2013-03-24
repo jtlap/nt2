@@ -9,27 +9,29 @@
 #ifndef NT2_CORE_SETTINGS_STORAGE_DURATION_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_STORAGE_DURATION_HPP_INCLUDED
 
-#include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/forward/storage_duration.hpp>
 
-namespace nt2
+namespace nt2 { namespace tag
 {
-
-  namespace meta
+  struct storage_duration_
   {
-    template<class Default>
-    struct option< dynamic_, tag::storage_duration_, Default>
-    {
-      typedef dynamic_ type;
-    };
+    template<class T, class Dummy = void>
+    struct apply : boost::mpl::false_
+    {};
 
-    template<class Default>
-    struct option< automatic_, tag::storage_duration_, Default>
-    {
-      typedef automatic_ type;
-    };
-  }
-}
+    typedef nt2::dynamic_ default_type;
+  };
+
+  template<class Dummy>
+  struct storage_duration_::apply<nt2::dynamic_, Dummy>
+                          : boost::mpl::true_
+  {};
+
+  template<class Dummy>
+  struct storage_duration_::apply<nt2::automatic_, Dummy>
+                          : boost::mpl::true_
+  {};
+} }
 
 #include <nt2/core/settings/details/storage_duration.hpp>
 

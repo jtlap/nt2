@@ -9,16 +9,14 @@
 #ifndef NT2_CORE_SETTINGS_FORWARD_SEMANTIC_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_FORWARD_SEMANTIC_HPP_INCLUDED
 
+#include <nt2/core/settings/details/no_semantic.hpp>
+
 namespace nt2
 {
   namespace tag
   {
-    //==========================================================================
-    /*!
-     * Option tag for semantic options
-     **/
-    //==========================================================================
-    struct semantic_ {};
+    /// @brief Option tag for semantic options
+    struct semantic_;
   }
 }
 

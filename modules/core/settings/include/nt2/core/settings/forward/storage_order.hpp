@@ -13,58 +13,29 @@
 
 namespace nt2
 {
-  //============================================================================
-  /**!
-   * Specify the SO meta-function as the current container storage order
-   * permutation.
-  **/
-  //============================================================================
-  template <class SO> struct storage_order_ : SO {};
-
-  namespace details
+  /// @brief Column major storage option
+  struct column_major_
   {
-    namespace adl_barrier
-    {
-      struct matlab_storage_
-      {
-        template<class S, class D> struct apply : D {};
-      };
+    /// INTERNAL ONLY
+    template<class S, class D> struct apply : D {};
+  };
 
-      struct C_storage_
-      {
-        template<class S, class D>
-        struct apply : boost::mpl::size_t<S::value - 1 - D::value> {};
-      };
-    }
+  /// @brief Row major storage option
+  struct row_major_
+  {
+    /// INTERNAL ONLY
+    template<class S, class D>
+    struct apply : boost::mpl::size_t<S::value - 1 - D::value> {};
+  };
 
-   using adl_barrier::matlab_storage_;
-   using adl_barrier::C_storage_;
-  }
-
-  //==========================================================================
-  /*! Predefined settings for Matlab style (column major) storage order.
-  **/
-  //==========================================================================
-  typedef storage_order_<details::matlab_storage_>  matlab_order_;
-  typedef storage_order_<details::matlab_storage_>  fortran_order_;
-  typedef storage_order_<details::matlab_storage_>  column_major_;
-
-  //==========================================================================
-  /**!
-   * Predefined settings for C style (row major) storage order.
-   **/
-  //==========================================================================
-  typedef storage_order_<details::C_storage_>       C_order_;
-  typedef storage_order_<details::C_storage_>       row_major_;
+  typedef column_major_  matlab_order_;
+  typedef column_major_  fortran_order_;
+  typedef row_major_     C_order_;
 
   namespace tag
   {
-    //==========================================================================
-    /*!
-     * Option tag for the storage order options
-     **/
-    //==========================================================================
-    struct storage_order_ {};
+    /// @brief Option tag for the storage order options
+    struct storage_order_;
   }
 }
 

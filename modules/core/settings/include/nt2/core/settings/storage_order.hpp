@@ -9,18 +9,28 @@
 #ifndef NT2_CORE_SETTINGS_STORAGE_ORDER_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_STORAGE_ORDER_HPP_INCLUDED
 
-#include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/forward/storage_order.hpp>
 
-namespace nt2 { namespace meta
+namespace nt2 { namespace tag
 {
-  template<class SO, class Default>
-  struct option < storage_order_<SO>
-                , tag::storage_order_, Default
-                >
+  struct storage_order_
   {
-     typedef storage_order_<SO>  type;
+    template<class T, class Dummy = void>
+    struct apply : boost::mpl::false_
+    {};
+
+    typedef nt2::column_major_ default_type;
   };
+
+  template<class Dummy>
+  struct storage_order_::apply<nt2::row_major_, Dummy>
+                      : boost::mpl::true_
+  {};
+
+  template<class Dummy>
+  struct storage_order_::apply<nt2::column_major_, Dummy>
+                      : boost::mpl::true_
+  {};
 } }
 
 #endif

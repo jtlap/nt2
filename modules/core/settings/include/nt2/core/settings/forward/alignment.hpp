@@ -13,30 +13,20 @@
 
 namespace nt2
 {
-  //============================================================================
-  /*! Current container memory is allocated using an aligning allocator.
-   **/
-  //============================================================================
-  struct aligned_ : boost::mpl::true_ {};
+  struct aligned_
+  {
+    typedef boost::mpl::true_  alignment_type;
+  };
 
-  //============================================================================
-  /*! Current container memory is allocated using an allocator with no
-   *  alignment garantee.
-   **/
-  //============================================================================
-  struct unaligned_ : boost::mpl::false_  {};
+  struct unaligned_
+  {
+    typedef boost::mpl::false_  alignment_type;
+  };
 
   namespace tag
   {
-    //==========================================================================
-    /*!
-     * Option tag for alignment options
-     **/
-    //==========================================================================
-    struct alignment_ {};
+    struct alignment_;
   }
-
-
 }
 
 #endif

@@ -9,21 +9,32 @@
 #ifndef NT2_CORE_SETTINGS_BUFFER_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_BUFFER_HPP_INCLUDED
 
+/*!
+  @file
+  @brief Defines the buffer_ settings tag
+**/
+
 #include <nt2/core/settings/forward/buffer.hpp>
-#include <nt2/core/settings/option.hpp>
+#include <nt2/core/settings/details/is_buffer.hpp>
 
-namespace nt2
+namespace nt2 { namespace tag
 {
-
-  namespace meta
+  /// @brief Option tag for allocator options
+  struct buffer_
   {
-    template<class Buffer, class Default>
-    struct option<buffer_<Buffer>, tag::buffer_, Default>
-    {
-      typedef buffer_<Buffer> type;
-    };
-  }
-}
+    template<class T, class Dummy = void>
+    struct  apply
+          : details::is_buffer<T>
+    {};
+
+    typedef nt2::built_in_ default_type;
+  };
+
+  template<class Dummy>
+  struct  buffer_::apply< nt2::built_in_, Dummy >
+        : boost::mpl::true_
+  {};
+} }
 
 #include <nt2/core/settings/details/buffer.hpp>
 

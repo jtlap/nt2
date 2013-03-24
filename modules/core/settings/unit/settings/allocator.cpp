@@ -10,81 +10,136 @@
 
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/core/settings/allocator.hpp>
+#include "local_semantic.hpp"
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Pass some allocator_ as an option and check everythign go out properly
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( single_allocator )
+NT2_TEST_CASE( allocator_concept )
 {
-   using std::allocator;
-   using nt2::allocator_;
-   using nt2::meta::option;
-   using boost::mpl::_;
+  using nt2::tag::allocator_;
+  using nt2::meta::match_option;
+  using nt2::meta::option;
+  using std::allocator;
 
-   NT2_TEST_EXPR_TYPE( (allocator_<allocator<float> > ())
-                       ,(option< _, nt2::tag::allocator_>)
-                       ,(allocator_< allocator<float> >)
-                     );
+  NT2_TEST( (match_option< allocator<int>, allocator_>::value) );
+
+  NT2_TEST_TYPE_IS( (option < allocator<int>
+                            , nt2::tag::allocator_
+                            , some_semantic_
+                            >::type::rebind<float>::other
+                    )
+                  , allocator<float>
+                  );
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Pass some allocator_ as option with a default
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( single_allocator_default )
+NT2_TEST_CASE( single_allocator_ )
 {
-  using std::allocator;
-  using nt2::allocator_;
+  using nt2::tag::allocator_;
   using nt2::meta::option;
+  using std::allocator;
   using boost::mpl::_;
 
-   NT2_TEST_EXPR_TYPE( (allocator_<allocator<int> > ())
-                       ,(option< void, nt2::tag::allocator_, _>)
-                       ,(allocator_< allocator<int> >)
-                     );
+  NT2_TEST_EXPR_TYPE( allocator<int>()
+                    , (option< _, nt2::tag::allocator_, some_semantic_>)
+                    , allocator<int>
+                    );
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Pass some allocator_ as settings
-////////////////////////////////////////////////////////////////////////////////
-nt2::settings alloc_int (nt2::allocator_<std::allocator<float> >
-                        , nt2::allocator_<std::allocator<int> >
-                        )
+NT2_TEST_CASE( allocator_default )
 {
-  return nt2::settings();
-}
-
-NT2_TEST_CASE( single_allocator_settings )
-{
+  using nt2::tag::allocator_;
+  using nt2::meta::option;
   using std::allocator;
-  using nt2::allocator_;
+  using boost::mpl::_;
+  using nt2::settings;
+
+  NT2_TEST_TYPE_IS( (option < settings()
+                            , nt2::tag::allocator_
+                            , some_semantic_
+                            >::type
+                    )
+                  , allocator<void*>
+                  );
+
+  NT2_TEST_TYPE_IS( (option < settings(int,void*)
+                            , nt2::tag::allocator_
+                            , some_semantic_
+                            >::type
+                    )
+                  , allocator<void*>
+                  );
+}
+
+NT2_TEST_CASE( single_settings_allocator_ )
+{
+  using nt2::tag::allocator_;
+  using std::allocator;
   using nt2::settings;
   using nt2::meta::option;
   using boost::mpl::_;
 
-  NT2_TEST_EXPR_TYPE( alloc_int
-                      ,(option<_ , nt2::tag::allocator_>)
-                      ,(allocator_<allocator<int> >)
-                      );
+  NT2_TEST_TYPE_IS( (option < settings(allocator<float>)
+                            , nt2::tag::allocator_
+                            , some_semantic_
+                            >::type
+                    )
+                  , (allocator<float>)
+                  );
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Pass some allocator_ as settings with a default
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( single_allocator_settings_default )
+NT2_TEST_CASE( multi_settings_allocator_ )
 {
   using std::allocator;
-  using nt2::allocator_;
+  using nt2::tag::allocator_;
   using nt2::settings;
   using nt2::meta::option;
   using boost::mpl::_;
 
-   NT2_TEST_EXPR_TYPE((allocator_<allocator<int> > ())
-                      ,(option< settings(double,long), nt2::tag::allocator_, _>)
-                      ,(allocator_< allocator<int> >)
-                     );
+  NT2_TEST_TYPE_IS( (option < settings(allocator<float>,allocator<int>)
+                            , nt2::tag::allocator_
+                            , some_semantic_
+                            >::type
+                    )
+                  , allocator<float>
+                  );
+
+  NT2_TEST_TYPE_IS( (option < settings(allocator<int>,allocator<float>)
+                            , nt2::tag::allocator_
+                            , some_semantic_
+                            >::type
+                    )
+                  , allocator<int>
+                  );
+}
+
+NT2_TEST_CASE( nested_settings_allocator_ )
+{
+  using nt2::tag::allocator_;
+  using std::allocator;
+  using nt2::settings;
+  using nt2::meta::option;
+  using boost::mpl::_;
+
+  NT2_TEST_TYPE_IS( (option < settings( settings(void*,int)
+                                      , settings(allocator<int>,allocator<float>)
+                                      )
+                            , nt2::tag::allocator_
+                            , some_semantic_
+                            >::type
+                    )
+                  , allocator<int>
+                  );
+
+  NT2_TEST_TYPE_IS( (option < settings( settings(void*,int)
+                                      , settings(allocator<float>,allocator<int>)
+                                      )
+                            , nt2::tag::allocator_
+                            , some_semantic_
+                            >::type
+                    )
+                  , allocator<float>
+                  );
 }

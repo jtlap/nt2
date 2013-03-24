@@ -9,17 +9,11 @@
 #ifndef NT2_CORE_SETTINGS_FORWARD_SHAPE_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_FORWARD_SHAPE_HPP_INCLUDED
 
-#include <nt2/core/settings/option.hpp>
-
 namespace nt2
 {
-  //============================================================================
-  /*! The default container shape. Data are laid out in a hypercube
-   *  of N dimensions and contains only non-trivial values.
-   **/
-  //============================================================================
   struct rectangular_;
 
+  /// TODO MOVE THIS ELSEWHERE LATER
   struct upper_triangular_ {};
   struct lower_triangular_ {};
   struct band_diagonal_    {};
@@ -27,15 +21,9 @@ namespace nt2
 
   namespace tag
   {
-    //==========================================================================
-    /*!
-     * Option tag for shape options
-     **/
-    //==========================================================================
-    struct shape_ {};
+    /// @brief Option tag for shape options
+    struct shape_;
   }
-
 }
-
 
 #endif

@@ -10,22 +10,27 @@
 #define NT2_CORE_SETTINGS_ALIGNMENT_HPP_INCLUDED
 
 #include <nt2/core/settings/forward/alignment.hpp>
-#include <nt2/core/settings/option.hpp>
 
-namespace nt2
+namespace nt2 { namespace tag
 {
-  namespace meta
+  struct alignment_
   {
-    template<class Default> struct option<aligned_, tag::alignment_, Default>
-    {
-      typedef aligned_ type;
-    };
+    template<class T, class Dummy = void>
+    struct apply : boost::mpl::false_
+    {};
 
-    template<class Default> struct option<unaligned_, tag::alignment_, Default>
-    {
-      typedef unaligned_ type;
-    };
-  }
-}
+    typedef nt2::aligned_ default_type;
+  };
+
+  template<class Dummy>
+  struct alignment_::apply<nt2::aligned_, Dummy>
+                      : boost::mpl::true_
+  {};
+
+  template<class Dummy>
+  struct alignment_::apply<nt2::unaligned_, Dummy>
+                      : boost::mpl::true_
+  {};
+} }
 
 #endif

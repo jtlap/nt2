@@ -9,28 +9,29 @@
 #ifndef NT2_CORE_SETTINGS_STORAGE_SCHEME_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_STORAGE_SCHEME_HPP_INCLUDED
 
-#include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/forward/storage_scheme.hpp>
-namespace nt2
+
+namespace nt2 { namespace tag
 {
-
-  namespace meta
+  struct storage_scheme_
   {
-    template<class Default> struct option<conventional_
-                                          , tag::storage_scheme_
-                                          , Default>
-    {
-      typedef conventional_ type;
-    };
+    template<class T, class Dummy = void>
+    struct apply : boost::mpl::false_
+    {};
 
-    template<class Default> struct option<packed_
-                                          , tag::storage_scheme_
-                                          , Default>
-    {
-      typedef packed_ type;
-    };
-  }
-}
+    typedef nt2::conventional_ default_type;
+  };
+
+  template<class Dummy>
+  struct storage_scheme_::apply<nt2::conventional_, Dummy>
+                        : boost::mpl::true_
+  {};
+
+  template<class Dummy>
+  struct storage_scheme_::apply<nt2::packed_, Dummy>
+                        : boost::mpl::true_
+  {};
+} }
 
 #include <nt2/core/settings/details/storage_scheme.hpp>
 

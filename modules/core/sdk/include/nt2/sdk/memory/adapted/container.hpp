@@ -11,6 +11,8 @@
 
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/sdk/memory/forward/container.hpp>
+#include <nt2/sdk/memory/category.hpp>
+#include <nt2/core/settings/option.hpp>
 #include <nt2/sdk/meta/is_container.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
@@ -19,64 +21,62 @@
 
 namespace nt2 { namespace meta
 {
-  //============================================================================
-  // Register container as a proper container
-  //============================================================================
-  template<class T, class S>
-  struct is_container< memory::container<T, S> > : boost::mpl::true_ {};
+  /// INTERNAL ONLY memory::container models Container
+  template<typename T, typename S, typename Sema>
+  struct is_container< memory::container<T, S, Sema> > : boost::mpl::true_ {};
+
+  /// INTERNAL ONLY Option of a container use its settings and semantic
+  template<typename T, typename S, typename Sema, typename Tag>
+  struct  option<memory::container<T, S, Sema> , Tag>
+        : option<S, Tag, Sema>
+  {};
 } }
 
 namespace boost { namespace dispatch { namespace meta
 {
-  //============================================================================
-  // value_of specializations
-  //============================================================================
-  template<class T, class S>
-  struct value_of< nt2::memory::container<T,S> > { typedef T type; };
+  /// INTERNAL ONLY value_of for container
+  template<typename T, typename S, typename Sema>
+  struct value_of< nt2::memory::container<T,S,Sema> > { typedef T type; };
 
-  template<class T,class S>
-  struct value_of< nt2::memory::container<T,S>& >
+  template<typename T,typename S, typename Sema>
+  struct value_of< nt2::memory::container<T,S,Sema>& >
   {
-    typedef typename nt2::memory::container<T,S>::reference type;
+    typedef typename nt2::memory::container<T,S,Sema>::reference type;
   };
 
-  template<class T,class S>
-  struct value_of< nt2::memory::container<T,S> const&>
+  template<typename T,typename S, typename Sema>
+  struct value_of< nt2::memory::container<T,S,Sema> const&>
   {
-    typedef typename nt2::memory::container<T,S>::const_reference type;
+    typedef typename nt2::memory::container<T,S,Sema>::const_reference type;
   };
 
-  //============================================================================
-  // model_of specialization
-  //============================================================================
-  template<class T, class S>
-  struct model_of< nt2::memory::container<T,S> >
+  /// INTERNAL ONLY model_of for container
+  template<typename T, typename S, typename Sema>
+  struct model_of< nt2::memory::container<T,S,Sema> >
   {
     struct type
     {
-      template<class X>
-      struct apply
+      template<class X> struct apply
       {
-        typedef nt2::memory::container<X, S> type;
+        typedef nt2::memory::container<X,S,Sema> type;
       };
     };
   };
 
-  //============================================================================
-  // container hierarchy is given by its semantic_
-  //============================================================================
-  template<class T, class S, class Origin>
-  struct hierarchy_of< nt2::memory::container<T, S>, Origin >
+  /// INTERNAL ONLY hierarchy_of for container
+  template<typename T, typename S, typename Sema, typename Origin>
+  struct hierarchy_of< nt2::memory::container<T,S,Sema>, Origin >
   {
-    typedef typename nt2::memory::container<T, S>::semantic_t     semantic_t;
-    typedef typename semantic_t::template apply<T,S,Origin>::type type;
+    typedef container_< typename boost::dispatch::meta::property_of<T,Origin>::type
+                      , Sema, S
+                      >                   type;
   };
 
-  template<class T, class S>
-  struct terminal_of< nt2::memory::container<T,S> >
-  {
-    typedef nt2::container::table<T, S> type;
-  };
+  /// INTERNAL ONLY container builds a terminal from its semantic
+  template<typename T, typename S, typename Sema>
+  struct  terminal_of< nt2::memory::container<T,S,Sema> >
+        : Sema::template terminal_of<T,S>
+  {};
 } } }
 
 #endif

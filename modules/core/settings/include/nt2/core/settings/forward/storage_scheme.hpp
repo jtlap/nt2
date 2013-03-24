@@ -9,34 +9,30 @@
 #ifndef NT2_CORE_SETTINGS_FORWARD_STORAGE_SCHEME_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_FORWARD_STORAGE_SCHEME_HPP_INCLUDED
 
-
 namespace nt2
 {
-  //============================================================================
-   /*! The default scheme for storing containers is the obvious contiguous,
-   *   dense storage scheme.
-   **/
-  //============================================================================
+  /*!
+      @brief Conventional storage option
+
+      Default scheme for storing containers is the contiguous, dense storage
+      scheme.
+  **/
   struct conventional_;
 
-  //============================================================================
-   /*! Packed storage infers from the container Shape which elements to store
-    *  and which to regenerate. Usually, packed storage reduces memory usage.
-   **/
-  //============================================================================
+  /*!
+      @brief Packed storage option
+
+      Packed scheme is used for sparse containers. It infers from the container
+      Shape which elements to store and which to regenerate. Usually, packed
+      storage reduces memory usage and may reduces runtime.
+  **/
   struct packed_;
 
   namespace tag
   {
-    //==========================================================================
-    /*!
-     * Option tag for storage_scheme options
-     **/
-    //==========================================================================
-    struct storage_scheme_ {};
+    /// @brief Option tag for storage_scheme options
+    struct storage_scheme_;
   }
-
 }
-
 
 #endif

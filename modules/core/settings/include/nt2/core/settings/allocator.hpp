@@ -9,23 +9,24 @@
 #ifndef NT2_CORE_SETTINGS_ALLOCATOR_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_ALLOCATOR_HPP_INCLUDED
 
-#include <nt2/core/settings/forward/allocator.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <nt2/core/settings/option.hpp>
+/*!
+  @file
+  @brief Defines allocator_ setting behavior
+**/
 
-namespace nt2
+#include <nt2/core/settings/forward/allocator.hpp>
+#include <nt2/core/settings/details/has_rebind.hpp>
+
+namespace nt2 { namespace tag
 {
-  namespace meta
+  /// @brief Option tag for allocator options
+  struct allocator_
   {
-    //==========================================================================
-    // Make options extracting the Allocator from allcoator_
-    //==========================================================================
-    template<class Allocator, class Default>
-    struct option<allocator_<Allocator>, tag::allocator_, Default>
-    {
-      typedef allocator_<Allocator> type;
-    };
-  }
-}
+    template<class T, class Dummy = void>
+    struct  apply
+          : details::has_rebind<T>
+    {};
+  };
+} }
 
 #endif

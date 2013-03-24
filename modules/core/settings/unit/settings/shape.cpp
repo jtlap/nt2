@@ -1,99 +1,134 @@
 //==============================================================================
-//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2::settings shape is an option"
-
-#include <nt2/core/settings/shape.hpp>
+#include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/settings.hpp>
+#include <nt2/core/settings/shape.hpp>
+#include "local_semantic.hpp"
 
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Pass some shape_ as an option and check everythign go out properly
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( shape_ )
+NT2_TEST_CASE( shape_concept )
+{
+  using nt2::meta::option;
+  using nt2::meta::match_option;
+
+  typedef option<nt2::rectangular_, nt2::tag::shape_, some_semantic_> opt;
+  NT2_TEST( (match_option< nt2::rectangular_, nt2::tag::shape_ >::value) );
+}
+
+NT2_TEST_CASE( single_shape_ )
 {
   using nt2::rectangular_;
+  using nt2::diagonal_;
   using nt2::meta::option;
   using boost::mpl::_;
 
-  NT2_TEST_EXPR_TYPE( rectangular_()
-                      ,(option< _, nt2::tag::shape_>)
+  NT2_TEST_EXPR_TYPE( (rectangular_())
+                      ,(option< _, nt2::tag::shape_, some_semantic_>)
                       ,(rectangular_)
                       );
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Pass some shape_ as default and check everythign go out properly
-////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE( shape_default )
 {
   using nt2::rectangular_;
+  using nt2::diagonal_;
+  using nt2::settings;
   using nt2::meta::option;
-  using boost::mpl::_;
 
-  NT2_TEST_EXPR_TYPE( rectangular_()
-                      ,(option< void, nt2::tag::shape_,_>)
-                      ,(rectangular_)
-                      );
+  NT2_TEST_TYPE_IS( (option < settings()
+                            , nt2::tag::shape_
+                            , some_semantic_
+                            >::type
+                    )
+                  , rectangular_
+                  );
+
+  NT2_TEST_TYPE_IS( (option < settings(int,void*)
+                            , nt2::tag::shape_
+                            , some_semantic_
+                            >::type
+                    )
+                  , rectangular_
+                  );
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Pass some shape_ as a setting and check everythign go out properly
-////////////////////////////////////////////////////////////////////////////////
-nt2::settings rect  (nt2::rectangular_, nt2::rectangular_)
-{
-  return nt2::settings();
-}
-
-NT2_TEST_CASE( setting_shape_ )
+NT2_TEST_CASE( single_settings_shape_ )
 {
   using nt2::rectangular_;
+  using nt2::diagonal_;
   using nt2::settings;
   using nt2::meta::option;
   using boost::mpl::_;
 
-
-  NT2_TEST_EXPR_TYPE( rect
-                      ,(option<_ , nt2::tag::shape_>)
-                      ,(rectangular_)
-                      );
+  NT2_TEST_TYPE_IS( (option < settings(rectangular_)
+                            , nt2::tag::shape_
+                            , some_semantic_
+                            >::type
+                    )
+                  , (rectangular_)
+                  );
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Pass some shape_ as a default setting and check everythign go out properly
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( setting_shape_default )
+NT2_TEST_CASE( multi_settings_shape_ )
 {
   using nt2::rectangular_;
+  using nt2::diagonal_;
   using nt2::settings;
   using nt2::meta::option;
   using boost::mpl::_;
 
-  NT2_TEST_EXPR_TYPE( rectangular_()
-                    , (option< settings(long,int), nt2::tag::shape_,_>)
-                    , (rectangular_)
-                    );
+  NT2_TEST_TYPE_IS( (option < settings(rectangular_,diagonal_)
+                            , nt2::tag::shape_
+                            , some_semantic_
+                            >::type
+                    )
+                  , rectangular_
+                  );
+
+  NT2_TEST_TYPE_IS( (option < settings(diagonal_,rectangular_)
+                            , nt2::tag::shape_
+                            , some_semantic_
+                            >::type
+                    )
+                  , diagonal_
+                  );
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Build the buffer from the shape
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( shape_buffer )
+NT2_TEST_CASE( nested_settings_shape_ )
 {
-  using boost::mpl::_;
+  using nt2::rectangular_;
+  using nt2::diagonal_;
   using nt2::settings;
   using nt2::meta::option;
-  using nt2::rectangular_;
+  using boost::mpl::_;
 
-  NT2_TEST_EXPR_TYPE( rectangular_()
-                    , (option< settings(long,int), nt2::tag::shape_,_>)
-                    , (rectangular_)
-                    );
+  NT2_TEST_TYPE_IS( (option < settings( settings(void*,int)
+                                      , settings(rectangular_,diagonal_)
+                                      )
+                            , nt2::tag::shape_
+                            , some_semantic_
+                            >::type
+                    )
+                  , rectangular_
+                  );
+
+  NT2_TEST_TYPE_IS( (option < settings( settings(void*,int)
+                                      , settings(diagonal_,rectangular_)
+                                      )
+                            , nt2::tag::shape_
+                            , some_semantic_
+                            >::type
+                    )
+                  , (diagonal_)
+                  );
 }
