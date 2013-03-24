@@ -56,6 +56,7 @@ SET( SOURCES
   randcolu.cpp
   randcorr.cpp
   randhess.cpp
+  randjorth.cpp
   redheff.cpp
   riemann.cpp
   ris.cpp
