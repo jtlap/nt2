@@ -95,7 +95,7 @@ namespace nt2 { namespace ext
     {
       _2D sizee;
       sizee[0] = m; sizee[1] = numel(x0);
-      BOOST_ASSERT_MSG(m >=  numel(x0), "m must be greater or equal to numel(x0)");
+      BOOST_ASSERT_MSG( size_t(m) >=  numel(x0), "m must be greater or equal to numel(x0)");
       BOOST_ASSERT_MSG(nt2::isvector(x0),
                        "x must be a vector");
       BOOST_ASSERT_MSG(nt2::globalall(nt2::is_gtz(x0)),
