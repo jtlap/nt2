@@ -22,6 +22,7 @@
 #include <nt2/core/container/dsl/assign_swap.hpp>
 #include <nt2/core/container/table/category.hpp>
 #include <nt2/sdk/memory/forward/container.hpp>
+#include <nt2/sdk/memory/category.hpp>
 #include <boost/proto/traits.hpp>
 #include <boost/assert.hpp>
 

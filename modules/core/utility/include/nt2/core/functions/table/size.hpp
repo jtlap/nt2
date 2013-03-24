@@ -12,13 +12,14 @@
 #include <nt2/core/functions/size.hpp>
 #include <nt2/core/settings/size.hpp>
 #include <nt2/core/functions/extent.hpp>
-#include <nt2/core/container/table/category.hpp>
+#include <nt2/sdk/memory/category.hpp>
 #include <nt2/core/container/table/table.hpp>
 
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::size_, tag::cpu_
-                            , (A0)(S0), ((table_< unspecified_<A0>, S0>))
+                            , (A0)(S0)(L0)
+                            , ((container_<unspecified_<A0>,S0,L0>))
                             )
   {
     typedef typename meta::call<tag::extent_(A0)>::type base;
@@ -44,8 +45,8 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::size_, tag::cpu_
-                            , (A0)(S0)(A1)
-                            , ((table_< unspecified_<A0>, S0>))
+                            , (A0)(S0)(L0)(A1)
+                            , ((container_<unspecified_<A0>,S0,L0>))
                               (scalar_< unspecified_<A1> >)
                             )
   {

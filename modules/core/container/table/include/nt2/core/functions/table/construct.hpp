@@ -13,9 +13,9 @@
 #include <nt2/core/functions/construct.hpp>
 #include <nt2/dsl/functions/terminal.hpp>
 #include <nt2/include/functions/numel.hpp>
-#include <nt2/core/container/table/category.hpp>
-#include <boost/simd/memory/iterator_category.hpp>
+#include <nt2/sdk/memory/category.hpp>
 #include <nt2/sdk/memory/copy.hpp>
+#include <boost/simd/memory/iterator_category.hpp>
 
 namespace nt2 { namespace ext
 {

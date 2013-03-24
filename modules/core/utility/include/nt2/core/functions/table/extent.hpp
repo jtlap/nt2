@@ -10,12 +10,13 @@
 #define NT2_CORE_FUNCTIONS_TABLE_EXTENT_HPP_INCLUDED
 
 #include <nt2/core/functions/extent.hpp>
-#include <nt2/core/container/table/category.hpp>
+#include <nt2/sdk/memory/category.hpp>
 
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::extent_, tag::cpu_
-                            , (A0)(S0), ((table_< unspecified_<A0>, S0>))
+                            , (A0)(S0)(L0)
+                            , ((container_<unspecified_<A0>,S0,L0>))
                             )
   {
     typedef typename A0::extent_type const& result_type;

@@ -14,14 +14,18 @@
 #include <boost/simd/include/functions/load.hpp>
 #include <boost/simd/include/functions/store.hpp>
 #include <nt2/include/functions/simd/maximum.hpp>
-#include <nt2/core/settings/details/fusion.hpp>
-#include <nt2/core/container/table/category.hpp>
+#include <nt2/sdk/memory/category.hpp>
 #include <nt2/sdk/simd/category.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <boost/assert.hpp>
 
+// CHECK IF REALLY REQUIRED
+//#include <nt2/core/settings/details/fusion.hpp>
+
+
 namespace nt2 { namespace ext
 {
+  // MOVE ELSEWHERE DETAILS::
   template<class T, class A0>
   std::size_t maxpos(A0 const& a0)
   {
@@ -38,8 +42,8 @@ namespace nt2 { namespace ext
   // table terminal with a position in scalar read mode
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
-                            , (A0)(T0)(S0)(State)(Data)
-                            , ((expr_< table_< unspecified_<A0>, S0 >
+                            , (A0)(T0)(L0)(S0)(State)(Data)
+                            , ((expr_< container_<unspecified_<A0>,S0,L0>
                                      , T0
                                      , boost::mpl::long_<0>
                                      >
@@ -63,8 +67,8 @@ namespace nt2 { namespace ext
   // table terminal with a position in scalar write mode
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
-                            , (A0)(T0)(S0)(State)(Data)
-                            , ((expr_< table_< unspecified_<A0>, S0 >
+                            , (A0)(T0)(S0)(L0)(State)(Data)
+                            , ((expr_< container_<unspecified_<A0>,S0,L0>
                                      , T0
                                      , boost::mpl::long_<0>
                                      >
@@ -87,8 +91,8 @@ namespace nt2 { namespace ext
   // table terminal with a position in SIMD read mode
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
-                            , (A0)(T0)(S0)(State)(Data)(X)
-                            , ((expr_< table_< unspecified_<A0>, S0 >
+                            , (A0)(T0)(S0)(L0)(State)(Data)(X)
+                            , ((expr_< container_<unspecified_<A0>,S0,L0>
                                      , T0
                                      , boost::mpl::long_<0>
                                      >
@@ -115,8 +119,8 @@ namespace nt2 { namespace ext
   // table terminal with a position in SIMD write mode
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
-                            , (A0)(T0)(S0)(State)(Data)(X)
-                            , ((expr_< table_< unspecified_<A0>, S0 >
+                            , (A0)(T0)(S0)(L0)(State)(Data)(X)
+                            , ((expr_< container_<unspecified_<A0>,S0,L0>
                                      , T0
                                      , boost::mpl::long_<0>
                                      >

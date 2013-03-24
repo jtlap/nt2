@@ -10,13 +10,13 @@
 #define NT2_CORE_CONTAINER_TABLE_TABLE_HPP_INCLUDED
 
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/sdk/memory/container.hpp>
-
-#include <nt2/include/functions/construct.hpp>
-#include <nt2/core/container/table/category.hpp>
 #include <nt2/core/container/table/semantic.hpp>
 #include <nt2/core/container/table/adapted/table.hpp>
+#include <nt2/include/functions/construct.hpp>
+#include <nt2/sdk/memory/container.hpp>
+#include <nt2/sdk/memory/category.hpp>
 
+// Disable the 'class : multiple assignment operators specified' warning
 #if defined(BOOST_MSVC)
 #pragma warning( push )
 #pragma warning( disable : 4522 ) // multiple assignment operators specified
@@ -24,7 +24,7 @@
 
 namespace nt2 { namespace container
 {
-  template<class T, class S>
+  template<typename T, typename S>
   struct  table
         : expression< boost::proto::basic_expr< boost::proto::tag::terminal
                                               , boost::proto::term< nt2::memory::container<T,S> >
@@ -66,7 +66,7 @@ namespace nt2 { namespace container
     // table constructor from a single initializer.
     // This version handles initializing from of_size or expression.
     //==========================================================================
-    template<class A0>
+    template<typename A0>
     table( A0 const& a0 )
     {
       nt2::construct(*this,a0);
@@ -75,7 +75,7 @@ namespace nt2 { namespace container
     //==========================================================================
     // table constructor from a pair of initializer.
     //==========================================================================
-    template<class A0, class A1>
+    template<typename A0, typename A1>
     table( A0 const& a0, A1 const& a1 )
     {
       nt2::construct(*this,a0,a1);
@@ -85,7 +85,7 @@ namespace nt2 { namespace container
     // table constructor from a triplet of initializer.
     // This version handles initializing from : { size, Iterator, Iterator }
     //==========================================================================
-    template<class A0, class A1, class A2>
+    template<typename A0, typename A1, typename A2>
     table( A0 const& a0, A1 const& a1, A2 const& a2 )
     {
       nt2::construct(*this,a0,a1,a2);

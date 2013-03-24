@@ -30,26 +30,31 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates inner_fold
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::inner_fold_, nt2::tag::openmp_<Site>
-                               , (A0)(S0)(A1)(A2)(A3)(A4)(Site)
-                               , (boost::simd::meta::is_vectorizable<typename A0::value_type, BOOST_SIMD_DEFAULT_EXTENSION>)
-                               , ((expr_< table_< unspecified_<A0>, S0 >
-                                        , nt2::tag::terminal_
-                                        , boost::mpl::long_<0>
-                                        >
-                                 ))
-                                 ((ast_< A1, nt2::container::domain>))
-                                 (unspecified_<A2>)
-                                 (unspecified_<A3>)
-                                 (unspecified_<A4>)
-                               )
+  NT2_FUNCTOR_IMPLEMENTATION_IF ( nt2::tag::inner_fold_, nt2::tag::openmp_<Site>
+                                , (A0)(S0)(L0)(A1)(A2)(A3)(A4)(Site)
+                                , ( boost::simd::meta::
+                                    is_vectorizable < typename A0::value_type
+                                                    , BOOST_SIMD_DEFAULT_EXTENSION
+                                                    >
+                                  )
+                                , ((expr_ < container_<unspecified_<A0>,S0,L0>
+                                          , nt2::tag::terminal_
+                                          , boost::mpl::long_<0>
+                                          >
+                                  ))
+                                  ((ast_< A1, nt2::container::domain>))
+                                  (unspecified_<A2>)
+                                  (unspecified_<A3>)
+                                  (unspecified_<A4>)
+                                )
   {
     typedef void                                                              result_type;
     typedef typename A0::value_type                                           value_type;
     typedef typename boost::remove_reference<A1>::type::extent_type           extent_type;
     typedef boost::simd::native<value_type,BOOST_SIMD_DEFAULT_EXTENSION>      target_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop ) const
+    BOOST_FORCEINLINE result_type
+    operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
     {
       extent_type ext = in.extent();
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
@@ -121,7 +126,7 @@ namespace nt2 { namespace ext
   // Generates inner_fold
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::inner_fold_, nt2::tag::openmp_<Site>
-                              , (A0)(A1)(A2)(A3)(A4)(Site)
+                            , (A0)(A1)(A2)(A3)(A4)(Site)
                             , ((ast_< A0, nt2::container::domain>))
                               ((ast_< A1, nt2::container::domain>))
                               (unspecified_<A2>)
