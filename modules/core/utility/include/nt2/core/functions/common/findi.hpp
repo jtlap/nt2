@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
     typedef typename A0::value_type                                             stype;
      typedef typename boost::dispatch::meta::as_integer<stype, unsigned>::type  idx_t;
     typedef typename A1::type                                              index_type;
-    typedef nt2::memory::container<index_type, nt2::_1D>                         term;
+    typedef nt2::memory::container<index_type, nt2::_1D, tag::table_>            term;
     typedef boost::dispatch::meta::terminal_of_shared<term>                    result;
     typedef typename result::type                                         result_type;
     result_type operator()(A0 const& a0, A1 const&) const

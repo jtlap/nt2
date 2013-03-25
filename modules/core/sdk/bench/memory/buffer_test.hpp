@@ -48,11 +48,11 @@ struct  buffer_test
 };
 
 template<class T>
-struct  buffer_test< nt2::memory::container<T,nt2::settings()> >
+struct  buffer_test< nt2::memory::container<T,nt2::settings(),nt2::tag::table_> >
       : public nt2::details::base_experiment
 {
   public:
-  typedef nt2::memory::container<T,nt2::settings()> buffer_t;
+  typedef nt2::memory::container<T,nt2::settings(),nt2::tag::table_> buffer_t;
 
   buffer_test(std::size_t sz)
         : NT2_EXPRIMENT_CTOR(1.,"cycles/elements")

@@ -8,6 +8,7 @@
 ################################################################################
 
 SET( SOURCES
+     add_settings.cpp
      alignment.cpp
      allocator.cpp
      buffer.cpp

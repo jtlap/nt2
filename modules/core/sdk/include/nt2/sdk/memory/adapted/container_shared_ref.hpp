@@ -73,11 +73,9 @@ namespace boost { namespace dispatch { namespace meta
   template<class T, class S, bool Own, class Origin>
   struct hierarchy_of< nt2::memory::container_shared_ref<T, S, Own>, Origin >
   {
-    typedef typename nt2::meta::option < S
-                                      , nt2::tag::semantic_
-                                      , nt2::tag::table_
-                                      >::type                   semantic_t;
-    typedef typename semantic_t::template apply<T,S,Origin>::type type;
+    typedef container_< typename boost::dispatch::meta::property_of<T,Origin>::type
+                      , S, Sema
+                      >                   type;
   };
 
   template<class T, class S>

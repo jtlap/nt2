@@ -139,11 +139,11 @@ NT2_TEST_CASE( size_cont )
 {
   using nt2::memory::container;
   using nt2::of_size_;
-  using nt2::table;
+  using nt2::tag::table_;
   using nt2::width;
   using nt2::height;
   using nt2::depth;
-  typedef container<float, of_size_<5> > cont;
+  typedef container<float, of_size_<5>, table_ > cont;
   cont x;
 
   NT2_TEST_EQUAL( std::size_t(nt2::size(x)(1)), height(  x));

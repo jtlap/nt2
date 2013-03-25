@@ -9,8 +9,11 @@
 #ifndef NT2_CORE_SETTINGS_ADD_SETTINGS_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_ADD_SETTINGS_HPP_INCLUDED
 
-#include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/core/settings/settings.hpp>
+#include <nt2/core/container/dsl/forward.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <boost/proto/expr.hpp>
 
 namespace nt2 { namespace meta
 {
@@ -27,17 +30,17 @@ namespace nt2 { namespace meta
   };
 
   /// INTERNAL ONLY
-  template<typename Origin, typename New>
-  struct add_settings<Origin&, New>
+  template<typename Original, typename New>
+  struct add_settings<Original&, New>
   {
-    typedef typename add_settings<New,Origin>::type& type;
+    typedef typename add_settings<Original,New>::type& type;
   };
 
   /// INTERNAL ONLY
-  template<typename Origin, typename New>
-  struct add_settings<Origin const, New>
+  template<typename Original, typename New>
+  struct add_settings<Original const, New>
   {
-    typedef typename add_settings<New, Origin>::type const type;
+    typedef typename add_settings<Original,New>::type const type;
   };
 
   /// INTERNAL ONLY
@@ -55,6 +58,20 @@ namespace nt2 { namespace meta
   };
 
   /// INTERNAL ONLY
+  template<>
+  struct add_settings<nt2::settings()>
+  {
+    typedef nt2::settings type();
+  };
+
+  /// INTERNAL ONLY
+  template<>
+  struct add_settings<nt2::settings(),nt2::settings()>
+  {
+    typedef nt2::settings type();
+  };
+
+  /// INTERNAL ONLY
   template<typename New>
   struct add_settings<nt2::settings(), New>
   {
@@ -65,23 +82,29 @@ namespace nt2 { namespace meta
   template<typename S0, typename S1>
   struct add_settings<nt2::settings(S0), nt2::settings(S1)>
   {
-    typedef nt2::settings type(S0,S1);
+    typedef nt2::settings type(S1,S0);
   };
 
   /// INTERNAL ONLY
-  template<typename New>
-  struct add_settings<nt2::settings(New), void>
+  template<typename Original>
+  struct add_settings<nt2::settings(Original), void>
   {
-    typedef NEw type;
+    typedef Original type;
   };
 
   /// INTERNAL ONLY
-  #define M0(z,n,t)                                                     \
-  template<typename Original, BOOST_PP_ENUM_PARAMS(n,typename New)>     \
-  struct add_settings< Original, settings(BOOST_PP_ENUM_PARAMS(n,New))> \
-  {                                                                     \
-    typedef nt2::settings type(BOOST_PP_ENUM_PARAMS(n,New),Original);   \
-  };                                                                    \
+  #define M0(z,n,t)                                                            \
+  template<typename Original, BOOST_PP_ENUM_PARAMS(n,typename New)>            \
+  struct add_settings< Original, settings(BOOST_PP_ENUM_PARAMS(n,New))>        \
+  {                                                                            \
+    typedef nt2::settings type(BOOST_PP_ENUM_PARAMS(n,New),Original);          \
+  };                                                                           \
+  template<typename Original, BOOST_PP_ENUM_PARAMS(n,typename New)>            \
+  struct add_settings < settings(Original)                                     \
+                      , settings(BOOST_PP_ENUM_PARAMS(n,New))>                 \
+  {                                                                            \
+    typedef nt2::settings type(BOOST_PP_ENUM_PARAMS(n,New),Original);          \
+  };                                                                           \
   /**/
 
   /// INTERNAL ONLY
@@ -90,9 +113,9 @@ namespace nt2 { namespace meta
   #undef M0
 
   /// INTERNAL ONLY
-  template<typename Origin, typename New>
+  template<typename Original, typename New>
   struct add_settings < boost::proto::basic_expr< boost::proto::tag::terminal
-                                                , boost::proto::term<Origin>
+                                                , boost::proto::term<Original>
                                                 , 0l
                                                 >
                       , New
@@ -101,7 +124,7 @@ namespace nt2 { namespace meta
     typedef boost::proto::basic_expr< boost::proto::tag::terminal
                                     , boost::proto
                                            ::term < typename  add_settings
-                                                              < Origin
+                                                              < Original
                                                               , New
                                                               >::type
                                                   >

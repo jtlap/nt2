@@ -14,13 +14,13 @@
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/semantic.hpp>
 #include <nt2/core/settings/interleaving.hpp>
-#include <nt2/core/settings/normalize.hpp>
 #include <nt2/core/settings/storage_order.hpp>
-#include <nt2/sdk/memory/composite_buffer.hpp>
+#include <nt2/core/settings/specific_data.hpp>
 #include <nt2/core/settings/storage_scheme.hpp>
 #include <nt2/include/functions/scalar/numel.hpp>
-#include <boost/fusion/include/is_sequence.hpp>
 #include <nt2/sdk/memory/adapted/container.hpp>
+#include <nt2/sdk/memory/composite_buffer.hpp>
+#include <boost/fusion/include/is_sequence.hpp>
 #include <boost/mpl/at.hpp>
 
 #ifdef NT2_LOG_COPIES
@@ -34,110 +34,151 @@ namespace nt2 { namespace tag
 
 namespace nt2 { namespace memory
 {
-  //============================================================================
   /*!
-   * container is the base class handling a container semantic, layout and
-   * memory used by the nt2 proto terminal class. It is built from a value
-   * \c Type and a list of \c Settings describing how it should behave both at
-   * runtime and compile-time.
-   *
-   * \tparam Type    Value type to store in the table
-   * \tparam Setting Options list describing the behavior of the container
-   **/
-  //============================================================================
-  template<class T, class S> class container : public container_base<T>
+    @brief Memory handling typename for nt2 Container
+
+    container is the base typename handling a container semantic, layout and
+    memory used by nt2 terminals. It is built from a value
+    @c Type, a list of @c Settings describing how it should behave both at
+    runtime and compile-time and a @c Semantic describing which kind of
+    high-level behavior the container will have.
+
+    @tparam Type     Value type to store in the table
+    @tparam Setting  Options list describing the options of the container
+    @tparam semantic Describe the behavior of the container
+  **/
+  template<typename Type, typename Settings, typename Semantic>
+  typename container
   {
-  public:
-    //==========================================================================
-    // Find out how to normalize this container settings
-    //  - if no semantic is given, we infers it behaves as a simple table.
-    // Once semantic normalization occured, every options is present in
-    // settings_type.
-    //==========================================================================
-    typedef typename meta::option < S
-                                  , tag::semantic_
-                                  , tag::table_
-                                  >::type                   semantic_t;
-    typedef typename meta::normalize<semantic_t,T,S>::type  settings_type;
+    public:
 
-    //==========================================================================
-    // Compute buffer type from storage_scheme
-    //==========================================================================
-    typedef typename meta::option < settings_type
+    // Probably useless now
+    //typedef Settings  Settings;
+    //typedef Semantic  semantic_type;
+
+    /// INTERNAL ONLY storage_scheme option
+    typedef typename meta::option < Settings
                                   , tag::storage_scheme_
-                                  >::type                       scheme_t;
-    typedef typename scheme_t::template apply<T,settings_type>  scheme_type;
-    typedef typename scheme_type::type                          base_buffer_t;
+                                  , Semantic
+                                  >::type                 scheme_t;
 
-    //========================================================================
-    // If T is a composite, adapt our buffer accordingly
-    //========================================================================
-    typedef typename meta::option < settings_type
+    /// INTERNAL ONLY Storage Scheme option
+    typedef typename scheme_t::template apply<container> scheme_type;
+
+    /// INTERNAL ONLY Check if Type is a Fusion Sequence
+    typedef boost::fusion::traits::is_sequence<Type>      composite_t;
+
+    /// INTERNAL ONLY Retrieve interleaving option
+    typedef typename meta::option < Settings
                                   , tag::interleaving_
-                                  >::type                       interleaving_t;
-    typedef typename boost::mpl::if_< boost::mpl::and_
-                                      < boost::fusion::traits::is_sequence<T>
-                                      , interleaving_t
-                                      >
-                                    , composite_buffer<base_buffer_t>
-                                    , base_buffer_t
-                                    >::type                           buffer_t;
+                                  , Semantic
+                                  >::type::interleaving_type  inter_t;
 
-    //==========================================================================
-    // Container interface
-    //==========================================================================
-    typedef typename buffer_t::allocator_type   allocator_type;
-    typedef typename buffer_t::value_type       value_type;
-    typedef typename buffer_t::iterator         iterator;
-    typedef typename buffer_t::const_iterator   const_iterator;
-    typedef typename buffer_t::reference        reference;
-    typedef typename buffer_t::const_reference  const_reference;
-    typedef typename buffer_t::size_type        size_type;
-    typedef typename buffer_t::difference_type  difference_type;
-    typedef typename buffer_t::pointer          pointer;
-    typedef typename buffer_t::const_pointer    const_pointer;
+    /// INTERNAL ONLY Base buffer type
+    typedef typename scheme_type::type                        buffer_t;
 
-    //==========================================================================
-    // size_type is the type used to store the container dimensions set
-    //==========================================================================
-    typedef typename meta::option<settings_type, tag::of_size_>::type extent_type;
+    /*!
+      @brief Container memory buffer type
 
-    //==========================================================================
-    // index_type is the type used to store the container base index
-    //==========================================================================
-    typedef typename meta::option<settings_type,tag::index_>::type    index_type;
+      This typedef defines the type used by container to store its values.
+      This type is computed by using the various settings the container may
+      have.
+    **/
+    typedef typename boost::mpl::if_< boost::mpl::and_<composite_t,inter_t>
+                                    , composite_buffer<buffer_t>
+                                    , buffer_t
+                                    >::type               buffer_type;
 
-    //==========================================================================
-    // order_type is the type used to represent the container storage order
-    //==========================================================================
-    typedef typename meta::option<settings_type,tag::storage_order_>::type  order_type;
+    /*!
+      @brief Hardware specific data type
 
-    //==========================================================================
-    // require_static_init detects if container is initialized in default ctor
-    //==========================================================================
-    typedef typename
-            meta::option<settings_type,tag::storage_duration_>::type duration_t;
+      Depending on current architecture, container data block may need to be
+      augmented by a hardware specific member that take care of said hardware
+      specificities
+
+      @see spec_data
+    **/
+    typedef typename specific_data< typename  boost::dispatch::
+                                              default_site<Type>::type
+                                  , Type
+                                  >::type               specific_data_type;
+
+    /// @brief Allocator type used by the Container
+    typedef typename buffer_type::allocator_type   allocator_type;
+
+    /// @brief Value type stored by the Container
+    typedef typename buffer_type::value_type       value_type;
+
+    /// @brief Iterator type exposed by the Container
+    typedef typename buffer_type::iterator         iterator;
+
+    /// @brief Constant iterator type exposed by the Container
+    typedef typename buffer_type::const_iterator   const_iterator;
+
+    /// @brief Reference type exposed by the Container
+    typedef typename buffer_type::reference        reference;
+
+    /// @brief Constant reference type exposed by the Container
+    typedef typename buffer_type::const_reference  const_reference;
+
+    /// @brief Size type exposed by the Container
+    typedef typename buffer_type::size_type        size_type;
+
+    /// @brief Interval type exposed by the Container
+    typedef typename buffer_type::difference_type  difference_type;
+
+    /// @brief Pointer type exposed by the Container
+    typedef typename buffer_type::pointer          pointer;
+
+    /// @brief Constant pointer type exposed by the Container
+    typedef typename buffer_type::const_pointer    const_pointer;
+
+    /// @brief Type used to store extent of the data
+    typedef typename meta::option < Settings
+                                  , tag::of_size_
+                                  , Semantic
+                                  >::type       extent_type;
+
+    /// @brief Type used to store base index value of the data
+    typedef typename meta::option < Settings
+                                  , tag::index_
+                                  , Semantic
+                                  >::type       index_type;
+
+    /// @brief Type used to represent the container storage order
+    typedef typename meta::option < Settings
+                                  , tag::storage_order_
+                                  , Semantic
+                                  >::type       order_type;
+
+    /// INTERNAL ONLY detects if default initialization is required
+    typedef typename meta::option < Settings
+                                  , tag::storage_duration_
+                                  , Semantic
+                                  >::type                     duration_t;
+
+    /// INTERNAL ONLY Check if static initialization is required
+    /// This is true for non-automatic, non-empty container
     typedef boost::mpl::
-            bool_ <   !( boost::mpl::at_c<typename extent_type::values_type, 0>::type::value <= 0 )
+            bool_ <   ! ( boost::mpl::at_c<typename extent_type::values_type,0>
+                                    ::type::value <= 0
+                        )
                   &&  !boost::is_same<duration_t,automatic_>::value
                   >                                         require_static_init;
-    //==========================================================================
-    // has_static_size detects if container size is known at compile time
-    //==========================================================================
+
+    /// INTERNAL ONLY detects if container size is known at compile time
     typedef boost::mpl::
             bool_ <   extent_type::static_status
                   ||  boost::is_same<duration_t,automatic_>::value
                   >                                         has_static_size;
 
-    //==========================================================================
     /*!
-     * @brief Default constructor
-     *
-     * A default-constructed \c nt2::memory::container is initialized to be:
-     *  - empty if its size is dynamic
-     *  - pre-allocated if its size is static or its storage is automatic
-     */
-    //==========================================================================
+      @brief Default constructor
+
+      A default-constructed container is initialized to be:
+       - empty if its size is dynamic
+       - preallocated if its size is static or its storage is automatic
+    **/
     container() : data_()
     {
       init(sizes_, require_static_init());
@@ -148,6 +189,7 @@ namespace nt2 { namespace memory
     {
       std::cout << "copying container" << std::endl;
     }
+
     container& operator=(container const& other)
     {
       data_ = other.data_;
@@ -157,68 +199,59 @@ namespace nt2 { namespace memory
     }
 #endif
 
-    //==========================================================================
     /*!
-     * @brief Constructor from an allocator
-     * Construct a container from an allocator instance.
-     *
-     * @param a Allocator used for container construction
-     *
-     * Such \c nt2::memory::container is initialized to be:
-     *  - empty if its size is dynamic
-     *  - pre-allocated if its size is static or its storage is automatic
-     *
-     * \c nt2::memory::container is aware of stateful allocator and will handle
-     * them properly.
-     */
-    //==========================================================================
+      @brief Constructor from an allocator
+
+      Construct a container from an allocator instance. Such container is
+      initialized to be:
+       - empty if its size is dynamic
+       - pre-allocated if its size is static or its storage is automatic
+
+      container is aware of stateful allocator and will handle
+      them properly.
+
+      @param a Allocator used for container construction
+    **/
     container ( allocator_type const& a ) : data_(a)
     {
       init(sizes_, require_static_init());
     }
 
-    //==========================================================================
     /*!
-     * @brief Constructor from a dimension set
-     * Construct a container from a Fusion RandomAccessSequence of integral
-     * values representing the logical number of element in each dimensions.
-     *
-     * @param sz Fusion Sequence to use as dimensions
-     * @param a Allocator used for container construction
-     *
-     * Passing a dimension set to a nt2::memory::container with automatic
-     * storage or set up to use a static dimension set will result in a
-     * assert being raised.
-     *
-     * \c nt2::memory::container is aware of stateful allocator and will handle
-     * them properly.
-     */
-    //==========================================================================
-    template<class Size>
+      @brief Construct a container from a dimension set
+
+      Construct a container from a Fusion RandomAccessSequence of integral
+      values representing the logical number of element in each dimensions.
+
+      Passing a dimension set to container with automatic storage or set up
+      to use a static dimension set will result in a assert being raised if
+      said dimension set is not compatible with its static size.
+
+      container is aware of stateful allocator and will handle them properly.
+
+      @param sz Fusion Sequence to use as dimensions
+      @param a  Allocator used for container construction
+    **/
+    template<typename Size>
     container ( Size const& sz, allocator_type const& a = allocator_type() )
               : data_(a), sizes_(sz)
     {
-      //========================================================================
-      //       ****INVALID_CONSTRUCTOR_FOR_STATICALLY_SIZED_CONTAINER****
-      // If you trigger this assert, you tried to initialize a container
-      // with a static size or an automatic storage scheme from a runtime set of
-      // dimensions. Fix your code to remove such constructor call.
-      //       ****INVALID_CONSTRUCTOR_FOR_STATICALLY_SIZED_CONTAINER****
-      //========================================================================
-      BOOST_ASSERT_MSG( !has_static_size::value || sz == extent_type(), "Invalid constructor for statically sized container" );
+      BOOST_ASSERT_MSG( !has_static_size::value || sz == extent_type()
+                      , "Invalid constructor for statically sized container"
+                      );
 
       init(sizes_);
     }
 
-    //==========================================================================
-    /**!
-     * Swap the contents of two container of same type and settings
-     * \param x First \c container to swap
-     * \param y Second \c container to swap
-     **/
-    //==========================================================================
-    template<class S2>
-    BOOST_FORCEINLINE void swap(container<T,S2>& y)
+    /*!
+      @brief container swapping
+
+      Swap the contents of current container with another container
+
+      @param y container to swap @c *this with
+    **/
+    template<typename S2, typename Sema2>
+    BOOST_FORCEINLINE void swap(container<T,S2,Sema2>& y)
     {
       data_.swap(y.data_);
       sizes_.swap(y.sizes_);
@@ -236,7 +269,7 @@ namespace nt2 { namespace memory
      * @brief Resize a container using new dimensions set
      */
     //==========================================================================
-    template<class Size> void resize( Size const& szs )
+    template<typename Size> void resize( Size const& szs )
     {
       resize(szs,boost::mpl::bool_<!extent_type::static_status>());
     }
@@ -246,39 +279,29 @@ namespace nt2 { namespace memory
      * @brief Add element at end of container, reshape to 1D
      */
     //==========================================================================
-    void push_back( T const& t)
+    void push_back( Type const& t)
     {
       data_.push_back(t);
       sizes_ = extent_type(numel(sizes_) + 1);
     };
 
-    //==========================================================================
     /*!
-     * @brief Return the container dimensions set
-     * @return A reference to a constant Fusion RandomAccessSequence containing
-     * the size of the container over each of its dimensions.
-     **/
-    //==========================================================================
+      @brief Return the container dimensions set
+      @return A reference to a constant Fusion RandomAccessSequence containing
+              the size of the container over each of its dimensions.
+    **/
     BOOST_FORCEINLINE extent_type const& extent() const { return sizes_;  }
 
-    //==========================================================================
     /*!
-     * @brief Return the container number of element
-     * @return The number of logical element stored in the buffer.
-     **/
-    //==========================================================================
+      @brief Return the container number of element
+      @return The number of logical element stored in the buffer.
+    **/
     BOOST_FORCEINLINE size_type size() const { return data_.size();  }
 
-    //==========================================================================
     /*!
-     * @brief Return the container number of element along the main dimension
-     *
-     * leading_size retrieves the number of element of the leading dimension in
-     * a settings independant way.
-     *
-     * @return The number of elements stored on the main dimension
-     */
-    //==========================================================================
+      @brief Return the container number of element along the main dimension
+      @return The number of elements stored on the main dimension
+    **/
     BOOST_FORCEINLINE size_type leading_size() const
     {
       typedef typename boost::mpl
@@ -289,83 +312,83 @@ namespace nt2 { namespace memory
       return sizes_[dim_t::value];
     }
 
-    //==========================================================================
     /*!
-     * @brief Check for container emptyness
-     * @return A boolean that evaluates to \c true if the container stores no
-     * value, \c false otherwise.
-     */
-    //==========================================================================
+      @brief Check for if container is empty
+      @return A boolean that evaluates to @c true if the container
+              number of elements is 0.
+    **/
     BOOST_FORCEINLINE bool empty() const { return data_.empty(); }
 
-    //==========================================================================
     /*!
-     * Return the begin of the raw memory
-     */
-    //==========================================================================
+      @brief Raw memory accessor
+      @return Pointer to the raw memory of the container
+    **/
     BOOST_FORCEINLINE pointer       raw()       { return data_.raw(); }
+
+    /// @overload
     BOOST_FORCEINLINE const_pointer raw() const { return data_.raw(); }
 
-    //==========================================================================
     /*!
-     * Return the begin of the data
-     */
-    //==========================================================================
+      @brief Container's beginning of data
+      @return Pointer to the beginning of the container underlying sequence
+    **/
     BOOST_FORCEINLINE iterator       begin()       { return data_.begin(); }
+
+    /// @overload
     BOOST_FORCEINLINE const_iterator begin() const { return data_.begin(); }
 
-    //==========================================================================
     /*!
-     * Return the end of the data
-     */
-    //==========================================================================
+      @brief Container's end of data
+      @return Pointer to the end of the container underlying sequence
+    **/
     BOOST_FORCEINLINE iterator       end()       { return data_.end(); }
+
+    /// @overload
     BOOST_FORCEINLINE const_iterator end() const { return data_.end(); }
 
-    //==========================================================================
-    // Linear Random Access
-    //==========================================================================
+    /*!
+      @brief Random access to container's data
+      @param i Index of the element to access
+      @return Reference to the ith element of the container
+    **/
     BOOST_FORCEINLINE reference operator[](size_type i)
     {
       this->specifics().synchronize();
       return data_[i];
     }
 
+    /// @overload
     BOOST_FORCEINLINE const_reference operator[](size_type i) const
     {
       this->specifics().synchronize();
       return data_[i];
     }
 
-    //==========================================================================
     // Check if a position is safely R/W in the current container
-    //==========================================================================
     BOOST_FORCEINLINE bool is_safe(size_type p) const { return data_.is_safe(p); }
 
-  protected:
-    //==========================================================================
-    // Initialization of inner data_ and sizes_
-    // Note that the number of non-zero (nnz) is delegated to the storage scheme
-    //==========================================================================
-    template<class Size> BOOST_FORCEINLINE void init( Size const& )
+    protected:
+
+    /// INTERNAL ONLY
+    /// Initialization of inner data_ and sizes_
+    /// Note that the number of non-trivial (nnz) is delegated to storage scheme
+    template<typename Size> BOOST_FORCEINLINE void init( Size const& )
     {
       data_.resize( scheme_type::nnz( sizes_ ) );
     }
 
-    //==========================================================================
-    // Handle the conditionnal default initialization of statically sized
-    // dynamic container
-    //==========================================================================
-    template<class Size> BOOST_FORCEINLINE
+    /// INTERNAL ONLY
+    /// Handle the default initialization of statically-sized dynamic container
+    template<typename Size> BOOST_FORCEINLINE
     void init(Size const& sz, boost::mpl::true_ const&  ) { init(sz); }
 
-    template<class Size> BOOST_FORCEINLINE
-    void init(Size const&   , boost::mpl::false_ const& ) {}
+    template<typename Size> BOOST_FORCEINLINE
+    void init(Size const&, boost::mpl::false_ const& ) {}
 
-    //==========================================================================
-    // Handle the conditionnal resize of statically sized container
-    //==========================================================================
-    template<class Size> void resize( Size const& szs, boost::mpl::true_ const& )
+    /// INTERNAL ONLY
+    /// Handle the resize of statically sized container
+    template<typename Size> BOOST_FORCEINLINE
+    void resize( Size const& szs, boost::mpl::true_ const& )
     {
       if( szs != sizes_ )
       {
@@ -374,43 +397,42 @@ namespace nt2 { namespace memory
       }
     }
 
-    template<class Size> void resize( Size const& szs, boost::mpl::false_ const& )
+    template<typename Size> BOOST_FORCEINLINE
+    void resize( Size const& szs, boost::mpl::false_ const& )
     {
-      //========================================================================
-      //     ****STATICALLY_SIZED_CONTAINER_CANT_BE_RESIZED_DYNAMICALLY****
-      // If you trigger this assert, you tried to resize a container
-      // with a static size to a different runtime dimension set.
-      // Fix your code to remove such resize call.
-      //     ****STATICALLY_SIZED_CONTAINER_CANT_BE_RESIZED_DYNAMICALLY****
-      //========================================================================
       BOOST_ASSERT_MSG( szs == extent_type()
                       , "Statically sized container can't be resized dynamically"
                       );
     }
 
-  private:
-    buffer_t                    data_;
+    private:
+    buffer_type                 data_;
     extent_type                 sizes_;
 
-    template<class T2, class S2>
+    template<typename T2, typename S2, typename Sema2>
     friend class container;
   };
 
-  //============================================================================
-  /**!
-   * Swap the contents of two container of same type and settings
-   * \param x First \c container to swap
-   * \param y Second \c container to swap
-   **/
-  //============================================================================
-  template<class T, class S1, class S2> inline
-  void swap(container<T,S1>& x, container<T,S2>& y)  { x.swap(y); }
+  /*!
+    @brief Container generalized swap
 
-  template<class T, class S>
-  void swap(T& x, container<T, S>& y) { y.swap(x); }
+    Swap the contents of two containers
 
-  template<class T, class S>
-  void swap(container<T, S>& x, T& y) { x.swap(y); }
+    @param x First @c container to swap
+    @param y Second @c container to swap
+  **/
+  template< typename T
+          , typename S1, typename S2
+          , typename Sema1, typename Sema2
+          >
+  BOOST_FORCEINLINE
+  void swap(container<T,S1,Sema1>& x, container<T,S2,Sema2>& y)  { x.swap(y); }
+
+  template<typename T, typename S, typename Sema>
+  void swap(T& x, container<T, S, Sema>& y) { y.swap(x); }
+
+  template<typename T, typename S, typename Sema>
+  void swap(container<T, S, Sema>& x, T& y) { x.swap(y); }
 } }
 
 #endif

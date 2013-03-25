@@ -50,9 +50,10 @@ NT2_TEST_CASE( fundamental_numel )
 NT2_TEST_CASE( container_numel )
 {
   using nt2::numel;
+  using nt2::tag::table_;
   using nt2::of_size;
 
-  typedef nt2::memory::container<float,nt2::settings()> container_t;
+  typedef nt2::memory::container<float,nt2::settings(),table_> container_t;
 
   container_t t0;
   container_t t1( of_size(2,1,1,1) );

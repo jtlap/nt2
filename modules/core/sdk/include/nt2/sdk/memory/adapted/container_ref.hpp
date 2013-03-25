@@ -11,10 +11,15 @@
 
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/sdk/memory/forward/container.hpp>
+#include <nt2/sdk/memory/category.hpp>
+#include <nt2/core/settings/option.hpp>
+#include <nt2/core/settings/add_settings.hpp>
 #include <nt2/sdk/meta/is_container.hpp>
+#include <nt2/sdk/meta/settings_of.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <boost/dispatch/meta/terminal_of.hpp>
 
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/forward/semantic.hpp>
@@ -65,12 +70,16 @@ namespace boost { namespace dispatch { namespace meta
   template<class T, class S, class Origin>
   struct hierarchy_of< nt2::memory::container_ref<T, S>, Origin >
   {
-    typedef typename nt2::meta::option < S
-                                      , nt2::tag::semantic_
-                                      , nt2::tag::table_
-                                      >::type                   semantic_t;
-    typedef typename semantic_t::template apply<T,S,Origin>::type type;
+    typedef container_< typename boost::dispatch::meta::property_of<T,Origin>::type
+                      , S, Sema
+                      >                   type;
   };
+
+  /// INTERNAL ONLY container builds a terminal from its semantic
+  template<typename T, typename S, typename Sema>
+  struct  terminal_of< nt2::memory::container_ref<T,S,Sema> >
+        : Sema::template terminal_of<T,S>
+  {};
 } } }
 
 #endif

@@ -68,7 +68,7 @@ namespace boost { namespace dispatch { namespace meta
   struct hierarchy_of< nt2::memory::container<T,S,Sema>, Origin >
   {
     typedef container_< typename boost::dispatch::meta::property_of<T,Origin>::type
-                      , Sema, S
+                      , S, Sema
                       >                   type;
   };
 

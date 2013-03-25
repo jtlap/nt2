@@ -232,7 +232,7 @@ namespace nt2 { namespace ext
       void doindsort(T & res,  iT & idx, bool up = true, size_t dim = 1) const
     {
       typedef typename iT::value_type                           i_type;
-      typedef typename boost::mpl::at_c< typename T::index_type::type, 0>::type  ind_type;
+      typedef typename boost::mpl::at_c< typename T::index_type::index_type, 0>::type  ind_type;
       // here 0 has to be replaced by min(dim-1, size(index_type)),  but dim-1 is run-time
       // and I dont know how to simpy take the ith element of the index_type
       const i_type base = ind_type::value-1;

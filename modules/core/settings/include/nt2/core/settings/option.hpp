@@ -45,6 +45,18 @@ namespace nt2
     struct  option<Settings*,Option,Semantic>
           : option<Settings,Option,Semantic>
     {};
+
+    /// INTERNAL ONLY Forward option retrieval for &
+    template<class Settings, class Option, class Semantic>
+    struct  option<Settings&,Option,Semantic>
+          : option<Settings,Option,Semantic>
+    {};
+
+    /// INTERNAL ONLY Forward option retrieval for const
+    template<class Settings, class Option, class Semantic>
+    struct  option<Settings const,Option,Semantic>
+          : option<Settings,Option,Semantic>
+    {};
   }
 }
 
