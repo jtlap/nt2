@@ -52,11 +52,10 @@ namespace nt2 { namespace details
       {
         ::nt2::details::ulp_fail( desc, func, line, ulps.size(),N, ok);
 
-        std::cout << std::setprecision(20);
-
         BOOST_FOREACH ( f_t const & f, ulps )
         {
-          std::cout << "\tlhs: "  << f.value
+          std::cout << std::setprecision(20)
+                    << "\tlhs: "  << f.value
                     << ", rhs: "  << f.desired_value
                     << ", ULP: "  << f.ulp_error
                     << ", @( "    << f.index << " )";

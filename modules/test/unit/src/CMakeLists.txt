@@ -16,6 +16,7 @@ set(SOURCES
     stats.cpp
     suite.cpp
     ulp.cpp
+    prng.cpp
    )
 
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)

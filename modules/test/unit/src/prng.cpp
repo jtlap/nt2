@@ -8,8 +8,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/sdk/bench/config.hpp>
-#include <nt2/sdk/bench/details/prng.hpp>
+#include <nt2/sdk/unit/config.hpp>
+#include <nt2/sdk/unit/details/prng.hpp>
 #include <nt2/sdk/config/type_lists.hpp>
 
 #include <boost/simd/sdk/config/types.hpp>
@@ -42,7 +42,7 @@ namespace nt2
     }
 
     template<typename T>
-    NT2_TEST_BENCHMARK_DECL BOOST_DISPATCH_NOTHROW
+    NT2_TEST_UNIT_DECL BOOST_DISPATCH_NOTHROW
     void prng_fill_impl( boost::iterator_range<T*> data , T mn, T mx)
     {
       boost::random::uniform_real_distribution<T> dist(mn, mx);
@@ -50,7 +50,7 @@ namespace nt2
     }
 
     #define M0(r,d,elem)                                              \
-    template<> NT2_TEST_BENCHMARK_DECL BOOST_DISPATCH_NOTHROW         \
+    template<> NT2_TEST_UNIT_DECL BOOST_DISPATCH_NOTHROW         \
     void prng_fill_impl ( boost::iterator_range<elem*> const data     \
                         , elem mn, elem mx                            \
                         )                                             \
@@ -64,14 +64,14 @@ namespace nt2
 
     #undef M0
 
-    template NT2_TEST_BENCHMARK_DECL BOOST_DISPATCH_NOTHROW
+    template NT2_TEST_UNIT_DECL BOOST_DISPATCH_NOTHROW
     void prng_fill_impl( boost::iterator_range<float*>, float, float);
 
-    template NT2_TEST_BENCHMARK_DECL BOOST_DISPATCH_NOTHROW
+    template NT2_TEST_UNIT_DECL BOOST_DISPATCH_NOTHROW
     void prng_fill_impl( boost::iterator_range<double*>, double, double);
   }
 
-  NT2_TEST_BENCHMARK_DECL BOOST_DISPATCH_NOTHROW void prng_reset()
+  NT2_TEST_UNIT_DECL BOOST_DISPATCH_NOTHROW void prng_reset()
   {
     details::prng_singleton.seed( 42 );
   }

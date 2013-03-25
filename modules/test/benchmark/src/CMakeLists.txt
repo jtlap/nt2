@@ -15,7 +15,6 @@ set(SOURCES
     base_experiment.cpp
     suite.cpp
     priority.cpp
-    prng.cpp
     median.cpp
     overheads.cpp
     perform_benchmark.cpp

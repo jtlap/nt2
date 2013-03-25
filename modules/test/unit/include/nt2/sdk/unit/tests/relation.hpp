@@ -23,24 +23,23 @@
 #include <boost/current_function.hpp>
 
 /// INTERNAL ONLY - Base macro for relation checks
-#define NT2_TEST_FUNC(A,B,OP)                         \
-do                                                    \
-{                                                     \
-  nt2::unit::test_count()++;                          \
-  if( nt2::unit::eval(A) OP nt2::unit::eval(B) )      \
-  {                                                   \
-    nt2::unit::pass(#A " " #OP " " #B);               \
-  }                                                   \
-  else                                                \
-  {                                                   \
-    nt2::unit::fail ( #A " " #OP " " #B               \
-                    , __LINE__,BOOST_CURRENT_FUNCTION \
-                    );                                \
-    std::setprecision(20);                            \
-    std::cout << #A << ": \n" << (A) << std::endl;    \
-    std::cout << #B << ": \n" << (B) << std::endl;    \
-  }                                                   \
-} while(0)                                            \
+#define NT2_TEST_FUNC(A,B,OP)                                                  \
+do                                                                             \
+{                                                                              \
+  nt2::unit::test_count()++;                                                   \
+  if( nt2::unit::eval(A) OP nt2::unit::eval(B) )                               \
+  {                                                                            \
+    nt2::unit::pass(#A " " #OP " " #B);                                        \
+  }                                                                            \
+  else                                                                         \
+  {                                                                            \
+    nt2::unit::fail ( #A " " #OP " " #B                                        \
+                    , __LINE__,BOOST_CURRENT_FUNCTION                          \
+                    );                                                         \
+    std::cout << #A << ": \n" << std::setprecision(20) << (A) << std::endl;    \
+    std::cout << #B << ": \n" << std::setprecision(20) << (B) << std::endl;    \
+  }                                                                            \
+} while(0)                                                                     \
 /**/
 
 /*!
@@ -52,27 +51,26 @@ do                                                    \
   @usage
   @include test_equal.cpp
 **/
-#define NT2_TEST_EQUAL(A,B)                             \
-do                                                      \
-{                                                       \
-  nt2::unit::test_count()++;                            \
-  if( nt2::unit::test_for_equality( nt2::unit::eval(A)  \
-                                  , nt2::unit::eval(B)  \
-                                  )                     \
-    )                                                   \
-  {                                                     \
-    nt2::unit::pass(#A " == " #B);                      \
-  }                                                     \
-  else                                                  \
-  {                                                     \
-    nt2::unit::fail ( #A " == " #B                      \
-                    , __LINE__,BOOST_CURRENT_FUNCTION   \
-                    );                                  \
-    std::setprecision(20);                              \
-    std::cout << #A << ": \n" << (A) << std::endl;      \
-    std::cout << #B << ": \n" << (B) << std::endl;      \
-  }                                                     \
-} while(0)                                              \
+#define NT2_TEST_EQUAL(A,B)                                                    \
+do                                                                             \
+{                                                                              \
+  nt2::unit::test_count()++;                                                   \
+  if( nt2::unit::test_for_equality( nt2::unit::eval(A)                         \
+                                  , nt2::unit::eval(B)                         \
+                                  )                                            \
+    )                                                                          \
+  {                                                                            \
+    nt2::unit::pass(#A " == " #B);                                             \
+  }                                                                            \
+  else                                                                         \
+  {                                                                            \
+    nt2::unit::fail ( #A " == " #B                                             \
+                    , __LINE__,BOOST_CURRENT_FUNCTION                          \
+                    );                                                         \
+    std::cout << #A << ": \n" << std::setprecision(20) << (A) << std::endl;    \
+    std::cout << #B << ": \n" << std::setprecision(20) << (B) << std::endl;    \
+  }                                                                            \
+} while(0)                                                                     \
 /**/
 
 /*!
@@ -84,27 +82,26 @@ do                                                      \
   @usage
   @include test_not_equal.cpp
 **/
-#define NT2_TEST_NOT_EQUAL(A,B)                           \
-do                                                        \
-{                                                         \
-  nt2::unit::test_count()++;                              \
-  if( !nt2::unit::test_for_equality ( nt2::unit::eval(A)  \
-                                    , nt2::unit::eval(B)  \
-                                    )                     \
-    )                                                     \
-  {                                                       \
-    nt2::unit::pass(#A " != " #B);                        \
-  }                                                       \
-  else                                                    \
-  {                                                       \
-    nt2::unit::fail ( #A " != " #B                        \
-                    , __LINE__,BOOST_CURRENT_FUNCTION     \
-                    );                                    \
-    std::setprecision(20);                                \
-    std::cout << #A << ": \n" << (A) << std::endl;        \
-    std::cout << #B << ": \n" << (B) << std::endl;        \
-  }                                                       \
-} while(0)                                                \
+#define NT2_TEST_NOT_EQUAL(A,B)                                                \
+do                                                                             \
+{                                                                              \
+  nt2::unit::test_count()++;                                                   \
+  if( !nt2::unit::test_for_equality ( nt2::unit::eval(A)                       \
+                                    , nt2::unit::eval(B)                       \
+                                    )                                          \
+    )                                                                          \
+  {                                                                            \
+    nt2::unit::pass(#A " != " #B);                                             \
+  }                                                                            \
+  else                                                                         \
+  {                                                                            \
+    nt2::unit::fail ( #A " != " #B                                             \
+                    , __LINE__,BOOST_CURRENT_FUNCTION                          \
+                    );                                                         \
+    std::cout << #A << ": \n" << std::setprecision(20) << (A) << std::endl;    \
+    std::cout << #B << ": \n" << std::setprecision(20) << (B) << std::endl;    \
+  }                                                                            \
+} while(0)                                                                     \
 /**/
 
 /*!

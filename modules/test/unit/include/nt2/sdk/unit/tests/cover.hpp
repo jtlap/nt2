@@ -7,16 +7,23 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TEST_UNIT_TESTS_HPP_INCLUDED
-#define NT2_TEST_UNIT_TESTS_HPP_INCLUDED
+#ifndef NT2_SDK_UNIT_TESTS_COVER_HPP_INCLUDED
+#define NT2_SDK_UNIT_TESTS_COVER_HPP_INCLUDED
 
-#include <nt2/sdk/unit/tests/ulp.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
-#include <nt2/sdk/unit/tests/exceptions.hpp>
+// Temporary fix before cover tests disappear
 
-// TODO: Remove once cover tests get turned into table tests
-#include <nt2/sdk/unit/tests/cover.hpp>
+#include <vector>
+#include <nt2/sdk/unit/details/prng.hpp>
+
+/// INTERNAL ONLY
+#if !defined(NT2_NB_RANDOM_TEST)
+#define NT2_NB_RANDOM_TEST 128
+#endif
+
+/// INTERNAL ONLY
+#define NT2_CREATE_BUF(Name,Type,Size,Min,Max)                                 \
+std::vector<Type,boost::simd::memory::allocator<Type> > Name(Size);            \
+nt2::roll( Name, Min, Max );                                                   \
+/**/
 
 #endif

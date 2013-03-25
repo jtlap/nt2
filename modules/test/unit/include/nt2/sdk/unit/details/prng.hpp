@@ -8,10 +8,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_BENCH_DETAILS_PRNG_HPP_INCLUDED
-#define NT2_SDK_BENCH_DETAILS_PRNG_HPP_INCLUDED
+#ifndef NT2_SDK_UNIT_DETAILS_PRNG_HPP_INCLUDED
+#define NT2_SDK_UNIT_DETAILS_PRNG_HPP_INCLUDED
 
-#include <nt2/sdk/bench/config.hpp>
+#include <nt2/sdk/unit/config.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/range/iterator_range_core.hpp>
 
@@ -20,13 +20,13 @@ namespace nt2
   namespace details
   {
     template<typename T>
-    NT2_TEST_BENCHMARK_DECL BOOST_DISPATCH_NOTHROW
+    NT2_TEST_UNIT_DECL BOOST_DISPATCH_NOTHROW
     void prng_fill_impl( boost::iterator_range<T*> data, T minimum, T maximum );
   }
 
   // Portably reproducible pseudo "random" values.
   //                                         (24.07.2012.) (Domagoj Saric)
-  NT2_TEST_BENCHMARK_DECL BOOST_DISPATCH_NOTHROW void prng_reset();
+  NT2_TEST_UNIT_DECL BOOST_DISPATCH_NOTHROW void prng_reset();
 
 
   template<typename Range>
