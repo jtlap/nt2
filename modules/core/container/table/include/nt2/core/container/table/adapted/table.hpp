@@ -10,35 +10,41 @@
 #define NT2_CORE_CONTAINER_TABLE_ADAPTED_TABLE_HPP_INCLUDED
 
 #include <nt2/core/container/dsl/forward.hpp>
-#include <nt2/sdk/memory/forward/container.hpp>
-#include <nt2/sdk/meta/container_of.hpp>
+#include <nt2/core/container/table/semantic.hpp>
+#include <nt2/core/settings/add_settings.hpp>
 #include <nt2/core/settings/option.hpp>
+#include <nt2/sdk/meta/settings_of.hpp>
+
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 
 namespace nt2 { namespace meta
 {
-  //============================================================================
-  // Container of the main nt2 proto domain act as tables
-  //============================================================================
-  template<> struct container_of<container::domain>
+  /// INTERNAL ONLY : Option of a table use its settings and semantic
+  template<typename T, typename S, typename Tag>
+  struct  option<nt2::container::table<T, S> , Tag>
+        : option<S, Tag, tag::table_>
+  {};
+
+  /// INTERNAL ONLY : add_settings to a table
+  template<typename T, typename S, typename S2>
+  struct add_settings< container::table<T, S>, S2 >
   {
-    struct type
-    {
-      template<class T, class S> struct apply
-      {
-        typedef memory::container<T,S> type;
-      };
-    };
+    typedef container::table<T, typename add_settings<S, S2>::type> type;
+  };
+
+  /// INTERNAL ONLY : Extract settings from table
+  template<typename T, typename S>
+  struct settings_of< container::table<T, S> >
+  {
+    typedef S type;
   };
 } }
 
 namespace boost { namespace dispatch { namespace meta
 {
-  //============================================================================
-  // value_of specialization
-  //============================================================================
-  template<class T, class S> struct value_of< nt2::container::table<T,S> >
+  /// INTERNAL ONLY : value_of for table
+  template<typename T, typename S> struct value_of< nt2::container::table<T,S> >
   {
     typedef T type;
   };
@@ -55,22 +61,22 @@ namespace boost { namespace dispatch { namespace meta
     typedef typename nt2::memory::container<T,S>::const_reference type;
   };
 
-  //============================================================================
-  // model_of specialization
-  //============================================================================
-  template<typename T, typename S> struct model_of< nt2::container::table<T,S> >
+  /// INTERNAL ONLY : model_of for table
+  template<typename T, typename S>
+  struct model_of< nt2::container::table<T,S> >
   {
     struct type
     {
-      template<class X>
-      struct apply { typedef nt2::container::table<X,S> type; };
+      template<class X> struct apply
+      {
+        typedef nt2::container::table<X,S> type;
+      };
     };
   };
 
-  //============================================================================
-  // table use container<tag::table_> to do its biddings
-  //============================================================================
-  template<class T, class S> struct semantic_of< nt2::container::table<T, S> >
+  /// INTERNAL ONLY : semantic_of for table
+  template<typename T, typename S>
+  struct semantic_of< nt2::container::table<T, S> >
   {
     typedef typename nt2::container::table<T, S>::container_type  type;
   };

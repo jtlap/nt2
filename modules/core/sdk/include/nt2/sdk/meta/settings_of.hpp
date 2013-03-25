@@ -9,23 +9,30 @@
 #ifndef NT2_SDK_META_SETTINGS_OF_HPP_INCLUDED
 #define NT2_SDK_META_SETTINGS_OF_HPP_INCLUDED
 
+/*!
+  @file
+  @brief
+**/
+
 #include <nt2/core/settings/size.hpp>
 #include <nt2/core/settings/index.hpp>
-#include <nt2/core/settings/storage_order.hpp>
-#include <nt2/core/settings/alignment.hpp>
 #include <nt2/core/settings/settings.hpp>
+#include <nt2/core/settings/alignment.hpp>
+#include <nt2/core/settings/storage_order.hpp>
 #include <boost/dispatch/meta/enable_if_type.hpp>
 
 namespace nt2
 {
   namespace details
   {
+    /// INTERNAL ONLY - By default, behave like a Matlab like unaligned scalar value
     template<class T, class Enable = void>
     struct  settings_of
     {
-      typedef settings type(matlab_index_,_0D,matlab_order_,unaligned_);
+      typedef settings type(matlab_index_, _0D, matlab_order_, unaligned_);
     };
 
+    /// INTERNAL ONLY - Try to find and extract a settings_type from the type
     template<class T>
     struct settings_of< T
                       , typename  boost::dispatch::meta::
@@ -38,13 +45,11 @@ namespace nt2
 
   namespace meta
   {
-    //==========================================================================
     /*!
      * Retrieve settings type from a Container
      *
      * \tparam T Container to retrieve settings from
      */
-    //==========================================================================
     template<class T> struct settings_of          : details::settings_of<T> {};
     template<class T> struct settings_of<T&>      : settings_of<T> {};
     template<class T> struct settings_of<T const> : settings_of<T> {};

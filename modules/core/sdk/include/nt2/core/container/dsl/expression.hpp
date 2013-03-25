@@ -13,8 +13,10 @@
 #include <nt2/core/container/dsl/domain.hpp>
 #include <nt2/core/container/dsl/grammar.hpp>
 #include <nt2/core/container/dsl/size.hpp>
+#include <nt2/core/container/dsl/details/raw.hpp>
 #include <nt2/core/container/dsl/details/resize.hpp>
 #include <nt2/core/container/dsl/details/expression.hpp>
+#include <nt2/core/container/dsl/details/expression_size.hpp>
 #include <nt2/sdk/meta/container_traits.hpp>
 #include <nt2/sdk/meta/settings_of.hpp>
 #include <nt2/sdk/meta/is_scalar.hpp>
@@ -45,104 +47,8 @@
 #pragma warning( disable : 4522 )
 #endif
 
-namespace nt2
-{
-  // TODO: move this function to a better place
-  template<class T>
-  T* raw(T& t)
-  {
-    return &t;
-  }
-
-  template<class T>
-  T const* raw(T const& t)
-  {
-    return &t;
-  }
-
-  template<class T, class S>
-  typename memory::container_ref<T, S>::pointer raw(memory::container_ref<T, S> const& c)
-  {
-    return c.raw();
-  }
-
-  template<class T, class S>
-  typename memory::container_ref<T, S>::pointer raw(memory::container_ref<T, S>& c)
-  {
-    return c.raw();
-  }
-
-  template<class T, class S, bool Own>
-  typename memory::container_shared_ref<T, S, Own>::pointer raw(memory::container_shared_ref<T, S, Own> const& c)
-  {
-    return c.raw();
-  }
-
-  template<class T, class S, bool Own>
-  typename memory::container_shared_ref<T, S, Own>::pointer raw(memory::container_shared_ref<T, S, Own>& c)
-  {
-    return c.raw();
-  }
-
-  template<class T, class S>
-  typename memory::container<T, S>::pointer raw(memory::container<T, S>& c)
-  {
-    return c.raw();
-  }
-
-  template<class T, class S>
-  typename memory::container<T, S>::const_pointer raw(memory::container<T, S> const& c)
-  {
-    return c.raw();
-  }
-}
-
 namespace nt2 { namespace container
 {
-  template<class Sizes, class Enable = void>
-  struct expression_size
-  {
-    BOOST_FORCEINLINE expression_size(Sizes const& size)
-      : size_(size)
-    {
-    }
-
-    template<class Base, class Expr>
-    BOOST_FORCEINLINE expression_size(Base const&, Expr const& expr)
-      : size_(expr.size_.size_)
-    {
-    }
-
-    Sizes size_;
-    BOOST_FORCEINLINE Sizes const& data() const
-    {
-      return size_;
-    }
-  };
-
-  template<class Sizes>
-  struct expression_size<Sizes, typename boost::enable_if< boost::is_reference<Sizes> >::type>
-  {
-    typedef typename boost::remove_reference<Sizes>::type Sizes_;
-
-    BOOST_FORCEINLINE expression_size(Sizes size)
-      : size_(&size)
-    {
-    }
-
-    template<class Base, class Expr>
-    BOOST_FORCEINLINE expression_size(Base const& base, Expr const&)
-      : size_(&size_transform<domain>()(base))
-    {
-    }
-
-    Sizes_* size_;
-    BOOST_FORCEINLINE Sizes_& data() const
-    {
-      return *size_;
-    }
-  };
-
   //==========================================================================
   // Conversion operator for integration with scalars:
   // - used for reductions that return scalars;
@@ -196,12 +102,14 @@ namespace nt2 { namespace container
     typedef typename meta::size_type_<Result>::type         size_type;
 
     typedef typename meta::settings_of<Result>::type        settings_type;
-    typedef typename meta::option< settings_type
-                                 , nt2::tag::index_
-                                 >::type                    index_type;
-    typedef typename meta::option< settings_type
-                                , nt2::tag::storage_order_
-                                >::type                     storage_order_type;
+
+    typedef typename meta::option < Result
+                                  , nt2::tag::index_
+                                  >::type                   index_type;
+
+    typedef typename meta::option < Result
+                                  , nt2::tag::storage_order_
+                                  >::type                   storage_order_type;
 
     //==========================================================================
     // Make the expression MPL-compatible
@@ -216,7 +124,7 @@ namespace nt2 { namespace container
     typedef typename meta::strip<sizes_t>::type                  extent_type;
     friend struct expression_size<sizes_t>;
 
-    typedef typename index_type::type                           indexes_type;
+    typedef typename index_type::index_type                      indexes_type;
 
     //==========================================================================
     // Default constructor required by table
@@ -370,7 +278,7 @@ namespace nt2 { namespace container
                           , (Expr&)
                           );
 
-      return nt2::raw(boost::proto::value(*this));
+      return nt2::details::raw(boost::proto::value(*this));
     }
 
     const_pointer raw() const
@@ -386,7 +294,7 @@ namespace nt2 { namespace container
                           , (Expr&)
                           );
 
-      return nt2::raw(boost::proto::value(*this));
+      return nt2::details::raw(boost::proto::value(*this));
     }
 
     //==========================================================================

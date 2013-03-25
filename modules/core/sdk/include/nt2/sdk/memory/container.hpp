@@ -48,7 +48,7 @@ namespace nt2 { namespace memory
     @tparam semantic Describe the behavior of the container
   **/
   template<typename Type, typename Settings, typename Semantic>
-  typename container
+  struct container : public container_base<Type>
   {
     public:
 
@@ -422,8 +422,8 @@ namespace nt2 { namespace memory
     @param y Second @c container to swap
   **/
   template< typename T
-          , typename S1, typename S2
-          , typename Sema1, typename Sema2
+          , typename S1, typename Sema1
+          , typename S2, typename Sema2
           >
   BOOST_FORCEINLINE
   void swap(container<T,S1,Sema1>& x, container<T,S2,Sema2>& y)  { x.swap(y); }

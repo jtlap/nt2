@@ -15,60 +15,67 @@
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/add_settings.hpp>
 #include <nt2/sdk/meta/is_container.hpp>
+#include <nt2/core/settings/add_settings.hpp>
 #include <nt2/sdk/meta/settings_of.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
 
-#include <nt2/core/settings/option.hpp>
-#include <nt2/core/settings/forward/semantic.hpp>
-
-namespace nt2 { namespace tag
-{
-  struct table_;
-} }
-
 namespace nt2 { namespace meta
 {
-  template<class T, class S>
-  struct  is_container_ref< memory::container_ref<T, S> >
+  /// INTERNAL ONLY memory::container_ref models ContainerReference
+  template<typename T, typename S, typename Sema>
+  struct  is_container_ref< memory::container_ref<T, S, Sema> >
         : boost::mpl::true_
   {};
+
+  /// INTERNAL ONLY Option of a container use its settings and semantic
+  template<typename T, typename S, typename Sema, typename Tag>
+  struct  option<memory::container_ref<T, S, Sema> , Tag>
+        : option<S, Tag, Sema>
+  {};
+
+  /// INTERNAL ONLY - Adding option directly to a container_ref
+  template<typename T, typename S, typename Sema, typename S2>
+  struct add_settings< memory::container_ref<T, S, Sema>, S2 >
+  {
+    typedef memory::container_ref<T, typename add_settings<S, S2>::type, Sema> type;
+  };
+
+  /// INTERNAL ONLY : Extract settings from container_ref
+  template<typename T, typename S, typename Sema>
+  struct settings_of< memory::container_ref<T, S, Sema> >
+  {
+    typedef S type;
+  };
 } }
 
 namespace boost { namespace dispatch { namespace meta
 {
-  //============================================================================
-  // value_of specializations
-  //============================================================================
-  template<class T, class S>
-  struct value_of< nt2::memory::container_ref<T, S> >
+  /// INTERNAL ONLY value_of for container_ref
+  template<typename T, typename S, typename Sema>
+  struct value_of< nt2::memory::container_ref<T, S, Sema> >
   {
     typedef T& type;
   };
 
-  //============================================================================
-  // model_of specialization
-  //============================================================================
-  template<class T, class S>
-  struct model_of< nt2::memory::container_ref<T, S> >
+  /// INTERNAL ONLY model_of for container_ref
+  template<typename T, typename S, typename Sema>
+  struct model_of< nt2::memory::container_ref<T, S, Sema> >
   {
     struct type
     {
-      template<class X>
-      struct apply
+      template<typename X> struct apply
       {
-        typedef nt2::memory::container_ref<X, S> type;
+        typedef nt2::memory::container_ref<X, S, Sema> type;
       };
     };
   };
 
-  //============================================================================
-  // container hierarchy
-  //============================================================================
-  template<class T, class S, class Origin>
-  struct hierarchy_of< nt2::memory::container_ref<T, S>, Origin >
+  /// INTERNAL ONLY hierarchy_of for container_ref
+  template<typename T, typename S, typename Sema, typename Origin>
+  struct hierarchy_of< nt2::memory::container_ref<T, S, Sema>, Origin >
   {
     typedef container_< typename boost::dispatch::meta::property_of<T,Origin>::type
                       , S, Sema

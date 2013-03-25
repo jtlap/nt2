@@ -12,15 +12,15 @@
 
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/core/container/dsl/expression.hpp>
+#include <nt2/core/container/dsl/details/raw.hpp>
 
 namespace nt2 { namespace container
 {
   template<class T, class U>
   bool alias(T const& t, U const& u)
   {
-    return raw(value(t)) < raw(value(u))+numel(u)
-        && raw(value(t))+numel(t) >= raw(value(u))
-    ;
+    return details::raw(value(t)) < details::raw(value(u))+numel(u)
+        && details::raw(value(t))+numel(t) >= details::raw(value(u));
   }
 } }
 

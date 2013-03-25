@@ -11,16 +11,19 @@
 
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/core/container/dsl/size.hpp>
+//#include <nt2/core/container/dsl/shape_of.hpp>
+//#include <nt2/core/container/dsl/index_of.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
-////#include <nt2/core/container/dsl/shape_of.hpp>
-////#include <nt2/core/container/dsl/index_of.hpp>
-#include <nt2/core/container/table/adapted/table.hpp> // for container_of specialization
-#include <nt2/sdk/meta/container_of.hpp>
+#include <nt2/core/container/dsl/deduce_semantic.hpp>
+
+// for container_of specialization - TO BE REMOVED
+#include <nt2/core/container/table/semantic.hpp>
+
 #include <nt2/sdk/meta/strip.hpp>
 #include <boost/dispatch/meta/transfer_qualifiers.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/remove_const.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/mpl/if.hpp>
 
 namespace nt2 { namespace details
 {
@@ -50,23 +53,24 @@ namespace nt2 { namespace details
   //==========================================================================
   template<class Tag, class Domain, int Arity, class Expr> struct generator
   {
-    typedef typename ext::value_type<Tag, Domain, Arity, Expr>::type value_type;
-    typedef typename ext::size_of<Tag,Domain,Arity,Expr>::result_type           extent_type;
-    typedef typename meta::strip<extent_type>::type                             size_type;
+    typedef typename ext::value_type<Tag, Domain, Arity, Expr>::type  value_type;
+    typedef typename ext::size_of<Tag,Domain,Arity,Expr>::result_type extent_type;
+    typedef typename meta::strip<extent_type>::type                   size_type;
+    // typedef typename meta::deduce_semantic<Expr>::type            semantic_type;
+    typedef  tag::table_            semantic_type;
 
     typedef typename boost::mpl::
-    if_< boost::is_same< size_type, _0D >
-       , value_type
-       , typename boost::dispatch::meta::
-         transfer_qualifiers< typename meta::container_of<Domain>::type
-                              ::template
-                              apply< typename meta::
-                                     strip<value_type>::type
-                                   , nt2::settings(size_type)
-                                   >::type
-                            , value_type
-                            >::type
-       >::type                                                    type;
+    eval_if < boost::is_same< size_type, _0D >
+            , ext::value_type<Tag, Domain, Arity, Expr>
+            , boost::dispatch::meta::
+              transfer_qualifiers < memory::container < typename meta::strip<value_type>::type
+                                                      , nt2::settings(size_type)
+                                                      , semantic_type
+                                                      >
+                                  , value_type
+                                  >
+            >::type                                               type;
+
     typedef container::expression< typename boost::
                         remove_const<Expr>::type
                       , type>                                     result_type;
@@ -82,4 +86,3 @@ namespace nt2 { namespace details
 #include <nt2/core/container/dsl/details/generator/nullary_function.hpp>
 
 #endif
-

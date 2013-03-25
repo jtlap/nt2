@@ -21,18 +21,20 @@
 
 NT2_TEST_CASE( generator )
 {
+  using nt2::tag::table_;
+
   typedef double T;
   typedef nt2::settings S(nt2::_4D);
   nt2::table<T, S> a0;
 
   NT2_TEST_EXPR_TYPE( nt2::cast<float>(a0)
                     , boost::dispatch::meta::semantic_of<boost::mpl::_>
-                    , (nt2::memory::container<float, S>)
+                    , (nt2::memory::container<float, S, table_>)
                     );
 
   NT2_TEST_EXPR_TYPE( nt2::cast<nt2::int16_t>(a0)
                     , boost::dispatch::meta::semantic_of<boost::mpl::_>
-                    , (nt2::memory::container<nt2::int16_t, S>)
+                    , (nt2::memory::container<nt2::int16_t, S, table_>)
                     );
 }
 

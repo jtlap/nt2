@@ -132,6 +132,7 @@ namespace nt2 { namespace ext
               , 1l
             >
           )
+        , tag::table_
       >
     >
   , Cardinal

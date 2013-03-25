@@ -28,7 +28,7 @@ namespace nt2 { namespace tag
     struct apply : boost::mpl::false_
     {};
 
-    typedef nt2::_4D default_type;
+    typedef nt2::of_size_<-1,-1,-1,-1> default_type;
   };
 
   template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D)

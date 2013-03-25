@@ -21,7 +21,7 @@
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/terminal.hpp>
 #include <nt2/include/functions/firstnonsingleton.hpp>
-#include <nt2/core/container/table/category.hpp>
+#include <nt2/sdk/memory/category.hpp>
 #include <nt2/sdk/meta/is_container.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
 #include <boost/proto/traits.hpp>

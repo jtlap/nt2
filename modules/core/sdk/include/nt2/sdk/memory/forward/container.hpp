@@ -44,7 +44,7 @@ namespace nt2 { namespace memory
     mutable specific_data_type  specific_;
   };
 
-  template<class Type, class Settings, class Semantic>  class container;
+  template<class Type, class Settings, class Semantic>         struct container;
   template<class T, class S, class Semantic>                   struct  container_ref;
   template<class T, class S, class Semantic, bool Own = false> struct  container_shared_ref;
 

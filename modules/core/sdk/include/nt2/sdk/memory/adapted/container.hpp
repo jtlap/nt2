@@ -13,7 +13,9 @@
 #include <nt2/sdk/memory/forward/container.hpp>
 #include <nt2/sdk/memory/category.hpp>
 #include <nt2/core/settings/option.hpp>
+#include <nt2/core/settings/add_settings.hpp>
 #include <nt2/sdk/meta/is_container.hpp>
+#include <nt2/sdk/meta/settings_of.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
@@ -30,20 +32,39 @@ namespace nt2 { namespace meta
   struct  option<memory::container<T, S, Sema> , Tag>
         : option<S, Tag, Sema>
   {};
+
+  /// INTERNAL ONLY - Addign option directly to a container
+  template<typename T, typename S, typename Sema, typename S2>
+  struct add_settings< memory::container<T, S, Sema>, S2 >
+  {
+    typedef memory::container<T, typename add_settings<S, S2>::type, Sema> type;
+  };
+
+  /// INTERNAL ONLY : Extract settings from container
+  template<typename T, typename S, typename Sema>
+  struct settings_of< memory::container<T, S, Sema> >
+  {
+    typedef S type;
+  };
 } }
 
 namespace boost { namespace dispatch { namespace meta
 {
   /// INTERNAL ONLY value_of for container
   template<typename T, typename S, typename Sema>
-  struct value_of< nt2::memory::container<T,S,Sema> > { typedef T type; };
+  struct value_of< nt2::memory::container<T,S,Sema> >
+  {
+    typedef T type;
+  };
 
+  /// INTERNAL ONLY value_of for container reference
   template<typename T,typename S, typename Sema>
   struct value_of< nt2::memory::container<T,S,Sema>& >
   {
     typedef typename nt2::memory::container<T,S,Sema>::reference type;
   };
 
+  /// INTERNAL ONLY value_of for container const refere,ce
   template<typename T,typename S, typename Sema>
   struct value_of< nt2::memory::container<T,S,Sema> const&>
   {

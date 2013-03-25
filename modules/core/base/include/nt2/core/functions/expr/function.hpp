@@ -21,7 +21,9 @@
 #include <nt2/core/functions/table/details/is_vectorizable_indexer.hpp>
 #include <nt2/core/container/colon/category.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
-#include <nt2/sdk/meta/add_settings.hpp>
+#include <nt2/sdk/memory/container.hpp>
+#include <nt2/sdk/memory/container_shared_ref.hpp>
+#include <nt2/core/settings/add_settings.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
 #include <nt2/sdk/meta/is_scalar.hpp>
 #include <nt2/sdk/meta/is_container.hpp>
@@ -164,8 +166,6 @@ namespace nt2 { namespace ext
                                         , meta::as_<typename A0::indexes_type>
                                         )
                   >::type Idx;
-
-      typedef nt2::settings settings(typename A0::settings_type, typename Idx::extent_type);
 
       typedef typename container::as_view_impl<A0>::type type0;
       typedef typename meta::add_settings<type0, typename Idx::extent_type>::type type;
