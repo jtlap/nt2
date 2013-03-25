@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+  bandred.cpp
   binomial.cpp
   cauchy.cpp
   chebspec.cpp
