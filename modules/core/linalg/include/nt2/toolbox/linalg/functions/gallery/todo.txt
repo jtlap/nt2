@@ -37,6 +37,10 @@
     pei         Pei matrix.                                                           | done
     poisson     Block tridiagonal matrix from Poisson's equation                      | (sparse) and need kron.
     prolate     Prolate matrix -- symmetric, ill-conditioned Toeplitz matrix.         | done
+    randcolu    Random matrix with normalized cols and specified singular values.     | done
+    randcorr    Random correlation matrix with specified eigenvalues.                 | done
+    randjorth   Random J-orthogonal (hyperbolic, pseudo-orthogonal) matrix.           | done
+    rando       Random matrix with elements -1, 0 or 1.                               | done
     randhess    Random, orthogonal upper Hessenberg matrix.                           | done
     redheff     Matrix of 0s and 1s of Redheffer.                                     | done
     riemann     Matrix associated with the Riemann hypothesis.                        | done
@@ -56,10 +60,6 @@ to be (perhaps) done
     neumann     Singular matrix from the discrete Neumann problem (sparse).
     normaldata  Array of arbitrary data from standard normal distribution
     qmult       Pre-multiply matrix by random orthogonal matrix.
-    randcolu    Random matrix with normalized cols and specified singular values.
-    randcorr    Random correlation matrix with specified eigenvalues.
-    randjorth   Random J-orthogonal (hyperbolic, pseudo-orthogonal) matrix.
-    rando       Random matrix with elements -1, 0 or 1.
     randsvd     Random matrix with pre-assigned sing. values and specified bandwidth.
     uniformdata Array of arbitrary data from standard uniform distribution
     wathen      Wathen matrix -- a finite element matrix (sparse, random entries).
