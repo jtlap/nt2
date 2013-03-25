@@ -50,7 +50,7 @@ namespace nt2
     result_type operator()(A0& out, const A1& in) const
     {
       BOOST_AUTO_TPL(a, boost::proto::child_c<0>(in));
-      size_t n = size(a, 1);
+      size_t n = nt2::size(a, 1);
       nt2::table<value_t> q(nt2::of_size(n, n)), r(nt2::of_size(n, n));
       nt2::tie(q, r) = nt2::qr(nt2::randn(n, n, nt2::meta::as_<value_t>()));
       out = nt2::mtimes(nt2::mtimes(q,nt2::from_diag(nt2::sign(nt2::diag_of(r)))), a);
