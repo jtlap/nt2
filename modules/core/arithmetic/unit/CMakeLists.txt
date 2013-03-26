@@ -8,7 +8,6 @@
 ################################################################################
 
 nt2_module_use_modules( test.unit
-                        extern.standard extern.libc
                         core.container.table
                       )
 
