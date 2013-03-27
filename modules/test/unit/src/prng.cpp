@@ -10,7 +10,7 @@
 //==============================================================================
 #include <nt2/sdk/unit/config.hpp>
 #include <nt2/sdk/unit/details/prng.hpp>
-#include <nt2/sdk/config/type_lists.hpp>
+#include <boost/simd/sdk/config/type_lists.hpp>
 
 #include <boost/simd/sdk/config/types.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
@@ -60,7 +60,7 @@ namespace nt2
     }                                                                 \
     /**/
 
-    BOOST_PP_SEQ_FOR_EACH(M0,~,NT2_INTEGRAL_TYPES)
+    BOOST_PP_SEQ_FOR_EACH(M0,~,BOOST_SIMD_INTEGRAL_TYPES)
 
     #undef M0
 

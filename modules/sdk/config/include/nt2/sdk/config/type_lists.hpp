@@ -6,11 +6,11 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-
 #ifndef NT2_SDK_CONFIG_TYPE_LISTS_HPP_INCLUDED
 #define NT2_SDK_CONFIG_TYPE_LISTS_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/extensions.hpp>
+#include <boost/simd/sdk/config/type_lists.hpp>
 
 #define NT2_TYPES BOOST_SIMD_TYPES
 #define NT2_REAL_TYPES BOOST_SIMD_REAL_TYPES
