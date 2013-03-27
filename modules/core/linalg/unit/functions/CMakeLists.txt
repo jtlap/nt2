@@ -59,6 +59,7 @@ SET( SOURCES
   randhess.cpp
   randjorth.cpp
   rando.cpp
+  randsvd.cpp
   redheff.cpp
   riemann.cpp
   ris.cpp
