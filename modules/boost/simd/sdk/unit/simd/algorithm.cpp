@@ -17,6 +17,10 @@
 #include <algorithm>
 #include <numeric>
 
+#ifdef BOOST_MSVC
+#pragma warning(disable: 4996) // std::transform on pointers may be unsafe
+#endif
+
 struct plus
 {
   template<class T>
