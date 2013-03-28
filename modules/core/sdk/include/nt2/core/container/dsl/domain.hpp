@@ -470,4 +470,28 @@ namespace nt2
   using nt2::container::table_shared_view;
 }
 
+namespace nt2 { namespace meta
+{
+   /* Turn an expression into an element-wise expression, schedule but do not turn terminals into views */
+  template<class T, class Tag = typename T::proto_tag>
+  struct as_elementwise
+  {
+    typedef typename container::domain::template as_child<T>::result_type type;
+    static BOOST_FORCEINLINE type call(T& t)
+    {
+      return typename container::domain::template as_child<T>()(t);
+    }
+  };
+
+  template<class T>
+  struct as_elementwise<T, boost::proto::tag::terminal>
+  {
+    typedef T& type;
+    static BOOST_FORCEINLINE T& call(T& t)
+    {
+      return t;
+    }
+  };
+} }
+
 #endif
