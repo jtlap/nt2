@@ -15,6 +15,7 @@
 ///
 #include <nt2/toolbox/operator/include/functions/if_else.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -62,7 +63,7 @@ NT2_TEST_CASE_TPL ( if_else_integer__3_0,  NT2_SIMD_INTEGRAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_LOGICAL_BUF(tab_a0,lT, NR);
+    NT2_CREATE_LOGICAL_BUF(tab_a0,lT,NR);
     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     NT2_CREATE_BUF(tab_a2,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;

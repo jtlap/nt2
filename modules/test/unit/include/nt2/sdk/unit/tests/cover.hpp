@@ -23,7 +23,17 @@
 /// INTERNAL ONLY
 #define NT2_CREATE_BUF(Name,Type,Size,Min,Max)                                 \
 std::vector<Type,boost::simd::memory::allocator<Type> > Name(Size);            \
-nt2::roll( Name, Min, Max );                                                   \
+nt2::roll( Name, Min, Max )                                                    \
+/**/
+
+/// INTERNAL ONLY
+#define NT2_CREATE_LOGICAL_BUF(Name,Type,Size)                                 \
+std::vector<Type,boost::simd::memory::allocator<Type> > Name(Size);            \
+do                                                                             \
+{                                                                              \
+  for(std::size_t i=0;i<Name.size();++i) Name[i] = Type(rand() % 2);           \
+}                                                                              \
+while(0)                                                                       \
 /**/
 
 #endif

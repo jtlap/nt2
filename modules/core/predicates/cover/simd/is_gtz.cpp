@@ -15,6 +15,7 @@
 ///
 #include <nt2/toolbox/predicates/include/functions/is_gtz.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/constants/valmin.hpp>
 #include <nt2/include/constants/valmax.hpp>

@@ -49,15 +49,15 @@ namespace nt2
       prng_fill_step(data,dist);
     }
 
-    #define M0(r,d,elem)                                              \
-    template<> NT2_TEST_UNIT_DECL BOOST_DISPATCH_NOTHROW         \
-    void prng_fill_impl ( boost::iterator_range<elem*> const data     \
-                        , elem mn, elem mx                            \
-                        )                                             \
-    {                                                                 \
-      boost::random::uniform_int_distribution<elem> const g(mn, mx);  \
-      prng_fill_step(data,g);                                         \
-    }                                                                 \
+    #define M0(r,d,elem)                                                       \
+    template<> NT2_TEST_UNIT_DECL BOOST_DISPATCH_NOTHROW                       \
+    void prng_fill_impl ( boost::iterator_range<elem*> const data              \
+                        , elem mn, elem mx                                     \
+                        )                                                      \
+    {                                                                          \
+      boost::random::uniform_int_distribution<elem> const g(mn, mx);           \
+      prng_fill_step(data,g);                                                  \
+    }                                                                          \
     /**/
 
     BOOST_PP_SEQ_FOR_EACH(M0,~,BOOST_SIMD_INTEGRAL_TYPES)
