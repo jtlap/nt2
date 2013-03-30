@@ -30,7 +30,6 @@ NT2_TEST_CASE_TPL ( randjorth, NT2_REAL_TYPES)
   nt2::table<T> rc, p;
   nt2::table<T> j = nt2::blkdiag(nt2::eye(2, nt2::meta::as_<T>()),
                                  -nt2::eye(2, nt2::meta::as_<T>()));
-//  rc = nt2::randjorth(4, nt2::meta::as_<T>());
   rc = nt2::randjorth(2, 2, nt2::rec(nt2::Sqrteps<T>()), 1);
   p  = nt2::mtimes( nt2::mtimes(nt2::transpose(rc), j), rc);
   NT2_TEST_LESSER(nt2::abs(nt2::cond(rc)-nt2::rec(nt2::Sqrteps<T>())), T(1));
@@ -41,23 +40,19 @@ NT2_TEST_CASE_TPL ( randjorth, NT2_REAL_TYPES)
   NT2_TEST_LESSER(nt2::abs(nt2::cond(rc)-nt2::rec(nt2::Sqrteps<T>())), T(1));
   NT2_TEST_LESSER(nt2::globalmax(nt2::abs(j-p)),  nt2::Two<T>()*nt2::Sqrteps<T>());
 
-//   rc = nt2::randjorth(3, 4, T(2));
-//   j = nt2::blkdiag(nt2::eye(3, nt2::meta::as_<T>()),
-//                    -nt2::eye(4, nt2::meta::as_<T>()));
-//   p  = nt2::mtimes( nt2::mtimes(nt2::transpose(rc), j), rc);
-//   NT2_DISPLAY(p);
-//   NT2_DISPLAY(j);
-//   NT2_TEST_LESSER(nt2::abs(nt2::cond(rc)-T(2)), T(1.0e-3));
-//   NT2_TEST_LESSER(nt2::globalmax(nt2::abs(j-p)),  nt2::Two<T>()*nt2::Sqrteps<T>());
+  rc = nt2::randjorth(3, 4, T(2));
+  j = nt2::blkdiag(nt2::eye(3, nt2::meta::as_<T>()),
+                   -nt2::eye(4, nt2::meta::as_<T>()));
+  p  = nt2::mtimes( nt2::mtimes(nt2::transpose(rc), j), rc);
+  NT2_TEST_LESSER(nt2::abs(nt2::cond(rc)-T(2)), T(1.0e-3));
+  NT2_TEST_LESSER(nt2::globalmax(nt2::abs(j-p)),  nt2::Two<T>()*nt2::Sqrteps<T>());
 
-//   rc = nt2::randjorth(4, 3, T(2));
-//   j = nt2::blkdiag(nt2::eye(4, nt2::meta::as_<T>()),
-//                    -nt2::eye(3, nt2::meta::as_<T>()));
-//   p  = nt2::mtimes( nt2::mtimes(nt2::transpose(rc), j), rc);
-//   NT2_DISPLAY(p);
-//   NT2_DISPLAY(j);
-//   NT2_TEST_LESSER(nt2::abs(nt2::cond(rc)-T(2)), T(1.0e-3));
-//   NT2_TEST_LESSER(nt2::globalmax(nt2::abs(j-p)),  nt2::Two<T>()*nt2::Sqrteps<T>());
+  rc = nt2::randjorth(4, 3, T(2));
+  j = nt2::blkdiag(nt2::eye(4, nt2::meta::as_<T>()),
+                   -nt2::eye(3, nt2::meta::as_<T>()));
+  p  = nt2::mtimes( nt2::mtimes(nt2::transpose(rc), j), rc);
+  NT2_TEST_LESSER(nt2::abs(nt2::cond(rc)-T(2)), T(1.0e-3));
+  NT2_TEST_LESSER(nt2::globalmax(nt2::abs(j-p)),  nt2::Two<T>()*nt2::Sqrteps<T>());
 
 }
 

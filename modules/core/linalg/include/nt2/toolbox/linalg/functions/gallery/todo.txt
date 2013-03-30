@@ -44,6 +44,7 @@
     randjorth   Random J-orthogonal (hyperbolic, pseudo-orthogonal) matrix.           | done
     rando       Random matrix with elements -1, 0 or 1.                               | done
     randhess    Random, orthogonal upper Hessenberg matrix.                           | done
+    randsvd     Random matrix with pre-assigned sing. values and specified bandwidth. | done
     redheff     Matrix of 0s and 1s of Redheffer.                                     | done
     riemann     Matrix associated with the Riemann hypothesis.                        | done
     ris         Ris matrix -- a symmetric Hankel matrix.                              | done
@@ -60,7 +61,6 @@ to be (perhaps) done
 
     integerdata Array of arbitrary data from uniform distribution on range of integers
     normaldata  Array of arbitrary data from standard normal distribution
-    randsvd     Random matrix with pre-assigned sing. values and specified bandwidth.
     uniformdata Array of arbitrary data from standard uniform distribution
     wathen      Wathen matrix -- a finite element matrix (sparse, random entries).
     wilk        Various specific matrices devised/discussed by Wilkinson.
