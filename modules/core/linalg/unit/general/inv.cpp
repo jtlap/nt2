@@ -11,58 +11,57 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/inv.hpp>
 #include <nt2/include/functions/eye.hpp>
-#include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/ten.hpp>
-#include <nt2/include/constants/eps.hpp>
-#include <nt2/include/constants/two.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/isulpequal.hpp>
+#include <nt2/include/functions/ones.hpp>
+#include <nt2/include/functions/zeros.hpp>
+#include <nt2/include/functions/mtimes.hpp>
+
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
-
 NT2_TEST_CASE_TPL(inv, NT2_REAL_TYPES)
 {
   using nt2::inv;
-  using nt2::tag::inv_;
-  nt2::table<T> n = nt2::eye(10, 10, nt2::meta::as_<T>());
+
+  nt2::table<T> n =   nt2::eye(10, 10, nt2::meta::as_<T>())
+                    + T(7)*nt2::ones(10, 10, nt2::meta::as_<T>());
+
   nt2::table<T> invn = nt2::inv(n);
-  NT2_DISPLAY(n);
-  NT2_DISPLAY(invn);
-  NT2_TEST(nt2::isulpequal(invn, n, 0.5));
+
+  NT2_TEST_ULP_EQUAL( (nt2::mtimes(invn, n))
+                    , nt2::eye(10, 10, nt2::meta::as_<T>())
+                    , 8
+                    );
+
+  nt2::table<T> invn2 = nt2::zeros(10,10, nt2::meta::as_<T>());
+  invn2(nt2::_(3,6), nt2::_(3,6)) = nt2::inv( n( nt2::_(3,6), nt2::_(3,6)) );
+
+  NT2_TEST_ULP_EQUAL( ( nt2::mtimes (  n( nt2::_(3,6), nt2::_(3,6))
+                                    , invn2(nt2::_(3,6), nt2::_(3,6))
+                                    )
+                      )
+                    , nt2::eye(4, 4, nt2::meta::as_<T>())
+                    , 8
+                    );
 }
 
-NT2_TEST_CASE_TPL(inv_1, NT2_REAL_TYPES)
+// TODO: need rcond
+// NT2_TEST_CASE_TPL(inv_singular, NT2_REAL_TYPES)
+// {
+//   using nt2::inv;
+
+//   nt2::table<T> nn, n =   nt2::eye(10, 10, nt2::meta::as_<T>())
+//                         + T(7)*nt2::ones(10, 10, nt2::meta::as_<T>());
+
+//   n(2, nt2::_) = T(0);
+
+//   NT2_TEST_ASSERT( nn = nt2::inv(n) );
+// }
+
+NT2_TEST_CASE_TPL(inv_assert, NT2_REAL_TYPES)
 {
   using nt2::inv;
-  using nt2::tag::inv_;
-  nt2::table<T> n = nt2::eye(10, 10, nt2::meta::as_<T>()), nn;
-  nn = n;
-  n(1, 1) = nt2::Eps<T>()*nt2::Half<T>();
-  nn(1, 1) = nt2::rec(n(1, 1));
-  nt2::table<T> invn = nt2::inv(n);
-  NT2_DISPLAY(n);
-  NT2_DISPLAY(invn);
-  NT2_TEST(nt2::isulpequal(invn, nn, 0.5));
- }
-NT2_TEST_CASE_TPL(inv_2, NT2_REAL_TYPES)
-{
-  using nt2::inv;
-  using nt2::tag::inv_;
-  nt2::table<T> n = nt2::eye(10, 8, nt2::meta::as_<T>()), nn;
-  NT2_TEST_ASSERT(nt2::inv(n));
- }
-NT2_TEST_CASE_TPL(inv_nowarn, NT2_REAL_TYPES)
-{
-  using nt2::inv;
-  using nt2::tag::inv_;
-  nt2::table<T> n = nt2::eye(10, 10, nt2::meta::as_<T>()), nn;
-  nn = n;
-  n(1, 1) = nt2::Eps<T>()*nt2::Half<T>();
-  nn(1, 1) = nt2::rec(n(1, 1));
-  nt2::table<T> invn = nt2::inv(n, false);
-  NT2_DISPLAY(n);
-  NT2_DISPLAY(invn);
-  NT2_TEST(nt2::isulpequal(invn, nn, 0.5));
- }
+  nt2::table<T> nn, n = nt2::eye(10, 8, nt2::meta::as_<T>());
+
+  NT2_TEST_ASSERT( nn = nt2::inv(n) );
+}

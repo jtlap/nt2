@@ -10,8 +10,14 @@
 #define NT2_LINALG_FUNCTIONS_GENERAL_INV_HPP_INCLUDED
 
 #include <nt2/linalg/functions/inv.hpp>
-#include <nt2/include/functions/assign.hpp>
-#include <nt2/include/functions/lu.hpp>
+#include <nt2/include/functions/trf.hpp>
+#include <nt2/include/functions/tri.hpp>
+#include <nt2/include/functions/run.hpp>
+#include <nt2/include/functions/extent.hpp>
+#include <nt2/include/functions/issquare.hpp>
+#include <nt2/sdk/meta/concrete.hpp>
+//#include <nt2/sdk/error/warning.hpp>
+#include <nt2/core/container/table/table.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -24,29 +30,33 @@ namespace nt2 { namespace ext
                               ))
                             )
   {
-    typedef A0&                                                   result_type;
+    typedef A0& result_type;
 
     result_type operator()(A0& out, const A1& in) const
     {
-      out.resize(in.extent());
+      BOOST_ASSERT_MSG( issquare(boost::proto::child_c<0>(in))
+                      , "INV: Argument must be a square matrix"
+                      );
 
-      bool warn = choice(in, N());
+      // If needed, resize
+      out.resize(nt2::extent(in));
 
-      out = boost::proto::child_c<0>(in);
-      out = nt2::details::lu_result<A0>(out).inv(warn);
+      // Reuse output memory if possible
+      BOOST_AUTO_TPL( tmp, concrete(out) );
+      tmp = boost::proto::child_c<0>(in);
 
-      return out;
-    }
+      nt2::container::table<nt2_la_int> ip;
+      nt2_la_int                        lapack_info;
 
-    private :
-    static bool choice(const A1&, boost::mpl::long_<1> const &)
-    {
-      return true;
-    }
+      // Factorize A as L/U and call tri
+      nt2::trf(tmp,ip);
+      nt2::tri(tmp,ip);
 
-    static bool choice(const A1& in, boost::mpl::long_<2> const &)
-    {
-      return boost::proto::child_c<1>(in);
+    // NT2_WARNING( (rcond(boost::proto::child_c<0>(in),tmp) >= nt2::Eps<base_t>())
+    //            , "INV: matrix is singular to machine precision."
+    //            );
+
+      return out = tmp;
     }
   };
 } }
