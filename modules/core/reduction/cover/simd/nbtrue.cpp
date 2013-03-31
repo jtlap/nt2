@@ -60,7 +60,7 @@ NT2_TEST_CASE_TPL ( nbtrue_real__1_0,  NT2_SIMD_REAL_TYPES)
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     typedef typename nt2::meta::scalar_of<T>::type sT;
-    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-1e30), T(1e30));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {

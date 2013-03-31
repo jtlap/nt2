@@ -61,7 +61,7 @@ NT2_TEST_CASE_TPL ( fast_tan_real__1_0,  NT2_SIMD_REAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Pi<T>()/4, nt2::Pi<T>()/4);
+    NT2_CREATE_BUF(tab_a0,T, NR, -nt2::Pi<T>()/4, nt2::Pi<T>()/4);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {

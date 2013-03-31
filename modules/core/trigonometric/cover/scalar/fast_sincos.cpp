@@ -59,7 +59,7 @@ NT2_TEST_CASE_TPL ( fast_sincos_real__1_0,  NT2_REAL_TYPES)
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     typedef typename boost::dispatch::meta::as_floating<T>::type ftype;
-    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Pi<T>()/4, nt2::Pi<T>()/4);
+    NT2_CREATE_BUF(tab_a0,T, NR, -nt2::Pi<T>()/4, nt2::Pi<T>()/4);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     for(nt2::uint32_t j =0; j < NR; ++j )
