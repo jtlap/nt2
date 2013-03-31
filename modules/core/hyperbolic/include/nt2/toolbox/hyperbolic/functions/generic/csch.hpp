@@ -6,51 +6,41 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_CSCH_HPP_INCLUDED
-#define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_CSCH_HPP_INCLUDED
-
+#ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_GENERIC_CSCH_HPP_INCLUDED
+#define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_GENERIC_CSCH_HPP_INCLUDED
 #include <nt2/toolbox/hyperbolic/functions/csch.hpp>
-#include <nt2/include/functions/scalar/sinh.hpp>
+#include <nt2/include/functions/sinh.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
+#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/is_eqz.hpp>
 
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::csch_, tag::cpu_
                             , (A0)
-                            , (scalar_< integer_<A0> >)
+                            , (generic_< integer_<A0> >)
                             )
   {
-
     typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
-      if (!a0) return Nan<result_type>();
-      return rec(nt2::sinh(a0));
+       return nt2::if_nan_else(nt2::is_eqz(a0), nt2::rec(nt2::sinh(nt2::tofloat(a0))));
     }
   };
-} }
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
+  
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::csch_, tag::cpu_
                             , (A0)
-                            , (scalar_< floating_<A0> >)
+                            , (generic_< floating_<A0> >)
                             )
   {
-
+    
     typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-       return rec(nt2::sinh(a0));
+       return nt2::rec(nt2::sinh(a0));
     }
   };
 } }

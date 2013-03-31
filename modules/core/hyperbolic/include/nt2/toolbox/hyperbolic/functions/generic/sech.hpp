@@ -6,31 +6,24 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SIMD_COMMON_SECH_HPP_INCLUDED
-#define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SIMD_COMMON_SECH_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_GENERIC_SECH_HPP_INCLUDED
+#define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_GENERIC_SECH_HPP_INCLUDED
 #include <nt2/toolbox/hyperbolic/functions/sech.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/include/functions/cosh.hpp>
+#include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/rec.hpp>
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sech_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
+                            , (A0)
+                            , (generic_< arithmetic_<A0> >)
                             )
   {
-
-    typedef typename meta::as_floating<A0>::type result_type;
-
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return (rec(cosh(tofloat(a0))));
+      return nt2::rec(nt2::cosh(nt2::tofloat(a0)));
     }
   };
 } }
