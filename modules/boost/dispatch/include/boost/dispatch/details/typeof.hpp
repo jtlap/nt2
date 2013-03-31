@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_DISPATCH_DETAILS_TYPEOF
-#define BOOST_DISPATCH_DETAILS_TYPEOF
+#ifndef BOOST_DISPATCH_DETAILS_TYPEOF_HPP_INCLUDED
+#define BOOST_DISPATCH_DETAILS_TYPEOF_HPP_INCLUDED
 
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>

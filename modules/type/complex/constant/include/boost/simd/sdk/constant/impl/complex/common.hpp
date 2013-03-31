@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_SD_CONSTANT_IMPL_COMPLEX_COMMON_HPP_INCLUDED
-#define BOOST_SIMD_SD_CONSTANT_IMPL_COMPLEX_COMMON_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_CONSTANT_IMPL_COMPLEX_COMMON_HPP_INCLUDED
+#define BOOST_SIMD_SDK_CONSTANT_IMPL_COMPLEX_COMMON_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp> // for constant_ and functor
 #include <nt2/include/functions/bitwise_cast.hpp>

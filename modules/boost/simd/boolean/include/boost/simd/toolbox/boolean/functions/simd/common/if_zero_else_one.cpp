@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_IF_ELSE_ZERO_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_IF_ELSE_ZERO_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_IF_ZERO_ELSE_ONE_CPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_IF_ZERO_ELSE_ONE_CPP_INCLUDED
 
 #include <boost/simd/toolbox/boolean/functions/if_else_zero.hpp>
 #include <boost/simd/toolbox/boolean/functions/if_zero_else.hpp>

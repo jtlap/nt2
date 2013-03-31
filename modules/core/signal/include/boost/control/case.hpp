@@ -7,8 +7,8 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef BOOST_SWITCH_CASE_HPP_INCLUDED
-#define BOOST_SWITCH_CASE_HPP_INCLUDED
+#ifndef BOOST_CONTROL_CASE_HPP_INCLUDED
+#define BOOST_CONTROL_CASE_HPP_INCLUDED
 
 #include <boost/utility/enable_if.hpp>
 #include <boost/mpl/int.hpp>

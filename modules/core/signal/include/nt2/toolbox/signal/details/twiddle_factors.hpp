@@ -7,8 +7,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SIGNAL_TWIDDLE_FACTORS_HPP_INCLUDED
-#define NT2_SIGNAL_TWIDDLE_FACTORS_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_SIGNAL_DETAILS_TWIDDLE_FACTORS_HPP_INCLUDED
+#define NT2_TOOLBOX_SIGNAL_DETAILS_TWIDDLE_FACTORS_HPP_INCLUDED
 #ifdef _MSC_VER
     #pragma once
     #define _USE_MATH_DEFINES

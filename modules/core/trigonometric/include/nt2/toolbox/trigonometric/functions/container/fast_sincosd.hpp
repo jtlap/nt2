@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_IEEE_FUNCTIONS_CONTAINER_FAST_SINCOSD_HPP_INCLUDED
-#define NT2_TOOLBOX_IEEE_FUNCTIONS_CONTAINER_FAST_SINCOSD_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_CONTAINER_FAST_SINCOSD_HPP_INCLUDED
+#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_CONTAINER_FAST_SINCOSD_HPP_INCLUDED
 #include <nt2/toolbox/trigonometric/functions/fast_sincosd.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/core/container/dsl.hpp>
