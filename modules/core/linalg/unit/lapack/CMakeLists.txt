@@ -7,8 +7,9 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-SET( SOURCES
-  trf.cpp
-   )
+SET ( SOURCES
+      trf.cpp
+      tri.cpp
+    )
 
 nt2_module_add_tests(core.linalg.lapack.unit ${SOURCES})

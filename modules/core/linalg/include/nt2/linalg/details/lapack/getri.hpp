@@ -21,12 +21,6 @@ namespace nt2
   void NT2_F77NAME(cgetri)(const nt2_la_int* n, nt2_la_complex* a, const nt2_la_int* lda,
                        const nt2_la_int* ipiv, nt2_la_complex* work, const nt2_la_int* lwork,
                        nt2_la_int* info);
-  void NT2_F77NAME(dgetri)(const nt2_la_int* n, double* a, const nt2_la_int* lda,
-                       const nt2_la_int* ipiv, double* work, const nt2_la_int* lwork,
-                       nt2_la_int* info);
-  void NT2_F77NAME(sgetri)(const nt2_la_int* n, float* a, const nt2_la_int* lda,
-                       const nt2_la_int* ipiv, float* work, const nt2_la_int* lwork,
-                       nt2_la_int* info);
   void NT2_F77NAME(zgetri)(const nt2_la_int* n, nt2_la_complex* a, const nt2_la_int* lda,
                        const nt2_la_int* ipiv, nt2_la_complex* work, const nt2_la_int* lwork,
                        nt2_la_int* info);
@@ -60,8 +54,6 @@ namespace nt2
     }                                           \
 
 
-    NT2_GETRI(sgetri, float)
-    NT2_GETRI(dgetri, double)
     NT2_GETRI(cgetri, std::complex<float>)
     NT2_GETRI(zgetri, std::complex<double>)
 
