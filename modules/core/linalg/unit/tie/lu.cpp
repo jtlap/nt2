@@ -19,6 +19,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/exceptions.hpp>
 
 NT2_TEST_CASE_TPL ( square_lu, NT2_REAL_TYPES)
 {
@@ -72,4 +73,18 @@ NT2_TEST_CASE_TPL ( non_square_lu, NT2_REAL_TYPES)
   nt2::tie(l, u, p) = nt2::lu(a);
   NT2_TEST_EQUAL    ( p                  , (nt2::eye(4, nt2::meta::as_<T>())) );
   NT2_TEST_ULP_EQUAL( (nt2::mtimes(p, a)), (nt2::mtimes(l, u)), 0.5           );
+}
+
+NT2_TEST_CASE_TPL(singular_lu, NT2_REAL_TYPES )
+{
+  using nt2::_;
+  using nt2::meta::as_;
+
+  nt2::table<T> lu;
+  nt2::table<T> a = nt2::ones(4, 4, as_<T>()) + T(10)*nt2::eye(4, 4, as_<T>());
+
+  // Make it singular
+  a(2,nt2::_) = T(0);
+
+  NT2_TEST_ASSERT(lu = nt2::lu(a));
 }

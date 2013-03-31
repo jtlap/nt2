@@ -22,6 +22,7 @@
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/issquare.hpp>
 #include <nt2/sdk/meta/concrete.hpp>
+#include <nt2/sdk/error/warning.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
 
 namespace nt2 { namespace ext
@@ -48,7 +49,13 @@ namespace nt2 { namespace ext
 
       BOOST_AUTO_TPL( out, concrete(boost::proto::child_c<0>(a1)) );
       out = boost::proto::child_c<0>(a0);
-      nt2::trf(out,ip);
+      nt2_la_int lapack_info = nt2::trf(out,ip);
+
+      NT2_WARNING ( lapack_info <= 0
+                  , "LU factorization has been completed, but U is exactly "
+                    "singular. Division by zero will occur if it is used to "
+                    "solve a system of equations."
+                  );
 
       boost::proto::child_c<0>(a1) = out;
     }
@@ -87,20 +94,23 @@ namespace nt2 { namespace ext
                 , boost::mpl::long_<2> const&
                 ) const
     {
+      nt2_la_int info;
+
       if( nt2::issquare(boost::proto::child_c<0>(a0)) )
       {
         BOOST_AUTO_TPL( work, concrete(boost::proto::child_c<0>(a1)) );
         work = boost::proto::child_c<0>(a0);
-        nt2::trf(work,ip);
-
+        info = nt2::trf(work,ip);
         extract_lu(a1,work);
       }
       else
       {
         tab0_t work = boost::proto::child_c<0>(a0);
-        nt2::trf(work,ip);
+        info = nt2::trf(work,ip);
         extract_lu(a1,work);
       }
+
+      check_success(info);
     }
 
     /// INTERNAL ONLY - [L,U,P] = LU(A)
@@ -138,6 +148,16 @@ namespace nt2 { namespace ext
 
       for(std::size_t i = 1; i<= d;++i)
         boost::proto::child_c<2>(a1)(i,ip(i)) = 1;
+    }
+
+    /// INTERNAL ONLY
+    void check_success(nt2_la_int lapack_info) const
+    {
+      NT2_WARNING ( lapack_info <= 0
+                  , "LU factorization has been completed, but U is exactly "
+                    "singular. Division by zero will occur if it is used to "
+                    "solve a system of equations."
+                  );
     }
   };
 } }

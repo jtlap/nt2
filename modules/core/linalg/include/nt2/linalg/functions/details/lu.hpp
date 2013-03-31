@@ -1,8 +1,6 @@
 // TODO - DISABLE COMPELTELY WHEN GESV IS DONE
 
-//     //==========================================================================
-//     // Reverse conditioning evaluation
-//     //==========================================================================
+    // Reverse conditioning evaluation
 //     base_t rcond(char c = '1')
 //     {
 //       /* this method which is presumably faster provides results that depend on
@@ -18,12 +16,11 @@
 //       //
 //         So we switch to a direct computation
 //       */
+
 //       return nt2::rec(nt2::norm(a_, c)*nt2::norm(this->inv(false), c));
 //     }
 
-//     //==========================================================================
-//     // system rank
-//     //==========================================================================
+    // system rank
 //     size_t rank(base_t epsi = nt2::Eps<base_t>()) //provisouare
 //     {
 //       //int32_t r = 0;
@@ -42,28 +39,6 @@
 //     {
 //       BOOST_ASSERT_MSG(m_ == n_, "non square matrix in determinant computation");
 //       return nt2::prod(nt2::abs(nt2::diag_of(lu_)(_)));
-//     }
-
-//     type_t signdet(bool check = true){
-//       BOOST_ASSERT_MSG(m_ == n_, "non square matrix in determinant computation");
-//       boost::dispatch::ignore_unused(check);
-//       //if (check)     BOOST_ASSERT_MSG(is_real<type_t>::value, "determinant sign is not avalaible for complex matrices");
-//       //count modulo 2 the number of ipiv_ elements such that ipiv_(i) !=  i
-//       //return nt2::sum(nt2::sb2b(ipiv_ != cif(numel(ipiv_), 1, meta::as_<itype_t>())))&1 ? Mone<type_t>() : One<type_t>();
-//       type_t s = One<type_t>();
-//       const nt2_la_int num = numel(ipiv_);
-//       for(nt2_la_int i=1; i < num ; ++i)
-//       {
-//         if (ipiv_(i) !=  i) s = -s;
-//       }
-//       return s;
-//     }
-
-//     type_t det(){
-//       BOOST_ASSERT_MSG(m_ == n_, "non square matrix in determinant computation");
-//       //     BOOST_ASSERT_MSG(is_real<type_t>::value, "determinant sign is not avalaible for complex matrices");
-//       //count modulo 2 the number of ipiv_ elements such that ipiv_(i) !=  i
-//       return  nt2::prod(nt2::diag_of(lu_)(_))*signdet(false);
 //     }
 
 //     type_t absdet(itype_t & exponent)
@@ -110,28 +85,6 @@
 //         exponent = Zero<itype_t>();
 //       }
 //       return m1*signdet(false);
-//     }
-
-//     //==========================================================================
-//     // inverse matrix: DO NOT USE THAT TO SOLVE A SYSTEM
-//     //==========================================================================
-//     const tab_t& inv(bool warn = true)
-//     {
-//       if(isempty(invt_))
-//       {
-//         if (warn)
-//         {
-//           base_t rc = rcond();
-//           NT2_WARNING ( (rc >= nt2::Eps<base_t>())
-//                         , "Matrix is close to singular or badly scaled."
-//                         " Results may be inaccurate."
-//             );
-//           return invt_;  /* it has been calculated by rcond */
-//         }
-//         invt_ = lu_;
-//         nt2::details::getri(&n_, invt_.raw(), &ldlu_, ipiv_.raw(), &info_, w_);
-//       }
-//       return invt_;
 //     }
 
 //     template<class Xpr> void inplace_solve(Xpr& b )
