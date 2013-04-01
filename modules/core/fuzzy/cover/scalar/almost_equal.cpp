@@ -136,8 +136,8 @@ NT2_TEST_CASE_TPL ( almost_equal_unsigned_int__3_0,  NT2_UNSIGNED_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
-    NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(10));
+    NT2_CREATE_BUF(tab_a1,T, NR, T(0), T(10));
     NT2_CREATE_BUF(tab_a2,iT, NR, iT(0), iT(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;

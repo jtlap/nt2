@@ -140,8 +140,8 @@ NT2_TEST_CASE_TPL ( is_not_greater_equal_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_T
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-10000), T(10000));
-    NT2_CREATE_BUF(tab_a1,T, NR, T(-10000), T(10000));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(10000));
+    NT2_CREATE_BUF(tab_a1,T, NR, T(0), T(10000));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
