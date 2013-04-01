@@ -22,10 +22,10 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef void result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0,A0 & r0,A0 & r1) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0,A0 & frac,A0 & ent) const
     {
-      r0 = boost::simd::trunc(a0);
-      r1 = a0 - r0;
+      ent = boost::simd::trunc(a0);
+      frac = a0 - ent;
     }
   };
 
@@ -36,11 +36,11 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef A0 result_type;
-    BOOST_FORCEINLINE A0 operator()(A0 const& a0,A0 & a1) const
+    BOOST_FORCEINLINE A0 operator()(A0 const& a0,A0 & ent) const
     {
-      result_type r;
-      boost::simd::modf(a0,r,a1);
-      return r;
+      result_type frac;
+      boost::simd::modf(a0,frac,ent);
+      return frac;
     }
   };
 

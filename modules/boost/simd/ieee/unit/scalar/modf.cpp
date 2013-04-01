@@ -7,12 +7,8 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <boost/simd/toolbox/ieee/include/functions/modf.hpp>
-#include <boost/simd/include/constants/one.hpp>
-#include <boost/simd/include/constants/half.hpp>
-#include <boost/simd/include/functions/frac.hpp>
 #include <boost/simd/include/functions/trunc.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/fusion/include/vector_tie.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
@@ -29,37 +25,37 @@ NT2_TEST_CASE_TPL( modf, BOOST_SIMD_TYPES)
                   );
 
   {
-    T e;
-    T m;
+    T frac;
+    T ent;
 
-    modf(T(1.5), m, e);
-    NT2_TEST_EQUAL(m, boost::simd::trunc(T(1.5)));
-    NT2_TEST_EQUAL(e, T(.5));
+    modf(T(1.5), frac, ent);
+    NT2_TEST_EQUAL(ent, boost::simd::trunc(T(1.5)));
+    NT2_TEST_EQUAL(frac, T(.5));
   }
 
   {
-    T e;
-    T m;
+    T frac;
+    T ent;
 
-    m = modf(T(1.5), e);
-    NT2_TEST_EQUAL(m, boost::simd::trunc(T(1.5)));
-    NT2_TEST_EQUAL(e, T(.5));
+    frac = modf(T(1.5), ent);
+    NT2_TEST_EQUAL(ent, boost::simd::trunc(T(1.5)));
+    NT2_TEST_EQUAL(frac, T(.5));
   }
 
   {
-    T e;
-    T m;
+    T frac;
+    T ent;
 
-    boost::fusion::vector_tie(m,e) = modf(T(1.5));
-    NT2_TEST_EQUAL(m, boost::simd::trunc(T(1.5)));
-    NT2_TEST_EQUAL(e, T(.5));
+    boost::fusion::vector_tie(frac,ent) = modf(T(1.5));
+    NT2_TEST_EQUAL(ent, boost::simd::trunc(T(1.5)));
+    NT2_TEST_EQUAL(frac, T(.5));
   }
 
   {
     std::pair<T,T> p;
 
     p = modf(T(1.5));
-    NT2_TEST_EQUAL(p.first  , boost::simd::trunc(T(1.5)));
-    NT2_TEST_EQUAL(p.second , T(.5));
+    NT2_TEST_EQUAL(p.first , T(.5));
+    NT2_TEST_EQUAL(p.second  , boost::simd::trunc(T(1.5)));
   }
 }

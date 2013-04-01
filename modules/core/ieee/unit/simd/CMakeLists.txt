@@ -23,7 +23,7 @@ SET( SOURCES
   predecessor.cpp
   nextpow2.cpp
 #  nextafter.cpp
-#  modf.cpp
+  modf.cpp
   minnummag.cpp
   minnum.cpp
   minmag.cpp
