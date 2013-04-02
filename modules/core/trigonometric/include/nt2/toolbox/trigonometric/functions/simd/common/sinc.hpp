@@ -28,26 +28,19 @@ namespace nt2 { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef typename meta::as_floating<A0>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
       return nt2::sinc(tofloat(a0));
     }
   };
-} }
 
-namespace nt2 { namespace ext
-{
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinc_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                             )
   {
-
     typedef A0 result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
       result_type r1 = nt2::if_else(nt2::lt(nt2::abs(a0), nt2::Eps<A0>()),

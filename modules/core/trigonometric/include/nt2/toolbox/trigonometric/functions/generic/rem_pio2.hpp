@@ -20,6 +20,7 @@
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/fusion/tuple.hpp>
+#include <nt2/include/constants/zero.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -77,7 +78,7 @@ namespace nt2 { namespace ext
       static inline result_type rem(A0 const& x, A0 & xr)
       {
         BOOST_ASSERT_MSG(false, "wrong target for rem_pio2");
-        return Zero<result_type>();
+        return nt2::Zero<result_type>();
       }
     };
 

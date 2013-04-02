@@ -6,16 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 trigonometric toolbox - fast_sincospi/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// cover test behavior of trigonometric components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 11/02/2011
-///
 #include <nt2/toolbox/trigonometric/include/functions/fast_sincospi.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <boost/fusion/tuple.hpp>
+#include <boost/fusion/include/std_pair.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/include/functions/sin.hpp>
 #include <nt2/include/functions/cos.hpp>
@@ -35,10 +28,8 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
 
-
 NT2_TEST_CASE_TPL ( fast_sincospi_real__1_0,  NT2_REAL_TYPES)
 {
-
   using nt2::fast_sincospi;
   using nt2::tag::fast_sincospi_;
   typedef typename boost::dispatch::meta::as_floating<T>::type ftype;
@@ -46,7 +37,7 @@ NT2_TEST_CASE_TPL ( fast_sincospi_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<fast_sincospi_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef boost::fusion::tuple<ftype,ftype> wished_r_t;
+  typedef std::pair<ftype,ftype> wished_r_t;
 
 
   // return type conformity test
@@ -70,8 +61,8 @@ NT2_TEST_CASE_TPL ( fast_sincospi_real__1_0,  NT2_REAL_TYPES)
         r_t r = nt2::fast_sincospi(a0);
         typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
         typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
-        r_t0 r0 = boost::fusion::get<0>(r);
-        r_t1 r1 = boost::fusion::get<1>(r);
+        r_t0 r0 = r.first;
+        r_t1 r1 = r.second;
         NT2_TEST_ULP_EQUAL( r0, nt2::sin(nt2::Pi<T>()*a0), 0.5);
         if (ulpd>ulp0) ulp0=ulpd;
         NT2_TEST_ULP_EQUAL( r1, nt2::cos(nt2::Pi<T>()*a0), 0.5);

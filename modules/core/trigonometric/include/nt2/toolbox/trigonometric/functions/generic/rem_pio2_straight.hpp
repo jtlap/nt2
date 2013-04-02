@@ -9,13 +9,14 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_GENERIC_REM_PIO2_STRAIGHT_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_GENERIC_REM_PIO2_STRAIGHT_HPP_INCLUDED
 #include <nt2/toolbox/trigonometric/functions/rem_pio2_straight.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/pio2_1.hpp>
+#include <nt2/include/constants/pio2_2.hpp>
+#include <nt2/include/constants/pio2_3.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <boost/fusion/include/std_pair.hpp>
-#include <nt2/include/functions/multiplies.hpp>
-#include <nt2/include/functions/minus.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
 
 namespace nt2 { namespace ext
 {

@@ -79,7 +79,7 @@ NT2_TEST_CASE_TPL ( cotpi_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   std::cout << std::endl;
   // specific values tests
   NT2_TEST_ULP_EQUAL(cotpi(nt2::One<T>()), nt2::Nan<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(cotpi(nt2::Zero<T>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(cotpi(nt2::Zero<T>()), nt2::Inf<r_t>(), 0.5);
 } // end of test for unsigned_int_
 
 NT2_TEST_CASE_TPL ( cotpi_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
@@ -101,5 +101,5 @@ NT2_TEST_CASE_TPL ( cotpi_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(cotpi(nt2::Mone<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(cotpi(nt2::One<T>()), nt2::Nan<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(cotpi(nt2::Zero<T>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(cotpi(nt2::Zero<T>()), nt2::Inf<r_t>(), 0.5);
 } // end of test for signed_int_

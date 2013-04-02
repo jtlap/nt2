@@ -80,7 +80,7 @@ NT2_TEST_CASE_TPL ( cscd_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   std::cout << std::endl;
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(cscd(nt2::Zero<T>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(cscd(nt2::Zero<T>()), nt2::Inf<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(cscd(nt2::_180<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(cscd(nt2::_45<T>()), nt2::Sqrt_2<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(cscd(nt2::_90<T>()), nt2::One<r_t>(), 0.5);
@@ -105,7 +105,7 @@ NT2_TEST_CASE_TPL ( cscd_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(cscd(-nt2::_45<T>()), -nt2::Sqrt_2<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(cscd(-nt2::_90<T>()), nt2::Mone<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(cscd(nt2::Zero<T>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(cscd(nt2::Zero<T>()), nt2::Inf<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(cscd(nt2::_45<T>()), nt2::Sqrt_2<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(cscd(nt2::_90<T>()), nt2::One<r_t>(), 0.5);
 } // end of test for signed_int_

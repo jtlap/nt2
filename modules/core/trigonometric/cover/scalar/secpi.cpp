@@ -34,7 +34,7 @@ static const long double long_pi = 3.141592653589793238462643383279502884197l;
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
-
+#include <iomanip>
 
 NT2_TEST_CASE_TPL ( secpi_real__1_0,  NT2_REAL_TYPES)
 {
@@ -58,12 +58,12 @@ NT2_TEST_CASE_TPL ( secpi_real__1_0,  NT2_REAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-40), T(40));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-41), T(41));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     for(nt2::uint32_t j =0; j < NR; ++j )
       {
-        std::cout << "for param "
+        std::cout << "for param " << std::setprecision(20) 
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
         NT2_TEST_ULP_EQUAL( nt2::secpi(a0),1.0l/(::cosl(long_pi*a0)),10.0);

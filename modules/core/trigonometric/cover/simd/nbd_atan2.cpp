@@ -18,7 +18,7 @@
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
 
-#include <nt2/toolbox/libc/include/functions/atan2.hpp>
+//#include <nt2/toolbox/libc/include/functions/atan2.hpp>
 extern "C" {extern long double cephes_atanl(long double);}
 
 #include <boost/type_traits/is_same.hpp>

@@ -77,7 +77,7 @@ NT2_TEST_CASE_TPL ( acotd_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(acotd(nt2::One<T>()), 45, 0.5);
-  NT2_TEST_ULP_EQUAL(acotd(nt2::Zero<T>()), 0, 0.5);
+  NT2_TEST_ULP_EQUAL(acotd(nt2::Zero<T>()),90, 0.5);
 } // end of test for unsigned_int_
 
 NT2_TEST_CASE_TPL ( acotd_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
@@ -99,5 +99,5 @@ NT2_TEST_CASE_TPL ( acotd_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(acotd(nt2::Mone<T>()), -45, 0.5);
   NT2_TEST_ULP_EQUAL(acotd(nt2::One<T>()), 45, 0.5);
-  NT2_TEST_ULP_EQUAL(acotd(nt2::Zero<T>()), 0, 0.5);
+  NT2_TEST_ULP_EQUAL(acotd(nt2::Zero<T>()), 90, 0.5);
 } // end of test for signed_int_

@@ -45,6 +45,8 @@ NT2_TEST_CASE_TPL ( rem_pio2_medium_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::call<rem_pio2_medium_(T)>::type wished_r_t;
+  typedef typename nt2::meta::call<nt2::tag::rem_pio2_(T)>::type f_t;
+
 
 
   // return type conformity test
@@ -65,14 +67,18 @@ NT2_TEST_CASE_TPL ( rem_pio2_medium_real__1_0,  NT2_REAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
         r_t r = nt2::rem_pio2_medium(a0);
-        typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
-        typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
-        r_t0 r0 = boost::fusion::get<0>(r);
-        r_t1 r2 = boost::fusion::get<1>(r);
-        NT2_TEST_ULP_EQUAL( r0, boost::fusion::get<0>(nt2::rem_pio2(a0)), 0.5);
+        f_t rf= nt2::rem_pio2(a0); 
+        NT2_TEST_ULP_EQUAL( r.second, boost::fusion::get<1>(nt2::rem_pio2(a0)), 0.5);
         if (ulpd>ulp0) ulp0=ulpd;
-        NT2_TEST_ULP_EQUAL( r2, boost::fusion::get<1>(nt2::rem_pio2(a0)), 0);
+        NT2_TEST_ULP_EQUAL( r.first, boost::fusion::get<0>(nt2::rem_pio2(a0)), 0);
         if (ulpd>ulp0) ulp0=ulpd;
+
+//         r_t0 r0 = boost::fusion::get<1>(r);
+//         r_t1 r2 = boost::fusion::get<0>(r);
+//         NT2_TEST_ULP_EQUAL( r0, boost::fusion::get<0>(nt2::rem_pio2(a0)), 0.5);
+//         if (ulpd>ulp0) ulp0=ulpd;
+//         NT2_TEST_ULP_EQUAL( r2, boost::fusion::get<1>(nt2::rem_pio2(a0)), 0);
+//         if (ulpd>ulp0) ulp0=ulpd;
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
    }

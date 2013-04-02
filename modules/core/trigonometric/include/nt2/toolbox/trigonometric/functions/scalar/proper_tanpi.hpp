@@ -18,10 +18,7 @@
 #include <nt2/include/functions/negif.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/is_nan.hpp>
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+// compute atan (pi*x)  for -1/2 <= x << 1/2 else return nan
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::proper_tanpi_, tag::cpu_
@@ -36,32 +33,25 @@ namespace nt2 { namespace ext
       return Zero<result_type>();
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::proper_tanpi_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
       if (is_nan(a0)) return a0;
       A0 absa0 = nt2::abs(a0);
-      if (absa0 > Half<A0>()) return Nan<A0>();
-      bool test = (absa0 <= Quarter<A0>());
-      absa0 = test ? absa0 : Half<A0>()-absa0;
+      if (absa0 > nt2::Half<A0>()) return nt2::Nan<A0>();
+      bool test = (absa0 <= nt2::Quarter<A0>());
+      absa0 = test ? absa0 : nt2::Half<A0>()-absa0;
       A0 that = impl::trig_base<A0,pi_tag,tag::not_simd_type, clipped_pio4_>::tana(absa0);
       that = nt2::negif(nt2::is_ltz(a0), that);
-      return test ? that : rec(that);
+      return test ? that : nt2::rec(that);
     }
   };
 } }

@@ -84,7 +84,7 @@ NT2_TEST_CASE_TPL ( csc_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(csc(nt2::Zero<vT>())[0], nt2::Nan<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(csc(nt2::Zero<vT>())[0], nt2::Inf<sr_t>(), 0.5);
 } // end of test for int_convert_
 
 NT2_TEST_CASE_TPL ( csc_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
@@ -105,5 +105,5 @@ NT2_TEST_CASE_TPL ( csc_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(csc(nt2::Zero<vT>())[0], nt2::Nan<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(csc(nt2::Zero<vT>())[0], nt2::Inf<sr_t>(), 0.5);
 } // end of test for uint_convert_

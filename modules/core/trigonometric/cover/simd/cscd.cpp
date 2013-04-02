@@ -66,10 +66,10 @@ NT2_TEST_CASE_TPL ( cscd_real__1_0,  NT2_SIMD_REAL_TYPES)
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = cscd(a0);
+        r_t v = nt2::cscd(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-
+          std::cout << "a0[" << i << "] = " << a0[i] << std::endl; ; 
           NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::cscd (a0[i])), 1.0);
           ulp0 = nt2::max(ulpd,ulp0);
         }

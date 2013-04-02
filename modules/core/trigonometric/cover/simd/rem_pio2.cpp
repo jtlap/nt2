@@ -31,6 +31,8 @@ extern "C" {extern long double cephes_cosl(long double);}
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
@@ -38,7 +40,7 @@ extern "C" {extern long double cephes_cosl(long double);}
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/load.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
-
+#include <boost/simd/sdk/simd/io.hpp>
 
 NT2_TEST_CASE_TPL ( rem_pio2_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
@@ -56,7 +58,11 @@ NT2_TEST_CASE_TPL ( rem_pio2_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::call<rem_pio2_(vT)>::type r_t;
   typedef typename nt2::meta::call<rem_pio2_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
+  
+  // NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
 
-} // end of test for floating_
+  r_t r = nt2::rem_pio2(nt2::Zero<vT>());
+  NT2_TEST_EQUAL(boost::fusion::get<0>(r), nt2::Zero<ivT>());
+  NT2_TEST_EQUAL(boost::fusion::get<1>(r), nt2::Zero<vT>());
+  NT2_TEST_EQUAL(boost::fusion::get<2>(r), nt2::Zero<vT>()); 
+ } // end of test for floating_

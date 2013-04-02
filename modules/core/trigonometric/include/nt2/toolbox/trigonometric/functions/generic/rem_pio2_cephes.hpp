@@ -9,11 +9,11 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_GENERIC_REM_PIO2_CEPHES_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_GENERIC_REM_PIO2_CEPHES_HPP_INCLUDED
 #include <nt2/toolbox/trigonometric/functions/rem_pio2_cephes.hpp>
-#include <nt2/include/functions/round.hpp>
-#include <nt2/include/functions/fast_toint.hpp>
-#include <nt2/include/functions/multiplies.hpp>
-#include <nt2/include/functions/minus.hpp>
-#include <nt2/include/functions/bitwise_and.hpp>
+#include <nt2/include/functions/simd/round.hpp>
+#include <nt2/include/functions/simd/fast_toint.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/bitwise_and.hpp>
 #include <nt2/include/constants/three.hpp>
 #include <nt2/include/constants/twoopi.hpp>
 #include <nt2/include/constants/pio2_1.hpp>

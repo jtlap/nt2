@@ -10,14 +10,16 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_GENERIC_REM_2PI_HPP_INCLUDED
 
 #include <nt2/toolbox/trigonometric/functions/rem_2pi.hpp>
-#include <nt2/include/functions/rem_pio2.hpp>
-#include <nt2/include/functions/rem_pio2_medium.hpp>
-#include <nt2/include/functions/minus.hpp>
-#include <nt2/include/functions/multiplies.hpp>
-#include <nt2/include/functions/plus.hpp>
-#include <nt2/include/functions/round.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/simd/rem_pio2.hpp>
+#include <nt2/include/functions/simd/rem_pio2_medium.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/include/functions/simd/round.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/is_greater.hpp>
+#include <nt2/include/functions/simd/is_less.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/nan.hpp>
@@ -30,6 +32,7 @@
 #include <nt2/include/constants/pix2_2.hpp>
 #include <nt2/include/constants/pix2_3.hpp>
 #include <nt2/toolbox/trigonometric/functions/scalar/impl/trigo/selection_tags.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 
 namespace nt2 { namespace ext
 {

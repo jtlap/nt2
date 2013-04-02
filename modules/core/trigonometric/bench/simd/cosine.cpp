@@ -12,6 +12,7 @@
 // timing Test behavior of trigonometric components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/trigonometric/include/functions/cosine.hpp>
+#include <nt2/toolbox/trigonometric/functions/scalar/impl/selection_tags.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
@@ -45,13 +46,13 @@ namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(cosine_<nt2::direct_medium>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
+  NT2_TIMING(cosine_<nt2::direct_medium_>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(cosine_<nt2::direct_medium>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
+  NT2_TIMING(cosine_<nt2::direct_medium_>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 namespace n1 {
   typedef float T;
@@ -69,13 +70,13 @@ namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(cosine_<nt2::direct_medium>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
+  NT2_TIMING(cosine_<nt2::direct_medium_>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(cosine_<nt2::direct_medium>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
+  NT2_TIMING(cosine_<nt2::direct_medium_>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 
 #undef RS

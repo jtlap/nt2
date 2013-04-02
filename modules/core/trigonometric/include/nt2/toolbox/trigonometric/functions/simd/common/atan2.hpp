@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_ATAN2_HPP_INCLUDED
 
 #include <nt2/toolbox/trigonometric/functions/atan2.hpp>
+#include <nt2/toolbox/trigonometric/functions/simd/common/impl/invtrig.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/include/functions/simd/atan.hpp>
 #include <nt2/include/functions/simd/divides.hpp>
@@ -30,63 +31,69 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 namespace nt2 { namespace ext
 {
+  namespace impl = nt2::details::internal;
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::atan2_, boost::simd::tag::simd_
                             , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
+                            , ((simd_<arithmetic_<A0>,X>))
+                              ((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef typename meta::as_floating<A0>::type result_type;
-
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return nt2::atan2(tofloat(a0), tofloat(a1));
+      return nt2::atan2(nt2::tofloat(a0), nt2::tofloat(a1));
     }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::atan2_, boost::simd::tag::simd_
                             , (A0)(X)
-                            , ((simd_<uint_<A0>,X>))((simd_<uint_<A0>,X>))
+                            , ((simd_<uint_<A0>,X>))
+                              ((simd_<uint_<A0>,X>))
                             )
   {
 
     typedef typename meta::as_floating<A0>::type result_type;
     inline result_type operator()(const typename A0::native_type a0_n,
-                      const typename A0::native_type a1_n) const
+                                  const typename A0::native_type a1_n) const
     {
       const A0 a0 = a0_n;
       const A0 a1 = a1_n;
-      result_type z = atan(tofloat(a0)/tofloat(a1));
-      return sel(is_eqz(a0), Zero<result_type>(), z);
+      result_type z = nt2::atan(tofloat(a0)/nt2::tofloat(a1));
+      return nt2::if_zero_else(nt2::is_eqz(a0), z);
     }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::atan2_, boost::simd::tag::simd_
                             , (A0)(X)
-                            , ((simd_<floating_<A0>,X>))((simd_<floating_<A0>,X>))
+                            , ((simd_<floating_<A0>,X>))
+                              ((simd_<floating_<A0>,X>))
                             )
   {
     typedef A0 result_type;
     inline result_type operator()(const typename A0::native_type a0_n,
-                      const typename A0::native_type a1_n) const
+                                  const typename A0::native_type a1_n) const
     {
       A0 a0 = a0_n;
       A0 a1 = a1_n;
       typedef typename meta::as_logical<A0>::type lA0;
-      lA0 test = logical_and(is_inf(a0), is_inf(a1));
-      a0 = if_else(test, copysign(One<A0>(), a0), a0);
-      a1 = if_else(test, copysign(One<A0>(), a1), a1);
+      lA0 test =  nt2::logical_and(nt2::is_inf(a0),  nt2::is_inf(a1));
+      a0 =  nt2::if_else(test, nt2::copysign(One<A0>(), a0), a0);
+      a1 =  nt2::if_else(test, nt2::copysign(One<A0>(), a1), a1);
       A0 z = impl::invtrig_base<result_type,radian_tag, tag::simd_type>::kernel_atan(a0/a1);
       //A0 z = atan(abs(a0/a1));  // case a1 > 0,  a0 > 0
-      z = sel(is_gtz(a1), z, Pi<A0>()-z)*signnz(a0);
-      return if_nan_else(logical_or(is_nan(a0), is_nan(a1)),
-                         sel(is_eqz(a0),
-                             sel(is_ltz(a1), Pi<A0>(), Zero<A0>()),
-                             z)
-                         );
+      z = nt2::if_else(nt2::is_gtz(a1), z, nt2::Pi<A0>()-z)*nt2::signnz(a0);
+      z =  nt2::if_else( nt2::is_eqz(a0),
+                         nt2::if_else_zero( nt2::is_ltz(a1),  nt2::Pi<A0>()),
+                         z);
+#ifdef BOOST_SIMD_NO_NANS
+      return z;
+#else
+      return  nt2::if_nan_else( nt2::logical_or( nt2::is_nan(a0),  nt2::is_nan(a1)), z);
+#endif
     }
   };
 } }

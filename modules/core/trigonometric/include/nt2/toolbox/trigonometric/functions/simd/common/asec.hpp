@@ -10,17 +10,10 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_ASEC_HPP_INCLUDED
 #include <nt2/toolbox/trigonometric/functions/asec.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/simd/acsc.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/constants/pio_2.hpp>
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asec_, boost::simd::tag::simd_
@@ -28,54 +21,24 @@ namespace nt2 { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef typename meta::as_floating<A0>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::asec(tofloat(a0));
+      return nt2::asec(nt2::tofloat(a0));
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is double
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asec_, boost::simd::tag::simd_
                             , (A0)(X)
-                            , ((simd_<double_<A0>,X>))
+                            , ((simd_<floating_<A0>,X>))
                             )
   {
 
-    typedef typename meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      return (Pio_2<A0>()-acsc(a0)); //+double_constant<A0,0x3c91a62633145c07ll >();
-    }
-  };
-} }
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is float
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asec_, boost::simd::tag::simd_
-                            , (A0)(X)
-                            , ((simd_<single_<A0>,X>))
-                            )
-  {
-
-    typedef typename meta::as_floating<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return (Pio_2<A0>()-acsc(a0));
+      return (nt2::Pio_2<A0>()-nt2::acsc(a0));
     }
   };
 } }

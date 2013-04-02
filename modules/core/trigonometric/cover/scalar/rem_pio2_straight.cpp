@@ -33,6 +33,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
+#include <boost/fusion/include/std_pair.hpp>
 
 
 NT2_TEST_CASE_TPL ( rem_pio2_straight_real__1_0,  NT2_REAL_TYPES)
@@ -65,13 +66,10 @@ NT2_TEST_CASE_TPL ( rem_pio2_straight_real__1_0,  NT2_REAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
         r_t r = nt2::rem_pio2_straight(a0);
-        typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
-        typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
-        r_t0 r0 = boost::fusion::get<0>(r);
-        r_t1 r1 = boost::fusion::get<1>(r);
-        NT2_TEST_ULP_EQUAL( r0, boost::fusion::get<0>(nt2::rem_pio2_medium(a0)), 0.5);
+        r_t rm= nt2::rem_pio2_medium(a0); 
+        NT2_TEST_ULP_EQUAL( r.second, rm.second, 0.5);
         if (ulpd>ulp0) ulp0=ulpd;
-        NT2_TEST_ULP_EQUAL( r1, nt2::Zero<r_t1>(), 0);
+        NT2_TEST_ULP_EQUAL( r.first, rm.first, 0);
         if (ulpd>ulp0) ulp0=ulpd;
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

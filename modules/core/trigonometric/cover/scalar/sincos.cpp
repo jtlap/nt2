@@ -15,7 +15,7 @@
 ///
 #include <nt2/toolbox/trigonometric/include/functions/sincos.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <boost/fusion/tuple.hpp>
+#include <boost/fusion/include/std_pair.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
 extern "C" {extern long double cephes_asinl(long double);}
 extern "C" {extern long double cephes_acosl(long double);}
@@ -46,7 +46,7 @@ NT2_TEST_CASE_TPL ( sincos_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<sincos_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef boost::fusion::tuple<ftype,ftype> wished_r_t;
+  typedef std::pair<ftype,ftype> wished_r_t;
 
 
   // return type conformity test

@@ -34,7 +34,7 @@ extern "C" {extern long double cephes_acosl(long double);}
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
-
+#include <boost/fusion/include/std_pair.hpp>
 
 NT2_TEST_CASE_TPL ( sinecosine_real__1_0,  NT2_REAL_TYPES)
 {
@@ -46,7 +46,7 @@ NT2_TEST_CASE_TPL ( sinecosine_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<sinecosine_<nt2::medium_>(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef boost::fusion::tuple<ftype,ftype> wished_r_t;
+  typedef std::pair<ftype,ftype> wished_r_t;
 
 
   // return type conformity test

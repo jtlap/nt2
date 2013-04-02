@@ -26,6 +26,7 @@ namespace nt2
 
   using boost::simd::if_else_allbits;
   using boost::simd::ifelsenan;
+  using boost::simd::if_else_nan;
   using boost::simd::ifnot_nan_else;
   using boost::simd::ifnotallbitselse;
   using boost::simd::ifelseallbits;

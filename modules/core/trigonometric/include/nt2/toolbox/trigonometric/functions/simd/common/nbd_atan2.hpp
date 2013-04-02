@@ -16,6 +16,8 @@
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/if_zero_else.hpp>
+#include <nt2/include/functions/simd/if_else_zero.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
 #include <nt2/include/functions/simd/is_eqz.hpp>
 #include <nt2/include/functions/simd/is_inf.hpp>
@@ -35,7 +37,8 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nbd_atan2_, boost::simd::tag::simd_
                             , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
+                            , ((simd_<arithmetic_<A0>,X>))
+                              ((simd_<arithmetic_<A0>,X>))
                             )
   {
 
@@ -43,13 +46,14 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return nt2::nbd_atan2(tofloat(a0), tofloat(a1));
+      return nt2::nbd_atan2(tofloat(a0), nt2::tofloat(a1));
     }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nbd_atan2_, boost::simd::tag::simd_
                             , (A0)(X)
-                            , ((simd_<uint_<A0>,X>))((simd_<uint_<A0>,X>))
+                            , ((simd_<uint_<A0>,X>))
+                              ((simd_<uint_<A0>,X>))
                             )
   {
 
@@ -59,25 +63,26 @@ namespace nt2 { namespace ext
     {
       const A0 a0 = a0_n;
       const A0 a1 = a1_n;
-      result_type z = atan(tofloat(a0)/tofloat(a1));
-      return sel(is_eqz(a0), Zero<result_type>(), z);
+      result_type z = nt2::atan(nt2::tofloat(a0)/nt2::tofloat(a1));
+      return nt2::if_zero_else(nt2::is_eqz(a0), z);
     }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nbd_atan2_, boost::simd::tag::simd_
                             , (A0)(X)
-                            , ((simd_<floating_<A0>,X>))((simd_<floating_<A0>,X>))
+                            , ((simd_<floating_<A0>,X>))
+                              ((simd_<floating_<A0>,X>))
                             )
   {
     typedef A0 result_type;
     inline result_type operator()(const typename A0::native_type a0_n,
-                      const typename A0::native_type a1_n) const
+                                  const typename A0::native_type a1_n) const
     {
       A0 a0 = a0_n;
       A0 a1 = a1_n;
       A0 z = impl::invtrig_base<result_type,radian_tag, tag::simd_type>::kernel_atan(a0/a1);
-      z = sel(is_gtz(a1), z, Pi<A0>()-z)*signnz(a0);
-      return sel(is_eqz(a0), sel(is_ltz(a1), Pi<A0>(), Zero<A0>()), z);
+      z = nt2::if_else(nt2::is_gtz(a1), z, nt2::Pi<A0>()-z)*nt2::signnz(a0);
+      return nt2::if_else(nt2::is_eqz(a0), nt2::if_else_zero(nt2::is_ltz(a1), nt2::Pi<A0>()), z);
     }
   };
 } }
