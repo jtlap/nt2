@@ -13,6 +13,8 @@
 #include <nt2/sdk/bench/perform_benchmark.hpp>
 
 #include <nt2/sdk/timing/now.hpp>
+#include <string>
+#include <algorithm>
 #include <iostream>
 #include <iomanip>
 
@@ -28,11 +30,15 @@ namespace nt2 { namespace details
                                   , test_suite const* x
                                   )
                   : unit_test(x,0,0), duration(d), name(n), unit(u)
-  {}
+  {
+    // No space in benchmark names
+    name.erase(std::remove_if(name.begin(), name.end(), ::isspace), name.end());
+  }
+
   /// Benchmark process
   NT2_TEST_BENCHMARK_DECL void base_experiment::process() const
   {
-    std::cout << name << "\t";
+    std::cout << "bench_" << name << "\t";
     this->info(std::cout);
     std::cout << "\t" << std::flush;
 

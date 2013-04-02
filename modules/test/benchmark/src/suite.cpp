@@ -23,7 +23,7 @@ namespace nt2 { namespace details
   NT2_TEST_BENCHMARK_DECL void benchmark_suite::report() const {}
   NT2_TEST_BENCHMARK_DECL void benchmark_suite::process() const
   {
-    std::cout << "[Benchmark]\n";
+    std::cout << "[Benchmark]\t\t[Size]\t[Value]\t[Unit]\n";
 
     std::cout <<  "-------------------------------------------"
                   "-------------------------------------------"
