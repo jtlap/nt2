@@ -18,7 +18,7 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
-NT2_TEST_CASE_TPL( modf, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL( modf, NT2_SIMD_TYPES)
 {
   using nt2::modf;
   using nt2::splat;
