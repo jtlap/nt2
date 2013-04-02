@@ -15,6 +15,7 @@
 
 #include <string>
 #include <cstdlib>
+#include <boost/mpl/bool.hpp>
 
 namespace nt2 {  namespace details
 {
