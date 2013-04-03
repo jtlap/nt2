@@ -16,6 +16,7 @@
 #include <nt2/toolbox/arithmetic/include/functions/divfix.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/toint.hpp>
+#include <nt2/include/functions/touint.hpp>
 #include <nt2/include/constants/valmax.hpp>
 #include <nt2/include/constants/valmin.hpp>
 #include <nt2/include/constants/zero.hpp>
@@ -107,7 +108,7 @@ NT2_TEST_CASE_TPL ( divfix_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::divfix(a0,a1),r_t(nt2::toint((1.0*a0)/a1)),0);
+        NT2_TEST_ULP_EQUAL( nt2::divfix(a0,a1),r_t(nt2::touint((1.0*a0)/a1)),0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
