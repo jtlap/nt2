@@ -18,7 +18,7 @@
 #include <nt2/include/functions/exp2.hpp>
 #include <nt2/include/functions/log2.hpp>
 #include <nt2/include/functions/abs.hpp>
-extern "C" { long double cephes_exp2l(long double); }
+extern "C" { long double exp2l(long double); }
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -67,7 +67,7 @@ NT2_TEST_CASE_TPL ( exp2_real__1_0,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::exp2(a0),cephes_exp2l(a0),7);
+        NT2_TEST_ULP_EQUAL( nt2::exp2(a0),::exp2l(a0),7);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
@@ -105,7 +105,7 @@ NT2_TEST_CASE_TPL ( exp2_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::exp2(a0),cephes_exp2l(a0),7);
+        NT2_TEST_ULP_EQUAL( nt2::exp2(a0),::exp2l(a0),7);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
@@ -143,7 +143,7 @@ NT2_TEST_CASE_TPL ( exp2_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::exp2(a0),cephes_exp2l(a0),7);
+        NT2_TEST_ULP_EQUAL( nt2::exp2(a0),::exp2l(a0),7);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

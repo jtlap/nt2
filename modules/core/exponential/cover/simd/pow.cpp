@@ -75,7 +75,7 @@ NT2_TEST_CASE_TPL ( pow_real__2_0,  NT2_SIMD_REAL_TYPES)
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
 
-          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::pow (a0[i],a1[i])), 11);
+          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::pow (a0[i],a1[i])), 12.5);
           ulp0 = nt2::max(ulpd,ulp0);
         }
       }

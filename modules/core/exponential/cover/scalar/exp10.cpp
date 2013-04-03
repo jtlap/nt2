@@ -16,7 +16,7 @@
 #include <nt2/toolbox/exponential/include/functions/exp10.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/log10.hpp>
-extern "C" { long double cephes_exp10l(long double); }
+extern "C" { long double exp10l(long double); }
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -63,7 +63,7 @@ NT2_TEST_CASE_TPL ( exp10_real__1_0,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::exp10(a0),::cephes_exp10l(a0),0.5);
+        NT2_TEST_ULP_EQUAL( nt2::exp10(a0),::exp10l(a0),0.5);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
