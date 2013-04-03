@@ -17,6 +17,7 @@
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/floor.hpp>
 #include <nt2/include/functions/toint.hpp>
+#include <nt2/include/functions/touint.hpp>  
 #include <nt2/include/constants/valmax.hpp>
 #include <nt2/include/constants/valmin.hpp>
 #include <nt2/include/constants/zero.hpp>
@@ -108,7 +109,7 @@ NT2_TEST_CASE_TPL ( idivfloor_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::idivfloor(a0,a1),nt2::toint(nt2::floor((1.0*a0)/a1)),0);
+        NT2_TEST_ULP_EQUAL( nt2::idivfloor(a0,a1),nt2::touint(nt2::floor((1.0*a0)/a1)),0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
