@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
     typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::exp(result_type(a0));
+      return nt2::exp(nt2::tofloat(a0));
     }
   };
 
