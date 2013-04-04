@@ -18,6 +18,11 @@
 #include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/simd/round.hpp>
 #include <nt2/include/functions/simd/logical_and.hpp>
+#include <nt2/include/constants/nbmantissabits.hpp>
+#include <nt2/include/constants/eps.hpp>
+#include <nt2/include/functions/simd/is_greater.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
 
 namespace nt2
 {
@@ -25,6 +30,15 @@ namespace nt2
   {
     namespace internal
     {
+      template < class A0, class iA0> static
+      inline A0 scale(A0 const & y, const iA0& ik)
+      {
+        return nt2::if_else(gt(ik, -nt2::Nbmantissabits<A0>()),
+                            nt2::fast_ldexp(y, ik),
+                            nt2::fast_ldexp(y, ik+nt2::Nbmantissabits<A0>())*nt2::Eps<A0>() // denormal case
+                           );
+      }
+
       template < class A0, class expo_tag, class speed_tag> struct exp_finalization{};
 
       template < class A0, class speed_tag> struct exp_finalization < A0, natural_tag, speed_tag>
@@ -33,8 +47,8 @@ namespace nt2
                                   const A0& c, const A0 & k,
                                   const A0& hi,const A0& lo)
         {
-          A0 y =   oneminus(((lo-(x*c)/(Two<A0>()-c))-hi));
-          return fast_ldexp(y, fast_toint(k));
+          A0 y =   nt2::oneminus(((lo-(x*c)/(nt2::Two<A0>()-c))-hi));
+          return scale(y, nt2::fast_toint(k));
         }
       };
       template < class A0 > struct exp_finalization < A0, two_tag, fast_tag>
@@ -43,8 +57,8 @@ namespace nt2
                                   const A0& c, const A0 & k,
                                   const A0& ,const A0& )
         {
-          A0 y = oneminus(((-(x*c)/(Two<A0>()-c))-x));
-          return fast_ldexp(y, fast_toint(k));
+          A0 y = nt2::oneminus(((-(x*c)/(nt2::Two<A0>()-c))-x));
+          return scale(y, nt2::fast_toint(k));
         }
       };
       template < class A0 > struct exp_finalization < A0, two_tag, accu_tag>
@@ -53,10 +67,10 @@ namespace nt2
                                   const A0& c, const A0 & k,
                                   const A0& ,const A0& )
         {
-          A0 y = oneminus(((-(x*c)/(Two<A0>()-c))-x));
-          y = fast_ldexp(y, fast_toint(k));
+          A0 y = nt2::oneminus(((-(x*c)/(nt2::Two<A0>()-c))-x));
+          y = scale(y, nt2::fast_toint(k));
           // adjust for 2^n n flint
-          return  select(logical_and(is_gtz(a0), is_flint(a0)),  round(y), y);
+          return  nt2::if_else(nt2::logical_and(nt2::is_gtz(a0), nt2::is_flint(a0)), nt2::round(y), y);
         }
       };
 
@@ -66,11 +80,14 @@ namespace nt2
                                   const A0& c , const A0& k,
                                   const A0&   , const A0& )
         {
-          A0 y = fast_ldexp(c, fast_toint(k));
+          A0 y = scale(c, fast_toint(k));
           //adjust for 10^n n flint
-          return  if_else(l_and(is_gtz(a0), is_flint(a0)),  round(y), y);
+          return  nt2::if_else(nt2::logical_and(nt2::is_gtz(a0), nt2::is_flint(a0)), nt2::round(y), y);
         }
+
       };
+
+
 
     }
   }
