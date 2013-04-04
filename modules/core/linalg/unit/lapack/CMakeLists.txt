@@ -10,6 +10,7 @@
 SET ( SOURCES
       trf.cpp
       tri.cpp
-    )
+      qrf.cpp
+   )
 
 nt2_module_add_tests(core.linalg.lapack.unit ${SOURCES})
