@@ -8,14 +8,10 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_GENERIC_REALSQRT_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_GENERIC_REALSQRT_HPP_INCLUDED
-
 #include <nt2/toolbox/exponential/functions/realsqrt.hpp>
-#include <nt2/include/functions/simd/sqrt.hpp>
-#include <nt2/include/functions/simd/is_nltz.hpp>
-#include <nt2/include/functions/simd/all.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/assert.hpp>
+#include <nt2/include/functions/sqrt.hpp>
+#include <nt2/include/functions/is_nltz.hpp>
+#include <nt2/include/functions/all.hpp>
 
 namespace nt2 { namespace ext
 {
