@@ -13,7 +13,7 @@
 #include <nt2/toolbox/exponential/functions/scalar/impl/logs.hpp>
 #include <nt2/toolbox/exponential/functions/simd/common/impl/logs.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
-#include <boost/simd/meta/is_native.hpp>
+#include <boost/simd/sdk/simd/meta/is_native.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 
 namespace nt2 { namespace ext
