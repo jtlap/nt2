@@ -33,6 +33,7 @@ extern "C" {long double cephes_ellikl(long double,long double);}
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
+#include <boost/fusion/include/std_pair.hpp>
 
 
 
@@ -43,7 +44,7 @@ NT2_TEST_CASE_TPL ( ellipke_real__1_0,  NT2_REAL_TYPES)
   using nt2::ellipke;
   using nt2::tag::ellipke_;
   typedef typename boost::dispatch::meta::as_floating<T>::type etype;
-  typedef boost::fusion::tuple<etype,etype> rtype;
+  typedef std::pair<etype,etype> rtype;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<ellipke_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
@@ -66,7 +67,7 @@ NT2_TEST_CASE_TPL ( ellipke_real__2_1,  NT2_REAL_TYPES)
   using nt2::tag::ellipke_;
   typedef T scalar;
   typedef typename boost::dispatch::meta::as_floating<T>::type etype;
-  typedef boost::fusion::tuple<etype,etype> rtype;
+  typedef std::pair<etype,etype> rtype;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<ellipke_(T,scalar)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
