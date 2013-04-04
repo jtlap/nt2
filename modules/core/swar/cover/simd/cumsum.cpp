@@ -60,7 +60,7 @@ NT2_TEST_CASE_TPL ( cumsum_real__1_0,  NT2_SIMD_REAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-1e30), T(1e30));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-1e3), T(1e3));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
@@ -78,7 +78,7 @@ NT2_TEST_CASE_TPL ( cumsum_real__1_0,  NT2_SIMD_REAL_TYPES)
         vT zz = load<vT>(&z[0],0);
         for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++)
          {
-            NT2_TEST_ULP_EQUAL(v[i],zz[i], 16);
+            NT2_TEST_ULP_EQUAL(v[i],zz[i], 4);
          }
       }
 
