@@ -11,13 +11,12 @@
 
 #include <nt2/toolbox/exponential/functions/exp2.hpp>
 #include <nt2/toolbox/exponential/functions/scalar/impl/expo.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
 #include <nt2/toolbox/exponential/functions/simd/common/impl/expo.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/include/functions/scalar/ldexp.hpp>
+#include <nt2/include/functions/simd/ldexp.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <boost/simd/sdk/simd/meta/is_native.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 
 namespace nt2 { namespace ext
 {

@@ -8,15 +8,19 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_GENERIC_SQRT1PM1_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_GENERIC_SQRT1PM1_HPP_INCLUDED
+
 #include <nt2/toolbox/exponential/functions/sqrt1pm1.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/minusone.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/is_less.hpp>
-#include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/sqrt.hpp>
+#include <nt2/include/functions/simd/oneplus.hpp>
+#include <nt2/include/functions/simd/minusone.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/is_less.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/constants/half.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 
 namespace nt2 { namespace ext
 {
