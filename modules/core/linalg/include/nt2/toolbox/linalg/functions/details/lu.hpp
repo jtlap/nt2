@@ -280,7 +280,7 @@ namespace nt2 { namespace details
     //==========================================================================
     // system rank
     //==========================================================================
-    size_t rank(base_t epsi = nt2::Eps<base_t>()) //provisouare
+    size_t rank(base_t epsi = Eps<base_t>()) //provisouare
     {
       //int32_t r = 0;
       base_t thresh = nt2::max(n_, m_)*epsi*nt2::max(nt2::abs(nt2::diag_of(lu_)(_)));

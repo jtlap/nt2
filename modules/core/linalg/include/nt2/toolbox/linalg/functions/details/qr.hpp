@@ -212,7 +212,7 @@ namespace nt2 {
       }
       nt2_la_int status() const { return info_; }
 
-      size_t     rank(base_t epsi = nt2::Eps<base_t>())const
+      size_t     rank(base_t epsi = Eps<base_t>())const
       {
         base_t thresh = nt2::max(n_, m_)*epsi*nt2::max(nt2::abs(diag_of(aa_)(_)));
         return  size_t(sum(if_one_else_zero(gt(nt2::abs(nt2::diag_of(aa_)), thresh))(_)));
@@ -226,7 +226,7 @@ namespace nt2 {
       //==========================================================================
       // Solver interface
       //==========================================================================
-      template<class XPR> result_type solve(const XPR & b, base_t epsi = nt2::Eps<base_t>(),
+      template<class XPR> result_type solve(const XPR & b, base_t epsi = Eps<base_t>(),
                                             bool transpose = false)const
       {
         result_type bb = b;
@@ -234,14 +234,14 @@ namespace nt2 {
         return bb;
       }
 
-      template<class XPR, class OUT> void solve(const XPR & b, OUT& x, base_t epsi = nt2::Eps<base_t>(),
+      template<class XPR, class OUT> void solve(const XPR & b, OUT& x, base_t epsi = Eps<base_t>(),
                                                 bool transpose = false)const
       {
         x = b;
         inplace_solve(x, epsi, transpose);
       }
 
-      template < class XPR > void inplace_solve(XPR & b, base_t epsi = nt2::Eps<base_t>(),
+      template < class XPR > void inplace_solve(XPR & b, base_t epsi = Eps<base_t>(),
                                                 bool transpose = false) const
       {
         typedef typename meta::is_complex<type_t>::type iscplx_t;

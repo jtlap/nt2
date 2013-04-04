@@ -148,7 +148,7 @@ namespace nt2 { namespace details
     // /////////////////////////////////////////////////////////////////////////////
     // return rank up to epsi
     // /////////////////////////////////////////////////////////////////////////////
-    size_t     rank(base_t epsi = nt2::Eps<base_t>())
+    size_t     rank(base_t epsi = Eps<base_t>())
     {
       size_t r = 0;
       base_t thresh = n_*epsi*nt2::max(nt2::abs(w_(_)));
