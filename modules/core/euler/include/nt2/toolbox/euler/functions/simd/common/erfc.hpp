@@ -31,6 +31,7 @@
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
