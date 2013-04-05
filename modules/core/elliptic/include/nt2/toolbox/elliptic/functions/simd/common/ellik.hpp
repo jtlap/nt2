@@ -79,7 +79,7 @@ namespace nt2 { namespace ext
 	//       A0 m = a1;
 	//       A0 a = One<A0>();
 	//       A0 b = oneminus(m);
-	
+
 	//       b = sqrt(b);
 	//       A0 c = sqrt(m);
 	//       A0 d = One<A0>();

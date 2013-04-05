@@ -91,28 +91,28 @@ struct table_generator
 {
 	BOOST_PROTO_CALLABLE()
 	BOOST_PROTO_USE_BASIC_EXPR()
-	
+
 	template<typename Sig>
 	struct result;
-	
+
 	template<typename This, typename Expr>
 	struct result<This(Expr)>
 	{
 		typedef Extends<N,Expr> type;
 	};
-	
+
 	template<typename This, typename Expr>
 	struct result<This(Expr &)>
 	{
 		typedef Extends<N,Expr> type;
 	};
-	
+
 	template<typename This, typename Expr>
 	struct result<This(Expr const &)>
 	{
 		typedef Extends<N,Expr> type;
 	};
-	
+
 	/// \param expr A Proto expression
 	/// \return Extends<Expr>(expr)
 	template<typename Expr>
@@ -134,11 +134,11 @@ struct tables_expression
 	typedef
 	proto::extends<Expr, tables_expression<Expr>, tables_domain>
 	base_type;
-	
+
 	explicit tables_expression(Expr const &expr = Expr())
 	: base_type(expr)
 	{}
-	
+
 	BOOST_PROTO_EXTENDS_USING_ASSIGN(tables_expression)
 };
 
@@ -150,7 +150,7 @@ struct table_expression
 	typedef
 	proto::extends<Expr, table_expression<N,Expr>, tables_domain>
 	base_type;
-	
+
 	explicit table_expression(Expr const &expr = Expr())
 	: base_type(expr)
 	{}
@@ -164,11 +164,11 @@ struct matrix_expression
 	typedef
 	proto::extends<Expr, matrix_expression<Expr>, matrix_domain>
 	base_type;
-	
+
 	explicit matrix_expression(Expr const &expr = Expr())
 	: base_type(expr)
 	{}
-	
+
 	BOOST_PROTO_EXTENDS_USING_ASSIGN(matrix_expression)
 };
 
@@ -179,11 +179,11 @@ struct vector_expression
 	typedef
 	proto::extends<Expr, vector_expression<Expr>, vector_domain>
 	base_type;
-	
+
 	explicit vector_expression(Expr const &expr = Expr())
 	: base_type(expr)
 	{}
-	
+
 	BOOST_PROTO_EXTENDS_USING_ASSIGN(vector_expression)
 };
 
@@ -331,7 +331,7 @@ info(X const& x)
 int main()
 {
 	type_from(make_table<1>()+make_table<2>());
-	
+
 	type_from(make_table<1>()+make_table<1>());
 	type_from(make_vector()+make_vector());
 	type_from(make_matrix()+make_matrix());
