@@ -13,16 +13,22 @@
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/is_flint.hpp>
 #include <nt2/include/functions/simd/is_gtz.hpp>
-#include <nt2/include/functions/simd/genmask.hpp>
 #include <nt2/include/functions/simd/oneminus.hpp>
-#include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/simd/round.hpp>
 #include <nt2/include/functions/simd/logical_and.hpp>
 #include <nt2/include/constants/nbmantissabits.hpp>
 #include <nt2/include/constants/eps.hpp>
+#include <nt2/include/constants/two.hpp>
 #include <nt2/include/functions/simd/is_greater.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
+
+// 4/4/2013 adding "scale" to properly treat denormal use in returns computation
+// for float for instance it treats differently  entries roughly between -87.6 and -87.25
+// perhaps it will be necessary to check if this function can be accelerated,  using
+// only one call to fast_ldexp by precomputing the shift and the multiplicative factor
 
 namespace nt2
 {
@@ -70,7 +76,9 @@ namespace nt2
           A0 y = nt2::oneminus(((-(x*c)/(nt2::Two<A0>()-c))-x));
           y = scale(y, nt2::fast_toint(k));
           // adjust for 2^n n flint
-          return  nt2::if_else(nt2::logical_and(nt2::is_gtz(a0), nt2::is_flint(a0)), nt2::round(y), y);
+          return  nt2::if_else(nt2::logical_and(nt2::is_gtz(a0),
+                                                nt2::is_flint(a0)),
+                               nt2::round(y), y);
         }
       };
 
@@ -82,7 +90,9 @@ namespace nt2
         {
           A0 y = scale(c, fast_toint(k));
           //adjust for 10^n n flint
-          return  nt2::if_else(nt2::logical_and(nt2::is_gtz(a0), nt2::is_flint(a0)), nt2::round(y), y);
+          return  nt2::if_else(nt2::logical_and(nt2::is_gtz(a0),
+                                                nt2::is_flint(a0)),
+                               nt2::round(y), y);
         }
 
       };
