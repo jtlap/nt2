@@ -8,17 +8,22 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_FAST_GAMMA_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_FAST_GAMMA_HPP_INCLUDED
+
 #include <nt2/toolbox/euler/functions/fast_gamma.hpp>
-#include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/include/functions/scalar/sinpi.hpp>
 #include <nt2/include/functions/scalar/polevl.hpp>
 #include <nt2/include/functions/scalar/stirling.hpp>
 #include <nt2/include/functions/scalar/is_even.hpp>
+#include <nt2/include/functions/scalar/is_nan.hpp>
 #include <nt2/include/functions/scalar/is_eqz.hpp>
-
+#include <nt2/include/functions/scalar/is_ltz.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/constants/minf.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/constants/euler.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
