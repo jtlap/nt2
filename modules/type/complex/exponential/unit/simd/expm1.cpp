@@ -29,6 +29,7 @@
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
+#include <nt2/include/constants/exp_1.hpp>
 
 NT2_TEST_CASE_TPL ( expm1_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {

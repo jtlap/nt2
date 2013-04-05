@@ -20,6 +20,8 @@
 #include <nt2/include/functions/simd/plus.hpp>
 #include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/constants/log_2.hpp>
+#include <nt2/include/constants/invlog_2.hpp>
+#include <nt2/toolbox/exponential/functions/scalar/impl/selection_tags.hpp>
 
 namespace nt2 { namespace details { namespace internal
 {

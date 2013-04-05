@@ -32,6 +32,8 @@
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/load.hpp>
+#include <nt2/include/constants/exp_1.hpp>
+
 
 
 NT2_TEST_CASE_TPL ( expx2_real__1_0,  NT2_SIMD_REAL_TYPES)
