@@ -14,6 +14,7 @@
 #include <nt2/include/functions/simd/is_flint.hpp>
 #include <nt2/include/functions/simd/is_gtz.hpp>
 #include <nt2/include/functions/simd/oneminus.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/simd/round.hpp>
 #include <nt2/include/functions/simd/logical_and.hpp>
 #include <nt2/include/constants/nbmantissabits.hpp>
