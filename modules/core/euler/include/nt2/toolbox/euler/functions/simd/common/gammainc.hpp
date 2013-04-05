@@ -59,7 +59,7 @@ namespace nt2 { namespace ext
       return gammainc(tofloat(a0), tofloat(a1));
     }
   };
-
+  
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type  is floating_
   /////////////////////////////////////////////////////////////////////////////
@@ -67,7 +67,7 @@ namespace nt2 { namespace ext
                              (A0)(A1)(X),
                              ((simd_<floating_<A0>,X>))
                              ((simd_<floating_<A1>,X>))
-                             )
+                            )
   {
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(const A0& xx, const A1& aa) const
@@ -96,13 +96,13 @@ namespace nt2 { namespace ext
       return res;
     }
   };
-
+  
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::gammainc_, tag::cpu_,
                              (A0)(A1)(A3)(X),
                              ((simd_<floating_<A0>,X>))
                              ((simd_<floating_<A1>,X>))
                              ((target_<unspecified_<A3> >))
-    )
+                            )
   {
     // target case1_ means x < a+1
     // target case2_ means x >= a+1
@@ -135,9 +135,6 @@ namespace nt2 { namespace ext
     static inline result_type doit(const A0& x, const A1& a, const details::case1_ &)
     {
       // Continued fraction for x >= a+1
-//           std::cout << "1a " << a << std::endl;
-//           std::cout << "1x " << x << std::endl;
-
       //k = find(a ~= 0 & x >= a+1); % & x ~= 0
       A0 a0 = One<A0>();
       A0 a1 = x;
@@ -160,21 +157,18 @@ namespace nt2 { namespace ext
         g = b1 * fac;
         n = oneplus(n);
       }
-//         std::cout << "1g " << g << std::endl;
-//         std::cout << "x  " << x << std::endl;
-//         std::cout << "isinf " << nt2::is_inf(x) << std::endl;
       return if_else(nt2::is_inf(x), One<A0>(), oneminus(nt2::exp(-x + a*nt2::log(x) - gammaln(a))*g));
       //    if lower, b(k) = 1-bk; else b(k) = bk; end
     }
   };
-
+  
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::gammainc_, tag::cpu_,
                              (A0)(A1)(A2)(A3)(X),
                              ((simd_<floating_<A0>,X>))
                              ((simd_<floating_<A1>,X>))
                              ((simd_<logical_<A2>, X>))
                              ((target_<unspecified_<A3> >))
-    )
+                            )
   {
     typedef typename nt2::meta::scalar_of<A0>::type sA0;
     typedef A0 result_type;
@@ -192,7 +186,7 @@ namespace nt2 { namespace ext
     {
       return nt2::if_else(test, x, oneplus(a)); //insure convergence in each case for all members of simd vector making x = a+1 >= a+1  when the test do not succeed
     }
-
+    
   };
 } }
 #endif
