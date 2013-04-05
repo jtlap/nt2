@@ -59,7 +59,7 @@ namespace nt2 { namespace ext
     )
   {
     typedef A0 result_type;
-    inline result_type operator()(A0 const a0, A1 const&) const
+    inline result_type operator()(A0 const& a0, A1 const&) const
     {
       typedef typename A1::type selector;
       return rem2pi<selector, void>::rem(a0);
