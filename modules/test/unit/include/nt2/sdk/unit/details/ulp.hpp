@@ -20,6 +20,7 @@
 #include <boost/foreach.hpp>
 #include <algorithm>
 #include <vector>
+#include <iostream>
 
 namespace nt2 { namespace details
 {
@@ -82,8 +83,7 @@ namespace nt2 { namespace details
                                                     , nt2::value(b)
                                                     )
                           );
-
-      if(d > max_ulpd )
+      if(!(d <= max_ulpd) )
       {
         failure_type f = { a, b, d, i };
         fails.push_back(f);
@@ -145,7 +145,7 @@ namespace nt2 { namespace details
       double d =  max_ulp_seq_<0,boost::fusion::result_of
                                               ::size<A>::value>()(a,b,0.);
 
-      if(d > max_ulpd)
+      if(!(d <=  max_ulpd))
       {
         failure_type f = {a, b, d, i};
         fails.push_back(f);
