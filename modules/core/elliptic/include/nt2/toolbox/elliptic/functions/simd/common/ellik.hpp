@@ -51,14 +51,14 @@ namespace nt2 { namespace ext
   // Implementation when type A0 is double
   /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ellik_, tag::cpu_
-			      , (A0)(X)
-			      , ((simd_<double_<A0>,X>))((simd_<double_<A0>,X>))
-			      )
+                              , (A0)(X)
+                              , ((simd_<double_<A0>,X>))((simd_<double_<A0>,X>))
+                              )
   {
     typedef typename meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
       {
-	return map(functor<tag::ellik_>(), a0, a1);
+        return map(functor<tag::ellik_>(), a0, a1);
       }
   };
 
@@ -66,40 +66,40 @@ namespace nt2 { namespace ext
   // Implementation when type A0 is float
   /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ellik_, tag::cpu_
-			      , (A0)(X)
-			      , ((simd_<single_<A0>,X>))((simd_<single_<A0>,X>))
-			      )
+                              , (A0)(X)
+                              , ((simd_<single_<A0>,X>))((simd_<single_<A0>,X>))
+                              )
   {
     typedef typename meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
       {
-	return map(functor<tag::ellik_>(), a0, a1);
-	// broken TO DO
-	//       A0 phi = nt2::abs(a0);
-	//       A0 m = a1;
-	//       A0 a = One<A0>();
-	//       A0 b = oneminus(m);
+        return map(functor<tag::ellik_>(), a0, a1);
+        // broken TO DO
+        //       A0 phi = nt2::abs(a0);
+        //       A0 m = a1;
+        //       A0 a = One<A0>();
+        //       A0 b = oneminus(m);
 
-	//       b = sqrt(b);
-	//       A0 c = sqrt(m);
-	//       A0 d = One<A0>();
-	//       A0 t = tan(phi);
+        //       b = sqrt(b);
+        //       A0 c = sqrt(m);
+        //       A0 d = One<A0>();
+        //       A0 t = tan(phi);
         //       A0 mod = ceil(phi/Pi<A0>());
-	//       while( nt2::any(gt(abs(c), nt2::abs(a)*Eps<A0>())) )
-	//       {
-	//         A0 temp = b/a;
-	//         phi = phi + atan(t*temp) + mod*Pi<A0>();
-	//         mod = ceil(phi/Pi<A0>());
-	//         t = oneplus(temp)/(rec(t)-temp*t);
-	//         c = average(a,-b);
-	//         temp = sqrt(a*b);
-	//         a = average(a,b);
-	//         b = temp;
-	//         d += d;
-	//       }
-	//       A0 temp = (atan(t) + mod * Pi<A0>())/(d * a);
-	//       temp = b_xor(temp, bitofsign(a0));
-	//       return b_or(b_or(is_ltz(a1), gt(a1, One<A0>())), temp);
+        //       while( nt2::any(gt(abs(c), nt2::abs(a)*Eps<A0>())) )
+        //       {
+        //         A0 temp = b/a;
+        //         phi = phi + atan(t*temp) + mod*Pi<A0>();
+        //         mod = ceil(phi/Pi<A0>());
+        //         t = oneplus(temp)/(rec(t)-temp*t);
+        //         c = average(a,-b);
+        //         temp = sqrt(a*b);
+        //         a = average(a,b);
+        //         b = temp;
+        //         d += d;
+        //       }
+        //       A0 temp = (atan(t) + mod * Pi<A0>())/(d * a);
+        //       temp = b_xor(temp, bitofsign(a0));
+        //       return b_or(b_or(is_ltz(a1), gt(a1, One<A0>())), temp);
       }
   };
 } }

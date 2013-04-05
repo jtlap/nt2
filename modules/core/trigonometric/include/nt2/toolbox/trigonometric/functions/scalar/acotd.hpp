@@ -31,11 +31,11 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-	  A0 s = bitofsign(a0);
-	  if(!a0)  return b_or(_90<A0>(), s);
-	  if(is_inf(a0)) return b_or(Zero<A0>(), s);
-	  return b_or(_90<A0>()-atand(abs(a0)), s);
-	}
+          A0 s = bitofsign(a0);
+          if(!a0)  return b_or(_90<A0>(), s);
+          if(is_inf(a0)) return b_or(Zero<A0>(), s);
+          return b_or(_90<A0>()-atand(abs(a0)), s);
+        }
   };
 } }
 
@@ -52,8 +52,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-	if(!a0)  return Zero<result_type>();
-	return nt2::acotd(result_type(a0));
+        if(!a0)  return Zero<result_type>();
+        return nt2::acotd(result_type(a0));
       }
   };
 } }

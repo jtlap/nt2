@@ -49,12 +49,12 @@ NT2_TEST_CASE_TPL ( all_real__1_0,  BOOST_SIMD_REAL_TYPES)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = boost::simd::all(a0);
-	bool z = true;
+        bool z = true;
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
-	  {
-	    z = z && (a0[j]);
-	  }
-	NT2_TEST_EQUAL( v, z);
+          {
+            z = z && (a0[j]);
+          }
+        NT2_TEST_EQUAL( v, z);
         }
       }
 

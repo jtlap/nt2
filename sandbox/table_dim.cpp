@@ -16,34 +16,34 @@ using proto::_;
 template<class N, template<typename,typename> class Extends>
 struct table_generator
 {
-	template<typename Sig>
-	struct result;
+        template<typename Sig>
+        struct result;
 
-	template<typename This, typename Expr>
-	struct result<This(Expr)>
-	{
-		typedef Extends<N,Expr> type;
-	};
+        template<typename This, typename Expr>
+        struct result<This(Expr)>
+        {
+                typedef Extends<N,Expr> type;
+        };
 
-	template<typename This, typename Expr>
-	struct result<This(Expr &)>
-	{
-		typedef Extends<N,Expr> type;
-	};
+        template<typename This, typename Expr>
+        struct result<This(Expr &)>
+        {
+                typedef Extends<N,Expr> type;
+        };
 
-	template<typename This, typename Expr>
-	struct result<This(Expr const &)>
-	{
-		typedef Extends<N,Expr> type;
-	};
+        template<typename This, typename Expr>
+        struct result<This(Expr const &)>
+        {
+                typedef Extends<N,Expr> type;
+        };
 
-	/// \param expr A Proto expression
-	/// \return Extends<Expr>(expr)
-	template<typename Expr>
-	Extends<N,Expr> operator ()(Expr const &e) const
-	{
-		return Extends<N,Expr>(e);
-	}
+        /// \param expr A Proto expression
+        /// \return Extends<Expr>(expr)
+        template<typename Expr>
+        Extends<N,Expr> operator ()(Expr const &e) const
+        {
+                return Extends<N,Expr>(e);
+        }
 };
 
 struct tables_domain;
@@ -55,13 +55,13 @@ template<typename Expr>
 struct tables_expression
 : proto::extends<Expr, tables_expression<Expr>, tables_domain>
 {
-	typedef
-	proto::extends<Expr, tables_expression<Expr>, tables_domain>
-	base_type;
+        typedef
+        proto::extends<Expr, tables_expression<Expr>, tables_domain>
+        base_type;
 
-	explicit tables_expression(Expr const &expr = Expr())
-	: base_type(expr)
-	{}
+        explicit tables_expression(Expr const &expr = Expr())
+        : base_type(expr)
+        {}
 };
 
 
@@ -69,13 +69,13 @@ template<class N,typename Expr>
 struct table_expression
 : proto::extends<Expr, table_expression<N,Expr>, table_domain<N> >
 {
-	typedef
-	proto::extends<Expr, table_expression<N,Expr>, table_domain<N> >
-	base_type;
+        typedef
+        proto::extends<Expr, table_expression<N,Expr>, table_domain<N> >
+        base_type;
 
-	explicit table_expression(Expr const &expr = Expr())
-	: base_type(expr)
-	{}
+        explicit table_expression(Expr const &expr = Expr())
+        : base_type(expr)
+        {}
 };
 
 
@@ -83,26 +83,26 @@ template<typename Expr>
 struct matrix_expression
 : proto::extends<Expr, matrix_expression<Expr>, matrix_domain>
 {
-	typedef
-	proto::extends<Expr, matrix_expression<Expr>, matrix_domain>
-	base_type;
+        typedef
+        proto::extends<Expr, matrix_expression<Expr>, matrix_domain>
+        base_type;
 
-	explicit matrix_expression(Expr const &expr = Expr())
-	: base_type(expr)
-	{}
+        explicit matrix_expression(Expr const &expr = Expr())
+        : base_type(expr)
+        {}
 };
 
 template<typename Expr>
 struct vector_expression
 : proto::extends<Expr, vector_expression<Expr>, vector_domain>
 {
-	typedef
-	proto::extends<Expr, vector_expression<Expr>, vector_domain>
-	base_type;
+        typedef
+        proto::extends<Expr, vector_expression<Expr>, vector_domain>
+        base_type;
 
-	explicit vector_expression(Expr const &expr = Expr())
-	: base_type(expr)
-	{}
+        explicit vector_expression(Expr const &expr = Expr())
+        : base_type(expr)
+        {}
 };
 
 struct tables_domain : proto::domain<proto::generator<tables_expression>, _ > {};
@@ -131,8 +131,8 @@ typename boost::proto::result_of
 >::type
 make_table()
 {
-	return	boost::proto::
-	make_expr<boost::proto::tag::terminal,table_domain<boost::mpl::int_<N> > >(N);
+        return        boost::proto::
+        make_expr<boost::proto::tag::terminal,table_domain<boost::mpl::int_<N> > >(N);
 }
 
 boost::proto::result_of
@@ -143,8 +143,8 @@ boost::proto::result_of
 >::type
 make_matrix()
 {
-	return	boost::proto::
-	make_expr<boost::proto::tag::terminal,matrix_domain >(20);
+        return        boost::proto::
+        make_expr<boost::proto::tag::terminal,matrix_domain >(20);
 }
 
 boost::proto::result_of
@@ -155,8 +155,8 @@ boost::proto::result_of
 >::type
 make_vector()
 {
-	return	boost::proto::
-	make_expr<boost::proto::tag::terminal,vector_domain >(10);
+        return        boost::proto::
+        make_expr<boost::proto::tag::terminal,vector_domain >(10);
 }
 
 template<class X> void
@@ -167,9 +167,9 @@ type_from(X const& )
 
 int main()
 {
-	type_from(make_table<1>()+make_table<2>());
-	type_from(make_table<1>() + make_table<1>());
-	type_from(make_vector()+make_vector());
+        type_from(make_table<1>()+make_table<2>());
+        type_from(make_table<1>() + make_table<1>());
+        type_from(make_vector()+make_vector());
   type_from(make_matrix()+make_matrix());
   type_from(make_vector()+make_matrix());
 }

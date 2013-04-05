@@ -39,16 +39,16 @@ int main(){
            float sz = z[i];
            ++histo[nt2::min(M, nt2::iround(2*nt2::ulpdist(v, sz)))];
            ++k;
-	   if (k%100000000 == 0)
-	     {
-	       std::cout << "." << std::flush;
-	       ++j;
-	       if (j == 80)
-		 {
-		   std::cout << std::endl;
-		   j = 0;
-		 }
-	     }
+           if (k%100000000 == 0)
+             {
+               std::cout << "." << std::flush;
+               ++j;
+               if (j == 80)
+                 {
+                   std::cout << std::endl;
+                   j = 0;
+                 }
+             }
         }
       }
   std::cout << "exhaustive test for " << std::endl;
@@ -62,6 +62,6 @@ int main(){
   std::cout << std::endl;
   for(nt2::uint32_t i = 0; i < M; i++)
     std::cout << i/2.0 << " -> "
-	      << (histo[i]*100.0/k) << "%" << std::endl;
+              << (histo[i]*100.0/k) << "%" << std::endl;
   return 0;
 }

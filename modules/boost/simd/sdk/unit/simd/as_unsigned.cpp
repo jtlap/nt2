@@ -21,7 +21,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(as_unsigned_native, BOOST_SIMD_TYPES)
 {
-	using boost::simd::native;
+        using boost::simd::native;
   using boost::dispatch::meta::as_unsigned;
   using boost::is_same;
   using boost::mpl::_;
@@ -29,7 +29,7 @@ NT2_TEST_CASE_TPL(as_unsigned_native, BOOST_SIMD_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION                ext_t;
   typedef native<typename as_unsigned<T>::type,ext_t> dst_t;
 
-  NT2_TEST( (is_same< typename as_unsigned< native<T,ext_t> >::type, dst_t>::value	));
+  NT2_TEST( (is_same< typename as_unsigned< native<T,ext_t> >::type, dst_t>::value        ));
 }
 
 ////////////////////////////////////////////////////////////////////////////////

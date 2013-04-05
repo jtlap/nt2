@@ -28,7 +28,7 @@ namespace nt2
     {
       static inline V eval(const T& a, const V& x)
       {
-	return evaluate<T,V,N,M+1,DIR>::eval(a, x)*x+splat<V>(a[M-1]);
+        return evaluate<T,V,N,M+1,DIR>::eval(a, x)*x+splat<V>(a[M-1]);
       }
     };
 
@@ -36,7 +36,7 @@ namespace nt2
     {
       static inline V eval(const T& a, const V& /*x*/)
       {
-	return splat<V>(a[N-1]);
+        return splat<V>(a[N-1]);
       }
     };
 
@@ -45,7 +45,7 @@ namespace nt2
     {
       static inline V eval(const T& a, const V& x)
       {
-	return evaluate<T,V,N,M+1,descending_>::eval(a, x)*x+splat<V>(a[N-M]);
+        return evaluate<T,V,N,M+1,descending_>::eval(a, x)*x+splat<V>(a[N-M]);
       }
     };
 
@@ -53,7 +53,7 @@ namespace nt2
     {
       static inline V eval(const T& a, const V& x)
       {
-	return splat<V>(a[0]);
+        return splat<V>(a[0]);
       }
     };
 

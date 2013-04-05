@@ -16,29 +16,29 @@ namespace nt2
     namespace internal
     {
       template < class A0,
-		 class Tag,
-		 class Style ,
-		 class Speed_Tag = fast_tag,
-		 class base_A0 = typename meta::scalar_of<A0>::type>
+                 class Tag,
+                 class Style ,
+                 class Speed_Tag = fast_tag,
+                 class base_A0 = typename meta::scalar_of<A0>::type>
       struct exponential{};
 
 
       template < class A0, class Tag,  class Speed_Tag>
       struct exponential< A0, Tag, not_simd_type, Speed_Tag >
       {
-	typedef exp_reduction<A0,Tag>                        reduc_t;
-	typedef exp_finalization<A0,Tag,Speed_Tag>        finalize_t;
-	// compute exp(ax) where a is 1, 2 or ten depending on Tag
-	static inline A0 expa(const A0& a0)
-	{
- 	  if (reduc_t::isgemaxlog(a0)) return Inf<A0>();
- 	  if (reduc_t::isleminlog(a0)) return Zero<A0>();
- 	  if (isnan(a0)) return a0;
-	  A0 hi, lo, x;
-	  A0 k = reduc_t::reduce(a0, hi, lo, x);
-	  A0 c = reduc_t::approx(x);
+        typedef exp_reduction<A0,Tag>                        reduc_t;
+        typedef exp_finalization<A0,Tag,Speed_Tag>        finalize_t;
+        // compute exp(ax) where a is 1, 2 or ten depending on Tag
+        static inline A0 expa(const A0& a0)
+        {
+           if (reduc_t::isgemaxlog(a0)) return Inf<A0>();
+           if (reduc_t::isleminlog(a0)) return Zero<A0>();
+           if (isnan(a0)) return a0;
+          A0 hi, lo, x;
+          A0 k = reduc_t::reduce(a0, hi, lo, x);
+          A0 c = reduc_t::approx(x);
           return finalize_t::finalize(a0, x, c, k, hi, lo);
-	}
+        }
       };
     }
   }

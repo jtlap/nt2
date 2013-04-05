@@ -38,12 +38,12 @@ namespace nt2 { namespace ext
       typedef result_type type;
       bool isinfa0 =  is_inf<A0>(a0);
       if (is_lez(a0))
-	{
-	  if (is_flint(a0)||isinfa0)
-	    return Nan<type>();
-	  else
+        {
+          if (is_flint(a0)||isinfa0)
+            return Nan<type>();
+          else
             return One<type>()-bool(is_odd(floor(a0)))*Two<A0>();
-	}
+        }
       else if (is_nan(a0)) return a0;
       return One<type>();
     }

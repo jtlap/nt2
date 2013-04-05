@@ -39,12 +39,12 @@ int main(){
     {
       n_t z =  nt2::asin(a0);
       for(nt2::uint32_t i = 0; i < N; i++)
-	{
-	  float v = nt2::crlibm::asin_rn(a0[i]);
-	  float sz = z[i];
-	  ++histo[nt2::min(M, nt2::iround(2*nt2::ulpdist(v, sz)))];
-	  ++k;
-	}
+        {
+          float v = nt2::crlibm::asin_rn(a0[i]);
+          float sz = z[i];
+          ++histo[nt2::min(M, nt2::iround(2*nt2::ulpdist(v, sz)))];
+          ++k;
+        }
     }
   for(nt2::uint32_t i = 0; i < M; i++)
     std::cout << i/2.0 << " -> " << histo[i] << std::endl;

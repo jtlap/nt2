@@ -18,15 +18,15 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cotangent_<mode>, tag::cpu_
-			      , (A0)(mode)
-			      , (scalar_< arithmetic_<A0> >)
-			      )
+                              , (A0)(mode)
+                              , (scalar_< arithmetic_<A0> >)
+                              )
   {
     typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
       {
-	if (!a0) return Nan<result_type>();
-	return nt2::cotangent<mode>(result_type(a0));
+        if (!a0) return Nan<result_type>();
+        return nt2::cotangent<mode>(result_type(a0));
       }
   };
 
@@ -34,15 +34,15 @@ namespace nt2 { namespace ext
   // Implementation when type  is fundamental_
   /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cotangent_<mode>, tag::cpu_
-			      , (A0)(mode)
-			      , (scalar_< floating_<A0> >)
-			      )
+                              , (A0)(mode)
+                              , (scalar_< floating_<A0> >)
+                              )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
       {
-	//	if (!a0) return b_or(Inf<A0>(), bitofsign(a0));
-	return impl::trig_base<A0,radian_tag,tag::not_simd_type, mode>::cota(a0);
+        //        if (!a0) return b_or(Inf<A0>(), bitofsign(a0));
+        return impl::trig_base<A0,radian_tag,tag::not_simd_type, mode>::cota(a0);
       }
   };
 } }

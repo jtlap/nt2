@@ -19,7 +19,7 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tangent_<mode>, tag::cpu_
-			      , (A0)(mode)
+                              , (A0)(mode)
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
@@ -40,9 +40,9 @@ namespace nt2 { namespace ext
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tangent_<mode> , tag::cpu_
-			      , (A0)(mode)
-			      , (scalar_< floating_<A0> >)
-			      )
+                              , (A0)(mode)
+                              , (scalar_< floating_<A0> >)
+                              )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)

@@ -58,11 +58,11 @@ NT2_TEST_CASE(non_sequences)
   // Work
   NT2_TEST((all< is_same<_1,bool>, bool, bool             >::value) );
   NT2_TEST((all< is_same<_1,bool>, bool, bool, bool       >::value) );
-  NT2_TEST((all< is_same<_1,bool>, bool, bool, bool, bool	>::value) );
+  NT2_TEST((all< is_same<_1,bool>, bool, bool, bool, bool        >::value) );
 
   // Don't work
-  NT2_TEST( !(all< is_same<_1,bool>, float, bool              	>::value) );
-  NT2_TEST( !(all< is_same<_1,bool>, float, double, bool       	>::value) );
-  NT2_TEST( !(all< is_same<_1,bool>, float, double, float, bool	>::value) );
+  NT2_TEST( !(all< is_same<_1,bool>, float, bool                      >::value) );
+  NT2_TEST( !(all< is_same<_1,bool>, float, double, bool               >::value) );
+  NT2_TEST( !(all< is_same<_1,bool>, float, double, float, bool        >::value) );
 }
 

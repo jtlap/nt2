@@ -176,7 +176,7 @@ namespace nt2 { namespace ext
         */
 
        static const boost::array<float, 7> B =
-	 {{
+         {{
          3.39623202570838634515E-9f,
          2.26666899049817806459E-8f,
          2.04891858946906374183E-7f,
@@ -184,7 +184,7 @@ namespace nt2 { namespace ext
          6.88975834691682398426E-5f,
          3.36911647825569408990E-3f,
          8.04490411014108831608E-1f
-	   }};
+           }};
       A0 x =  nt2::abs(a0);
       if (is_inf(x)) return x;
       if( x <= 8.0f )

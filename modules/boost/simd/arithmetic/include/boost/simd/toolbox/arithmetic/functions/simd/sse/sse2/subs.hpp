@@ -40,9 +40,9 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::subs_, boost::simd::tag::sse2_
-			      , (A0)
-			      , ((simd_<uint8_<A0>,boost::simd::tag::sse_>))((simd_<uint8_<A0>,boost::simd::tag::sse_>))
-			      )
+                              , (A0)
+                              , ((simd_<uint8_<A0>,boost::simd::tag::sse_>))((simd_<uint8_<A0>,boost::simd::tag::sse_>))
+                              )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
@@ -52,9 +52,9 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::subs_, boost::simd::tag::sse2_
-			      , (A0)
-			      , ((simd_<int8_<A0>,boost::simd::tag::sse_>))((simd_<int8_<A0>,boost::simd::tag::sse_>))
-			      )
+                              , (A0)
+                              , ((simd_<int8_<A0>,boost::simd::tag::sse_>))((simd_<int8_<A0>,boost::simd::tag::sse_>))
+                              )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)

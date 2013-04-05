@@ -61,9 +61,9 @@ namespace nt2 { namespace ext
       //     if (small_mask) { return a0*fma(Third<A0>(), sqr(a0), One<A0>()); }
       A0 t =  absa0+absa0;
       if (absa0 < Half<A0>())
-	return sign(a0)*Half<A0>()*log1p(t+t*absa0/(One<A0>()-absa0));
+        return sign(a0)*Half<A0>()*log1p(t+t*absa0/(One<A0>()-absa0));
       else
-	return sign(a0)*Half<A0>()*log1p(t/(One<A0>()-absa0));
+        return sign(a0)*Half<A0>()*log1p(t/(One<A0>()-absa0));
     }
   };
 } }

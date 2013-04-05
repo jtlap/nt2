@@ -19,7 +19,7 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cosecant_<mode>, tag::cpu_
-			      , (A0)(mode)
+                              , (A0)(mode)
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
