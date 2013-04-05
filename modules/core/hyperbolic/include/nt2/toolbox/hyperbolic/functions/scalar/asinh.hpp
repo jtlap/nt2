@@ -8,11 +8,9 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_ASINH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_ASINH_HPP_INCLUDED
-#include <nt2/toolbox/hyperbolic/functions/asinh.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/sqrteps.hpp>
 
+#include <nt2/toolbox/hyperbolic/functions/asinh.hpp>
+#include <nt2/toolbox/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/include/functions/scalar/negate.hpp>
 #include <nt2/include/functions/scalar/log1p.hpp>
 #include <nt2/include/functions/scalar/sqrt.hpp>
@@ -20,7 +18,9 @@
 #include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/sign.hpp>
 #include <nt2/include/functions/scalar/rec.hpp>
-
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/log_2.hpp>
+#include <nt2/include/constants/sqrteps.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
