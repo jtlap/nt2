@@ -27,6 +27,7 @@
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/euler.hpp>
 #include <nt2/include/constants/eight.hpp>
 #include <nt2/include/constants/halfeps.hpp>
 #include <nt2/include/constants/expnibig.hpp>
@@ -37,7 +38,7 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expni_, tag::cpu_
-                              , (A0)(A1)
+                            , (A0)(A1)
                             , (scalar_< integer_<A0> >)(scalar_< arithmetic_<A1> >)
                             )
   {
