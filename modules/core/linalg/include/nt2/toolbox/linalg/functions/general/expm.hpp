@@ -34,8 +34,8 @@
 #include <nt2/include/functions/isscalar.hpp>
 #include <vector>
 
-namespace nt2{ namespace ext {
-
+namespace nt2
+{
   namespace details
   {
     template < class T > struct expm_helper
@@ -162,6 +162,8 @@ namespace nt2{ namespace ext {
     }
   }
 
+namespace ext
+{
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expm_, tag::cpu_
                               , (A0)(N0)(A1)(N1)
                               , ((node_<A0, nt2::tag::expm_, N0, nt2::container::domain>))
