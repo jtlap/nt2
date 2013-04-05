@@ -23,7 +23,7 @@ namespace nt2
         typedef typename A0::native_type                            A0_n;
         typedef typename int_type::native_type                     iA0_n;
 
-        static inline A0_n cos_eval(const A0_n z_n) 
+        static inline A0_n cos_eval(const A0_n z_n)
         {
           const A0 z = z_n;
           const A0 y = horner< NT2_HORNER_COEFF_T(stype, 3, (0x37ccf5ce, 0xbab60619, 0x3d2aaaa5) ) > (z);

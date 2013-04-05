@@ -23,7 +23,7 @@ namespace nt2 { namespace details { namespace internal
     typedef exp_reduction<A0,Tag>                        reduc_t;
     typedef exp_finalization<A0,Tag,Speed_Tag>        finalize_t;
     typedef typename meta::as_logical<A0>::type              bA0;
-    
+
     // compute exp(ax)
     static inline A0 expa(const A0& a0)
     {

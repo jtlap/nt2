@@ -36,7 +36,7 @@ namespace nt2 { namespace details { namespace internal
   //////////////////////////////////////////////////////////////////////////////
   // math log functions
   //////////////////////////////////////////////////////////////////////////////
-  
+
   template < class A0 >
   struct logarithm< A0, tag::not_simd_type, double>
   {
@@ -73,7 +73,7 @@ namespace nt2 { namespace details { namespace internal
       R = t2+t1;
       hfsq = nt2::mul(Half<A0>(), nt2::sqr(f));
     }
-    
+
     static inline A0 log(const A0& a0)
     {
       // ln(2)hi  =  6.93147180369123816490e-01  or  0x3fe62e42fee00000
@@ -86,7 +86,7 @@ namespace nt2 { namespace details { namespace internal
       return  nt2::mul(dk, double_constant<A0, 0x3fe62e42fee00000ll>())-
         ((hfsq-(s*(hfsq+R)+nt2::mul(dk,double_constant<A0, 0x3dea39ef35793c76ll>())))-f);
     }
-  
+
     static inline A0 log2(const A0& a0)
     {
       if (a0 == nt2::Inf<A0>()) return a0;
@@ -96,7 +96,7 @@ namespace nt2 { namespace details { namespace internal
       kernel_log(a0, dk, hfsq, s, R, f);
       return -(hfsq-(s*(hfsq+R))-f)*Invlog_2<A0>()+dk;
     }
-    
+
     static inline A0 log10(const A0& a0)
     {
       if (a0 == nt2::Inf<A0>()) return a0;

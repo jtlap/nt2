@@ -24,7 +24,7 @@ namespace nt2 { namespace ext
     {
       return nt2::asech(nt2::oneminus(nt2::tofloat(a0)));
     }
-  }; 
+  };
 } }
 
 

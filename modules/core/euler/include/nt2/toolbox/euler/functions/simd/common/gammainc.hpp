@@ -59,7 +59,7 @@ namespace nt2 { namespace ext
       return gammainc(tofloat(a0), tofloat(a1));
     }
   };
-  
+
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type  is floating_
   /////////////////////////////////////////////////////////////////////////////
@@ -96,7 +96,7 @@ namespace nt2 { namespace ext
       return res;
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::gammainc_, tag::cpu_,
                              (A0)(A1)(A3)(X),
                              ((simd_<floating_<A0>,X>))
@@ -161,7 +161,7 @@ namespace nt2 { namespace ext
       //    if lower, b(k) = 1-bk; else b(k) = bk; end
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::gammainc_, tag::cpu_,
                              (A0)(A1)(A2)(A3)(X),
                              ((simd_<floating_<A0>,X>))
@@ -186,7 +186,7 @@ namespace nt2 { namespace ext
     {
       return nt2::if_else(test, x, oneplus(a)); //insure convergence in each case for all members of simd vector making x = a+1 >= a+1  when the test do not succeed
     }
-    
+
   };
 } }
 #endif

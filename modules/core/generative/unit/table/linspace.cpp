@@ -129,7 +129,7 @@ NT2_TEST_CASE_TPL( linspace_best, NT2_REAL_TYPES )
 }
 NT2_TEST_CASE_TPL( linspace_cplx, (double)(float) )
 {
-  typedef std::complex<T> cT; 
+  typedef std::complex<T> cT;
   nt2::table<cT> z = nt2::linspace(cT(-1, -1), cT(1, 1), 257);
   nt2::table<cT> ref(nt2::of_size(1,257));
 

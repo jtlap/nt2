@@ -25,8 +25,8 @@ namespace nt2 { namespace details { namespace internal
              class Speed_Tag = fast_tag,
              class base_A0 = typename meta::scalar_of<A0>::type>
              struct exponential{};
-  
-  
+
+
   template < class A0, class Tag,  class Speed_Tag>
   struct exponential< A0, Tag, tag::not_simd_type, Speed_Tag >
   {

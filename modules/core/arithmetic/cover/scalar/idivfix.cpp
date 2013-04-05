@@ -17,7 +17,7 @@
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/trunc.hpp>
 #include <nt2/include/functions/toint.hpp>
-#include <nt2/include/functions/touint.hpp>  
+#include <nt2/include/functions/touint.hpp>
 #include <nt2/include/constants/valmax.hpp>
 #include <nt2/include/constants/valmin.hpp>
 #include <nt2/include/constants/zero.hpp>

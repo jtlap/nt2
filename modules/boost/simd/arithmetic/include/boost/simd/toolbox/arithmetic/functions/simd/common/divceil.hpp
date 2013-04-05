@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_floating<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return boost::simd::ceil(boost::simd::tofloat(a0)/boost::simd::tofloat(a1)); }
   };
-  
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)(X)
                                    , ((simd_<unsigned_<A0>,X>))
                                      ((simd_<unsigned_<A0>,X>))
@@ -39,14 +39,14 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return boost::simd::rdivide(boost::simd::minusone(a0+a1), a1); }
   };
-  
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)(X)
                                    , ((simd_<int16_<A0>,X>))
                                      ((simd_<int16_<A0>,X>))
                                    )
   {
     typedef A0 result_type;
-    
+
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::scalar_of<A0>::type           stype;
@@ -61,14 +61,14 @@ namespace boost { namespace simd { namespace ext
       );
     }
   };
-  
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)(X)
                                    , ((simd_<int8_<A0>,X>))
                                      ((simd_<int8_<A0>,X>))
                                    )
   {
     typedef A0 result_type;
-    
+
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::scalar_of<A0>::type           stype;
@@ -83,7 +83,7 @@ namespace boost { namespace simd { namespace ext
       );
     }
   };
-  
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)(X)
                                    , ((simd_<floating_<A0>,X>))
                                      ((simd_<floating_<A0>,X>))

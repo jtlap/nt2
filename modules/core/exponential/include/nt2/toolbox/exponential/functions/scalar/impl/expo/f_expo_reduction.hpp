@@ -28,7 +28,7 @@ namespace nt2 { namespace details { namespace internal
             , class Base_A0 = typename meta::scalar_of<A0>::type
   >
   struct exp_reduction;
-  
+
   template<class A0> struct exp_reduction <A0,natural_tag,float>
   {
     typedef typename meta::as_logical<A0>::type bA0;
@@ -36,12 +36,12 @@ namespace nt2 { namespace details { namespace internal
     {
       return nt2::ge(a0,single_constant<A0,0x42b17218>());
     }
-    
+
     static inline bA0 isleminlog(const A0 & a0)
     {
       return nt2::le(a0,single_constant<A0,0xc2b17218>());
     }
-    
+
     static inline A0 approx(const A0& x)
     {
       typedef typename meta::scalar_of<A0>::type sA0;
@@ -51,7 +51,7 @@ namespace nt2 { namespace details { namespace internal
                                     (0x3888d272, 0xbb360954, 0x3e2aaaaa)
                                    )> (t);
     }
-    
+
     static inline A0 reduce(const A0& a0, A0& hi, A0& lo, A0& x)
     {
       A0 k = nt2::round(nt2::Invlog_2<A0>()*a0);
@@ -61,7 +61,7 @@ namespace nt2 { namespace details { namespace internal
       return k;
     }
   };
-  
+
   template < class A0 > struct exp_reduction < A0, two_tag, float>
   {
     typedef typename meta::as_logical<A0>::type bA0;
@@ -69,12 +69,12 @@ namespace nt2 { namespace details { namespace internal
     {
       return nt2::ge(a0,single_constant<A0,0x42fe0000>());
     }
-    
+
     static inline bA0 isleminlog(const A0 & a0)
     {
       return nt2::le(a0,single_constant<A0,0xc2fe0000>());
     }
-    
+
     static inline A0 approx(const A0& x)
     {
       typedef typename meta::scalar_of<A0>::type sA0;
@@ -84,7 +84,7 @@ namespace nt2 { namespace details { namespace internal
                                        (0x3888d272, 0xbb360954, 0x3e2aaaaa)
                                      )> (t);
     }
-    
+
     static inline A0 reduce(const A0& a0, const A0&, const A0&, A0& x)
     {
       A0 k = nt2::round(a0);
@@ -92,7 +92,7 @@ namespace nt2 { namespace details { namespace internal
       return k;
     }
   };
-  
+
   template < class A0 > struct exp_reduction < A0, ten_tag, float>
   {
     typedef typename meta::as_logical<A0>::type bA0;
@@ -100,12 +100,12 @@ namespace nt2 { namespace details { namespace internal
     {
       return nt2::ge(a0,single_constant<A0,0x4218ec59 >());
     }
-    
+
     static inline bA0 isleminlog(const A0 & a0)
     {
       return nt2::le(a0,single_constant<A0, 0xc2179999 >());
     }
-    
+
     static inline A0 reduce(const A0& a0, A0&, A0&, A0& x)
     {
       A0 k = nt2::round(single_constant<A0,0x40549a78>()*a0);
@@ -113,7 +113,7 @@ namespace nt2 { namespace details { namespace internal
       x -=  k*single_constant<A0,0x39826a13>();
       return k;
     }
-    
+
     static inline A0 approx(const A0& x)
     {
       const A0 x2 =  nt2::sqr(x);

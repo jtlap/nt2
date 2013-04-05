@@ -33,13 +33,13 @@ NT2_TEST_CASE_TPL ( rem_pio2_cephes_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::as_integer<T>::type           iT;
   typedef native<T,BOOST_SIMD_DEFAULT_EXTENSION>            vT;
   typedef native<iT,BOOST_SIMD_DEFAULT_EXTENSION>          viT;
-  typedef std::pair<viT, vT>  r_t;     
+  typedef std::pair<viT, vT>  r_t;
 
   {
     r_t res = rem_pio2_cephes(nt2::Zero<vT>());
-    vT r1; 
+    vT r1;
     NT2_TEST_EQUAL( rem_pio2_cephes(nt2::Zero<vT>(), r1), nt2::Zero<viT>());
-    NT2_TEST_ULP_EQUAL( r1, nt2::Zero<vT>(), 0.5); 
+    NT2_TEST_ULP_EQUAL( r1, nt2::Zero<vT>(), 0.5);
   }
 
 }

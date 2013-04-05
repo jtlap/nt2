@@ -26,8 +26,8 @@
 #include <boost/mpl/vector/vector40_c.hpp>
 
 
-namespace boost { namespace simd 
-{ 
+namespace boost { namespace simd
+{
   namespace tag
   {
     /*!

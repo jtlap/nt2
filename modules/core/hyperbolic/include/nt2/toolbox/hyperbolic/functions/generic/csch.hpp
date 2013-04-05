@@ -29,13 +29,13 @@ namespace nt2 { namespace ext
        return nt2::if_nan_else(nt2::is_eqz(a0), nt2::rec(nt2::sinh(nt2::tofloat(a0))));
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::csch_, tag::cpu_
                             , (A0)
                             , (generic_< floating_<A0> >)
                             )
   {
-    
+
     typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)

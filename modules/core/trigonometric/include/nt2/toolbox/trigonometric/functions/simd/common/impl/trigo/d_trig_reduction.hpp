@@ -66,7 +66,7 @@ namespace nt2
           {
             return rem_pio2(x, xr);
           }
-          
+
         }
 
       static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, const medium_&)
@@ -81,7 +81,7 @@ namespace nt2
           else if (nt2::all(islessthanpi_2(x))) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
             return rem_pio2_straight(x, xr);
           else if (nt2::all(issmall(x))) // all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
-            return rem_pio2_cephes(x, xr); 
+            return rem_pio2_cephes(x, xr);
           else  // correct only if all of x are is in [0, 2^18*pi],  fdlibm medium_ way
             return rem_pio2_medium(x, xr);
         }
@@ -101,13 +101,13 @@ namespace nt2
             }
           else  // correct only if all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
             {
-              return rem_pio2_cephes(x, xr); 
+              return rem_pio2_cephes(x, xr);
             }
         }
       static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, const direct_small_&)
         {
           const A0 x = x_n;
-          return rem_pio2_cephes(x, xr); 
+          return rem_pio2_cephes(x, xr);
         }
         static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, const direct_medium_&)
         {

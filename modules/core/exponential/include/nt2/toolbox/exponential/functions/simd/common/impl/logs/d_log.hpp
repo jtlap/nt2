@@ -31,7 +31,7 @@ namespace nt2 { namespace details { namespace internal
   //////////////////////////////////////////////////////////////////////////////
   // math log functions
   //////////////////////////////////////////////////////////////////////////////
-  
+
   template < class A0 >
   struct logarithm< A0, tag::simd_type, double>
   {
@@ -97,7 +97,7 @@ namespace nt2 { namespace details { namespace internal
                                           y2),
                          y1);
     }
-  
+
     static inline A0 log10(const A0& a0)
     {
       A0 dk, hfsq, s, R, f;

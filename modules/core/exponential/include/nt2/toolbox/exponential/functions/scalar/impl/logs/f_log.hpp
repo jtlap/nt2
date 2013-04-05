@@ -31,15 +31,15 @@ namespace nt2 { namespace details { namespace internal
              class Style ,
              class base_A0 = typename meta::scalar_of<A0>::type>
              struct logarithm{};
-  
+
   //////////////////////////////////////////////////////////////////////////////
   // math log functions
   //////////////////////////////////////////////////////////////////////////////
-  
+
   template < class A0 >
   struct logarithm< A0, tag::not_simd_type, float>
   {
-    
+
     static inline void kernel_log(const A0& a0,
                                   A0& fe,
                                   A0& x,
@@ -95,7 +95,7 @@ namespace nt2 { namespace details { namespace internal
                      );
       return ((z+y)+x)+fe;
     }
-    
+
     static inline A0 log10(const A0& a0)
     {
       typedef typename meta::strip<A0>::type stA0;

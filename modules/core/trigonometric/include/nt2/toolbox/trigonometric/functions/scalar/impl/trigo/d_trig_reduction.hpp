@@ -38,7 +38,7 @@ namespace nt2
       {
         typedef typename meta::as_integer<A0, signed>::type int_type;
         typedef typename meta::scalar_of<int_type>::type   sint_type;
-        
+
         static inline bool isalreadyreduced(const A0&a0){ return le(a0, Pio_4<A0>()); }
         static inline bool ismedium (const A0&a0){return le(a0,double_constant<A0,0x412921fb54442d18ll>()); }
         static inline bool issmall  (const A0&a0){return le(a0,double_constant<A0,0x404f6a7a2955385ell>()); }
@@ -64,7 +64,7 @@ namespace nt2
           else  // all of x are in [0, inf],  standard big_ way
             return rem_pio2(x, xr);
         }
-        
+
         static inline int_type inner_reduce(const A0& x, A0& xr, const nt2::medium_&)
         {
           // x is always positive here
@@ -76,11 +76,11 @@ namespace nt2
           else if (islessthanpi_2(x)) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
             return rem_pio2_straight(x, xr);
           else if (issmall(x)) // all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
-            return rem_pio2_cephes(x, xr); 
+            return rem_pio2_cephes(x, xr);
           else  // correct only if all of x are is in [0, 2^18*pi],  fdlibm medium_ way
             return rem_pio2_medium(x, xr);
         }
-        
+
         static inline int_type inner_reduce(const A0& x, A0& xr, const nt2::small_&)
         {
           // x is always positive here
@@ -92,11 +92,11 @@ namespace nt2
           else if (islessthanpi_2(x)) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
             return rem_pio2_straight(x, xr);
           else  // correct only if all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
-            return rem_pio2_cephes(x, xr); 
+            return rem_pio2_cephes(x, xr);
         }
         static inline int_type inner_reduce(const A0& x, A0& xr, const direct_small_&)
         {
-          return rem_pio2_cephes(x, xr); 
+          return rem_pio2_cephes(x, xr);
         }
         static inline int_type inner_reduce(const A0& x, A0& xr, const direct_medium_&)
         {
@@ -122,14 +122,14 @@ namespace nt2
           return inner_reduce(xr, xr, medium_());
         }
       };
-      
-      
+
+
       template < class A0>
       struct trig_reduction < A0, degree_tag,  tag::not_simd_type, big_, double >
       {
         typedef typename meta::as_integer<A0, signed>::type  int_type;
         typedef typename meta::scalar_of<int_type>::type    sint_type;
-        
+
         static inline bool cot_invalid(const A0& x) { return (is_nez(x)&&is_even(x/_180<A0>())); }
         static inline bool tan_invalid(const A0& x) { return is_flint((x-_90<A0>())/_180<A0>()); }
         static inline int_type reduce(A0 x, A0& xr)
@@ -140,13 +140,13 @@ namespace nt2
           return toint(xi);
         }
       };
-      
+
       template < class A0>
       struct trig_reduction < A0, pi_tag,  tag::not_simd_type, big_, double>
       {
         typedef typename meta::as_integer<A0, signed>::type int_type;
         typedef typename meta::scalar_of<int_type>::type    sint_type;
-        
+
         static inline bool cot_invalid(const A0& x) { return (is_nez(x)&&is_flint(x)); }
         static inline bool tan_invalid(const A0& x) { return is_flint(x-Half<A0>()); }
         static inline int_type reduce(const A0& x,  A0& xr)

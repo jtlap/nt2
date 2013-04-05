@@ -30,7 +30,7 @@ NT2_TEST_CASE_TPL ( fast_sincosd_real__1_0,  NT2_REAL_TYPES)
   T a[] = {nt2::Zero<T>(), nt2::One<T>(), T(120), T(180),
            T(90), nt2::Inf<T>(), nt2::Minf<T>(), nt2::Nan<T>()};
   size_t N =  sizeof(a)/sizeof(T);
-  
+
   NT2_TEST_TYPE_IS( (typename boost::dispatch::meta::call<fast_sincosd_(T)>::type)
                   , (std::pair<T,T>)
                   );
@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL ( fast_sincosd_real__1_0,  NT2_REAL_TYPES)
       NT2_TEST_EQUAL(c, nt2::fast_cosd(a[i]));
     }
   }
-  
+
   {
     T s, c;
     for(size_t i=0; i < N; ++i)
@@ -52,9 +52,9 @@ NT2_TEST_CASE_TPL ( fast_sincosd_real__1_0,  NT2_REAL_TYPES)
       s = fast_sincosd(a[i], c);
       NT2_TEST_EQUAL(s, nt2::fast_sind(a[i]));
       NT2_TEST_EQUAL(c, nt2::fast_cosd(a[i]));
-    }   
+    }
   }
-  
+
   {
     T s, c;
     for(size_t i=0; i < N; ++i)
@@ -62,16 +62,16 @@ NT2_TEST_CASE_TPL ( fast_sincosd_real__1_0,  NT2_REAL_TYPES)
       boost::fusion::vector_tie(s, c) = fast_sincosd(a[i]);
       NT2_TEST_EQUAL(s, nt2::fast_sind(a[i]));
       NT2_TEST_EQUAL(c, nt2::fast_cosd(a[i]));
-    }   
+    }
   }
-  
+
   {
     for(size_t i=0; i < N; ++i)
     {
       std::pair<T,T> p = fast_sincosd(a[i]);
       NT2_TEST_EQUAL(p.first,  nt2::fast_sind(a[i]));
       NT2_TEST_EQUAL(p.second, nt2::fast_cosd(a[i]));
-    }   
+    }
   }
-  
+
 }

@@ -30,7 +30,7 @@ namespace nt2 { namespace details { namespace internal
   //////////////////////////////////////////////////////////////////////////////
   // math log functions
   //////////////////////////////////////////////////////////////////////////////
-  
+
   template < class A0 >
   struct logarithm< A0, tag::simd_type, float>
   {
@@ -58,7 +58,7 @@ namespace nt2 { namespace details { namespace internal
       y = nt2::fma(x,y2,y1)*x*x2;
       fe = nt2::tofloat(e);
     }
-    
+
     static inline A0 log(const A0& a0)
     {
       A0 x, fe, x2, y;
@@ -73,7 +73,7 @@ namespace nt2 { namespace details { namespace internal
                             y2);
       return nt2::seladd(is_inf(y1), y2, y1);
     }
-    
+
     static inline A0 log2(const A0& a0)
     {
       A0 x, fe, x2, y;
@@ -89,7 +89,7 @@ namespace nt2 { namespace details { namespace internal
                                           z1),
                          y1);
     }
-    
+
     static inline A0 log10(const A0& a0)
     {
       A0 x, fe, x2, y;

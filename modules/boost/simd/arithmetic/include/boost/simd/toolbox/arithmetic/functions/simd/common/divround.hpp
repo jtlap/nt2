@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     { return boost::simd::iround(boost::simd::tofloat(a0)/boost::simd::tofloat(a1)); }
   };
-  
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divround_, tag::cpu_
                                    , (A0)(X)
                                    , ((simd_<unsigned_<A0>,X>))((simd_<unsigned_<A0>,X>))
@@ -44,7 +44,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     { return boost::simd::rdivide(a0+a1/boost::simd::Two<A0>(), a1); }
   };
-  
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divround_, tag::cpu_
                                    , (A0)(X)
                                    , ((simd_<int16_<A0>,X>))((simd_<int16_<A0>,X>))
@@ -63,7 +63,7 @@ namespace boost { namespace simd { namespace ext
                                                boost::simd::divround(a0h, a1h)));
     }
   };
-  
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divround_, tag::cpu_
                                    , (A0)(X)
                                    , ((simd_<int8_<A0>,X>))((simd_<int8_<A0>,X>))
@@ -82,7 +82,7 @@ namespace boost { namespace simd { namespace ext
                                           divround(a0h, a1h) ));
     }
   };
-  
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divround_, tag::cpu_
                                    , (A0)(X)
                                    , ((simd_<floating_<A0>,X>))((simd_<floating_<A0>,X>))

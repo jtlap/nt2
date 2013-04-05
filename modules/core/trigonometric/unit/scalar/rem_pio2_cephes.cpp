@@ -28,7 +28,7 @@
 
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
- 
+
 template < class T, class N>
 inline T correct(N n, const T& a)
 {

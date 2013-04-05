@@ -33,7 +33,7 @@ NT2_TEST_CASE_TPL ( sincospi_real__1_0,  NT2_REAL_TYPES)
   T a[] = {nt2::Zero<T>(), nt2::Invpi<T>(), nt2::Third<T>(), nt2::One<T>(),
            nt2::Half<T>(), nt2::Inf<T>(), nt2::Minf<T>(), nt2::Nan<T>()};
   size_t N =  sizeof(a)/sizeof(T);
-  
+
   NT2_TEST_TYPE_IS( (typename boost::dispatch::meta::call<sincospi_(T)>::type)
                   , (std::pair<T,T>)
                   );
@@ -47,7 +47,7 @@ NT2_TEST_CASE_TPL ( sincospi_real__1_0,  NT2_REAL_TYPES)
       NT2_TEST_EQUAL(c, nt2::cospi(a[i]));
     }
   }
-  
+
   {
     T s, c;
     for(size_t i=0; i < N; ++i)
@@ -55,9 +55,9 @@ NT2_TEST_CASE_TPL ( sincospi_real__1_0,  NT2_REAL_TYPES)
       s = sincospi(a[i], c);
       NT2_TEST_EQUAL(s, nt2::sinpi(a[i]));
       NT2_TEST_EQUAL(c, nt2::cospi(a[i]));
-    }   
+    }
   }
-  
+
   {
     T s, c;
     for(size_t i=0; i < N; ++i)
@@ -65,16 +65,16 @@ NT2_TEST_CASE_TPL ( sincospi_real__1_0,  NT2_REAL_TYPES)
       boost::fusion::vector_tie(s, c) = sincospi(a[i]);
       NT2_TEST_EQUAL(s, nt2::sinpi(a[i]));
       NT2_TEST_EQUAL(c, nt2::cospi(a[i]));
-    }   
+    }
   }
-  
+
   {
     for(size_t i=0; i < N; ++i)
     {
       std::pair<T,T> p = sincospi(a[i]);
       NT2_TEST_EQUAL(p.first,  nt2::sinpi(a[i]));
       NT2_TEST_EQUAL(p.second, nt2::cospi(a[i]));
-    }   
+    }
   }
-  
+
 }
