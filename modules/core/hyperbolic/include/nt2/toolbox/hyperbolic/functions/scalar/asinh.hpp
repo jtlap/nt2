@@ -77,12 +77,12 @@ namespace nt2 { namespace ext
       if (nt2::abs(a0) <  nt2::Half<A0>() )
       {
         A0 z =  nt2::sqr(a0);
-        A0 n = a0*horner< NT2_HORNER_COEFF_T(A0, 4, (0x3b82db62,
+        A0 n = a0*nt2::horner< NT2_HORNER_COEFF_T(A0, 4, (0x3b82db62,
                                                      0xbd02b78b,
                                                      0x3ef2d9f5,
                                                      0x3f7fffff
                                                     )) > (z);
-        A0 d = horner< NT2_HORNER_COEFF_T(A0, 2, (0x3f24175a,
+        A0 d = nt2::horner< NT2_HORNER_COEFF_T(A0, 2, (0x3f24175a,
                                                   0x3f800000
                                                  )) > (z);
           return n/d;
