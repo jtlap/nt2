@@ -37,7 +37,9 @@ namespace nt2 { namespace details { namespace internal
     {
       if (reduc_t::isgemaxlog(a0)) return Inf<A0>();
       if (reduc_t::isleminlog(a0)) return Zero<A0>();
+#ifndef BOOST_SIMD_NO_INVALIDS
       if (is_nan(a0)) return a0;
+#endif
       A0 hi, lo, x;
       A0 k = reduc_t::reduce(a0, hi, lo, x);
       A0 c = reduc_t::approx(x);
