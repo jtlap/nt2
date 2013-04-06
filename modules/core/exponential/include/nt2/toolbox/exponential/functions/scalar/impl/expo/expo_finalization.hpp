@@ -41,11 +41,10 @@ namespace nt2
       template < class A0, class iA0> static
       inline A0 scale(A0 const & y, const iA0& ik)
       {
-       A0 z = nt2::if_else(gt(ik, -nt2::Nbmantissabits<A0>()),
+       return nt2::if_else(gt(ik, -nt2::Nbmantissabits<A0>()),
                             nt2::fast_ldexp(y, ik),
                             nt2::fast_ldexp(y, ik+nt2::Nbmantissabits<A0>())*nt2::Eps<A0>() // denormal case
                            );
-       return if_nan_else(is_nan(y), z);
       }
 
       template < class A0, class expo_tag, class speed_tag> struct exp_finalization{};

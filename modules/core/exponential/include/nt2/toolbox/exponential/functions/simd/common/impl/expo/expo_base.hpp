@@ -32,10 +32,12 @@ namespace nt2 { namespace details { namespace internal
       A0 c = reduc_t::approx(x);
       bA0 ge = reduc_t::isgemaxlog(a0);
       bA0 le = reduc_t::isleminlog(a0);
-      return nt2::if_else(ge, nt2::Inf<A0>(),
-                          nt2::if_zero_else(le, // is not that automatic thus unecessary? 5/4/2013
-                                            finalize_t::finalize(a0, x, c, k, hi, lo)
-                                           )
+      return if_nan_else(is_nan(a0),
+                         nt2::if_else(ge, nt2::Inf<A0>(),
+                                      nt2::if_zero_else(le,
+                                                        finalize_t::finalize(a0, x, c, k, hi, lo)
+                                                       )
+                                     )
                          );
     }
   };

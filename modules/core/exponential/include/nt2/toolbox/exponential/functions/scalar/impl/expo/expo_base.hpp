@@ -11,7 +11,7 @@
 
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/zero.hpp>
-#include <nt2/include/functions/simd/is_nan.hpp>
+#include <nt2/include/functions/is_nan.hpp>
 #include <nt2/toolbox/exponential/functions/scalar/impl/selection_tags.hpp>
 #include <nt2/toolbox/exponential/functions/scalar/impl/expo/f_expo_reduction.hpp>
 #include <nt2/toolbox/exponential/functions/scalar/impl/expo/d_expo_reduction.hpp>
