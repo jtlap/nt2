@@ -61,7 +61,7 @@ NT2_TEST_CASE_TPL ( is_unord_real__2_0,  NT2_REAL_TYPES)
     T a1;
     for(nt2::uint32_t j =0; j < NR; ++j )
       {
-        std::cout << "for params "
+        std::cout << "for params " << j
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
