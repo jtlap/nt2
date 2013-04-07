@@ -16,5 +16,6 @@
 #include <boost/simd/sdk/simd/pack/meta/terminal_of.hpp>
 #include <boost/simd/sdk/simd/pack/meta/upgrade.hpp>
 #include <boost/simd/sdk/simd/pack/meta/downgrade.hpp>
+#include <boost/simd/sdk/simd/pack/meta/register_of.hpp>
 
 #endif

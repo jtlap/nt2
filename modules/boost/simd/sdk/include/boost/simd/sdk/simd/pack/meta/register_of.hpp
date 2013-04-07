@@ -6,14 +6,20 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_META_HPP_INCLUDED
-#define BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_META_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_SIMD_PACK_META_REGISTER_OF_HPP_INCLUDED
+#define BOOST_SIMD_SDK_SIMD_PACK_META_REGISTER_OF_HPP_INCLUDED
 
-#include <boost/simd/sdk/simd/details/native/meta/model_of.hpp>
-#include <boost/simd/sdk/simd/details/native/meta/value_of.hpp>
-#include <boost/simd/sdk/simd/details/native/meta/hierarchy_of.hpp>
-#include <boost/simd/sdk/simd/details/native/meta/cardinal_of.hpp>
-#include <boost/simd/sdk/simd/details/native/meta/upgrade.hpp>
-#include <boost/simd/sdk/simd/details/native/meta/register_of.hpp>
+#include <boost/simd/sdk/meta/register_of.hpp>
+#include <boost/simd/sdk/simd/pack/forward.hpp>
+
+namespace boost { namespace simd { namespace details
+{
+  template< typename Type, std::size_t Cardinal>
+  struct register_of< pack<Type,Cardinal> >
+  {
+    typedef typename pack<Type,Cardinal>::data_type::native_type type;
+  };
+} } }
 
 #endif
+
