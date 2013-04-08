@@ -24,6 +24,7 @@
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/mhalf.hpp>
+#include <nt2/include/constants/zero.hpp>
 
 namespace nt2 { namespace details { namespace internal
 {
@@ -48,7 +49,7 @@ namespace nt2 { namespace details { namespace internal
     {
       typedef typename meta::as_integer<A0, signed>::type int_type;
       typedef typename meta::strip<A0>::type stA0;
-      int_type e;
+      int_type e = nt2::Zero<int_type>();
       nt2::fast_frexp(a0, x, e);
       int_type x_lt_sqrthf = -(single_constant<stA0, 0x3f3504f3>() > x);
       e += x_lt_sqrthf;
