@@ -88,7 +88,6 @@ NT2_TEST_CASE_TPL(sign_of_logical_simd, BOOST_SIMD_SIMD_TYPES)
   using boost::simd::pack;
   using boost::simd::logical;
   using boost::mpl::_;
-  using boost::simd::pack;
   using boost::simd::meta::register_of;
 
   typedef pack< logical<T> >            pack_t;
