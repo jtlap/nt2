@@ -59,13 +59,12 @@ NT2_TEST_CASE_TPL(sign_of_simd_native_logical, BOOST_SIMD_SIMD_TYPES)
   using boost::simd::meta::register_of;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION      ext_t;
-  typedef native<T,ext_t>                   base_t;
   typedef native<logical<T>,ext_t>          native_t;
 
   native_t a0;
   NT2_TEST_EXPR_TYPE( a0
                     , register_of<_>
-                    , typename register_of<base_t>::type
+                    , typename native_t::native_type
                     );
 }
 
