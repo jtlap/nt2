@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_LOGS_F_LOG_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_LOGS_F_LOG_HPP_INCLUDED
+
 #include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/include/functions/simd/bitwise_and.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
