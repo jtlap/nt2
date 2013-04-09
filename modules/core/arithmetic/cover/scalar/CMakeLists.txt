@@ -10,9 +10,9 @@
 
 SET( SOURCES
   isqrt.cpp
-  two_split.cpp
-  two_prod.cpp
-  two_add.cpp
+#  two_split.cpp
+#  two_prod.cpp
+#  two_add.cpp
   trunc.cpp
   toint.cpp
   tofloat.cpp
