@@ -35,9 +35,6 @@
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::erf_, tag::cpu_
@@ -48,7 +45,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return erf(tofloat(a0));
+      return nt2::erf(nt2::tofloat(a0));
    }
   };
 
@@ -116,55 +113,31 @@ namespace nt2 { namespace ext
       typedef typename meta::as_logical<A0>::type bA0;
 
       A0 x =  nt2::abs(a0);
-      A0 xx =  sqr(x);
-      A0 lim1 = splat<A0>(0.65);
-      A0 lim2 = splat<A0>(2.2);
-      bA0 test1 = lt(x, lim1);
-      A0 r1 = Zero<A0>();
+      A0 xx =  nt2::sqr(x);
+      A0 lim1 = nt2::splat<A0>(0.65);
+      A0 lim2 = nt2::splat<A0>(2.2);
+      bA0 test1 = nt2::lt(x, lim1);
+      A0 r1 = nt2::Zero<A0>();
       std::size_t nb = 0;
-      if ((nb = (inbtrue(test1) > 0)))
+      if ((nb = (nt2::inbtrue(test1) > 0)))
       {
-        r1 = a0*polevl( xx, erf0_P4)/polevl( xx, erf0_Q4 );
+        r1 = a0*nt2::polevl( xx, erf0_P4)/nt2::polevl( xx, erf0_Q4 );
         if (nb >= meta::cardinal_of<A0>::value) return r1;
       }
-      bA0 test2 = lt(x, lim2);
-      bA0 test3 = logical_andnot(test2, test1);
+      bA0 test2 = nt2::lt(x, lim2);
+      bA0 test3 = nt2::logical_andnot(test2, test1);
       std::size_t nb1 = 0;
       A0 ex = nt2::exp(-xx);
-      if ((nb1 = (inbtrue(test3) > 0)))
+      if ((nb1 = (nt2::inbtrue(test3) > 0)))
       {
-        A0 z = oneminus(ex*polevl(x, erfc1_P5)/polevl( x, erfc1_Q5));
-        A0 r2 = negif(is_ltz(a0), z);
-        r1 = select(test1, r1, r2);
+        A0 z = nt2::oneminus(ex*nt2::polevl(x, erfc1_P5)/nt2::polevl( x, erfc1_Q5));
+        A0 r2 = nt2::negif(is_ltz(a0), z);
+        r1 = nt2::if_else(test1, r1, r2);
         nb+= nb1;
         if (nb >= meta::cardinal_of<A0>::value) return r1;
       }
-      A0 z = negif(is_ltz(a0), oneminus(ex*polevl(x, erfc2_P5)/polevl( x, erfc2_Q5)));
-      return select(nt2::is_inf(a0), nt2::sign(a0), select(test2, r1, z));
-
-      //       if(x<= A0(0.0000000001))
-//          return a0*Two<A0>()/sqrt(Pi<A0>());
-//        else if (x<= A0(0.65))
-//          {
-//            return a0*polevl( xx, erf0_P4)/polevl( xx, erf0_Q4 );
-//          }
-//        else if(x<= A0(2.2))
-//          {
-//            A0 z = oneminus(exp(-xx)*polevl(x, erfc1_P5)/polevl( x, erfc1_Q5));
-//            return negif(is_ltz(a0), z);
-//          }
-//        else if(x<= A0(6))
-//          {
-//            A0 z = oneminus(exp(-xx)*polevl(x, erfc2_P5)/polevl( x, erfc2_Q5));
-//            return negif(is_ltz(a0), z);
-//          }
-//        else
-//          return One<A0>();
-
-      //      result_type a = Eight<result_type>()*(Pi<result_type>()-Three<result_type>())/
-      //        (Three<result_type>()*Pi<result_type>()*(Four<result_type>()-Pi<result_type>()));
-      //      result_type ax2 =  a*sqr(a0);
-      //      return nt2::sign(a0)*nt2::sqrt(oneminus(nt2::exp(-sqr(a0)*(Four<result_type>()/Pi<result_type>()+ax2)/(oneplus(ax2)))));
+      A0 z = nt2::negif(nt2::is_ltz(a0), nt2::oneminus(ex*polevl(x, erfc2_P5)/nt2::polevl( x, erfc2_Q5)));
+      return nt2::if_else(nt2::is_inf(a0), nt2::sign(a0), nt2::if_else(test2, r1, z));
     }
   };
 

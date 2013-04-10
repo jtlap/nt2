@@ -24,7 +24,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return erfinv(oneminus(tofloat(a0)));
+      return nt2::erfinv(nt2::oneminus(tofloat(a0)));
    }
   };
 
@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return erfinv(oneminus(a0));
+      return nt2::erfinv(nt2::oneminus(a0));
     }
   };
 

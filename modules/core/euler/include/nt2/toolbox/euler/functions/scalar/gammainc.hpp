@@ -51,8 +51,7 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(const A0& x, const A1& a) const
     {
-      //     if(is_ngtz(x)||is_ngez(a)) return Nan<result_type>();
-      if (nt2::is_eqz(a)|| nt2::eq(x, Inf<result_type>())) return One<result_type>();
+      if (nt2::is_eqz(a)|| nt2::eq(x, nt2::Inf<result_type>())) return nt2::One<result_type>();
       return boost::math::gamma_p(a, x, nt2_policy());
     }
   };

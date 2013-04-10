@@ -21,12 +21,11 @@
 #include <nt2/include/functions/simd/logical_and.hpp>
 #include <nt2/include/functions/simd/is_nan.hpp>
 #include <nt2/include/functions/simd/is_equal.hpp>
-#include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
+#include <nt2/include/constants/minf.hpp>
+#include <nt2/include/constants/mtwo.hpp>
+#include <nt2/include/constants/one.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::signgam_, tag::cpu_,
@@ -38,12 +37,16 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_logical<A0>::type bA0;
-      bA0 leza0 = is_lez(a0);
-      return if_nan_else( logical_or( logical_or(is_nan(a0), eq(a0,Minf<A0>()))
-                                    , logical_and(leza0, is_flint(a0))
-                                    )
-                        , selsub(leza0, One<A0>(), if_else_zero(is_odd(floor(a0)), Mtwo<A0>()))
-                        );
+      bA0 leza0 = nt2::is_lez(a0);
+      return nt2::if_nan_else(
+        nt2::logical_or( nt2::logical_or(is_nan(a0), nt2::eq(a0,Minf<A0>()))
+                       , nt2::logical_and(leza0, nt2::is_flint(a0))
+                       ),
+        nt2::selsub(leza0,
+                    nt2::One<A0>(),
+                    nt2::if_else_zero(nt2::is_odd(floor(a0)), nt2::Mtwo<A0>())
+                   )
+      );
     }
 
   };

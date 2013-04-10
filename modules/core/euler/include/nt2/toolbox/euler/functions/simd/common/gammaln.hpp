@@ -14,11 +14,6 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gammaln_, tag::cpu_
@@ -31,7 +26,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return map(functor<tag::gammaln_>(), tofloat(a0));
+      return map(functor<tag::gammaln_>(), nt2::tofloat(a0));
     }
   };
 } }

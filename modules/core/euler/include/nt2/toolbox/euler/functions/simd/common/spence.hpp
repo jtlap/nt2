@@ -15,18 +15,23 @@
 #include <nt2/include/functions/simd/polevl.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/minusone.hpp>
+#include <nt2/include/functions/simd/oneminus.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/is_less.hpp>
 #include <nt2/include/functions/simd/logical_or.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/real.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/simd/logical.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/pi.hpp>
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/half.hpp>
+#include <nt2/include/constants/six.hpp>
 
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::spence_, tag::cpu_
@@ -37,17 +42,10 @@ namespace nt2 { namespace ext
     typedef typename meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return spence(tofloat(a0));
+      return nt2::spence(nt2::tofloat(a0));
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::spence_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))
@@ -78,18 +76,20 @@ namespace nt2 { namespace ext
         sA0(3.54771340985225096217E0),
         sA0(9.99999999999999998740E-1),
       }};
-      static const A0 C = (Pi<A0>()*Pi<A0>())/Six<A0>();
+      static const A0 C = (nt2::Pi<A0>()*nt2::Pi<A0>())/nt2::Six<A0>();
       A0 x = a0;
-      bA0 flag2 =  gt(x, Two<A0>());
-      x = sel(flag2, rec(x), x);
-      bA0 flag =  gt(x,One<A0>()+Half<A0>());
-      bA0 flag1=  lt(x,Half<A0>());
-      flag2 = logical_or(flag2, flag);
-      A0 w =  sel(flag, minusone(rec(x)), sel(flag1, -x, minusone(x)));
-      A0 y = -w*polevl(w,A)/polevl(w,B);
-      y = sel(flag1, C -log(x) * log(One<A0>()-x)-y,y);
-      y = sel(flag2, Mhalf<A0>()*sqr(log(x))-y,y);
-      return sel(is_eqz(a0), C, y);
+      bA0 flag2 =  nt2::gt(x, nt2::Two<A0>());
+      x = nt2::if_else(flag2, rec(x), x);
+      bA0 flag =  nt2::gt(x,nt2::One<A0>()+nt2::Half<A0>());
+      bA0 flag1=  nt2::lt(x,nt2::Half<A0>());
+      flag2 = nt2::logical_or(flag2, flag);
+      A0 w =  nt2::if_else(flag,
+                           nt2::minusone(nt2::rec(x)),
+                           nt2::if_else(flag1, -x, nt2::minusone(x)));
+      A0 y = -w*nt2::polevl(w,A)/nt2::polevl(w,B);
+      y = nt2::if_else(flag1, C -nt2::log(x) * nt2::log(nt2::oneminus(x))-y,y);
+      y = nt2::if_else(flag2, nt2::Mhalf<A0>()*nt2::sqr(nt2::log(x))-y,y);
+      return nt2::if_else(nt2::is_eqz(a0), C, y);
     }
   };
 } }

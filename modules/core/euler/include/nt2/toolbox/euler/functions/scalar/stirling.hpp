@@ -10,10 +10,6 @@
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_STIRLING_HPP_INCLUDED
 
 #include <nt2/toolbox/euler/functions/stirling.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/constants/real.hpp>
-
 #include <nt2/include/functions/scalar/pow.hpp>
 #include <nt2/include/functions/scalar/fma.hpp>
 #include <nt2/include/functions/scalar/rec.hpp>
@@ -22,10 +18,14 @@
 #include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/toolbox/euler/constants/stirlinglargelim.hpp>
 #include <nt2/toolbox/euler/constants/stirlingsplitlim.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/quarter.hpp>
+#include <nt2/include/constants/half.hpp>
+#include <nt2/include/constants/sqrt_2pi.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::stirling_, tag::cpu_
@@ -36,14 +36,10 @@ namespace nt2 { namespace ext
     typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return stirling(result_type(a0));
+      return nt2::stirling(result_type(a0));
     }
   };
 
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is floating_
-  /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::stirling_, tag::cpu_,
            (A0),
            (scalar_< floating_<A0> >)
@@ -52,28 +48,23 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      if (is_nan(a0)) return Nan<A0>();
-      if (a0 > Stirlinglargelim<A0>()) return Inf<A0>();
-      //       static const boost::array<A0, 3 > stirpoly = {{
-      //      -2.705194986674176E-003f,
-      //      3.473255786154910E-003f,
-      //      8.333331788340907E-002f,
-      //    }};
-      A0 w = rec(a0);
-      w = fma(w, polevl(w, stirpol<A0, A0>::sp()), One<A0>());
+      if (nt2::is_nan(a0)) return nt2::Nan<A0>();
+      if (a0 > nt2::Stirlinglargelim<A0>()) return nt2::Inf<A0>();
+      A0 w = nt2::rec(a0);
+      w = fma(w, polevl(w, stirpol<A0, A0>::sp()), nt2::One<A0>());
       A0 y = nt2::exp(-a0);
-      if(is_eqz(y)) return Inf<A0>();
-      if( a0 > Stirlingsplitlim<A0>() )
+      if(nt2::is_eqz(y)) return nt2::Inf<A0>();
+      if( a0 > nt2::Stirlingsplitlim<A0>() )
         { /* Avoid overflow in pow() */
-          const A0 v = nt2::pow(a0,fma(Half<A0>(),a0,-Quarter<A0>()));
+          const A0 v = nt2::pow(a0,nt2::fma(Half<A0>(),a0,-nt2::Quarter<A0>()));
           y *= v;
           y *= v;
         }
       else
         {
-          y *= pow( a0, a0 - Half<A0>() );
+          y *= nt2::pow( a0, a0 - nt2::Half<A0>() );
         }
-      y *= Sqrt_2pi<A0>()*w;
+      y *= nt2::Sqrt_2pi<A0>()*w;
       return y;
     }
   private:

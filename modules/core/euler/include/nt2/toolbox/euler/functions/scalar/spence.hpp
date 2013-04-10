@@ -9,19 +9,19 @@
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_SPENCE_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_SPENCE_HPP_INCLUDED
 #include <nt2/toolbox/euler/functions/spence.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/digits.hpp>
-
 #include <nt2/include/functions/scalar/polevl.hpp>
 #include <nt2/include/functions/scalar/rec.hpp>
 #include <nt2/include/functions/scalar/minusone.hpp>
 #include <nt2/include/functions/scalar/sqr.hpp>
 #include <nt2/include/functions/scalar/log.hpp>
+#include <nt2/include/constants/pi.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/six.hpp>
+#include <nt2/include/constants/half.hpp>
+#include <nt2/include/constants/mhalf.hpp>
 
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::spence_, tag::cpu_
@@ -32,17 +32,10 @@ namespace nt2 { namespace ext
     typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return spence(result_type(a0));
+      return nt2::spence(result_type(a0));
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::spence_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)
@@ -71,23 +64,23 @@ namespace nt2 { namespace ext
         A0(3.54771340985225096217E0),
         A0(9.99999999999999998740E-1),
       }};
-      static const A0 C = (Pi<A0>()*Pi<A0>())/Six<A0>();
+      static const A0 C = (nt2::Pi<A0>()*nt2::Pi<A0>())/nt2::Six<A0>();
       A0 x = a0;
-      if( x < Zero<A0>() )        return Nan<A0>();
-      if( x == One<A0>() ) return Zero<A0>();
-      if( is_eqz(x) )       return C ;
+      if( x < nt2::Zero<A0>() )        return nt2::Nan<A0>();
+      if( x == nt2::One<A0>() ) return nt2::Zero<A0>();
+      if( nt2::is_eqz(x) )       return C ;
       int flag = 0;
-      if( x > Two<A0>() ){ x = rec(x); flag |= 2;}
+      if( x > nt2::Two<A0>() ){ x = rec(x); flag |= 2;}
       A0 w;
-      if( x > static_cast<A0>(1.5) )      { w = minusone(rec(x)); flag |= 2;}
-      else if( x < Half<A0>() ) { w = -x; flag |= 1;}
-      else w = minusone(x);
-      A0 y = -w * polevl( w, A) / polevl( w, B);
+      if( x > static_cast<A0>(1.5) )      { w = nt2::minusone(nt2::rec(x)); flag |= 2;}
+      else if( x < nt2::Half<A0>() ) { w = -x; flag |= 1;}
+      else w = nt2::minusone(x);
+      A0 y = -w * nt2::polevl( w, A) / nt2::polevl( w, B);
       if( flag & 1 ) y = C -nt2::log(x) * nt2::log(One<A0>()-x) - y;
       if( flag & 2 )
       {
         A0 z = nt2::log(x);
-        y = Mhalf<A0>() * sqr(z)  -  y;
+        y = nt2::Mhalf<A0>() * nt2::sqr(z)  -  y;
       }
       return y;
     }

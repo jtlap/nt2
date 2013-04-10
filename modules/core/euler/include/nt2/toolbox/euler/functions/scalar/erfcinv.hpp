@@ -13,9 +13,6 @@
 #include <nt2/include/functions/scalar/erfinv.hpp>
 #include <nt2/include/functions/scalar/oneminus.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::erfcinv_, tag::cpu_
@@ -28,9 +25,10 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::erfinv(oneminus(result_type(a0)));
+      return nt2::erfinv(nt2::oneminus(result_type(a0)));
     }
   };
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::erfcinv_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)
@@ -40,7 +38,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
       {
-        return nt2::erfinv(oneminus(a0));
+        return nt2::erfinv(nt2::oneminus(a0));
       }
   };
 } }

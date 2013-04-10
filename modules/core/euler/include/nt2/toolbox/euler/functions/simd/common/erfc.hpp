@@ -33,9 +33,6 @@
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::erfc_, tag::cpu_
@@ -114,36 +111,36 @@ namespace nt2 { namespace ext
         typedef typename meta::as_logical<A0>::type bA0;
 
         A0 x =  nt2::abs(a0);
-        A0 xx =  sqr(x);
-        A0 lim1 = splat<A0>(0.65);
-        A0 lim2 = splat<A0>(2.2);
-        bA0 test0 = is_ltz(a0);
-        bA0 test1 = lt(x, lim1);
-        A0 r1 = Zero<A0>();
+        A0 xx =  nt2::sqr(x);
+        A0 lim1 = nt2::splat<A0>(0.65);
+        A0 lim2 = nt2::splat<A0>(2.2);
+        bA0 test0 = nt2::is_ltz(a0);
+        bA0 test1 = nt2::lt(x, lim1);
+        A0 r1 = nt2::Zero<A0>();
         std::size_t nb = 0;
-        if ((nb = (inbtrue(test1) > 0)))
+        if ((nb = (nt2::inbtrue(test1) > 0)))
         {
-          r1 = oneminus(a0*polevl( xx, erf0_P4)/polevl( xx, erf0_Q4 ));
+          r1 = nt2::oneminus(a0*nt2::polevl( xx, erf0_P4)/nt2::polevl( xx, erf0_Q4 ));
           if (nb >= meta::cardinal_of<A0>::value)
-            return select(test0, Two<A0>()-r1, r1);
+            return nt2::if_else(test0, nt2::Two<A0>()-r1, r1);
         }
-        bA0 test2 = lt(x, lim2);
-        bA0 test3 = logical_andnot(test2, test1);
+        bA0 test2 = nt2::lt(x, lim2);
+        bA0 test3 = nt2::logical_andnot(test2, test1);
         std::size_t nb1 = 0;
         A0 ex = nt2::exp(-xx);
-        if ((nb1 = (inbtrue(test3) > 0)))
+        if ((nb1 = (nt2::inbtrue(test3) > 0)))
         {
-          A0 z = ex*polevl(x, erfc1_P5)/polevl( x, erfc1_Q5);
-          r1 = select(test1, r1, z);
+          A0 z = ex*nt2::polevl(x, erfc1_P5)/nt2::polevl( x, erfc1_Q5);
+          r1 = nt2::if_else(test1, r1, z);
           nb+= nb1;
           if (nb >= meta::cardinal_of<A0>::value)
-            return select(test0, Two<A0>()-r1, r1);
+            return nt2::if_else(test0, Two<A0>()-r1, r1);
         }
-        A0 z =  ex*polevl(x, erfc2_P5)/polevl( x, erfc2_Q5);
-        r1 = select(test2, r1, z);
-        return select(nt2::is_inf(a0),
-                      if_else_zero(test0, Two<A0>()),
-                      select(test0, Two<A0>()-r1, r1)
+        A0 z =  ex*nt2::polevl(x, erfc2_P5)/nt2::polevl( x, erfc2_Q5);
+        r1 = nt2::if_else(test2, r1, z);
+        return if_else(nt2::is_inf(a0),
+                      nt2::if_else_zero(test0, Two<A0>()),
+                      nt2::if_else(test0, nt2::Two<A0>()-r1, r1)
           );
       }
   };

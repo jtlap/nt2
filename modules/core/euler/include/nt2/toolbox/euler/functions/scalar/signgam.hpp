@@ -9,20 +9,16 @@
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_SIGNGAM_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_SIGNGAM_HPP_INCLUDED
 #include <nt2/toolbox/euler/functions/signgam.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/real.hpp>
-
 #include <nt2/include/functions/scalar/is_nan.hpp>
 #include <nt2/include/functions/scalar/is_lez.hpp>
 #include <nt2/include/functions/scalar/is_flint.hpp>
 #include <nt2/include/functions/scalar/is_odd.hpp>
 #include <nt2/include/functions/scalar/floor.hpp>
 #include <nt2/include/functions/scalar/is_inf.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/constants/nan.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::signgam_, tag::cpu_
@@ -30,22 +26,20 @@ namespace nt2 { namespace ext
                             , (scalar_< fundamental_<A0> >)
                             )
   {
-
     typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
       typedef result_type type;
-      bool isinfa0 =  is_inf<A0>(a0);
-      if (is_lez(a0))
+      bool isinfa0 =  nt2::is_inf<A0>(a0);
+      if (nt2::is_lez(a0))
         {
-          if (is_flint(a0)||isinfa0)
-            return Nan<type>();
+          if (nt2::is_flint(a0)||isinfa0)
+            return nt2::Nan<type>();
           else
-            return One<type>()-bool(is_odd(floor(a0)))*Two<A0>();
+            return nt2::One<type>()-bool(nt2::is_odd(nt2::floor(a0)))*nt2::Two<A0>();
         }
-      else if (is_nan(a0)) return a0;
-      return One<type>();
+      else if (nt2::is_nan(a0)) return a0;
+      return nt2::One<type>();
     }
   };
 } }

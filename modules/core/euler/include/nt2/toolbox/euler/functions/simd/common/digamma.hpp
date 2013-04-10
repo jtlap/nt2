@@ -9,15 +9,14 @@
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SIMD_COMMON_DIGAMMA_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SIMD_COMMON_DIGAMMA_HPP_INCLUDED
 #include <nt2/toolbox/euler/functions/digamma.hpp>
-#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/if_else_zero.hpp>
 #include <nt2/include/functions/simd/if_zero_else.hpp>
+#include <nt2/include/functions/simd/is_greater.hpp>
 #include <nt2/include/functions/simd/selsub.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/functions/simd/log.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/include/functions/simd/polevl.hpp>
 #include <nt2/include/functions/simd/oneminus.hpp>
@@ -30,15 +29,21 @@
 #include <nt2/include/functions/simd/bitwise_andnot.hpp>
 #include <nt2/include/functions/simd/tanpi.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/fma.hpp>
 #include <nt2/toolbox/polynomials/functions/scalar/impl/poleval.hpp>
 #include <nt2/toolbox/euler/constants/digammalargelim.hpp>
 #include <nt2/sdk/simd/logical.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/pi.hpp>
+#include <nt2/include/constants/two.hpp>
 
 
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::digamma_, tag::cpu_
@@ -49,13 +54,11 @@ namespace nt2 { namespace ext
     typedef typename meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::digamma(tofloat(a0));
+      return nt2::digamma(nt2::tofloat(a0));
     }
   };
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is floating_
-  /////////////////////////////////////////////////////////////////////////////
+
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::digamma_, tag::cpu_,
                        (A0)(X),
                        ((simd_<floating_<A0>,X>))
@@ -70,17 +73,17 @@ namespace nt2 { namespace ext
       // This handles reflection of negative arguments, and all our
       // error handling, then forwards to the T-specific approximation.
       //
-      A0 result = Zero<A0>();
+      A0 result = nt2::Zero<A0>();
       A0 x = a0;
-      bA0 test = is_lez(a0);
+      bA0 test = nt2::is_lez(a0);
       std::size_t nb;
-      if( (nb = inbtrue(test)) > 0)
+      if( (nb = nt2::inbtrue(test)) > 0)
       {
-        x = sel(test, oneminus(a0), a0);
-        A0 remainder = x - floor(x);
-        remainder =  selsub(gt(remainder,Half<A0>()),remainder,One<A0>());
-        remainder = if_zero_else(is_eqz(remainder), Pi<A0>()/tanpi(remainder));
-        result = if_else_zero(test, remainder);
+        x = nt2::if_else(test, nt2::oneminus(a0), a0);
+        A0 remainder = x - nt2::floor(x);
+        remainder =  nt2::selsub(nt2::gt(remainder,Half<A0>()),remainder,nt2::One<A0>());
+        remainder = nt2::if_zero_else(nt2::is_eqz(remainder), nt2::Pi<A0>()/nt2::tanpi(remainder));
+        result = nt2::if_else_zero(test, remainder);
         //          remainder =  selsub(gt(remainder,Half<A0>()),remainder,One<A0>());
         //          result = b_and(b_andnot(Pi<A0>()/tanpi(remainder),is_eqz(remainder)), test);
         // we are ready to increment result that was
@@ -88,29 +91,29 @@ namespace nt2 { namespace ext
         // Nan<A0>                   if a0 < 0  and remainder == 0
         // 0                         in any other cases
       }
-      A0 r1 = Zero<A0>(), r2= Zero<A0>();
-      test = gt(x, Digammalargelim<A0>());
-      if((nb = inbtrue(test)))
+      A0 r1 = nt2::Zero<A0>(), r2= nt2::Zero<A0>();
+      test = nt2::gt(x, Digammalargelim<A0>());
+      if((nb = nt2::inbtrue(test)))
       { // If we're above the lower-limit for the asymptotic expansion then use it:
-        r1 = if_else_zero(test, digamma_imp_large(x, sA0()))+result;//b_and(digamma_imp_large(x, sA0()), test)+result;
+        r1 = nt2::if_else_zero(test, digamma_imp_large(x, sA0()))+result;//b_and(digamma_imp_large(x, sA0()), test)+result;
         if (nb >= (uint32_t)meta::cardinal_of<A0>::value) return r1;
       }
       // If x > 2 reduce to the interval [1,2]:
       bA0 cond;
-      while(nt2::any(cond = gt(x, Two<A0>())))
+      while(nt2::any(cond = nt2::gt(x, nt2::Two<A0>())))
       {
-        x      -= if_else_zero(cond, One<A0>());
-        result += if_else_zero(cond, rec(x));
+        x      -= nt2::if_else_zero(cond, nt2::One<A0>());
+        result += nt2::if_else_zero(cond, nt2::rec(x));
       }
       // If x < 1 use shift to > 1:
-      if(nt2::any(cond = lt(x, One<A0>())))
+      if(nt2::any(cond = nt2::lt(x, nt2::One<A0>())))
       {
-        result = sel(cond, -rec(x), result);
-        x      += ifelsezero(cond, One<A0>());
+        result = nt2::if_else(cond, -nt2::rec(x), result);
+        x      += nt2::ifelsezero(cond, nt2::One<A0>());
       }
-      r2 =  if_zero_else(test, digamma_imp_1_2(x, sA0()))+result;//b_andnot(digamma_imp_1_2(x, sA0()), test)+result;
+      r2 =  nt2::if_zero_else(test, digamma_imp_1_2(x, sA0()))+result;//b_andnot(digamma_imp_1_2(x, sA0()), test)+result;
       if (nb == 0) return r2;
-      return sel(test, r1, r2);
+      return nt2::if_else(test, r1, r2);
     }
   private:
     template <class A>
@@ -129,8 +132,8 @@ namespace nt2 { namespace ext
       // At float precision, max error found:  2.008725e-008
       //
       typedef typename meta::scalar_of<A>::type sA;
-      static const A Y = splat<A>(0.99558162689208984);
-      static const A root = splat<A>(1532632.0 / 1048576);
+      static const A Y = nt2::splat<A>(0.99558162689208984);
+      static const A root = nt2::splat<A>(1532632.0 / 1048576);
       static const A root_minor = splat<A>(double(0.3700660185912626595423257213284682051735604e-6L));
       static const boost::array<sA, 4> P = {{
           sA(0.25479851023250261e0),
@@ -147,9 +150,9 @@ namespace nt2 { namespace ext
       A x = a0;
       A g = x - root;
       g -= root_minor;
-      x-= One<A>();
-      A r = eval_poly<4>(x, P)/eval_poly<4>(x, Q);
-      A result = fma(g, Y, g * r);
+      x-= nt2::One<A>();
+      A r = nt2::eval_poly<4>(x, P)/nt2::eval_poly<4>(x, Q);
+      A result = nt2::fma(g, Y, g * r);
       return result;
     }
 
@@ -164,10 +167,10 @@ namespace nt2 { namespace ext
           sA(0.003968253968253968253968253968253968253968253968254L)
         }};
       A x = a0;
-      x -= One<A>();
+      x -= nt2::One<A>();
       A result = log(x);
-      result += rec(Two<A>()*x);
-      A z = rec(sqr(x));
+      result += nt2::rec(nt2::Two<A>()*x);
+      A z = nt2::rec(nt2::sqr(x));
       result -= z * nt2::eval_poly<3>(z, P);
       return result;
     }
@@ -214,9 +217,9 @@ namespace nt2 { namespace ext
       A g = x - root1;
       g -= root2;
       g -= root3;
-      x-= One<A>();
-      A r = eval_poly<6>(x, P)/eval_poly<7>(x, Q);
-      A result = fma(g, Y, g * r);
+      x-= nt2::One<A>();
+      A r = nt2::eval_poly<6>(x, P)/nt2::eval_poly<7>(x, Q);
+      A result = nt2::fma(g, Y, g * r);
       return result;
     }
 
@@ -236,10 +239,10 @@ namespace nt2 { namespace ext
           sA(-0.44325980392156862745098039215686274509803921568627L)
         }};
       A x = a0;
-      x -= One<A>();
-      A result = log(x);
-      result += rec(Two<A>()*x);
-      A z = rec(sqr(x));
+      x -= nt2::One<A>();
+      A result = nt2::log(x);
+      result += nt2::rec(nt2::Two<A>()*x);
+      A z = nt2::rec(nt2::sqr(x));
       result -= z * nt2::eval_poly<8>(z, P);
       return result;
     }

@@ -23,10 +23,8 @@
 #include <nt2/include/constants/sqrtpio_2.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/mone.hpp>
+#include <nt2/include/constants/nan.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::erfinv_, tag::cpu_
@@ -79,16 +77,16 @@ namespace nt2 { namespace ext
 
         A0 x =  nt2::abs(a0);
         A0 res;
-        if(is_nan(a0)||(x>One<A0>())) return Nan<A0>();
-        if(x == One<A0>()) return a0*Inf<A0>();
+        if(nt2::is_nan(a0)||(x>nt2::One<A0>())) return nt2::Nan<A0>();
+        if(x == nt2::One<A0>()) return a0*Inf<A0>();
         if(x<= A0(0.7))
         {
           //       a1*y + a2*y^3 + a3*y^5 + a4*y^7
           //res= --------------------------------------
           //     1 + b1*y^2 + b2*y^4 + b3*y^6 + b4*y^8
 
-          A0 xx =  sqr(x);
-          res =  a0*polevl(xx, a)/polevl(xx, b);
+          A0 xx =  nt2::sqr(x);
+          res =  a0*nt2::polevl(xx, a)/nt2::polevl(xx, b);
         }
         else
         {
@@ -100,12 +98,12 @@ namespace nt2 { namespace ext
           //      - c1 - c2*z - c3*z^2 - c4*z^3
           //  x= ------------------------------ ; z = sqrt(-log(1+y)/2)
           //         1 + d1*z + d2*z^2
-          A0 sign = nt2::is_ltz(a0)?Mone<A0>():One<A0>();
-          A0 z = nt2::sqrt(-nt2::log(nt2::oneminus(sign*a0)*Half<A0>()));
-          res =  sign*polevl(z, c)/polevl(z, d);
+          A0 sign = nt2::is_ltz(a0)?nt2::Mone<A0>():nt2::One<A0>();
+          A0 z = nt2::sqrt(-nt2::log(nt2::oneminus(sign*a0)*nt2::Half<A0>()));
+          res =  sign*nt2::polevl(z, c)/nt2::polevl(z, d);
         }
-        res -= (nt2::erf(res)-a0)*Sqrtpio_2<A0>()/nt2::exp(-nt2::sqr(res));
-        res -= (nt2::erf(res)-a0)*Sqrtpio_2<A0>()/nt2::exp(-nt2::sqr(res));
+        res -= (nt2::erf(res)-a0)*nt2::Sqrtpio_2<A0>()/nt2::exp(-nt2::sqr(res));
+        res -= (nt2::erf(res)-a0)*nt2::Sqrtpio_2<A0>()/nt2::exp(-nt2::sqr(res));
         return res;
       }
   };

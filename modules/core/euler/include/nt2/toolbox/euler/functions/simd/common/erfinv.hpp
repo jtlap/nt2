@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return erfinv(tofloat(a0));
+      return nt2::erfinv(nt2::tofloat(a0));
    }
   };
 
@@ -58,47 +58,45 @@ namespace nt2 { namespace ext
     typedef typename meta::scalar_of<A0>::type sA0;
     NT2_FUNCTOR_CALL(1)
     {
-        static const boost::array<sA0, 4 > a = {{
-            sA0(-0.14110320437680104),
-            sA0(0.92661860147244357),
-            sA0(-1.6601283962374516),
-            sA0(0.88622692374517353)
-          }};
-        static const boost::array<sA0, 5 > b = {{
-            sA0( 0.01197270616590528),
-            sA0(-0.33198239813321595),
-            sA0( 1.46060340345661088),
-            sA0(-2.13505380615258078),
-            sA0(1)
-          }};
+      static const boost::array<sA0, 4 > a = {{
+          sA0(-0.14110320437680104),
+          sA0(0.92661860147244357),
+          sA0(-1.6601283962374516),
+          sA0(0.88622692374517353)
+        }};
+      static const boost::array<sA0, 5 > b = {{
+          sA0( 0.01197270616590528),
+          sA0(-0.33198239813321595),
+          sA0( 1.46060340345661088),
+          sA0(-2.13505380615258078),
+          sA0(1)
+        }};
 
-        static const boost::array<sA0, 4 > c = {{
-            sA0(1.82365845766309853),
-            sA0(3.60874665878559364),
-            sA0(  -1.87267416351196),
-            sA0( -1.994216456587148)
-          }};
-        static const boost::array<sA0, 3 >d = {{
-            sA0(1.81848952562894617),
-            sA0(3.74146294065960872),
-            sA0(1)
-          }};
+      static const boost::array<sA0, 4 > c = {{
+          sA0(1.82365845766309853),
+          sA0(3.60874665878559364),
+          sA0(  -1.87267416351196),
+          sA0( -1.994216456587148)
+        }};
+      static const boost::array<sA0, 3 >d = {{
+          sA0(1.81848952562894617),
+          sA0(3.74146294065960872),
+          sA0(1)
+        }};
       typedef typename meta::as_logical<A0>::type bA0;
 
       A0 x =  nt2::abs(a0);
       A0 lim = splat<A0>(0.7);
-      A0 sign = if_else(nt2::is_ltz(a0), Mone<A0>(), One<A0>());
-      bA0 test =  lt(x, lim);
-      A0 xx =  sqr(x);
-      A0 res =  a0*polevl(xx, a)/polevl(xx, b);
-      A0 z = nt2::sqrt(-nt2::log(nt2::oneminus(x)*Half<A0>()));
-      res =  if_else(test, res, sign*polevl(z, c)/polevl(z, d));
-      res -= (nt2::erf(res)-a0)*Sqrtpio_2<A0>()/nt2::exp(-nt2::sqr(res));
-      res -= (nt2::erf(res)-a0)*Sqrtpio_2<A0>()/nt2::exp(-nt2::sqr(res));
-      return if_else(eq(x, One<A0>()), a0*Inf<A0>(), res);
-   }
+      A0 sign = nt2::if_else(nt2::is_ltz(a0), nt2::Mone<A0>(), nt2::One<A0>());
+      bA0 test =  nt2::lt(x, lim);
+      A0 xx =  nt2::sqr(x);
+      A0 res =  a0*nt2::polevl(xx, a)/nt2::polevl(xx, b);
+      A0 z = nt2::sqrt(-nt2::log(nt2::oneminus(x)*nt2::Half<A0>()));
+      res =  nt2::if_else(test, res, sign*nt2::polevl(z, c)/nt2::polevl(z, d));
+      res -= (nt2::erf(res)-a0)*nt2::Sqrtpio_2<A0>()/nt2::exp(-nt2::sqr(res));
+      res -= (nt2::erf(res)-a0)*nt2::Sqrtpio_2<A0>()/nt2::exp(-nt2::sqr(res));
+      return nt2::if_else(eq(x, nt2::One<A0>()), a0*nt2::Inf<A0>(), res);
+    }
   };
-
-
 } }
 #endif

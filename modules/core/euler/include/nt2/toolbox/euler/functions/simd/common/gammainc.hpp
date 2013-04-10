@@ -42,9 +42,6 @@
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/options.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gammainc_, tag::cpu_
@@ -60,9 +57,6 @@ namespace nt2 { namespace ext
     }
   };
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is floating_
-  /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::gammainc_, tag::cpu_,
                              (A0)(A1)(X),
                              ((simd_<floating_<A0>,X>))
@@ -75,24 +69,27 @@ namespace nt2 { namespace ext
       typedef typename meta::as_logical<A0>::type bA0;
       A0 x = xx;
       A1 a = aa;
-      const A1 amax = splat<A1>(1048576);
+      const A1 amax = nt2::splat<A1>(1048576);
       bA0 test = gt(a, amax);
-      std::size_t nb =   boost::simd::inbtrue(test);
+      std::size_t nb =   nt2::inbtrue(test);
       if (nb) {
-        x =  nt2::max(nt2::fma(nt2::sqrt(amax/a), x-(a-Third<A1>()), amax-Third<A1>()),Zero<A1>());
-        a =  if_else(test,  amax, a);
+        x =  nt2::max(nt2::fma(nt2::sqrt(amax/a),
+                               x-(a-nt2::Third<A1>()),
+                               amax-nt2::Third<A1>()),
+                      Zero<A1>());
+        a =  nt2::if_else(test,  amax, a);
       };
-      A0 res = Nan<A0>();
+      A0 res = nt2::Nan<A0>();
       std::size_t nbt = 0u;
-      test = lt(x, oneplus(a));
+      test = nt2::lt(x, nt2::oneplus(a));
       if ((nb = boost::simd::inbtrue(test)))
       {
-        res = boost::simd::if_else(test, gammainc(x, a, test, case0_), res);
+        res = nt2::if_else(test, gammainc(x, a, test, case0_), res);
         nbt+= nb;
         if (nbt >= meta::cardinal_of<A0>::value) return res;
       }
-      test = logical_not(test);
-      res = boost::simd::if_else(test, gammainc(x, a, test, case1_), res);
+      test = nt2::logical_not(test);
+      res = boost::simd::if_else(test, nt2::gammainc(x, a, test, case1_), res);
       return res;
     }
   };

@@ -17,10 +17,6 @@
 #include <nt2/sdk/error/policies.hpp>
 #include <boost/math/special_functions/gamma.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gammaincinv_, tag::cpu_
@@ -50,7 +46,7 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(const A0& x, const A1& a) const
     {
-      if(eq(x, One<A0>())) return Inf<A0>();
+      if(eq(x, nt2::One<A0>())) return nt2::Inf<A0>();
       return boost::math::gamma_p_inv(a, x, nt2_policy());
     }
   };

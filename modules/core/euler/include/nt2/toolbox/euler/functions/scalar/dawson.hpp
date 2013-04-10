@@ -9,20 +9,15 @@
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_DAWSON_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_DAWSON_HPP_INCLUDED
 #include <nt2/toolbox/euler/functions/dawson.hpp>
-#include <nt2/include/constants/real.hpp>
 #include <nt2/include/functions/scalar/plevl.hpp>
 #include <nt2/include/functions/scalar/polevl.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
-
 #include <nt2/include/functions/scalar/copysign.hpp>
 #include <nt2/include/functions/scalar/sqr.hpp>
 #include <nt2/include/functions/scalar/rec.hpp>
 #include <boost/array.hpp>
+#include <nt2/include/constants/half.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::dawson_, tag::cpu_
@@ -30,22 +25,13 @@ namespace nt2 { namespace ext
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-
     typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
       return nt2::dawson(result_type(a0));
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::dawson_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)
@@ -125,22 +111,22 @@ namespace nt2 { namespace ext
         A0(-9.73655226040941223894E-4),
       }};
       A0 xx =  nt2::abs(a0);
-      A0 x = sqr(xx);
+      A0 x = nt2::sqr(xx);
       if( xx < static_cast<A0>(3.25) )
       {
-        A0 x = sqr(xx);
-        return a0 * polevl( x, AN)/polevl( x, AD );
+        A0 x =  nt2::sqr(xx);
+        return a0 * nt2::polevl( x, AN)/ nt2::polevl( x, AD );
       }
       x =  rec(x);
       if( xx < static_cast<A0>(6.25) )
       {
-        A0 y = rec(xx) + x * polevl( x, BN) / (plevl( x, BD) * xx);
-        return copysign(Half<A0>()*y, a0);
+        A0 y =  nt2::rec(xx) + x *  nt2::polevl( x, BN) / ( nt2::plevl( x, BD) * xx);
+        return  nt2::copysign( nt2::Half<A0>()*y, a0);
       }
-      if( xx > static_cast<A0>(1.0e9) ) return Half<A0>()*copysign(rec(xx), a0);
+      if( xx > static_cast<A0>(1.0e9) ) return  nt2::Half<A0>()* nt2::copysign(rec(xx), a0);
       /* 6.25 to 1.0e9 */
-      A0 y = rec(xx) + x * polevl( x, CN) / (plevl( x, CD) * xx);
-      return copysign(Half<A0>()*y, a0);
+      A0 y =  nt2::rec(xx) + x *  nt2::polevl( x, CN) / ( nt2::plevl( x, CD) * xx);
+      return  nt2::copysign( nt2::Half<A0>()*y, a0);
     }
   };
 } }

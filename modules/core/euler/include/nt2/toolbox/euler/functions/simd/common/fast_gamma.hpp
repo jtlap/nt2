@@ -9,9 +9,6 @@
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SIMD_COMMON_FAST_GAMMA_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SIMD_COMMON_FAST_GAMMA_HPP_INCLUDED
 #include <nt2/toolbox/euler/functions/fast_gamma.hpp>
-#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/digits.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/include/functions/simd/negif.hpp>
 #include <nt2/include/functions/simd/is_ltz.hpp>
@@ -25,10 +22,14 @@
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/toolbox/euler/constants/fastgammalargelim.hpp>
 #include <nt2/include/functions/simd/sinpi.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/pi.hpp>
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/half.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fast_gamma_, tag::cpu_
@@ -43,9 +44,6 @@ namespace nt2 { namespace ext
     }
   };
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is floating_
-  /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::fast_gamma_, tag::cpu_,
                              (A0)(X),
                              ((simd_<floating_<A0>,X>))
@@ -56,38 +54,38 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_logical<A0>::type bA0;
       A0 sgngam = One<A0>(); //positive
-      A0 r =  Nan<A0>(), r2=  Nan<A0>();
+      A0 r =  nt2::Nan<A0>(), r2=  nt2::Nan<A0>();
       A0 q =  nt2::abs(a0);
       A0 x = a0;
-      bA0 test0 = gt(q, Fastgammalargelim<A0>());
+      bA0 test0 = gt(q, nt2::Fastgammalargelim<A0>());
       std::size_t nb = 0;
-      if ((nb = (inbtrue(test0) > 0)))
+      if ((nb = (nt2::inbtrue(test0) > 0)))
       {
-        bA0 negative = is_ltz(a0);
-        A0 s =  stirling(q);
+        bA0 negative = nt2::is_ltz(a0);
+        A0 s =  nt2::stirling(q);
         std::size_t nb1 = 0;
-        A0 r1 = Zero<A0>();
-        if ((nb1 = (inbtrue(negative) > 0)))
+        A0 r1 = nt2::Zero<A0>();
+        if ((nb1 = (nt2::inbtrue(negative) > 0)))
         {
-          A0 p = floor(q);
+          A0 p = nt2::floor(q);
           //              A0 test1 = is_equal(p, q); //must return Nan<A0>();
-          sgngam = negif(is_even(p), sgngam);
+          sgngam = nt2::negif(nt2::is_even(p), sgngam);
           A0 z = q - p;
-          bA0 test2 = lt(z, Half<A0>() );
-          p = seladd(test2, p, One<A0>());
-          z = sel(test2, q - p, z);
-          z = q*sinpi(z);
+          bA0 test2 = lt(z, nt2::Half<A0>() );
+          p = nt2::seladd(test2, p, nt2::One<A0>());
+          z = nt2::if_else(test2, q - p, z);
+          z = q*nt2::sinpi(z);
           //              A0 test3 = is_eqz(z);
           z =  nt2::abs(z);
-          r1 = sgngam*Pi<A0>()/(z * s );
+          r1 = sgngam*nt2::Pi<A0>()/(z * s );
           if (nb1 >= meta::cardinal_of<A0>::value) return r1;
         }
-        r2 = sel(negative, r1, s);
+        r2 = nt2::if_else(negative, r1, s);
       }
       if (nb >= meta::cardinal_of<A0>::value) return r2;
       A0 y2 =  other(test0, x); // computation result if ~test0
-      r = sel(test0, r2, y2);
-      return if_nan_else(is_nan(a0), r);
+      r = nt2::if_else(test0, r2, y2);
+      return nt2::if_nan_else(nt2::is_nan(a0), r);
 
     }
   private :
@@ -114,28 +112,28 @@ namespace nt2 { namespace ext
           sA0(7.14304917030273074085E-2),
           sA0(1.00000000000000000320E0)
         }};
-      AA0 x =  sel(test, Five<A0>()/Two<A0>(), xx);
-      AA0 z = One<A0>();
+      AA0 x =  nt2::if_else(test, nt2::Five<A0>()/nt2::Two<A0>(), xx);
+      AA0 z = nt2::One<A0>();
       bAA0 test1;
       while( nt2::any(test1 = ge(x,Three<A0>())) )
       {
-        x = seladd(test1, x, Mone<A0>());
-        z = sel(   test1, z*x, z);
+        x = nt2::seladd(test1, x, nt2::Mone<A0>());
+        z = nt2::if_else(   test1, z*x, z);
       }
       bAA0 test2;
-      while( nt2::any(test2 = is_ltz(x)) )
+      while( nt2::any(test2 = nt2::is_ltz(x)) )
       {
-        z = sel(   test2, z/x, z);
-        x = seladd(test2, x, One<A0>());
+        z = nt2::if_else(   test2, z/x, z);
+        x = nt2::seladd(test2, x, nt2::One<A0>());
       }
-      while( nt2::any(test1 =lt(x,Two<A0>())) )
+      while( nt2::any(test1 =lt(x,nt2::Two<A0>())) )
       {
-        z = sel(   test1, z/x, z);
-        x = seladd(test1, x, One<A0>());
+        z = nt2::if_else(   test1, z/x, z);
+        x = nt2::seladd(test1, x, nt2::One<A0>());
       }
-      x -= Two<A0>();
-      AA0 p = polevl(x,P);
-      AA0 q = polevl(x,Q);
+      x -= nt2::Two<A0>();
+      AA0 p = nt2::polevl(x,P);
+      AA0 q = nt2::polevl(x,Q);
       return z*p/q;
     }
   };
