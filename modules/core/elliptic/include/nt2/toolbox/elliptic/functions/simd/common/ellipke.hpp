@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
       int32_t i1 = 0;
       sA0 mm = nt2::One<sA0>();
       A0 aa1 = nt2::Zero<A0>();
-      while (gt(mm, a1))
+      while (nt2::gt(mm, a1))
       {
         aa1 = nt2::average(aa0, bb0);
         A0 bb1 = nt2::sqrt(aa0*bb0);

@@ -10,32 +10,28 @@
 #define NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SCALAR_ELLINT_1_HPP_INCLUDED
 #include <nt2/toolbox/elliptic/functions/ellint_1.hpp>
 #include <boost/math/special_functions.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/constants/real.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/include/functions/scalar/is_eqz.hpp>
 #include <nt2/sdk/error/policies.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/pio_2.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ellint_1_, tag::cpu_
                             , (A0)
-                            , (scalar_< fundamental_<A0> >)
+                            , (scalar_< arithmetic_<A0> >)
                             )
   {
-
     typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
       result_type x = a0;
-      if (x > One<result_type>()) return Nan<result_type>();
-      if (x == One<result_type>())  return Inf<result_type>();
-      if (is_eqz(x))      return Pio_2<result_type>();
+      if (x > nt2::One<result_type>()) return nt2::Nan<result_type>();
+      if (x == nt2::One<result_type>())  return nt2::Inf<result_type>();
+      if (nt2::is_eqz(x))      return nt2::Pio_2<result_type>();
       return boost::math::ellint_1(x, nt2_policy());
     }
   };

@@ -10,9 +10,6 @@
 #define NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SCALAR_ELLPE_HPP_INCLUDED
 #include <nt2/toolbox/elliptic/functions/ellpe.hpp>
 #include <boost/math/special_functions.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/toolbox/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/include/functions/scalar/is_ltz.hpp>
 #include <nt2/include/functions/scalar/is_eqz.hpp>
@@ -20,10 +17,13 @@
 #include <nt2/include/functions/scalar/sqrt.hpp>
 #include <nt2/include/functions/scalar/log.hpp>
 #include <nt2/sdk/error/policies.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/pi.hpp>
+#include <nt2/include/constants/pio_2.hpp>
+#include <nt2/include/constants/eps.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ellpe_, tag::cpu_
@@ -39,14 +39,7 @@ namespace nt2 { namespace ext
       return nt2::ellpe(result_type(a0));
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is double
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ellpe_, tag::cpu_
                             , (A0)
                             , (scalar_< double_<A0> >)
@@ -58,20 +51,13 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef result_type type;
-      if (a0>One<A0>()||(is_ltz(a0))) return Nan<type>();
-      if (is_eqz(a0))  return One<type>();
-      if (a0 == One<A0>()) return Pio_2<type>();
-      return boost::math::ellint_2(sqrt(oneminus(type(a0))), nt2_policy());
+      if (a0>nt2::One<A0>()||(nt2::is_ltz(a0))) return nt2::Nan<type>();
+      if (nt2::is_eqz(a0))  return nt2::One<type>();
+      if (a0 == nt2::One<A0>()) return nt2::Pio_2<type>();
+      return boost::math::ellint_2(nt2::sqrt(nt2::oneminus(type(a0))), nt2_policy());
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is float
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ellpe_, tag::cpu_
                             , (A0)
                             , (scalar_< single_<A0> >)
@@ -80,10 +66,10 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      if (a0>One<A0>()||(is_ltz(a0))) return Nan<A0>();
-      if (is_eqz(a0))  return One<A0>();
-      if (a0 == One<A0>()) return Pio_2<A0>();
-      A0 tmp1 = horner< NT2_HORNER_COEFF(float, 11,
+      if (a0>nt2::One<A0>()||(is_ltz(a0))) return nt2::Nan<A0>();
+      if (nt2::is_eqz(a0))  return nt2::One<A0>();
+      if (a0 == nt2::One<A0>()) return nt2::Pio_2<A0>();
+      A0 tmp1 = nt2::horner< NT2_HORNER_COEFF(float, 11,
                               (0x392102f5,
                                0x3b246c1b,
                                0x3c0e578f,
@@ -95,7 +81,7 @@ namespace nt2 { namespace ext
                                0x3d68ac90,
                                0x3ee2e430,
                                0x3f800000) ) > (a0);
-      A0 tmp2 = horner< NT2_HORNER_COEFF(float, 10,
+      A0 tmp2 = nt2::horner< NT2_HORNER_COEFF(float, 10,
                                     (0x38098de4,
                                      0x3a84557e,
                                      0x3bd53114,

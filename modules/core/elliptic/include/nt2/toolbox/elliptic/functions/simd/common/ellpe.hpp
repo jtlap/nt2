@@ -9,54 +9,30 @@
 #ifndef NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SIMD_COMMON_ELLPE_HPP_INCLUDED
 #define NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SIMD_COMMON_ELLPE_HPP_INCLUDED
 #include <nt2/toolbox/elliptic/functions/ellpe.hpp>
-#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/simd/is_ltz.hpp>
 #include <nt2/include/functions/simd/is_eqz.hpp>
 #include <nt2/include/functions/simd/log.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
 #include <nt2/include/functions/simd/logical_or.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/constants/one.hpp>
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellpe_, tag::cpu_,
                         (A0)(X),
-                        ((simd_<arithmetic_<A0>,X>))
+                        ((simd_<integer_<A0>,X>))
                        )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(1)
     {
       typedef result_type type;
-      return nt2::ellpe(tofloat(a0));
+      return nt2::ellpe(nt2::tofloat(a0));
     }
   };
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is double
-/////////////////////////////////////////////////////////////////////////////
-
-
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellpe_, tag::cpu_,
-                        (A0)(X),
-                        ((simd_<double_<A0>,X>))
-                       )
-  {
-    typedef A0 result_type;
-    NT2_FUNCTOR_CALL_REPEAT(1)
-    {
-      return map(functor<tag::ellpe_>(), a0);
-    }
-  };
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is float
-/////////////////////////////////////////////////////////////////////////////
-
 
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellpe_, tag::cpu_,
                         (A0)(X),
@@ -67,7 +43,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename meta::scalar_of<A0>::type sA0;
-      A0 temp = horner< NT2_HORNER_COEFF_T(sA0, 11,
+      A0 temp = nt2::horner< NT2_HORNER_COEFF_T(sA0, 11,
                                (0x392102f5,
                                 0x3b246c1b,
                                 0x3c0e578f,
@@ -79,7 +55,7 @@ namespace nt2 { namespace ext
                                 0x3d68ac90,
                                 0x3ee2e430,
                                 0x3f800000) ) > (a0)
-      -log(a0)*a0*horner< NT2_HORNER_COEFF_T(sA0, 10,
+      -nt2::log(a0)*a0*nt2::horner< NT2_HORNER_COEFF_T(sA0, 10,
                                  (0x38098de4,
                                   0x3a84557e,
                                   0x3bd53114,
@@ -91,9 +67,12 @@ namespace nt2 { namespace ext
                                   0x3dc00000,
                                   0x3e800000
                                   ) ) > (a0);
-      return select(is_eqz(a0),
-                One<A0>(),
-                if_nan_else(logical_or(gt(a0, One<A0>()), is_ltz(a0)), temp));
+      return nt2::if_else(nt2::is_eqz(a0),
+                nt2::One<A0>(),
+                nt2::if_nan_else(
+                  nt2::logical_or(nt2::gt(a0, nt2::One<A0>()),
+                                  nt2::is_ltz(a0)), temp)
+                   );
     }
   };
 } }
