@@ -10,10 +10,12 @@
 #ifndef NT2_TOOLBOX_SIGNAL_STATIC_FFT_HPP_INCLUDED
 #define NT2_TOOLBOX_SIGNAL_STATIC_FFT_HPP_INCLUDED
 
+#include <boost/simd/sdk/config/arch.hpp>
+
 #if defined( _MSC_VER )
     #pragma once
     #pragma inline_recursion( on )
-#elif defined( __GNUC__ ) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4))
+#elif defined( __GNUC__ ) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)) && !defined(BOOST_SIMD_ARCH_POWERPC)
     #pragma GCC push_options
     #pragma GCC optimize ( "fast-math" )
 #endif // compiler
@@ -2872,7 +2874,7 @@ void irealfft_split(float *data,long n){
 } // namespace nt2
 //------------------------------------------------------------------------------
 
-#if defined( __GNUC__ ) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4))
+#if defined( __GNUC__ ) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)) && !defined(BOOST_SIMD_ARCH_POWERPC)
     #pragma GCC pop_options
 #endif // compiler
 
