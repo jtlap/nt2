@@ -41,8 +41,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
     {
-      value_type value;
-      return boost::simd::splat<result_type>( result_type(value) );
+      return boost::simd::splat<result_type>( result_type(value_type()) );
     }
   };
 
