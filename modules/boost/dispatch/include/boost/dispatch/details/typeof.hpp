@@ -14,8 +14,14 @@
 
 /// INTERNAL ONLY
 /// Boost.Config isn't up to date for MSVC10 so we force it to be
-#if BOOST_WORKAROUND(BOOST_MSVC, >= 1600) && defined BOOST_NO_DECLTYPE
+#if BOOST_WORKAROUND(BOOST_MSVC, >= 1600) && defined(BOOST_NO_DECLTYPE)
 #undef BOOST_NO_DECLTYPE
+#endif
+
+/// INTERNAL ONLY
+/// decltype in GCC 4.4 is FUBAR
+#if defined(__GNUC__) && __GNUC__ == 4 && __GNUC_MINOR__ == 4 && !defined(BOOST_NO_DECLTYPE)
+#define BOOST_NO_DECLTYPE
 #endif
 
 #include <boost/typeof/typeof.hpp>
