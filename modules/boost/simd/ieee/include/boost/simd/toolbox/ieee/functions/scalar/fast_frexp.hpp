@@ -44,6 +44,7 @@ namespace boost { namespace simd { namespace ext
     typedef void result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,A0 & a1,A2 & a2) const
     {
+      a2 = 0;
       a1 = ::frexpf(a0, &a2);
     }
   };
@@ -56,8 +57,8 @@ namespace boost { namespace simd { namespace ext
                                           , A2
                                           >
                                         )
-                                    , (scalar_< floating_<A0> >)
-                                      (scalar_< integer_<A2> >)
+                                      , (scalar_< floating_<A0> >)
+                                        (scalar_< integer_<A2> >)
                                       )
   {
     typedef A0 result_type;
