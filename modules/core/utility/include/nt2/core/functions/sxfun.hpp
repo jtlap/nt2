@@ -24,9 +24,9 @@ namespace nt2
     /*!
       @brief Tag for bsxfun functor
      **/
-    struct sxfun_ : dispatch::tag::formal_
+    struct sxfun_ : boost::dispatch::tag::formal_
     {
-      typedef dispatch::tag::formal_ parent;
+      typedef boost::dispatch::tag::formal_ parent;
     };
   }
 
@@ -46,10 +46,10 @@ namespace nt2
     @param a First expression to process
     @param b Second expression to process
   **/
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sxfunction_       , bsxfun, 3)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sxfunction_       , sxfun, 3)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sxfunction_       , sxfun, 4)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sxfunction_       , tsxfun, 4)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sxfun_       , bsxfun, 3)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sxfun_       , sxfun, 3)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sxfun_       , sxfun, 4)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sxfun_       , tsxfun, 4)
 }
 
 #endif
