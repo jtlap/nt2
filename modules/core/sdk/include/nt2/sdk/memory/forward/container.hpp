@@ -14,9 +14,13 @@
 //==============================================================================
 namespace nt2 { namespace memory
 {
-  template<class T, class S>                  class   container;
-  template<class Container>                   struct  container_ref;
-  template<class Container, bool Own = false> struct  container_shared_ref;
+  struct container_base
+  {
+  };
+
+  template<class T, class S>                   class   container;
+  template<class T, class S>                   struct  container_ref;
+  template<class T, class S, bool Own = false> struct  container_shared_ref;
 } }
 
 

@@ -26,34 +26,23 @@ namespace nt2 { namespace ext
   template<class T, class Enable = void>
   struct as_child_ref;
 
-  template<class T, long Arity = T::proto_arity_c>
+  template<class T>
   struct as_child_ref_expr
   {
-    typedef T type;
-    static type& call(T& t)
-    {
-      return t;
-    }
-  };
-
-  template<class T>
-  struct as_child_ref_expr<T, 0l>
-  {
-    typedef as_child_ref< typename boost::proto::result_of::value<T>::value_type > impl;
-    typedef typename impl::type type;
+    typedef container::domain::template as_child_expr<T, typename T::proto_tag, false> impl;
+    typedef typename impl::result_type type;
     static type call(T& t)
     {
-      return impl::call(boost::proto::value(t));
+      return impl()(t);
     }
   };
 
   template<class T, class Enable>
   struct as_child_ref
   {
-    typedef typename boost::mpl::if_< meta::is_container_ref<T>, T, T&>::type term;
-    typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<term> > expr;
-    typedef nt2::container::expression<expr, typename container::as_container_noref<term>::type> type;
-    static type call(typename boost::dispatch::meta::as_ref<term>::type t)
+    typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<T&> > expr;
+    typedef nt2::container::expression<expr, T&> type;
+    static type call(T& t)
     {
       return type(expr::make(t));
     }

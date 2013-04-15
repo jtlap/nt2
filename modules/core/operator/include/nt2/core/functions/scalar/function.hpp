@@ -34,25 +34,25 @@ NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::function_, tag::cpu_                     \
                           , ((ast_<A0, nt2::container::domain>))BOOST_PP_REPEAT(n,M1,~) \
                           )                                                    \
 {                                                                              \
-  typedef container::domain::template as_child<A0>                sched;       \
-  typedef typename sched::result_type                             scheduled;   \
+  typedef meta::as_elementwise<A0>                                sched;       \
+  typedef typename sched::type                                    scheduled;   \
                                                                                \
   typedef typename meta::                                                      \
           scalar_of< typename boost::dispatch::meta::                          \
                      semantic_of<A0&>::type                                    \
                    >::type                                        result_type; \
-  typedef typename scheduled::index_type::type                    idx_t;       \
+  typedef typename A0::index_type::type                           idx_t;       \
                                                                                \
   BOOST_FORCEINLINE result_type                                                \
   operator()(A0& a0, BOOST_PP_ENUM_BINARY_PARAMS(n,I,i) ) const                \
   {                                                                            \
-    scheduled s = sched()(a0);                                                 \
+    scheduled s = sched::call(a0);                                             \
     return nt2::run( s                                                         \
                    , nt2::as_index( s.extent()                                 \
                                   , boost::fusion::                            \
                                     make_vector(BOOST_PP_ENUM(n,M4,~))         \
                                   )                                            \
-                   , meta::as_<typename scheduled::value_type>()               \
+                   , meta::as_<typename A0::value_type>()                      \
                    );                                                          \
   }                                                                            \
 };                                                                             \

@@ -38,7 +38,7 @@ namespace nt2 { namespace memory
    * \tparam Setting Options list describing the behavior of the container
    **/
   //============================================================================
-  template<class T, class S> class container
+  template<class T, class S> class container : public container_base
   {
   public:
     //==========================================================================
@@ -327,9 +327,6 @@ namespace nt2 { namespace memory
      * @return A reference to the specific data of the container.
      **/
     //==========================================================================
-    BOOST_FORCEINLINE
-    specific_data_type&  specifics()       { return specific_; }
-    BOOST_FORCEINLINE
     specific_data_type&  specifics() const { return specific_; }
 
     //==========================================================================
