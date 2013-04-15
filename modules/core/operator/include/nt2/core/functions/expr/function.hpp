@@ -207,7 +207,7 @@ namespace nt2 { namespace ext
       Idx idx = nt2::function_index(indices, a0.extent(), meta::as_<typename A0::indexes_type>());
       std::size_t b = nt2::run(idx, 0u, meta::as_<std::size_t>());
 
-      return nt2_expr(basic_expr::make(container_ref(boost::proto::value(a0), a0.raw()+b, idx.extent())));
+      return nt2_expr(basic_expr::make(container_ref(boost::proto::value(a0), boost::proto::value(a0).begin()+b, idx.extent())));
     }
   };
 
