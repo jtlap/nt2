@@ -6,12 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_BENCH_MODULE "nt2 bitwise toolbox - seladd/scalar Mode"
+#define NT2_BENCH_MODULE "nt2 boolean toolbox - seladd/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/bitwise/include/functions/seladd.hpp>
+#include <nt2/toolbox/boolean/include/functions/seladd.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <nt2/include/constants/valmax.hpp>

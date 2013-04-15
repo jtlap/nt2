@@ -6,12 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_BENCH_MODULE "nt2 bitwise toolbox - selsub/simd Mode"
+#define NT2_BENCH_MODULE "nt2 boolean toolbox - selsub/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of bitwise components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/bitwise/include/functions/selsub.hpp>
+#include <nt2/toolbox/boolean/include/functions/selsub.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>

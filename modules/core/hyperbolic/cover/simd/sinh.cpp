@@ -59,7 +59,7 @@ NT2_TEST_CASE_TPL ( sinh_real__1_0,  NT2_SIMD_REAL_TYPES)
   ulpd=0.0;
 
   // random verifications
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST*100;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
@@ -69,8 +69,8 @@ NT2_TEST_CASE_TPL ( sinh_real__1_0,  NT2_SIMD_REAL_TYPES)
         r_t v = sinh(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-
-          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::sinh (a0[i])), 1.5);
+          std::cout << "input = " << a0[i] << std::endl;
+          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::sinh (a0[i])), 4);
           ulp0 = nt2::max(ulpd,ulp0);
         }
       }

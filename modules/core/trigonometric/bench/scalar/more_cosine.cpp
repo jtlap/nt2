@@ -13,6 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/trigonometric/include/functions/cosine.hpp>
 #include <nt2/toolbox/trigonometric/include/functions/fast_cos.hpp>
+#include <nt2/toolbox/trigonometric/functions/scalar/impl/trigo/selection_tags.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <cmath>
