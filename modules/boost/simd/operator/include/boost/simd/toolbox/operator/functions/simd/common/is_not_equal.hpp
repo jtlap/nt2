@@ -6,10 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_IS_EQUAL_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_IS_EQUAL_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_IS_NOT_EQUAL_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_IS_NOT_EQUAL_HPP_INCLUDED
 
-#include <boost/simd/toolbox/operator/functions/is_equal.hpp>
+#include <boost/simd/toolbox/operator/functions/is_not_equal.hpp>
 #include <boost/simd/include/functions/simd/splat.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
@@ -20,7 +20,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::is_equal_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::is_not_equal_
                                       , boost::simd::tag::cpu_
                                       , (A0)(X)
                                       , (mpl::equal_to< boost::simd::meta::cardinal_of<A0>
@@ -37,14 +37,14 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return bitwise_cast<A0> ( eq( bitwise_cast<cast_t>(a0)
-                                  , bitwise_cast<cast_t>(a1)
-                                  )
+      return bitwise_cast<A0> ( neq( bitwise_cast<cast_t>(a0)
+                                   , bitwise_cast<cast_t>(a1)
+                                   )
                               );
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_equal_, tag::cpu_,
                                     (A0)(A1)(X),
                                     ((simd_<arithmetic_ <A0>,X>))((scalar_<arithmetic_<A1> >))
                                    )
@@ -53,11 +53,11 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return boost::simd::is_equal(a0, boost::simd::splat<A0>(a1));
+      return boost::simd::is_not_equal(a0, boost::simd::splat<A0>(a1));
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_equal_, tag::cpu_,
                                      (A0)(A1)(X),
                                      ((scalar_<arithmetic_<A0> >))((simd_<arithmetic_<A1>,X>))
                                    )
@@ -66,7 +66,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return boost::simd::is_equal(boost::simd::splat<A1>(a0), a1);
+      return boost::simd::is_not_equal(boost::simd::splat<A1>(a0), a1);
     }
   };
 } } }
