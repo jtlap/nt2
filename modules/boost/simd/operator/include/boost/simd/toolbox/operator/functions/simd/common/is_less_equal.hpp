@@ -11,6 +11,7 @@
 
 #include <boost/simd/toolbox/operator/functions/is_less_equal.hpp>
 #include <boost/simd/include/functions/simd/splat.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -19,7 +20,7 @@ namespace boost { namespace simd { namespace ext
                                     ((simd_<arithmetic_ <A0>,X>))((scalar_<arithmetic_<A1> >))
                                    )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
@@ -32,7 +33,7 @@ namespace boost { namespace simd { namespace ext
                                      ((scalar_<arithmetic_<A0> >))((simd_<arithmetic_<A1>,X>))
                                    )
   {
-    typedef A1 result_type;
+    typedef typename meta::as_logical<A1>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {

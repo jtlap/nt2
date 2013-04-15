@@ -49,7 +49,7 @@ namespace boost { namespace simd { namespace ext
                                     ((simd_<arithmetic_ <A0>,X>))((scalar_<arithmetic_<A1> >))
                                    )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace ext
                                      ((scalar_<arithmetic_<A0> >))((simd_<arithmetic_<A1>,X>))
                                    )
   {
-    typedef A1 result_type;
+    typedef typename meta::as_logical<A1>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
