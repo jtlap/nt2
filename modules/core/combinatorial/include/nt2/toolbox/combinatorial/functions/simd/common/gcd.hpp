@@ -17,15 +17,15 @@
 #include <nt2/include/functions/simd/logical_and.hpp>
 #include <nt2/include/functions/simd/if_else_zero.hpp>
 #include <nt2/include/functions/simd/if_zero_else.hpp>
+#include <nt2/include/functions/simd/if_else_allbits.hpp>
 #include <nt2/sdk/simd/logical.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gcd_, tag::cpu_
                             , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
+                            , ((simd_<arithmetic_<A0>,X>))
+                              ((simd_<arithmetic_<A0>,X>))
                             )
   {
     typedef A0 result_type;
@@ -33,46 +33,40 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_logical<A0>::type bA0;
       A0 a = a0, b = a1;
-      bA0 t= is_nez(b);
+      bA0 t= nt2::is_nez(b);
       while (nt2::any(t))
       {
-        A0 r = if_else_zero(t, rem(a, b));
-        a = if_else(t, b, a);
+        A0 r = nt2::if_else_zero(t, rem(a, b));
+        a = nt2::if_else(t, b, a);
         b = r;
-        t =  is_nez(b);
+        t =  nt2::is_nez(b);
       }
       return a;
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gcd_, tag::cpu_
                             , (A0)(X)
-                            , ((simd_<floating_<A0>,X>))((simd_<floating_<A0>,X>))
+                            , ((simd_<floating_<A0>,X>))
+                              ((simd_<floating_<A0>,X>))
                             )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::as_logical<A0>::type    bA0;
-      bA0 ints = logical_and(is_flint(a1), is_flint(a0));
-      A0 a =  if_else_zero(ints, a0);
-      A0 b =  if_else_zero(ints, a1);
-      bA0 t= is_nez(b);
+      bA0 ints = nt2::logical_and(is_flint(a1), is_flint(a0));
+      A0 a =  nt2::if_else_zero(ints, a0);
+      A0 b =  nt2::if_else_zero(ints, a1);
+      bA0 t= nt2::is_nez(b);
       while (nt2::any(t))
       {
-        A0 r = if_zero_else(t, rem(a, b));
-        a = if_else(t, b, a);
+        A0 r = nt2::if_zero_else(t, rem(a, b));
+        a = nt2::if_else(t, b, a);
         b = r;
-        t = is_nez(b);
+        t = nt2::is_nez(b);
       }
-      return if_else_nan(ints, a);
+      return nt2::if_else_nan(ints, a);
     }
   };
 } }
