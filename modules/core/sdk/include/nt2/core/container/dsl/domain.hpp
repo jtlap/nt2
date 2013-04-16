@@ -19,7 +19,6 @@
 #include <nt2/sdk/memory/container_shared_ref.hpp>
 #include <boost/proto/domain.hpp>
 #include <boost/type_traits/remove_const.hpp>
-#include <boost/type_traits/remove_reference.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/is_const.hpp>
@@ -215,7 +214,7 @@ namespace nt2 { namespace container
     {
       typedef typename boost::proto::result_of::value<T&>::value_type value_type;
       typedef typename boost::mpl::if_< boost::is_const<T>, typename boost::add_const<value_type>::type, value_type >::type type;
-      typedef typename boost::mpl::if_c< meta::is_container<value_type>::value && !meta::is_container_ref<value_type>::value, type&, type >::type type_ref;
+      typedef typename boost::mpl::if_c< meta::is_container<value_type>::value && !meta::is_container_ref<value_type>::value, typename boost::add_reference<type>::type, type >::type type_ref;
       typedef as_child<type_ref, void, typename boost::dispatch::meta::semantic_of<T&>::type> impl;
       typedef typename impl::result_type result_type;
 
