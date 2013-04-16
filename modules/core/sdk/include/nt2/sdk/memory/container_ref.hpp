@@ -51,6 +51,12 @@ namespace nt2 { namespace memory
 
     typedef typename boost::mpl::
             if_< boost::is_const<T>
+               , container_base<value_type> const
+               , container_base<value_type>
+               >::type cbase_t;
+
+    typedef typename boost::mpl::
+            if_< boost::is_const<T>
                , typename base_t::const_reference
                , typename base_t::reference
                >::type                                           reference;
@@ -86,7 +92,7 @@ namespace nt2 { namespace memory
     {
     }
     template<class U, class S2>
-    container_ref(container<U, S2> const& c) : ptr(c.raw()), sz(c.extent()), base_()
+    container_ref(container<U, S2> const& c) : ptr(c.raw()), sz(c.extent()), base_(&c)
     {
     }
 
@@ -95,7 +101,7 @@ namespace nt2 { namespace memory
     {
     }
     template<class U, class S2>
-    container_ref(container<U, S2> const& c, pointer p, extent_type const& sz_) : ptr(p), sz(sz_), base_()
+    container_ref(container<U, S2> const& c, pointer p, extent_type const& sz_) : ptr(p), sz(sz_), base_(&c)
     {
     }
 
@@ -228,14 +234,14 @@ namespace nt2 { namespace memory
      * @return A reference to the specific data of the container.
      **/
     //==========================================================================
-    specific_data_type&  specifics() const { BOOST_ASSERT_MSG(0, "not implemented"); }
+    specific_data_type&  specifics() const { return base_->specifics(); }
 
     //==========================================================================
     // Check if a position is safely R/W in the current container
     //==========================================================================
     BOOST_FORCEINLINE bool is_safe(size_type p) const { return p == 0u || p < size(); }
 
-    container_base* base() const { return base_; }
+    cbase_t* base() const { return base_; }
 
   private:
     template<class U, class S2>
@@ -243,7 +249,7 @@ namespace nt2 { namespace memory
 
     pointer                     ptr;
     extent_type                 sz;
-    container_base*             base_;
+    cbase_t*                    base_;
   };
 
   //============================================================================

@@ -9,13 +9,40 @@
 #ifndef NT2_SDK_MEMORY_FORWARD_CONTAINER_HPP_INCLUDED
 #define NT2_SDK_MEMORY_FORWARD_CONTAINER_HPP_INCLUDED
 
+#include <nt2/core/settings/specific_data.hpp>
+
 //==============================================================================
 // Forward declaration
 //==============================================================================
 namespace nt2 { namespace memory
 {
+  template<class T>
   struct container_base
   {
+    container_base() : specific_() {}
+
+    //==========================================================================
+    // Specific data type - Used for per-hardware site special member
+    //==========================================================================
+    typedef typename specific_data< typename  boost::dispatch::
+                                              default_site<T>::type
+                                  , T
+                                  >::type       specific_data_type;
+
+    //==========================================================================
+    /*!
+     * @brief Access to the architecture specific container data
+     * As the inner structure of a container may change with the hardware
+     * configuration, a specific data segment is provided to gather informations
+     * that may be required for proper operation on said configuration.
+     *
+     * @return A reference to the specific data of the container.
+     **/
+    //==========================================================================
+    specific_data_type&  specifics() const { return specific_; }
+
+  private:
+    mutable specific_data_type  specific_;
   };
 
   template<class T, class S>                   class   container;

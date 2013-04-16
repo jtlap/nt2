@@ -53,6 +53,12 @@ namespace nt2 { namespace memory
 
     typedef typename boost::mpl::
             if_< boost::is_const<T>
+               , container_base<value_type> const
+               , container_base<value_type>
+               >::type cbase_t;
+
+    typedef typename boost::mpl::
+            if_< boost::is_const<T>
                , typename base_t::const_reference
                , typename base_t::reference
                >::type                                           reference;
@@ -215,7 +221,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     BOOST_FORCEINLINE bool is_safe(size_type p) const { return p == 0u || p < size(); }
 
-    boost::shared_ptr<container_base> base() const { return base_; }
+    boost::shared_ptr<cbase_t> base() const { return base_; }
 
   private:
     template<class U, class S2, bool Own2>
@@ -223,7 +229,7 @@ namespace nt2 { namespace memory
 
     pointer                                  ptr;
     extent_type                              sz;
-    boost::shared_ptr<container_base>        base_;
+    boost::shared_ptr<cbase_t>               base_;
   };
 
   // this is really just a container adaptor with shallow copying
