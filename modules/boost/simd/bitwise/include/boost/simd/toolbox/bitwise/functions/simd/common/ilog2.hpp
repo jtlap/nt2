@@ -10,6 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_ILOG2_HPP_INCLUDED
 
 #include <boost/simd/toolbox/bitwise/functions/ilog2.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/simd/include/functions/simd/minusone.hpp>
 #include <boost/simd/include/functions/simd/splat.hpp>
 #include <boost/simd/include/functions/simd/clz.hpp>
@@ -42,7 +44,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<A0>::type s_type;
-      return boost::simd::minusone(boost::simd::splat<result_type>(sizeof(s_type)*8)-boost::simd::clz(a0));
+      return boost::simd::minusone(boost::simd::splat<result_type>(sizeof(s_type)*8)-bitwise_cast<result_type>(boost::simd::clz(a0)));
     }
   };
 } } }

@@ -52,7 +52,7 @@ NT2_TEST_CASE_TPL ( ilog2_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(ilog2(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( ilog2_ints__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( ilog2_ints__1_0,  BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::ilog2;
   using boost::simd::tag::ilog2_;
