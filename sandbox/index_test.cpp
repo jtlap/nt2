@@ -16,7 +16,7 @@
 
 #include <nt2/sdk/timing/now.hpp>
 #include <nt2/sdk/unit/details/helpers.hpp>
-#include <nt2/sdk/unit/perform_benchmark.hpp>
+#include <nt2/sdk/bench/perform_benchmark.hpp>
 //#include <nt2/sdk/unit/module.hpp>
 
 #include <nt2/table.hpp>
