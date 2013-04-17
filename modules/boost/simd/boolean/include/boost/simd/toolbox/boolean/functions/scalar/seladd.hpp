@@ -8,13 +8,13 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SCALAR_SELADD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SCALAR_SELADD_HPP_INCLUDED
+
 #include <boost/simd/toolbox/boolean/functions/seladd.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::seladd_, tag::cpu_, (A0)(A1)
-                            , (scalar_< logical_<A0> >)
+                            , (scalar_< unspecified_<A0> >)
                               (scalar_< unspecified_<A1> >)
                               (scalar_< unspecified_<A1> >)
                             )

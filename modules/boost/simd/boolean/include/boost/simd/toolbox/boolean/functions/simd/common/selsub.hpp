@@ -12,8 +12,9 @@
 #include <boost/simd/toolbox/boolean/functions/selsub.hpp>
 #include <boost/simd/include/functions/simd/if_else_zero.hpp>
 #include <boost/simd/include/functions/simd/minus.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/negate.hpp>
-#include <boost/simd/sdk/meta/size.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/mpl/equal_to.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -23,7 +24,7 @@ namespace boost { namespace simd { namespace ext
                                                         , boost::simd::meta::cardinal_of<A1>
                                                         >
                                   )
-                                , ((simd_<logical_<A0>,X>))
+                                , ((simd_<unspecified_<A0>,X>))
                                   ((simd_<unspecified_<A1>,X>))
                                   ((simd_<unspecified_<A1>,X>))
                                 )
@@ -40,7 +41,7 @@ namespace boost { namespace simd { namespace ext
                                                         , boost::simd::meta::cardinal_of<A1>
                                                         >
                                   )
-                                , ((simd_<logical_<A0>,X>))
+                                , ((simd_<unspecified_<A0>,X>))
                                   ((simd_<floating_<A1>,X>))
                                   ((simd_<floating_<A1>,X>))
                                 )

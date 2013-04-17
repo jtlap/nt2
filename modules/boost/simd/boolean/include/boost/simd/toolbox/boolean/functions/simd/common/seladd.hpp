@@ -8,8 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_SELADD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_SELADD_HPP_INCLUDED
-#include <boost/simd/toolbox/boolean/functions/seladd.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+
 #include <boost/simd/toolbox/boolean/functions/seladd.hpp>
 #include <boost/simd/include/functions/simd/if_else_zero.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
@@ -23,7 +22,7 @@ namespace boost { namespace simd { namespace ext
                                                         , boost::simd::meta::cardinal_of<A1>
                                                         >
                                   )
-                                , ((simd_<logical_<A0>,X>))
+                                , ((simd_<unspecified_<A0>,X>))
                                   ((simd_<unspecified_<A1>,X>))
                                   ((simd_<unspecified_<A1>,X>))
                                )
