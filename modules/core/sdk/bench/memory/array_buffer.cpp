@@ -42,10 +42,10 @@ template<class Buffer> NT2_EXPERIMENT(static_buffer_test)
   static  Buffer  pump;
 };
 
-template<class Buffer> Buffer buffer_test<Buffer>::pump;
+template<class Buffer> Buffer static_buffer_test<Buffer>::pump;
 
 #define NT2_BUFFER_EXP(T,N)                                                      \
-NT2_RUN_EXPERIMENT_TPL( buffer_test                                              \
+NT2_RUN_EXPERIMENT_TPL( static_buffer_test                                       \
                       , ((nt2::memory::array_buffer<T,boost::mpl::size_t<N> >))  \
                         ((boost::array<T,N>))                                    \
                         (T[N])                                                   \
