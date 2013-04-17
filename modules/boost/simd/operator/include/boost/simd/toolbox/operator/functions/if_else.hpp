@@ -66,6 +66,7 @@ namespace boost { namespace simd
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct if_else_ : ext::elementwise_<if_else_> { typedef ext::elementwise_<if_else_> parent; };
+    typedef if_else_ select_;
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_else_          , if_else         , 3 )
