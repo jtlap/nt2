@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SCALAR_NEGIF_HPP_INCLUDED
 
 #include <boost/simd/toolbox/boolean/functions/negif.hpp>
+#include <boost/simd/include/functions/scalar/is_nez.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -19,7 +20,10 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A1 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2) { return a0?-a1:a1; }
+    BOOST_SIMD_FUNCTOR_CALL(2)
+    {
+      return is_nez(a0) ? -a1 : a1;
+    }
   };
 } } }
 

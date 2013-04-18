@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SCALAR_SELSUB_HPP_INCLUDED
 
 #include <boost/simd/toolbox/boolean/functions/selsub.hpp>
+#include <boost/simd/include/functions/scalar/is_nez.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -22,7 +23,7 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     inline A1 operator()(const A0 & a0,const A1 & a1,const A1 & a2) const
     {
-      return (a0) ? (a1-a2) : a1;
+      return is_nez(a0) ? (a1-a2) : a1;
     }
   };
 } } }
