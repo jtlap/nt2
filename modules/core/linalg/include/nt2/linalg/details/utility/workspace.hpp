@@ -121,7 +121,7 @@ namespace nt2 { namespace details
     void resize_reals(std::size_t s)
     {
       reals_size_ = s;
-      if(s > nt2_la_int(reals_.size())  reals_.resize(s);
+      if(s > nt2_la_int(reals_.size()))  reals_.resize(s);
     }
 
     void resize_integers(std::size_t s)
@@ -142,10 +142,10 @@ namespace nt2 { namespace details
             &&  (iw >= integers_.size())  && (bw >= logicals_.size());
     }
 
-    typename main_pointer     main()      { return &main_[0];     }
-    typename reals_pointer    reals()     { return &reals_[0];    }
-    typename integers_pointer integers()  { return &integers_[0]; }
-    typename logicals_pointer logicals()  { return &logicals_[0]; }
+    main_pointer     main()      { return &main_[0];     }
+    reals_pointer    reals()     { return &reals_[0];    }
+    integers_pointer integers()  { return &integers_[0]; }
+    logicals_pointer logicals()  { return &logicals_[0]; }
 
     nt2_la_int main_size()      const { return main_size_;      }
     nt2_la_int reals_size()     const { return reals_size_;     }
