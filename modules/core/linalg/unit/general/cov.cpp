@@ -36,9 +36,9 @@ NT2_TEST_CASE_TPL( cov, NT2_REAL_TYPES )
   nt2::table<T> c, v;
   y = nt2::reshape(nt2::_(T(1), T(15)), 3, 5);
   c = nt2::cov(y, 0);
-  NT2_TEST_ULP_EQUAL(c, nt2::repnum(T(1), 5, 5), 0.5);
+  NT2_TEST_ULP_EQUAL(c, nt2::repnum(T(1), 5, 5), 1.5);
   c = nt2::cov(y, 1);
-  NT2_TEST_ULP_EQUAL(c, nt2::repnum(T(2)/T(3), 5, 5), 0.5);
+  NT2_TEST_ULP_EQUAL(c, nt2::repnum(T(2)/T(3), 5, 5), 1.5);
 
 
 }
@@ -49,9 +49,9 @@ NT2_TEST_CASE_TPL( cov_2, NT2_REAL_TYPES )
   nt2::table<T> c, v;
   y = nt2::reshape(nt2::_(T(1), T(15)), 3, 5);
   c = nt2::cov(y, y);
-  NT2_TEST_ULP_EQUAL(c, nt2::repnum(T(20), 2, 2), 0.5);
+  NT2_TEST_ULP_EQUAL(c, nt2::repnum(T(20), 2, 2), 1.5);
   c = nt2::cov(y, y, 1);
-  NT2_TEST_ULP_EQUAL(c, nt2::repnum(T(56)/T(3), 2, 2), 0.5);
+  NT2_TEST_ULP_EQUAL(c, nt2::repnum(T(56)/T(3), 2, 2), 1.5);
 
 
 }
@@ -61,13 +61,13 @@ NT2_TEST_CASE_TPL( cov_3, NT2_REAL_TYPES )
   nt2::table<T> c, v;
   y = nt2::_(T(1), T(15));
   c = nt2::cov(y);
-  NT2_TEST_ULP_EQUAL(c, nt2::repnum(T(20), 1), 0.5);
+  NT2_TEST_ULP_EQUAL(c, nt2::repnum(T(20), 1), 1.5);
   c = nt2::cov(y, 1);
-  NT2_TEST_ULP_EQUAL(c, nt2::repnum(T(56)/T(3), 1), 0.5);
+  NT2_TEST_ULP_EQUAL(c, nt2::repnum(T(56)/T(3), 1), 1.5);
   c = nt2::cov(y(nt2::_));
-  NT2_TEST_ULP_EQUAL(c, nt2::repnum(T(20), 1), 0.5);
+  NT2_TEST_ULP_EQUAL(c, nt2::repnum(T(20), 1), 1.5);
   c = nt2::cov(y(nt2::_), 1);
-  NT2_TEST_ULP_EQUAL(c, nt2::repnum(T(56)/T(3), 1), 0.5);
+  NT2_TEST_ULP_EQUAL(c, nt2::repnum(T(56)/T(3), 1), 1.5);
 
 
 }
