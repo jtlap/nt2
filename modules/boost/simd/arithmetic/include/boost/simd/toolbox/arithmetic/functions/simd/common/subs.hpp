@@ -10,16 +10,17 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_SUBS_HPP_INCLUDED
 
 #include <boost/simd/toolbox/arithmetic/functions/subs.hpp>
-#include <boost/simd/include/functions/simd/minus.hpp>
-#include <boost/simd/include/functions/simd/unary_minus.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/is_less.hpp>
 #include <boost/simd/include/functions/simd/is_less_equal.hpp>
-#include <boost/simd/include/functions/simd/is_equal.hpp>
-#include <boost/simd/include/functions/simd/if_else.hpp>
-#include <boost/simd/include/functions/simd/adds.hpp>
+#include <boost/simd/include/functions/simd/shri.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
+#include <boost/simd/include/functions/simd/bitwise_and.hpp>
+#include <boost/simd/include/functions/simd/bitwise_xor.hpp>
 #include <boost/simd/include/functions/simd/if_else_zero.hpp>
-#include <boost/simd/include/constants/valmin.hpp>
-#include <boost/simd/include/constants/valmax.hpp>
-#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/dispatch/meta/as_unsigned.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -56,7 +57,16 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return if_else(eq(a1, Valmin<A0>()), adds(adds(a0, Valmax<A0>()),One<A0>()), adds(a0, -a1));
+      typedef typename dispatch::meta::as_unsigned<A0>::type utype;
+      typedef typename meta::scalar_of<A0>::type stype;
+
+      utype ux = bitwise_cast<utype>(a0);
+      utype uy = bitwise_cast<utype>(a1);
+      utype res = ux - uy;
+
+      ux = shri(ux, sizeof(stype)*CHAR_BIT-1) + Valmax<stype>();
+
+      return bitwise_cast<A0>(if_else(bitwise_cast<A0>((ux ^ uy) & (ux ^ res)) < Zero<A0>(), ux, res));
     }
   };
 } } }
