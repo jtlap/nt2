@@ -8,12 +8,15 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_FREXP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_FREXP_HPP_INCLUDED
+
 #include <boost/simd/toolbox/ieee/functions/frexp.hpp>
 #include <boost/simd/include/functions/scalar/is_invalid.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_notand.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_and.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_or.hpp>
 #include <boost/simd/include/functions/scalar/shri.hpp>
 #include <boost/simd/include/functions/scalar/minus.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
 #include <boost/simd/include/constants/maxexponent.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
