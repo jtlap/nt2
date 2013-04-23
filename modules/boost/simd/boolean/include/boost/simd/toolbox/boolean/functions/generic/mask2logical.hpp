@@ -8,9 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_GENERIC_MASK2LOGICAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_GENERIC_MASK2LOGICAL_HPP_INCLUDED
+
 #include <boost/simd/toolbox/boolean/functions/mask2logical.hpp>
-#include <boost/simd/include/functions/simd/is_simd_logical.hpp>
 #include <boost/simd/include/functions/simd/is_nez.hpp>
+#include <boost/simd/toolbox/operator/functions/details/assert_utils.hpp>
 #include <boost/assert.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -22,7 +23,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::call<tag::is_nez_(A0 const&)>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      BOOST_ASSERT_MSG(is_simd_logical(a0), "Argument to mask2logical is not a valid logical mask");
+      BOOST_ASSERT_MSG(assert_is_mask(a0), "Argument to mask2logical is not a valid logical mask");
       return is_nez(a0);
     }
   };

@@ -14,8 +14,8 @@
 #include <boost/simd/include/functions/simd/minusone.hpp>
 #include <boost/simd/include/functions/simd/reversebits.hpp>
 #include <boost/simd/include/functions/simd/ffs.hpp>
-#include <boost/simd/include/functions/simd/all.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/toolbox/operator/functions/details/assert_utils.hpp>
 #include <boost/assert.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace ext
       result_type t =  bitwise_cast<result_type>(a0);
       typedef typename meta::scalar_of<A0>::type s_type;
 
-      BOOST_ASSERT_MSG( simd::all(t), "clz not defined for 0" );
+      BOOST_ASSERT_MSG( assert_all(t), "clz not defined for 0" );
       return minusone(boost::simd::ffs(boost::simd::reversebits(t)));
     }
   };

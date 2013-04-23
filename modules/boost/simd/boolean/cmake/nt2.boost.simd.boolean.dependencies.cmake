@@ -8,5 +8,5 @@
 ################################################################################
 
 SET(NT2_BOOST.SIMD.BOOLEAN_DEPENDENCIES_EXTRA boost.simd.constant boost.simd.operator
-                                              boost.simd.bitwise boost.simd.predicates boost.simd.reduction
+                                              boost.simd.bitwise boost.simd.predicates
    )

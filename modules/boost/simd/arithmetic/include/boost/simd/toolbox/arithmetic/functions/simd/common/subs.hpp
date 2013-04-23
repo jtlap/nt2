@@ -8,15 +8,14 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_SUBS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_SUBS_HPP_INCLUDED
+
 #include <boost/simd/toolbox/arithmetic/functions/subs.hpp>
 #include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/simd/include/functions/simd/unary_minus.hpp>
-#include <boost/simd/include/functions/simd/bitwise_and.hpp>
 #include <boost/simd/include/functions/simd/is_less_equal.hpp>
 #include <boost/simd/include/functions/simd/is_equal.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/adds.hpp>
-#include <boost/simd/include/functions/simd/any.hpp>
 #include <boost/simd/include/functions/simd/if_else_zero.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
@@ -57,11 +56,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 res =  adds(a0, -a1);
-      if (boost::simd::any(eq(a1, Valmin<A0>())))
-        return if_else(eq(a1, Valmin<A0>()), adds(adds(a0, Valmax<A0>()),One<A0>()), res);
-      else
-        return res;
+      return if_else(eq(a1, Valmin<A0>()), adds(adds(a0, Valmax<A0>()),One<A0>()), adds(a0, -a1));
     }
   };
 } } }

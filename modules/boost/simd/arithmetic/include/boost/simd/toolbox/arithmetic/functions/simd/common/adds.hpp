@@ -8,8 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ADDS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ADDS_HPP_INCLUDED
-#include <boost/simd/toolbox/arithmetic/functions/adds.hpp>
-#include <boost/mpl/logical.hpp>
+
 #include <boost/simd/toolbox/arithmetic/functions/adds.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/bitwise_or.hpp>
@@ -18,13 +17,13 @@
 #include <boost/simd/include/functions/simd/is_gtz.hpp>
 #include <boost/simd/include/functions/simd/logical_and.hpp>
 #include <boost/simd/include/functions/simd/logical_or.hpp>
-#include <boost/simd/include/functions/simd/logical_not.hpp>
-//#include <boost/simd/include/functions/simd/logical_notand.hpp>
+#include <boost/simd/include/functions/simd/logical_notand.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/min.hpp>
 #include <boost/simd/include/functions/simd/max.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
+#include <boost/mpl/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -66,7 +65,7 @@ namespace boost { namespace simd { namespace ext
       bA0 gtza1 = is_gtz(a1);
       A0 a0pa1 = a0+a1;
       bA0 test1 = logical_and(logical_and(gtza0, gtza1), lt(a0pa1, a0));
-      bA0 test2 = logical_and(logical_not(logical_or(gtza0, gtza1)), gt(a0pa1,a0)); //logical_notand
+      bA0 test2 = logical_notand(logical_or(gtza0, gtza1), gt(a0pa1,a0));
       return if_else(test1,Valmax<A0>(),if_else(test2,Valmin<A0>(),a0pa1));
     }
   };
