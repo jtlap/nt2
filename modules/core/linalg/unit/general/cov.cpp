@@ -38,7 +38,7 @@ NT2_TEST_CASE_TPL( cov, NT2_REAL_TYPES )
   c = nt2::cov(y, 0);
   NT2_TEST_ULP_EQUAL(c, nt2::repnum(T(1), 5, 5), 1.5);
   c = nt2::cov(y, 1);
-  NT2_TEST_ULP_EQUAL(c, nt2::repnum(T(2)/T(3), 5, 5), 1.5);
+  NT2_TEST_ULP_EQUAL(c, nt2::repnum(T(2)/T(3), 5, 5), 2);
 
 
 }
