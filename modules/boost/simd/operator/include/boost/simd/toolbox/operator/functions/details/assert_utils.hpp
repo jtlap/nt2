@@ -9,7 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_DETAILS_ASSERT_UTILS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_DETAILS_ASSERT_UTILS_HPP_INCLUDED
 
-#include <boost/simd/include/functions/extract.hpp>
+#include <boost/simd/include/functions/simd/extract.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
@@ -33,8 +34,12 @@ namespace boost { namespace simd
     for(std::size_t i = 0; i != meta::cardinal_of<T>::value; ++i)
     {
       typedef typename meta::scalar_of<T>::type sT;
+      typedef typename dispatch::meta::as_integer<sT, unsigned>::type uT;
+
       sT v = extract(t, i);
-      if(v != Zero<sT>() && v != Allbits<sT>())
+      uT uv = bitwise_cast<uT>(v);
+
+      if(uv != Zero<uT>() && uv != Allbits<uT>())
         return false;
     }
     return true;
