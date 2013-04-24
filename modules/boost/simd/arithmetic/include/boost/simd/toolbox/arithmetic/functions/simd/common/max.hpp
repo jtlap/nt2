@@ -11,35 +11,24 @@
 
 #include <boost/simd/toolbox/arithmetic/functions/max.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
-#include <boost/simd/include/functions/simd/is_less.hpp>
+#include <boost/simd/include/functions/simd/is_greater.hpp>
 #include <boost/simd/include/functions/simd/is_unord.hpp>
 #include <boost/simd/include/constants/nan.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::max_, tag::cpu_, (A0)(X)
-                                   , ((simd_<integer_<A0>,X>))
-                                     ((simd_<integer_<A0>,X>))
+                                   , ((simd_<arithmetic_<A0>,X>))
+                                     ((simd_<arithmetic_<A0>,X>))
                                    )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return if_else(lt(a0, a1), a1, a0);
+      return if_else(gt(a0, a1), a0, a1);
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::max_, tag::cpu_, (A0)(X)
-                                   , ((simd_<floating_<A0>,X>))
-                                     ((simd_<floating_<A0>,X>))
-                                   )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      return if_else(is_unord(a0, a1), Nan<result_type>(), if_else(lt(a0, a1), a1, a0));
-    }
-  };
 } } }
 
 

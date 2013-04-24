@@ -17,29 +17,17 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::min_, tag::cpu_
                             , (A0)
-                            , (scalar_< integer_<A0> >)
-                              (scalar_< integer_<A0> >)
+                            , (scalar_< arithmetic_<A0> >)
+                              (scalar_< arithmetic_<A0> >)
                             )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return (a0 < a1) ? a0 :  a1;
+      return (a0 < a1) ? a0 : a1;
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::min_, tag::cpu_
-                            , (A0)
-                            , (scalar_< floating_<A0> >)
-                              (scalar_< floating_<A0> >)
-                            )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      return is_unord(a0, a1) ? Nan<result_type>() : (a0 < a1) ? a0 :  a1;
-    }
-  };
 } } }
 
 

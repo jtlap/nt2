@@ -49,7 +49,7 @@ NT2_TEST_CASE_TPL ( max_real__2_0, BOOST_SIMD_SIMD_REAL_TYPES )
   NT2_TEST_ULP_EQUAL(max(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(max(boost::simd::One<vT>(), boost::simd::One<vT>())[0], boost::simd::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(max(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<T>(), 0);
-  NT2_TEST_ULP_EQUAL(max(boost::simd::Nan<vT>(), boost::simd::One<vT>())[0], boost::simd::Nan<T>(), 0);
+  NT2_TEST_ULP_EQUAL(max(boost::simd::Nan<vT>(), boost::simd::One<vT>())[0], boost::simd::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(max(boost::simd::One<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<T>(), 0);
 }
 

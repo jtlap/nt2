@@ -18,8 +18,8 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::max_, tag::cpu_
                                     , (A0)
-                                    , (scalar_< integer_<A0> >)
-                                      (scalar_< integer_<A0> >)
+                                    , (scalar_< arithmetic_<A0> >)
+                                      (scalar_< arithmetic_<A0> >)
                                     )
   {
     typedef A0 result_type;
@@ -69,19 +69,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::max_, tag::cpu_
-                                    , (A0)
-                                    , (scalar_< floating_<A0> >)
-                                      (scalar_< floating_<A0> >)
-                                    )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      if (is_unord(a0, a1)) return Nan<result_type>();
-      return (a0 > a1) ? a0 : a1;
-    }
-  };
 } } }
 
 #endif
