@@ -9,10 +9,11 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_MINIMUM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_MINIMUM_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+
 #include <boost/simd/toolbox/reduction/functions/minimum.hpp>
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/sdk/meta/make_dependent.hpp>
 #include <boost/simd/include/functions/simd/min.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/sdk/meta/make_dependent.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
