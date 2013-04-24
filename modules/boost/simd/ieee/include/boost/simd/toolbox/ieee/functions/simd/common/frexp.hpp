@@ -8,19 +8,24 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_FREXP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_FREXP_HPP_INCLUDED
+
 #include <boost/simd/toolbox/ieee/functions/frexp.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/functions/simd/bitwise_and.hpp>
+#include <boost/simd/include/functions/simd/bitwise_or.hpp>
+#include <boost/simd/include/functions/simd/bitwise_notand.hpp>
 #include <boost/simd/include/functions/simd/logical_notand.hpp>
 #include <boost/simd/include/functions/simd/shri.hpp>
 #include <boost/simd/include/functions/simd/is_greater.hpp>
 #include <boost/simd/include/functions/simd/seladd.hpp>
 #include <boost/simd/include/functions/simd/is_nez.hpp>
+#include <boost/simd/include/functions/simd/if_else_zero.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
+#include <boost/simd/include/functions/simd/splat.hpp>
 #include <boost/simd/include/constants/maxexponent.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/fusion/include/vector.hpp>
 #include <boost/type_traits/is_same.hpp>
 
 namespace boost { namespace simd { namespace ext
