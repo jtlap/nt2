@@ -109,9 +109,9 @@ namespace nt2 { namespace ext
           BOOST_AUTO_TPL(p, nt2::cons(k, k+1));
           tie(g,r1(p, k)) = nt2::planerot(r1(p,k));
           if (k < n)
-           {
-             r1(p,nt2::_(k+1, n)) = nt2::mtimes(g,r1(p,nt2::_(k+1, n)));
-           }
+          {
+            r1(p,nt2::_(k+1, n)) = nt2::mtimes(g,r1(p,nt2::_(k+1, n)));
+          }
           q1(nt2::_,p) = nt2::mtimes(q1(nt2::_,p), nt2::ct(g));
          }
         // if q is not square, q is from economy size qr(a,0).
@@ -133,7 +133,7 @@ namespace nt2 { namespace ext
           BOOST_AUTO_TPL(p, nt2::cath(nt2::cath(j, nt2::_(size_t(1), j-1)), nt2::_(j+1, m)));
           q1 = q(p,nt2::_);
         }
-        table<value_t, _1D> fqrt =  nt2::colvect(q1(1,nt2::_));
+        table<value_t, _1D> fqrt = nt2::colvect(q1(1,nt2::_));
         //  fqrt is the transpose of the first row of q.
         //  fqrt = [x         [1
         //          -          -

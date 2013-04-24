@@ -8,17 +8,16 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BESSEL_FUNCTIONS_SCALAR_J0_HPP_INCLUDED
 #define NT2_TOOLBOX_BESSEL_FUNCTIONS_SCALAR_J0_HPP_INCLUDED
-#include <nt2/toolbox/bessel/functions/j0.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/digits.hpp>
 
+#include <nt2/toolbox/bessel/functions/j0.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/oneminus.hpp>
 #include <nt2/include/functions/scalar/sqr.hpp>
 #include <nt2/include/functions/scalar/sqrt.hpp>
 #include <nt2/include/functions/scalar/cos.hpp>
 #include <nt2/include/functions/scalar/is_inf.hpp>
-
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <boost/simd/sdk/math.hpp>
 
 
@@ -68,7 +67,6 @@ namespace nt2 { namespace ext
   };
 } }
 
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is float
 /////////////////////////////////////////////////////////////////////////////
@@ -87,19 +85,19 @@ namespace nt2 { namespace ext
       typedef typename meta::scalar_of<A0>::type stype;
       if (is_inf(a0)) return Zero<A0>();
       A0 x = nt2::abs(a0);
-      //      if (x < 1.0e-3f) return oneminus(Quarter<A0>()*sqr(x));
+      // if (x < 1.0e-3f) return oneminus(Quarter<A0>()*sqr(x));
       if (x <= Two<A0>())
-        {
-          A0 z = sqr(x);
-          return (z-single_constant<float,0x40b90fdc> ())*
-            horner< NT2_HORNER_COEFF_T(stype, 5,
-                   (0xb382511c,
-              0x36d660a0,
-              0xb9d01fb1,
-              0x3c5a6271,
-              0xbe3110a6
-              ) ) > (z);
-        }
+      {
+        A0 z = sqr(x);
+        return (z-single_constant<float,0x40b90fdc> ())*
+               horner< NT2_HORNER_COEFF_T(stype, 5,
+                      (0xb382511c,
+                       0x36d660a0,
+                       0xb9d01fb1,
+                       0x3c5a6271,
+                       0xbe3110a6
+                      ) ) > (z);
+      }
       A0 q = rec(x);
       const A0 p3 = nt2::sqrt(q) *
         horner< NT2_HORNER_COEFF_T(stype, 8,

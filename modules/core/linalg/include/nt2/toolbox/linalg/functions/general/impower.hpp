@@ -38,9 +38,9 @@
 namespace nt2{ namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::impower_, tag::cpu_
-                              , (A0)(N0)(A1)(N1)
-                              , ((node_<A0, nt2::tag::impower_, N0, nt2::container::domain>))
-                                ((node_<A1, nt2::tag::tie_ , N1, nt2::container::domain>))
+                            , (A0)(N0)(A1)(N1)
+                            , ((node_<A0, nt2::tag::impower_, N0, nt2::container::domain>))
+                              ((node_<A1, nt2::tag::tie_ , N1, nt2::container::domain>))
                             )
   {
     typedef void                                                    result_type;
@@ -58,36 +58,36 @@ namespace nt2{ namespace ext
       value_type n = value_type(nn);
       BOOST_ASSERT_MSG(is_flint(n), "impower requires the second argument to be int or flint");
       if(nt2::isscalar(a))
-        {
-          r = nt2::pow(a, n);
-          return;
-        }
+      {
+        r = nt2::pow(a, n);
+        return;
+      }
       bool is_ltz_n = is_ltz(n);
       if(is_ltz_n) n = -n;
       value_type m = nt2::round(n); //MAYBE UNECESSARY
       r_type q, t;
       // nt2::tie(q, t) = schur(a0,'N'/*"complex"*/); // t is complex schur form.
       if (false && nt2::isdiagonal(t))
-        {
-          t = nt2::from_diag(nt2::pow(diag_of(t), m));
-          if(is_ltz_n) t = nt2::inv(t);
-          r = nt2::mtimes(q, nt2::mtimes(t, nt2::trans(nt2::conj(q))));
-        }
+      {
+        t = nt2::from_diag(nt2::pow(diag_of(t), m));
+        if(is_ltz_n) t = nt2::inv(t);
+        r = nt2::mtimes(q, nt2::mtimes(t, nt2::trans(nt2::conj(q))));
+      }
       else
-        { //use iterative method
-          r = nt2::eye(nt2::size(a0), meta::as_<value_type>());
-          r_type a00 = a;
-          while (m >=  nt2::One<value_type>())
-            {
-              if (nt2::is_odd(m))
-                {
-                  r = nt2::mtimes(a00, r);
-                }
-              a00 =  nt2::mtimes(a00, a00);
-              m =  nt2::trunc(m/2); //Half<value_type>(); or >> 1
-            }
-          if(is_ltz_n) r = nt2::inv(r);
+      { //use iterative method
+        r = nt2::eye(nt2::size(a0), meta::as_<value_type>());
+        r_type a00 = a;
+        while (m >=  nt2::One<value_type>())
+        {
+          if (nt2::is_odd(m))
+          {
+            r = nt2::mtimes(a00, r);
+          }
+          a00 =  nt2::mtimes(a00, a00);
+          m =  nt2::trunc(m/2); //Half<value_type>(); or >> 1
         }
+        if(is_ltz_n) r = nt2::inv(r);
+      }
     }
   };
 

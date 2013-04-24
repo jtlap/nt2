@@ -33,8 +33,8 @@ namespace nt2 { namespace ext
   // pair as inputs
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sort_, tag::cpu_
-                              , (A0)(N0)(A1)(N1)
-                              , ((node_<A0, nt2::tag::sort_, N0, nt2::container::domain>))
+                            , (A0)(N0)(A1)(N1)
+                            , ((node_<A0, nt2::tag::sort_, N0, nt2::container::domain>))
                               ((node_<A1, nt2::tag::tie_ , N1, nt2::container::domain>))
                             )
   {
@@ -46,6 +46,7 @@ namespace nt2 { namespace ext
     typedef container::table<value_type,index_type>                       res_t;
     typedef typename st_child0::extent_type                               ext_t;
     typedef typename meta::call<nt2::tag::ind2sub_(ext_t,size_t)>::type   sub_t;
+
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
       // Copy data in output first
@@ -69,7 +70,6 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE void
     choice(A0 const & a0, bool& up, size_t & dim, boost::mpl::long_<2> const &) const
     {
-
       check(boost::proto::value(boost::proto::child_c<1>(a0)), up, dim);
     }
 
@@ -77,8 +77,8 @@ namespace nt2 { namespace ext
     choice(A0 const & a0, bool& up, size_t & dim, boost::mpl::long_<3> const &) const
     {
       const char mode = boost::proto::value(boost::proto::child_c<2>(a0));
-//       BOOST_ASSERT_MSG( std::strcmp("descend", mode) == 0 || std::strcmp("ascend", mode) == 0,
-//                         "sorting direction must be 'ascend' or 'descend'");
+//     BOOST_ASSERT_MSG( std::strcmp("descend", mode) == 0 || std::strcmp("ascend", mode) == 0,
+//                       "sorting direction must be 'ascend' or 'descend'");
       up = mode == 'a';
       dim = boost::proto::value(boost::proto::child_c<1>(a0));
     }
@@ -104,29 +104,29 @@ namespace nt2 { namespace ext
       }
     }
 
-//     BOOST_FORCEINLINE void
-//     check(const char * mode, bool& up, size_t & dim) const
-//     {
-// //       BOOST_ASSERT_MSG( std::strcmp("descend", mode) == 0 || std::strcmp("ascend", mode) == 0,
-// //                         "sorting direction must be 'ascend' or 'descend'");
-//       std::cout << "check char *" << mode << std::endl;
-//       up = mode[0] == 'a';
-//       dim = 1;
-//     }
+//  BOOST_FORCEINLINE void
+//  check(const char * mode, bool& up, size_t & dim) const
+//  {
+// // BOOST_ASSERT_MSG( std::strcmp("descend", mode) == 0 || std::strcmp("ascend", mode) == 0,
+// //                   "sorting direction must be 'ascend' or 'descend'");
+//    std::cout << "check char *" << mode << std::endl;
+//    up = mode[0] == 'a';
+//    dim = 1;
+//  }
 
-//     BOOST_FORCEINLINE  void
-//     check(const size_t d, bool& up, size_t & dim) const
-//     {
-//       std::cout << "check size_t " << d << std::endl;
-//       up = true;
-//       dim = d;
-//     }
+//  BOOST_FORCEINLINE  void
+//  check(const size_t d, bool& up, size_t & dim) const
+//  {
+//    std::cout << "check size_t " << d << std::endl;
+//    up = true;
+//    dim = d;
+//  }
 
     //==============================================================================================
     // computing the sorted array
     //==============================================================================================
     BOOST_FORCEINLINE
-      void compute(A0 const&a0, A1 & a1, bool, size_t, boost::mpl::long_<1> const&, boost::mpl::long_<1> const&, boost::mpl::false_ const &) const
+    void compute(A0 const&a0, A1 & a1, bool, size_t, boost::mpl::long_<1> const&, boost::mpl::long_<1> const&, boost::mpl::false_ const &) const
     {
       // no options  -> up =  true,  dim = 1;
       boost::proto::child_c<0>(a1) = boost::proto::child_c<0>(a0);
@@ -191,38 +191,38 @@ namespace nt2 { namespace ext
     static bool sort_up (value_type i,value_type j) { return (i<j); }
     static bool sort_dn (value_type i,value_type j) { return (i>j); }
     template <class T> BOOST_FORCEINLINE
-      void dosort(T & res,  bool up = true, size_t dim = 1) const
+    void dosort(T & res,  bool up = true, size_t dim = 1) const
     {
       size_t h = nt2::size(res, dim);
       if (h <= 1) return;
       size_t nbslice =  numel(res)/h;
-//       if (dim == 1)
-//         {
-//           value_type* beg = res.raw();
-//           value_type* fin = beg+h;
-//           for(size_t i=0; i < nbslice; ++i)
-//             {
-//               std::sort(beg, fin, up?&sort_up:&sort_dn);
-//               beg = fin; fin+= h;
-//             }
-//         }
-//       else
-//         {
-          size_t stride = linesstride(res, dim);
-          size_t decal =  stride*(size(res, dim)-1);
-          size_t p = 0;
-          value_type* beg = res.raw();
-          for(size_t i=0; i < nbslice; ++i)
-            {
-              sub_t pos = ind2sub(res.extent(), p);
-              if (pos[dim-1]!= 1)
-                {
-                  p+= decal;
-                }
-              tri(beg+p, stride, h, up?&sort_up:&sort_dn);
-              ++p;
-            }
-//         }
+//    if (dim == 1)
+//    {
+//      value_type* beg = res.raw();
+//      value_type* fin = beg+h;
+//      for(size_t i=0; i < nbslice; ++i)
+//      {
+//        std::sort(beg, fin, up?&sort_up:&sort_dn);
+//        beg = fin; fin+= h;
+//      }
+//    }
+//    else
+//    {
+        size_t stride = linesstride(res, dim);
+        size_t decal =  stride*(size(res, dim)-1);
+        size_t p = 0;
+        value_type* beg = res.raw();
+        for(size_t i=0; i < nbslice; ++i)
+        {
+          sub_t pos = ind2sub(res.extent(), p);
+          if (pos[dim-1]!= 1)
+          {
+            p+= decal;
+          }
+          tri(beg+p, stride, h, up?&sort_up:&sort_dn);
+          ++p;
+        }
+//    }
     }
     template <class T, class iT> BOOST_FORCEINLINE
       void doindsort(T & res,  iT & idx, bool up = true, size_t dim = 1) const
@@ -243,19 +243,19 @@ namespace nt2 { namespace ext
       value_type* beg = res.raw();
       i_type* bep = idx.raw();
       for(size_t i=0; i < nbslice; ++i)
+      {
+        sub_t pos = ind2sub(res.extent(), p);
+        if (pos[dim-1]!= 1)
         {
-          sub_t pos = ind2sub(res.extent(), p);
-          if (pos[dim-1]!= 1)
-            {
-              p+= decal;
-            }
-          indtri(beg+p, bep+p, stride, h, up?&sort_up:&sort_dn);
-          ++p;
+          p+= decal;
         }
+        indtri(beg+p, bep+p, stride, h, up?&sort_up:&sort_dn);
+        ++p;
+      }
     }
 
     template <class T, class iT> BOOST_FORCEINLINE
-      void doindsort2(T & res,  iT & idx, bool up = true, size_t dim = 1) const
+    void doindsort2(T & res,  iT & idx, bool up = true, size_t dim = 1) const
     {
       typedef typename iT::value_type                           i_type;
       typedef typename boost::mpl::at_c< typename T::index_type::type, 0>::type  ind_type;
@@ -273,158 +273,157 @@ namespace nt2 { namespace ext
       value_type* beg = res.raw();
       i_type* bep = idx.raw();
       for(size_t i=0; i < nbslice; ++i)
+      {
+        sub_t pos = ind2sub(res.extent(), p);
+        if (pos[dim-1]!= 1)
         {
-          sub_t pos = ind2sub(res.extent(), p);
-          if (pos[dim-1]!= 1)
-            {
-              p+= decal;
-            }
-          indtri2(beg+p, bep+p, stride, h, up?&sort_up:&sort_dn);
-          ++p;
+          p+= decal;
         }
+        indtri2(beg+p, bep+p, stride, h, up?&sort_up:&sort_dn);
+        ++p;
+      }
       idx = idx+ind_type::value;
     }
 
     // This is a classical heap sort with a constant stride between
     // elements to be sorted
     template < class T, class S> static void
-      heap(T * data, const size_t stride, const size_t N, size_t k, const S& comp)
+    heap(T * data, const size_t stride, const size_t N, size_t k, const S& comp)
+    {
+      T v = data[k*stride];
+      while (k <= N >> 1)
       {
-        T v = data[k*stride];
-        while (k <= N >> 1)
-          {
-            size_t j = k << 1;
-            if (j < N && comp(data[j*stride], data[(j+1)*stride])) ++j;
-            if (!(comp(v, data[j*stride]))) break; /* avoid infinite loop if nan */
-            data[k*stride] = data[j*stride];
-            k = j;
-          }
-        data[k*stride] = v;
+        size_t j = k << 1;
+        if (j < N && comp(data[j*stride], data[(j+1)*stride])) ++j;
+        if (!(comp(v, data[j*stride]))) break; /* avoid infinite loop if nan */
+        data[k*stride] = data[j*stride];
+        k = j;
       }
+      data[k*stride] = v;
+    }
 
     template < class T, class S > static void
-      tri (T * data, const size_t stride, const size_t n, const S& comp)
+    tri (T * data, const size_t stride, const size_t n, const S& comp)
+    {
+      if (n == 0) return;                   /* No data to sort */
+      /* We have n_data elements, last element is at 'n_data-1', first at
+         '0' Set N to the last element number. */
+      size_t N = n - 1;
+      size_t k = N >> 1;
+      ++k; //Compensate the first use of 'k--'
+      do
       {
-        if (n == 0) return;                   /* No data to sort */
-        /* We have n_data elements, last element is at 'n_data-1', first at
-           '0' Set N to the last element number. */
-        size_t N = n - 1;
-        size_t k = N >> 1;
-        ++k; //Compensate the first use of 'k--'
-        do
-          {
-            --k;
-            heap(data, stride, N, k, comp);
-          } while (k > 0);
+        --k;
+        heap(data, stride, N, k, comp);
+      } while (k > 0);
 
-        while (N > 0)
-          {
-            // first swap the elements
-            std::swap( data[0],data[N*stride]);
-//             T tmp = data[0 * stride];
-//             data[0 * stride] = data[N * stride];
-//             data[N * stride] = tmp;
-            // then process the heap
-            N--;
-            heap(data, stride, N, 0, comp);
-          }
+      while (N > 0)
+      {
+        // first swap the elements
+        std::swap( data[0],data[N*stride]);
+//      T tmp = data[0 * stride];
+//      data[0 * stride] = data[N * stride];
+//      data[N * stride] = tmp;
+        // then process the heap
+        N--;
+        heap(data, stride, N, 0, comp);
       }
+    }
 
     template < class T, class iT, class S> static void
-      indheap(T * data, iT * idx, const size_t stride, const size_t N, size_t k, const S& comp)
+    indheap(T * data, iT * idx, const size_t stride, const size_t N, size_t k, const S& comp)
+    {
+      T v = data[k*stride];
+      iT ind = idx[k*stride];
+      while (k <= N >> 1)
       {
-        T v = data[k*stride];
-        iT ind = idx[k*stride];
-        while (k <= N >> 1)
-          {
-            size_t j = k << 1;
-            if (j < N && comp(data[j*stride], data[(j+1)*stride])) ++j;
-            if (!(comp(v, data[j*stride]))) break; /* avoid infinite loop if nan */
-            data[k*stride] = data[j*stride];
-            idx[k*stride] = idx[j*stride];
-            k = j;
-          }
-        data[k*stride] = v;
-        idx[k*stride] = ind;
+        size_t j = k << 1;
+        if (j < N && comp(data[j*stride], data[(j+1)*stride])) ++j;
+        if (!(comp(v, data[j*stride]))) break; /* avoid infinite loop if nan */
+        data[k*stride] = data[j*stride];
+        idx[k*stride] = idx[j*stride];
+        k = j;
       }
+      data[k*stride] = v;
+      idx[k*stride] = ind;
+    }
 
     template < class T, class iT, class S > static void
-      indtri (T * data, iT* idx, const size_t stride, const size_t n, const S& comp)
+    indtri (T * data, iT* idx, const size_t stride, const size_t n, const S& comp)
+    {
+      if (n == 0) return;                   /* No data to sort */
+      /* We have n_data elements, last element is at 'n_data-1', first at
+         '0' Set N to the last element number. */
+      size_t N = n - 1;
+      size_t k = N >> 1;
+      ++k; //Compensate the first use of '--k'
+      do
       {
-        if (n == 0) return;                   /* No data to sort */
-        /* We have n_data elements, last element is at 'n_data-1', first at
-           '0' Set N to the last element number. */
-        size_t N = n - 1;
-        size_t k = N >> 1;
-        ++k; //Compensate the first use of '--k'
-        do
-          {
-            --k;
-            indheap(data, idx, stride, N, k, comp);
-          } while (k > 0);
+        --k;
+        indheap(data, idx, stride, N, k, comp);
+      } while (k > 0);
 
-        while (N > 0)
-          {
-            // first swap the elements
-            std::swap( data[0],data[N*stride]);
-            std::swap( idx[0],  idx[N*stride]);
-//             T tmp = data[0 * stride];
-//             data[0 * stride] = data[N * stride];
-//             data[N * stride] = tmp;
-//             iT itmp = idx[0 * stride];
-//             idx[0 * stride] = idx[N * stride];
-//             idx[N * stride] = itmp;
-            // then process the heap
-            N--;
-            indheap(data, idx, stride, N, 0, comp);
-          }
+      while (N > 0)
+      {
+        // first swap the elements
+        std::swap( data[0],data[N*stride]);
+        std::swap( idx[0],  idx[N*stride]);
+//      T tmp = data[0 * stride];
+//      data[0 * stride] = data[N * stride];
+//      data[N * stride] = tmp;
+//      iT itmp = idx[0 * stride];
+//      idx[0 * stride] = idx[N * stride];
+//      idx[N * stride] = itmp;
+        // then process the heap
+        N--;
+        indheap(data, idx, stride, N, 0, comp);
       }
-
+    }
 
     // This is a classical heap indsort with a constant stride between
     // elements to be indsorted
     template < class T, class iT, class S> static void
-      indheap2(const T * data, iT * idx, const size_t stride, const size_t N, size_t k, const S& comp)
+    indheap2(const T * data, iT * idx, const size_t stride, const size_t N, size_t k, const S& comp)
+    {
+      const iT idki = idx[k*stride];
+      while (k <= N >> 1)
       {
-        const iT idki = idx[k*stride];
-        while (k <= N >> 1)
-          {
-            size_t j = k << 1;
-            if (j < N && comp(data[idx[j*stride]], data[idx[(j+1)*stride]])) ++j;
-            if (!(comp(data[idki], data[idx[j*stride]]))) break; /* avoid infinite loop if nan */
-            idx[k*stride] = idx[j*stride];
-            k = j;
-          }
-        idx[k*stride] = idki;
+        size_t j = k << 1;
+        if (j < N && comp(data[idx[j*stride]], data[idx[(j+1)*stride]])) ++j;
+        if (!(comp(data[idki], data[idx[j*stride]]))) break; /* avoid infinite loop if nan */
+        idx[k*stride] = idx[j*stride];
+        k = j;
       }
+      idx[k*stride] = idki;
+    }
 
     template < class T, class iT, class S > static void
-      indtri2 (T * data, iT* idx, const size_t stride, const size_t n, const S& comp)
+    indtri2 (T * data, iT* idx, const size_t stride, const size_t n, const S& comp)
+    {
+      if (n == 0) return;                   /* No data to indsort */
+      /* We have n_data elements, last element is at 'n_data-1', first at
+         '0' Set N to the last element number. */
+      size_t N = n - 1;
+      size_t k = N >> 1;
+      ++k; //Compensate the first use of '--k'
+      do
       {
-        if (n == 0) return;                   /* No data to indsort */
-        /* We have n_data elements, last element is at 'n_data-1', first at
-           '0' Set N to the last element number. */
-        size_t N = n - 1;
-        size_t k = N >> 1;
-        ++k; //Compensate the first use of '--k'
-        do
-          {
-            --k;
-            indheap2(data, idx, stride, N, k, comp);
-          } while (k > 0);
+        --k;
+        indheap2(data, idx, stride, N, k, comp);
+      } while (k > 0);
 
-        while (N > 0)
-          {
-            // first swap the elements
-            std::swap(idx[0],idx[N*stride]);
-//             iT itmp = idx[0 * stride];
-//             idx[0 * stride] = idx[N * stride];
-//             idx[N * stride] = itmp;
-            // then process the heap
-            N--;
-            indheap2(data, idx, stride, N, 0, comp);
-          }
+      while (N > 0)
+      {
+        // first swap the elements
+        std::swap(idx[0],idx[N*stride]);
+//      iT itmp = idx[0 * stride];
+//      idx[0 * stride] = idx[N * stride];
+//      idx[N * stride] = itmp;
+        // then process the heap
+        N--;
+        indheap2(data, idx, stride, N, 0, comp);
       }
+    }
   };
 } }
 
