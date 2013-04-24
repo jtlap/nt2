@@ -8,8 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_MAX_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_MAX_HPP_INCLUDED
+
 #include <boost/simd/toolbox/arithmetic/functions/max.hpp>
-#include <boost/simd/include/functions/scalar/is_nan.hpp>
+#include <boost/simd/include/functions/scalar/is_unord.hpp>
 #include <boost/simd/include/constants/nan.hpp>
 #include <boost/mpl/max.hpp>
 
@@ -17,8 +18,8 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::max_, tag::cpu_
                                     , (A0)
-                                    , (scalar_< arithmetic_<A0> >)
-                                      (scalar_< arithmetic_<A0> >)
+                                    , (scalar_< integer_<A0> >)
+                                      (scalar_< integer_<A0> >)
                                     )
   {
     typedef A0 result_type;
@@ -77,7 +78,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      if (is_nan(a0) || is_nan(a1)) return Nan<result_type>();
+      if (is_unord(a0, a1)) return Nan<result_type>();
       return (a0 > a1) ? a0 : a1;
     }
   };
