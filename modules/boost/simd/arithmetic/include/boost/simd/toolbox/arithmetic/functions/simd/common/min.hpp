@@ -10,9 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_MIN_HPP_INCLUDED
 
 #include <boost/simd/toolbox/arithmetic/functions/min.hpp>
-#include <boost/simd/include/functions/simd/seladd.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/is_greater.hpp>
-#include <boost/simd/include/functions/simd/minus.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -24,7 +23,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-       return seladd(gt(a0,a1),a0,a1-a0);
+      return if_else(gt(a0,a1),a1,a0);
     }
   };
 } } }
