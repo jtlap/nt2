@@ -170,7 +170,7 @@ namespace nt2 { namespace ext
       nt2_la_int  n  = nt2::width(a0);
       nt2_la_int  ld = a0.leading_size();
 
-      // How many memory do I need ?
+      // How much memory do I need ?
       NT2_F77NAME(sgetri) ( &n, a0.raw(), &ld
                           , a1.raw(), w.main(), details::query()
                           , &that
