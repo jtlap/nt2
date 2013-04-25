@@ -18,6 +18,7 @@
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -25,7 +26,7 @@ namespace nt2 { namespace ext
                             , (generic_< complex_< arithmetic_<A0> > >)
                             )
   {
-    typedef std::ptrdiff_t result_type;
+    typedef typename nt2::meta::as_integer<typename meta::scalar_of<A0>::type, signed>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_real<A0>::type rtype;
@@ -48,7 +49,7 @@ namespace nt2 { namespace ext
                             , (generic_< imaginary_< arithmetic_<A0> > >)
                             )
   {
-    typedef std::ptrdiff_t result_type;
+    typedef typename nt2::meta::as_integer<typename meta::scalar_of<A0>::type, signed>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       return nt2::posmax(nt2::abs(a0));
@@ -59,7 +60,7 @@ namespace nt2 { namespace ext
                               , (generic_< dry_< arithmetic_<A0> > >)
     )
   {
-    typedef std::ptrdiff_t result_type;
+    typedef typename nt2::meta::as_integer<typename meta::scalar_of<A0>::type, signed>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       return nt2::posmax(nt2::abs(a0));
