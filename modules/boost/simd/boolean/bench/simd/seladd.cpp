@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of boost.simd.bitwise components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/toolbox/boolean/include/functions/seladd.hpp>
+#include <boost/simd/boolean/include/functions/seladd.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>

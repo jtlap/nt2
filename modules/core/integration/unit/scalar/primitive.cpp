@@ -9,10 +9,10 @@
 #define NT2_UNIT_MODULE "nt2 integration toolbox - primitive"
 
 #include <iostream>
-#include <nt2/toolbox/integration/primitive.hpp>
+#include <nt2/integration/primitive.hpp>
 #include <nt2/include/functions/quad.hpp>
-#include <nt2/toolbox/integration/output.hpp>
-#include <nt2/toolbox/integration/options.hpp>
+#include <nt2/integration/output.hpp>
+#include <nt2/integration/options.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/fusion/tuple.hpp>

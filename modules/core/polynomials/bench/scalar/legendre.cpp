@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of polynomials components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/polynomials/include/functions/legendre.hpp>
+#include <nt2/polynomials/include/functions/legendre.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

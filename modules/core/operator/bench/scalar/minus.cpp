@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/operator/include/functions/minus.hpp>
+#include <nt2/operator/include/functions/minus.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <nt2/include/constants/valmax.hpp>

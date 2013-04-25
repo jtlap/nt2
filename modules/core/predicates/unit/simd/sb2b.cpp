@@ -13,13 +13,13 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
 ///
-#include <nt2/toolbox/predicates/include/functions/sb2b.hpp>
+#include <nt2/predicates/include/functions/sb2b.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 
 NT2_TEST_CASE_TPL ( sb2b_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {

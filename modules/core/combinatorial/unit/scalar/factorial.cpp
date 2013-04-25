@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 07/03/2011
 ///
-#include <nt2/toolbox/combinatorial/include/functions/factorial.hpp>
+#include <nt2/combinatorial/include/functions/factorial.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/saturate.hpp>
 
@@ -30,7 +30,7 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( factorial_real__1_0,  NT2_REAL_TYPES)

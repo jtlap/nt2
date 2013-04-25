@@ -14,7 +14,7 @@
 #include <nt2/core/container/dsl/grammar.hpp>
 #include <nt2/core/container/table/table_view.hpp>
 #include <nt2/dsl/functions/run.hpp>
-#include <nt2/toolbox/operator/functions/assign.hpp>
+#include <nt2/operator/functions/assign.hpp>
 #include <nt2/sdk/memory/container_ref.hpp>
 #include <nt2/sdk/memory/container_shared_ref.hpp>
 #include <boost/proto/domain.hpp>

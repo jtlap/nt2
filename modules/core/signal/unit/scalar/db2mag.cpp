@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 06/03/2011
 ///
-#include <nt2/toolbox/signal/include/functions/db2mag.hpp>
+#include <nt2/signal/include/functions/db2mag.hpp>
 #include <nt2/include/functions/exp10.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>

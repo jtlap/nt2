@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
 ///
-#include <nt2/toolbox/arithmetic/include/functions/iround.hpp>
+#include <nt2/arithmetic/include/functions/iround.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/round.hpp>
 
@@ -30,7 +30,7 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
 

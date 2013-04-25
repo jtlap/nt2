@@ -13,10 +13,10 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
 ///
-#include <nt2/toolbox/trigonometric/include/functions/rem_pio2.hpp>
+#include <nt2/trigonometric/include/functions/rem_pio2.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/toolbox/trigonometric/constants.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/trigonometric/constants.hpp>
+#include <nt2/constant/constant.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>

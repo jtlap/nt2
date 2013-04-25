@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/toolbox/trigonometric/include/functions/sinecosine.hpp>
+#include <nt2/trigonometric/include/functions/sinecosine.hpp>
 
 #include <nt2/include/constants/pio2_3.hpp>
 #include <nt2/include/constants/pi.hpp>
@@ -24,7 +24,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
-//#include <nt2/toolbox/trigonometric/functions/scalar/impl/trigo/selection_tags.hpp>
+//#include <nt2/trigonometric/functions/scalar/impl/trigo/selection_tags.hpp>
 
 NT2_TEST_CASE_TPL ( sinecosine_real__1_0,  NT2_REAL_TYPES)
 {

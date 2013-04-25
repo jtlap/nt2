@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
 ///
-#include <boost/simd/toolbox/ieee/include/functions/fast_ldexp.hpp>
+#include <boost/simd/ieee/include/functions/fast_ldexp.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/two.hpp>

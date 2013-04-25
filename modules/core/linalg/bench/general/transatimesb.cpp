@@ -11,7 +11,7 @@
 
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/of_size.hpp>
-#include <nt2/toolbox/operator/operator.hpp>
+#include <nt2/operator/operator.hpp>
 #include <nt2/include/functions/function.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/transpose.hpp>
@@ -23,7 +23,7 @@
 #include <nt2/sdk/unit/details/helpers.hpp>
 #include <nt2/sdk/bench/perform_benchmark.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/toolbox/linalg/details/blas/mm.hpp>
+#include <nt2/linalg/details/blas/mm.hpp>
 
 template<class T> struct mtimes_test : nt2::details::base_experiment
 {

@@ -10,7 +10,7 @@
 #define NT2_CORE_FUNCTIONS_EXPR_FUNCTION_HPP_INCLUDED
 
 #include <nt2/core/functions/function.hpp>
-#include <nt2/toolbox/operator/functions/assign.hpp>
+#include <nt2/operator/functions/assign.hpp>
 #include <nt2/include/functions/function_index.hpp>
 #include <nt2/include/functions/erase.hpp>
 #include <nt2/include/functions/aggregate.hpp>

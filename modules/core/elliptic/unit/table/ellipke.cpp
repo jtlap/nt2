@@ -7,8 +7,8 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <nt2/table.hpp>
-#include <nt2/toolbox/elliptic/include/functions/scalar/ellipke.hpp>
-#include <nt2/toolbox/elliptic/include/functions/simd/ellipke.hpp>
+#include <nt2/elliptic/include/functions/scalar/ellipke.hpp>
+#include <nt2/elliptic/include/functions/simd/ellipke.hpp>
 #include <nt2/include/functions/ellipke.hpp>
 #include <nt2/include/functions/sin.hpp>
 #include <nt2/include/functions/cos.hpp>

@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
 ///
-#include <nt2/toolbox/arithmetic/include/functions/idivceil.hpp>
+#include <nt2/arithmetic/include/functions/idivceil.hpp>
 #include <nt2/include/functions/ceil.hpp>
 #include <nt2/include/functions/toint.hpp>
 
@@ -30,7 +30,7 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 
 #ifdef BOOST_MSVC
 #pragma warning(disable: 4723) // potential divide by 0

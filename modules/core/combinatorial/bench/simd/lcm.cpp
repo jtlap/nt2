@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of combinatorial components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/combinatorial/include/functions/lcm.hpp>
+#include <nt2/combinatorial/include/functions/lcm.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>

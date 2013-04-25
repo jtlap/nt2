@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 28/11/2010
 ///
-#include <nt2/toolbox/arithmetic/include/functions/dist.hpp>
+#include <nt2/arithmetic/include/functions/dist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/subs.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -29,7 +29,7 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( dist_real__2_0,  NT2_REAL_TYPES)

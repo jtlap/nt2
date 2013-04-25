@@ -14,7 +14,7 @@
 /// created by jt the 04/12/2010
 ///
 
-#include <nt2/toolbox/ieee/include/functions/ldexp.hpp>
+#include <nt2/ieee/include/functions/ldexp.hpp>
 #include <nt2/sdk/complex/meta/as_imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

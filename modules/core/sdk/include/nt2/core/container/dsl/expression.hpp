@@ -20,7 +20,7 @@
 #include <nt2/sdk/meta/is_scalar.hpp>
 #include <nt2/core/functions/function.hpp>
 #include <nt2/core/functions/extent.hpp>
-#include <nt2/toolbox/operator/functions/assign.hpp>
+#include <nt2/operator/functions/assign.hpp>
 #include <nt2/include/functions/evaluate.hpp>
 #include <nt2/include/functions/scalar/numel.hpp>
 #include <nt2/core/utility/fix_index.hpp>

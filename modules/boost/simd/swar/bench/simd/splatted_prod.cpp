@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of boost.simd.swar components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/toolbox/swar/include/functions/splatted_prod.hpp>
+#include <boost/simd/swar/include/functions/splatted_prod.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>

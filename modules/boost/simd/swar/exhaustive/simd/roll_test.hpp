@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_UNIT_ROLL_TEST_HPP_INCLUDED
 #define BOOST_SIMD_UNIT_ROLL_TEST_HPP_INCLUDED
 
-#include <boost/simd/toolbox/swar/include/functions/shuffle.hpp>
+#include <boost/simd/swar/include/functions/shuffle.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 
 //==============================================================================

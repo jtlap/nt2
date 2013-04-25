@@ -20,7 +20,7 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 #include <nt2/table.hpp>
 
 NT2_TEST_CASE_TPL ( normcdf_1,  (float)(double))//NT2_REAL_TYPES)

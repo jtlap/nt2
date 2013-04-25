@@ -10,7 +10,7 @@
 
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/of_size.hpp>
-#include <nt2/toolbox/operator/operator.hpp>
+#include <nt2/operator/operator.hpp>
 #include <nt2/include/functions/function.hpp>
 #include <nt2/include/functions/sum.hpp>
 

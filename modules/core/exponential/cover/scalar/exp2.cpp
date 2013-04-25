@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
 ///
-#include <nt2/toolbox/exponential/include/functions/exp2.hpp>
+#include <nt2/exponential/include/functions/exp2.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/exp2.hpp>
 #include <nt2/include/functions/log2.hpp>
@@ -33,7 +33,7 @@ extern "C" { long double cephes_exp2l(long double); }
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( exp2_real__1_0,  NT2_REAL_TYPES)

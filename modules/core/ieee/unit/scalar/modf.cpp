@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/toolbox/ieee/include/functions/modf.hpp>
+#include <nt2/ieee/include/functions/modf.hpp>
 #include <nt2/include/functions/trunc.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <boost/fusion/include/vector_tie.hpp>

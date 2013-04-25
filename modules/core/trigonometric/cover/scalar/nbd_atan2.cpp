@@ -13,11 +13,11 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
 ///
-#include <nt2/toolbox/trigonometric/include/functions/nbd_atan2.hpp>
+#include <nt2/trigonometric/include/functions/nbd_atan2.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/trigonometric/constants.hpp>
+#include <nt2/trigonometric/constants.hpp>
 
-//#include <nt2/toolbox/libc/include/functions/atan2.hpp>
+//#include <nt2/libc/include/functions/atan2.hpp>
 extern "C" {extern long double cephes_atanl(long double);}
 
 #include <boost/type_traits/is_same.hpp>
@@ -33,7 +33,7 @@ extern "C" {extern long double cephes_atanl(long double);}
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( nbd_atan2_real__2_0,  NT2_REAL_TYPES)

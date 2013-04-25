@@ -9,13 +9,13 @@
 //////////////////////////////////////////////////////////////////////////////
 // exhaustive cover behavior for float values
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/trigonometric/include/asin.hpp>
+#include <nt2/trigonometric/include/asin.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/toolbox/ieee/include/successor.hpp>
-#include <nt2/toolbox/ieee/include/ulpdist.hpp>
-#include <nt2/toolbox/operator/include/splat.hpp>
+#include <nt2/ieee/include/successor.hpp>
+#include <nt2/ieee/include/ulpdist.hpp>
+#include <nt2/operator/include/splat.hpp>
 #include <nt2/include/functions/iround.hpp>
-#include <nt2/toolbox/crlibm/include/asin_rn.hpp>
+#include <nt2/crlibm/include/asin_rn.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <iostream>
 

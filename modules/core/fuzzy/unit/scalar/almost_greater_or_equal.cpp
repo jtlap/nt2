@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 04/03/2011
 ///
-#include <nt2/toolbox/fuzzy/include/functions/almost_greater_or_equal.hpp>
+#include <nt2/fuzzy/include/functions/almost_greater_or_equal.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 
 #include <boost/type_traits/is_same.hpp>
@@ -29,7 +29,7 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( almost_greater_or_equal_real__3_0,  NT2_REAL_TYPES)

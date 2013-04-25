@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of hyperbolic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/hyperbolic/include/functions/cosh.hpp>
+#include <nt2/hyperbolic/include/functions/cosh.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>

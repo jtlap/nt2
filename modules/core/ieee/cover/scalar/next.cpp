@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
 ///
-#include <nt2/toolbox/ieee/include/functions/next.hpp>
+#include <nt2/ieee/include/functions/next.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/successor.hpp>
 #include <nt2/include/constants/eps_related.hpp>
@@ -31,7 +31,7 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( next_real__1_0,  NT2_REAL_TYPES)

@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 28/11/2010
 ///
-#include <nt2/toolbox/arithmetic/include/functions/ceil.hpp>
+#include <nt2/arithmetic/include/functions/ceil.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/include/constants/one.hpp>

@@ -13,14 +13,14 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 30/11/2010
 ///
-#include <nt2/toolbox/arithmetic/include/functions/sqr_abs.hpp>
+#include <nt2/arithmetic/include/functions/sqr_abs.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/constants/i.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( sqr_abs_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)

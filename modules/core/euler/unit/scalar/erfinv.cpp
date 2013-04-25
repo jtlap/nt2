@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 22/02/2011
 ///
-#include <nt2/toolbox/euler/include/functions/erfinv.hpp>
+#include <nt2/euler/include/functions/erfinv.hpp>
 extern "C" {long double cephes_erfinvl(long double);}
 
 #include <boost/type_traits/is_same.hpp>
@@ -29,7 +29,7 @@ extern "C" {long double cephes_erfinvl(long double);}
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/three.hpp>
 #include <nt2/include/constants/four.hpp>

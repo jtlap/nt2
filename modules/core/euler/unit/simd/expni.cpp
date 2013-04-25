@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
 ///
-#include <nt2/toolbox/euler/include/functions/expni.hpp>
+#include <nt2/euler/include/functions/expni.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 extern "C" double cephes_expn(int,double);
 
@@ -30,7 +30,7 @@ extern "C" double cephes_expn(int,double);
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/load.hpp>

@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of euler components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/euler/include/functions/gammainc.hpp>
+#include <nt2/euler/include/functions/gammainc.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>

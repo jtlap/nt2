@@ -12,9 +12,9 @@
 // unit test behavior of arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 ///
-#include <nt2/toolbox/arithmetic/include/functions/tofloat.hpp>
+#include <nt2/arithmetic/include/functions/tofloat.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>

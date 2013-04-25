@@ -490,10 +490,10 @@ macro(nt2_module_install_file header)
 endmacro()
 
 # generate files according to the toolbox layout
-# e.g. all files <x>.hpp in nt2/toolbox/<toolbox>/functions/
-#      get aggregated to nt2/toolbox/<toolbox>/include/functions/<x>.hpp
-# will also do the same for constants, and will generate the file nt2/toolbox/<toolbox>/<toolbox>.hpp
-# nt2/toolbox/<toolbox>/include/functions/scalar/<x>.hpp and nt2/toolbox/<toolbox>/include/functions/simd/<x>.hpp
+# e.g. all files <x>.hpp in nt2/<toolbox>/functions/
+#      get aggregated to nt2/<toolbox>/include/functions/<x>.hpp
+# will also do the same for constants, and will generate the file nt2/<toolbox>/<toolbox>.hpp
+# nt2/<toolbox>/include/functions/scalar/<x>.hpp and nt2/<toolbox>/include/functions/simd/<x>.hpp
 # are also generated to restrict the amount of includes to only those required in scalar and simd respectively.
 #
 # if is_sys is set to 1, files will also be aggregated in nt2/include/functions
@@ -518,18 +518,18 @@ macro(nt2_module_configure_toolbox toolbox is_sys)
     endif()
 
     nt2_module_postconfigure(gather_includes --ignore impl --ignore details --ignore preprocessed
-                                             ${prefix}/toolbox/${toolbox}/${component} ${extra}
-                                             --out ${prefix}/toolbox/${toolbox}/include/${component}
-                                             ${prefix}/toolbox/${toolbox}/include/${component}
-                                             --out ${prefix}/toolbox/${toolbox}/${component}.hpp
+                                             ${prefix}/${toolbox}/${component} ${extra}
+                                             --out ${prefix}/${toolbox}/include/${component}
+                                             ${prefix}/${toolbox}/include/${component}
+                                             --out ${prefix}/${toolbox}/${component}.hpp
                                              ${postfix}
                             )
 
-    list(APPEND reduce ${prefix}/toolbox/${toolbox}/${component}.hpp)
+    list(APPEND reduce ${prefix}/${toolbox}/${component}.hpp)
   endforeach()
 
   nt2_module_postconfigure(gather_includes ${reduce}
-                                           --out ${prefix}/toolbox/${toolbox}/${toolbox}.hpp
+                                           --out ${prefix}/${toolbox}/${toolbox}.hpp
                           )
 
   foreach(component scalar simd)
@@ -545,13 +545,13 @@ macro(nt2_module_configure_toolbox toolbox is_sys)
     endif()
 
     nt2_module_postconfigure(gather_includes --ignore impl --ignore details --ignore preprocessed
-                                             --max 1 ${prefix}/toolbox/${toolbox}/functions
-                                             ${prefix}/toolbox/${toolbox}/functions/generic
-                                             ${prefix}/toolbox/${toolbox}/functions/scalar
-                                             ${prefix}/toolbox/${toolbox}/functions/${component}
+                                             --max 1 ${prefix}/${toolbox}/functions
+                                             ${prefix}/${toolbox}/functions/generic
+                                             ${prefix}/${toolbox}/functions/scalar
+                                             ${prefix}/${toolbox}/functions/${component}
                                              ${extra}
-                                             --out ${prefix}/toolbox/${toolbox}/include/functions/${component}
-                                             ${prefix}/toolbox/${toolbox}/include/functions/${component}
+                                             --out ${prefix}/${toolbox}/include/functions/${component}
+                                             ${prefix}/${toolbox}/include/functions/${component}
                                              ${postfix}
                             )
   endforeach()
@@ -576,18 +576,18 @@ macro(nt2_module_simd_toolbox name)
     list(APPEND INCLUDE_DIRECTORIES ${NT2_${module_U}_ROOT}/include)
   endforeach()
   foreach(dir ${INCLUDE_DIRECTORIES})
-    file(GLOB function_files RELATIVE ${dir}/boost/simd/toolbox/${name}/functions ${dir}/boost/simd/toolbox/${name}/functions/*.hpp)
+    file(GLOB function_files RELATIVE ${dir}/boost/simd/${name}/functions ${dir}/boost/simd/${name}/functions/*.hpp)
     foreach(file ${function_files})
       set(already_there)
       foreach(dir2 ${INCLUDE_DIRECTORIES})
-        if(EXISTS ${dir2}/nt2/toolbox/${name}/functions/${file})
+        if(EXISTS ${dir2}/nt2/${name}/functions/${file})
           set(already_there 1)
         endif()
       endforeach()
       if(NOT already_there)
         string(REGEX REPLACE ".hpp" "" file ${file})
         string(TOUPPER ${file} file_U)
-        file(WRITE ${NT2_BINARY_DIR}/include_tmp/nt2/toolbox/${name}/functions/${file}.hpp
+        file(WRITE ${NT2_BINARY_DIR}/include_tmp/nt2/${name}/functions/${file}.hpp
                    "//==============================================================================\n"
                    "//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II\n"
                    "//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI\n"
@@ -596,10 +596,10 @@ macro(nt2_module_simd_toolbox name)
                    "//                 See accompanying file LICENSE.txt or copy at\n"
                    "//                     http://www.boost.org/LICENSE_1_0.txt\n"
                    "//==============================================================================\n"
-                   "#ifndef NT2_TOOLBOX_${name_U}_FUNCTIONS_${file_U}_HPP_INCLUDED\n"
-                   "#define NT2_TOOLBOX_${name_U}_FUNCTIONS_${file_U}_HPP_INCLUDED\n"
+                   "#ifndef NT2_${name_U}_FUNCTIONS_${file_U}_HPP_INCLUDED\n"
+                   "#define NT2_${name_U}_FUNCTIONS_${file_U}_HPP_INCLUDED\n"
                    "\n"
-                   "#include <boost/simd/toolbox/${name}/include/functions/${file}.hpp>\n"
+                   "#include <boost/simd/${name}/include/functions/${file}.hpp>\n"
                    "#include <nt2/include/functor.hpp>\n"
                    "\n"
                    "namespace nt2\n"
@@ -617,11 +617,11 @@ macro(nt2_module_simd_toolbox name)
       endif()
     endforeach()
 
-    file(GLOB constant_files RELATIVE ${dir}/boost/simd/toolbox/${name}/constants ${dir}/boost/simd/toolbox/${name}/constants/*.hpp)
+    file(GLOB constant_files RELATIVE ${dir}/boost/simd/${name}/constants ${dir}/boost/simd/${name}/constants/*.hpp)
     foreach(file ${constant_files})
     set(already_there)
       foreach(dir2 ${INCLUDE_DIRECTORIES})
-        if(EXISTS ${dir2}/nt2/toolbox/${name}/constants/${file})
+        if(EXISTS ${dir2}/nt2/${name}/constants/${file})
           set(already_there 1)
         endif()
       endforeach()
@@ -633,7 +633,7 @@ macro(nt2_module_simd_toolbox name)
         string(SUBSTRING ${file_U} 0 1 file_1)
         string(SUBSTRING ${file} 1 ${len} file_2)
         set(file_c "${file_1}${file_2}")
-        file(WRITE ${NT2_BINARY_DIR}/include_tmp/nt2/toolbox/${name}/constants/${file}.hpp
+        file(WRITE ${NT2_BINARY_DIR}/include_tmp/nt2/${name}/constants/${file}.hpp
                    "//==============================================================================\n"
                    "//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II\n"
                    "//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI\n"
@@ -642,10 +642,10 @@ macro(nt2_module_simd_toolbox name)
                    "//                 See accompanying file LICENSE.txt or copy at\n"
                    "//                     http://www.boost.org/LICENSE_1_0.txt\n"
                    "//==============================================================================\n"
-                   "#ifndef NT2_TOOLBOX_${name_U}_CONSTANTS_${file_U}_HPP_INCLUDED\n"
-                   "#define NT2_TOOLBOX_${name_U}_CONSTANTS_${file_U}_HPP_INCLUDED\n"
+                   "#ifndef NT2_${name_U}_CONSTANTS_${file_U}_HPP_INCLUDED\n"
+                   "#define NT2_${name_U}_CONSTANTS_${file_U}_HPP_INCLUDED\n"
                    "\n"
-                   "#include <boost/simd/toolbox/${name}/include/constants/${file}.hpp>\n"
+                   "#include <boost/simd/${name}/include/constants/${file}.hpp>\n"
                    "#include <nt2/include/functor.hpp>\n"
                    "\n"
                    "namespace nt2\n"
@@ -663,28 +663,28 @@ macro(nt2_module_simd_toolbox name)
       endif()
     endforeach()
 
-    file(GLOB include_files1 RELATIVE ${dir}/boost/simd/toolbox/${name}/include/functions ${dir}/boost/simd/toolbox/${name}/include/functions/*.hpp)
+    file(GLOB include_files1 RELATIVE ${dir}/boost/simd/${name}/include/functions ${dir}/boost/simd/${name}/include/functions/*.hpp)
     foreach(file ${include_files1})
-      file(READ ${dir}/boost/simd/toolbox/${name}/include/functions/${file} file_content)
+      file(READ ${dir}/boost/simd/${name}/include/functions/${file} file_content)
       string(REPLACE "boost/simd/" "nt2/" file_content "${file_content}")
       string(REPLACE "BOOST_SIMD_" "NT2_" file_content "${file_content}")
       string(REPLACE "namespace boost { namespace simd" "namespace nt2" file_content "${file_content}")
       string(REPLACE "} }" "}" file_content "${file_content}")
-      file(WRITE ${NT2_BINARY_DIR}/include_tmp/nt2/toolbox/${name}/include/functions/${file} "${file_content}")
+      file(WRITE ${NT2_BINARY_DIR}/include_tmp/nt2/${name}/include/functions/${file} "${file_content}")
     endforeach()
 
-    file(GLOB include_files2 RELATIVE ${dir}/boost/simd/toolbox/${name}/include/constants ${dir}/boost/simd/toolbox/${name}/include/constants/*.hpp)
+    file(GLOB include_files2 RELATIVE ${dir}/boost/simd/${name}/include/constants ${dir}/boost/simd/${name}/include/constants/*.hpp)
     foreach(file ${include_files2})
-      file(READ ${dir}/boost/simd/toolbox/${name}/include/constants/${file} file_content)
+      file(READ ${dir}/boost/simd/${name}/include/constants/${file} file_content)
       string(REPLACE "boost/simd/" "nt2/" file_content "${file_content}")
       string(REPLACE "BOOST_SIMD_" "NT2_" file_content "${file_content}")
       string(REPLACE "namespace boost { namespace simd" "namespace nt2" file_content "${file_content}")
       string(REPLACE "} }" "}" file_content "${file_content}")
-      file(WRITE ${NT2_BINARY_DIR}/include_tmp/nt2/toolbox/${name}/include/constants/${file} "${file_content}")
+      file(WRITE ${NT2_BINARY_DIR}/include_tmp/nt2/${name}/include/constants/${file} "${file_content}")
     endforeach()
   endforeach()
 
-  nt2_module_configure_toolbox(${name} 1 boost/simd/toolbox/${name})
+  nt2_module_configure_toolbox(${name} 1 boost/simd/${name})
 endmacro()
 
 # build a tool

@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
 ///
-#include <nt2/toolbox/predicates/include/functions/is_not_finite.hpp>
+#include <nt2/predicates/include/functions/is_not_finite.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
 #include <boost/dispatch/functor/meta/call.hpp>

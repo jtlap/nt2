@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
 ///
-#include <boost/simd/toolbox/arithmetic/include/functions/idivfix.hpp>
+#include <boost/simd/arithmetic/include/functions/idivfix.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/include/functions/trunc.hpp>
 #include <boost/simd/include/functions/toint.hpp>
@@ -22,7 +22,7 @@
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/simd/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( idivfix_real__2_0,  BOOST_SIMD_REAL_TYPES)

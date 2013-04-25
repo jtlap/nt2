@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 ///
-#include <boost/simd/toolbox/operator/include/functions/make.hpp>
+#include <boost/simd/operator/include/functions/make.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 
 #include <boost/type_traits/is_same.hpp>

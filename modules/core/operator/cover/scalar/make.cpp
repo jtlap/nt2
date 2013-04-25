@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 ///
-#include <nt2/toolbox/operator/include/functions/make.hpp>
+#include <nt2/operator/include/functions/make.hpp>
 #include <nt2/include/functions/max.hpp>
 
 #include <boost/type_traits/is_same.hpp>

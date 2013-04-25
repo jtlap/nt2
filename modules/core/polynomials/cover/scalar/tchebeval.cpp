@@ -13,9 +13,9 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 06/03/2011
 ///
-#include <nt2/toolbox/polynomials/include/functions/tchebeval.hpp>
+#include <nt2/polynomials/include/functions/tchebeval.hpp>
 #include <nt2/include/functions/max.hpp>
-//#include <nt2/toolbox/cephes/include/functions/tchebeval.hpp>
+//#include <nt2/cephes/include/functions/tchebeval.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

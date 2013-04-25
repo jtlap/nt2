@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
 ///
-#include <nt2/toolbox/reduction/include/functions/maximum.hpp>
+#include <nt2/reduction/include/functions/maximum.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/arith.hpp>
 #include <nt2/include/functions/extract.hpp>

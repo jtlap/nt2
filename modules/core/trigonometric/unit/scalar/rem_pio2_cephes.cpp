@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
 ///
-#include <nt2/toolbox/trigonometric/include/functions/rem_pio2_cephes.hpp>
+#include <nt2/trigonometric/include/functions/rem_pio2_cephes.hpp>
 #include <boost/fusion/include/std_pair.hpp>
 #include <nt2/include/constants/pio_2.hpp>
 #include <nt2/include/constants/pio_4.hpp>

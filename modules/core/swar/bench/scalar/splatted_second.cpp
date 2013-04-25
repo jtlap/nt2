@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of swar components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/swar/include/functions/splatted_second.hpp>
+#include <nt2/swar/include/functions/splatted_second.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

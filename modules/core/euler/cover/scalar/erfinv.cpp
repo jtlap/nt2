@@ -13,9 +13,9 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 22/02/2011
 ///
-#include <nt2/toolbox/euler/include/functions/erfinv.hpp>
+#include <nt2/euler/include/functions/erfinv.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/boost_math/include/functions/erf_inv.hpp>
+#include <nt2/boost_math/include/functions/erf_inv.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
@@ -29,7 +29,7 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( erfinv_real__1_0,  NT2_REAL_TYPES)

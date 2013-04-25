@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/boolean/include/functions/selsub.hpp>
+#include <nt2/boolean/include/functions/selsub.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <nt2/include/constants/valmax.hpp>

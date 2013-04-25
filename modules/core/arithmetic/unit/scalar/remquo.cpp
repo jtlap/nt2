@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/toolbox/arithmetic/include/functions/remquo.hpp>
+#include <nt2/arithmetic/include/functions/remquo.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/inf.hpp>

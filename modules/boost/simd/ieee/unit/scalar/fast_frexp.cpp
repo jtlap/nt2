@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <boost/simd/toolbox/ieee/include/functions/fast_frexp.hpp>
+#include <boost/simd/ieee/include/functions/fast_frexp.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/half.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>

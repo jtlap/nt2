@@ -8,7 +8,7 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2 boost.simd.swar toolbox - shuffle/simd Mode"
 
-#include <boost/simd/toolbox/swar/include/functions/shuffle.hpp>
+#include <boost/simd/swar/include/functions/shuffle.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/sdk/simd/native.hpp>

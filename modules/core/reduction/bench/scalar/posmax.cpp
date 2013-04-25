@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of reduction components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/reduction/include/functions/posmax.hpp>
+#include <nt2/reduction/include/functions/posmax.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

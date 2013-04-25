@@ -15,7 +15,7 @@
  */
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/dispatch/functor/functor.hpp>
-#include <boost/simd/toolbox/operator/functions/map.hpp>
+#include <boost/simd/operator/functions/map.hpp>
 
 //==============================================================================
 // Define hierarchy for constant tags

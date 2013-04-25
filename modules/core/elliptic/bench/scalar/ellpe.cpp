@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of elliptic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/elliptic/include/functions/ellpe.hpp>
+#include <nt2/elliptic/include/functions/ellpe.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

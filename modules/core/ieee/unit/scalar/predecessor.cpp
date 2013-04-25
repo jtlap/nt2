@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
 ///
-#include <nt2/toolbox/ieee/include/functions/predecessor.hpp>
+#include <nt2/ieee/include/functions/predecessor.hpp>
 #include <nt2/include/functions/prev.hpp>
 #include <nt2/include/constants/eps_related.hpp>
 
@@ -30,7 +30,7 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 
 #include <nt2/include/functions/next.hpp>
 

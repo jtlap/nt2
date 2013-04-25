@@ -13,9 +13,9 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
 ///
-#include <nt2/toolbox/trigonometric/include/functions/secpi.hpp>
+#include <nt2/trigonometric/include/functions/secpi.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/trigonometric/constants.hpp>
+#include <nt2/trigonometric/constants.hpp>
 extern "C" {extern long double cephes_cosl(long double);}
 
 static const long double long_pi = 3.141592653589793238462643383279502884197l;
@@ -33,7 +33,7 @@ static const long double long_pi = 3.141592653589793238462643383279502884197l;
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 #include <iomanip>
 
 NT2_TEST_CASE_TPL ( secpi_real__1_0,  NT2_REAL_TYPES)

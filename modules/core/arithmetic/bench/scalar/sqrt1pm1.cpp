@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/arithmetic/include/functions/sqrt1pm1.hpp>
+#include <nt2/arithmetic/include/functions/sqrt1pm1.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <cmath>

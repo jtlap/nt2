@@ -22,7 +22,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/toolbox/trigonometric/include/functions/sincos.hpp>
+#include <nt2/trigonometric/include/functions/sincos.hpp>
 
 NT2_TEST_CASE_TPL ( sincos_real_convert__1,  NT2_REAL_CONVERTIBLE_TYPES)
 {

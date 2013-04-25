@@ -21,7 +21,7 @@
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
 #include <boost/simd/include/functions/max.hpp>
-#include <boost/simd/toolbox/reduction/include/functions/all.hpp>
+#include <boost/simd/reduction/include/functions/all.hpp>
 
 NT2_TEST_CASE_TPL ( all_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
