@@ -21,6 +21,8 @@
 #include <nt2/include/functions/horzcat.hpp>
 #include <nt2/sdk/complex/meta/is_complex.hpp>
 #include <nt2/sdk/meta/result_of.hpp>
+#include <nt2/core/container/table/table.hpp>
+
 namespace nt2
 {
   namespace details
