@@ -87,19 +87,19 @@ namespace boost { namespace simd
 
     template<class T, class Dummy>
     struct  Allbits::apply<boost::dispatch::meta::uint8_<T>,Dummy>
-          : meta::int_c<boost::simd::uint8_t,0xFF> {};
+          : meta::int_c<T, 0xFF> {};
 
     template<class T, class Dummy>
     struct  Allbits::apply<boost::dispatch::meta::uint16_<T>,Dummy>
-          : meta::int_c<boost::simd::uint16_t,0xFFFFU> {};
+          : meta::int_c<T, 0xFFFFU> {};
 
     template<class T, class Dummy>
     struct  Allbits::apply<boost::dispatch::meta::uint32_<T>,Dummy>
-          : meta::int_c<boost::simd::uint32_t,0xFFFFFFFFUL> {};
+          : meta::int_c<T, 0xFFFFFFFFUL> {};
 
     template<class T, class Dummy>
     struct  Allbits::apply<boost::dispatch::meta::uint64_<T>,Dummy>
-          : meta::int_c<boost::simd::uint64_t,0xFFFFFFFFFFFFFFFFULL> {};
+          : meta::int_c<T, 0xFFFFFFFFFFFFFFFFULL> {};
 
   }
 

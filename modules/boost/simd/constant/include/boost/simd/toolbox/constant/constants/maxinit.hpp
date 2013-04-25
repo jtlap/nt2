@@ -89,24 +89,23 @@ namespace boost { namespace simd
 
     template<class T, class Dummy>
     struct  Maxinit::apply<boost::dispatch::meta::int8_<T>,Dummy>
-          : meta::int_c<boost::simd::int8_t,boost::simd::int8_t(-128)> {};
+          : meta::int_c<T, T(-128)> {};
 
     template<class T, class Dummy>
     struct  Maxinit::apply<boost::dispatch::meta::int16_<T>,Dummy>
-          : meta::int_c<boost::simd::int16_t,boost::simd::int16_t(-32768)> {};
+          : meta::int_c<T, T(-32768)> {};
 
     template<class T, class Dummy>
     struct  Maxinit::apply<boost::dispatch::meta::int32_<T>,Dummy>
-    : meta::int_c < boost::simd::int32_t
-                  , boost::simd::int32_t(-boost::simd::uint32_t(2147483648UL))
+    : meta::int_c < T
+                  , T(-boost::simd::uint32_t(2147483648UL))
                   >
     {};
 
     template<class T, class Dummy>
     struct  Maxinit::apply<boost::dispatch::meta::int64_<T>,Dummy>
-      : meta::int_c < boost::simd::int64_t
-                    , boost::simd::
-                      int64_t(-boost::simd::uint64_t(9223372036854775808ULL))
+      : meta::int_c < T
+                    , T(-boost::simd::uint64_t(9223372036854775808ULL))
                     >
     {};
   }

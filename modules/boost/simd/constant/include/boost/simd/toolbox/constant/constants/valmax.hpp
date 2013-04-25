@@ -90,35 +90,35 @@ namespace boost { namespace simd
 
     template<class T, class Dummy>
     struct  Valmax::apply<boost::dispatch::meta::uint8_<T>,Dummy>
-          : meta::int_c<boost::simd::uint8_t,0xFF> {};
+          : meta::int_c<T, 0xFF> {};
 
     template<class T, class Dummy>
     struct  Valmax::apply<boost::dispatch::meta::uint16_<T>,Dummy>
-          : meta::int_c<boost::simd::uint16_t,0xFFFF> {};
+          : meta::int_c<T, 0xFFFF> {};
 
     template<class T, class Dummy>
     struct  Valmax::apply<boost::dispatch::meta::uint32_<T>,Dummy>
-          : meta::int_c<boost::simd::uint32_t,0xFFFFFFFFUL> {};
+          : meta::int_c<T, 0xFFFFFFFFUL> {};
 
     template<class T, class Dummy>
     struct  Valmax::apply<boost::dispatch::meta::uint64_<T>,Dummy>
-          : meta::int_c<boost::simd::uint64_t,0xFFFFFFFFFFFFFFFFULL> {};
+          : meta::int_c<T, 0xFFFFFFFFFFFFFFFFULL> {};
 
     template<class T, class Dummy>
     struct  Valmax::apply<boost::dispatch::meta::int8_<T>,Dummy>
-          : meta::int_c<boost::simd::int8_t,127> {};
+          : meta::int_c<T, 127> {};
 
     template<class T, class Dummy>
     struct  Valmax::apply<boost::dispatch::meta::int16_<T>,Dummy>
-          : meta::int_c<boost::simd::int16_t,32767> {};
+          : meta::int_c<T, 32767> {};
 
     template<class T, class Dummy>
     struct  Valmax::apply<boost::dispatch::meta::int32_<T>,Dummy>
-          : meta::int_c<boost::simd::int32_t,2147483647> {};
+          : meta::int_c<T, 2147483647> {};
 
     template<class T, class Dummy>
     struct  Valmax::apply<boost::dispatch::meta::int64_<T>,Dummy>
-          : meta::int_c<boost::simd::int64_t,9223372036854775807ULL> {};
+          : meta::int_c<T, 9223372036854775807ULL> {};
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Valmax, Valmax)

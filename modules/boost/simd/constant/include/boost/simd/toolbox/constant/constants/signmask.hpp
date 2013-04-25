@@ -79,20 +79,20 @@ namespace boost { namespace simd
 
     template<class T, class Dummy>
     struct  Signmask::apply<boost::dispatch::meta::int8_<T>,Dummy>
-          : meta::int_c<boost::simd::int8_t,boost::simd::int8_t(0x80U)> {};
+          : meta::int_c<T, boost::simd::int8_t(0x80U)> {};
 
     template<class T, class Dummy>
     struct  Signmask::apply<boost::dispatch::meta::int16_<T>,Dummy>
-          : meta::int_c<boost::simd::int16_t,boost::simd::int16_t(0x8000U)> {};
+          : meta::int_c<T, boost::simd::int16_t(0x8000U)> {};
 
     template<class T, class Dummy>
     struct  Signmask::apply<boost::dispatch::meta::int32_<T>,Dummy>
-          : meta::int_c<boost::simd::int32_t,boost::simd::int32_t(0x80000000UL)>
+          : meta::int_c<T, boost::simd::int32_t(0x80000000UL)>
     {};
 
     template<class T, class Dummy>
     struct  Signmask::apply<boost::dispatch::meta::int64_<T>,Dummy>
-          : meta::int_c < boost::simd::int64_t
+          : meta::int_c < T
                         , boost::simd::int64_t(0x8000000000000000ULL)
                         >
     {};
