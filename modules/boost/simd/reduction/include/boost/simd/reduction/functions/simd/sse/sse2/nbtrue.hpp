@@ -67,10 +67,9 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef double result_type;
-    typedef typename meta::make_dependent<ptrdiff_t,A0>::type type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      type r = _mm_movemask_pd(genmask(a0));
+      int r = _mm_movemask_pd(genmask(a0));
       return double((r&1)+(r>>1));
     }
   };
@@ -84,12 +83,10 @@ namespace boost { namespace simd { namespace ext
                                     , ((simd_<single_<A0>,boost::simd::tag::sse_>))
                                     )
   {
-    typedef float                                    result_type;
-    typedef typename meta::make_dependent<ptrdiff_t,A0>::type type;
-
+    typedef float result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      type r = _mm_movemask_ps(genmask(a0));
+      int r = _mm_movemask_ps(genmask(a0));
       return float((r&1)+((r>>1)&1)+((r>>2)&1)+(r>>3));
     }
   };
