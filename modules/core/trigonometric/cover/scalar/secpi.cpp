@@ -63,7 +63,7 @@ NT2_TEST_CASE_TPL ( secpi_real__1_0,  NT2_REAL_TYPES)
     T a0;
     for(nt2::uint32_t j =0; j < NR; ++j )
       {
-        std::cout << "for param " << std::setprecision(20) 
+        std::cout << "for param " << std::setprecision(20)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
         NT2_TEST_ULP_EQUAL( nt2::secpi(a0),1.0l/(::cosl(long_pi*a0)),10.0);

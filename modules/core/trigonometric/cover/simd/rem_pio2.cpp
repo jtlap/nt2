@@ -58,11 +58,11 @@ NT2_TEST_CASE_TPL ( rem_pio2_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::call<rem_pio2_(vT)>::type r_t;
   typedef typename nt2::meta::call<rem_pio2_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  
+
   // NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
 
   r_t r = nt2::rem_pio2(nt2::Zero<vT>());
   NT2_TEST_EQUAL(boost::fusion::get<0>(r), nt2::Zero<ivT>());
   NT2_TEST_EQUAL(boost::fusion::get<1>(r), nt2::Zero<vT>());
-  NT2_TEST_EQUAL(boost::fusion::get<2>(r), nt2::Zero<vT>()); 
+  NT2_TEST_EQUAL(boost::fusion::get<2>(r), nt2::Zero<vT>());
  } // end of test for floating_

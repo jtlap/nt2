@@ -66,7 +66,7 @@ NT2_TEST_CASE_TPL ( rem_pio2_cephes_real__1_0,  NT2_REAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
         r_t r = nt2::rem_pio2_cephes(a0);
-        r_t rm= nt2::rem_pio2_medium(a0); 
+        r_t rm= nt2::rem_pio2_medium(a0);
         NT2_TEST_ULP_EQUAL( r.second, rm.second, 0.5);
         if (ulpd>ulp0) ulp0=ulpd;
         NT2_TEST_ULP_EQUAL( r.first, rm.first, 0);

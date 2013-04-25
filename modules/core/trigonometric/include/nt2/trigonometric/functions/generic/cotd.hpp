@@ -21,15 +21,15 @@ namespace nt2 { namespace ext
                             , (generic_< arithmetic_<A0> >)
                             )
   {
-    
+
     typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-    
+
     NT2_FUNCTOR_CALL(1)
     {
       return nt2::cotd(tofloat(a0));
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cotd_, tag::cpu_
                             , (A0)
                             , (generic_< floating_<A0> >)
