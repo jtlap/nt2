@@ -13,6 +13,12 @@
 #include <nt2/sdk/memory/container_ref.hpp>
 #include <nt2/sdk/memory/container_shared_ref.hpp>
 #include <boost/dispatch/dsl/semantic_of.hpp>
+#include <boost/config.hpp>
+
+#if defined(BOOST_MSVC)
+#pragma warning( push )
+#pragma warning( disable : 4522 ) // multiple assignment operators specified
+#endif
 
 namespace nt2 { namespace container
 {
@@ -243,6 +249,10 @@ namespace nt2 { namespace container
   };
 
 } }
+
+#if defined(BOOST_MSVC)
+#pragma warning( pop )
+#endif
 
 namespace boost { namespace dispatch { namespace meta
 {
