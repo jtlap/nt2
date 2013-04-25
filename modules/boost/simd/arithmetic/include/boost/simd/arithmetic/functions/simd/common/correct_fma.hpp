@@ -13,6 +13,9 @@
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/two_prod.hpp>
 #include <boost/simd/include/functions/simd/two_add.hpp>
+#include <boost/simd/include/functions/simd/split.hpp>
+#include <boost/simd/include/functions/simd/group.hpp>
+#include <boost/dispatch/meta/upgrade.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -20,9 +23,11 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::correct_fma_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
-                            )
+                                   , (A0)(X)
+                                   , ((simd_<arithmetic_<A0>,X>))
+                                     ((simd_<arithmetic_<A0>,X>))
+                                     ((simd_<arithmetic_<A0>,X>))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
@@ -32,11 +37,11 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::correct_fma_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<floating_<A0>,X>))
-                              ((simd_<floating_<A0>,X>))
-                              ((simd_<floating_<A0>,X>))
-                            )
+                                   , (A0)(X)
+                                   , ((simd_<floating_<A0>,X>))
+                                     ((simd_<floating_<A0>,X>))
+                                     ((simd_<floating_<A0>,X>))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
@@ -47,6 +52,26 @@ namespace boost { namespace simd { namespace ext
       return s+(rp+rs);
     }
   };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::correct_fma_, tag::cpu_
+                                   , (A0)(X)
+                                   , ((simd_<single_<A0>,X>))
+                                     ((simd_<single_<A0>,X>))
+                                     ((simd_<single_<A0>,X>))
+                                   )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
+    {
+      typedef typename dispatch::meta::upgrade<A0>::type ivtype;
+      ivtype a0l, a0h, a1l, a1h, a2l, a2h;
+      split(a0, a0l, a0h);
+      split(a1, a1l, a1h);
+      split(a2, a2l, a2h);
+      return group(a0l*a1l+a2l, a0h*a1h+a2h);
+    }
+  };
+
 } } }
 
 
