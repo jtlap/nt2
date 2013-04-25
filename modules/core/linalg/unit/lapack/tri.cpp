@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL(tri, NT2_REAL_TYPES )
 
   NT2_TEST_ULP_EQUAL( (nt2::mtimes(in, ref))
                     , nt2::eye  (4, 4, nt2::meta::as_<T>())
-                    , 0.5
+                    , 0.75
                     );
 
   NT2_TEST_EQUAL(p, 0);
