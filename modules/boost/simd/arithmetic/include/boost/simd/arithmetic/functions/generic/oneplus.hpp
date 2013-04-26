@@ -6,40 +6,42 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ONEPLUS_HPP_INCLUDED
-#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ONEPLUS_HPP_INCLUDED
+#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_ONEPLUS_HPP_INCLUDED
+#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_ONEPLUS_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/oneplus.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
-#include <boost/simd/include/functions/simd/if_else.hpp>
-#include <boost/simd/include/functions/simd/is_equal.hpp>
+#include <boost/simd/include/functions/simd/seladd.hpp>
+#include <boost/simd/include/functions/simd/is_not_equal.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::oneplus_, tag::cpu_,
-                          (A0)(X),
-                          ((simd_<arithmetic_<A0>,X>))
-                         )
+                                    (A0),
+                                    (generic_<arithmetic_<A0> >)
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-       return if_else(is_equal(a0, Valmax<result_type>()), a0, a0+One<A0>());
+      return seladd(is_not_equal(a0, Valmax<result_type>()),
+                    a0,
+                    One<A0>());
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::oneplus_, tag::cpu_
-                                     , (A0)(X)
-                                     , ((simd_< floating_<A0>,X >))
-                                    )
+                                   , (A0)
+                                   , (generic_< floating_<A0> >)
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
-      {
-        return a0+One<A0>();
-      }
+    {
+      return a0+One<A0>();
+    }
   };
 } } }
 #endif
