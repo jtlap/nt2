@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_BITWISE_FUNCTIONS_SIMD_COMMON_BITS_HPP_INCLUDED
-#define BOOST_SIMD_BITWISE_FUNCTIONS_SIMD_COMMON_BITS_HPP_INCLUDED
+#ifndef BOOST_SIMD_BITWISE_FUNCTIONS_GENERIC_BITS_HPP_INCLUDED
+#define BOOST_SIMD_BITWISE_FUNCTIONS_GENERIC_BITS_HPP_INCLUDED
 
 #include <boost/simd/bitwise/functions/bits.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
@@ -15,14 +15,14 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bits_, tag::cpu_,(A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bits_, tag::cpu_,(A0)
+                            , ((generic_<arithmetic_<A0> >))
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type  result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return simd::bitwise_cast<result_type>(a0);
+      return bitwise_cast<result_type>(a0);
     }
   };
 } } }
