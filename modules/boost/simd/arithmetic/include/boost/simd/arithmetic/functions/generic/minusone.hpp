@@ -6,37 +6,36 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_MINUSONE_HPP_INCLUDED
-#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_MINUSONE_HPP_INCLUDED
+#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_MINUSONE_HPP_INCLUDED
+#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_MINUSONE_HPP_INCLUDED
 #include <boost/simd/arithmetic/functions/minusone.hpp>
-#include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/functions/simd/selsub.hpp>
+#include <boost/simd/include/functions/simd/is_not_equal.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minusone_, tag::cpu_,
-                       (A0),
-                       (scalar_ < arithmetic_<A0> > )
-                       )
+                           (A0),
+                           ((generic_<arithmetic_<A0> >))
+                          )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return (a0 == Valmin<result_type>()) ? a0 :a0-One<result_type>();
+      return selsub(neq(a0, Valmin<result_type>()), a0, One<result_type>());
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minusone_, tag::cpu_,
-                       (A0),
-                       (scalar_ < floating_<A0> > )
-                       )
+                           (A0),
+                           ((generic_<floating_<A0> >))
+                          )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      return a0-One<result_type>();
-    }
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1) { return a0-One<result_type>(); }
   };
-} } }
 
+} } }
 #endif
