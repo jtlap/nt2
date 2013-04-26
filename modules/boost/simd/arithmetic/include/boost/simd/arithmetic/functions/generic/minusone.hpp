@@ -13,6 +13,7 @@
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/functions/simd/selsub.hpp>
 #include <boost/simd/include/functions/simd/is_not_equal.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
