@@ -6,27 +6,49 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_MOD_HPP_INCLUDED
-#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_MOD_HPP_INCLUDED
+#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_MOD_HPP_INCLUDED
+#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_MOD_HPP_INCLUDED
 #include <boost/simd/arithmetic/functions/mod.hpp>
 #include <boost/simd/include/functions/simd/selsub.hpp>
 #include <boost/simd/include/functions/simd/is_nez.hpp>
 #include <boost/simd/include/functions/simd/divfloor.hpp>
+#include <boost/simd/include/functions/simd/idivfloor.hpp>
 #include <boost/simd/include/functions/simd/multiplies.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::mod_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
-                            )
+                                   , (A0)
+                                   , ((generic_<floating_<A0> >))
+                                     ((generic_<floating_<A0> >))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return selsub(is_nez(a1), a0, divfloor(a0,a1)*a1);
+      return selsub(boost::simd::is_nez(a1),a0,
+                    divfloor(a0,a1)*a1
+                   );
     }
   };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::mod_, tag::cpu_
+                                   , (A0)
+                                   , ((generic_<arithmetic_<A0> >))
+                                     ((generic_<arithmetic_<A0> >))
+                                   )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      return selsub(is_nez(a1),a0,
+                    boost::simd::multiplies(idivfloor(a0,a1), a1)
+                   );
+
+    }
+  };
+
+
 } } }
 
 #endif
