@@ -13,7 +13,7 @@
 #include <nt2/include/functions/simd/rem_pio2_cephes.hpp>
 #include <nt2/include/functions/simd/rem_pio2_straight.hpp>
 #include <nt2/include/functions/simd/rem_pio2.hpp>
-#include <nt2/include/functions/simd/round.hpp>
+#include <nt2/include/functions/simd/round2even.hpp>
 #include <nt2/include/functions/simd/is_odd.hpp>
 #include <nt2/include/functions/simd/is_nez.hpp>
 #include <nt2/include/functions/simd/logical_and.hpp>
@@ -158,7 +158,7 @@ namespace nt2 { namespace details { namespace internal
     static inline int_type reduce(const typename A0::native_type x_n, A0& xr)
     {
       const A0 x = x_n;
-      A0 xi = round(x*double_constant<A0,0x3f86c16c16c16c17ll>());//1.111111111111111e-02 1/90
+      A0 xi = round2even(x*double_constant<A0,0x3f86c16c16c16c17ll>());//1.111111111111111e-02 1/90
       A0 x2 = x - xi * nt2::_90<A0>();
       xr =  x2*double_constant<A0,0x3f91df46a2529d39ll>();//0.0174532925199432957692
       return nt2::toint(xi);
@@ -177,7 +177,7 @@ namespace nt2 { namespace details { namespace internal
     static inline int_type reduce(const typename A0::native_type x_n,  A0& xr)
     {
       const A0 x = x_n;
-      A0 xi = nt2::round(x*nt2::Two<A0>());
+      A0 xi = nt2::round2even(x*nt2::Two<A0>());
       A0 x2 = x - xi * nt2::Half<A0>();
       xr = x2*nt2::Pi<A0>();
       return nt2::toint(xi);

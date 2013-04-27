@@ -9,18 +9,19 @@
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_TRIGO_D_TRIG_REDUCTION_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_TRIGO_D_TRIG_REDUCTION_HPP_INCLUDED
 
-#include <nt2/include/functions/simd/rem_pio2_medium.hpp>
-#include <nt2/include/functions/simd/rem_pio2_cephes.hpp>
-#include <nt2/include/functions/simd/rem_pio2_straight.hpp>
-#include <nt2/include/functions/simd/rem_pio2.hpp>
-#include <nt2/include/functions/simd/is_odd.hpp>
-#include <nt2/include/functions/simd/is_even.hpp>
-#include <nt2/include/functions/simd/is_nez.hpp>
-#include <nt2/include/functions/simd/is_invalid.hpp>
-#include <nt2/include/functions/simd/inrad.hpp>
-#include <nt2/include/functions/simd/rec.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/simd/is_less_equal.hpp>
+#include <nt2/include/functions/rem_pio2_medium.hpp>
+#include <nt2/include/functions/rem_pio2_cephes.hpp>
+#include <nt2/include/functions/rem_pio2_straight.hpp>
+#include <nt2/include/functions/rem_pio2.hpp>
+#include <nt2/include/functions/is_odd.hpp>
+#include <nt2/include/functions/is_even.hpp>
+#include <nt2/include/functions/is_nez.hpp>
+#include <nt2/include/functions/is_invalid.hpp>
+#include <nt2/include/functions/inrad.hpp>
+#include <nt2/include/functions/round2even.hpp>
+#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/is_less_equal.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/pio_2.hpp>
 
@@ -134,7 +135,7 @@ namespace nt2
         static inline bool tan_invalid(const A0& x) { return is_flint((x-_90<A0>())/_180<A0>()); }
         static inline int_type reduce(A0 x, A0& xr)
         {
-          A0 xi = round(x*double_constant<A0,0x3f86c16c16c16c17ll>());//1.111111111111111e-02
+          A0 xi = round2even(x*double_constant<A0,0x3f86c16c16c16c17ll>());//1.111111111111111e-02
           A0 x2 = x - xi * _90<A0>();//90.0f
           xr =  x2*double_constant<A0,0x3f91df46a2529d39ll>();//0.0174532925199432957692
           return toint(xi);
@@ -151,7 +152,7 @@ namespace nt2
         static inline bool tan_invalid(const A0& x) { return is_flint(x-Half<A0>()); }
         static inline int_type reduce(const A0& x,  A0& xr)
         {
-          A0 xi = round(x*Two<A0>());
+          A0 xi = round2even(x*Two<A0>());
           A0 x2 = x - xi * Half<A0>();
           xr = x2*Pi<A0>();
           return toint(xi);

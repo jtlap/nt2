@@ -9,7 +9,7 @@
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_REM_PIO2_MEDIUM_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_REM_PIO2_MEDIUM_HPP_INCLUDED
 #include <nt2/trigonometric/functions/rem_pio2_medium.hpp>
-#include <nt2/include/functions/simd/round.hpp>
+#include <nt2/include/functions/simd/round2even.hpp>
 #include <nt2/include/functions/simd/fast_toint.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <boost/fusion/include/std_pair.hpp>
@@ -68,7 +68,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_integer<A0>::type result_type;
     inline result_type operator()(A0 const& t, A0 & xr) const
     {
-      const A0 fn = nt2::round(t*Invpio_2<A0>());
+      const A0 fn = nt2::round2even(t*Invpio_2<A0>());
       A0 r  = t-fn*nt2::Pio2_1<A0>();
       A0 w  = fn*nt2::Pio2_1t<A0>();
       A0 t2 = r;
