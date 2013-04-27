@@ -11,7 +11,7 @@
 #include <nt2/combinatorial/functions/cnp.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/digits.hpp>
-#include <nt2/include/functions/scalar/round.hpp>
+#include <nt2/include/functions/scalar/round2even.hpp>
 #include <nt2/include/functions/scalar/oneplus.hpp>
 #include <nt2/include/functions/scalar/gammaln.hpp>
 #include <nt2/include/functions/scalar/is_ngez.hpp>
@@ -38,9 +38,9 @@ namespace nt2 { namespace ext
       if (is_ngez(a0)||is_ngez(a1)) return (rtype)Nan<type>();
       if (a0 < a1) return (rtype) Zero<type>();
       if (is_equal(a0, a1)) return (rtype)One<type>();
-      const type n = type(oneplus(round(a0)));
-      const type p = type(oneplus(round(a1)));
-      return (rtype)round(nt2::exp(gammaln(n)-gammaln(p)-gammaln(oneplus(n-p))));
+      const type n = type(oneplus(round2even(a0)));
+      const type p = type(oneplus(round2even(a1)));
+      return (rtype)round2even(nt2::exp(gammaln(n)-gammaln(p)-gammaln(oneplus(n-p))));
     }
   };
 } }

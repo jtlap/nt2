@@ -9,9 +9,10 @@
 #ifndef NT2_COMBINATORIAL_FUNCTIONS_SIMD_COMMON_LCM_HPP_INCLUDED
 #define NT2_COMBINATORIAL_FUNCTIONS_SIMD_COMMON_LCM_HPP_INCLUDED
 #include <nt2/combinatorial/functions/lcm.hpp>
-#include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/simd/round.hpp>
 #include <nt2/include/functions/simd/gcd.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/rdivide.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
