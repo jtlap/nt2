@@ -10,7 +10,7 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_CEIL_HPP_INCLUDED
 #include <boost/simd/arithmetic/functions/ceil.hpp>
 #include <boost/simd/include/constants/one.hpp>
-#include <boost/simd/include/functions/simd/round.hpp>
+#include <boost/simd/include/functions/simd/round2even.hpp>
 #include <boost/simd/include/functions/simd/seladd.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      const A0 d0 = round(a0);
+      const A0 d0 = round2even(a0);
       return seladd(lt(d0,a0),d0,One<A0>());
     }
   };

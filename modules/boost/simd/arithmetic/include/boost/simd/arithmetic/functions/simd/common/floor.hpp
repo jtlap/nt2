@@ -11,7 +11,7 @@
 #include <boost/simd/arithmetic/functions/floor.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/functions/simd/seladd.hpp>
-#include <boost/simd/include/functions/simd/round.hpp>
+#include <boost/simd/include/functions/simd/round2even.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      const A0 d0 = round(a0);
+      const A0 d0 = round2even(a0);
       return selsub(gt(d0,a0),d0,One<A0>());
     }
   };

@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_REMQUO_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_REMQUO_HPP_INCLUDED
 #include <boost/simd/arithmetic/functions/remquo.hpp>
-#include <boost/simd/include/functions/simd/round.hpp>
+#include <boost/simd/include/functions/simd/round2even.hpp>
 #include <boost/simd/include/functions/simd/toint.hpp>
 #include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/simd/include/functions/simd/is_eqz.hpp>
@@ -86,7 +86,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(A0 const& a0, A0 const& a1,A0& a2, A1& a3) const
     {
-      A0 const d = round(a0/a1);
+      A0 const d = round2even(a0/a1);
 
 #if defined(BOOST_SIMD_NO_INVALIDS)
       a2 = if_allbits_else(is_eqz(a1), a0-d*a1);

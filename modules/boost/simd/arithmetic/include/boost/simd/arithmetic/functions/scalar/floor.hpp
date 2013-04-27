@@ -11,7 +11,7 @@
 #include <boost/simd/arithmetic/functions/floor.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/functions/scalar/selsub.hpp>
-#include <boost/simd/include/functions/scalar/round.hpp>
+#include <boost/simd/include/functions/scalar/round2even.hpp>
 #include <boost/simd/include/functions/scalar/is_greater.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -36,7 +36,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      const A0 d0 = boost::simd::round(a0);
+      const A0 d0 = boost::simd::round2even(a0);
       return selsub(gt(d0,a0),d0,One<A0>());
     }
   };
