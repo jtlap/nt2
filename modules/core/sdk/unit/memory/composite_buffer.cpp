@@ -6,16 +6,13 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2::memory composite_buffer as a Buffer"
-
-#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/memory/array_buffer.hpp>
 #include <nt2/sdk/memory/composite_buffer.hpp>
 #include <boost/fusion/include/adapt_struct.hpp>
 
 #include <boost/fusion/include/io.hpp>
 #include <boost/fusion/include/make_vector.hpp>
-
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>

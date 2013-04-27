@@ -13,8 +13,8 @@
 
 namespace boost { namespace simd {  namespace memory
 {
-  template<class T>                   struct allocator;
-  template<class T, class Allocator>  struct allocator_adaptor;
+  template<class T>         struct allocator;
+  template<class Allocator> struct allocator_adaptor;
 } } }
 
 namespace nt2 {  namespace memory
@@ -38,8 +38,8 @@ namespace nt2 {  namespace meta
         : boost::mpl::true_
   {};
 
-  template<class T, class A>
-  struct  perform_aligned_allocation<boost::simd::memory::allocator_adaptor<T,A> >
+  template<class A>
+  struct  perform_aligned_allocation<boost::simd::memory::allocator_adaptor<A> >
         : boost::mpl::true_
   {};
 } }

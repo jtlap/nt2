@@ -25,7 +25,6 @@ SET( SOURCES
     make_floating.cpp
     make_integer.cpp
     pack.cpp
-    range.cpp
     register_of.cpp
     scalar_of.cpp
     sign_of.cpp

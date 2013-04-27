@@ -6,16 +6,11 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-
-<<<<<<< HEAD
-#include <nt2/hyperbolic/include/functions/sinhcosh.hpp>
-=======
 #include <nt2/hyperbolic/include/functions/sinhcosh.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/include/functions/splat.hpp>
->>>>>>> ef6662d... Remove spurrious memory related include from unit tests
 #include <nt2/include/functions/sinh.hpp>
 #include <nt2/include/functions/cosh.hpp>
 #include <nt2/include/functions/tie.hpp>

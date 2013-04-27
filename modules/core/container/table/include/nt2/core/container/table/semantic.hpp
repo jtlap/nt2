@@ -20,7 +20,7 @@
 #include <nt2/core/settings/interleaving.hpp>
 #include <nt2/core/settings/normalize.hpp>
 #include <boost/dispatch/meta/property_of.hpp>
-#include <boost/simd/sdk/memory/allocator.hpp>
+#include <boost/simd/memory/allocator.hpp>
 #include <nt2/core/settings/storage_order.hpp>
 #include <nt2/core/settings/storage_scheme.hpp>
 #include <nt2/core/container/table/category.hpp>

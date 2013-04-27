@@ -12,7 +12,7 @@
 #include <boost/mpl/apply.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
-#include <boost/simd/sdk/memory/allocator.hpp>
+#include <boost/simd/memory/allocator.hpp>
 
 namespace nt2 { namespace memory
 {

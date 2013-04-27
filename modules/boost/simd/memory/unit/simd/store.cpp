@@ -66,6 +66,7 @@ NT2_TEST_CASE_TPL(store_scatter, BOOST_SIMD_SIMD_TYPES )
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>               vT;
   typedef typename boost::dispatch::meta::as_integer<vT>::type viT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type  iT;
 
   typedef typename boost::dispatch::meta::call<store_(vT,T*,viT)>::type  rT;
 
@@ -87,9 +88,9 @@ NT2_TEST_CASE_TPL(store_scatter, BOOST_SIMD_SIMD_TYPES )
   index[0] = cardinal_of<vT>::value*3 -1;
   index[cardinal_of<viT>::value-1] = 0;
 
-  for(size_t i=1;i<cardinal_of<viT>::value-1;++i)
+  for(std::size_t i=1;i<cardinal_of<viT>::value-1;++i)
   {
-    index[i] = i*(cardinal_of<vT>::value*3)/(cardinal_of<vT>::value-1);
+    index[i] = iT(i*(cardinal_of<vT>::value*3)/(cardinal_of<vT>::value-1));
   }
 
   vT v = load<vT>(&data[0]);

@@ -10,7 +10,7 @@
 #define NT2_SDK_MEMORY_ARRAY_BUFFER_HPP_INCLUDED
 
 #include <nt2/sdk/memory/adapted/array_buffer.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
+#include <boost/simd/memory/aligned_type.hpp>
 #include <boost/swap.hpp>
 #include <boost/config.hpp>
 #include <boost/assert.hpp>

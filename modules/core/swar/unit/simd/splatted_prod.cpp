@@ -6,13 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 swar toolbox - splatted_prod/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of swar components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 24/02/2011
-///
 #include <nt2/swar/include/functions/splatted_prod.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/prod.hpp>
@@ -29,19 +22,9 @@
 #include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/constant/constant.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-<<<<<<< HEAD
-#include <nt2/include/functions/load.hpp>
-#include <nt2/constant/constant.hpp>
-=======
-#include <nt2/constant/constant.hpp>
->>>>>>> ef6662d... Remove spurrious memory related include from unit tests
-#include <boost/dispatch/meta/ignore_unused.hpp>
-
 
 NT2_TEST_CASE_TPL ( splatted_prod_real__1_0,  NT2_SIMD_REAL_TYPES)
 {

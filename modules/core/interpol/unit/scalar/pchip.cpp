@@ -17,7 +17,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+
 NT2_TEST_CASE_TPL( pchip, (float))//(double))//NT2_TYPES )
 {
   using nt2::_;

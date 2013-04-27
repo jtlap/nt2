@@ -31,7 +31,7 @@ extern "C" {extern long double cephes_sinl(long double);}
 #include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+
 #include <nt2/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
@@ -69,7 +69,7 @@ NT2_TEST_CASE_TPL ( cscd_real__1_0,  NT2_SIMD_REAL_TYPES)
         r_t v = nt2::cscd(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          std::cout << "a0[" << i << "] = " << a0[i] << std::endl; ; 
+          std::cout << "a0[" << i << "] = " << a0[i] << std::endl; ;
           NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::cscd (a0[i])), 1.0);
           ulp0 = nt2::max(ulpd,ulp0);
         }

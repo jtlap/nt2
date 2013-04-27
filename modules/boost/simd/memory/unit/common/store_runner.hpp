@@ -67,7 +67,7 @@ template<typename Type, typename Target> inline void store_runner(bool offset = 
 template<typename Type, typename Target>
 inline void unaligned_store_runner(bool offset = false)
 {
-  using boost::simd::load;
+  using boost::simd::unaligned_load;
   using boost::simd::unaligned_store;
   using boost::simd::tag::unaligned_store_;
   using boost::simd::meta::cardinal_of;
@@ -96,12 +96,12 @@ inline void unaligned_store_runner(bool offset = false)
 
   for(std::size_t i=0;i<3;++i)
   {
-    Target v = load<Target>(&data[i*cd]);
+    Target v = unaligned_load<Target>(&data[i*cd]);
 
     if(!offset) unaligned_store(v,&out[i*cd]);
     else        unaligned_store(v,&out[0], i*cd);
 
-    NT2_TEST_EQUAL( load<Target>(&out[i*cd]), load<Target>(&data[i*cd]) );
+    NT2_TEST_EQUAL( unaligned_load<Target>(&out[i*cd]), unaligned_load<Target>(&data[i*cd]) );
   }
 }
 

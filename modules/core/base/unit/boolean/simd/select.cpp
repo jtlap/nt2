@@ -6,13 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boolean toolbox - select/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boolean components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 18/02/2011
-///
 #include <nt2/boolean/include/functions/select.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/predicates/include/functions/is_nez.hpp>
@@ -31,17 +24,8 @@
 #include <nt2/sdk/unit/module.hpp>
 
 #include <nt2/constant/constant.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-<<<<<<< HEAD
-#include <nt2/include/functions/load.hpp>
-#include <nt2/constant/constant.hpp>
-=======
-#include <nt2/constant/constant.hpp>
->>>>>>> ef6662d... Remove spurrious memory related include from unit tests
-#include <boost/dispatch/meta/ignore_unused.hpp>
-
 
 NT2_TEST_CASE_TPL ( select_real__3_0,  NT2_SIMD_REAL_TYPES)
 {

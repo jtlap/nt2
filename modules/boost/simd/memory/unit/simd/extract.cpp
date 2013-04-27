@@ -81,7 +81,7 @@ NT2_TEST_CASE_TPL( extract_logical, BOOST_SIMD_SIMD_TYPES)
     value[i] = logical<T>(i%2);
 
   for(std::size_t i=0;i<vT::static_size;i++)
-    NT2_TEST_EQUAL( extract(value, i), i%2 );
+    NT2_TEST_EQUAL( extract(value, i), logical<T>(i%2) );
 }
 
 struct foo { short d; float f; char c; };

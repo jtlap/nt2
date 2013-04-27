@@ -16,7 +16,7 @@
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/meta/type_id.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
-#include <boost/simd/sdk/memory/allocator.hpp>
+#include <boost/simd/memory/allocator.hpp>
 #include <boost/simd/include/functions/load.hpp>
 #include <boost/simd/include/functions/store.hpp>
 #include <boost/utility/enable_if.hpp>

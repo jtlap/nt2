@@ -11,7 +11,7 @@
 #include <nt2/swar/functions/put_first.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
+#include <boost/simd/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>

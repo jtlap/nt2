@@ -15,10 +15,9 @@
 #include <boost/simd/sdk/simd/details/native/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
-#include <boost/simd/sdk/memory/overload.hpp>
+#include <boost/simd/memory/overload.hpp>
 #include <boost/simd/sdk/simd/details/soa_proxy.hpp>
 #include <boost/simd/sdk/config/compiler.hpp>
-#include <boost/simd/sdk/memory/overload.hpp>
 
 namespace boost { namespace simd { namespace meta
 {

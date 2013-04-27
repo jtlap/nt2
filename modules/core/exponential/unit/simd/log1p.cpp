@@ -6,18 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-<<<<<<< HEAD
-#define NT2_UNIT_MODULE "nt2 exponential toolbox - log1p/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of exponential components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created by jt the 08/12/2010
-///
 #include <nt2/exponential/include/functions/log1p.hpp>
-=======
-#include <nt2/exponential/include/functions/log1p.hpp>
->>>>>>> ef6662d... Remove spurrious memory related include from unit tests
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -31,7 +20,7 @@
 #include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+
 #include <nt2/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/constants/log_2.hpp>

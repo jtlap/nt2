@@ -13,7 +13,7 @@
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/simd/sdk/meta/size.hpp>
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
+#include <boost/simd/memory/aligned_type.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

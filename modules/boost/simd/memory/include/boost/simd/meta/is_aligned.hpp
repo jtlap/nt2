@@ -16,7 +16,7 @@
 **/
 
 #include <boost/simd/meta/is_power_of_2.hpp>
-#include <boost/simd/sdk/simd/extensions.hpp>
+#include <boost/simd/preprocessor/parameters.hpp>
 #include <boost/mpl/size_t.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/bool.hpp>

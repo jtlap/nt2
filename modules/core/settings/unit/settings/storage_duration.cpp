@@ -8,7 +8,7 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2::settings storage_duration is an option"
 
-#include <nt2/sdk/memory/buffer.hpp>
+
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/core/settings/allocator.hpp>
 #include <nt2/sdk/memory/fixed_allocator.hpp>

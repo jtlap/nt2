@@ -6,11 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-//////////////////////////////////////////////////////////////////////////////
-// cover test behavior of arithmetic components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created by jt the 01/12/2010
-///
 #include <nt2/arithmetic/include/functions/random.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -30,14 +25,6 @@
 #include <nt2/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-
-<<<<<<< HEAD
-#include <nt2/include/functions/load.hpp>
-#include <nt2/constant/constant.hpp>
-=======
-#include <nt2/constant/constant.hpp>
->>>>>>> ef6662d... Remove spurrious memory related include from unit tests
-
 
 NT2_TEST_CASE_TPL ( random_real__2_0,  NT2_SIMD_REAL_TYPES)
 {

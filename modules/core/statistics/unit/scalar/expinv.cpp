@@ -27,7 +27,7 @@
 #include <nt2/include/constants/log_2.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+
 #include <nt2/table.hpp>
 
 NT2_TEST_CASE_TPL ( expinv_1,  NT2_REAL_TYPES)

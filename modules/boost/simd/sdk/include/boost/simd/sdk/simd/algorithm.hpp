@@ -14,7 +14,7 @@
 #include <boost/simd/include/functions/store.hpp>
 #include <boost/simd/include/functions/unaligned_load.hpp>
 #include <boost/simd/include/functions/splat.hpp>
-#include <boost/simd/sdk/memory/align_on.hpp>
+#include <boost/simd/memory/align_on.hpp>
 #include <boost/mpl/assert.hpp>
 
 namespace boost { namespace simd

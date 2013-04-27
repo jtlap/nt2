@@ -27,8 +27,8 @@
 #include <boost/simd/include/functions/simd/make.hpp>
 
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
-#include <boost/simd/sdk/memory/meta/is_power_of_2.hpp>
-#include <boost/simd/sdk/memory/is_aligned.hpp>
+#include <boost/simd/meta/is_power_of_2.hpp>
+#include <boost/simd/memory/is_aligned.hpp>
 
 #include <boost/dispatch/meta/is_iterator.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -62,16 +62,14 @@ namespace boost { namespace simd
                                   >::type
                  >
   {
-    typedef Type                   value_type;
-    typedef value_type&             reference;
-    typedef value_type const& const_reference;
-
-    typedef typename
-    meta::vector_of<Type, Cardinal>::type data_type;
+    typedef typename meta::vector_of<Type, Cardinal>::type  data_type;
     typedef typename proto::terminal<data_type>::type       expr_type;
 
-    typedef typename data_type::iterator       iterator;
-    typedef typename data_type::iterator const_iterator;
+    typedef Type                                value_type;
+    typedef typename data_type::reference       reference;
+    typedef typename data_type::const_reference const_reference;
+    typedef typename data_type::iterator        iterator;
+    typedef typename data_type::const_iterator  const_iterator;
 
     typedef expression< typename
                         proto::terminal< typename
@@ -91,7 +89,7 @@ namespace boost { namespace simd
      */
     //==========================================================================
     BOOST_MPL_ASSERT_MSG
-    ( (meta::is_power_of_2_c<Cardinal>::value && Cardinal != 1)
+    ( (meta::is_power_of_2_c<Cardinal>::value && Cardinal > 1)
     , INVALID_SIMD_PACK_CARDINAL
     , (boost::mpl::int_<Cardinal>)
     );

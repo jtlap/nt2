@@ -9,7 +9,7 @@
 #ifndef NT2_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_EXTRACT_HPP_INCLUDED
 #define NT2_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_EXTRACT_HPP_INCLUDED
 
-#include <nt2/operator/functions/extract.hpp>
+#include <nt2/memory/functions/extract.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>

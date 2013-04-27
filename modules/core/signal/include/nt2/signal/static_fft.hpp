@@ -68,7 +68,7 @@
 #include <nt2/signal/details/twiddle_factors.hpp>
 
 #include <boost/simd/sdk/config/arch.hpp>
-#include <boost/simd/sdk/memory/prefetch.hpp>
+#include <boost/simd/memory/prefetch.hpp>
 #include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/constant/constants/half.hpp>

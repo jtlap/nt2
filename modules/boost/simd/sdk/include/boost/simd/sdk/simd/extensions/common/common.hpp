@@ -28,7 +28,7 @@
 
 #endif
 
-#include <boost/simd/sdk/memory/aligned_array.hpp>
+#include <boost/simd/memory/aligned_array.hpp>
 #include <boost/simd/sdk/config.hpp>
 
 #endif
