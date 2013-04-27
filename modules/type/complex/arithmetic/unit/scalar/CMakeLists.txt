@@ -11,6 +11,7 @@ set( SOURCES
   ceil.cpp
   floor.cpp
   round.cpp
+  round2even.cpp
   trunc.cpp
   oneminus.cpp
   oneplus.cpp
