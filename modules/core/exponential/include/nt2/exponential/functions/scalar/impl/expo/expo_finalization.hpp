@@ -16,7 +16,7 @@
 #include <nt2/include/functions/simd/is_gtz.hpp>
 #include <nt2/include/functions/simd/oneminus.hpp>
 #include <nt2/include/functions/simd/divides.hpp>
-#include <nt2/include/functions/simd/round.hpp>
+#include <nt2/include/functions/simd/round2even.hpp>
 #include <nt2/include/functions/simd/logical_and.hpp>
 #include <nt2/include/constants/nbmantissabits.hpp>
 #include <nt2/include/constants/eps.hpp>
@@ -80,7 +80,7 @@ namespace nt2
           // adjust for 2^n n flint
           return  nt2::if_else(nt2::logical_and(nt2::is_gtz(a0),
                                                 nt2::is_flint(a0)),
-                               nt2::round(y), y);
+                               nt2::round2even(y), y);
         }
       };
 
@@ -94,7 +94,7 @@ namespace nt2
           //adjust for 10^n n flint
           return  nt2::if_else(nt2::logical_and(nt2::is_gtz(a0),
                                                 nt2::is_flint(a0)),
-                               nt2::round(y), y);
+                               nt2::round2even(y), y);
         }
 
       };
