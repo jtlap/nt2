@@ -1,7 +1,5 @@
-[library The Boost SIMD Library
+[part The Boost SIMD Library
     [quickbook 1.5]
-    [category Math and numerics]
-    [purpose SIMD architecture abstractions]
 ]
 
 [section Overview]
@@ -24,7 +22,5 @@ Boost.SIMD depends on the following header-only Boost libraries:
 
 [endsect]
 
-
-[include motivation.qbk]
-[include tutorial.qbk]
-[include rationale.qbk]
+[xinclude boost.simd.sdk.xml]
+[xinclude boost.simd.memory.xml]

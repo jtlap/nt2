@@ -3,8 +3,6 @@
 ]
 
 [#dev_manual]
-[xinclude boost.dispatch.xml]
-[xinclude boost.simd.doc.xml]
 [xinclude dev/module.xml]
 [xinclude dev/expression.xml]
 [xinclude dev/architecture.xml]

@@ -103,7 +103,7 @@ two versions exist, and are defined in :
 [section Memory]
 When dealing with SIMD registers, the memory needs to be aligned in order to achieve good performances. To achieve this goal, boost.simd
 provides a set of tool to allocate aligned memory.
-First the `allocate` function, defined in boost/simd/sdk/memory/allocate.hpp :
+First the `allocate` function, defined in boost/simd/memory/allocate.hpp :
 
    byte* allocate( std::size_t nbytes );
 
@@ -112,7 +112,7 @@ allocates a buffer of nbytes bytes starting at an aligned address.
 Obviously `deallocate` and `reallocate` counterparts are also available :
 
    void deallocate( byte* ptr, std::size_t nbytes = 0);
-   byte* reallocate( byte* ptr, std::size_t nbytes, std::size_t obytes);
+   byte* reallocate( byte* ptr, std::size_t nbytes );
 
 All this functions live in the boost::simd::memory namespace.
 
@@ -123,7 +123,7 @@ This means that you can use it with an STL container to get automatically aligne
 
 `vec` will start at an aligned address meaning that you can immediately applicate SIMD operations on it without using boost::simd::begin
 function.
-This allocator is defined in boost/simd/sdk/memory/allocator.hpp.
+This allocator is defined in boost/simd/memory/allocator.hpp.
 
 An allocator adaptator is also available for you to adapt an allocator to be aligned, it is named `allocator_adaptor`.
 [endsect]

@@ -156,6 +156,7 @@ macro(nt2_doc_doxygen file)
   if(EXISTS ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}/examples)
     set(DXY_EX     "EXAMPLE_PATH = ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}/examples\n")
   endif()
+
   set(DXY_TARGET "GENERATE_LATEX=NO\nGENERATE_HTML=NO\nGENERATE_XML=YES\n")
   set(DXY_XML    "XML_OUTPUT = ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen\n")
 

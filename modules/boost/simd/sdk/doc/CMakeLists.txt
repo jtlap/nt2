@@ -12,19 +12,7 @@ if(NOT NT2_DOCUMENTATION_ENABLED)
   return()
 endif()
 
-nt2_module_doc( boost.dispatch
-                dispatch.qbk
-                contents.qbk
+nt2_module_doc( boost.simd.sdk
+                sdk.qbk
                 reference.doxyfile
-                ${NT2_BINARY_DIR}/doc/html/dispatch/tags.png
               )
-
-if(NOT IS_DIRECTORY ${NT2_BINARY_DIR}/doc/html/dispatch)
-  file(MAKE_DIRECTORY ${NT2_BINARY_DIR}/doc/html/dispatch)
-endif()
-
-add_custom_command(OUTPUT ${NT2_BINARY_DIR}/doc/html/dispatch/tags.png
-                   COMMAND ${DOXYGEN_DOT_EXECUTABLE}
-                   -Tpng ${CMAKE_CURRENT_SOURCE_DIR}/tags.gv
-                   -o ${NT2_BINARY_DIR}/doc/html/dispatch/tags.png
-                  )

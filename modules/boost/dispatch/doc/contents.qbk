@@ -1,0 +1,15 @@
+[library Motivation
+    [quickbook 1.5]
+    [category Generic]
+    [purpose Generic overloading]
+]
+
+[include motivation.qbk]
+[include rationale.qbk]
+[include hierarchy.qbk]
+[include function.qbk]
+[include functor.qbk]
+[include macros.qbk]
+[include tutorial.qbk]
+
+[xinclude reference.xml]
