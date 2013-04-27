@@ -1,0 +1,72 @@
+//==============================================================================
+//         Copyright 2003 - 2012 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
+#define NT2_UNIT_MODULE "nt2 operator toolbox - unaligned_store/scalar Mode"
+
+#include <boost/simd/include/functions/unaligned_store.hpp>
+#include <boost/simd/include/functions/unaligned_load.hpp>
+
+#include <boost/fusion/include/io.hpp>
+#include <boost/fusion/include/at_c.hpp>
+#include <boost/fusion/include/make_vector.hpp>
+#include <boost/fusion/include/adapt_struct.hpp>
+
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+
+#include "../common/store_runner.hpp"
+#include "../common/foo.hpp"
+
+NT2_TEST_CASE_TPL( unaligned_store,  BOOST_SIMD_SIMD_TYPES)
+{
+  using boost::simd::logical;
+
+  unaligned_store_runner< T, T >();
+  unaligned_store_runner< logical<T>, logical<T> >();
+}
+
+NT2_TEST_CASE_TPL( unaligned_store_offset,  BOOST_SIMD_SIMD_TYPES)
+{
+  using boost::simd::logical;
+
+  unaligned_store_runner< T, T >(true);
+  unaligned_store_runner< logical<T>, logical<T> >(true);
+}
+
+NT2_TEST_CASE( unaligned_store_sequence_pointer )
+{
+  unaligned_store_runner< foo, foo >();
+  unaligned_store_runner< foo, foo >(true);
+}
+
+NT2_TEST_CASE( unaligned_store_sequence )
+{
+  using boost::simd::unaligned_store;
+  using boost::simd::unaligned_load;
+  using boost::simd::tag::unaligned_store_;
+  using boost::fusion::vector;
+  using boost::fusion::make_vector;
+
+  double d = 3.4;
+  float  f = 1.8f;
+  char   c = 'a';
+  double sd;
+  float  sf;
+  char   sc;
+
+  vector<double,float,char> v;
+
+  v = unaligned_load< vector<double,float,char> >(make_vector(&d, &f, &c), 0);
+  unaligned_store(v,make_vector(&sd, &sf, &sc),0);
+
+  NT2_TEST_EQUAL(boost::fusion::at_c<0>(v) , sd);
+  NT2_TEST_EQUAL(boost::fusion::at_c<1>(v) , sf);
+  NT2_TEST_EQUAL(boost::fusion::at_c<2>(v) , sc);
+}

@@ -1,0 +1,11 @@
+[library The Boost SIMD Memory Module
+    [quickbook 1.5]
+    [category Generic]
+    [purpose SIMD programming]
+]
+
+[section Overview]
+This library ...
+[endsect]
+
+[xinclude reference.xml]

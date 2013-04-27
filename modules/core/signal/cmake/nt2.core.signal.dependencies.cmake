@@ -13,6 +13,7 @@ SET ( NT2_CORE.SIGNAL_DEPENDENCIES_EXTRA
       boost.simd.constant
       boost.simd.sdk
       boost.simd.swar
+      boost.simd.memory
       core.adjacent
       core.base
       core.exponential

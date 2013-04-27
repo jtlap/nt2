@@ -1,0 +1,25 @@
+################################################################################
+#         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
+#         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+#
+#          Distributed under the Boost Software License, Version 1.0.
+#                 See accompanying file LICENSE.txt or copy at
+#                     http://www.boost.org/LICENSE_1_0.txt
+################################################################################
+QUIET                  = NO
+WARN_IF_UNDOCUMENTED   = YES
+WARN_IF_DOC_ERROR      = YES
+WARNINGS               = YES
+EXTRACT_ALL            = NO
+EXTRACT_PRIVATE        = NO
+HIDE_UNDOC_MEMBERS     = YES
+HIDE_UNDOC_CLASSES     = YES
+HIDE_SCOPE_NAMES       = YES
+INLINE_INFO            = YES
+INTERNAL_DOCS          = NO
+INPUT                  = ../include/boost/simd/memory/
+INPUT                 += ../include/boost/simd/meta/
+INPUT                 += ../include/boost/simd/toolbox/memory/functions/
+INHERIT_DOCS           = NO
+RECURSIVE              = NO
+EXPAND_AS_DEFINED      = BOOST_PP_EMPTY BOOST_PP_COMMA BOOST_FORCEINLINE

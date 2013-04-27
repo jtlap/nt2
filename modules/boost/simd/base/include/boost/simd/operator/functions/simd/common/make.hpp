@@ -10,7 +10,7 @@
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_SIMD_COMMON_MAKE_HPP_INCLUDED
 #include <boost/simd/operator/functions/make.hpp>
 #include <boost/simd/include/functions/simd/load.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
+#include <boost/simd/memory/aligned_type.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/simd/sdk/simd/preprocessor/repeat.hpp>

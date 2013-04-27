@@ -12,4 +12,5 @@ SET ( NT2_BOOST.SIMD.CONSTANT_DEPENDENCIES_EXTRA
       boost.simd.base
       boost.simd.config
       boost.simd.sdk
+      boost.simd.memory
     )
