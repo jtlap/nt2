@@ -6,13 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.swar toolbox - put_first/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.swar components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 24/02/2011
-///
 #include <boost/simd/swar/include/functions/put_first.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -20,16 +13,11 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/constant/constant.hpp>
-#include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
-#include <boost/simd/include/functions/load.hpp>
-
 
 NT2_TEST_CASE_TPL ( put_first_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::put_first;
   using boost::simd::tag::put_first_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -55,7 +43,6 @@ NT2_TEST_CASE_TPL ( put_first_signed_int__2_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_
 {
   using boost::simd::put_first;
   using boost::simd::tag::put_first_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -78,7 +65,6 @@ NT2_TEST_CASE_TPL ( put_first_unsigned_int__2_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES
 {
   using boost::simd::put_first;
   using boost::simd::tag::put_first_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

@@ -6,12 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+<<<<<<< HEAD:modules/boost/simd/reduction/unit/simd/all_new.cpp
 #define NT2_UNIT_MODULE "nt2 reduction toolbox - all/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/include/functions/load.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/load.hpp>
 #include <boost/type_traits/is_same.hpp>

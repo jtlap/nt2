@@ -45,7 +45,7 @@ NT2_TEST_CASE_TPL ( fast_sincospi_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::fast_sincospi;
   using nt2::tag::fast_sincospi_;
-  using nt2::load;
+  using nt2::aligned_load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef typename boost::dispatch::meta::as_floating<T>::type ftype;

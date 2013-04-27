@@ -45,7 +45,7 @@ NT2_TEST_CASE_TPL ( exp2_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::exp2;
   using nt2::tag::exp2_;
-  using nt2::load;
+  using nt2::aligned_load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   #include <nt2/include/functions/sqr.hpp>

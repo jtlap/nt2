@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL ( fast_sinpi_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::fast_sinpi;
   using nt2::tag::fast_sinpi_;
-  using nt2::load;
+  using nt2::aligned_load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
 
@@ -83,7 +83,7 @@ NT2_TEST_CASE_TPL ( fast_sinpi_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
 {
   using nt2::fast_sinpi;
   using nt2::tag::fast_sinpi_;
-  using nt2::load;
+  using nt2::aligned_load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
 
@@ -123,7 +123,7 @@ NT2_TEST_CASE_TPL ( fast_sinpi_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
 {
   using nt2::fast_sinpi;
   using nt2::tag::fast_sinpi_;
-  using nt2::load;
+  using nt2::aligned_load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
 

@@ -6,13 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.arithmetic toolbox - iround/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.arithmetic components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created by jt the 01/12/2010
-///
 #include <boost/simd/arithmetic/include/functions/iround.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
@@ -29,7 +22,6 @@
 #include <boost/simd/include/constants/nan.hpp>
 #include <boost/simd/include/constants/three.hpp>
 #include <boost/simd/include/constants/two.hpp>
-
 
 NT2_TEST_CASE_TPL ( iround_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {

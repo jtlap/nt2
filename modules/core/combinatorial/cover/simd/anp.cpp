@@ -33,15 +33,19 @@
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
 
+<<<<<<< HEAD
 #include <nt2/include/functions/load.hpp>
 #include <nt2/constant/constant.hpp>
+=======
+#include <nt2/constant/constant.hpp>
+>>>>>>> ef6662d... Remove spurrious memory related include from unit tests
 
 
 NT2_TEST_CASE_TPL ( anp_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::anp;
   using nt2::tag::anp_;
-  using nt2::load;
+  using nt2::aligned_load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -62,7 +66,7 @@ NT2_TEST_CASE_TPL ( anp_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
   using nt2::anp;
   using nt2::tag::anp_;
-  using nt2::load;
+  using nt2::aligned_load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -83,7 +87,7 @@ NT2_TEST_CASE_TPL ( anp_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::anp;
   using nt2::tag::anp_;
-  using nt2::load;
+  using nt2::aligned_load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

@@ -46,8 +46,4 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(nt2::imag(nt2::I<vcT>()), nt2::One<vT>());
   NT2_TEST_EQUAL(nt2::real(nt2::I<vciT>()), nt2::Zero<vT>());
   NT2_TEST_EQUAL(nt2::imag(nt2::I<vciT>()), nt2::One<vT>());
-
-
 }
-
-

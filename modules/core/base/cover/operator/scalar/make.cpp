@@ -23,7 +23,6 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/load.hpp>
 
 NT2_TEST_CASE_TPL ( make_integer__2_0,  NT2_INTEGRAL_TYPES)
 {

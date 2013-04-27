@@ -39,6 +39,4 @@ NT2_TEST_CASE_TPL ( two_add_real_types,  NT2_SIMD_REAL_TYPES)
   std::vector<r_t> ref(NR);
   for(nt2::uint32_t i=0; i < NR ; ++i) ref[i] = two_add(in1[i], in2[i]);
   NT2_COVER_ULP_EQUAL(two_add_, ((nT, in1))((nT, in2)), ref, 0);
-
 }
-

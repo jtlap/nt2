@@ -16,8 +16,8 @@
 #include <nt2/sdk/unit/details/helpers.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 
-#include <boost/simd/sdk/memory/allocator.hpp>
-#include <boost/simd/sdk/memory/aligned_array.hpp>
+#include <boost/simd/memory/allocator.hpp>
+#include <boost/simd/memory/aligned_array.hpp>
 #include <boost/array.hpp>
 #include <boost/assert.hpp>
 #include <boost/foreach.hpp>

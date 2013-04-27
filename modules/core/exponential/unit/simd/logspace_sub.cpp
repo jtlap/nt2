@@ -30,7 +30,6 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/constant/constant.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/load.hpp>
 
 
 
@@ -38,7 +37,6 @@ NT2_TEST_CASE_TPL ( logspace_sub_real__2_1,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::logspace_sub;
   using nt2::tag::logspace_sub_;
-  using nt2::load;
   using boost::simd::native;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename nt2::meta::upgrade<T>::type   u_t;

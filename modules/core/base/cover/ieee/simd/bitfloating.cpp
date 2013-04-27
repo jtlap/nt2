@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( bitfloating_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
 {
   using nt2::bitfloating;
   using nt2::tag::bitfloating_;
-  using nt2::load;
+  using nt2::aligned_load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -79,7 +79,7 @@ NT2_TEST_CASE_TPL ( bitfloating_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
 {
   using nt2::bitfloating;
   using nt2::tag::bitfloating_;
-  using nt2::load;
+  using nt2::aligned_load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

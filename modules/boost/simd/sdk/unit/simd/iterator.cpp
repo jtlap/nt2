@@ -8,11 +8,11 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "boost::simd::iterator"
 
-#include <boost/simd/sdk/simd/iterator.hpp>
+#include <boost/simd/memory/iterator.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
-#include <boost/simd/sdk/memory/allocator.hpp>
+#include <boost/simd/memory/allocator.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <vector>

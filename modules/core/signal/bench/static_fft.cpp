@@ -13,7 +13,7 @@
 #include <nt2/sdk/bench/perform_benchmark.hpp>
 #include <nt2/sdk/bench/details/overheads.hpp>
 
-#include <boost/simd/sdk/memory/allocator.hpp>
+#include <boost/simd/memory/allocator.hpp>
 #include <boost/simd/include/functions/scalar/ilog2.hpp>
 
 #include <boost/array.hpp>

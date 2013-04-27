@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL ( rem_pio2_cephes_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::rem_pio2_cephes;
   using nt2::tag::rem_pio2_cephes_;
-  using nt2::load;
+  using nt2::aligned_load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

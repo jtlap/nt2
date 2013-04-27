@@ -31,7 +31,6 @@
 #include <nt2/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/load.hpp>
 
 #ifdef BOOST_MSVC
 #pragma warning(disable: 4146) // unary minus operator applied to unsigned type
@@ -41,7 +40,6 @@ NT2_TEST_CASE_TPL ( shift_left_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES)
 {
   using nt2::shift_left;
   using nt2::tag::shift_left_;
-  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef typename nt2::meta::scalar_of<T>::type sT;
@@ -69,7 +67,6 @@ NT2_TEST_CASE_TPL ( shift_left_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::shift_left;
   using nt2::tag::shift_left_;
-  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef typename nt2::meta::scalar_of<T>::type sT;

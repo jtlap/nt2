@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL ( sin_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::sin;
   using nt2::tag::sin_;
-  using nt2::load;
+  using nt2::aligned_load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -81,7 +81,7 @@ NT2_TEST_CASE_TPL ( sin_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
 {
   using nt2::sin;
   using nt2::tag::sin_;
-  using nt2::load;
+  using nt2::aligned_load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -119,7 +119,7 @@ NT2_TEST_CASE_TPL ( sin_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
 {
   using nt2::sin;
   using nt2::tag::sin_;
-  using nt2::load;
+  using nt2::aligned_load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

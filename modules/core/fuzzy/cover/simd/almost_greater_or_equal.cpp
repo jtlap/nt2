@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( almost_greater_or_equal_real__3_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::almost_greater_or_equal;
   using nt2::tag::almost_greater_or_equal_;
-  using nt2::load;
+  using nt2::aligned_load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -84,7 +84,7 @@ NT2_TEST_CASE_TPL ( almost_greater_or_equal_signed_int__3_0,  NT2_SIMD_INTEGRAL_
 {
   using nt2::almost_greater_or_equal;
   using nt2::tag::almost_greater_or_equal_;
-  using nt2::load;
+  using nt2::aligned_load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -126,7 +126,7 @@ NT2_TEST_CASE_TPL ( almost_greater_or_equal_unsigned_int__3_0,  NT2_SIMD_UNSIGNE
 {
   using nt2::almost_greater_or_equal;
   using nt2::tag::almost_greater_or_equal_;
-  using nt2::load;
+  using nt2::aligned_load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

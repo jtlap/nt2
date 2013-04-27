@@ -11,7 +11,6 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include <nt2/arithmetic/include/functions/correct_fma.hpp>
-#include <vector>
 #include <nt2/include/constants/valmin.hpp>
 #include <nt2/include/constants/valmax.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -19,6 +18,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
+#include <vector>
 
 NT2_TEST_CASE_TPL ( correct_fma_all_types,  NT2_SIMD_TYPES)
 {

@@ -19,7 +19,6 @@
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
-
 NT2_TEST_CASE_TPL ( rem_pio2_straight_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::rem_pio2_straight;

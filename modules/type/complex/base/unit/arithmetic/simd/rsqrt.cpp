@@ -41,7 +41,6 @@
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/rec.hpp>
 
-#include <nt2/include/functions/load.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/dry.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>

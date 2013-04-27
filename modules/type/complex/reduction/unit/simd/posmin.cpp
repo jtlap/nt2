@@ -6,12 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 reduction toolbox - posmin/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of reduction components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-
 #include <nt2/reduction/include/functions/posmin.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>

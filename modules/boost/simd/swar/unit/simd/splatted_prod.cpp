@@ -6,36 +6,21 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.swar toolbox - splatted_prod/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.swar components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 24/02/2011
-///
 #include <boost/simd/swar/include/functions/splatted_prod.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/include/functions/prod.hpp>
+#include <boost/simd/constant/constant.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/constant/constant.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
-#include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
-#include <boost/simd/include/functions/load.hpp>
-#include <boost/simd/constant/constant.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
-
 
 NT2_TEST_CASE_TPL ( splatted_prod_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::splatted_prod;
   using boost::simd::tag::splatted_prod_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

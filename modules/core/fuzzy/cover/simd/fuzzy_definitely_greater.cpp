@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( fuzzy_definitely_greater_real__3_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::fuzzy_definitely_greater;
   using nt2::tag::fuzzy_definitely_greater_;
-  using nt2::load;
+  using nt2::aligned_load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

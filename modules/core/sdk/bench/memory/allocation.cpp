@@ -8,7 +8,7 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2 allocation bench"
 
-#include <boost/simd/sdk/memory/allocator.hpp>
+#include <boost/simd/memory/allocator.hpp>
 #include <nt2/sdk/memory/fixed_allocator.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <iostream>

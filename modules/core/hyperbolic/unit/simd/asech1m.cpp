@@ -35,14 +35,12 @@ extern "C" { long double cephes_acoshl(long double); }
 #include <nt2/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/load.hpp>
 
 
 NT2_TEST_CASE_TPL ( asech1m_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::asech1m;
   using nt2::tag::asech1m_;
-  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

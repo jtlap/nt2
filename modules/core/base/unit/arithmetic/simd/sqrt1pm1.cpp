@@ -14,7 +14,6 @@
 /// created by jt the 01/12/2010
 /// modified by jt the 06/04/2011
 
-#include <nt2/include/functions/load.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 
 #include <boost/type_traits/is_same.hpp>
@@ -30,7 +29,6 @@ NT2_TEST_CASE_TPL ( sqrt1pm1_real__1_0,  NT2_REAL_TYPES)
 {
   using nt2::sqrt1pm1;
   using nt2::tag::sqrt1pm1_;
-  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

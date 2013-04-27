@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL ( fast_cospi_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::fast_cospi;
   using nt2::tag::fast_cospi_;
-  using nt2::load;
+  using nt2::aligned_load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
 

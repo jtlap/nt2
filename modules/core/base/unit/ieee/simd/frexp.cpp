@@ -23,7 +23,6 @@ NT2_TEST_CASE_TPL( frexp, NT2_SIMD_REAL_TYPES)
 {
   using nt2::frexp;
   using nt2::tag::frexp_;
-
   using boost::simd::native;
   typedef native<T,NT2_SIMD_DEFAULT_EXTENSION>            vT;
   typedef typename nt2::meta::as_integer<vT,signed>::type viT;

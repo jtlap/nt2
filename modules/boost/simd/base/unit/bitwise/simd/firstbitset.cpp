@@ -6,13 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.bitwise toolbox - firstbitset/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.bitwise components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 18/02/2011
-///
 #include <boost/simd/bitwise/include/functions/firstbitset.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -20,19 +13,11 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/constant/constant.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
-#include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
-#include <boost/simd/include/functions/load.hpp>
-#include <boost/simd/constant/constant.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
-
 
 NT2_TEST_CASE_TPL ( firstbitset_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::firstbitset;
   using boost::simd::tag::firstbitset_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -57,7 +42,6 @@ NT2_TEST_CASE_TPL ( firstbitset_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNE
 {
   using boost::simd::firstbitset;
   using boost::simd::tag::firstbitset_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -80,7 +64,6 @@ NT2_TEST_CASE_TPL ( firstbitset_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYP
 {
   using boost::simd::firstbitset;
   using boost::simd::tag::firstbitset_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

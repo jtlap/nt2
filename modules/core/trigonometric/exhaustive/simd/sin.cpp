@@ -5,7 +5,6 @@
 #include <boost/simd/sdk/simd/native.hpp>
 
 #include <nt2/include/functions/iround.hpp>
-#include <nt2/include/functions/load.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/successor.hpp>

@@ -41,7 +41,7 @@ NT2_TEST_CASE_TPL ( ror_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES)
 {
   using nt2::ror;
   using nt2::tag::ror_;
-  using nt2::load;
+  using nt2::aligned_load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

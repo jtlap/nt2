@@ -6,13 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.operator toolbox - logical_and/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.operator components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 18/02/2011
-///
 #include <boost/simd/operator/include/functions/logical_and.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
@@ -22,24 +15,11 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/constant/constant.hpp>
-#include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
-#include <boost/simd/include/functions/load.hpp>
-void pb(unsigned short a,  int n = 16)
-{
-  unsigned short j = 1;
-  for(int i =  0;  i < n;  i++){
-    std::cout << ((a&j)!= 0);
-    j <<= 1;
-  }
-  std::cout << std::endl;
-}
 
 NT2_TEST_CASE_TPL ( logical_and_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
   using boost::simd::logical_and;
   using boost::simd::tag::logical_and_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -54,8 +34,6 @@ NT2_TEST_CASE_TPL ( logical_and_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-//   std::cout << logical_and(boost::simd::One<vT>(), boost::simd::One<vT>()) << std::endl;
-//   pb( logical_and(boost::simd::One<vT>(), boost::simd::One<vT>()));
   NT2_TEST_EQUAL(logical_and(boost::simd::True<vlT>(), boost::simd::True<vlT>())[0], boost::simd::True<sr_t>());
   NT2_TEST_EQUAL(logical_and(boost::simd::True<vlT>(),boost::simd::False<vlT>())[0], boost::simd::False<sr_t>());
   NT2_TEST_EQUAL(logical_and(boost::simd::False<vlT>(), boost::simd::False<vlT>())[0], boost::simd::False<sr_t>());
@@ -66,7 +44,6 @@ NT2_TEST_CASE_TPL ( logical_and_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::logical_and;
   using boost::simd::tag::logical_and_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

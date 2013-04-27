@@ -32,7 +32,7 @@ NT2_TEST_CASE_TPL ( tchebeval_real__2_0,  NT2_REAL_TYPES)
 {
 //   using nt2::tchebeval;
 //   using nt2::tag::tchebeval_;
-//   using nt2::load;
+//   using nt2::aligned_load;
 //   using nt2::simd::native;
 //   using nt2::meta::cardinal_of;
 //   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

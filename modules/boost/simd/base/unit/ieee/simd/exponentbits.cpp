@@ -6,13 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.ieee toolbox - exponentbits/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.ieee components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created by jt the 04/12/2010
-///
 #include <boost/simd/ieee/include/functions/exponentbits.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/include/functions/ldexp.hpp>
@@ -24,16 +17,11 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/constant/constant.hpp>
-#include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
-#include <boost/simd/include/functions/load.hpp>
-
 
 NT2_TEST_CASE_TPL ( exponentbits_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::exponentbits;
   using boost::simd::tag::exponentbits_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

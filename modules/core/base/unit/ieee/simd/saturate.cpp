@@ -31,14 +31,13 @@
 #include <nt2/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/load.hpp>
 
 
 NT2_TEST_CASE_TPL ( saturate_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
 //   using nt2::saturate;
 //   using nt2::tag::saturate_;
-//   using nt2::load;
+//   using nt2::aligned_load;
 //   using boost::simd::native;
 //   using nt2::meta::cardinal_of;
 //   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

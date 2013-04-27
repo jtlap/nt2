@@ -23,14 +23,13 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/load.hpp>
 
 //COMMENTED
 NT2_TEST_CASE_TPL ( splat_real__1_0,  NT2_REAL_TYPES)
 {
 //   using nt2::splat;
 //   using nt2::tag::splat_;
-//   using nt2::load;
+//   using nt2::aligned_load;
 //   using boost::simd::native;
 //   using nt2::meta::cardinal_of;
 //   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

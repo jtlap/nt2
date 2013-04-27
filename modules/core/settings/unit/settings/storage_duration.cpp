@@ -233,7 +233,7 @@ NT2_TEST_CASE( dynamic_duration_apply )
                                 >::type
                               >
                       )
-                    , (buffer<int, allocator_adaptor<int,std::allocator<int> > >)
+                    , (buffer<int, allocator_adaptor<std::allocator<int> > >)
                     );
 
   NT2_TEST_EXPR_TYPE( dynamic_()
@@ -248,6 +248,6 @@ NT2_TEST_CASE( dynamic_duration_apply )
                                 >::type
                               >
                       )
-                    , (buffer<int, allocator_adaptor<int,std::allocator<int> > >)
+                    , (buffer<int, allocator_adaptor<std::allocator<int> > >)
                     );
 }

@@ -6,6 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+<<<<<<< HEAD
 #define NT2_UNIT_MODULE "nt2 exponential toolbox - log1p/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -14,6 +15,9 @@
 /// created by jt the 08/12/2010
 ///
 #include <nt2/exponential/include/functions/log1p.hpp>
+=======
+#include <nt2/exponential/include/functions/log1p.hpp>
+>>>>>>> ef6662d... Remove spurrious memory related include from unit tests
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -30,16 +34,12 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/load.hpp>
 #include <nt2/include/constants/log_2.hpp>
-
 
 NT2_TEST_CASE_TPL ( log1p_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::log1p;
   using nt2::tag::log1p_;
-  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

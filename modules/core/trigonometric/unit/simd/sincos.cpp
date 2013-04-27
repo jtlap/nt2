@@ -9,7 +9,6 @@
 #include <nt2/trigonometric/include/functions/sincos.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
-
 #include <nt2/include/constants/pio2_3.hpp>
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/zero.hpp>

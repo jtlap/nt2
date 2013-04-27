@@ -10,8 +10,11 @@
 
 #include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/sdk/memory/allocator.hpp>
+#include <boost/simd/memory/allocator.hpp>
 #include <boost/simd/sdk/meta/iterate.hpp>
+#include <boost/simd/include/functions/store.hpp>
+#include <boost/simd/include/functions/load.hpp>
+
 #include <boost/fusion/include/at.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>

@@ -31,14 +31,12 @@
 #include <nt2/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/load.hpp>
 
 
 NT2_TEST_CASE_TPL ( fast_ldexp_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::fast_ldexp;
   using nt2::tag::fast_ldexp_;
-  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef typename nt2::meta::as_integer<T>::type iT;

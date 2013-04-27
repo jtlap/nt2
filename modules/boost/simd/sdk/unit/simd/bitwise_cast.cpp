@@ -15,8 +15,6 @@
 #include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/true.hpp>
-#include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
 
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>

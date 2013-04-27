@@ -32,14 +32,12 @@
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
 
-#include <nt2/include/functions/load.hpp>
 
 
 NT2_TEST_CASE_TPL ( dist_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::dist;
   using nt2::tag::dist_;
-  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

@@ -7,7 +7,15 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 
+<<<<<<< HEAD
 #include <nt2/hyperbolic/include/functions/sinhcosh.hpp>
+=======
+#include <nt2/hyperbolic/include/functions/sinhcosh.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/include/functions/splat.hpp>
+>>>>>>> ef6662d... Remove spurrious memory related include from unit tests
 #include <nt2/include/functions/sinh.hpp>
 #include <nt2/include/functions/cosh.hpp>
 #include <nt2/include/functions/tie.hpp>
@@ -75,5 +83,4 @@ NT2_TEST_CASE_TPL(sinhcosh_table, NT2_SIMD_REAL_TYPES)
       NT2_TEST_ULP_EQUAL(p.second, nt2::cosh(a[i]), 1);
     }
   }
-
 }

@@ -6,13 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.reduction toolbox - is_simd_logical/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.reduction components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 24/02/2011
-///
 #include <boost/simd/reduction/include/functions/is_simd_logical.hpp>
 #include <boost/simd/include/functions/negate.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
@@ -23,17 +16,11 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/constant/constant.hpp>
-#include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
-#include <boost/simd/include/functions/load.hpp>
-#include <boost/simd/constant/constant.hpp>
-
 
 NT2_TEST_CASE_TPL ( is_simd_logical_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::is_simd_logical;
   using boost::simd::tag::is_simd_logical_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

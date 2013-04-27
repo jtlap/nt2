@@ -16,9 +16,9 @@
 #include <nt2/sdk/unit/details/ulp.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/details/io_fix.hpp>
-#include <nt2/include/functions/unaligned_load.hpp>
-#include <nt2/include/functions/unaligned_store.hpp>
 #include <nt2/sdk/meta/type_id.hpp>
+#include <nt2/include/functions/load.hpp>
+#include <nt2/include/functions/store.hpp>
 #include <boost/preprocessor/seq/elem.hpp>
 #include <boost/preprocessor/seq/size.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>

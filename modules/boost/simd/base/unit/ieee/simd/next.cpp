@@ -6,13 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.ieee toolbox - next/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.ieee components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created by jt the 04/12/2010
-///
 #include <boost/simd/ieee/include/functions/next.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/include/functions/successor.hpp>
@@ -23,19 +16,11 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/constant/constant.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
-#include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
-#include <boost/simd/include/functions/load.hpp>
-#include <boost/simd/constant/constant.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
-
 
 NT2_TEST_CASE_TPL ( next_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::next;
   using boost::simd::tag::next_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -62,7 +47,6 @@ NT2_TEST_CASE_TPL ( next_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::next;
   using boost::simd::tag::next_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -86,7 +70,6 @@ NT2_TEST_CASE_TPL ( next_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES
 {
   using boost::simd::next;
   using boost::simd::tag::next_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

@@ -24,7 +24,10 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
-NT2_TEST_CASE_TPL ( bitfloating_integer_convert__1_0,  BOOST_SIMD_SIMD_UINT_CONVERT_TYPES BOOST_SIMD_SIMD_INT_CONVERT_TYPES)
+NT2_TEST_CASE_TPL ( bitfloating_integer_convert__1_0
+                  , BOOST_SIMD_SIMD_UINT_CONVERT_TYPES
+                    BOOST_SIMD_SIMD_INT_CONVERT_TYPES
+                  )
 {
   using boost::simd::bitfloating;
   using boost::simd::tag::bitfloating_;

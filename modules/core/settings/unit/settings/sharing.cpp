@@ -203,6 +203,6 @@ NT2_TEST_CASE( owned_apply )
                                 >::type
                               >
                       )
-                    , (buffer<int,allocator_adaptor< int, std::allocator<int> > >)
+                    , (buffer<int,allocator_adaptor<std::allocator<int> > >)
                     );
 }

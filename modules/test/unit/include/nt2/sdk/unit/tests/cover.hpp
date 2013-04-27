@@ -17,7 +17,7 @@
 #include <nt2/sdk/unit/details/cover.hpp>
 #include <nt2/sdk/unit/details/prng.hpp>
 #include <nt2/include/functor.hpp>
-#include <boost/simd/sdk/memory/allocator.hpp>
+#include <boost/simd/memory/allocator.hpp>
 #include <vector>
 #include <string>
 
