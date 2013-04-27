@@ -9,6 +9,10 @@
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_ROUND_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_ROUND_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
+#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/is_ltz.hpp>
+#include <boost/simd/include/constants/half.hpp>
+#include <boost/simd/include/constants/mhalf.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -20,7 +24,8 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return _mm256_round_pd(a0, 0);
+      result_type inc = if_else(is_ltz(a0), Mhalf<result_type>(), Half<result_type>());
+      return _mm256_round_pd(a0+inc, 3);
     }
   };
 
@@ -32,7 +37,8 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return _mm256_round_ps(a0, 0);
+      result_type inc = if_else(is_ltz(a0), Mhalf<result_type>(), Half<result_type>());
+      return _mm256_round_ps(a0+inc, 3);
     }
   };
 } } }

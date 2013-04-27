@@ -48,10 +48,10 @@ NT2_TEST_CASE_TPL ( iround_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(iround(boost::simd::splat<vT>(1.4))[0], 1, 0);
   NT2_TEST_ULP_EQUAL(iround(boost::simd::splat<vT>(1.5))[0], 2, 0);
   NT2_TEST_ULP_EQUAL(iround(boost::simd::splat<vT>(1.6))[0], 2, 0);
-  NT2_TEST_ULP_EQUAL(iround(boost::simd::splat<vT>(2.5))[0], 2, 0);
-  NT2_TEST_ULP_EQUAL(iround(boost::simd::Half<vT>())[0], boost::simd::Zero<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(iround(boost::simd::splat<vT>(2.5))[0], 3, 0);
+  NT2_TEST_ULP_EQUAL(iround(boost::simd::Half<vT>())[0], boost::simd::One<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(iround(boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(iround(boost::simd::Mhalf<vT>())[0], boost::simd::Zero<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(iround(boost::simd::Mhalf<vT>())[0], boost::simd::Mone<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(iround(boost::simd::Minf<vT>())[0], boost::simd::Minf<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(iround(boost::simd::Mone<vT>())[0], boost::simd::Mone<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(iround(boost::simd::Nan<vT>())[0], boost::simd::Zero<sr_t>(), 0);

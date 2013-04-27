@@ -55,10 +55,10 @@ NT2_TEST_CASE_TPL ( iround_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(iround(T(1.4)), 1, 0);
   NT2_TEST_ULP_EQUAL(iround(T(1.5)), 2, 0);
   NT2_TEST_ULP_EQUAL(iround(T(1.6)), 2, 0);
-  NT2_TEST_ULP_EQUAL(iround(T(2.5)), 2, 0);
-  NT2_TEST_ULP_EQUAL(iround(nt2::Half<T>()), nt2::Zero<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(iround(T(2.5)), 3, 0);
+  NT2_TEST_ULP_EQUAL(iround(nt2::Half<T>()), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(iround(nt2::Inf<T>()), nt2::Inf<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(iround(nt2::Mhalf<T>()), nt2::Zero<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(iround(nt2::Mhalf<T>()), nt2::Mone<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(iround(nt2::Minf<T>()), nt2::Minf<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(iround(nt2::Mone<T>()), nt2::Mone<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(iround(nt2::Nan<T>()), nt2::Zero<r_t>(), 0);

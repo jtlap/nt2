@@ -40,10 +40,10 @@ NT2_TEST_CASE_TPL ( round_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(round(cT(T(1.4))), cT(1));
   NT2_TEST_EQUAL(round(cT(T(1.5))), cT(2));
   NT2_TEST_EQUAL(round(cT(T(1.6))), cT(2));
-  NT2_TEST_EQUAL(round(cT(T(2.5))), cT(2));
-  NT2_TEST_EQUAL(round(nt2::Half<cT>()), nt2::Zero<cT>());
+  NT2_TEST_EQUAL(round(cT(T(2.5))), cT(3));
+  NT2_TEST_EQUAL(round(nt2::Half<cT>()), nt2::One<cT>());
   NT2_TEST_EQUAL(round(nt2::Inf<cT>()), nt2::Inf<cT>());
-  NT2_TEST_EQUAL(round(nt2::Mhalf<cT>()), nt2::Zero<cT>());
+  NT2_TEST_EQUAL(round(nt2::Mhalf<cT>()), nt2::Mone<cT>());
   NT2_TEST_EQUAL(round(nt2::Minf<cT>()), nt2::Minf<cT>());
   NT2_TEST_EQUAL(round(nt2::Mone<cT>()), nt2::Mone<cT>());
   NT2_TEST_EQUAL(round(nt2::Nan<cT>()), nt2::Nan<cT>());

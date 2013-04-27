@@ -59,7 +59,6 @@ namespace boost { namespace simd { namespace tag
     struct round_ : ext::elementwise_<round_> { typedef ext::elementwise_<round_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::round_, round, 1)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::round_, round2even, 1)
 } }
 
 #endif

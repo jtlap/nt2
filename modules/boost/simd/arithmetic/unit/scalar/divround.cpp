@@ -67,6 +67,8 @@ NT2_TEST_CASE_TPL ( divround_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(divround(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(divround(T(5), T(2)), T(3), 0);
+  NT2_TEST_ULP_EQUAL(divround(T(7), T(2)), T(4), 0);
 } // end of test for unsigned_int_
 
 NT2_TEST_CASE_TPL ( divround_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
@@ -88,4 +90,8 @@ NT2_TEST_CASE_TPL ( divround_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(divround(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(divround(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(divround(T(5), T(2)), T(3), 0);
+  NT2_TEST_ULP_EQUAL(divround(T(7), T(2)), T(4), 0);
+  NT2_TEST_ULP_EQUAL(divround(T(-5), T(2)), T(-3), 0);
+  NT2_TEST_ULP_EQUAL(divround(T(-7), T(2)), T(-4), 0);
 } // end of test for signed_int_

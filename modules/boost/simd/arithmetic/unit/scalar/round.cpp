@@ -42,10 +42,10 @@ NT2_TEST_CASE_TPL ( round_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(round(T(1.4)), 1, 0);
   NT2_TEST_ULP_EQUAL(round(T(1.5)), 2, 0);
   NT2_TEST_ULP_EQUAL(round(T(1.6)), 2, 0);
-  NT2_TEST_ULP_EQUAL(round(T(2.5)), 2, 0);
-  NT2_TEST_ULP_EQUAL(round(boost::simd::Half<T>()), boost::simd::Zero<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(round(T(2.5)), 3, 0);
+  NT2_TEST_ULP_EQUAL(round(boost::simd::Half<T>()), boost::simd::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(round(boost::simd::Inf<T>()), boost::simd::Inf<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(round(boost::simd::Mhalf<T>()), boost::simd::Zero<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(round(boost::simd::Mhalf<T>()), boost::simd::Mone<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(round(boost::simd::Minf<T>()), boost::simd::Minf<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(round(boost::simd::Mone<T>()), boost::simd::Mone<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(round(boost::simd::Nan<T>()), boost::simd::Nan<r_t>(), 0);

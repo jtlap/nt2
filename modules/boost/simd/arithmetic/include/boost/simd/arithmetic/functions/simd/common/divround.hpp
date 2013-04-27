@@ -11,7 +11,6 @@
 
 #include <boost/simd/arithmetic/functions/divround.hpp>
 #include <boost/simd/include/functions/simd/iround.hpp>
-#include <boost/simd/include/functions/simd/iround.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>
 #include <boost/simd/include/functions/simd/divides.hpp>
 #include <boost/simd/include/functions/rdivide.hpp>
