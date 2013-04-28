@@ -87,7 +87,7 @@ NT2_TEST_CASE_TPL( levenberg_functor, NT2_REAL_TYPES )
 
   NT2_TEST(res.successful);
   NT2_TEST_LESSER_EQUAL(nt2::globalmax(nt2::abs(res.minimum()-r)), nt2::Four<T>()*nt2::Sqrteps<T>());
-
+  std::cout << res.covar << std::endl;
 }
 
 // NT2_TEST_CASE_TPL( levenberg_function, (double)(float) )
@@ -209,3 +209,4 @@ NT2_TEST_CASE_TPL( levenberg_functor, NT2_REAL_TYPES )
 //   cout << "minimum " << hjm.optimize(fff, b, h) <<  " au point " <<  b << " en " << hjm.getNbIteration() <<  " iterations" << endl;
 
 // }
+
