@@ -22,7 +22,7 @@ namespace nt2 { namespace ext
                               (scalar_<unspecified_<A0> >)
                             )
   {
-    typedef table<A0,of_size_<0> > result_type;
+    typedef container::table<A0,of_size_<0> > result_type;
 
     BOOST_FORCEINLINE
     result_type operator()(Functor const&, A0 const&) const
@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
                               (scalar_<integer_<Along> >)
                             )
   {
-    typedef table<A0, of_size_<0> > result_type;
+    typedef container::table<A0, of_size_<0> > result_type;
 
     BOOST_FORCEINLINE
     result_type operator()(Functor const&, A0 const&, Along const&) const
