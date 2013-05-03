@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 allocation bench"
-
 #include <boost/simd/memory/allocator.hpp>
 #include <nt2/sdk/memory/fixed_allocator.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
@@ -54,7 +52,7 @@ template<class Allocator> NT2_EXPERIMENT(allocation_test)
 #define NT2_ALLOCATION_EXP(T,N)                             \
 NT2_RUN_EXPERIMENT_TPL( allocation_test                          \
                       , (std::allocator<T>)                 \
-                        (boost::simd::memory::allocator<T>) \
+                        (boost::simd::allocator<T>) \
                         (nt2::memory::fixed_allocator<T>)   \
                       , (1 <<  N)                           \
                       )                                     \

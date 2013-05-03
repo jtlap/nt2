@@ -6,8 +6,6 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "boost::simd::pack"
-
 #include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/memory/allocator.hpp>
@@ -40,7 +38,7 @@ NT2_TEST_CASE_TPL(constructor_from_range, BOOST_SIMD_SIMD_TYPES )
 {
   typedef typename boost::simd::pack<T> p_t;
   static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
-  std::vector<T, boost::simd::memory::allocator<T> > data(card);
+  std::vector<T, boost::simd::allocator<T> > data(card);
 
   for(size_t i=0; i<card; ++i) data[i] = T(i);
 
@@ -53,7 +51,7 @@ NT2_TEST_CASE_TPL(constructor_copy, BOOST_SIMD_SIMD_TYPES )
 {
   typedef typename boost::simd::pack<T> p_t;
   static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
-  std::vector<T, boost::simd::memory::allocator<T> > data(card);
+  std::vector<T, boost::simd::allocator<T> > data(card);
 
   for(size_t i=0; i<card; ++i) data[i] = T(i);
 
@@ -79,7 +77,7 @@ NT2_TEST_CASE_TPL(range_interface, BOOST_SIMD_SIMD_TYPES )
 {
   typedef typename boost::simd::pack<T> p_t;
   static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
-  std::vector<T, boost::simd::memory::allocator<T> > data(card);
+  std::vector<T, boost::simd::allocator<T> > data(card);
 
   for(size_t i=0; i<card; ++i) data[i] = T(i);
 
@@ -94,8 +92,8 @@ NT2_TEST_CASE_TPL(pack_store, BOOST_SIMD_SIMD_TYPES )
 {
   typedef typename boost::simd::pack<T> p_t;
   static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
-  std::vector<T, boost::simd::memory::allocator<T> > data(card);
-  std::vector<T, boost::simd::memory::allocator<T> > stored(card);
+  std::vector<T, boost::simd::allocator<T> > data(card);
+  std::vector<T, boost::simd::allocator<T> > stored(card);
 
   for(size_t i=0; i<card; ++i) data[i] = T(i);
   p_t p(data.begin(),data.end());
@@ -110,7 +108,7 @@ NT2_TEST_CASE_TPL(pack_load, BOOST_SIMD_SIMD_TYPES )
 {
   typedef typename boost::simd::pack<T> p_t;
   static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
-  std::vector<T, boost::simd::memory::allocator<T> > data(card);
+  std::vector<T, boost::simd::allocator<T> > data(card);
 
   for(size_t i=0; i<card; ++i) data[i] = T(i);
   p_t p;
@@ -140,7 +138,7 @@ NT2_TEST_CASE_TPL(pack_fusion, BOOST_SIMD_SIMD_TYPES)
 {
   typedef typename boost::simd::pack<T> p_t;
   static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
-  std::vector<T, boost::simd::memory::allocator<T> > data(card);
+  std::vector<T, boost::simd::allocator<T> > data(card);
 
   for(size_t i=0; i<card; ++i) data[i] = T(i);
   p_t p;

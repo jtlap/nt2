@@ -20,7 +20,7 @@ namespace nt2 { namespace memory
   // Forward declaration
   //============================================================================
   template< typename T
-          , typename Allocator = boost::simd::memory::allocator<T>
+          , typename Allocator = boost::simd::allocator<T>
           > class buffer;
 } }
 

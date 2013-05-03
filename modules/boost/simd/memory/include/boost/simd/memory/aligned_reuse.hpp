@@ -25,7 +25,7 @@
 #pragma warning disable 2196
 #endif
 
-namespace boost { namespace simd { namespace memory
+namespace boost { namespace simd
 {
 #if     defined( BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN )                    \
     || (defined( _GNU_SOURCE ) && !defined( __ANDROID__ ))                     \
@@ -74,7 +74,7 @@ namespace boost { namespace simd { namespace memory
 
 #endif
 
-} } }
+} }
 
 #if defined(BOOST_INTEL)
 #pragma warning pop

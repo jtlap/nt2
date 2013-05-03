@@ -11,7 +11,7 @@
 #define NT2_BUFFER_EXP(T,N)                                                   \
 NT2_RUN_EXPERIMENT_TPL( buffer_test                                           \
                       , (nt2::memory::buffer<T>)                              \
-                        ((std::vector<T,boost::simd::memory::allocator<T> >)) \
+                        ((std::vector<T,boost::simd::allocator<T> >)) \
                       , (1 << N)                                              \
                       )                                                       \
 /**/

@@ -6,8 +6,6 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "boost::simd::memory::allocator_adaptor"
-
 #include <boost/simd/memory/allocator_adaptor.hpp>
 #include <boost/simd/memory/is_aligned.hpp>
 
@@ -24,7 +22,7 @@ NT2_TEST_CASE_TPL(vector, BOOST_SIMD_TYPES)
   using boost::simd::is_aligned;
 
   typedef std::allocator<float> base;
-  typedef boost::simd::memory::allocator_adaptor<base> alloc;
+  typedef boost::simd::allocator_adaptor<base> alloc;
   std::vector<T, alloc > p(5);
 
   NT2_TEST( is_aligned( &p[0] ) );

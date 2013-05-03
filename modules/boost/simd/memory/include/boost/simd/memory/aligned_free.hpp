@@ -14,7 +14,7 @@
 #include <boost/simd/memory/details/aligned_stash.hpp>
 #include <boost/dispatch/attributes.hpp>
 
-namespace boost { namespace simd { namespace memory
+namespace boost { namespace simd
 {
   BOOST_FORCEINLINE void aligned_free( void * const ptr )
   {
@@ -35,6 +35,6 @@ namespace boost { namespace simd { namespace memory
 
 #endif
   }
-} } }
+} }
 
 #endif

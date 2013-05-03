@@ -6,8 +6,6 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "boost::simd::memory based aligned new/delete overload"
-
 #include <boost/simd/memory/overload.hpp>
 #include <boost/simd/memory/is_aligned.hpp>
 
@@ -15,7 +13,7 @@
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
-class foo : public boost::simd::memory::aligned_object<64>
+class foo : public boost::simd::aligned_object<64>
 {
   public:
   int  member;

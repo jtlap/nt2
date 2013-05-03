@@ -12,7 +12,7 @@
 #include <boost/simd/sdk/config/arch.hpp>
 #include <boost/simd/meta/prev_power_of_2.hpp>
 
-namespace boost { namespace simd { namespace memory
+namespace boost { namespace simd
 {
   /* Default alignment is BOOST_SIMD_ARCH_ALIGNMENT or the largest power of 2
    * smaller than N*sizeof(T), whichever is smaller */
@@ -23,6 +23,6 @@ namespace boost { namespace simd { namespace memory
                               : BOOST_SIMD_ARCH_ALIGNMENT
           >
   struct aligned_array;
-} } }
+} }
 
 #endif

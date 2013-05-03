@@ -31,9 +31,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 
-
-namespace boost{ namespace simd{ namespace memory{
-
+namespace boost { namespace simd
+{
   enum{integer_L1 = 3, real_L2_L3 = 2, not_frequently_reused = 1, not_reused = 0};
 
   template<int Strategy>
@@ -52,6 +51,6 @@ namespace boost{ namespace simd{ namespace memory{
   {
     prefetch<not_reused>(pointer);
   }
+} }
 
-} } }
 #endif

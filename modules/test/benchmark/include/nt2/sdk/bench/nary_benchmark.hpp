@@ -49,7 +49,7 @@ typedef typename boost::dispatch                                               \
 /**/
 
 #define M1(z,n,t)                                                              \
-typedef boost::simd::memory                                                    \
+typedef boost::simd                                                            \
              ::allocator<BOOST_PP_CAT(type,n)> BOOST_PP_CAT(alloc,n);          \
 /**/
 
@@ -159,7 +159,7 @@ namespace nt2 { namespace unit
 
     std::size_t                                                         size;
     Function                                                            func;
-    mutable std::vector<out_t, boost::simd::memory::allocator<out_t> >  out;
+    mutable std::vector<out_t, boost::simd::allocator<out_t> >          out;
     BOOST_PP_REPEAT(N, M5, ~)
     BOOST_PP_REPEAT(N, M6, ~)
   };

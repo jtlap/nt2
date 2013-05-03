@@ -29,7 +29,7 @@
 #include <cstring>
 #include <cstddef>
 
-namespace boost { namespace simd {  namespace memory
+namespace boost { namespace simd
 {
   /*!
     @brief Aligned memory reallocation
@@ -45,10 +45,9 @@ namespace boost { namespace simd {  namespace memory
     @pre @c align is a power of 2
     @post Returned pointer is aligned on @c align
   **/
-  BOOST_FORCEINLINE byte*
-  reallocate(byte* ptr, std::size_t nbytes, std::size_t align)
+  BOOST_FORCEINLINE void* reallocate(void* ptr, std::size_t nbytes, std::size_t align)
   {
-    return static_cast<byte*>(aligned_realloc(ptr,nbytes,align));
+    return aligned_realloc(ptr,nbytes,align);
   }
 
   /*!
@@ -70,16 +69,16 @@ namespace boost { namespace simd {  namespace memory
   **/
   template<std::size_t Alignment>
   BOOST_FORCEINLINE
-  typename meta::align_ptr<byte ,Alignment>::type
-  reallocate( byte* ptr, std::size_t nbytes )
+  typename meta::align_ptr<void ,Alignment>::type
+  reallocate( void* ptr, std::size_t nbytes )
   {
     return align_ptr<Alignment>(reallocate(ptr, nbytes, Alignment));
   }
 
   //// INTERNAL ONLY
   BOOST_FORCEINLINE
-  meta::align_ptr<byte ,BOOST_SIMD_CONFIG_ALIGNMENT>::type
-  reallocate( byte* ptr, std::size_t nbytes )
+  meta::align_ptr<void ,BOOST_SIMD_CONFIG_ALIGNMENT>::type
+  reallocate( void* ptr, std::size_t nbytes )
   {
     return reallocate<BOOST_SIMD_CONFIG_ALIGNMENT>( ptr, nbytes );
   }
@@ -106,9 +105,9 @@ namespace boost { namespace simd {  namespace memory
   BOOST_FORCEINLINE
   typename  boost::dispatch::meta::
             enable_if_type< typename Allocator::pointer
-                          , byte*
+                          , void*
                           >::type
-  reallocate(Allocator& alloc, byte* ptr, std::size_t nbytes, std::size_t align)
+  reallocate(Allocator& alloc, void* ptr, std::size_t nbytes, std::size_t align)
   {
     // Resizing to 0 free the pointer data and return
     if(nbytes == 0)
@@ -128,7 +127,7 @@ namespace boost { namespace simd {  namespace memory
     if( oldSize == nbytes && is_aligned(ptr,align) ) return ptr;
 
     // Else reallocate manually/copy/deallocate old data
-    byte* fresh_ptr = allocate(alloc, nbytes, align );
+    void* fresh_ptr = allocate(alloc, nbytes, align );
     if( !fresh_ptr ) return 0;
 
     std::memcpy( fresh_ptr, ptr, std::min( nbytes, oldSize ) );
@@ -157,9 +156,9 @@ namespace boost { namespace simd {  namespace memory
   BOOST_FORCEINLINE
   typename  boost::dispatch::meta::
             enable_if_type< typename Allocator::pointer
-                          , typename meta::align_ptr<byte ,Alignment>::type
+                          , typename meta::align_ptr<void ,Alignment>::type
                           >::type
-  reallocate( Allocator& alloc, byte* ptr, std::size_t nbytes )
+  reallocate( Allocator& alloc, void* ptr, std::size_t nbytes )
   {
     return align_ptr<Alignment>(reallocate(alloc,ptr,nbytes));
   }
@@ -170,14 +169,14 @@ namespace boost { namespace simd {  namespace memory
   typename  boost::dispatch::meta::
             enable_if_type< typename Allocator::pointer
                           , typename meta::align_ptr
-                                    < byte
+                                    < void
                                     , BOOST_SIMD_CONFIG_ALIGNMENT
                                     >::type
                           >::type
-  reallocate( Allocator& alloc, byte* ptr, std::size_t nbytes )
+  reallocate( Allocator& alloc, void* ptr, std::size_t nbytes )
   {
     return align_ptr<BOOST_SIMD_CONFIG_ALIGNMENT>(reallocate(alloc,ptr,nbytes));
   }
-} } }
+} }
 
 #endif

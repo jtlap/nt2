@@ -11,11 +11,11 @@
 
 #include <boost/mpl/bool.hpp>
 
-namespace boost { namespace simd {  namespace memory
+namespace boost { namespace simd
 {
   template<class T>         struct allocator;
   template<class Allocator> struct allocator_adaptor;
-} } }
+} }
 
 namespace nt2 {  namespace memory
 {
@@ -29,17 +29,17 @@ namespace nt2 {  namespace meta
   {};
 
   template<typename T>
-  struct  perform_aligned_allocation< memory::fixed_allocator<T> >
+  struct  perform_aligned_allocation< nt2::memory::fixed_allocator<T> >
         : boost::mpl::true_
   {};
 
   template<class T>
-  struct  perform_aligned_allocation< boost::simd::memory::allocator<T> >
+  struct  perform_aligned_allocation< boost::simd::allocator<T> >
         : boost::mpl::true_
   {};
 
   template<class A>
-  struct  perform_aligned_allocation<boost::simd::memory::allocator_adaptor<A> >
+  struct  perform_aligned_allocation<boost::simd::allocator_adaptor<A> >
         : boost::mpl::true_
   {};
 } }

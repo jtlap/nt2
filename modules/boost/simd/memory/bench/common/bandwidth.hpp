@@ -47,9 +47,9 @@ template<typename T> class bandwidth_base
   }
 
   protected:
-          std::size_t                                             size;
-  mutable std::vector<type, boost::simd::memory::allocator<T> >   in;
-  mutable std::vector<type, boost::simd::memory::allocator<T> >   out;
+          std::size_t                                     size;
+  mutable std::vector<type, boost::simd::allocator<T> >   in;
+  mutable std::vector<type, boost::simd::allocator<T> >   out;
 };
 
 //==============================================================================

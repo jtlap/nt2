@@ -48,7 +48,7 @@ namespace nt2
     // Memory:
     // + table owns its memory
     // + table allocates its memory dynamically
-    // + table uses boost::simd::memory::allocator
+    // + table uses boost::simd::allocator
     //==========================================================================
     template<typename T, typename S> struct normalize<tag::table_, T, S>
     {
@@ -68,7 +68,7 @@ namespace nt2
       typedef typename option<S,tag::sharing_         , owned_        >::type sg;
       typedef typename option<S,tag::storage_duration_, dynamic_      >::type sd;
       typedef typename option<S,tag::allocator_
-                               ,allocator_< boost::simd::memory::allocator<T> >
+                               ,allocator_< boost::simd::allocator<T> >
                                >::type                                        al;
       typedef typename option<S,tag::buffer_, buffer_<>            >::type    bf;
 

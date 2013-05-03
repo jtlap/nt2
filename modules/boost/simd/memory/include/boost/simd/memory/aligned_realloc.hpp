@@ -24,7 +24,7 @@
 #pragma warning disable 2196
 #endif
 
-namespace boost { namespace simd { namespace memory
+namespace boost { namespace simd
 {
 #if defined( _MSC_VER ) && defined( BOOST_SIMD_MEMORY_USE_BUILTINS )
 
@@ -126,7 +126,7 @@ namespace boost { namespace simd { namespace memory
 
 #endif
 
-} } }
+} }
 
 #if defined(BOOST_INTEL)
 #pragma warning pop

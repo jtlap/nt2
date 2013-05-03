@@ -9,20 +9,29 @@
 #ifndef BOOST_SIMD_MEMORY_OVERLOAD_HPP_INCLUDED
 #define BOOST_SIMD_MEMORY_OVERLOAD_HPP_INCLUDED
 
+/*!
+  @file
+  @brief
+**/
+
 #include <cstddef>
 #include <boost/simd/memory/allocate.hpp>
 #include <boost/simd/memory/deallocate.hpp>
 #include <boost/simd/memory/parameters.hpp>
 
+/*!
+  @brief
+
+**/
 #define BOOST_SIMD_MEMORY_OVERLOAD_NEW_DELETE(Alignment)                       \
 void* operator new(std::size_t sz, const std::nothrow_t& throw_status)         \
 {                                                                              \
-  return boost::simd::memory::allocate(sz, Alignment, throw_status);           \
+  return boost::simd::allocate(sz, Alignment, throw_status);           \
 }                                                                              \
                                                                                \
 void* operator new(std::size_t sz)                                             \
 {                                                                              \
-  return boost::simd::memory::allocate(sz, Alignment);                         \
+  return boost::simd::allocate(sz, Alignment);                         \
 }                                                                              \
                                                                                \
 void* operator new(std::size_t , void* p)                                      \
@@ -37,47 +46,47 @@ void* operator new[](std::size_t s, void* p)                                   \
                                                                                \
 void* operator new[](std::size_t sz, const std::nothrow_t& throw_status)       \
 {                                                                              \
-  return boost::simd::memory::allocate(sz, Alignment, throw_status);           \
+  return boost::simd::allocate(sz, Alignment, throw_status);           \
 }                                                                              \
                                                                                \
 void* operator new[](std::size_t sz)                                           \
 {                                                                              \
-  return boost::simd::memory::allocate(sz, Alignment);                         \
+  return boost::simd::allocate(sz, Alignment);                         \
 }                                                                              \
                                                                                \
 void operator delete(void* m)                                                  \
 {                                                                              \
-  typedef boost::simd::memory::byte* ptr_t;                                    \
-  boost::simd::memory::deallocate(reinterpret_cast<ptr_t>(m));                 \
+  boost::simd::deallocate(m);                                          \
 }                                                                              \
                                                                                \
 void operator delete[](void* m)                                                \
 {                                                                              \
-  typedef boost::simd::memory::byte* ptr_t;                                    \
-  boost::simd::memory::deallocate(reinterpret_cast<ptr_t>(m));                 \
+  boost::simd::deallocate(m);                                          \
 }                                                                              \
                                                                                \
 void operator delete(void* m, const std::nothrow_t&)                           \
 {                                                                              \
-  typedef boost::simd::memory::byte* ptr_t;                                    \
-  boost::simd::memory::deallocate(reinterpret_cast<ptr_t>(m));                 \
+  boost::simd::deallocate(m);                                          \
 }                                                                              \
                                                                                \
 void operator delete[](void* m, const std::nothrow_t&)                         \
 {                                                                              \
-  typedef boost::simd::memory::byte* ptr_t;                                    \
-  boost::simd::memory::deallocate(reinterpret_cast<ptr_t>(m));                 \
+  boost::simd::deallocate(m);                                          \
 }                                                                              \
 /**/
 
-namespace boost { namespace simd {  namespace memory
+namespace boost { namespace simd
 {
+  /*!
+    @brief
+
+  **/
   template<std::size_t Alignment = BOOST_SIMD_CONFIG_ALIGNMENT>
   struct aligned_object
   {
     public:
     BOOST_SIMD_MEMORY_OVERLOAD_NEW_DELETE(Alignment)
   };
-} } }
+} }
 
 #endif

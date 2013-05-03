@@ -88,8 +88,8 @@ namespace boost { namespace simd
 
     @include align_on_default.cpp
 
-    @see boost::simd::memory::align_ptr
-    @see boost::simd::meta::align_ptr
+    @see boost::simd::align_ptr
+    @see boost::simd::align_ptr
   **/
   BOOST_FORCEINLINE std::size_t align_on(std::size_t value)
   {
@@ -101,12 +101,12 @@ namespace boost { namespace simd
   typename ::boost::simd::meta::align_ptr<T,BOOST_SIMD_CONFIG_ALIGNMENT>::type
   align_on(T* ptr)
   {
-    return ::boost::simd::memory
-            ::align_ptr < BOOST_SIMD_CONFIG_ALIGNMENT >
-                        ( ::boost::simd::align_on ( ptr
+    return ::boost::simd::align_ptr < BOOST_SIMD_CONFIG_ALIGNMENT >
+                                    ( ::boost::simd::
+                                          align_on( ptr
                                                   , BOOST_SIMD_CONFIG_ALIGNMENT
                                                   )
-                        );
+                                    );
   }
 } }
 

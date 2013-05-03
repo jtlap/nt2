@@ -20,7 +20,7 @@
 #include <boost/dispatch/attributes.hpp>
 #include <boost/assert.hpp>
 
-namespace boost { namespace simd {  namespace memory
+namespace boost { namespace simd
 {
   /*!
     @brief Mark pointer as properly aligned
@@ -40,9 +40,8 @@ namespace boost { namespace simd {  namespace memory
 
     @see meta::align_ptr
   **/
-  template<std::size_t Alignment, typename T>
-  BOOST_FORCEINLINE typename meta::align_ptr<T,Alignment>::type
-  align_ptr(T* const pointer)
+  template<std::size_t Alignment, typename T> BOOST_FORCEINLINE
+  typename boost::simd::meta::align_ptr<T,Alignment>::type align_ptr(T* pointer)
   {
     BOOST_ASSERT_MSG
     ( boost::simd::is_aligned(pointer,Alignment)
@@ -50,9 +49,9 @@ namespace boost { namespace simd {  namespace memory
       "on the specified alignment in this context"
     );
 
-    return meta::align_ptr<T,Alignment>::value(pointer);
+    return boost::simd::meta::align_ptr<T,Alignment>::value(pointer);
   }
 
-} } }
+} }
 
 #endif

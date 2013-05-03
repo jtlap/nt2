@@ -21,13 +21,12 @@
 //==============================================================================
 NT2_TEST_CASE(allocate)
 {
-  using boost::simd::memory::byte;
-  using boost::simd::memory::allocate;
-  using boost::simd::memory::deallocate;
+  using boost::simd::allocate;
+  using boost::simd::deallocate;
   using boost::simd::is_aligned;
 
-  byte* ptr = 0;
-  NT2_TEST( is_aligned(ptr = allocate(5)) );
+  char* ptr = 0;
+  NT2_TEST( is_aligned(ptr = static_cast<char*>(allocate(5))) );
 
   for(int i=0;i<5;++i) ptr[i] = 10*i;
   for(int i=0;i<5;++i) NT2_TEST_EQUAL(ptr[i],10*i);
@@ -40,13 +39,12 @@ NT2_TEST_CASE(allocate)
 //==============================================================================
 NT2_TEST_CASE(allocate_align)
 {
-  using boost::simd::memory::byte;
-  using boost::simd::memory::allocate;
-  using boost::simd::memory::deallocate;
+  using boost::simd::allocate;
+  using boost::simd::deallocate;
   using boost::simd::is_aligned;
 
-  byte* ptr = 0;
-  NT2_TEST( is_aligned(ptr = allocate(5, 128), 128) );
+  char* ptr = 0;
+  NT2_TEST( is_aligned(ptr = static_cast<char*>(allocate(5, 128)), 128) );
 
   for(int i=0;i<5;++i) ptr[i] = 10*i;
   for(int i=0;i<5;++i) NT2_TEST_EQUAL(ptr[i],10*i);
@@ -59,13 +57,12 @@ NT2_TEST_CASE(allocate_align)
 //==============================================================================
 NT2_TEST_CASE(allocate_static_align)
 {
-  using boost::simd::memory::byte;
-  using boost::simd::memory::allocate;
-  using boost::simd::memory::deallocate;
+  using boost::simd::allocate;
+  using boost::simd::deallocate;
   using boost::simd::is_aligned;
 
-  byte* ptr = 0;
-  NT2_TEST( is_aligned(ptr = allocate<16>(5), 16) );
+  char* ptr = 0;
+  NT2_TEST( is_aligned(ptr = static_cast<char*>(allocate<16>(5)), 16) );
 
   for(int i=0;i<5;++i) ptr[i] = 10*i;
   for(int i=0;i<5;++i) NT2_TEST_EQUAL(ptr[i],10*i);
@@ -78,25 +75,24 @@ NT2_TEST_CASE(allocate_static_align)
 //==============================================================================
 NT2_TEST_CASE(reallocate)
 {
-  using boost::simd::memory::byte;
-  using boost::simd::memory::reallocate;
-  using boost::simd::memory::deallocate;
+  using boost::simd::reallocate;
+  using boost::simd::deallocate;
   using boost::simd::is_aligned;
 
-  byte *ptr(0), *ptr2(0);
-  NT2_TEST( is_aligned(ptr = reallocate(ptr,5)) );
+  char *ptr(0), *ptr2(0);
+  NT2_TEST( is_aligned(ptr = static_cast<char*>(reallocate(ptr,5))) );
   for(int i=0;i<5;++i) ptr[i] = 10*i;
   for(int i=0;i<5;++i) NT2_TEST_EQUAL(ptr[i],10*i);
 
-  NT2_TEST( is_aligned(ptr2 = reallocate(ptr,2)) );
+  NT2_TEST( is_aligned(ptr2 = static_cast<char*>(reallocate(ptr,2))) );
   for(int i=0;i<2;++i) ptr2[i] = 10*i;
   for(int i=0;i<2;++i) NT2_TEST_EQUAL(ptr2[i],10*i);
 
-  NT2_TEST( is_aligned(ptr = reallocate(ptr2,7)) );
+  NT2_TEST( is_aligned(ptr = static_cast<char*>(reallocate(ptr2,7))) );
   for(int i=0;i<7;++i) ptr[i] = 10*i;
   for(int i=0;i<7;++i) NT2_TEST_EQUAL(ptr[i],10*i);
 
-  ptr = reallocate(ptr,0);
+  ptr = static_cast<char*>(reallocate(ptr,0));
   NT2_TEST( !ptr );
 }
 
@@ -105,28 +101,27 @@ NT2_TEST_CASE(reallocate)
 //==============================================================================
 NT2_TEST_CASE(reallocate_align)
 {
-  using boost::simd::memory::byte;
-  using boost::simd::memory::reallocate;
-  using boost::simd::memory::deallocate;
+  using boost::simd::reallocate;
+  using boost::simd::deallocate;
   using boost::simd::is_aligned;
 
-  byte *ptr(0), *ptr2(0);
-  NT2_TEST( is_aligned(ptr = reallocate(ptr,5,64), 64) );
+  char *ptr(0), *ptr2(0);
+  NT2_TEST( is_aligned(ptr = static_cast<char*>(reallocate(ptr,5,64)), 64) );
   for(int i=0;i<5;++i) ptr[i] = 10*i;
   for(int i=0;i<5;++i) NT2_TEST_EQUAL(ptr[i],10*i);
 
-  NT2_TEST( is_aligned(ptr = reallocate(ptr,3,64), 64) );
+  NT2_TEST( is_aligned(ptr = static_cast<char*>(reallocate(ptr,3,64)), 64) );
   for(int i=0;i<3;++i) ptr[i] = 10*i;
   for(int i=0;i<3;++i) NT2_TEST_EQUAL(ptr[i],10*i);
 
-  NT2_TEST( is_aligned(ptr2 = reallocate(ptr,2,32), 32) );
+  NT2_TEST( is_aligned(ptr2 = static_cast<char*>(reallocate(ptr,2,32)), 32) );
   for(int i=0;i<2;++i) ptr2[i] = 10*i;
   for(int i=0;i<2;++i) NT2_TEST_EQUAL(ptr2[i],10*i);
 
-  NT2_TEST( is_aligned(ptr = reallocate(ptr2,7,64), 64) );
+  NT2_TEST( is_aligned(ptr = static_cast<char*>(reallocate(ptr2,7,64)), 64) );
   for(int i=0;i<7;++i) ptr[i] = 10*i;
   for(int i=0;i<7;++i) NT2_TEST_EQUAL(ptr[i],10*i);
 
-  ptr = reallocate(ptr,0,64);
+  ptr = static_cast<char*>(reallocate(ptr,0,64));
   NT2_TEST( !ptr );
 }

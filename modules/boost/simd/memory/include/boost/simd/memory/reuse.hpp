@@ -23,7 +23,7 @@
 #include <cstring>
 #include <cstddef>
 
-namespace boost { namespace simd {  namespace memory
+namespace boost { namespace simd
 {
   /*!
     @brief Aligned memory recycling
@@ -36,17 +36,16 @@ namespace boost { namespace simd {  namespace memory
 
     @return A pointer to a reused memory block
   **/
-  BOOST_FORCEINLINE byte*
-  reuse(byte* ptr, std::size_t nbytes, std::size_t align)
+  BOOST_FORCEINLINE void* reuse(void* ptr, std::size_t nbytes, std::size_t align)
   {
-    return static_cast<byte*>(aligned_reuse(ptr,nbytes,align));
+    return aligned_reuse(ptr,nbytes,align);
   }
 
   /*!
     @brief Aligned memory recycling with a static alignment
 
     Reallocated a raw buffer of aligned bytes on current architecture preferred
-    SIMD comaptible alignment.
+    SIMD compatible alignment.
 
     @param ptr     Pointer to the memory to reuse.
     @param nbytes  New number of bytes to allocate
@@ -55,8 +54,8 @@ namespace boost { namespace simd {  namespace memory
   **/
   template<std::size_t Alignment>
   BOOST_FORCEINLINE
-  typename meta::align_ptr<byte* ,Alignment>::type
-  reuse( byte* ptr, std::size_t nbytes )
+  typename meta::align_ptr<void* ,Alignment>::type
+  reuse( void* ptr, std::size_t nbytes )
   {
     return align_ptr<Alignment>(aligned_reuse(ptr, nbytes, Alignment));
   }
@@ -65,15 +64,16 @@ namespace boost { namespace simd {  namespace memory
     @brief Aligned memory recycling
 
     Reallocated a raw buffer of aligned bytes on current architecture preferred
-    SIMD comaptible alignment.
+    SIMD compatible alignment.
 
     @param ptr     Pointer to the memory to reuse.
     @param nbytes  New number of bytes to allocate
 
     @return A pointer to a reused memory block
   **/
-  BOOST_FORCEINLINE meta::align_ptr<byte*,BOOST_SIMD_CONFIG_ALIGNMENT>::type
-  reuse( byte* ptr, std::size_t nbytes )
+  BOOST_FORCEINLINE
+  meta::align_ptr<void* ,BOOST_SIMD_CONFIG_ALIGNMENT>::type
+  reuse( void* ptr, std::size_t nbytes )
   {
     return reuse<BOOST_SIMD_CONFIG_ALIGNMENT>( ptr, nbytes );
   }
@@ -94,19 +94,19 @@ namespace boost { namespace simd {  namespace memory
   BOOST_FORCEINLINE
   typename  boost::dispatch::meta::
             enable_if_type< typename Allocator::pointer
-                          , byte*
+                          , void*
                           >::type
-  reuse( Allocator& a, byte* ptr, std::size_t nbytes, std::size_t align )
+  reuse( Allocator& alloc, void* ptr, std::size_t nbytes, std::size_t align )
   {
     /// Resizing to 0 free the pointer data and return
     if(nbytes == 0)
     {
-      deallocate(a, ptr );
+      deallocate(alloc, ptr );
       return 0;
     }
 
     /// Reallocating empty pointer performs allocation
-    if(ptr == 0) return allocate(a, nbytes, align );
+    if(ptr == 0) return allocate(alloc, nbytes, align );
 
     details::aligned_block_header const old( details::get_block_header( ptr ) );
     std::size_t const oldSize( old.userBlockSize );
@@ -116,10 +116,10 @@ namespace boost { namespace simd {  namespace memory
     if( oldSize == nbytes && is_aligned(ptr,align) ) return ptr;
 
     /// Else reuse manually/copy/deallocate old data
-    byte* fresh_ptr = allocate(a, nbytes, align );
+    void* fresh_ptr = allocate(alloc, nbytes, align );
     if( !fresh_ptr ) return 0;
 
-    deallocate(a, ptr );
+    deallocate(alloc, ptr );
 
     return fresh_ptr;
   }  }
@@ -131,6 +131,7 @@ namespace boost { namespace simd {  namespace memory
      @param alloc   Allocator performing the (de)allocation
      @param ptr     Pointer to the memory to reuse.
      @param nbytes  New number of bytes to allocate
+
      @tparam Alignment  Static Hint on the alignment boundary used at allocation.
 
      @return A pointer to a reused memory block containing \c nbytes bytes.
@@ -139,11 +140,11 @@ namespace boost { namespace simd {  namespace memory
   BOOST_FORCEINLINE
   typename  boost::dispatch::meta::
             enable_if_type< typename Allocator::pointer
-                          , byte*
+                          , void*
                           >::type
-  reuse( Allocator& a, byte* ptr, std::size_t nbytes )
+  reuse( Allocator& alloc, void* ptr, std::size_t nbytes )
   {
-    return align_ptr<Alignment>(reuse(a,ptr,nbytes));
+    return align_ptr<Alignment>(reuse(alloc,ptr,nbytes));
   }
 
   /*!
@@ -160,12 +161,12 @@ namespace boost { namespace simd {  namespace memory
   BOOST_FORCEINLINE
   typename  boost::dispatch::meta::
             enable_if_type< typename Allocator::pointer
-                          , byte*
+                          , void*
                           >::type
-  reuse( Allocator& a, byte* ptr, std::size_t nbytes )
+  reuse( Allocator& alloc, void* ptr, std::size_t nbytes )
   {
-    return align_ptr<BOOST_SIMD_CONFIG_ALIGNMENT>(reuse(a,ptr,nbytes));
+    return align_ptr<BOOST_SIMD_CONFIG_ALIGNMENT>(reuse(alloc,ptr,nbytes));
   }
-} } }
+} }
 
 #endif

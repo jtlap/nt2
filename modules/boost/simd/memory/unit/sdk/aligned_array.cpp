@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "boost::simd::memory::aligned_array"
-
 #include <boost/simd/memory/aligned_array.hpp>
 
 #include <boost/mpl/size_t.hpp>
@@ -26,7 +24,7 @@ NT2_TEST_CASE_TPL( aligned_array_alignment
                    (boost::mpl::size_t<64>)
                  )
 {
-  using boost::simd::memory::aligned_array;
+  using boost::simd::aligned_array;
   aligned_array<float,18, T::value> tab;
 
   NT2_TEST( ((std::size_t)tab.data() % T::value) == 0 );
@@ -34,7 +32,7 @@ NT2_TEST_CASE_TPL( aligned_array_alignment
 
 NT2_TEST_CASE( aligned_array_interface )
 {
-  using boost::simd::memory::aligned_array;
+  using boost::simd::aligned_array;
   aligned_array<float,18> tab, tab_, tab__;
 
   for(int i=0; i<18; i++)
@@ -67,7 +65,7 @@ NT2_TEST_CASE( aligned_array_interface )
 
 NT2_TEST_CASE( aligned_array_init )
 {
-  boost::simd::memory::aligned_array<int, 3> tab = {{{1, 2, 3}}};
+  boost::simd::aligned_array<int, 3> tab = {{{1, 2, 3}}};
   for(int i=0; i<3; ++i)
     NT2_TEST_EQUAL( tab[i], i+1 );
 }

@@ -15,7 +15,7 @@
 #include <boost/dispatch/attributes.hpp>
 #include <new>
 
-namespace boost { namespace simd { namespace memory
+namespace boost { namespace simd
 {
   BOOST_FORCEINLINE BOOST_SIMD_MALLOC
   void* BOOST_DISPATCH_RESTRICT
@@ -66,6 +66,6 @@ namespace boost { namespace simd { namespace memory
             );
 #endif
   }
-} } }
+} }
 
 #endif

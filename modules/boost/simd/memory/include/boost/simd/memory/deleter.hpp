@@ -12,14 +12,13 @@
 #include <boost/simd/memory/deallocate.hpp>
 #include <boost/simd/memory/parameters.hpp>
 
-namespace boost { namespace simd { namespace memory
+namespace boost { namespace simd
 {
   template< class T
           , std::size_t Align = BOOST_SIMD_CONFIG_ALIGNMENT
           , class Allocator = void
           >
-  struct deleter
-       : Allocator
+  struct deleter : Allocator
   {
     deleter() {}
     deleter(Allocator const& x) : Allocator(x) {}
@@ -29,10 +28,7 @@ namespace boost { namespace simd { namespace memory
 
     void operator()(T * x)
     {
-      boost::simd::memory::deallocate ( static_cast<Allocator&>(*this)
-                                      , reinterpret_cast<byte*>(x)
-                                      , 0u, Align
-                                      );
+      boost::simd::deallocate ( static_cast<Allocator&>(*this), x, 0u, Align );
     }
   };
 
@@ -44,9 +40,9 @@ namespace boost { namespace simd { namespace memory
 
     void operator()(T * x) const
     {
-      boost::simd::memory::deallocate( reinterpret_cast<byte*>(x), 0u, Align );
+      boost::simd::deallocate( x, 0u, Align );
     }
   };
-} } }
+} }
 
 #endif

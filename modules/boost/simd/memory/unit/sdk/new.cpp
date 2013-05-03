@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "boost::simd::memory::allocate and related functions"
-
 #include <boost/simd/memory/new.hpp>
 #include <boost/simd/memory/is_aligned.hpp>
 
@@ -17,9 +15,8 @@
 
 NT2_TEST_CASE_TPL(new_delete, BOOST_SIMD_TYPES)
 {
-  using boost::simd::memory::byte;
-  using boost::simd::memory::allocate;
-  using boost::simd::memory::deallocate;
+  using boost::simd::allocate;
+  using boost::simd::deallocate;
   using boost::simd::is_aligned;
 
   T* ptr = 0;
@@ -35,9 +32,8 @@ NT2_TEST_CASE_TPL(new_delete, BOOST_SIMD_TYPES)
 
 NT2_TEST_CASE_TPL(new_delete_aligned, BOOST_SIMD_TYPES)
 {
-  using boost::simd::memory::byte;
-  using boost::simd::memory::allocate;
-  using boost::simd::memory::deallocate;
+  using boost::simd::allocate;
+  using boost::simd::deallocate;
   using boost::simd::is_aligned;
 
   T* ptr = 0;
@@ -53,9 +49,8 @@ NT2_TEST_CASE_TPL(new_delete_aligned, BOOST_SIMD_TYPES)
 
 NT2_TEST_CASE_TPL(new_delete_no_throw, BOOST_SIMD_TYPES)
 {
-  using boost::simd::memory::byte;
-  using boost::simd::memory::allocate;
-  using boost::simd::memory::deallocate;
+  using boost::simd::allocate;
+  using boost::simd::deallocate;
   using boost::simd::is_aligned;
 
   T* ptr = 0;
@@ -71,9 +66,8 @@ NT2_TEST_CASE_TPL(new_delete_no_throw, BOOST_SIMD_TYPES)
 
 NT2_TEST_CASE_TPL(new_delete_no_throw_aligned, BOOST_SIMD_TYPES)
 {
-  using boost::simd::memory::byte;
-  using boost::simd::memory::allocate;
-  using boost::simd::memory::deallocate;
+  using boost::simd::allocate;
+  using boost::simd::deallocate;
   using boost::simd::is_aligned;
 
   T* ptr = 0;

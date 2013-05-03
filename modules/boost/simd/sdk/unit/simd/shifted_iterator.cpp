@@ -6,8 +6,6 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "boost::simd::shifted_iterator"
-
 #include <boost/simd/sdk/simd/shifted_iterator.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/pack.hpp>
@@ -54,7 +52,7 @@ NT2_TEST_CASE_TPL(shifted_vector_iterator, BOOST_SIMD_SIMD_TYPES )
   typedef typename boost::simd::pack<T> p_t;
   static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
   static const std::size_t at_ = card - 1;
-  std::vector<T, boost::simd::memory::allocator<T> > data(3*card);
+  std::vector<T, boost::simd::allocator<T> > data(3*card);
 
   for(int i=0; i<3*card; ++i) data[i] = i;
 

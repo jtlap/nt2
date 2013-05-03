@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "boost::simd::range SIMD"
-
 #include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/memory/range.hpp>
@@ -44,8 +42,8 @@ Val accumulate(Range const& range, Val const& val)
 
 NT2_TEST_CASE_TPL(input_range_interface, BOOST_SIMD_SIMD_TYPES)
 {
-  std::vector<T,boost::simd::memory::allocator<T> > v(1024);
-  std::vector<T,boost::simd::memory::allocator<T> > c(1024);
+  std::vector<T,boost::simd::allocator<T> > v(1024);
+  std::vector<T,boost::simd::allocator<T> > c(1024);
   for(std::size_t i=0; i<v.size(); ++i) v[i] = T(i);
 
   typedef boost::simd::pack<T> p_t;

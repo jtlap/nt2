@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2::settings sharing is an option"
-
 #include <nt2/core/settings/sharing.hpp>
 #include <nt2/core/settings/settings.hpp>
 
@@ -170,8 +168,8 @@ NT2_TEST_CASE( owned_apply )
   using nt2::allocator_;
   using nt2::memory::buffer;
   using nt2::memory::array_buffer;
-  using boost::simd::memory::allocator;
-  using boost::simd::memory::allocator_adaptor;
+  using boost::simd::allocator;
+  using boost::simd::allocator_adaptor;
   using nt2::meta::normalize;
   using nt2::tag::table_;
 

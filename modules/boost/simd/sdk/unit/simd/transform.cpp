@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "boost::simd::transform"
-
 #include <boost/simd/memory/iterator.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/transform.hpp>
@@ -48,8 +46,8 @@ NT2_TEST_CASE_TPL(transform_unary_correctly_sized, BOOST_SIMD_SIMD_TYPES )
   typedef typename boost::simd::output_iterator<T> out_;
   typedef typename boost::simd::pack<T> p_t;
   static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
-  std::vector<T, boost::simd::memory::allocator<T> >   data(32*card);
-  std::vector<T, boost::simd::memory::allocator<T> > result(32*card);
+  std::vector<T, boost::simd::allocator<T> >   data(32*card);
+  std::vector<T, boost::simd::allocator<T> > result(32*card);
   it_ dbegin  = boost::simd::input_begin(&data[0]);
   it_ dend    = boost::simd::input_end(&data[0]+32*card);
   out_ rbegin = boost::simd::output_begin(&result[0]);
@@ -58,8 +56,8 @@ NT2_TEST_CASE_TPL(transform_unary_correctly_sized, BOOST_SIMD_SIMD_TYPES )
 
   boost::simd::transform(dbegin, dend, rbegin, op_<p_t>());
 
-  typename std::vector<T, boost::simd::memory::allocator<T> >::iterator i = result.begin();
-  typename std::vector<T, boost::simd::memory::allocator<T> >::iterator j = data.begin();
+  typename std::vector<T, boost::simd::allocator<T> >::iterator i = result.begin();
+  typename std::vector<T, boost::simd::allocator<T> >::iterator j = data.begin();
 
   for(i = result.begin(); i != result.end(); ++i, ++j)
   {
@@ -77,8 +75,8 @@ NT2_TEST_CASE_TPL(transform_unary_correctly_sized_unroll4, BOOST_SIMD_SIMD_TYPES
   typedef typename boost::simd::output_iterator<T> out_;
   typedef typename boost::simd::pack<T> p_t;
   static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
-  std::vector<T, boost::simd::memory::allocator<T> >   data(32*card);
-  std::vector<T, boost::simd::memory::allocator<T> > result(32*card);
+  std::vector<T, boost::simd::allocator<T> >   data(32*card);
+  std::vector<T, boost::simd::allocator<T> > result(32*card);
   it_ dbegin  = boost::simd::input_begin(&data[0]);
   it_ dend    = boost::simd::input_end(&data[0]+32*card);
   out_ rbegin = boost::simd::output_begin(&result[0]);
@@ -88,8 +86,8 @@ NT2_TEST_CASE_TPL(transform_unary_correctly_sized_unroll4, BOOST_SIMD_SIMD_TYPES
   boost::simd::transform( dbegin, dend, rbegin, op_<p_t>()
                         , boost::simd::meta::unroll<4>());
 
-  typename std::vector<T, boost::simd::memory::allocator<T> >::iterator i = result.begin();
-  typename std::vector<T, boost::simd::memory::allocator<T> >::iterator j = data.begin();
+  typename std::vector<T, boost::simd::allocator<T> >::iterator i = result.begin();
+  typename std::vector<T, boost::simd::allocator<T> >::iterator j = data.begin();
 
   for(i = result.begin(); i != result.end(); ++i, ++j)
   {
@@ -108,8 +106,8 @@ NT2_TEST_CASE_TPL(transform_unary_bad_sized_unroll4, BOOST_SIMD_SIMD_TYPES )
   typedef typename boost::simd::output_iterator<T> out_;
   typedef typename boost::simd::pack<T> p_t;
   static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
-  std::vector<T, boost::simd::memory::allocator<T> >   data(19*card);
-  std::vector<T, boost::simd::memory::allocator<T> > result(19*card);
+  std::vector<T, boost::simd::allocator<T> >   data(19*card);
+  std::vector<T, boost::simd::allocator<T> > result(19*card);
   it_ dbegin  = boost::simd::input_begin(&data[0]);
   it_ dend    = boost::simd::input_end(&data[0]+19*card);
   out_ rbegin = boost::simd::output_begin(&result[0]);
@@ -119,8 +117,8 @@ NT2_TEST_CASE_TPL(transform_unary_bad_sized_unroll4, BOOST_SIMD_SIMD_TYPES )
   boost::simd::transform( dbegin, dend, rbegin, op_<p_t>()
                         , boost::simd::meta::unroll<4>());
 
-  typename std::vector<T, boost::simd::memory::allocator<T> >::iterator i = result.begin();
-  typename std::vector<T, boost::simd::memory::allocator<T> >::iterator j = data.begin();
+  typename std::vector<T, boost::simd::allocator<T> >::iterator i = result.begin();
+  typename std::vector<T, boost::simd::allocator<T> >::iterator j = data.begin();
 
   for(i = result.begin(); i != result.end(); ++i, ++j)
   {
@@ -134,9 +132,9 @@ NT2_TEST_CASE_TPL(transform_binary_bad_sized_unroll4, BOOST_SIMD_SIMD_TYPES )
   typedef typename boost::simd::output_iterator<T> out_;
   typedef typename boost::simd::pack<T> p_t;
   static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
-  std::vector<T, boost::simd::memory::allocator<T> >   data(19*card);
-  std::vector<T, boost::simd::memory::allocator<T> >   data_(19*card);
-  std::vector<T, boost::simd::memory::allocator<T> > result(19*card);
+  std::vector<T, boost::simd::allocator<T> >   data(19*card);
+  std::vector<T, boost::simd::allocator<T> >   data_(19*card);
+  std::vector<T, boost::simd::allocator<T> > result(19*card);
   it_ dbegin  = boost::simd::input_begin(&data[0]);
   it_ dbegin_ = boost::simd::input_begin(&data_[0]);
   it_ dend    = boost::simd::input_end(&data[0]+19*card);
@@ -147,9 +145,9 @@ NT2_TEST_CASE_TPL(transform_binary_bad_sized_unroll4, BOOST_SIMD_SIMD_TYPES )
   boost::simd::transform( dbegin, dend, dbegin_, rbegin, sum_<p_t>()
                         , boost::simd::meta::unroll<4>());
 
-  typename std::vector<T, boost::simd::memory::allocator<T> >::iterator i = result.begin();
-  typename std::vector<T, boost::simd::memory::allocator<T> >::iterator j = data.begin();
-  typename std::vector<T, boost::simd::memory::allocator<T> >::iterator j_ = data_.begin();
+  typename std::vector<T, boost::simd::allocator<T> >::iterator i = result.begin();
+  typename std::vector<T, boost::simd::allocator<T> >::iterator j = data.begin();
+  typename std::vector<T, boost::simd::allocator<T> >::iterator j_ = data_.begin();
 
   for(i = result.begin(); i != result.end(); ++i, ++j, ++j_)
   {

@@ -14,7 +14,7 @@
 #include <boost/simd/memory/allocate.hpp>
 #include <boost/simd/memory/deallocate.hpp>
 
-namespace boost { namespace simd {  namespace memory
+namespace boost { namespace simd
 {
   //////////////////////////////////////////////////////////////////////////////
   // Allocate a raw buffer of bytes
@@ -69,13 +69,14 @@ namespace boost { namespace simd {  namespace memory
     ////////////////////////////////////////////////////////////////////////////
     pointer allocate( size_type c, const void* = 0 ) const
     {
-      byte* ptr = memory::allocate(c*sizeof(value_type));
-      return reinterpret_cast<pointer>(ptr);
+      return reinterpret_cast<pointer>( boost::simd
+                                             ::allocate(c*sizeof(value_type))
+                                      );
     }
 
     void deallocate (pointer p, size_type ) const
     {
-      boost::simd::memory::deallocate(reinterpret_cast<byte*>(p) );
+      boost::simd::deallocate( p );
     }
   };
 
@@ -90,6 +91,6 @@ namespace boost { namespace simd {  namespace memory
   {
     return false;
   }
-} } }
+} }
 
 #endif

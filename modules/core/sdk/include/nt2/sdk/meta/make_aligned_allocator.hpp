@@ -26,7 +26,7 @@ namespace nt2 {  namespace details
   template< class Allocator>
   struct make_aligned_allocator<Allocator,false>
   {
-    typedef boost::simd::memory::allocator_adaptor<Allocator> type;
+    typedef boost::simd::allocator_adaptor<Allocator> type;
   };
 } }
 

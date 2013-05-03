@@ -886,7 +886,7 @@ namespace detail
         vector_t * BOOST_DISPATCH_RESTRICT prefetched_element( char * BOOST_DISPATCH_RESTRICT const p_data, unsigned int const part ) const
         {
             vector_t * BOOST_DISPATCH_RESTRICT const p_element( element( p_data, part ) );
-            boost::simd::memory::prefetch_temporary( p_element );
+            boost::simd::prefetch_temporary( p_element );
             return p_element;
         }
 
@@ -951,7 +951,7 @@ namespace detail
         {
             typename pointer_type<PointerIndex>::type const & p_element( pointer<PointerIndex>() );
             BOOST_ASSUME( p_element != 0 );
-            boost::simd::memory::prefetch_temporary( p_element );
+            boost::simd::prefetch_temporary( p_element );
             return p_element;
         }
 
@@ -1538,7 +1538,7 @@ namespace detail
     )
     {
         twiddles const * BOOST_DISPATCH_RESTRICT p_twiddles( p_twiddle_factors );
-        boost::simd::memory::prefetch_temporary( p_twiddles );
+        boost::simd::prefetch_temporary( p_twiddles );
 
         vector_t * BOOST_DISPATCH_RESTRICT p_lower_reals(  p_reals );
         vector_t * BOOST_DISPATCH_RESTRICT p_lower_imags(  p_imags );
@@ -1671,7 +1671,7 @@ namespace detail
     )
     {
         real2complex_twiddles const * BOOST_DISPATCH_RESTRICT p_twiddles( p_twiddle_factors );
-        boost::simd::memory::prefetch_temporary( p_twiddles );
+        boost::simd::prefetch_temporary( p_twiddles );
 
         scalar_t * BOOST_DISPATCH_RESTRICT p_lower_reals( &p_reals->data()[ 1 ] );
         scalar_t * BOOST_DISPATCH_RESTRICT p_lower_imags( &p_imags->data()[ 1 ] );
@@ -1703,7 +1703,7 @@ namespace detail
 
             vector_t const wr( p_twiddles->wr ^ twiddle_sign_flipper );
             vector_t const wi( p_twiddles->wi                        );
-            boost::simd::memory::prefetch_temporary( ++p_twiddles );
+            boost::simd::prefetch_temporary( ++p_twiddles );
 
             vector_t const h1r( lower_r + upper_r );
             vector_t const h1i( lower_i - upper_i );
@@ -1770,7 +1770,7 @@ namespace detail
         unsigned int                                                   const N
     )
     {
-        boost::simd::memory::prefetch_temporary( p_w_param );
+        boost::simd::prefetch_temporary( p_w_param );
 
     #ifdef NT2_FFT_USE_INDEXED_BUTTERFLY_LOOP
         typename Context::twiddles const * BOOST_DISPATCH_RESTRICT                                         p_w( p_w_param );
@@ -1790,7 +1790,7 @@ namespace detail
                 context. template r<3>(), context. template i<3>(),
                 *p_w++
             );
-            boost::simd::memory::prefetch_temporary( p_w );
+            boost::simd::prefetch_temporary( p_w );
             ++context;
         } while ( context.remaining_iterations() );
     }
@@ -2436,7 +2436,7 @@ namespace detail
             typedef typename Context::vector_t vector_t;
 
             split_radix_twiddles<vector_t> const * BOOST_DISPATCH_RESTRICT const p_w( Context:: template twiddle_factors<N>() );
-            boost::simd::memory::prefetch_temporary( p_w );
+            boost::simd::prefetch_temporary( p_w );
         #ifdef _MSC_VER
             _ReadWriteBarrier();
         #endif // _MSC_VER

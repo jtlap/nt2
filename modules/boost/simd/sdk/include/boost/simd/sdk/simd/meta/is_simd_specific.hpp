@@ -19,7 +19,7 @@ namespace boost { namespace simd { namespace meta
   struct is_simd_specific : boost::mpl::false_ {};
 
   template<class T, std::size_t N, std::size_t Align>
-  struct is_simd_specific < boost::simd::memory::aligned_array<T, N, Align>
+  struct is_simd_specific < boost::simd::aligned_array<T, N, Align>
                           , tag::simd_emulation_< N * sizeof(T) >
                           > : boost::mpl::true_
   {};

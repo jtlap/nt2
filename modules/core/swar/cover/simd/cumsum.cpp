@@ -6,13 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 swar toolbox - cumsum/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// cover test behavior of swar components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 24/02/2011
-///
 #include <nt2/swar/include/functions/cumsum.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -67,7 +60,7 @@ NT2_TEST_CASE_TPL ( cumsum_real__1_0,  NT2_SIMD_REAL_TYPES)
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = nt2::cumsum(a0);
 
-        std::vector<T,boost::simd::memory::allocator<T> > z(cardinal_of<n_t>::value);
+        std::vector<T,boost::simd::allocator<T> > z(cardinal_of<n_t>::value);
         for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++) z[i]=0;
 
         for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++) {

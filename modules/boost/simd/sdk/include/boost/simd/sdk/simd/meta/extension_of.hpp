@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace meta
   struct extension_of< boost::simd::native<T,X> > { typedef X type; };
 
   template<class T, class N, std::size_t Align>
-  struct extension_of< boost::simd::memory::aligned_array<T, N::value, Align>, T, N>
+  struct extension_of< boost::simd::aligned_array<T, N::value, Align>, T, N>
   {
     typedef tag::simd_emulation_< N::value * sizeof(T) > type;
   };

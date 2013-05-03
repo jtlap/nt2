@@ -57,14 +57,4 @@
 #endif
 #endif
 
-namespace boost { namespace simd {  namespace memory
-{
-  /*!
-    @brief Portable byte typedef
-
-    @c byte is defined as the current system type usable to allocate bytes.
-  **/
-  typedef boost::simd::uint8_t byte;
-} } }
-
 #endif
