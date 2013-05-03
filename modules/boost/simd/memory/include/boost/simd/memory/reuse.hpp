@@ -13,7 +13,7 @@
 #include <boost/simd/memory/allocate.hpp>
 #include <boost/simd/memory/deallocate.hpp>
 #include <boost/simd/memory/is_aligned.hpp>
-#include <boost/simd/memory/parameters.hpp>
+#include <boost/simd/preprocessor/parameters.hpp>
 #include <boost/simd/memory/aligned_reuse.hpp>
 #include <boost/simd/memory/align_ptr.hpp>
 #include <boost/simd/memory/meta/align_ptr.hpp>

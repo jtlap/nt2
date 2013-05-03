@@ -10,6 +10,7 @@
 SET( SOURCES
     align_on.cpp
     aligned_array.cpp
+    aligned_object.cpp
     allocate.cpp
     allocator.cpp
     allocator_adaptor.cpp

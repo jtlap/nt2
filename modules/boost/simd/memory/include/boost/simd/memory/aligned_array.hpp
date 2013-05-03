@@ -9,9 +9,8 @@
 #ifndef BOOST_SIMD_MEMORY_ALIGNED_ARRAY_HPP_INCLUDED
 #define BOOST_SIMD_MEMORY_ALIGNED_ARRAY_HPP_INCLUDED
 
-#include <boost/simd/memory/aligned_on.hpp>
-#include <boost/simd/memory/parameters.hpp>
 #include <boost/simd/memory/aligned_array_fwd.hpp>
+#include <boost/simd/preprocessor/align_on.hpp>
 #include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
 
 #include <boost/throw_exception.hpp>
@@ -32,12 +31,12 @@ namespace boost { namespace simd
                         );
   };
 
-  #define M0(z,n,t)                                                          \
-  template<class T, std::size_t N>                                           \
-  struct aligned_array_data<T, N, n>                                         \
-  {                                                                          \
-    BOOST_SIMD_ALIGN_ON(n) T data[N];                                        \
-  };                                                                         \
+  #define M0(z,n,t)                                                            \
+  template<class T, std::size_t N>                                             \
+  struct aligned_array_data<T, N, n>                                           \
+  {                                                                            \
+    T BOOST_SIMD_ALIGN_ON(n) data[N];                                          \
+  };                                                                           \
   /**/
   BOOST_SIMD_PP_REPEAT_POWER_OF_2_BIG(M0,~)
   #undef M0

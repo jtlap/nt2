@@ -1,6 +1,6 @@
 #include <iostream>
 #include <boost/simd/include/native.hpp>
-#include <boost/simd/memory/stack_buffer.hpp>
+#include <boost/simd/preprocessor/stack_buffer.hpp>
 #include <boost/simd/include/functions/load.hpp>
 
 using boost::simd::load;

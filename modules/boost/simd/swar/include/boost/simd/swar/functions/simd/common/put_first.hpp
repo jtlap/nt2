@@ -12,7 +12,7 @@
 #include <boost/simd/swar/functions/put_first.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
-#include <boost/simd/memory/aligned_type.hpp>
+#include <boost/simd/preprocessor/aligned_type.hpp>
 #include <boost/simd/include/functions/simd/load.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

@@ -8,7 +8,7 @@
 //==============================================================================
 #include <boost/simd/include/functions/store.hpp>
 #include <boost/simd/include/functions/load.hpp>
-#include <boost/simd/memory/stack_buffer.hpp>
+#include <boost/simd/preprocessor/stack_buffer.hpp>
 
 #include <boost/fusion/include/io.hpp>
 #include <boost/fusion/include/at_c.hpp>

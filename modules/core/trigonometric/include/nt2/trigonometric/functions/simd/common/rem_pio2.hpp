@@ -18,7 +18,7 @@
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
-#include <boost/simd/memory/aligned_type.hpp>
+#include <boost/simd/preprocessor/aligned_type.hpp>
 
 namespace nt2 { namespace ext
 {

@@ -18,7 +18,7 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/simd/memory/stack_buffer.hpp>
+#include <boost/simd/preprocessor/stack_buffer.hpp>
 
 #include <boost/fusion/include/at_c.hpp>
 #include <boost/fusion/include/make_vector.hpp>

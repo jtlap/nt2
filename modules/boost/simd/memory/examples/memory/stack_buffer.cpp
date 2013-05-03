@@ -1,4 +1,4 @@
-#include <boost/simd/memory/stack_buffer.hpp>
+#include <boost/simd/preprocessor/stack_buffer.hpp>
 #include <boost/simd/memory/is_aligned.hpp>
 #include <boost/assert.hpp>
 

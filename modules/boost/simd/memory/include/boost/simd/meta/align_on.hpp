@@ -16,7 +16,7 @@
 **/
 
 #include <boost/simd/meta/is_power_of_2.hpp>
-#include <boost/simd/memory/parameters.hpp>
+#include <boost/simd/preprocessor/parameters.hpp>
 #include <boost/mpl/integral_c.hpp>
 #include <boost/mpl/assert.hpp>
 #include <cstddef>

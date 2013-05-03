@@ -6,17 +6,16 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#include <boost/simd/preprocessor/new.hpp>
+#include <boost/simd/memory/aligned_object.hpp>
 #include <boost/simd/memory/is_aligned.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
-class foo
+class foo : public boost::simd::aligned_object<16>
 {
   public:
-  BOOST_SIMD_MEMORY_OVERLOAD_NEW_DELETE(16)
   int  member;
 };
 

@@ -11,7 +11,7 @@
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/include/functions/load.hpp>
-#include <boost/simd/memory/stack_buffer.hpp>
+#include <boost/simd/preprocessor/stack_buffer.hpp>
 #include <boost/fusion/include/at_c.hpp>
 #include <boost/fusion/include/make_vector.hpp>
 #include <boost/fusion/include/adapt_struct.hpp>

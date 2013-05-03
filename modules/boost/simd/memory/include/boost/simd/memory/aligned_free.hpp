@@ -10,7 +10,7 @@
 #ifndef BOOST_SIMD_MEMORY_ALIGNED_FREE_HPP_INCLUDED
 #define BOOST_SIMD_MEMORY_ALIGNED_FREE_HPP_INCLUDED
 
-#include <boost/simd/memory/config.hpp>
+#include <boost/simd/memory/details/posix.hpp>
 #include <boost/simd/memory/details/aligned_stash.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <new>

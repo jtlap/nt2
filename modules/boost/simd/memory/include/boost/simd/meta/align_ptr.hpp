@@ -15,7 +15,7 @@
   @brief Defines and implements the align_ptr @metafunction
 **/
 
-#include <boost/simd/memory/parameters.hpp>
+#include <boost/simd/preprocessor/parameters.hpp>
 #include <boost/simd/sdk/config/compiler.hpp>
 #include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
 

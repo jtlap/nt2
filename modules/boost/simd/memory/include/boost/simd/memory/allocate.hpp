@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2013   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -14,9 +15,9 @@
   @brief Defines and implement the allocate function
 **/
 
-#include <boost/simd/memory/config.hpp>
 #include <boost/simd/memory/align_on.hpp>
-#include <boost/simd/memory/parameters.hpp>
+#include <boost/simd/preprocessor/malloc.hpp>
+#include <boost/simd/preprocessor/parameters.hpp>
 #include <boost/simd/memory/aligned_malloc.hpp>
 #include <boost/simd/memory/align_ptr.hpp>
 #include <boost/simd/meta/align_ptr.hpp>

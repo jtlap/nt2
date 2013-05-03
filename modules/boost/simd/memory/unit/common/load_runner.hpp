@@ -17,7 +17,7 @@
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/simd/memory/stack_buffer.hpp>
+#include <boost/simd/preprocessor/stack_buffer.hpp>
 
 #include "fill.hpp"
 

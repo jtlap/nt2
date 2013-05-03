@@ -15,7 +15,7 @@
 #include <boost/simd/sdk/simd/details/native/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
-#include <boost/simd/memory/overload.hpp>
+#include <boost/simd/memory/aligned_object.hpp>
 #include <boost/simd/sdk/simd/details/soa_proxy.hpp>
 #include <boost/simd/sdk/config/compiler.hpp>
 
@@ -88,7 +88,7 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // new/delete operator to force alignment on heap of native values
     ////////////////////////////////////////////////////////////////////////////
-    BOOST_SIMD_MEMORY_OVERLOAD_NEW_DELETE(native)
+    BOOST_SIMD_MEMORY_OVERLOAD_NEW_DELETE_SIMD()
 
     ////////////////////////////////////////////////////////////////////////////
     // Range interface

@@ -11,7 +11,7 @@
 #include <boost/simd/memory/align_ptr.hpp>
 #include <boost/simd/memory/deallocate.hpp>
 #include <boost/simd/memory/is_aligned.hpp>
-#include <boost/simd/memory/aligned_type.hpp>
+#include <boost/simd/preprocessor/aligned_type.hpp>
 #include <boost/simd/meta/align_ptr.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
