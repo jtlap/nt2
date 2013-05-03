@@ -63,10 +63,10 @@ NT2_TEST_CASE_TPL( transform_unary, BOOST_SIMD_SIMD_TYPES )
     data_in[i] = T(i);
 
   std::vector<T> data_out1(113);
-  boost::simd::transform(&*data_in.begin(), &*data_in.end(), &*data_out1.begin(), plus_one());
+  boost::simd::transform(&*data_in.begin(), &*data_in.begin()+data_in.size(), &*data_out1.begin(), plus_one());
 
   std::vector<T> data_out2(113);
-  std::transform(&*data_in.begin(), &*data_in.end(), &*data_out2.begin(), plus_one());
+  std::transform(&*data_in.begin(), &*data_in.begin()+data_in.size(), &*data_out2.begin(), plus_one());
 
   NT2_TEST_EQUAL(data_out1, data_out2);
 }
@@ -85,10 +85,10 @@ NT2_TEST_CASE_TPL( transform_binary, BOOST_SIMD_SIMD_TYPES )
   }
 
   std::vector<T> data_out1(113);
-  boost::simd::transform(&*data_in1.begin(), &*data_in1.end(), &*data_in2.begin(), &*data_out1.begin(), plus());
+  boost::simd::transform(&*data_in1.begin(), &*data_in1.begin()+data_in1.size(), &*data_in2.begin(), &*data_out1.begin(), plus());
 
   std::vector<T> data_out2(113);
-  std::transform(&*data_in1.begin(), &*data_in1.end(), &*data_in2.begin(), &*data_out2.begin(), plus());
+  std::transform(&*data_in1.begin(), &*data_in1.begin()+data_in1.size(), &*data_in2.begin(), &*data_out2.begin(), plus());
 
   NT2_TEST_EQUAL(data_out1, data_out2);
 }
@@ -104,8 +104,8 @@ NT2_TEST_CASE_TPL( accumulate, BOOST_SIMD_SIMD_TYPES )
   for(size_t i=0; i<n; ++i)
     data_in[i] = T(i);
 
-  T res1 = boost::simd::accumulate(&*data_in.begin(), &*data_in.end(), T(0), plus());
-  T res2 = std::accumulate(&*data_in.begin(), &*data_in.end(), T(0), plus());
+  T res1 = boost::simd::accumulate(&*data_in.begin(), &*data_in.begin()+data_in.size(), T(0), plus());
+  T res2 = std::accumulate(&*data_in.begin(), &*data_in.begin()+data_in.size(), T(0), plus());
 
   NT2_TEST_EQUAL(res1, res2);
   NT2_TEST_EQUAL(res1, T((n-1)*n/2));
