@@ -8,6 +8,12 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "boost::simd::algorithm"
 
+#include <boost/config.hpp>
+
+#ifdef BOOST_MSVC
+#pragma warning(disable: 4996) // std::transform on pointers may be unsafe
+#endif
+
 #include <boost/simd/sdk/simd/algorithm.hpp>
 #include <boost/simd/include/functions/plus.hpp>
 
@@ -16,10 +22,6 @@
 #include <vector>
 #include <algorithm>
 #include <numeric>
-
-#ifdef BOOST_MSVC
-#pragma warning(disable: 4996) // std::transform on pointers may be unsafe
-#endif
 
 struct plus
 {
