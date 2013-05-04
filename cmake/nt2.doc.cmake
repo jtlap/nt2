@@ -158,8 +158,12 @@ macro(nt2_doc_doxygen file)
   endif()
   set(DXY_TARGET "GENERATE_LATEX=NO\nGENERATE_HTML=NO\nGENERATE_XML=YES\n")
   set(DXY_XML    "XML_OUTPUT = ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen\n")
+
+  # Add our alias lists
+  file(READ ${CMAKE_SOURCE_DIR}/cmake/alias.dox DOXYGEN_ALIAS)
+
   set(DOXYGEN_CONTENT
-      "${DOXYGEN_CONTENT}${DXY_EX}${DXY_PATH}${DXY_PP}${DXY_PDEF}${DXY_TARGET}${DXY_XML}"
+      "${DOXYGEN_CONTENT}${DXY_EX}${DXY_PATH}${DXY_PP}${DXY_PDEF}${DXY_TARGET}${DXY_XML}${DOXYGEN_ALIAS}"
      )
 
   file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen/doxyfile ${DOXYGEN_CONTENT})
