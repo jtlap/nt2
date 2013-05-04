@@ -34,15 +34,13 @@ namespace boost { namespace simd { namespace ext
                                       (scalar_< integer_<A2> >)
                                     )
   {
-    typedef A1& result_type;
+    typedef void result_type;
     BOOST_FORCEINLINE result_type operator()(A0 a0, A1& a1, A2 a2) const
     {
       typedef typename meta::scalar_of<A1>::type      stype;
       typedef typename meta::may_alias<stype>::type*  rtype;
 
       reinterpret_cast<rtype>(&a1)[a2] = a0;
-
-      return a1;
     }
   };
 
@@ -59,7 +57,7 @@ namespace boost { namespace simd { namespace ext
                                         (scalar_< integer_<A2> >)
                                       )
   {
-    typedef A1& result_type;
+    typedef void result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1& a1, A2 a2) const
     {
       typedef typename meta::scalar_of<typename A1::type>::type stype;
@@ -67,8 +65,6 @@ namespace boost { namespace simd { namespace ext
 
       reinterpret_cast<rtype>(&a1.data_)[a2] = a0 ? Allbits<stype>()
                                                   : Zero<stype>();
-
-      return a1;
     }
   };
 
@@ -96,7 +92,7 @@ namespace boost { namespace simd { namespace ext
       A2 a2;
     };
 
-    typedef A1& result_type;
+    typedef void result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, A1& a1, A2 const& a2) const
@@ -111,7 +107,6 @@ namespace boost { namespace simd { namespace ext
 
       static const int N = fusion::result_of::size<A0>::type::value;
       meta::iterate<N>(insert_fusion(a0, a1, a2));
-      return a1;
     }
   };
 } } }

@@ -19,14 +19,9 @@ NT2_TEST_CASE_TPL( extract, BOOST_SIMD_TYPES)
   using boost::simd::tag::extract_;
 
   typedef typename boost::dispatch::meta
-                        ::call<extract_(T const&, int)>::type rcT;
+                        ::call<extract_(T const&, int)>::type rT;
 
-  NT2_TEST_TYPE_IS( rcT, T const& );
-
-  typedef typename boost::dispatch::meta
-                        ::call<extract_(T&, int)>::type rT;
-
-  NT2_TEST_TYPE_IS( rT, T& );
+  NT2_TEST_TYPE_IS( rT, T );
 
   T data, ref;
   T value = ref = T(42);
@@ -35,9 +30,6 @@ NT2_TEST_CASE_TPL( extract, BOOST_SIMD_TYPES)
 
   NT2_TEST_EQUAL( data, ref   );
   NT2_TEST_EQUAL( data, value );
-
-  extract(value, 0) = T(69);
-  NT2_TEST_EQUAL( value, T(69) );
 }
 
 NT2_TEST_CASE_TPL( extract_logical, BOOST_SIMD_TYPES)
@@ -47,14 +39,9 @@ NT2_TEST_CASE_TPL( extract_logical, BOOST_SIMD_TYPES)
   using boost::simd::tag::extract_;
 
   typedef typename boost::dispatch::meta
-                        ::call<extract_(logical<T> const&, int)>::type rcT;
+                        ::call<extract_(logical<T> const&, int)>::type rT;
 
-  NT2_TEST_TYPE_IS( rcT, logical<T> const& );
-
-  typedef typename boost::dispatch::meta
-                        ::call<extract_(logical<T>&, int)>::type rT;
-
-  NT2_TEST_TYPE_IS( rT, logical<T>& );
+  NT2_TEST_TYPE_IS( rT, logical<T> );
 
   logical<T> data, ref;
   logical<T> value = ref = true;
@@ -63,7 +50,4 @@ NT2_TEST_CASE_TPL( extract_logical, BOOST_SIMD_TYPES)
 
   NT2_TEST_EQUAL( data, ref   );
   NT2_TEST_EQUAL( data, value );
-
-  extract(value, 0) = false;
-  NT2_TEST_EQUAL( value, false );
 }

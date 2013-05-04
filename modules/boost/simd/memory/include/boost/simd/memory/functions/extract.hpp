@@ -37,38 +37,10 @@ namespace boost { namespace simd
     };
   }
 
+  /*!
+    @brief Random-access extraction of a value subcomponent
 
-/*!
- * \ingroup boost_simd_operator
- * \defgroup boost_simd_operator_extract extract
- *
- * \par Description
- * extract scalar from SIMD vector \c a0 at position \c a1
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/extract.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template<typename A0, typename A1> inline
- *   typename boost::dispatch::meta::call<tag::extract_(A0 const&, A1 const&)>::type
- *   extract(A0 const& a0, A1 const& a1);
- * }
- * \endcode
- *
- * \param a0 SIMD vector
- * \param a1 offset to extract at
- *
- * \return scalar
- *
-**/
+  **/
   template<typename A0,typename A1>
   BOOST_FORCEINLINE
   typename boost::dispatch::meta::call<tag::extract_(A0 const&, A1 const&)>::type
@@ -77,6 +49,7 @@ namespace boost { namespace simd
     return typename boost::dispatch::make_functor<tag::extract_, A0>::type()(a0,a1);
   }
 
+  /// @overload
   template<typename A0,typename A1>
   BOOST_FORCEINLINE
   typename boost::dispatch::meta::call<tag::extract_(A0&, A1 const&)>::type

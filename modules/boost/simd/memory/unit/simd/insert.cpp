@@ -33,7 +33,7 @@ NT2_TEST_CASE_TPL( insert, BOOST_SIMD_SIMD_TYPES)
 
   typedef typename boost::dispatch::meta::call<insert_(T, vT&, int)>::type rT;
 
-  NT2_TEST_TYPE_IS( rT, vT& );
+  NT2_TEST_TYPE_IS( rT, void );
 
   vT ref;
   vT value;
@@ -59,7 +59,7 @@ NT2_TEST_CASE_TPL( insert_logical, BOOST_SIMD_SIMD_TYPES)
   typedef typename boost::dispatch::meta
                         ::call<insert_(logical<T>, vT&, int)>::type rT;
 
-  NT2_TEST_TYPE_IS( rT, vT& );
+  NT2_TEST_TYPE_IS( rT, void );
 
   vT ref;
   vT value;
@@ -87,7 +87,7 @@ NT2_TEST_CASE( insert_fusion )
   typedef boost::dispatch::meta
                         ::call<insert_(foo, vT&, int)>::type rT;
 
-  NT2_TEST_TYPE_IS( rT, vT& );
+  NT2_TEST_TYPE_IS( rT, void );
 
   vT ref;
   vT value;

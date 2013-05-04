@@ -30,23 +30,11 @@ namespace boost { namespace simd { namespace ext
                                       (scalar_< integer_<A1> >)
                                     )
   {
-    template<class Sig> struct result;
+    typedef typename meta::scalar_of<A0>::type   result_type;
 
-    template<class This, class A0_, class A1_>
-    struct result<This(A0_, A1_)>
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 a1) const
     {
-      typedef typename remove_reference<A0_>::type    btype;
-      typedef typename meta::scalar_of<btype>::type   stype;
-      typedef typename meta::may_alias<stype>::type&  type;
-    };
-
-    template<class A0_>
-    BOOST_FORCEINLINE
-    typename result<implement(A0_&, A1)>::type
-    operator()(A0_& a0, A1 a1) const
-    {
-      typedef typename meta::scalar_of<A0_>::type stype;
-      return reinterpret_cast<typename meta::may_alias<stype>::type*>(&a0)[a1];
+      return reinterpret_cast<typename meta::may_alias<result_type const>::type*>(&a0)[a1];
     }
   };
 

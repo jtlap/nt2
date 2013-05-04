@@ -25,11 +25,11 @@ namespace boost { namespace simd { namespace ext
                                       (scalar_< integer_<A2> >)
                                     )
   {
-    typedef A1& result_type;
+    typedef void result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 a0, A1& a1, A2) const
     {
-      return a1 = a0;
+      a1 = a0;
     }
   };
 } } }

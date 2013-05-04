@@ -40,7 +40,7 @@ namespace boost { namespace simd
   /*!
     @brief Generic value insertion for SIMD types
 
-    Modify the value of the nth element of a mutabel data.
+    Modify the value of the nth element of a mutable data.
 
     @par Semantic
 

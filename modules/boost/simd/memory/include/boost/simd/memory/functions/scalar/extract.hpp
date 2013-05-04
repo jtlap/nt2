@@ -21,19 +21,13 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::extract_
                                     , tag::cpu_
                                     , (A0)(A1)
-                                    , (scalar_< fundamental_<A0> >)
+                                    , (scalar_< unspecified_<A0> >)
                                       (scalar_< integer_<A1> >)
                                     )
   {
-    /// This is required as extract should keep A0 const-ness in return type
-    template<typename Sig> struct result;
+    typedef A0 result_type;
 
-    template<typename This, typename A0_, typename A1_>
-    struct result<This(A0_, A1_)> : dispatch::meta::as_ref<A0_>
-    {};
-
-    template<typename A0_>
-    BOOST_FORCEINLINE A0_& operator()(A0_& a0, A1) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1) const
     {
       return a0;
     }

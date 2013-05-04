@@ -30,14 +30,9 @@ NT2_TEST_CASE_TPL( extract, BOOST_SIMD_SIMD_TYPES)
   typedef native<T,ext_t>               vT;
 
   typedef typename boost::dispatch::meta
-                        ::call<extract_(vT const&, int)>::type rcT;
+                        ::call<extract_(vT const&, int)>::type rT;
 
-  NT2_TEST_TYPE_IS( rcT, T const& );
-
-  typedef typename boost::dispatch::meta
-                        ::call<extract_(vT&, int)>::type rT;
-
-  NT2_TEST_TYPE_IS( rT, T& );
+  NT2_TEST_TYPE_IS( rT, T );
 
   vT value;
 
@@ -49,9 +44,6 @@ NT2_TEST_CASE_TPL( extract, BOOST_SIMD_SIMD_TYPES)
   for(std::size_t i=0;i<vT::static_size;i++)
   {
     NT2_TEST_EQUAL( extract(value, i), T(1+i) );
-
-    extract(value, i) = T(2*(i+1));
-    NT2_TEST_EQUAL( value[i], T(2*(i+1)) );
   }
 }
 
@@ -66,12 +58,7 @@ NT2_TEST_CASE_TPL( extract_logical, BOOST_SIMD_SIMD_TYPES)
   typedef native<logical<T>,ext_t>      vT;
 
   typedef typename boost::dispatch::meta
-                        ::call<extract_(vT const&, int)>::type rcT;
-
-  NT2_TEST_TYPE_IS( rcT, logical<T> );
-
-  typedef typename boost::dispatch::meta
-                        ::call<extract_(vT&, int)>::type rT;
+                        ::call<extract_(vT const&, int)>::type rT;
 
   NT2_TEST_TYPE_IS( rT, logical<T> );
 
