@@ -45,7 +45,7 @@ namespace boost { namespace simd
     operations and register types for the chosen destination type.
 
     @pre  If @c Type is a SIMD register type, the value of
-          @c(ptr+offset-Misalignment) must follox SIMD alignment constraint.
+          @c(ptr+offset-Misalignment) must follow SIMD alignment constraint.
 
     @par Semantic
 
@@ -82,7 +82,7 @@ namespace boost { namespace simd
 
         In this case, the load operation is equivalent to a gather operation.
 
-    - If @c Type and @ptr are Fusion Sequences of size @c N:
+    - If @c Type and @c ptr are Fusion Sequences of size @c N:
 
       @code
       at_c<0>(x)   = load(at_c<0>(ptr),offset);

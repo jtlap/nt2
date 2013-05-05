@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2011 - 2013   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -14,8 +15,7 @@
 
 namespace boost { namespace simd
 {
-  /* Default alignment is BOOST_SIMD_ARCH_ALIGNMENT or the largest power of 2
-   * smaller than N*sizeof(T), whichever is smaller */
+  /// INTERNAL ONLY
   template< class T
           , std::size_t N
           , std::size_t Align = (BOOST_SIMD_ARCH_ALIGNMENT > (N*sizeof(T)))

@@ -1,7 +1,7 @@
 //==============================================================================
-//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2011 - 2012   MetaScale SAS
+//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2013   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -12,7 +12,7 @@
 
 /*!
   @file
-  @brief Define and implements is_aligned and is_aligned_c
+  @brief Defines and implements is_aligned and is_aligned_c
 **/
 
 #include <boost/simd/meta/is_power_of_2.hpp>
@@ -25,18 +25,13 @@
 namespace boost { namespace simd {  namespace meta
 {
   /*!
-    @brief Check alignment of arbitrary integral constant
+    @brief Check alignment of arbitrary integral value
 
-    is_aligned_c is a Boolean meta-function that check if any given
-    Integral Constant @c V is aligned on any given power of two boundary @c N.
-
-    By default @c N is equal to current architecture preferred alignment.
-
-    If @c N is not a power of two, a BOOST_SIMD_INVALID_ALIGNMENT_VALUE static
-    assertion is triggered.
+    Checks if any given integral value @c V is aligned on any
+    given power of two boundary @c N.
 
     @par Semantic:
-    For any given Integral Constants @c N and @c V:
+    For any given integral value @c N and @c V:
 
     @code
     typedef is_aligned_c<V,N>::type r;
@@ -45,17 +40,29 @@ namespace boost { namespace simd {  namespace meta
     is equivalent to:
 
     @code
-    typedef mpl::bool<(V % N) == 0>::type r;
+    typedef mpl::bool<!(V & (N-1) )>::type r;
     @endcode
 
-    @tparam N Integral constant to check
+    If @c N is not a power of two, a BOOST_SIMD_INVALID_ALIGNMENT_VALUE static
+    assertion is triggered.
+
+    @par Example:
+
+    @include meta/is_aligned_c.cpp
+
+    @tparam V Integral value to check
+    @tparam N Alignment to check for. By default, @c N is equal to current
+            architecture preferred alignment.
   **/
-  template<std::size_t V, std::size_t N = BOOST_SIMD_CONFIG_ALIGNMENT>
+  template< std::size_t V
+          , std::size_t N = BOOST_SIMD_CONFIG_ALIGNMENT
+          >
   struct  is_aligned_c
-#if !defined(BOOST_DOXYGEN_ONLY)
+#if !defined(DOXYGEN_ONLY)
         : boost::mpl::bool_<!(V & (N-1) )>
 #endif
   {
+#if !defined(DOXYGEN_ONLY)
     //==========================================================================
     //               ****BOOST_SIMD_INVALID_ALIGNMENT_VALUE****
     // If this static assert triggers, a call to is_aligned_c has been issued
@@ -67,20 +74,17 @@ namespace boost { namespace simd {  namespace meta
     , BOOST_SIMD_INVALID_ALIGNMENT_VALUE
     , (boost::mpl::int_<N>)
     );
+#endif
   };
 
   /*!
-    @brief Check alignment of arbitrary integral constant
+    @brief Check alignment of arbitrary @mplint
 
-    is_aligned is a Boolean meta-function that check if any given
-    Integral Constant @c V is aligned on any given power of two boundary @c N.
-
-    By default @c N is equal to current architecture preferred alignment.
-
-    If @c N is not a power of two, a static assertion is triggered.
+    Checks if any given @mplint @c V is aligned on any given power of two
+    boundary @c N.
 
     @par Semantic:
-    For any given Integral Constants @c N and @c V:
+    For any given @mplint @c N and @c V:
 
     @code
     typedef is_aligned<V,N>::type r;
@@ -92,9 +96,24 @@ namespace boost { namespace simd {  namespace meta
     typedef is_aligned_c<V::value,N::value>::type r;
     @endcode
 
-    @tparam N Integral constant to check
+    If @c N is not a power of two, a BOOST_SIMD_INVALID_ALIGNMENT_VALUE static
+    assertion is triggered.
+
+    @par Models:
+
+    @metafunction
+
+    @par Example:
+
+    @include meta/is_aligned.cpp
+
+    @tparam V @mplint to check
+    @tparam N Alignment to check for. By default, @c N is equal to current
+            architecture preferred alignment.
   **/
-  template<class V, class N = boost::mpl::size_t<BOOST_SIMD_CONFIG_ALIGNMENT> >
+  template< typename V
+          , typename N = boost::mpl::size_t<BOOST_SIMD_CONFIG_ALIGNMENT>
+          >
   struct  is_aligned
 #if !defined(BOOST_DOXYGEN_ONLY)
         : is_aligned_c<V::value,N::value>

@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2013   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -8,6 +9,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_MEMORY_IS_ALIGNED_HPP_INCLUDED
 #define BOOST_SIMD_MEMORY_IS_ALIGNED_HPP_INCLUDED
+
+/*!
+  @file
+  @brief Defines and implements the is_aligned function
+**/
 
 #include <boost/simd/memory/parameters.hpp>
 #include <boost/simd/memory/is_power_of_2.hpp>
@@ -18,12 +24,40 @@
 namespace boost { namespace simd
 {
   /*!
-    @brief Check a value or address is aligned on an arbitrary alignment boundary
+    @brief Alignment predicate for integers and pointers
 
-    @param value Value to check
-    @param align Alignment boundary to check for.
+    Checks if a value or pointer is aligned on an arbitrary alignment boundary
+
+    @par Semantic:
+
+    For any integer @c v and @c a:
+
+    @code
+    bool r = is_aligned(v,a);
+    @endcode
+
+    is equivalent to
+
+    @code
+    bool r = !(value & (align-1);
+    @endcode
+
+    If @c a is not a power of two, an assertion is triggered.
+
+    @par Example:
+
+    @include memory/is_aligned.cpp
+
+    @param value  Value to check
+    @param align  Alignment boundary to check for. If unspecified, @c align is
+                  equal to the current SIMD alignment.
+
+    @return A boolean indicating if @c value is aligned on @c align
   **/
-  BOOST_FORCEINLINE bool is_aligned(std::size_t value, std::size_t align)
+  BOOST_FORCEINLINE
+  bool is_aligned ( std::size_t value
+                  , std::size_t align = BOOST_SIMD_CONFIG_ALIGNMENT
+                  )
   {
     BOOST_ASSERT_MSG
     ( boost::simd::is_power_of_2(align)
@@ -34,20 +68,13 @@ namespace boost { namespace simd
     return !(value & (align-1) );
   }
 
-  /*! @overload **/
-  template<class T> BOOST_FORCEINLINE bool is_aligned(T* ptr, std::size_t align)
+  /// @overload
+  template<class T> BOOST_FORCEINLINE
+  bool is_aligned ( T* ptr
+                  , std::size_t align = BOOST_SIMD_CONFIG_ALIGNMENT
+                  )
   {
     return boost::simd::is_aligned(reinterpret_cast<std::size_t>(ptr),align);
-  }
-
-  /*!
-    @brief Check a value or address is aligned on default alignment boundary
-
-    @param value Value to check
-  **/
-  template<class T> BOOST_FORCEINLINE bool is_aligned(T value)
-  {
-    return boost::simd::is_aligned(value,BOOST_SIMD_CONFIG_ALIGNMENT);
   }
 } }
 

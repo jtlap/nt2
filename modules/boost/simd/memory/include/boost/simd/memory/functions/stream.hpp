@@ -27,7 +27,7 @@ namespace boost { namespace simd
       Represents the stream function in generic contexts like functor creation.
 
       @par Models:
-      @ref ElementwiseHierarchy
+      @ref FormalHierarchy
     **/
     struct stream_ : tag::formal_
     {

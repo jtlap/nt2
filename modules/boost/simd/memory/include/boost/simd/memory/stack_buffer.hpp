@@ -105,6 +105,10 @@ BOOST_SIMD_STACK_BUFFER_AUX_MAKE_RANGE( variableName, type, size )             \
   elements of POD type @c type. Said range is allocated on the stack using
   system dependent code that enforce proper stack alignment.
 
+  @par Example:
+
+  @include memory/stack_buffer.cpp
+
   @param variableName Name of the buffer to be created
   @param type         Type stored into the buffer
   @param size         Number of element in the buffer
@@ -124,10 +128,13 @@ BOOST_SIMD_STACK_BUFFER_AUX ( variableName, type, size                         \
   elements of POD type @c type. Said range is allocated on the stack using
   system dependent code that enforce proper SIMD compatible alignment.
 
+  @par Example:
+
+  @include memory/simd_stack_buffer.cpp
+
   @param variableName Name of the buffer to be created
   @param type         Type stored into the buffer
   @param size         Number of element in the buffer
-
 **/
 #define BOOST_SIMD_ALIGNED_STACK_BUFFER( variableName, type, size )            \
 BOOST_SIMD_STACK_BUFFER_AUX ( variableName, type, size                         \
@@ -145,6 +152,10 @@ BOOST_SIMD_STACK_BUFFER_AUX ( variableName, type, size                         \
   system dependent code that enforce proper SIMD compatible alignment. This
   Range is made to be deallocated at current scope's exit.
 
+  @par Example:
+
+  @include memory/scoped_buffer.cpp
+
   @param variableName Name of the buffer to be created
   @param type         Type stored into the buffer
   @param size         Number of element in the buffer
@@ -154,12 +165,12 @@ BOOST_SIMD_STACK_BUFFER_AUX ( variableName, type, size                         \
 #else
 #if defined( __GNUC__ )
 #define BOOST_SIMD_SCOPED_STACK_BUFFER( variableName, type, size )             \
-BOOST_SIMD_ALIGN_ON( BOOST_SIMD_ARCH_ALIGNMENT ) type                          \
+BOOST_SIMD_ALIGN_ON( BOOST_SIMD_CONFIG_ALIGNMENT ) type                        \
 __##variableName##helper_pointer__[ size ];                                    \
 BOOST_ASSERT_MSG                                                               \
 (                                                                              \
     reinterpret_cast<std::size_t>( __##variableName##helper_pointer__ )        \
-  % BOOST_SIMD_ARCH_ALIGNMENT == 0,                                            \
+  % BOOST_SIMD_CONFIG_ALIGNMENT == 0,                                          \
   "Alignment assumption breached in BOOST_SIMD_SCOPED_STACK_BUFFER"            \
 );                                                                             \
 BOOST_SIMD_STACK_BUFFER_AUX_MAKE_RANGE( variableName, type, size )             \
@@ -178,6 +189,10 @@ BOOST_SIMD_STACK_BUFFER_AUX_MAKE_RANGE( variableName, type, size )             \
   elements of POD type @c type. Said range is allocated on the stack using
   system dependent code that enforce proper SIMD compatible alignment. This
   Range is made to be deallocated at current scope's exit.
+
+  @par Example:
+
+  @include memory/simd_scoped_buffer.cpp
 
   @param variableName Name of the buffer to be created
   @param type         Type stored into the buffer

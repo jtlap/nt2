@@ -1,0 +1,44 @@
+[section Aligned allocator and adaptor]
+As shown in [link the_boost_simd_memory_module.memory_management the Memory Handling section],
+allocating aligned memory is required to maximize SIMD performance. To ensure that such constraints
+is fulfilled by standard containers, Boost.SIMD.Memory provides a standard compliant allocator for
+aligned allocation and an allocator adaptor that can turn any pre-existing allocator into an aligned
+allocator.
+
+[h4 SIMD Allocator]
+[classref boost::simd::allocator] wraps SIMD aware allocation and deallocation functions into a
+standard compliant allocator that can be used with any allocator aware container.
+
+``
+    #include <vector>
+    #include <boost/simd/memory/allocator.hpp>
+    #include <boost/simd/memory/is_aligned.hpp>
+
+    int main()
+    {
+      std::vector<char, boost::simd::allocator<char> > v(15);
+      std::cout << is_aligned( &v[0] ) << "\n";
+    }
+``
+
+[h4 SIMD Allocator Adaptor]
+[classref boost::simd::allocator_adaptor] is designed to adapt any =Allocator= into a SIMD aware
+allocator. To do so, it uses the allocator dependent interface of [funcref boost::simd::allocate]
+to perform aligned allocation through the adapted allocator.
+
+``
+    #include <vector>
+    #include <boost/simd/memory/allocator_adaptor.hpp>
+    #include <boost/simd/memory/is_aligned.hpp>
+
+    int main()
+    {
+      std::vector<char, boost::simd::allocator_adaptor< std::allocator<char> > v(15);
+      std::cout << is_aligned( &v[0] ) << "\n";
+    }
+``
+
+Once adapted, the base allocator will behave as usual except it will return aligned memory block and
+will follow the same behavior as [classref boost::simd::allocator].
+
+[endsect]

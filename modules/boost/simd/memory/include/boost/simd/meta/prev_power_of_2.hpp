@@ -1,7 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2011 - 2012   MetaScale SAS
+//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2013   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -12,16 +12,17 @@
 
 /*!
   @file
-  @brief Define and implements prev_power_of_2 and prev_power_of_2_c
+  @brief Defines and implements prev_power_of_2 and prev_power_of_2_c
 **/
 
-#include <cstddef>
-#include <boost/mpl/size_t.hpp>
 #include <boost/mpl/integral_c.hpp>
+#include <boost/mpl/size_t.hpp>
+#include <cstddef>
 
 namespace boost { namespace simd {  namespace details
 {
-  /// INTERNAL ONLY
+  // Adaptation of :
+  // http://graphics.stanford.edu/~seander/bithacks.html#RoundUpPowerOf2
   template<std::size_t N> struct prev_power_of_2_impl
   {
     BOOST_STATIC_CONSTANT(std::size_t, x0    = N               );
@@ -33,7 +34,7 @@ namespace boost { namespace simd {  namespace details
     BOOST_STATIC_CONSTANT(std::size_t, value = (x5 >> 1) + 1   );
   };
 
-  /// INTERNAL ONLY
+  // Requried for MSVC
   template<> struct prev_power_of_2_impl<0>
   {
     BOOST_STATIC_CONSTANT(std::size_t, value = 0 );
@@ -43,13 +44,12 @@ namespace boost { namespace simd {  namespace details
 namespace boost { namespace simd {  namespace meta
 {
   /*!
-    @brief Evaluates previous power of 2
+    @brief Evaluates previous power of two
 
-    prev_power_of_2_c is a meta-function that computes the power of 2
-    lesser or equal to any given Integral Constant @c N.
+    Computes the power of two lesser or equal to any given integral value @c N.
 
     @par Semantic:
-    For any given Integral Constant @c N:
+    For any given integral value @c N:
 
     @code
     typedef prev_power_of_2_c<N>::type r;
@@ -62,24 +62,27 @@ namespace boost { namespace simd {  namespace meta
     @endcode
 
     Where @c M is lesser or equal to N and so that it exists a given @c P so
-    that @c M is equal to 2 at the power of @c P.
+    that @c M is equal to two at the power of @c P.
+
+    @par Example:
+
+    @include meta/prev_power_of_2_c.cpp
 
     @tparam N Integral constant to downgrade
   **/
   template<std::size_t N> struct  prev_power_of_2_c
-#if !defined(BOOST_DOXYGEN_ONLY)
+#if !defined(DOXYGEN_ONLY)
         : boost::mpl::size_t<details::prev_power_of_2_impl<N>::value>
 #endif
   {};
 
   /*!
-    @brief Evaluates previous power of 2
+    @brief Evaluates previous power of two
 
-    prev_power_of_2 is a meta-function that computes the power of 2
-    lesser or equal to any given Integral Constant @c N.
+    Computes the power of two lesser or equal to any given @mplint @c N.
 
     @par Semantic:
-    For any given Integral Constant @c N:
+    For any given @mplint @c N:
 
     @code
     typedef prev_power_of_2<N>::type r;
@@ -91,10 +94,18 @@ namespace boost { namespace simd {  namespace meta
     typedef prev_power_of_2_c<N::value>::type r;
     @endcode
 
-    @tparam N Integral Constant to downgrade
+    @par Models:
+
+    @metafunction
+
+    @par Example:
+
+    @include meta/prev_power_of_2_c.cpp
+
+    @tparam N @mplint to downgrade
   **/
-  template<class N> struct  prev_power_of_2
-#if !defined(BOOST_DOXYGEN_ONLY)
+  template<typename N> struct  prev_power_of_2
+#if !defined(DOXYGEN_ONLY)
         : boost::mpl::integral_c< typename N::value_type
                                 , details::prev_power_of_2_impl<N::value>::value
                                 >

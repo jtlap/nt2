@@ -1,6 +1,8 @@
 //==============================================================================
 //         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2013   MetaScale SAS
+//         Copyright 2013          Domagoj Saric, Little Endian Ltd.
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -17,6 +19,17 @@
 
 namespace boost { namespace simd
 {
+  /*!
+    @brief Low level aligned memory allocation
+
+    Wraps system specific code for allocating an aligned memory block of
+    @c size bytes with an address aligned on @c alignment.
+
+    @pre   @c alignment is a non-zero power of two.
+    @param size       Number of bytes to allocate
+    @param alignment  Alignment boundary to respect
+    @return Pointer referencing the newly allocated memory block.
+  **/
   BOOST_FORCEINLINE BOOST_SIMD_MALLOC
   void* BOOST_DISPATCH_RESTRICT
   aligned_malloc( std::size_t const size, std::size_t const alignment)
@@ -42,21 +55,21 @@ namespace boost { namespace simd
     return static_cast<void* BOOST_DISPATCH_RESTRICT>(result);
 
 #elif defined( _GNU_SOURCE ) && !defined( __ANDROID__ )
-    /**
-      @note Inexplicable yet consistently reproducible SIGSEGVs encountered on
-            Android (4.1.3 emulator) with memalign (as if it actually allocates
-            only  a part of the requested memory).
+/*
+  Inexplicable yet consistently reproducible SIGSEGVs encountered on
+  Android (4.1.3 emulator) with memalign (as if it actually allocates
+  only a part of the requested memory).
 
-      @todo Harvest:
-      https://groups.google.com/a/chromium.org/forum/?fromgroups=#!msg/chromium-reviews/uil2eVbovQM/9slPSDkBvX8J
-      http://codereview.chromium.org/10796020/diff/5018/base/memory/aligned_memory.h
+  TODO:
+  https://groups.google.com/a/chromium.org/forum/?fromgroups=#!msg/chromium-reviews/uil2eVbovQM/9slPSDkBvX8J
+  http://codereview.chromium.org/10796020/diff/5018/base/memory/aligned_memory.h
 
-                                           (25.10.2012.) (Domagoj Saric)
-    **/
+                                       (25.10.2012.) (Domagoj Saric)
+*/
     return ::memalign( size, alignment );
 
 #else
-    /// manual "metadata" stashing
+    // manual "metadata" stashing
     return  details::adjust_pointer
             ( std::malloc( size + alignment
                          + sizeof( details::aligned_block_header )

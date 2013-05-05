@@ -5,7 +5,60 @@
 ]
 
 [section Overview]
-This library ...
+This Boost.SIMD submodule is dedicated at providing a portable layer to the
+memory related operations required by SIMD computation. As most of these tasks
+implies non trivial, OS or architecture specific code, the motivation of
+SIMD.Memory is to cleanly wrap all these peculiarity into a proper generic
+interface. This interface includes:
+
+* [link the_boost_simd_memory_module.handling_alignment
+        Functions and meta-functions for computing aligned values and pointers
+        or checking for alignment on values and pointers;
+  ]
+
+* [link the_boost_simd_memory_module.memory_management
+        Wrappers for system dependent allocation and deallocation of aligned
+        heap and stack memory block;
+  ]
+
+* [link the_boost_simd_memory_module.simd_data_transfer
+        SIMD aware functions for loading, storing and streaming to and from
+        aligned or unaligned pointer;
+  ]
+
+* [link the_boost_simd_memory_module.stl_integration
+        Interoperability with the Standard Library, including:
+  ]
+
+  * [link the_boost_simd_memory_module.stl_integration.new_and_delete_operators
+          Global and class-level overloads for new and delete functions;
+    ]
+
+  * [link the_boost_simd_memory_module.stl_integration.aligned_allocator_and_adaptor
+          Standard compliant allocators for aligned allocation;
+    ]
+
+  * [link the_boost_simd_memory_module.stl_integration.simd_algorithms
+          SIMD version of standard algorithms;
+    ]
+
+  * [link the_boost_simd_memory_module.stl_integration.simd_iterators_and_ranges
+          Standard compliant iterators wrapping SIMD traversal idioms.
+    ]
+
+[h2 Dependencies]
+Boost.SIMD.Memory depends on the following header-only Boost libraries:
+
+* [link the_boost_dispatch_library Boost.Dispatch]
+* [@http://www.boost.org/doc/libs/release/libs/mpl/doc/ Boost.MPL]
+* [@http://www.boost.org/doc/libs/release/libs/fusion/doc/html/ Boost.Fusion]
+* [@http://www.boost.org/doc/libs/release/libs/preprocessor/doc/ Boost.Preprocessor]
+
 [endsect]
 
+[include alignment.qbk]
+[include allocation.qbk]
+[include load_store.qbk]
+[include stl.qbk]
+[include notes.qbk]
 [xinclude reference.xml]

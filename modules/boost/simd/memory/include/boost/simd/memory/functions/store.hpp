@@ -28,7 +28,7 @@ namespace boost { namespace simd
       Represents the store function in generic contexts like functor creation.
 
       @par Models:
-      @ref ElementwiseHierarchy
+      @ref FormalHierarchy
     **/
     struct store_ : tag::formal_
     {
@@ -80,7 +80,7 @@ namespace boost { namespace simd
 
         In this case, the store operation is equivalent to a scatter operation.
 
-    - If @c x and @ptr are Fusion Sequences of size @c N:
+    - If @c x and @c ptr are Fusion Sequences of size @c N:
 
       @code
       store(at_c<0>(x),at_c<0>(ptr),offset);

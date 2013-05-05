@@ -1,0 +1,153 @@
+[section Handling Alignment]
+If more and more systems provide efficient SIMD unaligned memory access, handling
+aligned memory block is still required to maximize performances on a lot of
+architectures. Boost.SIMD.Memory provides macros, functions and meta-functions
+to handle those issues.
+
+[section Configuration information about alignment]
+The following set of preprocessor symbols are provided to access current
+architecture preferred alignment. However, two kind of alignment need to be
+considered:
+
+* SIMD alignment, which is the alignment required (or preferred) by SIMD units
+  so load and store can be issued properly. This value is accessible through the
+  [macroref BOOST_SIMD_CONFIG_ALIGNMENT] symbol.
+
+* Stack alignment, which is the alignment of data on the stack. has it's usually
+  smaller than the previous value, it may be interesting to check its value
+  through the [macroref BOOST_SIMD_ALLOCA_ALIGNMENT] symbol.
+
+[endsect]
+
+[section Alignment detection]
+[h4 Runtime detection]
+Boost.SIMD.Memory provides the [funcref boost::simd::is_aligned] function to
+check alignment on integral values and pointers.
+
+[funcref boost::simd::is_aligned] can either check alignment on an arbitrary
+power of two boundary:
+
+``
+    #include <iostream>
+    #include <boost/simd/memory/is_aligned.hpp>
+
+    int main()
+    {
+      // Pointer alignment
+      double data[5];
+      std::cout << boost::simd::is_aligned( &data[0], sizeof(double) ) << "\n";
+
+      // Integral alignment
+      std::cout << boost::simd::is_aligned( 32, 16 ) << "\n";
+    }
+``
+
+or, if called without second parameter, on the current SIMD alignment:
+
+``
+    #include <iostream>
+    #include <boost/simd/memory/is_aligned.hpp>
+    #include <boost/simd/memory/aligned_malloc.hpp>
+
+    int main()
+    {
+      void* ptr = boost::simd::aligned_malloc(32);
+      std::cout << boost::simd::is_aligned( ptr ) << "\n";
+    }
+``
+
+Note that, in both case, the value =0= or the =NULL= pointer is considered to
+be aligned on all boundaries.
+
+[h4 Compile-time detection]
+Meta-functions [classref boost::simd::meta::is_aligned] and
+[classref boost::simd::meta::is_aligned_c] provides the same functionality
+but operates on Integral Constants.
+
+``
+    #include <iostream>
+    #include <boost/mpl/int.hpp>
+    #include <boost/simd/memory/meta/is_aligned.hpp>
+
+    using boost::mpl::int_;
+
+    int main()
+    {
+      // Integral alignment
+      std::cout << boost::simd::meta::is_aligned_c< 32, 16 >::value << "\n";
+
+      // Integral Constant alignment on current SIMD alignment
+      std::cout << boost::simd::meta::is_aligned< int_<32> >::value << "\n";
+    }
+``
+
+Those meta-functions can also be used with a default boundary. In this case,
+current SIMD alignment is used.
+
+[endsect]
+
+[section Computing aligned values]
+[h4 Runtime computation]
+Boost.SIMD.Memory provides the [funcref boost::simd::align_on] function to force
+alignment on integral values and pointers.
+
+[funcref boost::simd::align_on] can either force alignment on an arbitrary
+power of two boundary:
+
+``
+    #include <iostream>
+    #include <boost/simd/memory/align_on.hpp>
+
+    int main()
+    {
+      // Pointer alignment
+      double data[5];
+      std::cout << boost::simd::align_on( &data[2], 16 ) << "\n";
+
+      // Integral alignment
+      std::cout << boost::simd::align_on( 37, 16 ) << "\n";
+    }
+``
+
+or, if called without second parameter, on the current SIMD alignment:
+
+``
+    #include <iostream>
+    #include <boost/simd/memory/align_on.hpp>
+
+    int main()
+    {
+      std::cout << boost::simd::align_on( 17 ) << "\n";
+    }
+``
+
+Note that, in both case, the value =0= or the =NULL= pointer is considered to
+be already aligned on all values of boundary and is returned without any modification.
+
+[h4 Compile-time computation]
+Meta-functions [classref boost::simd::meta::align_on] and
+[classref boost::simd::meta::align_on_c] provides the same functionality but
+operates on Integral Constants.
+
+``
+    #include <iostream>
+    #include <boost/mpl/int.hpp>
+    #include <boost/simd/memory/meta/align_on.hpp>
+
+    using boost::mpl::int_;
+
+    int main()
+    {
+      // Integral alignment
+      std::cout << boost::simd::meta::align_on< 23, 16 >::value << "\n";
+
+      // Integral Constant alignment on current SIMD alignment
+      std::cout << boost::simd::meta::align_on< int_<99> >::value << "\n";
+    }
+``
+
+Those meta-functions can also be used with a default boundary. In this case,
+current SIMD alignment is used.
+[endsect]
+
+[endsect]

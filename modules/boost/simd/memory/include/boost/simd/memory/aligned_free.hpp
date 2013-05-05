@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2013   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -9,13 +10,20 @@
 #ifndef BOOST_SIMD_MEMORY_ALIGNED_FREE_HPP_INCLUDED
 #define BOOST_SIMD_MEMORY_ALIGNED_FREE_HPP_INCLUDED
 
-#include <new>
 #include <boost/simd/memory/config.hpp>
 #include <boost/simd/memory/details/aligned_stash.hpp>
 #include <boost/dispatch/attributes.hpp>
+#include <new>
 
 namespace boost { namespace simd
 {
+  /*!
+    @brief Low level aligned memory deallocation
+
+    Wraps system specific code for deallocating an aligned memory block.
+
+    @param ptr Pointer referencing the memory to deallocate
+  **/
   BOOST_FORCEINLINE void aligned_free( void * const ptr )
   {
 #if     defined( _MSC_VER )                                                    \

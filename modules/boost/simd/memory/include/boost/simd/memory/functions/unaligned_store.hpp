@@ -30,7 +30,7 @@ namespace boost { namespace simd
       like functor creation.
 
       @par Models:
-      @ref ElementwiseHierarchy
+      @ref FormalHierarchy
     **/
     struct unaligned_store_ : tag::formal_
     {

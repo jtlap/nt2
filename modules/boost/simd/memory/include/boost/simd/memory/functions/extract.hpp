@@ -40,22 +40,44 @@ namespace boost { namespace simd
   /*!
     @brief Random-access extraction of a value subcomponent
 
-  **/
-  template<typename A0,typename A1>
-  BOOST_FORCEINLINE
-  typename boost::dispatch::meta::call<tag::extract_(A0 const&, A1 const&)>::type
-  extract(A0 const& a0,A1 const& a1)
-  {
-    return typename boost::dispatch::make_functor<tag::extract_, A0>::type()(a0,a1);
-  }
+    Extract a sub-element of a given value @c v
 
-  /// @overload
-  template<typename A0,typename A1>
+    @par Semantic
+
+    Depending on the type of its arguments, extract exhibits different semantics.
+    For any value @c v of type @c Value and @c o of type @c Offset:
+
+    @code
+    auto x = extract(v,o);
+    @endcode
+
+    is equivalent to:
+
+    - If @c Value is a scalar type:
+
+      @code
+      x = v;
+      @endcode
+
+    - If @c Value is a SIMD type:
+
+      @code
+      x = v[o];
+      @endcode
+
+    @param value   Value to extract
+    @param offset  Position to extract from
+
+    @return The extracted data
+  **/
+  template<typename Value,typename Offset>
   BOOST_FORCEINLINE
-  typename boost::dispatch::meta::call<tag::extract_(A0&, A1 const&)>::type
-  extract(A0& a0,A1 const& a1)
+  typename boost::dispatch::meta
+                ::call<tag::extract_(Value const&, Offset const&)>::type
+  extract(Value const& value, Offset const& offset)
   {
-    return typename boost::dispatch::make_functor<tag::extract_, A0>::type()(a0,a1);
+    typename boost::dispatch::make_functor<tag::extract_,Value>::type callee;
+    return callee(value,offset);
   }
 } }
 

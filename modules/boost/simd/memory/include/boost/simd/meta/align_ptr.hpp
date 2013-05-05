@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 - 2013   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2013   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -11,33 +12,60 @@
 
 /*!
   @file
-  @brief Defines and implements align_ptr meta-function
+  @brief Defines and implements the align_ptr @metafunction
 **/
 
+#include <boost/simd/memory/parameters.hpp>
 #include <boost/simd/sdk/config/compiler.hpp>
 #include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
 
 namespace boost { namespace simd {  namespace meta
 {
-  #if defined(NT2_DOXYGEN_ONLY)
+  #if defined(DOXYGEN_ONLY)
   /*!
     @brief Apply alignment attribute to type
 
     Return the compiler specific, attribute ridden version of @c Type so it
     is recognized as being aligned on a boundary equal to @c Alignment.
 
-    @tparam T Type to mark as aligned.
-    @tparam Alignment Power of 2 unsigned integer boundary
+    @par Semantic:
+
+    For any type @c T and any integral value @c Alignment:
+
+    @code
+    typedef meta::align_ptr<T,Alignment>::type r;
+    @endcode
+
+    is equivalent to:
+
+    @code
+    typedef T* aligned_attribute r;
+    @endcode
+
+    On some compilers, the @a aligned_attribute is not available and the type
+    returned by meta::align_ptr will be a simple pointer to @c T.
+
+    @par Models:
+
+    @metafunction
+
+    @par Example:
+
+    @include meta/align_ptr.cpp
+
+    @tparam T     Type to mark as aligned.
+    @tparam Align Integral power of two alignment boundary. By default,
+            @c Align is equal to current SIMD extension alignment boundary.
   **/
-  template<typename T, std::size_t Alignment>
+  template<typename T, std::size_t Alignment = BOOST_SIMD_CONFIG_ALIGNMENT>
   struct align_ptr
   {
-    typedef unspecified type;
+    typedef T* unspecified_attribute type;
   };
-  #endif
-
-  template<typename T, std::size_t Alignment>
+  #else
+  template<typename T, std::size_t Alignment = BOOST_SIMD_CONFIG_ALIGNMENT>
   struct align_ptr;
+  #endif
 
 #if defined(__INTEL_COMPILER)
 

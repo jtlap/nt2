@@ -1,0 +1,29 @@
+[section Implementation Notes]
+
+[section Aligned allocation]
+Allocating aligned memory is a system dependent task. Boost.SIMD.Memory uses the following
+caveat:
+
+* On =POSIX= systems, a direct call to =posix_memalign= is performed;
+* On systems supporting GNU/Linux extensions (except on Android), a
+  direct call to =memalign= is performed;
+* When using Microsoft Visual Studio built-ins, a direct call to =_aligned_malloc= is performed;
+* On all other systems, manual pointer alignment via pointer stashing is performed. This includes
+  Android even if it supports =memalign= as inexplicable yet consistently reproducible SIGSEGVs
+  occur.
+
+Manual pointer alignment via pointer stashing is done by allocating a memory block big enough to
+hold an amount of bytes equals to the requested amount of bytes plus a padding zone containing enough
+elements to find a properly aligned address and a block header structure. A proper aligned address
+is then found using [funcref boost::simd::align_on] and returned to the user. The original memory
+pointer is saved in the block header and is retrieved when deallocating the aligned block. Reallocation
+and reuse of aligned memory block also use those information to optimize when and if memory has to
+be reallocated physically.
+
+TODO: Add a drawing of this mess.
+[endsect]
+
+[section Statically misaligned SIMD load]
+[endsect]
+
+[endsect]
