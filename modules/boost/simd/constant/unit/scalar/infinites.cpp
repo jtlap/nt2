@@ -6,39 +6,25 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "boost::simd::constants infinites"
-
 #include <boost/simd/include/constants/infinites.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/include/constants/properties.hpp>
 #include <limits>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Test value of infinites for every base real types
-////////////////////////////////////////////////////////////////////////////////
+#include "../constant.hpp"
+
 NT2_TEST_CASE_TPL( real_inf, BOOST_SIMD_REAL )
 {
-  NT2_TEST_EQUAL( boost::simd::Inf<T>() , std::numeric_limits<T>::infinity()  );
-  NT2_TEST_EQUAL( boost::simd::Minf<T>(), -std::numeric_limits<T>::infinity() );
+  NT2_CHECK_CONSTANT(Inf  ,   std::numeric_limits<T>::infinity(), T);
+  NT2_CHECK_CONSTANT(Minf ,  -std::numeric_limits<T>::infinity(), T);
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Test value of infinites for every base integral types
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( int_inf, BOOST_SIMD_INTEGRAL_TYPES )
+NT2_TEST_CASE_TPL( int_inf, BOOST_SIMD_INTEGRAL_TYPES(char) )
 {
-  NT2_TEST_EQUAL( boost::simd::Inf<T>() , boost::simd::Valmax<T>()  );
-  NT2_TEST_EQUAL( boost::simd::Minf<T>(), boost::simd::Valmin<T>()  );
+  NT2_CHECK_CONSTANT(Inf  , boost::simd::Valmax<T>()  , T);
+  NT2_CHECK_CONSTANT(Minf , boost::simd::Valmin<T>()  , T);
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Test value of infinites for raw char type
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( char_inf)
-{
-  NT2_TEST_EQUAL( boost::simd::Inf<char>() , boost::simd::Valmax<char>()  );
-  NT2_TEST_EQUAL( boost::simd::Minf<char>(), boost::simd::Valmin<char>()  );
-}

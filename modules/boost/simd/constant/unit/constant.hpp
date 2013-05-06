@@ -6,19 +6,14 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <boost/simd/include/constants/true_false.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#ifndef CONSTANT_HPP_INCLUDED
+#define CONSTANT_HPP_INCLUDED
 
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
+template<typename T> inline bool check_is_nan(T v) { return v!=v; }
 
-#include "../constant.hpp"
+#define NT2_CHECK_CONSTANT(CONSTANT,VALUE, TYPE)                               \
+NT2_TEST_EXPR_TYPE(boost::simd::CONSTANT<TYPE>(), boost::mpl::_, TYPE);        \
+NT2_TEST_EQUAL( boost::simd::CONSTANT<TYPE>(),boost::simd::splat<TYPE>(VALUE)) \
+/**/
 
-NT2_TEST_CASE_TPL( true_false, BOOST_SIMD_TYPES )
-{
-  using boost::simd::logical;
-
-  NT2_CHECK_CONSTANT(False, logical<T>(false) , logical<T> );
-  NT2_CHECK_CONSTANT(True , logical<T>(true)  , logical<T> );
-}
+#endif
