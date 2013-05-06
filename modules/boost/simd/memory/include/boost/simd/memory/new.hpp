@@ -22,6 +22,14 @@
 #include <boost/simd/preprocessor/malloc.hpp>
 #include <boost/simd/preprocessor/parameters.hpp>
 
+// MSVC and Android doesn't fully support exceptions has operators that don't
+// specify throw() at all. This macro prevent warning spam
+#if defined(ANDROID) || defined(_MSC_VER)
+#define BOOST_SIMD_MEMORY_BAD_ALLOC()
+#else
+#define BOOST_SIMD_MEMORY_BAD_ALLOC() throw(std::bad_alloc)
+#endif
+
 /*!
   @brief Aligned new operator for single object
 
@@ -52,7 +60,7 @@ operator new(std::size_t sz, const std::nothrow_t& throw_status) throw()
   @return A pointer referencing a newly allocated aligned memory block
 **/
 inline BOOST_SIMD_MALLOC void*
-operator new(std::size_t sz) throw(std::bad_alloc)
+operator new(std::size_t sz) BOOST_SIMD_MEMORY_BAD_ALLOC()
 {
   return boost::simd::allocate(sz);
 }
@@ -90,7 +98,7 @@ operator new( std::size_t sz, std::size_t align
   @return A pointer referencing a newly allocated aligned memory block
 **/
 inline BOOST_SIMD_MALLOC void*
-operator new(std::size_t sz, std::size_t align) throw(std::bad_alloc)
+operator new(std::size_t sz, std::size_t align) BOOST_SIMD_MEMORY_BAD_ALLOC()
 {
   return boost::simd::allocate(sz, align);
 }
@@ -125,7 +133,7 @@ operator new[](std::size_t sz, const std::nothrow_t& throw_status) throw()
   @return A pointer referencing a newly allocated aligned memory block
 **/
 inline BOOST_SIMD_MALLOC void*
-operator new[](std::size_t sz) throw(std::bad_alloc)
+operator new[](std::size_t sz) BOOST_SIMD_MEMORY_BAD_ALLOC()
 {
   return boost::simd::allocate(sz);
 }
@@ -163,7 +171,7 @@ operator new[]( std::size_t sz, std::size_t align
   @return A pointer referencing a newly allocated aligned memory block
 **/
 inline BOOST_SIMD_MALLOC void*
-operator new[](std::size_t sz, std::size_t align) throw(std::bad_alloc)
+operator new[](std::size_t sz, std::size_t align) BOOST_SIMD_MEMORY_BAD_ALLOC()
 {
   return boost::simd::allocate(sz,align);
 }
@@ -199,5 +207,7 @@ inline void operator delete[](void* m, const std::nothrow_t&) throw()
 {
   boost::simd::deallocate(m);
 }
+
+#undef BOOST_SIMD_MEMORY_BAD_ALLOC
 
 #endif
