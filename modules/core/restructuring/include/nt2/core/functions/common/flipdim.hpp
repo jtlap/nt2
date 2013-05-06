@@ -26,11 +26,11 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename boost::dispatch::meta::
-            call<nt2::tag::run_ ( typename  boost::proto::result_of::
-                                            child_c<A0&, 0>::type
-                                , State&, Data&
-                                )
-                >::type                                               result_type;
+      call<nt2::tag::run_ ( typename  boost::proto::result_of::
+                            child_c<A0&, 0>::type
+                          , State&, Data&
+                          )
+      >::type                                               result_type;
 
     typedef typename meta::call<tag::extent_(A0 const&)>::type          ext_t;
     typedef typename meta::strip<result_type>::type                 base_type;
@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
     typedef typename meta::call<nt2::tag::ind2sub_(ext_t,i_t)>::type    sub_t;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0& a0, State const& p, Data const& t) const
+      operator()(A0& a0, State const& p, Data const& t) const
     {
       size_t along = boost::proto::child_c<1>(a0);
       ext_t ex = a0.extent();
@@ -47,6 +47,8 @@ namespace nt2 { namespace ext
       return nt2::run(boost::proto::child_c<0>(a0),sub2ind(ex,pos),t);
     }
   };
+
+
 } }
 
 #endif

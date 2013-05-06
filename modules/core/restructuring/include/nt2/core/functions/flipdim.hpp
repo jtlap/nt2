@@ -35,7 +35,7 @@ namespace nt2
     };
   }
 
-    /*!
+  /*!
     @brief Flip an expression around an arbitrary dimension axis
 
     Return an expression which values along a given dimension are in reverse
@@ -45,6 +45,7 @@ namespace nt2
     @return the flipped expression
   **/
 
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::flipdim_       , flipdim, 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::flipdim_       , flipdim, 2)
 }
 
@@ -53,13 +54,13 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   template<class Domain, int N, class Expr>
   struct  value_type<nt2::tag::flipdim_,Domain,N,Expr>
-        : meta::value_as<Expr,0>
+    : meta::value_as<Expr,0>
   {};
 
   /// INTERNAL ONLY
   template<class Domain, int N, class Expr>
   struct  size_of<nt2::tag::flipdim_,Domain,N,Expr>
-        : meta::size_as<Expr,0>
+    : meta::size_as<Expr,0>
   {};
 } }
 

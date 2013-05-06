@@ -125,3 +125,21 @@ NT2_TEST_CASE_TPL( flipflip, NT2_TYPES )
   NT2_TEST( nt2::isequal( y,  nt2::flipdim(x, 2)));
 
 }
+NT2_TEST_CASE_TPL( flipflip1, NT2_TYPES )
+{
+  nt2::table<T> xr,yr( nt2::_(T(1), T(5)));
+  display("yr", yr);
+  xr = nt2::flipdim(yr);
+  display("xr", xr);
+
+  NT2_TEST(nt2::isequal( xr,  nt2::flipdim(yr, 2)));
+
+  nt2::table<T> xl,yl(nt2::_(T(1), T(5)));
+  yl.resize(nt2::of_size(5, 1));
+  display("yl", yl);
+  xl = nt2::flipdim(yl);
+  display("xl", xl);
+
+  NT2_TEST(nt2::isequal( xl,  nt2::flipdim(yl, 1)));
+
+}
