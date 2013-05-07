@@ -193,7 +193,7 @@ Name( BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Args), BOOST_DISPATCH_FN_ARGS, Args) )   \
                                           )                                    \
                            )                                                   \
                       >::type()                                                \
-  (BOOST_PP_ENUM_PARAMS(N, a));                                                \
+  (BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Args), a));                          \
 }                                                                              \
 /**/
 
