@@ -10,10 +10,9 @@
 #define NT2_CORE_FUNCTIONS_EXPR_FLIPDIM_HPP_INCLUDED
 
 #include <nt2/core/functions/flipdim.hpp>
-#include <nt2/core/container/dsl.hpp>
-#include <nt2/core/functions/flipdim.hpp>
 #include <nt2/include/functions/firstnonsingleton.hpp>
-#include <nt2/include/functions/minusone.hpp>
+#include <nt2/core/container/dsl.hpp>
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::flipdim_, tag::cpu_, (A0)(A1),
@@ -22,18 +21,18 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::flipdim_
-      , container::domain
-      , A0 const&
-      , std::size_t
-      >::type             result_type;
+                      result_of::make_expr< nt2::tag::flipdim_
+                                          , container::domain
+                                          , A0 const&
+                                          , std::size_t
+                                          >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
       std::size_t d = a1-1;
       return boost::proto::make_expr< nt2::tag::flipdim_
-        , container::domain
-        > ( boost::cref(a0), d);
+                                    , container::domain
+                                    > ( boost::cref(a0), d);
     }
   };
 
@@ -42,18 +41,18 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::flipdim_
-      , container::domain
-      , A0 const&
-      , std::size_t
-      >::type             result_type;
+                      result_of::make_expr< nt2::tag::flipdim_
+                                          , container::domain
+                                          , A0 const&
+                                          , std::size_t
+                                          >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      std::size_t d =  nt2::minusone(nt2::firstnonsingleton(a0));
+      std::size_t d = nt2::firstnonsingleton(a0)-1;
       return boost::proto::make_expr< nt2::tag::flipdim_
-        , container::domain
-        > ( boost::cref(a0), d);
+                                    , container::domain
+                                    > ( boost::cref(a0), d);
     }
   };
 } }
