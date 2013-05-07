@@ -11,6 +11,7 @@
 #include <boost/simd/boolean/functions/if_else_allbits.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/include/functions/is_nez.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
