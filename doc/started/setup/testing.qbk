@@ -34,7 +34,7 @@ Additionally, the following configuration variables are available:
 When configuring __NT2__ with __CMAKE__, it is also possible to specify which set of flags to use when compiling the
 tests. The __CMAKE__ variable =CMAKE_CXX_FLAGS_NT2TEST= may be redefined in the cache to override the default.
 
-The default is to compile with moderate a optimization level, with a fairly exhaustive list of warnings and
+The default is to compile with a fair optimization level, with a fairly exhaustive list of warnings and
 with assertions enabled and set to trigger exceptions. The =NT2_EXTRA_WARNINGS= option can be used to enable even more warnings.
 Due to bugs in GCC, strict aliasing support is explicitly disabled for that compiler.
 
