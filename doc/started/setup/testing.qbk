@@ -13,7 +13,8 @@ of __NT2__ features.
 * Cover Tests: tests precision on a random sampling for numerical
 algorithms. Those tests help maintaining a high level of numerical precision.
 * Exhaustive Tests: perform an exhaustive exploration of the whole value space to assess numerical correctness.
-Those tests are only provided for single precision floating-point due to time constraints. Their output is an histogram of precision by input range.
+Those tests are only provided for single precision floating-point of one parameter functions,
+this due to time constraints. Their output is an histogram of precision by input range.
 
 [heading Configuration]
 

@@ -58,7 +58,7 @@ output:
 [test_result]
 
 The unit test output contains the name of the test actually run, its potential
-output adn a global coutn of the total number of tests performed, the number of
+output adn a global count of the total number of tests performed, the number of
 passing tests and the number of failing tests.
 
 In this case, unsurprisingly, our empty test fails as we consider an empty test
@@ -100,6 +100,15 @@ They are accessible in the [headerref nt2/sdk/unit/tests/relation.hpp] file.
 
 [heading Precision Tests]
 
+These tests are intended to compare floating points results, allowing a third
+parameter to state the admitted possible difference between the two quantities.
+This difference is expressed in "ulps", that is units in the last place, that
+is an indication of the number of floating points values that are representable
+between the compared quantities[footnote see
+[globalref rationale_on_precision_testing rationale on precision testing] for more details].
+
+They are accessible in the [headerref nt2/sdk/unit/tests/ulp.hpp] file.
+
 *[macroref NT2_TEST_ULP_EQUAL]
 
 [heading Runtime Error Tests]
@@ -122,6 +131,9 @@ They are accessible in the [headerref nt2/sdk/unit/tests/exceptions.hpp] file.
 
 They are accessible in the [headerref nt2/sdk/unit/tests/type_expr.hpp] file.
 
+Those tests check if a given type or type of expression is conformant to an
+ expected one.
+
 * [macroref NT2_TEST_EXPR_TYPE  ]
 * [macroref NT2_TEST_TYPE_INFO  ]
 * [macroref NT2_TEST_TYPE_IS    ]
@@ -137,7 +149,7 @@ Let's now complete our simple test by checking a very simple arithmetic axiom:
 [section Writing custom tests]
 Macros provided by this module should cover the basic needs of any proper unit
 test base. However, NT2.Test.Unit exposes its internal elements so custom test
-protocol can be defined. This section will go over the various element available
+protocol can be defined. This section will go over the various elements available
 to do so.
 
 [section Test status counters]
@@ -167,7 +179,7 @@ checking if =X= is true.
 [endsect]
 
 [section Predefined testing functions]
-To be able to fill these coutner properly, we need to actually do some test.
+To be able to fill these counter properly, we need to actually do some tests.
 [headerref nt2/sdk/unit/stats.hpp] provides some predefined simple test functions:
 
 * [funcref nt2::unit::pass  ]
@@ -211,13 +223,15 @@ equality for floating points number is often meaningless or very hard to achieve
 Once this state of fact is integrated, people often goes to use a simple absolute
 difference with an arbitrary threshold. If this method looks sound, it's easy to
 fold and may lead to false positive. The proper way to compare non-zero or non-invalid
-floating point numbers is to use the [*Unit in the Last Place] metric. In numerical
-analysis, unit in the last place [footnote or unit of least precision] (ULP) is
-the spacing between floating-point numbers, i.e., the value the least significant
-bit (LSB) represents if it is 1.
+floating point numbers is to use the [*Unit in the Last Place] metric.
 
-For any floating point value x, if x exponent is equal to E, then ULP(x)
-is equal to = Epsilon x 2^E.
+Let us define Eps(the machine epsilon)  as being the smallest positive floating point
+number such that 1+EPS is different of 1 (for double precision floating number Eps is 2^(-52),
+ 2^(-23) for single precision). In fact 1+Eps and 1 only differs by a bit 1 in the
+ least significant digit: the unit in the last place (ULP).
+
+Generally, the ULP between a floating point number f and its immediate successor
+(if f exponent is equal to E), is Eps x 2^E.
 
 The IEEE 754 specification -followed by all modern floating-point hardware-
 requires that the result of an elementary arithmetic operation (addition,
@@ -241,8 +255,8 @@ Put in an other way, one can estimate the =ulpdist= between two floating point
 numbers as the number of representable floating points values between them. This
 estimation leads to the following properties:
 
-* The =ulpdist= between =N= and =N+N*epsilon= is equal to =0.5=
-* The =ulpdist= between =N= and =N+N*epsilon/2= is equal to =0=
+* The =ulpdist= between =N= and =N+N*Eps= is equal to =0.5=
+* The =ulpdist= between =N= and =N+N*Eps/2= is equal to =0=
 * If a =double= is compared to the double representation of its single precision
   conversion (they are exceptions as for fully representable reals), their
  =ulpdist= will be around 2^26.5 (~10^8). For example, =ulpdist(double(Pi<float>()),Pi<double>())=
