@@ -9,12 +9,10 @@
 #ifndef BOOST_DISPATCH_FUNCTOR_DETAILS_DISPATCH_HPP_INCLUDED
 #define BOOST_DISPATCH_FUNCTOR_DETAILS_DISPATCH_HPP_INCLUDED
 
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/dispatch/details/typeof.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/dispatch/functor/details/call.hpp>
-#include <boost/mpl/identity.hpp>
 
 #if !defined(BOOST_DISPATCH_DONT_USE_PREPROCESSED_FILES)
 #include <boost/dispatch/functor/details/preprocessed/dispatch.hpp>
@@ -42,7 +40,7 @@
 // class definitions. Without it, the whole system brittles.
 //==============================================================================
 #define M0(z,n,t) , meta::unknown_<A##n>
-#define M2(z,n,t) typename meta::hierarchy_of<A##n>::type
+#define M2(z,n,t) A##n
 
 #define BOOST_DISPATCH_DEFAULT_UNKNOWN_DISPATCH(z,n,t)                          \
 template< class Tag, class Site                                                 \
