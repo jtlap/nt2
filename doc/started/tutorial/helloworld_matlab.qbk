@@ -26,7 +26,7 @@ int main()
 
 First step will be to declare our table =x= and =y= so we can work with.
 Contrary to Matlab, C++ requires you to declare variables before usign them.
-To do this we'll use the table type provided by NT2 provided by the following
+To do this we'll use the table type provided by __NT2__ provided by the following
 include file.
 
 [c++]
@@ -118,7 +118,7 @@ int main()
 ``
 
 What happens to =x= ? Well, if =x= is left uninitialized, it will behave as
-an empty table of size =0x1=, just like in Matlab.
+an empty table of size =0x1= (just like in Matlab =persistent= variables declarations).
 
 We now compute =x= using the same operators than in Matlab. There are
 however two subtle difference.
@@ -126,7 +126,7 @@ however two subtle difference.
 * First =.*= does not exist in C++, it's just plain =*=.
 
 * Then, __NT2__ requires a struct type conformance when mixing tables and
-  scalar. THis means that our =40= and =2= has to be =double=.
+  scalar. This means that our =40= and =2= have to be =double=.
 
 This leads us to this code:
 
@@ -149,7 +149,7 @@ int main()
 ``
 
 Most of the time, you will want to write such compact expression so __NT2__
-code generator can produce proper parallel code withotu any extra work on your
+code generator can produce proper parallel code without any extra work on your
 side.
 
 We're almost done. We still need to display =x=. This is done in __NT2__ using
