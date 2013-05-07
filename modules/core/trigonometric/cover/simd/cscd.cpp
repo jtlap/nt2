@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2 trigonometric toolbox - cscd/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -13,11 +13,10 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
 ///
-#include <nt2/toolbox/trigonometric/include/functions/cscd.hpp>
+#include <nt2/trigonometric/include/functions/cscd.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/trigonometric/constants.hpp>
+#include <nt2/trigonometric/constants.hpp>
 extern "C" {extern long double cephes_sinl(long double);}
 
 #include <boost/type_traits/is_same.hpp>
@@ -33,11 +32,11 @@ extern "C" {extern long double cephes_sinl(long double);}
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/load.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( cscd_real__1_0,  NT2_SIMD_REAL_TYPES)
@@ -67,10 +66,10 @@ NT2_TEST_CASE_TPL ( cscd_real__1_0,  NT2_SIMD_REAL_TYPES)
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = cscd(a0);
+        r_t v = nt2::cscd(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-
+          std::cout << "a0[" << i << "] = " << a0[i] << std::endl; ; 
           NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::cscd (a0[i])), 1.0);
           ulp0 = nt2::max(ulpd,ulp0);
         }

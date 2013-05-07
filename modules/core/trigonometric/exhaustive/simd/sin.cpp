@@ -9,7 +9,6 @@
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/successor.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 
 #include <nt2/include/constants/real.hpp>
 

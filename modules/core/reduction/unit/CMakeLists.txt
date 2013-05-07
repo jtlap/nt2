@@ -7,6 +7,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-nt2_module_use_modules(unit core.bitwise core.container.table)
+nt2_module_use_modules(test.unit core.bitwise core.container.table)
 ADD_SUBDIRECTORY(simd)
 ADD_SUBDIRECTORY(table)

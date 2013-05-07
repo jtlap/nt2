@@ -1,20 +1,20 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2 arithmetic toolbox - tofloat/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 ///
-#include <nt2/toolbox/arithmetic/include/functions/tofloat.hpp>
+#include <nt2/arithmetic/include/functions/tofloat.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -107,7 +107,7 @@ NT2_TEST_CASE( tofloat_long_long )
   using nt2::splat;
   typedef boost::simd::native<long long, boost::simd::tag::sse_> vT;
 
-  long long i = -9223372036854775808ULL;
+  long long i = boost::simd::Valmin<long long>();
   NT2_TEST_EQUAL(tofloat(i), tofloat(splat<vT>(i))[0]);
 }
 #endif

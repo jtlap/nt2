@@ -7,7 +7,7 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_use_modules( unit core.bitwise
+nt2_module_use_modules( test.unit core.bitwise
                         core.container.table core.container.placeholders
                       )
 

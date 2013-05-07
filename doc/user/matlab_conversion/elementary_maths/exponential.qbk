@@ -3,16 +3,16 @@
 __NT2__  supports the __MATLAB__ schemes for exponential functions.
 peculiarly  `reallog`, `realpow`, `realsqrt`.
 
-However there is a diiference between NT2 and Matlab: these functions
+However there is a difference between __NT2__ and __MATLAB__: these functions
 
 # Do not compile for non real type parameters (including dry)
 # Assert in the case of the parameters are of real type but do not allow a computation in real arithmetic.
 
 On the other side, for  `log`, `pow`, `sqrt` and the other standard functions,
-results in NT2 also depend of the types they are fed in.
+results in NT2 also depend of the types they are fed in (see the `complex` rationale ??).
 
 # On complex types as `dry`, `imaginary` or `complex` they are computed using complex arithmetic,
-# On `double` or `float` they they return nan values if the computation cannot be done using real arithmetic.
+# On `double` or `float` they return nan values if the computation cannot be done using real arithmetic.
 
 To resume:
 

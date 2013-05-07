@@ -31,7 +31,7 @@ but there is no such thing as an non empty, non initialized Matlab matrix.
     [[`M_t e(linspace(0.0,1,10));`]   [`e =linspace(0.0,1,10);`]]
 ]
 Details about `ones` and similar generators can be found ???.
-Note that `cons` is limited to 18 parameters of the same type[footnote This limitation will be dropped with C++11x]
+Note that `cons` is limited to 256 parameters of the same type[footnote This limitation will be dropped with C++11x]
 and create a line vector.
 
 To work around the first limitation, one can use this syntax:
@@ -47,12 +47,13 @@ The second problem arise if you want to create a 2X4 matrix as:
     5 6 7 8 ]
   ``
 
-You have at least two solutions:
+You have at least three solutions:
 
 [table:id More matrices declarations
     [[NT2]                      [Matlab]]
-    [[`M_t a = trans(reshape(_(1,8),4,2));`]                [` a = reshape(1:8,4,2)`\'`;`]]
+    [[`M_t a = trans(reshape(_(1,8),4,2));`]                 [` a = reshape(1:8,4,2)`\'`;`]]
     [[`M_t b = trans(reshape(cons(1,2,3,4,5,6,7,8),4,2));`]  [` b = reshape([1,2,3,4,5,6,7,8],4,2)`\'`;`]]
+    [[`M_t c = trans(cons(of_size(4,2),1,2,3,4,5,6,7,8));`]  []]
 ]
 
 

@@ -10,17 +10,19 @@
 #ifndef NT2_SIGNAL_STATIC_FFT_HPP_INCLUDED
 #define NT2_SIGNAL_STATIC_FFT_HPP_INCLUDED
 
+#include <boost/simd/sdk/config/arch.hpp>
+
 #if defined( _MSC_VER )
     #pragma once
     #pragma inline_recursion( on )
-#elif defined( __GNUC__ ) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4))
+#elif defined( __GNUC__ ) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)) && !defined(BOOST_SIMD_ARCH_POWERPC)
     #pragma GCC push_options
     #pragma GCC optimize ( "fast-math" )
 #endif // compiler
 
 #if defined( _MSC_VER )
 
-    #define BOOST_NOTHROW_NOALIAS __declspec( nothrow noalias )
+    #define BOOST_DISPATCH_NOTHROW_NOALIAS __declspec( nothrow noalias )
     #define BOOST_FASTCALL __fastcall
     #define BOOST_UNREACHABLE_CODE()  BOOST_ASSERT_MSG( false    , "This code should not be reached." ); __assume( false     )
     #define BOOST_ASSUME( condition ) BOOST_ASSERT_MSG( condition, "Assumption broken."               ); __assume( condition )
@@ -31,7 +33,7 @@
     /// strict to mimic the MSVC 'noalias' attribute (which allows first level
     /// indirections).
     ///                                       (09.07.2012.) (Domagoj Saric)
-    #define BOOST_NOTHROW_NOALIAS __attribute__(( nothrow ))
+    #define BOOST_DISPATCH_NOTHROW_NOALIAS __attribute__(( nothrow ))
     #if defined( BOOST_SIMD_ARCH_X86 ) && !defined( BOOST_SIMD_ARCH_X86_64 )
         #if defined( __clang__ )
             #define BOOST_FASTCALL __attribute__(( regparm( 3 ) ))
@@ -56,23 +58,23 @@
 
 #else
 
-    #define BOOST_NOTHROW_NOALIAS
+    #define BOOST_DISPATCH_NOTHROW_NOALIAS
     #define BOOST_FASTCALL
     #define BOOST_UNREACHABLE_CODE()  BOOST_ASSERT_MSG( false    , "This code should not be reached." )
     #define BOOST_ASSUME( condition ) BOOST_ASSERT_MSG( condition, "Assumption broken."               )
 
 #endif
 
-#include <nt2/signal/twiddle_factors.hpp>
+#include <nt2/signal/details/twiddle_factors.hpp>
 
 #include <boost/simd/sdk/config/arch.hpp>
 #include <boost/simd/sdk/memory/prefetch.hpp>
 #include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/toolbox/constant/constants/half.hpp>
-#include <boost/simd/toolbox/constant/constants/mzero.hpp>
-#include <boost/simd/toolbox/constant/constants/zero.hpp>
-#include <boost/simd/toolbox/swar/functions/details/shuffle.hpp>
+#include <boost/simd/constant/constants/half.hpp>
+#include <boost/simd/constant/constants/mzero.hpp>
+#include <boost/simd/constant/constants/zero.hpp>
+#include <boost/simd/swar/functions/details/shuffle.hpp>
 #include <boost/simd/include/functions/scalar/ffs.hpp>
 #include <boost/simd/include/functions/scalar/ilog2.hpp>
 #include <boost/simd/include/functions/simd/deinterleave_first.hpp>
@@ -528,7 +530,7 @@ namespace detail
     T const (* BOOST_DISPATCH_RESTRICT sign_flipper_aux())[ 4 ]
     {
         unsigned int const mzero_shift( sizeof( T ) * 8 - 1 );
-        unsigned int const cardinal   ( 4                   );
+        static unsigned int const cardinal = 4;
 
         static T const BOOST_SIMD_ALIGN_ON( BOOST_SIMD_CONFIG_ALIGNMENT )
             flipper[ cardinal ] = { e0 << mzero_shift, e1 << mzero_shift, e2 << mzero_shift, e3 << mzero_shift };
@@ -2356,7 +2358,7 @@ namespace detail
         typedef typename Context::parameter0_t parameter0_t;
         typedef typename Context::parameter1_t parameter1_t;
 
-        BOOST_NOTHROW_NOALIAS
+        BOOST_DISPATCH_NOTHROW_NOALIAS
         static void BOOST_FASTCALL apply( parameter0_t const param0, parameter1_t const param1 )
         {
             apply( param0, param1, typename Decimation::first_step () );
@@ -2364,7 +2366,7 @@ namespace detail
         }
 
     private:
-        BOOST_NOTHROW_NOALIAS BOOST_FORCEINLINE
+        BOOST_DISPATCH_NOTHROW_NOALIAS BOOST_FORCEINLINE
         static void BOOST_FASTCALL apply( parameter0_t const param0, parameter1_t const param1, step_decimation const & )
         {
             Context const context( param0, param1, N );
@@ -2375,7 +2377,7 @@ namespace detail
             upper::apply( context.upper_second_parameter0(), context.upper_second_parameter1() );
         }
 
-        BOOST_NOTHROW_NOALIAS BOOST_FORCEINLINE
+        BOOST_DISPATCH_NOTHROW_NOALIAS BOOST_FORCEINLINE
         static void BOOST_FASTCALL apply( typename Context::parameter0_t const param0, typename Context::parameter1_t const param1, step_butterfly const & )
         {
             butterfly_loop<Decimation, Context>
@@ -2400,7 +2402,7 @@ namespace detail
     public:
         static unsigned const N = 8;
 
-        BOOST_NOTHROW_NOALIAS
+        BOOST_DISPATCH_NOTHROW_NOALIAS
         static void BOOST_FASTCALL apply( typename Context::parameter0_t const param0, typename Context::parameter1_t const param1 )
         {
             typedef typename Context::vector_t vector_t;
@@ -2428,7 +2430,7 @@ namespace detail
 
         typedef dif Decimation;
 
-        BOOST_NOTHROW_NOALIAS
+        BOOST_DISPATCH_NOTHROW_NOALIAS
         static void BOOST_FASTCALL apply( typename Context::parameter0_t const p_reals, typename Context::parameter1_t const p_imags )
         {
             typedef typename Context::vector_t vector_t;
@@ -2535,7 +2537,7 @@ namespace detail
 
         typedef dit Decimation;
 
-        BOOST_NOTHROW_NOALIAS
+        BOOST_DISPATCH_NOTHROW_NOALIAS
         static void BOOST_FASTCALL apply( typename Context::parameter0_t const p_reals, typename Context::parameter1_t const p_imags )
         {
             typedef typename Context::vector_t vector_t;
@@ -2872,7 +2874,7 @@ void irealfft_split(float *data,long n){
 } // namespace nt2
 //------------------------------------------------------------------------------
 
-#if defined( __GNUC__ ) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4))
+#if defined( __GNUC__ ) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)) && !defined(BOOST_SIMD_ARCH_POWERPC)
     #pragma GCC pop_options
 #endif // compiler
 

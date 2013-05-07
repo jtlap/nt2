@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2 boost.simd.arithmetic toolbox - sqrt/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -13,8 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 30/11/2010
 ///
-#include <nt2/toolbox/arithmetic/include/functions/sqrt.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/arithmetic/include/functions/sqrt.hpp>
 #include <nt2/include/functions/pure.hpp>
 #include <nt2/include/functions/plus.hpp>
 #include <nt2/include/constants/i.hpp>
@@ -22,7 +21,7 @@
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
@@ -38,8 +37,6 @@ NT2_TEST_CASE_TPL ( sqrt_real__1_0,  (double))//BOOST_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<sqrt_(cT)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::as_dry<T>::type dT;
   typedef cT wished_r_t;
 
 

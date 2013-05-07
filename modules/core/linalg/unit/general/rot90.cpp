@@ -12,7 +12,7 @@
 #include <nt2/include/functions/rot90.hpp>
 #include <nt2/include/functions/fliplr.hpp>
 #include <nt2/include/functions/flipud.hpp>
-#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/repmat.hpp>
 #include <nt2/include/functions/cif.hpp>
 #include <nt2/include/functions/repnum.hpp>
@@ -20,7 +20,6 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/ten.hpp>
 #include <nt2/include/functions/isequal.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>

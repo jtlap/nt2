@@ -1,46 +1,65 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 ieee toolbox - frexp/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of ieee components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-
-#include <nt2/toolbox/ieee/include/functions/frexp.hpp>
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
+#include <nt2/ieee/include/functions/frexp.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/half.hpp>
-#include <boost/fusion/include/vector.hpp>
-
-#include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
+#include <boost/fusion/include/vector_tie.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
-NT2_TEST_CASE_TPL ( frexp_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL( frexp,  NT2_REAL_TYPES)
 {
-
   using nt2::frexp;
   using nt2::tag::frexp_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<frexp_(T)>::type r_t;
-  typedef boost::fusion::vector<T,typename nt2::meta::as_integer<T,signed>::type> wished_r_t;
 
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  // return type conformity test
+  typedef typename nt2::meta::as_integer<T,signed>::type iT;
 
-  iT e;
-  T m = frexp(nt2::One<T>(), e);
-  NT2_TEST_EQUAL(m, nt2::Half<T>());
-  NT2_TEST_EQUAL(e, 1);
-} // end of test for floating_
+  NT2_TEST_TYPE_IS( (typename nt2::meta::call<frexp_(T)>::type)
+                  , (std::pair<T,iT>)
+                  );
 
+  {
+    iT e;
+    T  m;
+
+    frexp(nt2::One<T>(), m, e);
+    NT2_TEST_EQUAL(m, nt2::Half<T>());
+    NT2_TEST_EQUAL(e, nt2::One<T>());
+  }
+
+  {
+    iT e;
+    T  m;
+
+    m = frexp(nt2::One<T>(), e);
+    NT2_TEST_EQUAL(m, nt2::Half<T>());
+    NT2_TEST_EQUAL(e, nt2::One<T>());
+  }
+
+  {
+    iT e;
+    T  m;
+
+    boost::fusion::vector_tie(m,e) = frexp(nt2::One<T>());
+    NT2_TEST_EQUAL(m, nt2::Half<T>());
+    NT2_TEST_EQUAL(e, nt2::One<T>());
+  }
+
+  {
+    std::pair<T,typename nt2::meta::as_integer<T,signed>::type> p;
+
+    p = frexp(nt2::One<T>());
+    NT2_TEST_EQUAL(p.first  , nt2::Half<T>());
+    NT2_TEST_EQUAL(p.second , nt2::One<T>());
+  }
+}

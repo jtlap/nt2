@@ -1,62 +1,68 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 ieee toolbox - modf/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of ieee components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created by jt the 04/12/2010
-///
-#include <nt2/toolbox/ieee/include/functions/modf.hpp>
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
+#include <nt2/ieee/include/functions/modf.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <boost/fusion/tuple.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+#include <boost/simd/include/functions/splat.hpp>
 #include <nt2/include/functions/trunc.hpp>
-#include <nt2/include/functions/frac.hpp>
-
-#include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_signed.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/meta/downgrade.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/type_traits/common_type.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <boost/fusion/include/vector_tie.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/load.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
-
-NT2_TEST_CASE_TPL ( modf_real__1_0,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL( modf, NT2_SIMD_TYPES)
 {
   using nt2::modf;
+  using nt2::splat;
   using nt2::tag::modf_;
-  using nt2::load;
   using boost::simd::native;
-  using nt2::meta::cardinal_of;
 
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<modf_(vT)>::type r_t;
-  typedef typename nt2::meta::call<modf_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
+  typedef native<T,NT2_SIMD_DEFAULT_EXTENSION>  vT;
 
-} // end of test for floating_
+  NT2_TEST_TYPE_IS( (typename boost::dispatch::meta::call<modf_(vT)>::type)
+                  , (std::pair<vT,vT>)
+                  );
+
+  {
+    vT frac;
+    vT ent;
+
+    modf(splat<vT>(1.5), frac, ent);
+    NT2_TEST_EQUAL(ent, nt2::trunc(splat<vT>(1.5)));
+    NT2_TEST_EQUAL(frac, splat<vT>(.5));
+  }
+
+  {
+    vT frac;
+    vT ent;
+
+    frac = modf(splat<vT>(1.5), ent);
+    NT2_TEST_EQUAL(ent, nt2::trunc(splat<vT>(1.5)));
+    NT2_TEST_EQUAL(frac, splat<vT>(.5));
+  }
+
+  {
+    vT frac;
+    vT ent;
+
+    boost::fusion::vector_tie(frac,ent) = modf(splat<vT>(1.5));
+    NT2_TEST_EQUAL(ent, nt2::trunc(splat<vT>(1.5)));
+    NT2_TEST_EQUAL(frac, splat<vT>(.5));
+  }
+
+  {
+    std::pair<vT,vT> p;
+
+    p = modf(splat<vT>(1.5));
+    NT2_TEST_EQUAL(p.first , splat<vT>(.5));
+    NT2_TEST_EQUAL(p.second  , nt2::trunc(splat<vT>(1.5)));
+  }
+}

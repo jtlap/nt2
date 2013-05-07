@@ -41,7 +41,7 @@ namespace boost { namespace simd
      * Default logical constructor
      **/
     //==========================================================================
-    BOOST_FORCEINLINE logical() {}
+    BOOST_FORCEINLINE logical() : value_(0) {}
 
     //==========================================================================
     /*!

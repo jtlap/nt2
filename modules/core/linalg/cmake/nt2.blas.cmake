@@ -57,7 +57,8 @@ set(NT2_BLAS_FOUND FALSE)
         if(NOT DEFINED OpenMP_CXX_FLAGS)
           find_package(OpenMP QUIET)
         endif()
-        if(NT2_COMPILER_ICC OR NT2_COMPILER_MSVC OR NOT OPENMP_FOUND)
+        if(NT2_COMPILER_ICC OR NT2_COMPILER_MSVC OR NOT OpenMP_CXX_FLAGS)
+          unset(NT2_MKL_GNU_THREAD)
           find_library(NT2_MKL_INTEL_THREAD NAMES mkl_intel_thread mkl_intel_thread_dll
                        PATHS ${NT2_MKL_LIBRARY_DIR}
                        PATH_SUFFIXES ${NT2_MKL_LIBRARY_SUFFIXES}
@@ -69,6 +70,8 @@ set(NT2_BLAS_FOUND FALSE)
                       )
           set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} ${NT2_MKL_INTEL_THREAD} ${NT2_INTEL_OMP})
         elseif(NT2_COMPILER_GCC_LIKE)
+          unset(NT2_MKL_INTEL_THREAD)
+          unset(NT2_INTEL_OMP)
           find_library(NT2_MKL_GNU_THREAD NAMES mkl_gnu_thread
                        PATHS ${NT2_MKL_LIBRARY_DIR}
                        PATH_SUFFIXES ${NT2_MKL_LIBRARY_SUFFIXES}
@@ -149,7 +152,7 @@ set(NT2_BLAS_FOUND FALSE)
       message(STATUS "[nt2.blas] trying built-in...")
     endif()
 
-    find_library(BLAS_LIBRARY blas libblas ${NT2_BLAS_ROOT})
+    find_library(BLAS_LIBRARY NAMES blas libblas PATHS ${NT2_BLAS_ROOT})
     if(BLAS_LIBRARY)
       set(NT2_BLAS_FOUND 1)
       set(NT2_BLAS_LIBRARIES ${BLAS_LIBRARY})
@@ -172,7 +175,7 @@ set(NT2_BLAS_FOUND FALSE)
   if(NOT NT2_LAPACK_FOUND) # Find lapack if not MKL
     message(STATUS "[nt2.linalg] looking for LAPACK...")
 
-    find_library(LAPACK_LIBRARY lapack liblapack ${NT2_BLAS_ROOT})
+    find_library(LAPACK_LIBRARY NAMES lapack liblapack PATHS ${NT2_BLAS_ROOT})
     if(LAPACK_LIBRARY)
       set(NT2_LAPACK_FOUND 1)
       set(NT2_LAPACK_LIBRARIES ${LAPACK_LIBRARY})

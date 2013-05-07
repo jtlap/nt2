@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "nt2::memory composite container"
 
 #include <nt2/sdk/memory/composite_reference.hpp>
+#include <nt2/sdk/meta/hierarchy_of.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>

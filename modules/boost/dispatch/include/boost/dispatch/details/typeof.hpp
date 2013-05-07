@@ -6,29 +6,22 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_DISPATCH_DETAILS_TYPEOF
-#define BOOST_DISPATCH_DETAILS_TYPEOF
-
- /*!
- * \file
- * \brief Defines a platform agnostic \c decltype macro.
- */
-
-/*!
- * \ingroup sdk
- * \defgroup meta Meta-Programming Utilities
- * This module gathers macros, macro functions and meta-functions used in
- * Boost.Dispatch to write various meta-programms.
- */
+#ifndef BOOST_DISPATCH_DETAILS_TYPEOF_HPP_INCLUDED
+#define BOOST_DISPATCH_DETAILS_TYPEOF_HPP_INCLUDED
 
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
 
-//==============================================================================
-// Boost.Config isn't up to date for MSVC10 so we force it to be
-//==============================================================================
-#if BOOST_WORKAROUND(BOOST_MSVC, >= 1600) && defined BOOST_NO_DECLTYPE
+/// INTERNAL ONLY
+/// Boost.Config isn't up to date for MSVC10 so we force it to be
+#if BOOST_WORKAROUND(BOOST_MSVC, >= 1600) && defined(BOOST_NO_DECLTYPE)
 #undef BOOST_NO_DECLTYPE
+#endif
+
+/// INTERNAL ONLY
+/// decltype in GCC 4.4 is FUBAR
+#if defined(__GNUC__) && __GNUC__ == 4 && __GNUC_MINOR__ == 4 && !defined(BOOST_NO_DECLTYPE)
+#define BOOST_NO_DECLTYPE
 #endif
 
 #include <boost/typeof/typeof.hpp>
@@ -37,16 +30,7 @@
 #error compiler supports neither decltype nor typeof
 #endif
 
-/*!
- * \ingroup meta
- * Defines a type equivalent to the type of the expression passed as arguments,
- * CV-qualifiers unspecified.
- * \param EXPR Expression which type has to be evaluated
- *
- * \par Example Usage:
- *
- * \include decltype.cpp
- */
+/// INTERNAL ONLY
 #ifndef BOOST_NO_DECLTYPE
 #define BOOST_DISPATCH_TYPEOF(EXPR) decltype(EXPR)
 #else

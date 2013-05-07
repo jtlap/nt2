@@ -13,6 +13,7 @@ SET(SOURCES
     as_unsigned.cpp
     behave_as.cpp
     downgrade.cpp
+    display_type.cpp
     factory_of.cpp
     is_fundamental.cpp
     is_iterator.cpp
@@ -25,6 +26,7 @@ SET(SOURCES
     primitive_of.cpp
     sign_of.cpp
     strip.cpp
+    type_id.cpp
     upgrade.cpp
     )
 

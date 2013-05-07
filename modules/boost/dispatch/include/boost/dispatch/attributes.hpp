@@ -1,49 +1,140 @@
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #ifndef BOOST_DISPATCH_ATTRIBUTES_HPP_INCLUDED
 #define BOOST_DISPATCH_ATTRIBUTES_HPP_INCLUDED
 
 /*!
- * @file
- * @brief Defines wrapper for noinline, deprecated and restrict attributes
- **/
+  @file
+  @brief Defines wrapper for compiler dependent attributes
+
+  Variables and functions attributes provided by some compilers allow for
+  valuable additional optimizations. This file provide portable macro to
+  benefit from such attributes.
+**/
 
 #include <boost/config.hpp>
 #include <boost/preprocessor/facilities/is_empty.hpp>
 
-#if defined(NT2_DOXYGEN_ONLY)
+#if defined(DOXYGEN_ONLY)
 /*!
- * @brief Mark a function as candidate for no inlining
- *
- * This macro expands to a compiler specific function atttibute hinting the
- * compiler to not inline it.
- *
- **/
+  @brief Mark a function as candidate for no inlining
+
+  This macro expands to a potential compiler specific function attribute hinting
+  the compiler to not inline it.
+
+  @par Usage:
+
+  @code
+  BOOST_DISPATCH_NOINLINE void foo()
+  {
+    // ...
+  }
+  @endcode
+
+**/
 #define BOOST_DISPATCH_NOINLINE
 
 /*!
- * @brief Mark a function as deprecated
- *
- * This macro expands to a compiler specific function atttibute emitting a
- * warning indicating said function is deprecated.
- *
- **/
+  @brief Mark a function as deprecated
+
+  This macro expands to a compiler specific function attribute emitting a
+  warning indicating said function is deprecated.
+
+  @par Usage:
+
+  @code
+  BOOST_DISPATCH_DEPRECATED void foo()
+  {
+    // ...
+  }
+  @endcode
+
+**/
  #define BOOST_DISPATCH_DEPRECATED
 
 /*!
- * @brief Mark a pointer or reference as restricted
- *
- * This macro expands to a compiler specific parameters attribute indicating
- * that said attribute is non-aliasing pointer or reference.
- *
- **/
+  @brief Mark a pointer or reference as restricted
+
+  This macro expands to a potential compiler specific parameters attribute
+  indicating that a given pointer or reference is not aliasing any other pointer
+  or reference.
+
+  @par Usage:
+
+  @code
+  void* BOOST_DISPATCH_RESTRICT ptr = malloc(1337);
+  @endcode
+
+  @see BOOST_DISPATCH_NO_RESTRICT_REFERENCES
+  @see boost::simd::memory::meta::restrict_ptr
+**/
 #define BOOST_DISPATCH_RESTRICT
+
+/*!
+  @brief Mark a pointer or reference as restricted
+
+  If BOOST_DISPATCH_NO_RESTRICT_REFERENCES is defined, current compiler does not
+  support restricted reference. Using BOOST_DISPATCH_RESTRICT on references
+  requires checking for this flag.
+
+  @see BOOST_DISPATCH_RESTRICT
+  @see boost::simd::memory::meta::restrict_ptr
+**/
+#define BOOST_DISPATCH_NO_RESTRICT_REFERENCES
+
+/*!
+  @brief Mark a function as non-throwing
+
+  This macro expands to a compiler specific function attribute indicating that
+  said function can not throw any kind of exceptions.
+
+  @par Usage:
+
+  @code
+  void foo() BOOST_DISPATCH_NOTHROW
+  {
+    // ...
+  }
+  @endcode
+
+**/
+#define BOOST_DISPATCH_NOTHROW
+
+/*!
+  @brief DOCTODO
+
+  @par Usage:
+
+  @code
+  @endcode
+
+**/
+#define BOOST_DISPATCH_OVERRIDE
+
+/*!
+  @brief Mark a class as having no VTABLE
+
+  This macro expands to a compiler specific type attribute indicating that
+  said class or structure can be optimized by knowing there is no VTABLE
+  to be generated for it.
+
+  @par Usage:
+
+  @code
+  class foo BOOST_DISPATCH_NOVTABLE
+  {
+    // ...
+  }
+  @endcode
+
+**/
+#define BOOST_DISPATCH_NOVTABLE
 
 #else
 #ifndef BOOST_FORCEINLINE
@@ -88,6 +179,28 @@
 
 #if defined(BOOST_DISPATCH_NO_RESTRICT) || defined(_MSC_VER)
 #define BOOST_DISPATCH_NO_RESTRICT_REFERENCES
+#endif
+
+#if defined(_MSC_VER)
+#define BOOST_DISPATCH_NOTHROW  __declspec( nothrow )
+#elif defined(__GNUC__)
+#define BOOST_DISPATCH_NOTHROW __attribute__(( nothrow ))
+#else
+#define BOOST_DISPATCH_NOTHROW
+#endif
+
+#if defined(_MSC_VER)
+#define BOOST_DISPATCH_OVERRIDE override
+#elif defined(__GNUC__)
+#define BOOST_DISPATCH_OVERRIDE
+#else
+#define BOOST_DISPATCH_OVERRIDE
+#endif
+
+#if defined(_MSC_VER)
+#define BOOST_DISPATCH_NOVTABLE __declspec( novtable )
+#else
+#define BOOST_DISPATCH_NOVTABLE
 #endif
 
 #endif

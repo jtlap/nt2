@@ -1,17 +1,17 @@
 
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2 container aliased_mtimes"
 
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/of_size.hpp>
-#include <nt2/toolbox/operator/operator.hpp>
+#include <nt2/operator/operator.hpp>
 #include <nt2/include/functions/function.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/rand.hpp>
@@ -20,11 +20,11 @@
 #include <nt2/table.hpp>
 #include <nt2/sdk/timing/now.hpp>
 #include <nt2/sdk/unit/details/helpers.hpp>
-#include <nt2/sdk/unit/perform_benchmark.hpp>
+#include <nt2/sdk/bench/perform_benchmark.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/toolbox/linalg/details/blas/mm.hpp>
+#include <nt2/linalg/details/blas/mm.hpp>
 
-template<class T> struct mtimes_test
+template<class T> struct mtimes_test : nt2::details::base_experiment
 {
   mtimes_test(std::size_t n, std::size_t m, T const& min, T const& max )
     : a1(nt2::of_size(n,m)),
@@ -38,7 +38,7 @@ template<class T> struct mtimes_test
     }
   }
 
-  void operator()()
+  void run() const
   {
     for(int i = 0; i < 100; ++i)
       a1 = mtimes(a1, a2);
@@ -46,11 +46,11 @@ template<class T> struct mtimes_test
 
   void reset() {}
 
-  nt2::table<T> a1,a2;
+  mutable nt2::table<T> a1,a2;
   std::size_t N,M;
 };
 
-template<class T> struct gemm_test
+template<class T> struct gemm_test : nt2::details::base_experiment
 {
   gemm_test(std::size_t n, std::size_t m, T const& min, T const& max )
     : a1(nt2::of_size(m, n)),
@@ -66,7 +66,7 @@ template<class T> struct gemm_test
   }
 
 
-  void operator()()
+  void run() const
   {
     T alpha = nt2::One<T>();
     T beta  = nt2::Zero<T>();
@@ -86,7 +86,7 @@ template<class T> struct gemm_test
 
   void reset() {}
 
-  nt2::table<T> a1,a2,a3;
+  mutable nt2::table<T> a1,a2,a3;
   nt2_la_int N,M;
 
 };
@@ -100,23 +100,17 @@ template<class T> void do_test()
     std::cout.precision(3);
     std::cout << N << "^2\t";
     mtimes_test<T> tt(N,N,-.28319, .28319);
-    nt2::unit::benchmark_result<nt2::details::cycles_t> dv;
-    nt2::unit::perform_benchmark( tt, 1., dv);
-    nt2::unit::benchmark_result<double> tv;
-    nt2::unit::perform_benchmark( tt, 1., tv);
-    std::cout << std::scientific << dv.median/(double)(N*N) << "\t";
-    std::cout << std::scientific << tv.median << "\t";
+    nt2::benchmark_result_t dv = nt2::perform_benchmark( tt, 1. );
+    std::cout << std::scientific << dv.first/(double)(N*N) << "\t";
+    std::cout << std::scientific << dv.second << "\t";
 
     gemm_test<T> vv(N,N,-.28319, .28319);
-    nt2::unit::benchmark_result<nt2::details::cycles_t> dw;
-    nt2::unit::perform_benchmark( vv, 1., dw);
-    nt2::unit::benchmark_result<double> tw;
-    nt2::unit::perform_benchmark( vv, 1., tw);
-    std::cout << std::scientific << dw.median/(double)(N*N) << "\t";
-    std::cout << std::scientific << tw.median << "\t";
+    nt2::benchmark_result_t dw = nt2::perform_benchmark( vv, 1. );
+    std::cout << std::scientific << dw.first/(double)(N*N) << "\t";
+    std::cout << std::scientific << dw.second << "\t";
 
-    std::cout << std::fixed << (double)dw.median/dv.median << "\t";
-    std::cout << std::fixed << (double)tw.median/tv.median << "\n";
+    std::cout << std::fixed << (double)dw.first/dv.first << "\t";
+    std::cout << std::fixed << (double)dw.second/dv.second << "\n";
   }
 }
 

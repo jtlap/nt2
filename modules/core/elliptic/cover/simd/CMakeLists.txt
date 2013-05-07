@@ -11,7 +11,7 @@
 SET( SOURCES
   ellpk.cpp
   ellpe.cpp
-  ellipke.cpp
+#  ellipke.cpp
   ellint_2.cpp
   ellint_1.cpp
   ellik.cpp

@@ -72,16 +72,19 @@ namespace boost { namespace dispatch
   //============================================================================
   template<class Tag, class EvalContext> struct functor
   {
+    typedef Tag         tag_type;
+    typedef EvalContext context_type;
+
     template<class Sig> struct result;
 
     #if (   !defined(BOOST_NO_VARIADIC_TEMPLATES)               \
         &&  !defined(BOOST_NO_RVALUE_REFERENCES)                \
         &&  !defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES)  \
         )                                                       \
-        || defined(NT2_DOXYGEN_ONLY)
+        || defined(DOXYGEN_ONLY)
     template<class This, class... Args>
     struct result<This(Args...)>
-#if !defined(NT2_DOXYGEN_ONLY)
+#if !defined(DOXYGEN_ONLY)
       : meta::
         result_of< typename meta::
                    dispatch_call< Tag(typename meta::as_ref<Args>::type...)
@@ -221,7 +224,6 @@ namespace boost { namespace dispatch
     #undef n_size
     #undef c1
     #undef c0
-    #undef param2
     #undef param
     #undef call_operator
 

@@ -18,7 +18,7 @@
 #include <boost/dispatch/dsl/category.hpp>
 #include <boost/dispatch/meta/proxy.hpp>
 
-#include <boost/dispatch/details/ignore_unused.hpp>
+#include <boost/dispatch/meta/ignore_unused.hpp>
 
 namespace boost { namespace simd
 {

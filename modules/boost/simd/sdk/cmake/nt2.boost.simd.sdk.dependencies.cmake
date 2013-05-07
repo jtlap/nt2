@@ -17,9 +17,9 @@ MESSAGE( STATUS "[boost.simd.sdk] compiler: ${NT2_COMPILER} (${CMAKE_CXX_COMPILE
 set(FLAGS ${NT2_SIMD_FLAGS})
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Intel")
   if(UNIX)
-    set(FLAGS "${FLAGS} -wd411 -wd2536")
+    set(FLAGS "${FLAGS} -wd411 -wd2536 -Dsimd=_Simd")
   else()
-    set(FLAGS "${FLAGS} /wd411 /wd2536")
+    set(FLAGS "${FLAGS} /wd411 /wd2536 -Dsimd=_Simd")
   endif()
 endif()
 

@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2 trigonometric toolbox - more_cosine/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -13,19 +13,18 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
 ///
-#include <nt2/toolbox/crlibm/include/functions/cos_rn.hpp>
-#include <nt2/toolbox/crlibm/include/functions/sin_rn.hpp>
-#include <nt2/toolbox/trigonometric/include/functions/sinecosine.hpp>
-#include <nt2/toolbox/trigonometric/include/functions/fast_cos.hpp>
-#include <nt2/toolbox/trigonometric/include/functions/cos.hpp>
-#include <nt2/toolbox/trigonometric/include/functions/sincos.hpp>
-#include <nt2/toolbox/trigonometric/include/functions/rem_pio2_medium.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/crlibm/include/functions/cos_rn.hpp>
+#include <nt2/crlibm/include/functions/sin_rn.hpp>
+#include <nt2/trigonometric/include/functions/sinecosine.hpp>
+#include <nt2/trigonometric/include/functions/fast_cos.hpp>
+#include <nt2/trigonometric/include/functions/cos.hpp>
+#include <nt2/trigonometric/include/functions/sincos.hpp>
+#include <nt2/trigonometric/include/functions/rem_pio2_medium.hpp>
 #include <nt2/include/functions/successor.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/ceil.hpp>
-#include <nt2/toolbox/trigonometric/constants.hpp>
+#include <nt2/trigonometric/constants.hpp>
 extern "C" {extern long double cephes_cosl(long double);}
 
 #include <iomanip>

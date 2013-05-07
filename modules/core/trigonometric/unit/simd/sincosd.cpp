@@ -1,98 +1,84 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 trigonometric toolbox - sincosd/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of trigonometric components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 11/02/2011
-///
-#include <nt2/toolbox/trigonometric/include/functions/sincosd.hpp>
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
+#include <nt2/trigonometric/include/functions/sincosd.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <nt2/toolbox/trigonometric/constants.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+
+#include <nt2/include/constants/pio2_3.hpp>
+#include <nt2/include/constants/pi.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/pio_2.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/minf.hpp>
+#include <nt2/include/constants/nan.hpp>
 #include <nt2/include/functions/sind.hpp>
 #include <nt2/include/functions/cosd.hpp>
-
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_signed.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/meta/downgrade.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/type_traits/common_type.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/load.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
+#include <boost/fusion/include/vector_tie.hpp>
 
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
-NT2_TEST_CASE_TPL ( sincosd_real__1_0,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL( sincosd, BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using nt2::sincosd;
   using nt2::tag::sincosd_;
-  using nt2::load;
   using boost::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef typename boost::dispatch::meta::as_floating<T>::type ftype;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<sincosd_(vT)>::type r_t;
-  typedef typename nt2::meta::call<sincosd_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
-  // specific values tests
-  typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
-  typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
+  typedef native<T,BOOST_SIMD_DEFAULT_EXTENSION>            vT;
+  vT a[] = {nt2::Zero<vT>(), nt2::One<vT>(), nt2::splat<vT>(120), nt2::splat<vT>(180),
+            nt2::splat<vT>(90), nt2::Inf<vT>(), nt2::Minf<vT>(), nt2::Nan<vT>()};
+  size_t N =  sizeof(a)/sizeof(vT);
+
+  NT2_TEST_TYPE_IS( (typename boost::dispatch::meta::call<sincosd_(vT)>::type)
+                  , (std::pair<vT,vT>)
+                  );
+
   {
-    r_t res = sincosd(nt2::Zero<vT>());
-    NT2_TEST_ULP_EQUAL( boost::fusion::get<0>(res)[0], nt2::Zero<r_t0>()[0], 0.75);
-    NT2_TEST_ULP_EQUAL( boost::fusion::get<1>(res)[0], nt2::One<r_t0>()[0], 0.75);
-  }
-  {
-    r_t res = sincosd(nt2::_45<vT>());
-    NT2_TEST_ULP_EQUAL( boost::fusion::get<0>(res)[0], nt2::Sqrt_2o_2<r_t0>()[0], 0.75);
-    NT2_TEST_ULP_EQUAL( boost::fusion::get<1>(res)[0], nt2::Sqrt_2o_2<r_t0>()[0], 0.75);
-  }
-  {
-    r_t res = sincosd(nt2::_90<vT>());
-    NT2_TEST_ULP_EQUAL( boost::fusion::get<0>(res)[0], nt2::One<r_t0>()[0], 0.75);
-    NT2_TEST_ULP_EQUAL( boost::fusion::get<1>(res)[0], nt2::Zero<r_t0>()[0], 0.75);
+    vT s, c;
+    for(size_t i=0; i < N; ++i)
+    {
+      sincosd(a[i], s, c);
+      NT2_TEST_EQUAL(s, nt2::sind(a[i]));
+      NT2_TEST_EQUAL(c, nt2::cosd(a[i]));
+    }
   }
 
-  // specific values tests
-  typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
-  typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
   {
-    r_t res = sincosd(nt2::Zero<vT>());
-    NT2_TEST_ULP_EQUAL( boost::fusion::get<0>(res)[0], nt2::Zero<r_t0>()[0], 0.75);
-    NT2_TEST_ULP_EQUAL( boost::fusion::get<1>(res)[0], nt2::One<r_t0>()[0], 0.75);
+    vT s, c;
+    for(size_t i=0; i < N; ++i)
+    {
+      s = sincosd(a[i], c);
+      NT2_TEST_EQUAL(s, nt2::sind(a[i]));
+      NT2_TEST_EQUAL(c, nt2::cosd(a[i]));
+    }
   }
+
   {
-    r_t res = sincosd(nt2::_45<vT>());
-    NT2_TEST_ULP_EQUAL( boost::fusion::get<0>(res)[0], nt2::Sqrt_2o_2<r_t0>()[0], 0.75);
-    NT2_TEST_ULP_EQUAL( boost::fusion::get<1>(res)[0], nt2::Sqrt_2o_2<r_t0>()[0], 0.75);
+    vT s, c;
+    for(size_t i=0; i < N; ++i)
+    {
+      boost::fusion::vector_tie(s, c) = sincosd(a[i]);
+      NT2_TEST_EQUAL(s, nt2::sind(a[i]));
+      NT2_TEST_EQUAL(c, nt2::cosd(a[i]));
+    }
   }
+
   {
-    r_t res = sincosd(nt2::_90<vT>());
-    NT2_TEST_ULP_EQUAL( boost::fusion::get<0>(res)[0], nt2::One<r_t0>()[0], 0.75);
-    NT2_TEST_ULP_EQUAL( boost::fusion::get<1>(res)[0], nt2::Zero<r_t0>()[0], 0.75);
+    for(size_t i=0; i < N; ++i)
+    {
+      std::pair<vT,vT> p = sincosd(a[i]);
+      NT2_TEST_EQUAL(p.first,  nt2::sind(a[i]));
+      NT2_TEST_EQUAL(p.second, nt2::cosd(a[i]));
+    }
   }
-} // end of test for floating_
+}

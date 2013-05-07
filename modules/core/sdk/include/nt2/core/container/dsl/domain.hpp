@@ -12,19 +12,20 @@
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/core/container/dsl/grammar.hpp>
+#include <nt2/core/container/table/table_view.hpp>
 #include <nt2/dsl/functions/run.hpp>
-#include <nt2/toolbox/operator/functions/assign.hpp>
+#include <nt2/operator/functions/assign.hpp>
 #include <nt2/sdk/memory/container_ref.hpp>
 #include <nt2/sdk/memory/container_shared_ref.hpp>
 #include <boost/proto/domain.hpp>
 #include <boost/type_traits/remove_const.hpp>
-#include <boost/type_traits/remove_reference.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/is_const.hpp>
 
 namespace nt2 { namespace meta
 {
+  /* Checks whether a tag T is an elementwise operation */
   template<class T>
   struct is_elementwise
   {
@@ -65,78 +66,89 @@ namespace nt2 { namespace meta
 
 namespace nt2 { namespace container
 {
-  // Convert terminal of containers to terminals of container_ref
-  template<class T, class Dummy = void>
-  struct as_container_ref
+  /* Turn an expression into a view, i.e. convert all container terminals and table
+   * to table_view/table_shared_view */
+  template<class Expr, class T>
+  struct as_view_impl_term
+       : boost::remove_const<Expr>
   {
-    typedef T type;
-    static BOOST_FORCEINLINE typename boost::add_reference<T>::type
-    call(typename boost::add_reference<T>::type t)
+  };
+
+  template<class Expr, class T, class S>
+  struct as_view_impl_term< Expr, memory::container<T, S>& >
+  {
+    typedef table_view<T, S> type;
+  };
+
+  template<class Expr, class T, class S>
+  struct as_view_impl_term< Expr, memory::container<T, S> const& >
+  {
+    typedef table_view<T const, S> type;
+  };
+
+  template<class Expr, class T, class S>
+  struct as_view_impl_term< Expr, memory::container_shared_ref<T, S, true> & >
+  {
+    typedef table_shared_view<T, S> type;
+  };
+
+  template<class Expr, class T, class S>
+  struct as_view_impl_term< Expr, memory::container_shared_ref<T, S, true> const& >
+  {
+    typedef table_shared_view<T, S> type;
+  };
+
+  template<class T, class Tag = typename T::proto_tag>
+  struct as_view_impl
+  {
+    typedef typename boost::remove_const<T>::type type;
+    static BOOST_FORCEINLINE T& call(T& t)
     {
       return t;
     }
   };
 
   template<class T>
-  struct as_container_ref<T, typename boost::enable_if_c< meta::is_container<T>::value && !meta::is_container_ref<T>::value >::type>
+  struct as_view_impl<T, boost::proto::tag::terminal>
   {
-    typedef memory::container_ref<typename boost::remove_reference<T>::type> const type;
-    static BOOST_FORCEINLINE type
-    call(T& t)
+    typedef typename as_view_impl_term<T, typename boost::proto::result_of::value<T&>::type>::type type;
+    static BOOST_FORCEINLINE type call(T& t)
     {
       return type(t);
     }
   };
 
-  template<class Container, bool Own>
-  struct as_container_ref< memory::container_shared_ref<Container, Own> >
+  template<class T>
+  BOOST_FORCEINLINE
+  typename as_view_impl<T>::type as_view(T& t)
   {
-    typedef memory::container_shared_ref<Container> const type;
-    static BOOST_FORCEINLINE type
-    call(memory::container_shared_ref<Container, Own>& t)
-    {
-      return type(t.base());
-    }
-  };
-
-  template<class Container, bool Own>
-  struct as_container_ref< memory::container_shared_ref<Container, Own> const >
-  {
-    typedef memory::container_shared_ref<Container> const type;
-    static BOOST_FORCEINLINE type
-    call(memory::container_shared_ref<Container, Own> const& t)
-    {
-      return type(t.base());
-    }
-  };
-
-  // Convert container_ref to container for semantic
-  template<class T, class Dummy = void>
-  struct as_container_noref
-  {
-    typedef T type;
-  };
+    return as_view_impl<T>::call(t);
+  }
 
   template<class T>
-  struct as_container_noref<T, typename boost::enable_if< typename meta::is_container_ref<T>::type >::type>
+  BOOST_FORCEINLINE
+  typename as_view_impl<T const>::type as_view(T const& t)
   {
-    typedef typename T::base_t type0;
-    typedef typename boost::mpl::if_< boost::is_const<T>, type0 const&, type0&>::type type;
-  };
+    return as_view_impl<T const>::call(t);
+  }
 
-  /* The nt2 container domain has special rules so that children are held by value and
-   * containers are held by a container_ref value */
+  /* The nt2 container domain has special rules so that children are held by value,
+   * non-elementwise operations get scheduled and
+   * containers are held by reference or as a container_ref value */
   struct  domain
         : boost::proto::domain< container::generator_transform<domain>
                               , container::grammar
                               >
   {
-    template<class T, class Dummy = void>
+    // Construct an expression from a non-expression
+    // - by value unless manually called with a reference
+    // - semantic is same as terminal value
+    template<class T, class Dummy = void, class Sema = void>
     struct as_child : boost::proto::callable
     {
       typedef typename boost::remove_const<T>::type term_t;
       typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<term_t> > expr_t;
-      typedef expression<expr_t, typename as_container_noref<term_t>::type> result_type;
+      typedef expression<expr_t, typename boost::mpl::if_< boost::is_void<Sema>, typename boost::remove_const<T>::type, Sema >::type> result_type;
       BOOST_FORCEINLINE result_type operator()(typename boost::add_reference<T>::type t) const
       {
         return result_type(expr_t::make(t));
@@ -157,6 +169,7 @@ namespace nt2 { namespace container
       }
     };
 
+    // Schedule non-elementwise expression, return terminal (shared owning container_ref)
     template<class T>
     struct as_child_elementwise<T, false>
          : boost::proto::callable
@@ -175,33 +188,69 @@ namespace nt2 { namespace container
       }
     };
 
-    template<class T, class Tag, bool Schedule = true>
+    template<class T, class Tag, bool Schedule = boost::is_same<typename T::proto_domain, domain>::value>
     struct as_child_expr
          : as_child_elementwise<T, meta::is_elementwise<Tag>::value || !Schedule >
     {
     };
 
-    // Existing terminals get unpacked and re-created (necessary for table)
-    template<class T, bool Schedule>
-    struct as_child_expr<T, boost::proto::tag::terminal, Schedule>
+    // Scheduled terminals: converted to views
+    template<class T>
+    struct as_child_expr<T, boost::proto::tag::terminal, true>
+     : boost::proto::callable
+    {
+      typedef typename as_view_impl<T>::type result_type;
+
+      BOOST_FORCEINLINE result_type operator()(T& t) const
+      {
+        return as_view_impl<T>::call(t);
+      }
+    };
+
+    // Non-scheduled terminals: ensure tables are held by reference
+    template<class T>
+    struct as_child_expr<T, boost::proto::tag::terminal, false>
      : boost::proto::callable
     {
       typedef typename boost::proto::result_of::value<T&>::value_type value_type;
       typedef typename boost::mpl::if_< boost::is_const<T>, typename boost::add_const<value_type>::type, value_type >::type type;
-      typedef typename as_container_ref<type>::type term;
-
-      typedef as_child<term> impl;
+      typedef typename boost::mpl::if_c< meta::is_container<value_type>::value && !meta::is_container_ref<value_type>::value, typename boost::add_reference<type>::type, type >::type type_ref;
+      typedef as_child<type_ref, void, typename boost::dispatch::meta::semantic_of<T&>::type> impl;
       typedef typename impl::result_type result_type;
 
       BOOST_FORCEINLINE result_type operator()(T& t) const
       {
-        return impl()(as_container_ref<type>::call(boost::proto::value(t)));
+        return impl()(boost::proto::value(t));
       }
     };
 
     template<class T>
     struct as_child<T, typename T::proto_is_expr_>
          : as_child_expr<T, typename T::proto_tag> {};
+  };
+} }
+
+namespace nt2 { namespace meta
+{
+  /* Turn an expression into an element-wise expression, schedule but do not turn terminals into views */
+  template<class T, class Tag = typename T::proto_tag>
+  struct as_elementwise
+  {
+    typedef typename container::domain::template as_child<T>::result_type type;
+    static BOOST_FORCEINLINE type call(T& t)
+    {
+      return typename container::domain::template as_child<T>()(t);
+    }
+  };
+
+  template<class T>
+  struct as_elementwise<T, boost::proto::tag::terminal>
+  {
+    typedef T& type;
+    static BOOST_FORCEINLINE T& call(T& t)
+    {
+      return t;
+    }
   };
 } }
 

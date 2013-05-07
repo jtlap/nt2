@@ -20,7 +20,7 @@
 #include <nt2/sdk/meta/is_scalar.hpp>
 #include <nt2/core/functions/function.hpp>
 #include <nt2/core/functions/extent.hpp>
-#include <nt2/toolbox/operator/functions/assign.hpp>
+#include <nt2/operator/functions/assign.hpp>
 #include <nt2/include/functions/evaluate.hpp>
 #include <nt2/include/functions/scalar/numel.hpp>
 #include <nt2/core/utility/fix_index.hpp>
@@ -64,26 +64,26 @@ namespace nt2
     return &t;
   }
 
-  template<class Container>
-  typename memory::container_ref<Container>::pointer raw(memory::container_ref<Container> const& c)
+  template<class T, class S>
+  typename memory::container_ref<T, S>::pointer raw(memory::container_ref<T, S> const& c)
   {
     return c.raw();
   }
 
-  template<class Container>
-  typename memory::container_ref<Container>::pointer raw(memory::container_ref<Container>& c)
+  template<class T, class S>
+  typename memory::container_ref<T, S>::pointer raw(memory::container_ref<T, S>& c)
   {
     return c.raw();
   }
 
-  template<class Container, bool Own>
-  typename memory::container_shared_ref<Container, Own>::pointer raw(memory::container_shared_ref<Container, Own> const& c)
+  template<class T, class S, bool Own>
+  typename memory::container_shared_ref<T, S, Own>::pointer raw(memory::container_shared_ref<T, S, Own> const& c)
   {
     return c.raw();
   }
 
-  template<class Container, bool Own>
-  typename memory::container_shared_ref<Container, Own>::pointer raw(memory::container_shared_ref<Container, Own>& c)
+  template<class T, class S, bool Own>
+  typename memory::container_shared_ref<T, S, Own>::pointer raw(memory::container_shared_ref<T, S, Own>& c)
   {
     return c.raw();
   }
@@ -94,8 +94,8 @@ namespace nt2
     return c.raw();
   }
 
-  template<class T, class Settings>
-  typename memory::container<T, Settings>::const_pointer raw(memory::container<T, Settings> const& c)
+  template<class T, class S>
+  typename memory::container<T, S>::const_pointer raw(memory::container<T, S> const& c)
   {
     return c.raw();
   }
@@ -180,7 +180,12 @@ namespace nt2 { namespace container
   struct expression : expression_scalar<Expr, Result, meta::is_scalar<Result>::value>
   {
     //==========================================================================
-    /*! Type of the parent expression                                         */
+    // This type
+    //==========================================================================
+    typedef expression nt2_expression;
+
+    //==========================================================================
+    // Type of the parent expression
     //==========================================================================
     BOOST_PROTO_BASIC_EXTENDS(Expr, expression, domain)
 
@@ -339,6 +344,14 @@ namespace nt2 { namespace container
     // Return current expression extent
     //==========================================================================
     BOOST_FORCEINLINE extent_type const& extent() const { return size_.data(); }
+
+    //==========================================================================
+    // Return current expression extent
+    //==========================================================================
+    BOOST_FORCEINLINE std::size_t size() const
+    {
+      return nt2::numel(extent());
+    }
 
     //==========================================================================
     // Return current expression base indexes

@@ -10,7 +10,7 @@
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/chebspec.hpp>
-#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/cons.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>

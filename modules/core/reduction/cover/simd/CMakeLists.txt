@@ -22,7 +22,6 @@ SET( SOURCES
   hmsb.cpp
   first.cpp
   dot.cpp
-  at_i.cpp
   any.cpp
   all.cpp
   compare_equal.cpp

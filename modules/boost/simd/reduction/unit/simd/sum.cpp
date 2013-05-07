@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2 boost.simd.reduction toolbox - sum/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -13,16 +13,15 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
 ///
-#include <boost/simd/toolbox/reduction/include/functions/sum.hpp>
+#include <boost/simd/reduction/include/functions/sum.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/include/functions/enumerate.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/simd/constant/constant.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
@@ -77,9 +76,9 @@ NT2_TEST_CASE_TPL ( sum_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  T c = cardinal_of<n_t>();
-  NT2_TEST_ULP_EQUAL(sum(boost::simd::One<vT>()), c, 0);
-  NT2_TEST_ULP_EQUAL(sum(boost::simd::Two<vT>()), 2*c, 0);
+  std::size_t c = cardinal_of<n_t>::value;
+  NT2_TEST_ULP_EQUAL(sum(boost::simd::One<vT>()), T(c), 0);
+  NT2_TEST_ULP_EQUAL(sum(boost::simd::Two<vT>()), T(2*c), 0);
   NT2_TEST_ULP_EQUAL(sum(boost::simd::Zero<vT>()), boost::simd::Zero<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(sum(boost::simd::enumerate<vT>(1)), c*(c+1)/2, 0);
 } //

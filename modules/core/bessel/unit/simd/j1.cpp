@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2 bessel toolbox - j1/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -13,9 +13,9 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 16/02/2011
 ///
-#include <nt2/toolbox/bessel/include/functions/j1.hpp>
+#include <nt2/bessel/include/functions/j1.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+
 extern "C" {long double cephes_j1l(long double);}
 
 #include <boost/type_traits/is_same.hpp>
@@ -31,32 +31,19 @@ extern "C" {long double cephes_j1l(long double);}
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/include/functions/splat.hpp>
-
-#include <nt2/include/functions/load.hpp>
-
 
 NT2_TEST_CASE_TPL ( j1_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::j1;
   using nt2::tag::j1_;
-  using nt2::load;
   using boost::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<j1_(vT)>::type r_t;
-  typedef typename nt2::meta::call<j1_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
 
+  typedef NT2_SIMD_DEFAULT_EXTENSION              ext_t;
+  typedef native<T,ext_t>                         vT;
+  typedef typename nt2::meta::call<j1_(vT)>::type r_t;
+  typedef typename nt2::meta::call<j1_(T)>::type  sr_t;
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(j1(nt2::Inf<vT>())[0], nt2::Zero<sr_t>(), 0.5);

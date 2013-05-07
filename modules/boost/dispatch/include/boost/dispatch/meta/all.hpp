@@ -40,7 +40,7 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   // Recursive variadics
   //============================================================================
-#if defined(NT2_DOXYGEN_ONLY)
+#if defined(DOXYGEN_ONLY)
   /*!
    * @brief
    * Evaluates if a given meta-predicate is true for all types in a type

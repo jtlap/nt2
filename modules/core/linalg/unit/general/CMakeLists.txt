@@ -9,6 +9,7 @@
 
 SET( SOURCES
   cov.cpp
+  cross.cpp
   expm.cpp
   impower.cpp
   inv.cpp
@@ -17,7 +18,7 @@ SET( SOURCES
   null.cpp
   orth.cpp
   pinv.cpp
-poly.cpp
+  poly.cpp
   rot90.cpp
   rref.cpp
   rref_result.cpp

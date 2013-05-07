@@ -21,6 +21,7 @@ SET( SOURCES
      globalmin.cpp
      globalsum.cpp
      globalprod.cpp
+     inbtrue.cpp
      maximum.cpp
      medianad.cpp
      mean.cpp

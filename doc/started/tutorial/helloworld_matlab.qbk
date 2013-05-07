@@ -7,11 +7,173 @@ Here's our Matlab sample
 
 [teletype]
 ``
-y = reshape( 1:16, 4, 4 );
-x = sqrt( sin(y).^2 + cos(y).^2 )
+y = ones(4,4);
+x = 40 .* y + 2
 ``
 
-Nothing very fancy, we compute a =4x4= matrix full of =1= in maybe the most
-inefficient way.
+Nothing very fancy, we compute a =4x4= matrix full of =42=.
 
+Our equivalent C++ code will start as an empty =main= function.
+
+[c++]
+``
+int main()
+{
+
+  return 0;
+}
+``
+
+First step will be to declare our table =x= and =y= so we can work with.
+Contrary to Matlab, C++ requires you to declare variables before usign them.
+To do this we'll use the table type provided by NT2 provided by the following
+include file.
+
+[c++]
+``
+#include <nt2/table.hpp>
+
+int main()
+{
+
+  return 0;
+}
+``
+
+This brings the core __NT2__ elements required for handling tables and
+associated functions. Next we'll define =x= and =y=.
+
+[c++]
+``
+#include <nt2/table.hpp>
+
+using namespace nt2;
+
+int main()
+{
+  table<double> x;
+  table<double> y;
+  return 0;
+}
+``
+
+These two lines defines two __NT2__ tables, =x= and =y=. Notice the
+=using namespace nt2;= line. __NT2__ containers and functions live in the
+`nt2` namespace, which is a C++ construct that behaves like a module. There
+we dump its whole content in the global namespace for simplicity even if good
+practice is to use symbol level using directives.
+
+Once our table are declared, we can start filling them in. To fill =y=, we'll
+use the __NT2__ function [funcref nt2::ones ones] which is a copy-cat of Matlab
+=ones=. As a rule of thumb, except for corner cases, if you are used to calling
+=foo= in Matlab, __NT2__ surely has a =nt2::foo= function available. This is
+that simple. Now, every __NT2__ functions lives in its own dedicated header file
+for better granularity and compile-time control. Here, we will use the proper
+include to access [funcref nt2::ones ones].
+
+[c++]
+``
+#include <nt2/table.hpp>
+#include <nt2/include/functions/ones.hpp>
+
+using namespace nt2;
+
+int main()
+{
+  table<double> x;
+  table<double> y;
+
+  return 0;
+}
+``
+
+We can now initializes =y=. You can do it in two different ways. Either you
+can assign the result of [funcref nt2::ones ones] after the declaration
+of =y=.
+
+[c++]
+``
+table<double> y;
+
+y = ones(4,4);
+``
+
+Or you can actually initializes =y= when it's declared.
+
+
+[c++]
+``
+#include <nt2/table.hpp>
+#include <nt2/include/functions/ones.hpp>
+
+using namespace nt2;
+
+int main()
+{
+  table<double> x;
+  table<double> y = ones(4,4);
+
+  return 0;
+}
+``
+
+What happens to =x= ? Well, if =x= is left uninitialized, it will behave as
+an empty table of size =0x1=, just like in Matlab.
+
+We now compute =x= using the same operators than in Matlab. There are
+however two subtle difference.
+
+* First =.*= does not exist in C++, it's just plain =*=.
+
+* Then, __NT2__ requires a struct type conformance when mixing tables and
+  scalar. THis means that our =40= and =2= has to be =double=.
+
+This leads us to this code:
+
+[c++]
+``
+#include <nt2/table.hpp>
+#include <nt2/include/functions/ones.hpp>
+
+using namespace nt2;
+
+int main()
+{
+  table<double> x;
+  table<double> y = ones(4,4);
+
+  x = 40.0 * y + 2.0;
+
+  return 0;
+}
+``
+
+Most of the time, you will want to write such compact expression so __NT2__
+code generator can produce proper parallel code withotu any extra work on your
+side.
+
+We're almost done. We still need to display =x=. This is done in __NT2__ using
+the NT2_DISPLAY macro that will gives you an output similar to Matlab. One can
+also just use the standard output stream.
+
+
+[c++]
+``
+#include <nt2/table.hpp>
+#include <nt2/include/functions/ones.hpp>
+
+using namespace nt2;
+
+int main()
+{
+  table<double> x;
+  table<double> y = ones(4,4);
+
+  x = 40.0 * y + 2.0;
+
+  NT2_DISPLAY(x);
+
+  return 0;
+}
+``
 [endsect]

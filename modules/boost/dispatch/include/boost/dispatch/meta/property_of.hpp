@@ -57,7 +57,7 @@ namespace meta
 {
   template<class T, class Origin>
   struct  property_of
-#if !defined(NT2_DOXYGEN_ONLY)
+#if !defined(DOXYGEN_ONLY)
         : details::property_of_impl< typename meta::strip<T>::type
                                    , typename meta::scalar_of<typename meta::strip<T>::type>::type
                                    , typename remove_reference<Origin>::type

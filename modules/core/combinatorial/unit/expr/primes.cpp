@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2 combinatorial toolbox - primes/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -13,8 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 07/03/2011
 ///
-#include <nt2/toolbox/combinatorial/include/functions/primes.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/combinatorial/include/functions/primes.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/saturate.hpp>
 
@@ -31,7 +30,7 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 #include <nt2/table.hpp>
 #include <nt2/include/functions/tic.hpp>
 #include <nt2/include/functions/toc.hpp>
@@ -54,11 +53,9 @@ NT2_TEST_CASE_TPL ( primes_integer__1_0,  (int32_t))//NT2_INTEGRAL_TYPES)
    {
      NT2_TEST_EQUAL(p[i-1], myp(i));
    }
- nt2::tic();
+
  nt2::table<T> myp1 = primes(T(100000));
- nt2::toc();
  NT2_DISPLAY(primes(T(100)));
  nt2::table<T> myp9 = primes(T(9));
  NT2_DISPLAY(myp9);
-
 }

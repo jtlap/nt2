@@ -9,7 +9,6 @@
 
 SET( SOURCES
   splatted_second.cpp
-  comparator.cpp
   lookup.cpp
   sort.cpp
   cumsum.cpp

@@ -18,7 +18,7 @@
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 
-#if defined(NT2_DOXYGEN_ONLY)
+#if defined(DOXYGEN_ONLY)
 namespace boost { namespace dispatch { namespace meta
 {
   //============================================================================

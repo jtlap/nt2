@@ -1,69 +1,233 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 boost.simd.arithmetic toolbox - remquo/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.arithmetic components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created by jt the 01/12/2010
-///
-#include <boost/simd/toolbox/arithmetic/include/functions/remquo.hpp>
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
+#include <boost/simd/arithmetic/include/functions/remquo.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <boost/simd/include/functions/remainder.hpp>
-#include <boost/simd/include/functions/idivround.hpp>
-
-#include <boost/type_traits/is_same.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+#include <boost/simd/include/functions/toint.hpp>
+#include <boost/simd/include/functions/tofloat.hpp>
+#include <boost/simd/include/functions/splat.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/nan.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/fusion/include/vector_tie.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/toolbox/constant/constant.hpp>
-#include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
-#include <boost/simd/include/functions/load.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
-
-NT2_TEST_CASE_TPL ( remquo_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
+// All these tests should return NaN
+NT2_TEST_CASE_TPL( remquo_invalid, NT2_SIMD_REAL_TYPES)
 {
   using boost::simd::remquo;
   using boost::simd::tag::remquo_;
-  using boost::simd::load;
   using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
+
+  typedef native<T,BOOST_SIMD_DEFAULT_EXTENSION>  vT;
+  typedef typename boost::dispatch::meta::as_integer<vT,signed>::type viT;
+
+  NT2_TEST_TYPE_IS( (typename boost::dispatch::meta::call<remquo_(vT,vT)>::type)
+                  , (std::pair<vT,viT>)
+                  );
+
+  vT inf_  = boost::simd::Inf<vT>();
+  vT nan_  = boost::simd::Nan<vT>();
+  vT zero_ = boost::simd::Zero<vT>();
+  vT one_  = boost::simd::One<vT>();
+
+  {
+    // n is unspecified by the standard so we don't test it
+    viT n;
+    vT  r;
+
+    remquo(one_,nan_, r, n);
+    NT2_TEST_EQUAL(r, nan_);
+
+    remquo(one_,inf_, r, n);
+    NT2_TEST_EQUAL(r, nan_);
+
+    remquo(one_,zero_, r, n);
+    NT2_TEST_EQUAL(r, nan_);
+
+    remquo(inf_,zero_, r, n);
+    NT2_TEST_EQUAL(r, nan_);
+
+    remquo(nan_,zero_, r, n);
+    NT2_TEST_EQUAL(r, nan_);
+
+    remquo(nan_,one_, r, n);
+    NT2_TEST_EQUAL(r, nan_);
+
+    remquo(nan_,nan_, r, n);
+    NT2_TEST_EQUAL(r, nan_);
+
+    remquo(nan_,inf_, r, n);
+    NT2_TEST_EQUAL(r, nan_);
+  }
+
+  {
+    // n is unspecified by the standard so we don't test it
+    viT n;
+    vT  r;
+
+    r = remquo(one_,nan_, n);
+    NT2_TEST_EQUAL(r, nan_);
+
+    r = remquo(one_,inf_, n);
+    NT2_TEST_EQUAL(r, nan_);
+
+    r = remquo(one_,zero_, n);
+    NT2_TEST_EQUAL(r, nan_);
+
+    r = remquo(inf_,zero_, n);
+    NT2_TEST_EQUAL(r, nan_);
+
+    r = remquo(nan_,zero_, n);
+    NT2_TEST_EQUAL(r, nan_);
+
+    r = remquo(nan_,one_, n);
+    NT2_TEST_EQUAL(r, nan_);
+
+    r = remquo(nan_,nan_, n);
+    NT2_TEST_EQUAL(r, nan_);
+
+    r = remquo(nan_,inf_, n);
+    NT2_TEST_EQUAL(r, nan_);
+  }
+
+  {
+    // n is unspecified by the standard so we don't test it
+    viT n;
+    vT  r;
+
+    boost::fusion::vector_tie(r,n) = remquo(one_,nan_);
+    NT2_TEST_EQUAL(r, nan_);
+
+    boost::fusion::vector_tie(r,n) = remquo(one_,inf_);
+    NT2_TEST_EQUAL(r, nan_);
+
+    boost::fusion::vector_tie(r,n) = remquo(one_,zero_);
+    NT2_TEST_EQUAL(r, nan_);
+
+    boost::fusion::vector_tie(r,n) = remquo(inf_,zero_);
+    NT2_TEST_EQUAL(r, nan_);
+
+    boost::fusion::vector_tie(r,n) = remquo(nan_,zero_);
+    NT2_TEST_EQUAL(r, nan_);
+
+    boost::fusion::vector_tie(r,n) = remquo(nan_,one_);
+    NT2_TEST_EQUAL(r, nan_);
+
+    boost::fusion::vector_tie(r,n) = remquo(nan_,nan_);
+    NT2_TEST_EQUAL(r, nan_);
+
+    boost::fusion::vector_tie(r,n) = remquo(nan_,inf_);
+    NT2_TEST_EQUAL(r, nan_);
+  }
+
+  {
+    // n is unspecified by the standard so we don't test it
+    std::pair<vT,viT> p;
+
+    p =  remquo(one_,nan_);
+    NT2_TEST_EQUAL(p.first, nan_);
+
+    p =  remquo(one_,inf_);
+    NT2_TEST_EQUAL(p.first, nan_);
+
+    p =  remquo(one_,zero_);
+    NT2_TEST_EQUAL(p.first, nan_);
+
+    p =  remquo(inf_,zero_);
+    NT2_TEST_EQUAL(p.first, nan_);
+
+    p =  remquo(nan_,zero_);
+    NT2_TEST_EQUAL(p.first, nan_);
+
+    p =  remquo(nan_,one_);
+    NT2_TEST_EQUAL(p.first, nan_);
+
+    p =  remquo(nan_,nan_);
+    NT2_TEST_EQUAL(p.first, nan_);
+
+    p =  remquo(nan_,inf_);
+    NT2_TEST_EQUAL(p.first, nan_);
+  }
+}
+
+NT2_TEST_CASE_TPL( remquo_valid, NT2_SIMD_REAL_TYPES)
+{
+  using boost::simd::remquo;
+  using boost::simd::toint;
+  using boost::simd::tofloat;
   using boost::simd::splat;
+  using boost::simd::tag::remquo_;
+  using boost::simd::native;
 
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::dispatch::meta::call<remquo_(vT,vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  T a[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-  T b[10] = {1, 3, 4, 5, 6, 7, 8, 9, 10};
-  vT r;
-  ivT n;
-  T sr = 0;
-  iT sn = 0;
+  typedef native<T,BOOST_SIMD_DEFAULT_EXTENSION>  vT;
+  typedef typename boost::dispatch::meta::as_integer<vT,signed>::type viT;
 
-  for(int i=0; i < 10; ++i)
+  NT2_TEST_TYPE_IS( (typename boost::dispatch::meta::call<remquo_(vT,vT)>::type)
+                  , (std::pair<vT,viT>)
+                  );
+
+  vT a0[] = { splat<vT>(1), splat<vT>(2), splat<vT>(3), splat<vT>(4.5) };
+  vT a1[] = { splat<vT>(2), splat<vT>(1), splat<vT>(7), splat<vT>(3.2) };
+
+  std::size_t nb = sizeof(a0)/sizeof(vT);
+
+  {
+    viT n;
+    vT  r;
+
+    for(std::size_t i=0;i<nb;++i)
     {
-      for(int j=0; j < 10; ++j)
-        {
-          remquo(splat<vT>(a[i]), splat<vT>(b[j]), r, n);
-          remquo(a[i], b[j], sr, sn);
-          NT2_TEST_EQUAL(r[0], sr);
-          NT2_TEST_EQUAL(n[0], sn);
-       }
-   }
-} // end of test for floating_
+      remquo(a0[i],a1[i], r, n);
+      NT2_TEST_EQUAL(n, toint(a0[i] / a1[i]));
+      NT2_TEST_EQUAL(r, a0[i] - tofloat(n)*a1[i]);
+    }
+  }
+
+  {
+    viT n;
+    vT  r;
+
+    for(std::size_t i=0;i<nb;++i)
+    {
+      r = remquo(a0[i],a1[i], n);
+      NT2_TEST_EQUAL(n, toint(a0[i] / a1[i]));
+      NT2_TEST_EQUAL(r, a0[i] - tofloat(n)*a1[i]);
+    }
+  }
+
+  {
+    viT n;
+    vT  r;
+
+    for(std::size_t i=0;i<nb;++i)
+    {
+      boost::fusion::vector_tie(r,n) = remquo(a0[i],a1[i]);
+      NT2_TEST_EQUAL(n, toint(a0[i] / a1[i]));
+      NT2_TEST_EQUAL(r, a0[i] - tofloat(n)*a1[i]);
+    }
+  }
+
+  {
+    std::pair<vT,viT> p;
+
+    for(std::size_t i=0;i<nb;++i)
+    {
+      p = remquo(a0[i],a1[i]);
+      NT2_TEST_EQUAL(p.second, toint(a0[i] / a1[i]));
+      NT2_TEST_EQUAL(p.first, a0[i] - tofloat(p.second)*a1[i]);
+    }
+  }
+}

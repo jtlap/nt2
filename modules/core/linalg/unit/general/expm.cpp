@@ -15,7 +15,6 @@
 #include <nt2/include/constants/ten.hpp>
 #include <nt2/include/constants/exp_1.hpp>
 
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/isulpequal.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>

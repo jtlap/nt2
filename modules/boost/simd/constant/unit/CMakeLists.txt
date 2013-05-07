@@ -7,7 +7,7 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_use_modules(unit boost.simd.operator)
+nt2_module_use_modules(test.unit boost.simd.operator)
 ADD_SUBDIRECTORY(meta)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

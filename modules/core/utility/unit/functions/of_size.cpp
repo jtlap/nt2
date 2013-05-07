@@ -23,40 +23,38 @@
 ////////////////////////////////////////////////////////////////////////////
 ////// Test of_size initializations
 ////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( init_of_size )
+NT2_TEST_CASE( empty_of_size )
 {
-  using nt2::of_size_;
-
-  of_size_<-1>     spec1;
+  nt2::_1D  spec1;
   NT2_TEST_EQUAL( spec1.size(), 1u );
   NT2_TEST_EQUAL( spec1[0], 0u );
 
-  of_size_<-1,-1>     spec2;
+  nt2::_2D  spec2;
   NT2_TEST_EQUAL( spec2.size(), 2u );
   NT2_TEST_EQUAL( spec2[0], 0u );
   NT2_TEST_EQUAL( spec2[1], 1u );
 
-  of_size_<-1,-1,-1>     spec3;
+  nt2::_3D  spec3;
   NT2_TEST_EQUAL( spec3.size(), 3u );
   NT2_TEST_EQUAL( spec3[0], 0u );
   NT2_TEST_EQUAL( spec3[1], 1u );
   NT2_TEST_EQUAL( spec3[2], 1u );
 
-  of_size_<-1,-1,-1,-1>     spec4;
+  nt2::_4D  spec4;
   NT2_TEST_EQUAL( spec4.size(), 4u );
   NT2_TEST_EQUAL( spec4[0], 0u );
   NT2_TEST_EQUAL( spec4[1], 1u );
   NT2_TEST_EQUAL( spec4[2], 1u );
   NT2_TEST_EQUAL( spec4[2], 1u );
 
-  nt2::_0D     spec0;
+  nt2::_0D  spec0;
   NT2_TEST_EQUAL( spec0.size(), 0u );
 }
 
 ////////////////////////////////////////////////////////////////////////
 // Test of_size pre-initializations in case of static sizes
 ////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( pre_init_of_size )
+NT2_TEST_CASE( init_of_size )
 {
   using nt2::of_size_;
 
@@ -64,10 +62,23 @@ NT2_TEST_CASE( pre_init_of_size )
   NT2_TEST_EQUAL( spec1.size(), 1u );
   NT2_TEST_EQUAL( spec1[0], 42u );
 
+  of_size_<42>     spec1d(42);
+  NT2_TEST_EQUAL( spec1d.size(), 1u );
+  NT2_TEST_EQUAL( spec1d[0], 42u );
+
+  NT2_TEST_ASSERT( (of_size_<42> spec1b(63)) );
+  NT2_TEST_ASSERT( (of_size_<42> spec1b(2,21)) );
+  NT2_TEST_ASSERT( (of_size_<42> spec1b(2,3,7)) );
+  NT2_TEST_ASSERT( (of_size_<42> spec1b(2,1,3,7)) );
+
   of_size_<6,9>     spec2;
   NT2_TEST_EQUAL( spec2.size(), 2u );
   NT2_TEST_EQUAL( spec2[0], 6u );
   NT2_TEST_EQUAL( spec2[1], 9u );
+
+  NT2_TEST_ASSERT( (of_size_<6,9> spec2b(54)) );
+  NT2_TEST_ASSERT( (of_size_<6,9> spec2b(3,2,9)) );
+  NT2_TEST_ASSERT( (of_size_<6,9> spec2b(3,1,6,3)) );
 
   of_size_<4,2,6>     spec3;
   NT2_TEST_EQUAL( spec3.size(), 3u );
@@ -75,12 +86,20 @@ NT2_TEST_CASE( pre_init_of_size )
   NT2_TEST_EQUAL( spec3[1], 2u );
   NT2_TEST_EQUAL( spec3[2], 6u );
 
+  NT2_TEST_ASSERT( (of_size_<4,2,6> spec3b(48)) );
+  NT2_TEST_ASSERT( (of_size_<4,2,6> spec3b(4,12)) );
+  NT2_TEST_ASSERT( (of_size_<4,2,6> spec3b(4,1,6,2)) );
+
   of_size_<1,3,5,7>     spec4;
   NT2_TEST_EQUAL( spec4.size(), 4u );
   NT2_TEST_EQUAL( spec4[0], 1u );
   NT2_TEST_EQUAL( spec4[1], 3u );
   NT2_TEST_EQUAL( spec4[2], 5u );
   NT2_TEST_EQUAL( spec4[3], 7u );
+
+  NT2_TEST_ASSERT( (of_size_<1,3,5,7> spec4b(105)) );
+  NT2_TEST_ASSERT( (of_size_<1,3,5,7> spec4b(3,35)) );
+  NT2_TEST_ASSERT( (of_size_<1,3,5,7> spec4b(45,1,7)) );
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -149,6 +168,37 @@ NT2_TEST_CASE( dynamic_of_size_from_fusion )
 }
 
 ////////////////////////////////////////////////////////////////////////
+// Test static of_size initialisation from a Fusion Sequence
+////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE( static_of_size_from_fusion )
+{
+  using nt2::of_size_;
+  boost::array<std::ptrdiff_t,NT2_MAX_DIMENSIONS> tab = {{2,2,2,2}};
+
+  of_size_<16>    _1Dtarget(tab);
+  NT2_TEST_EQUAL( _1Dtarget.size(), 1u );
+  NT2_TEST_EQUAL( _1Dtarget[0], 16u );
+
+  of_size_<2,8>    _2Dtarget(tab);
+  NT2_TEST_EQUAL( _2Dtarget.size(), 2u );
+  NT2_TEST_EQUAL( _2Dtarget[0], 2u );
+  NT2_TEST_EQUAL( _2Dtarget[1], 8u );
+
+  of_size_<2,2,4>    _3Dtarget(tab);
+  NT2_TEST_EQUAL( _3Dtarget.size(), 3u );
+  NT2_TEST_EQUAL( _3Dtarget[0], 2u );
+  NT2_TEST_EQUAL( _3Dtarget[1], 2u );
+  NT2_TEST_EQUAL( _3Dtarget[2], 4u );
+
+  of_size_<2,2,2,2>    _4Dtarget(tab);
+  NT2_TEST_EQUAL( _4Dtarget.size(), 4u );
+  NT2_TEST_EQUAL( _4Dtarget[0], 2u );
+  NT2_TEST_EQUAL( _4Dtarget[1], 2u );
+  NT2_TEST_EQUAL( _4Dtarget[2], 2u );
+  NT2_TEST_EQUAL( _4Dtarget[3], 2u );
+}
+
+////////////////////////////////////////////////////////////////////////
 // Test of_size function calls - Range constructor
 ////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE( of_size_range )
@@ -161,8 +211,11 @@ NT2_TEST_CASE( of_size_range )
   using nt2::_1D;
   using nt2::_0D;
 
-  std::size_t range[4] = {2,3,4,5};
-  std::size_t ones[4]  = {1,1,1,1};
+  std::size_t range[4]   = {2,3,4,5};
+  std::size_t range11[4] = {2,1,1,1};
+  std::size_t range21[4] = {2,3,1,1};
+  std::size_t range31[4] = {2,3,4,1};
+  std::size_t ones[4]    = {1,1,1,1};
 
   // 0D: Any range size
   _0D s01(&ones[0],&ones[0]+1);
@@ -186,6 +239,10 @@ NT2_TEST_CASE( of_size_range )
   NT2_TEST_EQUAL( s11.size(), 1u );
   NT2_TEST_EQUAL( s11[0], 2u );
 
+  _1D s114(&range11[0],&range11[0]+4);
+  NT2_TEST_EQUAL( s114.size(), 1u );
+  NT2_TEST_EQUAL( s114[0], 2u );
+
   // 1D: Bigger range size
   NT2_TEST_ASSERT( (_1D ss(&range[0],&range[0]+2)) );
   NT2_TEST_ASSERT( (_1D ss(&range[0],&range[0]+3)) );
@@ -202,6 +259,11 @@ NT2_TEST_CASE( of_size_range )
   NT2_TEST_EQUAL( s22.size(), 2u );
   NT2_TEST_EQUAL( s22[0], 2u );
   NT2_TEST_EQUAL( s22[1], 3u );
+
+  _2D s224(&range21[0],&range21[0]+4);
+  NT2_TEST_EQUAL( s224.size(), 2u );
+  NT2_TEST_EQUAL( s224[0], 2u );
+  NT2_TEST_EQUAL( s224[1], 3u );
 
   // 2D: Bigger range size
   NT2_TEST_ASSERT( (_2D ss(&range[0],&range[0]+3)) );
@@ -222,6 +284,12 @@ NT2_TEST_CASE( of_size_range )
 
   // 3D: Exact range size
   _3D s33(&range[0],&range[0]+3);
+  NT2_TEST_EQUAL( s33.size(), 3u );
+  NT2_TEST_EQUAL( s33[0], 2u );
+  NT2_TEST_EQUAL( s33[1], 3u );
+  NT2_TEST_EQUAL( s33[2], 4u );
+
+  _3D s334(&range31[0],&range31[0]+4);
   NT2_TEST_EQUAL( s33.size(), 3u );
   NT2_TEST_EQUAL( s33[0], 2u );
   NT2_TEST_EQUAL( s33[1], 3u );
@@ -259,12 +327,6 @@ NT2_TEST_CASE( of_size_range )
   NT2_TEST_EQUAL( s4[1], 3u );
   NT2_TEST_EQUAL( s4[2], 4u );
   NT2_TEST_EQUAL( s4[3], 5u );
-
-  // Dynamic Range in static of_size_
-  NT2_TEST_ASSERT( (of_size_<2>       ss(&range[0],&range[0]+1)) );
-  NT2_TEST_ASSERT( (of_size_<2,3>     ss(&range[0],&range[0]+2)) );
-  NT2_TEST_ASSERT( (of_size_<2,3,4>   ss(&range[0],&range[0]+3)) );
-  NT2_TEST_ASSERT( (of_size_<2,3,4,5> ss(&range[0],&range[0]+4)) );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -520,21 +582,19 @@ NT2_TEST_CASE( of_size_equality )
   NT2_TEST_EQUAL( s1, d14 );
 
   // Test that stuff don't compare wrongly
-  NT2_TEST( s4 != s1 );
-  NT2_TEST( s4 != s2 );
-  NT2_TEST( s4 != s3 );
+  NT2_TEST_NOT_EQUAL( s4, s1 );
+  NT2_TEST_NOT_EQUAL( s4, s2 );
+  NT2_TEST_NOT_EQUAL( s4, s3 );
 
-  NT2_TEST( s4 != d1 );
-  NT2_TEST( s4 != d2 );
-  NT2_TEST( s4 != d3 );
+  NT2_TEST_NOT_EQUAL( s4, d1 );
+  NT2_TEST_NOT_EQUAL( s4, d2 );
+  NT2_TEST_NOT_EQUAL( s4, d3 );
 
-  NT2_TEST( d4 != d1 );
-  NT2_TEST( d4 != d2 );
-  NT2_TEST( d4 != d3 );
+  NT2_TEST_NOT_EQUAL( d4, s1 );
+  NT2_TEST_NOT_EQUAL( d4, s2 );
+  NT2_TEST_NOT_EQUAL( d4, s3 );
 
-  NT2_TEST( d4 != s1 );
-  NT2_TEST( d4 != s2 );
-  NT2_TEST( d4 != s3 );
-
-  NT2_TEST( of_size(1,3,9,7) != of_size(4,4) );
+  NT2_TEST_NOT_EQUAL( d4, d1 );
+  NT2_TEST_NOT_EQUAL( d4, d2 );
+  NT2_TEST_NOT_EQUAL( d4, d3 );
 }

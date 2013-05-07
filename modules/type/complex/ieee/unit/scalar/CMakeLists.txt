@@ -12,6 +12,7 @@ set( SOURCES
   eps.cpp
   ldexp.cpp
   sign.cpp
+  signnz.cpp
   frac.cpp
   )
 

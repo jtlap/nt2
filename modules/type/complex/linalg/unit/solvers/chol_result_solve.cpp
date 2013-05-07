@@ -9,19 +9,13 @@
 #define NT2_UNIT_MODULE "nt2 linalg toolbox - chol_result solvers"
 
 #include <nt2/table.hpp>
-#include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/chol_solve.hpp>
-#include <nt2/include/functions/isulpequal.hpp>
 #include <nt2/include/functions/mtimes.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/globalmax.hpp>
 
-#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/exceptions.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 
 
 NT2_TEST_CASE_TPL(chol_resultc, NT2_REAL_TYPES)
@@ -38,10 +32,7 @@ NT2_TEST_CASE_TPL(chol_resultc, NT2_REAL_TYPES)
   nt2::display("b     ", b);
   nt2::details::chol_solve_result<ct_t> f(a, b, 'L');
 
-  nt2::display("x", f.x());
   NT2_DISPLAY(a);
   NT2_DISPLAY(b);
-  NT2_DISPLAY(mtimes(aa, f.x()));
-  std::cout << nt2::globalmax(nt2::ulpdist(bb, mtimes(aa, f.x()))) << std::endl; ;
-  NT2_TEST(nt2::isulpequal(bb, mtimes(aa, f.x())));
+  NT2_TEST_ULP_EQUAL(bb, mtimes(aa, f.x()), 1.0);
 }

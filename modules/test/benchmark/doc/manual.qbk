@@ -1,0 +1,12 @@
+[library Benchmark Framework
+  [quickbook 1.5]
+]
+
+[section Overview]
+This module provides macros, classes and functions to setup, write and run
+performance benchmarks for any NT2 module.
+[endsect]
+
+[include benchs.qbk]
+
+[xinclude reference.xml]

@@ -52,8 +52,6 @@ namespace nt2 { namespace ext
     typedef typename meta::call < nt2::tag::multiplies_(T4, T1 const&)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& a1) const
     {
-//       NT2_DISPLAY( nt2::nansum(a0, a1));
-//       NT2_DISPLAY( nt2::nbtrue(nt2::is_not_nan(a0), a1));
       return nt2::multiplies(nt2::rec(nt2::max(nt2::nbtrue(nt2::is_not_nan(a0), a1),
                                                One<value_type>())), nt2::nansum(a0, a1));
     }

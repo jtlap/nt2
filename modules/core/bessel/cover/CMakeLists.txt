@@ -8,7 +8,7 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_use_modules( unit                extern.cephes
+nt2_module_use_modules( test.unit                extern.cephes
                         core.predicates     core.arithmetic
                         core.trigonometric  core.exponential
                       )

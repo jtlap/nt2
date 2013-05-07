@@ -63,6 +63,12 @@ namespace meta
   {
     typedef meta::double_<Origin> type;
   };
+
+  template<class Origin>
+  struct property_of<long double, Origin>
+  {
+    typedef meta::floating_<Origin> type;
+  };
 }
 
 namespace details

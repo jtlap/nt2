@@ -40,6 +40,7 @@ SET( SOURCES
   sx.cpp
   tie.cpp
   tsxfun.cpp
+  whereij.cpp
   width.cpp
 # List of test files for toolbox core.utility
    )

@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2 operator toolbox - splat/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -13,9 +13,8 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 ///
-#include <boost/simd/toolbox/operator/include/functions/splat.hpp>
+#include <boost/simd/operator/include/functions/splat.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -32,7 +31,6 @@ NT2_TEST_CASE_TPL ( splat_integer__1_0,  BOOST_SIMD_INTEGRAL_TYPES)
   using boost::simd::tag::splat_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<splat_(T,  boost::dispatch::meta::as_<T>)>::type r_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 

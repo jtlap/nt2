@@ -64,7 +64,7 @@ namespace meta
   //============================================================================
   template<class T>
   struct primitive_of
-  #if !defined(NT2_DOXYGEN_ONLY)
+  #if !defined(DOXYGEN_ONLY)
     : details::primitive_of_impl<typename value_of<T>::type, T>
   #endif
   {

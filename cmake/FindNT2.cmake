@@ -114,8 +114,8 @@ macro(nt2_lib_remove_duplicates list)
       list(FIND list2 ${elem} FOUND)
       if(FOUND EQUAL -1)
         list(APPEND list2 ${qualifier} ${elem})
-        set(qualifier)
       endif()
+      set(qualifier)
     endif()
   endforeach()
   set(${list} ${list2})
@@ -156,12 +156,12 @@ function(nt2_find_module_location _COMPONENT)
              )
     mark_as_advanced(NT2_${_COMPONENT_U}_ROOT)
   endif()
-  if(NT2_${_COMPONENT_U}_ROOT AND NOT EXISTS "${NT2_${_COMPONENT_U}_ROOT}/CMakeLists.txt")
+  if(IS_DIRECTORY NT2_${_COMPONENT_U}_ROOT AND NOT EXISTS "${NT2_${_COMPONENT_U}_ROOT}/CMakeLists.txt")
     nt2_find_info("root of module ${_COMPONENT} invalid: ${NT2_${_COMPONENT_U}_ROOT}")
   endif()
 
   # Source found
-  if(NT2_${_COMPONENT_U}_ROOT)
+  if(IS_DIRECTORY ${NT2_${_COMPONENT_U}_ROOT})
 
     nt2_find_log("${_COMPONENT} source found, testing dependencies")
     list(FIND NT2_MODULE_PATH "${NT2_${_COMPONENT_U}_ROOT}/cmake" NT2_COMPONENT_IN_MODULE_PATH)
@@ -174,7 +174,7 @@ function(nt2_find_module_location _COMPONENT)
     set(NT2_${_COMPONENT_U}_LIBRARY_ROOT ${NT2_BINARY_DIR}/lib PARENT_SCOPE)
 
   # Look for module in install
-  elseif(NT2_ROOT)
+  elseif(IS_DIRECTORY ${NT2_ROOT})
     if(NOT EXISTS ${NT2_ROOT}/modules/${_COMPONENT}.manifest)
       nt2_find_log("${_COMPONENT} not found in nt2 install")
       return()
@@ -187,18 +187,18 @@ function(nt2_find_module_location _COMPONENT)
   endif()
 
   # Try to download source if not available
-  if(NOT NT2_${_COMPONENT_U}_ROOT AND NOT NT2_ROOT)
+  if(NOT IS_DIRECTORY ${NT2_${_COMPONENT_U}_ROOT} AND NOT IS_DIRECTORY ${NT2_ROOT})
     if(NOT NT2_DOWNLOAD_CMAKE)
       nt2_find_module_path_push()
       include(nt2.download OPTIONAL RESULT_VARIABLE NT2_DOWNLOAD_CMAKE)
       nt2_find_module_path_pop()
     endif()
-    if(NT2_DOWNLOAD_CMAKE AND NOT NT2_${_COMPONENT_U}_ROOT)
+    if(NT2_DOWNLOAD_CMAKE AND NOT IS_DIRECTORY ${NT2_${_COMPONENT_U}_ROOT})
       nt2_download_module(${_COMPONENT})
     endif()
 
     # Source download found
-    if(NT2_${_COMPONENT_U}_ROOT)
+    if(IS_DIRECTORY ${NT2_${_COMPONENT_U}_ROOT})
 
       nt2_find_log("${_COMPONENT} source found, testing dependencies")
       list(FIND NT2_MODULE_PATH "${NT2_${_COMPONENT_U}_ROOT}/cmake" NT2_COMPONENT_IN_MODULE_PATH)
@@ -213,7 +213,7 @@ function(nt2_find_module_location _COMPONENT)
   endif()
 
   # No source nor install
-  if(NOT NT2_${_COMPONENT_U}_ROOT AND NOT NT2_ROOT)
+  if(NOT IS_DIRECTORY ${NT2_${_COMPONENT_U}_ROOT} AND NOT IS_DIRECTORY ${NT2_ROOT})
     nt2_find_log("can't find ${_COMPONENT} in source nor install")
   endif()
 

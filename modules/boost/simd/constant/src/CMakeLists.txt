@@ -10,3 +10,8 @@
 include(NT2Module)
 nt2_module_source_setup(boost.simd.constant)
 nt2_module_configure_toolbox(constant 1)
+
+nt2_module_postconfigure(gather_includes ---ignore details --ignore preprocessed
+                                         boost/simd/sdk/constant/impl
+                                         --out boost/simd/sdk/constant
+                        )

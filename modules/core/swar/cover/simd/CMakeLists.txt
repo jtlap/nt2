@@ -21,7 +21,6 @@ SET( SOURCES
   lookup.cpp
   group.cpp
   cumsum.cpp
-  comparator.cpp
 # List of simd test files for toolbox swar
    )
 

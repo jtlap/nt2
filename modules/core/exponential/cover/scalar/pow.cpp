@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2 exponential toolbox - pow/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -13,8 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
 ///
-#include <nt2/toolbox/exponential/include/functions/pow.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/exponential/include/functions/pow.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/sqrt.hpp>
@@ -33,7 +32,7 @@ extern "C" { long double cephes_powl(long double,long double); }
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 
 extern "C" { long double cephes_powil(long double,int); }
 
@@ -71,7 +70,7 @@ NT2_TEST_CASE_TPL ( pow_real__2_0,  NT2_REAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::pow(a0,a1),::cephes_powl(a0,a1),11);
+        NT2_TEST_ULP_EQUAL( nt2::pow(a0,a1),::cephes_powl(a0,a1),12.5);
         NT2_TEST_ULP_EQUAL( nt2::pow(a0,nt2::Two<T>()),nt2::sqr(a0),1);
         NT2_TEST_ULP_EQUAL( nt2::pow(a0,nt2::Half<T>()),nt2::sqrt(a0),1);
         ulp0=nt2::max(ulpd,ulp0);
@@ -152,7 +151,7 @@ NT2_TEST_CASE_TPL ( pow_real__2_1,  NT2_REAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::powi(a0,a1),cephes_powil(a0,a1),2);
+        NT2_TEST_ULP_EQUAL( nt2::powi(a0,a1),cephes_powil(a0,a1),2.5);
         NT2_TEST_ULP_EQUAL( nt2::powi(a0,nt2::Two<iT>()),nt2::sqr(a0),2);
         NT2_TEST_ULP_EQUAL( nt2::powi(a0,nt2::Three<iT>()),a0*nt2::sqr(a0),2);
         ulp0=nt2::max(ulpd,ulp0);

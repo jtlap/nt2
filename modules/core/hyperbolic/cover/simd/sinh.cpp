@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2 hyperbolic toolbox - sinh/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -13,11 +13,10 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 20/02/2011
 ///
-#include <nt2/toolbox/hyperbolic/include/functions/sinh.hpp>
+#include <nt2/hyperbolic/include/functions/sinh.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/exponential/constants.hpp>
+#include <nt2/exponential/constants.hpp>
 extern "C" { long double cephes_sinhl(long double); }
 
 #include <boost/type_traits/is_same.hpp>
@@ -33,11 +32,11 @@ extern "C" { long double cephes_sinhl(long double); }
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/load.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( sinh_real__1_0,  NT2_SIMD_REAL_TYPES)
@@ -60,7 +59,7 @@ NT2_TEST_CASE_TPL ( sinh_real__1_0,  NT2_SIMD_REAL_TYPES)
   ulpd=0.0;
 
   // random verifications
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST*100;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
@@ -70,8 +69,8 @@ NT2_TEST_CASE_TPL ( sinh_real__1_0,  NT2_SIMD_REAL_TYPES)
         r_t v = sinh(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-
-          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::sinh (a0[i])), 1.5);
+          std::cout << "input = " << a0[i] << std::endl;
+          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::sinh (a0[i])), 4);
           ulp0 = nt2::max(ulpd,ulp0);
         }
       }

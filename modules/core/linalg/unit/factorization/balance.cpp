@@ -25,7 +25,6 @@
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/globalmax.hpp>
 #include <nt2/include/functions/isulpequal.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/inv.hpp>
 
 NT2_TEST_CASE_TPL(balance,  NT2_REAL_TYPES)

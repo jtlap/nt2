@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2 reduction toolbox - all/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -21,7 +21,7 @@
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
 #include <boost/simd/include/functions/max.hpp>
-#include <boost/simd/toolbox/reduction/include/functions/all.hpp>
+#include <boost/simd/reduction/include/functions/all.hpp>
 
 NT2_TEST_CASE_TPL ( all_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
@@ -49,12 +49,12 @@ NT2_TEST_CASE_TPL ( all_real__1_0,  BOOST_SIMD_REAL_TYPES)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = boost::simd::all(a0);
-	bool z = true;
+        bool z = true;
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
-	  {
-	    z = z && (a0[j]);
-	  }
-	NT2_TEST_EQUAL( v, z);
+          {
+            z = z && (a0[j]);
+          }
+        NT2_TEST_EQUAL( v, z);
         }
       }
 

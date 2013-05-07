@@ -18,31 +18,29 @@ Matrix Analysis
 cond                |  cond                               |     Condition number with respect to inversion                        |  core/linalg
 condeig             |  condeig TODO                       |     Condition number with respect to eigenvalues                      |
 condest             |  1-norm  TODO                       |     condition number estimate                                         |
-det                 |  det     TODO                       |     Matrix determinant                                                |
-norm                |  norm                               |     Vector and matrix norms                                           |  core/linalg
-normest             |  normest                            |     2-norm estimate                                                   |  core/linalg
-null                |  null                               |     Null space                                                        |  core/linalg
-orth                |  orth                               |     Range space of matrix                                             |  core/linalg
-rank                |  rank                               |     Rank of matrix                                                    |
-rcond               |  rcond  TODO                        |     Matrix reciprocal condition number estimate                       |
-rref                |  rref                               |     Reduced row echelon form                                          |  core/linalg
-subspace            |  subspace TODO                      |     Angle between two subspaces                                       |
-trace               |  trace                              |     Sum of diagonal elementsces                                       |  core/linalg
+det                 |  det                                |     Matrix determinant                                                |  core/linalg/scalar
+norm                |  norm                               |     Vector and matrix norms                                           |  core/linalg/scalar
+normest             |  normest                            |     2-norm estimate                                                   |  core/linalg/scalar
+null                |  null                               |     Null space                                                        |  core/linalg/scalar
+orth                |  orth                               |     Range space of matrix                                             |  core/linalg/general
+rank                |  rank                               |     Rank of matrix                                                    |  core/linalg/general
+rcond               |  rcond                              |     Matrix reciprocal condition number estimate                       |  core/linalg/scalar
+rref                |  rref                               |     Reduced row echelon form                                          |  core/linalg/general
+subspace            |  subspace                           |     Angle between two subspaces                                       |  core/linalg/scalar
+trace               |  trace                              |     Sum of diagonal elements                                          |  core/linalg/scalar
 
 Matlab              |                nt2                  |                   Description                                         |      note
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Linear Equations
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-subspace            |  subspace TODO                      |     Angle between two subspaces                                       |
-trace               |  trace                              |     Sum of diagonal elementsces                                       |  core/linalg
 chol                |  chol                               |     Cholesky factorization                                            |  core/linalg/tied
 cholinc             |  cholinc TODO                       |     Sparse incomplete Cholesky and Cholesky-Infinity factorizations   |
 cholupdate          |  cholupdate TODO                    |     Rank 1 update to Cholesky factorization                           |
 funm                |  funm    TODO                       |     Evaluate general matrix function                                  |
 ichol               |  ichol   TODO                       |     Incomplete Cholesky factorization                                 |
 ilu                 |  ilu     TODO                       |     Sparse incomplete LU factorization                                |
-inv                 |  inv                                |     Matrix inverse                                                    |  core/linalg
-ldl                 |  ldl     TODO                       |     Block LDL' factorization for Hermitian indefinite matrices        |
+inv                 |  inv                                |     Matrix inverse                                                    |  core/linalg UNFINISHED
+ldl                 |  ldl     TOFINISH                   |     Block LDL' factorization for Hermitian indefinite matrices        |  core/linalg/factorization
 linsolve            |  linsolve                           |     Solve linear system of equations                                  |  core/linalg
 lscov               |  lscov   TODO                       |     Least-squares solution in presence of known covariance            |
 lsqnonneg           |  lsqnonneg TODO                     |     Solve nonnegative least-squares constraints problem               |
@@ -51,9 +49,9 @@ luinc               |  luinc   TODO                       |     Sparse incomplet
 pinv                |  pinv                               |     Moore-Penrose pseudoinverse of matrix                             |  core/linalg
 planerot            |  planerot                           |     Givens plane rotation                                             |  core/linalg/general
 qr                  |  qr                                 |     Orthogonal-triangular decomposition                               |  core/linalg
-qrdelete            |  qrdelete  TODO                     |     Remove column or row from QR factorization                        |
-qrinsert            |  qrinsert  TODO                     |     Insert column or row into QR factorization                        |
-qrupdate            |  qrdelete  TODO                     |     Rank 1 update to QR factorization                                 |
+qrdelete            |  qrdelete                           |     Remove column or row from QR factorization                        |  core/linalg
+qrinsert            |  qrinsert                           |     Insert column or row into QR factorization                        |  core/linalg
+qrupdate            |  qrupdate  TODO                     |     Rank 1 update to QR factorization                                 |
 qz                  |  qz TODO                            |     QZ factorization for generalized eigenvalues                      |
 
 
@@ -63,7 +61,7 @@ Eigenvalues and Singular Values
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 balance             | balance                             |    Diagonal scaling to improve eigenvalue accuracy                    |  core/linalg/tied
 cdf2rdf             | cdf2rdf  TODO                       |    Convert complex diagonal form to real block diagonal form          |
-eig                 | geneig, symeig                      |    Eigenvalues and eigenvectors                                       |  core/linalg/tied
+eig                 | geneig, symeig                      |    Eigenvalues and eigenvectors                                       |  core/linalg/tied geneig TODO
 eigs                | eigs   TODO                         |    Largest eigenvalues and eigenvectors of matrix                     |
 expm                | expm                                |    Matrix exponential                                                 |  core/linalg/general
 gsvd                | gsvd   TODO                         |    Generalized singular value decomposition                           |
@@ -75,8 +73,8 @@ ordschur            | ordschur TODO                       |    Reorder eigenvalu
 poly                | poly                                |    Polynomial with specified roots                                    |  core/linalg/general
 polyeig             | polyeig TODO                        |    Polynomial eigenvalue problem                                      |
 rsf2csf             | rsf2csf TODO                        |    Convert real Schur form to complex Schur form                      |
-schur               | schur                               |    Schur decomposition                                                |
-sqrtm               | sqrtm                               |    Matrix square root                                                 |
+schur               | schur                               |    Schur decomposition                                                |  core/linalg
+sqrtm               | sqrtm                               |    Matrix square root                                                 |  core/linalg/general
 ss2tf               | ss2tf TODO                          |    Convert state-space filter parameters to transfer function form    |
 svd                 | svd                                 |    Singular value decomposition                                       |  core/linalg/tied
 svds                | svds                                |    Find singular values and vectors                                   |
@@ -89,10 +87,6 @@ TODO list for Linear Algebra
 ============================================================================================================================================================
 condeig             |  condeig TODO                       |     Condition number with respect to eigenvalues                      |
 condest             |  1-norm  TODO                       |     condition number estimate                                         |
-det                 |  det     TODO                       |     Matrix determinant                                                |
-rcond               |  rcond  TODO                        |     Matrix reciprocal condition number estimate                       |
-subspace            |  subspace TODO                      |     Angle between two subspaces                                       |
-subspace            |  subspace TODO                      |     Angle between two subspaces                                       |
 cholinc             |  cholinc TODO                       |     Sparse incomplete Cholesky and Cholesky-Infinity factorizations   |
 cholupdate          |  cholupdate TODO                    |     Rank 1 update to Cholesky factorization                           |
 funm                |  funm    TODO                       |     Evaluate general matrix function                                  |
@@ -102,9 +96,7 @@ ldl                 |  ldl     TODO                       |     Block LDL' facto
 lscov               |  lscov   TODO                       |     Least-squares solution in presence of known covariance            |
 lsqnonneg           |  lsqnonneg TODO                     |     Solve nonnegative least-squares constraints problem               |
 luinc               |  luinc   TODO                       |     Sparse incomplete LU factorization                                |
-qrdelete            |  qrdelete  TODO                     |     Remove column or row from QR factorization                        |
-qrinsert            |  qrinsert  TODO                     |     Insert column or row into QR factorization                        |
-qrupdate            |  qrdelete  TODO                     |     Rank 1 update to QR factorization                                 |
+qrupdate            |  qrupdate  TODO                     |     Rank 1 update to QR factorization                                 |
 qz                  |  qz TODO                            |     QZ factorization for generalized eigenvalues                      |
 cdf2rdf             | cdf2rdf  TODO                       |     Convert complex diagonal form to real block diagonal form         |
 eigs                | eigs   TODO                         |     Largest eigenvalues and eigenvectors of matrix                    |

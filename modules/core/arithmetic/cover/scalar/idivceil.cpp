@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2 arithmetic toolbox - idivceil/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -13,11 +13,11 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
 ///
-#include <nt2/toolbox/arithmetic/include/functions/idivceil.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/arithmetic/include/functions/idivceil.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/ceil.hpp>
 #include <nt2/include/functions/toint.hpp>
+#include <nt2/include/functions/touint.hpp>
 #include <nt2/include/constants/valmax.hpp>
 #include <nt2/include/constants/valmin.hpp>
 #include <nt2/include/constants/zero.hpp>
@@ -36,7 +36,7 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( idivceil_real__2_0,  NT2_REAL_TYPES)
@@ -110,7 +110,7 @@ NT2_TEST_CASE_TPL ( idivceil_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::idivceil(a0,a1),nt2::toint(nt2::ceil((1.0*a0)/a1)),0);
+        NT2_TEST_ULP_EQUAL( nt2::idivceil(a0,a1),nt2::touint(nt2::ceil((1.0*a0)/a1)),0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

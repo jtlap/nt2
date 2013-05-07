@@ -136,10 +136,13 @@ will produce our much anticipated result:
 
 [teletype]
 ``
-42 42 42 42
-42 42 42 42
-42 42 42 42
-42 42 42 42
+x =
+
+     42 42 42 42
+     42 42 42 42
+     42 42 42 42
+     42 42 42 42
+
 ``
 
 [endsect]

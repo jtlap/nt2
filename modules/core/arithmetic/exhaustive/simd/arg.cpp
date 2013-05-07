@@ -5,7 +5,6 @@
 #include <nt2/include/functions/arg.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/successor.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/functions/iround.hpp>

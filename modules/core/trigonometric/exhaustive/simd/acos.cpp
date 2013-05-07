@@ -1,21 +1,21 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 //////////////////////////////////////////////////////////////////////////////
 // exhaustive cover behavior for float values
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/trigonometric/include/acos.hpp>
+#include <nt2/trigonometric/include/acos.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/toolbox/ieee/include/successor.hpp>
-#include <nt2/toolbox/ieee/include/ulpdist.hpp>
-#include <nt2/toolbox/operator/include/splat.hpp>
+#include <nt2/ieee/include/successor.hpp>
+#include <nt2/ieee/include/ulpdist.hpp>
+#include <nt2/operator/include/splat.hpp>
 #include <nt2/include/functions/iround.hpp>
-#include <nt2/toolbox/crlibm/include/acos_rn.hpp>
+#include <nt2/crlibm/include/acos_rn.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <iostream>
 
@@ -39,12 +39,12 @@ int main(){
     {
       n_t z =  nt2::acos(a0);
       for(nt2::uint32_t i = 0; i < N; i++)
-	{
-	  float v = nt2::crlibm::acos_rn(a0[i]);
-	  float sz = z[i];
-	  ++histo[nt2::min(M, nt2::iround(2*nt2::ulpdist(v, sz)))];
-	  ++k;
-	}
+        {
+          float v = nt2::crlibm::acos_rn(a0[i]);
+          float sz = z[i];
+          ++histo[nt2::min(M, nt2::iround(2*nt2::ulpdist(v, sz)))];
+          ++k;
+        }
     }
   for(nt2::uint32_t i = 0; i < M; i++)
     std::cout << i/2.0 << " -> " << histo[i] << std::endl;

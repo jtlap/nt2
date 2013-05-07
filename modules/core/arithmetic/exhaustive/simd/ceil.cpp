@@ -5,13 +5,12 @@
 #include <nt2/include/functions/ceil.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/successor.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/functions/iround.hpp>
 #include <cmath>
 
-#include <nt2/toolbox/standard/include/ceil.hpp>
+#include <nt2/standard/include/ceil.hpp>
 
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>

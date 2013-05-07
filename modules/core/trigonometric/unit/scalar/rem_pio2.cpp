@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2 trigonometric toolbox - rem_pio2/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -13,9 +13,9 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
 ///
-#include <nt2/toolbox/trigonometric/include/functions/rem_pio2.hpp>
-#include <nt2/toolbox/trigonometric/constants.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/trigonometric/include/functions/rem_pio2.hpp>
+#include <nt2/trigonometric/constants.hpp>
+#include <nt2/constant/constant.hpp>
 
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
@@ -48,6 +48,11 @@ NT2_TEST_CASE_TPL ( rem_pio2_real__1_0,  NT2_REAL_TYPES)
     NT2_TEST_ULP_EQUAL( boost::fusion::get<0>(res), nt2::Zero<r_t0>(), 0.5);
     NT2_TEST_ULP_EQUAL( boost::fusion::get<1>(res), nt2::Zero<r_t1>(), 0.5);
     NT2_TEST_ULP_EQUAL( boost::fusion::get<2>(res), nt2::Zero<r_t2>(), 0.5);
+    T xr;
+    iT n = rem_pio2(nt2::Zero<T>(), xr);
+    NT2_TEST_ULP_EQUAL( xr, nt2::Zero<T>(), 0.5);
+    NT2_TEST_ULP_EQUAL( n, nt2::Zero<iT>(), 0.5);
+
   }
 } // end of test for floating_
 
@@ -56,27 +61,21 @@ NT2_TEST_CASE_TPL ( rem_pio2_targeted,  NT2_REAL_TYPES)
 
   using nt2::rem_pio2;
   using nt2::tag::rem_pio2_;
-  typedef typename nt2::meta::call<rem_pio2_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::call<rem_pio2_(T)>::type wished_r_t;
+  typedef typename nt2::meta::as_integer<T>::type iT;
 
-  nt2::uint32_t n;
-  T x = nt2::Pio_2<T>(), xr, xc;
-  n = rem_pio2(x, xr, xc, nt2::meta::as_<nt2::big_>());
+  iT n;
+  T x = nt2::Pio_2<T>(), xr;
+  n = rem_pio2(x, xr, nt2::meta::as_<nt2::big_>());
   NT2_TEST_ULP_EQUAL( xr, nt2::Zero<T>(), 0.5);
-  NT2_TEST_ULP_EQUAL( xc, nt2::Zero<T>(), 0.5);
 
-  n = rem_pio2(x, xr, xc, nt2::meta::as_<nt2::medium_>());
+  n = rem_pio2(x, xr, nt2::meta::as_<nt2::medium_>());
   NT2_TEST_ULP_EQUAL( xr, nt2::Zero<T>(), 0.5);
-  NT2_TEST_ULP_EQUAL( xc, nt2::Zero<T>(), 0.5);
 
-  n = rem_pio2(x, xr, xc, nt2::meta::as_<nt2::small_>());
+  n = rem_pio2(x, xr, nt2::meta::as_<nt2::small_>());
   NT2_TEST_ULP_EQUAL( xr, nt2::Zero<T>(), 0.5);
-  NT2_TEST_ULP_EQUAL( xc, nt2::Zero<T>(), 0.5);
 
-  n = rem_pio2(x, xr, xc, nt2::meta::as_<nt2::very_small_>());
+  n = rem_pio2(x, xr, nt2::meta::as_<nt2::very_small_>());
   NT2_TEST_ULP_EQUAL( xr, nt2::Zero<T>(), 0.5);
-  NT2_TEST_ULP_EQUAL( xc, nt2::Zero<T>(), 0.5);
 }
 
 

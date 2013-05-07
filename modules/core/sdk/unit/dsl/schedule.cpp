@@ -1,11 +1,11 @@
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2 container scheduler"
 
 #include <nt2/table.hpp>
@@ -442,7 +442,18 @@ NT2_TEST_CASE( terminal )
   NT2_TEST_EXPR_TYPE( nt2::schedule(nt2::assign(a0, a1), f)
                     , child0
                     , (nt2::container::expression< boost::proto::basic_expr< boost::proto::tag::terminal
-                                                                           , boost::proto::term< container_ref< container<T, S> > >
+                                                                           , boost::proto::term< container<T, S>& >
+                                                                           , 0
+                                                                           >
+                                                 ,  container<T, S>&
+                                                 >
+                      )
+                    );
+
+  NT2_TEST_EXPR_TYPE( nt2::schedule(nt2::assign(nt2::container::as_view(a0), a1), f)
+                    , child0
+                    , (nt2::container::expression< boost::proto::basic_expr< boost::proto::tag::terminal
+                                                                           , boost::proto::term< container_ref<T, S> >
                                                                            , 0
                                                                            >
                                                  ,  container<T, S>&

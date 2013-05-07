@@ -10,6 +10,10 @@
 SET( SOURCES
   center.cpp
   linear_interp.cpp
+  remquo.cpp
+  two_add.cpp
+  two_prod.cpp
+  two_split.cpp
 # List of simd test files for toolbox arithmetic
    )
 

@@ -16,6 +16,10 @@
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
+#ifdef BOOST_INTEL
+#pragma warning(disable: 1366) // alignment of 1/2 doesn't do anything
+#endif
+
 NT2_TEST_CASE_TPL( aligned_array_alignment
                  , (boost::mpl::size_t<1>)(boost::mpl::size_t<2>)
                    (boost::mpl::size_t<4>)(boost::mpl::size_t<8>)

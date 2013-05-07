@@ -10,7 +10,7 @@
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/condex.hpp>
-#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/cons.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -60,7 +60,7 @@ NT2_TEST_CASE_TPL ( condex, NT2_REAL_TYPES)
                  ));
   nt2::table<T> r4 =  nt2::condex(3, 4, nt2::meta::as_<T>());
   NT2_DISPLAY(r4);
-  NT2_TEST_ULP_EQUAL(r4, r34, 300);
+  NT2_TEST_ULP_EQUAL(r4, r34, 400);
 }
 
 NT2_TEST_CASE_TPL ( condex_double, (double))

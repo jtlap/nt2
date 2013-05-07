@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #ifndef NT2_SDK_OPTION_OPTION_EXPR_HPP_INCLUDED
 #define NT2_SDK_OPTION_OPTION_EXPR_HPP_INCLUDED
 
@@ -17,6 +17,7 @@
 
 #include <boost/proto/extends.hpp>
 #include <boost/proto/make_expr.hpp>
+#include <boost/proto/operators.hpp>
 
 namespace nt2 { namespace details
 {
@@ -94,20 +95,6 @@ namespace nt2 { namespace details
     }
   };
 
-  /// This is an ad hoc solutio, - To be fixed
-  template<class A0, class A1>
-  BOOST_FORCEINLINE
-  typename boost::proto::result_of
-  ::make_expr < boost::proto::tag::comma
-              , option_expr<A0> const &
-              , option_expr<A1> const &
-              >::type
-  operator,( option_expr<A0> const & a0, option_expr<A1> const & a1 )
-  {
-    return boost::proto
-                ::make_expr<boost::proto
-                                 ::tag::comma>(boost::cref(a0),boost::cref(a1));
-  }
 } }
 
 #endif

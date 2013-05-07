@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2 boost.simd.arithmetic toolbox - rsqrt/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -21,7 +21,6 @@
 #include <nt2/include/functions/rsqrt.hpp>
 #include <nt2/include/functions/cos.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -36,7 +35,7 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 #include <nt2/include/constants/cnan.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
@@ -84,12 +83,12 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   }
   {
     typedef vcT r_t;
-    NT2_TEST_ULP_EQUAL(nt2::rsqrt(nt2::Inf<vdT>())[0], nt2::rec(nt2::Inf<T>()),1);
+    NT2_TEST_ULP_EQUAL(nt2::rsqrt(nt2::Inf<vdT>())[0], cT(nt2::rec(nt2::Inf<cT>())),1);
     NT2_TEST_ULP_EQUAL(nt2::rsqrt(nt2::Minf<vdT>())[0], nt2::rec(cT(nt2::Zero<T>(), nt2::Inf<T>())),1);
     NT2_TEST_ULP_EQUAL(nt2::rsqrt(nt2::Mone<vdT>())[0], nt2::rec(cT(nt2::Zero<T>(), nt2::One<T>())),1);
-    NT2_TEST_ULP_EQUAL(nt2::rsqrt(nt2::Nan<vdT>())[0], nt2::rec(nt2::Nan<T>()),1);
-    NT2_TEST_ULP_EQUAL(nt2::rsqrt(nt2::One<vdT>())[0], nt2::rec(nt2::One<T>()),1);
-    NT2_TEST_ULP_EQUAL(nt2::rsqrt(nt2::Zero<vdT>())[0], nt2::rec(nt2::Zero<T>()),1);
+    NT2_TEST_ULP_EQUAL(nt2::rsqrt(nt2::Nan<vdT>())[0], nt2::rec(nt2::Nan<cT>()),1);
+    NT2_TEST_ULP_EQUAL(nt2::rsqrt(nt2::One<vdT>())[0], nt2::rec(nt2::One<cT>()),1);
+    NT2_TEST_ULP_EQUAL(nt2::rsqrt(nt2::Zero<vdT>())[0], nt2::rec(nt2::Zero<cT>()),1);
   }
 } // end of test for floating_
 

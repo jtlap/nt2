@@ -32,7 +32,7 @@ namespace nt2
     /*!
       @brief Define the cic function tag
 
-      Define a hierarchizable Tag representing the cic function in generic
+      Define a hierarchizable Tag representing the eye function in generic
       contexts.
     **/
     BOOST_SIMD_CONSTANT_REGISTER( eye_, double

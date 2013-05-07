@@ -7,4 +7,4 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_TYPE.COMPLEX.OPERATOR_DEPENDENCIES_EXTRA core.operator)
+SET(NT2_TYPE.COMPLEX.OPERATOR_DEPENDENCIES_EXTRA core.operator type.complex.sdk)

@@ -20,7 +20,6 @@
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/log2.hpp>
 
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>

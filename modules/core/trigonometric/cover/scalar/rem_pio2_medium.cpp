@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2 trigonometric toolbox - rem_pio2_medium/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -13,12 +13,11 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
 ///
-#include <nt2/toolbox/trigonometric/include/functions/rem_pio2_medium.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/trigonometric/include/functions/rem_pio2_medium.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <nt2/toolbox/trigonometric/constants.hpp>
-#include <nt2/toolbox/trigonometric/include/functions/rem_pio2.hpp>
+#include <nt2/trigonometric/constants.hpp>
+#include <nt2/trigonometric/include/functions/rem_pio2.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -33,7 +32,7 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( rem_pio2_medium_real__1_0,  NT2_REAL_TYPES)
@@ -46,6 +45,8 @@ NT2_TEST_CASE_TPL ( rem_pio2_medium_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::call<rem_pio2_medium_(T)>::type wished_r_t;
+  typedef typename nt2::meta::call<nt2::tag::rem_pio2_(T)>::type f_t;
+
 
 
   // return type conformity test
@@ -66,15 +67,18 @@ NT2_TEST_CASE_TPL ( rem_pio2_medium_real__1_0,  NT2_REAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
         r_t r = nt2::rem_pio2_medium(a0);
-        typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
-        typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
-        typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,2>::type>::type r_t2;
-        r_t0 r0 = boost::fusion::get<0>(r);
-        r_t2 r2 = boost::fusion::get<2>(r);
-        NT2_TEST_ULP_EQUAL( r0, boost::fusion::get<0>(nt2::rem_pio2(a0)), 0.5);
+        f_t rf= nt2::rem_pio2(a0);
+        NT2_TEST_ULP_EQUAL( r.second, boost::fusion::get<1>(nt2::rem_pio2(a0)), 0.5);
         if (ulpd>ulp0) ulp0=ulpd;
-        NT2_TEST_ULP_EQUAL( r2, boost::fusion::get<2>(nt2::rem_pio2(a0)), 0);
+        NT2_TEST_ULP_EQUAL( r.first, boost::fusion::get<0>(nt2::rem_pio2(a0)), 0);
         if (ulpd>ulp0) ulp0=ulpd;
+
+//         r_t0 r0 = boost::fusion::get<1>(r);
+//         r_t1 r2 = boost::fusion::get<0>(r);
+//         NT2_TEST_ULP_EQUAL( r0, boost::fusion::get<0>(nt2::rem_pio2(a0)), 0.5);
+//         if (ulpd>ulp0) ulp0=ulpd;
+//         NT2_TEST_ULP_EQUAL( r2, boost::fusion::get<1>(nt2::rem_pio2(a0)), 0);
+//         if (ulpd>ulp0) ulp0=ulpd;
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
    }

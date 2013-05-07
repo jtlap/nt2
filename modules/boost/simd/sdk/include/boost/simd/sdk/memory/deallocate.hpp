@@ -13,7 +13,7 @@
 #include <cstdlib>
 #include <boost/simd/sdk/memory/forward.hpp>
 #include <boost/simd/sdk/memory/align_on.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
+#include <boost/dispatch/meta/ignore_unused.hpp>
 
 namespace boost { namespace simd {  namespace memory
 {

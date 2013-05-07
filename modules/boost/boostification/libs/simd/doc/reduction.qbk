@@ -2,7 +2,6 @@
 
 [include reduction/all.qbk]
 [include reduction/any.qbk]
-[include reduction/at_i.qbk]
 [include reduction/dot.qbk]
 [include reduction/first.qbk]
 [include reduction/hmsb.qbk]

@@ -1,14 +1,14 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2 operator toolbox - map/simd Mode"
 
-#include <boost/simd/toolbox/operator/include/functions/map.hpp>
+#include <boost/simd/operator/include/functions/map.hpp>
 #include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/include/functions/unary_plus.hpp>
 #include <boost/simd/include/functions/plus.hpp>
@@ -20,6 +20,7 @@
 #include <boost/simd/include/constants/two.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

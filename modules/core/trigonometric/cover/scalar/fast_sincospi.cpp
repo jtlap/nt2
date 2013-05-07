@@ -1,23 +1,15 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 trigonometric toolbox - fast_sincospi/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// cover test behavior of trigonometric components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 11/02/2011
-///
-#include <nt2/toolbox/trigonometric/include/functions/fast_sincospi.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
+#include <nt2/trigonometric/include/functions/fast_sincospi.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <nt2/toolbox/trigonometric/constants.hpp>
+#include <boost/fusion/include/std_pair.hpp>
+#include <nt2/trigonometric/constants.hpp>
 #include <nt2/include/functions/sin.hpp>
 #include <nt2/include/functions/cos.hpp>
 
@@ -34,12 +26,10 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
-
+#include <nt2/constant/constant.hpp>
 
 NT2_TEST_CASE_TPL ( fast_sincospi_real__1_0,  NT2_REAL_TYPES)
 {
-
   using nt2::fast_sincospi;
   using nt2::tag::fast_sincospi_;
   typedef typename boost::dispatch::meta::as_floating<T>::type ftype;
@@ -47,7 +37,7 @@ NT2_TEST_CASE_TPL ( fast_sincospi_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<fast_sincospi_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef boost::fusion::tuple<ftype,ftype> wished_r_t;
+  typedef std::pair<ftype,ftype> wished_r_t;
 
 
   // return type conformity test
@@ -60,7 +50,7 @@ NT2_TEST_CASE_TPL ( fast_sincospi_real__1_0,  NT2_REAL_TYPES)
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     typedef typename boost::dispatch::meta::as_floating<T>::type ftype;
-    NT2_CREATE_BUF(tab_a0,T, NR, T(0.25), T(0.25));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-0.25), T(0.25));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     for(nt2::uint32_t j =0; j < NR; ++j )
@@ -71,8 +61,8 @@ NT2_TEST_CASE_TPL ( fast_sincospi_real__1_0,  NT2_REAL_TYPES)
         r_t r = nt2::fast_sincospi(a0);
         typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
         typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
-        r_t0 r0 = boost::fusion::get<0>(r);
-        r_t1 r1 = boost::fusion::get<1>(r);
+        r_t0 r0 = r.first;
+        r_t1 r1 = r.second;
         NT2_TEST_ULP_EQUAL( r0, nt2::sin(nt2::Pi<T>()*a0), 0.5);
         if (ulpd>ulp0) ulp0=ulpd;
         NT2_TEST_ULP_EQUAL( r1, nt2::cos(nt2::Pi<T>()*a0), 0.5);
@@ -81,45 +71,3 @@ NT2_TEST_CASE_TPL ( fast_sincospi_real__1_0,  NT2_REAL_TYPES)
      std::cout << "max ulp found is: " << ulp0 << std::endl;
    }
 } // end of test for floating_
-
-NT2_TEST_CASE_TPL ( fast_sincospi_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
-{
-
-  using nt2::fast_sincospi;
-  using nt2::tag::fast_sincospi_;
-  typedef typename boost::dispatch::meta::as_floating<T>::type ftype;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<fast_sincospi_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef boost::fusion::tuple<ftype,ftype> wished_r_t;
-
-
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
-
-} // end of test for unsigned_int_
-
-NT2_TEST_CASE_TPL ( fast_sincospi_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
-{
-
-  using nt2::fast_sincospi;
-  using nt2::tag::fast_sincospi_;
-  typedef typename boost::dispatch::meta::as_floating<T>::type ftype;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<fast_sincospi_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef boost::fusion::tuple<ftype,ftype> wished_r_t;
-
-
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
-
-} // end of test for signed_int_

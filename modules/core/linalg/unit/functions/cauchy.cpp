@@ -10,28 +10,35 @@
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/cauchy.hpp>
+#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/cif.hpp>
+#include <nt2/include/functions/rif.hpp>
+#include <nt2/include/functions/transpose.hpp>
+#include <nt2/include/functions/cons.hpp>
+#include <nt2/include/functions/colon.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
 NT2_TEST_CASE_TPL ( cauchy_ints, NT2_REAL_TYPES)
 {
-  nt2::display( "cauchy(3, 3, nt2::meta::as_<T>())"
-              , nt2::cauchy(3, 3, nt2::meta::as_<T>())
-              );
-
+  NT2_DISPLAY(nt2::cauchy(3, 3, nt2::meta::as_<T>()));
   nt2::table<T> a0 = nt2::_(T(1), 3);
-  nt2::display("cauchy(a0)", nt2::cauchy(a0));
+  NT2_DISPLAY(nt2::cauchy(a0));
 
   nt2::table<T> v =  cauchy(a0);
-  nt2::display("v", v);
-
-  for(int i=1; i <= 3; i++)
-  {
-    for(int j=1; j <= 3; j++)
-    {
-      NT2_TEST_EQUAL(T(1.)/T((i+j)), v(i, j));
-    }
-  }
+  NT2_DISPLAY(v);
+  nt2::table<T> z = nt2::rec(nt2::cif(3, nt2::meta::as_<T>())+nt2::rif(3, nt2::meta::as_<T>()));
+  NT2_TEST_EQUAL(v, z);
 }
 
+NT2_TEST_CASE_TPL ( cauchy_ints_2, NT2_REAL_TYPES)
+{
+  nt2::table<T> m3 =nt2::trans(nt2::cons(nt2::of_size(3, 3),
+                                         T(90), T(-90), T(-30),
+                                         T(30), T( 90), T(-90),
+                                         T(18), T( 30), T( 90))/T(45));
+  nt2::table<T> v =  nt2::cauchy(nt2::_(T(1.5), T(3.5)), -nt2::_(T(1), T(3)));
+  NT2_DISPLAY(v);
+  NT2_TEST_EQUAL(v, m3);
+}

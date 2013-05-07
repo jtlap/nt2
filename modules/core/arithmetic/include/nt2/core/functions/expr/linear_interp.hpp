@@ -12,9 +12,6 @@
 #include <nt2/core/functions/linear_interp.hpp>
 #include <nt2/include/functions/oneminus.hpp>
 #include <nt2/include/functions/sx.hpp>
-// #include <nt2/include/functions/sx_multiplies.hpp>
-// #include <nt2/include/functions/sx_plus.hpp>
-// #include <nt2/include/functions/sx_fma.hpp>
 #include <nt2/include/functions/fma.hpp>
 
 namespace nt2 { namespace ext
@@ -24,7 +21,7 @@ namespace nt2 { namespace ext
                               (generic_<floating_<A0> >)
                               (generic_<floating_<A1> >)
                               (generic_<floating_<A2> >)
-                              )
+                            )
   {
     typedef A0 result_type;
 
@@ -39,7 +36,7 @@ namespace nt2 { namespace ext
                               (unspecified_<A0>)
                               (unspecified_<A1>)
                               (unspecified_<A2>)
-                              )
+                            )
   {
     typedef typename meta::call<tag::oneminus_(const A0&)>::type                       T0;
     typedef typename meta::call<tag::sx_(tag::multiplies_, T0,const A1&)>::type               T1;
@@ -51,12 +48,12 @@ namespace nt2 { namespace ext
     }
   };
 
-   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::linear_interp_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::linear_interp_, tag::cpu_,
                               (A0)(A1)(A2),
                               (generic_<floating_<A0> >)
                               (unspecified_<A1>)
                               (unspecified_<A2>)
-                              )
+                            )
   {
     typedef typename meta::call<tag::oneminus_(const A0&)>::type                        T0;
     typedef typename meta::call<tag::multiplies_(T0,const A1&)>::type                   T1;

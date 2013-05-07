@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+  bandred.cpp
   binomial.cpp
   cauchy.cpp
   chebspec.cpp
@@ -21,16 +22,56 @@ SET( SOURCES
   dorr.cpp
   dramadah.cpp
   fiedler.cpp
+  forsythe.cpp
+  frank.cpp
+  gcdmat.cpp
+  gearmat.cpp
+  grcar.cpp
   hadamard.cpp
   hankel.cpp
+  hanowa.cpp
   hilb.cpp
+  house.cpp
+  invhess.cpp
+  invol.cpp
   invhilb.cpp
+  ipjfact.cpp
+  jordbloc.cpp
+  kahan.cpp
+  kms.cpp
+  krylov.cpp
+  lauchli.cpp
+  lehmer.cpp
+  leslie.cpp
+  lesp.cpp
+  lotkin.cpp
   magic.cpp
+  minij.cpp
+  moler.cpp
+  orthog.cpp
+  parter.cpp
   pascal.cpp
+  pei.cpp
+  prolate.cpp
+  qmult.cpp
+  randcolu.cpp
+  randcorr.cpp
+  randhess.cpp
+  randjorth.cpp
+  rando.cpp
+  randsvd.cpp
+  redheff.cpp
+  riemann.cpp
+  ris.cpp
+  sampling.cpp
+  smoke.cpp
   toeplitz.cpp
+  toeppd.cpp
+  toeppen.cpp
   tridiag.cpp
   triw.cpp
   vandermonde.cpp
+  sobol.cpp
   )
 
 nt2_module_add_tests(core.linalg.functions.unit ${SOURCES})

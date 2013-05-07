@@ -10,10 +10,10 @@
 
 SET( SOURCES
     factorial.cpp
-  lcm.cpp
-  gcd.cpp
-  cnp.cpp
-  anp.cpp
+#  lcm.cpp
+#  gcd.cpp
+#  cnp.cpp
+#  anp.cpp
 # List of simd test files for toolbox combinatorial
    )
 

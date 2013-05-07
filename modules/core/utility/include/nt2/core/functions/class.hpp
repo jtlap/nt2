@@ -12,7 +12,7 @@
 
 #include <nt2/sdk/meta/as.hpp>
 #include <nt2/sdk/meta/container_traits.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
+#include <boost/dispatch/meta/ignore_unused.hpp>
 
 namespace nt2
 {

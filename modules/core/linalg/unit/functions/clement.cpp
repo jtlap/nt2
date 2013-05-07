@@ -10,11 +10,12 @@
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/clement.hpp>
-#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/cons.hpp>
 #include <nt2/include/functions/cast.hpp>
 #include <nt2/include/constants/i.hpp>
+#include <nt2/include/constants/sqrt_2.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>

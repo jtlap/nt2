@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2 boost.simd.arithmetic toolbox - remainder/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -17,16 +17,15 @@
 /// The return value is x-n*y, where n is the value x / y,
 /// rounded to the nearest integer.  If the absolute value of x-n*y is 0.5,
 /// n is chosen to be even. The drem() function does precisely the same thing.
-#include <boost/simd/toolbox/arithmetic/include/functions/remainder.hpp>
+#include <boost/simd/arithmetic/include/functions/remainder.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/idivround.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/simd/constant/constant.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>

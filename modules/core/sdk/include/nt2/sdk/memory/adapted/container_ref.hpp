@@ -16,18 +16,22 @@
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 
+#include <nt2/core/settings/option.hpp>
+#include <nt2/core/settings/forward/semantic.hpp>
+#include <nt2/core/container/table/semantic.hpp>
+
 namespace nt2 { namespace meta
 {
   //============================================================================
   // Register container as a proper container
   //============================================================================
-  template<class Container>
-  struct  is_container< memory::container_ref<Container> >
+  template<class T, class S>
+  struct  is_container< memory::container_ref<T, S> >
         : boost::mpl::true_
   {};
 
-  template<class Container>
-  struct  is_container_ref< memory::container_ref<Container> >
+  template<class T, class S>
+  struct  is_container_ref< memory::container_ref<T, S> >
         : boost::mpl::true_
   {};
 } }
@@ -35,71 +39,26 @@ namespace nt2 { namespace meta
 namespace boost { namespace dispatch { namespace meta
 {
   //============================================================================
-  // scalar_of specializations
-  //============================================================================
-  template<class Container>
-  struct  scalar_of< nt2::memory::container_ref<Container> >
-        : scalar_of<Container>
-  {
-  };
-
-  template<class Container>
-  struct  scalar_of< nt2::memory::container_ref<Container> const >
-        : scalar_of<Container>
-  {
-  };
-
-  template<class Container>
-  struct  scalar_of< nt2::memory::container_ref<Container>& >
-        : scalar_of<Container&>
-  {
-  };
-
-  template<class Container>
-  struct  scalar_of< nt2::memory::container_ref<Container> const& >
-        : scalar_of<Container const&>
-  {
-  };
-
-  //============================================================================
   // value_of specializations
   //============================================================================
-  template<class Container>
-  struct value_of< nt2::memory::container_ref<Container> >
-   : value_of<Container>
+  template<class T, class S>
+  struct value_of< nt2::memory::container_ref<T, S> >
   {
-  };
-
-  template<class Container>
-  struct value_of< nt2::memory::container_ref<Container> const >
-   : value_of<Container>
-  {
-  };
-
-  template<class Container>
-  struct value_of< nt2::memory::container_ref<Container>& >
-   : value_of<Container>
-  {
-  };
-
-  template<class Container>
-  struct value_of< nt2::memory::container_ref<Container> const& >
-   : value_of<Container>
-  {
+    typedef T& type;
   };
 
   //============================================================================
   // model_of specialization
   //============================================================================
-  template<class Container>
-  struct model_of< nt2::memory::container_ref<Container> >
+  template<class T, class S>
+  struct model_of< nt2::memory::container_ref<T, S> >
   {
     struct type
     {
       template<class X>
       struct apply
       {
-        typedef nt2::memory::container_ref<X> type;
+        typedef nt2::memory::container_ref<X, S> type;
       };
     };
   };
@@ -107,10 +66,14 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   // container hierarchy
   //============================================================================
-  template<class Container, class Origin>
-  struct hierarchy_of< nt2::memory::container_ref<Container>, Origin >
-   : hierarchy_of< Container, Origin >
+  template<class T, class S, class Origin>
+  struct hierarchy_of< nt2::memory::container_ref<T, S>, Origin >
   {
+    typedef typename nt2::meta::option < S
+                                      , nt2::tag::semantic_
+                                      , nt2::tag::table_
+                                      >::type                   semantic_t;
+    typedef typename semantic_t::template apply<T,S,Origin>::type type;
   };
 } } }
 

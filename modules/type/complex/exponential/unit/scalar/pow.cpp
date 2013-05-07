@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2 exponential toolbox - pow/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -13,8 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
 ///
-#include <nt2/toolbox/exponential/include/functions/pow.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/exponential/include/functions/pow.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -29,7 +28,7 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 #include <nt2/table.hpp>
 
 NT2_TEST_CASE_TPL ( pow3,  NT2_REAL_TYPES)
@@ -53,7 +52,7 @@ NT2_TEST_CASE_TPL ( pow4,  NT2_REAL_TYPES)
   for(int i=1; i <= 3; i++) a(i) =  cT(i, i);
   NT2_DISPLAY(a);
 
-  nt2::table<cT> b = nt2::ones(1, 3, nt2::meta::as_<T>());
+  nt2::table<cT> b = nt2::ones(1, 3, nt2::meta::as_<cT>());
   for(int i=1; i <= 3; i++) b(i) = cT(i-1);
   NT2_DISPLAY(b);
 

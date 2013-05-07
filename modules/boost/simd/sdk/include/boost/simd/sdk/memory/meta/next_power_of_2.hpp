@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #ifndef BOOST_SIMD_SDK_MEMORY_META_NEXT_POWER_OF_2_HPP_INCLUDED
 #define BOOST_SIMD_SDK_MEMORY_META_NEXT_POWER_OF_2_HPP_INCLUDED
 
@@ -63,6 +63,10 @@ namespace boost { namespace simd { namespace meta
     BOOST_STATIC_CONSTANT(std::size_t, value = x5 + 1          );
     typedef boost::mpl::size_t<value> type;
   };
+
+  // MSVC warning fix
+  template<> struct next_power_of_2_c<0> : boost::mpl::size_t<0> {};
+
   template<std::size_t N>
   std::size_t const next_power_of_2_c<N>::value;
 

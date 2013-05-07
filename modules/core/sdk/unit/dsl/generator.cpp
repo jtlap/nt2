@@ -1,11 +1,11 @@
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2 container generator"
 
 #include <nt2/table.hpp>
@@ -94,6 +94,9 @@ NT2_TEST_CASE( semantic_of )
                       )
                     );
 
+  /* FIXME: scalar expressions are not supported,
+   * to be completely removed                     */
+  #if 0
   NT2_TEST_EXPR_TYPE( a0(boost::proto::as_expr(1))
                     , semantic_of<_>
                     , T&
@@ -103,6 +106,7 @@ NT2_TEST_CASE( semantic_of )
                     , semantic_of<_>
                     , T
                     );
+  #endif
 
   NT2_TEST_EXPR_TYPE( a0 + T(1)
                     , semantic_of<_>
@@ -132,6 +136,12 @@ struct is_nt2_basic_expr< nt2::container::expression< boost::proto::basic_expr<T
 
 template<class T, class S>
 struct is_nt2_basic_expr< nt2::table<T, S> > : is_nt2_basic_expr< nt2::container::expression< typename nt2::table<T, S>::proto_base_expr, nt2::memory::container<T, S>& > > {};
+
+template<class T, class S>
+struct is_nt2_basic_expr< nt2::table_view<T, S> > : is_nt2_basic_expr< typename nt2::table_view<T, S>::nt2_expression > {};
+
+template<class T, class S>
+struct is_nt2_basic_expr< nt2::table_shared_view<T, S> > : is_nt2_basic_expr< typename nt2::table_shared_view<T, S>::nt2_expression > {};
 
 template<class Expr>
 void expr_lifetime_0(Expr const&)
@@ -174,10 +184,10 @@ void expr_lifetime_2_t(Expr const&)
   NT2_TEST( !boost::is_const<child1>::value     );
 
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child0>::value_type
-                  , (container_ref< container<T, S> >)
+                  , (container_ref<T, S>)
                   );
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child1>::value_type
-                  , (container_ref< container<T, S> >)
+                  , (container_ref<T, S>)
                   );
 }
 
@@ -206,10 +216,10 @@ void expr_lifetime_2_ts(Expr const&)
   NT2_TEST( !boost::is_const<child1>::value     );
 
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child0>::value_type
-                  , (container_shared_ref< container<T, S> >)
+                  , (container_shared_ref<T, S>)
                   );
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child1>::value_type
-                  , (container_ref< container<T, S> >)
+                  , (container_ref<T, S>)
                   );
 }
 
@@ -237,7 +247,7 @@ void expr_lifetime_2_i(Expr const&)
   NT2_TEST( !boost::is_const<child1>::value     );
 
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child0>::value_type
-                  , (container_ref< container<T, S> >)
+                  , (container_ref<T, S>)
                   );
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child1>::value_type
                   , T
@@ -268,7 +278,7 @@ void expr_lifetime_2_ir(Expr const&)
   NT2_TEST( !boost::is_const<child1>::value     );
 
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child0>::value_type
-                  , (container_ref< container<T, S> >)
+                  , (container_ref<T, S>)
                   );
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child1>::value_type
                   , T&
@@ -345,7 +355,7 @@ void expr_lifetime_tie_ts(Expr const&)
   NT2_TEST( !boost::is_const<child0>::value     );
 
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child0>::value_type
-                  , (container_shared_ref< container<T, S>, true>)
+                  , (container_shared_ref<T, S, true>)
                   );
 }
 

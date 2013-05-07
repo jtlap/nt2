@@ -50,7 +50,7 @@ namespace meta
   //////////////////////////////////////////////////////////////////////////////
   template<class T, class Origin = T>
   struct  hierarchy_of
-#if !defined(NT2_DOXYGEN_ONLY)
+#if !defined(DOXYGEN_ONLY)
         : details::hierarchy_of< T
                                , typename remove_reference<Origin>::type
                                >

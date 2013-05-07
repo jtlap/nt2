@@ -16,9 +16,9 @@ compatibility.
                                  binomial coefficient(s).                       ]]
 [[`perms       `][`perms       `][All possible permutations           TODO      ]]
 [[`primes      `][`primes      `][Generate list of prime numbers                ]]
-[[`rat`, `rats `][`rat`, `rats `][Rational fraction approximation
+[[`rat`         ][`rat`, `rats `][Rational fraction approximation
 
-                In nt2 the string output is not
+                In __NT2__ the string output is not
                 provided when rat is called.
                 rats is not implemented in __NT2__.                             ]]
 ]

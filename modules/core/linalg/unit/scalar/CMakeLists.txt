@@ -8,12 +8,15 @@
 ##############################################################################
 
 SET( SOURCES
-     vecnorm.cpp
-     norm.cpp
-     cond.cpp
-     trace.cpp
-     rank.cpp
-     normest.cpp
-   )
+  cond.cpp
+  det.cpp
+  norm.cpp
+  normest.cpp
+  rank.cpp
+  rcond.cpp
+  subspace.cpp
+  trace.cpp
+  vecnorm.cpp
+  )
 
 nt2_module_add_tests(core.linalg.scalar.unit ${SOURCES})

@@ -1,11 +1,11 @@
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #ifndef BOOST_SIMD_SDK_SIMD_DETAILS_OPERATORS_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_DETAILS_OPERATORS_HPP_INCLUDED
 
@@ -103,6 +103,21 @@ enable_if< mpl::and_< is_value<A0>, is_value<A1> >                             \
 operator BOOST_PP_CAT(Op, =)                                                   \
 (                                                                              \
   A0       & a0,                                                               \
+  A1 const & a1                                                                \
+)                                                                              \
+{                                                                              \
+  a0 = operator Op(a0, a1);                                                    \
+  return a0;                                                                   \
+}                                                                              \
+template<class A0, class A1>                                                   \
+BOOST_FORCEINLINE                                                              \
+typename                                                                       \
+enable_if< mpl::and_< is_value<A0>, is_value<A1> >                             \
+         , A0 const&                                                           \
+         >::type                                                               \
+operator BOOST_PP_CAT(Op, =)                                                   \
+(                                                                              \
+  A0 const & a0,                                                               \
   A1 const & a1                                                                \
 )                                                                              \
 {                                                                              \

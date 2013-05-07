@@ -56,7 +56,7 @@ namespace boost { namespace fusion { namespace extension
   //============================================================================
   template<> struct at_impl<nt2::tag::of_size_>
   {
-    template<class Seq, class Index, std::size_t S, bool B = !(Index::value >= S)>
+    template<class Seq, class Index, std::size_t S, bool B = !(std::size_t(Index::value) >= S)>
     struct select_apply;
 
     template<class Seq, class Index, std::ptrdiff_t N, bool IsStatic = (N >= 0)>

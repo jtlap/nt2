@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2 swar toolbox - cumsum/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -13,9 +13,8 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
 ///
-#include <nt2/toolbox/swar/include/functions/cumsum.hpp>
+#include <nt2/swar/include/functions/cumsum.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/all.hpp>
 
@@ -32,11 +31,11 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/load.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( cumsum_real__1_0,  NT2_SIMD_REAL_TYPES)
@@ -61,14 +60,16 @@ NT2_TEST_CASE_TPL ( cumsum_real__1_0,  NT2_SIMD_REAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-1e3), T(1e3));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = nt2::cumsum(a0);
-        NT2_CREATE_BUF(z,T, cardinal_of<n_t>::value, T(0), T(0));
+
+        std::vector<T,boost::simd::memory::allocator<T> > z(cardinal_of<n_t>::value);
         for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++) z[i]=0;
+
         for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++) {
           for( uint32_t k = i; k<cardinal_of<n_t>::value; k++) {
             z[k]+=a0[i];
@@ -77,7 +78,7 @@ NT2_TEST_CASE_TPL ( cumsum_real__1_0,  NT2_SIMD_REAL_TYPES)
         vT zz = load<vT>(&z[0],0);
         for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++)
          {
-            NT2_TEST_ULP_EQUAL(v[i],zz[i], 16);
+            NT2_TEST_ULP_EQUAL(v[i],zz[i], 4);
          }
       }
 

@@ -1,0 +1,66 @@
+    binomial    Binomial matrix -- multiple of involutory matrix.                     | done
+    cauchy      Cauchy matrix.                                                        | done
+    chebspec    Chebyshev spectral differentiation matrix.                            | done
+    chebvand    Vandermonde-like matrix for the Chebyshev polynomials.                | done
+    chow        Chow matrix -- a singular Toeplitz lower Hessenberg matrix.           | done
+    circul      Circulant matrix.                                                     | done
+    clement     Clement matrix -- tridiagonal with zero diagonal entries.             | done
+    compar      Comparison matrices.                                                  | done
+    condex      Counter-examples to matrix condition number estimators.               | done
+    cycol       Matrix whose columns repeat cyclically.                               | done
+    dorr        Dorr matrix -- diagonally dominant, ill-conditioned, tridiagonal.     | done
+    dramadah    Matrix of ones and zeroes whose inverse has large integer entries.    | done
+    fiedler     Fiedler matrix -- symmetric.                                          | done
+    forsythe    Forsythe matrix -- a perturbed Jordan block.                          | done
+    frank       Frank matrix -- ill-conditioned eigenvalues.                          | done
+    gcdmat      GCD matrix.                                                           | done
+    gearmat     Gear matrix.                                                          | done
+    grcar       Grcar matrix -- a Toeplitz matrix with sensitive eigenvalues.         | done
+    hanowa      Matrix whose eigenvalues lie on a vertical line in the complex plane. | done
+    house       Householder matrix. (Three output arguments)                          | done
+    invhess     Inverse of an upper Hessenberg matrix.                                | done
+    invol       Involutory matrix.                                                    | done
+    ipjfact     Hankel matrix with factorial elements. (Two output arguments)         | done
+    jordbloc    Jordan block matrix.                                                  | done
+    kahan       Kahan matrix -- upper trapezoidal.                                    | done
+    kms         Kac-Murdock-Szego Toeplitz matrix.                                    | done
+    krylov      Krylov matrix.                                                        | done
+    lauchli     Lauchli matrix -- rectangular.                                        | done
+    lehmer      Lehmer matrix -- symmetric positive definite.                         | done
+    leslie      Leslie matrix.                                                        | done
+    lesp        Tridiagonal matrix with real, sensitive eigenvalues.                  | done
+    lotkin      Lotkin matrix.                                                        | done
+    minij       Symmetric positive definite matrix MIN(i,j).                          | done
+    moler       Moler matrix -- symmetric positive definite.                          | done
+    neumann     Singular matrix from the discrete Neumann problem.                    | (sparse) and need kron.
+    orthog      Orthogonal and nearly orthogonal matrices.                            | done
+    parter      Parter matrix -- a Toeplitz matrix with singular values near pi.      | done
+    pei         Pei matrix.                                                           | done
+    poisson     Block tridiagonal matrix from Poisson's equation                      | (sparse) and need kron.
+    prolate     Prolate matrix -- symmetric, ill-conditioned Toeplitz matrix.         | done
+    qmult       Pre-multiply matrix by random orthogonal matrix.                      | done
+    randcolu    Random matrix with normalized cols and specified singular values.     | done
+    randcorr    Random correlation matrix with specified eigenvalues.                 | done
+    randjorth   Random J-orthogonal (hyperbolic, pseudo-orthogonal) matrix.           | done
+    rando       Random matrix with elements -1, 0 or 1.                               | done
+    randhess    Random, orthogonal upper Hessenberg matrix.                           | done
+    randsvd     Random matrix with pre-assigned sing. values and specified bandwidth. | done
+    redheff     Matrix of 0s and 1s of Redheffer.                                     | done
+    riemann     Matrix associated with the Riemann hypothesis.                        | done
+    ris         Ris matrix -- a symmetric Hankel matrix.                              | done
+    sampling    Nonsymmetric matrix with integer, ill conditioned eigenvalues.        | done
+    smoke       Smoke matrix -- complex, with a "smoke ring" pseudospectrum.          | done
+    toeppd      Symmetric positive definite Toeplitz matrix.                          | done
+    toeppen     Pentadiagonal Toeplitz matrix (sparse).                               | done (but to be sparse)
+    tridiag     Tridiagonal matrix.                                                   | done (but to be sparse)
+    triw        Upper triangular matrix discussed by Wilkinson and others.            | done
+
+====================================================================================================================
+
+to be (perhaps) done
+
+    integerdata Array of arbitrary data from uniform distribution on range of integers
+    normaldata  Array of arbitrary data from standard normal distribution
+    uniformdata Array of arbitrary data from standard uniform distribution
+    wathen      Wathen matrix -- a finite element matrix (sparse, random entries).
+    wilk        Various specific matrices devised/discussed by Wilkinson.

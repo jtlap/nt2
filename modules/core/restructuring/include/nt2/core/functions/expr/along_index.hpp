@@ -16,7 +16,9 @@
 #include <nt2/core/utility/as_index.hpp>
 #include <nt2/include/functions/relative_index.hpp>
 #include <nt2/core/container/dsl/generator.hpp>
+#include <nt2/core/functions/table/details/is_vectorizable_indexer.hpp>
 #include <nt2/core/utility/of_size.hpp>
+#include <boost/mpl/if.hpp>
 #include <boost/array.hpp>
 
 namespace nt2 { namespace ext
@@ -70,7 +72,13 @@ namespace nt2 { namespace ext
                               (unspecified_<Data>)
                             )
   {
-    typedef typename details::as_integer_target<Data>::type   i_t;
+    typedef typename boost::mpl::
+            if_< typename is_vectorizable_indexer< typename boost::proto::result_of::child_c<A0, 0>::value_type
+                                                 , typename meta::cardinal_of<typename meta::target_value<Data>::type>::type
+                                                 >::type
+               , State
+               , typename details::as_integer_target<Data>::type
+               >::type                                        i_t;
     typedef boost::array<i_t, A0::extent_type::static_size>   pos_type;
 
     typedef i_t result_type;

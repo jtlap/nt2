@@ -19,7 +19,7 @@ SET( SOURCES
   saturate.cpp
   prev.cpp
   predecessor.cpp
-  nextpow2.cpp
+#  nextpow2.cpp
   nextafter.cpp
   next.cpp
   negation.cpp
@@ -40,7 +40,7 @@ SET( SOURCES
   fast_frexp.cpp
   exponentbits.cpp
   exponent.cpp
-  eps.cpp
+#  eps.cpp
   copysign.cpp
   bitofsign.cpp
   bitinteger.cpp

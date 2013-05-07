@@ -1,11 +1,11 @@
-/*******************************************************************************
- *         Copyright 2003-2010 LASMEA UMR 6602 CNRS/U.B.P
- *         Copyright 2009-2010 LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #ifndef NT2_CORE_CONTAINER_IO_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_IO_HPP_INCLUDED
 
@@ -134,10 +134,9 @@ namespace nt2
       {
         // We schedule xpr to be sure everything is evaluated if needed.
         typedef nt2::container::expression<Xpr,R> expr_t;
-        typedef typename make_functor<tag::run_, expr_t>::type               run_t;
-        typedef container::domain::template as_child<expr_t const>           sched;
+        typedef meta::as_elementwise<expr_t const> sched;
 
-        typename sched::result_type s = sched()(xpr);
+        typename sched::type s = sched::call(xpr);
 
         // We print expression based on their runtime ndims so the various
         // ans(:,:,...) are not tainted by useless 1's

@@ -1,11 +1,11 @@
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2::bsxfun function"
 
 #include <nt2/table.hpp>
@@ -15,14 +15,13 @@
 #include <nt2/include/functions/cif.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/mean.hpp>
-#include <nt2/include/functions/isequal.hpp>
-#include <nt2/include/functions/reshape.hpp>
+#include <nt2/include/functions/colvect.hpp>
+#include <nt2/include/functions/colon.hpp>
+#include <nt2/include/functions/plus.hpp>
+#include <nt2/include/functions/cons.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
-#include <nt2/sdk/unit/tests/exceptions.hpp>
 
 NT2_TEST_CASE_TPL( bsxfun_1, NT2_TYPES)
 {
@@ -65,7 +64,7 @@ NT2_TEST_CASE_TPL( bsxfun_3, NT2_REAL_TYPES)
    nt2::functor<nt2::tag::minus_> f;
    c = bsxfun(f,  a, m);
    d = a-m(1);
-   NT2_TEST(isequal(c, d));
+   NT2_TEST_EQUAL(c, d);
 }
 NT2_TEST_CASE_TPL( bsxfun_aliasing, NT2_REAL_TYPES)
 {
@@ -75,5 +74,25 @@ NT2_TEST_CASE_TPL( bsxfun_aliasing, NT2_REAL_TYPES)
    nt2::functor<nt2::tag::minus_> f;
    c = bsxfun(f,  a, m);
    a = bsxfun(f,  a, m);
-   NT2_TEST(isequal(a, c));
+   NT2_TEST_EQUAL(a, c);
+}
+
+
+NT2_TEST_CASE_TPL( bsxfun_4, NT2_REAL_TYPES)
+{
+  nt2::table<T> m3 = nt2::cons<T>( nt2::of_size(3, 3),
+                                   T(0.5),  T(-0.5),  T(-1.5),
+                                   T(1.5),  T( 0.5),  T(-0.5),
+                                   T(2.5),  T( 1.5),  T( 0.5)
+                                 );
+  nt2::table<T> v = nt2::bsxfun(nt2::functor<nt2::tag::plus_>(),
+                                nt2::_(T(1.5), T(3.5)),
+                                nt2::colvect(-nt2::_(T(1), T(3)))
+                               );
+  NT2_TEST_EQUAL(v, m3);
+
+  nt2::table<T> a0 = nt2::_(T(1.5), T(3.5));
+  nt2::table<T> a1 = nt2::colvect(-nt2::_(T(1), T(3)));
+  nt2::table<T> v1 = nt2::bsxfun(nt2::functor<nt2::tag::plus_>(), a0, a1);
+  NT2_TEST_EQUAL(v1, m3);
 }

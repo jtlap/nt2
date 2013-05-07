@@ -14,6 +14,7 @@ __NT2__ has C++ support and some macros to do the job.
 [table:id basic display
 [[__MATLAB__        ][ __NT2__                      ][ Description                                      ]]
 [[`disp            `][`std::cout <<...<< std::endl;`][ Display text or array.                           ]]
+[[`disp            `][`display(string,value)`       ][ Display text or array.                           ]]
 [[`display         `][`NT2_DISPLAY`                 ][ Display text or array.  In __NT2__ its a macro   ]]
 ]
 
@@ -24,7 +25,7 @@ __MATLAB__ has two species of predicates routines `isxxx`, some returning a scal
 and stating something about a whole arrays or expressions, the other beeing elementwise
 assertions about the elements of the arrays or expressions and returning logical arrays.
 
-In __NT2__ we have chosen to keep __MATLAB__ names `isxxx`for the first category, but use `is_xxx`
+In __NT2__ we have chosen to keep __MATLAB__ names `isxxx` for the first category, but use `is_xxx`
 in the second case.
 
 [table:id predicates returning a unique scalar logical value
@@ -36,7 +37,6 @@ in the second case.
 [[`isinteger      `][`isinteger      `][  Determine whether input is integer array                   ]]
 [[`islogical      `][`islogical      `][  Determine whether input is logical array                   ]]
 [[`ismatrix       `][`ismatrix       `][  Determine whether input is matrix                          ]]
-[[`isnumeric      `][`isnumeric      `][  Determine whether input is numeric array                   ]]
 [[`isrow          `][`isrow          `][  Determine whether input is row vector                      ]]
 [[`isscalar       `][`isscalar       `][  Determine whether input is scalar                          ]]
 [[`issparse       `][`issparse       `][  Determine whether input is sparse                          ]]
@@ -47,11 +47,11 @@ Some run times predicates as `isfloat` have no real meaning in __NT2__ because i
 types are chosen at compile-time. Also sometimes, is it more performing to use
 negative assertions (we provide in __NT2__) than the negation of the direct ones.
 
-Also in mind have that for example than `isinf | isnan` can be replaced by `is_invalid` in __NT2__,
+Also  have in mind that for example that `isinf | isnan` can be replaced by `is_invalid` in __NT2__,
 and than there are much more predicates available.
 
 [warning with floating expressions, the occurences of `nan` can imply that `logical_not(is_xxx)`
-is not equivalent to `is_not_xxx`. Please think of what you really want if the input is a `nan`
+is not equivalent to `is_not_xxx`. Please think of what you really want if the input can be a `nan`
 value]
 
 [h3 Elementwise predicates]
@@ -59,7 +59,7 @@ value]
 [table:id elementwise predicates returning expressions arrays of logical
 [[__MATLAB__        ][ __NT2__                    ][ Description                               ]]
 [[`isfinite        `][`is_finite`, `is_not_finite`][ Array elements that are finite            ]]
-[[`isfloat         `][(`is_float_point`)          ][ Determine whether input is floating-point array.
+[[`isfloat         `][(`is_floating_point`)       ][ Determine whether input is floating-point array.
                                                      This is not defined  as such in __NT2__.
 
                                                     `is_floating_point` is a meta-function

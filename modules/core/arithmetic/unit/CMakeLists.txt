@@ -7,8 +7,7 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_use_modules( unit
-                        extern.standard extern.libc
+nt2_module_use_modules( test.unit
                         core.container.table
                       )
 

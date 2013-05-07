@@ -76,3 +76,26 @@ NT2_TEST_CASE_TPL( composite_table_expr, (float)(double) )
     for(std::size_t j=1;j<=3;++j)
       NT2_TEST_EQUAL(y(i,j), x(i,j) * x(i,j) + T(6));
 }
+
+NT2_TEST_CASE_TPL( composite_table_subscript, (float)(double) )
+{
+  using nt2::table;
+  using nt2::of_size;
+  using nt2::settings;
+  using nt2::deinterleaved_;
+
+  table<std::complex<T>,deinterleaved_> y,x( of_size(2,3) );
+
+  for(std::size_t i=1;i<=2;++i)
+    for(std::size_t j=1;j<=3;++j)
+      x(i,j) = std::complex<T>(i,j);
+
+  y = x(nt2::_, 1);
+
+  NT2_DISPLAY(x);
+  NT2_DISPLAY(y);
+
+  NT2_TEST_EQUAL( y.extent(), of_size(2) );
+  for(std::size_t i=1;i<=2;++i)
+    NT2_TEST_EQUAL(y(i), x(i,1));
+}
