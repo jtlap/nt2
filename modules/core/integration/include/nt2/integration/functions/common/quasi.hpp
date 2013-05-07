@@ -15,9 +15,11 @@
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/sobol.hpp>
 #include <nt2/include/functions/complement.hpp>
+#include <nt2/include/functions/bitwise_xor.hpp>
 #include <nt2/include/functions/ldexp.hpp>
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/minusone.hpp>
+#include <nt2/include/functions/unary_minus.hpp>
 #include <nt2/include/functions/ffs.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
@@ -68,29 +70,24 @@ namespace nt2 { namespace ext
     typedef A0&                                                  result_type;
     typedef typename A0::value_type                                   f_type;
     typedef typename nt2::meta::as_integer<f_type, unsigned>::type uint_type;
-    typedef typename nt2::container::table<uint_type>                            tabi_t;
+    typedef typename nt2::meta::as_integer<f_type>::type            int_type;
+    typedef typename nt2::container::table<uint_type>                 tabi_t;
 
     result_type operator()(A0& x, A1& a1) const
     {
       uint_type dim =  boost::proto::child_c<0>(a1);
       uint_type nbpts = boost::proto::child_c<1>(a1);
       uint_type maxbit = nt2::Nbmantissabits<f_type>();
+      int_type mmaxbit = -maxbit;
       static uint_type index = 0;
-//      std::cout << dim << " " << nbpts <<  std::endl;
       static tabi_t ix =  nt2::zeros(nt2::of_size(dim, 1), nt2::meta::as_<uint_type>());
       static tabi_t iv =  sobol(dim);
-//      NT2_DISPLAY(iv);
       x.resize(nt2::of_size(dim, nbpts));
-//      nt2::container::table<uint_type> im = nt2::_(index, index+nbpts-1);
-      nt2::container::table<uint_type> i = nt2::minusone(nt2::ffs(nt2::complement(nt2::_(index, index+nbpts-1))))*dim;
-//      NT2_DISPLAY(nt2::ffs(nt2::complement(im)));
-      for(uint_type l=1; l <= nbpts; ++l)
+      nt2::container::table<uint_type> i = nt2::ffs(nt2::complement(nt2::_(index, index+nbpts-1)));
+      for(uint_type l=1; l <= nbpts; ++l) //can we suppress this loop ?
       {
-        for (uint_type k = 1; k <= dim; k++)
-        {
-          ix(k) ^= iv(i(l) +k);
-          x(k, l) = nt2::ldexp(nt2::tofloat(ix(k)), -maxbit);
-        }
+        ix = nt2::bitwise_xor(ix, iv(nt2::_(1, dim), i(l)));
+        x(nt2::_, l)  = nt2::ldexp(nt2::tofloat(ix), mmaxbit);
       }
       index+= nbpts+1;
       return x;
