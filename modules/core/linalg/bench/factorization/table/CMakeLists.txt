@@ -6,7 +6,16 @@
 ###                 See accompanying file LICENSE.txt or copy at
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
-nt2_module_use_modules(test.benchmark core.utility core.random)
-ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(general)
-ADD_SUBDIRECTORY(factorization)
+
+SET(  SOURCES
+      lu.cpp
+      lu2.cpp
+      lu3.cpp
+      qr.cpp
+      qr2_1.cpp
+      qr2_2.cpp
+      qr3_1.cpp
+      qr3_2.cpp
+   )
+
+nt2_module_add_tests(core.linalg.factorization.table.bench ${SOURCES})
