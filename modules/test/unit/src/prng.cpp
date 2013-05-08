@@ -27,6 +27,7 @@
 #include <boost/random/uniform_real_distribution.hpp>
 #include <boost/random/uniform_int.hpp>
 #include <boost/range/iterator_range_core.hpp>
+#include <complex>
 
 namespace nt2
 {
@@ -39,6 +40,24 @@ namespace nt2
     {
       BOOST_FOREACH( T & scalar, data )
         scalar = dist( prng_singleton );
+    }
+
+    template <typename T, typename D> BOOST_DISPATCH_NOTHROW
+    void prng_fill_step ( boost::iterator_range<std::complex<T>*> const data, D& distr, D& disti )
+    {
+      BOOST_FOREACH( std::complex<T> & scalar, data )
+      {
+        scalar = std::complex<T>( distr( prng_singleton ), disti( prng_singleton ) );
+      }
+    }
+
+    template<typename T>
+    NT2_TEST_UNIT_DECL BOOST_DISPATCH_NOTHROW
+    void prng_fill_impl( boost::iterator_range<std::complex<T>*> data , std::complex<T> mn, std::complex<T> mx)
+    {
+      boost::random::uniform_real_distribution<T> distr(mn.real(), mx.real());
+      boost::random::uniform_real_distribution<T> disti(mn.imag(), mx.imag());
+      prng_fill_step(data,distr,disti);
     }
 
     template<typename T>
@@ -69,6 +88,12 @@ namespace nt2
 
     template NT2_TEST_UNIT_DECL BOOST_DISPATCH_NOTHROW
     void prng_fill_impl( boost::iterator_range<double*>, double, double);
+
+    template NT2_TEST_UNIT_DECL BOOST_DISPATCH_NOTHROW
+    void prng_fill_impl( boost::iterator_range<std::complex<float>*>, std::complex<float>, std::complex<float>);
+
+    template NT2_TEST_UNIT_DECL BOOST_DISPATCH_NOTHROW
+    void prng_fill_impl( boost::iterator_range<std::complex<double>*>, std::complex<double>, std::complex<double>);
   }
 
   NT2_TEST_UNIT_DECL BOOST_DISPATCH_NOTHROW void prng_reset()

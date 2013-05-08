@@ -19,6 +19,7 @@
 #include <boost/simd/sdk/memory/allocator.hpp>
 #include <boost/simd/include/functions/load.hpp>
 #include <boost/simd/include/functions/store.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <vector>
 
 #include <boost/preprocessor/repetition/repeat.hpp>
@@ -135,9 +136,18 @@ namespace nt2 { namespace unit
     }
 
     private:
-    template<class X> void print(X const& x, std::ostream& os) const
+    template<class X>
+    typename boost::enable_if_c< sizeof(X)==1 >::type
+    print(X const& x, std::ostream& os) const
     {
-      os << (sizeof(X)==1 ? int(x) : x);
+      os << int(x);
+    }
+
+    template<class X>
+    typename boost::disable_if_c< sizeof(X)==1 >::type
+    print(X const& x, std::ostream& os) const
+    {
+      os << x;
     }
 
     std::size_t                                                         size;
