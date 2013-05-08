@@ -83,7 +83,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::strip<A1>::type result_type;
+    typedef A1 result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
