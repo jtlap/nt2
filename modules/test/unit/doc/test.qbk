@@ -105,7 +105,8 @@ parameter to state the admitted possible difference between the two quantities.
 This difference is expressed in "ulps", that is units in the last place, that
 is an indication of the number of floating points values that are representable
 between the compared quantities[footnote see
-[link precision_testing rationale on precision testing] for more details].
+[link unit_test_framework.rationale_on_precision_testing
+Rationale on precision testing] for more details].
 
 They are accessible in the [headerref nt2/sdk/unit/tests/ulp.hpp] file.
 
@@ -203,7 +204,7 @@ exercise.
 
 
 [section Rationale on precision testing]
-[#precision_testing]
+
 
 ["Are these two floating computations results similar enough ?]
 
