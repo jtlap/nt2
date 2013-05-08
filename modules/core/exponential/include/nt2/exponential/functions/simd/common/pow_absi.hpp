@@ -12,7 +12,6 @@
 #include <nt2/sdk/meta/size.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/simd/bitofsign.hpp>
 #include <nt2/include/functions/simd/signnz.hpp>
 #include <nt2/include/functions/simd/is_odd.hpp>
