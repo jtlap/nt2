@@ -17,6 +17,7 @@
 #include <boost/config.hpp>
 #include <boost/dispatch/functor/details/dispatch.hpp>
 #include <boost/dispatch/meta/result_of.hpp>
+#include <boost/dispatch/meta/as_ref.hpp>
 
 #if (defined(BOOST_NO_VARIADIC_TEMPLATES) && defined(BOOST_DISPATCH_DONT_USE_PREPROCESSED_FILES)) || defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES)
 #include <boost/dispatch/details/parameters.hpp>
@@ -58,7 +59,7 @@ namespace boost { namespace dispatch { namespace meta
 #if (!defined(BOOST_NO_VARIADIC_TEMPLATES) && !defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES)) || defined(DOXYGEN_ONLY)
   template<class Tag, class... Args, class Site>
   struct call<Tag(Args...),Site>
-        : meta::result_of<typename meta::dispatch_call<Tag(Args...), Site>::type(Args...)>
+        : meta::result_of<typename meta::dispatch_call<Tag(typename meta::as_ref<Args>::type...), Site>::type(Args...)>
   {};
 #else
 
@@ -72,12 +73,15 @@ namespace boost { namespace dispatch { namespace meta
 #define M0(z,n,t) \
 template<class Tag, BOOST_PP_ENUM_PARAMS(n,class A), class Site> \
 struct call<Tag(BOOST_PP_ENUM_PARAMS(n,A)),Site> \
-: meta::result_of<typename meta::dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>::type((BOOST_PP_ENUM_PARAMS(n,A)))> \
+: meta::result_of<typename meta::dispatch_call<Tag(BOOST_PP_ENUM(n,M1,~)), Site>::type((BOOST_PP_ENUM_PARAMS(n,A)))> \
 {}; \
 /**/
 
+#define M1(z,n,t) typename meta::as_ref<A##n>::type
+
   BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),M0,~)
 #undef M0
+#undef M1
 
 #if defined(__WAVE__) && defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES)
 #pragma wave option(output: null)
