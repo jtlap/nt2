@@ -33,7 +33,7 @@ NT2_TEST_CASE_TPL(  real_value, BOOST_SIMD_REAL_TYPES )
   NT2_CHECK_CONSTANT(Oneo_15    , T(1./15.)                   , T );
   NT2_CHECK_CONSTANT(Oneo_120   , T(1./120.)                  , T );
   NT2_CHECK_CONSTANT(Oneo_180   , T(1./180.)                  , T );
-  NT2_CHECK_CONSTANT(Twoto31    , T(2147483648)               , T );
+  NT2_CHECK_CONSTANT(Twoto31    , T(2147483648ll)             , T );
   NT2_CHECK_CONSTANT(Twotom10   , T(9.765625e-4)              , T );
   NT2_CHECK_CONSTANT(Pi         , T(3.1415926535897930)       , T );
   NT2_CHECK_CONSTANT(Pio_2      , T(1.570796326794896558)     , T );

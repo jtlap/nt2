@@ -19,7 +19,7 @@
 
 #include "../constant.hpp"
 
-NT2_TEST_CASE_TPL( real_inf, BOOST_SIMD_REAL )
+NT2_TEST_CASE_TPL( real_inf, BOOST_SIMD_SIMD_REAL_TYPES )
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef boost::simd::native<T,ext_t>  n_t;
@@ -28,7 +28,7 @@ NT2_TEST_CASE_TPL( real_inf, BOOST_SIMD_REAL )
   NT2_CHECK_CONSTANT(Minf ,  -std::numeric_limits<T>::infinity(), n_t);
 }
 
-NT2_TEST_CASE_TPL( int_inf, BOOST_SIMD_INTEGRAL_TYPES(char) )
+NT2_TEST_CASE_TPL( int_inf, BOOST_SIMD_SIMD_INTEGRAL_TYPES(char) )
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef boost::simd::native<T,ext_t>  n_t;

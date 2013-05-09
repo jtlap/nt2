@@ -17,7 +17,7 @@
 
 #include "../constant.hpp"
 
-NT2_TEST_CASE_TPL(  real_value, BOOST_SIMD_REAL_TYPES )
+NT2_TEST_CASE_TPL(  real_value, BOOST_SIMD_SIMD_REAL_TYPES )
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef boost::simd::native<T,ext_t>  n_t;
@@ -39,7 +39,7 @@ NT2_TEST_CASE_TPL(  real_value, BOOST_SIMD_REAL_TYPES )
   NT2_CHECK_CONSTANT(Oneo_120   , T(1./120.)                  , n_t );
   NT2_CHECK_CONSTANT(Oneo_180   , T(1./180.)                  , n_t );
   NT2_CHECK_CONSTANT(Twotom10   , T(9.765625e-4)              , n_t );
-  NT2_CHECK_CONSTANT(Twoto31    , T(2147483648)               , n_t );
+  NT2_CHECK_CONSTANT(Twoto31    , T(2147483648ll)             , n_t );
   NT2_CHECK_CONSTANT(Pi         , T(3.1415926535897930)       , n_t );
   NT2_CHECK_CONSTANT(Pio_2      , T(1.570796326794896558)     , n_t );
   NT2_CHECK_CONSTANT(Sqrt_2     , T(1.4142135623730949234)    , n_t );
@@ -49,9 +49,11 @@ NT2_TEST_CASE_TPL(  real_value, BOOST_SIMD_REAL_TYPES )
   NT2_CHECK_CONSTANT(Log10_pi   , T(0.49714987269413385418)   , n_t );
   NT2_CHECK_CONSTANT(Gold       , T(1.6180339887498950)       , n_t );
   NT2_CHECK_CONSTANT(Cgold      , T(3.8196601125010515e-1)    , n_t );
+  NT2_CHECK_CONSTANT(Twotonmb   , boost::simd::Twotonmb<T>()    , n_t );
+  NT2_CHECK_CONSTANT(Splitfactor, boost::simd::Splitfactor<T>() , n_t );
 }
 
-NT2_TEST_CASE_TPL( nan_value, BOOST_SIMD_REAL_TYPES )
+NT2_TEST_CASE_TPL( nan_value, BOOST_SIMD_SIMD_REAL_TYPES )
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef boost::simd::native<T,ext_t>  n_t;
@@ -59,45 +61,48 @@ NT2_TEST_CASE_TPL( nan_value, BOOST_SIMD_REAL_TYPES )
   NT2_CHECK_CONSTANT(Nan, boost::simd::Nan<T>(), n_t );
 }
 
-NT2_TEST_CASE(type_dependant_real)
+
+template<class T>
+struct type_dependant_const_value;
+
+template<>
+struct type_dependant_const_value<double>
 {
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef boost::simd::native<double,ext_t>  d_t;
-  typedef boost::simd::native<float ,ext_t>  s_t;
+  static const uint64_t value = 0x3FF3BE76C8B43958LL;
+};
 
-  NT2_CHECK_CONSTANT(Twotonmb     , 4503599627370496  , d_t );
-  NT2_CHECK_CONSTANT(Splitfactor  , 134217728.        , d_t );
-
-  NT2_CHECK_CONSTANT(Twotonmb     , 8388608.f         , s_t );
-  NT2_CHECK_CONSTANT(Splitfactor  , 8192.f            , s_t );
-}
-
-NT2_TEST_CASE(type_dependant_const)
+template<>
+struct type_dependant_const_value<float>
 {
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef boost::simd::native<double,ext_t>  d_t;
-  typedef boost::simd::native<float ,ext_t>  s_t;
+  static const uint64_t value = 0x3F9DF3B6;
+};
 
-  NT2_TEST_EXPR_TYPE( (boost::simd::Const<d_t,0x3FF3BE76C8B43958LL>())
+NT2_TEST_CASE_TPL(type_dependant_const, BOOST_SIMD_SIMD_REAL_TYPES)
+{
+  typedef BOOST_SIMD_DEFAULT_EXTENSION      ext_t;
+  typedef boost::simd::native<T,ext_t>      n_t;
+
+  NT2_TEST_EXPR_TYPE( (boost::simd::Const < n_t
+                                          , type_dependant_const_value<T>::value
+                                          >()
+                      )
                     , boost::mpl::_
-                    , d_t
+                    , n_t
                     );
 
-  NT2_TEST_EXPR_TYPE( (boost::simd::Const<s_t,0x3F9DF3B6>())
-                    , boost::mpl::_
-                    , s_t
-                    );
-
-  NT2_TEST_EQUAL( (boost::simd::Const<d_t,0x3FF3BE76C8B43958LL>())
-                , boost::simd::splat<d_t>(boost::simd::Const<double,0x3FF3BE76C8B43958LL>())
-                );
-
-  NT2_TEST_EQUAL( (boost::simd::Const<s_t,0x3F9DF3B6>())
-                , boost::simd::splat<s_t>(boost::simd::Const<double,0x3FF3BE76C8B43958LL>())
+  NT2_TEST_EQUAL( (boost::simd::Const < n_t
+                                      , type_dependant_const_value<T>::value
+                                      >()
+                  )
+                , boost::simd::splat<n_t>
+                  ( boost::simd::Const< n_t
+                                      , type_dependant_const_value<T>::value
+                                      >()
+                  )
                 );
 }
 
-NT2_TEST_CASE_TPL(  real_constant, (double)(float) )
+NT2_TEST_CASE_TPL(  real_constant, BOOST_SIMD_SIMD_REAL_TYPES )
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef boost::simd::native<T,ext_t>  n_t;
@@ -118,54 +123,6 @@ NT2_TEST_CASE_TPL(  real_constant, (double)(float) )
                   )
                 , boost::simd::splat<n_t>(boost::simd::real_constant < T
                                               , 0x3FF3BE76C8B43958LL
-                                              , 0x3F9DF3B6
-                                              >()
-                  )
-                );
-}
-
-NT2_TEST_CASE(double_constant)
-{
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef boost::simd::native<double,ext_t>  n_t;
-
-  NT2_TEST_EXPR_TYPE( (boost::simd::double_constant < n_t
-                                                    , 0x3FF3BE76C8B43958LL
-                                                    >()
-                      )
-                    , boost::mpl::_
-                    , n_t
-                    );
-
-  NT2_TEST_EQUAL( (boost::simd::double_constant < n_t
-                                                , 0x3FF3BE76C8B43958LL
-                                                >()
-                  )
-                , boost::simd::splat<n_t>(boost::simd::double_constant < double
-                                              , 0x3FF3BE76C8B43958LL
-                                              >()
-                  )
-                );
-}
-
-NT2_TEST_CASE(single_constant)
-{
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef boost::simd::native<float,ext_t>  n_t;
-
-  NT2_TEST_EXPR_TYPE( (boost::simd::single_constant < n_t
-                                                    , 0x3F9DF3B6
-                                                    >()
-                      )
-                    , boost::mpl::_
-                    , n_t
-                    );
-
-  NT2_TEST_EQUAL( (boost::simd::single_constant < n_t
-                                                , 0x3F9DF3B6
-                                                >()
-                  )
-                , boost::simd::splat<n_t>(boost::simd::single_constant < float
                                               , 0x3F9DF3B6
                                               >()
                   )

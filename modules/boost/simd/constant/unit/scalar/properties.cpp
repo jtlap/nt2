@@ -8,6 +8,7 @@
 //==============================================================================
 #include <boost/simd/include/constants/properties.hpp>
 #include <boost/simd/include/constants/real_splat.hpp>
+#include <boost/dispatch/meta/as_unsigned.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -33,7 +34,7 @@ NT2_TEST_CASE_TPL(allbits_real, BOOST_SIMD_REAL_TYPES)
 
 NT2_TEST_CASE_TPL(allbits_unsigned, BOOST_SIMD_INTEGRAL_TYPES)
 {
-  NT2_CHECK_CONSTANT(Allbits , T(~0UL) ,T);
+  NT2_CHECK_CONSTANT(Allbits , ~T(0UL) ,T);
 }
 
 NT2_TEST_CASE_TPL(bitincrement_real, BOOST_SIMD_REAL_TYPES)
@@ -82,10 +83,10 @@ NT2_TEST_CASE_TPL(sqrtvalmax_unsigned, BOOST_SIMD_UNSIGNED_TYPES)
 
 NT2_TEST_CASE(sqrtvalmax_signed)
 {
-  NT2_CHECK_CONSTANT(Sqrtvalmax, 3037000499 , boost::simd::int64_t);
-  NT2_CHECK_CONSTANT(Sqrtvalmax,      46340 , boost::simd::int32_t);
-  NT2_CHECK_CONSTANT(Sqrtvalmax,        181 , boost::simd::int16_t);
-  NT2_CHECK_CONSTANT(Sqrtvalmax,         11 , boost::simd::int8_t );
+  NT2_CHECK_CONSTANT(Sqrtvalmax, 3037000499ll , boost::simd::int64_t);
+  NT2_CHECK_CONSTANT(Sqrtvalmax,      46340   , boost::simd::int32_t);
+  NT2_CHECK_CONSTANT(Sqrtvalmax,        181   , boost::simd::int16_t);
+  NT2_CHECK_CONSTANT(Sqrtvalmax,         11   , boost::simd::int8_t );
 }
 
 NT2_TEST_CASE(valmax_real)
@@ -117,19 +118,22 @@ NT2_TEST_CASE_TPL(valmin_unsigned, BOOST_SIMD_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL(valmin_signed, BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
-  NT2_CHECK_CONSTANT(Valmin, T( -(T(1) << (CHAR_BIT*sizeof(T)-1)) ),T);
+  typedef typename boost::dispatch::meta::as_unsigned<T>::type u_t;
+
+  NT2_CHECK_CONSTANT(Valmin, T( -u_t(T(1) << (CHAR_BIT*sizeof(T)-1)) ),T);
 }
 
 NT2_TEST_CASE_TPL(Maxleftshift, BOOST_SIMD_TYPES)
 {
-  typedef typename boost::dispatch::meta::as_integer<T,signed>::type result_type;
+  using boost::dispatch::meta::as_integer;
+
   NT2_TEST_EXPR_TYPE( boost::simd::Maxleftshift<T>()
                     , boost::mpl::_
-                    , (result_type)
+                    , (typename as_integer<T,signed>::type)
                     );
 
   NT2_TEST_EQUAL( boost::simd::Maxleftshift<T>()
-                , result_type(CHAR_BIT*sizeof(T)-1)
+                , (typename as_integer<T,signed>::type(CHAR_BIT*sizeof(T)-1))
                 );
 }
 

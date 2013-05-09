@@ -94,7 +94,7 @@ namespace boost { namespace simd
 
     template<class T, class Dummy>
     struct  Sqrtvalmax::apply<boost::dispatch::meta::int64_<T>,Dummy>
-          : meta::int_c<T, 3037000499> {};
+          : meta::int_c<T, 3037000499ll> {};
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Sqrtvalmax, Sqrtvalmax)

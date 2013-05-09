@@ -23,7 +23,7 @@
   #pragma warning(disable: 4309) // truncation of constant value
 #endif
 
-NT2_TEST_CASE_TPL( digit_value, BOOST_SIMD_TYPES(char) )
+NT2_TEST_CASE_TPL( digit_value, BOOST_SIMD_SIMD_TYPES )
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef boost::simd::native<T,ext_t>  n_t;
@@ -57,7 +57,7 @@ NT2_TEST_CASE_TPL( digit_value, BOOST_SIMD_TYPES(char) )
   NT2_CHECK_CONSTANT(Thousand , 1000 , n_t);
 }
 
-NT2_TEST_CASE_TPL( fact_value, BOOST_SIMD_TYPES(char) )
+NT2_TEST_CASE_TPL( fact_value, BOOST_SIMD_SIMD_TYPES )
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef boost::simd::native<T,ext_t>  n_t;
@@ -73,7 +73,7 @@ NT2_TEST_CASE_TPL( fact_value, BOOST_SIMD_TYPES(char) )
   NT2_CHECK_CONSTANT(Fact_12   , 479001600, n_t);
 }
 
-NT2_TEST_CASE_TPL( integral_constant, BOOST_SIMD_INTEGRAL_TYPES(char) )
+NT2_TEST_CASE_TPL( integral_constant, BOOST_SIMD_SIMD_INTEGRAL_TYPES )
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef boost::simd::native<T,ext_t>  n_t;

@@ -19,7 +19,7 @@
 
 #include "../constant.hpp"
 
-NT2_TEST_CASE_TPL( true_false, BOOST_SIMD_TYPES )
+NT2_TEST_CASE_TPL( true_false, BOOST_SIMD_SIMD_TYPES )
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef boost::simd::native<boost::simd::logical<T>,ext_t>  n_t;
