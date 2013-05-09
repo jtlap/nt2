@@ -11,24 +11,20 @@
 #include <boost/simd/arithmetic/functions/divs.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/simd/is_eqz.hpp>
+#include <boost/simd/include/functions/simd/is_nez.hpp>
 #include <boost/simd/include/functions/simd/divides.hpp>
 #include <boost/simd/include/functions/simd/is_ltz.hpp>
-#include <boost/simd/include/functions/simd/is_gez.hpp>
-#include <boost/simd/include/functions/simd/is_equal.hpp>
 #include <boost/simd/include/functions/simd/seladd.hpp>
+#include <boost/simd/include/functions/simd/if_zero_else.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/bitwise_xor.hpp>
+#include <boost/simd/include/functions/simd/bitwise_and.hpp>
+#include <boost/simd/include/functions/simd/complement.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/minus.hpp>
-#include <boost/simd/include/functions/simd/bitwise_and.hpp>
-#include <boost/simd/include/functions/simd/divides.hpp>
-#include <boost/simd/include/functions/simd/if_else.hpp>
-#include <boost/simd/include/functions/simd/if_else_zero.hpp>
-#include <boost/simd/include/functions/simd/logical_and.hpp>
 #include <boost/simd/include/constants/one.hpp>
-#include <boost/simd/include/constants/mone.hpp>
-#include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
