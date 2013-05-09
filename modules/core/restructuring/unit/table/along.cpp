@@ -11,13 +11,10 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/along.hpp>
 #include <nt2/include/functions/size.hpp>
-#include <nt2/include/functions/cat.hpp>
-#include <nt2/include/functions/isequal.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
 
 NT2_TEST_CASE_TPL( along_scalar, NT2_REAL_TYPES )
 {
@@ -51,7 +48,6 @@ NT2_TEST_CASE_TPL( along_scalar, NT2_REAL_TYPES )
   for(size_t k=1;k<= nt2::size(y, 4);++k)
   {
     std::cout << "page " << k << std::endl;
-    NT2_TEST_EQUAL(y(_, _, _, k).extent(), nt2::along(y, k, 4).extent());
     NT2_TEST_EQUAL(y(_, _, _, k), nt2::along(y, k, 4));
   }
 }
