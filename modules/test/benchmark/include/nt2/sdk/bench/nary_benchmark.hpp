@@ -21,6 +21,7 @@
 #include <boost/simd/include/functions/store.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <vector>
+#include <iostream>
 
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -41,48 +42,49 @@ namespace nt2 { namespace unit
 
 #define N BOOST_PP_ITERATION()
 
-#define M0(z,n,t)                                                   \
-typedef typename boost::dispatch                                    \
-                      ::meta::scalar_of<BOOST_PP_CAT(T,n)>::type    \
-                                              BOOST_PP_CAT(type,n); \
+#define M0(z,n,t)                                                              \
+typedef typename boost::dispatch                                               \
+                      ::meta::scalar_of<BOOST_PP_CAT(T,n)>::type               \
+                                              BOOST_PP_CAT(type,n);            \
 /**/
 
-#define M1(z,n,t)                                                     \
-typedef boost::simd::memory                                           \
-             ::allocator<BOOST_PP_CAT(type,n)> BOOST_PP_CAT(alloc,n); \
+#define M1(z,n,t)                                                              \
+typedef boost::simd::memory                                                    \
+             ::allocator<BOOST_PP_CAT(type,n)> BOOST_PP_CAT(alloc,n);          \
 /**/
 
-#define M2(z,n,t)                         \
-  BOOST_PP_CAT(type,n) BOOST_PP_CAT(mn,n) \
-, BOOST_PP_CAT(type,n) BOOST_PP_CAT(mx,n) \
-
-#define M3(z,n,t)                           \
-  BOOST_PP_CAT(rmin,n)(BOOST_PP_CAT(mn,n))  \
-, BOOST_PP_CAT(rmax,n)(BOOST_PP_CAT(mx,n))  \
+#define M2(z,n,t)                                                              \
+  BOOST_PP_CAT(type,n) BOOST_PP_CAT(mn,n)                                      \
+, BOOST_PP_CAT(type,n) BOOST_PP_CAT(mx,n)                                      \
 /**/
 
-#define M4(z,n,t)                                               \
-boost::simd::load<BOOST_PP_CAT(T,n)>(&BOOST_PP_CAT(in,n)[0],i)  \
+#define M3(z,n,t)                                                              \
+  BOOST_PP_CAT(rmin,n)(BOOST_PP_CAT(mn,n))                                     \
+, BOOST_PP_CAT(rmax,n)(BOOST_PP_CAT(mx,n))                                     \
 /**/
 
-#define M5(z,n,t)                                               \
-mutable std::vector<BOOST_PP_CAT(type,n),BOOST_PP_CAT(alloc,n)> \
-                                            BOOST_PP_CAT(in,n); \
+#define M4(z,n,t)                                                              \
+boost::simd::load<BOOST_PP_CAT(T,n)>(&BOOST_PP_CAT(in,n)[i])                   \
 /**/
 
-#define M6(z,n,t)                                                 \
-BOOST_PP_CAT(type,n) BOOST_PP_CAT(rmin,n), BOOST_PP_CAT(rmax,n);  \
+#define M5(z,n,t)                                                              \
+mutable std::vector<BOOST_PP_CAT(type,n),BOOST_PP_CAT(alloc,n)>                \
+                                            BOOST_PP_CAT(in,n);                \
 /**/
 
-#define M7(z,n,t)                                                         \
-BOOST_PP_CAT(in,n).resize(size);                                          \
-nt2::roll(BOOST_PP_CAT(in,n),BOOST_PP_CAT(rmin,n), BOOST_PP_CAT(rmax,n)); \
+#define M6(z,n,t)                                                              \
+BOOST_PP_CAT(type,n) BOOST_PP_CAT(rmin,n), BOOST_PP_CAT(rmax,n);               \
 /**/
 
-#define M8(z,n,t)                           \
-os << "("; print(BOOST_PP_CAT(rmin,n),os);  \
-os << ","; print(BOOST_PP_CAT(rmax,n),os);  \
-os << ") ";                                 \
+#define M7(z,n,t)                                                              \
+BOOST_PP_CAT(in,n).resize(size);                                               \
+nt2::roll(BOOST_PP_CAT(in,n),BOOST_PP_CAT(rmin,n), BOOST_PP_CAT(rmax,n));      \
+/**/
+
+#define M8(z,n,t)                                                              \
+os << "("; print(BOOST_PP_CAT(rmin,n),os);                                     \
+os << ","; print(BOOST_PP_CAT(rmax,n),os);                                     \
+os << ") ";                                                                    \
 /**/
 
 namespace nt2 { namespace unit
@@ -101,30 +103,29 @@ namespace nt2 { namespace unit
             ::result_of<Function(BOOST_PP_ENUM_PARAMS(N,T))>::type      v_t;
 
     typedef typename boost::dispatch::meta
-            ::result_of<Function(BOOST_PP_ENUM_PARAMS(N,type))>::type   out_t;
+            ::result_of<Function(BOOST_PP_ENUM_PARAMS(N,T))>::type   out_t;
 
     typedef typename Function::tag_type     tag_type;
     typedef typename Function::context_type context_type;
 
+    static const std::size_t card = boost::simd::meta::cardinal_of<T0>::value;
+
     nary_benchmark( BOOST_PP_ENUM(N,M2,~) )
         : details::base_experiment
-          ( 3. , type_id<tag_type(BOOST_PP_ENUM_PARAMS(N,T),context_type)>()
+          ( 1. , type_id<tag_type(BOOST_PP_ENUM_PARAMS(N,T),context_type)>()
           ,"cycles/value", &nt2::details::main_bench_suite
           )
         , size(1024), BOOST_PP_ENUM(N,M3,~)
     {
-      out.resize(size);
+      out.resize(size/card);
       BOOST_PP_REPEAT(N, M7, ~)
     }
 
     virtual void run() const
     {
-      static const std::size_t s = boost::simd::meta::cardinal_of<v_t>::value;
-      for ( std::size_t i=0; i < size; i += s)
+      for(std::size_t i=0, j=0; i < size; i += card,j++)
       {
-        boost::simd::store( func(BOOST_PP_ENUM(N,M4,~))
-                          , &out[0], i
-                          );
+        out[j] = func(BOOST_PP_ENUM(N,M4,~));
       }
     }
 
