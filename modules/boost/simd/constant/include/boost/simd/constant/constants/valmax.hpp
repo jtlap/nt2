@@ -71,13 +71,19 @@ namespace boost { namespace simd
       typedef double default_type;
       template<class Target, class Dummy=void>
       struct  apply
-            : meta::int_c < typename Target::type
-                          , ~ typename Target::
-                              type( typename Target::type(1)
-                                  << (sizeof(typename Target::type)*CHAR_BIT-1)
-                                  )
-                          >
-      {};
+      {
+        // MSVC has some problem parsing this directly as a base class ...
+        typedef typename Target::type target_t;
+        static const target_t value = ~(typename Target::type
+                                        (   typename Target::type(1)
+                                          <<  ( sizeof(typename Target::type)
+                                              * CHAR_BIT-1
+                                              )
+                                        )
+                                       );
+
+        typedef  meta::int_c < target_t, value> type;
+      };
     };
 
     template<class T, class Dummy>
