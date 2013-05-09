@@ -58,7 +58,7 @@ NT2_TEST_CASE_TPL( nan_value, BOOST_SIMD_REAL_TYPES )
 
 NT2_TEST_CASE(type_dependant_real)
 {
-  NT2_CHECK_CONSTANT(Twotonmb     , 4503599627370496  , double );
+  NT2_CHECK_CONSTANT(Twotonmb     , 4503599627370496. , double );
   NT2_CHECK_CONSTANT(Splitfactor  , 134217728.        , double );
   NT2_CHECK_CONSTANT(Twotonmb     , 8388608.f         , float );
   NT2_CHECK_CONSTANT(Splitfactor  , 8192.f            , float );
