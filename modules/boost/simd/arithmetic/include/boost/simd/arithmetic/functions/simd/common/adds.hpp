@@ -50,7 +50,6 @@ namespace boost { namespace simd { namespace ext
     {
       A0 a0pa1 = a0+a1;
       return a0pa1 | genmask(a0pa1 < a0);
-//      return if_else(lt(a0pa1, a0), Valmax<A0>(), a0pa1);
     }
   };
 
@@ -74,16 +73,6 @@ namespace boost { namespace simd { namespace ext
 
       return bitwise_cast<A0>(if_else(bitwise_cast<A0>((ux ^ uy) | ~(uy ^ res)) >=  Zero<A0>(), ux, res));
 
-
-
-
-//       typedef typename meta::as_logical<A0>::type bA0;
-//       bA0 gtza0 = is_gtz(a0);
-//       bA0 gtza1 = is_gtz(a1);
-//       A0 a0pa1 = a0+a1;
-//       bA0 test1 = logical_and(logical_and(gtza0, gtza1), lt(a0pa1, a0));
-//       bA0 test2 = logical_notand(logical_or(gtza0, gtza1), gt(a0pa1,a0));
-//       return if_else(test1,Valmax<A0>(),if_else(test2,Valmin<A0>(),a0pa1));
     }
   };
 } } }
