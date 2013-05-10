@@ -6,28 +6,25 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2::constants infinites"
-
 #include <nt2/include/constants/infinites.hpp>
+#include <nt2/include/constants/properties.hpp>
 #include <limits>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Test value of infinites for every base real types
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( real_inf, NT2_REAL_TYPES )
+#include "../constant.hpp"
+
+NT2_TEST_CASE_TPL( real_inf, BOOST_SIMD_REAL )
 {
-  NT2_TEST_EQUAL( nt2::Inf<T>() , std::numeric_limits<T>::infinity()  );
-  NT2_TEST_EQUAL( nt2::Minf<T>(), -std::numeric_limits<T>::infinity() );
+  NT2_CHECK_CONSTANT(Inf  ,   std::numeric_limits<T>::infinity(), T);
+  NT2_CHECK_CONSTANT(Minf ,  -std::numeric_limits<T>::infinity(), T);
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Test value of infinites for every base integral types
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( int_inf, NT2_INTEGRAL_TYPES )
+NT2_TEST_CASE_TPL( int_inf, BOOST_SIMD_INTEGRAL_TYPES(char) )
 {
-  NT2_TEST_EQUAL( nt2::Inf<T>() , nt2::Valmax<T>()  );
-  NT2_TEST_EQUAL( nt2::Minf<T>(), nt2::Valmin<T>()  );
+  NT2_CHECK_CONSTANT(Inf  , nt2::Valmax<T>()  , T);
+  NT2_CHECK_CONSTANT(Minf , nt2::Valmin<T>()  , T);
 }
+

@@ -6,93 +6,137 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 constants properties"
-
 #include <nt2/include/constants/properties.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/include/constants/real_splat.hpp>
+#include <boost/dispatch/meta/as_unsigned.hpp>
 
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+
+#include "../constant.hpp"
+
+ // unary minus applied to unsigned
 #ifdef BOOST_MSVC
-  #pragma warning(disable: 4146) // unary minus applied to unsigned
+  #pragma warning(disable: 4146)
 #endif
 
-////////////////////////////////////////////////////////////////////////////////
-// Test values for sigmask
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(signmask)
+NT2_TEST_CASE_TPL(allbits_real, BOOST_SIMD_REAL_TYPES)
 {
-  NT2_TEST_EQUAL( nt2::Signmask<double>(), -0.   );
-  NT2_TEST_EQUAL( nt2::Signmask<float>() , -0.f );
+  NT2_TEST_EXPR_TYPE( (nt2::Allbits<T>())
+                    , boost::mpl::_
+                    , T
+                    );
 
-  NT2_TEST_EQUAL( nt2::Signmask<nt2::uint64_t>(), 0u );
-  NT2_TEST_EQUAL( nt2::Signmask<nt2::uint32_t>(), 0u );
-  NT2_TEST_EQUAL( nt2::Signmask<nt2::uint16_t>(), 0u );
-  NT2_TEST_EQUAL( nt2::Signmask<nt2::uint8_t >(), 0u );
-
-  NT2_TEST_EQUAL( nt2::Signmask<nt2::int64_t>(), nt2::int64_t(0x8000000000000000LL) );
-  NT2_TEST_EQUAL( nt2::Signmask<nt2::int32_t>(), nt2::int32_t(0x80000000 )           );
-  NT2_TEST_EQUAL( nt2::Signmask<nt2::int16_t>(), nt2::int16_t(0x8000)  );
-  NT2_TEST_EQUAL( nt2::Signmask<nt2::int8_t >(), nt2::int8_t(0x80)    );
+  NT2_TEST( check_is_nan(nt2::Allbits<T>()) );
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Test values for valmax
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(valmax)
+NT2_TEST_CASE_TPL(allbits_unsigned, BOOST_SIMD_INTEGRAL_TYPES)
 {
-  NT2_TEST_EQUAL( nt2::Valmax<double>() , 1.7976931348623157e+308 );
-  NT2_TEST_EQUAL( nt2::Valmax<float>()  , float(3.4028235e+38)    );
-
-  NT2_TEST_EQUAL( nt2::Valmax<nt2::uint64_t>(), 0xFFFFFFFFFFFFFFFFULL  );
-  NT2_TEST_EQUAL( nt2::Valmax<nt2::uint32_t>(), 0xFFFFFFFFUL           );
-  NT2_TEST_EQUAL( nt2::Valmax<nt2::uint16_t>(), 0xFFFF                 );
-  NT2_TEST_EQUAL( nt2::Valmax<nt2::uint8_t >(), 0xFF                   );
-
-  NT2_TEST_EQUAL( nt2::Valmax<nt2::int64_t>(), 9223372036854775807LL);
-  NT2_TEST_EQUAL( nt2::Valmax<nt2::int32_t>(), 2147483647           );
-  NT2_TEST_EQUAL( nt2::Valmax<nt2::int16_t>(), 32767                );
-  NT2_TEST_EQUAL( nt2::Valmax<nt2::int8_t >(), 127                  );
+  NT2_CHECK_CONSTANT(Allbits , ~T(0UL) ,T);
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Test values for valmin
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(valmin)
+NT2_TEST_CASE_TPL(bitincrement_real, BOOST_SIMD_REAL_TYPES)
 {
-  NT2_TEST_EQUAL( nt2::Valmin<double>() , -1.7976931348623157e+308);
-  NT2_TEST_EQUAL( nt2::Valmin<float>()  , float(-3.4028235e+38)   );
+  NT2_TEST_EXPR_TYPE( (nt2::Bitincrement<T>())
+                    , boost::mpl::_
+                    , T
+                    );
 
-  NT2_TEST_EQUAL( nt2::Valmin<nt2::uint64_t>(), 0u );
-  NT2_TEST_EQUAL( nt2::Valmin<nt2::uint32_t>(), 0u  );
-  NT2_TEST_EQUAL( nt2::Valmin<nt2::uint16_t>(), 0u  );
-  NT2_TEST_EQUAL( nt2::Valmin<nt2::uint8_t >(), 0u  );
-
-  NT2_TEST_EQUAL( nt2::Valmin<nt2::int64_t>(), int64_t(-9223372036854775808ULL) );
-  NT2_TEST_EQUAL( nt2::Valmin<nt2::int32_t>(), int32_t(-2147483648UL)           );
-  NT2_TEST_EQUAL( nt2::Valmin<nt2::int16_t>(), int16_t(-32768)                  );
-  NT2_TEST_EQUAL( nt2::Valmin<nt2::int8_t >(), int8_t (-128)                    );
+  NT2_TEST_EQUAL( nt2::Bitincrement<T>()
+                , (nt2::real_constant<T,1,1>())
+                );
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Test values for maxleftshift
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(maxleftshift)
+NT2_TEST_CASE_TPL(bitincrement_unsigned, BOOST_SIMD_INTEGRAL_TYPES)
 {
-  NT2_TEST_EQUAL( nt2::Maxleftshift<double>()       , 63 );
-  NT2_TEST_EQUAL( nt2::Maxleftshift<float>()        , 31 );
-  NT2_TEST_EQUAL( nt2::Maxleftshift<nt2::uint64_t>(), 63 );
-  NT2_TEST_EQUAL( nt2::Maxleftshift<nt2::uint32_t>(), 31 );
-  NT2_TEST_EQUAL( nt2::Maxleftshift<nt2::uint16_t>(), 15 );
-  NT2_TEST_EQUAL( nt2::Maxleftshift<nt2::uint8_t >(), 7  );
-  NT2_TEST_EQUAL( nt2::Maxleftshift<nt2::int64_t>() , 63 );
-  NT2_TEST_EQUAL( nt2::Maxleftshift<nt2::int32_t>() , 31 );
-  NT2_TEST_EQUAL( nt2::Maxleftshift<nt2::int16_t>() , 15 );
-  NT2_TEST_EQUAL( nt2::Maxleftshift<nt2::int8_t >() , 7  );
+  NT2_CHECK_CONSTANT(Bitincrement , T(1) ,T);
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Test values for IEEE specs
-////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE(signmask_real)
+{
+  NT2_CHECK_CONSTANT(Signmask , -0. ,double);
+  NT2_CHECK_CONSTANT(Signmask , -0.f,float);
+}
+
+NT2_TEST_CASE_TPL(signmask_unsigned, BOOST_SIMD_UNSIGNED_TYPES)
+{
+  NT2_CHECK_CONSTANT(Signmask , T(0) ,T);
+}
+
+NT2_TEST_CASE_TPL(signmask_signed, BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+{
+  NT2_CHECK_CONSTANT(Signmask, (T(1) << (CHAR_BIT*sizeof(T)-1)) ,T);
+}
+
+NT2_TEST_CASE(sqrtvalmax_real)
+{
+  NT2_CHECK_CONSTANT(Sqrtvalmax , 1.3407807929942600077e+154, double);
+  NT2_CHECK_CONSTANT(Sqrtvalmax , 18446744073709551616.f    , float);
+}
+
+NT2_TEST_CASE_TPL(sqrtvalmax_unsigned, BOOST_SIMD_UNSIGNED_TYPES)
+{
+  NT2_CHECK_CONSTANT(Sqrtvalmax , T( (T(1) << (CHAR_BIT*sizeof(T)/2))-1) ,T);
+}
+
+NT2_TEST_CASE(sqrtvalmax_signed)
+{
+  NT2_CHECK_CONSTANT(Sqrtvalmax, 3037000499ll , nt2::int64_t);
+  NT2_CHECK_CONSTANT(Sqrtvalmax,      46340   , nt2::int32_t);
+  NT2_CHECK_CONSTANT(Sqrtvalmax,        181   , nt2::int16_t);
+  NT2_CHECK_CONSTANT(Sqrtvalmax,         11   , nt2::int8_t );
+}
+
+NT2_TEST_CASE(valmax_real)
+{
+  NT2_CHECK_CONSTANT(Valmax , 1.7976931348623157e+308 , double);
+  NT2_CHECK_CONSTANT(Valmax , float(3.4028235e+38)    , float);
+}
+
+NT2_TEST_CASE_TPL(valmax_unsigned, BOOST_SIMD_UNSIGNED_TYPES)
+{
+  NT2_CHECK_CONSTANT(Valmax , T(~(T(0))) ,T);
+}
+
+NT2_TEST_CASE_TPL(valmax_signed, BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+{
+  NT2_CHECK_CONSTANT(Valmax, T(~(T(1) << (CHAR_BIT*sizeof(T)-1))),T);
+}
+
+NT2_TEST_CASE(valmin_real)
+{
+  NT2_CHECK_CONSTANT(Valmin , -1.7976931348623157e+308 , double);
+  NT2_CHECK_CONSTANT(Valmin , float(-3.4028235e+38)    , float);
+}
+
+NT2_TEST_CASE_TPL(valmin_unsigned, BOOST_SIMD_UNSIGNED_TYPES)
+{
+  NT2_CHECK_CONSTANT(Valmin , T(0) ,T);
+}
+
+NT2_TEST_CASE_TPL(valmin_signed, BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+{
+  typedef typename boost::dispatch::meta::as_unsigned<T>::type u_t;
+
+  NT2_CHECK_CONSTANT(Valmin, T( -u_t(T(1) << (CHAR_BIT*sizeof(T)-1)) ),T);
+}
+
+NT2_TEST_CASE_TPL(Maxleftshift, BOOST_SIMD_TYPES)
+{
+  using boost::dispatch::meta::as_integer;
+
+  NT2_TEST_EXPR_TYPE( nt2::Maxleftshift<T>()
+                    , boost::mpl::_
+                    , (typename as_integer<T,signed>::type)
+                    );
+
+  NT2_TEST_EQUAL( nt2::Maxleftshift<T>()
+                , (typename as_integer<T,signed>::type(CHAR_BIT*sizeof(T)-1))
+                );
+}
+
 NT2_TEST_CASE(ieee)
 {
   NT2_TEST_EQUAL( nt2::Nbmantissabits<double>() , 52);
@@ -112,4 +156,14 @@ NT2_TEST_CASE(ieee)
 
   NT2_TEST_EQUAL( nt2::Nbdigits<double>(), 53 );
   NT2_TEST_EQUAL( nt2::Nbdigits<float>() , 24 );
+}
+
+NT2_TEST_CASE_TPL(ieee_ints, BOOST_SIMD_INTEGRAL_TYPES)
+{
+  NT2_CHECK_CONSTANT(Nbmantissabits , T(sizeof(T)*CHAR_BIT) , T);
+  NT2_CHECK_CONSTANT(Nbexponentbits , T(0)                  , T);
+  NT2_CHECK_CONSTANT(Maxexponent    , T(0)                  , T);
+  NT2_CHECK_CONSTANT(Minexponent    , T(0)                  , T);
+  NT2_CHECK_CONSTANT(Ldexpmask      , T(0)                  , T);
+  NT2_CHECK_CONSTANT(Nbdigits       , T(0)                  , T);
 }
