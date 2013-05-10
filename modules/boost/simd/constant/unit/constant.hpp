@@ -12,8 +12,20 @@
 template<typename T> inline bool check_is_nan(T v) { return v!=v; }
 
 #define NT2_CHECK_CONSTANT(CONSTANT,VALUE, TYPE)                               \
-NT2_TEST_EXPR_TYPE(boost::simd::CONSTANT<TYPE>(), boost::mpl::_, TYPE);        \
-NT2_TEST_EQUAL( boost::simd::CONSTANT<TYPE>(),boost::simd::splat<TYPE>(VALUE)) \
+NT2_TEST_EXPR_TYPE( boost::simd::CONSTANT<TYPE>()                              \
+                  , boost::mpl::_                                              \
+                  , TYPE                                                       \
+                  );                                                           \
+NT2_TEST_EXPR_TYPE( boost::simd::CONSTANT(boost::dispatch::meta::as_<TYPE>())  \
+                  , boost::mpl::_                                              \
+                  , TYPE                                                       \
+                  );                                                           \
+NT2_TEST_EQUAL( boost::simd::CONSTANT<TYPE>()                                  \
+              , boost::simd::splat<TYPE>(VALUE)                                \
+              );                                                               \
+NT2_TEST_EQUAL( boost::simd::CONSTANT(boost::dispatch::meta::as_<TYPE>())      \
+              , boost::simd::splat<TYPE>(VALUE)                                \
+              )                                                                \
 /**/
 
 #endif
