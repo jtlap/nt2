@@ -26,7 +26,7 @@
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/plus.hpp>
 #include <nt2/include/functions/zeros.hpp>
-#include <nt2/include/constants/oneo_10.hpp>
+#include <nt2/include/functions/oneo_10.hpp>
 #include <nt2/include/constants/sqrteps.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/mhalf.hpp>
@@ -85,8 +85,8 @@ namespace nt2 { namespace details
     array_t xi = nt2::eye(n, n, meta::as_<float_t>());
     array_t A(of_size(n, n));
     array_t xk = x(nt2::_);
-    array_t d = repnum(nt2::Oneo_10<float_t>(), n, 1);
-    array_t lambda = nt2::zeros(nt2::of_size(n, 1));
+    array_t d = nt2::oneo_10(n, 1, meta::as_<float_t>());
+    array_t lambda = nt2::zeros(nt2::of_size(n, 1), meta::as_<float_t>());
     nbeval = 1;
     float_t yprev = nt2::Inf<float_t>();
     float_t yfirstfirst = crit(x);

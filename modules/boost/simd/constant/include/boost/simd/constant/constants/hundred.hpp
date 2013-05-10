@@ -57,7 +57,9 @@ namespace boost { namespace simd
      * \brief Define the tag Hundred of functor Hundred
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    BOOST_SIMD_CONSTANT_REGISTER(Hundred,int,100, 0x42c80000, 0x4059000000000000ll)
+    BOOST_SIMD_CONSTANT_REGISTER( Hundred,double
+                                , 100, 0x42c80000, 0x4059000000000000ll
+                                );
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Hundred, Hundred)

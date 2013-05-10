@@ -57,7 +57,7 @@ namespace boost { namespace simd
      * \brief Define the tag Mnine of functor Mnine
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    BOOST_SIMD_CONSTANT_REGISTER( Mnine , int, -9
+    BOOST_SIMD_CONSTANT_REGISTER( Mnine , double, -9
                                 , 0xc1100000UL, 0xc022000000000000ULL
                                 );
   }

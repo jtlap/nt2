@@ -65,6 +65,8 @@ namespace boost { namespace simd
     struct Allbits : ext::pure_constant_<Allbits>
     {
       typedef double default_type;
+      typedef ext::pure_constant_<Allbits> parent;
+
       template<class Target, class Dummy=void>
       struct  apply
             : meta::int_c<typename Target::type, -1>

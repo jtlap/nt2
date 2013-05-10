@@ -66,6 +66,9 @@ namespace boost { namespace simd
 
     struct Bitincrement : ext::pure_constant_<Bitincrement>
     {
+      typedef double default_type;
+      typedef ext::pure_constant_<Bitincrement> parent;
+
       template<class Target, class Dummy=void>
       struct apply : meta::int_c<typename Target::type,1> {};
     };

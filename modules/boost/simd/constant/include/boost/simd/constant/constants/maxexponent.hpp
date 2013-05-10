@@ -63,6 +63,9 @@ namespace boost { namespace simd
     **/
     struct Maxexponent : ext::pure_constant_<Maxexponent>
     {
+      typedef double default_type;
+      typedef ext::pure_constant_<Maxexponent> parent;
+
       template<class Target, class Dummy=void>
       struct  apply : meta::int_c<typename Target::type,0> {};
     };

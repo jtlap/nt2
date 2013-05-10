@@ -57,7 +57,9 @@ namespace boost { namespace simd
      * \brief Define the tag Four of functor Four
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    BOOST_SIMD_CONSTANT_REGISTER(Four,int,4,0x40800000UL,0x4010000000000000ULL);
+    BOOST_SIMD_CONSTANT_REGISTER( Four,double
+                                , 4,0x40800000UL,0x4010000000000000ULL
+                                );
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Four, Four)

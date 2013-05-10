@@ -65,6 +65,9 @@ namespace boost { namespace simd
     **/
     struct Signmask : ext::pure_constant_<Signmask>
     {
+      typedef double default_type;
+      typedef ext::pure_constant_<Signmask> parent;
+
       template<class Target, class Dummy=void>
       struct apply : meta::int_c<typename Target::type,0> {};
     };

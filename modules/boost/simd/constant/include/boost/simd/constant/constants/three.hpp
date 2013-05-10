@@ -57,7 +57,7 @@ namespace boost { namespace simd
      * \brief Define the tag Three of functor Three
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    BOOST_SIMD_CONSTANT_REGISTER( Three, int, 3
+    BOOST_SIMD_CONSTANT_REGISTER( Three, double, 3
                                 , 0x40400000UL, 0x4008000000000000ULL
                                 );
   }

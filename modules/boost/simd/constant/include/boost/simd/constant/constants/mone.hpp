@@ -57,7 +57,7 @@ namespace boost { namespace simd
      * \brief Define the tag Mone of functor Mone
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    BOOST_SIMD_CONSTANT_REGISTER( Mone, int, -1
+    BOOST_SIMD_CONSTANT_REGISTER( Mone, double, -1
                                 , 0xbf800000UL, 0xbff0000000000000ULL
                                 );
   }

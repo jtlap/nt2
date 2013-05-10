@@ -57,7 +57,7 @@ namespace boost { namespace simd
      * \brief Define the tag Eleven of functor Eleven
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    BOOST_SIMD_CONSTANT_REGISTER( Eleven, int, 11
+    BOOST_SIMD_CONSTANT_REGISTER( Eleven, double, 11
                                 ,0x41300000,0x4026000000000000ll
                                 );
   }

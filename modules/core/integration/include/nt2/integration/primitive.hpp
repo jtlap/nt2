@@ -14,7 +14,6 @@
  */
 
 #include <nt2/integration/interface.hpp>
-#include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/constants/zero.hpp>
@@ -41,7 +40,7 @@ namespace nt2
     size_t fcnt = 0;
     if (numel(x) == 0)
     {
-      result_type r = { nt2::zeros(nt2::of_size(1, 0)), err, 0, true, 0};
+      result_type r = { rtab_t(), err, 0, true, 0};
       return r;
     }
     res(1) =  nt2::Zero<result_t>();

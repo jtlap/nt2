@@ -59,6 +59,9 @@ namespace boost { namespace simd
     **/
     struct Minexponent : ext::pure_constant_<Minexponent>
     {
+      typedef double default_type;
+      typedef ext::pure_constant_<Minexponent> parent;
+
       template<class Target, class Dummy=void>
       struct  apply : meta::int_c<typename Target::type,0> {};
     };

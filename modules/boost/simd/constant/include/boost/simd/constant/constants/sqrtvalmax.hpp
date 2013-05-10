@@ -61,6 +61,8 @@ namespace boost { namespace simd
     struct Sqrtvalmax : ext::pure_constant_<Sqrtvalmax>
     {
       typedef double default_type;
+      typedef ext::pure_constant_<Sqrtvalmax> parent;
+
       template<class Target, class Dummy=void>
       struct  apply
             : meta::int_c < typename Target::type

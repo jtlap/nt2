@@ -57,7 +57,7 @@ namespace boost { namespace simd
      * \brief Define the tag Mtwo of functor Mtwo
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    BOOST_SIMD_CONSTANT_REGISTER( Mtwo, int, -2
+    BOOST_SIMD_CONSTANT_REGISTER( Mtwo, double, -2
                                 , 0xc0000000UL, 0xc000000000000000ULL
                                 );
   }

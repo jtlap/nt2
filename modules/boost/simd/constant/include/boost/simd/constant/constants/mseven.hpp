@@ -57,7 +57,7 @@ namespace boost { namespace simd
      * \brief Define the tag Mseven of functor Mseven
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    BOOST_SIMD_CONSTANT_REGISTER( Mseven, int, -7
+    BOOST_SIMD_CONSTANT_REGISTER( Mseven, double, -7
                                 , 0xc0e00000UL, 0xc01c000000000000ULL
                                 );
   }

@@ -57,7 +57,7 @@ namespace boost { namespace simd
      * \brief Define the tag Moneo_6 of functor Moneo_6
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    BOOST_SIMD_CONSTANT_REGISTER( Moneo_6, int, 0, 0xBE2AAAAB
+    BOOST_SIMD_CONSTANT_REGISTER( Moneo_6, double, 0, 0xBE2AAAAB
                                 , 0xBFC5555555555555LL
                                 );
   }

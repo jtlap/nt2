@@ -120,10 +120,10 @@ namespace nt2 { namespace details
 //         mfit+= ba(i);
 //       }
 
-    atry = zeros(numel(aa), 1);
-    da =   zeros(numel(aa), 1);
-    beta = zeros(mfit, 1);
-    oneda= zeros(mfit, 1);
+    atry = zeros(numel(aa), 1, meta::as_<float_t>());
+    da =   zeros(numel(aa), 1, meta::as_<float_t>());
+    beta = zeros(mfit, 1, meta::as_<float_t>());
+    oneda= zeros(mfit, 1, meta::as_<float_t>());
     chisq =  Mone<float_t>();
 
 //    eval<table_t,table_t,FUNC>::DoEval(fvec,crit,aa);
@@ -148,8 +148,8 @@ namespace nt2 { namespace details
   {
     const btable_t& ia = *pia;
     size_t na = numel(a);
-    alph = nt2::zeros(nt2::of_size(na, na));
-    bet =  zeros(nt2::of_size(na, 1));
+    alph = nt2::zeros(nt2::of_size(na, na), meta::as_<float_t>());
+    bet =  zeros(nt2::of_size(na, 1), meta::as_<float_t>());
     chisq =  Zero<float_t>();
     fvec = crit(a);
 //    eval<array_t,array_t,FUNC>::DoEval(fvec,crit,a);

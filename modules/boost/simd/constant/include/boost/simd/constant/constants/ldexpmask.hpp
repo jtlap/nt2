@@ -66,8 +66,11 @@ namespace boost { namespace simd
     **/
     struct Ldexpmask : ext::pure_constant_<Ldexpmask>
     {
+      typedef double default_type;
+      typedef ext::pure_constant_<Ldexpmask> parent;
+
       template<class Target, class Dummy=void>
-      struct  apply : meta::int_c<typename Target::type,0> {};
+      struct  apply :  meta::int_c<typename Target::type,0> {};
     };
 
     template<class T, class Dummy>
