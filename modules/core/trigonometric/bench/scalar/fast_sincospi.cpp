@@ -31,12 +31,12 @@ using nt2::tag::fast_sincospi_;
 namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(fast_sincospi_,(RS(T,T(0.25),T(0.25))))
+  NT2_TIMING(fast_sincospi_,(RS(T,T(-0.25),T(0.25))))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(fast_sincospi_,(RS(T,T(0.25),T(0.25))))
+  NT2_TIMING(fast_sincospi_,(RS(T,T(-0.25),T(0.25))))
 }
 
 #undef RS
