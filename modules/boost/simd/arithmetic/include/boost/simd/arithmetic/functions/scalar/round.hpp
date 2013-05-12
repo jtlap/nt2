@@ -15,6 +15,7 @@
 #include <boost/simd/include/functions/scalar/bitofsign.hpp>
 #include <boost/simd/include/constants/maxflint.hpp>
 #include <boost/simd/include/constants/half.hpp>
+#include <boost/simd/sdk/math.hpp>
 #include <cmath>
 
 namespace boost { namespace simd { namespace ext
