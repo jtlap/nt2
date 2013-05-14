@@ -10,7 +10,6 @@
 #define NT2_CORE_FUNCTIONS_COMMON_ZERO_CROSSING_RATE_HPP_INCLUDED
 
 #include <nt2/signal/functions/zero_crossing_rate.hpp>
-#include <nt2/core/container/dsl.hpp>
 #include <nt2/include/constants/zero.hpp>
 
 namespace nt2 { namespace ext
