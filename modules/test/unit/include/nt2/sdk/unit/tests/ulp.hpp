@@ -21,6 +21,8 @@
 #include <nt2/sdk/unit/details/eval.hpp>
 #include <nt2/sdk/unit/details/ulp.hpp>
 #include <boost/current_function.hpp>
+#include <boost/foreach.hpp>
+#include <boost/typeof/typeof.hpp>
 
 namespace nt2 { namespace details
 {
