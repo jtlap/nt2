@@ -19,6 +19,8 @@ get_filename_component(CTEST_MEMORYCHECK_SUPPRESSIONS_FILE ${CTEST_SOURCE_DIRECT
 list(APPEND CTEST_CUSTOM_WARNING_EXCEPTION "You are using gcc version \".*\"")
 list(APPEND CTEST_CUSTOM_WARNING_EXCEPTION "[0-9]+ shortened to [0-9]+")
 
+set(CTEST_CUSTOM_POST_TEST "${CTEST_SOURCE_DIRECTORY}/cmake/bench/CDashBench/benchLauncher.py")
+
 # SITE is host name
 execute_process(COMMAND hostname OUTPUT_VARIABLE HOST OUTPUT_STRIP_TRAILING_WHITESPACE)
 string(REGEX REPLACE "\\.local$" "" HOST ${HOST})
