@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2013 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2013        MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -10,25 +11,28 @@
 #define BOOST_SIMD_SDK_CONSTANT_CONSTANT_HPP_INCLUDED
 
 /*!
- * \file
- * \brief Defines the BOOST_SIMD_CONSTANT_IMPLEMENTATION macro
- */
+  @file
+  @brief Defines the BOOST_SIMD_CONSTANT_IMPLEMENTATION macro
+**/
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/dispatch/functor/functor.hpp>
 #include <boost/simd/operator/functions/map.hpp>
 
-//==============================================================================
-// Define hierarchy for constant tags
-//==============================================================================
 namespace boost { namespace dispatch { namespace meta
 {
-  template<class T>
+  /*!
+    @brief Constant hierarchy
+  **/
+  template<typename T>
   struct constant_ : elementwise_<T>
   {
     typedef elementwise_<T> parent;
   };
 
-  template<class T>
+  /*!
+    @brief Pure constant hierarchy
+  **/
+  template<typename T>
   struct pure_constant_ : constant_<T>
   {
     typedef constant_<T> parent;
@@ -43,30 +47,30 @@ namespace boost { namespace simd { namespace ext
 
 //==============================================================================
 /*!
- * Generate a constant function with a given \c NAME tied to a given constant
- * ID \c TAG
+ * Generate a constant function with a given c NAME tied to a given constant
+ * ID c TAG
  *
- * \param TAG ID of the constant to wrap
- * \param NAME Name of the function to build
+ * param TAG ID of the constant to wrap
+ * param NAME Name of the function to build
  */
 //==============================================================================
-#if defined(DOXYGEN_ONLY)
-#define BOOST_SIMD_CONSTANT_IMPLEMENTATION(TAG,NAME)                \
-template<class Target> BOOST_DISPATCH_FORCE_INLINE                  \
-unspecified NAME();                                                 \
+#define BOOST_SIMD_CONSTANT_IMPLEMENTATION(TAG,NAME)                           \
+template<typename Target> BOOST_DISPATCH_FORCE_INLINE                          \
+typename boost::dispatch::meta::                                               \
+call<TAG(boost::dispatch::meta::as_<Target> const&)>::type                     \
+NAME()                                                                         \
+{                                                                              \
+  typename boost::dispatch::make_functor<TAG, Target>::type callee;            \
+  return callee( boost::dispatch::meta::as_<Target>() );                       \
+}                                                                              \
+template<typename Target> BOOST_DISPATCH_FORCE_INLINE                          \
+typename boost::dispatch::meta::                                               \
+call<TAG(boost::dispatch::meta::as_<Target> const&)>::type                     \
+NAME(boost::dispatch::meta::as_<Target> const& tgt)                            \
+{                                                                              \
+  typename boost::dispatch::make_functor<TAG, Target>::type callee;            \
+  return callee( tgt );                                                        \
+}
 /**/
-#else
-#define BOOST_SIMD_CONSTANT_IMPLEMENTATION(TAG,NAME)                \
-template<class Target> BOOST_DISPATCH_FORCE_INLINE                  \
-typename boost::dispatch::meta::                                    \
-call<TAG(boost::dispatch::meta::as_<Target>)>::type                 \
-NAME()                                                              \
-{                                                                   \
-  typename boost::dispatch::make_functor<TAG, Target>::type callee; \
-  return callee( boost::dispatch::meta::as_<Target>() );            \
-}                                                                   \
-/**/
-
-#endif
 
 #endif

@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
                             , (generic_< floating_<A0> >)
                             )
   {
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
     typedef typename boost::simd::meta::is_native<A0>::type is_native_t;
     NT2_FUNCTOR_CALL(1)
     {

@@ -71,13 +71,19 @@ namespace boost { namespace simd
       typedef double default_type;
       template<class Target, class Dummy=void>
       struct  apply
-            : meta::int_c < typename Target::type
-                          , typename Target::
-                            type( typename Target::type(1)
-                                  << (sizeof(typename Target::type)*CHAR_BIT-1)
-                                )
-                          >
-      {};
+      {
+        // MSVC has some problem parsing this directly as a base class ...
+        typedef typename Target::type target_t;
+        static const target_t value = ~(typename Target::type
+                                        (   typename Target::type(1)
+                                          <<  ( sizeof(typename Target::type)
+                                              * CHAR_BIT-1
+                                              )
+                                        )
+                                       );
+
+        typedef  meta::int_c < target_t, value> type;
+      };
     };
 
     template<class T, class Dummy>
@@ -103,22 +109,6 @@ namespace boost { namespace simd
     template<class T, class Dummy>
     struct  Valmax::apply<boost::dispatch::meta::uint64_<T>,Dummy>
           : meta::int_c<T, 0xFFFFFFFFFFFFFFFFULL> {};
-
-    template<class T, class Dummy>
-    struct  Valmax::apply<boost::dispatch::meta::int8_<T>,Dummy>
-          : meta::int_c<T, 127> {};
-
-    template<class T, class Dummy>
-    struct  Valmax::apply<boost::dispatch::meta::int16_<T>,Dummy>
-          : meta::int_c<T, 32767> {};
-
-    template<class T, class Dummy>
-    struct  Valmax::apply<boost::dispatch::meta::int32_<T>,Dummy>
-          : meta::int_c<T, 2147483647> {};
-
-    template<class T, class Dummy>
-    struct  Valmax::apply<boost::dispatch::meta::int64_<T>,Dummy>
-          : meta::int_c<T, 9223372036854775807ULL> {};
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Valmax, Valmax)

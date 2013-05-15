@@ -6,77 +6,152 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 constants simd properties"
-
 #include <boost/simd/include/constants/properties.hpp>
+#include <boost/simd/include/functions/splat.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
-#include <boost/simd/sdk/simd/native.hpp>
-#include <boost/dispatch/meta/as_unsigned.hpp>
+#include "../constant.hpp"
 
+// unary minus applied to unsigned
 #ifdef BOOST_MSVC
-  #pragma warning(disable: 4146) // unary minus applied to unsigned
+  #pragma warning(disable: 4146)
 #endif
 
-////////////////////////////////////////////////////////////////////////////////
-// Test values for sigmask
-////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL(allbits, BOOST_SIMD_SIMD_TYPES)
+{
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef boost::simd::native<T,ext_t>  n_t;
+
+  NT2_CHECK_CONSTANT(Allbits , boost::simd::Allbits<T>() , T);
+}
+
+NT2_TEST_CASE_TPL(bitincrement, BOOST_SIMD_SIMD_TYPES)
+{
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef boost::simd::native<T,ext_t>  n_t;
+
+  NT2_CHECK_CONSTANT(Bitincrement , boost::simd::Bitincrement<T>() , T);
+}
+
 NT2_TEST_CASE_TPL(signmask, BOOST_SIMD_SIMD_TYPES)
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef boost::simd::native<T,ext_t> vd_t;
-  for(std::size_t i=0; i< boost::simd::meta::cardinal_of<vd_t>::value;++i)
-    NT2_TEST_EQUAL( (boost::simd::Signmask<vd_t>())[i], boost::simd::Signmask<T>() );
+  typedef boost::simd::native<T,ext_t>  n_t;
+
+  NT2_CHECK_CONSTANT(Signmask , boost::simd::Signmask<T>() , T);
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Test values for valmax
-////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL(sqrtvalmax, BOOST_SIMD_SIMD_TYPES)
+{
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef boost::simd::native<T,ext_t>  n_t;
+
+  NT2_CHECK_CONSTANT(Sqrtvalmax , boost::simd::Sqrtvalmax<T>() , T);
+}
+
 NT2_TEST_CASE_TPL(valmax, BOOST_SIMD_SIMD_TYPES)
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef boost::simd::native<T,ext_t> vd_t;
-  for(std::size_t i=0; i< boost::simd::meta::cardinal_of<vd_t>::value;++i)
-    NT2_TEST_EQUAL( (boost::simd::Valmax<vd_t>())[i], boost::simd::Valmax<T>() );
+  typedef boost::simd::native<T,ext_t>  n_t;
+
+  NT2_CHECK_CONSTANT(Valmax , boost::simd::Valmax<T>() , T);
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Test values for valmin
-////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(valmin, BOOST_SIMD_SIMD_TYPES)
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef boost::simd::native<T,ext_t> vd_t;
-  for(std::size_t i=0; i< boost::simd::meta::cardinal_of<vd_t>::value;++i)
-    NT2_TEST_EQUAL( (boost::simd::Valmin<vd_t>())[i], boost::simd::Valmin<T>() );
+  typedef boost::simd::native<T,ext_t>  n_t;
+
+  NT2_CHECK_CONSTANT(Valmin , boost::simd::Valmin<T>() , T);
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Test values for maxleftshift
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(Maxleftshift, BOOST_SIMD_SIMD_TYPES)
+NT2_TEST_CASE_TPL(maxleftshift, BOOST_SIMD_SIMD_TYPES)
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef boost::simd::native<T,ext_t> vd_t;
-  for(std::size_t i=0; i< boost::simd::meta::cardinal_of<vd_t>::value;++i)
-    NT2_TEST_EQUAL( (boost::simd::Maxleftshift<vd_t>())[i], boost::simd::Maxleftshift<T>() );
+  typedef boost::simd::native<T,ext_t>  n_t;
+
+  typedef typename boost::dispatch::meta::as_integer<n_t,signed>::type result_type;
+  NT2_TEST_EXPR_TYPE( boost::simd::Maxleftshift<n_t>()
+                    , boost::mpl::_
+                    , (result_type)
+                    );
+
+  NT2_TEST_EQUAL( boost::simd::Maxleftshift<n_t>()
+                , boost::simd::splat<result_type>(boost::simd::Maxleftshift<T>())
+                );
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Test values for IEEE specs
-////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(ieee, BOOST_SIMD_SIMD_TYPES)
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef boost::simd::native<T,ext_t> vd_t;
-  for(std::size_t i=0; i< boost::simd::meta::cardinal_of<vd_t>::value;++i)
-  {
-    NT2_TEST_EQUAL( (boost::simd::Nbmantissabits<vd_t>())[i], boost::simd::Nbmantissabits<T>() );
-    NT2_TEST_EQUAL( (boost::simd::Nbexponentbits<vd_t>())[i], boost::simd::Nbexponentbits<T>() );
-    NT2_TEST_EQUAL( (boost::simd::Maxexponent<vd_t>())[i], boost::simd::Maxexponent<T>() );
-    NT2_TEST_EQUAL( (boost::simd::Minexponent<vd_t>())[i], boost::simd::Minexponent<T>() );
-    NT2_TEST_EQUAL( (boost::simd::Ldexpmask<vd_t>())[i], boost::simd::Ldexpmask<T>() );
-    NT2_TEST_EQUAL( (boost::simd::Nbdigits<vd_t>())[i], boost::simd::Nbdigits<T>() );
-  }
+  typedef boost::simd::native<T,ext_t>  n_t;
+
+  typedef typename boost::dispatch::meta
+                                  ::as_integer<n_t>::type type;
+
+  typedef typename boost::dispatch::meta
+                                  ::as_integer<n_t,signed>::type s_type;
+
+  NT2_TEST_EXPR_TYPE( boost::simd::Nbmantissabits<n_t>()
+                    , boost::mpl::_
+                    , (type)
+                    );
+
+  NT2_TEST_EXPR_TYPE( boost::simd::Nbexponentbits<n_t>()
+                    , boost::mpl::_
+                    , (type)
+                    );
+
+
+  NT2_TEST_EXPR_TYPE( boost::simd::Maxexponent<n_t>()
+                    , boost::mpl::_
+                    , (type)
+                    );
+
+
+  NT2_TEST_EXPR_TYPE( boost::simd::Minexponent<n_t>()
+                    , boost::mpl::_
+                    , (type)
+                    );
+
+
+  NT2_TEST_EXPR_TYPE( boost::simd::Ldexpmask<n_t>()
+                    , boost::mpl::_
+                    , (type)
+                    );
+
+
+  NT2_TEST_EXPR_TYPE( boost::simd::Nbdigits<n_t>()
+                    , boost::mpl::_
+                    , (type)
+                    );
+
+  NT2_TEST_EQUAL( boost::simd::Nbmantissabits<n_t>()
+                , boost::simd::splat<type>(boost::simd::Nbmantissabits<T>())
+                );
+
+  NT2_TEST_EQUAL( boost::simd::Nbexponentbits<n_t>()
+                , boost::simd::splat<type>(boost::simd::Nbexponentbits<T>())
+                );
+
+  NT2_TEST_EQUAL( boost::simd::Maxexponent<n_t>()
+                , boost::simd::splat<type>(boost::simd::Maxexponent<T>())
+                );
+
+  NT2_TEST_EQUAL( boost::simd::Minexponent<n_t>()
+                , boost::simd::splat<type>(boost::simd::Minexponent<T>())
+                );
+
+  NT2_TEST_EQUAL( boost::simd::Ldexpmask<n_t>()
+                , boost::simd::splat<type>(boost::simd::Ldexpmask<T>())
+                );
+
+  NT2_TEST_EQUAL( boost::simd::Nbdigits<n_t>()
+                , boost::simd::splat<type>(boost::simd::Nbdigits<T>())
+                );
 }

@@ -16,6 +16,6 @@ template<class T> double ulpdist(T a0, T a1)
 
   T e = (e1 == e2) ? std::abs(m1-m2) : std::abs(n1-n2); /*<Compute the absolute difference of the normalized numbers>*/
 
-  return double(e/std::numeric_limits<T>::epsilon()); /*< Return the distance in ULP by diving this difference by the machien epsilon>*/
+  return double(e/std::numeric_limits<T>::epsilon()); /*< Return the distance in ULP by diving this difference by the machine epsilon>*/
 }
 //]

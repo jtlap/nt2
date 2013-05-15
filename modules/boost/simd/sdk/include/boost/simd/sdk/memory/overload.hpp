@@ -16,23 +16,33 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Macro for operator new/new[] overload with aligned allocation
 ////////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_MEMORY_OVERLOAD_NEW_DELETE(A)                           \
-void* operator new(std::size_t s)                                   \
-{                                                                   \
-  return boost::simd::memory::allocate(s);                                  \
-}                                                                   \
-void* operator new[](std::size_t s)                                 \
-{                                                                   \
-  return boost::simd::memory::allocate(s);                                  \
-}                                                                   \
-void operator delete(void *p)                                       \
-{                                                                   \
-  boost::simd::memory::deallocate(reinterpret_cast<boost::simd::memory::byte*>(p)); \
-}                                                                   \
-void operator delete[](void *p)                                     \
-{                                                                   \
-  boost::simd::memory::deallocate(reinterpret_cast<boost::simd::memory::byte*>(p)); \
-}                                                                   \
+#define BOOST_SIMD_MEMORY_OVERLOAD_NEW_DELETE(A)                               \
+void* operator new(std::size_t s)                                              \
+{                                                                              \
+  return boost::simd::memory::allocate(s);                                     \
+}                                                                              \
+void* operator new[](std::size_t s)                                            \
+{                                                                              \
+  return boost::simd::memory::allocate(s);                                     \
+}                                                                              \
+void* operator new(std::size_t , void* p)                                      \
+{                                                                              \
+  return p;                                                                    \
+}                                                                              \
+void* operator new[](std::size_t s, void* p)                                   \
+{                                                                              \
+  return p;                                                                    \
+}                                                                              \
+void operator delete(void *p)                                                  \
+{                                                                              \
+  boost::simd::memory                                                          \
+             ::deallocate(reinterpret_cast<boost::simd::memory::byte*>(p));    \
+}                                                                              \
+void operator delete[](void *p)                                                \
+{                                                                              \
+  boost::simd::memory                                                          \
+             ::deallocate(reinterpret_cast<boost::simd::memory::byte*>(p));    \
+}                                                                              \
 /**/
 
 #endif

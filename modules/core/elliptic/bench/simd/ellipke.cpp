@@ -45,13 +45,13 @@ namespace n3 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(ellipke_,(RS(vT,T(0),T(1)))(RS(calar,T(0),T(0.01))))
+  NT2_TIMING(ellipke_,(RS(vT,T(0),T(1)))(RS(T,T(0),T(0.01))))
 }
 namespace n4 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(ellipke_,(RS(vT,T(0),T(1)))(RS(calar,T(0),T(0.01))))
+  NT2_TIMING(ellipke_,(RS(vT,T(0),T(1)))(RS(T,T(0),T(0.01))))
 }
 
 #undef RS

@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
                             , (scalar_<unspecified_<A0> > )
                             )
   {
-    typedef typename meta::strip<A0>::type          base_t;
+    typedef A0   base_t;
     BOOST_DISPATCH_RETURNS(1, (const A0& a0)
                           , nt2::zeros(1, 0, nt2::meta::as_<base_t>())
                           );

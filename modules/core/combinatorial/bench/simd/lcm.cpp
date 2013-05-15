@@ -29,18 +29,6 @@ using nt2::tag::lcm_;
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, (V1) ,(V2))
 
-namespace n1 {
-  typedef float T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(lcm_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10))))
-}
-namespace n2 {
-  typedef double T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(lcm_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10))))
-}
 namespace n3 {
   typedef nt2::uint8_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
