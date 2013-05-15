@@ -1,8 +1,8 @@
 BENCH                   = "[Benchmark]"
 
 # Flag pour reperer si le test est un benchmark
-BENCH_FLAG              = "(\[.*\][ ]?)+"
-
+BENCH_FLAG              = "(\[.*?\]\t+)+"
+BENCH_SEPARATOR         = "\t+"
 BENCH_FIELD             = {"name" : 0, "size" : 1, "value" : 2, "unit" : 3}
 
 # Nom utilise pour la creation des bench

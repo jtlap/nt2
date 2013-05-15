@@ -21,6 +21,13 @@ list(APPEND CTEST_CUSTOM_WARNING_EXCEPTION "[0-9]+ shortened to [0-9]+")
 
 set(CTEST_CUSTOM_POST_TEST "${CTEST_SOURCE_DIRECTORY}/cmake/bench/CDashBench/benchLauncher.py")
 
+# Note: In order to have CTest ignore these limits and not truncate the test
+#       output, the string "CTEST_FULL_OUTPUT" has to be output by the test
+#       (e.g., as first line of the test output to stdout).
+# See:  http://public.kitware.com/pipermail/cdash/2009-November/000589.html
+#set(CTEST_CUSTOM_MAXIMUM_FAILED_TEST_OUTPUT_SIZE "1048576")
+#set(CTEST_CUSTOM_MAXIMUM_PASSED_TEST_OUTPUT_SIZE "102400")
+
 # SITE is host name
 execute_process(COMMAND hostname OUTPUT_VARIABLE HOST OUTPUT_STRIP_TRAILING_WHITESPACE)
 string(REGEX REPLACE "\\.local$" "" HOST ${HOST})

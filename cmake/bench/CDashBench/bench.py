@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 import xml.etree.ElementTree as ElementTree
 from elementTest import *
 import re
@@ -5,10 +8,7 @@ import os, sys
 import config
 import cStringIO
 
-def cleanStr(str) :
-  return " ".join(str.strip().split())
-
-# Permet de parser la sortie des tests unitaires afin de recuperer 
+# Permet de parser la sortie des tests unitaires afin de recuperer
 # les benchmark qu'il peut y avoir
 def parseOutput(testName, content, compression) :
 
@@ -19,19 +19,21 @@ def parseOutput(testName, content, compression) :
     content = content.decode('base64').decode('zlib')
 
   output = cStringIO.StringIO(content)
-  
-  # Liste contenant les elements xml a ajouter au xml global
-  line = cleanStr(output.readline())
-    
+
+  # première ligne pour identifier le bench
+  line = output.readline().strip()
+  if line == "CTEST_FULL_OUTPUT":
+    line = output.readline().strip()
+
   # La sortie du bench a matche avec ce que l'on cherche
   if re.match(config.BENCH_FLAG, line) :
-   
+
     # Pour toutes les lignes de la sortie
     for bench in output :
-     
+
       if bench[0] != '-' :
-        values = cleanStr(bench).split()
-        
+        values = re.split(config.BENCH_SEPARATOR, bench.strip())
+
         # Si la sortie est formattee par Visual studio on supprime le class ou le struct
         if values[config.BENCH_FIELD["name"]] in config.VS_TEMPLATE_OUTPUT :
           values = values[1:]
@@ -44,7 +46,7 @@ def parseOutput(testName, content, compression) :
             pass
 
   return elements
-  
+
 # Lance le parsing des sorties sur tous les tests trouves dans le fichier xml
 def processing(path) :
 
@@ -63,12 +65,12 @@ def processing(path) :
 
     # Si la sortie est compressee
     try :
-      outputElement.attrib['compression'] 
+      outputElement.attrib['compression']
     except :
       gzip = False
-    
+
     elements = parseOutput(test.find("Name").text, outputElement.text, gzip)
-    
+
     for element in elements :
 
       # Ajout du nouveau test dans le liste des tests du fichier XML (tag TESTLIST_ELEMENT_NAME)
@@ -84,7 +86,7 @@ def processing(path) :
   root.write(path)
 
 if __name__ == "__main__":
-  
+
   if len(sys.argv) == 2 :
     processing(sys.argv[1])
   else :

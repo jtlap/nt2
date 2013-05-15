@@ -44,7 +44,7 @@ namespace nt2 { namespace details
 
     benchmark_result_t r = perform_benchmark(*this,duration);
 
-    std::cout << compute(r) << " " << unit << std::endl;
+    std::cout << compute(r) << "\t" << unit << std::endl;
     base_experiment::advance();
   }
 } }
