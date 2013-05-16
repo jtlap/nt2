@@ -69,7 +69,8 @@ def processing(path) :
     except :
       gzip = False
 
-    elements = parseOutput(test.find("Name").text, outputElement.text, gzip)
+    content = outputElement.text if outputElement.text else ''
+    elements = parseOutput(test.find("Name").text, content, gzip)
 
     for element in elements :
 
