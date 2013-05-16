@@ -15,11 +15,13 @@ set(CTEST_DROP_SITE "cdash.lri.fr")
 set(CTEST_DROP_LOCATION "/submit.php?project=NT2")
 set(CTEST_DROP_SITE_CDASH TRUE)
 
-get_filename_component(CTEST_MEMORYCHECK_SUPPRESSIONS_FILE ${CTEST_SOURCE_DIRECTORY}/valgrind.supp ABSOLUTE)
+get_filename_component(SOURCE_DIRECTORY ${CTEST_SOURCE_DIRECTORY} ABSOLUTE)
+
+set(CTEST_MEMORYCHECK_SUPPRESSIONS_FILE ${SOURCE_DIRECTORY}/valgrind.supp)
 list(APPEND CTEST_CUSTOM_WARNING_EXCEPTION "You are using gcc version \".*\"")
 list(APPEND CTEST_CUSTOM_WARNING_EXCEPTION "[0-9]+ shortened to [0-9]+")
 
-set(CTEST_CUSTOM_POST_TEST "${CTEST_SOURCE_DIRECTORY}/cmake/bench/CDashBench/benchLauncher.py")
+set(CTEST_CUSTOM_POST_TEST "${SOURCE_DIRECTORY}/cmake/bench/CDashBench/benchLauncher.py")
 
 # Note: In order to have CTest ignore these limits and not truncate the test
 #       output, the string "CTEST_FULL_OUTPUT" has to be output by the test
