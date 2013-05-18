@@ -10,11 +10,6 @@
 #ifndef BOOST_SIMD_MEMORY_FUNCTIONS_LOAD_HPP_INCLUDED
 #define BOOST_SIMD_MEMORY_FUNCTIONS_LOAD_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the load function
-**/
-
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 #include <boost/dispatch/meta/as.hpp>
@@ -51,46 +46,45 @@ namespace boost { namespace simd
 
     Depending on the type of its arguments, load exhibits different semantics.
     For any type @c Type, @c ptr of type @c Pointer and @c offset of type @c
-    Offset:
+    Offset, consider:
 
     @code
     Type x = load<Type>(ptr,offset);
     @endcode
 
-    is equivalent to:
-
-    - If @c Type is a scalar type:
-
-      @code
-      x = *(ptr+offset);
-      @endcode
-
-    - If @c Type is a SIMD value:
-      - If @c offset is a scalar integer:
-
-        @code
-        for(int i=0;i<Value::static_size;++i)
-          x[i] = *(ptr+offset+i);
-        @endcode
-
-      - If @c offset is a SIMD integral register:
-
-        @code
-        for(int i=0;i<Value::static_size;++i)
-          x[i] = *(ptr+offset[i]);
-        @endcode
-
-        In this case, the load operation is equivalent to a gather operation.
-
-    - If @c Type and @c ptr are Fusion Sequences of size @c N:
+    If @c Type is a SIMD value, this code is equivalent to:
+    - If @c offset is a scalar integer:
 
       @code
-      at_c<0>(x)   = load(at_c<0>(ptr),offset);
-      ...
-      at_c<N-1>(x) = load(at_c<N-1>(ptr),offset);
+      for(int i=0;i<Value::static_size;++i)
+        x[i] = *(ptr+offset+i);
       @endcode
 
-    @par Handling misalignment
+    - If @c offset is a SIMD integral register:
+
+      @code
+      for(int i=0;i<Value::static_size;++i)
+        x[i] = *(ptr+offset[i]);
+      @endcode
+
+      In this case, the load operation is equivalent to a gather operation.
+
+    If @c Type and @c ptr are Fusion Sequences of size @c N, this code is
+    equivalent to:
+
+    @code
+    at_c<0>(x)   = load(at_c<0>(ptr),offset);
+    ...
+    at_c<N-1>(x) = load(at_c<N-1>(ptr),offset);
+    @endcode
+
+    If @c Type is a scalar type, then it is equivalent to:
+
+    @code
+    x = *(ptr+offset);
+    @endcode
+
+    @par Misalignment handling
 
     In all these cases, the @c Misalignment optional template parameter can be
     used to notify load that the current pointer used is misaligned by a specific
@@ -115,7 +109,7 @@ namespace boost { namespace simd
 
     @par Usage:
 
-    @include load.cpp
+    @include memory/load.cpp
 
     @tparam Type          Type of data to load from memory
     @tparam Misalignment  Optional misalignment hints

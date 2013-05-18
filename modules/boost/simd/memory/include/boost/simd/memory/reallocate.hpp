@@ -10,11 +10,6 @@
 #ifndef BOOST_SIMD_MEMORY_REALLOCATE_HPP_INCLUDED
 #define BOOST_SIMD_MEMORY_REALLOCATE_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implement the reallocate function
-**/
-
 #include <boost/simd/memory/allocate.hpp>
 #include <boost/simd/memory/deallocate.hpp>
 #include <boost/simd/memory/is_aligned.hpp>
@@ -24,7 +19,8 @@
 #include <boost/simd/meta/align_ptr.hpp>
 
 #include <boost/dispatch/attributes.hpp>
-#include <algorithm>
+#include <boost/dispatch/meta/enable_if_type.hpp>
+
 #include <cstring>
 #include <cstddef>
 
@@ -44,7 +40,8 @@ namespace boost { namespace simd
     @pre @c align is a power of 2
     @post Returned pointer is aligned on @c align
   **/
-  BOOST_FORCEINLINE void* reallocate(void* ptr, std::size_t nbytes, std::size_t align)
+  BOOST_FORCEINLINE void*
+  reallocate(void* ptr, std::size_t nbytes, std::size_t align)
   {
     return aligned_realloc(ptr,nbytes,align);
   }
@@ -67,14 +64,13 @@ namespace boost { namespace simd
     @post Returned pointer is aligned on @c Alignment
   **/
   template<std::size_t Alignment>
-  BOOST_FORCEINLINE
-  typename meta::align_ptr<void ,Alignment>::type
+  BOOST_FORCEINLINE typename meta::align_ptr<void ,Alignment>::type
   reallocate( void* ptr, std::size_t nbytes )
   {
     return align_ptr<Alignment>(reallocate(ptr, nbytes, Alignment));
   }
 
-  //// INTERNAL ONLY
+  /// INTERNAL ONLY
   BOOST_FORCEINLINE
   meta::align_ptr<void ,BOOST_SIMD_CONFIG_ALIGNMENT>::type
   reallocate( void* ptr, std::size_t nbytes )
@@ -102,16 +98,18 @@ namespace boost { namespace simd
   **/
   template<class Allocator>
   BOOST_FORCEINLINE
+  #if defined(DOXYGEN_ONLY)
+  void*
+  #else
   typename  boost::dispatch::meta::
-            enable_if_type< typename Allocator::pointer
-                          , void*
-                          >::type
+            enable_if_type<typename Allocator::pointer, void*>::type
+  #endif
   reallocate(Allocator& alloc, void* ptr, std::size_t nbytes, std::size_t align)
   {
     // Resizing to 0 free the pointer data and return
     if(nbytes == 0)
     {
-      deallocate(alloc, ptr );
+      deallocate(alloc, ptr);
       return 0;
     }
 
@@ -139,7 +137,8 @@ namespace boost { namespace simd
     @brief Statically aligned allocator-based memory reallocation
 
     Reallocated a raw buffer of aligned bytes on statically specified alignment
-    boundary using an allocator.
+    boundary using an allocator. By default, this alignment is equal to current
+    SIMD preferred alignment.
 
     @param alloc   Allocator performing the (de)allocation
     @param ptr     Pointer to the memory to reallocate.
@@ -153,28 +152,33 @@ namespace boost { namespace simd
   **/
   template<std::size_t Alignment, class Allocator>
   BOOST_FORCEINLINE
+  #if defined(DOXYGEN_ONLY)
+  void*
+  #else
   typename  boost::dispatch::meta::
             enable_if_type< typename Allocator::pointer
                           , typename meta::align_ptr<void ,Alignment>::type
                           >::type
+  #endif
   reallocate( Allocator& alloc, void* ptr, std::size_t nbytes )
   {
-    return align_ptr<Alignment>(reallocate(alloc,ptr,nbytes));
+    return align_ptr<Alignment>(reallocate(alloc,ptr,nbytes,Alignment));
   }
 
-  /// INTERNAL ONLY
+  /// @overload
   template<class Allocator>
   BOOST_FORCEINLINE
+  #if defined(DOXYGEN_ONLY)
+  void*
+  #else
   typename  boost::dispatch::meta::
             enable_if_type< typename Allocator::pointer
-                          , typename meta::align_ptr
-                                    < void
-                                    , BOOST_SIMD_CONFIG_ALIGNMENT
-                                    >::type
+                          , typename meta::align_ptr<void>::type
                           >::type
+  #endif
   reallocate( Allocator& alloc, void* ptr, std::size_t nbytes )
   {
-    return align_ptr<BOOST_SIMD_CONFIG_ALIGNMENT>(reallocate(alloc,ptr,nbytes));
+    return reallocate<BOOST_SIMD_CONFIG_ALIGNMENT>(alloc,ptr,nbytes);
   }
 } }
 

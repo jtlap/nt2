@@ -9,11 +9,6 @@
 #ifndef BOOST_SIMD_MEMORY_FUNCTIONS_EXTRACT_HPP_INCLUDED
 #define BOOST_SIMD_MEMORY_FUNCTIONS_EXTRACT_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the extract function
-**/
-
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 #include <boost/dispatch/meta/as.hpp>
@@ -68,7 +63,7 @@ namespace boost { namespace simd
     @param value   Value to extract
     @param offset  Position to extract from
 
-    @return The extracted data
+    @return The extracted value
   **/
   template<typename Value,typename Offset>
   BOOST_FORCEINLINE

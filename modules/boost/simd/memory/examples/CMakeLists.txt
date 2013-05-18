@@ -9,3 +9,4 @@
 
 ADD_SUBDIRECTORY(memory)
 ADD_SUBDIRECTORY(meta)
+ADD_SUBDIRECTORY(preprocessor)

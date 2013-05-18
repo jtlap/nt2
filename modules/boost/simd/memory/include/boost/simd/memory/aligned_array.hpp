@@ -9,19 +9,21 @@
 #ifndef BOOST_SIMD_MEMORY_ALIGNED_ARRAY_HPP_INCLUDED
 #define BOOST_SIMD_MEMORY_ALIGNED_ARRAY_HPP_INCLUDED
 
-#include <boost/simd/memory/aligned_array_fwd.hpp>
 #include <boost/simd/preprocessor/align_on.hpp>
+#include <boost/simd/memory/aligned_array_fwd.hpp>
 #include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
 
-#include <boost/throw_exception.hpp>
+#include <boost/swap.hpp>
 #include <boost/assert.hpp>
 #include <boost/mpl/assert.hpp>
-#include <boost/swap.hpp>
-#include <stdexcept>
+#include <boost/throw_exception.hpp>
+
 #include <iterator>
+#include <stdexcept>
 
 namespace boost { namespace simd
 {
+  #if !defined(DOXYGEN_ONLY)
   template<class T, std::size_t N, std::size_t Align>
   struct aligned_array_data
   {
@@ -41,9 +43,22 @@ namespace boost { namespace simd
   BOOST_SIMD_PP_REPEAT_POWER_OF_2_BIG(M0,~)
   #undef M0
 
+  #endif
+
+  /*!
+    @brief Statically sized aligned array
+
+    Defines an object which contains @c N elements of type @c T in a statically
+    allocated array which address is aligned on @c Align.
+
+    @tparam T     Type of the stored element
+    @tparam N     Number of elements
+    @tparam Align Alignment boundary.
+  **/
   template<class T, std::size_t N, std::size_t Align>
   struct aligned_array
   {
+    /// INTERNAL ONLY
     aligned_array_data<T, N, Align> data_;
 
     typedef T              value_type;
@@ -54,90 +69,130 @@ namespace boost { namespace simd
     typedef std::size_t    size_type;
     typedef std::ptrdiff_t difference_type;
 
-    // iterator support
+    /// Return an iterator to the beginning of the array
     iterator        begin()       { return this->data_.data; }
-    const_iterator  begin() const { return this->data_.data; }
-    const_iterator cbegin() const { return this->data_.data; }
 
+    /// @overload
+    const_iterator  begin() const { return this->data_.data; }
+
+    /// Return an iterator to the end of the array
     iterator        end()       { return this->data_.data+N; }
+
+    /// @overload
     const_iterator  end() const { return this->data_.data+N; }
+
+    const_iterator cbegin() const { return this->data_.data; }
     const_iterator cend() const { return this->data_.data+N; }
 
     typedef std::reverse_iterator<iterator> reverse_iterator;
     typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
+    /// Return a reverse_iterator to the end of the array
     reverse_iterator rbegin() { return reverse_iterator(end()); }
-    const_reverse_iterator rbegin()  const { return const_reverse_iterator(end()); }
-    const_reverse_iterator crbegin() const { return const_reverse_iterator(end()); }
 
+    /// @overload
+    const_reverse_iterator rbegin()  const { return const_reverse_iterator(end()); }
+
+    /// Return a reverse_iterator to the beginning of the array
     reverse_iterator       rend()       { return reverse_iterator(begin()); }
+
+    /// @overload
     const_reverse_iterator rend()  const { return const_reverse_iterator(begin()); }
+
+    const_reverse_iterator crbegin() const { return const_reverse_iterator(end()); }
     const_reverse_iterator crend() const { return const_reverse_iterator(begin()); }
 
-    // operator[]
+    /// Random access to the ith element of the array
     reference operator[](size_type i)
     {
-        BOOST_ASSERT_MSG( i < N, "out of range" );
-        return this->data_.data[i];
+      BOOST_ASSERT_MSG( i < N, "out of range" );
+      return this->data_.data[i];
     }
 
+    /// @overload
     const_reference operator[](size_type i) const
     {
-        BOOST_ASSERT_MSG( i < N, "out of range" );
-        return this->data_.data[i];
+      BOOST_ASSERT_MSG( i < N, "out of range" );
+      return this->data_.data[i];
     }
 
-    // at() with range check
+    /// Random access to the ith element of the array with out-of-range check.
     reference       at(size_type i)       { rangecheck(i); return this->data_.data[i]; }
+
+    /// @overload
     const_reference at(size_type i) const { rangecheck(i); return this->data_.data[i]; }
 
-    // front() and back()
+    /// Return the first element of the array
     reference       front()       { return this->data_.data[0]; }
+
+    /// @overload
     const_reference front() const { return this->data_.data[0]; }
+
+    /// Return the last element of the array
     reference       back()        { return this->data_.data[N-1]; }
+
+    /// @overload
     const_reference back()  const { return this->data_.data[N-1]; }
 
-    // size is constant
+    /// Return the number of elements of the array.
     static size_type size()     { return N;     }
-    static bool      empty()    { return false; }
-    static size_type max_size() { return N;     }
-    enum { static_size = N };
 
-    // swap (note: linear complexity)
-    void swap (aligned_array<T,N,Align>& y)
+    /// Notifies if the array is empty.
+    static bool      empty()    { return false; }
+
+    /// Return the maximum number of elements the array can contain.
+    static size_type max_size() { return N;     }
+
+    /// Compile-time size of the array
+    static const std::size_t static_size = N;
+
+    /// Swap the contents of the current array's elements with another array.
+    template<std::size_t A2>
+    void swap (aligned_array<T,N,A2>& y)
     {
-      for (size_type i = 0; i < N; ++i) boost::swap(this->data_.data[i],y.data_.data[i]);
+      for (size_type i = 0; i < N; ++i)
+        boost::swap(this->data_.data[i],y.data_.data[i]);
     }
 
-    // direct access to data (read-only)
-    const T* data() const { return this->data_.data; }
-    T*       data()       { return this->data_.data; }
-
-    // use array as C array (direct read/write access to data)
+    /// Return a pointer referencing the array's data
     T* c_array() { return this->data_.data; }
 
-    // assignment with type conversion
-    template <typename T2>
-    aligned_array<T,N,Align>& operator= (const aligned_array<T2,N,Align>& rhs)
+    /// Return a pointer referencing the array's data
+    T* data()       { return this->data_.data; }
+
+    /// @overload
+    T* data() const { return this->data_.data; }
+
+    /// Assign the contents of another array to the current array
+    template <typename T2, std::size_t A2>
+    aligned_array<T,N,Align>& operator= (const aligned_array<T2,N,A2>& rhs)
     {
       std::copy(rhs.begin(),rhs.end(), begin());
       return *this;
     }
 
-    // assign one value to all elements
-    void assign (const T& value) { fill ( value ); }    // A synonym for fill
+    /// Assign one value to all elements of the array
+    void assign (const T& value) { fill ( value ); }
+
+    /// Assign one value to all elements of the array
     void fill   (const T& value) { std::fill_n(begin(),size(),value); }
 
-    // check range (may be private because it is static)
-    static void rangecheck (size_type i)
+    /// INTERNAL ONLY
+    static void rangecheck(size_type i)
     {
+      #if !defined(BOOST_NO_EXCEPTIONS)
       if (i >= size())
-      {
-        std::out_of_range e("array<>: index out of range");
-        boost::throw_exception(e);
-      }
+        BOOST_THROW_EXCEPTION(std::out_of_range("array<>: index out of range"));
+      #endif
     }
   };
+
+  /// Swap the contents of two aligned arrays
+  template<class T, std::size_t N, std::size_t A1, std::size_t A2>
+  void swap( aligned_array<T,N,A1>& a1, aligned_array<T,N,A2>& a2 )
+  {
+    a1.swap(a2);
+  }
 } }
 
 #endif

@@ -10,11 +10,6 @@
 #ifndef BOOST_SIMD_MEMORY_NEW_HPP_INCLUDED
 #define BOOST_SIMD_MEMORY_NEW_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements global aligned new and delete overload
-**/
-
 #include <new>
 #include <cstddef>
 #include <boost/simd/memory/allocate.hpp>
@@ -22,8 +17,10 @@
 #include <boost/simd/preprocessor/malloc.hpp>
 #include <boost/simd/preprocessor/parameters.hpp>
 
-// MSVC and Android doesn't fully support exceptions has operators that don't
-// specify throw() at all. This macro prevent warning spam
+/*
+  MSVC and Android doesn't fully support exceptions has operators that don't
+  specify throw() at all. This macro prevent warning spam
+*/
 #if defined(ANDROID) || defined(_MSC_VER)
 #define BOOST_SIMD_MEMORY_BAD_ALLOC()
 #else

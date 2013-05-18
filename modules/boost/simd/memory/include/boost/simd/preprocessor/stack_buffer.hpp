@@ -11,15 +11,6 @@
 #ifndef BOOST_SIMD_PREPROCESSOR_STACK_BUFFER_HPP_INCLUDED
 #define BOOST_SIMD_PREPROCESSOR_STACK_BUFFER_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements stack allocation related macros
-
-  Stack alignment is a tricky topic (as sketched here
-  http://gcc.gnu.org/bugzilla/show_bug.cgi?id=16660 ), this file provides
-  various macro that use the proper system dependent ways to define stack based
-  buffer fulfilling both stack alignment and SIMD alignment is constraints.
-**/
 #include <boost/simd/sdk/config/arch.hpp>
 #include <boost/simd/preprocessor/parameters.hpp>
 #include <boost/simd/preprocessor/align_on.hpp>

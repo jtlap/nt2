@@ -10,11 +10,6 @@
 #ifndef BOOST_SIMD_META_IS_ALIGNED_HPP_INCLUDED
 #define BOOST_SIMD_META_IS_ALIGNED_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements is_aligned and is_aligned_c
-**/
-
 #include <boost/simd/meta/is_power_of_2.hpp>
 #include <boost/simd/preprocessor/parameters.hpp>
 #include <boost/mpl/size_t.hpp>
@@ -115,7 +110,7 @@ namespace boost { namespace simd {  namespace meta
           , typename N = boost::mpl::size_t<BOOST_SIMD_CONFIG_ALIGNMENT>
           >
   struct  is_aligned
-#if !defined(BOOST_DOXYGEN_ONLY)
+#if !defined(DOXYGEN_ONLY)
         : is_aligned_c<V::value,N::value>
 #endif
   {};

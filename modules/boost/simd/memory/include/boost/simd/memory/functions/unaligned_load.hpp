@@ -10,11 +10,6 @@
 #ifndef BOOST_SIMD_MEMORY_FUNCTIONS_UNALIGNED_LOAD_HPP_INCLUDED
 #define BOOST_SIMD_MEMORY_FUNCTIONS_UNALIGNED_LOAD_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the unaligned_load function
-**/
-
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 #include <boost/dispatch/meta/as.hpp>
@@ -50,10 +45,6 @@ namespace boost { namespace simd
     unaligned_load semantic is similar to load semantic except for the fact that
     memory location doesn't need to be aligned on current architecture preferred
     alignment boundaries.
-
-    @par Usage:
-
-    @include unaligned_load.cpp
 
     @tparam Type  Type of data to load from memory
 

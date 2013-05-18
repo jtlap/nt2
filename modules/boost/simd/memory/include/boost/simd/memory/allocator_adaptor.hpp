@@ -15,36 +15,33 @@
 
 namespace boost { namespace simd
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Adapt an allocator to be algined
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Allocator>
-  struct  allocator_adaptor : Allocator
+  template<class Allocator> struct allocator_adaptor : Allocator
   {
-    typedef Allocator base_type;
+    typedef Allocator                             base_type;
+    typedef typename base_type::value_type        value_type;
+    typedef typename base_type::pointer           pointer;
+    typedef typename base_type::const_pointer     const_pointer;
+    typedef typename base_type::reference         reference;
+    typedef typename base_type::const_reference   const_reference;
+    typedef typename base_type::size_type         size_type;
+    typedef typename base_type::difference_type   difference_type;
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Internal typedefs
-    ////////////////////////////////////////////////////////////////////////////
-    typedef typename base_type::value_type       value_type;
-    typedef typename base_type::pointer          pointer;
-    typedef typename base_type::const_pointer    const_pointer;
-    typedef typename base_type::reference        reference;
-    typedef typename base_type::const_reference  const_reference;
-    typedef typename base_type::size_type        size_type;
-    typedef typename base_type::difference_type  difference_type;
+    /*!
+      @brief Allocator type rebinding meta-function
 
+      Standard internal meta-function to build an @c allocator<U> from an
+      @c allocator<T>
+
+      @tparam U Type to rebind the current allocator to
+    **/
     template<class U> struct rebind
     {
       typedef typename Allocator::template rebind<U>::other base;
       typedef allocator_adaptor<base>                       other;
     };
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Ctor/dtor
-    ////////////////////////////////////////////////////////////////////////////
-     allocator_adaptor() : base_type() {}
-    ~allocator_adaptor() {}
+    /// Default constructor
+    allocator_adaptor() : base_type() {}
 
     template<class Z>
     allocator_adaptor ( allocator_adaptor<Z> const& src)
@@ -57,32 +54,39 @@ namespace boost { namespace simd
       return *this;
     }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Access to base allocator
-    ////////////////////////////////////////////////////////////////////////////
-    base_type&        base()        { return static_cast<base_type&>(*this); }
-    base_type const&  base() const  { return static_cast<base_type const&>(*this); }
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Memory handling
-    ////////////////////////////////////////////////////////////////////////////
+    /// Allocate a block of SIMD compatible memory
     pointer allocate( size_type c, const void* = 0 )
     {
       return reinterpret_cast<pointer>(simd::allocate( base(), c*sizeof(value_type)));
     }
 
+    /// Deallocate a pointer allocated by the current allocator
     void deallocate (pointer p, size_type s)
     {
       boost::simd::deallocate(base(), p);
     }
+
+    /// Return a reference to the adapted allocator
+    base_type&        base()
+    {
+      return static_cast<base_type&>(*this);
+    }
+
+    /// @overload
+    base_type const&  base() const
+    {
+      return static_cast<base_type const&>(*this);
+    }
   };
 
+  /// Equality comparison between two adapted allocators
   template<class A>
   bool operator==(allocator_adaptor<A> const& a, allocator_adaptor<A> const& b)
   {
     return a.base() == b.base();
   }
 
+  /// Inequality comparison between two adapted allocators
   template<class A>
   bool operator!=(allocator_adaptor<A> const& a, allocator_adaptor<A> const& b)
   {

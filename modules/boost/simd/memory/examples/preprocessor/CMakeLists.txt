@@ -9,19 +9,10 @@
 
 SET(  SOURCES
       align_on.cpp
-      align_on_default.cpp
-      align_ptr.cpp
-      aligned_object.cpp
-      is_aligned.cpp
-      is_power_of_2.cpp
-      load.cpp
-      new.cpp
-      scoped_buffer.cpp
-      simd_malloc.cpp
-      simd_scoped_buffer.cpp
-      simd_stack_buffer.cpp
-      stack_buffer.cpp
-      store.cpp
+      aligned_type.cpp
+      aligned_type_on.cpp
+      overload_new_delete.cpp
+      overload_new_delete_simd.cpp
 )
 
 ################################################################################
@@ -29,5 +20,5 @@ SET(  SOURCES
 ################################################################################
 FOREACH( EXAMPLE ${SOURCES})
   STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_example(boost.simd.memory.${EXAMPLE}.sample ${EXAMPLE}.cpp)
+  nt2_module_add_example(boost.simd.memory.preprocessor.${EXAMPLE}.sample ${EXAMPLE}.cpp)
 ENDFOREACH()

@@ -10,20 +10,22 @@
 #ifndef BOOST_SIMD_MEMORY_ALLOCATOR_HPP_INCLUDED
 #define BOOST_SIMD_MEMORY_ALLOCATOR_HPP_INCLUDED
 
-#include <cstddef>
 #include <boost/simd/memory/allocate.hpp>
 #include <boost/simd/memory/deallocate.hpp>
+#include <cstddef>
 
 namespace boost { namespace simd
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Allocate a raw buffer of bytes
-  //////////////////////////////////////////////////////////////////////////////
+  /*!
+    @brief SIMD-aware allocator
+
+    Provides a standard, stateless allocator that take allocates memory block
+    compatible with current architecture SIMD constraints.
+
+    @tparam Type of elements to allocate
+  **/
   template<class T> struct allocator
   {
-    ////////////////////////////////////////////////////////////////////////////
-    // Internal typedefs
-    ////////////////////////////////////////////////////////////////////////////
     typedef T               value_type;
     typedef T*              pointer;
     typedef T const*        const_pointer;
@@ -32,41 +34,44 @@ namespace boost { namespace simd
     typedef std::size_t     size_type;
     typedef std::ptrdiff_t  difference_type;
 
-    template<class U> struct rebind { typedef allocator<U> other; };
+    /*!
+      @brief Allocator type rebinding meta-function
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Ctor/dtor
-    ////////////////////////////////////////////////////////////////////////////
-                      allocator() {}
+      Standard internal meta-function to build an @c allocator<U> from an
+      @c allocator<T>
+
+      @tparam U Type to rebind the current allocator to
+    **/
+    template<class U> struct rebind
+    {
+      typedef allocator<U> other;
+    };
+
+    /// Default constructor
+    allocator() {}
+
+    /// Constructor from another SIMD allocator
     template<class U> allocator(allocator<U> const& ) {}
-                     ~allocator() {}
 
-    allocator& operator=(allocator const& ) { return *this; }
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Address handling
-    ////////////////////////////////////////////////////////////////////////////
+    /// Retrieve the address of an element
     pointer       address(reference r)       { return &r; }
+
+    /// @overload
     const_pointer address(const_reference r) { return &r; }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Size handling
-    ////////////////////////////////////////////////////////////////////////////
+    /// Maximum amount of memory that can be allocated
     size_type max_size() const  { return size_type(~0); }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Object lifetime handling
-    ////////////////////////////////////////////////////////////////////////////
+    /// Performs the construction of a given value in a given memory block
     void construct(pointer p, const T& t)
     {
       p = new ((void*)p) value_type (t);
     }
 
+    /// Performs the destruction of a given value in a given memory block
     void destroy(pointer p) { p->~value_type(); }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Memory handling
-    ////////////////////////////////////////////////////////////////////////////
+    /// Allocate a block of SIMD compatible memory
     pointer allocate( size_type c, const void* = 0 ) const
     {
       return reinterpret_cast<pointer>( boost::simd
@@ -74,18 +79,21 @@ namespace boost { namespace simd
                                       );
     }
 
+    /// Deallocate a pointer allocated by the current allocator
     void deallocate (pointer p, size_type ) const
     {
       boost::simd::deallocate( p );
     }
   };
 
+  /// Equality comparison between two allocators
   template<class T>
   bool operator== (allocator<T> const&, allocator<T> const&)
   {
     return true;
   }
 
+  /// Inequality comparison between two allocators
   template<class T>
   bool operator!= (allocator<T> const&, allocator<T> const&)
   {

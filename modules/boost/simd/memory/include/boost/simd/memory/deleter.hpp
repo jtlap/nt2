@@ -15,24 +15,44 @@
 
 namespace boost { namespace simd
 {
+  /*!
+    @brief Deleter function object
+
+    Whenever a pointer allocated using any of the SIMD aware allocation
+    function is stored in a std::shared_ptr or similar object, it is necessary
+    to pass this custom deleter to this object so the memory deallocation can be
+    done using the proper alignment aware deallocation function.
+
+    @tparam T Type of data to delete
+    @tparam Align Alignment boundary used. By default, it is equal to the
+            preferred SIMD alignment boundary.
+    @tparam Allocator Type of allocator used for the allocation. By default, it
+            is equal to @c void, meaning no allocator have been used to perform
+            the allocation.
+  **/
   template< class T
           , std::size_t Align = BOOST_SIMD_CONFIG_ALIGNMENT
           , class Allocator = void
           >
   struct deleter : Allocator
   {
-    deleter() {}
-    deleter(Allocator const& x) : Allocator(x) {}
-
     typedef void result_type;
     typedef T * argument_type;
 
+    /// Default constructor
+    deleter() {}
+
+    /// Constructs a deleter using the proper allocator
+    deleter(Allocator const& x) : Allocator(x) {}
+
+    /// Performs the deletion of the pointer @c x
     void operator()(T * x)
     {
       boost::simd::deallocate ( static_cast<Allocator&>(*this), x, 0u, Align );
     }
   };
 
+  /// INTERNAL ONLY
   template<class T, std::size_t Align>
   struct deleter<T, Align>
   {

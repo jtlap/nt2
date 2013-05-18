@@ -10,17 +10,12 @@
 #ifndef BOOST_SIMD_MEMORY_ALLOCATE_HPP_INCLUDED
 #define BOOST_SIMD_MEMORY_ALLOCATE_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implement the allocate function
-**/
-
+#include <boost/simd/meta/align_ptr.hpp>
 #include <boost/simd/memory/align_on.hpp>
+#include <boost/simd/memory/align_ptr.hpp>
+#include <boost/simd/memory/aligned_malloc.hpp>
 #include <boost/simd/preprocessor/malloc.hpp>
 #include <boost/simd/preprocessor/parameters.hpp>
-#include <boost/simd/memory/aligned_malloc.hpp>
-#include <boost/simd/memory/align_ptr.hpp>
-#include <boost/simd/meta/align_ptr.hpp>
 
 #include <boost/dispatch/attributes.hpp>
 #include <boost/dispatch/meta/enable_if_type.hpp>
@@ -30,36 +25,53 @@
 namespace boost { namespace simd
 {
   /*!
-    @brief Non-throwing allocation of aligned memory on custom alignment
+    @brief Allocation of aligned memory on custom alignment
 
     Allocate a buffer of bytes aligned on an arbitrary alignment.
+
+    If used in non-throwing mode, it returns a null pointer when allocation
+    fails. If used in throwing mode, it throws a std::bad_alloc instead.
 
     @param nbytes Number of bytes to allocate.
     @param align  Alignment boundary to follow
     @param t      Tag indicating the nothrow behavior of this function.
 
-    @return A pointer to an aligned memory block of @c nbytes bytes. If the
-            allocation fails, it returns a null pointer.
+    @return A pointer to a memory block of @c nbytes bytes, aligned on @c align.
   **/
   BOOST_FORCEINLINE BOOST_SIMD_MALLOC BOOST_DISPATCH_NOTHROW void*
   allocate( std::size_t nbytes, std::size_t align, std::nothrow_t const & t )
   {
-    return static_cast<void*>(aligned_malloc(nbytes, align));
+    return aligned_malloc(nbytes, align);
+  }
+
+  /// @overload
+  BOOST_FORCEINLINE BOOST_SIMD_MALLOC
+  void* allocate( std::size_t nbytes, std::size_t align )
+  {
+    void* result = allocate(nbytes, align, std::nothrow_t());
+    if(!result) BOOST_THROW_EXCEPTION( std::bad_alloc() );
+
+    return result;
   }
 
   /*!
-    @brief Non-throwing allocation of aligned memory with static alignment
+    @brief Allocation of aligned memory with a static alignment
 
     Allocate a buffer of bytes aligned on an arbitrary statically specified
-    alignment.
+    alignment. By default, this static alignment is equal to the current SIMD
+    alignment boundary.
 
-    @param nbytes Number of bytes to allocate.
-    @param t      Tag indicating the nothrow behavior of this function.
+    If used in non-throwing mode, it returns a null pointer when allocation
+    fails. If used in throwing mode, it throws a std::bad_alloc instead.
 
-    @return A pointer to an aligned memory block of @c nbytes bytes. If the
-            allocation fails, it returns a null pointer. For optimization
-            purpose, this pointer is marked as properly aligned by using
-            compiler specific attributes.
+    @tparam Alignment   Static alignment boundary to respect.
+
+    @param nbytes     Number of bytes to allocate.
+    @param t          Tag indicating the nothrow behavior of this function.
+
+    @return A pointer to a memory block of @c nbytes bytes, aligned on @c align.
+            For optimization purpose, this pointer is marked as properly aligned
+            by using compiler specific attributes.
   **/
   template<std::size_t Alignment>
   BOOST_FORCEINLINE BOOST_DISPATCH_NOTHROW
@@ -69,85 +81,23 @@ namespace boost { namespace simd
     return align_ptr<Alignment>( allocate( nbytes, Alignment, t) );
   }
 
-  /*!
-    @brief Non-throwing allocation of aligned memory
+  /// @overload
+  template<std::size_t Alignment>
+  BOOST_FORCEINLINE
+  typename meta::align_ptr<void,Alignment>::type allocate(std::size_t nbytes)
+  {
+    return align_ptr<Alignment>( allocate( nbytes, Alignment) );
+  }
 
-    Allocate a buffer of bytes aligned on current architecture preferred SIMD
-    compatible alignment.
-
-    @param nbytes Number of bytes to allocate.
-    @param t      Tag indicating the nothrow behavior of this function.
-
-    @return A pointer to an aligned memory block of @c nbytes bytes. If the
-            allocation fails, it returns a null pointer. For optimization
-            purpose, this pointer is marked as properly aligned by using
-            compiler specific attributes.
-  **/
   BOOST_FORCEINLINE BOOST_SIMD_MALLOC BOOST_DISPATCH_NOTHROW
-  meta::align_ptr<void,BOOST_SIMD_CONFIG_ALIGNMENT>::type
+  meta::align_ptr<void>::type
   allocate(std::size_t nbytes, std::nothrow_t const & t)
   {
     return allocate<BOOST_SIMD_CONFIG_ALIGNMENT>( nbytes, t );
   }
 
-  /*!
-    @brief Throwing allocation of aligned memory on custom alignment
-
-    Allocate a buffer of bytes aligned on an arbitrary alignment.
-
-    @param nbytes       Number of bytes to allocate.
-    @param align        Alignment boundary to follow
-
-    @return A pointer to an aligned memory block of @c nbytes bytes. If the
-            allocation fails, it throws a @c std::bad_alloc exception.
-  **/
-  BOOST_FORCEINLINE BOOST_SIMD_MALLOC void*
-  allocate( std::size_t nbytes, std::size_t align )
-  {
-    void* result = allocate(nbytes, align, std::nothrow_t());
-    if(!result) boost::throw_exception( std::bad_alloc() );
-
-    return result;
-  }
-
-  /*!
-    @brief Throwing allocation of aligned memory with static alignment
-
-    Allocate a buffer of bytes aligned on an arbitrary statically specified
-    alignment.
-
-    @param nbytes Number of bytes to allocate.
-    @param t      Tag indicating the nothrow behavior of this function.
-
-    @return A pointer to an aligned memory block of @c nbytes bytes. If the
-            allocation fails, it throws a @c std::bad_alloc exception. For
-            optimization purpose, this pointer is marked as properly aligned
-            by using compiler specific attributes.
-  **/
-  template<std::size_t Alignment>
-  BOOST_FORCEINLINE
-  typename meta::align_ptr<void,Alignment>::type
-  allocate(std::size_t nbytes)
-  {
-    return align_ptr<Alignment>( allocate( nbytes, Alignment) );
-  }
-
-  /*!
-    @brief Throwing allocation of aligned memory
-
-    Allocate a buffer of bytes aligned on current architecture preferred SIMD
-    compatible alignment.
-
-    @param nbytes       Number of bytes to allocate.
-
-    @return A pointer to an aligned memory block of @c nbytes bytes. If the
-            allocation fails, it throws a @c std::bad_alloc exception. For
-            optimization purpose, this pointer is marked as properly aligned
-            by using compiler specific attributes.
-  **/
   BOOST_FORCEINLINE BOOST_SIMD_MALLOC
-  meta::align_ptr<void,BOOST_SIMD_CONFIG_ALIGNMENT>::type
-  allocate( std::size_t nbytes )
+  meta::align_ptr<void>::type allocate( std::size_t nbytes )
   {
     return allocate<BOOST_SIMD_CONFIG_ALIGNMENT>(nbytes);
   }
@@ -160,19 +110,20 @@ namespace boost { namespace simd
 
     @param alloc  The \c Allocator to use for performing allocation
     @param nbytes Number of bytes to allocate.
-    @param align        Alignment boundary to follow
+    @param align  Alignment boundary to follow
 
     @return A pointer to an aligned memory block of @c nbytes bytes. If the
             allocation fails, it returns a null pointer. For optimization
             purpose, this pointer is marked as properly aligned by using
             compiler specific attributes.
   **/
-  template<class Allocator>
-  BOOST_FORCEINLINE
+  template<class Allocator> BOOST_FORCEINLINE
+  #if defined(DOXYGEN_ONLY)
+  void*
+  #else
   typename boost::dispatch::meta
-                ::enable_if_type< typename Allocator::pointer
-                                , void*
-                                >::type
+                ::enable_if_type<typename Allocator::pointer, void*>::type
+  #endif
   allocate( Allocator& alloc, std::size_t nbytes, std::size_t align )
   {
     // How many bytes are needed to store all the data + overhead
@@ -205,12 +156,15 @@ namespace boost { namespace simd
             purpose, this pointer is marked as properly aligned by using
             compiler specific attributes.
   **/
-  template<std::size_t Alignment, class Allocator>
-  BOOST_FORCEINLINE
+  template<std::size_t Alignment, class Allocator> BOOST_FORCEINLINE
+  #if defined(DOXYGEN_ONLY)
+  typename meta::align_ptr<void, Alignment>::type
+  #else
   typename boost::dispatch::meta
                 ::enable_if_type< typename Allocator::pointer
                                 , typename meta::align_ptr<void,Alignment>::type
                                 >::type
+  #endif
   allocate( Allocator& alloc, std::size_t nbytes )
   {
     return align_ptr<Alignment>( allocate(alloc,nbytes,Alignment) );
@@ -230,15 +184,15 @@ namespace boost { namespace simd
             purpose, this pointer is marked as properly aligned by using
             compiler specific attributes.
   **/
-  template<class Allocator>
-  BOOST_FORCEINLINE
+  template<class Allocator> BOOST_FORCEINLINE
+  #if defined(DOXYGEN_ONLY)
+  typename meta::align_ptr<void>::type
+  #else
   typename boost::dispatch::meta
                 ::enable_if_type< typename Allocator::pointer
-                                , typename meta::align_ptr
-                                          < void
-                                          , BOOST_SIMD_CONFIG_ALIGNMENT
-                                          >::type
+                                , typename meta::align_ptr<void>::type
                                 >::type
+  #endif
   allocate( Allocator& alloc, std::size_t nbytes )
   {
     return allocate<BOOST_SIMD_CONFIG_ALIGNMENT>(alloc,nbytes);

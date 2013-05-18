@@ -39,7 +39,7 @@ namespace boost { namespace simd
     is equivalent to
 
     @code
-    bool r = !(value & (align-1);
+    bool r = (reinterpret_cast<std::size_t>(v) % a) == 0
     @endcode
 
     If @c a is not a power of two, an assertion is triggered.

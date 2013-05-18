@@ -9,7 +9,7 @@
 [/ xinclude core.indexing.xml]
 [/ xinclude arithmetic.xml]
 [/ xinclude predicates.xml]
-[/ xinclude trigonometric.xml]
+[xinclude core.trigonometric.xml]
 [/ xinclude linalg.xml]
 [/ xinclude optimisation.xml]
 [xinclude user/tutorial.xml]

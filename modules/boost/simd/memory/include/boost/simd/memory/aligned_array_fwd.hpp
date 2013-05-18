@@ -13,9 +13,9 @@
 #include <boost/simd/sdk/config/arch.hpp>
 #include <boost/simd/meta/prev_power_of_2.hpp>
 
+#if !defined(DOXYGEN_ONLY)
 namespace boost { namespace simd
 {
-  /// INTERNAL ONLY
   template< class T
           , std::size_t N
           , std::size_t Align = (BOOST_SIMD_ARCH_ALIGNMENT > (N*sizeof(T)))
@@ -24,5 +24,7 @@ namespace boost { namespace simd
           >
   struct aligned_array;
 } }
+
+#endif
 
 #endif

@@ -20,6 +20,10 @@
   Provides a portable access to various compiler specific attributes
   flagging types as aligned on a given boundary.
 
+  @par Usage:
+
+  @include preprocessor/align_on.cpp
+
   @param ALIGN Power of two alignment boundary to apply
 **/
 #define BOOST_SIMD_ALIGN_ON(ALIGN)

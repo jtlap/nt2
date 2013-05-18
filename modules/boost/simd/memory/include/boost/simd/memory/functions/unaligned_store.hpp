@@ -11,11 +11,6 @@
 #ifndef BOOST_SIMD_MEMORY_FUNCTIONS_UNALIGNED_STORE_HPP_INCLUDED
 #define BOOST_SIMD_MEMORY_FUNCTIONS_UNALIGNED_STORE_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the unaligned_store function
-**/
-
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
@@ -53,12 +48,9 @@ namespace boost { namespace simd
     that memory location doesn't need to be aligned on current architecture
     preferred alignment boundaries.
 
-
     @param val    Value to stream
     @param ptr    Memory location to stream @c val to
     @param offset Optional memory offset.
-
-    @return The value actually stored
   **/
   template<typename Value, typename Pointer, typename Offset>
   BOOST_FORCEINLINE void

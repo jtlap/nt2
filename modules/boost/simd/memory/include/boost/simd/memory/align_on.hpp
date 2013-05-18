@@ -37,11 +37,13 @@ namespace boost { namespace simd
     auto r = align_on(v,a);
     @endcode
 
-    is equivalent to:
+    is such that
 
     @code
-    auto r = (v+a-1) & ~(a-1);
+    bool b = is_aligned(r,a);
     @endcode
+
+    evaluates to @c true.
 
     For any integral power of two alignment boundary @c a and any pointer @c p
     referencing element of type @c T:

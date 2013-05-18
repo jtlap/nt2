@@ -10,11 +10,6 @@
 #ifndef BOOST_SIMD_META_ALIGN_PTR_HPP_INCLUDED
 #define BOOST_SIMD_META_ALIGN_PTR_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the align_ptr @metafunction
-**/
-
 #include <boost/simd/preprocessor/parameters.hpp>
 #include <boost/simd/sdk/config/compiler.hpp>
 #include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
@@ -42,8 +37,10 @@ namespace boost { namespace simd {  namespace meta
     typedef T* aligned_attribute r;
     @endcode
 
-    On some compilers, the @a aligned_attribute is not available and the type
-    returned by meta::align_ptr will be a simple pointer to @c T.
+    where @a aligned_attribute is a compiler specific attribute indicating that
+    said type will be used to store an address aligned on @c Alignment. On some
+    compilers, the @a aligned_attribute is not available and the type returned
+    by meta::align_ptr will be a simple pointer to @c T.
 
     @par Models:
 
@@ -60,7 +57,7 @@ namespace boost { namespace simd {  namespace meta
   template<typename T, std::size_t Alignment = BOOST_SIMD_CONFIG_ALIGNMENT>
   struct align_ptr
   {
-    typedef T* unspecified_attribute type;
+    typedef unspecified_pointer_type type;
   };
   #else
   template<typename T, std::size_t Alignment = BOOST_SIMD_CONFIG_ALIGNMENT>

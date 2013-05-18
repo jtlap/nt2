@@ -9,11 +9,6 @@
 #ifndef BOOST_SIMD_MEMORY_FUNCTIONS_INSERT_HPP_INCLUDED
 #define BOOST_SIMD_MEMORY_FUNCTIONS_INSERT_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the insert function
-**/
-
 #include <boost/simd/include/functor.hpp>
 #include <boost/simd/sdk/functor/hierarchy.hpp>
 #include <boost/dispatch/include/functor.hpp>
@@ -49,7 +44,7 @@ namespace boost { namespace simd
     type @c Offset:
 
     @code
-    Data x = insert(v,d,o);
+    insert(v,d,o);
     @endcode
 
     is equivalent to:
@@ -58,14 +53,12 @@ namespace boost { namespace simd
 
       @code
       d = v;
-      x = d;
       @endcode
 
     - If @c Type is a SIMD type:
 
       @code
       d[o] = v;
-      x = d;
       @endcode
 
     @param value   Value to insert
@@ -76,12 +69,10 @@ namespace boost { namespace simd
   **/
   template<typename Value, typename Data, typename Offset>
   BOOST_FORCEINLINE
-  typename boost::dispatch::meta
-                ::call<tag::insert_(Value const&, Data&, Offset const&)>::type
-  insert(Value const& value, Data& data, Offset const& offset)
+  void insert(Value const& value, Data& data, Offset const& offset)
   {
     typename boost::dispatch::make_functor<tag::insert_, Value>::type callee;
-    return callee(value,data,offset);
+    callee(value,data,offset);
   }
 } }
 

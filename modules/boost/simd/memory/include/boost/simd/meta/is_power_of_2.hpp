@@ -10,11 +10,6 @@
 #ifndef BOOST_SIMD_META_IS_POWER_OF_2_HPP_INCLUDED
 #define BOOST_SIMD_META_IS_POWER_OF_2_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements is_power_of_2 and is_power_of_2_c
-**/
-
 #include <cstddef>
 #include <boost/mpl/bool.hpp>
 
@@ -45,7 +40,7 @@ namespace boost { namespace simd {  namespace meta
     @tparam N Integral value to check
   **/
   template<std::size_t N> struct  is_power_of_2_c
-#if !defined(BOOST_DOXYGEN_ONLY)
+#if !defined(DOXYGEN_ONLY)
         : boost::mpl::bool_<(!(N & (N - 1)) && N)>
 #endif
   {};
@@ -76,7 +71,7 @@ namespace boost { namespace simd {  namespace meta
     @tparam N @mplint to check
   **/
   template<class N> struct  is_power_of_2
-#if !defined(BOOST_DOXYGEN_ONLY)
+#if !defined(DOXYGEN_ONLY)
         : boost::mpl::bool_<(!(N::value & (N::value - 1)) && N::value)>
 #endif
   {};

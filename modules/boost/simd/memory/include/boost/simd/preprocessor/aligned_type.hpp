@@ -17,8 +17,10 @@
 
   Wraps a type @c T so that it is aligned on an arbitrary alignment constraint.
 
+  @include preprocessor/aligned_type_on.cpp
+
   @param T      Type to align on current SIMD alignment
-  @param Align  Alignment constraint
+  @param ALIGN  Alignment constraint to respect
 **/
 #define BOOST_SIMD_ALIGNED_TYPE_ON(T,ALIGN) T BOOST_SIMD_ALIGN_ON(ALIGN)
 
@@ -26,6 +28,10 @@
   @brief Macro wrapper for SIMD aligned type
 
   Wraps a type @c T so that it is aligned on current SIMD alignment constraint.
+
+  @par Usage:
+
+  @include preprocessor/aligned_type.cpp
 
   @param T Type to align on current SIMD alignment
 **/

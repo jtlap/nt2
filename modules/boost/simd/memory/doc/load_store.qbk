@@ -1,7 +1,17 @@
 [section SIMD Data transfer]
 
-[section Loading values into registers]
+The classical idiom of SIMD programming is the blitter. The blitter is a code
+pattern in which data are loaded, processed then stored back to memory. This
+structure allows for a simple software loop unrolling and pipelining.
 
+Boost.SIMD fully supports this idiom by providing explicit - and thus more
+controllable - functions for loading and storing data from and to registers. To
+maximize their genericity, those functions operates with both scalar and SIMD
+types.
+
+[section Loading values from memory]
+Loading data from memory is done through the [functionref boost::simd::load]
+function.
 [endsect]
 
 [section Storing values to memory]
@@ -9,6 +19,10 @@
 [endsect]
 
 [section Streaming values to memory]
+
+[endsect]
+
+[section Prefetching cache lines]
 
 [endsect]
 

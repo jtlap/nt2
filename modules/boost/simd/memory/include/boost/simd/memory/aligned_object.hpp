@@ -10,23 +10,22 @@
 #ifndef BOOST_SIMD_MEMORY_ALIGNED_OBJECT_HPP_INCLUDED
 #define BOOST_SIMD_MEMORY_ALIGNED_OBJECT_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines SIMD aware new and delete overload decorator macro and class
-**/
-
-#include <cstddef>
 #include <boost/simd/preprocessor/new.hpp>
 #include <boost/simd/preprocessor/parameters.hpp>
+#include <cstddef>
 
 namespace boost { namespace simd
 {
   /*!
-    @brief
+    @brief Imbue a type with aligned new and delete overloads
 
     When used as a base class, aligned_object adds overloaded new and delete
     operators that use aligned allocation function over an arbitrary alignment
     boundary @c Alignment.
+
+    @par Usage:
+
+    @include memory/aligned_object.cpp
 
     @tparam Alignment Alignment boundary in bytes to use for dynamic allocation
             of child type.

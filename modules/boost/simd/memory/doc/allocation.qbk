@@ -47,4 +47,21 @@ by supporting both regular and allocator based deallocation.
 
 [endsect]
 
+[section Aligned Stack Allocation]
+Stack alignment is a tricky topic (see [@http://gcc.gnu.org/bugzilla/show_bug.cgi?id=16660]
+for a small example). The main issue is that, depending on compiler and operating
+system, the maximum alignment on the stack may or may not be compatible with the
+architecture SIMD preferred alignment.
+
+Boost.SIMD.Memory provides various macros that use the proper system dependent
+ways to define stack based buffer fulfilling both stack alignment and SIMD
+alignment is constraints:
+
+* [macroref BOOST_SIMD_STACK_BUFFER] and [macroref BOOST_SIMD_SCOPED_STACK_BUFFER]
+provides macro to generate a stack-based range aligned on current stack alignment.
+* [macroref BOOST_SIMD_ALIGNED_STACK_BUFFER] and [macroref BOOST_SIMD_ALIGNED_SCOPED_STACK_BUFFER]
+provides macro to generate a stack-based range aligned on current SIMD alignment.
+
+[endsect]
+
 [endsect]

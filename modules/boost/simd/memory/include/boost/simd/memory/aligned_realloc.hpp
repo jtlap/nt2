@@ -48,7 +48,8 @@ namespace boost { namespace simd
       - a call to the system specific reallocation function followed by an
         alignment fix-up.
 
-    Note that data are preserved during reallocation (contrary to aligned_reuse).
+    followed by a potential copy of the original data in the new memory block
+    (contrary to aligned_reuse).
 
     @pre   @c alignment is a non-zero power of two.
     @param ptr      Pointer to reallocate

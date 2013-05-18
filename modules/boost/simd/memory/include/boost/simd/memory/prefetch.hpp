@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2013   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -11,6 +12,7 @@
 
 #include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/simd/sdk/config/arch.hpp>
+#include <boost/dispatch/atributes.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Prefetch data from main memory to the cache for optimized memory accesses
@@ -29,25 +31,26 @@
 // TODO : Discuss for Altivec :
 // https://developer.apple.com/hardwaredrivers/ve/instruction_crossref.html#prefetch
 ////////////////////////////////////////////////////////////////////////////////
-
-
 namespace boost { namespace simd
 {
-  enum{integer_L1 = 3, real_L2_L3 = 2, not_frequently_reused = 1, not_reused = 0};
+  enum  { not_reused = 0
+        , not_frequently_reused
+        , real_L2_L3
+        , integer_L1
+      };
 
-  template<int Strategy>
-  void prefetch(void const* pointer)
+  template<int Strategy> BOOST_FORCEINLINE void prefetch(void* pointer)
   {
-#ifdef BOOST_SIMD_ARCH_X86
+  #ifdef BOOST_SIMD_ARCH_X86
     #ifdef __GNUC__
       __builtin_prefetch(pointer, 0, 0);
     #elif defined( BOOST_SIMD_HAS_SSE_SUPPORT )
       _mm_prefetch( static_cast<char const *>(pointer), Strategy);
     #endif
-#endif
+  #endif
   }
 
-  void prefetch_temporary(void const* pointer)
+  BOOST_FORCEINLINE void prefetch_temporary(void* pointer)
   {
     prefetch<not_reused>(pointer);
   }

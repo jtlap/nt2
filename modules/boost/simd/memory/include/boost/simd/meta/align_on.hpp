@@ -10,11 +10,6 @@
 #ifndef BOOST_SIMD_META_ALIGN_ON_HPP_INCLUDED
 #define BOOST_SIMD_META_ALIGN_ON_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Define and implements align_on and align_on_c
-**/
-
 #include <boost/simd/meta/is_power_of_2.hpp>
 #include <boost/simd/preprocessor/parameters.hpp>
 #include <boost/mpl/integral_c.hpp>
@@ -26,7 +21,7 @@ namespace boost { namespace simd {  namespace meta
   /*!
     @brief Align integral value on arbitrary boundary
 
-    Statically align integral value on arbitrary alignment boundary.
+    Statically align an integral value on an arbitrary alignment boundary.
 
     @par Semantic
 
@@ -48,7 +43,7 @@ namespace boost { namespace simd {  namespace meta
     N >= Value && N % Align = 0
     @endcode
 
-    If @c Align is not a power of two, a  @c BOOST_SIMD_INVALID_ALIGNMENT_VALUE
+    If @c Align is not a power of two, a @c BOOST_SIMD_INVALID_ALIGNMENT_VALUE
     static assertion is triggered.
 
     @par Example:
@@ -63,7 +58,9 @@ namespace boost { namespace simd {  namespace meta
           , std::size_t Align = BOOST_SIMD_CONFIG_ALIGNMENT
           >
   struct  align_on_c
+    #if !defined(DOXYGEN_ONLY)
         : boost::mpl::integral_c<std::size_t, (Value+Align-1) & ~(Align-1) >
+    #endif
   {
     #if !defined(DOXYGEN_ONLY)
     //==========================================================================
@@ -72,6 +69,7 @@ namespace boost { namespace simd {  namespace meta
     //   a boundary which is not a power of two. Fix your code accordingly.
     //               ****BOOST_SIMD_INVALID_ALIGNMENT_VALUE****
     //==========================================================================
+    /// INTERNAL ONLY
     BOOST_MPL_ASSERT_MSG( (meta::is_power_of_2_c<Align>::value)
                         , BOOST_SIMD_INVALID_ALIGNMENT_VALUE
                         , (boost::mpl::integral_c<std::size_t,Align>)
@@ -123,6 +121,7 @@ namespace boost { namespace simd {  namespace meta
           , typename Align = boost::mpl::integral_c<std::size_t,BOOST_SIMD_CONFIG_ALIGNMENT>
           >
   struct align_on
+#if !defined(DOXYGEN_ONLY)
        :  boost::mpl::integral_c
           < typename Value::value_type
           , typename Value::value_type(align_on_c < std::size_t(Value::value)
@@ -130,6 +129,7 @@ namespace boost { namespace simd {  namespace meta
                                                   >::value
                                       )
           >
+#endif
   {};
 } } }
 

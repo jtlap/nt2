@@ -9,11 +9,6 @@
 #ifndef BOOST_SIMD_MEMORY_FUNCTIONS_STREAM_HPP_INCLUDED
 #define BOOST_SIMD_MEMORY_FUNCTIONS_STREAM_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the stream function
-**/
-
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
