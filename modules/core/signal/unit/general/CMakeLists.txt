@@ -12,7 +12,9 @@ if(APPLE)
 endif()
 
 set( SOURCES
-     static_fft.cpp
-   )
+  static_fft.cpp
+  zero_crossing_rate.cpp
+  globalzero_crossing_rate.cpp
+  )
 
 nt2_module_add_tests(core.signal.general.unit ${SOURCES})

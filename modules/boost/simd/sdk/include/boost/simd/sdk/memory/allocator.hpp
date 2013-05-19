@@ -61,7 +61,7 @@ namespace boost { namespace simd {  namespace memory
     ////////////////////////////////////////////////////////////////////////////
     void construct(pointer p, const T& t)
     {
-      p = new (p) value_type(t);
+      p = new ((void*)p) value_type (t);
     }
 
     void destroy(pointer p) { p->~value_type(); }

@@ -36,8 +36,10 @@ do                                                                             \
     nt2::unit::fail ( #A " " #OP " " #B                                        \
                     , __LINE__,BOOST_CURRENT_FUNCTION                          \
                     );                                                         \
-    std::cout << #A << ": \n" << std::setprecision(20) << (A) << std::endl;    \
-    std::cout << #B << ": \n" << std::setprecision(20) << (B) << std::endl;    \
+    std::cout << #A << ": \n" << std::setprecision(20)                         \
+              << nt2::unit::eval(A) << std::endl;                              \
+    std::cout << #B << ": \n" << std::setprecision(20)                         \
+              << nt2::unit::eval(B) << std::endl;                              \
   }                                                                            \
 } while(0)                                                                     \
 /**/
@@ -67,8 +69,10 @@ do                                                                             \
     nt2::unit::fail ( #A " == " #B                                             \
                     , __LINE__,BOOST_CURRENT_FUNCTION                          \
                     );                                                         \
-    std::cout << #A << ": \n" << std::setprecision(20) << (A) << std::endl;    \
-    std::cout << #B << ": \n" << std::setprecision(20) << (B) << std::endl;    \
+    std::cout << #A << ": \n" << std::setprecision(20)                         \
+              << nt2::unit::eval(A) << std::endl;                              \
+    std::cout << #B << ": \n" << std::setprecision(20)                         \
+              << nt2::unit::eval(B) << std::endl;                              \
   }                                                                            \
 } while(0)                                                                     \
 /**/
@@ -98,8 +102,10 @@ do                                                                             \
     nt2::unit::fail ( #A " != " #B                                             \
                     , __LINE__,BOOST_CURRENT_FUNCTION                          \
                     );                                                         \
-    std::cout << #A << ": \n" << std::setprecision(20) << (A) << std::endl;    \
-    std::cout << #B << ": \n" << std::setprecision(20) << (B) << std::endl;    \
+    std::cout << #A << ": \n" << std::setprecision(20)                         \
+              << nt2::unit::eval(A) << std::endl;                              \
+    std::cout << #B << ": \n" << std::setprecision(20)                         \
+              << nt2::unit::eval(B) << std::endl;                              \
   }                                                                            \
 } while(0)                                                                     \
 /**/

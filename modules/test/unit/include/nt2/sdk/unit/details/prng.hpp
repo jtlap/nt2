@@ -14,6 +14,7 @@
 #include <nt2/sdk/unit/config.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/range/iterator_range_core.hpp>
+#include <complex>
 
 namespace nt2
 {
@@ -22,6 +23,10 @@ namespace nt2
     template<typename T>
     NT2_TEST_UNIT_DECL BOOST_DISPATCH_NOTHROW
     void prng_fill_impl( boost::iterator_range<T*> data, T minimum, T maximum );
+
+    template<typename T>
+    NT2_TEST_UNIT_DECL BOOST_DISPATCH_NOTHROW
+    void prng_fill_impl( boost::iterator_range<std::complex<T>*> data, std::complex<T> minimum, std::complex<T> maximum );
   }
 
   // Portably reproducible pseudo "random" values.
@@ -36,7 +41,7 @@ namespace nt2
             )
   {
     typedef boost::iterator_range<typename Range::value_type *> range_t;
-    details::prng_fill_impl<typename Range::value_type>
+    details::prng_fill_impl
     (
       range_t( &*data.begin(), (&*(data.end()-1))+1 ), minimum, maximum
     );

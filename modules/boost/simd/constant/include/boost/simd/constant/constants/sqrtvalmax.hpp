@@ -58,9 +58,43 @@ namespace boost { namespace simd
      * \brief Define the tag Sqrtvalmax of functor Sqrtvalmax
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    BOOST_SIMD_CONSTANT_REGISTER( Sqrtvalmax , double, 1
-                                , 0x5f800000, 0x5ff0000000000001ll
-                                );
+    struct Sqrtvalmax : ext::pure_constant_<Sqrtvalmax>
+    {
+      typedef double default_type;
+      template<class Target, class Dummy=void>
+      struct  apply
+            : meta::int_c < typename Target::type
+                          , typename Target::
+                            type( (typename Target::type(1)
+                                  << (sizeof(typename Target::type)*CHAR_BIT/2))-1
+                                )
+                          >
+      {};
+    };
+
+    template<class T, class Dummy>
+    struct  Sqrtvalmax::apply< boost::dispatch::meta::single_<T>,Dummy>
+          : meta::single_<0x5f800000> {};
+
+    template<class T, class Dummy>
+    struct  Sqrtvalmax::apply<boost::dispatch::meta::double_<T>,Dummy>
+          : meta::double_<0x5ff0000000000001ll> {};
+
+    template<class T, class Dummy>
+    struct  Sqrtvalmax::apply<boost::dispatch::meta::int8_<T>,Dummy>
+          : meta::int_c<T, 11> {};
+
+    template<class T, class Dummy>
+    struct  Sqrtvalmax::apply<boost::dispatch::meta::int16_<T>,Dummy>
+          : meta::int_c<T, 181> {};
+
+    template<class T, class Dummy>
+    struct  Sqrtvalmax::apply<boost::dispatch::meta::int32_<T>,Dummy>
+          : meta::int_c<T, 46340> {};
+
+    template<class T, class Dummy>
+    struct  Sqrtvalmax::apply<boost::dispatch::meta::int64_<T>,Dummy>
+          : meta::int_c<T, 3037000499ll> {};
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Sqrtvalmax, Sqrtvalmax)

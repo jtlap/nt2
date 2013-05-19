@@ -16,7 +16,7 @@ respectively point to the folders containing your Boost header, the __NT2__
 header and __NT2__ binary library.
 
 [section Building with __CMAKE__]
-__NT2__ provides in =$NT2_ROOT\cmake= a set of cmake file containing macros and
+__NT2__ provides in =$NT2_ROOT\cmake= a set of cmake files containing macros and
 functions to help finding, configuring and building __NT2__ based applications
 and libraries. This is the recommended choice for large project or if you want
 to use some advanced __NT2__ features. This section will briefly cover the basic

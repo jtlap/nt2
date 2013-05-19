@@ -14,6 +14,8 @@ SET( SOURCES
   quadl.cpp
   quadgk.cpp
   romberg.cpp
+  quasi.cpp
+  qmtc.cpp
   # List of scalar test files for toolbox interpol
    )
 

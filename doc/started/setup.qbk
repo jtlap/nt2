@@ -1,4 +1,4 @@
-[chapter Setting Up NT²
+[chapter Setting Up __NT2__
   [quickbook 1.5]
 ]
 
@@ -32,7 +32,7 @@ knowledge in C++ and usual system related operations.
   __DOXYGEN__, the __BOOSTBOOK__ toolchain and __QUICKBOOK__.
 
 * Due to the vast number of tests in __NT2__, the use of the __NINJA__ build system
-  is recommended if you intend to compile tests regularly. Not that __NINJA__ requires a
+  is recommended if you intend to compile tests regularly. Note that __NINJA__ requires a
   __CMAKE__ version of at least 2.8.8 or 2.8.9 depending on your operating system.
 
 Some other modules may have other external dependencies. Those are listed in

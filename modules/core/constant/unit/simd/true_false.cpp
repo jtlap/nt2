@@ -6,26 +6,24 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2::constants true/false"
-
 #include <nt2/include/constants/true_false.hpp>
+#include <nt2/include/constants/allbits.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Test value of true/false constant
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( true_false_integer_value, BOOST_SIMD_SIMD_TYPES )
+#include "../constant.hpp"
+
+NT2_TEST_CASE_TPL( true_false, BOOST_SIMD_SIMD_TYPES )
 {
-  typedef BOOST_SIMD_DEFAULT_EXTENSION ext_t;
-  typedef boost::simd::native< nt2::logical<T>, ext_t> dst_t;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef boost::simd::native<boost::simd::logical<T>,ext_t>  n_t;
 
-  for(std::size_t i=0; i< nt2::meta::cardinal_of<dst_t>::value;++i)
-    NT2_TEST_EQUAL( (nt2::False<dst_t>())[i], nt2::logical<T>(false) );
-
-  for(std::size_t i=0; i< nt2::meta::cardinal_of<dst_t>::value;++i)
-    NT2_TEST_EQUAL( (nt2::True<dst_t>())[i], nt2::logical<T>(true) );
+  NT2_CHECK_CONSTANT(False, nt2::Zero<T>() , n_t );
+  NT2_CHECK_CONSTANT(True , nt2::Allbits<T>()  , n_t );
 }

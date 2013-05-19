@@ -60,7 +60,8 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a, A0 & r0,A0 & r1) const
     {
       A0 const c = boost::simd::Splitfactor<A0>()*a;
-      r0 = c-(c-a);
+      A0 const c1 = c-a;
+      r0 = c-c1;
       r1 = a-r0;
     }
   };

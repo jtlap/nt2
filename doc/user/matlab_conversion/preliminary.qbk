@@ -1,11 +1,11 @@
-[section Preliminary NT2 settings]
-Matlab needs its pathes set, in order to find the object it will deal with.
+[section Preliminary __NT2__ settings]
+Matlab needs its paths set, in order to find the object it will deal with.
 
 Accordingly with NT2 we must work in the proper workspaces and
 include the proper objects to work with.
 
 [h3 Namespaces]
-NT2 objects are mostly located in workspaces `nt2` and `nt2::meta`. To simplify the following exposition
+__NT2__ objects are mostly located in workspaces `nt2` and `nt2::meta`. To simplify the following exposition
 we will suppose that the directives:
   [c++]
   ``
@@ -25,7 +25,7 @@ Also to have some array types ready to use, we will admit that
   ``
 is present.
 
-An NT2 type very similar to the standard Matlab arrays of double can now be defined by the following typedef:
+An __NT2__ type very similar to the standard Matlab arrays of double can now be defined by the following `typedef`:
   [c++]
   ``
   typedef table<double>  M_t;

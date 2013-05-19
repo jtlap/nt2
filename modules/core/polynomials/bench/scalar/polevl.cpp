@@ -6,77 +6,41 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_BENCH_MODULE "nt2 polynomials toolbox - polevl/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of polynomials components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
 #include <nt2/polynomials/include/functions/polevl.hpp>
-#include <nt2/sdk/bench/benchmark.hpp>
-#include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <cmath>
+#include <nt2/sdk/bench/benchmark.hpp>
 
+template<typename T> NT2_EXPERIMENT(polevl_bench)
+{
+  public:
+  polevl_bench(std::size_t s) : NT2_EXPRIMENT_CTOR(1,"cycles/elements"), size(s)
+  {
+    coeff[0] = T(2); coeff[1] = T(3); coeff[2] = T(4);
+  }
 
-//////////////////////////////////////////////////////////////////////////////
-// scalar runtime benchmark for functor<polevl_> from polynomials
-//////////////////////////////////////////////////////////////////////////////
-using nt2::tag::polevl_;
+  virtual void run() const
+  {
+    for(int i=0;i<size;++i) out[i] = nt2::polevl(in[i], coeff);
+  }
 
-//////////////////////////////////////////////////////////////////////////////
-// range macro
-//////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, T(V1) ,T(V2))
+  virtual double compute(nt2::benchmark_result_t const& r) const
+  {
+    return r.first/double(size);
+  }
 
-namespace n1 {
-  typedef float T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(polevl_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10))))
-}
-namespace n2 {
-  typedef double T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(polevl_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10))))
-}
-namespace n3 {
-  typedef nt2::uint8_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(polevl_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10))))
-}
-namespace n4 {
-  typedef nt2::uint16_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(polevl_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10))))
-}
-namespace n5 {
-  typedef nt2::uint32_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(polevl_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10))))
-}
-namespace n6 {
-  typedef nt2::uint64_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(polevl_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10))))
-}
-namespace n7 {
-  typedef nt2::int8_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(polevl_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10))))
-}
-namespace n8 {
-  typedef nt2::int16_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(polevl_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10))))
-}
-namespace n9 {
-  typedef nt2::int32_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(polevl_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10))))
-}
-namespace n10 {
-  typedef nt2::int64_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(polevl_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10))))
-}
+  virtual void info(std::ostream& os) const { os << size; }
 
-#undef RS
+  virtual void reset() const
+  {
+    in.resize(size);
+    out.resize(size);
+    nt2::roll(in,-10,10);
+  }
+
+  private:
+  int       size;
+  mutable   std::vector<T>  in,out;
+  boost::array<T,3>         coeff;
+};
+
+NT2_RUN_EXPERIMENT_TPL( polevl_bench, (float)(double), (1024) );

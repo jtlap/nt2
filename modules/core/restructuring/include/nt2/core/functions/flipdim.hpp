@@ -35,7 +35,7 @@ namespace nt2
     };
   }
 
-    /*!
+  /*!
     @brief Flip an expression around an arbitrary dimension axis
 
     Return an expression which values along a given dimension are in reverse
@@ -45,6 +45,7 @@ namespace nt2
     @return the flipped expression
   **/
 
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::flipdim_       , flipdim, 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::flipdim_       , flipdim, 2)
 }
 

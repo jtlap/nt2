@@ -10,17 +10,15 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ADDS_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/adds.hpp>
+#include <boost/simd/include/functions/simd/shrai.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/bitwise_or.hpp>
-#include <boost/simd/include/functions/simd/is_less.hpp>
-#include <boost/simd/include/functions/simd/is_greater.hpp>
-#include <boost/simd/include/functions/simd/is_gtz.hpp>
-#include <boost/simd/include/functions/simd/logical_and.hpp>
-#include <boost/simd/include/functions/simd/logical_or.hpp>
-#include <boost/simd/include/functions/simd/logical_notand.hpp>
+#include <boost/simd/include/functions/simd/bitwise_xor.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
-#include <boost/simd/include/functions/simd/min.hpp>
-#include <boost/simd/include/functions/simd/max.hpp>
+#include <boost/simd/include/functions/simd/is_less.hpp>
+#include <boost/simd/include/functions/simd/is_greater_equal.hpp>
+#include <boost/simd/include/functions/simd/genmask.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/mpl/logical.hpp>
@@ -47,7 +45,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 a0pa1 = a0+a1;
-      return if_else(lt(a0pa1, a0), Valmax<A0>(), a0pa1);
+      return a0pa1 | genmask(a0pa1 < a0);
     }
   };
 
@@ -60,13 +58,17 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename meta::as_logical<A0>::type bA0;
-      bA0 gtza0 = is_gtz(a0);
-      bA0 gtza1 = is_gtz(a1);
-      A0 a0pa1 = a0+a1;
-      bA0 test1 = logical_and(logical_and(gtza0, gtza1), lt(a0pa1, a0));
-      bA0 test2 = logical_notand(logical_or(gtza0, gtza1), gt(a0pa1,a0));
-      return if_else(test1,Valmax<A0>(),if_else(test2,Valmin<A0>(),a0pa1));
+      typedef typename dispatch::meta::as_unsigned<A0>::type utype;
+      typedef typename meta::scalar_of<A0>::type stype;
+
+      utype ux = bitwise_cast<utype>(a0);
+      utype uy = bitwise_cast<utype>(a1);
+      utype res = ux + uy;
+
+      ux = shrai(ux, sizeof(stype)*CHAR_BIT-1) + Valmax<stype>();
+
+      return bitwise_cast<A0>(if_else(bitwise_cast<A0>((ux ^ uy) | ~(uy ^ res)) >=  Zero<A0>(), ux, res));
+
     }
   };
 } } }

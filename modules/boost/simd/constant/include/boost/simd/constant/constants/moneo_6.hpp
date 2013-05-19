@@ -21,7 +21,7 @@
  * \defgroup boost_simd_constant_moneo_6 Moneo_6
  *
  * \par Description
- * Constant Moneo_6 = 1/120
+ * Constant Moneo_6 = 1/6
  *
  * \par Header file
  *
@@ -57,8 +57,8 @@ namespace boost { namespace simd
      * \brief Define the tag Moneo_6 of functor Moneo_6
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    BOOST_SIMD_CONSTANT_REGISTER( Moneo_6, int, 0, 0x3c088889
-                                , 0x3f81111111111111ll
+    BOOST_SIMD_CONSTANT_REGISTER( Moneo_6, int, 0, 0xBE2AAAAB
+                                , 0xBFC5555555555555LL
                                 );
   }
 
