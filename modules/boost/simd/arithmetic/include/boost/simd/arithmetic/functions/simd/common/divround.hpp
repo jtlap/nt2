@@ -13,7 +13,6 @@
 #include <boost/simd/include/functions/simd/iround.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>
 #include <boost/simd/include/functions/simd/divs.hpp>
-#include <boost/simd/include/functions/rdivide.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/group.hpp>
 #include <boost/simd/include/functions/simd/split.hpp>
