@@ -12,7 +12,7 @@
 #include <nt2/combinatorial/functions/lcm.hpp>
 #include <nt2/include/functions/simd/gcd.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
-#include <nt2/include/functions/simd/rdivide.hpp>
+#include <nt2/include/functions/simd/divs.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
 
 namespace nt2 { namespace ext
