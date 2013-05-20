@@ -8,8 +8,8 @@
 //==============================================================================
 #ifndef NT2_ELLIPTIC_FUNCTIONS_CONTAINER_ELLIPKE_HPP_INCLUDED
 #define NT2_ELLIPTIC_FUNCTIONS_CONTAINER_ELLIPKE_HPP_INCLUDED
-#include <nt2/include/functions/scalar/ellipke.hpp>
-#include <nt2/include/functions/simd/ellipke.hpp>
+
+#include <nt2/elliptic/functions/ellipke.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>

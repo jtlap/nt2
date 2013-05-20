@@ -49,7 +49,7 @@ namespace nt2 { namespace details { namespace internal
                                   A0& y)
     {
       typedef typename meta::as_integer<A0, signed>::type int_type;
-      int_type e;
+      int_type e = 0;
       nt2::fast_frexp(a0, x, e);
       int_type x_lt_sqrthf = -(single_constant<A0, 0x3f3504f3>() > x);
       e += x_lt_sqrthf;
