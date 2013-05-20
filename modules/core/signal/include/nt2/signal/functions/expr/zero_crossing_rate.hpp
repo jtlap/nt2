@@ -10,12 +10,11 @@
 #define NT2_CORE_FUNCTIONS_EXPR_ZERO_CROSSING_RATE_HPP_INCLUDED
 
 #include <nt2/signal/functions/zero_crossing_rate.hpp>
-#include <nt2/core/container/dsl.hpp>
 #include <nt2/include/functions/mean.hpp>
+#include <nt2/include/functions/diff.hpp>
+#include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/if_zero_else_one.hpp>
 #include <nt2/include/functions/is_nltz.hpp>
-#include <nt2/include/functions/adjfun.hpp>
-#include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/firstnonsingleton.hpp>
 
 namespace nt2 { namespace ext
@@ -37,9 +36,10 @@ namespace nt2 { namespace ext
   {
     BOOST_DISPATCH_RETURNS(2, (A0 const & a0, A1 const& a1),
                            nt2::mean(
-                             nt2::if_zero_else_one(
-                               nt2::is_nltz(
-                                 nt2::adjfun(functor<nt2::tag::multiplies_>(), a0)
+                             nt2::abs(
+                               nt2::diff(
+                                 nt2::if_zero_else_one(nt2::is_nltz(a0)),
+                                 1, a1
                                )
                              ), a1
                            )

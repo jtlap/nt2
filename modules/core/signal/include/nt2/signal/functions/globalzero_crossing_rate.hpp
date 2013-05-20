@@ -37,22 +37,6 @@
  *     globalzero_crossing_rate(const A0 & a0);
  * }
  * \endcode
- *
- * \param a0 the unique parameter of globalzero_crossing_rate
- *
- * \return always a scalar value
- *
- * \par Notes
- * \par
- * This is a reduction operation. As such it has not real interest outside
- * SIMD mode.
- * \par
- * Such an operation always has a scalar result which translate a property
- * of the whole SIMD vector.
- * \par
- * If usable and used in scalar mode, it reduces to the operation as acting
- * on a one element vector.
- *
 **/
 
 

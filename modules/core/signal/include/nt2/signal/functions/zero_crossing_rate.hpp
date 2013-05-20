@@ -29,26 +29,11 @@
  * \code
  * namespace boost::simd
  * {
- *   template <class A0>
- *     meta::call<tag::zero_crossing_rate_(A0)>::type
- *     zero_crossing_rate(const A0 & a0);
+ *   template <class A0, class A1>
+ *     meta::call<tag::zero_crossing_rate_(A0, A1)>::type
+ *     zero_crossing_rate(const A0 & a0, const A1& n);
  * }
  * \endcode
- *
- * \param a0 the unique parameter of zero_crossing_rate
- *
- * \return always a scalar value
- *
- * \par Notes
- * \par
- * This is a reduction operation. As such it has not real interest outside
- * SIMD mode.
- * \par
- * Such an operation always has a scalar result which translate a property
- * of the whole SIMD vector.
- * \par
- * If usable and used in scalar mode, it reduces to the operation as acting
- * on a one element vector.
  *
 **/
 
