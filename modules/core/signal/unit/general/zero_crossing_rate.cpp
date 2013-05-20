@@ -11,12 +11,14 @@
 #include <nt2/signal/include/functions/zero_crossing_rate.hpp>
 #include <nt2/include/functions/cospi.hpp>
 #include <nt2/include/functions/colon.hpp>
+#include <nt2/include/functions/round.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/table.hpp>
+
 
 
 NT2_TEST_CASE_TPL ( zero_crossing_rate_real__1_0,  NT2_REAL_TYPES)
@@ -29,6 +31,6 @@ NT2_TEST_CASE_TPL ( zero_crossing_rate_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(zero_crossing_rate(s)(1), T(1), 0.5);
   NT2_TEST_ULP_EQUAL(zero_crossing_rate(nt2::_(T(0), T(10))), T(0), 0.5);
   NT2_TEST_ULP_EQUAL(zero_crossing_rate(nt2::cospi(nt2::_(T(e), T(e+0.5), T(e+10)))), T(0.5), 0.5);
-  NT2_TEST_ULP_EQUAL(zero_crossing_rate(nt2::cospi(nt2::_(T(0), T(0.5), T(10)))), T(0), 0.5);
+  NT2_TEST_ULP_EQUAL(zero_crossing_rate(nt2::round(T(2)*nt2::cospi(nt2::_(T(0), T(0.5), T(10))))/T(2)), T(0), 0.5);
 
 }
