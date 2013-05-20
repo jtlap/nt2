@@ -20,6 +20,7 @@ namespace nt2 { namespace optimization
     R           value;
     std::size_t iterations_count;
     bool        successful;
+    T           covar;
   };
 } }
 
@@ -31,6 +32,7 @@ BOOST_FUSION_ADAPT_TPL_STRUCT
   (R          , value)
   (std::size_t, iterations_count)
   (bool       , successful)
+  (T          , covariance)
 );
 
 #endif

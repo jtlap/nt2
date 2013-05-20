@@ -34,7 +34,10 @@
 #include <boost/simd/constant/include/constants/ten.hpp>
 #include <boost/simd/constant/include/constants/eleven.hpp>
 #include <boost/simd/constant/include/constants/twelve.hpp>
+#include <boost/simd/constant/include/constants/fifteen.hpp>
 #include <boost/simd/constant/include/constants/twenty.hpp>
+#include <boost/simd/constant/include/constants/hundred.hpp>
+#include <boost/simd/constant/include/constants/thousand.hpp>
 
 #include <boost/simd/constant/include/constants/fact_4.hpp>
 #include <boost/simd/constant/include/constants/fact_5.hpp>
@@ -45,7 +48,6 @@
 #include <boost/simd/constant/include/constants/fact_10.hpp>
 #include <boost/simd/constant/include/constants/fact_11.hpp>
 #include <boost/simd/constant/include/constants/fact_12.hpp>
-
 
 #include <boost/simd/constant/include/constants/int_splat.hpp>
 

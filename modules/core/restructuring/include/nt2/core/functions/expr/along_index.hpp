@@ -20,6 +20,7 @@
 #include <nt2/core/utility/of_size.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/array.hpp>
+#include <boost/assert.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -37,8 +38,8 @@ namespace nt2 { namespace ext
     {
       result_type sz = boost::proto::value(boost::proto::child_c<2>(expr));
       std::size_t i = boost::proto::value(boost::proto::child_c<1>(expr));
-      if(i <= result_type::static_size)
-        sz[i-1] = numel(boost::proto::child_c<0>(expr));
+      BOOST_ASSERT_MSG(i <= result_type::static_size, "Applying indexer along a dimension past the indexed size");
+      sz[i-1] = numel(boost::proto::child_c<0>(expr));
       return sz;
     }
   };

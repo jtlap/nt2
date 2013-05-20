@@ -41,29 +41,5 @@ namespace n2 {
   typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(fast_sincosd_,(RS(vT,T(-45),T(45))))
 }
-namespace n3 {
-  typedef nt2::int32_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(fast_sincosd_,(RS(vT,T(-45),T(45))))
-}
-namespace n4 {
-  typedef nt2::int64_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(fast_sincosd_,(RS(vT,T(-45),T(45))))
-}
-namespace n5 {
-  typedef nt2::uint32_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(fast_sincosd_,(RS(vT,T(-45),T(45))))
-}
-namespace n6 {
-  typedef nt2::uint64_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(fast_sincosd_,(RS(vT,T(-45),T(45))))
-}
 
 #undef RS

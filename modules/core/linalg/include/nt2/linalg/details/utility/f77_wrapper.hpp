@@ -16,7 +16,11 @@
 // FORTRAN library in use, adding or not the underscore to FORTRAN routine names
 // By default we generate Name_
 #ifndef NT2_F77NAME
+#ifdef NT2_F77NAME_NO_UNDERSCORE
+#define NT2_F77NAME(NAME) NAME
+#else
 #define NT2_F77NAME(NAME) BOOST_PP_CAT(NAME,_)
+#endif
 #endif
 
 // INTERNAL ONLY

@@ -12,7 +12,6 @@
 #include <nt2/sdk/meta/size.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/simd/bitofsign.hpp>
 #include <nt2/include/functions/simd/signnz.hpp>
 #include <nt2/include/functions/simd/is_odd.hpp>
@@ -60,7 +59,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(2)
     {

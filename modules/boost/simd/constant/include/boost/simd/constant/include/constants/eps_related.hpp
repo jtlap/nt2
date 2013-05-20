@@ -17,6 +17,7 @@
 #include <boost/simd/constant/include/constants/fourthrooteps.hpp>
 #include <boost/simd/constant/include/constants/thirdrooteps.hpp>
 #include <boost/simd/constant/include/constants/smallestposval.hpp>
+#include <boost/simd/constant/include/constants/sqrtsmallestposval.hpp>
 #include <boost/simd/constant/include/constants/mindenormal.hpp>
 
 #endif

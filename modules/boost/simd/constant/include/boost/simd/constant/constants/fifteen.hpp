@@ -21,7 +21,7 @@
  * \defgroup boost_simd_constant_fifteen Fifteen
  *
  * \par Description
- * Constant Fifteen = 5
+ * Constant Fifteen = 15
  *
  * \par Header file
  *
@@ -57,7 +57,7 @@ namespace boost { namespace simd
      * \brief Define the tag Fifteen of functor Fifteen
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    BOOST_SIMD_CONSTANT_REGISTER(Fifteen,int,5,0x41700000,0x402e000000000000ll);
+    BOOST_SIMD_CONSTANT_REGISTER(Fifteen,int,15,0x41700000,0x402e000000000000ll);
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Fifteen, Fifteen)

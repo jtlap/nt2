@@ -8,11 +8,10 @@
 //==============================================================================
 #ifndef NT2_ELLIPTIC_FUNCTIONS_GENERIC_ELLIPKE_HPP_INCLUDED
 #define NT2_ELLIPTIC_FUNCTIONS_GENERIC_ELLIPKE_HPP_INCLUDED
-#include <nt2/include/functions/scalar/ellipke.hpp>
-#include <nt2/include/functions/simd/ellipke.hpp>
+
+#include <nt2/elliptic/functions/ellipke.hpp>
 #include <boost/fusion/include/std_pair.hpp>
 #include <nt2/include/constants/eps.hpp>
-
 
 namespace nt2 { namespace ext
 {
@@ -42,7 +41,7 @@ namespace nt2 { namespace ext
   {
     typedef std::pair<A0, A0> result_type;
 
-    NT2_FUNCTOR_CALL_REPEAT(2)
+    NT2_FUNCTOR_CALL(2)
     {
       result_type res;
       nt2::ellipke(a0, a1, res.first, res.second);

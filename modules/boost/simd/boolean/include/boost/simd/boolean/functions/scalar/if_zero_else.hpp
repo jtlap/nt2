@@ -10,7 +10,7 @@
 #define BOOST_SIMD_BOOLEAN_FUNCTIONS_SCALAR_IF_ZERO_ELSE_HPP_INCLUDED
 #include <boost/simd/boolean/functions/if_zero_else.hpp>
 #include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/include/functions/is_nez.hpp>
+#include <boost/simd/include/functions/scalar/is_nez.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

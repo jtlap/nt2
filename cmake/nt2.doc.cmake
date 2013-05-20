@@ -138,6 +138,7 @@ macro(nt2_doc_doxygen file)
     file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen)
   endif()
 
+  # Add include directories for preprocessing purposes
   get_directory_property(INCLUDE_DIRECTORIES INCLUDE_DIRECTORIES)
   set(DXY_PATH)
   foreach(include ${INCLUDE_DIRECTORIES})
@@ -149,7 +150,6 @@ macro(nt2_doc_doxygen file)
   string(TOUPPER ${NT2_CURRENT_MODULE} NT2_CURRENT_MODULE_U)
 
   file(READ ${absolute} DOXYGEN_CONTENT)
-  # Add proper BOOST path to this Doxygen for PP purpose
   set(DXY_PP     "SEARCH_INCLUDES=YES\nENABLE_PREPROCESSING=YES\nMACRO_EXPANSION=YES\n")
   set(DXY_PDEF   "PREDEFINED=DOXYGEN_ONLY\n")
   set(DXY_EX)

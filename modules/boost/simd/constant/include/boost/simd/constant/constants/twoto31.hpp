@@ -21,7 +21,7 @@
  * \defgroup boost_simd_constant_twoto31 Twoto31
  *
  * \par Description
- * Constant Twoto31 = \f$2^{-10}\f$
+ * Constant Twoto31 = \f$2^{31}\f$
  *
  * \par Header file
  *

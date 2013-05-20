@@ -6,18 +6,19 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2::constants true/false"
-
 #include <nt2/include/constants/true_false.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Test value of true/false constants
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL  (  true_false_value, BOOST_SIMD_TYPES )
+#include "../constant.hpp"
+
+NT2_TEST_CASE_TPL( true_false, BOOST_SIMD_TYPES )
 {
-  NT2_TEST_EQUAL( nt2::False< nt2::logical<T> >() , nt2::logical<T>(false) );
-  NT2_TEST_EQUAL( nt2::True< nt2::logical<T> >()  , nt2::logical<T>(true)  );
+  using boost::simd::logical;
+
+  NT2_CHECK_CONSTANT(False, logical<T>(false) , logical<T> );
+  NT2_CHECK_CONSTANT(True , logical<T>(true)  , logical<T> );
 }

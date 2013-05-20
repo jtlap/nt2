@@ -4,15 +4,15 @@
 
 [section Overview]
 
-There are principaly two kinds of people using NT2
+There are principaly two kinds of people using __NT2__
 
 Those who know Matlab concepts
 
-Those coming from straight C/C++
+Those coming from straight C/__CPP__
 
 For each kind we propose
 
-# A catalog of equivalence between what can be done in Matlab (respectively C/C+ and what can be used in NT2,
+# A catalog of equivalence between what can be done in Matlab (respectively C/__CPP__ and what can be used in NT2,
 # A pack of do and don't in order to get better performance out of the written code.
 
 

@@ -51,7 +51,7 @@ namespace nt2 { namespace ext
       lev.optimize(crit, a, w, o);
       BOOST_ASSERT_MSG(lev.convok(), "levenberg was not convergent");
       // We didn't converged -- add message for this
-      result_type that = {a,lev.lastchi2(),lev.nbiteration(),lev.convok()};
+      result_type that = {a,lev.lastchi2(),lev.nbiteration(),lev.convok(), lev.covariance()};
       return that;
     }
   };
