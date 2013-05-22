@@ -87,6 +87,12 @@ os << ","; print(BOOST_PP_CAT(rmax,n),os);                                     \
 os << ") ";                                                                    \
 /**/
 
+#define M9(z,n,t)                                                              \
+ (boost::simd::meta::cardinal_of<T##n>::value != 1)                            \
+? boost::simd::meta::cardinal_of<T##n>::value                                  \
+:                                                                              \
+/**/
+
 namespace nt2 { namespace unit
 {
   template< typename Function
@@ -108,7 +114,7 @@ namespace nt2 { namespace unit
     typedef typename Function::tag_type     tag_type;
     typedef typename Function::context_type context_type;
 
-    static const std::size_t card = boost::simd::meta::cardinal_of<T0>::value;
+    static const std::size_t card = BOOST_PP_REPEAT(N, M9, ~) 1;
 
     nary_benchmark( BOOST_PP_ENUM(N,M2,~) )
         : details::base_experiment
@@ -159,6 +165,7 @@ namespace nt2 { namespace unit
   };
 } }
 
+#undef M9
 #undef M8
 #undef M7
 #undef M6
