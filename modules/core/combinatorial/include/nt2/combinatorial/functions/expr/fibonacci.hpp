@@ -26,7 +26,7 @@
 #include <nt2/include/constants/gold.hpp>
 #include <nt2/include/constants/cgold.hpp>
 #include <nt2/core/container/table/table.hpp>
-#include <nt2/table.hpp>
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fibonacci_, tag::cpu_,
