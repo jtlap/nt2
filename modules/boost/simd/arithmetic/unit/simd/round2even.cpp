@@ -43,16 +43,16 @@ NT2_TEST_CASE_TPL ( round2even_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(round2even(boost::simd::splat<vT>(1.4))[0], 1, 0);
-  NT2_TEST_ULP_EQUAL(round2even(boost::simd::splat<vT>(1.5))[0], 2, 0);
-  NT2_TEST_ULP_EQUAL(round2even(boost::simd::splat<vT>(1.6))[0], 2, 0);
-  NT2_TEST_ULP_EQUAL(round2even(boost::simd::splat<vT>(2.5))[0], 2, 0);
-  NT2_TEST_ULP_EQUAL(round2even(boost::simd::Half<vT>())[0], boost::simd::Zero<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(round2even(boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(round2even(boost::simd::Mhalf<vT>())[0], boost::simd::Zero<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(round2even(boost::simd::Minf<vT>())[0], boost::simd::Minf<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(round2even(boost::simd::Mone<vT>())[0], boost::simd::Mone<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(round2even(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(round2even(boost::simd::One<vT>())[0], boost::simd::One<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(round2even(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(round2even(boost::simd::splat<vT>(1.4)),  boost::simd::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(round2even(boost::simd::splat<vT>(1.5)),  boost::simd::Two<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(round2even(boost::simd::splat<vT>(1.6)),  boost::simd::Two<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(round2even(boost::simd::splat<vT>(2.5)),  boost::simd::Two<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(round2even(boost::simd::Half<vT>()), boost::simd::Zero<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(round2even(boost::simd::Inf<vT>()), boost::simd::Inf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(round2even(boost::simd::Mhalf<vT>()), boost::simd::Zero<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(round2even(boost::simd::Minf<vT>()), boost::simd::Minf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(round2even(boost::simd::Mone<vT>()), boost::simd::Mone<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(round2even(boost::simd::Nan<vT>()), boost::simd::Nan<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(round2even(boost::simd::One<vT>()), boost::simd::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(round2even(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>(), 0);
 } // end of test for floating_
