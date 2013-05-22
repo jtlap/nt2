@@ -19,6 +19,7 @@
 #include <boost/simd/include/functions/simd/divides.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/divs.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
