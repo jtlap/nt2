@@ -14,23 +14,23 @@
 /// created by jt the 01/12/2010
 ///
 #include <nt2/arithmetic/include/functions/divround.hpp>
-#include <nt2/include/functions/iround.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_signed.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/meta/downgrade.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
 #include <nt2/constant/constant.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/constants/three.hpp>
+#include <nt2/include/constants/four.hpp>
+#include <nt2/include/constants/five.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/minf.hpp>
+#include <nt2/include/constants/mone.hpp>
+#include <nt2/include/constants/nan.hpp>
 
 
 NT2_TEST_CASE_TPL ( divround_real__2_0,  NT2_REAL_TYPES)
@@ -38,19 +38,12 @@ NT2_TEST_CASE_TPL ( divround_real__2_0,  NT2_REAL_TYPES)
 
   using nt2::divround;
   using nt2::tag::divround_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<divround_(T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::common_type<T,T>::type wished_r_t;
+  typedef T wished_r_t;
 
 
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
-
+  NT2_TEST_TYPE_IS( r_t, wished_r_t );
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(divround(nt2::Five<T>(),nt2::Three<T>()), nt2::Two<r_t>(), 0);
@@ -70,16 +63,11 @@ NT2_TEST_CASE_TPL ( divround_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
   using nt2::tag::divround_;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<divround_(T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::common_type<T,T>::type wished_r_t;
+  typedef T wished_r_t;
 
 
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
+  NT2_TEST_TYPE_IS( r_t, wished_r_t );
 
 
   // specific values tests
@@ -94,19 +82,11 @@ NT2_TEST_CASE_TPL ( divround_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
   using nt2::divround;
   using nt2::tag::divround_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<divround_(T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::common_type<T,T>::type wished_r_t;
-
+  typedef T wished_r_t;
 
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
-
+  NT2_TEST_TYPE_IS( r_t, wished_r_t );
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(divround(nt2::Five<T>(),nt2::Three<T>()), nt2::Two<r_t>(), 0);

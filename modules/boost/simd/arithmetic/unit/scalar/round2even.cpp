@@ -14,12 +14,19 @@
 /// created by jt the 01/12/2010
 ///
 #include <boost/simd/arithmetic/include/functions/round2even.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <boost/dispatch/functor/meta/call.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+
 #include <boost/simd/constant/constant.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/minf.hpp>
+#include <boost/simd/include/constants/mone.hpp>
+#include <boost/simd/include/constants/nan.hpp>
 
 
 NT2_TEST_CASE_TPL ( round2even_real__1_0,  BOOST_SIMD_REAL_TYPES)
@@ -29,14 +36,11 @@ NT2_TEST_CASE_TPL ( round2even_real__1_0,  BOOST_SIMD_REAL_TYPES)
   using boost::simd::tag::round2even_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<round2even_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef T wished_r_t;
 
 
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
+  NT2_TEST_TYPE_IS( r_t, wished_r_t );
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(round2even(T(1.4)), 1, 0);
@@ -60,16 +64,11 @@ NT2_TEST_CASE_TPL ( round2even_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   using boost::simd::tag::round2even_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<round2even_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef T wished_r_t;
 
 
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-
-
+  NT2_TEST_TYPE_IS( r_t, wished_r_t );
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(round2even(boost::simd::One<T>()), boost::simd::One<r_t>(), 0);
@@ -83,14 +82,11 @@ NT2_TEST_CASE_TPL ( round2even_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPE
   using boost::simd::tag::round2even_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<round2even_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef T wished_r_t;
 
 
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
+  NT2_TEST_TYPE_IS( r_t, wished_r_t );
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(round2even(boost::simd::Mone<T>()), boost::simd::Mone<r_t>(), 0);

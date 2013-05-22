@@ -14,16 +14,20 @@
 /// created by jt the 01/12/2010
 ///
 #include <boost/simd/arithmetic/include/functions/round2even.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <boost/dispatch/functor/meta/call.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/constant/constant.hpp>
-#include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
-#include <boost/simd/include/functions/load.hpp>
-
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/two.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/minf.hpp>
+#include <boost/simd/include/constants/mone.hpp>
+#include <boost/simd/include/constants/nan.hpp>
 
 NT2_TEST_CASE_TPL ( round2even_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
@@ -31,22 +35,18 @@ NT2_TEST_CASE_TPL ( round2even_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   using boost::simd::tag::round2even_;
   using boost::simd::load;
   using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
+  typedef native<T,ext_t>                  vT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
+  typedef native<iT,ext_t>                                   ivT;
   typedef typename boost::dispatch::meta::call<round2even_(vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(round2even(boost::simd::splat<vT>(1.4)),  boost::simd::One<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(round2even(boost::simd::splat<vT>(1.5)),  boost::simd::Two<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(round2even(boost::simd::splat<vT>(1.6)),  boost::simd::Two<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(round2even(boost::simd::splat<vT>(2.5)),  boost::simd::Two<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(round2even(boost::simd::splat<vT>(1.4)), boost::simd::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(round2even(boost::simd::splat<vT>(1.5)), boost::simd::Two<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(round2even(boost::simd::splat<vT>(1.6)), boost::simd::Two<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(round2even(boost::simd::splat<vT>(2.5)), boost::simd::Two<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(round2even(boost::simd::Half<vT>()), boost::simd::Zero<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(round2even(boost::simd::Inf<vT>()), boost::simd::Inf<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(round2even(boost::simd::Mhalf<vT>()), boost::simd::Zero<r_t>(), 0);
