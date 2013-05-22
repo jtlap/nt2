@@ -56,7 +56,7 @@ struct  buffer_test< nt2::memory::container<T,nt2::settings()> >
 
   buffer_test(std::size_t sz)
         : NT2_EXPRIMENT_CTOR(1.,"cycles/elements")
-        , up(sz), data(), data2(nt2::as_size(sz))
+        , up(sz), data(nt2::of_size(sz)), data2(nt2::of_size(sz))
   {}
 
   virtual void run() const
