@@ -57,13 +57,9 @@ namespace nt2 { namespace ext
     result_type operator()(A0& out, const A1& in) const
     {
       BOOST_AUTO_TPL(n, boost::proto::child_c<2>(in));
-      NT2_DISPLAY(n);
       v_type a = boost::proto::child_c<0>(in);
       v_type b = boost::proto::child_c<1>(in);
-      NT2_DISPLAY(a);
-      NT2_DISPLAY(b);
       out.resize(nt2::extent(n));
-      NT2_DISPLAY(nt2::extent(out));
       const v_type gold1 = -rec(nt2::Gold<v_type>());
       nt2::container::table<v_type> m
         = nt2::cons(of_size(2, 2),
@@ -72,15 +68,11 @@ namespace nt2 { namespace ext
                    );
       BOOST_AUTO_TPL(nm1, nt2::cast<v_type>(nt2::minusone(n)));
       nt2::container::table<v_type> c = nt2::linsolve(m, catv(a, b));
-      NT2_DISPLAY(c);
-      NT2_DISPLAY(nm1);
       BOOST_AUTO_TPL(f, c(1)*nt2::pow(nt2::Gold<v_type>(), nm1)+c(2)*nt2::pow(gold1, nm1));
-      NT2_DISPLAY(f);
       if (nt2::is_flint(a) && nt2::is_flint(b))
         out = nt2::round(f);
       else
         out = f;
-      NT2_DISPLAY(out);
       return out;
     }
   };
