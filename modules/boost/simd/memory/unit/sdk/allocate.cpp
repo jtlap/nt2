@@ -10,7 +10,7 @@
 #include <boost/simd/memory/allocate.hpp>
 #include <boost/simd/memory/is_aligned.hpp>
 #include <boost/simd/memory/deallocate.hpp>
-#include <boost/simd/memory/reallocate.hpp>
+#include <vector>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -44,7 +44,7 @@ NT2_TEST_CASE(allocate_align)
   using boost::simd::is_aligned;
 
   char* ptr = 0;
-  NT2_TEST( is_aligned(ptr = static_cast<char*>(allocate(5, 128)), 128) );
+  NT2_TEST( is_aligned(ptr = static_cast<char*>(allocate(5, 16)), 16) );
 
   for(int i=0;i<5;++i) ptr[i] = 10*i;
   for(int i=0;i<5;++i) NT2_TEST_EQUAL(ptr[i],10*i);
@@ -70,58 +70,53 @@ NT2_TEST_CASE(allocate_static_align)
   deallocate( ptr );
 }
 
-//==============================================================================
-// Test reallocating and deallocating
-//==============================================================================
-NT2_TEST_CASE(reallocate)
+NT2_TEST_CASE_TPL(allocator_allocate, BOOST_SIMD_TYPES)
 {
-  using boost::simd::reallocate;
+  using boost::simd::allocate;
   using boost::simd::deallocate;
   using boost::simd::is_aligned;
 
-  char *ptr(0), *ptr2(0);
-  NT2_TEST( is_aligned(ptr = static_cast<char*>(reallocate(ptr,5))) );
+  std::allocator<T> alloc;
+
+  char* ptr = 0;
+  NT2_TEST( (is_aligned(ptr = static_cast<char*>(allocate(alloc, 5)))) );
+
   for(int i=0;i<5;++i) ptr[i] = 10*i;
   for(int i=0;i<5;++i) NT2_TEST_EQUAL(ptr[i],10*i);
 
-  NT2_TEST( is_aligned(ptr2 = static_cast<char*>(reallocate(ptr,2))) );
-  for(int i=0;i<2;++i) ptr2[i] = 10*i;
-  for(int i=0;i<2;++i) NT2_TEST_EQUAL(ptr2[i],10*i);
-
-  NT2_TEST( is_aligned(ptr = static_cast<char*>(reallocate(ptr2,7))) );
-  for(int i=0;i<7;++i) ptr[i] = 10*i;
-  for(int i=0;i<7;++i) NT2_TEST_EQUAL(ptr[i],10*i);
-
-  ptr = static_cast<char*>(reallocate(ptr,0));
-  NT2_TEST( !ptr );
+  deallocate( alloc, ptr );
 }
 
-//==============================================================================
-// Test reallocating and deallocating on arbitrary alignment
-//==============================================================================
-NT2_TEST_CASE(reallocate_align)
+NT2_TEST_CASE_TPL(allocator_allocate_align, BOOST_SIMD_TYPES)
 {
-  using boost::simd::reallocate;
+  using boost::simd::allocate;
   using boost::simd::deallocate;
   using boost::simd::is_aligned;
 
-  char *ptr(0), *ptr2(0);
-  NT2_TEST( is_aligned(ptr = static_cast<char*>(reallocate(ptr,5,64)), 64) );
+  std::allocator<T> alloc;
+
+  char* ptr = 0;
+  NT2_TEST( (is_aligned(ptr = static_cast<char*>(allocate(alloc, 5, 32)), 32)) );
+
   for(int i=0;i<5;++i) ptr[i] = 10*i;
   for(int i=0;i<5;++i) NT2_TEST_EQUAL(ptr[i],10*i);
 
-  NT2_TEST( is_aligned(ptr = static_cast<char*>(reallocate(ptr,3,64)), 64) );
-  for(int i=0;i<3;++i) ptr[i] = 10*i;
-  for(int i=0;i<3;++i) NT2_TEST_EQUAL(ptr[i],10*i);
+  deallocate( alloc, ptr );
+}
 
-  NT2_TEST( is_aligned(ptr2 = static_cast<char*>(reallocate(ptr,2,32)), 32) );
-  for(int i=0;i<2;++i) ptr2[i] = 10*i;
-  for(int i=0;i<2;++i) NT2_TEST_EQUAL(ptr2[i],10*i);
+NT2_TEST_CASE_TPL(static_allocator_allocate_align, BOOST_SIMD_TYPES)
+{
+  using boost::simd::allocate;
+  using boost::simd::deallocate;
+  using boost::simd::is_aligned;
 
-  NT2_TEST( is_aligned(ptr = static_cast<char*>(reallocate(ptr2,7,64)), 64) );
-  for(int i=0;i<7;++i) ptr[i] = 10*i;
-  for(int i=0;i<7;++i) NT2_TEST_EQUAL(ptr[i],10*i);
+  std::allocator<T> alloc;
 
-  ptr = static_cast<char*>(reallocate(ptr,0,64));
-  NT2_TEST( !ptr );
+  char* ptr = 0;
+  NT2_TEST( (is_aligned(ptr = static_cast<char*>(allocate<32>(alloc, 5)), 32)) );
+
+  for(int i=0;i<5;++i) ptr[i] = 10*i;
+  for(int i=0;i<5;++i) NT2_TEST_EQUAL(ptr[i],10*i);
+
+  deallocate( alloc, ptr );
 }

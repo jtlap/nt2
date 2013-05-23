@@ -12,7 +12,7 @@
 
 #include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/simd/sdk/config/arch.hpp>
-#include <boost/dispatch/atributes.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Prefetch data from main memory to the cache for optimized memory accesses

@@ -13,6 +13,8 @@
 
 #include <boost/simd/memory/details/posix.hpp>
 #include <boost/simd/memory/details/aligned_stash.hpp>
+#include <boost/simd/memory/aligned_free.hpp>
+#include <boost/simd/memory/aligned_malloc.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/config.hpp>
 #include <malloc.h>

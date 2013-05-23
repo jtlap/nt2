@@ -16,6 +16,8 @@
 #include <boost/simd/preprocessor/malloc.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
 #include <boost/dispatch/attributes.hpp>
+
+#include <malloc.h>
 #include <new>
 
 namespace boost { namespace simd

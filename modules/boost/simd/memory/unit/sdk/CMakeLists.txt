@@ -17,11 +17,13 @@ SET( SOURCES
     is_aligned.cpp
     is_power_of_2.cpp
     make_aligned.cpp
-    next_power_of_2.cpp
-    prev_power_of_2.cpp
-    overload.cpp
     new.cpp
+    next_power_of_2.cpp
+    overload.cpp
+    prev_power_of_2.cpp
     range.cpp
+    reallocate.cpp
+    reuse.cpp
     stack_buffer.cpp
   )
 
