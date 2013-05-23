@@ -57,9 +57,12 @@ namespace boost { namespace simd
   BOOST_FORCEINLINE Type
   unaligned_load(Pointer const& ptr,Offset const& offset )
   {
-    typename boost::dispatch
-                  ::make_functor<tag::unaligned_load_,Pointer>::type callee;
-
+    typename  boost::dispatch::meta
+            ::dispatch_call<tag::unaligned_load_
+                                  ( Pointer const&
+                                  , Offset const&
+                                  , boost::dispatch::meta::as_<Type> const
+                                  )>::type          callee;
     return callee(ptr,offset,boost::dispatch::meta::as_<Type>());
   }
 
@@ -67,9 +70,11 @@ namespace boost { namespace simd
   template<typename Type,typename Pointer>
   BOOST_FORCEINLINE Type unaligned_load(Pointer const& ptr)
   {
-    typename boost::dispatch
-                  ::make_functor<tag::unaligned_load_,Pointer>::type callee;
-
+    typename  boost::dispatch::meta
+            ::dispatch_call<tag::unaligned_load_
+                                  ( Pointer const&
+                                  , boost::dispatch::meta::as_<Type> const
+                                  )>::type          callee;
     return callee(ptr,boost::dispatch::meta::as_<Type>());
   }
 } }

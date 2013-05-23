@@ -122,7 +122,13 @@ namespace boost { namespace simd
   template<typename Type,int Misalignment,typename Pointer,typename Offset>
   BOOST_FORCEINLINE Type load(Pointer const& ptr, Offset const& offset )
   {
-    typename boost::dispatch::make_functor<tag::load_, Pointer>::type callee;
+    typename  boost::dispatch::meta
+            ::dispatch_call<tag::load_( Pointer const&
+                                      , Offset const&
+                                      , boost::dispatch::meta::as_<Type> const&
+                                      , boost::mpl::int_<Misalignment> const&
+                                      )>::type          callee;
+
     return callee ( ptr , offset
                   , boost::dispatch::meta::as_<Type>()
                   , boost::mpl::int_<Misalignment>()
@@ -133,7 +139,12 @@ namespace boost { namespace simd
   template<typename Type,int Misalignment,typename Pointer>
   BOOST_FORCEINLINE Type load(Pointer const& ptr)
   {
-    typename boost::dispatch::make_functor<tag::load_, Pointer>::type callee;
+    typename  boost::dispatch::meta
+            ::dispatch_call<tag::load_(Pointer const&
+                                      , boost::dispatch::meta::as_<Type> const&
+                                      , boost::mpl::int_<Misalignment> const&
+                                      )>::type callee;
+
     return callee ( ptr
                   , boost::dispatch::meta::as_<Type>()
                   , boost::mpl::int_<Misalignment>()
@@ -144,7 +155,12 @@ namespace boost { namespace simd
   template<typename Type,typename Pointer,typename Offset>
   BOOST_FORCEINLINE Type load(Pointer const& ptr,Offset const& offset)
   {
-    typename boost::dispatch::make_functor<tag::load_, Pointer>::type callee;
+    typename  boost::dispatch::meta
+            ::dispatch_call<tag::load_( Pointer const&
+                                      , Offset const&
+                                      , boost::dispatch::meta::as_<Type> const&
+                                      )>::type          callee;
+
     return callee(ptr,offset,boost::dispatch::meta::as_<Type>());
   }
 
@@ -152,7 +168,11 @@ namespace boost { namespace simd
   template<typename Type,typename Pointer>
   BOOST_FORCEINLINE Type load(Pointer const& ptr)
   {
-    typename boost::dispatch::make_functor<tag::load_, Pointer>::type callee;
+    typename  boost::dispatch::meta
+            ::dispatch_call<tag::load_(Pointer const&
+                                      , boost::dispatch::meta::as_<Type> const&
+                                      )>::type callee;
+
     return callee(ptr,boost::dispatch::meta::as_<Type>());
   }
 } }

@@ -71,7 +71,10 @@ namespace boost { namespace simd
                 ::call<tag::extract_(Value const&, Offset const&)>::type
   extract(Value const& value, Offset const& offset)
   {
-    typename boost::dispatch::make_functor<tag::extract_,Value>::type callee;
+    typename  boost::dispatch::meta
+            ::dispatch_call<tag::extract_ ( Value const&
+                                          , Offset const&
+                                          )>::type          callee;
     return callee(value,offset);
   }
 } }

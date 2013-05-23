@@ -106,7 +106,11 @@ namespace boost { namespace simd
   BOOST_FORCEINLINE void
   store(Value const& val, Pointer const& ptr, Offset const& offset)
   {
-    typename boost::dispatch::make_functor<tag::store_, Value>::type callee;
+    typename  boost::dispatch::meta
+            ::dispatch_call<tag::store_ ( Value const&
+                                        , Pointer const&
+                                        , Offset const&
+                                        )>::type          callee;
     callee(val, ptr, offset);
   }
 
@@ -114,7 +118,10 @@ namespace boost { namespace simd
   template<typename Value, typename Pointer>
   BOOST_FORCEINLINE void store(Value const& val, Pointer const& ptr)
   {
-    typename boost::dispatch::make_functor<tag::store_, Value>::type callee;
+    typename  boost::dispatch::meta
+            ::dispatch_call<tag::store_ ( Value const&
+                                        , Pointer const&
+                                        )>::type          callee;
     callee(val, ptr);
   }
 } }
