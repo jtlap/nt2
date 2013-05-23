@@ -16,7 +16,6 @@
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/inbtrue.hpp>
 #include <nt2/include/functions/repnum.hpp>
-#include <nt2/include/functions/sb2b.hpp>
 #include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/if_one_else_zero.hpp>
 #include <nt2/include/functions/sb2b.hpp>

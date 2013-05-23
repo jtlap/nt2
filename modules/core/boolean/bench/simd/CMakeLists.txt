@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+  if_one_else_zero.cpp
 # List of simd test files for toolbox boolean
    )
 

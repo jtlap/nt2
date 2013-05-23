@@ -16,6 +16,7 @@
 #include <nt2/boolean/include/functions/selsub.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/max.hpp>
+#include <nt2/predicates/include/functions/is_gtz.hpp>
 #include <nt2/predicates/include/functions/is_nez.hpp>
 
 #include <boost/type_traits/is_same.hpp>
@@ -60,7 +61,7 @@ NT2_TEST_CASE_TPL ( selsub_real__3_0,  NT2_SIMD_REAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(0));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-1), T(1));
     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     NT2_CREATE_BUF(tab_a2,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
@@ -69,30 +70,11 @@ NT2_TEST_CASE_TPL ( selsub_real__3_0,  NT2_SIMD_REAL_TYPES)
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
         vT a2 = load<vT>(&tab_a2[0],j);
-        r_t v = nt2::selsub(nt2::is_nez(a0),a1,a2);
+        r_t v = nt2::selsub(nt2::is_gtz(a0),a1,a2);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
 
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::selsub (a0[i],a1[i],a2[i])));
-        }
-      }
-
-  }
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-1), T(-1));
-    NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
-    NT2_CREATE_BUF(tab_a2,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
-      {
-        vT a0 = load<vT>(&tab_a0[0],j);
-        vT a1 = load<vT>(&tab_a1[0],j);
-        vT a2 = load<vT>(&tab_a2[0],j);
-        r_t v = nt2::selsub(nt2::is_nez(a0),a1,a2);
-        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
-        {
-
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::selsub (a0[i],a1[i],a2[i])));
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::selsub (nt2::is_gtz(a0[i]),a1[i],a2[i])));
         }
       }
 

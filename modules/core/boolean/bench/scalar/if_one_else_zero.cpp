@@ -6,12 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_BENCH_MODULE "nt2 predicates toolbox - sb2b/scalar Mode"
+#define NT2_BENCH_MODULE "nt2 boolean toolbox - if_one_else_zero/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of predicates components in scalar mode
+// timing Test behavior of boolean components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/predicates/include/functions/sb2b.hpp>
+#include <nt2/boolean/include/functions/if_one_else_zero.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
@@ -19,9 +19,9 @@
 
 
 //////////////////////////////////////////////////////////////////////////////
-// scalar runtime benchmark for functor<sb2b_> from predicates
+// scalar runtime benchmark for functor<if_one_else_zero_> from boolean
 //////////////////////////////////////////////////////////////////////////////
-using nt2::tag::sb2b_;
+using nt2::tag::if_one_else_zero_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -31,52 +31,52 @@ using nt2::tag::sb2b_;
 namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
+  NT2_TIMING(if_one_else_zero_,(RS(T,T(-10000),T(10000))))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
+  NT2_TIMING(if_one_else_zero_,(RS(T,T(-10000),T(10000))))
 }
 namespace n3 {
   typedef nt2::int8_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
+  NT2_TIMING(if_one_else_zero_,(RS(T,T(-127),T(127))))
 }
 namespace n4 {
   typedef nt2::int16_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
+  NT2_TIMING(if_one_else_zero_,(RS(T,T(-10000),T(10000))))
 }
 namespace n5 {
   typedef nt2::int32_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
+  NT2_TIMING(if_one_else_zero_,(RS(T,T(-10000),T(10000))))
 }
 namespace n6 {
   typedef nt2::int64_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
+  NT2_TIMING(if_one_else_zero_,(RS(T,T(-10000),T(10000))))
 }
 namespace n7 {
   typedef nt2::uint8_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
+  NT2_TIMING(if_one_else_zero_,(RS(T,T(0),T(255))))
 }
 namespace n8 {
   typedef nt2::uint16_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
+  NT2_TIMING(if_one_else_zero_,(RS(T,T(0),T(10000))))
 }
 namespace n9 {
   typedef nt2::uint32_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
+  NT2_TIMING(if_one_else_zero_,(RS(T,T(0),T(10000))))
 }
 namespace n10 {
   typedef nt2::uint64_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
+  NT2_TIMING(if_one_else_zero_,(RS(T,T(0),T(10000))))
 }
 
 #undef RS

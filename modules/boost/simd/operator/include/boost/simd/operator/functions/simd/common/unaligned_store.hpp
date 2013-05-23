@@ -14,7 +14,7 @@
 #include <boost/simd/sdk/meta/iterate.hpp>
 #include <boost/simd/include/functions/simd/insert.hpp>
 #include <boost/simd/include/functions/simd/extract.hpp>
-#include <boost/simd/include/functions/simd/sb2b.hpp>
+#include <boost/simd/include/functions/simd/if_one_else_zero.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
@@ -93,7 +93,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 const& result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A2& a2) const
     {
-      unaligned_store(sb2b(a0), a1, a2);
+      unaligned_store(if_one_else_zero(a0), a1, a2);
       return a0;
     }
   };
