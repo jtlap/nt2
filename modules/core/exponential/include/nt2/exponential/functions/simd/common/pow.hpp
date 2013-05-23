@@ -24,16 +24,13 @@
 #include <nt2/include/functions/simd/if_else_zero.hpp>
 #include <nt2/include/functions/simd/logical_and.hpp>
 #include <nt2/include/functions/simd/logical_not.hpp>
-#include <nt2/include/functions/simd/powi.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
                             , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
+                            , ((simd_<arithmetic_<A0>,X>))
+                              ((simd_<arithmetic_<A0>,X>))
                             )
   {
     typedef typename meta::as_floating<A0>::type result_type;
@@ -42,17 +39,11 @@ namespace nt2 { namespace ext
       return nt2::pow(tofloat(a0), tofloat(a1));
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
                             , (A0)(X)
-                            , ((simd_<floating_<A0>,X>))((simd_<floating_<A0>,X>))
+                            , ((simd_<floating_<A0>,X>))
+                              ((simd_<floating_<A0>,X>))
                             )
   {
     typedef A0 result_type;
@@ -68,17 +59,11 @@ namespace nt2 { namespace ext
       return select(invalid, Nan<result_type>(), select(allz, One<A0>(), res));
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A1 is integer_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
                             , (A0)(A1)(X)
-                            , ((simd_<arithmetic_<A0>,X>))((simd_<integer_<A1>,X>))
+                            , ((simd_<arithmetic_<A0>,X>))
+                              ((simd_<integer_<A1>,X>))
                             )
   {
     typedef typename meta::as_floating<A0>::type result_type;
@@ -113,24 +98,42 @@ namespace nt2 { namespace ext
         return if_nan_else(is_nan(a00), sel(is_inf(a00), sel(is_gtz(a1), r, rec(r)), madd(x,y,oneminus(x)*w)));
     }
   };
-} }
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A1 is scalar integer_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
                             , (A0)(A1)(X)
-                            , ((simd_<arithmetic_<A0>,X>))(scalar_< integer_<A1> >)
+                            , ((simd_<arithmetic_<A0>,X>))
+                              ((scalar_<integer_<A1> >))
                             )
   {
-
     typedef typename meta::as_floating<A0>::type result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
+    {
+      return nt2::pow(tofloat(a0), a1);
+    }
+  };
 
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
+                            , (A0)(A1)(X)
+                            , ((simd_<floating_<A0>,X>))
+                              ((scalar_<integer_<A1> >))
+                            )
+  {
+    typedef typename meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return powi(a0, a1);
+        typedef result_type r_type;
+        r_type sign_x = bitofsign(a0);
+        r_type x = b_xor(a0, sign_x);//x = nt2::abs(a0)
+        if (is_even(a1)) sign_x = Zero<r_type>();
+        A1 n = nt2::abs(a1);
+        r_type ret = One<r_type>();
+        for(A1 t = n; t > 0; t >>= 1)
+        {
+          if(is_odd(t)) ret*=x;
+          x = sqr(x);
+        }
+        x =  b_xor(ret, sign_x);
+        return is_ltz(a1) ? rec(x) : x;
     }
   };
 } }
