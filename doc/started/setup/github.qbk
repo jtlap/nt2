@@ -79,7 +79,7 @@ mkdir nt2-build && cd nt2-build
 Once there, we simply call =cmake= with the location of our =nt2= directory
 [teletype]
 ``
-cmake ../nt2-build
+cmake ../nt2
 ``
 If you pass no other option, __CMAKE__ will use the default generator for your
 platform: =make= for Linux, Visual Studio for Windows. You can change this by
@@ -185,7 +185,7 @@ at will. This is controlled by two __CMAKE__ options:
 [heading Download optional __NT2__ modules]
 Additional __NT2__ modules may be available on other Github repository like the
 main [@https://github.com/MetaScale/nt2-modules __NT2__ Optional Modules repository].
-Th following options specify which additional modules you may want to use and a
+The following options specify which additional modules you may want to use and a
 set of Github repositories to look for them. If such modules are found, they'll
 be automatically cloned into the current source folder and configured.
 
