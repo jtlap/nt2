@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return nt2::powi(result_type(a0), a1);
+      return nt2::pow(result_type(a0), a1);
     }
   };
 } }

@@ -17,6 +17,7 @@
 #include <nt2/include/functions/simd/seladd.hpp>
 #include <nt2/include/functions/simd/is_eqz.hpp>
 #include <nt2/include/functions/simd/is_nez.hpp>
+#include <nt2/include/functions/simd/is_even.hpp>
 #include <nt2/include/functions/simd/exp.hpp>
 #include <nt2/include/functions/simd/log.hpp>
 #include <nt2/include/functions/simd/negif.hpp>

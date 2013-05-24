@@ -69,7 +69,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return powi(a0, a1);
+      return pow(a0, a1);
     }
   };
 } }
