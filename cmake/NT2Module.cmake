@@ -733,7 +733,7 @@ macro(nt2_module_tool_setup tool)
     execute_process(COMMAND ${CMAKE_COMMAND} -E rename ${NT2_SOURCE_ROOT}/tools/${tool}/CMakeCache.txt ${NT2_SOURCE_ROOT}/tools/${tool}/CMakeCache.txt.tmp ERROR_QUIET)
 
     execute_process(COMMAND ${CMAKE_COMMAND}
-                            ${BUILD_OPTION}
+                            ${BUILD_OPTION} -UNT2_BINARY_DIR
                             ${NT2_SOURCE_ROOT}/tools/${tool}
                     WORKING_DIRECTORY ${NT2_BINARY_DIR}/tools/${tool}
                     OUTPUT_VARIABLE tool_configure_out
