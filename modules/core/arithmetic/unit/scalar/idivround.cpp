@@ -31,6 +31,8 @@
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/valmax.hpp>
+#include <nt2/include/constants/valmin.hpp>
 
 
 

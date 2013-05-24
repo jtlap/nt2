@@ -27,6 +27,11 @@
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/nan.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/five.hpp>
+#include <boost/simd/include/constants/two.hpp>
+#include <boost/simd/include/constants/three.hpp>
+#include <boost/simd/include/constants/mfour.hpp>
 
 NT2_TEST_CASE_TPL ( idivround_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
@@ -63,7 +68,10 @@ NT2_TEST_CASE_TPL ( idivround_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_TYPE_IS( r_t, wished_r_t );
   // specific values tests
 
-  NT2_TEST_ULP_EQUAL(idivround(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivround(boost::simd::Five<T>(),boost::simd::Three<T>()), boost::simd::Two<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivround(boost::simd::Four<T>(),boost::simd::Three<T>()), boost::simd::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivround(boost::simd::Four<T>(),boost::simd::Zero<T>()), boost::simd::Valmax<r_t>(), 0);
+   NT2_TEST_ULP_EQUAL(idivround(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::One<r_t>(), 0);
 } // end of test for unsigned_int_
 
 NT2_TEST_CASE_TPL ( idivround_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
@@ -80,6 +88,10 @@ NT2_TEST_CASE_TPL ( idivround_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES
   NT2_TEST_TYPE_IS( r_t, wished_r_t );
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(idivround(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivround(boost::simd::Five<T>(),boost::simd::Three<T>()), boost::simd::Two<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivround(boost::simd::Four<T>(),boost::simd::Three<T>()), boost::simd::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivround(boost::simd::Four<T>(),boost::simd::Zero<T>()), boost::simd::Valmax<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivround(boost::simd::Mfour<T>(),boost::simd::Zero<T>()), boost::simd::Valmin<r_t>(), 0);
+   NT2_TEST_ULP_EQUAL(idivround(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivround(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::One<r_t>(), 0);
 } // end of test for signed_int_

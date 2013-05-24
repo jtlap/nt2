@@ -13,6 +13,8 @@
 #include <boost/simd/include/functions/scalar/iround.hpp>
 #include <boost/simd/include/functions/scalar/tofloat.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <nt2/include/constants/valmax.hpp>
+#include <nt2/include/constants/valmin.hpp>
 
 #ifdef BOOST_MSVC
   #pragma warning(push)
@@ -30,7 +32,25 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
       {
-      return (!a1) ? a1 :iround(tofloat(a0)/tofloat(a1));
+        return (!a1) ? ( (a0 > 0) ? boost::simd::Valmax<result_type>()
+                         : (a0 < 0) ? boost::simd::Valmin<result_type>() : 0
+                       )
+          : iround(tofloat(a0)/tofloat(a1));
+      }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivround_, tag::cpu_
+                        , (A0)
+                        , (scalar_< unsigned_<A0> >)
+                          (scalar_< unsigned_<A0> >)
+                        )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+      {
+        return (!a1) ? ( a0 ? boost::simd::Valmax<result_type>()
+                         : a0)
+          : iround(tofloat(a0)/tofloat(a1));
       }
   };
 

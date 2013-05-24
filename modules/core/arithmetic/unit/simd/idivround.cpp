@@ -36,6 +36,7 @@
 #include <nt2/include/functions/splat.hpp>
 
 #include <nt2/include/functions/load.hpp>
+#include <nt2/include/constants/valmax.hpp>
 
 
 NT2_TEST_CASE_TPL ( idivround_real__2_0,  NT2_SIMD_REAL_TYPES)
@@ -64,4 +65,5 @@ NT2_TEST_CASE_TPL ( idivround_real__2_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(idivround(nt2::Mone<vT>(), nt2::Mone<vT>())[0], nt2::One<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivround(nt2::Nan<vT>(), nt2::Nan<vT>())[0], nt2::Zero<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivround(nt2::One<vT>(), nt2::One<vT>())[0], nt2::One<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivround(nt2::One<vT>(), nt2::Zero<vT>())[0], nt2::Valmax<sr_t>(), 0);
 } // end of test for floating_
