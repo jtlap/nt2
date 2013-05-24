@@ -9,8 +9,7 @@
 #ifndef NT2_OPERATOR_FUNCTIONS_CONTAINER_VALUE_HPP_INCLUDED
 #define NT2_OPERATOR_FUNCTIONS_CONTAINER_VALUE_HPP_INCLUDED
 
-#include <nt2/include/functions/value.hpp>
-#include <nt2/sdk/meta/hierarchy_of.hpp>
+#include <nt2/operator/functions/value.hpp>
 #include <boost/proto/traits.hpp>
 
 namespace nt2 { namespace ext

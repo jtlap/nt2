@@ -9,7 +9,7 @@
 #ifndef NT2_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_VALUE_HPP_INCLUDED
 #define NT2_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_VALUE_HPP_INCLUDED
 
-#include <boost/simd/operator/functions/value.hpp>
+#include <nt2/operator/functions/value.hpp>
 #include <nt2/sdk/complex/hierarchy.hpp>
 
 namespace nt2 { namespace ext
