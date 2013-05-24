@@ -11,6 +11,7 @@
 
 #include <nt2/linalg/functions/mtimes.hpp>
 #include <nt2/linalg/details/blas/mm.hpp>
+#include <nt2/core/functions/ctranspose.hpp>
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/value.hpp>
@@ -18,11 +19,6 @@
 #include <nt2/core/container/table/category.hpp>
 #include <boost/proto/traits.hpp>
 #include <boost/assert.hpp>
-
-namespace nt2 { namespace tag
-{
-  struct ctranspose_;
-} }
 
 namespace nt2 { namespace ext
 {
@@ -63,8 +59,8 @@ namespace nt2 { namespace ext
 {
   // Recognize scalar/matrix, matrix/scalar and scalar/scalar
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mtimes_, tag::cpu_
-                            , (A0)(T0)(N0)(A1)(T1)(N1)
-                            , ((expr_< scalar_< unspecified_<A0> >, T0, N0 >))
+                            , (A0)(A1)(T1)(N1)
+                            , (scalar_< unspecified_<A0> >)
                               ((expr_< generic_< unspecified_<A1> >, T1, N1 >))
                             )
   {
@@ -76,9 +72,9 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mtimes_, tag::cpu_
-                            , (A0)(T0)(N0)(A1)(T1)(N1)
+                            , (A0)(T0)(N0)(A1)
                             , ((expr_< generic_< unspecified_<A0> >, T0, N0 >))
-                              ((expr_< scalar_< unspecified_<A1> >, T1, N1 >))
+                              (scalar_< unspecified_<A1> >)
                             )
   {
     typedef typename meta::call<tag::multiplies_(A0 const&, A1 const&)>::type result_type;
@@ -88,20 +84,6 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mtimes_, tag::cpu_
-                            , (A0)(T0)(N0)(A1)(T1)(N1)
-                            , ((expr_< scalar_< unspecified_<A0> >, T0, N0 >))
-                              ((expr_< scalar_< unspecified_<A1> >, T1, N1 >))
-                            )
-  {
-    typedef typename meta::call<tag::multiplies_(A0 const&, A1 const&)>::type result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
-    {
-      return nt2::multiplies(a0, a1);
-    }
-  };
-
-  // FIXME: scalar/scalar duplicated for now
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mtimes_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< unspecified_<A0> >)
