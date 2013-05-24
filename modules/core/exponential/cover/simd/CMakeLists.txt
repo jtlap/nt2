@@ -10,7 +10,6 @@
 
 SET( SOURCES
   sqrt1pm1.cpp
-  powi.cpp
   pow.cpp
   nthroot.cpp
   log2.cpp

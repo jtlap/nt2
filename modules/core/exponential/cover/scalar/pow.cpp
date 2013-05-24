@@ -18,6 +18,7 @@
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 extern "C" { long double cephes_powl(long double,long double); }
+extern "C" { long double cephes_powil(long double,int); }
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -51,10 +52,7 @@ NT2_TEST_CASE_TPL ( pow_real__2_0,  NT2_REAL_TYPES)
 
 
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
+  NT2_TEST_TYPE_IS( r_t, wished_r_t );
 
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
@@ -92,10 +90,7 @@ NT2_TEST_CASE_TPL ( pow_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 
 
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
+  NT2_TEST_TYPE_IS( r_t, wished_r_t );
 
 } // end of test for unsigned_int_
 
@@ -112,10 +107,7 @@ NT2_TEST_CASE_TPL ( pow_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
 
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
+  NT2_TEST_TYPE_IS( r_t, wished_r_t );
 
 } // end of test for signed_int_
 
@@ -132,10 +124,7 @@ NT2_TEST_CASE_TPL ( pow_real__2_1,  NT2_REAL_TYPES)
 
 
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
+  NT2_TEST_TYPE_IS( r_t, wished_r_t );
 
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
@@ -151,9 +140,47 @@ NT2_TEST_CASE_TPL ( pow_real__2_1,  NT2_REAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::powi(a0,a1),cephes_powil(a0,a1),2.5);
-        NT2_TEST_ULP_EQUAL( nt2::powi(a0,nt2::Two<iT>()),nt2::sqr(a0),2);
-        NT2_TEST_ULP_EQUAL( nt2::powi(a0,nt2::Three<iT>()),a0*nt2::sqr(a0),2);
+        NT2_TEST_ULP_EQUAL( nt2::pow(a0,a1),cephes_powil(a0,a1),2.5);
+        NT2_TEST_ULP_EQUAL( nt2::pow(a0,nt2::Two<iT>()),nt2::sqr(a0),2);
+        NT2_TEST_ULP_EQUAL( nt2::pow(a0,nt2::Three<iT>()),a0*nt2::sqr(a0),2);
+        ulp0=nt2::max(ulpd,ulp0);
+     }
+     std::cout << "max ulp found is: " << ulp0 << std::endl;
+   }
+} // end of test for floating_
+
+NT2_TEST_CASE_TPL ( powi_real__2_0,  NT2_REAL_TYPES)
+{
+
+  using nt2::pow;
+  using nt2::tag::pow_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<pow_(T,iT)>::type r_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
+
+
+  // return type conformity test
+  NT2_TEST_TYPE_IS( r_t, wished_r_t );
+
+  // random verifications
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
+    NT2_CREATE_BUF(tab_a1,iT, NR, T(-10), T(10));
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    T a0;
+    iT a1;
+    for(nt2::uint32_t j =0; j < NR; ++j )
+      {
+        std::cout << "for params "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << ", a1 = "<< u_t(a1 = tab_a1[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::pow(a0,a1),cephes_powil(a0,a1),2.5);
+        NT2_TEST_ULP_EQUAL( nt2::pow(a0,nt2::Two<iT>()),nt2::sqr(a0),2);
+        NT2_TEST_ULP_EQUAL( nt2::pow(a0,nt2::Three<iT>()),a0*nt2::sqr(a0),2);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

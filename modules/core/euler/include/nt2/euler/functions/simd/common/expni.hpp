@@ -131,8 +131,8 @@ namespace nt2 { namespace ext
         t = nt2::if_else(nt2::is_nez(ans), nt2::abs(yk/ans), One<AA1>());
       }
       while( nt2::any(gt(t, nt2::Halfeps<A1>())));
-      return nt2::seladd(eqzx,(nt2::powi(z, sn-1) * psi / nt2::gamma(n)) - ans, nt2::Inf<A1>());
-      //TO DO pow->powi and gamma splatted from scalar or mere factorial call
+      return nt2::seladd(eqzx,(nt2::pow(z, sn-1) * psi / nt2::gamma(n)) - ans, nt2::Inf<A1>());
+      //TO DO gamma splatted from scalar or mere factorial call
     }
 
     template < class AA1 >
