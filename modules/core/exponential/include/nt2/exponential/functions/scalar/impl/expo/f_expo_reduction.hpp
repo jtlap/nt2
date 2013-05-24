@@ -9,7 +9,7 @@
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPO_F_EXPO_REDUCTION_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPO_F_EXPO_REDUCTION_HPP_INCLUDED
 #include <nt2/sdk/simd/logical.hpp>
-#include <nt2/include/functions/simd/round.hpp>
+#include <nt2/include/functions/simd/round2even.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/include/functions/simd/fma.hpp>
 #include <nt2/include/functions/simd/oneplus.hpp>
@@ -54,7 +54,7 @@ namespace nt2 { namespace details { namespace internal
 
     static inline A0 reduce(const A0& a0, A0& hi, A0& lo, A0& x)
     {
-      A0 k = nt2::round(nt2::Invlog_2<A0>()*a0);
+      A0 k = nt2::round2even(nt2::Invlog_2<A0>()*a0);
       hi = a0-k*single_constant<A0,0x3f318000>();
       lo = k*single_constant<A0,0xb95e8083>();
       x =  hi-lo;
@@ -87,7 +87,7 @@ namespace nt2 { namespace details { namespace internal
 
     static inline A0 reduce(const A0& a0, const A0&, const A0&, A0& x)
     {
-      A0 k = nt2::round(a0);
+      A0 k = nt2::round2even(a0);
       x = (a0 - k)*nt2::Log_2<A0>();
       return k;
     }
@@ -108,7 +108,7 @@ namespace nt2 { namespace details { namespace internal
 
     static inline A0 reduce(const A0& a0, A0&, A0&, A0& x)
     {
-      A0 k = nt2::round(single_constant<A0,0x40549a78>()*a0);
+      A0 k = nt2::round2even(single_constant<A0,0x40549a78>()*a0);
       x = a0-k*single_constant<A0,0x3e9a0000>();
       x -=  k*single_constant<A0,0x39826a13>();
       return k;

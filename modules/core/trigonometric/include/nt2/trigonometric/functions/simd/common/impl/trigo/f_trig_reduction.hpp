@@ -17,7 +17,7 @@
 #include <nt2/include/functions/simd/if_else_allbits.hpp>
 #include <nt2/include/functions/simd/toint.hpp>
 #include <nt2/include/functions/simd/inrad.hpp>
-#include <nt2/include/functions/simd/round.hpp>
+#include <nt2/include/functions/simd/round2even.hpp>
 #include <nt2/include/functions/simd/is_odd.hpp>
 #include <nt2/include/functions/simd/is_not_less.hpp>
 #include <nt2/include/functions/simd/is_not_greater.hpp>
@@ -199,14 +199,14 @@ namespace nt2 { namespace details { namespace internal
     static inline int_type reduce(const typename A0::native_type x_n, A0& xr)
     {
       const A0 x = x_n;
-      A0 xi = nt2::round(x*single_constant<A0,0x3c360b61>()); //  1.111111111111111e-02f
+      A0 xi = nt2::round2even(x*single_constant<A0,0x3c360b61>()); //  1.111111111111111e-02f
       A0 x2 = x - xi * nt2::_90<A0>();//90.0f
       xr =  x2*single_constant<A0,0x3c8efa35>(); //0.0174532925199432957692f
       return nt2::toint(xi);
     }
   };
 
-  // TODO put a medium_ case with a fast_round ?
+  // TODO put a medium_ case with a fast_round2even ?
   template < class A0>
   struct trig_reduction < A0, pi_tag,  tag::simd_type, big_, float>
   {
@@ -219,7 +219,7 @@ namespace nt2 { namespace details { namespace internal
     static inline int_type reduce(const typename A0::native_type x_n,  A0& xr)
     {
       const A0 x = x_n;
-      A0 xi = nt2::round(x*nt2::Two<A0>());
+      A0 xi = nt2::round2even(x*nt2::Two<A0>());
       A0 x2 = x - xi * nt2::Half<A0>();
       xr = x2*nt2::Pi<A0>();
       return nt2::toint(xi);

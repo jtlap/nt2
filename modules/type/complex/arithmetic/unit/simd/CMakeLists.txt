@@ -18,6 +18,7 @@ set( SOURCES
   fma.cpp
   trunc.cpp
   round.cpp
+  round2even.cpp
   max.cpp
   min.cpp
   minusone.cpp

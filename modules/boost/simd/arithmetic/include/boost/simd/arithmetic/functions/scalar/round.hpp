@@ -9,29 +9,17 @@
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_ROUND_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_ROUND_HPP_INCLUDED
 #include <boost/simd/arithmetic/functions/round.hpp>
-#include <boost/simd/include/constants/twotonmb.hpp>
-#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/functions/scalar/toint.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_xor.hpp>
 #include <boost/simd/include/functions/scalar/abs.hpp>
+#include <boost/simd/include/functions/scalar/bitofsign.hpp>
+#include <boost/simd/include/constants/maxflint.hpp>
+#include <boost/simd/include/constants/half.hpp>
+#include <boost/simd/sdk/math.hpp>
+#include <cmath>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round_, tag::cpu_
-                            , (A0)
-                            , (scalar_< floating_<A0> >)
-                            )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      const result_type v = boost::simd::abs(a0);
-      const result_type t2n = boost::simd::Twotonmb<result_type>();
-      volatile result_type d0 = (v+t2n);
-      volatile result_type d = (d0-t2n);
-      d = (v < t2n)?d:v;
-      return a0 < Zero<A0>() ? -d : d;
-    }
-  };
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round_, tag::cpu_
                             , (A0)
                             , (scalar_< integer_<A0> >)
@@ -42,6 +30,46 @@ namespace boost { namespace simd { namespace ext
     {
       return a0;
     }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round_, tag::cpu_
+                            , (A0)
+                            , (scalar_< single_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+#ifdef BOOST_SIMD_HAS_ROUNDF
+      return ::roundf(a0);
+#else
+      const result_type v = simd::abs(a0);
+      if (!(v <=  Maxflint<result_type>()))
+          return a0;
+      const uint32_t d = v+Half<result_type>();
+      return bitwise_xor(result_type(d), bitofsign(a0));
+#endif
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round_, tag::cpu_
+                            , (A0)
+                            , (scalar_< double_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+#ifdef BOOST_SIMD_HAS_ROUNDF
+      return ::round(a0);
+#else
+      const result_type v = simd::abs(a0);
+      if (!(v <=  Maxflint<result_type>()))
+          return a0;
+      const uint64_t d = v+Half<result_type>();
+      return bitwise_xor(result_type(d), bitofsign(a0));
+#endif
+     }
   };
 } } }
 

@@ -24,7 +24,6 @@
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/complexify.hpp>
 #include <nt2/include/functions/power.hpp>
-#include <nt2/include/functions/round.hpp>
 #include <nt2/include/functions/trunc.hpp>
 #include <nt2/include/functions/inv.hpp>
 #include <nt2/include/functions/sum.hpp>

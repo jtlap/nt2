@@ -14,7 +14,7 @@
 #include <nt2/include/functions/scalar/is_not_nan.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/sign.hpp>
-#include <nt2/include/functions/round.hpp>
+#include <nt2/include/functions/round2even.hpp>
 #include <nt2/include/functions/is_finite.hpp>
 #include <nt2/include/functions/horzcat.hpp>
 #include <nt2/include/functions/vertcat.hpp>
@@ -72,7 +72,7 @@ namespace nt2 { namespace ext
         while (true)
         {
           ++k;
-          d = nt2::round(x);
+          d = nt2::round2even(x);
           if (nt2::is_finite(x))
           {
             x -= d;

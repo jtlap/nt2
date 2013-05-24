@@ -11,7 +11,7 @@
 #include <nt2/combinatorial/functions/factorial.hpp>
 #include <nt2/include/functions/scalar/gamma.hpp>
 #include <nt2/include/functions/scalar/trunc.hpp>
-#include <nt2/include/functions/scalar/round.hpp>
+#include <nt2/include/functions/scalar/round2even.hpp>
 #include <nt2/include/functions/scalar/abss.hpp>
 
 namespace nt2 { namespace ext
@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
       typedef typename boost::dispatch::meta::as_floating<A0>::type ftype;
       typedef typename meta::upgrade<ftype>::type uftype;
       const ftype r = static_cast<ftype>(nt2::gamma(nt2::trunc(nt2::abss(static_cast<uftype>(a0)))+One<uftype>()));
-      return r > Valmax<A0>() ? Inf<A0>() : static_cast<A0>(nt2::round(r));
+      return r > Valmax<A0>() ? Inf<A0>() : static_cast<A0>(nt2::round2even(r));
     }
   };
 } }

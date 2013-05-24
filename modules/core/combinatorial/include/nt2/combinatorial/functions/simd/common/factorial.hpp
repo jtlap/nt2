@@ -22,7 +22,7 @@
 #include <nt2/include/functions/simd/is_less.hpp>
 #include <nt2/include/functions/simd/is_greater.hpp>
 #include <nt2/include/functions/simd/is_less_equal.hpp>
-#include <nt2/include/functions/simd/round.hpp>
+#include <nt2/include/functions/simd/round2even.hpp>
 #include <nt2/include/functions/simd/all.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/constants/digits.hpp>
@@ -59,7 +59,7 @@ namespace nt2 { namespace ext
         return r;
       else
         return select(test, r,
-          nt2::round(nt2::gamma(oneplus(a00))));
+          nt2::round2even(nt2::gamma(oneplus(a00))));
     }
   };
 

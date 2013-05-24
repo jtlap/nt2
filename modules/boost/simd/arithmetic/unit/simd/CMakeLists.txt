@@ -18,6 +18,8 @@ SET( SOURCES
   divs.cpp
   muls.cpp
   divround.cpp
+  divround2even.cpp
+  idivround2even.cpp
   divfloor.cpp
   divfix.cpp
   divceil.cpp
@@ -37,6 +39,7 @@ SET( SOURCES
   trunc.cpp
   ceil.cpp
   round.cpp
+  round2even.cpp
   floor.cpp
   two_split.cpp
   two_prod.cpp
@@ -51,6 +54,7 @@ SET( SOURCES
   min.cpp
   max.cpp
   idivround.cpp
+  iround2even.cpp
   idivfloor.cpp
   idivfix.cpp
   idivceil.cpp

@@ -22,7 +22,7 @@
 #include <nt2/include/functions/schur.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/power.hpp>
-#include <nt2/include/functions/round.hpp>
+#include <nt2/include/functions/round2even.hpp>
 #include <nt2/include/functions/trunc.hpp>
 #include <nt2/include/functions/inv.hpp>
 #include <nt2/include/functions/sum.hpp>
@@ -64,7 +64,7 @@ namespace nt2{ namespace ext
       }
       bool is_ltz_n = is_ltz(n);
       if(is_ltz_n) n = -n;
-      value_type m = nt2::round(n); //MAYBE UNECESSARY
+      value_type m = nt2::round2even(n); //MAYBE UNECESSARY
       r_type q, t;
       // nt2::tie(q, t) = schur(a0,'N'/*"complex"*/); // t is complex schur form.
       if (false && nt2::isdiagonal(t))

@@ -15,7 +15,7 @@
 #include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/plus.hpp>
-#include <nt2/include/functions/simd/round.hpp>
+#include <nt2/include/functions/simd/round2even.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/is_greater.hpp>
@@ -94,7 +94,7 @@ namespace nt2 { namespace ext
     {
       static inline result_type rem(A0 const& x)
       {
-        A0 xi =  nt2::round(x*nt2::Inv2pi<A0>());
+        A0 xi =  nt2::round2even(x*nt2::Inv2pi<A0>());
         A0 xr = x-xi*nt2::Pix2_1<A0>();
         xr -= xi*nt2::Pix2_2<A0>();
         xr -= xi*nt2::Pix2_3<A0>();

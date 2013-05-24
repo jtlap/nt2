@@ -17,7 +17,7 @@
 #include <nt2/include/functions/colon.hpp>
 #include <nt2/include/functions/pow.hpp>
 #include <nt2/include/functions/mtimes.hpp>
-#include <nt2/include/functions/round.hpp>
+#include <nt2/include/functions/round2even.hpp>
 #include <nt2/include/functions/from_diag.hpp>
 #include <nt2/sdk/meta/is_target.hpp>
 
@@ -98,7 +98,7 @@ namespace nt2 { namespace ext
       nt2::table<value_type, _2D> l = nt2::abs(nt2::pascal(n, 1, nt2::meta::as_<value_type>()));
       nt2::table<value_type, _2D> u = nt2::fliplr(nt2::flipud(l));
       nt2::table<value_type, _2D> d = nt2::from_diag(nt2::pow(value_type(-2), nt2::_(value_type(0), value_type(n-1))));
-      out =  nt2::round(nt2::mtimes(l, nt2::mtimes(d, u)));
+      out =  nt2::round2even(nt2::mtimes(l, nt2::mtimes(d, u)));
       return out;
     }
   };

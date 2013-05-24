@@ -18,7 +18,7 @@
 #include <nt2/include/functions/simd/rem_pio2.hpp>
 #include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/round.hpp>
+#include <nt2/include/functions/round2even.hpp>
 #include <nt2/include/functions/is_odd.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/if_else_allbits.hpp>
@@ -220,7 +220,7 @@ namespace nt2 { namespace details { namespace internal
 
     static inline int_type reduce(const A0& x, A0& xr)
     {
-      A0 xi = nt2::round(x*single_constant<A0,0x3c360b61>()); //  1.111111111111111e-02f
+      A0 xi = nt2::round2even(x*single_constant<A0,0x3c360b61>()); //  1.111111111111111e-02f
       A0 x2 = x - xi * nt2::_90<A0>();
 
       xr =  x2*single_constant<A0,0x3c8efa35>(); //0.0174532925199432957692f
@@ -254,7 +254,7 @@ namespace nt2 { namespace details { namespace internal
 
     static inline int_type reduce(const A0& x,  A0& xr)
     {
-      A0 xi = nt2::round(x*nt2::Two<A0>());
+      A0 xi = nt2::round2even(x*nt2::Two<A0>());
       A0 x2 = x - xi * nt2::Half<A0>();
       xr = x2*nt2::Pi<A0>();
       return nt2::toint(xi);

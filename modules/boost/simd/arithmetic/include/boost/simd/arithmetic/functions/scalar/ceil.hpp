@@ -11,7 +11,7 @@
 
 #include <boost/simd/arithmetic/functions/ceil.hpp>
 #include <boost/simd/include/functions/scalar/seladd.hpp>
-#include <boost/simd/include/functions/scalar/round.hpp>
+#include <boost/simd/include/functions/scalar/round2even.hpp>
 #include <boost/simd/include/functions/scalar/is_less.hpp>
 #include <boost/simd/include/constants/one.hpp>
 
@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      const A0 d0 = round(a0);
+      const A0 d0 = round2even(a0);
       return seladd(lt(d0, a0),d0,One<A0>());
     }
   };

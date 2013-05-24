@@ -9,7 +9,7 @@
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_REM_PIO2_CEPHES_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_REM_PIO2_CEPHES_HPP_INCLUDED
 #include <nt2/trigonometric/functions/rem_pio2_cephes.hpp>
-#include <nt2/include/functions/simd/round.hpp>
+#include <nt2/include/functions/simd/round2even.hpp>
 #include <nt2/include/functions/simd/fast_toint.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
@@ -63,7 +63,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_integer<A0>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& x, A0 & xr) const
     {
-      A0 xi =  nt2::round(x*nt2::Twoopi<A0>());
+      A0 xi =  nt2::round2even(x*nt2::Twoopi<A0>());
       xr  = x-xi*nt2::Pio2_1<A0>();
       xr -= xi*nt2::Pio2_2<A0>();
       xr -= xi*nt2::Pio2_3<A0>();

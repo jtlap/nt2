@@ -13,7 +13,7 @@
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/rif.hpp>
 #include <nt2/include/functions/cif.hpp>
-#include <nt2/include/functions/round.hpp>
+#include <nt2/include/functions/round2even.hpp>
 
 namespace nt2{ namespace ext
 {
@@ -109,7 +109,7 @@ namespace nt2{ namespace ext
           out(j,i) = out(i, j);
         }
       }
-      return out = nt2::round(out);
+      return out = nt2::round2even(out);
     }
   };
 } }

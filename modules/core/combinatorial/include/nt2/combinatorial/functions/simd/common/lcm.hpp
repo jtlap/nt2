@@ -8,12 +8,13 @@
 //==============================================================================
 #ifndef NT2_COMBINATORIAL_FUNCTIONS_SIMD_COMMON_LCM_HPP_INCLUDED
 #define NT2_COMBINATORIAL_FUNCTIONS_SIMD_COMMON_LCM_HPP_INCLUDED
+
 #include <nt2/combinatorial/functions/lcm.hpp>
-#include <nt2/include/functions/simd/round.hpp>
 #include <nt2/include/functions/simd/gcd.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/divs.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::lcm_, tag::cpu_,
