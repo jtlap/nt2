@@ -722,6 +722,9 @@ macro(nt2_module_tool_setup tool)
     if(Boost_INCLUDE_DIR)
       list(APPEND BUILD_OPTION -DBoost_INCLUDE_DIR=${Boost_INCLUDE_DIR})
     endif()
+    if(NT2_BINARY_DIR)
+      list(APPEND BUILD_OPTION -DNT2_BINARY_DIR=${NT2_BINARY_DIR})
+    endif()
     if(NOT CMAKE_CROSSCOMPILING)
       list(APPEND BUILD_OPTION -G ${CMAKE_GENERATOR})
     else()
@@ -731,6 +734,7 @@ macro(nt2_module_tool_setup tool)
 
     execute_process(COMMAND ${CMAKE_COMMAND}
                             ${BUILD_OPTION}
+                            --no-warn-unused-cli
                             ${NT2_SOURCE_ROOT}/tools/${tool}
                     WORKING_DIRECTORY ${NT2_BINARY_DIR}/tools/${tool}
                     OUTPUT_VARIABLE tool_configure_out
@@ -768,7 +772,7 @@ endmacro()
 macro(nt2_module_tool tool)
   string(TOUPPER ${tool} tool_U)
 
-  find_program(NT2_TOOL_${tool_U} ${tool} PATHS ${NT2_ROOT}/tools/${tool} NO_DEFAULT_PATH)
+  find_program(NT2_TOOL_${tool_U} ${tool} PATHS ${NT2_BINARY_DIR}/tools/${tool} ${NT2_ROOT}/tools/${tool} NO_DEFAULT_PATH)
   mark_as_advanced(NT2_TOOL_${tool_U})
   if(NOT NT2_TOOL_${tool_U})
     nt2_module_tool_setup(${tool})
