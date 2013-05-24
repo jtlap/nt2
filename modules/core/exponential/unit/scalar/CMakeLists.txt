@@ -12,7 +12,6 @@ SET( SOURCES
   logspace_add.cpp
   sqrt1pm1.cpp
   expx2.cpp
-  powi.cpp
   pow.cpp
   nthroot.cpp
   log2.cpp
