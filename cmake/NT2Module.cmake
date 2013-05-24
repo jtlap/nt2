@@ -729,6 +729,9 @@ macro(nt2_module_tool_setup tool)
       unset(ENV{${CMAKE_CXX_COMPILER_ENV_VAR}})
     endif()
 
+    # workaround in case tool has already been built in source -- temporarily remove CMakeCache
+    execute_process(COMMAND ${CMAKE_COMMAND} -E rename ${NT2_SOURCE_ROOT}/tools/${tool}/CMakeCache.txt ${NT2_SOURCE_ROOT}/tools/${tool}/CMakeCache.txt.tmp ERROR_QUIET)
+
     execute_process(COMMAND ${CMAKE_COMMAND}
                             ${BUILD_OPTION}
                             ${NT2_SOURCE_ROOT}/tools/${tool}
@@ -736,6 +739,9 @@ macro(nt2_module_tool_setup tool)
                     OUTPUT_VARIABLE tool_configure_out
                     RESULT_VARIABLE tool_configure
                    )
+
+    # workaround in case tool has already been built in source -- restore CMakeCache
+    execute_process(COMMAND ${CMAKE_COMMAND} -E rename ${NT2_SOURCE_ROOT}/tools/${tool}/CMakeCache.txt.tmp ${NT2_SOURCE_ROOT}/tools/${tool}/CMakeCache.txt ERROR_QUIET)
 
     if(tool_configure)
       message("${tool_configure_out}")
