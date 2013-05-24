@@ -11,4 +11,6 @@ SET ( NT2_CORE.SIGNAL_DEPENDENCIES_EXTRA  sdk.simd
                                           core.operator       core.constant
                                           core.arithmetic     core.bitwise
                                           core.trigonometric  core.exponential
+                                          core.adjacent       core.boolean
+                                          core.reduction      core.utility
     )
