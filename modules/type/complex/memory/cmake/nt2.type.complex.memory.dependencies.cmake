@@ -7,4 +7,9 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_TYPE.COMPLEX.OPERATOR_DEPENDENCIES_EXTRA core.memory type.complex.sdk)
+SET ( NT2_TYPE.COMPLEX.OPERATOR_DEPENDENCIES_EXTRA
+      boost.simd.memory
+      boost.simd.sdk
+      sdk.meta
+      type.complex.sdk
+    )

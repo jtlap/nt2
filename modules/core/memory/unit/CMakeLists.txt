@@ -7,6 +7,8 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
+nt2_module_use_modules(test.unit)
+
 SET( SOURCES
   array_buffer.cpp
   array_buffer_non_pod.cpp
@@ -21,4 +23,4 @@ SET( SOURCES
 ## List of scalar test files for toolbox core.memory
    )
 
-nt2_module_add_tests(core.sdk.memory.unit ${SOURCES})
+nt2_module_add_tests(core.memory.unit ${SOURCES})

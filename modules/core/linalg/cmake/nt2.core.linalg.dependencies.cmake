@@ -34,6 +34,7 @@ else()
         core.sdk
         core.trigonometric
         core.utility
+        core.memory
         sdk.dsl
         sdk.error
         sdk.functor
@@ -42,7 +43,6 @@ else()
         type.complex.base
         type.complex.sdk
       )
-
 endif()
 
 foreach(library ${NT2_LAPACK_LIBRARIES})

@@ -7,4 +7,10 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_BOOST.SIMD.MEMORY_DEPENDENCIES_EXTRA boost.simd.sdk boost.simd.base)
+SET ( NT2_BOOST.SIMD.MEMORY_DEPENDENCIES_EXTRA
+      boost.dispatch
+      boost.simd.config
+      boost.simd.constant
+      boost.simd.sdk
+      boost.simd.base
+    )

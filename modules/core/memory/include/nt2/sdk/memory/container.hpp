@@ -18,7 +18,6 @@
 #include <nt2/core/settings/storage_order.hpp>
 #include <nt2/sdk/memory/composite_buffer.hpp>
 #include <nt2/core/settings/storage_scheme.hpp>
-#include <nt2/core/container/table/semantic.hpp>
 #include <nt2/include/functions/scalar/numel.hpp>
 #include <boost/fusion/include/is_sequence.hpp>
 #include <nt2/sdk/memory/adapted/container.hpp>
@@ -27,6 +26,11 @@
 #ifdef NT2_LOG_COPIES
 #include <iostream>
 #endif
+
+namespace nt2 { namespace tag
+{
+  struct table_;
+} }
 
 namespace nt2 { namespace memory
 {

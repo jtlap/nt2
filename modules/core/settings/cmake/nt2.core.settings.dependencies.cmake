@@ -11,5 +11,6 @@ SET ( NT2_CORE.SETTINGS_DEPENDENCIES_EXTRA
       boost.dispatch
       core.sdk
       core.utility
+      core.memory
       sdk.config
     )

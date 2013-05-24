@@ -10,6 +10,7 @@ SET ( NT2_TEST.BENCHMARK_DEPENDENCIES_EXTRA
       boost.dispatch
       boost.simd.base
       boost.simd.sdk
+      boost.simd.memory
       sdk.error
       sdk.meta
       sdk.timing
