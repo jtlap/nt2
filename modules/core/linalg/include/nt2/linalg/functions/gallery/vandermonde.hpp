@@ -10,7 +10,6 @@
 #define NT2_LINALG_FUNCTIONS_GALLERY_VANDERMONDE_HPP_INCLUDED
 #include <nt2/linalg/functions/vandermonde.hpp>
 #include <nt2/include/functions/pow.hpp>
-#include <nt2/include/functions/powi.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/bsxfun.hpp>
 #include <nt2/include/functions/colvect.hpp>

@@ -10,7 +10,6 @@
 #define NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_REALPOW_HPP_INCLUDED
 #include <nt2/exponential/functions/realpow.hpp>
 #include <nt2/include/functions/simd/logical_or.hpp>
-#include <nt2/include/functions/simd/powi.hpp>
 #include <nt2/include/functions/simd/pow.hpp>
 #include <nt2/include/functions/simd/is_nltz.hpp>
 #include <nt2/include/functions/simd/is_flint.hpp>

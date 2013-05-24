@@ -10,7 +10,7 @@
 #define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_REALPOW_HPP_INCLUDED
 #include <nt2/exponential/functions/realpow.hpp>
 #include <nt2/include/functions/scalar/is_flint.hpp>
-#include <nt2/include/functions/scalar/powi.hpp>
+#include <nt2/include/functions/scalar/pow.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_
