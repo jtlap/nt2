@@ -26,7 +26,7 @@ namespace nt2
 
   using boost::simd::if_one_else_zero;
   using boost::simd::ifoneelsezero;
+  using boost::simd::sb2b;
 }
 #endif
 
-// modified by jt the 25/12/2010

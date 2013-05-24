@@ -15,10 +15,8 @@
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/nbtrue.hpp>
-#include <nt2/include/functions/sb2b.hpp>
 #include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/if_one_else_zero.hpp>
-#include <nt2/include/functions/sb2b.hpp>
 #include <nt2/include/functions/sum.hpp>
 #include <nt2/include/functions/cast.hpp>
 #include <nt2/include/constants/one.hpp>

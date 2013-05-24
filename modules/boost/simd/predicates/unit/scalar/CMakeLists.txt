@@ -18,7 +18,6 @@ SET( SOURCES
   is_not_greater.cpp
   is_not_infinite.cpp
   majority.cpp
-  sb2b.cpp
   is_unord.cpp
   is_positive.cpp
   is_ord.cpp

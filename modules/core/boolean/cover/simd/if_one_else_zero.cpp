@@ -6,42 +6,30 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 predicates toolbox - sb2b/simd Mode"
+#define NT2_UNIT_MODULE "nt2 boolean toolbox - if_one_else_zero/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// cover test behavior of predicates components in simd mode
+// cover test behavior of boolean components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
 ///
-#include <nt2/predicates/include/functions/sb2b.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
+#include <nt2/boolean/include/functions/if_one_else_zero.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/sdk/simd/logical.hpp>
-
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_signed.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/meta/downgrade.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/type_traits/common_type.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/constant/constant.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/include/functions/splat.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+
 #include <nt2/include/functions/load.hpp>
-#include <nt2/constant/constant.hpp>
 
 
-NT2_TEST_CASE_TPL ( sb2b_real__1_0,  NT2_SIMD_REAL_TYPES)
+
+NT2_TEST_CASE_TPL ( if_one_else_zero_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
-  using nt2::sb2b;
-  using nt2::tag::sb2b_;
+  using nt2::if_one_else_zero;
+  using nt2::tag::if_one_else_zero_;
   using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
@@ -51,8 +39,8 @@ NT2_TEST_CASE_TPL ( sb2b_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<sb2b_(vT)>::type r_t;
-  typedef typename nt2::meta::call<sb2b_(T)>::type sr_t;
+  typedef typename nt2::meta::call<if_one_else_zero_(vT)>::type r_t;
+  typedef typename nt2::meta::call<if_one_else_zero_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
@@ -65,11 +53,11 @@ NT2_TEST_CASE_TPL ( sb2b_real__1_0,  NT2_SIMD_REAL_TYPES)
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = sb2b(a0);
+        r_t v = if_one_else_zero(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
 
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::sb2b (a0[i])));
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::if_one_else_zero (a0[i])));
         }
       }
 

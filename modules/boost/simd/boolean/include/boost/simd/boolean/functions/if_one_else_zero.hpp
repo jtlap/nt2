@@ -70,6 +70,7 @@ namespace boost { namespace simd { namespace tag
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_one_else_zero_, if_one_else_zero,    1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_one_else_zero_, ifoneelsezero,       1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_one_else_zero_, sb2b,                1)
 } }
 
 #endif

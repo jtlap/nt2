@@ -12,8 +12,9 @@ SET( SOURCES
   negif.cpp
   seladd.cpp
   selsub.cpp
+  if_one_else_zero.cpp
  # List of scalar test files for toolbox boolean
    )
 
-#nt2_module_add_tests(core.boolean.cover ${SOURCES})
+nt2_module_add_tests(core.boolean.cover ${SOURCES})
 

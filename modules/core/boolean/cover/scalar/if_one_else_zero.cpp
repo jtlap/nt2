@@ -6,50 +6,38 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 predicates toolbox - sb2b/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 boolean toolbox - if_one_else_zero/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// cover test behavior of predicates components in scalar mode
+// cover test behavior of boolean components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
 ///
-#include <nt2/predicates/include/functions/sb2b.hpp>
+#include <nt2/boolean/include/functions/if_one_else_zero.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/sdk/simd/logical.hpp>
-
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_signed.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/meta/downgrade.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/type_traits/common_type.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/constant/constant.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
 
-NT2_TEST_CASE_TPL ( sb2b_real__1_0,  NT2_REAL_TYPES)
+
+NT2_TEST_CASE_TPL ( if_one_else_zero_real__1_0,  NT2_REAL_TYPES)
 {
 
-  using nt2::sb2b;
-  using nt2::tag::sb2b_;
+  using nt2::if_one_else_zero;
+  using nt2::tag::if_one_else_zero_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<sb2b_(T)>::type r_t;
+  typedef typename nt2::meta::call<if_one_else_zero_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
+  NT2_TEST_TYPE_IS( r_t, wished_r_t );
 
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
@@ -62,30 +50,26 @@ NT2_TEST_CASE_TPL ( sb2b_real__1_0,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::sb2b(a0),r_t(a0!=0));
+        NT2_TEST_EQUAL( nt2::if_one_else_zero(a0),r_t(a0!=0));
      }
 
    }
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( sb2b_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( if_one_else_zero_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
 
-  using nt2::sb2b;
-  using nt2::tag::sb2b_;
+  using nt2::if_one_else_zero;
+  using nt2::tag::if_one_else_zero_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<sb2b_(T)>::type r_t;
+  typedef typename nt2::meta::call<if_one_else_zero_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
-
+  NT2_TEST_TYPE_IS( r_t, wished_r_t );
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
@@ -97,29 +81,26 @@ NT2_TEST_CASE_TPL ( sb2b_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::sb2b(a0),r_t(a0!=0));
+        NT2_TEST_EQUAL( nt2::if_one_else_zero(a0),r_t(a0!=0));
      }
 
    }
 } // end of test for signed_int_
 
-NT2_TEST_CASE_TPL ( sb2b_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( if_one_else_zero_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
 
-  using nt2::sb2b;
-  using nt2::tag::sb2b_;
+  using nt2::if_one_else_zero;
+  using nt2::tag::if_one_else_zero_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<sb2b_(T)>::type r_t;
+  typedef typename nt2::meta::call<if_one_else_zero_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
+  NT2_TEST_TYPE_IS( r_t, wished_r_t );
 
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
@@ -132,7 +113,7 @@ NT2_TEST_CASE_TPL ( sb2b_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::sb2b(a0),r_t(a0!=0));
+        NT2_TEST_EQUAL( nt2::if_one_else_zero(a0),r_t(a0!=0));
      }
 
    }

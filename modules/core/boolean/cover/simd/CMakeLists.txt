@@ -13,7 +13,8 @@ SET( SOURCES
   negif.cpp
   seladd.cpp
   selsub.cpp
+  if_one_else_zero.cpp
    )
 
-#nt2_module_add_tests(core.boolean.simd.cover ${SOURCES})
+nt2_module_add_tests(core.boolean.simd.cover ${SOURCES})
 

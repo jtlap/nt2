@@ -17,7 +17,6 @@
 #include <nt2/include/functions/rowvect.hpp>
 #include <nt2/include/functions/isequal.hpp>
 
-#include <nt2/include/functions/sb2b.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/zero.hpp>

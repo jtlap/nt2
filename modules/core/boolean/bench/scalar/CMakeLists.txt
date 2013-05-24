@@ -8,7 +8,8 @@
 ##############################################################################
 
 SET( SOURCES
-# List of scalar test files for toolbox boolean
+  # List of scalar test files for toolbox boolean
+  if_one_else_zero.cpp
    )
 
 nt2_module_add_tests(core.boolean.scalar.bench ${SOURCES})

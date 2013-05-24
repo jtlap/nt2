@@ -1,5 +1,5 @@
 //==============================================================================
-//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         COPYRIGHT 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
@@ -26,7 +26,6 @@
 #include <nt2/include/functions/eps.hpp>
 #include <nt2/include/functions/frexp.hpp>
 #include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/sb2b.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/isempty.hpp>
 #include <nt2/include/functions/issquare.hpp>
@@ -305,7 +304,7 @@ namespace nt2 { namespace details
       boost::dispatch::ignore_unused(check);
       //if (check)     BOOST_ASSERT_MSG(is_real<type_t>::value, "determinant sign is not avalaible for complex matrices");
       //count modulo 2 the number of ipiv_ elements such that ipiv_(i) !=  i
-      //return nt2::sum(nt2::sb2b(ipiv_ != cif(numel(ipiv_), 1, meta::as_<itype_t>())))&1 ? Mone<type_t>() : One<type_t>();
+      //return nt2::sum(nt2::if_one_else_zero(ipiv_ != cif(numel(ipiv_), 1, meta::as_<itype_t>())))&1 ? Mone<type_t>() : One<type_t>();
       type_t s = One<type_t>();
       const nt2_la_int num = numel(ipiv_);
       for(nt2_la_int i=1; i < num ; ++i)
