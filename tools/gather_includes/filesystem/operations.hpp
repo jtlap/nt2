@@ -21,6 +21,8 @@
     #include <errno.h>
 #else // POSIX
     #include <sys/stat.h>
+    #include <sys/types.h>
+    #include <fcntl.h>
     #include <unistd.h>
     #define FILESYSTEM_MKDIR_SUFFIX , 0777
     #include <errno.h>
@@ -339,6 +341,67 @@ namespace details
 
         if( ec )
             BOOST_THROW_EXCEPTION( std::runtime_error( std::string("Error renaming ") + from + " to " + to) );
+    }
+
+    inline void copy(const char* from, const char* to, int& ec)
+    {
+    #ifdef BOOST_WINDOWS_API
+        ec = ::CopyFile(from, to, false)
+    #else
+        int fdin  = ::open(from, O_RDONLY);
+        if(fdin == -1)
+        {
+            ec = errno;
+            return;
+        }
+
+        int fdout = ::open(to, O_WRONLY | O_CREAT | O_TRUNC, 0664);
+        if(fdout == -1)
+        {
+            ec = errno;
+            ::close(fdin);
+            return;
+        }
+
+        char buffer[4096];
+        for(;;)
+        {
+            ssize_t n = ::read(fdin, buffer, sizeof buffer);
+            if(n < 0)
+            {
+                ec = errno;
+                ::close(fdout);
+                ::close(fdin);
+                remove(to);
+                return;
+            }
+            if(n == 0)
+                break;
+
+            if( ::write(fdout, buffer, n) != n )
+            {
+                ec = errno;
+                ::close(fdout);
+                ::close(fdin);
+                remove(to);
+                return;
+            }
+        }
+
+        ec = 0;
+
+        ::close(fdout);
+        ::close(fdin);
+    #endif
+    }
+
+    inline void copy(const char* from, const char* to)
+    {
+        int ec;
+        copy(from, to, ec);
+
+        if( ec )
+            BOOST_THROW_EXCEPTION( std::runtime_error( std::string("Error copying ") + from + " to " + to) );
     }
 
     inline std::string absolute(const char* s)
