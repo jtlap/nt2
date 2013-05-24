@@ -95,7 +95,7 @@ NT2_TEST_CASE_TPL ( idivround_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_ULP_EQUAL(idivround(nt2::Five<T>(),nt2::Three<T>()), nt2::Two<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivround(nt2::Four<T>(),nt2::Three<T>()), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivround(nt2::Four<T>(),nt2::Zero<T>()), nt2::Valmax<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(divround(nt2::Mfour<T>(),nt2::Zero<T>()), nt2::Valmin<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivround(nt2::Mfour<T>(),nt2::Zero<T>()), nt2::Valmin<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivround(nt2::Mone<T>(), nt2::Mone<T>()), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivround(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>(), 0);
 } // end of test for signed_int_
