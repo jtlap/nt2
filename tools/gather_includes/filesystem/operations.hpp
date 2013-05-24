@@ -346,7 +346,7 @@ namespace details
     inline void copy(const char* from, const char* to, int& ec)
     {
     #ifdef BOOST_WINDOWS_API
-        ec = ::CopyFile(from, to, false)
+        ec = ::CopyFile(from, to, false);
     #else
         int fdin  = ::open(from, O_RDONLY);
         if(fdin == -1)
