@@ -48,9 +48,9 @@ NT2_TEST_CASE_TPL ( idivround_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_TYPE_IS( r_t, wished_r_t );
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(divround(nt2::Five<T>(),nt2::Three<T>()), nt2::Two<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(divround(nt2::Four<T>(),nt2::Three<T>()), nt2::One<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(divround(nt2::Four<T>(),nt2::Zero<T>()), nt2::Inf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivround(nt2::Five<T>(),nt2::Three<T>()), nt2::Two<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivround(nt2::Four<T>(),nt2::Three<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivround(nt2::Four<T>(),nt2::Zero<T>()), nt2::Inf<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivround(nt2::Inf<T>(), nt2::Inf<T>()), nt2::Zero<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivround(nt2::Minf<T>(), nt2::Minf<T>()), nt2::Zero<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivround(nt2::Mone<T>(), nt2::Mone<T>()), nt2::One<r_t>(), 0);
@@ -72,9 +72,9 @@ NT2_TEST_CASE_TPL ( idivround_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
   NT2_TEST_TYPE_IS( r_t, wished_r_t );
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(divround(nt2::Five<T>(),nt2::Three<T>()), nt2::Two<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(divround(nt2::Four<T>(),nt2::Three<T>()), nt2::One<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(divround(nt2::Four<T>(),nt2::Zero<T>()), nt2::Valmax<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivround(nt2::Five<T>(),nt2::Three<T>()), nt2::Two<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivround(nt2::Four<T>(),nt2::Three<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivround(nt2::Four<T>(),nt2::Zero<T>()), nt2::Valmax<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivround(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>(), 0);
 } // end of test for unsigned_int_
 
@@ -92,9 +92,9 @@ NT2_TEST_CASE_TPL ( idivround_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_TYPE_IS( r_t, wished_r_t );
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(divround(nt2::Five<T>(),nt2::Three<T>()), nt2::Two<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(divround(nt2::Four<T>(),nt2::Three<T>()), nt2::One<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(divround(nt2::Four<T>(),nt2::Zero<T>()), nt2::Valmax<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivround(nt2::Five<T>(),nt2::Three<T>()), nt2::Two<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivround(nt2::Four<T>(),nt2::Three<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivround(nt2::Four<T>(),nt2::Zero<T>()), nt2::Valmax<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(divround(nt2::Mfour<T>(),nt2::Zero<T>()), nt2::Valmin<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivround(nt2::Mone<T>(), nt2::Mone<T>()), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivround(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>(), 0);

@@ -33,7 +33,6 @@ NT2_TEST_CASE_TPL ( round2even_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::round2even;
   using boost::simd::tag::round2even_;
-  using boost::simd::load;
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
