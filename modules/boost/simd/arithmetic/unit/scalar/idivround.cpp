@@ -28,6 +28,7 @@
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/nan.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/five.hpp>
 #include <boost/simd/include/constants/two.hpp>
 #include <boost/simd/include/constants/three.hpp>
