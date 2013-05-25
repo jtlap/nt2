@@ -13,7 +13,7 @@ SET( SOURCES
   ctz.cpp
   genmask.cpp
   twopower.cpp
-  shri.cpp
+  shr.cpp
   shrai.cpp
   shli.cpp
   rshr.cpp
