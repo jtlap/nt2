@@ -11,7 +11,7 @@
 
 #include <boost/simd/bitwise/functions/ror.hpp>
 #include <boost/simd/include/functions/scalar/shli.hpp>
-#include <boost/simd/include/functions/scalar/shri.hpp>
+#include <boost/simd/include/functions/scalar/shr.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 

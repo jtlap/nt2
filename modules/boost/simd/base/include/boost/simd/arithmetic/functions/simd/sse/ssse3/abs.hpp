@@ -17,7 +17,7 @@
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/is_lez.hpp>
 #include <boost/simd/include/functions/simd/bitwise_notand.hpp>
-#include <boost/simd/include/functions/simd/shri.hpp>
+#include <boost/simd/include/functions/simd/shr.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

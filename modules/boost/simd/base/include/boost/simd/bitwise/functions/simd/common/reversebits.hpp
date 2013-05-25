@@ -11,7 +11,7 @@
 
 #include <boost/simd/bitwise/functions/reversebits.hpp>
 #include <boost/simd/include/functions/simd/shli.hpp>
-#include <boost/simd/include/functions/simd/shri.hpp>
+#include <boost/simd/include/functions/simd/shr.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/functions/simd/bitwise_and.hpp>
 #include <boost/simd/include/functions/simd/bitwise_or.hpp>

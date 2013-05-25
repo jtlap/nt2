@@ -15,7 +15,7 @@
 #include <boost/simd/sdk/meta/make_dependent.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/simd/shli.hpp>
-#include <boost/simd/include/functions/simd/shri.hpp>
+#include <boost/simd/include/functions/simd/shr.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

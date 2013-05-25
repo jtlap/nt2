@@ -10,7 +10,7 @@
 #define BOOST_SIMD_BITWISE_FUNCTIONS_SIMD_COMMON_SHRAI_HPP_INCLUDED
 
 #include <boost/simd/bitwise/functions/shrai.hpp>
-#include <boost/simd/include/functions/simd/shri.hpp>
+#include <boost/simd/include/functions/simd/shr.hpp>
 #include <boost/simd/include/functions/simd/map.hpp>
 #include <boost/simd/include/functions/simd/splat.hpp>
 
