@@ -760,6 +760,7 @@ macro(nt2_module_tool_setup tool)
     endif()
 
     if(PROJECT_NAME MATCHES "^NT2")
+      nt2_module_install_setup()
       install( PROGRAMS ${NT2_BINARY_DIR}/tools/${tool}/${tool}${CMAKE_EXECUTABLE_SUFFIX}
                DESTINATION ${NT2_INSTALL_SHARE_DIR}/tools/${tool}
                COMPONENT tools
