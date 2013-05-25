@@ -11,7 +11,7 @@
 #include <boost/assert.hpp>
 #include <boost/config.hpp>
 
-#if defined(__unix)
+#if defined(__unix) || (defined(__APPLE__) && defined(__MACH__))
 #include <sys/time.h>
 #include <sys/resource.h>
 
@@ -23,7 +23,7 @@ namespace nt2 { namespace details
     {
       // This require sudo privilege under common linux to kicks in
       ::setpriority(PRIO_PROCESS      , 0, -20 );
-      #ifdef __APPLE__
+      #if defined(__APPLE__) && defined(__MACH__)
       ::setpriority(PRIO_DARWIN_THREAD, 0, -20 );
       #endif
     }
