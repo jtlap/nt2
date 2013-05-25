@@ -60,7 +60,9 @@ namespace nt2 { namespace details
 #else
 namespace nt2 { namespace details
 {
-  struct priority_booster {};
+  struct priority_booster {
+    priority_booster() {}
+  };
 } }
 #endif
 
