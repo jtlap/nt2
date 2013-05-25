@@ -59,7 +59,8 @@ namespace boost { namespace simd { namespace tag
     **/
     struct shr_ : ext::elementwise_<shr_> { typedef ext::elementwise_<shr_> parent; };
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::shr_, shr, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::shr_, shr,  2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::shr_, shri, 2)
 } }
 
 #endif
