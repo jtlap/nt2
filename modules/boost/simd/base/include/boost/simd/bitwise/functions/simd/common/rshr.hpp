@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return if_else(is_gtz(a1),shr(a0, a1),shl(a0, -a1));
+      return if_else(is_gtz(a1),shift_right(a0, a1),shl(a0, -a1));
     }
   };
 
