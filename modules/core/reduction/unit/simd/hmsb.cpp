@@ -10,7 +10,7 @@
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <nt2/include/functions/bits.hpp>
-#include <nt2/include/functions/shri.hpp>
+#include <nt2/include/functions/shr.hpp>
 
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -30,9 +30,9 @@ NT2_TEST_CASE_TPL ( hmsb_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   // specific values tests
   NT2_TEST_EQUAL(hmsb(nt2::Allbits<vT>()), r_t((1ull << cardinal_of<vT>::value) - 1));
   NT2_TEST_EQUAL(hmsb(nt2::Inf<vT>()), nt2::Zero<r_t>());
-  NT2_TEST_EQUAL(hmsb(nt2::Minf<vT>()), r_t(nt2::shri(nt2::Mone<nt2::int32_t>(),32-cardinal_of<vT>::value)));
-  NT2_TEST_EQUAL(hmsb(nt2::Mone<vT>()), r_t(nt2::shri(nt2::Mone<nt2::int32_t>(),32-cardinal_of<vT>::value)));
-  NT2_TEST_EQUAL(hmsb(nt2::Nan<vT>()), r_t(nt2::shri(nt2::Mone<nt2::int32_t>(),32-cardinal_of<vT>::value)));
+  NT2_TEST_EQUAL(hmsb(nt2::Minf<vT>()), r_t(nt2::shr(nt2::Mone<nt2::int32_t>(),32-cardinal_of<vT>::value)));
+  NT2_TEST_EQUAL(hmsb(nt2::Mone<vT>()), r_t(nt2::shr(nt2::Mone<nt2::int32_t>(),32-cardinal_of<vT>::value)));
+  NT2_TEST_EQUAL(hmsb(nt2::Nan<vT>()), r_t(nt2::shr(nt2::Mone<nt2::int32_t>(),32-cardinal_of<vT>::value)));
   NT2_TEST_EQUAL(hmsb(nt2::One<vT>()), nt2::Zero<r_t>());
   NT2_TEST_EQUAL(hmsb(nt2::Signmask<vT>()), r_t((1ull << cardinal_of<vT>::value) - 1));
   NT2_TEST_EQUAL(hmsb(nt2::Zero<vT>()), nt2::Zero<r_t>());
