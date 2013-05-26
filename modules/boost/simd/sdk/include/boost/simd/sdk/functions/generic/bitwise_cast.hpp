@@ -6,15 +6,15 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_GENERIC_BITWISE_CAST_HPP_INCLUDED
-#define BOOST_SIMD_OPERATOR_FUNCTIONS_GENERIC_BITWISE_CAST_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_FUNCTIONS_GENERIC_BITWISE_CAST_HPP_INCLUDED
+#define BOOST_SIMD_SDK_FUNCTIONS_GENERIC_BITWISE_CAST_HPP_INCLUDED
 
-#include <boost/simd/operator/functions/bitwise_cast.hpp>
+#include <boost/simd/sdk/functions/bitwise_cast.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
 #include <boost/simd/sdk/details/aliasing.hpp>
 #include <boost/dispatch/meta/identity.hpp>
-#include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/mpl/assert.hpp>
 #include <boost/mpl/not.hpp>
 #include <cstring>
 

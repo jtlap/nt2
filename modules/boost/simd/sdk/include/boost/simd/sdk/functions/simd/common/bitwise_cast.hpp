@@ -6,16 +6,18 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_SIMD_COMMON_BITWISE_CAST_HPP_INCLUDED
-#define BOOST_SIMD_OPERATOR_FUNCTIONS_SIMD_COMMON_BITWISE_CAST_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_FUNCTIONS_SIMD_COMMON_BITWISE_CAST_HPP_INCLUDED
+#define BOOST_SIMD_SDK_FUNCTIONS_SIMD_COMMON_BITWISE_CAST_HPP_INCLUDED
 
-#include <boost/simd/operator/functions/bitwise_cast.hpp>
+#include <boost/simd/sdk/functions/bitwise_cast.hpp>
 #include <boost/mpl/assert.hpp>
 
-namespace boost { namespace simd
+namespace boost { namespace simd { namespace details
 {
-  /* We avoid going through the dispatching system becauses it may
-   * causes ICEs when A0 is a vector type */
+  /*
+    We avoid going through the dispatching system because it may
+    causes ICEs when A0 is a vector type
+  */
   template<class A0, class T, class X>
   struct bitwise_cast_impl<A0, simd::native<T, X> >
   {
@@ -33,6 +35,6 @@ namespace boost { namespace simd
       return reinterpret_cast<type>(a0);
     }
   };
-} }
+} } }
 
 #endif

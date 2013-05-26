@@ -9,6 +9,7 @@
 
 include(NT2Module)
 nt2_module_source_setup(boost.simd.sdk)
+nt2_module_configure_toolbox(sdk 1)
 
 nt2_module_postconfigure(gather_includes ---ignore details --ignore preprocessed
                                          boost/simd/dsl/functions

@@ -12,6 +12,10 @@ SET(  SOURCES
       align_on_default.cpp
       align_ptr.cpp
       aligned_object.cpp
+      aligned_output_iterator.cpp
+      bitwise_cast.cpp
+      input_iterator.cpp
+      input_range.cpp
       is_aligned.cpp
       is_power_of_2.cpp
       load.cpp
