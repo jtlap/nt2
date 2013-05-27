@@ -14,45 +14,82 @@
 #include <boost/simd/sdk/config/arch.hpp>
 #include <boost/dispatch/attributes.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Prefetch data from main memory to the cache for optimized memory accesses
-// integer_L1 : Prefetches into the L1 cache (and the L2 and the L3 cache).
-//              Use this for integer data.
-// real_L2_L3 : Prefetches into the L2 cache (and the L3 cache);
-//              floating-point data is used from the L2 cache, not the L1 cache.
-//              Use this for real data.
-// not_frequently_reused : Prefetches into the L2 cache (and the L3 cache);
-//              this line will be marked for early displacement.
-//              Use this if you are not going to reuse the cache line frequently.
-// not_reused : Prefetches into the L2 cache (but not the L3 cache);
-//              this line will be marked for early displacement.
-//              Use this if you are not going to reuse the cache line.
-//
-// TODO : Discuss for Altivec :
-// https://developer.apple.com/hardwaredrivers/ve/instruction_crossref.html#prefetch
-////////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd
 {
-  enum  { not_reused = 0
-        , not_frequently_reused
-        , real_L2_L3
-        , integer_L1
+  /*!
+    @enum prefetch_hints
+    @brief Prefecth strategies
+
+    Provides short-cut for the prefetch strategies usable with prefetch_read and
+    prefetch_write.
+
+    @see prefetch_read
+    @see prefetch_write
+  **/
+  enum  prefetch_hints
+      { non_temporal = 0  /**<  Data are not kept in cache            */
+      , low_locality      /**<  Data are kept in few cache levels     */
+      , moderate_locality /**<  Data are kept in some cache levels    */
+      , high_locality     /**<  Data are kept in all level of caches  */
       };
 
-  template<int Strategy> BOOST_FORCEINLINE void prefetch(void* pointer)
+  /*!
+    @brief Prefetch for read operations
+
+    Issue a software prefetch command for next read operations using a
+    given strategy for locality.
+
+    @tparam Strategy Hint for locality handling
+
+    @param pointer Memory address to prefetch from
+
+    @see prefetch_hints
+  **/
+  template<int Strategy>
+  BOOST_FORCEINLINE void prefetch_read(void const* pointer)
   {
-  #ifdef BOOST_SIMD_ARCH_X86
     #ifdef __GNUC__
-      __builtin_prefetch(pointer, 0, 0);
+    __builtin_prefetch(pointer, 0, Strategy);
     #elif defined( BOOST_SIMD_HAS_SSE_SUPPORT )
-      _mm_prefetch( static_cast<char const *>(pointer), Strategy);
+    _mm_prefetch( static_cast<char const*>(pointer), Strategy);
     #endif
-  #endif
   }
 
-  BOOST_FORCEINLINE void prefetch_temporary(void* pointer)
+  /*!
+    @brief Prefetch for write operations
+
+    Issue a software prefetch command for next write operations using a
+    given strategy for locality.
+
+    @tparam Strategy Hint for locality handling
+
+    @param pointer Memory address to prefetch to
+
+    @see prefetch_hints
+  **/
+  template<int Strategy>
+  BOOST_FORCEINLINE void prefetch_write(void const* pointer)
   {
-    prefetch<not_reused>(pointer);
+    #ifdef __GNUC__
+    __builtin_prefetch(pointer, 1, Strategy);
+    #elif defined( BOOST_SIMD_HAS_SSE_SUPPORT )
+    _mm_prefetch( static_cast<char const*>(pointer), Strategy);
+    #endif
+  }
+
+  /*!
+    @brief Prefetch temporary values
+
+    Issue a software prefetch command for next read operations for temporary
+    data.
+
+    @param pointer Memory address to prefetch to
+
+    @see prefetch_hints
+  **/
+  BOOST_FORCEINLINE void prefetch_temporary(void const* pointer)
+  {
+    prefetch_read<non_temporal>(pointer);
   }
 } }
 
