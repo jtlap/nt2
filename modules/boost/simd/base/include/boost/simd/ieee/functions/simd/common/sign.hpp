@@ -13,7 +13,7 @@
 #include <boost/simd/include/functions/simd/seladd.hpp>
 #include <boost/simd/include/functions/simd/is_nan.hpp>
 #include <boost/simd/include/functions/simd/negate.hpp>
-#include <boost/simd/include/functions/simd/shrai.hpp>
+#include <boost/simd/include/functions/simd/shift_right.hpp>
 #include <boost/simd/include/functions/simd/if_one_else_zero.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/sdk/config.hpp>

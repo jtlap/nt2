@@ -13,7 +13,7 @@
 #include <boost/simd/include/functions/simd/bitwise_xor.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/multiplies.hpp>
-#include <boost/simd/include/functions/simd/shrai.hpp>
+#include <boost/simd/include/functions/simd/shift_right.hpp>
 #include <boost/simd/include/constants/half.hpp>
 
 namespace boost { namespace simd { namespace ext

@@ -10,7 +10,7 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ADDS_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/adds.hpp>
-#include <boost/simd/include/functions/simd/shrai.hpp>
+#include <boost/simd/include/functions/simd/shift_right.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/bitwise_or.hpp>
 #include <boost/simd/include/functions/simd/bitwise_xor.hpp>

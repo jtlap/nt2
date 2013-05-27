@@ -70,6 +70,7 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::shift_right_             , shift_right     , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::shift_right_             , shra            , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::shift_right_             , shar            , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::shift_right_             , shrai           , 2 )
 } }
 
 namespace boost { namespace dispatch { namespace meta

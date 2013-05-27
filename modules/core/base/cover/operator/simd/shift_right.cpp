@@ -59,7 +59,7 @@ NT2_TEST_CASE_TPL ( shift_right_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
-    NT2_CREATE_BUF(tab_a1,iT, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+    NT2_CREATE_BUF(tab_a1,iT, NR, 0, sizeof(T)*8-1);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
@@ -99,7 +99,7 @@ NT2_TEST_CASE_TPL ( shift_right_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
-    NT2_CREATE_BUF(tab_a1,iT, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+    NT2_CREATE_BUF(tab_a1,iT, NR,  0, sizeof(T)*8-1);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
@@ -156,3 +156,43 @@ NT2_TEST_CASE_TPL ( shift_right_real__2_0,  NT2_SIMD_REAL_TYPES)
 
   }
 } // end of test for floating_
+
+NT2_TEST_CASE_TPL ( shift_right_signed_int__2_0_1,  NT2_SIMD_INTEGRAL_TYPES)
+{
+  using nt2::shift_right;
+  using nt2::tag::shift_right_;
+  using nt2::load;
+  using boost::simd::native;
+  using nt2::meta::cardinal_of;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename nt2::meta::call<shift_right_(vT,ivT)>::type r_t;
+  typedef typename nt2::meta::call<shift_right_(T,iT)>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
+
+  // random verifications
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+    NT2_CREATE_BUF(tab_a1,iT, NR/cardinal_of<n_t>::value, 0, sizeof(T)*8-1);
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
+      {
+        vT a0 = load<vT>(&tab_a0[0],j);
+        iT a1 = tab_a1[j/cardinal_of<n_t>::value];
+        r_t v = shift_right(a0,a1);
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
+        {
+
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::shift_right (a0[i],a1)));
+        }
+      }
+
+  }
+} // end of test for signed_int_
