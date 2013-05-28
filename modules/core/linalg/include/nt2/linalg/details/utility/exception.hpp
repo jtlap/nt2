@@ -13,6 +13,7 @@
 #include <nt2/sdk/error/exception.hpp>
 #include <boost/exception/info.hpp>
 #endif
+
 namespace nt2
 {
   /**

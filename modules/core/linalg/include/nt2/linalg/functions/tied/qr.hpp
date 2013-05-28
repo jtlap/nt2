@@ -6,14 +6,14 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_LINALG_FUNCTIONS_TIED_QR_HPP_INCLUDED
-#define NT2_LINALG_FUNCTIONS_TIED_QR_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_TIED_QR_HPP_INCLUDED
+#define NT2_TOOLBOX_LINALG_FUNCTIONS_TIED_QR_HPP_INCLUDED
 
-#include <nt2/linalg/functions/qr.hpp>
-#include <nt2/toolbox/linalg/functions/details/eval_qr.hpp>
-#include <nt2/toolbox/linalg/functions/details/pivot_qr.hpp>
+
+#include <nt2/linalg/functions/details/eval_qr.hpp>
+#include <nt2/linalg/functions/details/pivot_qr.hpp>
 #include <nt2/include/functions/tie.hpp>
-#include <nt2/toolbox/linalg/options.hpp>
+#include <nt2/linalg/options.hpp>
 #include <nt2/sdk/meta/concrete.hpp>
 
 namespace nt2 { namespace ext

@@ -9,11 +9,11 @@
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_LAPACK_TRF_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_LAPACK_TRF_HPP_INCLUDED
 
-#include <nt2/toolbox/linalg/functions/trf.hpp>
+#include <nt2/linalg/functions/trf.hpp>
 
 #include <nt2/dsl/functions/terminal.hpp>
 #include <nt2/core/container/table/category.hpp>
-#include <nt2/toolbox/linalg/details/utility/f77_wrapper.hpp>
+#include <nt2/linalg/details/utility/f77_wrapper.hpp>
 
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/height.hpp>

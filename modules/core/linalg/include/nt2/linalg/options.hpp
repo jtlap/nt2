@@ -19,12 +19,18 @@ namespace nt2
     struct no_pivot_  : boost::mpl::false_  {};
     struct matrix_    : boost::mpl::true_   {};
     struct vector_    : boost::mpl::false_  {};
+    struct fast_      : boost::mpl::false_  {};
+    struct precise_   : boost::mpl::false_  {};
+    struct classic_   : boost::mpl::false_  {};
   }
 
   nt2::policy<ext::pivot_>     const pivot_;
   nt2::policy<ext::no_pivot_>  const no_pivot_;
   nt2::policy<ext::matrix_>    const matrix_;
   nt2::policy<ext::vector_>    const vector_;
+  nt2::policy<ext::fast_>      const fast_;
+  nt2::policy<ext::precise_>   const precise_;
+  nt2::policy<ext::classic_>   const classic_;
 }
 
 #endif
