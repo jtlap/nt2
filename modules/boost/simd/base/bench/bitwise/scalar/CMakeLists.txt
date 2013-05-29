@@ -7,6 +7,33 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-nt2_module_use_modules(test.unit)
-ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)
+SET( SOURCES
+  ilog2.cpp
+  genmask.cpp
+  twopower.cpp
+  shri.cpp
+  shrai.cpp
+  shli.cpp
+  rshr.cpp
+  rshl.cpp
+  rror.cpp
+  rrol.cpp
+  ror.cpp
+  rol.cpp
+  reversebits.cpp
+  popcnt.cpp
+  lo.cpp
+  hi.cpp
+  firstbitunset.cpp
+  firstbitset.cpp
+  ffs.cpp
+  bitwise_select.cpp
+  bitwise_notand.cpp
+  bitwise_andnot.cpp
+  bitwise_ornot.cpp
+  bitwise_notor.cpp
+  bits.cpp
+# List of scalar test files for toolbox bitwise
+   )
+
+nt2_module_add_tests(boost.simd.base.bitwise.scalar.bench ${SOURCES})

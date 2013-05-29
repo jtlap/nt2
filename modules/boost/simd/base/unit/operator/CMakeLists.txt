@@ -7,11 +7,5 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_use_modules(test.unit)
-
-ADD_SUBDIRECTORY(arithmetic)
-ADD_SUBDIRECTORY(bitwise)
-#ADD_SUBDIRECTORY(boolean)
-#ADD_SUBDIRECTORY(ieee)
-#ADD_SUBDIRECTORY(operator)
-#ADD_SUBDIRECTORY(predicates)
+ADD_SUBDIRECTORY(scalar)
+ADD_SUBDIRECTORY(simd)

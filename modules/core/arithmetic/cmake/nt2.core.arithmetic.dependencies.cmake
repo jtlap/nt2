@@ -8,7 +8,7 @@
 ################################################################################
 
 SET ( NT2_CORE.ARITHMETIC_DEPENDENCIES_EXTRA  sdk.simd
-                                              boost.simd.arithmetic
+                                              boost.simd.base
                                               core.reduction
                                               core.utility
     )
