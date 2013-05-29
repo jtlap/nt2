@@ -158,20 +158,13 @@ namespace nt2 { namespace details
   };
 
   /// Perform a test of equality on A and B with a given ulp tolerance
-  /// Detects if A and/or B is actually a sequence and not a Fusion sequence
-  /// and apply max_ulps on every elements of said sequences
+  /// Detects if A and/or B is actually a sequence and apply max_ulps on
+  /// every elements of said sequences
   template< class A, class B
-          , bool IsASeq = nt2::details::is_sequence<A>::value
-                      && !boost::fusion::traits::is_sequence<A>::value
-          , bool IsBSeq = nt2::details::is_sequence<B>::value
-                      && !boost::fusion::traits::is_sequence<B>::value
+          , bool IsASeq=nt2::details::is_sequence<A>::value
+          , bool IsBSeq=nt2::details::is_sequence<B>::value
           >
-  struct max_ulp_;
-
-  /// Both A and B are not sequence, so we iterate jump into the proper
-  /// evaluation scheme
-  template< class A, class B>
-  struct max_ulp_<A,B,false,false>
+  struct max_ulp_
   {
     typedef typename max_ulp_value_<A,B>::failure_type failure_type;
 
