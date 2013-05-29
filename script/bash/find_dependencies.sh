@@ -37,7 +37,7 @@ do
   if [ $VERBOSE ]; then echo "looking for $file"; fi
   while read dir
   do
-    if [ -e "$dir/$file" ]
+    if [ "$file" != "" ] && [ -e "$dir/$file" ]
     then
       in_module=$(echo "$dir" | sed -r 's@'$nt2_module_root'/(.*?)/include@\1@' | tr '/' '.')
     fi
