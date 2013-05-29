@@ -58,7 +58,7 @@ SET( SOURCES
   adds.cpp
   subs.cpp
   abss.cpp
-# List of simd test files for toolbox arithmetic
+# List of scalar test files for toolbox arithmetic
    )
 
-nt2_module_add_tests(boost.simd.arithmetic.simd.bench ${SOURCES})
+nt2_module_add_tests(boost.simd.base.arithmetic.scalar.bench ${SOURCES})

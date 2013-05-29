@@ -8,27 +8,16 @@
 ##############################################################################
 
 SET( SOURCES
-  sqr_abs.cpp
-  isqrt.cpp
-  negs.cpp
   fast_toint.cpp
-  abss.cpp
-  adds.cpp
-  subs.cpp
-  divs.cpp
-  muls.cpp
   divround.cpp
-  divround2even.cpp
   divfloor.cpp
   divfix.cpp
   divceil.cpp
   random.cpp
   logical_xor.cpp
-  meanof.cpp
   ifloor.cpp
   fast_hypot.cpp
   iround.cpp
-  iround2even.cpp
   arg.cpp
   remainder.cpp
   rem.cpp
@@ -39,7 +28,6 @@ SET( SOURCES
   trunc.cpp
   ceil.cpp
   round.cpp
-  round2even.cpp
   floor.cpp
   two_split.cpp
   two_prod.cpp
@@ -54,7 +42,6 @@ SET( SOURCES
   min.cpp
   max.cpp
   idivround.cpp
-  idivround2even.cpp
   idivfloor.cpp
   idivfix.cpp
   idivceil.cpp
@@ -65,9 +52,13 @@ SET( SOURCES
   average.cpp
   abs.cpp
   toint.cpp
-  touint.cpp
   tofloat.cpp
-# List of scalar test files for toolbox arithmetic
+  muls.cpp
+  divs.cpp
+  adds.cpp
+  subs.cpp
+  abss.cpp
+# List of simd test files for toolbox arithmetic
    )
 
-nt2_module_add_tests(boost.simd.arithmetic.scalar.unit ${SOURCES})
+nt2_module_add_tests(boost.simd.base.arithmetic.simd.bench ${SOURCES})

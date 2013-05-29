@@ -19,19 +19,19 @@ SET( SOURCES
   muls.cpp
   divround.cpp
   divround2even.cpp
-  idivround2even.cpp
   divfloor.cpp
   divfix.cpp
   divceil.cpp
   random.cpp
   logical_xor.cpp
+  meanof.cpp
   ifloor.cpp
   fast_hypot.cpp
   iround.cpp
+  iround2even.cpp
   arg.cpp
   remainder.cpp
   rem.cpp
-  meanof.cpp
   mod.cpp
   remquo.cpp
   minmod.cpp
@@ -54,7 +54,7 @@ SET( SOURCES
   min.cpp
   max.cpp
   idivround.cpp
-  iround2even.cpp
+  idivround2even.cpp
   idivfloor.cpp
   idivfix.cpp
   idivceil.cpp
@@ -67,7 +67,7 @@ SET( SOURCES
   toint.cpp
   touint.cpp
   tofloat.cpp
-# List of simd test files for toolbox arithmetic
+# List of scalar test files for toolbox arithmetic
    )
 
-nt2_module_add_tests(boost.simd.arithmetic.simd.unit ${SOURCES})
+nt2_module_add_tests(boost.simd.base.arithmetic.scalar.unit ${SOURCES})
