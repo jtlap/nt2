@@ -11,7 +11,7 @@
 #define NT2_SDK_UNIT_IO_HPP_INCLUDED
 
 #include <vector>
-#include <iosfwd>
+#include <ostream>
 
 template<class T, class Alloc>
 std::ostream& operator<<(std::ostream& os, std::vector<T, Alloc> const& v)
