@@ -16,6 +16,7 @@
 **/
 
 #include <nt2/sdk/config/types.hpp>
+#include <nt2/sdk/unit/io.hpp>
 #include <nt2/sdk/unit/test_case.hpp>
 #include <nt2/sdk/unit/details/suite.hpp>
 #include <nt2/sdk/unit/details/unit_test.hpp>

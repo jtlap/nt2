@@ -41,20 +41,6 @@ struct plus_one
   }
 };
 
-namespace std
-{
-  template<class T, class Alloc>
-  ostream& operator<<(ostream& os, vector<T, Alloc> const& v)
-  {
-    os << "\n";
-    for(typename vector<T, Alloc>::const_iterator it = v.begin(); it != v.end(); ++it)
-      os << *it << "  ";
-    os << "\n";
-
-    return os;
-  }
-}
-
 ////////////////////////////////////////////////////////////////////////////////
 // Test boost::simd::transform behavior with unary operation
 ////////////////////////////////////////////////////////////////////////////////
