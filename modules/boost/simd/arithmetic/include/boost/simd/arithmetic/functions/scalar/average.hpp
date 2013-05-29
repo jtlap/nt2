@@ -10,6 +10,8 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_AVERAGE_HPP_INCLUDED
 #include <boost/simd/arithmetic/functions/average.hpp>
 #include <boost/simd/include/constants/real.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_and.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_xor.hpp>
 #include <boost/simd/include/functions/scalar/shrai.hpp>
 
 namespace boost { namespace simd { namespace ext
