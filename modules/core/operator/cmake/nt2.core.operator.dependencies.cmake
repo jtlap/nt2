@@ -8,6 +8,6 @@
 ################################################################################
 
 SET ( NT2_CORE.OPERATOR_DEPENDENCIES_EXTRA  sdk.simd
-                                            boost.simd.operator
+                                            boost.simd.base
                                             core.constant
     )

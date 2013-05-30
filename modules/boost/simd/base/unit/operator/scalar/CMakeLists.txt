@@ -42,5 +42,5 @@ SET(SOURCES
     value.cpp
     )
 
-nt2_module_add_tests(boost.simd.operator.scalar.unit ${SOURCES})
+nt2_module_add_tests(boost.simd.base.operator.scalar.unit ${SOURCES})
 

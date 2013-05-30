@@ -7,6 +7,7 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_BOOST.SIMD.PREDICATES_DEPENDENCIES_EXTRA boost.simd.base boost.simd.constant
-                                                 boost.simd.operator
-   )
+SET ( NT2_BOOST.SIMD.PREDICATES_DEPENDENCIES_EXTRA
+      boost.simd.base
+      boost.simd.constant
+    )
