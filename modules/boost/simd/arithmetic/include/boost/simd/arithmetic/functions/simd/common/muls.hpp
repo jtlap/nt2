@@ -38,7 +38,7 @@ namespace boost { namespace simd { namespace ext
     {
       return a0*a1;
     }
-  }
+  };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::muls_, tag::cpu_
                                       , (A0)(X)
