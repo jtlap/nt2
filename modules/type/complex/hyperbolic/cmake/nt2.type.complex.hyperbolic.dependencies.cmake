@@ -7,7 +7,13 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET ( NT2_TYPE.COMPLEX.HYPERBOLIC_DEPENDENCIES_EXTRA  core.exponential
-                                                      core.trigonometric
-                                                      core.hyperbolic
+SET ( NT2_TYPE.COMPLEX.HYPERBOLIC_DEPENDENCIES_EXTRA
+      boost.simd.base
+      boost.simd.constant
+      boost.simd.reduction
+      core.base
+      core.exponential
+      core.hyperbolic
+      core.trigonometric
+      type.complex.sdk
     )

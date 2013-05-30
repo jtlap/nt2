@@ -7,4 +7,8 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_TYPE.COMPLEX.CONSTANT_DEPENDENCIES_EXTRA core.constant)
+SET ( NT2_TYPE.COMPLEX.CONSTANT_DEPENDENCIES_EXTRA
+      boost.simd.base
+      boost.simd.constant
+      type.complex.sdk
+    )

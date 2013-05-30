@@ -10,7 +10,7 @@
 
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/pack.hpp>
-#include <boost/simd/operator.hpp>
+#include <boost/simd/include/functions/plus.hpp>
 #include <boost/proto/tags.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/type_traits/is_same.hpp>

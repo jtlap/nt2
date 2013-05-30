@@ -7,8 +7,20 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET ( NT2_CORE.HYPERBOLIC_DEPENDENCIES_EXTRA  core.arithmetic core.bitwise
-                                              core.boolean    core.constant
-                                              core.ieee       core.predicates
-                                              core.reduction  core.exponential
+SET ( NT2_CORE.HYPERBOLIC_DEPENDENCIES_EXTRA
+      boost.dispatch
+      boost.simd.base
+      boost.simd.constant
+      boost.simd.reduction
+      boost.simd.sdk
+      core.base
+      core.exponential
+      core.polynomials
+      core.sdk
+      core.trigonometric
+      core.utility
+      sdk.error
+      sdk.functor
+      sdk.meta
+      sdk.simd
     )

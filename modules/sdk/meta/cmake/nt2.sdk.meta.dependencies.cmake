@@ -7,4 +7,8 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_SDK.META_DEPENDENCIES_EXTRA sdk.config boost.simd.sdk boost.dispatch)
+SET ( NT2_SDK.META_DEPENDENCIES_EXTRA
+      boost.dispatch
+      boost.simd.sdk
+      sdk.config
+    )

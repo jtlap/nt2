@@ -9,4 +9,4 @@
 
 include(NT2Module)
 nt2_module_source_setup(core.reduction)
-nt2_module_simd_toolbox(reduction)
+nt2_module_simd_toolbox(reduction reduction)

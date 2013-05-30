@@ -6,11 +6,14 @@
 #                 See accompanying file LICENSE.txt or copy at
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
-SET ( NT2_TEST.BENCHMARK_DEPENDENCIES_EXTRA test.unit
-                                            boost.dispatch
-                                            sdk.config
-                                            sdk.error
-                                            sdk.timing
+SET ( NT2_TEST.BENCHMARK_DEPENDENCIES_EXTRA
+      boost.dispatch
+      boost.simd.base
+      boost.simd.sdk
+      sdk.error
+      sdk.meta
+      sdk.timing
+      test.unit
     )
 
 SET ( NT2_TEST.BENCHMARK_LIBRARIES optimized nt2_bench debug nt2_bench_d)

@@ -7,10 +7,19 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET ( NT2_CORE.SIGNAL_DEPENDENCIES_EXTRA  sdk.simd
-                                          core.operator       core.constant
-                                          core.arithmetic     core.bitwise
-                                          core.trigonometric  core.exponential
-                                          core.adjacent       core.boolean
-                                          core.reduction      core.utility
+SET ( NT2_CORE.SIGNAL_DEPENDENCIES_EXTRA
+      boost.simd.base
+      boost.simd.config
+      boost.simd.constant
+      boost.simd.sdk
+      boost.simd.swar
+      core.adjacent
+      core.base
+      core.exponential
+      core.reduction
+      core.restructuring
+      core.sdk
+      core.trigonometric
+      core.utility
+      sdk.functor
     )

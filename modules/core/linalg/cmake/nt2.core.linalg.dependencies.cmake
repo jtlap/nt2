@@ -12,9 +12,37 @@ include(nt2.blas)
 if(NOT NT2_BLAS_FOUND OR NOT NT2_LAPACK_FOUND)
   set(NT2_CORE.LINALG_DEPENDENCIES_FOUND 0)
 else()
-  set(NT2_CORE.LINALG_DEPENDENCIES_LIBRARIES ${NT2_BLAS_LIBRARIES} ${NT2_LAPACK_LIBRARIES})
-  set(NT2_CORE.LINALG_LINK_FLAGS ${NT2_BLAS_LINK_FLAGS})
-  set(NT2_CORE.LINALG_DEPENDENCIES_EXTRA sdk.functor core.arithmetic core.restructuring core.random core.combinatorial core.exponential core.trigonometric type.complex.sdk)
+  set ( NT2_CORE.LINALG_DEPENDENCIES_LIBRARIES ${NT2_BLAS_LIBRARIES} ${NT2_LAPACK_LIBRARIES})
+  set ( NT2_CORE.LINALG_LINK_FLAGS ${NT2_BLAS_LINK_FLAGS})
+  set ( NT2_CORE.LINALG_DEPENDENCIES_EXTRA
+        boost.dispatch
+        boost.simd.base
+        boost.simd.constant
+        boost.simd.reduction
+        boost.simd.sdk
+        boost.simd.swar
+        core.base
+        core.combinatorial
+        core.container.placeholders
+        core.container.table
+        core.exponential
+        core.extractive
+        core.generative
+        core.random
+        core.reduction
+        core.restructuring
+        core.sdk
+        core.trigonometric
+        core.utility
+        sdk.dsl
+        sdk.error
+        sdk.functor
+        sdk.meta
+        type.complex.exponential
+        type.complex.operator
+        type.complex.sdk
+      )
+
 endif()
 
 foreach(library ${NT2_LAPACK_LIBRARIES})

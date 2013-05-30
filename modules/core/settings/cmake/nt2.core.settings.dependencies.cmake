@@ -7,8 +7,9 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET ( NT2_SDK.FUNCTOR_DEPENDENCIES_EXTRA
+SET ( NT2_CORE.SETTINGS_DEPENDENCIES_EXTRA
       boost.dispatch
-      sdk.meta
-      sdk.simd
+      core.sdk
+      core.utility
+      sdk.config
     )

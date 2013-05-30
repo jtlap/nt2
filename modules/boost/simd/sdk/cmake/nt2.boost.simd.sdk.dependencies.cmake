@@ -24,4 +24,9 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "Intel")
 endif()
 
 SET(NT2_BOOST.SIMD.SDK_COMPILE_FLAGS ${FLAGS})
-SET(NT2_BOOST.SIMD.SDK_DEPENDENCIES_EXTRA boost.dispatch boost.simd.config)
+
+SET ( NT2_BOOST.SIMD.SDK_DEPENDENCIES_EXTRA
+      boost.dispatch
+      boost.simd.base
+      boost.simd.config
+    )

@@ -7,6 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_use_modules(test.unit core.operator)
+nt2_module_use_modules(test.unit core.base)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

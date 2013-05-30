@@ -7,4 +7,12 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_TYPE.COMPLEX.SDK_DEPENDENCIES_EXTRA boost.simd.sdk)
+SET ( NT2_TYPE.COMPLEX.SDK_DEPENDENCIES_EXTRA
+      boost.dispatch
+      boost.simd.base
+      boost.simd.constant
+      boost.simd.sdk
+      core.trigonometric
+      sdk.functor
+      sdk.meta
+    )

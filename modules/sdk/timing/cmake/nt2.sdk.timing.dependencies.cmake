@@ -7,5 +7,10 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_SDK.TIMING_DEPENDENCIES_EXTRA sdk.config boost.simd.sdk)
+SET ( NT2_SDK.TIMING_DEPENDENCIES_EXTRA
+      boost.dispatch
+      boost.simd.config
+      sdk.config
+    )
+
 SET(NT2_SDK.TIMING_LIBRARIES optimized nt2 debug nt2_d)

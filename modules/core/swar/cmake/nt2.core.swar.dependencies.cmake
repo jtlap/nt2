@@ -7,4 +7,16 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_CORE.SWAR_DEPENDENCIES_EXTRA sdk.simd boost.simd.swar core.container.table)
+SET ( NT2_CORE.SWAR_DEPENDENCIES_EXTRA
+      boost.simd.base
+      boost.simd.swar
+      core.adjacent
+      core.base
+      core.container.table
+      core.generative
+      core.restructuring
+      core.sdk
+      core.utility
+      sdk.functor
+      sdk.meta
+    )

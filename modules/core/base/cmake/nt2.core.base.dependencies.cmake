@@ -7,8 +7,25 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET ( NT2_CORE.BASE_DEPENDENCIES_EXTRA  sdk.simd
-                                        boost.simd.base
-                                        core.reduction
-                                        core.utility
+SET ( NT2_CORE.BASE_DEPENDENCIES_EXTRA
+      boost.dispatch
+      boost.simd.base
+      boost.simd.constant
+      boost.simd.reduction
+      boost.simd.sdk
+      boost.simd.swar
+      core.adjacent
+      core.container.placeholders
+      core.container.table
+      core.generative
+      core.reduction
+      core.restructuring
+      core.sdk
+      core.settings
+      core.utility
+      sdk.config
+      sdk.dsl
+      sdk.functor
+      sdk.meta
+      sdk.simd
     )

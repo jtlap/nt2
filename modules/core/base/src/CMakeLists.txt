@@ -9,12 +9,12 @@
 
 include(NT2Module)
 nt2_module_source_setup(core.base)
-nt2_module_configure_toolbox(arithmetic)
-nt2_module_configure_toolbox(bitwise)
-nt2_module_configure_toolbox(boolean)
-nt2_module_configure_toolbox(ieee)
-nt2_module_configure_toolbox(operator)
-nt2_module_configure_toolbox(predicates)
+nt2_module_simd_toolbox(arithmetic base)
+nt2_module_simd_toolbox(bitwise base)
+nt2_module_simd_toolbox(boolean base)
+nt2_module_simd_toolbox(ieee base)
+nt2_module_simd_toolbox(operator base)
+nt2_module_simd_toolbox(predicates base)
 
 include(nt2.preprocess)
 nt2_preprocess( core.base.operator.preprocess

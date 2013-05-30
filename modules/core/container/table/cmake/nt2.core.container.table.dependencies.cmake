@@ -7,11 +7,14 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET ( NT2_CORE.CONTAINER.TABLE_DEPENDENCIES_EXTRA sdk.dsl
-                                                  core.sdk
-                                                  core.utility
-                                                  core.operator
-                                                  core.restructuring
-                                                  core.swar
-                                                  core.container.placeholders
+SET ( NT2_CORE.CONTAINER.TABLE_DEPENDENCIES_EXTRA
+      boost.dispatch
+      boost.simd.sdk
+      core.base
+      core.container.placeholders
+      core.sdk
+      core.settings
+      core.utility
+      sdk.dsl
+      sdk.functor
     )

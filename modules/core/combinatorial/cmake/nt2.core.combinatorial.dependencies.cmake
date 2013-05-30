@@ -7,10 +7,22 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET ( NT2_CORE.COMBINATORIAL_DEPENDENCIES_EXTRA core.arithmetic core.bitwise
-                                                core.boolean    core.constant
-                                                core.ieee       core.operator
-                                                core.predicates core.reduction
-                                                core.swar       core.euler
-                                                core.exponential core.linalg
+SET ( NT2_CORE.COMBINATORIAL_DEPENDENCIES_EXTRA
+      boost.simd.base
+      boost.simd.constant
+      boost.simd.reduction
+      boost.simd.swar
+      core.base
+      core.container.table
+      core.euler
+      core.exponential
+      core.generative
+      core.linalg
+      core.reduction
+      core.restructuring
+      core.sdk
+      core.utility
+      sdk.functor
+      sdk.meta
+      sdk.simd
     )
