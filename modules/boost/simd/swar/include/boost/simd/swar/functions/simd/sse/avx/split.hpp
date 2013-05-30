@@ -8,12 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_SWAR_FUNCTIONS_SIMD_SSE_AVX_SPLIT_HPP_INCLUDED
 #define BOOST_SIMD_SWAR_FUNCTIONS_SIMD_SSE_AVX_SPLIT_HPP_INCLUDED
-
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
+
 #include <boost/simd/swar/functions/split.hpp>
 #include <boost/simd/sdk/simd/meta/retarget.hpp>
-#include <boost/dispatch/meta/upgrade.hpp>
-#include <boost/fusion/tuple.hpp>
+#include <boost/simd/sdk/meta/is_upgradable_to.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -44,19 +43,7 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::split_
                                       , boost::simd::tag::avx_
                                       , (A0)(A1)
-                                      , (boost::mpl::and_
-                                        < boost::mpl::not_
-                                          < boost::is_same
-                                            < A0
-                                            , typename dispatch::meta::upgrade<A0>::type
-                                            >
-                                          >
-                                        , boost::is_same
-                                          < A1
-                                          , typename dispatch::meta::upgrade<A0>::type
-                                          >
-                                        >
-                                        )
+                                      , (simd::meta::is_upgradable_to<A0,A1>)
                                       , ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
                                         ((simd_<arithmetic_<A1>,boost::simd::tag::avx_>))
                                         ((simd_<arithmetic_<A1>,boost::simd::tag::avx_>))

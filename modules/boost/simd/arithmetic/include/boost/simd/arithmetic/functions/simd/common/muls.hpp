@@ -19,7 +19,7 @@
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/genmask.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
-#include <boost/simd/include/functions/simd/split.hpp>
+#include <boost/simd/include/functions/simd/split_multiplies.hpp>
 #include <boost/simd/include/functions/simd/group.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/sdk/meta/is_upgradable_to.hpp>
@@ -55,12 +55,8 @@ namespace boost { namespace simd { namespace ext
       typedef typename meta::scalar_of<A0>::type stype;
       typedef typename dispatch::meta::upgrade<A0>::type utype;
 
-      utype a00, a01, a10, a11;
-      split(a0, a00, a01);
-      split(a1, a10, a11);
-
-      utype res0 = a00*a10;
-      utype res1 = a01*a11;
+      utype res0, res1;
+      split_multiplies(a0, a1, res0, res1);
 
       return group(res0, res1)
            | group( shrai(res0, sizeof(stype)*CHAR_BIT)
@@ -84,12 +80,8 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_unsigned<A0>::type untype;
       typedef typename dispatch::meta::upgrade<A0>::type utype;
 
-      utype a00, a01, a10, a11;
-      split(a0, a00, a01);
-      split(a1, a10, a11);
-
-      utype res0 = a00*a10;
-      utype res1 = a01*a11;
+      utype res0, res1;
+      split_multiplies(a0, a1, res0, res1);
 
       untype res2 = bitwise_cast<untype>(shrai(a0 ^ a1, sizeof(stype)*CHAR_BIT-1)) + Valmax<stype>();
 
