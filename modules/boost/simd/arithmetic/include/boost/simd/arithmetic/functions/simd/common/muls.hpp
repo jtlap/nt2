@@ -9,71 +9,101 @@
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_MULS_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_MULS_HPP_INCLUDED
 
-//#include <boost/simd/arithmetic/functions/muls.hpp>
-//#include <boost/simd/include/functions/simd/is_eqz.hpp>
-//#include <boost/simd/include/functions/simd/is_ltz.hpp>
-//#include <boost/simd/include/functions/simd/abs.hpp>
-//#include <boost/simd/include/functions/simd/if_else.hpp>
-//#include <boost/simd/include/functions/simd/divs.hpp>
-//#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
-//TODO...a common version or delete the file
+#include <boost/simd/arithmetic/functions/muls.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
+#include <boost/simd/include/functions/simd/bitwise_xor.hpp>
+#include <boost/simd/include/functions/simd/bitwise_or.hpp>
+#include <boost/simd/include/functions/simd/shrai.hpp>
+#include <boost/simd/include/functions/simd/is_not_equal.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/genmask.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
+#include <boost/simd/include/functions/simd/split.hpp>
+#include <boost/simd/include/functions/simd/group.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/sdk/meta/is_upgradable_to.hpp>
+#include <boost/dispatch/meta/upgrade.hpp>
+#include <boost/dispatch/meta/as_unsigned.hpp>
 
-// /////////////////////////////////////////////////////////////////////////////
-// // Implementation when type A0 is int 32 8 64
-// /////////////////////////////////////////////////////////////////////////////
-// BOOST_SIMD_REGISTER_DISPATCH(boost::simd::tag::muls_, tag::cpu_,
-//                        (A0)(X),
-//                        ((simd_<integer_<A0>,X>))((simd_<integer_<A0>,X>))
-//                       );
-// namespace boost { namespace simd { namespace ext
-// {
-//   template<class X, class Dummy>
-//   struct call<boost::simd::tag::muls_(tag::simd_<tag::integer_, X> ,
-//                       boost::simd::tag::simd_<tag::integer_, X>),
-//               boost::simd::tag::cpu_, Dummy> : callable
-//   {
-//     template<class Sig> struct result;
-//     template<class This,class A0>
-//     struct result<This(A0, A0)> : meta::strip<A0>{};
-//     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-//     {
-//       typedef typename dispatch::meta::as_integer<A0, unsigned>::type untype;
-//       A0 sign = b_xor(is_ltz(a0), is_ltz(a1));
-//       untype aa0 = simd::bitwise_cast<untype>(boost::simd::abs(a0));
-//       untype aa1 = simd::bitwise_cast<untype>(boost::simd::abs(a1));
-//       untype ga =  boost::simd::max(aa0, aa1);
-//       untype la =  boost::simd::min(aa0, aa1);
-//       return select( lt(rdivide(simd::bitwise_cast<untype>(Valmax<A0>()), ga), la),
-//                 select(sign, Valmin<A0>(), Valmax<A0>()),
-//                 a0*a1
-//                );
-//     }
-//   };
-// } } }
-// /////////////////////////////////////////////////////////////////////////////
-// // Implementation when type A0 is uint 32 8 64
-// /////////////////////////////////////////////////////////////////////////////
-// BOOST_SIMD_REGISTER_DISPATCH(boost::simd::tag::muls_, tag::cpu_,
-//                        (A0)(X),
-//                        ((simd_<unsigned_<A0>,X>))((simd_<unsigned_<A0>,X>))
-//                       );
-// namespace boost { namespace simd { namespace ext
-// {
-//   template<class X, class Dummy>
-//   struct call<boost::simd::tag::muls_(tag::simd_<tag::unsigned_, X> ,
-//                       boost::simd::tag::simd_<tag::unsigned_, X>),
-//               boost::simd::tag::cpu_, Dummy> : callable
-//   {
-//     template<class Sig> struct result;
-//     template<class This,class A0>
-//     struct result<This(A0, A0)> : meta::strip<A0>{};
-//     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-//     {
-//       return select( lt(rdivide(Valmax<A0>(), a0), a1),
-//                 Valmax<A0>(),
-//                 a0*a1
-//                );
-//     }
-//   };
-// } } }
+namespace boost { namespace simd { namespace ext
+{
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::muls_, tag::cpu_
+                                   , (A0)(X)
+                                   , ((simd_<floating_<A0>, X>))((simd_<floating_<A0>, X>))
+                                   )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      return a0*a1;
+    }
+  }
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::muls_, tag::cpu_
+                                      , (A0)(X)
+                                      , ( boost::mpl::
+                                          not_< simd::meta::is_upgradable_to<A0,A0> >
+                                        )
+                                      , ((simd_<uint_<A0>, X>))((simd_<uint_<A0>, X>))
+                                      )
+  {
+
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      typedef typename meta::scalar_of<A0>::type stype;
+      typedef typename dispatch::meta::upgrade<A0>::type utype;
+
+      utype a00, a01, a10, a11;
+      split(a0, a00, a01);
+      split(a1, a10, a11);
+
+      utype res0 = a00*a10;
+      utype res1 = a01*a11;
+
+      return group(res0, res1)
+           | group( shrai(res0, sizeof(stype)*CHAR_BIT)
+                  , shrai(res1, sizeof(stype)*CHAR_BIT)
+                  );
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::muls_, tag::cpu_
+                                      , (A0)(X)
+                                      , ( boost::mpl::
+                                          not_< simd::meta::is_upgradable_to<A0,A0> >
+                                        )
+                                      , ((simd_<int_<A0>, X>))((simd_<int_<A0>, X>))
+                                      )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      typedef typename meta::scalar_of<A0>::type stype;
+      typedef typename dispatch::meta::as_unsigned<A0>::type untype;
+      typedef typename dispatch::meta::upgrade<A0>::type utype;
+
+      utype a00, a01, a10, a11;
+      split(a0, a00, a01);
+      split(a1, a10, a11);
+
+      utype res0 = a00*a10;
+      utype res1 = a01*a11;
+
+      untype res2 = bitwise_cast<untype>(shrai(a0 ^ a1, sizeof(stype)*CHAR_BIT-1)) + Valmax<stype>();
+
+      A0 hi = group( shrai(res0, sizeof(stype)*CHAR_BIT)
+                   , shrai(res1, sizeof(stype)*CHAR_BIT)
+                   );
+      A0 lo = group(res0, res1);
+
+      return if_else( hi != shrai(lo, sizeof(stype)*CHAR_BIT-1)
+                    , bitwise_cast<A0>(res2)
+                    , lo
+                    );
+    }
+  };
+} } }
+
 #endif

@@ -13,16 +13,28 @@
 #include <boost/simd/include/functions/scalar/genmask.hpp>
 #include <boost/simd/include/functions/scalar/abs.hpp>
 #include <boost/simd/include/functions/scalar/bitofsign.hpp>
-#include <boost/simd/include/functions/scalar/saturate.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_xor.hpp>
+#include <boost/simd/include/functions/scalar/saturate.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/dispatch/meta/as_unsigned.hpp>
 #
 namespace boost { namespace simd { namespace ext
 {
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::muls_, tag::cpu_
+                            , (A0)
+                            , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      return a0*a1;
+    }
+  };
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::muls_, tag::cpu_
                             , (A0)
                             , (scalar_< unsigned_<A0> >)(scalar_< unsigned_<A0> >)
@@ -33,7 +45,7 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::upgrade<A0>::type utype;
       utype res = utype(a0)*utype(a1);
-      return static_cast<A0>(res) | genmask(static_cast<A0>(res >> sizeof(A0)*8));
+      return static_cast<A0>(res) | genmask(static_cast<A0>(res >> sizeof(A0)*CHAR_BIT));
     }
   };
 
@@ -48,6 +60,31 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::upgrade<A0>::type uptype;
       return A0(saturate<A0>(static_cast<uptype>(a0)*static_cast<uptype>(a1)));
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::muls_, tag::cpu_
+                                   , (A0)
+                                   , (scalar_< int32_<A0> >)(scalar_< int32_<A0> >)
+                                   )
+  {
+
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      typedef typename dispatch::meta::as_unsigned<A0>::type untype;
+      typedef typename dispatch::meta::upgrade<A0>::type utype;
+
+      utype res = utype(a0)*utype(a1);
+      untype res2 = untype((a0 ^ a1) >> (sizeof(A0)*CHAR_BIT-1)) + Valmax<A0>();
+
+      A0 hi = (res >> sizeof(A0)*CHAR_BIT);
+      A0 lo = res;
+
+      if(hi != (lo >> (sizeof(A0)*CHAR_BIT-1)))
+        res = res2;
+
+      return res;
     }
   };
 
@@ -82,7 +119,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       if (a1 == 0 || a0 == 0) return Zero<result_type>();
-      typedef typename dispatch::meta::as_integer<result_type, unsigned>::type untype;
+      typedef typename dispatch::meta::as_unsigned<result_type>::type untype;
       result_type sign =  b_xor(bitofsign(a0), bitofsign(a1));
       untype aa0 = boost::simd::abs(a0);
       untype aa1 = boost::simd::abs(a1);
