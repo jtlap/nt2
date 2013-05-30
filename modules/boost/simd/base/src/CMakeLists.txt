@@ -9,4 +9,9 @@
 
 include(NT2Module)
 nt2_module_source_setup(boost.simd.base)
-nt2_module_configure_toolbox(base 1)
+nt2_module_configure_toolbox(arithmetic 1)
+nt2_module_configure_toolbox(bitwise 1)
+nt2_module_configure_toolbox(boolean 1)
+nt2_module_configure_toolbox(ieee 1)
+#nt2_module_configure_toolbox(operator 1)
+#nt2_module_configure_toolbox(predicates 1)

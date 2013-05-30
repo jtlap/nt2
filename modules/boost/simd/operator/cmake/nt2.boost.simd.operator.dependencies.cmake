@@ -7,6 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_BOOST.SIMD.OPERATOR_DEPENDENCIES_EXTRA boost.simd.boolean boost.simd.bitwise boost.simd.constant
+SET(NT2_BOOST.SIMD.OPERATOR_DEPENDENCIES_EXTRA boost.simd.base boost.simd.constant
                                                boost.simd.predicates
    )

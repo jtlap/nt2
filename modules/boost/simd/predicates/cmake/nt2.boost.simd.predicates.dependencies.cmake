@@ -8,5 +8,5 @@
 ################################################################################
 
 SET(NT2_BOOST.SIMD.PREDICATES_DEPENDENCIES_EXTRA boost.simd.base boost.simd.constant
-                                                 boost.simd.ieee boost.simd.operator
+                                                 boost.simd.operator
    )

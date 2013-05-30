@@ -44,9 +44,7 @@ SET( SOURCES
   bitofsign.cpp
   bitinteger.cpp
   bitfloating.cpp
-  safe_min.cpp
-  safe_max.cpp
-# List of scalar test files for toolbox ieee
+# List of simd test files for toolbox ieee
    )
 
-nt2_module_add_tests(boost.simd.ieee.scalar.unit ${SOURCES})
+nt2_module_add_tests(boost.simd.base.ieee.simd.unit ${SOURCES})

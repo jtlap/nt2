@@ -42,7 +42,7 @@ SET( SOURCES
   bitofsign.cpp
   bitinteger.cpp
   bitfloating.cpp
-# List of simd test files for toolbox ieee
+# List of scalar test files for toolbox ieee
    )
 
-nt2_module_add_tests(boost.simd.ieee.simd.bench ${SOURCES})
+nt2_module_add_tests(boost.simd.base.ieee.scalar.bench ${SOURCES})

@@ -8,8 +8,6 @@
 ##############################################################################
 
 SET( SOURCES
-  saturate_at.cpp
-  saturate.cpp
   negate.cpp
   sign.cpp
   negation.cpp
@@ -47,4 +45,4 @@ SET( SOURCES
 # List of simd test files for toolbox ieee
    )
 
-nt2_module_add_tests(boost.simd.ieee.simd.unit ${SOURCES})
+nt2_module_add_tests(boost.simd.base.ieee.simd.bench ${SOURCES})
