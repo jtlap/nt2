@@ -8,15 +8,12 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_ADDS_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_ADDS_HPP_INCLUDED
+
 #include <boost/simd/arithmetic/functions/adds.hpp>
 #include <boost/simd/include/functions/scalar/saturate.hpp>
-#include <boost/simd/include/functions/scalar/is_gtz.hpp>
-#include <boost/simd/include/functions/scalar/is_greater.hpp>
-#include <boost/simd/include/functions/scalar/is_less.hpp>
 #include <boost/simd/include/functions/scalar/min.hpp>
-#include <boost/simd/include/functions/scalar/max.hpp>
-#include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/dispatch/meta/as_unsigned.hpp>
 
@@ -34,6 +31,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
+  // for int8/int16
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::adds_, tag::cpu_
                             , (A0)
                             , (scalar_< integer_<A0> >)(scalar_< integer_<A0> >)
@@ -47,6 +45,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
+  // for uint8/uint16
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::adds_, tag::cpu_
                             , (A0)
                             , (scalar_< unsigned_<A0> >)(scalar_< unsigned_<A0> >)
@@ -60,9 +59,10 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::adds_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::adds_, tag::cpu_
                             , (A0)
-                            , (scalar_< int64_<A0> >)(scalar_< int64_<A0> >)
+                            , (mpl::bool_<sizeof(A0) == 4 || sizeof(A0) == 8>)
+                            , (scalar_< int_<A0> >)(scalar_< int_<A0> >)
                             )
   {
     typedef A0 result_type;
@@ -70,61 +70,31 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::as_unsigned<A0>::type utype;
 
-      bool gtza0 = is_gtz(a0);
-      bool gtza1 = is_gtz(a1);
-      A0 a0pa1 = A0(utype(a0)+utype(a1));
-      if (gtza0 && gtza1 && (lt(a0pa1, a0)))
-      {
-        return Valmax<A0>();
-      }
-      else if (!gtza0 && !gtza1 && (is_gtz(a0pa1) || (gt(a0pa1, boost::simd::min(a0, a1)))))
-      {
-        return Valmin<A0>();
-      }
-      else
-      {
-        return a0pa1;
-      }
+      utype ux = a0;
+      utype uy = a1;
+      utype res = ux + uy;
+
+      ux = (ux >> (sizeof(A0)*CHAR_BIT-1)) + Valmax<A0>();
+
+      if(A0((ux ^ uy) | ~(uy ^ res)) >= Zero<A0>())
+        res = ux;
+
+      return res;
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::adds_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::adds_, tag::cpu_
                             , (A0)
-                            , (scalar_< uint64_<A0> >)(scalar_< uint64_<A0> >)
+                            , (mpl::bool_<sizeof(A0) == 4 || sizeof(A0) == 8>)
+                            , (scalar_< uint_<A0> >)(scalar_< uint_<A0> >)
                             )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 a0pa1 = a0+a1;
-      if (lt(a0pa1, boost::simd::max(a0, a1)))
-      {
-        return Valmax<A0>();
-      }
-      else
-      {
-        return a0pa1;
-      }
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::adds_, tag::cpu_
-                            , (A0)
-                            , (scalar_< uint32_<A0> >)(scalar_< uint32_<A0> >)
-                            )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      A0 a0pa1 = a0+a1;
-      if (lt(a0pa1, boost::simd::max(a0, a1)))
-      {
-        return Valmax<A0>();
-      }
-      else
-      {
-        return a0pa1;
-      }
+      A0 res = a0 + a1;
+      res |= -(res < a0);
+      return res;
     }
   };
 } } }
