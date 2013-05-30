@@ -8,15 +8,12 @@
 ##############################################################################
 
 SET( SOURCES
-  if_zero_else.cpp
-  if_else_zero.cpp
-  if_allbits_else.cpp
-  if_else_allbits.cpp
   negif.cpp
   seladd.cpp
+  select.cpp
   selsub.cpp
   if_one_else_zero.cpp
-# List of simd test files for toolbox boolean
+# List of scalar test files for toolbox boolean
    )
 
-nt2_module_add_tests(boost.simd.boolean.simd.unit ${SOURCES})
+nt2_module_add_tests(boost.simd.base.boolean.scalar.bench ${SOURCES})

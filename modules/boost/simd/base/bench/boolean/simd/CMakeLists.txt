@@ -7,20 +7,13 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-cmake_minimum_required(VERSION 2.6)
+SET( SOURCES
+  negif.cpp
+  seladd.cpp
+  select.cpp
+  selsub.cpp
+  if_one_else_zero.cpp
+# List of simd test files for toolbox boolean
+   )
 
-if(NOT DEFINED NT2_SOURCE_ROOT AND DEFINED ENV{NT2_SOURCE_ROOT})
-  set(NT2_SOURCE_ROOT $ENV{NT2_SOURCE_ROOT})
-endif()
-if(NOT DEFINED NT2_ROOT AND DEFINED ENV{NT2_ROOT})
-  set(NT2_ROOT $ENV{NT2_ROOT})
-endif()
-if(DEFINED NT2_SOURCE_ROOT)
-  list(APPEND CMAKE_MODULE_PATH ${NT2_SOURCE_ROOT}/cmake)
-endif()
-if(DEFINED NT2_ROOT)
-  list(APPEND CMAKE_MODULE_PATH ${NT2_ROOT}/cmake)
-endif()
-
-include(NT2Module)
-nt2_module_main(boost.simd.boolean)
+nt2_module_add_tests(boost.simd.base.boolean.simd.bench ${SOURCES})

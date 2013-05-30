@@ -16,4 +16,4 @@ SET( SOURCES
 # List of scalar test files for toolbox boolean
    )
 
-nt2_module_add_tests(boost.simd.boolean.scalar.unit ${SOURCES})
+nt2_module_add_tests(boost.simd.base.boolean.scalar.unit ${SOURCES})
