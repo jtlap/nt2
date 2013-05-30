@@ -17,10 +17,11 @@
 
 #include <boost/dispatch/attributes.hpp>
 #include <boost/fusion/include/is_sequence.hpp>
+#include <boost/fusion/include/at.hpp>
 #include <boost/foreach.hpp>
 #include <algorithm>
-#include <vector>
 #include <iostream>
+#include <vector>
 
 namespace nt2 { namespace details
 {
@@ -85,7 +86,7 @@ namespace nt2 { namespace details
                           );
       if(!(d <= max_ulpd) )
       {
-        failure_type f = { a, b, d, i };
+        typename VF::value_type f = { a, b, d, i };
         fails.push_back(f);
       }
 
@@ -164,7 +165,10 @@ namespace nt2 { namespace details
           , bool IsASeq=nt2::details::is_sequence<A>::value
           , bool IsBSeq=nt2::details::is_sequence<B>::value
           >
-  struct max_ulp_
+  struct max_ulp_;
+
+  template< class A, class B>
+  struct max_ulp_<A,B,false,false>
   {
     typedef typename max_ulp_value_<A,B>::failure_type failure_type;
 
@@ -200,27 +204,46 @@ namespace nt2 { namespace details
     {
       if( std::distance(b.begin(),b.end()) == std::distance(a.begin(),a.end()))
       {
-        double res = 0;
+        double res(0);
 
         typename A::const_iterator ab = a.begin();
         typename A::const_iterator ae = a.end();
         typename B::const_iterator bb = b.begin();
 
-        while(ab != ae)
+        bool ok(true);
+        while(ok && ab != ae)
         {
-          double r;
-          max_ulp_< typename A::value_type
-                  , typename B::value_type
-                  >()(*ab,*bb,max_ulpd,fails,i++,r);
+          double r(0);
 
+          // Gather potential ULP errors from inside data
+          typedef typename max_ulp_ < typename A::value_type
+                                    , typename B::value_type
+                                    >::failure_type local_failure_type;
+
+          std::vector<local_failure_type> local_fails;
+
+          ok = max_ulp_ < typename A::value_type
+                        , typename B::value_type
+                        >()(*ab,*bb,max_ulpd,local_fails,i,r);
+
+          // Does inner check went ok and do we have fails ?
+          if(ok && !local_fails.empty())
+          {
+            // Register current error
+            typename VF::value_type f = { *ab,*bb, r, i };
+            fails.push_back(f);
+          }
+
+          // Update global max ulp error
           res = std::max(res,r);
           ab++;
           bb++;
+          i++;
         }
 
         ru = res;
 
-        return true;
+        return ok;
       }
       else
       {
@@ -270,7 +293,7 @@ namespace nt2 { namespace details
     {
       if( std::distance(b.begin(),b.end()) == 1)
       {
-        return max_ulp_<typename A::value_type,B>() ( a,*b.begin()
+        return max_ulp_<A,typename B::value_type>() ( a,*b.begin()
                                                     , max_ulpd,fails,i, ru
                                                     );
       }
