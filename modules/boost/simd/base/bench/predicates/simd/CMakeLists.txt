@@ -39,4 +39,4 @@ SET( SOURCES
 # List of simd test files for toolbox predicates
    )
 
-nt2_module_add_tests(boost.simd.predicates.simd.bench ${SOURCES})
+nt2_module_add_tests(boost.simd.base.predicates.simd.bench ${SOURCES})

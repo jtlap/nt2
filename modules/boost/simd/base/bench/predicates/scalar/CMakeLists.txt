@@ -16,8 +16,7 @@ SET( SOURCES
   is_not_greater.cpp
   is_not_infinite.cpp
   majority.cpp
-  is_unord.cpp
-  is_positive.cpp
+  is_unord.cpp  is_positive.cpp
   is_ord.cpp
   is_odd.cpp
   is_not_finite.cpp
@@ -28,7 +27,6 @@ SET( SOURCES
   is_nez.cpp
   is_negative.cpp
   is_nan.cpp
-  is_not_nan.cpp
   is_ltz.cpp
   is_lez.cpp
   is_invalid.cpp
@@ -36,10 +34,9 @@ SET( SOURCES
   is_gtz.cpp
   is_gez.cpp
   is_flint.cpp
-  is_finite.cpp
-  is_even.cpp
+  is_finite.cpp  is_even.cpp
   is_eqz.cpp
-# List of simd test files for toolbox predicates
+# List of scalar test files for toolbox predicates
    )
 
-nt2_module_add_tests(boost.simd.predicates.simd.unit ${SOURCES})
+nt2_module_add_tests(boost.simd.base.predicates.scalar.bench ${SOURCES})

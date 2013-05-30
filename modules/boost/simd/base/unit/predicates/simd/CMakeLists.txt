@@ -8,8 +8,6 @@
 ##############################################################################
 
 SET( SOURCES
-  is_real.cpp
-  is_imag.cpp
   is_not_equal_with_equal_nans.cpp
   is_equal_with_equal_nans.cpp
   is_not_less_equal.cpp
@@ -41,7 +39,7 @@ SET( SOURCES
   is_finite.cpp
   is_even.cpp
   is_eqz.cpp
-# List of scalar test files for toolbox predicates
+# List of simd test files for toolbox predicates
    )
 
-nt2_module_add_tests(boost.simd.predicates.scalar.unit ${SOURCES})
+nt2_module_add_tests(boost.simd.base.predicates.simd.unit ${SOURCES})
