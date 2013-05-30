@@ -36,10 +36,10 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-#if defined(BOOST_SIMD_NO_NANS)
+#if !defined(BOOST_SIMD_NO_NANS)
       if (is_nan(a0)) return Zero<result_type>();
 #endif
-#if defined(BOOST_SIMD_NO_INFINITIES)
+#if !defined(BOOST_SIMD_NO_INFINITIES)
       if (is_inf(a0))
       {
         if (is_ltz(a0)) return Valmin<result_type>();
