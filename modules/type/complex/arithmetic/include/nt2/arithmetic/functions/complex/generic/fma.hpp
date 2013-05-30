@@ -28,6 +28,7 @@
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 namespace nt2 { namespace ext
 {

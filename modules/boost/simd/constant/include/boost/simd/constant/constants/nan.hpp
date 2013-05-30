@@ -15,6 +15,7 @@
 #include <boost/simd/include/functor.hpp>
 #include <boost/simd/sdk/constant/register.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 /*!
  * \ingroup boost_simd_constant

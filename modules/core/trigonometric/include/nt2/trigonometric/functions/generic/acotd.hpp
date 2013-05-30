@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_ACOTD_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_ACOTD_HPP_INCLUDED
+
 #include <nt2/trigonometric/functions/acotd.hpp>
 #include <nt2/include/functions/simd/atand.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
@@ -22,6 +23,7 @@
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/_90.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 namespace nt2 { namespace ext
 {

@@ -20,6 +20,7 @@
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/nan.hpp>
 #include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/sdk/config.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 

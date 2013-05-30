@@ -16,6 +16,7 @@
 #include <nt2/exponential/functions/scalar/impl/expo/f_expo_reduction.hpp>
 #include <nt2/exponential/functions/scalar/impl/expo/d_expo_reduction.hpp>
 #include <nt2/exponential/functions/scalar/impl/expo/expo_finalization.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 namespace nt2 { namespace details { namespace internal
 {

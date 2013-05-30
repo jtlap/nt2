@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_IROUND_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_IROUND_HPP_INCLUDED
+
 #include <boost/simd/arithmetic/functions/iround.hpp>
 #include <boost/simd/include/functions/scalar/seladd.hpp>
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
@@ -18,6 +19,7 @@
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

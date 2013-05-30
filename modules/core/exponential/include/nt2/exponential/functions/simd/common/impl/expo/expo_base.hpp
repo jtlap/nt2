@@ -14,6 +14,7 @@
 #include <nt2/include/functions/simd/if_zero_else.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/inf.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 namespace nt2 { namespace details { namespace internal
 {
