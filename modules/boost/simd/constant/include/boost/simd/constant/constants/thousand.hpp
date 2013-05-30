@@ -57,7 +57,7 @@ namespace boost { namespace simd
      * \brief Define the tag Thousand of functor Thousand
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    BOOST_SIMD_CONSTANT_REGISTER(Thousand,int,1000, 0x447a0000, 0x408f400000000000ll)
+    BOOST_SIMD_CONSTANT_REGISTER(Thousand,double,1000, 0x447a0000, 0x408f400000000000ll)
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Thousand, Thousand)

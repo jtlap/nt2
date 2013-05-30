@@ -57,7 +57,7 @@ namespace boost { namespace simd
      * \brief Define the tag Mfour of functor Mfour
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    BOOST_SIMD_CONSTANT_REGISTER( Mfour, int, -4
+    BOOST_SIMD_CONSTANT_REGISTER( Mfour, double, -4
                                 , 0xc0800000UL, 0xc010000000000000ULL
                                 );
   }

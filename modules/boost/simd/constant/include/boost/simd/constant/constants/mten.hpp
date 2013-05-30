@@ -57,7 +57,7 @@ namespace boost { namespace simd
      * \brief Define the tag Mten of functor Mten
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    BOOST_SIMD_CONSTANT_REGISTER( Mten, int, -10
+    BOOST_SIMD_CONSTANT_REGISTER( Mten, double, -10
                                 , 0xc1200000UL, 0xc024000000000000ULL
                                 );
   }

@@ -57,7 +57,7 @@ namespace boost { namespace simd
      * \brief Define the tag c180 of functor c180
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    BOOST_SIMD_CONSTANT_REGISTER( C180, int, 0
+    BOOST_SIMD_CONSTANT_REGISTER( C180, double, 0
                                  , 0x43340000, 0x4066800000000000ll
                                 );
   }

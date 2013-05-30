@@ -57,7 +57,9 @@ namespace boost { namespace simd
      * \brief Define the tag Fact_5 of functor Fact_5
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    BOOST_SIMD_CONSTANT_REGISTER(Fact_5,int,120, 0x42f00000,0x405e000000000000ll)
+    BOOST_SIMD_CONSTANT_REGISTER( Fact_5,double
+                                , 120, 0x42f00000,0x405e000000000000ll
+                                );
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Fact_5, Fact_5)

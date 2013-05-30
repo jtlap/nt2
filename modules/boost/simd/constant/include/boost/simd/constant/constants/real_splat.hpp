@@ -61,6 +61,9 @@ namespace boost { namespace simd
     template<boost::simd::uint32_t F,boost::simd::uint64_t D>
     struct Realpattern : ext::pure_constant_< Realpattern<F, D> >
     {
+      typedef double default_type;
+      typedef ext::pure_constant_< Realpattern<F, D> > parent;
+
       template<class Target, class Dummy=void>
       struct apply {};
 

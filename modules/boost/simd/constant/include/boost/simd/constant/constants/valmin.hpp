@@ -74,6 +74,8 @@ namespace boost { namespace simd
     struct Valmin : ext::pure_constant_<Valmin>
     {
       typedef double default_type;
+      typedef ext::pure_constant_<Valmin> parent;
+
       template<class Target, class Dummy=void>
       struct  apply
             : meta::int_c < typename Target::type, 0> {};

@@ -57,7 +57,7 @@ namespace boost { namespace simd
      * \brief Define the tag Oneo_120 of functor Oneo_120
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    BOOST_SIMD_CONSTANT_REGISTER( Oneo_120, int, 0, 0x3c088889
+    BOOST_SIMD_CONSTANT_REGISTER( Oneo_120, double, 0, 0x3c088889
                                 , 0x3f81111111111111ll
                                 );
   }

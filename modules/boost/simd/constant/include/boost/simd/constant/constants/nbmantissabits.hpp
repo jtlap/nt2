@@ -63,6 +63,9 @@ namespace boost { namespace simd
     **/
     struct Nbmantissabits : ext::pure_constant_<Nbmantissabits>
     {
+      typedef double default_type;
+      typedef ext::pure_constant_<Nbmantissabits> parent;
+
       template<class Target, class Dummy=void>
       struct  apply : meta::int_c < typename Target::type
                                   , sizeof(typename Target::type)*CHAR_BIT

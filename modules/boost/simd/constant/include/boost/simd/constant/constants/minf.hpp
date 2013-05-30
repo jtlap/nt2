@@ -71,7 +71,9 @@ namespace boost { namespace simd
     #else
     struct Minf : ext::pure_constant_<Minf>
     {
-      typedef double default_type;
+      typedef double                    default_type;
+      typedef ext::pure_constant_<Minf> parent;
+
       template<class Target, class Dummy=void>
       struct apply : meta::make_dependent<Valmin, Dummy>::type::template apply<Target,Dummy> {};
     };

@@ -57,7 +57,7 @@ namespace boost { namespace simd
      * \brief Define the tag Ten of functor Ten
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    BOOST_SIMD_CONSTANT_REGISTER( Ten, int, 10
+    BOOST_SIMD_CONSTANT_REGISTER( Ten, double, 10
                                 , 0x41200000UL, 0x4024000000000000ULL
                                 );
   }

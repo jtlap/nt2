@@ -61,6 +61,7 @@ namespace boost { namespace simd
     template<boost::simd::int64_t I>
     struct Intpattern : ext::pure_constant_< Intpattern<I> >
     {
+      typedef ext::pure_constant_< Intpattern<I> > parent;
       template<class Target, class Dummy=void>
       struct apply : meta::int_c< typename Target::type
                                 , typename Target::type(I)
@@ -71,7 +72,8 @@ namespace boost { namespace simd
   template<class Target, typename boost::dispatch::meta::scalar_of<Target>::type N>
   inline Target integral_constant()
   {
-    typename dispatch::make_functor< tag::Intpattern<boost::simd::int64_t(N)>, Target >::type callee;
+    typedef tag::Intpattern<boost::simd::int64_t(N)> tag_t;
+    typename dispatch::make_functor< tag_t, Target >::type callee;
     return callee( dispatch::meta::as_<Target>() );
   }
 } }

@@ -27,7 +27,7 @@ NT2_TEST_CASE( untyped )
   using boost::mpl::_;
   using nt2::meta::value_type_;
 
-  nt2::table<float> ref =  nt2::zeros(3, 3);
+  nt2::table<float> ref =  nt2::zeros(3, nt2::meta::as_<float>());
   ref(2, 3) = 1.0;
   NT2_DISPLAY(ref);
   nt2::table<int> p(nt2::of_size(1, 2)); p(1) = p(2) = 3;

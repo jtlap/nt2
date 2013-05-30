@@ -26,7 +26,6 @@ namespace nt2 { namespace ext
                               (scalar_<integer_<A2> >)
                             )
   {
-    typedef typename A0::value_type value_t;
     BOOST_DISPATCH_RETURNS(3, (A0 const& a, A1 const& x, A2 const& j),
                            (boost::proto::
                             make_expr<nt2::tag::krylov_, container::domain>
@@ -40,7 +39,6 @@ namespace nt2 { namespace ext
                               ((ast_<A1, nt2::container::domain >))
                             )
   {
-    typedef typename A0::value_type value_t;
     BOOST_DISPATCH_RETURNS(2, (A0 const& a, A1 const& x),
                            (boost::proto::
                             make_expr<nt2::tag::krylov_, container::domain>
@@ -55,11 +53,15 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename A0::value_type value_t;
-    BOOST_DISPATCH_RETURNS(1, (A0 const& a),
-                           (boost::proto::
-                            make_expr<nt2::tag::krylov_, container::domain>
-                            (a, nt2::ones(size(a, 1), 1), size(a, 1))
-                           )
+    BOOST_DISPATCH_RETURNS( 1
+                          , (A0 const& a)
+                          , (boost::proto::
+                                make_expr<nt2::tag::krylov_, container::domain>
+                                ( a
+                                , nt2::ones(size(a, 1), 1,meta::as_<value_t>())
+                                , size(a, 1)
+                                )
+                            )
                           )
       };
 
@@ -69,21 +71,26 @@ namespace nt2 { namespace ext
                             )
   {
     BOOST_DISPATCH_RETURNS(1, (A0 const& n),
-                           (boost::proto::
-                            make_expr<nt2::tag::krylov_, container::domain>
-                            (nt2::randn(n), nt2::ones(n, 1), size_t(n))
-                           )
+                            ( boost::proto::
+                                make_expr<nt2::tag::krylov_, container::domain>
+                                ( nt2::randn(n)
+                                , nt2::ones(n, 1)
+                                , size_t(n)
+                                )
+                            )
                           )
       };
 
-
-   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
+   NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::run_assign_, tag::cpu_
                               , (A0)(A1)(N)
                               , ((ast_<A0, nt2::container::domain>))
-                              ((node_<A1,nt2::tag::krylov_,N,nt2::container::domain>))
-    )
+                                ((node_ < A1,nt2::tag::krylov_,N
+                                        , nt2::container::domain
+                                        >
+                                ))
+                              )
   {
-    typedef A0&                                                          result_type;
+    typedef A0& result_type;
 
     result_type operator()(A0& out, const A1& in) const
     {
@@ -95,7 +102,6 @@ namespace nt2 { namespace ext
       {
         out(nt2::_, i) = nt2::mtimes(a, out(nt2::_, i-1));
       }
-      NT2_DISPLAY(out);
       return out;
     }
   };

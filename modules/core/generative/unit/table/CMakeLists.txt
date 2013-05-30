@@ -8,34 +8,122 @@
 ##############################################################################
 
 SET( SOURCES
-  cic.cpp
-  cif.cpp
-  colon.cpp
-  cols.cpp
-  deltac.cpp
-  deltaf.cpp  
-  eye.cpp
-  falses.cpp
-  fill_pattern.cpp
-  freqspace.cpp
-  freqspace1.cpp
-  indices.cpp
-  infs.cpp
-  linspace.cpp
-  logspace.cpp
-  nans.cpp
-  ones.cpp
-  pispace.cpp
-  rephorz.cpp
-  repmat.cpp
-  repnum.cpp
-  repvert.cpp
-  ric.cpp
-  rif.cpp
-  rows.cpp
-  trues.cpp
-  zeros.cpp
-# List of simd test files for toolbox generative
+allbits.cpp
+bitincrement.cpp
+c180.cpp
+cgold.cpp
+cic.cpp
+cif.cpp
+colon.cpp
+cols.cpp
+deltac.cpp
+deltaf.cpp
+eight.cpp
+eleven.cpp
+eye.cpp
+fact_10.cpp
+fact_11.cpp
+fact_12.cpp
+fact_4.cpp
+fact_5.cpp
+fact_6.cpp
+fact_7.cpp
+fact_8.cpp
+fact_9.cpp
+falses.cpp
+fifteen.cpp
+fill_pattern.cpp
+five.cpp
+four.cpp
+fourthrooteps.cpp
+freqspace1.cpp
+freqspace.cpp
+gold.cpp
+half.cpp
+halfeps.cpp
+hundred.cpp
+indices.cpp
+infs.cpp
+ldexpmask.cpp
+linspace.cpp
+log10_pi.cpp
+logspace.cpp
+maxexponent.cpp
+maxinit.cpp
+maxleftshift.cpp
+meight.cpp
+mfive.cpp
+mfour.cpp
+mhalf.cpp
+mindenormal.cpp
+minexponent.cpp
+minf.cpp
+mlogeps2.cpp
+mnine.cpp
+mone.cpp
+moneo_6.cpp
+mseven.cpp
+msix.cpp
+mten.cpp
+mthree.cpp
+mtwo.cpp
+mzero.cpp
+nans.cpp
+nbdigits.cpp
+nbexponentbits.cpp
+nbmantissabits.cpp
+nine.cpp
+oneo_10.cpp
+oneo_120.cpp
+oneo_12.cpp
+oneo_15.cpp
+oneo_180.cpp
+oneo_5.cpp
+oneo_6.cpp
+oneo_7.cpp
+oneo_8.cpp
+oneo_9.cpp
+ones.cpp
+pi.cpp
+pio_2.cpp
+pispace.cpp
+quarter.cpp
+rephorz.cpp
+repmat.cpp
+repnum.cpp
+repvert.cpp
+ric.cpp
+rif.cpp
+rows.cpp
+seven.cpp
+signmask.cpp
+six.cpp
+smallestposval.cpp
+splitfactor.cpp
+sqrt_1o_5.cpp
+sqrt_2.cpp
+sqrt_2o_2.cpp
+sqrt_2o_3.cpp
+sqrteps.cpp
+sqrtsmallestposval.cpp
+sqrtvalmax.cpp
+ten.cpp
+third.cpp
+thirdrooteps.cpp
+thousand.cpp
+three.cpp
+threeeps.cpp
+trues.cpp
+twelve.cpp
+twenty.cpp
+two.cpp
+twoto31.cpp
+twotom10.cpp
+twotonmb.cpp
+valmax.cpp
+valmin.cpp
+zeros.cpp
+# List of test files for toolbox generative
    )
 
 nt2_module_add_tests(core.generative.table.unit ${SOURCES})

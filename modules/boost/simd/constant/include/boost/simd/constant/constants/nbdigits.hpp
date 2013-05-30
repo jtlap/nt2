@@ -63,6 +63,9 @@ namespace boost { namespace simd
     **/
     struct Nbdigits : ext::pure_constant_<Nbdigits>
     {
+      typedef double default_type;
+      typedef ext::pure_constant_<Nbdigits> parent;
+
       template<class Target, class Dummy=void>
       struct  apply : meta::int_c <typename Target::type,0> {};
     };

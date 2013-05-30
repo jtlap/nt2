@@ -149,13 +149,14 @@ namespace nt2 { namespace ext
 
   };
 
-///////////////////////////////////////////////////////////////////////////////////
-
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
-                              , (A0)(A1)(N)
-                              , ((ast_<A0, nt2::container::domain>))
-                              ((node_<A1,nt2::tag::dramadah_,N,nt2::container::domain>))
-    )
+                            , (A0)(A1)(N)
+                            , ((ast_<A0, nt2::container::domain>))
+                              ((node_ < A1,nt2::tag::dramadah_,N
+                                      , nt2::container::domain
+                                      >
+                              ))
+                            )
   {
     typedef A0&                                                     result_type;
     typedef typename A0::value_type                                         v_t;
@@ -170,8 +171,10 @@ namespace nt2 { namespace ext
         out.resize(nt2::of_size(0, 1));
         return out;
       }
+
       out.resize(of_size(n, n));
       compute(out, n, k);
+
       return out;
     }
   private :
@@ -180,37 +183,35 @@ namespace nt2 { namespace ext
       if(k == 1)
       {
         // Toeplitz
-        tab_t c = nt2::ones<v_t>(n,1);
+        tab_t c = nt2::ones(n,1,meta::as_<v_t>());
         for(size_t i=2; i <= n; i+= 4)
         {
           size_t m = nt2::min(size_t(1),n-i);
           c(nt2::_(i,i+m)) = Zero<v_t>();
         }
-        tab_t r = zeros<v_t>(n,1);
+        tab_t r = zeros(n,1,meta::as_<v_t>());
         r(1) = r(n >= 2 ? 2 : 1) = r(n >= 4 ? 4 : 1) = nt2::One<v_t>();
         out = nt2::toeplitz (c,r);
       }
       else if (k == 2)
       {
         // Upper triangular and Toeplitz
-        tab_t c = nt2::zeros<v_t>(n,1);
+        tab_t c = nt2::zeros(n,1,meta::as_<v_t>());
         c(1) = 1;
-        tab_t r =nt2::ones<v_t>(n,1);
+        tab_t r =nt2::ones(n,1,meta::as_<v_t>());
         r(nt2::_(size_t(3),size_t(2),n)) = nt2::Zero<v_t>();
         out = nt2::toeplitz (c,r);
       }
       else
       {
         //  Lower Hessenberg.
-        tab_t c = nt2::ones<v_t>(n,1);
+        tab_t c = nt2::ones(n,1,meta::as_<v_t>());
         c(nt2::_(size_t(2), size_t(2), n)) = nt2::Zero<v_t>();
-        tab_t d = nt2::zeros<v_t>(n,1);
+        tab_t d = nt2::zeros(n,1,meta::as_<v_t>());
         d(1) = d(2) = 1;
         out = nt2::toeplitz(c, d);
       }
-
     }
-
   };
 
 } }

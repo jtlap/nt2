@@ -71,6 +71,9 @@ namespace boost { namespace simd
     #else
     struct Mindenormal : ext::pure_constant_<Mindenormal>
     {
+      typedef double default_type;
+      typedef ext::pure_constant_<Mindenormal> parent;
+
       template<class Target, class Dummy=void>
       struct apply : meta::int_c<typename Target::type,1> {};
     };

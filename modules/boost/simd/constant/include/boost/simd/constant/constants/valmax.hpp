@@ -69,6 +69,8 @@ namespace boost { namespace simd
     struct Valmax : ext::pure_constant_<Valmax>
     {
       typedef double default_type;
+      typedef ext::pure_constant_<Valmax> parent;
+
       template<class Target, class Dummy=void>
       struct  apply
       {

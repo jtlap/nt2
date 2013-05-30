@@ -57,7 +57,7 @@ namespace boost { namespace simd
      * \brief Define the tag Mfive of functor Mfive
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    BOOST_SIMD_CONSTANT_REGISTER( Mfive, int, -5
+    BOOST_SIMD_CONSTANT_REGISTER( Mfive, double, -5
                                 , 0xc0a00000UL,0xc014000000000000ULL
                                 );
   }

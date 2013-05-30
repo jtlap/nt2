@@ -57,7 +57,7 @@ namespace boost { namespace simd
      * \brief Define the tag Msix of functor Msix
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    BOOST_SIMD_CONSTANT_REGISTER( Msix, int, -6
+    BOOST_SIMD_CONSTANT_REGISTER( Msix, double, -6
                                 , 0xc0c00000UL, 0xc018000000000000ULL
                                 );
   }

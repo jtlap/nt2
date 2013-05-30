@@ -57,7 +57,7 @@ namespace boost { namespace simd
      * \brief Define the tag Meight of functor Meight
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    BOOST_SIMD_CONSTANT_REGISTER( Meight, int, -8
+    BOOST_SIMD_CONSTANT_REGISTER( Meight, double, -8
                                 , 0xc1000000UL,0xc020000000000000ULL
                                 );
   }

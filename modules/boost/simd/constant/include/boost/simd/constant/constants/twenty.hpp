@@ -57,7 +57,7 @@ namespace boost { namespace simd
      * \brief Define the tag Twenty of functor Twenty
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    BOOST_SIMD_CONSTANT_REGISTER(Twenty,int,20, 0x41a00000,0x4034000000000000ll)
+    BOOST_SIMD_CONSTANT_REGISTER(Twenty,double,20, 0x41a00000,0x4034000000000000ll)
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Twenty, Twenty)

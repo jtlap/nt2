@@ -57,7 +57,9 @@ namespace boost { namespace simd
      * \brief Define the tag Eight of functor Eight
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    BOOST_SIMD_CONSTANT_REGISTER(Eight,int,8,0x41000000UL,0x4020000000000000ULL);
+    BOOST_SIMD_CONSTANT_REGISTER(Eight,double
+                                , 8, 0x41000000UL , 0x4020000000000000ULL
+                                );
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Eight, Eight)

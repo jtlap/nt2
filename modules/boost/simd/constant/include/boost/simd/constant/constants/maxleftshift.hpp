@@ -65,6 +65,9 @@ namespace boost { namespace simd
     **/
     struct Maxleftshift : ext::pure_constant_<Maxleftshift>
     {
+      typedef double default_type;
+      typedef ext::pure_constant_<Maxleftshift> parent;
+
       template<class Target, class Dummy=void>
       struct  apply
             : meta::int_c < typename dispatch::meta::
