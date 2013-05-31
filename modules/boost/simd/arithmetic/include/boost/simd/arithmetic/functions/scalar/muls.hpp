@@ -76,7 +76,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::upgrade<A0>::type utype;
 
       utype res = utype(a0)*utype(a1);
-      untype res2 = untype((a0 ^ a1) >> (sizeof(A0)*CHAR_BIT-1)) + Valmax<A0>();
+      untype res2 = (untype(a0 ^ a1) >> (sizeof(A0)*CHAR_BIT-1)) + Valmax<A0>();
 
       A0 hi = (res >> sizeof(A0)*CHAR_BIT);
       A0 lo = res;
