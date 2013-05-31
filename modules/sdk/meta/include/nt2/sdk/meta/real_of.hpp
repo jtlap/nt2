@@ -9,58 +9,10 @@
 #ifndef NT2_SDK_META_REAL_OF_HPP_INCLUDED
 #define NT2_SDK_META_REAL_OF_HPP_INCLUDED
 
-#include <boost/dispatch/meta/value_of.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/type_traits/is_same.hpp>
-
+#include <boost/simd/sdk/meta/real_of.hpp>
 namespace nt2 { namespace meta
 {
-  template<class T>
-  struct real_of;
-}
-
-namespace details
-{
-  template<class T, class U = typename boost::dispatch::meta::value_of<T>::type>
-  struct real_of
-    : meta::real_of<U>
-  {
-  };
-
-  template<class T>
-  struct real_of<T, T>
-  {
-    typedef T type;
-  };
-}
-
-namespace meta
-{
-  template<class T>
-  struct  real_of
-        : details::real_of<T> {};
-
-  template<class T>
-  struct real_of<T&>
-    : boost::mpl::if_< boost::is_same< typename meta::real_of<T>::type
-                                     , T
-                                     >
-                     , T&
-                     , typename details::real_of<T&>::type
-                     >
-  {
-  };
-
-  template<class T>
-  struct real_of<T const>
-    : boost::mpl::if_< boost::is_same< typename meta::real_of<T>::type
-                                     , T
-                                     >
-                     , T const
-                     , typename details::real_of<T const>::type
-                     >
-  {
-  };
+  using boost::simd::meta::real_of;
 } }
 
 #endif

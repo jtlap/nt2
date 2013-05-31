@@ -6,13 +6,22 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_META_AS_REAL_HPP_INCLUDED
-#define NT2_SDK_META_AS_REAL_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_META_AS_REAL_HPP_INCLUDED
+#define BOOST_SIMD_SDK_META_AS_REAL_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/as_real.hpp>
-namespace nt2 { namespace meta
+#include <boost/simd/sdk/meta/real_of.hpp>
+#include <boost/dispatch/meta/factory_of.hpp>
+#include <boost/mpl/apply.hpp>
+
+namespace boost { namespace simd { namespace meta
 {
-  using boost::simd::meta::as_real;
-} }
+  template<class T>
+  struct as_real
+   : boost::mpl::apply1< typename boost::dispatch::meta::factory_of<T, typename real_of<T>::type>::type
+                       , typename real_of<T>::type
+                       >
+  {
+  };
+} } }
 
 #endif
