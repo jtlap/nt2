@@ -13,6 +13,8 @@
 #include <boost/simd/swar/functions/split_multiplies.hpp>
 #include <boost/simd/include/functions/simd/interleave_first.hpp>
 #include <boost/simd/include/functions/simd/interleave_second.hpp>
+#include <boost/simd/include/functions/simd/deinterleave_first.hpp>
+#include <boost/simd/include/functions/simd/deinterleave_second.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -68,8 +70,11 @@ namespace boost { namespace simd { namespace ext
     typedef void result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1, A1& a2, A1& a3) const
     {
-      a2 = _mm_mul_epu32(a0, a1);
-      a3 = _mm_mul_epu32(_mm_srli_si128(a0, 4), _mm_srli_si128(a1, 4));
+      A1 lo = _mm_mul_epu32(a0, a1);
+      A1 hi = _mm_mul_epu32(_mm_srli_si128(a0, 4), _mm_srli_si128(a1, 4));
+
+      a2 = deinterleave_first(lo, hi);
+      a3 = deinterleave_second(lo, hi);
     }
   };
 } } }
