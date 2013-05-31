@@ -151,6 +151,18 @@ namespace boost { namespace dispatch { namespace meta
   };
 } } }
 
+namespace boost { namespace simd { namespace meta
+{
+  template<class T>
+  struct real_of;
+
+  template<class T>
+  struct real_of< simd::logical<T> >
+  {
+    typedef simd::logical<T> type;
+  };
+} } }
+
 #include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/sdk/simd/details/logical.hpp>
 #endif
