@@ -116,8 +116,8 @@ namespace nt2 { namespace ext
       r_type i = if_zero_else(logical_and(is_invalid(i1), is_real(a1)), i1);
       r = if_else(logical_and(is_eqz(a1),is_invalid_r1), nt2::Nan<r_type>(), r);
       i = if_zero_else(is_eqz(a1), i);
-#endif
       return result_type(r, i);
+#endif
     }
   };
 
