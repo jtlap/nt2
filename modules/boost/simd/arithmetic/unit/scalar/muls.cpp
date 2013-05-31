@@ -70,3 +70,17 @@ NT2_TEST_CASE_TPL ( muls_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(muls(boost::simd::Valmax<T>(),T(2)), boost::simd::Valmax<T>());
   NT2_TEST_EQUAL(muls(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<T>());
 } // end of test for unsigned_int_
+
+NT2_TEST_CASE(muls_special)
+{
+  using boost::simd::muls;
+  using boost::simd::splat;
+  using boost::simd::Valmin;
+
+  typedef short int T1;
+  NT2_TEST_EQUAL(muls(splat<T1>(-5165), splat<T1>(23258)), Valmin<T1>());
+
+  typedef int T2;
+  NT2_TEST_EQUAL(muls(splat<T2>(-1306766858), splat<T2>(1550772331)), Valmin<T2>());
+  NT2_TEST_EQUAL(muls(splat<T2>(1467238299), splat<T2>(-900961598)), Valmin<T2>());
+}
