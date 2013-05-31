@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_SDK_META_AS_LOGICAL_HPP_INCLUDED
 #define BOOST_SIMD_SDK_META_AS_LOGICAL_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/simd/sdk/meta/real_of.hpp>
 #include <boost/dispatch/meta/factory_of.hpp>
 #include <boost/mpl/apply.hpp>
 
@@ -38,9 +38,9 @@ namespace boost { namespace simd { namespace meta
 {
   template<class T>
   struct as_logical
-    : details::as_logical< typename scalar_of<T>::type
+    : details::as_logical< typename real_of<T>::type
                          , typename dispatch::meta::
-                           factory_of<T, typename scalar_of<T>::type>::type
+                           factory_of<T, typename real_of<T>::type>::type
                          >
   {
   };
