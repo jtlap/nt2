@@ -15,6 +15,7 @@
 #include <boost/simd/include/functions/simd/is_less_equal.hpp>
 #include <boost/simd/include/functions/simd/shri.hpp>
 #include <boost/simd/include/functions/simd/minus.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/bitwise_and.hpp>
 #include <boost/simd/include/functions/simd/bitwise_xor.hpp>
 #include <boost/simd/include/functions/simd/complement.hpp>
