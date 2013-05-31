@@ -7,4 +7,12 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_TYPE.COMPLEX.REDUCTION_DEPENDENCIES_EXTRA core.reduction)
+SET ( NT2_TYPE.COMPLEX.REDUCTION_DEPENDENCIES_EXTRA
+      boost.dispatch
+      boost.simd.base
+      boost.simd.constant
+      boost.simd.reduction
+      core.base
+      sdk.meta
+      type.complex.sdk
+    )

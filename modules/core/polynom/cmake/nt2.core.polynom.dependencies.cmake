@@ -24,5 +24,5 @@ SET ( NT2_CORE.POLYNOM_DEPENDENCIES_EXTRA
       sdk.functor
       sdk.meta
       type.complex.sdk
-      #type.complex.base
+      type.complex.base
     )

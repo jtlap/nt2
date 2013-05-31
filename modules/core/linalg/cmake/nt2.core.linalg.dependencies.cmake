@@ -39,7 +39,7 @@ else()
         sdk.functor
         sdk.meta
         type.complex.exponential
-        type.complex.operator
+        type.complex.base
         type.complex.sdk
       )
 

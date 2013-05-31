@@ -7,11 +7,14 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET ( NT2_TYPE.COMPLEX.SWAR_DEPENDENCIES_EXTRA
-      boost.dispatch
+SET ( NT2_TYPE.COMPLEX.BASE_DEPENDENCIES_EXTRA
       boost.simd.base
+      boost.simd.constant
       boost.simd.reduction
-      boost.simd.sdk
-      boost.simd.swar
+      core.base
+      core.trigonometric
+      sdk.functor
+      sdk.meta
+      sdk.simd
       type.complex.sdk
     )

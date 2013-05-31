@@ -7,4 +7,10 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-set(NT2_TYPE.COMPLEX.LINALG_DEPENDENCIES_EXTRA sdk.functor type.complex.arithmetic type.complex.exponential type.complex.trigonometric core.linalg)
+SET ( NT2_TYPE.COMPLEX.LINALG_DEPENDENCIES_EXTRA
+      sdk.functor
+      type.complex.base
+      type.complex.exponential
+      type.complex.trigonometric
+      core.linalg
+    )
