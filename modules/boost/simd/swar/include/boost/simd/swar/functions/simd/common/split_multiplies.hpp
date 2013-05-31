@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
       split(a0, a00, a01);
       split(a1, a10, a11);
       a2 = a00*a10;
-      a3 = a10*a11;
+      a3 = a01*a11;
     }
   };
 } } }
