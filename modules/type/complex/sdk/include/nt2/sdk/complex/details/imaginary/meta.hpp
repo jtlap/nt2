@@ -26,14 +26,14 @@ namespace nt2
   struct imaginary;
 }
 
-namespace nt2 { namespace meta
+namespace boost { namespace simd { namespace meta
 {
   template<class T>
   struct real_of< nt2::imaginary<T> >
   {
     typedef T type;
   };
-} }
+} } }
 
 namespace boost { namespace simd { namespace meta
 {

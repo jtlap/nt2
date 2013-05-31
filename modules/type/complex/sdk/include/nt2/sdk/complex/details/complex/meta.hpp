@@ -20,14 +20,14 @@
 #include <boost/type_traits/has_trivial_destructor.hpp>
 #include <boost/mpl/bool.hpp>
 
-namespace nt2 { namespace meta
+namespace boost { namespace simd { namespace meta
 {
   template<class T>
   struct real_of< std::complex<T> >
   {
     typedef T type;
   };
-} }
+} } }
 
 namespace boost { namespace dispatch { namespace meta
 {
