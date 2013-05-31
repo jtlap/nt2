@@ -26,6 +26,7 @@
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/if_zero_else.hpp>
 #include <nt2/include/functions/if_else_zero.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
 #include <nt2/include/functions/is_finite.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/is_real.hpp>
@@ -105,19 +106,14 @@ namespace nt2 { namespace ext
     typedef A0 r_type;
     NT2_FUNCTOR_CALL(2)
     {
-      r_type r1 = a0*real(a1);
-      r_type i1 = a0*imag(a1);
-#ifdef BOOST_SIMD_NO_INVALIDS
-      return result_type(r1, i1);
-#else
-      typedef typename meta::as_logical<r_type>::type l_type;
-      l_type is_invalid_r1 = nt2::is_invalid(r1);
-      r_type r = if_zero_else(logical_and(is_invalid_r1, is_imag(a1)), r1);
-      r_type i = if_zero_else(logical_and(is_invalid(i1), is_real(a1)), i1);
-      r = if_else(logical_and(is_eqz(a1),is_invalid_r1), nt2::Nan<r_type>(), r);
-      i = if_zero_else(is_eqz(a1), i);
-      return result_type(r, i);
+      r_type r = a0*real(a1);
+      r_type i = a0*imag(a1);
+#ifndef BOOST_SIMD_NO_INVALIDS
+      typename meta::as_logical<A1>::type is_real_a1 = is_real(a1);
+      r = if_zero_else(logical_andnot(is_imag(a1), is_real_a1), r);
+      i = if_zero_else(is_real_a1, i);
 #endif
+      return result_type(r, i);
     }
   };
 
@@ -230,13 +226,12 @@ namespace nt2 { namespace ext
     typedef A1 r_type;
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename meta::as_logical<r_type>::type l_type;
       r_type r = Zero<r_type>();
       r_type i = nt2::imag(a0)*a1;
-      l_type is_eqz_a0 = nt2::is_eqz(a0);
-      l_type is_invalid_i = nt2::is_invalid(i);
-      r = nt2::if_else(nt2::logical_and(is_eqz_a0,is_invalid_i), i, r);
-      i = nt2::if_zero_else(nt2::logical_and(is_eqz_a0,is_invalid_i), i);
+
+      typename meta::as_logical<A0>::type is_a0_zero = is_eqz(a0);
+      r = if_allbits_else(logical_and(is_a0_zero, is_nez(a1)), r);
+      i = if_zero_else(is_a0_zero, i);
       return result_type(r, i);
     }
 #endif
