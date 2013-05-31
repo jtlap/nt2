@@ -14,13 +14,18 @@
 #include <nt2/include/functions/value.hpp>
 #include <nt2/sdk/unit/details/is_sequence.hpp>
 #include <nt2/sdk/unit/details/smallest_type.hpp>
+#include <nt2/sdk/unit/details/eval.hpp>
+#include <nt2/sdk/unit/stats.hpp>
 
 #include <boost/dispatch/attributes.hpp>
 #include <boost/fusion/include/is_sequence.hpp>
 #include <boost/fusion/include/at.hpp>
+#include <boost/current_function.hpp>
+#include <boost/typeof/typeof.hpp>
 #include <boost/foreach.hpp>
 #include <algorithm>
 #include <iostream>
+#include <iomanip>
 #include <vector>
 
 namespace nt2 { namespace details
@@ -307,13 +312,85 @@ namespace nt2 { namespace details
 
 namespace nt2 { namespace unit
 {
-  /// INTERNAL ONLY Main test for equality over any types A and B within a
-  /// given ulp tolerance
+  /// INTERNAL ONLY
+  /// Main test for equality over any types A and B within a given ulp tolerance
   template<class A, class B, class VF>
   BOOST_FORCEINLINE
   bool max_ulp( A const& a, B const& b, double max_ulpd, VF& fails, double& ru )
   {
     return details::max_ulp_<A,B>()(a,b,max_ulpd,fails,0,ru);
+  }
+} }
+
+namespace nt2 { namespace details
+{
+
+  template<typename Fails>
+  BOOST_FORCEINLINE
+  void report_ulp_unit_error( const char* desc, const char* func, int line
+                            , Fails const& ulps, double ulpd, double N
+                            , bool ok
+                            )
+  {
+    if( ulps.empty() )
+    {
+      ::nt2::details::ulp_pass( desc, ulpd, N );
+    }
+    else
+    {
+      ::nt2::details::ulp_fail( desc, func, line, ulps.size(),N, true);
+
+      BOOST_FOREACH ( typename Fails::const_reference f, ulps )
+      {
+        std::cout << std::setprecision(20)
+                  << "\tlhs: "  << f.value
+                  << ", rhs: "  << f.desired_value
+                  << ", ULP: "  << f.ulp_error
+                  << ", @( "    << f.index << " )";
+        std::cout << std::endl;
+      }
+
+      std::cout << std::endl;
+    }
+  }
+
+
+  template<typename A, typename B>
+  BOOST_FORCEINLINE
+  void test_ulp_equal ( const char* desc, const char* func, int line
+                      , A const& a, B const& b
+                      , double N
+                      )
+  {
+    typedef BOOST_TYPEOF(nt2::unit::eval(a))                        a_t;
+    typedef BOOST_TYPEOF(nt2::unit::eval(b))                        b_t;
+    typedef typename nt2::details::max_ulp_<a_t,b_t>::failure_type  f_t;
+
+    std::vector< f_t > ulps;
+    double ulpd = 0;
+    bool ok = find_ulp_error(a,b,ulps,ulpd,N);
+
+    if(ok)
+    {
+      ::nt2::details::report_ulp_unit_error(desc, func, line, ulps, ulpd, N);
+    }
+    else
+    {
+      ::nt2::details::ulp_fail( desc, func, line, ulps.size(),N, false);
+    }
+  }
+
+  template<typename A, typename B, typename Fails>
+  BOOST_FORCEINLINE
+  bool find_ulp_error ( A const& a, B const& b
+                      , Fails& ulps, double& ulpd, double N
+                      )
+  {
+    bool ok = nt2::unit::max_ulp( nt2::unit::eval(a)
+                                , nt2::unit::eval(b)
+                                , N, ulps, ulpd
+                                );
+    return ok;
   }
 } }
 

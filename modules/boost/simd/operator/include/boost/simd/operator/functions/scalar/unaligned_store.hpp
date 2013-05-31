@@ -32,23 +32,17 @@ namespace boost { namespace simd { namespace ext
       return *that = a0;
     }
   };
-} } }
 
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_store_, tag::cpu_, (A0)(A1)(A2)(A3)
-                            , (unspecified_<A0>)
-                              (iterator_< unspecified_<A1> >)
-                              (scalar_< integer_<A2> >)
-                              (mpl_integral_< scalar_<integer_<A3> > >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::unaligned_store_, tag::cpu_
+                                    , (A0)(A1)
+                                    , (unspecified_<A0>)
+                                      (iterator_< unspecified_<A1> >)
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(3)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      A1 that = a1;
-      std::advance(that,a2+A3::value);
-      return *that = a0;
+      return *a1 = a0;
     }
   };
 

@@ -13,6 +13,7 @@
 ################################################################################
 
 SET( SOURCES
+     cover.cpp
      is_equal.cpp
      max_ulp.cpp
      pass_fail.cpp
