@@ -54,7 +54,7 @@ namespace boost { namespace simd
     @return The first sub-part of @c a0 * @c a1
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL( tag::split_multiplies_, split_multiplies
-                                            , (A0 const &)(A1 const&)(A1&)
+                                            , (A0 const &)(A0 const&)(A1&)
                                             , 2
                                             )
 

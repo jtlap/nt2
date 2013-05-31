@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1, A1 & a3) const
     {
       result_type a2;
-      boost::simd::split_multiplies(a0, a1, a2, a2);
+      boost::simd::split_multiplies(a0, a1, a2, a3);
       return a2;
     }
   };
