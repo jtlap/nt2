@@ -8,20 +8,14 @@
 //==============================================================================
 #ifndef BOOST_SIMD_SWAR_FUNCTIONS_SIMD_SSE_AVX_GROUP_HPP_INCLUDED
 #define BOOST_SIMD_SWAR_FUNCTIONS_SIMD_SSE_AVX_GROUP_HPP_INCLUDED
-
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
+
 #include <boost/simd/swar/functions/group.hpp>
-#include <boost/simd/include/functions/simd/saturate.hpp>
-#include <boost/simd/sdk/meta/make_dependent.hpp>
 #include <boost/simd/sdk/simd/meta/retarget.hpp>
-#include <boost/simd/include/constants/zero.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  //============================================================================
-  // Implementation when type A0 is double
-  //============================================================================
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::group_
                                     , boost::simd::tag::avx_
                                     , (A0)
@@ -29,9 +23,7 @@ namespace boost { namespace simd { namespace ext
                                       ((simd_<double_<A0>,boost::simd::tag::avx_>))
                                     )
   {
-    typedef typename meta::scalar_of<A0>::type                          stype;
-    typedef typename dispatch::meta::downgrade<stype>::type             utype;
-    typedef simd::native<utype,boost::simd::tag::avx_>            result_type;
+    typedef typename dispatch::meta::downgrade<A0>::type                result_type;
     typedef typename meta::retarget<result_type,simd::tag::sse_>::type  htype;
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
@@ -43,122 +35,15 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  //============================================================================
-  // Implementation when type A0 is int32_t
-  //============================================================================
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::group_
                                     , boost::simd::tag::avx_
                                     , (A0)
-                                    , ((simd_<int32_<A0>,boost::simd::tag::avx_>))
-                                      ((simd_<int32_<A0>,boost::simd::tag::avx_>))
+                                    , ((simd_<integer_<A0>,boost::simd::tag::avx_>))
+                                      ((simd_<integer_<A0>,boost::simd::tag::avx_>))
                                     )
   {
-    typedef typename meta::scalar_of<A0>::type              stype;
-    typedef typename dispatch::meta::downgrade<stype>::type utype;
-    typedef simd::native<utype,boost::simd::tag::avx_>      result_type;
-
-    typedef typename meta::retarget<A0,simd::tag::sse_>::type        htype;
-    typedef typename meta::retarget<result_type,simd::tag::sse_>::type  type;
-
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      htype a00 = _mm256_extractf128_si256(a0, 0);
-      htype a01 = _mm256_extractf128_si256(a0, 1);
-      type v0 = _mm_packs_epi32(a00, a01);
-
-      htype a10 = _mm256_extractf128_si256(a1, 0);
-      htype a11 = _mm256_extractf128_si256(a1, 1);
-      type v1 = _mm_packs_epi32(a10, a11);
-
-      __m256i r = _mm256_castsi128_si256(v0);
-      return _mm256_insertf128_si256(r, v1, 1);
-
-      return r;
-    }
-  };
-
-  //============================================================================
-  // Implementation when type A0 is int16_t
-  //============================================================================
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::group_
-                                    , boost::simd::tag::avx_
-                                    , (A0)
-                                    , ((simd_<int16_<A0>,boost::simd::tag::avx_>))
-                                      ((simd_<int16_<A0>,boost::simd::tag::avx_>))
-                                    )
-  {
-    typedef typename meta::scalar_of<A0>::type              stype;
-    typedef typename dispatch::meta::downgrade<stype>::type utype;
-    typedef simd::native<utype,boost::simd::tag::avx_>      result_type;
-    typedef typename meta::retarget<A0,simd::tag::sse_>::type        htype;
-    typedef typename meta::retarget<result_type,simd::tag::sse_>::type  type;
-
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      A0 aa0 =  boost::simd::saturate<utype>(a0);
-      A0 aa1 =  boost::simd::saturate<utype>(a1);
-      htype a00 = _mm256_extractf128_si256(aa0, 0);
-      htype a01 = _mm256_extractf128_si256(aa0, 1);
-      type v0   = _mm_packs_epi16(a00, a01);
-
-      htype a10 = _mm256_extractf128_si256(aa1, 0);
-      htype a11 = _mm256_extractf128_si256(aa1, 1);
-      type v1   = _mm_packs_epi16(a10, a11);
-
-      __m256i r   = _mm256_castsi128_si256(v0);
-      return _mm256_insertf128_si256(r, v1, 1);
-    }
-  };
-
-  //============================================================================
-  // Implementation when type A0 is uint32_t
-  //============================================================================
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::group_
-                                    , boost::simd::tag::avx_
-                                    , (A0)
-                                    , ((simd_<uint32_<A0>,boost::simd::tag::avx_>))
-                                      ((simd_<uint32_<A0>,boost::simd::tag::avx_>))
-                                    )
-  {
-    typedef typename meta::scalar_of<A0>::type              stype;
-    typedef typename dispatch::meta::downgrade<stype>::type utype;
-    typedef simd::native<utype,boost::simd::tag::avx_>      result_type;
-    typedef typename meta::retarget<A0,simd::tag::sse_>::type        htype;
-    typedef typename meta::retarget<result_type,simd::tag::sse_>::type  type;
-
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      A0 aa0 =  boost::simd::saturate<utype>(a0);
-      A0 aa1 =  boost::simd::saturate<utype>(a1);
-      htype a00 = _mm256_extractf128_si256(aa0, 0);
-      htype a01 = _mm256_extractf128_si256(aa0, 1);
-      type v0 = _mm_packus_epi32(a00, a01);
-
-      htype a10 = _mm256_extractf128_si256(aa1, 0);
-      htype a11 = _mm256_extractf128_si256(aa1, 1);
-      type v1 = _mm_packus_epi32(a10, a11);
-
-      __m256i r = _mm256_castsi128_si256(v0);
-      return _mm256_insertf128_si256(r, v1, 1);
-
-      return r;
-    }
-  };
-
-  //============================================================================
-  // Implementation when type A0 is int64_t
-  //============================================================================
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::group_
-                                    , boost::simd::tag::avx_
-                                    , (A0)
-                                    , ((simd_<int64_<A0>,boost::simd::tag::avx_>))
-                                      ((simd_<int64_<A0>,boost::simd::tag::avx_>))
-                                    )
-  {
-    typedef typename meta::scalar_of<A0>::type              stype;
-    typedef typename dispatch::meta::downgrade<stype>::type utype;
-    typedef simd::native<utype,boost::simd::tag::avx_>      result_type;
-    typedef typename meta::retarget<A0,simd::tag::sse_>::type        htype;
+    typedef typename dispatch::meta::downgrade<A0>::type                result_type;
+    typedef typename meta::retarget<A0,simd::tag::sse_>::type           htype;
     typedef typename meta::retarget<result_type,simd::tag::sse_>::type  type;
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
@@ -170,69 +55,6 @@ namespace boost { namespace simd { namespace ext
       htype a11 = _mm256_extractf128_si256(a1, 1);
       type v1 = boost::simd::group(a10, a11);
       __m256i r = _mm256_castsi128_si256(v0);
-      return _mm256_insertf128_si256(r, v1, 1);
-    }
-  };
-
-  //============================================================================
-  // Implementation when type A0 is uint64_t
-  //============================================================================
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::group_
-                                    , boost::simd::tag::avx_
-                                    , (A0)
-                                    , ((simd_<uint64_<A0>,boost::simd::tag::avx_>))
-                                      ((simd_<uint64_<A0>,boost::simd::tag::avx_>))
-                                    )
-  {
-    typedef typename meta::scalar_of<A0>::type                           stype;
-    typedef typename dispatch::meta::downgrade<stype>::type              utype;
-    typedef simd::native<utype,boost::simd::tag::avx_>             result_type;
-    typedef typename meta::retarget<A0,simd::tag::sse_>::type            htype;
-    typedef typename meta::retarget<result_type,simd::tag::sse_>::type    type;
-
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      htype a00 = _mm256_extractf128_si256(a0, 0);
-      htype a01 = _mm256_extractf128_si256(a0, 1);
-      type v0 = boost::simd::group(a00, a01);
-      htype a10 = _mm256_extractf128_si256(a1, 0);
-      htype a11 = _mm256_extractf128_si256(a1, 1);
-      type v1 = boost::simd::group(a10, a11);
-      __m256i r = _mm256_castsi128_si256(v0);
-      r =   _mm256_insertf128_si256(r, v1, 1);
-      return r;
-    }
-  };
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is uint16_t
-  /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::group_
-                                    , boost::simd::tag::avx_
-                                    , (A0)
-                                    , ((simd_<uint16_<A0>,boost::simd::tag::avx_>))
-                                      ((simd_<uint16_<A0>,boost::simd::tag::avx_>))
-                                    )
-  {
-    typedef typename meta::scalar_of<A0>::type              stype;
-    typedef typename dispatch::meta::downgrade<stype>::type utype;
-    typedef simd::native<utype,boost::simd::tag::avx_>      result_type;
-    typedef typename meta::retarget<A0,simd::tag::sse_>::type        htype;
-    typedef typename meta::retarget<result_type,simd::tag::sse_>::type  type;
-
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      A0 aa0 =  boost::simd::saturate<utype>(a0);
-      A0 aa1 =  boost::simd::saturate<utype>(a1);
-      htype a00 = _mm256_extractf128_si256(aa0, 0);
-      htype a01 = _mm256_extractf128_si256(aa0, 1);
-      type v0   = _mm_packus_epi16(a00, a01);
-
-      htype a10 = _mm256_extractf128_si256(aa1, 0);
-      htype a11 = _mm256_extractf128_si256(aa1, 1);
-      type v1   = _mm_packus_epi16(a10, a11);
-
-      result_type r   = _mm256_castsi128_si256(v0);
       return _mm256_insertf128_si256(r, v1, 1);
     }
   };

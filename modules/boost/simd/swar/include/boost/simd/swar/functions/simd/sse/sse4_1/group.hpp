@@ -11,9 +11,10 @@
 #ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
 
 #include <boost/simd/swar/functions/group.hpp>
-#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/shri.hpp>
+#include <boost/simd/include/functions/simd/bitwise_and.hpp>
+#include <boost/simd/include/functions/simd/bitwise_or.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
-#include <boost/simd/include/functions/simd/saturate.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -26,9 +27,9 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 aa0 = boost::simd::saturate<result_type>(a0);
-      A0 aa1 = boost::simd::saturate<result_type>(a1);
-      return simd::bitwise_cast<result_type>(_mm_packus_epi32(aa0, aa1));
+      return _mm_packus_epi32( (a0 & 0x7FFFFFFF) | shri(a0 & 0xF0000000, 1)
+                             , (a1 & 0x7FFFFFFF) | shri(a1 & 0xF0000000, 1)
+                             );
     }
   };
 } } }
