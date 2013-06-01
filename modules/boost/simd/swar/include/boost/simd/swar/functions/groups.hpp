@@ -6,14 +6,14 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_SWAR_FUNCTIONS_GROUP_HPP_INCLUDED
-#define BOOST_SIMD_SWAR_FUNCTIONS_GROUP_HPP_INCLUDED
+#ifndef BOOST_SIMD_SWAR_FUNCTIONS_GROUPS_HPP_INCLUDED
+#define BOOST_SIMD_SWAR_FUNCTIONS_GROUPS_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \ingroup boost_simd_swar
- * \defgroup boost_simd_swar_group group
+ * \ingroups boost_simd_swar
+ * \defgroups boost_simd_swar_groups groups
  *
  * \par Description
  * take two SIMD vectors of same type and elements of size n
@@ -26,7 +26,7 @@
  * \par Header file
  *
  * \code
- * #include <nt2/include/functions/group.hpp>
+ * #include <nt2/include/functions/groups.hpp>
  * \endcode
  *
  *
@@ -36,13 +36,13 @@
  * namespace boost::simd
  * {
  *   template <class A0>
- *     meta::call<tag::group_(A0,A0)>::type
- *     group(const A0 & a0,const A0 & a1);
+ *     meta::call<tag::groups_(A0,A0)>::type
+ *     groups(const A0 & a0,const A0 & a1);
  * }
  * \endcode
  *
- * \param a0 the first parameter of group
- * \param a1 the second parameter of group
+ * \param a0 the first parameter of groups
+ * \param a1 the second parameter of groups
  *
  * \return a value of the common type of the parameters
  *
@@ -63,13 +63,13 @@
 namespace boost { namespace simd { namespace tag
   {
     /*!
-     * \brief Define the tag group_ of functor group
+     * \brief Define the tag groups_ of functor groups
      *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
-    struct group_ : ext::elementwise_<group_> { typedef ext::elementwise_<group_> parent; };
+    struct groups_ : ext::elementwise_<groups_> { typedef ext::elementwise_<groups_> parent; };
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::group_, group, 1)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::group_, group, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::groups_, groups, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::groups_, groups, 2)
 } }
 
 #endif

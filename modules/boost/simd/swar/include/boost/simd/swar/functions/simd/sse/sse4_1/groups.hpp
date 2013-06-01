@@ -6,11 +6,11 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_SWAR_FUNCTIONS_SIMD_SSE_SSE4_1_GROUP_HPP_INCLUDED
-#define BOOST_SIMD_SWAR_FUNCTIONS_SIMD_SSE_SSE4_1_GROUP_HPP_INCLUDED
+#ifndef BOOST_SIMD_SWAR_FUNCTIONS_SIMD_SSE_SSE4_1_GROUPS_HPP_INCLUDED
+#define BOOST_SIMD_SWAR_FUNCTIONS_SIMD_SSE_SSE4_1_GROUPS_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
 
-#include <boost/simd/swar/functions/group.hpp>
+#include <boost/simd/swar/functions/groups.hpp>
 #include <boost/simd/include/functions/simd/shri.hpp>
 #include <boost/simd/include/functions/simd/bitwise_and.hpp>
 #include <boost/simd/include/functions/simd/bitwise_or.hpp>
@@ -18,7 +18,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::group_, boost::simd::tag::sse4_1_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::groups_, boost::simd::tag::sse4_1_, (A0)
                             , ((simd_<uint32_<A0>,boost::simd::tag::sse_>))
                               ((simd_<uint32_<A0>,boost::simd::tag::sse_>))
                             )
