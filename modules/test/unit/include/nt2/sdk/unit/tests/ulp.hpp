@@ -52,19 +52,23 @@ do                                                                             \
 while(0)                                                                       \
 /**/
 
+/// INTERNAL ONLY Grab an input type
+#define NT2_COVER_TYPE(z,n,t) BOOST_PP_TUPLE_ELEM(2,0,BOOST_PP_SEQ_ELEM(n,t))  \
+/**/
+
+/// INTERNAL ONLY Grab an input type
+#define NT2_COVER_VAR(n,t) BOOST_PP_TUPLE_ELEM(2,1,BOOST_PP_SEQ_ELEM(n,t))     \
+/**/
+
 /// INTERNAL ONLY Load a part of the input of the cover
 #define NT2_COVER_LOAD(z,n,t)                                                  \
 nt2::unaligned_load<BOOST_PP_TUPLE_ELEM(2,0,BOOST_PP_SEQ_ELEM(n,t))>           \
   (&BOOST_PP_TUPLE_ELEM(2,1,BOOST_PP_SEQ_ELEM(n,t))[i])                        \
 /**/
 
-/// INTERNAL ONLY Grab an input type
-#define NT2_COVER_TYPE(z,n,t) BOOST_PP_TUPLE_ELEM(2,0,BOOST_PP_SEQ_ELEM(n,t))  \
-/**/
-
 /// INTERNAL ONLY Display an input
 #define NT2_COVER_DISP(z,n,t)                                                  \
-<< ", " << BOOST_PP_TUPLE_ELEM(2,1,BOOST_PP_SEQ_ELEM(n,t))[f.index]            \
+<< ", " << nt2::unaligned_load<NT2_COVER_TYPE(z,n,t)>(&NT2_COVER_VAR(n,t)[ii]) \
 /**/
 
 #define NT2_COVER_ULP_EQUAL(TAG, INPUTS, REF, N)                               \
@@ -114,24 +118,31 @@ do                                                                             \
   else                                                                         \
   {                                                                            \
     ++nt2::unit::error_count();                                                \
+    int ib = -1;                                                               \
     BOOST_FOREACH ( f_t const& f, ulps )                                       \
     {                                                                          \
-      std::cout << std::setprecision(20)                                       \
-                << BOOST_PP_STRINGIZE(TAG)                                     \
-                << "("                                                         \
-                << BOOST_PP_TUPLE_ELEM( 2,1                                    \
-                                      , BOOST_PP_SEQ_ELEM(0,INPUTS)            \
-                                      )[f.index]                               \
-                BOOST_PP_REPEAT_FROM_TO ( 1                                    \
-                                        , BOOST_PP_SEQ_SIZE(INPUTS)            \
-                                        , NT2_COVER_DISP                       \
-                                        , INPUTS                               \
-                                        )                                      \
-                << ")"                                                         \
-                << " got "  << f.value                                         \
-                << " while expecting "  << f.desired_value                     \
-                << " (i.e "   << f.ulp_error << " ULPs)";                      \
-      std::cout << std::endl;                                                  \
+      int ii = (f.index/cc)*cc;                                                \
+      if(ii > ib)                                                              \
+      {                                                                        \
+        std::cout << std::setprecision(20)                                     \
+                  << BOOST_PP_STRINGIZE(TAG)                                   \
+                  << "("                                                       \
+                  << nt2::unaligned_load<NT2_COVER_TYPE(~,0,INPUTS)>           \
+                                              (&NT2_COVER_VAR(0,INPUTS)[ii])   \
+                  BOOST_PP_REPEAT_FROM_TO ( 1                                  \
+                                          , BOOST_PP_SEQ_SIZE(INPUTS)          \
+                                          , NT2_COVER_DISP                     \
+                                          , INPUTS                             \
+                                          )                                    \
+                  << ")"                                                       \
+                  << " got "                                                   \
+                  << nt2::unaligned_load<r_t>(&out[ii])                        \
+                  << " while expecting "                                       \
+                  << nt2::unaligned_load<r_t>(&REF[ii])                        \
+                  << " (i.e "   << f.ulp_error << " ULPs)";                    \
+        std::cout << std::endl;                                                \
+        ib = ii;                                                               \
+      }                                                                        \
     }                                                                          \
   }                                                                            \
 }                                                                              \
