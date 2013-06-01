@@ -117,6 +117,7 @@ do                                                                             \
   }                                                                            \
   else                                                                         \
   {                                                                            \
+   ::nt2::unit::fail( BOOST_PP_STRINGIZE(TAG) " coverage");                    \
     ++nt2::unit::error_count();                                                \
     int ib = -1;                                                               \
     BOOST_FOREACH ( f_t const& f, ulps )                                       \
