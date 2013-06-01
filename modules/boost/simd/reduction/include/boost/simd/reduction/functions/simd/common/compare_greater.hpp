@@ -8,10 +8,12 @@
 //==============================================================================
 #ifndef BOOST_SIMD_REDUCTION_FUNCTIONS_SIMD_COMMON_COMPARE_GREATER_HPP_INCLUDED
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_SIMD_COMMON_COMPARE_GREATER_HPP_INCLUDED
+
 #include <boost/simd/reduction/functions/compare_greater.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/simd/compare_less.hpp>
-#include <boost/dispatch/meta/scalar_of.hpp>
+#include <boost/simd/sdk/meta/scalar_of.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_greater_, tag::cpu_, (X)(A0)
