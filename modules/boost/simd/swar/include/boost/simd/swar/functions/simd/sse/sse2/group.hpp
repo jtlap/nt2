@@ -102,8 +102,8 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::group_
                                     , boost::simd::tag::sse2_
                                     , (A0)
-                                    , ((simd_<uint_<A0>,boost::simd::tag::sse_>))
-                                      ((simd_<uint_<A0>,boost::simd::tag::sse_>))
+                                    , ((simd_<integer_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<integer_<A0>,boost::simd::tag::sse_>))
                                     )
   {
     typedef typename dispatch::meta::downgrade<A0>::type result_type;
