@@ -372,11 +372,11 @@ namespace nt2 { namespace details
 
     if(ok)
     {
-      ::nt2::details::report_ulp_unit_error(desc, func, line, ulps, ulpd, N);
+      ::nt2::details::report_ulp_unit_error(desc, func, line, ulps, ulpd, N, true);
     }
     else
     {
-      ::nt2::details::ulp_fail( desc, func, line, ulps.size(),N, false);
+      ::nt2::details::ulp_fail( desc, func, line, ulps.size(), N, false);
     }
   }
 
