@@ -9,15 +9,13 @@
 #ifndef BOOST_SIMD_SWAR_FUNCTIONS_SIMD_SSE_SSE2_SPLIT_HPP_INCLUDED
 #define BOOST_SIMD_SWAR_FUNCTIONS_SIMD_SSE_SSE2_SPLIT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-#include <boost/simd/swar/functions/split.hpp>
-//#include <boost/simd/sdk/memory/aligned_type.hpp>
 
-#include <boost/fusion/tuple.hpp>
+#include <boost/simd/swar/functions/split.hpp>
+#include <boost/simd/include/functions/simd/is_ltz.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/simd/sdk/meta/make_dependent.hpp>
 #include <boost/dispatch/meta/adapted_traits.hpp>
-#include <boost/simd/include/constants/digits.hpp>
-#include <boost/simd/include/functions/simd/is_ltz.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -64,8 +62,8 @@ namespace boost { namespace simd { namespace ext
               , dispatch::meta::as_<int16_t> const&
               ) const
     {
-      r1 = bitwise_cast<R1>(_mm_unpackhi_epi8(a0, is_ltz(a0)));
-      r0 = bitwise_cast<R0>(_mm_unpacklo_epi8(a0, is_ltz(a0)));
+      r1 = _mm_unpackhi_epi8(a0, is_ltz(a0));
+      r0 = _mm_unpacklo_epi8(a0, is_ltz(a0));
     }
 
     template<class R0,class R1> BOOST_FORCEINLINE void
@@ -73,8 +71,8 @@ namespace boost { namespace simd { namespace ext
         , dispatch::meta::as_<uint16_t> const&
         ) const
     {
-      r1 = bitwise_cast<R1>(_mm_unpackhi_epi8(a0, Zero<A0>()));
-      r0 = bitwise_cast<R0>(_mm_unpacklo_epi8(a0, Zero<A0>()));
+      r1 = _mm_unpackhi_epi8(a0, Zero<A0>());
+      r0 = _mm_unpacklo_epi8(a0, Zero<A0>());
     }
 
     template<class R0,class R1> BOOST_FORCEINLINE void
@@ -82,8 +80,8 @@ namespace boost { namespace simd { namespace ext
         , dispatch::meta::as_<int32_t> const&
         ) const
     {
-      r1 = bitwise_cast<R1>(_mm_unpackhi_epi16(a0, is_ltz(a0)));
-      r0 = bitwise_cast<R0>(_mm_unpacklo_epi16(a0, is_ltz(a0)));
+      r1 = _mm_unpackhi_epi16(a0, is_ltz(a0));
+      r0 = _mm_unpacklo_epi16(a0, is_ltz(a0));
     }
 
     template<class R0,class R1> BOOST_FORCEINLINE void
@@ -91,8 +89,8 @@ namespace boost { namespace simd { namespace ext
         , dispatch::meta::as_<uint32_t> const&
         ) const
     {
-      r1 = bitwise_cast<R1>(_mm_unpackhi_epi16(a0, Zero<A0>()));
-      r0 = bitwise_cast<R0>(_mm_unpacklo_epi16(a0, Zero<A0>()));
+      r1 = _mm_unpackhi_epi16(a0, Zero<A0>());
+      r0 = _mm_unpacklo_epi16(a0, Zero<A0>());
     }
 
     template<class R0,class R1> BOOST_FORCEINLINE void
@@ -100,8 +98,8 @@ namespace boost { namespace simd { namespace ext
         , dispatch::meta::as_<int64_t> const&
         ) const
     {
-      r1 = bitwise_cast<R1>(_mm_unpackhi_epi32(a0, is_ltz(a0)));
-      r0 = bitwise_cast<R0>(_mm_unpacklo_epi32(a0, is_ltz(a0)));
+      r1 = _mm_unpackhi_epi32(a0, is_ltz(a0));
+      r0 = _mm_unpacklo_epi32(a0, is_ltz(a0));
     }
 
     template<class R0,class R1> BOOST_FORCEINLINE void
@@ -109,8 +107,8 @@ namespace boost { namespace simd { namespace ext
         , dispatch::meta::as_<uint64_t> const&
         ) const
     {
-      r1 = bitwise_cast<R1>(_mm_unpackhi_epi32(a0, Zero<A0>()));
-      r0 = bitwise_cast<R0>(_mm_unpacklo_epi32(a0, Zero<A0>()));
+      r1 = _mm_unpackhi_epi32(a0, Zero<A0>());
+      r0 = _mm_unpacklo_epi32(a0, Zero<A0>());
     }
 
     template<class R0,class R1> BOOST_FORCEINLINE void
@@ -118,16 +116,8 @@ namespace boost { namespace simd { namespace ext
         , dispatch::meta::as_<double> const&
         ) const
     {
-      typedef typename meta::make_dependent<int32_t,A0>::type i32_t;
-      typedef simd::native<i32_t,boost::simd::tag::sse_>      itype;
-
-      r1 = bitwise_cast<R1>
-          ( _mm_cvtps_pd( bitwise_cast<A0>
-                          ( _mm_srli_si128( bitwise_cast<itype>(a0), 8 ) )
-                        )
-          );
-
-      r0 = bitwise_cast<R0>(_mm_cvtps_pd(a0));
+      r1 = _mm_cvtps_pd(_mm_movehl_ps(a0, a0));
+      r0 = _mm_cvtps_pd(a0);
     }
   };
 } } }
