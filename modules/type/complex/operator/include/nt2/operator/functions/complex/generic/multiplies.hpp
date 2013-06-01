@@ -26,7 +26,6 @@
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/if_zero_else.hpp>
 #include <nt2/include/functions/if_else_zero.hpp>
-#include <nt2/include/functions/if_allbits_else.hpp>
 #include <nt2/include/functions/is_finite.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/is_real.hpp>
@@ -226,12 +225,12 @@ namespace nt2 { namespace ext
     typedef A1 r_type;
     NT2_FUNCTOR_CALL(2)
     {
-      r_type r = Zero<r_type>();
       r_type i = nt2::imag(a0)*a1;
 
       typename meta::as_logical<A0>::type is_a0_zero = is_eqz(a0);
-      r = if_allbits_else(logical_and(is_a0_zero, is_nez(a1)), r);
+      r_type r = if_else_zero(is_a0_zero, i);
       i = if_zero_else(is_a0_zero, i);
+
       return result_type(r, i);
     }
 #endif

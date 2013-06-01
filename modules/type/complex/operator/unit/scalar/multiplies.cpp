@@ -123,6 +123,7 @@ NT2_TEST_CASE_TPL ( imaginary_real, (float))//BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(nt2::multiplies(iT(deu), T(inf)),  cT(zer, inf));
   NT2_TEST_EQUAL(nt2::multiplies(iT(inf), T(deu)),  cT(zer, inf));
   NT2_TEST_EQUAL(nt2::multiplies(iT(zer), T(zer)),  cT(zer, zer));
+  NT2_TEST_EQUAL(nt2::multiplies(iT(zer), T(deu)),  cT(zer, zer));
 }
 
 NT2_TEST_CASE_TPL ( complex_real, (float))//BOOST_SIMD_REAL_TYPES)
