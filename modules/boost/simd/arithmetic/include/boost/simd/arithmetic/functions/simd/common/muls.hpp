@@ -58,10 +58,15 @@ namespace boost { namespace simd { namespace ext
       utype res0, res1;
       split_multiplies(a0, a1, res0, res1);
 
+#if 1
+      // FIXME: issue #166 group currently saturates
+      return group(res0, res1);
+#else
       return group(res0, res1)
            | group( shrai(res0, sizeof(stype)*CHAR_BIT)
                   , shrai(res1, sizeof(stype)*CHAR_BIT)
                   );
+#endif
     }
   };
 
@@ -83,6 +88,10 @@ namespace boost { namespace simd { namespace ext
       utype res0, res1;
       split_multiplies(a0, a1, res0, res1);
 
+#if 1
+      // FIXME: issue #166 group currently saturates
+      return group(res0, res1);
+#else
       untype res2 = shrai(bitwise_cast<untype>(a0 ^ a1), sizeof(stype)*CHAR_BIT-1) + Valmax<stype>();
 
       A0 hi = group( shrai(res0, sizeof(stype)*CHAR_BIT)
@@ -94,6 +103,7 @@ namespace boost { namespace simd { namespace ext
                     , bitwise_cast<A0>(res2)
                     , lo
                     );
+#endif
     }
   };
 } } }
