@@ -28,10 +28,6 @@ NT2_TEST_CASE_TPL ( rsqrt_real__1_0,  NT2_TYPES)
   using nt2::rsqrt;
   using nt2::tag::rsqrt_;
   typedef typename nt2::meta::call<rsqrt_(T)>::type r_t;
-  typedef typename nt2::meta::as_floating<T>::type wished_r_t;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS( r_t, wished_r_t );
 
   nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   std::vector<T> in1(NR);

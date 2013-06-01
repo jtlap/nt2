@@ -22,8 +22,6 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
-
 
 NT2_TEST_CASE_TPL ( adds_real__1_0_1,  NT2_TYPES)
 {
@@ -31,11 +29,6 @@ NT2_TEST_CASE_TPL ( adds_real__1_0_1,  NT2_TYPES)
   using nt2::adds;
   using nt2::tag::adds_;
   typedef typename nt2::meta::call<adds_(T, T)>::type r_t;
-  typedef T wished_r_t;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS( r_t, wished_r_t );
-
 
   nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   std::vector<T> in1(NR), in2(NR);
@@ -56,10 +49,7 @@ NT2_TEST_CASE_TPL ( adds_real__1_0_2,  NT2_INTEGRAL_TYPES)
   using nt2::adds;
   using nt2::tag::adds_;
   typedef typename nt2::meta::call<adds_(T, T)>::type r_t;
-  typedef T wished_r_t;
 
-  // return type conformity test
-  NT2_TEST_TYPE_IS( r_t, wished_r_t );
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   std::vector<T> in1(NR), in2(NR);
   std::vector<r_t> ref(NR);
@@ -80,10 +70,7 @@ NT2_TEST_CASE_TPL ( adds_real__1_0_3,  NT2_INTEGRAL_SIGNED_TYPES)
   using nt2::adds;
   using nt2::tag::adds_;
   typedef typename nt2::meta::call<adds_(T, T)>::type r_t;
-  typedef T wished_r_t;
 
-  // return type conformity test
-  NT2_TEST_TYPE_IS( r_t, wished_r_t );
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   std::vector<T> in1(NR), in2(NR);
   std::vector<r_t> ref(NR);

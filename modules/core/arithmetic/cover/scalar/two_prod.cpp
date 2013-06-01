@@ -34,13 +34,9 @@ NT2_TEST_CASE_TPL ( two_prod_real__1_0_1,  (float))
   using nt2::two_prod;
   using nt2::tag::two_prod_;
   typedef typename nt2::meta::call<two_prod_(T, T)>::type r_t;
-  typedef std::pair<T,T> wished_r_t;
   typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t1;
   typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t2;
   typedef double U;
-  // return type conformity test
-  NT2_TEST_TYPE_IS( r_t, wished_r_t );
-
 
   nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   std::vector<T> in1(NR), in2(NR);
@@ -66,13 +62,9 @@ NT2_TEST_CASE_TPL ( two_prod_real__1_0_2,  (double))
   using nt2::two_prod;
   using nt2::tag::two_prod_;
   typedef typename nt2::meta::call<two_prod_(T, T)>::type r_t;
-  typedef std::pair<T,T> wished_r_t;
   typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t1;
   typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t2;
   typedef long double U;
-  // return type conformity test
-  NT2_TEST_TYPE_IS( r_t, wished_r_t );
-
 
   nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   std::vector<T> in1(NR), in2(NR);

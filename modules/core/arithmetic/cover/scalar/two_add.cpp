@@ -34,10 +34,7 @@ NT2_TEST_CASE_TPL ( two_add_real__1_0_1,  (float))
   using nt2::two_add;
   using nt2::tag::two_add_;
   typedef typename nt2::meta::call<two_add_(T, T)>::type r_t;
-  typedef std::pair<T,T> wished_r_t;
   typedef double U;
-  // return type conformity test
-  NT2_TEST_TYPE_IS( r_t, wished_r_t );
   typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t1;
   typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t2;
 
@@ -66,28 +63,25 @@ NT2_TEST_CASE_TPL ( two_add_real__1_0_2,  (double))
   using nt2::two_add;
   using nt2::tag::two_add_;
   typedef typename nt2::meta::call<two_add_(T, T)>::type r_t;
-  typedef std::pair<T,T> wished_r_t;
+
   typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t1;
   typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t2;
   typedef long double U;
-  // return type conformity test
-  NT2_TEST_TYPE_IS( r_t, wished_r_t );
 
-
-    nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
-    std::vector<T> in1(NR), in2(NR);
-    std::vector<r_t1> ref1(NR), out1(NR);
-    std::vector<r_t2> ref2(NR), out2(NR), res1(NR);
-    nt2::roll(in1, -1, 1);
-    nt2::roll(in2, -1, 1);
-    for(nt2::uint32_t i=0; i < NR ; ++i)
-    {
-      r_t r = two_add(in1[i], in2[i]);
-      out1[i] = boost::fusion::get<0>(r);
-      out2[i] = boost::fusion::get<1>(r);
-      ref1[i] = T(U(in1[i])+U(in2[i]));
-      res1[i] = T(U(out1[i])+U(out2[i]));
-    }
+  nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  std::vector<T> in1(NR), in2(NR);
+  std::vector<r_t1> ref1(NR), out1(NR);
+  std::vector<r_t2> ref2(NR), out2(NR), res1(NR);
+  nt2::roll(in1, -1, 1);
+  nt2::roll(in2, -1, 1);
+  for(nt2::uint32_t i=0; i < NR ; ++i)
+  {
+    r_t r = two_add(in1[i], in2[i]);
+    out1[i] = boost::fusion::get<0>(r);
+    out2[i] = boost::fusion::get<1>(r);
+    ref1[i] = T(U(in1[i])+U(in2[i]));
+    res1[i] = T(U(out1[i])+U(out2[i]));
+  }
   if(sizeof(U) > sizeof(T))
   {
     NT2_TEST_ULP_EQUAL(ref1, out1, 0);

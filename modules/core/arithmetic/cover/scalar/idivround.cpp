@@ -33,11 +33,6 @@ NT2_TEST_CASE_TPL ( idivround_real__1_0_1,  NT2_REAL_TYPES)
   using nt2::idivround;
   using nt2::tag::idivround_;
   typedef typename nt2::meta::call<idivround_(T, T)>::type r_t;
-  typedef typename nt2::meta::as_integer<T>::type wished_r_t;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS( r_t, wished_r_t );
-
 
   nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   std::vector<T> in1(NR), in2(NR);
@@ -58,11 +53,6 @@ NT2_TEST_CASE_TPL ( idivround_real__1_0_2,  NT2_INTEGRAL_TYPES)
   using nt2::idivround;
   using nt2::tag::idivround_;
   typedef typename nt2::meta::call<idivround_(T, T)>::type r_t;
-  typedef T wished_r_t;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS( r_t, wished_r_t );
-
 
   nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   std::vector<T> in1(NR), in2(NR);

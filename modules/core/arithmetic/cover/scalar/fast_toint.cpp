@@ -29,10 +29,6 @@ NT2_TEST_CASE_TPL ( fast_toint_real__1_0,  NT2_REAL_TYPES)
   using nt2::fast_toint;
   using nt2::tag::fast_toint_;
   typedef typename nt2::meta::call<fast_toint_(T)>::type r_t;
-  typedef typename nt2::meta::as_integer<T>::type wished_r_t;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS( r_t, wished_r_t );
 
   nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   std::vector<T> in1(NR);
