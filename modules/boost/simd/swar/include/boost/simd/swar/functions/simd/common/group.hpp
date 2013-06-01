@@ -48,7 +48,7 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::group_, tag::cpu_,
                           (A0)(X),
                           (boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::downgrade<A0>::type> >),
-                          ((simd_<uint_<A0>,X>))((simd_<uint_<A0>,X>))
+                          ((simd_<integer_<A0>,X>))((simd_<integer_<A0>,X>))
                         )
   {
 
@@ -57,23 +57,6 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return deinterleave_first(bitwise_cast<result_type>(a0), bitwise_cast<result_type>(a1));
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::group_, tag::cpu_,
-                          (A0)(X),
-                          (boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::downgrade<A0>::type> >),
-                          ((simd_<int_<A0>,X>))((simd_<int_<A0>,X>))
-                        )
-  {
-
-    typedef typename dispatch::meta::downgrade<A0>::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      result_type aa0 = bitwise_cast<result_type>(a0);
-      result_type aa1 = bitwise_cast<result_type>(a1);
-      return deinterleave_first(aa0, aa1) | (deinterleave_second(aa0, aa1) & Signmask<result_type>());
     }
   };
 } } }

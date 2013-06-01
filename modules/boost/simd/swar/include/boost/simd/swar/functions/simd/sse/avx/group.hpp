@@ -38,32 +38,8 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::group_
                                     , boost::simd::tag::avx_
                                     , (A0)
-                                    , ((simd_<uint_<A0>,boost::simd::tag::avx_>))
-                                      ((simd_<uint_<A0>,boost::simd::tag::avx_>))
-                                    )
-  {
-    typedef typename dispatch::meta::downgrade<A0>::type                result_type;
-    typedef typename meta::retarget<A0,simd::tag::sse_>::type           htype;
-    typedef typename meta::retarget<result_type,simd::tag::sse_>::type  type;
-
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      htype a00 = _mm256_extractf128_si256(a0, 0);
-      htype a01 = _mm256_extractf128_si256(a0, 1);
-      type v0 = boost::simd::group(a00, a01);
-      htype a10 = _mm256_extractf128_si256(a1, 0);
-      htype a11 = _mm256_extractf128_si256(a1, 1);
-      type v1 = boost::simd::group(a10, a11);
-      __m256i r = _mm256_castsi128_si256(v0);
-      return _mm256_insertf128_si256(r, v1, 1);
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::group_
-                                    , boost::simd::tag::avx_
-                                    , (A0)
-                                    , ((simd_<int_<A0>,boost::simd::tag::avx_>))
-                                      ((simd_<int_<A0>,boost::simd::tag::avx_>))
+                                    , ((simd_<integer_<A0>,boost::simd::tag::avx_>))
+                                      ((simd_<integer_<A0>,boost::simd::tag::avx_>))
                                     )
   {
     typedef typename dispatch::meta::downgrade<A0>::type                result_type;
