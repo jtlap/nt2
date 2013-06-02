@@ -6,19 +6,17 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_SSE_AVX_STORE_HPP_INCLUDED
-#define BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_SSE_AVX_STORE_HPP_INCLUDED
+#ifndef BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_SSE_AVX_UNALIGNED_STORE_HPP_INCLUDED
+#define BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_SSE_AVX_UNALIGNED_STORE_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
 #include <boost/simd/memory/functions/store.hpp>
-#include <boost/simd/memory/functions/details/check_ptr.hpp>
 #include <boost/simd/memory/iterator_category.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
-#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  /// INTERNAL ONLY - AVX double SIMD store without offset
+  /// INTERNAL ONLY - SIMD store double without offset
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
                                     , boost::simd::tag::avx_
                                     , (A0)(A1)
@@ -33,12 +31,10 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(__m256d a0, A1 a1) const
     {
-      BOOST_SIMD_DETAILS_CHECK_PTR(a1, sizeof(__m256d));
-      _mm256_store_pd(a1,a0);
+      _mm256_storeu_pd(a1,a0);
     }
   };
 
-  /// INTERNAL ONLY - AVX single SIMD store without offset
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
                                     , boost::simd::tag::avx_
                                     , (A0)(A1)
@@ -53,12 +49,10 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(__m256 a0, A1 a1) const
     {
-      BOOST_SIMD_DETAILS_CHECK_PTR(a1, sizeof(__m256));
-      _mm256_store_ps(a1,a0);
+      _mm256_storeu_ps(a1,a0);
     }
   };
 
-  /// INTERNAL ONLY - AVX integral SIMD store without offset
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
                                     , boost::simd::tag::avx_
                                     , (A0)(A1)
@@ -73,8 +67,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(__m256i a0, A1 a1) const
     {
-      BOOST_SIMD_DETAILS_CHECK_PTR(a1, sizeof(__m256i));
-      _mm256_store_si256(reinterpret_cast<__m256i*>(a1), a0);
+      _mm256_storeu_si256(reinterpret_cast<__m256i*>(a1), a0);
     }
   };
 } } }

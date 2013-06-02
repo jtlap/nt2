@@ -33,7 +33,7 @@
 #include <nt2/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/load.hpp>
+#include <nt2/include/functions/aligned_load.hpp>
 #include <nt2/include/functions/extract.hpp>
 #include <nt2/constant/constant.hpp>
 #include <nt2/sdk/simd/logical.hpp>
@@ -69,9 +69,9 @@ NT2_TEST_CASE_TPL ( if_else_integer__3_0,  NT2_SIMD_INTEGRAL_TYPES)
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
-        vlT a0 = load<vlT>(&tab_a0[0],j);
-        vT a1 = load<vT>(&tab_a1[0],j);
-        vT a2 = load<vT>(&tab_a2[0],j);
+        vlT a0 = aligned_load<vlT>(&tab_a0[0],j);
+        vT a1 = aligned_load<vT>(&tab_a1[0],j);
+        vT a2 = aligned_load<vT>(&tab_a2[0],j);
         r_t v = if_else(a0,a1,a2);
         std::cout << a0 << "  "<< std::endl << a1 << "  "<< std::endl << a2 << "  " << std::endl;
        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
@@ -115,9 +115,9 @@ NT2_TEST_CASE_TPL ( if_else_real__3_0,  NT2_SIMD_REAL_TYPES)
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
-        vlT a0 = load<vlT>(&tab_a0[0],j);
-        vT a1 = load<vT>(&tab_a1[0],j);
-        vT a2 = load<vT>(&tab_a2[0],j);
+        vlT a0 = aligned_load<vlT>(&tab_a0[0],j);
+        vT a1 = aligned_load<vT>(&tab_a1[0],j);
+        vT a2 = aligned_load<vT>(&tab_a2[0],j);
         r_t v = if_else(a0,a1,a2);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
           NT2_TEST_EQUAL( v[i],nt2::if_else (nt2::extract(a0, i),a1[i],a2[i]));

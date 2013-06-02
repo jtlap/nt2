@@ -33,10 +33,10 @@ namespace boost { namespace simd { namespace ext
       typedef typename meta::scalar_of<A0>::type sA0;
       BOOST_SIMD_ALIGNED_TYPE(sA0) tmp[meta::cardinal_of<A0>::value];
       BOOST_SIMD_ALIGNED_TYPE(sA0) tmp1[meta::cardinal_of<A0>::value];
-      boost::simd::store<A0>(a0, &tmp[0], 0);
+      boost::simd::aligned_store<A0>(a0, &tmp[0], 0);
 
       for(unsigned int i=0; i < meta::cardinal_of<A0>::value; i++) { tmp1[i] = tmp[a1[i]]; }// TODO unroll
-      return boost::simd::load<A0>(&tmp1[0], 0);
+      return boost::simd::aligned_load<A0>(&tmp1[0], 0);
     }
   };
 } } }

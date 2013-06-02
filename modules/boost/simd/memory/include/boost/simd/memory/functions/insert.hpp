@@ -18,12 +18,12 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-      @brief Insert generic tag
+      @brief insert generic tag
 
-      Represents the insert function in generic contexts like functor creation.
+      Represents the insert function in generic contexts.
 
       @par Models:
-      @ref FormalHierarchy
+      Hierarchy
     **/
     struct insert_ : tag::formal_
     {

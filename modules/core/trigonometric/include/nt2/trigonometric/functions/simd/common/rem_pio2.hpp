@@ -14,7 +14,7 @@
 #include <nt2/include/functions/simd/rem_pio2_straight.hpp>
 #include <nt2/include/functions/simd/rem_pio2_medium.hpp>
 #include <nt2/include/functions/simd/rem_pio2_cephes.hpp>
-#include <nt2/include/functions/simd/load.hpp>
+#include <nt2/include/functions/simd/aligned_load.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
@@ -48,9 +48,9 @@ namespace nt2 { namespace ext
         txc[i] = c;
       }
 
-      xr = load<A0>(&txr[0], 0);
-      xc = load<A0>(&txc[0], 0);
-      return load<result_type>(&tmp[0], 0);
+      xr = aligned_load<A0>(&txr[0], 0);
+      xc = aligned_load<A0>(&txc[0], 0);
+      return aligned_load<result_type>(&tmp[0], 0);
     }
   };
 

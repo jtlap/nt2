@@ -38,88 +38,30 @@ NT2_TEST_CASE_TPL( load_offset,  BOOST_SIMD_SIMD_TYPES)
   load_runner< logical<T>, logical<T> >(true);
 }
 
-NT2_TEST_CASE_TPL( load_suboffset_forward,  BOOST_SIMD_SIMD_TYPES)
-{
-  using boost::simd::logical;
-
-  misload_runner< T, T >(boost::mpl::int_<1>());
-  //misload_runner< foo, foo >(boost::mpl::int_<1>());
-  misload_runner< logical<T>, logical<T> >(boost::mpl::int_<1>());
-}
-
-NT2_TEST_CASE_TPL( load_suboffset_backward,  BOOST_SIMD_SIMD_TYPES)
-{
-  using boost::simd::logical;
-
-  misload_runner< T, T >(boost::mpl::int_<-1>());
-  // misload_runner< foo, foo >(boost::mpl::int_<-1>());
-  misload_runner< logical<T>, logical<T> >(boost::mpl::int_<-1>());
-}
-
 NT2_TEST_CASE( load_sequence )
 {
+  using boost::fusion::make_vector;
   using boost::simd::load;
   using boost::simd::tag::load_;
-  using boost::fusion::make_vector;
-  using boost::fusion::vector;
-  using boost::fusion::result_of::value_at;
 
-  char  cdata[3];
-  float fdata[3];
-  short sdata[3];
+  static const size_t sz = 3;
 
-  for(std::size_t i=0;i<3;++i)
+  char     cdata[ sz ];
+  float    fdata[ sz ];
+  int16_t  ddata[ sz ];
+
+  for(size_t i=0;i<sz;++i)
   {
     cdata[i] = char(1+i);
     fdata[i] = float(1+i);
-    sdata[i] = short(1+i);
+    ddata[i] = short(1+i);
   }
 
-  typedef  boost::dispatch::meta
-                  ::call<load_( vector<short,float,char>
-                              , boost::dispatch::meta::as_<foo>
-                              )
-                        >::type                     rT;
-
-  NT2_TEST_TYPE_IS( rT, foo );
-
-  typedef boost::dispatch::meta
-                ::call<load_( vector<short,float,char>
-                            , int
-                            , boost::dispatch::meta::as_<foo>
-                            )
-                      >::type                     riT;
-
-  NT2_TEST_TYPE_IS( riT, foo );
-
-  foo v = load<foo>(make_vector(&sdata[0], &fdata[0], &cdata[0]) );
-
-  typedef value_at<foo,boost::mpl::int_<0> >::type foo0_t;
-  typedef value_at<foo,boost::mpl::int_<1> >::type foo1_t;
-  typedef value_at<foo,boost::mpl::int_<2> >::type foo2_t;
-
-  foo0_t sref = load<foo0_t>(&sdata[0]);
-  foo1_t fref = load<foo1_t>(&fdata[0]);
-  foo2_t cref = load<foo2_t>(&cdata[0]);
-
-  NT2_TEST_EQUAL(boost::fusion::at_c<0>(v) , sref);
-  NT2_TEST_EQUAL(boost::fusion::at_c<1>(v) , fref);
-  NT2_TEST_EQUAL(boost::fusion::at_c<2>(v) , cref);
-
-  for(std::size_t i=0;i<3;++i)
+  for(size_t i=0;i<sz;++i)
   {
-    foo v = load<foo>(make_vector(&sdata[0], &fdata[0], &cdata[0]), i );
-
-    typedef value_at<foo,boost::mpl::int_<0> >::type foo0_t;
-    typedef value_at<foo,boost::mpl::int_<1> >::type foo1_t;
-    typedef value_at<foo,boost::mpl::int_<2> >::type foo2_t;
-
-    foo0_t sref = load<foo0_t>(&sdata[0],i);
-    foo1_t fref = load<foo1_t>(&fdata[0],i);
-    foo2_t cref = load<foo2_t>(&cdata[0],i);
-
-    NT2_TEST_EQUAL(boost::fusion::at_c<0>(v) , sref);
-    NT2_TEST_EQUAL(boost::fusion::at_c<1>(v) , fref);
-    NT2_TEST_EQUAL(boost::fusion::at_c<2>(v) , cref);
+    foo v = load<foo>(make_vector(&ddata[0], &fdata[0], &cdata[0]), i);
+    NT2_TEST_EQUAL(boost::fusion::at_c<0>(v) , ddata[i]);
+    NT2_TEST_EQUAL(boost::fusion::at_c<1>(v) , fdata[i]);
+    NT2_TEST_EQUAL(boost::fusion::at_c<2>(v) , cdata[i]);
   }
 }

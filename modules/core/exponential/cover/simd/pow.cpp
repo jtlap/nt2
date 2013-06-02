@@ -36,7 +36,7 @@ extern "C" { long double cephes_powl(long double,long double); }
 #include <nt2/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/load.hpp>
+#include <nt2/include/functions/aligned_load.hpp>
 
 extern "C" { long double cephes_powil(long double,int); }
 
@@ -69,8 +69,8 @@ NT2_TEST_CASE_TPL ( pow_real__2_0,  NT2_SIMD_REAL_TYPES)
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
-        vT a0 = load<vT>(&tab_a0[0],j);
-        vT a1 = load<vT>(&tab_a1[0],j);
+        vT a0 = aligned_load<vT>(&tab_a0[0],j);
+        vT a1 = aligned_load<vT>(&tab_a1[0],j);
         r_t v = pow(a0,a1);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
@@ -110,8 +110,8 @@ NT2_TEST_CASE_TPL ( pow_real__2_1,  NT2_SIMD_REAL_TYPES)
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
-        vT a0 = load<vT>(&tab_a0[0],j);
-        ivT a1 = load<ivT>(&tab_a1[0],j);
+        vT a0 = aligned_load<vT>(&tab_a0[0],j);
+        ivT a1 = aligned_load<ivT>(&tab_a1[0],j);
         r_t v = pow(a0,a1);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
@@ -152,7 +152,7 @@ NT2_TEST_CASE_TPL ( powi_real__2_0,  NT2_SIMD_REAL_TYPES)
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
-        vT a0 = load<vT>(&tab_a0[0],j);
+        vT a0 = aligned_load<vT>(&tab_a0[0],j);
         iT a1 = tab_a1[j];
         r_t v = pow(a0,a1);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)

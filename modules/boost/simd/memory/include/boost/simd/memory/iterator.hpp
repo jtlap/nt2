@@ -12,8 +12,8 @@
 
 #include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
-#include <boost/simd/include/functions/load.hpp>
-#include <boost/simd/include/functions/store.hpp>
+#include <boost/simd/include/functions/aligned_load.hpp>
+#include <boost/simd/include/functions/aligned_store.hpp>
 #include <boost/simd/memory/align_on.hpp>
 #include <boost/simd/memory/is_aligned.hpp>
 #include <boost/dispatch/meta/strip.hpp>
@@ -60,7 +60,7 @@ namespace boost { namespace simd
     BOOST_FORCEINLINE
     typename input_iterator::reference dereference() const
     {
-      return boost::simd::load<pack_type>(this->base());
+      return boost::simd::aligned_load<pack_type>(this->base());
     }
 
     BOOST_FORCEINLINE void increment()
@@ -151,7 +151,7 @@ namespace boost { namespace simd
     BOOST_FORCEINLINE
     void operator=(Expr const& right) const
     {
-      boost::simd::store(right, this->base());
+      boost::simd::aligned_store(right, this->base());
     }
 
   private:

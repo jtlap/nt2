@@ -10,7 +10,7 @@
 #define BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_COMMON_STREAM_HPP_INCLUDED
 
 #include <boost/simd/memory/functions/stream.hpp>
-#include <boost/simd/include/functions/simd/store.hpp>
+#include <boost/simd/include/functions/simd/aligned_store.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <boost/dispatch/functor/preprocessor/dispatch.hpp>
 
@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, A1 a1, A2 const& a2) const
     {
-      boost::simd::store(a0, a1, a2);
+      boost::simd::aligned_store(a0, a1, a2);
     }
   };
 } } }

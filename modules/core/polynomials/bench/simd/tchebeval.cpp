@@ -9,9 +9,9 @@
 #include <nt2/polynomials/include/functions/tchebeval.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/sdk/memory/allocator.hpp>
-#include <boost/simd/include/functions/load.hpp>
-#include <boost/simd/include/functions/store.hpp>
+#include <boost/simd/sdk/allocator.hpp>
+#include <boost/simd/include/functions/aligned_load.hpp>
+#include <boost/simd/include/functions/aligned_store.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 
 template<typename T> NT2_EXPERIMENT(tchebeval_bench)
@@ -27,7 +27,7 @@ template<typename T> NT2_EXPERIMENT(tchebeval_bench)
   virtual void run() const
   {
     for(int i=0;i<size;i+=T::static_size)
-      boost::simd::store(nt2::tchebeval(boost::simd::load<T>(&in[i]), coeff),&out[i]);
+      boost::simd::aligned_storent2::tchebeval(boost::simd::aligned_load<T>(&in[i]), coeff),&out[i]);
   }
 
   virtual double compute(nt2::benchmark_result_t const& r) const

@@ -6,22 +6,24 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_SSE_AVX_UNALIGNED_STORE_HPP_INCLUDED
-#define BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_SSE_AVX_UNALIGNED_STORE_HPP_INCLUDED
-#ifdef BOOST_SIMD_HAS_AVX_SUPPORT
+#ifndef BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_SSE_SSE2_STORE_HPP_INCLUDED
+#define BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_SSE_SSE2_STORE_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
-#include <boost/simd/memory/functions/unaligned_store.hpp>
+#include <boost/simd/memory/functions/aligned_store.hpp>
+#include <boost/simd/memory/functions/details/check_ptr.hpp>
 #include <boost/simd/memory/iterator_category.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  /// INTERNAL ONLY - SIMD unaligned_store double without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::unaligned_store_
-                                    , boost::simd::tag::avx_
+  /// INTERNAL ONLY - SSE double SIMD store without offset
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_store_
+                                    , boost::simd::tag::sse2_
                                     , (A0)(A1)
                                     , ((simd_ < double_<A0>
-                                              , boost::simd::tag::avx_
+                                              , boost::simd::tag::sse_
                                               >
                                       ))
                                       (iterator_< scalar_< double_<A1> > >)
@@ -29,17 +31,19 @@ namespace boost { namespace simd { namespace ext
   {
     typedef void result_type;
 
-    BOOST_FORCEINLINE result_type operator()(__m256d a0, A1 a1) const
+    BOOST_FORCEINLINE result_type operator()(__m128d a0, A1 a1) const
     {
-      _mm256_storeu_pd(a1,a0);
+      BOOST_SIMD_DETAILS_CHECK_PTR(a1, sizeof(__m128d));
+      _mm_store_pd(a1,a0);
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::unaligned_store_
-                                    , boost::simd::tag::avx_
+  /// INTERNAL ONLY - SSE single SIMD store without offset
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_store_
+                                    , boost::simd::tag::sse2_
                                     , (A0)(A1)
                                     , ((simd_ < single_<A0>
-                                              , boost::simd::tag::avx_
+                                              , boost::simd::tag::sse_
                                               >
                                       ))
                                       (iterator_< scalar_< single_<A1> > >)
@@ -47,17 +51,19 @@ namespace boost { namespace simd { namespace ext
   {
     typedef void result_type;
 
-    BOOST_FORCEINLINE result_type operator()(__m256 a0, A1 a1) const
+    BOOST_FORCEINLINE result_type operator()(__m128 a0, A1 a1) const
     {
-      _mm256_storeu_ps(a1,a0);
+      BOOST_SIMD_DETAILS_CHECK_PTR(a1, sizeof(__m128));
+      _mm_store_ps(a1,a0);
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::unaligned_store_
-                                    , boost::simd::tag::avx_
+  /// INTERNAL ONLY - SSE integral SIMD store without offset
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_store_
+                                    , boost::simd::tag::sse2_
                                     , (A0)(A1)
                                     , ((simd_ < integer_<A0>
-                                              , boost::simd::tag::avx_
+                                              , boost::simd::tag::sse_
                                               >
                                       ))
                                       (iterator_< scalar_< integer_<A1> > >)
@@ -65,9 +71,10 @@ namespace boost { namespace simd { namespace ext
   {
     typedef void result_type;
 
-    BOOST_FORCEINLINE result_type operator()(__m256i a0, A1 a1) const
+    BOOST_FORCEINLINE result_type operator()(__m128i a0, A1 a1) const
     {
-      _mm256_storeu_si256(reinterpret_cast<__m256i*>(a1), a0);
+      BOOST_SIMD_DETAILS_CHECK_PTR(a1, sizeof(__m128i));
+      _mm_store_si128(reinterpret_cast<__m128i*>(a1), a0);
     }
   };
 } } }

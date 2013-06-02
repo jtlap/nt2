@@ -7,7 +7,7 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <boost/simd/include/functions/stream.hpp>
-#include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/include/functions/aligned_load.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/preprocessor/stack_buffer.hpp>
@@ -20,7 +20,7 @@
 NT2_TEST_CASE_TPL(stream, BOOST_SIMD_SIMD_TYPES )
 {
   using boost::simd::stream;
-  using boost::simd::load;
+  using boost::simd::aligned_load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
 
@@ -31,10 +31,10 @@ NT2_TEST_CASE_TPL(stream, BOOST_SIMD_SIMD_TYPES )
   BOOST_SIMD_ALIGNED_STACK_BUFFER(data, T, 3*card);
   for(std::size_t i=0;i<card;++i) data[i] = T(1+i);
 
-  n_t v = load<n_t>(&data[0]);
+  n_t v = aligned_load<n_t>(&data[0]);
 
   stream(v,&data[card]);
-  n_t ref = load<n_t>(&data[card]);
+  n_t ref = aligned_load<n_t>(&data[card]);
 
   NT2_TEST_EQUAL( v,ref );
 
@@ -45,7 +45,7 @@ NT2_TEST_CASE_TPL(stream, BOOST_SIMD_SIMD_TYPES )
 NT2_TEST_CASE_TPL(stream_offset, BOOST_SIMD_SIMD_TYPES )
 {
   using boost::simd::stream;
-  using boost::simd::load;
+  using boost::simd::aligned_load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
 
@@ -56,10 +56,10 @@ NT2_TEST_CASE_TPL(stream_offset, BOOST_SIMD_SIMD_TYPES )
   BOOST_SIMD_ALIGNED_STACK_BUFFER(data, T, 3*card);
   for(std::size_t i=0;i<card;++i) data[i] = T(1+i);
 
-  n_t v = load<n_t>(&data[0],0);
+  n_t v = aligned_load<n_t>(&data[0],0);
 
   stream(v,&data[0],card);
-  n_t ref = load<n_t>(&data[0],card);
+  n_t ref = aligned_load<n_t>(&data[0],card);
 
   NT2_TEST_EQUAL( v,ref );
 

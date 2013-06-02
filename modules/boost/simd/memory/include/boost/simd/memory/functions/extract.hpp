@@ -20,10 +20,10 @@ namespace boost { namespace simd
     /*!
       @brief Extract generic tag
 
-      Represents the extract function in generic contexts like functor creation.
+      Represents the extract function in generic contexts.
 
       @par Models:
-      @ref FormalHierarchy
+      Hierarchy
     **/
     struct extract_ : tag::formal_
     {

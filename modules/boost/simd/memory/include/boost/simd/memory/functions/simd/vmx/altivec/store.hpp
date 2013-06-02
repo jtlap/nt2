@@ -6,20 +6,18 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_VMX_ALTIVEC_STORE_HPP_INCLUDED
-#define BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_VMX_ALTIVEC_STORE_HPP_INCLUDED
+#ifndef BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_VMX_ALTIVEC_UNALIGNED_STORE_HPP_INCLUDED
+#define BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_VMX_ALTIVEC_UNALIGNED_STORE_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 #include <boost/simd/memory/functions/store.hpp>
 #include <boost/simd/memory/functions/details/char_helper.hpp>
-#include <boost/simd/memory/functions/details/check_ptr.hpp>
-#include <boost/simd/memory/iterator_category.hpp>
-#include <boost/dispatch/functor/preprocessor/call.hpp>
-#include <boost/dispatch/attributes.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <iterator>
 
 namespace boost { namespace simd { namespace ext
 {
-  /// INTERNAL ONLY - SIMD store without offset
+  /// INTERNAL ONLY SIMD unaligned store without offset
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
                                     , boost::simd::tag::altivec_
                                     , (A0)(A1)
@@ -30,12 +28,29 @@ namespace boost { namespace simd { namespace ext
                                       (iterator_< scalar_< arithmetic_<A1> > >)
                                     )
   {
-    typedef void result_type;
+    typedef void                                          result_type;
+    typedef typename std::iterator_traits<A1>::value_type value_t;
+    typedef typename A0::native_type                      n_t;
+
+    static const std::size_t sz   = sizeof(value_t);
+    static const std::size_t card = meta::cardinal_of<A0>::value;
+    static const std::size_t a2z  = card*sz-1;
 
     BOOST_FORCEINLINE result_type operator()(const A0& a0, A1 a1) const
     {
-      BOOST_SIMD_DETAILS_CHECK_PTR(a1, sizeof(A0));
-      vec_st(a0(), 0, char_helper(a1));
+      BOOST_AUTO_TPL( ptr, char_helper(a1));
+
+      n_t                     MSQ       = vec_ld  ( 0   , ptr );
+      __vector unsigned char  edgeAlign = vec_lvsl( 0   , ptr );
+      n_t                     LSQ       = vec_ld  ( a2z , ptr );
+      __vector unsigned char  align     = vec_lvsr( 0   , ptr );
+      n_t                     edges     = vec_perm( LSQ , MSQ, edgeAlign  );
+
+      MSQ = vec_perm(edges, a0(), align);
+      LSQ = vec_perm(a0(), edges, align);
+
+      vec_st(LSQ, a2z, ptr);
+      vec_st(MSQ, 0  , ptr);
     }
   };
 } } }

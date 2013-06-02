@@ -45,7 +45,7 @@ NT2_TEST_CASE_TPL ( all_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 // {
 //   using boost::simd::all;
 //   using boost::simd::tag::all_;
-//   using boost::simd::load;
+//   using boost::simd::aligned_load;
 //   using boost::simd::native;
 //   using boost::simd::meta::cardinal_of;
 //   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

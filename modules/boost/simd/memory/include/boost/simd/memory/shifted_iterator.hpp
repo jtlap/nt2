@@ -11,7 +11,7 @@
 #define BOOST_SIMD_MEMORY_SHIFTED_ITERATOR_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/pack.hpp>
-#include <boost/simd/include/functions/unaligned_load.hpp>
+#include <boost/simd/include/functions/load.hpp>
 #include <boost/simd/memory/align_on.hpp>
 #include <boost/simd/sdk/simd/meta/native_cardinal.hpp>
 #include <boost/iterator/iterator_facade.hpp>
@@ -54,10 +54,10 @@ namespace boost { namespace simd
 
     void fill(difference_type const& sequence_size)
     {
-      if(sequence_size == 0) seq[0] = unaligned_load<pack_type>(base);
+      if(sequence_size == 0) seq[0] = load<pack_type>(base);
       else
       {
-        seq[sequence_size] = unaligned_load<pack_type>(base+sequence_size);
+        seq[sequence_size] = load<pack_type>(base+sequence_size);
         fill(sequence_size-1);
       }
     }
@@ -65,7 +65,7 @@ namespace boost { namespace simd
     void update( pointer_type const& p)
     {
       for(int i=0; i<static_size::value-1; ++i) { seq[i] = seq[i+1]; }
-      seq[static_size::value-1] = unaligned_load<pack_type>(base+(static_size::value-1));
+      seq[static_size::value-1] = load<pack_type>(base+(static_size::value-1));
     }
 
   private:

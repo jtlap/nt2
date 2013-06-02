@@ -12,7 +12,7 @@
 #include <nt2/include/functions/ind2sub.hpp>
 #include <nt2/include/functions/enumerate.hpp>
 #include <nt2/include/functions/arith.hpp>
-#include <nt2/include/functions/unaligned_load.hpp>
+#include <nt2/include/functions/load.hpp>
 
 #include <boost/array.hpp>
 #include <boost/fusion/include/io.hpp>

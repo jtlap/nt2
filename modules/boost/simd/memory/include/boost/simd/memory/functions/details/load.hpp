@@ -10,7 +10,7 @@
 #ifndef BOOST_SIMD_MEMORY_FUNCTIONS_DETAILS_LOAD_HPP_INCLUDED
 #define BOOST_SIMD_MEMORY_FUNCTIONS_DETAILS_LOAD_HPP_INCLUDED
 
-#include <boost/simd/operator/functions/insert.hpp>
+#include <boost/simd/memory/functions/insert.hpp>
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/dispatch/functor/meta/make_functor.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>

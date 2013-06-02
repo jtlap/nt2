@@ -10,11 +10,11 @@
 SET( SOURCES
   extract.cpp
   insert.cpp
+  aligned_load.cpp
+  aligned_store.cpp
+  stream.cpp
   load.cpp
   store.cpp
-  stream.cpp
-  unaligned_load.cpp
-  unaligned_store.cpp
   )
 
 nt2_module_add_tests(boost.simd.memory.scalar.unit ${SOURCES})

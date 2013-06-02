@@ -17,12 +17,12 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-      @brief Stream generic tag
+      @brief stream generic tag
 
-      Represents the stream function in generic contexts like functor creation.
+      Represents the stream function in generic contexts.
 
       @par Models:
-      @ref FormalHierarchy
+      Hierarchy
     **/
     struct stream_ : tag::formal_
     {

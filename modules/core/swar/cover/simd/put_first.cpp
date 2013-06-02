@@ -32,7 +32,7 @@
 #include <nt2/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/load.hpp>
+#include <nt2/include/functions/aligned_load.hpp>
 #include <nt2/constant/constant.hpp>
 
 
@@ -63,7 +63,7 @@ NT2_TEST_CASE_TPL ( put_first_real__2_0,  NT2_SIMD_REAL_TYPES)
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
-        vT a0 = load<vT>(&tab_a0[0],j);
+        vT a0 = aligned_load<vT>(&tab_a0[0],j);
         iT a1 = tab_a1[j];
         r_t v = nt2::put_first(a0,a1);
         NT2_TEST_EQUAL(v[0],a0[a1]);
@@ -99,7 +99,7 @@ NT2_TEST_CASE_TPL ( put_first_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
-        vT a0 = load<vT>(&tab_a0[0],j);
+        vT a0 = aligned_load<vT>(&tab_a0[0],j);
         iT a1 = tab_a1[j];
         r_t v = nt2::put_first(a0,a1);
         NT2_TEST_EQUAL(v[0],a0[a1]);
@@ -135,7 +135,7 @@ NT2_TEST_CASE_TPL ( put_first_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
-        vT a0 = load<vT>(&tab_a0[0],j);
+        vT a0 = aligned_load<vT>(&tab_a0[0],j);
         iT a1 = tab_a1[j];
         r_t v = nt2::put_first(a0,a1);
         NT2_TEST_EQUAL(v[0],a0[a1]);

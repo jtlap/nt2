@@ -13,7 +13,7 @@
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/preprocessor/aligned_type.hpp>
-#include <boost/simd/include/functions/simd/load.hpp>
+#include <boost/simd/include/functions/simd/aligned_load.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic
@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace ext
       for(A1 i = 1; i != A1(boost::simd::meta::cardinal_of<A0>::value); ++i)
         tmp[i] = a0[i];
 
-      return load<A0>(&tmp[0], 0);
+      return aligned_load<A0>(&tmp[0], 0);
     }
   };
 } } }

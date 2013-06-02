@@ -48,7 +48,7 @@ typedef typename boost::mpl::at_c<Types,n>::type type_##n;                     \
 /**/
 
 #define NT2_COVER_LOADS(z,n,t)                                                 \
-nt2::unaligned_load<type_##n>(&i##n[t])                                        \
+nt2::load<type_##n>(&i##n[t])                                                  \
 /**/
 
 /// INTERNAL ONLY Display an input
@@ -97,7 +97,7 @@ namespace nt2 { namespace details
                                                                                \
     for(std::size_t i=0; i<out.size(); i+=cc)                                  \
     {                                                                          \
-      nt2::unaligned_store( f(BOOST_PP_ENUM(n,NT2_COVER_LOADS,i)), &out[i]);   \
+      nt2::store( f(BOOST_PP_ENUM(n,NT2_COVER_LOADS,i)), &out[i]);             \
     }                                                                          \
                                                                                \
     return out;                                                                \
@@ -144,10 +144,10 @@ namespace nt2 { namespace details
                   BOOST_PP_REPEAT_FROM_TO( 1, n, NT2_COVER_DISP, ii)           \
                   << ") = "                                                    \
                   << boost::simd::details::                                    \
-                     display(nt2::unaligned_load<r_t>(&out[ii]))               \
+                     display(nt2::load<r_t>(&out[ii]))                         \
                   << " while expecting "                                       \
                   << boost::simd::details::                                    \
-                     display(nt2::unaligned_load<r_t>(&ref[ii]))               \
+                     display(nt2::load<r_t>(&ref[ii]))                         \
                   << " (i.e "   << f.ulp_error << " ULPs)"                     \
                   << std::endl;                                                \
         ib = ii;                                                               \

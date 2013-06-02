@@ -10,7 +10,7 @@
 #define BOOST_SIMD_MEMORY_FUNCTIONS_SCALAR_STREAM_HPP_INCLUDED
 
 #include <boost/simd/memory/functions/stream.hpp>
-#include <boost/simd/memory/functions/scalar/store.hpp>
+#include <boost/simd/memory/functions/scalar/aligned_store.hpp>
 #include <boost/simd/memory/functions/details/store.hpp>
 #include <boost/simd/sdk/functor/preprocessor/dispatch.hpp>
 #include <boost/simd/memory/iterator_category.hpp>
@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 a1, A2 a2) const
     {
-      boost::simd::store(a0,a1,a2);
+      boost::simd::aligned_store(a0,a1,a2);
     }
   };
 
@@ -48,7 +48,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 a1) const
     {
-      boost::simd::store(a0,a1);
+      boost::simd::aligned_store(a0,a1);
     }
   };
 

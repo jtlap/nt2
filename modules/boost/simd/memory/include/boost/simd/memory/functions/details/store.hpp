@@ -13,7 +13,7 @@
 #include <boost/dispatch/functor/meta/make_functor.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
-#include <boost/simd/operator/functions/extract.hpp>
+#include <boost/simd/memory/functions/extract.hpp>
 #include <boost/fusion/include/at_c.hpp>
 
 // Helper for store over a fusion sequence.

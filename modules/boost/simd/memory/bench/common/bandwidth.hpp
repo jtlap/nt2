@@ -10,8 +10,8 @@
 #ifndef BANDWIDTH_HPP_INCLUDED
 #define BANDWIDTH_HPP_INCLUDED
 
-#include <boost/simd/include/functions/store.hpp>
-#include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/include/functions/aligned_store.hpp>
+#include <boost/simd/include/functions/aligned_load.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/simd/memory/allocator.hpp>
@@ -74,7 +74,7 @@ template<typename T>  NT2_EXPERIMENT((bandwidth<T,nt2_>))
         ; i<base::size
         ; i+=boost::simd::meta::cardinal_of<T>::value
         )
-    boost::simd::store( boost::simd::load<T>(&base::in[i])
+    boost::simd::store( boost::simd::aligned_load<T>(&base::in[i])
                       , &base::out[i]
                       );
   }

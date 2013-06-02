@@ -10,8 +10,8 @@
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/memory/allocator.hpp>
 #include <boost/simd/sdk/meta/iterate.hpp>
-#include <boost/simd/include/functions/store.hpp>
-#include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/include/functions/aligned_store.hpp>
+#include <boost/simd/include/functions/aligned_load.hpp>
 
 #include <boost/fusion/include/at.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -97,7 +97,7 @@ NT2_TEST_CASE_TPL(pack_store, BOOST_SIMD_SIMD_TYPES )
 
   for(size_t i=0; i<card; ++i) data[i] = T(i);
   p_t p(data.begin(),data.end());
-  boost::simd::store(p,&stored[0],0);
+  boost::simd::aligned_store(p,&stored[0],0);
 
   NT2_TEST_EQUAL( *(stored.begin()), *(data.begin()));
   NT2_TEST_EQUAL( *(stored.end()-1), *(data.end()-1));
@@ -112,7 +112,7 @@ NT2_TEST_CASE_TPL(pack_load, BOOST_SIMD_SIMD_TYPES )
 
   for(size_t i=0; i<card; ++i) data[i] = T(i);
   p_t p;
-  p = boost::simd::load<p_t>(&data[0],0);
+  p = boost::simd::aligned_load<p_t>(&data[0],0);
 
   NT2_TEST_EQUAL( *(p.begin()), *(data.begin()));
   NT2_TEST_EQUAL( *(p.end()-1), *(data.end()-1));
@@ -142,7 +142,7 @@ NT2_TEST_CASE_TPL(pack_fusion, BOOST_SIMD_SIMD_TYPES)
 
   for(size_t i=0; i<card; ++i) data[i] = T(i);
   p_t p;
-  p = boost::simd::load<p_t>(&data[0],0);
+  p = boost::simd::aligned_load<p_t>(&data[0],0);
 
   boost::simd::meta::iterate<card>( iterate_test<p_t>(p));
 }

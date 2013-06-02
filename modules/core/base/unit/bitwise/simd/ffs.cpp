@@ -6,13 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 bitwise toolbox - ffs/simd Mode"
 
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of bitwise components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 18/02/2011
-///
 #include <nt2/bitwise/include/functions/ffs.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -32,8 +26,6 @@
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
 
-
-
 NT2_TEST_CASE_TPL ( ffs_float_1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::ffs;
@@ -49,9 +41,6 @@ NT2_TEST_CASE_TPL ( ffs_float_1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::call<ffs_(vT)>::type r_t;
   typedef typename nt2::meta::call<ffs_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(ffs(nt2::Inf<vT>())[0], sr_t(boost::simd::Nbmantissabits<T>()+1));
@@ -77,9 +66,6 @@ NT2_TEST_CASE_TPL ( ffs_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef typename nt2::meta::call<ffs_(vT)>::type r_t;
   typedef typename nt2::meta::call<ffs_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(ffs(nt2::One<vT>())[0], nt2::One<sr_t>());

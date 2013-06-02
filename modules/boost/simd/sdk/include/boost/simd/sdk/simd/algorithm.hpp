@@ -10,9 +10,9 @@
 #define BOOST_SIMD_SDK_SIMD_ALGORITHM_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/include/functions/aligned_load.hpp>
+#include <boost/simd/include/functions/aligned_store.hpp>
 #include <boost/simd/include/functions/load.hpp>
-#include <boost/simd/include/functions/store.hpp>
-#include <boost/simd/include/functions/unaligned_load.hpp>
 #include <boost/simd/include/functions/splat.hpp>
 #include <boost/simd/memory/align_on.hpp>
 #include <boost/mpl/assert.hpp>
@@ -41,7 +41,7 @@ namespace boost { namespace simd
       *out = f(*begin);
 
     for(; begin!=end3; begin += N, out += N)
-      simd::store(f(simd::unaligned_load<vT>(begin)), out);
+      simd::aligned_store(f(simd::load<vT>(begin)), out);
 
     // epilogue
     for(; begin!=end; ++begin, ++out)
@@ -73,7 +73,7 @@ namespace boost { namespace simd
       *out = f(*begin1, *begin2);
 
     for(; begin1!=end3; begin1 += N, begin2 += N, out += N)
-      simd::store(f(simd::unaligned_load<vT1>(begin1), simd::unaligned_load<vT2>(begin2)), out);
+      simd::aligned_store(f(simd::load<vT1>(begin1), simd::load<vT2>(begin2)), out);
 
     // epilogue
     for(; begin1!=end; ++begin1, ++begin2, ++out)
@@ -105,7 +105,7 @@ namespace boost { namespace simd
       init = f(init, *begin);
 
     for(; begin!=end3; begin += N)
-      cur = f(cur, boost::simd::load<vT>(begin));
+      cur = f(cur, boost::simd::aligned_load<vT>(begin));
 
     // reduce cur
     for(U const* b = cur.begin(); b != cur.end(); ++b)

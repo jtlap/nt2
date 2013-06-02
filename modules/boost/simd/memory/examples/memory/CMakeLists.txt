@@ -18,14 +18,14 @@ SET(  SOURCES
       input_range.cpp
       is_aligned.cpp
       is_power_of_2.cpp
-      load.cpp
+      aligned_load.cpp
       new.cpp
       scoped_buffer.cpp
       simd_malloc.cpp
       simd_scoped_buffer.cpp
       simd_stack_buffer.cpp
       stack_buffer.cpp
-      store.cpp
+      aligned_store.cpp
 )
 
 ################################################################################

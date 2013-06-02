@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 operator toolbox - shift_left/simd Mode"
-
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <nt2/operator/include/functions/shift_left.hpp>

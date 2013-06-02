@@ -88,8 +88,8 @@
 #include <boost/simd/include/functions/simd/repeat_upper_half.hpp>
 #include <boost/simd/include/functions/simd/reverse.hpp>
 #include <boost/simd/include/functions/simd/unary_minus.hpp>
-#include <boost/simd/include/functions/simd/unaligned_load.hpp>
-#include <boost/simd/include/functions/simd/unaligned_store.hpp>
+#include <boost/simd/include/functions/simd/load.hpp>
+#include <boost/simd/include/functions/simd/store.hpp>
 
 /// \note control/switch.hpp needs to be included before control/case.hpp
 /// because case.hpp uses the default_construct struct template (from
@@ -1560,8 +1560,8 @@ namespace detail
         while ( p_lower_reals->data() < p_upper_reals )
         {
             using boost::simd::reverse        ;
-            using boost::simd::unaligned_load ;
-            using boost::simd::unaligned_store;
+            using boost::simd::load ;
+            using boost::simd::store;
 
         /* "straight" implementation:
             // the following two constants go outside the loop:
@@ -1572,8 +1572,8 @@ namespace detail
             vector_t const wi( p_twiddle_factors->wi ^ *p_twiddle_sign_flipper );
             p_twiddle_factors++;
 
-            vector_t const upper_r( reverse( unaligned_load<vector_t>( p_upper_reals ) ) );
-            vector_t const upper_i( reverse( unaligned_load<vector_t>( p_upper_imags ) ) );
+            vector_t const upper_r( reverse( load<vector_t>( p_upper_reals ) ) );
+            vector_t const upper_i( reverse( load<vector_t>( p_upper_imags ) ) );
             vector_t const lower_r(                                   *p_lower_reals     );
             vector_t const lower_i(                                   *p_lower_imags     );
 
@@ -1590,8 +1590,8 @@ namespace detail
             /// normalization factor.
             ///                               (27.06.2012.) (Domagoj Saric)
 
-            vector_t const upper_r( reverse( unaligned_load<vector_t>( p_upper_reals ) ) );
-            vector_t const upper_i( reverse( unaligned_load<vector_t>( p_upper_imags ) ) );
+            vector_t const upper_r( reverse( load<vector_t>( p_upper_reals ) ) );
+            vector_t const upper_i( reverse( load<vector_t>( p_upper_imags ) ) );
             vector_t const lower_r(                                   *p_lower_reals     );
             vector_t const lower_i(                                   *p_lower_imags     );
 
@@ -1612,8 +1612,8 @@ namespace detail
             vector_t const result_upper_i( reverse( h_temp_i - h1i      ) );
             vector_t const result_lower_i(          h1i      + h_temp_i   );
 
-            unaligned_store( result_upper_r, p_upper_reals );
-            unaligned_store( result_upper_i, p_upper_imags );
+            store( result_upper_r, p_upper_reals );
+            store( result_upper_i, p_upper_imags );
 
             p_upper_reals -= vector_t::static_size;
             p_upper_imags -= vector_t::static_size;
@@ -1693,13 +1693,13 @@ namespace detail
         while ( p_lower_reals < p_upper_reals->data() )
         {
             using boost::simd::reverse        ;
-            using boost::simd::unaligned_load ;
-            using boost::simd::unaligned_store;
+            using boost::simd::load ;
+            using boost::simd::store;
 
             vector_t const upper_r( reverse                 ( *p_upper_reals ) );
             vector_t const upper_i( reverse                 ( *p_upper_imags ) );
-            vector_t const lower_r( unaligned_load<vector_t>(  p_lower_reals ) );
-            vector_t const lower_i( unaligned_load<vector_t>(  p_lower_imags ) );
+            vector_t const lower_r( load<vector_t>(  p_lower_reals ) );
+            vector_t const lower_i( load<vector_t>(  p_lower_imags ) );
 
             vector_t const wr( p_twiddles->wr ^ twiddle_sign_flipper );
             vector_t const wi( p_twiddles->wi                        );
@@ -1718,8 +1718,8 @@ namespace detail
             vector_t const result_lower_i(          h1i      + h_temp_i   );
             vector_t const result_upper_i( reverse( h_temp_i - h1i      ) );
 
-            unaligned_store( result_lower_r, p_lower_reals );
-            unaligned_store( result_lower_i, p_lower_imags );
+            store( result_lower_r, p_lower_reals );
+            store( result_lower_i, p_lower_imags );
             p_lower_reals += vector_t::static_size;
             p_lower_imags += vector_t::static_size;
 

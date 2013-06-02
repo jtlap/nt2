@@ -9,8 +9,8 @@
 #ifndef LOAD_RUNNER_HPP_INCLUDED
 #define LOAD_RUNNER_HPP_INCLUDED
 
+#include <boost/simd/include/functions/aligned_load.hpp>
 #include <boost/simd/include/functions/load.hpp>
-#include <boost/simd/include/functions/unaligned_load.hpp>
 
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
@@ -21,7 +21,48 @@
 
 #include "fill.hpp"
 
-template<typename Type, typename Target> inline void load_runner(bool offset = false)
+template<typename Type, typename Target>
+inline void aligned_load_runner(bool offset = false)
+{
+  using boost::simd::aligned_load;
+  using boost::simd::tag::aligned_load_;
+  using boost::simd::meta::cardinal_of;
+  using boost::dispatch::meta::as_;
+
+  if(!offset)
+    NT2_TEST_TYPE_IS( (typename boost::dispatch::meta
+                              ::call<aligned_load_( Type*, as_<Target>)>::type
+                      )
+                    , Target
+                    );
+  else
+    NT2_TEST_TYPE_IS( (typename boost::dispatch::meta
+                              ::call<aligned_load_( Type*, int, as_<Target>)>::type
+                      )
+                    , Target
+                    );
+
+  static const std::size_t cd = cardinal_of<Target>::value;
+  static const std::size_t sz = cd*3;
+
+  BOOST_SIMD_ALIGNED_STACK_BUFFER( data, Type   , sz );
+  BOOST_SIMD_ALIGNED_STACK_BUFFER( ref , Target , sz );
+
+  for(std::size_t i=0;i<sz;++i)
+  {
+    fill<Type>()(data[i],i);
+    fill<Target>()(ref[i/cd],i/cd);
+  }
+
+  for(std::size_t i=0;i<3;++i)
+  {
+    if(!offset) NT2_TEST_EQUAL(aligned_load<Target>(&data[i*cd])  , ref[i]);
+    else        NT2_TEST_EQUAL(aligned_load<Target>(&data[0],i*cd), ref[i]);
+  }
+}
+
+template<typename Type, typename Target>
+inline void load_runner(bool offset = false)
 {
   using boost::simd::load;
   using boost::simd::tag::load_;
@@ -44,8 +85,8 @@ template<typename Type, typename Target> inline void load_runner(bool offset = f
   static const std::size_t cd = cardinal_of<Target>::value;
   static const std::size_t sz = cd*3;
 
-  BOOST_SIMD_ALIGNED_STACK_BUFFER( data, Type   , sz );
-  BOOST_SIMD_ALIGNED_STACK_BUFFER( ref , Target , sz );
+  Type    data[sz];
+  Target  ref[sz];
 
   for(std::size_t i=0;i<sz;++i)
   {
@@ -60,50 +101,11 @@ template<typename Type, typename Target> inline void load_runner(bool offset = f
   }
 }
 
-template<typename Type, typename Target> inline void unaligned_load_runner(bool offset = false)
-{
-  using boost::simd::unaligned_load;
-  using boost::simd::tag::unaligned_load_;
-  using boost::simd::meta::cardinal_of;
-  using boost::dispatch::meta::as_;
-
-  if(!offset)
-    NT2_TEST_TYPE_IS( (typename boost::dispatch::meta
-                              ::call<unaligned_load_( Type*, as_<Target>)>::type
-                      )
-                    , Target
-                    );
-  else
-    NT2_TEST_TYPE_IS( (typename boost::dispatch::meta
-                              ::call<unaligned_load_( Type*, int, as_<Target>)>::type
-                      )
-                    , Target
-                    );
-
-  static const std::size_t cd = cardinal_of<Target>::value;
-  static const std::size_t sz = cd*3;
-
-  Type    data[sz];
-  Target  ref[sz];
-
-  for(std::size_t i=0;i<sz;++i)
-  {
-    fill<Type>()(data[i],i);
-    fill<Target>()(ref[i/cd],i/cd);
-  }
-
-  for(std::size_t i=0;i<3;++i)
-  {
-    if(!offset) NT2_TEST_EQUAL(unaligned_load<Target>(&data[i*cd])  , ref[i]);
-    else        NT2_TEST_EQUAL(unaligned_load<Target>(&data[0],i*cd), ref[i]);
-  }
-}
-
 template<typename Type, typename Target, typename Misalignment>
-inline void misload_runner(Misalignment const& m, bool offset = false)
+inline void misaligned_load_runner(Misalignment const& m, bool offset = false)
 {
-  using boost::simd::load;
-  using boost::simd::tag::load_;
+  using boost::simd::aligned_load;
+  using boost::simd::tag::aligned_load_;
   using boost::simd::meta::cardinal_of;
   using boost::dispatch::meta::as_;
 
@@ -112,7 +114,7 @@ inline void misload_runner(Misalignment const& m, bool offset = false)
 
   if(!offset)
     NT2_TEST_TYPE_IS( (typename boost::dispatch::meta
-                              ::call<load_( Type*, as_<Target>
+                              ::call<aligned_load_( Type*, as_<Target>
                                           , Misalignment
                                           )
                                     >::type
@@ -121,7 +123,7 @@ inline void misload_runner(Misalignment const& m, bool offset = false)
                     );
   else
     NT2_TEST_TYPE_IS( (typename boost::dispatch::meta
-                              ::call<load_( Type*, int, as_<Target>
+                              ::call<aligned_load_( Type*, int, as_<Target>
                                           , Misalignment
                                           )
                                     >::type
@@ -146,8 +148,8 @@ inline void misload_runner(Misalignment const& m, bool offset = false)
 
   for(std::size_t i=mn;i<mx;++i)
   {
-    if(!offset) NT2_TEST_EQUAL((load<Target,ms>(&data[ms+i*cd])), ref[i]);
-    else        NT2_TEST_EQUAL((load<Target,ms>(&data[0],ms+i*cd)), ref[i]);
+    if(!offset) NT2_TEST_EQUAL((aligned_load<Target,ms>(&data[ms+i*cd])), ref[i]);
+    else        NT2_TEST_EQUAL((aligned_load<Target,ms>(&data[0],ms+i*cd)), ref[i]);
   }
 
   std::cout << "\n";

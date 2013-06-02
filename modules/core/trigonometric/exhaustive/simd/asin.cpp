@@ -33,7 +33,7 @@ int main(){
   float a[N];
   a[0] = mini;
   for(nt2::uint32_t i = 1; i < N; i++) a[i] = nt2::successor(a[i-1], 1);
-  n_t a0 = nt2::load<n_t>(&a[0],0);
+  n_t a0 = nt2::aligned_load<n_t>(&a[0],0);
   int k = 0;
   for(; a0[N-1] < maxi; a0 = nt2::successor(a0, vN))
     {

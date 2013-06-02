@@ -38,7 +38,7 @@
 #include <nt2/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/load.hpp>
+#include <nt2/include/functions/aligned_load.hpp>
 #include <nt2/constant/constant.hpp>
 
 template < class T >
@@ -81,7 +81,7 @@ NT2_TEST_CASE_TPL ( hmsb_real__1_0,  NT2_SIMD_REAL_TYPES)
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
-        vT a0 = load<vT>(&tab_a0[0],j);
+        vT a0 = aligned_load<vT>(&tab_a0[0],j);
         r_t v = nt2::hmsb(a0);
         nt2::int32_t z = 0;
         nt2::uint32_t N = cardinal_of<n_t>::value;
@@ -124,7 +124,7 @@ NT2_TEST_CASE_TPL ( hmsb_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
-        vT a0 = load<vT>(&tab_a0[0],j);
+        vT a0 = aligned_load<vT>(&tab_a0[0],j);
         r_t v = nt2::hmsb(a0);
         nt2::int32_t z = 0;
         nt2::uint32_t N = cardinal_of<n_t>::value;
@@ -167,7 +167,7 @@ NT2_TEST_CASE_TPL ( hmsb_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
-        vT a0 = load<vT>(&tab_a0[0],j);
+        vT a0 = aligned_load<vT>(&tab_a0[0],j);
         r_t v = nt2::hmsb(a0);
   nt2::int32_t z = 0;
         nt2::uint32_t N = cardinal_of<n_t>::value;

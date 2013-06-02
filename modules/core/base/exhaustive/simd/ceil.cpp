@@ -14,7 +14,7 @@
 
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/include/functions/load.hpp>
+#include <nt2/include/functions/aligned_load.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <iostream>
 typedef BOOST_SIMD_DEFAULT_EXTENSION               ext_t;
@@ -37,7 +37,7 @@ int main(){
   a[0] = mini;
   for(nt2::uint32_t i = 1; i < N; i++)
     a[i] = nt2::successor(a[i-1], 1);
-  n_t a0 = nt2::load<n_t>(&a[0],0);
+  n_t a0 = nt2::aligned_load<n_t>(&a[0],0);
   nt2::uint32_t k = 0;
   nt2::uint32_t j = 0;
   std::cout << "a line of points to wait for... be patient!" << std::endl;

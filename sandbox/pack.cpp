@@ -4,7 +4,7 @@
 #include <boost/simd/include/functions/plus.hpp>
 #include <boost/simd/include/functions/multiplies.hpp>
 #include <boost/simd/include/functions/sum.hpp>
-#include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/include/functions/aligned_load.hpp>
 #include <boost/simd/include/functions/store.hpp>
 #include <boost/simd/include/functions/splat.hpp>
 #include <boost/simd/include/functions/make.hpp>
@@ -51,7 +51,7 @@ int main()
 
    // testing load, store, splat and make
    packi p;
-   p = boost::simd::load<packi>(&array[0], 0);
+   p = boost::simd::aligned_load<packi>(&array[0], 0);
    std::cout << p << "\n";
    p = p+1;
    boost::simd::store(p, &array[0], 0);

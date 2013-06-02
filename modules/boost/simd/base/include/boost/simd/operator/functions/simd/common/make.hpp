@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_SIMD_COMMON_MAKE_HPP_INCLUDED
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_SIMD_COMMON_MAKE_HPP_INCLUDED
 #include <boost/simd/operator/functions/make.hpp>
-#include <boost/simd/include/functions/simd/load.hpp>
+#include <boost/simd/include/functions/simd/aligned_load.hpp>
 #include <boost/simd/preprocessor/aligned_type.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
     operator()(BOOST_PP_ENUM_PARAMS(n, stype const& a)) const                  \
     {                                                                          \
       BOOST_SIMD_ALIGNED_TYPE(stype) tmp[n] = { BOOST_PP_ENUM_PARAMS(n, a) };  \
-      return load<result_type>(&tmp[0], 0);                                    \
+      return aligned_load<result_type>(&tmp[0], 0);                                    \
     }                                                                          \
     /**/
 

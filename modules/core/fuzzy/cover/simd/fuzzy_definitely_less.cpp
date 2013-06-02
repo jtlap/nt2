@@ -34,7 +34,7 @@
 #include <nt2/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/load.hpp>
+#include <nt2/include/functions/aligned_load.hpp>
 #include <nt2/constant/constant.hpp>
 
 
@@ -66,9 +66,9 @@ NT2_TEST_CASE_TPL ( fuzzy_definitely_less_real__3_0,  NT2_SIMD_REAL_TYPES)
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
-        vT a0 = load<vT>(&tab_a0[0],j);
-        vT a1 = load<vT>(&tab_a1[0],j);
-        vT a2 = load<vT>(&tab_a2[0],j);
+        vT a0 = aligned_load<vT>(&tab_a0[0],j);
+        vT a1 = aligned_load<vT>(&tab_a1[0],j);
+        vT a2 = aligned_load<vT>(&tab_a2[0],j);
         r_t v = fuzzy_definitely_less(a0,a1,a2);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {

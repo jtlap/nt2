@@ -22,7 +22,7 @@
 #include <boost/simd/sdk/simd/pack/call.hpp>
 
 #include <boost/simd/include/functions/evaluate.hpp>
-#include <boost/simd/include/functions/simd/load.hpp>
+#include <boost/simd/include/functions/simd/aligned_load.hpp>
 #include <boost/simd/include/functions/simd/splat.hpp>
 #include <boost/simd/include/functions/simd/make.hpp>
 
@@ -120,7 +120,7 @@ namespace boost { namespace simd
         "which alignment is not compatible with current SIMD extension."
       );
 
-      proto::value(*this) = load< data_type >(p,0);
+      proto::value(*this) = aligned_load<data_type >(p,0);
     }
 
     //==========================================================================

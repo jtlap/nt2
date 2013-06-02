@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_PACK_LOAD_HPP_INCLUDED
-#define BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_PACK_LOAD_HPP_INCLUDED
+#ifndef BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_PACK_UNALIGNED_LOAD_HPP_INCLUDED
+#define BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_PACK_UNALIGNED_LOAD_HPP_INCLUDED
 
 #include <boost/simd/include/functions/load.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
@@ -17,53 +17,11 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  /// INTERNAL ONLY - Load pack with offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
-                                    , tag::cpu_
-                                    , (A0)(A1)(A2)
-                                    , (iterator_< unspecified_<A0> >)
-                                      (scalar_< integer_<A1> >)
-                                      ((target_ < ast_< A2
-                                                      , boost::simd::domain
-                                                      >
-                                                >
-                                      ))
-                                    )
-  {
-    typedef typename A2::type result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0 a0, A1 a1, A2 const&) const
-    {
-      return boost::simd::load<typename result_type::data_type>(a0, a1);
-    }
-  };
-
-  /// INTERNAL ONLY - Load pack with offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
-                                    , tag::cpu_
-                                    , (A0)(A1)(A2)(X)
-                                    , (iterator_< unspecified_<A0> >)
-                                      ((simd_< integer_<A1>, X >))
-                                      ((target_ < ast_< A2
-                                                      , boost::simd::domain
-                                                      >
-                                                >
-                                      ))
-                                    )
-  {
-    typedef typename A2::type result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0 a0, A1 const& a1, A2 const&) const
-    {
-      return boost::simd::load<typename result_type::data_type>(a0, a1);
-    }
-  };
-
-  /// INTERNAL ONLY - Load pack without offset
+  /// INTERNAL ONLY - pack load without offset
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
                                     , tag::cpu_
                                     , (A0)(A2)
-                                    , (iterator_< unspecified_<A0> >)
+                                    , (iterator_< scalar_< fundamental_<A0> > >)
                                       ((target_ < ast_< A2
                                                       , boost::simd::domain
                                                       >
@@ -79,43 +37,45 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  /// INTERNAL ONLY - Load misaligned pack with offset
+  /// INTERNAL ONLY - pack load with offset
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
                                     , tag::cpu_
-                                    , (A0)(A1)(A2)(A3)
-                                    , (iterator_< unspecified_<A0> >)
-                                      (generic_< integer_<A1> >)
-                                      ((target_< ast_<A2, boost::simd::domain> >))
-                                      (mpl_integral_< scalar_< integer_<A3> > >)
+                                    , (A0)(A1)(A2)(X)
+                                    , (iterator_< scalar_< fundamental_<A0> > >)
+                                      ((simd_< integer_<A1>, X >))
+                                      ((target_ < ast_< A2
+                                                      , boost::simd::domain
+                                                      >
+                                                >
+                                      ))
                                     )
   {
     typedef typename A2::type result_type;
 
-    BOOST_FORCEINLINE result_type
-    operator()(A0 a0, A1 const& a1, A2 const&, A3 const& a3) const
+    BOOST_FORCEINLINE result_type operator()(A0 a0, A1 const& a1, A2 const&) const
     {
-      return boost::simd::load< typename result_type::data_type
-                              , A3::value
-                              >(a0,a1);
+      return boost::simd::load<typename result_type::data_type>(a0,a1);
     }
   };
 
-  /// INTERNAL ONLY - Load misaligned pack without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_ , tag::cpu_
-                                    , (A0)(A2)(A3)
-                                    , (iterator_< unspecified_<A0> >)
-                                      ((target_< ast_<A2, boost::simd::domain> >))
-                                      (mpl_integral_< scalar_< integer_<A3> > >)
+  /// INTERNAL ONLY - pack load with offset
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
+                                    , tag::cpu_
+                                    , (A0)(A1)(A2)
+                                    , (iterator_< scalar_< fundamental_<A0> > >)
+                                      (scalar_< integer_<A1> >)
+                                      ((target_ < ast_< A2
+                                                      , boost::simd::domain
+                                                      >
+                                                >
+                                      ))
                                     )
   {
     typedef typename A2::type result_type;
 
-    BOOST_FORCEINLINE result_type
-    operator()(A0 a0, A2 const&, A3 const& a3) const
+    BOOST_FORCEINLINE result_type operator()(A0 a0, A1 const& a1, A2 const&) const
     {
-      return boost::simd::load< typename result_type::data_type
-                              , A3::value
-                              >(a0);
+      return boost::simd::load<typename result_type::data_type>(a0,a1);
     }
   };
 } } }
