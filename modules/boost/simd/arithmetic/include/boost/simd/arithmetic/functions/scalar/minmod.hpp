@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return is_gez(a0*a1)?  boost::simd::min(a0, a1) : Zero<A0>();
+      return is_gez(a0*a1)?  boost::simd::min(a0, a1): Zero<A0>();
     }
   };
 
