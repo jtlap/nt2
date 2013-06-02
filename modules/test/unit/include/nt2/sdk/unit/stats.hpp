@@ -52,15 +52,6 @@ namespace nt2 { namespace unit
     Report a test as a failure and display a message about this failure.
 
     @param msg  Message to display when test fails
-  **/
-  NT2_TEST_UNIT_DECL void fail(char const* msg);
-
-  /*!
-    @brief Report a failed test
-
-    Report a test as a failure and display a message about this failure.
-
-    @param msg  Message to display when test fails
     @param ln   Line number at which test failed
     @param fn   Name of the function in which the test failed
   **/

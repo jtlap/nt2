@@ -113,12 +113,11 @@ do                                                                             \
                                                                                \
   if(ulps.empty())                                                             \
   {                                                                            \
-   ::nt2::unit::pass( BOOST_PP_STRINGIZE(TAG) " coverage");                    \
+    ::nt2::unit::pass( BOOST_PP_STRINGIZE(TAG) " coverage");                   \
   }                                                                            \
   else                                                                         \
   {                                                                            \
-   ::nt2::unit::fail( BOOST_PP_STRINGIZE(TAG) " coverage");                    \
-    ++nt2::unit::error_count();                                                \
+    ::nt2::unit::fail( BOOST_PP_STRINGIZE(TAG) " coverage", __LINE__, __FILE__); \
     int ib = -1;                                                               \
     BOOST_FOREACH ( f_t const& f, ulps )                                       \
     {                                                                          \

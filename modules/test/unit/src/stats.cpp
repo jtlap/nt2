@@ -30,11 +30,6 @@ namespace nt2 { namespace unit
     printf(" * Test `%s` **passed**\n",msg);
   }
 
-  NT2_TEST_UNIT_DECL void fail(char const* msg)
-  {
-    printf(" * Test `%s` **failed**\n",msg);
-  }
-
   NT2_TEST_UNIT_DECL void fail(char const* msg, int ln, char const* fn)
   {
     printf(" * Test `%s` **failed** in function `%s (%d)`\n",msg,fn,ln);
