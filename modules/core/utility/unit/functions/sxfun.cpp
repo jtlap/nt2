@@ -28,15 +28,12 @@ struct plus_pfo
   plus_pfo(int value_) : value(value_)
   {
   }
-  plus_pfo() : value(0)
-  {
-  }
 
   template<class Sig>
   struct result;
 
-  template<class This, class T>
-  struct result<This(T)>
+  template<class This, class T, class U>
+  struct result<This(T, U)>
     : boost::dispatch::meta::strip<T>
   {
   };
@@ -63,7 +60,7 @@ NT2_TEST_CASE_TPL( sxfun_5, NT2_TYPES )
   {
     for(int j=1; j <= 4 ; ++j)
     {
-      c(i, j) = i+j+1;
+      c(i, j) = i+j;
     }
   }
   NT2_TEST_EQUAL(nt2::sxfun(nt2::functor<nt2::tag::plus_>(), a, b), c);
@@ -83,8 +80,7 @@ NT2_TEST_CASE_TPL( sxfun_6, NT2_TYPES )
       c(i, j) = i+j+1;
     }
   }
-  NT2_TEST_EQUAL(nt2::sxfun(nt2::functor<nt2::tag::plus_>(), a, b), c);
-  NT2_TEST_EQUAL(nt2::sxfun(plus_pfo(), a, b), c);
+  NT2_TEST_EQUAL(nt2::sxfun(plus_pfo(1), a, b), c);
 }
 
 NT2_TEST_CASE_TPL( sxfun_7, NT2_TYPES)
