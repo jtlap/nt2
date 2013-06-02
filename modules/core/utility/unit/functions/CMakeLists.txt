@@ -38,6 +38,7 @@ SET( SOURCES
   relative_size.cpp
   size.cpp
   sx.cpp
+  sxfun.cpp
   tie.cpp
   tsxfun.cpp
   whereij.cpp
