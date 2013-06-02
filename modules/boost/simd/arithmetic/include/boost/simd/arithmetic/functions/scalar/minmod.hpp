@@ -9,10 +9,12 @@
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_MINMOD_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_MINMOD_HPP_INCLUDED
 #include <boost/simd/arithmetic/functions/minmod.hpp>
-#include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/functions/scalar/min.hpp>
-#include <boost/simd/include/functions/scalar/is_lez.hpp>
 #include <boost/simd/include/functions/scalar/is_gez.hpp>
+#include <boost/simd/include/functions/scalar/is_nltz.hpp>
+#include <boost/simd/include/functions/scalar/if_else_zero.hpp>
+#include <boost/simd/include/functions/scalar/if_allbits_else.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_xor.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -25,7 +27,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return is_lez(a0*a1)? Zero<A0>(): boost::simd::min(a0, a1);
+      return if_else_zero(is_gez(b_xor(a0, a1)),boost::simd::min(a0, a1));
     }
   };
 
@@ -51,7 +53,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return is_lez(a0*a1) ? Zero<A0>() : boost::simd::min(a0,a1);
+      return if_else_zero(is_nltz((a0*a1)),boost::simd::min(a0, a1));
     }
   };
 } } }

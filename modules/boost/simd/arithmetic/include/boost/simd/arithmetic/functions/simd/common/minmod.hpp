@@ -9,27 +9,19 @@
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_MINMOD_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_MINMOD_HPP_INCLUDED
 #include <boost/simd/arithmetic/functions/minmod.hpp>
-#include <boost/simd/include/functions/simd/bitwise_and.hpp>
-#include <boost/simd/include/functions/simd/bitwise_or.hpp>
-#include <boost/simd/include/functions/simd/logical_or.hpp>
-#include <boost/simd/include/functions/simd/bitwise_xor.hpp>
 #include <boost/simd/include/functions/simd/multiplies.hpp>
 #include <boost/simd/include/functions/simd/min.hpp>
 #include <boost/simd/include/functions/simd/is_gez.hpp>
-#include <boost/simd/include/functions/simd/is_nan.hpp>
+#include <boost/simd/include/functions/simd/is_nltz.hpp>
 #include <boost/simd/include/functions/simd/if_else_zero.hpp>
-#include <boost/simd/include/functions/simd/if_allbits_else.hpp>
-#include <boost/simd/include/functions/simd/logical_or.hpp>
+#include <boost/simd/include/functions/simd/bitwise_xor.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minmod_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
-                            )
+                                   , (A0)(X)
+                                   , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
@@ -39,9 +31,9 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minmod_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<unsigned_<A0>,X>))((simd_<unsigned_<A0>,X>))
-                            )
+                                   , (A0)(X)
+                                   , ((simd_<unsigned_<A0>,X>))((simd_<unsigned_<A0>,X>))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
@@ -51,16 +43,14 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minmod_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<floating_<A0>,X>))((simd_<floating_<A0>,X>))
-                            )
+                                   , (A0)(X)
+                                   , ((simd_<floating_<A0>,X>))((simd_<floating_<A0>,X>))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return if_nan_else(logical_or(is_nan(a0), is_nan(a1)),
-                if_else_zero(is_gez(b_xor(a0, a1)),boost::simd::min(a0, a1))
-                );
+      return if_else_zero(is_nltz((a0*a1)),boost::simd::min(a0, a1));
     }
   };
 } } }
