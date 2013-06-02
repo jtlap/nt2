@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_MINMOD_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_MINMOD_HPP_INCLUDED
+
 #include <boost/simd/arithmetic/functions/minmod.hpp>
 #include <boost/simd/include/functions/simd/multiplies.hpp>
 #include <boost/simd/include/functions/simd/min.hpp>
@@ -20,7 +21,7 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minmod_, tag::cpu_
                                    , (A0)(X)
-                                   , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
+                                   , ((simd_<int_<A0>,X>))((simd_<int_<A0>,X>))
                                    )
   {
     typedef A0 result_type;
@@ -32,7 +33,7 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minmod_, tag::cpu_
                                    , (A0)(X)
-                                   , ((simd_<unsigned_<A0>,X>))((simd_<unsigned_<A0>,X>))
+                                   , ((simd_<uint_<A0>,X>))((simd_<uint_<A0>,X>))
                                    )
   {
     typedef A0 result_type;
