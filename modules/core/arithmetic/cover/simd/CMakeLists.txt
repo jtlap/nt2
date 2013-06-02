@@ -58,9 +58,9 @@ subs.cpp
 tofloat.cpp
 toint.cpp
 trunc.cpp
-#two_add.cpp
-#two_prod.cpp
-#two_split.cpp
+two_add.cpp
+two_prod.cpp
+two_split.cpp
 # List of simd test files for toolbox arithmetic
    )
 
