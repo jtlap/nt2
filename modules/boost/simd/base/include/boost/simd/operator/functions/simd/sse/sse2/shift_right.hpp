@@ -19,6 +19,7 @@
 #include <boost/simd/include/functions/simd/group.hpp>
 #include <boost/simd/include/functions/simd/split.hpp>
 #include <boost/simd/include/constants/signmask.hpp>
+#include <boost/simd/include/constants/int_splat.hpp>
 #include <boost/simd/sdk/meta/make_dependent.hpp>
 
 namespace boost { namespace simd { namespace ext
