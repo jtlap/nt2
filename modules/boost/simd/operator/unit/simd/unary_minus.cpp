@@ -13,17 +13,17 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 ///
-#include <boost/simd/toolbox/operator/include/functions/unary_minus.hpp>
+#include <boost/simd/operator/include/functions/unary_minus.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/simd/constant/constant.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
-#include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/simd/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( unary_minus_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)

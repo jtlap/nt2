@@ -8,7 +8,7 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2 polynom toolbox - unwrap"
 
-#include <nt2/toolbox/signal/include/functions/unwrap.hpp>
+#include <nt2/signal/include/functions/unwrap.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/include/functions/colon.hpp>

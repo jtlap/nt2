@@ -13,11 +13,11 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
 ///
-#include <nt2/toolbox/trigonometric/include/functions/rem_pio2.hpp>
+#include <nt2/trigonometric/include/functions/rem_pio2.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <nt2/toolbox/trigonometric/constants.hpp>
+#include <nt2/trigonometric/constants.hpp>
 extern "C" {extern long double cephes_asinl(long double);}
 extern "C" {extern long double cephes_acosl(long double);}
 

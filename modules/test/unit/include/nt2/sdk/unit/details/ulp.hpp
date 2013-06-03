@@ -14,13 +14,19 @@
 #include <nt2/include/functions/value.hpp>
 #include <nt2/sdk/unit/details/is_sequence.hpp>
 #include <nt2/sdk/unit/details/smallest_type.hpp>
+#include <nt2/sdk/unit/details/eval.hpp>
+#include <nt2/sdk/unit/stats.hpp>
 
 #include <boost/dispatch/attributes.hpp>
 #include <boost/fusion/include/is_sequence.hpp>
+#include <boost/fusion/include/at.hpp>
+#include <boost/current_function.hpp>
+#include <boost/typeof/typeof.hpp>
 #include <boost/foreach.hpp>
 #include <algorithm>
-#include <vector>
 #include <iostream>
+#include <iomanip>
+#include <vector>
 
 namespace nt2 { namespace details
 {
@@ -85,7 +91,7 @@ namespace nt2 { namespace details
                           );
       if(!(d <= max_ulpd) )
       {
-        failure_type f = { a, b, d, i };
+        typename VF::value_type f = { a, b, d, i };
         fails.push_back(f);
       }
 
@@ -164,7 +170,10 @@ namespace nt2 { namespace details
           , bool IsASeq=nt2::details::is_sequence<A>::value
           , bool IsBSeq=nt2::details::is_sequence<B>::value
           >
-  struct max_ulp_
+  struct max_ulp_;
+
+  template< class A, class B>
+  struct max_ulp_<A,B,false,false>
   {
     typedef typename max_ulp_value_<A,B>::failure_type failure_type;
 
@@ -200,27 +209,46 @@ namespace nt2 { namespace details
     {
       if( std::distance(b.begin(),b.end()) == std::distance(a.begin(),a.end()))
       {
-        double res = 0;
+        double res(0);
 
         typename A::const_iterator ab = a.begin();
         typename A::const_iterator ae = a.end();
         typename B::const_iterator bb = b.begin();
 
-        while(ab != ae)
+        bool ok(true);
+        while(ok && ab != ae)
         {
-          double r;
-          max_ulp_< typename A::value_type
-                  , typename B::value_type
-                  >()(*ab,*bb,max_ulpd,fails,i++,r);
+          double r(0);
 
+          // Gather potential ULP errors from inside data
+          typedef typename max_ulp_ < typename A::value_type
+                                    , typename B::value_type
+                                    >::failure_type local_failure_type;
+
+          std::vector<local_failure_type> local_fails;
+
+          ok = max_ulp_ < typename A::value_type
+                        , typename B::value_type
+                        >()(*ab,*bb,max_ulpd,local_fails,i,r);
+
+          // Does inner check went ok and do we have fails ?
+          if(ok && !local_fails.empty())
+          {
+            // Register current error
+            typename VF::value_type f = { *ab,*bb, r, i };
+            fails.push_back(f);
+          }
+
+          // Update global max ulp error
           res = std::max(res,r);
           ab++;
           bb++;
+          i++;
         }
 
         ru = res;
 
-        return true;
+        return ok;
       }
       else
       {
@@ -270,7 +298,7 @@ namespace nt2 { namespace details
     {
       if( std::distance(b.begin(),b.end()) == 1)
       {
-        return max_ulp_<typename A::value_type,B>() ( a,*b.begin()
+        return max_ulp_<A,typename B::value_type>() ( a,*b.begin()
                                                     , max_ulpd,fails,i, ru
                                                     );
       }
@@ -284,13 +312,85 @@ namespace nt2 { namespace details
 
 namespace nt2 { namespace unit
 {
-  /// INTERNAL ONLY Main test for equality over any types A and B within a
-  /// given ulp tolerance
+  /// INTERNAL ONLY
+  /// Main test for equality over any types A and B within a given ulp tolerance
   template<class A, class B, class VF>
   BOOST_FORCEINLINE
   bool max_ulp( A const& a, B const& b, double max_ulpd, VF& fails, double& ru )
   {
     return details::max_ulp_<A,B>()(a,b,max_ulpd,fails,0,ru);
+  }
+} }
+
+namespace nt2 { namespace details
+{
+
+  template<typename Fails>
+  BOOST_FORCEINLINE
+  void report_ulp_unit_error( const char* desc, const char* func, int line
+                            , Fails const& ulps, double ulpd, double N
+                            , bool ok
+                            )
+  {
+    if( ulps.empty() )
+    {
+      ::nt2::details::ulp_pass( desc, ulpd, N );
+    }
+    else
+    {
+      ::nt2::details::ulp_fail( desc, func, line, ulps.size(),N, true);
+
+      BOOST_FOREACH ( typename Fails::const_reference f, ulps )
+      {
+        std::cout << std::setprecision(20)
+                  << "\tlhs: "  << f.value
+                  << ", rhs: "  << f.desired_value
+                  << ", ULP: "  << f.ulp_error
+                  << ", @( "    << f.index << " )";
+        std::cout << std::endl;
+      }
+
+      std::cout << std::endl;
+    }
+  }
+
+
+  template<typename A, typename B>
+  BOOST_FORCEINLINE
+  void test_ulp_equal ( const char* desc, const char* func, int line
+                      , A const& a, B const& b
+                      , double N
+                      )
+  {
+    typedef BOOST_TYPEOF(nt2::unit::eval(a))                        a_t;
+    typedef BOOST_TYPEOF(nt2::unit::eval(b))                        b_t;
+    typedef typename nt2::details::max_ulp_<a_t,b_t>::failure_type  f_t;
+
+    std::vector< f_t > ulps;
+    double ulpd = 0;
+    bool ok = find_ulp_error(a,b,ulps,ulpd,N);
+
+    if(ok)
+    {
+      ::nt2::details::report_ulp_unit_error(desc, func, line, ulps, ulpd, N, true);
+    }
+    else
+    {
+      ::nt2::details::ulp_fail( desc, func, line, ulps.size(), N, false);
+    }
+  }
+
+  template<typename A, typename B, typename Fails>
+  BOOST_FORCEINLINE
+  bool find_ulp_error ( A const& a, B const& b
+                      , Fails& ulps, double& ulpd, double N
+                      )
+  {
+    bool ok = nt2::unit::max_ulp( nt2::unit::eval(a)
+                                , nt2::unit::eval(b)
+                                , N, ulps, ulpd
+                                );
+    return ok;
   }
 } }
 

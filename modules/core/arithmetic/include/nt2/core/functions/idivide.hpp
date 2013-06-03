@@ -20,10 +20,12 @@
 #include <nt2/include/functions/trunc.hpp>
 #include <nt2/include/functions/ceil.hpp>
 #include <nt2/include/functions/round.hpp>
+#include <nt2/include/functions/round2even.hpp>
 #include <nt2/include/functions/divfloor.hpp>
 #include <nt2/include/functions/divfix.hpp>
 #include <nt2/include/functions/divceil.hpp>
 #include <nt2/include/functions/divround.hpp>
+#include <nt2/include/functions/divround2even.hpp>
 
 namespace nt2
 {
@@ -58,10 +60,16 @@ namespace nt2
     return divfix(a, b);
   }
   template < class A0,  class A1>
-  typename meta::call<tag::divround_(A0 const&, A1 const&)>::type
+  typename meta::call<tag::divround2even_(A0 const&, A1 const&)>::type
   idivide(A0 const& a, A1 const& b, const tag::round_)
   {
     return divround(a, b);
+  }
+  template < class A0,  class A1>
+  typename meta::call<tag::divround2even_(A0 const&, A1 const&)>::type
+  idivide(A0 const& a, A1 const& b, const tag::round2even_)
+  {
+    return divround2even(a, b);
   }
 }
 

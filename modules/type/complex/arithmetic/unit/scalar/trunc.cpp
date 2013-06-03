@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 
-#include <nt2/toolbox/arithmetic/include/functions/trunc.hpp>
+#include <nt2/arithmetic/include/functions/trunc.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/include/constants/one.hpp>

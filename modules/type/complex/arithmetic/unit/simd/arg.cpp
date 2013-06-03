@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 ///
-#include <nt2/toolbox/arithmetic/include/functions/arg.hpp>
+#include <nt2/arithmetic/include/functions/arg.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/atan2.hpp>
@@ -22,7 +22,7 @@
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/dry.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>

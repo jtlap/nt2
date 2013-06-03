@@ -10,13 +10,13 @@
 
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/of_size.hpp>
-#include <nt2/toolbox/operator/operator.hpp>
+#include <nt2/operator/operator.hpp>
 #include <nt2/include/functions/function.hpp>
 #include <nt2/include/functions/sum.hpp>
 
 #include <nt2/sdk/timing/now.hpp>
 #include <nt2/sdk/unit/details/helpers.hpp>
-#include <nt2/sdk/unit/perform_benchmark.hpp>
+#include <nt2/sdk/bench/perform_benchmark.hpp>
 //#include <nt2/sdk/unit/module.hpp>
 
 #include <nt2/table.hpp>

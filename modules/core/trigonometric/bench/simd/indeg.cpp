@@ -11,10 +11,11 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of trigonometric components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/trigonometric/include/functions/indeg.hpp>
+#include <nt2/trigonometric/include/functions/indeg.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
+#include <nt2/include/constants/pi.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

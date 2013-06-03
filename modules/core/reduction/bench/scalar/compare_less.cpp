@@ -11,9 +11,11 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/reduction/include/functions/compare_less.hpp>
+#include <nt2/reduction/include/functions/compare_less.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
+#include <nt2/include/constants/valmax.hpp>
+#include <nt2/include/constants/valmin.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 

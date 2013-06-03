@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of boost.simd.predicates components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/toolbox/predicates/include/functions/is_not_greater_equal.hpp>
+#include <boost/simd/predicates/include/functions/is_not_greater_equal.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>

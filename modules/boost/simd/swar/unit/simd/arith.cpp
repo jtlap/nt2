@@ -8,14 +8,14 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2 boost.simd.swar toolbox - enumerate SIMD Mode"
 
-#include <boost/simd/toolbox/swar/include/functions/arith.hpp>
+#include <boost/simd/swar/include/functions/arith.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/simd/constant/constant.hpp>
 #include <boost/simd/include/functions/load.hpp>
 
 NT2_TEST_CASE_TPL ( arith, BOOST_SIMD_SIMD_TYPES)

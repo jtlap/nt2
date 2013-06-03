@@ -11,10 +11,12 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of boost.simd.operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/toolbox/operator/include/functions/shift_right.hpp>
+#include <boost/simd/operator/include/functions/shift_right.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 

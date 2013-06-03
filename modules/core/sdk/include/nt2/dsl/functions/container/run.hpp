@@ -10,7 +10,6 @@
 #define NT2_DSL_FUNCTIONS_CONTAINER_RUN_HPP_INCLUDED
 
 #include <nt2/dsl/functions/run.hpp>
-#include <nt2/include/functor.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/transform.hpp>
@@ -22,8 +21,10 @@
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/terminal.hpp>
 #include <nt2/include/functions/firstnonsingleton.hpp>
-#include <nt2/core/container/table/table.hpp>
+#include <nt2/core/container/table/category.hpp>
+#include <nt2/sdk/meta/is_container.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
+#include <boost/proto/traits.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_reference.hpp>
 #include <numeric>
@@ -45,7 +46,7 @@ namespace nt2 { namespace ext
     operator()(A0& a0, A1& a1) const
     {
       a0.resize(a1.extent());
-      nt2::transform(a0, a1);
+      nt2::transform(container::as_view(a0), a1);
       return a0;
     }
   };
@@ -67,7 +68,7 @@ namespace nt2 { namespace ext
     {
       a0.resize(a1.extent());
       if(a0.raw() != a1.raw())
-        nt2::transform(a0, a1);
+        nt2::transform(container::as_view(a0), a1);
       return a0;
     }
   };
@@ -114,7 +115,7 @@ namespace nt2 { namespace ext
 
       if(red == 1)
       {
-        nt2::inner_fold( a0
+        nt2::inner_fold( container::as_view(a0)
                        , input
                        , typename nt2::make_functor<Neutral1, A0>::type()
                        , typename nt2::make_functor<O1, A0>::type()
@@ -123,7 +124,7 @@ namespace nt2 { namespace ext
       }
       else
       {
-        nt2::outer_fold( reshape(a0, of_size(lo, hi))
+        nt2::outer_fold( reshape(container::as_view(a0), of_size(lo, hi))
                        , reshape(input, of_size(lo, inner, hi))
                        , typename nt2::make_functor<Neutral1, A0>::type()
                        , typename nt2::make_functor<O1, A0>::type()
@@ -187,7 +188,7 @@ namespace nt2 { namespace ext
 
       if(red == 1)
       {
-        nt2::inner_scan( a0
+        nt2::inner_scan( container::as_view(a0)
                        , input
                        , typename nt2::make_functor<Neutral1, A0>::type()
                        , typename nt2::make_functor<O1, A0>::type()
@@ -196,12 +197,12 @@ namespace nt2 { namespace ext
       }
       else
       {
-        nt2::outer_scan( reshape(a0, of_size(lo, inner, hi))
-                         , reshape(input, of_size(lo, inner, hi))
-                         , typename nt2::make_functor<Neutral1, A0>::type()
-                         , typename nt2::make_functor<O1, A0>::type()
-                         , typename nt2::make_functor<T1, A0>::type()
-                         );
+        nt2::outer_scan( reshape(container::as_view(a0), of_size(lo, inner, hi))
+                       , reshape(input, of_size(lo, inner, hi))
+                       , typename nt2::make_functor<Neutral1, A0>::type()
+                       , typename nt2::make_functor<O1, A0>::type()
+                       , typename nt2::make_functor<T1, A0>::type()
+                       );
       }
 
       return a0;
@@ -257,11 +258,16 @@ namespace nt2 { namespace ext
                               ))
                             )
   {
+    typedef typename boost::proto::result_of::value<A0>::value_type value_type;
+
+    // avoid copying table
     typedef typename boost::mpl::
-            if_< boost::is_reference< typename boost::dispatch::meta::semantic_of<A0>::type >
-               , A0&
-               , A0
-               >::type
+            if_c< meta::is_container<value_type>::value
+                  && !meta::is_container_ref<value_type>::value
+                  && !boost::is_reference<value_type>::value
+                , A0&
+                , A0
+                >::type
     result_type;
     BOOST_FORCEINLINE result_type operator()(A0& a0) const
     {

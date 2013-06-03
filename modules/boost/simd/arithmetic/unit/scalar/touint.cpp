@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
 ///
-#include <boost/simd/toolbox/arithmetic/include/functions/touint.hpp>
+#include <boost/simd/arithmetic/include/functions/touint.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>

@@ -15,6 +15,7 @@ SET( SOURCES
   anp.cpp
   rat.cpp
   is_prime.cpp
+  fibonacci.cpp
 # List of scalar test files for toolbox combinatorial
    )
 

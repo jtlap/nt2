@@ -16,8 +16,11 @@
 #include <nt2/core/utility/as_index.hpp>
 #include <nt2/include/functions/relative_index.hpp>
 #include <nt2/core/container/dsl/generator.hpp>
+#include <nt2/core/functions/table/details/is_vectorizable_indexer.hpp>
 #include <nt2/core/utility/of_size.hpp>
+#include <boost/mpl/if.hpp>
 #include <boost/array.hpp>
+#include <boost/assert.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -35,8 +38,8 @@ namespace nt2 { namespace ext
     {
       result_type sz = boost::proto::value(boost::proto::child_c<2>(expr));
       std::size_t i = boost::proto::value(boost::proto::child_c<1>(expr));
-      if(i <= result_type::static_size)
-        sz[i-1] = numel(boost::proto::child_c<0>(expr));
+      BOOST_ASSERT_MSG(i <= result_type::static_size, "Applying indexer along a dimension past the indexed size");
+      sz[i-1] = numel(boost::proto::child_c<0>(expr));
       return sz;
     }
   };
@@ -70,7 +73,13 @@ namespace nt2 { namespace ext
                               (unspecified_<Data>)
                             )
   {
-    typedef typename details::as_integer_target<Data>::type   i_t;
+    typedef typename boost::mpl::
+            if_< typename is_vectorizable_indexer< typename boost::proto::result_of::child_c<A0, 0>::value_type
+                                                 , typename meta::cardinal_of<typename meta::target_value<Data>::type>::type
+                                                 >::type
+               , State
+               , typename details::as_integer_target<Data>::type
+               >::type                                        i_t;
     typedef boost::array<i_t, A0::extent_type::static_size>   pos_type;
 
     typedef i_t result_type;

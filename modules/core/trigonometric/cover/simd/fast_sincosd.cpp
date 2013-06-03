@@ -13,11 +13,11 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
 ///
-#include <nt2/toolbox/trigonometric/include/functions/fast_sincosd.hpp>
+#include <nt2/trigonometric/include/functions/fast_sincosd.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <nt2/toolbox/trigonometric/constants.hpp>
+#include <nt2/trigonometric/constants.hpp>
 #include <nt2/include/functions/sind.hpp>
 #include <nt2/include/functions/cosd.hpp>
 
@@ -34,11 +34,11 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/load.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( fast_sincosd_real__1_0,  NT2_SIMD_REAL_TYPES)

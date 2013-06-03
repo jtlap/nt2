@@ -19,22 +19,26 @@
 
 #if defined(BOOST_MSVC)
 #pragma warning( push )
-#pragma warning( disable : 4522 )
+#pragma warning( disable : 4522 ) // multiple assignment operators specified
 #endif
 
 namespace nt2 { namespace container
 {
   template<class T, class S>
   struct  table
-        : expression< typename boost::proto::
-                      terminal< nt2::memory::container<T,S> >::proto_grammar
+        : expression< boost::proto::basic_expr< boost::proto::tag::terminal
+                                              , boost::proto::term< nt2::memory::container<T,S> >
+                                              >
                     , nt2::memory::container<T,S>
                     >
   {
     typedef memory::container<T,S>                                container_type;
-    typedef expression< typename boost::proto::terminal<container_type>::proto_grammar
+    typedef expression< boost::proto::basic_expr< boost::proto::tag::terminal
+                                                , boost::proto::term<container_type>
+                                                 >
                       , container_type
-                      >                                           parent;
+                      >                                           nt2_expression;
+
     typedef typename container_type::pointer                      pointer;
     typedef typename container_type::const_pointer                const_pointer;
     typedef typename container_type::iterator                     iterator;
@@ -49,12 +53,12 @@ namespace nt2 { namespace container
     //==========================================================================
     //  table constructor from its allocator
     //==========================================================================
-    table( allocator_type const& a ) : parent(container_type(a)) {}
+    table( allocator_type const& a ) : nt2_expression(container_type(a)) {}
 
     //==========================================================================
     // table copy constructor
     //==========================================================================
-    table( table const& a0 ) : parent(a0)
+    table( table const& a0 ) : nt2_expression(a0)
     {
     }
 
@@ -90,13 +94,13 @@ namespace nt2 { namespace container
     //==========================================================================
     // Enable base expression handling of assignment
     //==========================================================================
-    using parent::operator=;
+    using nt2_expression::operator=;
 
-    iterator        begin()       { return parent::raw(); }
-    const_iterator  begin() const { return parent::raw(); }
+    iterator        begin()       { return nt2_expression::raw(); }
+    const_iterator  begin() const { return nt2_expression::raw(); }
 
-    iterator        end()       { return begin() + parent::size(); }
-    const_iterator  end() const { return begin() + parent::size(); }
+    iterator        end()       { return begin() + nt2_expression::size(); }
+    const_iterator  end() const { return begin() + nt2_expression::size(); }
   };
 } }
 

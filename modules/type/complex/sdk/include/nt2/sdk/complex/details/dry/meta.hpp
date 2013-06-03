@@ -26,14 +26,14 @@ namespace nt2
   struct dry;
 }
 
-namespace nt2 { namespace meta
+namespace boost { namespace simd { namespace meta
 {
   template<class T>
   struct real_of< nt2::dry<T> >
   {
     typedef T type;
   };
-} }
+} } }
 
 namespace boost { namespace simd { namespace meta
 {

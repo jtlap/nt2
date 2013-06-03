@@ -16,7 +16,6 @@
 #include <nt2/core/settings/interleaving.hpp>
 #include <nt2/core/settings/normalize.hpp>
 #include <nt2/core/settings/storage_order.hpp>
-#include <nt2/core/settings/specific_data.hpp>
 #include <nt2/sdk/memory/composite_buffer.hpp>
 #include <nt2/core/settings/storage_scheme.hpp>
 #include <nt2/core/container/table/semantic.hpp>
@@ -38,7 +37,7 @@ namespace nt2 { namespace memory
    * \tparam Setting Options list describing the behavior of the container
    **/
   //============================================================================
-  template<class T, class S> class container
+  template<class T, class S> class container : public container_base<T>
   {
   public:
     //==========================================================================
@@ -91,14 +90,6 @@ namespace nt2 { namespace memory
     typedef typename buffer_t::const_pointer    const_pointer;
 
     //==========================================================================
-    // Specific data type - Used for per-hardware site special member
-    //==========================================================================
-    typedef typename specific_data< typename  boost::dispatch::
-                                              default_site<T>::type
-                                  , T
-                                  >::type       specific_data_type;
-
-    //==========================================================================
     // size_type is the type used to store the container dimensions set
     //==========================================================================
     typedef typename meta::option<settings_type, tag::of_size_>::type extent_type;
@@ -139,7 +130,7 @@ namespace nt2 { namespace memory
      *  - pre-allocated if its size is static or its storage is automatic
      */
     //==========================================================================
-    container() : data_(), specific_()
+    container() : data_()
     {
       init(sizes_, require_static_init());
     }
@@ -159,7 +150,7 @@ namespace nt2 { namespace memory
      * them properly.
      */
     //==========================================================================
-    container ( allocator_type const& a ) : data_(a), specific_()
+    container ( allocator_type const& a ) : data_(a)
     {
       init(sizes_, require_static_init());
     }
@@ -183,7 +174,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     template<class Size>
     container ( Size const& sz, allocator_type const& a = allocator_type() )
-              : data_(a), sizes_(sz), specific_()
+              : data_(a), sizes_(sz)
     {
       //========================================================================
       //       ****INVALID_CONSTRUCTOR_FOR_STATICALLY_SIZED_CONTAINER****
@@ -208,7 +199,7 @@ namespace nt2 { namespace memory
     {
       data_.swap(y.data_);
       sizes_.swap(y.sizes_);
-      specific_.swap(y.specific_);
+      this->specifics().swap(y.specifics());
     }
 
     //==========================================================================
@@ -307,30 +298,15 @@ namespace nt2 { namespace memory
     //==========================================================================
     BOOST_FORCEINLINE reference operator[](size_type i)
     {
-      specific_.synchronize();
+      this->specifics().synchronize();
       return data_[i];
     }
 
     BOOST_FORCEINLINE const_reference operator[](size_type i) const
     {
-      specific_.synchronize();
+      this->specifics().synchronize();
       return data_[i];
     }
-
-    //==========================================================================
-    /*!
-     * @brief Access to the architecture specific container data
-     * As the inner structure of a container may change with the hardware
-     * configuration, a specific data segment is provided to gather informations
-     * that may be required for proper operation on said configuration.
-     *
-     * @return A reference to the specific data of the container.
-     **/
-    //==========================================================================
-    BOOST_FORCEINLINE
-    specific_data_type&  specifics()       { return specific_; }
-    BOOST_FORCEINLINE
-    specific_data_type&  specifics() const { return specific_; }
 
     //==========================================================================
     // Check if a position is safely R/W in the current container
@@ -386,7 +362,6 @@ namespace nt2 { namespace memory
   private:
     buffer_t                    data_;
     extent_type                 sizes_;
-    mutable specific_data_type  specific_;
   };
 
   //============================================================================

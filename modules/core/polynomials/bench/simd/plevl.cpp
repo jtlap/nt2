@@ -6,42 +6,52 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_BENCH_MODULE "nt2 polynomials toolbox - plevl/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of polynomials components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/polynomials/include/functions/plevl.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/sdk/bench/benchmark.hpp>
-#include <nt2/sdk/bench/timing.hpp>
+#include <nt2/polynomials/include/functions/plevl.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <cmath>
+#include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/memory/allocator.hpp>
+#include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/include/functions/store.hpp>
+#include <nt2/sdk/bench/benchmark.hpp>
+
+template<typename T> NT2_EXPERIMENT(plevl_bench)
+{
+  public:
+  typedef typename boost::simd::meta::scalar_of<T>::type base_t;
+
+  plevl_bench(std::size_t s) : NT2_EXPRIMENT_CTOR(1,"cycles/elements"), size(s)
+  {
+    coeff[0] = base_t(2); coeff[1] = base_t(3); coeff[2] = base_t(4);
+  }
+
+  virtual void run() const
+  {
+    for(int i=0;i<size;i+=T::static_size)
+      boost::simd::store(nt2::plevl(boost::simd::load<T>(&in[i]), coeff),&out[i]);
+  }
+
+  virtual double compute(nt2::benchmark_result_t const& r) const
+  {
+    return r.first/double(size);
+  }
+
+  virtual void info(std::ostream& os) const { os << size; }
+
+  virtual void reset() const
+  {
+    in.resize(size);
+    out.resize(size);
+    nt2::roll(in,-10,10);
+  }
+
+  private:
+  int       size;
+  mutable   std::vector<base_t,boost::simd::memory::allocator<base_t> > in,out;
+  boost::array<base_t,3>        coeff;
+};
+
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+typedef boost::simd::native<float,ext_t> vf_t;
+typedef boost::simd::native<double,ext_t> vd_t;
 
-//////////////////////////////////////////////////////////////////////////////
-// simd runtime benchmark for functor<plevl_> from polynomials
-//////////////////////////////////////////////////////////////////////////////
-using nt2::tag::plevl_;
-
-//////////////////////////////////////////////////////////////////////////////
-// range macro
-//////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, (V1) ,(V2))
-
-namespace n1 {
-  typedef float T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
-  typedef boost::simd::native<A_t,ext_t> vA_t;
-  NT2_TIMING(plevl_,(RS(vT,T(-10),T(10)))(RS(vA_t,T(-10),T(10))))
-}
-namespace n2 {
-  typedef double T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
-  typedef boost::simd::native<A_t,ext_t> vA_t;
-  NT2_TIMING(plevl_,(RS(vT,T(-10),T(10)))(RS(vA_t,T(-10),T(10))))
-}
-
-#undef RS
+NT2_RUN_EXPERIMENT_TPL( plevl_bench, (vf_t)(vd_t), (1024) );

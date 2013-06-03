@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of polynomials components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/polynomials/include/functions/hermite.hpp>
+#include <nt2/polynomials/include/functions/hermite.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>

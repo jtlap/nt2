@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/toolbox/trigonometric/include/functions/rem_pio2_medium.hpp>
+#include <nt2/trigonometric/include/functions/rem_pio2_medium.hpp>
 #include <boost/fusion/include/std_pair.hpp>
 #include <nt2/include/constants/pio_2.hpp>
 #include <nt2/include/constants/pio_4.hpp>

@@ -13,14 +13,14 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 ///
-#include <nt2/toolbox/arithmetic/include/functions/arg.hpp>
+#include <nt2/arithmetic/include/functions/arg.hpp>
 #include <nt2/include/functions/atan2.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 
 NT2_TEST_CASE_TPL ( arg_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {

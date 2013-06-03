@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
 ///
-#include <nt2/toolbox/exponential/include/functions/pow.hpp>
+#include <nt2/exponential/include/functions/pow.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
@@ -27,7 +27,7 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 
 
 
@@ -141,4 +141,39 @@ NT2_TEST_CASE_TPL ( pow_real__2_1,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(pow(nt2::Two <T>(),3), T(8), 0);
   NT2_TEST_ULP_EQUAL(pow(nt2::Zero<T>(),0), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(pow(nt2::Zero<T>(),3), nt2::Zero<r_t>(), 0);
+} // end of test for floating_
+
+
+NT2_TEST_CASE_TPL ( powi_real__2_0,  NT2_REAL_TYPES)
+{
+
+  using nt2::pow;
+  using nt2::tag::pow_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<pow_(T,iT)>::type r_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
+
+
+  // return type conformity test
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl;
+  double ulpd;
+  ulpd=0.0;
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(pow(nt2::Inf<T>(),3), nt2::Inf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(pow(nt2::Inf<T>(),4), nt2::Inf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(pow(nt2::Minf<T>(),3), nt2::Minf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(pow(nt2::Minf<T>(),4), nt2::Inf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(pow(nt2::Mone<T>(),3), nt2::Mone<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(pow(nt2::Mone<T>(),4), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(pow(nt2::Nan<T>(),3), nt2::Nan<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(pow(nt2::Nan<T>(),4), nt2::Nan<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(pow(nt2::One<T>(),3), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(pow(nt2::One<T>(),4), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(pow(nt2::Zero<T>(),3), nt2::Zero<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(pow(nt2::Zero<T>(),4), nt2::Zero<r_t>(), 0);
 } // end of test for floating_

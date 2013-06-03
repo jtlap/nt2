@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
 ///
-#include <nt2/toolbox/ieee/include/functions/frac.hpp>
+#include <nt2/ieee/include/functions/frac.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 
 #include <nt2/sdk/unit/tests/ulp.hpp>

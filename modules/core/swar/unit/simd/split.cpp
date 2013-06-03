@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/toolbox/swar/include/functions/split.hpp>
+#include <nt2/swar/include/functions/split.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/constants/valmin.hpp>

@@ -12,10 +12,10 @@
 #include <nt2/include/functions/krylov.hpp>
 #include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/cons.hpp>
-#include <nt2/include/functions/cast.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/include/functions/extent.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 
 NT2_TEST_CASE_TPL ( krylov, NT2_REAL_TYPES)
 {
@@ -36,14 +36,17 @@ NT2_TEST_CASE_TPL ( krylov, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(z, kt30, 0.5);
   nt2::table<T> z1 = krylov(t30);
   NT2_TEST_ULP_EQUAL(z1, kt30, 0.5);
-  nt2::table<T> z2 = nt2::cast<T>(nt2::krylov(3));
-  NT2_DISPLAY(z2);
-
 
   NT2_TEST_ULP_EQUAL(krylov(t30, nt2::ones(3, 1, nt2::meta::as_<T>()))   , kt30, 0.5);
   NT2_TEST_ULP_EQUAL(krylov(t30), kt30, 0.5);
 }
 
+NT2_TEST_CASE( krylov_scalar )
+{
+  nt2::table<double> z2  = nt2::krylov(3);
 
+  NT2_TEST_EQUAL( nt2::extent(z2), nt2::of_size(3,3) );
+  NT2_TEST_EQUAL( z2(nt2::_,1), nt2::ones(3,1) );
+}
 
 

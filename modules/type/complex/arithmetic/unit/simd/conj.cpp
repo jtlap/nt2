@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 ///
-#include <nt2/toolbox/arithmetic/include/functions/conj.hpp>
+#include <nt2/arithmetic/include/functions/conj.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/extract.hpp>
 #include <nt2/include/functions/splat.hpp>

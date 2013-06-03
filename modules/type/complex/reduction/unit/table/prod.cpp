@@ -13,7 +13,7 @@
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/prod.hpp>
 #include <nt2/include/functions/ones.hpp>
-#include <nt2/toolbox/exponential/include/functions/exp2.hpp>
+#include <nt2/exponential/include/functions/exp2.hpp>
 
 
 #include <nt2/sdk/unit/module.hpp>

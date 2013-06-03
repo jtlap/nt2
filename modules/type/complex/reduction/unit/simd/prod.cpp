@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
 ///
-#include <nt2/toolbox/reduction/include/functions/prod.hpp>
+#include <nt2/reduction/include/functions/prod.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/arith.hpp>
@@ -31,12 +31,12 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/load.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>

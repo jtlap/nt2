@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/toolbox/trigonometric/include/functions/fast_sincospi.hpp>
+#include <nt2/trigonometric/include/functions/fast_sincospi.hpp>
 
 #include <nt2/include/constants/third.hpp>
 #include <nt2/include/constants/invpi.hpp>

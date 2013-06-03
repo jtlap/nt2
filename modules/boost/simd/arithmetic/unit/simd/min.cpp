@@ -13,13 +13,13 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
 ///
-#include <boost/simd/toolbox/arithmetic/include/functions/min.hpp>
+#include <boost/simd/arithmetic/include/functions/min.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/simd/constant/constant.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
@@ -49,4 +49,28 @@ NT2_TEST_CASE_TPL ( min_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(min(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(min(boost::simd::One<vT>(), boost::simd::One<vT>())[0], boost::simd::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(min(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<T>(), 0);
-} // end of test for floating_
+  NT2_TEST_ULP_EQUAL(min(boost::simd::Nan<vT>(), boost::simd::One<vT>())[0], boost::simd::One<T>(), 0);
+  NT2_TEST_ULP_EQUAL(min(boost::simd::One<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<T>(), 0);
+
+
+  std::cout << min(boost::simd::Nan<vT>(), boost::simd::One<vT>())[0] << std::endl;
+  std::cout << min(boost::simd::One<vT>(), boost::simd::Nan<vT>())[0] << std::endl;
+}
+
+NT2_TEST_CASE_TPL ( min_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
+{
+  using boost::simd::min;
+  using boost::simd::tag::min_;
+  using boost::simd::native;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(min(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0], boost::simd::Inf<T>(), 0);
+  NT2_TEST_ULP_EQUAL(min(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0], boost::simd::Minf<T>(), 0);
+  NT2_TEST_ULP_EQUAL(min(boost::simd::Mone<vT>(), boost::simd::Mone<vT>())[0], boost::simd::Mone<T>(), 0);
+  NT2_TEST_ULP_EQUAL(min(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<T>(), 0);
+  NT2_TEST_ULP_EQUAL(min(boost::simd::One<vT>(), boost::simd::One<vT>())[0], boost::simd::One<T>(), 0);
+  NT2_TEST_ULP_EQUAL(min(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<T>(), 0);
+}

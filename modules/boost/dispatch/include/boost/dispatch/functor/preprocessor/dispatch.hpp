@@ -65,7 +65,7 @@ namespace boost { namespace dispatch { namespace meta                          \
           >                                                                    \
   BOOST_DISPATCH_FORCE_INLINE                                                  \
   BOOST_DISPATCH_PP_STRIP(Ret)                                                 \
-  dispatching( Tag, Site                                                       \
+  dispatching( BOOST_DISPATCH_PP_STRIP(Tag), BOOST_DISPATCH_PP_STRIP(Site)     \
                BOOST_PP_REPEAT( BOOST_PP_SEQ_SIZE(Seq)                         \
                               , BOOST_DISPATCH_ARG                             \
                               , Seq                                            \
@@ -104,7 +104,7 @@ namespace boost { namespace dispatch { namespace meta                          \
           >                                                                    \
   BOOST_DISPATCH_FORCE_INLINE                                                  \
   BOOST_DISPATCH_PP_STRIP(Ret)                                                 \
-  dispatching( Tag, Site                                                       \
+  dispatching( BOOST_DISPATCH_PP_STRIP(Tag), BOOST_DISPATCH_PP_STRIP(Site)     \
                BOOST_PP_REPEAT( BOOST_PP_SEQ_SIZE(Seq)                         \
                               , BOOST_DISPATCH_ARG                             \
                               , Seq                                            \
@@ -146,7 +146,7 @@ namespace boost { namespace dispatch { namespace meta                          \
   typename boost::enable_if< BOOST_DISPATCH_PP_STRIP(Cond)                     \
                            , BOOST_DISPATCH_PP_STRIP(Ret)                      \
                            >::type                                             \
-  dispatching( Tag, Site                                                       \
+  dispatching( BOOST_DISPATCH_PP_STRIP(Tag), BOOST_DISPATCH_PP_STRIP(Site)     \
                BOOST_PP_REPEAT( BOOST_PP_SEQ_SIZE(Seq)                         \
                               , BOOST_DISPATCH_ARG                             \
                               , Seq                                            \
@@ -189,7 +189,7 @@ namespace boost { namespace dispatch { namespace meta                          \
   typename boost::enable_if< BOOST_DISPATCH_PP_STRIP(Cond)                     \
                            , BOOST_DISPATCH_PP_STRIP(Ret)                      \
                            >::type                                             \
-  dispatching( Tag, Site                                                       \
+  dispatching( BOOST_DISPATCH_PP_STRIP(Tag), BOOST_DISPATCH_PP_STRIP(Site)     \
                BOOST_PP_REPEAT( BOOST_PP_SEQ_SIZE(Seq)                         \
                               , BOOST_DISPATCH_ARG                             \
                               , Seq                                            \
@@ -214,7 +214,7 @@ implement< BOOST_DISPATCH_PP_STRIP(Tag)                                        \
                           , Seq                                                \
                           )                                                    \
            )                                                                   \
-         , Site                                                                \
+         , BOOST_DISPATCH_PP_STRIP(Site)                                       \
          >                                                                     \
 /**/
 

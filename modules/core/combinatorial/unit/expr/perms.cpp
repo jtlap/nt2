@@ -8,7 +8,7 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2 combinatorial toolbox - perms"
 
-#include <nt2/toolbox/combinatorial/include/functions/perms.hpp>
+#include <nt2/combinatorial/include/functions/perms.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/table.hpp>

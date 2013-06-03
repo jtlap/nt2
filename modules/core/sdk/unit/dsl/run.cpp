@@ -39,18 +39,29 @@ struct run_type
 NT2_TEST_CASE( run_type )
 {
   using nt2::table;
+  using nt2::table_view;
   typedef double T;
   typedef nt2::settings S(nt2::_4D);
 
   table<T, S> a0;
 
   typedef nt2::memory::container<T, S> container;
-  typedef nt2::memory::container_ref<container const> container_ref;
-  typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<container_ref> > expr;
-  typedef nt2::container::expression<expr, container const&> nt2_expr;
+  typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<container&> > expr;
+  typedef nt2::container::expression<expr, container&> nt2_expr;
+
+  NT2_TEST_EXPR_TYPE( a0
+                    , run_type
+                    , (table<T, S>&)
+                    );
+
+  NT2_TEST_EXPR_TYPE( boost::proto::child_c<0>(nt2::assign(a0, a0))
+                    , run_type
+                    , nt2_expr
+                    );
+
   NT2_TEST_EXPR_TYPE( boost::proto::child_c<0>(a0 + a0)
                     , run_type
-                    , nt2_expr&
+                    , (table_view<T const, S>)
                     );
 
   NT2_TEST_EXPR_TYPE( a0 + a0
@@ -122,14 +133,14 @@ NT2_TEST_CASE( scalar_size )
   typedef float T;
 
   table<T> a0 = T(42);
-  NT2_TEST_EQUAL( a0.extent(), of_size(1 ) );
+  NT2_TEST_EQUAL( a0.extent(), of_size(1) );
   NT2_TEST_EQUAL( T(a0(1)), T(42) );
 
   table<T> a1;
-  NT2_TEST_EQUAL( a1.extent(), of_size(0 ) );
+  NT2_TEST_EQUAL( a1.extent(), of_size(0) );
 
   a1 = T(42);
-  NT2_TEST_EQUAL( a1.extent(), of_size(1 ) );
+  NT2_TEST_EQUAL( a1.extent(), of_size(1) );
   NT2_TEST_EQUAL( T(a0(1)), T(42) );
 }
 

@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
 ///
-#include <boost/simd/toolbox/bitwise/include/functions/ilog2.hpp>
+#include <boost/simd/bitwise/include/functions/ilog2.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/include/functions/ilogb.hpp>
 #include <boost/simd/include/functions/abs.hpp>
@@ -22,7 +22,7 @@
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/simd/constant/constant.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
@@ -52,7 +52,7 @@ NT2_TEST_CASE_TPL ( ilog2_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(ilog2(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( ilog2_ints__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( ilog2_ints__1_0,  BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::ilog2;
   using boost::simd::tag::ilog2_;

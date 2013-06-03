@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 30/11/2010
 ///
-#include <nt2/toolbox/combinatorial/include/functions/gcd.hpp>
+#include <nt2/combinatorial/include/functions/gcd.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/nan.hpp>

@@ -12,6 +12,7 @@ SET( SOURCES
   hjmin.cpp
   levenberg.cpp
   neldermead.cpp
+rosenbrock.cpp
 # List of scalar test files for toolbox optimize
    )
 

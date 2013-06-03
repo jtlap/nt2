@@ -16,7 +16,6 @@
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/constants/true.hpp>
 #include <nt2/include/functions/logical_and.hpp>
-#include <nt2/include/functions/sb2b.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>

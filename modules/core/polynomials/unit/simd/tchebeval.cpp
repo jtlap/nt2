@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 06/03/2011
 ///
-#include <nt2/toolbox/polynomials/include/functions/tchebeval.hpp>
+#include <nt2/polynomials/include/functions/tchebeval.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>

@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.ieee components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 
-#include <boost/simd/toolbox/ieee/include/functions/saturate_at.hpp>
+#include <boost/simd/ieee/include/functions/saturate_at.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/type_traits/is_same.hpp>

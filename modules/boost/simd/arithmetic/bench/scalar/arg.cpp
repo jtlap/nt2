@@ -11,10 +11,12 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of boost.simd.arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/toolbox/arithmetic/include/functions/arg.hpp>
+#include <boost/simd/arithmetic/include/functions/arg.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 
@@ -38,46 +40,6 @@ namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(arg_,(RS(T,-10.0,10.0)))
-}
-namespace n3 {
-  typedef boost::simd::uint8_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(arg_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>())))
-}
-namespace n4 {
-  typedef boost::simd::uint16_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(arg_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>())))
-}
-namespace n5 {
-  typedef boost::simd::uint32_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(arg_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>())))
-}
-namespace n6 {
-  typedef boost::simd::uint64_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(arg_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>())))
-}
-namespace n7 {
-  typedef boost::simd::int8_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(arg_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>())))
-}
-namespace n8 {
-  typedef boost::simd::int16_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(arg_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>())))
-}
-namespace n9 {
-  typedef boost::simd::int32_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(arg_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>())))
-}
-namespace n10 {
-  typedef boost::simd::int64_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(arg_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>())))
 }
 
 #undef RS

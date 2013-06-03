@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
 ///
-#include <nt2/toolbox/arithmetic/include/functions/round.hpp>
+#include <nt2/arithmetic/include/functions/round.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -28,7 +28,7 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
 
@@ -59,10 +59,10 @@ NT2_TEST_CASE_TPL ( round_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(round(nt2::splat<vT>(1.4))[0], sr_t(1), 0);
   NT2_TEST_ULP_EQUAL(round(nt2::splat<vT>(1.5))[0], sr_t(2), 0);
   NT2_TEST_ULP_EQUAL(round(nt2::splat<vT>(1.6))[0], sr_t(2), 0);
-  NT2_TEST_ULP_EQUAL(round(nt2::splat<vT>(2.5))[0], sr_t(2), 0);
-  NT2_TEST_ULP_EQUAL(round(nt2::Half<vT>())[0], nt2::Zero<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(round(nt2::splat<vT>(2.5))[0], sr_t(3), 0);
+  NT2_TEST_ULP_EQUAL(round(nt2::Half<vT>())[0], nt2::One<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(round(nt2::Inf<vT>())[0], nt2::Inf<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(round(nt2::Mhalf<vT>())[0], nt2::Zero<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(round(nt2::Mhalf<vT>())[0], nt2::Mone<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(round(nt2::Minf<vT>())[0], nt2::Minf<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(round(nt2::Mone<vT>())[0], nt2::Mone<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(round(nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0);

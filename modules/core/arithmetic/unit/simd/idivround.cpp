@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
 ///
-#include <nt2/toolbox/arithmetic/include/functions/idivround.hpp>
+#include <nt2/arithmetic/include/functions/idivround.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/iround.hpp>
 #include <nt2/include/functions/tofloat.hpp>
@@ -31,11 +31,12 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
 
 #include <nt2/include/functions/load.hpp>
+#include <nt2/include/constants/valmax.hpp>
 
 
 NT2_TEST_CASE_TPL ( idivround_real__2_0,  NT2_SIMD_REAL_TYPES)
@@ -64,4 +65,5 @@ NT2_TEST_CASE_TPL ( idivround_real__2_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(idivround(nt2::Mone<vT>(), nt2::Mone<vT>())[0], nt2::One<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivround(nt2::Nan<vT>(), nt2::Nan<vT>())[0], nt2::Zero<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivround(nt2::One<vT>(), nt2::One<vT>())[0], nt2::One<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivround(nt2::One<vT>(), nt2::Zero<vT>())[0], nt2::Valmax<sr_t>(), 0);
 } // end of test for floating_

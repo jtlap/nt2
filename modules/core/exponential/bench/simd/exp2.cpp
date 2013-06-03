@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of exponential components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/exponential/include/functions/exp2.hpp>
+#include <nt2/exponential/include/functions/exp2.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>

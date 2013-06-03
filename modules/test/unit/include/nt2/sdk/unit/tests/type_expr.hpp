@@ -40,36 +40,36 @@
   @usage
   @include test_type_expr.cpp
 **/
-#define NT2_TEST_EXPR_TYPE(Expression, Lambda, Type)                            \
-{                                                                               \
-  nt2::unit::test_count()++;                                                    \
-  std::cout << " * Test expression `"                                           \
-            << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Expression)) << "`\n"   \
-            << "       with lambda `"                                           \
-            << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Lambda)) << "`\n"       \
-            << "        is of type `"                                           \
-            << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Type)) << "`\n"         \
-            << "               aka `"                                           \
-            << nt2::type_id<BOOST_DISPATCH_PP_STRIP(Type)>() << "`\n";          \
-  if(nt2::details::is_same_as<BOOST_DISPATCH_PP_STRIP(Type)>                    \
-     (nt2::details::expr_type<BOOST_DISPATCH_PP_STRIP(Lambda)>                  \
-                             (BOOST_DISPATCH_PP_STRIP(Expression))              \
-     )                                                                          \
-    )                                                                           \
-  {                                                                             \
-    std::cout << " **passed**\n\n";                                             \
-  }                                                                             \
-  else                                                                          \
-  {                                                                             \
-    nt2::unit::error_count()++;                                                 \
-    std::cout << " **failed**     is `"                                         \
-              << nt2::details::type_id_identity                                 \
-                 (nt2::details::expr_type<BOOST_DISPATCH_PP_STRIP(Lambda)>      \
-                                         (BOOST_DISPATCH_PP_STRIP(Expression))  \
-                 )                                                              \
-              << "`\n\n";                                                       \
-  }                                                                             \
-}                                                                               \
+#define NT2_TEST_EXPR_TYPE(Expression, Lambda, Type)                           \
+do {                                                                           \
+  nt2::unit::test_count()++;                                                   \
+  std::cout << " * Test expression `"                                          \
+            << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Expression)) << "`\n"  \
+            << "       with lambda `"                                          \
+            << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Lambda)) << "`\n"      \
+            << "        is of type `"                                          \
+            << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Type)) << "`\n"        \
+            << "               aka `"                                          \
+            << nt2::type_id<BOOST_DISPATCH_PP_STRIP(Type)>() << "`\n";         \
+  if(nt2::details::is_same_as<BOOST_DISPATCH_PP_STRIP(Type)>                   \
+     (nt2::details::expr_type<BOOST_DISPATCH_PP_STRIP(Lambda)>                 \
+                             (BOOST_DISPATCH_PP_STRIP(Expression))             \
+     )                                                                         \
+    )                                                                          \
+  {                                                                            \
+    std::cout << " **passed**\n\n";                                            \
+  }                                                                            \
+  else                                                                         \
+  {                                                                            \
+    nt2::unit::error_count()++;                                                \
+    std::cout << " **failed**     is `"                                        \
+              << nt2::details::type_id_identity                                \
+                 (nt2::details::expr_type<BOOST_DISPATCH_PP_STRIP(Lambda)>     \
+                                         (BOOST_DISPATCH_PP_STRIP(Expression)) \
+                 )                                                             \
+              << "`\n\n";                                                      \
+  }                                                                            \
+} while(0)                                                                     \
 /**/
 
 /*!
@@ -81,27 +81,27 @@
   @usage
   @include test_type_info.cpp
 **/
-#define NT2_TEST_TYPE_INFO(Info, Type)                                  \
-{                                                                       \
-  nt2::unit::test_count()++;                                            \
-  std::cout << " * Test type info `"                                    \
-            << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Info)) << "`\n" \
-            << "       is of type `"                                    \
-            << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Type)) << "`\n" \
-            << "              aka `"                                    \
-            << nt2::type_id<BOOST_DISPATCH_PP_STRIP(Type)>() << "`\n";  \
-  if(typeid(BOOST_DISPATCH_PP_STRIP(Type)) == Info)                     \
-  {                                                                     \
-    std::cout << " **passed**\n\n";                                     \
-  }                                                                     \
-  else                                                                  \
-  {                                                                     \
-    nt2::unit::error_count()++;                                         \
-    std::cout << " **failed**    is `"                                  \
-              << nt2::details::demangle((Info).name())                  \
-              << "`\n\n";                                               \
-  }                                                                     \
-}                                                                       \
+#define NT2_TEST_TYPE_INFO(Info, Type)                                         \
+do {                                                                           \
+  nt2::unit::test_count()++;                                                   \
+  std::cout << " * Test type info `"                                           \
+            << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Info)) << "`\n"        \
+            << "       is of type `"                                           \
+            << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Type)) << "`\n"        \
+            << "              aka `"                                           \
+            << nt2::type_id<BOOST_DISPATCH_PP_STRIP(Type)>() << "`\n";         \
+  if(typeid(BOOST_DISPATCH_PP_STRIP(Type)) == Info)                            \
+  {                                                                            \
+    std::cout << " **passed**\n\n";                                            \
+  }                                                                            \
+  else                                                                         \
+  {                                                                            \
+    nt2::unit::error_count()++;                                                \
+    std::cout << " **failed**    is `"                                         \
+              << nt2::details::demangle((Info).name())                         \
+              << "`\n\n";                                                      \
+  }                                                                            \
+} while(0)                                                                     \
 /**/
 
 /*!
@@ -114,7 +114,7 @@
   @include test_type_is.cpp
 **/
 #define NT2_TEST_TYPE_IS(T, Type)                                              \
-{                                                                              \
+do {                                                                           \
   nt2::unit::test_count()++;                                                   \
   std::cout << " * Test type   `"                                              \
             << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(T)) << "`\n"           \
@@ -132,6 +132,6 @@
                                          >::value                              \
                          >()                                                   \
                        );                                                      \
-}                                                                              \
+} while(0)                                                                     \
 
 #endif

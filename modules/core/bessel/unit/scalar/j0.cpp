@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 16/02/2011
 ///
-#include <nt2/toolbox/bessel/include/functions/j0.hpp>
+#include <nt2/bessel/include/functions/j0.hpp>
 extern "C" {long double cephes_j0l(long double);}
 
 #include <boost/type_traits/is_same.hpp>
@@ -29,7 +29,7 @@ extern "C" {long double cephes_j0l(long double);}
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
 
 

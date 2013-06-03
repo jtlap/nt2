@@ -13,12 +13,12 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 20/02/2011
 ///
-#include <nt2/toolbox/hyperbolic/include/functions/sinhc.hpp>
+#include <nt2/hyperbolic/include/functions/sinhc.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/exponential/constants.hpp>
+#include <nt2/exponential/constants.hpp>
 
-#include <nt2/toolbox/boost_math/include/functions/sinhc_pi.hpp>
+#include <nt2/boost_math/include/functions/sinhc_pi.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -33,11 +33,11 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/load.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( sinhc_real__1_0,  NT2_SIMD_REAL_TYPES)

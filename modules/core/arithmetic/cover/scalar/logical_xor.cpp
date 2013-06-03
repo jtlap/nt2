@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
 ///
-#include <nt2/toolbox/arithmetic/include/functions/logical_xor.hpp>
+#include <nt2/arithmetic/include/functions/logical_xor.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/simd/logical.hpp>
@@ -29,7 +29,7 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( logical_xor_real__2_0,  NT2_REAL_TYPES)
@@ -41,14 +41,6 @@ NT2_TEST_CASE_TPL ( logical_xor_real__2_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<logical_xor_(T,T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef nt2::logical<T> wished_r_t;
-
-
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
 
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
@@ -80,14 +72,6 @@ NT2_TEST_CASE_TPL ( logical_xor_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
   typedef typename nt2::meta::call<logical_xor_(T,T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef nt2::logical<T> wished_r_t;
-
-
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
 
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
@@ -119,14 +103,6 @@ NT2_TEST_CASE_TPL ( logical_xor_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef typename nt2::meta::call<logical_xor_(T,T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef nt2::logical<T> wished_r_t;
-
-
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
 
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;

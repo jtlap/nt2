@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 06/03/2011
 ///
-#include <nt2/toolbox/polynomials/include/functions/polevl.hpp>
+#include <nt2/polynomials/include/functions/polevl.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 
 #include <nt2/sdk/unit/tests/relation.hpp>

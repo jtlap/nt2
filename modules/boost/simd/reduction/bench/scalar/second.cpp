@@ -11,10 +11,12 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of boost.simd.reduction components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/toolbox/reduction/include/functions/second.hpp>
+#include <boost/simd/reduction/include/functions/second.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 

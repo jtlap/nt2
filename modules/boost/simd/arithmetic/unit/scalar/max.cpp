@@ -13,13 +13,13 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
 ///
-#include <boost/simd/toolbox/arithmetic/include/functions/max.hpp>
+#include <boost/simd/arithmetic/include/functions/max.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/simd/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( max_real__2_0,  BOOST_SIMD_REAL_TYPES)
@@ -45,6 +45,8 @@ NT2_TEST_CASE_TPL ( max_real__2_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(max(boost::simd::Nan<T>(), boost::simd::Nan<T>()), boost::simd::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(max(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(max(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<T>(), 0);
+  NT2_TEST_ULP_EQUAL(max(boost::simd::Nan<T>(), boost::simd::One<T>()), boost::simd::One<T>(), 0);
+  NT2_TEST_ULP_EQUAL(max(boost::simd::One<T>(), boost::simd::Nan<T>()), boost::simd::Nan<T>(), 0);
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( max_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)

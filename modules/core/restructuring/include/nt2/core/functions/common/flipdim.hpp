@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
   {
     typedef typename boost::dispatch::meta::
             call<nt2::tag::run_ ( typename  boost::proto::result_of::
-                                            child_c<A0&, 0>::type
+                                  child_c<A0&, 0>::type
                                 , State&, Data&
                                 )
                 >::type                                               result_type;

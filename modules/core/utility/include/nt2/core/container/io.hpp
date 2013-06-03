@@ -134,10 +134,9 @@ namespace nt2
       {
         // We schedule xpr to be sure everything is evaluated if needed.
         typedef nt2::container::expression<Xpr,R> expr_t;
-        typedef typename make_functor<tag::run_, expr_t>::type               run_t;
-        typedef container::domain::template as_child<expr_t const>           sched;
+        typedef meta::as_elementwise<expr_t const> sched;
 
-        typename sched::result_type s = sched()(xpr);
+        typename sched::type s = sched::call(xpr);
 
         // We print expression based on their runtime ndims so the various
         // ans(:,:,...) are not tainted by useless 1's

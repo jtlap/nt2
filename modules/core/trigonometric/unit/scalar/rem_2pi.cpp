@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/toolbox/trigonometric/include/functions/rem_2pi.hpp>
+#include <nt2/trigonometric/include/functions/rem_2pi.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>

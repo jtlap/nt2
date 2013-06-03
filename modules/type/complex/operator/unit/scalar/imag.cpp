@@ -19,7 +19,7 @@
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 
 NT2_TEST_CASE_TPL ( imag_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {

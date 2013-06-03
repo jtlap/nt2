@@ -6,48 +6,65 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2::constants digits"
-
 #include <nt2/include/constants/digits.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+
+#include "../constant.hpp"
 
 #ifdef BOOST_MSVC
   #pragma warning(disable: 4309) // truncation of constant value
 #endif
 
-////////////////////////////////////////////////////////////////////////////////
-// Test value of digit constant for every base types
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( digit_value, NT2_TYPES )
+NT2_TEST_CASE_TPL( digit_value, BOOST_SIMD_TYPES(char) )
 {
-  NT2_TEST_EQUAL( nt2::Mten<T>()            , static_cast<T>( -10) );
-  NT2_TEST_EQUAL( nt2::Mnine<T>()           , static_cast<T>(  -9) );
-  NT2_TEST_EQUAL( nt2::Meight<T>()          , static_cast<T>(  -8) );
-  NT2_TEST_EQUAL( nt2::Mseven<T>()          , static_cast<T>(  -7) );
-  NT2_TEST_EQUAL( nt2::Msix<T>()            , static_cast<T>(  -6) );
-  NT2_TEST_EQUAL( nt2::Mfive<T>()           , static_cast<T>(  -5) );
-  NT2_TEST_EQUAL( nt2::Mfour<T>()           , static_cast<T>(  -4) );
-  NT2_TEST_EQUAL( nt2::Mthree<T>()          , static_cast<T>(  -3) );
-  NT2_TEST_EQUAL( nt2::Mtwo<T>()            , static_cast<T>(  -2) );
-  NT2_TEST_EQUAL( nt2::Mone<T>()            , static_cast<T>(  -1) );
-  NT2_TEST_EQUAL( nt2::Zero<T>()            , static_cast<T>(   0) );
-  NT2_TEST_EQUAL( nt2::One<T>()             , static_cast<T>(   1) );
-  NT2_TEST_EQUAL( nt2::Two<T>()             , static_cast<T>(   2) );
-  NT2_TEST_EQUAL( nt2::Three<T>()           , static_cast<T>(   3) );
-  NT2_TEST_EQUAL( nt2::Four<T>()            , static_cast<T>(   4) );
-  NT2_TEST_EQUAL( nt2::Five<T>()            , static_cast<T>(   5) );
-  NT2_TEST_EQUAL( nt2::Six<T>()             , static_cast<T>(   6) );
-  NT2_TEST_EQUAL( nt2::Seven<T>()           , static_cast<T>(   7) );
-  NT2_TEST_EQUAL( nt2::Eight<T>()           , static_cast<T>(   8) );
-  NT2_TEST_EQUAL( nt2::Nine<T>()            , static_cast<T>(   9) );
-  NT2_TEST_EQUAL( nt2::Ten<T>()             , static_cast<T>(  10) );
+  NT2_CHECK_CONSTANT(Mten     , -10, T);
+  NT2_CHECK_CONSTANT(Mnine    , -9 , T);
+  NT2_CHECK_CONSTANT(Meight   , -8 , T);
+  NT2_CHECK_CONSTANT(Mseven   , -7 , T);
+  NT2_CHECK_CONSTANT(Msix     , -6 , T);
+  NT2_CHECK_CONSTANT(Mfive    , -5 , T);
+  NT2_CHECK_CONSTANT(Mfour    , -4 , T);
+  NT2_CHECK_CONSTANT(Mthree   , -3 , T);
+  NT2_CHECK_CONSTANT(Mtwo     , -2 , T);
+  NT2_CHECK_CONSTANT(Mone     , -1 , T);
+  NT2_CHECK_CONSTANT(Zero     ,  0 , T);
+  NT2_CHECK_CONSTANT(One      ,  1 , T);
+  NT2_CHECK_CONSTANT(Two      ,  2 , T);
+  NT2_CHECK_CONSTANT(Three    ,  3 , T);
+  NT2_CHECK_CONSTANT(Four     ,  4 , T);
+  NT2_CHECK_CONSTANT(Five     ,  5 , T);
+  NT2_CHECK_CONSTANT(Six      ,  6 , T);
+  NT2_CHECK_CONSTANT(Seven    ,  7 , T);
+  NT2_CHECK_CONSTANT(Eight    ,  8 , T);
+  NT2_CHECK_CONSTANT(Nine     ,  9 , T);
+  NT2_CHECK_CONSTANT(Ten      , 10 , T);
+  NT2_CHECK_CONSTANT(Eleven   , 11 , T);
+  NT2_CHECK_CONSTANT(Twelve   , 12 , T);
+  NT2_CHECK_CONSTANT(Fifteen  , 15 , T);
+  NT2_CHECK_CONSTANT(Twenty   , 20 , T);
+  NT2_CHECK_CONSTANT(Hundred  , 100 , T);
+  NT2_CHECK_CONSTANT(Thousand , 1000 , T);
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Test integral_constant for every base types
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( integral_constant,NT2_INTEGRAL_TYPES )
+NT2_TEST_CASE_TPL( fact_value, BOOST_SIMD_TYPES(char) )
 {
+  NT2_CHECK_CONSTANT(Fact_4    ,        24, T);
+  NT2_CHECK_CONSTANT(Fact_5    ,       120, T);
+  NT2_CHECK_CONSTANT(Fact_6    ,       720, T);
+  NT2_CHECK_CONSTANT(Fact_7    ,      5040, T);
+  NT2_CHECK_CONSTANT(Fact_8    ,     40320, T);
+  NT2_CHECK_CONSTANT(Fact_9    ,    362880, T);
+  NT2_CHECK_CONSTANT(Fact_10   ,   3628800, T);
+  NT2_CHECK_CONSTANT(Fact_11   ,  39916800, T);
+  NT2_CHECK_CONSTANT(Fact_12   , 479001600, T);
+}
+
+NT2_TEST_CASE_TPL( integral_constant, BOOST_SIMD_INTEGRAL_TYPES(char) )
+{
+  NT2_TEST_EXPR_TYPE((nt2::integral_constant<T,42>()), boost::mpl::_, T);
+
   NT2_TEST_EQUAL( (nt2::integral_constant<T,42>()), static_cast<T>(42) );
 }

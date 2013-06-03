@@ -8,7 +8,7 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2 operator toolbox - map/simd Mode"
 
-#include <nt2/toolbox/operator/include/functions/map.hpp>
+#include <nt2/operator/include/functions/map.hpp>
 #include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/include/functions/unary_plus.hpp>
 #include <nt2/include/functions/plus.hpp>

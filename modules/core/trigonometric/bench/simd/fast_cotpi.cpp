@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of trigonometric components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/trigonometric/include/functions/fast_cotpi.hpp>
+#include <nt2/trigonometric/include/functions/fast_cotpi.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
@@ -33,13 +33,13 @@ namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(fast_cotpi_,(RS(vT,T(0.25),T(0.25))))
+  NT2_TIMING(fast_cotpi_,(RS(vT,T(-0.25),T(0.25))))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(fast_cotpi_,(RS(vT,T(0.25),T(0.25))))
+  NT2_TIMING(fast_cotpi_,(RS(vT,T(-0.25),T(0.25))))
 }
 
 #undef RS

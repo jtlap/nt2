@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of ieee components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/ieee/include/functions/mantissa.hpp>
+#include <nt2/ieee/include/functions/mantissa.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>

@@ -13,7 +13,7 @@
 #include <nt2/include/functions/fast_cos.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/core/container/table/table.hpp>
-#include <nt2/toolbox/operator/functions.hpp>
+#include <nt2/operator/functions.hpp>
 #include <nt2/include/functions/function.hpp>
 
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>

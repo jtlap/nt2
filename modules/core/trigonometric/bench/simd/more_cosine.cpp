@@ -11,11 +11,12 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of trigonometric components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/trigonometric/include/functions/cosine.hpp>
+#include <nt2/trigonometric/include/functions/cosine.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/toolbox/trigonometric/include/functions/fast_cos.hpp>
+#include <nt2/trigonometric/include/functions/fast_cos.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
+#include <nt2/include/constants/pi.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -118,7 +119,7 @@ namespace nn0111 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(cosine_<nt2::clipped_medium>,(RS(vT,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
+  NT2_TIMING(cosine_<nt2::clipped_medium_>,(RS(vT,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
 }
 namespace nn111 {
   typedef float T;

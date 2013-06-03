@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
 ///
-#include <nt2/toolbox/ieee/include/functions/frexp.hpp>
+#include <nt2/ieee/include/functions/frexp.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <boost/fusion/tuple.hpp>
@@ -37,7 +37,7 @@
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/load.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( frexp_real__1_0,  NT2_SIMD_REAL_TYPES)

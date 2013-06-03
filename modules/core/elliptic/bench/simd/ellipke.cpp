@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of elliptic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/elliptic/include/functions/ellipke.hpp>
+#include <nt2/elliptic/include/functions/ellipke.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
@@ -45,13 +45,13 @@ namespace n3 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(ellipke_,(RS(vT,T(0),T(1)))(RS(calar,T(0),T(0.01))))
+  NT2_TIMING(ellipke_,(RS(vT,T(0),T(1)))(RS(T,T(0),T(0.01))))
 }
 namespace n4 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(ellipke_,(RS(vT,T(0),T(1)))(RS(calar,T(0),T(0.01))))
+  NT2_TIMING(ellipke_,(RS(vT,T(0),T(1)))(RS(T,T(0),T(0.01))))
 }
 
 #undef RS

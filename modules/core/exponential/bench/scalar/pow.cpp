@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/exponential/include/functions/pow.hpp>
+#include <nt2/exponential/include/functions/pow.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
@@ -88,5 +88,14 @@ namespace n12 {
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(pow_,(RS(T,T(-10),T(10)))(RS(iT,T(-10),T(10))))
 }
-
+namespace n13 {
+  typedef float T;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(pow_,(RS(T,T(-10),T(10)))(RS(iT,T(-10),T(10))))
+}
+namespace n14 {
+  typedef double T;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(pow_,(RS(T,T(-10),T(10)))(RS(iT,T(-10),T(10))))
+}
 #undef RS

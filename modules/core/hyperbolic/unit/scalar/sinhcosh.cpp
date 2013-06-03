@@ -7,7 +7,7 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 
-#include <nt2/toolbox/hyperbolic/include/functions/sinhcosh.hpp>
+#include <nt2/hyperbolic/include/functions/sinhcosh.hpp>
 #include <nt2/include/functions/sinh.hpp>
 #include <nt2/include/functions/cosh.hpp>
 #include <nt2/include/functions/tie.hpp>

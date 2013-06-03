@@ -13,17 +13,17 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 28/11/2010
 ///
-#include <boost/simd/toolbox/arithmetic/include/functions/muls.hpp>
+#include <boost/simd/arithmetic/include/functions/muls.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/simd/constant/constant.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
-
 
 NT2_TEST_CASE_TPL ( muls_signed_int__2_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
@@ -75,3 +75,28 @@ NT2_TEST_CASE_TPL ( muls_unsigned_int__2_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(muls(boost::simd::Valmax<vT>(),boost::simd::splat<vT>(2))[0], boost::simd::Valmax<T>());
   NT2_TEST_EQUAL(muls(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<T>());
 } // end of test for unsigned_int_
+
+NT2_TEST_CASE(muls_special)
+{
+  using boost::simd::muls;
+  using boost::simd::splat;
+  using boost::simd::make;
+  using boost::simd::Valmin;
+  using boost::simd::Valmax;
+
+  typedef boost::simd::native<short int, BOOST_SIMD_DEFAULT_EXTENSION> vT1;
+  NT2_TEST_EQUAL(muls(splat<vT1>(-5165), splat<vT1>(23258)), Valmin<vT1>());
+
+  typedef int T2;
+  typedef boost::simd::native<int, BOOST_SIMD_DEFAULT_EXTENSION> vT2;
+  NT2_TEST_EQUAL(muls(splat<vT2>(-1306766858), splat<vT2>(1550772331)), Valmin<vT2>());
+  NT2_TEST_EQUAL(muls(splat<vT2>(1467238299), splat<vT2>(-900961598)), Valmin<vT2>());
+
+#ifdef BOOST_SIMD_HAS_AVX_SUPPORT
+  vT2 a = make<vT2>(853350212, 191584584, 1467238299, -1306766858, 991230901, 146415451, 154742226, 1320298211);
+  vT2 b = make<vT2>(1557885369, 1394765115, -900961598, 1550772331, 1563251902, -50470159, -76281765, 405234440);
+
+  vT2 c = make<vT2>(Valmax<T2>(), Valmax<T2>(), Valmin<T2>(), Valmin<T2>(), Valmax<T2>(), Valmin<T2>(), Valmin<T2>(), Valmax<T2>());
+  NT2_TEST_EQUAL(muls(a, b), c);
+#endif
+}

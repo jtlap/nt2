@@ -7,8 +7,8 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <nt2/table.hpp>
-#include <nt2/toolbox/elliptic/include/functions/scalar/ellipke.hpp>
-#include <nt2/toolbox/elliptic/include/functions/simd/ellipke.hpp>
+#include <nt2/elliptic/include/functions/scalar/ellipke.hpp>
+#include <nt2/elliptic/include/functions/simd/ellipke.hpp>
 #include <nt2/include/functions/ellipke.hpp>
 #include <nt2/include/functions/sin.hpp>
 #include <nt2/include/functions/cos.hpp>
@@ -18,9 +18,8 @@
 #include <nt2/include/constants/pi.hpp>
 #include <boost/fusion/include/vector_tie.hpp>
 
-
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 
 NT2_TEST_CASE_TPL(ellipke_table, NT2_REAL_TYPES)
 {
@@ -36,8 +35,8 @@ NT2_TEST_CASE_TPL(ellipke_table, NT2_REAL_TYPES)
     {
       T s1, c1;
       boost::fusion::vector_tie(s1, c1) = nt2::ellipke(a(i));
-      NT2_TEST_EQUAL(s(i), s1);
-      NT2_TEST_EQUAL(c(i), c1);
+      NT2_TEST_ULP_EQUAL(s(i), s1, 1);
+      NT2_TEST_ULP_EQUAL(c(i), c1, 1);
     }
   }
 
@@ -47,8 +46,8 @@ NT2_TEST_CASE_TPL(ellipke_table, NT2_REAL_TYPES)
     {
       T s1, c1;
       boost::fusion::vector_tie(s1, c1) = nt2::ellipke(a(i));
-      NT2_TEST_EQUAL(s(i), s1);
-      NT2_TEST_EQUAL(c(i), c1);
+      NT2_TEST_ULP_EQUAL(s(i), s1, 1);
+      NT2_TEST_ULP_EQUAL(c(i), c1, 1);
     }
   }
 
@@ -58,8 +57,8 @@ NT2_TEST_CASE_TPL(ellipke_table, NT2_REAL_TYPES)
     {
       T s1, c1;
       boost::fusion::vector_tie(s1, c1) = nt2::ellipke(a(i));
-      NT2_TEST_EQUAL(s(i), s1);
-      NT2_TEST_EQUAL(c(i), c1);
+      NT2_TEST_ULP_EQUAL(s(i), s1, 1);
+      NT2_TEST_ULP_EQUAL(c(i), c1, 1);
     }
   }
 }

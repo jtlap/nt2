@@ -11,10 +11,12 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of boost.simd.bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/toolbox/bitwise/include/functions/selsub.hpp>
+#include <boost/simd/boolean/include/functions/selsub.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 
@@ -32,62 +34,52 @@ using boost::simd::tag::selsub_;
 namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(selsub_,(RS(T,T(0),T(0)))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
-  NT2_TIMING(selsub_,(RS(T,boost::simd::Nan<T>(),boost::simd::Nan<T>()))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
+  NT2_TIMING(selsub_,(RS(T,T(0),T(1)))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(selsub_,(RS(T,T(0),T(0)))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
-  NT2_TIMING(selsub_,(RS(T,boost::simd::Nan<T>(),boost::simd::Nan<T>()))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
+  NT2_TIMING(selsub_,(RS(T,T(0),T(1)))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
 }
 namespace n3 {
   typedef boost::simd::int8_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(selsub_,(RS(T,T(0),T(0)))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
-  NT2_TIMING(selsub_,(RS(T,T(-1),T(-1)))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
+  NT2_TIMING(selsub_,(RS(T,T(0),T(1)))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
 }
 namespace n4 {
   typedef boost::simd::int16_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(selsub_,(RS(T,T(0),T(0)))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
-  NT2_TIMING(selsub_,(RS(T,T(-1),T(-1)))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
+  NT2_TIMING(selsub_,(RS(T,T(0),T(1)))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
 }
 namespace n5 {
   typedef boost::simd::int32_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(selsub_,(RS(T,T(0),T(0)))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
-  NT2_TIMING(selsub_,(RS(T,T(-1),T(-1)))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
+  NT2_TIMING(selsub_,(RS(T,T(0),T(1)))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
 }
 namespace n6 {
   typedef boost::simd::int64_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(selsub_,(RS(T,T(0),T(0)))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
-  NT2_TIMING(selsub_,(RS(T,T(-1),T(-1)))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
+  NT2_TIMING(selsub_,(RS(T,T(0),T(1)))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
 }
 namespace n7 {
   typedef boost::simd::uint8_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(selsub_,(RS(T,T(0),T(0)))(RS(T,boost::simd::Valmax<T>()/2,boost::simd::Valmax<T>()))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
-  NT2_TIMING(selsub_,(RS(T,T(-1),T(-1)))(RS(T,boost::simd::Valmax<T>()/2,boost::simd::Valmax<T>()))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
+  NT2_TIMING(selsub_,(RS(T,T(0),T(1)))(RS(T,boost::simd::Valmax<T>()/2,boost::simd::Valmax<T>()))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
 }
 namespace n8 {
   typedef boost::simd::uint16_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(selsub_,(RS(T,T(0),T(0)))(RS(T,boost::simd::Valmax<T>()/2,boost::simd::Valmax<T>()))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
-  NT2_TIMING(selsub_,(RS(T,T(-1),T(-1)))(RS(T,boost::simd::Valmax<T>()/2,boost::simd::Valmax<T>()))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
+  NT2_TIMING(selsub_,(RS(T,T(0),T(1)))(RS(T,boost::simd::Valmax<T>()/2,boost::simd::Valmax<T>()))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
 }
 namespace n9 {
   typedef boost::simd::uint32_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(selsub_,(RS(T,T(0),T(0)))(RS(T,boost::simd::Valmax<T>()/2,boost::simd::Valmax<T>()))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
-  NT2_TIMING(selsub_,(RS(T,T(-1),T(-1)))(RS(T,boost::simd::Valmax<T>()/2,boost::simd::Valmax<T>()))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
+  NT2_TIMING(selsub_,(RS(T,T(0),T(1)))(RS(T,boost::simd::Valmax<T>()/2,boost::simd::Valmax<T>()))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
 }
 namespace n10 {
   typedef boost::simd::uint64_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(selsub_,(RS(T,T(0),T(0)))(RS(T,boost::simd::Valmax<T>()/2,boost::simd::Valmax<T>()))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
-  NT2_TIMING(selsub_,(RS(T,T(-1),T(-1)))(RS(T,boost::simd::Valmax<T>()/2,boost::simd::Valmax<T>()))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
+  NT2_TIMING(selsub_,(RS(T,T(0),T(1)))(RS(T,boost::simd::Valmax<T>()/2,boost::simd::Valmax<T>()))(RS(T,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
 }
 
 #undef RS

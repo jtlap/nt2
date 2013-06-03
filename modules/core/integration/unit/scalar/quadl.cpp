@@ -10,8 +10,8 @@
 
 #include <iostream>
 #include <nt2/include/functions/quadl.hpp>
-#include <nt2/toolbox/integration/output.hpp>
-#include <nt2/toolbox/integration/options.hpp>
+#include <nt2/integration/output.hpp>
+#include <nt2/integration/options.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/fusion/tuple.hpp>

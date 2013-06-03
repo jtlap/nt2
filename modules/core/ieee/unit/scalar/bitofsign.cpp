@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
 ///
-#include <nt2/toolbox/ieee/include/functions/bitofsign.hpp>
+#include <nt2/ieee/include/functions/bitofsign.hpp>
 #include <nt2/include/functions/is_negative.hpp>
 
 #include <boost/type_traits/is_same.hpp>
@@ -29,7 +29,7 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( bitofsign_real__1_0,  NT2_REAL_TYPES)

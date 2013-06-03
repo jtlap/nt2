@@ -13,11 +13,11 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
 ///
-#include <nt2/toolbox/trigonometric/include/functions/rem_pio2_straight.hpp>
+#include <nt2/trigonometric/include/functions/rem_pio2_straight.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <nt2/toolbox/trigonometric/constants.hpp>
-#include <nt2/toolbox/trigonometric/include/functions/rem_pio2_medium.hpp>
+#include <nt2/trigonometric/constants.hpp>
+#include <nt2/trigonometric/include/functions/rem_pio2_medium.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -32,7 +32,7 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 #include <boost/fusion/include/std_pair.hpp>
 
 
@@ -66,7 +66,7 @@ NT2_TEST_CASE_TPL ( rem_pio2_straight_real__1_0,  NT2_REAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
         r_t r = nt2::rem_pio2_straight(a0);
-        r_t rm= nt2::rem_pio2_medium(a0); 
+        r_t rm= nt2::rem_pio2_medium(a0);
         NT2_TEST_ULP_EQUAL( r.second, rm.second, 0.5);
         if (ulpd>ulp0) ulp0=ulpd;
         NT2_TEST_ULP_EQUAL( r.first, rm.first, 0);

@@ -9,12 +9,14 @@
 #ifndef BOOST_DISPATCH_FUNCTOR_DETAILS_DISPATCH_HPP_INCLUDED
 #define BOOST_DISPATCH_FUNCTOR_DETAILS_DISPATCH_HPP_INCLUDED
 
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/dispatch/details/typeof.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/attributes.hpp>
+#include <boost/dispatch/functor/forward.hpp>
 #include <boost/dispatch/functor/details/call.hpp>
 #include <boost/mpl/identity.hpp>
+#include <boost/mpl/eval_if.hpp>
+#include <boost/type_traits/is_void.hpp>
 
 #if !defined(BOOST_DISPATCH_DONT_USE_PREPROCESSED_FILES)
 #include <boost/dispatch/functor/details/preprocessed/dispatch.hpp>
@@ -42,7 +44,7 @@
 // class definitions. Without it, the whole system brittles.
 //==============================================================================
 #define M0(z,n,t) , meta::unknown_<A##n>
-#define M2(z,n,t) typename meta::hierarchy_of<A##n>::type
+#define M2(z,n,t) A##n
 
 #define BOOST_DISPATCH_DEFAULT_UNKNOWN_DISPATCH(z,n,t)                          \
 template< class Tag, class Site                                                 \
@@ -87,11 +89,17 @@ namespace boost { namespace dispatch { namespace meta
 /**/
 
 #define BOOST_DISPATCH_DISPATCH_CALL(z,n,t)                                    \
-template< class Tag, class Site                                                \
+template< class Tag, class Site_                                               \
           BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n,class A)                 \
          >                                                                     \
-struct dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>                     \
+struct dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site_>                    \
 {                                                                              \
+  typedef typename boost::mpl::                                                \
+          eval_if< is_void<Site_>                                              \
+                 , default_site<Tag>                                           \
+                 , mpl::identity<Site_>                                        \
+                 >::type Site;                                                 \
+                                                                               \
   typedef BOOST_DISPATCH_TYPEOF                                                \
   ( dispatching ( (typename meta::hierarchy_of<Tag>::type())                   \
                 , (typename meta::hierarchy_of<Site>::type())                  \
@@ -108,7 +116,8 @@ namespace boost { namespace dispatch { namespace meta
   // dispatch_call finds the proper call overload for evaluating a given
   // functor over a set of types on a given site
   //==============================================================================
-  template<class Sig, class Site> struct dispatch_call;
+  template<class Sig, class Site = void>
+  struct dispatch_call;
   BOOST_PP_REPEAT(BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),BOOST_DISPATCH_DISPATCH_CALL,~)
 
 } } }

@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
 ///
-#include <nt2/toolbox/exponential/include/functions/pow_abs.hpp>
+#include <nt2/exponential/include/functions/pow_abs.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/ones.hpp>
@@ -30,7 +30,7 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 #include <nt2/table.hpp>
 
 NT2_TEST_CASE_TPL ( pow_abs3,  NT2_REAL_TYPES)

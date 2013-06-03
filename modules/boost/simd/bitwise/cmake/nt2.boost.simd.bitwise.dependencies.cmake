@@ -8,6 +8,6 @@
 ################################################################################
 
 SET(NT2_BOOST.SIMD.BITWISE_DEPENDENCIES_EXTRA boost.simd.arithmetic boost.simd.constant boost.simd.ieee
-                                              boost.simd.operator boost.simd.predicates boost.simd.reduction
-                                              boost.simd.swar boost.simd.boolean
+                                              boost.simd.operator boost.simd.predicates boost.simd.boolean
+                                              boost.simd.swar
    )

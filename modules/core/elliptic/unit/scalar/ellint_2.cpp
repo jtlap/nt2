@@ -13,9 +13,9 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
 ///
-#include <nt2/toolbox/elliptic/include/functions/ellint_2.hpp>
+#include <nt2/elliptic/include/functions/ellint_2.hpp>
 #include <boost/math/special_functions.hpp>
-#include <nt2/toolbox/trigonometric/constants.hpp>
+#include <nt2/trigonometric/constants.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -30,7 +30,7 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/constant/constant.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
 
 

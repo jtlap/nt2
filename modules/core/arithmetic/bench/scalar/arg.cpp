@@ -11,9 +11,11 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/arithmetic/include/functions/arg.hpp>
+#include <nt2/arithmetic/include/functions/arg.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
+#include <nt2/include/constants/valmax.hpp>
+#include <nt2/include/constants/valmin.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 
@@ -37,46 +39,6 @@ namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(arg_,(RS(T,-10.0,10.0)))
-}
-namespace n3 {
-  typedef nt2::uint8_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(arg_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
-}
-namespace n4 {
-  typedef nt2::uint16_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(arg_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
-}
-namespace n5 {
-  typedef nt2::uint32_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(arg_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
-}
-namespace n6 {
-  typedef nt2::uint64_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(arg_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
-}
-namespace n7 {
-  typedef nt2::int8_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(arg_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
-}
-namespace n8 {
-  typedef nt2::int16_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(arg_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
-}
-namespace n9 {
-  typedef nt2::int32_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(arg_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
-}
-namespace n10 {
-  typedef nt2::int64_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(arg_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
 }
 
 #undef RS

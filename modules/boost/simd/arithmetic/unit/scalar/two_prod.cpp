@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <boost/simd/toolbox/arithmetic/include/functions/two_prod.hpp>
+#include <boost/simd/arithmetic/include/functions/two_prod.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/eps.hpp>
 #include <boost/simd/include/constants/one.hpp>

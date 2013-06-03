@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/toolbox/ieee/include/functions/fast_frexp.hpp>
+#include <nt2/ieee/include/functions/fast_frexp.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

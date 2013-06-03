@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of exponential components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/exponential/include/functions/pow.hpp>
+#include <nt2/exponential/include/functions/pow.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
@@ -55,5 +55,18 @@ namespace n4 {
   typedef boost::simd::native<iT,ext_t> viT;
   NT2_TIMING(pow_,(RS(vT,T(-10),T(10)))(RS(viT,T(-10),T(10))))
 }
-
+namespace n5 {
+  typedef float T;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::native<iT,ext_t> viT;
+  NT2_TIMING(pow_,(RS(vT,T(-10),T(10)))(RS(iT,T(-10),T(10))))
+}
+namespace n6 {
+  typedef double T;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::native<iT,ext_t> viT;
+  NT2_TIMING(pow_,(RS(vT,T(-10),T(10)))(RS(iT,T(-10),T(10))))
+}
 #undef RS

@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of combinatorial components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/combinatorial/include/functions/anp.hpp>
+#include <nt2/combinatorial/include/functions/anp.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

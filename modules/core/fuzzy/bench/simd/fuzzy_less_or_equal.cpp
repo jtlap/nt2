@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of fuzzy components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/fuzzy/include/functions/fuzzy_less_or_equal.hpp>
+#include <nt2/fuzzy/include/functions/fuzzy_less_or_equal.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>

@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/toolbox/arithmetic/include/functions/two_add.hpp>
+#include <nt2/arithmetic/include/functions/two_add.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/include/constants/one.hpp>

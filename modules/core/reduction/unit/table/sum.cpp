@@ -16,7 +16,6 @@
 #include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/max.hpp>
 
-#include <nt2/include/functions/sb2b.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/zero.hpp>

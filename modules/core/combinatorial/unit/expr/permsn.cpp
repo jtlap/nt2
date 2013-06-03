@@ -8,7 +8,7 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2 combinatorial toolbox - permsn"
 
-#include <nt2/toolbox/combinatorial/include/functions/permsn.hpp>
+#include <nt2/combinatorial/include/functions/permsn.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/table.hpp>

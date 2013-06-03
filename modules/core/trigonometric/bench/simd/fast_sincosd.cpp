@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of trigonometric components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/trigonometric/include/functions/fast_sincosd.hpp>
+#include <nt2/trigonometric/include/functions/fast_sincosd.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
@@ -37,30 +37,6 @@ namespace n1 {
 }
 namespace n2 {
   typedef double T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(fast_sincosd_,(RS(vT,T(-45),T(45))))
-}
-namespace n3 {
-  typedef nt2::int32_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(fast_sincosd_,(RS(vT,T(-45),T(45))))
-}
-namespace n4 {
-  typedef nt2::int64_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(fast_sincosd_,(RS(vT,T(-45),T(45))))
-}
-namespace n5 {
-  typedef nt2::uint32_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(fast_sincosd_,(RS(vT,T(-45),T(45))))
-}
-namespace n6 {
-  typedef nt2::uint64_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(fast_sincosd_,(RS(vT,T(-45),T(45))))

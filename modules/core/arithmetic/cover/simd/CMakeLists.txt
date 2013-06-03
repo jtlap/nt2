@@ -9,58 +9,58 @@
 ################################################################################
 
 SET( SOURCES
-  isqrt.cpp
-#  two_split.cpp
-#  two_prod.cpp
-#  two_add.cpp
-  trunc.cpp
-  toint.cpp
-  tofloat.cpp
-  subs.cpp
-  sqrt.cpp
-  sqr.cpp
-  rsqrt.cpp
-  round.cpp
-  remquo.cpp
-  remainder.cpp
-  rem.cpp
-  rec.cpp
-#  random.cpp
-  oneplus.cpp
-  oneminus.cpp
-  negs.cpp
-  muls.cpp
-  mod.cpp
-  minusone.cpp
-  minmod.cpp
-  min.cpp
-  max.cpp
-  logical_xor.cpp
-  iround.cpp
-  ifloor.cpp
-  idivround.cpp
-  idivfloor.cpp
-  idivfix.cpp
-  idivceil.cpp
-  iceil.cpp
-  hypot.cpp
-  fma.cpp
-  fast_toint.cpp
-  fast_hypot.cpp
-  divs.cpp
-  divround.cpp
-  divfloor.cpp
-  divfix.cpp
-  divceil.cpp
-  dist.cpp
-#  correct_fma.cpp
-  ceil.cpp
-  average.cpp
-  arg.cpp
-  adds.cpp
-  abss.cpp
-  abs.cpp
-  floor.cpp
+abss.cpp
+abs.cpp
+adds.cpp
+arg.cpp
+average.cpp
+ceil.cpp
+correct_fma.cpp
+dist.cpp
+divceil.cpp
+divfix.cpp
+divfloor.cpp
+divround.cpp
+divs.cpp
+fast_hypot.cpp
+fast_toint.cpp
+floor.cpp
+fma.cpp
+hypot.cpp
+iceil.cpp
+idivceil.cpp
+idivfix.cpp
+idivfloor.cpp
+idivround.cpp
+ifloor.cpp
+iround.cpp
+isqrt.cpp
+logical_xor.cpp
+max.cpp
+minmod.cpp
+minusone.cpp
+min.cpp
+mod.cpp
+muls.cpp
+negs.cpp
+oneminus.cpp
+oneplus.cpp
+#random.cpp
+rec.cpp
+remainder.cpp
+remquo.cpp
+rem.cpp
+round.cpp
+rsqrt.cpp
+sqr.cpp
+sqrt.cpp
+subs.cpp
+tofloat.cpp
+toint.cpp
+trunc.cpp
+two_add.cpp
+two_prod.cpp
+two_split.cpp
 # List of simd test files for toolbox arithmetic
    )
 

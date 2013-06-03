@@ -108,6 +108,54 @@ NT2_TEST_CASE_TPL( scalar, NT2_TYPES )
   NT2_TEST_EQUAL(ref, y);
 }
 
+NT2_TEST_CASE_TPL( scalar_deduce, NT2_TYPES )
+{
+  using nt2::_;
+
+  nt2::table<T> y, ref;
+
+  nt2::table<T> x( nt2::of_size(4,4) );
+  for(int i=1;i<=16;i++)  x(i) = T(i);
+
+  ref.resize( nt2::of_size(8,2) );
+  for(int i=1;i<=16;i++)  ref(i) = x(i);
+
+  y = nt2::reshape(x, _(), 2 );
+  NT2_TEST_EQUAL(ref, y);
+  y = nt2::reshape(x, 8, _() );
+  NT2_TEST_EQUAL(ref, y);
+
+  ref.resize( nt2::of_size(2,8) );
+  for(int i=1;i<=16;i++)  ref(i) = x(i);
+
+  y = nt2::reshape(x, _(), 8 );
+  NT2_TEST_EQUAL(ref, y);
+  y = nt2::reshape(x, 2, _() );
+  NT2_TEST_EQUAL(ref, y);
+
+  ref.resize( nt2::of_size(2,4,2) );
+  for(int i=1;i<=16;i++)  ref(i) = x(i);
+
+  y = nt2::reshape(x, _(), 4, 2 );
+  NT2_TEST_EQUAL(ref, y);
+  y = nt2::reshape(x, 2, _(), 2 );
+  NT2_TEST_EQUAL(ref, y);
+  y = nt2::reshape(x, 2, 4, _() );
+  NT2_TEST_EQUAL(ref, y);
+
+  ref.resize( nt2::of_size(2,2,2,2) );
+  for(int i=1;i<=16;i++)  ref(i) = x(i);
+
+  y = nt2::reshape(x, _(), 2, 2, 2 );
+  NT2_TEST_EQUAL(ref, y);
+  y = nt2::reshape(x, 2, _(), 2, 2 );
+  NT2_TEST_EQUAL(ref, y);
+  y = nt2::reshape(x, 2, 2, _(), 2 );
+  NT2_TEST_EQUAL(ref, y);
+  y = nt2::reshape(x, 2, 2, 2, _() );
+  NT2_TEST_EQUAL(ref, y);
+}
+
 NT2_TEST_CASE_TPL( incorrect_reshape, (float) )
 {
   nt2::table<T, nt2::_2D> y( nt2::of_size(4,4) );

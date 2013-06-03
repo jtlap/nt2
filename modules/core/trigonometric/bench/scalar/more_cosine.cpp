@@ -11,10 +11,12 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of trigonometric components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/trigonometric/include/functions/cosine.hpp>
-#include <nt2/toolbox/trigonometric/include/functions/fast_cos.hpp>
+#include <nt2/trigonometric/include/functions/cosine.hpp>
+#include <nt2/trigonometric/include/functions/fast_cos.hpp>
+#include <nt2/trigonometric/functions/scalar/impl/trigo/selection_tags.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
+#include <nt2/include/constants/pi.hpp>
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
