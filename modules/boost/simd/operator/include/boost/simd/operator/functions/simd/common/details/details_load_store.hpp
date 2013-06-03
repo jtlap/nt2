@@ -9,12 +9,13 @@
 #ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_SIMD_COMMON_DETAILS_DETAILS_LOAD_STORE_HPP_INCLUDED
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_SIMD_COMMON_DETAILS_DETAILS_LOAD_STORE_HPP_INCLUDED
 
+#include <boost/simd/operator/functions/extract.hpp>
+#include <boost/simd/operator/functions/insert.hpp>
 #include <boost/dispatch/functor/meta/make_functor.hpp>
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/fusion/include/at_c.hpp>
 #include <boost/fusion/include/value_at.hpp>
-#include <boost/simd/operator/functions/extract.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Helpers for load and store over a fusion sequence.

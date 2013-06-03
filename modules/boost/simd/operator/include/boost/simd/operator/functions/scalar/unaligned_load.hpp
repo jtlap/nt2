@@ -10,7 +10,6 @@
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_SCALAR_UNALIGNED_LOAD_HPP_INCLUDED
 
 #include <boost/simd/operator/functions/unaligned_load.hpp>
-#include <boost/simd/operator/functions/insert.hpp>
 #include <boost/simd/operator/functions/simd/common/details/details_load_store.hpp>
 #include <boost/simd/sdk/meta/iterate.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
