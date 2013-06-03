@@ -19,4 +19,11 @@ set(NT2_ARCH.OPENMP_COMPILE_FLAGS ${OpenMP_CXX_FLAGS})
 if(NOT MSVC)
   set(NT2_ARCH.OPENMP_LINK_FLAGS ${OpenMP_CXX_FLAGS})
 endif()
-set(NT2_ARCH.OPENMP_DEPENDENCIES_EXTRA core.utility)
+
+set ( NT2_ARCH.OPENMP_DEPENDENCIES_EXTRA
+      boost.dispatch
+      boost.simd.sdk
+      core.reduction
+      core.utility
+      sdk.config
+    )

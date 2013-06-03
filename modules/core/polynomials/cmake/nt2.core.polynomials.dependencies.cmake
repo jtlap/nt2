@@ -7,6 +7,11 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET ( NT2_CORE.POLYNOMIALS_DEPENDENCIES_EXTRA core.arithmetic core.boolean
-                                              core.constant   core.operator
+SET ( NT2_CORE.POLYNOMIALS_DEPENDENCIES_EXTRA
+      boost.dispatch
+      boost.simd.base
+      boost.simd.constant
+      core.base
+      sdk.functor
+      sdk.meta
     )

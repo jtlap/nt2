@@ -7,7 +7,11 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET ( NT2_CORE.FUZZY_DEPENDENCIES_EXTRA core.arithmetic core.boolean
-                                        core.constant   core.ieee
-                                        core.operator   core.predicates
+SET ( NT2_CORE.FUZZY_DEPENDENCIES_EXTRA
+      boost.simd.base
+      boost.simd.constant
+      core.base
+      sdk.functor
+      sdk.meta
+      sdk.simd
     )

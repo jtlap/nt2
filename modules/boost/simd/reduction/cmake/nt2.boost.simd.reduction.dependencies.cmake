@@ -7,6 +7,10 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_BOOST.SIMD.REDUCTION_DEPENDENCIES_EXTRA boost.simd.arithmetic boost.simd.bitwise boost.simd.constant
-                                                boost.simd.operator boost.simd.predicates
-   )
+SET ( NT2_BOOST.SIMD.REDUCTION_DEPENDENCIES_EXTRA
+      boost.dispatch
+      boost.simd.base
+      boost.simd.constant
+      boost.simd.sdk
+      boost.simd.swar
+    )

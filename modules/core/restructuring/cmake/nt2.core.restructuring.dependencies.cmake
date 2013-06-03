@@ -7,8 +7,19 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET ( NT2_CORE.RESTRUCTURING_DEPENDENCIES_EXTRA sdk.simd
-                                                core.utility
-                                                core.predicates
-                                                core.extractive
+SET ( NT2_CORE.RESTRUCTURING_DEPENDENCIES_EXTRA
+      boost.simd.base
+      boost.simd.constant
+      boost.simd.reduction
+      boost.simd.swar
+      core.base
+      core.container.table
+      core.extractive
+      core.generative
+      core.sdk
+      core.utility
+      sdk.config
+      sdk.dsl
+      sdk.functor
+      sdk.meta
     )

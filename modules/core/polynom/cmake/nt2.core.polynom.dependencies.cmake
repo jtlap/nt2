@@ -7,7 +7,22 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET ( NT2_CORE.POLYNOM_DEPENDENCIES_EXTRA core.arithmetic core.boolean
-                                          core.constant   core.operator
-                                          core.linalg
+SET ( NT2_CORE.POLYNOM_DEPENDENCIES_EXTRA
+      boost.simd.base
+      boost.simd.constant
+      core.base
+      core.container.placeholders
+      core.container.table
+      core.generative
+      core.linalg
+      core.reduction
+      core.restructuring
+      core.sdk
+      core.utility
+      sdk.dsl
+      sdk.error
+      sdk.functor
+      sdk.meta
+      type.complex.sdk
+      type.complex.base
     )

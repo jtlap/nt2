@@ -7,10 +7,18 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET ( NT2_CORE.INTERPOL_DEPENDENCIES_EXTRA  core.arithmetic     core.bitwise
-                                            core.boolean        core.constant
-                                            core.ieee           core.operator
-                                            core.predicates     core.reduction
-                                            core.polynomials    core.exponential
-                                            core.trigonometric  core.utility
+SET ( NT2_CORE.INTERPOL_DEPENDENCIES_EXTRA
+      boost.simd.base
+      boost.simd.constant
+      core.adjacent
+      core.base
+      core.container.table
+      core.generative
+      core.reduction
+      core.restructuring
+      core.sdk
+      core.utility
+      sdk.functor
+      sdk.meta
+      sdk.simd
     )

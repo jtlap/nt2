@@ -9,4 +9,4 @@
 
 include(NT2Module)
 nt2_module_source_setup(core.swar)
-nt2_module_simd_toolbox(swar)
+nt2_module_simd_toolbox(swar swar)

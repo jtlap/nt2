@@ -7,4 +7,16 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_TYPE.COMPLEX.EXPONENTIAL_DEPENDENCIES_EXTRA core.exponential)
+SET ( NT2_TYPE.COMPLEX.EXPONENTIAL_DEPENDENCIES_EXTRA
+      boost.dispatch
+      boost.simd.base
+      boost.simd.constant
+      core.base
+      core.exponential
+      core.trigonometric
+      sdk.error
+      sdk.functor
+      sdk.meta
+      sdk.simd
+      type.complex.sdk
+    )

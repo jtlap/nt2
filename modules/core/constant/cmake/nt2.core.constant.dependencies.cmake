@@ -7,4 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_CORE.CONSTANT_DEPENDENCIES_EXTRA sdk.simd boost.simd.constant)
+SET ( NT2_CORE.CONSTANT_DEPENDENCIES_EXTRA
+      boost.simd.constant
+    )

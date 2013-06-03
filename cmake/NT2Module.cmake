@@ -568,10 +568,10 @@ endmacro()
 # adapt a Boost.SIMD toolbox into a NT2 toolbox
 # for each function in the Boost.SIMD toolbox, an associated header is generated in NT2
 # unless it already exists in the source.
-macro(nt2_module_simd_toolbox name)
+macro(nt2_module_simd_toolbox name base)
   string(TOUPPER ${name} name_U)
   set(INCLUDE_DIRECTORIES)
-  foreach(module core.${name} boost.simd.${name})
+  foreach(module core.${base} boost.simd.${base})
     string(TOUPPER ${module} module_U)
     list(APPEND INCLUDE_DIRECTORIES ${NT2_${module_U}_ROOT}/include)
   endforeach()

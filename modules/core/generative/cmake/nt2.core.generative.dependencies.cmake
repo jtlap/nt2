@@ -7,6 +7,20 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET ( NT2_CORE.GENERATIVE_DEPENDENCIES_EXTRA core.sdk core.utility core.fuzzy core.exponential
-                                             core.container.placeholders
+SET ( NT2_CORE.GENERATIVE_DEPENDENCIES_EXTRA
+      boost.dispatch
+      boost.simd.base
+      boost.simd.constant
+      boost.simd.swar
+      core.base
+      core.constant
+      core.container.placeholders
+      core.exponential
+      core.fuzzy
+      core.sdk
+      core.utility
+      sdk.config
+      sdk.dsl
+      sdk.functor
+      sdk.meta
     )

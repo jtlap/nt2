@@ -7,4 +7,7 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_BOOST.SIMD.DETECT_DEPENDENCIES_EXTRA boost.simd.config)
+SET ( NT2_BOOST.SIMD.DETECT_DEPENDENCIES_EXTRA
+      boost.dispatch
+      boost.simd.config
+    )
