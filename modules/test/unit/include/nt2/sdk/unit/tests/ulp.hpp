@@ -131,7 +131,7 @@ do                                                                             \
   nt2::functor<TAG> callee;                                                    \
   BOOST_AUTO( out                                                              \
             , ::nt2::details                                                   \
-                  ::compute_coverage( callee, ref                              \
+                  ::compute_coverage( callee, REF                              \
                                     , NT2_COVER_TYPES_LIST(INPUTS)             \
                                     , NT2_COVER_VALUES_LIST(INPUTS)            \
                                     )                                          \
