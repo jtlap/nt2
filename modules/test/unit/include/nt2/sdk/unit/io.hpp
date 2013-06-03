@@ -12,11 +12,12 @@
 
 #include <vector>
 #include <ostream>
+#include <algorithm>
 
-template<class T, class Alloc>
-std::ostream& operator<<(std::ostream& os, std::vector<T, Alloc> const& v)
+template<typename T, typename A>
+inline std::ostream& operator<<(std::ostream& os, std::vector<T,A> const& v)
 {
-  typedef typename std::vector<T, Alloc>::const_iterator iterator_t;
+  typedef typename std::vector<T,A>::const_iterator iterator_t;
 
   os << "\n";
   for(iterator_t it = v.begin(); it != v.end(); ++it)
@@ -26,4 +27,10 @@ std::ostream& operator<<(std::ostream& os, std::vector<T, Alloc> const& v)
   return os;
 }
 
+template<typename T1, typename T2>
+inline std::ostream& operator<<(std::ostream& os, std::pair<T1, T2> const& xpr)
+{
+  os << "[" << xpr.first << ",  " << xpr.second << "]";
+  return os;
+}
 #endif

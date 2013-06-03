@@ -13,29 +13,15 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include <nt2/arithmetic/include/functions/remquo.hpp>
-#include <boost/simd/sdk/simd/io.hpp>
-#include <vector>
 #include <boost/fusion/include/std_pair.hpp>
-#include <nt2/table.hpp>
 #include <nt2/include/constants/valmin.hpp>
 #include <nt2/include/constants/valmax.hpp>
 #include <nt2/include/functions/remainder.hpp>
 #include <nt2/include/functions/idivround.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
-#include <nt2/include/functions/idivround.hpp>
-#include <boost/simd/sdk/simd/io.hpp>
-
-template < class T1, class T2>   std::ostream&
-operator<<(std::ostream& os, std::pair<T1, T2> const& xpr)
-{
-  os << "[" << xpr.first << ",  " << xpr.second << "]";
-  return os;
-}
-
+#include <vector>
 
 NT2_TEST_CASE_TPL ( remquo_real__1_0_1,  NT2_REAL_TYPES)
 {
