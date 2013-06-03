@@ -40,12 +40,15 @@ NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int argc, char* argv[])
     c[i] = a[i]+b[i];
   }
 
+  std::vector<float> c2 = c;
+
   c[5]  = 9;
   c[7]  = 5;
   c[12] = 6;
 
   NT2_COVER_ULP_EQUAL(nt2::tag::plus_, ((float,a))((float,b)), c, 0.5);
   NT2_COVER_ULP_EQUAL(nt2::tag::plus_, ((nT,a))((nT,b)), c, 0.5);
+  NT2_COVER_ULP_EQUAL(nt2::tag::plus_, ((nT,a))((nT,b)), c2, 0.5);
 
   return 0;
 }

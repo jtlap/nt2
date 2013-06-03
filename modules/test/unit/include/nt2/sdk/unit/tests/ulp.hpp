@@ -146,11 +146,13 @@ do                                                                             \
                                                                                \
   if(ulps.empty())                                                             \
   {                                                                            \
-    ::nt2::unit::pass( BOOST_PP_STRINGIZE(TAG) " coverage");                   \
+    ::nt2::details::ulp_pass( BOOST_PP_STRINGIZE(TAG) " coverage", ulpd, N);   \
   }                                                                            \
   else                                                                         \
   {                                                                            \
-    ::nt2::unit::fail( BOOST_PP_STRINGIZE(TAG) " coverage",__LINE__,__FILE__); \
+    ::nt2::details::ulp_fail( BOOST_PP_STRINGIZE(TAG) " coverage"              \
+                            , __FILE__, __LINE__, ulps.size(), N, true         \
+                            );                                                 \
     int ib = -1;                                                               \
     typedef typename nt2::meta::call                                           \
                     < TAG ( BOOST_PP_ENUM ( BOOST_PP_SEQ_SIZE(INPUTS)          \
@@ -178,12 +180,13 @@ do                                                                             \
                   << " got "                                                   \
                   << nt2::unaligned_load<r_t>(&out[ii])                        \
                   << " while expecting "                                       \
-                  << nt2::unaligned_load<r_t>(&REF[ii])                        \
+                  << nt2::unaligned_load<r_t>(&(REF)[ii])                      \
                   << " (i.e "   << f.ulp_error << " ULPs)";                    \
         std::cout << std::endl;                                                \
         ib = ii;                                                               \
       }                                                                        \
     }                                                                          \
+    std::cout << std::endl;                                                    \
   }                                                                            \
 }                                                                              \
 while(0)                                                                       \
