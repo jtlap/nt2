@@ -22,14 +22,6 @@
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 
-
-template < class T1, class T2>   std::ostream&
-operator<<(std::ostream& os, std::pair<T1, T2> const& xpr)
-{
-  os << "[" << xpr.first << ",  " << xpr.second << "]";
-  return os;
-}
-
 NT2_TEST_CASE_TPL ( two_add_real_types,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::two_add;
