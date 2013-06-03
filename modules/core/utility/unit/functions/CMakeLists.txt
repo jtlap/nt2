@@ -13,7 +13,6 @@ SET( SOURCES
   as_index.cpp
   as_size.cpp
   as_subscript.cpp
-  bsxfun.cpp
   class.cpp
   disp.cpp
   find.cpp
@@ -40,7 +39,6 @@ SET( SOURCES
   sx.cpp
   sxfun.cpp
   tie.cpp
-  tsxfun.cpp
   whereij.cpp
   width.cpp
 # List of test files for toolbox core.utility
