@@ -22,36 +22,36 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 
 
-NT2_TEST_CASE_TPL( sx_0, NT2_TYPES )
+NT2_TEST_CASE_TPL( sx_0, (float) )//NT2_TYPES )
 {
   nt2::table<T> a = nt2::reshape(nt2::_(T(0), T(8)), 3, 3);
   NT2_TEST_EQUAL( nt2::sx(nt2::tag::if_zero_else_(), nt2::is_lez(a), a), a);
 }
 
-NT2_TEST_CASE_TPL( sx_1, NT2_TYPES )
+NT2_TEST_CASE_TPL( sx_1, (float) )//NT2_TYPES )
 {
   nt2::table<T> a = nt2::reshape(nt2::_(T(0), T(8)), 3, 3);
   NT2_TEST_EQUAL( nt2::sx(nt2::tag::fma_(), a, T(1), a), a+a);
 }
 
-NT2_TEST_CASE_TPL( sx_2, NT2_TYPES )
+NT2_TEST_CASE_TPL( sx_2, (float) )//NT2_TYPES )
 {
   nt2::table<T> a = nt2::reshape(nt2::_(T(0), T(8)), 3, 3);
   NT2_TEST_EQUAL( nt2::sx(nt2::tag::if_else_(), nt2::is_lez(a), a, a), a);
 }
-NT2_TEST_CASE_TPL( sx_3, NT2_TYPES )
+NT2_TEST_CASE_TPL( sx_3, (float) )//NT2_TYPES )
 {
   nt2::table<T> a = nt2::reshape(nt2::_(T(0), T(8)), 3, 3);
   nt2::table<T> b = nt2::repnum(T(1), 3, 1);
   NT2_TEST_EQUAL( nt2::sx(nt2::tag::fma_(), a, b, a), a+a);
 }
-NT2_TEST_CASE_TPL( sx_4, NT2_TYPES )
+NT2_TEST_CASE_TPL( sx_4, (float) )//NT2_TYPES )
 {
   nt2::table<T> a = nt2::reshape(nt2::_(T(0), T(8)), 3, 3);
   nt2::table<T> b = nt2::repnum(T(1), 1, 3);
   NT2_TEST_EQUAL(nt2::sx(nt2::tag::fma_(), a, b, a), a+a);
 }
-NT2_TEST_CASE_TPL( sx_5, NT2_TYPES )
+NT2_TEST_CASE_TPL( sx_5, (float) )//NT2_TYPES )
 {
   nt2::table<T> a = nt2::_(T(1), T(4));
   nt2::table<T> b =  nt2::reshape(a, 4, 1);
