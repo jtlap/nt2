@@ -25,6 +25,8 @@
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/current_function.hpp>
 #include <boost/typeof/typeof.hpp>
+#include <boost/mpl/vector.hpp>
+#include <boost/mpl/at.hpp>
 #include <boost/foreach.hpp>
 #include <iostream>
 #include <iomanip>
