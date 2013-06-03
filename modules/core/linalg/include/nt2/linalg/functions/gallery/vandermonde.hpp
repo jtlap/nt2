@@ -8,10 +8,11 @@
 //==============================================================================
 #ifndef NT2_LINALG_FUNCTIONS_GALLERY_VANDERMONDE_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_GALLERY_VANDERMONDE_HPP_INCLUDED
+
 #include <nt2/linalg/functions/vandermonde.hpp>
 #include <nt2/include/functions/pow.hpp>
 #include <nt2/include/functions/numel.hpp>
-#include <nt2/include/functions/bsxfun.hpp>
+#include <nt2/include/functions/sx.hpp>
 #include <nt2/include/functions/colvect.hpp>
 
 namespace nt2 {namespace ext
@@ -26,22 +27,22 @@ namespace nt2 {namespace ext
     typedef typename meta::as_real<value_type>::type              real_type;
     typedef typename meta::call<tag::colvect_(A0)>::type  T0;
     typedef typename meta::call<tag::colon_ ( real_type
-                                              , real_type
-                                              , real_type
-      )>::type      T1;
-    typedef typename meta::call<tag::bsxfun_( nt2::functor<tag::pow_>
-                                            , T0
-                                            , T1
-      )>::type      result_type;
+                                            , real_type
+                                            , real_type
+                                            )>::type      T1;
+    typedef typename meta::call<tag::sx_( tag::pow_
+                                        , T0
+                                        , T1
+                                        )>::type      result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return nt2::bsxfun( nt2::functor<tag::pow_>()
-                          , colvect(a0)
-                          , colon(real_type(a1-1)
-                                  , real_type(-1)
-                                  , real_type(0)
-                            )
-        );
+      return nt2::sx( tag::pow_()
+                    , colvect(a0)
+                    , colon( real_type(a1-1)
+                           , real_type(-1)
+                           , real_type(0)
+                           )
+                    );
     }
   };
 

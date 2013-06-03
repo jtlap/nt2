@@ -8,10 +8,11 @@
 //==============================================================================
 #ifndef NT2_LINALG_FUNCTIONS_GALLERY_CAUCHY_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_GALLERY_CAUCHY_HPP_INCLUDED
+
 #include <nt2/include/functions/rowvect.hpp>
 #include <nt2/include/functions/colvect.hpp>
 #include <nt2/include/functions/colon.hpp>
-#include <nt2/include/functions/bsxfun.hpp>
+#include <nt2/include/functions/sx.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/plus.hpp>
 #include <nt2/include/functions/rec.hpp>
@@ -28,17 +29,18 @@ namespace nt2 { namespace ext
   {
     typedef typename meta::call<tag::rowvect_(A1 const&)>::type                     T0;
     typedef typename meta::call<tag::colvect_(A0 const&)>::type                     T1;
-    typedef typename meta::call<tag::bsxfun_( nt2::functor<tag::plus_>
-                                            , T0, T1) >::type                T2;
+    typedef typename meta::call<tag::sx_(tag::plus_, T0, T1) >::type                T2;
     typedef typename meta::call<tag::rec_(T2)>::type                result_type;
     NT2_FUNCTOR_CALL(2)
     {
       BOOST_ASSERT_MSG(  nt2::numel(a0) ==  nt2::numel(a1)
                       , "a0 and a1 doesn' have the same number of elements"
                       );
-      return nt2::rec( nt2::bsxfun(nt2::functor<tag::plus_>(),
-                                   nt2::rowvect(a1),
-                                   nt2::colvect(a0)));
+      return nt2::rec( nt2::sx( tag::plus_(),
+                                nt2::rowvect(a1),
+                                nt2::colvect(a0)
+                              )
+                     );
     }
   };
 
