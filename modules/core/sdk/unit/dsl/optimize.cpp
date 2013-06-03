@@ -40,7 +40,7 @@ NT2_TEST_CASE( function )
                                      >
                               >
                       )
-                    )
+                    );
 }
 
 NT2_TEST_CASE( fma )
