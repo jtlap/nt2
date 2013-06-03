@@ -16,9 +16,9 @@
 #include <nt2/arithmetic/include/functions/minmod.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <vector>
-#include <nt2/table.hpp>
 #include <nt2/include/constants/valmin.hpp>
 #include <nt2/include/constants/valmax.hpp>
+#include <nt2/include/functions/min.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -39,7 +39,7 @@ NT2_TEST_CASE_TPL ( minmod_real__1_0_1,  NT2_TYPES)
   nt2::roll(in2, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
   for(nt2::uint32_t i=0; i < NR ; ++i)
   {
-    ref[i] = in1[i]*in2[i] > 0 ? nt2::min(in1[i], in2[i]):0;
+    ref[i] = (in1[i] >= 0)^(in2[i] >=  0) ? 0 : nt2::min(in1[i], in2[i]);
   }
 
   NT2_COVER_ULP_EQUAL(minmod_, ((T, in1))((T, in2)), ref, 0);

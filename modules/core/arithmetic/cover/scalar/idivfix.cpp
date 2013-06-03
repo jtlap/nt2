@@ -15,7 +15,6 @@
 #include <nt2/arithmetic/include/functions/idivfix.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <vector>
-#include <nt2/table.hpp>
 #include <nt2/include/constants/valmin.hpp>
 #include <nt2/include/constants/valmax.hpp>
 #include <nt2/include/functions/trunc.hpp>

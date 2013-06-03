@@ -16,7 +16,6 @@
 #include <boost/simd/sdk/simd/io.hpp>
 #include <vector>
 #include <boost/fusion/include/std_pair.hpp>
-#include <nt2/table.hpp>
 #include <nt2/include/constants/valmin.hpp>
 #include <nt2/include/constants/valmax.hpp>
 #include <nt2/include/functions/remainder.hpp>
@@ -27,6 +26,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/include/functions/idivround.hpp>
+//#include <nt2/table.hpp>
 
 NT2_TEST_CASE_TPL ( two_prod_real__1_0_1,  (float))
 {
@@ -47,8 +47,8 @@ NT2_TEST_CASE_TPL ( two_prod_real__1_0_1,  (float))
   for(nt2::uint32_t i=0; i < NR ; ++i)
   {
     r_t r = two_prod(in1[i], in2[i]);
-    out1[i] = boost::fusion::get<0>(r);
-    out2[i] = boost::fusion::get<1>(r);
+    out1[i] = r.first;
+    out2[i] = r.second;
     ref1[i] = T(U(in1[i])*U(in2[i]));
     res1[i] = T(U(out1[i])+U(out2[i]));
   }
@@ -75,8 +75,8 @@ NT2_TEST_CASE_TPL ( two_prod_real__1_0_2,  (double))
   for(nt2::uint32_t i=0; i < NR ; ++i)
   {
     r_t r = two_prod(in1[i], in2[i]);
-    out1[i] = boost::fusion::get<0>(r);
-    out2[i] = boost::fusion::get<1>(r);
+    out1[i] = r.first;
+    out2[i] = r.second;
     ref1[i] = T(U(in1[i])*U(in2[i]));
     res1[i] = T(U(out1[i])+U(out2[i]));
   }

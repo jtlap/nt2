@@ -15,7 +15,6 @@
 #include <nt2/arithmetic/include/functions/hypot.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <vector>
-#include <nt2/table.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/hundred.hpp>
 #include <nt2/include/functions/hypot.hpp>
