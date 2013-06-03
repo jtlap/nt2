@@ -7,6 +7,7 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <nt2/arithmetic/include/functions/remquo.hpp>
+#include <boost/fusion/include/std_pair.hpp>
 #include <nt2/include/constants/valmin.hpp>
 #include <nt2/include/constants/valmax.hpp>
 #include <nt2/sdk/unit/tests.hpp>
