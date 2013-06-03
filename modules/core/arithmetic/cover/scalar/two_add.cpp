@@ -47,8 +47,8 @@ NT2_TEST_CASE_TPL ( two_add_real__1_0_1,  (float))
   for(nt2::uint32_t i=0; i < NR ; ++i)
   {
     r_t r = two_add(in1[i], in2[i]);
-    out1[i] = boost::fusion::get<0>(r);
-    out2[i] = boost::fusion::get<1>(r);
+    out1[i] = r.first;
+    out2[i] = r.second;
     ref1[i] = T(U(in1[i])+U(in2[i]));
     res1[i] = T(U(out1[i])+U(out2[i]));
   }
@@ -76,8 +76,8 @@ NT2_TEST_CASE_TPL ( two_add_real__1_0_2,  (double))
   for(nt2::uint32_t i=0; i < NR ; ++i)
   {
     r_t r = two_add(in1[i], in2[i]);
-    out1[i] = boost::fusion::get<0>(r);
-    out2[i] = boost::fusion::get<1>(r);
+    out1[i] = r.first;
+    out2[i] = r.second;
     ref1[i] = T(U(in1[i])+U(in2[i]));
     res1[i] = T(U(out1[i])+U(out2[i]));
   }
