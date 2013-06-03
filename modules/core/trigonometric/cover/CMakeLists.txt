@@ -9,7 +9,7 @@
 ################################################################################
 
 nt2_module_use_modules( test.unit
-                        core.predicates core.arithmetic
+                        core.base
                         extern.cephes extern.libc extern.crlibm extern.standard
                       )
 

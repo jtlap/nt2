@@ -9,7 +9,7 @@
 ################################################################################
 
 nt2_module_use_modules( test.unit
-                        core.predicates core.arithmetic core.exponential
+                        core.base core.exponential
                         extern.cephes extern.libc extern.boost_math
                       )
 

@@ -9,7 +9,7 @@
 ################################################################################
 
 nt2_module_use_modules( test.unit
-                        core.predicates core.arithmetic
+                        core.base
                         core.reduction  core.euler
                         extern.boost_math
                       )
