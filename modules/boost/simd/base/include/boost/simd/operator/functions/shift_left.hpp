@@ -69,6 +69,7 @@ namespace boost { namespace simd
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::shift_left_             , shift_left     , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::shift_left_             , shl            , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::shift_left_             , shli           , 2 )
 } }
 
 namespace boost { namespace dispatch { namespace meta
