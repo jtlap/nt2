@@ -13,6 +13,7 @@
 #include <boost/simd/include/functions/scalar/min.hpp>
 #include <boost/simd/include/functions/scalar/is_gez.hpp>
 #include <boost/simd/include/functions/scalar/is_nltz.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_xor.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -26,7 +27,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return is_gez(a0*a1)?  boost::simd::min(a0, a1): Zero<A0>();
+      return is_gez(b_xor(a0, a1)) ? boost::simd::min(a0, a1): Zero<A0>();
     }
   };
 
@@ -52,7 +53,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return is_nltz(a0*a1) ?  boost::simd::min(a0,a1) : Zero<A0>();
+      return is_nltz(a0*a1) ? boost::simd::min(a0,a1) : Zero<A0>();
     }
   };
 } } }
