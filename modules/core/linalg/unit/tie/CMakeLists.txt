@@ -23,6 +23,7 @@ SET( SOURCES
      svd_solve.cpp
      symeig.cpp
      tr_solve.cpp
+     linsolv.cpp
    )
 
 nt2_module_add_tests(core.linalg.tie.unit ${SOURCES})

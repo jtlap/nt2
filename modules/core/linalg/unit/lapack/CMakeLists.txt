@@ -16,6 +16,15 @@ SET ( SOURCES
       mqr.cpp
       laswp.cpp
       swap.cpp
+      sv.cpp
+      svx.cpp
+      lsy.cpp
+      mldivide.cpp
+      con.cpp
+      msv.cpp
+      clinsolve.cpp
+      plinsolve.cpp
+      mlinsolve.cpp
    )
 
 nt2_module_add_tests(core.linalg.lapack.unit ${SOURCES})
