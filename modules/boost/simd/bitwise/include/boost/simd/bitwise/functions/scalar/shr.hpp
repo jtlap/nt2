@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_BITWISE_FUNCTIONS_SCALAR_SHR_HPP_INCLUDED
 #define BOOST_SIMD_BITWISE_FUNCTIONS_SCALAR_SHR_HPP_INCLUDED
+
 #include <boost/simd/bitwise/functions/shr.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
