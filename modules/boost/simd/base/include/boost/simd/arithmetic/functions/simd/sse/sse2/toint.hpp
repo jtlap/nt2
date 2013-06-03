@@ -30,11 +30,12 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<result_type>::type stype;
-      A0 aa0 = if_zero_else(is_nan(a0), a0);
-      const result_type v = make<result_type> ( static_cast<stype>(aa0[0])
-                                              , static_cast<stype>(aa0[1])
-                                              );
-      return  select(eq(aa0, Inf<A0>()), Inf<result_type>(), v);
+//      A0 aa0 = if_zero_else(is_nan(a0), a0);
+//      const result_type v = make<result_type> ( static_cast<stype>(aa0[0])
+//                                              , static_cast<stype>(aa0[1])
+//                                              );
+//      return  select(eq(aa0, Inf<A0>()), Inf<result_type>(), v);
+      return make<result_type> ( stype(a0[0]), stype(a0[1]));
     }
   };
 
@@ -45,9 +46,10 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      A0 aa0 = if_zero_else(is_nan(a0), a0);
-      result_type that = _mm_cvttps_epi32(aa0);
-      return  select(eq(aa0, Inf<A0>()), Inf<result_type>(), that);
+      //     A0 aa0 = if_zero_else(is_nan(a0), a0);
+      result_type that = _mm_cvttps_epi32(a0);
+//      return  select(eq(aa0, Inf<A0>()), Inf<result_type>(), that);
+      return that;
     }
   };
 } } }

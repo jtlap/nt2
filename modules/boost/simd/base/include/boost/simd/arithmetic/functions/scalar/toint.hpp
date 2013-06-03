@@ -16,6 +16,7 @@
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
+//#include <iostream>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -44,9 +45,10 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_integer<A0> ::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      if (boost::simd::is_nan(a0))       return Zero<result_type>();
-      if (a0 == boost::simd::Inf<A0>())  return boost::simd::Valmax<result_type>();
-      if (a0 == boost::simd::Minf<A0>())  return boost::simd::Valmin<result_type>();
+//      std::cout << "icitte" << std::endl;
+//       if (boost::simd::is_nan(a0))       return Zero<result_type>();
+//       if (a0 == boost::simd::Inf<A0>())  return boost::simd::Valmax<result_type>();
+//       if (a0 == boost::simd::Minf<A0>())  return boost::simd::Valmin<result_type>();
       return result_type(a0);
     }
   };
