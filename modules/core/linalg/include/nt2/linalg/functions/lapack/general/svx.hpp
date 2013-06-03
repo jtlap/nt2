@@ -25,11 +25,11 @@ extern "C"
 {
   void NT2_F77NAME(dgesvx)( const char* fact    , const char* trans
                           , const nt2_la_int* n , const nt2_la_int* nrhs
-                          , double* a           , const nt2_la_int* lda
-                          , double* af           , const nt2_la_int* ldaf
+                          , const double* a     , const nt2_la_int* lda
+                          , double* af          , const nt2_la_int* ldaf
                           , nt2_la_int* ipiv    , const char* equed
                           , double* r           , double* c
-                          , double* b           , const nt2_la_int* ldb
+                          , const double* b     , const nt2_la_int* ldb
                           , double* x           , const nt2_la_int* ldx
                           , double* rcond       , double* ferr
                           , double* berr        , double* work
@@ -38,11 +38,11 @@ extern "C"
 
   void NT2_F77NAME(sgesvx)( const char* fact    , const char* trans
                           , const nt2_la_int* n , const nt2_la_int* nrhs
-                          , float* a            , const nt2_la_int* lda
+                          , const float* a      , const nt2_la_int* lda
                           , float* af           , const nt2_la_int* ldaf
                           , nt2_la_int* ipiv    , const char* equed
                           , float* r            , float* c
-                          , float* b            , const nt2_la_int* ldb
+                          , const float* b      , const nt2_la_int* ldb
                           , float* x            , const nt2_la_int* ldx
                           , float* rcond        , float* ferr
                           , float* berr         , float* work
@@ -69,18 +69,18 @@ namespace nt2 { namespace ext
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              (unspecified_< A3 >)              //rcond
+                              (scalar_< floating_<A3> >)          //rcond
                             )
   {
      typedef nt2_la_int result_type;
      typedef double T;
 
-     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1, A2& a2, A3& a3) const
+     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1, A2& a2, A3& a3) const
      {
         result_type that;
         nt2_la_int  n  = nt2::height(a0);
         nt2_la_int  nhrs = nt2::width(a2);
-        nt2_la_int  ldb = a2.leading_size();
+        nt2_la_int  ldb = n;
         char fact  = 'N';
         char trans = 'N';
         char equed = 'N';
@@ -130,18 +130,18 @@ namespace nt2 { namespace ext
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              (unspecified_< A3 >)              //rcond
+                              (scalar_< floating_<A3> >)           //rcond
                             )
   {
      typedef nt2_la_int result_type;
      typedef float T;
 
-     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1, A2& a2, A3& a3) const
+     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1, A2& a2, A3& a3) const
      {
         result_type that;
         nt2_la_int  n  = nt2::height(a0);
         nt2_la_int  nhrs = nt2::width(a2);
-        nt2_la_int  ldb = a2.leading_size();
+        nt2_la_int  ldb = n;
         char fact  = 'N';
         char trans = 'N';
         char equed = 'N';

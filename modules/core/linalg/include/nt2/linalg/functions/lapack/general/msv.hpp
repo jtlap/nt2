@@ -24,9 +24,9 @@
 extern "C"
 {
   void NT2_F77NAME(dsgesv)( const nt2_la_int* n, const nt2_la_int* nrhs
-                         , double* a           , const nt2_la_int* lda
+                         , const double* a     , const nt2_la_int* lda
                          , nt2_la_int* ipiv
-                         , double* b           , const nt2_la_int* ldb
+                         , const double* b     , const nt2_la_int* ldb
                          , double* x           , const nt2_la_int* ldx
                          , double* work        , float* swork
                          , nt2_la_int* iter    , nt2_la_int* info
@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< double_<A1>, S1 >    //B
+                              ((expr_ < table_< double_<A1>, S1 >     //B
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
@@ -56,7 +56,7 @@ namespace nt2 { namespace ext
   {
      typedef nt2_la_int result_type;
 
-     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1, A2& a2) const
+     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1, A2& a2) const
      {
         details::workspace<typename A2::value_type> w;
         nt2_la_int  n  = std::min(nt2::height(a0),nt2::width(a0));
@@ -73,7 +73,6 @@ namespace nt2 { namespace ext
                            , &ldb, a2.raw(), &ldb , w.main(), swork.raw()
                            , &iter, &info
                            );
-
         return iter;
      }
   };
