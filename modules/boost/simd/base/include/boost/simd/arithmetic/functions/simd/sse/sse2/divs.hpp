@@ -29,8 +29,8 @@ namespace boost { namespace simd { namespace ext
       ivtype a0l, a0h, a1l, a1h;
       split(a0, a0l, a0h);
       split(a1, a1l, a1h);
-      return groups( boost::simd::div(a0l, a1l)
-                   , boost::simd::div(a0h, a1h)
+      return groups( boost::simd::divs(a0l, a1l)
+                   , boost::simd::divs(a0h, a1h)
                    );
     }
   };
@@ -47,8 +47,8 @@ namespace boost { namespace simd { namespace ext
       ivtype a0l, a0h, a1l, a1h;
       split(a0, a0l, a0h);
       split(a1, a1l, a1h);
-      return groups( boost::simd::div(a0l, a1l)
-                   , boost::simd::div(a0h, a1h)
+      return groups( boost::simd::divs(a0l, a1l)
+                   , boost::simd::divs(a0h, a1h)
                    );
     }
   };
