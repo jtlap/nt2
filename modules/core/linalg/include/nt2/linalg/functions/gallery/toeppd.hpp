@@ -59,7 +59,6 @@ namespace nt2
         BOOST_AUTO_TPL(e, nt2::Two<v_t>()*(nt2::rif(n, n, m, T())-nt2::cif(n, n, m, T())));
         BOOST_AUTO_TPL(ww, nt2::reshape(w,one,one,m));
         BOOST_AUTO_TPL(tt, nt2::reshape(theta,one,one,m));
-        BOOST_AUTO_TPL(pipo, nt2::bsxfun(nt2::functor<tag::multiplies_>(),e,tt));
         return nt2::sum(nt2::sx(tag::multiplies_(),ww, nt2::cospi(nt2::sx(tag::multiplies_(),e,tt))),size_t(3));
       }
     };
