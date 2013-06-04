@@ -42,7 +42,7 @@ namespace boost { namespace simd { namespace ext
                                                                >
                                        )
                                        , ((simd_<arithmetic_<A0>,X>))
-                                         ((generic_<unsigned_<A1> ))
+                                         ((generic_<unsigned_<A1> >))
                                        )
   {
     typedef A0 result_type;
