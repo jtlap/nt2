@@ -9,6 +9,8 @@
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_TOUINT_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_TOUINT_HPP_INCLUDED
 #include <boost/simd/arithmetic/functions/touint.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
