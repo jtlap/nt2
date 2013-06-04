@@ -11,7 +11,7 @@
 
 #include <boost/simd/arithmetic/functions/isqrt.hpp>
 #include <boost/simd/include/functions/simd/sqrt.hpp>
-#include <boost/simd/include/functions/simd/toint.hpp>
+#include <boost/simd/include/functions/simd/toints.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext

@@ -12,7 +12,7 @@
 #include <boost/simd/arithmetic/functions/isqrt.hpp>
 #include <boost/simd/include/functions/scalar/is_ltz.hpp>
 #include <boost/simd/include/functions/scalar/sqrt.hpp>
-#include <boost/simd/include/functions/scalar/toint.hpp>
+#include <boost/simd/include/functions/scalar/toints.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
