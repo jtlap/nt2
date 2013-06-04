@@ -16,16 +16,16 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_fast_toint fast_toint
+ * \defgroup boost_simd_arithmetic_toint toint
  *
  * \par Description
  * convert a floating entry to integer by truncation.
- * fast_toint cast a floating value to the signed integer value of the same bit size
+ * toint cast a floating value to the signed integer value of the same bit size
  * it is done by C casting for scalars and corresponding intrinsic in simd (if available)
  * Peculiarly,  that implies that the behaviour of this function on invalid entries is
  * not defined and quite unpredictable.
  * (For instance it is quite frequent that the test:
- *           fast_toint(Inf<double>()) ==  fast_toint(1.0/0.0)
+ *           toint(Inf<double>()) ==  toint(1.0/0.0)
  * will return false whilst the test:
  *           Inf<double>() == 1.0/0.0
  * returns true !)
