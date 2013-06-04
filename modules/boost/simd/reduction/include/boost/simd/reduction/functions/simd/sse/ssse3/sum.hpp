@@ -9,13 +9,15 @@
 #ifndef BOOST_SIMD_REDUCTION_FUNCTIONS_SIMD_SSE_SSSE3_SUM_HPP_INCLUDED
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_SIMD_SSE_SSSE3_SUM_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSSE3_SUPPORT
+
 #include <boost/simd/reduction/functions/sum.hpp>
-#include <boost/simd/include/constants/digits.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/simd/first.hpp>
 #include <boost/simd/include/functions/simd/second.hpp>
-#include <boost/fusion/include/fold.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/sdk/meta/scalar_of.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int16_
 /////////////////////////////////////////////////////////////////////////////

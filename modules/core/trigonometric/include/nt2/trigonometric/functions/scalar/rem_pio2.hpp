@@ -23,7 +23,6 @@
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <boost/fusion/tuple.hpp>
 #include <boost/detail/endian.hpp>
 #include <nt2/trigonometric/functions/scalar/impl/trigo/selection_tags.hpp>
 

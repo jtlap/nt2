@@ -17,7 +17,6 @@
 #include <boost/simd/include/functions/simd/split.hpp>
 #include <boost/simd/include/functions/simd/make.hpp>
 #include <boost/simd/bitwise/functions/simd/common/shrai.hpp>
-#include <boost/fusion/include/vector_tie.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -63,7 +62,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       gen_t a0h, a0l;
-      boost::fusion::vector_tie(a0l, a0h) = split(a0);
+      split(a0, a0h, a0l);
       return bitwise_cast<A0>(group(shrai(a0l, a1),shrai(a0h, a1)));
     }
   };

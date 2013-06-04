@@ -14,13 +14,12 @@
 #include <nt2/include/functions/simd/rem_pio2_straight.hpp>
 #include <nt2/include/functions/simd/rem_pio2_medium.hpp>
 #include <nt2/include/functions/simd/rem_pio2_cephes.hpp>
-#include <nt2/include/functions/simd/load.hpp>
+#include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <nt2/include/constants/zero.hpp>
+#include <boost/assert.hpp>
 
 namespace nt2 { namespace ext
 {
