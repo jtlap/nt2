@@ -10,7 +10,7 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_ICEIL_HPP_INCLUDED
 #include <boost/simd/arithmetic/functions/iceil.hpp>
 #include <boost/simd/include/functions/simd/ceil.hpp>
-#include <boost/simd/include/functions/simd/toint.hpp>
+#include <boost/simd/include/functions/simd/toints.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
                                    )
   {
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return toint(simd::ceil(a0)); }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return toints(simd::ceil(a0)); }
   };
 } } }
 

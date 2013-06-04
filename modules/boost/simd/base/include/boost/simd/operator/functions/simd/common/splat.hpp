@@ -13,7 +13,7 @@
 #include <boost/simd/include/functions/simd/insert.hpp>
 #include <boost/simd/include/functions/simd/extract.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>
-#include <boost/simd/include/functions/simd/toint.hpp>
+#include <boost/simd/include/functions/simd/toints.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/sdk/meta/as_arithmetic.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
@@ -130,7 +130,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&) const
     {
-      return bitwise_cast<result_type>(simd::toint(a0));
+      return bitwise_cast<result_type>(simd::toints(a0));
     }
   };
 } } }
