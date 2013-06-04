@@ -19,9 +19,6 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
-#include <boost/simd/include/constants/inf.hpp>
-#include <boost/simd/include/constants/minf.hpp>
-#include <boost/simd/include/constants/nan.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/mone.hpp>
@@ -38,7 +35,6 @@ NT2_TEST_CASE_TPL ( toint_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<toint_(vT)>::type r_t;
 
   // specific values tests
-  NT2_TEST_EQUAL(toint(boost::simd::Mone<vT>()), boost::simd::Mone<r_t>());
   NT2_TEST_EQUAL(toint(boost::simd::One<vT>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(toint(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
   NT2_TEST_EQUAL(toint(boost::simd::Mone<vT>()), boost::simd::Mone<r_t>());

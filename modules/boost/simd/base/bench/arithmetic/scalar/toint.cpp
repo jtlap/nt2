@@ -16,8 +16,6 @@
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <cmath>
-
 
 //////////////////////////////////////////////////////////////////////////////
 // scalar runtime benchmark for functor<toint_> from boost.simd.arithmetic
