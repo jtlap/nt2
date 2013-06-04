@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_COMMON_UNALIGNED_STORE_HPP_INCLUDED
-#define BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_COMMON_UNALIGNED_STORE_HPP_INCLUDED
+#ifndef BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_COMMON_STORE_HPP_INCLUDED
+#define BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_COMMON_STORE_HPP_INCLUDED
 
 #include <boost/simd/memory/functions/store.hpp>
 #include <boost/simd/memory/functions/details/store.hpp>

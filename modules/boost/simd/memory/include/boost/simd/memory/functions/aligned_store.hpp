@@ -7,8 +7,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_MEMORY_FUNCTIONS_STORE_HPP_INCLUDED
-#define BOOST_SIMD_MEMORY_FUNCTIONS_STORE_HPP_INCLUDED
+#ifndef BOOST_SIMD_MEMORY_FUNCTIONS_ALIGNED_STORE_HPP_INCLUDED
+#define BOOST_SIMD_MEMORY_FUNCTIONS_ALIGNED_STORE_HPP_INCLUDED
 
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>

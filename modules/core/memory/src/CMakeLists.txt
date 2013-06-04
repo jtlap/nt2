@@ -9,5 +9,4 @@
 
 include(NT2Module)
 nt2_module_source_setup(core.memory)
-nt2_module_simd_toolbox(memory)
-
+nt2_module_simd_toolbox(memory memory)
