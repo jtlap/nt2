@@ -72,8 +72,8 @@ namespace boost { namespace simd { namespace tag
     struct toint_ : ext::elementwise_<toint_> { typedef ext::elementwise_<toint_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::toint_, toint, 1)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::toint_, ifix, 1)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::toint_, itrunc, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::toint_, fast_toint, 1)
+
 } }
 
 #include <boost/simd/operator/specific/common.hpp>
