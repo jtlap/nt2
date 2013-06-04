@@ -10,7 +10,6 @@
 SET( SOURCES
   isqrt.cpp
   negs.cpp
-  fast_toint.cpp
   abss.cpp
   adds.cpp
   subs.cpp
@@ -60,6 +59,7 @@ SET( SOURCES
   average.cpp
   abs.cpp
   toint.cpp
+  toints.cpp
   tofloat.cpp
 # List of simd test files for toolbox arithmetic
    )
