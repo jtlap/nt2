@@ -23,9 +23,7 @@ NT2_TEST_CASE_TPL_MPL( group_groupable__2_0, NT2_TEST_SEQ_MPL_FILTER(BOOST_SIMD_
 {
   using boost::simd::group;
   using boost::simd::tag::group_;
-  using boost::simd::load;
   using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
   using boost::simd::Two;
   using boost::simd::Valmax;
   using boost::simd::Valmin;
@@ -57,9 +55,7 @@ NT2_TEST_CASE_TPL_MPL( group_groupable__2_1, NT2_TEST_SEQ_MPL_FILTER(BOOST_SIMD_
 {
   using boost::simd::group;
   using boost::simd::tag::group_;
-  using boost::simd::load;
   using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
   using boost::simd::Two;
   using boost::simd::Valmax;
   using boost::simd::Valmin;
@@ -90,7 +86,6 @@ NT2_TEST_CASE_TPL ( group_groupable__3_1,  BOOST_SIMD_SIMD_GROUPABLE_TYPES)
 {
   using boost::simd::group;
   using boost::simd::tag::group_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   using boost::simd::Two;
@@ -123,7 +118,6 @@ NT2_TEST_CASE_TPL ( group_groupable__4_1,  (int32_t))
 {
   using boost::simd::group;
   using boost::simd::tag::group_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   using boost::simd::Two;
