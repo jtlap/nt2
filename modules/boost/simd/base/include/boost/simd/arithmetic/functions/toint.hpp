@@ -16,10 +16,21 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_toint toint
+ * \defgroup boost_simd_arithmetic_fast_toint fast_toint
  *
  * \par Description
- * convert an entry to integer by truncation.
+ * convert a floating entry to integer by truncation.
+ * fast_toint cast a floating value to the signed integer value of the same bit size
+ * it is done by C casting for scalars and corresponding intrinsic in simd (if available)
+ * Peculiarly,  that implies that the behaviour of this function on invalid entries is
+ * not defined and quite unpredictable.
+ * (For instance it is quite frequent that the test:
+ *           fast_toint(Inf<double>()) ==  fast_toint(1.0/0.0)
+ * will return false whilst the test:
+ *           Inf<double>() == 1.0/0.0
+ * returns true !)
+ * If you intend to use nans and infs entries,  consider using toint instead.
+ * On integral typed values the functor acts as identity.
  *
  * \par Header file
  *
