@@ -14,6 +14,7 @@ SET( SOURCES
   cumprod.cpp
   enumerate.cpp
   group.cpp
+  groups.cpp
   lookup.cpp
   put_first.cpp
   sort.cpp

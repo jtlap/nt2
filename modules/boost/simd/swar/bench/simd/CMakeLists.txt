@@ -9,6 +9,7 @@
 
 SET( SOURCES
   group.cpp
+  groups.cpp
   splatted_second.cpp
   lookup.cpp
   sort.cpp
