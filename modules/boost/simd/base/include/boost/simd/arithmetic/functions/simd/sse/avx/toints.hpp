@@ -11,12 +11,12 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 #include <boost/simd/arithmetic/functions/toints.hpp>
 #include <boost/simd/include/functions/simd/make.hpp>
-// #include <boost/simd/include/functions/simd/is_nan.hpp>
-// #include <boost/simd/include/functions/simd/bitwise_andnot.hpp>
-// #include <boost/simd/include/functions/simd/is_equal.hpp>
-// #include <boost/simd/include/functions/simd/if_else.hpp>
-// #include <boost/simd/include/functions/simd/if_zero_else.hpp>
-// #include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/functions/simd/is_nan.hpp>
+#include <boost/simd/include/functions/simd/bitwise_andnot.hpp>
+#include <boost/simd/include/functions/simd/is_equal.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/if_zero_else.hpp>
+#include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/simd/make.hpp>
