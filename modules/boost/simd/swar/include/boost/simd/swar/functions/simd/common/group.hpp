@@ -20,6 +20,7 @@
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/detail/endian.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -56,7 +57,11 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
+      #ifdef BOOST_LITTLE_ENDIAN
       return deinterleave_first(bitwise_cast<result_type>(a0), bitwise_cast<result_type>(a1));
+      #else
+      return deinterleave_second(bitwise_cast<result_type>(a0), bitwise_cast<result_type>(a1));
+      #endif
     }
   };
 } } }
