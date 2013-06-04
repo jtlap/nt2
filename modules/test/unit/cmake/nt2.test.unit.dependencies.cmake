@@ -8,7 +8,7 @@
 ################################################################################
 SET ( NT2_TEST.UNIT_DEPENDENCIES_EXTRA
       boost.dispatch
-      boost.simd.base
+      core.base
       boost.simd.constant
       sdk.config
       sdk.error
