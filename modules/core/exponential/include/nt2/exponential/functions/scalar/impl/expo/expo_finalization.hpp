@@ -10,7 +10,7 @@
 #define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPO_EXPO_FINALIZATION_HPP_INCLUDED
 
 #include <nt2/include/functions/simd/fast_ldexp.hpp>
-#include <nt2/include/functions/simd/fast_toint.hpp>
+#include <nt2/include/functions/simd/toint.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
 #include <nt2/include/functions/simd/is_flint.hpp>
@@ -55,9 +55,10 @@ namespace nt2
                                 const A0& hi,const A0& lo)
       {
         A0 y =   nt2::oneminus(((lo-(x*c)/(nt2::Two<A0>()-c))-hi));
-        return scale(y, nt2::fast_toint(k));
+        return scale(y, nt2::toint(k));
       }
     };
+
     template < class A0 > struct exp_finalization < A0, two_tag, fast_tag>
     {
       static inline A0 finalize(const A0&, const A0& x,
@@ -65,9 +66,10 @@ namespace nt2
                                 const A0& ,const A0& )
       {
         A0 y = nt2::oneminus(((-(x*c)/(nt2::Two<A0>()-c))-x));
-        return scale(y, nt2::fast_toint(k));
+        return scale(y, nt2::toint(k));
       }
     };
+
     template < class A0 > struct exp_finalization < A0, two_tag, accu_tag>
     {
       static inline A0 finalize(const A0& a0, const A0& x,
@@ -75,7 +77,7 @@ namespace nt2
                                 const A0& ,const A0& )
       {
         A0 y = nt2::oneminus(((-(x*c)/(nt2::Two<A0>()-c))-x));
-        y = scale(y, nt2::fast_toint(k));
+        y = scale(y, nt2::toint(k));
         // adjust for 2^n n flint
         return  nt2::if_else(nt2::logical_and(nt2::is_gtz(a0),
                                               nt2::is_flint(a0)),
@@ -89,20 +91,14 @@ namespace nt2
                                 const A0& c , const A0& k,
                                 const A0&   , const A0& )
       {
-        A0 y = scale(c, fast_toint(k));
-        //adjust for 10^n n flint
-        return  nt2::if_else(nt2::logical_and(nt2::is_gtz(a0),
-                                              nt2::is_flint(a0)),
-                             nt2::round2even(y), y);
-      }
-
+          A0 y = scale(c, toint(k));
+          //adjust for 10^n n flint
+          return  nt2::if_else(nt2::logical_and(nt2::is_gtz(a0),
+                                                nt2::is_flint(a0)),
+                               nt2::round2even(y), y);
+        }
     };
-
-
-
   }
 }
-
-
 
 #endif
