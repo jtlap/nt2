@@ -20,7 +20,7 @@
 #include <boost/simd/include/functions/simd/genmask.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/split_multiplies.hpp>
-#include <boost/simd/include/functions/simd/group.hpp>
+#include <boost/simd/include/functions/simd/groups.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/sdk/meta/is_upgradable_to.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
@@ -59,8 +59,7 @@ namespace boost { namespace simd { namespace ext
       split_multiplies(a0, a1, res0, res1);
 
 #if 1
-      // FIXME: issue #166 group currently saturates
-      return group(res0, res1);
+      return groups(res0, res1);
 #else
       return group(res0, res1)
            | group( shrai(res0, sizeof(stype)*CHAR_BIT)
@@ -89,8 +88,7 @@ namespace boost { namespace simd { namespace ext
       split_multiplies(a0, a1, res0, res1);
 
 #if 1
-      // FIXME: issue #166 group currently saturates
-      return group(res0, res1);
+      return groups(res0, res1);
 #else
       untype res2 = shrai(bitwise_cast<untype>(a0 ^ a1), sizeof(stype)*CHAR_BIT-1) + Valmax<stype>();
 
