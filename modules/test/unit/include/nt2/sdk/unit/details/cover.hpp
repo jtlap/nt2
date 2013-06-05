@@ -1,0 +1,218 @@
+//==============================================================================
+//         Copyright 2003 - 2012 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012        MetaScale SAS
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
+#ifndef NT2_SDK_UNIT_TESTS_DETAILS_COVER_HPP_INCLUDED
+#define NT2_SDK_UNIT_TESTS_DETAILS_COVER_HPP_INCLUDED
+
+#include <nt2/sdk/unit/io.hpp>
+#include <nt2/sdk/unit/stats.hpp>
+#include <nt2/sdk/unit/details/eval.hpp>
+#include <nt2/sdk/unit/details/ulp.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
+#include <nt2/include/functions/unaligned_load.hpp>
+#include <nt2/include/functions/unaligned_store.hpp>
+#include <boost/preprocessor/seq/elem.hpp>
+#include <boost/preprocessor/seq/size.hpp>
+#include <boost/preprocessor/tuple/elem.hpp>
+#include <boost/preprocessor/seq/for_each.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <boost/typeof/typeof.hpp>
+#include <boost/mpl/vector.hpp>
+#include <boost/mpl/at.hpp>
+#include <boost/foreach.hpp>
+#include <iostream>
+#include <iomanip>
+#include <vector>
+
+/// INTERNAL ONLY Grab an input type
+#define NT2_COVER_TYPE(z,n,t) BOOST_PP_TUPLE_ELEM(2,0,BOOST_PP_SEQ_ELEM(n,t))  \
+/**/
+
+/// INTERNAL ONLY Grab an input type
+#define NT2_COVER_VAR(z,n,t) BOOST_PP_TUPLE_ELEM(2,1,BOOST_PP_SEQ_ELEM(n,t))   \
+/**/
+
+#define NT2_COVER_INPUT_TYPES(z,n,t)                                           \
+typedef typename boost::mpl::at_c<Types,n>::type type_##n;                     \
+/**/
+
+#define NT2_COVER_LOADS(z,n,t)                                                 \
+nt2::unaligned_load<type_##n>(&i##n[t])                                        \
+/**/
+
+/// INTERNAL ONLY Display an input
+#define NT2_COVER_DISP(z,n,t) << ", "<< NT2_COVER_LOADS(z,n,t)                 \
+/**/
+
+#define NT2_COVER_TYPES_LIST(INPUTS)                                           \
+boost::mpl::vector<BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(INPUTS)                    \
+                                , NT2_COVER_TYPE                               \
+                                , INPUTS                                       \
+                                )>                                             \
+/**/
+
+#define NT2_COVER_VALUES_LIST(INPUTS)                                          \
+BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(INPUTS), NT2_COVER_VAR, INPUTS )              \
+/**/
+
+namespace nt2 { namespace details
+{
+  #define NT2_COVER_COMPUTE(z,n,t)                                             \
+  template< typename Function, typename Data, typename Types                   \
+          , BOOST_PP_ENUM_PARAMS(n,typename I)                                 \
+          >                                                                    \
+  inline                                                                       \
+  Data compute_coverage ( Function f, Data const& ref, Types const&            \
+                        , BOOST_PP_ENUM_BINARY_PARAMS(n,I, const& i)           \
+                        )                                                      \
+  {                                                                            \
+    Data out(ref.size());                                                      \
+                                                                               \
+    BOOST_PP_REPEAT(n,NT2_COVER_INPUT_TYPES,~)                                 \
+    std::size_t cc = meta::cardinal_of<type_0>::value;                         \
+                                                                               \
+    for(std::size_t i=0; i<out.size(); i+=cc)                                  \
+    {                                                                          \
+      nt2::unaligned_store( f(BOOST_PP_ENUM(n,NT2_COVER_LOADS,i)), &out[i]);   \
+    }                                                                          \
+                                                                               \
+    return out;                                                                \
+  }                                                                            \
+  /**/
+
+  BOOST_PP_REPEAT_FROM_TO ( 1
+                          , BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY)
+                          , NT2_COVER_COMPUTE
+                          , ~
+                          )
+
+  #define NT2_COVER_FAILURES(z,n,t)                                            \
+  template< typename Function, typename Data, typename ULPs                    \
+          , typename Types                                                     \
+          , BOOST_PP_ENUM_PARAMS(n,typename I)                                 \
+          >                                                                    \
+  inline                                                                       \
+  void display_cover_fails( const char* func, Function f                       \
+                          , Data const& out, Data const& ref                   \
+                          , ULPs const& ulps, Types const&                     \
+                          , BOOST_PP_ENUM_BINARY_PARAMS(n,I, const& i)         \
+                          )                                                    \
+  {                                                                            \
+    int ib = -1;                                                               \
+    std::size_t cc = nt2::meta                                                 \
+                        ::cardinal_of < typename boost::mpl                    \
+                                                      ::at_c<Types,0>::type    \
+                                      >::value;                                \
+                                                                               \
+    BOOST_PP_REPEAT(n,NT2_COVER_INPUT_TYPES,~)                                 \
+                                                                               \
+    typedef BOOST_TYPEOF_TPL(f( BOOST_PP_ENUM(n,NT2_COVER_LOADS,0) )) r_t;     \
+                                                                               \
+    BOOST_FOREACH ( typename ULPs::const_reference f, ulps )                   \
+    {                                                                          \
+      int ii = (f.index/cc)*cc;                                                \
+      if(ii > ib)                                                              \
+      {                                                                        \
+                                                                               \
+        std::cout << std::setprecision(20)                                     \
+                  << func << "("                                               \
+                  << NT2_COVER_LOADS(~,0,ii)                                   \
+                  BOOST_PP_REPEAT_FROM_TO( 1, n, NT2_COVER_DISP, ii)           \
+                  << ") got "                                                  \
+                  << nt2::unaligned_load<r_t>(&out[ii])                        \
+                  << " while expecting "                                       \
+                  << nt2::unaligned_load<r_t>(&out[ii])                        \
+                  << " (i.e "   << f.ulp_error << " ULPs)"                     \
+                  << std::endl;                                                \
+        ib = ii;                                                               \
+      }                                                                        \
+    }                                                                          \
+    std::cout << std::endl;                                                    \
+  }                                                                            \
+  /**/
+
+  BOOST_PP_REPEAT_FROM_TO ( 1
+                          , BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY)
+                          , NT2_COVER_FAILURES
+                          , ~
+                          )
+
+  #define NT2_COVER_PERFORM(z,n,t)                                             \
+  template< typename Function, typename Data, typename Types                   \
+          , BOOST_PP_ENUM_PARAMS(n,typename I)                                 \
+          >                                                                    \
+  inline                                                                       \
+  void perform_coverage ( const char* desc, const char* file, int line         \
+                        , Function f                                           \
+                        , Data const& out, Data const& ref, double N           \
+                        , Types const& types                                   \
+                        , BOOST_PP_ENUM_BINARY_PARAMS(n,I, const& i)           \
+                        )                                                      \
+  {                                                                            \
+    typedef typename Data::value_type                               t_t;       \
+    typedef typename nt2::details::max_ulp_<t_t,t_t>::failure_type  f_t;       \
+                                                                               \
+    std::vector< f_t > ulps;                                                   \
+    double ulpd = 0;                                                           \
+    find_ulp_error(out,ref,ulps,ulpd,N);                                       \
+                                                                               \
+    if(ulps.empty())                                                           \
+    {                                                                          \
+      ::nt2::details::ulp_pass(desc, ulpd, N);                                 \
+    }                                                                          \
+    else                                                                       \
+    {                                                                          \
+      ::nt2::details::ulp_fail( desc, file, line, ulps.size(), N, true );      \
+      display_cover_fails ( BOOST_PP_STRINGIZE(TAG), f                         \
+                          , out, ref                                           \
+                          , ulps, types, BOOST_PP_ENUM_PARAMS(n, i)            \
+                          );                                                   \
+    }                                                                          \
+  }                                                                            \
+  /**/
+
+  BOOST_PP_REPEAT_FROM_TO ( 1
+                          , BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY)
+                          , NT2_COVER_PERFORM
+                          , ~
+                          )
+
+  #define NT2_COVER_TEST_PP(z,n,t)                                             \
+  template< typename Function, typename Data, typename Types                   \
+          , BOOST_PP_ENUM_PARAMS(n,typename I)                                 \
+          >                                                                    \
+  inline                                                                       \
+  void test_cover_ulp ( const char* desc, const char* file, int line           \
+                      , Function f, Data const& ref, Types const& types        \
+                      , double ulpd                                            \
+                      , BOOST_PP_ENUM_BINARY_PARAMS(n,I, const& i)             \
+                      )                                                        \
+        {                                                                      \
+    Data out  = ::nt2::details                                                 \
+                ::compute_coverage( f, ref, types                              \
+                                  , BOOST_PP_ENUM_PARAMS(n, i)                 \
+                                  );                                           \
+                                                                               \
+    ::nt2::details::                                                           \
+    perform_coverage( desc, file, line, f                                      \
+                    , out , ref , ulpd, types                                  \
+                    , BOOST_PP_ENUM_PARAMS(n, i)                               \
+                    );                                                         \
+  }                                                                            \
+  /**/
+
+  BOOST_PP_REPEAT_FROM_TO ( 1
+                          , BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY)
+                          , NT2_COVER_TEST_PP
+                          , ~
+                          )
+} }
+
+#endif

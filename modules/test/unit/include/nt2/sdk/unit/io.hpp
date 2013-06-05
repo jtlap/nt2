@@ -11,26 +11,30 @@
 #define NT2_SDK_UNIT_IO_HPP_INCLUDED
 
 #include <vector>
-#include <ostream>
+#include <iostream>
 #include <algorithm>
 
-template<typename T, typename A>
-inline std::ostream& operator<<(std::ostream& os, std::vector<T,A> const& v)
+namespace std
 {
-  typedef typename std::vector<T,A>::const_iterator iterator_t;
+  template<typename T, typename A>
+  inline std::ostream& operator<<(std::ostream& os, std::vector<T,A> const& v)
+  {
+    typedef typename std::vector<T,A>::const_iterator iterator_t;
 
-  os << "\n";
-  for(iterator_t it = v.begin(); it != v.end(); ++it)
-    os << *it << "  ";
-  os << "\n";
+    os << "\n";
+    for(iterator_t it = v.begin(); it != v.end(); ++it)
+      os << *it << "  ";
+    os << "\n";
 
-  return os;
+    return os;
+  }
+
+  template<typename T1, typename T2>
+  inline std::ostream& operator<<(std::ostream& os, std::pair<T1, T2> const& xpr)
+  {
+    os << "[" << xpr.first << ",  " << xpr.second << "]";
+    return os;
+  }
 }
 
-template<typename T1, typename T2>
-inline std::ostream& operator<<(std::ostream& os, std::pair<T1, T2> const& xpr)
-{
-  os << "[" << xpr.first << ",  " << xpr.second << "]";
-  return os;
-}
 #endif
