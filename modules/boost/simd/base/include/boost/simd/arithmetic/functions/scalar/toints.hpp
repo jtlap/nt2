@@ -46,7 +46,7 @@ namespace boost { namespace simd { namespace ext
     {
       if (boost::simd::is_nan(a0))       return Zero<result_type>();
       if (a0 == boost::simd::Inf<A0>())  return boost::simd::Valmax<result_type>();
-      if (a0 == boost::simd::Minf<A0>()) return boost::simd::Valmin<result_type>();
+      //adding a test may be needed if we find a system for which -inf is not properly casted
       return result_type(a0);
     }
   };

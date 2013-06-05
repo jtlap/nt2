@@ -34,6 +34,7 @@ namespace boost { namespace simd { namespace ext
       const result_type v = make<result_type> ( static_cast<stype>(aa0[0])
                                               , static_cast<stype>(aa0[1])
                                               );
+      //adding a test may be needed if we find a system for which -inf is not properly casted
       return  select(eq(aa0, Inf<A0>()), Inf<result_type>(), v);
     }
   };
