@@ -9,9 +9,9 @@
 
 nt2_module_use_modules(test.benchmark)
 
-#ADD_SUBDIRECTORY(arithmetic)
-#ADD_SUBDIRECTORY(bitwise)
-#ADD_SUBDIRECTORY(boolean)
-#ADD_SUBDIRECTORY(ieee)
-#ADD_SUBDIRECTORY(operator)
-#ADD_SUBDIRECTORY(predicates)
+ADD_SUBDIRECTORY(arithmetic)
+ADD_SUBDIRECTORY(bitwise)
+ADD_SUBDIRECTORY(boolean)
+ADD_SUBDIRECTORY(ieee)
+ADD_SUBDIRECTORY(operator)
+ADD_SUBDIRECTORY(predicates)
