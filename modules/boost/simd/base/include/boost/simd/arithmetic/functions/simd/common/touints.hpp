@@ -46,9 +46,10 @@ namespace boost { namespace simd { namespace ext
       return bitwise_cast<result_type>(a0);
     }
   };
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::touints_, tag::cpu_, (A0)
-                            , (simd_< floating_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::touints_, tag::cpu_,
+                                     (A0)(X)
+                                   , ((simd_< floating_<A0>,X >))
+                                   )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned> ::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
@@ -60,6 +61,7 @@ namespace boost { namespace simd { namespace ext
                          );
 
     }
+  };
 
 } } }
 
