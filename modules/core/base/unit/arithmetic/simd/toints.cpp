@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 
-#include <boost/simd/arithmetic/include/functions/toints.hpp>
+#include <nt2/arithmetic/include/functions/toints.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -26,7 +26,7 @@
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/mone.hpp>
-#include <nt2/sdk/simd/io.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 #include <nt2/include/functions/simd/make.hpp>
 
 
@@ -35,7 +35,7 @@ NT2_TEST_CASE_TPL ( toints_real,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using nt2::toints;
   using nt2::tag::toints_;
-  using nt2::native;
+  using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION                                ext_t;
   typedef native<T,ext_t>                                                vT;
   typedef typename boost::dispatch::meta::as_integer<vT>::type   wished_r_t;
@@ -60,7 +60,7 @@ NT2_TEST_CASE_TPL ( toints_realf,  (float))
 {
   using nt2::toints;
   using nt2::tag::toints_;
-  using nt2::native;
+  using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION                                ext_t;
   typedef native<T,ext_t>                                                vT;
   typedef typename boost::dispatch::meta::call<toints_(vT)>::type       r_t;
@@ -74,7 +74,7 @@ NT2_TEST_CASE_TPL ( toints_reald,  (double))
 {
   using nt2::toints;
   using nt2::tag::toints_;
-  using nt2::native;
+  using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION                                ext_t;
   typedef native<T,ext_t>                                                vT;
   typedef typename boost::dispatch::meta::call<toints_(vT)>::type       r_t;
@@ -95,7 +95,7 @@ NT2_TEST_CASE_TPL ( toints_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
 
   using nt2::toints;
   using nt2::tag::toints_;
-  using nt2::native;
+  using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION                                ext_t;
   typedef native<T,ext_t>                                                vT;
   typedef typename boost::dispatch::meta::as_integer<vT>::type   wished_r_t;
@@ -114,7 +114,7 @@ NT2_TEST_CASE_TPL ( toints_signed,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 
   using nt2::toints;
   using nt2::tag::toints_;
-  using nt2::native;
+  using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION                                ext_t;
   typedef native<T,ext_t>                                                vT;
   typedef typename boost::dispatch::meta::as_integer<vT>::type   wished_r_t;
