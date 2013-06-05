@@ -52,6 +52,8 @@ SET( SOURCES
   abs.cpp
   toint.cpp
   toints.cpp
+  touint.cpp
+  touints.cpp
   tofloat.cpp
   muls.cpp
   divs.cpp
