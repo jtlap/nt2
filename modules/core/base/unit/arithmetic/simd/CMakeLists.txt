@@ -60,6 +60,8 @@ SET( SOURCES
   abs.cpp
   toint.cpp
   toints.cpp
+  touint.cpp
+  touints.cpp
   tofloat.cpp
 # List of simd test files for toolbox arithmetic
    )
