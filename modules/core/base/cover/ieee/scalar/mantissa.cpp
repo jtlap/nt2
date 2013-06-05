@@ -44,13 +44,6 @@ NT2_TEST_CASE_TPL ( mantissa_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
-
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
-
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
@@ -62,8 +55,8 @@ NT2_TEST_CASE_TPL ( mantissa_real__1_0,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::mantissa(a0),boost::fusion::get<0>(nt2::frexp(a0))*2);
+        NT2_TEST_EQUAL( nt2::mantissa(a0),nt2::frexp(a0).first*2);
      }
 
    }
-} // end of test for floating_
+}
