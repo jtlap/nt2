@@ -55,7 +55,6 @@ namespace boost { namespace simd { namespace ext
     {
       if (boost::simd::is_ngez(a0))       return Zero<result_type>();
       if (a0 == boost::simd::Inf<A0>())  return boost::simd::Valmax<result_type>();
-      if (a0 == boost::simd::Minf<A0>()) return boost::simd::Valmin<result_type>();
       return result_type(a0);
     }
   };
