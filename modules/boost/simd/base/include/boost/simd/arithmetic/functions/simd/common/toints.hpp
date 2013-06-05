@@ -9,7 +9,12 @@
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_TOINTS_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_TOINTS_HPP_INCLUDED
 #include <boost/simd/arithmetic/functions/toints.hpp>
-#include <boost/simd/include/functions/simd/toints.hpp>
+#include <boost/simd/include/functions/is_nan.hpp>
+#include <boost/simd/include/functions/is_equal.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/functions/toint.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
+#include <boost/simd/include/functions/if_zero_else.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -43,7 +48,11 @@ namespace boost { namespace simd { namespace ext
     {
       A0 aa0 = if_zero_else(is_nan(a0), a0);
       result_type that = toint(aa0);
-      return  select(eq(aa0, Inf<A0>()), Inf<result_type>(), that);
+      return if_else(eq(aa0, Inf<A0>()), Inf<result_type>(),
+                     if_else(eq(aa0, Minf<A0>()), Minf<result_type>(),
+                             that)
+                    );
+
     }
   };
 } } }

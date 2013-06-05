@@ -13,9 +13,8 @@
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/include/constants/valmax.hpp>
-#include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
+#include <boost/simd/include/functions/scalar/is_finite.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -44,10 +43,10 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_integer<A0> ::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
+      if (boost::simd::is_finite(a0))    return result_type(a0);
       if (boost::simd::is_nan(a0))       return Zero<result_type>();
-      if (a0 == boost::simd::Inf<A0>())  return boost::simd::Valmax<result_type>();
-      //adding a test may be needed if we find a system for which -inf is not properly casted
-      return result_type(a0);
+      if (a0 == boost::simd::Inf<A0>())  return boost::simd::Inf<result_type>();
+      return boost::simd::Minf<result_type>();
     }
   };
 } } }
