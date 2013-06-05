@@ -68,19 +68,9 @@ namespace nt2 { namespace tag
  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::caurnd_, caurnd, 4)
  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::caurnd_, caurnd, 5)
  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::caurnd_, caurnd, 6)
+ NT2_FUNCTION_IMPLEMENTATION(nt2::tag::caurnd_, caurnd, 7)
 }
 
-namespace nt2 { namespace ext
-{
-  template<class Domain, class Expr, int N>
-  struct  value_type<tag::caurnd_,Domain,N,Expr>
-        : meta::value_as<Expr,0>
-  {};
 
-  template<class Domain, class Expr, int N>
-  struct  size_of<tag::caurnd_,Domain,N,Expr>
-        : meta::boxed_size<Expr,2>
-  {};
-} }
 
 #endif

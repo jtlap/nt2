@@ -11,7 +11,7 @@ SET( SOURCES
   caucdf.cpp
   caupdf.cpp
   cauinv.cpp
-#  caurnd.cpp
+  caurnd.cpp
   normcdf.cpp
   normpdf.cpp
   norminv.cpp
