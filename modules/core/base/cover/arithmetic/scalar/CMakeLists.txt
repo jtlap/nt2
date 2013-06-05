@@ -55,6 +55,8 @@ subs.cpp
 tofloat.cpp
 toint.cpp
 toints.cpp
+touint.cpp
+touints.cpp
 trunc.cpp
 two_add.cpp
 two_prod.cpp
