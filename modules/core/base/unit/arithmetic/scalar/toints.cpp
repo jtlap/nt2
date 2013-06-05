@@ -26,50 +26,50 @@
 #include <nt2/include/constants/nan.hpp>
 
 
-NT2_TEST_CASE_TPL ( touints_real,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( toints_real,  BOOST_SIMD_REAL_TYPES)
 {
 
-  using boost::simd::touints;
-  using boost::simd::tag::touints_;
-  typedef typename boost::dispatch::meta::call<touints_(T)>::type              r_t;
+  using nt2::toints;
+  using nt2::tag::toints_;
+  typedef typename boost::dispatch::meta::call<toints_(T)>::type              r_t;
   typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type wished_r_t;
 
   NT2_TEST_TYPE_IS( r_t, wished_r_t );
   // specific values tests
-  NT2_TEST_EQUAL(touints(nt2::Inf<T>()) , nt2::Inf<r_t>());
-  NT2_TEST_EQUAL(touints(nt2::Minf<T>()), nt2::Zero<r_t>());
-  NT2_TEST_EQUAL(touints(nt2::Mone<T>()), nt2::Zero<r_t>());
-  NT2_TEST_EQUAL(touints(nt2::Nan<T>()) , nt2::Zero<r_t>());
-  NT2_TEST_EQUAL(touints(nt2::One<T>()) , nt2::One<r_t>());
-  NT2_TEST_EQUAL(touints(nt2::Zero<T>()), nt2::Zero<r_t>());
+  NT2_TEST_EQUAL(toints(nt2::Inf<T>()) , nt2::Inf<r_t>());
+  NT2_TEST_EQUAL(toints(nt2::Minf<T>()), nt2::Zero<r_t>());
+  NT2_TEST_EQUAL(toints(nt2::Mone<T>()), nt2::Zero<r_t>());
+  NT2_TEST_EQUAL(toints(nt2::Nan<T>()) , nt2::Zero<r_t>());
+  NT2_TEST_EQUAL(toints(nt2::One<T>()) , nt2::One<r_t>());
+  NT2_TEST_EQUAL(toints(nt2::Zero<T>()), nt2::Zero<r_t>());
  } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( touints_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( toints_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
 {
 
-  using nt2::touints;
-  using nt2::tag::touints_;
-  typedef typename boost::dispatch::meta::call<touints_(T)>::type               r_t;
+  using nt2::toints;
+  using nt2::tag::toints_;
+  typedef typename boost::dispatch::meta::call<toints_(T)>::type               r_t;
   typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type wished_r_t;
 
   NT2_TEST_TYPE_IS( r_t, wished_r_t );
   // specific values tests
-  NT2_TEST_EQUAL(touints(nt2::One<T>()), nt2::One<r_t>());
-  NT2_TEST_EQUAL(touints(nt2::Zero<T>()), nt2::Zero<r_t>());
+  NT2_TEST_EQUAL(toints(nt2::One<T>()), nt2::One<r_t>());
+  NT2_TEST_EQUAL(toints(nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( touints_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( toints_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
 
-  using nt2::touints;
-  using nt2::tag::touints_;
-  typedef typename boost::dispatch::meta::call<touints_(T)>::type               r_t;
+  using nt2::toints;
+  using nt2::tag::toints_;
+  typedef typename boost::dispatch::meta::call<toints_(T)>::type               r_t;
   typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type wished_r_t;
 
   NT2_TEST_TYPE_IS( r_t, wished_r_t );
-//  NT2_TEST_EQUAL(touints(nt2::Mone<T>()), nt2::Valmax<r_t>());
-  NT2_TEST_EQUAL(touints(nt2::Mone<T>()), nt2::Zero<r_t>());
-  NT2_TEST_EQUAL(touints(nt2::One<T>()), nt2::One<r_t>());
-  NT2_TEST_EQUAL(touints(nt2::Zero<T>()), nt2::Zero<r_t>());
+//  NT2_TEST_EQUAL(toints(nt2::Mone<T>()), nt2::Valmax<r_t>());
+  NT2_TEST_EQUAL(toints(nt2::Mone<T>()), nt2::Zero<r_t>());
+  NT2_TEST_EQUAL(toints(nt2::One<T>()), nt2::One<r_t>());
+  NT2_TEST_EQUAL(toints(nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for signed_int_
 

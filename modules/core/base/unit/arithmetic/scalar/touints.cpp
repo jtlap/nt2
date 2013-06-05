@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL ( touints_real,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(touints(nt2::Inf<T>()), nt2::Inf<r_t>());
   NT2_TEST_EQUAL(touints(nt2::Minf<T>()), nt2::Minf<r_t>());
   NT2_TEST_EQUAL(touints(nt2::Nan<T>()), nt2::Zero<r_t>());
-  NT2_TEST_EQUAL(touints(nt2::Mone<T>()), nt2::Mone<r_t>());
+  NT2_TEST_EQUAL(touints(nt2::Mone<T>()), nt2::Zero<r_t>());
   NT2_TEST_EQUAL(touints(nt2::One<T>()),  nt2::One<r_t>());
   NT2_TEST_EQUAL(touints(nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for floating_
@@ -76,6 +76,7 @@ NT2_TEST_CASE_TPL ( touints_signed_int,  NT2_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_TYPE_IS(r_t, wished_r_t);
 
   // specific values tests
-  NT2_TEST_EQUAL(touints(nt2::Mone<T>()), nt2::Mone<r_t>());
+  NT2_TEST_EQUAL(touints(nt2::Mone<T>()), nt2::ZEro<r_t>());
   NT2_TEST_EQUAL(touints(nt2::One<T>()),  nt2::One<r_t>());
+  NT2_TEST_EQUAL(touints(nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for signed_int_
