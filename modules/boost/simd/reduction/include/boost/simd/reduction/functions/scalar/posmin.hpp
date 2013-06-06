@@ -8,8 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_REDUCTION_FUNCTIONS_SCALAR_POSMIN_HPP_INCLUDED
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_SCALAR_POSMIN_HPP_INCLUDED
+
 #include <boost/simd/reduction/functions/posmin.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -19,7 +19,7 @@ namespace boost { namespace simd { namespace ext
                         (scalar_<fundamental_<A0> > )
                        )
   {
-    typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
+    typedef std::size_t result_type;
     inline result_type operator()(A0 const&)const
     {
       return Zero<result_type>();
