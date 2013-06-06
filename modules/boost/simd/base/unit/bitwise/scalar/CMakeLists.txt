@@ -14,7 +14,6 @@ SET( SOURCES
   genmask.cpp
   twopower.cpp
   shr.cpp
-  shli.cpp
   rshr.cpp
   rshl.cpp
   rror.cpp
