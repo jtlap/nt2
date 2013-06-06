@@ -180,6 +180,7 @@ namespace nt2 { namespace memory
     struct beginer
     {
       template<class Sig> struct result;
+      template<class This,class Elem> struct result<This(Elem)> : result<This(Elem&)> {};
       template<class This,class Elem> struct result<This(Elem&)>
       {
         typedef typename Elem::iterator type;
@@ -201,6 +202,7 @@ namespace nt2 { namespace memory
     struct ender
     {
       template<class Sig> struct result;
+      template<class This,class Elem> struct result<This(Elem)> : result<This(Elem&)> {};
       template<class This,class Elem> struct result<This(Elem&)>
       {
         typedef typename Elem::iterator type;
@@ -274,6 +276,7 @@ namespace nt2 { namespace memory
     struct rawer
     {
       template<class Sig> struct result;
+      template<class This,class Elem> struct result<This(Elem)> : result<This(Elem&)> {};
       template<class This,class Elem> struct result<This(Elem&)>
       {
         typedef typename Elem::pointer type;
@@ -338,6 +341,7 @@ namespace nt2 { namespace memory
     struct indexer
     {
       template<class Sig> struct result;
+      template<class This,class Elem> struct result<This(Elem)> : result<This(Elem&)> {};
       template<class This,class Elem> struct result<This(Elem&)>
       {
         typedef typename Elem::reference type;
