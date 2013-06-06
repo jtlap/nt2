@@ -38,6 +38,7 @@ namespace n1 {
   typedef boost::simd::native<T,ext_t> vT;
   typedef boost::simd::native<iT,ext_t> viT;
   NT2_TIMING(shift_left_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(viT,0,sizeof(T)*8-1)))
+  NT2_TIMING(shift_left_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(T)*8-1)))
 }
 namespace n2 {
   typedef nt2::int16_t T;
@@ -45,6 +46,7 @@ namespace n2 {
   typedef boost::simd::native<T,ext_t> vT;
   typedef boost::simd::native<iT,ext_t> viT;
   NT2_TIMING(shift_left_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(viT,0,sizeof(T)*8-1)))
+  NT2_TIMING(shift_left_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(T)*8-1)))
 }
 namespace n3 {
   typedef nt2::int32_t T;
@@ -52,6 +54,7 @@ namespace n3 {
   typedef boost::simd::native<T,ext_t> vT;
   typedef boost::simd::native<iT,ext_t> viT;
   NT2_TIMING(shift_left_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(viT,0,sizeof(T)*8-1)))
+  NT2_TIMING(shift_left_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(T)*8-1)))
 }
 namespace n4 {
   typedef nt2::int64_t T;
@@ -59,6 +62,7 @@ namespace n4 {
   typedef boost::simd::native<T,ext_t> vT;
   typedef boost::simd::native<iT,ext_t> viT;
   NT2_TIMING(shift_left_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(viT,0,sizeof(T)*8-1)))
+  NT2_TIMING(shift_left_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(T)*8-1)))
 }
 namespace n5 {
   typedef nt2::uint8_t T;
@@ -66,6 +70,7 @@ namespace n5 {
   typedef boost::simd::native<T,ext_t> vT;
   typedef boost::simd::native<iT,ext_t> viT;
   NT2_TIMING(shift_left_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(viT,0,sizeof(T)*8-1)))
+  NT2_TIMING(shift_left_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(T)*8-1)))
 }
 namespace n6 {
   typedef nt2::uint16_t T;
@@ -73,6 +78,7 @@ namespace n6 {
   typedef boost::simd::native<T,ext_t> vT;
   typedef boost::simd::native<iT,ext_t> viT;
   NT2_TIMING(shift_left_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(viT,0,sizeof(T)*8-1)))
+  NT2_TIMING(shift_left_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(T)*8-1)))
 }
 namespace n7 {
   typedef nt2::uint32_t T;
@@ -80,6 +86,7 @@ namespace n7 {
   typedef boost::simd::native<T,ext_t> vT;
   typedef boost::simd::native<iT,ext_t> viT;
   NT2_TIMING(shift_left_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(viT,0,sizeof(T)*8-1)))
+  NT2_TIMING(shift_left_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(T)*8-1)))
 }
 namespace n8 {
   typedef nt2::uint64_t T;
@@ -87,6 +94,7 @@ namespace n8 {
   typedef boost::simd::native<T,ext_t> vT;
   typedef boost::simd::native<iT,ext_t> viT;
   NT2_TIMING(shift_left_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(viT,0,sizeof(T)*8-1)))
+  NT2_TIMING(shift_left_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(T)*8-1)))
 }
 namespace n9 {
   typedef float T;
@@ -94,6 +102,7 @@ namespace n9 {
   typedef boost::simd::native<T,ext_t> vT;
   typedef boost::simd::native<iT,ext_t> viT;
   NT2_TIMING(shift_left_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(viT,0,sizeof(T)*8-1)))
+  NT2_TIMING(shift_left_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(T)*8-1)))
 }
 namespace n10 {
   typedef double T;
@@ -101,6 +110,7 @@ namespace n10 {
   typedef boost::simd::native<T,ext_t> vT;
   typedef boost::simd::native<iT,ext_t> viT;
   NT2_TIMING(shift_left_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(viT,0,sizeof(T)*8-1)))
+  NT2_TIMING(shift_left_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(T)*8-1)))
 }
 
 #undef RS
