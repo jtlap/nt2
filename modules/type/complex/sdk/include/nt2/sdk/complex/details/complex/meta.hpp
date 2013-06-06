@@ -15,6 +15,8 @@
 #include <boost/dispatch/meta/property_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
+#include <boost/dispatch/meta/upgrade.hpp>
+#include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/type_traits/has_trivial_copy.hpp>
 #include <boost/type_traits/has_trivial_constructor.hpp>
 #include <boost/type_traits/has_trivial_destructor.hpp>
@@ -31,6 +33,18 @@ namespace boost { namespace simd { namespace meta
 
 namespace boost { namespace dispatch { namespace meta
 {
+  template<class T>
+  struct model_of< std::complex<T> >
+  {
+    struct type
+    {
+      template<class U> struct apply
+      {
+        typedef std::complex<U> type;
+      };
+    };
+  };
+
   template<class T, class Origin>
   struct property_of< std::complex<T>, Origin >
   {

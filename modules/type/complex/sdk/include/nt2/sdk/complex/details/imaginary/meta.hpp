@@ -46,6 +46,18 @@ namespace boost { namespace simd { namespace meta
 
 namespace boost { namespace dispatch { namespace meta
 {
+  template<class T>
+  struct model_of< nt2::imaginary<T> >
+  {
+    struct type
+    {
+      template<class U> struct apply
+      {
+        typedef  nt2::imaginary<U> type;
+      };
+    };
+  };
+
   template<class T, class Origin>
   struct property_of< nt2::imaginary<T>, Origin >
   {

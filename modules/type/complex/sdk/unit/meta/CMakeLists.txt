@@ -10,6 +10,7 @@
 set( SOURCES
      hierarchy.cpp
      properties.cpp
+     upgrade_downgrade.cpp
    )
 
 nt2_module_add_tests(type.complex.sdk.meta.unit ${SOURCES})
