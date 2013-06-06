@@ -10,7 +10,7 @@
 #define BOOST_SIMD_BITWISE_FUNCTIONS_SIMD_COMMON_REVERSEBITS_HPP_INCLUDED
 
 #include <boost/simd/bitwise/functions/reversebits.hpp>
-#include <boost/simd/include/functions/simd/shl.hpp>
+#include <boost/simd/include/functions/simd/shift_left.hpp>
 #include <boost/simd/include/functions/simd/shr.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/functions/simd/bitwise_and.hpp>

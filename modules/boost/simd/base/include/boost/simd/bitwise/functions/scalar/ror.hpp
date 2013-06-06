@@ -10,7 +10,7 @@
 #define BOOST_SIMD_BITWISE_FUNCTIONS_SCALAR_ROR_HPP_INCLUDED
 
 #include <boost/simd/bitwise/functions/ror.hpp>
-#include <boost/simd/include/functions/scalar/shl.hpp>
+#include <boost/simd/include/functions/scalar/shift_left.hpp>
 #include <boost/simd/include/functions/scalar/shr.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

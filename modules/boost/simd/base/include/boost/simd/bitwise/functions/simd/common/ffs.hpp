@@ -14,7 +14,7 @@
 #include <boost/simd/include/functions/simd/genmask.hpp>
 #include <boost/simd/include/functions/simd/firstbitset.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
-#include <boost/simd/include/functions/simd/shl.hpp>
+#include <boost/simd/include/functions/simd/shift_left.hpp>
 #include <boost/simd/include/functions/simd/shr.hpp>
 #include <boost/simd/include/functions/simd/seladd.hpp>
 #include <boost/simd/include/functions/simd/unary_minus.hpp>

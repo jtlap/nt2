@@ -14,7 +14,7 @@
 /// created  by jt the 18/02/2011
 ///
 #include <nt2/bitwise/include/functions/twopower.hpp>
-#include <nt2/include/functions/shl.hpp>
+#include <nt2/include/functions/shift_left.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

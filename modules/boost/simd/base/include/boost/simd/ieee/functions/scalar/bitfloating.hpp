@@ -11,7 +11,7 @@
 
 #include <boost/simd/ieee/functions/bitfloating.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
-#include <boost/simd/include/functions/scalar/shl.hpp>
+#include <boost/simd/include/functions/scalar/shift_left.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/zero.hpp>

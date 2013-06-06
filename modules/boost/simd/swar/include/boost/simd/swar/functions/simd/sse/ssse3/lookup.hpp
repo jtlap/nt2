@@ -11,7 +11,7 @@
 #ifdef BOOST_SIMD_HAS_SSSE3_SUPPORT
 
 #include <boost/simd/swar/functions/lookup.hpp>
-#include <boost/simd/include/functions/simd/shl.hpp>
+#include <boost/simd/include/functions/simd/shift_left.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/make.hpp>
 

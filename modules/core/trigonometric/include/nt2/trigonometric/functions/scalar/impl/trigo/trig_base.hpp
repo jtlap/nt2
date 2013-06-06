@@ -16,14 +16,14 @@
 #include <nt2/include/functions/simd/is_nan.hpp>
 #include <nt2/include/functions/simd/is_eqz.hpp>
 #include <nt2/include/functions/is_nez.hpp>
-#include <nt2/include/functions/shl.hpp>
+#include <nt2/include/functions/shift_left.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/oneminus.hpp>
 #include <nt2/include/functions/bitofsign.hpp>
 #include <nt2/include/functions/bitwise_xor.hpp>
 #include <nt2/include/functions/bitwise_or.hpp>
-#include <nt2/include/functions/shl.hpp>
+#include <nt2/include/functions/shift_left.hpp>
 #include <nt2/include/constants/pio_4.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/quarter.hpp>

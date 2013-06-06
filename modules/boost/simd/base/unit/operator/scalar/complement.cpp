@@ -15,7 +15,7 @@
 ///
 #include <boost/simd/operator/include/functions/complement.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/shl.hpp>
+#include <boost/simd/include/functions/shift_left.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>

@@ -11,7 +11,7 @@
 
 #include <boost/simd/ieee/functions/ldexp.hpp>
 #include <boost/simd/include/functions/simd/splat.hpp>
-#include <boost/simd/include/functions/simd/shl.hpp>
+#include <boost/simd/include/functions/simd/shift_left.hpp>
 #include <boost/simd/include/functions/simd/is_nez.hpp>
 #include <boost/simd/include/functions/simd/is_finite.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
