@@ -8,114 +8,44 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2 operator toolbox - shift_left/simd Mode"
 
-//////////////////////////////////////////////////////////////////////////////
-// cover test behavior of operator components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 18/02/2011
-///
-#include <nt2/operator/include/functions/shift_left.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+#include <nt2/operator/include/functions/shift_left.hpp>
+#include <nt2/include/constants/valmin.hpp>
+#include <nt2/include/constants/valmax.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_signed.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/meta/downgrade.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/type_traits/common_type.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <vector>
+
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/constant/constant.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/load.hpp>
-#include <nt2/constant/constant.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
+#include <nt2/sdk/unit/tests/cover.hpp>
 
-
-NT2_TEST_CASE_TPL ( shift_left_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL(shift_left, NT2_SIMD_TYPES)
 {
   using nt2::shift_left;
   using nt2::tag::shift_left_;
-  using nt2::load;
   using boost::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef typename nt2::meta::scalar_of<T>::type sT;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<shift_left_(vT,ivT)>::type r_t;
-  typedef typename nt2::meta::call<shift_left_(T,iT)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
+  typedef NT2_SIMD_DEFAULT_EXTENSION             ext_t;
+  typedef native<T,ext_t>                           nT;
+  typedef typename nt2::meta::as_integer<T>::type   iT;
+  typedef typename nt2::meta::as_integer<nT>::type niT;
+
+  typedef typename nt2::meta::call<shift_left_(T, iT)>::type r_t;
 
   // random verifications
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  nt2::uint32_t NR  = NT2_NB_RANDOM_TEST;
+  std::vector<T>  in1(NR);
+  std::vector<iT> in2(NR);
+  nt2::roll(in1, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+  nt2::roll(in2, 0, sizeof(T)*8-1);
+
+  static const std::size_t N = nT::static_size;
+  std::vector<r_t> ref1(NR), ref2(NR);
+  for(nt2::uint32_t i=0; i < NR ; ++i)
   {
-    typedef typename nt2::meta::scalar_of<T>::type sT;
-    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
-    NT2_CREATE_BUF(tab_a1,iT, NR, 0, sizeof(sT)*8-1);
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
-      {
-        vT a0 = load<vT>(&tab_a0[0],j);
-        ivT a1 = load<ivT>(&tab_a1[0],j);
-        r_t v = shift_left(a0,a1);
-        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
-        {
-
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::shift_left (a0[i],a1[i])));
-        }
-      }
-
+    ref1[i] = shift_left(in1[i], in2[i]);
+    ref2[i] = shift_left(in1[i], in2[i/N*N]);
   }
-} // end of test for integer_
-
-NT2_TEST_CASE_TPL ( shift_left_real__2_0,  NT2_SIMD_REAL_TYPES)
-{
-  using nt2::shift_left;
-  using nt2::tag::shift_left_;
-  using nt2::load;
-  using boost::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef typename nt2::meta::scalar_of<T>::type sT;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<shift_left_(vT,ivT)>::type r_t;
-  typedef typename nt2::meta::call<shift_left_(T,iT)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
-  // random verifications
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    typedef typename nt2::meta::scalar_of<T>::type sT;
-    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
-    NT2_CREATE_BUF(tab_a1,iT, NR, 0, sizeof(sT)*8-1);
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
-      {
-        vT a0 = load<vT>(&tab_a0[0],j);
-        ivT a1 = load<ivT>(&tab_a1[0],j);
-        r_t v = shift_left(a0,a1);
-        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
-        {
-
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::shift_left (a0[i],a1[i])));
-        }
-      }
-
-  }
-} // end of test for floating_
+  NT2_COVER_ULP_EQUAL(shift_left_, ((nT, in1))((niT, in2)), ref1, 0.5);
+  NT2_COVER_ULP_EQUAL(shift_left_, ((nT, in1))(( iT, in2)), ref2, 0.5);
+}
