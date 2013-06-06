@@ -56,7 +56,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag normrnd_ of functor normrnd
      *        in namespace nt2::tag for toolbox statistics
     **/
-    struct normrnd_ : ext::unspecified_<normrnd_> { typedef ext::unspecified_<normrnd_> parent; };
+    struct normrnd_ : boost::dispatch::tag::formal_ { typedef boost::dispatch::tag::formal_ parent; };
   }
 
  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::normrnd_, normrnd, 2)

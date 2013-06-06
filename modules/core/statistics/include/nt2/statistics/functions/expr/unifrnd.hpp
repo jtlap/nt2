@@ -21,24 +21,22 @@ namespace nt2 { namespace ext
   // Generates unifrnd from expression (support size(a) + type calls)
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::unifrnd_, tag::cpu_
-                              , (A0)
-                              , (generic_<floating_<A0> > )
-                               (generic_<floating_<A0> > )
+                            , (A0)
+                            , (scalar_<floating_<A0> > )
+                              (scalar_<floating_<A0> > )
                             )
   {
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a, A0 const& b) const
     {
- //      A0 tmp = nt2::rand(1, meta::as_<A0>());
-//       std::cout << "tmp "<< tmp << std::endl;
       return nt2::fma(nt2::rand(1, meta::as_<A0>()), b-a, a);
     }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::unifrnd_, tag::cpu_
-                              , (A0)(A1)
-                              , (generic_<floating_<A0> > )
-                              (generic_<floating_<A0> > )
+                            , (A0)(A1)
+                            , (scalar_<floating_<A0> > )
+                              (scalar_<floating_<A0> > )
                               (unspecified_<A1>)
                             )
   {
@@ -53,12 +51,12 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::unifrnd_, tag::cpu_
-                              , (A0)(A1)(A2)
-                              , (generic_<floating_<A0> > )
-                              (generic_<floating_<A0> > )
+                            , (A0)(A1)(A2)
+                            , (scalar_<floating_<A0> > )
+                              (scalar_<floating_<A0> > )
                               (unspecified_<A1>)
                               (unspecified_<A2>)
-                              )
+                            )
   {
     typedef meta::as_<A0>                                                            TGT;
     typedef typename meta::call<tag::rand_(const A1&, const A2&, TGT)>::type         T1;
@@ -72,17 +70,16 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::unifrnd_, tag::cpu_
-                              , (A0)(A1)(A2)(A3)
-                              , (generic_<floating_<A0> > )
-                              (generic_<floating_<A0> > )
+                            , (A0)(A1)(A2)(A3)
+                            , (scalar_<floating_<A0> > )
+                              (scalar_<floating_<A0> > )
                               (unspecified_<A1>)
                               (unspecified_<A2>)
                               (unspecified_<A3>)
-                              )
+                            )
   {
     typedef meta::as_<A0>                                                           TGT;
-    typedef typename meta::call<tag::rand_(const A1&, const A2&,
-                                           const A3&, TGT)>::type                    T1;
+    typedef typename meta::call<tag::rand_(const A1&, const A2&,const A3&, TGT)>::type  T1;
     typedef typename meta::call<tag::fma_(T1,A0 const&,A0 const&)>::type result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a, A0 const& b,
@@ -94,19 +91,17 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::unifrnd_, tag::cpu_
-                              , (A0)(A1)(A2)(A3)(A4)
-                              , (generic_<floating_<A0> > )
-                              (generic_<floating_<A0> > )
+                            , (A0)(A1)(A2)(A3)(A4)
+                            , (scalar_<floating_<A0> > )
+                              (scalar_<floating_<A0> > )
                               (unspecified_<A1>)
                               (unspecified_<A2>)
                               (unspecified_<A3>)
                               (unspecified_<A4>)
-                              )
+                            )
   {
     typedef meta::as_<A0>                                                           TGT;
-    typedef typename meta::call<tag::rand_(const A1&, const A2&,
-                                           const A3&, const A4,
-                                           TGT)>::type                               T1;
+    typedef typename meta::call<tag::rand_(const A1&, const A2&, const A3&, const A4,TGT)>::type  T1;
     typedef typename meta::call<tag::fma_(T1,A0 const&,A0 const&)>::type result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a, A0 const& b,
@@ -118,20 +113,18 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::unifrnd_, tag::cpu_
-                              , (A0)(A1)(A2)(A3)(A4)(A5)
-                              , (generic_<floating_<A0> > )
-                              (generic_<floating_<A0> > )
+                            , (A0)(A1)(A2)(A3)(A4)(A5)
+                            , (scalar_<floating_<A0> > )
+                              (scalar_<floating_<A0> > )
                               (unspecified_<A1>)
                               (unspecified_<A2>)
                               (unspecified_<A3>)
                               (unspecified_<A4>)
                               (unspecified_<A5>)
-                              )
+                            )
   {
     typedef meta::as_<A0>                                                           TGT;
-    typedef typename meta::call<tag::rand_(const A1&, const A2&,
-                                           const A3&, const A4&,
-                                           const A5&, TGT)>::type                    T1;
+    typedef typename meta::call<tag::rand_(const A1&, const A2&,const A3&, const A4&, const A5&, TGT)>::type T1;
     typedef typename meta::call<tag::fma_(T1,A0 const&,A0 const&)>::type result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a, A0 const& b,
