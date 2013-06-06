@@ -13,7 +13,7 @@
 #include <boost/simd/include/functions/simd/is_eqz.hpp>
 #include <boost/simd/include/functions/simd/is_nez.hpp>
 #include <boost/simd/include/functions/simd/divides.hpp>
-#include <boost/simd/include/functions/simd/shri.hpp>
+#include <boost/simd/include/functions/simd/shr.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/if_zero_else_one.hpp>
 #include <boost/simd/include/functions/simd/bitwise_or.hpp>

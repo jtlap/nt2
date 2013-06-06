@@ -11,7 +11,7 @@
 
 #include <boost/simd/arithmetic/functions/divs.hpp>
 #include <boost/simd/include/functions/scalar/genmask.hpp>
-#include <boost/simd/include/functions/scalar/shri.hpp>
+#include <boost/simd/include/functions/scalar/shr.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>

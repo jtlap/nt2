@@ -16,7 +16,7 @@
 #include <nt2/bitwise/include/functions/twopower.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/include/functions/shli.hpp>
+#include <nt2/include/functions/shl.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

@@ -15,7 +15,7 @@
 #include <nt2/include/functions/simd/is_eqz.hpp>
 #include <nt2/include/functions/simd/is_nez.hpp>
 #include <nt2/include/functions/simd/is_flint.hpp>
-#include <nt2/include/functions/simd/shli.hpp>
+#include <nt2/include/functions/simd/shl.hpp>
 #include <nt2/include/functions/simd/shr.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
