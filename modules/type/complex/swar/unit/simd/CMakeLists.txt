@@ -10,6 +10,7 @@
 set( SOURCES
     enumerate.cpp
     group.cpp
+    groups.cpp
     split.cpp
    )
 
