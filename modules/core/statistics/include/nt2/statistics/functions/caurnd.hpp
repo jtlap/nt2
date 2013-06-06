@@ -11,15 +11,8 @@
 **/
 #ifndef NT2_STATISTICS_FUNCTIONS_CAURND_HPP_INCLUDED
 #define NT2_STATISTICS_FUNCTIONS_CAURND_HPP_INCLUDED
-#include <nt2/include/functor.hpp>
-#include <nt2/sdk/meta/size_as.hpp>
-#include <nt2/sdk/meta/value_as.hpp>
-#include <nt2/core/container/dsl/size.hpp>
-#include <nt2/core/container/dsl/value_type.hpp>
 
-#include <nt2/sdk/parameters.hpp>
-#include <boost/preprocessor/repetition/repeat_from_to.hpp>
-#include <boost/preprocessor/arithmetic/inc.hpp>
+#include <nt2/include/functor.hpp>
 
 /*!
  * \ingroup statistics

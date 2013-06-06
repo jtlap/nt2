@@ -13,13 +13,6 @@
 #define NT2_STATISTICS_FUNCTIONS_UNIFRND_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/sdk/meta/constant_adaptor.hpp>
-#include <nt2/sdk/meta/generative_hierarchy.hpp>
-#include <nt2/include/functor.hpp>
-
-#include <nt2/sdk/parameters.hpp>
-#include <boost/preprocessor/repetition/repeat_from_to.hpp>
-#include <boost/preprocessor/arithmetic/inc.hpp>
 
 /*!
  * \ingroup statistics
@@ -66,7 +59,3 @@ namespace nt2 { namespace tag
 }
 
 #endif
-
-// /////////////////////////////////////////////////////////////////////////////
-// End of unifrnd.hpp
-// /////////////////////////////////////////////////////////////////////////////
