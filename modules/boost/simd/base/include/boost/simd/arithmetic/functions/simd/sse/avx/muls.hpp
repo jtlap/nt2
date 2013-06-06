@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_MULS_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_MULS_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
 #include <boost/simd/arithmetic/functions/muls.hpp>
 #include <boost/simd/sdk/simd/meta/retarget.hpp>
@@ -38,4 +39,5 @@ namespace boost { namespace simd { namespace ext
   };
 } } }
 
+#endif
 #endif
