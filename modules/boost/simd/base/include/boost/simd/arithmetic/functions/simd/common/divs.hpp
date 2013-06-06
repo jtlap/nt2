@@ -8,23 +8,23 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_DIVS_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_DIVS_HPP_INCLUDED
+
 #include <boost/simd/arithmetic/functions/divs.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/simd/is_eqz.hpp>
 #include <boost/simd/include/functions/simd/is_nez.hpp>
 #include <boost/simd/include/functions/simd/divides.hpp>
-#include <boost/simd/include/functions/simd/is_ltz.hpp>
-#include <boost/simd/include/functions/simd/seladd.hpp>
-#include <boost/simd/include/functions/simd/if_zero_else.hpp>
-#include <boost/simd/include/functions/simd/if_else.hpp>
-#include <boost/simd/include/functions/simd/bitwise_xor.hpp>
-#include <boost/simd/include/functions/simd/bitwise_and.hpp>
-#include <boost/simd/include/functions/simd/complement.hpp>
+#include <boost/simd/include/functions/simd/shri.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
-#include <boost/simd/include/functions/simd/minus.hpp>
+#include <boost/simd/include/functions/simd/if_zero_else_one.hpp>
+#include <boost/simd/include/functions/simd/bitwise_or.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/genmask.hpp>
+#include <boost/simd/include/functions/simd/logical_and.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -50,10 +50,9 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename meta::as_logical<A0>::type bA0;
       const bA0 iseqza1 = is_eqz(a1);
-      const A0 aa1 =  seladd(iseqza1, a1, One<A0>());
-      const A0 r1 = a0/aa1; //a1!= 0
-      const A0 r2 = if_zero_else(is_eqz(a0),Valmax<A0>());
-      return if_else(iseqza1, r2, r1);
+      const A0 aa1 = if_else(iseqza1, One<A0>(), a1);
+      const A0 aa0 = if_else(iseqza1, genmask(a0), a0);
+      return aa0/aa1;
     }
   };
 
@@ -67,12 +66,21 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::as_logical<A0>::type bA0;
+      typedef typename meta::scalar_of<A0>::type sA0;
+      typedef typename dispatch::meta::as_unsigned<A0>::type utype;
+
       const bA0 iseqza1 = is_eqz(a1);
-      const A0 c = ~(genmask(a0-Valmin<A0>())|genmask(a1+One<A0>()));
-      const A0 aa1 = seladd(iseqza1, a1, One<A0>());
-      const A0 r1 = (a0-c)/aa1; //a1!= 0
-      const A0 r2 = ((genmask(is_ltz(a0))^Valmax<A0>())) & genmask(is_nez(a0)); // r2 is Valmin Valmax or 0
-      return if_else(iseqza1, r2, r1);
+
+      // replace valmin/-1 by (valmin+1)/-1
+      A0 x = a0 + if_zero_else_one((a1 + One<A0>()) | (a0 + Valmin<A0>()));
+
+      // negative -> valmin
+      // positive -> valmax
+      const A0 x2 = Valmax<A0>() + shri(x, sizeof(A0)*CHAR_BIT-1);
+
+      x = if_else(logical_and(iseqza1, is_nez(x)), x2, x);
+      const A0 y = if_else(iseqza1, One<A0>(), a1);
+      return x/y;
     }
   };
 } } }
