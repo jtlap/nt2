@@ -13,7 +13,7 @@ SET ( NT2_CORE.SDK_DEPENDENCIES_EXTRA
       boost.simd.constant
       boost.simd.reduction
       boost.simd.sdk
-      boost.simd.memory
+      core.sdk
       core.base
       core.container.placeholders
       core.container.table

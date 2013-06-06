@@ -1,0 +1,61 @@
+[chapter Introduction
+  [quickbook 1.5]
+]
+
+[section Overview]
+The term multimedia extension was introduced by Intel in 1996 with the release
+of the MultiMedia eXtension (MMX) for the x86 processor. Intel, Advanced Micro
+Devices (AMD), ARM, and PowerPC-based processors have such extensions. With a
+constantly increasing need for performance in applications, todays processor
+architectures offer rich SIMD instruction sets working with larger and larger
+SIMD registers. For example, the Advanced Vector Extensions (AVX)
+introduced in 2011 enhance the x86 instruction set for the Intel Sandy Bridge
+and Advanced Micro Devices (AMD) Bulldozer micro-architectures by providing a
+distinct set of sixteen 256-bit registers. Similarly, the forthcoming Intel Many
+Integrated Core (MIC) architecture will embed 512-bit SIMD registers. Usage of
+SIMD processing units can also be mandatory for performance on embedded systems,
+as demonstrated by the ARM Neon and Neon2 extensions or the Cell Broadbend End
+(Cell-BE) processor by IBM (which was designed to use SIMD-only systems).
+
+The introduction of this feature has allowed processors to exploit the latent
+data parallelism available in applications by executing a given instruction
+simultaneously on multiple data stored in a single special register. Built as an
+independent computation unit in the processor, it comes in addition to the regular
+computation unit complete with a special register file, dispatching and pipelining
+unit.
+
+To access the power of such extensions, programmers use low-level intrinsics
+(for example, low-level C functions) in their code. This approach forces
+programmers to deal with a verbose programming style because SIMD instruction
+sets cover a few common functionalities. The initial algorithm, for example,
+ends in such a way that it’s buried in architecture-specific implementation
+details. Furthermore, these efforts must be repeated for every different extension
+that someone might want to support, due to the use of a new API when the
+architecture changes. Such concerns make the design and maintenance of these
+applications time consuming and error-prone. However, programming applications
+that take advantage of the SIMD extension available on the current target remains
+a complex task.
+
+The objectives of Boost.SIMD is to provide proper abstractions over the usage of
+SIMD extensions. This abstraction shouldn’t just provide a portable way to use
+hardware-specific registers, but also enable the use of common programming idioms
+when designing SIMD-aware algorithms. Boost.SIMD solves these problems by
+providing :
+
+****TODO LINK TO PROPER SUBPART OF THE DOC****
+
+* a proper value semantic wrapper for SIMD registers;
+* an Expression Template system to automatically detect and exploit extension
+specific optimization opportunities;
+* standard compliant allocator and allocator adaptor for aligned memory ;
+* standard compliant iterators to iterate over contiguous range of data in a
+non-intrusive way;
+* standard compliant iterators encapsulating classical SIMD idioms like shifting
+window or deinterleaving of data on the fly.
+
+[endsect]
+
+[include motivation.qbk]
+[include tutorial.qbk]
+[include rationale.qbk]
+

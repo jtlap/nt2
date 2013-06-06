@@ -1,0 +1,67 @@
+[section New and delete operators]
+To ease the usage of aligned memory allocation or to modify existing source to use aligned allocator,
+one option could be to overload the =new= and =delete= operators. Boost.SIMD.Memory provides two
+ways to do so.
+
+[h4 Global operators overload]
+The simplest way to use aligned new and delete operator overloads is to include
+[headerref nt2/modules/boost/simd/sdk/include/boost/simd/memory/new.hpp boost/simd/memory/new.hpp].
+
+``
+    #include <iostream>
+    #include <boost/simd/memory/new.hpp>
+    #include <boost/simd/memory/is_aligned.hpp>
+
+    using boost::simd::is_aligned;
+
+    int main()
+    {
+      char* ptr = new char[17];
+      std::cout << is_aligned( ptr ) << "\n";
+    }
+``
+
+By doing so, every calls to =new= and =delete= will use the current system aligned memory allocator.
+
+[h4 Class-level operators overload]
+For a more fine grain control on which types can be automatically allocated using the aligned
+allocator. First solution is to inherit from [classref boost::simd::aligned_object aligned_object]
+
+``
+    #include <boost/simd/memory/aligned_object.hpp>
+
+    struct foo : boost::simd::aligned_object<16>
+    {
+
+    };
+``
+where [classref boost::simd::aligned_object aligned_object] template parameter indicates the
+alignment boundary in bytes. By default, this is equal to [macroref BOOST_SIMD_CONFIG_ALIGNMENT].
+
+If the type to adapt needs to stay a POD, one can use the
+[macroref BOOST_SIMD_MEMORY_OVERLOAD_NEW_DELETE] macro:
+
+``
+    #include <boost/simd/memory/aligned_object.hpp>
+
+    struct foo
+    {
+      BOOST_SIMD_MEMORY_OVERLOAD_NEW_DELETE(16);
+    };
+``
+The alignment boundary is then passed as a parameter to [macroref BOOST_SIMD_MEMORY_OVERLOAD_NEW_DELETE].
+
+As macro can't have default argument, the [macroref BOOST_SIMD_MEMORY_OVERLOAD_NEW_DELETE_SIMD] macro
+can be used to make the type have overloaded =new= and =delete= using the current SIMD alignment
+boundary.
+
+``
+    #include <boost/simd/memory/aligned_object.hpp>
+
+    struct foo
+    {
+      BOOST_SIMD_MEMORY_OVERLOAD_NEW_DELETE_SIMD();
+    };
+``
+
+[endsect]

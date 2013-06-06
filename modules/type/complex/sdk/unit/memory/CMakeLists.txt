@@ -6,7 +6,5 @@
 ###                 See accompanying file LICENSE.txt or copy at
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
-
-nt2_module_use_modules(test.unit)
-add_subdirectory(meta)
-add_subdirectory(memory)
+add_subdirectory(scalar)
+add_subdirectory(simd)

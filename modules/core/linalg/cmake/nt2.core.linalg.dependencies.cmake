@@ -34,7 +34,6 @@ else()
         core.sdk
         core.trigonometric
         core.utility
-        core.memory
         sdk.dsl
         sdk.error
         sdk.functor

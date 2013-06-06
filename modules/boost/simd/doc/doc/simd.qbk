@@ -1,4 +1,4 @@
-[part The Boost SIMD Library
+[part Boost SIMD
     [quickbook 1.5]
 ]
 
@@ -22,5 +22,6 @@ Boost.SIMD depends on the following header-only Boost libraries:
 
 [endsect]
 
+[xinclude introduction.xml]
 [xinclude boost.simd.sdk.xml]
-[xinclude boost.simd.memory.xml]
+[xinclude rationale.xml]

@@ -9,7 +9,7 @@
 
 include(NT2Module)
 nt2_module_source_setup(core.sdk)
-nt2_module_simd_toolbox(sdk sdk)
+nt2_module_simd_toolbox(memory sdk)
 
 nt2_module_postconfigure(gather_includes ---ignore details --ignore preprocessed
                                          nt2/core/functions

@@ -6,10 +6,9 @@
 
 [section Overview]
 This library ...
+
 [endsect]
 
-[include motivation.qbk]
-[include tutorial.qbk]
-[include rationale.qbk]
+[include memory/memory.qbk]
 
 [xinclude reference.xml]

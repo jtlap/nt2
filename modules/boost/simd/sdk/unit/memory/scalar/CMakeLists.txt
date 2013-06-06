@@ -7,19 +7,15 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-include(nt2.doc)
-if(NOT NT2_DOCUMENTATION_ENABLED)
-  return()
-endif()
+SET( SOURCES
+  extract.cpp
+  insert.cpp
+  aligned_load.cpp
+  aligned_store.cpp
+  stream.cpp
+  load.cpp
+  store.cpp
+  )
 
-nt2_module_doc( boost.simd_doc
-                simd.qbk
-                introduction.qbk
-                rationale.qbk
-              )
+nt2_module_add_tests(boost.simd.sdk.memory.scalar.unit ${SOURCES})
 
-add_dependencies( boost.simd_doc.boostbook boost.simd.boostbook )
-
-if(NOT IS_DIRECTORY ${NT2_BINARY_DIR}/doc/html/simd)
-  file(MAKE_DIRECTORY ${NT2_BINARY_DIR}/doc/html/simd)
-endif()
