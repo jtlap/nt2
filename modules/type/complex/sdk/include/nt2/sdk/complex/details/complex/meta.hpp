@@ -10,7 +10,6 @@
 #define NT2_SDK_COMPLEX_DETAILS_COMPLEX_META_HPP_INCLUDED
 
 #include <nt2/sdk/complex/details/complex/fusion_adapt.hpp>
-#include <nt2/sdk/complex/meta/real_of.hpp>
 #include <nt2/sdk/complex/hierarchy.hpp>
 #include <boost/dispatch/meta/property_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
@@ -21,15 +20,6 @@
 #include <boost/type_traits/has_trivial_constructor.hpp>
 #include <boost/type_traits/has_trivial_destructor.hpp>
 #include <boost/mpl/bool.hpp>
-
-namespace boost { namespace simd { namespace meta
-{
-  template<class T>
-  struct real_of< std::complex<T> >
-  {
-    typedef T type;
-  };
-} } }
 
 namespace boost { namespace dispatch { namespace meta
 {

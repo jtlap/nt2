@@ -15,6 +15,7 @@
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/real_of.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -29,6 +30,7 @@ NT2_TEST_CASE(properties)
   using nt2::imaginary;
   using std::complex;
   using boost::mpl::_;
+  using boost::simd::logical;
 
   imaginary<double> im;
   NT2_TEST_EXPR_TYPE(im, scalar_of<_>, imaginary<double>);
@@ -36,6 +38,7 @@ NT2_TEST_CASE(properties)
   NT2_TEST_EXPR_TYPE(im, as_real<_>, double);
   NT2_TEST_EXPR_TYPE(im, as_imaginary<_>, imaginary<double>);
   NT2_TEST_EXPR_TYPE(im, as_complex<_>, complex<double>);
+  NT2_TEST_EXPR_TYPE(im, as_logical<_>, logical<double>);
 
   complex<double> c;
   NT2_TEST_EXPR_TYPE(c, scalar_of<_>, complex<double>);
@@ -43,6 +46,7 @@ NT2_TEST_CASE(properties)
   NT2_TEST_EXPR_TYPE(c, as_real<_>, double);
   NT2_TEST_EXPR_TYPE(c, as_imaginary<_>, imaginary<double>);
   NT2_TEST_EXPR_TYPE(c, as_complex<_>, complex<double>);
+  NT2_TEST_EXPR_TYPE(c, as_logical<_>, logical<double>);
 }
 
 NT2_TEST_CASE(properties_simd)
@@ -53,6 +57,7 @@ NT2_TEST_CASE(properties_simd)
   using std::complex;
   using boost::mpl::_;
   using boost::simd::native;
+  using boost::simd::logical;
   typedef BOOST_SIMD_DEFAULT_EXTENSION ext_t;
 
   native<imaginary<double>, ext_t> im;
@@ -61,6 +66,7 @@ NT2_TEST_CASE(properties_simd)
   NT2_TEST_EXPR_TYPE(im, as_real<_>, (native<double, ext_t>));
   NT2_TEST_EXPR_TYPE(im, as_imaginary<_>, (native<imaginary<double>, ext_t>));
   NT2_TEST_EXPR_TYPE(im, as_complex<_>, (native<complex<double>, ext_t>));
+  NT2_TEST_EXPR_TYPE(im, as_logical<_>, (native<logical<double>, ext_t>));
 
   native<complex<double>, ext_t> c;
   NT2_TEST_EXPR_TYPE(c, scalar_of<_>, complex<double>);
@@ -68,4 +74,5 @@ NT2_TEST_CASE(properties_simd)
   NT2_TEST_EXPR_TYPE(c, as_real<_>, (native<double, ext_t>));
   NT2_TEST_EXPR_TYPE(c, as_imaginary<_>, (native<imaginary<double>, ext_t>));
   NT2_TEST_EXPR_TYPE(c, as_complex<_>, (native<complex<double>, ext_t>));
+  NT2_TEST_EXPR_TYPE(c, as_logical<_>, (native<logical<double>, ext_t>));
 }

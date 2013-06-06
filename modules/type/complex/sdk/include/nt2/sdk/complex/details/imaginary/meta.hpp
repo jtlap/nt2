@@ -10,7 +10,6 @@
 #define NT2_SDK_COMPLEX_DETAILS_IMAGINARY_META_HPP_INCLUDED
 
 #include <nt2/sdk/complex/hierarchy.hpp>
-#include <nt2/sdk/complex/meta/real_of.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/dispatch/meta/property_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
@@ -25,15 +24,6 @@ namespace nt2
   template<class T>
   struct imaginary;
 }
-
-namespace boost { namespace simd { namespace meta
-{
-  template<class T>
-  struct real_of< nt2::imaginary<T> >
-  {
-    typedef T type;
-  };
-} } }
 
 namespace boost { namespace simd { namespace meta
 {
