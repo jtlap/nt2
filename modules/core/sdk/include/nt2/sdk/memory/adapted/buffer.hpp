@@ -30,8 +30,10 @@ namespace boost { namespace dispatch { namespace meta
   // value_of specialization
   //============================================================================
   template<typename T, typename Allocator>
-  struct value_of< nt2::memory::buffer<T,Allocator> > : value_of<T>
-  {};
+  struct value_of< nt2::memory::buffer<T,Allocator> >
+  {
+    typedef T type;
+  };
 
   //============================================================================
   // model_of specialization
@@ -41,12 +43,11 @@ namespace boost { namespace dispatch { namespace meta
   {
     struct type
     {
-      template<class X> struct apply
+      template<class X>
+      struct apply
       {
-        typedef typename  boost::mpl::
-                          apply<typename model_of<T>::type,X>::type base_t;
-        typedef typename Allocator::template rebind<base_t>::other  alloc_t;
-        typedef nt2::memory::buffer<base_t,alloc_t>                 type;
+        typedef typename Allocator::template rebind<X>::other  alloc_t;
+        typedef nt2::memory::buffer<X,alloc_t>                 type;
       };
     };
   };
