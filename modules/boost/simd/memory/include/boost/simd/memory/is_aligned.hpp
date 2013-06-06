@@ -44,9 +44,7 @@ namespace boost { namespace simd
 
     If @c a is not a power of two, an assertion is triggered.
 
-    @par Example:
-
-    @include memory/is_aligned.cpp
+    @usage{memory/is_aligned.cpp}
 
     @param value  Value to check
     @param align  Alignment boundary to check for. If unspecified, @c align is

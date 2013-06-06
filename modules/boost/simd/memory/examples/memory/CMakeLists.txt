@@ -8,6 +8,7 @@
 ################################################################################
 
 SET(  SOURCES
+      aligned_array.cpp
       align_on.cpp
       align_on_default.cpp
       align_ptr.cpp

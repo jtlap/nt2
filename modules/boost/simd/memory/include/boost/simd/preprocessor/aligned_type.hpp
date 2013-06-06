@@ -17,7 +17,7 @@
 
   Wraps a type @c T so that it is aligned on an arbitrary alignment constraint.
 
-  @include preprocessor/aligned_type_on.cpp
+  @usage{preprocessor/aligned_type_on.cpp}
 
   @param T      Type to align on current SIMD alignment
   @param ALIGN  Alignment constraint to respect
@@ -29,9 +29,7 @@
 
   Wraps a type @c T so that it is aligned on current SIMD alignment constraint.
 
-  @par Usage:
-
-  @include preprocessor/aligned_type.cpp
+  @usage{preprocessor/aligned_type.cpp}
 
   @param T Type to align on current SIMD alignment
 **/

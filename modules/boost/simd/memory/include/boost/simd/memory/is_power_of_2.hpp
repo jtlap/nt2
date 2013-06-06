@@ -40,9 +40,7 @@ namespace boost { namespace simd
 
     If @c a is not a power of two, an assertion is triggered.
 
-    @par Example:
-
-    @include memory/is_power_of_2.cpp
+    @usage{memory/is_power_of_2.cpp}
 
     @param value  Value to check
 

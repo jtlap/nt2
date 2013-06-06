@@ -51,6 +51,8 @@ namespace boost { namespace simd
     Defines an object which contains @c N elements of type @c T in a statically
     allocated array which address is aligned on @c Align.
 
+    @usage{memory/aligned_array.cpp}
+
     @tparam T     Type of the stored element
     @tparam N     Number of elements
     @tparam Align Alignment boundary.
@@ -81,7 +83,10 @@ namespace boost { namespace simd
     /// @overload
     const_iterator  end() const { return this->data_.data+N; }
 
+    /// Return a constant iterator to the beginning of the array
     const_iterator cbegin() const { return this->data_.data; }
+
+    /// Return a constant iterator to the end of the array
     const_iterator cend() const { return this->data_.data+N; }
 
     typedef std::reverse_iterator<iterator> reverse_iterator;
@@ -99,7 +104,10 @@ namespace boost { namespace simd
     /// @overload
     const_reverse_iterator rend()  const { return const_reverse_iterator(begin()); }
 
+    /// Return a constant reverse iterator to the beginning of the array
     const_reverse_iterator crbegin() const { return const_reverse_iterator(end()); }
+
+    /// Return a constant reverse iterator to the end of the array
     const_reverse_iterator crend() const { return const_reverse_iterator(begin()); }
 
     /// Random access to the ith element of the array

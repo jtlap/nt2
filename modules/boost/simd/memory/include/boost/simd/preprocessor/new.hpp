@@ -22,9 +22,7 @@
   code for overloaded new and delete operator that use aligned allocation
   function over an arbitrary alignment boundary @c Alignment.
 
-  @par Usage:
-
-  @include preprocessor/overload_new_delete.cpp
+  @usage{preprocessor/overload_new_delete.cpp}
 
   @param Alignment Alignment boundary in bytes to use for dynamic allocation
          of current type.
@@ -88,10 +86,7 @@ void operator delete[](void* m, const std::nothrow_t&)                         \
   code for overloaded new and delete operator that use aligned allocation
   function to satisfy current SIMD architecture alignment constraint.
 
-  @par Usage:
-
-  @include preprocessor/overload_new_delete_simd.cpp
-
+  @usage{preprocessor/overload_new_delete_simd.cpp}
 **/
 #define BOOST_SIMD_MEMORY_OVERLOAD_NEW_DELETE_SIMD()                           \
 BOOST_SIMD_MEMORY_OVERLOAD_NEW_DELETE(BOOST_SIMD_CONFIG_ALIGNMENT)             \

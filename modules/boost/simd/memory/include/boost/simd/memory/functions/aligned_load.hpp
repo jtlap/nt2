@@ -104,9 +104,7 @@ namespace boost { namespace simd
     In other case, when misalignment of pointer can't be known at compile-time,
     use unaligned_aligned_load.
 
-    @par Usage:
-
-    @include memory/aligned_load.cpp
+    @usage{memory/aligned_load.cpp}
 
     @tparam Type          Type of data to aligned_load from memory
     @tparam Misalignment  Optional misalignment hints

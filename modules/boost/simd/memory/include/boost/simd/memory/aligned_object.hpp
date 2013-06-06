@@ -23,9 +23,7 @@ namespace boost { namespace simd
     operators that use aligned allocation function over an arbitrary alignment
     boundary @c Alignment.
 
-    @par Usage:
-
-    @include memory/aligned_object.cpp
+    @usage{memory/aligned_object.cpp}
 
     @tparam Alignment Alignment boundary in bytes to use for dynamic allocation
             of child type.

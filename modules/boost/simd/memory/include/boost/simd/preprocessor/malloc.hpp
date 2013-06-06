@@ -18,9 +18,8 @@
   as having a behavior similar to @a malloc. This allows some compilers to
   optimize the code using pointer returned by such function.
 
-  @par Usage:
+  @usage{memory/simd_malloc.cpp}
 
-  @include memory/simd_malloc.cpp
 **/
 #define BOOST_SIMD_MALLOC
 #else

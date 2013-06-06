@@ -64,9 +64,7 @@ namespace boost { namespace simd {  namespace meta
     Where @c M is lesser or equal to N and so that it exists a given @c P so
     that @c M is equal to two at the power of @c P.
 
-    @par Example:
-
-    @include meta/prev_power_of_2_c.cpp
+    @usage{meta/prev_power_of_2_c.cpp}
 
     @tparam N Integral constant to downgrade
   **/
@@ -91,16 +89,14 @@ namespace boost { namespace simd {  namespace meta
     is equivalent to:
 
     @code
-    typedef prev_power_of_2_c<N::value>::type r;
+    typedef prev_power_of_2<N::value>::type r;
     @endcode
 
     @par Models:
 
     @metafunction
 
-    @par Example:
-
-    @include meta/prev_power_of_2_c.cpp
+    @usage{meta/prev_power_of_2.cpp}
 
     @tparam N @mplint to downgrade
   **/

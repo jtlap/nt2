@@ -33,9 +33,7 @@ namespace boost { namespace simd {  namespace meta
     typedef mpl::bool<(!(N & (N - 1)) && N)> r;
     @endcode
 
-    @par Example:
-
-    @include meta/is_power_of_2_c.cpp
+    @usage{meta/is_power_of_2_c.cpp}
 
     @tparam N Integral value to check
   **/
@@ -64,9 +62,7 @@ namespace boost { namespace simd {  namespace meta
     typedef is_power_of_2_c<N::value>::type r;
     @endcode
 
-    @par Example:
-
-    @include meta/is_power_of_2.cpp
+    @usage{meta/is_power_of_2.cpp}
 
     @tparam N @mplint to check
   **/

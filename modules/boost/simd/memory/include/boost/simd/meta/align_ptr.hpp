@@ -46,9 +46,7 @@ namespace boost { namespace simd {  namespace meta
 
     @metafunction
 
-    @par Example:
-
-    @include meta/align_ptr.cpp
+    @usage{meta/align_ptr.cpp}
 
     @tparam T     Type to mark as aligned.
     @tparam Align Integral power of two alignment boundary. By default,

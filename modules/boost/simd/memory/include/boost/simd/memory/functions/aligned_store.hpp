@@ -83,9 +83,7 @@ namespace boost { namespace simd
     *(ptr+offset) = x;
     @endcode
 
-    @par Usage:
-
-    @include memory/aligned_store.cpp
+    @usage{memory/aligned_store.cpp}
 
     @par Precondition
 

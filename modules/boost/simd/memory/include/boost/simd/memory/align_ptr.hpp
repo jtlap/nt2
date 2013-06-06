@@ -25,9 +25,7 @@ namespace boost { namespace simd
 
     @see meta::align_ptr
 
-    @par Example:
-
-    @include memory/align_ptr.cpp
+    @usage{memory/align_ptr.cpp}
 
     @param pointer    Aligned pointer to convert.
 

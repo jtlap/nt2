@@ -77,9 +77,7 @@ BOOST_SIMD_STACK_BUFFER_AUX_MAKE_RANGE( variableName, type, size )             \
   elements of POD type @c type. Said range is allocated on the stack using
   system dependent code that enforce proper stack alignment.
 
-  @par Example:
-
-  @include memory/stack_buffer.cpp
+  @usage{memory/stack_buffer.cpp}
 
   @param variableName Name of the buffer to be created
   @param type         Type stored into the buffer
@@ -99,9 +97,7 @@ BOOST_SIMD_STACK_BUFFER_AUX ( variableName, type, size                         \
   elements of POD type @c type. Said range is allocated on the stack using
   system dependent code that enforce proper SIMD compatible alignment.
 
-  @par Example:
-
-  @include memory/simd_stack_buffer.cpp
+  @usage{memory/simd_stack_buffer.cpp}
 
   @param variableName Name of the buffer to be created
   @param type         Type stored into the buffer
@@ -123,9 +119,7 @@ BOOST_SIMD_STACK_BUFFER_AUX ( variableName, type, size                         \
   system dependent code that enforce proper SIMD compatible alignment. This
   Range is made to be deallocated at current scope's exit.
 
-  @par Example:
-
-  @include memory/scoped_buffer.cpp
+  @usage{memory/scoped_buffer.cpp}
 
   @param variableName Name of the buffer to be created
   @param type         Type stored into the buffer
@@ -160,9 +154,7 @@ BOOST_SIMD_STACK_BUFFER_AUX_MAKE_RANGE( variableName, type, size )             \
   system dependent code that enforce proper SIMD compatible alignment. This
   Range is made to be deallocated at current scope's exit.
 
-  @par Example:
-
-  @include memory/simd_scoped_buffer.cpp
+  @usage{memory/simd_scoped_buffer.cpp}
 
   @param variableName Name of the buffer to be created
   @param type         Type stored into the buffer

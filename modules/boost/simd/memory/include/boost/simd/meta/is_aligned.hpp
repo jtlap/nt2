@@ -41,9 +41,7 @@ namespace boost { namespace simd {  namespace meta
     If @c N is not a power of two, a BOOST_SIMD_INVALID_ALIGNMENT_VALUE static
     assertion is triggered.
 
-    @par Example:
-
-    @include meta/is_aligned_c.cpp
+    @usage{meta/is_aligned_c.cpp}
 
     @tparam V Integral value to check
     @tparam N Alignment to check for. By default, @c N is equal to current
@@ -98,9 +96,7 @@ namespace boost { namespace simd {  namespace meta
 
     @metafunction
 
-    @par Example:
-
-    @include meta/is_aligned.cpp
+    @usage{meta/is_aligned.cpp}
 
     @tparam V @mplint to check
     @tparam N Alignment to check for. By default, @c N is equal to current

@@ -46,9 +46,7 @@ namespace boost { namespace simd {  namespace meta
     If @c Align is not a power of two, a @c BOOST_SIMD_INVALID_ALIGNMENT_VALUE
     static assertion is triggered.
 
-    @par Example:
-
-    @include meta/align_on_c.cpp
+    @usage{meta/align_on_c.cpp}
 
     @tparam Value Value to align.
     @tparam Align Integral power of two alignment boundary. By default,
@@ -109,9 +107,7 @@ namespace boost { namespace simd {  namespace meta
 
     @metafunction
 
-    @par Example:
-
-    @include meta/align_on.cpp
+    @usage{meta/align_on.cpp}
 
     @tparam Value Value to align
     @tparam Align @mplint power of two alignment boundary. By default,

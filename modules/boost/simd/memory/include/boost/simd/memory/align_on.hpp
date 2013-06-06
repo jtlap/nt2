@@ -58,9 +58,7 @@ namespace boost { namespace simd
     auto r = reinterpret_cast<T*>(align_on(reinterpret_cast<size_t>(p),a));
     @endcode
 
-    @par Example:
-
-    @include memory/align_on.cpp
+    @usage{memory/align_on.cpp}
 
     @param value Value or pointer to align
     @param align Integral power of two alignment boundary.
@@ -111,9 +109,7 @@ namespace boost { namespace simd
     @see align_ptr
     @see meta::align_ptr
 
-    @par Example:
-
-    @include memory/align_on_default.cpp
+    @usage{memory/align_on_default.cpp}
 
     @param value Value or pointer to align
 

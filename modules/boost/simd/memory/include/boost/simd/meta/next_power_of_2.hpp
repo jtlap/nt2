@@ -64,9 +64,7 @@ namespace boost { namespace simd {  namespace meta
     Where @c M is greater or equal to N and so that it exists a given @c P so
     that @c M is equal to 2 at the power of @c P.
 
-    @par Example:
-
-    @include meta/next_power_of_2_c.cpp
+    @usage{meta/next_power_of_2_c.cpp}
 
     @tparam N Integral value to upgrade
   **/
@@ -100,9 +98,7 @@ namespace boost { namespace simd {  namespace meta
 
     @metafunction
 
-    @par Example:
-
-    @include meta/next_power_of_2.cpp
+    @usage{meta/next_power_of_2.cpp}
 
     @tparam N @mplint to downgrade
   **/
