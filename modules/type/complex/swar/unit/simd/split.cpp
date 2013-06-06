@@ -24,7 +24,7 @@
 
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
-NT2_TEST_CASE_TPL( split_complex, BOOST_SIMD_REAL_SPLITABLE_TYPES )
+NT2_TEST_CASE_TPL( split_complex, BOOST_SIMD_SIMD_REAL_SPLITABLE_TYPES )
 {
   using nt2::split;
   using nt2::tag::split_;
@@ -84,3 +84,9 @@ NT2_TEST_CASE_TPL( split_complex, BOOST_SIMD_REAL_SPLITABLE_TYPES )
 
 }
 
+#ifdef BOOST_SIMD_HAS_VMX_SUPPORT
+NT2_TEST_CASE( dummy_for_altivec )
+{
+  NT2_TEST_COMPLETE("dummy_for_altivec");
+}
+#endif

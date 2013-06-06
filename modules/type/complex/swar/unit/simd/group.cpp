@@ -29,7 +29,7 @@
 #include <nt2/sdk/meta/type_id.hpp>
 
 
-NT2_TEST_CASE_TPL ( group_complex,  BOOST_SIMD_REAL_GROUPABLE_TYPES)
+NT2_TEST_CASE_TPL ( group_complex,  BOOST_SIMD_SIMD_REAL_GROUPABLE_TYPES)
 {
    using nt2::group;
    using nt2::tag::group_;
@@ -52,3 +52,10 @@ NT2_TEST_CASE_TPL ( group_complex,  BOOST_SIMD_REAL_GROUPABLE_TYPES)
   NT2_TEST_EQUAL(group(nt2::Zero<cvT>(), nt2::Zero<cvT>()), nt2::Zero<r_t>());
 } // end of test for groupable_
 
+
+#ifdef BOOST_SIMD_HAS_VMX_SUPPORT
+NT2_TEST_CASE( dummy_for_altivec )
+{
+  NT2_TEST_COMPLETE("dummy_for_altivec");
+}
+#endif

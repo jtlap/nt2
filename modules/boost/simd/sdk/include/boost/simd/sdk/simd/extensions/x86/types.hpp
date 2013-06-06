@@ -91,7 +91,13 @@
 #define BOOST_SIMD_SIMD_SPLITABLE_TYPES  (boost::simd::int8_t)(boost::simd::uint8_t)(boost::simd::int16_t)(boost::simd::uint16_t)(boost::simd::int32_t)(boost::simd::uint32_t)(float) \
 /**/
 
-#define BOOST_SIMD_SIMD_INT_GT8_TYPES  (boost::simd::int16_t)(boost::simd::uint16_t)(boost::simd::int32_t)(boost::simd::uint32_t)(boost::simd::int64_t)(boost::simd::uint64_t)\
+#define BOOST_SIMD_SIMD_REAL_GROUPABLE_TYPES (double)\
+/**/
+
+#define BOOST_SIMD_SIMD_REAL_SPLITABLE_TYPES  (float) \
+/**/
+
+#define BOOST_SIMD_SIMD_INT_GT8_TYPES  (boost::simd::int16_t)(boost::simd::uint16_t)(boost::simd::int32_t)(boost::simd::uint32_t)(boost::simd::int64_t)(boost::simd::uint64_t) \
 /**/
 
 #define BOOST_SIMD_SIMD_SIGNED_INT_GT_8_TYPES  (boost::simd::int16_t)(boost::simd::int32_t)(boost::simd::int64_t) \

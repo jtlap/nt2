@@ -85,8 +85,14 @@
 #define BOOST_SIMD_SIMD_UNSIGNED_INT_GT_16_TYPES  (boost::simd::uint32_t) \
 /**/
 
+#define BOOST_SIMD_SIMD_REAL_GROUPABLE_TYPES (double) \
+/**/
+#define BOOST_SIMD_SIMD_REAL_SPLITABLE_TYPES (float) \
+
 #define BOOST_SIMD_SIMD_GROUPABLE_TYPES (double) \
 /**/
 #define BOOST_SIMD_SIMD_SPLITABLE_TYPES (float) \
+
+
 /**/
 #endif
