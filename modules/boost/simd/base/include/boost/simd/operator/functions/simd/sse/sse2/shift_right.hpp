@@ -13,12 +13,14 @@
 #include <boost/simd/operator/functions/shift_right.hpp>
 #include <boost/simd/include/functions/simd/bitwise_and.hpp>
 #include <boost/simd/include/functions/simd/bitwise_or.hpp>
+#include <boost/simd/include/functions/simd/bitwise_ornot.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/functions/simd/is_ltz.hpp>
-#include <boost/simd/include/functions/simd/if_else_zero.hpp>
+#include <boost/simd/include/functions/simd/if_else_allbits.hpp>
 #include <boost/simd/include/functions/simd/group.hpp>
 #include <boost/simd/include/functions/simd/split.hpp>
 #include <boost/simd/include/constants/signmask.hpp>
+#include <boost/simd/include/constants/allbits.hpp>
 #include <boost/simd/include/constants/int_splat.hpp>
 #include <boost/simd/sdk/meta/make_dependent.hpp>
 
@@ -79,7 +81,8 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       A0 that = _mm_srli_epi64(a0, int(a1));
-      return b_and(that, if_else_zero(is_ltz(a0), Signmask<A0>()));
+      A0 mask = _mm_srli_epi64(Allbits<A0>(), int(a1));
+      return b_ornot(that, if_else_allbits(is_ltz(a0), mask));
     }
   };
 
