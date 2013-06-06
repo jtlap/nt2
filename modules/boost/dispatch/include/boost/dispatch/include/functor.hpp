@@ -9,7 +9,6 @@
 #ifndef BOOST_DISPATCH_INCLUDE_FUNCTOR_HPP_INCLUDED
 #define BOOST_DISPATCH_INCLUDE_FUNCTOR_HPP_INCLUDED
 
-#include <boost/simd/sdk/config/types.hpp>
 #include <boost/dispatch/functor/functor.hpp>
 #include <boost/dispatch/functor/preprocessor/function.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
