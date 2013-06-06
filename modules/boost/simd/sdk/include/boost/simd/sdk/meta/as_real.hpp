@@ -10,6 +10,7 @@
 #define BOOST_SIMD_SDK_META_AS_REAL_HPP_INCLUDED
 
 #include <boost/simd/sdk/meta/real_of.hpp>
+#include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/factory_of.hpp>
 #include <boost/mpl/apply.hpp>
 
@@ -17,11 +18,10 @@ namespace boost { namespace simd { namespace meta
 {
   template<class T>
   struct as_real
-   : boost::mpl::apply1< typename boost::dispatch::meta::factory_of<T, typename real_of<T>::type>::type
+   : boost::mpl::apply1< typename boost::dispatch::meta::factory_of<T, typename scalar_of<T>::type>::type
                        , typename real_of<T>::type
                        >
-  {
-  };
+  {};
 } } }
 
 #endif
