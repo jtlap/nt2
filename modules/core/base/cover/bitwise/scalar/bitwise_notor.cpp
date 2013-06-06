@@ -11,82 +11,34 @@
 //////////////////////////////////////////////////////////////////////////////
 // cover test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 18/02/2011
-///
+
 #include <nt2/bitwise/include/functions/bitwise_notor.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+#include <vector>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_signed.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/meta/downgrade.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/type_traits/common_type.hpp>
+#include <nt2/include/constants/valmin.hpp>
+#include <nt2/include/constants/valmax.hpp>
 #include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
 
-#include <nt2/constant/constant.hpp>
-
-
-NT2_TEST_CASE_TPL ( bitwise_notor_real__2_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( bitwise_notor,  NT2_INTEGRAL_TYPES)
 {
 
   using nt2::bitwise_notor;
   using nt2::tag::bitwise_notor_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<bitwise_notor_(T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
+  typedef typename nt2::meta::call<bitwise_notor_(T, T)>::type r_t;
+  typedef typename nt2::meta::as_integer<T, unsigned>::type uiT;
 
+  nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  std::vector<T> in1(NR), in2(NR);
+  nt2::roll(in1, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+  nt2::roll(in2, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+  std::vector<r_t>  ref(NR);
+  for(nt2::uint32_t i=0; i < NR ; ++i)
+  {
+    ref[i] = ~in1[i]|in2[i];
+  }
 
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
-
-} // end of test for floating_
-
-NT2_TEST_CASE_TPL ( bitwise_notor_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
-{
-
-  using nt2::bitwise_notor;
-  using nt2::tag::bitwise_notor_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<bitwise_notor_(T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
-
-
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
-
-} // end of test for signed_int_
-
-NT2_TEST_CASE_TPL ( bitwise_notor_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
-{
-
-  using nt2::bitwise_notor;
-  using nt2::tag::bitwise_notor_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<bitwise_notor_(T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
-
-
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
-
-} // end of test for unsigned_int_
+  NT2_COVER_ULP_EQUAL(bitwise_notor_, ((T, in1))((T, in2)), ref, 0);
+}
