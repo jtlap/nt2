@@ -1,0 +1,77 @@
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2013   MetaScale SAS
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
+#ifndef BOOST_SIMD_MEMORY_DETAILS_OUTPUT_ITERATOR_BASE_HPP_INCLUDED
+#define BOOST_SIMD_MEMORY_DETAILS_OUTPUT_ITERATOR_BASE_HPP_INCLUDED
+
+#include <boost/simd/sdk/simd/pack.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/iterator/iterator_adaptor.hpp>
+
+namespace boost { namespace simd { namespace details
+{
+  /*
+    This class contains the common code of all SIMD based output iterator
+  */
+  template<class T, std::size_t C, typename Store>
+  struct  output_iterator_base
+        : boost::iterator_adaptor< output_iterator_base<T,C,Store>
+                                 , T*
+                                 , pack<T, C>
+                                 , std::random_access_iterator_tag
+                                 , output_iterator_base<T,C,Store> const
+                                 >
+  {
+    output_iterator_base() : output_iterator_base::iterator_adaptor_(0) {}
+
+    explicit  output_iterator_base(T* p)
+            : output_iterator_base::iterator_adaptor_(p)
+    {}
+
+    /*
+      SIMD output iterator requires a proxy reference to be returned.
+      For performance purpose, the iterator itself acts as its own proxy.
+    */
+    template<class Expr> BOOST_FORCEINLINE
+    output_iterator_base const& operator=(Expr const& right) const
+    {
+      dispatch::functor<Store> callee;
+      callee(right, this->base());
+      return *this;
+    }
+
+    protected:
+    friend class boost::iterator_core_access;
+
+    BOOST_FORCEINLINE
+    typename output_iterator_base::reference dereference() const
+    {
+      return *this;
+    }
+
+    BOOST_FORCEINLINE void increment() { this->base_reference() += C; }
+    BOOST_FORCEINLINE void decrement() { this->base_reference() -= C; }
+
+    BOOST_FORCEINLINE
+    void advance(typename output_iterator_base::difference_type n)
+    {
+      this->base_reference() += n*C;
+    }
+
+    BOOST_FORCEINLINE
+    typename output_iterator_base::difference_type
+    distance_to(output_iterator_base const& other) const
+    {
+      static typename output_iterator_base::difference_type diff_card = C;
+      return (other.base() - this->base()) / diff_card;
+    }
+  };
+} } }
+
+#endif

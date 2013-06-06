@@ -10,16 +10,20 @@
 SET( SOURCES
     align_on.cpp
     aligned_array.cpp
+    aligned_input_iterator.cpp
+    aligned_output_iterator.cpp
     aligned_object.cpp
     allocate.cpp
     allocator.cpp
     allocator_adaptor.cpp
+    input_iterator.cpp
     is_aligned.cpp
     is_power_of_2.cpp
     make_aligned.cpp
     new.cpp
     next_power_of_2.cpp
     overload.cpp
+    output_iterator.cpp
     prev_power_of_2.cpp
     range.cpp
     reallocate.cpp

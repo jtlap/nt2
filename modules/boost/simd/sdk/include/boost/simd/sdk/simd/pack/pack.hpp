@@ -62,6 +62,8 @@ namespace boost { namespace simd
                                   >::type
                  >
   {
+    static const std::size_t static_size = Cardinal;
+
     typedef typename meta::vector_of<Type, Cardinal>::type  data_type;
     typedef typename proto::terminal<data_type>::type       expr_type;
 

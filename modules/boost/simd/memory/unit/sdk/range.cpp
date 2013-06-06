@@ -8,7 +8,7 @@
 //==============================================================================
 #include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/memory/range.hpp>
+#include <boost/simd/memory/input_range.hpp>
 #include <boost/simd/memory/allocator.hpp>
 #include <boost/simd/include/functions/plus.hpp>
 #include <boost/simd/include/constants/zero.hpp>
@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL(input_range_interface, BOOST_SIMD_SIMD_TYPES)
   p_t x,z;
   T r;
   z = boost::simd::Zero<p_t>();
-  x = ::accumulate(boost::simd::range(v),z);
+  x = ::accumulate(boost::simd::input_range(v),z);
   r = ::accumulate(x.begin(),x.end(),T(0.0));
   NT2_TEST_EQUAL(r,std::accumulate(v.begin(),v.end(),T(0.0)));
 }
