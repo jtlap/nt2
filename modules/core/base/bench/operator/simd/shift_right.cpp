@@ -101,5 +101,61 @@ namespace n10 {
   typedef boost::simd::native<iT,ext_t> viT;
   NT2_TIMING(shift_right_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(viT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
+namespace n11 {
+  typedef boost::simd::uint8_t T;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::native<iT,ext_t> viT;
+  NT2_TIMING(shit_right_,(RS(vT,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2))(RS(iT,T(0),sizeof(T)*8-1)))
+}
+namespace n12 {
+  typedef boost::simd::uint16_t T;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::native<iT,ext_t> viT;
+  NT2_TIMING(shit_right_,(RS(vT,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2))(RS(iT,T(0),sizeof(T)*8-1)))
+}
+namespace n13 {
+  typedef boost::simd::uint32_t T;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::native<iT,ext_t> viT;
+  NT2_TIMING(shit_right_,(RS(vT,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2))(RS(iT,T(0),sizeof(T)*8-1)))
+}
+namespace n14 {
+  typedef boost::simd::uint64_t T;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::native<iT,ext_t> viT;
+  NT2_TIMING(shit_right_,(RS(vT,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2))(RS(iT,T(0),sizeof(T)*8-1)))
+}
+namespace n15 {
+  typedef boost::simd::int8_t T;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::native<iT,ext_t> viT;
+  NT2_TIMING(shit_right_,(RS(vT,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2))(RS(iT,T(0),sizeof(T)*8-1)))
+}
+namespace n16 {
+  typedef boost::simd::int16_t T;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::native<iT,ext_t> viT;
+  NT2_TIMING(shit_right_,(RS(vT,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2))(RS(iT,T(0),sizeof(T)*8-1)))
+}
+namespace n17 {
+  typedef boost::simd::int32_t T;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::native<iT,ext_t> viT;
+  NT2_TIMING(shit_right_,(RS(vT,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2))(RS(iT,T(0),sizeof(T)*8-1)))
+}
+namespace n18 {
+  typedef boost::simd::int64_t T;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::native<iT,ext_t> viT;
+  NT2_TIMING(shit_right_,(RS(vT,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2))(RS(iT,T(0),sizeof(T)*8-1)))
+}
 
 #undef RS

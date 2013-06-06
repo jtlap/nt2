@@ -16,7 +16,7 @@
 #include <boost/simd/include/functions/simd/toint.hpp>
 #include <boost/simd/include/functions/simd/is_gtz.hpp>
 #include <boost/simd/include/functions/simd/sqr.hpp>
-#include <boost/simd/include/functions/simd/shri.hpp>
+#include <boost/simd/include/functions/simd/shr.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

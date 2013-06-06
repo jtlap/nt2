@@ -18,7 +18,7 @@
 #include <boost/simd/sdk/simd/io.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/bits.hpp>
-#include <nt2/include/functions/shri.hpp>
+#include <nt2/include/functions/shr.hpp>
 
 #include <nt2/include/functions/bits.hpp>
 

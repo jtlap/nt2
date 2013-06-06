@@ -15,7 +15,7 @@
 #include <boost/simd/include/functions/simd/firstbitset.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/shli.hpp>
-#include <boost/simd/include/functions/simd/shri.hpp>
+#include <boost/simd/include/functions/simd/shr.hpp>
 #include <boost/simd/include/functions/simd/seladd.hpp>
 #include <boost/simd/include/functions/simd/unary_minus.hpp>
 #include <boost/simd/include/constants/digits.hpp>

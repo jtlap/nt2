@@ -12,33 +12,23 @@
 #include <boost/simd/operator/functions/shift_right.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/mpl/logical.hpp>
-#include <boost/mpl/equal_to.hpp>
-#include <boost/mpl/sizeof.hpp>
-#include <boost/type_traits/is_same.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::shift_right_, tag::cpu_,
-                                  (A0)(A1)(X),
-                                  ( boost::mpl::and_<
-                                    boost::mpl::not_< boost::is_same<A0, A1> >
-                                  , boost::mpl::equal_to
-                                                < boost::mpl::sizeof_<A0>
-                                                , boost::mpl::sizeof_<A1>
-                                                >
-                                 >),
-                                  ((simd_<arithmetic_<A0>,X>))
-                                  ((simd_<integer_<A1>,X>))
-                                )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shift_right_, tag::cpu_
+                                   , (A0)(A1)(X)
+                                   , ((simd_<floating_<A0>,X>))
+                                     ((generic_<integer_<A1> >))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::as_integer<A0, signed>::type int_type;
-      return bitwise_cast<result_type>(shift_right(boost::simd::bitwise_cast<int_type>(a0), a1));
+      return bitwise_cast<result_type>( bitwise_cast<int_type>(a0) >> a1 );
     }
   };
+
 } } }
 
 #endif

@@ -11,9 +11,7 @@ SET( SOURCES
   ilog2.cpp
   genmask.cpp
   twopower.cpp
-  shri.cpp
-  shrai.cpp
-  shli.cpp
+  shr.cpp
   rshr.cpp
   rshl.cpp
   rror.cpp

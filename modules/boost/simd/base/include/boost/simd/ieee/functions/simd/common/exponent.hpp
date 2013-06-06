@@ -10,7 +10,7 @@
 #define BOOST_SIMD_IEEE_FUNCTIONS_SIMD_COMMON_EXPONENT_HPP_INCLUDED
 
 #include <boost/simd/ieee/functions/exponent.hpp>
-#include <boost/simd/include/functions/simd/shri.hpp>
+#include <boost/simd/include/functions/simd/shr.hpp>
 #include <boost/simd/include/functions/simd/exponentbits.hpp>
 #include <boost/simd/include/functions/simd/is_nez.hpp>
 #include <boost/simd/include/functions/simd/is_invalid.hpp>

@@ -26,7 +26,7 @@
 #include <nt2/include/functions/simd/is_odd.hpp>
 #include <nt2/include/functions/simd/oneminus.hpp>
 #include <nt2/include/functions/simd/fma.hpp>
-#include <nt2/include/functions/simd/shri.hpp>
+#include <nt2/include/functions/simd/shr.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>

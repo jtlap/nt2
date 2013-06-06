@@ -16,7 +16,7 @@
 #include <nt2/include/functions/scalar/sqr.hpp>
 #include <nt2/include/functions/scalar/rec.hpp>
 #include <nt2/include/functions/scalar/oneplus.hpp>
-#include <nt2/include/functions/scalar/shri.hpp>
+#include <nt2/include/functions/scalar/shr.hpp>
 #include <nt2/include/functions/scalar/is_eqz.hpp>
 #include <nt2/include/functions/scalar/is_gtz.hpp>
 #include <nt2/include/functions/scalar/is_ltz.hpp>
@@ -87,7 +87,7 @@ namespace nt2 { namespace ext
       y = madd(nf, w, (one-nf)*y);
 
       w = rec(y);
-      x = type(shri(oneplus(sign_n),1));  // 1 if positive, else 0
+      x = type(shr(oneplus(sign_n),1));  // 1 if positive, else 0
       return madd(x,y,(one-x)*w);
     }
   };

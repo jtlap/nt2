@@ -12,7 +12,7 @@
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_and.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_xor.hpp>
-#include <boost/simd/include/functions/scalar/shrai.hpp>
+#include <boost/simd/include/functions/scalar/shift_right.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

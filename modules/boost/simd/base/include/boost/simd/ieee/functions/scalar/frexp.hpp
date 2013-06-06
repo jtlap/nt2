@@ -14,7 +14,7 @@
 #include <boost/simd/include/functions/scalar/bitwise_notand.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_and.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_or.hpp>
-#include <boost/simd/include/functions/scalar/shri.hpp>
+#include <boost/simd/include/functions/scalar/shr.hpp>
 #include <boost/simd/include/functions/scalar/minus.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
 #include <boost/simd/include/constants/maxexponent.hpp>

@@ -10,7 +10,7 @@
 #define BOOST_SIMD_IEEE_FUNCTIONS_SIMD_COMMON_FAST_FREXP_HPP_INCLUDED
 #include <boost/simd/ieee/functions/fast_frexp.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/functions/simd/shri.hpp>
+#include <boost/simd/include/functions/simd/shr.hpp>
 #include <boost/simd/include/functions/simd/bitwise_andnot.hpp>
 #include <boost/simd/include/constants/maxexponent.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>

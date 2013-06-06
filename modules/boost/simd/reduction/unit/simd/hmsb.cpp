@@ -16,7 +16,7 @@
 #include <boost/simd/reduction/include/functions/hmsb.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/include/functions/bits.hpp>
-#include <boost/simd/include/functions/shri.hpp>
+#include <boost/simd/include/functions/shr.hpp>
 
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>

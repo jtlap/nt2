@@ -14,7 +14,7 @@
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/bitwise_or.hpp>
 #include <boost/simd/include/functions/simd/bitwise_and.hpp>
-#include <boost/simd/include/functions/simd/shrai.hpp>
+#include <boost/simd/include/functions/simd/shift_right.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/signmask.hpp>
 #include <boost/simd/sdk/config.hpp>

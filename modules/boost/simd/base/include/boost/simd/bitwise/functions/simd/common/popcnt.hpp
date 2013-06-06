@@ -15,7 +15,7 @@
 #include <boost/simd/include/functions/simd/bitwise_and.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/rem.hpp>
-#include <boost/simd/include/functions/simd/shri.hpp>
+#include <boost/simd/include/functions/simd/shr.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
