@@ -6,22 +6,21 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+
 #include <nt2/swar/include/functions/split.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/meta/downgrade.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/io.hpp>
-#include <nt2/sdk/unit/module.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
-#include <boost/simd/sdk/simd/io.hpp>
-#include <boost/fusion/include/std_pair.hpp>
-#include <nt2/sdk/meta/type_id.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/meta/downgrade.hpp>
+#include <nt2/sdk/meta/upgrade.hpp>
+#include <nt2/sdk/complex/meta/as_complex.hpp>
 
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
 NT2_TEST_CASE_TPL( split_complex, BOOST_SIMD_SIMD_REAL_SPLITABLE_TYPES )
@@ -43,9 +42,6 @@ NT2_TEST_CASE_TPL( split_complex, BOOST_SIMD_SIMD_REAL_SPLITABLE_TYPES )
                   );
 
   {
-    std::cout << nt2::type_id<ucvT>() << std::endl;
-    std::cout << nt2::type_id<std::pair<ucvT,ucvT> >() << std::endl;
-    std::cout << nt2::type_id<std::pair<ucvT,ucvT> >() << std::endl;
     ucvT f,s;
 
     split(nt2::One<cvT>(), f, s);
@@ -84,9 +80,7 @@ NT2_TEST_CASE_TPL( split_complex, BOOST_SIMD_SIMD_REAL_SPLITABLE_TYPES )
 
 }
 
-#ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 NT2_TEST_CASE( dummy_for_altivec )
 {
-  NT2_TEST_COMPLETE("dummy_for_altivec");
+  NT2_TEST_COMPLETE("dummy for altivec and similar extensions");
 }
-#endif
