@@ -24,14 +24,36 @@
 
 #include <boost/preprocessor/stringize.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
+#include <boost/preprocessor/seq/enum.hpp>
 #include <boost/dispatch/preprocessor/strip.hpp>
+
+#include <boost/mpl/for_each.hpp>
+#include <boost/mpl/not.hpp>
+#include <boost/mpl/and.hpp>
+#include <boost/mpl/or.hpp>
+#include <boost/mpl/vector.hpp>
+#include <boost/mpl/filter_view.hpp>
+
+/*!
+  @brief MPL list generation macro.
+
+  This macro generates a MPL list of types from a preprocessor sequence
+  and an MPL meta-function. It returns the MPL sequence with the elements
+  of the preprocessor sequence that satisfy the given predicate.
+**/
+#define NT2_TEST_SEQ_MPL_FILTER(seq, cond)                                     \
+(filter_view< vector<BOOST_PP_SEQ_ENUM(seq)>                                   \
+            , BOOST_DISPATCH_PP_STRIP(cond)                                    \
+            >::type                                                            \
+)                                                                              \
+/**/
 
 /*!
   @brief Test case registration macro.
 
   This macro declares a new test case function containing user-defined tests
   sequences. Each test case has a unique name passed as a parameter that
-  identify the set of tests inside the whole test suite.
+  identifies the set of tests inside the whole test suite.
 
   @usage
   @include test_case.cpp
@@ -60,9 +82,9 @@ BOOST_PP_CAT(tpl_, BOOST_PP_CAT(NT2_UNIT_PREFIX,name))          \
   @brief Type-dependant test case registration macro
 
   This macro declares a new set of test cases functions containing user
-  defined tests sequences parametrized by a list of types. The test functions
+  defined tests sequences parametrized by a list of types. The test function
   is then instantiated for each type in the preprocessor sequence. Each test
-  case has a unique name passed as a parameter that identify the set of tests
+  case has a unique name passed as a parameter that identifies the set of tests
   inside the whole test suite.
 
   @usage
@@ -88,6 +110,48 @@ void BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)()                                 \
 template<class T> void BOOST_PP_CAT ( tpl_                                \
                                     , BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)  \
                                     )()                                   \
+/**/
+
+/*!
+  @brief Type-dependant test case registration macro, with MPL type list
+
+  This macro declares a new set of test cases functions containing user
+  defined tests sequences parametrized by a MPL list of types. The test function
+  is then instantiated for each type in the MPL sequence. Each test
+  case has a unique name passed as a parameter that identifies the set of tests
+  inside the whole test suite.
+**/
+#define NT2_TEST_CASE_TPL_MPL(Name, TypeList)                                  \
+template<class T> void BOOST_PP_CAT ( tpl_mpl_                                 \
+                                    , BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)       \
+                                    )();                                       \
+struct BOOST_PP_CAT( tpl_fun_mpl_, BOOST_PP_CAT(NT2_UNIT_PREFIX, Name) )       \
+{                                                                              \
+  template<class T>                                                            \
+  void operator()(T const&) const                                              \
+  {                                                                            \
+    printf("With T = [%s]\n", nt2::type_id<T>().c_str());                      \
+    BOOST_PP_CAT( tpl_mpl_, BOOST_PP_CAT(NT2_UNIT_PREFIX,Name) )<T>();         \
+  }                                                                            \
+};                                                                             \
+void BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)();                                     \
+                                                                               \
+nt2::details::unit_test const                                                  \
+BOOST_PP_CAT(Name,NT2_UNIT_PREFIX)                                             \
+            ( &nt2::details::unit_tests                                        \
+            , BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)                               \
+            , BOOST_PP_STRINGIZE(BOOST_PP_CAT(Name,_test))                     \
+            );                                                                 \
+void BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)()                                      \
+{                                                                              \
+  using namespace boost::mpl;                                                  \
+  boost::mpl::for_each<BOOST_DISPATCH_PP_STRIP(TypeList)>                      \
+  (BOOST_PP_CAT( tpl_fun_mpl_, BOOST_PP_CAT(NT2_UNIT_PREFIX, Name) )());       \
+}                                                                              \
+                                                                               \
+template<class T> void BOOST_PP_CAT ( tpl_mpl_                                 \
+                                    , BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)       \
+                                    )()                                        \
 /**/
 
 #endif

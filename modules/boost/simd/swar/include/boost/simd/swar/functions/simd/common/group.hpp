@@ -10,18 +10,18 @@
 #define BOOST_SIMD_SWAR_FUNCTIONS_SIMD_COMMON_GROUP_HPP_INCLUDED
 
 #include <boost/simd/swar/functions/group.hpp>
-#include <boost/simd/include/functions/simd/load.hpp>
-#include <boost/simd/include/functions/simd/saturate.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
-#include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/include/functions/simd/deinterleave_first.hpp>
+#include <boost/simd/include/functions/simd/deinterleave_second.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/insert.hpp>
+#include <boost/simd/include/constants/signmask.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
-#include <boost/simd/sdk/simd/details/native/meta/downgrade.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/detail/endian.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is downgradable
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::group_, tag::cpu_,
@@ -35,14 +35,33 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 aa0 =  boost::simd::saturate<result_type>(a0);
-      A0 aa1 =  boost::simd::saturate<result_type>(a1);
       static const size_t size = boost::simd::meta::cardinal_of<A0>::value;
       typedef typename meta::scalar_of<result_type>::type sR;
-      BOOST_SIMD_ALIGNED_TYPE(sR) tmp[size*2];
-      for(size_t i = 0; i != size; ++i)  tmp[i]      = static_cast<sR>(aa0[i]);
-      for(size_t i = 0; i != size; ++i)  tmp[i+size] = static_cast<sR>(aa1[i]);
-      return load<result_type>(&tmp[0], 0);
+      result_type that;
+      for(size_t i = 0; i != size; ++i)
+        that[i]      = static_cast<sR>(a0[i]);
+      for(size_t i = 0; i != size; ++i)
+        that[i+size] = static_cast<sR>(a1[i]);
+      return that;
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::group_, tag::cpu_,
+                          (A0)(X),
+                          (boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::downgrade<A0>::type> >),
+                          ((simd_<integer_<A0>,X>))((simd_<integer_<A0>,X>))
+                        )
+  {
+
+    typedef typename dispatch::meta::downgrade<A0>::type result_type;
+
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      #ifdef BOOST_LITTLE_ENDIAN
+      return deinterleave_first(bitwise_cast<result_type>(a0), bitwise_cast<result_type>(a1));
+      #else
+      return deinterleave_second(bitwise_cast<result_type>(a0), bitwise_cast<result_type>(a1));
+      #endif
     }
   };
 } } }

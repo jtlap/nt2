@@ -20,6 +20,7 @@ SET( SOURCES
   put_first.cpp
   lookup.cpp
   group.cpp
+  groups.cpp
   cumsum.cpp
 # List of simd test files for toolbox swar
    )

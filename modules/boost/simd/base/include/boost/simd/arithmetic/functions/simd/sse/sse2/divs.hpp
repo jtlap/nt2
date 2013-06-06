@@ -10,8 +10,9 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_DIVS_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/arithmetic/functions/divs.hpp>
-#include <boost/simd/include/functions/simd/group.hpp>
+#include <boost/simd/include/functions/simd/groups.hpp>
 #include <boost/simd/include/functions/simd/split.hpp>
+#include <boost/simd/include/functions/simd/divides.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -28,9 +29,9 @@ namespace boost { namespace simd { namespace ext
       ivtype a0l, a0h, a1l, a1h;
       split(a0, a0l, a0h);
       split(a1, a1l, a1h);
-      return group( boost::simd::divs(a0l, a1l)
-                  , boost::simd::divs(a0h, a1h)
-                  );
+      return groups( boost::simd::divs(a0l, a1l)
+                   , boost::simd::divs(a0h, a1h)
+                   );
     }
   };
 
@@ -46,9 +47,9 @@ namespace boost { namespace simd { namespace ext
       ivtype a0l, a0h, a1l, a1h;
       split(a0, a0l, a0h);
       split(a1, a1l, a1h);
-      return group( boost::simd::divs(a0l, a1l)
-                  , boost::simd::divs(a0h, a1h)
-                  );
+      return groups( boost::simd::divs(a0l, a1l)
+                   , boost::simd::divs(a0h, a1h)
+                   );
     }
   };
 } } }
