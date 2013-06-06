@@ -10,14 +10,14 @@
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_SIMD_SSE_AVX_SHIFT_LEFT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
-#include <boost/simd/bitwise/functions/shift_left.hpp>
+#include <boost/simd/operator/functions/shift_left.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shift_left_, boost::simd::tag::avx_
                             , (A0)(A1)
-                            , ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
+                            , ((simd_<integer_<A0>,boost::simd::tag::avx_>))
                               (scalar_< integer_<A1> >)
                             )
   {
@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace ext
       typedef simd::native<stype, boost::simd::tag::sse_ >        svtype;
 
       svtype a00 = _mm256_extractf128_si256(a0, 0);
-      svtype a01 = _mm256_extractf128_si256(a1, 1);
+      svtype a01 = _mm256_extractf128_si256(a0, 1);
       A0 that = _mm256_insertf128_si256(that, boost::simd::shift_left(a00, a1), 0);
       return _mm256_insertf128_si256(that, boost::simd::shift_left(a01, a1), 1);
      }

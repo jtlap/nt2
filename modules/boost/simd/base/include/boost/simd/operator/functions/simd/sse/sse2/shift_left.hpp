@@ -10,7 +10,7 @@
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_SHIFT_LEFT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
-#include <boost/simd/bitwise/functions/shift_left.hpp>
+#include <boost/simd/operator/functions/shift_left.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/functions/simd/bitwise_and.hpp>
 #include <boost/simd/include/functions/simd/bitwise_or.hpp>
