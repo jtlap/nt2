@@ -9,6 +9,8 @@
 
 set( SOURCES
     enumerate.cpp
+    group.cpp
+    split.cpp
    )
 
 nt2_module_add_tests(type.complex.swar.simd.unit ${SOURCES})

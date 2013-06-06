@@ -20,8 +20,8 @@ namespace boost { namespace simd { namespace ext
                                       , tag::cpu_
                                       , (A0)(A1)
                                       , (simd::meta::is_upgradable_to<A0,A1>)
-                                      , ((generic_< arithmetic_<A0> >))
-                                        ((generic_< arithmetic_<A1> >))
+                                      , ((generic_< unspecified_<A0> >))
+                                        ((generic_< unspecified_<A1> >))
                                       )
   {
     typedef A1 result_type;
@@ -38,10 +38,10 @@ namespace boost { namespace simd { namespace ext
                                       , ( boost::mpl::
                                           not_< simd::meta::is_upgradable_to<A0,A0> >
                                         )
-                                      , (generic_< arithmetic_<A0> >)
+                                      , (generic_< unspecified_<A0> >)
                                       )
   {
-    typedef typename dispatch::meta::upgrade<A0>::type part;
+    typedef typename dispatch::meta::upgrade<A0>::type        part;
     typedef std::pair<part,part>                       result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
