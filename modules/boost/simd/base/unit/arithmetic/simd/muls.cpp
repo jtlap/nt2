@@ -48,6 +48,7 @@ NT2_TEST_CASE_TPL ( muls_signed_int__2_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES
   NT2_TEST_EQUAL(muls(boost::simd::Valmax<vT>(),boost::simd::Mone<vT>())[0], boost::simd::Valmin<T>()+boost::simd::One<T>());
   NT2_TEST_EQUAL(muls(boost::simd::Valmax<vT>(),boost::simd::One<vT>())[0], boost::simd::Valmax<T>());
   NT2_TEST_EQUAL(muls(boost::simd::Valmin<vT>(),boost::simd::Mone<vT>())[0], boost::simd::Valmax<T>());
+  NT2_TEST_EQUAL(muls(boost::simd::Valmin<vT>(),boost::simd::Valmin<vT>())[0], boost::simd::Valmax<T>());
   NT2_TEST_EQUAL(muls(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<T>());
 } // end of test for signed_int_
 
