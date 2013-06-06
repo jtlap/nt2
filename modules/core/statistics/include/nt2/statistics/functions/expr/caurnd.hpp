@@ -21,8 +21,8 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::caurnd_, tag::cpu_
                               , (A0)
-                              , (generic_<floating_<A0> > )
-                               (generic_<floating_<A0> > )
+                              , (scalar_<floating_<A0> > )
+                               (scalar_<floating_<A0> > )
                             )
   {
     typedef meta::as_<A0>                                                           TGT;
@@ -37,8 +37,8 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::caurnd_, tag::cpu_
                             , (A0)(A1)
-                            , (generic_<floating_<A0> > )
-                              (generic_<floating_<A0> > )
+                            , (scalar_<floating_<A0> > )
+                              (scalar_<floating_<A0> > )
                               (unspecified_<A1>)
                             )
   {
@@ -53,8 +53,8 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::caurnd_, tag::cpu_
                             , (A0)(A1)(A2)
-                            , (generic_<floating_<A0> > )
-                              (generic_<floating_<A0> > )
+                            , (scalar_<floating_<A0> > )
+                              (scalar_<floating_<A0> > )
                               (unspecified_<A1>)
                               (unspecified_<A2>)
                             )
@@ -72,8 +72,8 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::caurnd_, tag::cpu_
                             , (A0)(A1)(A2)(A3)
-                            , (generic_<floating_<A0> > )
-                              (generic_<floating_<A0> > )
+                            , (scalar_<floating_<A0> > )
+                              (scalar_<floating_<A0> > )
                               (unspecified_<A1>)
                               (unspecified_<A2>)
                               (unspecified_<A3>)
@@ -93,8 +93,8 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::caurnd_, tag::cpu_
                             , (A0)(A1)(A2)(A3)(A4)
-                            , (generic_<floating_<A0> > )
-                              (generic_<floating_<A0> > )
+                            , (scalar_<floating_<A0> > )
+                              (scalar_<floating_<A0> > )
                               (unspecified_<A1>)
                               (unspecified_<A2>)
                               (unspecified_<A3>)
@@ -115,8 +115,8 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::caurnd_, tag::cpu_
                             , (A0)(A1)(A2)(A3)(A4)(A5)
-                            , (generic_<floating_<A0> > )
-                              (generic_<floating_<A0> > )
+                            , (scalar_<floating_<A0> > )
+                              (scalar_<floating_<A0> > )
                               (unspecified_<A1>)
                               (unspecified_<A2>)
                               (unspecified_<A3>)

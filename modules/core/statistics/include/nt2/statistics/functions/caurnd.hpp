@@ -60,7 +60,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag caurnd_ of functor caurnd
      *        in namespace nt2::tag for toolbox statistics
     **/
-    struct caurnd_ : ext::unspecified_<caurnd_> { typedef ext::unspecified_<caurnd_> parent; };
+    struct caurnd_ : boost::dispatch::tag::formal_ { typedef boost::dispatch::tag::formal_ parent; };
   }
 
  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::caurnd_, caurnd, 2)
