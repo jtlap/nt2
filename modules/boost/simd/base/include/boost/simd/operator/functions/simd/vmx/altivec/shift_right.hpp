@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
     {
      typedef typename dispatch::meta::as_unsigned<A1>::type type;
      type shift = simd::bitwise_cast<type>(a1);
-     return vec_srl(a0(), shift());
+     return vec_sr(a0(), shift());
     }
   };
 
