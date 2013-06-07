@@ -8,10 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_BOOLEAN_FUNCTIONS_SCALAR_IF_ELSE_ZERO_HPP_INCLUDED
 #define BOOST_SIMD_BOOLEAN_FUNCTIONS_SCALAR_IF_ELSE_ZERO_HPP_INCLUDED
+
 #include <boost/simd/boolean/functions/if_else_zero.hpp>
+#include <boost/simd/include/functions/scalar/is_nez.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/simd/include/functions/scalar/is_nez.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

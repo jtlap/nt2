@@ -8,10 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_BOOLEAN_FUNCTIONS_SCALAR_IF_ONE_ELSE_ZERO_HPP_INCLUDED
 #define BOOST_SIMD_BOOLEAN_FUNCTIONS_SCALAR_IF_ONE_ELSE_ZERO_HPP_INCLUDED
+
 #include <boost/simd/boolean/functions/if_one_else_zero.hpp>
 #include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/constants/false.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -25,7 +26,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_one_else_zero_, tag::cpu_, (A0)
-                                   , (scalar_< unspecified_<A0> >)
+                                   , (scalar_< fundamental_<A0> >)
                                    )
   {
     typedef A0 result_type;
