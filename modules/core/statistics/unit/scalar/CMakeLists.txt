@@ -24,6 +24,7 @@ SET( SOURCES
   exppdf.cpp
   expinv.cpp
   gamcdf.cpp
+  kstest.cpp
 # List of scalar test files for toolbox statistics
    )
 
