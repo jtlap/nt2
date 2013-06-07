@@ -19,6 +19,7 @@
 #include <boost/simd/include/functions/simd/if_else_allbits.hpp>
 #include <boost/simd/include/functions/simd/group.hpp>
 #include <boost/simd/include/functions/simd/split.hpp>
+#include <boost/fusion/include/std_pair.hpp>
 #include <boost/simd/include/constants/signmask.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
 #include <boost/simd/include/constants/int_splat.hpp>
@@ -39,7 +40,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       gen_t a0h, a0l;
-      split(a0, a0h, a0l);
+      split(a0, a0l, a0h);
       return group(shift_right(a0l, a1), shift_right(a0h, a1));
     }
   };
