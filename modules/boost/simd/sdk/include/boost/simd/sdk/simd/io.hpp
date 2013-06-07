@@ -10,7 +10,7 @@
 #define BOOST_SIMD_SDK_SIMD_IO_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/fusion/sequence/io/out.hpp>
+#include <boost/simd/sdk/details/io_fix.hpp>
 
 namespace boost { namespace simd
 {
@@ -20,7 +20,10 @@ namespace boost { namespace simd
   template<class S,class E> inline std::ostream&
   operator<<( std::ostream& os, native<S,E> const & v )
   {
-    return boost::fusion::operators::operator<<(os, v);
+    os << "( " << details::display(v[0]);
+    for(std::size_t i=1;i<v.size();++i) os << "," << details::display(v[i]);
+    os << " )";
+    return os;
   }
 
 } }

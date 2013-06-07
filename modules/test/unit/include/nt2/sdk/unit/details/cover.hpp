@@ -15,6 +15,7 @@
 #include <nt2/sdk/unit/details/eval.hpp>
 #include <nt2/sdk/unit/details/ulp.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/sdk/details/io_fix.hpp>
 #include <nt2/include/functions/unaligned_load.hpp>
 #include <nt2/include/functions/unaligned_store.hpp>
 #include <boost/preprocessor/seq/elem.hpp>
@@ -48,7 +49,8 @@ nt2::unaligned_load<type_##n>(&i##n[t])                                        \
 /**/
 
 /// INTERNAL ONLY Display an input
-#define NT2_COVER_DISP(z,n,t) << ", "<< NT2_COVER_LOADS(z,n,t)                 \
+#define NT2_COVER_DISP(z,n,t)                                                  \
+<< ", " << boost::simd::details::display(NT2_COVER_LOADS(z,n,t))               \
 /**/
 
 #define NT2_COVER_TYPES_LIST(INPUTS)                                           \
@@ -123,12 +125,14 @@ namespace nt2 { namespace details
                                                                                \
         std::cout << std::setprecision(20)                                     \
                   << func << "("                                               \
-                  << NT2_COVER_LOADS(~,0,ii)                                   \
+                  << boost::simd::details::display(NT2_COVER_LOADS(~,0,ii))    \
                   BOOST_PP_REPEAT_FROM_TO( 1, n, NT2_COVER_DISP, ii)           \
                   << ") got "                                                  \
-                  << nt2::unaligned_load<r_t>(&out[ii])                        \
+                  << boost::simd::details::                                    \
+                     display(nt2::unaligned_load<r_t>(&out[ii]))               \
                   << " while expecting "                                       \
-                  << nt2::unaligned_load<r_t>(&ref[ii])                        \
+                  << boost::simd::details::                                    \
+                     display(nt2::unaligned_load<r_t>(&ref[ii]))               \
                   << " (i.e "   << f.ulp_error << " ULPs)"                     \
                   << std::endl;                                                \
         ib = ii;                                                               \

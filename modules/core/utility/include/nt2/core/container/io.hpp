@@ -12,6 +12,7 @@
 #include <cstddef>
 #include <iostream>
 #include <boost/preprocessor/stringize.hpp>
+#include <boost/simd/sdk/details/io_fix.hpp>
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/isempty.hpp>
 #include <nt2/include/functions/sub2ind.hpp>
@@ -24,33 +25,6 @@ namespace nt2
 {
   namespace details
   {
-
-    /// INTERNAL ONLY
-    /// Dispaly small int as integer
-    template<class T> inline
-    typename  boost
-              ::enable_if_c < (   boost::is_same<T,int8_t>::value
-                              ||  boost::is_same<T,uint8_t>::value
-                              )
-                            , int
-                            >::type
-    display ( T const& v)
-    {
-      return static_cast<int>(v);
-    }
-
-    template<class T> inline
-    typename  boost
-              ::disable_if_c< (   boost::is_same<T,int8_t>::value
-                              ||  boost::is_same<T,uint8_t>::value
-                              )
-                            , T const&
-                            >::type
-    display ( T const& v)
-    {
-      return v;
-    }
-
     /// INTERNAL ONLY
     /// Display a 2D page from an expression
     template<class Xpr, class Pos> inline
@@ -92,7 +66,8 @@ namespace nt2
             ++p[1]
             )
         {
-          os  << display(xpr(nt2::sub2ind(nt2::extent(xpr),p,index_type())+b))
+          os  <<  boost::simd::details
+                ::display(xpr(nt2::sub2ind(nt2::extent(xpr),p,index_type())+b))
               << " ";
         }
 

@@ -13,6 +13,7 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include <boost/simd/sdk/details/io_fix.hpp>
 
 namespace std
 {
@@ -23,7 +24,7 @@ namespace std
 
     os << "\n";
     for(iterator_t it = v.begin(); it != v.end(); ++it)
-      os << *it << "  ";
+      os << boost::simd::details::display(*it) << "  ";
     os << "\n";
 
     return os;
@@ -32,7 +33,10 @@ namespace std
   template<typename T1, typename T2>
   inline std::ostream& operator<<(std::ostream& os, std::pair<T1, T2> const& xpr)
   {
-    os << "[" << xpr.first << ",  " << xpr.second << "]";
+    os << "["   << boost::simd::details::display(xpr.first)
+       << ",  " << boost::simd::details::display(xpr.second)
+       << "]";
+
     return os;
   }
 }
