@@ -13,7 +13,7 @@
 #include <boost/simd/include/functions/simd/load.hpp>
 #include <boost/simd/include/functions/simd/extract.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
-#include <boost/simd/sdk/meta/is_upgradable_to.hpp>
+#include <boost/simd/sdk/meta/is_upgradable.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/fusion/include/std_pair.hpp>

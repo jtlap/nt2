@@ -10,7 +10,7 @@
 #define BOOST_SIMD_SWAR_FUNCTIONS_GENERIC_SPLIT_MULTIPLIES_HPP_INCLUDED
 
 #include <boost/simd/swar/functions/split_multiplies.hpp>
-#include <boost/simd/sdk/meta/is_upgradable_to.hpp>
+#include <boost/simd/sdk/meta/is_upgradable.hpp>
 #include <boost/fusion/include/std_pair.hpp>
 #include <boost/mpl/not.hpp>
 
@@ -36,9 +36,7 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::split_multiplies_, tag::cpu_
                                       , (A0)
-                                      , ( boost::mpl::
-                                          not_< simd::meta::is_upgradable_to<A0,A0> >
-                                        )
+                                      , ( simd::meta::is_upgradable<A0> )
                                       , (generic_< arithmetic_<A0> >)
                                         (generic_< arithmetic_<A0> >)
                                       )

@@ -13,17 +13,19 @@
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/split.hpp>
 #include <boost/simd/include/functions/simd/group.hpp>
+#include <boost/simd/sdk/meta/is_upgradable.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::correct_fma_, tag::cpu_
-                                   , (A0)(X)
-                                   , ((simd_<single_<A0>,X>))
-                                     ((simd_<single_<A0>,X>))
-                                     ((simd_<single_<A0>,X>))
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::correct_fma_, tag::cpu_
+                                      , (A0)(X)
+                                      , ( simd::meta::is_upgradable_on_ext<A0,X> )
+                                      , ((simd_<single_<A0>,X>))
+                                        ((simd_<single_<A0>,X>))
+                                        ((simd_<single_<A0>,X>))
+                                      )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)

@@ -39,6 +39,7 @@
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/is_upgradable.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/mpl/bool.hpp>
@@ -68,7 +69,7 @@ namespace nt2 { namespace details { namespace internal
     static inline bA0 ismedium (const A0&a0)  { return nt2::le(a0,single_constant<A0,0x43490fdb>()); }
     static inline bA0 issmall  (const A0&a0)  { return nt2::le(a0,single_constant<A0,0x427b53d1>()); }
     static inline bA0 islessthanpi_2  (const A0&a0)  { return nt2::le(a0,Pio_2<A0>()); }
-    typedef typename boost::mpl::not_<boost::is_same<A0,typename meta::upgrade<A0>::type> >::type conversion_allowed;
+    typedef typename boost::simd::meta::is_upgradable_on_ext<A0>::type conversion_allowed;
 
     static inline bA0 cot_invalid(const A0&) { return nt2::False<bA0>(); }
     static inline bA0 tan_invalid(const A0&) { return nt2::False<bA0>(); }

@@ -13,7 +13,7 @@
 #include <boost/simd/include/functions/simd/multiplies.hpp>
 #include <boost/simd/include/functions/simd/split_multiplies.hpp>
 #include <boost/simd/include/functions/simd/groups.hpp>
-#include <boost/simd/sdk/meta/is_upgradable_to.hpp>
+#include <boost/simd/sdk/meta/is_upgradable.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -32,9 +32,7 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::muls_, tag::cpu_
                                       , (A0)(X)
-                                      , ( boost::mpl::
-                                          not_< simd::meta::is_upgradable_to<A0,A0> >
-                                        )
+                                      , ( simd::meta::is_upgradable_on_ext<A0,X> )
                                       , ((simd_<integer_<A0>, X>))((simd_<integer_<A0>, X>))
                                       )
   {
