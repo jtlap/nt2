@@ -10,7 +10,7 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_DIVCEIL_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/divceil.hpp>
-#include <boost/simd/include/functions/simd/group.hpp>
+#include <boost/simd/include/functions/simd/groups.hpp>
 #include <boost/simd/include/functions/simd/split.hpp>
 #include <boost/simd/include/functions/simd/ceil.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>
@@ -56,7 +56,7 @@ namespace boost { namespace simd { namespace ext
       boost::simd::split(a0, a0l, a0h );
       boost::simd::split(a1, a1l, a1h );
       return boost::simd::bitwise_cast<A0>(
-        boost::simd::group(boost::simd::divceil(a0l, a1l),
+        boost::simd::groups(boost::simd::divceil(a0l, a1l),
                            boost::simd::divceil(a0h, a1h))
       );
     }
@@ -78,7 +78,7 @@ namespace boost { namespace simd { namespace ext
       boost::simd::split(a0, a0l, a0h );
       boost::simd::split(a1, a1l, a1h );
       return boost::simd::bitwise_cast<A0>(
-        boost::simd::group(boost::simd::divceil(a0l, a1l),
+        boost::simd::groups(boost::simd::divceil(a0l, a1l),
                            boost::simd::divceil(a0h, a1h) )
       );
     }

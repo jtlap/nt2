@@ -13,7 +13,7 @@
 #include <boost/simd/include/functions/simd/iceil.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>
 #include <boost/simd/include/functions/simd/divides.hpp>
-#include <boost/simd/include/functions/simd/group.hpp>
+#include <boost/simd/include/functions/simd/groups.hpp>
 #include <boost/simd/include/functions/simd/split.hpp>
 #include <boost/simd/include/functions/simd/minusone.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
@@ -58,8 +58,8 @@ namespace boost { namespace simd { namespace ext
       ivtype a0l, a0h, a1l, a1h;
       boost::simd::split(a0, a0l, a0h);
       boost::simd::split(a1, a1l, a1h);
-      return boost::simd::bitwise_cast<A0>(boost::simd::group(boost::simd::idivceil(a0l, a1l),
-                                              boost::simd::idivceil(a0h, a1h)));
+      return boost::simd::bitwise_cast<A0>(boost::simd::groups(boost::simd::idivceil(a0l, a1l),
+                                                               boost::simd::idivceil(a0h, a1h)));
     }
   };
 
@@ -77,8 +77,8 @@ namespace boost { namespace simd { namespace ext
       ivtype a0l, a0h, a1l, a1h;
       boost::simd::split(a0, a0l, a0h);
       boost::simd::split(a1, a1l, a1h);
-      return bitwise_cast<A0>(boost::simd::group(boost::simd::idivceil(a0l, a1l),
-                                         boost::simd::idivceil(a0h, a1h) ));
+      return bitwise_cast<A0>(boost::simd::groups(boost::simd::idivceil(a0l, a1l),
+                                                  boost::simd::idivceil(a0h, a1h) ));
     }
   };
 

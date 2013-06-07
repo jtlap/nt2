@@ -15,7 +15,7 @@
 #include <boost/simd/include/functions/simd/divs.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/divides.hpp>
-#include <boost/simd/include/functions/simd/group.hpp>
+#include <boost/simd/include/functions/simd/groups.hpp>
 #include <boost/simd/include/functions/simd/split.hpp>
 #include <boost/simd/include/constants/two.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
@@ -58,8 +58,8 @@ namespace boost { namespace simd { namespace ext
       ivtype a0l, a0h, a1l, a1h;
       boost::simd::split(a0, a0l, a0h);
       boost::simd::split(a1, a1l, a1h);
-      return group( divround(a0l, a1l)
-                  , divround(a0h, a1h)
+      return groups( divround(a0l, a1l)
+                   , divround(a0h, a1h)
                   );
     }
   };
@@ -76,9 +76,9 @@ namespace boost { namespace simd { namespace ext
       ivtype a0l, a0h, a1l, a1h;
       boost::simd::split(a0, a0l, a0h);
       boost::simd::split(a1, a1l, a1h);
-      return group( divround(a0l, a1l)
-                  , divround(a0h, a1h)
-                  );
+      return groups( divround(a0l, a1l)
+                   , divround(a0h, a1h)
+                   );
     }
   };
 

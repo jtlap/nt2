@@ -15,7 +15,7 @@
 #include <boost/simd/include/functions/simd/divides.hpp>
 #include <boost/simd/include/functions/divs.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
-#include <boost/simd/include/functions/simd/group.hpp>
+#include <boost/simd/include/functions/simd/groups.hpp>
 #include <boost/simd/include/functions/simd/split.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/constants/two.hpp>
@@ -58,8 +58,8 @@ namespace boost { namespace simd { namespace ext
       ivtype a0l, a0h, a1l, a1h;
       boost::simd::split(a0, a0l, a0h);
       boost::simd::split(a1, a1l, a1h);
-      return simd::bitwise_cast<A0>(boost::simd::group(boost::simd::divround2even(a0l, a1l),
-                                               boost::simd::divround2even(a0h, a1h)));
+      return simd::bitwise_cast<A0>(boost::simd::groups(boost::simd::divround2even(a0l, a1l),
+                                                        boost::simd::divround2even(a0h, a1h)));
     }
   };
 
@@ -77,8 +77,8 @@ namespace boost { namespace simd { namespace ext
       ivtype a0l, a0h, a1l, a1h;
       boost::simd::split(a0, a0l, a0h);
       boost::simd::split(a1, a1l, a1h);
-      return simd::bitwise_cast<A0>(group(divround2even(a0l, a1l),
-                                          divround2even(a0h, a1h) ));
+      return simd::bitwise_cast<A0>(groups(divround2even(a0l, a1l),
+                                           divround2even(a0h, a1h) ));
     }
   };
 

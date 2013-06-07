@@ -14,7 +14,7 @@
 #include <boost/simd/include/functions/simd/iround2even.hpp>
 #include <boost/simd/include/functions/simd/iround2even.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>
-#include <boost/simd/include/functions/simd/group.hpp>
+#include <boost/simd/include/functions/simd/groups.hpp>
 #include <boost/simd/include/functions/simd/split.hpp>
 #include <boost/simd/include/functions/simd/divides.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>
@@ -61,7 +61,7 @@ namespace boost { namespace simd { namespace ext
       ivtype a0l, a0h, a1l, a1h;
       split(a0, a0l, a0h );
       split(a1, a1l, a1h);
-      return simd::bitwise_cast<A0>(group(idivround2even(a0l, a1l),
+      return simd::bitwise_cast<A0>(groups(idivround2even(a0l, a1l),
                                idivround2even(a0h, a1h)));
     }
   };
@@ -80,7 +80,7 @@ namespace boost { namespace simd { namespace ext
       ivtype a0l, a0h, a1l, a1h;
       split(a0, a0l, a0h);
       split(a1, a1l, a1h);
-      return simd::bitwise_cast<A0>(group(idivround2even(a0l, a1l),
+      return simd::bitwise_cast<A0>(groups(idivround2even(a0l, a1l),
                                idivround2even(a0h, a1h) ));
     }
   };
