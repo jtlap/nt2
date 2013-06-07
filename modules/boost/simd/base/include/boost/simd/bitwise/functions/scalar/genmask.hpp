@@ -25,6 +25,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return a0 ? Allbits<result_type>() : Zero<result_type>();
+    }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, tag::cpu_, (A0)
