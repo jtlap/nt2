@@ -26,7 +26,6 @@
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
-#include <iostream>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -79,6 +78,7 @@ namespace boost { namespace simd { namespace ext
       // negative -> valmin
       // positive -> valmax
       const A0 x2 = bitwise_xor(Valmax<A0>(), shrai(x, sizeof(A0)*CHAR_BIT));
+
       x = if_else(logical_and(iseqza1, is_nez(x)), x2, x);
       const A0 y = if_else(iseqza1, One<A0>(), a1);
       return x/y;
