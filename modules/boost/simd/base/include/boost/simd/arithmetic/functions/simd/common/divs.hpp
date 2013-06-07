@@ -13,10 +13,11 @@
 #include <boost/simd/include/functions/simd/is_eqz.hpp>
 #include <boost/simd/include/functions/simd/is_nez.hpp>
 #include <boost/simd/include/functions/simd/divides.hpp>
-#include <boost/simd/include/functions/simd/shr.hpp>
+#include <boost/simd/include/functions/simd/shift_right.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/if_zero_else_one.hpp>
 #include <boost/simd/include/functions/simd/bitwise_or.hpp>
+#include <boost/simd/include/functions/simd/bitwise_xor.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/genmask.hpp>
 #include <boost/simd/include/functions/simd/logical_and.hpp>
@@ -25,6 +26,7 @@
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
+#include <iostream>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -76,8 +78,7 @@ namespace boost { namespace simd { namespace ext
 
       // negative -> valmin
       // positive -> valmax
-      const A0 x2 = Valmax<A0>() + shri(x, sizeof(A0)*CHAR_BIT-1);
-
+      const A0 x2 = bitwise_xor(Valmax<A0>(), shrai(x, sizeof(A0)*CHAR_BIT));
       x = if_else(logical_and(iseqza1, is_nez(x)), x2, x);
       const A0 y = if_else(iseqza1, One<A0>(), a1);
       return x/y;
