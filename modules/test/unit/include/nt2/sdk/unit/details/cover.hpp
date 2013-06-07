@@ -22,6 +22,7 @@
 #include <boost/preprocessor/seq/size.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
+#include <boost/preprocessor/seq/seq.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/typeof/typeof.hpp>
@@ -62,6 +63,18 @@ boost::mpl::vector<BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(INPUTS)                    \
 
 #define NT2_COVER_VALUES_LIST(INPUTS)                                          \
 BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(INPUTS), NT2_COVER_VAR, INPUTS )              \
+/**/
+
+#define NT2_COVER_STRING(r,d,e)                                                \
++ std::string(", ") + nt2::type_id<BOOST_PP_TUPLE_ELEM(2,0,e)>()               \
+/**/
+
+#define NT2_COVER_TEST_NAME(FUNC,INPUTS)                                       \
+  nt2::type_id(FUNC)                                                           \
++ std::string("( ")                                                            \
++ nt2::type_id<BOOST_PP_TUPLE_ELEM(2,0,BOOST_PP_SEQ_HEAD(INPUTS))>()           \
+  BOOST_PP_SEQ_FOR_EACH(NT2_COVER_STRING,~,BOOST_PP_SEQ_TAIL(INPUTS))          \
++ std::string(" )")                                                            \
 /**/
 
 namespace nt2 { namespace details
@@ -124,10 +137,10 @@ namespace nt2 { namespace details
       {                                                                        \
                                                                                \
         std::cout << std::setprecision(20)                                     \
-                  << func << "("                                               \
+                  << "    ("                                                   \
                   << boost::simd::details::display(NT2_COVER_LOADS(~,0,ii))    \
                   BOOST_PP_REPEAT_FROM_TO( 1, n, NT2_COVER_DISP, ii)           \
-                  << ") got "                                                  \
+                  << ") = "                                                    \
                   << boost::simd::details::                                    \
                      display(nt2::unaligned_load<r_t>(&out[ii]))               \
                   << " while expecting "                                       \

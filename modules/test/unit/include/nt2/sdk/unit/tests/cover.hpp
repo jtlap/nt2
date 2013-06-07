@@ -57,8 +57,9 @@ while(0)                                                                       \
 #define NT2_COVER_FN_ULP_EQUAL(FUNC, INPUTS, REF, N)                           \
 do                                                                             \
 {                                                                              \
+  std::string desc = NT2_COVER_TEST_NAME(FUNC,INPUTS);                         \
   nt2::unit::test_count()++;                                                   \
-  ::nt2::details::test_cover_ulp( BOOST_PP_STRINGIZE(FUNC)                     \
+  ::nt2::details::test_cover_ulp( desc.c_str()                                 \
                                 ,__FILE__,__LINE__                             \
                                 , FUNC, (REF)                                  \
                                 , NT2_COVER_TYPES_LIST(INPUTS)()               \
