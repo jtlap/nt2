@@ -44,8 +44,3 @@ NT2_TEST_CASE_TPL ( group_complex,  BOOST_SIMD_SIMD_REAL_GROUPABLE_TYPES)
   NT2_TEST_EQUAL(group(nt2::One<cvT>(), nt2::One<cvT>()),   nt2::One<r_t>());
   NT2_TEST_EQUAL(group(nt2::Zero<cvT>(), nt2::Zero<cvT>()), nt2::Zero<r_t>());
 }
-
-NT2_TEST_CASE( dummy_for_altivec )
-{
-  NT2_TEST_COMPLETE("dummy for altivec and similar extensions");
-}

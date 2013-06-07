@@ -79,8 +79,3 @@ NT2_TEST_CASE_TPL( split_complex, BOOST_SIMD_SIMD_REAL_SPLITABLE_TYPES )
   }
 
 }
-
-NT2_TEST_CASE( dummy_for_altivec )
-{
-  NT2_TEST_COMPLETE("dummy for altivec and similar extensions");
-}
