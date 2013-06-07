@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - abss/scalar Mode"
-
 //////////////////////////////////////////////////////////////////////////////
 // cover test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
@@ -17,7 +15,7 @@
 #include <nt2/include/constants/valmin.hpp>
 #include <nt2/include/constants/valmax.hpp>
 #include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/tests/ulp.hpp>
+#include <nt2/sdk/unit/tests/cover.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
 NT2_TEST_CASE_TPL ( abss_real__1_0,  NT2_TYPES)

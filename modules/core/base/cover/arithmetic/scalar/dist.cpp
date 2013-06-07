@@ -6,13 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - dist/scalar Mode"
-
 //////////////////////////////////////////////////////////////////////////////
 // cover test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-/// created by jt the 30/11/2010
-///
+
 #include <nt2/arithmetic/include/functions/dist.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <vector>
@@ -23,7 +20,7 @@
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/tests/ulp.hpp>
+#include <nt2/sdk/unit/tests/cover.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
