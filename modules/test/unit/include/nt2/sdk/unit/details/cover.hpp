@@ -128,7 +128,7 @@ namespace nt2 { namespace details
                   << ") got "                                                  \
                   << nt2::unaligned_load<r_t>(&out[ii])                        \
                   << " while expecting "                                       \
-                  << nt2::unaligned_load<r_t>(&out[ii])                        \
+                  << nt2::unaligned_load<r_t>(&ref[ii])                        \
                   << " (i.e "   << f.ulp_error << " ULPs)"                     \
                   << std::endl;                                                \
         ib = ii;                                                               \
@@ -170,7 +170,7 @@ namespace nt2 { namespace details
     else                                                                       \
     {                                                                          \
       ::nt2::details::ulp_fail( desc, file, line, ulps.size(), N, true );      \
-      display_cover_fails ( BOOST_PP_STRINGIZE(TAG), f                         \
+      display_cover_fails ( desc, f                                            \
                           , out, ref                                           \
                           , ulps, types, BOOST_PP_ENUM_PARAMS(n, i)            \
                           );                                                   \

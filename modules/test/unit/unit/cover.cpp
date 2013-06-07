@@ -11,10 +11,11 @@
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/include/native.hpp>
 #include <nt2/include/functions/plus.hpp>
+#include <nt2/include/functions/divides.hpp>
 #include <iostream>
 #include <vector>
 
-// Hand-made deactivatin of assertions
+// Hand-made deactivation of assertions
 namespace boost
 {
   void assertion_failed_msg ( char const*, char const*
@@ -22,6 +23,19 @@ namespace boost
                             )
   {}
 }
+
+struct some_functor
+{
+  template<typename Sig> struct result;
+  template<typename This, class T>
+  struct result<This(T)> : boost::dispatch::meta::strip<T> {};
+
+  template<typename T>
+  T operator()(T const& x)
+  {
+    return x/(x+1);
+  }
+};
 
 NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int argc, char* argv[])
 {
@@ -49,6 +63,17 @@ NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int argc, char* argv[])
   NT2_COVER_ULP_EQUAL(nt2::tag::plus_, ((float,a))((float,b)), c, 0.5);
   NT2_COVER_ULP_EQUAL(nt2::tag::plus_, ((nT,a))((nT,b)), c, 0.5);
   NT2_COVER_ULP_EQUAL(nt2::tag::plus_, ((nT,a))((nT,b)), c2, 0.5);
+
+  for(int i=0;i<64;++i)
+  {
+    c[i] = a[i]/(1.f + a[i]);
+  }
+
+  c2 = c;
+  c[32] = 0;
+
+  NT2_COVER_FN_ULP_EQUAL(some_functor(), ((nT,a)), c, 0.5);
+  NT2_COVER_FN_ULP_EQUAL(some_functor(), ((nT,a)), c2, 0.5);
 
   return 0;
 }

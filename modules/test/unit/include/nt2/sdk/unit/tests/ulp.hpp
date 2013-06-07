@@ -13,8 +13,6 @@
 #include <nt2/sdk/unit/io.hpp>
 #include <nt2/sdk/unit/stats.hpp>
 #include <nt2/sdk/unit/details/ulp.hpp>
-#include <nt2/sdk/unit/details/eval.hpp>
-#include <nt2/sdk/unit/details/cover.hpp>
 #include <boost/current_function.hpp>
 
 /*!
@@ -39,20 +37,5 @@ do                                                                             \
 while(0)                                                                       \
 /**/
 
-#define NT2_COVER_ULP_EQUAL(TAG, INPUTS, REF, N)                               \
-do                                                                             \
-{                                                                              \
-  nt2::unit::test_count()++;                                                   \
-  nt2::functor<TAG> callee;                                                    \
-  ::nt2::details::test_cover_ulp( BOOST_PP_STRINGIZE(TAG) " coverage"          \
-                                ,__FILE__,__LINE__                             \
-                                , callee, (REF)                                \
-                                , NT2_COVER_TYPES_LIST(INPUTS)()               \
-                                , N                                            \
-                                , NT2_COVER_VALUES_LIST(INPUTS)                \
-                                );                                             \
-}                                                                              \
-while(0)                                                                       \
-/**/
 
 #endif
