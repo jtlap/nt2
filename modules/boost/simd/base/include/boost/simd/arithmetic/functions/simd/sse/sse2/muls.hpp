@@ -20,6 +20,7 @@
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/split_multiplies.hpp>
 #include <boost/simd/include/functions/simd/group.hpp>
+#include <boost/simd/include/functions/simd/genmask.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
@@ -47,9 +48,10 @@ namespace boost { namespace simd { namespace ext
       split_multiplies(a0, a1, res0, res1);
 
       return group(res0, res1)
-           | group( shrai(res0, sizeof(stype)*CHAR_BIT)
-                  , shrai(res1, sizeof(stype)*CHAR_BIT)
-                  );
+           | genmask( group( shrai(res0, sizeof(stype)*CHAR_BIT)
+                           , shrai(res1, sizeof(stype)*CHAR_BIT)
+                           )
+                    );
     }
   };
 
