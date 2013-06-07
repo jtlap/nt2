@@ -27,44 +27,44 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::normcdf0_, tag::cpu_
-                              , (A0)
-                              , (generic_< floating_<A0> >)
-                              )
+                            , (A0)
+                            , (generic_< floating_<A0> >)
+                            )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1){ return Half<A0>()*nt2::erfc(-Sqrt_2o_2<A0>()*a0); }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::normcdf0_, tag::cpu_
-                              , (A0)(A1)
-                              , (generic_<floating_<A0> > )
+                            , (A0)(A1)
+                            , (generic_<floating_<A0> > )
                               (generic_<floating_<A1> >)
-                              )
+                            )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2){ return Half<A0>()*nt2::erfc(Sqrt_2o_2<A0>()*(a1-a0)); }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::normcdf0_, tag::cpu_
-                              , (A0)(A1)(A2)
-                              , (generic_< floating_<A0> >)
+                            , (A0)(A1)(A2)
+                            , (generic_< floating_<A0> >)
                               (generic_< floating_<A1> >)
                               (generic_< floating_<A2> >)
-                              )
+                            )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(3)
-      {
-        BOOST_ASSERT_MSG(nt2::globalall(nt2::is_gez(nt2::colvect(a2))), "sigma(s) must be positive");
-        return Half<A0>()*nt2::erfc(Sqrt_2o_2<A0>()*((a1-a0)/a2));
-      }
+    {
+      BOOST_ASSERT_MSG(nt2::globalall(nt2::is_gez(nt2::colvect(a2))), "sigma(s) must be positive");
+      return Half<A0>()*nt2::erfc(Sqrt_2o_2<A0>()*((a1-a0)/a2));
+    }
   };
 
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::normcdf_, tag::cpu_
-                              , (A0)(N0)(A1)(N1)
-                              , ((node_<A0, nt2::tag::normcdf_, N0, nt2::container::domain>))
-                                ((node_<A1, nt2::tag::tie_ , N1, nt2::container::domain>))
+                            , (A0)(N0)(A1)(N1)
+                            , ((node_<A0, nt2::tag::normcdf_, N0, nt2::container::domain>))
+                              ((node_<A1, nt2::tag::tie_ , N1, nt2::container::domain>))
                             )
   {
     typedef void                                                    result_type;
@@ -78,7 +78,7 @@ namespace nt2 { namespace ext
       doit(a0, a1, N0(), N1());
     }
     ////////////////////////////////////////////
-    // No enough inputs to computes all ouputs
+    // Not enough inputs to computes all ouputs
     ////////////////////////////////////////////
     BOOST_FORCEINLINE static void doit(const A0& a0, A1& a1,
                                        boost::mpl::long_<1> const &, boost::mpl::long_<3> const & )
@@ -99,19 +99,19 @@ namespace nt2 { namespace ext
 
     }
     ////////////////////////////////////////////
-    // No enough output to computes all ouputs
+    // Not enough output to computes all ouputs
     ////////////////////////////////////////////
     template < class T >
-    BOOST_FORCEINLINE static void doit(const A0& a0, A1& a1,
-                                       boost::mpl::long_<4> const &, T const & )
+      BOOST_FORCEINLINE static void doit(const A0& a0, A1& a1,
+                                         boost::mpl::long_<4> const &, T const & )
     {
       boost::proto::child_c<0>(a1) =  nt2::normcdf(boost::proto::child_c<0>(a0),
                                                    boost::proto::child_c<1>(a0),
                                                    boost::proto::child_c<2>(a0));
     }
     template < class T >
-    BOOST_FORCEINLINE static void doit(const A0& a0, A1& a1,
-                                       boost::mpl::long_<5> const &, T const & )
+      BOOST_FORCEINLINE static void doit(const A0& a0, A1& a1,
+                                         boost::mpl::long_<5> const &, T const & )
     {
       boost::proto::child_c<0>(a1) =  nt2::normcdf(boost::proto::child_c<0>(a0),
                                                    boost::proto::child_c<1>(a0),

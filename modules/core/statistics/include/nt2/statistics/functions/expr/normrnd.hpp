@@ -12,7 +12,7 @@
 
 #include <nt2/statistics/functions/normrnd.hpp>
 #include <nt2/include/functions/norminv.hpp>
-#include <nt2/include/functions/rand.hpp>
+#include <nt2/include/functions/randn.hpp>
 
 namespace nt2 { namespace ext
 {

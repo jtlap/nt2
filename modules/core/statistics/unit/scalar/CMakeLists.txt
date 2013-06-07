@@ -14,6 +14,7 @@ SET( SOURCES
   caurnd.cpp
   normcdf.cpp
   normpdf.cpp
+  normrnd.cpp
   norminv.cpp
   unifpdf.cpp
   unifcdf.cpp
