@@ -11,6 +11,7 @@
 #define NT2_SDK_UNIT_DETAILS_HELPERS_HPP_INCLUDED
 
 #include <nt2/include/functions/splat.hpp>
+#include <nt2/include/functions/abs.hpp>
 #include <nt2/include/constants/valmin.hpp>
 #include <nt2/include/constants/valmax.hpp>
 #include <boost/dispatch/meta/is_signed.hpp>
