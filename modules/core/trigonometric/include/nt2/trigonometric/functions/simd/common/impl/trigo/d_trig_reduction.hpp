@@ -17,22 +17,20 @@
 #include <nt2/include/functions/simd/is_odd.hpp>
 #include <nt2/include/functions/simd/is_nez.hpp>
 #include <nt2/include/functions/simd/logical_and.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/if_else_allbits.hpp>
 #include <nt2/include/functions/simd/is_even.hpp>
-#include <nt2/include/functions/simd/is_invalid.hpp>
 #include <nt2/include/functions/simd/is_flint.hpp>
-#include <nt2/include/functions/simd/inrad.hpp>
-#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/is_not_greater.hpp>
 #include <nt2/include/functions/simd/toint.hpp>
 #include <nt2/include/functions/simd/all.hpp>
-#include <nt2/include/functions/simd/logical_and.hpp>
 #include <nt2/include/constants/false.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/two.hpp>
-#include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/_90.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/pi.hpp>
+#include <nt2/include/constants/pio_2.hpp>
+#include <nt2/include/constants/pio_4.hpp>
 
 namespace nt2 { namespace details { namespace internal
 {
@@ -46,103 +44,49 @@ namespace nt2 { namespace details { namespace internal
     typedef typename meta::as_integer<A0, signed>::type int_type;
     typedef typename meta::scalar_of<int_type>::type   sint_type;
 
-    static inline bA0 isalreadyreduced(const A0&a0){ return nt2::le(a0, Pio_4<A0>()); }
-    static inline bA0 ismedium (const A0&a0){return nt2::le(a0,double_constant<A0,0x412921fb54442d18ll>()); }
-    static inline bA0 issmall  (const A0&a0){return nt2::le(a0,double_constant<A0,0x404f6a7a2955385ell>()); }
-    static inline bA0 islessthanpi_2  (const A0&a0)  { return le(a0,Pio_2<A0>()); }
+    static inline bA0 is_0_pio4_reduced(const A0&a0){ return is_ngt(a0, Pio_4<A0>()); }
+    static inline bA0 is_0_mpi_reduced (const A0&a0){ return is_ngt(a0,double_constant<A0,0x412921fb54442d18ll>()); }
+    static inline bA0 is_0_20pi_reduced(const A0&a0){ return is_ngt(a0,double_constant<A0,0x404f6a7a2955385ell>()); }
+    static inline bA0 is_0_pio2_reduced(const A0&a0){ return is_ngt(a0,Pio_2<A0>()); }
     static inline bA0 cot_invalid(const A0& ) { return nt2::False<bA0>(); }
     static inline bA0 tan_invalid(const A0& ) { return nt2::False<bA0>(); }
-    static inline int_type reduce(const A0& x, A0& xr){ return inner_reduce(x, xr/*, xc*/, mode()); }
+    static inline int_type reduce(const A0& x, A0& xr){ return inner_reduce(x, xr); }
   private:
-    static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, const big_&)
+    static inline int_type inner_reduce(const A0 &/*typename A0::native_type*/ x_n, A0& xr)
     {
-      const A0 x = x_n;
-      // x is always positive here
-      if (nt2::all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
+      A0 xx = x_n;
+      if (mode::clipped)
       {
-        xr = x;
-        return nt2::Zero<int_type>();
-      }
-      else if (nt2::all(islessthanpi_2(x))) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
-        return nt2::rem_pio2_straight(x, xr);
-      else if (nt2::all(issmall(x))) // all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
-        return nt2::rem_pio2_cephes(x, xr);
-      else if (nt2::all(ismedium(x))) // all of x are is in [0, 2^18*pi],  fdlibm medium_ way
-        return nt2::rem_pio2_medium(x, xr);
-      else  // all of x are in [0, inf],  standard big_ way
-      {
-        return nt2::rem_pio2(x, xr);
+        if (mode::range == r_0_pio4)          xx = if_else_nan(is_0_pio4_reduced(xx), xx);
+        else if (mode::range == r_0_20pi)     xx = if_else_nan(is_0_20pi_reduced(xx), xx);
+        else if (mode::range == r_0_mpi)      xx = if_else_nan(is_0_mpi_reduced(xx),  xx);
       }
 
-    }
-
-    static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, const medium_&)
-    {
-      const A0 x = x_n;
-      // x is always positive here
-      if (nt2::all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
+      switch (mode::start)
       {
-        xr = x;
-        return nt2::Zero<int_type>();
+      case  r_0_pio4 :
+        if(nt2::all(is_0_pio4_reduced(xx)) || mode::range == r_0_pio4)
+        {
+          xr = xx; return Zero<int_type>();
+        }
+      case  r_0_pio2 :
+        if(nt2::all(is_0_pio2_reduced(xx)))
+        {
+          return rem_pio2_straight(xx, xr);
+        }
+      case  r_0_20pi :
+        if(nt2::all(is_0_20pi_reduced(xx)) || mode::range == r_0_20pi)
+        {
+          return rem_pio2_cephes(xx, xr);
+        }
+      case  r_0_mpi :
+        if(nt2::all(is_0_mpi_reduced(xx)) || mode::range == r_0_mpi)
+        {
+          return rem_pio2_medium(xx, xr);
+        }
+      case  r_0_inf :
+        return rem_pio2(xx, xr);
       }
-      else if (nt2::all(islessthanpi_2(x))) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
-        return nt2::rem_pio2_straight(x, xr);
-      else if (nt2::all(issmall(x))) // all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
-        return nt2::rem_pio2_cephes(x, xr);
-      else  // correct only if all of x are is in [0, 2^18*pi],  fdlibm medium_ way
-        return nt2::rem_pio2_medium(x, xr);
-    }
-
-    static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, const small_&)
-    {
-      const A0 x = x_n;
-      // x is always positive here
-      if (nt2::all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
-      {
-        xr = x;
-        return nt2::Zero<int_type>();
-      }
-      else if (nt2::all(islessthanpi_2(x))) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
-      {
-        return nt2::rem_pio2_straight(x, xr);
-      }
-      else  // correct only if all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
-      {
-        return nt2::rem_pio2_cephes(x, xr);
-      }
-    }
-    static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, const direct_small_&)
-    {
-      const A0 x = x_n;
-      return nt2::rem_pio2_cephes(x, xr);
-    }
-    static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, const direct_medium_&)
-    {
-      const A0 x = x_n;
-      return nt2::rem_pio2_medium(x, xr);
-    }
-    static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, const direct_big_&)
-    {
-      const A0 x = x_n;
-      return nt2::rem_pio2(x, xr);
-    }
-    static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, const clipped_pio4_&)
-    {
-      const A0 x = x_n;
-      xr = nt2::if_else(isalreadyreduced(nt2::abs(x)), x, nt2::Nan<A0>());
-      return nt2::Zero<int_type>();
-    }
-    static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, const clipped_small_&)
-    {
-      const A0 x = x_n;
-      xr = nt2::if_else(issmall(nt2::abs(x)), x, nt2::Nan<A0>());
-      return inner_reduce(xr, xr, small_());
-    }
-    static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, const clipped_medium_&)
-    {
-      const A0 x = x_n;
-      xr = nt2::if_else(ismedium(nt2::abs(x)), x, nt2::Nan<A0>());
-      return inner_reduce(xr, xr, medium_());
     }
   };
 

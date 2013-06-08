@@ -87,7 +87,7 @@ namespace nt2
           const A0 a0 = a0_n;
           const A0 x = nt2::abs(a0);
           A0 xr = Nan<A0>(), xc;
-          const int_type n = redu_t::reduce(x, xr); //, xc);
+          const int_type n = redu_t::reduce(x, xr);
           const int_type swap_bit = n&One<int_type>();
           const A0 sign_bit = b_xor(bitofsign(a0),
                                     shli(n&Two<int_type>(),Maxleftshift<sint_type>()-1));
