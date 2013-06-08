@@ -16,6 +16,7 @@
 #include <nt2/include/constants/valmax.hpp>
 #include <boost/dispatch/meta/is_signed.hpp>
 #include <boost/mpl/bool.hpp>
+#include <cmath>
 
 namespace nt2
 {
@@ -42,7 +43,7 @@ namespace nt2
       }
       else
       {
-        double fac =  0.5*nt2::abs(double(mn)/double(mx));
+        double fac =  0.5*std::abs(double(mn)/double(mx));
         double r2 = ((double)::rand()/RAND_MAX);
         return nt2::splat<T>((r1 > fac) ? r2*mn : r2*mx);
       }
