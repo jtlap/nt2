@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
 
       svtype a00 = _mm256_extractf128_si256(a0, 0);
       svtype a01 = _mm256_extractf128_si256(a0, 1);
-      A0 that = _mm256_insertf128_si256(that, boost::simd::shift_right(a00, a1), 0);
+      A0 that = _mm256_castsi128_si256(boost::simd::shift_right(a00, a1));
       return _mm256_insertf128_si256(that, boost::simd::shift_right(a01, a1), 1);
      }
   };
