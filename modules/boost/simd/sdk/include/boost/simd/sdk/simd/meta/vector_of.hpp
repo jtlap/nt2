@@ -18,27 +18,15 @@
 #include <boost/mpl/greater.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/apply.hpp>
+#include <boost/utility/enable_if.hpp>
 
-/* We use boost::mpl::sizeof_ rather than sizeof because MSVC has trouble
- * with sizeof of dependent names in SFINAE contexts */
-#define BOOST_SIMD_LOCAL(z,d,r)                                         \
-template<class T,std::size_t Card>                                      \
-struct vector_of< T ,Card                                               \
-                , typename boost::                                      \
-                  enable_if_c < (   Card*sizeof(T)                      \
-                                ==  boost::mpl::                        \
-                                    sizeof_< typename meta::            \
-                                             as_simd<T,r>::type         \
-                                           >::value                     \
-                                )                                       \
-                              >::type                                   \
-                >                                                       \
-{                                                                       \
-  typedef simd::native<T,r> type;                                       \
-};                                                                      \
-/**/
+namespace boost { namespace simd { namespace meta
+{
+  template<class T, std::size_t Card>
+  struct vector_of;
+}
 
-namespace boost { namespace simd { namespace details
+namespace details
 {
   template<class F>
   struct max_value_impl
@@ -72,36 +60,45 @@ namespace boost { namespace simd { namespace details
   {
   };
 
-  template<class T, std::size_t Card, class Enable=void>
-  struct vector_of
+  template<class T, std::size_t Card, bool Sequence = false, class Enable = void>
+  struct vector_of2
   {
     typedef simd::native<T, tag::simd_emulation_< sizeof(T)*Card > > type;
   };
 
   template<class T, std::size_t Card>
-  struct vector_of<T, Card, typename boost::enable_if< fusion::traits::is_sequence<T> >::type>
+  struct vector_of2<T, Card, true>
   {
     typedef typename max_value<T, mpl::sizeof_<mpl::_> >::type mT;
-    typedef typename vector_of<mT, Card>::type nT;
+    typedef typename meta::vector_of<mT, Card>::type nT;
     typedef simd::native<T, typename nT::extension_type> type;
   };
 
-  #ifdef BOOST_SIMD_DETECTED
+#ifdef BOOST_SIMD_DETECTED
+  /* We use boost::mpl::sizeof_ rather than sizeof because MSVC has trouble
+   * with sizeof of dependent names in SFINAE contexts */
+  #define BOOST_SIMD_LOCAL(z,d,r)                                             \
+  template<class T,std::size_t Card>                                          \
+  struct vector_of2< T, Card, false                                           \
+                   , typename boost::                                         \
+                     enable_if_c < (   Card*sizeof(T)                         \
+                                   ==  boost::mpl::                           \
+                                       sizeof_< typename meta::               \
+                                                as_simd<T,r>::type            \
+                                              >::value                        \
+                                   )                                          \
+                                 >::type                                      \
+                   >                                                          \
+  {                                                                           \
+    typedef simd::native<T,r> type;                                           \
+  };                                                                          \
+  /**/
   BOOST_PP_SEQ_FOR_EACH(BOOST_SIMD_LOCAL,~,BOOST_SIMD_TAG_SEQ)
 #endif
-
 #undef BOOST_SIMD_LOCAL
-} } }
 
-namespace boost { namespace simd { namespace meta
-{
-  //////////////////////////////////////////////////////////////////////////////
-  // vector_of<T,N> computes the proper type for pack of N elements of types T
-  // Either <T,N> maps onto a SIMD types, either to array<T,N>
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T,std::size_t Card>
-  struct vector_of
-   : details::vector_of<T, Card>
+  template<class T, std::size_t Card>
+  struct vector_of : vector_of2<T, Card, fusion::traits::is_sequence<T>::value>
   {
   };
 
@@ -110,6 +107,19 @@ namespace boost { namespace simd { namespace meta
   struct vector_of<T, 1u>
   {
     typedef T type;
+  };
+} } }
+
+namespace boost { namespace simd { namespace meta
+{
+  //////////////////////////////////////////////////////////////////////////////
+  // vector_of<T,N> computes the proper type for pack of N elements of types T
+  // Either <T,N> maps onto a SIMD types, either to array<T,N>
+  //////////////////////////////////////////////////////////////////////////////
+  template<class T, std::size_t Card>
+  struct vector_of
+   : details::vector_of<T, Card>
+  {
   };
 
 } } }
