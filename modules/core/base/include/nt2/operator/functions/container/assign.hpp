@@ -133,6 +133,21 @@ namespace nt2 { namespace ext
       return transform()(expr::make(A0c()(a0), A1c()(a1)));
     }
   };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::assign_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_<unspecified_<A0> >)
+                              ((ast_<A1, nt2::container::domain>))
+                            )
+  {
+    typedef A0& result_type;
+
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(A0& a0, A1 const& a1) const
+    {
+        return assign(a0, A0(a1));
+    }
+  };
 } }
 
 #endif
