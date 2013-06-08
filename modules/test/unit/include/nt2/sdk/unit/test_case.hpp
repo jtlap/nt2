@@ -30,6 +30,7 @@
 #include <boost/mpl/for_each.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/mpl/and.hpp>
+#include <boost/mpl/size.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/mpl/vector.hpp>
 #include <boost/mpl/filter_view.hpp>
@@ -90,26 +91,31 @@ BOOST_PP_CAT(tpl_, BOOST_PP_CAT(NT2_UNIT_PREFIX,name))          \
   @usage
   @include test_case_tpl.cpp
 **/
-#define NT2_TEST_CASE_TPL(Name, Types)                                    \
-template<class T> void BOOST_PP_CAT ( tpl_                                \
-                                    , BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)  \
-                                    )();                                  \
-void BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)();                                \
-                                                                          \
-nt2::details::unit_test const                                             \
-BOOST_PP_CAT(Name,NT2_UNIT_PREFIX)                                        \
-            ( &nt2::details::unit_tests                                   \
-            , BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)                          \
-            , BOOST_PP_STRINGIZE(BOOST_PP_CAT(Name,_test))                \
-            );                                                            \
-void BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)()                                 \
-{                                                                         \
-  BOOST_PP_SEQ_FOR_EACH(NT2_PP_TPL_CASES,Name,Types);                     \
-}                                                                         \
-                                                                          \
-template<class T> void BOOST_PP_CAT ( tpl_                                \
-                                    , BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)  \
-                                    )()                                   \
+#define NT2_TEST_CASE_TPL(Name, Types)                                         \
+template<class T> void BOOST_PP_CAT ( tpl_                                     \
+                                    , BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)       \
+                                    )();                                       \
+void BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)();                                     \
+                                                                               \
+nt2::details::unit_test const                                                  \
+BOOST_PP_CAT(Name,NT2_UNIT_PREFIX)                                             \
+            ( &nt2::details::unit_tests                                        \
+            , BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)                               \
+            , BOOST_PP_STRINGIZE(BOOST_PP_CAT(Name,_test))                     \
+            );                                                                 \
+void BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)()                                      \
+{                                                                              \
+  if( !BOOST_PP_SEQ_SIZE(Types) )                                              \
+  {                                                                            \
+    std::cout << "Test skipped: Types PP sequence is empty.\n";                \
+    ::nt2::unit::test_count()++;                                               \
+  }                                                                            \
+  BOOST_PP_SEQ_FOR_EACH(NT2_PP_TPL_CASES,Name,Types);                          \
+}                                                                              \
+                                                                               \
+template<class T> void BOOST_PP_CAT ( tpl_                                     \
+                                    , BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)       \
+                                    )()                                        \
 /**/
 
 /*!
@@ -145,6 +151,12 @@ BOOST_PP_CAT(Name,NT2_UNIT_PREFIX)                                             \
 void BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)()                                      \
 {                                                                              \
   using namespace boost::mpl;                                                  \
+  if( !boost::mpl::size<BOOST_DISPATCH_PP_STRIP(TypeList)>::value )            \
+  {                                                                            \
+    std::cout << "Test skipped: Types MPL list is empty.\n";                   \
+    ::nt2::unit::test_count()++;                                               \
+    return;                                                                    \
+  }                                                                            \
   boost::mpl::for_each<BOOST_DISPATCH_PP_STRIP(TypeList)>                      \
   (BOOST_PP_CAT( tpl_fun_mpl_, BOOST_PP_CAT(NT2_UNIT_PREFIX, Name) )());       \
 }                                                                              \
