@@ -31,8 +31,12 @@
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/_20_pi.hpp>
+#include <nt2/include/constants/oneo_90.hpp>
 #include <nt2/include/constants/medium_pi.hpp>
 #include <boost/simd/sdk/meta/is_upgradable.hpp>
+#include <nt2/include/functions/simd/logical_and.hpp>
+#include <nt2/include/constants/false.hpp>
+#include <nt2/include/functions/inrad.hpp>
 
 namespace nt2 { namespace details { namespace internal
 {
@@ -60,17 +64,18 @@ namespace nt2 { namespace details { namespace internal
   template<class A0, class mode>
   struct trig_reduction < A0, radian_tag,  tag::not_simd_type, mode, float>
   {
+    typedef typename meta::as_logical<A0>::type              bA0;
     typedef typename meta::as_integer<A0, signed>::type int_type;
 
-    static inline bool is_0_pio4_reduced(const A0&a0) { return boost::simd::is_ngt(a0, nt2::Pio_4<A0>()); }
-    static inline bool is_0_pio2_reduced(const A0&a0) { return boost::simd::is_ngt(a0, nt2::Pio_2<A0>()); }
-    static inline bool is_0_20pi_reduced(const A0&a0) { return boost::simd::is_ngt(a0, _20_pi<A0>()); }
-    static inline bool is_0_mpi_reduced (const A0&a0) { return boost::simd::is_ngt(a0, Medium_pi<A0>()); }  //2^6pi
-    static inline bool is_0_dmpi_reduced(const A0&a0) { return boost::simd::is_ngt(a0, single_constant<A0,0x49490fdb>()); }  //2^18pi
+    static inline bA0 is_0_pio4_reduced(const A0&a0) { return boost::simd::is_ngt(a0, nt2::Pio_4<A0>()); }
+    static inline bA0 is_0_pio2_reduced(const A0&a0) { return boost::simd::is_ngt(a0, nt2::Pio_2<A0>()); }
+    static inline bA0 is_0_20pi_reduced(const A0&a0) { return boost::simd::is_ngt(a0, _20_pi<A0>()); }
+    static inline bA0 is_0_mpi_reduced (const A0&a0) { return boost::simd::is_ngt(a0, Medium_pi<A0>()); }  //2^6pi
+    static inline bA0 is_0_dmpi_reduced(const A0&a0) { return boost::simd::is_ngt(a0, single_constant<A0,0x49490fdb>()); }  //2^18pi
     typedef typename boost::simd::meta::is_upgradable_on_ext<A0>::type conversion_allowed;
 
-    static inline bool cot_invalid(const A0& ) { return false; }
-    static inline bool tan_invalid(const A0& ) { return false; }
+    static inline bA0 cot_invalid(const A0& ) { return False<bA0>(); }
+    static inline bA0 tan_invalid(const A0& ) { return False<bA0>(); }
 
     static inline int_type reduce(const A0& x, A0& xr){ return inner_reduce(x, xr); }
   private:
@@ -87,39 +92,37 @@ namespace nt2 { namespace details { namespace internal
       switch (mode::start)
       {
       case  r_0_pio4 :
-          if(is_0_pio4_reduced(xx) || mode::range == r_0_pio4)
-          {
-            xr = xx; return Zero<int_type>();
-          }
-      case r_0_pio2 :
-          if(is_0_pio2_reduced(xx))
-          {
-            return rem_pio2_straight(xx, xr);
-          }
-      case  r_0_20pi :
-          if(is_0_20pi_reduced(xx) || mode::range == r_0_20pi)
-          {
-            return rem_pio2_cephes(xx, xr);
-          }
-      case  r_0_mpi :
-          if(is_0_mpi_reduced(xx) || mode::range == r_0_mpi)
-          {
-            return rem_pio2_medium(xx, xr);
-          }
-      case  r_0_dmpi :
-          if(is_0_dmpi_reduced(xx) && conversion_allowed())
-          {
-            typedef typename meta::upgrade<A0>::type uA0;
-            typedef trig_reduction< uA0, radian_tag,  tag::not_simd_type, mode, double> aux_reduction;
-            uA0 ux = xx, uxr;
-            int_type n = static_cast<int_type>(aux_reduction::reduce(ux, uxr));
-            xr = static_cast<A0>(uxr);
-            return n;
-          }
-      case  r_0_inf :
+        if(nt2::all(is_0_pio4_reduced(xx)) || mode::range == r_0_pio4)
         {
-          return rem_pio2(xx, xr);
+          xr = xx; return Zero<int_type>();
         }
+      case r_0_pio2 :
+        if(nt2::all(is_0_pio2_reduced(xx)))
+        {
+          return rem_pio2_straight(xx, xr);
+        }
+      case  r_0_20pi :
+        if(nt2::all(is_0_20pi_reduced(xx)) || mode::range == r_0_20pi)
+        {
+          return rem_pio2_cephes(xx, xr);
+        }
+      case  r_0_mpi :
+        if(nt2::all(is_0_mpi_reduced(xx)) || mode::range == r_0_mpi)
+        {
+          return rem_pio2_medium(xx, xr);
+        }
+      case  r_0_dmpi :
+        if(is_0_dmpi_reduced(xx) && conversion_allowed())
+        {
+          typedef typename meta::upgrade<A0>::type uA0;
+          typedef trig_reduction< uA0, radian_tag,  tag::not_simd_type, mode, double> aux_reduction;
+          uA0 ux = xx, uxr;
+          int_type n = static_cast<int_type>(aux_reduction::reduce(ux, uxr));
+          xr = static_cast<A0>(uxr);
+          return n;
+        }
+      case  r_0_inf :
+        return rem_pio2(xx, xr);
       }
     }
   };
@@ -127,17 +130,18 @@ namespace nt2 { namespace details { namespace internal
   template<class A0>
   struct trig_reduction<A0,degree_tag, tag::not_simd_type,big_, float>
   {
+    typedef typename meta::as_logical<A0>::type              bA0;
     typedef typename meta::as_integer<A0, signed>::type int_type;
 
-    static inline bool cot_invalid(const A0& x) { return nt2::is_nez(x)&&is_flint(x/_180<A0>()); }
-    static inline bool tan_invalid(const A0& x) { return nt2::is_flint((x-nt2::_90<A0>())/nt2::_180<A0>()); }
+    static inline bA0 cot_invalid(const A0& x) { return logical_and(nt2::is_nez(x), is_flint(x/_180<A0>())); }
+    static inline bA0 tan_invalid(const A0& x) { return nt2::is_flint((x-nt2::_90<A0>())/nt2::_180<A0>()); }
 
     static inline int_type reduce(const A0& x, A0& xr)
     {
-      A0 xi = nt2::round2even(x*single_constant<A0,0x3c360b61>()); //  1.111111111111111e-02f
+      A0 xi = nt2::round2even(x*nt2::Oneo_90<A0>());
       A0 x2 = x - xi * nt2::_90<A0>();
 
-      xr =  x2*single_constant<A0,0x3c8efa35>(); //0.0174532925199432957692f
+      xr =  nt2::inrad(x2);
       return nt2::toint(xi);
     }
   };
@@ -145,10 +149,11 @@ namespace nt2 { namespace details { namespace internal
   template < class A0>
   struct trig_reduction < A0, pi_tag,  tag::not_simd_type, big_, float>
   {
+    typedef typename meta::as_logical<A0>::type              bA0;
     typedef typename meta::as_integer<A0, signed>::type int_type;
 
-    static inline bool cot_invalid(const A0& x) { return nt2::is_nez(x)&&nt2::is_flint(x); }
-    static inline bool tan_invalid(const A0& x) { return nt2::is_flint(x-nt2::Half<A0>()) ; }
+    static inline bA0 cot_invalid(const A0& x) { return logical_and(nt2::is_nez(x), nt2::is_flint(x)); }
+    static inline bA0 tan_invalid(const A0& x) { return nt2::is_flint(x-nt2::Half<A0>()) ; }
 
     static inline int_type reduce(const A0& x,  A0& xr)
     {
