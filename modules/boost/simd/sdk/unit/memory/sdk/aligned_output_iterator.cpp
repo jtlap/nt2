@@ -22,7 +22,7 @@ NT2_TEST_CASE_TPL(types, BOOST_SIMD_TYPES)
   using boost::simd::aligned_output_iterator;
   using boost::simd::pack;
 
-  NT2_TEST_TYPE_IS( typename iterator_traits< aligned_output_iterator<T> >::value_type
+  NT2_TEST_TYPE_IS( typename iterator_traits< aligned_output_iterator<T*> >::value_type
                   , (pack<T>)
                   );
 }
@@ -37,8 +37,10 @@ NT2_TEST_CASE_TPL(distance, BOOST_SIMD_TYPES)
 
   std::vector<T, allocator<T> > data(pack<T>::static_size*3);
 
-  aligned_output_iterator<T> b = aligned_output_begin(data.begin());
-  aligned_output_iterator<T> e = aligned_output_end(data.end());
+  typedef typename std::vector<T, allocator<T> >::iterator it_t;
+
+  aligned_output_iterator<it_t> b = aligned_output_begin(data.begin());
+  aligned_output_iterator<it_t> e = aligned_output_end(data.end());
 
   NT2_TEST_EQUAL( std::distance(b,e), 3);
 }
@@ -47,17 +49,20 @@ NT2_TEST_CASE_TPL(aligned_constraint, BOOST_SIMD_TYPES)
 {
   using boost::simd::aligned_output_iterator;
   using boost::simd::aligned_output_begin;
+  using boost::simd::aligned_output_end;
   using boost::simd::allocator;
   using boost::simd::pack;
 
   std::vector<T, allocator<T> > data(pack<T>::static_size*3);
 
-  NT2_TEST_ASSERT ( aligned_output_iterator<T>
+  typedef typename std::vector<T, allocator<T> >::iterator it_t;
+
+  NT2_TEST_ASSERT ( aligned_output_iterator<it_t>
                     b = aligned_output_begin(data.begin()+1)
                   );
 
-  NT2_TEST_ASSERT ( aligned_output_iterator<T>
-                    e = aligned_output_end(data.end()+1)
+  NT2_TEST_ASSERT ( aligned_output_iterator<it_t>
+                    e = aligned_output_end(data.end()-1)
                   );
 }
 
@@ -76,8 +81,10 @@ NT2_TEST_CASE_TPL(iteration, BOOST_SIMD_TYPES)
   for(std::size_t i=0;i<ref.size();i++)
     ref[i] = (i/pack<T>::static_size)+1;
 
-  aligned_output_iterator<T> b = aligned_output_begin(data.begin());
-  aligned_output_iterator<T> e = aligned_output_end(data.end());
+  typedef typename std::vector<T, allocator<T> >::iterator it_t;
+
+  aligned_output_iterator<it_t> b = aligned_output_begin(data.begin());
+  aligned_output_iterator<it_t> e = aligned_output_end(data.end());
 
   int i=0;
   while(b != e)

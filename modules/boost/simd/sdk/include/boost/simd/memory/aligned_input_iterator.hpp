@@ -13,38 +13,71 @@
 #include <boost/simd/include/functions/aligned_load.hpp>
 #include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/memory/details/uncheck_iterator.hpp>
 #include <boost/simd/memory/details/input_iterator_base.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
-#include <boost/assert.hpp>
+#include <boost/config.hpp>
+#include <iterator>
 
 namespace boost { namespace simd
 {
   /*!
-    @brief Read-only SIMD iterator
+    @brief Read-only aligned SIMD iterator
 
-    aligned_input_iterator adapt a pointer to an aligned memory block into a
-    standard compliant iterator that traverses this memory block using SIMD
+    aligned_input_iterator adapt an Iterator to aligned values in memory into
+    a standard compliant iterator that traverses this memory block using SIMD
     registers.
 
-    @tparam T Type pointed to by the iterator
+    @par Models:
+
+    @model{ http://www.cplusplus.com/reference/iterator/RandomAccessIterator/
+          , RandomAccessIterator
+          }
+
+    @usage_output{memory/aligned_input_iterator.cpp,memory/aligned_input_iterator.out}
+
+    @tparam Iterator Iterator type to adapt
     @tparam C Width of the SIMD register to use as iteration value. By default
               this value is equal to the optimal register cardinal for current
               architecture and type @c T.
   **/
-  template<typename T, std::size_t C = meta::cardinal_of< pack<T> >::value >
+  template< typename Iterator
+          , std::size_t C = meta::cardinal_of
+                            < pack< typename std::iterator_traits<Iterator>
+                                                ::value_type
+                                  >
+                            >::value
+          >
   struct  aligned_input_iterator
-        : details::input_iterator_base<T,C,tag::aligned_load_>
+        : details::input_iterator_base
+                  < Iterator
+                  , C
+                  , typename std::iterator_traits<Iterator>::value_type
+                  , tag::aligned_load_
+                  >
   {
-    typedef details::input_iterator_base<T,C,tag::aligned_load_> parent;
+    typedef details::input_iterator_base
+                  < Iterator
+                  , C
+                  , typename std::iterator_traits<Iterator>::value_type
+                  , tag::aligned_load_
+                  >                                           parent;
 
     /// Default constructor
     aligned_input_iterator() : parent() {}
 
+    /// INTERNAL ONLY
+    aligned_input_iterator( parent const& src ) : parent(src) {}
+
     /// Constructor from an aligned pointer
-    explicit  aligned_input_iterator(T const* p) : parent(p)
+    explicit  aligned_input_iterator(Iterator p) : parent(p)
     {
+      // MSVC SCL_SECURE mode adds extra-check that make aligned end
+      // difficult to check with this.
+      typename details::unchecker<Iterator>::type lp = details::unchecker<Iterator>::call(p);
+
       BOOST_ASSERT_MSG
-      ( boost::simd::is_aligned(p, C*sizeof(T))
+      ( boost::simd::is_aligned(&(*lp) , C*sizeof(*lp) )
       , "The constructor of iterator<T,C> has been called on a pointer "
         "which alignment is not compatible with the current SIMD extension."
       );
@@ -52,40 +85,83 @@ namespace boost { namespace simd
   };
 
   /*!
-    @brief
+    @brief Adapter for aligned SIMD read-only iterator
+
+    Convert an existing iterator referencing the beginning of a aligned memory
+    block into a SIMD aware read-only iterator returning SIMD pack of optimal
+    cardinal for current architecture.
+
+    @usage_output{memory/aligned_input_iterator.cpp,memory/aligned_input_iterator.out}
+
+    @param p An iterator referencing the beginning of a contiguous memory block.
+
+    @return An instance of aligned_input_iterator
   **/
   template<typename Iterator> BOOST_FORCEINLINE
-  aligned_input_iterator<typename std::iterator_traits<Iterator>::value_type>
-  aligned_input_begin(Iterator p)
+  aligned_input_iterator<Iterator> aligned_input_begin(Iterator p)
   {
-    typedef typename std::iterator_traits<Iterator>::value_type value_type;
-    return aligned_input_iterator<value_type>(&*p);
+    return aligned_input_iterator<Iterator>(p);
   }
 
-  /// @overload
+  /*!
+    @brief Adapter for aligned SIMD read-only iterator
+
+    Convert an existing iterator referencing the beginning of a aligned memory
+    block into a SIMD aware read-only iterator returning SIMD pack of cardinal
+    @c C.
+
+    @usage_output{memory/aligned_input_iterator.cpp,memory/aligned_input_iterator.out}
+
+    @tparam C Width of the SIMD register to use as iteration value.
+
+    @param p An iterator referencing the beginning of a contiguous memory block.
+
+    @return An instance of aligned_input_iterator
+  **/
   template<std::size_t C, typename Iterator> BOOST_FORCEINLINE
-  aligned_input_iterator<typename std::iterator_traits<Iterator>::value_type, C>
-  aligned_input_begin(Iterator p)
+  aligned_input_iterator<Iterator, C> aligned_input_begin(Iterator p)
   {
-    typedef typename std::iterator_traits<Iterator>::value_type value_type;
-    return aligned_input_iterator<value_type, C>(&*p);
+    return aligned_input_iterator<Iterator, C>(p);
   }
 
+  /*!
+    @brief Adapter for aligned SIMD read-only iterator
+
+    Convert an existing iterator referencing the end of a aligned memory
+    block into a SIMD aware read-only iterator returning SIMD pack of optimal
+    cardinal for current architecture.
+
+    @usage_output{memory/aligned_input_iterator.cpp,memory/aligned_input_iterator.out}
+
+    @param p An iterator referencing the end of a contiguous memory block.
+
+    @return An instance of aligned_input_iterator
+  **/
   template<typename Iterator> BOOST_FORCEINLINE
-  aligned_input_iterator<typename std::iterator_traits<Iterator>::value_type>
-  aligned_input_end(Iterator p)
+  aligned_input_iterator<Iterator> aligned_input_end(Iterator p)
   {
-    typedef typename std::iterator_traits<Iterator>::value_type value_type;
-    return aligned_input_iterator<value_type>(&*(p-1) + 1);
+    return aligned_input_iterator<Iterator>(p);
   }
 
-  /// @overload
+  /*!
+    @brief Adapter for aligned SIMD read-only iterator
+
+    Convert an existing iterator referencing the end of a aligned memory
+    block into a SIMD aware read-only iterator returning SIMD pack of cardinal
+    @c C.
+
+    @usage_output{memory/aligned_input_iterator.cpp,memory/aligned_input_iterator.out}
+
+    @tparam C Width of the SIMD register to use as iteration value.
+
+    @param p An iterator referencing the end of a contiguous memory block.
+
+    @return An instance of aligned_input_iterator
+  **/
   template<std::size_t C, typename Iterator> BOOST_FORCEINLINE
-  aligned_input_iterator<typename std::iterator_traits<Iterator>::value_type,C>
-  aligned_input_end(Iterator p)
+  aligned_input_iterator<Iterator,C> aligned_input_end(Iterator p)
   {
-    typedef typename std::iterator_traits<Iterator>::value_type value_type;
-    return aligned_input_iterator<value_type, C>(&*(p-1) + 1);
+    return aligned_input_iterator<Iterator, C>(p);
   }
 } }
 

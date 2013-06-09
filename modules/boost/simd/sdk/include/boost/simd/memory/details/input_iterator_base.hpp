@@ -16,63 +16,50 @@
 
 namespace boost { namespace simd { namespace details
 {
-  /*!
-    @brief Read-only SIMD iterator
-
-    aligned_input_iterator adapt a pointer to an into a standard compliant
-    iterator
-
-    @tparam T Type pointed to by the iterator
-    @tparam C Width of the SIMD register to use as iteration value
-  **/
-  template<typename T, std::size_t C, typename Load>
+  template< typename Iterator
+          , std::size_t C, typename Value
+          , typename LoadFun
+          >
   struct  input_iterator_base
-        : boost::iterator_adaptor< input_iterator_base<T, C, Load>
-                                 , T const*
-                                 , pack<T, C>
+        : boost::iterator_adaptor< input_iterator_base<Iterator,C,Value,LoadFun>
+                                 , Iterator
+                                 , pack<Value, C>
                                  , std::random_access_iterator_tag
-                                 , pack<T, C> const
+                                 , pack<Value, C> const
                                  >
   {
-    /// Default constructor
-    input_iterator_base() : input_iterator_base::iterator_adaptor_(0) {}
+    static const typename input_iterator_base::difference_type cardinal = C;
+    input_iterator_base() : input_iterator_base::iterator_adaptor_() {}
 
-    /// Constructor from an aligned pointer
-    explicit  input_iterator_base(T const* p)
+    explicit  input_iterator_base(Iterator p)
             : input_iterator_base::iterator_adaptor_(p)
     {}
 
     protected:
-    /// INTERNAL ONLY
     friend class boost::iterator_core_access;
 
-    /// INTERNAL ONLY
     BOOST_FORCEINLINE
     typename input_iterator_base::reference dereference() const
     {
-      dispatch::functor<Load> callee;
-      return callee(this->base(), dispatch::meta::as_< pack<T,C> >() );
+      dispatch::functor<LoadFun> callee;
+      return callee ( &*this->base()
+                    , dispatch::meta::as_< pack<Value,C> >()
+                    );
     }
 
-    /// INTERNAL ONLY
     BOOST_FORCEINLINE void increment() { this->base_reference() += C; }
-
-    /// INTERNAL ONLY
     BOOST_FORCEINLINE void decrement() { this->base_reference() -= C; }
 
-    /// INTERNAL ONLY
     BOOST_FORCEINLINE
     void advance(typename input_iterator_base::difference_type n)
     {
       this->base_reference() += n*C;
     }
 
-    /// INTERNAL ONLY
     BOOST_FORCEINLINE typename input_iterator_base::difference_type
     distance_to(input_iterator_base const& other) const
     {
-      static typename input_iterator_base::difference_type diff_card = C;
-      return (other.base() - this->base()) / diff_card;
+      return (other.base() - this->base()) / cardinal;
     }
   };
 } } }

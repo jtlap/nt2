@@ -14,4 +14,7 @@
 #include <boost/simd/memory/output_range.hpp>
 #include <boost/simd/memory/aligned_input_range.hpp>
 #include <boost/simd/memory/aligned_output_range.hpp>
+#include <boost/simd/memory/realigned_input_range.hpp>
+#include <boost/simd/memory/realigned_output_range.hpp>
+
 #endif

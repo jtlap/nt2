@@ -10,35 +10,102 @@
 #ifndef BOOST_SIMD_MEMORY_ALIGNED_OUTPUT_RANGE_HPP_INCLUDED
 #define BOOST_SIMD_MEMORY_ALIGNED_OUTPUT_RANGE_HPP_INCLUDED
 
-#include <boost/simd/memory/aligned_input_iterator.hpp>
+#include <boost/simd/memory/aligned_output_iterator.hpp>
 #include <boost/range/iterator_range.hpp>
 
 namespace boost { namespace simd
 {
-  template<std::size_t N, class Iterator> BOOST_FORCEINLINE
-  boost::iterator_range<aligned_input_iterator<typename std::iterator_traits<Iterator>::value_type, N> >
-  aligned_output_range( Iterator const& begin, Iterator const& end )
+  /*!
+    @brief Adapter for aligned SIMD write-only range
+
+    Convert an existing range specified by two aligned iterators into a SIMD
+    aware write-only iterator returning SIMD pack of optimal cardinal @c C.
+
+    @usage_output{memory/aligned_output_range.cpp,memory/aligned_output_range.out}
+
+    @tparam C Width of the SIMD register to use as iteration value.
+    @param r A Range addressing a contiguous memory block
+
+    @return An instance of aligned_output_range
+  **/
+  template<std::size_t C, class Iterator> BOOST_FORCEINLINE
+  boost::iterator_range< aligned_output_iterator<Iterator, C> >
+  aligned_output_range( Iterator begin, Iterator end )
   {
-    return  boost::make_iterator_range(input_begin<N>(begin),input_end<N>(end));
+    BOOST_ASSERT_MSG
+    ( is_aligned(std::distance(begin,end), C)
+    , "Range being adapted holds a non integral number of SIMD pack."
+    );
+
+    return boost::make_iterator_range ( aligned_output_begin<C>(begin)
+                                      , aligned_output_end<C>(end)
+                                      );
   }
 
+  /*!
+    @brief Adapter for aligned SIMD write-only range
+
+    Convert an existing range specified by two aligned iterators into a SIMD
+    aware write-only iterator returning SIMD pack of optimal cardinal for
+    current architecture.
+
+    @usage_output{memory/aligned_output_range.cpp,memory/aligned_output_range.out}
+
+    @param r A Range addressing a contiguous memory block
+
+    @return An instance of aligned_output_range
+  **/
   template<class Iterator> BOOST_FORCEINLINE
-  boost::iterator_range< simd::aligned_input_iterator<typename std::iterator_traits<Iterator>::value_type> >
-  aligned_output_range( Iterator const& begin, Iterator const& end )
+  boost::iterator_range< aligned_output_iterator<Iterator> >
+  aligned_output_range( Iterator begin, Iterator end )
   {
-    return boost::make_iterator_range( input_begin(begin), input_end(end) );
+    BOOST_ASSERT_MSG
+    ( is_aligned( std::distance(begin,end)
+                , aligned_output_iterator<Iterator>::cardinal
+                )
+    , "Range being adapted holds a non integral number of SIMD pack."
+    );
+
+    return boost::make_iterator_range ( aligned_output_begin(begin)
+                                      , aligned_output_end(end)
+                                      );
   }
 
-  template<std::size_t N, class Range> BOOST_FORCEINLINE
-  boost::iterator_range<aligned_input_iterator<typename range_value<Range const>::type,N> >
-  aligned_output_range( Range const& r )
+  /*!
+    @brief Adapter for aligned SIMD write-only range
+
+    Convert an existing range into a SIMD aware write-only iterator returning
+    SIMD pack of cardinal @c C.
+
+    @usage_output{memory/aligned_output_range.cpp,memory/aligned_output_range.out}
+
+    @tparam C Width of the SIMD register to use as iteration value.
+    @param r A Range addressing a contiguous memory block
+
+    @return An instance of aligned_output_range
+  **/
+  template<std::size_t C, class Range> BOOST_FORCEINLINE
+  boost::iterator_range<aligned_output_iterator<typename range_iterator<Range>::type,C> >
+  aligned_output_range( Range& r )
   {
-    return aligned_output_range<N>( boost::begin(r), boost::end(r) );
+    return aligned_output_range<C>( boost::begin(r), boost::end(r) );
   }
 
+  /*!
+    @brief Adapter for aligned SIMD write-only range
+
+    Convert an existing range into a SIMD aware write-only iterator returning
+    SIMD pack of optimal cardinal for current architecture.
+
+    @usage_output{memory/aligned_output_range.cpp,memory/aligned_output_range.out}
+
+    @param r A Range addressing a contiguous memory block
+
+    @return An instance of aligned_output_range
+  **/
   template<class Range> BOOST_FORCEINLINE
-  boost::iterator_range<aligned_input_iterator<typename range_value<Range const>::type> >
-  aligned_output_range( Range const& r )
+  boost::iterator_range<aligned_output_iterator<typename range_iterator<Range>::type> >
+  aligned_output_range( Range& r )
   {
     return aligned_output_range( boost::begin(r), boost::end(r) );
   }

@@ -11,12 +11,16 @@ SET( SOURCES
     align_on.cpp
     aligned_array.cpp
     aligned_input_iterator.cpp
+    aligned_input_range.cpp
     aligned_output_iterator.cpp
+    aligned_output_range.cpp
     aligned_object.cpp
     allocate.cpp
     allocator.cpp
     allocator_adaptor.cpp
+    direct_output_iterator.cpp
     input_iterator.cpp
+    input_range.cpp
     is_aligned.cpp
     is_power_of_2.cpp
     make_aligned.cpp
@@ -24,10 +28,14 @@ SET( SOURCES
     next_power_of_2.cpp
     overload.cpp
     output_iterator.cpp
+    output_range.cpp
     prev_power_of_2.cpp
     range.cpp
     reallocate.cpp
+    realigned_input_range.cpp
+    realigned_output_range.cpp
     reuse.cpp
+    shifted_iterator.cpp
     stack_buffer.cpp
   )
 

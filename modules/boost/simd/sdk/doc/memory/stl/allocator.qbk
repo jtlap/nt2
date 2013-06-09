@@ -1,8 +1,8 @@
 [section Aligned allocator and adaptor]
-As shown in [link the_boost_simd_memory_module.memory_management the Memory Handling section],
-allocating aligned memory is required to maximize SIMD performance. To ensure that such constraints
-is fulfilled by standard containers, Boost.SIMD.Memory provides a standard compliant allocator for
-aligned allocation and an allocator adaptor that can turn any pre-existing allocator into an aligned
+As shown in earlier, allocating aligned memory is required to maximize SIMD
+performance. To ensure that such constraints is fulfilled by standard containers,
+Boost.SIMD.Memory provides a standard compliant allocator for aligned allocation
+and an allocator adaptor that can turn any pre-existing allocator into an aligned
 allocator.
 
 [h4 SIMD Allocator]

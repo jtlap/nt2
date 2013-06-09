@@ -1,13 +1,12 @@
+#include <iostream>
 #include <boost/simd/memory/align_on.hpp>
-#include <boost/simd/memory/is_aligned.hpp>
-#include <boost/assert.hpp>
 
 int main()
 {
-  std::size_t v = boost::simd::align_on(13, 4);
-  BOOST_ASSERT( boost::simd::is_aligned(v,4) );
+  // Align an integral value
+  std::cout << 10 << " -> " << boost::simd::align_on(10, 16) << std::endl;
 
-  short s;
-  short* x = boost::simd::align_on(&s, 8);
-  BOOST_ASSERT( boost::simd::is_aligned(x,8) );
+  // Align a pointer value
+  char s;
+  std::cout << (void*)&s << " -> " << (void*)boost::simd::align_on(&s, 16) << std::endl;
 }

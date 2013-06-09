@@ -10,99 +10,177 @@
 #ifndef BOOST_SIMD_MEMORY_SHIFTED_ITERATOR_HPP_INCLUDED
 #define BOOST_SIMD_MEMORY_SHIFTED_ITERATOR_HPP_INCLUDED
 
+#include <boost/simd/forward/shifted_iterator.hpp>
 #include <boost/simd/sdk/simd/pack.hpp>
-#include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/include/functions/aligned_load.hpp>
 #include <boost/simd/memory/align_on.hpp>
+#include <boost/simd/meta/region.hpp>
 #include <boost/simd/sdk/simd/meta/native_cardinal.hpp>
 #include <boost/iterator/iterator_facade.hpp>
-#include <boost/fusion/container/vector.hpp>
 #include <boost/array.hpp>
 #include <boost/mpl/size_t.hpp>
 #include <boost/mpl/equal_to.hpp>
+#include <boost/mpl/int.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <iostream>
 
 namespace boost { namespace simd
 {
-////////////////////////////////////////////////////////////////////////////////
-// simd::shifted_iterator reference sequence of k pack of N elements of type T.
-// Each inner simd iterator of the sequence is shifted by one element by default.
-////////////////////////////////////////////////////////////////////////////////
-  template<class Type, std::size_t Depth>
-  struct shifted_iterator
-  : public  boost
-            ::iterator_facade< shifted_iterator<Type, Depth>
-                             , boost::array< pack<Type>, Depth> const
-                             , boost::forward_traversal_tag
-                             >
+  /*!
+    @brief Sliding window base SIMD iterator adapter
+
+    shifted_iterator adapts an Iterator
+
+    @tparam Iterator Iterator type to adapt
+    @tparam Region   Region of Interest descriptor for the sliding window
+    @tparam C        SIMD register cardinal to use
+  **/
+  template<typename Iterator, typename Region, std::size_t C>
+  struct  shifted_iterator
+        : public
+          boost::iterator_facade< shifted_iterator<Iterator, Region, C>
+                                , boost::array
+                                  < pack<typename std::iterator_traits<Iterator>::value_type,C>
+                                  , Region::width
+                                  > const
+                               , boost::forward_traversal_tag
+                               >
   {
-  public:
+    public:
+    typedef typename std::iterator_traits<Iterator>::value_type value_type;
+    typedef pack<value_type,C>                                  pack_type;
+    typedef shifted_iterator<Iterator, Region, C>               derived_type;
+    typedef boost::array<pack_type, Region::width>              sequence_type;
 
-    typedef Type                                        value_type;
-    typedef Type*                                       pointer_type;
-    typedef pack<Type>                                  pack_type;
-    typedef shifted_iterator<Type, Depth>               derived_type;
-    typedef std::size_t                                 difference_type;
-    typedef boost::array< pack<Type>, Depth>            sequence_type;
-    typedef boost::mpl::size_t<Depth>                   static_size;
-    //typedef boost::mpl::size_t<Step>                    static_step;
+    static const std::size_t cardinal = C;
 
+    explicit shifted_iterator(Iterator p) : base(p) { fill(); }
 
-    explicit shifted_iterator(pointer_type p) : base(p)
-    { fill(static_size::value-1); }
+    protected:
 
-  protected:
-
-    void fill(difference_type const& sequence_size)
+    /// INTERNAL ONLY - CT-recursive filling of the iterator data
+    template<int N> BOOST_FORCEINLINE void fill(  boost::mpl::int_<N> const& )
     {
-      if(sequence_size == 0) seq[0] = load<pack_type>(base);
-      else
-      {
-        seq[sequence_size] = load<pack_type>(base+sequence_size);
-        fill(sequence_size-1);
-      }
+      seq[N] = aligned_load<pack_type,N+Region::w_min>(&*base+N+Region::w_min);
+      fill(boost::mpl::int_<N+1>());
     }
 
-    void update( pointer_type const& p)
-    {
-      for(int i=0; i<static_size::value-1; ++i) { seq[i] = seq[i+1]; }
-      seq[static_size::value-1] = load<pack_type>(base+(static_size::value-1));
-    }
+    /// INTERNAL ONLY
+    BOOST_FORCEINLINE void fill(boost::mpl::int_<Region::width> const&) {}
 
-  private:
+    /// INTERNAL ONLY
+    BOOST_FORCEINLINE void fill() { fill( boost::mpl::int_<0>() ); }
+
+    private:
     friend class boost::iterator_core_access;
 
-    void increment()
+    /// INTERNAL ONLY - required by iterator_facade
+    BOOST_FORCEINLINE void increment()
     {
-      base++;
-      update(base);
+      base += C;
+      fill( );
     }
 
-    bool equal(derived_type const& other) const { return (this->base == other.base); }
+    /// INTERNAL ONLY - required by iterator_facade
+    BOOST_FORCEINLINE bool equal(derived_type const& other) const
+    {
+      return (this->base == other.base);
+    }
 
-    sequence_type const& dereference() const { return seq; }
+    /// INTERNAL ONLY - required by iterator_facade
+    BOOST_FORCEINLINE sequence_type const& dereference() const { return seq; }
 
-    pointer_type  base;
+    Iterator              base;
     mutable sequence_type seq;
   };
 
-  template< std::size_t Depth, class Iterator>
-  shifted_iterator<typename boost::pointee<Iterator>::type, Depth>
-  begin(Iterator p)
+  /*!
+    @brief Adapter for SIMD sliding window iterator
+
+    Convert an existing iterator referencing the beginning of a contiguous
+    memory block into a SIMD aware read-only iterator returning a sliding
+    window of SIMD registers.
+
+    @usage_output{memory/shifted_iterator.cpp,memory/shifted_iterator.out}
+
+    @tparam C Width of the SIMD register to use as iteration value.
+
+    @param p Iterator to adapt.
+    @param r The Region of Interest descriptor of the sliding window.
+
+    @return An instance of shifted_iterator
+  **/
+  template<std::size_t C, typename Iterator, typename Region>
+  BOOST_FORCEINLINE shifted_iterator<Iterator, Region, C>
+  shifted_begin(Iterator p, Region const& r)
   {
-    typedef typename boost::pointee<Iterator>::type value_type;
-    value_type* tmp = &(*p);
-    return shifted_iterator<typename boost::pointee<Iterator>::type, Depth>(tmp);
+    return shifted_iterator<Iterator, Region, C>(p+(Region::width/2)*C);
   }
 
-  template<std::size_t Depth,class Iterator>
-  shifted_iterator<typename boost::pointee<Iterator>::type, Depth>
-  end(Iterator p)
+  /*!
+    @brief Adapter for SIMD sliding window iterator
+
+    Convert an existing iterator referencing the end of a contiguous
+    memory block into a SIMD aware read-only iterator returning a sliding
+    window of SIMD registers.
+
+    @usage_output{memory/shifted_iterator.cpp,memory/shifted_iterator.out}
+
+    @tparam C Width of the SIMD register to use as iteration value.
+
+    @param p Iterator to adapt.
+    @param r The Region of Interest descriptor of the sliding window.
+
+    @return An instance of shifted_iterator
+  **/
+  template<std::size_t C, typename Iterator, typename Region>
+  BOOST_FORCEINLINE shifted_iterator<Iterator, Region, C>
+  shifted_end(Iterator p, Region const& r)
   {
-    typedef typename boost::pointee<Iterator>::type value_type;
-    value_type* tmp = &(*((p-1)-(meta::native_cardinal<value_type>::value+Depth)));
-    return shifted_iterator<typename boost::pointee<Iterator>::type, Depth>(tmp+1);
+    return shifted_iterator<Iterator, Region, C>(p-(Region::width/2)*C );
   }
 
+  /*!
+    @brief Adapter for SIMD sliding window iterator
+
+    Convert an existing iterator referencing the beginning of a contiguous
+    memory block into a SIMD aware read-only iterator returning a sliding
+    window of SIMD registers.
+
+    @usage_output{memory/shifted_iterator.cpp,memory/shifted_iterator.out}
+
+    @param p Iterator to adapt.
+    @param r The Region of Interest descriptor of the sliding window.
+
+    @return An instance of shifted_iterator
+  **/
+  template<typename Iterator, typename Region>
+  BOOST_FORCEINLINE shifted_iterator<Iterator, Region>
+  shifted_begin(Iterator p, Region const& r)
+  {
+    return shifted_begin<shifted_iterator<Iterator, Region>::cardinal>(p,r);
+  }
+
+  /*!
+    @brief Adapter for SIMD sliding window iterator
+
+    Convert an existing iterator referencing the end of a contiguous
+    memory block into a SIMD aware read-only iterator returning a sliding
+    window of SIMD registers.
+
+    @usage_output{memory/shifted_iterator.cpp,memory/shifted_iterator.out}
+
+    @param p Iterator to adapt.
+    @param r The Region of Interest descriptor of the sliding window.
+
+    @return An instance of shifted_iterator
+  **/
+  template<typename Iterator, typename Region>
+  BOOST_FORCEINLINE shifted_iterator<Iterator, Region>
+  shifted_end(Iterator p, Region const& r)
+  {
+    return shifted_end<shifted_iterator<Iterator, Region>::cardinal>(p,r);
+  }
 } }
 
 #endif

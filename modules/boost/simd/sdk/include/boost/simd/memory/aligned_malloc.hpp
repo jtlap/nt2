@@ -17,6 +17,7 @@
 #include <boost/dispatch/meta/ignore_unused.hpp>
 #include <boost/dispatch/attributes.hpp>
 
+#include <stdlib.h>
 #include <malloc.h>
 #include <new>
 
@@ -50,10 +51,7 @@ namespace boost { namespace simd
 #elif defined( BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN )
 
     void* result(0);
-
-    BOOST_VERIFY(   ( ::posix_memalign( &result, alignment, size ) == 0 )
-                ||  ( result == 0 )
-                );
+    ::posix_memalign( &result, std::max(sizeof(void*),alignment), size );
 
     return static_cast<void* BOOST_DISPATCH_RESTRICT>(result);
 

@@ -7,11 +7,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_MEMORY_ALIGNED_INPUT_RANGE_HPP_INCLUDED
-#define BOOST_SIMD_MEMORY_ALIGNED_INPUT_RANGE_HPP_INCLUDED
+#ifndef BOOST_SIMD_MEMORY_SHIFTED_RANGE_HPP_INCLUDED
+#define BOOST_SIMD_MEMORY_SHIFTED_RANGE_HPP_INCLUDED
 
-#include <boost/simd/memory/aligned_input_iterator.hpp>
+#include <boost/simd/memory/shifted_iterator.hpp>
 #include <boost/simd/memory/is_aligned.hpp>
+#include <boost/simd/meta/region.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/assert.hpp>
 #include <iterator>
@@ -24,24 +25,24 @@ namespace boost { namespace simd
     Convert an existing range specified by two aligned iterators into a SIMD aware
     read-only iterator returning SIMD pack of optimal cardinal @c C.
 
-    @usage_output{memory/aligned_input_range.cpp,memory/aligned_input_range.out}
+    @usage_output{memory/shifted_range.cpp,memory/shifted_range.out}
 
     @tparam C Width of the SIMD register to use as iteration value.
     @param r A Range addressing a contiguous memory block
 
-    @return An instance of aligned_input_range
+    @return An instance of shifted_range
   **/
-  template<std::size_t C, typename Iterator> BOOST_FORCEINLINE
-  boost::iterator_range<aligned_input_iterator<Iterator, C> >
-  aligned_input_range( Iterator begin, Iterator end )
+  template<std::size_t C, typename Iterator, typename Region> BOOST_FORCEINLINE
+  boost::iterator_range<shifted_iterator<Iterator, Region, C> >
+  shifted_range( Iterator begin, Iterator end, Region const& r)
   {
     BOOST_ASSERT_MSG
     ( is_aligned(std::distance(begin,end), C)
     , "Range being adapted holds a non integral number of SIMD pack."
     );
 
-    return boost::make_iterator_range ( aligned_input_begin<C>(begin)
-                                      , aligned_input_end<C>(end)
+    return boost::make_iterator_range ( shifted_begin<C>(begin)
+                                      , shifted_end<C>(end)
                                       );
   }
 
@@ -52,23 +53,23 @@ namespace boost { namespace simd
     read-only iterator returning SIMD pack of optimal cardinal for current
     architecture.
 
-    @usage_output{memory/aligned_input_range.cpp,memory/aligned_input_range.out}
+    @usage_output{memory/shifted_range.cpp,memory/shifted_range.out}
 
     @param r A Range addressing a contiguous memory block
 
-    @return An instance of aligned_input_range
+    @return An instance of shifted_range
   **/
-  template<typename Iterator> BOOST_FORCEINLINE
-  boost::iterator_range< aligned_input_iterator<Iterator> >
-  aligned_input_range( Iterator begin, Iterator end )
+  template<typename Iterator, typename Region> BOOST_FORCEINLINE
+  boost::iterator_range< shifted_iterator<Iterator,Region> >
+  shifted_range( Iterator begin, Iterator end, Region const& r)
   {
     BOOST_ASSERT_MSG
-    ( is_aligned(std::distance(begin,end) , aligned_input_iterator<Iterator>::cardinal)
+    ( is_aligned(std::distance(begin,end) , shifted_iterator<Iterator>::cardinal)
     , "Range being adapted holds a non integral number of SIMD pack."
     );
 
-    return boost::make_iterator_range ( aligned_input_begin(begin)
-                                      , aligned_input_end(end)
+    return boost::make_iterator_range ( shifted_begin(begin)
+                                      , shifted_end(end)
                                       );
   }
 
@@ -78,18 +79,23 @@ namespace boost { namespace simd
     Convert an existing range into a SIMD aware read-only iterator returning
     SIMD pack of cardinal @c C.
 
-    @usage_output{memory/aligned_input_range.cpp,memory/aligned_input_range.out}
+    @usage_output{memory/shifted_range.cpp,memory/shifted_range.out}
 
     @tparam C Width of the SIMD register to use as iteration value.
     @param r A Range addressing a contiguous memory block
 
-    @return An instance of aligned_input_range
+    @return An instance of shifted_range
   **/
-  template<std::size_t C, typename Range> BOOST_FORCEINLINE
-  boost::iterator_range<aligned_input_iterator<typename range_iterator<Range const>::type,C> >
-  aligned_input_range( Range const& r )
+  template<std::size_t C, typename Range, typename Region> BOOST_FORCEINLINE
+  boost::iterator_range
+          < shifted_iterator< typename range_iterator<Range const>::type
+                            , Region
+                            , C
+                            >
+          >
+  shifted_range( Range const& r, Region const& r)
   {
-    return aligned_input_range<C>( boost::begin(r), boost::end(r) );
+    return shifted_range<C>( boost::begin(r), boost::end(r) );
   }
 
   /*!
@@ -98,17 +104,21 @@ namespace boost { namespace simd
     Convert an existing range into a SIMD aware read-only iterator returning
     SIMD pack of optimal cardinal for current architecture.
 
-    @usage_output{memory/aligned_input_range.cpp,memory/aligned_input_range.out}
+    @usage_output{memory/shifted_range.cpp,memory/shifted_range.out}
 
     @param r A Range addressing a contiguous memory block
 
-    @return An instance of aligned_input_range
+    @return An instance of shifted_range
   **/
-  template<typename Range> BOOST_FORCEINLINE
-  boost::iterator_range<aligned_input_iterator<typename range_iterator<Range const>::type> >
-  aligned_input_range( Range const& r )
+  template<typename Range, typename Region> BOOST_FORCEINLINE
+  boost::iterator_range
+          < shifted_iterator< typename range_iterator<Range const>::type
+                            , Region
+                            >
+          >
+  shifted_range( Range const& r, Region const& r)
   {
-    return aligned_input_range( boost::begin(r), boost::end(r) );
+    return shifted_range( boost::begin(r), boost::end(r) );
   }
 } }
 

@@ -42,8 +42,8 @@ struct sum_
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(transform_unary_correctly_sized, BOOST_SIMD_SIMD_TYPES )
 {
-  typedef typename boost::simd::input_iterator<T>   it_;
-  typedef typename boost::simd::output_iterator<T> out_;
+  typedef typename boost::simd::input_iterator<T*>   it_;
+  typedef typename boost::simd::output_iterator<T*> out_;
   typedef typename boost::simd::pack<T> p_t;
   static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
   std::vector<T, boost::simd::allocator<T> >   data(32*card);
@@ -71,8 +71,8 @@ NT2_TEST_CASE_TPL(transform_unary_correctly_sized, BOOST_SIMD_SIMD_TYPES )
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(transform_unary_correctly_sized_unroll4, BOOST_SIMD_SIMD_TYPES )
 {
-  typedef typename boost::simd::input_iterator<T>   it_;
-  typedef typename boost::simd::output_iterator<T> out_;
+  typedef typename boost::simd::input_iterator<T*>   it_;
+  typedef typename boost::simd::output_iterator<T*> out_;
   typedef typename boost::simd::pack<T> p_t;
   static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
   std::vector<T, boost::simd::allocator<T> >   data(32*card);
@@ -102,8 +102,8 @@ NT2_TEST_CASE_TPL(transform_unary_correctly_sized_unroll4, BOOST_SIMD_SIMD_TYPES
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(transform_unary_bad_sized_unroll4, BOOST_SIMD_SIMD_TYPES )
 {
-  typedef typename boost::simd::input_iterator<T>   it_;
-  typedef typename boost::simd::output_iterator<T> out_;
+  typedef typename boost::simd::input_iterator<T*>   it_;
+  typedef typename boost::simd::output_iterator<T*> out_;
   typedef typename boost::simd::pack<T> p_t;
   static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
   std::vector<T, boost::simd::allocator<T> >   data(19*card);
@@ -128,8 +128,8 @@ NT2_TEST_CASE_TPL(transform_unary_bad_sized_unroll4, BOOST_SIMD_SIMD_TYPES )
 
 NT2_TEST_CASE_TPL(transform_binary_bad_sized_unroll4, BOOST_SIMD_SIMD_TYPES )
 {
-  typedef typename boost::simd::input_iterator<T>   it_;
-  typedef typename boost::simd::output_iterator<T> out_;
+  typedef typename boost::simd::input_iterator<T*>   it_;
+  typedef typename boost::simd::output_iterator<T*> out_;
   typedef typename boost::simd::pack<T> p_t;
   static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
   std::vector<T, boost::simd::allocator<T> >   data(19*card);

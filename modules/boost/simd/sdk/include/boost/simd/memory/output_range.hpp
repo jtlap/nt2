@@ -12,33 +12,98 @@
 
 #include <boost/simd/memory/output_iterator.hpp>
 #include <boost/range/iterator_range.hpp>
+#include <boost/assert.hpp>
+#include <iterator>
 
 namespace boost { namespace simd
 {
-  template<std::size_t N, class Iterator> BOOST_FORCEINLINE
-  boost::iterator_range<output_iterator<typename std::iterator_traits<Iterator>::value_type, N> >
-  output_range( Iterator const& begin, Iterator const& end )
+  /*!
+    @brief Adapter for SIMD read-only range
+
+    Convert an existing range specified by two iterators into a SIMD aware
+    read-only iterator returning SIMD pack of optimal cardinal @c C.
+
+    @usage_output{memory/output_range.cpp,memory/output_range.out}
+
+    @tparam C Width of the SIMD register to use as iteration value.
+    @param r A Range addressing a contiguous memory block
+
+    @return An instance of output_range
+  **/
+  template<std::size_t C, class Iterator> BOOST_FORCEINLINE
+  boost::iterator_range<output_iterator<Iterator, C> >
+  output_range( Iterator begin, Iterator end )
   {
-    return boost::make_iterator_range(output_begin<N>(begin),output_end<N>(end));
+    BOOST_ASSERT_MSG
+    ( is_aligned(std::distance(begin,end), C)
+    , "Range being adapted holds a non integral number of SIMD pack."
+    );
+
+    return boost::make_iterator_range ( output_begin<C>(begin)
+                                      , output_end<C>(end)
+                                      );
   }
 
+  /*!
+    @brief Adapter for SIMD read-only range
+
+    Convert an existing range specified by two iterators into a SIMD aware
+    read-only iterator returning SIMD pack of optimal cardinal for current
+    architecture.
+
+    @usage_output{memory/output_range.cpp,memory/output_range.out}
+
+    @param r A Range addressing a contiguous memory block
+
+    @return An instance of output_range
+  **/
   template<class Iterator> BOOST_FORCEINLINE
-  boost::iterator_range< simd::output_iterator<typename std::iterator_traits<Iterator>::value_type> >
-  output_range( Iterator const& begin, Iterator const& end )
+  boost::iterator_range< output_iterator<Iterator> >
+  output_range( Iterator begin, Iterator end )
   {
+    BOOST_ASSERT_MSG
+    ( is_aligned(std::distance(begin,end) , output_iterator<Iterator>::cardinal)
+    , "Range being adapted holds a non integral number of SIMD pack."
+    );
+
     return boost::make_iterator_range( output_begin(begin), output_end(end) );
   }
 
-  template<std::size_t N, class Range> BOOST_FORCEINLINE
-  boost::iterator_range<output_iterator<typename range_value<Range const>::type,N> >
-  output_range( Range const& r )
+  /*!
+    @brief Adapter for SIMD read-only range
+
+    Convert an existing range into a SIMD aware read-only iterator returning
+    SIMD pack of cardinal @c C.
+
+    @usage_output{memory/output_range.cpp,memory/output_range.out}
+
+    @tparam C Width of the SIMD register to use as iteration value.
+    @param r A Range addressing a contiguous memory block
+
+    @return An instance of output_range
+  **/
+  template<std::size_t C, class Range> BOOST_FORCEINLINE
+  boost::iterator_range<output_iterator<typename range_iterator<Range>::type,C> >
+  output_range( Range& r )
   {
-    return output_range<N>( boost::begin(r), boost::end(r) );
+    return output_range<C>( boost::begin(r), boost::end(r) );
   }
 
+  /*!
+    @brief Adapter for SIMD read-only range
+
+    Convert an existing range into a SIMD aware read-only iterator returning
+    SIMD pack of optimal cardinal for current architecture.
+
+    @usage_output{memory/output_range.cpp,memory/output_range.out}
+
+    @param r A Range addressing a contiguous memory block
+
+    @return An instance of output_range
+  **/
   template<class Range> BOOST_FORCEINLINE
-  boost::iterator_range<output_iterator<typename range_value<Range const>::type> >
-  output_range( Range const& r )
+  boost::iterator_range<output_iterator<typename range_iterator<Range>::type> >
+  output_range( Range& r )
   {
     return output_range( boost::begin(r), boost::end(r) );
   }

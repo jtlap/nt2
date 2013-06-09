@@ -11,69 +11,143 @@
 #define BOOST_SIMD_MEMORY_OUTPUT_ITERATOR_HPP_INCLUDED
 
 #include <boost/simd/include/functions/store.hpp>
+#include <boost/simd/sdk/simd/pack.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/memory/details/output_iterator_base.hpp>
-#include <boost/assert.hpp>
+#include <boost/iterator/iterator_adaptor.hpp>
+#include <iterator>
 
 namespace boost { namespace simd
 {
   /*!
+    @brief Write-only SIMD iterator
 
+    output_iterator adapt an Iterator into a standard compliant iterator that
+    traverses this memory block using SIMD registers.
+
+    @par Models:
+
+    @model{ http://www.cplusplus.com/reference/iterator/RandomAccessIterator/
+          , RandomAccessIterator
+          }
+
+    @usage_output{memory/output_iterator.cpp,memory/output_iterator.out}
+
+    @tparam Iterator Iterator type to adapt
+    @tparam C Width of the SIMD register to use as iteration value. By default
+              this value is equal to the optimal register cardinal for current
+              architecture and type @c T.
   **/
-  template<class T, std::size_t C = meta::cardinal_of< pack<T> >::value >
+  template< typename Iterator
+          , std::size_t C = meta::cardinal_of
+                            < pack< typename std::iterator_traits<Iterator>
+                                                ::value_type
+                                  >
+                            >::value
+          >
   struct  output_iterator
-        : details::output_iterator_base<T, C, tag::store_>
+        : details::output_iterator_base
+                  < Iterator
+                  , C
+                  , typename std::iterator_traits<Iterator>::value_type
+                  , tag::store_
+                  >
   {
-    typedef details::output_iterator_base<T, C, tag::store_> parent;
+    typedef details::output_iterator_base
+                  < Iterator
+                  , C
+                  , typename std::iterator_traits<Iterator>::value_type
+                  , tag::store_
+                  >                                           parent;
 
-    output_iterator() : parent(0)
-    {
+    /// Default constructor
+    output_iterator() : parent() {}
 
-    }
+    /// INTERNAL ONLY
+    output_iterator( parent const& src ) : parent(src) {}
 
-    explicit output_iterator(T* p) : parent(p)
-    {
-
-    }
-
-    using parent::operator=;
+    /// Constructor from an aligned pointer
+    explicit  output_iterator(Iterator p) : parent(p) {}
   };
 
   /*!
+    @brief Adapter for SIMD write-only iterator
 
+    Convert an existing iterator referencing the beginning of a contiguous memory
+    block into a SIMD aware write-only iterator returning SIMD pack of optimal
+    cardinal for current architecture.
+
+    @usage_output{memory/output_iterator.cpp,memory/output_iterator.out}
+
+    @param p An iterator referencing the beginning of a contiguous memory block.
+
+    @return An instance of output_iterator
   **/
-  template<class Iterator> BOOST_FORCEINLINE
-  output_iterator<typename std::iterator_traits<Iterator>::value_type>
-  output_begin(Iterator p)
+  template<typename Iterator> BOOST_FORCEINLINE
+  output_iterator<Iterator> output_begin(Iterator p)
   {
-    typedef typename std::iterator_traits<Iterator>::value_type value_type;
-    return output_iterator<value_type>(&*p);
-  }
-
-  template<std::size_t C, class Iterator> BOOST_FORCEINLINE
-  output_iterator<typename std::iterator_traits<Iterator>::value_type, C>
-  output_begin(Iterator p)
-  {
-    typedef typename std::iterator_traits<Iterator>::value_type value_type;
-    return output_iterator<value_type, C>(&*p);
+    return output_iterator<Iterator>(p);
   }
 
   /*!
+    @brief Adapter for SIMD write-only iterator
 
+    Convert an existing iterator referencing the beginning of a contiguous memory
+    block into a SIMD aware write-only iterator returning SIMD pack of cardinal
+    @c C.
+
+    @usage_output{memory/output_iterator.cpp,memory/output_iterator.out}
+
+    @tparam C Width of the SIMD register to use as iteration value.
+
+    @param p An iterator referencing the beginning of a contiguous memory block.
+
+    @return An instance of output_iterator
   **/
-  template<class Iterator> BOOST_FORCEINLINE
-  output_iterator<typename std::iterator_traits<Iterator>::value_type>
-  output_end(Iterator p)
+  template<std::size_t C, typename Iterator> BOOST_FORCEINLINE
+  output_iterator<Iterator, C> output_begin(Iterator p)
   {
-    typedef typename std::iterator_traits<Iterator>::value_type value_type;
-    return output_iterator<value_type>(&*(p-1) + 1);
+    return output_iterator<Iterator, C>(p);
   }
 
-  template<std::size_t C, class Iterator> BOOST_FORCEINLINE
-  output_iterator<typename std::iterator_traits<Iterator>::value_type,C>
-  output_end(Iterator p)
+  /*!
+    @brief Adapter for SIMD write-only iterator
+
+    Convert an existing iterator referencing the end of a contiguous memory
+    block into a SIMD aware write-only iterator returning SIMD pack of optimal
+    cardinal for current architecture.
+
+    @usage_output{memory/output_iterator.cpp,memory/output_iterator.out}
+
+    @param p An iterator referencing the end of a contiguous memory block.
+
+    @return An instance of output_iterator
+  **/
+  template<typename Iterator> BOOST_FORCEINLINE
+  output_iterator<Iterator> output_end(Iterator p)
   {
-    typedef typename std::iterator_traits<Iterator>::value_type value_type;
-    return output_iterator<value_type, C>(&*(p-1) + 1);
+    return output_iterator<Iterator>(p);
+  }
+
+  /*!
+    @brief Adapter for SIMD write-only iterator
+
+    Convert an existing iterator referencing the end of a contiguous memory
+    block into a SIMD aware write-only iterator returning SIMD pack of cardinal
+    @c C.
+
+    @usage_output{memory/output_iterator.cpp,memory/output_iterator.out}
+
+    @tparam C Width of the SIMD register to use as iteration value.
+
+    @param p An iterator referencing the end of a contiguous memory block.
+
+    @return An instance of output_iterator
+  **/
+  template<std::size_t C, typename Iterator> BOOST_FORCEINLINE
+  output_iterator<Iterator,C> output_end(Iterator p)
+  {
+    return output_iterator<Iterator, C>(p);
   }
 } }
 

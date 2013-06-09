@@ -8,4 +8,6 @@ ALIASES += mplint="<a href=\"http://www.boost.org/doc/libs/release/libs/mpl/doc/
 ALIASES += dco="<a href=\"http://www.boost.org/doc/libs/release/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html\">Defered Callable Object</a>"
 
 # Paragraph level macro
-ALIASES += usage{1}="@par Usage:\n@include \1"
+ALIASES += usage{1}="@par Example:\n@include \1"
+ALIASES += usage_output{2}="@usage{\1}\nOutput:\n@include \2"
+ALIASES += model{2}="<a href=\"\1\">\2</a>"

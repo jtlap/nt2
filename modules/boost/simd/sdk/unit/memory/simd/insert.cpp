@@ -22,6 +22,8 @@
 #include <boost/fusion/include/make_vector.hpp>
 #include <boost/fusion/include/adapt_struct.hpp>
 
+#include "../common/foo.hpp"
+
 NT2_TEST_CASE_TPL( insert, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::native;
@@ -71,9 +73,6 @@ NT2_TEST_CASE_TPL( insert_logical, BOOST_SIMD_SIMD_TYPES)
 
   NT2_TEST_EQUAL( ref, value );
 }
-
-struct foo { short d; float f; char c; };
-BOOST_FUSION_ADAPT_STRUCT(foo,(short,d)(float,f)(char,c))
 
 NT2_TEST_CASE( insert_fusion )
 {

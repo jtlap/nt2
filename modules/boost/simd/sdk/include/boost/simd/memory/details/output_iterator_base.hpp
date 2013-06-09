@@ -16,21 +16,22 @@
 
 namespace boost { namespace simd { namespace details
 {
-  /*
-    This class contains the common code of all SIMD based output iterator
-  */
-  template<class T, std::size_t C, typename Store>
+  template< typename Iterator
+          , std::size_t C, typename Value
+          , typename Store
+          >
   struct  output_iterator_base
-        : boost::iterator_adaptor< output_iterator_base<T,C,Store>
-                                 , T*
-                                 , pack<T, C>
+        : boost::iterator_adaptor< output_iterator_base<Iterator,C,Value,Store>
+                                 , Iterator
+                                 , pack<Value, C>
                                  , std::random_access_iterator_tag
-                                 , output_iterator_base<T,C,Store> const
+                                 , output_iterator_base<Iterator,C,Value,Store> const
                                  >
   {
-    output_iterator_base() : output_iterator_base::iterator_adaptor_(0) {}
+    static const typename output_iterator_base::difference_type cardinal = C;
+    output_iterator_base() : output_iterator_base::iterator_adaptor_() {}
 
-    explicit  output_iterator_base(T* p)
+    explicit  output_iterator_base(Iterator p)
             : output_iterator_base::iterator_adaptor_(p)
     {}
 
@@ -42,7 +43,7 @@ namespace boost { namespace simd { namespace details
     output_iterator_base const& operator=(Expr const& right) const
     {
       dispatch::functor<Store> callee;
-      callee(right, this->base());
+      callee(right, &*this->base());
       return *this;
     }
 
@@ -64,12 +65,10 @@ namespace boost { namespace simd { namespace details
       this->base_reference() += n*C;
     }
 
-    BOOST_FORCEINLINE
-    typename output_iterator_base::difference_type
+    BOOST_FORCEINLINE typename output_iterator_base::difference_type
     distance_to(output_iterator_base const& other) const
     {
-      static typename output_iterator_base::difference_type diff_card = C;
-      return (other.base() - this->base()) / diff_card;
+      return (other.base() - this->base()) / cardinal;
     }
   };
 } } }
