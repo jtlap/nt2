@@ -37,6 +37,8 @@
 #include <nt2/include/functions/simd/logical_and.hpp>
 #include <nt2/include/constants/false.hpp>
 #include <nt2/include/functions/inrad.hpp>
+#include <nt2/include/functions/simd/split.hpp>
+#include <nt2/include/functions/simd/group.hpp>
 
 namespace nt2 { namespace details { namespace internal
 {
@@ -61,8 +63,8 @@ namespace nt2 { namespace details { namespace internal
   // trigonometric reduction strategies in the [-pi/4, pi/4] range.
   // these reductions are used in the accurate and fast
   // trigonometric functions with different policies
-  template<class A0, class mode>
-  struct trig_reduction < A0, radian_tag,  tag::not_simd_type, mode, float>
+  template<class A0, class style, class mode>
+  struct trig_reduction < A0, radian_tag, style/* tag::not_simd_type*/, mode, float>
   {
     typedef typename meta::as_logical<A0>::type              bA0;
     typedef typename meta::as_integer<A0, signed>::type int_type;
@@ -113,22 +115,42 @@ namespace nt2 { namespace details { namespace internal
         }
       case  r_0_dmpi :
         if(nt2::all(is_0_dmpi_reduced(xx)) && conversion_allowed())
-        {
-          typedef typename meta::upgrade<A0>::type uA0;
-          typedef trig_reduction< uA0, radian_tag,  tag::not_simd_type, mode, double> aux_reduction;
-          uA0 ux = xx, uxr;
-          int_type n = static_cast<int_type>(aux_reduction::reduce(ux, uxr));
-          xr = static_cast<A0>(uxr);
-          return n;
-        }
+          return use_conversion(xx, xr, style());
       case  r_0_inf :
         return rem_pio2(xx, xr);
       }
     }
+
+    static inline int_type use_conversion(const A0 & xx,  A0& xr,  const tag::not_simd_type &)
+    {
+      // all of x are in [0, 2^18*pi],  conversion to double is used to reduce
+      typedef typename meta::upgrade<A0>::type uA0;
+      typedef trig_reduction< uA0, radian_tag,  tag::not_simd_type, mode, double> aux_reduction;
+      uA0 ux = xx, uxr;
+      int_type n = static_cast<int_type>(aux_reduction::reduce(ux, uxr));
+      xr = static_cast<A0>(uxr);
+      return n;
+    }
+
+    static inline int_type use_conversion(const A0 & x,  A0& xr,  const tag::simd_type &)
+    {
+      // all of x are in [0, 2^18*pi],  conversion to double is used to reduce
+      typedef typename meta::upgrade<A0>::type uA0;
+      typedef typename meta::upgrade<int_type>::type uint_type;
+      typedef trig_reduction< uA0, radian_tag,  tag::simd_type, mode, double> aux_reduction;
+      uA0 ux1, ux2, uxr1, uxr2;
+      nt2::split(x, ux1, ux2);
+      uint_type n1 = aux_reduction::reduce(ux1, uxr1);
+      uint_type n2 = aux_reduction::reduce(ux2, uxr2);
+      xr = nt2::group(uxr1, uxr2);
+      nt2::split(xr, ux1, ux2);
+      return nt2::group(n1, n2);
+    }
+
   };
 
-  template<class A0>
-  struct trig_reduction<A0,degree_tag, tag::not_simd_type,big_, float>
+  template<class A0, class style>
+  struct trig_reduction<A0,degree_tag, style/*tag::not_simd_type*/,big_, float>
   {
     typedef typename meta::as_logical<A0>::type              bA0;
     typedef typename meta::as_integer<A0, signed>::type int_type;
@@ -146,8 +168,8 @@ namespace nt2 { namespace details { namespace internal
     }
   };
 
-  template < class A0>
-  struct trig_reduction < A0, pi_tag,  tag::not_simd_type, big_, float>
+  template < class A0, class style>
+  struct trig_reduction < A0, pi_tag,  style/*tag::not_simd_type*/, big_, float>
   {
     typedef typename meta::as_logical<A0>::type              bA0;
     typedef typename meta::as_integer<A0, signed>::type int_type;

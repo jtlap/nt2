@@ -10,7 +10,6 @@
 #define NT2_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_IMPL_TRIGO_HPP_INCLUDED
 
 #include <nt2/trigonometric/functions/scalar/impl/trigo.hpp>
-#include <nt2/trigonometric/functions/simd/common/impl/trigo/f_trig_reduction.hpp>
 #include <nt2/trigonometric/functions/simd/common/impl/trigo/trig_base.hpp>
 #include <nt2/trigonometric/functions/simd/common/impl/trigo/f_trig_evaluation.hpp>
 #include <nt2/trigonometric/functions/simd/common/impl/trigo/d_trig_evaluation.hpp>
