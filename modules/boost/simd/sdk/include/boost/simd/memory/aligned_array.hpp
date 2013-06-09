@@ -10,7 +10,7 @@
 #define BOOST_SIMD_MEMORY_ALIGNED_ARRAY_HPP_INCLUDED
 
 #include <boost/simd/preprocessor/align_on.hpp>
-#include <boost/simd/memory/aligned_array_fwd.hpp>
+#include <boost/simd/forward/aligned_array.hpp>
 #include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
 
 #include <boost/swap.hpp>
