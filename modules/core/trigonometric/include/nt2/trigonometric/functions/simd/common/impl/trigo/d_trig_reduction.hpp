@@ -44,15 +44,15 @@ namespace nt2 { namespace details { namespace internal
     typedef typename meta::as_integer<A0, signed>::type int_type;
     typedef typename meta::scalar_of<int_type>::type   sint_type;
 
-    static inline bA0 is_0_pio4_reduced(const A0&a0){ return is_ngt(a0, Pio_4<A0>()); }
-    static inline bA0 is_0_mpi_reduced (const A0&a0){ return is_ngt(a0,double_constant<A0,0x412921fb54442d18ll>()); }
-    static inline bA0 is_0_20pi_reduced(const A0&a0){ return is_ngt(a0,double_constant<A0,0x404f6a7a2955385ell>()); }
-    static inline bA0 is_0_pio2_reduced(const A0&a0){ return is_ngt(a0,Pio_2<A0>()); }
+    static inline bA0 is_0_pio4_reduced(const A0&a0) { return boost::simd::is_ngt(a0, nt2::Pio_4<A0>()); }
+    static inline bA0 is_0_pio2_reduced(const A0&a0) { return boost::simd::is_ngt(a0, nt2::Pio_2<A0>()); }
+    static inline bA0 is_0_20pi_reduced(const A0&a0) { return boost::simd::is_ngt(a0, _20_pi<A0>()); }
+    static inline bA0 is_0_mpi_reduced (const A0&a0) { return boost::simd::is_ngt(a0, Medium_pi<A0>()); }  //2^18pi
     static inline bA0 cot_invalid(const A0& ) { return nt2::False<bA0>(); }
     static inline bA0 tan_invalid(const A0& ) { return nt2::False<bA0>(); }
     static inline int_type reduce(const A0& x, A0& xr){ return inner_reduce(x, xr); }
   private:
-    static inline int_type inner_reduce(const A0 &/*typename A0::native_type*/ x_n, A0& xr)
+    static inline int_type inner_reduce(const A0 & x_n, A0& xr)
     {
       A0 xx = x_n;
       if (mode::clipped)
@@ -131,7 +131,3 @@ namespace nt2 { namespace details { namespace internal
 
 
 #endif
-
-// /////////////////////////////////////////////////////////////////////////////
-// End of d_trig_reduction.hpp
-// /////////////////////////////////////////////////////////////////////////////

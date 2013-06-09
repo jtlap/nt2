@@ -30,8 +30,9 @@
 #include <nt2/include/constants/pio_4.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/two.hpp>
-#include <boost/mpl/not.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <nt2/include/constants/_20_pi.hpp>
+#include <nt2/include/constants/medium_pi.hpp>
+#include <boost/simd/sdk/meta/is_upgradable.hpp>
 
 namespace nt2 { namespace details { namespace internal
 {
@@ -62,14 +63,11 @@ namespace nt2 { namespace details { namespace internal
     typedef typename meta::as_integer<A0, signed>::type int_type;
 
     static inline bool is_0_pio4_reduced(const A0&a0) { return boost::simd::is_ngt(a0, nt2::Pio_4<A0>()); }
-    static inline bool is_0_mpi_reduced (const A0&a0) { return boost::simd::is_ngt(a0,single_constant<A0,0x43490fdb>()); }  //2^6pi
-    static inline bool is_0_dmpi_reduced(const A0&a0) { return boost::simd::is_ngt(a0,single_constant<A0,0x49490fdb>()); }  //2^18pi
-    static inline bool is_0_20pi_reduced(const A0&a0) { return boost::simd::is_ngt(a0,single_constant<A0,0x427b53d1>()); }  //20pi
-    static inline bool is_0_pio2_reduced(const A0&a0) { return boost::simd::is_ngt(a0,nt2::Pio_2<A0>()); }
-    static inline bool conversion_allowed(){
-      typedef typename meta::upgrade<A0>::type uA0;
-      return boost::mpl::not_<boost::is_same<A0,uA0> >::value;
-    }
+    static inline bool is_0_pio2_reduced(const A0&a0) { return boost::simd::is_ngt(a0, nt2::Pio_2<A0>()); }
+    static inline bool is_0_20pi_reduced(const A0&a0) { return boost::simd::is_ngt(a0, _20_pi<A0>()); }
+    static inline bool is_0_mpi_reduced (const A0&a0) { return boost::simd::is_ngt(a0, Medium_pi<A0>()); }  //2^6pi
+    static inline bool is_0_dmpi_reduced(const A0&a0) { return boost::simd::is_ngt(a0, single_constant<A0,0x49490fdb>()); }  //2^18pi
+    typedef typename boost::simd::meta::is_upgradable_on_ext<A0>::type conversion_allowed;
 
     static inline bool cot_invalid(const A0& ) { return false; }
     static inline bool tan_invalid(const A0& ) { return false; }

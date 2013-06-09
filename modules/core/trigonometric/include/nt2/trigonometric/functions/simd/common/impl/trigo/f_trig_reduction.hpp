@@ -33,10 +33,10 @@
 #include <nt2/include/constants/pio_2.hpp>
 #include <nt2/include/constants/pio_4.hpp>
 #include <nt2/include/constants/two.hpp>
-#include <nt2/sdk/meta/as_logical.hpp>
+#include <nt2/include/constants/_20_pi.hpp>
+#include <nt2/include/constants/medium_pi.hpp>
+#include <nt2/sdk/simd/as_logical.hpp>
 #include <boost/simd/sdk/meta/is_upgradable.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <boost/mpl/not.hpp>
 #include <boost/mpl/bool.hpp>
 
 namespace nt2 { namespace details { namespace internal
@@ -62,15 +62,16 @@ namespace nt2 { namespace details { namespace internal
     typedef typename meta::as_integer<A0, signed>::type int_type;
 
     typedef typename boost::simd::meta::is_upgradable_on_ext<A0>::type conversion_allowed;
-    static inline bA0 is_0_pio4_reduced(const A0&a0) { return boost::simd::is_ngt(a0, Pio_4<A0>()); }
-    static inline bA0 is_0_mpi_reduced (const A0&a0) { return boost::simd::is_ngt(a0,single_constant<A0,0x43490fdb>()); }
-    static inline bA0 is_0_20pi_reduced(const A0&a0) { return boost::simd::is_ngt(a0,single_constant<A0,0x427b53d1>()); }
-    static inline bA0 is_0_pio2_reduced(const A0&a0) { return boost::simd::is_ngt(a0,Pio_2<A0>()); }
-    static inline bA0 is_0_dmpi_reduced(const A0&a0) { return boost::simd::is_ngt(a0,single_constant<A0,0x49490fdb>()); }  //2^18pp
+    static inline bA0 is_0_pio4_reduced(const A0&a0) { return boost::simd::is_ngt(a0, nt2::Pio_4<A0>()); }
+    static inline bA0 is_0_pio2_reduced(const A0&a0) { return boost::simd::is_ngt(a0, nt2::Pio_2<A0>()); }
+    static inline bA0 is_0_20pi_reduced(const A0&a0) { return boost::simd::is_ngt(a0, _20_pi<A0>()); }
+    static inline bA0 is_0_mpi_reduced (const A0&a0) { return boost::simd::is_ngt(a0, Medium_pi<A0>()); }  //2^6pi
+    static inline bA0 is_0_dmpi_reduced(const A0&a0) { return boost::simd::is_ngt(a0, single_constant<A0,0x49490fdb>()); }  //2^18pi
 
     static inline bA0 cot_invalid(const A0&) { return nt2::False<bA0>(); }
     static inline bA0 tan_invalid(const A0&) { return nt2::False<bA0>(); }
     static inline int_type reduce(const A0& x, A0& xr){ return inner_reduce(x, xr); }
+
   private:
     static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr)
     {

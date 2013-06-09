@@ -21,6 +21,8 @@
 #include <nt2/include/constants/pio_2.hpp>
 #include <nt2/include/constants/pio_4.hpp>
 #include <nt2/include/constants/pi.hpp>
+#include <nt2/include/constants/_20_pi.hpp>
+#include <nt2/include/constants/medium_pi.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/two.hpp>
 
@@ -35,10 +37,10 @@ namespace nt2 { namespace details { namespace internal
     typedef typename meta::as_integer<A0, signed>::type int_type;
     typedef typename meta::scalar_of<int_type>::type   sint_type;
 
-    static inline bool is_0_pio4_reduced(const A0&a0){ return boost::simd::is_ngt(a0, Pio_4<A0>()); }
-    static inline bool is_0_20pi_reduced(const A0&a0){return boost::simd::is_ngt(a0,double_constant<A0,0x412921fb54442d18ll>()); }
-    static inline bool is_0_mpi_reduced(const A0&a0){return boost::simd::is_ngt(a0,double_constant<A0,0x404f6a7a2955385ell>()); }
-    static inline bool is_0_pio2_reduced(const A0&a0)  { return boost::simd::is_ngt(a0,Pio_2<A0>()); }
+    static inline bool is_0_pio4_reduced(const A0&a0) { return boost::simd::is_ngt(a0, nt2::Pio_4<A0>()); }
+    static inline bool is_0_pio2_reduced(const A0&a0) { return boost::simd::is_ngt(a0, nt2::Pio_2<A0>()); }
+    static inline bool is_0_20pi_reduced(const A0&a0) { return boost::simd::is_ngt(a0, _20_pi<A0>()); }
+    static inline bool is_0_mpi_reduced (const A0&a0) { return boost::simd::is_ngt(a0, Medium_pi<A0>()); }  //2^18pi
     static inline bool cot_invalid(const A0& ) { return false; }
     static inline bool tan_invalid(const A0& ) { return false; }
     static inline int_type reduce(const A0& x, A0& xr){ return inner_reduce(x, xr); }
