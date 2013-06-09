@@ -112,7 +112,7 @@ namespace nt2 { namespace details { namespace internal
           return rem_pio2_medium(xx, xr);
         }
       case  r_0_dmpi :
-        if(is_0_dmpi_reduced(xx) && conversion_allowed())
+        if(nt2::all(is_0_dmpi_reduced(xx)) && conversion_allowed())
         {
           typedef typename meta::upgrade<A0>::type uA0;
           typedef trig_reduction< uA0, radian_tag,  tag::not_simd_type, mode, double> aux_reduction;

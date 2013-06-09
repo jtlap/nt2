@@ -178,9 +178,7 @@ namespace nt2 { namespace details { namespace internal
       return nt2::toint(xi);
     }
   };
-}
-}
-}
+} } }
 
 #endif
 

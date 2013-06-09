@@ -33,8 +33,8 @@ namespace nt2 { namespace details { namespace internal
   // trigonometric reduction strategies in the [-pi/4, pi/4] range.
   // these reductions are used in the accurate and fast
   // trigonometric functions with different policies
-  template < class A0,  class mode>
-  struct trig_reduction < A0, radian_tag,  tag::not_simd_type, mode, double>
+  template < class A0,  class style, class mode>
+  struct trig_reduction < A0, radian_tag, style, mode, double>
   {
     typedef typename meta::as_logical<A0>::type              bA0;
     typedef typename meta::as_integer<A0, signed>::type int_type;
@@ -46,13 +46,6 @@ namespace nt2 { namespace details { namespace internal
     static inline bA0 cot_invalid(const A0& ) { return nt2::False<bA0>(); }
     static inline bA0 tan_invalid(const A0& ) { return nt2::False<bA0>(); }
     static inline int_type reduce(const A0& x, A0& xr){ return inner_reduce(x, xr); }
-//     static inline bool is_0_pio4_reduced(const A0&a0) { return boost::simd::is_ngt(a0, nt2::Pio_4<A0>()); }
-//     static inline bool is_0_pio2_reduced(const A0&a0) { return boost::simd::is_ngt(a0, nt2::Pio_2<A0>()); }
-//     static inline bool is_0_20pi_reduced(const A0&a0) { return boost::simd::is_ngt(a0, _20_pi<A0>()); }
-//     static inline bool is_0_mpi_reduced (const A0&a0) { return boost::simd::is_ngt(a0, Medium_pi<A0>()); }  //2^18pi
-//     static inline bool cot_invalid(const A0& ) { return false; }
-//     static inline bool tan_invalid(const A0& ) { return false; }
-//     static inline int_type reduce(const A0& x, A0& xr){ return inner_reduce(x, xr); }
   private:
     static inline int_type inner_reduce(const A0& x, A0& xr)
     {
@@ -94,8 +87,8 @@ namespace nt2 { namespace details { namespace internal
   };
 
 
-  template < class A0>
-  struct trig_reduction < A0, degree_tag,  tag::not_simd_type, big_, double >
+  template < class A0, class style>
+  struct trig_reduction < A0, degree_tag, style, big_, double >
   {
     typedef typename meta::as_logical<A0>::type               bA0;
     typedef typename meta::as_integer<A0, signed>::type  int_type;
@@ -112,8 +105,8 @@ namespace nt2 { namespace details { namespace internal
     }
   };
 
-  template < class A0>
-  struct trig_reduction < A0, pi_tag,  tag::not_simd_type, big_, double>
+  template < class A0, class style>
+  struct trig_reduction < A0, pi_tag, style, big_, double>
   {
     typedef typename meta::as_logical<A0>::type               bA0;
     typedef typename meta::as_integer<A0, signed>::type  int_type;
