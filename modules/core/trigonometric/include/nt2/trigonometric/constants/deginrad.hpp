@@ -50,7 +50,6 @@ namespace nt2
 {
   namespace tag
   {
-    // 8.47842766036889956997e-32
     BOOST_SIMD_CONSTANT_REGISTER( Deginrad, double
                                 , 0, 0x3c8efa35
                                 , 0x3f91df46a2529d39ll
