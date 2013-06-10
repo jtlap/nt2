@@ -6,12 +6,11 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_TRIGO_F_TRIG_REDUCTION_HPP_INCLUDED
-#define NT2_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_TRIGO_F_TRIG_REDUCTION_HPP_INCLUDED
+#ifndef NT2_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_TRIGO_TRIG_REDUCTION_HPP_INCLUDED
+#define NT2_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_TRIGO_TRIG_REDUCTION_HPP_INCLUDED
 
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/include/functions/simd/rem_pio2_medium.hpp>
 #include <nt2/include/functions/simd/rem_pio2_cephes.hpp>
 #include <nt2/include/functions/simd/rem_pio2_straight.hpp>
@@ -64,8 +63,9 @@ namespace nt2 { namespace details { namespace internal
   // these reductions are used in the accurate and fast
   // trigonometric functions with different policies
   template<class A0, class style, class mode>
-  struct trig_reduction < A0, radian_tag, style/* tag::not_simd_type*/, mode, float>
+  struct trig_reduction < A0, radian_tag, style, mode>
   {
+    typedef typename meta::scalar_of<A0>::type           base_A0;
     typedef typename meta::as_logical<A0>::type              bA0;
     typedef typename meta::as_integer<A0, signed>::type int_type;
 
@@ -115,13 +115,18 @@ namespace nt2 { namespace details { namespace internal
         }
       case  r_0_dmpi :
         if(nt2::all(is_0_dmpi_reduced(xx)) && conversion_allowed())
-          return use_conversion(xx, xr, style());
+          return use_conversion(xx, xr, style(), base_A0());
       case  r_0_inf :
         return rem_pio2(xx, xr);
       }
     }
 
-    static inline int_type use_conversion(const A0 & xx,  A0& xr,  const tag::not_simd_type &)
+    static inline int_type use_conversion(const A0 & xx,  A0& xr,  const style &, const double&)
+    {
+      return Zero<int_type>();
+    }
+
+    static inline int_type use_conversion(const A0 & xx,  A0& xr,  const tag::not_simd_type &, const float&)
     {
       // all of x are in [0, 2^18*pi],  conversion to double is used to reduce
       typedef typename meta::upgrade<A0>::type uA0;
@@ -132,7 +137,7 @@ namespace nt2 { namespace details { namespace internal
       return n;
     }
 
-    static inline int_type use_conversion(const A0 & x,  A0& xr,  const tag::simd_type &)
+    static inline int_type use_conversion(const A0 & x,  A0& xr,  const tag::simd_type &, const float&)
     {
       // all of x are in [0, 2^18*pi],  conversion to double is used to reduce
       typedef typename meta::upgrade<A0>::type uA0;
@@ -150,7 +155,7 @@ namespace nt2 { namespace details { namespace internal
   };
 
   template<class A0, class style>
-  struct trig_reduction<A0,degree_tag, style/*tag::not_simd_type*/,big_, float>
+  struct trig_reduction<A0,degree_tag, style, big_>
   {
     typedef typename meta::as_logical<A0>::type              bA0;
     typedef typename meta::as_integer<A0, signed>::type int_type;
@@ -169,7 +174,7 @@ namespace nt2 { namespace details { namespace internal
   };
 
   template < class A0, class style>
-  struct trig_reduction < A0, pi_tag,  style/*tag::not_simd_type*/, big_, float>
+  struct trig_reduction < A0, pi_tag,  style, big_>
   {
     typedef typename meta::as_logical<A0>::type              bA0;
     typedef typename meta::as_integer<A0, signed>::type int_type;

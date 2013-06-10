@@ -10,8 +10,8 @@
 #define NT2_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_TRIGO_TRIG_BASE_HPP_INCLUDED
 
 #include <nt2/trigonometric/functions/scalar/impl/selection_tags.hpp>
-#include <nt2/trigonometric/functions/scalar/impl/trigo/f_trig_reduction.hpp>
-#include <nt2/trigonometric/functions/scalar/impl/trigo/d_trig_reduction.hpp>
+#include <nt2/trigonometric/functions/scalar/impl/trigo/trig_reduction.hpp>
+//#include <nt2/trigonometric/functions/scalar/impl/trigo/d_trig_reduction.hpp>
 #include <nt2/include/functions/simd/is_invalid.hpp>
 #include <nt2/include/functions/simd/is_nan.hpp>
 #include <nt2/include/functions/simd/is_eqz.hpp>
