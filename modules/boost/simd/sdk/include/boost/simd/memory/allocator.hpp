@@ -12,6 +12,7 @@
 
 #include <boost/simd/memory/allocate.hpp>
 #include <boost/simd/memory/deallocate.hpp>
+#include <boost/simd/forward/allocator.hpp>
 #include <cstddef>
 
 namespace boost { namespace simd
@@ -24,7 +25,7 @@ namespace boost { namespace simd
 
     @tparam Type of elements to allocate
   **/
-  template<class T> struct allocator
+  template<typename T, std::size_t Alignment> struct allocator
   {
     typedef T               value_type;
     typedef T*              pointer;
@@ -42,16 +43,16 @@ namespace boost { namespace simd
 
       @tparam U Type to rebind the current allocator to
     **/
-    template<class U> struct rebind
+    template<typename U> struct rebind
     {
-      typedef allocator<U> other;
+      typedef allocator<U,Alignment> other;
     };
 
     /// Default constructor
     allocator() {}
 
     /// Constructor from another SIMD allocator
-    template<class U> allocator(allocator<U> const& ) {}
+    template<typename U> allocator(allocator<U,Alignment> const& ) {}
 
     /// Retrieve the address of an element
     pointer       address(reference r)       { return &r; }
@@ -74,9 +75,8 @@ namespace boost { namespace simd
     /// Allocate a block of SIMD compatible memory
     pointer allocate( size_type c, const void* = 0 ) const
     {
-      return reinterpret_cast<pointer>( boost::simd
-                                             ::allocate(c*sizeof(value_type))
-                                      );
+      c *= sizeof(value_type);
+      return reinterpret_cast<pointer>( boost::simd::allocate<Alignment>(c) );
     }
 
     /// Deallocate a pointer allocated by the current allocator
@@ -87,15 +87,15 @@ namespace boost { namespace simd
   };
 
   /// Equality comparison between two allocators
-  template<class T>
-  bool operator== (allocator<T> const&, allocator<T> const&)
+  template<typename T, std::size_t A>
+  bool operator== (allocator<T,A> const&, allocator<T,A> const&)
   {
     return true;
   }
 
   /// Inequality comparison between two allocators
-  template<class T>
-  bool operator!= (allocator<T> const&, allocator<T> const&)
+  template<typename T, std::size_t A>
+  bool operator!= (allocator<T,A> const&, allocator<T,A> const&)
   {
     return false;
   }

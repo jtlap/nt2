@@ -10,12 +10,7 @@
 #define NT2_SDK_META_PERFORM_ALIGNED_ALLOCATION_HPP_INCLUDED
 
 #include <boost/mpl/bool.hpp>
-
-namespace boost { namespace simd
-{
-  template<class T>         struct allocator;
-  template<class Allocator> struct allocator_adaptor;
-} }
+#include <boost/simd/forward/allocator.hpp>
 
 namespace nt2 {  namespace memory
 {
@@ -24,7 +19,7 @@ namespace nt2 {  namespace memory
 
 namespace nt2 {  namespace meta
 {
-  template<class Allocator>
+  template<typename Allocator>
   struct perform_aligned_allocation : boost::mpl::false_
   {};
 
@@ -33,12 +28,12 @@ namespace nt2 {  namespace meta
         : boost::mpl::true_
   {};
 
-  template<class T>
+  template<typename T>
   struct  perform_aligned_allocation< boost::simd::allocator<T> >
         : boost::mpl::true_
   {};
 
-  template<class A>
+  template<typename A>
   struct  perform_aligned_allocation<boost::simd::allocator_adaptor<A> >
         : boost::mpl::true_
   {};

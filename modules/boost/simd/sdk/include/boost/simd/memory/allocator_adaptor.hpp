@@ -10,12 +10,14 @@
 #ifndef BOOST_SIMD_MEMORY_ALLOCATOR_ADAPTOR_HPP_INCLUDED
 #define BOOST_SIMD_MEMORY_ALLOCATOR_ADAPTOR_HPP_INCLUDED
 
-#include <cstddef>
 #include <boost/simd/memory/allocator.hpp>
+#include <boost/simd/forward/allocator.hpp>
+#include <cstddef>
 
 namespace boost { namespace simd
 {
-  template<class Allocator> struct allocator_adaptor : Allocator
+  template<typename Allocator, std::size_t Alignment>
+  struct allocator_adaptor : Allocator
   {
     typedef Allocator                             base_type;
     typedef typename base_type::value_type        value_type;
@@ -34,17 +36,17 @@ namespace boost { namespace simd
 
       @tparam U Type to rebind the current allocator to
     **/
-    template<class U> struct rebind
+    template<typename U> struct rebind
     {
       typedef typename Allocator::template rebind<U>::other base;
-      typedef allocator_adaptor<base>                       other;
+      typedef allocator_adaptor<base,Alignment>             other;
     };
 
     /// Default constructor
     allocator_adaptor() : base_type() {}
 
-    template<class Z>
-    allocator_adaptor ( allocator_adaptor<Z> const& src)
+    template<typename Z>
+    allocator_adaptor ( allocator_adaptor<Z,Alignment> const& src)
                       : base_type(src.base())
     {}
 
@@ -57,7 +59,8 @@ namespace boost { namespace simd
     /// Allocate a block of SIMD compatible memory
     pointer allocate( size_type c, const void* = 0 )
     {
-      return reinterpret_cast<pointer>(simd::allocate( base(), c*sizeof(value_type)));
+      c *= sizeof(value_type);
+      return reinterpret_cast<pointer>(simd::allocate<Alignment>( base(), c ));
     }
 
     /// Deallocate a pointer allocated by the current allocator
@@ -80,15 +83,19 @@ namespace boost { namespace simd
   };
 
   /// Equality comparison between two adapted allocators
-  template<class A>
-  bool operator==(allocator_adaptor<A> const& a, allocator_adaptor<A> const& b)
+  template<typename A, std::size_t N>
+  bool operator== ( allocator_adaptor<A,N> const& a
+                  , allocator_adaptor<A,N> const& b
+                  )
   {
     return a.base() == b.base();
   }
 
   /// Inequality comparison between two adapted allocators
-  template<class A>
-  bool operator!=(allocator_adaptor<A> const& a, allocator_adaptor<A> const& b)
+  template<typename A, std::size_t N>
+  bool operator!= ( allocator_adaptor<A,N> const& a
+                  , allocator_adaptor<A,N> const& b
+                  )
   {
     return a.base() != b.base();
   }

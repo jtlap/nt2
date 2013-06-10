@@ -23,3 +23,13 @@ NT2_TEST_CASE_TPL(vector, BOOST_SIMD_TYPES)
   for(int i=0;i<5;++i) p[i] = T(10)*i;
   for(int i=0;i<5;++i) NT2_TEST_EQUAL(p[i],T(10)*i);
 }
+
+NT2_TEST_CASE_TPL(vector_n, BOOST_SIMD_TYPES)
+{
+  using boost::simd::is_aligned;
+  std::vector<T, boost::simd::allocator<T, 4> > p(5);
+
+  NT2_TEST( is_aligned( &p[0],4 ) );
+  for(int i=0;i<5;++i) p[i] = T(10)*i;
+  for(int i=0;i<5;++i) NT2_TEST_EQUAL(p[i],T(10)*i);
+}
