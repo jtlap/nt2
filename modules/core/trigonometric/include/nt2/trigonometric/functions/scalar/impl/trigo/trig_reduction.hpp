@@ -83,14 +83,7 @@ namespace nt2 { namespace details { namespace internal
   private:
     static inline int_type inner_reduce(const A0& x, A0& xr)
     {
-      A0 xx = x;
-      if (mode::clipped)
-      {
-        if (mode::range == r_0_pio4)      xx = if_else_nan(is_0_pio4_reduced(x), x);
-        else if (mode::range == r_0_20pi) xx = if_else_nan(is_0_20pi_reduced(x), x);
-        else if (mode::range == r_0_mpi)  xx = if_else_nan(is_0_mpi_reduced(x),  x);
-        else if (mode::range == r_0_dmpi) xx = if_else_nan(is_0_dmpi_reduced(x), x);
-      }
+      A0 xx =  preliminary<mode>::clip(x);
       switch (mode::start)
       {
       case  r_0_pio4 :
@@ -121,10 +114,27 @@ namespace nt2 { namespace details { namespace internal
       }
     }
 
-    static inline int_type use_conversion(const A0 & xx,  A0& xr,  const style &, const double&)
+    template < class Mode, bool clipped = Mode::clipped>
+    struct preliminary
     {
-      return Zero<int_type>();
-    }
+      static inline A0 clip(const A0& x){ return x; }
+    };
+
+    template < class Mode>
+    struct preliminary<Mode, true>
+    {
+      static inline A0 clip(const A0& x){
+        if (Mode::range == r_0_pio4) return if_else_nan(is_0_pio4_reduced(x), x);
+        if (Mode::range == r_0_20pi) return if_else_nan(is_0_20pi_reduced(x), x);
+        if (Mode::range == r_0_mpi)  return if_else_nan(is_0_mpi_reduced(x),  x);
+        if (Mode::range == r_0_dmpi) return if_else_nan(is_0_dmpi_reduced(x), x);
+      }
+    };
+
+    static int_type use_conversion(const A0 & xx,  A0& xr,  const style &, const double&); //this is dummy,  necessary but never taken
+//     {
+//       return Zero<int_type>();
+//     }
 
     static inline int_type use_conversion(const A0 & xx,  A0& xr,  const tag::not_simd_type &, const float&)
     {
