@@ -67,14 +67,14 @@ namespace nt2
 
   template<class F, class X> BOOST_FORCEINLINE
   typename details::integration<F, X, tag::quadgk_>::result_type
-  quadgk(F f, X x)
+  quadgk(F f, X const& x)
   {
     return details::integration<F, X, tag::quadgk_>::call(f, x);
   }
 
   template<class F, class X, class Xpr> BOOST_FORCEINLINE
   typename details::integration<F, X, tag::quadgk_>::result_type
-  quadgk(F f, X x, nt2::details::option_expr<Xpr> const& opt)
+  quadgk(F f, X const& x, nt2::details::option_expr<Xpr> const& opt)
   {
     return details::integration<F, X, tag::quadgk_>::call(f, x, opt);
   }

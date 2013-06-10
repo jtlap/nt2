@@ -87,14 +87,14 @@ namespace nt2
 
   template<class F, class X> BOOST_FORCEINLINE
   typename details::integration_n<F, X, tag::qmtc_>::result_type
-  qmtc(F f, X ranges)
+  qmtc(F f, X const& ranges)
   {
     return details::integration_n<F, X, tag::qmtc_>::call(f, ranges);
   }
 
   template<class F, class X, class Xpr> BOOST_FORCEINLINE
   typename details::integration_n<F, X, tag::qmtc_>::result_type
-  qmtc(F f, X ranges, nt2::details::option_expr<Xpr> const& opt)
+  qmtc(F f, X const& ranges, nt2::details::option_expr<Xpr> const& opt)
   {
     return details::integration_n<F, X, tag::qmtc_>::call(f, ranges, opt);
   }

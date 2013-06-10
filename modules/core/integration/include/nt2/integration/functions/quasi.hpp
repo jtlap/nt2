@@ -8,8 +8,9 @@
 //==============================================================================
 #ifndef NT2_INTEGRATION_FUNCTIONS_QUASI_HPP_INCLUDED
 #define NT2_INTEGRATION_FUNCTIONS_QUASI_HPP_INCLUDED
+
 #include <nt2/include/functor.hpp>
-#include <nt2/core/container/table/table.hpp>
+#include <nt2/core/container/dsl/size.hpp>
 
 /*!
  * \file
