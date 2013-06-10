@@ -11,6 +11,7 @@
 
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/include/functions/simd/rem_pio2_medium.hpp>
 #include <nt2/include/functions/simd/rem_pio2_cephes.hpp>
 #include <nt2/include/functions/simd/rem_pio2_straight.hpp>
@@ -38,6 +39,7 @@
 #include <nt2/include/functions/inrad.hpp>
 #include <nt2/include/functions/simd/split.hpp>
 #include <nt2/include/functions/simd/group.hpp>
+#include <boost/mpl/int.hpp>
 
 namespace nt2 { namespace details { namespace internal
 {
@@ -84,34 +86,7 @@ namespace nt2 { namespace details { namespace internal
     static inline int_type inner_reduce(const A0& x, A0& xr)
     {
       A0 xx =  preliminary<mode>::clip(x);
-      switch (mode::start)
-      {
-      case  r_0_pio4 :
-        if(nt2::all(is_0_pio4_reduced(xx)) || mode::range == r_0_pio4)
-        {
-          xr = xx; return Zero<int_type>();
-        }
-      case r_0_pio2 :
-        if(nt2::all(is_0_pio2_reduced(xx)))
-        {
-          return rem_pio2_straight(xx, xr);
-        }
-      case  r_0_20pi :
-        if(nt2::all(is_0_20pi_reduced(xx)) || mode::range == r_0_20pi)
-        {
-          return rem_pio2_cephes(xx, xr);
-        }
-      case  r_0_mpi :
-        if(nt2::all(is_0_mpi_reduced(xx)) || mode::range == r_0_mpi)
-        {
-          return rem_pio2_medium(xx, xr);
-        }
-      case  r_0_dmpi :
-        if(nt2::all(is_0_dmpi_reduced(xx)) && conversion_allowed())
-          return use_conversion(xx, xr, style(), base_A0());
-      case  r_0_inf :
-        return rem_pio2(xx, xr);
-      }
+      return select_mode(xx, xr, boost::mpl::int_<mode::start>());
     }
 
     template < class Mode, bool clipped = Mode::clipped>
@@ -131,10 +106,45 @@ namespace nt2 { namespace details { namespace internal
       }
     };
 
-    static int_type use_conversion(const A0 & xx,  A0& xr,  const style &, const double&); //this is dummy,  necessary but never taken
-//     {
-//       return Zero<int_type>();
-//     }
+
+    static int_type select_mode(const A0& xx, A0& xr, boost::mpl::int_<r_0_pio4> const&)
+    {
+      if(nt2::all(is_0_pio4_reduced(xx)) || mode::range == r_0_pio4)
+      {
+        xr = xx; return Zero<int_type>();
+      }
+      return select_mode(xx,xr,boost::mpl::int_<r_0_pio2>());
+    }
+
+    static int_type select_mode(const A0& xx, A0& xr, boost::mpl::int_<r_0_pio2> const&)
+    {
+      if(nt2::all(is_0_pio2_reduced(xx)))
+        return rem_pio2_straight(xx, xr);
+      return select_mode(xx,xr,boost::mpl::int_<r_0_20pi>());
+    }
+
+    static int_type select_mode(const A0& xx, A0& xr, boost::mpl::int_< r_0_20pi> const&)
+    {
+      if(mode::range == r_0_20pi || nt2::all(is_0_20pi_reduced(xx)))
+        return rem_pio2_cephes(xx, xr);
+      return select_mode(xx,xr,boost::mpl::int_<r_0_mpi>());
+    }
+
+    static int_type select_mode(const A0& xx, A0& xr, boost::mpl::int_< r_0_mpi> const&)
+    {
+      if(mode::range == r_0_mpi || nt2::all(is_0_mpi_reduced(xx)))
+        return rem_pio2_medium(xx, xr);
+      return select_mode(xx,xr,boost::mpl::int_<r_0_dmpi>());
+    }
+
+    static int_type select_mode(const A0& xx, A0& xr, boost::mpl::int_< r_0_dmpi> const&)
+    {
+      if(nt2::all(conversion_allowed() && is_0_dmpi_reduced(xx)))
+        return use_conversion(xx, xr, style(), base_A0());
+      return rem_pio2(xx, xr);
+    }
+
+    static int_type use_conversion(const A0 & xx,  A0& xr,  const style &, const double&); //this is dummy, necessary but never taken
 
     static inline int_type use_conversion(const A0 & xx,  A0& xr,  const tag::not_simd_type &, const float&)
     {
