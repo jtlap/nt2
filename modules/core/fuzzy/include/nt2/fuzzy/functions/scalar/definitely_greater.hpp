@@ -15,7 +15,7 @@
 #include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/logical_and.hpp>
 #include <nt2/include/constants/false.hpp>
-#include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

@@ -9,7 +9,7 @@
 #ifndef NT2_FUZZY_FUNCTIONS_SCALAR_FUZZY_DEFINITELY_NOT_EQUAL_HPP_INCLUDED
 #define NT2_FUZZY_FUNCTIONS_SCALAR_FUZZY_DEFINITELY_NOT_EQUAL_HPP_INCLUDED
 #include <nt2/fuzzy/functions/fuzzy_definitely_not_equal.hpp>
-#include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/include/functions/scalar/max.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/dist.hpp>

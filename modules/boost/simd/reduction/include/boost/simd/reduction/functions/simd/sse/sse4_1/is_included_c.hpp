@@ -10,7 +10,7 @@
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_SIMD_SSE_SSE4_1_IS_INCLUDED_C_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
 #include <boost/simd/reduction/functions/is_included_c.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext

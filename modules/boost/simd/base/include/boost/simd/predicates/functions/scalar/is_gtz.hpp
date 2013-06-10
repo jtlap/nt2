@@ -10,7 +10,7 @@
 #define BOOST_SIMD_PREDICATES_FUNCTIONS_SCALAR_IS_GTZ_HPP_INCLUDED
 #include <boost/simd/predicates/functions/is_gtz.hpp>
 #include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

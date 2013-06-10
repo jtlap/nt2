@@ -9,7 +9,7 @@
 #ifndef NT2_FUZZY_FUNCTIONS_SIMD_COMMON_FUZZY_DEFINITELY_GREATER_HPP_INCLUDED
 #define NT2_FUZZY_FUNCTIONS_SIMD_COMMON_FUZZY_DEFINITELY_GREATER_HPP_INCLUDED
 #include <nt2/fuzzy/functions/fuzzy_definitely_greater.hpp>
-#include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/fuzzy/functions/fuzzy_definitely_greater.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/plus.hpp>

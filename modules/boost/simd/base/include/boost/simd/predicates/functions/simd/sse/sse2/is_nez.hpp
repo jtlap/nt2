@@ -14,7 +14,6 @@
 #include <boost/simd/include/functions/simd/logical_or.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/simd/swar/functions/details/shuffle.hpp>
 

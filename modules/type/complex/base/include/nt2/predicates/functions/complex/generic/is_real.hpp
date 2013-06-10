@@ -13,7 +13,6 @@
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/constants/true.hpp>
-#include <nt2/sdk/simd/logical.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>

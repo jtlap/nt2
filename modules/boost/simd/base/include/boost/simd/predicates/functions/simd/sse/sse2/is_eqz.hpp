@@ -13,7 +13,7 @@
 #include <boost/simd/include/functions/simd/is_equal.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/functions/simd/bitwise_and.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/swar/functions/details/shuffle.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 

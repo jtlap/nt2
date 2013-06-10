@@ -11,7 +11,7 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/predicates/functions/is_gez.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/swar/functions/details/shuffle.hpp>
 
 namespace boost { namespace simd { namespace ext

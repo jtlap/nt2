@@ -11,7 +11,7 @@
 #ifdef BOOST_SIMD_HAS_SSE4_2_SUPPORT
 
 #include <boost/simd/operator/functions/is_less.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

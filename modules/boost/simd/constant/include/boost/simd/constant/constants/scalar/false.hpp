@@ -10,7 +10,7 @@
 #define BOOST_SIMD_CONSTANT_CONSTANTS_SCALAR_FALSE_HPP_INCLUDED
 
 #include <boost/simd/constant/constants/false.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

@@ -21,7 +21,7 @@
 #include <nt2/include/functions/simd/is_less.hpp>
 #include <nt2/include/functions/simd/logical_or.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/pi.hpp>

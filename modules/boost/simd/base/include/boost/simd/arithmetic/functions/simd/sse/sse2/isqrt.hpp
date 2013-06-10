@@ -10,7 +10,7 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_ISQRT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/arithmetic/functions/isqrt.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/arithmetic/functions/isqrt.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/functions/simd/toint.hpp>

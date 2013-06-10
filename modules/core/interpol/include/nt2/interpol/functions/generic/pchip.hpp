@@ -42,7 +42,7 @@
 #include <nt2/include/constants/three.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 #include <boost/assert.hpp>
 
 namespace nt2 { namespace ext

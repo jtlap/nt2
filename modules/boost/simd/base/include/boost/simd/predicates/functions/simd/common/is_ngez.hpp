@@ -13,7 +13,7 @@
 #include <boost/simd/include/functions/simd/is_not_greater_equal.hpp>
 #include <boost/simd/include/functions/simd/is_ltz.hpp>
 #include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

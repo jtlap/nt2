@@ -11,7 +11,7 @@
 #include <nt2/fuzzy/functions/fuzzy_less_or_equal.hpp>
 #include <nt2/include/functions/scalar/max.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
-#include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_

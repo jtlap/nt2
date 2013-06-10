@@ -12,7 +12,7 @@
 #include <boost/simd/operator/functions/is_equal.hpp>
 #include <boost/simd/include/functions/simd/splat.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/sdk/meta/as_arithmetic.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

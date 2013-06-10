@@ -12,7 +12,7 @@
 #include <boost/simd/include/functions/simd/bits.hpp>
 #include <boost/simd/include/functions/simd/genmask.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <climits>
 #include <cstddef>
 

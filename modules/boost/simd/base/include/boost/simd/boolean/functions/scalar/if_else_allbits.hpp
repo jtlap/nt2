@@ -10,7 +10,7 @@
 #define BOOST_SIMD_BOOLEAN_FUNCTIONS_SCALAR_IF_ELSE_ALLBITS_HPP_INCLUDED
 #include <boost/simd/boolean/functions/if_else_allbits.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/include/functions/scalar/is_nez.hpp>
 
 namespace boost { namespace simd { namespace ext

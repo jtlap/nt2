@@ -12,7 +12,7 @@
 #include <boost/simd/include/functions/scalar/is_eqz.hpp>
 #include <boost/simd/include/functions/scalar/frac.hpp>
 #include <boost/simd/include/constants/true.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

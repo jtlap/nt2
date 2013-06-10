@@ -27,7 +27,7 @@
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
-#include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 
 namespace nt2 { namespace ext

@@ -10,7 +10,7 @@
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_SIMD_COMMON_COMPARE_LESS_EQUAL_HPP_INCLUDED
 
 #include <boost/simd/reduction/functions/compare_less_equal.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/include/functions/simd/compare_less.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 

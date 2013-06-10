@@ -16,7 +16,7 @@
 #include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/constants/false.hpp>
 #include <nt2/include/constants/true.hpp>
-#include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/include/functions/scalar/logical_or.hpp>
 
 

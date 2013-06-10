@@ -14,7 +14,7 @@
 #include <boost/simd/include/functions/simd/insert.hpp>
 #include <boost/simd/include/functions/simd/extract.hpp>
 #include <boost/simd/include/functions/simd/is_nez.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/iterate.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>

@@ -13,7 +13,7 @@
 #include <boost/simd/include/constants/allbits.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/details/aliasing.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/mpl/sizeof.hpp>
 

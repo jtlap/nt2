@@ -21,7 +21,7 @@
 #include <nt2/include/functions/scalar/is_less.hpp>
 #include <nt2/include/constants/valmax.hpp>
 #include <nt2/include/constants/false.hpp>
-#include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/core/container/table/table.hpp>
 
 

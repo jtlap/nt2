@@ -10,7 +10,7 @@
 #define BOOST_SIMD_SDK_SIMD_DETAILS_LOGICAL_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/native_fwd.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/logical.hpp>
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
 #include <boost/simd/sdk/simd/details/native/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>

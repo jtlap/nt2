@@ -9,7 +9,7 @@
 #ifndef NT2_BESSEL_FUNCTIONS_SIMD_COMMON_YNI_HPP_INCLUDED
 #define NT2_BESSEL_FUNCTIONS_SIMD_COMMON_YNI_HPP_INCLUDED
 #include <nt2/bessel/functions/yni.hpp>
-#include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/functions/simd/splat.hpp>

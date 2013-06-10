@@ -25,7 +25,7 @@
 #include <nt2/include/functions/simd/is_inf.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/include/functions/simd/inbtrue.hpp>
-#include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

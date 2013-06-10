@@ -10,7 +10,7 @@
 #define BOOST_SIMD_PREDICATES_FUNCTIONS_SIMD_SSE_AVX_IS_ORD_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 #include <boost/simd/predicates/functions/is_ord.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/predicates/functions/is_ord.hpp>
 
 namespace boost { namespace simd { namespace ext

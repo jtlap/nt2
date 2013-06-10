@@ -36,7 +36,7 @@
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/functions/simd/max.hpp>
 #include <boost/simd/include/constants/int_splat.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 

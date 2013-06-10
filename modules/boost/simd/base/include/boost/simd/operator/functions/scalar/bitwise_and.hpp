@@ -10,7 +10,7 @@
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_SCALAR_BITWISE_AND_HPP_INCLUDED
 #include <boost/simd/operator/functions/bitwise_and.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/mpl/sizeof.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

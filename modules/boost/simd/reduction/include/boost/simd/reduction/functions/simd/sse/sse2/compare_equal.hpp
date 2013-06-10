@@ -12,7 +12,7 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/reduction/functions/compare_equal.hpp>
 #include <boost/simd/include/functions/simd/is_equal.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 
 namespace boost { namespace simd { namespace ext

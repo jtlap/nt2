@@ -13,7 +13,7 @@
 // load for AVX SIMD types
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/operator/functions/load.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>

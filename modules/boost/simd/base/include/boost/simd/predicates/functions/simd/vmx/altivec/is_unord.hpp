@@ -16,7 +16,7 @@
 #include <boost/simd/include/functions/simd/logical_or.hpp>
 #include <boost/simd/include/functions/simd/logical_not.hpp>
 #include <boost/simd/include/constants/false.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

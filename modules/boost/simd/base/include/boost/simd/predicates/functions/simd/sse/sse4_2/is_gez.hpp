@@ -14,7 +14,7 @@
 #include <boost/simd/include/functions/simd/is_greater.hpp>
 #include <boost/simd/include/functions/simd/logical_not.hpp>
 #include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

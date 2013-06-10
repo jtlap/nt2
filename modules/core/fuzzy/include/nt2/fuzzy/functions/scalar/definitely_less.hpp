@@ -16,7 +16,7 @@
 #include <nt2/include/functions/scalar/successor.hpp>
 #include <nt2/include/functions/scalar/predecessor.hpp>
 #include <nt2/include/functions/scalar/subs.hpp>
-#include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/include/functions/scalar/logical_and.hpp>
 #include <nt2/include/functions/scalar/logical_or.hpp>
 #include <nt2/include/constants/true.hpp>

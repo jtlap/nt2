@@ -10,7 +10,7 @@
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_SIMD_SSE_AVX_IS_EQUAL_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 #include <boost/simd/operator/functions/is_equal.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 
 namespace boost { namespace simd { namespace ext

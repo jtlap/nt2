@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_PREDICATES_FUNCTIONS_GENERIC_IS_REAL_HPP_INCLUDED
 #define BOOST_SIMD_PREDICATES_FUNCTIONS_GENERIC_IS_REAL_HPP_INCLUDED
 #include <boost/simd/predicates/functions/is_real.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/include/constants/true.hpp>
 
 namespace boost { namespace simd { namespace ext

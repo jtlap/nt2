@@ -9,7 +9,7 @@
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_COMPLEX_GENERIC_EXPM1_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_COMPLEX_GENERIC_EXPM1_HPP_INCLUDED
 #include <nt2/exponential/functions/expm1.hpp>
-#include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/include/constants/mtwo.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/half.hpp>

@@ -10,7 +10,7 @@
 #define BOOST_SIMD_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_NOT_GREATER_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/predicates/functions/is_not_greater.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/predicates/functions/simd/common/is_not_greater.hpp>
 
 namespace boost { namespace simd { namespace ext

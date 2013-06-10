@@ -14,7 +14,7 @@
 #include <boost/simd/include/functions/simd/logical_and.hpp>
 #include <boost/simd/include/functions/simd/is_nez.hpp>
 #include <boost/simd/include/functions/simd/is_gez.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

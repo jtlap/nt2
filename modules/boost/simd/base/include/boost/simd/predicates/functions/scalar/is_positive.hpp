@@ -11,7 +11,7 @@
 #include <boost/simd/predicates/functions/is_positive.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/include/functions/scalar/sbits.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

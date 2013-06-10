@@ -35,7 +35,7 @@
 #include <nt2/include/functions/simd/is_gtz.hpp>
 #include <nt2/include/functions/simd/pow_absi.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

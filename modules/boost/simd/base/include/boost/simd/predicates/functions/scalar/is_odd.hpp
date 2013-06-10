@@ -12,7 +12,7 @@
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/functions/scalar/minusone.hpp>
 #include <boost/simd/include/functions/scalar/is_even.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

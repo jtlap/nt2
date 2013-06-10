@@ -11,7 +11,7 @@
 #include <boost/simd/reduction/functions/is_included_c.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_and.hpp>
 #include <boost/simd/include/functions/scalar/is_eqz.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

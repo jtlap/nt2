@@ -14,7 +14,7 @@
 #include <nt2/include/functions/scalar/exponent.hpp>
 #include <nt2/include/functions/scalar/maxnummag.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
-#include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

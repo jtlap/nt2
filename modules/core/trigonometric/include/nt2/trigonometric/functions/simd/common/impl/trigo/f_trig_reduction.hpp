@@ -38,7 +38,7 @@
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/two.hpp>
-#include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 #include <boost/simd/sdk/meta/is_upgradable.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/mpl/not.hpp>

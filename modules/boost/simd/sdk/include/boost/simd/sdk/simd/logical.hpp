@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_SDK_SIMD_LOGICAL_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_LOGICAL_HPP_INCLUDED
 
+#include <boost/simd/sdk/simd/category.hpp>
 #include <boost/simd/sdk/details/aliasing.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
@@ -93,24 +94,11 @@ namespace boost { namespace simd
   }
 } }
 
-namespace boost { namespace simd { namespace ext
-{
-  //============================================================================
-  // logical_ is the hierarchy of logical<T> and goes straight to fundamental
-  //============================================================================
-  template<class T> struct logical_ : dispatch::meta::fundamental_<T>
-  {
-    typedef dispatch::meta::fundamental_<T> parent;
-  };
-} } }
-
 //==============================================================================
 // Register logical<T> to various dispatch system
 //==============================================================================
 namespace boost { namespace dispatch { namespace meta
 {
-  using boost::simd::ext::logical_;
-
   template<class T, class Origin>
   struct  hierarchy_of< simd::logical<T>, Origin>
   {

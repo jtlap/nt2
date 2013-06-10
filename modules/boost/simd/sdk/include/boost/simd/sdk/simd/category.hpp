@@ -27,6 +27,15 @@ namespace boost { namespace dispatch { namespace meta
     typedef generic_< typename property_of<T>::type > parent;
   };
 
+  //============================================================================
+  // logical_ is the hierarchy of logical<T> and goes straight to fundamental
+  //============================================================================
+  template<class T>
+  struct logical_ : fundamental_<T>
+  {
+    typedef fundamental_<T> parent;
+  };
+
   template<class T>
   struct elementwise_ : unspecified_<T>
   {
@@ -50,6 +59,7 @@ namespace boost { namespace dispatch { namespace meta
 namespace boost { namespace simd { namespace ext
 {
   using boost::dispatch::meta::simd_;
+  using boost::dispatch::meta::logical_;
   using boost::dispatch::meta::elementwise_;
   using boost::dispatch::meta::reduction_;
   using boost::dispatch::meta::cumulative_;

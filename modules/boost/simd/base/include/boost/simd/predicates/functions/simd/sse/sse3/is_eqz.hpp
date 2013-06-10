@@ -10,7 +10,7 @@
 #define BOOST_SIMD_PREDICATES_FUNCTIONS_SIMD_SSE_SSE3_IS_EQZ_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE3_SUPPORT
 #include <boost/simd/predicates/functions/is_eqz.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/sdk/meta/make_dependent.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 

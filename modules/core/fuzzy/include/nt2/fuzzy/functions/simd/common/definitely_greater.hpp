@@ -10,7 +10,7 @@
 #define NT2_FUZZY_FUNCTIONS_SIMD_COMMON_DEFINITELY_GREATER_HPP_INCLUDED
 #include <nt2/fuzzy/functions/definitely_greater.hpp>
 #include <nt2/include/functions/simd/logical_and.hpp>
-#include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/include/functions/simd/is_ord.hpp>
 #include <nt2/include/functions/simd/successor.hpp>
 #include <nt2/include/functions/simd/abs.hpp>

@@ -11,7 +11,7 @@
 
 #include <boost/simd/predicates/functions/is_nan.hpp>
 #include <boost/simd/include/constants/false.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/sdk/config.hpp>
 
 namespace boost { namespace simd { namespace ext

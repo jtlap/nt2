@@ -16,7 +16,7 @@
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/one.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 
 namespace boost { namespace simd { namespace ext

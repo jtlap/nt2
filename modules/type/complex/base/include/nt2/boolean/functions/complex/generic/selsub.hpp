@@ -13,7 +13,7 @@
 #include <nt2/include/functions/if_else_zero.hpp>
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/unary_minus.hpp>
-#include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 
 namespace nt2 { namespace ext
 {

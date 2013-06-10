@@ -11,7 +11,7 @@
 #include <nt2/fuzzy/functions/almost_equal.hpp>
 #include <nt2/include/constants/false.hpp>
 #include <nt2/include/constants/true.hpp>
-#include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/include/functions/scalar/dist.hpp>
 #include <nt2/include/functions/scalar/is_inf.hpp>
 #include <nt2/include/functions/scalar/is_nan.hpp>

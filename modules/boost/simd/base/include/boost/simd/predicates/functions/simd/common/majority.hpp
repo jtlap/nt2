@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_PREDICATES_FUNCTIONS_SIMD_COMMON_MAJORITY_HPP_INCLUDED
 #define BOOST_SIMD_PREDICATES_FUNCTIONS_SIMD_COMMON_MAJORITY_HPP_INCLUDED
 #include <boost/simd/predicates/functions/majority.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/include/functions/simd/is_nez.hpp>
 #include <boost/simd/include/functions/simd/logical_and.hpp>
 #include <boost/simd/include/functions/simd/logical_or.hpp>

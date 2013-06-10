@@ -12,7 +12,7 @@
 #include <boost/simd/operator/functions/load.hpp>
 #include <boost/simd/include/functions/simd/unaligned_load.hpp>
 #include <boost/simd/operator/functions/simd/common/details/details_load_store.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/sdk/meta/iterate.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/mpl/equal_to.hpp>

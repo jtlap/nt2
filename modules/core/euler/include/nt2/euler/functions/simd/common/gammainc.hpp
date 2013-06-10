@@ -37,7 +37,7 @@
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/hundred.hpp>
-#include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/options.hpp>

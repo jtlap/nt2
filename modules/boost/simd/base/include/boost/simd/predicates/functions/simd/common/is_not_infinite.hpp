@@ -13,7 +13,7 @@
 #include <boost/simd/include/functions/simd/abs.hpp>
 #include <boost/simd/include/functions/simd/is_not_equal.hpp>
 #include <boost/simd/include/constants/inf.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/sdk/config.hpp>
 
 namespace boost { namespace simd { namespace ext

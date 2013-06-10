@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPO_D_EXPO_REDUCTION_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPO_D_EXPO_REDUCTION_HPP_INCLUDED
-#include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/include/functions/simd/oneplus.hpp>
 #include <nt2/include/functions/simd/round2even.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>

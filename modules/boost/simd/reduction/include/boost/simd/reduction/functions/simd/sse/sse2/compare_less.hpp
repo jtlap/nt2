@@ -14,7 +14,7 @@
 #include <boost/simd/reduction/functions/simd/common/details/compare_less_helper.hpp>
 #include <boost/simd/include/functions/simd/is_less.hpp>
 #include <boost/simd/include/functions/simd/is_greater.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 
 namespace boost { namespace simd { namespace ext

@@ -10,7 +10,7 @@
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_SCALAR_NONE_HPP_INCLUDED
 #include <boost/simd/reduction/functions/none.hpp>
 #include <boost/simd/include/functions/scalar/is_nez.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

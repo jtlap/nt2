@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NEGATIVE_HPP_INCLUDED
 #define BOOST_SIMD_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NEGATIVE_HPP_INCLUDED
 #include <boost/simd/predicates/functions/is_negative.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/simd/is_ltz.hpp>
 #include <boost/simd/include/functions/simd/is_equal.hpp>

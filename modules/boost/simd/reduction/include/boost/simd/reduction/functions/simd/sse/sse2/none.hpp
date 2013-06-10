@@ -12,7 +12,7 @@
 #include <boost/simd/reduction/functions/none.hpp>
 #include <boost/simd/include/functions/simd/any.hpp>
 #include <boost/simd/include/functions/simd/logical_not.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

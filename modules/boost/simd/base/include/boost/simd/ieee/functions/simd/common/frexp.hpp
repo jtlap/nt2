@@ -24,7 +24,7 @@
 #include <boost/simd/include/functions/simd/splat.hpp>
 #include <boost/simd/include/constants/maxexponent.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/type_traits/is_same.hpp>
 
