@@ -6,16 +6,15 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_VMX_ALTIVEC_FMA_HPP_INCLUDED
-#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_VMX_ALTIVEC_FMA_HPP_INCLUDED
+#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_VMX_ALTIVEC_CORRECT_FMA_HPP_INCLUDED
+#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_VMX_ALTIVEC_CORRECT_FMA_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
-#include <boost/simd/arithmetic/functions/fma.hpp>
-#include <boost/simd/include/functions/correct_fma.hpp>
+#include <boost/simd/arithmetic/functions/correct_fma.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fma_, boost::simd::tag::altivec_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::correct_fma_, boost::simd::tag::altivec_
                                    , (A0)
                                    , ((simd_<floating_<A0>,boost::simd::tag::altivec_>))
                                      ((simd_<floating_<A0>,boost::simd::tag::altivec_>))
@@ -25,7 +24,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
     {
-      return correct_fma(a0, a1, a2);
+      return vec_madd(a0(), a1(), a2());
     }
   };
 } } }

@@ -8,10 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_FMA_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_FMA_HPP_INCLUDED
+
 #include <boost/simd/arithmetic/functions/fma.hpp>
 #include <boost/simd/include/functions/simd/multiplies.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
-// TO DO define a proper fma policy
 
 namespace boost { namespace simd { namespace ext
 {

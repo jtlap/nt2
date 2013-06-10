@@ -8,11 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_CORRECT_FMA_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_CORRECT_FMA_HPP_INCLUDED
+
 #include <boost/simd/arithmetic/functions/correct_fma.hpp>
 #include <boost/simd/include/functions/simd/two_prod.hpp>
 #include <boost/simd/include/functions/simd/two_add.hpp>
-#include <boost/simd/include/functions/simd/plus.hpp>
-#include <boost/simd/include/functions/simd/multiplies.hpp>
+#include <boost/simd/include/functions/simd/fma.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
     {
-      return a0*a1+a2;
+      return fma(a0, a1, a2);
     }
   };
 

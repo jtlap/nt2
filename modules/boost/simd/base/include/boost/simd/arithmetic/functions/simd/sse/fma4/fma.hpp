@@ -11,62 +11,35 @@
 #ifdef BOOST_SIMD_HAS_FMA4_SUPPORT
 
 #include <boost/simd/arithmetic/functions/fma.hpp>
+#include <boost/simd/include/functions/correct_fma.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::fma_, boost::simd::tag::fma4_,
                       (A0),
-                      ((simd_<single_<A0>,boost::simd::tag::sse_>))
-                      ((simd_<single_<A0>,boost::simd::tag::sse_>))
-                      ((simd_<single_<A0>,boost::simd::tag::sse_>))
+                      ((simd_<floating_<A0>,boost::simd::tag::sse_>))
+                      ((simd_<floating_<A0>,boost::simd::tag::sse_>))
+                      ((simd_<floating_<A0>,boost::simd::tag::sse_>))
                      )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
     {
-      return _mm_macc_ps(a0, a1, a2);
+      return correct_fma(a0, a1, a2);
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::fma_, boost::simd::tag::fma4_,
                       (A0),
-                      ((simd_<double_<A0>,boost::simd::tag::sse_>))
-                      ((simd_<double_<A0>,boost::simd::tag::sse_>))
-                      ((simd_<double_<A0>,boost::simd::tag::sse_>))
+                      ((simd_<floating_<A0>,boost::simd::tag::avx_>))
+                      ((simd_<floating_<A0>,boost::simd::tag::avx_>))
+                      ((simd_<floating_<A0>,boost::simd::tag::avx_>))
                      )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
     {
-      return _mm_macc_pd(a0, a1, a2);
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::fma_, boost::simd::tag::fma4_,
-                      (A0),
-                      ((simd_<single_<A0>,boost::simd::tag::avx_>))
-                      ((simd_<single_<A0>,boost::simd::tag::avx_>))
-                      ((simd_<single_<A0>,boost::simd::tag::avx_>))
-                     )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
-    {
-      return _mm256_macc_ps(a0, a1, a2);
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::fma_, boost::simd::tag::fma4_,
-                      (A0),
-                      ((simd_<double_<A0>,boost::simd::tag::avx_>))
-                      ((simd_<double_<A0>,boost::simd::tag::avx_>))
-                      ((simd_<double_<A0>,boost::simd::tag::avx_>))
-                     )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
-    {
-      return _mm256_macc_pd(a0, a1, a2);
+      return correct_fma(a0, a1, a2);
     }
   };
 } } }
