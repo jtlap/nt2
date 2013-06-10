@@ -18,7 +18,7 @@
 #include <nt2/sdk/simd/tags.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 
-namespace nt2 { namespace details { namespace internal
+namespace nt2 { namespace details
 {
   template < class A0,
              class style,
@@ -68,7 +68,7 @@ namespace nt2 { namespace details { namespace internal
       if (n == 1) return nt2::rec(y);  else return -y;
     }
   };
-} } }
+} }
 
 
 #endif

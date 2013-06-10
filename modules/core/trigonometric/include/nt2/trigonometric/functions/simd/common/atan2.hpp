@@ -35,7 +35,6 @@
 
 namespace nt2 { namespace ext
 {
-  namespace impl = nt2::details::internal;
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::atan2_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
@@ -83,7 +82,7 @@ namespace nt2 { namespace ext
       lA0 test =  nt2::logical_and(nt2::is_inf(a0),  nt2::is_inf(a1));
       a0 =  nt2::if_else(test, nt2::copysign(One<A0>(), a0), a0);
       a1 =  nt2::if_else(test, nt2::copysign(One<A0>(), a1), a1);
-      A0 z = impl::invtrig_base<result_type,radian_tag, tag::simd_type>::kernel_atan(a0/a1);
+      A0 z = details::invtrig_base<result_type,radian_tag, tag::simd_type>::kernel_atan(a0/a1);
       //A0 z = atan(abs(a0/a1));  // case a1 > 0,  a0 > 0
       z = nt2::if_else(nt2::is_gtz(a1), z, nt2::Pi<A0>()-z)*nt2::signnz(a0);
       z =  nt2::if_else( nt2::is_eqz(a0),

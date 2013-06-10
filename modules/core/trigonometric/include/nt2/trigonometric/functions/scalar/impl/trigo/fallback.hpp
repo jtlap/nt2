@@ -16,31 +16,25 @@ namespace nt2
 {
   namespace details
   {
-    namespace internal
+    class standard_tag{};
+    template <class tag > struct fallback
     {
-
-      class standard_tag{};
-      template <class tag > struct fallback
-      {
-        template < class T > static inline T cos(T x){return std::cos(x); }
-        template < class T > static inline T sin(T x){return std::sin(x); }
-        template < class T > static inline T tan(T x){return std::tan(x); }
-        //     functor<standard::cospi_> _cospi;
-        //     functor<standard::sinpi_> _sinpi;
-        //     functor<standard::tanpi_> _tanpi;
-      };
+      template < class T > static inline T cos(T x){return std::cos(x); }
+      template < class T > static inline T sin(T x){return std::sin(x); }
+      template < class T > static inline T tan(T x){return std::tan(x); }
+      //     functor<standard::cospi_> _cospi;
+      //     functor<standard::sinpi_> _sinpi;
+      //     functor<standard::tanpi_> _tanpi;
+    };
 
 #ifndef FALLBACK_TAG
 #define FALLBACK_TAG standard_tag
 #endif
 
-    }
   }
 }
 
 
+
 #endif
 
-// /////////////////////////////////////////////////////////////////////////////
-// End of fallback.hpp
-// /////////////////////////////////////////////////////////////////////////////

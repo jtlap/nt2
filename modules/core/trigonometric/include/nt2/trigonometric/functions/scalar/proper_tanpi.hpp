@@ -49,7 +49,7 @@ namespace nt2 { namespace ext
       if (absa0 > nt2::Half<A0>()) return nt2::Nan<A0>();
       bool test = (absa0 <= nt2::Quarter<A0>());
       absa0 = test ? absa0 : nt2::Half<A0>()-absa0;
-      A0 that = impl::trig_base<A0,pi_tag,tag::not_simd_type, clipped_pio4_>::tana(absa0);
+      A0 that = details::trig_base<A0,pi_tag,tag::not_simd_type, clipped_pio4_>::tana(absa0);
       that = nt2::negif(nt2::is_ltz(a0), that);
       return test ? that : nt2::rec(that);
     }

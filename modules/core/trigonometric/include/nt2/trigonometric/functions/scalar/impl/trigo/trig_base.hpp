@@ -11,7 +11,6 @@
 
 #include <nt2/trigonometric/functions/scalar/impl/selection_tags.hpp>
 #include <nt2/trigonometric/functions/scalar/impl/trigo/trig_reduction.hpp>
-//#include <nt2/trigonometric/functions/scalar/impl/trigo/d_trig_reduction.hpp>
 #include <nt2/include/functions/simd/is_invalid.hpp>
 #include <nt2/include/functions/simd/is_nan.hpp>
 #include <nt2/include/functions/simd/is_eqz.hpp>
@@ -44,7 +43,7 @@
 // See the NT2 technical documentation for more insights
 
 
-namespace nt2 { namespace details { namespace internal
+namespace nt2 { namespace details
 {
   // in the class defined below:
   // A0 is the argument type of the trigonometric functions
@@ -269,7 +268,7 @@ namespace nt2 { namespace details { namespace internal
     }
 
   };
-} } }
+} }
 
 
 #endif

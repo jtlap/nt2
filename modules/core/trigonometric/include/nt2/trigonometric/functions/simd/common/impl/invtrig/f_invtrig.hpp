@@ -42,7 +42,7 @@
 #include <nt2/include/constants/mhalf.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
 
-namespace nt2 { namespace details { namespace internal
+namespace nt2 { namespace details
 {
   template < class A0 >
   struct invtrig_base<A0,radian_tag,tag::simd_type, float>
@@ -118,6 +118,6 @@ namespace nt2 { namespace details { namespace internal
       return  nt2::add(yy, nt2::fma(xx, nt2::mul( z1, z), xx));
     }
   };
-} } }
+} }
 
 #endif

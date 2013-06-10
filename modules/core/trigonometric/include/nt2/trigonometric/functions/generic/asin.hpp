@@ -49,7 +49,7 @@ namespace nt2 { namespace ext
     typedef typename boost::simd::meta::is_native<A0>::type     is_native_t;
     NT2_FUNCTOR_CALL(1)
     {
-      return impl::invtrig_base<result_type,radian_tag,is_native_t>::asin(a0);
+      return details::invtrig_base<result_type,radian_tag,is_native_t>::asin(a0);
     }
   };
 } }

@@ -16,7 +16,7 @@
 #include <nt2/sdk/simd/tags.hpp>
 #include <nt2/include/functions/simd/oneminus.hpp>
 
-namespace nt2 { namespace details { namespace internal
+namespace nt2 { namespace details
 {
   template <class A0> struct trig_evaluation < A0,  tag::simd_type, double>
   {
@@ -77,7 +77,7 @@ namespace nt2 { namespace details { namespace internal
       return nt2::if_else(nt2::is_equal(n, One<int_type>()),rec(y),-y);
     }
   };
-} } }
+} }
 
 
 

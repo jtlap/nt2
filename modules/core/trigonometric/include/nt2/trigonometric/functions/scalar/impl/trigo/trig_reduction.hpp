@@ -41,7 +41,7 @@
 #include <nt2/include/functions/simd/group.hpp>
 #include <boost/mpl/int.hpp>
 
-namespace nt2 { namespace details { namespace internal
+namespace nt2 { namespace details
 {
   template< class A0
             , class unit_tag
@@ -210,6 +210,6 @@ namespace nt2 { namespace details { namespace internal
       return nt2::toint(xi);
     }
   };
-} } }
+} }
 
 #endif
