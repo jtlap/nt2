@@ -11,10 +11,8 @@
 **/
 #ifndef NT2_COMPLEX_FUNCTIONS_REAL_HPP_INCLUDED
 #define NT2_COMPLEX_FUNCTIONS_REAL_HPP_INCLUDED
-#include <nt2/include/functor.hpp>
-#include <boost/dispatch/include/functor.hpp>
 
-#include <nt2/sdk/complex/complex.hpp>
+#include <nt2/include/functor.hpp>
 
 /*!
  * \ingroup nt2_complex

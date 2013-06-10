@@ -11,8 +11,7 @@
 
 #include <nt2/complex/functions/pure.hpp>
 #include <nt2/include/constants/zero.hpp>
-#include <nt2/sdk/complex/hierarchy.hpp>
-#include <nt2/sdk/complex/meta/as_imaginary.hpp>
+#include <nt2/sdk/complex/meta/as_complex.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -20,35 +19,12 @@ namespace nt2 { namespace ext
                             , (generic_< arithmetic_<A0> >)
                             )
   {
-    typedef typename meta::as_imaginary<A0>::type result_type;
+    typedef typename meta::as_complex<A0>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& ) const
     {
       return Zero<result_type>();
     }
   };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pure_, tag::cpu_, (A0)
-                            , (generic_< dry_<arithmetic_<A0> > >)
-                            )
-  {
-    typedef typename meta::as_imaginary<A0>::type result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& ) const
-    {
-      return Zero<result_type>();
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pure_, tag::cpu_, (A0)
-                            , (generic_< imaginary_< arithmetic_<A0> > >)
-                            )
-  {
-    typedef A0 result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
-    {
-      return a0;
-    }
-  };
-
 } }
 
 #endif

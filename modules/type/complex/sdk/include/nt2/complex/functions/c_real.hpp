@@ -11,18 +11,17 @@
 **/
 #ifndef NT2_COMPLEX_FUNCTIONS_C_REAL_HPP_INCLUDED
 #define NT2_COMPLEX_FUNCTIONS_C_REAL_HPP_INCLUDED
+
 #include <nt2/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
-
-#include <nt2/sdk/complex/complex.hpp>
 
 /*!
  * \ingroup nt2_complex
  * \defgroup nt2_complex_c_real c_real
  *
  * \par Description
- * return the c_real imaginary part of a complex
- * but as a value of imaginary type
+ * return the c_real real part of a complex
+ * but as a value of dry type
  *
  * \par Header file
  *
@@ -43,7 +42,7 @@
  *
  * \param a0 the first parameter of c_real
  *
- * \return an imaginary value
+ * \return a dry value
  *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the input vectors' elements

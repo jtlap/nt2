@@ -16,7 +16,6 @@
 
 namespace nt2
 {
-  template<class T> struct imaginary;
   template<class T> struct dry;
 }
 
@@ -34,11 +33,6 @@ namespace nt2 { namespace details
   {
   };
 
-  template<class T, class F>
-  struct as_complex< imaginary<T>, F >
-   : boost::mpl::apply1<F, std::complex<T> >
-  {
-  };
   template<class T, class F>
   struct as_complex< dry<T>, F >
    : boost::mpl::apply1<F, std::complex<T> >

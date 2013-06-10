@@ -13,8 +13,8 @@
 #define NT2_COMPLEX_CONSTANTS_I_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/sdk/complex/imaginary.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
+#include <complex>
 
 /*!
  * \ingroup nt2_complex
@@ -61,7 +61,7 @@ namespace nt2
     **/
     struct I : ext::constant_<I>
     {
-      typedef imaginary<double> default_type;
+      typedef std::complex<double> default_type;
       typedef ext::constant_<I> parent;
     };
   }

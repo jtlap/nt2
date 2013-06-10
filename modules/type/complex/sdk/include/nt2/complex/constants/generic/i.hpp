@@ -13,23 +13,10 @@
 #include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/sdk/complex/imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::I, tag::cpu_, (A0)
-                             , ((target_< generic_< imaginary_< arithmetic_<A0> > > >))
-                             )
-  {
-    typedef typename A0::type result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const&) const
-    {
-      typedef typename meta::as_real<result_type>::type real_t;
-      return bitwise_cast<result_type>(One<real_t>());
-    }
-  };
-
   NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::I, tag::cpu_, (A0)
                              , ((target_< generic_< complex_< arithmetic_<A0> > > >))
                              )

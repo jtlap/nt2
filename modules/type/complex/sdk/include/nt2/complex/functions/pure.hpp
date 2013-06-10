@@ -11,10 +11,8 @@
 **/
 #ifndef NT2_COMPLEX_FUNCTIONS_PURE_HPP_INCLUDED
 #define NT2_COMPLEX_FUNCTIONS_PURE_HPP_INCLUDED
-#include <nt2/include/functor.hpp>
-#include <boost/dispatch/include/functor.hpp>
 
-#include <nt2/sdk/complex/complex.hpp>
+#include <nt2/include/functor.hpp>
 
 /*!
  * \ingroup nt2_complex
@@ -22,7 +20,7 @@
  *
  * \par Description
  * return the pure imaginary part of a complex
- * but as a value of imaginary type
+ * but as a value of complex type
  *
  * \par Header file
  *
@@ -43,7 +41,7 @@
  *
  * \param a0 the first parameter of pure
  *
- * \return an imaginary value
+ * \return a complex value
  *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the input vectors' elements

@@ -8,7 +8,8 @@
 //==============================================================================
 #ifndef NT2_COMPLEX_FUNCTIONS_GENERIC_PROJ_HPP_INCLUDED
 #define NT2_COMPLEX_FUNCTIONS_GENERIC_PROJ_HPP_INCLUDED
-#include <nt2/include/functions/proj.hpp>
+
+#include <nt2/complex/functions/proj.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/constants/inf.hpp>
@@ -27,27 +28,6 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::proj_, tag::cpu_, (A0)
-                            , (generic_< imaginary_< arithmetic_<A0> > >)
-                            )
-  {
-    typedef typename meta::as_complex<A0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return if_else(is_inf(a0), nt2::Inf<result_type>(), a0);
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::proj_, tag::cpu_, (A0)
-                            , (generic_< dry_< arithmetic_<A0> > >)
-                            )
-  {
-    typedef typename meta::as_complex<A0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return if_else(is_inf(a0), nt2::Inf<result_type>(), a0);
-    }
-  };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::proj_, tag::cpu_, (A0)
                             , (generic_< arithmetic_<A0> >)
                             )
