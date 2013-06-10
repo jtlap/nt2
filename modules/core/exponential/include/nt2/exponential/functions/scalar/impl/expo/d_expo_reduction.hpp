@@ -23,7 +23,7 @@
 #include <nt2/include/constants/invlog_2.hpp>
 #include <nt2/exponential/functions/scalar/impl/selection_tags.hpp>
 
-namespace nt2 { namespace details { namespace internal
+namespace nt2 { namespace details
 {
   template < class A0> struct exp_reduction < A0, natural_tag, double>
   {
@@ -135,7 +135,7 @@ namespace nt2 { namespace details { namespace internal
       return nt2::oneplus(x2+x2);
     }
   };
-} } }
+} }
 
 
 #endif

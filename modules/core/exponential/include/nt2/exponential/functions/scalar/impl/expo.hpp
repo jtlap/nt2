@@ -13,9 +13,4 @@
 #include <nt2/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/exponential/functions/scalar/impl/expo/expo_base.hpp>
 
-namespace nt2
-{
-  namespace impl = nt2::details::internal;
-}
-
 #endif

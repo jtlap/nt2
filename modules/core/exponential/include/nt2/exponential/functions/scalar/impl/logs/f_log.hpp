@@ -27,7 +27,7 @@
 #include <nt2/include/constants/mhalf.hpp>
 #include <nt2/include/constants/zero.hpp>
 
-namespace nt2 { namespace details { namespace internal
+namespace nt2 { namespace details
 {
   template < class A0,
              class Style ,
@@ -111,7 +111,7 @@ namespace nt2 { namespace details { namespace internal
           return nt2::amul(z, fe, single_constant<A0, 0x3e9a0000 >());//2.48745663981195213739E-4f // log10(2)lo
     }
   };
-} } }
+} }
 
 
 #endif

@@ -16,7 +16,7 @@
 #include <nt2/include/constants/inf.hpp>
 #include <boost/simd/sdk/config.hpp>
 
-namespace nt2 { namespace details { namespace internal
+namespace nt2 { namespace details
 {
   template < class A0, class Tag,  class Speed_Tag >
   struct exponential < A0, Tag, tag::simd_type, Speed_Tag>
@@ -43,6 +43,6 @@ namespace nt2 { namespace details { namespace internal
 #endif
     }
   };
-} } }
+} }
 
 #endif

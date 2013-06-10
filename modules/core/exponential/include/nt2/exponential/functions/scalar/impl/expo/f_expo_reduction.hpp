@@ -22,7 +22,7 @@
 #include <nt2/include/constants/invlog_2.hpp>
 #include <nt2/exponential/functions/scalar/impl/selection_tags.hpp>
 
-namespace nt2 { namespace details { namespace internal
+namespace nt2 { namespace details
 {
   template< class A0, class Tag
             , class Base_A0 = typename meta::scalar_of<A0>::type
@@ -124,7 +124,7 @@ namespace nt2 { namespace details { namespace internal
       return nt2::oneplus(x*nt2::fma(x, y1, y2));
     }
   };
-} } }
+} }
 
 
 #endif

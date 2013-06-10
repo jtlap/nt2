@@ -109,7 +109,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-         return nt2::details::internal::
+         return nt2::details::
                 exponential<A0,ten_tag, tag::not_simd_type, accu_tag>::expa(a0);
       }
   };

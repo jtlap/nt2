@@ -18,7 +18,7 @@
 #include <nt2/exponential/functions/scalar/impl/expo/expo_finalization.hpp>
 #include <boost/simd/sdk/config.hpp>
 
-namespace nt2 { namespace details { namespace internal
+namespace nt2 { namespace details
 {
   template < class A0,
              class Tag,
@@ -47,7 +47,7 @@ namespace nt2 { namespace details { namespace internal
       return finalize_t::finalize(a0, x, c, k, hi, lo);
     }
   };
-} } }
+} }
 
 
 #endif

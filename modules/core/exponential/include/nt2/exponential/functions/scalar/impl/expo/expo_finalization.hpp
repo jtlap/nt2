@@ -36,74 +36,72 @@ namespace nt2
 {
   namespace details
   {
-    namespace internal
+    template < class A0, class iA0> static
+    inline A0 scale(A0 const & y, const iA0& ik)
     {
-      template < class A0, class iA0> static
-      inline A0 scale(A0 const & y, const iA0& ik)
+      return nt2::if_else(gt(ik, -nt2::Nbmantissabits<A0>()),
+                          nt2::fast_ldexp(y, ik),
+                          nt2::fast_ldexp(y, ik+nt2::Nbmantissabits<A0>())*nt2::Eps<A0>() // denormal case
+                         );
+    }
+
+    template < class A0, class expo_tag, class speed_tag> struct exp_finalization{};
+
+    template < class A0, class speed_tag> struct exp_finalization < A0, natural_tag, speed_tag>
+    {
+      static inline A0 finalize(const A0&, const A0& x,
+                                const A0& c, const A0 & k,
+                                const A0& hi,const A0& lo)
       {
-       return nt2::if_else(gt(ik, -nt2::Nbmantissabits<A0>()),
-                            nt2::fast_ldexp(y, ik),
-                            nt2::fast_ldexp(y, ik+nt2::Nbmantissabits<A0>())*nt2::Eps<A0>() // denormal case
-                           );
+        A0 y =   nt2::oneminus(((lo-(x*c)/(nt2::Two<A0>()-c))-hi));
+        return scale(y, nt2::fast_toint(k));
+      }
+    };
+    template < class A0 > struct exp_finalization < A0, two_tag, fast_tag>
+    {
+      static inline A0 finalize(const A0&, const A0& x,
+                                const A0& c, const A0 & k,
+                                const A0& ,const A0& )
+      {
+        A0 y = nt2::oneminus(((-(x*c)/(nt2::Two<A0>()-c))-x));
+        return scale(y, nt2::fast_toint(k));
+      }
+    };
+    template < class A0 > struct exp_finalization < A0, two_tag, accu_tag>
+    {
+      static inline A0 finalize(const A0& a0, const A0& x,
+                                const A0& c, const A0 & k,
+                                const A0& ,const A0& )
+      {
+        A0 y = nt2::oneminus(((-(x*c)/(nt2::Two<A0>()-c))-x));
+        y = scale(y, nt2::fast_toint(k));
+        // adjust for 2^n n flint
+        return  nt2::if_else(nt2::logical_and(nt2::is_gtz(a0),
+                                              nt2::is_flint(a0)),
+                             nt2::round2even(y), y);
+      }
+    };
+
+    template < class A0 > struct exp_finalization < A0, ten_tag, accu_tag>
+    {
+      static inline A0 finalize(const A0& a0, const A0&  ,
+                                const A0& c , const A0& k,
+                                const A0&   , const A0& )
+      {
+        A0 y = scale(c, fast_toint(k));
+        //adjust for 10^n n flint
+        return  nt2::if_else(nt2::logical_and(nt2::is_gtz(a0),
+                                              nt2::is_flint(a0)),
+                             nt2::round2even(y), y);
       }
 
-      template < class A0, class expo_tag, class speed_tag> struct exp_finalization{};
-
-      template < class A0, class speed_tag> struct exp_finalization < A0, natural_tag, speed_tag>
-      {
-        static inline A0 finalize(const A0&, const A0& x,
-                                  const A0& c, const A0 & k,
-                                  const A0& hi,const A0& lo)
-        {
-          A0 y =   nt2::oneminus(((lo-(x*c)/(nt2::Two<A0>()-c))-hi));
-          return scale(y, nt2::fast_toint(k));
-        }
-      };
-      template < class A0 > struct exp_finalization < A0, two_tag, fast_tag>
-      {
-        static inline A0 finalize(const A0&, const A0& x,
-                                  const A0& c, const A0 & k,
-                                  const A0& ,const A0& )
-        {
-          A0 y = nt2::oneminus(((-(x*c)/(nt2::Two<A0>()-c))-x));
-          return scale(y, nt2::fast_toint(k));
-        }
-      };
-      template < class A0 > struct exp_finalization < A0, two_tag, accu_tag>
-      {
-        static inline A0 finalize(const A0& a0, const A0& x,
-                                  const A0& c, const A0 & k,
-                                  const A0& ,const A0& )
-        {
-          A0 y = nt2::oneminus(((-(x*c)/(nt2::Two<A0>()-c))-x));
-          y = scale(y, nt2::fast_toint(k));
-          // adjust for 2^n n flint
-          return  nt2::if_else(nt2::logical_and(nt2::is_gtz(a0),
-                                                nt2::is_flint(a0)),
-                               nt2::round2even(y), y);
-        }
-      };
-
-      template < class A0 > struct exp_finalization < A0, ten_tag, accu_tag>
-      {
-        static inline A0 finalize(const A0& a0, const A0&  ,
-                                  const A0& c , const A0& k,
-                                  const A0&   , const A0& )
-        {
-          A0 y = scale(c, fast_toint(k));
-          //adjust for 10^n n flint
-          return  nt2::if_else(nt2::logical_and(nt2::is_gtz(a0),
-                                                nt2::is_flint(a0)),
-                               nt2::round2even(y), y);
-        }
-
-      };
+    };
 
 
 
-    }
   }
 }
+
 
 
 #endif
