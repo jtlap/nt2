@@ -11,9 +11,13 @@
 
 #include <boost/simd/sdk/meta/as_logical.hpp>
 
-namespace nt2 { namespace meta
+namespace nt2
 {
-  using boost::simd::meta::as_logical;
-} }
+  using boost::simd::logical;
+  namespace meta
+  {
+    using boost::simd::meta::as_logical;
+  }
+}
 
 #endif
