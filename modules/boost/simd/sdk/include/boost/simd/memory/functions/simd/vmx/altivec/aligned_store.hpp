@@ -16,19 +16,26 @@
 #include <boost/simd/memory/iterator_category.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <boost/dispatch/attributes.hpp>
+#include <boost/simd/meta/is_pointing_to.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   /// INTERNAL ONLY - SIMD store without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_store_
-                                    , boost::simd::tag::altivec_
-                                    , (A0)(A1)
-                                    , ((simd_ < arithmetic_<A0>
-                                              , boost::simd::tag::altivec_
-                                              >
-                                      ))
-                                      (iterator_< scalar_< arithmetic_<A1> > >)
-                                    )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::aligned_store_
+                                      , boost::simd::tag::altivec_
+                                      , (A0)(A1)
+                                      , ( simd::meta::is_pointing_to
+                                          < A1
+                                          , typename  dispatch::meta
+                                                    ::scalar_of<A0>::type
+                                          >
+                                        )
+                                      , ((simd_ < arithmetic_<A0>
+                                                , boost::simd::tag::altivec_
+                                                >
+                                        ))
+                                        (iterator_< scalar_< arithmetic_<A1> > >)
+                                      )
   {
     typedef void result_type;
 

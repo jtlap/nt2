@@ -11,8 +11,9 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
 #include <boost/simd/memory/functions/load.hpp>
-#include <boost/dispatch/meta/mpl.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
+#include <boost/simd/meta/is_pointing_to.hpp>
+#include <boost/dispatch/meta/mpl.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -57,16 +58,21 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - load integers without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
-                                    , boost::simd::tag::avx_
-                                    , (A0)(A1)
-                                    , (iterator_< scalar_< integer_<A0> > >)
-                                      ((target_ < simd_ < integer_<A1>
-                                                        , boost::simd::tag::avx_
-                                                        >
-                                                >
-                                      ))
-                                    )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::load_
+                                      , boost::simd::tag::avx_
+                                      , (A0)(A1)
+                                      , ( simd::meta::is_pointing_to
+                                          < A0
+                                          , typename A1::type::value_type
+                                          >
+                                        )
+                                      , (iterator_< scalar_< integer_<A0> > >)
+                                        ((target_ < simd_ < integer_<A1>
+                                                          , boost::simd::tag::avx_
+                                                          >
+                                                  >
+                                        ))
+                                      )
   {
     typedef typename A1::type result_type;
 

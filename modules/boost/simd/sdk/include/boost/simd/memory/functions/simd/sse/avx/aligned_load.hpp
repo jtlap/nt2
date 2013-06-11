@@ -13,6 +13,7 @@
 #include <boost/simd/memory/functions/aligned_load.hpp>
 #include <boost/simd/include/functions/simd/load.hpp>
 #include <boost/simd/memory/functions/details/check_ptr.hpp>
+#include <boost/simd/meta/is_pointing_to.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/simd/memory/is_aligned.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
@@ -21,28 +22,6 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  /// INTERNAL ONLY - Regular SIMD load for double with offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
-                                    , boost::simd::tag::avx_
-                                    , (A0)(A1)(A2)
-                                    , (iterator_< scalar_< double_<A0> > >)
-                                      (scalar_< integer_<A1> >)
-                                      ((target_ < simd_ < double_<A2>
-                                                        , boost::simd::tag::avx_
-                                                        >
-                                                >
-                                      ))
-                                    )
-  {
-    typedef typename A2::type result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0 a0, A1 a1, const A2&) const
-    {
-      BOOST_SIMD_DETAILS_CHECK_PTR(a0 + a1, sizeof(result_type));
-      return _mm256_load_pd(a0+a1);
-    }
-  };
-
   /// INTERNAL ONLY - Regular SIMD load for double without offset
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
                                     , boost::simd::tag::avx_
@@ -61,28 +40,6 @@ namespace boost { namespace simd { namespace ext
     {
       BOOST_SIMD_DETAILS_CHECK_PTR(a0, sizeof(result_type));
       return _mm256_load_pd(a0);
-    }
-  };
-
-  /// INTERNAL ONLY - Regular SIMD load for single with offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
-                                    , boost::simd::tag::avx_
-                                    , (A0)(A1)(A2)
-                                    , (iterator_< scalar_< single_<A0> > >)
-                                      (scalar_< integer_<A1> >)
-                                      ((target_ < simd_ < single_<A2>
-                                                        , boost::simd::tag::avx_
-                                                        >
-                                                >
-                                      ))
-                                    )
-  {
-    typedef typename A2::type result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0 a0, A1 a1, const A2&) const
-    {
-      BOOST_SIMD_DETAILS_CHECK_PTR(a0 + a1, sizeof(result_type));
-      return _mm256_load_ps(a0+a1);
     }
   };
 
@@ -107,39 +64,23 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  /// INTERNAL ONLY - Regular SIMD load for integers with offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
-                                    , boost::simd::tag::avx_
-                                    , (A0)(A1)(A2)
-                                    , (iterator_< scalar_< integer_<A0> > >)
-                                      (scalar_< integer_<A1> >)
-                                      ((target_ < simd_ < integer_<A2>
-                                                        , boost::simd::tag::avx_
-                                                        >
-                                                >
-                                      ))
-                            )
-  {
-    typedef typename A2::type result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0 a0, A1 a1, const A2&) const
-    {
-      BOOST_SIMD_DETAILS_CHECK_PTR(a0 + a1, sizeof(result_type));
-      return _mm256_load_si256(reinterpret_cast<__m256i const*>(a0+a1));
-    }
-  };
-
   /// INTERNAL ONLY - Regular SIMD load for integers without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
-                                    , boost::simd::tag::avx_
-                                    , (A0)(A2)
-                                    , (iterator_< scalar_< integer_<A0> > >)
-                                      ((target_ < simd_ < integer_<A2>
-                                                        , boost::simd::tag::avx_
-                                                        >
-                                                >
-                                      ))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::aligned_load_
+                                      , boost::simd::tag::avx_
+                                      , (A0)(A2)
+                                      , ( simd::meta::is_pointing_to
+                                          < A0
+                                          , typename A2::type::value_type
+                                          >
+                                        )
+                                      , (iterator_< scalar_< integer_<A0> > >)
+                                        ((target_ < simd_
+                                                    < integer_<A2>
+                                                    , boost::simd::tag::avx_
+                                                    >
+                                                  >
+                                        ))
+                                      )
   {
     typedef typename A2::type result_type;
 
@@ -151,17 +92,22 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - Misaligned load without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
-                                    , boost::simd::tag::avx_
-                                    , (A0)(A2)(A3)
-                                    , (iterator_< scalar_< arithmetic_<A0> > >)
-                                      ((target_ < simd_ < arithmetic_<A2>
-                                                        , boost::simd::tag::avx_
-                                                        >
-                                                >
-                                      ))
-                                      (mpl_integral_< scalar_< integer_<A3> > >)
-                                    )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::aligned_load_
+                                      , boost::simd::tag::avx_
+                                      , (A0)(A2)(A3)
+                                      , ( simd::meta::is_pointing_to
+                                          < A0
+                                          , typename A2::type::value_type
+                                          >
+                                        )
+                                      , (iterator_< scalar_< arithmetic_<A0> > >)
+                                        ((target_ < simd_ < arithmetic_<A2>
+                                                          , boost::simd::tag::avx_
+                                                          >
+                                                  >
+                                        ))
+                                        (mpl_integral_< scalar_< integer_<A3> > >)
+                                      )
   {
     typedef typename A2::type result_type;
 

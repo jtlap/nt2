@@ -15,20 +15,27 @@
 #include <boost/simd/memory/functions/details/check_ptr.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/simd/meta/is_pointing_to.hpp>
+#include <iterator>
 
 namespace boost { namespace simd { namespace ext
 {
   /// INTERNAL ONLY - SIMD load without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
-                                    , boost::simd::tag::altivec_
-                                    , (A0)(A2)
-                                    , (iterator_< scalar_< arithmetic_<A0> > >)
-                                      ((target_
-                                        < simd_ < arithmetic_<A2>
-                                                , boost::simd::tag::altivec_
-                                                >
-                                        >
-                                      ))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::aligned_load_
+                                      , boost::simd::tag::altivec_
+                                      , (A0)(A2)
+                                      , ( simd::meta::is_pointing_to
+                                          < A0
+                                          , typename A2::type::value_type
+                                          >
+                                        )
+                                      , (iterator_< scalar_< arithmetic_<A0> > >)
+                                        ((target_
+                                          < simd_ < arithmetic_<A2>
+                                                  , boost::simd::tag::altivec_
+                                                  >
+                                          >
+                                        ))
                             )
   {
     typedef typename A2::type result_type;
@@ -41,18 +48,23 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - Load with static misalignment without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
-                                    , boost::simd::tag::altivec_
-                                    , (A0)(A2)(A3)
-                                    , (iterator_< scalar_< arithmetic_<A0> > >)
-                                      ((target_
-                                        < simd_ < arithmetic_<A2>
-                                                , boost::simd::tag::altivec_
-                                                >
-                                        >
-                                      ))
-                                      (mpl_integral_< scalar_< integer_<A3> > >)
-                                    )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::aligned_load_
+                                      , boost::simd::tag::altivec_
+                                      , (A0)(A2)(A3)
+                                      , ( simd::meta::is_pointing_to
+                                          < A0
+                                          , typename A2::type::value_type
+                                          >
+                                        )
+                                      , (iterator_< scalar_< arithmetic_<A0> > >)
+                                        ((target_
+                                          < simd_ < arithmetic_<A2>
+                                                  , boost::simd::tag::altivec_
+                                                  >
+                                          >
+                                        ))
+                                        (mpl_integral_< scalar_< integer_<A3> > >)
+                                      )
   {
     typedef typename A2::type result_type;
 

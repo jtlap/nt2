@@ -16,6 +16,7 @@
 #include <boost/simd/include/functions/simd/extract.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
 #include <boost/mpl/equal_to.hpp>
+#include <boost/pointee.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -28,10 +29,12 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef void result_type;
+    typedef typename boost::pointee<A1>::type stype;
+
     BOOST_FORCEINLINE result_type operator()(const A0& a0, A1 a1) const
     {
       for(std::size_t i=0; i!=meta::cardinal_of<A0>::value; ++i)
-        a1[i] = a0[i];
+        a1[i] = static_cast<stype>(a0[i]);
     }
   };
 
@@ -68,12 +71,13 @@ namespace boost { namespace simd { namespace ext
                                       )
   {
     typedef void result_type;
+    typedef typename boost::pointee<A1>::type stype;
 
     BOOST_FORCEINLINE result_type
     operator()(const A0& a0, A1 a1, A2 const& a2) const
     {
       for(std::size_t i=0; i<meta::cardinal_of<A0>::value; ++i)
-        a1[a2[i]] = a0[i];
+        a1[a2[i]] = static_cast<stype>(a0[i]);
     }
   };
 

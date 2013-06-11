@@ -13,60 +13,31 @@
 #include <boost/simd/memory/functions/load.hpp>
 #include <boost/simd/memory/functions/details/char_helper.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
-#include <iterator>
+#include <boost/simd/meta/is_pointing_to.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  /// INTERNAL ONLY - SIMD unaligned load with offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
-                                    , boost::simd::tag::altivec_
-                                    , (A0)(A1)(A2)
-                                    , (iterator_< scalar_< arithmetic_<A0> > >)
-                                      (scalar_< integer_<A1> >)
-                                      ((target_
-                                        < simd_ < arithmetic_<A2>
-                                                , boost::simd::tag::altivec_
-                                                >
-                                        >
-                                      ))
-                                    )
-  {
-    typedef typename A2::type                             result_type;
-    typedef typename std::iterator_traits<A0>::value_type value_t;
-    typedef typename result_type::native_type                 n_t;
-
-    static const std::size_t sz   = sizeof(value_t);
-    static const std::size_t card = meta::cardinal_of<result_type>::value;
-    static const std::size_t cdz  = card*sz-1;
-
-    BOOST_FORCEINLINE result_type operator()(A0 a0, A1 a1, const A2&) const
-    {
-      a1 *= sz;
-
-      n_t                     MSQ  = vec_ld  (a1     , char_helper(a0) );
-      __vector unsigned char  mask = vec_lvsl(a1     , char_helper(a0) );
-      n_t                     LSQ  = vec_ld  (a1+cdz , char_helper(a0) );
-
-      return vec_perm(MSQ, LSQ, mask);
-    }
-  };
-
   /// INTERNAL ONLY - SIMD unaligned load without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
-                                    , boost::simd::tag::altivec_
-                                    , (A0)(A2)
-                                    , (iterator_< scalar_< arithmetic_<A0> > >)
-                                      ((target_
-                                        < simd_ < arithmetic_<A2>
-                                                , boost::simd::tag::altivec_
-                                                >
-                                        >
-                                      ))
-                                    )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::load_
+                                      , boost::simd::tag::altivec_
+                                      , (A0)(A2)
+                                      , ( simd::meta::is_pointing_to
+                                          < A0
+                                          , typename A2::type::value_type
+                                          >
+                                        )
+                                      , (iterator_< scalar_< arithmetic_<A0> > >)
+                                        ((target_
+                                          < simd_ < arithmetic_<A2>
+                                                  , boost::simd::tag::altivec_
+                                                  >
+                                          >
+                                        ))
+                                      )
   {
-    typedef typename A2::type                             result_type;
-    typedef typename std::iterator_traits<A0>::value_type value_t;
-    typedef typename result_type::native_type                 n_t;
+    typedef typename A2::type                 result_type;
+    typedef typename boost::pointee<A0>::type value_t;
+    typedef typename result_type::native_type n_t;
 
     static const std::size_t sz   = sizeof(value_t);
     static const std::size_t card = meta::cardinal_of<result_type>::value;
@@ -74,9 +45,11 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 a0, const A2&) const
     {
-      n_t                     MSQ  = vec_ld   ( 0   , char_helper(a0) );
-      __vector unsigned char  mask = vec_lvsl ( 0   , char_helper(a0) );
-      n_t                     LSQ  = vec_ld   ( cdz , char_helper(a0) );
+      typename char_helper_impl<value_t>::type* ptr = char_helper(a0);
+
+      n_t                     MSQ  = vec_ld   ( 0   , ptr );
+      __vector unsigned char  mask = vec_lvsl ( 0   , ptr );
+      n_t                     LSQ  = vec_ld   ( cdz , ptr );
 
       return vec_perm(MSQ, LSQ, mask);
     }

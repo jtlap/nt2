@@ -30,11 +30,13 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef typename A2::type result_type;
+    typedef typename meta::scalar_of<result_type>::type stype;
+
     BOOST_FORCEINLINE result_type operator()(A0 a0, A2 const&) const
     {
       result_type that;
       for(std::size_t i=0; i!=meta::cardinal_of<result_type>::value; ++i)
-        that[i] = a0[i];
+        that[i] = static_cast<stype>(a0[i]);
       return that;
     }
   };
@@ -79,7 +81,7 @@ namespace boost { namespace simd { namespace ext
     {
       result_type that;
       for(std::size_t i=0; i!=meta::cardinal_of<result_type>::value; ++i)
-        that[i] = a0[a1[i]];
+        that[i] = static_cast<stype>(a0[a1[i]]);
       return that;
     }
   };

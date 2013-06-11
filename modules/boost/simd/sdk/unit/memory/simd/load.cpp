@@ -11,11 +11,17 @@
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
+#include <boost/simd/sdk/meta/as_arithmetic.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
+
+#include <boost/preprocessor/seq/for_each.hpp>
+#include <boost/preprocessor/seq/transform.hpp>
+#include <boost/preprocessor/cat.hpp>
 
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/preprocessor/stack_buffer.hpp>
@@ -27,69 +33,115 @@
 #include "../common/foo.hpp"
 #include "fill.hpp"
 
+#define NT2_TEST_LOAD(r, data, elem) BOOST_PP_CAT(nt2_test_, data)<T, elem>::call();
+#define NT2_TEST_APPLY(r, data, elem) data<elem>
+
+template<class T, class U>
+struct nt2_test_load
+{
+  static void call(bool offset = false)
+  {
+    std::cout << "With U = " << nt2::type_id<U>() << std::endl;
+    using boost::simd::logical;
+    using boost::simd::native;
+    using boost::simd::pack;
+
+    typedef BOOST_SIMD_DEFAULT_EXTENSION ext_t;
+
+    load_runner< U          , native<T,ext_t>           >(offset);
+    load_runner< logical<U> , native<logical<T>,ext_t>  >(offset);
+    load_runner< U          , pack<T>                   >(offset);
+  }
+};
+
 NT2_TEST_CASE_TPL( load,  BOOST_SIMD_SIMD_TYPES)
 {
-  using boost::simd::logical;
-  using boost::simd::native;
-  using boost::simd::pack;
-
-  typedef BOOST_SIMD_DEFAULT_EXTENSION ext_t;
-
-  load_runner< T  , native<T,ext_t>   >();
-  load_runner< logical<T>  , native<logical<T>,ext_t>   >();
-  load_runner< foo, native<foo,ext_t> >();
-  load_runner< T  , pack<T>           >();
+  BOOST_PP_SEQ_FOR_EACH(NT2_TEST_LOAD, load, BOOST_SIMD_TYPES)
 }
+
+template<class T, class U>
+struct nt2_test_load_offset
+{
+  static void call() { nt2_test_load<T,U>::call(true); }
+};
 
 NT2_TEST_CASE_TPL( load_offset,  BOOST_SIMD_SIMD_TYPES)
 {
-  using boost::simd::logical;
-  using boost::simd::native;
-  using boost::simd::pack;
-
-  typedef BOOST_SIMD_DEFAULT_EXTENSION ext_t;
-
-  load_runner< T   , native<T,ext_t>   >(true);
-  load_runner< logical<T>  , native<logical<T>,ext_t>   >(true);
-  load_runner< foo , native<foo,ext_t> >(true);
-  load_runner< T   , pack<T>           >(true);
+  BOOST_PP_SEQ_FOR_EACH(NT2_TEST_LOAD, load_offset, BOOST_SIMD_TYPES)
 }
+
+template<class T, class U>
+struct nt2_test_load_gather
+{
+  static void call()
+  {
+    std::cout << "With U = " << nt2::type_id<U>() << std::endl;
+    using boost::simd::load;
+    using boost::simd::tag::load_;
+    using boost::simd::native;
+    using boost::simd::meta::cardinal_of;
+    typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+
+    typedef native<T,ext_t>                                       vT;
+    typedef typename boost::dispatch::meta::
+            as_integer< typename boost::simd::meta::
+                        as_arithmetic<vT>::type
+                      >::type                                     viT;
+    typedef typename
+            boost::dispatch::
+            meta::call<load_(U*,viT,boost::dispatch::meta::as_<vT>)>::type r_t;
+
+    srand(time(NULL));
+
+    NT2_TEST( (boost::is_same<vT,r_t>::value) );
+
+    U data[ cardinal_of<vT>::value*3 ];
+    for(size_t i=0;i<cardinal_of<vT>::value*3;++i) data[i] = T(1+i);
+
+    viT index;
+    for(size_t i=0;i<cardinal_of<viT>::value;++i)
+      index[i] = rand() % (cardinal_of<vT>::value*3);
+
+    r_t v = boost::simd::load<vT>(&data[0], index);
+
+    for(size_t j=0;j<cardinal_of<vT>::value;++j)
+    {
+      NT2_TEST_EQUAL(v[j] , static_cast<T>(data[index[j]]));
+    }
+  }
+};
 
 NT2_TEST_CASE_TPL( load_gather, BOOST_SIMD_SIMD_TYPES)
 {
-  using boost::simd::load;
-  using boost::simd::tag::load_;
-  using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  BOOST_PP_SEQ_FOR_EACH(NT2_TEST_LOAD, load_gather, BOOST_SIMD_TYPES)
+}
 
-  typedef native<T,ext_t>                                       vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type   iT;
-  typedef typename boost::dispatch::meta::as_integer<vT>::type viT;
-  typedef typename
-          boost::dispatch::
-          meta::call<load_(T*,viT,boost::dispatch::meta::as_<vT>)>::type r_t;
-
-  srand(time(NULL));
-
-  NT2_TEST( (boost::is_same<vT,r_t>::value) );
-
-  T data[ cardinal_of<vT>::value*3 ];
-  for(size_t i=0;i<cardinal_of<vT>::value*3;++i) data[i] = T(1+i);
-
-  viT index;
-  for(size_t i=0;i<cardinal_of<viT>::value;++i)
-    index[i] = rand() % (cardinal_of<vT>::value*3);
-
-  r_t v = boost::simd::load<vT>(&data[0], index);
-
-  for(size_t j=0;j<cardinal_of<vT>::value;++j)
-  {
-    NT2_TEST_EQUAL(v[j] , data[index[j]]);
-  }
+NT2_TEST_CASE_TPL ( load_gather_logical
+                  , BOOST_PP_SEQ_TRANSFORM( NT2_TEST_APPLY
+                                          , boost::simd::logical
+                                          , BOOST_SIMD_SIMD_TYPES
+                                          )
+                  )
+{
+  BOOST_PP_SEQ_FOR_EACH ( NT2_TEST_LOAD
+                        , load_gather
+                        , BOOST_PP_SEQ_TRANSFORM( NT2_TEST_APPLY
+                                                , boost::simd::logical
+                                                , BOOST_SIMD_TYPES
+                                                )
+                        )
 }
 
 NT2_TEST_CASE( load_sequence )
+{
+  using boost::simd::native;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION ext_t;
+
+  load_runner< foo, native<foo,ext_t> >();
+  load_runner< foo, native<foo,ext_t> >(true);
+}
+
+NT2_TEST_CASE( load_sequence_of_pointers )
 {
   using boost::simd::load;
   using boost::simd::tag::load_;
