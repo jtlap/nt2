@@ -13,11 +13,6 @@
 #include <nt2/include/functions/quad.hpp>
 #include <nt2/integration/output.hpp>
 #include <nt2/integration/options.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <boost/lambda/lambda.hpp>
-#include <boost/bind.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/rowvect.hpp>
 #include <nt2/include/functions/exp.hpp>
@@ -43,8 +38,22 @@
 #include <nt2/include/constants/sqrteps.hpp>
 #include <nt2/include/constants/pio_2.hpp>
 #include <nt2/table.hpp>
+#include <boost/dispatch/meta/strip.hpp>
+
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+
 struct f
 {
+  template<class Sig>
+  struct result;
+
+  template<class This, class X>
+  struct result<This(X)>
+       : boost::dispatch::meta::strip<X>
+  {
+  };
+
   template < class X > inline
   X operator()(const X & x ) const
   {

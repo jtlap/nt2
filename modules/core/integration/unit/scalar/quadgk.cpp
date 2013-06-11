@@ -13,11 +13,7 @@
 #include <nt2/integration/output.hpp>
 #include <nt2/integration/options.hpp>
 #include <nt2/integration/int_transforms.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <boost/lambda/lambda.hpp>
-#include <boost/bind.hpp>
+
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/rowvect.hpp>
 #include <nt2/include/functions/vertcat.hpp>
@@ -54,9 +50,22 @@
 #include <nt2/include/constants/sqrteps.hpp>
 #include <nt2/include/constants/pio_2.hpp>
 #include <nt2/table.hpp>
+#include <boost/dispatch/meta/strip.hpp>
+
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests.hpp>
 
 struct f1
 {
+  template<class Sig>
+  struct result;
+
+  template<class This, class X>
+  struct result<This(X)>
+       : boost::dispatch::meta::strip<X>
+  {
+  };
+
   template < class X > inline
   X operator()(const X & x ) const
   {
@@ -65,6 +74,15 @@ struct f1
 };
 struct f
 {
+  template<class Sig>
+  struct result;
+
+  template<class This, class X>
+  struct result<This(X)>
+       : boost::dispatch::meta::strip<X>
+  {
+  };
+
   template < class X > inline
   typename nt2::meta::as_real<X>::type
   operator()(const X & x ) const
@@ -77,6 +95,15 @@ struct f
 
 struct ff
 {
+  template<class Sig>
+  struct result;
+
+  template<class This, class X>
+  struct result<This(X)>
+       : boost::dispatch::meta::strip<X>
+  {
+  };
+
   template < class X > inline
   X operator()(const X & x ) const
   {
@@ -85,6 +112,15 @@ struct ff
 };
 struct g
 {
+  template<class Sig>
+  struct result;
+
+  template<class This, class X>
+  struct result<This(X)>
+       : boost::dispatch::meta::strip<X>
+  {
+  };
+
   template < class X > inline
   X operator()(const X & x ) const
   {
@@ -94,6 +130,15 @@ struct g
 
 struct h
 {
+  template<class Sig>
+  struct result;
+
+  template<class This, class X>
+  struct result<This(X)>
+       : nt2::meta::as_complex<typename boost::dispatch::meta::strip<X>::type>
+  {
+  };
+
   template < class X> inline
   typename nt2::meta::as_complex<X>::type
   operator()(const X & x ) const
@@ -103,6 +148,15 @@ struct h
 };
 struct k
 {
+  template<class Sig>
+  struct result;
+
+  template<class This, class X>
+  struct result<This(X)>
+       : boost::dispatch::meta::strip<X>
+  {
+  };
+
   template < class X>
   X  operator()(const X & x ) const
   {
@@ -111,6 +165,15 @@ struct k
 };
 struct l
 {
+  template<class Sig>
+  struct result;
+
+  template<class This, class X>
+  struct result<This(X)>
+       : boost::dispatch::meta::strip<X>
+  {
+  };
+
   template < class X> inline
   X operator()(const X & x ) const
   {
@@ -119,6 +182,15 @@ struct l
 };
 struct m
 {
+  template<class Sig>
+  struct result;
+
+  template<class This, class X>
+  struct result<This(X)>
+       : boost::dispatch::meta::strip<X>
+  {
+  };
+
   template < class X> inline
   X operator()(const X & x ) const
   {
@@ -127,6 +199,15 @@ struct m
 };
 struct n
 {
+  template<class Sig>
+  struct result;
+
+  template<class This, class X>
+  struct result<This(X)>
+       : boost::dispatch::meta::strip<X>
+  {
+  };
+
   template < class X> inline
   X operator()(const X & x ) const
   {
@@ -136,6 +217,15 @@ struct n
 
 struct o
 {
+  template<class Sig>
+  struct result;
+
+  template<class This, class X>
+  struct result<This(X)>
+       : boost::dispatch::meta::strip<X>
+  {
+  };
+
   template < class X> inline
   X operator()(const X & x ) const
   {
