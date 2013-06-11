@@ -14,7 +14,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::correct_fma_, boost::simd::tag::correct_fma4_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::correct_fma_, boost::simd::tag::fma4_,
                       (A0),
                       ((simd_<single_<A0>,boost::simd::tag::sse_>))
                       ((simd_<single_<A0>,boost::simd::tag::sse_>))
@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::correct_fma_, boost::simd::tag::correct_fma4_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::correct_fma_, boost::simd::tag::fma4_,
                       (A0),
                       ((simd_<double_<A0>,boost::simd::tag::sse_>))
                       ((simd_<double_<A0>,boost::simd::tag::sse_>))
@@ -42,7 +42,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::correct_fma_, boost::simd::tag::correct_fma4_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::correct_fma_, boost::simd::tag::fma4_,
                       (A0),
                       ((simd_<single_<A0>,boost::simd::tag::avx_>))
                       ((simd_<single_<A0>,boost::simd::tag::avx_>))
@@ -56,7 +56,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::correct_fma_, boost::simd::tag::correct_fma4_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::correct_fma_, boost::simd::tag::fma4_,
                       (A0),
                       ((simd_<double_<A0>,boost::simd::tag::avx_>))
                       ((simd_<double_<A0>,boost::simd::tag::avx_>))
