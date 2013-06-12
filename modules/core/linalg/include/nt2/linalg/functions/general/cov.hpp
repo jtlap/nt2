@@ -31,32 +31,6 @@
 namespace nt2 { namespace ext
 {
 
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cov_, tag::cpu_,
-//                               (A0)(A1),
-//                               ((scalar_<unspecified_<A0> > ))(scalar_<integer_<A1> > )
-//                               )
-//   {
-//     typedef A0 result_type;
-//     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const &) const
-//     {
-//       return nt2::Zero<result_type>();
-//     }
-
-//   };
-
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cov_, tag::cpu_,
-//                               (A0),
-//                               ((scalar_<unspecified_<A0> > ))
-//                               )
-//   {
-//     typedef A0 result_type;
-//     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
-//     {
-//       return nt2::Zero<result_type>();
-//     }
-
-//   };
-
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cov_, tag::cpu_,
                               (A0)(A1),
                               ((ast_<A0, nt2::container::domain>))(scalar_<integer_<A1> > )
