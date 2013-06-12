@@ -81,6 +81,16 @@ NT2_TEST_CASE_TPL( qmtc_real_out, NT2_REAL_TYPES )
 
 struct g
 {
+  template<class Sig>
+  struct result;
+
+  template<class This, class X>
+  struct result<This(X)>
+  {
+    typedef nt2::table< std::complex<typename boost::dispatch::meta::strip<X>::type::value_type> > type;
+  };
+
+
   template < class X > inline
   nt2::table< std::complex<typename X::value_type> > operator()(const X & x ) const
   {

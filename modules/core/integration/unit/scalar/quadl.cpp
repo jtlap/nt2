@@ -98,6 +98,15 @@ struct h
 };
 struct k
 {
+  template<class Sig>
+  struct result;
+
+  template<class This, class X>
+  struct result<This(X)>
+       : boost::dispatch::meta::strip<X>
+  {
+  };
+
   template < class X> inline
   X operator()(const X & x ) const
   {
