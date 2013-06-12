@@ -79,7 +79,7 @@ struct f
 
   template<class This, class X>
   struct result<This(X)>
-       : boost::dispatch::meta::strip<X>
+       : nt2::meta::as_real< typename boost::dispatch::meta::strip<X>::type >
   {
   };
 
