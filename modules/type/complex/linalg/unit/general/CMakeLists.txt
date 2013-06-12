@@ -8,7 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
-#  cov.cpp
+  cov.cpp
 #  expm.cpp
 #  impower.cpp
 #  inv.cpp

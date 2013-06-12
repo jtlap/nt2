@@ -19,6 +19,7 @@
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/conj.hpp>
+#include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/center.hpp>
 #include <nt2/include/functions/horzcat.hpp>
 #include <nt2/include/functions/ifvectvert.hpp>
@@ -29,6 +30,33 @@
 
 namespace nt2 { namespace ext
 {
+
+//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cov_, tag::cpu_,
+//                               (A0)(A1),
+//                               ((scalar_<unspecified_<A0> > ))(scalar_<integer_<A1> > )
+//                               )
+//   {
+//     typedef A0 result_type;
+//     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const &) const
+//     {
+//       return nt2::Zero<result_type>();
+//     }
+
+//   };
+
+//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cov_, tag::cpu_,
+//                               (A0),
+//                               ((scalar_<unspecified_<A0> > ))
+//                               )
+//   {
+//     typedef A0 result_type;
+//     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
+//     {
+//       return nt2::Zero<result_type>();
+//     }
+
+//   };
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cov_, tag::cpu_,
                               (A0)(A1),
                               ((ast_<A0, nt2::container::domain>))(scalar_<integer_<A1> > )
@@ -43,11 +71,11 @@ namespace nt2 { namespace ext
     typedef typename meta::call<tag::multiplies_(T4,value_type)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const & a1) const
     {
-      T0 a00 = nt2::ifvectvert(a0);
-      T1 a0_c = nt2::center(a00, size_t(1));
-      value_type n = nt2::size(a00, 1);
-      value_type f = (n <= One<value_type>())? One<value_type>() : nt2::rec(n-(a1?value_type(0):value_type(1)));
-      return  nt2::multiplies(nt2::mtimes(trans(conj(a0_c)), a0_c), f);
+       T0 a00 = nt2::ifvectvert(a0);
+       T1 a0_c = nt2::center(a00, size_t(1));
+       size_t n = nt2::size(a00, 1);
+       value_type f = (n <= 1u)? One<value_type>() : nt2::rec(value_type(n)-(a1?value_type(0):value_type(1)));
+       return  nt2::multiplies(nt2::mtimes(trans(conj(a0_c)), a0_c), f);
     }
 
   };
@@ -68,8 +96,8 @@ namespace nt2 { namespace ext
     {
       T0 a00 = nt2::ifvectvert(a0);
       T1 a0_c = nt2::center(a00, size_t(1));
-      value_type n = nt2::size(a00, 1);
-      value_type f = (n <= One<value_type>())? One<value_type>() : nt2::rec(n-1);
+      size_t n = nt2::size(a00, 1);
+      value_type f = (n <= 1u)? One<value_type>() : nt2::rec(minusone(value_type(n)));
       return  nt2::multiplies(nt2::mtimes(trans(conj(a0_c)), a0_c), f);
     }
   };
@@ -96,7 +124,7 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cov_, tag::cpu_,
                               (A0),
-                              (scalar_<floating_<A0> >)
+                              (scalar_<unspecified_<A0> >)
                               )
   {
     typedef A0 result_type;
@@ -107,7 +135,7 @@ namespace nt2 { namespace ext
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cov_, tag::cpu_,
                               (A0)(A1),
-                              (scalar_<floating_<A0> >)
+                              (scalar_<unspecified_<A0> >)
                               (scalar_<integer_<A1> > )
                               )
   {
@@ -120,8 +148,8 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cov_, tag::cpu_,
                               (A0)(A1),
-                              (scalar_<floating_<A0> >)
-                              (scalar_<floating_<A1> >)
+                              (scalar_<unspecified_<A0> >)
+                              (scalar_<unspecified_<A1> >)
                               )
   {
     BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1),
@@ -130,8 +158,8 @@ namespace nt2 { namespace ext
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cov_, tag::cpu_,
                               (A0)(A1)(A2),
-                              (scalar_<floating_<A0> >)
-                              (scalar_<floating_<A1> >)
+                              (scalar_<unspecified_<A0> >)
+                              (scalar_<unspecified_<A1> >)
                               (scalar_<integer_<A2> >)
                               )
   {
