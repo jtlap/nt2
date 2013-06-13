@@ -37,7 +37,7 @@ namespace boost { namespace dispatch { namespace details
                   , typename
                     boost::enable_if_c< meta::is_iterator<T>::value>::type
                   >
-   : value_of< typename boost::pointee<T>::type >
+   : boost::pointee<T>
   {
   };
 
