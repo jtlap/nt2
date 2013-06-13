@@ -10,9 +10,9 @@
 #define NT2_LINALG_FUNCTIONS_GENERAL_PINV_HPP_INCLUDED
 
 #include <nt2/linalg/functions/pinv.hpp>
-//#include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/svd.hpp>
 #include <nt2/include/functions/assign.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 
 namespace nt2{ namespace ext
 {
@@ -25,18 +25,18 @@ namespace nt2{ namespace ext
     typedef typename boost::proto::result_of::child_c<A1&,0>::type       Out0;
     typedef A0&                                                   result_type;
     typedef typename A0::value_type                                value_type;
+    typedef typename nt2::meta::as_real<value_type>::type              r_type;
     result_type operator()(A0& out, const A1& in) const
     {
       out.resize(in.extent());
-      value_type tol = choice(in, N());
-      choice(in, N());
+      r_type tol = choice(in, N());
       out = boost::proto::child_c<0>(in);
       out =  nt2::details::svd_result<A0>(out, 'A', 'A').pinv(tol);
       return out;
     }
   private :
-    static value_type choice(const A1& in, boost::mpl::long_<1> const &){return Mone<value_type>(); }
-    static value_type choice(const A1& in, boost::mpl::long_<2> const &){return boost::proto::child_c<1>(in); }
+    static r_type choice(const A1& in, boost::mpl::long_<1> const &){return Mone<r_type>(); }
+    static r_type choice(const A1& in, boost::mpl::long_<2> const &){return boost::proto::child_c<1>(in); }
   };
 } }
 

@@ -17,7 +17,7 @@ SET( SOURCES
 #  mtimes.cpp
 #  null.cpp
 #  orth.cpp
-#  pinv.cpp
+  pinv.cpp
 #  poly.cpp
 #  rot90.cpp
 #  rref.cpp
