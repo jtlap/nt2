@@ -80,17 +80,24 @@ namespace boost { namespace simd
     std::size_t const oldSize( ::malloc_usable_size( ptr ) );
 #endif
 
-    if ( ( oldSize - sz ) < 32 ) return ptr;
+    if( simd::is_aligned(ptr,align ) )
+    {
+      if ( ( oldSize - sz ) < 32 )
+      {
+        return ptr;
+      }
+      else
+      {
+        void* BOOST_DISPATCH_RESTRICT  const new_ptr = std::realloc(ptr, sz);
+        if( simd::is_aligned(new_ptr,align ) ) return new_ptr;
+        std::free(new_ptr);
+      }
+    }
 
-    void* BOOST_DISPATCH_RESTRICT const new_ptr = std::realloc(ptr, sz);
-
-    if(!new_ptr) return 0;
-
-    if( simd::is_aligned(new_ptr,align ) ) return new_ptr;
     void * BOOST_DISPATCH_RESTRICT const fresh_ptr = aligned_malloc(sz,align);
 
     if( !fresh_ptr ) return 0;
-    aligned_free( new_ptr );
+    aligned_free( ptr );
 
     return fresh_ptr;
 #else

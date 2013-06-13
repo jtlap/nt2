@@ -90,30 +90,29 @@ namespace boost { namespace simd
     std::size_t const oldSize( ::malloc_usable_size( ptr ) );
 #endif
 
-    // @odo Replace the magic number with something smarter.
-    //                                   (26.10.2012.) (Domagoj Saric)
-    if ( ( oldSize - sz ) < 32 ) return ptr;
 
-    void* BOOST_DISPATCH_RESTRICT const new_ptr = std::realloc(ptr, sz);
+    if( simd::is_aligned(ptr,align ) )
+    {
+      if ( ( oldSize - sz ) < 32 )
+      {
+        return ptr;
+      }
+      else
+      {
+        void* BOOST_DISPATCH_RESTRICT  const new_ptr = std::realloc(ptr, sz);
+        if( simd::is_aligned(new_ptr,align ) ) return new_ptr;
+        std::free(new_ptr);
+      }
+    }
 
-    // Return empty ptr is needed
-    if(!new_ptr) return 0;
-
-    // Return ptr if correctly aligned
-    if( simd::is_aligned(new_ptr,align ) ) return new_ptr;
-
-    // If not, allocate, move then free the old
     void * BOOST_DISPATCH_RESTRICT const fresh_ptr = aligned_malloc(sz,align);
 
-    // Return if nullptr
     if( !fresh_ptr ) return 0;
 
-    // Copy + free
-    std::memcpy( fresh_ptr, new_ptr, std::min( sz, oldSize ) );
-    aligned_free( new_ptr );
+    std::memcpy( fresh_ptr, ptr, std::min( sz, oldSize ) );
+    aligned_free( ptr );
 
     return fresh_ptr;
-
 #else
 
     // Resizing to 0 free the pointer data and return
