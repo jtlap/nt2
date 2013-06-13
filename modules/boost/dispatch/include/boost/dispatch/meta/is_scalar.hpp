@@ -14,9 +14,8 @@
  * \brief Defines and implements the boost::dispatch::meta::is_scalar \metafunction
  */
 
-#include <boost/mpl/bool.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
-#include <boost/dispatch/meta/details/is_scalar.hpp>
+#include <boost/mpl/bool.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
@@ -45,8 +44,19 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   template<class T>
   struct  is_scalar
-        : details::is_scalar<typename hierarchy_of<T>::type>
-  {};
+  {
+    typedef char true_type;
+    struct false_type { char dummy[2]; };
+
+    template<class X>
+    static true_type call( meta::scalar_< meta::unspecified_<X> > );
+
+    static false_type call(...);
+
+    typedef typename meta::hierarchy_of<T>::type hierarchy;
+    static const bool value = sizeof( call( hierarchy() ) ) == sizeof(true_type);
+    typedef boost::mpl::bool_<value> type;
+  };
 } } }
 
 #endif
