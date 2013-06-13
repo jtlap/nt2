@@ -12,8 +12,6 @@
 #include <boost/simd/arithmetic/functions/min.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/is_less.hpp>
-#include <boost/simd/include/functions/simd/is_unord.hpp>
-#include <boost/simd/include/constants/nan.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
