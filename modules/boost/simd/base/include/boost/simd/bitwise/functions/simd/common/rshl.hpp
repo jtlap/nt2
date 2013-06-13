@@ -13,7 +13,7 @@
 #include <boost/simd/include/functions/simd/is_gtz.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/shift_left.hpp>
-#include <boost/simd/include/functions/simd/shr.hpp>
+#include <boost/simd/include/functions/simd/shift_right.hpp>
 #include <boost/simd/include/functions/simd/unary_minus.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/mpl/equal_to.hpp>
@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return if_else(is_gtz(a1),shl(a0, a1),shr(a0, -a1));
+      return if_else(is_gtz(a1), a0 << a1, a0 >> -a1);
     }
   };
 
@@ -48,7 +48,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return shl(a0, a1);
+      return a0 << a1;
     }
   };
 
