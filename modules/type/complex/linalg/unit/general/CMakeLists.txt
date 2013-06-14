@@ -19,7 +19,7 @@ SET( SOURCES
   orth.cpp
   pinv.cpp
   poly.cpp
-#  rot90.cpp
+ rot90.cpp
 #  rref.cpp
 #  rref_result.cpp
 #  sqrtm.cpp
