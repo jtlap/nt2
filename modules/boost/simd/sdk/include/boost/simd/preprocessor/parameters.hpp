@@ -25,25 +25,12 @@
 #define BOOST_SIMD_CONFIG_ALIGNMENT BOOST_SIMD_BYTES
 #endif
 
-#if defined(DOXYGEN_ONLY)
 /*!
   @brief System dependent value for alloca alignment
 
   This macro is defined to be equal to the current system alignment of
   address returned by @c alloca.
-
-  This macro is usually equals to current architecture stack alignment boundary
-  (as given by BOOST_SIMD_ARCH_ALIGNMENT) but maybe modified by some
-  compiler/OS combination.
 **/
-#define BOOST_SIMD_ALLOCA_ALIGNMENT BOOST_SIMD_ALLOCA_ALIGNMENT
-#else
-#if defined( _MSC_VER ) && defined( _WIN32 ) && !defined( _WIN64 )
-  #define BOOST_SIMD_ALLOCA_ALIGNMENT 16
-#else
-  #define BOOST_SIMD_ALLOCA_ALIGNMENT BOOST_SIMD_ARCH_ALIGNMENT
-#endif
-
-#endif
+#define BOOST_SIMD_STACK_ALIGNMENT BOOST_SIMD_ARCH_ALIGNMENT
 
 #endif
