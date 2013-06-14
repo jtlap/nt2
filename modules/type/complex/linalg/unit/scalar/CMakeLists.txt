@@ -9,7 +9,7 @@
 
 SET( SOURCES
 #     vecnorm.cpp
-#     norm.cpp
+     norm.cpp
 #     cond.cpp
 #     trace.cpp
 #     rank.cpp
