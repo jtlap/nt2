@@ -10,7 +10,7 @@
 SET( SOURCES
   cov.cpp
   cross.cpp
-#  expm.cpp
+  expm.cpp
 #  impower.cpp
   inv.cpp
 #  mpower.cpp
