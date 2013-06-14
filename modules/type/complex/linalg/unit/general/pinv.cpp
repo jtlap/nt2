@@ -52,8 +52,8 @@ NT2_TEST_CASE_TPL(pinv, NT2_REAL_TYPES)
     n1(nt2::_, 1) = cT(0.5);
     nt2::table<cT> pinvn1 = nt2::pinv(n1);
     p =  mtimes(mtimes(n1, pinvn1), n1);
-    NT2_TEST_LESSER_EQUAL(norm(p-n1, 2), T(3)*nt2::Eps<T>());
+    NT2_TEST_LESSER_EQUAL(norm(p-n1, 2), T(10)*nt2::Eps<T>());
     p =  mtimes(mtimes(pinvn1, n1), pinvn1);
-    NT2_TEST_LESSER_EQUAL(norm(p-pinvn1, 2), T(3)*nt2::Eps<T>());
+    NT2_TEST_LESSER_EQUAL(norm(p-pinvn1, 2), T(10)*nt2::Eps<T>());
   }
 }

@@ -15,7 +15,7 @@ SET( SOURCES
   inv.cpp
 #  mpower.cpp
 #  mtimes.cpp
-#  null.cpp
+  null.cpp
   orth.cpp
   pinv.cpp
 #  poly.cpp

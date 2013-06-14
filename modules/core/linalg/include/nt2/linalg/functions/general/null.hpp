@@ -39,9 +39,10 @@ namespace nt2{ namespace ext
                                      ((ast_<A0, nt2::container::domain>))
                                      )
   {
-    typedef typename A0::value_type               value_type;
+    typedef typename A0::value_type                     value_type;
+    typedef typename nt2::meta::as_real<value_type>::type   r_type;
     BOOST_DISPATCH_RETURNS(1, (const A0& a0),
-                           (nt2::factorization::svd<A0>(a0, 'N', 'O').null(Mone<value_type>()))
+                           (nt2::factorization::svd<A0>(a0, 'N', 'O').null(Mone<r_type>()))
                            )
   };
 
