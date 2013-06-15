@@ -22,8 +22,7 @@ namespace nt2{ namespace ext
                             )
   {
     typedef typename A0::value_type type_t;
-    typedef typename meta::as_real<type_t>::type rtype_t;
-    typedef typename meta::as_floating<rtype_t>::type result_type;
+    typedef typename meta::as_floating<type_t>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
       BOOST_ASSERT_MSG(issquare(a0), "det for non square matrix");
