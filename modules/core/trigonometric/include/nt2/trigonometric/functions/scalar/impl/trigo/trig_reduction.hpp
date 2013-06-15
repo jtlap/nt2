@@ -95,14 +95,30 @@ namespace nt2 { namespace details
       static inline A0 clip(const A0& x){ return x; }
     };
 
+
     template < class Mode>
     struct preliminary<Mode, true>
     {
-      static inline A0 clip(const A0& x){
-        if (Mode::range == r_0_pio4) return if_else_nan(is_0_pio4_reduced(x), x);
-        if (Mode::range == r_0_20pi) return if_else_nan(is_0_20pi_reduced(x), x);
-        if (Mode::range == r_0_mpi)  return if_else_nan(is_0_mpi_reduced(x),  x);
-        if (Mode::range == r_0_dmpi) return if_else_nan(is_0_dmpi_reduced(x), x);
+      static inline A0 clip(const A0& x)
+      {
+        return clipto(x, boost::mpl::int_<Mode::range>());
+      }
+    private :
+      static inline A0 clipto(const A0& x, boost::mpl::int_<r_0_pio4> const&)
+      {
+        return if_else_nan(is_0_pio4_reduced(x), x);
+      }
+      static inline A0 clipto(const A0& x, boost::mpl::int_<r_0_20pi> const&)
+      {
+        return if_else_nan(is_0_20pi_reduced(x), x);
+      }
+      static inline A0 clipto(const A0& x, boost::mpl::int_<r_0_mpi> const&)
+      {
+        return if_else_nan(is_0_mpi_reduced(x), x);
+      }
+      static inline A0 clipto(const A0& x, boost::mpl::int_<r_0_dmpi> const&)
+      {
+        return if_else_nan(is_0_dmpi_reduced(x), x);
       }
     };
 
