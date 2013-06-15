@@ -9,12 +9,12 @@
 
 SET( SOURCES
      det.cpp
-#     vecnorm.cpp
+     vecnorm.cpp
      norm.cpp
      cond.cpp
-#     trace.cpp
-#     rank.cpp
-#     normest.cpp
+     trace.cpp
+     rank.cpp
+     normest.cpp
    )
 
 nt2_module_add_tests(type.complex.linalg.scalar.unit ${SOURCES})
