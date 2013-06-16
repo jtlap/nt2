@@ -18,6 +18,7 @@
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/include/functions/ismatrix.hpp>
 #include <nt2/include/functions/max.hpp>
+#include <nt2/include/functions/globalmax.hpp>
 #include <nt2/include/functions/norm.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
@@ -64,15 +65,15 @@ namespace nt2 { namespace details
       , jb_(of_size(1, n_))
     {
       BOOST_ASSERT_MSG(ismatrix(a_), "input to rref must be matrix");
-      if (tol < Zero<type_t>()) tol = nt2::max(m_,n_)*nt2::Eps<base_t>()*nt2::norm(a_,'I');
+      if (tol < Zero<base_t>()) tol = nt2::max(m_,n_)*nt2::Eps<base_t>()*nt2::norm(a_,'I');
       itype_t i = 1, j = 1;
       itype_t k = 0;
-      type_t p;
+      base_t p;
       itype_t cnt = 1;
       while(i <= m_ && j <= n_)
       {
         //          tie(p, k) =  nt2::max(nt2::abs(a_(_(i, m_),j))); //TODO
-        p = nt2::max(nt2::abs(a_(_(i, m_),j)))(1);
+        p = nt2::globalmax(nt2::abs(a_(_(i, m_),j)));
         for(int l = i; l <= m_; ++l) if (nt2::abs(a_(l, j)) == p) { k = l; break; }
         //k = k+i-1;
         if (p <= tol)
