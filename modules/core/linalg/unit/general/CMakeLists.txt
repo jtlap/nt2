@@ -11,7 +11,6 @@ SET( SOURCES
   cov.cpp
   cross.cpp
   expm.cpp
-  impower.cpp
   inv.cpp
   mpower.cpp
   mtimes.cpp

@@ -11,7 +11,6 @@ SET( SOURCES
   cov.cpp
   cross.cpp
   expm.cpp
-#  impower.cpp
   inv.cpp
   mpower.cpp
   mtimes.cpp
@@ -21,7 +20,6 @@ SET( SOURCES
   poly.cpp
   rot90.cpp
   rref.cpp
-#  rref_result.cpp
   sqrtm.cpp
    )
 
