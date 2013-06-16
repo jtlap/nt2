@@ -22,7 +22,7 @@ SET( SOURCES
   rot90.cpp
   rref.cpp
 #  rref_result.cpp
-#  sqrtm.cpp
+  sqrtm.cpp
    )
 
 nt2_module_add_tests(type.complex.linalg.general.unit ${SOURCES})
