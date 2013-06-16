@@ -32,8 +32,6 @@ NT2_TEST_CASE_TPL(sqrtm, NT2_REAL_TYPES)
   n(1, 1) = n(1, 2) = n(2, 2) =  cT(1);
   n(2, 1) = cT(0);
   nt2::table<cT> sqrtmn = nt2::sqrtm(n);
-  NT2_DISPLAY(n);
-  NT2_DISPLAY(sqrtmn);
   NT2_TEST_ULP_EQUAL(mtimes(sqrtmn, sqrtmn), n, 0.5);
  }
 
@@ -55,8 +53,6 @@ NT2_TEST_CASE_TPL(sqrtm, NT2_REAL_TYPES)
                                          ));
 
   nt2::table<cT> sqrtmn = nt2::sqrtm(n);
-  NT2_DISPLAY(n);
-  NT2_DISPLAY(sqrtmn);
   NT2_TEST_ULP_EQUAL(mtimes(sqrtmn, sqrtmn), n, 5);
   NT2_TEST_ULP_EQUAL(r, sqrtmn, 100);
  }
