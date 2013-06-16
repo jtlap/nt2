@@ -13,7 +13,7 @@ SET( SOURCES
   expm.cpp
 #  impower.cpp
   inv.cpp
-#  mpower.cpp
+  mpower.cpp
   mtimes.cpp
   null.cpp
   orth.cpp

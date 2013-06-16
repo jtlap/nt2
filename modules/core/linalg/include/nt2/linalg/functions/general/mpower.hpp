@@ -38,6 +38,8 @@
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/norm.hpp>
 #include <nt2/include/functions/isscalar.hpp>
+#include <nt2/include/functions/real.hpp>
+#include <nt2/include/functions/imag.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/sdk/complex/meta/is_complex.hpp>
 #include <boost/mpl/bool.hpp>
@@ -54,7 +56,8 @@ namespace nt2{ namespace ext
     typedef typename boost::proto::result_of::child_c<A0&,0>::type          In0;
     typedef typename boost::proto::result_of::child_c<A0&,1>::type          In1;
     typedef typename A0::value_type                                  value_type;
-    typedef std::complex<value_type>                                  cplx_type;
+    typedef typename meta::as_real<value_type>::type                     r_type;
+    typedef std::complex<r_type>                                      cplx_type;
     BOOST_FORCEINLINE result_type operator()(const A0& a0, A1& a1 ) const
     {
       const In0& a  = boost::proto::child_c<0>(a0);
@@ -64,6 +67,8 @@ namespace nt2{ namespace ext
       bool s1 =  nt2::isscalar(b);
       if (s0 && s1)
       {
+        NT2_DISPLAY(a);
+        NT2_DISPLAY(b);
         value_type aa = a,  bb = b;
         doit0(aa, bb, r);
 
@@ -75,32 +80,38 @@ namespace nt2{ namespace ext
       }
       else if(s1)
       {
-        value_type bb = b;
-        doit2(a, bb, r);
+        value_type tmp = b;
+        if(Zero<r_type>() == imag(tmp))
+        {
+          doit2(a, real(tmp), r);
+        }
+        else
+           doit3(a, tmp, r);
+
       }
     }
   private:
-    BOOST_FORCEINLINE static void doit0(const value_type& a, value_type& b, Out0& r)
+    BOOST_FORCEINLINE static void doit0(const value_type& a, const value_type& b, Out0& r)
     {
       r =  nt2::pow(a, b);
     }
     template < class T >
-    BOOST_FORCEINLINE static void doit1(const value_type& a, T& b, Out0& r)
+    BOOST_FORCEINLINE static void doit1(const value_type& a, const T& b, Out0& r)
     {
       r.resize(extent(b));
       r =  nt2::expm(nt2::log(a)*b);
     }
     template < class T >
-    BOOST_FORCEINLINE static void doit2(const T& a, value_type& b, Out0& r)
+    BOOST_FORCEINLINE static void doit2(const T& a, r_type b, Out0& r)
     {
       r.resize(extent(a));
       typedef typename A0::index_type        index_type;
       typedef table<value_type, index_type> result_type;
       typedef table<cplx_type>                  ct_type;
       bool is_ltz_b = is_ltz(b);
-      if(is_ltz(b)) b = -b;
-      value_type m = nt2::trunc(b);
-      value_type f = b-m;
+      if(is_ltz_b) b = -b;
+      r_type m = nt2::trunc(b);
+      r_type f = b-m;
       ct_type q, t;
       nt2::tie(q, t) = schur(nt2::complexify(a),'N'); // t is complex schur form.        result_type e, v;
       if (isdiagonal(t))
@@ -113,12 +124,12 @@ namespace nt2{ namespace ext
       }
       else
       { //use iterative method
-        r = nt2::eye(nt2::size(a), meta::as_<value_type>());
+        r = nt2::eye(nt2::size(a), meta::as_<r_type>());
         result_type rf = r;
         if (m)
         {
           result_type a00 = a;
-          while (m >= nt2::One<value_type>())
+          while (m >= nt2::One<r_type>())
           {
             if (nt2::is_odd(m))
             {
@@ -136,15 +147,15 @@ namespace nt2{ namespace ext
         else
         {
           result_type a00 = nt2::sqrtm(a);
-          value_type thresh = nt2::Half<value_type>();
-          while (f > Zero<value_type>())
+          r_type thresh = nt2::Half<r_type>();
+          while (f > Zero<r_type>())
           {
             if (f >= thresh)
             {
               rf = nt2::mtimes(rf, a00);
               f -= thresh;
             }
-            thresh *= nt2::Half<value_type>();
+            thresh *= nt2::Half<r_type>();
             a00 =  nt2::sqrtm(a00);
           }
         }
@@ -161,6 +172,11 @@ namespace nt2{ namespace ext
       BOOST_FORCEINLINE static void transtype(T1& r, T2& z, boost::mpl::false_ const &)
     {
       r =  real(z);
+    }
+    template < class T >
+    BOOST_FORCEINLINE static void doit3(const T& a, value_type, Out0&)
+    {
+      BOOST_ASSERT_MSG(false, "sorry not implemented");
     }
 
   };
