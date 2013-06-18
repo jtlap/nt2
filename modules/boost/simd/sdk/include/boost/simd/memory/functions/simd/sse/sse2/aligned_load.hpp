@@ -14,6 +14,7 @@
 #include <boost/simd/memory/functions/details/check_ptr.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/slide.hpp>
 #include <boost/simd/meta/is_pointing_to.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
@@ -134,18 +135,11 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type
     eval(A0 a0, A2 const& a2, A3 const& a3, boost::mpl::false_ const&) const
     {
-      // Compute relative offsets for shifted loads pair
-      static const std::size_t shifta = (16u/cardinal)*(unalignment);
-      static const std::size_t shiftb = (16u/cardinal)*(cardinal-unalignment);
-
       // Load aligned sources
-      result_type a  = simd::aligned_load<result_type>(a0-unalignment);
-      result_type b  = simd::aligned_load<result_type>(a0-unalignment,std::size_t(cardinal));
+      result_type a  = aligned_load<result_type>(a0-unalignment);
+      result_type b  = aligned_load<result_type>(a0-unalignment,std::size_t(cardinal));
 
-      // Shift everything in place
-      __m128i     sa = _mm_srli_si128(bitwise_cast<__m128i>(a),shifta);
-      __m128i     sb = _mm_slli_si128(bitwise_cast<__m128i>(b),shiftb);
-      return bitwise_cast<result_type>(_mm_or_si128(sa,sb));
+      return slide<unalignment>(a,b);
     }
   };
 } } }

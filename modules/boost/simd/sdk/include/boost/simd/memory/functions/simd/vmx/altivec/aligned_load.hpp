@@ -11,6 +11,7 @@
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 #include <boost/simd/memory/functions/aligned_load.hpp>
+#include <boost/simd/include/functions/slide.hpp>
 #include <boost/simd/memory/functions/details/char_helper.hpp>
 #include <boost/simd/memory/functions/details/check_ptr.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
@@ -93,7 +94,7 @@ namespace boost { namespace simd { namespace ext
       result_type b  = simd::aligned_load<result_type>(a0-unalignment,cardinal);
 
       // Shift everything in place
-      return vec_sld( a() , b() ,sizeof(scalar_type) * unalignment );
+      return slide<unalignment>(a,b);
     }
   };
 } } }

@@ -15,6 +15,7 @@ SET( SOURCES
   stream.cpp
   load.cpp
   store.cpp
+  slide.cpp
   )
 
 nt2_module_add_tests(boost.simd.sdk.memory.simd.unit ${SOURCES})
