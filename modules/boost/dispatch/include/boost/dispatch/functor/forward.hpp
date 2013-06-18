@@ -40,7 +40,8 @@ namespace boost { namespace dispatch
   template<class Tag>
   struct default_site
   {
-    typedef typename default_site_impl<Tag, BOOST_DISPATCH_COUNTER_VALUE_TPL(default_site_stack, Tag)>::type type;
+    static const int value = BOOST_DISPATCH_COUNTER_VALUE_TPL(default_site_stack, Tag);
+    typedef typename default_site_impl<Tag, value>::type type;
   };
 
   template< class Tag
