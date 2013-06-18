@@ -22,10 +22,11 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
-      {
-        return is_eqz(a0);
-      };
+    {
+      return is_eqz(a0);
+    }
   };
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::none_, tag::cpu_,
                      (A0)(A1),
                      (scalar_<fundamental_<A0> >)
@@ -34,7 +35,9 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename meta::as_logical<A0>::type result_type;
     inline result_type operator()(A0 const & a0, A1 const &) const
-      { return is_eqz(a0); };
+    {
+      return is_eqz(a0);
+    }
   };
 } } }
 #endif
