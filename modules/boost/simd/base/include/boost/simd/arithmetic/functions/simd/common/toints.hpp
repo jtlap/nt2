@@ -11,7 +11,8 @@
 #include <boost/simd/arithmetic/functions/toints.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/is_equal.hpp>
-#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/functions/toint.hpp>
 #include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/if_zero_else.hpp>
@@ -46,13 +47,15 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
+      typedef typename meta::scalar_of<result_type>::type sr_t;
+      static const A0 Vax =  splat<A0>(boost::simd::Valmax<sr_t>());
+      static const A0 Vix =  splat<A0>(boost::simd::Valmin<sr_t>());
       A0 aa0 = if_zero_else(is_nan(a0), a0);
-      result_type that = toint(aa0);
-      return if_else(eq(aa0, Inf<A0>()), Inf<result_type>(),
-                     if_else(eq(aa0, Minf<A0>()), Minf<result_type>(),
-                             that)
+      return if_else(boost::simd::lt(aa0, Vix), Valmin<result_type>(),
+                     if_else(boost::simd::gt(aa0, Vax), Valmax<result_type>(),
+                             toint(aa0)
+                            )
                     );
-
     }
   };
 } } }

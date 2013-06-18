@@ -24,6 +24,8 @@
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/mone.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
 
 
 NT2_TEST_CASE_TPL ( toints_real,  BOOST_SIMD_REAL_TYPES)
@@ -39,6 +41,12 @@ NT2_TEST_CASE_TPL ( toints_real,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_TYPE_IS(r_t, wished_r_t);
 
   // specific values tests
+  NT2_TEST_EQUAL(toints(T(2)*boost::simd::Valmax<r_t>()),  boost::simd::Valmax<r_t>());
+  NT2_TEST_EQUAL(toints(T(2)*boost::simd::Valmin<r_t>()),  boost::simd::Valmin<r_t>());
+  NT2_TEST_EQUAL(toints(T(1.5)*boost::simd::Valmax<r_t>()),  boost::simd::Valmax<r_t>());
+  NT2_TEST_EQUAL(toints(T(1.5)*boost::simd::Valmin<r_t>()),  boost::simd::Valmin<r_t>());
+
+
   NT2_TEST_EQUAL(toints(boost::simd::Inf<T>()),  boost::simd::Inf<r_t>());
   NT2_TEST_EQUAL(toints(boost::simd::Minf<T>()), boost::simd::Minf<r_t>());
   NT2_TEST_EQUAL(toints(boost::simd::Mone<T>()), boost::simd::Mone<r_t>());
