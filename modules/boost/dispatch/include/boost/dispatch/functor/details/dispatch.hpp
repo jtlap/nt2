@@ -32,7 +32,7 @@
 #include <boost/preprocessor/punctuation/comma_if.hpp>
 #if defined(__WAVE__) && defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/dispatch.hpp")
-#undef BOOST_DISPATCH_TYPEOF
+#undef BOOST_DISPATCH_TYPEOF_
 #undef BOOST_FORCEINLINE
 #endif
 
@@ -100,13 +100,14 @@ struct dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site_>                    \
                  , mpl::identity<Site_>                                        \
                  >::type Site;                                                 \
                                                                                \
-  typedef BOOST_DISPATCH_TYPEOF                                                \
+  BOOST_DISPATCH_TYPEOF_                                                       \
   ( dispatching ( (typename meta::hierarchy_of<Tag>::type())                   \
                 , (typename meta::hierarchy_of<Site>::type())                  \
                   BOOST_PP_REPEAT(n,M0,~)                                      \
                 , adl_helper()                                                 \
                 )                                                              \
-  ) type;                                                                      \
+  , type                                                                       \
+  )                                                                            \
 };                                                                             \
 /**/
 

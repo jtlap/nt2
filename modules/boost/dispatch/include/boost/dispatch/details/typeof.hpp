@@ -11,6 +11,7 @@
 
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
+#include <boost/preprocessor/cat.hpp>
 
 /// INTERNAL ONLY
 /// Boost.Config isn't up to date for MSVC10 so we force it to be
@@ -32,9 +33,14 @@
 
 /// INTERNAL ONLY
 #ifndef BOOST_NO_DECLTYPE
-#define BOOST_DISPATCH_TYPEOF(EXPR) decltype(EXPR)
+#  define BOOST_DISPATCH_TYPEOF_(EXPR, TYPE) typedef decltype(EXPR) TYPE;
+#  define BOOST_DISPATCH_TYPEOF(EXPR) decltype(EXPR)
 #else
-#define BOOST_DISPATCH_TYPEOF(EXPR) BOOST_TYPEOF(EXPR)
+#  define BOOST_DISPATCH_TYPEOF_(EXPR, TYPE)                                                       \
+    BOOST_TYPEOF_NESTED_TYPEDEF_TPL(BOOST_PP_CAT(nested_, TYPE), (EXPR))                           \
+    typedef typename BOOST_PP_CAT(nested_, TYPE)::type TYPE;                                       \
+   /**/
+#  define BOOST_DISPATCH_TYPEOF(EXPR) BOOST_TYPEOF_TPL(EXPR)
 #endif
 
 #endif
