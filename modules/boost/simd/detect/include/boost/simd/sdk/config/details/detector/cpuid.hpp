@@ -95,7 +95,21 @@ namespace boost { namespace simd { namespace config { namespace x86
 #endif
 
 #elif defined(BOOST_SIMD_COMPILER_MSVC)
+#if _MSC_VER > 1500
     __cpuidex(CPUInfo,InfoType,ECXValue);
+#else
+    __asm
+    {
+      mov    esi,CPUInfo
+      mov    eax,InfoType
+      mov    ecx,ECXValue
+      cpuid
+      mov    dword ptr [esi], eax
+      mov    dword ptr [esi+4],ebx
+      mov    dword ptr [esi+8],ecx
+      mov    dword ptr [esi+0Ch],edx
+    }
+#endif
 #else
 #error compiler not supported
 #endif
