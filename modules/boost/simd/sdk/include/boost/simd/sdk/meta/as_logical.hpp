@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace details
   {
   };
 
-  template<class T, class F>
+  template<class F>
   struct as_logical< bool, F >
    : mpl::apply1<F, bool >
   {
