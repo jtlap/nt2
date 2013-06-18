@@ -8,14 +8,16 @@
 //==============================================================================
 #ifndef BOOST_SIMD_REDUCTION_FUNCTIONS_SCALAR_ANY_HPP_INCLUDED
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_SCALAR_ANY_HPP_INCLUDED
+
 #include <boost/simd/reduction/functions/any.hpp>
 #include <boost/simd/include/functions/scalar/is_nez.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::any_, tag::cpu_,
                      (A0),
-                     (scalar_ < arithmetic_<A0> > )
+                     (scalar_ < fundamental_<A0> > )
                     )
   {
     typedef typename meta::as_logical<A0>::type result_type;
@@ -24,38 +26,16 @@ namespace boost { namespace simd { namespace ext
         return is_nez(a0);
       };
   };
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::any_, tag::cpu_,
-                     (A0),
-                     (scalar_ < logical_<A0> > )
-                    )
-  {
-    typedef typename meta::as_logical<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-      {
-         return a0;
-      };
-  };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::any_, tag::cpu_,
                      (A0)(A1),
-                     (scalar_<arithmetic_<A0> >)
+                     (scalar_<fundamental_<A0> >)
                      (scalar_<integer_<A1> >)
                     )
   {
     typedef typename meta::as_logical<A0>::type result_type;
     inline result_type operator()(A0 const & a0, A1 const &) const
       { return is_nez(a0); };
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::any_, tag::cpu_,
-                     (A0)(A1),
-                     (scalar_<logical_<A0> >)
-                     (scalar_<integer_<A1> >)
-                                    )
-  {
-    typedef typename meta::as_logical<A0>::type result_type;
-    inline result_type operator()(A0 const & a0, A1 const &) const
-      { return a0; };
   };
 } } }
 #endif
