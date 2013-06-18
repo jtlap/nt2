@@ -56,6 +56,7 @@ NT2_TEST_CASE_TPL ( toints_real,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(toints(nt2::Zero<vT>()), nt2::Zero<r_t>());
 } // end of test for floating_
 
+#if BOOST_SIMD_BYTES == 16
 NT2_TEST_CASE_TPL ( toints_realf,  (float))
 {
   using nt2::toints;
@@ -70,6 +71,7 @@ NT2_TEST_CASE_TPL ( toints_realf,  (float))
   r_t b =  nt2::make<r_t>(nt2::One<iT>()   , nt2::Inf<iT>(),    nt2::Minf<iT>(),    nt2::Nan<iT>()   );
   NT2_TEST_EQUAL(toints(a), b);
 }
+
 NT2_TEST_CASE_TPL ( toints_reald,  (double))
 {
   using nt2::toints;
@@ -87,8 +89,7 @@ NT2_TEST_CASE_TPL ( toints_reald,  (double))
   NT2_TEST_EQUAL(toints(a1), b1);
   NT2_TEST_EQUAL(toints(a2), b2);
 }
-
-
+#endif
 
 NT2_TEST_CASE_TPL ( toints_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
 {
