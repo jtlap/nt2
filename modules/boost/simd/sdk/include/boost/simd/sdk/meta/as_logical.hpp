@@ -33,6 +33,12 @@ namespace boost { namespace simd { namespace details
    : mpl::apply1<F, logical<T> >
   {
   };
+
+  template<class T, class F>
+  struct as_logical< bool, F >
+   : mpl::apply1<F, bool >
+  {
+  };
 } } }
 
 namespace boost { namespace simd { namespace meta
