@@ -13,6 +13,7 @@
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/functions/scalar/is_ngez.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -50,8 +51,8 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_integer<A0, unsigned> ::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      if (boost::simd::is_ngez(a0))      return Zero<result_type>();
-      if (a0 == boost::simd::Inf<A0>())  return boost::simd::Inf<result_type>();
+      if (boost::simd::is_ngez(a0))                  return Zero<result_type>();
+      if (a0 >= boost::simd::Valmax<result_type>())  return boost::simd::Valmax<result_type>();
       return result_type(a0);
     }
   };

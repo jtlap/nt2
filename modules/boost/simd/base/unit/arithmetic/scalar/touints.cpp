@@ -36,6 +36,8 @@ NT2_TEST_CASE_TPL ( touints_real,  BOOST_SIMD_REAL_TYPES)
 
   NT2_TEST_TYPE_IS( r_t, wished_r_t );
   // specific values tests
+  NT2_TEST_EQUAL(touints(T(2)*boost::simd::Valmax<r_t>()),  boost::simd::Valmax<r_t>());
+  NT2_TEST_EQUAL(touints(T(2)*boost::simd::Valmin<r_t>()),  boost::simd::Valmin<r_t>());
   NT2_TEST_EQUAL(touints(boost::simd::Inf<T>()) , boost::simd::Inf<r_t>());
   NT2_TEST_EQUAL(touints(boost::simd::Minf<T>()), boost::simd::Zero<r_t>());
   NT2_TEST_EQUAL(touints(boost::simd::Mone<T>()), boost::simd::Zero<r_t>());

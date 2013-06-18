@@ -25,7 +25,8 @@
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
-
+#include <boost/simd/include/functions/multiplies.hpp>
+#include <boost/simd/include/functions/splat.hpp>
 
 
 
@@ -38,8 +39,13 @@ NT2_TEST_CASE_TPL ( touints_real,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef native<T,ext_t>                  vT;
   typedef typename boost::dispatch::meta::as_integer<vT, unsigned>::type ivT;
   typedef typename boost::dispatch::meta::call<touints_(vT)>::type       r_t;
+  typedef typename boost::dispatch::meta::call<touints_(T)>::type       sr_t;
 
   // specific values tests
+  NT2_TEST_EQUAL(touints(boost::simd::splat<vT>(T(1.5)*boost::simd::Valmax<sr_t>())),  boost::simd::Valmax<r_t>());
+  NT2_TEST_EQUAL(touints(boost::simd::splat<vT>(T(1.5)*boost::simd::Valmin<sr_t>())),  boost::simd::Valmin<r_t>());
+  NT2_TEST_EQUAL(touints(boost::simd::splat<vT>(T(2)*boost::simd::Valmax<sr_t>())),  boost::simd::Valmax<r_t>());
+  NT2_TEST_EQUAL(touints(boost::simd::splat<vT>(T(2)*boost::simd::Valmin<sr_t>())),  boost::simd::Valmin<r_t>());
   NT2_TEST_EQUAL(touints(boost::simd::Inf<vT>()), boost::simd::Inf<r_t>());
   NT2_TEST_EQUAL(touints(boost::simd::Minf<vT>()), boost::simd::Zero<r_t>());
   NT2_TEST_EQUAL(touints(boost::simd::Mone<vT>()), boost::simd::Zero<r_t>());

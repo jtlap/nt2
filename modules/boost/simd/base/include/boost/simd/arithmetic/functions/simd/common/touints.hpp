@@ -12,11 +12,12 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/simd/is_ngez.hpp>
 #include <boost/simd/include/functions/simd/is_lez.hpp>
+#include <boost/simd/include/functions/simd/is_greater.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/if_zero_else.hpp>
 #include <boost/simd/include/functions/simd/touint.hpp>
-#include <boost/simd/include/constants/inf.hpp>
-
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::touints_, tag::cpu_
@@ -54,8 +55,10 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_integer<A0, unsigned> ::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
+      typedef typename meta::scalar_of<result_type>::type sr_t;
+      static const A0 Vax =  splat<A0>(boost::simd::Valmax<sr_t>());
       return if_zero_else(boost::simd::is_ngez(a0),
-                          if_else(eq(a0, boost::simd::Inf<A0>()), Inf<result_type>(),
+                          if_else(boost::simd::gt(a0, Vax), Valmax<result_type>(),
                                   touint(a0)
                                  )
                          );
