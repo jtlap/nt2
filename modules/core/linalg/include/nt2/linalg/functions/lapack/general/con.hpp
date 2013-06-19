@@ -20,15 +20,15 @@
 extern "C"
 {
   void NT2_F77NAME(dgecon)( const char* norm     , const nt2_la_int* n
-                          , double* a            , const nt2_la_int* lda
+                          , const double* a      , const nt2_la_int* lda
                           , const double* anorm  , double* rcond
                           , double* work         , nt2_la_int* iwork
                           , nt2_la_int* info
                           );
 
   void NT2_F77NAME(sgecon)( const char* norm     , const nt2_la_int* n
-                          , float* a             , const nt2_la_int* lda
-                          , const float* anorm  , float* rcond
+                          , const float* a       , const nt2_la_int* lda
+                          , const float* anorm   , float* rcond
                           , float* work          , nt2_la_int* iwork
                           , nt2_la_int* info
                           );
@@ -50,7 +50,7 @@ namespace nt2 { namespace ext
   {
     typedef double  result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0& a0, A1 a1, A2 a2) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&a1, A2 const&a2) const
     {
       result_type rcond;
       nt2_la_int n = nt2::height(a0);
@@ -82,7 +82,7 @@ namespace nt2 { namespace ext
   {
     typedef float result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0& a0, A1 a1, A2 a2) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1, A2 const& a2) const
     {
       result_type rcond;
       nt2_la_int n = nt2::height(a0);

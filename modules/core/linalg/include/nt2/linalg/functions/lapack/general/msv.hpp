@@ -24,7 +24,7 @@
 extern "C"
 {
   void NT2_F77NAME(dsgesv)( const nt2_la_int* n, const nt2_la_int* nrhs
-                         , const double* a     , const nt2_la_int* lda
+                         , double* a           , const nt2_la_int* lda
                          , nt2_la_int* ipiv
                          , const double* b     , const nt2_la_int* ldb
                          , double* x           , const nt2_la_int* ldx
@@ -56,7 +56,7 @@ namespace nt2 { namespace ext
   {
      typedef nt2_la_int result_type;
 
-     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1, A2& a2) const
+     BOOST_FORCEINLINE result_type operator()(A0& a0, A1 const& a1, A2& a2) const
      {
         details::workspace<typename A2::value_type> w;
         nt2_la_int  n  = std::min(nt2::height(a0),nt2::width(a0));

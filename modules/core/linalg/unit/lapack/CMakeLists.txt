@@ -25,6 +25,8 @@ SET ( SOURCES
       clinsolve.cpp
       plinsolve.cpp
       mlinsolve.cpp
+      ysvx.cpp
+      posv.cpp
    )
 
 nt2_module_add_tests(core.linalg.lapack.unit ${SOURCES})

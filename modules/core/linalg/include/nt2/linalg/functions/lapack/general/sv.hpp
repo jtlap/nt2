@@ -35,17 +35,17 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sv_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(S2)
-                            , ((expr_ < table_< double_<A0>, S0 >
+                            , ((expr_ < table_< double_<A0>, S0 >   // A
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< integer_<A1>, S1 >
+                              ((expr_ < table_< integer_<A1>, S1 >  // IPIV
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< double_<A2>, S2 >
+                              ((expr_ < table_< double_<A2>, S2 >   // B
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
