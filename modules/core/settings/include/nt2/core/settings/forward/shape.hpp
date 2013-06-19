@@ -11,13 +11,20 @@
 
 namespace nt2
 {
-  struct rectangular_;
+  //============================================================================
+  /*! The default container shape. Data are laid out in a hypercube
+   *  of N dimensions and contains only non-trivial values.
+   **/
+  //============================================================================
 
-  /// TODO MOVE THIS ELSEWHERE LATER
-  struct upper_triangular_ {};
-  struct lower_triangular_ {};
-  struct band_diagonal_    {};
-  struct diagonal_         {};
+  struct rectangular_;
+  struct upper_triangular_    {};
+  struct lower_triangular_    {};
+  struct band_diagonal_       {};
+  struct diagonal_            {};
+  struct positive_definite_   {};
+  struct uhess_               {};
+  struct symmetric_           {};
 
   namespace tag
   {
@@ -27,3 +34,5 @@ namespace nt2
 }
 
 #endif
+
+

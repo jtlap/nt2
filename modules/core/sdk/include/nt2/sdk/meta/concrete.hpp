@@ -26,10 +26,9 @@ namespace nt2
                                               semantic_of<Expr&>::type
                                     >::type                             type;
 
-      static BOOST_FORCEINLINE type call(Expr&)
+      static BOOST_FORCEINLINE type call(Expr& a0)
       {
-        type   that;
-        return that;
+        return a0;
       }
     };
 
