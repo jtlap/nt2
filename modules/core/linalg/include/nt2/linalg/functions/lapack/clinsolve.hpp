@@ -26,7 +26,7 @@
 
 #include <nt2/linalg/options.hpp>
 #include <nt2/sdk/meta/concrete.hpp>
-#include <nt2/linalg/functions/details/eval_mldivide.hpp>
+#include <nt2/linalg/functions/details/eval_linsolve.hpp>
 #include <nt2/sdk/meta/settings_of.hpp>
 
 #include <nt2/core/container/table/table.hpp>
