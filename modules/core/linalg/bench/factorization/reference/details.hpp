@@ -21,8 +21,16 @@
 
 #define FADDS_GETRF(__m, __n) ( ((__m) < (__n)) ? (0.5 * (__m) * ((__m) * ((__n) - (1./3.) * (__m)      ) - (__n)) + (1. / 6.) * (__m))   \
                                 :                 (0.5 * (__n) * ((__n) * ((__m) - (1./3.) * (__n)      ) - (__m)) + (1. / 6.) * (__n)) ) \
-/**/
 
+
+
+/**/
+#define FLOPS_DGETRS(__n, __nrhs) (     FMULS_GETRS((double)(__n), (double)(__nrhs)) +       FADDS_GETRS((double)(__n), (double)(__nrhs)) )
+
+#define FMULS_GETRS(__n, __nrhs) ((__nrhs) * (__n) *  (__n)      )
+#define FADDS_GETRS(__n, __nrhs) ((__nrhs) * (__n) * ((__n) - 1 ))
+
+/**/
 #define FLOPS_DGEQRF(__m, __n) (     FMULS_GEQRF((double)(__m), (double)(__n)) +       FADDS_GEQRF((double)(__m), (double)(__n)) )
 
 /**/
@@ -124,6 +132,16 @@ extern "C"
                           , float* work             , const nt2_la_int* lwork
                           , nt2_la_int* info
                           );
+
+  void NT2_F77NAME(dgesv)( const nt2_la_int* n, const nt2_la_int* nrhs
+                         , double* a, const nt2_la_int* lda, nt2_la_int* ipiv
+                         , double* b, const nt2_la_int* ldb, nt2_la_int* info
+                         );
+
+  void NT2_F77NAME(sgesv)( const nt2_la_int* n, const nt2_la_int* nrhs
+                         , float* a, const nt2_la_int* lda, nt2_la_int* ipiv
+                         , float* b, const nt2_la_int* ldb, nt2_la_int* info
+                         );
 }
 
 

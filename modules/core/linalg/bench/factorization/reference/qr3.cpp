@@ -16,8 +16,8 @@
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/xerbla.hpp>
 #include <nt2/include/functions/expand.hpp>
-#include <nt2/toolbox/linalg/details/utility/workspace.hpp>
-#include <nt2/toolbox/linalg/details/utility/f77_wrapper.hpp>
+#include <nt2/linalg/details/utility/workspace.hpp>
+#include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include "details.hpp"
 
 namespace nt2 { namespace ext

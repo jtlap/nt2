@@ -14,6 +14,7 @@ SET(  SOURCES
       qr.cpp
       qr2.cpp
       qr3.cpp
+      linsolve.cpp
    )
 
 nt2_module_add_tests(core.linalg.factorization.reference.bench ${SOURCES})

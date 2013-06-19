@@ -13,7 +13,7 @@
 #include <nt2/include/functions/lu.hpp>
 #include <nt2/include/functions/rand.hpp>
 #include <nt2/include/functions/zeros.hpp>
-#include <nt2/toolbox/linalg/details/utility/f77_wrapper.hpp>
+#include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include "details.hpp"
 
 
