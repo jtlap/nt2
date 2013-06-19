@@ -47,6 +47,16 @@ namespace nt2 { namespace tag
   struct shape_::apply<nt2::diagonal_>
                 : boost::mpl::true_
   {};
+
+  template<>
+  struct shape_::apply<nt2::positive_definite_>
+                : boost::mpl::true_
+  {};
+
+  template<>
+  struct shape_::apply<nt2::symmetric_>
+                : boost::mpl::true_
+  {};
 } }
 
 #include <nt2/core/settings/details/shape.hpp>
