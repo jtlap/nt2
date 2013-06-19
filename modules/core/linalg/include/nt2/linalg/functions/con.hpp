@@ -6,14 +6,13 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_LANGE_HPP_INCLUDED
-#define NT2_TOOLBOX_LINALG_FUNCTIONS_LANGE_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_CON_HPP_INCLUDED
+#define NT2_TOOLBOX_LINALG_FUNCTIONS_CON_HPP_INCLUDED
 
 /*!
   @file
-  @brief Defines and implements lapack lange function that returns the value of
-  the one norm, or the Frobenius norm, or the  infinity norm, or the  element
-  of  largest absolute value of a real matrix A.
+  @brief Defines and implements lapack gecon function that estimates the
+  reciprocal of the condition number of a matrix A in the 1-norm or infinity norm
 **/
 
 #include <nt2/include/functor.hpp>
@@ -22,8 +21,8 @@ namespace nt2
 {
   namespace tag
   {
-    /// @brief Defines lange function tag
-    struct lange_ : boost::dispatch::tag::formal_
+    /// @brief Defines gecon function tag
+    struct con_ : boost::dispatch::tag::formal_
     {
       /// INTERNAL ONLY
       typedef boost::dispatch::tag::formal_  parent;
@@ -38,7 +37,11 @@ namespace nt2
 
     @return
   **/
-  NT2_FUNCTION_IMPLEMENTATION (tag::lange_, lange
+  NT2_FUNCTION_IMPLEMENTATION (tag::con_, con
+                                  , 3
+                                  );
+
+  NT2_FUNCTION_IMPLEMENTATION (tag::con_, con
                                   , 2
                                   );
 

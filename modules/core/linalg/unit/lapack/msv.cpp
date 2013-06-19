@@ -7,6 +7,7 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <nt2/include/functions/msv.hpp>
+#include <nt2/include/functions/sv.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/ones.hpp>
@@ -23,32 +24,22 @@
 
 NT2_TEST_CASE_TPL(msv, (double) )
 {
-  using nt2::_;
+using nt2::_;
+
+typedef nt2::table<T>         t_t;
+typedef nt2::table<nt2_la_int>         t_i;
+
+t_t a = nt2::cons<T>(nt2::of_size(3,3),2,1,1,1,2,2,2,5,7);
+t_t a1(a);
+t_t b = nt2::cons<T>(nt2::of_size(3,1),1,2,5);
+t_t x(b);
+t_t x1(b);
+t_i piv;
 
 
-  typedef nt2::table<T>         t_t;
-  typedef nt2::table<nt2_la_int>         t_i;
+nt2_la_int iter= nt2::msv(a,b,x);
+nt2_la_int info= nt2::sv(a1,piv,x1);
 
-  // t_t a  = nt2::ones (1, 3, nt2::meta::as_<T>())
-  //          + T(10)*nt2::eye  (1, 3, nt2::meta::as_<T>());
-
-  // t_t b = nt2::ones(1, 1, nt2::meta::as_<T>());
-
-
-
- t_t a = nt2::cons<T>(nt2::of_size(3,3),2,1,1,1,2,2,2,5,7);
- t_t b = nt2::cons<T>(nt2::of_size(3,1),1,2,5);
- t_t x(nt2::of_size(3,1));
-
-  NT2_DISPLAY(a);
-  NT2_DISPLAY(b);
-
-  nt2_la_int iter= nt2::msv(a,b,x);
-
-  NT2_DISPLAY(a);
-  NT2_DISPLAY(b);
-  NT2_DISPLAY(x);
-  NT2_DISPLAY(iter);
-
+NT2_TEST_ULP_EQUAL(x, x1 , T(10));
 
 }

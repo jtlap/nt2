@@ -6,14 +6,13 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_LANGE_HPP_INCLUDED
-#define NT2_TOOLBOX_LINALG_FUNCTIONS_LANGE_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_MSV_HPP_INCLUDED
+#define NT2_TOOLBOX_LINALG_FUNCTIONS_MSV_HPP_INCLUDED
 
 /*!
   @file
-  @brief Defines and implements lapack lange function that returns the value of
-  the one norm, or the Frobenius norm, or the  infinity norm, or the  element
-  of  largest absolute value of a real matrix A.
+  @brief Defines and implements lapack dsgesv function that computes the solution
+  of real system of linear equations a*x = b with mixed precision.
 **/
 
 #include <nt2/include/functor.hpp>
@@ -22,8 +21,8 @@ namespace nt2
 {
   namespace tag
   {
-    /// @brief Defines lange function tag
-    struct lange_ : boost::dispatch::tag::formal_
+    /// @brief Defines gesvx function tag
+    struct msv_ : boost::dispatch::tag::formal_
     {
       /// INTERNAL ONLY
       typedef boost::dispatch::tag::formal_  parent;
@@ -38,8 +37,10 @@ namespace nt2
 
     @return
   **/
-  NT2_FUNCTION_IMPLEMENTATION (tag::lange_, lange
-                                  , 2
+
+  NT2_FUNCTION_IMPLEMENTATION_TPL (tag::msv_, msv
+                                  , (A0&)(A1 const&)(A2&)
+                                  , 3
                                   );
 
 }

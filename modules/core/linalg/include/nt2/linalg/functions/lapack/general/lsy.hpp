@@ -56,12 +56,12 @@ namespace nt2 { namespace ext
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< double_<A1>, S1 >
+                              ((expr_ < table_< integer_<A1>, S1 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< integer_<A2>, S2 >
+                              ((expr_ < table_< double_<A2>, S2 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
@@ -78,8 +78,8 @@ namespace nt2 { namespace ext
         nt2_la_int  m  = nt2::height(a0);
         nt2_la_int  n  = nt2::width(a0);
         nt2_la_int  ld = a0.leading_size();
-        nt2_la_int  nhrs = nt2::width(a1);
-        nt2_la_int  ldb = a1.leading_size();
+        nt2_la_int  nhrs = nt2::width(a2);
+        nt2_la_int  ldb = a2.leading_size();
         typedef  double T ;
         T rcond =  Sqrteps<T>() - (Sqrteps<T>() - Eps<T>())/2;
 
@@ -87,7 +87,7 @@ namespace nt2 { namespace ext
                             , w.main(), details::query(), &that
                             );
 
-          a2 = nt2::zeros<nt2_la_int>(n,1);
+          a1 = nt2::zeros<nt2_la_int>(n,1);
           w.prepare_main();
           nt2::lsy(a0,a1,a2,w);
 
@@ -103,12 +103,12 @@ namespace nt2 { namespace ext
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< double_<A1>, S1 >
+                              ((expr_ < table_< integer_<A1>, S1 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< integer_<A2>, S2 >
+                              ((expr_ < table_< double_<A2>, S2 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
@@ -126,7 +126,7 @@ namespace nt2 { namespace ext
         nt2_la_int  n  = nt2::width(a0);
         nt2_la_int  ld = a0.leading_size();
         nt2_la_int  nhrs = nt2::width(a1);
-        nt2_la_int  ldb = a1.leading_size();
+        nt2_la_int  ldb = a2.leading_size();
         typedef  double T ;
         T rcond =  Sqrteps<T>() - (Sqrteps<T>() - Eps<T>())/2;
 
@@ -134,12 +134,12 @@ namespace nt2 { namespace ext
                             , w.main(), details::query(), &that
                             );
 
-        a2 = nt2::zeros<nt2_la_int>(n,1);
+        a1 = nt2::zeros<nt2_la_int>(n,1);
         w.prepare_main();
         nt2_la_int  wn = w.main_size();
 
-        NT2_F77NAME(dgelsy) (&m, &n, &nhrs, a0.raw(), &ld, a1.raw(), &ldb
-                            , a2.raw(), &rcond, &a3, w.main()
+        NT2_F77NAME(dgelsy) (&m, &n, &nhrs, a0.raw(), &ld, a2.raw(), &ldb
+                            , a1.raw(), &rcond, &a3, w.main()
                             , &wn, &that
                             );
 
@@ -150,17 +150,17 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY - Workspace is ready
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::lsy_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(S2)(A3)
-                            , ((expr_ < table_< double_<A0>, S0 >
+                            , ((expr_ < table_< double_<A0>, S0 >   //A
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< double_<A1>, S1 >
+                              ((expr_ < table_< integer_<A1>, S1 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< integer_<A2>, S2 >
+                              ((expr_ < table_< double_<A2>, S2 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
@@ -178,15 +178,15 @@ namespace nt2 { namespace ext
         nt2_la_int  n  = nt2::width(a0);
         nt2_la_int  ld = a0.leading_size();
         nt2_la_int  wn = a3.main_size();
-        nt2_la_int  nhrs = nt2::width(a1);
-        nt2_la_int  ldb = a1.leading_size();
+        nt2_la_int  nhrs = nt2::width(a2);
+        nt2_la_int  ldb = a2.leading_size();
         typedef double T ;
         T rcond = Sqrteps<T>() - (Sqrteps<T>() - Eps<T>())/2;
 
-        a2 = nt2::zeros<nt2_la_int>(n,1);
+        a1 = nt2::zeros<nt2_la_int>(n,1);
 
-        NT2_F77NAME(dgelsy) (&m, &n, &nhrs, a0.raw(), &ld, a1.raw(), &ldb
-                            , a2.raw(), &rcond, &rank, a3.main()
+        NT2_F77NAME(dgelsy) (&m, &n, &nhrs, a0.raw(), &ld, a2.raw(), &ldb
+                            , a1.raw(), &rcond, &rank, a3.main()
                             , &wn, &that
                             );
 
@@ -202,12 +202,12 @@ namespace nt2 { namespace ext
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< single_<A1>, S1 >
+                              ((expr_ < table_< integer_<A1>, S1 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< integer_<A2>, S2 >
+                              ((expr_ < table_< single_<A2>, S2 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
@@ -224,8 +224,8 @@ namespace nt2 { namespace ext
         nt2_la_int  m  = nt2::height(a0);
         nt2_la_int  n  = nt2::width(a0);
         nt2_la_int  ld = a0.leading_size();
-        nt2_la_int  nhrs = nt2::width(a1);
-        nt2_la_int  ldb = a1.leading_size();
+        nt2_la_int  nhrs = nt2::width(a2);
+        nt2_la_int  ldb = a2.leading_size();
         typedef float T ;
         T rcond = Sqrteps<T>() - (Sqrteps<T>() - Eps<T>())/2;
 
@@ -233,7 +233,7 @@ namespace nt2 { namespace ext
                             , w.main(), details::query(), &that
                             );
 
-          a2 = nt2::zeros<nt2_la_int>(n,1);
+          a1 = nt2::zeros<nt2_la_int>(n,1);
           w.prepare_main();
           nt2::lsy(a0,a1,a2,w);
 
@@ -249,12 +249,12 @@ namespace nt2 { namespace ext
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< single_<A1>, S1 >
+                              ((expr_ < table_< integer_<A1>, S1 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< integer_<A2>, S2 >
+                              ((expr_ < table_< single_<A2>, S2 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
@@ -271,8 +271,8 @@ namespace nt2 { namespace ext
         nt2_la_int  m  = nt2::height(a0);
         nt2_la_int  n  = nt2::width(a0);
         nt2_la_int  ld = a0.leading_size();
-        nt2_la_int  nhrs = nt2::width(a1);
-        nt2_la_int  ldb = a1.leading_size();
+        nt2_la_int  nhrs = nt2::width(a2);
+        nt2_la_int  ldb = a2.leading_size();
         typedef  float T ;
         T rcond =  Sqrteps<T>() - (Sqrteps<T>() - Eps<T>())/2;
 
@@ -280,12 +280,12 @@ namespace nt2 { namespace ext
                             , w.main(), details::query(), &that
                             );
 
-        a2 = nt2::zeros<nt2_la_int>(n,1);
+        a1 = nt2::zeros<nt2_la_int>(n,1);
         w.prepare_main();
         nt2_la_int  wn = w.main_size();
 
-        NT2_F77NAME(sgelsy) (&m, &n, &nhrs, a0.raw(), &ld, a1.raw(), &ldb
-                            , a2.raw(), &rcond, &a3, w.main()
+        NT2_F77NAME(sgelsy) (&m, &n, &nhrs, a0.raw(), &ld, a2.raw(), &ldb
+                            , a1.raw(), &rcond, &a3, w.main()
                             , &wn, &that
                             );
 
@@ -301,12 +301,12 @@ namespace nt2 { namespace ext
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< single_<A1>, S1 >
+                              ((expr_ < table_< integer_<A1>, S1 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< integer_<A2>, S2 >
+                              ((expr_ < table_< single_<A2>, S2 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
@@ -324,15 +324,15 @@ namespace nt2 { namespace ext
         nt2_la_int  n  = nt2::width(a0);
         nt2_la_int  ld = a0.leading_size();
         nt2_la_int  wn = a3.main_size();
-        nt2_la_int  nhrs = nt2::width(a1);
-        nt2_la_int  ldb = a1.leading_size();
+        nt2_la_int  nhrs = nt2::width(a2);
+        nt2_la_int  ldb = a2.leading_size();
         typedef float T ;
         T rcond = Sqrteps<T>() - (Sqrteps<T>() - Eps<T>())/2;
 
-        a2 = nt2::zeros<nt2_la_int>(n,1);
+        a1 = nt2::zeros<nt2_la_int>(n,1);
 
-        NT2_F77NAME(sgelsy) (&m, &n, &nhrs, a0.raw(), &ld, a1.raw(), &ldb
-                            , a2.raw(), &rcond, &rank, a3.main()
+        NT2_F77NAME(sgelsy) (&m, &n, &nhrs, a0.raw(), &ld, a2.raw(), &ldb
+                            , a1.raw(), &rcond, &rank, a3.main()
                             , &wn, &that
                             );
 
