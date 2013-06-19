@@ -12,9 +12,9 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/rand.hpp>
 #include <nt2/include/functions/zeros.hpp>
-#include <nt2/toolbox/linalg/details/utility/workspace.hpp>
-#include <nt2/toolbox/linalg/details/utility/options.hpp>
-#include <nt2/toolbox/linalg/details/utility/f77_wrapper.hpp>
+#include <nt2/linalg/details/utility/workspace.hpp>
+#include <nt2/linalg/details/utility/options.hpp>
+#include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/core/container/table/category.hpp>
 #include "details.hpp"
 

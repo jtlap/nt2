@@ -15,7 +15,7 @@
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/triu.hpp>
 #include <nt2/include/functions/tri1l.hpp>
-#include <nt2/toolbox/linalg/details/utility/f77_wrapper.hpp>
+#include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include "details.hpp"
 
 

@@ -21,6 +21,12 @@
 
 #define FADDS_GETRF(__m, __n) ( ((__m) < (__n)) ? (0.5 * (__m) * ((__m) * ((__n) - (1./3.) * (__m)      ) - (__n)) + (1. / 6.) * (__m))   \
                                 :                 (0.5 * (__n) * ((__n) * ((__m) - (1./3.) * (__n)      ) - (__m)) + (1. / 6.) * (__n)) ) \
+
+/**/
+#define FLOPS_DGETRS(__n, __nrhs) (     FMULS_GETRS((double)(__n), (double)(__nrhs)) +       FADDS_GETRS((double)(__n), (double)(__nrhs)) )
+
+#define FMULS_GETRS(__n, __nrhs) ((__nrhs) * (__n) *  (__n)      )
+#define FADDS_GETRS(__n, __nrhs) ((__nrhs) * (__n) * ((__n) - 1 ))
 /**/
 
 
@@ -56,3 +62,4 @@
 #define FADDS_UNMQR(__m, __n, __k)  (2.*(__n)*(__m)*(__k) - (__n)*(__k)*(__k) + (__n)*(__k))
 
 /**/
+
