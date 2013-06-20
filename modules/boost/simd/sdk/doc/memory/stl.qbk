@@ -1,6 +1,7 @@
 [section STL Integration]
+
 [include stl/new.qbk]
 [include stl/allocator.qbk]
-[include stl/algorithm.qbk]
 [include stl/iterator.qbk]
+[include stl/algorithm.qbk]
 [endsect]

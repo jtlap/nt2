@@ -1,6 +1,10 @@
 [section SIMD Iterators and Ranges]
-[h4 SIMD Iterator]
-[h4 SIMD Ranges]
-[h4 Shifted Iterator]
-[h4 Interleaved Iterator]
+Memory access functions are also wrapped into standard compliant iterators
+and ranges adapters that allow you to use standard or range-based algorithms
+in conjunction with SIMD support.
+
+[h4 SIMD Iterators and Ranges]
+[h4 Non-Temporal Iterator and Range]
+[h4 SIMD Shifted Iterator]
+
 [endsect]

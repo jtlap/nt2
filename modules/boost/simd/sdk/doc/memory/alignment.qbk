@@ -21,11 +21,12 @@ considered:
 
 [section Alignment detection]
 [h4 Runtime detection]
-Boost.SIMD.Memory provides the [funcref boost::simd::is_aligned] function to
+Boost.SIMD.Memory provides the
+[headerref nt2/modules/boost/simd/sdk/include/boost/simd/memory/is_aligned.hpp boost::simd::is_aligned]
 check alignment on integral values and pointers.
 
-[funcref boost::simd::is_aligned] can either check alignment on an arbitrary
-power of two boundary:
+[headerref nt2/modules/boost/simd/sdk/include/boost/simd/memory/is_aligned.hpp boost::simd::is_aligned]
+can either check alignment on an arbitrary power of two boundary:
 
 ``
     #include <iostream>
@@ -88,11 +89,12 @@ current SIMD alignment is used.
 
 [section Computing aligned values]
 [h4 Runtime computation]
-Boost.SIMD.Memory provides the [funcref boost::simd::align_on] function to force
-alignment on integral values and pointers.
+Boost.SIMD.Memory provides the
+[headerref nt2/modules/boost/simd/sdk/include/boost/simd/memory/align_on.hpp boost::simd::align_on]
+function to force alignment on integral values and pointers.
 
-[funcref boost::simd::align_on] can either force alignment on an arbitrary
-power of two boundary:
+[headerref nt2/modules/boost/simd/sdk/include/boost/simd/memory/align_on.hpp boost::simd::align_on]
+can either force alignment on an arbitrary power of two boundary:
 
 ``
     #include <iostream>

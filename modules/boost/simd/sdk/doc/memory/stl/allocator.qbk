@@ -23,7 +23,8 @@ standard compliant allocator that can be used with any allocator aware container
 
 [h4 SIMD Allocator Adaptor]
 [classref boost::simd::allocator_adaptor] is designed to adapt any =Allocator= into a SIMD aware
-allocator. To do so, it uses the allocator dependent interface of [funcref boost::simd::allocate]
+allocator. To do so, it uses the allocator dependent interface of
+[headerref nt2/modules/boost/simd/sdk/include/boost/simd/memory/allocate.hpp boost::simd::allocate]
 to perform aligned allocation through the adapted allocator.
 
 ``

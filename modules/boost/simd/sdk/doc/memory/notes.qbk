@@ -15,10 +15,9 @@ caveat:
 Manual pointer alignment via pointer stashing is done by allocating a memory block big enough to
 hold an amount of bytes equals to the requested amount of bytes plus a padding zone containing enough
 elements to find a properly aligned address and a block header structure. A proper aligned address
-is then found using [funcref boost::simd::align_on] and returned to the user. The original memory
-pointer is saved in the block header and is retrieved when deallocating the aligned block. Reallocation
-and reuse of aligned memory block also use those information to optimize when and if memory has to
-be reallocated physically.
+is then found using [headerref nt2/modules/boost/simd/sdk/include/boost/simd/memory/align_on.hpp boost::simd::align_on] and returned to the user. The original memory pointer is saved in the block
+header and is retrieved when deallocating the aligned block. Reallocation and reuse of aligned memory
+block also use those information to optimize when and if memory has to be reallocated physically.
 
 TODO: Add a drawing of this mess.
 [endsect]

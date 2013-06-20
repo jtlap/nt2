@@ -1,11 +1,18 @@
-[library The Boost SIMD SDK
+[chapter Boost.SIMD SDK
     [quickbook 1.5]
-    [category Generic]
-    [purpose SIMD programming]
 ]
 
 [section Overview]
-This library ...
+The Boost.SIMD SDK is a set of infrastructure types, functions and meta-functions
+that simplify the design and maintenance of user code based on Boost.SIMD. Topics
+covered include:
+
+* Generic wrapper for SIMD register types;
+* [link boost_simd_sdk.memory_management Memory] and
+  [link boost_simd_sdk.handling_alignment alignment] handling;
+* Compatibility layer with
+  [link boost_simd_sdk.stl_integration C++ Standard Template Library];
+* Type traits related to SIMD programming;
 
 [endsect]
 
