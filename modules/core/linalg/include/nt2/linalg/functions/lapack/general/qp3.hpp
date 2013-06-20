@@ -81,7 +81,7 @@ namespace nt2 { namespace ext
                             , details::query(), &that
                             );
 
-          a1 = nt2::zeros<nt2_la_int>(n,1);
+          a1 = nt2::zeros(n,1, meta::as_<nt2_la_int>());
           w.prepare_main();
           nt2::qp3(a0,a1,a2,w);
 
@@ -121,7 +121,7 @@ namespace nt2 { namespace ext
         nt2_la_int  wn = a3.main_size();
 
         a2.resize( nt2::of_size(std::min(n, m), 1) );
-        a1 = nt2::zeros<nt2_la_int>(n,1);
+        a1 = nt2::zeros(n,1, meta::as_<nt2_la_int>());
 
 
         NT2_F77NAME(dgeqp3) (&m, &n, a0.raw(), &ld, a1.raw(), a2.raw(), a3.main()
@@ -165,7 +165,7 @@ namespace nt2 { namespace ext
                             , details::query(), &that
                             );
 
-          a1 = nt2::zeros<nt2_la_int>(n,1);
+          a1 = nt2::zeros(n,1, meta::as_<nt2_la_int>());
           w.prepare_main();
           nt2::qp3(a0,a1,a2,w);
 
@@ -205,7 +205,7 @@ namespace nt2 { namespace ext
         nt2_la_int  wn = a3.main_size();
 
         a2.resize( nt2::of_size(std::min(n, m), 1) );
-        a1 = nt2::zeros<nt2_la_int>(n,1);
+        a1 = nt2::zeros(n,1, meta::as_<nt2_la_int>());
 
         NT2_F77NAME(sgeqp3) (&m, &n, a0.raw(), &ld, a1.raw(), a2.raw(), a3.main()
                             , &wn, &that

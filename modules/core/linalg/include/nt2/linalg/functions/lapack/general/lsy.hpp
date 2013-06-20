@@ -87,7 +87,7 @@ namespace nt2 { namespace ext
                             , w.main(), details::query(), &that
                             );
 
-          a1 = nt2::zeros<nt2_la_int>(n,1);
+          a1 = nt2::zeros(n,1, meta::as_<nt2_la_int>());
           w.prepare_main();
           nt2::lsy(a0,a1,a2,w);
 
@@ -134,7 +134,7 @@ namespace nt2 { namespace ext
                             , w.main(), details::query(), &that
                             );
 
-        a1 = nt2::zeros<nt2_la_int>(n,1);
+        a1 = nt2::zeros(n,1, meta::as_<nt2_la_int>());
         w.prepare_main();
         nt2_la_int  wn = w.main_size();
 
@@ -183,7 +183,7 @@ namespace nt2 { namespace ext
         typedef double T ;
         T rcond = Sqrteps<T>() - (Sqrteps<T>() - Eps<T>())/2;
 
-        a1 = nt2::zeros<nt2_la_int>(n,1);
+        a1 = nt2::zeros(n,1, meta::as_<nt2_la_int>());
 
         NT2_F77NAME(dgelsy) (&m, &n, &nhrs, a0.raw(), &ld, a2.raw(), &ldb
                             , a1.raw(), &rcond, &rank, a3.main()
@@ -233,7 +233,7 @@ namespace nt2 { namespace ext
                             , w.main(), details::query(), &that
                             );
 
-          a1 = nt2::zeros<nt2_la_int>(n,1);
+          a1 = nt2::zeros(n,1, meta::as_<nt2_la_int>());
           w.prepare_main();
           nt2::lsy(a0,a1,a2,w);
 
@@ -280,7 +280,7 @@ namespace nt2 { namespace ext
                             , w.main(), details::query(), &that
                             );
 
-        a1 = nt2::zeros<nt2_la_int>(n,1);
+        a1 = nt2::zeros(n,1, meta::as_<nt2_la_int>());
         w.prepare_main();
         nt2_la_int  wn = w.main_size();
 
@@ -329,7 +329,7 @@ namespace nt2 { namespace ext
         typedef float T ;
         T rcond = Sqrteps<T>() - (Sqrteps<T>() - Eps<T>())/2;
 
-        a1 = nt2::zeros<nt2_la_int>(n,1);
+        a1 = nt2::zeros(n,1, meta::as_<nt2_la_int>());
 
         NT2_F77NAME(sgelsy) (&m, &n, &nhrs, a0.raw(), &ld, a2.raw(), &ldb
                             , a1.raw(), &rcond, &rank, a3.main()

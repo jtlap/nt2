@@ -81,7 +81,7 @@ namespace nt2 { namespace ext
                             , details::query(), &that
                             );
 
-          a1 = nt2::zeros<nt2_la_int>(n,1);
+          a1 = nt2::zeros(n,1, meta::as_<nt2_la_int>());
           w.prepare_main();
           nt2::ysv(a0,a1,a2,a3,w);
 
@@ -127,7 +127,7 @@ namespace nt2 { namespace ext
         char uplo = 'L';
         nt2_la_int  wn = a4.main_size();
 
-        a1 = nt2::zeros<nt2_la_int>(n,1);
+        a1 = nt2::zeros(n,1, meta::as_<nt2_la_int>());
 
         NT2_F77NAME(dsysv) ( &uplo, &n, &nhrs, a0.raw(), &ld, a1.raw(), a3.raw()
                            , &ldb, a4.main(), &wn, &that
@@ -177,7 +177,7 @@ namespace nt2 { namespace ext
                             , details::query(), &that
                             );
 
-          a1 = nt2::zeros<nt2_la_int>(n,1);
+          a1 = nt2::zeros(n,1, meta::as_<nt2_la_int>());
           w.prepare_main();
           nt2::ysv(a0,a1,a2,a3,w);
 
@@ -223,7 +223,7 @@ namespace nt2 { namespace ext
         char uplo = 'L';
         nt2_la_int  wn = a4.main_size();
 
-        a1 = nt2::zeros<nt2_la_int>(n,1);
+        a1 = nt2::zeros(n,1, meta::as_<nt2_la_int>());
 
         NT2_F77NAME(ssysv) ( &uplo, &n, &nhrs, a0.raw(), &ld, a1.raw(), a3.raw()
                            , &ldb, a4.main(), &wn, &that
