@@ -188,7 +188,7 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<2> const&, nt2::symmetric_ const&
               ) const
     {
-      entry_type work = concrete(a1);
+      entry_type work = a1;
       entry_type entry(a0);
       char norm = '1';
 
@@ -206,7 +206,7 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<2> const&, nt2::positive_definite_ const&
               ) const
     {
-      entry_type work = concrete(a1);
+      entry_type work = a1;
       entry_type entry(a0);
 
       nt2::posv(entry, a1, work);

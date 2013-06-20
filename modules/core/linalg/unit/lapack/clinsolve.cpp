@@ -42,14 +42,14 @@ NT2_TEST_CASE_TPL(clinsolve, NT2_REAL_TYPES )
  t_t a1(a);
  t_t b1(b);
 
- t_t x = nt2::ones(nt2::of_size(10,1));
+ t_t x = nt2::ones(nt2::of_size(10,1), nt2::meta::as_<T>() );
  t_i piv;
 
- nt2::clinsolve(a,b,nt2::tie( x(nt2::_(3,5))) );
+ nt2::clinsolve(a,b,nt2::tie( x(nt2::_(T(3),T(5))) ) );
 
  nt2::sv(a1,piv,b1);
 
- NT2_TEST_ULP_EQUAL(b1, x(nt2::_(3,5)), T(10) );
+ NT2_TEST_ULP_EQUAL(b1, x(nt2::_(T(3),T(5))), T(10) );
 
 
 }
