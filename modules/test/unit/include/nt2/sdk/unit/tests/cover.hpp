@@ -12,12 +12,14 @@
 
 // Temporary fix before cover tests disappear
 
-#include <vector>
 #include <nt2/sdk/unit/io.hpp>
 #include <nt2/sdk/unit/stats.hpp>
 #include <nt2/sdk/unit/details/cover.hpp>
 #include <nt2/sdk/unit/details/prng.hpp>
-#include <boost/current_function.hpp>
+#include <nt2/include/functor.hpp>
+#include <boost/simd/sdk/memory/allocator.hpp>
+#include <vector>
+#include <string>
 
 /// INTERNAL ONLY
 #if !defined(NT2_NB_RANDOM_TEST)

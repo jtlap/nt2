@@ -18,6 +18,7 @@
 #include <boost/simd/sdk/details/io_fix.hpp>
 #include <nt2/include/functions/unaligned_load.hpp>
 #include <nt2/include/functions/unaligned_store.hpp>
+#include <nt2/sdk/meta/type_id.hpp>
 #include <boost/preprocessor/seq/elem.hpp>
 #include <boost/preprocessor/seq/size.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
@@ -32,6 +33,7 @@
 #include <iostream>
 #include <iomanip>
 #include <vector>
+#include <string>
 
 /// INTERNAL ONLY Grab an input type
 #define NT2_COVER_TYPE(z,n,t) BOOST_PP_TUPLE_ELEM(2,0,BOOST_PP_SEQ_ELEM(n,t))  \
