@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_SCALAR_DIVIDES_HPP_INCLUDED
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_SCALAR_DIVIDES_HPP_INCLUDED
 
-#include <nt2/operator/functions/divides.hpp>
+#include <boost/simd/operator/functions/divides.hpp>
 
 #ifdef BOOST_MSVC
   #pragma warning(push)

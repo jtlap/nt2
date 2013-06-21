@@ -18,8 +18,6 @@
 #include <boost/dispatch/meta/as_signed.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
 
-#include <nt2/sdk/meta/display_type.hpp>
-
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::subs_, tag::cpu_

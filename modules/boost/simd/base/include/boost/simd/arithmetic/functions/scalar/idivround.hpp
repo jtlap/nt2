@@ -12,9 +12,9 @@
 #include <boost/simd/arithmetic/functions/idivround.hpp>
 #include <boost/simd/include/functions/scalar/iround.hpp>
 #include <boost/simd/include/functions/scalar/tofloat.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <nt2/include/constants/valmax.hpp>
-#include <nt2/include/constants/valmin.hpp>
 
 #ifdef BOOST_MSVC
   #pragma warning(push)
