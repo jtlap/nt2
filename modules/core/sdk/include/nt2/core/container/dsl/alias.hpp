@@ -10,17 +10,18 @@
 #ifndef NT2_CORE_CONTAINER_DSL_ALIAS_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_DSL_ALIAS_HPP_INCLUDED
 
-#include <nt2/include/functions/numel.hpp>
 #include <nt2/core/container/dsl/expression.hpp>
 #include <nt2/core/container/dsl/details/raw.hpp>
+#include <nt2/include/functions/numel.hpp>
+#include <nt2/include/functions/value.hpp>
 
 namespace nt2 { namespace container
 {
   template<class T, class U>
   bool alias(T const& t, U const& u)
   {
-    return details::raw(value(t)) < details::raw(value(u))+numel(u)
-        && details::raw(value(t))+numel(t) >= details::raw(value(u));
+    return details::raw(nt2::value(t)) < details::raw(nt2::value(u))+numel(u)
+        && details::raw(nt2::value(t))+numel(t) >= details::raw(nt2::value(u));
   }
 } }
 

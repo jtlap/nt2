@@ -11,7 +11,7 @@ SET( SOURCES
      box.cpp
      generator.cpp
      run.cpp
-     deduce_semantic.cpp
+     kind_of.cpp
      optimize.cpp
      schedule.cpp
    )

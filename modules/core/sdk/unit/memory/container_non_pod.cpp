@@ -24,7 +24,7 @@
 
 #include "object.hpp"
 #include "local_io.hpp"
-#include "local_semantic.hpp"
+#include "local_kind.hpp"
 
 NT2_TEST_CASE_TPL( container_dynamic_default_ctor, DIMS)
 {
@@ -32,7 +32,7 @@ NT2_TEST_CASE_TPL( container_dynamic_default_ctor, DIMS)
   using nt2::of_size_;
   using nt2::memory::container;
 
-  container<nt2::object,settings(T),some_semantic_> b;
+  container<nt2::object,settings(T),some_kind_> b;
 
   NT2_TEST(b.empty());
   NT2_TEST_EQUAL(b.size()             , 0u );
@@ -47,7 +47,7 @@ NT2_TEST_CASE( container_static_default_ctor)
   using nt2::settings;
   using nt2::memory::container;
 
-  typedef container<nt2::object,settings(of_size_<3,7>),some_semantic_> type;
+  typedef container<nt2::object,settings(of_size_<3,7>),some_kind_> type;
   type b;
 
   std::vector<nt2::object> ref(3*7);
@@ -71,7 +71,7 @@ NT2_TEST_CASE( container_automatic_static_default_ctor)
 
   typedef container < nt2::object
                     , settings(of_size_<3,7>, automatic_)
-                    ,some_semantic_
+                    ,some_kind_
                     > type;
   type b;
 
@@ -92,7 +92,7 @@ NT2_TEST_CASE( container_size_ctor)
   using nt2::settings;
   using nt2::memory::container;
 
-  typedef container<nt2::object,settings(),some_semantic_> type;
+  typedef container<nt2::object,settings(),some_kind_> type;
   type b( of_size(3,7) );
 
   NT2_TEST(!b.empty());
@@ -111,7 +111,7 @@ NT2_TEST_CASE( container_copy_ctor)
   using nt2::settings;
   using nt2::memory::container;
 
-  typedef container<nt2::object,settings(),some_semantic_> type;
+  typedef container<nt2::object,settings(),some_kind_> type;
   type b( of_size(5,3) );
   type x( b );
 
@@ -136,7 +136,7 @@ NT2_TEST_CASE( automatic_container_copy_ctor)
 
   typedef container < nt2::object
                     ,settings(of_size_<3,7>, automatic_)
-                    , some_semantic_
+                    , some_kind_
                     > type;
   type b;
   type x( b );
@@ -158,7 +158,7 @@ NT2_TEST_CASE( container_assignment)
   using nt2::settings;
   using nt2::memory::container;
 
-  typedef container<nt2::object,settings(),some_semantic_> type;
+  typedef container<nt2::object,settings(),some_kind_> type;
   type b( of_size(5,3) );
   type x;
 
@@ -182,7 +182,7 @@ NT2_TEST_CASE( automatic_container_assignment)
   using nt2::settings;
   using nt2::memory::container;
 
-  typedef container<nt2::object,settings(of_size_<5,3>),some_semantic_> type;
+  typedef container<nt2::object,settings(of_size_<5,3>),some_kind_> type;
   type b;
   type x;
 
@@ -206,7 +206,7 @@ NT2_TEST_CASE( container_swap)
   using nt2::settings;
   using nt2::memory::container;
 
-  typedef container<nt2::object,settings(),some_semantic_> type;
+  typedef container<nt2::object,settings(),some_kind_> type;
   type b( of_size(5,3) );
   type x( of_size(7,2) );
 
@@ -243,7 +243,7 @@ NT2_TEST_CASE( container_resize)
   using nt2::of_size_;
   using nt2::memory::container;
 
-  typedef container<nt2::object,settings(),some_semantic_> type;
+  typedef container<nt2::object,settings(),some_kind_> type;
   type b;
 
   NT2_TEST(b.empty());
@@ -289,7 +289,7 @@ NT2_TEST_CASE( container_resize)
 //==============================================================================
 NT2_TEST_CASE( container_push_back )
 {
-  nt2::memory::container<nt2::object, nt2::settings(),some_semantic_>
+  nt2::memory::container<nt2::object, nt2::settings(),some_kind_>
   a(nt2::of_size(2, 3));
 
   for(std::ptrdiff_t i=0; i<7; ++i)

@@ -12,7 +12,6 @@
 #include <nt2/core/settings/size.hpp>
 #include <nt2/core/settings/index.hpp>
 #include <nt2/core/settings/option.hpp>
-#include <nt2/core/settings/semantic.hpp>
 #include <nt2/core/settings/interleaving.hpp>
 #include <nt2/core/settings/storage_order.hpp>
 #include <nt2/core/settings/specific_data.hpp>
@@ -52,9 +51,8 @@ namespace nt2 { namespace memory
   {
     public:
 
-    // Probably useless now
-    //typedef Settings  Settings;
-    //typedef Semantic  semantic_type;
+    /// INTERNAL ONLY Precomputed semantic type
+    typedef Semantic                                      kind_type;
 
     /// INTERNAL ONLY storage_scheme option
     typedef typename meta::option < Settings
@@ -251,14 +249,14 @@ namespace nt2 { namespace memory
       @param y container to swap @c *this with
     **/
     template<typename S2, typename Sema2>
-    BOOST_FORCEINLINE void swap(container<T,S2,Sema2>& y)
+    BOOST_FORCEINLINE void swap(container<Type,S2,Sema2>& y)
     {
       data_.swap(y.data_);
       sizes_.swap(y.sizes_);
       this->specifics().swap(y.specifics());
     }
 
-    BOOST_FORCEINLINE void swap(T& y)
+    BOOST_FORCEINLINE void swap(Type& y)
     {
       BOOST_ASSERT_MSG( sizes_ == _0D(), "swapping non-singleton container with scalar" );
       boost::swap(y, data_[0]);
@@ -410,7 +408,7 @@ namespace nt2 { namespace memory
     extent_type                 sizes_;
 
     template<typename T2, typename S2, typename Sema2>
-    friend class container;
+    friend struct container;
   };
 
   /*!
@@ -429,10 +427,13 @@ namespace nt2 { namespace memory
   void swap(container<T,S1,Sema1>& x, container<T,S2,Sema2>& y)  { x.swap(y); }
 
   template<typename T, typename S, typename Sema>
+  BOOST_FORCEINLINE
   void swap(T& x, container<T, S, Sema>& y) { y.swap(x); }
 
   template<typename T, typename S, typename Sema>
+  BOOST_FORCEINLINE
   void swap(container<T, S, Sema>& x, T& y) { x.swap(y); }
+
 } }
 
 #endif

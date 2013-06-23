@@ -13,7 +13,7 @@
 #include <nt2/sdk/memory/container.hpp>
 #include <nt2/core/functions/of_size.hpp>
 #include <nt2/include/functions/as_size.hpp>
-#include <nt2/core/container/table/semantic.hpp>
+#include <nt2/core/container/table/kind.hpp>
 #include <boost/simd/memory/allocator.hpp>
 
 #include <nt2/sdk/bench/benchmark.hpp>

@@ -10,7 +10,7 @@
 #define NT2_CORE_CONTAINER_TABLE_ADAPTED_TABLE_HPP_INCLUDED
 
 #include <nt2/core/container/dsl/forward.hpp>
-#include <nt2/core/container/table/semantic.hpp>
+#include <nt2/core/container/table/kind.hpp>
 #include <nt2/core/settings/add_settings.hpp>
 #include <nt2/core/settings/option.hpp>
 #include <nt2/sdk/meta/settings_of.hpp>

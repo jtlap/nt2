@@ -27,6 +27,7 @@
 #include <nt2/include/functions/scalar/numel.hpp>
 #include <nt2/core/utility/fix_index.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <boost/dispatch/meta/enable_if_type.hpp>
 #include <boost/proto/traits.hpp>
 #include <boost/proto/extends.hpp>
 #include <boost/mpl/assert.hpp>
@@ -49,6 +50,7 @@
 
 namespace nt2 { namespace container
 {
+
   //==========================================================================
   // Conversion operator for integration with scalars:
   // - used for reductions that return scalars;
@@ -94,6 +96,7 @@ namespace nt2 { namespace container
     //==========================================================================
     // Extract Container information from Result
     //==========================================================================
+    typedef typename meta::kind_<Result>::type              kind_type;
     typedef typename meta::value_type_<Result>::type        value_type;
     typedef typename meta::reference_<Result>::type         reference;
     typedef typename meta::const_reference_<Result>::type   const_reference;

@@ -9,7 +9,7 @@
 #include <nt2/core/settings/buffer.hpp>
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include "local_semantic.hpp"
+#include "local_kind.hpp"
 #include <vector>
 
 #include <nt2/sdk/unit/module.hpp>
@@ -38,12 +38,12 @@ NT2_TEST_CASE( single_buffer_ )
   using boost::mpl::_;
 
   NT2_TEST_EXPR_TYPE( built_in_()
-                    , (option< _, nt2::tag::buffer_, some_semantic_>)
+                    , (option< _, nt2::tag::buffer_, some_kind_>)
                     , (built_in_)
                     );
 
   NT2_TEST_EXPR_TYPE( vector<int>()
-                    , (option< _, nt2::tag::buffer_, some_semantic_>)
+                    , (option< _, nt2::tag::buffer_, some_kind_>)
                     , (std::vector<int>)
                     );
 }
@@ -58,7 +58,7 @@ NT2_TEST_CASE( buffer_default )
 
   NT2_TEST_TYPE_IS( (option < settings()
                             , nt2::tag::buffer_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , built_in_
@@ -66,7 +66,7 @@ NT2_TEST_CASE( buffer_default )
 
   NT2_TEST_TYPE_IS( (option < settings(int,void*)
                             , nt2::tag::buffer_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , built_in_
@@ -82,7 +82,7 @@ NT2_TEST_CASE( single_settings_buffer_ )
 
   NT2_TEST_TYPE_IS( (option < settings(vector<float>)
                             , nt2::tag::buffer_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , (vector<float>)
@@ -98,7 +98,7 @@ NT2_TEST_CASE( multi_settings_buffer_ )
 
   NT2_TEST_TYPE_IS( (option < settings(vector<float>,vector<int>)
                             , nt2::tag::buffer_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , vector<float>
@@ -106,7 +106,7 @@ NT2_TEST_CASE( multi_settings_buffer_ )
 
   NT2_TEST_TYPE_IS( (option < settings(vector<int>,vector<float>)
                             , nt2::tag::buffer_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , vector<int>
@@ -124,7 +124,7 @@ NT2_TEST_CASE( nested_settings_buffer_ )
                                       , settings(vector<int>,vector<float>)
                                       )
                             , nt2::tag::buffer_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , vector<int>
@@ -134,7 +134,7 @@ NT2_TEST_CASE( nested_settings_buffer_ )
                                       , settings(vector<float>,vector<int>)
                                       )
                             , nt2::tag::buffer_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , vector<float>

@@ -6,21 +6,31 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/core/container/table/table.hpp>
-#include <nt2/core/container/dsl/deduce_semantic.hpp>
+#include <nt2/table.hpp>
+#include <nt2/core/container/dsl/kind_of.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
-
-NT2_TEST_CASE( deduce_semantic_terminal )
+NT2_TEST_CASE( kind_of_terminal )
 {
-  using nt2::meta::deduce_semantic;
+  using nt2::meta::kind_of;
   using boost::mpl::_;
+
   nt2::container::table<float> t;
 
-  NT2_TEST_TYPE_IS( (deduce_semantic< nt2::container::table<float> >::type)
-                  , nt2::tag::table_
-                  );
+  NT2_TEST_EXPR_TYPE(t, kind_of<_>, nt2::tag::table_);
+}
+
+NT2_TEST_CASE( kind_of_expr )
+{
+  using nt2::meta::kind_of;
+  using boost::mpl::_;
+
+  nt2::container::table<float> t;
+
+  NT2_TEST_EXPR_TYPE(t + 3.f, kind_of<_>, nt2::tag::table_);
+  NT2_TEST_EXPR_TYPE(3.f * t, kind_of<_>, nt2::tag::table_);
+  NT2_TEST_EXPR_TYPE(t - t, kind_of<_>, nt2::tag::table_);
 }

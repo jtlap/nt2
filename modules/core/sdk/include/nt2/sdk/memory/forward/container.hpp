@@ -48,7 +48,11 @@ namespace nt2 { namespace memory
   template<class T, class S, class Semantic>                   struct  container_ref;
   template<class T, class S, class Semantic, bool Own = false> struct  container_shared_ref;
 
-  template<class T, class S1, class S2, class Sema1, class Sema2>
+  template< typename T
+          , typename S1, typename Sema1
+          , typename S2, typename Sema2
+          >
+  BOOST_FORCEINLINE
   void swap(container<T,S1,Sema1>&, container<T,S2,Sema2>&);
 } }
 

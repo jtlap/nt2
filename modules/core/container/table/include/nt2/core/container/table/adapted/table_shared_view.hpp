@@ -10,13 +10,17 @@
 #define NT2_CORE_CONTAINER_TABLE_ADAPTED_TABLE_SHARED_VIEW_HPP_INCLUDED
 
 #include <nt2/core/container/dsl/forward.hpp>
-#include <nt2/core/container/table/semantic.hpp>
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/add_settings.hpp>
 #include <nt2/sdk/memory/forward/container.hpp>
 #include <nt2/sdk/meta/settings_of.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
+
+namespace nt2 { namespace meta
+{
+  struct table_;
+} }
 
 namespace nt2 { namespace meta
 {

@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_DSL_DEDUCE_SEMANTIC_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_DSL_DEDUCE_SEMANTIC_HPP_INCLUDED
+#ifndef NT2_CORE_CONTAINER_DSL_KIND_OF_HPP_INCLUDED
+#define NT2_CORE_CONTAINER_DSL_KIND_OF_HPP_INCLUDED
 
 #include <nt2/sdk/memory/forward/container.hpp>
 #include <nt2/dsl/functions/terminal.hpp>
@@ -16,35 +16,22 @@
 
 namespace nt2
 {
-  namespace details
-  {
-    template<typename T> struct deduce_semantic;
-
-    template<typename T, typename S, typename Sema>
-    struct deduce_semantic< memory::container<T, S, Sema> >
-    {
-      typedef Sema type;
-    };
-  }
+  namespace tag { struct table_; }
 
   namespace ext
   {
     template<typename Tag, typename Domain, int Arity, typename Expr>
-    struct deduce_semantic;
-
-    template<typename Domain, typename Expr>
-    struct deduce_semantic<nt2::tag::terminal_, Domain, 0, Expr>
+    struct kind_of
     {
-      typedef typename boost::proto::result_of::value<Expr>::value_type base;
-      typedef typename details::deduce_semantic<base>::type             type;
+      typedef tag::table_ type;
     };
   }
 
   namespace meta
   {
     template<typename Expr>
-    struct  deduce_semantic
-          : ext::deduce_semantic< typename boost::dispatch::meta::
+    struct  kind_of
+          : ext::kind_of< typename boost::dispatch::meta::
                                            hierarchy_of < typename boost::proto
                                                           ::tag_of<Expr>::type
                                                         >::type
@@ -53,7 +40,15 @@ namespace nt2
                                 , Expr
                                 >
     {};
+
+    template<typename Expr>
+    struct kind_of<Expr&> : kind_of<Expr> {};
+
+    template<typename Expr>
+    struct kind_of<Expr const> : kind_of<Expr> {};
   }
 }
+
+#include <nt2/core/container/dsl/details/kind/elementwise.hpp>
 
 #endif

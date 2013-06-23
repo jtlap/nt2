@@ -10,7 +10,6 @@
 #define NT2_SDK_MEMORY_CONTAINER_REF_HPP_INCLUDED
 
 #include <nt2/sdk/memory/adapted/container_ref.hpp>
-#include <nt2/core/container/table/semantic.hpp>
 #include <nt2/core/settings/specific_data.hpp>
 #include <nt2/sdk/memory/forward/container.hpp>
 
@@ -28,6 +27,9 @@ namespace nt2 { namespace memory
   template<typename T, typename S, typename Sema>
   struct container_ref
   {
+    /// INTERNAL ONLY Precomputed semantic type
+    typedef Sema                                                 kind_type;
+
     typedef typename boost::remove_const<T>::type                value_type;
     typedef std::size_t                                          size_type;
     typedef typename meta::option<S, tag::of_size_, Sema>::type        extent_type;
@@ -82,13 +84,13 @@ namespace nt2 { namespace memory
     {
     }
 
-    template<class U, class S2>
-    container_ref(container_shared_ref<U, S2, false> const& other) : ptr(other.ptr), sz(other.sz), base_(other.base_.get())
+    template<typename U, typename S2, typename Sema2>
+    container_ref(container_shared_ref<U, S2, Sema2, false> const& other) : ptr(other.ptr), sz(other.sz), base_(other.base_.get())
     {
     }
 
-    template<class U, class S2>
-    container_ref(container_shared_ref<U, S2, true> const& other) : ptr(other.raw()), sz(other.extent()), base_(other.base_.get())
+    template<typename U, typename S2, typename Sema2>
+    container_ref(container_shared_ref<U, S2, Sema2, true> const& other) : ptr(other.raw()), sz(other.extent()), base_(other.base_.get())
     {
     }
 

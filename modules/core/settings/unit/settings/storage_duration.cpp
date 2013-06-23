@@ -10,7 +10,7 @@
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/core/settings/storage_duration.hpp>
 #include <nt2/sdk/memory/container.hpp>
-#include "local_semantic.hpp"
+#include "local_kind.hpp"
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -25,12 +25,12 @@ NT2_TEST_CASE( storage_duration_concept )
   using boost::mpl::_;
 
   {
-    typedef option<nt2::dynamic_, nt2::tag::storage_duration_, some_semantic_> opt;
+    typedef option<nt2::dynamic_, nt2::tag::storage_duration_, some_kind_> opt;
     NT2_TEST( (match_option< nt2::dynamic_, nt2::tag::storage_duration_ >::value) );
   }
 
   {
-    typedef option<nt2::automatic_, nt2::tag::storage_duration_, some_semantic_> opt;
+    typedef option<nt2::automatic_, nt2::tag::storage_duration_, some_kind_> opt;
     NT2_TEST( (match_option< nt2::automatic_, nt2::tag::storage_duration_ >::value) );
   }
 }
@@ -43,12 +43,12 @@ NT2_TEST_CASE( single_storage_duration_ )
   using boost::mpl::_;
 
   NT2_TEST_EXPR_TYPE( (dynamic_())
-                      ,(option< _, nt2::tag::storage_duration_, some_semantic_>)
+                      ,(option< _, nt2::tag::storage_duration_, some_kind_>)
                       ,(dynamic_)
                       );
 
   NT2_TEST_EXPR_TYPE( (automatic_())
-                      ,(option< _, nt2::tag::storage_duration_, some_semantic_>)
+                      ,(option< _, nt2::tag::storage_duration_, some_kind_>)
                       ,(automatic_)
                       );
 }
@@ -62,7 +62,7 @@ NT2_TEST_CASE( storage_duration_default )
 
   NT2_TEST_TYPE_IS( (option < settings()
                             , nt2::tag::storage_duration_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , dynamic_
@@ -70,7 +70,7 @@ NT2_TEST_CASE( storage_duration_default )
 
   NT2_TEST_TYPE_IS( (option < settings(int,void*)
                             , nt2::tag::storage_duration_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , dynamic_
@@ -87,7 +87,7 @@ NT2_TEST_CASE( single_settings_storage_duration_ )
 
   NT2_TEST_TYPE_IS( (option < settings(dynamic_)
                             , nt2::tag::storage_duration_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , (dynamic_)
@@ -95,7 +95,7 @@ NT2_TEST_CASE( single_settings_storage_duration_ )
 
   NT2_TEST_TYPE_IS( (option < settings(automatic_)
                             , nt2::tag::storage_duration_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , (automatic_)
@@ -112,7 +112,7 @@ NT2_TEST_CASE( multi_settings_storage_duration_ )
 
   NT2_TEST_TYPE_IS( (option < settings(dynamic_,automatic_)
                             , nt2::tag::storage_duration_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , dynamic_
@@ -120,7 +120,7 @@ NT2_TEST_CASE( multi_settings_storage_duration_ )
 
   NT2_TEST_TYPE_IS( (option < settings(automatic_,dynamic_)
                             , nt2::tag::storage_duration_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , automatic_
@@ -139,7 +139,7 @@ NT2_TEST_CASE( nested_settings_storage_duration_ )
                                       , settings(dynamic_,automatic_)
                                       )
                             , nt2::tag::storage_duration_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , dynamic_
@@ -149,7 +149,7 @@ NT2_TEST_CASE( nested_settings_storage_duration_ )
                                       , settings(automatic_,dynamic_)
                                       )
                             , nt2::tag::storage_duration_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , (automatic_)
@@ -177,7 +177,7 @@ NT2_TEST_CASE( automatic_duration_apply )
                               , container
                                 < int
                                 , settings(automatic_, of_size_<2,2>)
-                                , some_semantic_
+                                , some_kind_
                                 >
                               >
                       )
@@ -189,7 +189,7 @@ NT2_TEST_CASE( automatic_duration_apply )
                               , container
                                 < int
                                 , settings(automatic_, of_size_<12,3>)
-                                , some_semantic_
+                                , some_kind_
                                 >
                               >
                       )
@@ -213,7 +213,7 @@ NT2_TEST_CASE( dynamic_duration_apply )
                               , container
                                 < int
                                 , settings(dynamic_, allocator<int>)
-                                , some_semantic_
+                                , some_kind_
                                 >
                               >
                       )
@@ -225,7 +225,7 @@ NT2_TEST_CASE( dynamic_duration_apply )
                               , container
                                 < int
                                 , settings(dynamic_)
-                                , some_semantic_
+                                , some_kind_
                                 >
                               >
                       )

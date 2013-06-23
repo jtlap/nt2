@@ -10,7 +10,7 @@
 
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/core/settings/allocator.hpp>
-#include "local_semantic.hpp"
+#include "local_kind.hpp"
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -28,7 +28,7 @@ NT2_TEST_CASE( allocator_concept )
 
   NT2_TEST_TYPE_IS( (option < allocator<int>
                             , nt2::tag::allocator_
-                            , some_semantic_
+                            , some_kind_
                             >::type::rebind<float>::other
                     )
                   , allocator<float>
@@ -43,7 +43,7 @@ NT2_TEST_CASE( single_allocator_ )
   using boost::mpl::_;
 
   NT2_TEST_EXPR_TYPE( allocator<int>()
-                    , (option< _, nt2::tag::allocator_, some_semantic_>)
+                    , (option< _, nt2::tag::allocator_, some_kind_>)
                     , allocator<int>
                     );
 }
@@ -58,7 +58,7 @@ NT2_TEST_CASE( allocator_default )
 
   NT2_TEST_TYPE_IS( (option < settings()
                             , nt2::tag::allocator_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , allocator<void*>
@@ -66,7 +66,7 @@ NT2_TEST_CASE( allocator_default )
 
   NT2_TEST_TYPE_IS( (option < settings(int,void*)
                             , nt2::tag::allocator_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , allocator<void*>
@@ -83,7 +83,7 @@ NT2_TEST_CASE( single_settings_allocator_ )
 
   NT2_TEST_TYPE_IS( (option < settings(allocator<float>)
                             , nt2::tag::allocator_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , (allocator<float>)
@@ -100,7 +100,7 @@ NT2_TEST_CASE( multi_settings_allocator_ )
 
   NT2_TEST_TYPE_IS( (option < settings(allocator<float>,allocator<int>)
                             , nt2::tag::allocator_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , allocator<float>
@@ -108,7 +108,7 @@ NT2_TEST_CASE( multi_settings_allocator_ )
 
   NT2_TEST_TYPE_IS( (option < settings(allocator<int>,allocator<float>)
                             , nt2::tag::allocator_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , allocator<int>
@@ -127,7 +127,7 @@ NT2_TEST_CASE( nested_settings_allocator_ )
                                       , settings(allocator<int>,allocator<float>)
                                       )
                             , nt2::tag::allocator_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , allocator<int>
@@ -137,7 +137,7 @@ NT2_TEST_CASE( nested_settings_allocator_ )
                                       , settings(allocator<float>,allocator<int>)
                                       )
                             , nt2::tag::allocator_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , allocator<float>

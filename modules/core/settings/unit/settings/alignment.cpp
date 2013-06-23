@@ -9,7 +9,7 @@
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/core/settings/alignment.hpp>
-#include "local_semantic.hpp"
+#include "local_kind.hpp"
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -22,7 +22,7 @@ NT2_TEST_CASE( alignment_concept )
   using nt2::meta::match_option;
 
   {
-    typedef option<nt2::aligned_, nt2::tag::alignment_, some_semantic_> opt;
+    typedef option<nt2::aligned_, nt2::tag::alignment_, some_kind_> opt;
     typedef opt::type::alignment_type alignment_option;
 
     NT2_TEST( (match_option< nt2::aligned_, nt2::tag::alignment_ >::value) );
@@ -30,7 +30,7 @@ NT2_TEST_CASE( alignment_concept )
   }
 
   {
-    typedef option<nt2::unaligned_, nt2::tag::alignment_, some_semantic_> opt;
+    typedef option<nt2::unaligned_, nt2::tag::alignment_, some_kind_> opt;
     typedef opt::type::alignment_type alignment_option;
 
     NT2_TEST( (match_option< nt2::unaligned_, nt2::tag::alignment_ >::value) );
@@ -47,12 +47,12 @@ NT2_TEST_CASE( single_alignment_ )
   using boost::mpl::_;
 
   NT2_TEST_EXPR_TYPE( (aligned_())
-                      ,(option< _, nt2::tag::alignment_, some_semantic_>)
+                      ,(option< _, nt2::tag::alignment_, some_kind_>)
                       ,(aligned_)
                       );
 
   NT2_TEST_EXPR_TYPE( (unaligned_())
-                      ,(option< _, nt2::tag::alignment_, some_semantic_>)
+                      ,(option< _, nt2::tag::alignment_, some_kind_>)
                       ,(unaligned_)
                       );
 }
@@ -66,7 +66,7 @@ NT2_TEST_CASE( alignment_default )
 
   NT2_TEST_TYPE_IS( (option < settings()
                             , nt2::tag::alignment_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , aligned_
@@ -74,7 +74,7 @@ NT2_TEST_CASE( alignment_default )
 
   NT2_TEST_TYPE_IS( (option < settings(int,void*)
                             , nt2::tag::alignment_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , aligned_
@@ -91,7 +91,7 @@ NT2_TEST_CASE( single_settings_alignment_ )
 
   NT2_TEST_TYPE_IS( (option < settings(aligned_)
                             , nt2::tag::alignment_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , (aligned_)
@@ -99,7 +99,7 @@ NT2_TEST_CASE( single_settings_alignment_ )
 
   NT2_TEST_TYPE_IS( (option < settings(unaligned_)
                             , nt2::tag::alignment_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , (unaligned_)
@@ -116,7 +116,7 @@ NT2_TEST_CASE( multi_settings_alignment_ )
 
   NT2_TEST_TYPE_IS( (option < settings(aligned_,unaligned_)
                             , nt2::tag::alignment_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , aligned_
@@ -124,7 +124,7 @@ NT2_TEST_CASE( multi_settings_alignment_ )
 
   NT2_TEST_TYPE_IS( (option < settings(unaligned_,aligned_)
                             , nt2::tag::alignment_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , unaligned_
@@ -143,7 +143,7 @@ NT2_TEST_CASE( nested_settings_alignment_ )
                                       , settings(aligned_,unaligned_)
                                       )
                             , nt2::tag::alignment_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , aligned_
@@ -153,7 +153,7 @@ NT2_TEST_CASE( nested_settings_alignment_ )
                                       , settings(unaligned_,aligned_)
                                       )
                             , nt2::tag::alignment_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , (unaligned_)

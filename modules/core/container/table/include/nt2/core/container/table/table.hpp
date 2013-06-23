@@ -10,7 +10,7 @@
 #define NT2_CORE_CONTAINER_TABLE_TABLE_HPP_INCLUDED
 
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/container/table/semantic.hpp>
+#include <nt2/core/container/table/kind.hpp>
 #include <nt2/core/container/table/adapted/table.hpp>
 #include <nt2/include/functions/construct.hpp>
 #include <nt2/sdk/memory/container.hpp>

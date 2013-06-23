@@ -9,7 +9,7 @@
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/core/settings/size.hpp>
-#include "local_semantic.hpp"
+#include "local_kind.hpp"
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -23,7 +23,7 @@ NT2_TEST_CASE( of_size_concept )
   using nt2::meta::match_option;
   using boost::mpl::_;
 
-  typedef option<nt2::of_size_<3,2,-1,5>, nt2::tag::of_size_, some_semantic_> opt;
+  typedef option<nt2::of_size_<3,2,-1,5>, nt2::tag::of_size_, some_kind_> opt;
   opt::type::of_size_type of_size_option;
 
   NT2_TEST( (match_option<nt2::of_size_<3,2,-1,5>, nt2::tag::of_size_>::value) );
@@ -43,12 +43,12 @@ NT2_TEST_CASE( single_of_size_ )
   using boost::mpl::_;
 
   NT2_TEST_EXPR_TYPE( (_2D())
-                      ,(option< _, nt2::tag::of_size_, some_semantic_>)
+                      ,(option< _, nt2::tag::of_size_, some_kind_>)
                       ,(_2D)
                       );
 
   NT2_TEST_EXPR_TYPE( (of_size_<3,4>())
-                      ,(option< _, nt2::tag::of_size_, some_semantic_>)
+                      ,(option< _, nt2::tag::of_size_, some_kind_>)
                       ,(of_size_<3,4>)
                       );
 }
@@ -62,7 +62,7 @@ NT2_TEST_CASE( of_size_default )
 
   NT2_TEST_TYPE_IS( (option < settings()
                             , nt2::tag::of_size_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , _4D
@@ -70,7 +70,7 @@ NT2_TEST_CASE( of_size_default )
 
   NT2_TEST_TYPE_IS( (option < settings(int,void*)
                             , nt2::tag::of_size_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , _4D
@@ -87,7 +87,7 @@ NT2_TEST_CASE( single_settings_of_size_ )
 
   NT2_TEST_TYPE_IS( (option < settings(_2D)
                             , nt2::tag::of_size_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , _2D
@@ -95,7 +95,7 @@ NT2_TEST_CASE( single_settings_of_size_ )
 
   NT2_TEST_TYPE_IS( (option < settings(of_size_<3,4>)
                             , nt2::tag::of_size_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , (of_size_<3,4>)
@@ -113,7 +113,7 @@ NT2_TEST_CASE( multi_settings_of_size_ )
 
   NT2_TEST_TYPE_IS( (option < settings(_2D,_4D)
                             , nt2::tag::of_size_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , _2D
@@ -121,7 +121,7 @@ NT2_TEST_CASE( multi_settings_of_size_ )
 
   NT2_TEST_TYPE_IS( (option < settings(of_size_<3,4>,_4D)
                             , nt2::tag::of_size_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , (of_size_<3,4>)
@@ -140,7 +140,7 @@ NT2_TEST_CASE( nested_settings_of_size_ )
 
   NT2_TEST_TYPE_IS( (option < settings(settings(void*,int), settings(_2D,_4D))
                             , nt2::tag::of_size_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , _2D
@@ -150,7 +150,7 @@ NT2_TEST_CASE( nested_settings_of_size_ )
                                       , settings(of_size_<3,4>,_4D)
                                       )
                             , nt2::tag::of_size_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , (of_size_<3,4>)

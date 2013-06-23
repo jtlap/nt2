@@ -6,7 +6,6 @@
 #include <nt2/core/settings/shape.hpp>
 #include <nt2/core/settings/buffer.hpp>
 #include <nt2/core/settings/sharing.hpp>
-#include <nt2/core/settings/semantic.hpp>
 #include <nt2/core/settings/allocator.hpp>
 #include <nt2/core/settings/alignment.hpp>
 #include <nt2/core/settings/interleaving.hpp>
@@ -17,7 +16,7 @@
 #include <vector>
 #include <nt2/core/utility/of_size.hpp>
 
-struct some_semantic_
+struct some_kind_
 {
   template<typename Settings, typename Option>
   struct option
@@ -33,17 +32,16 @@ struct some_semantic_
 };
 
 template<typename Dummy>
-struct some_semantic_::default_<nt2::tag::allocator_, Dummy>
+struct some_kind_::default_<nt2::tag::allocator_, Dummy>
 {
   typedef std::allocator<void*> type;
 };
 
 namespace nt2 { namespace tag
 {
-  /// INTERNAL ONLY some_semantic_ is a semantic
+  /// INTERNAL ONLY some_kind_ is a semantic
   template<class Dummy>
-  struct semantic_::apply<some_semantic_, Dummy>
-                      : boost::mpl::true_
+  struct kind_::apply<some_kind_, Dummy> : boost::mpl::true_
   {};
 } }
 

@@ -14,10 +14,7 @@
 //#include <nt2/core/container/dsl/shape_of.hpp>
 //#include <nt2/core/container/dsl/index_of.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
-#include <nt2/core/container/dsl/deduce_semantic.hpp>
-
-// for container_of specialization - TO BE REMOVED
-#include <nt2/core/container/table/semantic.hpp>
+#include <nt2/core/container/dsl/kind_of.hpp>
 
 #include <nt2/sdk/meta/strip.hpp>
 #include <boost/dispatch/meta/transfer_qualifiers.hpp>
@@ -56,8 +53,7 @@ namespace nt2 { namespace details
     typedef typename ext::value_type<Tag, Domain, Arity, Expr>::type  value_type;
     typedef typename ext::size_of<Tag,Domain,Arity,Expr>::result_type extent_type;
     typedef typename meta::strip<extent_type>::type                   size_type;
-    // typedef typename meta::deduce_semantic<Expr>::type            semantic_type;
-    typedef  tag::table_            semantic_type;
+    typedef typename meta::kind_of<Expr>::type                        kind_type;
 
     typedef typename boost::mpl::
     eval_if < boost::is_same< size_type, _0D >
@@ -65,7 +61,7 @@ namespace nt2 { namespace details
             , boost::dispatch::meta::
               transfer_qualifiers < memory::container < typename meta::strip<value_type>::type
                                                       , nt2::settings(size_type)
-                                                      , semantic_type
+                                                      , kind_type
                                                       >
                                   , value_type
                                   >

@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/core/container/table/table.hpp>
+#include <nt2/table.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/rand.hpp>
 #include <nt2/include/functions/exp.hpp>

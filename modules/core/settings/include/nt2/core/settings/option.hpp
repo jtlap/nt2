@@ -16,48 +16,44 @@
 
 #include <boost/mpl/eval_if.hpp>
 #include <nt2/core/settings/match_option.hpp>
+#include <nt2/core/settings/details/no_semantic.hpp>
 
-namespace nt2
+namespace nt2 { namespace meta
 {
-  struct no_semantic_;
+  /*!
+   * @brief Extract an option value from a given type or type groups
+   *
+   * \tparam Settings Settings type to introspect
+   * \tparam Option   Option tag to be retrieved
+   * \tparam Semantic If no Option is found, use this semantic's guidelines
+   **/
+  template<class Settings, class Option, class Semantic = nt2::no_semantic_>
+  struct  option
+        : boost::mpl::eval_if < match_option<Settings,Option>
+                              , typename Semantic::template option< Settings
+                                                                  , Option
+                                                                  >
+                              , typename Semantic::template default_<Option>
+                              >
+  {};
 
-  namespace meta
-  {
-    /*!
-     * @brief Extract an option value from a given type or type groups
-     *
-     * \tparam Settings Settings type to introspect
-     * \tparam Option   Option tag to be retrieved
-     * \tparam Semantic If no Option is found, use this semantic's guidelines
-     **/
-    template<class Settings, class Option, class Semantic = nt2::no_semantic_>
-    struct  option
-          : boost::mpl::eval_if < match_option<Settings,Option>
-                                , typename Semantic::template option< Settings
-                                                                    , Option
-                                                                    >
-                                , typename Semantic::template default_<Option>
-                                >
-    {};
+  /// INTERNAL ONLY Forward option retrieval on S(*)(X) to S(X)
+  template<class Settings, class Option, class Semantic>
+  struct  option<Settings*,Option,Semantic>
+        : option<Settings,Option,Semantic>
+  {};
 
-    /// INTERNAL ONLY Forward option retrieval on S(*)(X) to S(X)
-    template<class Settings, class Option, class Semantic>
-    struct  option<Settings*,Option,Semantic>
-          : option<Settings,Option,Semantic>
-    {};
+  /// INTERNAL ONLY Forward option retrieval for &
+  template<class Settings, class Option, class Semantic>
+  struct  option<Settings&,Option,Semantic>
+        : option<Settings,Option,Semantic>
+  {};
 
-    /// INTERNAL ONLY Forward option retrieval for &
-    template<class Settings, class Option, class Semantic>
-    struct  option<Settings&,Option,Semantic>
-          : option<Settings,Option,Semantic>
-    {};
-
-    /// INTERNAL ONLY Forward option retrieval for const
-    template<class Settings, class Option, class Semantic>
-    struct  option<Settings const,Option,Semantic>
-          : option<Settings,Option,Semantic>
-    {};
-  }
-}
+  /// INTERNAL ONLY Forward option retrieval for const
+  template<class Settings, class Option, class Semantic>
+  struct  option<Settings const,Option,Semantic>
+        : option<Settings,Option,Semantic>
+  {};
+} }
 
 #endif

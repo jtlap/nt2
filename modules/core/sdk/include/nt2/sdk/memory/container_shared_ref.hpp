@@ -28,6 +28,9 @@ namespace nt2 { namespace memory
   template<typename T, typename S, typename Sema, bool Own>
   struct container_shared_ref
   {
+    /// INTERNAL ONLY Precomputed semantic type
+    typedef Sema                                                 kind_type;
+
     typedef typename boost::remove_const<T>::type                value_type;
     typedef std::size_t                                          size_type;
 
@@ -228,7 +231,7 @@ namespace nt2 { namespace memory
     template<typename U, typename S2, typename Sema2, bool Own2>
     friend struct container_shared_ref;
 
-    template<typename U, typename S2>
+    template<typename U, typename S2, typename Sema2>
     friend struct container_ref;
 
     pointer                                  ptr;
@@ -405,7 +408,7 @@ namespace nt2 { namespace memory
     template<typename U, typename S2, typename Sema2, bool Own2>
     friend struct container_shared_ref;
 
-    template<typename U, typename S2>
+    template<typename U, typename S2, typename Sema2>
     friend struct container_ref;
 
     boost::shared_ptr<base_t>                base_;
@@ -426,6 +429,19 @@ namespace nt2 { namespace memory
   {
     x.swap(y);
   }
+
+  template< typename T
+          , typename S1, typename Sema1
+          , typename S2, typename Sema2
+          >
+  BOOST_FORCEINLINE
+  void swap ( container_shared_ref<T, S1, Sema1, true> const& x
+            , container_shared_ref<T, S2, Sema2, true> const& y
+            )
+  {
+    x.swap(y);
+  }
+
 
   template< typename T
           , typename S1, typename Sema1

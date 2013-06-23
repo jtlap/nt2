@@ -9,7 +9,7 @@
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/core/settings/storage_scheme.hpp>
-#include "local_semantic.hpp"
+#include "local_kind.hpp"
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -22,12 +22,12 @@ NT2_TEST_CASE( storage_scheme_concept )
   using nt2::meta::match_option;
 
   {
-    typedef option<nt2::conventional_, nt2::tag::storage_scheme_, some_semantic_> opt;
+    typedef option<nt2::conventional_, nt2::tag::storage_scheme_, some_kind_> opt;
     NT2_TEST( (match_option< nt2::conventional_, nt2::tag::storage_scheme_ >::value) );
   }
 
   {
-    typedef option<nt2::packed_, nt2::tag::storage_scheme_, some_semantic_> opt;
+    typedef option<nt2::packed_, nt2::tag::storage_scheme_, some_kind_> opt;
 
     NT2_TEST( (match_option< nt2::packed_, nt2::tag::storage_scheme_ >::value) );
   }
@@ -41,12 +41,12 @@ NT2_TEST_CASE( single_storage_scheme_ )
   using boost::mpl::_;
 
   NT2_TEST_EXPR_TYPE( (conventional_())
-                      ,(option< _, nt2::tag::storage_scheme_, some_semantic_>)
+                      ,(option< _, nt2::tag::storage_scheme_, some_kind_>)
                       ,(conventional_)
                       );
 
   NT2_TEST_EXPR_TYPE( (packed_())
-                      ,(option< _, nt2::tag::storage_scheme_, some_semantic_>)
+                      ,(option< _, nt2::tag::storage_scheme_, some_kind_>)
                       ,(packed_)
                       );
 }
@@ -60,7 +60,7 @@ NT2_TEST_CASE( storage_scheme_default )
 
   NT2_TEST_TYPE_IS( (option < settings()
                             , nt2::tag::storage_scheme_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , conventional_
@@ -68,7 +68,7 @@ NT2_TEST_CASE( storage_scheme_default )
 
   NT2_TEST_TYPE_IS( (option < settings(int,void*)
                             , nt2::tag::storage_scheme_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , conventional_
@@ -85,7 +85,7 @@ NT2_TEST_CASE( single_settings_storage_scheme_ )
 
   NT2_TEST_TYPE_IS( (option < settings(conventional_)
                             , nt2::tag::storage_scheme_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , (conventional_)
@@ -93,7 +93,7 @@ NT2_TEST_CASE( single_settings_storage_scheme_ )
 
   NT2_TEST_TYPE_IS( (option < settings(packed_)
                             , nt2::tag::storage_scheme_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , (packed_)
@@ -110,7 +110,7 @@ NT2_TEST_CASE( multi_settings_storage_scheme_ )
 
   NT2_TEST_TYPE_IS( (option < settings(conventional_,packed_)
                             , nt2::tag::storage_scheme_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , conventional_
@@ -118,7 +118,7 @@ NT2_TEST_CASE( multi_settings_storage_scheme_ )
 
   NT2_TEST_TYPE_IS( (option < settings(packed_,conventional_)
                             , nt2::tag::storage_scheme_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , packed_
@@ -137,7 +137,7 @@ NT2_TEST_CASE( nested_settings_storage_scheme_ )
                                       , settings(conventional_,packed_)
                                       )
                             , nt2::tag::storage_scheme_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , conventional_
@@ -147,7 +147,7 @@ NT2_TEST_CASE( nested_settings_storage_scheme_ )
                                       , settings(packed_,conventional_)
                                       )
                             , nt2::tag::storage_scheme_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , (packed_)

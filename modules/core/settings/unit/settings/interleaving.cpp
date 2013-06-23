@@ -9,7 +9,7 @@
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/core/settings/interleaving.hpp>
-#include "local_semantic.hpp"
+#include "local_kind.hpp"
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -22,7 +22,7 @@ NT2_TEST_CASE( interleaving_concept )
   using nt2::meta::match_option;
 
   {
-    typedef option<nt2::interleaved_, nt2::tag::interleaving_, some_semantic_> opt;
+    typedef option<nt2::interleaved_, nt2::tag::interleaving_, some_kind_> opt;
     typedef opt::type::interleaving_type interleaving_option;
 
     NT2_TEST( (match_option< nt2::interleaved_, nt2::tag::interleaving_ >::value) );
@@ -30,7 +30,7 @@ NT2_TEST_CASE( interleaving_concept )
   }
 
   {
-    typedef option<nt2::deinterleaved_, nt2::tag::interleaving_, some_semantic_> opt;
+    typedef option<nt2::deinterleaved_, nt2::tag::interleaving_, some_kind_> opt;
     typedef opt::type::interleaving_type interleaving_option;
 
     NT2_TEST( (match_option< nt2::deinterleaved_, nt2::tag::interleaving_ >::value) );
@@ -47,12 +47,12 @@ NT2_TEST_CASE( single_interleaving_ )
   using boost::mpl::_;
 
   NT2_TEST_EXPR_TYPE( (interleaved_())
-                      ,(option< _, nt2::tag::interleaving_, some_semantic_>)
+                      ,(option< _, nt2::tag::interleaving_, some_kind_>)
                       ,(interleaved_)
                       );
 
   NT2_TEST_EXPR_TYPE( (deinterleaved_())
-                      ,(option< _, nt2::tag::interleaving_, some_semantic_>)
+                      ,(option< _, nt2::tag::interleaving_, some_kind_>)
                       ,(deinterleaved_)
                       );
 }
@@ -66,7 +66,7 @@ NT2_TEST_CASE( interleaving_default )
 
   NT2_TEST_TYPE_IS( (option < settings()
                             , nt2::tag::interleaving_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , interleaved_
@@ -74,7 +74,7 @@ NT2_TEST_CASE( interleaving_default )
 
   NT2_TEST_TYPE_IS( (option < settings(int,void*)
                             , nt2::tag::interleaving_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , interleaved_
@@ -91,7 +91,7 @@ NT2_TEST_CASE( single_settings_interleaving_ )
 
   NT2_TEST_TYPE_IS( (option < settings(interleaved_)
                             , nt2::tag::interleaving_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , (interleaved_)
@@ -99,7 +99,7 @@ NT2_TEST_CASE( single_settings_interleaving_ )
 
   NT2_TEST_TYPE_IS( (option < settings(deinterleaved_)
                             , nt2::tag::interleaving_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , (deinterleaved_)
@@ -116,7 +116,7 @@ NT2_TEST_CASE( multi_settings_interleaving_ )
 
   NT2_TEST_TYPE_IS( (option < settings(interleaved_,deinterleaved_)
                             , nt2::tag::interleaving_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , interleaved_
@@ -124,7 +124,7 @@ NT2_TEST_CASE( multi_settings_interleaving_ )
 
   NT2_TEST_TYPE_IS( (option < settings(deinterleaved_,interleaved_)
                             , nt2::tag::interleaving_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , deinterleaved_
@@ -143,7 +143,7 @@ NT2_TEST_CASE( nested_settings_interleaving_ )
                                       , settings(interleaved_,deinterleaved_)
                                       )
                             , nt2::tag::interleaving_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , interleaved_
@@ -153,7 +153,7 @@ NT2_TEST_CASE( nested_settings_interleaving_ )
                                       , settings(deinterleaved_,interleaved_)
                                       )
                             , nt2::tag::interleaving_
-                            , some_semantic_
+                            , some_kind_
                             >::type
                     )
                   , (deinterleaved_)
