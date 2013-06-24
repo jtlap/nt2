@@ -278,6 +278,12 @@ namespace nt2 { namespace memory
       boost::swap(*this, y);
     }
 
+    template<class S2>
+    BOOST_FORCEINLINE void swap(container<T, S2>& x) const
+    {
+      base_->swap(x);
+    }
+
     //==========================================================================
     /*!
      * @brief Resize a container using new dimensions set
@@ -413,6 +419,12 @@ namespace nt2 { namespace memory
   //============================================================================
   template<class T, class S, bool Own> inline
   void swap(container_shared_ref<T, S, Own>& x, container_shared_ref<T, S, Own>& y)  { x.swap(y); }
+
+  template<class T, class S1, class S2> inline
+  void swap(container_shared_ref<T, S1, true> const& x, container<T, S2>& y)  { x.swap(y); }
+
+  template<class T, class S1, class S2> inline
+  void swap(container<T, S1>& x, container_shared_ref<T, S2, true> const& y)  { y.swap(x); }
 } }
 
 #endif
