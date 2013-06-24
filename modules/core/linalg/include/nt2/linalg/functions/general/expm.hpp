@@ -212,22 +212,20 @@ namespace ext
       const itab_t m_vals = h_t::m_vals(base_t());
       tab_t a = a0;
       base_t norma0 = nt2::norm(a0, 1);
-      NT2_DISPLAY(a);
-      NT2_DISPLAY(norma0);
       if(norma0 <= theta(end_))
       {
         // no scaling and squaring is required.
         for(size_t i = 1;  i <= nt2::numel(m_vals); ++i)
         {
           if (norma0 <=theta(i))
-          {      NT2_DISPLAY("icitte");
+          {
             details::padeapproximantofdegree(a, m_vals(i), f);
             break;
           }
         }
       }
       else
-      { NT2_DISPLAY("latte");
+      {
         norma0 /= theta(end_);
         ibase_t s;
         base_t t = nt2::frexp(norma0, s);
