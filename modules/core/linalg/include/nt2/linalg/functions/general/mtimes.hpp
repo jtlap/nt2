@@ -12,11 +12,15 @@
 #include <nt2/linalg/functions/mtimes.hpp>
 #include <nt2/linalg/details/blas/mm.hpp>
 #include <nt2/core/functions/ctranspose.hpp>
+#include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/value.hpp>
 #include <nt2/core/container/dsl/size.hpp>
+#include <nt2/core/container/dsl/alias.hpp>
+#include <nt2/core/container/dsl/as_terminal.hpp>
 #include <nt2/core/container/table/category.hpp>
+#include <nt2/sdk/memory/forward/container.hpp>
 #include <boost/proto/traits.hpp>
 #include <boost/assert.hpp>
 
@@ -164,9 +168,17 @@ namespace nt2 { namespace ext
     {
       using boost::fusion::at_c;
       typedef typename A1::value_type value_type;
-      typename meta::call<tag::run_(typename boost::proto::result_of::child_c<A1&, 0>::type)>::type child0 = nt2::run(boost::proto::child_c<0>(a1));
-      typename meta::call<tag::run_(typename boost::proto::result_of::child_c<A1&, 1>::type)>::type child1 = nt2::run(boost::proto::child_c<1>(a1));
-      typename meta::call<tag::run_(A0&)>::type result = nt2::run(a0);
+
+      if(at_c<1>(boost::proto::child_c<0>(a1).extent()) == 0u)
+      {
+        a0 = zeros(a1.extent(), meta::as_<value_type>());
+        return a0;
+      }
+
+      typedef nt2::memory::container<value_type, nt2::_2D> desired_semantic;
+      typename container::as_terminal<desired_semantic, typename boost::proto::result_of::child_c<A1&, 0>::type>::type child0 = boost::proto::child_c<0>(a1);
+      typename container::as_terminal<desired_semantic, typename boost::proto::result_of::child_c<A1&, 1>::type>::type child1 = boost::proto::child_c<1>(a1);
+      typename container::as_terminal<desired_semantic, A0&>::type result = container::as_terminal<desired_semantic, A0&>::init(a0);
 
       value_type alpha = One<value_type>();
       value_type beta = Zero<value_type>();
@@ -177,39 +189,42 @@ namespace nt2 { namespace ext
       nt2_la_int ldb = at_c<0>(child1.extent());
       nt2_la_int ldc = at_c<0>(a1.extent());
 
-      if(    ( raw(value(result)) >= child0.raw()+numel(child0) || raw(value(result))+numel(result) <  child0.raw())&&
-             ( raw(value(result)) >= child1.raw()+numel(child0) || raw(value(result))+numel(result) <  child1.raw()))
+      typedef typename container::as_terminal<desired_semantic>::type dummy_type;
+      typedef typename container::as_view_impl<dummy_type>::type view_type;
+
+      dummy_type dummy;
+      view_type result_view;
+      bool result_is_terminal = (void*)&result == (void*)&a0;
+      bool swap = false;
+
+      if( result_is_terminal && ( container::alias(result, child0) || container::alias(result, child1) ) )
       {
-        a0.resize(a1.extent());
-        nt2::details::
-        gemm( "N", "N"
-            , &m, &n, &k
-            , &alpha
-            , child0.raw(), &lda
-            , child1.raw(), &ldb
-            , &beta
-            , raw(value(result)), &ldc
-            );
-        a0 = result;
+        // overlapping of input and output data
+        // so we provide dummy space and put it back in result later
+        dummy.resize(a1.extent());
+        result_view.reset(dummy);
+        swap = true;
       }
       else
       {
-        // overlapping of input and output data is possible
-        // so we provide space for result and put back in a0
-        nt2::container::table<value_type> tmp(a1.extent());
-
-        nt2::details::
-        gemm( "N", "N"
-            , &m, &n, &k
-            , &alpha
-            , child0.raw(), &lda
-            , child1.raw(), &ldb
-            , &beta
-            , tmp.raw(), &ldc
-            );
-
-        a0 = tmp;
+        result.resize(a1.extent());
+        result_view.reset(result);
       }
+
+      nt2::details::
+      gemm( "N", "N"
+          , &m, &n, &k
+          , &alpha
+          , child0.raw(), &lda
+          , child1.raw(), &ldb
+          , &beta
+          , result_view.raw(), &ldc
+          );
+
+      if(swap)
+        memory::swap(boost::proto::value(result), boost::proto::value(dummy));
+      else if(!result_is_terminal)
+        a0 = result;
       return a0;
     }
   };
