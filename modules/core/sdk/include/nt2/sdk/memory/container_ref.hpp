@@ -11,6 +11,7 @@
 
 #include <nt2/sdk/memory/adapted/container_ref.hpp>
 #include <nt2/core/settings/specific_data.hpp>
+#include <nt2/sdk/memory/forward/container.hpp>
 
 namespace nt2 { namespace memory
 {
@@ -78,8 +79,22 @@ namespace nt2 { namespace memory
     {
     }
 
+    container_ref(T& value) : ptr(&value), sz(_0D()), base_()
+    {
+    }
+
     template<class U, class S2>
     container_ref(container_ref<U, S2> const& other) : ptr(other.ptr), sz(other.sz), base_(other.base_)
+    {
+    }
+
+    template<class U, class S2>
+    container_ref(container_shared_ref<U, S2, false> const& other) : ptr(other.ptr), sz(other.sz), base_(other.base_.get())
+    {
+    }
+
+    template<class U, class S2>
+    container_ref(container_shared_ref<U, S2, true> const& other) : ptr(other.raw()), sz(other.extent()), base_(other.base_.get())
     {
     }
 

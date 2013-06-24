@@ -227,6 +227,9 @@ namespace nt2 { namespace memory
     template<class U, class S2, bool Own2>
     friend struct container_shared_ref;
 
+    template<class U, class S2>
+    friend struct container_ref;
+
     pointer                                  ptr;
     extent_type                              sz;
     boost::shared_ptr<cbase_t>               base_;
@@ -406,6 +409,9 @@ namespace nt2 { namespace memory
   private:
     template<class U, class S2, bool Own2>
     friend struct container_shared_ref;
+
+    template<class U, class S2>
+    friend struct container_ref;
 
     boost::shared_ptr<base_t>                base_;
   };
