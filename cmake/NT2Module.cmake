@@ -690,8 +690,11 @@ endmacro()
 # build a tool
 macro(nt2_module_tool_setup tool)
 
-  if(NOT NT2_SOURCE_ROOT)
-    message(FATAL_ERROR "[nt2] tool ${tool} was not found and cannot be built")
+  if(NOT NT2_TOOL_${tool}_ROOT)
+    if(NOT NT2_SOURCE_ROOT)
+      message(FATAL_ERROR "[nt2] tool ${tool} was not found and cannot be built")
+    endif()
+    set(NT2_TOOL_${tool}_ROOT ${NT2_SOURCE_ROOT}/tools/${tool})
   endif()
 
   get_property(NT2_TOOL_${tool}_BUILT GLOBAL PROPERTY NT2_TOOL_${tool}_BUILT)
@@ -730,18 +733,18 @@ macro(nt2_module_tool_setup tool)
     endif()
 
     # workaround in case tool has already been built in source -- temporarily remove CMakeCache
-    execute_process(COMMAND ${CMAKE_COMMAND} -E rename ${NT2_SOURCE_ROOT}/tools/${tool}/CMakeCache.txt ${NT2_SOURCE_ROOT}/tools/${tool}/CMakeCache.txt.tmp ERROR_QUIET)
+    execute_process(COMMAND ${CMAKE_COMMAND} -E rename ${NT2_TOOL_${tool}_ROOT}/CMakeCache.txt ${NT2_TOOL_${tool}_ROOT}/CMakeCache.txt.tmp ERROR_QUIET)
 
     execute_process(COMMAND ${CMAKE_COMMAND}
                             ${BUILD_OPTION} -UNT2_BINARY_DIR
-                            ${NT2_SOURCE_ROOT}/tools/${tool}
+                            ${NT2_TOOL_${tool}_ROOT}
                     WORKING_DIRECTORY ${NT2_BINARY_DIR}/tools/${tool}
                     OUTPUT_VARIABLE tool_configure_out
                     RESULT_VARIABLE tool_configure
                    )
 
     # workaround in case tool has already been built in source -- restore CMakeCache
-    execute_process(COMMAND ${CMAKE_COMMAND} -E rename ${NT2_SOURCE_ROOT}/tools/${tool}/CMakeCache.txt.tmp ${NT2_SOURCE_ROOT}/tools/${tool}/CMakeCache.txt ERROR_QUIET)
+    execute_process(COMMAND ${CMAKE_COMMAND} -E rename ${NT2_TOOL_${tool}_ROOT}/CMakeCache.txt.tmp ${NT2_TOOL_${tool}_ROOT}/CMakeCache.txt ERROR_QUIET)
 
     if(tool_configure)
       message("${tool_configure_out}")
