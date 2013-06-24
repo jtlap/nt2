@@ -102,8 +102,7 @@ namespace nt2
         //u, t and r are complex arrays
         res.resize(extent(a0));
         ctab_t u, t;
-        nt2::tie(u, t) = schur(nt2::complexify(a0),'N'); // t is complex schur form.        result_type e, v;
-//        NT2_DISPLAY(t);
+        nt2::tie(u, t) = schur(nt2::complexify(a0),'N'); // t is complex schur form.
         if (isdiagonal(t))
         {
           t = nt2::from_diag(nt2::log(nt2::diag_of(t)));
@@ -117,7 +116,6 @@ namespace nt2
           r_type delta = 0.1;
           itab_t  ord(nt2::of_size(2u, nt2::size(a0,1)));
           blocking(diag_of(t),delta, ord);
-//          NT2_DISPLAY(ord);
           uint32_t lord = nt2::size(ord, 2);
           itab_t terms(nt2::of_size(lord, 1));
           ctab_t ca0 = a0;
@@ -125,26 +123,17 @@ namespace nt2
            for(uint32_t col=1; col <= lord ; ++col)
            {
              BOOST_AUTO_TPL(j, nt2::_(ord(1, col), ord(2, col)));
-//              NT2_DISPLAY(j);
-//              NT2_DISPLAY(a0(j, j));
              uint32_t maxsqrt = 100;
              itab_t terms(nt2::of_size(1, lord));
              uint32_t nj =  length(j);
              ctab_t rj(nt2::of_size(nj, nj));
-//              NT2_DISPLAY("1d");
              terms(col) = logm_triang(a0(j, j), maxsqrt, rj);
-//             NT2_DISPLAY("1dm");
              r(j, j) = rj;
-//             NT2_DISPLAY("1df");
-//             NT2_DISPLAY(r);
              for(uint32_t row=col-1; row >= 1; --row)
              {
-//               NT2_DISPLAY(row);
                BOOST_AUTO_TPL(i, nt2::_(ord(1, row), ord(2, row)));
-//               NT2_DISPLAY(i);
                if (length(i) == 1 && length(j) == 1)
                {
-//               NT2_DISPLAY("Scalar case.");
                  size_t ii = i(1), jj = j(1);
                  BOOST_AUTO_TPL(k, nt2::_(ii+1, jj-1));
                  cplx_type temp = ca0(ii,jj)*(r(ii,ii) - r(jj,jj));
@@ -153,54 +142,19 @@ namespace nt2
                }
               else
               {
-//                NT2_DISPLAY(ord);
                 itab_t k(nt2::of_size(1, 0));
-//                NT2_DISPLAY(k);
                 for(uint32_t l = row+1; l < col; ++l)
                 {
-//                  NT2_DISPLAY(nt2::_(ord(1, l), ord(2, l)));
                   itab_t k1 = horzcat(k, nt2::_(ord(1, l), ord(2, l)));
-                   //NT2_DISPLAY(k1);
                   k = k1;
                 }
-//                NT2_DISPLAY("icitte");
-//                NT2_DISPLAY(r);
-//                NT2_DISPLAY(ca0);
                 ctab_t rhs =  mtimes(r(i,i), ca0(i,j)) - mtimes(ca0(i,j), r(j,j));
                 if(!isempty(k)) rhs += mtimes(r(i,k), ca0(k,j)) -  mtimes(ca0(i,k), r(k,j));
-//                 NT2_DISPLAY(mtimes(r(i,i), ca0(i,j)));
-//                 NT2_DISPLAY(mtimes(ca0(i,j), r(j,j)));
-//                 NT2_DISPLAY(i);
-//                 NT2_DISPLAY(j);
-//                 NT2_DISPLAY(k);
-//                 if(!isempty(k))
-//                 {
-//                   NT2_DISPLAY(mtimes(r(i,k), ca0(k,j)));
-//                   NT2_DISPLAY(ca0(i,k));
-//                   NT2_DISPLAY(r(k, j));
-//                   NT2_DISPLAY(mtimes(ca0(i,k), r(k,j)));
-//                 }
-
-//                 NT2_DISPLAY(rhs);
                 r(i,j) = sylv_tri(ca0(i,i),-ca0(j,j),rhs);
-//                 NT2_DISPLAY(r(i, j));
-//                 NT2_DISPLAY(r);
               }
-
-//             NT2_DISPLAY(r);
-//             transtype(res, r, typename nt2::meta::is_complex<value_type>::type());
              }
-
              ctab_t z =  mtimes(mtimes(u, r), trans(conj(u)));
              transtype(res, z, typename nt2::meta::is_complex<value_type>::type());
-//              NT2_DISPLAY(res);
-//              NT2_DISPLAY(z);
-// //         if (isreal(a0) && (norm(imag(r),1) <= 10*n*eps*norm(r,1)))
-// //         {
-// //           r = real(r);
-// //         }
-
-
            }
         }
       }
@@ -216,17 +170,14 @@ namespace nt2
         uint32_t m = length(t);
         uint32_t n = length(u);
         ctab_t x = zeros(m,n, nt2::meta::as_<cplx_type>());
-      // opts.ut = true;
-
-      for(uint32_t i = 1;  i <= n; ++i)
-      {
-        ctab_t bb = b(nt2::_,i);
-        BOOST_AUTO_TPL(ii, nt2::_(1u, i-1));
-        if(!isempty(ii)) bb -= mtimes(x(nt2::_,ii),u(ii,i));
-        x(nt2::_,i) = linsolve(t + u(i,i)*eye(m, meta::as_<cplx_type>()),
-                               bb); //, opts);
-      }
-
+        for(uint32_t i = 1;  i <= n; ++i)
+        {
+          ctab_t bb = b(nt2::_,i);
+          BOOST_AUTO_TPL(ii, nt2::_(1u, i-1));
+          if(!isempty(ii)) bb -= mtimes(x(nt2::_,ii),u(ii,i));
+          x(nt2::_,i) = linsolve(t + u(i,i)*eye(m, meta::as_<cplx_type>()),
+                                 bb);
+        }
         return x;
       }
 
@@ -265,17 +216,14 @@ namespace nt2
         uint32_t term = 0;
         if (size(a0, 1) == 1)
         {
-//           NT2_DISPLAY("1111");
           rj(1) = log(a0(1));
         }
         else if(size(a0, 1) == 2)
         {
-//           NT2_DISPLAY("2222");
           logm2by2(a0, maxsqrt, rj);
         }
         else
         {
-           //NT2_DISPLAY("3333");
           logm_tr(a0, maxsqrt, rj, term);
         }
         return term;
@@ -286,27 +234,22 @@ namespace nt2
                     uint32_t maxsqrt,
                     D2& rj)
       {
-//        NT2_DISPLAY(a0);
         value_type a1 = a0(1,1);
         value_type a2 = a0(2,2);
 
         value_type loga1 = log(a1);
         value_type loga2 = log(a2);
         rj = nt2::cons(nt2::of_size(2, 2), loga1, Zero<value_type>(), Zero<value_type>(), loga2);
-//        NT2_DISPLAY(rj);
-
         if (a1 == a2)
           rj(1,2) = a0(1,2)/a1;
         else if ((nt2::abs(a1) < nt2::Half<r_type>()*nt2::abs(a2)) ||
                  (nt2::abs(a2) < nt2::Half<r_type>()*nt2::abs(a1)))
           rj(1,2) =  a0(1,2) * (loga2 - loga1) / (a2 - a1);
-        else// Close eigenvalues.
+        else // Close eigenvalues.
         {
           value_type dd = Two<value_type>()*nt2::atanh((a2-a1)/(a2+a1))+ unwind(loga2-loga1, meta::is_complex<value_type>());
           rj(1,2) = a0(1,2)*dd;
         }
-//        NT2_DISPLAY(" ======== ");
-//        NT2_DISPLAY(rj);
       }
       static inline r_type unwind(const value_type& z, boost::mpl::false_)
       {
@@ -337,15 +280,11 @@ namespace nt2
         while (true)
         {
           r_type normdiff = nt2::norm(t-eye(n, meta::as_<value_type>()),1);
-          // NT2_DISPLAY(normdiff);
-          //NT2_DISPLAY(t-eye(n, meta::as_<value_type>()));
           if (normdiff <= xvals(end_))
           {
             ++p;
             BOOST_AUTO_TPL( tj1, nt2::find(nt2::le(normdiff, xvals)));
-            // NT2_DISPLAY(tj1);
             uint32_t j1 = tj1(1)+2;
-             //NT2_DISPLAY(j1);
             normdiff /= 2;
             BOOST_AUTO_TPL( tj2, nt2::find(nt2::le(normdiff, xvals)));
             uint32_t j2 = tj2(1)+2;
@@ -360,53 +299,32 @@ namespace nt2
           {
             m = 16; break;
           }
-           //NT2_DISPLAY("av sq");
           sqrtm_tri(t);
-           //NT2_DISPLAY("ap sq");
           ++k;
         }
-         //NT2_DISPLAY("av pf");
         logm_pf(t-eye(n, meta::as_<cplx_type>()),m, rj);
-         //NT2_DISPLAY("ap pf");
-         //NT2_DISPLAY(m);
-         //NT2_DISPLAY(rj);
-         //NT2_DISPLAY(twopower(k));
         rj *= r_type(twopower(k));
-         //NT2_DISPLAY(rj);
-         //NT2_DISPLAY("ap pf2");
       }
       template < class T > static inline void sqrtm_tri( T& t)
       {
-        //       NT2_DISPLAY(size(t));
         uint32_t n = nt2::size(t, 1);
         ctab_t r = nt2::zeros(nt2::of_size(n, n), meta::as_<cplx_type>());
-        // NT2_DISPLAY(size(r));
         for (uint32_t j=1; j <= n; ++j)
         {
-          // NT2_DISPLAY(j);
           r(j,j) = nt2::sqrt(t(j,j));
-          // NT2_DISPLAY(r);
           for(uint32_t  i=j-1;  i >= 1; --i)
           {
-            // NT2_DISPLAY(j);
-            // NT2_DISPLAY(i);
             r(i,j) = t(i,j);
             if (i+1 <= j-1)
             {
               ctab_t z1 = r(i,nt2::_(i+1, j-1));
               ctab_t z2 = r(nt2::_(i+1, j-1),j);
-              // NT2_DISPLAY(z1);
-              // NT2_DISPLAY(z2);
               ctab_t z3 = mtimes(z1, z2);
               r(i, j) -= z3;
-              // NT2_DISPLAY(z3);
             }
             r(i,j) /= (r(i,i) + r(j,j));
-            // NT2_DISPLAY(r);
           }
         }
-         //NT2_DISPLAY("----");
-         //NT2_DISPLAY(r);
         t = r;
       }
 
@@ -419,27 +337,17 @@ namespace nt2
       {
         uint32_t n = nt2::size(a0, 1);
         btab_t nodes, wts;
-        //NT2_DISPLAY("av gl");
-        //NT2_DISPLAY(a0);
         gauss_legendre(m, nodes, wts);
-         //NT2_DISPLAY("ap gl");
         //  Convert from [-1,1] to [0,1].
         nodes = oneplus(nodes)/nt2::Two<r_type>();
         wts /= Two<r_type>();
         s = zeros(n, meta::as_<cplx_type>());
         ctab_t p(nt2::of_size(n, n));
-         //NT2_DISPLAY("ap gl1");
-         for(uint32_t j=1;  j <= m; ++j)
-         {
-            //NT2_DISPLAY(j);
-            //NT2_DISPLAY(trans(eye(n, meta::as_<r_type>())+nodes(j)*a0));
-            //NT2_DISPLAY(trans(a0));
-            //NT2_DISPLAY(nodes(j));
-           p = trans(linsolve(trans(eye(n, meta::as_<r_type>())+nodes(j)*a0), trans(a0)));
-            //NT2_DISPLAY(p);
-           s +=  wts(j)*p;
-         }
-          //NT2_DISPLAY(s);
+        for(uint32_t j=1;  j <= m; ++j)
+        {
+          p = trans(linsolve(trans(eye(n, meta::as_<r_type>())+nodes(j)*a0), trans(a0)));
+          s +=  wts(j)*p;
+        }
       }
 
 
@@ -447,24 +355,15 @@ namespace nt2
         //gauss_legendre  nodes and weights for gauss-legendre quadrature.
         //  gauss_legendre(n, x, w) computes the nodes x and weights w
         //  for n-point gauss-legendre quadrature.
-
-        //reference:
         //G. H. Golub and J. H. Welsch, calculation of gauss quadrature
         //rules, math. comp., 23(106):221-230, 1969.
       {
         BOOST_AUTO_TPL(i,  nt2::_(nt2::One<r_type>(), r_type(n-1)));
         btab_t v = i/nt2::sqrt(nt2::minusone(nt2::sqr(nt2::Two<r_type>()*i)));
-         //NT2_DISPLAY(v);
         btab_t d, vv;
-         //NT2_DISPLAY(from_diag(v,-1)+from_diag(v,1));
         nt2::tie(vv, d) = nt2::symeig(from_diag(v,-1)+from_diag(v,1));
-         //NT2_DISPLAY(vv);
-         //NT2_DISPLAY(d);
         x = nt2::diag_of(d);
-         //NT2_DISPLAY(x);
         w = nt2::Two<r_type>()*nt2::trans(nt2::sqr(vv(1,nt2::_)));
-         //NT2_DISPLAY(w);
-
       }
     };
 
