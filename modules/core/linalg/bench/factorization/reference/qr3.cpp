@@ -18,12 +18,8 @@
 #include <nt2/include/functions/expand.hpp>
 #include <nt2/linalg/details/utility/workspace.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
+#include "../../flops/qr.hpp"
 #include "details.hpp"
-
-namespace nt2 { namespace ext
-{
-
-
 
 template<typename T>
 NT2_EXPERIMENT(qr_3_float)
@@ -40,10 +36,10 @@ NT2_EXPERIMENT(qr_3_float)
 
     tau.resize(nt2::of_size(std::min(w1,h1), 1));
 
-    NT2_F77NAME(sgeqp3)(&h1,&w1,0,&h1,0,0,work.main(),details::query(),&i);
+    NT2_F77NAME(sgeqp3)(&h1,&w1,0,&h1,0,0,work.main(),nt2::details::query(),&i);
 
     work.prepare_main();
-    jpvt = nt2::zeros<nt2_la_int>(w1,1);
+    jpvt = nt2::zeros(w1,1,nt2::meta::as_<nt2_la_int>());
     lwork = work.main_size();
 
     NT2_F77NAME(sgeqp3)(&h1,&w1,input.raw(),&h1,jpvt.raw(),tau.raw(),work.main()
@@ -75,7 +71,7 @@ NT2_EXPERIMENT(qr_3_float)
     }
 
     d = nt2::numel(jpvt);
-    P = nt2::zeros(d);
+    P = nt2::zeros(d, nt2::meta::as_<T>());
 
     for(std::size_t i = 1; i<= d;++i)
       (P)(jpvt(i),i) = 1;
@@ -86,9 +82,9 @@ NT2_EXPERIMENT(qr_3_float)
   virtual double compute(nt2::benchmark_result_t const& r) const
   {
     if (call == true)
-      return ( (FLOPS_DGEQRF(h,w) + FLOPS_DORMQR(h,w,k) )/r.second)/1000. ;
+      return ( (FLOPS_GEQRF(h,w) + FLOPS_ORMQR(h,w,k) )/r.second)/1000. ;
     else
-      return ( (FLOPS_DGEQRF(h,w) + FLOPS_DORGQR(h,w,k) )/r.second)/1000.;
+      return ( (FLOPS_GEQRF(h,w) + FLOPS_ORGQR(h,w,k) )/r.second)/1000.;
 
   }
 
@@ -111,7 +107,7 @@ NT2_EXPERIMENT(qr_3_float)
   private:
   std::size_t   h,w;
   mutable std::size_t  d;
-  mutable details::workspace<float> work;
+  mutable nt2::details::workspace<float> work;
   mutable bool call;
   mutable nt2_la_int i,h1,w1,lwork,k;
   mutable nt2::table<T> input, Q, R, tau, P;
@@ -134,10 +130,10 @@ NT2_EXPERIMENT(qr_3_double)
 
     tau.resize(nt2::of_size(std::min(h1,w1), 1));
 
-    NT2_F77NAME(dgeqp3)(&h1,&w1,0,&h1,0,0,work.main(),details::query(),&i);
+    NT2_F77NAME(dgeqp3)(&h1,&w1,0,&h1,0,0,work.main(),nt2::details::query(),&i);
 
     work.prepare_main();
-    jpvt = nt2::zeros<nt2_la_int>(w1,1);
+    jpvt = nt2::zeros(w1,1,nt2::meta::as_<nt2_la_int>());
     lwork = work.main_size();
 
     NT2_F77NAME(dgeqp3)(&h1,&w1,input.raw(),&h1,jpvt.raw(),tau.raw(),work.main()
@@ -179,9 +175,9 @@ NT2_EXPERIMENT(qr_3_double)
   virtual double compute(nt2::benchmark_result_t const& r) const
   {
     if (call == true)
-      return ( (FLOPS_DGEQRF(h,w) + FLOPS_DORMQR(h,w,k) )/r.second)/1000. ;
+      return ( (FLOPS_GEQRF(h,w) + FLOPS_ORMQR(h,w,k) )/r.second)/1000. ;
     else
-      return ( (FLOPS_DGEQRF(h,w) + FLOPS_DORGQR(h,w,k) )/r.second)/1000.;
+      return ( (FLOPS_GEQRF(h,w) + FLOPS_ORGQR(h,w,k) )/r.second)/1000.;
 
   }
 
@@ -203,8 +199,8 @@ NT2_EXPERIMENT(qr_3_double)
 
   private:
   std::size_t   h,w;
-    mutable std::size_t  d;
-  mutable details::workspace<double> work;
+  mutable std::size_t  d;
+  mutable nt2::details::workspace<double> work;
   mutable bool call;
   mutable nt2_la_int i,h1,w1,lwork,k;
   mutable nt2::table<T> input, Q, R, tau, P;
@@ -219,6 +215,3 @@ NT2_RUN_EXPERIMENT_TPL( qr_3_float, (float), (1025,1025) );
 NT2_RUN_EXPERIMENT_TPL( qr_3_double, (double), (1025,1025) );
 NT2_RUN_EXPERIMENT_TPL( qr_3_float, (float), (2049,2049) );
 NT2_RUN_EXPERIMENT_TPL( qr_3_double, (double), (2049,2049) );
-}}
-
-

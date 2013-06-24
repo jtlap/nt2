@@ -14,7 +14,7 @@
 #include <nt2/include/functions/rand.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/tie.hpp>
-#include "details.hpp"
+#include "../../flops/qr.hpp"
 
 template<typename T> struct qr_3_1;
 
@@ -33,7 +33,7 @@ template<typename T> NT2_EXPERIMENT(qr_3_1< nt2::table<T> >)
 
   virtual double compute(nt2::benchmark_result_t const& r) const
   {
-    return ( (FLOPS_DGEQRF(h,w) + FLOPS_DORGQR(h,w,k)) /r.second)/1000.;
+    return ( (FLOPS_GEQRF(h,w) + FLOPS_ORGQR(h,w,k)) /r.second)/1000.;
   }
 
   virtual void info(std::ostream& os) const

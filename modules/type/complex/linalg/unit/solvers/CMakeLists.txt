@@ -8,10 +8,6 @@
 ##############################################################################
 
 SET( SOURCES
-  full_lu_result_solve.cpp
-#  full_lu_solve.cpp
-  full_qr_result_solve.cpp
-#  full_qr_solve.cpp
   chol_result_solve.cpp
   svd_result_solve.cpp
 #  svd_solve.cpp

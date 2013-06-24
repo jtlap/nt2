@@ -6,12 +6,11 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_TIED_QR_HPP_INCLUDED
-#define NT2_TOOLBOX_LINALG_FUNCTIONS_TIED_QR_HPP_INCLUDED
+#ifndef NT2_LINALG_FUNCTIONS_FACTORIZATIONS_QR_HPP_INCLUDED
+#define NT2_LINALG_FUNCTIONS_FACTORIZATIONS_QR_HPP_INCLUDED
 
-
-#include <nt2/linalg/functions/details/eval_qr.hpp>
-#include <nt2/linalg/functions/details/pivot_qr.hpp>
+#include <nt2/linalg/functions/details/qr/eval.hpp>
+#include <nt2/linalg/functions/details/qr/pivot.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/linalg/options.hpp>
 #include <nt2/sdk/meta/concrete.hpp>
@@ -53,8 +52,11 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<1> const& , boost::mpl::long_<1> const&
               ) const
     {
-      BOOST_AUTO_TPL( work, concrete(boost::proto::child_c<0>(a1)) );
-      work = boost::proto::child_c<0>(a0);
+      typedef typename boost::proto::result_of::child_c<A1&,0>::type s0_t;
+      typedef typename meta::concrete<s0_t>::type                     c_t;
+      c_t work = shallow_concrete ( boost::proto::child_c<0>(a1)
+                                  , boost::proto::child_c<0>(a0)
+                                  );
 
       nt2_la_int info = eval_qrfull(work, tau, ip, nt2::policy<ext::pivot_>());
 
@@ -90,8 +92,12 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<2> const&, boost::mpl::long_<1> const&
               ) const
     {
-      BOOST_AUTO_TPL( work, concrete(boost::proto::child_c<0>(a1)) );
-      work = boost::proto::child_c<0>(a0);
+      typedef typename boost::proto::result_of::child_c<A1&,0>::type s0_t;
+      typedef typename meta::concrete<s0_t>::type                     c_t;
+
+      c_t work = shallow_concrete ( boost::proto::child_c<0>(a1)
+                                  , boost::proto::child_c<0>(a0)
+                                  );
 
       eval_qrfull(work,tau,ip,boost::proto::value(boost::proto::child_c<1>(a0)));
       boost::proto::child_c<0>(a1) = work;
@@ -109,7 +115,7 @@ namespace nt2 { namespace ext
       eval_qr(a0,a1,tau,boost::proto::value(boost::proto::child_c<1>(a0)) );
     }
 
-    // //=============== ===========================================================
+    //==========================================================================
     /// INTERNAL ONLY - [Q,R,P] = QR(A,{0/matrix/vector)
     BOOST_FORCEINLINE
     void eval ( A0& a0, A1& a1
@@ -117,14 +123,15 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<2> const&, boost::mpl::long_<3> const&
               ) const
     {
-      BOOST_AUTO_TPL( p, boost::proto::value(boost::proto::child_c<1>(a0)) );
+      typedef typename boost::proto::result_of::child_c<A0&,1>::type  child1;
+      typedef typename boost::proto::result_of::value<child1>::type   v_t;
+
+      v_t p = boost::proto::value(boost::proto::child_c<1>(a0));
+
       eval_qr(a0,a1,tau,ip,p);
       extract_p(a1,ip,p);
     }
-
-
   };
 } }
-
 
 #endif

@@ -16,8 +16,8 @@
 #include <nt2/include/functions/triu.hpp>
 #include <nt2/include/functions/tri1l.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
+#include "../../flops/lu.hpp"
 #include "details.hpp"
-
 
 template<typename T>
 NT2_EXPERIMENT(lu_3_float)
@@ -45,7 +45,7 @@ NT2_EXPERIMENT(lu_3_float)
 
   virtual double compute(nt2::benchmark_result_t const& r) const
   {
-    return (FLOPS_DGETRF(h,w)/r.second)/1000.;
+    return (FLOPS_GETRF(h,w)/r.second)/1000.;
   }
 
   virtual void info(std::ostream& os) const
@@ -96,7 +96,7 @@ NT2_EXPERIMENT(lu_3_double)
 
   virtual double compute(nt2::benchmark_result_t const& r) const
   {
-    return (FLOPS_DGETRF(h,w)/r.second)/1000.;
+    return (FLOPS_GETRF(h,w)/r.second)/1000.;
   }
 
   virtual void info(std::ostream& os) const
