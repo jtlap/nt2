@@ -22,6 +22,7 @@ SET( SOURCES
   rref.cpp
   rref_result.cpp
   sqrtm.cpp
+  logm.cpp
    )
 
 nt2_module_add_tests(core.linalg.general.unit ${SOURCES})
