@@ -270,7 +270,17 @@ namespace nt2
     //==========================================================================
     // Swap
     //==========================================================================
-    void swap( of_size_ & src ) { data_.swap(src.data_); }
+    template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t DI) >
+    void swap ( of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,DI)>& src )
+    {
+      std::size_t i=0;
+      for(; i<std::min(size(), src.size()); ++i)
+        boost::swap(data_[i], src.data_[i]);
+      for(std::size_t j=i; j<size(); ++j)
+        data_[i] = 1;
+      for(std::size_t j=i; j<src.size(); ++j)
+        src.data_[i] = 1;
+    }
 
     //==========================================================================
     // RandomAccessSequence interface
@@ -343,9 +353,11 @@ namespace nt2
   //============================================================================
   // of_size_ swap
   //============================================================================
-  template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D) >
+  template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D)
+          , BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t DI)
+          >
   void swap ( of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,D)>& a
-            , of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,D)>& b
+            , of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,DI)>& b
             )
   {
     a.swap(b);
