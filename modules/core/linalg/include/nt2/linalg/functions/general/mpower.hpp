@@ -16,6 +16,7 @@
 #include <nt2/include/functions/is_flint.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/is_even.hpp>
+#include <nt2/include/functions/logm.hpp>
 #include <nt2/include/functions/modf.hpp>
 #include <nt2/include/functions/diag_of.hpp>
 #include <nt2/include/functions/from_diag.hpp>
@@ -163,6 +164,12 @@ namespace nt2{ namespace ext
         if(is_ltz_b) r = nt2::inv(r);
       }
     }
+    template < class T >
+    BOOST_FORCEINLINE static void doit3(const T& a, value_type b, Out0& r)
+    {
+      r = nt2::expm(b*nt2::logm(a));
+    }
+
     template < class T1, class T2>
       BOOST_FORCEINLINE static void transtype(T1& r, T2& z, boost::mpl::true_ const &)
     {
@@ -172,11 +179,6 @@ namespace nt2{ namespace ext
       BOOST_FORCEINLINE static void transtype(T1& r, T2& z, boost::mpl::false_ const &)
     {
       r =  real(z);
-    }
-    template < class T >
-    BOOST_FORCEINLINE static void doit3(const T& a, value_type, Out0&)
-    {
-      BOOST_ASSERT_MSG(false, "sorry not implemented");
     }
 
   };
