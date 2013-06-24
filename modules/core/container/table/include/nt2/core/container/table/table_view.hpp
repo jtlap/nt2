@@ -59,29 +59,26 @@ namespace nt2 { namespace container
     {
     }
 
+    template<class Xpr>
     BOOST_FORCEINLINE
-    table_view( expression< boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term< memory::container<T, S> >, 0l >
-                          , memory::container<T, S>
-                          > & expr
-              )
+    table_view( Xpr& expr )
               : nt2_expression(basic_expr::make(boost::proto::value(expr)))
     {
     }
 
+    template<class Xpr>
     BOOST_FORCEINLINE
-    table_view( expression< boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term< memory::container<T, S>& >, 0l >
-                          , memory::container<T, S>&
-                          > const& expr
-              )
+    table_view( Xpr const& expr )
               : nt2_expression(basic_expr::make(boost::proto::value(expr)))
     {
     }
 
-    template<class S2>
-    BOOST_FORCEINLINE
-    table_view( table_view<T, S2> const& expr )
-              : nt2_expression(basic_expr::make(boost::proto::value(expr)))
+    template<class Xpr>
+    void reset(Xpr& other)
     {
+      table_view tmp(other);
+      boost::proto::value(*this) = boost::proto::value(tmp);
+      this->size_ = tmp.size_;
     }
 
     using nt2_expression::operator=;
@@ -122,29 +119,19 @@ namespace nt2 { namespace container
     {
     }
 
+    template<class Xpr>
     BOOST_FORCEINLINE
-    table_view( expression< boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term< memory::container<T, S> >, 0l >
-                          , memory::container<T, S>
-                          > const& expr
-              )
+    table_view( Xpr const& expr )
               : nt2_expression(basic_expr::make(boost::proto::value(expr)))
     {
     }
 
-    BOOST_FORCEINLINE
-    table_view( expression< boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term< memory::container<T, S> const& >, 0l >
-                          , memory::container<T, S> const&
-                          > const& expr
-              )
-              : nt2_expression(basic_expr::make(boost::proto::value(expr)))
+    template<class Xpr>
+    void reset(Xpr const& other)
     {
-    }
-
-    template<class U, class S2>
-    BOOST_FORCEINLINE
-    table_view( table_view<U, S2> const& expr )
-              : nt2_expression(basic_expr::make(boost::proto::value(expr)))
-    {
+      table_view tmp(other);
+      boost::proto::value(*this) = boost::proto::value(tmp);
+      this->size_ = tmp.size_;
     }
 
     using nt2_expression::operator=;
@@ -187,14 +174,19 @@ namespace nt2 { namespace container
     {
     }
 
-    template<class S2, bool Own>
+    template<class Xpr>
     BOOST_FORCEINLINE
-    table_shared_view( expression< boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term< memory::container_shared_ref< T, S2, Own > >, 0l >
-                                 , memory::container<T, S2>&
-                                 > const& expr
-                     )
+    table_shared_view( Xpr const& expr )
                      : nt2_expression(basic_expr::make(boost::proto::value(expr)))
     {
+    }
+
+    template<class Xpr>
+    void reset(Xpr const& other)
+    {
+      table_shared_view tmp(other);
+      boost::proto::value(*this) = boost::proto::value(tmp);
+      this->size_ = tmp.size_;
     }
 
     using nt2_expression::operator=;
@@ -235,14 +227,19 @@ namespace nt2 { namespace container
     {
     }
 
-    template<class U, class S2, bool Own>
-    BOOST_FORCEINLINE
-    table_shared_view( expression< boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term< memory::container_shared_ref< U, S2, Own > >, 0l >
-                                 , memory::container<U, S2> /*const?*/&
-                                 > const& expr
-                     )
+    template<class Xpr>
+    table_shared_view( Xpr const& expr )
                      : nt2_expression(basic_expr::make(boost::proto::value(expr)))
     {
+    }
+
+    template<class Xpr>
+    BOOST_FORCEINLINE
+    void reset(Xpr const& other)
+    {
+      table_shared_view tmp(other);
+      boost::proto::value(*this) = boost::proto::value(tmp);
+      this->size_ = tmp.size_;
     }
 
     using nt2_expression::operator=;

@@ -414,7 +414,7 @@ namespace nt2 { namespace container
       ()(*this, sz);
     }
 
-  private:
+  protected:
     expression_size<sizes_t> size_;
   };
 } }
