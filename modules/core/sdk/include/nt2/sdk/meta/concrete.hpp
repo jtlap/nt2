@@ -30,13 +30,28 @@ namespace nt2
       {
         return a0;
       }
+
+      template<typename Values>
+      static BOOST_FORCEINLINE type shallow_call(Expr& a0, Values const& v)
+      {
+        type that = v;
+        return that;
+      }
     };
 
     template<typename Expr>
     struct concrete<Expr,0>
     {
       typedef typename boost::add_reference<Expr>::type type;
+
       static BOOST_FORCEINLINE type call(Expr& a0) { return a0; }
+
+      template<typename Values>
+      static BOOST_FORCEINLINE type shallow_call(Expr& a0, Values const& v)
+      {
+        a0 = v;
+        return a0;
+      }
     };
   }
 
@@ -45,6 +60,13 @@ namespace nt2
   concrete( Expr& xpr )
   {
     return meta::concrete<Expr>::call(xpr);
+  }
+
+  template<typename Expr, typename Values>
+  BOOST_FORCEINLINE typename meta::concrete<Expr>::type
+  shallow_concrete( Expr& xpr, Values const& v )
+  {
+    return meta::concrete<Expr>::shallow_call(xpr,v);
   }
 }
 
