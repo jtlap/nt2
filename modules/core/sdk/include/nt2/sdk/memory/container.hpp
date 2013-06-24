@@ -24,6 +24,10 @@
 #include <nt2/sdk/memory/adapted/container.hpp>
 #include <boost/mpl/at.hpp>
 
+#ifdef NT2_LOG_COPIES
+#include <iostream>
+#endif
+
 namespace nt2 { namespace memory
 {
   //============================================================================
@@ -134,6 +138,20 @@ namespace nt2 { namespace memory
     {
       init(sizes_, require_static_init());
     }
+
+#ifdef NT2_LOG_COPIES
+    container(container const& other) : data_(other.data_), sizes_(other.sizes_)
+    {
+      std::cout << "copying container" << std::endl;
+    }
+    container& operator=(container const& other)
+    {
+      data_ = other.data_;
+      sizes_ = other.sizes_;
+      std::cout << "assigning container" << std::endl;
+      return *this;
+    }
+#endif
 
     //==========================================================================
     /*!

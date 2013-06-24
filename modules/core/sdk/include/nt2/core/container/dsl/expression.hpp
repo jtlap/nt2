@@ -40,10 +40,6 @@
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 
-#ifdef NT2_LOG_COPIES
-#include <nt2/sdk/meta/display_type.hpp>
-#endif
-
 #if defined(BOOST_MSVC)
 #pragma warning( push )
 #pragma warning( disable : 4522 )
@@ -245,19 +241,6 @@ namespace nt2 { namespace container
               : proto_expr_(xpr.proto_base())
               , size_(proto_base(), xpr)
     {
-      #ifdef NT2_LOG_COPIES
-      typedef typename boost::mpl::
-              eval_if_c < boost::proto::arity_of<Expr>::value == 0
-                        , boost::proto::result_of::value<Expr&>
-                        , boost::mpl::identity<int&>
-                        >::type                                     T;
-
-      if(!boost::is_reference<T>::value)
-      {
-        std::cout << "copying ";
-        nt2::display_type<Expr>();
-      }
-      #endif
     }
 
     //==========================================================================
