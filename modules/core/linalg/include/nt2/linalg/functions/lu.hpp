@@ -27,20 +27,18 @@ namespace nt2
   }
 
   /**
-   * @brief Perform Lu factorization
-   *
-   * For any given matrix expression, performs a Lu factorization of
-   * said matrix using the specified output layout for the Lu method.
-   *
-   * Contrary to the nt2::factorization::lu function which performs a partial evaluation of
-   * said decomposition, nt2::lu returns a result similar to the Matlab interface,
-   * making it useful for Matlab like usage.
-   *
-   * @param  xpr  Matrix expression to factorize
-   *
-   * @return A tuple-like type containing the factorized matrix and an indicator
-   * of the success of the factorization
-   **/
+    @brief LU matrix factorization
+
+    The lu function expresses a matrix A as the product of two essentially
+    triangular matrices, one of them a permutation of a lower triangular matrix
+    and the other an upper triangular matrix. The factorization is often called
+    the LU, or sometimes the LR, factorization.
+
+    @param  xpr  Matrix expression to factorize
+
+    @return A tuple-like type containing the factorized matrix and an indicator
+            of the success of the factorization
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::lu_, lu, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::lu_, lu, 2)
 }

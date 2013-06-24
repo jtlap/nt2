@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_LINALG_FUNCTIONS_TIED_LU_HPP_INCLUDED
-#define NT2_LINALG_FUNCTIONS_TIED_LU_HPP_INCLUDED
+#ifndef NT2_LINALG_FUNCTIONS_FACTORIZATIONS_LU_HPP_INCLUDED
+#define NT2_LINALG_FUNCTIONS_FACTORIZATIONS_LU_HPP_INCLUDED
 
 #include <nt2/linalg/functions/lu.hpp>
 #include <nt2/include/functions/assign.hpp>
@@ -45,10 +45,14 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
-      nt2::table<nt2_la_int> ip;
+      typedef typename boost::proto::result_of::child_c<A1&,0>::type  c0_t;
+      typedef typename meta::concrete<c0_t>::type                     c_t;
 
-      BOOST_AUTO_TPL( out, concrete(boost::proto::child_c<0>(a1)) );
-      out = boost::proto::child_c<0>(a0);
+      c_t out = shallow_concrete( boost::proto::child_c<0>(a1)
+                                , boost::proto::child_c<0>(a0)
+                                );
+
+      nt2::table<nt2_la_int> ip;
       nt2_la_int lapack_info = nt2::trf(out,ip);
 
       NT2_WARNING ( lapack_info <= 0
@@ -95,11 +99,17 @@ namespace nt2 { namespace ext
                 ) const
     {
       nt2_la_int info;
+      typedef typename meta::concrete<A0>::type  c_t;
 
       if( nt2::issquare(boost::proto::child_c<0>(a0)) )
       {
-        BOOST_AUTO_TPL( work, concrete(boost::proto::child_c<0>(a1)) );
-        work = boost::proto::child_c<0>(a0);
+        typedef typename boost::proto::result_of::child_c<A1&,0>::type  s0_t;
+        typedef typename meta::concrete<s0_t>::type                     c_t;
+
+        c_t work = shallow_concrete ( boost::proto::child_c<0>(a1)
+                                    , boost::proto::child_c<0>(a0)
+                                    );
+
         info = nt2::trf(work,ip);
         extract_lu(a1,work);
       }
@@ -143,8 +153,11 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     void extract_p(A1& a1, nt2::table<nt2_la_int>& ip) const
     {
+      typedef typename boost::proto::result_of
+                                 ::child_c<A1&,2>::value_type::value_type t_t;
+
       std::size_t d = nt2::numel(ip);
-      boost::proto::child_c<2>(a1) = nt2::zeros(d);
+      boost::proto::child_c<2>(a1) = nt2::zeros(d, meta::as_<t_t>());
 
       for(std::size_t i = 1; i<= d;++i)
         boost::proto::child_c<2>(a1)(i,ip(i)) = 1;

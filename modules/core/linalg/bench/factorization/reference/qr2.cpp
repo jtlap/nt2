@@ -17,17 +17,12 @@
 #include <nt2/include/functions/expand.hpp>
 #include <nt2/linalg/details/utility/workspace.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
+#include "../../flops/qr.hpp"
 #include "details.hpp"
-
-namespace nt2 { namespace ext
-{
-
-
 
 template<typename T>
 NT2_EXPERIMENT(qr_2_float)
 {
-
   public:
   qr_2_float( std::size_t h_, std::size_t w_)
       : NT2_EXPRIMENT_CTOR(1.,"GFLOPS")
@@ -39,7 +34,7 @@ NT2_EXPERIMENT(qr_2_float)
 
     tau.resize(nt2::of_size(std::min(w1,h1), 1));
 
-    NT2_F77NAME(sgeqrf)(&h1,&w1,0,&h1,0,work.main(),details::query(),&i);
+    NT2_F77NAME(sgeqrf)(&h1,&w1,0,&h1,0,work.main(),nt2::details::query(),&i);
 
     work.prepare_main();
     lwork = work.main_size();
@@ -78,9 +73,9 @@ NT2_EXPERIMENT(qr_2_float)
   virtual double compute(nt2::benchmark_result_t const& r) const
   {
     if (call == true)
-      return ( (FLOPS_DGEQRF(h,w) + FLOPS_DORMQR(h,w,k) )/r.second)/1000. ;
+      return ( (FLOPS_GEQRF(h,w) + FLOPS_ORMQR(h,w,k) )/r.second)/1000. ;
     else
-      return ( (FLOPS_DGEQRF(h,w) + FLOPS_DORGQR(h,w,k) )/r.second)/1000.;
+      return ( (FLOPS_GEQRF(h,w) + FLOPS_ORGQR(h,w,k) )/r.second)/1000.;
 
   }
 
@@ -102,7 +97,7 @@ NT2_EXPERIMENT(qr_2_float)
 
   private:
   std::size_t   h,w;
-  mutable details::workspace<float> work;
+  mutable nt2::details::workspace<float> work;
   mutable bool call;
   mutable nt2_la_int i,h1,w1,lwork,k;
   mutable nt2::table<T> input, Q, R, tau;
@@ -124,7 +119,7 @@ NT2_EXPERIMENT(qr_2_double)
 
     tau.resize(nt2::of_size(std::min(h1,w1), 1));
 
-    NT2_F77NAME(dgeqrf)(&h1,&w1,0,&h1,0,work.main(),details::query(),&i);
+    NT2_F77NAME(dgeqrf)(&h1,&w1,0,&h1,0,work.main(),nt2::details::query(),&i);
 
     work.prepare_main();
     lwork = work.main_size();
@@ -163,9 +158,9 @@ NT2_EXPERIMENT(qr_2_double)
   virtual double compute(nt2::benchmark_result_t const& r) const
   {
     if (call == true)
-      return ( (FLOPS_DGEQRF(h,w) + FLOPS_DORMQR(h,w,k) )/r.second)/1000. ;
+      return ( (FLOPS_GEQRF(h,w) + FLOPS_ORMQR(h,w,k) )/r.second)/1000. ;
     else
-      return ( (FLOPS_DGEQRF(h,w) + FLOPS_DORGQR(h,w,k) )/r.second)/1000.;
+      return ( (FLOPS_GEQRF(h,w) + FLOPS_ORGQR(h,w,k) )/r.second)/1000.;
 
   }
 
@@ -187,7 +182,7 @@ NT2_EXPERIMENT(qr_2_double)
 
   private:
   std::size_t   h,w;
-  mutable details::workspace<double> work;
+  mutable nt2::details::workspace<double> work;
   mutable bool call;
   mutable nt2_la_int i,h1,w1,lwork,k;
   mutable nt2::table<T> input, Q, R, tau;
@@ -201,6 +196,3 @@ NT2_RUN_EXPERIMENT_TPL( qr_2_float, (float), (1025,1025) );
 NT2_RUN_EXPERIMENT_TPL( qr_2_double, (double), (1025,1025) );
 NT2_RUN_EXPERIMENT_TPL( qr_2_float, (float), (2049,2049) );
 NT2_RUN_EXPERIMENT_TPL( qr_2_double, (double), (2049,2049) );
-}}
-
-

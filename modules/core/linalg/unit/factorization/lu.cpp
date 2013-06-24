@@ -34,7 +34,6 @@ NT2_TEST_CASE_TPL ( square_lu, NT2_REAL_TYPES)
 
   lu = nt2::lu(a) - a;
   nt2::tie(lu) = nt2::lu(a);
-
   lu = nt2::zeros(4, 4, nt2::meta::as_<T>());
   nt2::tie(lu(_(2,3),_(2,3))) = nt2::lu( a(_(1,2),_(1,2)) );
 
