@@ -213,11 +213,18 @@ namespace nt2 { namespace memory
      * \param y Second \c container to swap
      **/
     //==========================================================================
-    BOOST_FORCEINLINE void swap(container<T,S>& y)
+    template<class S2>
+    BOOST_FORCEINLINE void swap(container<T,S2>& y)
     {
       data_.swap(y.data_);
       sizes_.swap(y.sizes_);
       this->specifics().swap(y.specifics());
+    }
+
+    BOOST_FORCEINLINE void swap(T& y)
+    {
+      BOOST_ASSERT_MSG( sizes_ == _0D(), "swapping non-singleton container with scalar" );
+      boost::swap(y, data_[0]);
     }
 
     //==========================================================================
@@ -380,6 +387,9 @@ namespace nt2 { namespace memory
   private:
     buffer_t                    data_;
     extent_type                 sizes_;
+
+    template<class T2, class S2>
+    friend class container;
   };
 
   //============================================================================
@@ -389,8 +399,14 @@ namespace nt2 { namespace memory
    * \param y Second \c container to swap
    **/
   //============================================================================
-  template<class T, class S> inline
-  void swap (container<T,S>& x, container<T,S>& y)  { x.swap(y); }
+  template<class T, class S1, class S2> inline
+  void swap(container<T,S1>& x, container<T,S2>& y)  { x.swap(y); }
+
+  template<class T, class S>
+  void swap(T& x, container<T, S>& y) { y.swap(x); }
+
+  template<class T, class S>
+  void swap(container<T, S>& x, T& y) { x.swap(y); }
 } }
 
 #endif
