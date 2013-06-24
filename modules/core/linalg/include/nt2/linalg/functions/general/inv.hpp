@@ -15,9 +15,8 @@
 #include <nt2/include/functions/run.hpp>
 #include <nt2/include/functions/extent.hpp>
 #include <nt2/include/functions/issquare.hpp>
-#include <nt2/sdk/meta/concrete.hpp>
-//#include <nt2/sdk/error/warning.hpp>
 #include <nt2/core/container/table/table.hpp>
+#include <nt2/sdk/meta/concrete.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -42,11 +41,10 @@ namespace nt2 { namespace ext
       out.resize(nt2::extent(in));
 
       // Reuse output memory if possible
-      BOOST_AUTO_TPL( tmp, concrete(out) );
-      tmp = boost::proto::child_c<0>(in);
+      typedef typename  meta::concrete<A0>::type c_t;
+      c_t tmp = shallow_concrete(out, boost::proto::child_c<0>(in));
 
       nt2::container::table<nt2_la_int> ip;
-      nt2_la_int                        lapack_info;
 
       // Factorize A as L/U and call tri
       nt2::trf(tmp,ip);
