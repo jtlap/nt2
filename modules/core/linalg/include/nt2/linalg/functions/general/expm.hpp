@@ -123,7 +123,6 @@ namespace nt2
 
       size_t n = nt2::length(a);
       tab_t  c = h_t::getpadecoefficients(m);
-
       std::vector<tab_t> apowers(m/2+1);
       // evaluate pade approximant.
       tab_t  u = nt2::zeros(n, n, meta::as_<value_type>());
@@ -157,9 +156,9 @@ namespace nt2
         tab_t a4 = nt2::mtimes(a2, a2);
         tab_t a6 = nt2::mtimes(a2, a4);
         u = mtimes(a, (mtimes(a6,(c(14)*a6 + c(12)*a4 + c(10)*a2))+
-                       c(8)*a6 + c(6)*a4 + nt2::fma(c(4), a2, c(2))));
+                       c(8)*a6 + c(6)*a4 + nt2::fma(c(4), a2, c(2)*nt2::eye(n, nt2::meta::as_<base_t>()))));
         v = mtimes(a6,c(13)*a6 + c(11)*a4 + c(9)*a2)
-          + c(7)*a6 + c(5)*a4 + nt2::fma(c(3), a2, c(1));
+          + c(7)*a6 + c(5)*a4 + nt2::fma(c(3), a2, c(1)*nt2::eye(n, nt2::meta::as_<base_t>()));
       }
       f = nt2::linsolve((-u+v), (u+v));
     }
@@ -213,20 +212,22 @@ namespace ext
       const itab_t m_vals = h_t::m_vals(base_t());
       tab_t a = a0;
       base_t norma0 = nt2::norm(a0, 1);
+      NT2_DISPLAY(a);
+      NT2_DISPLAY(norma0);
       if(norma0 <= theta(end_))
       {
         // no scaling and squaring is required.
         for(size_t i = 1;  i <= nt2::numel(m_vals); ++i)
         {
           if (norma0 <=theta(i))
-          {
+          {      NT2_DISPLAY("icitte");
             details::padeapproximantofdegree(a, m_vals(i), f);
             break;
           }
         }
       }
       else
-      {
+      { NT2_DISPLAY("latte");
         norma0 /= theta(end_);
         ibase_t s;
         base_t t = nt2::frexp(norma0, s);
