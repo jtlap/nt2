@@ -17,7 +17,7 @@ Matrix Analysis
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 cond                |  cond                               |     Condition number with respect to inversion                        |  core/linalg
 condeig             |  condeig TODO                       |     Condition number with respect to eigenvalues                      |
-condest             |  1-norm  TODO                       |     condition number estimate                                         |
+condest             |  condest TODO                       |     condition number estimate                                         |
 det                 |  det                                |     Matrix determinant                                                |  core/linalg/scalar
 norm                |  norm                               |     Vector and matrix norms                                           |  core/linalg/scalar
 normest             |  normest                            |     2-norm estimate                                                   |  core/linalg/scalar
@@ -35,8 +35,8 @@ Linear Equations
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 chol                |  chol                               |     Cholesky factorization                                            |  core/linalg/tied
 cholinc             |  cholinc TODO                       |     Sparse incomplete Cholesky and Cholesky-Infinity factorizations   |
-cholupdate          |  cholupdate TODO                    |     Rank 1 update to Cholesky factorization                           |
-funm                |  funm    TODO                       |     Evaluate general matrix function                                  |
+cholupdate          |  cholupdate TODO                    |     Rank 1 update to Cholesky factorization                           |  core/linalg/general
+funm                |  funm                               |     Evaluate general matrix function                                  |  core/linalg/general
 ichol               |  ichol   TODO                       |     Incomplete Cholesky factorization                                 |
 ilu                 |  ilu     TODO                       |     Sparse incomplete LU factorization                                |
 inv                 |  inv                                |     Matrix inverse                                                    |  core/linalg UNFINISHED
@@ -66,7 +66,7 @@ eigs                | eigs   TODO                         |    Largest eigenvalu
 expm                | expm                                |    Matrix exponential                                                 |  core/linalg/general
 gsvd                | gsvd   TODO                         |    Generalized singular value decomposition                           |
 hess                | hess   TODO                         |    Hessenberg form of matrix                                          |
-logm                | logm   TODO                         |    Matrix logarithm                                                   |
+logm                | logm                                |    Matrix logarithm                                                   |  core/linalg/general
 ordeig              | ordeig TODO                         |    Eigenvalues of quasitriangular matrices                            |
 ordqz               | ordqz  TODO                         |    Reorder eigenvalues in QZ factorization                            |
 ordschur            | ordschur TODO                       |    Reorder eigenvalues in Schur factorization                         |
@@ -89,7 +89,6 @@ condeig             |  condeig TODO                       |     Condition number
 condest             |  1-norm  TODO                       |     condition number estimate                                         |
 cholinc             |  cholinc TODO                       |     Sparse incomplete Cholesky and Cholesky-Infinity factorizations   |
 cholupdate          |  cholupdate TODO                    |     Rank 1 update to Cholesky factorization                           |
-funm                |  funm    TODO                       |     Evaluate general matrix function                                  |
 ichol               |  ichol   TODO                       |     Incomplete Cholesky factorization                                 |
 ilu                 |  ilu     TODO                       |     Sparse incomplete LU factorization                                |
 ldl                 |  ldl     TODO                       |     Block LDL' factorization for Hermitian indefinite matrices        |
@@ -98,16 +97,15 @@ lsqnonneg           |  lsqnonneg TODO                     |     Solve nonnegativ
 luinc               |  luinc   TODO                       |     Sparse incomplete LU factorization                                |
 qrupdate            |  qrupdate  TODO                     |     Rank 1 update to QR factorization                                 |
 qz                  |  qz TODO                            |     QZ factorization for generalized eigenvalues                      |
-cdf2rdf             | cdf2rdf  TODO                       |     Convert complex diagonal form to real block diagonal form         |
-eigs                | eigs   TODO                         |     Largest eigenvalues and eigenvectors of matrix                    |
-gsvd                | gsvd   TODO                         |     Generalized singular value decomposition                          |
-hess                | hess   TODO                         |     Hessenberg form of matrix                                         |
-logm                | logm   TODO                         |     Matrix logarithm                                                  |
-ordeig              | ordeig TODO                         |     Eigenvalues of quasitriangular matrices                           |
-ordqz               | ordqz  TODO                         |     Reorder eigenvalues in QZ factorization                           |
-ordschur            | ordschur TODO                       |     Reorder eigenvalues in Schur factorization                        |
-polyeig             | polyeig TODO                        |     Polynomial eigenvalue problem                                     |
-rsf2csf             | rsf2csf TODO                        |     Convert real Schur form to complex Schur form                     |
-ss2tf               | ss2tf TODO                          |     Convert state-space filter parameters to transfer function form   |
+cdf2rdf             |  cdf2rdf  TODO                      |     Convert complex diagonal form to real block diagonal form         |
+eigs                |  eigs   TODO                        |     Largest eigenvalues and eigenvectors of matrix                    |
+gsvd                |  gsvd   TODO                        |     Generalized singular value decomposition                          |
+hess                |  hess   TODO                        |     Hessenberg form of matrix                                         |
+ordeig              |  ordeig TODO                        |     Eigenvalues of quasitriangular matrices                           |
+ordqz               |  ordqz  TODO                        |     Reorder eigenvalues in QZ factorization                           |
+ordschur            |  ordschur TODO                      |     Reorder eigenvalues in Schur factorization                        |
+polyeig             |  polyeig TODO                       |     Polynomial eigenvalue problem                                     |
+rsf2csf             |  rsf2csf TODO                       |     Convert real Schur form to complex Schur form                     |
+ss2tf               |  ss2tf TODO                         |     Convert state-space filter parameters to transfer function form   |
 ============================================================================================================================================================
 ============================================================================================================================================================

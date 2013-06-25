@@ -141,10 +141,10 @@ Matlab              |                Nt2                  |                   De
 Array Operations : see also Linear Algebra and Elementary Math for other array operations.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 accumarray          | accumarray TODO                     |  Construct array with accumulation                                    |
-arrayfun            |                                     |  Apply function to each element of array                              |  not relevant
+arrayfun            |                                     |  Apply function to each element of array                              |  core/functions
 bsxfun              | bsxfun,sx,tsxfun,expand_to          |  Apply elt-wise operation to two arrays with singleton expansion      |  core/utility
 cast                | cast                                |  Cast variable to different data type                                 |  core/operator
-cross               | cross  TODO                         |  Vector cross product                                                 |
+cross               | cross  TODO                         |  Vector cross product                                                 |  core/linalg/general
 cumprod             | cumprod                             |  Cumulative product                                                   |  core/swar
 cumsum              | cumsum                              |  Cumulative sum                                                       |  core/swar
 dot                 | dot                                 |  Vector dot product                                                   |  core/reduction
@@ -216,6 +216,6 @@ ipermute            | ipermute TODO                       | Inverse permute dime
 permute             | permute  TODO                       | Rearrange dimensions of N-D array                                     |
 shiftdim            | shiftdim TODO                       | Shift dimensions                                                      |
 sortrows            | sortrows TODO                       | Sort rows in ascending order                                          |
-gallery             | TODO (many are done)                | Test matrices                                                         |
+gallery             | TODO (all are done)                 | Test matrices                                                         |
 ============================================================================================================================================================
 ============================================================================================================================================================
