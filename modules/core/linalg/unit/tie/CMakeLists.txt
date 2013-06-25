@@ -11,7 +11,6 @@ SET( SOURCES
      balance.cpp
      chol.cpp
 #     geneig.cpp
-     linsolve.cpp
      lsq_lse_solve.cpp
      planerot.cpp
      rref.cpp
@@ -20,7 +19,6 @@ SET( SOURCES
      svd_solve.cpp
      symeig.cpp
      tr_solve.cpp
-     linsolv.cpp
    )
 
 nt2_module_add_tests(core.linalg.tie.unit ${SOURCES})

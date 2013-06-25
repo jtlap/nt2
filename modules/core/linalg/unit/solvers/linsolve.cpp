@@ -8,7 +8,7 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2 linalg toolbox - tied linsolve function"
 
-#include <nt2/include/functions/linsolv.hpp>
+#include <nt2/include/functions/linsolve.hpp>
 #include <nt2/include/functions/mlinsolve.hpp>
 #include <nt2/include/functions/plinsolve.hpp>
 #include <nt2/include/functions/clinsolve.hpp>
@@ -49,13 +49,13 @@ char norm = '1';
 
 
 // X = linsolve(A,B)
-x = nt2::linsolv(a+a,b,fast_);
+x = nt2::linsolve(a+a,b,fast_);
 nt2::mlinsolve(a+a,b,x1 );
 
 NT2_TEST_ULP_EQUAL( x , x1 , T(10));
 
 // [X,R] = linsolve(A,B)
-nt2::tie(x,rcond) = nt2::linsolv(a,b);
+nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
 t_t lu = nt2::lu(a);
 anorm = nt2::lange(a, norm);
@@ -87,14 +87,14 @@ char norm = '1';
 
 
 // X = linsolve(A,B)
-x = nt2::linsolv(a+a,b,precise_);
+x = nt2::linsolve(a+a,b,precise_);
 nt2::plinsolve(a+a,b,x1 );
 
 NT2_TEST_ULP_EQUAL( x , x1 , T(10));
 
  // // [X,R] = linsolve(A,B)
 
-nt2::tie(x,rcond) = nt2::linsolv(a,b);
+nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
 t_t lu = nt2::lu(a);
 anorm = nt2::lange(a, norm);
@@ -124,14 +124,14 @@ char norm = '1';
 
 // X = linsolve(A,B)
 
-x = nt2::linsolv(a+a,b,classic_);
+x = nt2::linsolve(a+a,b,classic_);
 nt2::clinsolve(a+a,b,nt2::tie(x1) );
 
 NT2_TEST_ULP_EQUAL( x , x1 , T(10));
 
 // [X,R] = linsolve(A,B)
 
-nt2::tie(x,rcond) = nt2::linsolv(a,b);
+nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
 t_t lu = nt2::lu(a);
 anorm = nt2::lange(a, norm);
@@ -163,13 +163,13 @@ char norm = '1';
 
 
 // X = linsolve(A,B)
-x = nt2::linsolv(a+a,b,fast_);
+x = nt2::linsolve(a+a,b,fast_);
 nt2::mlinsolve(a+a,b,x1 );
 
 NT2_TEST_ULP_EQUAL( x , x1 , T(10));
 
 // [X,R] = linsolve(A,B)
-nt2::tie(x,rcond) = nt2::linsolv(a,b);
+nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
 t_t lu = nt2::lu(a);
 anorm = nt2::lange(a, norm);
@@ -201,14 +201,14 @@ char norm = '1';
 
 
 // X = linsolve(A,B)
-x = nt2::linsolv(a+a,b,precise_);
+x = nt2::linsolve(a+a,b,precise_);
 nt2::plinsolve(a+a,b,x1 );
 
 NT2_TEST_ULP_EQUAL( x , x1 , T(10));
 
  // // [X,R] = linsolve(A,B)
 
-nt2::tie(x,rcond) = nt2::linsolv(a,b);
+nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
 t_t lu = nt2::lu(a);
 anorm = nt2::lange(a, norm);
@@ -238,14 +238,14 @@ char norm = '1';
 
 // X = linsolve(A,B)
 
-x = nt2::linsolv(a+a,b,classic_);
+x = nt2::linsolve(a+a,b,classic_);
 nt2::clinsolve(a+a,b,nt2::tie(x1) );
 
 NT2_TEST_ULP_EQUAL( x , x1 , T(10));
 
 // [X,R] = linsolve(A,B)
 
-nt2::tie(x,rcond) = nt2::linsolv(a,b);
+nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
 t_t lu = nt2::lu(a);
 anorm = nt2::lange(a, norm);
@@ -279,13 +279,13 @@ char norm = '1';
 
 
 // X = linsolve(A,B)
-x = nt2::linsolv(a+a,b,fast_);
+x = nt2::linsolve(a+a,b,fast_);
 nt2::mlinsolve(a+a,b,x1 );
 
 NT2_TEST_ULP_EQUAL( x , x1 , T(10));
 
 // [X,R] = linsolve(A,B)
-nt2::tie(x,rcond) = nt2::linsolv(a,b);
+nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
 t_t lu = nt2::lu(a);
 anorm = nt2::lange(a, norm);
@@ -317,14 +317,14 @@ char norm = '1';
 
 
 // X = linsolve(A,B)
-x = nt2::linsolv(a+a,b,precise_);
+x = nt2::linsolve(a+a,b,precise_);
 nt2::plinsolve(a+a,b,x1 );
 
 NT2_TEST_ULP_EQUAL( x , x1 , T(10));
 
  // // [X,R] = linsolve(A,B)
 
-nt2::tie(x,rcond) = nt2::linsolv(a,b);
+nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
 t_t lu = nt2::lu(a);
 anorm = nt2::lange(a, norm);
@@ -354,14 +354,14 @@ char norm = '1';
 
 // X = linsolve(A,B)
 
-x = nt2::linsolv(a+a,b,classic_);
+x = nt2::linsolve(a+a,b,classic_);
 nt2::clinsolve(a+a,b,nt2::tie(x1) );
 
 NT2_TEST_ULP_EQUAL( x , x1 , T(10));
 
 // [X,R] = linsolve(A,B)
 
-nt2::tie(x,rcond) = nt2::linsolv(a,b);
+nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
 t_t lu = nt2::lu(a);
 anorm = nt2::lange(a, norm);

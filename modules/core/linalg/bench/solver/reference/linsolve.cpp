@@ -14,13 +14,14 @@
 #include <nt2/include/functions/rand.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
-#include "details.hpp"
+#include "../../flops/solve.hpp"
+#include "../../flops/lu.hpp"
 
+#include "details.hpp"
 
 template<typename T>
 NT2_EXPERIMENT(sgesv_test)
 {
-
   public:
   sgesv_test( std::size_t h_, std::size_t w_)
       : NT2_EXPRIMENT_CTOR(1.,"GFLOPS")
@@ -38,10 +39,9 @@ NT2_EXPERIMENT(sgesv_test)
     NT2_F77NAME(sgesv)( &h1, &nhrs, a.raw(), &h1, jpvt.raw(), b.raw(),&h1,&i);
   }
 
-
   virtual double compute(nt2::benchmark_result_t const& r) const
   {
-    return ((FLOPS_DGETRF(h,w)+ FLOPS_DGETRS(h,w))/r.second)/1000.;
+    return ((FLOPS_GETRF(h,w)+ FLOPS_DGETRS(h,w))/r.second)/1000.;
   }
 
   virtual void info(std::ostream& os) const
@@ -68,7 +68,6 @@ NT2_EXPERIMENT(sgesv_test)
 template<typename T>
 NT2_EXPERIMENT(dgesv_test)
 {
-
   public:
   dgesv_test( std::size_t h_, std::size_t w_)
       : NT2_EXPRIMENT_CTOR(1.,"GFLOPS")
@@ -85,10 +84,9 @@ NT2_EXPERIMENT(dgesv_test)
     NT2_F77NAME(dgesv)( &h1, &nhrs, a.raw(), &h1, jpvt.raw(), b.raw(),&h1,&i);
   }
 
-
   virtual double compute(nt2::benchmark_result_t const& r) const
   {
-    return ((FLOPS_DGETRF(h,w)+ FLOPS_DGETRS(h,w))/r.second)/1000.;
+    return ((FLOPS_GETRF(h,w)+ FLOPS_DGETRS(h,w))/r.second)/1000.;
   }
 
   virtual void info(std::ostream& os) const

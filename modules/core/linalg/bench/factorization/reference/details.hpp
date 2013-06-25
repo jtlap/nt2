@@ -79,16 +79,6 @@ extern "C"
                           , float* work             , const nt2_la_int* lwork
                           , nt2_la_int* info
                           );
-
-  void NT2_F77NAME(dgesv)( const nt2_la_int* n, const nt2_la_int* nrhs
-                         , double* a, const nt2_la_int* lda, nt2_la_int* ipiv
-                         , double* b, const nt2_la_int* ldb, nt2_la_int* info
-                         );
-
-  void NT2_F77NAME(sgesv)( const nt2_la_int* n, const nt2_la_int* nrhs
-                         , float* a, const nt2_la_int* lda, nt2_la_int* ipiv
-                         , float* b, const nt2_la_int* ldb, nt2_la_int* info
-                         );
 }
 
 #endif
