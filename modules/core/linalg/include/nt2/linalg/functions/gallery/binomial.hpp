@@ -92,7 +92,6 @@ namespace nt2 { namespace ext
     typedef typename t_type::type                                         value_type;
     result_type operator()(A0& out, const A1& in) const
     {
-      NT2_DISPLAY(type_id<value_type>());
       size_t n =  boost::proto::child_c<0>(in);
       out.resize(nt2::of_size(n, n));
       nt2::table<value_type, _2D> l = nt2::abs(nt2::pascal(n, 1, nt2::meta::as_<value_type>()));
