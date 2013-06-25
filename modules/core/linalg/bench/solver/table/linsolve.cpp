@@ -10,10 +10,11 @@
 #include <nt2/sdk/bench/benchmark.hpp>
 
 #include <nt2/table.hpp>
-#include <nt2/include/functions/linsolv.hpp>
+#include <nt2/include/functions/linsolve.hpp>
 #include <nt2/include/functions/rand.hpp>
 #include <nt2/include/functions/zeros.hpp>
-#include "details.hpp"
+#include "../../flops/solve.hpp"
+#include "../../flops/lu.hpp"
 
 template<typename T> struct linsolve;
 
@@ -27,12 +28,12 @@ template<typename T> NT2_EXPERIMENT(linsolve< nt2::table<T> >)
 
   virtual void run() const
   {
-    result = nt2::linsolv(a,b);
+    result = nt2::linsolve(a,b);
   }
 
   virtual double compute(nt2::benchmark_result_t const& r) const
   {
-    return ((FLOPS_DGETRF(h,w)+ FLOPS_DGETRS(h,w))/r.second)/1000.;
+    return ((FLOPS_GETRF(h,w)+ FLOPS_DGETRS(h,w))/r.second)/1000.;
   }
 
   virtual void info(std::ostream& os) const
