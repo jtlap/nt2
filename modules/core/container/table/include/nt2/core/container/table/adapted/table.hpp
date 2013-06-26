@@ -11,7 +11,6 @@
 
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/sdk/memory/forward/container.hpp>
-#include <nt2/sdk/meta/is_container.hpp>
 #include <nt2/sdk/meta/container_of.hpp>
 #include <nt2/core/settings/option.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
