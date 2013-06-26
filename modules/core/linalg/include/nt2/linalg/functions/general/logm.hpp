@@ -221,11 +221,11 @@ namespace nt2
                            D2& rj)
       {
         uint32_t term = 0;
-        if (size(a0, 1) == 1)
+        if (nt2::size(a0, 1) == 1)
         {
           rj(1) = log(a0(1));
         }
-        else if(size(a0, 1) == 2)
+        else if(nt2::size(a0, 1) == 2)
         {
           logm2by2(a0, maxsqrt, rj);
         }

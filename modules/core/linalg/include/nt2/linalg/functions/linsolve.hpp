@@ -11,11 +11,11 @@
 
 #include <nt2/options.hpp>
 #include <nt2/include/functor.hpp>
-#include <nt2/sdk/meta/size_as.hpp>
 #include <nt2/sdk/meta/value_as.hpp>
 #include <nt2/core/container/dsl/size.hpp>
-#include <nt2/sdk/meta/tieable_hierarchy.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
+#include <nt2/sdk/meta/tieable_hierarchy.hpp>
+#include <nt2/include/functions/size.hpp>
 
 //  linsolve solve linear system a*x=b.
 //     x = linsolve(a,b) solves the linear system a*x=b using
@@ -137,8 +137,8 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       _2D sizee;
-      sizee[0] = size(boost::proto::child_c<0>(e), 2);
-      sizee[1] = size(boost::proto::child_c<1>(e), 2);
+      sizee[0] = nt2::size(boost::proto::child_c<0>(e), 2);
+      sizee[1] = nt2::size(boost::proto::child_c<1>(e), 2);
       return sizee;
     }
 
