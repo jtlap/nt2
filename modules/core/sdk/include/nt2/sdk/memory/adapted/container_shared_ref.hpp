@@ -28,12 +28,12 @@ namespace nt2 { namespace meta
   //============================================================================
   // Register container as a proper container
   //============================================================================
-  template<class T, class S, bool Own>
-  struct  is_container< memory::container_shared_ref<T, S, Own> >
+  template<class T, class S>
+  struct  is_container< memory::container_shared_ref<T, S, true> >
         : boost::mpl::true_ {};
 
-  template<class T, class S, bool Own>
-  struct  is_container_ref< memory::container_shared_ref<T, S, Own> >
+  template<class T, class S>
+  struct  is_container_ref< memory::container_shared_ref<T, S, false> >
         : boost::mpl::true_ {};
 } }
 

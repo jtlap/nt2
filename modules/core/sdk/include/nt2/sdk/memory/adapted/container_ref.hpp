@@ -22,14 +22,6 @@
 
 namespace nt2 { namespace meta
 {
-  //============================================================================
-  // Register container as a proper container
-  //============================================================================
-  template<class T, class S>
-  struct  is_container< memory::container_ref<T, S> >
-        : boost::mpl::true_
-  {};
-
   template<class T, class S>
   struct  is_container_ref< memory::container_ref<T, S> >
         : boost::mpl::true_

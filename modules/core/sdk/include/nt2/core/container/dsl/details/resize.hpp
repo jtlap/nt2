@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
     template<class Sz> BOOST_FORCEINLINE void operator()(Expr& x, Sz const& sz)
     {
       typedef typename meta::call<Tag(Expr&)>::type value;
-      typedef typename meta::is_container<value>::type status_t;
+      typedef typename meta::is_container_or_ref<value>::type status_t;
       return (*this)(x, sz, status_t());
     }
 

@@ -10,6 +10,7 @@
 #define NT2_SDK_META_IS_CONTAINER_HPP_INCLUDED
 
 #include <boost/mpl/bool.hpp>
+#include <boost/mpl/or.hpp>
 
 namespace nt2
 {
@@ -44,6 +45,14 @@ namespace nt2
 
     template<class T> struct is_container_ref<T&>       : is_container_ref<T> {};
     template<class T> struct is_container_ref<T const>  : is_container_ref<T> {};
+
+    template<class T>
+    struct  is_container_or_ref
+          : boost::mpl::or_< is_container<T>
+                           , is_container_ref<T>
+                           >
+    {
+    };
   }
 }
 
