@@ -16,10 +16,10 @@
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/reshape.hpp>
 #include <nt2/include/functions/size.hpp>
+#include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/rif.hpp>
 #include <nt2/include/functions/cif.hpp>
 #include <nt2/include/functions/transpose.hpp>
-#include <nt2/include/functions/isequal.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -133,6 +133,14 @@ NT2_TEST_CASE( mtimes_matrix_vector )
   for(std::size_t i=0; i!=5; ++i)
     NT2_TEST_EQUAL( r(i+1), r0[i] );
 
+  nt2::table<T, nt2::of_size_<5, 7> > r2d = nt2::zeros<T>(5, 7);
+  r2d(_, 1) = nt2::mtimes(a0, a1);
+  for(std::size_t i=0; i!=5; ++i)
+    NT2_TEST_EQUAL( r2d(i+1), r0[i] );
+  for(std::size_t j=1; j!=7; ++j)
+    for(std::size_t i=0; i!=5; ++i)
+      NT2_TEST_EQUAL( r2d(i+1, j+1), T(0) );
+
   T r1[] = { 55, 130, 205, 280, 355, 430, 505 };
 
   nt2::table<T, nt2::of_size_<1, 7> > r_ = nt2::mtimes(a2, a0);
@@ -182,8 +190,8 @@ NT2_TEST_CASE( mtimes_aliasing )
   a0 = a1;
   a0 =  nt2::mtimes(a0, a0);
   NT2_TEST_EQUAL(a0, b);
-  display("a0", a0);
 }
+
 NT2_TEST_CASE( mtimes_aliasing_2 )
 {
   typedef double T;
@@ -196,12 +204,10 @@ NT2_TEST_CASE( mtimes_aliasing_2 )
   a0=  nt2::mtimes(a0, a1);
 
   NT2_TEST_EQUAL(a0, b);
-
-  display("a0", a0);
 }
+
 NT2_TEST_CASE_TPL( mtimes_aliasing_3, NT2_REAL_TYPES)
 {
-  //  typedef double T;
   using nt2::_;
 
   nt2::table<T> a0 = nt2::rif(3, 1, nt2::meta::as_<T>()),
@@ -212,23 +218,18 @@ NT2_TEST_CASE_TPL( mtimes_aliasing_3, NT2_REAL_TYPES)
   a0=  nt2::mtimes(a0, a1);
 
   NT2_TEST_EQUAL(a0, b);
-
-  NT2_DISPLAY(b);
-  display("a0", a0);
 }
-
 
 NT2_TEST_CASE_TPL ( table1, NT2_REAL_TYPES)
 {
   nt2::table<T> a = nt2::ones(3,5, nt2::meta::as_<T>() );
   nt2::table<T> b = nt2::mtimes(nt2::trans(a), a);
-  NT2_DISPLAY(b);
   NT2_TEST_EQUAL(b, nt2::ones(5, 5, nt2::meta::as_<T>())*T(3.0));
 }
-NT2_TEST_CASE_TPL ( table2,NT2_REAL_TYPES)
+
+NT2_TEST_CASE_TPL ( table2, NT2_REAL_TYPES)
 {
   nt2::table<T, nt2::of_size_<3,5> > a = nt2::ones(3,5, nt2::meta::as_<T>() );
   nt2::table<T, nt2::of_size_<5,5> > b = nt2::mtimes(nt2::trans(a), a);
-  NT2_DISPLAY(b);
   NT2_TEST_EQUAL(b, nt2::ones(5, 5, nt2::meta::as_<T>())*T(3.0));
 }
