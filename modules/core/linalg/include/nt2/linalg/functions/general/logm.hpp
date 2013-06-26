@@ -8,17 +8,8 @@
 //==============================================================================
 #ifndef NT2_LINALG_FUNCTIONS_GENERAL_LOGM_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_GENERAL_LOGM_HPP_INCLUDED
+
 #include <nt2/linalg/functions/logm.hpp>
-
-#include <nt2/core/container/table/table.hpp>
-
-#include <nt2/sdk/complex/meta/is_complex.hpp>
-
-
-#include <nt2/include/functions/half.hpp>
-#include <nt2/include/constants/two.hpp>
-#include <nt2/include/constants/zero.hpp>
-
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/atanh.hpp>
 #include <nt2/include/functions/ceil.hpp>
@@ -55,7 +46,10 @@
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/isempty.hpp>
 #include <nt2/include/functions/horzcat.hpp>
-
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/core/container/table/table.hpp>
+#include <nt2/sdk/complex/meta/is_complex.hpp>
 
 namespace nt2
 {
@@ -96,20 +90,20 @@ namespace nt2
       }
     private:
       template < class T >
-        BOOST_FORCEINLINE static void doit1(const T& a0, Out0& r)
+      BOOST_FORCEINLINE static void doit1(const T& a0, Out0& r)
       {
         r =  nt2::log(static_cast<value_type>(a0));
       }
       template < class T >
-        BOOST_FORCEINLINE static void doit2(const T& a0, Out0& res)
+      BOOST_FORCEINLINE static void doit2(const T& a0, Out0& res)
       {
         //u, t and r are complex arrays
         res.resize(extent(a0));
         ctab_t u, t;
         nt2::tie(u, t) = schur(nt2::complexify(a0),'N'); // t is complex schur form.
         BOOST_ASSERT_MSG(nt2::globalnone(is_eqz(nt2::diag_of(t))), "a0 has null eigenvalue(s)");
-         BOOST_ASSERT_MSG(nt2::globalnone(nt2::logical_and(is_eqz(imag(nt2::diag_of(t))),
-                                                           is_lez(real(nt2::diag_of(t))))), "a0 has non positive real eigenvalue(s)");
+        BOOST_ASSERT_MSG(nt2::globalnone(nt2::logical_and(is_eqz(imag(nt2::diag_of(t))),
+                                                          is_lez(real(nt2::diag_of(t))))), "a0 has non positive real eigenvalue(s)");
         if (isdiagonal(t))
         {
           t = nt2::from_diag(nt2::log(nt2::diag_of(t)));
@@ -166,10 +160,9 @@ namespace nt2
         }
       }
 
-      template < class T, class U, class B>
-        static inline ctab_t sylv_tri(const T& t,const U& u, const B& b)
+      template < class T, class U, class B >
+      static inline ctab_t sylv_tri(const T& t,const U& u, const B& b)
       {
-
         // sylv_tri    solve triangular sylvester equation.
         //    x = sylv_tri(t,u,b) solves the sylvester equation
         //  t*x + x*u = b, where t and u are square upper triangular matrices.
@@ -189,17 +182,18 @@ namespace nt2
       }
 
       template < class T1, class T2 >
-        BOOST_FORCEINLINE static void transtype(T1& r, T2& z, boost::mpl::false_ const &)
+      BOOST_FORCEINLINE static void transtype(T1& r, T2& z, boost::mpl::false_ const &)
       {
         r =  real(z);
       }
 
       template < class T1, class T2 >
-        BOOST_FORCEINLINE static void transtype(T1& r, T2& z, boost::mpl::true_ const &)
+      BOOST_FORCEINLINE static void transtype(T1& r, T2& z, boost::mpl::true_ const &)
       {
         r =  z;
       }
-      template < class D> static inline void blocking(const D& a0, const r_type& delta, itab_t & ord)
+      template < class D >
+      static inline void blocking(const D& a0, const r_type& delta, itab_t & ord)
       {
         uint32_t n = nt2::size(a0, 1);
         uint32_t j = 1;
@@ -216,7 +210,7 @@ namespace nt2
         ord.resize(nt2::of_size(2u, j));
       }
 
-      template < class D1, class D2> static inline
+      template < class D1, class D2 > static inline
       uint32_t logm_triang(const D1& a0, uint32_t maxsqrt,
                            D2& rj)
       {
@@ -236,7 +230,7 @@ namespace nt2
         return term;
       }
 
-      template < class D1, class D2> static inline
+      template < class D1, class D2 > static inline
       void logm2by2(const D1& a0,
                     uint32_t maxsqrt,
                     D2& rj)
@@ -263,12 +257,13 @@ namespace nt2
         return Zero<r_type>();
       }
       static inline cplx_type unwind(const value_type& z, boost::mpl::true_)
-      {static const cplx_type _2pi = nt2::Two<r_type>()*nt2::Pi<r_type>();
+      {
+        static const cplx_type _2pi = nt2::Two<r_type>()*nt2::Pi<r_type>();
         return _2pi*cplx_type(Zero<r_type>(), nt2::ceil(imag(z)-nt2::Pi<r_type>())/_2pi);
       }
 
 
-      template < class D1, class D2> static inline
+      template < class D1, class D2 > static inline
       void logm_tr(const D1& a0,
                   uint32_t maxsqrt,
                   D2& rj,
@@ -312,7 +307,8 @@ namespace nt2
         logm_pf(t-eye(n, meta::as_<cplx_type>()),m, rj);
         rj *= r_type(twopower(k));
       }
-      template < class T > static inline void sqrtm_tri( T& t)
+      template < class T > static inline
+      void sqrtm_tri( T& t )
       {
         uint32_t n = nt2::size(t, 1);
         ctab_t r = nt2::zeros(nt2::of_size(n, n), meta::as_<cplx_type>());
@@ -335,13 +331,14 @@ namespace nt2
         t = r;
       }
 
-      template < class D, class S> static inline
-        void logm_pf(const D& a0,
-                     uint32_t m,
-                     S& s)
+      template < class D, class S > static inline
+      void logm_pf(const D& a0,
+                   uint32_t m,
+                   S& s)
+      {
         //    LOGM_PF   Pade approximation to matrix log by partial fraction expansion.
         //       LOGM_PF(A,m) is an [m/m] Pade approximant to LOG(EYE(SIZE(A))+A).
-      {
+
         uint32_t n = nt2::size(a0, 1);
         btab_t nodes, wts;
         gauss_legendre(m, nodes, wts);
@@ -358,13 +355,15 @@ namespace nt2
       }
 
 
-    template < class X, class W> static inline void gauss_legendre( uint32_t n, X& x, W& w)
+      template < class X, class W > static inline
+      void gauss_legendre( uint32_t n, X& x, W& w )
+      {
         //gauss_legendre  nodes and weights for gauss-legendre quadrature.
         //  gauss_legendre(n, x, w) computes the nodes x and weights w
         //  for n-point gauss-legendre quadrature.
         //G. H. Golub and J. H. Welsch, calculation of gauss quadrature
         //rules, math. comp., 23(106):221-230, 1969.
-      {
+
         BOOST_AUTO_TPL(i,  nt2::_(nt2::One<r_type>(), r_type(n-1)));
         btab_t v = i/nt2::sqrt(nt2::minusone(nt2::sqr(nt2::Two<r_type>()*i)));
         btab_t d, vv;
