@@ -48,6 +48,9 @@ namespace nt2 { namespace memory
   template<class T, class S>                   class   container;
   template<class T, class S>                   struct  container_ref;
   template<class T, class S, bool Own = false> struct  container_shared_ref;
+
+  template<class T, class S1, class S2>
+  void swap(container<T,S1>&, container<T,S2>&);
 } }
 
 

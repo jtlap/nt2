@@ -19,6 +19,7 @@
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/core/container/dsl/alias.hpp>
 #include <nt2/core/container/dsl/as_terminal.hpp>
+#include <nt2/core/container/dsl/assign_swap.hpp>
 #include <nt2/core/container/table/category.hpp>
 #include <nt2/sdk/memory/forward/container.hpp>
 #include <boost/proto/traits.hpp>
@@ -194,10 +195,9 @@ namespace nt2 { namespace ext
 
       dummy_type dummy;
       view_type result_view;
-      bool result_is_terminal = (void*)&result == (void*)&a0;
-      bool swap = false;
+      bool swap = (void*)&result != (void*)&a0;
 
-      if( result_is_terminal && ( container::alias(result, child0) || container::alias(result, child1) ) )
+      if( swap || ( container::alias(result, child0) || container::alias(result, child1) ) )
       {
         // overlapping of input and output data
         // so we provide dummy space and put it back in result later
@@ -222,9 +222,7 @@ namespace nt2 { namespace ext
           );
 
       if(swap)
-        memory::swap(boost::proto::value(result), boost::proto::value(dummy));
-      else if(!result_is_terminal)
-        a0 = result;
+        container::assign_swap(a0, dummy);
       return a0;
     }
   };
