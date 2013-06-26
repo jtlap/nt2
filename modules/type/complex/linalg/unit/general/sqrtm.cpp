@@ -54,5 +54,5 @@ NT2_TEST_CASE_TPL(sqrtm, NT2_REAL_TYPES)
 
   nt2::table<cT> sqrtmn = nt2::sqrtm(n);
   NT2_TEST_ULP_EQUAL(mtimes(sqrtmn, sqrtmn), n, 5);
-  NT2_TEST_ULP_EQUAL(r, sqrtmn, 100);
+  NT2_TEST_ULP_EQUAL(r, sqrtmn, 128);
  }
