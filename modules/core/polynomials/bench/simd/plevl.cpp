@@ -9,7 +9,7 @@
 #include <nt2/polynomials/include/functions/plevl.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/sdk/allocator.hpp>
+#include <boost/simd/memory/allocator.hpp>
 #include <boost/simd/include/functions/aligned_load.hpp>
 #include <boost/simd/include/functions/aligned_store.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
