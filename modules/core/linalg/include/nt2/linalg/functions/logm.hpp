@@ -8,15 +8,13 @@
 //==============================================================================
 #ifndef NT2_LINALG_FUNCTIONS_LOGM_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_LOGM_HPP_INCLUDED
+
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/size_as.hpp>
 #include <nt2/sdk/meta/value_as.hpp>
 #include <nt2/core/container/dsl/size.hpp>
-#include <boost/simd/include/functor.hpp>
-#include <boost/dispatch/include/functor.hpp>
-#include <nt2/sdk/memory/container.hpp>
-#include <nt2/sdk/meta/tieable_hierarchy.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
+#include <nt2/sdk/meta/tieable_hierarchy.hpp>
 
 namespace nt2 { namespace tag
   {

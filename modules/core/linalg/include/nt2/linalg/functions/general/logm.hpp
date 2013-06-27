@@ -42,15 +42,16 @@
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/symeig.hpp>
 #include <nt2/include/functions/transpose.hpp>
+#include <nt2/include/functions/ctranspose.hpp>
 #include <nt2/include/functions/twopower.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/isempty.hpp>
 #include <nt2/include/functions/horzcat.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/zero.hpp>
-#include <nt2/include/constants/i.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/sdk/complex/meta/is_complex.hpp>
+#include <boost/assert.hpp>
 
 namespace nt2
 {
@@ -81,8 +82,7 @@ namespace nt2
         const Out0& r  = boost::proto::child_c<0>(a1);
         if(nt2::isscalar(a))
         {
-          nt2::table<value_type> aa = a;
-          doit1(aa(1), r);
+          doit1(a(1), r);
         }
         else
         {
@@ -108,7 +108,7 @@ namespace nt2
         if (isdiagonal(t))
         {
           t = nt2::from_diag(nt2::log(nt2::diag_of(t)));
-          BOOST_AUTO_TPL(r, nt2::mtimes(u, nt2::mtimes(t, nt2::trans(nt2::conj(u)))));
+          BOOST_AUTO_TPL(r, nt2::mtimes(u, nt2::mtimes(t, nt2::ctrans(u))));
           transtype(res, r, typename nt2::meta::is_complex<value_type>::type());
           return;
         }
@@ -155,7 +155,7 @@ namespace nt2
                 r(i,j) = sylv_tri(ca0(i,i),-ca0(j,j),rhs);
               }
              }
-             ctab_t z =  mtimes(mtimes(u, r), trans(conj(u)));
+             ctab_t z =  mtimes(mtimes(u, r), ctrans(u));
              transtype(res, z, typename nt2::meta::is_complex<value_type>::type());
            }
         }
@@ -259,8 +259,7 @@ namespace nt2
       }
       static inline cplx_type unwind(const value_type& z, boost::mpl::true_)
       {
-        static const cplx_type _2pi = nt2::Two<r_type>()*nt2::Pi<r_type>();
-        return _2pi*nt2::I<cplx_type>()*(nt2::ceil(imag(z)-nt2::Pi<r_type>())/_2pi);
+        return cplx_type(Zero<r_type>(), nt2::ceil(imag(z)-nt2::Pi<r_type>()));
       }
 
 
@@ -338,7 +337,7 @@ namespace nt2
                    S& s)
       {
         //    LOGM_PF   Pade approximation to matrix log by partial fraction expansion.
-        //       LOGM_PF(A,m) is an [m/m] Pade approximant to LOG(EYE(SIZE(A))+A).
+        //    LOGM_PF(A,m) is an [m/m] Pade approximant to LOG(EYE(SIZE(A))+A).
 
         uint32_t n = nt2::size(a0, 1);
         btab_t nodes, wts;
