@@ -38,11 +38,11 @@
 #include "../common/foo.hpp"
 #include "fill.hpp"
 
-#define NT2_TEST_STORE(r, data, elem) BOOST_PP_CAT(nt2_test_, data)<T, elem>::call();
+#define NT2_TEST_STORE(r, data, elem) BOOST_PP_CAT(nt2_test_run_, data)<T, elem>::call();
 #define NT2_TEST_APPLY(r, data, elem) data<elem>
 
 template<class T, class U>
-struct nt2_test_store
+struct nt2_test_run_store
 {
   static void call(bool offset = false)
   {
@@ -60,9 +60,9 @@ struct nt2_test_store
 };
 
 template<class T, class U>
-struct nt2_test_store_offset
+struct nt2_test_run_store_offset
 {
-  static void call() { nt2_test_store<T,U>::call(true); }
+  static void call() { nt2_test_run_store<T,U>::call(true); }
 };
 
 NT2_TEST_CASE_TPL( store,  BOOST_SIMD_SIMD_TYPES)
@@ -76,7 +76,7 @@ NT2_TEST_CASE_TPL( store_offset,  BOOST_SIMD_SIMD_TYPES)
 }
 
 template<class T, class U>
-struct nt2_test_store_scatter
+struct nt2_test_run_store_scatter
 {
   static void call()
   {

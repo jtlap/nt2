@@ -33,11 +33,11 @@
 #include "../common/foo.hpp"
 #include "fill.hpp"
 
-#define NT2_TEST_LOAD(r, data, elem) BOOST_PP_CAT(nt2_test_, data)<T, elem>::call();
+#define NT2_TEST_LOAD(r, data, elem) BOOST_PP_CAT(nt2_test_run_, data)<T, elem>::call();
 #define NT2_TEST_APPLY(r, data, elem) data<elem>
 
 template<class T, class U>
-struct nt2_test_load
+struct nt2_test_run_load
 {
   static void call(bool offset = false)
   {
@@ -60,9 +60,9 @@ NT2_TEST_CASE_TPL( load,  BOOST_SIMD_SIMD_TYPES)
 }
 
 template<class T, class U>
-struct nt2_test_load_offset
+struct nt2_test_run_load_offset
 {
-  static void call() { nt2_test_load<T,U>::call(true); }
+  static void call() { nt2_test_run_load<T,U>::call(true); }
 };
 
 NT2_TEST_CASE_TPL( load_offset,  BOOST_SIMD_SIMD_TYPES)
@@ -71,7 +71,7 @@ NT2_TEST_CASE_TPL( load_offset,  BOOST_SIMD_SIMD_TYPES)
 }
 
 template<class T, class U>
-struct nt2_test_load_gather
+struct nt2_test_run_load_gather
 {
   static void call()
   {
