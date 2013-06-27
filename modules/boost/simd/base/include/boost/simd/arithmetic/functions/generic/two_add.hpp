@@ -68,7 +68,7 @@ namespace boost { namespace simd { namespace ext
       r0   = a  + b;
       A0 z = r0 - a;
 #if defined(BOOST_SIMD_NO_INFINITIES)
-      r1   = a-(r0-z))+(b-z);
+      r1   = a-(r0-z)+(b-z);
 #else
       r1   = if_zero_else(is_inf(r0), (a-(r0-z))+(b-z));
 #endif
