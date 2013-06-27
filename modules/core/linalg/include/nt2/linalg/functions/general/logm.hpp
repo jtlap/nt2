@@ -48,6 +48,7 @@
 #include <nt2/include/functions/horzcat.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/i.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/sdk/complex/meta/is_complex.hpp>
 
@@ -259,7 +260,7 @@ namespace nt2
       static inline cplx_type unwind(const value_type& z, boost::mpl::true_)
       {
         static const cplx_type _2pi = nt2::Two<r_type>()*nt2::Pi<r_type>();
-        return _2pi*cplx_type(Zero<r_type>(), nt2::ceil(imag(z)-nt2::Pi<r_type>())/_2pi);
+        return _2pi*nt2::I<cplx_type>()*(nt2::ceil(imag(z)-nt2::Pi<r_type>())/_2pi);
       }
 
 

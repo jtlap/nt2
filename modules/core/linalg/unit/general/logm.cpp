@@ -14,6 +14,7 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/ten.hpp>
 #include <nt2/include/constants/exp_1.hpp>
+#include <nt2/include/constants/i.hpp>
 #include <nt2/include/functions/expm.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/horzcat.hpp>
@@ -103,4 +104,26 @@ NT2_TEST_CASE_TPL(logm4, NT2_REAL_TYPES)
   nt2::table<T> logmn = nt2::logm(n);
   nt2::table<T> el = expm(logmn);
   NT2_TEST_ULP_EQUAL(el, n, 8);
+ }
+
+NT2_TEST_CASE_TPL(logm5, NT2_REAL_TYPES)
+{
+  typedef T r_t;
+  typedef std::complex<T> cT;
+  using nt2::logm;
+  using nt2::tag::logm_;
+
+  nt2::table<cT> n = nt2::I<cT>()*nt2::eye(2, nt2::meta::as_<T>());
+  nt2::table<cT> logmn = nt2::logm(n);
+  nt2::table<cT> el = expm(logmn);
+  NT2_TEST_ULP_EQUAL(el, n, 8);
+  n(2, 2)+= cT(0.01);
+  nt2::table<cT> logmn1 = nt2::logm(n);
+  nt2::table<cT> el1 = expm(logmn1);
+  NT2_TEST_ULP_EQUAL(el1, n, 36);
+  n(2, 2) = cT(2, 1);
+  nt2::table<cT> logmn2 = nt2::logm(n);
+  nt2::table<cT> el2 = expm(logmn2);
+  NT2_TEST_ULP_EQUAL(el2, n, 8);
+
  }
