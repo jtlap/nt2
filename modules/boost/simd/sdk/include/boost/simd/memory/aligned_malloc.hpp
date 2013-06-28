@@ -51,7 +51,8 @@ namespace boost { namespace simd
 #elif defined( BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN )
 
     void* result(0);
-    ::posix_memalign( &result, std::max(sizeof(void*),alignment), size );
+    int r = ::posix_memalign( &result, std::max(sizeof(void*),alignment), size );
+    (void)r;
 
     return static_cast<void* BOOST_DISPATCH_RESTRICT>(result);
 
