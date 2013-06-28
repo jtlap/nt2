@@ -7,7 +7,6 @@
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
 #include <boost/simd/memory/input_iterator.hpp>
-#include <boost/simd/memory/allocator.hpp>
 #include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/simd/include/functions/splat.hpp>
 
@@ -16,6 +15,7 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
 #include <vector>
+#include <boost/simd/memory/dynarray.hpp>
 
 NT2_TEST_CASE_TPL(types, BOOST_SIMD_TYPES)
 {
@@ -52,14 +52,14 @@ NT2_TEST_CASE_TPL(iteration, BOOST_SIMD_TYPES)
   using boost::simd::input_iterator;
   using boost::simd::input_begin;
   using boost::simd::input_end;
+  using boost::simd::dynarray;
   using boost::simd::pack;
-  using boost::simd::allocator;
   using boost::simd::splat;
 
-  typedef typename std::vector<T>::iterator it_t;
+  dynarray< pack<T> >  ref(3);
+  dynarray<T>          data(pack<T>::static_size*3);
 
-  std::vector< pack<T>, allocator<T> >  ref(3);
-  std::vector<T>       data(pack<T>::static_size*3);
+  typedef typename dynarray<T>::iterator it_t;
 
   for(std::size_t i=0;i<data.size();i++)
     data[i] = i/pack<T>::static_size+1;
