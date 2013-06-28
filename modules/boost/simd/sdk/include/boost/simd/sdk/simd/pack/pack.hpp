@@ -22,13 +22,13 @@
 #include <boost/simd/sdk/simd/pack/call.hpp>
 
 #include <boost/simd/include/functions/evaluate.hpp>
-#include <boost/simd/include/functions/simd/load.hpp>
+#include <boost/simd/include/functions/simd/aligned_load.hpp>
 #include <boost/simd/include/functions/simd/splat.hpp>
 #include <boost/simd/include/functions/simd/make.hpp>
 
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
-#include <boost/simd/sdk/memory/meta/is_power_of_2.hpp>
-#include <boost/simd/sdk/memory/is_aligned.hpp>
+#include <boost/simd/meta/is_power_of_2.hpp>
+#include <boost/simd/memory/is_aligned.hpp>
 
 #include <boost/dispatch/meta/is_iterator.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -62,28 +62,18 @@ namespace boost { namespace simd
                                   >::type
                  >
   {
-    typedef Type                   value_type;
-    typedef value_type&             reference;
-    typedef value_type const& const_reference;
+    static const std::size_t static_size = Cardinal;
 
-    typedef typename
-    meta::vector_of<Type, Cardinal>::type data_type;
+    typedef typename meta::vector_of<Type, Cardinal>::type  data_type;
     typedef typename proto::terminal<data_type>::type       expr_type;
 
-    typedef typename data_type::iterator       iterator;
-    typedef typename data_type::iterator const_iterator;
+    typedef Type                                value_type;
+    typedef typename data_type::reference       reference;
+    typedef typename data_type::const_reference const_reference;
+    typedef typename data_type::iterator        iterator;
+    typedef typename data_type::const_iterator  const_iterator;
 
-    typedef expression< typename
-                        proto::terminal< typename
-                                         meta::vector_of< Type
-                                                        , Cardinal
-                                                        >::type
-                                       >::type
-                      , typename
-                        meta::vector_of< Type
-                                       , Cardinal
-                                       >::type
-                      > parent;
+    typedef expression< expr_type, data_type > parent;
 
     //==========================================================================
     /*
@@ -91,7 +81,7 @@ namespace boost { namespace simd
      */
     //==========================================================================
     BOOST_MPL_ASSERT_MSG
-    ( (meta::is_power_of_2_c<Cardinal>::value && Cardinal != 1)
+    ( (meta::is_power_of_2_c<Cardinal>::value && Cardinal > 1)
     , INVALID_SIMD_PACK_CARDINAL
     , (boost::mpl::int_<Cardinal>)
     );
@@ -122,7 +112,7 @@ namespace boost { namespace simd
         "which alignment is not compatible with current SIMD extension."
       );
 
-      proto::value(*this) = load< data_type >(p,0);
+      proto::value(*this) = aligned_load<data_type >(p,0);
     }
 
     //==========================================================================
@@ -141,7 +131,8 @@ namespace boost { namespace simd
       for(int i=0;b!=e;++b,++i)
         (*this)[i] = *b;
     }
-    //template<class Expr> pack(Expr const& expr) : parent(expr) {}
+
+    BOOST_SIMD_MEMORY_OVERLOAD_NEW_DELETE(Cardinal*sizeof(value_type))
 
     //==========================================================================
     // Constructor from unique scalar value -> splat the value
@@ -155,13 +146,15 @@ namespace boost { namespace simd
     //==========================================================================
     // Create constructors for pack according to the extension specification.
     //==========================================================================
-    #define M1(z, n, arg)                                                                          \
-    template<class T>                                                                              \
-    pack(BOOST_PP_ENUM_PARAMS(arg, T const& a), typename enable_if< is_arithmetic<T> >::type* = 0) \
-    {                                                                                              \
-      proto::value(*this) = make<data_type>(BOOST_PP_ENUM_PARAMS(arg, a));                         \
-    }                                                                                              \
+    #define M1(z, n, arg)                                                      \
+    template<class T>                                                          \
+    pack( BOOST_PP_ENUM_PARAMS(arg, T const& a)                                \
+        , typename enable_if< is_arithmetic<T> >::type* = 0)                   \
+    {                                                                          \
+      proto::value(*this) = make<data_type>(BOOST_PP_ENUM_PARAMS(arg, a));     \
+    }                                                                          \
     /**/
+
     BOOST_PP_SEQ_FOR_EACH(M1, ~, BOOST_SIMD_CARDINALS)
     #undef M1
 

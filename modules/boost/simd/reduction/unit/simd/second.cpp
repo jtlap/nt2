@@ -6,13 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.reduction toolbox - second/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.reduction components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-///
-///
 #include <boost/simd/reduction/include/functions/second.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -20,16 +13,11 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/constant/constant.hpp>
-#include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
-#include <boost/simd/include/functions/load.hpp>
-
 
 NT2_TEST_CASE_TPL ( second_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::second;
   using boost::simd::tag::second_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef typename boost::dispatch::meta::scalar_of<T>::type sT;
@@ -56,7 +44,6 @@ NT2_TEST_CASE_TPL ( second_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
   using boost::simd::second;
   using boost::simd::tag::second_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef typename boost::dispatch::meta::scalar_of<T>::type sT;

@@ -6,13 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 swar toolbox - groups/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of swar components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 24/02/2011
-///
 #include <nt2/swar/include/functions/groups.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -31,14 +24,11 @@
 #include <nt2/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/load.hpp>
-
 
 NT2_TEST_CASE_TPL ( groups_groupsable__2_0,  NT2_SIMD_GROUPABLE_TYPES)
 {
   using nt2::groups;
   using nt2::tag::groups_;
-  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -50,9 +40,6 @@ NT2_TEST_CASE_TPL ( groups_groupsable__2_0,  NT2_SIMD_GROUPABLE_TYPES)
   typedef typename nt2::meta::call<groups_(vT,vT)>::type r_t;
   typedef typename nt2::meta::call<groups_(T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(groups(nt2::One<vT>(), nt2::One<vT>())[0], nt2::One<sr_t>());

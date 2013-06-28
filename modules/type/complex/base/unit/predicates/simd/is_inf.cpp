@@ -31,9 +31,7 @@
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/true.hpp>
 #include <nt2/include/constants/false.hpp>
-
 #include <nt2/sdk/complex/complex.hpp>
-
 
 NT2_TEST_CASE_TPL ( is_inf_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {

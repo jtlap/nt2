@@ -6,13 +6,13 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.swar toolbox - group/simd Mode"
-
+#include <boost/simd/swar/include/functions/group.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/swar/include/functions/group.hpp>
 #include <boost/simd/include/functions/enumerate.hpp>
 #include <boost/simd/include/functions/divides.hpp>
 #include <boost/simd/constant/constant.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 

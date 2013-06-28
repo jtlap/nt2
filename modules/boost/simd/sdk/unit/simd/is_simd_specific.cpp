@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "boost::simd::meta::is_simd_specific SIMD"
-
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/meta/is_simd_specific.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -36,5 +34,5 @@ NT2_TEST_CASE(simd_specific)
   NT2_TEST( (is_simd_specific<__vector __bool char,boost::simd::tag::altivec_>::value) );
   #endif
 
-  NT2_TEST( (is_simd_specific< boost::simd::memory::aligned_array<int, 2>, boost::simd::tag::simd_emulation_<sizeof(int)*2> >::value) );
+  NT2_TEST( (is_simd_specific< boost::simd::aligned_array<int, 2>, boost::simd::tag::simd_emulation_<sizeof(int)*2> >::value) );
 }

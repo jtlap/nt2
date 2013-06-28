@@ -20,7 +20,7 @@
 #include <nt2/core/settings/interleaving.hpp>
 #include <nt2/core/settings/normalize.hpp>
 #include <boost/dispatch/meta/property_of.hpp>
-#include <boost/simd/sdk/memory/allocator.hpp>
+#include <boost/simd/memory/allocator.hpp>
 #include <nt2/core/settings/storage_order.hpp>
 #include <nt2/core/settings/storage_scheme.hpp>
 #include <nt2/core/container/table/category.hpp>
@@ -48,7 +48,7 @@ namespace nt2
     // Memory:
     // + table owns its memory
     // + table allocates its memory dynamically
-    // + table uses boost::simd::memory::allocator
+    // + table uses boost::simd::allocator
     //==========================================================================
     template<typename T, typename S> struct normalize<tag::table_, T, S>
     {
@@ -68,7 +68,7 @@ namespace nt2
       typedef typename option<S,tag::sharing_         , owned_        >::type sg;
       typedef typename option<S,tag::storage_duration_, dynamic_      >::type sd;
       typedef typename option<S,tag::allocator_
-                               ,allocator_< boost::simd::memory::allocator<T> >
+                               ,allocator_< boost::simd::allocator<T> >
                                >::type                                        al;
       typedef typename option<S,tag::buffer_, buffer_<>            >::type    bf;
 

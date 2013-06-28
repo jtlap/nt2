@@ -10,9 +10,9 @@
 #define NT2_SWAR_FUNCTIONS_COMPLEX_SIMD_COMMON_CUMPROD_HPP_INCLUDED
 
 #include <nt2/swar/functions/cumprod.hpp>
-#include <nt2/include/functions/load.hpp>
-#include <nt2/include/functions/store.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
+#include <nt2/include/functions/aligned_load.hpp>
+#include <nt2/include/functions/aligned_store.hpp>
+#include <boost/simd/preprocessor/aligned_type.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
@@ -39,9 +39,9 @@ namespace nt2 { namespace ext
       typedef typename meta::scalar_of<A0>::type stype;
       static const size_t size = boost::simd::meta::cardinal_of<A0>::value;
       BOOST_SIMD_ALIGNED_TYPE(stype) tmp[size];
-      boost::simd::store(a0, &tmp[0], 0);
+      boost::simd::aligned_store(a0, &tmp[0], 0);
       for(size_t i=1; i!=size; ++i) tmp[i] *= tmp[i-1];
-      return boost::simd::load<A0>(&tmp[0], 0);
+      return boost::simd::aligned_load<A0>(&tmp[0], 0);
     }
   };
 

@@ -10,9 +10,9 @@
 #define BOOST_SIMD_SWAR_FUNCTIONS_SIMD_COMMON_SPLIT_HPP_INCLUDED
 
 #include <boost/simd/swar/functions/split.hpp>
-#include <boost/simd/include/functions/simd/load.hpp>
+#include <boost/simd/include/functions/simd/aligned_load.hpp>
 #include <boost/simd/include/functions/simd/extract.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
+#include <boost/simd/preprocessor/aligned_type.hpp>
 #include <boost/simd/sdk/meta/is_upgradable.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
@@ -44,8 +44,8 @@ namespace boost { namespace simd { namespace ext
         tmp2[i] = a0[i+size_2];
       }
 
-      a1 = load<A1>(&tmp1[0], 0);
-      a2 = load<A1>(&tmp2[0], 0);
+      a1 = aligned_load<A1>(&tmp1[0], 0);
+      a2 = aligned_load<A1>(&tmp2[0], 0);
     }
   };
 } } }

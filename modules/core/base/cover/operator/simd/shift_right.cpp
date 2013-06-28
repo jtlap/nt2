@@ -15,7 +15,6 @@
 #include <nt2/include/constants/valmax.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <vector>
-
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/tests/cover.hpp>
@@ -25,6 +24,7 @@ NT2_TEST_CASE_TPL(shift_right, NT2_SIMD_TYPES)
   using nt2::shift_right;
   using nt2::tag::shift_right_;
   using boost::simd::native;
+
   typedef NT2_SIMD_DEFAULT_EXTENSION             ext_t;
   typedef native<T,ext_t>                           nT;
   typedef typename nt2::meta::as_integer<T>::type   iT;

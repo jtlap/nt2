@@ -16,9 +16,9 @@
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/meta/type_id.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
-#include <boost/simd/sdk/memory/allocator.hpp>
-#include <boost/simd/include/functions/load.hpp>
-#include <boost/simd/include/functions/store.hpp>
+#include <boost/simd/memory/allocator.hpp>
+#include <boost/simd/include/functions/aligned_load.hpp>
+#include <boost/simd/include/functions/aligned_store.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <vector>
 #include <iostream>
@@ -49,7 +49,7 @@ typedef typename boost::dispatch                                               \
 /**/
 
 #define M1(z,n,t)                                                              \
-typedef boost::simd::memory                                                    \
+typedef boost::simd                                                            \
              ::allocator<BOOST_PP_CAT(type,n)> BOOST_PP_CAT(alloc,n);          \
 /**/
 
@@ -64,7 +64,7 @@ typedef boost::simd::memory                                                    \
 /**/
 
 #define M4(z,n,t)                                                              \
-boost::simd::load<BOOST_PP_CAT(T,n)>(&BOOST_PP_CAT(in,n)[i])                   \
+boost::simd::aligned_load<BOOST_PP_CAT(T,n)>(&BOOST_PP_CAT(in,n)[i])                   \
 /**/
 
 #define M5(z,n,t)                                                              \
@@ -159,7 +159,7 @@ namespace nt2 { namespace unit
 
     std::size_t                                                         size;
     Function                                                            func;
-    mutable std::vector<out_t, boost::simd::memory::allocator<out_t> >  out;
+    mutable std::vector<out_t, boost::simd::allocator<out_t> >          out;
     BOOST_PP_REPEAT(N, M5, ~)
     BOOST_PP_REPEAT(N, M6, ~)
   };

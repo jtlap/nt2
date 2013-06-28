@@ -10,7 +10,7 @@
 #define BOOST_SIMD_SDK_SIMD_META_AS_SIMD_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
-#include <boost/simd/sdk/memory/aligned_array_fwd.hpp>
+#include <boost/simd/forward/aligned_array.hpp>
 #include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
 #include <boost/simd/sdk/config/type_lists.hpp>
 #include <boost/simd/sdk/config/types.hpp>
@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace meta
   template<std::size_t N, class T>
   struct as_simd<T, tag::simd_emulation_<N>, typename enable_if< is_fundamental<T> >::type>
   {
-    typedef boost::simd::memory::aligned_array<T, N / sizeof(T)> type;
+    typedef boost::simd::aligned_array<T, N / sizeof(T)> type;
   };
 
   template<std::size_t N, class T>

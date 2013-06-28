@@ -12,7 +12,7 @@
 #include <boost/mpl/apply.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
-#include <boost/simd/sdk/memory/allocator.hpp>
+#include <boost/simd/memory/allocator.hpp>
 
 namespace nt2 { namespace memory
 {
@@ -20,7 +20,7 @@ namespace nt2 { namespace memory
   // Forward declaration
   //============================================================================
   template< typename T
-          , typename Allocator = boost::simd::memory::allocator<T>
+          , typename Allocator = boost::simd::allocator<T>
           > class buffer;
 } }
 

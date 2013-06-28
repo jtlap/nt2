@@ -13,7 +13,7 @@
 #include <nt2/sdk/bench/perform_benchmark.hpp>
 #include <nt2/sdk/bench/details/overheads.hpp>
 
-#include <boost/simd/sdk/memory/allocator.hpp>
+#include <boost/simd/memory/allocator.hpp>
 #include <boost/simd/include/functions/scalar/ilog2.hpp>
 
 #include <boost/array.hpp>
@@ -54,7 +54,7 @@ namespace bench
     typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_CONFIG_ALIGNMENT ) boost::array<T, constants::maximum_dft_size      > aligned_array;
     typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_CONFIG_ALIGNMENT ) boost::array<T, constants::maximum_dft_size/2 + 1> aligned_half_complex_array;
 
-    typedef std::vector<T, boost::simd::memory::allocator<T> > dynamic_aligned_array;
+    typedef std::vector<T, boost::simd::allocator<T> > dynamic_aligned_array;
 
     typedef nt2::static_fft<constants::minimum_dft_size, constants::maximum_dft_size, T> FFT;
 

@@ -9,3 +9,4 @@
 
 nt2_module_use_modules(test.unit)
 add_subdirectory(meta)
+add_subdirectory(memory)

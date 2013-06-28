@@ -6,13 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.arithmetic toolbox - divround/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.arithmetic components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created by jt the 01/12/2010
-///
 #include <boost/simd/arithmetic/include/functions/divround.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
@@ -27,7 +20,6 @@
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/nan.hpp>
-
 
 NT2_TEST_CASE_TPL ( divround_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {

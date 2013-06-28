@@ -1,7 +1,5 @@
-[library The Boost Dispatch Library
+[part The Boost Dispatch Library
     [quickbook 1.5]
-    [category Generic]
-    [purpose Generic overloading]
 ]
 
 [section Overview]
@@ -17,12 +15,4 @@ to unconstrained template function overloads.
 
 [endsect]
 
-[include motivation.qbk]
-[include rationale.qbk]
-[include hierarchy.qbk]
-[include function.qbk]
-[include functor.qbk]
-[include macros.qbk]
-[include tutorial.qbk]
-
-[xinclude reference.xml]
+[xinclude contents.xml]

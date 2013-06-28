@@ -8,7 +8,6 @@
 ################################################################################
 
 SET( SOURCES
-    access.cpp
     bitwise_and.cpp
     bitwise_or.cpp
     bitwise_xor.cpp
@@ -22,7 +21,6 @@ SET( SOURCES
     is_less.cpp
     is_less_equal.cpp
     is_not_equal.cpp
-    load.cpp
     logical_and.cpp
     logical_not.cpp
     logical_or.cpp
@@ -35,10 +33,6 @@ SET( SOURCES
     shift_left.cpp
     shift_right.cpp
     splat.cpp
-    store.cpp
-    stream.cpp
-    unaligned_load.cpp
-    unaligned_store.cpp
     unary_minus.cpp
     unary_plus.cpp
     value.cpp

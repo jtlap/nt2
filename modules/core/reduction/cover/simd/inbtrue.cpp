@@ -28,11 +28,11 @@
 #include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+
 #include <nt2/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/load.hpp>
+#include <nt2/include/functions/aligned_load.hpp>
 #include <nt2/constant/constant.hpp>
 
 
@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( inbtrue_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::inbtrue;
   using nt2::tag::inbtrue_;
-  using nt2::load;
+  using nt2::aligned_load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef typename nt2::meta::scalar_of<T>::type sT;
@@ -64,7 +64,7 @@ NT2_TEST_CASE_TPL ( inbtrue_real__1_0,  NT2_SIMD_REAL_TYPES)
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
-        vT a0 = load<vT>(&tab_a0[0],j);
+        vT a0 = aligned_load<vT>(&tab_a0[0],j);
         r_t v = nt2::inbtrue(a0);
         T z = a0[0] != 0;
         for(nt2::uint32_t i = 1; i< cardinal_of<n_t>::value; ++i)

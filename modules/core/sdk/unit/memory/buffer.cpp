@@ -6,20 +6,16 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2::memory buffer"
-
 #ifdef _MSC_VER
 #pragma warning(disable: 4996) // unsafe std::transform
 #endif
-
-#include <nt2/sdk/memory/buffer.hpp>
 
 #include <algorithm>
 #include <boost/array.hpp>
 #include <boost/fusion/adapted/array.hpp>
 #include <boost/fusion/include/vector_tie.hpp>
 #include <boost/fusion/include/make_vector.hpp>
-
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>

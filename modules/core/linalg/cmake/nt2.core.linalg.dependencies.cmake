@@ -42,7 +42,6 @@ else()
         type.complex.base
         type.complex.sdk
       )
-
 endif()
 
 foreach(library ${NT2_LAPACK_LIBRARIES})

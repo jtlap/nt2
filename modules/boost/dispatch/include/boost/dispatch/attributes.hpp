@@ -72,7 +72,6 @@
   @endcode
 
   @see BOOST_DISPATCH_NO_RESTRICT_REFERENCES
-  @see boost::simd::memory::meta::restrict_ptr
 **/
 #define BOOST_DISPATCH_RESTRICT
 
@@ -84,7 +83,6 @@
   requires checking for this flag.
 
   @see BOOST_DISPATCH_RESTRICT
-  @see boost::simd::memory::meta::restrict_ptr
 **/
 #define BOOST_DISPATCH_NO_RESTRICT_REFERENCES
 

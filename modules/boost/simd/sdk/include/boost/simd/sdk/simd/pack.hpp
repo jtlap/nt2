@@ -18,10 +18,6 @@
 #include <boost/simd/sdk/simd/pack/call.hpp>
 #include <boost/simd/sdk/simd/pack/domain.hpp>
 #include <boost/simd/sdk/simd/pack/pack.hpp>
-#include <boost/simd/sdk/simd/pack/load.hpp>
-#include <boost/simd/sdk/simd/pack/store.hpp>
-#include <boost/simd/sdk/simd/pack/unaligned_load.hpp>
-#include <boost/simd/sdk/simd/pack/unaligned_store.hpp>
 #include <boost/simd/sdk/simd/pack/splat.hpp>
 #include <boost/simd/sdk/simd/pack/make.hpp>
 #include <boost/simd/sdk/simd/pack/io.hpp>

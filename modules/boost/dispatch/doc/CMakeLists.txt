@@ -14,6 +14,7 @@ endif()
 
 nt2_module_doc( boost.dispatch
                 dispatch.qbk
+                contents.qbk
                 reference.doxyfile
                 ${NT2_BINARY_DIR}/doc/html/dispatch/tags.png
               )

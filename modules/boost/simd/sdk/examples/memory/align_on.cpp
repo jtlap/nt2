@@ -1,13 +1,12 @@
 #include <iostream>
-#include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/sdk/memory/align_on.hpp>
-
-using boost::simd::align_on;
+#include <boost/simd/memory/align_on.hpp>
 
 int main()
 {
-  std::cout << align_on<4>(0)     << std::endl;
-  std::cout << align_on<4>(1)     << std::endl;
-  std::cout << align_on<4>(11)    << std::endl;
-  std::cout << align_on<4>(1337)  << std::endl;
+  // Align an integral value
+  std::cout << 10 << " -> " << boost::simd::align_on(10, 16) << std::endl;
+
+  // Align a pointer value
+  char s;
+  std::cout << (void*)&s << " -> " << (void*)boost::simd::align_on(&s, 16) << std::endl;
 }

@@ -1,0 +1,47 @@
+[section SIMD Data transfer]
+
+The classical idiom of SIMD programming is the blitter. The blitter is a code
+pattern in which data are loaded, processed then stored back to memory. This
+structure allows for a simple software loop unrolling and pipelining. Boost.SIMD
+supports this idiom by providing explicit - and thus more controllable - functions
+for loading and storing data from and to registers.
+
+[section Loading values from memory]
+Loading data from memory is done by [funcref boost::simd::load] and
+[headerref  nt2/modules/boost/simd/sdk/include/boost/simd/memory/functions/aligned_load.hpp
+            boost::simd::aligned_load
+]. Those functions...
+
+As implied by their respective names,
+[headerref  nt2/modules/boost/simd/sdk/include/boost/simd/memory/functions/aligned_load.hpp
+            boost::simd::aligned_load
+] requires that p is aligned on current SIMD alignment constraint, while
+[funcref boost::simd::load] works with any kind of memory address. Note that,
+depending on the actual architecture, unaligned load may be significantly slower
+than aligned load.
+[endsect]
+
+[section Storing values to memory]
+Storing values back to memory can be done in two ways:
+
+* [funcref boost::simd::store] and [funcref boost::simd::aligned_store] which
+perform a regular store of a given value v at a location reference by a given
+pointer p. As implied by their respective names, [funcref boost::simd::aligned_store]
+requires that p is aligned on current SIMD alignment constraint, while
+[funcref boost::simd::store] works with any kind of memory address. Note that,
+depending on the actual architecture, unaligned store may be significantly slower
+than aligned store.
+
+* [funcref boost::simd::stream] which performs a so-called non-temporal store.
+Non-temporal store has the same semantic than regular store but do not modify nor
+invalidate the cache line containing the destination value. Contrary to
+[funcref boost::simd::store], [funcref boost::simd::stream] requires the reference
+memory to be aligned.
+
+[endsect]
+
+[section Prefetching]
+
+[endsect]
+
+[endsect]

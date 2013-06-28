@@ -14,7 +14,7 @@
 #include <nt2/core/functions/of_size.hpp>
 #include <nt2/include/functions/as_size.hpp>
 #include <nt2/core/container/table/semantic.hpp>
-#include <boost/simd/sdk/memory/allocator.hpp>
+#include <boost/simd/memory/allocator.hpp>
 
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <iostream>

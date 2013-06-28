@@ -6,13 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 swar toolbox - cumsum/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// cover test behavior of swar components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 24/02/2011
-///
 #include <nt2/swar/include/functions/cumsum.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -30,11 +23,11 @@
 #include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+
 #include <nt2/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/load.hpp>
+#include <nt2/include/functions/aligned_load.hpp>
 #include <nt2/constant/constant.hpp>
 
 
@@ -42,7 +35,7 @@ NT2_TEST_CASE_TPL ( cumsum_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::cumsum;
   using nt2::tag::cumsum_;
-  using nt2::load;
+  using nt2::aligned_load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -64,10 +57,10 @@ NT2_TEST_CASE_TPL ( cumsum_real__1_0,  NT2_SIMD_REAL_TYPES)
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
-        vT a0 = load<vT>(&tab_a0[0],j);
+        vT a0 = aligned_load<vT>(&tab_a0[0],j);
         r_t v = nt2::cumsum(a0);
 
-        std::vector<T,boost::simd::memory::allocator<T> > z(cardinal_of<n_t>::value);
+        std::vector<T,boost::simd::allocator<T> > z(cardinal_of<n_t>::value);
         for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++) z[i]=0;
 
         for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++) {
@@ -75,7 +68,7 @@ NT2_TEST_CASE_TPL ( cumsum_real__1_0,  NT2_SIMD_REAL_TYPES)
             z[k]+=a0[i];
           }
         }
-        vT zz = load<vT>(&z[0],0);
+        vT zz = aligned_load<vT>(&z[0],0);
         for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++)
          {
             NT2_TEST_ULP_EQUAL(v[i],zz[i], 4);
@@ -89,7 +82,7 @@ NT2_TEST_CASE_TPL ( cumsum_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::cumsum;
   using nt2::tag::cumsum_;
-  using nt2::load;
+  using nt2::aligned_load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -111,7 +104,7 @@ NT2_TEST_CASE_TPL ( cumsum_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
-        vT a0 = load<vT>(&tab_a0[0],j);
+        vT a0 = aligned_load<vT>(&tab_a0[0],j);
         r_t v = nt2::cumsum(a0);
         NT2_CREATE_BUF(z,T, cardinal_of<n_t>::value, T(0), T(0));
         for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++) z[i]=0;
@@ -120,7 +113,7 @@ NT2_TEST_CASE_TPL ( cumsum_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
             z[k]+=a0[i];
           }
         }
-        vT zz = load<vT>(&z[0],0);
+        vT zz = aligned_load<vT>(&z[0],0);
         for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++)
          {
             NT2_TEST_ULP_EQUAL(v[i],zz[i], 16);
@@ -134,7 +127,7 @@ NT2_TEST_CASE_TPL ( cumsum_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
   using nt2::cumsum;
   using nt2::tag::cumsum_;
-  using nt2::load;
+  using nt2::aligned_load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -156,7 +149,7 @@ NT2_TEST_CASE_TPL ( cumsum_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
-        vT a0 = load<vT>(&tab_a0[0],j);
+        vT a0 = aligned_load<vT>(&tab_a0[0],j);
         r_t v = nt2::cumsum(a0);
         NT2_CREATE_BUF(z,T, cardinal_of<n_t>::value, T(0), T(0));
         for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++) z[i]=0;
@@ -165,7 +158,7 @@ NT2_TEST_CASE_TPL ( cumsum_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
             z[k]+=a0[i];
           }
         }
-        vT zz = load<vT>(&z[0],0);
+        vT zz = aligned_load<vT>(&z[0],0);
         for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++)
          {
             NT2_TEST_ULP_EQUAL(v[i],zz[i], 16);

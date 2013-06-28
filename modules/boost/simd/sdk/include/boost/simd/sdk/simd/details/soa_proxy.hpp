@@ -9,6 +9,8 @@
 #ifndef BOOST_SIMD_SDK_SIMD_DETAILS_SOA_PROXY_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_DETAILS_SOA_PROXY_HPP_INCLUDED
 
+#include <boost/simd/memory/functions/extract.hpp>
+#include <boost/simd/memory/functions/insert.hpp>
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/dispatch/functor/meta/make_functor.hpp>

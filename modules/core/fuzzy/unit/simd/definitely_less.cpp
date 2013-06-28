@@ -6,13 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 fuzzy toolbox - definitely_less/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of fuzzy components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 04/03/2011
-///
 #include <nt2/fuzzy/include/functions/definitely_less.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/simd/logical.hpp>
@@ -29,19 +22,14 @@
 #include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/load.hpp>
-#include <nt2/constant/constant.hpp>
-
 
 NT2_TEST_CASE_TPL ( definitely_less_real__3_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::definitely_less;
   using nt2::tag::definitely_less_;
-  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -67,7 +55,6 @@ NT2_TEST_CASE_TPL ( definitely_less_signed_int__3_0,  NT2_SIMD_INTEGRAL_SIGNED_T
 {
   using nt2::definitely_less;
   using nt2::tag::definitely_less_;
-  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -93,7 +80,6 @@ NT2_TEST_CASE_TPL ( definitely_less_unsigned_int__3_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
   using nt2::definitely_less;
   using nt2::tag::definitely_less_;
-  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

@@ -6,13 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 elliptic toolbox - ellint_2/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of elliptic components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 21/02/2011
-///
 #include <nt2/elliptic/include/functions/ellint_2.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/math/special_functions.hpp>
@@ -30,22 +23,14 @@
 #include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/constant/constant.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-
-#include <nt2/include/functions/load.hpp>
-#include <nt2/constant/constant.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
-
 
 NT2_TEST_CASE_TPL ( ellint_2_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::ellint_2;
   using nt2::tag::ellint_2_;
-  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

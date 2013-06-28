@@ -22,7 +22,7 @@ void exhaust_test_sin<nt2::uint32_t>(const nt2::uint32_t& mini,const nt2::uint32
     a[0] = mini;
     for(nt2::uint32_t i = 1; i < N; i++)
       a[i] = nt2::successor(a[i-1], 1);
-    n_t a0 = nt2::load<n_t>(&a[0],0);
+    n_t a0 = nt2::aligned_load<n_t>(&a[0],0);
     nt2::uint32_t k = 0,j = 0;
     std::cout << "a line of points to wait for... be patient!" << std::endl;
     for(; a0[N-1] < maxi; a0 = nt2::successor(a0, vN))

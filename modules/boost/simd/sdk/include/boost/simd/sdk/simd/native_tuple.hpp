@@ -14,6 +14,7 @@
 #include <boost/simd/sdk/simd/details/make_soa.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/tuple.hpp>
+#include <boost/simd/memory/aligned_object.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
@@ -65,6 +66,11 @@ namespace boost { namespace simd
 
     BOOST_FORCEINLINE
     const_iterator end()   const { return const_iterator(*this, size()); };
+
+    ////////////////////////////////////////////////////////////////////////////
+    // new/delete operator to force alignment on heap of native values
+    ////////////////////////////////////////////////////////////////////////////
+    BOOST_SIMD_MEMORY_OVERLOAD_NEW_DELETE_SIMD()
 
     ////////////////////////////////////////////////////////////////////////////
     // Array like interface

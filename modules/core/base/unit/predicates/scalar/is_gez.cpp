@@ -26,7 +26,7 @@
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+
 #include <nt2/constant/constant.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
 

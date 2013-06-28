@@ -6,13 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.operator toolbox - compare_less_equal/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.operator components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 18/02/2011
-///
 #include <boost/simd/reduction/include/functions/compare_less_equal.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/include/functions/all.hpp>
@@ -22,17 +15,11 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/constant/constant.hpp>
-#include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
-#include <boost/simd/include/functions/load.hpp>
-#include <boost/simd/constant/constant.hpp>
-
 
 NT2_TEST_CASE_TPL ( compare_less_equal_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::compare_less_equal;
   using boost::simd::tag::compare_less_equal_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -57,7 +44,6 @@ NT2_TEST_CASE_TPL ( compare_less_equal_signed_int__2_0,  BOOST_SIMD_SIMD_INTEGRA
 {
   using boost::simd::compare_less_equal;
   using boost::simd::tag::compare_less_equal_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -81,7 +67,6 @@ NT2_TEST_CASE_TPL ( compare_less_equal_unsigned_int__2_0,  BOOST_SIMD_SIMD_UNSIG
 {
   using boost::simd::compare_less_equal;
   using boost::simd::tag::compare_less_equal_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

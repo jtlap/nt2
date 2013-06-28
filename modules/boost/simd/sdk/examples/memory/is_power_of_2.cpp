@@ -1,16 +1,10 @@
-#include <boost/cstdint.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
-#include <boost/mpl/int.hpp>
-#include <boost/mpl/assert.hpp>
-#include <boost/simd/sdk/memory/is_power_of_2.hpp>
-
-using boost::simd::meta::is_power_of_2;
+#include <boost/simd/memory/is_power_of_2.hpp>
+#include <boost/assert.hpp>
 
 int main()
 {
-  BOOST_MPL_ASSERT(( is_power_of_2< boost::mpl::int_<2> >::type ));
-  BOOST_MPL_ASSERT(( is_power_of_2< boost::mpl::int_<4> >::type ));
-  BOOST_MPL_ASSERT(( is_power_of_2< boost::mpl::int_<8> >::type ));
-  BOOST_MPL_ASSERT_NOT(( is_power_of_2< boost::mpl::int_<0> >::type ));
-  BOOST_MPL_ASSERT_NOT(( is_power_of_2< boost::mpl::int_<10> >::type ));
+  BOOST_ASSERT(  boost::simd::is_power_of_2(   2 ) );
+  BOOST_ASSERT(  boost::simd::is_power_of_2(  16 ) );
+  BOOST_ASSERT( !boost::simd::is_power_of_2(   0 ) );
+  BOOST_ASSERT( !boost::simd::is_power_of_2(1337 ) );
 }

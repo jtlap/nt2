@@ -1,0 +1,72 @@
+[section Memory Management]
+
+Boost.SIMD.Memory provides a set of functions for handling memory in a SIMD compliant way, taking
+care of all required system specific calls.
+
+[section Allocation]
+Aligned memory allocation can be performed by two functions:
+
+* [funcref boost::simd::aligned_malloc] which interface is similar to =malloc= except for its
+additional alignment parameters. No special error checking is done, so the validity of the returned
+pointer is left to be checked by the client code.
+* [headerref nt2/modules/boost/simd/sdk/include/boost/simd/memory/allocate.hpp boost::simd::allocate]
+  which provides a richer interface than [funcref boost::simd::aligned_malloc].
+  [headerref nt2/modules/boost/simd/sdk/include/boost/simd/memory/allocate.hpp boost::simd::allocate]
+  supports :
+  * Runtime or compile-time alignment parameters,
+    allowing returned pointer to be statically flagged as being aligned
+    (see [classref boost::simd::meta::align_ptr]);
+  * Throwing and non-throwing behavior. When used in throwing mode,
+    [headerref nt2/modules/boost/simd/sdk/include/boost/simd/memory/allocate.hpp boost::simd::allocate]
+    will throw an exception if the returned pointer is =NULL=;
+  * Using an existing allocator to perform the raw allocation, thus increasing interoperability with
+    third-party allocator providing other features but not necessarily an aligned allocation.
+
+[endsect]
+
+[section Deallocation]
+In a similar fashion, aligned memory deallocation can be performed by two functions:
+
+* [funcref boost::simd::aligned_free] which interface is similar to =free=.
+* [headerref nt2/modules/boost/simd/sdk/include/boost/simd/memory/deallocate.hpp boost::simd::deallocate]
+  which provides a richer interface than
+  [funcref boost::simd::aligned_free] by supporting both regular and allocator based deallocation.
+
+[endsect]
+
+[section Reallocation]
+Boost.SIMD.Memory provides two flavor of reallocation functions:
+
+* Reallocation with data copy with [funcref boost::simd::aligned_realloc] or
+[headerref nt2/modules/boost/simd/sdk/include/boost/simd/memory/reallocate.hpp boost::simd::reallocate];
+* Reallocation without data copy with [funcref boost::simd::aligned_reuse] or
+[headerref nt2/modules/boost/simd/sdk/include/boost/simd/memory/reuse.hpp boost::simd::reuse];
+
+As for allocation and deallocation, two interfaces are provided:
+
+* [funcref boost::simd::aligned_realloc] and [funcref boost::simd::aligned_reuse] are similar to
+  =realloc=.
+* [headerref nt2/modules/boost/simd/sdk/include/boost/simd/memory/reallocate.hpp boost::simd::reallocate]
+  and [headerref nt2/modules/boost/simd/sdk/include/boost/simd/memory/reuse.hpp boost::simd::reuse]
+  provide a richer interface by supporting both regular and allocator based reallocation.
+
+[endsect]
+
+[section Aligned Stack Allocation]
+Stack alignment is a tricky topic (see [@http://gcc.gnu.org/bugzilla/show_bug.cgi?id=16660]
+for a small example). The main issue is that, depending on compiler and operating
+system, the maximum alignment on the stack may or may not be compatible with the
+architecture SIMD preferred alignment.
+
+Boost.SIMD.Memory provides various macros that use the proper system dependent
+ways to define stack based buffer fulfilling both stack alignment and SIMD
+alignment is constraints:
+
+* [macroref BOOST_SIMD_STACK_BUFFER] and [macroref BOOST_SIMD_SCOPED_STACK_BUFFER]
+provides macro to generate a stack-based range aligned on current stack alignment.
+* [macroref BOOST_SIMD_ALIGNED_STACK_BUFFER] and [macroref BOOST_SIMD_ALIGNED_SCOPED_STACK_BUFFER]
+provides macro to generate a stack-based range aligned on current SIMD alignment.
+
+[endsect]
+
+[endsect]

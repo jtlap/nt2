@@ -9,9 +9,9 @@
 #ifndef NT2_SWAR_FUNCTIONS_COMPLEX_SIMD_COMMON_LOOKUP_HPP_INCLUDED
 #define NT2_SWAR_FUNCTIONS_COMPLEX_SIMD_COMMON_LOOKUP_HPP_INCLUDED
 #include <nt2/swar/functions/lookup.hpp>
-#include <nt2/include/functions/load.hpp>
-#include <nt2/include/functions/store.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
+#include <nt2/include/functions/aligned_load.hpp>
+#include <nt2/include/functions/aligned_store.hpp>
+#include <boost/simd/preprocessor/aligned_type.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>

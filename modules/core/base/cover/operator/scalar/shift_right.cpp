@@ -32,8 +32,8 @@
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-
 #include <nt2/constant/constant.hpp>
+
 NT2_TEST_CASE_TPL ( shift_right_signed_int__2_0,  NT2_INTEGRAL_TYPES)
 {
 

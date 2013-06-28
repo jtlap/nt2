@@ -6,17 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 reduction toolbox - any/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of reduction components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 24/02/2011
-///
 #include <nt2/reduction/include/functions/any.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/simd/logical.hpp>
-
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
@@ -29,21 +21,14 @@
 #include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/constant/constant.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/load.hpp>
-#include <nt2/constant/constant.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
-
 
 NT2_TEST_CASE_TPL ( any_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::any;
   using nt2::tag::any_;
-  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -72,7 +57,6 @@ NT2_TEST_CASE_TPL ( any_integer__1_0,  NT2_SIMD_INTEGRAL_TYPES)
 {
   using nt2::any;
   using nt2::tag::any_;
-  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

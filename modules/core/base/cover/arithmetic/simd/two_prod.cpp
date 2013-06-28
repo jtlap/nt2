@@ -6,10 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-//////////////////////////////////////////////////////////////////////////////
-// cover test behavior of arithmetic components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-
 #include <nt2/arithmetic/include/functions/two_prod.hpp>
 #include <vector>
 #include <nt2/include/constants/valmin.hpp>

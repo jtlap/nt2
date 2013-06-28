@@ -6,13 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - divfloor/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of arithmetic components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created by jt the 01/12/2010
-///
 #include <nt2/arithmetic/include/functions/divfloor.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/floor.hpp>
@@ -34,15 +27,10 @@
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
 
-#include <nt2/include/functions/load.hpp>
-#include <nt2/constant/constant.hpp>
-
-
 NT2_TEST_CASE_TPL ( divfloor_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::divfloor;
   using nt2::tag::divfloor_;
-  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

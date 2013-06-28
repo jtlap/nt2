@@ -11,8 +11,8 @@
 
 #include <nt2/dsl/functions/terminal.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/unaligned_load.hpp>
-#include <nt2/include/functions/unaligned_store.hpp>
+#include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/include/functions/store.hpp>
 #include <nt2/include/functions/simd/maximum.hpp>
 #include <nt2/core/settings/details/fusion.hpp>
 #include <nt2/core/container/table/category.hpp>
@@ -107,7 +107,7 @@ namespace nt2 { namespace ext
       , "Out of range SIMD read"
       );
 
-      return unaligned_load<result_type>(a0.raw(), state);
+      return boost::simd::load<result_type>(a0.raw(), state);
     }
   };
 
@@ -135,7 +135,8 @@ namespace nt2 { namespace ext
       , "Out of range SIMD read"
       );
 
-      return unaligned_store<result_type>(data, a0.raw(), state);
+      boost::simd::store(data, a0.raw(), state);
+      return data;
     }
   };
 

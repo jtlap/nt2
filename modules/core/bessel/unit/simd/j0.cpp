@@ -6,13 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 bessel toolbox - j0/simd Mode"
 
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of bessel components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 16/02/2011
-///
 #include <nt2/bessel/include/functions/j0.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 extern "C" {long double cephes_j0l(long double);}
@@ -31,20 +25,13 @@ extern "C" {long double cephes_j0l(long double);}
 #include <nt2/sdk/unit/module.hpp>
 
 #include <nt2/constant/constant.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-
-#include <nt2/include/functions/load.hpp>
-#include <nt2/constant/constant.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
-
 
 NT2_TEST_CASE_TPL ( j0_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::j0;
   using nt2::tag::j0_;
-  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

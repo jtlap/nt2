@@ -22,17 +22,17 @@
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/load.hpp>
+#include <nt2/include/functions/aligned_load.hpp>
 //COMMENTED
 
 NT2_TEST_CASE_TPL ( tchebeval_real__2_0,  NT2_REAL_TYPES)
 {
 //   using nt2::tchebeval;
 //   using nt2::tag::tchebeval_;
-//   using nt2::load;
+//   using nt2::aligned_load;
 //   using nt2::simd::native;
 //   using nt2::meta::cardinal_of;
 //   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -55,8 +55,8 @@ NT2_TEST_CASE_TPL ( tchebeval_real__2_0,  NT2_REAL_TYPES)
 //     double ulp0, ulpd ; ulpd=ulp0=0.0;
 //     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
 //       {
-//         vT a0 = load<vT>(&tab_a0[0],j);
-//         vT a1 = load<vT>(&tab_a1[0],j);
+//         vT a0 = aligned_load<vT>(&tab_a0[0],j);
+//         vT a1 = aligned_load<vT>(&tab_a1[0],j);
 //         r_t v = tchebeval(a0,a1);
 //         for(int i = 0; i< cardinal_of<n_t>::value; i++)
 //         {

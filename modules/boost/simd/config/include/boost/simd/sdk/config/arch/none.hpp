@@ -12,7 +12,7 @@
 #if !defined(BOOST_SIMD_ARCH)
   #define BOOST_SIMD_ARCH_UNKNOWN
   #define BOOST_SIMD_ARCH "unknown"
-  #define BOOST_SIMD_ARCH_ALIGNMENT sizeof(void*)
+  #define BOOST_SIMD_ARCH_ALIGNMENT 4
 #endif
 
 #endif

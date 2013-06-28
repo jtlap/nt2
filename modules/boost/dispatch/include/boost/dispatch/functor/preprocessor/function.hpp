@@ -222,7 +222,7 @@ Name( BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Args), BOOST_DISPATCH_FN_ARGS, Args) )   \
   @code
   template<class A0, class A1>
   typename boost::dispatch::meta::call<tag::store_(A0&, A1 const&)>::type
-  store(A0& a0, A1 const& a1)
+  aligned_storeA0& a0, A1 const& a1)
   {
     return typename boost::dispatch::make_functor<tag::store_, A0>::type()(a0,a1,a2);
   }

@@ -105,15 +105,15 @@ Load data from a memory block and an offset.
 ]
 
 [h5 Header]
-   #include <boost/simd/toolbox/operator/load.hpp>
+   #include <boost/simd/toolbox/operator/aligned_load.hpp>
 
 [h5 Expression Semantics]
-    load<T>(ptr, offset);
+    aligned_load<T>(ptr, offset);
 [*Return type: ] T
 
 [*Semantics:   ] Returns an instance of T containing the data loaded from the address `ptr + offset`.
 
-    load<T, N>(ptr, offset);
+    aligned_load<T, N>(ptr, offset);
 [*Return type: ] T
 
 [*Semantics:   ] Returns an instance of T containing the data loaded from the address `ptr + offset + N`.
@@ -131,7 +131,7 @@ Apply a functor on every element of a SIMD register.
 [h5 Synopsis]
     namespace boost { namespace simd
     {
-      template<class Func, class... An> __unspecified__ store(Func const& f, Args const& ... an);
+      template<class Func, class... An> __unspecified__ aligned_storeFunc const& f, Args const& ... an);
     } }
 
 
@@ -207,7 +207,7 @@ Store data into a memory block from an address and an offset.
     namespace boost { namespace simd
     {
       template<class Value, class Ptr,class Offset>
-      Value store(Value const& v, Ptr const& ptr, Offset const& o);
+      Value aligned_storeValue const& v, Ptr const& ptr, Offset const& o);
     } }
 
 
@@ -226,10 +226,10 @@ Store data into a memory block from an address and an offset.
 ]
 
 [h5 Header]
-   #include <boost/simd/toolbox/operator/store.hpp>
+   #include <boost/simd/toolbox/operator/aligned_store.hpp>
 
 [h5 Expression Semantics]
-    store(value, ptr, offset);
+    aligned_storevalue, ptr, offset);
 [*Return type: ] Type of value
 
 [*Semantics:   ] Returns the instance of T that was stored at the address `ptr + offset`.

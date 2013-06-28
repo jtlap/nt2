@@ -9,7 +9,7 @@
 
 nt2_module_use_modules(test.unit)
 ADD_SUBDIRECTORY(meta)
+ADD_SUBDIRECTORY(memory)
 
 nt2_module_use_modules(boost.simd.base)
-ADD_SUBDIRECTORY(memory)
 ADD_SUBDIRECTORY(simd)

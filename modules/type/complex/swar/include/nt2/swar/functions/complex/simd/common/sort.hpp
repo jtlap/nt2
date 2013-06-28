@@ -10,9 +10,9 @@
 #define NT2_SWAR_FUNCTIONS_COMPLEX_SIMD_COMMON_SORT_HPP_INCLUDED
 //TO DO
 #include <nt2/swar/functions/sort.hpp>
-#include <nt2/include/functions/load.hpp>
-#include <nt2/include/functions/store.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
+#include <nt2/include/functions/aligned_load.hpp>
+#include <nt2/include/functions/aligned_store.hpp>
+#include <boost/simd/preprocessor/aligned_type.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
@@ -37,9 +37,9 @@
 //        typedef typename meta::scalar_of<A0>::type stype;
 //       static const size_t size = nt2::meta::cardinal_of<A0>::value;
 //       NT2_ALIGNED_TYPE(stype) tmp[size];
-//       store(a0, &tmp[0], 0);
+//       aligned_storea0, &tmp[0], 0);
 //       std::sort(tmp, tmp + size);
-//       return load<A0>(&tmp[0], 0);
+//       return aligned_load<A0>(&tmp[0], 0);
 //     }
 //   };
 //  } }

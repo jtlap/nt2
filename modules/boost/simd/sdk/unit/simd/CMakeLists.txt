@@ -20,12 +20,10 @@ SET( SOURCES
     hierarchy_of.cpp
     is_signed.cpp
     is_simd_specific.cpp
-    iterator.cpp
     logical.cpp
     make_floating.cpp
     make_integer.cpp
     pack.cpp
-    range.cpp
     register_of.cpp
     scalar_of.cpp
     sign_of.cpp

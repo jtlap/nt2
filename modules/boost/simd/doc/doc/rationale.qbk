@@ -1,4 +1,10 @@
+[chapter Rationale
+  [quickbook 1.5]
+]
+
 [section Rationale]
+
+[endsect]
 
 [section Dependency on Boost.Dispatch]
 [endsect]
@@ -13,6 +19,4 @@
 [endsect]
 
 [section Speed vs Precision Trade-off]
-[endsect]
-
 [endsect]

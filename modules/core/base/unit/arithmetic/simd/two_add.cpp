@@ -24,6 +24,7 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
+
 NT2_TEST_CASE_TPL( two_add, NT2_SIMD_REAL_TYPES)
 {
   using nt2::two_add;

@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.swar toolbox - enumerate SIMD Mode"
-
 #include <boost/simd/swar/include/functions/enumerate.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 
@@ -16,7 +14,6 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/constant/constant.hpp>
-#include <boost/simd/include/functions/load.hpp>
 
 NT2_TEST_CASE_TPL ( enumerate, BOOST_SIMD_SIMD_TYPES)
 {

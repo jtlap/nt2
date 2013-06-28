@@ -6,13 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 operator toolbox - shift_right/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of operator components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 18/02/2011
-///
 #include <nt2/operator/include/functions/shift_right.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>

@@ -19,9 +19,12 @@
 
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/forward/semantic.hpp>
-#include <nt2/core/container/table/semantic.hpp>
-
 #include <boost/dispatch/meta/terminal_of_shared.hpp>
+
+namespace nt2 { namespace tag
+{
+  struct table_;
+} }
 
 namespace nt2 { namespace meta
 {

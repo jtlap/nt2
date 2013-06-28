@@ -27,14 +27,14 @@ extern "C" {extern long double cephes_acosl(long double);}
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
 
-#include <nt2/include/functions/load.hpp>
+#include <nt2/include/functions/aligned_load.hpp>
 
 
 NT2_TEST_CASE_TPL ( rem_pio2_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::rem_pio2;
   using nt2::tag::rem_pio2_;
-  using nt2::load;
+  using nt2::aligned_load;
   using nt2::simd::native;
   using nt2::meta::cardinal_of;
   typedef typename boost::dispatch::meta::as_floating<T>::type ftype;
@@ -82,7 +82,7 @@ NT2_TEST_CASE_TPL ( rem_pio2_real__1_0,  NT2_SIMD_REAL_TYPES)
 //     double ulp0, ulpd ; ulpd=ulp0=0.0;
 //     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
 //       {
-//         vT a0 = load<vT>(&tab_a0[0],j);
+//         vT a0 = aligned_load<vT>(&tab_a0[0],j);
 //         r_t r = nt2::rem_pio2(a0);
 //         for(int i = 0; i< cardinal_of<n_t>::value; i++)
 //         {

@@ -7,18 +7,30 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(SOURCES
-    align_on.cpp
-    is_aligned.cpp
-    is_power_of_2_c.cpp
-    is_power_of_2.cpp
-    meta_align_on_c.cpp
-    meta_align_on.cpp
-    meta_is_aligned_c.cpp
-    meta_is_aligned.cpp
-    next_power_of_2_c.cpp
-    next_power_of_2.cpp
-   )
+SET(  SOURCES
+      aligned_array.cpp
+      align_on.cpp
+      align_on_default.cpp
+      align_ptr.cpp
+      aligned_input_iterator.cpp
+      aligned_input_range.cpp
+      aligned_object.cpp
+      aligned_output_iterator.cpp
+      bitwise_cast.cpp
+      input_iterator.cpp
+      input_range.cpp
+      is_aligned.cpp
+      is_power_of_2.cpp
+      aligned_load.cpp
+      new.cpp
+      output_iterator.cpp
+      scoped_buffer.cpp
+      simd_malloc.cpp
+      simd_scoped_buffer.cpp
+      simd_stack_buffer.cpp
+      stack_buffer.cpp
+      aligned_store.cpp
+)
 
 ################################################################################
 # For each filename

@@ -9,6 +9,7 @@
 
 SET ( NT2_TYPE.COMPLEX.CONSTANT_DEPENDENCIES_EXTRA
       boost.simd.base
+      boost.simd.sdk
       boost.simd.constant
       type.complex.sdk
     )

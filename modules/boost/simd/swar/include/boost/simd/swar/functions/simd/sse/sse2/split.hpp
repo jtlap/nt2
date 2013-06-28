@@ -11,11 +11,11 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/swar/functions/split.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/functions/simd/is_ltz.hpp>
-#include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/simd/sdk/meta/make_dependent.hpp>
 #include <boost/dispatch/meta/adapted_traits.hpp>
-#include <boost/simd/include/constants/zero.hpp>
+#include <boost/dispatch/meta/upgrade.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
