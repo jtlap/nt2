@@ -38,4 +38,4 @@ SET( SOURCES
     stack_buffer.cpp
   )
 
-nt2_module_add_tests(boost.simd.sdk.memory.sdk.unit ${SOURCES})
+nt2_module_add_tests(boost.simd.sdk.memory.utility.unit ${SOURCES})

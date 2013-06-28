@@ -6,6 +6,7 @@
 #                 See accompanying file LICENSE.txt or copy at
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
+
+ADD_SUBDIRECTORY(utility)
 ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(sdk)
 ADD_SUBDIRECTORY(simd)
