@@ -30,7 +30,6 @@ SET( SOURCES
     output_iterator.cpp
     output_range.cpp
     prev_power_of_2.cpp
-    range.cpp
     reallocate.cpp
     realigned_input_range.cpp
     realigned_output_range.cpp
