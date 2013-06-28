@@ -24,7 +24,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
 
-NT2_TEST_CASE_TPL(logm1, NT2_REAL_TYPES)//distinct eigenvalues
+NT2_TEST_CASE_TPL(logm1, (float))//NT2_REAL_TYPES)//distinct eigenvalues
 {
   typedef T r_t;
   typedef std::complex<T> cT;
@@ -48,7 +48,7 @@ NT2_TEST_CASE_TPL(logm1, NT2_REAL_TYPES)//distinct eigenvalues
   NT2_TEST_ULP_EQUAL(el1, n, 5);
  }
 
-NT2_TEST_CASE_TPL(logm2, NT2_REAL_TYPES)//double eigenvalue
+NT2_TEST_CASE_TPL(logm2, (float))//NT2_REAL_TYPES)//double eigenvalue
 {
   typedef T r_t;
   typedef std::complex<T> cT;
@@ -72,7 +72,7 @@ NT2_TEST_CASE_TPL(logm2, NT2_REAL_TYPES)//double eigenvalue
  }
 
 
-NT2_TEST_CASE_TPL(logm3, NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL(logm3, (float))//NT2_REAL_TYPES)
 {
   typedef T r_t;
   typedef std::complex<T> cT;
@@ -91,7 +91,7 @@ NT2_TEST_CASE_TPL(logm3, NT2_REAL_TYPES)
 }
 
 
-NT2_TEST_CASE_TPL(logm4, NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL(logm4, (float))//NT2_REAL_TYPES)
 {
   typedef T r_t;
   using nt2::logm;
@@ -106,7 +106,7 @@ NT2_TEST_CASE_TPL(logm4, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(el, n, 8);
  }
 
-NT2_TEST_CASE_TPL(logm5, NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL(logm5, (float))//NT2_REAL_TYPES)
 {
   typedef T r_t;
   typedef std::complex<T> cT;
