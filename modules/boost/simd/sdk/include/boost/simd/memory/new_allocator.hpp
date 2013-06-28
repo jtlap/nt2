@@ -9,67 +9,11 @@
 #ifndef BOOST_SIMD_MEMORY_NEW_ALLOCATOR_HPP_INCLUDED
 #define BOOST_SIMD_MEMORY_NEW_ALLOCATOR_HPP_INCLUDED
 
+#include <boost/simd/memory/details/new_allocator.hpp>
 #include <cstddef>
 
 namespace boost { namespace simd
 {
-  namespace details
-  {
-    template<void* (*F)(std::size_t)>
-    struct new_dummy;
-
-    template<void (*F)(void*)>
-    struct delete_dummy;;
-
-    template<class T>
-    void* new_allocate_impl(std::size_t c, ...)
-    {
-      return ::operator new(c);
-    }
-
-    template<class T>
-    void* new_allocate_impl(std::size_t c, new_dummy<&T::operator new>*)
-    {
-      return T::operator new(c);
-    }
-
-    template<class T>
-    void new_deallocate_impl(void* p, ...)
-    {
-      ::operator delete(p);
-    }
-
-    template<class T>
-    void new_deallocate_impl(void* p, delete_dummy<&T::operator delete>*)
-    {
-      T::operator delete(p);
-    }
-
-    template<class T>
-    void* new_array_allocate_impl(std::size_t c, ...)
-    {
-      return ::operator new[](c);
-    }
-
-    template<class T>
-    void* new_array_allocate_impl(std::size_t c, new_dummy<&T::operator new[]>*)
-    {
-      return T::operator new[](c);
-    }
-
-    template<class T>
-    void new_array_deallocate_impl(void* p, ...)
-    {
-      ::operator delete[](p);
-    }
-
-    template<class T>
-    void new_array_deallocate_impl(void* p, delete_dummy<&T::operator delete[]>*)
-    {
-      T::operator delete[](p);
-    }
-  }
-
   /*!
     @brief Allocator that uses the type's new operator for allocating memory
 
