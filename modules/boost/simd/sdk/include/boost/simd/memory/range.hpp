@@ -12,9 +12,11 @@
 
 #include <boost/simd/memory/input_range.hpp>
 #include <boost/simd/memory/output_range.hpp>
+#include <boost/simd/memory/shifted_range.hpp>
 #include <boost/simd/memory/aligned_input_range.hpp>
 #include <boost/simd/memory/aligned_output_range.hpp>
 #include <boost/simd/memory/realigned_input_range.hpp>
 #include <boost/simd/memory/realigned_output_range.hpp>
+#include <boost/simd/memory/direct_output_range.hpp>
 
 #endif

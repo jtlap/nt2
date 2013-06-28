@@ -12,7 +12,9 @@
 
 #include <boost/simd/memory/input_iterator.hpp>
 #include <boost/simd/memory/output_iterator.hpp>
+#include <boost/simd/memory/shifted_iterator.hpp>
 #include <boost/simd/memory/aligned_input_iterator.hpp>
 #include <boost/simd/memory/aligned_output_iterator.hpp>
+#include <boost/simd/memory/direct_output_iterator.hpp>
 
 #endif
