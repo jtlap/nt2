@@ -71,9 +71,9 @@ namespace nt2
       typedef typename meta::as_real<value_type>::type                     r_type;
       typedef typename meta::as_complex<r_type>::type                   cplx_type;
       typedef typename meta::as_integer<r_type>::type                      i_type;
-      typedef nt2::table<value_type >                                       tab_t;
+      typedef nt2::table<value_type>                                        tab_t;
       typedef nt2::table<r_type>                                           btab_t;
-      typedef table<cplx_type>                                            ctab_t;
+      typedef table<cplx_type>                                             ctab_t;
       typedef table<i_type>                                                itab_t;
       typedef typename A0::index_type                                  index_type;
       BOOST_FORCEINLINE result_type operator()(const A0& a0, const A1& a1) const
@@ -122,26 +122,26 @@ namespace nt2
           itab_t terms(nt2::of_size(lord, 1));
           ctab_t ca0 = a0;
 
-           for(uint32_t col=1; col <= lord ; ++col)
-           {
-             BOOST_AUTO_TPL(j, nt2::_(ord(1, col), ord(2, col)));
-             uint32_t maxsqrt = 100;
-             itab_t terms(nt2::of_size(1, lord));
-             uint32_t nj =  length(j);
-             ctab_t rj(nt2::of_size(nj, nj));
-             terms(col) = logm_triang(a0(j, j), maxsqrt, rj);
-             r(j, j) = rj;
-             for(uint32_t row=col-1; row >= 1; --row)
-             {
-               BOOST_AUTO_TPL(i, nt2::_(ord(1, row), ord(2, row)));
-               if (length(i) == 1 && length(j) == 1)
-               {
-                 size_t ii = i(1), jj = j(1);
-                 BOOST_AUTO_TPL(k, nt2::_(ii+1, jj-1));
-                 cplx_type temp = ca0(ii,jj)*(r(ii,ii) - r(jj,jj));
-                 if (!isempty(k)) temp += mtimes(r(ii,k), ca0(k,jj)) - mtimes(ca0(ii,k), r(k,jj));
-                 r(ii,jj) = temp/(ca0(ii,ii)-ca0(jj,jj));
-               }
+          for(uint32_t col=1; col <= lord ; ++col)
+          {
+            BOOST_AUTO_TPL(j, nt2::_(ord(1, col), ord(2, col)));
+            uint32_t maxsqrt = 100;
+            itab_t terms(nt2::of_size(1, lord));
+            uint32_t nj =  length(j);
+            ctab_t rj(nt2::of_size(nj, nj));
+            terms(col) = logm_triang(a0(j, j), maxsqrt, rj);
+            r(j, j) = rj;
+            for(uint32_t row=col-1; row >= 1; --row)
+            {
+              BOOST_AUTO_TPL(i, nt2::_(ord(1, row), ord(2, row)));
+              if (length(i) == 1 && length(j) == 1)
+              {
+                size_t ii = i(1), jj = j(1);
+                BOOST_AUTO_TPL(k, nt2::_(ii+1, jj-1));
+                cplx_type temp = ca0(ii,jj)*(r(ii,ii) - r(jj,jj));
+                if (!isempty(k)) temp += mtimes(r(ii,k), ca0(k,jj)) - mtimes(ca0(ii,k), r(k,jj));
+                r(ii,jj) = temp/(ca0(ii,ii)-ca0(jj,jj));
+              }
               else
               {
                 itab_t k(nt2::of_size(1, 0));
@@ -154,10 +154,10 @@ namespace nt2
                 if(!isempty(k)) rhs += mtimes(r(i,k), ca0(k,j)) -  mtimes(ca0(i,k), r(k,j));
                 r(i,j) = sylv_tri(ca0(i,i),-ca0(j,j),rhs);
               }
-             }
-             ctab_t z =  mtimes(mtimes(u, r), ctrans(u));
-             transtype(res, z, typename nt2::meta::is_complex<value_type>::type());
-           }
+            }
+            ctab_t z =  mtimes(mtimes(u, r), ctrans(u));
+            transtype(res, z, typename nt2::meta::is_complex<value_type>::type());
+          }
         }
       }
 
