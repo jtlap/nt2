@@ -37,7 +37,7 @@ macro(nt2_pch_file build_type out in)
 
   set(path "${NT2_PCH_FILE}_${build_type}")
   set_source_files_properties(${out}
-                              PROPERTIES OBJECT_DEPENDS ${_object_deps}
+                              PROPERTIES OBJECT_DEPENDS "${_object_deps}"
                                          GENERATED ON
                                          COMPILE_FLAGS "-include \"${path}\" -Winvalid-pch"
                                          COMPILE_DEFINITIONS "${defs}"
