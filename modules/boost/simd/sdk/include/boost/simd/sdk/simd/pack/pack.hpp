@@ -73,17 +73,7 @@ namespace boost { namespace simd
     typedef typename data_type::iterator        iterator;
     typedef typename data_type::const_iterator  const_iterator;
 
-    typedef expression< typename
-                        proto::terminal< typename
-                                         meta::vector_of< Type
-                                                        , Cardinal
-                                                        >::type
-                                       >::type
-                      , typename
-                        meta::vector_of< Type
-                                       , Cardinal
-                                       >::type
-                      > parent;
+    typedef expression< expr_type, data_type > parent;
 
     //==========================================================================
     /*
@@ -141,7 +131,8 @@ namespace boost { namespace simd
       for(int i=0;b!=e;++b,++i)
         (*this)[i] = *b;
     }
-    //template<class Expr> pack(Expr const& expr) : parent(expr) {}
+
+    BOOST_SIMD_MEMORY_OVERLOAD_NEW_DELETE(Cardinal*sizeof(value_type))
 
     //==========================================================================
     // Constructor from unique scalar value -> splat the value
@@ -155,13 +146,15 @@ namespace boost { namespace simd
     //==========================================================================
     // Create constructors for pack according to the extension specification.
     //==========================================================================
-    #define M1(z, n, arg)                                                                          \
-    template<class T>                                                                              \
-    pack(BOOST_PP_ENUM_PARAMS(arg, T const& a), typename enable_if< is_arithmetic<T> >::type* = 0) \
-    {                                                                                              \
-      proto::value(*this) = make<data_type>(BOOST_PP_ENUM_PARAMS(arg, a));                         \
-    }                                                                                              \
+    #define M1(z, n, arg)                                                      \
+    template<class T>                                                          \
+    pack( BOOST_PP_ENUM_PARAMS(arg, T const& a)                                \
+        , typename enable_if< is_arithmetic<T> >::type* = 0)                   \
+    {                                                                          \
+      proto::value(*this) = make<data_type>(BOOST_PP_ENUM_PARAMS(arg, a));     \
+    }                                                                          \
     /**/
+
     BOOST_PP_SEQ_FOR_EACH(M1, ~, BOOST_SIMD_CARDINALS)
     #undef M1
 

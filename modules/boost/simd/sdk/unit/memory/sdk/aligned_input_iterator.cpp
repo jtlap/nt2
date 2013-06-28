@@ -75,7 +75,7 @@ NT2_TEST_CASE_TPL(iteration, BOOST_SIMD_TYPES)
   using boost::simd::pack;
   using boost::simd::splat;
 
-  std::vector< pack<T> >        ref(3);
+  std::vector<pack<T>, allocator<T> >        ref(3);
   std::vector<T, allocator<T> > data(pack<T>::static_size*3);
 
   typedef typename std::vector<T, allocator<T> >::iterator it_t;
