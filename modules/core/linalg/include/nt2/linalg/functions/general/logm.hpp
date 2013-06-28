@@ -259,8 +259,8 @@ namespace nt2
       }
       static inline cplx_type unwind(const value_type& z, boost::mpl::true_)
       {
-        static const cplx_type _2pi = nt2::Two<r_type>()*nt2::Pi<r_type>();
-        return _2pi*nt2::I<cplx_type>()*(nt2::ceil(imag(z)-nt2::Pi<r_type>()/_2pi));
+        static const r_type _2pi = nt2::Two<r_type>()*nt2::Pi<r_type>();
+        return cplx_type(Zero<r_type>(), _2pi*nt2::ceil((imag(z)-nt2::Pi<r_type>())/_2pi));
       }
 
 
