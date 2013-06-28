@@ -59,7 +59,7 @@ namespace boost { namespace simd
       }
       catch(...)
       {
-        delete ptr;
+        delete[] ptr;
         throw;
       }
       #endif
@@ -78,7 +78,7 @@ namespace boost { namespace simd
 
     ~dynarray()
     {
-      delete this->begin();
+      delete[] this->begin();
     }
   };
 } }
