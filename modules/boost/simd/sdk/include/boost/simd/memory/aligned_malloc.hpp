@@ -57,7 +57,7 @@ namespace boost { namespace simd
     int r = ::posix_memalign( &result, std::max(sizeof(void*),alignment), size );
     (void)r;
 
-    return static_cast<void* BOOST_DISPATCH_RESTRICT>(result);
+    return result;
 
 #elif defined( _GNU_SOURCE ) && !defined( __ANDROID__ )
 /*

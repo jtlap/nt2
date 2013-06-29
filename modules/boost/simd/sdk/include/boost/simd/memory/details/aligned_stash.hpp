@@ -13,6 +13,7 @@
 #include <boost/dispatch/attributes.hpp>
 #include <boost/simd/memory/align_on.hpp>
 #include <boost/simd/memory/is_aligned.hpp>
+#include <boost/assert.hpp>
 #include <cstddef>
 #include <cstring>
 #include <algorithm>
@@ -25,12 +26,9 @@ namespace boost { namespace simd { namespace details
     std::size_t   userBlockSize;
   };
 
-  BOOST_FORCEINLINE aligned_block_header& get_block_header( void * const ptr )
+  BOOST_FORCEINLINE aligned_block_header& get_block_header( void * BOOST_DISPATCH_RESTRICT const ptr )
   {
-    return *reinterpret_cast<aligned_block_header* BOOST_DISPATCH_RESTRICT>
-    (
-      (static_cast<char*>(ptr) - sizeof(aligned_block_header))
-    );
+    return *(static_cast<aligned_block_header*>(ptr) - 1);
   }
 
   BOOST_FORCEINLINE void* adjust_pointer( void*       const ptr
@@ -40,9 +38,9 @@ namespace boost { namespace simd { namespace details
                                         , std::size_t const offset = 0
                                         )
   {
-    if( !ptr ) return reinterpret_cast<void*>(0);
+    if( !ptr ) return 0;
 
-    void* uptr = static_cast<char*>(ptr) + sizeof(aligned_block_header);
+    void* uptr = static_cast<aligned_block_header*>(ptr) + 1;
 
     uptr = simd::align_on(uptr,alignment);
 
