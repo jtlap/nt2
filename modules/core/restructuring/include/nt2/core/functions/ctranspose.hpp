@@ -29,13 +29,14 @@ namespace nt2
 
   //============================================================================
   /*!
-   * transpose a matrix and conjugate
+   * conjugate and transpose a matrix. On real matrice this is just transpose
    *
    * \param xpr 2D table (must verify is_matrix(a))
    */
   //============================================================================
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ctranspose_, ctranspose, 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ctranspose_, ctrans, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ctranspose_, ct    , 1)
 }
 
 namespace nt2 { namespace ext
