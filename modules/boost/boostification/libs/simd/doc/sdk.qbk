@@ -116,7 +116,7 @@ Obviously `deallocate` and `reallocate` counterparts are also available :
 
 All this functions live in the boost::simd::memory namespace.
 
-Lastly, an allocator, `boost::simd::memory::allocator<>` is provided, which uses internally the above memory handling related functions.
+Lastly, an allocator, `boost::simd::allocator<>` is provided, which uses internally the above memory handling related functions.
 This means that you can use it with an STL container to get automatically aligned ranges :
 
    std::vector<int, simd::allocator<int> > vec(9, 9);
