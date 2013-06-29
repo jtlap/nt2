@@ -189,7 +189,7 @@ Matlab              |                Nt2                  |                   De
 Specialized Matrices
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 compan              | compan                              | Companion matrix                                                      |  core/polynom
-gallery             | TODO (many are done)                | Test matrices                                                         |  core/linalg/gallery 28/61
+gallery             | (almost all are done)               | Test matrices                                                         |  core/linalg/gallery
 hadamard            | hadamard                            | Hadamard matrix                                                       |  core/linalg/gallery
 hankel              | hankel                              | Hankel matrix                                                         |  core/linalg/gallery
 hilb                | hilb                                | Hilbert matrix                                                        |  core/linalg/gallery
@@ -216,6 +216,6 @@ ipermute            | ipermute TODO                       | Inverse permute dime
 permute             | permute  TODO                       | Rearrange dimensions of N-D array                                     |
 shiftdim            | shiftdim TODO                       | Shift dimensions                                                      |
 sortrows            | sortrows TODO                       | Sort rows in ascending order                                          |
-gallery             | TODO (all are done)                 | Test matrices                                                         |
+gallery             | TODO (few are still not done)       | Test matrices                                                         |
 ============================================================================================================================================================
 ============================================================================================================================================================
