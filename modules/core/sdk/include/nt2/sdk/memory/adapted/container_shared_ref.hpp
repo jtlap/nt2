@@ -35,8 +35,8 @@ namespace nt2 { namespace meta
   struct  is_container< memory::container_shared_ref<T, S, true> >
         : boost::mpl::true_ {};
 
-  template<class T, class S>
-  struct  is_container_ref< memory::container_shared_ref<T, S, false> >
+  template<class T, class S, bool Own>
+  struct  is_container_ref< memory::container_shared_ref<T, S, Own> >
         : boost::mpl::true_ {};
 } }
 
