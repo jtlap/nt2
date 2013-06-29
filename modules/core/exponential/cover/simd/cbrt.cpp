@@ -38,8 +38,8 @@ extern "C" { long double cephes_cbrtl(long double);}
 
 NT2_TEST_CASE_TPL ( cbrt_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
-  using nt2::powi;
-  using nt2::tag::powi_;
+  using nt2::cbrt;
+  using nt2::tag::cbrt_;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
