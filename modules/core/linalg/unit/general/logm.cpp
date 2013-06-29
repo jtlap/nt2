@@ -60,8 +60,6 @@ NT2_TEST_CASE_TPL(logm2, (float))//NT2_REAL_TYPES)//double eigenvalue
   nt2::table<T> n =  nt2::from_diag(T(2)*nt2::ones(1,2, nt2::meta::as_<T>()));
   n(1, 2) = 0.5;
   nt2::table<T> logmn = nt2::logm(n);
-  std::cout << std::setprecision(20);
-  NT2_DISPLAY(logmn);
   NT2_TEST_ULP_EQUAL(r,  logmn, 0.5);
   nt2::table<T> nn =  blkdiag(n, T(2)*n);
   nn(2, 3) = 1;

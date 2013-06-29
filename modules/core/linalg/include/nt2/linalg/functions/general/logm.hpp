@@ -75,28 +75,17 @@ namespace nt2
       typedef table<cplx_type>                                             ctab_t;
       typedef table<i_type>                                                itab_t;
       typedef typename A0::index_type                                  index_type;
-      BOOST_FORCEINLINE result_type operator()(const A0& a0, const A1& a1) const
+      BOOST_FORCEINLINE result_type operator()(const A0& a0, A1& a1) const
       {
         const In0& a  = boost::proto::child_c<0>(a0);
-        const Out0& r  = boost::proto::child_c<0>(a1);
-        if(nt2::isscalar(a))
-        {
-          doit1(a(1), r);
-        }
-        else
-        {
-          doit2(a, r);
-        }
+        Out0& r  = boost::proto::child_c<0>(a1);
+        compute_logm(a, r);
       }
     private:
       template < class T >
-      BOOST_FORCEINLINE static void doit1(const T& a0, Out0& r)
+      BOOST_FORCEINLINE static void compute_logm(const T& a0, Out0& res)
       {
-        r =  nt2::log(static_cast<value_type>(a0));
-      }
-      template < class T >
-      BOOST_FORCEINLINE static void doit2(const T& a0, Out0& res)
-      {
+        if(nt2::isscalar(a0)) res = nt2::log(a0);
         //u, t and r are complex arrays
         res.resize(extent(a0));
         ctab_t u, t;

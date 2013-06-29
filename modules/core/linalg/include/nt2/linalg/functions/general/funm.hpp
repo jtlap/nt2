@@ -9,14 +9,9 @@
 #ifndef NT2_LINALG_FUNCTIONS_GENERAL_FUNM_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_GENERAL_FUNM_HPP_INCLUDED
 #include <nt2/linalg/functions/funm.hpp>
-
 #include <nt2/core/container/table/table.hpp>
-
 #include <nt2/sdk/complex/meta/is_complex.hpp>
-
-
 #include <nt2/include/constants/zero.hpp>
-
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/complexify.hpp>
 #include <nt2/include/functions/conj.hpp>
@@ -64,8 +59,7 @@ namespace nt2
       typedef typename boost::proto::result_of::child_c<A1&,0>::type         Out0;
       typedef typename boost::proto::result_of::child_c<A0&,0>::type          In0;
       typedef typename boost::proto::result_of::child_c<A0&,1>::type          In1;
-      typedef typename A0::value_type                                    elt_type;
-      typedef typename nt2::meta::as_floating<elt_type>::type          value_type;
+      typedef typename A0::value_type                                  value_type;
       typedef typename meta::as_real<value_type>::type                     r_type;
       typedef typename meta::as_complex<r_type>::type                   cplx_type;
       typedef typename meta::as_integer<r_type>::type                      i_type;
@@ -80,26 +74,14 @@ namespace nt2
         typedef typename boost::dispatch::meta::semantic_of<tmp1_type >::type   t_type;
         t_type f; // it will be useful to be able to construct f outside to allow parameters in constructor...
         const In1& a  = boost::proto::child_c<1>(a0);
-        const Out0& r  = boost::proto::child_c<0>(a1);
-        if(nt2::isscalar(a))
-        {
-          nt2::table<value_type> aa = a;
-          doit1(f, aa, r);
-        }
-        else
-        {
-          doit2(f, a, r);
-        }
+        Out0& r  = boost::proto::child_c<0>(a1);
+        compute_funm(f, a, r);
       }
     private:
       template <class F, class T >
-        BOOST_FORCEINLINE static void doit1(const F& f, const T& a0, Out0& r)
+      BOOST_FORCEINLINE static void compute_funm(const F& f, const T& a0, Out0& res)
       {
-        r =  f(a0, 0);
-      }
-      template <class F, class T >
-        BOOST_FORCEINLINE static void doit2(const F& f, const T& a0, Out0& res)
-      {
+        if (nt2::isscalar(a0)) res = f(a0, 0);
          r_type tol = nt2::Eps<r_type>();
          uint32_t maxterms = 250;
          //u, t and r are complex arrays

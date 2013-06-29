@@ -74,39 +74,39 @@ struct fcosh
 
 };
 
-// NT2_TEST_CASE_TPL(funm1, NT2_REAL_TYPES)
-// {
-//   typedef T r_t;
-//   typedef std::complex<T> cT;
-//   using nt2::funm;
-//   using nt2::tag::funm_;
-//   nt2::table<T> n =  nt2::from_diag(T(2)*nt2::_((1),T(3)));
-//   nt2::table<T> funmn = nt2::funm(fexp(), n);
-//   nt2::table<T> expmn = nt2::expm(n);
-//   NT2_TEST_ULP_EQUAL(expmn, funmn, 8);
-// }
+NT2_TEST_CASE_TPL(funm1, NT2_REAL_TYPES)
+{
+  typedef T r_t;
+  typedef std::complex<T> cT;
+  using nt2::funm;
+  using nt2::tag::funm_;
+  nt2::table<T> n =  nt2::from_diag(T(2)*nt2::_((1),T(3)));
+  nt2::table<T> funmn = nt2::funm(fexp(), n);
+  nt2::table<T> expmn = nt2::expm(n);
+  NT2_TEST_ULP_EQUAL(expmn, funmn, 8);
+}
 
-// NT2_TEST_CASE_TPL(funm2, NT2_REAL_TYPES)
-// {
-//   typedef T r_t;
-//   using nt2::expm;
-//   using nt2::tag::expm_;
+NT2_TEST_CASE_TPL(funm2, NT2_REAL_TYPES)
+{
+  typedef T r_t;
+  using nt2::expm;
+  using nt2::tag::expm_;
 
-//   nt2::table<T> n =  nt2::trans(nt2::cons<T>(nt2::of_size(3, 3),
-//                                              6.931471805599453e-01,     1.732867951399863e-01,      5.672862738622911e-01,
-//                                              0,     1.386294361119891e+00,                       -2.027325540540822e-01,
-//                                              0,                         0,                        1.791759469228055e+00
-//                                             ));
-//   nt2::table<T> r =  nt2::trans(nt2::cons<T>(nt2::of_size(3, 3),
-//                                              2,0.5, 2,
-//                                              0,4, -1,
-//                                              0, 0, 6
-//                                             ));
-//   nt2::table<T> expmn = nt2::expm(n);
-//   nt2::table<T> funmn  = nt2::funm(fexp(), n);
-//   NT2_TEST_ULP_EQUAL(expmn, r, 8);
-//   NT2_TEST_ULP_EQUAL(funmn, r, 8);
-//  }
+  nt2::table<T> n =  nt2::trans(nt2::cons<T>(nt2::of_size(3, 3),
+                                             6.931471805599453e-01,     1.732867951399863e-01,      5.672862738622911e-01,
+                                             0,     1.386294361119891e+00,                       -2.027325540540822e-01,
+                                             0,                         0,                        1.791759469228055e+00
+                                            ));
+  nt2::table<T> r =  nt2::trans(nt2::cons<T>(nt2::of_size(3, 3),
+                                             2,0.5, 2,
+                                             0,4, -1,
+                                             0, 0, 6
+                                            ));
+  nt2::table<T> expmn = nt2::expm(n);
+  nt2::table<T> funmn  = nt2::funm(fexp(), n);
+  NT2_TEST_ULP_EQUAL(expmn, r, 8);
+  NT2_TEST_ULP_EQUAL(funmn, r, 8);
+ }
 
 
 NT2_TEST_CASE_TPL(funm3, NT2_REAL_TYPES)
