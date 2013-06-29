@@ -43,10 +43,16 @@ BOOST_PP_FOR( (from, to, m, data)                                               
 #define BOOST_SIMD_PP_REPEAT_POWER_OF_2_FROM(from, m, data) BOOST_SIMD_PP_REPEAT_POWER_OF_2_FROM_TO(from, 32, m, data)
 #define BOOST_SIMD_PP_REPEAT_POWER_OF_2(m, data) BOOST_SIMD_PP_REPEAT_POWER_OF_2_FROM(1, m, data)
 
-/* Big variant, goes up to 256 */
+/* Big variant, goes up to 128 or 256 */
+#ifdef __CUDACC__
+#define BOOST_SIMD_PP_REPEAT_POWER_OF_2_BIG(m, data)                                               \
+BOOST_SIMD_PP_REPEAT_POWER_OF_2_FROM_TO(1, 128, m, data)                                           \
+/**/
+#else
 #define BOOST_SIMD_PP_REPEAT_POWER_OF_2_BIG(m, data)                                               \
 BOOST_SIMD_PP_REPEAT_POWER_OF_2_FROM_TO(1, 128, m, data)                                           \
 m(7, 256, data)                                                                                    \
 /**/
+#endif
 
 #endif

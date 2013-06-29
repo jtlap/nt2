@@ -24,15 +24,19 @@
 
   @param ALIGN Power of two alignment boundary to apply
 **/
-#define BOOST_SIMD_ALIGN_ON(ALIGN)
+#define BOOST_SIMD_ALIGN_ON(Align)
 #else
-#if defined(BOOST_MSVC)
-#define BOOST_SIMD_ALIGN_ON(ALIGN)  __declspec(align(ALIGN))
+
+#if defined(__CUDACC__)
+  #define BOOST_SIMD_ALIGN_ON(Align) __align__(Align)
+#elif defined(_MSC_VER)
+  #define BOOST_SIMD_ALIGN_ON(Align)  __declspec(align(Align))
 #elif (defined(__GNUC__)) || (defined(__xlC__))
-#define BOOST_SIMD_ALIGN_ON(ALIGN)  __attribute__(( __aligned__((ALIGN)) ))
+  #define BOOST_SIMD_ALIGN_ON(Align)  __attribute__(( __aligned__((Align)) ))
 #elif !(defined(__WAVE__))
-#error BOOST_SIMD_ALIGN_ON - No Supported alignment attribute
+  #error BOOST_SIMD_ALIGN_ON - No Supported alignment attribute
 #endif
+
 #endif
 
 #endif
