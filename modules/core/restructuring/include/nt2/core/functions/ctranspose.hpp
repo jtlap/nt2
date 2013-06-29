@@ -15,6 +15,7 @@
  */
 
 #include <nt2/include/functor.hpp>
+#include <nt2/core/container/dsl/size.hpp>
 
 namespace nt2
 {
@@ -28,16 +29,30 @@ namespace nt2
 
   //============================================================================
   /*!
-   * conjugate and transpose a matrix. On real matrice this is just transpose
+   * transpose a matrix and conjugate
    *
    * \param xpr 2D table (must verify is_matrix(a))
    */
   //============================================================================
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ctranspose_, ctranspose, 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ctranspose_, ctrans, 1)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ctranspose_, ct    , 1)
 }
 
+namespace nt2 { namespace ext
+{
+  template<class Domain, int N, class Expr>
+  struct size_of<tag::ctranspose_,Domain,N,Expr>
+  {
+    typedef _2D result_type;
 
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      //BOOST_ASSERT(ndims(boost::proto::child_c<0>(e)) <= 2);
+      return _2D( boost::fusion::at_c<1>(boost::proto::child_c<0>(e).extent())
+                , boost::fusion::at_c<0>(boost::proto::child_c<0>(e).extent())
+                );
+    }
+  };
+} }
 
 #endif

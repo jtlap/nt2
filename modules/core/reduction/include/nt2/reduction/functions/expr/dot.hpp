@@ -24,17 +24,9 @@ namespace nt2 { namespace ext
                             , ((ast_<A0, nt2::container::domain>))((ast_<A1, nt2::container::domain>))
                             )
   {
-    typedef typename meta::call < tag::conj_(A1 const&)>::type    conj_t;
-    typedef typename meta::call < tag::multiplies_( A0 const&
-                                                  , conj_t const&
-                                                  )
-                                >::type                           mul_t;
-    typedef typename meta::call < tag::sum_(mul_t const&)>::type  result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
-    {
-      return nt2::sum(nt2::multiplies(a0, conj(a1)));
-    }
+    BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1),
+      nt2::sum(nt2::multiplies(a0, conj(a1)))
+    )
   };
 
   /// INTERNAL ONLY
@@ -42,23 +34,11 @@ namespace nt2 { namespace ext
                               (A0)(A1)(A2),
                               ((ast_<A0, nt2::container::domain>))((ast_<A1, nt2::container::domain>))
                               (scalar_<integer_<A2> > )
-                              )
+                            )
   {
-    typedef typename meta::call < tag::conj_(A1 const&)>::type    conj_t;
-    typedef typename meta::call < tag::multiplies_( A0 const&
-                                                  , conj_t const&
-                                                  )
-                                >::type                           mul_t;
-    typedef typename meta::call < tag::sum_ ( mul_t const&
-                                            , A2
-                                            )
-                                >::type                           result_type;
-
-    BOOST_FORCEINLINE
-    result_type operator()(A0 const& a0, const A1& a1, const A2& a2) const
-    {
-      return nt2::sum(nt2::multiplies(a0, conj(a1)), a2);
-    }
+    BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1),
+      nt2::sum(nt2::multiplies(a0, conj(a1)), a2)
+    )
   };
 } }
 
