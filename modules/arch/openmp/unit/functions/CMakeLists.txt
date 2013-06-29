@@ -24,6 +24,7 @@ SET( SOURCES
 #  rows.cpp
   transform.cpp
   sum.cpp
+  homot.cpp
 # List of test files for toolbox core.settings
    )
 

@@ -11,18 +11,23 @@ SET( SOURCES
   cov.cpp
   cross.cpp
   expm.cpp
+  funm.cpp
   inv.cpp
+  minuseye.cpp
   mpower.cpp
   mtimes.cpp
   null.cpp
   orth.cpp
   pinv.cpp
+  pluseye.cpp
   poly.cpp
   rot90.cpp
   rref.cpp
   rref_result.cpp
   sqrtm.cpp
   logm.cpp
-   )
+  eyeminus.cpp
+  eyeplus.cpp
+  )
 
 nt2_module_add_tests(core.linalg.general.unit ${SOURCES})

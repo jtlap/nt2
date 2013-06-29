@@ -41,6 +41,7 @@ freqspace.cpp
 gold.cpp
 half.cpp
 halfeps.cpp
+homot.cpp
 hundred.cpp
 indices.cpp
 infs.cpp
