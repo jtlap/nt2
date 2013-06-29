@@ -51,7 +51,7 @@
  *
  * \par Notes
  * \par
- * This is a swar operation. As such it has not real interest outside
+ * This is a swar operation. As such it has no real interest outside
  * SIMD mode.
  * \par
  * Such an operation is a transform of an SIMD vector, that will return

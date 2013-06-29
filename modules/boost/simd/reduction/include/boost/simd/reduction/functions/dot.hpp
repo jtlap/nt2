@@ -46,7 +46,7 @@
  *
  * \par Notes
  * \par
- * This is a reduction operation. As such it has not real interest outside
+ * This is a reduction operation. As such it has no real interest outside
  * SIMD mode.
  * \par
  * Such an operation always has a scalar result which translate a property
