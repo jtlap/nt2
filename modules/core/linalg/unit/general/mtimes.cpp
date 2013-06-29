@@ -174,6 +174,24 @@ NT2_TEST_CASE( mtimes_vector_vector )
       NT2_TEST_EQUAL( r(i+1, j+1), r1[j*7+i] );
 }
 
+NT2_TEST_CASE( mtimes_empty )
+{
+  typedef double T;
+
+  nt2::table<T, nt2::_2D > a0(nt2::of_size(5, 0));
+
+  nt2::table<T, nt2::_2D > a1(nt2::of_size(0, 7));
+  NT2_TEST_EQUAL( nt2::mtimes(a0, a1), nt2::zeros<T>(5, 7) );
+
+  nt2::table<T, nt2::_2D > a2(nt2::of_size(0, 5));
+  nt2::table<T, nt2::_2D > a3(nt2::of_size(5, 7));
+  NT2_TEST_EQUAL( nt2::numel(nt2::mtimes(a2, a3)), std::size_t(0) );
+
+  nt2::table<T, nt2::_2D > a4(nt2::of_size(3, 5));
+  nt2::table<T, nt2::_2D > a5(nt2::of_size(5, 0));
+  NT2_TEST_EQUAL( nt2::numel(nt2::mtimes(a4, a5)), std::size_t(0) );
+}
+
 NT2_TEST_CASE( mtimes_aliasing )
 {
   typedef double T;
