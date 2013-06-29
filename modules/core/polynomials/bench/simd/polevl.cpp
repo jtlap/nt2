@@ -27,7 +27,7 @@ template<typename T> NT2_EXPERIMENT(polevl_bench)
   virtual void run() const
   {
     for(int i=0;i<size;i+=T::static_size)
-      boost::simd::aligned_storent2::polevl(boost::simd::aligned_load<T>(&in[i]), coeff),&out[i]);
+      boost::simd::aligned_store(nt2::polevl(boost::simd::aligned_load<T>(&in[i]), coeff),&out[i]);
   }
 
   virtual double compute(nt2::benchmark_result_t const& r) const
@@ -46,7 +46,7 @@ template<typename T> NT2_EXPERIMENT(polevl_bench)
 
   private:
   int       size;
-  mutable   std::vector<base_t,boost::simd::memory::allocator<base_t> > in,out;
+  mutable   std::vector<base_t,boost::simd::allocator<base_t> > in,out;
   boost::array<base_t,3>        coeff;
 };
 

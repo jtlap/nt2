@@ -46,7 +46,7 @@ template<typename T> NT2_EXPERIMENT(tchebeval_bench)
 
   private:
   int       size;
-  mutable   std::vector<base_t,boost::simd::memory::allocator<base_t> > in,out;
+  mutable   std::vector<base_t,boost::simd::allocator<base_t> > in,out;
   boost::array<base_t,3>        coeff;
 };
 

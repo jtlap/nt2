@@ -18,8 +18,11 @@
 #include <boost/dispatch/attributes.hpp>
 
 #include <stdlib.h>
-#include <malloc.h>
 #include <new>
+
+#if !defined(__APPLE__)
+#include <malloc.h>
+#endif
 
 namespace boost { namespace simd
 {

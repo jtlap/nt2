@@ -4,7 +4,7 @@
 
 int main()
 {
-  boost::simd::memory::aligned_array<float,16> x;
+  boost::simd::aligned_array<float,16> x;
   BOOST_ASSERT( boost::simd::is_aligned(&x[0],16) );
 
   for(std::size_t i=0;i<x.size();++i)
