@@ -9,7 +9,7 @@
 #ifndef NT2_LINALG_FUNCTIONS_GENERAL_EYEMINUS_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_GENERAL_EYEMINUS_HPP_INCLUDED
 
-#include <nt2/include/functions/eyeminus.hpp>
+#include <nt2/linalg/functions/eyeminus.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/include/functions/oneminus.hpp>
 #include <nt2/include/functions/eye.hpp>
@@ -34,8 +34,7 @@ namespace nt2 { namespace ext
                               ((ast_<A0, nt2::container::domain>))(scalar_<arithmetic_<A1> > )
                             )
   {
-    typedef typename meta::strip<A0>::type stA0;
-    typedef typename stA0::value_type value_type;
+    typedef typename A0::value_type value_type;
     BOOST_DISPATCH_RETURNS(2
                           , (A0 const& a, A1 const& l)
                           , (nt2::eye(extent(a), nt2::meta::as_<value_type>())-value_type(l)*a)
@@ -47,8 +46,7 @@ namespace nt2 { namespace ext
                               ((ast_<A0, nt2::container::domain>))
                             )
   {
-    typedef typename meta::strip<A0>::type stA0;
-    typedef typename stA0::value_type value_type;
+    typedef A0::value_type value_type;
     BOOST_DISPATCH_RETURNS(1
                           , (A0 const& a)
                           , (nt2::eye(extent(a), nt2::meta::as_<value_type>())-a)
