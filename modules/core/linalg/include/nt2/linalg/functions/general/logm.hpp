@@ -66,8 +66,7 @@ namespace nt2
       typedef void                                                    result_type;
       typedef typename boost::proto::result_of::child_c<A1&,0>::type         Out0;
       typedef typename boost::proto::result_of::child_c<A0&,0>::type          In0;
-      typedef typename A0::value_type                                    elt_type;
-      typedef typename nt2::meta::as_floating<elt_type>::type          value_type;
+      typedef typename A0::value_type                                  value_type;
       typedef typename meta::as_real<value_type>::type                     r_type;
       typedef typename meta::as_complex<r_type>::type                   cplx_type;
       typedef typename meta::as_integer<r_type>::type                      i_type;
@@ -114,14 +113,12 @@ namespace nt2
         }
         else
         {
-          ctab_t r = zeros(extent(a0), meta::as_<cplx_type>()); //is it necessary ?
+          ctab_t r = zeros(extent(a0), meta::as_<cplx_type>());
           r_type delta = 0.1;
           itab_t  ord(nt2::of_size(2u, nt2::size(a0,1)));
           blocking(diag_of(t),delta, ord);
           uint32_t lord = nt2::size(ord, 2);
           itab_t terms(nt2::of_size(lord, 1));
-          ctab_t ca0 = a0;
-
           for(uint32_t col=1; col <= lord ; ++col)
           {
             BOOST_AUTO_TPL(j, nt2::_(ord(1, col), ord(2, col)));
@@ -138,9 +135,9 @@ namespace nt2
               {
                 size_t ii = i(1), jj = j(1);
                 BOOST_AUTO_TPL(k, nt2::_(ii+1, jj-1));
-                cplx_type temp = ca0(ii,jj)*(r(ii,ii) - r(jj,jj));
-                if (!isempty(k)) temp += mtimes(r(ii,k), ca0(k,jj)) - mtimes(ca0(ii,k), r(k,jj));
-                r(ii,jj) = temp/(ca0(ii,ii)-ca0(jj,jj));
+                cplx_type temp = a0(ii,jj)*(r(ii,ii) - r(jj,jj));
+                if (!isempty(k)) temp += mtimes(r(ii,k), a0(k,jj)) - mtimes(a0(ii,k), r(k,jj));
+                r(ii,jj) = temp/(a0(ii,ii)-a0(jj,jj));
               }
               else
               {
@@ -150,9 +147,9 @@ namespace nt2
                   itab_t k1 = horzcat(k, nt2::_(ord(1, l), ord(2, l)));
                   k = k1;
                 }
-                ctab_t rhs =  mtimes(r(i,i), ca0(i,j)) - mtimes(ca0(i,j), r(j,j));
-                if(!isempty(k)) rhs += mtimes(r(i,k), ca0(k,j)) -  mtimes(ca0(i,k), r(k,j));
-                r(i,j) = sylv_tri(ca0(i,i),-ca0(j,j),rhs);
+                ctab_t rhs =  mtimes(r(i,i), a0(i,j)) - mtimes(a0(i,j), r(j,j));
+                if(!isempty(k)) rhs += mtimes(r(i,k), a0(k,j)) -  mtimes(a0(i,k), r(k,j));
+                r(i,j) = sylv_tri(a0(i,i),-a0(j,j),rhs);
               }
             }
             ctab_t z =  mtimes(mtimes(u, r), ctrans(u));
