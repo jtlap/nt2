@@ -59,7 +59,7 @@ NT2_TEST_CASE_TPL( square, NT2_TYPES )
   using boost::mpl::_;
   using nt2::meta::value_type_;
 
-  nt2::table<T> ref = nt2::zeros( nt2::of_size(3,3) );
+  nt2::table<T> ref = nt2::zeros( nt2::of_size(3,3) , nt2::meta::as_<T>());
   for(std::size_t i=1;i<= length(ref);++i) ref(i, i) = T(42);
 
   nt2::table<T> x0 = nt2::homot(T(42),3);
@@ -74,7 +74,7 @@ NT2_TEST_CASE_TPL( nd, NT2_TYPES )
   using boost::mpl::_;
   using nt2::meta::value_type_;
 
-  nt2::table<T> ref = nt2::zeros( nt2::of_size(8,8) );
+  nt2::table<T> ref = nt2::zeros( nt2::of_size(8,8), nt2::meta::as_<T>() );
   for(std::size_t i=1;i<= length(ref);++i) ref(i, i) = T(42);
 
   nt2::table<T> x1 = nt2::homot(T(42),nt2::of_size(8, 8));
@@ -91,7 +91,7 @@ NT2_TEST_CASE_TPL( typed_expr, NT2_TYPES )
   using boost::mpl::_;
   using nt2::meta::value_type_;
 
-  nt2::table<T> ref = nt2::zeros( nt2::of_size(8,8) );
+  nt2::table<T> ref = nt2::zeros( nt2::of_size(8,8), nt2::meta::as_<T>() );
   for(std::size_t i=1;i<= length(ref);++i) ref(i, i) = T(42);
 
   nt2::table<int> t1(nt2::of_size(1) );
@@ -105,7 +105,7 @@ NT2_TEST_CASE_TPL( typed_expr, NT2_TYPES )
   t2(1) = 4;
   t2(2) = 3;
 
-  ref.resize = nt2::zeros( nt2::of_size(4,3) );
+  ref = nt2::zeros( nt2::of_size(4,3), nt2::meta::as_<T>() );
   for(std::size_t i=1;i<= 3;++i) ref(i, i) = T(42);
 
   nt2::table<T> x2 = nt2::homot( T(42), t2 );
