@@ -21,6 +21,7 @@
 #include <nt2/include/functions/diag_of.hpp>
 #include <nt2/include/functions/from_diag.hpp>
 #include <nt2/include/functions/isdiagonal.hpp>
+#include <nt2/include/functions/is_real.hpp>
 #include <nt2/include/functions/schur.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/complexify.hpp>
@@ -44,6 +45,8 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/sdk/complex/meta/is_complex.hpp>
 #include <boost/mpl/bool.hpp>
+#include <boost/assert.hpp>
+
 namespace nt2{ namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mpower_, tag::cpu_
@@ -59,52 +62,38 @@ namespace nt2{ namespace ext
     typedef typename A0::value_type                                  value_type;
     typedef typename meta::as_real<value_type>::type                     r_type;
     typedef std::complex<r_type>                                      cplx_type;
+    typedef typename meta::is_complex<value_type>::type                 is_cplx;
     BOOST_FORCEINLINE result_type operator()(const A0& a0, A1& a1 ) const
     {
       const In0& a  = boost::proto::child_c<0>(a0);
       const In1& b  = boost::proto::child_c<1>(a0);
-      const Out0& r  = boost::proto::child_c<0>(a1);
+      Out0& r  = boost::proto::child_c<0>(a1);
       bool s0 =  nt2::isscalar(a);
       bool s1 =  nt2::isscalar(b);
       if (s0 && s1)
       {
-        NT2_DISPLAY(a);
-        NT2_DISPLAY(b);
         value_type aa = a,  bb = b;
-        doit0(aa, bb, r);
-
+        r =  nt2::pow(a, b);
       }
       else if(s0)
       {
         value_type aa = a;
-        doit1(aa, b, r);
+        r.resize(extent(b));
+        r =  nt2::expm(nt2::log(aa)*b);
       }
       else if(s1)
       {
         value_type tmp = b;
-        if(Zero<r_type>() == imag(tmp))
-        {
-          doit2(a, real(tmp), r);
-        }
-        else
-           doit3(a, tmp, r);
-
+        compute_power(a, tmp, r, is_cplx());
       }
+      else
+        BOOST_ASSERT_MSG(false, "using mpower at least one of the parameters has to be scalar or scalar expression");
     }
   private:
-    BOOST_FORCEINLINE static void doit0(const value_type& a, const value_type& b, Out0& r)
-    {
-      r =  nt2::pow(a, b);
-    }
     template < class T >
-    BOOST_FORCEINLINE static void doit1(const value_type& a, const T& b, Out0& r)
+      BOOST_FORCEINLINE static void compute_power(const T& a, r_type b, Out0& r, const boost::mpl::false_&)
     {
-      r.resize(extent(b));
-      r =  nt2::expm(nt2::log(a)*b);
-    }
-    template < class T >
-    BOOST_FORCEINLINE static void doit2(const T& a, r_type b, Out0& r)
-    {
+
       r.resize(extent(a));
       typedef typename A0::index_type        index_type;
       typedef table<value_type, index_type> result_type;
@@ -114,7 +103,7 @@ namespace nt2{ namespace ext
       r_type m = nt2::trunc(b);
       r_type f = b-m;
       ct_type q, t;
-      nt2::tie(q, t) = schur(nt2::complexify(a),'N'); // t is complex schur form.        result_type e, v;
+      nt2::tie(q, t) = schur(nt2::complexify(a),'N'); // t is complex schur form.
       if (isdiagonal(t))
       {
         t = nt2::from_diag(nt2::pow(diag_of(t), m));
@@ -165,9 +154,14 @@ namespace nt2{ namespace ext
       }
     }
     template < class T >
-    BOOST_FORCEINLINE static void doit3(const T& a, value_type b, Out0& r)
+    BOOST_FORCEINLINE static void compute_power(const T& a, value_type b, Out0& r, const boost::mpl::true_& )
     {
-      r = nt2::expm(b*nt2::logm(a));
+      if(is_real(b))
+        {
+          compute_power(a, real(b), r, boost::mpl::false_());
+        }
+        else
+          r = nt2::expm(b*nt2::logm(a));
     }
 
     template < class T1, class T2>
