@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
                               ((ast_<A0, nt2::container::domain>))
                             )
   {
-    typedef A0::value_type value_type;
+    typedef typename A0::value_type value_type;
     BOOST_DISPATCH_RETURNS(1
                           , (A0 const& a)
                           , (nt2::eye(extent(a), nt2::meta::as_<value_type>())-a)
