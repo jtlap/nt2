@@ -27,7 +27,7 @@ template<typename T> NT2_EXPERIMENT(tchebeval_bench)
   virtual void run() const
   {
     for(int i=0;i<size;i+=T::static_size)
-      boost::simd::aligned_storent2::tchebeval(boost::simd::aligned_load<T>(&in[i]), coeff),&out[i]);
+      boost::simd::aligned_store(nt2::tchebeval(boost::simd::aligned_load<T>(&in[i]), coeff),&out[i]);
   }
 
   virtual double compute(nt2::benchmark_result_t const& r) const
