@@ -10,15 +10,22 @@
 #ifndef BOOST_SIMD_MEMORY_FUNCTIONS_DETAILS_CHECK_PTR_HPP_INCLUDED
 #define BOOST_SIMD_MEMORY_FUNCTIONS_DETAILS_CHECK_PTR_HPP_INCLUDED
 
+#include <boost/simd/preprocessor/parameters.hpp>
 #include <boost/simd/memory/is_aligned.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/assert.hpp>
+#include <algorithm>
 
 #define BOOST_SIMD_DETAILS_CHECK_PTR(Pointer, Alignment)                       \
-BOOST_ASSERT_MSG( boost::simd::is_aligned(Pointer,Alignment)                   \
+BOOST_ASSERT_MSG( boost::simd::is_aligned                                      \
+                        ( Pointer                                              \
+                        , std::min( std::size_t(Alignment)                     \
+                                  , std::size_t(BOOST_SIMD_CONFIG_ALIGNMENT)   \
+                                  )                                            \
+                        )                                                      \
                 , "Unaligned memory location. You tried to access a "          \
                   "memory location which is not aligned properly with "        \
-                  "respect to current architecture SIMD alignment boundaries." \
+                  "respect to current alignment boundaries."                   \
                 )                                                              \
 /**/
 

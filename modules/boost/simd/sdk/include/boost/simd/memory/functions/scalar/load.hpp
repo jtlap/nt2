@@ -11,12 +11,14 @@
 #define BOOST_SIMD_MEMORY_FUNCTIONS_SCALAR_LOAD_HPP_INCLUDED
 
 #include <boost/simd/memory/functions/load.hpp>
-#include <boost/simd/memory/functions/scalar/aligned_load.hpp>
 #include <boost/simd/sdk/functor/preprocessor/dispatch.hpp>
+#include <boost/simd/memory/iterator_category.hpp>
+#include <boost/simd/memory/functions/details/load.hpp>
+#include <boost/simd/sdk/meta/iterate.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  /// INTERNAL ONLY - Scalar load and load are equivalent
+  /// INTERNAL ONLY
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)
@@ -25,13 +27,13 @@ namespace boost { namespace simd { namespace ext
                                       (target_< unspecified_<A2> >)
                                     )
   {
-    BOOST_DISPATCH_RETURNS( 3
-                          , (A0 a0, A1 a1, A2 const& a2)
-                          , boost::simd::aligned_load<typename A2::type>(a0,a1)
-                          );
+    typedef typename A2::type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 a0, A1 a1, A2 const&) const { return *(a0+a1); }
   };
 
-  /// INTERNAL ONLY - Scalar load and load are equivalent
+  /// INTERNAL ONLY
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
                                     , tag::cpu_
                                     , (A0)(A2)
@@ -39,13 +41,13 @@ namespace boost { namespace simd { namespace ext
                                       (target_< unspecified_<A2> >)
                                     )
   {
-    BOOST_DISPATCH_RETURNS( 2
-                          , (A0 a0, A2 const& a2)
-                          , boost::simd::aligned_load<typename A2::type>(a0)
-                          );
+    typedef typename A2::type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 a0, A2 const&) const { return *a0; }
   };
 
-  /// INTERNAL ONLY - Scalar load and load are equivalent
+  /// INTERNAL ONLY
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)
@@ -54,13 +56,22 @@ namespace boost { namespace simd { namespace ext
                                       ((target_< fusion_sequence_<A2> >))
                                     )
   {
-    BOOST_DISPATCH_RETURNS( 3
-                          , (A0 const& a0, A1 const& a1, A2 const& a2)
-                          , boost::simd::aligned_load<typename A2::type>(a0,a1)
-                          );
+    typedef typename A2::type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 const& a0, A1 const& a1, A2 const&) const
+    {
+      result_type that;
+      meta::iterate < fusion::result_of::size<A0>::type::value>
+                    ( details::loader < boost::simd::
+                                        tag::load_(A0, A1, result_type)
+                                      >(a0, a1, that)
+                    );
+      return that;
+    }
   };
 
-  /// INTERNAL ONLY - Scalar load and load are equivalent
+  /// INTERNAL ONLY
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
                                     , tag::cpu_
                                     , (A0)(A2)
@@ -68,10 +79,19 @@ namespace boost { namespace simd { namespace ext
                                       ((target_< fusion_sequence_<A2> >))
                                     )
   {
-    BOOST_DISPATCH_RETURNS( 2
-                          , (A0 const& a0, A2 const& a2)
-                          , boost::simd::aligned_load<typename A2::type>(a0)
-                          );
+    typedef typename A2::type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 const& a0, A2 const&) const
+    {
+      result_type that;
+      meta::iterate < fusion::result_of::size<A0>::type::value>
+                    ( details::loader < boost::simd::
+                                        tag::load_(A0, result_type)
+                                      >(a0, that)
+                    );
+      return that;
+    }
   };
 
   /// INTERNAL ONLY - Load through pointer of fusion sequence

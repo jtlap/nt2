@@ -41,8 +41,8 @@ NT2_TEST_CASE_TPL( store_offset,  BOOST_SIMD_SIMD_TYPES)
 
 NT2_TEST_CASE( store_sequence_pointer )
 {
-  aligned_store_runner< foo, foo >();
-  aligned_store_runner< foo, foo >(true);
+  aligned_store_runner< bar, bar >();
+  aligned_store_runner< bar, bar >(true);
 }
 
 NT2_TEST_CASE( store_sequence )

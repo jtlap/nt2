@@ -11,6 +11,7 @@
 
 #include <boost/pointee.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 
 namespace boost { namespace simd { namespace meta
 {
@@ -18,15 +19,18 @@ namespace boost { namespace simd { namespace meta
     @brief Check for pointer/pointee compatibility
 
     This metafunction checks if a @c Pointer is actually pointing to a
-    value of type @c Pointer.
+    value of type @c Pointer, any const qualifier beign discarded.
 
     @tparam Pointer Pointer type to check
     @tparam Pointee Value type to check
   **/
   template<typename Pointer, typename Pointee>
   struct  is_pointing_to
-        : boost::is_same< typename boost::pointee<Pointer>::type
-                        , Pointee
+        : boost::is_same< typename  dispatch::meta::
+                                    strip < typename  boost::
+                                                      pointee<Pointer>::type
+                                          >::type
+                        , typename  dispatch::meta::strip<Pointee>::type
                         >
   {};
 } } }

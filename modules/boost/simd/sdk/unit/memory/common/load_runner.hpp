@@ -11,6 +11,7 @@
 
 #include <boost/simd/include/functions/aligned_load.hpp>
 #include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/memory/allocator.hpp>
 
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
@@ -19,6 +20,7 @@
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/preprocessor/stack_buffer.hpp>
 
+#include <vector>
 #include "fill.hpp"
 
 template<typename Type, typename Target>
@@ -28,6 +30,7 @@ inline void aligned_load_runner(bool offset = false)
   using boost::simd::tag::aligned_load_;
   using boost::simd::meta::cardinal_of;
   using boost::dispatch::meta::as_;
+  using boost::simd::allocator;
 
   if(!offset)
     NT2_TEST_TYPE_IS( (typename boost::dispatch::meta
@@ -45,8 +48,8 @@ inline void aligned_load_runner(bool offset = false)
   static const std::size_t cd = cardinal_of<Target>::value;
   static const std::size_t sz = cd*3;
 
-  BOOST_SIMD_ALIGNED_STACK_BUFFER( data, Type   , sz );
-  BOOST_SIMD_ALIGNED_STACK_BUFFER( ref , Target , sz );
+  std::vector<Type  , allocator<Type,sizeof(Target)> > data( sz );
+  std::vector<Target, allocator<Type,sizeof(Target)> > ref( sz );
 
   for(std::size_t i=0;i<sz;++i)
   {
