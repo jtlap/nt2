@@ -16,9 +16,11 @@
 #include <nt2/include/functions/complexify.hpp>
 #include <nt2/include/functions/conj.hpp>
 #include <nt2/include/functions/cons.hpp>
+#include <nt2/include/functions/ctranspose.hpp>
 #include <nt2/include/functions/colon.hpp>
 #include <nt2/include/functions/diag_of.hpp>
 #include <nt2/include/functions/divides.hpp>
+#include <nt2/include/functions/dot.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/find.hpp>
 #include <nt2/include/functions/from_diag.hpp>
@@ -57,6 +59,18 @@ namespace nt2
 {
   namespace ext
   {
+    NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::logm_, tag::cpu_
+                              , (A0)
+                              , (scalar_< floating_<A0> >)
+                              )
+    {
+      typedef A0 result_type;
+      NT2_FUNCTOR_CALL(1)
+      {
+        return nt2::log(a0);
+      }
+    };
+
     NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::logm_, tag::cpu_
                               , (A0)(N0)(A1)(N1)
                               , ((node_<A0, nt2::tag::logm_, N0, nt2::container::domain>))
@@ -125,7 +139,7 @@ namespace nt2
                 size_t ii = i(1), jj = j(1);
                 BOOST_AUTO_TPL(k, nt2::_(ii+1, jj-1));
                 cplx_type temp = a0(ii,jj)*(r(ii,ii) - r(jj,jj));
-                if (!isempty(k)) temp += mtimes(r(ii,k), a0(k,jj)) - mtimes(a0(ii,k), r(k,jj));
+                if (!isempty(k)) temp += dot(a0(k,jj), nt2::ctrans(r(ii,k)))- dot(a0(ii,k), nt2::ctrans(r(k,jj)));
                 r(ii,jj) = temp/(a0(ii,ii)-a0(jj,jj));
               }
               else
@@ -235,7 +249,11 @@ namespace nt2
           rj(1,2) =  a0(1,2) * (loga2 - loga1) / (a2 - a1);
         else // Close eigenvalues.
         {
-          value_type dd = Two<value_type>()*nt2::atanh((a2-a1)/(a2+a1))+ unwind(loga2-loga1, meta::is_complex<value_type>());
+          //dd = (2*atanh((a2-a1)/(a2+a1)))
+          //  dd=(dd+ 2*pi*1i*unwinding(loga2-loga1)) / (a2-a1)
+          value_type dd = Two<value_type>()*nt2::atanh((a2-a1)/(a2+a1));
+          dd +=   unwind(loga2-loga1, meta::is_complex<value_type>());
+          dd /= (a2-a1);
           rj(1,2) = a0(1,2)*dd;
         }
       }

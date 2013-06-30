@@ -25,6 +25,10 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
 
+NT2_TEST_CASE_TPL(logm0, NT2_REAL_TYPES)//distinct eigenvalues
+{
+  NT2_TEST_EQUAL(nt2::log(T(3)), nt2::logm(T(3)));
+ }
 
 NT2_TEST_CASE_TPL(logm1, NT2_REAL_TYPES)//distinct eigenvalues
 {
@@ -114,7 +118,7 @@ NT2_TEST_CASE_TPL(logm4, (float))//NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(r, logmn, 8);
 }
 
-NT2_TEST_CASE_TPL(logm5, (float))//NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL(logm5, NT2_REAL_TYPES)
 {
   typedef T r_t;
   typedef std::complex<T> cT;
@@ -142,4 +146,36 @@ NT2_TEST_CASE_TPL(logm5, (float))//NT2_REAL_TYPES)
                                               ));
   NT2_TEST_ULP_EQUAL(r2, logmn2, 0.5);
 
+}
+NT2_TEST_CASE_TPL(logm6, NT2_REAL_TYPES)
+{
+  typedef T r_t;
+  typedef std::complex<T> cT;
+  using nt2::logm;
+  using nt2::tag::logm_;
+  nt2::table<cT>  n =  nt2::I<cT>()*nt2::from_diag(T(2)*nt2::_((1),T(3)));
+  n(2, 3)+= cT(1);
+  nt2::table<cT> logmn = nt2::logm(n);
+  nt2::table<cT> r =   nt2::trans(nt2::cons<cT>(nt2::of_size(3, 3),
+                                                cT(0.69314718055994528623,1.570796326794896558), cT(0,0), cT(0,0),
+                                                cT(0,0), cT(1.3862943611198905725,1.570796326794896558), cT(0,-0.20273255405408219243),
+                                                cT(0,0), cT(0,0), cT(1.7917594692280549573,1.570796326794896558)
+                                               ));
+  NT2_TEST_ULP_EQUAL(r, logmn, 0.5);
+ }
+NT2_TEST_CASE_TPL(logm7, NT2_REAL_TYPES)
+{
+  typedef T r_t;
+  typedef std::complex<T> cT;
+  using nt2::logm;
+  using nt2::tag::logm_;
+  nt2::table<cT>  n =  nt2::trans(nt2::cons<cT>(nt2::of_size(2, 2),
+                                                cT(0, 1), cT(1, 1),
+                                                cT(0, 0), cT(0, -1)))*T(1.0e-16);
+  nt2::table<cT> logmn = nt2::logm(n);
+  nt2::table<cT> r =   nt2::trans(nt2::cons<cT>(nt2::of_size(2, 2),
+                                                cT(-3.684136148790473e+01,  1.570796326794897e+00),        cT(4.712388980384690e+00,  4.712388980384690e+00),
+                                                cT(0.000000000000000e+00,  0.000000000000000e+00),         cT(-3.684136148790473e+01, -1.570796326794897e+00)
+                                               ));
+  NT2_TEST_ULP_EQUAL(r, logmn, 1);
  }
