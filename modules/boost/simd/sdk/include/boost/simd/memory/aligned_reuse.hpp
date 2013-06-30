@@ -17,6 +17,8 @@
 #include <boost/config.hpp>
 #include <new>
 
+#include <stdlib.h>
+
 #if !defined(__APPLE__)
 #include <malloc.h>
 #endif
