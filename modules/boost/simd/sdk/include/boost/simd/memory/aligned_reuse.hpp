@@ -15,8 +15,11 @@
 #include <boost/simd/memory/details/aligned_stash.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/config.hpp>
-#include <malloc.h>
 #include <new>
+
+#if !defined(__APPLE__)
+#include <malloc.h>
+#endif
 
 // ICC warns about combination of inline and noinline,
 #if defined(BOOST_INTEL)

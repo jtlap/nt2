@@ -18,7 +18,10 @@
 
 #include <boost/range/iterator_range_core.hpp>
 #include <boost/assert.hpp>
+
+#if !defined(__APPLE__)
 #include <malloc.h>
+#endif
 
 /// INTERNAL ONLY
 #define BOOST_SIMD_STACK_BUFFER_AUX_MAKE_RANGE( variableName, type, size )     \
