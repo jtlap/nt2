@@ -30,7 +30,7 @@ namespace nt2 { namespace tag
   }
   /**
    * @brief funm(f, a) evaluates the functor fun at the square
-   * matrix expression a. fun(x,k) must return the k'th derivative of the function
+   * matrix expression a. f(x,k) must return the k'th derivative of the function
    * represented by f evaluated at the vector x.
    *
    * @return a matrix containing funm(f, a)
@@ -63,4 +63,3 @@ namespace nt2 { namespace ext
   {};
 } }
 #endif
-
