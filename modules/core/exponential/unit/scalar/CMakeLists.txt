@@ -8,27 +8,28 @@
 ##############################################################################
 
 SET( SOURCES
-  logspace_sub.cpp
-  logspace_add.cpp
-  sqrt1pm1.cpp
+  cbrt.cpp
+  exp.cpp
+  expm1.cpp
   expx2.cpp
-  pow.cpp
-  nthroot.cpp
-  log2.cpp
+  exp10.cpp
+  exp2.cpp
+  iexp2.cpp
+  log.cpp
   log1p.cpp
   log10.cpp
-  log.cpp
-  expm1.cpp
-  exp2.cpp
-  exp10.cpp
-  exp.cpp
-  cbrt.cpp
+  log2.cpp
+  logspace_sub.cpp
+  logspace_add.cpp
+  nthroot.cpp
+  pow.cpp
   pow_absi.cpp
   pow_abs.cpp
+  pow2.cpp
   realpow.cpp
   reallog.cpp
   realsqrt.cpp
-  pow2.cpp
+  sqrt1pm1.cpp
 # List of scalar test files for toolbox exponential
    )
 

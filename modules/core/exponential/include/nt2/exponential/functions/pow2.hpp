@@ -19,7 +19,7 @@
  *
  * \par Description
  *   base 2 power and scale floating point number.
- *   x = pow2(y) for each element of y is 2 raised to the power y.
+ *   x = pow2(y) for each element of y is 2 raised to the power itrunc(y).
  *
  *   x = pow2(f,e) x = f*(2^itrunc(e)).  the result is computed
  *   quickly by simply adding the integer part of e to the floating point exponent of f.

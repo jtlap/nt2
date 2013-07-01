@@ -22,6 +22,7 @@ SET( SOURCES
   exp2.cpp
   exp10.cpp
   exp.cpp
+  iexp2.cpp
   cbrt.cpp
   realsqrt.cpp
   reallog.cpp
