@@ -8,7 +8,6 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2 integration toolbox - primitive"
 
-#include <iostream>
 #include <nt2/integration/primitive.hpp>
 #include <nt2/include/functions/quad.hpp>
 #include <nt2/integration/output.hpp>
@@ -42,6 +41,7 @@
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 
 struct f
 {
@@ -70,7 +70,5 @@ NT2_TEST_CASE_TPL( primitive_cplx_inout2, NT2_REAL_TYPES )
 //  primitive<nt2::tag::quad_>(f(), nt2::linspace(T(0), T(5), 10));
 
    BOOST_AUTO_TPL(res, (primitive<nt2::tag::quad_>(f(), nt2::linspace(T(0), T(5)))));
-   std::cout << "Integrals:" << res.integrals << ") with error " << res.errors
-             << " after " << res.eval_count <<  " evaluations\n";
    NT2_TEST_ULP_EQUAL(res.integrals(nt2::end_), T(12.5), 2);
 }

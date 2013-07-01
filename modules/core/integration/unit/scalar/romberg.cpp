@@ -8,7 +8,6 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2 integration toolbox - romberg"
 
-#include <iostream>
 #include <nt2/include/functions/romberg.hpp>
 #include <nt2/integration/output.hpp>
 #include <nt2/integration/options.hpp>
@@ -41,6 +40,7 @@
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 
 struct f
 {
@@ -123,9 +123,6 @@ NT2_TEST_CASE_TPL( romberg_cplx_out, NT2_REAL_TYPES )
   typedef nt2::table<T> tab_t;
   tab_t x =  nt2::linspace(-nt2::Pio_2<T>(), nt2::Pio_2<T>(), 2);
   BOOST_AUTO_TPL(res, (romberg(h(), x)));
-  std::cout << "Integrals:" << res.integrals << ") with error " << res.errors
-            << " after " << res.eval_count <<  " evaluations\n";
-  NT2_DISPLAY(nt2::Rombergabstol<T>());
   NT2_TEST_LESSER_EQUAL(nt2::dist(res.integrals(1), nt2::Two<cT>()), nt2::Rombergabstol<T>());
 }
 
@@ -139,9 +136,6 @@ NT2_TEST_CASE_TPL( romberg_cplx_inout, NT2_REAL_TYPES )
   cT cx[] = { std::complex<T>(0, 0), std::complex<T>(1, 1),std::complex<T>(1, -1),std::complex<T>(0, 0)};
   tab_t x(nt2::of_size(1, 4), &cx[0], &cx[4]);
   BOOST_AUTO_TPL(res, (romberg(k(), x)));
-  std::cout << "Integrals:" << res.integrals << ") with error " << res.errors
-            << " after " << res.eval_count <<  " evaluations\n";
-  NT2_DISPLAY(nt2::Rombergabstol<T>());
   NT2_TEST_LESSER_EQUAL(nt2::dist(res.integrals(nt2::begin_), std::complex<T>(0, -nt2::Pi<T>())), nt2::Rombergabstol<T>());
 }
 
@@ -160,9 +154,6 @@ NT2_TEST_CASE_TPL( romberg_cplx_inout2, NT2_REAL_TYPES )
                                             nt2::tolerance::abstol_ = nt2::Sqrteps<T>(),
                                             nt2::range::singular_a_ = true
                                        ] )));
-  std::cout << "Integrals:" << res.integrals << ") with error " << res.errors
-            << " after " << res.eval_count <<  " evaluations\n";
-  NT2_DISPLAY(nt2::Rombergabstol<T>());
   NT2_TEST_LESSER_EQUAL(nt2::dist(res.integrals(nt2::end_), std::complex<T>(0, -nt2::Pi<T>())), nt2::Rombergabstol<T>());
 }
 
@@ -175,12 +166,7 @@ NT2_TEST_CASE_TPL( romberg_functor_, NT2_REAL_TYPES ) //ok
   typedef typename nt2::meta::as_logical<T>::type lT;
   tab_t x = nt2::_(T(0), T(5), T(5));
   tab_t x0= nt2::_(T(0), T(5), T(5));
-  NT2_DISPLAY(x);
-  //output<tab_t,T>
   BOOST_AUTO_TPL(res, (romberg(f(), T(0), T(5))));
-  std::cout << "Integrals:" << res.integrals << ") with error " << res.errors
-            << " after " << res.eval_count <<  " evaluations\n";
-
   NT2_TEST_LESSER_EQUAL(nt2::globalmax(nt2::dist(res.integrals, T(12.5))), nt2::Rombergabstol<T>());
                         }
 
@@ -193,14 +179,9 @@ NT2_TEST_CASE_TPL( romberg_functor__, NT2_REAL_TYPES )
   typedef typename nt2::meta::as_logical<T>::type lT;
   tab_t x = nt2::_(T(0), T(5), T(5));
   tab_t x0= nt2::_(T(0), T(5), T(5));
-  NT2_DISPLAY(x);
-  //output<tab_t,T>
   BOOST_AUTO_TPL(res, (romberg(f(), T(0), T(5), options [ nt2::tolerance::abstol_ = T(1.0e-5),
                                                               nt2::range::waypoints_ =x,
                                                               nt2::range::return_waypoints_ = true]))); //nt2::_(T(0), T(5), T(5)) ]));
-  std::cout << "Integrals:" << res.integrals << ") with error " << res.errors
-            << " after " << res.eval_count <<  " evaluations\n";
-
   NT2_TEST_LESSER_EQUAL(nt2::globalmax(nt2::dist(res.integrals, nt2::sqr(x)*nt2::Half<T>())), nt2::Rombergabstol<T>());
 }
 
@@ -212,14 +193,9 @@ NT2_TEST_CASE_TPL( romberg_functorc, NT2_REAL_TYPES )
   typedef nt2::table<T> tab_t;
   typedef typename nt2::meta::as_logical<T>::type lT;
   tab_t x = nt2::_(T(0), T(1), T(5));
-  NT2_DISPLAY(x);
-  //output<tab_t,T>
   BOOST_AUTO_TPL(res, (romberg(f(), T(0), T(5), options [ nt2::tolerance::abstol_ = T(1.0e-5),
                                                               nt2::range::return_waypoints_ = true,
                                                               nt2::range::waypoints_ = nt2::_(T(0), T(1), T(5)) ])));
-  std::cout << "Integrals:" << res.integrals << ") with error " << res.errors
-            << " after " << res.eval_count <<  " evaluations\n";
-
   NT2_TEST_LESSER_EQUAL(nt2::globalmax(nt2::dist(res.integrals, nt2::sqr(x)*nt2::Half<T>())), nt2::Rombergabstol<T>());
 }
 
@@ -231,13 +207,8 @@ NT2_TEST_CASE_TPL( romberg_functorb, NT2_REAL_TYPES )
   typedef nt2::table<T> tab_t;
   typedef typename nt2::meta::as_logical<T>::type lT;
   tab_t x = nt2::_(T(0), T(5), T(5));
-  NT2_DISPLAY(x);
-  //output<tab_t,T>
   BOOST_AUTO_TPL(res, (romberg(f(), x, options [ nt2::tolerance::abstol_ = T(1.0e-5),
                                                      nt2::range::return_waypoints_ = true])));
-  std::cout << "Integrals:" << res.integrals << ") with error " << res.errors
-            << " after " << res.eval_count <<  " evaluations\n";
-
   NT2_TEST_LESSER_EQUAL(nt2::globalmax(nt2::dist(res.integrals, nt2::sqr(x)*nt2::Half<T>())), nt2::Rombergabstol<T>());
 }
 
@@ -253,9 +224,6 @@ NT2_TEST_CASE_TPL( romberg_functor0, NT2_REAL_TYPES )
                                     nt2::limits::nbextrap_ = 5,
                                     nt2::range::singular_a_ = true,
                                     nt2::range::singular_b_ = true]));
-  std::cout << "Integrals:" << res.integrals << ") with error " << res.errors
-            << " after " << res.eval_count <<  " evaluations\n";
-
   NT2_TEST_LESSER_EQUAL(nt2::dist(res.integrals(nt2::end_), -nt2::log(T(2))), nt2::Rombergabstol<T>());
 }
 
@@ -268,15 +236,7 @@ NT2_TEST_CASE_TPL( romberg_tag, NT2_REAL_TYPES )
   typedef nt2::table<T> tab_t;
   typedef typename nt2::meta::as_logical<T>::type lT;
   tab_t x = nt2::_(T(0), T(5));
-  NT2_DISPLAY(x);
-  //output<tab_t,T>
   BOOST_AUTO_TPL(res, (romberg(nt2::functor<nt2::tag::exp_>(), x)));
-  std::cout << "Integrals: " << res.integrals << " with " << res.errors
-            << " after " << res.eval_count <<  " evaluations\n";
-  NT2_DISPLAY(x);
-  NT2_DISPLAY(res.integrals);
-  NT2_DISPLAY(nt2::expm1(x));
-
   NT2_TEST_LESSER_EQUAL(nt2::globalmax(nt2::dist(res.integrals, nt2::expm1(T(5)))), nt2::Rombergabstol<T>());
 }
 
@@ -288,14 +248,7 @@ NT2_TEST_CASE_TPL( romberg_tag_r, NT2_REAL_TYPES )
   typedef nt2::table<T> tab_t;
   typedef typename nt2::meta::as_logical<T>::type lT;
   tab_t x = nt2::_(T(5), T(-1), T(4));
-  NT2_DISPLAY(x);
-  //output<tab_t,T>
   BOOST_AUTO_TPL(res, (romberg(nt2::functor<nt2::tag::exp_>(), T(5), T(4))));
-  std::cout << "Integrals: " << res.integrals << " with " << res.errors
-            << " after " << res.eval_count <<  " evaluations\n";
-  NT2_DISPLAY(x);
-  NT2_DISPLAY(res.integrals);
-  NT2_DISPLAY( nt2::exp(x)-nt2::exp(T(5)));
   NT2_TEST_LESSER_EQUAL(nt2::globalmax(nt2::dist(res.integrals, nt2::exp(x(nt2::end_))-nt2::exp(T(5)))), nt2::Rombergabstol<T>());
 }
 
@@ -307,14 +260,7 @@ NT2_TEST_CASE_TPL( romberg_tag_reverse, NT2_REAL_TYPES )
   typedef nt2::table<T> tab_t;
   typedef typename nt2::meta::as_logical<T>::type lT;
   tab_t x = nt2::_(T(5), T(-1), T(0));
-  NT2_DISPLAY(x);
-  //output<tab_t,T>
   BOOST_AUTO_TPL(res, (romberg(nt2::functor<nt2::tag::exp_>(), x)));
-  std::cout << "Integrals: " << res.integrals << " with " << res.errors
-            << " after " << res.eval_count <<  " evaluations\n";
-  NT2_DISPLAY(x);
-  NT2_DISPLAY(res.integrals);
-  NT2_DISPLAY( nt2::exp(x)-nt2::exp(T(5)));
   NT2_TEST_LESSER_EQUAL(nt2::globalmax(nt2::dist(res.integrals, nt2::exp(x(nt2::end_))-nt2::exp(T(5)))), nt2::Rombergabstol<T>());
 }
 

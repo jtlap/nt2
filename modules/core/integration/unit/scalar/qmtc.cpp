@@ -8,7 +8,6 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2 integration toolbox - qmtc"
 
-#include <iostream>
 #include <nt2/include/functions/qmtc.hpp>
 #include <nt2/integration/output.hpp>
 #include <nt2/integration/options.hpp>
@@ -44,6 +43,7 @@
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 
 struct f
 {
@@ -74,8 +74,6 @@ NT2_TEST_CASE_TPL( qmtc_real_out, NT2_REAL_TYPES )
   typedef nt2::table<T> tab_t;
   tab_t x =  nt2::cons(nt2::of_size(2, 2), T(0), T(0), T(1), T(1));
   BOOST_AUTO_TPL(res, (qmtc(f(), x, options [ nt2::limits::maxfunccnt_ = 100000 ])));
-  std::cout << "Integrals:" << res.integrals << ") with error " << res.errors
-            << " after " << res.eval_count <<  " evaluations\n";
   NT2_TEST_LESSER_EQUAL(nt2::dist(res.integrals(1), nt2::Pi<T>()/4), res.errors);
 }
 
@@ -108,10 +106,7 @@ NT2_TEST_CASE_TPL( qmtc_cplx_out, NT2_REAL_TYPES )
   typedef typename nt2::meta::as_complex<T>::type cT;
   typedef nt2::table<T> tab_t;
   tab_t x =  nt2::cons(nt2::of_size(2, 2), T(0), T(0), T(1), T(1));
-  NT2_DISPLAY(x);
   BOOST_AUTO_TPL(res, (qmtc(g(), x, options [ nt2::limits::maxfunccnt_ = 100000 ])));
-  std::cout << "Integrals:" << res.integrals << ") with error " << res.errors
-            << " after " << res.eval_count <<  " evaluations\n";
   NT2_TEST_LESSER_EQUAL(nt2::dist(res.integrals(1), cT(0.5, 0.5)), res.errors);
 }
 
@@ -124,9 +119,6 @@ NT2_TEST_CASE_TPL( qmtc_flt_out2, NT2_REAL_TYPES )
   typedef typename nt2::meta::as_complex<T>::type cT;
   typedef nt2::table<T> tab_t;
   tab_t x =  nt2::cons(nt2::of_size(2, 2, 2), T(0), T(0), T(1), T(1), T(-1), T(-1), T(0), T(0));
-  NT2_DISPLAY(x);
   BOOST_AUTO_TPL(res, (qmtc(f(), x, options [ nt2::limits::maxfunccnt_ = 100000 ])));
-  std::cout << "Integrals:" << res.integrals << ") with error " << res.errors
-            << " after " << res.eval_count <<  " evaluations\n";
   NT2_TEST_LESSER_EQUAL(nt2::dist(res.integrals(1), nt2::Pi<T>()/2), res.errors);
 }
