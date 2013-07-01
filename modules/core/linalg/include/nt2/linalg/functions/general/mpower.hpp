@@ -47,11 +47,11 @@
 #include <boost/mpl/bool.hpp>
 #include <boost/assert.hpp>
 
-namespace nt2{ namespace ext
+namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mpower_, tag::cpu_
-                              , (A0)(N0)(A1)(N1)
-                              , ((node_<A0, nt2::tag::mpower_, N0, nt2::container::domain>))
+                            , (A0)(N0)(A1)(N1)
+                            , ((node_<A0, nt2::tag::mpower_, N0, nt2::container::domain>))
                               ((node_<A1, nt2::tag::tie_ , N1, nt2::container::domain>))
                             )
   {
@@ -87,13 +87,14 @@ namespace nt2{ namespace ext
         compute_power(a, tmp, r, is_cplx());
       }
       else
-        BOOST_ASSERT_MSG(false, "using mpower at least one of the parameters has to be scalar or scalar expression");
+      {
+        BOOST_ASSERT_MSG(false, "using mpower at least one of the parameters has to be scalar");
+      }
     }
   private:
     template < class T >
-      BOOST_FORCEINLINE static void compute_power(const T& a, r_type b, Out0& r, const boost::mpl::false_&)
+    BOOST_FORCEINLINE static void compute_power(const T& a, r_type b, Out0& r, const boost::mpl::false_&)
     {
-
       r.resize(extent(a));
       typedef typename A0::index_type        index_type;
       typedef table<value_type, index_type> result_type;
@@ -104,7 +105,7 @@ namespace nt2{ namespace ext
       r_type f = b-m;
       ct_type q, t;
       nt2::tie(q, t) = schur(nt2::complexify(a),'N'); // t is complex schur form.
-      if (isdiagonal(t))
+      if(isdiagonal(t))
       {
         t = nt2::from_diag(nt2::pow(diag_of(t), m));
         if(is_ltz_b) t = nt2::inv(t);
@@ -116,7 +117,7 @@ namespace nt2{ namespace ext
       { //use iterative method
         r = nt2::eye(nt2::size(a), meta::as_<r_type>());
         result_type rf = r;
-        if (m)
+        if(m)
         {
           result_type a00 = a;
           while (m >= nt2::One<r_type>())
@@ -138,9 +139,9 @@ namespace nt2{ namespace ext
         {
           result_type a00 = nt2::sqrtm(a);
           r_type thresh = nt2::Half<r_type>();
-          while (f > Zero<r_type>())
+          while(f > Zero<r_type>())
           {
-            if (f >= thresh)
+            if(f >= thresh)
             {
               rf = nt2::mtimes(rf, a00);
               f -= thresh;
@@ -157,20 +158,18 @@ namespace nt2{ namespace ext
     BOOST_FORCEINLINE static void compute_power(const T& a, value_type b, Out0& r, const boost::mpl::true_& )
     {
       if(is_real(b))
-        {
-          compute_power(a, real(b), r, boost::mpl::false_());
-        }
-        else
-          r = nt2::expm(b*nt2::logm(a));
+        compute_power(a, real(b), r, boost::mpl::false_());
+      else
+        r = nt2::expm(b*nt2::logm(a));
     }
 
     template < class T1, class T2>
-      BOOST_FORCEINLINE static void transtype(T1& r, T2& z, boost::mpl::true_ const &)
+    BOOST_FORCEINLINE static void transtype(T1& r, T2& z, boost::mpl::true_ const &)
     {
       r = z;
     }
     template < class T1, class T2 >
-      BOOST_FORCEINLINE static void transtype(T1& r, T2& z, boost::mpl::false_ const &)
+    BOOST_FORCEINLINE static void transtype(T1& r, T2& z, boost::mpl::false_ const &)
     {
       r =  real(z);
     }
