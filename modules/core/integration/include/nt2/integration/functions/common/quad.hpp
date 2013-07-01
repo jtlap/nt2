@@ -160,7 +160,6 @@ namespace nt2 { namespace details
       if (nt2::abs(h) < hmin_ || c == a || c == b)
       {
         // Minimum step size reached; singularity possible.
-//        std::cout << "Minimum step size reached; singularity possible." << std::endl;
         setwarn(1);
         return h*fc;
       }
