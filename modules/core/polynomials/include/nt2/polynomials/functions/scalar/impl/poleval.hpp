@@ -8,6 +8,11 @@
 //==============================================================================
 #ifndef NT2_POLYNOMIALS_FUNCTIONS_SCALAR_IMPL_POLEVAL_HPP_INCLUDED
 #define NT2_POLYNOMIALS_FUNCTIONS_SCALAR_IMPL_POLEVAL_HPP_INCLUDED
+
+#include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
+
 ///////////////////////////////////////////////////////////////////////////////
 // unrolled polynomial evaluation
 // coeff are stored in an array that can be any direct 0 based access
