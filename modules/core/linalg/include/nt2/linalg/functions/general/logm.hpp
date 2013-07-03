@@ -28,7 +28,6 @@
 #include <nt2/include/functions/isdiagonal.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/is_lez.hpp>
-#include <nt2/include/functions/isscalar.hpp>
 #include <nt2/include/functions/length.hpp>
 #include <nt2/include/functions/linsolve.hpp>
 #include <nt2/include/functions/log.hpp>
@@ -99,7 +98,6 @@ namespace nt2
       template < class T >
       BOOST_FORCEINLINE static void compute_logm(const T& a0, Out0& res)
       {
-        if(nt2::isscalar(a0)) res = nt2::log(a0);
         //u, t and r are complex arrays
         res.resize(extent(a0));
         ctab_t u, t;
