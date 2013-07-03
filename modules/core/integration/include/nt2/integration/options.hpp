@@ -192,6 +192,7 @@ namespace nt2 { namespace details
       , compute_error(x(nt2::tolerance::compute_error_, ip::compute_error() ))
 
     {}
+    #if 0
     void display_options() const
     {
       if(ip::enabled_maxfunccnt())       std::cout << "maxfunccnt "      << maxfunccnt       << std::endl;
@@ -206,6 +207,7 @@ namespace nt2 { namespace details
       if(ip::enabled_return_waypoints()) std::cout << "returnwp   "      << return_waypoints << std::endl;
       if(ip::enabled_compute_error())    std::cout << "compute_error "   << compute_error    << std::endl;
     }
+    #endif
     std::size_t      maxfunccnt;
     std::size_t      maxintvcnt;
     std::size_t         maxstep;
