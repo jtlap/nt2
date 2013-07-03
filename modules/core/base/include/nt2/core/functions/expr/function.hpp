@@ -19,15 +19,13 @@
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/colvect.hpp>
 #include <nt2/core/functions/table/details/is_vectorizable_indexer.hpp>
-#include <nt2/core/utility/box.hpp>
-#include <nt2/core/utility/share.hpp>
 #include <nt2/core/container/colon/category.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
-#include <nt2/sdk/memory/container.hpp>
-#include <nt2/sdk/memory/container_shared_ref.hpp>
 #include <nt2/sdk/meta/add_settings.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
+#include <nt2/sdk/meta/is_scalar.hpp>
 #include <boost/simd/sdk/meta/is_logical.hpp>
+#include <boost/dispatch/meta/semantic_of.hpp>
 #include <boost/utility/enable_if.hpp>
 
 #include <nt2/sdk/parameters.hpp>
@@ -117,28 +115,52 @@ namespace nt2 { namespace ext
   template<class A0, class I>
   struct function_impl<A0, I, true>
   {
-    typedef typename meta::
-            call< tag::function_index_( I const&
-                                      , typename A0::extent_type
-                                      , meta::as_<typename A0::indexes_type>
-                                      )
-                >::type Idx;
+    // A0's semantic is a container
+    template<bool B, class Dummy = void>
+    struct impl
+    {
+      typedef typename meta::
+              call< tag::function_index_( I const&
+                                        , typename A0::extent_type
+                                        , meta::as_<typename A0::indexes_type>
+                                        )
+                  >::type Idx;
 
-    typedef nt2::settings settings(typename A0::settings_type, typename Idx::extent_type);
+      typedef nt2::settings settings(typename A0::settings_type, typename Idx::extent_type);
 
-    typedef typename container::as_view_impl<A0>::type type0;
-    typedef typename meta::add_settings<type0, typename Idx::extent_type>::type type;
+      typedef typename container::as_view_impl<A0>::type type0;
+      typedef typename meta::add_settings<type0, typename Idx::extent_type>::type type;
 
-    typedef typename type::nt2_expression nt2_expr;
-    typedef typename nt2_expr::proto_base_expr basic_expr;
-    typedef typename type::proto_child0 container_ref;
+      typedef typename type::nt2_expression nt2_expr;
+      typedef typename nt2_expr::proto_base_expr basic_expr;
+      typedef typename type::proto_child0 container_ref;
 
+      static type call(A0& a0, I const& indices)
+      {
+        Idx idx = nt2::function_index(indices, a0.extent(), meta::as_<typename A0::indexes_type>());
+        std::size_t b = nt2::run(idx, 0u, meta::as_<std::size_t>());
+
+        return nt2_expr(basic_expr::make(container_ref(boost::proto::value(a0), boost::proto::value(a0).begin()+b, idx.extent())));
+      }
+    };
+
+    // A0's semantic is a scalar, we can't use views
+    template<class Dummy>
+    struct impl<true, Dummy>
+    {
+      typedef typename boost::dispatch::meta::semantic_of<A0>::type type;
+      static type call(A0& a0, I const&)
+      {
+        return a0;
+      }
+    };
+
+    typedef impl< meta::is_scalar< typename boost::dispatch::meta::semantic_of<A0>::type >::value > impl_;
+
+    typedef typename impl_::type type;
     static type call(A0& a0, I const& indices)
     {
-      Idx idx = nt2::function_index(indices, a0.extent(), meta::as_<typename A0::indexes_type>());
-      std::size_t b = nt2::run(idx, 0u, meta::as_<std::size_t>());
-
-      return nt2_expr(basic_expr::make(container_ref(boost::proto::value(a0), boost::proto::value(a0).begin()+b, idx.extent())));
+      return impl_::call(a0, indices);
     }
   };
 
