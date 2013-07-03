@@ -46,21 +46,6 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::exp2_, tag::cpu_
                             , (A0)
-                            , (generic_< imaginary_<floating_<A0> > >)
-                            )
-  {
-    typedef typename meta::as_real<A0>::type             rtype;
-    typedef typename meta::as_complex<rtype>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      rtype  c, s;
-      sincos(nt2::imag(a0), s, c);
-      return result_type(c, s);
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::exp2_, tag::cpu_
-                            , (A0)
                             , (generic_< dry_<floating_<A0> > >)
                             )
   {
