@@ -25,7 +25,7 @@
 #include <nt2/sdk/meta/as_index.hpp>
 #include <nt2/sdk/meta/is_scalar.hpp>
 #include <boost/simd/sdk/meta/is_logical.hpp>
-#include <boost/dispatch/meta/semantic_of.hpp>
+#include <boost/dispatch/dsl/semantic_of.hpp>
 #include <boost/utility/enable_if.hpp>
 
 #include <nt2/sdk/parameters.hpp>
