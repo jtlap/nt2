@@ -35,12 +35,14 @@ extern "C" { long double cephes_cbrtl(long double);}
 #include <nt2/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
+#include <nt2/include/functions/aligned_load.hpp>
 
 NT2_TEST_CASE_TPL ( cbrt_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::cbrt;
   using nt2::tag::cbrt_;
   using boost::simd::native;
+  using boost::simd::aligned_load;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename nt2::meta::upgrade<T>::type   u_t;
