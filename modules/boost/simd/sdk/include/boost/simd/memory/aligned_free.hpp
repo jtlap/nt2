@@ -31,8 +31,7 @@ namespace boost { namespace simd
 
     if(ptr)  ::_aligned_free( ptr );
 
-#elif   defined( __APPLE__ )                                                   \
-    ||  defined( BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN )                    \
+#elif   defined( BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN )                    \
     || (defined( _GNU_SOURCE ) && !defined( __ANDROID__ ))
 
     if(ptr)  std::free( ptr );

@@ -46,11 +46,6 @@ namespace boost { namespace simd
 
     return ::_aligned_malloc(size, alignment);
 
-#elif defined( __APPLE__ )
-
-    boost::dispatch::ignore_unused(alignment);
-    return std::malloc( size );
-
 #elif defined( BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN )
 
     void* result(0);
