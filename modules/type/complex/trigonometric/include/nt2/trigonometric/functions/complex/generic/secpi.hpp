@@ -15,7 +15,6 @@
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
-#include <nt2/sdk/complex/meta/as_imaginary.hpp>
 
 //secpi(x+iy)=rec(cospi(x+iy)).
 namespace nt2 { namespace ext
@@ -29,18 +28,6 @@ namespace nt2 { namespace ext
     {
       return nt2::rec(nt2::cospi(a0));
     }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::secpi_, tag::cpu_, (A0)
-                              , (generic_< imaginary_< arithmetic_<A0> > >)
-                              )
-  {
-    typedef typename meta::as_real<A0>::type rtype;
-    typedef typename meta::as_dry<rtype>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-      {
-        return nt2::rec(nt2::cospi(a0));
-      }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::secpi_, tag::cpu_, (A0)

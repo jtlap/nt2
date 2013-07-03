@@ -44,7 +44,6 @@ NT2_TEST_CASE_TPL ( secd_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2:: meta::as_complex<T>::type wished_r_t;
-  typedef typename nt2:: meta::as_imaginary<T>::type ciT;
   typedef typename nt2:: meta::as_dry<T>::type dT;
 
 
@@ -79,7 +78,6 @@ NT2_TEST_CASE_TPL ( secd_real__1_0,  NT2_REAL_TYPES)
       NT2_TEST_ULP_EQUAL(nt2::secd(-inputs[i]), nt2::secd(inputs[i]), 3.5);
       NT2_TEST_ULP_EQUAL(nt2::secd(inputs[i]), nt2::rec(nt2::cosd(inputs[i])), 3);
     }
-  NT2_TEST_ULP_EQUAL(nt2::secd(nt2::Inf<ciT>()), nt2::Zero<dT>(), 2);
   NT2_TEST_ULP_EQUAL(nt2::secd(dT(nt2::Inf<T>())),   dT(nt2::Nan<T>()), 2);
 } // end of test for floating_
 

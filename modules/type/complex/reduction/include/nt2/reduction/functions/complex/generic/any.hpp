@@ -33,19 +33,6 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::any_, tag::cpu_, (A0)
-                            , (generic_< imaginary_< arithmetic_<A0> > >)
-                            )
-  {
-    typedef typename meta::as_real<A0>::type rtype;
-    typedef typename meta::scalar_of<rtype>::type stype;
-    typedef typename meta::as_logical<stype>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::any(is_nez(a0));
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::any_, tag::cpu_, (A0)
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {
