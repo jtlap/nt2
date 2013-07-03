@@ -12,6 +12,7 @@
 
 #include <nt2/core/functions/transform.hpp>
 #include <nt2/include/functions/numel.hpp>
+#include <nt2/sdk/config/cache.hpp>
 #include <nt2/sdk/openmp/openmp.hpp>
 #include <cstddef>
 #include <cstdio>
@@ -64,44 +65,40 @@ namespace nt2 { namespace ext
       boost::exception_ptr exception;
 #endif
 
-      #pragma omp parallel
+      std::size_t top_cache_line_size = config::top_cache_size()/sizeof(typename A0::value_type);
+      std::size_t nblocks  = sz / top_cache_line_size;
+      std::size_t leftover = sz % top_cache_line_size;
+
+      #pragma omp parallel firstprivate(top_cache_line_size, nblocks, leftover)
       {
         // Local transform
         nt2::functor<tag::transform_,Site> transformer;
 
-        // Current number of threads
-        std::ptrdiff_t threads(omp_get_num_threads());
-
-        // How many inner block to process & dispatch w/r to "thinness"
-        std::size_t    local_size     = sz / threads;
-        std::ptrdiff_t local_leftover = sz % threads;
-
         // Dispatch group of blocks over each threads
-        #pragma omp for schedule(static)
-        for(std::ptrdiff_t p=0;p<threads;++p)
+        #pragma omp for schedule(dynamic) nowait
+        for(std::ptrdiff_t n=0;n<nblocks;++n)
         {
 #ifndef BOOST_NO_EXCEPTIONS
           try
           {
 #endif
-            // Move forward starts of each block
-            std::ptrdiff_t offset = local_size*p + std::min(local_leftover,p);
-
-            // Adjust number of elements to process w/r to leftovers
-            local_size += local_leftover ? ((local_leftover > p) ? 1 : 0) : 0;
-
             // Call transform over the sub-architecture in the memory hierachy
-            transformer(a0,a1,it+offset,local_size);
+            transformer(a0,a1,n*top_cache_line_size,top_cache_line_size);
+
 #ifndef BOOST_NO_EXCEPTIONS
           }
           catch(...)
           {
+            #pragma omp critical
             exception = boost::current_exception();
           }
 #endif
         }
+        #pragma omp single nowait
+        {
+         if(leftover) transformer(a0,a1,nblocks*top_cache_line_size,leftover);
+        }
       }
-
 #ifndef BOOST_NO_EXCEPTIONS
       if(exception) boost::rethrow_exception(exception);
 #endif
