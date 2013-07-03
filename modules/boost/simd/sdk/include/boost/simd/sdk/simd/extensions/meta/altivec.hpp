@@ -21,6 +21,7 @@
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/is_fundamental.hpp>
 #include <boost/type_traits/is_signed.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <climits>
 
@@ -47,7 +48,7 @@ namespace boost { namespace simd { namespace meta
   // For a given type and extension, return the associated SIMD register type
   //////////////////////////////////////////////////////////////////////////////
   template<class T>
-  struct as_simd<T, tag::altivec_, typename enable_if< is_fundamental<T> >::type>
+  struct as_simd<T, tag::altivec_, typename enable_if_c< is_fundamental<T>::value && !is_same<T, bool>::value >::type>
   {
     template< class Type
             , std::size_t Sz = sizeof(Type)*CHAR_BIT
