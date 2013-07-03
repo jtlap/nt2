@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE  result_type
     operator()(A0 const& a0) const
     {
-      return a0 >= 0 ? a0 : Zero<result_type>();
+      return a0 >= 0 ? result_type(a0) : Zero<result_type>();
     }
   };
 
