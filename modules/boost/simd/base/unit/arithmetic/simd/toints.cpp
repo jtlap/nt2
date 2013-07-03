@@ -39,7 +39,7 @@ NT2_TEST_CASE_TPL ( toints_real,  BOOST_SIMD_SIMD_REAL_TYPES)
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION                                ext_t;
   typedef native<T,ext_t>                                                vT;
-  typedef typename boost::dispatch::meta::as_integer<vT>::type   wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<vT, signed>::type   wished_r_t;
   typedef typename boost::dispatch::meta::call<toints_(vT)>::type       r_t;
   typedef typename boost::dispatch::meta::call<toints_(T)>::type       sr_t;
 
@@ -105,7 +105,7 @@ NT2_TEST_CASE_TPL ( toints_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION                                ext_t;
   typedef native<T,ext_t>                                                vT;
-  typedef typename boost::dispatch::meta::as_integer<vT>::type   wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<vT, signed>::type   wished_r_t;
   typedef typename boost::dispatch::meta::call<toints_(vT)>::type       r_t;
 
   // return type conformity test
@@ -124,7 +124,7 @@ NT2_TEST_CASE_TPL ( toints_signed,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION                                ext_t;
   typedef native<T,ext_t>                                                vT;
-  typedef typename boost::dispatch::meta::as_integer<vT>::type   wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<vT, signed>::type   wished_r_t;
   typedef typename boost::dispatch::meta::call<toints_(vT)>::type       r_t;
 
   // return type conformity test

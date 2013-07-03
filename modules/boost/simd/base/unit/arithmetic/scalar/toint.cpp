@@ -29,7 +29,7 @@ NT2_TEST_CASE_TPL ( toint_real,  BOOST_SIMD_REAL_TYPES)
   using boost::simd::toint;
   using boost::simd::tag::toint_;
   typedef typename boost::dispatch::meta::call<toint_(T)>::type      r_t;
-  typedef typename boost::dispatch::meta::as_integer<T>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<T, signed>::type wished_r_t;
 
 
   // return type conformity test
@@ -48,7 +48,7 @@ NT2_TEST_CASE_TPL ( toint_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
   using boost::simd::toint;
   using boost::simd::tag::toint_;
   typedef typename boost::dispatch::meta::call<toint_(T)>::type      r_t;
-  typedef typename boost::dispatch::meta::as_integer<T>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<T, signed>::type wished_r_t;
 
 
   // return type conformity test
@@ -65,7 +65,7 @@ NT2_TEST_CASE_TPL ( toint_signed,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   using boost::simd::toint;
   using boost::simd::tag::toint_;
   typedef typename boost::dispatch::meta::call<toint_(T)>::type      r_t;
-  typedef typename boost::dispatch::meta::as_integer<T>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<T, signed>::type wished_r_t;
 
   // return type conformity test
   NT2_TEST_TYPE_IS(r_t, wished_r_t);

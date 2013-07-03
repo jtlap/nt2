@@ -52,7 +52,6 @@ namespace boost { namespace simd { namespace ext
       return if_else(a0 < sign_f, bitwise_cast<result_type>(toint(a0)), bitwise_cast<result_type>(toint(a0 - sign_f)) + sign_i);
     }
   };
-
 } } }
 
 #endif

@@ -16,12 +16,28 @@
 #include <boost/simd/include/functions/toint.hpp>
 #include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/if_zero_else.hpp>
+#include <boost/simd/include/functions/is_greater_equal.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::toints_, tag::cpu_
                             , (A0)(X)
-                            , ((simd_<integer_<A0>,X>))
+                            , ((simd_<uint_<A0>,X>))
+                            )
+  {
+    typedef typename dispatch::meta::as_integer<A0, signed> ::type result_type;
+    typedef typename meta::scalar_of<result_type>::type                 s_type;
+    result_type operator()(A0 const& a0) const
+    {
+      return if_else (ge(a0, splat<A0>(Valmax<s_type>())), Valmax<result_type>(), bitwise_cast<result_type>(a0));
+    }
+  };
+
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::toints_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<int_<A0>,X>))
                             )
   {
     typedef A0 result_type;
@@ -37,7 +53,6 @@ namespace boost { namespace simd { namespace ext
       return a0;
     }
   };
-
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::toints_, tag::cpu_,
                                      (A0)(X)

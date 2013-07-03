@@ -32,7 +32,7 @@ NT2_TEST_CASE_TPL ( toints_real,  BOOST_SIMD_REAL_TYPES)
   using nt2::toints;
   using nt2::tag::toints_;
   typedef typename boost::dispatch::meta::call<toints_(T)>::type              r_t;
-  typedef typename boost::dispatch::meta::as_integer<T>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<T, signed>::type wished_r_t;
 
   NT2_TEST_TYPE_IS( r_t, wished_r_t );
   // specific values tests
@@ -50,7 +50,7 @@ NT2_TEST_CASE_TPL ( toints_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
   using nt2::toints;
   using nt2::tag::toints_;
   typedef typename boost::dispatch::meta::call<toints_(T)>::type               r_t;
-  typedef typename boost::dispatch::meta::as_integer<T>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<T, signed>::type wished_r_t;
 
   NT2_TEST_TYPE_IS( r_t, wished_r_t );
   // specific values tests
@@ -64,7 +64,7 @@ NT2_TEST_CASE_TPL ( toints_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   using nt2::toints;
   using nt2::tag::toints_;
   typedef typename boost::dispatch::meta::call<toints_(T)>::type               r_t;
-  typedef typename boost::dispatch::meta::as_integer<T>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<T, signed>::type wished_r_t;
 
   NT2_TEST_TYPE_IS( r_t, wished_r_t );
 //  NT2_TEST_EQUAL(toints(nt2::Mone<T>()), nt2::Valmax<r_t>());

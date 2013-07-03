@@ -19,7 +19,7 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::toints_, tag::cpu_ , (A0)
-                            , (scalar_< integer_<A0> >)
+                            , (scalar_< int_<A0> >)
                             )
   {
     typedef A0 result_type;
@@ -32,6 +32,18 @@ namespace boost { namespace simd { namespace ext
     #endif
     operator()(A0 const& a0) const
     {
+      return a0;
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::toints_, tag::cpu_ , (A0)
+                            , (scalar_< uint_<A0> >)
+                            )
+  {
+    typedef typename dispatch::meta::as_integer<A0, signed> ::type result_type;
+    result_type operator()(A0 const& a0) const
+    {
+      if (a0 >= A0(Valmax<result_type>()))   return Valmax<result_type>();
       return a0;
     }
   };
