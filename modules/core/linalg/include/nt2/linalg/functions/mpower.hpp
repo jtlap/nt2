@@ -10,17 +10,6 @@
 #define NT2_LINALG_FUNCTIONS_MPOWER_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/core/container/dsl/size.hpp>
-#include <nt2/core/container/dsl/value_type.hpp>
-#include <nt2/sdk/meta/value_as.hpp>
-#include <nt2/core/utility/max_extent.hpp>
-#include <nt2/sdk/meta/tieable_hierarchy.hpp>
-#include <nt2/sdk/complex/meta/is_complex.hpp>
-#include <nt2/include/functions/isscalar.hpp>
-#include <nt2/include/functions/issquare.hpp>
-#include <nt2/include/functions/extent.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/assert.hpp>
 
 namespace nt2
 {
@@ -30,9 +19,9 @@ namespace nt2
      * \brief Define the tag mpower_ of functor mpower
      *        in namespace nt2::tag for toolbox algebra
      **/
-    struct mpower_ :  ext::tieable_<mpower_>
+    struct mpower_ :  ext::unspecified_<mpower_>
     {
-      typedef ext::tieable_<mpower_>  parent;
+      typedef ext::unspecified_<mpower_>  parent;
     };
   }
   /**
@@ -49,39 +38,6 @@ namespace nt2
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mpower_, mpower, 2)
 
 }
-
-namespace nt2 { namespace ext
-{
-  template<class Domain, int N, class Expr>
-  struct  size_of<tag::mpower_,Domain,N,Expr>
-  {
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::value_type  c0_t;
-    typedef typename boost::proto::result_of::child_c<Expr&,1>::value_type  c1_t;
-    typedef typename c0_t::extent_type                                     ex0_t;
-    typedef typename c1_t::extent_type                                     ex1_t;
-    typedef typename utility::result_of::max_extent<ex0_t, ex1_t>::type         result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      BOOST_ASSERT_MSG((isscalar( boost::proto::child_c<0>(e))&&issquare(boost::proto::child_c<1>(e)))||
-                       (isscalar( boost::proto::child_c<1>(e))&&issquare(boost::proto::child_c<0>(e))),
-                       "mpower needs a square matrix expression and a scalar or a scalar and a square matrix expression");
-
-      return nt2::utility::max_extent(nt2::extent(boost::proto::child_c<0>(e)),  nt2::extent(boost::proto::child_c<1>(e)));
-    }
-  };
-
-  template<class Domain, int N, class Expr>
-  struct  value_type<tag::mpower_,Domain,N,Expr>
-        : meta::value_as<Expr,0>
-  {
-    typedef typename  boost::proto::result_of::child_c<Expr&,0>::value_type::value_type v0_t;
-    typedef typename  boost::proto::result_of::child_c<Expr&,1>::value_type::value_type v1_t;
-    typedef typename  meta::is_complex<v0_t>::type                                  iscplx_0;
-    typedef typename  meta::is_complex<v1_t>::type                                  iscplx_1;
-    typedef typename  boost::mpl::if_<iscplx_0, v0_t, v1_t>::type                       t0_t;
-    typedef typename  boost::mpl::if_<iscplx_1, v1_t, t0_t>::type                       type;
-  };
-} }
 
 #endif
 
