@@ -133,7 +133,7 @@ NT2_TEST_CASE( mtimes_matrix_vector )
   for(std::size_t i=0; i!=5; ++i)
     NT2_TEST_EQUAL( r(i+1), r0[i] );
 
-  nt2::table<T, nt2::of_size_<5, 7> > r2d = nt2::zeros<T>(5, 7);
+  nt2::table<T, nt2::of_size_<5, 7> > r2d = nt2::zeros(5, 7, nt2::meta::as_<T>());
   r2d(_, 1) = nt2::mtimes(a0, a1);
   for(std::size_t i=0; i!=5; ++i)
     NT2_TEST_EQUAL( r2d(i+1), r0[i] );
@@ -181,7 +181,7 @@ NT2_TEST_CASE( mtimes_empty )
   nt2::table<T, nt2::_2D > a0(nt2::of_size(5, 0));
 
   nt2::table<T, nt2::_2D > a1(nt2::of_size(0, 7));
-  NT2_TEST_EQUAL( nt2::mtimes(a0, a1), nt2::zeros<T>(5, 7) );
+  NT2_TEST_EQUAL( nt2::mtimes(a0, a1), nt2::zeros(5, 7, nt2::meta::as_<T>()) );
 
   nt2::table<T, nt2::_2D > a2(nt2::of_size(0, 5));
   nt2::table<T, nt2::_2D > a3(nt2::of_size(5, 7));
