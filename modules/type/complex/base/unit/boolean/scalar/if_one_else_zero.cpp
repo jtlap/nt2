@@ -29,7 +29,7 @@ NT2_TEST_CASE_TPL ( if_one_else_zero_real__2_0,  NT2_REAL_TYPES)
   using boost::simd::logical;
   typedef std::complex<T> cT;
   typedef typename nt2::meta::call<if_one_else_zero_(cT)>::type r_t;
-  typedef typename nt2:: meta::as_complex<T>::type wished_r_t;
+  typedef cT wished_r_t;
 
   NT2_TEST_TYPE_IS( r_t, wished_r_t);
   NT2_TEST_EQUAL(if_one_else_zero(nt2::False< nt2::logical<T> >()), cT(0));

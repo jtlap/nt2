@@ -31,12 +31,10 @@ NT2_TEST_CASE_TPL ( is_finite_real__1_0,  BOOST_SIMD_REAL_TYPES)
   using nt2::is_finite;
   using nt2::tag::is_finite_;
   typedef std::complex<T> cT;
-  typedef nt2::imaginary<T> ciT;
   typedef typename boost::dispatch::meta::call<is_finite_(cT)>::type r_t;
 
   // return type conformity test
   NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<is_finite_(cT)>::type, nt2::logical<T>);
-  NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<is_finite_(ciT)>::type, nt2::logical<T>);
 
   // specific values tests
   NT2_TEST_EQUAL(is_finite(cT(nt2::Inf<T>())),  r_t(false));
@@ -53,8 +51,6 @@ NT2_TEST_CASE_TPL ( is_finite_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(is_finite(cT(1, 0))    , r_t(true));
   NT2_TEST_EQUAL(is_finite(cT(0, 2)), r_t(true));
   NT2_TEST_EQUAL(is_finite(cT(0, 1))   , r_t(true));
-  NT2_TEST_EQUAL(is_finite(ciT(1))     , r_t(true));
-  NT2_TEST_EQUAL(is_finite(ciT(0))     , r_t(true));
   NT2_TEST_EQUAL(is_finite(cT(T(0), nt2::Inf<T>())),  r_t(false));
   NT2_TEST_EQUAL(is_finite(cT(T(0), nt2::Minf<T>())), r_t(false));
   NT2_TEST_EQUAL(is_finite(cT(T(0), nt2::Nan<T>())),  r_t(false));

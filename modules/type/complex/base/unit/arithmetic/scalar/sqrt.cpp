@@ -23,7 +23,6 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/constant/constant.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
-#include <nt2/sdk/complex/meta/as_imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/dry.hpp>
 

@@ -94,20 +94,6 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqrt_, tag::cpu_, (A0)
-                            , (generic_< imaginary_< arithmetic_<A0> > >)
-                            )
-  {
-    typedef typename meta::as_real<A0>::type rtype;
-    typedef typename meta::as_complex<rtype>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      const rtype root = nt2::sqrt(nt2::abs(nt2::imag(a0)))*Sqrt_2o_2<rtype>();
-      result_type res = result_type(root, sign(nt2::imag(a0))*root);
-      return if_else(is_eqz(a0), Zero<result_type>(), res);
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqrt_, tag::cpu_, (A0)
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {

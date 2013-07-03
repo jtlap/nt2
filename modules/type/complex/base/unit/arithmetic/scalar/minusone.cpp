@@ -15,6 +15,12 @@
 #include <nt2/arithmetic/include/functions/minusone.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/complex/complex.hpp>
+#include <nt2/sdk/complex/dry.hpp>
+#include <nt2/sdk/complex/complex.hpp>
+#include <nt2/sdk/complex/dry.hpp>
+#include <nt2/sdk/complex/meta/as_complex.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/half.hpp>

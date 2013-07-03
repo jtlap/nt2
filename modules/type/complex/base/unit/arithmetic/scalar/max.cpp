@@ -31,7 +31,6 @@ NT2_TEST_CASE_TPL ( max_real__2_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<max_(cT, cT)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef nt2::imaginary<T> ciT;
   typedef cT wished_r_t;
 
   // return type conformity test
@@ -47,7 +46,4 @@ NT2_TEST_CASE_TPL ( max_real__2_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(nt2::max(cT(nt2::Zero<T>()), cT(nt2::Zero<T>())),cT(nt2::Zero<T>()));
   NT2_TEST_EQUAL(nt2::max(cT(0, 1), cT(1, 0)), cT(0, 1));
   NT2_TEST_EQUAL(nt2::max(cT(2, 1), cT(2, 2)), cT(2, 2));
-  NT2_TEST_EQUAL(nt2::max(ciT(1), ciT(0)), ciT(1));
-  NT2_TEST_EQUAL(nt2::max(ciT(1), T(0)), cT(0, 1));
-  NT2_TEST_EQUAL(nt2::max(ciT(1), T(-1)), cT(-1));
 } // end of test for floating_

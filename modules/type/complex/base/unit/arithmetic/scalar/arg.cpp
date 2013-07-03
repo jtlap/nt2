@@ -20,6 +20,8 @@
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/complex/complex.hpp>
+#include <nt2/sdk/complex/dry.hpp>
 #include <nt2/constant/constant.hpp>
 
 NT2_TEST_CASE_TPL ( arg_real__2_0,  BOOST_SIMD_REAL_TYPES)
@@ -32,7 +34,6 @@ NT2_TEST_CASE_TPL ( arg_real__2_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<arg_(cT)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef nt2::imaginary<T> ciT;
   typedef T wished_r_t;
 
   // return type conformity test
@@ -52,5 +53,4 @@ NT2_TEST_CASE_TPL ( arg_real__2_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(arg(cT(1, 0)), nt2::Zero<T>());
   NT2_TEST_EQUAL(arg(cT(2, 2)), nt2::Pio_2<T>()/2);
   NT2_TEST_EQUAL(arg(cT(2,-2)),-nt2::Pio_2<T>()/2);
-  NT2_TEST_EQUAL(arg(ciT(1)), nt2::Pio_2<T>());
 } // end of test for floating_

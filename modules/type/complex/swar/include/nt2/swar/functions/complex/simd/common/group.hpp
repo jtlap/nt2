@@ -40,19 +40,6 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::group_, tag::cpu_,
                           (A0)(X),
                           (boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::downgrade<A0>::type> >),
-                          ((simd_<imaginary_<arithmetic_<A0> >,X>))
-                          ((simd_<imaginary_<arithmetic_<A0> >,X>))
-                        )
-  {
-    typedef typename boost::dispatch::meta::downgrade<A0>::type result_type;
-    NT2_FUNCTOR_CALL_REPEAT(2)
-    {
-      return result_type(group(nt2::imag(a0), nt2::imag(a1)));
-    }
-  };
-  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::group_, tag::cpu_,
-                          (A0)(X),
-                          (boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::downgrade<A0>::type> >),
                           ((simd_<dry_<arithmetic_<A0> >,X>))
                           ((simd_<dry_<arithmetic_<A0> >,X>))
                         )

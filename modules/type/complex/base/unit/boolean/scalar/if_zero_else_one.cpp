@@ -18,8 +18,12 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <complex>
+#include <nt2/sdk/complex/complex.hpp>
+#include <nt2/sdk/complex/dry.hpp>
+#include <nt2/sdk/complex/meta/as_complex.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
 #include <nt2/sdk/simd/logical.hpp>
+
 NT2_TEST_CASE_TPL ( if_zero_else_one_real__2_0,  NT2_REAL_TYPES)
 {
 
@@ -28,7 +32,7 @@ NT2_TEST_CASE_TPL ( if_zero_else_one_real__2_0,  NT2_REAL_TYPES)
   using nt2::logical;
   typedef std::complex<T> cT;
   typedef typename nt2::meta::call<if_zero_else_one_(cT)>::type r_t;
-  typedef typename nt2:: meta::as_complex<T>::type wished_r_t;
+  typedef cT wished_r_t;
 
   NT2_TEST_TYPE_IS( r_t, wished_r_t);
   NT2_TEST_EQUAL(if_zero_else_one(nt2::False< nt2::logical<T> >()), cT(1));

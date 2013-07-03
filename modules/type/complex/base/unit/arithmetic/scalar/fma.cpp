@@ -17,6 +17,10 @@
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <nt2/sdk/complex/complex.hpp>
+#include <nt2/sdk/complex/dry.hpp>
+#include <nt2/sdk/complex/meta/as_complex.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/include/constants/inf.hpp>
@@ -58,38 +62,30 @@ NT2_TEST_CASE_TPL ( fma_various,  BOOST_SIMD_REAL_TYPES)
   using nt2::fma;
   using nt2::tag::fma_;
   typedef std::complex<T> cT;
-  typedef typename nt2::meta::as_imaginary<T>::type iT;
 
   std::cout << "0\n";
   NT2_TEST_EQUAL(fma(T(2), T(3), T(4)), T(10));
   NT2_TEST_EQUAL(fma(cT(2), cT(3), cT(4)), cT(10));
   NT2_TEST_EQUAL(    cT(2)*cT(3)+cT(4), cT(10));
   std::cout << "1\n";
-  NT2_TEST_EQUAL(fma(cT(2), cT(3), iT(4)), cT(6, 4));
   NT2_TEST_EQUAL(fma(cT(2), cT(3), cT(0, 4)), cT(6, 4));
   NT2_TEST_EQUAL(    cT(2)*cT(3)+cT(0, 4), cT(6, 4));
   std::cout << "2\n";
-  NT2_TEST_EQUAL(fma(cT(2), iT(3), cT(4)), cT(4, 6));
   NT2_TEST_EQUAL(fma(cT(2), cT(0, 3), cT(4)), cT(4, 6));
   NT2_TEST_EQUAL((cT(2)*cT(0, 3)+cT(4)), cT(4, 6));
   std::cout << "3\n";
-  NT2_TEST_EQUAL(fma(iT(2), cT(3), cT(4)), cT(4, 6));
   NT2_TEST_EQUAL(fma(cT(0, 2), cT(3), cT(4)), cT(4, 6));
   NT2_TEST_EQUAL((cT(0, 2)* cT(3)+cT(4)), cT(4, 6));
   std::cout << "4\n";
-  NT2_TEST_EQUAL(fma(cT(2), iT(3), iT(4)), cT(0, 10));
   NT2_TEST_EQUAL(fma(cT(2), cT(0, 3), cT(0, 4)), cT(0, 10));
   NT2_TEST_EQUAL((cT(2)* cT(0, 3)+ cT(0, 4)), cT(0, 10));
   std::cout << "5\n";
-  NT2_TEST_EQUAL(fma(iT(2), iT(3), cT(4, 5)), cT(-2, 5));
   NT2_TEST_EQUAL(fma(cT(0, 2), cT(0, 3), cT(4, 5)), cT(-2, 5));
   NT2_TEST_EQUAL((cT(0, 2)* cT(0, 3)+ cT(4, 5)), cT(-2, 5));
   std::cout << "6\n";
-  NT2_TEST_EQUAL(fma(iT(2), cT(3, 5), iT(4)), cT(-10, 10));
   NT2_TEST_EQUAL(fma(cT(0, 2), cT(3, 5), cT(0, 4)), cT(-10, 10));
   NT2_TEST_EQUAL((cT(0, 2)* cT(3, 5)+ cT(0, 4)), cT(-10, 10));
   std::cout << "7\n";
-  NT2_TEST_EQUAL(fma(iT(2), iT(3),iT(4)), cT(-6, 4));
   NT2_TEST_EQUAL(fma(cT(0, 2), cT(0, 3), cT(0, 4)), cT(-6, 4));
   NT2_TEST_EQUAL((cT(0, 2)*cT(0, 3)+cT(0, 4)), cT(-6, 4));
   std::cout << "8\n";
@@ -117,27 +113,21 @@ NT2_TEST_CASE_TPL ( fma_various,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(fma(cT(2), cT(5), cT(6, 2)), cT(16, 2));
   NT2_TEST_EQUAL((cT(2)*cT(5)+cT(6, 2)), cT(16, 2));
   std::cout << "14\n";
-  NT2_TEST_EQUAL(fma(T(2), iT(5),cT(6, 2)), cT(6, 12));
   NT2_TEST_EQUAL(fma(cT(2), cT(0, 5), cT(6, 2)), cT(6, 12));
   NT2_TEST_EQUAL((cT(2)*cT(0, 5)+cT(6, 2)), cT(6, 12));
   std::cout << "15\n";
-  NT2_TEST_EQUAL(fma(T(2), cT(2, 5),iT(2)), cT(4, 12));
   NT2_TEST_EQUAL(fma(cT(2), cT(2, 5), cT(0, 2)), cT(4, 12));
   NT2_TEST_EQUAL((cT(2)*cT(2, 5)+cT(0, 2)), cT(4, 12));
   std::cout << "16\n";
-  NT2_TEST_EQUAL(fma(cT(2, 5), iT(5),T(2)), cT(-23, 10));
   NT2_TEST_EQUAL(fma(cT(2, 5), cT(0, 5), cT(2)), cT(-23, 10));
   NT2_TEST_EQUAL((cT(2, 5)*cT(0, 5)+cT(2)), cT(-23, 10));
   std::cout << "17\n";
-  NT2_TEST_EQUAL(fma(iT(5), cT(2, 5),T(2)), cT(-23, 10));
   NT2_TEST_EQUAL(fma(cT(0, 5), cT(2, 5), cT(2)), cT(-23, 10));
   NT2_TEST_EQUAL((cT(0, 5)*cT(2, 5)+cT(2)), cT(-23, 10));
   std::cout << "18\n";
-  NT2_TEST_EQUAL(fma(cT(2, 5), T(3),iT(2)), cT(6, 17));
   NT2_TEST_EQUAL(fma(cT(2, 5), cT(3, 0), cT(0, 2)), cT(6, 17));
   NT2_TEST_EQUAL((cT(2, 5)*cT(3, 0)+cT(0, 2)), cT(6, 17));
   std::cout << "19\n";
-  NT2_TEST_EQUAL(fma(iT(5), T(3),cT(6, 2)), cT(6, 17));
   NT2_TEST_EQUAL(fma(cT(0, 5), cT(3), cT(6, 2)), cT(6, 17));
   NT2_TEST_EQUAL((cT(0, 5)*cT(3, 0)+cT(6, 2)), cT(6, 17));
 
@@ -151,7 +141,6 @@ NT2_TEST_CASE_TPL ( fma_various_invalid, (float))//BOOST_SIMD_REAL_TYPES)
   using nt2::fma;
   using nt2::tag::fma_;
   typedef std::complex<T> cT;
-  typedef typename nt2::meta::as_imaginary<T>::type iT;
 
   // specific values tests
 
@@ -174,78 +163,17 @@ NT2_TEST_CASE_TPL ( fma_various_invalid, (float))//BOOST_SIMD_REAL_TYPES)
 
   NT2_TEST_EQUAL(   nt2::multiplies(nt2::Inf<cT>(), cT(3))+cT(4), nt2::Inf<cT>());
 
-  std::cout << "1 cci\n";
-  NT2_TEST_EQUAL(fma(nt2::Inf<cT>(), cT(3), iT(0)), nt2::Inf<cT>());
-  NT2_TEST_EQUAL(fma(cT(2), cT(3), cT(0, 4)), cT(6, 4));
-  NT2_TEST_EQUAL(    nt2::plus(nt2::multiplies(nt2::Inf<cT>(), cT(3)), iT(0)), nt2::Inf<cT>());
-
-  std::cout << "2 cic \n";
-  NT2_TEST_EQUAL(fma(nt2::Inf<T>(), T(0), cT(4)), nt2::Nan<cT>());
-  NT2_TEST_EQUAL(fma(nt2::Inf<cT>(), iT(0), cT(4)), nt2::Nan<cT>());
-  NT2_TEST_EQUAL(fma(nt2::Inf<cT>(), cT(0), cT(4)), nt2::Nan<cT>());
-  NT2_TEST_EQUAL(nt2::plus(nt2::multiplies(nt2::Inf<cT>(), iT(0)), cT(4)), nt2::Nan<cT>());
-  std::cout << "3 icc\n";
-  NT2_TEST_EQUAL(fma(iT(0), nt2::Inf<cT>(), cT(4)), nt2::Nan<cT>());
-  NT2_TEST_EQUAL(fma(cT(0), nt2::Inf<cT>(), cT(4)), nt2::Nan<cT>());
-  NT2_TEST_EQUAL(nt2::plus(nt2::multiplies(iT(0), nt2::Inf<cT>()), cT(4)), nt2::Nan<cT>());
-
-  std::cout << "4 cii\n";
-  NT2_TEST_EQUAL(fma(nt2::Inf<cT>(), iT(0), cT(0, 4)), cT(nt2::Nan<T>(), 4));
-  NT2_TEST_EQUAL(fma(nt2::Inf<cT>(), iT(1), iT(4)), cT(0, nt2::Inf<T>()));
-  NT2_TEST_EQUAL(fma(nt2::Inf<cT>(), cT(0, 1), iT(4)), cT(0, nt2::Inf<T>()));
-  NT2_TEST_EQUAL(fma(nt2::Inf<cT>(), cT(0), cT(0, 4)), cT(nt2::Nan<T>(), 4));
-  NT2_TEST_EQUAL(fma(cT(0), cT(0), nt2::Inf<cT>()),  nt2::Inf<cT>());
-  NT2_TEST_EQUAL(fma(nt2::Inf<cT>(), cT(0), nt2::Inf<cT>()),  nt2::Nan<cT>());
-  NT2_TEST_EQUAL(fma(nt2::Minf<cT>(), cT(1), nt2::Inf<cT>()),  nt2::Nan<cT>());
-  NT2_TEST_EQUAL(fma(iT(nt2::Inf<T>()), iT(1), nt2::Inf<cT>()),  nt2::Nan<cT>());
-  NT2_TEST_EQUAL(nt2::plus(nt2::multiplies(nt2::Inf<cT>(), cT(0)), cT(0, 4)), cT(nt2::Nan<T>(), 4));
-  NT2_TEST_EQUAL(nt2::plus(nt2::multiplies(nt2::Inf<cT>(), iT(0)), cT(0, 4)), cT(nt2::Nan<T>(), 4));
-
-  std::cout << "5 iic\n";
-  NT2_TEST_EQUAL(fma(nt2::Inf<cT>(), cT(0), cT(4, 5)), cT(nt2::Nan<T>(), 5));
-  NT2_TEST_EQUAL(fma(cT(0), nt2::Inf<cT>(), cT(4, 5)), cT(nt2::Nan<T>(), 5));
-  NT2_TEST_EQUAL(nt2::plus(nt2::multiplies(nt2::Inf<cT>(), cT(0)), cT(4, 5)), cT(nt2::Nan<T>(), 5));
-  NT2_TEST_EQUAL(nt2::plus(nt2::multiplies(nt2::Inf<cT>(), iT(0)), cT(4, 5)), cT(nt2::Nan<T>(), 5));
-  NT2_TEST_EQUAL(fma(iT(nt2::Inf<T>()), iT(0), cT(4, 4)), cT(4, nt2::Nan<T>()));
-
-
-  std::cout << "6 ici\n";
-  NT2_TEST_EQUAL(fma(iT(nt2::Inf<T>()), cT(0), iT(4)), cT(0, nt2::Nan<T>()));
-  NT2_TEST_EQUAL(fma(cT(0), iT(nt2::Inf<T>()), iT(4)), cT(0, nt2::Nan<T>()));
-  NT2_TEST_EQUAL(fma(iT(nt2::Inf<T>()), iT(0), cT(3, 4)), cT(3, nt2::Nan<T>()));
-  NT2_TEST_EQUAL(fma(iT(0), iT(nt2::Inf<T>()), cT(3, 4)), cT(3, nt2::Nan<T>()));
-
-  NT2_TEST_EQUAL(fma(iT(nt2::Inf<T>()), iT(0), iT(4)), cT(0, nt2::Nan<T>()));
-  NT2_TEST_EQUAL(fma( iT(0),iT(nt2::Inf<T>()),iT(4)), cT(0, nt2::Nan<T>()));
-  NT2_TEST_EQUAL(fma(iT(nt2::Inf<T>()), iT(1), iT(4)), cT(nt2::Minf<T>(), 4));
-  NT2_TEST_EQUAL(fma( iT(1),iT(nt2::Inf<T>()),iT(4)), cT(nt2::Minf<T>(), 4));
-  NT2_TEST_EQUAL(nt2::plus(nt2::multiplies(cT(0,nt2::Inf<T>()), cT(0)), cT(0, 4)), cT(0, nt2::Nan<T>()));
-  NT2_TEST_EQUAL(nt2::plus(nt2::multiplies(iT(nt2::Inf<T>()), cT(0)), cT(0, 4)), cT(0, nt2::Nan<T>()));
-
-  std::cout << "7 iii\n";
-  NT2_TEST_EQUAL(fma(iT(nt2::Inf<T>()), iT(3),iT(4)), cT(nt2::Minf<T>(), 4));
-  NT2_TEST_EQUAL(fma(iT(nt2::Inf<T>()), iT(0),iT(4)), cT(0, nt2::Nan<T>()));
-  NT2_TEST_EQUAL(nt2::plus(nt2::multiplies(iT(nt2::Inf<T>()), iT(0)), iT(4)), cT(0, nt2::Nan<T>()));
-  NT2_TEST_EQUAL(nt2::plus(nt2::multiplies(iT(nt2::Inf<T>()), iT(3)), iT(4)), cT(nt2::Minf<T>(), 4));
-
   std::cout << "8\n acc";
   NT2_TEST_EQUAL(fma(nt2::Inf<T>(), cT(0),cT(6, 4)),     cT(nt2::Nan<T>(), 4));
-  NT2_TEST_EQUAL(fma(nt2::Inf<T>(), iT(0), cT(6, 4)),    cT(nt2::Nan<T>(), 4));
   NT2_TEST_EQUAL(fma(nt2::Inf<T>(), cT(0, 3),cT(6, 4)),  cT(6, nt2::Inf<T>()));
-  NT2_TEST_EQUAL(fma(nt2::Inf<T>(), iT(3), cT(6, 4)),    cT(6, nt2::Inf<T>()));
   NT2_TEST_EQUAL(fma(T(0),          nt2::Inf<cT>(),      cT(6, 4)), cT(nt2::Nan<T>(), 4));
-  NT2_TEST_EQUAL(fma(T(0),          iT(nt2::Inf<T>()),   cT(6, 4)), cT(6, nt2::Nan<T>()));
   NT2_TEST_EQUAL(fma(nt2::Inf<T>(),  cT(1), cT( 3, 4)), cT(nt2::Inf<T>(), 4));
   NT2_TEST_EQUAL(fma(T(1), cT(nt2::Inf<T>()),  cT(4, 4)), cT(nt2::Inf<T>(), 4));
 
   std::cout << "9 cac\n";
   NT2_TEST_EQUAL(fma( cT(0)                ,nt2::Inf<T>(),cT(6, 4)),     cT(nt2::Nan<T>(), 4));
-  NT2_TEST_EQUAL(fma( iT(0)                ,nt2::Inf<T>(),cT(6, 4)),    cT(nt2::Nan<T>(), 4));
-  NT2_TEST_EQUAL(fma( iT(0)                ,nt2::Inf<cT>(),cT(6, 4)),    cT(nt2::Nan<T>(), 4));
   NT2_TEST_EQUAL(fma( cT(0, 3)             ,nt2::Inf<T>(),cT(6, 4)),  cT(6, nt2::Inf<T>()));
-  NT2_TEST_EQUAL(fma( iT(3)                ,nt2::Inf<T>(),cT(6, 4)),    cT(6, nt2::Inf<T>()));
   NT2_TEST_EQUAL(fma( nt2::Inf<cT>(),       T(0),         cT(6, 4)), cT(nt2::Nan<T>(), 4));
-  NT2_TEST_EQUAL(fma( iT(nt2::Inf<T>()),    T(0),         cT(6, 4)), cT(6, nt2::Nan<T>()));
 
   std::cout << "10 cca\n";
   NT2_TEST_EQUAL(fma(nt2::Inf<cT>(), cT(3), T(4)),                     nt2::Inf<cT>());
@@ -282,89 +210,4 @@ NT2_TEST_CASE_TPL ( fma_various_invalid, (float))//BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(fma(nt2::Inf<T>(),  T(1), cT(6, 4)), cT(nt2::Inf<T>(), 4));
   NT2_TEST_EQUAL(fma(T(1), nt2::Inf<T>(),  cT(6, 4)), cT(nt2::Inf<T>(), 4));
 
-
-  std::cout << "14\n aic";
-  NT2_TEST_EQUAL(fma(nt2::Inf<T>(),  iT(0), cT(6, 4)), cT(nt2::Nan<T>(), 4));
-  NT2_TEST_EQUAL(fma(T(0), iT(nt2::Inf<T>()),  cT(6, 4)), cT(6, nt2::Nan<T>()));
-  NT2_TEST_EQUAL(fma(nt2::Inf<T>(),  iT(1), cT(6, 4)), cT(6, nt2::Inf<T>()));
-  NT2_TEST_EQUAL(fma(T(1), iT(nt2::Inf<T>()),  cT(6, 4)), cT(6, nt2::Inf<T>()));
-  NT2_TEST_EQUAL(fma(nt2::Inf<T>(),  iT(0), cT(6)), cT(nt2::Nan<T>(), 0));
-  NT2_TEST_EQUAL(fma(T(0), iT(nt2::Inf<T>()),  cT(6)), cT(6, nt2::Nan<T>()));
-  NT2_TEST_EQUAL(fma(nt2::Inf<T>(),  iT(1), cT(6)), cT(6, nt2::Inf<T>()));
-  NT2_TEST_EQUAL(fma(T(1), iT(nt2::Inf<T>()),  cT(6)), cT(6, nt2::Inf<T>()));
-
-
-  std::cout << "15 aci\n";
-  NT2_TEST_EQUAL(fma(nt2::Inf<T>(),  cT(0), iT(4)), cT(nt2::Nan<T>(), 4));
-  NT2_TEST_EQUAL(fma(T(0), cT(nt2::Inf<T>()),  iT(4)), cT(nt2::Nan<T>(), 4));
-  NT2_TEST_EQUAL(fma(nt2::Inf<T>(),  cT(1), iT(4)), cT(nt2::Inf<T>(), 4));
-  NT2_TEST_EQUAL(fma(T(1), cT(nt2::Inf<T>()),  iT(4)), cT(nt2::Inf<T>(), 4));
-
-  std::cout << "16 cia \n";
-  NT2_TEST_EQUAL(fma(nt2::Inf<cT>(), iT(0), T(4)), nt2::Nan<cT>());
-  NT2_TEST_EQUAL(fma(nt2::Inf<cT>(), cT(0), T(4)), nt2::Nan<cT>());
-  NT2_TEST_EQUAL(fma(cT(0), iT(nt2::Inf<T>()), T(4)), cT(4, nt2::Nan<T>()));
-  NT2_TEST_EQUAL(fma(cT(0), cT(0, nt2::Inf<T>()), T(4)),cT(4, nt2::Nan<T>()));
-  NT2_TEST_EQUAL(nt2::plus(nt2::multiplies(nt2::Inf<cT>(), iT(0)), T(4)), nt2::Nan<cT>());
-
-
-
-  std::cout << "17 ica \n";
-  NT2_TEST_EQUAL(fma(iT(0), nt2::Inf<cT>(), T(4)), nt2::Nan<cT>());
-  NT2_TEST_EQUAL(fma(cT(0), nt2::Inf<cT>(), T(4)), nt2::Nan<cT>());
-
-
-  std::cout << "18 cai \n";
-  NT2_TEST_EQUAL(fma( cT(0),              nt2::Inf<T>(), iT(4)), cT(nt2::Nan<T>(), 4));
-  NT2_TEST_EQUAL(fma( cT(nt2::Inf<T>()),  T(0),          iT(4)), cT(nt2::Nan<T>(), 4));
-  NT2_TEST_EQUAL(fma( cT(1),              nt2::Inf<T>(), iT(4)), cT(nt2::Inf<T>(), 4));
-  NT2_TEST_EQUAL(fma( cT(nt2::Inf<T>()),  T(1),          iT(4)), cT(nt2::Inf<T>(), 4));
-
-
-
-  std::cout << "19 iac \n";
-  NT2_TEST_EQUAL(fma( iT(0),              nt2::Inf<T>(), cT(6, 4)),   cT(nt2::Nan<T>(), 4));
-  NT2_TEST_EQUAL(fma( iT(nt2::Inf<T>()),  T(0),          cT(6, 4)), cT(6, nt2::Nan<T>()));
-  NT2_TEST_EQUAL(fma( iT(1),   nt2::Inf<T>(), cT(6, 4)), cT(6, nt2::Inf<T>()));
-  NT2_TEST_EQUAL(fma( iT(nt2::Inf<T>()),  T(1),          cT(6, 4)), cT(6, nt2::Inf<T>()));
-  NT2_TEST_EQUAL(fma( iT(0),              nt2::Inf<T>(), cT(6)),      cT(nt2::Nan<T>(), 0));
-  NT2_TEST_EQUAL(fma( iT(nt2::Inf<T>()),  T(0),          cT(6)), cT(6, nt2::Nan<T>()));
-  NT2_TEST_EQUAL(fma( iT(1),              nt2::Inf<T>(), cT(6)),      cT(6, nt2::Inf<T>()));
-  NT2_TEST_EQUAL(fma( iT(nt2::Inf<T>()),  T(1),          cT(6)), cT(6, nt2::Inf<T>()));
-
-  std::cout << "20 aai \n";
-  NT2_TEST_EQUAL(fma(nt2::Inf<T>(),  T(0), iT(4)), cT(nt2::Nan<T>(), 4));
-  NT2_TEST_EQUAL(fma(T(0), nt2::Inf<T>(),  iT(4)), cT(nt2::Nan<T>(), 4));
-  NT2_TEST_EQUAL(fma(nt2::Inf<T>(),  T(1), iT(4)), cT(nt2::Inf<T>(), 4));
-  NT2_TEST_EQUAL(fma(T(1), nt2::Inf<T>(),  iT(4)), cT(nt2::Inf<T>(), 4));
-
-  std::cout << "21 aia \n";
-  NT2_TEST_EQUAL(fma(nt2::Inf<T>(),  iT(0), T(4)),    cT(nt2::Nan<T>(), 0));
-  NT2_TEST_EQUAL(fma(T(0), iT(nt2::Inf<T>()),  T(4)), cT(4, nt2::Nan<T>()));
-  NT2_TEST_EQUAL(fma(nt2::Inf<T>(),  iT(1), T(4)),    cT(4, nt2::Inf<T>()));
-  NT2_TEST_EQUAL(fma(T(1), iT(nt2::Inf<T>()),  T(4)), cT(4, nt2::Inf<T>()));
-
-  std::cout << "22 iaa \n";
-  NT2_TEST_EQUAL(fma(iT(nt2::Inf<T>()),  T(0), T(4)),    cT(4, nt2::Nan<T>()));
-  NT2_TEST_EQUAL(fma(iT(0), nt2::Inf<T>(),  T(4)),       cT(nt2::Nan<T>(), 0));
-  NT2_TEST_EQUAL(fma(iT(nt2::Inf<T>()),  T(1), T(4)),    cT(4, nt2::Inf<T>()));
-  NT2_TEST_EQUAL(fma(iT(1), T(nt2::Inf<T>()),  T(4)),    cT(4, nt2::Inf<T>()));
-
-  std::cout << "23 aii \n";
-  NT2_TEST_EQUAL(fma(nt2::Inf<T>(),  iT(0), iT(4)),    cT(nt2::Nan<T>(), 4));
-  NT2_TEST_EQUAL(fma(T(0), iT(nt2::Inf<T>()),  iT(4)), cT(0, nt2::Nan<T>()));
-  NT2_TEST_EQUAL(fma(nt2::Inf<T>(),  iT(1), iT(4)),    cT(0, nt2::Inf<T>()));
-  NT2_TEST_EQUAL(fma(T(1), iT(nt2::Inf<T>()),  iT(4)), cT(0, nt2::Inf<T>()));
-
-  std::cout << "24 iia \n";
-  NT2_TEST_EQUAL(fma(iT(nt2::Inf<T>()), iT(3),T(4)), cT(nt2::Minf<T>(), 0));
-  NT2_TEST_EQUAL(fma(iT(nt2::Inf<T>()), iT(0),T(4)), cT(4, nt2::Nan<T>()));
-  NT2_TEST_EQUAL(nt2::plus(nt2::multiplies(iT(nt2::Inf<T>()), iT(0)), T(4)), cT(4, nt2::Nan<T>()));
-  NT2_TEST_EQUAL(nt2::plus(nt2::multiplies(iT(nt2::Inf<T>()), iT(3)), T(4)), cT(nt2::Minf<T>(), 0));
-
-  std::cout << "25 iai \n";
-  NT2_TEST_EQUAL(fma(iT(nt2::Inf<T>()), T(3),iT(4)), cT(0, nt2::Inf<T>()));
-  NT2_TEST_EQUAL(fma(iT(nt2::Inf<T>()), T(0),iT(4)), cT(0, nt2::Nan<T>()));
-  NT2_TEST_EQUAL(fma(iT(3), nt2::Inf<T>(),iT(4)),     cT(0,  nt2::Inf<T>()));
-  NT2_TEST_EQUAL(fma(iT(0), nt2::Inf<T>(),iT(4)),     cT(nt2::Nan<T>(), 4));
 } // end of test for floating_

@@ -46,17 +46,6 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::posmax_, tag::cpu_, (A0)
-                            , (generic_< imaginary_< arithmetic_<A0> > >)
-                            )
-  {
-    typedef std::size_t result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
-    {
-      return nt2::posmax(nt2::abs(a0));
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::posmax_, tag::cpu_, (A0)
                               , (generic_< dry_< arithmetic_<A0> > >)
     )
   {

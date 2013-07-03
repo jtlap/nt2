@@ -30,18 +30,6 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( boost::simd::tag::extract_, tag::cpu_, (A0)(A1)(X)
-                            , ((simd_< imaginary_ < arithmetic_<A0> >, X >))
-                              (scalar_< integer_<A1> >)
-                            )
-  {
-    typedef typename meta::scalar_of<A0>::type result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 a1) const
-    {
-      return bitwise_cast<result_type>(extract(nt2::imag(a0), a1));
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( boost::simd::tag::extract_, tag::cpu_, (A0)(A1)(X)
                             , ((simd_< dry_ < arithmetic_<A0> >, X >))
                               (scalar_< integer_<A1> >)
                             )

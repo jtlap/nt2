@@ -31,12 +31,10 @@ NT2_TEST_CASE_TPL ( is_invalid_real__1_0,  BOOST_SIMD_REAL_TYPES)
   using nt2::is_invalid;
   using nt2::tag::is_invalid_;
   typedef std::complex<T> cT;
-  typedef nt2::imaginary<T> ciT;
   typedef typename boost::dispatch::meta::call<is_invalid_(cT)>::type r_t;
 
   // return type conformity test
   NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<is_invalid_(cT)>::type, nt2::logical<T> );
-  NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<is_invalid_(ciT)>::type, nt2::logical<T> );
 
   // specific values tests
   NT2_TEST_EQUAL(is_invalid(cT(nt2::Inf<T>())),  r_t(true));
@@ -53,8 +51,6 @@ NT2_TEST_CASE_TPL ( is_invalid_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(is_invalid(cT(1, 0))    , r_t(false));
   NT2_TEST_EQUAL(is_invalid(cT(0, 2)), r_t(false));
   NT2_TEST_EQUAL(is_invalid(cT(0, 1))   , r_t(false));
-  NT2_TEST_EQUAL(is_invalid(ciT(1))     , r_t(false));
-  NT2_TEST_EQUAL(is_invalid(ciT(0))     , r_t(false));
   NT2_TEST_EQUAL(is_invalid(cT(T(0), nt2::Inf<T>())),  r_t(true));
   NT2_TEST_EQUAL(is_invalid(cT(T(0), nt2::Minf<T>())), r_t(true));
   NT2_TEST_EQUAL(is_invalid(cT(T(0), nt2::Nan<T>())),  r_t(true));

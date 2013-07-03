@@ -29,12 +29,10 @@ NT2_TEST_CASE_TPL ( is_imag_real__1_0,  BOOST_SIMD_REAL_TYPES)
   using nt2::is_imag;
   using nt2::tag::is_imag_;
   typedef std::complex<T> cT;
-  typedef nt2::imaginary<T> ciT;
   typedef typename boost::dispatch::meta::call<is_imag_(cT)>::type r_t;
 
   // return type conformity test
   NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<is_imag_(cT)>::type,nt2::logical<T> );
-  NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<is_imag_(ciT)>::type,nt2::logical<T> );
 
   // specific values tests
   NT2_TEST_EQUAL(is_imag(nt2::One<T>()), r_t(false));
@@ -44,8 +42,5 @@ NT2_TEST_CASE_TPL ( is_imag_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(is_imag(cT(1, 0))    , r_t(false));
   NT2_TEST_EQUAL(is_imag(cT(0, 2)), r_t(true));
   NT2_TEST_EQUAL(is_imag(cT(0, 1))   , r_t(true));
-  NT2_TEST_EQUAL(is_imag(ciT(1))     , r_t(true));
-  NT2_TEST_EQUAL(is_imag(ciT(0))     , r_t(true));
-
 } // end of test for floating_
 

@@ -29,18 +29,6 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( constant_<Tag>, tag::cpu_, (Tag)(A0)
-                            , ((target_< generic_< imaginary_< arithmetic_<A0> > > >))
-                            )
-  {
-    typedef typename A0::type result_type;
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
-    {
-      typedef typename meta::as_real<result_type>::type real_t;
-      return bitwise_cast<result_type>(boost::dispatch::functor<Tag>()(boost::dispatch::meta::as_<real_t>()));
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( constant_<Tag>, tag::cpu_, (Tag)(A0)
                             , ((target_< generic_< dry_< arithmetic_<A0> > > >))
                             )
   {

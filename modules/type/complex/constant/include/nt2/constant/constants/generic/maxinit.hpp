@@ -16,17 +16,6 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::Maxinit, tag::cpu_, (A0)
-                             , ((target_< generic_< imaginary_< arithmetic_<A0> > > >))
-                             )
-  {
-    typedef typename A0::type result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const&) const
-    {
-      return Zero<result_type>();
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::Maxinit, tag::cpu_, (A0)
                              , ((target_< generic_< complex_< arithmetic_<A0> > > >))
                              )
   {

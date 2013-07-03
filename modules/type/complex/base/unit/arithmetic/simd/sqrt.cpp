@@ -27,8 +27,6 @@
 #include <nt2/include/constants/sqrt_2o_2.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/dry.hpp>
-#include <nt2/sdk/complex/imaginary.hpp>
-#include <nt2/sdk/complex/meta/as_imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
@@ -41,8 +39,6 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef std::complex<T>                              cT;
   typedef native<T ,ext_t>                             vT;
   typedef native<cT ,ext_t>                           vcT;
-  typedef typename nt2::meta::as_imaginary<T>::type   ciT;
-  typedef native<ciT ,ext_t>                         vciT;
   typedef typename nt2::meta::as_dry<T>::type          dT;
   typedef native<dT ,ext_t>                           vdT;
   double ulpd;
@@ -57,16 +53,7 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
     NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::One<vcT>())[0], cT(nt2::One<cT>()),0);
     NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Zero<vcT>())[0], cT(nt2::Zero<cT>()),0);
   }
-  {
-    typedef vcT r_t;
-    NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Inf<vciT>())[0],  cT(nt2::Inf<T>(), nt2::Inf<T>()),0);
-    NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Minf<vciT>())[0], cT(nt2::Inf<T>(),nt2::Minf<T>()),0);
-    NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Mone<vciT>())[0], cT(nt2::Sqrt_2o_2<T>(), -nt2::Sqrt_2o_2<T>()) ,0);
-    NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Nan<vciT>())[0],  cT(nt2::Nan<T>(), nt2::Nan<T>()),0);
-    NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::One<vciT>())[0],  cT(nt2::Sqrt_2o_2<T>(), nt2::Sqrt_2o_2<T>()),0);
-    NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Zero<vciT>())[0], nt2::Zero<cT>(),0);
-  }
-  {
+   {
     typedef vcT r_t;
     NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Inf<vdT>())[0], nt2::Inf<cT>(),0);
     NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Minf<vdT>())[0], cT(nt2::Zero<T>(), nt2::Inf<T>()),0);

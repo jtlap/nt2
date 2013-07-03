@@ -14,7 +14,6 @@
 #include <nt2/include/functions/real.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
-#include <nt2/sdk/complex/meta/as_imaginary.hpp>
 
 namespace nt2 { namespace ext
 {

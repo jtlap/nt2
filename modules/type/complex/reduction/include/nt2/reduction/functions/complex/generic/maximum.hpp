@@ -30,18 +30,6 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::maximum_, tag::cpu_, (A0)
-                            , (generic_< imaginary_< arithmetic_<A0> > >)
-                            )
-  {
-    typedef typename boost::dispatch::meta::scalar_of<A0>::type result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
-    {
-      return result_type(nt2::maximum(nt2::imag(a0)));
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::maximum_, tag::cpu_, (A0)
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {

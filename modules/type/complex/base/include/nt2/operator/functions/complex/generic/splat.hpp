@@ -31,21 +31,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::splat_, tag::cpu_
-                            , (A0)(A1)(X)
-                            , (scalar_< unspecified_<A0> >)
-                              ((target_<simd_<imaginary_< arithmetic_<A1> >, X > >))
-                            )
-  {
-    typedef typename A1::type result_type;
-    inline result_type operator()(const A0& a0, const A1&) const
-    {
-      typedef typename meta::as_real<result_type>::type rtype;
-      return bitwise_cast<result_type>(splat<rtype>(nt2::imag(a0)));
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::splat_, tag::cpu_
+   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::splat_, tag::cpu_
                             , (A0)(A1)(X)
                             , (scalar_< unspecified_<A0> >)
                               ((target_<simd_<dry_< arithmetic_<A1> >, X > >))

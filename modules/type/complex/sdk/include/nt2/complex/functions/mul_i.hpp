@@ -10,7 +10,7 @@
  * \file
 **/
 #ifndef NT2_COMPLEX_FUNCTIONS_MUL_I_HPP_INCLUDED
-#define NT2_COMPLEX_FUNCTIONS_MULI_HPP_INCLUDED
+#define NT2_COMPLEX_FUNCTIONS_MUL_I_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
 

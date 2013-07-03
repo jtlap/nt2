@@ -11,7 +11,6 @@
 #include <nt2/operator/functions/unary_minus.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
-#include <nt2/sdk/complex/imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/include/functions/bitwise_cast.hpp>
 
@@ -29,17 +28,6 @@ namespace nt2 { namespace ext
     }
   };
 
-  // imaginary
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::unary_minus_, tag::cpu_, (A0)
-                            , (generic_< imaginary_< arithmetic_<A0> > >)
-                            )
-  {
-    typedef A0 result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return bitwise_cast<result_type>(-nt2::imag(a0));
-    }
-  };
 
   // dry
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::unary_minus_, tag::cpu_, (A0)
