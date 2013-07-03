@@ -17,7 +17,10 @@
 namespace boost { namespace simd { namespace meta
 {
   template<class T,class Dummy=void, class Dummy1 = void>
-  struct extension_of : dispatch::meta::na_ {};
+  struct extension_of
+  {
+    typedef dispatch::meta::na_ type;
+  };
 
   template<class T, class X>
   struct extension_of< boost::simd::native<T,X> > { typedef X type; };

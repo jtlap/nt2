@@ -22,7 +22,7 @@ namespace boost { namespace dispatch { namespace meta
    * boost::dispatch::meta::na_ is used in \nt2 to prevent some ADL issues with Boost.MPL.
    */
   //============================================================================
-  struct na_ { typedef na_ type; };
+  struct na_;
 } } }
 
 #endif
