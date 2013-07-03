@@ -44,7 +44,7 @@ namespace boost { namespace simd { namespace ext
     result_type operator()(A0 const& a0) const
     {
       if (a0 >= A0(Valmax<result_type>()))   return Valmax<result_type>();
-      return a0;
+      return result_type(a0);
     }
   };
 
