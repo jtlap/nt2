@@ -15,6 +15,7 @@
 
 #include <cstddef>
 #include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/sdk/complex/complex.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/linalg/details/utility/options.hpp>
 
