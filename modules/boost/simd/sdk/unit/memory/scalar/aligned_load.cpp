@@ -74,18 +74,18 @@ NT2_TEST_CASE( aligned_load_sequence )
   }
 
   typedef  boost::dispatch::meta
-                  ::call<aligned_load_( vector<short,float,char>
-                              , boost::dispatch::meta::as_<foo>
-                              )
+                  ::call<aligned_load_( vector<short*,float*,char*>
+                                      , boost::dispatch::meta::as_<foo>
+                                      )
                         >::type                     rT;
 
   NT2_TEST_TYPE_IS( rT, foo );
 
   typedef boost::dispatch::meta
-                ::call<aligned_load_( vector<short,float,char>
-                            , int
-                            , boost::dispatch::meta::as_<foo>
-                            )
+                ::call<aligned_load_( vector<short*,float*,char*>
+                                    , int
+                                    , boost::dispatch::meta::as_<foo>
+                                    )
                       >::type                     riT;
 
   NT2_TEST_TYPE_IS( riT, foo );
