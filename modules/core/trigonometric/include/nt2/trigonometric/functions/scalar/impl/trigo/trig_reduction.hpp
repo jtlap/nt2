@@ -158,14 +158,17 @@ namespace nt2 { namespace details
 
     static int_type select_mode(const A0& xx, A0& xr, boost::mpl::int_< r_0_dmpi> const&)
     {
-      if(nt2::all(conversion_allowed() && is_0_dmpi_reduced(xx)))
-        return use_conversion(xx, xr, style(), base_A0());
+      if(nt2::all(is_0_dmpi_reduced(xx)))
+        return use_conversion(xx, xr, style(), conversion_allowed());
       return rem_pio2(xx, xr);
     }
 
-    static int_type use_conversion(const A0 & xx,  A0& xr,  const style &, const double&); //this is dummy, necessary but never taken
+    static int_type use_conversion(const A0 & xx,  A0& xr,  const style &, boost::mpl::false_)
+    {
+      return rem_pio2(xx, xr);
+    }
 
-    static inline int_type use_conversion(const A0 & xx,  A0& xr,  const tag::not_simd_type &, const float&)
+    static int_type use_conversion(const A0 & xx,  A0& xr,  const tag::not_simd_type &, boost::mpl::true_)
     {
       // all of x are in [0, 2^18*pi],  conversion to double is used to reduce
       typedef typename meta::upgrade<A0>::type uA0;
@@ -176,7 +179,7 @@ namespace nt2 { namespace details
       return n;
     }
 
-    static inline int_type use_conversion(const A0 & x,  A0& xr,  const tag::simd_type &, const float&)
+    static inline int_type use_conversion(const A0 & x,  A0& xr,  const tag::simd_type &, boost::mpl::true_)
     {
       // all of x are in [0, 2^18*pi],  conversion to double is used to reduce
       typedef typename meta::upgrade<A0>::type uA0;
@@ -190,7 +193,6 @@ namespace nt2 { namespace details
       nt2::split(xr, ux1, ux2);
       return nt2::group(n1, n2);
     }
-
   };
 
   template<class A0, class style>
