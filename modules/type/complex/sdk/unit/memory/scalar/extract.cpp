@@ -12,7 +12,6 @@
 
 #include <nt2/sdk/complex/dry.hpp>
 #include <nt2/sdk/complex/complex.hpp>
-#include <nt2/sdk/complex/imaginary.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -50,25 +49,6 @@ NT2_TEST_CASE_TPL(dry, BOOST_SIMD_REAL_TYPES)
 
   dry<T> data;
   dry<T> ref = dry<T>(37);
-
-  data = extract(ref, 0);
-
-  NT2_TEST_EQUAL( data, ref   );
-}
-
-NT2_TEST_CASE_TPL(imaginary, BOOST_SIMD_REAL_TYPES)
-{
-  using nt2::imaginary;
-  using nt2::extract;
-  using nt2::tag::extract_;
-
-  typedef typename boost::dispatch::meta
-                        ::call<extract_(imaginary<T>, int)>::type rT;
-
-  NT2_TEST_TYPE_IS( rT, imaginary<T> );
-
-  imaginary<T> data;
-  imaginary<T> ref = imaginary<T>(37);
 
   data = extract(ref, 0);
 
