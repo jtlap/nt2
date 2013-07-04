@@ -13,6 +13,7 @@
 
 #include <nt2/sdk/meta/type_id.hpp>
 #include <nt2/sdk/error/exception.hpp>
+#include <nt2/sdk/bench/details/suite.hpp>
 #include <nt2/sdk/unit/details/prng.hpp>
 #include <boost/dispatch/preprocessor/strip.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
