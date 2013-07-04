@@ -6,12 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_OPTIMIZE_FMA_HPP_INCLUDED
-#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_OPTIMIZE_FMA_HPP_INCLUDED
+#ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_OPTIMIZE_PLUS_HPP_INCLUDED
+#define BOOST_SIMD_OPERATOR_FUNCTIONS_OPTIMIZE_PLUS_HPP_INCLUDED
 
-#include <boost/simd/arithmetic/functions/fma.hpp>
 #include <boost/simd/operator/functions/plus.hpp>
 #include <boost/simd/operator/functions/multiplies.hpp>
+#include <boost/simd/include/functions/fma.hpp>
 #include <boost/dispatch/dsl/category.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 
