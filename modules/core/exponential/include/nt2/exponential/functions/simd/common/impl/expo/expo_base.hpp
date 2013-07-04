@@ -12,11 +12,13 @@
 #include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/if_zero_else.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/is_nan.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <boost/simd/sdk/config.hpp>
 
-namespace nt2 { namespace details { namespace internal
+namespace nt2 { namespace details
 {
   template < class A0, class Tag,  class Speed_Tag >
   struct exponential < A0, Tag, tag::simd_type, Speed_Tag>
@@ -43,6 +45,6 @@ namespace nt2 { namespace details { namespace internal
 #endif
     }
   };
-} } }
+} }
 
 #endif

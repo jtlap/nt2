@@ -26,7 +26,7 @@
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/sqrt_2o_2.hpp>
 #include <nt2/include/constants/mone.hpp>
-namespace nt2 { namespace details { namespace internal
+namespace nt2 { namespace details
 {
   //////////////////////////////////////////////////////////////////////////////
   // math log functions
@@ -111,6 +111,6 @@ namespace nt2 { namespace details { namespace internal
                          y1);
     }
   };
-} } }
+} }
 
 #endif

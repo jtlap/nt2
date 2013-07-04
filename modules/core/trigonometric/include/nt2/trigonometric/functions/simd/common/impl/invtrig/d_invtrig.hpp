@@ -44,7 +44,7 @@
 #include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 
-namespace nt2 { namespace details { namespace internal
+namespace nt2 { namespace details
 {
   template < class A0 >
   struct invtrig_base<A0,radian_tag,tag::simd_type, double>
@@ -163,6 +163,6 @@ namespace nt2 { namespace details { namespace internal
       return yy + z;
     }
   };
-} } }
+} }
 
 #endif

@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return impl::exponential<result_type,ten_tag, tag::simd_type, accu_tag>::expa(tofloat(a0));
+      return details::exponential<result_type,ten_tag, tag::simd_type, accu_tag>::expa(tofloat(a0));
     }
   };
 } }

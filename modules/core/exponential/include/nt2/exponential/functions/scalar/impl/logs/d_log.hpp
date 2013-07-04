@@ -31,7 +31,7 @@
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
 
-namespace nt2 { namespace details { namespace internal
+namespace nt2 { namespace details
 {
   //////////////////////////////////////////////////////////////////////////////
   // math log functions
@@ -107,7 +107,7 @@ namespace nt2 { namespace details { namespace internal
       return -(hfsq-(s*(hfsq+R))-f)*nt2::Invlog_10<A0>()+dk*nt2::Log_2olog_10<A0>();
     }
   };
-} } }
+} }
 
 
 #endif

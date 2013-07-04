@@ -35,8 +35,7 @@
 #include <nt2/include/constants/nan.hpp>
 
 
-namespace nt2 { namespace details { namespace internal
-{
+namespace nt2 { namespace details {
   template < class A0,
              class unit_tag,
              class style,
@@ -119,7 +118,7 @@ namespace nt2 { namespace details { namespace internal
       return  nt2::add(y, nt2::fma(x, mul( z1, z), x));
     }
   };
-} } }
+} }
 
 
 

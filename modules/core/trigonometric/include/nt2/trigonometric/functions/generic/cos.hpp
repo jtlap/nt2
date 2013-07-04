@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return impl::trig_base<A0,radian_tag,is_native_t,big_>::cosa(a0);
+      return details::trig_base<A0,radian_tag,is_native_t,big_>::cosa(a0);
     }
   };
 } }

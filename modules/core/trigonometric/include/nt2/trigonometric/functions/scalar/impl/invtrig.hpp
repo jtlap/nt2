@@ -16,12 +16,6 @@
 #include <nt2/trigonometric/functions/scalar/impl/invtrig/f_invtrig.hpp>
 #include <nt2/trigonometric/functions/scalar/impl/invtrig/d_invtrig.hpp>
 
-namespace nt2
-{
-  namespace impl = nt2::details::internal;
-}
-
-
 #endif
 
 // /////////////////////////////////////////////////////////////////////////////

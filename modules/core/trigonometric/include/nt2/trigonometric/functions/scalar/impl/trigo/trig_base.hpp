@@ -10,20 +10,21 @@
 #define NT2_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_TRIGO_TRIG_BASE_HPP_INCLUDED
 
 #include <nt2/trigonometric/functions/scalar/impl/selection_tags.hpp>
-#include <nt2/trigonometric/functions/scalar/impl/trigo/f_trig_reduction.hpp>
-#include <nt2/trigonometric/functions/scalar/impl/trigo/d_trig_reduction.hpp>
-#include <nt2/include/functions/simd/is_invalid.hpp>
-#include <nt2/include/functions/simd/is_nan.hpp>
-#include <nt2/include/functions/simd/is_eqz.hpp>
-#include <nt2/include/functions/is_nez.hpp>
-#include <nt2/include/functions/shift_left.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/bitofsign.hpp>
-#include <nt2/include/functions/bitwise_xor.hpp>
-#include <nt2/include/functions/bitwise_or.hpp>
-#include <nt2/include/functions/shift_left.hpp>
+#include <nt2/trigonometric/functions/scalar/impl/trigo/trig_reduction.hpp>
+#include <nt2/include/functions/scalar/is_invalid.hpp>
+#include <nt2/include/functions/scalar/is_nan.hpp>
+#include <nt2/include/functions/scalar/is_eqz.hpp>
+#include <nt2/include/functions/scalar/is_nez.hpp>
+#include <nt2/include/functions/scalar/shift_left.hpp>
+#include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
+#include <nt2/include/functions/scalar/oneminus.hpp>
+#include <nt2/include/functions/scalar/bitofsign.hpp>
+#include <nt2/include/functions/scalar/bitwise_xor.hpp>
+#include <nt2/include/functions/scalar/bitwise_or.hpp>
+#include <nt2/include/functions/scalar/shift_left.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/is_invalid.hpp>
 #include <nt2/include/constants/pio_4.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/quarter.hpp>
@@ -44,7 +45,7 @@
 // See the NT2 technical documentation for more insights
 
 
-namespace nt2 { namespace details { namespace internal
+namespace nt2 { namespace details
 {
   // in the class defined below:
   // A0 is the argument type of the trigonometric functions
@@ -269,11 +270,6 @@ namespace nt2 { namespace details { namespace internal
     }
 
   };
-} } }
-
+} }
 
 #endif
-
-// /////////////////////////////////////////////////////////////////////////////
-// End of trig_base.hpp
-// /////////////////////////////////////////////////////////////////////////////

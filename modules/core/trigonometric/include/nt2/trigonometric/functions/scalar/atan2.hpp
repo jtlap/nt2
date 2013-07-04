@@ -25,7 +25,7 @@
 
 namespace nt2 { namespace ext
 {
-  namespace impl = nt2::details::internal;
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::atan2_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)
@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
         a0 = nt2::copysign(nt2::One<A0>(), a0);
         a1 = nt2::copysign(nt2::One<A0>(), a1);
       }
-      A0 z = impl::invtrig_base<result_type,radian_tag, tag::not_simd_type>::kernel_atan(a0/a1);
+      A0 z = details::invtrig_base<result_type,radian_tag, tag::not_simd_type>::kernel_atan(a0/a1);
       z = nt2::if_else(nt2::is_gtz(a1), z, nt2::Pi<A0>()-z)*nt2::signnz(a0);
       return nt2::if_else(nt2::is_eqz(a0), nt2::if_else_zero(nt2::is_ltz(a1), nt2::Pi<A0>()), z);
     }

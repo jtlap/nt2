@@ -48,7 +48,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return impl::invtrig_base<A0,radian_tag,is_native_t>::acos(a0);
+      return details::invtrig_base<A0,radian_tag,is_native_t>::acos(a0);
     }
   };
 } }

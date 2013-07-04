@@ -29,7 +29,7 @@ namespace nt2 { namespace ext
     typedef typename boost::simd::meta::is_native<A0>::type is_native_t;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,A0 & a2) const
     {
-      return impl::trig_base <A0,degree_tag,is_native_t>::sincosa(a0,a2);
+      return details::trig_base <A0,degree_tag,is_native_t>::sincosa(a0,a2);
     }
   };
 
@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       result_type res;
-      res.first = impl::trig_base <A0,degree_tag,is_native_t>::sincosa(a0,res.second);
+      res.first = details::trig_base <A0,degree_tag,is_native_t>::sincosa(a0,res.second);
       return res;
     }
   };
@@ -61,7 +61,7 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,A0 & a1,A0 & a2) const
     {
-      a1 = impl::trig_base <A0,degree_tag,is_native_t>::sincosa(a0,a2);
+      a1 = details::trig_base <A0,degree_tag,is_native_t>::sincosa(a0,a2);
     }
   };
 

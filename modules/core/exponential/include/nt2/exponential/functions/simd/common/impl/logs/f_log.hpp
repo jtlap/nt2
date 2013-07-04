@@ -25,7 +25,7 @@
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/mhalf.hpp>
 
-namespace nt2 { namespace details { namespace internal
+namespace nt2 { namespace details
 {
   //////////////////////////////////////////////////////////////////////////////
   // math log functions
@@ -109,6 +109,6 @@ namespace nt2 { namespace details { namespace internal
                          y1);
     }
   };
-} } }
+} }
 
 #endif

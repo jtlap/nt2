@@ -8,18 +8,21 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_IMPL_TRIGO_F_TRIG_EVALUATION_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_IMPL_TRIGO_F_TRIG_EVALUATION_HPP_INCLUDED
+
 #include <nt2/polynomials/functions/scalar/impl/horner.hpp>
-#include <nt2/include/functions/simd/oneplus.hpp>
 #include <nt2/include/functions/simd/fma.hpp>
-#include <nt2/include/functions/simd/sqr.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/is_equal.hpp>
+#include <nt2/include/functions/simd/oneplus.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/constants/mhalf.hpp>
 #include <nt2/include/constants/one.hpp>
 
-namespace nt2 { namespace details { namespace internal
+namespace nt2 { namespace details
 {
   template <class A0> struct trig_evaluation < A0,  tag::simd_type, float>
   {
@@ -67,11 +70,7 @@ namespace nt2 { namespace details { namespace internal
       return nt2::if_else(nt2::is_equal(n, One<int_type>()),nt2::rec(y),-y);
     }
   };
-} } }
+} }
 
 
 #endif
-
-// /////////////////////////////////////////////////////////////////////////////
-// End of f_trig_evaluation.hpp
-// /////////////////////////////////////////////////////////////////////////////

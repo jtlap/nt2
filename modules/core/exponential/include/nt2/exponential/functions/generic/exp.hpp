@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
     typedef typename boost::simd::meta::is_native<A0>::type is_native_t;
     NT2_FUNCTOR_CALL(1)
     {
-       return nt2::details::internal::
+       return nt2::details::
               exponential<A0,natural_tag,is_native_t,accu_tag>
               ::expa(a0);
     }

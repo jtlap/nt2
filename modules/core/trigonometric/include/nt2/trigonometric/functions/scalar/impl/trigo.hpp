@@ -14,15 +14,9 @@
 #include <nt2/trigonometric/functions/scalar/impl/trigo/selection_tags.hpp>
 #include <nt2/trigonometric/functions/scalar/impl/trigo/fallback.hpp>
 #include <nt2/trigonometric/functions/scalar/impl/trigo/f_trig_evaluation.hpp>
-#include <nt2/trigonometric/functions/scalar/impl/trigo/f_trig_reduction.hpp>
+#include <nt2/trigonometric/functions/scalar/impl/trigo/trig_reduction.hpp>
 #include <nt2/trigonometric/functions/scalar/impl/trigo/d_trig_evaluation.hpp>
-#include <nt2/trigonometric/functions/scalar/impl/trigo/d_trig_reduction.hpp>
 #include <nt2/trigonometric/functions/scalar/impl/trigo/trig_base.hpp>
-
-namespace nt2
-{
-  namespace impl = nt2::details::internal;
-}
 
 
 #endif

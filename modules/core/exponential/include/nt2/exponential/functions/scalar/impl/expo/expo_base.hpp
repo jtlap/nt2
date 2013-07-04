@@ -11,14 +11,14 @@
 
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/zero.hpp>
-#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/include/functions/scalar/is_nan.hpp>
 #include <nt2/exponential/functions/scalar/impl/selection_tags.hpp>
 #include <nt2/exponential/functions/scalar/impl/expo/f_expo_reduction.hpp>
 #include <nt2/exponential/functions/scalar/impl/expo/d_expo_reduction.hpp>
 #include <nt2/exponential/functions/scalar/impl/expo/expo_finalization.hpp>
 #include <boost/simd/sdk/config.hpp>
 
-namespace nt2 { namespace details { namespace internal
+namespace nt2 { namespace details
 {
   template < class A0,
              class Tag,
@@ -47,7 +47,7 @@ namespace nt2 { namespace details { namespace internal
       return finalize_t::finalize(a0, x, c, k, hi, lo);
     }
   };
-} } }
+} }
 
 
 #endif

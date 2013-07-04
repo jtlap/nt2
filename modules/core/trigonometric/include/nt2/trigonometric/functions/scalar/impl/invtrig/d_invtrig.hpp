@@ -29,7 +29,7 @@
 #include <nt2/include/constants/pio_2.hpp>
 #include <nt2/include/constants/half.hpp>
 
-namespace nt2 { namespace details { namespace internal
+namespace nt2 { namespace details
 {
   template < class A0 >
   struct invtrig_base<A0,radian_tag,tag::not_simd_type, double>
@@ -151,7 +151,7 @@ namespace nt2 { namespace details { namespace internal
       return y + z;
     }
   };
-} } }
+} }
 
 
 #endif
