@@ -76,14 +76,14 @@ namespace nt2 { namespace ext
 
         // Dispatch group of blocks over each threads
         #pragma omp for schedule(dynamic) nowait
-        for(std::ptrdiff_t n=0;n<nblocks;++n)
+        for(std::ptrdiff_t n=0;n<(std::ptrdiff_t)nblocks;++n)
         {
 #ifndef BOOST_NO_EXCEPTIONS
           try
           {
 #endif
             // Call transform over the sub-architecture in the memory hierachy
-            transformer(a0,a1,it+n*top_cache_line_size,top_cache_line_size);
+            transformer(a0,a1,it+(std::size_t)n*top_cache_line_size,top_cache_line_size);
 
 #ifndef BOOST_NO_EXCEPTIONS
           }
