@@ -11,7 +11,7 @@
 #include <boost/simd/arithmetic/functions/ifloor.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/simd/floor.hpp>
-#include <boost/simd/include/functions/simd/toint.hpp>
+#include <boost/simd/include/functions/simd/toints.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return toint(floor(a0)); }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return toints(floor(a0)); }
   };
 } } }
 

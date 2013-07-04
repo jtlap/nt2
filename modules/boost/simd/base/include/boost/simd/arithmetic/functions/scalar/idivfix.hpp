@@ -11,7 +11,7 @@
 
 #include <boost/simd/arithmetic/functions/idivfix.hpp>
 #include <boost/simd/include/functions/scalar/divs.hpp>
-#include <boost/simd/include/functions/scalar/toint.hpp>
+#include <boost/simd/include/functions/scalar/toints.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -41,7 +41,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename boost::dispatch::meta::as_integer <A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return boost::simd::toint(a0/a1);
+      return boost::simd::toints(a0/a1);
     }
   };
 } } }

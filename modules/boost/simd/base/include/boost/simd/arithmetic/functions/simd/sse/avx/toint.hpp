@@ -11,13 +11,6 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 #include <boost/simd/arithmetic/functions/toint.hpp>
 #include <boost/simd/include/functions/simd/make.hpp>
-#include <boost/simd/include/functions/simd/is_nan.hpp>
-#include <boost/simd/include/functions/simd/bitwise_andnot.hpp>
-#include <boost/simd/include/functions/simd/is_equal.hpp>
-#include <boost/simd/include/functions/simd/if_else.hpp>
-#include <boost/simd/include/functions/simd/if_zero_else.hpp>
-#include <boost/simd/include/constants/inf.hpp>
-#include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -30,11 +23,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      const A0 aa0 = if_zero_else(is_nan(a0), a0);
-      return select(eq(aa0, Inf<A0>()),
-        Inf<result_type>(),
-        make<result_type>(aa0[0],aa0[1],aa0[2],aa0[3])
-      );
+      return make<result_type>(a0[0], a0[1], a0[2], a0[3]);
     }
   };
 
@@ -46,9 +35,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      const A0 aa0 = if_zero_else(is_nan(a0), a0);
-      result_type that = _mm256_cvttps_epi32(aa0);
-      return  select(eq(aa0, Inf<A0>()), Inf<result_type>(), that);
+      return _mm256_cvttps_epi32(a0);
     }
   };
 } } }

@@ -8,7 +8,6 @@
 ##############################################################################
 
 SET( SOURCES
-  fast_toint.cpp
   divround.cpp
   divfloor.cpp
   divfix.cpp

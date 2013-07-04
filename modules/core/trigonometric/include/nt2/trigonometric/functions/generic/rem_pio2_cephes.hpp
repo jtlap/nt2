@@ -10,7 +10,7 @@
 #define NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_REM_PIO2_CEPHES_HPP_INCLUDED
 #include <nt2/trigonometric/functions/rem_pio2_cephes.hpp>
 #include <nt2/include/functions/simd/round2even.hpp>
-#include <nt2/include/functions/simd/fast_toint.hpp>
+#include <nt2/include/functions/simd/toint.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/functions/simd/bitwise_and.hpp>
@@ -67,7 +67,7 @@ namespace nt2 { namespace ext
       xr  = x-xi*nt2::Pio2_1<A0>();
       xr -= xi*nt2::Pio2_2<A0>();
       xr -= xi*nt2::Pio2_3<A0>();
-      return nt2::bitwise_and(nt2::fast_toint(xi), Three<result_type>());
+      return nt2::bitwise_and(nt2::toint(xi), Three<result_type>());
     }
   };
 } }

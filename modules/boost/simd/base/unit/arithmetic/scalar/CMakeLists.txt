@@ -11,7 +11,6 @@ SET( SOURCES
   sqr_abs.cpp
   isqrt.cpp
   negs.cpp
-  fast_toint.cpp
   abss.cpp
   adds.cpp
   subs.cpp
@@ -65,7 +64,9 @@ SET( SOURCES
   average.cpp
   abs.cpp
   toint.cpp
+  toints.cpp
   touint.cpp
+  touints.cpp
   tofloat.cpp
 # List of scalar test files for toolbox arithmetic
    )

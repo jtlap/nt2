@@ -6,27 +6,29 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - toints/scalar Mode"
+
 //////////////////////////////////////////////////////////////////////////////
 // cover test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 
-#include <nt2/arithmetic/include/functions/fast_toint.hpp>
+#include <nt2/arithmetic/include/functions/toints.hpp>
 #include <vector>
 #include <nt2/include/constants/valmin.hpp>
 #include <nt2/include/constants/valmax.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/tests/cover.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
 
-NT2_TEST_CASE_TPL ( fast_toint_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( toints_real,  NT2_REAL_TYPES)
 {
 
-  using nt2::fast_toint;
-  using nt2::tag::fast_toint_;
-  typedef typename nt2::meta::call<fast_toint_(T)>::type r_t;
+  using nt2::toints;
+  using nt2::tag::toints_;
+  typedef typename nt2::meta::call<toints_(T)>::type r_t;
 
   nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   std::vector<T> in1(NR);
@@ -37,5 +39,5 @@ NT2_TEST_CASE_TPL ( fast_toint_real__1_0,  NT2_REAL_TYPES)
     ref[i] = in1[i];
   }
 
- NT2_COVER_ULP_EQUAL(fast_toint_, ((T, in1)), ref, 0);
+  NT2_COVER_ULP_EQUAL(toints_, ((T, in1)), ref, 0);
 }

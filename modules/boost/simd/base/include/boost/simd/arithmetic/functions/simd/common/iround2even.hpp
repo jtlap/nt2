@@ -10,13 +10,7 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_IROUND2EVEN_HPP_INCLUDED
 #include <boost/simd/arithmetic/functions/iround2even.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/functions/simd/toint.hpp>
-#include <boost/simd/include/constants/valmin.hpp>
-#include <boost/simd/include/constants/valmax.hpp>
-#include <boost/simd/include/functions/splat.hpp>
-#include <boost/simd/include/functions/is_less.hpp>
-#include <boost/simd/include/functions/is_greater.hpp>
-#include <boost/simd/include/functions/round2even.hpp>
+#include <boost/simd/include/functions/simd/toints.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -36,15 +30,9 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
-      {
-        typedef typename meta::scalar_of<result_type>::type sr_type;
-        A0 tmp = round2even(a0);
-        const A0 vx = splat<A0>(Valmax<sr_type>());
-        const A0 vn = splat<A0>(Valmin<sr_type>());
-        return if_else(gt(tmp, vx), Valmax<result_type>(),
-                       if_else(lt(tmp, vn), Valmin<result_type>(),
-                               toint(tmp)));
-      }
+    {
+      return toints(round2even(a0));
+    }
   };
 } } }
 

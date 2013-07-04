@@ -6,12 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_BENCH_MODULE "nt2 arithmetic toolbox - fast_toint/scalar Mode"
+#define NT2_BENCH_MODULE "nt2 arithmetic toolbox - toints/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/arithmetic/include/functions/fast_toint.hpp>
+#include <nt2/arithmetic/include/functions/toints.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
@@ -19,9 +19,9 @@
 
 
 //////////////////////////////////////////////////////////////////////////////
-// scalar runtime benchmark for functor<fast_toint_> from arithmetic
+// scalar runtime benchmark for functor<toints_> from arithmetic
 //////////////////////////////////////////////////////////////////////////////
-using nt2::tag::fast_toint_;
+using nt2::tag::toints_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -31,52 +31,52 @@ using nt2::tag::fast_toint_;
 namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(fast_toint_,(RS(T,T(-10),T(10))))
+  NT2_TIMING(toints_,(RS(T,T(-10),T(10))))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(fast_toint_,(RS(T,T(-10),T(10))))
+  NT2_TIMING(toints_,(RS(T,T(-10),T(10))))
 }
 namespace n3 {
   typedef nt2::uint8_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(fast_toint_,(RS(T,0,100)))
+  NT2_TIMING(toints_,(RS(T,0,100)))
 }
 namespace n4 {
   typedef nt2::uint16_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(fast_toint_,(RS(T,0,100)))
+  NT2_TIMING(toints_,(RS(T,0,100)))
 }
 namespace n5 {
   typedef nt2::uint32_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(fast_toint_,(RS(T,0,100)))
+  NT2_TIMING(toints_,(RS(T,0,100)))
 }
 namespace n6 {
   typedef nt2::uint64_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(fast_toint_,(RS(T,0,100)))
+  NT2_TIMING(toints_,(RS(T,0,100)))
 }
 namespace n7 {
   typedef nt2::int8_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(fast_toint_,(RS(T,-100,100)))
+  NT2_TIMING(toints_,(RS(T,-100,100)))
 }
 namespace n8 {
   typedef nt2::int16_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(fast_toint_,(RS(T,-100,100)))
+  NT2_TIMING(toints_,(RS(T,-100,100)))
 }
 namespace n9 {
   typedef nt2::int32_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(fast_toint_,(RS(T,-100,100)))
+  NT2_TIMING(toints_,(RS(T,-100,100)))
 }
 namespace n10 {
   typedef nt2::int64_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(fast_toint_,(RS(T,-100,100)))
+  NT2_TIMING(toints_,(RS(T,-100,100)))
 }
 
 #undef RS

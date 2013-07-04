@@ -12,7 +12,7 @@
 #include <boost/simd/arithmetic/functions/idivfix.hpp>
 #include <boost/simd/include/functions/simd/trunc.hpp>
 #include <boost/simd/include/functions/simd/divs.hpp>
-#include <boost/simd/include/functions/simd/toint.hpp>
+#include <boost/simd/include/functions/simd/toints.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename dispatch::meta::as_integer < A0 > ::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return boost::simd::toint(boost::simd::trunc(a0/a1)); }
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return boost::simd::itrunc(a0/a1); }
   };
 } } }
 

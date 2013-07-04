@@ -9,24 +9,23 @@
 /*!
  * \file
 **/
-#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_FAST_TOINT_HPP_INCLUDED
-#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_FAST_TOINT_HPP_INCLUDED
+#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_TOUINTS_HPP_INCLUDED
+#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_TOUINTS_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_fast_toint fast_toint
+ * \defgroup boost_simd_arithmetic_touints touints
  *
  * \par Description
- * TODO Put description here
+ * convert an entry to unsigned integer by saturated truncation.
  *
  * \par Header file
  *
  * \code
- * #include <nt2/include/functions/fast_toint.hpp>
+ * #include <nt2/include/functions/touints.hpp>
  * \endcode
- *
  *
  * \synopsis
  *
@@ -34,12 +33,12 @@
  * namespace boost::simd
  * {
  *   template <class A0>
- *     meta::call<tag::fast_toint_(A0)>::type
- *     fast_toint(const A0 & a0);
+ *     meta::call<tag::touints_(A0)>::type
+ *     touints(const A0 & a0);
  * }
  * \endcode
  *
- * \param a0 the unique parameter of fast_toint
+ * \param a0 the unique parameter of touints
  *
  * \return a value of the same type as the parameter
  *
@@ -49,16 +48,17 @@
  *
 **/
 
-namespace boost { namespace simd {
-  namespace tag
+namespace boost { namespace simd { namespace tag
   {
     /*!
-     * \brief Define the tag fast_toint_ of functor fast_toint
+     * \brief Define the tag touints_ of functor touints
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct fast_toint_ : ext::elementwise_<fast_toint_> { typedef ext::elementwise_<fast_toint_> parent; };
+    struct touints_ : ext::elementwise_<touints_> { typedef ext::elementwise_<touints_> parent; };
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::fast_toint_, fast_toint, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::touints_, touints, 1)
+
 } }
 
 #endif
+

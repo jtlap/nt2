@@ -10,7 +10,7 @@
 #define NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_REM_PIO2_MEDIUM_HPP_INCLUDED
 #include <nt2/trigonometric/functions/rem_pio2_medium.hpp>
 #include <nt2/include/functions/simd/round2even.hpp>
-#include <nt2/include/functions/simd/fast_toint.hpp>
+#include <nt2/include/functions/simd/toint.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <boost/fusion/include/std_pair.hpp>
 #include <nt2/include/constants/three.hpp>
@@ -80,7 +80,7 @@ namespace nt2 { namespace ext
       r  = t2-w;
       w  = fn*nt2::Pio2_3t<A0>()-((t2-r)-w);
       xr = r-w;
-      return  bitwise_and(fast_toint(fn), Three<result_type>());
+      return  bitwise_and(toint(fn), Three<result_type>());
     }
   };
 } }

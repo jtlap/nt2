@@ -6,35 +6,69 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+#define NT2_UNIT_MODULE "nt2 boost.simd.arithmetic toolbox - toint/simd Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// unit test behavior of boost.simd.arithmetic components in simd mode
+//////////////////////////////////////////////////////////////////////////////
+
 #include <boost/simd/arithmetic/include/functions/toint.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/constant/constant.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/mone.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 
 NT2_TEST_CASE_TPL ( toint_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::toint;
   using boost::simd::tag::toint_;
   using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::dispatch::meta::strip<typename boost::dispatch::meta::call<toint_(vT)>::type>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef native<T,ext_t>      vT;
+  typedef typename boost::dispatch::meta::as_integer<vT>::type ivT;
+  typedef typename boost::dispatch::meta::call<toint_(vT)>::type r_t;
 
   // specific values tests
-  NT2_TEST_EQUAL(toint(boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>());
-  NT2_TEST_EQUAL(toint(boost::simd::Minf<vT>())[0], boost::simd::Minf<sr_t>());
-  NT2_TEST_EQUAL(toint(boost::simd::Mone<vT>())[0], boost::simd::Mone<sr_t>());
-  NT2_TEST_EQUAL(toint(boost::simd::Nan<vT>())[0], boost::simd::Zero<sr_t>());
-  NT2_TEST_EQUAL(toint(boost::simd::One<vT>())[0], boost::simd::One<sr_t>());
-  NT2_TEST_EQUAL(toint(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(toint(boost::simd::One<vT>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(toint(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(toint(boost::simd::Mone<vT>()), boost::simd::Mone<r_t>());
 } // end of test for floating_
+
+NT2_TEST_CASE_TPL ( toint_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
+{
+  using boost::simd::toint;
+  using boost::simd::tag::toint_;
+  using boost::simd::native;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>                    vT;
+  typedef typename boost::dispatch::meta::as_integer<vT>::type ivT;
+  typedef typename boost::dispatch::meta::call<toint_(vT)>::type r_t;
+
+
+  // specific values tests
+  NT2_TEST_EQUAL(toint(boost::simd::One<vT>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(toint(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
+} // end of test for unsigned_int_
+
+NT2_TEST_CASE_TPL ( toint_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
+{
+  using boost::simd::toint;
+  using boost::simd::tag::toint_;
+  using boost::simd::native;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>                  vT;
+  typedef typename boost::dispatch::meta::as_integer<vT>::type ivT;
+  typedef typename boost::dispatch::meta::call<toint_(vT)>::type r_t;
+
+  // specific values tests
+  NT2_TEST_EQUAL(toint(boost::simd::Mone<vT>()), boost::simd::Mone<r_t>());
+  NT2_TEST_EQUAL(toint(boost::simd::One<vT>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(toint(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
+} // end of test for signed_int_
+

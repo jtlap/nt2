@@ -11,9 +11,8 @@
 
 #include <boost/simd/arithmetic/functions/idivfloor.hpp>
 #include <boost/simd/include/functions/simd/idivceil.hpp>
-#include <boost/simd/include/functions/simd/toint.hpp>
 #include <boost/simd/include/functions/simd/divides.hpp>
-#include <boost/simd/include/functions/simd/floor.hpp>
+#include <boost/simd/include/functions/simd/ifloor.hpp>
 #include <boost/simd/include/functions/simd/negate.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -45,7 +44,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    { return toint(floor(a0/a1)); }
+    { return ifloor(a0/a1); }
   };
 } } }
 

@@ -8,7 +8,6 @@
 ##############################################################################
 
 SET( SOURCES
-  fast_toint.cpp
   divround.cpp
   divfloor.cpp
   divfix.cpp
@@ -52,6 +51,9 @@ SET( SOURCES
   average.cpp
   abs.cpp
   toint.cpp
+  toints.cpp
+  touint.cpp
+  touints.cpp
   tofloat.cpp
   muls.cpp
   divs.cpp

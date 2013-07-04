@@ -22,7 +22,6 @@ divfloor.cpp
 divround.cpp
 divs.cpp
 fast_hypot.cpp
-fast_toint.cpp
 floor.cpp
 fma.cpp
 hypot.cpp
@@ -55,6 +54,9 @@ sqr.cpp
 subs.cpp
 tofloat.cpp
 toint.cpp
+toints.cpp
+touint.cpp
+touints.cpp
 trunc.cpp
 two_add.cpp
 two_prod.cpp

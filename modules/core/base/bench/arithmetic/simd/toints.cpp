@@ -6,78 +6,89 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_BENCH_MODULE "nt2 boost.simd.arithmetic toolbox - fast_toint/scalar Mode"
+#define NT2_BENCH_MODULE "nt2 arithmetic toolbox - toints/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of boost.simd.arithmetic components in scalar mode
+// timing Test behavior of arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/arithmetic/include/functions/fast_toint.hpp>
+#include <nt2/arithmetic/include/functions/toints.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
-
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
 //////////////////////////////////////////////////////////////////////////////
-// scalar runtime benchmark for functor<fast_toint_> from boost.simd.arithmetic
+// simd runtime benchmark for functor<toints_> from arithmetic
 //////////////////////////////////////////////////////////////////////////////
-using boost::simd::tag::fast_toint_;
+using nt2::tag::toints_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, T(V1) ,T(V2))
+#define RS(T,V1,V2) (T, (V1) ,(V2))
 
 namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(fast_toint_,(RS(T,T(-10),T(10))))
+  typedef boost::simd::native<T,ext_t> vT;
+  NT2_TIMING(toints_,(RS(vT,T(-10),T(10))))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(fast_toint_,(RS(T,T(-10),T(10))))
+  typedef boost::simd::native<T,ext_t> vT;
+  NT2_TIMING(toints_,(RS(vT,T(-10),T(10))))
 }
 namespace n3 {
-  typedef boost::simd::uint8_t T;
+  typedef nt2::uint8_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(fast_toint_,(RS(T,0,100)))
+  typedef boost::simd::native<T,ext_t> vT;
+  NT2_TIMING(toints_,(RS(vT,0,100)))
 }
 namespace n4 {
-  typedef boost::simd::uint16_t T;
+  typedef nt2::uint16_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(fast_toint_,(RS(T,0,100)))
+  typedef boost::simd::native<T,ext_t> vT;
+  NT2_TIMING(toints_,(RS(vT,0,100)))
 }
 namespace n5 {
-  typedef boost::simd::uint32_t T;
+  typedef nt2::uint32_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(fast_toint_,(RS(T,0,100)))
+  typedef boost::simd::native<T,ext_t> vT;
+  NT2_TIMING(toints_,(RS(vT,0,100)))
 }
 namespace n6 {
-  typedef boost::simd::uint64_t T;
+  typedef nt2::uint64_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(fast_toint_,(RS(T,0,100)))
+  typedef boost::simd::native<T,ext_t> vT;
+  NT2_TIMING(toints_,(RS(vT,0,100)))
 }
 namespace n7 {
-  typedef boost::simd::int8_t T;
+  typedef nt2::int8_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(fast_toint_,(RS(T,-100,100)))
+  typedef boost::simd::native<T,ext_t> vT;
+  NT2_TIMING(toints_,(RS(vT,-100,100)))
 }
 namespace n8 {
-  typedef boost::simd::int16_t T;
+  typedef nt2::int16_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(fast_toint_,(RS(T,-100,100)))
+  typedef boost::simd::native<T,ext_t> vT;
+  NT2_TIMING(toints_,(RS(vT,-100,100)))
 }
 namespace n9 {
-  typedef boost::simd::int32_t T;
+  typedef nt2::int32_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(fast_toint_,(RS(T,-100,100)))
+  typedef boost::simd::native<T,ext_t> vT;
+  NT2_TIMING(toints_,(RS(vT,-100,100)))
 }
 namespace n10 {
-  typedef boost::simd::int64_t T;
+  typedef nt2::int64_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(fast_toint_,(RS(T,-100,100)))
+  typedef boost::simd::native<T,ext_t> vT;
+  NT2_TIMING(toints_,(RS(vT,-100,100)))
 }
 
 #undef RS
+
