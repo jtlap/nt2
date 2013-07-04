@@ -30,7 +30,7 @@ NT2_TEST_CASE_TPL ( toint_real,  NT2_REAL_TYPES)
   using nt2::toint;
   using nt2::tag::toint_;
   typedef typename nt2::meta::call<toint_(T)>::type r_t;
-  typedef typename nt2::meta::as_integer<T>::type wished_r_t;
+  typedef typename nt2::meta::as_integer<T, signed>::type wished_r_t;
 
 
   // return type conformity test
@@ -48,7 +48,7 @@ NT2_TEST_CASE_TPL ( toint_unsigned_int,  NT2_UNSIGNED_TYPES)
   using nt2::toint;
   using nt2::tag::toint_;
   typedef typename nt2::meta::call<toint_(T)>::type r_t;
-  typedef typename nt2::meta::as_integer<T>::type wished_r_t;
+  typedef typename nt2::meta::as_integer<T, signed>::type wished_r_t;
 
   // return type conformity test
   NT2_TEST_TYPE_IS(r_t, wished_r_t);
@@ -64,7 +64,7 @@ NT2_TEST_CASE_TPL ( toint_signed_int,  NT2_INTEGRAL_SIGNED_TYPES)
   using nt2::toint;
   using nt2::tag::toint_;
   typedef typename nt2::meta::call<toint_(T)>::type r_t;
-  typedef typename nt2::meta::as_integer<T>::type wished_r_t;
+  typedef typename nt2::meta::as_integer<T, signed>::type wished_r_t;
 
   // return type conformity test
   NT2_TEST_TYPE_IS(r_t, wished_r_t);
