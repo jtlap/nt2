@@ -14,6 +14,9 @@
 #include <boost/simd/include/functions/is_not_greater.hpp>
 #include <boost/simd/include/functions/is_not_less_equal.hpp>
 #include <boost/simd/include/functions/is_not_greater_equal.hpp>
+#include <boost/simd/operator/functions/is_less.hpp>
+#include <boost/simd/operator/functions/is_greater.hpp>
+#include <boost/simd/operator/functions/is_less_equal.hpp>
 #include <boost/simd/operator/functions/is_greater_equal.hpp>
 #include <boost/dispatch/dsl/category.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>

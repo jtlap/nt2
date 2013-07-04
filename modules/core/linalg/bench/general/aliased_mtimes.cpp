@@ -27,9 +27,14 @@
 template<class T> struct mtimes_test : nt2::details::base_experiment
 {
   mtimes_test(std::size_t n, std::size_t m, T const& min, T const& max )
-    : a1(nt2::of_size(n,m)),
+    : NT2_EXPRIMENT_CTOR(1., "cycles/elements"),
+      a1(nt2::of_size(n,m)),
       a2(nt2::of_size(m,n)),
       N(n), M(m)
+  {
+  }
+
+  void reset()
   {
     for(size_t i = 1; i <= N * M; ++i)
     {
@@ -44,7 +49,10 @@ template<class T> struct mtimes_test : nt2::details::base_experiment
       a1 = mtimes(a1, a2);
   }
 
-  void reset() {}
+  virtual double compute(nt2::benchmark_result_t const& r) const
+  {
+    return r.second/100;
+  }
 
   mutable nt2::table<T> a1,a2;
   std::size_t N,M;
@@ -53,10 +61,15 @@ template<class T> struct mtimes_test : nt2::details::base_experiment
 template<class T> struct gemm_test : nt2::details::base_experiment
 {
   gemm_test(std::size_t n, std::size_t m, T const& min, T const& max )
-    : a1(nt2::of_size(m, n)),
+    : NT2_EXPRIMENT_CTOR(1., "cycles/elements"),
+      a1(nt2::of_size(m, n)),
       a2(nt2::of_size(n, m)),
       a3(nt2::of_size(m, m))
     , N(n), M(m)
+  {
+  }
+
+  void reset()
   {
     for(int i = 1; i <= N * M; ++i)
     {
@@ -64,7 +77,6 @@ template<class T> struct gemm_test : nt2::details::base_experiment
       a2(i) = roll<T>(min,max);
     }
   }
-
 
   void run() const
   {
@@ -84,7 +96,10 @@ template<class T> struct gemm_test : nt2::details::base_experiment
     }
   }
 
-  void reset() {}
+  virtual double compute(nt2::benchmark_result_t const& r) const
+  {
+    return r.second/100;
+  }
 
   mutable nt2::table<T> a1,a2,a3;
   nt2_la_int N,M;
