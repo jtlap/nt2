@@ -83,7 +83,7 @@ namespace nt2 { namespace ext
           {
 #endif
             // Call transform over the sub-architecture in the memory hierachy
-            transformer(a0,a1,n*top_cache_line_size,top_cache_line_size);
+            transformer(a0,a1,it+n*top_cache_line_size,top_cache_line_size);
 
 #ifndef BOOST_NO_EXCEPTIONS
           }
@@ -96,7 +96,7 @@ namespace nt2 { namespace ext
         }
         #pragma omp single nowait
         {
-         if(leftover) transformer(a0,a1,nblocks*top_cache_line_size,leftover);
+         if(leftover) transformer(a0,a1,it+nblocks*top_cache_line_size,leftover);
         }
       }
 #ifndef BOOST_NO_EXCEPTIONS
