@@ -27,8 +27,6 @@
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/dry.hpp>
-#include <nt2/sdk/complex/imaginary.hpp>
-#include <nt2/sdk/complex/meta/as_imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
@@ -41,8 +39,6 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef std::complex<T>                              cT;
   typedef native<T ,ext_t>                             vT;
   typedef native<cT ,ext_t>                           vcT;
-  typedef typename nt2::meta::as_imaginary<T>::type   ciT;
-  typedef native<ciT ,ext_t>                         vciT;
   typedef typename nt2::meta::as_dry<T>::type          dT;
   typedef native<dT ,ext_t>                           vdT;
 
@@ -57,16 +53,6 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
     NT2_TEST_EQUAL(nt2::unary_minus(nt2::Nan<vcT>())[0], nt2::Nan<vcT>()[0]);
     NT2_TEST_EQUAL(nt2::unary_minus(nt2::One<vcT>())[0], nt2::Mone<vcT>()[0]);
     NT2_TEST_EQUAL(nt2::unary_minus(nt2::Zero<vcT>())[0], nt2::Zero<vcT>()[0]);
-  }
-  {
-    NT2_TEST_EQUAL(nt2::unary_minus(nt2::splat<vciT>(ciT(T(-1.1))))[0], ciT(T( 1.1)) );
-    NT2_TEST_EQUAL(nt2::unary_minus(nt2::splat<vciT>(ciT(T(1.1))))[0],ciT(T(-1.1)));
-    NT2_TEST_EQUAL(nt2::unary_minus(nt2::Inf<vciT>())[0], nt2::Minf<ciT>());
-    NT2_TEST_EQUAL(nt2::unary_minus(nt2::Minf<vciT>())[0],nt2::Inf<ciT>());
-    NT2_TEST_EQUAL(nt2::unary_minus(nt2::Mone<vciT>())[0],nt2::One<ciT>());
-    NT2_TEST_EQUAL(nt2::unary_minus(nt2::Nan<vciT>())[0], nt2::Nan<ciT>());
-    NT2_TEST_EQUAL(nt2::unary_minus(nt2::One<vciT>())[0], nt2::Mone<ciT>());
-    NT2_TEST_EQUAL(nt2::unary_minus(nt2::Zero<vciT>())[0], nt2::Zero<ciT>());
   }
   {
     NT2_TEST_EQUAL(nt2::unary_minus(nt2::splat<vdT>(dT(T(-1.1))))[0], dT(T(1.1)));

@@ -31,7 +31,6 @@ NT2_TEST_CASE_TPL ( is_nez_real__1_0,  BOOST_SIMD_REAL_TYPES)
   using nt2::is_nez;
   using nt2::tag::is_nez_;
   typedef std::complex<T> cT;
-  typedef nt2::imaginary<T> ciT;
   typedef typename boost::dispatch::meta::call<is_nez_(cT)>::type r_t;
 
   // return type conformity test
@@ -47,6 +46,4 @@ NT2_TEST_CASE_TPL ( is_nez_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(is_nez(cT(1, 0))    , r_t(true));
   NT2_TEST_EQUAL(is_nez(cT(0, 2)), r_t(true));
   NT2_TEST_EQUAL(is_nez(cT(0, 1))   , r_t(true));
-  NT2_TEST_EQUAL(is_nez(ciT(1))     , r_t(true));
-  NT2_TEST_EQUAL(is_nez(ciT(0))     , r_t(false));
 }

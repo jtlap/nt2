@@ -34,20 +34,6 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::signnz_, tag::cpu_, (A0)
-                            , (generic_< imaginary_< arithmetic_<A0> > >)
-                            )
-  {
-    typedef typename nt2::meta::as_complex<A0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::if_else(nt2::is_eqz(a0),
-                          nt2::One<result_type>(),
-                          result_type(nt2::Zero<result_type>(), nt2::signnz(nt2::imag(a0)))
-                         );
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::signnz_, tag::cpu_, (A0)
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {

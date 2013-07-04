@@ -40,26 +40,6 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       return nt2::cosh(mul_i(a0));
- //      typedef typename meta::as_real<A0>::type rtype;
-//       rtype c, s, ch, sh;
-//       sincos(nt2::real(a0), s, c);
-//       sinhcosh(nt2::imag(a0), sh, ch);
-//       rtype r = c*ch;
-//       rtype i = -s*sh;
-//       i = if_zero_else(logical_or(is_imag(a0), is_real(a0)), i);
-//       return result_type(r, i);
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cos_, tag::cpu_, (A0)
-                            , (generic_< imaginary_< arithmetic_<A0> > >)
-                            )
-  {
-    typedef typename meta::as_real<A0>::type rA0;
-    typedef typename meta::as_dry<rA0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return bitwise_cast<result_type>(nt2::cosh(nt2::imag(a0)));
     }
   };
 

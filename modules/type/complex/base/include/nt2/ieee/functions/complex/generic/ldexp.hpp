@@ -13,7 +13,6 @@
 #include <nt2/include/functions/real.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
-#include <nt2/sdk/complex/meta/as_imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 
 namespace nt2  { namespace ext
@@ -30,19 +29,7 @@ namespace nt2  { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ldexp_, tag::cpu_, (A0)(A1)
-                            , (generic_< imaginary_ < floating_<A0> > >)
-                              (generic_< integer_<A1> >)
-                            )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
-    {
-      return result_type(nt2::ldexp(nt2::imag(a0), a1));
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ldexp_, tag::cpu_, (A0)(A1)
+   NT2_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ldexp_, tag::cpu_, (A0)(A1)
                             , (generic_< dry_ < floating_<A0> > >)
                               (generic_< integer_<A1> >)
                             )

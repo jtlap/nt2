@@ -45,19 +45,6 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( boost::simd::tag::cumprod_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<imaginary_<arithmetic_<A0> > ,X>))
-                            )
-  {
-    typedef typename meta::as_complex<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      result_type a00 = a0;
-      return cumprod(a00);
-    }
-  };
-
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cumprod_, tag::cpu_
                                      , (A0)(X)
                                      , ((simd_<dry_<arithmetic_<A0> >,X>))

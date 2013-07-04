@@ -45,24 +45,6 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::sincos_, tag::cpu_,
-                             (A0)(A1),
-                             (generic_ < imaginary_<floating_ < A0> > > )
-                             (generic_ < dry_<floating_ < A1> > > )
-                             (generic_ < imaginary_<floating_ < A0> > > )
-                            )
-  {
-    typedef void result_type;
-    inline void operator()(A0 const& a0,A1 & a1,A0 & a2) const
-    {
-      typedef typename meta::as_real<A0>::type rtype;
-      rtype ch, sh;
-      sinhcosh(nt2::imag(a0), sh, ch);
-      a1 =  bitwise_cast<A1>(ch);
-      a2 =  bitwise_cast<A0>(-sh);
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::sincos_, tag::cpu_,
                              (A0),
                              (generic_ < dry_<floating_ < A0> > > )
                              (generic_ < dry_<floating_ < A0> > > )

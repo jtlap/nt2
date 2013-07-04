@@ -12,9 +12,7 @@
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/sqr.hpp>
-#include <nt2/sdk/complex/imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
-// TODO avoid overflow
 
 namespace nt2 { namespace ext
 {
@@ -28,18 +26,6 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_real<A0>::type result_type;
       return sqr(nt2::real(a0)) + sqr(nt2::imag(a0));
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqr_abs_, tag::cpu_, (A0)
-                            , (generic_< imaginary_< floating_<A0> > >)
-                            )
-  {
-    typedef typename meta::as_real<A0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename meta::as_real<A0>::type result_type;
-      return sqr(nt2::imag(a0));
     }
   };
 

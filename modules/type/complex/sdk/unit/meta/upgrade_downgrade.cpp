@@ -8,7 +8,6 @@
 //==============================================================================
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/dry.hpp>
-#include <nt2/sdk/complex/imaginary.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 
@@ -92,45 +91,5 @@ NT2_TEST_CASE_TPL(dry, NT2_TYPES)
 
   NT2_TEST_TYPE_IS( typename downgrade< nt2::dry<T> const& >::type
                   , dry< typename downgrade<T>::type >
-                  );
-}
-
-NT2_TEST_CASE_TPL(imaginary, NT2_TYPES)
-{
-  using boost::dispatch::meta::upgrade;
-  using boost::dispatch::meta::downgrade;
-  using boost::mpl::_;
-  using nt2::imaginary;
-
-  NT2_TEST_TYPE_IS( typename upgrade< nt2::imaginary<T> >::type
-                  , imaginary< typename upgrade<T>::type >
-                  );
-
-  NT2_TEST_TYPE_IS( typename upgrade< nt2::imaginary<T>& >::type
-                  , imaginary< typename upgrade<T>::type >
-                  );
-
-  NT2_TEST_TYPE_IS( typename upgrade< nt2::imaginary<T> const >::type
-                  , imaginary< typename upgrade<T>::type >
-                  );
-
-  NT2_TEST_TYPE_IS( typename upgrade< nt2::imaginary<T> const& >::type
-                  , imaginary< typename upgrade<T>::type >
-                  );
-
-  NT2_TEST_TYPE_IS( typename downgrade< nt2::imaginary<T> >::type
-                  , imaginary< typename downgrade<T>::type >
-                  );
-
-  NT2_TEST_TYPE_IS( typename downgrade< nt2::imaginary<T>& >::type
-                  , imaginary< typename downgrade<T>::type >
-                  );
-
-  NT2_TEST_TYPE_IS( typename downgrade< nt2::imaginary<T> const >::type
-                  , imaginary< typename downgrade<T>::type >
-                  );
-
-  NT2_TEST_TYPE_IS( typename downgrade< nt2::imaginary<T> const& >::type
-                  , imaginary< typename downgrade<T>::type >
                   );
 }

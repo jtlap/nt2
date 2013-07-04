@@ -11,11 +11,9 @@
 
 #include <nt2/complex/functions/c_real.hpp>
 #include <nt2/complex/functions/real.hpp>
-#include <nt2/include/constants/zero.hpp>
-#include <nt2/sdk/complex/imaginary.hpp>
-#include <nt2/sdk/complex/meta/as_dry.hpp>
-#include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/include/functions/bitwise_cast.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -26,9 +24,10 @@ namespace nt2 { namespace ext
     typedef typename meta::as_dry<A0>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return bitwise_cast<result_type>(boost::fusion::at_c<0>(a0));
+      return bitwise_cast<result_type>(real(a0));
     }
   };
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::c_real_, tag::cpu_, (A0)
                             , (generic_< arithmetic_<A0> >)
                             )
@@ -48,17 +47,6 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       return a0;
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::c_real_, tag::cpu_, (A0)
-                            , (generic_< imaginary_< arithmetic_<A0> > >)
-                            )
-  {
-    typedef typename meta::as_dry<A0>::type result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
-    {
-      return Zero<result_type>();
     }
   };
 

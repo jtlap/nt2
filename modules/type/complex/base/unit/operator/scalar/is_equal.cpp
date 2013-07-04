@@ -32,7 +32,6 @@ NT2_TEST_CASE_TPL ( is_equal_real__2_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef nt2::logical<T> wished_r_t;
   typedef std::complex<T> cT;
-  typedef nt2::imaginary<T> ciT;
 
   // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -50,7 +49,4 @@ NT2_TEST_CASE_TPL ( is_equal_real__2_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(is_equal(cT(0, 1), cT(0, 1)), r_t(true));
   NT2_TEST_EQUAL(is_equal(cT(1, 0), T(1))    , r_t(true));
   NT2_TEST_EQUAL(is_equal(cT(0, 2), cT(0, 1)), r_t(false));
-  NT2_TEST_EQUAL(is_equal(cT(0, 1), ciT(1))   , r_t(true));
-  NT2_TEST_EQUAL(is_equal(ciT(1), ciT(1))     , r_t(true));
-  NT2_TEST_EQUAL(is_equal(ciT(0), ciT(1))     , r_t(false));
 } // end of test for floating_

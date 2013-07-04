@@ -8,15 +8,14 @@
 //==============================================================================
 #ifndef NT2_PREDICATES_FUNCTIONS_COMPLEX_GENERIC_IS_NOT_EQUAL_WITH_EQUAL_NANS_HPP_INCLUDED
 #define NT2_PREDICATES_FUNCTIONS_COMPLEX_GENERIC_IS_NOT_EQUAL_WITH_EQUAL_NANS_HPP_INCLUDED
+
 #include <nt2/predicates/functions/is_not_equal_with_equal_nans.hpp>
-#include <nt2/include/functions/is_not_equal_with_equal_nans.hpp>
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/logical_or.hpp>
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/sdk/complex/complex.hpp>
-#include <nt2/sdk/complex/imaginary.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
@@ -99,97 +98,6 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       return logical_or(is_not_equal_with_equal_nans(nt2::real(a1),nt2::real(a0)), is_nez(nt2::imag(a1)));
-    }
-  };
-  // complex/imaginary
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_equal_with_equal_nans_, tag::cpu_, (A0)(A1)
-                            , (generic_< complex_< arithmetic_<A0> > >)
-                              (generic_< imaginary_< arithmetic_<A1> > >)
-                            )
-  {
-    typedef typename  meta::as_real<A0>::type rA0;
-    typedef typename meta::as_logical<rA0>::type result_type;
-    NT2_FUNCTOR_CALL(2)
-    {
-      return logical_or(is_not_equal_with_equal_nans(nt2::imag(a0), nt2::imag(a1)), is_nez(nt2::real(a0)));
-    }
-  };
-  // imaginary/complex
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_equal_with_equal_nans_, tag::cpu_, (A0)(A1),
-                              (generic_< imaginary_< arithmetic_<A0> > > )
-                              (generic_< complex_< arithmetic_<A1> > >)
-                            )
-  {
-    typedef typename  meta::as_real<A0>::type rA0;
-    typedef typename meta::as_logical<rA0>::type result_type;
-    NT2_FUNCTOR_CALL(2)
-    {
-      return logical_or(is_not_equal_with_equal_nans(nt2::imag(a1),nt2::imag(a0)), is_nez(nt2::real(a1)));
-    }
-  };
-  // imaginary/imaginary
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_equal_with_equal_nans_, tag::cpu_, (A0)(A1),
-                              (generic_< imaginary_< arithmetic_<A0> > > )
-                              (generic_< imaginary_< arithmetic_<A1> > >)
-                            )
-  {
-    typedef typename  meta::as_real<A0>::type rA0;
-    typedef typename meta::as_logical<rA0>::type result_type;
-    NT2_FUNCTOR_CALL(2)
-    {
-      return is_not_equal_with_equal_nans(nt2::imag(a1),nt2::imag(a0));
-    }
-  };
-  // imaginary/arithmetic
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_equal_with_equal_nans_, tag::cpu_, (A0)(A1),
-                              (generic_< imaginary_< arithmetic_<A0> > > )
-                              (generic_< arithmetic_<A1> >)
-                            )
-  {
-    typedef typename  meta::as_real<A0>::type rA0;
-    typedef typename meta::as_logical<rA0>::type result_type;
-    NT2_FUNCTOR_CALL(2)
-    {
-      return logical_or(is_nez(a0), is_nez(a1));
-    }
-  };
-  // imaginary/dry
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_equal_with_equal_nans_, tag::cpu_, (A0)(A1),
-                              (generic_< imaginary_< arithmetic_<A0> > > )
-                              (generic_< dry_ < arithmetic_<A1> > >)
-                            )
-  {
-    typedef typename  meta::as_real<A0>::type rA0;
-    typedef typename meta::as_logical<rA0>::type result_type;
-    NT2_FUNCTOR_CALL(2)
-    {
-      return logical_or(is_nez(a0), is_nez(a1));
-    }
-  };
-   // arithmetic/imaginary
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_equal_with_equal_nans_, tag::cpu_, (A0)(A1),
-                              (generic_< arithmetic_<A0> >)
-                              (generic_< imaginary_< arithmetic_<A1> > > )
-                            )
-  {
-    typedef typename  meta::as_real<A0>::type rA0;
-    typedef typename meta::as_logical<rA0>::type result_type;
-    NT2_FUNCTOR_CALL(2)
-    {
-      return logical_and(is_nez(a1), is_nez(a0));
-    }
-  };
-   // dry/imaginary
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_equal_with_equal_nans_, tag::cpu_, (A0)(A1),
-                              (generic_< dry_ < arithmetic_<A0> > >)
-                              (generic_< imaginary_< arithmetic_<A1> > > )
-                            )
-  {
-    typedef typename  meta::as_real<A0>::type rA0;
-    typedef typename meta::as_logical<rA0>::type result_type;
-    NT2_FUNCTOR_CALL(2)
-    {
-      return logical_and(is_nez(a1), is_nez(a0));
     }
   };
 } }

@@ -28,7 +28,6 @@
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
-#include <nt2/sdk/complex/meta/as_imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 
 
@@ -49,7 +48,6 @@ NT2_TEST_CASE_TPL ( prod_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef std::complex<T>                         cT;
   typedef native<cT ,ext_t>                      vcT;
-  typedef typename nt2::meta::as_imaginary<vT>::type  viT;
   typedef typename nt2::meta::as_dry<vT>::type        vdT;
 
   // specific values tests

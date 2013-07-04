@@ -26,7 +26,7 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/mone.hpp>
 
- NT2_TEST_CASE_TPL ( multiplies_real__2_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( multiplies_real__2_0, BOOST_SIMD_REAL_TYPES)
 {
 
   using nt2::multiplies;
@@ -60,7 +60,6 @@ NT2_TEST_CASE_TPL ( complex_complex, (float))//BOOST_SIMD_REAL_TYPES)
   using nt2::multiplies;
   using nt2::tag::multiplies_;
   typedef std::complex<T> cT;
-  typedef typename nt2::meta::as_imaginary<T>::type iT;
 
   // specific values tests
   const T inf = nt2::Inf<T>();
@@ -84,54 +83,13 @@ NT2_TEST_CASE_TPL ( complex_complex, (float))//BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(nt2::multiplies(cT(zer, deu), cT(zer, inf)),  cT(-inf, zer));
 }
 
-NT2_TEST_CASE_TPL ( imaginary_complex, (float))//BOOST_SIMD_REAL_TYPES)
-{
-  using nt2::multiplies;
-  using nt2::tag::multiplies_;
-  typedef std::complex<T> cT;
-  typedef typename nt2::meta::as_imaginary<T>::type iT;
 
-  // specific values tests
-  const T inf = nt2::Inf<T>();
-  const T nan = nt2::Nan<T>();
-  const T zer = nt2::Zero<T>();
-  const T deu = nt2::Two<T>();
-
-  NT2_TEST_EQUAL(nt2::multiplies(iT(inf), cT(zer, zer)),  cT(zer, nan));
-  NT2_TEST_EQUAL(nt2::multiplies(iT(zer), cT(zer, inf)),  cT(zer, nan));
-  NT2_TEST_EQUAL(nt2::multiplies(iT(deu), cT(inf, inf)),  cT(-inf, inf));
-  NT2_TEST_EQUAL(nt2::multiplies(iT(inf), cT(zer, deu)),  cT(-inf, zer));
-  NT2_TEST_EQUAL(nt2::multiplies(iT(deu), cT(zer, inf)),  cT(-inf, zer));
-  NT2_TEST_EQUAL(nt2::multiplies(iT(zer), cT(inf, zer)),  cT(nan, zer));
-}
-
-NT2_TEST_CASE_TPL ( imaginary_real, (float))//BOOST_SIMD_REAL_TYPES)
-{
-  using nt2::multiplies;
-  using nt2::tag::multiplies_;
-  typedef std::complex<T> cT;
-  typedef typename nt2::meta::as_imaginary<T>::type iT;
-
-  // specific values tests
-  const T inf = nt2::Inf<T>();
-  const T nan = nt2::Nan<T>();
-  const T zer = nt2::Zero<T>();
-  const T deu = nt2::Two<T>();
-
-  NT2_TEST_EQUAL(nt2::multiplies(iT(inf), T(zer)),  cT(zer, nan));
-  NT2_TEST_EQUAL(nt2::multiplies(iT(zer), T(inf)),  cT(nan, zer));
-  NT2_TEST_EQUAL(nt2::multiplies(iT(deu), T(inf)),  cT(zer, inf));
-  NT2_TEST_EQUAL(nt2::multiplies(iT(inf), T(deu)),  cT(zer, inf));
-  NT2_TEST_EQUAL(nt2::multiplies(iT(zer), T(zer)),  cT(zer, zer));
-  NT2_TEST_EQUAL(nt2::multiplies(iT(zer), T(deu)),  cT(zer, zer));
-}
 
 NT2_TEST_CASE_TPL ( complex_real, (float))//BOOST_SIMD_REAL_TYPES)
 {
   using nt2::multiplies;
   using nt2::tag::multiplies_;
   typedef std::complex<T> cT;
-  typedef typename nt2::meta::as_imaginary<T>::type iT;
 
   // specific values tests
   const T inf = nt2::Inf<T>();

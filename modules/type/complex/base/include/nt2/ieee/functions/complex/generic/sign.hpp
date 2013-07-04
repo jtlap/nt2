@@ -77,17 +77,6 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sign_, tag::cpu_, (A0)
-                            , (generic_< imaginary_< arithmetic_<A0> > >)
-                            )
-  {
-    typedef A0 result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return result_type(0, nt2::sign(nt2::imag(a0)));
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sign_, tag::cpu_, (A0)
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {

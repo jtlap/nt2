@@ -15,18 +15,25 @@
 ///
 #include <nt2/arithmetic/include/functions/conj.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/extract.hpp>
-#include <nt2/include/functions/splat.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/module.hpp>
+
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/nan.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/complex/meta/as_imaginary.hpp>
+
+
+#include <nt2/sdk/complex/complex.hpp>
+#include <nt2/sdk/complex/dry.hpp>
+#include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
+
+#include <nt2/include/functions/extract.hpp>
+#include <nt2/include/functions/splat.hpp>
 
 NT2_TEST_CASE_TPL ( conj_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
@@ -35,8 +42,6 @@ NT2_TEST_CASE_TPL ( conj_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef std::complex<T>                         cT;
   typedef native<T ,ext_t>                        vT;
   typedef native<cT ,ext_t>                      vcT;
-  typedef typename nt2::meta::as_imaginary<T>::type   ciT;
-  typedef native<ciT ,ext_t>                         vciT;
   typedef typename nt2::meta::as_dry<T>::type          dT;
   typedef native<dT ,ext_t>                           vdT;
 
@@ -57,16 +62,6 @@ NT2_TEST_CASE_TPL ( conj_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
     NT2_TEST_EQUAL(nt2::conj(nt2::Nan<vcT>())[0], nt2::Nan<cT>());
     NT2_TEST_EQUAL(nt2::conj(nt2::One<vcT>())[0], nt2::One<cT>());
     NT2_TEST_EQUAL(nt2::conj(nt2::Zero<vcT>())[0], nt2::Zero<cT>());
-  }
-  {
-    NT2_TEST_EQUAL(nt2::conj(nt2::splat<vciT>(ciT(-1)))[0], nt2::One<vciT>()[0]);
-    NT2_TEST_EQUAL(nt2::conj(nt2::splat<vciT>(ciT(1)))[0], nt2::Mone<vciT>()[0]);
-    NT2_TEST_EQUAL(nt2::conj(nt2::Inf<vciT>())[0], nt2::Minf<vciT>()[0]);
-    NT2_TEST_EQUAL(nt2::conj(nt2::Minf<vciT>())[0], nt2::Inf<vciT>()[0]);
-    NT2_TEST_EQUAL(nt2::conj(nt2::Mone<vciT>())[0], nt2::One<vciT>()[0]);
-    NT2_TEST_EQUAL(nt2::conj(nt2::Nan<vciT>())[0], nt2::Nan<vciT>()[0]);
-    NT2_TEST_EQUAL(nt2::conj(nt2::One<vciT>())[0], nt2::Mone<vciT>()[0]);
-    NT2_TEST_EQUAL(nt2::conj(nt2::Zero<vciT>())[0], nt2::Zero<vciT>()[0]);
   }
   {
     NT2_TEST_EQUAL(nt2::conj(nt2::splat<vdT>(dT(-1)))[0], nt2::Mone<dT>());

@@ -97,7 +97,7 @@ NT2_TEST_CASE_TPL ( cos_real__1_0,  NT2_REAL_TYPES)
 //  cacos(+inf + iy) returns +0 − i inf, for positive-signed finite y.
 //  cacos(−inf + i inf) returns 3 pi /4 − i inf.
 //  cacos(+inf + i inf) returns pi /4 − i inf.
-//  cacos((+/-)inf + iNaN) returns NaN (+/-) i inf (where the sign of the imaginary part of the
+//  cacos((+/-)inf + iNaN) returns NaN (+/-) i inf (where the sign of the imag part of the
 // result is unspecified).
 //  cacos(NaN + iy) returns NaN + iNaN and optionally raises the invalid floating-point exception, for finite y.
 //  cacos(NaN + i inf) returns NaN − i inf.

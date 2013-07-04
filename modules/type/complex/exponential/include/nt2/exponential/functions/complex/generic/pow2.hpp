@@ -43,21 +43,6 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow2_, tag::cpu_
                             , (A0)
-                            , (generic_< imaginary_<floating_<A0> > >)
-                            )
-  {
-    typedef typename meta::as_real<A0>::type             rtype;
-    typedef typename meta::as_complex<rtype>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      rtype  c, s;
-      nt2::sincos(nt2::imag(a0), s, c);
-      return result_type(c, s);
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow2_, tag::cpu_
-                            , (A0)
                             , (generic_< dry_<floating_<A0> > >)
                             )
   {
@@ -77,24 +62,11 @@ namespace nt2 { namespace ext
     typedef typename meta::as_dry<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        //        NT2_WARN(is_real(a0), "Warning: Imaginary part is ignored.");
+        //        NT2_WARN(is_real(a0), "Warning: Imag part is ignored.");
         return bitwise_cast<result_type>(pow2(real(a0), a1));
       }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow2_, tag::cpu_
-                              , (A0)(A1)
-                              , (generic_< imaginary_<floating_<A0> > >)
-                              (generic_< integer_<A1> >)
-                              )
-  {
-    typedef typename meta::as_dry<A0>::type result_type;
-    NT2_FUNCTOR_CALL(2)
-      {
-        //        NT2_WARN(is_real(a0), "Warning: Imaginary part is ignored.");
-        return Zero<result_type>();
-      }
-  };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow2_, tag::cpu_
                               , (A0)(A1)

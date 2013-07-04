@@ -33,7 +33,6 @@ NT2_TEST_CASE_TPL ( is_not_nan_real__1_0,  BOOST_SIMD_REAL_TYPES)
   using nt2::is_not_nan;
   using nt2::tag::is_not_nan_;
   typedef std::complex<T> cT;
-  typedef nt2::imaginary<T> ciT;
   typedef typename boost::dispatch::meta::call<is_not_nan_(cT)>::type r_t;
 
   // return type conformity test

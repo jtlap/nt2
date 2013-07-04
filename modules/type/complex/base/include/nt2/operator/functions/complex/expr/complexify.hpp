@@ -43,20 +43,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::complexify_, tag::cpu_
-                            , (A0)
-                            , (generic_< imaginary_< fundamental_<A0 > > >)
-                            )
-  {
-    typedef typename meta::as_complex<A0>::type result_type;
-    typedef typename meta::as_real<A0>::type r_type;
-    result_type operator()(A0 const& a0) const
-    {
-      return result_type(Zero<r_type>(), imag(a0));
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::complexify_, tag::cpu_
+ NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::complexify_, tag::cpu_
                             , (A0)
                             , (generic_< dry_< fundamental_<A0 > > >)
                             )

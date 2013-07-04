@@ -31,18 +31,8 @@ namespace nt2 { namespace ext
       return nt2::splat<A0>(sum(a0));
     }
   };
+
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::splatted_sum_, tag::cpu_,
-                               (A0)(X),
-                               ((simd_<imaginary_<arithmetic_<A0> >,X>))
-                              )
-  {
-    typedef A0 result_type;
-    NT2_FUNCTOR_CALL_REPEAT(1)
-    {
-      return nt2::splat<A0>(sum(a0));
-    }
-  };
-   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::splatted_sum_, tag::cpu_,
                                (A0)(X),
                                ((simd_<dry_<arithmetic_<A0> >,X>))
                               )

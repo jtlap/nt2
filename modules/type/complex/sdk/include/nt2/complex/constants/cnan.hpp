@@ -13,7 +13,6 @@
 #define NT2_COMPLEX_CONSTANTS_CNAN_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/sdk/complex/imaginary.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 #include <complex>
 
@@ -22,7 +21,7 @@
  * \defgroup nt2_complex_Cnan Cnan
  *
  * \par Description
- * Constant Cnan : Imaginary mask.
+ * Constant Cnan : Imag mask.
  *
  * \par Header file
  *

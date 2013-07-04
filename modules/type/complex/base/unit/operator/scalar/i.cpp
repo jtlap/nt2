@@ -20,15 +20,14 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/constant/constant.hpp>
+#include <nt2/sdk/complex/complex.hpp>
 
 NT2_TEST_CASE_TPL ( i_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
 
   typedef std::complex<T> cT;
-  typedef nt2::imaginary<T> ciT;
 
   // specific values tests
-   NT2_TEST_EQUAL(nt2::I<ciT>(), ciT(1));
    NT2_TEST_EQUAL(nt2::I<cT>(),  cT(0,1) );
 
 } // end of test for floating_

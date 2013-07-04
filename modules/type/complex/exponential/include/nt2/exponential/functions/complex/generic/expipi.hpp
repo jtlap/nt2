@@ -51,19 +51,6 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expipi_, tag::cpu_
                             , (A0)
-                            , (generic_< imaginary_<floating_<A0> > >)
-                            )
-  {
-    typedef typename meta::as_real<A0>::type             rtype;
-    typedef typename meta::as_dry<rtype>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return result_type(nt2::exp(-nt2::Pi<rtype>()*nt2::imag(a0)));
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expipi_, tag::cpu_
-                            , (A0)
                             , (generic_< floating_<A0 > >)
                             )
   {

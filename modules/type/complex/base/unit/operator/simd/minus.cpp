@@ -36,9 +36,7 @@
 
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/dry.hpp>
-#include <nt2/sdk/complex/imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
-#include <nt2/sdk/complex/meta/as_imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 #include <nt2/include/functions/minus.hpp>
 #include <nt2/sdk/complex/complex.hpp>
@@ -51,8 +49,6 @@ NT2_TEST_CASE_TPL ( minus_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef std::complex<T>                              cT;
   typedef native<T ,ext_t>                             vT;
   typedef native<cT ,ext_t>                           vcT;
-  typedef typename nt2::meta::as_imaginary<T>::type   ciT;
-  typedef native<ciT ,ext_t>                         vciT;
   typedef typename nt2::meta::as_dry<T>::type          dT;
   typedef native<dT ,ext_t>                           vdT;
 
@@ -65,31 +61,11 @@ NT2_TEST_CASE_TPL ( minus_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
     NT2_TEST_EQUAL(nt2::minus(vcT(nt2::Zero<vT>(),nt2::One<vT>()),  vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::Mone<vT>(),nt2::One<vT>())[0]);
     NT2_TEST_EQUAL(nt2::minus(vcT(nt2::One<vT>(), nt2::Zero<vT>()), vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::Zero<vT>(), nt2::Zero<vT>())[0]);
 
-    NT2_TEST_EQUAL(nt2::minus(vciT(nt2::Inf<vciT>()), vcT(nt2::Inf<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::Minf<vT>(), nt2::Inf<vT>())[0]);
-    NT2_TEST_EQUAL(nt2::minus(vciT(nt2::One<vciT>()), vcT(nt2::Zero<vT>(),nt2::Zero<vT>()))[0], vcT(nt2::Zero<vT>(),nt2::One<vT>())[0]);
-    NT2_TEST_EQUAL(nt2::minus(vciT(nt2::Zero<vciT>()), vcT(nt2::Zero<vT>(),nt2::Zero<vT>()))[0], vcT(nt2::Zero<vT>(),nt2::Zero<vT>())[0]);
-    NT2_TEST_EQUAL(nt2::minus(vciT(nt2::Zero<vciT>()),  vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::Mone<vT>(),nt2::Zero<vT>())[0]);
-    NT2_TEST_EQUAL(nt2::minus(vciT(nt2::One<vciT>()), vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::Mone<vT>(), nt2::One<vT>())[0]);
-
     NT2_TEST_EQUAL(nt2::minus(vdT(nt2::Inf<vdT>()),  vcT(nt2::Inf<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::Nan<vT>(), nt2::Zero<vT>())[0]);
     NT2_TEST_EQUAL(nt2::minus(vdT(nt2::One<vdT>()),  vcT(nt2::Zero<vT>(),nt2::Zero<vT>()))[0], vcT(nt2::One<vT>(),nt2::Zero<vT>())[0]);
     NT2_TEST_EQUAL(nt2::minus(vdT(nt2::Zero<vdT>()), vcT(nt2::Zero<vT>(),nt2::Zero<vT>()))[0], vcT(nt2::Zero<vT>(),nt2::Zero<vT>())[0]);
     NT2_TEST_EQUAL(nt2::minus(vdT(nt2::Zero<vdT>()), vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::Mone<vT>(),nt2::Zero<vT>())[0]);
     NT2_TEST_EQUAL(nt2::minus(vdT(nt2::One<vdT>()),  vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::Zero<vT>(), nt2::Zero<vT>())[0]);
-
-    NT2_TEST_EQUAL(nt2::minus(nt2::Inf<vdT>(),   nt2::Inf<vciT>())[0] , vcT(nt2::Inf<vT>() ,  nt2::Minf<vT>())[0] );
-    NT2_TEST_EQUAL(nt2::minus(nt2::One<vdT>(),   nt2::Zero<vciT>())[0], vcT(nt2::One<vT>(),  nt2::Zero<vT>())[0]);
-    NT2_TEST_EQUAL(nt2::minus(nt2::Zero<vdT>(),  nt2::Zero<vciT>())[0], vcT(nt2::Zero<vT>(),  nt2::Zero<vT>())[0]);
-    NT2_TEST_EQUAL(nt2::minus(nt2::Zero<vdT>(),  nt2::One<vciT>())[0] , vcT(nt2::Zero<vT>(),  nt2::Mone<vT>())[0]);
-    NT2_TEST_EQUAL(nt2::minus(nt2::One<vdT>(),   nt2::One<vciT>())[0] , vcT(nt2::One<vT>(),  nt2::Mone<vT>())[0]);
-  }
-  {
-    typedef vciT r_t;
-    NT2_TEST_EQUAL(nt2::minus(vciT(nt2::Inf<vciT>()),   vciT(nt2::Inf<vciT>()))[0],  vciT(nt2::Nan<vciT>() )[0]);
-    NT2_TEST_EQUAL(nt2::minus(vciT(nt2::One<vciT>()),   vciT(nt2::Zero<vciT>()))[0], vciT(nt2::One<vciT>())[0]);
-    NT2_TEST_EQUAL(nt2::minus(vciT(nt2::Zero<vciT>()),  vciT(nt2::Zero<vciT>()))[0], vciT(nt2::Zero<vciT>())[0]);
-    NT2_TEST_EQUAL(nt2::minus(vciT(nt2::Zero<vciT>()),  vciT(nt2::One<vciT>()))[0],  vciT(nt2::Mone<vciT>())[0]);
-    NT2_TEST_EQUAL(nt2::minus(vciT(nt2::One<vciT>()),   vciT(nt2::One<vciT>()))[0],  vciT(nt2::Zero<vciT>() )[0]);
   }
   {
     typedef vdT r_t;

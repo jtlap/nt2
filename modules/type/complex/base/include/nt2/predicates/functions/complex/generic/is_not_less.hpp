@@ -19,7 +19,6 @@
 #include <nt2/include/functions/is_nltz.hpp>
 #include <nt2/include/functions/is_not_less.hpp>
 #include <nt2/sdk/complex/complex.hpp>
-#include <nt2/sdk/complex/imaginary.hpp>
 #include <nt2/include/constants/false.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
@@ -103,97 +102,6 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       return is_not_less(nt2::real(a0),nt2::real(a1));
-    }
-  };
-  // complex/imaginary
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_less_, tag::cpu_, (A0)(A1)
-                            , (generic_< complex_< arithmetic_<A0> > >)
-                              (generic_< imaginary_< arithmetic_<A1> > >)
-                            )
-  {
-    typedef typename  meta::as_real<A0>::type rA0;
-    typedef typename meta::as_logical<rA0>::type result_type;
-    NT2_FUNCTOR_CALL(2)
-    {
-      return is_nltz(nt2::real(a0));
-    }
-  };
-  // imaginary/complex
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_less_, tag::cpu_, (A0)(A1),
-                              (generic_< imaginary_< arithmetic_<A0> > > )
-                              (generic_< complex_< arithmetic_<A1> > >)
-                            )
-  {
-    typedef typename  meta::as_real<A0>::type rA0;
-    typedef typename meta::as_logical<rA0>::type result_type;
-    NT2_FUNCTOR_CALL(2)
-    {
-      return is_ngtz(nt2::real(a1));
-    }
-  };
-  // imaginary/imaginary
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_less_, tag::cpu_, (A0),
-                              (generic_< imaginary_< arithmetic_<A0> > > )
-                              (generic_< imaginary_< arithmetic_<A0> > >)
-                            )
-  {
-    typedef typename  meta::as_real<A0>::type rA0;
-    typedef typename meta::as_logical<rA0>::type result_type;
-    inline result_type operator()(const A0&, const A0&) const
-    {
-      return False<result_type>();
-    }
-  };
-  // imaginary/arithmetic
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_less_, tag::cpu_, (A0)(A1),
-                              (generic_< imaginary_< arithmetic_<A0> > > )
-                              (generic_< arithmetic_<A1> >)
-                            )
-  {
-    typedef typename  meta::as_real<A0>::type rA0;
-    typedef typename meta::as_logical<rA0>::type result_type;
-    NT2_FUNCTOR_CALL(2)
-    {
-      return is_ngtz(a1);
-    }
-  };
-  // imaginary/dry
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_less_, tag::cpu_, (A0)(A1),
-                              (generic_< imaginary_< arithmetic_<A0> > > )
-                              (generic_< dry_ < arithmetic_<A1> > >)
-                            )
-  {
-    typedef typename  meta::as_real<A0>::type rA0;
-    typedef typename meta::as_logical<rA0>::type result_type;
-    NT2_FUNCTOR_CALL(2)
-    {
-      return is_ngtz(nt2::real(a1));
-    }
-  };
-  // arithmetic/imaginary
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_less_, tag::cpu_, (A0)(A1),
-                              (generic_< arithmetic_<A0> >)
-                              (generic_< imaginary_< arithmetic_<A1> > > )
-                            )
-  {
-    typedef typename  meta::as_real<A0>::type rA0;
-    typedef typename meta::as_logical<rA0>::type result_type;
-    NT2_FUNCTOR_CALL(2)
-    {
-      return  is_nltz(a0);
-    }
-  };
-  // dry/imaginary
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_less_, tag::cpu_, (A0)(A1),
-                              (generic_< dry_ < arithmetic_<A0> > >)
-                              (generic_< imaginary_< arithmetic_<A1> > > )
-                            )
-  {
-    typedef typename  meta::as_real<A0>::type rA0;
-    typedef typename meta::as_logical<rA0>::type result_type;
-    NT2_FUNCTOR_CALL(2)
-    {
-      return  is_nltz(nt2::real(a0));
     }
   };
 

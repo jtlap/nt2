@@ -15,7 +15,6 @@
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/constants/true.hpp>
 #include <nt2/sdk/complex/complex.hpp>
-#include <nt2/sdk/complex/imaginary.hpp>
 #include <nt2/sdk/complex/dry.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
@@ -32,19 +31,6 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       return logical_or(is_nez(nt2::imag(a0)),is_nez(nt2::real(a0)));
-    }
-  };
-
-  // imaginary
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_nez_, tag::cpu_, (A0),
-                              (generic_< imaginary_< arithmetic_<A0> > > )
-                            )
-  {
-    typedef typename  meta::as_real<A0>::type rA0;
-    typedef typename meta::as_logical<rA0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return is_nez(nt2::imag(a0));
     }
   };
 

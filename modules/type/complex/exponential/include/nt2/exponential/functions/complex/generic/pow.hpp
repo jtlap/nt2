@@ -14,6 +14,7 @@
 #include <nt2/include/functions/sincos.hpp>
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/exp.hpp>
+#include <nt2/include/functions/expi.hpp>
 #include <nt2/include/functions/seladd.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/is_real.hpp>
@@ -52,10 +53,9 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_real<result_type>::type rtype;
-      typedef typename meta::as_imaginary< rtype>::type itype;
       rtype t = nt2::arg(a0);
       rtype a = nt2::abs(a0);
-      return nt2::pow(a, a1)*nt2::exp(itype(t*a1));
+      return nt2::pow(a, a1)*nt2::expi(t*a1);
     }
   };
 
@@ -99,84 +99,6 @@ namespace nt2 { namespace ext
       }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
-                              , (A0)(A1)
-                              , (generic_< complex_<floating_<A0> > >)
-                              (generic_< imaginary_<floating_<A1> > >)
-                              )
-  {
-    typedef typename meta::as_complex<A0>::type result_type;
-    NT2_FUNCTOR_CALL(2)
-      {
-        return nt2::exp(a1*nt2::log(a0));
-      }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
-                              , (A0)(A1)
-                              , (generic_< imaginary_<floating_<A0> > >)
-                              (generic_< complex_<floating_<A1> > >)
-                              )
-  {
-    typedef typename meta::as_complex<A0>::type result_type;
-    NT2_FUNCTOR_CALL(2)
-      {
-        return nt2::exp(a1*nt2::log(a0));
-      }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
-                              , (A0)(A1)
-                              , (generic_< imaginary_<floating_<A0> > >)
-                              (generic_< floating_<A1> >)
-                              )
-  {
-    typedef typename meta::as_complex<A0>::type result_type;
-    NT2_FUNCTOR_CALL(2)
-      {
-        return nt2::exp(a1*nt2::log(a0));
-      }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
-                              , (A0)(A1)
-                              , (generic_< imaginary_<floating_<A0> > >)
-                              (generic_< dry_ < floating_<A1> > >)
-                              )
-  {
-    typedef typename meta::as_complex<A0>::type result_type;
-    NT2_FUNCTOR_CALL(2)
-      {
-        return nt2::exp(a1*nt2::log(a0));
-      }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
-                              , (A0)(A1)
-                              ,  (generic_< floating_<A0> >)
-                              (generic_< imaginary_<floating_<A1> > >)
-                              )
-  {
-    typedef typename meta::as_complex<A0>::type result_type;
-    typedef typename meta::as_dry<A0>::type dtype;
-    NT2_FUNCTOR_CALL(2)
-      {
-        return nt2::exp(a1*nt2::log(dtype(a0)));
-      }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
-                              , (A0)(A1)
-                              ,  (generic_< dry_ < floating_<A0> > > )
-                              (generic_< imaginary_<floating_<A1> > >)
-                              )
-  {
-    typedef typename meta::as_complex<A0>::type result_type;
-    NT2_FUNCTOR_CALL(2)
-      {
-        return nt2::exp(a1*nt2::log(a0));
-      }
-  };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
                               , (A0)(A1)

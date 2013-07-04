@@ -62,23 +62,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expm1_, tag::cpu_
-                            , (A0)
-                            , ((generic_<imaginary_<floating_<A0> > >))
-                            )
-  {
-    typedef typename meta::as_complex<A0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename meta::as_real<A0>::type rtype;
-      // cos(t)-1 + i sin(t) with  t =  nt2::imag(a0)
-      return result_type( Mtwo<rtype>()*sqr(nt2::sin(nt2::imag(a0)*Half<rtype>())
-                        , nt2::sin(nt2::imag(a0)))
-                        );
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expm1_, tag::cpu_
+   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expm1_, tag::cpu_
                             , (A0)
                             , (generic_< dry_<floating_<A0> > >)
                             )

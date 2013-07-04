@@ -16,6 +16,10 @@
 #include <nt2/arithmetic/include/functions/ceil.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/complex/complex.hpp>
+#include <nt2/sdk/complex/dry.hpp>
+#include <nt2/sdk/complex/meta/as_complex.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/half.hpp>
@@ -25,10 +29,6 @@
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/nan.hpp>
 
-#include <nt2/sdk/complex/meta/as_dry.hpp>
-#include <nt2/sdk/complex/meta/as_imaginary.hpp>
-
-
 
 NT2_TEST_CASE_TPL ( ceil_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
@@ -37,7 +37,6 @@ NT2_TEST_CASE_TPL ( ceil_real__1_0,  BOOST_SIMD_REAL_TYPES)
   using nt2::tag::ceil_;
   typedef typename std::complex<T> cT;
   typedef typename nt2::meta::as_dry<T>::type dT;
-  typedef typename nt2::meta::as_imaginary<T>::type ciT;
 
   // specific values tests
   NT2_TEST_EQUAL(ceil(cT(T(-1.1))), T(-1));
@@ -56,12 +55,4 @@ NT2_TEST_CASE_TPL ( ceil_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(ceil(dT(nt2::Nan<T>())), dT(nt2::Nan<T>()));
   NT2_TEST_EQUAL(ceil(dT(nt2::One<T>())), dT(nt2::One<T>()));
   NT2_TEST_EQUAL(ceil(dT(nt2::Zero<T>())), dT(nt2::Zero<T>()));
-  NT2_TEST_EQUAL(ceil(ciT(T(-1.1))), ciT(-1));
-  NT2_TEST_EQUAL(ceil(ciT(T(1.1))), ciT(2));
-  NT2_TEST_EQUAL(ceil(nt2::Inf<ciT>()), nt2::Inf<ciT>());
-  NT2_TEST_EQUAL(ceil(nt2::Minf<ciT>()), nt2::Minf<ciT>());
-  NT2_TEST_EQUAL(ceil(nt2::Mone<ciT>()), nt2::Mone<ciT>());
-  NT2_TEST_EQUAL(ceil(nt2::Nan<ciT>()), nt2::Nan<ciT>());
-  NT2_TEST_EQUAL(ceil(nt2::One<ciT>()), nt2::One<ciT>());
-  NT2_TEST_EQUAL(ceil(nt2::Zero<ciT>()), nt2::Zero<ciT>());
 } // end of test for floating_

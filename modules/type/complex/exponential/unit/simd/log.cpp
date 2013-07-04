@@ -25,9 +25,7 @@
 #include <nt2/constant/constant.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/dry.hpp>
-#include <nt2/sdk/complex/imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
-#include <nt2/sdk/complex/meta/as_imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 
 NT2_TEST_CASE_TPL ( log_real__2_0,  (float))//BOOST_SIMD_SIMD_REAL_TYPES)
@@ -37,8 +35,6 @@ NT2_TEST_CASE_TPL ( log_real__2_0,  (float))//BOOST_SIMD_SIMD_REAL_TYPES)
   typedef std::complex<T>                         cT;
   typedef native<T ,ext_t>                        vT;
   typedef native<cT ,ext_t>                      vcT;
-  typedef typename nt2::meta::as_imaginary<T>::type   ciT;
-  typedef native<ciT ,ext_t>                         vciT;
   typedef typename nt2::meta::as_dry<T>::type          dT;
   typedef native<dT ,ext_t>                           vdT;
   double ulpd;

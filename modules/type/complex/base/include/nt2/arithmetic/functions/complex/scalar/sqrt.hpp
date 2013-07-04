@@ -36,26 +36,7 @@ namespace nt2 { namespace ext
 //     }
 //   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqrt_, tag::cpu_, (A0)
-                            , (scalar_< imaginary_< arithmetic_<A0> > >)
-                            )
-  {
-    typedef typename meta::as_real<A0>::type rA0;
-    typedef typename meta::as_complex<rA0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      if (is_eqz(a0))
-      {
-        return result_type(Zero<rA0>());
-      }
-      else
-      {
-        const rA0 root = nt2::sqrt(nt2::abs(nt2::imag(a0)))*Sqrt_2o_2<rA0>();
-        result_type res = result_type(root, sign(nt2::imag(a0))*root);
-        return res;
-      }
-    }
-  };
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqrt_, tag::cpu_, (A0)
                             , (scalar_< dry_< arithmetic_<A0> > >)
                             )

@@ -26,7 +26,6 @@
 #include <nt2/include/functions/ldexp.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/sdk/complex/complex.hpp>
-#include <nt2/sdk/complex/imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 
@@ -57,16 +56,6 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rec_, tag::cpu_, (A0)
-                            , (generic_< imaginary_< arithmetic_<A0> > >)
-                            )
-  {
-    typedef A0 result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return bitwise_cast<result_type>(-nt2::rec(nt2::imag(a0)));
-    }
-  };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rec_, tag::cpu_, (A0)
                             , (generic_< dry_< arithmetic_<A0> > >)

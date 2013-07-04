@@ -44,7 +44,6 @@ NT2_TEST_CASE_TPL ( secpi_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2:: meta::as_complex<T>::type wished_r_t;
-  typedef typename nt2:: meta::as_imaginary<T>::type ciT;
   typedef typename nt2:: meta::as_dry<T>::type dT;
 
   // return type conformity test
@@ -78,8 +77,6 @@ NT2_TEST_CASE_TPL ( secpi_real__1_0,  NT2_REAL_TYPES)
       NT2_TEST_ULP_EQUAL(nt2::secpi(-inputs[i]), nt2::secpi(inputs[i]), 3.5);
       NT2_TEST_ULP_EQUAL(nt2::secpi(inputs[i]), nt2::rec(nt2::cospi(inputs[i])), 3);
     }
-  std::cout << nt2::secpi(nt2::Inf<ciT>()) << std::endl;
-  NT2_TEST_ULP_EQUAL(nt2::secpi(nt2::Inf<ciT>()), nt2::Zero<dT>(), 2);
   NT2_TEST_ULP_EQUAL(nt2::secpi(dT(nt2::Inf<T>())),   dT(nt2::Nan<T>()), 2);
 
 } // end of test for floating_

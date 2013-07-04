@@ -152,7 +152,7 @@ namespace nt2 { namespace ext
 //         test =  logical_andnot(eq(x, one), test);
         r = if_else(test, -(nt2::Two<rtype>() * (nt2::log(y) - nt2::Log_2<rtype>())), r);
         r /= Four<rtype>();
-        //compute the imaginary part
+        //compute the imag part
         // y^2 is negligible:
         i =  nt2::atan2(two*y, one - xx);
         i =  if_else(logical_or(gtymax, gtxmax), Pi<rtype>(), i);
@@ -209,7 +209,7 @@ namespace nt2 { namespace ext
         )/Four<rtype>();
       r = if_else(not_in_safe_zone, r, tmp_r);
 
-      // compute the imaginary part
+      // compute the imag part
       i =if_else(not_in_safe_zone,
                  i,
                  nt2::atan2(y+y, (oneminus(sqrabs)))
@@ -221,20 +221,6 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::atanh_, tag::cpu_, (A0)
-                            , (generic_< imaginary_< arithmetic_<A0> > >
-                            )
-    )
-  {
-    typedef typename meta::as_real<A0>::type rtype;
-    typedef typename meta::as_complex<A0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      rtype y = oneplus(sqr(nt2::imag(a0)));
-      A0 res = nt2::log(A0(nt2::sqrt(y))+a0);
-      return res;
-    }
-  };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::atanh_, tag::cpu_, (A0)
                             , (generic_< dry_< arithmetic_<A0> > >

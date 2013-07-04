@@ -26,19 +26,6 @@ namespace nt2 { namespace ext
       return a0();
     }
   };
-
-  NT2_FUNCTOR_IMPLEMENTATION( boost::simd::tag::value_, tag::cpu_
-                            , (A0)
-                            , (generic_< imaginary_< arithmetic_<A0> > >)
-                            )
-  {
-    typedef typename A0::type result_type;
-
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const& a0) const
-    {
-      return a0();
-    }
-  };
 } }
 
 #endif

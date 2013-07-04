@@ -54,16 +54,6 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::abs_, tag::cpu_, (A0)
-                            , (generic_< imaginary_< floating_<A0> > >)
-                            )
-  {
-    typedef typename meta::as_real<A0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::abs(nt2::imag(a0));
-    }
-  };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::abs_, tag::cpu_, (A0)
                             , (generic_< dry_< floating_<A0> > >)

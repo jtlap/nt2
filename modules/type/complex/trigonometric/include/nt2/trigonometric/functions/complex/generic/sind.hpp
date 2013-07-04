@@ -66,17 +66,6 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sind_, tag::cpu_, (A0)
-                              , (generic_< imaginary_< arithmetic_<A0> > >)
-    )
-  {
-    typedef typename meta::as_real<A0>::type rtype;
-    typedef typename meta::as_imaginary<rtype>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return bitwise_cast<result_type>(nt2::sinh(nt2::imag(a0)*Deginrad<rtype>()));
-    }
-  };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sind_, tag::cpu_, (A0)
                               , (generic_< dry_< arithmetic_<A0> > >)

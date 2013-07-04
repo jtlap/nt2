@@ -14,12 +14,16 @@
 /// created  by jt the 18/02/2011
 ///
 #include <nt2/include/functions/imag.hpp>
+#include <nt2/complex/functions/imag.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/complex/dry.hpp>
+#include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/constant/constant.hpp>
+#include <nt2/sdk/complex/complex.hpp>
 
 NT2_TEST_CASE_TPL ( imag_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
@@ -31,7 +35,6 @@ NT2_TEST_CASE_TPL ( imag_real__2_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<imag_(cT)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef nt2::imaginary<T> ciT;
   typedef nt2::dry<T> cdT;
   typedef T wished_r_t;
 
@@ -52,11 +55,6 @@ NT2_TEST_CASE_TPL ( imag_real__2_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(nt2::imag(cT(1, 0)), nt2::Zero<T>());
   NT2_TEST_EQUAL(nt2::imag(cT(2, 2)), nt2::Two<T>());
   NT2_TEST_EQUAL(nt2::imag(cT(2,-2)), nt2::Mtwo<T>());
-  NT2_TEST_EQUAL(nt2::imag(ciT(nt2::Inf<T>())), nt2::Inf<T>());
-  NT2_TEST_EQUAL(nt2::imag(ciT(nt2::Minf<T>())),nt2::Minf<T>());
-  NT2_TEST_EQUAL(nt2::imag(ciT(nt2::Nan<T>())), nt2::Nan<T>());
-  NT2_TEST_EQUAL(nt2::imag(ciT(nt2::One<T>())), nt2::One<T>());
-  NT2_TEST_EQUAL(nt2::imag(ciT(nt2::Zero<T>())),nt2::Zero<T>());
   NT2_TEST_EQUAL(nt2::imag(cdT(nt2::Inf<T>())), nt2::Zero<T>());
   NT2_TEST_EQUAL(nt2::imag(cdT(nt2::Minf<T>())),nt2::Zero<T>());
   NT2_TEST_EQUAL(nt2::imag(cdT(nt2::Nan<T>())), nt2::Zero<T>());

@@ -11,8 +11,6 @@
 #include <nt2/include/functions/value.hpp>
 #include <nt2/sdk/complex/dry.hpp>
 #include <nt2/sdk/complex/complex.hpp>
-#include <nt2/sdk/complex/imaginary.hpp>
-
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
@@ -45,16 +43,3 @@ NT2_TEST_CASE_TPL(dry, BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(value(dry<T>(4)), T(4));
 }
 
-NT2_TEST_CASE_TPL(imaginary, BOOST_SIMD_REAL_TYPES)
-{
-  using nt2::imaginary;
-  using boost::simd::value;
-  using boost::simd::tag::value_;
-
-  NT2_TEST_TYPE_IS( typename boost::dispatch::meta
-                    ::call<value_(imaginary<T>)>::type
-                  , T
-                  );
-
-  NT2_TEST_EQUAL(value(imaginary<T>(4)), T(4));
-}

@@ -16,7 +16,6 @@
 #include <nt2/include/functions/sum.hpp>
 #include <nt2/include/functions/conj.hpp>
 #include <nt2/sdk/complex/complex.hpp>
-#include <nt2/sdk/complex/imaginary.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
@@ -32,18 +31,6 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return nt2:: sum(a0*conj(a1));
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::dot_, tag::cpu_, (A0),
-                              ((generic_ < imaginary_< arithmetic_ <A0> > > ))
-                              ((generic_ < imaginary_< arithmetic_ <A0> > > ))
-    )
-  {
-    typedef typename meta::scalar_of<A0>::type  result_type;
-    NT2_FUNCTOR_CALL_REPEAT(2)
-    {
-      return result_type(nt2::sum(imag(a0)*nt2::imag(a1)));
     }
   };
 
@@ -72,20 +59,6 @@ namespace nt2 { namespace ext
       result_type operator()(const A0& a0,const A0& a1, const A1& ) const
     {
       return nt2:: sum(a0*conj(a1));
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::dot_, tag::cpu_, (A0)(A1),
-                              ((generic_ < imaginary_< arithmetic_ <A0> > > ))
-                              ((generic_ < imaginary_< arithmetic_ <A0> > > ))
-                              ((scalar_<integer_<A1> > ))
-    )
-  {
-    typedef typename meta::scalar_of<A0>::type  result_type;
-    BOOST_DISPATCH_FORCE_INLINE
-      result_type operator()(const A0& a0,const A0& a1, const A1& ) const
-    {
-      return result_type(nt2::sum(imag(a0)*nt2::imag(a1)));
     }
   };
 

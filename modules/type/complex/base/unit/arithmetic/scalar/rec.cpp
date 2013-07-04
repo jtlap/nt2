@@ -26,7 +26,6 @@
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/mzero.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
-#include <nt2/sdk/complex/meta/as_imaginary.hpp>
 
 NT2_TEST_CASE_TPL ( rec_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
@@ -48,7 +47,6 @@ NT2_TEST_CASE_TPL ( rec_real__1_0,  BOOST_SIMD_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
-  // std::cout << nt2::type_id(nt2::I<T>()) << std::endl;
   // specific values tests
    NT2_TEST_EQUAL(nt2::rec(cT(1)), T(1));
    NT2_TEST_EQUAL(nt2::rec(cT(nt2::Inf<T>(), nt2::Inf<T>())), cT(nt2::Zero<cT>()));
@@ -71,11 +69,5 @@ NT2_TEST_CASE_TPL ( rec_real__1_0,  BOOST_SIMD_REAL_TYPES)
    NT2_TEST_EQUAL(nt2::rec(a), nt2::One<T>());
    std::complex < T > b(1, 1);
    NT2_TEST_ULP_EQUAL(nt2::rec(b), cT(0.5, -0.5), 0);
-   //    NT2_TEST_ULP_EQUAL(rec(nt2::Inf<dT>()), dT(nt2::Zero<T>()), 0);
-   //    NT2_TEST_ULP_EQUAL(rec(nt2::Minf<dT>()), dT(nt2::Zero<T>()), 0);
-   //    NT2_TEST_ULP_EQUAL(rec(nt2::Mone<dT>()), dT(nt2::Mone<T>()), 0);
-   //    NT2_TEST_ULP_EQUAL(rec(nt2::Nan<dT>()), dT(nt2::Nan<T>()), 0);
-   //    NT2_TEST_ULP_EQUAL(rec(nt2::One<dT>()), dT(nt2::One<T>()), 0);
-   //    NT2_TEST_ULP_EQUAL(rec(nt2::Zero<dT>()), dT(nt2::Inf<T>()), 0);
 } // end of test for floating_
 

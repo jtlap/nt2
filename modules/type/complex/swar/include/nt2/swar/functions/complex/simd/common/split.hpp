@@ -36,23 +36,6 @@ namespace nt2 { namespace ext
     }
   };
 
-   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::split_, tag::cpu_,
-                              (A0)(A1)(X),
-                              ((simd_<imaginary_<arithmetic_<A0> >,X>))
-                              ((simd_<imaginary_<arithmetic_<A1> >,X>))
-                              ((simd_<imaginary_<arithmetic_<A1> >,X>))
-                            )
-  {
-    typedef void result_type;
-    inline result_type operator()(A0 const& a0,A1 & a1, A1 & a2) const
-    {
-      typedef typename meta::as_real<A1>::type rA1;
-      rA1 ai0, ai1;
-      split(nt2::imag(a0), ai0, ai1);
-      a1 = A1(ai0);
-      a2 = A1(ai1);
-    }
-  };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::split_, tag::cpu_,
                               (A0)(A1)(X),

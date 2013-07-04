@@ -21,7 +21,6 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/details/helpers.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
-#include <nt2/sdk/complex/meta/as_imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 
 
@@ -45,21 +44,15 @@ NT2_TEST_CASE_TPL( complexify1, BOOST_SIMD_REAL_TYPES )
 }
 NT2_TEST_CASE_TPL( complexify2, BOOST_SIMD_REAL_TYPES )
 {
-#ifdef BOOST_SIMD_NO_INVALIDS
-  typedef typename nt2::meta::as_imaginary<T>::type ciT;
-#else
-  typedef typename nt2::meta::as_complex<T>::type ciT;
-#endif
+  typedef typename nt2::meta::as_complex<T>::type cT;
   nt2::table<T>   a00 = nt2::ones(3, 3, nt2::meta::as_<T>());
   NT2_DISPLAY(a00);
-  nt2::table<ciT> a0 = ciT(1)*a00;
-  //  std::cout << a0 << std::endl;
-  //NT2_DISPLAY(a0);
+  nt2::table<cT> a0 = cT(0, 1)*a00;
 
- for(int i=1; i < 9; i++)
-   {
-     std::cout << a0(i) << std::endl;
-   }
+  for(int i=1; i < 9; i++)
+  {
+    std::cout << a0(i) << std::endl;
+  }
   NT2_DISPLAY(complexify(a0));
   NT2_DISPLAY(complexify(complexify(a0)));
   NT2_TEST_EQUAL(complexify(a0), nt2::complexify(complexify(a0)));
