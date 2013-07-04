@@ -8,14 +8,17 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_IMPL_TRIGO_F_TRIG_EVALUATION_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_IMPL_TRIGO_F_TRIG_EVALUATION_HPP_INCLUDED
+
 #include <nt2/polynomials/functions/scalar/impl/horner.hpp>
-#include <nt2/include/functions/simd/oneplus.hpp>
 #include <nt2/include/functions/simd/fma.hpp>
-#include <nt2/include/functions/simd/sqr.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/is_equal.hpp>
+#include <nt2/include/functions/simd/oneplus.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/constants/mhalf.hpp>
 #include <nt2/include/constants/one.hpp>
 
@@ -71,7 +74,3 @@ namespace nt2 { namespace details
 
 
 #endif
-
-// /////////////////////////////////////////////////////////////////////////////
-// End of f_trig_evaluation.hpp
-// /////////////////////////////////////////////////////////////////////////////

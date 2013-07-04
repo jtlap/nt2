@@ -8,10 +8,10 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_IMPL_TRIGO_TRIG_BASE_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_IMPL_TRIGO_TRIG_BASE_HPP_INCLUDED
-#include <nt2/sdk/meta/as_logical.hpp>
+
 #include <nt2/include/functions/simd/any.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
 #include <nt2/include/functions/simd/is_invalid.hpp>
-#include <nt2/include/functions/simd/is_nan.hpp>
 #include <nt2/include/functions/simd/is_eqz.hpp>
 #include <nt2/include/functions/simd/is_nez.hpp>
 #include <nt2/include/functions/simd/is_flint.hpp>
@@ -21,8 +21,14 @@
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
 #include <nt2/include/functions/simd/bitwise_xor.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/bitofsign.hpp>
+#include <nt2/include/functions/simd/bitwise_and.hpp>
+#include <nt2/include/functions/simd/is_greater.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/oneminus.hpp>
 #include <nt2/include/constants/maxleftshift.hpp>
 #include <nt2/sdk/simd/tags.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 
 namespace nt2
 {
@@ -171,10 +177,4 @@ namespace nt2
   }
 }
 
-
-
 #endif
-
-// /////////////////////////////////////////////////////////////////////////////
-// End of trig_base.hpp
-// /////////////////////////////////////////////////////////////////////////////
