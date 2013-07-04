@@ -11,13 +11,11 @@
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
-#include <boost/simd/memory/allocator.hpp>
 #include <boost/simd/include/functions/aligned_load.hpp>
 #include <boost/simd/preprocessor/stack_buffer.hpp>
 #include <boost/fusion/include/at_c.hpp>
 #include <boost/fusion/include/make_vector.hpp>
 #include <boost/fusion/include/adapt_struct.hpp>
-#include <vector>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -118,7 +116,6 @@ NT2_TEST_CASE( store_sequence )
   using boost::simd::tag::aligned_store_;
   using boost::simd::aligned_load;
   using boost::simd::native;
-  using boost::simd::allocator;
   using boost::simd::meta::cardinal_of;
   using boost::fusion::make_vector;
   using boost::fusion::result_of::value_at;

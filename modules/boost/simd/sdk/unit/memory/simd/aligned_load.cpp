@@ -7,12 +7,10 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <boost/simd/include/functions/aligned_load.hpp>
-#include <boost/simd/memory/allocator.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
-#include <vector>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -159,7 +157,6 @@ NT2_TEST_CASE( load_sequence )
   using boost::simd::tag::aligned_load_;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
-  using boost::simd::allocator;
   using boost::fusion::make_vector;
   using boost::fusion::result_of::value_at;
 
@@ -171,9 +168,9 @@ NT2_TEST_CASE( load_sequence )
 
   static const size_t sz = cardinal_of< vT >::value;
 
-  std::vector<short, allocator<short,sizeof(foo1_t)> > sdata(sz);
-  std::vector<char , allocator<char ,sizeof(foo2_t)> > cdata(sz);
-  std::vector<float, allocator<float,sizeof(foo1_t)> > fdata(sz);
+  BOOST_SIMD_ALIGNED_STACK_BUFFER( sdata , short , sz );
+  BOOST_SIMD_ALIGNED_STACK_BUFFER( cdata , char  , sz );
+  BOOST_SIMD_ALIGNED_STACK_BUFFER( fdata , float , sz );
 
   for(std::size_t i=0;i<sz;++i)
   {
@@ -183,7 +180,6 @@ NT2_TEST_CASE( load_sequence )
   }
 
   vT v = aligned_load<vT>(make_vector(&sdata[0], &fdata[0], &cdata[0]), 0);
-
 
   foo0_t sref = aligned_load<foo0_t>(&sdata[0]);
   foo1_t fref = aligned_load<foo1_t>(&fdata[0]);
