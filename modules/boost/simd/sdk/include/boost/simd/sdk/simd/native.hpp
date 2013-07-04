@@ -20,6 +20,8 @@
 #include <boost/simd/memory/aligned_object.hpp>
 #include <boost/simd/sdk/config/compiler.hpp>
 #include <boost/fusion/adapted/boost_array.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 namespace boost { namespace simd
 {
@@ -34,6 +36,12 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     typedef Extension                                       extension_type;
     typedef typename meta::as_simd<Scalar, Extension>::type    native_type;
+
+    BOOST_MPL_ASSERT_MSG(
+      (!is_same<native_type, dispatch::meta::na_>::value),
+      BOOST_SIMD_NATIVE_TYPE_UNSUPPORTED_ON_EXTENSION,
+      (Scalar, Extension)
+    );
 
     ////////////////////////////////////////////////////////////////////////////
     // native<S,E> models RandomAccessRange and FusionRandomAccessSequence
