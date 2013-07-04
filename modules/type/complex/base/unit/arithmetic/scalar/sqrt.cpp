@@ -114,7 +114,7 @@ NT2_TEST_CASE_TPL ( sqrt_real__1_0,  (double))//BOOST_SIMD_REAL_TYPES)
 //  csqrt(x + iNaN) returns NaN + iNaN and optionally raises the invalid floating-point exception, for finite x.
 //  csqrt(−inf + iy) returns +0 + i inf, for finite positive-signed y.
 //  csqrt(+inf + iy) returns +inf + i0, for finite positive-signed y.
-//  csqrt(−inf + iNaN) returns NaN (+/-) i inf (where the sign of the imaginary part of the
+//  csqrt(−inf + iNaN) returns NaN (+/-) i inf (where the sign of the imag part of the
 // result is unspecified).
 //  csqrt(+inf + iNaN) returns +inf + iNaN.
 //  csqrt(NaN + iy) returns NaN + iNaN and optionally raises the invalid floating-point exception, for finite y.

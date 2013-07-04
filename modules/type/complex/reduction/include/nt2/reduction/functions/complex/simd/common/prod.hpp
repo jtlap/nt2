@@ -39,20 +39,6 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::prod_, tag::cpu_, (A0)(X)
-                                     , ((simd_< imaginary_< arithmetic_<A0> >, X >))
-                            )
-  {
-    typedef typename meta::as_real<A0>::type rtype;
-    typedef typename meta::scalar_of<rtype>::type stype;
-    typedef typename meta::as_dry<stype>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      const result_type signedness = (meta::cardinal_of<A0>::value <= 2) ? Mone<result_type>() : One<result_type>();
-      return nt2::prod(nt2::imag(a0))*signedness;
-    }
-  };
-
 } }
 
 #endif

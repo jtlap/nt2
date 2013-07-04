@@ -21,7 +21,7 @@
  * \defgroup nt2_complex_Cnan Cnan
  *
  * \par Description
- * Constant Cnan : Imaginary mask.
+ * Constant Cnan : Imag mask.
  *
  * \par Header file
  *

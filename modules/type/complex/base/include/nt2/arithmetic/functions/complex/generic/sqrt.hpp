@@ -54,7 +54,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      //always compute the sqroot of the complex with positive imaginary part
+      //always compute the sqroot of the complex with positive imag part
       //then conjugate if necessary
       typedef typename meta::as_real<A0>::type rtype;
       typedef typename meta::as_logical<rtype>::type ltype;

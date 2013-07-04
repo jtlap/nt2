@@ -19,7 +19,7 @@
  * \defgroup nt2_complex_pure pure
  *
  * \par Description
- * return the pure imaginary part of a complex
+ * return the pure imag part of a complex
  * but as a value of complex type
  *
  * \par Header file

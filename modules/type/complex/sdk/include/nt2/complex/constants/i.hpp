@@ -21,7 +21,7 @@
  * \defgroup nt2_complex_i I
  *
  * \par Description
- * Constant I : Imaginary unit.
+ * Constant I : Imag unit.
  *
  * \par Header file
  *

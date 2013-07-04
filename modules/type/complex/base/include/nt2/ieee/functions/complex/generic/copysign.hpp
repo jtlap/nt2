@@ -31,18 +31,6 @@ namespace nt2 { namespace ext
 //     }
 //   };
 
-//   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::copysign_, tag::cpu_,
-//                            (A0),
-//                            ((generic_<imaginary_ < floating_<A0> > >))
-//                            ((generic_<imaginary_ < floating_<A0> > >))
-//                           )
-//   {
-//     typedef A0 result_type;
-//     NT2_FUNCTOR_CALL_REPEAT(2)
-//     {
-//       return  result_type(copysign(nt2::imag(a0), nt2::imag(a1)));
-//     }
-//   };
 
 //   NT_FUNCTOR_IMPLEMENTATION(nt2::tag::copysign_, tag::cpu_,
 //                            (A0),

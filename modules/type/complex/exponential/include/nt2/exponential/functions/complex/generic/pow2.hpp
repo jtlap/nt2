@@ -62,7 +62,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_dry<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        //        NT2_WARN(is_real(a0), "Warning: Imaginary part is ignored.");
+        //        NT2_WARN(is_real(a0), "Warning: Imag part is ignored.");
         return bitwise_cast<result_type>(pow2(real(a0), a1));
       }
   };

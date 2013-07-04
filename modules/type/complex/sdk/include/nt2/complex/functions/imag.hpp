@@ -18,7 +18,7 @@
  * \defgroup nt2_complex_imag imag
  *
  * \par Description
- * return the imaginary part of a complex
+ * return the imag part of a complex
  *
  * \par Header file
  *

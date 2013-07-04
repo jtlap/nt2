@@ -16,7 +16,6 @@
 #include <nt2/include/functions/if_else_zero.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
-#include <nt2/sdk/complex/meta/as_imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 
 namespace nt2 { namespace ext

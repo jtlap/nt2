@@ -21,7 +21,7 @@
  * \defgroup nt2_complex_sqrti sqrti
  *
  * \par Description
- * Constant Sqrti : Imaginary unit principal square root.
+ * Constant Sqrti : Imag unit principal square root.
  *
  * \par Header file
  *

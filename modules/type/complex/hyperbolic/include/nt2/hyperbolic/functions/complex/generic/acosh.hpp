@@ -56,21 +56,6 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acosh_, tag::cpu_, (A0)
-                            , (generic_< imaginary_< arithmetic_<A0> > >)
-                            )
-  {
-    typedef typename meta::as_real<A0>::type rtype;
-    typedef typename meta::as_complex<A0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      result_type res = nt2::acos(a0);
-      res = if_else(logical_notand(is_nan(nt2::imag(res)), is_lez(nt2::imag(res))),
-                    mul_i(res), mul_minus_i(res));
-      return res;
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acosh_, tag::cpu_, (A0)
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {
