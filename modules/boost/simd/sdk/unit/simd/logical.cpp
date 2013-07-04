@@ -21,7 +21,7 @@
 #include <boost/simd/include/functions/is_true.hpp>
 #include <cstddef>
 
-NT2_TEST_CASE_TPL ( as_logical, BOOST_SIMD_TYPES )
+NT2_TEST_CASE_TPL ( as_logical, BOOST_SIMD_SIMD_TYPES )
 {
   using boost::is_same;
   using boost::simd::logical;
@@ -119,7 +119,7 @@ NT2_TEST_CASE_TPL ( logical_value_of, BOOST_SIMD_TYPES )
 }
 
 
-NT2_TEST_CASE_TPL ( logical_scalar_of, BOOST_SIMD_TYPES )
+NT2_TEST_CASE_TPL ( logical_scalar_of, BOOST_SIMD_SIMD_TYPES )
 {
   using boost::is_same;
   using boost::simd::logical;
