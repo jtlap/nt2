@@ -127,9 +127,10 @@ namespace nt2 { namespace details
 
     static int_type select_mode(const A0& xx, A0& xr, boost::mpl::int_<r_0_pio4> const&)
     {
-      if(nt2::all(is_0_pio4_reduced(xx)) || mode::range == r_0_pio4)
+      if(mode::range == r_0_pio4 || nt2::all(is_0_pio4_reduced(xx)))
       {
-        xr = xx; return Zero<int_type>();
+        xr = xx;
+        return Zero<int_type>();
       }
       return select_mode(xx,xr,boost::mpl::int_<r_0_pio2>());
     }
