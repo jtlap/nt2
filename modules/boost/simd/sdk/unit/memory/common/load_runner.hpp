@@ -48,8 +48,8 @@ inline void aligned_load_runner(bool offset = false)
   static const std::size_t cd = cardinal_of<Target>::value;
   static const std::size_t sz = cd*3;
 
-  std::vector<Type  , allocator<Type,sizeof(Target)> > data( sz );
-  std::vector<Target, allocator<Type,sizeof(Target)> > ref( sz );
+  BOOST_SIMD_ALIGNED_STACK_BUFFER( data, Type   , sz );
+  BOOST_SIMD_ALIGNED_STACK_BUFFER( ref , Target , sz );
 
   for(std::size_t i=0;i<sz;++i)
   {
