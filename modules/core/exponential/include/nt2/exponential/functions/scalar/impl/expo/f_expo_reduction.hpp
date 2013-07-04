@@ -8,19 +8,20 @@
 //==============================================================================
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPO_F_EXPO_REDUCTION_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPO_F_EXPO_REDUCTION_HPP_INCLUDED
-#include <nt2/sdk/meta/as_logical.hpp>
+
 #include <nt2/include/functions/simd/round2even.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/include/functions/simd/fma.hpp>
 #include <nt2/include/functions/simd/oneplus.hpp>
 #include <nt2/include/functions/simd/is_greater_equal.hpp>
 #include <nt2/include/functions/simd/is_less_equal.hpp>
-#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/constants/log_2.hpp>
 #include <nt2/include/constants/invlog_2.hpp>
+#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/exponential/functions/scalar/impl/selection_tags.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 
 namespace nt2 { namespace details
 {

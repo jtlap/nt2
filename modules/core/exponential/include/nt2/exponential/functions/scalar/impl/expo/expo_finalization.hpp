@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPO_EXPO_FINALIZATION_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPO_EXPO_FINALIZATION_HPP_INCLUDED
+
 #include <nt2/include/functions/simd/fast_ldexp.hpp>
 #include <nt2/include/functions/simd/fast_toint.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
@@ -18,14 +19,14 @@
 #include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/simd/round2even.hpp>
 #include <nt2/include/functions/simd/logical_and.hpp>
-#include <nt2/include/constants/nbmantissabits.hpp>
-#include <nt2/include/constants/eps.hpp>
-#include <nt2/include/constants/two.hpp>
 #include <nt2/include/functions/simd/is_greater.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/functions/simd/plus.hpp>
 #include <nt2/include/functions/simd/unary_minus.hpp>
+#include <nt2/include/constants/nbmantissabits.hpp>
+#include <nt2/include/constants/eps.hpp>
+#include <nt2/include/constants/two.hpp>
 
 // 4/4/2013 adding "scale" to properly treat denormal use in returns computation
 // for float for instance it treats differently  entries roughly between -87.6 and -87.25

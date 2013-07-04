@@ -12,6 +12,8 @@
 #include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/if_zero_else.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/is_nan.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <boost/simd/sdk/config.hpp>
