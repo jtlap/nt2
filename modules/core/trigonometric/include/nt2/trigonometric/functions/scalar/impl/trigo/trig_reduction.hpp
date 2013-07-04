@@ -9,21 +9,24 @@
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_TRIGO_TRIG_REDUCTION_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_TRIGO_TRIG_REDUCTION_HPP_INCLUDED
 
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/include/functions/simd/rem_pio2_medium.hpp>
 #include <nt2/include/functions/simd/rem_pio2_cephes.hpp>
 #include <nt2/include/functions/simd/rem_pio2_straight.hpp>
 #include <nt2/include/functions/simd/rem_pio2.hpp>
-#include <nt2/include/functions/toint.hpp>
-#include <nt2/include/functions/round2even.hpp>
-#include <nt2/include/functions/if_else_allbits.hpp>
-#include <nt2/include/functions/is_not_greater.hpp>
-#include <nt2/include/functions/is_greater_equal.hpp>
-#include <nt2/include/functions/is_nez.hpp>
-#include <nt2/include/functions/is_flint.hpp>
-#include <nt2/include/functions/all.hpp>
+#include <nt2/include/functions/simd/logical_and.hpp>
+#include <nt2/include/functions/simd/split.hpp>
+#include <nt2/include/functions/simd/group.hpp>
+#include <nt2/include/functions/simd/toint.hpp>
+#include <nt2/include/functions/simd/round2even.hpp>
+#include <nt2/include/functions/simd/if_else_allbits.hpp>
+#include <nt2/include/functions/simd/is_not_greater.hpp>
+#include <nt2/include/functions/simd/is_nez.hpp>
+#include <nt2/include/functions/simd/is_flint.hpp>
+#include <nt2/include/functions/simd/all.hpp>
+#include <nt2/include/functions/simd/inrad.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/pio_2.hpp>
@@ -33,12 +36,11 @@
 #include <nt2/include/constants/_20_pi.hpp>
 #include <nt2/include/constants/oneo_90.hpp>
 #include <nt2/include/constants/medium_pi.hpp>
-#include <boost/simd/sdk/meta/is_upgradable.hpp>
-#include <nt2/include/functions/simd/logical_and.hpp>
 #include <nt2/include/constants/false.hpp>
-#include <nt2/include/functions/inrad.hpp>
-#include <nt2/include/functions/simd/split.hpp>
-#include <nt2/include/functions/simd/group.hpp>
+#include <nt2/sdk/meta/upgrade.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
+#include <boost/simd/sdk/meta/is_upgradable.hpp>
 #include <boost/mpl/int.hpp>
 
 namespace nt2 { namespace details
