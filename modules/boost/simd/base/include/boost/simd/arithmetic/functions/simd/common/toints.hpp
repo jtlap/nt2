@@ -17,6 +17,7 @@
 #include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/if_zero_else.hpp>
 #include <boost/simd/include/functions/is_greater_equal.hpp>
+#include <boost/simd/include/functions/is_greater.hpp>
 #include <boost/simd/include/functions/bitwise_cast.hpp>
 
 namespace boost { namespace simd { namespace ext
