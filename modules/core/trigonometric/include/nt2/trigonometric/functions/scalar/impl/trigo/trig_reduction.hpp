@@ -73,17 +73,17 @@ namespace nt2 { namespace details
     typedef typename meta::as_logical<A0>::type              bA0;
     typedef typename meta::as_integer<A0, signed>::type int_type;
 
-    static inline bA0 is_0_pio4_reduced(const A0&a0) { return boost::simd::is_ngt(a0, nt2::Pio_4<A0>()); }
-    static inline bA0 is_0_pio2_reduced(const A0&a0) { return boost::simd::is_ngt(a0, nt2::Pio_2<A0>()); }
-    static inline bA0 is_0_20pi_reduced(const A0&a0) { return boost::simd::is_ngt(a0, _20_pi<A0>()); }
-    static inline bA0 is_0_mpi_reduced (const A0&a0) { return boost::simd::is_ngt(a0, Medium_pi<A0>()); }  //2^6pi
-    static inline bA0 is_0_dmpi_reduced(const A0&a0) { return boost::simd::is_ngt(a0, single_constant<A0,0x49490fdb>()); }  //2^18pi
+    static BOOST_FORCEINLINE bA0 is_0_pio4_reduced(const A0&a0) { return boost::simd::is_ngt(a0, nt2::Pio_4<A0>()); }
+    static BOOST_FORCEINLINE bA0 is_0_pio2_reduced(const A0&a0) { return boost::simd::is_ngt(a0, nt2::Pio_2<A0>()); }
+    static BOOST_FORCEINLINE bA0 is_0_20pi_reduced(const A0&a0) { return boost::simd::is_ngt(a0, _20_pi<A0>()); }
+    static BOOST_FORCEINLINE bA0 is_0_mpi_reduced (const A0&a0) { return boost::simd::is_ngt(a0, Medium_pi<A0>()); }  //2^6pi
+    static BOOST_FORCEINLINE bA0 is_0_dmpi_reduced(const A0&a0) { return boost::simd::is_ngt(a0, single_constant<A0,0x49490fdb>()); }  //2^18pi
     typedef typename boost::simd::meta::is_upgradable_on_ext<A0>::type conversion_allowed;
 
-    static inline bA0 cot_invalid(const A0& ) { return False<bA0>(); }
-    static inline bA0 tan_invalid(const A0& ) { return False<bA0>(); }
+    static BOOST_FORCEINLINE bA0 cot_invalid(const A0& ) { return False<bA0>(); }
+    static BOOST_FORCEINLINE bA0 tan_invalid(const A0& ) { return False<bA0>(); }
 
-    static inline int_type reduce(const A0& x, A0& xr){ return inner_reduce(x, xr); }
+    static BOOST_FORCEINLINE int_type reduce(const A0& x, A0& xr) { return inner_reduce(x, xr); }
   private:
     static inline int_type inner_reduce(const A0& x, A0& xr)
     {
@@ -94,38 +94,38 @@ namespace nt2 { namespace details
     template < class Mode, bool clipped = Mode::clipped>
     struct preliminary
     {
-      static inline A0 clip(const A0& x){ return x; }
+      static BOOST_FORCEINLINE A0 const& clip(const A0& x) { return x; }
     };
 
 
     template < class Mode>
     struct preliminary<Mode, true>
     {
-      static inline A0 clip(const A0& x)
+      static BOOST_FORCEINLINE A0 clip(const A0& x)
       {
         return clipto(x, boost::mpl::int_<Mode::range>());
       }
     private :
-      static inline A0 clipto(const A0& x, boost::mpl::int_<r_0_pio4> const&)
+      static BOOST_FORCEINLINE A0 clipto(const A0& x, boost::mpl::int_<r_0_pio4> const&)
       {
         return if_else_nan(is_0_pio4_reduced(x), x);
       }
-      static inline A0 clipto(const A0& x, boost::mpl::int_<r_0_20pi> const&)
+      static BOOST_FORCEINLINE A0 clipto(const A0& x, boost::mpl::int_<r_0_20pi> const&)
       {
         return if_else_nan(is_0_20pi_reduced(x), x);
       }
-      static inline A0 clipto(const A0& x, boost::mpl::int_<r_0_mpi> const&)
+      static BOOST_FORCEINLINE A0 clipto(const A0& x, boost::mpl::int_<r_0_mpi> const&)
       {
         return if_else_nan(is_0_mpi_reduced(x), x);
       }
-      static inline A0 clipto(const A0& x, boost::mpl::int_<r_0_dmpi> const&)
+      static BOOST_FORCEINLINE A0 clipto(const A0& x, boost::mpl::int_<r_0_dmpi> const&)
       {
         return if_else_nan(is_0_dmpi_reduced(x), x);
       }
     };
 
 
-    static int_type select_mode(const A0& xx, A0& xr, boost::mpl::int_<r_0_pio4> const&)
+    static BOOST_FORCEINLINE int_type select_mode(const A0& xx, A0& xr, boost::mpl::int_<r_0_pio4> const&)
     {
       if(mode::range == r_0_pio4 || nt2::all(is_0_pio4_reduced(xx)))
       {
@@ -135,40 +135,40 @@ namespace nt2 { namespace details
       return select_mode(xx,xr,boost::mpl::int_<r_0_pio2>());
     }
 
-    static int_type select_mode(const A0& xx, A0& xr, boost::mpl::int_<r_0_pio2> const&)
+    static BOOST_FORCEINLINE int_type select_mode(const A0& xx, A0& xr, boost::mpl::int_<r_0_pio2> const&)
     {
       if(nt2::all(is_0_pio2_reduced(xx)))
         return rem_pio2_straight(xx, xr);
       return select_mode(xx,xr,boost::mpl::int_<r_0_20pi>());
     }
 
-    static int_type select_mode(const A0& xx, A0& xr, boost::mpl::int_< r_0_20pi> const&)
+    static BOOST_FORCEINLINE int_type select_mode(const A0& xx, A0& xr, boost::mpl::int_< r_0_20pi> const&)
     {
       if(mode::range == r_0_20pi || nt2::all(is_0_20pi_reduced(xx)))
         return rem_pio2_cephes(xx, xr);
       return select_mode(xx,xr,boost::mpl::int_<r_0_mpi>());
     }
 
-    static int_type select_mode(const A0& xx, A0& xr, boost::mpl::int_< r_0_mpi> const&)
+    static BOOST_FORCEINLINE int_type select_mode(const A0& xx, A0& xr, boost::mpl::int_< r_0_mpi> const&)
     {
       if(mode::range == r_0_mpi || nt2::all(is_0_mpi_reduced(xx)))
         return rem_pio2_medium(xx, xr);
       return select_mode(xx,xr,boost::mpl::int_<r_0_dmpi>());
     }
 
-    static int_type select_mode(const A0& xx, A0& xr, boost::mpl::int_< r_0_dmpi> const&)
+    static BOOST_FORCEINLINE int_type select_mode(const A0& xx, A0& xr, boost::mpl::int_< r_0_dmpi> const&)
     {
       if(nt2::all(is_0_dmpi_reduced(xx)))
         return use_conversion(xx, xr, style(), conversion_allowed());
       return rem_pio2(xx, xr);
     }
 
-    static int_type use_conversion(const A0 & xx,  A0& xr,  const style &, boost::mpl::false_)
+    static BOOST_FORCEINLINE int_type use_conversion(const A0 & xx,  A0& xr,  const style &, boost::mpl::false_)
     {
       return rem_pio2(xx, xr);
     }
 
-    static int_type use_conversion(const A0 & xx,  A0& xr,  const tag::not_simd_type &, boost::mpl::true_)
+    static BOOST_FORCEINLINE int_type use_conversion(const A0 & xx,  A0& xr,  const tag::not_simd_type &, boost::mpl::true_)
     {
       // all of x are in [0, 2^18*pi],  conversion to double is used to reduce
       typedef typename meta::upgrade<A0>::type uA0;
@@ -179,7 +179,7 @@ namespace nt2 { namespace details
       return n;
     }
 
-    static inline int_type use_conversion(const A0 & x,  A0& xr,  const tag::simd_type &, boost::mpl::true_)
+    static BOOST_FORCEINLINE int_type use_conversion(const A0 & x,  A0& xr,  const tag::simd_type &, boost::mpl::true_)
     {
       // all of x are in [0, 2^18*pi],  conversion to double is used to reduce
       typedef typename meta::upgrade<A0>::type uA0;
@@ -201,8 +201,8 @@ namespace nt2 { namespace details
     typedef typename meta::as_logical<A0>::type              bA0;
     typedef typename meta::as_integer<A0, signed>::type int_type;
 
-    static inline bA0 cot_invalid(const A0& x) { return logical_and(nt2::is_nez(x), is_flint(x/_180<A0>())); }
-    static inline bA0 tan_invalid(const A0& x) { return nt2::is_flint((x-nt2::_90<A0>())/nt2::_180<A0>()); }
+    static BOOST_FORCEINLINE bA0 cot_invalid(const A0& x) { return logical_and(nt2::is_nez(x), is_flint(x/_180<A0>())); }
+    static BOOST_FORCEINLINE bA0 tan_invalid(const A0& x) { return nt2::is_flint((x-nt2::_90<A0>())/nt2::_180<A0>()); }
 
     static inline int_type reduce(const A0& x, A0& xr)
     {
@@ -220,8 +220,8 @@ namespace nt2 { namespace details
     typedef typename meta::as_logical<A0>::type              bA0;
     typedef typename meta::as_integer<A0, signed>::type int_type;
 
-    static inline bA0 cot_invalid(const A0& x) { return logical_and(nt2::is_nez(x), nt2::is_flint(x)); }
-    static inline bA0 tan_invalid(const A0& x) { return nt2::is_flint(x-nt2::Half<A0>()) ; }
+    static BOOST_FORCEINLINE bA0 cot_invalid(const A0& x) { return logical_and(nt2::is_nez(x), nt2::is_flint(x)); }
+    static BOOST_FORCEINLINE bA0 tan_invalid(const A0& x) { return nt2::is_flint(x-nt2::Half<A0>()) ; }
 
     static inline int_type reduce(const A0& x,  A0& xr)
     {
