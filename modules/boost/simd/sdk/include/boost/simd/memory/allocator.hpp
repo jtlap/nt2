@@ -54,6 +54,13 @@ namespace boost { namespace simd
     /// Constructor from another SIMD allocator
     template<typename U> allocator(allocator<U,Alignment> const& ) {}
 
+    /// Constructor from another SIMD allocator
+    template<typename U>
+    allocator& operator=(allocator<U,Alignment> const& )
+    {
+      return *this;
+    }
+
     /// Retrieve the address of an element
     pointer       address(reference r)       { return &r; }
 
@@ -83,6 +90,26 @@ namespace boost { namespace simd
     void deallocate (pointer p, size_type ) const
     {
       boost::simd::deallocate( p );
+    }
+  };
+
+  /// INTERNAL ONLY - Overload for void type
+  template<std::size_t Alignment> struct allocator<void,Alignment>
+  {
+    typedef void*         pointer;
+    typedef const void*   const_pointer;
+    typedef void          value_type;
+
+    template<typename U> struct rebind
+    {
+      typedef allocator<U,Alignment> other;
+    };
+
+    allocator() {}
+    template<typename U> allocator(allocator<U,Alignment> const& ) {}
+    template<typename U> allocator& operator=(allocator<U,Alignment> const& )
+    {
+      return *this;
     }
   };
 
