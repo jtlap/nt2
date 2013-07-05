@@ -40,6 +40,8 @@ namespace boost { namespace simd
     @return A Fusion Sequence containing the result of @c a0 * @c a1
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::split_multiplies_, split_multiplies, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::split_multiplies_, full_mul, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::split_multiplies_, wide_mul, 2)
 
   /*!
     @brief SIMD register type-based multiplies and split
