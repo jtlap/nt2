@@ -39,7 +39,7 @@
 
   @return A pointer referencing a newly allocated aligned memory block
 **/
-inline BOOST_SIMD_MALLOC void*
+BOOST_FORCEINLINE BOOST_SIMD_MALLOC void*
 operator new(std::size_t sz, const std::nothrow_t& throw_status) throw()
 {
   return boost::simd::allocate(sz, throw_status);
@@ -56,7 +56,7 @@ operator new(std::size_t sz, const std::nothrow_t& throw_status) throw()
 
   @return A pointer referencing a newly allocated aligned memory block
 **/
-inline BOOST_SIMD_MALLOC void*
+BOOST_FORCEINLINE BOOST_SIMD_MALLOC void*
 operator new(std::size_t sz) BOOST_SIMD_MEMORY_BAD_ALLOC()
 {
   return boost::simd::allocate(sz);
@@ -112,7 +112,7 @@ operator new(std::size_t sz, std::size_t align) BOOST_SIMD_MEMORY_BAD_ALLOC()
 
   @return A pointer referencing a newly allocated aligned memory block
 **/
-inline BOOST_SIMD_MALLOC void*
+BOOST_FORCEINLINE BOOST_SIMD_MALLOC void*
 operator new[](std::size_t sz, const std::nothrow_t& throw_status) throw()
 {
   return boost::simd::allocate(sz, throw_status);
@@ -129,7 +129,7 @@ operator new[](std::size_t sz, const std::nothrow_t& throw_status) throw()
 
   @return A pointer referencing a newly allocated aligned memory block
 **/
-inline BOOST_SIMD_MALLOC void*
+BOOST_FORCEINLINE BOOST_SIMD_MALLOC void*
 operator new[](std::size_t sz) BOOST_SIMD_MEMORY_BAD_ALLOC()
 {
   return boost::simd::allocate(sz);
@@ -178,7 +178,7 @@ operator new[](std::size_t sz, std::size_t align) BOOST_SIMD_MEMORY_BAD_ALLOC()
 
   @param m Pointer referencing the memory block to free
 **/
-inline void operator delete(void* m)  throw()
+BOOST_FORCEINLINE void operator delete(void* m)  throw()
 {
   boost::simd::deallocate(m);
 }
@@ -188,19 +188,19 @@ inline void operator delete(void* m)  throw()
 
   @param m Pointer referencing the memory block to free
 **/
-inline void operator delete[](void* m) throw()
+BOOST_FORCEINLINE void operator delete[](void* m) throw()
 {
   boost::simd::deallocate(m);
 }
 
 /// @overload
-inline void operator delete(void* m, const std::nothrow_t&) throw()
+BOOST_FORCEINLINE void operator delete(void* m, const std::nothrow_t&) throw()
 {
   boost::simd::deallocate(m);
 }
 
 /// @overload
-inline void operator delete[](void* m, const std::nothrow_t&) throw()
+BOOST_FORCEINLINE void operator delete[](void* m, const std::nothrow_t&) throw()
 {
   boost::simd::deallocate(m);
 }
