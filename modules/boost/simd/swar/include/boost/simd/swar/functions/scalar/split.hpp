@@ -10,6 +10,7 @@
 #define BOOST_SIMD_SWAR_FUNCTIONS_SCALAR_SPLIT_HPP_INCLUDED
 
 #include <boost/simd/swar/functions/split.hpp>
+#include <boost/dispatch/meta/upgrade.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -18,10 +19,10 @@ namespace boost { namespace simd { namespace ext
                                     , (scalar_< arithmetic_<A0> >)
                                     )
   {
-    typedef A0 result_type;
+    typedef typename dispatch::meta::upgrade<A0>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return a0;
+      return result_type(a0);
     }
   };
 } } }

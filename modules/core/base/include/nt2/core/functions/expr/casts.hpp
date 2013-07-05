@@ -6,14 +6,14 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_EXPR_CAST_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_EXPR_CAST_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_EXPR_CASTS_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_EXPR_CASTS_HPP_INCLUDED
 
-#include <nt2/core/functions/cast.hpp>
-#include <nt2/include/functions/toint.hpp>
-#include <nt2/include/functions/touint.hpp>
+#include <nt2/core/functions/casts.hpp>
+#include <nt2/include/functions/toints.hpp>
+#include <nt2/include/functions/touints.hpp>
 #include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/group.hpp>
+#include <nt2/include/functions/groups.hpp>
 #include <nt2/include/functions/split.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/sdk/meta/as_unsigned.hpp>
@@ -23,7 +23,7 @@
 namespace nt2 { namespace ext
 {
   // scalar impl general
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cast_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::casts_, tag::cpu_
                             , (A0)(To)
                             , (scalar_< unspecified_<A0> >)
                               (target_< scalar_< unspecified_<To> > >)
@@ -38,10 +38,10 @@ namespace nt2 { namespace ext
 
   // upgrade -- split recursively
   template<class Expr, class From, class To, class Enable = void>
-  struct cast_upgrade
+  struct casts_upgrade
   {
     typedef typename meta::call<tag::split_(Expr&)>::type as_split;
-    typedef cast_upgrade<as_split const, typename as_split::value_type, To> rec;
+    typedef casts_upgrade<as_split const, typename as_split::value_type, To> rec;
     typedef typename boost::remove_reference<typename rec::result_type>::type result_type;
 
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
@@ -51,7 +51,7 @@ namespace nt2 { namespace ext
   };
 
   template<class Expr, class From, class To>
-  struct cast_upgrade<Expr, From, To, typename boost::enable_if_c< sizeof(From) >= sizeof(To) >::type>
+  struct casts_upgrade<Expr, From, To, typename boost::enable_if_c< sizeof(From) >= sizeof(To) >::type>
   {
     typedef Expr& result_type;
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
@@ -62,20 +62,20 @@ namespace nt2 { namespace ext
 
   // downgrade -- group recursively
   template<class Expr, class From, class To, class Enable = void>
-  struct cast_downgrade
+  struct casts_downgrade
   {
     typedef typename meta::call<tag::group_(Expr&)>::type as_group;
-    typedef cast_downgrade<as_group const, typename as_group::value_type, To> rec;
+    typedef casts_downgrade<as_group const, typename as_group::value_type, To> rec;
     typedef typename boost::remove_reference<typename rec::result_type>::type result_type;
 
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
-      return rec()(nt2::group(e));
+      return rec()(nt2::groups(e));
     }
   };
 
   template<class Expr, class From, class To>
-  struct cast_downgrade<Expr, From, To, typename boost::enable_if_c< sizeof(From) <= sizeof(To) >::type>
+  struct casts_downgrade<Expr, From, To, typename boost::enable_if_c< sizeof(From) <= sizeof(To) >::type>
   {
     typedef Expr& result_type;
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
@@ -86,7 +86,7 @@ namespace nt2 { namespace ext
 
   // intfloat -- call tofloat, toint or nothing depending on case
   template<class Expr, class From, class To, class Enable = void>
-  struct cast_intfloat
+  struct casts_intfloat
   {
     typedef Expr& result_type;
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
@@ -96,7 +96,7 @@ namespace nt2 { namespace ext
   };
 
   template<class Expr, class From, class To>
-  struct cast_intfloat<Expr, From, To, typename boost::enable_if_c< meta::is_integral<From>::value && meta::is_floating_point<To>::value >::type>
+  struct casts_intfloat<Expr, From, To, typename boost::enable_if_c< meta::is_integral<From>::value && meta::is_floating_point<To>::value >::type>
   {
     typedef typename meta::call<tag::tofloat_(Expr&)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
@@ -106,27 +106,27 @@ namespace nt2 { namespace ext
   };
 
   template<class Expr, class From, class To>
-  struct cast_intfloat<Expr, From, To, typename boost::enable_if_c< meta::is_integral<To>::value && meta::is_signed<To>::value>::type>
+  struct casts_intfloat<Expr, From, To, typename boost::enable_if_c< meta::is_integral<To>::value && meta::is_signed<To>::value>::type>
   {
     typedef typename meta::call<tag::toint_(Expr&)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
-      return nt2::toint(e);
+      return nt2::toints(e);
     }
   };
 
   template<class Expr, class From, class To>
-  struct cast_intfloat<Expr, From, To, typename boost::enable_if_c< meta::is_integral<To>::value && meta::is_unsigned<To>::value>::type>
+  struct casts_intfloat<Expr, From, To, typename boost::enable_if_c< meta::is_integral<To>::value && meta::is_unsigned<To>::value>::type>
   {
     typedef typename meta::call<tag::touint_(Expr&)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
-      return nt2::touint(e);
+      return nt2::touints(e);
     }
   };
 
-  // cast
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cast_, tag::cpu_
+  // casts
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::casts_, tag::cpu_
                             , (A0)(To)
                             , ((ast_<A0, nt2::container::domain>))
                               (target_< scalar_< arithmetic_<To> > >)
@@ -139,13 +139,13 @@ namespace nt2 { namespace ext
          : boost::remove_reference<typename boost::dispatch::meta::as_ref<T>::type>
     {};
 
-    typedef cast_upgrade<A0, typename A0::value_type, to> upgrade;
+    typedef casts_upgrade<A0, typename A0::value_type, to> upgrade;
     typedef typename as_arg<typename upgrade::result_type>::type upgraded;
 
-    typedef cast_intfloat<upgraded, typename upgraded::value_type, to> type;
+    typedef casts_intfloat<upgraded, typename upgraded::value_type, to> type;
     typedef typename as_arg<typename type::result_type>::type typed;
 
-    typedef cast_downgrade<typed, typename typed::value_type, to> downgrade;
+    typedef casts_downgrade<typed, typename typed::value_type, to> downgrade;
     typedef typename boost::remove_reference<typename downgrade::result_type>::type result_type;
 
     result_type operator()(A0& a0, To const&) const

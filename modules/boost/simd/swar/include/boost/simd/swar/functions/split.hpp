@@ -40,6 +40,8 @@ namespace boost { namespace simd
     @return A Fusion Sequence containing the two sub-part of @c a0
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::split_, split, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::split_, promote, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::split_, widen, 1)
 
   /*!
     @brief SIMD register type-based split

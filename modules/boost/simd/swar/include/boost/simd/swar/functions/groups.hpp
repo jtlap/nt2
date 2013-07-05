@@ -69,6 +69,9 @@ namespace boost { namespace simd { namespace tag
     struct groups_ : ext::elementwise_<groups_> { typedef ext::elementwise_<groups_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::groups_, groups, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::groups_, demotes, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::groups_, narrows, 1)
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::groups_, groups, 2)
 } }
 
