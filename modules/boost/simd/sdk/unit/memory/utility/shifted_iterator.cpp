@@ -54,19 +54,19 @@ NT2_TEST_CASE_TPL(shifted_vector_iterator_scalar, BOOST_SIMD_SIMD_TYPES )
   typedef pack<T> p_t;
 
   static const std::size_t card = cardinal_of<p_t>::value;
-  std::vector<T,allocator<T> > data(card*(6+2));
+  std::vector<T,allocator<T> > data(card*6);
   std::vector<T,allocator<T> > ref(card*6);
   std::vector<T,allocator<T> > result(card*6);
 
   for(std::size_t i=0; i<data.size(); ++i)
   {
-    data[i] = i%3==0 ? T(2) : (i%3==1 ? T(-2) : T(1) );
+    data[i] = T(i+1-card);
   }
 
-  for(std::size_t i=card; i<ref.size()-card; ++i) ref[i] = T(1);
+  for(std::size_t i=card; i<ref.size()-card; ++i) ref[i] = T((i+1-card)*3);
 
-  sit_ sb = boost::simd::shifted_begin(data.begin()+card, around<-1,1>());
-  sit_ se = boost::simd::shifted_end(data.end()-card, around<-1,1>());
+  sit_ sb = boost::simd::shifted_begin(data.begin(), around<-1,1>());
+  sit_ se = boost::simd::shifted_end(data.end(), around<-1,1>());
 
   mytransform( sb, se, output_begin(result.begin())+1, average<T>() );
 
