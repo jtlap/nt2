@@ -36,7 +36,9 @@ NT2_TEST_CASE_TPL ( touints_real__1_0,  NT2_REAL_TYPES)
   std::vector<r_t>  ref(NR);
   for(nt2::uint32_t i=0; i < NR ; ++i)
   {
-    ref[i] = (in1[i] >= 0) ? in1[i] : 0;
+    if (in1[i] > nt2::Valmax<r_t>()) ref[i] = nt2::Valmax<r_t>();
+    else if (in1[i] <= 0) ref[i] =0;
+    else ref[i] = in1[i];
   }
 
   NT2_COVER_ULP_EQUAL(touints_, ((T, in1)), ref, 0);
