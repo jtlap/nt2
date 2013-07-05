@@ -25,12 +25,24 @@
 #define BOOST_SIMD_CONFIG_ALIGNMENT BOOST_SIMD_BYTES
 #endif
 
+
+#if defined(DOXYGEN_ONLY)
 /*!
   @brief System dependent value for alloca alignment
 
   This macro is defined to be equal to the current system alignment of
   address returned by @c alloca.
 **/
+#define BOOST_SIMD_CONFIG_ALIGNMENT BOOST_SIMD_CONFIG_ALIGNMENT
+#else
+
+// Fix for GCC Bug 35271 : http://gcc.gnu.org/bugzilla/show_bug.cgi?id=35271
+#if BOOST_SIMD_GCC_VERSION < 40203
+#define BOOST_SIMD_STACK_ALIGNMENT 8
+#else
 #define BOOST_SIMD_STACK_ALIGNMENT BOOST_SIMD_ARCH_ALIGNMENT
+#endif
+
+#endif
 
 #endif
