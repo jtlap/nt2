@@ -22,7 +22,6 @@
 #include <boost/mpl/equal_to.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <iostream>
 
 namespace boost { namespace simd
 {
@@ -54,22 +53,22 @@ namespace boost { namespace simd
 
     static const std::size_t cardinal = C;
 
-    explicit shifted_iterator(Iterator p) : base(p) { fill(); }
+    explicit shifted_iterator(Iterator p) : base(p) { }
 
     protected:
 
     /// INTERNAL ONLY - CT-recursive filling of the iterator data
-    template<int N> BOOST_FORCEINLINE void fill(  boost::mpl::int_<N> const& )
+    template<int N> BOOST_FORCEINLINE void fill(  boost::mpl::int_<N> const& ) const
     {
       seq[N] = aligned_load<pack_type,N+Region::w_min>(&*base+N+Region::w_min);
       fill(boost::mpl::int_<N+1>());
     }
 
     /// INTERNAL ONLY
-    BOOST_FORCEINLINE void fill(boost::mpl::int_<Region::width> const&) {}
+    BOOST_FORCEINLINE void fill(boost::mpl::int_<Region::width> const&) const {}
 
     /// INTERNAL ONLY
-    BOOST_FORCEINLINE void fill() { fill( boost::mpl::int_<0>() ); }
+    BOOST_FORCEINLINE void fill() const { fill( boost::mpl::int_<0>() ); }
 
     private:
     friend class boost::iterator_core_access;
@@ -78,7 +77,6 @@ namespace boost { namespace simd
     BOOST_FORCEINLINE void increment()
     {
       base += C;
-      fill( );
     }
 
     /// INTERNAL ONLY - required by iterator_facade
@@ -88,7 +86,11 @@ namespace boost { namespace simd
     }
 
     /// INTERNAL ONLY - required by iterator_facade
-    BOOST_FORCEINLINE sequence_type const& dereference() const { return seq; }
+    BOOST_FORCEINLINE sequence_type const& dereference() const
+    {
+      fill();
+      return seq;
+    }
 
     Iterator              base;
     mutable sequence_type seq;
@@ -137,7 +139,7 @@ namespace boost { namespace simd
   BOOST_FORCEINLINE shifted_iterator<Iterator, Region, C>
   shifted_end(Iterator p, Region const& r)
   {
-    return shifted_iterator<Iterator, Region, C>(p-(Region::width/2)*C );
+    return shifted_iterator<Iterator, Region, C>(p-(Region::width/2)*C);
   }
 
   /*!
