@@ -12,6 +12,7 @@
 #include <boost/simd/include/functions/aligned_load.hpp>
 #include <boost/simd/include/functions/aligned_store.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/memory/allocator.hpp>
 
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
@@ -27,6 +28,7 @@ inline void aligned_store_runner(bool offset = false)
 {
   using boost::simd::aligned_load;
   using boost::simd::aligned_store;
+  using boost::simd::allocator;
   using boost::simd::tag::aligned_store_;
   using boost::simd::meta::cardinal_of;
   using boost::dispatch::meta::as_;
@@ -47,8 +49,9 @@ inline void aligned_store_runner(bool offset = false)
   static const std::size_t cd = cardinal_of<Target>::value;
   static const std::size_t sz = cd*3;
 
-  BOOST_SIMD_ALIGNED_STACK_BUFFER( data, Type , sz );
-  BOOST_SIMD_ALIGNED_STACK_BUFFER( out , Type , sz );
+  BOOST_SIMD_ALIGNED_STACK_BUFFER( data, Type  , sz );
+  BOOST_SIMD_ALIGNED_STACK_BUFFER( out , Type  , sz );
+
   for(std::size_t i=0;i<sz;++i)
   {
     fill<Type>()(data[i],65+i);

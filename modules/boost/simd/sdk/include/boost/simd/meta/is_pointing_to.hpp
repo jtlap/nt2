@@ -11,6 +11,7 @@
 
 #include <boost/pointee.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <iterator>
 
 namespace boost { namespace simd { namespace meta
 {
@@ -25,7 +26,7 @@ namespace boost { namespace simd { namespace meta
   **/
   template<typename Pointer, typename Pointee>
   struct  is_pointing_to
-        : boost::is_same< typename boost::pointee<Pointer>::type
+        : boost::is_same< typename std::iterator_traits<Pointer>::value_type
                         , Pointee
                         >
   {};

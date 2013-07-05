@@ -11,8 +11,11 @@
 #define BOOST_SIMD_MEMORY_FUNCTIONS_SCALAR_STORE_HPP_INCLUDED
 
 #include <boost/simd/memory/functions/store.hpp>
-#include <boost/simd/memory/functions/scalar/aligned_store.hpp>
 #include <boost/simd/sdk/functor/preprocessor/dispatch.hpp>
+#include <boost/simd/memory/functions/details/store.hpp>
+#include <boost/simd/memory/iterator_category.hpp>
+#include <boost/simd/sdk/meta/iterate.hpp>
+#include <boost/dispatch/meta/mpl.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -30,7 +33,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, A1 a1, A2 a2) const
     {
-      boost::simd::aligned_store(a0,a1,a2);
+      *(a1+a2) = a0;
     }
   };
 
@@ -46,7 +49,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 a1) const
     {
-      boost::simd::aligned_store(a0,a1);
+      *a1 = a0;
     }
   };
 
@@ -64,7 +67,11 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, A1 const& a1, A2 a2) const
     {
-      boost::simd::aligned_store(a0,a1,a2);
+      meta::iterate < fusion::result_of::size<A1>::type::value>
+                    ( details::storer < boost::simd::
+                                        tag::store_(A0, A1, A2)
+                                      >(a0, a1, a2)
+                    );
     }
   };
 
@@ -78,9 +85,14 @@ namespace boost { namespace simd { namespace ext
   {
     typedef void result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
+    BOOST_FORCEINLINE result_type
+    operator()(A0 const& a0, A1 const& a1) const
     {
-      boost::simd::aligned_store(a0,a1);
+      meta::iterate < fusion::result_of::size<A1>::type::value>
+                    ( details::storer < boost::simd::
+                                        tag::store_(A0, A1)
+                                      >(a0, a1)
+                    );
     }
   };
 

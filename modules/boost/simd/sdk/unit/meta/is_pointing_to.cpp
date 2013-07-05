@@ -16,7 +16,8 @@ NT2_TEST_CASE_TPL(pointing_with_pointer, BOOST_SIMD_TYPES)
 {
   using boost::simd::meta::is_pointing_to;
 
-  NT2_TEST(( is_pointing_to<T*,T>::value ));
+  NT2_TEST(( is_pointing_to<T*            , T>::value ));
+  NT2_TEST(( is_pointing_to<T const*      , T>::value ));
 }
 
 NT2_TEST_CASE_TPL(pointing_with_iterator, BOOST_SIMD_TYPES)
@@ -30,7 +31,7 @@ NT2_TEST_CASE_TPL(pointing_with_iterator, BOOST_SIMD_TYPES)
           ));
 
   NT2_TEST(( is_pointing_to < typename vector<T>::const_iterator
-                            , T const
+                            , T
                             >::value
           ));
 }

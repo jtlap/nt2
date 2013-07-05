@@ -73,7 +73,7 @@ namespace boost { namespace simd
     /// Performs the construction of a given value in a given memory block
     void construct(pointer p, const T& t)
     {
-      p = new ((void*)p) value_type (t);
+      p = new (p) value_type (t);
     }
 
     /// Performs the destruction of a given value in a given memory block

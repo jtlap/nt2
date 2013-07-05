@@ -11,6 +11,7 @@
 
 #include <boost/simd/include/functions/aligned_load.hpp>
 #include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/memory/allocator.hpp>
 
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
@@ -19,6 +20,7 @@
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/preprocessor/stack_buffer.hpp>
 
+#include <vector>
 #include "fill.hpp"
 
 template<typename Type, typename Target>
@@ -28,6 +30,7 @@ inline void aligned_load_runner(bool offset = false)
   using boost::simd::tag::aligned_load_;
   using boost::simd::meta::cardinal_of;
   using boost::dispatch::meta::as_;
+  using boost::simd::allocator;
 
   if(!offset)
     NT2_TEST_TYPE_IS( (typename boost::dispatch::meta

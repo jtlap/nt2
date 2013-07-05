@@ -11,11 +11,10 @@
 #define BOOST_SIMD_MEMORY_FUNCTIONS_SCALAR_ALIGNED_LOAD_HPP_INCLUDED
 
 #include <boost/simd/memory/functions/aligned_load.hpp>
-#include <boost/simd/memory/functions/details/load.hpp>
+#include <boost/simd/memory/functions/scalar/load.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
 #include <boost/simd/memory/iterator_category.hpp>
 #include <boost/simd/sdk/functor/hierarchy.hpp>
-#include <boost/simd/sdk/meta/iterate.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
 
@@ -81,23 +80,14 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_, tag::cpu_
                                     , (A0)(A1)(A2)
                                     , (fusion_sequence_<A0>)
-                                      (generic_< integer_<A1> >)
+                                      (scalar_< integer_<A1> >)
                                       ((target_< fusion_sequence_<A2> >))
                                     )
   {
-    typedef typename A2::type result_type;
-
-    BOOST_FORCEINLINE result_type
-    operator()(A0 const& a0, A1 const& a1, A2 const&) const
-    {
-      result_type that;
-      meta::iterate < fusion::result_of::size<A0>::type::value>
-                    ( details::loader < boost::simd::
-                                        tag::aligned_load_(A0, A1, result_type)
-                                      >(a0, a1, that)
-                    );
-      return that;
-    }
+    BOOST_DISPATCH_RETURNS( 3
+                          , (A0 a0, A1 a1, A2 const& a2)
+                          , boost::simd::load<typename A2::type>(a0,a1)
+                          );
   };
 
   /// INTERNAL ONLY - Scalar FusionSequence load without offset
@@ -107,19 +97,10 @@ namespace boost { namespace simd { namespace ext
                                       ((target_< fusion_sequence_<A2> >))
                                     )
   {
-    typedef typename A2::type result_type;
-
-    BOOST_FORCEINLINE result_type
-    operator()(A0 const& a0, A2 const&) const
-    {
-      result_type that;
-      meta::iterate < fusion::result_of::size<A0>::type::value>
-                    ( details::loader < boost::simd::
-                                        tag::aligned_load_(A0, result_type)
-                                      >(a0, that)
-                    );
-      return that;
-    }
+    BOOST_DISPATCH_RETURNS( 2
+                          , (A0 a0, A2 const& a2)
+                          , boost::simd::load<typename A2::type>(a0)
+                          );
   };
 } } }
 

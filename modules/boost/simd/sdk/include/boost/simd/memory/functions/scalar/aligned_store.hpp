@@ -11,10 +11,10 @@
 #define BOOST_SIMD_MEMORY_FUNCTIONS_SCALAR_ALIGNED_STORE_HPP_INCLUDED
 
 #include <boost/simd/memory/functions/aligned_store.hpp>
-#include <boost/simd/memory/functions/details/store.hpp>
+#include <boost/simd/memory/functions/scalar/store.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <boost/simd/memory/iterator_category.hpp>
-#include <boost/simd/sdk/meta/iterate.hpp>
+#include <boost/simd/sdk/functor/hierarchy.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
 
@@ -31,7 +31,10 @@ namespace boost { namespace simd { namespace ext
     typedef void result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 const& a0, A1 a1, A2 a2) const { *(a1+a2) = a0; }
+    operator()(A0 const& a0, A1 a1, A2 a2) const
+    {
+      *(a1+a2) = a0;
+    }
   };
 
   /// INTERNAL ONLY - Regular scalar store without offset
@@ -44,7 +47,10 @@ namespace boost { namespace simd { namespace ext
     typedef void result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 const& a0, A1 a1) const { *a1 = a0; }
+    operator()(A0 const& a0, A1 a1) const
+    {
+      *a1 = a0;
+    }
   };
 
   /// INTERNAL ONLY - Fusion sequence store with offset
@@ -60,11 +66,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, A1 const& a1, A2 a2) const
     {
-      meta::iterate < fusion::result_of::size<A1>::type::value>
-                    ( details::storer < boost::simd::
-                                        tag::aligned_store_(A0, A1, A2)
-                                      >(a0, a1, a2)
-                    );
+      boost::simd::store(a0,a1,a2);
     }
   };
 
@@ -80,11 +82,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, A1 const& a1) const
     {
-      meta::iterate < fusion::result_of::size<A1>::type::value>
-                    ( details::storer < boost::simd::
-                                        tag::aligned_store_(A0, A1)
-                                      >(a0, a1)
-                    );
+      boost::simd::store(a0,a1);
     }
   };
 } } }

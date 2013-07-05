@@ -9,6 +9,7 @@
 #include <boost/simd/include/functions/aligned_load.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/pack.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
@@ -27,64 +28,87 @@
 
 NT2_TEST_CASE_TPL( load,  BOOST_SIMD_SIMD_TYPES)
 {
+  using boost::simd::logical;
   using boost::simd::native;
   using boost::simd::pack;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION ext_t;
 
-  load_runner< T  , native<T,ext_t>   >();
-  load_runner< foo, native<foo,ext_t> >();
-  load_runner< T  , pack<T>           >();
+  aligned_load_runner< T          , native<T,ext_t>           >();
+  aligned_load_runner< T          , pack<T>                   >();
+  aligned_load_runner< logical<T> , native<logical<T>,ext_t>  >();
+  aligned_load_runner< logical<T> , pack< logical<T> >        >();
 }
 
 NT2_TEST_CASE_TPL( load_offset,  BOOST_SIMD_SIMD_TYPES)
+{
+  using boost::simd::logical;
+  using boost::simd::native;
+  using boost::simd::pack;
+
+  typedef BOOST_SIMD_DEFAULT_EXTENSION ext_t;
+
+  aligned_load_runner< T          , native<T,ext_t>           >(true);
+  aligned_load_runner< T          , pack<T>                   >(true);
+  aligned_load_runner< logical<T> , native<logical<T>,ext_t>  >(true);
+  aligned_load_runner< logical<T> , pack< logical<T> >        >(true);
+}
+
+NT2_TEST_CASE( load_sequence_pointer )
 {
   using boost::simd::native;
   using boost::simd::pack;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION ext_t;
 
-  load_runner< T   , native<T,ext_t>   >(true);
-  load_runner< foo , native<foo,ext_t> >(true);
-  load_runner< T   , pack<T>           >(true);
+  aligned_load_runner< bar   , native<bar,ext_t>   >();
+  aligned_load_runner< bar   , native<bar,ext_t>   >(true);
+  aligned_load_runner< bar   , pack<bar>           >();
+  aligned_load_runner< bar   , pack<bar>           >(true);
 }
 
 NT2_TEST_CASE_TPL( load_suboffset_periodic,  BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::meta::cardinal_of;
+  using boost::simd::logical;
   using boost::simd::native;
   using boost::simd::pack;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION ext_t;
   typedef typename cardinal_of< native<T,ext_t> >::type card;
 
-  misaligned_load_runner< T   , native<T,ext_t>   >(card());
-  misaligned_load_runner< foo , native<foo,ext_t> >(card());
-  misaligned_load_runner< T   , pack<T>           >(card());
+  misaligned_load_runner< T         , native<T,ext_t>           >(card());
+  misaligned_load_runner< T         , pack<T>                   >(card());
+  misaligned_load_runner< logical<T>, native<logical<T>,ext_t>  >(card());
+  misaligned_load_runner< logical<T>, pack<logical<T> >         >(card());
 }
 
 NT2_TEST_CASE_TPL( load_suboffset_forward,  BOOST_SIMD_SIMD_TYPES)
 {
+  using boost::simd::logical;
   using boost::simd::native;
   using boost::simd::pack;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION ext_t;
 
-  misaligned_load_runner< T   , native<T,ext_t>   >(boost::mpl::int_<1>());
-  misaligned_load_runner< foo , native<foo,ext_t> >(boost::mpl::int_<1>());
-  misaligned_load_runner< T   , pack<T>           >(boost::mpl::int_<1>());
+  misaligned_load_runner< T         , native<T,ext_t>           >(boost::mpl::int_<1>());
+  misaligned_load_runner< T         , pack<T>                   >(boost::mpl::int_<1>());
+  misaligned_load_runner< logical<T>, native<logical<T>,ext_t>  >(boost::mpl::int_<1>());
+  misaligned_load_runner< logical<T>, pack<logical<T> >         >(boost::mpl::int_<1>());
 }
 
 NT2_TEST_CASE_TPL( load_suboffset_backward,  BOOST_SIMD_SIMD_TYPES)
 {
+  using boost::simd::logical;
   using boost::simd::native;
   using boost::simd::pack;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION ext_t;
 
-  misaligned_load_runner< T   , native<T,ext_t>   >(boost::mpl::int_<-1>());
-  misaligned_load_runner< foo , native<foo,ext_t> >(boost::mpl::int_<-1>());
-  misaligned_load_runner< T   , pack<T>           >(boost::mpl::int_<-1>());
+  misaligned_load_runner< T         , native<T,ext_t>           >(boost::mpl::int_<1>());
+  misaligned_load_runner< T         , pack<T>                   >(boost::mpl::int_<1>());
+  misaligned_load_runner< logical<T>, native<logical<T>,ext_t>  >(boost::mpl::int_<-1>());
+  misaligned_load_runner< logical<T>, pack<logical<T> >         >(boost::mpl::int_<-1>());
 }
 
 NT2_TEST_CASE_TPL( load_gather, BOOST_SIMD_SIMD_TYPES)
@@ -136,14 +160,17 @@ NT2_TEST_CASE( load_sequence )
   using boost::fusion::make_vector;
   using boost::fusion::result_of::value_at;
 
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<foo,ext_t>                        vT;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION            ext_t;
+  typedef native<foo,ext_t>                       vT;
+  typedef value_at<vT,boost::mpl::int_<0> >::type foo0_t;
+  typedef value_at<vT,boost::mpl::int_<1> >::type foo1_t;
+  typedef value_at<vT,boost::mpl::int_<2> >::type foo2_t;
 
   static const size_t sz = cardinal_of< vT >::value;
 
-  BOOST_SIMD_ALIGNED_STACK_BUFFER( cdata, char  , sz );
-  BOOST_SIMD_ALIGNED_STACK_BUFFER( fdata, float , sz );
-  BOOST_SIMD_ALIGNED_STACK_BUFFER( sdata, short , sz );
+  BOOST_SIMD_ALIGNED_STACK_BUFFER( sdata , short , sz );
+  BOOST_SIMD_ALIGNED_STACK_BUFFER( cdata , char  , sz );
+  BOOST_SIMD_ALIGNED_STACK_BUFFER( fdata , float , sz );
 
   for(std::size_t i=0;i<sz;++i)
   {
@@ -153,10 +180,6 @@ NT2_TEST_CASE( load_sequence )
   }
 
   vT v = aligned_load<vT>(make_vector(&sdata[0], &fdata[0], &cdata[0]), 0);
-
-  typedef value_at<vT,boost::mpl::int_<0> >::type foo0_t;
-  typedef value_at<vT,boost::mpl::int_<1> >::type foo1_t;
-  typedef value_at<vT,boost::mpl::int_<2> >::type foo2_t;
 
   foo0_t sref = aligned_load<foo0_t>(&sdata[0]);
   foo1_t fref = aligned_load<foo1_t>(&fdata[0]);

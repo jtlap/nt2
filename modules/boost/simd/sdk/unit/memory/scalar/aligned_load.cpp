@@ -7,6 +7,7 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <boost/simd/include/functions/aligned_load.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -21,26 +22,36 @@
 
 NT2_TEST_CASE_TPL( aligned_load,  BOOST_SIMD_SIMD_TYPES)
 {
+  using boost::simd::logical;
   aligned_load_runner< T, T >();
-  aligned_load_runner< foo, foo >();
+  aligned_load_runner< logical<T>, logical<T> >();
 }
 
 NT2_TEST_CASE_TPL( aligned_load_offset,  BOOST_SIMD_SIMD_TYPES)
 {
+  using boost::simd::logical;
   aligned_load_runner< T, T >(true);
-  aligned_load_runner< foo, foo >(true);
+  aligned_load_runner< logical<T>, logical<T> >(true);
+}
+
+NT2_TEST_CASE( aligned_load_sequence_pointer )
+{
+  aligned_load_runner< bar, bar >();
+  aligned_load_runner< bar, bar >(true);
 }
 
 NT2_TEST_CASE_TPL( aligned_load_suboffset_forward,  BOOST_SIMD_SIMD_TYPES)
 {
+  using boost::simd::logical;
   misaligned_load_runner< T, T >(boost::mpl::int_<1>());
-  //misaligned_load_runner< foo, foo >(boost::mpl::int_<1>());
+  misaligned_load_runner< logical<T>, logical<T> >(boost::mpl::int_<1>());
 }
 
 NT2_TEST_CASE_TPL( aligned_load_suboffset_backward,  BOOST_SIMD_SIMD_TYPES)
 {
+  using boost::simd::logical;
   misaligned_load_runner< T, T >(boost::mpl::int_<-1>());
-  // misaligned_load_runner< foo, foo >(boost::mpl::int_<-1>());
+  misaligned_load_runner< logical<T>, logical<T> >(boost::mpl::int_<-1>());
 }
 
 NT2_TEST_CASE( aligned_load_sequence )
@@ -63,18 +74,18 @@ NT2_TEST_CASE( aligned_load_sequence )
   }
 
   typedef  boost::dispatch::meta
-                  ::call<aligned_load_( vector<short,float,char>
-                              , boost::dispatch::meta::as_<foo>
-                              )
+                  ::call<aligned_load_( vector<short*,float*,char*>
+                                      , boost::dispatch::meta::as_<foo>
+                                      )
                         >::type                     rT;
 
   NT2_TEST_TYPE_IS( rT, foo );
 
   typedef boost::dispatch::meta
-                ::call<aligned_load_( vector<short,float,char>
-                            , int
-                            , boost::dispatch::meta::as_<foo>
-                            )
+                ::call<aligned_load_( vector<short*,float*,char*>
+                                    , int
+                                    , boost::dispatch::meta::as_<foo>
+                                    )
                       >::type                     riT;
 
   NT2_TEST_TYPE_IS( riT, foo );

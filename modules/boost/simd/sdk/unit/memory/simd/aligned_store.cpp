@@ -9,6 +9,7 @@
 #include <boost/simd/include/functions/aligned_store.hpp>
 #include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/include/functions/aligned_load.hpp>
 #include <boost/simd/preprocessor/stack_buffer.hpp>
@@ -26,33 +27,42 @@
 
 NT2_TEST_CASE_TPL( store,  BOOST_SIMD_SIMD_TYPES)
 {
+  using boost::simd::logical;
   using boost::simd::native;
   using boost::simd::pack;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION ext_t;
 
-  aligned_store_runner< T  , native<T,ext_t>   >();
-  aligned_store_runner< T  , pack<T>           >();
+  aligned_store_runner< T         , native<T,ext_t>           >();
+  aligned_store_runner< T         , pack<T>                   >();
+  aligned_store_runner< logical<T>, native<logical<T>,ext_t>  >();
+  aligned_store_runner< logical<T>, pack< logical<T> >        >();
 }
 
 NT2_TEST_CASE_TPL( store_offset,  BOOST_SIMD_SIMD_TYPES)
 {
+  using boost::simd::logical;
   using boost::simd::native;
   using boost::simd::pack;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION ext_t;
 
-  aligned_store_runner< T  , native<T,ext_t>   >(true);
-  aligned_store_runner< T  , pack<T>           >(true);
+  aligned_store_runner< T         , native<T,ext_t>           >(true);
+  aligned_store_runner< T         , pack<T>                   >(true);
+  aligned_store_runner< logical<T>, native<logical<T>,ext_t>  >(true);
+  aligned_store_runner< logical<T>, pack< logical<T> >        >(true);
 }
 
 NT2_TEST_CASE( store_sequence_pointer )
 {
+  using boost::simd::pack;
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION ext_t;
 
-  aligned_store_runner< foo, native<foo,ext_t> >();
-  aligned_store_runner< foo, native<foo,ext_t> >(true);
+  aligned_store_runner< bar, native<bar,ext_t> >();
+  aligned_store_runner< bar, pack<bar> >();
+  aligned_store_runner< bar, native<bar,ext_t> >(true);
+  aligned_store_runner< bar, pack<bar> >(true);
 }
 
 NT2_TEST_CASE_TPL(store_scatter, BOOST_SIMD_SIMD_TYPES )
@@ -110,8 +120,11 @@ NT2_TEST_CASE( store_sequence )
   using boost::fusion::make_vector;
   using boost::fusion::result_of::value_at;
 
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<foo,ext_t>                        vT;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION            ext_t;
+  typedef native<foo,ext_t>                       vT;
+  typedef value_at<vT,boost::mpl::int_<0> >::type foo0_t;
+  typedef value_at<vT,boost::mpl::int_<1> >::type foo1_t;
+  typedef value_at<vT,boost::mpl::int_<2> >::type foo2_t;
 
   static const size_t sz = cardinal_of< vT >::value;
 

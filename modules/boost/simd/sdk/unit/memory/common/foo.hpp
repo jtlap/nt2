@@ -17,6 +17,9 @@
 struct foo { short d; float f; char c; };
 BOOST_FUSION_ADAPT_STRUCT(foo,(short,d)(float,f)(char,c))
 
+struct bar { int i; float f; };
+BOOST_FUSION_ADAPT_STRUCT(bar,(int,i)(float,f))
+
 template<> struct fill<foo>
 {
   // Handle soa_proxy
@@ -36,7 +39,30 @@ template<> struct fill<foo>
   }
 };
 
+template<> struct fill<bar>
+{
+  // Handle soa_proxy
+  template<class T>
+  inline void operator()(T v, std::size_t i, int m = 0) const
+  {
+    bar x = v;
+    this->operator()(x,i,m);
+    v = x;
+  }
+
+  inline void operator()(bar& v, std::size_t i, int m = 0) const
+  {
+    boost::fusion::at_c<0>(v) = int(1+i+m);
+    boost::fusion::at_c<1>(v) = float(2+i+m);
+  }
+};
+
 inline std::ostream& operator<<(std::ostream& os, foo const& f )
+{
+  return boost::fusion::operator<<(os, f);
+}
+
+inline std::ostream& operator<<(std::ostream& os, bar const& f )
 {
   return boost::fusion::operator<<(os, f);
 }
