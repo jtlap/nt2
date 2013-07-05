@@ -12,6 +12,7 @@
 #include <nt2/swar/functions/groups.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/run.hpp>
+#include <nt2/include/functions/saturate.hpp>
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/simd/meta/is_vectorizable.hpp>
@@ -61,7 +62,7 @@ namespace nt2 { namespace ext
     result_type operator()(A0& a0, State const& p, Data const& data) const
     {
       typedef typename boost::proto::result_of::child_c<A0&, 0>::value_type child0;
-      return nt2::splat<result_type>(nt2::run(boost::proto::child_c<0>(a0), p, boost::simd::ext::adapt_data<child0, Data>::call(data)));
+      return nt2::splat<result_type>(nt2::saturate<result_type>(nt2::run(boost::proto::child_c<0>(a0), p, boost::simd::ext::adapt_data<child0, Data>::call(data))));
     }
   };
 } }
