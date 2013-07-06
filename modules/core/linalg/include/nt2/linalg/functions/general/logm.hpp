@@ -14,7 +14,6 @@
 #include <nt2/include/functions/atanh.hpp>
 #include <nt2/include/functions/ceil.hpp>
 #include <nt2/include/functions/complexify.hpp>
-#include <nt2/include/functions/conj.hpp>
 #include <nt2/include/functions/cons.hpp>
 #include <nt2/include/functions/ctranspose.hpp>
 #include <nt2/include/functions/colon.hpp>
@@ -43,7 +42,6 @@
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/symeig.hpp>
 #include <nt2/include/functions/transpose.hpp>
-#include <nt2/include/functions/ctranspose.hpp>
 #include <nt2/include/functions/twopower.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/isempty.hpp>
@@ -60,7 +58,7 @@ namespace nt2
   {
     NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::logm_, tag::cpu_
                               , (A0)
-                              , (scalar_< floating_<A0> >)
+                              , (scalar_< unspecified_<A0> >)
                               )
     {
       typedef A0 result_type;
@@ -70,33 +68,46 @@ namespace nt2
       }
     };
 
-    NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::logm_, tag::cpu_
-                              , (A0)(N0)(A1)(N1)
-                              , ((node_<A0, nt2::tag::logm_, N0, nt2::container::domain>))
-                                ((node_<A1, nt2::tag::tie_ , N1, nt2::container::domain>))
-                              )
+    // logm tag only used for matrix
+    template<class Domain, int N, class Expr>
+    struct size_of<tag::logm_,Domain,N,Expr>
     {
-      typedef void                                                    result_type;
-      typedef typename boost::proto::result_of::child_c<A1&,0>::type         Out0;
-      typedef typename boost::proto::result_of::child_c<A0&,0>::type          In0;
-      typedef typename A0::value_type                                  value_type;
-      typedef typename meta::as_real<value_type>::type                     r_type;
-      typedef typename meta::as_complex<r_type>::type                   cplx_type;
-      typedef typename meta::as_integer<r_type>::type                      i_type;
-      typedef nt2::table<value_type>                                        tab_t;
-      typedef nt2::table<r_type>                                           btab_t;
-      typedef table<cplx_type>                                             ctab_t;
-      typedef table<i_type>                                                itab_t;
-      typedef typename A0::index_type                                  index_type;
-      BOOST_FORCEINLINE result_type operator()(const A0& a0, A1& a1) const
+      typedef typename boost::proto::result_of::child_c<Expr&,0>::value_type  c0_t;
+      typedef _2D                                                      result_type;
+      BOOST_FORCEINLINE result_type operator()(Expr& e) const
       {
-        const In0& a  = boost::proto::child_c<0>(a0);
-        Out0& r  = boost::proto::child_c<0>(a1);
-        compute_logm(a, r);
+        BOOST_ASSERT_MSG(issquare(boost::proto::child_c<0>(e)),
+                         "logm needs a square matrix or a scalar");
+        return nt2::extent(boost::proto::child_c<0>(e));
       }
+    };
+
+    NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
+                                , (A0)(A1)
+                                , ((ast_<A0, nt2::container::domain>))
+                                  ((node_<A1, nt2::tag::logm_, boost::mpl::long_<1>, nt2::container::domain>))
+                                )
+    {
+    typedef void                                                    result_type;
+    typedef typename A1::value_type                                  value_type;
+    typedef typename boost::proto::result_of::child_c<A1&,0>::type         Out0;
+    typedef typename meta::as_real<value_type>::type                     r_type;
+    typedef typename meta::as_complex<r_type>::type                   cplx_type;
+    typedef typename meta::as_integer<r_type>::type                      i_type;
+    typedef nt2::table<value_type>                                        tab_t;
+    typedef nt2::table<r_type>                                           btab_t;
+    typedef table<cplx_type>                                             ctab_t;
+    typedef table<i_type>                                                itab_t;
+    typedef typename A0::index_type                                  index_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0& a0, const A1& a1) const
+    {
+      compute_logm(boost::proto::child_c<0>(a1), a0);
+    }
+
     private:
       template < class T >
-      BOOST_FORCEINLINE static void compute_logm(const T& a0, Out0& res)
+      BOOST_FORCEINLINE static void compute_logm(const T& a0, A0& res)
       {
         //u, t and r are complex arrays
         res.resize(extent(a0));

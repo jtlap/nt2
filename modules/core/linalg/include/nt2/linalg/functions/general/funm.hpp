@@ -23,7 +23,6 @@
 #include <nt2/include/functions/from_diag.hpp>
 #include <nt2/include/functions/isdiagonal.hpp>
 #include <nt2/include/functions/is_finite.hpp>
-#include <nt2/include/functions/isscalar.hpp>
 #include <nt2/include/functions/length.hpp>
 #include <nt2/include/functions/linsolve.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -50,15 +49,47 @@ namespace nt2
   namespace ext
   {
     NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::funm_, tag::cpu_
-                              , (A0)(N0)(A1)(N1)
-                              , ((node_<A0, nt2::tag::funm_, N0, nt2::container::domain>))
-                                ((node_<A1, nt2::tag::tie_ , N1, nt2::container::domain>))
+                              , (A0)(A1)
+                              , (unspecified_<A0>)
+                                (scalar_<unspecified_<A1> >)
                               )
     {
+      typedef A1 result_type;
+      NT2_FUNCTOR_CALL(2)
+      {
+        typedef typename boost::proto::result_of::child_c<A1&,0>::value_type       In0;
+        typedef typename meta::strip<In0>::type                               tmp_type;
+        typedef typename boost::dispatch::meta::semantic_of<tmp_type >::type    t_type;
+        t_type f;
+        return  f(a1, 0);
+      }
+    };
+
+    // funm tag only used for functor/matrix
+    template<class Domain, int N, class Expr>
+    struct size_of<tag::funm_,Domain,N,Expr>
+    {
+
+      typedef typename boost::proto::result_of::child_c<Expr&,1>::value_type  c1_t;
+      typedef _2D                                                      result_type;
+
+      BOOST_FORCEINLINE result_type operator()(Expr& e) const
+      {
+        BOOST_ASSERT_MSG( issquare(boost::proto::child_c<1>(e)),
+                          "funm needs a functor and scalar or a ");
+        return nt2::extent(boost::proto::child_c<1>(e));
+      }
+    };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
+                            , (A0)(A1)
+                            , ((ast_<A0, nt2::container::domain>))
+                              ((node_<A1, nt2::tag::funm_, boost::mpl::long_<2>, nt2::container::domain>))
+                            )
+  {
       typedef void                                                    result_type;
-      typedef typename boost::proto::result_of::child_c<A1&,0>::type         Out0;
-      typedef typename boost::proto::result_of::child_c<A0&,0>::type          In0;
-      typedef typename boost::proto::result_of::child_c<A0&,1>::type          In1;
+      typedef typename boost::proto::result_of::child_c<A1&,0>::type          In0;
+      typedef typename boost::proto::result_of::child_c<A1&,1>::type          In1;
       typedef typename A0::value_type                                  value_type;
       typedef typename meta::as_real<value_type>::type                     r_type;
       typedef typename meta::as_complex<r_type>::type                   cplx_type;
@@ -67,21 +98,18 @@ namespace nt2
       typedef nt2::table<r_type>                                           btab_t;
       typedef table<cplx_type>                                             ctab_t;
       typedef table<i_type>                                                itab_t;
-      typedef typename A0::index_type                                  index_type;
+
       BOOST_FORCEINLINE result_type operator()(const A0& a0, const A1& a1) const
       {
-        typedef typename meta::strip<In0>::type                         tmp1_type;
+        typedef typename meta::strip<In0>::type                              tmp1_type;
         typedef typename boost::dispatch::meta::semantic_of<tmp1_type >::type   t_type;
         t_type f; // it will be useful to be able to construct f outside to allow parameters in constructor...
-        const In1& a  = boost::proto::child_c<1>(a0);
-        Out0& r  = boost::proto::child_c<0>(a1);
-        compute_funm(f, a, r);
+        compute_funm(f, boost::proto::child_c<1>(a1), a0);
       }
     private:
       template <class F, class T >
-      BOOST_FORCEINLINE static void compute_funm(const F& f, const T& a0, Out0& res)
+      BOOST_FORCEINLINE static void compute_funm(const F& f, const T& a0, A0& res)
       {
-        if (nt2::isscalar(a0)) res = f(a0, 0);
          r_type tol = nt2::Eps<r_type>();
          uint32_t maxterms = 250;
          //u, t and r are complex arrays
@@ -142,7 +170,7 @@ namespace nt2
              transtype(res, z, typename nt2::meta::is_complex<value_type>::type());
            }
          }
-      }
+       }
 
       template <class F, class X, class N> static inline
         cplx_type feval(const F & f, const X& x,  const N& k)
@@ -152,10 +180,10 @@ namespace nt2
       }
 
       template < class F, class D1, class D2> static inline
-        int32_t funm_atom(const F& f, const D1& t,
-                               const r_type& tol,
-                               const uint32_t& maxterms,
-                               D2& rj)
+      int32_t funm_atom(const F& f, const D1& t,
+                        const r_type& tol,
+                        const uint32_t& maxterms,
+                        D2& rj)
       {
         // Function of triangular matrix with nearly constant diagonal.
         //   n_terms = funm_atom(f, a0, tol, maxterms, fa0)
@@ -218,7 +246,7 @@ namespace nt2
       }
 
       template < class T1, class T2 >
-        BOOST_FORCEINLINE static void transtype(T1& r, T2& z, boost::mpl::false_ const &)
+      BOOST_FORCEINLINE static void transtype(T1& r, T2& z, boost::mpl::false_ const &)
       {
         r =  real(z);
       }
@@ -264,7 +292,7 @@ namespace nt2
                                  bb);
         }
         return x;
-      }
+     }
     };
 
   }

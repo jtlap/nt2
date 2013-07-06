@@ -37,7 +37,7 @@
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/isscalar.hpp>
 #include <vector>
-
+#include <nt2/core/utility/max_extent.hpp>
 namespace nt2
 {
   namespace details
@@ -167,38 +167,47 @@ namespace nt2
 namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expm_, tag::cpu_
-                            , (A0)(N0)(A1)(N1)
-                            , ((node_<A0, nt2::tag::expm_, N0, nt2::container::domain>))
-                              ((node_<A1, nt2::tag::tie_ , N1, nt2::container::domain>))
+                            , (A0)
+                            , (scalar_<unspecified_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1)
+    {
+      return nt2::exp(a0);
+    }
+  };
+
+  // expm tag only used for matrix
+  template<class Domain, int N, class Expr>
+  struct size_of<tag::expm_,Domain,N,Expr>
+  {
+    typedef typename boost::proto::result_of::child_c<Expr&,0>::value_type  c0_t;
+    typedef _2D                                                      result_type;
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      BOOST_ASSERT_MSG(issquare(boost::proto::child_c<0>(e)),
+                       "expm needs a square matrix or a scalar");
+      return nt2::extent(boost::proto::child_c<0>(e));
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
+                            , (A0)(A1)
+                            , ((ast_<A0, nt2::container::domain>))
+                              ((node_<A1, nt2::tag::expm_, boost::mpl::long_<1>, nt2::container::domain>))
                             )
   {
     typedef void                                                    result_type;
-    typedef typename boost::proto::result_of::child_c<A1&,0>::type         Out0;
-    typedef typename boost::proto::result_of::child_c<A0&,0>::type          In0;
-    typedef typename A0::value_type                                    elt_type;
-    typedef typename nt2::meta::as_floating<elt_type>::type          value_type;
-    BOOST_FORCEINLINE result_type operator()(const A0& a0, const A1& a1) const
+    typedef typename A1::value_type                                  value_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0& a0, const A1& a1) const
     {
-      const In0& a  = boost::proto::child_c<0>(a0);
-      const Out0& r  = boost::proto::child_c<0>(a1);
-      if(nt2::isscalar(a))
-      {
-        nt2::table<value_type> aa = a;
-        doit1(aa(1), r);
-      }
-      else
-      {
-        doit2(a, r);
-      }
+      compute_expm(boost::proto::child_c<0>(a1), a0);
     }
   private:
     template < class T >
-      BOOST_FORCEINLINE static void doit1(const T& a0, Out0& r)
-    {
-      r =  nt2::exp(static_cast<value_type>(a0));
-    }
-    template < class T >
-      BOOST_FORCEINLINE static void doit2(const T& a0, Out0& f)
+    BOOST_FORCEINLINE static void compute_expm(const T& a0, A0& f)
     {
       f.resize(extent(a0));
       typedef nt2::table<value_type >                   tab_t;
@@ -217,7 +226,7 @@ namespace ext
         // no scaling and squaring is required.
         for(size_t i = 1;  i <= nt2::numel(m_vals); ++i)
         {
-          if (norma0 <=theta(i))
+          if (norma0 <= theta(i))
           {
             details::padeapproximantofdegree(a, m_vals(i), f);
             break;
@@ -229,7 +238,7 @@ namespace ext
         norma0 /= theta(end_);
         ibase_t s;
         base_t t = nt2::frexp(norma0, s);
-        s -= (t == Half<base_t>()); // adjust s if norma0/theta(end) is a power of 2.
+        s -= (t == Half<base_t>()); // adjust s if norma0/theta(end_) is a power of 2.
         a =  nt2::ldexp(a, -s);
         details::padeapproximantofdegree(a,m_vals(end_), f);
         for(ibase_t i=1; i <= s; ++i)

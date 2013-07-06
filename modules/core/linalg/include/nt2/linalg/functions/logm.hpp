@@ -23,19 +23,19 @@ namespace nt2 { namespace tag
      * \brief Define the tag logm_ of functor logm
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct logm_ :   ext::tieable_<logm_>
+    struct logm_ :   ext::unspecified_<logm_>
     {
-      typedef ext::tieable_<logm_>  parent;
+      typedef ext::unspecified_<logm_>  parent;
     };
   }
   /**
-   * @brief compute natural principla logarithm of a matricial expression
+   * @brief compute natural principal logarithm of a matricial expression
    *
    * logm(a0) must not be confused with log(a0) that computes on an
    * elementwise basis the logarithms of the elements of matrix a0.
    *
    * a0  can be a any square matricial expression whose
-   * eigenvalues have strictly positive real parts
+   * real eigenvalues are strictly positive
    *
    * @param  a0  Matrix expression or scalar
    *
@@ -47,26 +47,5 @@ namespace nt2 { namespace tag
 
 }
 
-namespace nt2 { namespace ext
-{
-  template<class Domain, int N, class Expr>
-  struct  size_of<tag::logm_,Domain,N,Expr>
-  {
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::value_type  c0_t;
-    typedef typename c0_t::extent_type                               result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      BOOST_ASSERT_MSG(issquare(boost::proto::child_c<0>(e)),
-                       "logm needs a square matrix expression");
-
-      return boost::proto::child_c<0>(e).extent();
-    }
-  };
-
-  template<class Domain, int N, class Expr>
-  struct  value_type<tag::logm_,Domain,N,Expr>
-        : meta::value_as<Expr,0>
-  {};
-} }
 #endif
 
