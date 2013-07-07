@@ -17,9 +17,7 @@
 
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/size_as.hpp>
-#include <nt2/sdk/meta/value_as.hpp>
 #include <nt2/core/container/dsl/size.hpp>
-#include <nt2/core/container/dsl/value_type.hpp>
 
 namespace nt2
 {
@@ -47,12 +45,6 @@ namespace nt2
 
 namespace nt2 { namespace ext
 {
-  /// INTERNAL ONLY
-  template<class Domain, int N, class Expr>
-  struct  value_type<nt2::tag::flipud_,Domain,N,Expr>
-        : meta::value_as<Expr,0>
-  {};
-
   /// INTERNAL ONLY
   template<class Domain, int N, class Expr>
   struct  size_of<nt2::tag::flipud_,Domain,N,Expr>

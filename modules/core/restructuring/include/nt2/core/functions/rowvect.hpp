@@ -58,11 +58,6 @@ namespace nt2 { namespace ext
       return result_type(1,nt2::numel(boost::proto::child_c<0>(e)));
     }
   };
-
-  template<class Domain, int N, class Expr>
-  struct  value_type<nt2::tag::rowvect_,Domain,N,Expr>
-        : meta::value_as<Expr,0>
-  {};
 } }
 
 #endif

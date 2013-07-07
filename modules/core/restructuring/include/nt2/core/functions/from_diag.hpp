@@ -16,9 +16,7 @@
 **/
 
 #include <nt2/include/functor.hpp>
-#include <nt2/sdk/meta/value_as.hpp>
 #include <nt2/core/container/dsl/size.hpp>
-#include <nt2/core/container/dsl/value_type.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/length.hpp>
 
@@ -41,12 +39,6 @@ namespace nt2
 
 namespace nt2 { namespace ext
 {
-  /// INTERNAL ONLY
-  template<class Domain, int N, class Expr>
-  struct  value_type<nt2::tag::from_diag_,Domain,N,Expr>
-        : meta::value_as<Expr,0>
-  {};
-
   /// INTERNAL ONLY
   template<class Domain, class Expr>
   struct  size_of<nt2::tag::from_diag_,Domain,1,Expr>
