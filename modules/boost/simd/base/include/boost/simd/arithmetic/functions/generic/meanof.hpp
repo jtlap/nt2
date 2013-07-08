@@ -36,7 +36,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 m = min(a0, a1);
-      return if_else( logical_and(is_finite(a0)),is_finite(a1)),
+      return if_else( logical_and(is_finite(a0),is_finite(a1)),
                       m + (max(a0, a1)-m)*Half<result_type>(),
                       average(a0, a1)
                     );
