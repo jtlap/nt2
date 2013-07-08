@@ -11,13 +11,13 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/length.hpp>
 #include <nt2/include/functions/from_diag.hpp>
-
+#include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
 
 
-NT2_TEST_CASE_TPL( from_diag_offsetc, NT2_TYPES )
+NT2_TEST_CASE_TPL( from_diag_offsetc, NT2_REAL_TYPES )
 {
   typedef std::complex<T> cT;
   nt2::table<cT> y( nt2::of_size(1,5) ), x;
