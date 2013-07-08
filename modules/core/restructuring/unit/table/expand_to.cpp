@@ -26,6 +26,8 @@ NT2_TEST_CASE_TPL( of_size, NT2_TYPES)
   ref = nt2::ones(nt2::of_size(3), nt2::meta::as_<T>());
   out = expand_to(in, nt2::of_size(3));
   NT2_TEST_EQUAL(out,ref);
+  out = expand_to(T(1), nt2::of_size(3));
+  NT2_TEST_EQUAL(out,ref);
 
   in  = nt2::rif(nt2::of_size(3,1), nt2::meta::as_<T>());
   ref = nt2::rif(nt2::of_size(3, 4), nt2::meta::as_<T>());

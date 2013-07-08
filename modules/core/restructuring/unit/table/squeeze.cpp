@@ -20,6 +20,8 @@
 //==============================================================================
 NT2_TEST_CASE( squeeze_2D )
 {
+
+  NT2_TEST_EQUAL(  nt2::squeeze(1),1);
   nt2::table<double, nt2::_2D> x( nt2::of_size(1,5) ), sx;
   nt2::table<double, nt2::_2D> y( nt2::of_size(5,1) ), sy;
   nt2::table<double, nt2::_2D> z( nt2::of_size(1,1) ), sz;

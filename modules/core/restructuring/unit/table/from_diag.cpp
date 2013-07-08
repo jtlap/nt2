@@ -15,6 +15,12 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
+NT2_TEST_CASE_TPL( from_diag0, NT2_TYPES )
+{
+  NT2_TEST_EQUAL(  nt2::from_diag(T(1)), T(1));
+}
+
+
 NT2_TEST_CASE_TPL( from_diag, NT2_TYPES )
 {
   nt2::table<T> x,y( nt2::of_size(1,8) );

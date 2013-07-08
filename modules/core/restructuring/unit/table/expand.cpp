@@ -16,6 +16,15 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
+NT2_TEST_CASE_TPL( colvect_scalar, NT2_TYPES )
+{
+  nt2::table<T> ref = zeros( nt2::of_size(3,3), nt2::meta::as_<T>());
+  ref(1, 1) = T(1);
+
+  NT2_TEST_EQUAL(nt2::expand(T(1), nt2::of_size(3,3)), ref);
+
+}
+
 NT2_TEST_CASE_TPL( of_size, NT2_TYPES )
 {
   nt2::table<T> in( nt2::of_size(3,3) ), ref, out;

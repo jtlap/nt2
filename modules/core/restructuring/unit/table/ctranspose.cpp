@@ -28,3 +28,7 @@ NT2_TEST_CASE_TPL( ctranspose, NT2_TYPES )
     NT2_TEST_EQUAL( x(i),z(i) );
 }
 
+NT2_TEST_CASE_TPL( ctranspose_scalar, NT2_TYPES )
+{
+  NT2_TEST_EQUAL(nt2::ctranspose(T(1)), T(1));
+}

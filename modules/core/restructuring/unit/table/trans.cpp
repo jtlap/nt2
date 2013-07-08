@@ -28,3 +28,7 @@ NT2_TEST_CASE_TPL( trans, NT2_TYPES )
     NT2_TEST_EQUAL( x(i),z(i) );
 }
 
+NT2_TEST_CASE_TPL( trans_scalar, NT2_TYPES )
+{
+  NT2_TEST_EQUAL(nt2::trans(T(1)), T(1));
+}
