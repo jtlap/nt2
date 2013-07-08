@@ -11,12 +11,14 @@
 #define NT2_CORE_FUNCTIONS_COMMON_FROM_DIAG_HPP_INCLUDED
 
 #include <nt2/core/functions/from_diag.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
 #include <nt2/core/utility/as_subscript.hpp>
 #include <nt2/include/functions/enumerate.hpp>
 #include <nt2/include/functions/run.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/first.hpp>
 #include <nt2/include/functions/extract.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
 
 namespace nt2 { namespace ext
@@ -51,6 +53,13 @@ namespace nt2 { namespace ext
                           , Zero<result_type>()
                           );
     }
+  };
+
+  /// INTERNAL ONLY
+  template<class Domain, class Expr>
+  struct value_type<nt2::tag::from_diag_,Domain,2,Expr>
+       : meta::value_as<Expr, 0>
+  {
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_

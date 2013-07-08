@@ -66,6 +66,29 @@ namespace nt2 { namespace ext
                                       );
     }
   };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::from_diag_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_< unspecified_<A0> >)
+                              (scalar_< integer_<A1> >)
+                            )
+  {
+    typedef typename  boost::proto::
+                      result_of::make_expr< nt2::tag::from_diag_
+                                          , container::domain
+                                          , A0
+                                          , A1
+                                          >::type             result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
+    {
+      return boost::proto::make_expr< nt2::tag::from_diag_
+                                    , container::domain
+                                    > ( a0
+                                      , a1
+                                      );
+    }
+  };
 } }
 
 #endif
