@@ -16,6 +16,8 @@ SET( SOURCES
   seladd.cpp
   selsub.cpp
   if_one_else_zero.cpp
+  selinc.cpp
+  seldec.cpp
 # List of simd test files for toolbox boolean
    )
 

@@ -13,6 +13,8 @@ SET( SOURCES
   selsub.cpp
   if_one_else_zero.cpp
   if_zero_else_one.cpp
+  selinc.cpp
+  seldec.cpp
 # List of scalar test files for toolbox boolean
    )
 

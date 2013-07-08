@@ -68,6 +68,8 @@ SET( SOURCES
   touint.cpp
   touints.cpp
   tofloat.cpp
+  inc.cpp
+  dec.cpp
 # List of scalar test files for toolbox arithmetic
    )
 

@@ -68,6 +68,8 @@ SET( SOURCES
   touint.cpp
   touints.cpp
   tofloat.cpp
+  inc.cpp
+  dec.cpp
 # List of simd test files for toolbox arithmetic
    )
 
