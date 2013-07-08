@@ -10,16 +10,17 @@
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/colvect.hpp>
-#include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/ones.hpp>
-#include <nt2/include/functions/ndims.hpp>
-#include <nt2/include/functions/isequal.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
-#include <nt2/sdk/unit/tests/exceptions.hpp>
 
+
+NT2_TEST_CASE_TPL( colvect_scalar, NT2_REAL_TYPES )
+{
+  typedef std::complex<T> cT;
+  NT2_TEST_EQUAL(nt2::colvect(cT(0, 1)), cT(0, 1));
+}
 
 NT2_TEST_CASE_TPL( colvect2, NT2_REAL_TYPES)
 {
@@ -30,8 +31,6 @@ NT2_TEST_CASE_TPL( colvect2, NT2_REAL_TYPES)
     for(int i=1;i<=4;i++)
       y(i,j) = cT(i + 10*j, j);
   r = nt2::colvect(y);
-  NT2_DISPLAY(y);
-  NT2_DISPLAY(r);
-  NT2_TEST(nt2::isequal(r, y(nt2::_)));
-  NT2_TEST(nt2::isequal(nt2::colvect(y), y(nt2::_)));
+  NT2_TEST_EQUAL(r, y(nt2::_));
+  NT2_TEST_EQUAL(nt2::colvect(y), y(nt2::_));
 }
