@@ -11,15 +11,16 @@
 
 #include <boost/simd/arithmetic/functions/meanof.hpp>
 #include <boost/simd/include/functions/simd/average.hpp>
-#include <boost/simd/include/functions/simd/is_greater_equal.hpp>
-#include <boost/simd/include/functions/simd/is_gez.hpp>
 #include <boost/simd/include/functions/simd/is_finite.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/logical_and.hpp>
-#include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/minus.hpp>
+#include <boost/simd/include/functions/simd/max.hpp>
+#include <boost/simd/include/functions/simd/min.hpp>
+#include <boost/simd/include/functions/simd/bitwise_and.hpp>
+#include <boost/simd/include/functions/simd/bitwise_xor.hpp>
 #include <boost/simd/include/functions/simd/shift_right.hpp>
-#include <boost/simd/include/functions/simd/shr.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/constants/half.hpp>
 
 //no overflow average for floating numbers
@@ -34,13 +35,11 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return
-        if_else(logical_and(logical_and(is_gez(a0*a1),is_finite(a0)),is_finite(a1)),
-                if_else(ge(a1, a0),
-                        a0 + (a1-a0)*Half<result_type>(),
-                        a1 + (a0-a1)*Half<result_type>()),
-                average(a0, a1)
-                );
+      A0 m = min(a0, a1);
+      return if_else( logical_and(is_finite(a0)),is_finite(a1)),
+                      m + (max(a0, a1)-m)*Half<result_type>(),
+                      average(a0, a1)
+                    );
     }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::meanof_, tag::cpu_,
@@ -51,13 +50,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return
-        if_else(is_gez(a0*a1),
-                if_else(ge(a1, a0),
-                        a0 + shri((a1-a0), 1),
-                        a1 + shri((a0-a1), 1)),
-                shrai(a0+a1, 1)
-                );
+      return (a0 & a1) + ((a0 ^ a1) >> 1);
     }
   };
 } } }
