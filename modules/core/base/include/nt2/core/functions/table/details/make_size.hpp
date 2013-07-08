@@ -11,12 +11,12 @@
 
 #include <nt2/sdk/meta/is_colon.hpp>
 #include <nt2/core/settings/size.hpp>
+#include <nt2/core/functions/table/details/is_definitely_vector.hpp>
 #include <nt2/include/functions/extent.hpp>
 #include <nt2/include/functions/relative_size.hpp>
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/core/functions/colon.hpp>
-#include <nt2/sdk/meta/safe_at.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
 #include <boost/fusion/include/mpl.hpp>
 #include <boost/fusion/include/at_c.hpp>
@@ -24,7 +24,6 @@
 #include <boost/mpl/or.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/at.hpp>
-#include <boost/mpl/bool.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
@@ -104,22 +103,6 @@ namespace nt2 { namespace details
   #undef M1
   #undef M2
   #undef M3
-
-  template<class Seq>
-  struct is_definitely_not_vector
-  {
-    static const std::size_t n = Seq::static_size;
-    static const bool value = n == 0 || (n > 1 && meta::mpl_safe_at_c<typename Seq::values_type, 1, boost::mpl::long_<1> >::type::value != -1);
-    typedef boost::mpl::bool_<value> type;
-  };
-
-  template<class Seq>
-  struct is_definitely_vector
-  {
-    static const std::size_t n = Seq::static_size;
-    static const bool value = n <= 1u || (n == 2u && meta::mpl_safe_at_c<typename Seq::values_type, 0, boost::mpl::long_<1> >::type::value == 1);
-    typedef boost::mpl::bool_<value> type;
-  };
 
   template< class Domain
           , class Shape, class Sizes, class Bases
