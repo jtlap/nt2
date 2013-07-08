@@ -12,16 +12,16 @@
 //==============================================================================
 // Include and injects table into nt2 namespace with all required features
 //==============================================================================
-#include <nt2/core/utility/share.hpp>
-#include <nt2/core/container/table/semantic.hpp>
-#include <nt2/include/functions/of_size.hpp>
-#include <nt2/operator/operator.hpp>
 #include <nt2/core/container/table/table.hpp>
-#include <nt2/core/container/colon/colon.hpp>
-#include <nt2/core/container/extremum/extremum.hpp>
+#include <nt2/core/container/table/semantic.hpp>
+#include <nt2/core/utility/share.hpp>
+#include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/function.hpp>
 #include <nt2/include/functions/display.hpp>
 #include <nt2/include/functions/disp.hpp>
+#include <nt2/operator/operator.hpp>
+#include <nt2/core/container/extremum/extremum.hpp>
+#include <nt2/core/container/colon/colon.hpp>
 
 namespace nt2
 {
