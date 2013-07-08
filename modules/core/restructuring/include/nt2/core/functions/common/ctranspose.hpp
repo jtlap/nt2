@@ -10,11 +10,13 @@
 #define NT2_CORE_FUNCTIONS_COMMON_CTRANSPOSE_HPP_INCLUDED
 
 #include <nt2/core/functions/ctranspose.hpp>
+#include <nt2/core/functions/table/details/is_definitely_vector.hpp>
 #include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/conj.hpp>
 #include <nt2/include/functions/colvect.hpp>
 #include <nt2/include/functions/rowvect.hpp>
 #include <nt2/include/functions/run.hpp>
+#include <nt2/sdk/functor/preprocessor/dispatch.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -53,21 +55,29 @@ namespace nt2 { namespace ext
   };
 
   // ctranspose vector
-  NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::ctranspose_, tag::cpu_
-                                , (class A0)(std::ptrdiff_t N)(class Tag)(class Arity)
-                                , ((expr_< table_< unspecified_<A0>, nt2::of_size_<1, N> >, Tag, Arity >))
-                                )
+  template<class A0>
+  struct ctranspose_row_vector
   {
     BOOST_DISPATCH_RETURNS(1, (A0 const& a0), conj(colvect(a0)))
   };
+  NT2_REGISTER_DISPATCH_TO_IF( nt2::tag::ctranspose_, tag::cpu_
+                             , (A0)
+                             , (nt2::details::is_definitely_row_vector<typename A0::extent_type>)
+                             , ((ast_<A0, nt2::container::domain>))
+                             , nt2::ext::ctranspose_row_vector<A0>
+                             );
 
-  NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::ctranspose_, tag::cpu_
-                                , (class A0)(std::ptrdiff_t N)(class Tag)(class Arity)
-                                , ((expr_< table_< unspecified_<A0>, nt2::of_size_<N> >, Tag, Arity >))
-                                )
+  template<class A0>
+  struct ctranspose_col_vector
   {
     BOOST_DISPATCH_RETURNS(1, (A0 const& a0), conj(rowvect(a0)))
   };
+  NT2_REGISTER_DISPATCH_TO_IF( nt2::tag::ctranspose_, tag::cpu_
+                             , (A0)
+                             , (nt2::details::is_definitely_col_vector<typename A0::extent_type>)
+                             , ((ast_<A0, nt2::container::domain>))
+                             , nt2::ext::ctranspose_col_vector<A0>
+                             );
 
   // ctranspose implementation
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
