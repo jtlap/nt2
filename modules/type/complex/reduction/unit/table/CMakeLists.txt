@@ -23,7 +23,6 @@ SET( SOURCES
      globalprod.cpp
      inbtrue.cpp
      maximum.cpp
-     medianad.cpp
      mean.cpp
      meanad.cpp
      minimum.cpp
