@@ -18,7 +18,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
-NT2_TEST_CASE_TPL( norm2_scalar, (float)(double))//NT2_TYPES )
+NT2_TEST_CASE_TPL( norm2_scalar, NT2_REAL_TYPES )
 {
   typedef std::complex<T>  cT;
   T x = nt2::norm2(cT(42));
@@ -32,7 +32,7 @@ NT2_TEST_CASE_TPL( norm2_scalar, (float)(double))//NT2_TYPES )
 
 }
 
-NT2_TEST_CASE_TPL( norm2, (float)(double))//NT2_TYPES )
+NT2_TEST_CASE_TPL( norm2, NT2_REAL_TYPES )
 {
   typedef std::complex<T>  cT;
    using nt2::_;

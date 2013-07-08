@@ -30,7 +30,7 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
-NT2_TEST_CASE_TPL( inbtrue_scalar, (float)(double))//NT2_TYPES )
+NT2_TEST_CASE_TPL( inbtrue_scalar, NT2_REAL_TYPES )
 {
   typedef std::complex<T> cT;
   cT x = nt2::inbtrue(cT(1));

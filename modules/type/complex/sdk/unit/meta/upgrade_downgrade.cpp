@@ -14,7 +14,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
-NT2_TEST_CASE_TPL(complex, NT2_TYPES)
+NT2_TEST_CASE_TPL(complex, NT2_REAL_TYPES)
 {
   using boost::dispatch::meta::upgrade;
   using boost::dispatch::meta::downgrade;
@@ -54,7 +54,7 @@ NT2_TEST_CASE_TPL(complex, NT2_TYPES)
                   );
 }
 
-NT2_TEST_CASE_TPL(dry, NT2_TYPES)
+NT2_TEST_CASE_TPL(dry, NT2_REAL_TYPES)
 {
   using boost::dispatch::meta::upgrade;
   using boost::dispatch::meta::downgrade;

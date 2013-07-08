@@ -19,7 +19,7 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
 
-NT2_TEST_CASE_TPL( wmean_scalar, (float)(double))//NT2_TYPES )
+NT2_TEST_CASE_TPL( wmean_scalar, NT2_REAL_TYPES )
 {
   typedef std::complex<T>  cT;
   cT x = nt2::wmean(cT(42), T(1));
@@ -33,7 +33,7 @@ NT2_TEST_CASE_TPL( wmean_scalar, (float)(double))//NT2_TYPES )
 
 }
 
-NT2_TEST_CASE_TPL( wmean, (float)(double))//NT2_TYPES )
+NT2_TEST_CASE_TPL( wmean, NT2_REAL_TYPES )
 {
   typedef std::complex<T>  cT;
   nt2::table<cT> y( nt2::of_size(5,3) );

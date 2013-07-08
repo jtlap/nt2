@@ -15,7 +15,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
-NT2_TEST_CASE_TPL( maximum_scalar, (float)(double))//NT2_TYPES )
+NT2_TEST_CASE_TPL( maximum_scalar, NT2_REAL_TYPES )
 {
   typedef std::complex<T>  cT;
   cT x = nt2::maximum(cT(42));

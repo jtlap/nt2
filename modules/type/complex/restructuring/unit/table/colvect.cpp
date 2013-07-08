@@ -21,7 +21,7 @@
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
 
-NT2_TEST_CASE_TPL( colvect2, NT2_TYPES)
+NT2_TEST_CASE_TPL( colvect2, NT2_REAL_TYPES)
 {
   typedef std::complex<T> cT;
   nt2::table<cT> r;

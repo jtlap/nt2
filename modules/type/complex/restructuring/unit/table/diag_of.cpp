@@ -20,7 +20,7 @@
 #include <nt2/sdk/unit/tests/basic.hpp>
 
 
-NT2_TEST_CASE_TPL( diag_of_exprc, NT2_TYPES )
+NT2_TEST_CASE_TPL( diag_of_exprc, NT2_REAL_TYPES )
 {
   typedef std::complex<T> cT;
   nt2::table<cT> x,y( nt2::of_size(7,7) );

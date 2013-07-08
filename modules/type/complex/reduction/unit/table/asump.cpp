@@ -32,7 +32,7 @@ NT2_TEST_CASE_TPL( asump_scalar, NT2_REAL_TYPES )
 
 }
 
-NT2_TEST_CASE_TPL( asump, (float)(double))//NT2_TYPES )
+NT2_TEST_CASE_TPL( asump, NT2_REAL_TYPES )
 {
   typedef std::complex<T>  cT;
   using nt2::_;
