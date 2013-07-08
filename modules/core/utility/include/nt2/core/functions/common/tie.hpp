@@ -14,7 +14,9 @@
 #include <boost/simd/sdk/meta/iterate.hpp>
 
 #include <boost/dispatch/meta/value_of.hpp>
+#include <boost/dispatch/meta/is_scalar.hpp>
 #include <boost/fusion/include/vector.hpp>
+#include <boost/mpl/assert.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
@@ -78,6 +80,26 @@ namespace nt2 { namespace ext
     typedef typename boost::fusion::result_of::at_c<A0, 0>::type first;
     typedef typename boost::fusion::result_of::at_c<A1, 0>::type first2;
     typedef typename meta::call<tag::assign_(first, first2)>::type result_type;
+  };
+
+  // semantic of assigning a fusion sequence to a value only takes
+  // first value
+  // Not allowed if the fusion sequence is actually a scalar
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::assign_, tag::cpu_
+                            , (A0)(A1)
+                            , (generic_< unspecified_<A0> >)
+                              (fusion_sequence_<A1>)
+                            )
+  {
+    BOOST_MPL_ASSERT_MSG( !boost::dispatch::meta::is_scalar<A1>::value, NT2_ASSIGN_SCALAR_SEQUENCE, (A0, A1) );
+
+    typedef typename boost::fusion::result_of::at_c<A1, 0>::type first;
+    typedef typename meta::call<tag::assign_(A0&, first)>::type result_type;
+
+    result_type operator()(A0& a0, A1 const& a1) const
+    {
+      return a0 = boost::fusion::at_c<0>(a1);
+    }
   };
 } }
 
