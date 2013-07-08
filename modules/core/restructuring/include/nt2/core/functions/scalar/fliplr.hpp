@@ -10,13 +10,12 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_FLIPLR_HPP_INCLUDED
 
 #include <nt2/core/functions/fliplr.hpp>
-#include <nt2/include/constants/zero.hpp>
 
 namespace nt2 { namespace ext
 {
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fliplr_, tag::cpu_, (A0)
-                            , (scalar_< arithmetic_<A0> >)
+                            , (scalar_< unspecified_<A0> >)
                             )
   {
     typedef A0  result_type;
