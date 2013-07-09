@@ -8,9 +8,9 @@
 //==============================================================================
 #ifndef NT2_ARITHMETIC_FUNCTIONS_CONTAINER_TWO_SPLIT_HPP_INCLUDED
 #define NT2_ARITHMETIC_FUNCTIONS_CONTAINER_TWO_SPLIT_HPP_INCLUDED
+
 #include <nt2/arithmetic/functions/two_split.hpp>
 #include <nt2/include/functions/tie.hpp>
-#include <nt2/core/container/dsl.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
 
 namespace nt2 { namespace ext

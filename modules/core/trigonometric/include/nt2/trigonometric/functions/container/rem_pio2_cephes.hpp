@@ -8,9 +8,9 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_CONTAINER_REM_PIO2_CEPHES_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_CONTAINER_REM_PIO2_CEPHES_HPP_INCLUDED
+
 #include <nt2/trigonometric/functions/rem_pio2_cephes.hpp>
 #include <nt2/include/functions/tie.hpp>
-#include <nt2/core/container/dsl.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
 
@@ -38,6 +38,7 @@ namespace nt2 { namespace ext
   {
     typedef typename boost::dispatch::meta::terminal_of<A0>::type base;
     typedef typename meta::as_integer<base>::type                 result_type;
+
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,A1& r1) const
     {
       result_type r0;

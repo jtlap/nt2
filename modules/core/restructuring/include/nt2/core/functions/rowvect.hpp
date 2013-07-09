@@ -15,9 +15,10 @@
  */
 
 #include <nt2/include/functor.hpp>
-#include <nt2/core/container/dsl/reshaping.hpp>
 #include <nt2/sdk/meta/reshaping_hierarchy.hpp>
 #include <nt2/core/container/dsl/size.hpp>
+#include <nt2/core/utility/of_size/mpl_value.hpp>
+#include <nt2/include/functions/numel.hpp>
 
 namespace nt2
 {

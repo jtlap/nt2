@@ -13,9 +13,6 @@
 #include <nt2/include/functions/scalar/bitwise_cast.hpp>
 #include <nt2/include/functions/scalar/ldexp.hpp>
 #include <nt2/include/functions/scalar/floor.hpp>
-#include <nt2/include/functions/rem_pio2_cephes.hpp>
-#include <nt2/include/functions/rem_pio2_straight.hpp>
-#include <nt2/include/functions/rem_pio2_medium.hpp>
 #include <nt2/trigonometric/constants.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/zero.hpp>
@@ -897,4 +894,3 @@ namespace nt2 { namespace ext
 
 } }
 #endif
-

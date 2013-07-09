@@ -8,12 +8,13 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_TRIGO_F_TRIG_EVALUATION_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_TRIGO_F_TRIG_EVALUATION_HPP_INCLUDED
+
 #include <nt2/polynomials/functions/scalar/impl/horner.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/multiplies.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/fma.hpp>
+#include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/functions/scalar/oneplus.hpp>
+#include <nt2/include/functions/scalar/multiplies.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
+#include <nt2/include/functions/scalar/fma.hpp>
 #include <nt2/include/constants/mhalf.hpp>
 #include <nt2/sdk/simd/tags.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>

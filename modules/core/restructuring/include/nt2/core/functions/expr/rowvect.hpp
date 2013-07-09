@@ -10,7 +10,7 @@
 #define NT2_CORE_FUNCTIONS_EXPR_ROWVECT_HPP_INCLUDED
 
 #include <nt2/core/functions/rowvect.hpp>
-#include <nt2/core/container/dsl.hpp>
+#include <nt2/core/container/dsl/forward.hpp>
 
 namespace nt2 { namespace ext
 {

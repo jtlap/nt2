@@ -10,8 +10,7 @@
 #define NT2_CORE_FUNCTIONS_EXPR_RELATIVE_SIZE_HPP_INCLUDED
 
 #include <nt2/core/functions/relative_size.hpp>
-#include <nt2/core/container/dsl.hpp>
-#include <nt2/core/functions/colon.hpp>
+#include <nt2/core/container/colon/category.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/core/functions/details/colon.hpp>
 

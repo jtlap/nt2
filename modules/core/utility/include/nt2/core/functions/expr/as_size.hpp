@@ -14,7 +14,7 @@
 #include <nt2/core/functions/of_size.hpp>
 #include <nt2/include/functions/isrow.hpp>
 #include <nt2/include/functions/length.hpp>
-#include <nt2/core/container/dsl.hpp>
+#include <nt2/core/container/dsl/forward.hpp>
 
 namespace nt2 { namespace ext
 {

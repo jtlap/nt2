@@ -16,7 +16,7 @@
 #include <nt2/include/functions/groups.hpp>
 #include <nt2/include/functions/split.hpp>
 #include <nt2/include/functions/complexify.hpp>
-#include <nt2/core/container/dsl.hpp>
+#include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/sdk/complex/meta/is_complex.hpp>
 #include <nt2/sdk/meta/as_unsigned.hpp>
 #include <nt2/sdk/meta/as_signed.hpp>

@@ -10,7 +10,6 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_ROWVECT_HPP_INCLUDED
 
 #include <nt2/core/functions/rowvect.hpp>
-#include <nt2/include/constants/zero.hpp>
 
 namespace nt2 { namespace ext
 {

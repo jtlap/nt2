@@ -10,7 +10,7 @@
 #define NT2_CORE_FUNCTIONS_EXPR_LENGTH_HPP_INCLUDED
 
 #include <nt2/core/functions/length.hpp>
-#include <nt2/core/container/dsl.hpp>
+#include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/include/functions/extent.hpp>
 
 namespace nt2 { namespace ext

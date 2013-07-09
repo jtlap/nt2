@@ -9,8 +9,6 @@
 #ifndef NT2_CORE_CONTAINER_DSL_RESHAPING_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_DSL_RESHAPING_HPP_INCLUDED
 
-#include <boost/proto/traits.hpp>
-#include <nt2/core/container/dsl/value_type.hpp>
 #include <nt2/sdk/meta/value_as.hpp>
 
 namespace nt2 { namespace meta

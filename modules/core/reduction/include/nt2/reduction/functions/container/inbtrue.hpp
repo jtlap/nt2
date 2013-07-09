@@ -12,11 +12,9 @@
 #include <nt2/reduction/functions/inbtrue.hpp>
 #include <nt2/include/functions/touint.hpp>
 #include <nt2/include/functions/if_one_else_zero.hpp>
-#include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/sum.hpp>
 #include <nt2/include/functions/real.hpp>
-#include <nt2/include/functions/cast.hpp>
-#include <nt2/core/container/dsl.hpp>
+#include <nt2/core/container/dsl/forward.hpp>
 
 namespace nt2 { namespace ext
 {

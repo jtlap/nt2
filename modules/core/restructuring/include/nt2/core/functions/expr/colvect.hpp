@@ -11,7 +11,7 @@
 #define NT2_CORE_FUNCTIONS_EXPR_COLVECT_HPP_INCLUDED
 
 #include <nt2/core/functions/colvect.hpp>
-#include <nt2/core/container/dsl.hpp>
+#include <nt2/core/container/dsl/size.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/core/utility/of_size/mpl_value.hpp>
 

@@ -17,6 +17,8 @@
 
 #include <nt2/include/functor.hpp>
 #include <nt2/core/utility/of_size.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
+#include <nt2/core/container/dsl/size.hpp>
 
 #include <boost/dispatch/details/parameters.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>

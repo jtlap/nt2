@@ -12,7 +12,6 @@
 #include <nt2/core/functions/relative_index.hpp>
 #include <nt2/include/functions/run.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/core/functions/colon.hpp>
 #include <nt2/core/container/extremum/category.hpp>
 #include <nt2/core/container/colon/category.hpp>
 #include <nt2/core/functions/details/colon.hpp>

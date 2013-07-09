@@ -8,9 +8,9 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_CONTAINER_REM_PIO2_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_CONTAINER_REM_PIO2_HPP_INCLUDED
+
 #include <nt2/trigonometric/functions/rem_pio2.hpp>
 #include <nt2/include/functions/tie.hpp>
-#include <nt2/core/container/dsl.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
 

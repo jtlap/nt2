@@ -27,8 +27,13 @@
 #include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/oneminus.hpp>
 #include <nt2/include/constants/maxleftshift.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/two.hpp>
 #include <nt2/sdk/simd/tags.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
 
 namespace nt2
 {
