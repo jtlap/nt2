@@ -8,11 +8,13 @@
 //==============================================================================
 #ifndef NT2_EULER_FUNCTIONS_SIMD_COMMON_DIGAMMA_HPP_INCLUDED
 #define NT2_EULER_FUNCTIONS_SIMD_COMMON_DIGAMMA_HPP_INCLUDED
+
 #include <nt2/euler/functions/digamma.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/if_else_zero.hpp>
 #include <nt2/include/functions/simd/if_zero_else.hpp>
 #include <nt2/include/functions/simd/is_greater.hpp>
+#include <nt2/include/functions/simd/is_less.hpp>
 #include <nt2/include/functions/simd/selsub.hpp>
 #include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/functions/simd/log.hpp>
@@ -40,9 +42,6 @@
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/two.hpp>
-
-
-
 
 namespace nt2 { namespace ext
 {
