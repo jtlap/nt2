@@ -26,7 +26,6 @@
 #include <nt2/include/functions/is_real.hpp>
 #include <nt2/include/functions/schur.hpp>
 #include <nt2/include/functions/mtimes.hpp>
-#include <nt2/include/functions/complexify.hpp>
 #include <nt2/include/functions/power.hpp>
 #include <nt2/include/functions/trunc.hpp>
 #include <nt2/include/functions/inv.hpp>
@@ -124,7 +123,7 @@ namespace nt2 { namespace ext
       r_type m = nt2::trunc(b);
       r_type f = b-m;
       ct_type q, t;
-      nt2::tie(q, t) = schur(nt2::complexify(a),'N'); // t is complex schur form.
+      nt2::tie(q, t) = schur(a, meta::as_<cplx_type>()); // t is complex schur form.
       if(isdiagonal(t))
       {
         t = nt2::from_diag(nt2::pow(diag_of(t), m));
