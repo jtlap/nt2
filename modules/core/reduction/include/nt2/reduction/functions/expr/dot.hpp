@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
                               (scalar_<integer_<A2> > )
                             )
   {
-    BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1, A2 const& a2),
+    BOOST_DISPATCH_RETURNS(3, (A0 const& a0, A1 const& a1, A2 const& a2),
       nt2::sum(nt2::multiplies(a0, conj(a1)), a2)
     )
   };
