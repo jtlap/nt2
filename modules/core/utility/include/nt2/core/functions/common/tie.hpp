@@ -17,7 +17,7 @@
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/is_scalar.hpp>
-#include <boost/dispatch/meta/semantic_of.hpp>
+#include <boost/dispatch/dsl/semantic_of.hpp>
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/is_sequence.hpp>
 #include <boost/mpl/assert.hpp>
