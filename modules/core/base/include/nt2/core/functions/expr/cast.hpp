@@ -15,7 +15,9 @@
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/group.hpp>
 #include <nt2/include/functions/split.hpp>
+#include <nt2/include/functions/complexify.hpp>
 #include <nt2/core/container/dsl.hpp>
+#include <nt2/sdk/complex/meta/is_complex.hpp>
 #include <nt2/sdk/meta/as_unsigned.hpp>
 #include <nt2/sdk/meta/as_signed.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
@@ -33,6 +35,27 @@ namespace nt2 { namespace ext
     result_type operator()(A0 const& a0, To const&) const
     {
       return result_type(a0);
+    }
+  };
+
+  // complexify if necessary
+  template<class Expr, class From, class To, class Enable = void>
+  struct cast_complexify
+  {
+    typedef Expr& result_type;
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return e;
+    }
+  };
+
+  template<class Expr, class From, class To>
+  struct cast_complexify<Expr, From, To, typename boost::enable_if_c< meta::is_complex<To>::value && !meta::is_complex<From>::value >::type>
+  {
+    typedef typename meta::call<tag::complexify_(Expr&)>::type result_type;
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return nt2::complexify(e);
     }
   };
 
@@ -129,7 +152,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cast_, tag::cpu_
                             , (A0)(To)
                             , ((ast_<A0, nt2::container::domain>))
-                              (target_< scalar_< arithmetic_<To> > >)
+                              (target_< scalar_< unspecified_<To> > >)
                             )
   {
     typedef typename To::type       to;
@@ -146,11 +169,14 @@ namespace nt2 { namespace ext
     typedef typename as_arg<typename type::result_type>::type typed;
 
     typedef cast_downgrade<typed, typename typed::value_type, to> downgrade;
-    typedef typename boost::remove_reference<typename downgrade::result_type>::type result_type;
+    typedef typename boost::remove_reference<typename downgrade::result_type>::type downgraded;
+
+    typedef cast_complexify<downgraded, typename downgraded::value_type, to> complexify_;
+    typedef typename boost::remove_reference<typename complexify_::result_type>::type result_type;
 
     result_type operator()(A0& a0, To const&) const
     {
-      return downgrade()(type()(upgrade()(a0)));
+      return complexify_()(downgrade()(type()(upgrade()(a0))));
     }
   };
 } }
