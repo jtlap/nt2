@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
                                      ((simd_<integer_<A1>, X>))
                                    )
   {
-    typedef A0 result_type;
+    typedef A1 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return a1 - genmask(a0);
@@ -36,7 +36,7 @@ namespace boost { namespace simd { namespace ext
                                      ((simd_<arithmetic_<A1>, X>))
                                    )
   {
-    typedef A0 result_type;
+    typedef A1 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return seladd(a0, a1, One<A1>());
