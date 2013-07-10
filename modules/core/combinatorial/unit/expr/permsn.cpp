@@ -24,7 +24,7 @@ NT2_TEST_CASE ( permsn_)
   NT2_DISPLAY(nt2::permsn(3, 6));
   NT2_DISPLAY(nt2::permsn(3, 10));
   NT2_DISPLAY(nt2::permsn(3, 3));
-  nt2::table<size_t> p = nt2::trans(nt2::cons(nt2::of_size(6, 3),
+  nt2::table<size_t> p = nt2::trans(nt2::cons<size_t>(nt2::of_size(6, 3),
                                               1, 1, 2, 2, 3, 3,
                                               2, 3, 1, 3, 1, 2,
                                               3, 2, 3, 1, 2, 1
