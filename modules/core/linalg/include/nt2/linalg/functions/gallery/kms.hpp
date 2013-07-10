@@ -16,17 +16,67 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/whereij.hpp>
 #include <nt2/include/functions/is_less.hpp>
-#include <nt2/core/container/dsl.hpp>
+#include <nt2/include/functions/conj.hpp>
+#include <nt2/include/functions/minus.hpp>
+#include <nt2/core/container/dsl/forward.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
+#include <nt2/core/container/dsl/size.hpp>
 #include <nt2/core/utility/box.hpp>
 #include <nt2/sdk/complex/meta/is_complex.hpp>
+#include <nt2/sdk/meta/size_as.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::kms_, tag::cpu_,
-                              (A0)(A1),
-                              (scalar_<integer_<A0> >)
-                              (scalar_<floating_<A1> >)
-    )
+  template<class Domain, class Expr>
+  struct size_of<tag::kms_, Domain, 2, Expr>
+       : meta::size_as<Expr, 1>
+  {
+  };
+
+  template <class Domain, class Expr>
+  struct value_type<tag::kms_, Domain, 2, Expr>
+       : meta::value_as<Expr, 0>
+  {
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::kms_, tag::cpu_
+                            , (A0)
+                            , (scalar_< integer_<A0> >)
+                            )
+  {
+    BOOST_DISPATCH_RETURNS(1, (A0 const& n),
+                           (boost::proto::
+                            make_expr<nt2::tag::kms_, container::domain>
+                            ( 0.5
+                            , boxify(nt2::of_size(size_t(n), size_t(n)))
+                            )
+                           )
+                          )
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::kms_, tag::cpu_
+                            , (A0)(T)
+                            , (scalar_< integer_<A0> >)
+                              (target_< scalar_< unspecified_<T> > >)
+                            )
+  {
+    typedef typename T::type value_t;
+    BOOST_DISPATCH_RETURNS(2, (A0 const& n, T const& t),
+                           (boost::proto::
+                            make_expr<nt2::tag::kms_, container::domain>
+                            ( value_t(0.5)
+                            , boxify(nt2::of_size(size_t(n), size_t(n)))
+                            )
+                           )
+                          )
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::kms_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_< integer_<A0> >)
+                              (scalar_< unspecified_<A1> >)
+                            )
   {
     BOOST_DISPATCH_RETURNS(2, (A0 const& n, A1 const& rho),
                            (boost::proto::
@@ -38,15 +88,15 @@ namespace nt2 { namespace ext
                           )
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::kms_, tag::cpu_,
-                              (A0)(A1)(T),
-                              (scalar_<integer_<A0> >)
-                              (scalar_<unspecified_<A1> >)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::kms_, tag::cpu_
+                            , (A0)(A1)(T)
+                            , (scalar_< integer_<A0> >)
+                              (scalar_< unspecified_<A1> >)
                               (target_< scalar_< unspecified_<T> > >)
-    )
+                            )
   {
     typedef typename T::type value_t;
-    BOOST_DISPATCH_RETURNS(3, (A0 const& n, A1 const& rho, T  const& t),
+    BOOST_DISPATCH_RETURNS(3, (A0 const& n, A1 const& rho, T const& t),
                            (boost::proto::
                             make_expr<nt2::tag::kms_, container::domain>
                             ( value_t(rho)
@@ -57,24 +107,21 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
-                              , (A0)(A1)(N)
-                              , ((ast_<A0, nt2::container::domain>))
-                              ((node_<A1,nt2::tag::kms_,N,nt2::container::domain>))
+                            , (A0)(A1)
+                            , ((ast_<A0, nt2::container::domain>))
+                              ((node_<A1, nt2::tag::kms_, boost::mpl::long_<2>, nt2::container::domain>))
     )
   {
     typedef A0&                                                         result_type;
-    typedef typename  boost::proto::result_of::child_c<A1&,0>::type        tmp_type;
-    typedef typename  meta::strip<tmp_type>::type                         tmp1_type;
-    typedef typename  tmp1_type::value_type                                 value_t;
+    typedef typename A1::value_type                                         value_t;
     typedef typename  meta::is_complex<value_t>::type                      iscplx_t;
     result_type operator()(A0& out, const A1& in) const
     {
-      BOOST_AUTO_TPL(siz,boost::proto::value( boost::proto::child_c<1>(in)));
-      value_t rho =  boost::proto::child_c<0>(in);
-      size_t n = siz[0];
-      out.resize(siz);
-      finalize(out, n, rho, iscplx_t());
-
+      finalize( out
+              , boost::proto::value(boost::proto::child_c<1>(in))[0]
+              , boost::proto::value(boost::proto::child_c<0>(in))
+              , iscplx_t()
+              );
       return out;
     }
   private :

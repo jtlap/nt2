@@ -8,12 +8,8 @@
 //==============================================================================
 #ifndef NT2_LINALG_FUNCTIONS_KMS_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_KMS_HPP_INCLUDED
-#include <nt2/include/functor.hpp>
-#include <nt2/sdk/meta/size_as.hpp>
-#include <nt2/sdk/meta/value_as.hpp>
 
-#include <nt2/core/container/dsl/value_type.hpp>
-#include <nt2/core/container/dsl/size.hpp>
+#include <nt2/include/functor.hpp>
 
 /*!
  * \ingroup algebra
@@ -50,7 +46,9 @@
 // kms actual class forward declaration
 //==============================================================================
 
-namespace nt2 { namespace tag
+namespace nt2
+{
+  namespace tag
   {
     /*!
      * \brief Define the tag kms_ of functor kms
@@ -66,35 +64,12 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::kms_, kms, 2)
   NT2_FUNCTION_IMPLEMENTATION(tag::kms_, kms, 3)
 
-  template < class T> container::table<T> kms(size_t n)
+  template<class T>
+  BOOST_FORCEINLINE typename meta::call<tag::kms_(size_t, meta::as_<T>)>::type
+  kms(size_t n)
   {
-    return nt2::kms(n, T(0.5), meta::as_<T>());
+    return nt2::kms(n, meta::as_<T>());
   }
-
 }
 
-
-namespace nt2 { namespace ext
-{
-  template<class Domain, class Expr,  int N>
-  struct  size_of<tag::kms_, Domain, N, Expr>
-  {
-    typedef _2D                               result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      return boost::proto::value(boost::proto::child_c<1>(e));
-    }
-  };
-  template <class Domain, class Expr>
-  struct value_type < tag::kms_, Domain,1,Expr>
-  {
-    typedef double                    type;
-  };
-  template <class Domain, class Expr, int N>
-  struct value_type < tag::kms_, Domain,N,Expr>
-  {
-    typedef typename  boost::proto::result_of::child_c<Expr&,0>::type      tmp_type;
-    typedef typename  meta::strip<tmp_type>::type                              type;
-  };
-} }
 #endif
