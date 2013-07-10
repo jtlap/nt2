@@ -15,6 +15,7 @@
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/groups.hpp>
 #include <nt2/include/functions/split.hpp>
+#include <nt2/include/functions/saturate.hpp>
 #include <nt2/include/functions/complexify.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/sdk/complex/meta/is_complex.hpp>
@@ -35,7 +36,7 @@ namespace nt2 { namespace ext
     typedef typename To::type result_type;
     result_type operator()(A0 const& a0, To const&) const
     {
-      return result_type(a0);
+      return result_type(saturate<result_type>(a0));
     }
   };
 
