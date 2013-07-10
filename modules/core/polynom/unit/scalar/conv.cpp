@@ -28,7 +28,7 @@ NT2_TEST_CASE_TPL ( conv_real__1_0,  NT2_REAL_TYPES)
   NT2_DISPLAY(a);
   NT2_DISPLAY(b);
   nt2::table<T> c(nt2::of_size(1, 0));
-  nt2::table<T> ab = cons(nt2::of_size(1, 6), 1, 4, 10, 16, 17, 12);
+  nt2::table<T> ab = nt2::cons<T>(nt2::of_size(1, 6), 1, 4, 10, 16, 17, 12);
   NT2_DISPLAY(ab);
   NT2_DISPLAY(conv(a, b));
   NT2_TEST_EQUAL(ab,conv(a, b));
