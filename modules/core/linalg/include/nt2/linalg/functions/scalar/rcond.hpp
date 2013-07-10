@@ -36,7 +36,8 @@ namespace nt2{ namespace ext
                             , (scalar_< unspecified_<A0> >)
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_real<A0>::type rtype_t;
+    typedef typename meta::as_floating<rtype_t>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
       return a0 ? One<A0>() : Zero<A0>();
@@ -70,7 +71,8 @@ namespace nt2{ namespace ext
                               (unspecified_<A1>)
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_real<A0>::type rtype_t;
+    typedef typename meta::as_floating<rtype_t>::type result_type;
     result_type operator()(A0 const & a0,  A1 const&)
     {
       return a0 ? One<A0>() : Zero<A0>();

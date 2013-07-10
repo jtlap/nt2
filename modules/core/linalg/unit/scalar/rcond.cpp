@@ -39,8 +39,7 @@ NT2_TEST_CASE_TPL(rcond, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(rcond(n+n), nt2::Oneo_10<T>(), 0);
   NT2_TEST_ULP_EQUAL(rcond(n, 1), nt2::Oneo_10<T>(), 0);
   NT2_TEST_ULP_EQUAL(rcond(n+n, 1), nt2::Oneo_10<T>(), 0);
-  NT2_DISPLAY(nt2::binomial(4, nt2::meta::as_<T>()));
   NT2_TEST_ULP_EQUAL(rcond(nt2::binomial(4, nt2::meta::as_<T>())), T(0.125), 1);
-
   NT2_TEST_ULP_EQUAL(rcond(nt2::kms<T>(4)), T( 1.481481481481481481e-01), 1);
 }
+

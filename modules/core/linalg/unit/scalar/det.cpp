@@ -36,7 +36,6 @@ NT2_TEST_CASE_TPL(det, NT2_REAL_TYPES)
   n(10, 10) = -1;
   NT2_TEST_ULP_EQUAL(det(n), nt2::Mone<T>(), 0);
   NT2_TEST_ULP_EQUAL(det(n+n), T(-1024), 0);
-  NT2_DISPLAY(nt2::binomial(4, nt2::meta::as_<T>()));
   NT2_TEST_ULP_EQUAL(det(nt2::binomial(4, nt2::meta::as_<T>())), T(64), 1);
   NT2_TEST_ULP_EQUAL(det(nt2::kms<T>(4)), T(0.421875), 1);
 }
