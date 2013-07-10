@@ -73,8 +73,10 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     void solve(solve_t const& f, A1 & a1, boost::mpl::long_<2> const&) const
     {
+      typedef typename boost::proto::result_of::child_c<A1&,1>::value_type  cr_type;
+      typedef typename cr_type::value_type r_type;
       boost::proto::child_c<0>(a1) = f.x();
-      boost::proto::child_c<1>(a1) = f.rank();
+      boost::proto::child_c<1>(a1) = r_type(f.rank());
     }
   };
 } }
