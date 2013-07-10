@@ -29,38 +29,21 @@ NT2_TEST_CASE_TPL ( plevl_real__1_0,  NT2_REAL_TYPES)
   using nt2::tag::polyfit_;
   nt2::table<T> x =  nt2::_(T(1), T(3));
   nt2::table<T> p =  nt2::_(T(1), T(3));
-//  nt2::table<T> y =  nt2::polyval(p, x);
   nt2::table<T> y(nt2::of_size(1, 3));
   y(1) = T(6);
   y(2) = T(11);
   y(3) = T(18);
-  NT2_DISPLAY(y);
-  NT2_DISPLAY(x);
-  NT2_DISPLAY(p);
-  NT2_DISPLAY(polyfit(x, y));
   nt2::table<T> p1 =polyfit(x, y);
-  NT2_DISPLAY(p1);
-  NT2_DISPLAY(polyval(p1, x));
-  NT2_DISPLAY(y);
   NT2_TEST_ULP_EQUAL(polyval(p1, x), y, 0.5);
 
-  NT2_DISPLAY(polyfit(x, y, 2));
   nt2::table<T> p2 =polyfit(x, y, 2);
-  NT2_DISPLAY(p2);
-  NT2_DISPLAY(polyval(p2, x));
-  NT2_DISPLAY(y);
   NT2_TEST_ULP_EQUAL(polyval(p2, x), y, 0.5);
 
   nt2::table<T> r;
   T df, normr;
   nt2::table<T> mu;
   nt2::tie(p, r, df, normr, mu) = polyfit(x, y);
-  NT2_DISPLAY(p);
-  NT2_DISPLAY(r);
-  NT2_DISPLAY(df);
-  NT2_DISPLAY(normr);
-  NT2_DISPLAY(mu);
-  NT2_DISPLAY(polyval(p, (x-mu(1))/mu(2)));
+  NT2_TEST_ULP_EQUAL(polyval(p, (x-mu(1))/mu(2)), y, 10);
 
 
   //////////////////////////////////////////////////////
@@ -73,7 +56,7 @@ NT2_TEST_CASE_TPL ( plevl_real__1_0,  NT2_REAL_TYPES)
   //    NT2_DISPLAY(s.normr);
   //////////////////////////////////////////////////////
 
-} // end of test for floating_
+}
 
 
 
@@ -85,22 +68,14 @@ NT2_TEST_CASE_TPL ( plevl_real__2_0,  NT2_REAL_TYPES)
   nt2::table<T> x =  reshape(nt2::_(T(1), T(4)), nt2::of_size(2, 2));
   nt2::table<T> p =  nt2::_(T(1), T(3));
   nt2::table<T> y =  nt2::polyval(p, x);
-  NT2_DISPLAY(y);
   std::cout << 1 << std::endl;
   nt2::table<T> r;
   T df, normr;
   nt2::table<T> mu;
   nt2::tie(p, r, df, normr, mu) = polyfit(x, y, 2);
   std::cout << 2 << std::endl;
-  NT2_DISPLAY(p);
-  NT2_DISPLAY(r);
-  NT2_DISPLAY(df);
-  NT2_DISPLAY(normr);
-  NT2_DISPLAY(mu);
-  NT2_DISPLAY(polyval(p, (x-mu(1))/mu(2)));
   NT2_TEST_ULP_EQUAL(polyval(p, (x-mu(1))/mu(2)), y, 10);
-
-} // end of test for floating_
+}
 
 NT2_TEST_CASE_TPL ( plevl_real__3_0,  NT2_REAL_TYPES)
 {
@@ -119,7 +94,7 @@ NT2_TEST_CASE_TPL ( plevl_real__3_0,  NT2_REAL_TYPES)
   std::cout << y << "\n";
   std::cout << z << "\n";
   NT2_TEST_ULP_EQUAL(z, zz, 500);
-} // end of test for floating_
+}
 
 
 
