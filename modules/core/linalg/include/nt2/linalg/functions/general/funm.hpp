@@ -15,7 +15,6 @@
 #include <nt2/sdk/complex/meta/is_complex.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/complexify.hpp>
 #include <nt2/include/functions/conj.hpp>
 #include <nt2/include/functions/colon.hpp>
 #include <nt2/include/functions/diag_of.hpp>
