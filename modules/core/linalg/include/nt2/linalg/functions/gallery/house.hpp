@@ -24,7 +24,6 @@
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
 
-
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::house_, tag::cpu_,
@@ -141,7 +140,6 @@ namespace nt2 { namespace ext
       {
         v(1) = -nt2::sqr(nrmx2n)/nt2::conj(x(1)+s);
       }
-   NT2_DISPLAY(2);
       if (nt2::is_eqz(v(1))) // special case where v = 0: need h = i.
       {
         beta = One<value_t>();

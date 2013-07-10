@@ -137,7 +137,6 @@ namespace nt2 {
       {
         typedef typename boost::proto::result_of::child_c<A1&,2>::value_type  cdf_type;
         typedef typename cdf_type::value_type df_type;
-        NT2_DISPLAY(nt2::type_id<df_type>());
         BOOST_AUTO_TPL(mu, boost::proto::child_c<4>(a1));
         mu.resize(nt2::of_size(1, 2));
         BOOST_AUTO_TPL(mm, nt2::mean(nt2::colvect(x))(1));

@@ -39,7 +39,7 @@
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/core/container/table/table.hpp>
-#include <nt2/table.hpp>
+
 // TODO:
 // these are the kind of syntaxes to be enforced by nt2::chol
 //  svd    Singular value decomposition.

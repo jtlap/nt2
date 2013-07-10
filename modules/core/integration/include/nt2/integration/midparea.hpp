@@ -8,10 +8,13 @@
 //==============================================================================
 #ifndef NT2_INTEGRATION_MIDPAREA_HPP_INCLUDED
 #define NT2_INTEGRATION_MIDPAREA_HPP_INCLUDED
+
 #include <nt2/include/functions/average.hpp>
 #include <nt2/include/functions/fma.hpp>
+#include <nt2/include/functions/multiplies.hpp>
+#include <nt2/include/functions/minus.hpp>
 #include <nt2/include/constants/half.hpp>
-#include <nt2/sdk/meta/type_id.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 
 namespace nt2
 {

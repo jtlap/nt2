@@ -26,7 +26,6 @@
 #include <nt2/sdk/parameters.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/numel.hpp>
-#include <nt2/sdk/unit/display_type.hpp>
 
 namespace boost { namespace serialization
 {
@@ -34,24 +33,24 @@ namespace boost { namespace serialization
   // First entry point of the serialization in table<T,S>
   //==========================================================================
   template<class Archive, class T, class S, class D>
-  void save( Archive & ar, const nt2::table<T,S,D>& t
+  void save( Archive & ar, const nt2::container::table<T,S,D>& t
            , unsigned int const& version
            )
   {
-    typedef typename nt2::table<T,S,D>::parent expression_type;
+    typedef typename nt2::container::table<T,S,D>::parent expression_type;
     ar << boost::serialization::base_object< const expression_type >(t);
   }
 
   template<class Archive, class T, class S, class D>
-  void load( Archive & ar, nt2::table<T,S,D>& t
+  void load( Archive & ar, nt2::container::table<T,S,D>& t
            , unsigned int const& version)
   {
-    typedef typename nt2::table<T,S,D>::parent expression_type;
+    typedef typename nt2::container::table<T,S,D>::parent expression_type;
     ar >> boost::serialization::base_object< expression_type >(t);
   }
 
   template<class Archive, class T, class S, class D>
-  inline void serialize( Archive & ar, nt2::table<T,S,D>& t
+  inline void serialize( Archive & ar, nt2::container::table<T,S,D>& t
                        , unsigned int const& file_version)
   {
     split_free(ar, t, file_version);
