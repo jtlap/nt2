@@ -43,8 +43,8 @@ namespace nt2 { namespace ext
   template<class Expr, class From, class To, class Enable = void>
   struct cast_complexify
   {
-    typedef Expr& result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    typedef Expr result_type;
+    BOOST_FORCEINLINE result_type operator()(typename boost::dispatch::meta::as_ref<Expr>::type e) const
     {
       return e;
     }
@@ -53,8 +53,8 @@ namespace nt2 { namespace ext
   template<class Expr, class From, class To>
   struct cast_complexify<Expr, From, To, typename boost::enable_if_c< meta::is_complex<To>::value && !meta::is_complex<From>::value >::type>
   {
-    typedef typename meta::call<tag::complexify_(Expr&)>::type result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    typedef typename meta::call<tag::complexify_(Expr)>::type result_type;
+    BOOST_FORCEINLINE result_type operator()(typename boost::dispatch::meta::as_ref<Expr>::type e) const
     {
       return nt2::complexify(e);
     }
@@ -64,11 +64,11 @@ namespace nt2 { namespace ext
   template<class Expr, class From, class To, class Enable = void>
   struct cast_upgrade
   {
-    typedef typename meta::call<tag::split_(Expr&)>::type as_split;
+    typedef typename meta::call<tag::split_(Expr)>::type as_split;
     typedef cast_upgrade<as_split const, typename as_split::value_type, To> rec;
-    typedef typename boost::remove_reference<typename rec::result_type>::type result_type;
+    typedef typename rec::result_type result_type;
 
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    BOOST_FORCEINLINE result_type operator()(typename boost::dispatch::meta::as_ref<Expr>::type e) const
     {
       return rec()(nt2::split(e));
     }
@@ -77,8 +77,8 @@ namespace nt2 { namespace ext
   template<class Expr, class From, class To>
   struct cast_upgrade<Expr, From, To, typename boost::enable_if_c< sizeof(typename meta::primitive_of<From>::type) >= sizeof(typename meta::primitive_of<To>::type) >::type>
   {
-    typedef Expr& result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    typedef Expr result_type;
+    BOOST_FORCEINLINE result_type operator()(typename boost::dispatch::meta::as_ref<Expr>::type e) const
     {
       return e;
     }
@@ -88,11 +88,11 @@ namespace nt2 { namespace ext
   template<class Expr, class From, class To, class Enable = void>
   struct cast_downgrade
   {
-    typedef typename meta::call<tag::group_(Expr&)>::type as_group;
+    typedef typename meta::call<tag::group_(Expr)>::type as_group;
     typedef cast_downgrade<as_group const, typename as_group::value_type, To> rec;
-    typedef typename boost::remove_reference<typename rec::result_type>::type result_type;
+    typedef typename rec::result_type result_type;
 
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    BOOST_FORCEINLINE result_type operator()(typename boost::dispatch::meta::as_ref<Expr>::type e) const
     {
       return rec()(nt2::group(e));
     }
@@ -101,8 +101,8 @@ namespace nt2 { namespace ext
   template<class Expr, class From, class To>
   struct cast_downgrade<Expr, From, To, typename boost::enable_if_c< sizeof(typename meta::primitive_of<From>::type) <= sizeof(typename meta::primitive_of<To>::type) >::type>
   {
-    typedef Expr& result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    typedef Expr result_type;
+    BOOST_FORCEINLINE result_type operator()(typename boost::dispatch::meta::as_ref<Expr>::type e) const
     {
       return e;
     }
@@ -112,8 +112,8 @@ namespace nt2 { namespace ext
   template<class Expr, class From, class To, class Enable = void>
   struct cast_intfloat
   {
-    typedef Expr& result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    typedef Expr result_type;
+    BOOST_FORCEINLINE result_type operator()(typename boost::dispatch::meta::as_ref<Expr>::type e) const
     {
       return e;
     }
@@ -122,8 +122,8 @@ namespace nt2 { namespace ext
   template<class Expr, class From, class To>
   struct cast_intfloat<Expr, From, To, typename boost::enable_if_c< meta::is_integral<From>::value && meta::is_floating_point<To>::value >::type>
   {
-    typedef typename meta::call<tag::tofloat_(Expr&)>::type result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    typedef typename meta::call<tag::tofloat_(Expr)>::type result_type;
+    BOOST_FORCEINLINE result_type operator()(typename boost::dispatch::meta::as_ref<Expr>::type e) const
     {
       return nt2::tofloat(e);
     }
@@ -132,8 +132,8 @@ namespace nt2 { namespace ext
   template<class Expr, class From, class To>
   struct cast_intfloat<Expr, From, To, typename boost::enable_if_c< meta::is_integral<To>::value && meta::is_signed<To>::value>::type>
   {
-    typedef typename meta::call<tag::toint_(Expr&)>::type result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    typedef typename meta::call<tag::toint_(Expr)>::type result_type;
+    BOOST_FORCEINLINE result_type operator()(typename boost::dispatch::meta::as_ref<Expr>::type e) const
     {
       return nt2::toint(e);
     }
@@ -142,8 +142,8 @@ namespace nt2 { namespace ext
   template<class Expr, class From, class To>
   struct cast_intfloat<Expr, From, To, typename boost::enable_if_c< meta::is_integral<To>::value && meta::is_unsigned<To>::value>::type>
   {
-    typedef typename meta::call<tag::touint_(Expr&)>::type result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    typedef typename meta::call<tag::touint_(Expr)>::type result_type;
+    BOOST_FORCEINLINE result_type operator()(typename boost::dispatch::meta::as_ref<Expr>::type e) const
     {
       return nt2::touint(e);
     }
@@ -158,22 +158,12 @@ namespace nt2 { namespace ext
   {
     typedef typename To::type       to;
 
-    template<class T>
-    struct as_arg
-         : boost::remove_reference<typename boost::dispatch::meta::as_ref<T>::type>
-    {};
+    typedef cast_upgrade<A0&, typename A0::value_type, to> upgrade;
+    typedef cast_intfloat<typename upgrade::result_type, typename boost::remove_reference<typename upgrade::result_type>::type::value_type, to> type;
+    typedef cast_downgrade<typename type::result_type, typename boost::remove_reference<typename type::result_type>::type::value_type, to> downgrade;
+    typedef cast_complexify<typename downgrade::result_type, typename boost::remove_reference<typename downgrade::result_type>::type::value_type, to> complexify_;
 
-    typedef cast_upgrade<A0, typename A0::value_type, to> upgrade;
-    typedef typename as_arg<typename upgrade::result_type>::type upgraded;
-
-    typedef cast_intfloat<upgraded, typename upgraded::value_type, to> type;
-    typedef typename as_arg<typename type::result_type>::type typed;
-
-    typedef cast_downgrade<typed, typename typed::value_type, to> downgrade;
-    typedef typename as_arg<typename downgrade::result_type>::type downgraded;
-
-    typedef cast_complexify<downgraded, typename downgraded::value_type, to> complexify_;
-    typedef typename boost::remove_reference<typename complexify_::result_type>::type result_type;
+    typedef typename complexify_::result_type result_type;
 
     result_type operator()(A0& a0, To const&) const
     {
