@@ -25,7 +25,7 @@ NT2_TEST_CASE_TPL ( chebspec, NT2_REAL_TYPES)
                               T(0.5),   T(-0.0), T(-0.5),
                               T(-0.5),  T(2.0),  T(-1.5)
                               ), nt2::of_size(3, 3)));
-  nt2::table<T> v =  nt2::chebspec( 3, 0);
+  nt2::table<T> v =  nt2::chebspec<T>(3, 0);
   nt2::display("v", v);
   NT2_DISPLAY(v);
   NT2_DISPLAY(c30);
@@ -36,7 +36,7 @@ NT2_TEST_CASE_TPL ( chebspec, NT2_REAL_TYPES)
                               T(3.0),    T(1.0),   T(-3.0),
                               T(-4.0),   T(12.0),  T(-9.5)
                               ), nt2::of_size(3, 3)))/T(3);
-  nt2::table<T> v1 =  nt2::chebspec( 3, 1);
+  nt2::table<T> v1 =  nt2::chebspec<T>(3, 1);
   nt2::display("v1", v1);
   NT2_DISPLAY(c31);
   NT2_TEST_ULP_EQUAL(v1, c31, 2.0);
