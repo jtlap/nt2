@@ -11,9 +11,12 @@
 #include <boost/simd/sdk/simd/io.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/eps.hpp>
-#include <nt2//include/constants/one.hpp>
+#include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
-#include <nt2//include/functions/unary_minus.hpp>
+#include <nt2/include/functions/unary_minus.hpp>
+#include <nt2/include/functions/minus.hpp>
+#include <nt2/include/functions/multiplies.hpp>
+#include <nt2/include/functions/plus.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/fusion/include/vector_tie.hpp>
