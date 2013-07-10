@@ -13,6 +13,7 @@
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/constants/pio_2.hpp>
 #include <nt2/include/constants/pio_4.hpp>
+#include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/half.hpp>
 
 #include <nt2/sdk/unit/module.hpp>

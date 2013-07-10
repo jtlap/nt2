@@ -8,8 +8,17 @@
 //==============================================================================
 #ifndef NT2_EULER_FUNCTIONS_SIMD_COMMON_FAST_GAMMA_HPP_INCLUDED
 #define NT2_EULER_FUNCTIONS_SIMD_COMMON_FAST_GAMMA_HPP_INCLUDED
+
 #include <nt2/euler/functions/fast_gamma.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/floor.hpp>
+#include <nt2/include/functions/simd/is_even.hpp>
+#include <nt2/include/functions/simd/seladd.hpp>
+#include <nt2/include/functions/simd/stirling.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/is_greater.hpp>
+#include <nt2/include/functions/simd/is_greater_equal.hpp>
+#include <nt2/include/functions/simd/is_less.hpp>
 #include <nt2/include/functions/simd/negif.hpp>
 #include <nt2/include/functions/simd/is_ltz.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
@@ -19,15 +28,19 @@
 #include <nt2/include/functions/simd/any.hpp>
 #include <nt2/include/functions/simd/inbtrue.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
-#include <nt2/include/constants/zero.hpp>
-#include <nt2/euler/constants/fastgammalargelim.hpp>
 #include <nt2/include/functions/simd/sinpi.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
+#include <nt2/euler/constants/fastgammalargelim.hpp>
+#include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/half.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 
 
 namespace nt2 { namespace ext

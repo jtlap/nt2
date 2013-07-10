@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
       if(nt2::numel(ex1) == 0u && nt2::numel(siz) == 0u)
         return true;
 
-      size_t sz = nt2::min(ex1.size(), siz.size());
+      size_t sz = std::min(ex1.size(), siz.size());
       for(size_t i=0; i < sz; ++i)
       {
         if(ex1[i] != siz[i] && ex1[i] != 1)

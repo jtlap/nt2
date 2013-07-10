@@ -8,14 +8,10 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2 optimize toolbox - hjmin"
 
-#include <iostream>
 #include <nt2/include/functions/hjmin.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <boost/lambda/lambda.hpp>
-#include <boost/bind.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/globalsum.hpp>
@@ -23,6 +19,7 @@
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/table.hpp>
+#include <iostream>
 
 struct ffp
 {

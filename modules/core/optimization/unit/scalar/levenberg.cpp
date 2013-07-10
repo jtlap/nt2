@@ -8,14 +8,10 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2 optimize toolbox - levenberg"
 
-#include <iostream>
 #include <nt2/include/functions/levenberg.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <boost/lambda/lambda.hpp>
-#include <boost/bind.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/norm.hpp>
@@ -29,6 +25,7 @@
 #include <nt2/include/constants/sqrteps.hpp>
 #include <nt2/include/constants/four.hpp>
 #include <nt2/table.hpp>
+#include <iostream>
 
 template < class Tabout >
 struct fpp

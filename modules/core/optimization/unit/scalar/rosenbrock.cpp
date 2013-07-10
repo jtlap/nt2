@@ -8,14 +8,10 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2 optimize toolbox - rosenbrock"
 
-#include <iostream>
 #include <nt2/include/functions/rosenbrock.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <boost/lambda/lambda.hpp>
-#include <boost/bind.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/norm.hpp>
@@ -26,11 +22,13 @@
 #include <nt2/include/functions/globalsum.hpp>
 #include <nt2/include/functions/globalmax.hpp>
 #include <nt2/include/functions/ones.hpp>
+#include <nt2/include/functions/cast.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/include/constants/sqrteps.hpp>
 #include <nt2/include/constants/four.hpp>
 #include <nt2/table.hpp>
+#include <iostream>
 
 template < class Tabout >
 struct fpp

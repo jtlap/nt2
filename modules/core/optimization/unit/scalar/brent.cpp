@@ -8,14 +8,11 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2 optimize toolbox - brent"
 
-#include <iostream>
 #include <nt2/include/functions/brent.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <boost/lambda/lambda.hpp>
-#include <boost/bind.hpp>
+#include <iostream>
 
 template<class T> inline T f0( T x ) { return x*x*x-3*x+4; }
 

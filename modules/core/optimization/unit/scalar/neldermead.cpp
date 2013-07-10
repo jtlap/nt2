@@ -8,14 +8,10 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2 optimize toolbox - nedlermead"
 
-#include <iostream>
 #include <nt2/include/functions/neldermead.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <boost/lambda/lambda.hpp>
-#include <boost/bind.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/rowvect.hpp>
 #include <nt2/include/functions/exp.hpp>
@@ -27,6 +23,8 @@
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/include/constants/oneo_10.hpp>
 #include <nt2/table.hpp>
+#include <iostream>
+
 struct ffp
 {
   template < class Tab > inline

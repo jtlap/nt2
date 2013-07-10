@@ -8,7 +8,13 @@
 //==============================================================================
 #ifndef NT2_EULER_FUNCTIONS_SIMD_COMMON_GAMMA_HPP_INCLUDED
 #define NT2_EULER_FUNCTIONS_SIMD_COMMON_GAMMA_HPP_INCLUDED
+
 #include <nt2/euler/functions/gamma.hpp>
+#include <nt2/include/functions/simd/is_less.hpp>
+#include <nt2/include/functions/simd/is_greater.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
 #include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/include/functions/simd/is_lez.hpp>
@@ -24,19 +30,23 @@
 #include <nt2/include/functions/simd/sinpi.hpp>
 #include <nt2/include/functions/simd/negif.hpp>
 #include <nt2/include/functions/simd/is_odd.hpp>
-#include <nt2/include/functions/simd/is_lez.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/sqrt.hpp>
 #include <nt2/include/functions/simd/maximum.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
-#include <nt2/sdk/meta/as_logical.hpp>
+#include <nt2/include/functions/simd/minusone.hpp>
+#include <nt2/include/functions/simd/oneplus.hpp>
+#include <nt2/include/functions/simd/seladd.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/is_flint.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/half.hpp>
-
+#include <nt2/sdk/meta/as_logical.hpp>
 
 namespace nt2 { namespace ext
 {
