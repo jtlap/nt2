@@ -8,8 +8,10 @@
 //==============================================================================
 #ifndef NT2_LINALG_FUNCTIONS_GENERAL_FUNM_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_GENERAL_FUNM_HPP_INCLUDED
+
 #include <nt2/linalg/functions/funm.hpp>
 #include <nt2/core/container/table/table.hpp>
+#include <nt2/core/container/dsl/size.hpp>
 #include <nt2/sdk/complex/meta/is_complex.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/functions/abs.hpp>
@@ -38,6 +40,9 @@
 #include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/triu.hpp>
 #include <nt2/include/functions/zeros.hpp>
+#include <nt2/include/functions/extent.hpp>
+#include <nt2/include/functions/issquare.hpp>
+#include <boost/assert.hpp>
 
 // there are many optimisations/ameliorations to be done
 // -- passing parameters to functor
@@ -57,11 +62,7 @@ namespace nt2
       typedef A1 result_type;
       NT2_FUNCTOR_CALL(2)
       {
-        typedef typename boost::proto::result_of::child_c<A1&,0>::value_type       In0;
-        typedef typename meta::strip<In0>::type                               tmp_type;
-        typedef typename boost::dispatch::meta::semantic_of<tmp_type >::type    t_type;
-        t_type f;
-        return  f(a1, 0);
+        return a0(a1, 0);
       }
     };
 
@@ -88,8 +89,6 @@ namespace nt2
                             )
   {
       typedef void                                                    result_type;
-      typedef typename boost::proto::result_of::child_c<A1&,0>::type          In0;
-      typedef typename boost::proto::result_of::child_c<A1&,1>::type          In1;
       typedef typename A0::value_type                                  value_type;
       typedef typename meta::as_real<value_type>::type                     r_type;
       typedef typename meta::as_complex<r_type>::type                   cplx_type;
@@ -101,10 +100,7 @@ namespace nt2
 
       BOOST_FORCEINLINE result_type operator()(const A0& a0, const A1& a1) const
       {
-        typedef typename meta::strip<In0>::type                              tmp1_type;
-        typedef typename boost::dispatch::meta::semantic_of<tmp1_type >::type   t_type;
-        t_type f; // it will be useful to be able to construct f outside to allow parameters in constructor...
-        compute_funm(f, boost::proto::child_c<1>(a1), a0);
+        compute_funm(boost::proto::value(boost::proto::child_c<0>(a1)), boost::proto::child_c<1>(a1), a0);
       }
     private:
       template <class F, class T >
@@ -115,7 +111,7 @@ namespace nt2
          //u, t and r are complex arrays
          res.resize(extent(a0));
          ctab_t u, t;
-         nt2::tie(u, t) = schur(nt2::complexify(a0),'N'); // t is complex schur form.
+         nt2::tie(u, t) = schur(a0, meta::as_<cplx_type>()); // t is complex schur form.
          if (isdiagonal(t))
          {
            t = nt2::from_diag(f(nt2::diag_of(t), 0));
