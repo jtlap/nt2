@@ -20,7 +20,7 @@
 NT2_TEST_CASE_TPL ( condex, NT2_REAL_TYPES)
 {
   nt2::table<T> r31 =
-    nt2::trans(nt2::cons(nt2::of_size(4, 4),
+    nt2::trans(nt2::cons<T>(nt2::of_size(4, 4),
                          T(1),    T(-1),  T(-200),  T(   0),
                          T(0),    T( 1),  T( 100),  T(-100),
                          T(0),    T( 1),  T( 101),  T(-101),
@@ -32,7 +32,7 @@ NT2_TEST_CASE_TPL ( condex, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(r, r31, 2);
   //________________________________________________________________
   nt2::table<T> r32 =
-    nt2::trans(nt2::cons(nt2::of_size(3, 3),
+    nt2::trans(nt2::cons<T>(nt2::of_size(3, 3),
                          T(1.0000),     T(0.9998),    T(-2.0000),
                          T(     0),     T(0.0100),    T(-0.0100),
                          T(     0),     T(     0),    T( 1.0000)
@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL ( condex, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(r2, r32, 2);
   //________________________________________________________________
   nt2::table<T> r33 =
-    nt2::trans(nt2::cons(nt2::of_size(3, 3),
+    nt2::trans(nt2::cons<T>(nt2::of_size(3, 3),
                          T(1),    T(0),    T(0),
                          T(-1),   T(1),    T(0),
                          T(-1),   T(-1),   T(-1)
@@ -53,7 +53,7 @@ NT2_TEST_CASE_TPL ( condex, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(r3, r33, 3);
   //________________________________________________________________
   nt2::table<T> r34 =
-    nt2::trans(nt2::cons(nt2::of_size(3, 3),
+    nt2::trans(nt2::cons<T>(nt2::of_size(3, 3),
                          T(1),    T(0),    T(0),
                          T(0),    T(1),    T(0),
                          T(0),    T(0),    T(1)
@@ -66,7 +66,7 @@ NT2_TEST_CASE_TPL ( condex, NT2_REAL_TYPES)
 NT2_TEST_CASE_TPL ( condex_double, (double))
 {
   nt2::table<T> r31 =
-    nt2::trans(nt2::cons(nt2::of_size(4, 4),
+    nt2::trans(nt2::cons<T>(nt2::of_size(4, 4),
                          T(1),    T(-1),  T(-200),  T(   0),
                          T(0),    T( 1),  T( 100),  T(-100),
                          T(0),    T( 1),  T( 101),  T(-101),

@@ -22,7 +22,7 @@
 
 NT2_TEST_CASE_TPL ( ipjfact_double, (double))
 {
-  nt2::table<T> r4 = nt2::trans(nt2::cons(nt2::of_size(4, 4),
+  nt2::table<T> r4 = nt2::trans(nt2::cons<T>(nt2::of_size(4, 4),
                                           T(  2),         T(  6),        T(  24),       T(  120),
                                           T(  6),         T( 24),        T( 120),       T(  720),
                                           T( 24),         T(120),        T( 720),       T( 5040),
