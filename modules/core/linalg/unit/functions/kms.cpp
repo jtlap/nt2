@@ -30,7 +30,6 @@ NT2_TEST_CASE_TPL ( kmsr, NT2_REAL_TYPES)
   nt2::table<T> a = nt2::kms(4, T(0.5));
   nt2::table<T> a1 = nt2::kms(4, 0.5, nt2::meta::as_<T>());
   nt2::table<T> a2 = nt2::kms<T>(4);
-  NT2_DISPLAY(a);
   NT2_TEST_ULP_EQUAL(a, k4, 5);
   NT2_TEST_ULP_EQUAL(a1, k4, 5);
   NT2_TEST_ULP_EQUAL(a2, k4, 5);
