@@ -9,6 +9,7 @@
 
 SET( SOURCES
   complexify.cpp
+  cast.cpp
   )
 
 nt2_module_add_tests(type.complex.base.operator.table.unit ${SOURCES})

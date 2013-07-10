@@ -29,8 +29,8 @@ namespace nt2 { namespace ext
     typedef typename boost::dispatch::meta::downgrade<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return result_type(groups(nt2::real(a0), nt2::real(a0)),
-                         groups(nt2::imag(a0),nt2::imag(a1)));
+      return result_type(groups(nt2::real(a0), nt2::real(a1)),
+                         groups(nt2::imag(a0), nt2::imag(a1)));
     }
   };
 

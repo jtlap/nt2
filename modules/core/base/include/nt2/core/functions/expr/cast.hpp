@@ -19,6 +19,7 @@
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/sdk/complex/meta/is_complex.hpp>
 #include <nt2/sdk/meta/as_unsigned.hpp>
+#include <nt2/sdk/meta/primitive_of.hpp>
 #include <nt2/sdk/meta/as_signed.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
 
@@ -74,7 +75,7 @@ namespace nt2 { namespace ext
   };
 
   template<class Expr, class From, class To>
-  struct cast_upgrade<Expr, From, To, typename boost::enable_if_c< sizeof(From) >= sizeof(To) >::type>
+  struct cast_upgrade<Expr, From, To, typename boost::enable_if_c< sizeof(typename meta::primitive_of<From>::type) >= sizeof(typename meta::primitive_of<To>::type) >::type>
   {
     typedef Expr& result_type;
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
@@ -98,7 +99,7 @@ namespace nt2 { namespace ext
   };
 
   template<class Expr, class From, class To>
-  struct cast_downgrade<Expr, From, To, typename boost::enable_if_c< sizeof(From) <= sizeof(To) >::type>
+  struct cast_downgrade<Expr, From, To, typename boost::enable_if_c< sizeof(typename meta::primitive_of<From>::type) <= sizeof(typename meta::primitive_of<To>::type) >::type>
   {
     typedef Expr& result_type;
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
@@ -169,7 +170,7 @@ namespace nt2 { namespace ext
     typedef typename as_arg<typename type::result_type>::type typed;
 
     typedef cast_downgrade<typed, typename typed::value_type, to> downgrade;
-    typedef typename boost::remove_reference<typename downgrade::result_type>::type downgraded;
+    typedef typename as_arg<typename downgrade::result_type>::type downgraded;
 
     typedef cast_complexify<downgraded, typename downgraded::value_type, to> complexify_;
     typedef typename boost::remove_reference<typename complexify_::result_type>::type result_type;
