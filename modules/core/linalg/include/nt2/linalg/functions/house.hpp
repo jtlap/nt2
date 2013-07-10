@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_LINALG_FUNCTIONS_HOUSE_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_HOUSE_HPP_INCLUDED
+
 #include <nt2/options.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/size_as.hpp>
@@ -80,14 +81,14 @@ namespace nt2 { namespace tag
 
 namespace nt2 { namespace ext
 {
-  template<class Domain, int N, class Expr>
-  struct  size_of<tag::house_,Domain,N,Expr>
-        : meta::size_as<Expr,0>
+  template<class Domain, class Expr>
+  struct  size_of<tag::house_,Domain, 3, Expr>
+        : meta::size_as<Expr, 2>
   {};
 
-  template<class Domain, int N, class Expr>
-  struct  value_type<tag::house_,Domain,N,Expr>
-        : meta::value_as<Expr,1>
+  template<class Domain, class Expr>
+  struct  value_type<tag::house_, Domain, 3, Expr>
+        : meta::value_as<Expr, 0>
   {};
 
 } }
