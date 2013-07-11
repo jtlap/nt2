@@ -27,11 +27,11 @@ NT2_TEST_CASE_TPL ( chebvand, NT2_REAL_TYPES)
                               ), nt2::of_size(3, 3)));
   nt2::table<T> v =  nt2::chebvand<T>( 3, 3);
   NT2_TEST_EQUAL(v, c30);
-  nt2::table<T> v1 =  nt2::chebvand<T>( 3, nt2::linspace(T(0), T(1), 3));
+  nt2::table<T> v1 =  nt2::chebvand( 3, nt2::linspace(T(0), T(1), 3));
   NT2_TEST_EQUAL(v1, c30);
   nt2::table<T> v2 =  nt2::chebvand<T>(3);
   NT2_TEST_EQUAL(v2, c30);
-  nt2::table<T> v3 =  nt2::chebvand<T>(nt2::linspace(T(0), T(1), 3));
+  nt2::table<T> v3 =  nt2::chebvand(nt2::linspace(T(0), T(1), 3));
   NT2_TEST_EQUAL(v3, c30);
   NT2_TEST_EQUAL(nt2::chebvand( 3, 3, nt2::meta::as_<T>()), c30);
   NT2_TEST_EQUAL(nt2::chebvand<T>( 3, 3), c30);

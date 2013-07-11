@@ -8,8 +8,9 @@
 //==============================================================================
 #ifndef NT2_LINALG_FUNCTIONS_CHEBVAND_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_CHEBVAND_HPP_INCLUDED
+
 #include <nt2/include/functor.hpp>
-#include <boost/mpl/if.hpp>
+
 /*!
  * \ingroup algebra
  * \defgroup algebra_chebvand chebvand
@@ -57,47 +58,22 @@ namespace nt2 { namespace tag
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::chebvand_, chebvand, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::chebvand_, chebvand, 3)
 
-  template < class T > container::table<T> chebvand(size_t n,  size_t k)
+  template < class T >
+  BOOST_FORCEINLINE
+  typename meta::call<tag::chebvand_(size_t, size_t, meta::as_<T>)>::type
+  chebvand(size_t n,  size_t k)
   {
     return nt2::chebvand(n, k, meta::as_<T>());
   }
-  template < class T > container::table<T> chebvand(size_t n)
+
+  template < class T >
+  BOOST_FORCEINLINE
+  typename meta::call<tag::chebvand_(size_t, meta::as_<T>)>::type
+  chebvand(size_t n)
   {
     return nt2::chebvand(n, meta::as_<T>());
   }
-
 }
 
-namespace nt2 { namespace ext
-{
-  template<class Domain, class Expr,  int N>
-  struct  size_of<tag::chebvand_, Domain, N, Expr>
-  {
-    typedef _2D                               result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      size_t m =  boost::proto::child_c<0>(e);
-      size_t n =  boost::proto::child_c<1>(e);
-      result_type sizee;
-      sizee[0] = m; sizee[1] = n;
-      return sizee;
-    }
-  };
-
-  template <class Domain, class Expr,  int N>
-  struct value_type < tag::chebvand_, Domain,N,Expr>
-  {
-    typedef double type;
-  };
-
-  template <class Domain, class Expr>
-  struct value_type < tag::chebvand_, Domain,5,Expr>
-  {
-    typedef typename boost::proto::result_of::child_c<Expr&,2>::type      tmp_type;
-    typedef typename meta::strip<tmp_type>::type                         tmp1_type;
-    typedef typename boost::dispatch::meta::semantic_of<tmp1_type >::type   t_type;
-    typedef typename t_type::type                                             type;
-  };
-} }
 #endif
 
