@@ -54,8 +54,15 @@ NT2_TEST_CASE( erase_function )
                                                   , nt2::vertcat( _(T(18), T(20)), _(T(22), T(24)) )
                             );
 
+  nt2::table<T> a2 = a;
+
   nt2::erase(a, nt2::aggregate(_, _, 1, 1));
   NT2_TEST_EQUAL(a, b);
+
+  a = a2;
+  a(_, _, 1, 1) = _();
+  NT2_TEST_EQUAL(a, b);
+
 
   a = b;
   nt2::erase(a, nt2::aggregate(_, 1, _));

@@ -24,6 +24,7 @@
 #include <nt2/sdk/meta/add_settings.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
 #include <nt2/sdk/meta/is_scalar.hpp>
+#include <nt2/sdk/meta/is_container.hpp>
 #include <boost/simd/sdk/meta/is_logical.hpp>
 #include <boost/dispatch/dsl/semantic_of.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -55,6 +56,42 @@ namespace nt2 { namespace ext
       return a0;
     }
   };
+
+  // handle erase for a(_, 1) = _(), lhs is a terminal because contiguous
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::assign_, tag::cpu_
+                            , (A0)(I0)
+                            , ((node_<A0, nt2::tag::terminal_, boost::mpl::long_<0>, nt2::container::domain>))
+                              ((node_<I0, nt2::tag::empty_colon_, boost::mpl::long_<3>, nt2::container::domain>))
+                            )
+  {
+    typedef A0& result_type;
+
+    result_type operator()(A0& a0, I0& i0) const
+    {
+      return (*this)(a0, i0, typename meta::is_container<typename A0::proto_child0>::type());
+    }
+
+
+    result_type operator()(A0& a0, I0& i0, boost::mpl::true_) const
+    {
+      a0.resize(nt2::of_size(0));
+      return a0;
+    }
+
+    result_type operator()(A0& a0, I0& i0, boost::mpl::false_) const
+    {
+      typedef typename A0::proto_child0 container_ref;
+      typedef typename container_ref::base_t base_t;
+      typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<base_t&>, 0l> basic_expr;
+      typedef nt2::container::expression<basic_expr, base_t&> nt2_expr;
+
+      nt2_expr c(basic_expr::make(static_cast<base_t&>(*boost::proto::value(a0).base())));
+      std::size_t b = c.raw()-a0.raw() + 1u;
+      nt2::erase(c, nt2::aggregate(_(b, b+numel(a0))));
+      return a0;
+    }
+  };
+
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::function_, tag::cpu_
                             , (A0)(I0)
