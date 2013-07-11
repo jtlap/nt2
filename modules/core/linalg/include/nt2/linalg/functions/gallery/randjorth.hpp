@@ -37,6 +37,18 @@
 namespace nt2 { namespace ext
 {
 
+//   template<class Domain, int N, class Expr>
+//   struct size_of<tag::randjorth_, Domain, N, Expr>
+//        : meta::boxed_size<Expr, 4>
+//   {
+//   };
+
+//   template <class Domain, int N, class Expr>
+//   struct value_type<tag::randjorth_, Domain, N, Expr>
+//        : meta::value_as<Expr, 0>
+//   {
+//   };
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randjorth_, tag::cpu_,
                               (A0)(A1)(A2)(A3),
                               (scalar_<integer_<A0> >)

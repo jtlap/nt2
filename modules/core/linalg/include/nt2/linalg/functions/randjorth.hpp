@@ -81,7 +81,7 @@ namespace nt2 { namespace ext
   template <class Domain, class Expr, int N>
   struct value_type < tag::randjorth_, Domain,N,Expr>
   {
-    typedef typename  boost::proto::result_of::child_c<Expr&,N-2>::type      tmp_type;
+    typedef typename  boost::proto::result_of::child_c<Expr&,N-3>::type      tmp_type;
     typedef typename  meta::strip<tmp_type>::type                              s_type;
     typedef typename  s_type::value_type                                         type;
   };
