@@ -12,6 +12,7 @@
 #include <nt2/include/functions/kms.hpp>
 #include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/cons.hpp>
+#include <nt2/include/functions/cast.hpp>
 #include <nt2/include/constants/i.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -26,13 +27,14 @@ NT2_TEST_CASE_TPL ( kmsr, NT2_REAL_TYPES)
                                           T(0.2500),    T(0.5000),    T(1.0000),    T(0.5000),
                                           T(0.1250),    T(0.2500),    T(0.5000),    T(1.0000)
                                          ));
-
+  nt2::table<double> a0 =  nt2::kms(4);
   nt2::table<T> a = nt2::kms(4, T(0.5));
   nt2::table<T> a1 = nt2::kms(4, 0.5, nt2::meta::as_<T>());
   nt2::table<T> a2 = nt2::kms<T>(4);
-  NT2_TEST_ULP_EQUAL(a, k4, 5);
-  NT2_TEST_ULP_EQUAL(a1, k4, 5);
-  NT2_TEST_ULP_EQUAL(a2, k4, 5);
+  NT2_TEST_ULP_EQUAL(a0, nt2::cast<double>(k4), 0.5);
+  NT2_TEST_ULP_EQUAL(a, k4, 0.5);
+  NT2_TEST_ULP_EQUAL(a1, k4, 0.5);
+  NT2_TEST_ULP_EQUAL(a2, k4, 0.5);
 }
 
 
