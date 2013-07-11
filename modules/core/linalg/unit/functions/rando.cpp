@@ -15,6 +15,8 @@
 #include <nt2/include/functions/find.hpp>
 #include <nt2/include/functions/isempty.hpp>
 #include <nt2/include/functions/linspace.hpp>
+#include <nt2/include/functions/extent.hpp>
+#include <nt2/include/functions/of_size.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -33,20 +35,41 @@ template < class T, class U > bool are_all_in(const T & set, const U & values)
 
 NT2_TEST_CASE_TPL ( rando, NT2_REAL_TYPES)
 {
-  typedef typename nt2::meta::as_<T> ta_t;
-  nt2::table<T> rc, p;
-  p = nt2::_(T(0), T(1));
-  rc = nt2::rando(p, 4, 5,  nt2::meta::as_<T>());
-  NT2_TEST(are_all_in(p, rc));
+  nt2::table<T> rc;
+  rc = nt2::rando(4,  nt2::meta::as_<T>());
+  NT2_TEST(are_all_in(nt2::_(T(0), T(1)), rc));
+  NT2_TEST_EQUAL(nt2::extent(rc), nt2::of_size(4, 4));
+  rc = nt2::rando(4, 5,  nt2::meta::as_<T>());
+  NT2_TEST(are_all_in(nt2::_(T(0), T(1)), rc));
+  NT2_TEST_EQUAL(nt2::extent(rc), nt2::of_size(4, 5));
   rc = nt2::rando(4, 5, 1, nt2::meta::as_<T>());
-  NT2_TEST(are_all_in(p, rc));
+  NT2_TEST(are_all_in(nt2::_(T(0), T(1)), rc));
   rc = nt2::rando(4, 5, 2, nt2::meta::as_<T>());
   NT2_TEST(are_all_in(nt2::cons(T(-1), T(1)), rc));
   rc = nt2::rando(4, 5, 3, nt2::meta::as_<T>());
   NT2_TEST(are_all_in(nt2::cons(T(-1), T(0), T(1)), rc));
-  nt2::table<T> x = nt2::linspace(T(-2), T(2), 5);
-  rc = nt2::rando(x, 4, 5);
-  NT2_TEST(are_all_in(x, rc));
+  rc = nt2::rando<T>(4, 5, 3);
+  NT2_TEST(are_all_in(nt2::cons(T(-1), T(0), T(1)), rc));
+  rc = nt2::rando<T>(4, 5);
+  NT2_TEST(are_all_in(nt2::_(T(0), T(1)), rc));
+  rc = nt2::rando<T>(4);
+  NT2_TEST(are_all_in(nt2::_(T(0), T(1)), rc));
+
+}
+
+NT2_TEST_CASE ( rando_no_type)
+{
+  typedef double T;
+  nt2::table<T> rc;
+  rc = nt2::rando(4, 5);
+  NT2_TEST(are_all_in(nt2::_(T(0), T(1)), rc));
+  NT2_TEST_EQUAL(nt2::extent(rc), nt2::of_size(4, 5));
+  rc = nt2::rando(4, 5, 1);
+  NT2_TEST(are_all_in(nt2::_(T(0), T(1)), rc));
+  rc = nt2::rando(4, 5, 2);
+  NT2_TEST(are_all_in(nt2::cons(T(-1), T(1)), rc));
+  rc = nt2::rando(4, 5, 3);
+  NT2_TEST(are_all_in(nt2::cons(T(-1), T(0), T(1)), rc));
 }
 
 

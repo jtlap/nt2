@@ -15,18 +15,15 @@
  * \ingroup algebra
  * \defgroup algebra_rando rando
  *
- * rando  random matrix with elements -1, 0 or 1. or random elements from vector x
- *    a = rando(n,k) is a random n-by-n matrix with
+ * rando  random matrix with elements -1, 0 or 1. or random elements
+ *    a = rando(n,m,k,as_<T>) is a random n-by-m matrix with
  *    elements from one of the following discrete distributions
  *    (default k = 1):
  *       k = 1:  a(i,j) =  0 or 1    with equal probability,
  *       k = 2:  a(i,j) = -1 or 1    with equal probability,
  *       k = 3:  a(i,j) = -1, 0 or 1 with equal probability.
- *    n may be a 2-vector, in which case the matrix is n(1)-by-n(2).
- *    a = rando(x, n) where x is a vector with p elements is a matrix
- *    the elements of xhich are randomly obtained from x coordinates.
- *    rando(n, 1) is the same as rando(cons(0, 1), n)
- *
+ * one can also call rando<T>(n,m,k)
+ * omitted T produces double elements
  *
  * \par Header file
  *
@@ -54,30 +51,27 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::rando_, rando, 4)
   NT2_FUNCTION_IMPLEMENTATION(tag::rando_, rando, 3)
   NT2_FUNCTION_IMPLEMENTATION(tag::rando_, rando, 2)
+
+  template<class T>
+  BOOST_FORCEINLINE typename meta::call<tag::rando_(size_t, size_t, size_t, meta::as_<T>)>::type
+  rando(size_t n)
+  {
+    return nt2::rando(n, n, 1, meta::as_<T>());
+  }
+  template<class T>
+  BOOST_FORCEINLINE typename meta::call<tag::rando_(size_t,size_t, meta::as_<T>)>::type
+  rando(size_t n, size_t m)
+  {
+    return nt2::rando(n, m, 1, meta::as_<T>());
+  }
+  template<class T>
+  BOOST_FORCEINLINE typename meta::call<tag::rando_(size_t,size_t, meta::as_<T>)>::type
+  rando(size_t n, size_t m, size_t k)
+  {
+    return nt2::rando(n, m, k, meta::as_<T>());
+  }
 }
 
-namespace nt2 { namespace ext
-{
-  template<class Domain, class Expr,  int N>
-  struct  size_of<tag::rando_, Domain, N, Expr>
-  {
-    typedef _2D                               result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      _2D sizee;
-      sizee[0] = sizee[1] = nt2::numel(boost::proto::child_c<1>(e));
-      return sizee;
-    }
-  };
-
-  template <class Domain, class Expr, int N>
-  struct value_type < tag::rando_, Domain,N,Expr>
-  {
-    typedef typename  boost::proto::result_of::child_c<Expr&,N-2>::type      tmp_type;
-    typedef typename  meta::strip<tmp_type>::type                              s_type;
-    typedef typename  s_type::value_type                                         type;
-  };
-} }
 
 #endif
 
