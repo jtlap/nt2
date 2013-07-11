@@ -16,6 +16,7 @@
 #include <nt2/boolean/include/functions/if_one_else_zero.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/meta/upgrade.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <nt2/sdk/unit/tests.hpp>

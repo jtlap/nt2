@@ -29,7 +29,6 @@ NT2_TEST_CASE_TPL ( shr_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
   using nt2::meta::cardinal_of;
   typedef T r_type;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;

@@ -9,6 +9,9 @@
 #define NT2_UNIT_MODULE "nt2 optimize toolbox - brent"
 
 #include <nt2/include/functions/brent.hpp>
+#include <boost/phoenix/phoenix.hpp>
+#include <boost/fusion/include/tuple_tie.hpp>
+#include <boost/fusion/include/ignore.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -74,8 +77,9 @@ NT2_TEST_CASE_TPL( brent_bind, (double)(float) )
 {
   using nt2::brent;
   using nt2::optimization::output;
+  using namespace boost::phoenix::placeholders;
 
-  output<T,T> res = brent<T>( boost::bind(f3, _1, 3., 4.), 0, 0.5, 2 );
+  output<T,T> res = brent<T>( boost::phoenix::bind(f3, _1, 3., 4.), 0, 0.5, 2 );
 
   std::cout << "Minimum : f(" << res.minimum << ") = " << res.value
             << " after " << res.iterations_count <<  " iterations\n";
@@ -88,9 +92,9 @@ NT2_TEST_CASE_TPL( brent_lambdda, (double)(float) )
 {
   using nt2::brent;
   using nt2::optimization::output;
-  namespace bl = boost::lambda;
+  using namespace boost::phoenix::placeholders;
 
-  output<T,T> res = brent<T>( bl::_1*bl::_1*bl::_1 - 3*bl::_1 + 4
+  output<T,T> res = brent<T>( _1*_1*_1 - 3*_1 + 4
                             , 0, 0.5, 2
                             );
 
