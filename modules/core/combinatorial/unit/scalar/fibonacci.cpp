@@ -52,7 +52,7 @@ NT2_TEST_CASE_TPL ( fibonacci_real__2_0,  NT2_REAL_TYPES)
   using nt2::tag::fibonacci_;
   typedef typename nt2::meta::as_integer<T>::type i_type;
   nt2::table<T> res =  nt2::cons<T>(nt2::of_size(1, 10), T(1),T(1),T(2),T(3),T(5),T(8),T(13),T(21),T(34),T(55));
-  nt2::table<T> fib = fibonacci(T(1), T(1), nt2::_(1, 10));
+  nt2::table<T> fib = fibonacci(T(1), T(1), nt2::_(T(1), T(10)));
   NT2_TEST_EQUAL(fib, res);
  } // end of test for integer_
 
