@@ -9,8 +9,6 @@
 #ifndef NT2_LINALG_FUNCTIONS_RANDSVD_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_RANDSVD_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
-#include <nt2/include/functions/numel.hpp>
-#include <boost/mpl/if.hpp>
 
 /*!
  * \ingroup algebra
@@ -103,8 +101,6 @@ namespace nt2 { namespace ext
   {
     typedef typename  boost::proto::result_of::child_c<Expr&,2>::type                 tmp_type;
     typedef typename  meta::strip<tmp_type>::type                                         type;
-//     typedef typename  meta::is_scalar<s_type>::type                                is_scalar_t;
-//     typedef typename  boost::mpl::if_<is_scalar_t, s_type, typename  s_type::value_type>::type   type;
   };
 } }
 

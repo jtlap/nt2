@@ -14,6 +14,7 @@
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/oneminus.hpp>
+#include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/cumprod.hpp>
 #include <nt2/include/functions/exp.hpp>
@@ -210,7 +211,7 @@ namespace nt2 { namespace ext
       size_t p  = nt2::min(n, m);
       if (p == 1)
       {
-        out = randn(m, n);
+        out = randn(m, n, nt2::meta::as_<value_t>());
         out =  out/nt2::norm(out);
         return out;
       }
