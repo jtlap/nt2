@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_LINALG_FUNCTIONS_GALLERY_RANDO_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_GALLERY_RANDO_HPP_INCLUDED
+
 #include <nt2/linalg/functions/rando.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/rand.hpp>
@@ -15,13 +16,16 @@
 #include <nt2/include/functions/iceil.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/core/container/table/table.hpp>
-#include <nt2/include/functions/tie.hpp>
+#include <nt2/core/container/dsl/size.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
+#include <nt2/sdk/meta/boxed_size.hpp>
 
 namespace nt2 { namespace ext
 {
   template<class Domain, class Expr>
   struct size_of<tag::rando_, Domain, 2, Expr>
-       : meta::size_as<Expr, 1>
+       : meta::boxed_size<Expr, 1>
   {
   };
 

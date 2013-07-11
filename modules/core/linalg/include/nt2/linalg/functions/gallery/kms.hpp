@@ -23,14 +23,14 @@
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/core/utility/box.hpp>
 #include <nt2/sdk/complex/meta/is_complex.hpp>
-#include <nt2/sdk/meta/size_as.hpp>
+#include <nt2/sdk/meta/boxed_size.hpp>
 #include <nt2/sdk/meta/value_as.hpp>
 
 namespace nt2 { namespace ext
 {
   template<class Domain, class Expr>
   struct size_of<tag::kms_, Domain, 2, Expr>
-       : meta::size_as<Expr, 1>
+       : meta::boxed_size<Expr, 1>
   {
   };
 
