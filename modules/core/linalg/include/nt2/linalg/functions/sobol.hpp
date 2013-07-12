@@ -12,7 +12,7 @@
 #include <nt2/sdk/meta/size_as.hpp>
 #include <nt2/sdk/meta/value_as.hpp>
 #include <nt2/include/constants/nbmantissabits.hpp>
-
+#include <boost/dispatch/dsl/semantic_of.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
 #include <nt2/core/container/dsl/size.hpp>
 
@@ -24,7 +24,7 @@
  *   integration up to dimension n.
  *   Currently n must be less or equal to 100.
  *   the type of the table element used to store the result is important,
- *   uint32_t or uint64_t will different sequences suited for respectively
+ *   uint32_t or uint64_t will generate different sequences suited for respectively
  *   float and double quasi-random number sequence generation.
  *
  * \par Header file
@@ -50,7 +50,15 @@ namespace nt2 { namespace tag
       typedef ext::unspecified_<sobol_> parent;
     };
   }
-  NT2_FUNCTION_IMPLEMENTATION(tag::sobol_, sobol, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::sobol_, sobol, 2)
+
+  template < class T>
+  BOOST_FORCEINLINE typename meta::call<tag::sobol_(size_t,meta::as_<T>)>::type
+  sobol(size_t const & a0)
+  {
+    return sobol(a0, nt2::meta::as_<T>());
+  }
+
 }
 
 namespace nt2 { namespace ext
@@ -71,7 +79,8 @@ namespace nt2 { namespace ext
   template <class Domain, class Expr, int N>
   struct value_type < tag::sobol_, Domain,N,Expr>
   {
-    typedef uint32_t                 type;
+    typedef typename  boost::proto::result_of::child_c<Expr&,0>::type  t_t;
+    typedef typename  boost::dispatch::meta::semantic_of<t_t>::type type;
   };
 } }
 #endif

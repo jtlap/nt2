@@ -54,8 +54,8 @@ namespace nt2 { namespace tag
     struct quasi_ : ext::unspecified_<quasi_> { typedef ext::unspecified_<quasi_> parent; };
   }
 
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::quasi_, quasi, 2)
-  //  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::quasi_, quasi, 3)
+  //  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::quasi_, quasi, 2)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::quasi_, quasi, 3)
   //   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::quasi_, quasi, 4)
   //   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::quasi_, quasi, 5)
   //   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::quasi_, quasi, 6)
@@ -82,7 +82,8 @@ namespace nt2 { namespace ext
   template <class Domain, class Expr, int N>
   struct value_type < tag::quasi_, Domain,N,Expr>
   {
-    typedef float                 type;
+    typedef typename  boost::proto::result_of::child_c<Expr&,2>::type  t_t;
+    typedef typename  boost::dispatch::meta::semantic_of<t_t>::type   type;
   };
 } }
 #endif

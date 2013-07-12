@@ -18,25 +18,27 @@
 
 namespace nt2 { namespace ext
 {
- NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sobol_, tag::cpu_,
-                              (A0),
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sobol_, tag::cpu_,
+                              (A0)(A1),
                               (scalar_<integer_<A0> >)
-    )
+                              (target_<scalar_<integer_<A1> > >)
+                            )
   {
+    typedef typename A1::type itype_t;
     typedef typename  boost::proto::
       result_of::make_expr< nt2::tag::sobol_
       , container::domain
-      , size_t
+      , itype_t
       , box<_2D>
       >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&) const
     {
       _2D sizee;
       sizee[0] = 23; sizee[1] = a0;
       return  boost::proto::
         make_expr<nt2::tag::sobol_, container::domain>
-        ( size_t(a0)
+        ( itype_t(a0)
         , boxify(sizee)
         );
     }
@@ -78,12 +80,9 @@ namespace nt2 { namespace ext
            };
       uint_type maxdim =  boost::proto::child_c<0>(in);
       uint_type maxbit = nt2::Nbmantissabits<f_type>();
-//      NT2_DISPLAY(maxbit);
-//      NT2_DISPLAY(maxdim);
       uint_type niv = maxbit*maxdim;
       out = nt2::zeros(maxdim,maxbit, nt2::meta::as_<uint_type>());
       out(nt2::_(1, maxdim)) = One<uint_type>();
-//       uint_type * iv = out.raw();
       uint_type mval = 4;
       uint_type ipp = 1;
 

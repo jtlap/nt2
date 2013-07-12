@@ -32,8 +32,8 @@ NT2_TEST_CASE_TPL( quasi_real_out, NT2_REAL_TYPES )
                           ,T(0.4375) ,T(0.9375) ,T(0.6875) ,T(0.1875) ,T(0.34375) ,T(0.84375) ,T(0.59375) ,T(0.09375) ,T(0.96875) ,T(0.46875)
                           ,T(0.0625) ,T(0.5625) ,T(0.3125) ,T(0.8125) ,T(0.90625) ,T(0.40625) ,T(0.65625) ,T(0.15625) ,T(0.78125) ,T(0.28125)
                           ));
-  tab_t x =  quasi(3, 10);
+  tab_t x =  quasi(3, 10, nt2::meta::as_<T>());
   NT2_TEST_EQUAL(xx, x);
-  tab_t x1 =  quasi(3, 10);
+  tab_t x1 =  quasi(3, 10, nt2::meta::as_<T>());
   NT2_TEST_EQUAL(xx1, x1);
 }

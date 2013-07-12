@@ -29,9 +29,10 @@ namespace nt2 { namespace ext
 {
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::quasi_, tag::cpu_,
-                              (A0)(A1),
+                              (A0)(A1)(A2),
                               (scalar_<integer_<A0> >)
                               (scalar_<integer_<A1> >)
+                              (target_<scalar_<floating_<A2> > >)
     )
   {
     typedef typename  boost::proto::
@@ -39,10 +40,11 @@ namespace nt2 { namespace ext
       , container::domain
       , size_t
       , size_t
+      , A2
       , box<_2D>
       >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1, A2 const&) const
     {
       _2D sizee;
       sizee[0] = a0; sizee[1] = a1;
@@ -50,6 +52,7 @@ namespace nt2 { namespace ext
         make_expr<nt2::tag::quasi_, container::domain>
         ( size_t(a0)
         , size_t(a1)
+        , A2()
         , boxify(sizee)
         );
     }
@@ -81,7 +84,7 @@ namespace nt2 { namespace ext
       int_type mmaxbit = -maxbit;
       static uint_type index = 0;
       static tabi_t ix =  nt2::zeros(nt2::of_size(dim, 1), nt2::meta::as_<uint_type>());
-      static tabi_t iv =  sobol(dim);
+      static tabi_t iv =  sobol(dim, meta::as_<uint_type>());
       x.resize(nt2::of_size(dim, nbpts));
       nt2::container::table<uint_type> i = nt2::ffs(nt2::complement(nt2::_(index, index+nbpts-1)));
       for(uint_type l=1; l <= nbpts; ++l) //can we suppress this loop ?
