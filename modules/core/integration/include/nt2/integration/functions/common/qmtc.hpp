@@ -107,7 +107,7 @@ namespace nt2 { namespace details
       BOOST_AUTO_TPL(r1, ranges(nt2::_, begin_));
       BOOST_AUTO_TPL(r1ex, nt2::expand_to(r1,   nt2::of_size(n, nbpts_)));
       BOOST_AUTO_TPL(r2ex, nt2::expand_to(fact, nt2::of_size(n, nbpts_)));
-      rtab_t rnd = nt2::quasi(n, nbpts_);
+      rtab_t rnd = nt2::quasi(n, nbpts_, nt2::meta::as_<real_t>());
       BOOST_AUTO_TPL(x, nt2::fma(rnd, r2ex, r1ex));
       BOOST_AUTO_TPL(z, f(x));
       if (compute_err_)
