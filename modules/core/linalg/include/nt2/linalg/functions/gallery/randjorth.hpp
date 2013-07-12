@@ -36,19 +36,6 @@
 
 namespace nt2 { namespace ext
 {
-
-//   template<class Domain, int N, class Expr>
-//   struct size_of<tag::randjorth_, Domain, N, Expr>
-//        : meta::boxed_size<Expr, 4>
-//   {
-//   };
-
-//   template <class Domain, int N, class Expr>
-//   struct value_type<tag::randjorth_, Domain, N, Expr>
-//        : meta::value_as<Expr, 0>
-//   {
-//   };
-
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randjorth_, tag::cpu_,
                               (A0)(A1)(A2)(A3),
                               (scalar_<integer_<A0> >)
@@ -214,7 +201,6 @@ namespace nt2 { namespace ext
       BOOST_ASSERT_MSG(cc >= 1, "provided condition number must be greater or equal one");
       value_t c1 =  nt2::oneplus(cc)/(nt2::Two<value_t>()*nt2::sqrt(cc));
       tab_t c = nt2::catv(c1, nt2::oneplus(nt2::minusone(c1)*nt2::rand(p-1, 1, nt2::meta::as_<value_t>())));
-      //      tab_t c = nt2::colvect(nt2::cath(c1, nt2::oneplus(nt2::minusone(c1)*nt2::linspace(value_t(0), value_t(1), p-1))));
       tab_t s = nt2::sqrt(nt2::minusone(nt2::sqr(c)));
       tab_t a =  nt2::blkdiag(nt2::catv(nt2::cath(nt2::from_diag( c), nt2::from_diag(-s)),
                                         nt2::cath(nt2::from_diag(-s), nt2::from_diag( c))),
