@@ -88,7 +88,7 @@ namespace nt2 { namespace ext
 
   template<class Domain, int N, class Expr>
   struct  value_type<tag::condex_,Domain,N,Expr>
-        : meta::value_as<Expr,1>
+        : meta::value_as<Expr,2>
   {};
 
 } }
