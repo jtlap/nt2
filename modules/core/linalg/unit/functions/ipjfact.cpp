@@ -12,11 +12,9 @@
 #include <nt2/include/functions/ipjfact.hpp>
 #include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/cons.hpp>
-#include <nt2/include/functions/diag_of.hpp>
-#include <nt2/include/functions/ones.hpp>
 #include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/exceptions.hpp>
 #include <nt2/include/functions/tie.hpp>
 
 
@@ -30,10 +28,10 @@ NT2_TEST_CASE_TPL ( ipjfact_double, (double))
                                          ));
   nt2::table<T> r =  nt2::ipjfact(4, nt2::meta::as_<T>());
   T d;
-  NT2_DISPLAY(r);
   NT2_TEST_ULP_EQUAL(r, r4, 0.5);
   nt2::tie(r, d)  =  nt2::ipjfact(4, nt2::meta::as_<T>());
   NT2_TEST_ULP_EQUAL(r, r4, 0.5);
   NT2_TEST_ULP_EQUAL(d, T(414720), 0.5);
+  NT2_TEST_ULP_EQUAL(nt2::ipjfact(4, nt2::meta::as_<T>()), r4, 0.5);
 
 }

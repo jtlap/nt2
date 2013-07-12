@@ -34,7 +34,7 @@
  *    acknowledgement: suggested by p. r. graves-morris.
  *
  *    reference:
- *    m. j. c. gover, the explicit inverse of factorial hankel
+ *    M. J. C. Gover, the explicit inverse of factorial hankel
  *    matrices, dept. of mathematics, university of bradford, 1993.
  *
  *
@@ -71,12 +71,12 @@ namespace nt2 { namespace ext
 {
   template<class Domain, int N, class Expr>
   struct  size_of<tag::ipjfact_,Domain,N,Expr>
-        : meta::size_as<Expr,0>
+        : meta::boxed_size<Expr,3>
   {};
 
   template<class Domain, int N, class Expr>
   struct  value_type<tag::ipjfact_,Domain,N,Expr>
-        : meta::value_as<Expr,1>
+        : meta::value_as<Expr,2>
   {};
 
 } }
