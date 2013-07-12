@@ -9,22 +9,20 @@
 #ifndef NT2_INTEGRATION_FUNCTIONS_COMMON_QUASI_HPP_INCLUDED
 #define NT2_INTEGRATION_FUNCTIONS_COMMON_QUASI_HPP_INCLUDED
 #include <nt2/integration/functions/quasi.hpp>
-#include <nt2/core/include/functions/as_size.hpp>
 #include <nt2/core/container/table/table.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/include/functions/run.hpp>
-#include <nt2/include/functions/zeros.hpp>
-#include <nt2/include/functions/sobol.hpp>
-#include <nt2/include/functions/complement.hpp>
+#include <nt2/core/include/functions/as_size.hpp>
 #include <nt2/include/functions/bitwise_xor.hpp>
+#include <nt2/include/functions/complement.hpp>
+#include <nt2/include/functions/ffs.hpp>
 #include <nt2/include/functions/ldexp.hpp>
 #include <nt2/include/functions/multiplies.hpp>
-#include <nt2/include/functions/minusone.hpp>
-#include <nt2/include/functions/unary_minus.hpp>
-#include <nt2/include/functions/ffs.hpp>
+#include <nt2/include/functions/sobol.hpp>
 #include <nt2/include/functions/tofloat.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/constants/nbmantissabits.hpp>
-#include <nt2/core/container/table/table.hpp>
+
 namespace nt2 { namespace ext
 {
 
@@ -87,7 +85,7 @@ namespace nt2 { namespace ext
       static tabi_t iv =  sobol(dim, meta::as_<uint_type>());
       x.resize(nt2::of_size(dim, nbpts));
       nt2::container::table<uint_type> i = nt2::ffs(nt2::complement(nt2::_(index, index+nbpts-1)));
-      for(uint_type l=1; l <= nbpts; ++l) //can we suppress this loop ?
+      for(uint_type l=1; l <= nbpts; ++l)
       {
         ix = nt2::bitwise_xor(ix, iv(nt2::_(1, dim), i(l)));
         x(nt2::_, l)  = nt2::ldexp(nt2::tofloat(ix), mmaxbit);
