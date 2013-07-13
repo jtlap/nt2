@@ -10,6 +10,8 @@
 #define NT2_LINALG_FUNCTIONS_RANDCORR_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 #include <nt2/include/functions/numel.hpp>
+#include <nt2/sdk/meta/boxed_size.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
 
 /*!
  * \ingroup algebra
@@ -75,23 +77,17 @@ namespace nt2 { namespace tag
 namespace nt2 { namespace ext
 {
   template<class Domain, class Expr,  int N>
-  struct  size_of<tag::randcorr_, Domain, N, Expr>
-  {
-    typedef _2D                               result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      _2D sizee;
-      sizee[0] = sizee[1] = nt2::numel(boost::proto::child_c<0>(e));
-      return sizee;
-    }
-  };
+  struct  size_of<tag::randcorr_, Domain, N, Expr> : meta::boxed_size<Expr, 3>
+  {};
 
   template <class Domain, class Expr, int N>
   struct value_type < tag::randcorr_, Domain,N,Expr>
   {
-    typedef typename  boost::proto::result_of::child_c<Expr&,0>::type      tmp_type;
-    typedef typename  meta::strip<tmp_type>::type                            s_type;
-    typedef typename  s_type::value_type                                       type;
+    typedef typename boost::proto::result_of::child_c<Expr&,0>::type      tmp_type;
+    typedef typename meta::strip<tmp_type>::type                         tmp1_type;
+    typedef typename boost::dispatch::meta::semantic_of<tmp1_type >::type   t_type;
+    typedef typename meta::strip<t_type>::type                         tt_type;
+    typedef typename tt_type::value_type                                       type;
   };
 } }
 

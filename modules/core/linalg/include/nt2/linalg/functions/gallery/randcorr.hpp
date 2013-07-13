@@ -9,35 +9,36 @@
 #ifndef NT2_LINALG_FUNCTIONS_GALLERY_RANDCORR_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_GALLERY_RANDCORR_HPP_INCLUDED
 #include <nt2/linalg/functions/randcorr.hpp>
-#include <nt2/include/functions/numel.hpp>
-#include <nt2/include/functions/transpose.hpp>
-#include <nt2/include/functions/qmult.hpp>
-#include <nt2/include/functions/from_diag.hpp>
-#include <nt2/include/functions/isempty.hpp>
-#include <nt2/include/functions/find.hpp>
-#include <nt2/include/functions/signnz.hpp>
+#include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/dot.hpp>
-#include <nt2/include/functions/rand.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/rsqrt.hpp>
+#include <nt2/include/functions/colvect.hpp>
+#include <nt2/include/functions/expand.hpp>
+#include <nt2/include/functions/find.hpp>
+#include <nt2/include/functions/from_diag.hpp>
+#include <nt2/include/functions/globalall.hpp>
+#include <nt2/include/functions/globalsum.hpp>
 #include <nt2/include/functions/horzcat.hpp>
-#include <nt2/include/functions/vertcat.hpp>
+#include <nt2/include/functions/iceil.hpp>
+#include <nt2/include/functions/isempty.hpp>
+#include <nt2/include/functions/is_gtz.hpp>
 #include <nt2/include/functions/minusone.hpp>
+#include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/oneminus.hpp>
 #include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/iceil.hpp>
-#include <nt2/include/functions/colvect.hpp>
-#include <nt2/include/functions/globalsum.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/globalall.hpp>
-#include <nt2/include/functions/is_gtz.hpp>
-#include <nt2/include/functions/expand.hpp>
+#include <nt2/include/functions/qmult.hpp>
+#include <nt2/include/functions/rand.hpp>
+#include <nt2/include/functions/rsqrt.hpp>
+#include <nt2/include/functions/signnz.hpp>
+#include <nt2/include/functions/sqr.hpp>
+#include <nt2/include/functions/sqrt.hpp>
+#include <nt2/include/functions/tie.hpp>
+#include <nt2/include/functions/transpose.hpp>
+#include <nt2/include/functions/vertcat.hpp>
+
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/eps.hpp>
 
 #include <nt2/core/container/table/table.hpp>
-#include <nt2/include/functions/tie.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -162,8 +163,8 @@ namespace nt2 { namespace ext
       do
       {
         tab_t diaga = nt2::diag_of(aa);
-        nt2::table<size_t> y = nt2::find(nt2::lt(diaga, nt2::One<value_t>()));
-        nt2::table<size_t> z = nt2::find(nt2::gt(diaga, nt2::One<value_t>()));
+        nt2::table<ptrdiff_t> y = nt2::find(nt2::lt(diaga, nt2::One<value_t>()));
+        nt2::table<ptrdiff_t> z = nt2::find(nt2::gt(diaga, nt2::One<value_t>()));
         if(nt2::isempty(y) || nt2::isempty(z)) break;
         size_t i = y(nt2::iceil(nt2::rand(nt2::meta::as_<value_t>())*nt2::numel(y)));
         size_t j = z(nt2::iceil(nt2::rand(nt2::meta::as_<value_t>())*nt2::numel(z)));
@@ -186,32 +187,7 @@ namespace nt2 { namespace ext
     }
   };
 
-}
-
-  meta::call<tag::randcorr_(const ptrdiff_t &, meta::as_<double> const &)>::type
-  randcorr(ptrdiff_t n)
-  {
-    return nt2::randcorr(n,  meta::as_<double>());
-  }
-  template<class T>
-  typename meta::call<tag::randcorr_(const ptrdiff_t &, typename meta::as_<T> const &)>::type
-  randcorr(ptrdiff_t n)
-  {
-    return nt2::randcorr(n,  meta::as_<T>());
-  }
-  meta::call<tag::randcorr_(const ptrdiff_t &, const ptrdiff_t &, meta::as_<double> const &)>::type
-  randcorr(ptrdiff_t n, ptrdiff_t k)
-  {
-    return nt2::randcorr(n, k, meta::as_<double>());
-  }
-  template<class T>
-  typename meta::call<tag::randcorr_(const ptrdiff_t &, const ptrdiff_t &, typename meta::as_<T> const &)>::type
-  randcorr(ptrdiff_t n, ptrdiff_t k)
-  {
-    return nt2::randcorr(n,  k, meta::as_<T>());
-  }
-
-}
+} }
 
 
 #endif

@@ -10,6 +10,8 @@
 #define NT2_LINALG_FUNCTIONS_RANDCOLU_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 #include <nt2/include/functions/numel.hpp>
+#include <nt2/sdk/meta/boxed_size.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
 
 /*!
  * \ingroup algebra

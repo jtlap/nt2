@@ -28,21 +28,13 @@ NT2_TEST_CASE_TPL ( randcorr, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_<T> ta_t;
   nt2::table<T> x0 = nt2::colvect(nt2::_(T(2), T(6)));
-   NT2_DISPLAY(x0);
-   nt2::table<T> x =  (x0/nt2::globalsum(x0))*T(nt2::numel(x0));
-   NT2_DISPLAY(x);
-   nt2::table<T> rc =  nt2::randcorr(x, 5, 0);
-   NT2_TEST_ULP_EQUAL(nt2::svd(rc), nt2::flipud(x), 5); //check rc has the chosen singular values
-   NT2_DISPLAY(nt2::asum2(rc));
-   NT2_DISPLAY(rc);
-   NT2_DISPLAY(nt2::svd(rc));
-
-
-   rc = nt2::randcorr(x);
-   NT2_TEST_ULP_EQUAL(nt2::svd(rc), nt2::flipud(x), 5); //check rc has the chosen singular values
-
-   rc = nt2::randcorr(x, 6, 1);
-   NT2_TEST_ULP_EQUAL(nt2::svd(rc), nt2::flipud(x), 5); //check rc has the chosen singular values
+  nt2::table<T> x =  (x0/nt2::globalsum(x0))*T(nt2::numel(x0));
+  nt2::table<T> rc =  nt2::randcorr(x, 5, 0);
+  NT2_TEST_ULP_EQUAL(nt2::svd(rc), nt2::flipud(x), 5); //check rc has the chosen singular values
+  rc = nt2::randcorr(x);
+  NT2_TEST_ULP_EQUAL(nt2::svd(rc), nt2::flipud(x), 5); //check rc has the chosen singular values
+  rc = nt2::randcorr(x, 6, 1);
+  NT2_TEST_ULP_EQUAL(nt2::svd(rc), nt2::flipud(x), 5); //check rc has the chosen singular values
 }
 
 
