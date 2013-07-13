@@ -69,29 +69,26 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::randcolu_, randcolu, 3)
   NT2_FUNCTION_IMPLEMENTATION(tag::randcolu_, randcolu, 2)
   NT2_FUNCTION_IMPLEMENTATION(tag::randcolu_, randcolu, 1);
+
 }
 
 namespace nt2 { namespace ext
 {
   template<class Domain, class Expr,  int N>
-  struct  size_of<tag::randcolu_, Domain, N, Expr>
-  {
-    typedef _2D                               result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      _2D sizee;
-      sizee[0] = sizee[1] = nt2::numel(boost::proto::child_c<0>(e));
-      return sizee;
-    }
-  };
+  struct  size_of<tag::randcolu_, Domain, N, Expr> : meta::boxed_size<Expr, 3>
+  {};
 
   template <class Domain, class Expr, int N>
   struct value_type < tag::randcolu_, Domain,N,Expr>
   {
-    typedef typename  boost::proto::result_of::child_c<Expr&,0>::type      tmp_type;
-    typedef typename  meta::strip<tmp_type>::type                            s_type;
-    typedef typename  s_type::value_type                                       type;
+    typedef typename boost::proto::result_of::child_c<Expr&,0>::type      tmp_type;
+    typedef typename meta::strip<tmp_type>::type                         tmp1_type;
+    typedef typename boost::dispatch::meta::semantic_of<tmp1_type >::type   t_type;
+    typedef typename meta::strip<t_type>::type                         tt_type;
+    typedef typename tt_type::value_type                                       type;
   };
+
+
 } }
 
 #endif

@@ -9,37 +9,37 @@
 #ifndef NT2_LINALG_FUNCTIONS_GALLERY_RANDCOLU_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_GALLERY_RANDCOLU_HPP_INCLUDED
 #include <nt2/linalg/functions/randcolu.hpp>
-#include <nt2/include/functions/numel.hpp>
-#include <nt2/include/functions/transpose.hpp>
-#include <nt2/include/functions/qmult.hpp>
-#include <nt2/include/functions/from_diag.hpp>
-#include <nt2/include/functions/isempty.hpp>
-#include <nt2/include/functions/find.hpp>
-#include <nt2/include/functions/signnz.hpp>
+
+#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/colvect.hpp>
 #include <nt2/include/functions/dot.hpp>
-#include <nt2/include/functions/ones.hpp>
-#include <nt2/include/functions/rand.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/rsqrt.hpp>
+#include <nt2/include/functions/expand.hpp>
+#include <nt2/include/functions/find.hpp>
+#include <nt2/include/functions/from_diag.hpp>
+#include <nt2/include/functions/globalall.hpp>
+#include <nt2/include/functions/globalasum2.hpp>
 #include <nt2/include/functions/horzcat.hpp>
-#include <nt2/include/functions/vertcat.hpp>
+#include <nt2/include/functions/iceil.hpp>
+#include <nt2/include/functions/isempty.hpp>
+#include <nt2/include/functions/is_gtz.hpp>
 #include <nt2/include/functions/minusone.hpp>
+#include <nt2/include/functions/norm.hpp>
+#include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/oneminus.hpp>
 #include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/iceil.hpp>
-#include <nt2/include/functions/colvect.hpp>
-#include <nt2/include/functions/norm.hpp>
-#include <nt2/include/functions/globalasum2.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/globalall.hpp>
-#include <nt2/include/functions/is_gtz.hpp>
-#include <nt2/include/functions/expand.hpp>
+#include <nt2/include/functions/qmult.hpp>
+#include <nt2/include/functions/rand.hpp>
+#include <nt2/include/functions/rsqrt.hpp>
+#include <nt2/include/functions/signnz.hpp>
+#include <nt2/include/functions/sqr.hpp>
+#include <nt2/include/functions/sqrt.hpp>
+#include <nt2/include/functions/tie.hpp>
+#include <nt2/include/functions/transpose.hpp>
+#include <nt2/include/functions/vertcat.hpp>
+
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/eps.hpp>
-
 #include <nt2/core/container/table/table.hpp>
-#include <nt2/include/functions/tie.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -71,9 +71,9 @@ namespace nt2 { namespace ext
       tab_t x0 =  nt2::rand(size_t(1), size_t(n), T());
       v_t f = nt2::sqrt(v_t(n))/nt2::norm(x0);
       x0 *= f;
-     return  boost::proto::
+      return  boost::proto::
         make_expr<nt2::tag::randcolu_, container::domain>
-       (x0
+        (x0
         , size_t(k)
         , size_t(n)
         , boxify(sizee)
@@ -89,7 +89,7 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_RETURNS(2, (A0 const& n, T const & t),
                            (nt2::randcolu(n, 0, T()))
                           )
-  };
+      };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randcolu_, tag::cpu_,
                               (A0)(A1)(A2),
@@ -112,7 +112,7 @@ namespace nt2 { namespace ext
     {
       _2D sizee;
       sizee[0] = m; sizee[1] = numel(x0);
-      BOOST_ASSERT_MSG(m >=  numel(x0), "m must be greater or equal to numel(x0)");
+      BOOST_ASSERT_MSG(size_t(m) >=  numel(x0), "m must be greater or equal to numel(x0)");
       BOOST_ASSERT_MSG(nt2::isvector(x0),
                        "x must be a vector");
       BOOST_ASSERT_MSG(nt2::globalall(nt2::is_gtz(x0)),
@@ -127,7 +127,8 @@ namespace nt2 { namespace ext
         , boxify(sizee)
         );
     }
-  };  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randcolu_, tag::cpu_,
+  };
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randcolu_, tag::cpu_,
                               (A0)(A1),
                               ((ast_<A0, nt2::container::domain>))
                               (scalar_<integer_<A1> >)
@@ -158,6 +159,7 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::result_of::child_c<A1&,0>::type        tmp_type;
     typedef typename  meta::strip<tmp_type>::type                         tmp1_type;
     typedef typename  tmp1_type::value_type                                 value_t;
+    typedef typename  nt2::meta::as_integer<value_t>::type                  index_t;
     result_type operator()(A0& out, const A1& in) const
     {
       BOOST_AUTO_TPL(x,boost::proto::child_c<0>(in));
@@ -177,8 +179,8 @@ namespace nt2 { namespace ext
       table<value_t> suma = nt2::sum(nt2::sqr(aa));
       do
       {
-        nt2::table<size_t> y = nt2::find(nt2::lt(suma, nt2::One<value_t>()));
-        nt2::table<size_t> z = nt2::find(nt2::gt(suma, nt2::One<value_t>()));
+        nt2::table<ptrdiff_t> y = nt2::find(nt2::lt(suma, nt2::One<value_t>()));
+        nt2::table<ptrdiff_t> z = nt2::find(nt2::gt(suma, nt2::One<value_t>()));
         if(nt2::isempty(y) || nt2::isempty(z)) break;
         size_t i = y(nt2::iceil(nt2::rand(nt2::meta::as_<value_t>())*nt2::numel(y)));
         size_t j = z(nt2::iceil(nt2::rand(nt2::meta::as_<value_t>())*nt2::numel(z)));
@@ -200,32 +202,7 @@ namespace nt2 { namespace ext
     }
   };
 
-}
-
-  meta::call<tag::randcolu_(const ptrdiff_t &, meta::as_<double> const &)>::type
-  randcolu(ptrdiff_t n)
-  {
-    return nt2::randcolu(n,  meta::as_<double>());
-  }
-  template<class T>
-  typename meta::call<tag::randcolu_(const ptrdiff_t &, typename meta::as_<T> const &)>::type
-  randcolu(ptrdiff_t n)
-  {
-    return nt2::randcolu(n,  meta::as_<T>());
-  }
-  meta::call<tag::randcolu_(const ptrdiff_t &, const ptrdiff_t &, meta::as_<double> const &)>::type
-  randcolu(ptrdiff_t n, ptrdiff_t k)
-  {
-    return nt2::randcolu(n, k, meta::as_<double>());
-  }
-  template<class T>
-  typename meta::call<tag::randcolu_(const ptrdiff_t &, const ptrdiff_t &, typename meta::as_<T> const &)>::type
-  randcolu(ptrdiff_t n, ptrdiff_t k)
-  {
-    return nt2::randcolu(n,  k, meta::as_<T>());
-  }
-
-}
+} }
 
 
 #endif
