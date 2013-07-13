@@ -25,7 +25,6 @@
 #include <nt2/include/constants/sqrteps.hpp>
 #include <nt2/include/constants/four.hpp>
 #include <nt2/table.hpp>
-#include <iostream>
 
 template < class Tabout >
 struct fpp
@@ -52,13 +51,11 @@ NT2_TEST_CASE_TPL( levenberg_function_ptr, NT2_REAL_TYPES )
   using nt2::optimization::output;
   typedef nt2::table<T> tab_t;
   typedef typename nt2::meta::as_logical<T>::type lT;
-  typedef nt2::table<T> ltab_t;
+  typedef nt2::table<lT> ltab_t;
   tab_t x0 = nt2::ones(nt2::of_size(1, 3), nt2::meta::as_<T>());
   ltab_t h = nt2::is_nez(nt2::ones (nt2::of_size(1, 3), nt2::meta::as_<T>())*nt2::Half<T>());
   tab_t r = nt2::sqrt(T(3))*nt2::ones (nt2::of_size(1, 3), nt2::meta::as_<T>());
   output<tab_t,T> res = levenberg(&f1<tab_t, tab_t>, x0, h);
-  std::cout << "Minimum : f(" << res.minimum << ") = " << res.value
-            << " after " << res.iterations_count <<  " iterations\n";
   NT2_TEST(res.successful);
   NT2_TEST_LESSER_EQUAL(nt2::globalmax(nt2::abs(res.minimum()-r)), nt2::Sqrteps<T>());
   NT2_TEST_LESSER_EQUAL(nt2::norm(res.covar), T(12.1));
@@ -71,7 +68,7 @@ NT2_TEST_CASE_TPL( levenberg_functor, NT2_REAL_TYPES )
   using nt2::optimization::output;
   typedef nt2::table<T> tab_t;
   typedef typename nt2::meta::as_logical<T>::type lT;
-  typedef nt2::table<T> ltab_t;
+  typedef nt2::table<lT> ltab_t;
   tab_t x0 = nt2::zeros(nt2::of_size(1, 3), nt2::meta::as_<T>());
   ltab_t h = nt2::is_nez(nt2::ones (nt2::of_size(1, 3), nt2::meta::as_<T>())*nt2::Half<T>());
   tab_t r = nt2::_(T(1), T(3));
@@ -79,9 +76,6 @@ NT2_TEST_CASE_TPL( levenberg_functor, NT2_REAL_TYPES )
                                   options [ nt2::iterations_ = 100,
                                             nt2::tolerance::absolute_ = nt2::Eps<T>()
                                     ]);
-  std::cout << "Minimum : f(" << res.minimum << ") = " << res.value
-            << " after " << res.iterations_count <<  " iterations\n";
-
   NT2_TEST(res.successful);
   NT2_TEST_LESSER_EQUAL(nt2::globalmax(nt2::abs(res.minimum()-r)), nt2::Four<T>()*nt2::Sqrteps<T>());
   NT2_TEST_LESSER_EQUAL(nt2::norm(res.covar), T(10*nt2::numel(res.covar))*nt2::Eps<T>());
