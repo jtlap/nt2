@@ -12,7 +12,10 @@ SET( SOURCES
   negif.cpp
   seladd.cpp
   selsub.cpp
+  if_allbits_else.cpp
+  if_else_allbits.cpp
   if_one_else_zero.cpp
+  if_zero_else_one.cpp
  # List of scalar test files for toolbox boolean
    )
 
