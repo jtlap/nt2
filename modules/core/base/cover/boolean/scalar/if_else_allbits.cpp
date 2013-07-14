@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/boolean/include/functions/if_allbits_else.hpp>
+#include <nt2/boolean/include/functions/if_else_allbits.hpp>
 #include <vector>
 #include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,11 +20,11 @@
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/is_odd.hpp>
 
-NT2_TEST_CASE_TPL ( if_allbits_else_signed,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( if_else_allbits_signed,  NT2_REAL_TYPES)
 {
 
-  using nt2::if_allbits_else;
-  using nt2::tag::if_allbits_else_;
+  using nt2::if_else_allbits;
+  using nt2::tag::if_else_allbits_;
   typedef typename nt2::meta::as_logical<T>::type lT;
 
   nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
@@ -41,15 +41,15 @@ NT2_TEST_CASE_TPL ( if_allbits_else_signed,  NT2_REAL_TYPES)
     ref[i] = in3[i] ? in1[i] : nt2::Nan<T>();
   }
 
-  NT2_COVER_ULP_EQUAL(if_allbits_else_, ((lT, in3))((T, in1)), ref, 0);
+  NT2_COVER_ULP_EQUAL(if_else_allbits_, ((lT, in3))((T, in1)), ref, 0);
 }
 
 
-NT2_TEST_CASE_TPL ( if_allbits_else_signedsi,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( if_else_allbits_signedsi,  NT2_INTEGRAL_SIGNED_TYPES)
 {
 
-  using nt2::if_allbits_else;
-  using nt2::tag::if_allbits_else_;
+  using nt2::if_else_allbits;
+  using nt2::tag::if_else_allbits_;
   typedef typename nt2::meta::as_logical<T>::type lT;
 
   nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
@@ -66,16 +66,16 @@ NT2_TEST_CASE_TPL ( if_allbits_else_signedsi,  NT2_INTEGRAL_SIGNED_TYPES)
     ref[i] = in3[i] ? in1[i]: nt2::Mone<T>();
   }
 
-  NT2_COVER_ULP_EQUAL(if_allbits_else_, ((lT, in3))((T, in1)), ref, 0);
+  NT2_COVER_ULP_EQUAL(if_else_allbits_, ((lT, in3))((T, in1)), ref, 0);
 }
 
 
-NT2_TEST_CASE_TPL ( if_allbits_else_unsigned,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( if_else_allbits_unsigned,  NT2_UNSIGNED_TYPES)
 {
 
 
-  using nt2::if_allbits_else;
-  using nt2::tag::if_allbits_else_;
+  using nt2::if_else_allbits;
+  using nt2::tag::if_else_allbits_;
   typedef typename nt2::meta::as_logical<T>::type lT;
 
   nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
@@ -91,5 +91,5 @@ NT2_TEST_CASE_TPL ( if_allbits_else_unsigned,  NT2_UNSIGNED_TYPES)
     ref[i] = in3[i] ? in1[i] :  nt2::Valmax<T>();
   }
 
-  NT2_COVER_ULP_EQUAL(if_allbits_else_, ((lT, in3))((T, in1)), ref, 0);
+  NT2_COVER_ULP_EQUAL(if_else_allbits_, ((lT, in3))((T, in1)), ref, 0);
 }
