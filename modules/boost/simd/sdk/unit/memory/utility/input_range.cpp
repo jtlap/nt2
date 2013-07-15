@@ -9,6 +9,7 @@
 #include <boost/simd/memory/input_range.hpp>
 #include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/simd/memory/allocator.hpp>
+#include <boost/simd/memory/dynarray.hpp>
 #include <boost/simd/include/functions/splat.hpp>
 #include <boost/range/algorithm/copy.hpp>
 
@@ -60,14 +61,15 @@ NT2_TEST_CASE_TPL(iteration, BOOST_SIMD_TYPES)
 {
   using std::iterator_traits;
   using boost::simd::input_range;
+  using boost::simd::dynarray;
   using boost::simd::allocator;
   using boost::simd::pack;
   using boost::simd::splat;
   using boost::begin;
   using boost::end;
 
-  std::vector< pack<T>, allocator< pack<T> > > dst(3);
-  std::vector< pack<T>, allocator< pack<T> > > ref(3);
+  dynarray< pack<T> > dst(3);
+  dynarray< pack<T> > ref(3);
 
   std::vector<T>  data(pack<T>::static_size*3);
 

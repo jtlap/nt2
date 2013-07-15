@@ -9,6 +9,7 @@
 #include <boost/simd/memory/aligned_input_iterator.hpp>
 #include <boost/simd/include/functions/splat.hpp>
 #include <boost/simd/memory/allocator.hpp>
+#include <boost/simd/memory/dynarray.hpp>
 #include <boost/simd/sdk/simd/pack.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -72,10 +73,11 @@ NT2_TEST_CASE_TPL(iteration, BOOST_SIMD_TYPES)
   using boost::simd::aligned_input_begin;
   using boost::simd::aligned_input_end;
   using boost::simd::allocator;
+  using boost::simd::dynarray;
   using boost::simd::pack;
   using boost::simd::splat;
 
-  std::vector<pack<T>, allocator<T> >        ref(3);
+  dynarray< pack<T> >           ref(3);
   std::vector<T, allocator<T> > data(pack<T>::static_size*3);
 
   typedef typename std::vector<T, allocator<T> >::iterator it_t;
