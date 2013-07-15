@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/boolean/include/functions/seladd.hpp>
+#include <nt2/boolean/include/functions/logical_andnot.hpp>
 #include <vector>
 #include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -14,32 +14,31 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/include/constants/valmax.hpp>
 #include <nt2/include/constants/valmin.hpp>
-#include <nt2/include/constants/zero.hpp>
-#include <nt2/include/functions/min.hpp>
-#include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/is_odd.hpp>
 
-NT2_TEST_CASE_TPL ( seladd_signed,  NT2_TYPES)
+NT2_TEST_CASE_TPL ( logical_andnot,  NT2_TYPES)
 {
 
-  using nt2::seladd;
-  using nt2::tag::seladd_;
+  using nt2::logical_andnot;
+  using nt2::tag::logical_andnot_;
   typedef typename nt2::meta::as_logical<T>::type lT;
 
   nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
-  std::vector<T> in1(NR), in0(NR);
-  std::vector<lT> in2(NR);
-  int64_t Mi = nt2::Valmin<T>()/T(2);
-  int64_t Ma = nt2::Valmax<T>()/T(2);
+  std::vector<T> in0(NR), in1(NR), in2(NR);
+  std::vector<lT> in3(NR), in4(NR);
+  int64_t Mi = nt2::Valmin<T>();
+  int64_t Ma = nt2::Valmax<T>();
+  nt2::roll(in2,T(Mi),T(Ma));
   nt2::roll(in1,T(Mi),T(Ma));
   nt2::roll(in0,T(Mi),T(Ma));
-  std::vector<T>  ref(NR);
+  std::vector<lT>  ref(NR);
   for(nt2::uint32_t i=0; i < NR ; ++i)
   {
-    in2[i] = in0[i] > in1[i];
-    ref[i] = in2[i] ? in1[i]+in0[i] : in1[i];
+    in3[i] = in0[i] > in1[i];
+    in4[i] = in0[i] > in2[i];
+    ref[i] = in3[i] && (!in4[i]);
   }
 
-  NT2_COVER_ULP_EQUAL(seladd_, ((lT, in2))((T, in1))((T, in0)), ref, 0);
+  NT2_COVER_ULP_EQUAL(logical_andnot_, ((lT, in3))((lT, in4)), ref, 0);
 }
 

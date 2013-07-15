@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/boolean/include/functions/seladd.hpp>
+#include <nt2/boolean/include/functions/seldec.hpp>
 #include <vector>
 #include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -19,11 +19,11 @@
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/is_odd.hpp>
 
-NT2_TEST_CASE_TPL ( seladd_signed,  NT2_TYPES)
+NT2_TEST_CASE_TPL ( seldec_signed,  NT2_TYPES)
 {
 
-  using nt2::seladd;
-  using nt2::tag::seladd_;
+  using nt2::seldec;
+  using nt2::tag::seldec_;
   typedef typename nt2::meta::as_logical<T>::type lT;
 
   nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
@@ -36,10 +36,10 @@ NT2_TEST_CASE_TPL ( seladd_signed,  NT2_TYPES)
   std::vector<T>  ref(NR);
   for(nt2::uint32_t i=0; i < NR ; ++i)
   {
-    in2[i] = in0[i] > in1[i];
-    ref[i] = in2[i] ? in1[i]+in0[i] : in1[i];
+    in2[i] = in0[i] <  in1[i];
+    ref[i] = in2[i] ? in1[i]-nt2::One<T>() : in1[i];
   }
 
-  NT2_COVER_ULP_EQUAL(seladd_, ((lT, in2))((T, in1))((T, in0)), ref, 0);
+  NT2_COVER_ULP_EQUAL(seldec_, ((lT, in2))((T, in1)), ref, 0);
 }
 
