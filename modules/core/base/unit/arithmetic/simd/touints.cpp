@@ -64,8 +64,8 @@ NT2_TEST_CASE_TPL ( touints_real2,   BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<touints_(T)>::type        iT;
   typedef native<iT,ext_t>                                              ivT;
 
-  T data[] = {nt2::One<T>(), nt2::Inf<T>(), nt2::Minf<T>(), nt2::Nan<T>()};
-  iT idat[] = {nt2::One<iT>(), nt2::Inf<iT>(), nt2::Minf<iT>(), nt2::Nan<iT>()};
+  T data[] = {nt2::One<T>(), nt2::Inf<T>(), nt2::Minf<T>(), nt2::Nan<T>(),nt2::One<T>(), nt2::Inf<T>(), nt2::Minf<T>(), nt2::Nan<T>(), };
+  iT idat[] = {nt2::One<iT>(), nt2::Inf<iT>(), nt2::Minf<iT>(), nt2::Nan<iT>(), nt2::One<iT>(), nt2::Inf<iT>(), nt2::Minf<iT>(), nt2::Nan<iT>()};
   nt2::uint32_t NR =  (sizeof(data)/sizeof(T));
   for(nt2::uint32_t j = 0; j < NR;j+=nt2::meta::cardinal_of<vT>::value)
   {
