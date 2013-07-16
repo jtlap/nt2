@@ -10,11 +10,10 @@
 #define BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_COPYSIGN_HPP_INCLUDED
 
 #include <boost/simd/ieee/functions/copysign.hpp>
-#include <boost/simd/include/functions/scalar/abs.hpp>
+#include <boost/simd/include/functions/scalar/abss.hpp>
 #include <boost/simd/include/functions/scalar/signnz.hpp>
 #include <boost/simd/sdk/math.hpp>
 #include <boost/math/special_functions/sign.hpp>
-
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::copysign_, tag::cpu_
@@ -25,7 +24,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return boost::simd::abs(a0)*boost::simd::signnz(a1);
+      return boost::simd::abss(a0)*boost::simd::signnz(a1);
     }
   };
 

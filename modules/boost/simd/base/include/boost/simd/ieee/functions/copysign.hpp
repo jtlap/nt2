@@ -21,6 +21,11 @@
  * \par Description
  * Returns a0 with the sign of a1
  * which must be of the same type.
+ * For signed integer,  this is a saturated operation
+ * every negative (resp positive) element getting the sign of a positive (resp. negative)
+ * element will return a positive (respective negative).
+ * 0 always stay positive (!)
+ * In particular copysign(Valmin<T>(), < anything positive or null > ) returns Valmax<T>()
  *
  * \par Header file
  *
