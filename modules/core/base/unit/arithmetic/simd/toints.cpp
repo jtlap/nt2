@@ -46,11 +46,8 @@ NT2_TEST_CASE_TPL ( toints_real,  BOOST_SIMD_SIMD_REAL_TYPES)
 
   // specific values tests
   NT2_TEST_EQUAL(toints(nt2::Inf<vT>()),  nt2::Inf<r_t>());
-  NT2_TEST_EQUAL(toints(nt2::splat<vT>(T(1)/T(0))),  nt2::Inf<r_t>());
   NT2_TEST_EQUAL(toints(nt2::Minf<vT>()), nt2::Minf<r_t>());
-  NT2_TEST_EQUAL(toints(nt2::splat<vT>(T(-1)/T(0))),  nt2::Minf<r_t>());
   NT2_TEST_EQUAL(toints(nt2::Mone<vT>()), nt2::Mone<r_t>());
-  NT2_TEST_EQUAL(toints(nt2::splat<vT>(T(0)/T(0))),  nt2::Zero<r_t>());
   NT2_TEST_EQUAL(toints(nt2::Nan<vT>()),  nt2::Zero<r_t>());
   NT2_TEST_EQUAL(toints(nt2::One<vT>()),  nt2::One<r_t>());
   NT2_TEST_EQUAL(toints(nt2::Zero<vT>()), nt2::Zero<r_t>());
