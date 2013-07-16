@@ -24,6 +24,7 @@ SET( SOURCES
   logical_ornot.cpp
   logical_notand.cpp
   logical_notor.cpp
+  mask2logical.cpp
  # List of scalar test files for toolbox boolean
    )
 
