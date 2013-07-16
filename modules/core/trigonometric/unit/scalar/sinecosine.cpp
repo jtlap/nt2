@@ -22,9 +22,8 @@
 #include <boost/fusion/include/vector_tie.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
-//#include <nt2/trigonometric/functions/scalar/impl/trigo/selection_tags.hpp>
 
 NT2_TEST_CASE_TPL ( sinecosine_real__1_0,  NT2_REAL_TYPES)
 {
@@ -44,8 +43,8 @@ NT2_TEST_CASE_TPL ( sinecosine_real__1_0,  NT2_REAL_TYPES)
     for(size_t i=0; i < N; ++i)
     {
       sinecosine<nt2::medium_>(a[i], s, c);
-      NT2_TEST_EQUAL(s, nt2::sin(a[i]));
-      NT2_TEST_EQUAL(c, nt2::cos(a[i]));
+      NT2_TEST_ULP_EQUAL(s, nt2::sin(a[i]), 0.5);
+      NT2_TEST_ULP_EQUAL(c, nt2::cos(a[i]), 0.5);
     }
   }
 
@@ -54,8 +53,8 @@ NT2_TEST_CASE_TPL ( sinecosine_real__1_0,  NT2_REAL_TYPES)
     for(size_t i=0; i < N; ++i)
     {
       s = sinecosine<nt2::medium_>(a[i], c);
-      NT2_TEST_EQUAL(s, nt2::sin(a[i]));
-      NT2_TEST_EQUAL(c, nt2::cos(a[i]));
+      NT2_TEST_ULP_EQUAL(s, nt2::sin(a[i]), 0.5);
+      NT2_TEST_ULP_EQUAL(c, nt2::cos(a[i]), 0.5);
     }
   }
 
@@ -64,8 +63,8 @@ NT2_TEST_CASE_TPL ( sinecosine_real__1_0,  NT2_REAL_TYPES)
     for(size_t i=0; i < N; ++i)
     {
       boost::fusion::vector_tie(s, c) = sinecosine<nt2::medium_>(a[i]);
-      NT2_TEST_EQUAL(s, nt2::sin(a[i]));
-      NT2_TEST_EQUAL(c, nt2::cos(a[i]));
+      NT2_TEST_ULP_EQUAL(s, nt2::sin(a[i]), 0.5);
+      NT2_TEST_ULP_EQUAL(c, nt2::cos(a[i]), 0.5);
     }
   }
 
@@ -73,8 +72,8 @@ NT2_TEST_CASE_TPL ( sinecosine_real__1_0,  NT2_REAL_TYPES)
     for(size_t i=0; i < N; ++i)
     {
       std::pair<T,T> p = sinecosine<nt2::medium_>(a[i]);
-      NT2_TEST_EQUAL(p.first,  nt2::sin(a[i]));
-      NT2_TEST_EQUAL(p.second, nt2::cos(a[i]));
+      NT2_TEST_ULP_EQUAL(p.first,  nt2::sin(a[i]), 0.5);
+      NT2_TEST_ULP_EQUAL(p.second, nt2::cos(a[i]), 0.5);
     }
   }
 
