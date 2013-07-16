@@ -11,31 +11,34 @@
 #define BOOST_SIMD_MEMORY_REUSE_HPP_INCLUDED
 
 #include <boost/simd/memory/allocate.hpp>
-#include <boost/simd/memory/align_ptr.hpp>
 #include <boost/simd/memory/deallocate.hpp>
 #include <boost/simd/memory/is_aligned.hpp>
-#include <boost/simd/memory/aligned_reuse.hpp>
 #include <boost/simd/preprocessor/parameters.hpp>
+#include <boost/simd/memory/aligned_reuse.hpp>
+#include <boost/simd/memory/align_ptr.hpp>
 #include <boost/simd/meta/align_ptr.hpp>
 
 #include <boost/dispatch/attributes.hpp>
-#include <algorithm>
-#include <cstring>
+#include <boost/dispatch/meta/enable_if_type.hpp>
+
 #include <cstddef>
 
 namespace boost { namespace simd
 {
   /*!
-    @brief Aligned memory recycling with arbitrary dynamic alignment
+    @brief Aligned memory reallocation
 
-    Recycles a raw buffer of aligned bytes on an arbitrary alignment boundary
-    without preserving data.
+    reused a raw buffer of aligned bytes on an arbitrary alignment boundary
+    without preserving contents.
 
-    @param ptr    Pointer to the memory to reuse.
-    @param nbytes New number of bytes to allocate
-    @param align  Hint on the alignment boundary used at allocation.
+    @param ptr     Pointer to the memory to reuse.
+    @param nbytes  New number of bytes to allocate
+    @param align   Hint on the alignment boundary used at allocation.
 
     @return A pointer to a reused memory block
+
+    @pre @c align is a power of 2
+    @post Returned pointer is aligned on @c align
   **/
   BOOST_FORCEINLINE void*
   reuse(void* ptr, std::size_t nbytes, std::size_t align)
@@ -44,48 +47,54 @@ namespace boost { namespace simd
   }
 
   /*!
-    @brief Aligned memory recycling
+    @brief Aligned memory reallocation with a static alignment
 
-    Recycles a raw buffer of aligned bytes on an arbitrary static
-    alignment boundary without preserving data.
+    reused a raw buffer of aligned bytes on statically specified alignment
+    boundary without preserving contents.
 
-    @param ptr    Pointer to the memory to reuse.
-    @param nbytes New number of bytes to allocate.
-
-    @tparam Alignment Static hint on the alignment boundary used at allocation.
-                      By default, this alignment is equal to current SIMD
-                      alignment.
+    @param ptr          Pointer to the memory to reuse.
+    @param nbytes       New number of bytes to allocate
+    @tparam Alignment   Hint on the alignment boundary used at allocation. By
+                        default, this parameter is equal to the current system
+                        SIMD alignment requirement.
 
     @return A pointer to a reused memory block
+
+    @pre @c Alignment is a power of 2
+    @post Returned pointer is aligned on @c Alignment
   **/
   template<std::size_t Alignment>
-  BOOST_FORCEINLINE typename meta::align_ptr<void,Alignment>::type
+  BOOST_FORCEINLINE typename meta::align_ptr<void ,Alignment>::type
   reuse( void* ptr, std::size_t nbytes )
   {
-    return align_ptr<Alignment>(aligned_reuse(ptr, nbytes, Alignment));
+    return align_ptr<Alignment>(reuse(ptr, nbytes, Alignment));
   }
 
   /// INTERNAL ONLY
   BOOST_FORCEINLINE
-  meta::align_ptr<void>::type reuse( void* ptr, std::size_t nbytes )
+  meta::align_ptr<void ,BOOST_SIMD_CONFIG_ALIGNMENT>::type
+  reuse( void* ptr, std::size_t nbytes )
   {
     return reuse<BOOST_SIMD_CONFIG_ALIGNMENT>( ptr, nbytes );
   }
 
   /*!
-    @brief Allocator-based aligned memory recycling on arbitrary alignment
+    @brief Aligned allocator-based memory reallocation
 
-    Recycles a raw buffer of aligned bytes using an Allocator without
-    preserving data.
+    reused a raw buffer of aligned bytes on an arbitrary alignment boundary
+    using an allocator without preserving contents.
 
     @param alloc  Allocator performing the (de)allocation
     @param ptr    Pointer to the memory to reuse.
     @param nbytes New number of bytes to allocate
-    @param align  Hint on the alignment boundary used at allocation. By
-                  default, this parameter is equals to the current system
-                  SIMD alignment requirement.
+    @param align  Hint on the alignment boundary used at allocation. By default,
+                  this parameter is equal to the current system SIMD alignment
+                  requirement.
 
-    @return A pointer to a reused memory block containing \c nbytes bytes.
+    @return A pointer to a reused memory block containing @c nbytes bytes.
+
+    @pre @c align is a power of 2
+    @post Returned pointer is aligned on @c align
   **/
   template<class Allocator>
   BOOST_FORCEINLINE
@@ -95,12 +104,12 @@ namespace boost { namespace simd
   typename  boost::dispatch::meta::
             enable_if_type<typename Allocator::pointer, void*>::type
   #endif
-  reuse( Allocator& alloc, void* ptr, std::size_t nbytes, std::size_t align )
+  reuse(Allocator& alloc, void* ptr, std::size_t nbytes, std::size_t align)
   {
     // Resizing to 0 free the pointer data and return
     if(nbytes == 0)
     {
-      deallocate(alloc, ptr );
+      deallocate(alloc, ptr);
       return 0;
     }
 
@@ -110,11 +119,11 @@ namespace boost { namespace simd
     details::aligned_block_header const old( details::get_block_header( ptr ) );
     std::size_t const oldSize( old.userBlockSize );
 
-    // Return if idempotent recycling is performed with constant alignment
-    // TODO Try to just reajust if possible (aka align is lower than before ?)
+    // Return if idempotent reallocation is performed with constant alignment
+    // TODO Try to just readjust if possible (aka align is lower than before ?)
     if( oldSize == nbytes && is_aligned(ptr,align) ) return ptr;
 
-    // Else reuse manually/copy/deallocate old data
+    // Else reuse manually deallocate old data
     void* fresh_ptr = allocate(alloc, nbytes, align );
     if( !fresh_ptr ) return 0;
 
@@ -124,21 +133,21 @@ namespace boost { namespace simd
   }
 
   /*!
-    @brief Allocator-based aligned memory recycling on arbitrary static alignment
+    @brief Statically aligned allocator-based memory reallocation
 
-    Recycles a raw buffer of aligned bytes using an Allocator and a static
-    Alignment. By default, this alignment is equal to current SIMD preferred
-    alignment.
+    reused a raw buffer of aligned bytes on statically specified alignment
+    boundary using an allocator without preserving contents. By default, this
+    alignment is equal to current SIMD preferred alignment.
 
     @param alloc   Allocator performing the (de)allocation
     @param ptr     Pointer to the memory to reuse.
     @param nbytes  New number of bytes to allocate
+    @tparam Alignment  Static Hint on the alignment boundary used at allocation.
 
-    @tparam Alignment Static Hint on the alignment boundary used at allocation.
-                      By default, this alignment is equal to current SIMD
-                      alignment.
+    @return A pointer to a reused memory block containing @c nbytes bytes.
 
-    @return A pointer to a reused memory block containing \c nbytes bytes.
+    @pre @c Alignment is a power of 2
+    @post Returned pointer is aligned on @c Alignment
   **/
   template<std::size_t Alignment, class Allocator>
   BOOST_FORCEINLINE
@@ -146,7 +155,9 @@ namespace boost { namespace simd
   void*
   #else
   typename  boost::dispatch::meta::
-            enable_if_type<typename Allocator::pointer,void*>::type
+            enable_if_type< typename Allocator::pointer
+                          , typename meta::align_ptr<void ,Alignment>::type
+                          >::type
   #endif
   reuse( Allocator& alloc, void* ptr, std::size_t nbytes )
   {
