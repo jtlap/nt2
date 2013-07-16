@@ -69,6 +69,7 @@ NT2_TEST_CASE_TPL ( toints_realf,  (float))
   NT2_TEST_EQUAL(toints(a), b);
 }
 
+#if !defined(BOOST_SIMD_ARCH_POWERPC)
 NT2_TEST_CASE_TPL ( toints_reald,  (double))
 {
   using nt2::toints;
@@ -86,6 +87,7 @@ NT2_TEST_CASE_TPL ( toints_reald,  (double))
   NT2_TEST_EQUAL(toints(a1), b1);
   NT2_TEST_EQUAL(toints(a2), b2);
 }
+#endif
 #endif
 
 NT2_TEST_CASE_TPL ( toints_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
