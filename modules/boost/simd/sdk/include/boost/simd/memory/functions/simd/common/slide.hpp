@@ -13,7 +13,6 @@
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
 #include <boost/dispatch/attributes.hpp>
-#include <iostream>
 
 namespace boost { namespace simd { namespace ext
 {

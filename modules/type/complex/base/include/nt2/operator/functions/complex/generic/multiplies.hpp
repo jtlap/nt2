@@ -39,7 +39,6 @@
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
 #include <boost/simd/sdk/config.hpp>
-#include <iostream>
 
 namespace nt2 { namespace ext
 {
@@ -72,7 +71,6 @@ namespace nt2 { namespace ext
       cur = nt2::logical_andnot(is_imag(a0), test);
       if (nt2::any(cur))
       {
-        std::cout << "icitte" << std::endl;
         r = if_else(cur, nt2::mul_i(nt2::multiplies(b, a1)), r);
         test = logical_or(test, cur);
         if (nt2::all(test)) return r;
@@ -87,7 +85,6 @@ namespace nt2 { namespace ext
       cur = nt2::logical_andnot(is_imag(a1), test);
       if (nt2::any(cur))
       {
-        std::cout << "latte" << std::endl;
         r = if_else(cur, nt2::mul_i(nt2::multiplies(d, a0)), r);
         test = logical_or(test, cur);
         if (nt2::all(test)) return r;

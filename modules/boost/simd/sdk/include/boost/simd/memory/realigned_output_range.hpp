@@ -13,7 +13,6 @@
 #include <boost/simd/memory/aligned_output_range.hpp>
 #include <boost/simd/memory/align_on.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <iostream>
 
 namespace boost { namespace simd
 {
