@@ -17,16 +17,22 @@
 #include <boost/simd/sdk/functor/hierarchy.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
+#include <boost/simd/meta/is_pointing_to.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   /// INTERNAL ONLY - Regular scalar load with offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_ , tag::cpu_
-                                    , (A0)(A1)(A2)
-                                    , (iterator_< unspecified_<A0> >)
-                                      (scalar_< integer_<A1> >)
-                                      (target_< unspecified_<A2> >)
-                                    )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::aligned_load_ , tag::cpu_
+                                      , (A0)(A1)(A2)
+                                      , ( simd::meta::is_pointing_to
+                                          < A0
+                                          , typename A2::type
+                                          >
+                                        )
+                                      , (iterator_< unspecified_<A0> >)
+                                        (scalar_< integer_<A1> >)
+                                        (target_< unspecified_<A2> >)
+                                      )
   {
     typedef typename A2::type result_type;
 
@@ -35,11 +41,16 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - Regular scalar load without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_ , tag::cpu_
-                                    , (A0)(A2)
-                                    , (iterator_< unspecified_<A0> >)
-                                      (target_< unspecified_<A2> >)
-                                    )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::aligned_load_ , tag::cpu_
+                                      , (A0)(A2)
+                                      , ( simd::meta::is_pointing_to
+                                          < A0
+                                          , typename A2::type
+                                          >
+                                        )
+                                      , (iterator_< unspecified_<A0> >)
+                                        (target_< unspecified_<A2> >)
+                                      )
   {
     typedef typename A2::type result_type;
 
@@ -48,13 +59,18 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - scalar load with misalignment and offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_ , tag::cpu_
-                                    , (A0)(A1)(A2)(A3)
-                                    , (iterator_< unspecified_<A0> >)
-                                      (scalar_< integer_<A1> >)
-                                      (target_< scalar_< unspecified_<A2> > >)
-                                      (mpl_integral_< scalar_< integer_<A3> > >)
-                                    )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::aligned_load_ , tag::cpu_
+                                      , (A0)(A1)(A2)(A3)
+                                      , ( simd::meta::is_pointing_to
+                                          < A0
+                                          , typename A2::type
+                                          >
+                                        )
+                                      , (iterator_< unspecified_<A0> >)
+                                        (scalar_< integer_<A1> >)
+                                        (target_< scalar_< unspecified_<A2> > >)
+                                        (mpl_integral_< scalar_< integer_<A3> > >)
+                                      )
   {
     typedef typename A2::type result_type;
 
@@ -63,12 +79,18 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - scalar load with misalignment and without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_ , tag::cpu_
-                                    , (A0)(A2)(A3)
-                                    , (iterator_< unspecified_<A0> >)
-                                      (target_< unspecified_<A2> >)
-                                      (mpl_integral_< scalar_< integer_<A3> > >)
-                                    )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::aligned_load_
+                                      , tag::cpu_
+                                      , (A0)(A2)(A3)
+                                      , ( simd::meta::is_pointing_to
+                                          < A0
+                                          , typename A2::type
+                                          >
+                                        )
+                                      , (iterator_< unspecified_<A0> >)
+                                        (target_< unspecified_<A2> >)
+                                        (mpl_integral_< scalar_< integer_<A3> > >)
+                                      )
   {
     typedef typename A2::type result_type;
 
