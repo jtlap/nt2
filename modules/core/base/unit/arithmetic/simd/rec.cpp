@@ -6,61 +6,47 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - rec/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of arithmetic components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created by jt the 01/12/2010
-///
-#include <nt2/arithmetic/include/functions/rec.hpp>
+#include <nt2/include/functions/rec.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/rdivide.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_signed.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/meta/downgrade.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/type_traits/common_type.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
+#include <boost/simd/constant/constant.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
-#include <nt2/constant/constant.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/include/functions/splat.hpp>
-
-
-
-NT2_TEST_CASE_TPL ( rec_real__1_0,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( rec,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using nt2::rec;
   using nt2::tag::rec_;
   using boost::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<rec_(vT)>::type r_t;
-  typedef typename nt2::meta::call<rec_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
 
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>               vT;
+
+  NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<rec_(vT)>::type
+                  , (native<T,ext_t>)
+                  );
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(rec(nt2::Inf<vT>())[0], nt2::Zero<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(rec(nt2::Minf<vT>())[0], nt2::Zero<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(rec(nt2::Mone<vT>())[0], nt2::Mone<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(rec(nt2::Mzero<vT>())[0], nt2::Minf<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(rec(nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(rec(nt2::One<vT>())[0], nt2::One<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(rec(nt2::Zero<vT>())[0], nt2::Inf<sr_t>(), 0);
-} // end of test for floating_
+
+  // 1/+-inf = 0
+  NT2_TEST_ULP_EQUAL(rec(boost::simd::Inf<vT>()) , boost::simd::Zero<vT>(), 0.5);
+  NT2_TEST_ULP_EQUAL(rec(boost::simd::Minf<vT>()), boost::simd::Zero<vT>(), 0.5);
+
+  // 1/+-0 = +-inf
+  NT2_TEST_ULP_EQUAL(rec(boost::simd::Mzero<vT>()), boost::simd::Minf<vT>(), 0.5);
+  NT2_TEST_ULP_EQUAL(rec(boost::simd::Zero<vT>()), boost::simd::Inf<vT>(), 0.5);
+
+  // 1/Nan = Nan
+  NT2_TEST_ULP_EQUAL(rec(boost::simd::Nan<vT>()), boost::simd::Nan<vT>(), 0.5);
+
+  // 1/+-1 = +-1
+  NT2_TEST_ULP_EQUAL(rec(boost::simd::Mone<vT>()), boost::simd::Mone<vT>(), 0.5);
+  NT2_TEST_ULP_EQUAL(rec(boost::simd::One<vT>()), boost::simd::One<vT>(), 0.5);
+
+  // 1/(1/x) = x
+  NT2_TEST_ULP_EQUAL(rec(rec(boost::simd::Ten<vT>())), boost::simd::Ten<vT>(), 0.5);
+}
