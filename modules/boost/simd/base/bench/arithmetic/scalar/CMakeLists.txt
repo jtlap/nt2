@@ -34,6 +34,7 @@ SET( SOURCES
   rsqrt.cpp
   sqrt.cpp
   sqr.cpp
+  fast_rec.cpp
   rec.cpp
   oneplus.cpp
   oneminus.cpp

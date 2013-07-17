@@ -11,6 +11,12 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/arithmetic/functions/rec.hpp>
+#include <boost/simd/include/functions/sqr.hpp>
+#include <boost/simd/include/functions/plus.hpp>
+#include <boost/simd/include/functions/minus.hpp>
+#include <boost/simd/include/functions/times.hpp>
+#include <boost/simd/include/functions/genmask.hpp>
+#include <boost/simd/include/functions/bitwise_and.hpp>
 
 #include <boost/simd/sdk/config.hpp>
 #if !defined(BOOST_SIMD_NO_INFINITIES)
@@ -31,26 +37,22 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    BOOST_FORCEINLINE result_type operator()(__m128 a0) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       // Estimation x ~= 1/X
-      __m128  inv   = _mm_rcp_ps( a0 );
-
-      // Newton-Raphson:
-      // 1/X ~= (2*x - (a0*x^2)
-      __m128  invs  = _mm_mul_ps( a0, _mm_mul_ps( inv, inv ) );
-      __m128  rcp2  = _mm_add_ps( inv, inv );
+      A0  inv   = _mm_rcp_ps( a0 );
+      A0  invs  = a0 * sqr(inv) ;
+      A0  rcp2  = inv+inv;
 
       // Filter out 1/+-0
-      invs = _mm_and_ps(invs,_mm_cmpneq_ps(a0,_mm_setzero_ps()) );
+      invs = invs & genmask(a0);
 
     #if defined(BOOST_SIMD_NO_INFINITIES)
-      return _mm_sub_ps( rcp2, invs );
+      // Newton-Raphson: 1/X ~= (2*x - (a0*x^2)
+      return rcp2 - invs;
     #else
       // handle 1/+-inf
-      return if_else_zero ( is_not_infinite(result_type(a0))
-                          , result_type(_mm_sub_ps( rcp2, invs ))
-                          );
+      return if_else_zero( is_not_infinite(a0), rcp2 - invs );
     #endif
     }
   };
