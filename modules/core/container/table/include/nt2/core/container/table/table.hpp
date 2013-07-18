@@ -94,7 +94,13 @@ namespace nt2 { namespace container
     //==========================================================================
     // Enable base expression handling of assignment
     //==========================================================================
+    // Work around for Apple Clang 3.2 (issue #495)
+#if ! (     defined(__clang__)                                                 \
+        &&  defined(__apple_build_version__)                                   \
+        &&  (__apple_build_version__ <= 4250028)                               \
+      )
     using nt2_expression::operator=;
+#endif
 
     iterator        begin()       { return nt2_expression::raw(); }
     const_iterator  begin() const { return nt2_expression::raw(); }

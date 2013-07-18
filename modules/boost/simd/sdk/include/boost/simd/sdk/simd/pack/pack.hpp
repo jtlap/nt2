@@ -167,7 +167,13 @@ namespace boost { namespace simd
       static_cast<parent&>(*this) = t;
     }
 
+    // Work around for Apple Clang 3.2 (issue #495)
+#if ! (     defined(__clang__)                                                 \
+        &&  defined(__apple_build_version__)                                   \
+        &&  (__apple_build_version__ <= 4250028)                               \
+      )
     using parent::operator=;
+#endif
 
     reference        operator[](std::size_t i)
     {

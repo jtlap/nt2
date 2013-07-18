@@ -81,7 +81,14 @@ namespace nt2 { namespace container
       this->size_ = tmp.size_;
     }
 
+        // Work around for Apple Clang 3.2 (issue #495)
+#if ! (     defined(__clang__)                                                 \
+        &&  defined(__apple_build_version__)                                   \
+        &&  (__apple_build_version__ <= 4250028)                               \
+      )
     using nt2_expression::operator=;
+#endif
+
   };
 
   template<class T, class S>
@@ -134,7 +141,14 @@ namespace nt2 { namespace container
       this->size_ = tmp.size_;
     }
 
+        // Work around for Apple Clang 3.2 (issue #495)
+#if ! (     defined(__clang__)                                                 \
+        &&  defined(__apple_build_version__)                                   \
+        &&  (__apple_build_version__ <= 4250028)                               \
+      )
     using nt2_expression::operator=;
+#endif
+
   };
 
   /* table_shared_view; an expression of a container_shared_ref terminal.
@@ -189,7 +203,14 @@ namespace nt2 { namespace container
       this->size_ = tmp.size_;
     }
 
+        // Work around for Apple Clang 3.2 (issue #495)
+#if ! (     defined(__clang__)                                                 \
+        &&  defined(__apple_build_version__)                                   \
+        &&  (__apple_build_version__ <= 4250028)                               \
+      )
     using nt2_expression::operator=;
+#endif
+
   };
 
   template<class T, class S>
@@ -242,7 +263,14 @@ namespace nt2 { namespace container
       this->size_ = tmp.size_;
     }
 
+        // Work around for Apple Clang 3.2 (issue #495)
+#if ! (     defined(__clang__)                                                 \
+        &&  defined(__apple_build_version__)                                   \
+        &&  (__apple_build_version__ <= 4250028)                               \
+      )
     using nt2_expression::operator=;
+#endif
+
   };
 
 } }

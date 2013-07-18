@@ -18,6 +18,28 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <vector>
 
+namespace foo
+{
+  template <int N> static int issue_495()
+  {
+    namespace bs = boost::simd;
+    typedef boost::simd::pack<float, 4> tPack;
+
+    tPack one (1.f);
+    tPack two (2.f);
+
+    one = one + two;
+
+    return 0;
+  }
+}
+
+NT2_TEST_CASE(issue_495)
+{
+  foo::issue_495<4>();
+  NT2_TEST_COMPLETE("Issue #495");
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // Test pack constructors
 ////////////////////////////////////////////////////////////////////////////////
