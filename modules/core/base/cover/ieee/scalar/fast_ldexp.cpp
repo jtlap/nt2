@@ -6,67 +6,40 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 ieee toolbox - fast_ldexp/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// cover test behavior of ieee components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created by jt the 04/12/2010
-///
 #include <nt2/ieee/include/functions/fast_ldexp.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_signed.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/meta/downgrade.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/type_traits/common_type.hpp>
+#include <vector>
+#include <nt2/include/functions/bitofsign.hpp>
 #include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/cover.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/include/constants/valmax.hpp>
+#include <nt2/include/constants/valmin.hpp>
+#include <nt2/include/constants/maxexponent.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/mone.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 
-#include <nt2/constant/constant.hpp>
-
-
-NT2_TEST_CASE_TPL ( fast_ldexp_real__2_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( fast_ldexp,  NT2_REAL_TYPES)
 {
 
   using nt2::fast_ldexp;
   using nt2::tag::fast_ldexp_;
+  nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<fast_ldexp_(T,iT)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
-
-
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
-
-  // random verifications
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  std::vector<T> in1(NR);
+  std::vector<iT> in2(NR);
+  T Mi = nt2::Mone<T>();
+  T Ma = nt2::One<T>();
+  iT iMi = -nt2::Maxexponent<T>()/2;
+  iT iMa =  nt2::Maxexponent<T>()/2;
+  nt2::roll(in1, Mi, Ma);
+  nt2::roll(in2, iMi, iMa);
+  std::vector<T>  ref(NR);
+  for(nt2::uint32_t i=0; i < NR ; ++i)
   {
-    typedef typename nt2::meta::as_integer<T>::type iT;
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
-    NT2_CREATE_BUF(tab_a1,iT, NR, iT(-10), iT(10));
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    T a0;
-    iT a1;
-    for(nt2::uint32_t j =0; j < NR; ++j )
-      {
-        std::cout << "for params "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << ", a1 = "<< u_t(a1 = tab_a1[j])
-                  << std::endl;
-        NT2_TEST_EQUAL( nt2::fast_ldexp(a0,a1),(a1>=0) ? a0*(1<<a1) : a0/(1<<(-a1)));
-     }
+    ref[i] = in1[i]*exp2(in2[i]);
+  }
+  NT2_COVER_ULP_EQUAL(nt2::tag::fast_ldexp_, ((T, in1))((iT, in2)), ref, 0);
+}
 
-   }
-} // end of test for floating_

@@ -6,74 +6,37 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 ieee toolbox - frexp/scalar Mode"
+//////////////////////////////////////////////////////////////////////////////
+// cover test behavior of arithmetic components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////////
-// cover test behavior of ieee components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created by jt the 04/12/2010
-///
 #include <nt2/ieee/include/functions/frexp.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <boost/fusion/tuple.hpp>
+#include <boost/fusion/include/std_pair.hpp>
+#include <nt2/include/constants/valmin.hpp>
+#include <nt2/include/constants/valmax.hpp>
 #include <nt2/include/functions/mantissa.hpp>
 #include <nt2/include/functions/exponent.hpp>
-
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_signed.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/meta/downgrade.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/cover.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <vector>
 
-#include <nt2/constant/constant.hpp>
-#include <boost/fusion/include/std_pair.hpp>
-
-NT2_TEST_CASE_TPL ( frexp_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( frexp_real__1_0_1,  NT2_REAL_TYPES)
 {
 
   using nt2::frexp;
   using nt2::tag::frexp_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<frexp_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef std::pair<T,typename nt2::meta::as_integer<T,signed>::type> wished_r_t;
 
-
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
-
-  // random verifications
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  std::vector<T> in1(NR);
+  std::vector<r_t> ref(NR);
+  nt2::roll(in1, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+  for(nt2::uint32_t i=0; i < NR ; ++i)
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    T a0;
-    for(nt2::uint32_t j =0; j < NR; ++j )
-      {
-        std::cout << "for param "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << std::endl;
-        r_t r = nt2::frexp(a0);
-        typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
-        typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
-        r_t0 r0 = boost::fusion::get<0>(r);
-        r_t1 r1 = boost::fusion::get<1>(r);
-        NT2_TEST_EQUAL( r0, nt2::mantissa(a0)/2);
-        if (ulpd>ulp0) ulp0=ulpd;
-        NT2_TEST_EQUAL( r1, nt2::exponent(a0)+1);
-        if (ulpd>ulp0) ulp0=ulpd;
-     }
+    ref[i].first = nt2::mantissa(in1[i])/2;
+    ref[i].second = nt2::exponent(in1[i])+1;
+  }
+  NT2_COVER_ULP_EQUAL(frexp_, ((T, in1)), ref, 0);
+}
 
-   }
-} // end of test for floating_

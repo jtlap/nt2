@@ -17,7 +17,6 @@
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/functions/is_negative.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
-#include <iostream>
 
 NT2_TEST_CASE_TPL ( copysign,  NT2_REAL_TYPES)
 {
