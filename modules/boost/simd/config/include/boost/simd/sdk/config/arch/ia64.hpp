@@ -15,7 +15,6 @@
 
     #define BOOST_SIMD_ARCH_IA64
     #define BOOST_SIMD_ARCH "Intel 64"
-    #define BOOST_SIMD_ARCH_ALIGNMENT 16
 
   #endif
 #endif

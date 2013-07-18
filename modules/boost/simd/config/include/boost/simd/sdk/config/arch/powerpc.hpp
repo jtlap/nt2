@@ -17,7 +17,6 @@
 
     #define BOOST_SIMD_ARCH_POWERPC
     #define BOOST_SIMD_ARCH "Power PC"
-    #define BOOST_SIMD_ARCH_ALIGNMENT 16
 
   #endif
 #endif

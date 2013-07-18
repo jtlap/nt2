@@ -36,13 +36,6 @@
 #define BOOST_SIMD_CONFIG_ALIGNMENT BOOST_SIMD_CONFIG_ALIGNMENT
 #else
 
-// Fix for GCC Bug 35271 : http://gcc.gnu.org/bugzilla/show_bug.cgi?id=35271
-#if BOOST_SIMD_GCC_VERSION < 40203
-#define BOOST_SIMD_STACK_ALIGNMENT 8
-#else
-#define BOOST_SIMD_STACK_ALIGNMENT BOOST_SIMD_ARCH_ALIGNMENT
-#endif
-
 #endif
 
 #endif

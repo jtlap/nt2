@@ -38,7 +38,7 @@ variableName( &__##variableName##helper_pointer__[ 0 ]                         \
 ::alloca( size * sizeof( type ) )                                              \
 /**/
 
-#if BOOST_SIMD_STACK_ALIGNMENT >= BOOST_SIMD_CONFIG_ALIGNMENT
+#if BOOST_SIMD_ALLOCA_ALIGNMENT >= BOOST_SIMD_CONFIG_ALIGNMENT
 /// INTERNAL ONLY
 #define BOOST_SIMD_STACK_BUFFER_AUX_ALIGNED_ALLOCA                             \
 BOOST_SIMD_STACK_BUFFER_AUX_BUILTIN_ALLOCA                                     \
@@ -52,9 +52,9 @@ reinterpret_cast<void *>                                                       \
     reinterpret_cast</*std::*/intptr_t>                                        \
     (                                                                          \
       ::alloca( size * sizeof( type )                                          \
-    + BOOST_SIMD_CONFIG_ALIGNMENT - BOOST_SIMD_STACK_ALIGNMENT )              \
+    + BOOST_SIMD_CONFIG_ALIGNMENT - BOOST_SIMD_ALLOCA_ALIGNMENT )              \
     )                                                                          \
-    + BOOST_SIMD_CONFIG_ALIGNMENT - BOOST_SIMD_STACK_ALIGNMENT                \
+    + BOOST_SIMD_CONFIG_ALIGNMENT - BOOST_SIMD_ALLOCA_ALIGNMENT                \
   ) & ~( BOOST_SIMD_CONFIG_ALIGNMENT - 1 )                                     \
 )                                                                              \
 /**/
@@ -90,7 +90,7 @@ BOOST_SIMD_STACK_BUFFER_AUX_MAKE_RANGE( variableName, type, size )             \
 **/
 #define BOOST_SIMD_STACK_BUFFER( variableName, type, size )                    \
 BOOST_SIMD_STACK_BUFFER_AUX ( variableName, type, size                         \
-                            , BOOST_SIMD_STACK_ALIGNMENT                      \
+                            , BOOST_SIMD_ALLOCA_ALIGNMENT                      \
                             , BOOST_SIMD_STACK_BUFFER_AUX_ALIGNED_ALLOCA       \
                             )                                                  \
 /**/
