@@ -52,8 +52,7 @@ namespace boost { namespace simd { namespace ext
         A0 x  = b_notand(ci, a0);                             // clear exp. in a0
            r1 = sub(shri(r1,nmb), me);                        // compute exp.
            r0 = b_or(x,n2);                                   // insert exp.+1 in x
-
-        if (r1 > me)
+        if (r1 > Maxexponent<A0>())
         {
           r1   = 0;
           r0  += a0;
