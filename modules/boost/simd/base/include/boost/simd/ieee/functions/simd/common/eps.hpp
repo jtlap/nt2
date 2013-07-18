@@ -51,7 +51,7 @@ namespace boost { namespace simd { namespace ext
       return seladd(is_invalid(a),
                 select(boost::simd::is_less(a, Smallestposval<A0>()),
                      Mindenormal<A0>(),
-                     ldexp(One<A0>(), exponent(a)-Nbmantissabits<A0>())
+                     fast_ldexp(One<A0>(), exponent(a)-Nbmantissabits<A0>())
                      ),
                 Nan<A0>());
       }

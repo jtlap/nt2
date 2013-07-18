@@ -9,6 +9,7 @@
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_SCALAR_POW2_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_POW2_HPP_INCLUDED
 #include <nt2/exponential/functions/pow2.hpp>
+#include <nt2/include/functions/scalar/fast_ldexp.hpp>
 #include <nt2/include/functions/scalar/ldexp.hpp>
 #include <nt2/include/functions/scalar/toint.hpp>
 #include <nt2/include/constants/one.hpp>
@@ -73,7 +74,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL_REPEAT(1)
     {
-      return nt2::ldexp(One<A0>(), a0);
+      return nt2::fast_ldexp(One<A0>(), a0);
     }
   };
 } }

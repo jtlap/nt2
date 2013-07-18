@@ -10,6 +10,7 @@
 #define NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_POW2_HPP_INCLUDED
 #include <nt2/exponential/functions/pow2.hpp>
 #include <nt2/include/functions/simd/ldexp.hpp>
+#include <nt2/include/functions/simd/fast_ldexp.hpp>
 #include <nt2/include/functions/simd/toint.hpp>
 #include <nt2/include/functions/simd/twopower.hpp>
 #include <nt2/include/functions/simd/is_nan.hpp>
@@ -97,7 +98,7 @@ namespace nt2 { namespace ext
       return nt2::if_allbits_else(is_nan(a0),
                                   nt2::if_else(is_inf(a0),
                                                if_else(is_gtz(a0), a0, Zero<result_type>()),
-                                               nt2::ldexp(One<A0>(), nt2::toint(a0))
+                                               nt2::fast_ldexp(One<A0>(), nt2::toint(a0))
                                                )
                                   );
     }
