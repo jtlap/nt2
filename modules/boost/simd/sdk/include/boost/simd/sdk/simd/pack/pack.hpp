@@ -167,15 +167,25 @@ namespace boost { namespace simd
       static_cast<parent&>(*this) = t;
     }
 
-    // Work around for Apple Clang 3.2 (issue #495)
-#if ! (     defined(__clang__)                                                 \
-        &&  defined(__apple_build_version__)                                   \
-        &&  (__apple_build_version__ <= 4250028)                               \
-      )
-    using parent::operator=;
-#endif
+    //==========================================================================
+    // operator= for pack
+    //==========================================================================
+    BOOST_DISPATCH_FORCE_INLINE pack& operator=(pack const& src)
+    {
+      boost::proto::value(*this) = boost::proto::value(src);
+      return *this;
+    }
 
-    reference        operator[](std::size_t i)
+    template<class Xpr>
+    BOOST_DISPATCH_FORCE_INLINE
+    typename boost::disable_if<boost::is_base_of<parent,Xpr>, pack&>::type
+    operator=(Xpr const& xpr)
+    {
+      parent::operator=(xpr);
+      return *this;
+    }
+
+    reference operator[](std::size_t i)
     {
       return boost::proto::value(*this)[i];
     }

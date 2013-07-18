@@ -94,13 +94,21 @@ namespace nt2 { namespace container
     //==========================================================================
     // Enable base expression handling of assignment
     //==========================================================================
-    // Work around for Apple Clang 3.2 (issue #495)
-#if ! (     defined(__clang__)                                                 \
-        &&  defined(__apple_build_version__)                                   \
-        &&  (__apple_build_version__ <= 4250028)                               \
-      )
-    using nt2_expression::operator=;
-#endif
+    template<class Xpr> BOOST_FORCEINLINE
+    typename boost::disable_if< boost::is_base_of<nt2_expression, Xpr>
+                              , table&
+                              >::type
+    operator=(Xpr const& xpr)
+    {
+      nt2_expression::operator=(xpr);
+      return *this;
+    }
+
+    BOOST_FORCEINLINE table& operator=(table const& xpr)
+    {
+      nt2_expression::operator=(xpr);
+      return *this;
+    }
 
     iterator        begin()       { return nt2_expression::raw(); }
     const_iterator  begin() const { return nt2_expression::raw(); }
