@@ -24,12 +24,12 @@ NT2_TEST_CASE_TPL ( copysign,  NT2_REAL_TYPES)
 
   using nt2::copysign;
   using nt2::tag::copysign_;
-  nt2::uint32_t NR = NT2_NB_RANDOM_TEST*100;
+  nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   typedef typename nt2::meta::as_logical<T>::type lT;
   std::vector<T> in1(NR);
   std::vector<T> in2(NR), in3(NR);
-  int64_t Mi = nt2::Valmin<T>();
-  int64_t Ma = nt2::Valmax<T>();
+  T Mi = nt2::Valmin<T>()/2;
+  T Ma = nt2::Valmax<T>()/2;
   nt2::roll(in1, T(Mi), T(Ma));
   nt2::roll(in2, T(Mi), T(Ma));
   std::vector<T>  ref(NR);

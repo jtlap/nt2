@@ -26,8 +26,8 @@ NT2_TEST_CASE_TPL ( bitinteger,  NT2_REAL_TYPES)
   typedef typename nt2::meta::as_integer<T>::type iT;
   nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   std::vector<T> in1(NR), in2(NR);
-  int64_t Mi = nt2::Valmin<T>();
-  int64_t Ma = nt2::Valmax<T>();
+  T Mi = nt2::Valmin<T>()/2;
+  T Ma = nt2::Valmax<T>()/2;
   nt2::roll(in1, T(Mi), T(Ma));
   std::vector<iT>  ref(NR);
   for(nt2::uint32_t i=0; i < NR ; ++i)

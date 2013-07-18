@@ -27,8 +27,8 @@ NT2_TEST_CASE_TPL ( bitofsign,  NT2_TYPES)
   typedef typename nt2::meta::as_logical<T>::type lT;
   std::vector<T> in1(NR);
   std::vector<T> in2(NR);
-  int64_t Mi = nt2::Valmin<T>();
-  int64_t Ma = nt2::Valmax<T>();
+  T Mi = nt2::Valmin<T>();
+  T Ma = nt2::Valmax<T>();
   nt2::roll(in1, T(Mi), T(Ma));
   std::vector<lT>  ref(NR);
   for(nt2::uint32_t i=0; i < NR ; ++i)
