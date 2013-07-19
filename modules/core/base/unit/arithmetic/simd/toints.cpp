@@ -28,7 +28,7 @@
 #include <nt2/include/constants/mone.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <nt2/include/functions/simd/make.hpp>
-
+#include <nt2/include/functions/aligned_load.hpp>
 
 
 NT2_TEST_CASE_TPL ( toints_real,  BOOST_SIMD_SIMD_REAL_TYPES)
