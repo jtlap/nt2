@@ -12,6 +12,7 @@
 #include <boost/simd/sdk/meta/iterate.hpp>
 #include <boost/simd/include/functions/aligned_store.hpp>
 #include <boost/simd/include/functions/aligned_load.hpp>
+#include <boost/simd/include/functions/plus.hpp>
 
 #include <boost/fusion/include/at.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
