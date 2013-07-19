@@ -12,18 +12,28 @@
 #include <boost/simd/include/functions/simd/min.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/abs.hpp>
+#include <boost/simd/include/functions/simd/max.hpp>
+#include <boost/simd/include/functions/simd/is_greater.hpp>
+#include <boost/simd/include/functions/simd/is_less.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minmag_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
-                            )
+                                   , (A0)(X)
+                                   , ((simd_<unspecified_<A0>,X>))
+                                     ((simd_<unspecified_<A0>,X>))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return select(lt(abs(a0), boost::simd::abs(a1)), a0, a1);
+      A0 aa0 =  boost::simd::abs(a0);
+      A0 aa1 =  boost::simd::abs(a1);
+      return select(lt(aa0, aa1), a0,
+                    select(gt(aa0, aa1), a1,
+                           boost::simd::max(a0, a1)
+                          )
+                   );
     }
   };
 } } }
