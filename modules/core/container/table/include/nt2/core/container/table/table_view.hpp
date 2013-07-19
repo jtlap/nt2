@@ -255,14 +255,42 @@ namespace nt2 { namespace container
       this->size_ = tmp.size_;
     }
 
-        // Work around for Apple Clang 3.2 (issue #495)
-#if ! (     defined(__clang__)                                                 \
-        &&  defined(__apple_build_version__)                                   \
-        &&  (__apple_build_version__ <= 4250028)                               \
-      )
-    using nt2_expression::operator=;
-#endif
+    //==========================================================================
+    // Enable base expression handling of assignment
+    //==========================================================================
+    template<class Xpr> BOOST_FORCEINLINE
+    typename boost::disable_if< boost::is_base_of<nt2_expression, Xpr>
+                              , table_shared_view&
+                              >::type
+    operator=(Xpr const& xpr)
+    {
+      nt2_expression::operator=(xpr);
+      return *this;
+    }
 
+    BOOST_FORCEINLINE
+    table_shared_view& operator=(table_shared_view const& xpr)
+    {
+      nt2_expression::operator=(xpr);
+      return *this;
+    }
+
+    template<class Xpr> BOOST_FORCEINLINE
+    typename boost::disable_if< boost::is_base_of<nt2_expression, Xpr>
+                              , table_shared_view const&
+                              >::type
+    operator=(Xpr const& xpr) const
+    {
+      nt2_expression::operator=(xpr);
+      return *this;
+    }
+
+    BOOST_FORCEINLINE
+    table_shared_view const& operator=(table_shared_view const& xpr) const
+    {
+      nt2_expression::operator=(xpr);
+      return *this;
+    }
   };
 
   template<class T, class S>
@@ -315,14 +343,42 @@ namespace nt2 { namespace container
       this->size_ = tmp.size_;
     }
 
-        // Work around for Apple Clang 3.2 (issue #495)
-#if ! (     defined(__clang__)                                                 \
-        &&  defined(__apple_build_version__)                                   \
-        &&  (__apple_build_version__ <= 4250028)                               \
-      )
-    using nt2_expression::operator=;
-#endif
+    //==========================================================================
+    // Enable base expression handling of assignment
+    //==========================================================================
+    template<class Xpr> BOOST_FORCEINLINE
+    typename boost::disable_if< boost::is_base_of<nt2_expression, Xpr>
+                              , table_shared_view&
+                              >::type
+    operator=(Xpr const& xpr)
+    {
+      nt2_expression::operator=(xpr);
+      return *this;
+    }
 
+    BOOST_FORCEINLINE
+    table_shared_view& operator=(table_shared_view const& xpr)
+    {
+      nt2_expression::operator=(xpr);
+      return *this;
+    }
+
+    template<class Xpr> BOOST_FORCEINLINE
+    typename boost::disable_if< boost::is_base_of<nt2_expression, Xpr>
+                              , table_shared_view const&
+                              >::type
+    operator=(Xpr const& xpr) const
+    {
+      nt2_expression::operator=(xpr);
+      return *this;
+    }
+
+    BOOST_FORCEINLINE
+    table_shared_view const& operator=(table_shared_view const& xpr) const
+    {
+      nt2_expression::operator=(xpr);
+      return *this;
+    }
   };
 
 } }
