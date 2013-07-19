@@ -10,7 +10,6 @@
 SET( SOURCES
   negate.cpp
   sign.cpp
-  negation.cpp
   sbits.cpp
   signnz.cpp
   prev.cpp

@@ -22,7 +22,6 @@ SET( SOURCES
   nextpow2.cpp
   nextafter.cpp
   next.cpp
-  negation.cpp
   negate.cpp
   modf.cpp
   minnummag.cpp
