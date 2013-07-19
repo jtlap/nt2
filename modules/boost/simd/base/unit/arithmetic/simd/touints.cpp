@@ -68,6 +68,7 @@ NT2_TEST_CASE_TPL ( touints_integral,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   NT2_TEST_EQUAL(touints(boost::simd::One<vT>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(touints(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
 } // end of test for floating_
+
 NT2_TEST_CASE_TPL ( touints_signed_int,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::touints;

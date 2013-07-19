@@ -53,42 +53,27 @@ NT2_TEST_CASE_TPL ( toints_real,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(toints(nt2::Zero<vT>()), nt2::Zero<r_t>());
 } // end of test for floating_
 
-#if BOOST_SIMD_BYTES == 16
-NT2_TEST_CASE_TPL ( toints_realf,  (float))
+NT2_TEST_CASE_TPL ( toints_real2,   BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using nt2::toints;
   using nt2::tag::toints_;
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION                                ext_t;
   typedef native<T,ext_t>                                                vT;
-  typedef typename boost::dispatch::meta::call<toints_(vT)>::type       r_t;
-  typedef typename boost::dispatch::meta::call<toints_(T)>::type         iT;
+  typedef typename boost::dispatch::meta::call<toints_(vT)>::type      r_t;
+  typedef typename boost::dispatch::meta::call<toints_(T)>::type        iT;
+  typedef native<iT,ext_t>                                              ivT;
 
-  vT  a =  nt2::make<vT> (nt2::One<float>(), nt2::Inf<float>(), nt2::Minf<float>(), nt2::Nan<float>());
-  r_t b =  nt2::make<r_t>(nt2::One<iT>()   , nt2::Inf<iT>(),    nt2::Minf<iT>(),    nt2::Nan<iT>()   );
-  NT2_TEST_EQUAL(toints(a), b);
+  T data[] = {nt2::One<T>(), nt2::Inf<T>(), nt2::Minf<T>(), nt2::Nan<T>(),nt2::One<T>(), nt2::Inf<T>(), nt2::Minf<T>(), nt2::Nan<T>(), };
+  iT idat[] = {nt2::One<iT>(), nt2::Inf<iT>(), nt2::Minf<iT>(), nt2::Nan<iT>(), nt2::One<iT>(), nt2::Inf<iT>(), nt2::Minf<iT>(), nt2::Nan<iT>()};
+  nt2::uint32_t NR =  (sizeof(data)/sizeof(T));
+  for(nt2::uint32_t j = 0; j < NR;j+=nt2::meta::cardinal_of<vT>::value)
+  {
+    vT   a =  nt2::aligned_load<vT>(&data[0],j);
+    ivT ia =  nt2::aligned_load<ivT>(&idat[0],j);
+    NT2_TEST_EQUAL(toints(a), ia);
+  }
 }
-
-#if !defined(BOOST_SIMD_ARCH_POWERPC)
-NT2_TEST_CASE_TPL ( toints_reald,  (double))
-{
-  using nt2::toints;
-  using nt2::tag::toints_;
-  using boost::simd::native;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION                                ext_t;
-  typedef native<T,ext_t>                                                vT;
-  typedef typename boost::dispatch::meta::call<toints_(vT)>::type       r_t;
-  typedef typename boost::dispatch::meta::call<toints_(T)>::type         iT;
-
-  vT  a1 =  nt2::make<vT> (nt2::One<float>(), nt2::Inf<float>());
-  vT  a2 =  nt2::make<vT> (nt2::Minf<float>(), nt2::Nan<float>());
-  r_t b1 =  nt2::make<r_t>(nt2::One<iT>()   , nt2::Inf<iT>());
-  r_t b2 =  nt2::make<r_t>(nt2::Minf<iT>(), nt2::Nan<iT>());
-  NT2_TEST_EQUAL(toints(a1), b1);
-  NT2_TEST_EQUAL(toints(a2), b2);
-}
-#endif
-#endif
 
 NT2_TEST_CASE_TPL ( toints_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
 {
