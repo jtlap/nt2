@@ -64,8 +64,8 @@ NT2_TEST_CASE_TPL ( toints_real,  BOOST_SIMD_SIMD_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( toints_real2,   BOOST_SIMD_SIMD_REAL_TYPES)
 {
-  using nt2::toints;
-  using nt2::tag::toints_;
+  using boost::simd::toints;
+  using boost::simd::tag::toints_;
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION                                ext_t;
   typedef native<T,ext_t>                                                vT;
@@ -73,13 +73,13 @@ NT2_TEST_CASE_TPL ( toints_real2,   BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<toints_(T)>::type        iT;
   typedef native<iT,ext_t>                                              ivT;
 
-  T data[] = {nt2::One<T>(), nt2::Inf<T>(), nt2::Minf<T>(), nt2::Nan<T>(),nt2::One<T>(), nt2::Inf<T>(), nt2::Minf<T>(), nt2::Nan<T>(), };
-  iT idat[] = {nt2::One<iT>(), nt2::Inf<iT>(), nt2::Minf<iT>(), nt2::Nan<iT>(), nt2::One<iT>(), nt2::Inf<iT>(), nt2::Minf<iT>(), nt2::Nan<iT>()};
-  nt2::uint32_t NR =  (sizeof(data)/sizeof(T));
-  for(nt2::uint32_t j = 0; j < NR;j+=nt2::meta::cardinal_of<vT>::value)
+  T data[] = {boost::simd::One<T>(), boost::simd::Inf<T>(), boost::simd::Minf<T>(), boost::simd::Nan<T>(),boost::simd::One<T>(), boost::simd::Inf<T>(), boost::simd::Minf<T>(), boost::simd::Nan<T>(), };
+  iT idat[] = {boost::simd::One<iT>(), boost::simd::Inf<iT>(), boost::simd::Minf<iT>(), boost::simd::Nan<iT>(), boost::simd::One<iT>(), boost::simd::Inf<iT>(), boost::simd::Minf<iT>(), boost::simd::Nan<iT>()};
+  boost::simd::uint32_t NR =  (sizeof(data)/sizeof(T));
+  for(nt2::uint32_t j = 0; j < NR;j+=boost::simd::meta::cardinal_of<vT>::value)
   {
-    vT   a =  nt2::aligned_load<vT>(&data[0],j);
-    ivT ia =  nt2::aligned_load<ivT>(&idat[0],j);
+    vT   a =  boost::simd::aligned_load<vT>(&data[0],j);
+    ivT ia =  boost::simd::aligned_load<ivT>(&idat[0],j);
     NT2_TEST_EQUAL(toints(a), ia);
   }
 }
