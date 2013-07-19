@@ -10,18 +10,23 @@
 #define BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_MINMAG_HPP_INCLUDED
 #include <boost/simd/ieee/functions/minmag.hpp>
 #include <boost/simd/include/functions/scalar/abs.hpp>
+#include <boost/simd/include/functions/scalar/min.hpp>
+
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minmag_, tag::cpu_
-                            , (A0)
-                            , (scalar_< fundamental_<A0> >)(scalar_< fundamental_<A0> >)
-                            )
+                                   , (A0)
+                                   , (scalar_< unspecified_<A0> >)
+                                     (scalar_< unspecified_<A0> >)
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return (boost::simd::abs(a0) <  boost::simd::abs(a1)) ? a0 : a1;
+      A0 aa0 =  boost::simd::abs(a0);
+      A0 aa1 =  boost::simd::abs(a1);
+      return (aa0 < aa1) ? a0 : (aa0 > aa1) ? a1 : boost::simd::min(a0, a1);
     }
   };
 } } }

@@ -11,32 +11,40 @@
 #include <boost/simd/ieee/functions/minnummag.hpp>
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
 #include <boost/simd/include/functions/scalar/abs.hpp>
+#include <boost/simd/include/functions/scalar/minmag.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minnummag_, tag::cpu_
-                            , (A0)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)
-                            )
+                                   , (A0)
+                                   , (scalar_< unspecified_<A0> >)
+                                     (scalar_< unspecified_<A0> >)
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return (boost::simd::abs(a0) <  boost::simd::abs(a1)) ? a0 : a1;
+      return minmag(a0, a1);
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minnummag_, tag::cpu_
-                            , (A0)
-                            , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)
-                            )
+                                   , (A0)
+                                   , (scalar_< floating_<A0> >)
+                                     (scalar_< floating_<A0> >)
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      if (is_nan(a0)) return a1;
-      else if (is_nan(a1)) return a0;
-      else return (boost::simd::abs(a0) <  boost::simd::abs(a1) ?a0:a1);
+      if (is_nan(a0))
+        return a1;
+      else if (is_nan(a1))
+        return a0;
+      else
+      {
+        return minmag(a0, a1);
+      }
     }
   };
 } } }
