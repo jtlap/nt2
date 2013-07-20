@@ -10,6 +10,8 @@
 #define BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_SATURATE_HPP_INCLUDED
 
 #include <boost/simd/ieee/functions/saturate.hpp>
+#include <boost/simd/include/functions/touints.hpp>
+#include <boost/simd/include/functions/toints.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
@@ -22,8 +24,8 @@ namespace boost { namespace simd { namespace ext
   //============================================================================
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::saturate_, tag::cpu_
                                     , (A0)(T)
-                                    , (scalar_< arithmetic_<A0> >)
-                                      (target_< generic_<arithmetic_<T> > >)
+                                    , (scalar_< floating_<A0> >)
+                                      (target_< generic_<floating_<T> > >)
                                     )
   {
     typedef A0 result_type;
@@ -34,6 +36,37 @@ namespace boost { namespace simd { namespace ext
       return static_cast<target_t>(a0);
     }
   };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::saturate_, tag::cpu_
+                                    , (A0)(T)
+                                    , (scalar_< floating_<A0> >)
+                                      (target_< generic_<uint_<T> > >)
+                                    )
+  {
+    typedef A0 result_type;
+    typedef typename meta::scalar_of<T>::type target_t;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, T const& ) const
+    {
+      return saturate<target_t>(touints(a0));
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::saturate_, tag::cpu_
+                                    , (A0)(T)
+                                    , (scalar_< floating_<A0> >)
+                                      (target_< generic_<int_<T> > >)
+                                    )
+  {
+    typedef A0 result_type;
+    typedef typename meta::scalar_of<T>::type target_t;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, T const& ) const
+    {
+      return saturate<target_t>(toints(a0));
+    }
+  };
+
 
   //============================================================================
   // Trivial case int/xxx : Just compare over Valmax/Valmin after conversion

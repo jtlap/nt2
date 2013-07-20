@@ -6,63 +6,73 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 ieee toolbox - saturate/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// cover test behavior of ieee components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 20/03/2011
-///
 #include <nt2/ieee/include/functions/saturate.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_signed.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/meta/downgrade.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/type_traits/common_type.hpp>
+#include <vector>
 #include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/cover.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/io.hpp>
+#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/constants/valmax.hpp>
+#include <nt2/include/constants/valmin.hpp>
 
-#include <nt2/constant/constant.hpp>
-
-
-NT2_TEST_CASE_TPL ( saturate_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( saturate,  NT2_TYPES)
 {
 
   using nt2::saturate;
-  using nt2::meta::as_;
   using nt2::tag::saturate_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<saturate_(T,as_<uint16_t>)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
-
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
-
-  // random verifications
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  typedef typename nt2::meta::as_<uint16_t> aT;
+  std::vector<T> in1(NR);
+  std::vector<aT> in2(NR);
+  T Mi = nt2::Valmin<T>()/2;
+  T Ma = nt2::Valmax<T>()/2;
+  nt2::roll(in1, T(Mi), T(Ma));
+  std::vector<T> ref(NR);
+  for(nt2::uint32_t i=0; i < NR ; ++i)
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    T a0;
-    for(nt2::uint32_t j =0; j < NR; ++j )
-      {
-        std::cout << "for param "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << std::endl;
-        NT2_TEST_ULP_EQUAL( saturate<uint16_t>(a0),a0>nt2::Valmax<uint16_t>() ? nt2::Valmax<uint16_t>() : a0,1);
-        ulp0=nt2::max(ulpd,ulp0);
-     }
-     std::cout << "max ulp found is: " << ulp0 << std::endl;
-   }
-} // end of test for unsigned_int_
+    ref[i] = (in1[i] >= 0) ? ((in1[i] > nt2::Valmax<uint16_t>()) ? nt2::Valmax<uint16_t>() : in1[i]) : 0;
+  }
+  NT2_COVER_ULP_EQUAL(saturate_, ((T, in1))((aT, in2)), ref, 0);
+}
+
+NT2_TEST_CASE_TPL ( saturatesigned,  NT2_INTEGRAL_SIGNED_TYPES)
+{
+
+  using nt2::saturate;
+  using nt2::tag::saturate_;
+  nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  typedef typename nt2::meta::as_<int16_t> aT;
+  std::vector<T> in1(NR);
+  std::vector<aT> in2(NR);
+  T Mi = nt2::Valmin<T>()/2;
+  T Ma = nt2::Valmax<T>()/2;
+  nt2::roll(in1, T(Mi), T(Ma));
+  std::vector<T> ref(NR);
+  for(nt2::uint32_t i=0; i < NR ; ++i)
+  {
+    ref[i] = ((in1[i] <= nt2::Valmin<int16_t>()) ?  nt2::Valmin<int16_t>() :
+              ((in1[i] > nt2::Valmax<int16_t>()) ? nt2::Valmax<int16_t>() : in1[i]));
+  }
+  NT2_COVER_ULP_EQUAL(saturate_, ((T, in1))((aT, in2)), ref, 0);
+}
+NT2_TEST_CASE_TPL ( saturateunsigned,  NT2_UNSIGNED_TYPES)
+{
+
+  using nt2::saturate;
+  using nt2::tag::saturate_;
+  nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  typedef typename nt2::meta::as_<int16_t> aT;
+  std::vector<T> in1(NR);
+  std::vector<aT> in2(NR);
+  T Mi = nt2::Valmin<T>()/2;
+  T Ma = nt2::Valmax<T>()/2;
+  nt2::roll(in1, T(Mi), T(Ma));
+  std::vector<T> ref(NR);
+  for(nt2::uint32_t i=0; i < NR ; ++i)
+  {
+    ref[i] = ((in1[i] <= 0) ?  nt2::Valmin<int16_t>() :
+              ((in1[i] > uint16_t(nt2::Valmax<int16_t>())) ? nt2::Valmax<int16_t>() : in1[i]));
+  }
+  NT2_COVER_ULP_EQUAL(saturate_, ((T, in1))((aT, in2)), ref, 0);
+}
