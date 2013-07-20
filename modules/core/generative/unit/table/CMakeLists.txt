@@ -43,6 +43,7 @@ half.cpp
 halfeps.cpp
 homot.cpp
 hundred.cpp
+ind2sub.cpp
 indices.cpp
 infs.cpp
 ldexpmask.cpp
@@ -108,6 +109,7 @@ sqrt_2o_3.cpp
 sqrteps.cpp
 sqrtsmallestposval.cpp
 sqrtvalmax.cpp
+sub2ind.cpp
 ten.cpp
 third.cpp
 thirdrooteps.cpp
