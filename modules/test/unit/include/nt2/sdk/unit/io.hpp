@@ -14,6 +14,7 @@
 #include <iostream>
 #include <algorithm>
 #include <boost/simd/sdk/details/io_fix.hpp>
+#include <nt2/sdk/meta/type_id.hpp>
 
 namespace std
 {
@@ -36,6 +37,14 @@ namespace std
     os << "["   << boost::simd::details::display(xpr.first)
        << ",  " << boost::simd::details::display(xpr.second)
        << "]";
+
+    return os;
+  }
+
+  template<typename T>
+  inline std::ostream& operator<<(std::ostream& os, nt2::meta::as_<T> const& xpr)
+  {
+    os <<  "as_<" << nt2::type_id<T>() << ">";
 
     return os;
   }
