@@ -19,7 +19,7 @@
 #include <nt2/include/functions/subs.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+
 #include <nt2/sdk/unit/tests/cover.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>

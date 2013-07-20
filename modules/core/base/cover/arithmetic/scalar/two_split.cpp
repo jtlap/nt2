@@ -21,6 +21,7 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/tests/cover.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/include/functions/idivround.hpp>
 
