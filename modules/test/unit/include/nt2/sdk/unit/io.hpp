@@ -15,6 +15,7 @@
 #include <algorithm>
 #include <boost/simd/sdk/details/io_fix.hpp>
 #include <nt2/sdk/meta/type_id.hpp>
+#include <nt2/sdk/meta/as.hpp>
 
 namespace std
 {
