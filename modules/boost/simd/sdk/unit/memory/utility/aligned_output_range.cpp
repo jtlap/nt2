@@ -73,7 +73,7 @@ NT2_TEST_CASE_TPL(iteration, BOOST_SIMD_TYPES)
   std::vector<T, allocator<T> >  data(4*ps);
 
   typedef typename std::vector<T, allocator<T> >::iterator it_t;
-  boost::iterator_range<aligned_output_iterator<it_t> > r = aligned_output_range(data);
+//  boost::iterator_range<aligned_output_iterator<it_t> > r = aligned_output_range(data);
 
   for(std::size_t i=0;i<data.size();i++)
     data[i] = T(0);

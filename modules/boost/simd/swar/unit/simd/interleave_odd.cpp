@@ -33,7 +33,6 @@ NT2_TEST_CASE_TPL(interleave_odd, BOOST_SIMD_SIMD_TYPES)
 
   c = boost::simd::interleave_odd(a,b);
 
-  std::size_t index = 0;
   for(std::size_t i=0; i<card; ++i)
   {
     NT2_TEST_EQUAL(c[i],(i%2==0)?a[i+1]:b[i]);
