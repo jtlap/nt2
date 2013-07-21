@@ -6,12 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - touint/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// cover test behavior of arithmetic components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-
 #include <nt2/arithmetic/include/functions/touint.hpp>
 #include <vector>
 #include <nt2/include/constants/valmin.hpp>
