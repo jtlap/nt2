@@ -10,22 +10,22 @@
 // cover test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 
-#include <nt2/bitwise/include/functions/bitwise_notand.hpp>
+#include <nt2/bitwise/include/functions/bitwise_andnot.hpp>
 #include <vector>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/include/constants/valmin.hpp>
 #include <nt2/include/constants/valmax.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+
 #include <nt2/sdk/unit/tests/cover.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/include/functions/bitwise_cast.hpp>
 
-NT2_TEST_CASE_TPL ( bitwise_notand,  NT2_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( bitwise_andnot,  NT2_INTEGRAL_TYPES)
 {
 
-  using nt2::bitwise_notand;
-  using nt2::tag::bitwise_notand_;
-  typedef typename nt2::meta::call<bitwise_notand_(T, T)>::type r_t;
+  using nt2::bitwise_andnot;
+  using nt2::tag::bitwise_andnot_;
+  typedef typename nt2::meta::call<bitwise_andnot_(T, T)>::type r_t;
   typedef typename nt2::meta::as_integer<T, unsigned>::type uiT;
 
   nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
@@ -35,8 +35,8 @@ NT2_TEST_CASE_TPL ( bitwise_notand,  NT2_INTEGRAL_TYPES)
   std::vector<r_t>  ref(NR);
   for(nt2::uint32_t i=0; i < NR ; ++i)
   {
-    ref[i] = ~in1[i]&in2[i];
+    ref[i] = in1[i]&~in2[i];
   }
 
-  NT2_COVER_ULP_EQUAL(bitwise_notand_, ((T, in1))((T, in2)), ref, 0);
+  NT2_COVER_ULP_EQUAL(bitwise_andnot_, ((T, in1))((T, in2)), ref, 0);
 }
