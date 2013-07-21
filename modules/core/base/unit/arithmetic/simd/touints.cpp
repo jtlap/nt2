@@ -75,7 +75,7 @@ NT2_TEST_CASE_TPL ( touints_real2,   BOOST_SIMD_SIMD_REAL_TYPES)
   }
 }
 
-NT2_TEST_CASE_TPL ( touints_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( touints_unsigned_int,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
 
   using nt2::touints;
@@ -94,7 +94,7 @@ NT2_TEST_CASE_TPL ( touints_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(touints(nt2::Zero<vT>()), nt2::Zero<r_t>());
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( touints_signed,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( touints_signed,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
 
   using nt2::touints;
