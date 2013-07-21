@@ -12,7 +12,7 @@
 #include <boost/simd/bitwise/functions/hi.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/functions/scalar/bitwise_and.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -28,9 +28,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename dispatch::meta::as_integer<A0,unsigned>::type type;
-      BOOST_STATIC_CONSTANT(type, shift   = sizeof(type)*4);
-      BOOST_STATIC_CONSTANT(type, pattern = type(type(-1)<<shift));
-      return b_and(pattern, a0) >> shift;
+      return bitwise_cast<type>(a0) >> (sizeof(type) << 2);
     }
   };
 } } }
