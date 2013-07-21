@@ -10,6 +10,8 @@
 #define BOOST_SIMD_BITWISE_FUNCTIONS_SCALAR_RSHR_HPP_INCLUDED
 
 #include <boost/simd/bitwise/functions/rshr.hpp>
+#include <boost/simd/include/functions/simd/shift_left.hpp>
+#include <boost/simd/include/functions/scalar/shr.hpp>
 #include <boost/simd/include/functions/scalar/unary_minus.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
@@ -24,8 +26,8 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return (a1>0) ? a0 >> a1 : a0 << boost::simd::neg(a1);
-    }
+      return (a1>0) ? shr(a0, a1): shl(a0, -a1);
+  }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rshr_, tag::cpu_, (A0)(A1)
@@ -34,7 +36,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2) { return a0 >> a1; }
+    BOOST_SIMD_FUNCTOR_CALL(2) { return  shr(a0, a1); }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rshr_, tag::cpu_, (A0)(A1)
