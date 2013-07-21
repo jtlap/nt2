@@ -8,7 +8,7 @@
 //==============================================================================
 #include <nt2/boolean/include/functions/if_one_else_zero.hpp>
 #include <vector>
-#include <nt2/sdk/unit/tests.hpp>
+
 #include <nt2/sdk/unit/tests/cover.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/include/constants/valmax.hpp>
@@ -16,7 +16,7 @@
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/max.hpp>
 
-NT2_TEST_CASE_TPL ( if_one_else_zero_real__1_0,  NT2_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( if_one_else_zero,  NT2_SIGNED_TYPES)
 {
 
   using nt2::if_one_else_zero;

@@ -6,59 +6,45 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boolean toolbox - if_one_else_zero/simd Mode"
+//////////////////////////////////////////////////////////////////////////////
+// cover test behavior of arithmetic components in simd mode
+//////////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////////
-// cover test behavior of boolean components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 21/02/2011
-///
 #include <nt2/boolean/include/functions/if_one_else_zero.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <nt2/sdk/simd/logical.hpp>
-#include <boost/simd/sdk/simd/io.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <vector>
+#include <nt2/include/constants/valmin.hpp>
+#include <nt2/include/constants/valmax.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
+
+#include <nt2/sdk/unit/tests/cover.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 
-#include <nt2/include/functions/aligned_load.hpp>
-
-
-
-NT2_TEST_CASE_TPL ( if_one_else_zero_real__1_0,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( if_one_else_zero_all_types,  NT2_SIMD_TYPES)
 {
   using nt2::if_one_else_zero;
   using nt2::tag::if_one_else_zero_;
-  using nt2::aligned_load;
   using boost::simd::native;
-  using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<if_one_else_zero_(vT)>::type r_t;
-  typedef typename nt2::meta::call<if_one_else_zero_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
+  typedef native<T,ext_t>                nT;
+  typedef typename nt2::meta::as_logical<T>::type lT;
+
+  typedef typename nt2::meta::call<if_one_else_zero_(lT)>::type r_t;
 
   // random verifications
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  nt2::uint32_t NR  = NT2_NB_RANDOM_TEST;
+  std::vector<lT> in0(NR);
+  std::vector<T> in1(NR), in2(NR);
+  nt2::roll(in1, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+  nt2::roll(in2, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+
+  std::vector<r_t> ref(NR);
+  for(nt2::uint32_t i=0; i < NR ; ++i)
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-10000), T(10000));
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
-      {
-        vT a0 = aligned_load<vT>(&tab_a0[0],j);
-        r_t v = if_one_else_zero(a0);
-        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
-        {
+    in0[i] = in1[i] > in2[i];
+    ref[i] = if_one_else_zero(in0[i]);
 
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::if_one_else_zero (a0[i])));
-        }
-      }
-
+  NT2_COVER_ULP_EQUAL(if_one_else_zero_, ((nT, in0)), ref, 0);
   }
-} // end of test for floating_
+}

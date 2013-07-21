@@ -8,7 +8,7 @@
 //==============================================================================
 #include <nt2/boolean/include/functions/if_zero_else_one.hpp>
 #include <vector>
-#include <nt2/sdk/unit/tests.hpp>
+
 #include <nt2/sdk/unit/tests/cover.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/include/constants/valmax.hpp>

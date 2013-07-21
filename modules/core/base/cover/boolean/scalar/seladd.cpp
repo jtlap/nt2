@@ -9,7 +9,7 @@
 #include <nt2/boolean/include/functions/seladd.hpp>
 #include <vector>
 #include <nt2/sdk/meta/as_logical.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+
 #include <nt2/sdk/unit/tests/cover.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/include/constants/valmax.hpp>

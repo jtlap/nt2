@@ -6,45 +6,34 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-//////////////////////////////////////////////////////////////////////////////
-// cover test behavior of arithmetic components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-
-#include <nt2/boolean/include/functions/selsub.hpp>
+#include <nt2/boolean/include/functions/logical_andnot.hpp>
 #include <vector>
 #include <nt2/include/constants/valmin.hpp>
 #include <nt2/include/constants/valmax.hpp>
-#include <nt2/sdk/meta/as_logical.hpp>
 
 #include <nt2/sdk/unit/tests/cover.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 
-NT2_TEST_CASE_TPL ( selsub_all_types,  NT2_SIMD_TYPES)
+NT2_TEST_CASE_TPL ( logical_andnot_all_types,  NT2_SIMD_TYPES)
 {
-  using nt2::selsub;
-  using nt2::tag::selsub_;
+  using nt2::logical_andnot;
+  using nt2::tag::logical_andnot_;
   using boost::simd::native;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                nT;
-  typedef typename nt2::meta::as_logical<T>::type lT;
 
-  typedef typename nt2::meta::call<selsub_(lT, T, T)>::type r_t;
+  typedef typename nt2::meta::call<logical_andnot_(T, T)>::type r_t;
 
   // random verifications
   nt2::uint32_t NR  = NT2_NB_RANDOM_TEST;
-  std::vector<lT> in0(NR);
   std::vector<T> in1(NR), in2(NR);
   nt2::roll(in1, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
   nt2::roll(in2, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
 
   std::vector<r_t> ref(NR);
-  for(nt2::uint32_t i=0; i < NR ; ++i)
-  {
-    in0[i] = in1[i] > in2[i];
-    ref[i] = selsub(in0[i] , in2[i], in1[i]);
-  }
-  NT2_COVER_ULP_EQUAL(selsub_, ((nT, in0))((nT, in2))((nT, in1)), ref, 0);
+  for(nt2::uint32_t i=0; i < NR ; ++i) ref[i] = logical_andnot(in1[i], in2[i]);
+  NT2_COVER_ULP_EQUAL(logical_andnot_, ((nT, in1))((nT, in2)), ref, 0);
 
 }
