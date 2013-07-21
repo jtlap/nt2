@@ -38,7 +38,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::as_integer<A0, unsigned>::type itype;
-      return bitwise_cast<result_type>(rol(bitwise_cast<itype>(a0)));
+      return bitwise_cast<result_type>(rol(bitwise_cast<itype>(a0), a1));
     }
   };
 } } }
