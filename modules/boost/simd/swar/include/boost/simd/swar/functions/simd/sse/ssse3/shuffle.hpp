@@ -19,7 +19,10 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_
                                     , boost::simd::tag::ssse3_
                                     , (A0)(P)
-                                    , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
+                                    , ((simd_ < type16_<A0>
+                                              , boost::simd::tag::sse_
+                                              >
+                                      ))
                                       (target_< unspecified_<P> >)
                                     )
   {
@@ -27,58 +30,35 @@ namespace boost { namespace simd { namespace ext
     typedef P                               permutation_t;
     typedef meta::cardinal_of<result_type>  card_t;
 
-    result_type operator()(A0 const& a, P const&) const
+    result_type operator()(__m128i a, P const&) const
     {
-      return  bitwise_cast<A0>
-              ( _mm_shuffle_epi8( bitwise_cast<__m128i>(a)
-                                , details::permute<P,card_t::value>::call()
-                                )
-              );
+      return  _mm_shuffle_epi8( a
+                              , details::permute<P,card_t::value>::call()
+                              );
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_
                                     , boost::simd::tag::ssse3_
                                     , (A0)(P)
-                                    , ((simd_<type64_<A0>,boost::simd::tag::sse_>))
+                                    , ((simd_ < type8_<A0>
+                                              , boost::simd::tag::sse_
+                                              >
+                                      ))
                                       (target_< unspecified_<P> >)
                                     )
   {
     typedef A0                              result_type;
-    typedef typename P::type                permutation_t;
+    typedef P                               permutation_t;
     typedef meta::cardinal_of<result_type>  card_t;
 
-    result_type operator()(A0 const& a, P const&) const
+    result_type operator()(__m128i a, P const&) const
     {
-      return  bitwise_cast<A0>
-              ( _mm_shuffle_epi8( bitwise_cast<__m128i>(a)
-                                , details::permute<P,card_t::value>::call()
-                                )
-              );
+      return  _mm_shuffle_epi8( a
+                              , details::permute<P,card_t::value>::call()
+                              );
     }
   };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_
-                                    , boost::simd::tag::ssse3_
-                                    , (A0)(P)
-                                    , ((simd_<type32_<A0>,boost::simd::tag::sse_>))
-                                      (target_< unspecified_<P> >)
-                                    )
-  {
-    typedef A0                              result_type;
-    typedef typename P::type                permutation_t;
-    typedef meta::cardinal_of<result_type>  card_t;
-
-    result_type operator()(A0 const& a, P const&) const
-    {
-      return  bitwise_cast<A0>
-              ( _mm_shuffle_epi8( bitwise_cast<__m128i>(a)
-                                , details::permute<P,card_t::value>::call()
-                                )
-              );
-    }
-  };
-
 } } }
 
 #endif

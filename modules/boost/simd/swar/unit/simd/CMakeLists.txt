@@ -10,6 +10,7 @@
 SET( SOURCES
   shuffle.cpp
   arith.cpp
+  all_reduce.cpp
   cumsum.cpp
   cumprod.cpp
   enumerate.cpp

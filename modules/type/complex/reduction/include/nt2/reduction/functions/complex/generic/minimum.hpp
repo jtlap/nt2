@@ -10,34 +10,25 @@
 #define NT2_REDUCTION_FUNCTIONS_COMPLEX_GENERIC_MINIMUM_HPP_INCLUDED
 
 #include <nt2/reduction/functions/minimum.hpp>
-#include <nt2/include/functions/posmin.hpp>
-#include <nt2/include/functions/real.hpp>
-#include <nt2/include/functions/imag.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
+#include <nt2/include/functions/shuffle.hpp>
+#include <nt2/include/functions/min.hpp>
+#include <nt2/sdk/complex/meta/as_real.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::minimum_, tag::cpu_, (A0)
-                            , (generic_< complex_< arithmetic_<A0> > >)
-                            )
-  {
-    typedef typename boost::dispatch::meta::scalar_of<A0>::type result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
-    {
-      return a0[posmin(a0)];
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::minimum_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::minimum_, tag::cpu_
+                            , (A0)
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename boost::dispatch::meta::scalar_of<A0>::type result_type;
+    typedef typename meta::scalar_of<A0>::type  result_type;
+    typedef typename meta::as_real<A0>::type    r_t;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return result_type(nt2::minimum(nt2::real(a0)));
+      return bitwise_cast<result_type>(minimum(bitwise_cast<r_t>(a0)));
     }
   };
 } }

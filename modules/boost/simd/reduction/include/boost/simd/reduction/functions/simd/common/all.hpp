@@ -16,10 +16,10 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::all_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<fundamental_<A0>,X>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::all_, tag::cpu_
+                                    , (A0)(X)
+                                    , ((simd_<fundamental_<A0>,X>))
+                                    )
   {
     typedef typename meta::scalar_of<A0>::type sA0;
     typedef typename meta::as_logical<sA0>::type result_type;

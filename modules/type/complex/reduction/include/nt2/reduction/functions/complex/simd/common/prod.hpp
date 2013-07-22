@@ -6,39 +6,30 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_REDUCTION_FUNCTIONS_COMPLEX_SIMD_COMMON_PROD_HPP_INCLUDED
-#define NT2_REDUCTION_FUNCTIONS_COMPLEX_SIMD_COMMON_PROD_HPP_INCLUDED
+#ifndef NT2_REDUCTION_FUNCTIONS_COMPLEX_GENERIC_PROD_HPP_INCLUDED
+#define NT2_REDUCTION_FUNCTIONS_COMPLEX_GENERIC_PROD_HPP_INCLUDED
+
 #include <nt2/reduction/functions/prod.hpp>
-#include <nt2/include/functions/prod.hpp>
-#include <nt2/include/functions/imag.hpp>
-#include <nt2/include/functions/real.hpp>
-#include <nt2/include/functions/sum.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/arg.hpp>
-#include <nt2/include/constants/mone.hpp>
-#include <nt2/include/constants/one.hpp>
-#include <nt2/include/functions/frompolar.hpp>
-#include <nt2/sdk/complex/meta/as_complex.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
+#include <nt2/include/functions/multiplies.hpp>
+#include <nt2/include/functions/shuffle.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::prod_, tag::cpu_, (A0)(X)
-                                     , ((simd_< complex_< arithmetic_<A0> >, X>))
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::prod_, tag::cpu_, (A0)
+                            , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename meta::as_real<A0>::type rtype;
-    typedef typename meta::scalar_of<rtype>::type stype;
-    typedef typename meta::as_complex<stype>::type result_type;
-    NT2_FUNCTOR_CALL(1)
+    typedef typename meta::scalar_of<A0>::type  result_type;
+    typedef typename meta::as_real<A0>::type    r_t;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      rtype rho = nt2::abs(a0);
-      rtype theta = arg(a0);
-      return nt2::frompolar(nt2::prod(rho), nt2::sum(theta));
+      return bitwise_cast<result_type>(prod(bitwise_cast<r_t>(a0)));
     }
   };
-
 } }
 
 #endif

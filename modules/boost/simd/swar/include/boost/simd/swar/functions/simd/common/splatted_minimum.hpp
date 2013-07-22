@@ -10,24 +10,24 @@
 #define BOOST_SIMD_SWAR_FUNCTIONS_SIMD_COMMON_SPLATTED_MINIMUM_HPP_INCLUDED
 
 #include <boost/simd/swar/functions/splatted_minimum.hpp>
-#include <boost/simd/include/functions/simd/splat.hpp>
-#include <boost/simd/include/functions/simd/minimum.hpp>
+#include <boost/simd/include/functions/simd/all_reduce.hpp>
+#include <boost/simd/include/functions/simd/min.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::splatted_minimum_, tag::cpu_,
-                                   (A0)(X),
-                                   ((simd_<arithmetic_<A0>,X>))
-                                  )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::splatted_minimum_
+                                    , tag::cpu_
+                                    , (A0)(X)
+                                    , ((simd_<unspecified_<A0>,X>))
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return boost::simd::splat<A0>(minimum(a0));
+      return all_reduce<boost::simd::tag::min_>(a0);
     }
   };
 } } }
+
 #endif

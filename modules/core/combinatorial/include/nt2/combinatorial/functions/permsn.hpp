@@ -13,31 +13,31 @@
 #include <nt2/sdk/meta/value_as.hpp>
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
-#include <nt2/include/functions/prod.hpp>
-#include <nt2/include/functions/min.hpp>
 
-/*!
- * \ingroup combinatorial
- * \defgroup combinatorial_permsn permsn
- *
- * \par Description
- * m = permsn(n, k) returns the first k permutations
- * of _(1, n) in a table<size_t> of size nXk
- * If k is not provided k is n!
- *
- * Take care in this last case that n <= 10 to avoid exhausting memory
- * See also perms
- **/
-
-namespace nt2 { namespace tag
+namespace nt2
+{
+  namespace tag
   {
     /*!
-     * \brief Define the tag permsn_ of functor permsn
-     *        in namespace nt2::tag for toolbox combinatorial
-    **/
-    struct permsn_ : ext::unspecified_<permsn_> { typedef ext::unspecified_<permsn_> parent; };
-    }
+      @brief permsn generic tag
 
+      Represents the permsn function in generic contexts.
+
+      @par Models:
+      Hierarchy
+    **/
+    struct permsn_ : ext::unspecified_<permsn_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::unspecified_<permsn_> parent;
+    };
+  }
+
+  /*!
+    @brief Permutations enumeration
+
+    Return the k or, by default, the n! permutations of [1 ... n]
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::permsn_, permsn, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::permsn_, permsn, 2)
 }
@@ -50,10 +50,14 @@ namespace nt2 { namespace ext
     typedef _2D                               result_type;
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
-      size_t n =  boost::proto::child_c<0>(e);
-      size_t k =  boost::proto::child_c<1>(e);
       result_type sizee;
-      sizee[1] = nt2::min(k, nt2::prod(nt2::_(size_t(1), n))); sizee[0] = n;
+      sizee[0] = boost::proto::child_c<0>(e);
+
+      std::size_t l = 1;
+      for(std::size_t i=2;i<=sizee[0];++i) l *= i;
+
+      sizee[1] = nt2::min(boost::proto::child_c<1>(e), l);
+
       return sizee;
     }
   };
@@ -62,9 +66,8 @@ namespace nt2 { namespace ext
   template <class Domain, class Expr, int N>
   struct value_type < tag::permsn_, Domain,N,Expr>
   {
-    typedef size_t type;
+    typedef std::size_t type;
   };
-
 } }
 
 #endif

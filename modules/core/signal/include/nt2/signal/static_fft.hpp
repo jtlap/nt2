@@ -2104,21 +2104,21 @@ namespace detail
 
     #else // BOOST_SIMD_DETECTED
 
-        using boost::simd::details::shuffle;
-
         vector_t const real( real_in ); vector_t const imag( imag_in );
 
         vector_t const * BOOST_DISPATCH_RESTRICT const p_negate_upper ( sign_flipper<vector_t, false, false, true, true >() );
         vector_t const * BOOST_DISPATCH_RESTRICT const p_negate_middle( sign_flipper<vector_t, false, true , true, false>() );
 
-        vector_t const r01i01( shuffle<idx0, idx1, idx0, idx1>( real, imag ) );
-        vector_t const r23i23( shuffle<idx2, idx3, idx2, idx3>( real, imag ) );
+        vector_t const r01i01( boost::simd::details::shuffle<idx0, idx1, idx0, idx1>( real, imag ) );
+        vector_t const r23i23( boost::simd::details::shuffle<idx2, idx3, idx2, idx3>( real, imag ) );
 
         vector_t const ri_plus ( r01i01 + r23i23 );
         vector_t const ri_minus( r01i01 - r23i23 );
 
-        vector_t const r_left ( shuffle<idx0, idx0, idx0, idx0>( ri_plus, ri_minus ) ); vector_t const i_left ( shuffle<idx2, idx2, idx2, idx2>( ri_plus, ri_minus ) );
-        vector_t       r_right( shuffle<idx1, idx1, idx3, idx3>( ri_plus, ri_minus ) ); vector_t const i_right( shuffle<idx3, idx3, idx1, idx1>( ri_plus, ri_minus ) );
+        vector_t const r_left ( boost::simd::details::shuffle<idx0, idx0, idx0, idx0>( ri_plus, ri_minus ) );
+        vector_t const i_left ( boost::simd::details::shuffle<idx2, idx2, idx2, idx2>( ri_plus, ri_minus ) );
+        vector_t       r_right( boost::simd::details::shuffle<idx1, idx1, idx3, idx3>( ri_plus, ri_minus ) );
+        vector_t const i_right( boost::simd::details::shuffle<idx3, idx3, idx1, idx1>( ri_plus, ri_minus ) );
         r_right ^= *p_negate_upper;
 
         real_out = r_left + ( r_right ^ *p_negate_middle );
@@ -2258,14 +2258,16 @@ namespace detail
                 //    lower_real     , lower_imag
                 //);
 
-                vector_t const r01i01( shuffle<0, 1, 0, 1>( lower_p_upper_r, lower_p_upper_i ) );
-                vector_t const r23i23( shuffle<2, 3, 2, 3>( lower_p_upper_r, lower_p_upper_i ) );
+                vector_t const r01i01( boost::simd::details::shuffle<0, 1, 0, 1>( lower_p_upper_r, lower_p_upper_i ) );
+                vector_t const r23i23( boost::simd::details::shuffle<2, 3, 2, 3>( lower_p_upper_r, lower_p_upper_i ) );
 
                 vector_t const ri_plus ( r01i01 + r23i23 );
                 vector_t const ri_minus( r01i01 - r23i23 );
 
-                vector_t const r_left ( shuffle<0, 0, 0, 0>( ri_plus, ri_minus ) ); vector_t const i_left ( shuffle<2, 2, 2, 2>( ri_plus, ri_minus ) );
-                vector_t       r_right( shuffle<1, 1, 3, 3>( ri_plus, ri_minus ) ); vector_t const i_right( shuffle<3, 3, 1, 1>( ri_plus, ri_minus ) );
+                vector_t const r_left ( boost::simd::details::shuffle<0, 0, 0, 0>( ri_plus, ri_minus ) );
+                vector_t const i_left ( boost::simd::details::shuffle<2, 2, 2, 2>( ri_plus, ri_minus ) );
+                vector_t       r_right( boost::simd::details::shuffle<1, 1, 3, 3>( ri_plus, ri_minus ) );
+                vector_t const i_right( boost::simd::details::shuffle<3, 3, 1, 1>( ri_plus, ri_minus ) );
                 r_right ^= *p_negate_upper;
 
                 vector_t const * BOOST_DISPATCH_RESTRICT const p_negate_middle( sign_flipper<vector_t, false, true, true , false>() );
@@ -2276,8 +2278,8 @@ namespace detail
             {
                 // multiplication by i:
                 vector_t const lower_m_upper_r_copy( lower_m_upper_r );
-                lower_m_upper_r = shuffle<0, 1, 2, 3>( lower_m_upper_r, lower_m_upper_i      );
-                lower_m_upper_i = shuffle<0, 1, 2, 3>( lower_m_upper_i, lower_m_upper_r_copy );
+                lower_m_upper_r = boost::simd::details::shuffle<0, 1, 2, 3>( lower_m_upper_r, lower_m_upper_i      );
+                lower_m_upper_i = boost::simd::details::shuffle<0, 1, 2, 3>( lower_m_upper_i, lower_m_upper_r_copy );
                 lower_m_upper_r ^= *p_negate_upper;
             }
 
@@ -2293,14 +2295,16 @@ namespace detail
 
         // merged two upper DFT2s:
         {
-            vector_t const r4466( shuffle<0, 0, 2, 2>( upper_r ) ); vector_t const i4466( shuffle<0, 0, 2, 2>( upper_i ) );
-            vector_t       r5577( shuffle<1, 1, 3, 3>( upper_r ) ); vector_t       i5577( shuffle<1, 1, 3, 3>( upper_i ) );
+            vector_t const r4466( boost::simd::details::shuffle<0, 0, 2, 2>( upper_r ) );
+            vector_t const i4466( boost::simd::details::shuffle<0, 0, 2, 2>( upper_i ) );
+            vector_t       r5577( boost::simd::details::shuffle<1, 1, 3, 3>( upper_r ) );
+            vector_t       i5577( boost::simd::details::shuffle<1, 1, 3, 3>( upper_i ) );
             vector_t const * BOOST_DISPATCH_RESTRICT const p_negate_odd( sign_flipper<vector_t, false, true, false, true>() );
             scalar_t const sqrt2      ( static_cast<scalar_t>( 0.70710678118654752440084436210485L ) );
             vector_t const twiddles   ( make<vector_t>( +sqrt2, -sqrt2, -sqrt2, -sqrt2 ) );
             vector_t const twiddled_57( ( r5577 + ( i5577 ^ *p_negate_odd ) ) * twiddles );
-            r5577 = shuffle<0, 0, 3, 3>( twiddled_57 );
-            i5577 = shuffle<1, 1, 2, 2>( twiddled_57 );
+            r5577 = boost::simd::details::shuffle<0, 0, 3, 3>( twiddled_57 );
+            i5577 = boost::simd::details::shuffle<1, 1, 2, 2>( twiddled_57 );
             upper_real = r4466 + ( r5577 ^ *p_negate_odd );
             upper_imag = i4466 + ( i5577 ^ *p_negate_odd );
         }

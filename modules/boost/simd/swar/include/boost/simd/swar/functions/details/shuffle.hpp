@@ -56,7 +56,10 @@ namespace boost { namespace simd { namespace details
           , unsigned int upper_i0, unsigned int upper_i1>
   BOOST_FORCEINLINE __m128i shuffle(__m128i const input)
   {
-    return shuffle<lower_i0, lower_i1, upper_i0, upper_i1>(input, input);
+    return  _mm_shuffle_epi32 ( input, _MM_SHUFFLE( upper_i1, upper_i0
+                                                  , lower_i1, lower_i0
+                                                  )
+                              );
   }
 
   template<unsigned int lower_i0, unsigned int upper_i0>

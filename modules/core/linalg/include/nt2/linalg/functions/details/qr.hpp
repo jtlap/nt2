@@ -52,6 +52,7 @@
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/triu.hpp>
 #include <nt2/include/functions/expand.hpp>
+#include <nt2/include/functions/sum.hpp>
 #include <nt2/include/functions/prod.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>

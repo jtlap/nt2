@@ -8,27 +8,25 @@
 //==============================================================================
 #ifndef BOOST_SIMD_REDUCTION_FUNCTIONS_SIMD_COMMON_SUM_HPP_INCLUDED
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_SIMD_COMMON_SUM_HPP_INCLUDED
-#include <boost/simd/reduction/functions/sum.hpp>
-#include <boost/simd/include/functions/simd/plus.hpp>
-#include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/sdk/meta/scalar_of.hpp>
-#include <boost/fusion/algorithm/iteration/fold.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+#include <boost/simd/reduction/functions/sum.hpp>
+#include <boost/simd/include/functions/simd/all_reduce.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sum_, tag::cpu_,
-                      (A0)(X),
-                      ((simd_<arithmetic_<A0>,X>))
-                     )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::sum_, tag::cpu_
+                                    , (A0)(X)
+                                    , ((simd_<unspecified_<A0>,X>))
+                                    )
   {
-    typedef typename meta::scalar_of<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    typedef typename A0::value_type result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return boost::fusion::fold(a0,Zero<result_type>(),typename dispatch::make_functor<boost::simd::tag::plus_, A0>::type());
+      return all_reduce<boost::simd::tag::plus_>(a0)[0];
     }
   };
 } } }
+
 #endif
