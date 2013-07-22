@@ -9,7 +9,7 @@
 #include <nt2/ieee/include/functions/copysign.hpp>
 #include <vector>
 #include <nt2/include/functions/bitofsign.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+
 #include <nt2/sdk/unit/tests/cover.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/include/constants/valmax.hpp>
