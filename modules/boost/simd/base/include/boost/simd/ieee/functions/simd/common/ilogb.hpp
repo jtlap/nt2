@@ -10,6 +10,8 @@
 #define BOOST_SIMD_IEEE_FUNCTIONS_SIMD_COMMON_ILOGB_HPP_INCLUDED
 #include <boost/simd/ieee/functions/ilogb.hpp>
 #include <boost/simd/include/functions/simd/exponent.hpp>
+#include <boost/simd/include/functions/simd/is_gtz.hpp>
+#include <boost/simd/include/functions/simd/if_else_zero.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -27,7 +29,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return exponent(a0);
+      return if_else_zero(is_gtz(a0), exponent(a0));
     }
   };
 } } }
