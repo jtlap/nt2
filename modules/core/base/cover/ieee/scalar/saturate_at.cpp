@@ -32,8 +32,7 @@ NT2_TEST_CASE_TPL ( saturate_at,  NT2_REAL_TYPES)
   for(nt2::uint32_t i=0; i < NR ; ++i)
   {
     ref[i] = in1[i]>nt2::Pi<T>() ? nt2::Pi<T>() : (in1[i]<-nt2::Pi<T>() ? -nt2::Pi<T>() :in1[i]);
-    NT2_TEST_ULP_EQUAL( saturate_at<nt2::tag::Pi>(in1[i]),ref[i],0);
   }
-// NT2_COVER_ULP_EQUAL(saturate_at<nt2::Pi<T> >, ((T, in1)), ref, 0);
+  NT2_COVER_ULP_EQUAL(nt2::tag::saturate_at_<nt2::tag::Pi >, ((T, in1)), ref, 0);
 }
 
