@@ -18,6 +18,7 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/zero.hpp>
+#include <nt2/include/functions/exp2.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 
 NT2_TEST_CASE_TPL ( ldexp,  NT2_REAL_TYPES)
