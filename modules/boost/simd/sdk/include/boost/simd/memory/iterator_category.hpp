@@ -13,6 +13,7 @@
 #include <boost/dispatch/meta/is_iterator.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/type_traits/is_pointer.hpp>
+#include <boost/pointee.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Some hierarchies
@@ -34,9 +35,8 @@ namespace boost { namespace dispatch { namespace details
                   , typename
                     boost::enable_if_c< meta::is_iterator<T>::value>::type
                   >
-  {
-    typedef typename std::iterator_traits<T>::value_type type;
-  };
+        : boost::pointee<T>
+  {};
 
   template<class T, class Origin>
   struct  hierarchy_of< T
@@ -45,7 +45,7 @@ namespace boost { namespace dispatch { namespace details
                         boost::enable_if_c< meta::is_iterator<T>::value>::type
                       >
   {
-    typedef typename std::iterator_traits<T>::value_type pointee_type;
+    typedef typename boost::pointee<T>::type pointee_type;
     typedef typename remove_const<Origin>::type stripped;
     typedef typename mpl::if_< is_same<T, stripped>, stripped, Origin>::type origin_;
     typedef meta::iterator_ < typename
