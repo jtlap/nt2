@@ -17,6 +17,7 @@
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/dispatch/meta/enable_if_type.hpp>
 #include <boost/dispatch/attributes.hpp>
+#include <boost/config.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/iterator/iterator_traits.hpp>
@@ -54,7 +55,7 @@ namespace boost
   }
 }
 
-#if defined(__GLIBCPP__) || defined(__GLIBCXX__)
+#if defined(__GLIBCPP__) || defined(__GLIBCXX__) || defined(BOOST_MSVC)
 namespace std
 {
   template<class T>
