@@ -10,7 +10,7 @@
 #define NT2_CORE_FUNCTIONS_EXPR_TIE_HPP_INCLUDED
 
 #include <nt2/core/functions/tie.hpp>
-#include <nt2/include/functions/run.hpp>
+#include <nt2/dsl/functions/run.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
 #include <boost/simd/sdk/meta/iterate.hpp>
