@@ -52,16 +52,6 @@ namespace boost
       typedef T& BOOST_DISPATCH_RESTRICT reference;
 #endif
     };
-
-    template<class T>
-    struct iterator_traits<T* BOOST_DISPATCH_RESTRICT const>
-     : boost::detail::iterator_traits<T* const>
-    {
-      typedef T* BOOST_DISPATCH_RESTRICT pointer;
-#ifndef BOOST_DISPATCH_NO_RESTRICT_REFERENCES
-      typedef T& BOOST_DISPATCH_RESTRICT reference;
-#endif
-    };
   }
 }
 
@@ -71,16 +61,6 @@ namespace std
   template<class T>
   struct iterator_traits<T* BOOST_DISPATCH_RESTRICT>
    : iterator_traits<T*>
-  {
-    typedef T* BOOST_DISPATCH_RESTRICT pointer;
-#ifndef BOOST_DISPATCH_NO_RESTRICT_REFERENCES
-    typedef T& BOOST_DISPATCH_RESTRICT reference;
-#endif
-  };
-
-  template<class T>
-  struct iterator_traits<T* BOOST_DISPATCH_RESTRICT const>
-   : iterator_traits<T* const>
   {
     typedef T* BOOST_DISPATCH_RESTRICT pointer;
 #ifndef BOOST_DISPATCH_NO_RESTRICT_REFERENCES
