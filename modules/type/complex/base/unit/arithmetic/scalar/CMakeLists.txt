@@ -8,6 +8,8 @@
 ##############################################################################
 
 set( SOURCES
+  inc.cpp
+  dec.cpp
   ceil.cpp
   floor.cpp
   round.cpp

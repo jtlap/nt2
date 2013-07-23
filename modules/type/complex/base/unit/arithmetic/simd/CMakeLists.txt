@@ -8,6 +8,8 @@
 ##############################################################################
 
 set( SOURCES
+  inc.cpp
+  dec.cpp
   abs.cpp
   arg.cpp
   average.cpp
