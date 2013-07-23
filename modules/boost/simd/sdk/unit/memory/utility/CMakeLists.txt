@@ -23,6 +23,7 @@ SET( SOURCES
     input_range.cpp
     is_aligned.cpp
     is_power_of_2.cpp
+    iterator_hierarchy.cpp
     make_aligned.cpp
     new.cpp
     next_power_of_2.cpp
