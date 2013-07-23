@@ -11,6 +11,7 @@
 
 #include <boost/pointee.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/dispatch/meta/is_iterator.hpp>
 #include <iterator>
 
 namespace boost { namespace simd { namespace meta

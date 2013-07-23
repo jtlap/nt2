@@ -29,13 +29,5 @@
     #define BOOST_SIMD_ARCH "Intel x86"
   #endif
 
-  #if defined(BOOST_SIMD_ARCH) || defined(DOXYGEN_ONLY)
-    #if defined(_WIN32) && !defined(_WIN64) || defined(__clang__)
-      #define BOOST_SIMD_ARCH_ALIGNMENT 4
-    #else
-      #define BOOST_SIMD_ARCH_ALIGNMENT 16
-    #endif
-  #endif
-
 #endif
 #endif

@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
                                       , (A0)(A1)(A2)(X)
                                       , ( simd::meta::is_pointing_to
                                           < A0
-                                          , typename A2::type::value_type
+                                          , typename simd::meta::scalar_of<typename A2::type>::type
                                           >
                                         )
                                       , (iterator_<unspecified_<A0> >)
@@ -52,7 +52,7 @@ namespace boost { namespace simd { namespace ext
                                       , (A0)(A2)(X)
                                       , ( simd::meta::is_pointing_to
                                           < A0
-                                          , typename A2::type::value_type
+                                          , typename simd::meta::scalar_of<typename A2::type>::type
                                           >
                                         )
                                       , (iterator_< scalar_<arithmetic_<A0> > >)
@@ -73,7 +73,7 @@ namespace boost { namespace simd { namespace ext
                                       , (A0)(A2)(X)
                                       , ( simd::meta::is_pointing_to
                                           < A0
-                                          , typename A2::type::value_type
+                                          , typename simd::meta::scalar_of<typename A2::type>::type
                                           >
                                         )
                                       , (iterator_<unspecified_<A0> >)
@@ -94,7 +94,7 @@ namespace boost { namespace simd { namespace ext
                                       , (A0)(A2)(A3)(X)
                                       , ( simd::meta::is_pointing_to
                                           < A0
-                                          , typename A2::type::value_type
+                                          , typename simd::meta::scalar_of<typename A2::type>::type
                                           >
                                         )
                                       , (iterator_<unspecified_<A0> >)
@@ -117,7 +117,7 @@ namespace boost { namespace simd { namespace ext
                                       , (A0)(A2)(A3)(X)
                                       , ( simd::meta::is_pointing_to
                                           < A0
-                                          , typename A2::type::value_type
+                                          , typename simd::meta::scalar_of<typename A2::type>::type
                                           >
                                         )
                                       , (iterator_< scalar_< arithmetic_<A0> > >)

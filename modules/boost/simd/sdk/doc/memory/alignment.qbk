@@ -15,7 +15,7 @@ considered:
 
 * Stack alignment, which is the alignment of data on the stack. has it's usually
   smaller than the previous value, it may be interesting to check its value
-  through the [macroref BOOST_SIMD_STACK_ALIGNMENT] symbol.
+  through the [macroref BOOST_SIMD_ALLOCA_ALIGNMENT] symbol.
 
 [endsect]
 
