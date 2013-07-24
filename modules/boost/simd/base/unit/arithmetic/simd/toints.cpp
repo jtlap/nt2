@@ -52,11 +52,8 @@ NT2_TEST_CASE_TPL ( toints_real,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(toints(boost::simd::splat<vT>(T(2)*boost::simd::Valmax<sr_t>())),  boost::simd::Valmax<r_t>());
   NT2_TEST_EQUAL(toints(boost::simd::splat<vT>(T(2)*boost::simd::Valmin<sr_t>())),  boost::simd::Valmin<r_t>());
   NT2_TEST_EQUAL(toints(boost::simd::Inf<vT>()),  boost::simd::Inf<r_t>());
-  NT2_TEST_EQUAL(toints(boost::simd::splat<vT>(T(1)/T(0))),  boost::simd::Inf<r_t>());
   NT2_TEST_EQUAL(toints(boost::simd::Minf<vT>()), boost::simd::Minf<r_t>());
-  NT2_TEST_EQUAL(toints(boost::simd::splat<vT>(T(-1)/T(0))),  boost::simd::Minf<r_t>());
   NT2_TEST_EQUAL(toints(boost::simd::Mone<vT>()), boost::simd::Mone<r_t>());
-  NT2_TEST_EQUAL(toints(boost::simd::splat<vT>(T(0)/T(0))),  boost::simd::Zero<r_t>());
   NT2_TEST_EQUAL(toints(boost::simd::Nan<vT>()),  boost::simd::Zero<r_t>());
   NT2_TEST_EQUAL(toints(boost::simd::One<vT>()),  boost::simd::One<r_t>());
   NT2_TEST_EQUAL(toints(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
