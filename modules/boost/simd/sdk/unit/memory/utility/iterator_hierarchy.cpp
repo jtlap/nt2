@@ -38,23 +38,79 @@ NT2_TEST_CASE(void_ptr)
                     );
 }
 
-NT2_TEST_CASE_TPL(typed_ptr, BOOST_SIMD_TYPES)
+NT2_TEST_CASE(typed_ptr)
 {
-  using boost::mpl::_;
-  using boost::mpl::int_;
   using boost::dispatch::meta::nth_hierarchy;
+  using boost::dispatch::meta::unspecified_;
   using boost::dispatch::meta::iterator_;
+  using boost::dispatch::meta::scalar_;
+  using boost::dispatch::meta::single_;
+  using boost::mpl::int_;
+  using boost::mpl::_;
 
-  T* p = 0;
-  T* const pc = 0;
-  T const* cp = 0;
-  T const* const cpc = 0;
+  float*       p = 0;
+  float const*  c = 0;
+  float* BOOST_DISPATCH_RESTRICT r = 0;
+  float const * BOOST_DISPATCH_RESTRICT q = 0;
 
-  typedef typename boost::dispatch::meta::hierarchy_of<T,T*>::type base;
-  typedef typename boost::dispatch::meta::hierarchy_of<T,T const*>::type cbase;
+  NT2_TEST_EXPR_TYPE( p , (nth_hierarchy<_, int_<0> >), iterator_< scalar_< single_<float*> > >  );
+  NT2_TEST_EXPR_TYPE( p , (nth_hierarchy<_, int_<16> >), iterator_< unspecified_<float*> >  );
 
-  NT2_TEST_EXPR_TYPE( p   , (nth_hierarchy<_, int_<0> >), iterator_<base>  );
-  NT2_TEST_EXPR_TYPE( pc  , (nth_hierarchy<_, int_<0> >), iterator_<base>  );
-  NT2_TEST_EXPR_TYPE( cp  , (nth_hierarchy<_, int_<0> >), iterator_<cbase> );
-  NT2_TEST_EXPR_TYPE( cpc , (nth_hierarchy<_, int_<0> >), iterator_<cbase> );
+  NT2_TEST_EXPR_TYPE( c , (nth_hierarchy<_, int_<0> >), iterator_< scalar_< single_<float const*> > >  );
+  NT2_TEST_EXPR_TYPE( c , (nth_hierarchy<_, int_<16> >), iterator_< unspecified_<float const*> >  );
+
+  NT2_TEST_EXPR_TYPE( r , (nth_hierarchy<_, int_<0> >), iterator_< scalar_< single_<float* BOOST_DISPATCH_RESTRICT> > > );
+  NT2_TEST_EXPR_TYPE( r , (nth_hierarchy<_, int_<16> >), iterator_< unspecified_<float* BOOST_DISPATCH_RESTRICT> > );
+
+  NT2_TEST_EXPR_TYPE( q , (nth_hierarchy<_, int_<0> >), iterator_< scalar_< single_<float const* BOOST_DISPATCH_RESTRICT> > > );
+  NT2_TEST_EXPR_TYPE( q , (nth_hierarchy<_, int_<16> >), iterator_< unspecified_<float const* BOOST_DISPATCH_RESTRICT> > );
+}
+
+NT2_TEST_CASE(typed_ptr_const)
+{
+  using boost::dispatch::meta::nth_hierarchy;
+  using boost::dispatch::meta::unspecified_;
+  using boost::dispatch::meta::iterator_;
+  using boost::dispatch::meta::scalar_;
+  using boost::dispatch::meta::single_;
+  using boost::mpl::int_;
+  using boost::mpl::_;
+
+  float* const       p = 0;
+  float const*  const c = 0;
+  float* const BOOST_DISPATCH_RESTRICT r = 0;
+  float const * const BOOST_DISPATCH_RESTRICT q = 0;
+
+  NT2_TEST_EXPR_TYPE( p
+                    , (nth_hierarchy<_, int_<0> >)
+                    , iterator_< scalar_< single_<float*> > >
+                    );
+
+  NT2_TEST_EXPR_TYPE( p
+                    , (nth_hierarchy<_, int_<16> >)
+                    , iterator_< unspecified_<float*> >
+                    );
+
+  NT2_TEST_EXPR_TYPE( c
+                    , (nth_hierarchy<_, int_<0> >)
+                    , iterator_< scalar_< single_<float const*> > >
+                    );
+
+  NT2_TEST_EXPR_TYPE( c
+                    , (nth_hierarchy<_, int_<16> >)
+                    , iterator_< unspecified_<float const*> >
+                    );
+
+  NT2_TEST_EXPR_TYPE( r
+                    , (nth_hierarchy<_, int_<0> >)
+                    , iterator_< scalar_< single_<float* BOOST_DISPATCH_RESTRICT> > >
+                    );
+
+  NT2_TEST_EXPR_TYPE( r
+                    , (nth_hierarchy<_, int_<16> >)
+                    , iterator_< unspecified_<float* BOOST_DISPATCH_RESTRICT> >
+                    );
+
+  NT2_TEST_EXPR_TYPE( q , (nth_hierarchy<_, int_<0> >), iterator_< scalar_< single_<float const* BOOST_DISPATCH_RESTRICT> > > );
+  NT2_TEST_EXPR_TYPE( q , (nth_hierarchy<_, int_<16> >), iterator_< unspecified_<float const* BOOST_DISPATCH_RESTRICT> > );
 }
