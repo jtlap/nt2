@@ -6,73 +6,35 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 operator toolbox - splat/scalar Mode"
-
 //////////////////////////////////////////////////////////////////////////////
-// cover test behavior of operator components in scalar mode
+// cover test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 18/02/2011
-///
 #include <nt2/operator/include/functions/splat.hpp>
-#include <nt2/include/functions/max.hpp>
+#include <vector>
+#include <nt2/include/constants/valmin.hpp>
+#include <nt2/include/constants/valmax.hpp>
 
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/cover.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/meta/as.hpp>
 
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
-
-NT2_TEST_CASE_TPL ( splat_integer__1_0,  NT2_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( splat,  NT2_TYPES)
 {
 
- //  using nt2::splat;
-//   using nt2::tag::splat_;
-//   typedef typename nt2::meta::as_integer<T>::type iT;
-//   typedef typename nt2::meta::call<splat_(T)>::type r_t;
-//   typedef typename nt2::meta::upgrade<T>::type u_t;
-//   typedef T wished_r_t;
+  using nt2::splat;
+  using nt2::tag::splat_;
+  typedef typename nt2::meta::call<splat_(T,  nt2::meta::as_<T>)>::type r_t;
+  typedef typename nt2::meta::as_<T> aT;
+  nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  std::vector<T> in1(NR);
+  std::vector<aT> in2(NR);
+  nt2::roll(in1, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+  std::vector<r_t>  ref(NR);
+  for(nt2::uint32_t i=0; i < NR ; ++i)
+  {
+    ref[i] = in1[i];
+  }
 
-
-//   // return type conformity test
-//   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-//   std::cout << std::endl;
-//   double ulpd;
-//   ulpd=0.0;
-
-//   // random verifications
-//   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
-//   {
-//     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
-//     double ulp0, ulpd ; ulpd=ulp0=0.0;
-//     T a0;
-//     for(nt2::uint32_t j =0; j < NR; ++j )
-//       {
-//         std::cout << "for param "
-//                   << "  a0 = "<< u_t(a0 = tab_a0[j])
-//                   << std::endl;
-//         NT2_TEST_EQUAL( nt2::splat<T>(a0),a0);
-//      }
-
-//    }
-// } // end of test for integer_
-
-// NT2_TEST_CASE_TPL ( splat_real__1_0,  NT2_REAL_TYPES)
-// {
-
-//   using nt2::splat;
-//   using nt2::tag::splat_;
-//   typedef typename nt2::meta::as_integer<T>::type iT;
-//   typedef typename nt2::meta::call<splat_(T)>::type r_t;
-//   typedef typename nt2::meta::upgrade<T>::type u_t;
-//   typedef T wished_r_t;
-
-
-//   // return type conformity test
-//   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-//   std::cout << std::endl;
-//   double ulpd;
-//   ulpd=0.0;
-
-} // end of test for floating_
+  NT2_COVER_ULP_EQUAL(splat_, ((T, in1))((aT, in2)), ref, 0);
+}
