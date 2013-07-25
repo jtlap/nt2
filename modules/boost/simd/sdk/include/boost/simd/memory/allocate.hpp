@@ -39,7 +39,7 @@ namespace boost { namespace simd
     @return A pointer to a memory block of @c nbytes bytes, aligned on @c align.
   **/
   BOOST_FORCEINLINE BOOST_SIMD_MALLOC BOOST_DISPATCH_NOTHROW void*
-  allocate( std::size_t nbytes, std::size_t align, std::nothrow_t const & t )
+  allocate( std::size_t nbytes, std::size_t align, std::nothrow_t const & )
   {
     return aligned_malloc(nbytes, align);
   }
