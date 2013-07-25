@@ -33,7 +33,6 @@ namespace nt2 { namespace details
       A0 hi, lo, x;
       A0 k = reduc_t::reduce(a0, hi, lo, x);
       A0 c = reduc_t::approx(x);
-      bA0 ge = reduc_t::isgemaxlog(a0);
       bA0 le = reduc_t::isleminlog(a0);
       A0 z = nt2::if_zero_else(le,
                                finalize_t::finalize(a0, x, c, k, hi, lo)
@@ -41,7 +40,12 @@ namespace nt2 { namespace details
  #ifdef BOOST_SIMD_NO_INVALIDS
       return z;
 #else
-      return if_nan_else(is_nan(a0), nt2::if_else(ge, nt2::Inf<A0>(), z));
+      return if_nan_else( is_nan(a0)
+                        , nt2::if_else( reduc_t::isgemaxlog(a0)
+                                      , nt2::Inf<A0>()
+                                      , z
+                                      )
+                        );
 #endif
     }
   };
