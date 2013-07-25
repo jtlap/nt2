@@ -55,7 +55,11 @@ namespace boost
   }
 }
 
-#if defined(__GLIBCPP__) || defined(__GLIBCXX__) || defined(BOOST_MSVC)
+// Looks like stlport and other do not handle restrict in iterator_traits
+// making this available everywhere so it compiles using stlport
+// TODO: If any std implementation actually support this, we'll
+// put a proper negative guard.
+//#if defined(__GLIBCPP__) || defined(__GLIBCXX__) || defined(BOOST_MSVC)
 namespace std
 {
   template<class T>
@@ -68,7 +72,8 @@ namespace std
 #endif
   };
 }
-#endif
+//#endif
+
 #endif
 
 namespace boost { namespace dispatch { namespace meta
