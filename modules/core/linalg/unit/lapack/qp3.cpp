@@ -34,7 +34,7 @@ NT2_TEST_CASE_TPL(qp3, NT2_REAL_TYPES )
 
 
   t_t ref = -nt2::eye(4, 4, nt2::meta::as_<T>());
-  t_t ref_tau = nt2::zeros(4,1);
+  t_t ref_tau = nt2::zeros(4,1 nt2::meta::as_<T>());
 
   ref_tau(1) = ref_tau(2) = 1;
   ref(4,1)   = ref(3,2)   = 1;

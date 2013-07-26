@@ -55,4 +55,4 @@ NT2_RUN_EXPERIMENT_TPL( lu_1, (nt2::table<float>)(nt2::table<double>), (4,4) );
 NT2_RUN_EXPERIMENT_TPL( lu_1, (nt2::table<float>)(nt2::table<double>), (63,65) );
 NT2_RUN_EXPERIMENT_TPL( lu_1, (nt2::table<float>)(nt2::table<double>), (1023,1025) );
 NT2_RUN_EXPERIMENT_TPL( lu_1, (nt2::table<float>)(nt2::table<double>), (2048,2048) );
-NT2_RUN_EXPERIMENT_TPL( lu_1, (nt2::table<float>)(nt2::table<double>), (10000,10000) );
+NT2_RUN_EXPERIMENT_TPL( lu_1, (nt2::table<float>)(nt2::table<double>), (12000,12000) );
