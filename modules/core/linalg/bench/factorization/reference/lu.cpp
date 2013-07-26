@@ -107,11 +107,13 @@ NT2_EXPERIMENT(lu_1_double)
   mutable nt2::table<nt2_la_int> jpvt;
 };
 
-NT2_RUN_EXPERIMENT_TPL( lu_1_float, (float), (4,4) );
-NT2_RUN_EXPERIMENT_TPL( lu_1_double, (double), (4,4) );
-NT2_RUN_EXPERIMENT_TPL( lu_1_float, (float), (63,65) );
-NT2_RUN_EXPERIMENT_TPL( lu_1_double, (double), (63,65) );
+// NT2_RUN_EXPERIMENT_TPL( lu_1_float, (float), (4,4) );
+// NT2_RUN_EXPERIMENT_TPL( lu_1_double, (double), (4,4) );
+// NT2_RUN_EXPERIMENT_TPL( lu_1_float, (float), (63,65) );
+// NT2_RUN_EXPERIMENT_TPL( lu_1_double, (double), (63,65) );
 NT2_RUN_EXPERIMENT_TPL( lu_1_float, (float), (1023,1025) );
 NT2_RUN_EXPERIMENT_TPL( lu_1_double, (double), (1023,1025) );
 NT2_RUN_EXPERIMENT_TPL( lu_1_float, (float), (2048,2048) );
 NT2_RUN_EXPERIMENT_TPL( lu_1_double, (double), (2048,2048) );
+NT2_RUN_EXPERIMENT_TPL( lu_1_float, (float), (12000,12000) );
+NT2_RUN_EXPERIMENT_TPL( lu_1_double, (double), (12000,12000) );

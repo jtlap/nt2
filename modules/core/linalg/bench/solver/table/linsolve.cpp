@@ -53,7 +53,10 @@ template<typename T> NT2_EXPERIMENT(linsolve< nt2::table<T> >)
   mutable nt2::table<T> a,b, result;
 };
 
-NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>)(nt2::table<double>), (4,4) );
-NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>)(nt2::table<double>), (65,65) );
 NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>)(nt2::table<double>), (1023,1023) );
 NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>)(nt2::table<double>), (2048,2048) );
+NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>)(nt2::table<double>), (4000,4000) );
+NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>)(nt2::table<double>), (6000,6000) );
+NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>)(nt2::table<double>), (8000,8000) );
+NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>)(nt2::table<double>), (10000,10000) );
+NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>)(nt2::table<double>), (12000,12000) );

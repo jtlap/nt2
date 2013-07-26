@@ -21,6 +21,18 @@ extern "C"
                          , float* a, const nt2_la_int* lda, nt2_la_int* ipiv
                          , float* b, const nt2_la_int* ldb, nt2_la_int* info
                          );
+
+  void NT2_F77NAME(dgemv)(const char* trans, const nt2_la_int* M, const nt2_la_int* N,
+                      const double* alpha, const double* A, const nt2_la_int* lda,
+                      const double* dx, const nt2_la_int* incx, const double* beta,
+                      double* dy, const nt2_la_int* incy
+                        );
+
+  void NT2_F77NAME(dgetrs)(const char* trans,const nt2_la_int* n,const nt2_la_int* nhrs
+                          ,double* a, const nt2_la_int* lda, nt2_la_int* ipiv, double* b
+                          ,const nt2_la_int* ldb, nt2_la_int* info
+                          );
+
 }
 
 #endif

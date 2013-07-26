@@ -43,6 +43,10 @@ namespace nt2
                                   , 3
                                   );
 
+  NT2_FUNCTION_IMPLEMENTATION_TPL (tag::msv_, msv
+                                  , (A0&)(A1&)(A2&)
+                                  , 3
+                                  );
 }
 
 #endif

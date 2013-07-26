@@ -9,10 +9,5 @@
 
 nt2_module_use_modules(test.unit core.utility)
 
-#ADD_SUBDIRECTORY(tie)
-#ADD_SUBDIRECTORY(functions)
-#ADD_SUBDIRECTORY(factorization)
-#ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(general)
-#ADD_SUBDIRECTORY(solvers)
-#ADD_SUBDIRECTORY(lapack)
+ADD_SUBDIRECTORY(magma)
