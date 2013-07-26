@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_REMQUO_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_REMQUO_HPP_INCLUDED
+
 #include <boost/simd/arithmetic/functions/remquo.hpp>
 #include <boost/simd/include/functions/simd/round2even.hpp>
 #include <boost/simd/include/functions/simd/toint.hpp>
@@ -61,9 +62,10 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,A0 const& a1) const
     {
-      result_type res;
-      boost::simd::remquo( a0, a1, res.first, res.second );
-      return res;
+      A0 first;
+      quo_t second;
+      boost::simd::remquo( a0, a1, first, second );
+      return result_type(first, second);
     }
   };
 

@@ -25,7 +25,7 @@ namespace nt2 { namespace ext
                               (generic_ < complex_<floating_ < A0> > > )
                             )
   {
-        typedef void result_type;
+    typedef void result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,A0 & a1,A0 & a2) const
     {
@@ -83,9 +83,9 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      result_type res;
-      sinhcosh(a0, res.first, res.second);
-      return res;
+      A0 first, second;
+      sinhcosh(a0, first, second);
+      return result_type(first, second);
     }
   };
 } }

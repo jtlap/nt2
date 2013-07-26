@@ -43,9 +43,9 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      result_type res;
-      res.first = details::trig_base <A0,degree_tag,is_native_t,clipped_pio4_>::sincosa(a0,res.second);
-      return res;
+      A0 second;
+      A0 const first = details::trig_base <A0,degree_tag,is_native_t,clipped_pio4_>::sincosa(a0,second);
+      return result_type(first, second);
     }
   };
 

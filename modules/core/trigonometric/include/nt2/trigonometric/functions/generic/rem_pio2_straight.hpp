@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_REM_PIO2_STRAIGHT_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_REM_PIO2_STRAIGHT_HPP_INCLUDED
+
 #include <nt2/trigonometric/functions/rem_pio2_straight.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/pio2_1.hpp>
@@ -39,13 +40,13 @@ namespace nt2 { namespace ext
                              (generic_ < floating_<A0> > )
                             )
   {
-     typedef typename nt2::meta::as_integer<A0>::type int_t;
+    typedef typename nt2::meta::as_integer<A0>::type int_t;
     typedef std::pair<int_t, A0>           result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      result_type res;
-      res.first = nt2::rem_pio2_straight(a0,res.second);
-      return res;
+      A0 second;
+      int_t const first = nt2::rem_pio2_straight(a0,second);
+      return result_type(first, second);
     }
   };
 

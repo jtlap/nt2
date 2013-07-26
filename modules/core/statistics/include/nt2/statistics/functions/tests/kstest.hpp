@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_STATISTICS_FUNCTIONS_TESTS_KSTEST_HPP_INCLUDED
 #define NT2_STATISTICS_FUNCTIONS_TESTS_KSTEST_HPP_INCLUDED
+
 #include <nt2/statistics/functions/kstest.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/include/functions/numel.hpp>
@@ -84,9 +85,9 @@ namespace nt2 { namespace ext
     typedef std::pair<r_t, r_t>                      result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& cdf) const
     {
-      result_type res;
-      kstest(a0, cdf, res.first, res.second);
-      return res;
+      r_t first, second;
+      kstest(a0, cdf, first, second);
+      return result_type(first, second);
     }
   };
 

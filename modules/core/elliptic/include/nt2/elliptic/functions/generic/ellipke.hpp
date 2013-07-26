@@ -26,9 +26,9 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename nt2::meta::scalar_of<A0>::type sA0;
-      result_type res;
-      nt2::ellipke(a0, nt2::Eps<sA0>(), res.first, res.second);
-      return res;
+      A0 first, second;
+      nt2::ellipke(a0, nt2::Eps<sA0>(), first, second);
+      return result_type(first, second);
     }
   };
 
@@ -43,9 +43,9 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      result_type res;
-      nt2::ellipke(a0, a1, res.first, res.second);
-      return res;
+      A0 first, second;
+      nt2::ellipke(a0, a1, first, second);
+      return result_type(first, second);
     }
   };
 

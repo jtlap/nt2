@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_REM_PIO2_CEPHES_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_REM_PIO2_CEPHES_HPP_INCLUDED
+
 #include <nt2/trigonometric/functions/rem_pio2_cephes.hpp>
 #include <nt2/include/functions/simd/round2even.hpp>
 #include <nt2/include/functions/simd/toint.hpp>
@@ -48,9 +49,9 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      result_type res;
-      res.first = nt2::rem_pio2_cephes(a0,res.second);
-      return res;
+      A0 second;
+      int_t const first = nt2::rem_pio2_cephes(a0,second);
+      return result_type(first, second);
     }
   };
 
