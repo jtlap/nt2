@@ -31,6 +31,58 @@
 
 namespace nt2 { namespace ext
 {
+  template<class Domain, int N, class Expr>
+  struct  size_of<tag::deconv_,Domain,N,Expr>
+  {
+    typedef _2D result_type;
+
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      _2D sizee;
+      sizee[0] = 1;
+      sizee[1] = nt2::numel(boost::proto::child_c<0>(e)) > nt2::numel(boost::proto::child_c<1>(e)) ?
+        nt2::numel(boost::proto::child_c<0>(e))-nt2::numel(boost::proto::child_c<1>(e))+1 : 0;
+      return sizee;
+    }
+  };
+
+  template<class Domain, int N, class Expr>
+  struct  value_type<tag::deconv_,Domain,N,Expr>
+        : meta::value_as<Expr,0>
+  {};
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::deconv_, tag::cpu_,
+                              (A0),
+                              (scalar_<floating_<A0> >)
+                              (scalar_<floating_<A0> >)
+                            )
+  {
+    BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A0 const& a1),
+                           ( deconv(nt2::_(a0, a0), nt2::_(a1, a1)))
+                          )
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::deconv_, tag::cpu_,
+                              (A0)(A1),
+                              (scalar_<floating_<A0> >)
+                              ((ast_<A1, nt2::container::domain>))
+                            )
+  {
+    BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1),
+                           ( deconv(nt2::_(a0, a0), a1))
+                          )
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::deconv_, tag::cpu_,
+                              (A0)(A1),
+                              ((ast_<A0, nt2::container::domain>))
+                              (scalar_<floating_<A1> >)
+                            )
+  {
+    BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1),
+                           ( deconv(a0, nt2::_(a1, a1)))
+                          )
+  };
 
   //============================================================================
   // This version of balance is called whenever a tie(...) = balance(...) is captured

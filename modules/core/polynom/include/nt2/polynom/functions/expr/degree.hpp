@@ -11,6 +11,7 @@
 
 #include <nt2/polynom/functions/degree.hpp>
 #include <nt2/include/functions/reduce.hpp>
+#include <nt2/include/functions/if_zero_else_one.hpp>
 #include <nt2/include/functions/size.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -28,6 +29,19 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       return nt2::size(reduce(a0), 2)-1; ;
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::degree_, tag::cpu_
+                            , (A0)
+                            , (scalar_<unspecified_ < A0> > )
+                            )
+  {
+
+    typedef ptrdiff_t result_type;
+    NT2_FUNCTOR_CALL(1)
+    {
+      return -if_zero_else_one(a0);
     }
   };
 } }

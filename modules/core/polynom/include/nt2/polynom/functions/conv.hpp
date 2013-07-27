@@ -10,11 +10,6 @@
 #define NT2_POLYNOM_FUNCTIONS_CONV_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/core/container/dsl/size.hpp>
-#include <nt2/core/container/dsl/value_type.hpp>
-#include <nt2/sdk/meta/value_as.hpp>
-#include <nt2/include/functions/numel.hpp>
-#include <algorithm>
 
 namespace nt2 {  namespace tag
   {
@@ -42,33 +37,7 @@ namespace nt2 {  namespace tag
    *             numel(c) is max(numel(a)-max(0,numel(b)-1),0).
    **/
   NT2_FUNCTION_IMPLEMENTATION(tag::conv_, conv, 2)
-//   NT2_FUNCTION_IMPLEMENTATION(tag::conv_, conv, 3)
 
 }
-
-namespace nt2 { namespace ext
-{
-  template<class Domain, int N, class Expr>
-  struct  size_of<tag::conv_,Domain,N,Expr>
-  {
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type A0;
-    typedef _2D                                             result_type;
-    BOOST_FORCEINLINE result_type operator ()(Expr& e) const
-    {
-      result_type sizee;
-      sizee[0] = 1;
-      size_t na = nt2::numel(boost::proto::child_c<0>(e));
-      size_t nb = nt2::numel(boost::proto::child_c<1>(e));
-      sizee[1] = std::max(std::max(na+nb ? na+nb-1u : 0u,na),nb);
-      return sizee;
-    }
-  };
-
-  template<class Domain, int N, class Expr>
-  struct  value_type<tag::conv_,Domain,N,Expr>
-        : meta::value_as<Expr,0>
-  {};
-} }
-
 
 #endif

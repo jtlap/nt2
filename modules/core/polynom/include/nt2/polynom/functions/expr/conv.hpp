@@ -19,6 +19,7 @@
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/colvect.hpp>
+#include <nt2/include/functions/colon.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/mtimes.hpp>
@@ -26,10 +27,70 @@
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/vertcat.hpp>
 #include <nt2/include/functions/extent.hpp>
+#include <nt2/core/container/dsl/size.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
+#include <nt2/include/functions/numel.hpp>
+#include <algorithm>
 
 
 namespace nt2{ namespace ext
 {
+
+  template<class Domain, int N, class Expr>
+  struct  size_of<tag::conv_,Domain,N,Expr>
+  {
+    typedef typename boost::proto::result_of::child_c<Expr&,0>::type A0;
+    typedef _2D                                             result_type;
+    BOOST_FORCEINLINE result_type operator ()(Expr& e) const
+    {
+      result_type sizee;
+      sizee[0] = 1;
+      size_t na = nt2::numel(boost::proto::child_c<0>(e));
+      size_t nb = nt2::numel(boost::proto::child_c<1>(e));
+      sizee[1] = std::max(std::max(na+nb ? na+nb-1u : 0u,na),nb);
+      return sizee;
+    }
+  };
+
+  template<class Domain, int N, class Expr>
+  struct  value_type<tag::conv_,Domain,N,Expr>
+        : meta::value_as<Expr,0>
+  {};
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::conv_, tag::cpu_,
+                              (A0),
+                              (scalar_<floating_<A0> >)
+                              (scalar_<floating_<A0> >)
+                            )
+  {
+    BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A0 const& a1),
+                           ( conv(nt2::_(a0, a0), nt2::_(a1, a1)))
+                          )
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::conv_, tag::cpu_,
+                              (A0)(A1),
+                              (scalar_<floating_<A0> >)
+                              ((ast_<A1, nt2::container::domain>))
+                            )
+  {
+    BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1),
+                           ( conv(nt2::_(a0, a0), a1))
+                          )
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::conv_, tag::cpu_,
+                              (A0)(A1),
+                              ((ast_<A0, nt2::container::domain>))
+                              (scalar_<floating_<A1> >)
+                            )
+  {
+    BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1),
+                           ( conv(a0, nt2::_(a1, a1)))
+                          )
+  };
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
                             , (A0)(A1)(N)
                             , ((ast_<A0, nt2::container::domain>))

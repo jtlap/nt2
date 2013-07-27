@@ -19,6 +19,39 @@
 
 namespace nt2{ namespace ext
 {
+   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::polysub_, tag::cpu_,
+                              (A0),
+                              (scalar_<floating_<A0> >)
+                              (scalar_<floating_<A0> >)
+                            )
+  {
+    BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A0 const& a1),
+                           ( polysub(nt2::_(a0, a0), nt2::_(a1, a1)))
+                          )
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::polysub_, tag::cpu_,
+                              (A0)(A1),
+                              (scalar_<floating_<A0> >)
+                              ((ast_<A1, nt2::container::domain>))
+                            )
+  {
+    BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A0 const& a1),
+                           ( polysub(nt2::_(a0, a0), a1))
+                          )
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::polysub_, tag::cpu_,
+                              (A0)(A1),
+                              ((ast_<A1, nt2::container::domain>))
+                              (scalar_<floating_<A0> >)
+                            )
+  {
+    BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A0 const& a1),
+                           ( polysub(a0, nt2::_(a1, a1)))
+                          )
+  };
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::polysub_, tag::cpu_
                               , (A0)(A1)
                               , ((ast_<A0, nt2::container::domain>))

@@ -39,3 +39,19 @@ NT2_TEST_CASE_TPL ( degree_real__1_0,  NT2_REAL_TYPES)
 } // end of test for floating_
 
 
+NT2_TEST_CASE_TPL ( degree_real__2_0,  NT2_REAL_TYPES)
+{
+
+  using nt2::degree;
+  using nt2::tag::degree_;
+  T b = T(1.0);
+  T a = T(0.0);
+  NT2_TEST_EQUAL(degree(a), -1);
+  NT2_TEST_EQUAL(degree(b), 0);
+  nt2::container::table<T> bb =  nt2::_(T(1), T(1));
+  nt2::container::table<T> aa =  nt2::_(T(0), T(0));
+  NT2_TEST_EQUAL(degree(aa), -1);
+  NT2_TEST_EQUAL(degree(bb), 0);
+
+
+} // end of test for floating_

@@ -19,7 +19,15 @@
 
 namespace nt2 { namespace ext
 {
-
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::polyint_, tag::cpu_,
+                              (A0),
+                              (scalar_<floating_<A0> >)
+                            )
+  {
+    BOOST_DISPATCH_RETURNS(1, (A0 const& a0),
+                           ( polyint(nt2::_(a0, a0)))
+                          )
+  };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::polyint_, tag::cpu_
                               , (A0)(A1)
                               , ((ast_<A0, nt2::container::domain>))

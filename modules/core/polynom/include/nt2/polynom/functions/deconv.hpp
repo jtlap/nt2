@@ -28,26 +28,4 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::deconv_, deconv, 2)
 }
 
- namespace nt2 { namespace ext
-{
-  template<class Domain, int N, class Expr>
-  struct  size_of<tag::deconv_,Domain,N,Expr>
-  {
-    typedef _2D result_type;
-
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      _2D sizee;
-      sizee[0] = 1;
-      sizee[1] = nt2::numel(boost::proto::child_c<0>(e)) > nt2::numel(boost::proto::child_c<1>(e)) ?
-        nt2::numel(boost::proto::child_c<0>(e))-nt2::numel(boost::proto::child_c<1>(e))+1 : 0;
-      return sizee;
-    }
-  };
-
-  template<class Domain, int N, class Expr>
-  struct  value_type<tag::deconv_,Domain,N,Expr>
-        : meta::value_as<Expr,0>
-  {};
-} }
 #endif

@@ -28,6 +28,19 @@
 
 namespace nt2 { namespace ext
 {
+   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::polyval_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_<unspecified_<A0> > )(scalar_<unspecified_<A1> > )
+                            )
+  {
+
+    typedef A1 result_type;
+    NT2_FUNCTOR_CALL(2)
+    {
+      return a0*a1;
+    }
+  };
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::polyval_, tag::cpu_
                             , (A0)(A1)
                             , (unspecified_<A0>)(scalar_<unspecified_<A1> > )
