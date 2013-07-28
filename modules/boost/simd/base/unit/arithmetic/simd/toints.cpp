@@ -28,9 +28,7 @@
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
-#include <boost/simd/include/functions/simd/make.hpp>
-
-
+#include <boost/simd/include/functions/load.hpp>
 
 NT2_TEST_CASE_TPL ( toints_real,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
@@ -75,8 +73,8 @@ NT2_TEST_CASE_TPL ( toints_real2,   BOOST_SIMD_SIMD_REAL_TYPES)
   boost::simd::uint32_t NR =  (sizeof(data)/sizeof(T));
   for(nt2::uint32_t j = 0; j < NR;j+=boost::simd::meta::cardinal_of<vT>::value)
   {
-    vT   a =  boost::simd::aligned_load<vT>(&data[0],j);
-    ivT ia =  boost::simd::aligned_load<ivT>(&idat[0],j);
+    vT   a =  boost::simd::load<vT>(&data[0],j);
+    ivT ia =  boost::simd::load<ivT>(&idat[0],j);
     NT2_TEST_EQUAL(toints(a), ia);
   }
 }

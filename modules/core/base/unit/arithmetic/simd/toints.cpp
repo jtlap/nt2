@@ -28,7 +28,7 @@
 #include <nt2/include/constants/mone.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <nt2/include/functions/simd/make.hpp>
-#include <nt2/include/functions/aligned_load.hpp>
+#include <nt2/include/functions/load.hpp>
 
 
 NT2_TEST_CASE_TPL ( toints_real,  BOOST_SIMD_SIMD_REAL_TYPES)
@@ -69,8 +69,8 @@ NT2_TEST_CASE_TPL ( toints_real2,   BOOST_SIMD_SIMD_REAL_TYPES)
   nt2::uint32_t NR =  (sizeof(data)/sizeof(T));
   for(nt2::uint32_t j = 0; j < NR;j+=nt2::meta::cardinal_of<vT>::value)
   {
-    vT   a =  nt2::aligned_load<vT>(&data[0],j);
-    ivT ia =  nt2::aligned_load<ivT>(&idat[0],j);
+    vT   a =  nt2::load<vT>(&data[0],j);
+    ivT ia =  nt2::load<ivT>(&idat[0],j);
     NT2_TEST_EQUAL(toints(a), ia);
   }
 }
