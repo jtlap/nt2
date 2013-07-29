@@ -69,9 +69,7 @@ NT2_TEST_CASE_TPL ( unifcdf_3,  NT2_REAL_TYPES)
   using nt2::meta::as_;
 
   nt2::table<T> a = _(T(-5), T(1), T(5))/T(10);
-  NT2_DISPLAY(a);
   nt2::table<T> z =  unifcdf(a+T(0.5), T(0), T(1));
-  NT2_DISPLAY(z);
   NT2_TEST_ULP_EQUAL(z, nt2::_(T(0),T(0.1), T(1)), 5.0);
   z =  unifcdf(a+T(0.5), a, a+T(1));
   NT2_TEST_ULP_EQUAL(z, nt2::repnum(T(0.5), 1, 11), 5.0);

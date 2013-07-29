@@ -25,37 +25,36 @@ namespace nt2 { namespace ext
 {
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expinv0_, tag::cpu_
-                              , (A0)
-                              , (generic_< floating_<A0> >)
-                              )
+                            , (A0)
+                            , (generic_< floating_<A0> >)
+                            )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
-      {
-        //       return  -(nt2::log(nt2::oneminus(nt2::if_allbits_else(nt2::is_ltz(a0), a0))));
-        return  nt2::if_allbits_else(nt2::is_ltz(a0), -log1p(-a0));
-      }
+    {
+      return  nt2::if_allbits_else(nt2::is_ltz(a0), -log1p(-a0));
+    }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expinv0_, tag::cpu_
-                              , (A0)(A1)
-                              , (generic_< floating_<A0> >)
+                            , (A0)(A1)
+                            , (generic_< floating_<A0> >)
                               (generic_< floating_<A1> >)
-                              )
+                            )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
-      {
-        BOOST_ASSERT_MSG(nt2::globalall(nt2::is_gtz(a1)), "mu parameter must be positive");
-        return  a1*nt2::expinv(a0);
-      }
+    {
+      BOOST_ASSERT_MSG(nt2::globalall(nt2::is_gtz(a1)), "mu parameter must be positive");
+      return  a1*nt2::expinv(a0);
+    }
   };
 
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expinv_, tag::cpu_
-                              , (A0)(N0)(A1)(N1)
-                              , ((node_<A0, nt2::tag::expinv_, N0, nt2::container::domain>))
-                                ((node_<A1, nt2::tag::tie_ , N1, nt2::container::domain>))
+                            , (A0)(N0)(A1)(N1)
+                            , ((node_<A0, nt2::tag::expinv_, N0, nt2::container::domain>))
+                              ((node_<A1, nt2::tag::tie_ , N1, nt2::container::domain>))
                             )
   {
     typedef void                                                    result_type;
@@ -76,17 +75,17 @@ namespace nt2 { namespace ext
     {
       BOOST_ASSERT_MSG(false, "Must provide parameter variance to compute confidence bounds.");
       boost::proto::child_c<0>(a1) =  nt2::expinv(boost::proto::child_c<0>(a0),
-                                                   boost::proto::child_c<1>(a0));
+                                                  boost::proto::child_c<1>(a0));
     }
     template < class T >
-    BOOST_FORCEINLINE static void doit(const A0& a0, A1& a1,
-                                       boost::mpl::long_<3> const &, T const & )
+      BOOST_FORCEINLINE static void doit(const A0& a0, A1& a1,
+                                         boost::mpl::long_<3> const &, T const & )
     {
       boost::proto::child_c<0>(a1) =  nt2::expinv(boost::proto::child_c<0>(a0));
     }
     template < class T >
-    BOOST_FORCEINLINE static void doit(const A0& a0, A1& a1,
-                                       boost::mpl::long_<4> const &, T const & )
+      BOOST_FORCEINLINE static void doit(const A0& a0, A1& a1,
+                                         boost::mpl::long_<4> const &, T const & )
     {
       boost::proto::child_c<0>(a1) =  nt2::expinv(boost::proto::child_c<0>(a0),
                                                   boost::proto::child_c<1>(a0));
@@ -118,8 +117,6 @@ namespace nt2 { namespace ext
       boost::proto::child_c<0>(a1) = x;
       boost::proto::child_c<2>(a1) = x*exp_halfwidth;
       boost::proto::child_c<1>(a1) = x/exp_halfwidth;
-//       boost::proto::child_c<1>(a1) = nt2::exp(nt2::exp(nt2::sx(nt2::tag::minus_(), logx, halfwidth)));
-//       boost::proto::child_c<2>(a1) = nt2::exp(nt2::exp(nt2::sx(nt2::tag::plus_() , logx, halfwidth)));
     }
   };
 
