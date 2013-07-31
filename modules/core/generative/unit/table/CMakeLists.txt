@@ -75,6 +75,7 @@ nans.cpp
 nbdigits.cpp
 nbexponentbits.cpp
 nbmantissabits.cpp
+ndgrid.cpp
 nine.cpp
 oneo_10.cpp
 oneo_120.cpp
