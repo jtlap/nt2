@@ -11,13 +11,17 @@
 #define NT2_CORE_FUNCTIONS_EXPR_BAND_HPP_INCLUDED
 
 #include <nt2/core/functions/band.hpp>
+#include <nt2/core/functions/colon.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/include/functions/ismatrix.hpp>
 
 namespace nt2 { namespace ext
 {
+
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::band_, tag::cpu_, (A0), ((ast_<A0, nt2::container::domain>)) )
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::offset_band1_, tag::cpu_, (A0),
+                              ((ast_<A0, nt2::container::domain>))
+                            )
   {
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::band_
