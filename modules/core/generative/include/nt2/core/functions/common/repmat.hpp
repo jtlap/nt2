@@ -34,16 +34,19 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
-      typedef typename meta::as_index<result_type>::type        i_t;
-      typedef typename result_of::as_subscript<_2D, i_t>::type  sub_t;
+      typedef typename A0::extent_type                            ext_t;
+      typedef typename meta::as_index<result_type>::type          i_t;
+      typedef typename result_of::as_subscript<ext_t, i_t>::type  sub_t;
 
-      // Retrieve pattern and its extent
-      _2D in_sz   = boost::proto::child_c<1>(a0).extent();
-      _2D out_sz  = a0.extent();
+      // TODO: Precompute ?
+      ext_t in_sz   = boost::proto::child_c<1>(a0).extent();
 
-      sub_t pos = as_subscript(out_sz, nt2::enumerate<i_t>(p));
-      pos[0] = pos[0] % in_sz[0];
-      pos[1] = pos[1] % in_sz[1];
+      // Current position in the output
+      sub_t pos = as_subscript(a0.extent(), nt2::enumerate<i_t>(p));
+
+      // TODO: Unroll this ?
+      for(std::size_t i=0; i<sub_t::static_size;i++)
+        pos[i] = pos[i] % in_sz[i];
 
       return nt2::run ( boost::proto::child_c<1>(a0)
                       , as_index(in_sz, pos)
