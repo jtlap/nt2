@@ -77,7 +77,7 @@ NT2_TEST_CASE_TPL ( normcdf_2,  NT2_REAL_TYPES)
                                    0.99140486544314787576, 0.96178675376250588602, 0.9749999999999999778, 0.99991896541289493339,
                                    0.99999999991295407398, 1.0, 1.0);
   NT2_TEST_ULP_EQUAL(r, rr, 10);
-  NT2_TEST_ULP_EQUAL(plo, pplo, 130);
+  NT2_TEST_ULP_EQUAL(plo, pplo, 600);
   NT2_TEST_ULP_EQUAL(pup, ppup, 1);
   nt2::tie(r, plo, pup) = nt2::normcdf(a, T(0), T(1), cov, T(0.05));
   rr = nt2::cons<T>(2.8665157187948740877e-07, 3.1671241833184224292e-05, 0.0013498980316300926256, 0.022750131948179170421,
@@ -93,7 +93,7 @@ NT2_TEST_CASE_TPL ( normcdf_2,  NT2_REAL_TYPES)
                                    1.0, 1.0, 1.0
                                   );
   NT2_TEST_ULP_EQUAL(r, rr, 3);
-  NT2_TEST_ULP_EQUAL(plo, pplo, 130);
+  NT2_TEST_ULP_EQUAL(plo, pplo, 600);
   NT2_TEST_ULP_EQUAL(pup, ppup, 1);
 } // end of test for floating_
 

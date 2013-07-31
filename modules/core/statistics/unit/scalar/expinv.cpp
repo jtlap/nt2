@@ -84,8 +84,8 @@ NT2_TEST_CASE_TPL ( expinv_2, NT2_REAL_TYPES)
                                 4.8140108019116167881, 6.4352379618753978718, 9.2067440976791310447,
                                 nt2::Inf<double>());
   NT2_TEST_ULP_EQUAL(r, rr, 1);
-  NT2_TEST_ULP_EQUAL(plo, pplo, 1.5);
-  NT2_TEST_ULP_EQUAL(pup, ppup, 1.5);
+  NT2_TEST_ULP_EQUAL(plo, pplo, 2);
+  NT2_TEST_ULP_EQUAL(pup, ppup, 2);
   r =  nt2::expinv(a, nt2::ones(nt2::size(a), nt2::meta::as_<T>()), T(0.5), T(0.05));
   rr =  nt2::cons<T>(0.0,0.10536051565782630912, 0.22314355131420976486, 0.35667494393873239167,
                      0.51082562376599072174, 0.69314718055994528623, 0.91629073187415499557,
