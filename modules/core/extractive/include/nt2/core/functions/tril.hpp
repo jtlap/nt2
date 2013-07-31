@@ -48,16 +48,6 @@ namespace nt2
 
 namespace nt2 { namespace ext
 {
-  template<class Domain, class Expr>
-  struct  value_type<nt2::tag::tril_,Domain,1,Expr>
-        : meta::value_as<Expr,0>
-  {};
-
-  template<class Domain, class Expr>
-  struct  value_type<nt2::tag::offset_tril_,Domain,2,Expr>
-        : meta::value_as<Expr,0>
-  {};
-
   template<class Domain, int N, class Expr>
   struct  size_of<nt2::tag::tril_,Domain,N,Expr>
         : meta::size_as<Expr,0>

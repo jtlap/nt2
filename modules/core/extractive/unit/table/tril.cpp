@@ -10,9 +10,14 @@
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/tril.hpp>
+#include <nt2/include/functions/oneplus.hpp>
+#include <nt2/include/functions/is_greater_equal.hpp>
+#include <nt2/include/functions/whereij.hpp>
+#include <nt2/include/functions/reshape.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 
 NT2_TEST_CASE_TPL( tril_scalar, NT2_TYPES )
 {
@@ -31,36 +36,39 @@ NT2_TEST_CASE_TPL( tril_scalar, NT2_TYPES )
 
 NT2_TEST_CASE_TPL( tril, NT2_TYPES )
 {
-  nt2::table<T> x,y( nt2::of_size(5,3) );
-
-  for(int j=1;j<=3;j++)
-    for(int i=1;i<=5;i++)
-      y(i,j) = i + 10*j;
-
+  nt2::table<T> xx, x, y = nt2::reshape(nt2::_(T(1), T(20)), 4, 5);
   x = nt2::tril(y);
-
-  for(int j=1;j<=3;j++)
-    for(int i=1;i<=5;i++)
-      NT2_TEST_EQUAL( x(i,j), (i>=j) ? y(i,j) : 0);
+  xx = nt2::whereij(nt2::functor<nt2::tag::is_greater_equal_>(),  y, T(0));
+  NT2_TEST_EQUAL(x, xx);
 }
+
+struct fct1
+{
+  template < class A0, class A1>
+  typename nt2::meta::as_logical<A0>::type
+  operator ()(const A0& i, const A1& j) const
+  {
+    return nt2::ge(nt2::oneplus(i), j);
+  }
+};
+struct fct2
+{
+  template < class A0, class A1>
+  typename nt2::meta::as_logical<A0>::type
+  operator ()(const A0& i, const A1& j) const
+  {
+    return nt2::ge(i, nt2::oneplus(j));
+  }
+};
 
 NT2_TEST_CASE_TPL( offset_tril, NT2_TYPES )
 {
-  nt2::table<T> x,y( nt2::of_size(5,3) );
-
-  for(int j=1;j<=3;j++)
-    for(int i=1;i<=5;i++)
-      y(i,j) = i + 10*j;
-
-  x = nt2::tril(y,1);
-
-  for(int j=1;j<=3;j++)
-    for(int i=1;i<=5;i++)
-      NT2_TEST_EQUAL( x(i,j), (i+1>= j) ? y(i,j) : 0);
+  nt2::table<T> xx, x, y = nt2::reshape(nt2::_(T(1), T(20)), 4, 5);
+  x = nt2::tril(y, 1);
+  xx = nt2::whereij(fct1(),  y, T(0));
+  NT2_TEST_EQUAL(x, xx);
 
   x = nt2::tril(y,-1);
-
-  for(int j=1;j<=3;j++)
-    for(int i=1;i<=5;i++)
-      NT2_TEST_EQUAL( x(i,j), (i-1>=j) ? y(i,j) : 0);
+  xx = nt2::whereij(fct2(),  y, T(0));
+  NT2_TEST_EQUAL(x, xx);
 }
