@@ -146,7 +146,7 @@ namespace nt2 { namespace ext
               r =  nt2::mtimes(a00, r);
             }
             a00 =  nt2::mtimes(a00, a00);
-            m =  nt2::trunc(m/2); //Half<value_type>(); or >> 1
+            m =  nt2::trunc(m/2);
           }
         }
         if(!f)

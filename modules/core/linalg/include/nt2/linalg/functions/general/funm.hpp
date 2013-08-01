@@ -69,10 +69,7 @@ namespace nt2
     template<class Domain, int N, class Expr>
     struct size_of<tag::funm_,Domain,N,Expr>
     {
-
-      typedef typename boost::proto::result_of::child_c<Expr&,1>::value_type  c1_t;
       typedef _2D                                                      result_type;
-
       BOOST_FORCEINLINE result_type operator()(Expr& e) const
       {
         BOOST_ASSERT_MSG( issquare(boost::proto::child_c<1>(e)),
