@@ -13,14 +13,23 @@
 #include <nt2/core/functions/band.hpp>
 #include <nt2/core/functions/colon.hpp>
 #include <nt2/core/container/dsl.hpp>
+#include <nt2/core/container/dsl/size.hpp>
 #include <nt2/include/functions/ismatrix.hpp>
+#include <nt2/sdk/meta/size_as.hpp>
+#include <boost/assert.hpp>
 
 namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
+  template<class Domain, class Expr,int N>
+  struct  size_of<nt2::tag::band_,Domain,N,Expr>
+        : meta::size_as<Expr,0>
+  {};
 
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::offset_band1_, tag::cpu_, (A0),
-                              ((ast_<A0, nt2::container::domain>))
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::band_, tag::cpu_
+                            , (A0)
+                            , ((ast_<A0, nt2::container::domain>))
                             )
   {
     typedef typename  boost::proto::
@@ -43,14 +52,14 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::offset_band1_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::band_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
                               (scalar_< integer_<A1> >)
                             )
   {
     typedef typename  boost::proto::
-                      result_of::make_expr< nt2::tag::offset_band1_
+                      result_of::make_expr< nt2::tag::band_
                                           , container::domain
                                           , A0 const&
                                           , A1
@@ -63,14 +72,19 @@ namespace nt2 { namespace ext
                       , "Error using band: First input must be 2D."
                       );
 
-      return boost::proto::make_expr< nt2::tag::offset_band1_
+      // Band width must be positive
+      BOOST_ASSERT_MSG( a1 >= 0
+                      , "Error using band: Invalid band shape requested."
+                      );
+
+      return boost::proto::make_expr< nt2::tag::band_
                                     , container::domain
                                     > ( boost::cref(a0), a1);
     }
   };
 
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::offset_band2_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::band_, tag::cpu_
                             , (A0)(A1)(A2)
                             , ((ast_<A0, nt2::container::domain>))
                               (scalar_< integer_<A1> >)
@@ -78,7 +92,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename  boost::proto::
-                      result_of::make_expr< nt2::tag::offset_band2_
+                      result_of::make_expr< nt2::tag::band_
                                           , container::domain
                                           , A0 const&
                                           , A1
@@ -92,7 +106,12 @@ namespace nt2 { namespace ext
                       , "Error using band: First input must be 2D."
                       );
 
-      return boost::proto::make_expr< nt2::tag::offset_band2_
+      // Relative sub/superdiagonal index must be ordered
+      BOOST_ASSERT_MSG( a1 <= a2
+                      , "Error using band: Invalid band shape requested."
+                      );
+
+      return boost::proto::make_expr< nt2::tag::band_
                                     , container::domain
                                     > ( boost::cref(a0), a1, a2);
     }

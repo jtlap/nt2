@@ -10,43 +10,24 @@
 #ifndef NT2_CORE_FUNCTIONS_BAND_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_BAND_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the band function
-**/
-
 #include <nt2/include/functor.hpp>
-#include <nt2/sdk/meta/size_as.hpp>
-#include <nt2/sdk/meta/value_as.hpp>
-#include <nt2/core/container/dsl/size.hpp>
-#include <nt2/core/container/dsl/value_type.hpp>
 
 namespace nt2
 {
   namespace tag
   {
     /*!
-      @brief Tag for the band functor
+      @brief band generic tag
+
+      Represents the band function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
     struct band_ : ext::elementwise_<band_>
     {
+      /// @brief Parent hierarchy
       typedef ext::elementwise_<band_> parent;
-    };
-
-    /*!
-      @brief Tag for the offset_band1 functor
-    **/
-    struct offset_band1_ : ext::elementwise_<offset_band1_>
-    {
-      typedef ext::elementwise_<offset_band1_>  parent;
-    };
-
-    /*!
-      @brief Tag for the offset_band2 functor
-    **/
-    struct offset_band2_ : ext::elementwise_<offset_band2_>
-    {
-      typedef ext::elementwise_<offset_band2_>  parent;
     };
   }
 
@@ -61,73 +42,33 @@ namespace nt2
     @par Alias:
     diagonal
   **/
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::band_         , band    , 1 )
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::band_ , band    , 1 )
 
   /// INTERNAL ONLY
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::band_         , diagonal, 1 )
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::band_ , diagonal, 1 )
 
   /*!
     @brief Apply a band masking to an expression
 
-    Apply a mask on an expression that evaluates to 0 everywhere except on the
-    diagonal of the expression and a given number of super-diagonals.
+    Apply a mask on an expression that evaluates to 0 everywhere except on a band
+    centered on the diagonal with a given width @c a1.
 
     @param a0 Expression to mask
-    @param a1 Number of super-diagional to include in the mask
+    @param a1 Width of the centered band.
   **/
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::offset_band1_ , band    , 2 )
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::band_ , band  , 2 )
 
   /*!
     @brief Apply a dual band masking to an expression
 
-    Apply a mask on an expression that evaluates to 0 everywhere except on the
-    diagonal of the expression, a given number of sub-diagonals and a given
-    number of super-diagonals.
+    Apply a mask on an expression that evaluates to 0 everywhere except on a
+    band ranging from sub/super-diagonal @c a0 and @c a1
 
     @param a0 Expression to mask
-    @param a1 Number of super-diagional to include in the mask
-    @param a2 Number of sub-diagional to include in the mask
+    @param a1 Index of the lowest diagonal to include in the mask.
+    @param a2 Index of the highest diagonal to include in the mask.
   **/
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::offset_band2_ , band    , 3 )
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::band_ , band  , 3 )
 }
-
-namespace nt2 { namespace ext
-{
-  /// INTERNAL ONLY
-  template<class Domain, class Expr>
-  struct  value_type<nt2::tag::band_,Domain,1,Expr>
-        : meta::value_as<Expr,0>
-  {};
-
-  /// INTERNAL ONLY
-  template<class Domain, class Expr>
-  struct  value_type<nt2::tag::offset_band1_,Domain,2,Expr>
-        : meta::value_as<Expr,0>
-  {};
-
-  /// INTERNAL ONLY
-  template<class Domain, class Expr>
-  struct  value_type<nt2::tag::offset_band2_,Domain,3,Expr>
-        : meta::value_as<Expr,0>
-  {};
-
-  /// INTERNAL ONLY
-  template<class Domain, class Expr>
-  struct  size_of<nt2::tag::band_,Domain,1,Expr>
-        : meta::size_as<Expr,0>
-  {};
-
-  /// INTERNAL ONLY
-  template<class Domain, class Expr>
-  struct  size_of<nt2::tag::offset_band1_,Domain,2,Expr>
-        : meta::size_as<Expr,0>
-  {};
-
-  /// INTERNAL ONLY
-  template<class Domain, class Expr>
-  struct  size_of<nt2::tag::offset_band2_,Domain,3,Expr>
-        : meta::size_as<Expr,0>
-  {};
-} }
 
 #endif
