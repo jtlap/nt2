@@ -15,7 +15,7 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::offset_triu_, tag::cpu_, (A0)(A1)
-                            , (scalar_< arithmetic_<A0> >)
+                            , (scalar_< unspecified_<A0> >)
                               (scalar_< integer_<A1> >)
                             )
   {
@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::triu_, tag::cpu_, (A0)
-                            , (scalar_< arithmetic_<A0> >)
+                            , (scalar_< unspecified_<A0> >)
                             )
   {
     typedef A0  result_type;
