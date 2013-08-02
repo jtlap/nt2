@@ -43,7 +43,7 @@ half.cpp
 halfeps.cpp
 homot.cpp
 hundred.cpp
-#ind2sub.cpp
+ind2sub.cpp
 indices.cpp
 infs.cpp
 ldexpmask.cpp

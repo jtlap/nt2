@@ -10,37 +10,49 @@
 #ifndef NT2_CORE_FUNCTIONS_IND2SUB_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_IND2SUB_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Define and implements the ind2sub function
-**/
-
 #include <nt2/include/functor.hpp>
+#include <nt2/sdk/meta/tieable_hierarchy.hpp>
 
 namespace nt2
 {
   namespace tag
   {
     /*!
-      @brief Tag for the ind2sub functor
+      @brief ind2sub generic tag
+
+      Represents the ind2sub function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
-    struct ind2sub_ : boost::dispatch::tag::formal_
+    struct ind2sub_ : ext::tieable_<ind2sub_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      /// @brief Parent hierarchy
+      typedef ext::tieable_<ind2sub_> parent;
     };
   }
 
-  //============================================================================
   /*!
-   * Determines the subscript equivalent to a C linear index.
-   *
-   * \param size Size sequence of source container
-   * \param pos  Linear index to convert
-   * \param base Optional base index sequence for non canonic container
-   * \return A C linear index pointing to the same element than \c pos.
-   */
-  //============================================================================
+    @brief Index to Subscript conversion
+
+    Determines the equivalent subscript values corresponding to
+    a single index into an array.
+
+    @param a0 Size of the table to index
+    @param a1 Linear index to convert
+  **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ind2sub_, ind2sub, 2)
+
+  /*!
+    @brief Index to Subscript conversion
+
+    Determines the equivalent subscript values corresponding to
+    a single index into an array with a given base index.
+
+    @param a0 Size of the table to index
+    @param a1 Linear index to convert
+    @param a2 Base index of the table to index
+  **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ind2sub_, ind2sub, 3)
 }
 
