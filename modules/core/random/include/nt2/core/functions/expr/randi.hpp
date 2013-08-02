@@ -118,7 +118,7 @@ namespace nt2 { namespace ext
       result_type imax = numel(a0) == 2 ? a0(i+1) : a0(i);
 
       result_type that;
-      current_randstream->randi(&that,0,1,imin,imax);
+      current_prng_.generator_->randi(&that,0,1,imin,imax);
       return that;
     }
   };

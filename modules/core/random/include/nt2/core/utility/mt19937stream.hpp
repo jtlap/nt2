@@ -25,7 +25,7 @@ namespace nt2
     boost::random::mt19937 generator_;
   };
 
-  nt2::randstream_* mt19937stream();
+  NT2_CORE_RANDOM_DECL nt2::randstream_* mt19937stream();
 }
 
 #endif

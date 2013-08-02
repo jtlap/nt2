@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
       a0.resize( boost::proto::value(boost::proto::child_c<2>(a1)) );
 
       // Forward to current random_stream and fill the data
-      current_randstream
+      current_prng_.generator_
               ->randi ( a0.raw()
                       , 0, nt2::numel(a0)
                       , boost::proto::value(boost::proto::child_c<0>(a1))

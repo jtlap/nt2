@@ -17,7 +17,7 @@ namespace nt2
 {
   NT2_IMPLEMENT_RAND( lagged_fibonacci2281stream_ )
 
-  nt2::randstream_* lagged_fibonacci2281stream()
+  NT2_CORE_RANDOM_DECL nt2::randstream_* lagged_fibonacci2281stream()
   {
     static nt2::lagged_fibonacci2281stream_ instance;
     return &instance;

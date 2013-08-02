@@ -25,7 +25,7 @@ namespace nt2
     boost::random::lagged_fibonacci2281 generator_;
   };
 
-  nt2::randstream_* lagged_fibonacci2281stream();
+  NT2_CORE_RANDOM_DECL nt2::randstream_* lagged_fibonacci2281stream();
 }
 
 #endif

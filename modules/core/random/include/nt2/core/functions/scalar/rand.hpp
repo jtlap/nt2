@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(T const&) const
     {
       result_type that;
-      current_randstream->rand(&that,0,1);
+      current_prng_.generator_->rand(&that,0,1);
       return that;
     }
   };

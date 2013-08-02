@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 a0) const
     {
       result_type that;
-      current_randstream->randi(&that,0,1,A0(1),a0);
+      current_prng_.generator_->randi(&that,0,1,A0(1),a0);
       return that;
     }
   };
@@ -48,7 +48,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(S const& minmax) const
     {
       result_type that;
-      current_randstream->randi ( &that , 0,  1
+      current_prng_.generator_->randi ( &that , 0,  1
                                 , boost::fusion::at_c<0>(minmax)
                                 , boost::fusion::at_c<1>(minmax)
                                 );

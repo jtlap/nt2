@@ -11,7 +11,9 @@ SET ( NT2_CORE.RANDOM_DEPENDENCIES_EXTRA
       core.sdk
       core.utility
       sdk.config
+      sdk.dsl
       sdk.functor
+      sdk.timing
     )
 
 SET ( NT2_CORE.RANDOM_LIBRARIES optimized nt2_random

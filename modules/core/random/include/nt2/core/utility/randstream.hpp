@@ -11,6 +11,7 @@
 
 #include <nt2/core/utility/config.hpp>
 #include <nt2/core/utility/details/rands.hpp>
+#include <nt2/core/utility/rng_settings.hpp>
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/lagged_fibonacci.hpp>
 
@@ -22,10 +23,7 @@ namespace nt2
     NT2_DEFINE_RANDSTREAM(randstream_);
   };
 
-  extern NT2_CORE_RANDOM_DECL nt2::randstream_* current_randstream;
-
-  NT2_CORE_RANDOM_DECL void randstream(const char* choice);
-  NT2_CORE_RANDOM_DECL void randstream(const char* choice, int s);
+  extern NT2_CORE_RANDOM_DECL rng_settings current_prng_;
 }
 
 #endif

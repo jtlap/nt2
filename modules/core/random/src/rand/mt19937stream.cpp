@@ -17,7 +17,7 @@ namespace nt2
 {
   NT2_IMPLEMENT_RAND( mt19937stream_ )
 
-  nt2::randstream_* mt19937stream()
+  NT2_CORE_RANDOM_DECL nt2::randstream_* mt19937stream()
   {
     static nt2::mt19937stream_ instance;
     return &instance;
