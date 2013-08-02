@@ -10,6 +10,7 @@
 #define NT2_CORE_UTILITY_MT19937STREAM_HPP_INCLUDED
 
 #include <nt2/core/utility/config.hpp>
+#include <nt2/core/utility/details/rands.hpp>
 #include <nt2/core/utility/randstream.hpp>
 #include <boost/random/mersenne_twister.hpp>
 
@@ -18,13 +19,7 @@ namespace nt2
   class mt19937stream_ : public randstream_
   {
     public:
-    virtual void rand (double* data, std::size_t i0, std::size_t i1);
-    virtual void rand (float*  data, std::size_t i0, std::size_t i1);
-    virtual void randn(double* data, std::size_t i0, std::size_t i1);
-    virtual void randn(float*  data, std::size_t i0, std::size_t i1);
-    virtual void seed (uint32_t s);
-
-    virtual ~mt19937stream_();
+    NT2_DEFINE_RAND(mt19937stream_);
 
     private:
     boost::random::mt19937 generator_;

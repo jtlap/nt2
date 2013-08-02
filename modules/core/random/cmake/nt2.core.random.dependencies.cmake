@@ -14,4 +14,6 @@ SET ( NT2_CORE.RANDOM_DEPENDENCIES_EXTRA
       sdk.functor
     )
 
-SET(NT2_CORE.RANDOM_LIBRARIES optimized nt2_random debug nt2_random_d)
+SET ( NT2_CORE.RANDOM_LIBRARIES optimized nt2_random
+                                debug nt2_random_d
+    )
