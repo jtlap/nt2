@@ -14,24 +14,16 @@
 
 namespace nt2 { namespace ext
 {
-  /// INTERNAL ONLY
-  /// Generates whereij_ from a 2ary functor and 2 scalar
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::whereij_, tag::cpu_,
-                              (A0)(A1)(A2),
+                              (A0)(A1),
                               (unspecified_<A0>)
                               (scalar_< unspecified_<A1> >)
-                              (scalar_< unspecified_<A2> >)
+                              (scalar_< unspecified_<A1> >)
                             )
   {
-    typedef typename
-            meta::result_of<A0 const(A1 const&, A2 const&)>::type  result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0,
-                                             A1 const& a1,
-                                             A2 const& a2) const
-    {
-      return if_else(a0(0, 0),a1,a2);
-    }
+    BOOST_DISPATCH_RETURNS(3, (A0 const& a0, A1 const& a1, A1 const& a2)
+                            , a0(0,0) ? a1 : a2
+                          );
   };
 } }
 
