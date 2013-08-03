@@ -8,25 +8,25 @@
 //==============================================================================
 #ifndef BOOST_SIMD_REDUCTION_FUNCTIONS_SIMD_COMMON_MINIMUM_HPP_INCLUDED
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_SIMD_COMMON_MINIMUM_HPP_INCLUDED
+
 #include <boost/simd/reduction/functions/minimum.hpp>
-#include <boost/simd/sdk/meta/scalar_of.hpp>
-#include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/include/functions/simd/splatted_minimum.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minimum_, tag::cpu_,
-                          (A0)(X),
-                          ((simd_<arithmetic_<A0>,X>))
-                         )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::minimum_
+                                    , tag::cpu_
+                                    , (A0)(X)
+                                    , ((simd_<unspecified_<A0>,X>))
+                                    )
   {
- typedef typename meta::scalar_of<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    typedef typename A0::value_type result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      result_type r = a0[0];
-      for(size_t i=1; i < boost::simd::meta::cardinal_of<A0>::value; i++)
-      r = (r >  a0[i]) ? a0[i] : r;
-      return r;
+      return splatted_minimum(a0)[0];
     }
   };
 } } }
+
 #endif

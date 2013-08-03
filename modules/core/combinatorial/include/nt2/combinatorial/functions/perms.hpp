@@ -50,14 +50,17 @@ namespace nt2 { namespace ext
     typedef _2D                               result_type;
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
-      size_t n =  nt2::numel(boost::proto::child_c<0>(e));
-      size_t k =  boost::proto::child_c<1>(e);
       result_type sizee;
-      sizee[1] = nt2::min(k, nt2::prod(nt2::_(size_t(1), n))); sizee[0] = n;
+      sizee[0] = nt2::numel(boost::proto::child_c<0>(e));
+
+      std::size_t l = 1;
+      for(std::size_t i=2;i<=sizee[0];++i) l *= i;
+
+      sizee[1] = nt2::min(boost::proto::child_c<1>(e), l);
+
       return sizee;
     }
   };
-
 
   template <class Domain, class Expr, int N>
   struct value_type < tag::perms_, Domain,N,Expr>

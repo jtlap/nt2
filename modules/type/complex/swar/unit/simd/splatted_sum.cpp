@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/reduction/include/functions/prod.hpp>
+#include <nt2/swar/include/functions/splatted_sum.hpp>
 #include <nt2/include/functions/load.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/complex/complex.hpp>
@@ -18,10 +18,10 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
-NT2_TEST_CASE_TPL (prod_cplx, NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( splatted_sum_cplx, NT2_SIMD_REAL_TYPES)
 {
-  using nt2::prod;
-  using nt2::tag::prod_;
+  using nt2::splatted_sum;
+  using nt2::tag::splatted_sum_;
   using boost::simd::native;
   using boost::simd::splat;
 
@@ -30,27 +30,26 @@ NT2_TEST_CASE_TPL (prod_cplx, NT2_SIMD_REAL_TYPES)
   typedef native<T,ext_t>               vT;
   typedef native<cT,ext_t>              vcT;
 
-  NT2_TEST_TYPE_IS( typename nt2::meta::call<prod_(vcT)>::type
-                  , cT
+  NT2_TEST_TYPE_IS( typename nt2::meta::call<splatted_sum_(vcT)>::type
+                  , vcT
                   );
 
   static const std::size_t n = vT::static_size;
   T data[n];
-  cT fact = cT(1);
 
   for(std::size_t i=0;i<n;++i) data[i] = i+1;
-  for(std::size_t i=0;i<n;++i) fact *= cT(i+1,i+1);
 
-  vT vr = boost::simd::load<vT>(&data[0]);
-  vcT vn(vr,vr);
+  vT v = boost::simd::load<vT>(&data[0]);
+  vT vf = splat<vT>( n*(n+1)/2 );
+  vcT vn(v,v);
 
-  NT2_TEST_EQUAL(prod(vn), fact );
+  NT2_TEST_EQUAL(splatted_sum(vn), vcT(vf,vf)  );
 }
 
-NT2_TEST_CASE_TPL (prod_dry, NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( splatted_sum_dry, NT2_SIMD_REAL_TYPES)
 {
-  using nt2::prod;
-  using nt2::tag::prod_;
+  using nt2::splatted_sum;
+  using nt2::tag::splatted_sum_;
   using boost::simd::native;
   using boost::simd::splat;
 
@@ -59,19 +58,17 @@ NT2_TEST_CASE_TPL (prod_dry, NT2_SIMD_REAL_TYPES)
   typedef native<T,ext_t>               vT;
   typedef native<cT,ext_t>              vcT;
 
-  NT2_TEST_TYPE_IS( typename nt2::meta::call<prod_(vcT)>::type
-                  , cT
+  NT2_TEST_TYPE_IS( typename nt2::meta::call<splatted_sum_(vcT)>::type
+                  , vcT
                   );
 
   static const std::size_t n = vT::static_size;
   T data[n];
-  cT fact(1);
 
   for(std::size_t i=0;i<n;++i) data[i] = i+1;
-  for(std::size_t i=0;i<n;++i) fact *= cT(i+1);
 
-  vT vr = boost::simd::load<vT>(&data[0]);
-  vcT vn(vr);
+  vT v = boost::simd::load<vT>(&data[0]);
+  vcT vn(v);
 
-  NT2_TEST_EQUAL(prod(vn), fact );
+  NT2_TEST_EQUAL(splatted_sum(vn), splat<vcT>( n*(n+1)/2 ) );
 }

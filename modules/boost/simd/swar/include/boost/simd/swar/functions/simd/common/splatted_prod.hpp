@@ -6,26 +6,28 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_SWAR_FUNCTIONS_SIMD_COMMON_SPLATTED_PROD_HPP_INCLUDED
-#define BOOST_SIMD_SWAR_FUNCTIONS_SIMD_COMMON_SPLATTED_PROD_HPP_INCLUDED
+#ifndef BOOST_SIMD_SWAR_FUNCTIONS_GENERIC_SPLATTED_PROD_HPP_INCLUDED
+#define BOOST_SIMD_SWAR_FUNCTIONS_GENERIC_SPLATTED_PROD_HPP_INCLUDED
+
 #include <boost/simd/swar/functions/splatted_prod.hpp>
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/simd/prod.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+#include <boost/simd/include/functions/simd/all_reduce.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::splatted_prod_, tag::cpu_,
-                                (A0)(X),
-                                ((simd_<arithmetic_<A0>,X>))
-                               )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::splatted_prod_
+                                    , tag::cpu_
+                                    , (A0)(X)
+                                    , ((simd_<unspecified_<A0>,X>))
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return boost::simd::splat<A0>(prod(a0));
+      return all_reduce<boost::simd::tag::multiplies_>(a0);
     }
   };
 } } }
+
 #endif

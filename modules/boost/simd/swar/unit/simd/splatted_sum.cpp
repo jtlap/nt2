@@ -6,38 +6,37 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <boost/simd/swar/include/functions/splatted_sum.hpp>
+#include <boost/simd/include/functions/splatted_sum.hpp>
+#include <boost/simd/include/functions/splat.hpp>
+#include <boost/simd/include/functions/load.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
-#include <boost/simd/include/functions/sum.hpp>
 
-#include <boost/type_traits/is_same.hpp>
-#include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/constant/constant.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
-NT2_TEST_CASE_TPL ( splatted_sum_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( splatted_sum, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::splatted_sum;
   using boost::simd::tag::splatted_sum_;
   using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::dispatch::meta::call<splatted_sum_(vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  using boost::simd::splat;
 
-  // specific values tests
-  NT2_TEST_EQUAL(splatted_sum(boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>());
-  NT2_TEST_EQUAL(splatted_sum(boost::simd::Minf<vT>())[0], boost::simd::Minf<sr_t>());
-  NT2_TEST_EQUAL(splatted_sum(boost::simd::Mone<vT>())[0], -sr_t(cardinal_of<n_t>()));
-  NT2_TEST_EQUAL(splatted_sum(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
-  NT2_TEST_EQUAL(splatted_sum(boost::simd::One<vT>())[0], sr_t(cardinal_of<n_t>()));
-  NT2_TEST_EQUAL(splatted_sum(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
-} // end of test for floating_
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>               vT;
+
+  NT2_TEST_TYPE_IS( typename boost::dispatch::meta
+                                            ::call<splatted_sum_(vT)>::type
+                  , vT
+                  );
+
+  static const std::size_t n = vT::static_size;
+  T data[n];
+
+  for(std::size_t i=0;i<n;++i) data[i] = i+1;
+
+  vT vn = boost::simd::load<vT>(&data[0]);
+  NT2_TEST_EQUAL(splatted_sum(vn), splat<vT>( n*(n+1)/2 ) );
+}

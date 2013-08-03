@@ -11,11 +11,28 @@
 
 #include <boost/simd/swar/functions/shuffle.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/sdk/meta/as_arithmetic.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/int.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_, tag::cpu_
+                                      , (A0)(X)(P)
+                                      , ((simd_< logical_<A0>, X>))
+                                        (target_< unspecified_<P> >)
+                                      )
+  {
+    typedef A0                        result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, P const&) const
+    {
+      typedef typename meta::as_arithmetic<A0>::type type;
+      return  bitwise_cast <result_type>
+              ( shuffle<typename P::type>( bitwise_cast<type>(a0) ));
+    }
+  };
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_, tag::cpu_
                                       , (A0)(X)(P)
                                       , ((simd_< arithmetic_<A0>, X>))
@@ -44,6 +61,26 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE void
     eval(A0 const&, result_type&, boost::mpl::int_<-1> const&) const
     {}
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_, tag::cpu_
+                                      , (A0)(X)(P)
+                                      , ((simd_< logical_<A0>, X>))
+                                        ((simd_< logical_<A0>, X>))
+                                        (target_< unspecified_<P> >)
+                                      )
+  {
+    typedef A0                        result_type;
+    BOOST_FORCEINLINE
+    result_type operator()(A0 const& a0, A0 const& a1, P const&) const
+    {
+      typedef typename meta::as_arithmetic<A0>::type type;
+      return bitwise_cast <result_type>
+                          ( shuffle<typename P::type> ( bitwise_cast<type>(a0)
+                                                      , bitwise_cast<type>(a1)
+                                                      )
+                          );
+    }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_, tag::cpu_

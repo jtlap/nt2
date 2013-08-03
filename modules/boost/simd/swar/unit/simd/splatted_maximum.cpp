@@ -6,38 +6,41 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <boost/simd/swar/include/functions/splatted_maximum.hpp>
+#include <boost/simd/include/functions/splatted_maximum.hpp>
+#include <boost/simd/include/functions/splat.hpp>
+#include <boost/simd/include/functions/load.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
-#include <boost/simd/include/functions/maximum.hpp>
 
-#include <boost/type_traits/is_same.hpp>
-#include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/constant/constant.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
-NT2_TEST_CASE_TPL ( splatted_maximum_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( splatted_maximum, BOOST_SIMD_SIMD_TYPES )
 {
   using boost::simd::splatted_maximum;
   using boost::simd::tag::splatted_maximum_;
   using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::dispatch::meta::call<splatted_maximum_(vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  using boost::simd::splat;
 
-  // specific values tests
-  NT2_TEST_EQUAL(splatted_maximum(boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>());
-  NT2_TEST_EQUAL(splatted_maximum(boost::simd::Minf<vT>())[0], boost::simd::Minf<sr_t>());
-  NT2_TEST_EQUAL(splatted_maximum(boost::simd::Mone<vT>())[0], boost::simd::Mone<sr_t>());
-  NT2_TEST_EQUAL(splatted_maximum(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
-  NT2_TEST_EQUAL(splatted_maximum(boost::simd::One<vT>())[0], boost::simd::One<sr_t>());
-  NT2_TEST_EQUAL(splatted_maximum(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
-} // end of test for floating_
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>               vT;
+
+  NT2_TEST_TYPE_IS( typename boost::dispatch::meta
+                                            ::call<splatted_maximum_(vT)>::type
+                  , vT
+                  );
+
+  static const std::size_t n = vT::static_size;
+  T data[n];
+
+  for(std::size_t k=0;k<n;++k)
+  {
+    for(std::size_t i=0;i<n;++i) data[i] = i+1;
+    data[k] = T(99);
+
+    vT vn = boost::simd::load<vT>(&data[0]);
+    NT2_TEST_EQUAL(splatted_maximum(vn), splat<vT>( 99 ) );
+  }
+}

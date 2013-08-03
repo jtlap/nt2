@@ -8,9 +8,14 @@
 ##############################################################################
 
 set( SOURCES
+    all_reduce.cpp
     enumerate.cpp
     group.cpp
     groups.cpp
+    splatted_prod.cpp
+    splatted_maximum.cpp
+    splatted_minimum.cpp
+    splatted_sum.cpp
     split.cpp
    )
 
