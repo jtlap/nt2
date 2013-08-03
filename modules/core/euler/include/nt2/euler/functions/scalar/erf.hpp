@@ -22,6 +22,7 @@
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/two.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type is arithmetic_
@@ -102,7 +103,9 @@ namespace nt2 { namespace ext
           A0(1                   )
         }};
 
+#ifndef BOOST_SIMD_NO_INVALIDS
       if(is_nan(a0)) return a0;
+#endif
       A0 x =  nt2::abs(a0);
       A0 xx =  nt2::sqr(x);
       if(x<= A0(0.0000000001))

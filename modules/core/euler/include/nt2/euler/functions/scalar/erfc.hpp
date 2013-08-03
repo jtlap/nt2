@@ -21,7 +21,7 @@
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/two.hpp>
-
+#include <boost/simd/sdk/config.hpp>
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::erfc_, tag::cpu_
@@ -97,7 +97,9 @@ namespace nt2 { namespace ext
           A0(1                   )
         }};
 
+#ifndef BOOST_SIMD_NO_INVALIDS
       if(nt2::is_nan(a0)) return a0;
+#endif
       A0 x =  nt2::abs(a0);
       A0 xx =  nt2::sqr(x);
       A0 z =  nt2::Zero<A0>();

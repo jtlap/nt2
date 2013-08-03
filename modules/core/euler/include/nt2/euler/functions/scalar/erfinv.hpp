@@ -24,6 +24,7 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/nan.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -77,7 +78,10 @@ namespace nt2 { namespace ext
 
         A0 x =  nt2::abs(a0);
         A0 res;
-        if(nt2::is_nan(a0)||(x>nt2::One<A0>())) return nt2::Nan<A0>();
+#ifndef BOOST_SIMD_NO_INVALIDS
+        if(nt2::is_nan(a0)) return nt2::Nan<A0>();
+#endif
+        if(x>nt2::One<A0>()) return nt2::Nan<A0>();
         if(x == nt2::One<A0>()) return a0*Inf<A0>();
         if(x<= A0(0.7))
         {

@@ -20,6 +20,7 @@
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -32,15 +33,23 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef result_type type;
-      bool isinfa0 =  nt2::is_inf(a0);
       if (nt2::is_lez(a0))
+#ifndef BOOST_SIMD_NO_INVALIDS
       {
-        if (nt2::is_flint(a0)||isinfa0)
+        if (nt2::is_flint(a0))
+          return nt2::Nan<type>();
+        else
+          return nt2::One<type>()-bool(nt2::is_odd(nt2::floor(a0)))*nt2::Two<A0>();
+      }
+#else
+      {
+        if (nt2::is_flint(a0)||nt2::is_inf(a0))
           return nt2::Nan<type>();
         else
           return nt2::One<type>()-bool(nt2::is_odd(nt2::floor(a0)))*nt2::Two<A0>();
       }
       else if (nt2::is_nan(a0)) return a0;
+#endif
       return nt2::One<type>();
     }
   };

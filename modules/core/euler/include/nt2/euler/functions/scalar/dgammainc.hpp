@@ -17,6 +17,7 @@
 #include <nt2/include/functions/scalar/is_eqz.hpp>
 #include <nt2/include/functions/scalar/if_zero_else.hpp>
 #include <nt2/include/functions/scalar/if_allbits_else.hpp>
+#include <nt2/include/functions/scalar/is_nan.hpp>
 #include <nt2/include/functions/scalar/gammaln.hpp>
 #include <nt2/include/constants/one.hpp>
 
@@ -48,7 +49,7 @@ namespace nt2 { namespace ext
       result_type tmp =  nt2::if_zero_else(nt2::is_equal(x, nt2::One<A0>()),
                                            nt2::minusone(a)*nt2::log(x)
                                           );
-      tmp =  nt2::if_allbits_else(nt2::is_eqz(a), tmp);
+      if (nt2::is_eqz(a)) return Nan<result_type>(); ;
       return nt2::exp(tmp-x-nt2::gammaln(a));
     }
   };

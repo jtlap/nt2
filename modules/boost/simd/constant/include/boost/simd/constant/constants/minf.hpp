@@ -66,9 +66,6 @@ namespace boost { namespace simd
      * \brief Define the tag Minf of functor Minf
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    #ifdef BOOST_SIMD_NO_INFINITIES
-    typedef Valmin Minf;
-    #else
     struct Minf : ext::pure_constant_<Minf>
     {
       typedef double                    default_type;
@@ -85,7 +82,6 @@ namespace boost { namespace simd
     template<class T, class Dummy>
     struct  Minf::apply<boost::dispatch::meta::double_<T>,Dummy>
           : meta::double_<0xFFF0000000000000ULL> {};
-    #endif
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Minf, Minf)

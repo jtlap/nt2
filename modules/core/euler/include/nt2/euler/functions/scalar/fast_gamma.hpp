@@ -25,6 +25,7 @@
 #include <nt2/include/constants/three.hpp>
 #include <nt2/include/constants/euler.hpp>
 #include <nt2/include/constants/half.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -69,8 +70,10 @@ namespace nt2 { namespace ext
         }};
       A0 x = a0, p, z;
       int32_t sgngam = 1;
+#ifndef BOOST_SIMD_NO_INVALIDS
       if( nt2::is_nan(x) || (x == nt2::Minf<A0>()) ) return nt2::Nan<A0>();
       if (x == nt2::Inf<A0>()) return x;
+#endif
       A0 q = nt2::abs(x);
       if( q > static_cast<A0>(33.0) )
       {

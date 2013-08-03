@@ -24,6 +24,7 @@
 #include <nt2/include/constants/quarter.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/sqrt_2pi.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 
 namespace nt2 { namespace ext
@@ -48,7 +49,9 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
+#ifndef BOOST_SIMD_NO_INVALIDS
       if (nt2::is_nan(a0)) return nt2::Nan<A0>();
+#endif
       if (a0 > nt2::Stirlinglargelim<A0>()) return nt2::Inf<A0>();
       A0 w = nt2::rec(a0);
       w = fma(w, polevl(w, stirpol<A0, A0>::sp()), nt2::One<A0>());

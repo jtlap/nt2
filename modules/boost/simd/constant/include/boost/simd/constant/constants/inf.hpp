@@ -68,9 +68,6 @@ namespace boost { namespace simd
      * \brief Define the tag Inf of functor Inf
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    #ifdef BOOST_SIMD_NO_INFINITIES
-    typedef Valmax Inf;
-    #else
     struct Inf : ext::pure_constant_<Inf>
     {
       typedef double default_type;
@@ -87,7 +84,6 @@ namespace boost { namespace simd
     template<class T, class Dummy>
     struct  Inf::apply<boost::dispatch::meta::double_<T>,Dummy>
           : meta::double_<0x7FF0000000000000ULL> {};
-    #endif
   }
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Inf, Inf)
 
