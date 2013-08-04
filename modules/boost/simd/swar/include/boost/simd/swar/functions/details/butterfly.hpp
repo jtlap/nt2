@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace details
   };
 
   template<int Step, typename Type>
-  struct butterfly : butterfly_perm<Step>
+  struct butterfly
   {
     template<typename Op, typename V>
     BOOST_FORCEINLINE Type operator()(Op op, V const& a0) const
@@ -43,18 +43,18 @@ namespace boost { namespace simd { namespace details
       typename dispatch::meta::dispatch_call<Op(V const&,V const&)>::type f;
       butterfly<Step/2, Type> next;
 
-      return next( op, f(a0, shuffle< butterfly >(a0)) );
+      return next( op, f(a0, boost::simd::shuffle< butterfly_perm<Step> >(a0)) );
     }
   };
 
   template<typename Type>
-  struct butterfly<1,Type> : butterfly_perm<1>
+  struct butterfly<1,Type>
   {
     template<typename Op, typename V>
     BOOST_FORCEINLINE Type operator()(Op, V const& a0) const
     {
       typename dispatch::meta::dispatch_call<Op(V const&,V const&)>::type f;
-      return f(shuffle< butterfly >(a0),a0);
+      return f(boost::simd::shuffle< butterfly_perm<1> >(a0),a0);
     }
   };
 } } }
