@@ -18,6 +18,7 @@
 #include <nt2/include/functions/scalar/successor.hpp>
 #include <nt2/include/functions/scalar/predecessor.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -52,8 +53,10 @@ namespace nt2 { namespace ext
     inline result_type operator()(const A0& a0, const A0& a1,const A2& a2)
     {
       if (a0 == a1) return True<result_type>();
+#ifndef BOOST_SIMD_NO_INVALIDS
       if (logical_or(is_inf(a0), is_inf(a1))) return result_type(a0 == a1);
       if (logical_or(is_nan(a0), is_nan(a1))) return False<result_type>();
+#endif
       // see http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
       // by Bruce Dawson
       // Do not choose a2 negative or too large
