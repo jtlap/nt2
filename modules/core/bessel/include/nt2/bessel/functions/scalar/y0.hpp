@@ -21,6 +21,7 @@
 #include <nt2/include/functions/scalar/rec.hpp>
 #include <nt2/include/functions/scalar/sin.hpp>
 #include <boost/simd/sdk/math.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -58,8 +59,11 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      if (is_ltz(a0)||is_nan(a0)) return Nan<result_type>();
+      if (is_ltz(a0)) return Nan<result_type>();
+#ifndef BOOST_SIMD_NO_INVALIDS
+      if (is_nan(a0)) return Nan<result_type>();
       if (is_inf(a0)) return Zero<result_type>();
+#endif
       if (is_eqz(a0)) return Minf<result_type>();
 #if defined(BOOST_SIMD_HAS__Y0)
       return ::_y0(a0);
@@ -89,8 +93,11 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<A0>::type stype;
-      if (is_ltz(a0)||is_nan(a0)) return Nan<result_type>();
+      if (is_ltz(a0)) return Nan<result_type>();
+#ifndef BOOST_SIMD_NO_INVALIDS
+      if (is_nan(a0)) return Nan<result_type>();
       if (is_inf(a0)) return Zero<result_type>();
+#endif
       if (is_eqz(a0)) return Minf<result_type>();
       if (a0 <= Two<A0>())
       {

@@ -33,6 +33,7 @@
 #include <nt2/trigonometric/constants.hpp>
 #include <boost/simd/sdk/math.hpp>
 #include <boost/array.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -121,8 +122,11 @@ namespace nt2 { namespace ext
           3.36093607810698293419E2,
         }};
       typedef result_type rtype;
-      if (is_ltz(a0)||is_nan(a0)) return Nan<rtype>();
+      if (is_ltz(a0)) return Nan<rtype>();
+#ifndef BOOST_SIMD_NO_INVALIDS
+      if (is_nan(a0)) return Nan<result_type>();
       if (is_inf(a0)) return Zero<rtype>();
+#endif
       if (is_eqz(a0)) return Minf<rtype>();
       rtype x = a0;
       if( x <= Five<A0>() )
@@ -158,8 +162,11 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      if (is_ltz(a0)||is_nan(a0)) return Nan<result_type>();
+      if (is_ltz(a0)) return Nan<result_type>();
+#ifndef BOOST_SIMD_NO_INVALIDS
+      if (is_nan(a0)) return Nan<result_type>();
       if (is_inf(a0)) return Zero<result_type>();
+#endif
       if (is_eqz(a0)) return Minf<result_type>();
 #ifdef BOOST_SIMD_HAS__Y1F
       return ::_y1f(a0);

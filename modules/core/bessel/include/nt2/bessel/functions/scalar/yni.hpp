@@ -25,6 +25,8 @@
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <boost/simd/sdk/math.hpp>
+#include <boost/simd/sdk/config.hpp>
+
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_
@@ -58,7 +60,10 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     NT2_FUNCTOR_CALL(2)
     {
+#ifndef BOOST_SIMD_NO_INVALIDS
+      if (is_nan(a1)) return Nan<result_type>();
       if (is_inf(a1)) return Zero<result_type>();
+#endif
       if (is_eqz(a1)) return Minf<result_type>();
     #ifdef BOOST_SIMD_HAS__YN
       return ::_yn(a0, a1);
@@ -88,8 +93,11 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       typedef A1 result_type;
-      if (is_ltz(a1)||is_nan(a1)) return Nan<result_type>();
+      if (is_ltz(a1)) return Nan<result_type>();
+#ifndef BOOST_SIMD_NO_INVALIDS
+      if (is_nan(a1)) return Nan<result_type>();
       if (is_inf(a1)) return Zero<result_type>();
+#endif
       if (is_eqz(a1)) return Minf<result_type>();
       result_type x = a1;
       const size_t n1 = nt2::abs(a0);

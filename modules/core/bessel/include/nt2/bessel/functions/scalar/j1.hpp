@@ -25,6 +25,7 @@
 #include <nt2/include/functions/scalar/is_greater.hpp>
 #include <nt2/include/functions/scalar/if_else.hpp>
 #include <nt2/include/functions/scalar/splat.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 #include <boost/simd/sdk/math.hpp>
 
@@ -65,7 +66,10 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       if (is_ltz(a0)) return Nan<A0>();
-      if (is_inf(a0) || is_eqz(a0)) return Zero<A0>();
+#ifndef BOOST_SIMD_NO_INVALIDS
+      if(nt2::is_inf(a0)) return Zero<A0>();
+#endif
+      if (is_eqz(a0)) return Zero<A0>();
     #if defined(BOOST_SIMD_HAS__J1)
       return ::_j1(a0);
     #elif defined(BOOST_SIMD_HAS_J1)
@@ -94,7 +98,10 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       if (is_ltz(a0)) return Nan<A0>();
-      if (is_inf(a0) || is_eqz(a0)) return Zero<A0>();
+#ifndef BOOST_SIMD_NO_INVALIDS
+      if(nt2::is_inf(a0)) return Zero<A0>();
+#endif
+      if (is_eqz(a0)) return Zero<A0>();
       A0 x = nt2::abs(a0);
       if (lt(x,Two<A0>()))
       {

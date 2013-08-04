@@ -20,10 +20,12 @@
 #include <nt2/include/functions/simd/seladd.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
 #include <nt2/include/functions/simd/if_else_zero.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/logical_or.hpp>
 #include <nt2/include/functions/simd/bitwise_and.hpp>
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/mhalf.hpp>
+#include <nt2/include/constants/minf.hpp>
 
 namespace nt2 { namespace details
 {
@@ -71,7 +73,12 @@ namespace nt2 { namespace details
       y2 = nt2::if_nan_else(nt2::logical_or(nt2::is_ltz(a0),
                                             nt2::is_nan(a0)),
                             y2);
-      return nt2::seladd(is_inf(y1), y2, y1);
+      A0 r = nt2::seladd(is_inf(y1), y2, y1);
+    #ifdef BOOST_SIMD_NO_INVALIDS
+      return if_else(is_eqz(a0), nt2::Minf<A0>(), r); //in no_invalid case log(0) would be incorrect
+    #else
+      return r;
+    #endif
     }
 
     static inline A0 log2(const A0& a0)

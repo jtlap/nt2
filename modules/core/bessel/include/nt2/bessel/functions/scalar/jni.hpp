@@ -18,6 +18,7 @@
 #include <nt2/include/functions/scalar/is_greater.hpp>
 #include <nt2/include/functions/scalar/splat.hpp>
 #include <boost/simd/sdk/math.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_
@@ -55,7 +56,9 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      if (is_inf(a1)) return Zero<A1>();
+#ifndef BOOST_SIMD_NO_INVALIDS
+      if(nt2::is_inf(a1)) return Zero<A0>();
+#endif
     #if defined(BOOST_SIMD_HAS__JN)
       return ::_jn(a0, a1);
     #elif defined(BOOST_SIMD_HAS_JN)

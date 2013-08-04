@@ -22,7 +22,6 @@
 #include <nt2/include/functions/simd/all.hpp>
 #include <nt2/include/functions/simd/if_zero_else.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -95,7 +94,7 @@ namespace nt2 { namespace ext
                                     0xbc81c8f4,
                                     0x3e2edb4f
                                      ) ) > (z);
-      return p2+single_constant<AA0, 0x3f22f983>()*log(a0)*j0(a0);
+      return p2+single_constant<AA0, 0x3f22f983>()*nt2::log(a0)*j0(a0);
     }
     template < class AA0 > static inline AA0 branch2(const AA0 & a0)
     {
