@@ -33,8 +33,8 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef result_type type;
+#ifdef BOOST_SIMD_NO_INVALIDS
       if (nt2::is_lez(a0))
-#ifndef BOOST_SIMD_NO_INVALIDS
       {
         if (nt2::is_flint(a0))
           return nt2::Nan<type>();
@@ -42,6 +42,7 @@ namespace nt2 { namespace ext
           return nt2::One<type>()-bool(nt2::is_odd(nt2::floor(a0)))*nt2::Two<A0>();
       }
 #else
+      if (nt2::is_lez(a0))
       {
         if (nt2::is_flint(a0)||nt2::is_inf(a0))
           return nt2::Nan<type>();
