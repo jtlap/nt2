@@ -45,6 +45,17 @@ NT2_TEST_CASE(issue_495)
 ////////////////////////////////////////////////////////////////////////////////
 // Test pack constructors
 ////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL(constructor_from_values, BOOST_SIMD_SIMD_TYPES )
+{
+  typedef typename boost::simd::pack<T,8> p_t;
+  static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
+
+  p_t p(T(1),T(2),T(3),T(4),T(5),T(6),T(7),T(8));
+
+  for(size_t i=0;i<card;++i)
+    NT2_TEST_EQUAL( p[i], T(1+i));
+}
+
 NT2_TEST_CASE_TPL(constructor_from_begin_iterator, BOOST_SIMD_SIMD_TYPES )
 {
   typedef typename boost::simd::pack<T> p_t;
