@@ -28,8 +28,9 @@ namespace boost { namespace simd { namespace details
   template<int Step> struct butterfly_perm
   {
     template<typename Index, typename Cardinal>
-    struct  apply : boost::mpl::int_< (Index::value < Step)
-                                    ? Index::value+Step : Index::value-Step
+    struct  apply : boost::mpl::int_< (Index::value >= Step)
+                                    ? Index::value-Step
+                                    : Index::value+Step
                                     >
     {};
   };
