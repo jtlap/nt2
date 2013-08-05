@@ -52,7 +52,7 @@
 #endif
 
 // SUSv3
-#if defined(_XOPEN_VERSION) && _XOPEN_VERSION >= 600
+#if defined(_SVID_SOURCE) || defined(_BSD_SOURCE) || (defined(_XOPEN_SOURCE) && _XOPEN_SOURCE >= 600)
 #define BOOST_SIMD_HAS_Y0F
 #define BOOST_SIMD_HAS_Y1F
 #define BOOST_SIMD_HAS_YNF
