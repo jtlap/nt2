@@ -25,7 +25,7 @@ NT2_TEST_CASE_TPL ( logspace_sub_real__2_0,  NT2_SIMD_REAL_TYPES)
 
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
-  NT2_TEST_ULP_EQUAL(logspace_sub(nt2::Inf<vT>(), nt2::Inf<vT>()), nt2::Inf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(logspace_sub(nt2::Inf<vT>(), nt2::Inf<vT>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(logspace_sub(nt2::Minf<vT>(), nt2::Minf<vT>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(logspace_sub(nt2::Nan<vT>(), nt2::Nan<vT>()), nt2::Nan<r_t>(), 0);
 #endif
