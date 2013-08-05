@@ -78,11 +78,16 @@ namespace nt2 { namespace details
       A0 y2 =  nt2::mul(dk, double_constant<A0, 0x3fe62e42fee00000ll>())-
         ((hfsq-(s*(hfsq+R)+nt2::mul(dk,double_constant<A0, 0x3dea39ef35793c76ll>())))-f);
       A0 y1 = a0-rec(abs(a0));// trick to reduce selection testing
-      return nt2::seladd(nt2::is_inf(y1),
+      A0 r = nt2::seladd(nt2::is_inf(y1),
                          nt2::if_nan_else(nt2::logical_or(nt2::is_ltz(a0),
                                                           nt2::is_nan(a0)),
                                           y2),
                          y1);
+    #ifdef BOOST_SIMD_NO_INVALIDS
+      return if_else(is_eqz(a0), nt2::Minf<A0>(), r); //in no_invalid case log2(0) would be incorrect
+    #else
+      return r;
+    #endif
     }
 
     static inline A0 log2(const A0& a0)
@@ -91,11 +96,16 @@ namespace nt2 { namespace details
       kernel_log(a0, dk, hfsq, s, R, f);
       A0 y2 = -(hfsq-(s*(hfsq+R))-f)*nt2::Invlog_2<A0>()+dk;
       A0 y1 = a0-nt2::rec(abs(a0));// trick to reduce selection testing
-      return nt2::seladd(nt2::is_inf(y1),
+      A0 r = nt2::seladd(nt2::is_inf(y1),
                          nt2::if_nan_else(nt2::logical_or(nt2::is_ltz(a0),
                                                           nt2::is_nan(a0)),
                                           y2),
                          y1);
+    #ifdef BOOST_SIMD_NO_INVALIDS
+      return if_else(is_eqz(a0), nt2::Minf<A0>(), r); //in no_invalid case log2(0) would be incorrect
+    #else
+      return r;
+    #endif
     }
 
     static inline A0 log10(const A0& a0)
@@ -104,11 +114,16 @@ namespace nt2 { namespace details
       kernel_log(a0, dk, hfsq, s, R, f);
       A0 y2 = -(hfsq-(s*(hfsq+R))-f)*nt2::Invlog_10<A0>()+dk*nt2::Log_2olog_10<A0>();
       A0 y1 = a0-nt2::rec(abs(a0));// trick to reduce selection testing
-      return nt2::seladd(nt2::is_inf(y1),
+      A0 r = nt2::seladd(nt2::is_inf(y1),
                          nt2::if_nan_else(nt2::logical_or(nt2::is_ltz(a0),
                                                           nt2::is_nan(a0)),
                                           y2),
                          y1);
+    #ifdef BOOST_SIMD_NO_INVALIDS
+      return if_else(is_eqz(a0), nt2::Minf<A0>(), r); //in no_invalid case log10(0) would be incorrect
+    #else
+      return r;
+    #endif
     }
   };
 } }

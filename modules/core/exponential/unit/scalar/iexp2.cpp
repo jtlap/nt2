@@ -6,22 +6,14 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 exponential toolbox - iexp2/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of exponential components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created by jt the 08/12/2010
-///
 #include <nt2/exponential/include/functions/iexp2.hpp>
+#include <nt2/exponential/include/functions/cbrt.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/include/constants/mone.hpp>
-#include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/two.hpp>
-#include <nt2/include/constants/zero.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
+
 #include <nt2/constant/constant.hpp>
 
 

@@ -90,11 +90,16 @@ namespace nt2 { namespace details
       A0 z = nt2::fma(x,single_constant<A0, 0x3ee2a8ed>(),mul(y,single_constant<A0, 0x3ee2a8ed>()));// 0.44269504088896340735992
       A0 z1 = ((z+y)+x)+fe;
       A0 y1 = a0-nt2::rec(abs(a0)); // trick to reduce selection testing
-      return nt2::seladd(is_inf(y1),
+      A0 r = nt2::seladd(is_inf(y1),
                          nt2::if_nan_else(nt2::logical_or(nt2::is_ltz(a0),
                                                           nt2::is_nan(a0)),
                                           z1),
                          y1);
+    #ifdef BOOST_SIMD_NO_INVALIDS
+      return if_else(is_eqz(a0), nt2::Minf<A0>(), r); //in no_invalid case log2(0) would be incorrect
+    #else
+      return r;
+    #endif
     }
 
     static inline A0 log10(const A0& a0)
@@ -109,11 +114,16 @@ namespace nt2 { namespace details
       z = nt2::amul(z, fe, single_constant<A0, 0x39826a14>());//3.0078125E-1f              // log10(2)hi
       z = nt2::amul(z, fe, single_constant<A0, 0x3e9a0000>());//2.48745663981195213739E-4f // log10(2)lo
       A0 y1 = a0-nt2::rec(abs(a0)); // trick to reduce selection testing perhaps bad TODO
-      return nt2::seladd(nt2::is_inf(y1),
+      A0 r = nt2::seladd(nt2::is_inf(y1),
                          nt2::if_nan_else(nt2::logical_or(nt2::is_ltz(a0),
                                                           nt2::is_nan(a0)),
                                           z),
                          y1);
+    #ifdef BOOST_SIMD_NO_INVALIDS
+      return if_else(is_eqz(a0), nt2::Minf<A0>(), r); //in no_invalid case log10(0) would be incorrect
+    #else
+      return r;
+    #endif
     }
   };
 } }
