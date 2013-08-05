@@ -55,7 +55,7 @@ namespace boost { namespace simd { namespace ext
     }
 
     BOOST_FORCEINLINE
-    result_type eval( A0 const& a0, A0 const& a1
+    result_type eval( A0 const& a0, A0 const&
                     , boost::mpl::false_ const&, boost::mpl::true_ const&
                     ) const
     {

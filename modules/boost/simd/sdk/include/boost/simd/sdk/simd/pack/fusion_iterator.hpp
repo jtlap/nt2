@@ -67,7 +67,7 @@ namespace boost { namespace simd { namespace details
       typedef typename
               boost::mpl::int_ < It2::index - It1::index>::type type;
 
-      static type call(It1 const& it1, It2 const& it2) { return type(); }
+      static type call(It1 const&, It2 const&) { return type(); }
     };
 
     template<typename It, typename M> struct advance

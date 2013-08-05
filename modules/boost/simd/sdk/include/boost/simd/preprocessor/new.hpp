@@ -38,12 +38,12 @@ void* operator new(std::size_t sz)                                             \
   return boost::simd::allocate<Alignment>(sz);                                 \
 }                                                                              \
                                                                                \
-void* operator new(std::size_t , void* p)                                      \
+void* operator new(std::size_t, void* p)                                       \
 {                                                                              \
   return p;                                                                    \
 }                                                                              \
                                                                                \
-void* operator new[](std::size_t s, void* p)                                   \
+void* operator new[](std::size_t, void* p)                                     \
 {                                                                              \
   return p;                                                                    \
 }                                                                              \

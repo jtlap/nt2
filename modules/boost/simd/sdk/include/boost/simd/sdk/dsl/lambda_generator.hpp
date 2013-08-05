@@ -27,8 +27,8 @@ namespace boost { namespace simd { namespace meta
         BOOST_DISPATCH_FORCE_INLINE
         result_type
         operator()( typename impl::expr_param e
-                  , typename impl::state_param s
-                  , typename impl::data_param d
+                  , typename impl::state_param
+                  , typename impl::data_param
                   ) const
         {
           return result_type(e);

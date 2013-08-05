@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace ext
             make_expr<Func, domain, const value&>::type         result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
-    operator()(A0 const& a0) const
+    operator()(A0 const&) const
     {
       return boost::proto::detail::
              make_expr_<Func, domain, const value&>()(value());
