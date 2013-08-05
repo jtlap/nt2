@@ -9,6 +9,8 @@
 #ifndef BOOST_SIMD_REDUCTION_FUNCTIONS_SCALAR_SECOND_HPP_INCLUDED
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_SCALAR_SECOND_HPP_INCLUDED
 
+#include <boost/simd/reduction/functions/second.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::second_, tag::cpu_

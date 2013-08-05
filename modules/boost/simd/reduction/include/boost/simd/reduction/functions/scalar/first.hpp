@@ -9,6 +9,8 @@
 #ifndef BOOST_SIMD_REDUCTION_FUNCTIONS_SCALAR_FIRST_HPP_INCLUDED
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_SCALAR_FIRST_HPP_INCLUDED
 
+#include <boost/simd/reduction/functions/first.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::first_, tag::cpu_
