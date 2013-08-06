@@ -27,7 +27,7 @@ NT2_TEST_CASE_TPL ( y0_real__1_0,  NT2_REAL_TYPES)
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
   NT2_TEST_ULP_EQUAL(y0(nt2::Inf<T>()), nt2::Zero<r_t>(), 1.0);
-  NT2_TEST_ULP_EQUAL(y0(nt2::Minf<T>()), nt2::Zero<r_t>(), 1.0);
+  NT2_TEST_ULP_EQUAL(y0(nt2::Minf<T>()), nt2::Nan<r_t>(), 1.0);
   NT2_TEST_ULP_EQUAL(y0(nt2::Nan<T>()), nt2::Nan<r_t>(), 1.0);
 #endif
   NT2_TEST_ULP_EQUAL(y0(nt2::One<T>()), r_t( 8.825696421567700e-02), 2);
