@@ -12,6 +12,10 @@
 #include <nt2/hyperbolic/functions/acsch.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/asinh.hpp>
+#include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/bitwise_or.hpp>
+#include <nt2/include/constants/inf.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 
 namespace nt2 { namespace ext
@@ -24,7 +28,13 @@ namespace nt2 { namespace ext
     typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::asinh(nt2::rec(nt2::tofloat(a0)));
+      result_type a = nt2::tofloat(a0);
+      result_type r = nt2::asinh(nt2::rec(a));
+#ifndef BOOST_SIMD_NO_INVALIDS
+      return r;
+#else
+      return if_else(is_eqz(a0), bitwise_or(a, nt2::Inf<result_type>()), r);
+#endif
     }
   };
 } }
