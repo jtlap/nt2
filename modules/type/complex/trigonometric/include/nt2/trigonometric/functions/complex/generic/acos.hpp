@@ -116,7 +116,7 @@ namespace nt2 { namespace ext
       // r is computed
       r = if_else(le(b, b_crossover), nt2::acos(b), r);
       //compute am1 temporary for i for a <= a_crossover
-      rtype tmp = yy/(r+xp1);
+      rtype tmp = yy/(tr+xp1);
       rtype am1 = if_else(lexone,
                           Half<rtype>()*(tmp+yy/(ts-xm1)),
                           Half<rtype>()*(tmp+(ts+xm1)));
