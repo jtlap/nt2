@@ -11,6 +11,7 @@
 #define NT2_SDK_UNIT_DETAILS_ULP_HPP_INCLUDED
 
 #include <nt2/sdk/unit/config.hpp>
+#include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/value.hpp>
 #include <nt2/sdk/unit/details/is_sequence.hpp>
 #include <nt2/sdk/unit/details/smallest_type.hpp>
@@ -114,7 +115,7 @@ namespace nt2 { namespace details
       {
         return max_ulp_seq_<I+1,N>()
               ( a , b
-              , std::max( z
+              , nt2::max( z
                         , max_ulps( nt2::details::
                                     smallest_a( boost::fusion::at_c<I>(a)
                                               , boost::fusion::at_c<I>(b)
@@ -240,7 +241,7 @@ namespace nt2 { namespace details
           }
 
           // Update global max ulp error
-          res = std::max(res,r);
+          res = nt2::max(res,r);
           ab++;
           bb++;
           i++;
