@@ -13,6 +13,7 @@
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/qr.hpp>
+#include <nt2/include/functions/complexify.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
