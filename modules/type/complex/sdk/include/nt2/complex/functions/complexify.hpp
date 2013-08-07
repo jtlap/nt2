@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_OPERATOR_FUNCTIONS_COMPLEX_COMPLEXIFY_HPP_INCLUDED
-#define NT2_OPERATOR_FUNCTIONS_COMPLEX_COMPLEXIFY_HPP_INCLUDED
+#ifndef NT2_COMPLEX_FUNCTIONS_COMPLEXIFY_HPP_INCLUDED
+#define NT2_COMPLEX_FUNCTIONS_COMPLEXIFY_HPP_INCLUDED
 
 /*!
   @file
