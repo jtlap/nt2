@@ -18,12 +18,16 @@
 #error BOOST_ENABLE_ASSERT_HANDLER must be defined to use NT2_ASSERTS_AS_EXCEPTIONS
 #endif
 
-#if (defined(NT2_ASSERTS_AS_EXCEPTIONS) && !defined(BOOST_NO_EXCEPTIONS))
+#include <boost/config.hpp>
+#if defined(NT2_ASSERTS_AS_EXCEPTIONS) && defined(BOOST_NO_EXCEPTIONS)
+#error Exceptions must enabled to use NT2_ASSERTS_AS_EXCEPTIONS
+#endif
+
+#if defined(NT2_ASSERTS_AS_EXCEPTIONS)
 #include <nt2/sdk/error/exception.hpp>
 #include <iosfwd>
 #include <sstream>
 #include <boost/assert.hpp>
-#include <boost/config.hpp>
 #include <boost/exception/all.hpp>
 #include <boost/throw_exception.hpp>
 
