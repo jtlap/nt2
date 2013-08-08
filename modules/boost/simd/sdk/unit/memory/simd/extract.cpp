@@ -9,6 +9,7 @@
 #include <boost/simd/include/functions/extract.hpp>
 #include <boost/simd/include/functions/insert.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 
@@ -24,28 +25,37 @@
 
 NT2_TEST_CASE_TPL( extract, BOOST_SIMD_SIMD_TYPES)
 {
+  using boost::simd::pack;
   using boost::simd::native;
   using boost::simd::extract;
   using boost::simd::tag::extract_;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>               vT;
+  typedef pack<T>                       pT;
 
   typedef typename boost::dispatch::meta
                         ::call<extract_(vT const&, int)>::type rT;
 
+  typedef typename boost::dispatch::meta
+                        ::call<extract_(pT const&, int)>::type qT;
+
   NT2_TEST_TYPE_IS( rT, T );
+  NT2_TEST_TYPE_IS( qT, T );
 
   vT value;
+  pT pck;
 
   for(std::size_t i=0;i<vT::static_size;i++)
   {
     value[i] = T(1+i);
+    pck[i] = T(1+i);
   }
 
   for(std::size_t i=0;i<vT::static_size;i++)
   {
     NT2_TEST_EQUAL( extract(value, i), T(1+i) );
+    NT2_TEST_EQUAL( extract(pck, i), T(1+i) );
   }
 }
 
@@ -53,24 +63,37 @@ NT2_TEST_CASE_TPL( extract_logical, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::logical;
   using boost::simd::native;
+  using boost::simd::pack;
   using boost::simd::extract;
   using boost::simd::tag::extract_;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<logical<T>,ext_t>      vT;
+  typedef pack< logical<T> >            pT;
 
   typedef typename boost::dispatch::meta
                         ::call<extract_(vT const&, int)>::type rT;
 
+  typedef typename boost::dispatch::meta
+                        ::call<extract_(pT const&, int)>::type qT;
+
   NT2_TEST_TYPE_IS( rT, logical<T> );
+  NT2_TEST_TYPE_IS( qT, logical<T> );
 
   vT value;
+  pT pck;
 
   for(std::size_t i=0;i<vT::static_size;i++)
+  {
     value[i] = logical<T>(i%2);
+    pck[i] = logical<T>(i%2);
+  }
 
   for(std::size_t i=0;i<vT::static_size;i++)
+  {
     NT2_TEST_EQUAL( extract(value, i), logical<T>(i%2) );
+    NT2_TEST_EQUAL( extract(pck, i)  , logical<T>(i%2) );
+  }
 }
 
 NT2_TEST_CASE( extract_fusion )

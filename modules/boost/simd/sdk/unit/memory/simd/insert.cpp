@@ -10,6 +10,7 @@
 #include <boost/simd/include/functions/extract.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 
@@ -26,24 +27,33 @@
 
 NT2_TEST_CASE_TPL( insert, BOOST_SIMD_SIMD_TYPES)
 {
+  using boost::simd::pack;
   using boost::simd::native;
   using boost::simd::insert;
   using boost::simd::tag::insert_;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>               vT;
+  typedef pack<T>                       pT;
 
   typedef typename boost::dispatch::meta::call<insert_(T, vT&, int)>::type rT;
+  typedef typename boost::dispatch::meta::call<insert_(T, pT&, int)>::type qT;
 
   NT2_TEST_TYPE_IS( rT, void );
+  NT2_TEST_TYPE_IS( qT, void );
 
   vT ref;
   vT value;
+  pT rpck;
+  pT pck;
 
-  for(std::size_t i=0;i<vT::static_size;++i) ref[i] = T(1+i);
+  for(std::size_t i=0;i<vT::static_size;++i) rpck[i] = ref[i] = T(1+i);
 
   for(std::size_t i=0;i<vT::static_size;++i)
+  {
     insert(T(1+i),value, i);
+    insert(T(1+i),pck, i);
+  }
 
   NT2_TEST_EQUAL( ref, value );
 }
@@ -51,27 +61,43 @@ NT2_TEST_CASE_TPL( insert, BOOST_SIMD_SIMD_TYPES)
 NT2_TEST_CASE_TPL( insert_logical, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::logical;
+  using boost::simd::pack;
   using boost::simd::native;
   using boost::simd::insert;
   using boost::simd::tag::insert_;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<logical<T>,ext_t>      vT;
+  typedef pack< logical<T> >            pT;
 
   typedef typename boost::dispatch::meta
                         ::call<insert_(logical<T>, vT&, int)>::type rT;
 
+  typedef typename boost::dispatch::meta
+                        ::call<insert_(logical<T>, pT&, int)>::type qT;
+
   NT2_TEST_TYPE_IS( rT, void );
+  NT2_TEST_TYPE_IS( qT, void );
 
   vT ref;
   vT value;
-
-  for(std::size_t i=0;i<vT::static_size;++i) ref[i] = logical<T>(i%2);
+  pT rpck;
+  pT pck;
 
   for(std::size_t i=0;i<vT::static_size;++i)
-    insert(logical<T>(i%2),value, i);
+  {
+    ref[i]  = logical<T>(i%2);
+    rpck[i] = logical<T>(i%2);
+  }
 
-  NT2_TEST_EQUAL( ref, value );
+  for(std::size_t i=0;i<vT::static_size;++i)
+  {
+    insert(logical<T>(i%2),value, i);
+    insert(logical<T>(i%2),pck, i);
+  }
+
+  NT2_TEST_EQUAL( ref , value );
+  NT2_TEST_EQUAL( rpck, pck   );
 }
 
 NT2_TEST_CASE( insert_fusion )
