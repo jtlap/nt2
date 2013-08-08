@@ -97,7 +97,7 @@ namespace bench
     NT2_EXPERIMENT(complex_fft_test)
     {
     public:
-        BOOST_DISPATCH_NOTHROW void reset() BOOST_DISPATCH_OVERRIDE
+        BOOST_DISPATCH_NOTHROW void reset() const BOOST_DISPATCH_OVERRIDE
         {
             random_data.fill_with_real_data( real_data_ );
             random_data.fill_with_imag_data( imag_data_ );
@@ -194,7 +194,7 @@ namespace bench
             FFT::real_inverse_transform( &real_frequency_data_[ 0 ], &imag_frequency_data_[ 0 ], &real_time_data_[ 0 ], size() );
         }
 
-        BOOST_DISPATCH_NOTHROW void reset() BOOST_DISPATCH_OVERRIDE
+        BOOST_DISPATCH_NOTHROW void reset() const BOOST_DISPATCH_OVERRIDE
         {
             /// \note FFT::real_inverse_transform destroys input data so it has
             /// to be regenerated.
@@ -293,7 +293,7 @@ namespace bench
             vDSP_ztoc    ( &split_real_data, 1, reinterpret_cast<DSPComplex *>( &real_time_data_[ 0 ] ), 2, size() / 2 );
         }
 
-        BOOST_DISPATCH_NOTHROW void reset() BOOST_DISPATCH_OVERRIDE
+        BOOST_DISPATCH_NOTHROW void reset() const BOOST_DISPATCH_OVERRIDE
         {
             random_data.fill_with_real_data( real_frequency_data_ );
             random_data.fill_with_imag_data( imag_frequency_data_ );
