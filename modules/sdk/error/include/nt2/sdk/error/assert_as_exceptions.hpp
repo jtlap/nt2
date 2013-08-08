@@ -20,7 +20,7 @@
 
 #include <boost/config.hpp>
 #if defined(NT2_ASSERTS_AS_EXCEPTIONS) && defined(BOOST_NO_EXCEPTIONS)
-#error Exceptions must enabled to use NT2_ASSERTS_AS_EXCEPTIONS
+#error Exceptions must be enabled to use NT2_ASSERTS_AS_EXCEPTIONS
 #endif
 
 #if defined(NT2_ASSERTS_AS_EXCEPTIONS)
