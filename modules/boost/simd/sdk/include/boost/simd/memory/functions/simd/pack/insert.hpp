@@ -12,15 +12,17 @@
 #include <boost/simd/include/functions/insert.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
 #include <boost/simd/sdk/simd/pack/forward.hpp>
+#include <boost/simd/dsl/functions/terminal.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::insert_
                                     , tag::cpu_
-                                    , (A0)(A1)(Tag)(A2)
+                                    , (A0)(A1)(A2)
                                     , (scalar_< unspecified_<A0> >)
-                                      ((node_ < A1, Tag
+                                      ((node_ < A1
+                                              , boost::simd::tag::terminal_
                                               , boost::mpl::long_<0>
                                               , boost::simd::domain
                                               >
