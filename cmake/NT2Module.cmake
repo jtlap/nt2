@@ -417,7 +417,7 @@ macro(nt2_module_add_tests name)
 
   if(${ARGC} GREATER 1)
 
-    if(NOT NT2_WITH_TESTS_FULL)
+    if(NOT NT2_WITH_TESTS_FULL AND NOT ${ARGC} EQUAL 2)
       create_test_sourcelist(${name}_files ${name}.tmp.cpp ${ARGN})
       set(${name}_files ${name}.cpp ${ARGN})
       set_property(SOURCE "${CMAKE_CURRENT_BINARY_DIR}/${name}.cpp" PROPERTY COMPILE_DEFINITIONS "_CRT_SECURE_NO_WARNINGS=1")
@@ -429,7 +429,7 @@ macro(nt2_module_add_tests name)
     foreach(source ${ARGN})
       string(REGEX REPLACE "^([^/]+).cpp$" "\\1" basename ${source})
 
-      if(NOT NT2_WITH_TESTS_FULL)
+      if(NOT NT2_WITH_TESTS_FULL AND NOT ${ARGC} EQUAL 2)
         string(REPLACE "int ${basename}(int, char*[]);" "extern \"C\" int nt2_test_${basename}(int, char*[]);" DATA "${DATA}")
         string(REGEX REPLACE "\"${basename}\",([ \r\n]+)${basename}" "\"${basename}\",\\1nt2_test_${basename}" DATA "${DATA}")
         set_property(SOURCE ${source} PROPERTY COMPILE_DEFINITIONS NT2_UNIT_MAIN=nt2_test_${basename})
@@ -459,7 +459,7 @@ macro(nt2_module_add_tests name)
       endif()
     endforeach()
 
-    if(NOT NT2_WITH_TESTS_FULL)
+    if(NOT NT2_WITH_TESTS_FULL AND NOT ${ARGC} EQUAL 2)
       nt2_module_add_exe(${name} ${${name}_files})
 
       set(OLD_DATA)
