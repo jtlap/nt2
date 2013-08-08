@@ -11,7 +11,6 @@
 #define NT2_SDK_UNIT_DETAILS_ULP_HPP_INCLUDED
 
 #include <nt2/sdk/unit/config.hpp>
-#include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/value.hpp>
 #include <nt2/sdk/unit/details/is_sequence.hpp>
 #include <nt2/sdk/unit/details/smallest_type.hpp>
@@ -40,6 +39,15 @@ namespace nt2 { namespace details
     std::size_t index;
   };
 
+  // NaN aware max
+  template<typename T>
+  T safe_max(T a, T b)
+  {
+    if(a != a) return a;
+    if(b != b) return b;
+
+    return std::max(a,b);
+  }
   /// ULP test is a success
   NT2_TEST_UNIT_DECL void ulp_pass(const char* desc, double ulpd, double N);
 
@@ -115,7 +123,7 @@ namespace nt2 { namespace details
       {
         return max_ulp_seq_<I+1,N>()
               ( a , b
-              , nt2::max( z
+              , safe_max( z
                         , max_ulps( nt2::details::
                                     smallest_a( boost::fusion::at_c<I>(a)
                                               , boost::fusion::at_c<I>(b)
@@ -241,7 +249,7 @@ namespace nt2 { namespace details
           }
 
           // Update global max ulp error
-          res = nt2::max(res,r);
+          res = safe_max(res,r);
           ab++;
           bb++;
           i++;

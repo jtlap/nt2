@@ -199,6 +199,48 @@ template<class T> inline bool check_ulp_sequence_sequence()
   return (!u0 && u1==8);
 }
 
+template<class T> inline bool check_ulp_invalid()
+{
+  T value(0), different_value;
+  std::vector< nt2::details::failed_value<T,T> >  fails;
+
+  different_value = std::numeric_limits<T>::quiet_NaN();
+
+  std::cout << "Check for: " << typeid(T).name() << "\t";
+  double u0 = 0;
+  bool ok = nt2::unit::max_ulp(value,different_value,0.5,fails, u0);
+  std::cout << "max_ulp(a,b) = " << u0 << "\t";
+  std::cout << "nb of fails: " << fails.size() << "\t";
+
+  fails.clear();
+  double u1 = 0;
+  ok = nt2::unit::max_ulp(different_value,value,0.5,fails, u1);
+  std::cout << "max_ulp(a,b) = " << u1 << "\t";
+  std::cout << "nb of fails: " << fails.size() << "\n";
+
+  fails.clear();
+  different_value = std::numeric_limits<T>::infinity();
+
+  std::cout << "Check for: " << typeid(T).name() << "\t";
+  double u2 = 0;
+  ok = nt2::unit::max_ulp(value,different_value,0.5,fails, u2);
+  std::cout << "max_ulp(a,b) = " << u2 << "\t";
+  std::cout << "nb of fails: " << fails.size() << "\t";
+
+  fails.clear();
+  double u3 = 0;
+  ok = nt2::unit::max_ulp(different_value,value,0.5,fails, u3);
+  std::cout << "max_ulp(a,b) = " << u3 << "\t";
+  std::cout << "nb of fails: " << fails.size() << "\n";
+
+  bool stat =   (u0 != u0) && (u1 != u1)
+            &&  (u2 == different_value) && (u3 == different_value);
+
+  std::cout << ( stat ? "OK" : "NOT OK") << "\n";
+
+  return stat;
+}
+
 NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int argc, char* argv[])
 {
   std::cout << "Check for basic types\n";
@@ -227,6 +269,11 @@ NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int argc, char* argv[])
 
   std::cout << "\nCheck for Sequence of Fusion Sequence\n";
   check =   check_ulp_sequence_fusionsequence()
+        &&  check;
+
+  std::cout << "\nCheck for Nan\n";
+  check =   check_ulp_invalid<double>()
+        &&  check_ulp_invalid<float>()
         &&  check;
 
   return check ? 0 : 1;
