@@ -11,6 +11,7 @@
 #include <nt2/hyperbolic/functions/asech1m.hpp>
 #include <nt2/include/functions/asech.hpp>
 #include <nt2/include/functions/oneminus.hpp>
+#include <nt2/include/functions/tofloat.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -23,6 +24,18 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       return nt2::asech(nt2::oneminus(nt2::tofloat(a0)));
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asech1m_, tag::cpu_
+                            , (A0)
+                            , (generic_< unspecified_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1)
+    {
+      return nt2::asech(nt2::oneminus(a0));
     }
   };
 } }

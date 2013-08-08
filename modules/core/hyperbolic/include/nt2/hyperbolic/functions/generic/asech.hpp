@@ -45,6 +45,18 @@ namespace nt2 { namespace ext
       return nt2::acosh(nt2::rec(a0));
     }
   };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asech_, tag::cpu_
+                            , (A0)
+                            , (generic_< unspecified_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1)
+    {
+      return nt2::acosh(nt2::rec(a0));
+    }
+  };
 } }
 
 #endif

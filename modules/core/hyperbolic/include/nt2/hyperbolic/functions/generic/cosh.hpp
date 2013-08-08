@@ -10,11 +10,11 @@
 #define NT2_HYPERBOLIC_FUNCTIONS_GENERIC_COSH_HPP_INCLUDED
 #include <nt2/hyperbolic/functions/cosh.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/average.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/exp.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/average.hpp>
 
 
 

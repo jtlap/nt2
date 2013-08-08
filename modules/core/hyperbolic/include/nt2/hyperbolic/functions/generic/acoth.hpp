@@ -11,7 +11,7 @@
 #include <nt2/hyperbolic/functions/acoth.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/atanh.hpp>
-#include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -24,6 +24,17 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       return nt2::acoth(nt2::tofloat(a0));
+    }
+  };
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acoth_, tag::cpu_
+                            , (A0)
+                            , (generic_< unspecified_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1)
+    {
+      return nt2::atanh(nt2::rec(a0));
     }
   };
 

@@ -33,21 +33,14 @@ namespace nt2 { namespace ext
       return nt2::sinhc(result_type(a0));
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinhc_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)
                             )
   {
 
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -56,6 +49,7 @@ namespace nt2 { namespace ext
       return A0(boost::math::sinhc_pi(a0, nt2_policy()));
     }
   };
+
 } }
 
 

@@ -23,6 +23,7 @@
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 #include <nt2/include/functions/bitwise_cast.hpp>
+#include <nt2/include/functions/rec.hpp>
 //coth ( x + iy ) = coth ( x ) + i . tan ( y ) 1 + i . coth ( x ) tan ( y ) .
 namespace nt2 { namespace ext
 {
@@ -38,7 +39,7 @@ namespace nt2 { namespace ext
       rtype c, s, ch, sh;
       sincos(nt2::imag(aa0), s, c);
       sinhcosh(nt2::real(aa0), sh, ch);
-      return (c+ch)/result_type(sh, s);
+      return if_allbits_else(is_eqz(a0), (c+ch)/(result_type(sh, s)));
     }
   };
 

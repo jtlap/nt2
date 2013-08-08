@@ -45,6 +45,20 @@ namespace nt2 { namespace ext
       return nt2::rec(nt2::tanh(a0));
     }
   };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::coth_, tag::cpu_
+                            , (A0)
+                            , (generic_< unspecified_<A0> >)
+                            )
+  {
+
+    typedef A0 result_type;
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      return nt2::rec(nt2::tanh(a0));
+    }
+  };
 } }
 
 

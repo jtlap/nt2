@@ -10,18 +10,13 @@
 #define NT2_HYPERBOLIC_FUNCTIONS_GENERIC_TANH_HPP_INCLUDED
 #include <nt2/hyperbolic/functions/tanh.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/include/functions/sign.hpp>
-#include <nt2/include/functions/expm1.hpp>
-#include <nt2/include/functions/is_nez.hpp>
-#include <nt2/include/functions/bitofsign.hpp>
-#include <nt2/include/functions/bitwise_xor.hpp>
-#include <nt2/include/constants/two.hpp>
-// #include <nt2/include/functions/simd/all.hpp>
-// #include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/simd/sign.hpp>
+#include <nt2/include/functions/simd/expm1.hpp>
+#include <nt2/include/functions/simd/is_nez.hpp>
+#include <nt2/include/functions/simd/bitofsign.hpp>
+#include <nt2/include/functions/simd/bitwise_xor.hpp>
+#include <nt2/include/constants/mtwo.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tanh_, tag::cpu_
