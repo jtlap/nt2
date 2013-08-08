@@ -46,6 +46,9 @@ namespace details
                                , sT
                                >::type type;
     };
+
+    template<class T, class U>
+    typename result<max_value_impl(T const&, U const&)>::type operator()(T const&, U const&) const;
   };
 
   template<class T, class F>
