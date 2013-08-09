@@ -8,6 +8,18 @@
 ##############################################################################
 
 set( SOURCES
+  acosh.cpp
+  acoth.cpp
+  acsch.cpp
+  asech.cpp
+  asinh.cpp
+  atanh.cpp
+  cosh.cpp
+  coth.cpp
+  csch.cpp
+  sech.cpp
+  sinh.cpp
+  tanh.cpp
    )
 
 nt2_module_add_tests(type.complex.hyperbolic.simd.unit ${SOURCES})

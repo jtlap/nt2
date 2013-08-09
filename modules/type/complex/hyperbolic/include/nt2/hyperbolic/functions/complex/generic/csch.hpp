@@ -11,10 +11,10 @@
 #include <nt2/hyperbolic/functions/csch.hpp>
 #include <nt2/include/functions/sinh.hpp>
 #include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/if_else.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
-#include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
-#include <nt2/include/functions/bitwise_cast.hpp>
 
 //csch(x+iy)=rec(sinh(x+iy)).
 namespace nt2 { namespace ext
@@ -26,7 +26,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return rec(nt2::sinh(a0));
+      return rec(if_else(is_eqz(a0), a0, nt2::sinh(a0)));
     }
   };
 
