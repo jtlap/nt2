@@ -24,6 +24,7 @@
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/mone.hpp>
 
 NT2_TEST_CASE_TPL ( multiplies_real__2_0, BOOST_SIMD_REAL_TYPES)
@@ -55,7 +56,7 @@ NT2_TEST_CASE_TPL ( multiplies_real__2_0, BOOST_SIMD_REAL_TYPES)
 
 }
 
-NT2_TEST_CASE_TPL ( complex_complex, (float))//BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( complex_complex, BOOST_SIMD_REAL_TYPES)
 {
   using nt2::multiplies;
   using nt2::tag::multiplies_;
@@ -85,7 +86,7 @@ NT2_TEST_CASE_TPL ( complex_complex, (float))//BOOST_SIMD_REAL_TYPES)
 
 
 
-NT2_TEST_CASE_TPL ( complex_real, (float))//BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( complex_real, BOOST_SIMD_REAL_TYPES)
 {
   using nt2::multiplies;
   using nt2::tag::multiplies_;
@@ -111,4 +112,32 @@ NT2_TEST_CASE_TPL ( complex_real, (float))//BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(nt2::multiplies(cT(zer, deu), T(zer)),  cT(zer, zer));
   NT2_TEST_EQUAL(nt2::multiplies(cT(zer, zer), T(zer)),  cT(zer, zer));
   NT2_TEST_EQUAL(nt2::multiplies(cT(zer, zer), T(inf)),  cT(nan, zer));
+}
+NT2_TEST_CASE_TPL ( real_complex, BOOST_SIMD_REAL_TYPES)
+{
+  using nt2::multiplies;
+  using nt2::tag::multiplies_;
+  typedef std::complex<T> cT;
+
+  // specific values tests
+  const T inf = nt2::Inf<T>();
+  const T nan = nt2::Nan<T>();
+  const T zer = nt2::Zero<T>();
+  const T deu = nt2::Two<T>();
+
+  NT2_TEST_EQUAL(nt2::multiplies(T(deu), cT(inf, zer)),  cT(inf, zer));
+  NT2_TEST_EQUAL(nt2::multiplies(T(inf), cT(deu, zer)),  cT(inf, zer));
+  NT2_TEST_EQUAL(nt2::multiplies(T(zer), cT(inf, zer)),  cT(nan, zer));
+  NT2_TEST_EQUAL(nt2::multiplies(T(inf), cT(zer, zer)),  cT(nan, zer));
+  NT2_TEST_EQUAL(nt2::multiplies(T(zer), cT(zer, inf)),  cT(zer, nan));
+  NT2_TEST_EQUAL(nt2::multiplies(T(zer), cT(zer, zer)),  cT(zer, zer));
+  NT2_TEST_EQUAL(nt2::multiplies(T(inf), cT(inf, inf)),  cT(inf, inf));
+  NT2_TEST_EQUAL(nt2::multiplies(T(deu), cT(inf, inf)),  cT(inf, inf));
+  NT2_TEST_EQUAL(nt2::multiplies(T(zer), cT(inf, inf)),  cT(nan, nan));
+  NT2_TEST_EQUAL(nt2::multiplies(T(inf), cT(zer, deu)),  cT(zer, inf));
+  NT2_TEST_EQUAL(nt2::multiplies(T(zer), cT(zer, inf)),  cT(zer, nan));
+  NT2_TEST_EQUAL(nt2::multiplies(T(deu), cT(zer, inf)),  cT(zer, inf));
+  NT2_TEST_EQUAL(nt2::multiplies(T(zer), cT(zer, deu)),  cT(zer, zer));
+  NT2_TEST_EQUAL(nt2::multiplies(T(zer), cT(zer, zer)),  cT(zer, zer));
+  NT2_TEST_EQUAL(nt2::multiplies(T(inf), cT(zer, zer)),  cT(nan, zer));
 }
