@@ -246,23 +246,27 @@ namespace nt2
       {
         value_type a1 = a0(1,1);
         value_type a2 = a0(2,2);
-
         value_type loga1 = log(a1);
         value_type loga2 = log(a2);
         rj = nt2::cons(nt2::of_size(2, 2), loga1, Zero<value_type>(), Zero<value_type>(), loga2);
         if (a1 == a2)
+        {
           rj(1,2) = a0(1,2)/a1;
+        }
         else if ((nt2::abs(a1) < nt2::Half<r_type>()*nt2::abs(a2)) ||
                  (nt2::abs(a2) < nt2::Half<r_type>()*nt2::abs(a1)))
+        {
+
           rj(1,2) =  a0(1,2) * (loga2 - loga1) / (a2 - a1);
+        }
         else // Close eigenvalues.
         {
           //dd = (2*atanh((a2-a1)/(a2+a1)))
           //  dd=(dd+ 2*pi*1i*unwinding(loga2-loga1)) / (a2-a1)
-          value_type dd = Two<value_type>()*nt2::atanh((a2-a1)/(a2+a1));
-          dd +=   unwind(loga2-loga1, meta::is_complex<value_type>());
-          dd /= (a2-a1);
-          rj(1,2) = a0(1,2)*dd;
+          value_type dd = Two<value_type>()*nt2::atanh(divides((a2-a1), (a2+a1)));
+          dd += unwind(loga2-loga1, meta::is_complex<value_type>());
+          dd /= a2-a1;
+          rj(1,2) = nt2::multiplies(a0(1,2), dd);
         }
       }
       static inline r_type unwind(const value_type& z, boost::mpl::false_)
