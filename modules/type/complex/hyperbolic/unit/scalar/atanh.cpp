@@ -63,6 +63,8 @@ NT2_TEST_CASE_TPL ( atanh_real__1_0,  (double))//NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(nt2::atanh(cT(nt2::Zero <T>(), -nt2::Nan <T>())), boost::math::atanh(cT(nt2::Zero  <T>(), -nt2::Nan<T>())), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::atanh(cT(nt2::One  <T>(), -nt2::Nan <T>())), boost::math::atanh(cT(nt2::One  <T>(), -nt2::Nan <T>())), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::atanh(cT(nt2::Inf  <T>(), -nt2::Inf<T>())),  boost::math::atanh(cT(nt2::Inf  <T>(), -nt2::Inf<T>())), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::atanh(cT(0.0, nt2::Minf<T>())),  boost::math::atanh(cT(0.0, nt2::Minf<T>())), 0);
+  NT2_TEST_ULP_EQUAL(nt2::atanh(cT(nt2::Nan<T>(), nt2::Minf<T>())), boost::math::atanh(cT(nt2::Nan<T>(), nt2::Minf<T>())), 0);
 #endif
 
    NT2_TEST_ULP_EQUAL(nt2::atanh(cT(nt2::One  <T>(), nt2::One <T>())),   cT(0.402359478108525,  1.017221967897851), 2);
@@ -98,5 +100,4 @@ NT2_TEST_CASE_TPL ( atanh_real__1_0,  (double))//NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(nt2::atanh(cT(1.0e-160, 1.0e160)),                   boost::math::atanh(cT(1.0e-160, 1.0e160)), 2);
   NT2_TEST_ULP_EQUAL(nt2::atanh(cT(1.0, 1.0e-160)),                   cT(184.55338102980363146,0.785398163397448279), 2);
   NT2_TEST_ULP_EQUAL(nt2::atanh(cT(1.0e-160, 1.0e-160)),                   boost::math::atanh(cT(1.0e-160, 1.0e-160)), 2);
-
 } // end of test for floating_
