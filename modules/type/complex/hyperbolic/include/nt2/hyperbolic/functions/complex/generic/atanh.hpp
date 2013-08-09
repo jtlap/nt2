@@ -59,6 +59,7 @@
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/three.hpp>
 #include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/pio_2.hpp>
 #include <nt2/include/constants/valmax.hpp>
 #include <nt2/include/constants/smallestposval.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
@@ -101,7 +102,6 @@ namespace nt2 { namespace ext
       rtype inf =  Inf<rtype>();
       rtype x = nt2::abs(nt2::real(a0));
       rtype y = nt2::abs(nt2::imag(a0));
-
       rtype r = Zero<rtype>();
       rtype i = Zero<rtype>();
       ltype gtxmax = gt(x,s_max);
@@ -216,6 +216,7 @@ namespace nt2 { namespace ext
         )*Half<rtype>();
 
       r = negif( ltzra0,r);
+      i = if_else(is_inf(y), nt2::Pio_2<rtype>(), i);
       i = negif( ltzia0,i);
       return result_type(r, i);
     }
