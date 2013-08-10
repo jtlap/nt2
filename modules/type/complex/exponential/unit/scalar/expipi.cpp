@@ -23,6 +23,7 @@
 #include <nt2/sdk/unit/module.hpp>
 
 #include <nt2/constant/constant.hpp>
+#include <nt2/table.hpp>
 
 NT2_TEST_CASE_TPL ( expipi_real__1_0,  NT2_REAL_TYPES)
 {
@@ -52,13 +53,13 @@ NT2_TEST_CASE_TPL ( expipi_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(nt2::expipi(T(nt2::Zero<T>())) , nt2::exp(nt2::Pi<T>()*nt2::mul_i(cT(nt2::Zero<T>())) ), 10);
   NT2_TEST_ULP_EQUAL(nt2::expipi(T(nt2::Pi<T>()))   , nt2::exp(nt2::Pi<T>()*nt2::mul_i(cT(nt2::Pi<T>()))), 10);
 
-  NT2_TEST_ULP_EQUAL(nt2::expipi(cT(0, nt2::Inf<T>()))  , nt2::exp(nt2::Pi<T>()*nt2::mul_i(cT(0, nt2::Inf<T>())))  , 10);
-  NT2_TEST_ULP_EQUAL(nt2::expipi(cT(0, nt2::Minf<T>())) , nt2::exp(nt2::Pi<T>()*nt2::mul_i(cT(0, nt2::Minf<T>())) ), 10);
-  NT2_TEST_ULP_EQUAL(nt2::expipi(cT(0, nt2::Mone<T>())) , nt2::exp(nt2::Pi<T>()*nt2::mul_i(cT(0, nt2::Mone<T>())) ), 10);
-  NT2_TEST_ULP_EQUAL(nt2::expipi(cT(0, nt2::Nan<T>()))  , nt2::exp(nt2::Pi<T>()*nt2::mul_i(cT(0, nt2::Nan<T>()))  ), 10);
-  NT2_TEST_ULP_EQUAL(nt2::expipi(cT(0, nt2::One<T>()))  , nt2::exp(nt2::Pi<T>()*nt2::mul_i(cT(0, nt2::One<T>()))  ), 10);
-  NT2_TEST_ULP_EQUAL(nt2::expipi(cT(0, nt2::Zero<T>())) , nt2::exp(nt2::Pi<T>()*nt2::mul_i(cT(0, nt2::Zero<T>())) ), 10);
-  NT2_TEST_ULP_EQUAL(nt2::expipi(cT(0, nt2::Pi<T>()))   , nt2::exp(nt2::Pi<T>()*nt2::mul_i(cT(0, nt2::Pi<T>()))), 10);
+  NT2_TEST_ULP_EQUAL(nt2::expipi(cT(0, nt2::Inf<T>()))  , nt2::exp(nt2::Pi<T>()*nt2::mul_i(cT(0, nt2::Inf<T>() ) )), 10);
+  NT2_TEST_ULP_EQUAL(nt2::expipi(cT(0, nt2::Minf<T>())) , nt2::exp(nt2::multiplies(nt2::Pi<T>(), nt2::mul_i(cT(0, nt2::Minf<T>())))), 10);
+  NT2_TEST_ULP_EQUAL(nt2::expipi(cT(0, nt2::Mone<T>())) , nt2::exp(nt2::multiplies(nt2::Pi<T>(), nt2::mul_i(cT(0, nt2::Mone<T>())))), 10);
+  NT2_TEST_ULP_EQUAL(nt2::expipi(cT(0, nt2::Nan<T>()))  , nt2::exp(nt2::multiplies(nt2::Pi<T>(), nt2::mul_i(cT(0, nt2::Nan<T> ())))), 10);
+  NT2_TEST_ULP_EQUAL(nt2::expipi(cT(0, nt2::One<T>()))  , nt2::exp(nt2::multiplies(nt2::Pi<T>(), nt2::mul_i(cT(0,nt2::One<T>  ())))), 10);
+  NT2_TEST_ULP_EQUAL(nt2::expipi(cT(0, nt2::Zero<T>())) , nt2::exp(nt2::multiplies(nt2::Pi<T>(), nt2::mul_i(cT(0,nt2::Zero<T> ())))), 10);
+  NT2_TEST_ULP_EQUAL(nt2::expipi(cT(0, nt2::Pi<T>()))   , nt2::exp(nt2::multiplies(nt2::Pi<T>(), nt2::mul_i(cT(0,nt2::Pi<T>   ())))), 10);
 } // end of test for floating_ c
 
 

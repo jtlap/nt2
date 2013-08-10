@@ -22,6 +22,7 @@
 #include <nt2/include/functions/simd/sincospi.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/unary_minus.hpp>
+#include <nt2/include/functions/simd/mul_i.hpp>
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/zero.hpp>
@@ -45,7 +46,7 @@ namespace nt2 { namespace ext
       rtype rho = nt2::exp(-nt2::Pi<rtype>()*nt2::imag(a0));
       return  nt2::if_else(logical_or(is_imag(a0), eq(nt2::imag(a0), nt2::Inf<rtype>())),
                      result_type(rho, Zero<rtype>()),
-                     rho*result_type(c, s));
+                     result_type(rho*c, rho*s));
     }
   };
 
