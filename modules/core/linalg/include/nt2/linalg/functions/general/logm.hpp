@@ -263,7 +263,7 @@ namespace nt2
         {
           //dd = (2*atanh((a2-a1)/(a2+a1)))
           //  dd=(dd+ 2*pi*1i*unwinding(loga2-loga1)) / (a2-a1)
-          value_type dd = Two<value_type>()*nt2::atanh(divides((a2-a1), (a2+a1)));
+          value_type dd = Two<value_type>()*nt2::atanh(nt2::divides((a2-a1), (a2+a1)));
           dd += unwind(loga2-loga1, meta::is_complex<value_type>());
           dd /= a2-a1;
           rj(1,2) = nt2::multiplies(a0(1,2), dd);
