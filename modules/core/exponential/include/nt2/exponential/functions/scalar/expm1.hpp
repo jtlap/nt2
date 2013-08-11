@@ -14,11 +14,8 @@
 #include <nt2/include/functions/scalar/minusone.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/is_invalid.hpp>
+#include <nt2/include/constants/zero.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expm1_, tag::cpu_
@@ -32,14 +29,7 @@ namespace nt2 { namespace ext
       return minusone(nt2::exp(a0));
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expm1_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)
@@ -59,7 +49,7 @@ namespace nt2 { namespace ext
       }
       else
       {
-        return a0;
+        return nt2::Zero<A0>();
       }
     }
   };
