@@ -30,8 +30,8 @@ NT2_TEST_CASE_TPL ( acsch_real__1_0, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(nt2::acsch(cT(nt2::One<T>(), nt2::Zero<T>())),   nt2::asinh(nt2::rec(cT(nt2::One<T>(), nt2::Zero<T>()))), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::acsch(cT(nt2::Zero<T>(), nt2::Zero<T>())),  nt2::asinh(nt2::rec(cT(nt2::Zero<T>(), nt2::Zero<T>()))), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::acsch(cT(nt2::Mzero<T>(), nt2::Zero<T>())), nt2::asinh(nt2::rec(cT(nt2::Mzero<T>(), nt2::Zero<T>()))), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::acsch(cT(1, 1)),   nt2::asinh(nt2::rec(cT(1, 1))), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::acsch(cT(1, 10)),  nt2::asinh(nt2::rec(cT(1, 10))), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::acsch(cT(1, 1)),   nt2::asinh(nt2::rec(cT(1, 1))), 1);
+  NT2_TEST_ULP_EQUAL(nt2::acsch(cT(1, 10)),  nt2::asinh(nt2::rec(cT(1, 10))), 1);
   NT2_TEST_ULP_EQUAL(nt2::acsch(cT(10, 10)), nt2::asinh(nt2::rec(cT(10, 10))), 1);
   NT2_TEST_ULP_EQUAL(nt2::acsch(cT(10, 1)),  nt2::asinh(nt2::rec(cT(10, 1))), 1);
 

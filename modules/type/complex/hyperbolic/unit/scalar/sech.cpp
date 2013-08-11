@@ -31,7 +31,7 @@ NT2_TEST_CASE_TPL (sech_real__1_0, NT2_REAL_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(nt2::sech(cT(nt2::One<T>(), nt2::Zero<T>())),   nt2::rec(nt2::cosh(cT(nt2::One<T>(), nt2::Zero<T>()))), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::sech(cT(nt2::Zero<T>(), nt2::Zero<T>())),  nt2::rec(nt2::cosh(cT(nt2::Zero<T>(), nt2::Zero<T>()))), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::sech(cT(nt2::Mzero<T>(), nt2::Zero<T>())), nt2::rec(nt2::cosh(cT(nt2::Mzero<T>(), nt2::Zero<T>()))), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::sech(cT(nt2::Mzero<T>(), nt2::Zero<T>())), nt2::rec(nt2::cosh(cT(nt2::Mzero<T>(), nt2::Zero<T>()))), 1.5);
   NT2_TEST_ULP_EQUAL(nt2::sech(cT(1, 1)),   nt2::rec(nt2::cosh(cT(1, 1))), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::sech(cT(1, 10)),  nt2::rec(nt2::cosh(cT(1, 10))), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::sech(cT(10, 10)), nt2::rec(nt2::cosh(cT(10, 10))), 1);
