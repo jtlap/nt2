@@ -19,9 +19,8 @@
  * \defgroup boost_simd_boolean_negif negif
  *
  * \par Description
- * The function conditionnaly to a0 returns a1 or -a1
- * The first operand must be a boolean type according to
- * the SIMD architecture compatible to the  other one.
+ * The function returns -a1 if a0 is true and a1 otherwise.
+ * The two operands must have the same cardinal.
  *
  * \par Header file
  *
