@@ -9,10 +9,14 @@
 #include <nt2/hyperbolic/include/functions/sinh.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
 #include <nt2/constant/constant.hpp>
 #include <nt2/include/functions/splat.hpp>
+#include <nt2/include/functions/all.hpp>
+#include <nt2/include/functions/is_negative.hpp>
+#include <nt2/include/functions/is_positive.hpp>
 
 NT2_TEST_CASE_TPL ( sinh_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
@@ -30,4 +34,6 @@ NT2_TEST_CASE_TPL ( sinh_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(sinh(nt2::Nan<vT>()), nt2::Nan<r_t>(), 0.5);
 #endif
   NT2_TEST_ULP_EQUAL(sinh(nt2::Zero<vT>()), nt2::Zero<r_t>(), 0.5);
+  NT2_TEST(nt2::all(nt2::is_negative(nt2::sinh(nt2::Mzero<vT>() ))));
+  NT2_TEST(nt2::all(nt2::is_positive(nt2::sinh(nt2::Zero<vT>() ))));
 } // end of test for floating_

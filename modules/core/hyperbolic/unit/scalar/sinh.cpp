@@ -10,8 +10,11 @@
 #include <nt2/exponential/constants.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/include/functions/is_negative.hpp>
+#include <nt2/include/functions/is_positive.hpp>
 
 NT2_TEST_CASE_TPL ( sinh_real__1_0,  NT2_REAL_TYPES)
 {
@@ -29,6 +32,8 @@ NT2_TEST_CASE_TPL ( sinh_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(sinh(nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
 #endif
   NT2_TEST_ULP_EQUAL(sinh(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+  NT2_TEST(nt2::is_negative(nt2::sinh(nt2::Mzero<T>() )));
+  NT2_TEST(nt2::is_positive(nt2::sinh(nt2::Zero<T>() )));
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( sinh_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)

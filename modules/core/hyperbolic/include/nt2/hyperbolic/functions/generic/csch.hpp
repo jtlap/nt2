@@ -11,6 +11,7 @@
 #include <nt2/hyperbolic/functions/csch.hpp>
 #include <nt2/include/functions/sinh.hpp>
 #include <nt2/include/functions/if_allbits_else.hpp>
+#include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
@@ -40,7 +41,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-       return nt2::rec(nt2::sinh(a0));
+//      return rec(if_else(is_eqz(a0), a0, nt2::sinh(a0)));
+      return rec(nt2::sinh(a0));
     }
   };
 } }
