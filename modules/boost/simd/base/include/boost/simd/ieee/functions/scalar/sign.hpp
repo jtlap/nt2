@@ -51,10 +51,11 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
+      A0 r = bool(is_gtz(a0))-bool(is_ltz(a0));
       #ifdef BOOST_SIMD_NO_NANS
-      return bool(is_gtz(a0))-bool(is_ltz(a0));
+      return r
       #else
-      return is_nan(a0) ? a0 : bool(is_gtz(a0))-bool(is_ltz(a0));
+      return is_nan(a0) ? a0 : r;
       #endif
     }
   };

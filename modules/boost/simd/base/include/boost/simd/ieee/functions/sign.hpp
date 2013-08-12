@@ -21,6 +21,7 @@
  * \par Description
  * Returns the sign of a0. I.e. -1, 0 or 1, according
  * a0 is less than zero, zero or greater than zero.
+ * For floating sign of nan is nan
  *
  * \par Header file
  *
