@@ -8,15 +8,12 @@
 //==============================================================================
 #ifndef NT2_IEEE_FUNCTIONS_COMPLEX_GENERIC_NEGATE_HPP_INCLUDED
 #define NT2_IEEE_FUNCTIONS_COMPLEX_GENERIC_NEGATE_HPP_INCLUDED
+
 #include <nt2/ieee/functions/negate.hpp>
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/if_else_zero.hpp>
-#include <nt2/include/constants/nan.hpp>
-#include <nt2/sdk/complex/meta/as_complex.hpp>
-#include <nt2/sdk/complex/meta/as_dry.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -24,15 +21,14 @@ namespace nt2 { namespace ext
                              (A0)(A1),
                              (generic_<complex_ < arithmetic_<A0> > >)
                              (generic_< arithmetic_<A1> >)
-                             )
+                            )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
-      {
-        A0 tmp = if_else_zero(is_nez(a1), a0);
-        tmp = if_else(is_ltz(a1), -a0, tmp);
-        return if_else(is_nan(a1), Nan<result_type>(), tmp);
-      }
+    {
+      A0 tmp = if_else_zero(is_nez(a1), a0);
+      return if_else(is_ltz(a1), -a0, tmp);
+    }
   };
 
 } }

@@ -19,7 +19,7 @@
  * \defgroup boost_simd_ieee_negate negate
  *
  * \par Description
- * a1 < 0 ? a0 : -a0
+ * a1 == 0 ? 0 : (a1 < 0 ? a0 : -a0)
  *
  * \par Header file
  *
