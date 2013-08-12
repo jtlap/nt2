@@ -15,6 +15,11 @@
 #include <boost/dispatch/attributes.hpp>
 #include <new>
 
+#if !defined(BOOST_SIMD_DEFAULT_FREE)
+/// INTERNAL ONLY
+#define BOOST_SIMD_DEFAULT_FREE std::free
+#endif
+
 namespace boost { namespace simd
 {
   /*!
@@ -22,25 +27,67 @@ namespace boost { namespace simd
 
     Wraps system specific code for deallocating an aligned memory block.
 
+    @par Semantic:
+
+    For any given pointer @c ptr :
+
+    @code
+    void* r = aligned_free(ptr);
+    @endcode
+
+    is equivalent to :
+
+      - a no-op if @c ptr is equal to 0;
+      - a potential alignment fix-up followed by a system dependent memory
+      deallocation.
+
+    @par Framework specific override
+
+    By default, aligned_realloc use system specific functions to handle memory
+    reallocation. One can specify a custom reallocation function to be used
+    instead. This custom function must have a prototype equivalent to:
+
+    @code
+    void f(void* ptr);
+    @endcode
+
+    In this case, the following code:
+
+    @code
+    void* r = aligned_free(ptr, f);
+    @endcode
+
+    is equivalent to an alignment fix-up followed by a call to @c f.
+
     @param ptr Pointer referencing the memory to deallocate
+    @param free_fn Function object to use for deallocation of the base pointer
   **/
-  BOOST_FORCEINLINE void aligned_free( void * const ptr )
+  template<typename FreeFunction>
+  inline void aligned_free( void* ptr, FreeFunction free_fn)
   {
-#if     defined( _MSC_VER )                                                    \
-    &&  defined( BOOST_SIMD_MEMORY_USE_BUILTINS )
+    if(ptr) free_fn( details::get_block_header( ptr ).pBlockBase );
+  }
+
+  /// @overload
+  inline void aligned_free( void* ptr )
+  {
+    // Do we want to use built-ins special aligned free/alloc ?
+    #if defined( _MSC_VER ) && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
 
     if(ptr)  ::_aligned_free( ptr );
 
-#elif   defined( BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN )                    \
-    || (defined( _GNU_SOURCE ) && !defined( __ANDROID__ ))
+    #elif (     defined( BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN )            \
+            ||  (defined( _GNU_SOURCE ) && !defined( __ANDROID__ ))            \
+          )                                                                    \
+       && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
 
     if(ptr)  std::free( ptr );
 
-#else
+    #else
 
-    if(ptr) std::free( details::get_block_header( ptr ).pBlockBase );
+    aligned_free(ptr, BOOST_SIMD_DEFAULT_FREE);
 
-#endif
+    #endif
   }
 } }
 

@@ -6,9 +6,10 @@ care of all required system specific calls.
 [section Allocation]
 Aligned memory allocation can be performed by two functions:
 
-* [funcref boost::simd::aligned_malloc] which interface is similar to =malloc= except for its
-additional alignment parameters. No special error checking is done, so the validity of the returned
-pointer is left to be checked by the client code.
+* [funcref boost::simd::aligned_malloc] which interface is similar to =malloc=
+except for its additional alignment and allocation function parameters.
+No special error checking is done, so the validity of the returned pointer is
+left to be checked by the client code.
 * [headerref nt2/modules/boost/simd/sdk/include/boost/simd/memory/allocate.hpp boost::simd::allocate]
   which provides a richer interface than [funcref boost::simd::aligned_malloc].
   [headerref nt2/modules/boost/simd/sdk/include/boost/simd/memory/allocate.hpp boost::simd::allocate]
@@ -27,7 +28,8 @@ pointer is left to be checked by the client code.
 [section Deallocation]
 In a similar fashion, aligned memory deallocation can be performed by two functions:
 
-* [funcref boost::simd::aligned_free] which interface is similar to =free=.
+* [funcref boost::simd::aligned_free] which interface is similar to =free= with
+an optionnal deallcoation function parameters.
 * [headerref nt2/modules/boost/simd/sdk/include/boost/simd/memory/deallocate.hpp boost::simd::deallocate]
   which provides a richer interface than
   [funcref boost::simd::aligned_free] by supporting both regular and allocator based deallocation.
@@ -44,8 +46,8 @@ Boost.SIMD.Memory provides two flavor of reallocation functions:
 
 As for allocation and deallocation, two interfaces are provided:
 
-* [funcref boost::simd::aligned_realloc] and [funcref boost::simd::aligned_reuse] are similar to
-  =realloc=.
+* [funcref boost::simd::aligned_realloc] and [funcref boost::simd::aligned_reuse]
+  are similar to =realloc=.
 * [headerref nt2/modules/boost/simd/sdk/include/boost/simd/memory/reallocate.hpp boost::simd::reallocate]
   and [headerref nt2/modules/boost/simd/sdk/include/boost/simd/memory/reuse.hpp boost::simd::reuse]
   provide a richer interface by supporting both regular and allocator based reallocation.

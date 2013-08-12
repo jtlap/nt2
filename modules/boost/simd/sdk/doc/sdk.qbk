@@ -11,7 +11,7 @@ covered include:
 * [link boost_simd_sdk.memory_management Memory] and
   [link boost_simd_sdk.handling_alignment alignment] handling;
 * Compatibility layer with
-  [link boost_simd_sdk.stl_integration C++ Standard Template Library];
+  [link boost_simd_sdk.stl_compatibility C++ Standard Template Library];
 * Type traits related to SIMD programming;
 
 [endsect]

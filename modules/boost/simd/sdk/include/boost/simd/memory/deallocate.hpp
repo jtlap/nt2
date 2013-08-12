@@ -39,20 +39,14 @@ namespace boost { namespace simd
     @param ptr    Pointer to the memory to free.
   **/
   template<class Allocator> BOOST_FORCEINLINE
-  #if defined(DOXYGEN_ONLY)
-  void
-  #else
   typename dispatch::meta::enable_if_type<typename Allocator::pointer>::type
-  #endif
   deallocate( Allocator& alloc, void* ptr )
   {
-    // How many elements are needed to store proper number of bytes
-    details::aligned_block_header const old( details::get_block_header( ptr ) );
-    std::size_t const oldSize( old.userBlockSize );
+    details::allocator_wrapper<Allocator>::setup(alloc);
 
-    alloc.deallocate( static_cast<typename Allocator::pointer>(old.pBlockBase)
-                    , oldSize
-                    );
+    return aligned_free ( ptr
+                        , details::allocator_wrapper<Allocator>::deallocate
+                        );
   }
 } }
 

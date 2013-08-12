@@ -14,8 +14,9 @@
 #include <boost/simd/memory/align_on.hpp>
 #include <boost/simd/memory/align_ptr.hpp>
 #include <boost/simd/memory/aligned_malloc.hpp>
-#include <boost/simd/preprocessor/malloc.hpp>
+#include <boost/simd/memory/details/allocator_wrapper.hpp>
 #include <boost/simd/preprocessor/parameters.hpp>
+#include <boost/simd/preprocessor/malloc.hpp>
 
 #include <boost/dispatch/attributes.hpp>
 #include <boost/dispatch/meta/enable_if_type.hpp>
@@ -118,26 +119,15 @@ namespace boost { namespace simd
             compiler specific attributes.
   **/
   template<class Allocator> BOOST_FORCEINLINE
-  #if defined(DOXYGEN_ONLY)
-  void*
-  #else
   typename boost::dispatch::meta
                 ::enable_if_type<typename Allocator::pointer, void*>::type
-  #endif
   allocate( Allocator& alloc, std::size_t nbytes, std::size_t align )
   {
-    // How many bytes are needed to store all the data + overhead
-    std::size_t size  = nbytes + align
-                      + sizeof( details::aligned_block_header );
+    details::allocator_wrapper<Allocator>::setup(alloc);
 
-    // How many elements are needed to store proper number of bytes
-    std::size_t nelems = size/sizeof(typename Allocator::value_type);
-
-    // Allocate and adjust
-    return  details::adjust_pointer ( alloc.allocate(nelems)
-                                    , size
-                                    , align
-                                    );
+    return aligned_malloc ( nbytes, align
+                          , details::allocator_wrapper<Allocator>::allocate
+                          );
   }
 
   /*!
@@ -157,14 +147,10 @@ namespace boost { namespace simd
             compiler specific attributes.
   **/
   template<std::size_t Alignment, class Allocator> BOOST_FORCEINLINE
-  #if defined(DOXYGEN_ONLY)
-  typename meta::align_ptr<void, Alignment>::type
-  #else
   typename boost::dispatch::meta
                 ::enable_if_type< typename Allocator::pointer
                                 , typename meta::align_ptr<void,Alignment>::type
                                 >::type
-  #endif
   allocate( Allocator& alloc, std::size_t nbytes )
   {
     return align_ptr<Alignment>( allocate(alloc,nbytes,Alignment) );
@@ -185,14 +171,10 @@ namespace boost { namespace simd
             compiler specific attributes.
   **/
   template<class Allocator> BOOST_FORCEINLINE
-  #if defined(DOXYGEN_ONLY)
-  typename meta::align_ptr<void>::type
-  #else
   typename boost::dispatch::meta
                 ::enable_if_type< typename Allocator::pointer
                                 , typename meta::align_ptr<void>::type
                                 >::type
-  #endif
   allocate( Allocator& alloc, std::size_t nbytes )
   {
     return allocate<BOOST_SIMD_CONFIG_ALIGNMENT>(alloc,nbytes);

@@ -24,6 +24,11 @@
 #include <malloc.h>
 #endif
 
+#if !defined(BOOST_SIMD_DEFAULT_MALLOC)
+/// INTERNAL ONLY
+#define BOOST_SIMD_DEFAULT_MALLOC std::malloc
+#endif
+
 namespace boost { namespace simd
 {
   /*!
@@ -32,52 +37,96 @@ namespace boost { namespace simd
     Wraps system specific code for allocating an aligned memory block of
     @c size bytes with an address aligned on @c alignment.
 
+    @par Semantic:
+
+    For any given integral @c size and @c alignment constraint,
+
+    @code
+    void* r = aligned_alloc(size,alignment);
+    @endcode
+
+    is equivalent to a call to the system specific allocation function followed
+    by a potential alignment fix-up.
+
+    @par Framework specific override
+
+    By default, aligned_malloc use system specific functions to handle memory
+    allocation. One can specify a custom allocation function to be used
+    instead. This custom function must have a prototype equivalent to:
+
+    @code
+    void* f(std::size_t sz, std::size_t align);
+    @endcode
+
+    In this case, the following code:
+
+    @code
+    void* r = aligned_realloc(ptr,size,alignment, f);
+    @endcode
+
+    is equivalent to a call to @c f followed by an alignment fix-up.
+
     @pre   @c alignment is a non-zero power of two.
+
     @param size       Number of bytes to allocate
     @param alignment  Alignment boundary to respect
+    @param malloc_fn  Function object to use for allocation of the base pointer
+
     @return Pointer referencing the newly allocated memory block.
   **/
-  BOOST_FORCEINLINE BOOST_SIMD_MALLOC
-  void* BOOST_DISPATCH_RESTRICT
-  aligned_malloc( std::size_t const size, std::size_t const alignment)
+  template<typename AllocFunction>
+  inline void* aligned_malloc ( std::size_t size, std::size_t alignment
+                              , AllocFunction malloc_fn
+                              )
   {
-#if     defined( _MSC_VER )                                                    \
-    &&  defined( BOOST_SIMD_MEMORY_USE_BUILTINS )                              \
-
-    return ::_aligned_malloc(size, alignment);
-
-#elif defined( BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN )
-
-    void* result(0);
-    int r = ::posix_memalign( &result, std::max(sizeof(void*),alignment), size );
-    (void)r;
-
-    return result;
-
-#elif defined( _GNU_SOURCE ) && !defined( __ANDROID__ )
-/*
-  Inexplicable yet consistently reproducible SIGSEGVs encountered on
-  Android (4.1.3 emulator) with memalign (as if it actually allocates
-  only a part of the requested memory).
-
-  TODO:
-  https://groups.google.com/a/chromium.org/forum/?fromgroups=#!msg/chromium-reviews/uil2eVbovQM/9slPSDkBvX8J
-  http://codereview.chromium.org/10796020/diff/5018/base/memory/aligned_memory.h
-
-                                       (25.10.2012.) (Domagoj Saric)
-*/
-    return ::memalign( size, alignment );
-
-#else
-    // manual "metadata" stashing
     return  details::adjust_pointer
-            ( std::malloc( size + alignment
-                         + sizeof( details::aligned_block_header )
-                         )
+            ( malloc_fn(size + alignment + sizeof(details::aligned_block_header))
             , size
             , alignment
             );
-#endif
+  }
+
+  /// @overload
+  inline void* aligned_malloc(std::size_t size, std::size_t alignment)
+  {
+    // Do we want to use built-ins special aligned free/alloc ?
+    #if defined( _MSC_VER ) && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
+
+    return ::_aligned_malloc(size, alignment);
+
+    #elif     defined( BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN )              \
+          && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
+
+    alignment = std::max(alignment,sizeof(void*));
+
+    void* result(0);
+
+    BOOST_VERIFY(   (::posix_memalign(&result,alignment,size) == 0 )
+                ||  ( result == 0 )
+                );
+
+    return result;
+
+    #elif     defined( _GNU_SOURCE ) && !defined( __ANDROID__ )                \
+          && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
+    /*
+      Inexplicable yet consistently reproducible SIGSEGVs encountered on
+      Android (4.1.3 emulator) with memalign (as if it actually allocates
+      only a part of the requested memory).
+
+      TODO:
+      https://groups.google.com/a/chromium.org/forum/?fromgroups=#!msg/chromium-reviews/uil2eVbovQM/9slPSDkBvX8J
+      http://codereview.chromium.org/10796020/diff/5018/base/memory/aligned_memory.h
+
+                                       (25.10.2012.) (Domagoj Saric)
+    */
+    return ::memalign( size, alignment );
+
+    #else
+
+    return aligned_malloc( size, alignment, BOOST_SIMD_DEFAULT_MALLOC );
+
+    #endif
   }
 } }
 

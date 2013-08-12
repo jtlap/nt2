@@ -23,12 +23,6 @@
 #include <malloc.h>
 #endif
 
-// ICC warns about combination of inline and noinline,
-#if defined(BOOST_INTEL)
-#pragma warning push
-#pragma warning disable 2196
-#endif
-
 namespace boost { namespace simd
 {
   /*!
@@ -61,14 +55,8 @@ namespace boost { namespace simd
     @param align    Alignment boundary to respect
     @return Pointer referencing the newly allocated memory block.
   **/
-  BOOST_DISPATCH_NOINLINE inline
-  void* aligned_reuse( void * const ptr, std::size_t sz, std::size_t align )
+  inline void* aligned_reuse( void* ptr, std::size_t sz, std::size_t align )
   {
-
-#if     defined( BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN )                    \
-    || (defined( _GNU_SOURCE ) && !defined( __ANDROID__ ))                     \
-    || (defined( _MSC_VER ) && defined( BOOST_SIMD_MEMORY_USE_BUILTINS ))
-
     /// Resizing to 0 free the pointer data and return
     if(sz == 0)
     {
@@ -79,8 +67,10 @@ namespace boost { namespace simd
     /// Reallocating empty pointer performs allocation
     if(ptr == 0) return aligned_malloc( sz, align );
 
-#ifdef __ANDROID__
-    std::size_t const oldSize( ::dlmalloc_usable_size( ptr ) );
+#if defined(_MSC_VER) || defined(__MINGW32__)
+    std::size_t const oldSize( _msize( ptr ) );
+#elif defined(__ANDROID__)
+    std::size_t const oldSize( ::malloc_usable_size( ptr ) );
 #else
     std::size_t const oldSize( ::malloc_usable_size( ptr ) );
 #endif
@@ -93,27 +83,19 @@ namespace boost { namespace simd
       }
       else
       {
-        void* BOOST_DISPATCH_RESTRICT  const new_ptr = std::realloc(ptr, sz);
+        void*  new_ptr = std::realloc(ptr, sz);
         if( simd::is_aligned(new_ptr,align ) ) return new_ptr;
         std::free(new_ptr);
       }
     }
 
-    void * BOOST_DISPATCH_RESTRICT const fresh_ptr = aligned_malloc(sz,align);
+    void* fresh_ptr = aligned_malloc(sz,align);
 
     if( !fresh_ptr ) return 0;
     aligned_free( ptr );
 
     return fresh_ptr;
-#else
-    return aligned_realloc(ptr, sz, align);
-#endif
   }
-
 } }
-
-#if defined(BOOST_INTEL)
-#pragma warning pop
-#endif
 
 #endif

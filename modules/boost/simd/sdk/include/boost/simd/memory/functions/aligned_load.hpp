@@ -22,6 +22,9 @@ namespace boost { namespace simd
       @brief aligned_load generic tag
 
       Represents the aligned_load function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
     struct aligned_load_ : tag::formal_
     {
@@ -130,7 +133,7 @@ namespace boost { namespace simd
                   );
   }
 
-  /// @overaligned_load
+  /// @overload
   template<typename Type,int Misalignment,typename Pointer>
   BOOST_FORCEINLINE Type aligned_load(Pointer const& ptr)
   {
@@ -146,7 +149,7 @@ namespace boost { namespace simd
                   );
   }
 
-  /// @overaligned_load
+  /// @overload
   template<typename Type,typename Pointer,typename Offset>
   BOOST_FORCEINLINE Type aligned_load(Pointer const& ptr,Offset const& offset)
   {
@@ -159,7 +162,7 @@ namespace boost { namespace simd
     return callee(ptr,offset,boost::dispatch::meta::as_<Type>());
   }
 
-  /// @overaligned_load
+  /// @overload
   template<typename Type,typename Pointer>
   BOOST_FORCEINLINE Type aligned_load(Pointer const& ptr)
   {
