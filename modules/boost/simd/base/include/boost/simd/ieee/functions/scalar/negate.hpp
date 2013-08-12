@@ -10,7 +10,7 @@
 #define BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_NEGATE_HPP_INCLUDED
 #include <boost/simd/ieee/functions/negate.hpp>
 #include <boost/simd/include/functions/scalar/is_nez.hpp>
-#include <boost/simd/include/functions/scalar/is_gez.hpp>
+#include <boost/simd/include/functions/scalar/sign.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -20,7 +20,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return bool(is_nez(a1))*(is_gez(a1)?a0:-a0); }
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return a0*sign(a1); }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::negate_, tag::cpu_

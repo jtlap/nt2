@@ -19,7 +19,10 @@
  * \defgroup boost_simd_ieee_negate negate
  *
  * \par Description
- * a1 == 0 ? 0 : (a1 < 0 ? a0 : -a0)
+ * a1 > 0 ? a0 : ((a1 == 0) 0 : -a0)
+ * In other words its a0*sign(a1)
+ * With floating numbers,
+ * if a0 or a1 is nan the result is nan (even if a1 == 0)
  *
  * \par Header file
  *

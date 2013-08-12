@@ -14,6 +14,8 @@
 #include <boost/simd/include/functions/simd/is_nez.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/unary_minus.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
+#include <boost/simd/include/functions/simd/sign.hpp>
 #include <boost/simd/include/functions/simd/if_else_zero.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
 
@@ -28,7 +30,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return  if_else(is_ltz(a1),-a0,if_else_zero(is_nez(a1), a0));
+      return a0*sign(a1);
     }
   };
 
@@ -44,6 +46,7 @@ namespace boost { namespace simd { namespace ext
       return if_else_zero(is_nez(a1), a0);
     }
   };
+
 } } }
 
 #endif
