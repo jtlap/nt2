@@ -16,6 +16,8 @@
 #include <boost/simd/include/functions/simd/shift_right.hpp>
 #include <boost/simd/include/functions/simd/if_one_else_zero.hpp>
 #include <boost/simd/include/functions/simd/if_allbits_else.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
+#include <boost/simd/include/functions/simd/unary_minus.hpp>
 #include <boost/simd/sdk/config.hpp>
 
 namespace boost { namespace simd { namespace ext
