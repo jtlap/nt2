@@ -169,7 +169,7 @@ namespace boost { namespace simd
     T* data()       { return this->data_.data; }
 
     /// @overload
-    T* data() const { return this->data_.data; }
+    const T* data() const { return this->data_.data; }
 
     /// Assign the contents of another array to the current array
     template <typename T2, std::size_t A2>
