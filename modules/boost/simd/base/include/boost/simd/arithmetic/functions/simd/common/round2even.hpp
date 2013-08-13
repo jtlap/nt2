@@ -14,6 +14,8 @@
 #include <boost/simd/include/functions/simd/bitwise_xor.hpp>
 #include <boost/simd/include/functions/simd/is_less.hpp>
 #include <boost/simd/include/functions/simd/bitofsign.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/simd/include/constants/twotonmb.hpp>
 
 namespace boost { namespace simd { namespace ext
