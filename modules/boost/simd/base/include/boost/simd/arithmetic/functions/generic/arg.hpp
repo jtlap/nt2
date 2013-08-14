@@ -10,10 +10,14 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_ARG_HPP_INCLUDED
 #include <boost/simd/arithmetic/functions/arg.hpp>
 #include <boost/simd/include/constants/pi.hpp>
-#include <boost/simd/include/functions/simd/is_nan.hpp>
 #include <boost/simd/include/functions/simd/is_ltz.hpp>
 #include <boost/simd/include/functions/simd/if_else_zero.hpp>
+#include <boost/simd/sdk/config.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
+#ifndef BOOST_SIMD_NO_NANS
+#include <boost/simd/include/functions/simd/is_nan.hpp>
 #include <boost/simd/include/functions/simd/if_allbits_else.hpp>
+#endif
 
 namespace boost { namespace simd { namespace ext
 {
@@ -25,11 +29,39 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      // a0 >= 0 -> 0, a0 < 0 ->Pi, a0 Nan -> Nan
-      return if_nan_else(
-        is_nan(a0),
-        if_else_zero(is_ltz(a0),Pi<result_type>())
-      );
+      // a0 >= 0 -> 0, a0 < 0 ->Pi, a0 is Nan -> Nan
+      result_type r = if_else_zero(is_ltz(a0),Pi<result_type>());
+      #ifndef BOOST_SIMD_NO_NANS
+      return if_nan_else(is_nan(a0),r);
+      #else
+      return r;
+      #endif
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::arg_, tag::cpu_
+                            , (A0)
+                            , (generic_< int_<A0> >)
+                            )
+  {
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      // a0 >= 0 -> 0, a0 < 0 ->Pi
+      return if_else_zero(is_ltz(a0),Pi<result_type>());
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::arg_, tag::cpu_
+                            , (A0)
+                            , (generic_<uint_<A0> >)
+                            )
+  {
+    typedef  typename boost::dispatch::meta::as_floating<A0>::type result_type;
+    BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0&) const
+    {
+      // a0 >= 0 -> 0
+      return Zero<result_type>();
     }
   };
 } } }
