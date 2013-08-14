@@ -15,6 +15,8 @@
 #include <boost/simd/include/functions/simd/bitwise_notand.hpp>
 #include <boost/simd/include/functions/simd/bitwise_xor.hpp>
 #include <boost/simd/include/functions/simd/shr.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
+#include <boost/simd/include/functions/simd/unary_minus.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
