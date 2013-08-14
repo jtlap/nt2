@@ -6,70 +6,90 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_ABS_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_ABS_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_abs abs
+ * @ingroup boost_simd_arithmetic
+ * @defgroup boost_simd_arithmetic_abs abs
  *
- * \par Description
+ * @par Description
  * The function always returns a value of the same type than the entry.
- * \par
+ * @par
  * Take care that for signed integers the absolute value of Valmin is Valmin
  * (thus negative!).
  * This is a side effect of the 2-complement representation  of integers.
- * To avoid this,  you can use the \c abss saturated functor or convert the
+ * To avoid this,  you can use the @c abss saturated functor or convert the
  * input parameter to a larger type before taking the abs value.
  *
- * \par Header file
+ * @par Header file
  *
- * \code
+ * @code
  * #include <nt2/include/functions/abs.hpp>
- * \endcode
+ * @endcode
  *
- * \par Alias
- * \arg modulus
+ * @par Alias
+ * @arg modulus
  *
- * \synopsis
+ * @synopsis
  *
- * \code
+ * @code
  * namespace boost::simd
  * {
  *   template <class A0>
  *     meta::call<tag::abs_(A0)>::type
  *     abs(const A0 & a0);
  * }
- * \endcode
+ * @endcode
  *
- * \param a0 the unique parameter of abs
+ * @param a0 the unique parameter of abs
  *
- * \return a value of the same type as the parameter
+ * @return a value of the same type as the parameter
  *
- * \par Notes
+ * @par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
+ * @par
  *
 **/
 
 namespace boost { namespace simd { namespace tag
   {
     /*!
-     * \brief Define the tag abs_ of functor abs
-     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
+      @brief  abs generic tag
+
+      Represents the load function in generic contexts.
     **/
     struct abs_ : ext::elementwise_<abs_> { typedef ext::elementwise_<abs_> parent; };
   }
+  /*!
+    @brief absolute value of the input value.
 
+    The function always returns a value of the same type than the entry.
+    @par
+    Take care that for signed integers the absolute value of @c Valmin is
+    @c Valmin (thus negative!).
+    This is a side effect of the 2-complement representation of integers.
+    To avoid this, you can use the @c abss saturated functor or convert the
+    input parameter to a larger type before taking the absolute value.
+
+    @param @c a0    value whose absolute value will be returned.
+
+    @return      a value of the same type as the input.
+
+    @par Alias
+
+    modulus
+
+    @par Warning
+
+    As @c abs is a standard name, when you use boost::simd::abs on standard
+    types it is advised to prefix it with the namespace or to make sure that
+    neither the C function nor the @c std functions are in scope.
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::abs_, abs, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::abs_, modulus, 1)
 } }
 
 #endif
-
-// modified by jt the 25/12/2010

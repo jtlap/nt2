@@ -13,8 +13,8 @@
 #include <boost/simd/include/constants/mzero.hpp>
 #include <boost/simd/include/constants/maxleftshift.hpp>
 #include <boost/simd/include/functions/simd/bitwise_notand.hpp>
+#include <boost/simd/include/functions/simd/bitwise_xor.hpp>
 #include <boost/simd/include/functions/simd/shr.hpp>
-#include <boost/simd/include/functions/simd/negate.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
