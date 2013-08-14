@@ -74,4 +74,6 @@ NT2_TEST_CASE( const_aligned_array )
 {
   const boost::simd::aligned_array<int, 3> tab = {{{1, 2, 3}}};
   const int * ptr = tab.data();
+
+  NT2_TEST_EQUAL( ptr, &tab[0] );
 }
