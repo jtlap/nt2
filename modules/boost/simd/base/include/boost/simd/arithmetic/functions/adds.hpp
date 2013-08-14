@@ -50,8 +50,8 @@ namespace boost { namespace simd
 
     saturated_add
 
-    @param @c x
-    @param @c y
+    @param  x
+    @param  y
 
     @return      a value of the same type as the input.
 
