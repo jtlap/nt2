@@ -20,9 +20,10 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::adds_, tag::cpu_
-                            , (A0)
-                            , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)
-                            )
+                                   , (A0)
+                                   , (scalar_< floating_<A0> >)
+                                     (scalar_< floating_<A0> >)
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
@@ -33,9 +34,10 @@ namespace boost { namespace simd { namespace ext
 
   // for int8/int16
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::adds_, tag::cpu_
-                            , (A0)
-                            , (scalar_< integer_<A0> >)(scalar_< integer_<A0> >)
-                            )
+                                   , (A0)
+                                   , (scalar_< integer_<A0> >)
+                                     (scalar_< integer_<A0> >)
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
@@ -47,8 +49,9 @@ namespace boost { namespace simd { namespace ext
 
   // for uint8/uint16
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::adds_, tag::cpu_
-                            , (A0)
-                            , (scalar_< unsigned_<A0> >)(scalar_< unsigned_<A0> >)
+                                   , (A0)
+                                   , (scalar_< unsigned_<A0> >)
+                                     (scalar_< unsigned_<A0> >)
                             )
   {
     typedef A0 result_type;
@@ -60,10 +63,11 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::adds_, tag::cpu_
-                            , (A0)
-                            , (mpl::bool_<sizeof(A0) == 4 || sizeof(A0) == 8>)
-                            , (scalar_< int_<A0> >)(scalar_< int_<A0> >)
-                            )
+                                      , (A0)
+                                      , (mpl::bool_<sizeof(A0) == 4 || sizeof(A0) == 8>)
+                                      , (scalar_< int_<A0> >)
+                                        (scalar_< int_<A0> >)
+                                      )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
@@ -84,10 +88,11 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::adds_, tag::cpu_
-                            , (A0)
-                            , (mpl::bool_<sizeof(A0) == 4 || sizeof(A0) == 8>)
-                            , (scalar_< uint_<A0> >)(scalar_< uint_<A0> >)
-                            )
+                                      , (A0)
+                                      , (mpl::bool_<sizeof(A0) == 4 || sizeof(A0) == 8>)
+                                      , (scalar_< uint_<A0> >)
+                                        (scalar_< uint_<A0> >)
+                                      )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
