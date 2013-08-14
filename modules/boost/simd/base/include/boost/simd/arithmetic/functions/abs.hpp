@@ -1,6 +1,6 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/U.B.P.
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ. Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -11,82 +11,58 @@
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * @ingroup boost_simd_arithmetic
- * @defgroup boost_simd_arithmetic_abs abs
- *
- * @par Description
- * The function always returns a value of the same type than the entry.
- * @par
- * Take care that for signed integers the absolute value of Valmin is Valmin
- * (thus negative!).
- * This is a side effect of the 2-complement representation  of integers.
- * To avoid this,  you can use the @c abss saturated functor or convert the
- * input parameter to a larger type before taking the abs value.
- *
- * @par Header file
- *
- * @code
- * #include <nt2/include/functions/abs.hpp>
- * @endcode
- *
- * @par Alias
- * @arg modulus
- *
- * @synopsis
- *
- * @code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::abs_(A0)>::type
- *     abs(const A0 & a0);
- * }
- * @endcode
- *
- * @param a0 the unique parameter of abs
- *
- * @return a value of the same type as the parameter
- *
- * @par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * @par
- *
-**/
-
-namespace boost { namespace simd { namespace tag
+namespace boost { namespace simd
+{
+  namespace tag
   {
     /*!
       @brief  abs generic tag
 
-      Represents the load function in generic contexts.
+      Represents the abs function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
-    struct abs_ : ext::elementwise_<abs_> { typedef ext::elementwise_<abs_> parent; };
+    struct abs_ : ext::elementwise_<abs_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<abs_> parent;
+    };
   }
   /*!
-    @brief absolute value of the input value.
+    Computes the absolute value of its parameter.
+
+    @par semantic:
+    For any given value @c x of type @c T:
+
+    @code
+    T r = abs(x);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    T r = x < T(0) ? -x : x;
+    @endcode
+
+    @par Note:
 
     The function always returns a value of the same type than the entry.
-    @par
+
     Take care that for signed integers the absolute value of @c Valmin is
     @c Valmin (thus negative!).
     This is a side effect of the 2-complement representation of integers.
     To avoid this, you can use the @c abss saturated functor or convert the
     input parameter to a larger type before taking the absolute value.
 
-    @param @c a0    value whose absolute value will be returned.
-
-    @return      a value of the same type as the input.
-
     @par Alias
 
     modulus
 
-    @par Warning
+    @param @c a0    value whose absolute value will be returned.
 
-    As @c abs is a standard name, when you use boost::simd::abs on standard
-    types it is advised to prefix it with the namespace or to make sure that
-    neither the C function nor the @c std functions are in scope.
+    @return      a value of the same type as the input.
+
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::abs_, abs, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::abs_, modulus, 1)
