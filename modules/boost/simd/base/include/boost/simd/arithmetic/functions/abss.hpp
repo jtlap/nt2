@@ -94,7 +94,7 @@ namespace boost { namespace simd {
 
     saturated_abs
 
-    @param @c a0    value whose absolute value will be returned.
+    @param  a0    value whose absolute value will be returned.
 
     @return         a value of the same type as the input.
 
