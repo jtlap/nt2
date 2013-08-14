@@ -13,6 +13,7 @@
 #include <boost/simd/include/functions/scalar/shift_right.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_xor.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_and.hpp>
+#include <boost/simd/include/functions/scalar/fma.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -36,7 +37,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return (a0+a1)*Half<result_type>();
+      return fma(a0,Half<result_type>(),a1*Half<result_type>());
     }
   };
 } } }

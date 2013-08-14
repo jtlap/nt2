@@ -16,7 +16,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-      @brief  abs generic tag
+      @brief  arg generic tag
 
       Represents the adds function in generic contexts.
 

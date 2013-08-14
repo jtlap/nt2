@@ -47,7 +47,7 @@ namespace boost { namespace simd
 
     @par Note:
 
-    The function always returns a value of the same type than the entry.
+    The function always returns a value of the same type as the entry.
 
     Take care that for signed integers the absolute value of @c Valmin is
     @c Valmin (thus negative!).

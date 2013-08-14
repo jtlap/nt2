@@ -14,14 +14,16 @@
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/multiplies.hpp>
 #include <boost/simd/include/functions/simd/shift_right.hpp>
+#include <boost/simd/include/functions/simd/fma.hpp>
 #include <boost/simd/include/constants/half.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::average_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
-                            )
+                                   , (A0)(X)
+                                   , ((simd_<arithmetic_<A0>,X>))
+                                     ((simd_<arithmetic_<A0>,X>))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
@@ -31,14 +33,15 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::average_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<floating_<A0>,X>))((simd_<floating_<A0>,X>))
-                            )
+                                   , (A0)(X)
+                                   , ((simd_<floating_<A0>,X>))
+                                     ((simd_<floating_<A0>,X>))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-       return (a0+a1)*Half<A0>();
+      return fma(a0,Half<A0>(),a1*Half<A0>());
     }
   };
 } } }
