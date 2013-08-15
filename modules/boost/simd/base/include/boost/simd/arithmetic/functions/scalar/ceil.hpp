@@ -10,31 +10,38 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_CEIL_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/ceil.hpp>
-#include <boost/simd/include/functions/scalar/seladd.hpp>
-#include <boost/simd/include/functions/scalar/round2even.hpp>
-#include <boost/simd/include/functions/scalar/is_less.hpp>
-#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/sdk/math.hpp>
+#include <cmath>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ceil_, tag::cpu_, (A0)
-                            , (scalar_< arithmetic_<A0> >)
-                            )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return a0; }
-  };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ceil_, tag::cpu_, (A0)
-                            , (scalar_< floating_<A0> >)
+                            , (scalar_< single_<A0> >)
                             )
   {
     typedef A0 result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      const A0 d0 = round2even(a0);
-      return seladd(lt(d0, a0),d0,One<A0>());
+      #ifdef BOOST_SIMD_HAS_CEILF
+      return ::ceilf(a0);
+      #else
+      return std::ceil(a0);
+      #endif
+    }
+  };
+
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ceil_, tag::cpu_, (A0)
+                            , (scalar_< double_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return ::ceil(a0);
     }
   };
 } } }
