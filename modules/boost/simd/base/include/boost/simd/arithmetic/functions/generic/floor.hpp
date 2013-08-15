@@ -6,43 +6,23 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_FLOOR_HPP_INCLUDED
-#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_FLOOR_HPP_INCLUDED
+#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_FLOOR_HPP_INCLUDED
+#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_FLOOR_HPP_INCLUDED
 #include <boost/simd/arithmetic/functions/floor.hpp>
-#include <boost/simd/sdk/math.hpp>
-#include <cmath>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::floor_, tag::cpu_, (A0)
-                            , (scalar_< single_<A0> >)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::floor_, tag::cpu_
+                            , (A0)
+                            , (generic_<integer_<A0> >)
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      #ifdef BOOST_SIMD_HAS_FLOORF
-      return ::floorf(a0);
-      #else
-      return std::floor(a0);
-      #endif
-    }
-  };
-
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::floor_, tag::cpu_, (A0)
-                            , (scalar_< double_<A0> >)
-                            )
-  {
-    typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      return ::floor(a0);
+      return a0;
     }
   };
 } } }
-
 
 #endif

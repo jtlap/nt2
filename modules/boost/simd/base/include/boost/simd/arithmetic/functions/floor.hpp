@@ -6,61 +6,51 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_FLOOR_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_FLOOR_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_floor floor
- *
- * \par Description
- * return a value of the same type of the entry
- * which is the greatest integer less or equal to the entry
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/floor.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::floor_(A0)>::type
- *     floor(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of floor
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
-
-namespace boost { namespace simd { namespace tag
+namespace boost { namespace simd
+{
+  namespace tag
   {
     /*!
-     * \brief Define the tag floor_ of functor floor
-     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
+      @brief  floor generic tag
+
+      Represents the floor function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
-    struct floor_ : ext::elementwise_<floor_> { typedef ext::elementwise_<floor_> parent; };
+    struct floor_ : ext::elementwise_<floor_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<floor_> parent;
+    };
   }
+  /*!
+    Computes the floor of its parameter.
+
+    @par semantic:
+    For any given value @c x of type @c T:
+
+    @code
+    T r = floor(x);
+    @endcode
+
+    greatest integral value of type @c T less or equal to @c x.
+
+    @par Note:
+
+    The function always returns a value of the same type as the entry.
+
+    @param  x
+
+    @return      an integral value of the same type as the input.
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::floor_, floor, 1)
 } }
 
 #endif
-
-// modified by jt the 25/12/2010
