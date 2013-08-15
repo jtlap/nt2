@@ -79,6 +79,8 @@
 #define BOOST_SIMD_HAS__HYPOT
 #define BOOST_SIMD_HAS__HYPOTF
 #define BOOST_SIMD_HAS__FPCLASS
+#define BOOST_SIMD_HAS_CEILF
+#define BOOST_SIMD_HAS_FLOORF
 #endif
 
 // Microsoft x64
