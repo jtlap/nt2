@@ -39,7 +39,7 @@ NT2_TEST_CASE_TPL ( arg_r,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(boost::simd::arg(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( arg_ic,  BOOST_SIMD_INT_CONVERT_TYPES)
+NT2_TEST_CASE_TPL ( arg_ic,  BOOST_SIMD_SIMD_INT_CONVERT_TYPES)
 {
   using boost::simd::tag::arg_;
   using boost::simd::native;
@@ -53,7 +53,7 @@ NT2_TEST_CASE_TPL ( arg_ic,  BOOST_SIMD_INT_CONVERT_TYPES)
   NT2_TEST_EQUAL(boost::simd::arg(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( arg_uic,  BOOST_SIMD_UINT_CONVERT_TYPES)
+NT2_TEST_CASE_TPL ( arg_uic,  BOOST_SIMD_SIMD_UINT_CONVERT_TYPES)
 {
   using boost::simd::tag::arg_;
   using boost::simd::native;
