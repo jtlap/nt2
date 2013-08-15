@@ -53,7 +53,7 @@ namespace boost { namespace simd { namespace ext
     {
       A0 r = bool(is_gtz(a0))-bool(is_ltz(a0));
       #ifdef BOOST_SIMD_NO_NANS
-      return r
+      return r;
       #else
       return is_nan(a0) ? a0 : r;
       #endif
