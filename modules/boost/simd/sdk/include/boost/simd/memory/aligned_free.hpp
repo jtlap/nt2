@@ -85,14 +85,14 @@ namespace boost { namespace simd
     // Do we want to use built-ins special aligned free/alloc ?
     #if defined( _MSC_VER ) && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
 
-    if(ptr)  ::_aligned_free( ptr );
+    ::_aligned_free( ptr );
 
     #elif (     defined( BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN )            \
             ||  (defined( _GNU_SOURCE ) && !defined( __ANDROID__ ))            \
           )                                                                    \
        && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
 
-    if(ptr)  std::free( ptr );
+    ::free( ptr );
 
     #else
 

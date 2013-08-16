@@ -126,13 +126,13 @@ namespace boost { namespace simd
     }
     else
     {
-      void* const fresh_ptr = aligned_malloc(sz,align);
-      std::size_t const oldSize( _msize( ptr ) );
+      void* const fresh_ptr = ::_aligned_alloc(sz, align);
+      std::size_t const oldSize( ::_msize( ptr ) );
 
       if( !fresh_ptr ) return 0;
 
       std::memcpy( fresh_ptr, ptr, std::min( sz, oldSize ) );
-      aligned_free( ptr );
+      ::_aligned_free( ptr );
     }
 
     #elif (     defined( BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN )            \
@@ -143,12 +143,9 @@ namespace boost { namespace simd
     // Resizing to 0 free the pointer data and return
     if(sz == 0)
     {
-      aligned_free( ptr );
+      ::free( ptr );
       return 0;
     }
-
-    // Reallocating empty pointer performs allocation
-    if(ptr == 0) return aligned_malloc( sz, align );
 
     #ifdef __ANDROID__
     // https://groups.google.com/forum/?fromgroups=#!topic/android-ndk/VCEUpMfSh_o
@@ -157,26 +154,29 @@ namespace boost { namespace simd
     std::size_t const oldSize( ::malloc_usable_size( ptr ) );
     #endif
 
-    if( simd::is_aligned(ptr,align ) )
+    if( simd::is_aligned(ptr, align) )
     {
-      if ( ( oldSize - sz ) < 32 )
+      if( ( oldSize - sz ) < 32 )
       {
         return ptr;
       }
       else
       {
-        void* const new_ptr = std::realloc(ptr, sz);
-        if( simd::is_aligned(new_ptr,align ) ) return new_ptr;
-        std::free(new_ptr);
+        // FIXME: realloc will free the old memory if it moves.
+        // if it moves to a non-aligned memory segment and the subsequent
+        // memory allocation fails, we break the invariant
+        ptr = ::realloc(ptr, sz);
+        if( simd::is_aligned(ptr, align) )
+          return ptr;
       }
     }
 
-    void* const fresh_ptr = aligned_malloc(sz,align);
+    void* const fresh_ptr = aligned_malloc(sz, align);
 
     if( !fresh_ptr ) return 0;
 
     std::memcpy( fresh_ptr, ptr, std::min( sz, oldSize ) );
-    aligned_free( ptr );
+    ::free( ptr );
 
     return fresh_ptr;
 
