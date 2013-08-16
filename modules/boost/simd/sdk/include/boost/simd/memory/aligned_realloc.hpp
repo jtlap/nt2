@@ -126,7 +126,7 @@ namespace boost { namespace simd
     }
     else
     {
-      void* const fresh_ptr = ::_aligned_alloc(sz, align);
+      void* const fresh_ptr = ::_aligned_malloc(sz, align);
       std::size_t const oldSize( ::_msize( ptr ) );
 
       if( !fresh_ptr ) return 0;
