@@ -123,10 +123,8 @@ namespace boost { namespace simd
                 ::enable_if_type<typename Allocator::pointer, void*>::type
   allocate( Allocator& alloc, std::size_t nbytes, std::size_t align )
   {
-    details::allocator_wrapper<Allocator>::setup(alloc);
-
     return aligned_malloc ( nbytes, align
-                          , details::allocator_wrapper<Allocator>::allocate
+                          , details::allocator_malloc<Allocator>(alloc,align)
                           );
   }
 

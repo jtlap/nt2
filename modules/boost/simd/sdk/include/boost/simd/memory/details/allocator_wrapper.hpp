@@ -12,38 +12,38 @@
 
 namespace boost { namespace simd { namespace details
 {
-  template<typename Allocator>
-  struct allocator_wrapper
+  template<typename Allocator> struct allocator_malloc
   {
-    static void setup(Allocator& a, std::size_t alg = 1)
+    allocator_malloc(Allocator& a, std::size_t alg = 1) : alloc(a), align(alg)
     {
-      alloc = &a;
-      align = alg;
     }
 
-    static void* allocate(std::size_t sz)
+    void* operator()(std::size_t sz)
     {
-      return alloc->allocate(sz/sizeof(typename Allocator::value_type));
+      return alloc.allocate(sz/sizeof(typename Allocator::value_type));
     }
 
-    static void deallocate(void* ptr)
-    {
-      typedef typename Allocator::pointer type;
-      return alloc->deallocate(type(ptr),0);
-    }
-
-    static Allocator* alloc;
-    static std::size_t align;
+    Allocator& alloc;
+    std::size_t align;
 
     private:
-    allocator_wrapper& operator=(allocator_wrapper const&);
+    allocator_malloc& operator=(allocator_malloc const&);
   };
 
-  template<typename Allocator>
-  std::size_t allocator_wrapper<Allocator>::align = 0;
+  template<typename Allocator> struct allocator_free
+  {
+    allocator_free(Allocator& a) : alloc(a) {}
 
-  template<typename Allocator>
-  Allocator* allocator_wrapper<Allocator>::alloc = 0;
+    void operator()(void* ptr)
+    {
+      typedef typename Allocator::pointer type;
+      return alloc.deallocate(type(ptr),0u);
+    }
+
+    Allocator& alloc;
+    private:
+    allocator_free& operator=(allocator_free const&);
+  };
 } } }
 
 #endif
