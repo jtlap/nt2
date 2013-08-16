@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+  conj.cpp
   divround.cpp
   divfloor.cpp
   divfix.cpp
