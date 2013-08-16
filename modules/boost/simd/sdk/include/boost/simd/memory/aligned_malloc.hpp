@@ -13,15 +13,20 @@
 
 #include <boost/simd/memory/details/posix.hpp>
 #include <boost/simd/memory/details/aligned_stash.hpp>
-#include <boost/simd/preprocessor/malloc.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
 #include <boost/dispatch/attributes.hpp>
+#include <boost/assert.hpp>
 
+#include <algorithm>
+#include <cstdlib>
 #include <stdlib.h>
-#include <new>
 
 #if !defined(__APPLE__)
 #include <malloc.h>
+#endif
+
+#if defined(BOOST_SIMD_DEFAULT_MALLOC) && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
+/// INTERNAL ONLY
+#define BOOST_SIMD_MEMORY_NO_BUILTINS
 #endif
 
 #if !defined(BOOST_SIMD_DEFAULT_MALLOC)

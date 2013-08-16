@@ -13,7 +13,18 @@
 #include <boost/simd/memory/details/posix.hpp>
 #include <boost/simd/memory/details/aligned_stash.hpp>
 #include <boost/dispatch/attributes.hpp>
-#include <new>
+
+#include <cstdlib>
+#include <stdlib.h>
+
+#if !defined(__APPLE__)
+#include <malloc.h>
+#endif
+
+#if defined(BOOST_SIMD_DEFAULT_FREE) && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
+/// INTERNAL ONLY
+#define BOOST_SIMD_MEMORY_NO_BUILTINS
+#endif
 
 #if !defined(BOOST_SIMD_DEFAULT_FREE)
 /// INTERNAL ONLY

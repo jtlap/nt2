@@ -13,16 +13,23 @@
 
 #include <boost/simd/memory/details/posix.hpp>
 #include <boost/simd/memory/details/aligned_stash.hpp>
-#include <boost/simd/memory/aligned_free.hpp>
 #include <boost/simd/memory/aligned_malloc.hpp>
+#include <boost/simd/memory/is_aligned.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/config.hpp>
 
+#include <algorithm>
+#include <cstring>
+#include <cstdlib>
 #include <stdlib.h>
-#include <new>
 
 #if !defined(__APPLE__)
 #include <malloc.h>
+#endif
+
+#if defined(BOOST_SIMD_DEFAULT_REALLOC) && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
+/// INTERNAL ONLY
+#define BOOST_SIMD_MEMORY_NO_BUILTINS
 #endif
 
 #if !defined(BOOST_SIMD_DEFAULT_REALLOC)
@@ -175,7 +182,7 @@ namespace boost { namespace simd
 
     #else
 
-    return aligned_realloc(ptr, sz, align, &BOOST_SIMD_DEFAULT_REALLOC);
+    return aligned_realloc(ptr, sz, align, BOOST_SIMD_DEFAULT_REALLOC);
 
     #endif
   }
