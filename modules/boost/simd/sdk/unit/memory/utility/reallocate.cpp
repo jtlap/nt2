@@ -32,9 +32,9 @@ NT2_TEST_CASE(reallocate)
   for(int i=0;i<2;++i) NT2_TEST_EQUAL(ptr2[i],10*i);
 
   NT2_TEST( is_aligned(ptr = static_cast<char*>(reallocate(ptr2,7))) );
-  for(int i=0;i<5;++i) NT2_TEST_EQUAL(ptr[i],10*i);
-  for(int i=5;i<7;++i) ptr[i] = 2*i;
-  for(int i=5;i<7;++i) NT2_TEST_EQUAL(ptr[i],2*i);
+  for(int i=0;i<2;++i) NT2_TEST_EQUAL(ptr[i],10*i);
+  for(int i=2;i<7;++i) ptr[i] = 2*i;
+  for(int i=2;i<7;++i) NT2_TEST_EQUAL(ptr[i],2*i);
 
   ptr = static_cast<char*>(reallocate(ptr,0));
   NT2_TEST( !ptr );
@@ -57,12 +57,12 @@ NT2_TEST_CASE(reallocate_allocator)
   for(int i=0;i<5;++i) NT2_TEST_EQUAL(ptr[i],10*i);
 
   NT2_TEST( is_aligned(ptr2 = static_cast<char*>(reallocate(alloc,ptr,2))) );
-  for(int i=0;i<2;++i) ptr2[i] = 10*i;
   for(int i=0;i<2;++i) NT2_TEST_EQUAL(ptr2[i],10*i);
 
   NT2_TEST( is_aligned(ptr = static_cast<char*>(reallocate(alloc,ptr2,7))) );
-  for(int i=0;i<7;++i) ptr[i] = 10*i;
-  for(int i=0;i<7;++i) NT2_TEST_EQUAL(ptr[i],10*i);
+  for(int i=0;i<2;++i) NT2_TEST_EQUAL(ptr[i],10*i);
+  for(int i=2;i<7;++i) ptr[i] = 10*i;
+  for(int i=2;i<7;++i) NT2_TEST_EQUAL(ptr[i],10*i);
 
   ptr = static_cast<char*>(reallocate(alloc,ptr,0));
   NT2_TEST( !ptr );
@@ -82,16 +82,15 @@ NT2_TEST_CASE(reallocate_align)
   for(int i=0;i<5;++i) NT2_TEST_EQUAL(ptr[i],10*i);
 
   NT2_TEST( is_aligned(ptr = static_cast<char*>(reallocate(ptr,3,8)), 8) );
-  for(int i=0;i<3;++i) ptr[i] = 10*i;
   for(int i=0;i<3;++i) NT2_TEST_EQUAL(ptr[i],10*i);
 
   NT2_TEST( is_aligned(ptr2 = static_cast<char*>(reallocate(ptr,2,16)), 16) );
-  for(int i=0;i<2;++i) ptr2[i] = 10*i;
   for(int i=0;i<2;++i) NT2_TEST_EQUAL(ptr2[i],10*i);
 
   NT2_TEST( is_aligned(ptr = static_cast<char*>(reallocate(ptr2,7,8)), 8) );
-  for(int i=0;i<7;++i) ptr[i] = 10*i;
-  for(int i=0;i<7;++i) NT2_TEST_EQUAL(ptr[i],10*i);
+  for(int i=0;i<2;++i) NT2_TEST_EQUAL(ptr[i],10*i);
+  for(int i=2;i<7;++i) ptr[i] = 10*i;
+  for(int i=2;i<7;++i) NT2_TEST_EQUAL(ptr[i],10*i);
 
   ptr = static_cast<char*>(reallocate(ptr,0,8));
   NT2_TEST( !ptr );
@@ -114,16 +113,15 @@ NT2_TEST_CASE(reallocate_align_allocator)
   for(int i=0;i<5;++i) NT2_TEST_EQUAL(ptr[i],10*i);
 
   NT2_TEST( is_aligned(ptr = static_cast<char*>(reallocate(alloc,ptr,3,8)), 8) );
-  for(int i=0;i<3;++i) ptr[i] = 10*i;
   for(int i=0;i<3;++i) NT2_TEST_EQUAL(ptr[i],10*i);
 
   NT2_TEST( is_aligned(ptr2 = static_cast<char*>(reallocate(alloc,ptr,2,16)), 16) );
-  for(int i=0;i<2;++i) ptr2[i] = 10*i;
   for(int i=0;i<2;++i) NT2_TEST_EQUAL(ptr2[i],10*i);
 
   NT2_TEST( is_aligned(ptr = static_cast<char*>(reallocate(alloc,ptr2,7,8)), 8) );
-  for(int i=0;i<7;++i) ptr[i] = 10*i;
-  for(int i=0;i<7;++i) NT2_TEST_EQUAL(ptr[i],10*i);
+  for(int i=0;i<2;++i) NT2_TEST_EQUAL(ptr[i],10*i);
+  for(int i=2;i<7;++i) ptr[i] = 10*i;
+  for(int i=2;i<7;++i) NT2_TEST_EQUAL(ptr[i],10*i);
 
   ptr = static_cast<char*>(reallocate(alloc,ptr,0,8));
   NT2_TEST( !ptr );
