@@ -13,6 +13,7 @@
 #include <boost/simd/include/functions/simd/min.hpp>
 #include <boost/simd/include/functions/simd/abs.hpp>
 #include <boost/simd/include/functions/simd/subs.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -22,7 +23,10 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return boost::simd::subs(boost::simd::max(a0, a1), boost::simd::min(a1,a0)); }
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      return boost::simd::subs(boost::simd::max(a0, a1), boost::simd::min(a1,a0));
+    }
   };
 
 
@@ -32,7 +36,10 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)  { return (boost::simd::max(a0, a1)-boost::simd::min(a1,a0)); }
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      return (boost::simd::max(a0, a1)-boost::simd::min(a1,a0));
+    }
   };
 } } }
 

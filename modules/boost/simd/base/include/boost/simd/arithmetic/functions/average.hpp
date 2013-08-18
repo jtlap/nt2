@@ -23,6 +23,7 @@ namespace boost { namespace simd { namespace tag
     **/
     struct average_ : ext::elementwise_<average_>
     {
+      /// @brief Parent hierarchy
       typedef ext::elementwise_<average_> parent;
     };
   }

@@ -6,61 +6,55 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_DIST_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_DIST_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_dist dist
- *
- * \par Description
- * this is $\|a_0-a_1\|$, and is always properly computed
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/dist.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::dist_(A0,A0)>::type
- *     dist(const A0 & a0,const A0 & a1);
- * }
- * \endcode
- *
- * \param a0 the first parameter of dist
- * \param a1 the second parameter of dist
- *
- * \return a value of the common type of the parameters
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
-
 namespace boost { namespace simd { namespace tag
   {
     /*!
-     * \brief Define the tag dist_ of functor dist
-     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
+      @brief  dist generic tag
+
+      Represents the dist function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
-    struct dist_ : ext::elementwise_<dist_> { typedef ext::elementwise_<dist_> parent; };
+    struct dist_ : ext::elementwise_<dist_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<dist_> parent;
+    };
   }
+  /*!
+    Computes the (saturated) absolute value of the difference of its parameters.
+
+    @par semantic:
+    For any given value @c x,  @c y of type @c T:
+
+    @code
+    T r = dist(x, y);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    T r = abs(x-y);
+    @endcode
+
+    @par Note
+
+    The result is never negative. For floating, it can of course be Nan.
+
+    @param  x
+
+    @param  y
+
+    @return      a value of the same type as the input.
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::dist_, dist, 2)
 } }
 
 #endif
-
-// modified by jt the 25/12/2010
