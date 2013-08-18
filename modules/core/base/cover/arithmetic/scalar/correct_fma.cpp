@@ -46,6 +46,29 @@ NT2_TEST_CASE_TPL ( correct_fma_real__1_0_1,  (float))
 
 }
 
+NT2_TEST_CASE_TPL ( correct_fma_real2,  NT2_REAL_TYPES)
+{
+
+  using nt2::correct_fma;
+  using nt2::tag::correct_fma_;
+  typedef typename nt2::meta::call<correct_fma_(T, T, T)>::type r_t;
+
+
+  nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  std::vector<T> in1(NR), in2(NR), in3(NR);
+  std::vector<r_t> ref(NR);
+  nt2::roll(in1, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+  for(uint32_t i=0; i < NR ; i++)
+  {
+    in2[i] = 3;
+    in3[i] = -in1[i];
+    ref[i] = 2*in1[i];
+  }
+
+ NT2_COVER_ULP_EQUAL(correct_fma_, ((T, in1))((T, in2))((T, in3)), ref, 0);
+
+}
+
 NT2_TEST_CASE_TPL ( correct_fma_real__1_0_2,  NT2_INTEGRAL_TYPES)
 {
 
