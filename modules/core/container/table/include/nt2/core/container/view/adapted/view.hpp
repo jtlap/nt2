@@ -24,22 +24,22 @@ namespace nt2 { namespace meta
 
 namespace nt2 { namespace meta
 {
-  /// INTERNAL ONLY : Option of a table_view use its settings and semantic
-  template<typename T, typename S, typename Tag>
-  struct  option<nt2::container::table_view<T, S> , Tag>
-        : option<S, Tag, tag::table_>
+  /// INTERNAL ONLY : Option of a view use its settings and semantic
+  template<typename Kind, typename T, typename S, typename Tag>
+  struct  option<nt2::container::view<Kind, T, S> , Tag>
+        : option<S, Tag, Kind>
   {};
 
-  /// INTERNAL ONLY : add_settinfs to a table_view
-  template<typename T, typename S, typename S2>
-  struct add_settings< container::table_view<T, S>, S2 >
+  /// INTERNAL ONLY : add_settinfs to a view
+  template<typename Kind, typename T, typename S, typename S2>
+  struct add_settings< container::view<Kind, T, S>, S2 >
   {
-    typedef container::table_view<T, typename add_settings<S, S2>::type> type;
+    typedef container::view<Kind,T, typename add_settings<S, S2>::type> type;
   };
 
-  /// INTERNAL ONLY : Extract settings from table_view
-  template<typename T, typename S>
-  struct settings_of< container::table_view<T, S> >
+  /// INTERNAL ONLY : Extract settings from view
+  template<typename Kind, typename T, typename S>
+  struct settings_of< container::view<Kind, T, S> >
   {
     typedef S type;
   };
@@ -47,25 +47,31 @@ namespace nt2 { namespace meta
 
 namespace boost { namespace dispatch { namespace meta
 {
-  /// INTERNAL ONLY : value_of for table_view
-  template<typename T, typename S> struct value_of< nt2::container::table_view<T,S> >
+  /// INTERNAL ONLY : value_of for view
+  template<typename Kind, typename T, typename S>
+  struct value_of< nt2::container::view<Kind,T,S> >
   {
     typedef T type;
   };
 
-  /// INTERNAL ONLY : model_of for table_view
-  template<typename T, typename S> struct model_of< nt2::container::table_view<T,S> >
+  /// INTERNAL ONLY : model_of for view
+  template<typename Kind, typename T, typename S>
+  struct model_of< nt2::container::view<Kind, T,S> >
   {
     struct type
     {
-      template<class X> struct apply { typedef nt2::container::table_view<X,S> type; };
+      template<class X> struct apply
+      {
+        typedef nt2::container::view<Kind, X,S> type;
+      };
     };
   };
 
-  /// INTERNAL ONLY : semantic_of for table_view
-  template<typename T, typename S> struct semantic_of< nt2::container::table_view<T, S> >
+  /// INTERNAL ONLY : semantic_of for view
+  template<typename Kind, typename T, typename S>
+  struct semantic_of< nt2::container::view<Kind, T, S> >
   {
-    typedef typename nt2::container::table_view<T, S>::container_type  type;
+    typedef typename nt2::container::view<Kind, T, S>::container_type  type;
   };
 } } }
 

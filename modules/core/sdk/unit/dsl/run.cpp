@@ -40,7 +40,7 @@ NT2_TEST_CASE( run_type )
 {
   using nt2::table;
   using nt2::tag::table_;
-  using nt2::table_view;
+  using nt2::view;
   typedef double T;
   typedef nt2::settings S(nt2::_4D);
 
@@ -62,7 +62,7 @@ NT2_TEST_CASE( run_type )
 
   NT2_TEST_EXPR_TYPE( boost::proto::child_c<0>(a0 + a0)
                     , run_type
-                    , (table_view<T const, S>)
+                    , (view<table_, T const, S>)
                     );
 
   NT2_TEST_EXPR_TYPE( a0 + a0

@@ -12,8 +12,8 @@
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/core/container/dsl/grammar.hpp>
-#include <nt2/core/container/table/table_view.hpp>
-#include <nt2/core/container/table/table_shared_view.hpp>
+#include <nt2/core/container/view/view.hpp>
+#include <nt2/core/container/view/shared_view.hpp>
 #include <nt2/dsl/functions/run.hpp>
 #include <nt2/operator/functions/assign.hpp>
 #include <nt2/sdk/memory/container_ref.hpp>
@@ -68,35 +68,35 @@ namespace nt2 { namespace meta
 namespace nt2 { namespace container
 {
   /* Turn an expression into a view, i.e. convert all container terminals and table
-   * to table_view/table_shared_view */
+   * to view/shared_view */
   template<typename Expr, typename T>
   struct as_view_impl_term
        : boost::remove_const<Expr>
   {
   };
 
-  template<typename Expr, typename T, typename S, typename Sema>
-  struct as_view_impl_term< Expr, memory::container<T, S, Sema>& >
+  template<typename Expr, typename T, typename S, typename Kind>
+  struct as_view_impl_term< Expr, memory::container<T, S, Kind>& >
   {
-    typedef table_view<T, S> type;
+    typedef view<Kind, T, S> type;
   };
 
-  template<typename Expr, typename T, typename S, typename Sema>
-  struct as_view_impl_term< Expr, memory::container<T, S, Sema> const& >
+  template<typename Expr, typename T, typename S, typename Kind>
+  struct as_view_impl_term< Expr, memory::container<T, S, Kind> const& >
   {
-    typedef table_view<T const, S> type;
+    typedef view<Kind, T const, S> type;
   };
 
-  template<typename Expr, typename T, typename S, typename Sema>
-  struct as_view_impl_term< Expr, memory::container_shared_ref<T, S, Sema, true> & >
+  template<typename Expr, typename T, typename S, typename Kind>
+  struct as_view_impl_term< Expr, memory::container_shared_ref<T, S, Kind, true> & >
   {
-    typedef table_shared_view<T, S> type;
+    typedef shared_view<Kind, T, S> type;
   };
 
-  template<typename Expr, typename T, typename S, typename Sema>
-  struct as_view_impl_term< Expr, memory::container_shared_ref<T, S, Sema, true> const& >
+  template<typename Expr, typename T, typename S, typename Kind>
+  struct as_view_impl_term< Expr, memory::container_shared_ref<T, S, Kind, true> const& >
   {
-    typedef table_shared_view<T, S> type;
+    typedef shared_view<Kind, T, S> type;
   };
 
   template<typename T, typename Tag = typename T::proto_tag>

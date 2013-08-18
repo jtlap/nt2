@@ -6,36 +6,37 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_TABLE_TABLE_SHARED_VIEW_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_TABLE_TABLE_SHARED_VIEW_HPP_INCLUDED
+#ifndef NT2_CORE_CONTAINER_VIEW_SHARED_VIEW_HPP_INCLUDED
+#define NT2_CORE_CONTAINER_VIEW_SHARED_VIEW_HPP_INCLUDED
 
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/sdk/memory/container_ref.hpp>
 #include <nt2/sdk/memory/container_shared_ref.hpp>
-#include <nt2/core/container/table/adapted/table_shared_view.hpp>
+#include <nt2/core/container/view/adapted/shared_view.hpp>
 #include <boost/dispatch/dsl/semantic_of.hpp>
 
 namespace nt2 { namespace container
 {
-  /* table_shared_view; an expression of a container_shared_ref terminal.
+  /* shared_view; an expression of a container_shared_ref terminal.
    * allows construction from an expression of a container_shared_ref terminal */
-  template<typename T, typename S>
-  struct table_shared_view
-       : expression< boost::proto::basic_expr < boost::proto::tag::terminal
-                                              , boost::proto::term< memory
-                                                                  ::container_shared_ref<T,S, nt2::tag::table_,false>
-                                                                  >
-                                              , 0l
-                                              >
-                   , memory::container<T, S, nt2::tag::table_>&
-                   >
+  template<typename Kind, typename T, typename S>
+  struct shared_view
+       :  expression< boost::proto
+          ::basic_expr< boost::proto::tag::terminal
+                      , boost::proto::term< memory
+                             ::container_shared_ref<T,S,Kind,false>
+                                          >
+                      , 0l
+                      >
+                    , memory::container<T, S, Kind>&
+                    >
   {
-    typedef memory::container_shared_ref< T, S, nt2::tag::table_, false >   container_ref;
+    typedef memory::container_shared_ref< T, S, Kind, false >   container_ref;
     typedef boost::proto::basic_expr< boost::proto::tag::terminal
                                     , boost::proto::term<container_ref>
                                     , 0l
                                     >                     basic_expr;
-    typedef memory::container<T, S, nt2::tag::table_>&                      container_type;
+    typedef memory::container<T, S, Kind>&                      container_type;
     typedef expression<basic_expr, container_type>        nt2_expression;
 
     typedef typename container_ref::iterator              iterator;
@@ -45,19 +46,19 @@ namespace nt2 { namespace container
     iterator end()    const { return boost::proto::value(*this).end();   }
 
     BOOST_FORCEINLINE
-    table_shared_view()
+    shared_view()
     {
     }
 
     BOOST_FORCEINLINE
-    table_shared_view( nt2_expression const& expr )
+    shared_view( nt2_expression const& expr )
                      : nt2_expression(expr)
     {
     }
 
     template<class Xpr>
     BOOST_FORCEINLINE
-    table_shared_view( Xpr const& expr )
+    shared_view( Xpr const& expr )
                      : nt2_expression(basic_expr::make(boost::proto::value(expr)))
     {
     }
@@ -65,7 +66,7 @@ namespace nt2 { namespace container
     template<class Xpr>
     void reset(Xpr const& other)
     {
-      table_shared_view tmp(other);
+      shared_view tmp(other);
       boost::proto::value(*this) = boost::proto::value(tmp);
       this->size_ = tmp.size_;
     }
@@ -76,7 +77,7 @@ namespace nt2 { namespace container
     //==========================================================================
     template<class Xpr> BOOST_FORCEINLINE
     typename boost::disable_if< boost::is_base_of<nt2_expression, Xpr>
-                              , table_shared_view&
+                              , shared_view&
                               >::type
     operator=(Xpr const& xpr)
     {
@@ -85,7 +86,7 @@ namespace nt2 { namespace container
     }
 
     BOOST_FORCEINLINE
-    table_shared_view& operator=(table_shared_view const& xpr)
+    shared_view& operator=(shared_view const& xpr)
     {
       nt2_expression::operator=(xpr);
       return *this;
@@ -93,7 +94,7 @@ namespace nt2 { namespace container
 
     template<class Xpr> BOOST_FORCEINLINE
     typename boost::disable_if< boost::is_base_of<nt2_expression, Xpr>
-                              , table_shared_view const&
+                              , shared_view const&
                               >::type
     operator=(Xpr const& xpr) const
     {
@@ -102,30 +103,31 @@ namespace nt2 { namespace container
     }
 
     BOOST_FORCEINLINE
-    table_shared_view const& operator=(table_shared_view const& xpr) const
+    shared_view const& operator=(shared_view const& xpr) const
     {
       nt2_expression::operator=(xpr);
       return *this;
     }
   };
 
-  template<typename T, typename S>
-  struct table_shared_view<T const, S>
+  template<typename Kind, typename T, typename S>
+  struct shared_view<Kind, T const, S>
        : expression <  boost::proto::basic_expr
                       < boost::proto::tag::terminal
-                      , boost::proto::term< memory::container_shared_ref< T const, S, nt2::tag::table_, false >
+                      , boost::proto::term
+                        <memory::container_shared_ref< T const, S, Kind, false>
                       >
                     , 0l
                     >
-                   , memory::container<T, S, nt2::tag::table_> const&
+                   , memory::container<T, S, Kind> const&
                    >
   {
-    typedef memory::container_shared_ref< T const, S, nt2::tag::table_, false >   container_ref;
+    typedef memory::container_shared_ref< T const, S, Kind, false >   container_ref;
     typedef boost::proto::basic_expr< boost::proto::tag::terminal
                                     , boost::proto::term<container_ref>
                                     , 0l
                                     >                           basic_expr;
-    typedef memory::container<T, S, nt2::tag::table_> const&                      container_type;
+    typedef memory::container<T, S, Kind> const&                      container_type;
     typedef expression<basic_expr, container_type>              nt2_expression;
 
     typedef typename container_ref::iterator                    iterator;
@@ -135,18 +137,18 @@ namespace nt2 { namespace container
     iterator end()    const { return boost::proto::value(*this).end();   }
 
     BOOST_FORCEINLINE
-    table_shared_view()
+    shared_view()
     {
     }
 
     BOOST_FORCEINLINE
-    table_shared_view( nt2_expression const& expr )
+    shared_view( nt2_expression const& expr )
                      : nt2_expression(expr)
     {
     }
 
     template<class Xpr>
-    table_shared_view( Xpr const& expr )
+    shared_view( Xpr const& expr )
                      : nt2_expression(basic_expr::make(boost::proto::value(expr)))
     {
     }
@@ -155,7 +157,7 @@ namespace nt2 { namespace container
     BOOST_FORCEINLINE
     void reset(Xpr const& other)
     {
-      table_shared_view tmp(other);
+      shared_view tmp(other);
       boost::proto::value(*this) = boost::proto::value(tmp);
       this->size_ = tmp.size_;
     }
@@ -165,7 +167,7 @@ namespace nt2 { namespace container
     //==========================================================================
     template<class Xpr> BOOST_FORCEINLINE
     typename boost::disable_if< boost::is_base_of<nt2_expression, Xpr>
-                              , table_shared_view&
+                              , shared_view&
                               >::type
     operator=(Xpr const& xpr)
     {
@@ -174,7 +176,7 @@ namespace nt2 { namespace container
     }
 
     BOOST_FORCEINLINE
-    table_shared_view& operator=(table_shared_view const& xpr)
+    shared_view& operator=(shared_view const& xpr)
     {
       nt2_expression::operator=(xpr);
       return *this;
@@ -182,7 +184,7 @@ namespace nt2 { namespace container
 
     template<class Xpr> BOOST_FORCEINLINE
     typename boost::disable_if< boost::is_base_of<nt2_expression, Xpr>
-                              , table_shared_view const&
+                              , shared_view const&
                               >::type
     operator=(Xpr const& xpr) const
     {
@@ -191,7 +193,7 @@ namespace nt2 { namespace container
     }
 
     BOOST_FORCEINLINE
-    table_shared_view const& operator=(table_shared_view const& xpr) const
+    shared_view const& operator=(shared_view const& xpr) const
     {
       nt2_expression::operator=(xpr);
       return *this;
@@ -201,7 +203,7 @@ namespace nt2 { namespace container
 
 namespace nt2
 {
-  using nt2::container::table_shared_view;
+  using nt2::container::shared_view;
 }
 
 #endif

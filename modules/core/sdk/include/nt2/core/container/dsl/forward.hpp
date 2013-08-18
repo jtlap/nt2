@@ -38,11 +38,11 @@ namespace nt2 { namespace container
   template<class Type, class Settings = nt2::settings()>
   struct table;
 
-  template<class Type, class Settings = nt2::settings()>
-  struct table_view;
+  template<typename Kind, typename Type, typename Settings = nt2::settings()>
+  struct view;
 
-  template<class Type, class Settings = nt2::settings()>
-  struct table_shared_view;
+  template<typename Kind, typename Type, typename Settings = nt2::settings()>
+  struct shared_view;
 } }
 
 #endif
