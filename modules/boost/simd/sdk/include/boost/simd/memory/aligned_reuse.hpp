@@ -11,13 +11,11 @@
 #define BOOST_SIMD_MEMORY_ALIGNED_REUSE_HPP_INCLUDED
 
 #include <boost/simd/memory/details/posix.hpp>
-#include <boost/simd/memory/aligned_free.hpp>
+#include <boost/simd/memory/details/aligned_stash.hpp>
 #include <boost/simd/memory/aligned_malloc.hpp>
 #include <boost/simd/memory/aligned_realloc.hpp>
-#include <boost/simd/memory/details/aligned_stash.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/config.hpp>
-#include <new>
 
 #include <stdlib.h>
 
@@ -38,7 +36,7 @@ namespace boost { namespace simd
     For any given pointer @c ptr, integral @c size and @c alignment constraint,
 
     @code
-    void* r = aligned_realloc(ptr,size,alignment);
+    void* r = aligned_reuse(ptr,size,alignment);
     @endcode
 
     is equivalent to :
@@ -49,54 +47,85 @@ namespace boost { namespace simd
       - a call to the system specific reallocation function followed by an
         alignment fix-up.
 
-    Note that data are not preserved during reusing (contrary to aligned_realloc).
+    Note that data is not preserved during reusing (contrary to aligned_realloc).
 
     @pre   @c alignment is a non-zero power of two.
-    @param ptr      Pointer to reuse
-    @param sz       Number of bytes to allocate
-    @param align    Alignment boundary to respect
+    @param ptr        Pointer to reuse
+    @param size       Number of bytes to allocate
+    @param alignment  Alignment boundary to respect
     @return Pointer referencing the newly allocated memory block.
   **/
-  inline void* aligned_reuse( void* ptr, std::size_t sz, std::size_t align )
+  inline void* aligned_reuse(void* ptr, std::size_t size, std::size_t alignment)
   {
-    /// Resizing to 0 free the pointer data and return
-    if(sz == 0)
+    // Do we want to use built-ins special aligned free/alloc ?
+    #if defined( _MSC_VER ) && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
+
+    std::size_t* const oldptr = static_cast<std::size_t*>(ptr)-1;
+
+    if(ptr && !size)
     {
-      aligned_free( ptr );
+      ::_aligned_free(oldptr);
       return 0;
     }
 
-    /// Reallocating empty pointer performs allocation
-    if(ptr == 0) return aligned_malloc( sz, align );
+    std::size_t* fresh_ptr;
+    if(ptr && alignment == *oldptr)
+      fresh_ptr = static_cast<std::size_t*>(::_aligned_offset_realloc(oldptr, size+sizeof(std::size_t), alignment, sizeof(std::size_t)));
+    else
+      fresh_ptr = static_cast<std::size_t*>(::_aligned_offset_malloc(size+sizeof(std::size_t), alignment, sizeof(std::size_t)));
 
-#if defined(_MSC_VER) || defined(__MINGW32__)
-    std::size_t const oldSize( _msize( ptr ) );
-#elif defined(__ANDROID__)
-    std::size_t const oldSize( ::malloc_usable_size( ptr ) );
-#else
-    std::size_t const oldSize( ::malloc_usable_size( ptr ) );
-#endif
+    *fresh_ptr++ = alignment;
+    return fresh_ptr;
 
-    if( simd::is_aligned(ptr,align ) )
+    #elif (     defined( BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN )            \
+            ||  (defined( _GNU_SOURCE ) && !defined( __ANDROID__ ))            \
+          )                                                                    \
+       && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
+
+    // Resizing to 0 free the pointer data and return
+    if(size == 0)
     {
-      if ( ( oldSize - sz ) < 32 )
+      ::free(ptr);
+      return 0;
+    }
+
+    #ifdef __ANDROID__
+    // https://groups.google.com/forum/?fromgroups=#!topic/android-ndk/VCEUpMfSh_o
+    std::size_t const oldSize( ::dlmalloc_usable_size( ptr ) );
+    #else
+    std::size_t const oldSize( ::malloc_usable_size( ptr ) );
+    #endif
+
+    if( simd::is_aligned(ptr, align) )
+    {
+      if( ( oldSize - size ) < BOOST_SIMD_REALLOC_SHRINK_THRESHOLD )
       {
         return ptr;
       }
       else
       {
-        void*  new_ptr = std::realloc(ptr, sz);
-        if( simd::is_aligned(new_ptr,align ) ) return new_ptr;
-        std::free(new_ptr);
+        // FIXME: realloc will free the old memory if it moves.
+        // if it moves to a non-aligned memory segment and the subsequent
+        // memory allocation fails, we break the invariant
+        ptr = ::realloc(ptr, size);
+        if( simd::is_aligned(ptr, alignment) )
+          return ptr;
       }
     }
 
-    void* fresh_ptr = aligned_malloc(sz,align);
+    void* const fresh_ptr = aligned_malloc(size, alignment);
+    if(!fresh_ptr)
+      return 0;
 
-    if( !fresh_ptr ) return 0;
-    aligned_free( ptr );
+    ::free(ptr);
 
     return fresh_ptr;
+
+    #else
+
+    return aligned_realloc(ptr, size, alignment);
+
+    #endif
   }
 } }
 

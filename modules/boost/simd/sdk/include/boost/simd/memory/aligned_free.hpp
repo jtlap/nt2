@@ -76,7 +76,11 @@ namespace boost { namespace simd
   template<typename FreeFunction>
   inline void aligned_free( void* ptr, FreeFunction free_fn)
   {
-    if(ptr) free_fn( details::get_block_header( ptr ).pBlockBase );
+    if(!ptr)
+      return;
+
+    details::aligned_block_header* hdr = static_cast<details::aligned_block_header*>(ptr) - 1;
+    free_fn( static_cast<char*>(ptr) - hdr->offset );
   }
 
   /// @overload
@@ -85,7 +89,10 @@ namespace boost { namespace simd
     // Do we want to use built-ins special aligned free/alloc ?
     #if defined( _MSC_VER ) && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
 
-    ::_aligned_free( ptr );
+    if(!ptr)
+      return;
+
+    ::_aligned_free( static_cast<std::size_t*>(ptr)-1 );
 
     #elif (     defined( BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN )            \
             ||  (defined( _GNU_SOURCE ) && !defined( __ANDROID__ ))            \

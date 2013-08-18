@@ -12,6 +12,7 @@
 #include <boost/simd/memory/align_on.hpp>
 #include <boost/simd/memory/aligned_free.hpp>
 #include <boost/simd/memory/details/allocator_wrapper.hpp>
+#include <boost/simd/memory/details/aligned_stash.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/dispatch/meta/enable_if_type.hpp>
 #include <cstddef>
@@ -43,8 +44,13 @@ namespace boost { namespace simd
   typename dispatch::meta::enable_if_type<typename Allocator::pointer>::type
   deallocate( Allocator& alloc, void* ptr )
   {
+    if(!ptr)
+      return;
+
+    details::aligned_block_header* hdr = static_cast<details::aligned_block_header*>(ptr) - 1;
+
     return aligned_free ( ptr
-                        , details::allocator_free<Allocator>(alloc)
+                        , details::allocator_free<Allocator>(alloc, hdr->allocated_size + hdr->offset)
                         );
   }
 } }

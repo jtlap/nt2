@@ -124,7 +124,7 @@ namespace boost { namespace simd
   allocate( Allocator& alloc, std::size_t nbytes, std::size_t align )
   {
     return aligned_malloc ( nbytes, align
-                          , details::allocator_malloc<Allocator>(alloc,align)
+                          , details::allocator_malloc<Allocator>(alloc)
                           );
   }
 

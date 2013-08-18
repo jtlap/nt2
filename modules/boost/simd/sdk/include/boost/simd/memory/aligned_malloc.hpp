@@ -13,6 +13,7 @@
 
 #include <boost/simd/memory/details/posix.hpp>
 #include <boost/simd/memory/details/aligned_stash.hpp>
+#include <boost/simd/memory/align_on.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/assert.hpp>
 
@@ -84,11 +85,18 @@ namespace boost { namespace simd
                               , AllocFunction malloc_fn
                               )
   {
-    return  details::adjust_pointer
-            ( malloc_fn(size + alignment + sizeof(details::aligned_block_header))
-            , size
-            , alignment
-            );
+    void* ptr = malloc_fn(size + alignment + sizeof(details::aligned_block_header));
+    if(!ptr)
+      return 0;
+
+    details::aligned_block_header hdr;
+    hdr.offset = simd::align_on(static_cast<char const*>(ptr)+sizeof(details::aligned_block_header), alignment) - static_cast<char const*>(ptr);
+    hdr.allocated_size = size + alignment + sizeof(details::aligned_block_header) - hdr.offset;
+    hdr.used_size = size;
+
+    *(reinterpret_cast<details::aligned_block_header*>(static_cast<char*>(ptr) + hdr.offset) - 1) = hdr;
+
+    return static_cast<char*>(ptr) + hdr.offset;
   }
 
   /// @overload
@@ -97,7 +105,12 @@ namespace boost { namespace simd
     // Do we want to use built-ins special aligned free/alloc ?
     #if defined( _MSC_VER ) && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
 
-    return ::_aligned_malloc(size, alignment);
+    // we need to store alignment for _aligned_realloc
+    std::size_t* ptr = static_cast<std::size_t*>(::_aligned_offset_malloc(size+sizeof(std::size_t), alignment, sizeof(std::size_t)));
+    if(!ptr)
+      return 0;
+    *ptr++ = alignment;
+    return ptr;
 
     #elif     defined( BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN )              \
           && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)

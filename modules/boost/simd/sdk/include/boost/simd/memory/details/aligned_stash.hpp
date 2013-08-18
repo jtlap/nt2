@@ -11,53 +11,38 @@
 #define BOOST_SIMD_MEMORY_DETAILS_ALIGNED_STASH_HPP_INCLUDED
 
 #include <boost/dispatch/attributes.hpp>
-#include <boost/simd/memory/align_on.hpp>
-#include <boost/simd/memory/is_aligned.hpp>
-#include <boost/assert.hpp>
 #include <cstddef>
-#include <cstring>
-#include <algorithm>
 
 namespace boost { namespace simd { namespace details
 {
   struct aligned_block_header
   {
-    void*         pBlockBase;
-    std::size_t   userBlockSize;
+    std::size_t offset;
+    std::size_t allocated_size;
+    std::size_t used_size;
   };
 
   BOOST_FORCEINLINE aligned_block_header& get_block_header( void * BOOST_DISPATCH_RESTRICT const ptr )
   {
     return *(static_cast<aligned_block_header*>(ptr) - 1);
   }
+} } }
 
-  BOOST_FORCEINLINE void* adjust_pointer( void*       const ptr
-                                        , std::size_t const size
-                                        , std::size_t const alignment
-                                        , std::size_t const old    = 0
-                                        , std::size_t const offset = 0
-                                        )
+#if 0
+#include <iostream>
+namespace boost { namespace simd { namespace details
+{
+  void debug_aligned_header( void const * ptr )
   {
-    if( !ptr ) return 0;
-
-    void* uptr = static_cast<aligned_block_header*>(ptr) + 1;
-
-    uptr = simd::align_on(uptr,alignment);
-
-    BOOST_ASSERT_MSG( simd::is_aligned( uptr, alignment )
-                    , "memory::adjust_pointer can't align memory as requested."
-                    );
-
-    if(old)
-      std::memmove(uptr, static_cast<char*>(ptr) + offset, std::min(size,old));
-
-    aligned_block_header& header = get_block_header(uptr);
-
-    header.pBlockBase    = ptr;
-    header.userBlockSize = size;
-
-    return uptr;
+    std::cout << "pointer = " << ptr << std::endl;
+    if(!ptr)
+      return;
+    aligned_block_header const &h = *(static_cast<aligned_block_header const*>(ptr) - 1);
+    std::cout << "offset = " << h.offset << " (" << static_cast<void const*>(static_cast<char const*>(ptr)+h.offset) << ")" << std::endl;
+    std::cout << "allocated_size = " << h.allocated_size << std::endl;
+    std::cout << "used_size = " << h.used_size << std::endl;
   }
 } } }
+#endif
 
 #endif
