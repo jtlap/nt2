@@ -121,7 +121,6 @@ namespace boost { namespace simd
     std::memmove(static_cast<char*>(fresh_ptr) + hdr.offset, static_cast<char const*>(fresh_ptr) + old_offset, std::min(size, old_size));
 
     *(reinterpret_cast<details::aligned_block_header*>(static_cast<char*>(fresh_ptr) + hdr.offset) - 1) = hdr;
-
     return static_cast<char*>(fresh_ptr) + hdr.offset;
   }
 

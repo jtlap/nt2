@@ -14,6 +14,7 @@
 #include <boost/simd/memory/details/aligned_stash.hpp>
 #include <boost/simd/memory/aligned_malloc.hpp>
 #include <boost/simd/memory/aligned_realloc.hpp>
+#include <boost/simd/memory/align_on.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/config.hpp>
 
@@ -55,6 +56,33 @@ namespace boost { namespace simd
     @param alignment  Alignment boundary to respect
     @return Pointer referencing the newly allocated memory block.
   **/
+  template<typename ReallocFunction>
+  inline void* aligned_reuse( void* ptr, std::size_t size, std::size_t alignment
+                            , ReallocFunction realloc_fn
+                            )
+  {
+    details::aligned_block_header hdr = {};
+    if(ptr)
+      hdr = details::get_block_header(ptr);
+
+    size = size ? size + alignment + sizeof(details::aligned_block_header) : 0u;
+
+    void* fresh_ptr = realloc_fn( static_cast<char*>(ptr) - hdr.offset, size );
+    if(!fresh_ptr)
+      return 0;
+
+    std::size_t old_size = hdr.used_size;
+    std::size_t old_offset = hdr.offset;
+
+    hdr.offset = simd::align_on(static_cast<char const*>(fresh_ptr)+sizeof(details::aligned_block_header), alignment) - static_cast<char const*>(fresh_ptr);
+    hdr.allocated_size = size + alignment + sizeof(details::aligned_block_header) - hdr.offset;
+    hdr.used_size = size;
+
+    *(reinterpret_cast<details::aligned_block_header*>(static_cast<char*>(fresh_ptr) + hdr.offset) - 1) = hdr;
+    return static_cast<char*>(fresh_ptr) + hdr.offset;
+  }
+
+  /// @overload
   inline void* aligned_reuse(void* ptr, std::size_t size, std::size_t alignment)
   {
     // Do we want to use built-ins special aligned free/alloc ?
@@ -123,7 +151,7 @@ namespace boost { namespace simd
 
     #else
 
-    return aligned_realloc(ptr, size, alignment);
+    return aligned_reuse(ptr, size, alignment, BOOST_SIMD_DEFAULT_REALLOC);
 
     #endif
   }
