@@ -20,7 +20,7 @@
 #include <boost/simd/include/constants/nan.hpp>
 #include <boost/simd/sdk/config.hpp>
 
-NT2_TEST_CASE_TPL ( dec_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( dec_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::dec;
   using boost::simd::tag::dec_;
@@ -38,7 +38,7 @@ NT2_TEST_CASE_TPL ( dec_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_EQUAL(dec(boost::simd::Zero<T>()), boost::simd::Mone<T>());
 }
 
-NT2_TEST_CASE_TPL ( dec_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( dec_unsigned_uint,  BOOST_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::dec;
   using boost::simd::tag::dec_;
@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL ( dec_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(dec(boost::simd::Zero<T>()), boost::simd::Valmax<T>());
 }
 
-NT2_TEST_CASE_TPL( dec_floating, BOOST_SIMD_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL( dec_floating, BOOST_SIMD_REAL_TYPES)
 {
   using boost::simd::dec;
   using boost::simd::tag::dec_;

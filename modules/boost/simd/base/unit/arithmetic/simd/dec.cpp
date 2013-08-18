@@ -22,7 +22,7 @@
 #include <boost/simd/sdk/simd/io.hpp>
 
 
-NT2_TEST_CASE_TPL ( dec_signed_int__2_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( dec_signed_int,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   typedef boost::simd::native<T, BOOST_SIMD_DEFAULT_EXTENSION> vT;
 
@@ -36,7 +36,7 @@ NT2_TEST_CASE_TPL ( dec_signed_int__2_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_EQUAL(dec(boost::simd::Zero<vT>()), boost::simd::Mone<vT>());
 }
 
-NT2_TEST_CASE_TPL ( dec_unsigned_int__2_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( dec_unsigned_uint,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   typedef boost::simd::native<T, BOOST_SIMD_DEFAULT_EXTENSION> vT;
 

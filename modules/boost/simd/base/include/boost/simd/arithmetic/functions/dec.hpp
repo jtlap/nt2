@@ -44,13 +44,12 @@ namespace boost { namespace simd
     T r =  x-T(1);
     @endcode
 
-    @par Note:
-
     @param  x
 
     @return      a value of the same type as the input.
 
-  **/  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::dec_, dec, 1)
+  **/
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::dec_, dec, 1)
 } }
 
 #endif
