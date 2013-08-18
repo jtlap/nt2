@@ -6,21 +6,21 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.arithmetic toolbox - dec/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.arithmetic components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-
 #include <boost/simd/arithmetic/include/functions/dec.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/sdk/simd/io.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <boost/simd/constant/constant.hpp>
-
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/mone.hpp>
+#include <boost/simd/include/constants/two.hpp>
+#include <boost/simd/include/constants/mtwo.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/minf.hpp>
+#include <boost/simd/include/constants/nan.hpp>
+#include <boost/simd/sdk/config.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+
 
 NT2_TEST_CASE_TPL ( dec_signed_int__2_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
@@ -28,15 +28,6 @@ NT2_TEST_CASE_TPL ( dec_signed_int__2_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 
   using boost::simd::dec;
   using boost::simd::tag::dec_;
-  typedef typename boost::dispatch::meta::call<dec_(vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef vT wished_r_t;
-
-
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(dec(boost::simd::Mone<vT>()), boost::simd::Mtwo<vT>());
@@ -51,15 +42,6 @@ NT2_TEST_CASE_TPL ( dec_unsigned_int__2_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 
   using boost::simd::dec;
   using boost::simd::tag::dec_;
-  typedef typename boost::dispatch::meta::call<dec_(vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef vT wished_r_t;
-
-
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(dec(boost::simd::One<vT>()), boost::simd::Zero<vT>());
@@ -73,17 +55,13 @@ NT2_TEST_CASE_TPL( dec_floating, BOOST_SIMD_SIMD_REAL_TYPES)
 
   using boost::simd::dec;
   using boost::simd::tag::dec_;
-  typedef typename boost::dispatch::meta::call<dec_(vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef vT wished_r_t;
-
-
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
 
   // specific values tests
+#ifndef BOOST_SIMD_NO_INVALIDS
+  NT2_TEST_EQUAL(dec(boost::simd::Inf<vT>()), boost::simd::Inf<vT>());
+  NT2_TEST_EQUAL(dec(boost::simd::Minf<vT>()), boost::simd::Minf<vT>());
+  NT2_TEST_EQUAL(dec(boost::simd::Nan<vT>()), boost::simd::Nan<vT>());
+#endif
   NT2_TEST_EQUAL(dec(boost::simd::One<vT>()), boost::simd::Zero<vT>());
   NT2_TEST_EQUAL(dec(boost::simd::Two<vT>()), boost::simd::One<vT>());
   NT2_TEST_EQUAL(dec(boost::simd::Zero<vT>()), boost::simd::Mone<vT>());

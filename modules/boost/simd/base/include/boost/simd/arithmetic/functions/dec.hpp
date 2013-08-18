@@ -8,54 +8,49 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_DEC_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_DEC_HPP_INCLUDED
-
 #include <boost/simd/include/functor.hpp>
-
-/*!
- * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_dec dec
- *
- * \par Description
- * Decrements a value by 1.
- *
- * \par Header file
- *
- * \code
- * #declude <nt2/include/functions/dec.hpp>
- * \endcode
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *   meta::call<tag::dec_(A0)>::type
- *   dec(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the first parameter of dec
- *
- * \return a value of the same type as the input
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
     /*!
-     * \brief Define the tag dec_ of functor dec
-     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
+      @brief  dec generic tag
+
+      Represents the dec function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
-    struct dec_ : ext::elementwise_<dec_> { typedef ext::elementwise_<dec_> parent; };
+    struct dec_ : ext::elementwise_<dec_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<dec_> parent;
+    };
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::dec_, dec, 1)
+  /*!
+    Decrements a value by 1.
+
+    @par semantic:
+    For any given value @c x of type @c T:
+
+    @code
+    T r = dec(x);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    T r =  x-T(1);
+    @endcode
+
+    @par Note:
+
+    @param  x
+
+    @return      a value of the same type as the input.
+
+  **/  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::dec_, dec, 1)
 } }
 
 #endif
