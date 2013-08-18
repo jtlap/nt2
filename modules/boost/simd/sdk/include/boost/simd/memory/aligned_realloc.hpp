@@ -118,7 +118,8 @@ namespace boost { namespace simd
     hdr.allocated_size = size + alignment + sizeof(details::aligned_block_header) - hdr.offset;
     hdr.used_size = size;
 
-    std::memmove(static_cast<char*>(fresh_ptr) + hdr.offset, static_cast<char const*>(fresh_ptr) + old_offset, std::min(size, old_size));
+    if(hdr.offset != old_offset)
+      std::memmove(static_cast<char*>(fresh_ptr) + hdr.offset, static_cast<char const*>(fresh_ptr) + old_offset, std::min(size, old_size));
 
     *(reinterpret_cast<details::aligned_block_header*>(static_cast<char*>(fresh_ptr) + hdr.offset) - 1) = hdr;
     return static_cast<char*>(fresh_ptr) + hdr.offset;
