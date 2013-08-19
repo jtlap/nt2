@@ -101,7 +101,7 @@ namespace boost { namespace simd
                               , ReallocFunction realloc_fn
                               )
   {
-    details::aligned_block_header hdr = {};
+    details::aligned_block_header hdr = {0,0,0};
     if(ptr)
       hdr = details::get_block_header(ptr);
 
