@@ -13,21 +13,39 @@
 #include <boost/simd/include/functions/scalar/ceil.hpp>
 #include <boost/simd/include/functions/scalar/iceil.hpp>
 #include <boost/simd/include/functions/scalar/divs.hpp>
+#include <boost/simd/include/functions/scalar/inc.hpp>
+#include <boost/simd/include/functions/scalar/oneplus.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 
-#ifdef BOOST_MSVC
-  #pragma warning(push)
-  #pragma warning(disable: 4723) // potential divide by 0
-#endif
-
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)
-                            , (scalar_< signed_<A0> >)
-                              (scalar_< signed_<A0> >)
+                            , (scalar_< int64_<A0> >)
+                              (scalar_< int64_<A0> >)
                             )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      if (!a0) return  Zero<result_type>();
+      if(a1)
+      {
+        result_type q = divs(a0, a1);
+        result_type r =a0-q*a1;
+        if ((r != Zero<result_type>())&&((a0^a1) >= 0)) return oneplus(q);
+        return q;
+      }
+      else
+        return ((a0>0) ? Valmax<result_type>() : Valmin<result_type>());
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)
+                                   , (scalar_< signed_<A0> >)
+                                     (scalar_< signed_<A0> >)
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
@@ -50,12 +68,20 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       if(a1)
-        return rdivide(static_cast<A0>(a0+(a1-One<result_type>())), a1);
+      {
+        result_type q = a0/a1;
+        if (a0-q*a1 != Zero<result_type>()) return inc(q);
+        return q;
+      }
       else
         return (a0) ? Valmax<result_type>() : Zero<result_type>();
     }
   };
 
+#ifdef BOOST_MSVC
+  #pragma warning(push)
+  #pragma warning(disable: 4723) // potential divide by 0
+#endif
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)
                             , (scalar_< floating_<A0> >)
