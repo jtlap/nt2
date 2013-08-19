@@ -22,15 +22,15 @@ the =BOOST_SIMD_NO_BUILTINS= preprocessor symbol.
 [section Global customization]
 All usage of standard =malloc= and related functions inside Boost.SIMD can be
 changed by a set of preprocessor symbols. Each of these symbol control one
-global function override and require =BOOST_SIMD_NO_BUILTINS= to be defined to
-be taken into account. The symbols are:
+global function override. The symbols are:
 
 * =BOOST_SIMD_DEFAULT_MALLOC=
 * =BOOST_SIMD_DEFAULT_REALLOC=
 * =BOOST_SIMD_DEFAULT_FREE=
 
 This overload is global to the whole compilation unit and affects every memory
-related components of Boost.SIMD.
+related components of Boost.SIMD. Note that defining any of those symbols
+also defines =BOOST_SIMD_NO_BUILTINS=.
 
 Let's consider as an example we want to use
 [@http://g.oswego.edu/dl/html/malloc.html Doug Lea's =malloc= implementation]
@@ -90,7 +90,10 @@ additional parameters.
 ``
 
 Those overloads support any kind of Callable object as parameters including
-regular function pointer, functor object or even lambda functions.
+regular function pointer, functor object or even lambda functions. It is of
+course required that you use the correct custom deallocation function to free
+the memory allocated with any custom allocation function. Check the third party
+library documentation to know more about this.
 
 [endsect]
 
@@ -119,6 +122,9 @@ allocator within Boost.SIMD.
       boost::simd::deallocate(a,p);
     }
 ``
+
+As for custom functions, allocation and deallocation of allocator-based allocated
+data must be done with the same allocator instance.
 
 [endsect]
 
