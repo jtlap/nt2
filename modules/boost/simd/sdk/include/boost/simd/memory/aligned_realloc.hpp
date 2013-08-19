@@ -105,9 +105,11 @@ namespace boost { namespace simd
     if(ptr)
       hdr = details::get_block_header(ptr);
 
-    size = size ? size + alignment + sizeof(details::aligned_block_header) : 0u;
+    std::size_t nsz = size
+                    ? size + alignment + sizeof(details::aligned_block_header)
+                    : 0u;
 
-    void* fresh_ptr = realloc_fn( static_cast<char*>(ptr) - hdr.offset, size );
+    void* fresh_ptr = realloc_fn( static_cast<char*>(ptr) - hdr.offset, nsz );
     if(!fresh_ptr)
       return 0;
 
