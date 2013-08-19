@@ -180,7 +180,7 @@ namespace boost { namespace simd
     std::size_t const oldSize( ::malloc_usable_size( ptr ) );
     #endif
 
-    if( simd::is_aligned(ptr, align) )
+    if( simd::is_aligned(ptr, alignment) )
     {
       if( ( oldSize - size ) < BOOST_SIMD_REALLOC_SHRINK_THRESHOLD )
       {
