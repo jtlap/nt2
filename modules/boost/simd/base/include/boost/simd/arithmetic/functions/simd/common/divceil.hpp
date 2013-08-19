@@ -10,29 +10,13 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_DIVCEIL_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/divceil.hpp>
-#include <boost/simd/include/functions/simd/divs.hpp>
-#include <boost/simd/include/functions/simd/minus.hpp>
-#include <boost/simd/include/functions/simd/multiplies.hpp>
-#include <boost/simd/include/functions/simd/if_zero_else.hpp>
-#include <boost/simd/include/functions/simd/is_eqz.hpp>
-#include <boost/simd/include/functions/simd/if_else.hpp>
-#include <boost/simd/include/functions/simd/is_gtz.hpp>
-#include <boost/simd/include/functions/simd/seladd.hpp>
-#include <boost/simd/include/functions/simd/logical_and.hpp>
-#include <boost/simd/include/functions/simd/bitwise_xor.hpp>
-#include <boost/simd/include/functions/simd/if_allbits_else.hpp>
-#include <boost/simd/include/functions/simd/logical_andnot.hpp>
 #include <boost/simd/include/functions/simd/ceil.hpp>
 #include <boost/simd/include/functions/simd/divides.hpp>
-#include <boost/simd/include/functions/simd/is_nez.hpp>
 #include <boost/simd/include/functions/simd/idivceil.hpp>
 #include <boost/simd/include/functions/simd/touints.hpp>
 #include <boost/simd/include/functions/simd/toints.hpp>
-#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
-#include <boost/simd/include/constants/one.hpp>
-#include <boost/simd/include/constants/valmax.hpp>
-#include <boost/simd/include/constants/valmin.hpp>
-#include <nt2/table.hpp>
+#include <boost/simd/include/functions/simd/split.hpp>
+#include <boost/simd/include/functions/simd/groups.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

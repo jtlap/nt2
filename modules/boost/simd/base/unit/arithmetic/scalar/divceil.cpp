@@ -19,11 +19,9 @@
 #include <boost/simd/include/constants/nan.hpp>
 #include <boost/simd/sdk/config.hpp>
 #include <boost/simd/include/constants/maxflint.hpp>
-#include <nt2/table.hpp>
 
 NT2_TEST_CASE_TPL ( divceil_real,  BOOST_SIMD_REAL_TYPES)
 {
-
   using boost::simd::divceil;
   using boost::simd::tag::divceil_;
   typedef typename boost::dispatch::meta::call<divceil_(T,T)>::type r_t;
@@ -48,7 +46,6 @@ NT2_TEST_CASE_TPL ( divceil_real,  BOOST_SIMD_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( divceil_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
 {
-
   using boost::simd::divceil;
   using boost::simd::tag::divceil_;
   typedef typename boost::dispatch::meta::call<divceil_(T,T)>::type r_t;
@@ -65,7 +62,6 @@ NT2_TEST_CASE_TPL ( divceil_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( divceil_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
-
   using boost::simd::divceil;
   using boost::simd::tag::divceil_;
   typedef typename boost::dispatch::meta::call<divceil_(T,T)>::type r_t;

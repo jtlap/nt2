@@ -13,12 +13,35 @@
 #include <boost/simd/include/functions/scalar/divs.hpp>
 #include <boost/simd/include/functions/scalar/iceil.hpp>
 #include <boost/simd/include/functions/scalar/floor.hpp>
+#include <boost/simd/include/functions/scalar/minusone.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/zero.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divfloor_, tag::cpu_, (A0)
+                            , (scalar_< int64_<A0> >)
+                              (scalar_< int64_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      if (!a0) return  Zero<result_type>();
+      if(a1)
+      {
+        result_type q = divs(a0, a1);
+        result_type r = a0-q*a1;
+        if ((r != Zero<result_type>())&&((a0^a1) <= 0)) return minusone(q);
+        return q;
+      }
+      else
+        return ((a0>0) ? Valmax<result_type>() : Valmin<result_type>());
+    }
+  };
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divfloor_, tag::cpu_
                             , (A0)
                             , (scalar_< signed_<A0> >)
@@ -47,7 +70,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       if(a1)
-        return rdivide(a0, a1);
+        return divs(a0, a1);
       else
         return (a0) ? Valmax<result_type>() : Zero<result_type>();
     }
