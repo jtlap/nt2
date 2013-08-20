@@ -111,19 +111,23 @@ namespace nt2 { namespace ext
     {
       itab_t k;
       size_t n =  length(x);
-      if (nt2::numel(x) == 2) {
+      if (nt2::numel(x) == 2)
+      {
         d =  nt2::repnum(value_type(del(begin_)), 1, width(y)); // del(begin_) is not of value_type !
-      } else {
+      }
+      else
+      {
         d =  nt2::zeros(1, width(y), nt2::meta::as_<value_type>());
-        if (/* nt2::isreal(del)*/ true) //to do proper version for real types
+        //if (/* nt2::isreal(del)*/ true) //to do proper version for real types
         { // is k 1 based or 0,  I hope 1 here ?
           k = nt2::globalfind(nt2::is_gtz(nt2::multiplies(nt2::sign(del(nt2::_(begin_, begin_+n-3))), nt2::sign(del(nt2::_(begin_+1, begin_+n-2))))), nt2::meta::as_<index_type>());
         }
+/*
         else
         {
           k = nt2::globalfind(nt2::logical_and(is_eqz(del(nt2::_(begin_, begin_+n-3))), is_eqz(del(nt2::_(begin_+1,begin_+n-2)))), nt2::meta::as_<index_type>());
         }
-      }
+*/      }
       itab_t kp1 = oneplus(k);
       itab_t kp2 = oneplus(kp1);
       vtab_t h = nt2::diff(x, 1, 2);

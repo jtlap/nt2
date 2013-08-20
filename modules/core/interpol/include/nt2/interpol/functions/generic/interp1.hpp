@@ -62,7 +62,7 @@ namespace nt2 { namespace ext
         typedef typename boost::proto::result_of::child_c<A1&,3>::type             child3;
         method =  boost::proto::child_c<3>(inputs);
       }
-    static A0& compute(A0& yi, const A1& inputs, char method, boost::mpl::long_<3> const &)
+    static A0& compute(A0& yi, const A1& inputs, char, boost::mpl::long_<3> const &)
       {
         const child0 & x   =  boost::proto::child_c<0>(inputs);
         const child1 & y   =  boost::proto::child_c<1>(inputs);

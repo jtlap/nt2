@@ -89,7 +89,7 @@ namespace nt2 { namespace ext
     // Three inputs y and xi and a bool or a floating or a _ (meaning nothing here)
     static void choices(const A1& inputs,
                         bool & extrap, value_type& extrapval1, value_type& extrapval2,
-                        std::size_t& dim, boost::mpl::long_<3> const &)
+                        std::size_t&, boost::mpl::long_<3> const &)
       {
         typedef typename boost::proto::result_of::child_c<A1&,2>::type             child2;
         typedef typename meta::scalar_of<child2>::type                    cref_param_type;

@@ -104,7 +104,7 @@ namespace nt2 { namespace ext
                         bool & extrap,
                         value_type& extrapval1x, value_type& extrapval2x,
                         value_type& extrapval1y, value_type& extrapval2y,
-                        std::size_t& dim1, std::size_t& dim2,
+                        std::size_t&, std::size_t&,
                         boost::mpl::long_<4> const &)
       {
         typedef typename boost::proto::result_of::child_c<A1&,3>::type             child3;
@@ -159,9 +159,10 @@ namespace nt2 { namespace ext
       {
         extrap =  boost::proto::child_c<2>(inputs);
       }
-    static void get(const A1& inputs, bool & extrap,
+
+    static void get(const A1&, bool&,
                     const nt2::meta::as_<nt2::container::colon_> &) //nothing to get
-      { }
+    {}
 
     // Seven inputs y and xi yi and 4 floating
     // idxy_bilinear(y, xi, yi, extrapval1x, extrapval2x, extrapval1y, extrapval2y)

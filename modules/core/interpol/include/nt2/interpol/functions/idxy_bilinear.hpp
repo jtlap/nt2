@@ -89,7 +89,7 @@ namespace nt2 { namespace ext
     }
 
     template<class X, class C1, class C2> static
-    void getdims( const X & xi, const C1 &, const C2 &
+    void getdims( const X &, const C1 &, const C2 &
                 , std::size_t&, std::size_t&, const boost::mpl::false_&
                 )
     {}
