@@ -8,25 +8,24 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_FLOOR_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_FLOOR_HPP_INCLUDED
+
 #include <boost/simd/arithmetic/functions/floor.hpp>
-#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/functions/simd/round2even.hpp>
 #include <boost/simd/include/functions/simd/selsub.hpp>
-#include <boost/simd/include/functions/simd/round.hpp>
 #include <boost/simd/include/functions/simd/is_greater.hpp>
+#include <boost/simd/include/constants/one.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-// It seems that mapping the scalar version outperform this common version
-// with double_ with a gain of 2 in no sse4.1 systems. So we only define it
-// for single_ in which case it is 1.5 better.
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::floor_, tag::cpu_,(A0)(X)
-                            , ((simd_<single_<A0>,X>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::floor_, tag::cpu_
+                                   , (A0)(X)
+                                   , ((simd_<floating_<A0>,X>))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      const A0 d0 = round(a0);
+      const A0 d0 = round2even(a0);
       return selsub(gt(d0,a0),d0,One<A0>());
     }
   };
