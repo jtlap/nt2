@@ -21,7 +21,7 @@ namespace nt2 { namespace container
   struct as_terminal
        : boost::dispatch::meta::terminal_of<Semantic>
   {
-    static typename as_terminal::type init(Expr expr)
+    static typename as_terminal::type init(Expr)
     {
       return typename as_terminal::type();
     }

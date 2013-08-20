@@ -108,7 +108,7 @@ namespace nt2 { namespace memory
      */
     //==========================================================================
     template<class Size>
-    void resize( Size const& sz_ ) const
+    void resize( Size const& ) const
     {
       // do nothing
     }
@@ -118,7 +118,7 @@ namespace nt2 { namespace memory
      * @brief Add element at end of container, reshape to 1D
      */
     //==========================================================================
-    void push_back( value_type const& v )
+    void push_back( value_type const& )
     {
       // do nothing
     }

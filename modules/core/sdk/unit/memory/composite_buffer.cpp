@@ -6,6 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+#include <boost/config.hpp>
+
+#ifdef BOOST_MSVC
+#pragma warning(disable: 4996) // std::transform on pointers may be unsafe
+#endif
+
 #include <nt2/sdk/memory/array_buffer.hpp>
 #include <nt2/sdk/memory/composite_buffer.hpp>
 #include <boost/fusion/include/adapt_struct.hpp>

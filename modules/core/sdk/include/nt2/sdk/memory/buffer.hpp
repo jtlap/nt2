@@ -67,6 +67,8 @@ namespace nt2 { namespace memory
 
       deleter(std::size_t s, allocator_type& a) : size_(s), alloc_(a) {}
       void operator()(pointer ptr) { alloc_.deallocate(ptr,size_); }
+    private:
+      deleter& operator=(deleter const&);
     };
 
   public:
@@ -83,8 +85,11 @@ namespace nt2 { namespace memory
                                 , deleter(n,get_allocator())
                                 );
 
-      if(!boost::is_same< Allocator, fixed_allocator<T> >::value)
-        nt2::memory::default_construct(that.get(),that.get() + n,get_allocator());
+      self_construct( that.get(), that.get() + n
+                    , typename boost::is_same < Allocator
+                                              , fixed_allocator<T>
+                                              >::type()
+                    );
 
       begin_ = that.release();
       end_ = capacity_ = begin_ + n;
@@ -142,8 +147,11 @@ namespace nt2 { namespace memory
     {
       if(is_initialized() && begin_)
       {
-        if(!boost::is_same< Allocator, fixed_allocator<T> >::value)
-          nt2::memory::destruct(begin_,end_,get_allocator());
+        self_destruct ( typename boost::is_same < Allocator
+                                                , fixed_allocator<T>
+                                                >::type()
+                      );
+
         allocator_type::deallocate(begin_,capacity());
       }
     }
@@ -170,13 +178,11 @@ namespace nt2 { namespace memory
         return;
       }
 
-      if(!boost::is_same< Allocator, fixed_allocator<T> >::value)
-      {
-        if(sz < size())
-          nt2::memory::destruct(begin_ + sz, end_, get_allocator());
-        else
-          nt2::memory::default_construct(end_, begin_ + sz, get_allocator());
-      }
+      finish_resize ( sz
+                    , typename boost::is_same < Allocator
+                                              , fixed_allocator<T>
+                                              >::type()
+                    );
 
       end_ = begin_ + sz;
     }
@@ -304,6 +310,31 @@ namespace nt2 { namespace memory
 
     inline bool is_initialized() const { return begin_ != &dummy_; }
 
+    inline void self_destruct(boost::mpl::false_ const&)
+    {
+      nt2::memory::destruct(begin_,end_,get_allocator());
+    }
+
+    inline void self_destruct(boost::mpl::true_ const&) {}
+
+    inline void self_construct( T* b, T* e, boost::mpl::false_ const& )
+    {
+      nt2::memory::default_construct(b,e,get_allocator());
+    }
+
+    inline void self_construct( T*, T*, boost::mpl::true_ const&) {}
+
+    inline void finish_resize(size_type sz, boost::mpl::false_ const&)
+    {
+      if(sz < size())
+        nt2::memory::destruct(begin_ + sz, end_, get_allocator());
+      else
+        nt2::memory::default_construct(end_, begin_ + sz, get_allocator());
+    }
+
+    inline void finish_resize(size_type, boost::mpl::true_ const&) {}
+
+    private:
     pointer     begin_, end_, capacity_;
     value_type  dummy_;
   };
