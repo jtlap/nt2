@@ -124,15 +124,32 @@ namespace nt2 { namespace details
       }
     };
 
-
-    static BOOST_FORCEINLINE int_type select_mode(const A0& xx, A0& xr, boost::mpl::int_<r_0_pio4> const&)
+    static BOOST_FORCEINLINE int_type
+    select_range( const A0& xx, A0& xr
+                , boost::mpl::true_ const&
+                , boost::mpl::int_<r_0_pio4> const&
+                )
     {
-      if(mode::range == r_0_pio4 || nt2::all(is_0_pio4_reduced(xx)))
-      {
-        xr = xx;
-        return Zero<int_type>();
-      }
+      xr = xx;
+      return Zero<int_type>();
+    }
+
+    static BOOST_FORCEINLINE int_type
+    select_range( const A0& xx, A0& xr
+                , boost::mpl::false_ const&
+                , boost::mpl::int_<r_0_pio4> const& r
+                )
+    {
+      if(nt2::all(is_0_pio4_reduced(xx)))
+        return select_range(xx,xr,boost::mpl::true_(), r);
+
       return select_mode(xx,xr,boost::mpl::int_<r_0_pio2>());
+    }
+
+    static BOOST_FORCEINLINE int_type
+    select_mode(const A0& xx, A0& xr, boost::mpl::int_<r_0_pio4> const& r)
+    {
+      return select_range(xx,xr,boost::mpl::bool_<mode::range == r_0_pio4>(),r);
     }
 
     static BOOST_FORCEINLINE int_type select_mode(const A0& xx, A0& xr, boost::mpl::int_<r_0_pio2> const&)
@@ -142,18 +159,59 @@ namespace nt2 { namespace details
       return select_mode(xx,xr,boost::mpl::int_<r_0_20pi>());
     }
 
-    static BOOST_FORCEINLINE int_type select_mode(const A0& xx, A0& xr, boost::mpl::int_< r_0_20pi> const&)
+    static BOOST_FORCEINLINE int_type
+    select_range( const A0& xx, A0& xr
+                , boost::mpl::true_ const&
+                , boost::mpl::int_<r_0_20pi> const&
+                )
     {
-      if(mode::range == r_0_20pi || nt2::all(is_0_20pi_reduced(xx)))
-        return rem_pio2_cephes(xx, xr);
+      return rem_pio2_cephes(xx, xr);
+    }
+
+    static BOOST_FORCEINLINE int_type
+    select_range( const A0& xx, A0& xr
+                , boost::mpl::false_ const&
+                , boost::mpl::int_<r_0_20pi> const& r
+                )
+    {
+      if(nt2::all(is_0_20pi_reduced(xx)))
+        return select_range(xx,xr,boost::mpl::true_(), r);
+
       return select_mode(xx,xr,boost::mpl::int_<r_0_mpi>());
     }
 
-    static BOOST_FORCEINLINE int_type select_mode(const A0& xx, A0& xr, boost::mpl::int_< r_0_mpi> const&)
+    static BOOST_FORCEINLINE int_type
+    select_mode(const A0& xx, A0& xr, boost::mpl::int_< r_0_20pi> const& r)
     {
-      if(mode::range == r_0_mpi || nt2::all(is_0_mpi_reduced(xx)))
-        return rem_pio2_medium(xx, xr);
+      return select_range(xx,xr,boost::mpl::bool_<mode::range == r_0_20pi>(),r);
+    }
+
+
+
+    static BOOST_FORCEINLINE int_type
+    select_range( const A0& xx, A0& xr
+                , boost::mpl::true_ const&
+                , boost::mpl::int_<r_0_mpi> const&
+                )
+    {
+      return rem_pio2_medium(xx, xr);
+    }
+
+    static BOOST_FORCEINLINE int_type
+    select_range( const A0& xx, A0& xr
+                , boost::mpl::false_ const&
+                , boost::mpl::int_<r_0_mpi> const& r
+                )
+    {
+      if(nt2::all(is_0_mpi_reduced(xx)))
+        return select_range(xx,xr,boost::mpl::true_(), r);
+
       return select_mode(xx,xr,boost::mpl::int_<r_0_dmpi>());
+    }
+
+    static BOOST_FORCEINLINE int_type select_mode(const A0& xx, A0& xr, boost::mpl::int_< r_0_mpi> const& r)
+    {
+      return select_range(xx,xr,boost::mpl::bool_<mode::range == r_0_mpi>(),r);
     }
 
     static BOOST_FORCEINLINE int_type select_mode(const A0& xx, A0& xr, boost::mpl::int_< r_0_dmpi> const&)

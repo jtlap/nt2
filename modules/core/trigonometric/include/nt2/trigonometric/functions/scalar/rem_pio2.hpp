@@ -20,6 +20,7 @@
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
+#include <boost/dispatch/preprocessor/once.hpp>
 #include <boost/detail/endian.hpp>
 #include <nt2/trigonometric/functions/scalar/impl/trigo/selection_tags.hpp>
 
@@ -53,20 +54,20 @@ namespace nt2 { namespace ext
      * is preserved.
      * ====================================================
      */
-#define GET_A0_WORD(i,d)                                    \
-    do {                                                    \
-      A0 f = (d);                                           \
-      (i) = boost::simd::bitwise_cast<nt2::uint32_t>(f);    \
-    } while (0)                                             \
-      /**/
+#define GET_A0_WORD(i,d)                                                       \
+do {                                                                           \
+  A0 f = (d);                                                                  \
+  (i) = boost::simd::bitwise_cast<nt2::uint32_t>(f);                           \
+} BOOST_DISPATCH_ONCE                                                          \
+/**/
 
   /* Set a float from a 32 bit int.  */
-#define SET_A0_WORD(d,i)                        \
-  do {                                          \
-    int ii = (i);                               \
-    (d) = boost::simd::bitwise_cast<A0>(ii);    \
-  } while (0)                                   \
-    /**/
+#define SET_A0_WORD(d,i)                                                       \
+do {                                                                           \
+  int ii = (i);                                                                \
+  (d) = boost::simd::bitwise_cast<A0>(ii);                                     \
+} BOOST_DISPATCH_ONCE                                                          \
+/**/
 
   static nt2::int32_t __ieee754_rem_pio2f(A0 x, A0 *y)
   {
@@ -433,37 +434,41 @@ namespace nt2 { namespace ext
 #define HIGH_WORD_IDX 0
 #endif
 
-#define GET_HIGH_WORD(i,d)                                              \
-    do {                                                                \
-      A0 f = (d);                                                       \
-      std::memcpy(&(i), reinterpret_cast<char*>(&f) +                   \
-                  HIGH_WORD_IDX, sizeof(nt2::uint32_t));                \
-    } while (0)
+#define GET_HIGH_WORD(i,d)                                                     \
+do {                                                                           \
+  A0 f = (d);                                                                  \
+  std::memcpy(&(i), reinterpret_cast<char*>(&f) +                              \
+              HIGH_WORD_IDX, sizeof(nt2::uint32_t));                           \
+} BOOST_DISPATCH_ONCE                                                          \
+/**/
 
-#define GET_LOW_WORD(i,d)                                               \
-  do {                                                                  \
-    A0 f = (d);                                                         \
-    std::memcpy(&(i), reinterpret_cast<char*>(&f) +                     \
-                LOW_WORD_IDX, sizeof(nt2::uint32_t));                   \
-  } while (0)
+#define GET_LOW_WORD(i,d)                                                      \
+do {                                                                           \
+  A0 f = (d);                                                                  \
+  std::memcpy(&(i), reinterpret_cast<char*>(&f) +                              \
+              LOW_WORD_IDX, sizeof(nt2::uint32_t));                            \
+} BOOST_DISPATCH_ONCE                                                          \
+/**/
 
-#define SET_HIGH_WORD(d,v)                                              \
-  do {                                                                  \
-    A0 f = (d);                                                         \
-    nt2::uint32_t value = (v);                                          \
-    std::memcpy(reinterpret_cast<char*>(&f) +                           \
-                HIGH_WORD_IDX, &value, sizeof(nt2::uint32_t));          \
-    (d) = f;                                                            \
-  } while (0)
+#define SET_HIGH_WORD(d,v)                                                     \
+do {                                                                           \
+  A0 f = (d);                                                                  \
+  nt2::uint32_t value = (v);                                                   \
+  std::memcpy(reinterpret_cast<char*>(&f) +                                    \
+              HIGH_WORD_IDX, &value, sizeof(nt2::uint32_t));                   \
+  (d) = f;                                                                     \
+} BOOST_DISPATCH_ONCE                                                          \
+/**/
 
-#define SET_LOW_WORD(d,v)                                               \
-  do {                                                                  \
-    A0 f = (d);                                                         \
-    nt2::uint32_t value = (v);                                          \
-    std::memcpy(reinterpret_cast<char*>(&f) +                           \
-                LOW_WORD_IDX, &value, sizeof(nt2::uint32_t));           \
-    (d) = f;                                                            \
-  } while (0)
+#define SET_LOW_WORD(d,v)                                                      \
+do {                                                                           \
+  A0 f = (d);                                                                  \
+  nt2::uint32_t value = (v);                                                   \
+  std::memcpy(reinterpret_cast<char*>(&f) +                                    \
+              LOW_WORD_IDX, &value, sizeof(nt2::uint32_t));                    \
+  (d) = f;                                                                     \
+} BOOST_DISPATCH_ONCE                                                          \
+/**/
 
   static nt2::int32_t __ieee754_rem_pio2(A0 x, A0 *y)
   {
