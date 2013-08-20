@@ -35,37 +35,37 @@ namespace n1 {
   typedef nt2::int16_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(split_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
+  NT2_TIMING(split_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n2 {
   typedef nt2::uint16_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(split_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
+  NT2_TIMING(split_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n3 {
   typedef nt2::int32_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(split_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
+  NT2_TIMING(split_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n4 {
   typedef nt2::uint32_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(split_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
+  NT2_TIMING(split_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n5 {
   typedef nt2::int8_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(split_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
+  NT2_TIMING(split_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n6 {
   typedef nt2::uint8_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(split_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
+  NT2_TIMING(split_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n7 {
   typedef float T;
