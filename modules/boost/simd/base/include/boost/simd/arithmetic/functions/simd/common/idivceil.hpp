@@ -14,6 +14,7 @@
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>
 #include <boost/simd/include/functions/simd/divides.hpp>
+#include <boost/simd/include/functions/simd/divs.hpp>
 #include <boost/simd/include/functions/simd/groups.hpp>
 #include <boost/simd/include/functions/simd/split.hpp>
 #include <boost/simd/include/functions/simd/minusone.hpp>
