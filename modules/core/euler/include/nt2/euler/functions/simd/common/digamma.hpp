@@ -94,7 +94,8 @@ namespace nt2 { namespace ext
       }
       A0 r1 = nt2::Zero<A0>(), r2= nt2::Zero<A0>();
       test = nt2::gt(x, Digammalargelim<A0>());
-      if((nb = nt2::inbtrue(test)))
+      nb = nt2::inbtrue(test);
+      if(nb)
       { // If we're above the lower-limit for the asymptotic expansion then use it:
         r1 = nt2::if_else_zero(test, digamma_imp_large(x, sA0()))+result;//b_and(digamma_imp_large(x, sA0()), test)+result;
         if (nb >= (uint32_t)meta::cardinal_of<A0>::value) return r1;

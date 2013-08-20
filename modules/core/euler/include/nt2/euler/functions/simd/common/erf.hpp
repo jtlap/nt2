@@ -118,17 +118,19 @@ namespace nt2 { namespace ext
       A0 lim2 = nt2::splat<A0>(2.2);
       bA0 test1 = nt2::lt(x, lim1);
       A0 r1 = nt2::Zero<A0>();
-      std::size_t nb = 0;
-      if ((nb = (nt2::inbtrue(test1) > 0)))
+      std::size_t nb = nt2::inbtrue(test1) > 0;
+
+      if(nb)
       {
         r1 = a0*nt2::polevl( xx, erf0_P4)/nt2::polevl( xx, erf0_Q4 );
         if (nb >= meta::cardinal_of<A0>::value) return r1;
       }
       bA0 test2 = nt2::lt(x, lim2);
       bA0 test3 = nt2::logical_andnot(test2, test1);
-      std::size_t nb1 = 0;
+
+      std::size_t nb1 = nt2::inbtrue(test3) > 0;
       A0 ex = nt2::exp(-xx);
-      if ((nb1 = (nt2::inbtrue(test3) > 0)))
+      if(nb1)
       {
         A0 z = nt2::oneminus(ex*nt2::polevl(x, erfc1_P5)/nt2::polevl( x, erfc1_Q5));
         A0 r2 = nt2::negif(is_ltz(a0), z);
@@ -140,7 +142,5 @@ namespace nt2 { namespace ext
       return nt2::if_else(nt2::is_inf(a0), nt2::sign(a0), nt2::if_else(test2, r1, z));
     }
   };
-
-
 } }
 #endif
