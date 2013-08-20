@@ -11,7 +11,7 @@
 #include <nt2/sdk/unit/stats.hpp>
 #include <nt2/sdk/unit/details/main.hpp>
 
-NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int argc, char* argv[])
+NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int, char**)
 {
   std::cout << "Generating 10000 tests with 5000 fails ...\n";
 

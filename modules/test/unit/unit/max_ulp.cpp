@@ -35,18 +35,18 @@ template<class T> inline bool check_ulp_fundamental()
 
   std::cout << "Check for: " << typeid(T).name() << "\t";
   double u0 = 0;
-  bool ok = nt2::unit::max_ulp(value,value,0.5,fails,u0);
+  bool ok1 = nt2::unit::max_ulp(value,value,0.5,fails,u0);
   std::cout << "max_ulp(a,a) = " << u0 << "\t";
   std::cout << "nb of fails: " << fails.size() << "\t";
 
   fails.clear();
   double u1 = 0;
-  ok = nt2::unit::max_ulp(value,different_value,0.5,fails, u1);
+  bool ok2 = nt2::unit::max_ulp(value,different_value,0.5,fails, u1);
   std::cout << "max_ulp(a,b) = " << u1 << "\t";
   std::cout << "nb of fails: " << fails.size() << "\n";
   std::cout << ((!u0 && u1==8) ? "OK" : "NOT OK") << "\n";
 
-  return !u0 && u1==8;
+  return ok1 && ok2 && !u0 && u1==8;
 }
 
 inline bool check_ulp_fusion_sequence()
@@ -59,18 +59,18 @@ inline bool check_ulp_fusion_sequence()
 
   std::cout << "Check for: foo\t";
   double u0 = 0;
-  bool ok = nt2::unit::max_ulp(value,value,0.5,fails,u0);
+  bool ok1 = nt2::unit::max_ulp(value,value,0.5,fails,u0);
   std::cout << "max_ulp(a,a) = " << u0 << "\t";
   std::cout << "nb of fails: " << fails.size() << "\t";
 
   fails.clear();
   double u1 = 0;
-  ok = nt2::unit::max_ulp(value,different_value,0.5,fails, u1);
+  bool ok2 = nt2::unit::max_ulp(value,different_value,0.5,fails, u1);
   std::cout << "max_ulp(a,b) = " << u1 << "\t";
   std::cout << "nb of fails: " << fails.size() << "\n";
   std::cout << ((!u0 && u1==8) ? "OK" : "NOT OK") << "\n";
 
-  return !u0 && u1==8;
+  return ok1 && ok2 && !u0 && u1==8;
 }
 
 template<class T> inline bool check_ulp_sequence()
@@ -86,18 +86,18 @@ template<class T> inline bool check_ulp_sequence()
 
   std::cout << "Check for: " << typeid(T).name() << "\t";
   double u0 = 0;
-  bool ok = nt2::unit::max_ulp(values,values,0.5,fails,u0);
+  bool ok1 = nt2::unit::max_ulp(values,values,0.5,fails,u0);
   std::cout << "max_ulp(a,a) = " << u0 << "\t";
   std::cout << "nb of fails: " << fails.size() << "\t";
 
   fails.clear();
   double u1 = 0;
-  ok = nt2::unit::max_ulp(values,different_values,0.5,fails, u1);
+  bool ok2 = nt2::unit::max_ulp(values,different_values,0.5,fails, u1);
   std::cout << "max_ulp(a,b) = " << u1 << "\t";
   std::cout << "nb of fails: " << fails.size() << "\n";
   std::cout << ((!u0 && u1==8) ? "OK" : "NOT OK")  << "\n";
 
-  return (!u0 && u1==8);
+  return ok1 && ok2 && (!u0 && u1==8);
 }
 
 template<class T> inline bool check_ulp_singular_sequence()
@@ -113,23 +113,23 @@ template<class T> inline bool check_ulp_singular_sequence()
 
   std::cout << "Check for: " << typeid(T).name() << "\t";
   double u0 = 0;
-  bool ok = nt2::unit::max_ulp(values,values,0.5,fails,u0);
+  bool ok1 = nt2::unit::max_ulp(values,values,0.5,fails,u0);
   std::cout << "max_ulp(a,a) = " << u0 << "\t";
   std::cout << "nb of fails: " << fails.size() << "\t";
 
   fails.clear();
   double u1 = 0;
-  ok = nt2::unit::max_ulp(values,different_values,0.5,fails, u1);
+  bool ok2 = nt2::unit::max_ulp(values,different_values,0.5,fails, u1);
   std::cout << "max_ulp(a,b) = " << u1 << "\t";
   std::cout << "nb of fails: " << fails.size() << "\t";
 
   fails.clear();
   double u2 = 0;
-  ok = nt2::unit::max_ulp(different_values,values,0.5,fails, u2);
+  bool ok3 = nt2::unit::max_ulp(different_values,values,0.5,fails, u2);
   std::cout << "max_ulp(b,a) = " << u1 << "\t";
   std::cout << "nb of fails: " << fails.size() << "\n";
   std::cout << ((!u0 && u1==8 && u2==8) ? "OK" : "NOT OK")  << "\n";
-  return (!u0 && u1==8 && u2==8);
+  return ok1 && ok2 && ok3 && (!u0 && u1==8 && u2==8);
 }
 
 inline bool check_ulp_sequence_fusionsequence()
@@ -145,21 +145,20 @@ inline bool check_ulp_sequence_fusionsequence()
   diff_seq[0] = values;
   diff_seq[1] = different_values;
 
-  bool ok;
   double u0 = 0;
   double u1 = 0;
 
   std::cout << "Check for foo :\t";
-  ok = nt2::unit::max_ulp(seq,seq,0.5,fails,u0);
+  bool ok1 = nt2::unit::max_ulp(seq,seq,0.5,fails,u0);
   std::cout << "max_ulp(a,a) = " << u0 << "\t";
   std::cout << "nb of fails: " << fails.size() << "\t";
 
   fails.clear();
-  ok = nt2::unit::max_ulp(seq,diff_seq,0.5,fails, u1);
+  bool ok2 = nt2::unit::max_ulp(seq,diff_seq,0.5,fails, u1);
   std::cout << "max_ulp(a,b) = " << u1 << "\t";
   std::cout << "nb of fails: " << fails.size() << "\n";
   std::cout << ((!u0 && u1==8) ? "OK" : "NOT OK")  << "\n";
-  return (!u0 && u1==8);
+  return ok1 && ok2 && (!u0 && u1==8);
 }
 
 template<class T> inline bool check_ulp_sequence_sequence()
@@ -182,21 +181,20 @@ template<class T> inline bool check_ulp_sequence_sequence()
   diff_seq[0] = values;
   diff_seq[1] = different_values;
 
-  bool ok;
   double u0 = 0;
   double u1 = 0;
 
   std::cout << "Check for: " << typeid(T).name() << "\t";
-  ok = nt2::unit::max_ulp(seq,seq,0.5,fails,u0);
+  bool ok1 = nt2::unit::max_ulp(seq,seq,0.5,fails,u0);
   std::cout << "max_ulp(a,a) = " << u0 << "\t";
   std::cout << "nb of fails: " << fails.size() << "\t";
 
   fails.clear();
-  ok = nt2::unit::max_ulp(seq,diff_seq,0.5,fails, u1);
+  bool ok2 = nt2::unit::max_ulp(seq,diff_seq,0.5,fails, u1);
   std::cout << "max_ulp(a,b) = " << u1 << "\t";
   std::cout << "nb of fails: " << fails.size() << "\n";
   std::cout << ((!u0 && u1==8) ? "OK" : "NOT OK")  << "\n";
-  return (!u0 && u1==8);
+  return ok1 && ok2 && (!u0 && u1==8);
 }
 
 template<class T> inline bool check_ulp_invalid()
@@ -208,13 +206,13 @@ template<class T> inline bool check_ulp_invalid()
 
   std::cout << "Check for: " << typeid(T).name() << "\t";
   double u0 = 0;
-  bool ok = nt2::unit::max_ulp(value,different_value,0.5,fails, u0);
+  bool ok1 = nt2::unit::max_ulp(value,different_value,0.5,fails, u0);
   std::cout << "max_ulp(a,b) = " << u0 << "\t";
   std::cout << "nb of fails: " << fails.size() << "\t";
 
   fails.clear();
   double u1 = 0;
-  ok = nt2::unit::max_ulp(different_value,value,0.5,fails, u1);
+  bool ok2 = nt2::unit::max_ulp(different_value,value,0.5,fails, u1);
   std::cout << "max_ulp(a,b) = " << u1 << "\t";
   std::cout << "nb of fails: " << fails.size() << "\n";
 
@@ -223,25 +221,26 @@ template<class T> inline bool check_ulp_invalid()
 
   std::cout << "Check for: " << typeid(T).name() << "\t";
   double u2 = 0;
-  ok = nt2::unit::max_ulp(value,different_value,0.5,fails, u2);
+  bool ok3 = nt2::unit::max_ulp(value,different_value,0.5,fails, u2);
   std::cout << "max_ulp(a,b) = " << u2 << "\t";
   std::cout << "nb of fails: " << fails.size() << "\t";
 
   fails.clear();
   double u3 = 0;
-  ok = nt2::unit::max_ulp(different_value,value,0.5,fails, u3);
+  bool ok4 = nt2::unit::max_ulp(different_value,value,0.5,fails, u3);
   std::cout << "max_ulp(a,b) = " << u3 << "\t";
   std::cout << "nb of fails: " << fails.size() << "\n";
 
   bool stat =   (u0 != u0) && (u1 != u1)
-            &&  (u2 == different_value) && (u3 == different_value);
+            &&  (u2 == different_value) && (u3 == different_value)
+            &&  ok1 && ok2 && ok3 && ok4;
 
   std::cout << ( stat ? "OK" : "NOT OK") << "\n";
 
   return stat;
 }
 
-NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int argc, char* argv[])
+NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int, char**)
 {
   std::cout << "Check for basic types\n";
   bool  check;

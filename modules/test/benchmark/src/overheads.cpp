@@ -22,7 +22,7 @@ namespace nt2 { namespace details
     struct null_benchmark_t : base_experiment
     {
       null_benchmark_t() {}
-      BOOST_DISPATCH_NOTHROW void run() const BOOST_DISPATCH_OVERRIDE {}
+      BOOST_DISPATCH_NOTHROW void run() const {}
     } null_benchmark;
 
     volatile null_benchmark_t& owb( null_benchmark );

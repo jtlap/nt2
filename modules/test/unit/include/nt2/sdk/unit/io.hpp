@@ -43,7 +43,7 @@ namespace std
   }
 
   template<typename T>
-  inline std::ostream& operator<<(std::ostream& os, nt2::meta::as_<T> const& xpr)
+  inline std::ostream& operator<<(std::ostream& os, nt2::meta::as_<T> const&)
   {
     os <<  "as_<" << nt2::type_id<T>() << ">";
 

@@ -20,6 +20,7 @@
 #include <nt2/sdk/unit/stats.hpp>
 #include <nt2/sdk/unit/details/eval.hpp>
 #include <nt2/sdk/unit/details/test_for_equality.hpp>
+#include <boost/dispatch/preprocessor/once.hpp>
 #include <boost/current_function.hpp>
 
 /// INTERNAL ONLY - Base macro for relation checks
@@ -41,7 +42,7 @@ do                                                                             \
     std::cout << #B << ": \n" << std::setprecision(20)                         \
               << nt2::unit::eval(B) << std::endl;                              \
   }                                                                            \
-} while(0)                                                                     \
+} BOOST_DISPATCH_ONCE                                                          \
 /**/
 
 /*!
@@ -74,7 +75,7 @@ do                                                                             \
     std::cout << #B << ": \n" << std::setprecision(20)                         \
               << nt2::unit::eval(B) << std::endl;                              \
   }                                                                            \
-} while(0)                                                                     \
+} BOOST_DISPATCH_ONCE                                                          \
 /**/
 
 /*!
@@ -107,7 +108,7 @@ do                                                                             \
     std::cout << #B << ": \n" << std::setprecision(20)                         \
               << nt2::unit::eval(B) << std::endl;                              \
   }                                                                            \
-} while(0)                                                                     \
+} BOOST_DISPATCH_ONCE                                                          \
 /**/
 
 /*!

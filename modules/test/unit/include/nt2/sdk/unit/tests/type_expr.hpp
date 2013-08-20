@@ -19,6 +19,7 @@
 #include <nt2/sdk/unit/stats.hpp>
 #include <nt2/sdk/unit/details/expr_type.hpp>
 #include <boost/dispatch/preprocessor/strip.hpp>
+#include <boost/dispatch/preprocessor/once.hpp>
 
 /// INTERNAL ONLY
 #define NT2_PP_STRINGIZE__(...) #__VA_ARGS__
@@ -51,25 +52,20 @@ do {                                                                           \
             << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Type)) << "`\n"        \
             << "               aka `"                                          \
             << nt2::type_id<BOOST_DISPATCH_PP_STRIP(Type)>() << "`\n";         \
-  if(nt2::details::is_same_as<BOOST_DISPATCH_PP_STRIP(Type)>                   \
-     (nt2::details::expr_type<BOOST_DISPATCH_PP_STRIP(Lambda)>                 \
+                                                                               \
+   nt2::details::                                                              \
+   check_expr_equality( (nt2::details                                          \
+                            ::expr_type <BOOST_DISPATCH_PP_STRIP(Lambda)>      \
+                                        (BOOST_DISPATCH_PP_STRIP(Expression))  \
+                        )                                                      \
+                      , nt2::details                                           \
+                        ::is_same_as<BOOST_DISPATCH_PP_STRIP(Type)>            \
+                        (nt2::details                                          \
+                            ::expr_type<BOOST_DISPATCH_PP_STRIP(Lambda)>       \
                              (BOOST_DISPATCH_PP_STRIP(Expression))             \
-     )                                                                         \
-    )                                                                          \
-  {                                                                            \
-    std::cout << " **passed**\n\n";                                            \
-  }                                                                            \
-  else                                                                         \
-  {                                                                            \
-    nt2::unit::error_count()++;                                                \
-    std::cout << " **failed**     is `"                                        \
-              << nt2::details::type_id_identity                                \
-                 (nt2::details::expr_type<BOOST_DISPATCH_PP_STRIP(Lambda)>     \
-                                         (BOOST_DISPATCH_PP_STRIP(Expression)) \
-                 )                                                             \
-              << "`\n\n";                                                      \
-  }                                                                            \
-} while(0)                                                                     \
+                        )                                                      \
+                      );                                                       \
+} BOOST_DISPATCH_ONCE                                                          \
 /**/
 
 /*!
@@ -101,7 +97,7 @@ do {                                                                           \
               << nt2::details::demangle((Info).name())                         \
               << "`\n\n";                                                      \
   }                                                                            \
-} while(0)                                                                     \
+} BOOST_DISPATCH_ONCE                                                          \
 /**/
 
 /*!
@@ -124,14 +120,14 @@ do {                                                                           \
             << nt2::type_id<BOOST_DISPATCH_PP_STRIP(Type)>() << "`\n";         \
                                                                                \
    nt2::details::                                                              \
-   check_type_equality< BOOST_DISPATCH_PP_STRIP(Type)                          \
-                      , BOOST_DISPATCH_PP_STRIP(T)                             \
+   check_type_equality< BOOST_DISPATCH_PP_STRIP(T)                             \
                       >( boost::mpl::bool_                                     \
                          < boost::is_same< BOOST_DISPATCH_PP_STRIP(Type)       \
                                          , BOOST_DISPATCH_PP_STRIP(T)          \
                                          >::value                              \
                          >()                                                   \
                        );                                                      \
-} while(0)                                                                     \
+} BOOST_DISPATCH_ONCE                                                          \
+/**/
 
 #endif

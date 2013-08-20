@@ -20,7 +20,7 @@ namespace nt2 { namespace details
 {
   /// INTERNAL ONLY
   /// Wrap a lambda function call into a identity block for display purpose
-  template<class Lambda, class T>
+  template<typename Lambda, typename T>
   boost::mpl::identity<typename boost::mpl::apply<Lambda, T>::type>
   expr_type(T const&)
   {
@@ -29,8 +29,8 @@ namespace nt2 { namespace details
 
   /// INTERNAL ONLY
   /// Return a boolean indicating if a given type T is the same as a given
-  /// meta-function class application
-  template<class T, class U>
+  /// meta-function typename application
+  template<typename T, typename U>
   typename boost::is_same<T, typename U::type>::type is_same_as(U const&)
   {
     return typename boost::is_same<T, typename U::type>::type();
@@ -38,24 +38,41 @@ namespace nt2 { namespace details
 
   /// INTERNAL ONLY
   /// Display a type from an identity block
-  template<class T> std::string type_id_identity(T const&)
+  template<typename T> std::string type_id_identity(T const&)
   {
     return nt2::type_id<typename T::type>();
   }
 
   /// INTERNAL ONLY - Remove MSVC W4 spurrious warning
-  template<class Type, class Target> inline void
+  template<typename Target> inline void
   check_type_equality( boost::mpl::true_ const& )
   {
     std::cout << " **passed**\n\n";
   }
 
   /// INTERNAL ONLY - Remove MSVC W4 spurrious warning
-  template<class Type, class Target> inline void
+  template<typename Target> inline void
   check_type_equality( boost::mpl::false_ const& )
   {
     nt2::unit::error_count()++;
     std::cout << " **failed** is `" << nt2::type_id<Target>() << "`\n\n";
+  }
+
+  /// INTERNAL ONLY - Remove MSVC W4 spurrious warning
+  template<typename Target> inline void
+  check_expr_equality( Target const&, boost::mpl::true_ const& )
+  {
+    std::cout << " **passed**\n\n";
+  }
+
+  /// INTERNAL ONLY - Remove MSVC W4 spurrious warning
+  template<typename Target> inline void
+  check_expr_equality( Target const&, boost::mpl::false_ const& )
+  {
+    nt2::unit::error_count()++;
+    std::cout << " **failed** is `"
+              << nt2::details::type_id_identity<Target>()
+              << "`\n\n";
   }
 } }
 

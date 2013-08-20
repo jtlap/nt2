@@ -47,7 +47,7 @@ template<class T> bool check_equal_sequence()
   return same && !not_same;
 }
 
-NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int argc, char* argv[])
+NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int, char**)
 {
   std::cout << "Check for basic types\n";
   bool  check =  check_equal_fundamental<double>();

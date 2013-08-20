@@ -10,8 +10,8 @@
 #include <nt2/sdk/unit/details/main.hpp>
 #include <nt2/sdk/unit/tests/cover.hpp>
 #include <nt2/include/native.hpp>
-#include <nt2/include/functions/plus.hpp>
-#include <nt2/include/functions/divides.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
 #include <iostream>
 #include <vector>
 
@@ -37,14 +37,14 @@ struct some_functor
   }
 };
 
-NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int argc, char* argv[])
+NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int, char**)
 {
   std::vector<float> a(64),b(64),c(64);
 
   for(int i=0;i<64;++i)
   {
-    a[i] = 1+i;
-    b[i] = i/10.f;
+    a[i] = 1.f+float(i);
+    b[i] = float(i)/10.f;
   }
 
   typedef boost::simd::native<float,BOOST_SIMD_DEFAULT_EXTENSION> nT;
@@ -56,9 +56,9 @@ NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int argc, char* argv[])
 
   std::vector<float> c2 = c;
 
-  c[5]  = 9;
-  c[7]  = 5;
-  c[12] = 6;
+  c[5]  = 9.f;
+  c[7]  = 5.f;
+  c[12] = 6.f;
 
   NT2_COVER_ULP_EQUAL(nt2::tag::plus_, ((float,a))((float,b)), c, 0.5);
   NT2_COVER_ULP_EQUAL(nt2::tag::plus_, ((nT,a))((nT,b)), c, 0.5);

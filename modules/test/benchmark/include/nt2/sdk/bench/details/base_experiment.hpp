@@ -38,10 +38,10 @@ namespace nt2
       virtual BOOST_DISPATCH_NOTHROW void run() const = 0;
 
       virtual BOOST_DISPATCH_NOTHROW
-      double  compute(benchmark_result_t const& r) const { return -1; }
+      double  compute(benchmark_result_t const& ) const { return -1; }
 
       virtual BOOST_DISPATCH_NOTHROW void reset() const {}
-      virtual BOOST_DISPATCH_NOTHROW void info(std::ostream& os) const {}
+      virtual BOOST_DISPATCH_NOTHROW void info(std::ostream&) const {}
 
       using unit_test::advance;
 

@@ -18,6 +18,7 @@
 #include <iostream>
 #include <nt2/sdk/unit/stats.hpp>
 #include <boost/dispatch/preprocessor/strip.hpp>
+#include <boost/dispatch/preprocessor/once.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
 
 /*!
@@ -29,20 +30,21 @@
   @usage
   @include test_throw.cpp
 **/
-#define NT2_TEST_THROW(X,E)                                             \
-do {                                                                    \
-  ::nt2::unit::test_count()++;                                          \
-  bool caught = false;                                                  \
-  try             { BOOST_DISPATCH_PP_STRIP(X); }                       \
-  catch( E& ex )  {                                                     \
-    ::boost::dispatch::ignore_unused(ex);                               \
-    ::nt2::unit::pass(#X " throws " #E);                                \
-    caught = true;                                                      \
-  }                                                                     \
-  catch(...)      {}                                                    \
-  if(!caught) ::nt2::unit::fail( #X " throws " #E                       \
-                                  , __LINE__, BOOST_CURRENT_FUNCTION);  \
-} while(0)                                                              \
+#define NT2_TEST_THROW(X,E)                                                    \
+do {                                                                           \
+  ::nt2::unit::test_count()++;                                                 \
+  bool caught = false;                                                         \
+  try             { BOOST_DISPATCH_PP_STRIP(X); }                              \
+  catch( E& ex )                                                               \
+  {                                                                            \
+    ::boost::dispatch::ignore_unused(ex);                                      \
+    ::nt2::unit::pass(#X " throws " #E);                                       \
+    caught = true;                                                             \
+  }                                                                            \
+  catch(...)      {}                                                           \
+  if(!caught) ::nt2::unit::fail( #X " throws " #E                              \
+                                  , __LINE__, BOOST_CURRENT_FUNCTION);         \
+} BOOST_DISPATCH_ONCE                                                          \
 /**/
 
 /*!
@@ -54,23 +56,23 @@ do {                                                                    \
   @usage
   @include test_assert.cpp
 **/
-#define NT2_TEST_ASSERT(X)                                    \
-do {                                                          \
-  ::nt2::unit::test_count()++;                                \
-  bool caught = false;                                        \
-  try             { BOOST_DISPATCH_PP_STRIP(X); }             \
-  catch( nt2::assert_exception& ex )  {                       \
-    ::nt2::unit::pass(#X " asserts ");                        \
-    std::cout << "with message:\n\t'" << ex.what() << "'\n";  \
-    caught = true;                                            \
-  }                                                           \
-  catch(...)      {}                                          \
-  if(!caught)                                                 \
-  {                                                           \
-    ::nt2::unit::fail( #X " asserts "                         \
-                        , __LINE__, BOOST_CURRENT_FUNCTION);  \
-  }                                                           \
-} while(0)                                                    \
+#define NT2_TEST_ASSERT(X)                                                     \
+do {                                                                           \
+  ::nt2::unit::test_count()++;                                                 \
+  bool caught = false;                                                         \
+  try             { BOOST_DISPATCH_PP_STRIP(X); }                              \
+  catch( nt2::assert_exception& ex )  {                                        \
+    ::nt2::unit::pass(#X " asserts ");                                         \
+    std::cout << "with message:\n\t'" << ex.what() << "'\n";                   \
+    caught = true;                                                             \
+  }                                                                            \
+  catch(...)      {}                                                           \
+  if(!caught)                                                                  \
+  {                                                                            \
+    ::nt2::unit::fail( #X " asserts "                                          \
+                        , __LINE__, BOOST_CURRENT_FUNCTION);                   \
+  }                                                                            \
+} BOOST_DISPATCH_ONCE                                                          \
 /**/
 
 /*!
@@ -82,20 +84,20 @@ do {                                                          \
   @usage
   @include test_no_throw.cpp
 **/
-#define NT2_TEST_NO_THROW(X)                                        \
-do {                                                                \
-  bool nt2_test_no_throw = true;                                    \
-  ::nt2::unit::test_count()++;                                      \
-  try { BOOST_DISPATCH_PP_STRIP(X); }                               \
-  catch(...)                                                        \
-  {                                                                 \
-    ::nt2::unit::fail( #X " should not throw"                       \
-                        , __LINE__, BOOST_CURRENT_FUNCTION          \
-                        );                                          \
-    nt2_test_no_throw = false;                                      \
-  }                                                                 \
-  if(nt2_test_no_throw) ::nt2::unit::pass(#X " does not throw");    \
-} while(0)                                                          \
+#define NT2_TEST_NO_THROW(X)                                                   \
+do {                                                                           \
+  bool nt2_test_no_throw = true;                                               \
+  ::nt2::unit::test_count()++;                                                 \
+  try { BOOST_DISPATCH_PP_STRIP(X); }                                          \
+  catch(...)                                                                   \
+  {                                                                            \
+    ::nt2::unit::fail( #X " should not throw"                                  \
+                        , __LINE__, BOOST_CURRENT_FUNCTION                     \
+                        );                                                     \
+    nt2_test_no_throw = false;                                                 \
+  }                                                                            \
+  if(nt2_test_no_throw) ::nt2::unit::pass(#X " does not throw");               \
+} BOOST_DISPATCH_ONCE                                                          \
 /**/
 
 
@@ -108,23 +110,23 @@ do {                                                                \
   @usage
   @include test_no_assert.cpp
 **/
-#define NT2_TEST_NO_ASSERT(X)                                 \
-do {                                                          \
-  bool nt2_test_no_throw = true;                              \
-  ::nt2::unit::test_count()++;                                \
-  try { BOOST_DISPATCH_PP_STRIP(X); }                         \
-  catch(nt2::assert_exception& ex)                            \
-  {                                                           \
-    ::nt2::unit::fail( #X " should not assert "               \
-                        , __LINE__, BOOST_CURRENT_FUNCTION    \
-                        );                                    \
-    std::cout << "with message:\n\t'" << ex.what() << "'\n";  \
-    nt2_test_no_throw = false;                                \
-  }                                                           \
-  catch(...) {}                                               \
-  if(nt2_test_no_throw)                                       \
-    ::nt2::unit::pass(#X " does not assert " );               \
-} while(0)                                                    \
+#define NT2_TEST_NO_ASSERT(X)                                                  \
+do {                                                                           \
+  bool nt2_test_no_throw = true;                                               \
+  ::nt2::unit::test_count()++;                                                 \
+  try { BOOST_DISPATCH_PP_STRIP(X); }                                          \
+  catch(nt2::assert_exception& ex)                                             \
+  {                                                                            \
+    ::nt2::unit::fail( #X " should not assert "                                \
+                        , __LINE__, BOOST_CURRENT_FUNCTION                     \
+                        );                                                     \
+    std::cout << "with message:\n\t'" << ex.what() << "'\n";                   \
+    nt2_test_no_throw = false;                                                 \
+  }                                                                            \
+  catch(...) {}                                                                \
+  if(nt2_test_no_throw)                                                        \
+    ::nt2::unit::pass(#X " does not assert " );                                \
+} BOOST_DISPATCH_ONCE                                                          \
 /**/
 
 #endif

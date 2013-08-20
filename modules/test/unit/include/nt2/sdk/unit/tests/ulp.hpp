@@ -13,6 +13,7 @@
 #include <nt2/sdk/unit/io.hpp>
 #include <nt2/sdk/unit/stats.hpp>
 #include <nt2/sdk/unit/details/ulp.hpp>
+#include <boost/dispatch/preprocessor/once.hpp>
 #include <boost/current_function.hpp>
 
 /*!
@@ -33,8 +34,7 @@ do                                                                             \
                               , BOOST_CURRENT_FUNCTION, __LINE__               \
                               , A, B, N                                        \
                               );                                               \
-}                                                                              \
-while(0)                                                                       \
+} BOOST_DISPATCH_ONCE                                                          \
 /**/
 
 

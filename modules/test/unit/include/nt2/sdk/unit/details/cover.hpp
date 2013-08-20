@@ -16,6 +16,7 @@
 #include <nt2/sdk/unit/details/ulp.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/details/io_fix.hpp>
+#include <boost/dispatch/meta/ignore_unused.hpp>
 #include <nt2/sdk/meta/type_id.hpp>
 #include <nt2/include/functions/load.hpp>
 #include <nt2/include/functions/store.hpp>
@@ -116,25 +117,26 @@ namespace nt2 { namespace details
           , BOOST_PP_ENUM_PARAMS(n,typename I)                                 \
           >                                                                    \
   inline                                                                       \
-  void display_cover_fails( const char* func, Function f                       \
+  void display_cover_fails( const char* , Function f                           \
                           , Data const& out, Data const& ref                   \
                           , ULPs const& ulps, Types const&                     \
                           , BOOST_PP_ENUM_BINARY_PARAMS(n,I, const& i)         \
                           )                                                    \
   {                                                                            \
     int ib = -1;                                                               \
-    std::size_t cc = nt2::meta                                                 \
+    int cc = nt2::meta                                                         \
                         ::cardinal_of < typename boost::mpl                    \
                                                       ::at_c<Types,0>::type    \
                                       >::value;                                \
                                                                                \
     BOOST_PP_REPEAT(n,NT2_COVER_INPUT_TYPES,~)                                 \
                                                                                \
+    boost::dispatch::ignore_unused(f);                                         \
     typedef BOOST_TYPEOF_TPL(f( BOOST_PP_ENUM(n,NT2_COVER_LOADS,0) )) r_t;     \
                                                                                \
-    BOOST_FOREACH ( typename ULPs::const_reference f, ulps )                   \
+    BOOST_FOREACH ( typename ULPs::const_reference ff, ulps )                  \
     {                                                                          \
-      int ii = (f.index/cc)*cc;                                                \
+      int ii = (int(ff.index)/cc)*cc;                                          \
       if(ii > ib)                                                              \
       {                                                                        \
                                                                                \
@@ -148,7 +150,7 @@ namespace nt2 { namespace details
                   << " while expecting "                                       \
                   << boost::simd::details::                                    \
                      display(nt2::load<r_t>(&ref[ii]))                         \
-                  << " (i.e "   << f.ulp_error << " ULPs)"                     \
+                  << " (i.e "   << ff.ulp_error << " ULPs)"                    \
                   << std::endl;                                                \
         ib = ii;                                                               \
       }                                                                        \

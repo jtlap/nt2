@@ -18,6 +18,7 @@
 #include <nt2/sdk/unit/details/prng.hpp>
 #include <nt2/include/functor.hpp>
 #include <boost/simd/memory/allocator.hpp>
+#include <boost/dispatch/preprocessor/once.hpp>
 #include <vector>
 #include <string>
 
@@ -39,7 +40,7 @@ do                                                                             \
 {                                                                              \
   for(std::size_t i=0;i<Name.size();++i) Name[i] = Type(rand() % 2);           \
 }                                                                              \
-while(0)                                                                       \
+} BOOST_DISPATCH_ONCE                                                          \
 /**/
 
 
@@ -69,7 +70,7 @@ do                                                                             \
                                 , NT2_COVER_VALUES_LIST(INPUTS)                \
                                 );                                             \
 }                                                                              \
-while(0)                                                                       \
+} BOOST_DISPATCH_ONCE                                                          \
 /**/
 
 /*!
