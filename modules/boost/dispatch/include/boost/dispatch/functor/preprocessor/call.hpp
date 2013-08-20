@@ -64,9 +64,13 @@ result_type operator()( BOOST_PP_ENUM_BINARY_PARAMS(N,A,const& a) ) const      \
  */
 //==============================================================================
 #define BOOST_DISPATCH_RETURNS(N, Args, Body)                                  \
+BOOST_DISPATCH_RETURNS_ARGS(N,Args,Args, Body)                                 \
+/**/
+
+#define BOOST_DISPATCH_RETURNS_ARGS(N, Args, Call, Body)                       \
 BOOST_PP_REPEAT(N, BOOST_DISPATCH_RETURNS_, (N, Args))                         \
 typedef BOOST_DISPATCH_TYPEOF(Body) result_type;                               \
-BOOST_FORCEINLINE result_type operator()Args const { return Body; }            \
+BOOST_FORCEINLINE result_type operator()Call const { return Body; }            \
 /**/
 
 #define BOOST_DISPATCH_RETURNS_(z, n, Args)                                    \
