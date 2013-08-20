@@ -24,10 +24,11 @@ namespace nt2 { namespace ext
   {
     typedef typename T::type target_t;
 
-    BOOST_DISPATCH_RETURNS( 2
-                          , (A0 const& n, T const& tgt)
-                          , nt2::_(target_t(0), target_t(2)/n, target_t(1))
-                          );
+    BOOST_DISPATCH_RETURNS_ARGS ( 2
+                                , (A0 const& n, T const& tgt)
+                                , (A0 const& n, T const&)
+                                , nt2::_(target_t(0),target_t(2)/n,target_t(1))
+                                );
   };
 
   /// INTERNAL ONLY
@@ -36,11 +37,7 @@ namespace nt2 { namespace ext
                             , (scalar_< integer_<A0> >)
                             )
   {
-    BOOST_DISPATCH_RETURNS( 1
-                          , (A0 const& n)
-                          , nt2::_(0., 2./n, 1.)
-                          );
-
+    BOOST_DISPATCH_RETURNS( 1, (A0 const& n), nt2::_(0., 2./n, 1.) );
   };
 
   /// INTERNAL ONLY
@@ -53,13 +50,14 @@ namespace nt2 { namespace ext
   {
     typedef typename T::type target_t;
 
-    BOOST_DISPATCH_RETURNS( 3
-                          , (A0 const& n, A1 const& w, T const& tgt)
-                          , nt2::_( target_t(0)
-                                  , target_t(2)/n
-                                  , target_t(2)*(n-1)/n
-                                  )
-                          );
+    BOOST_DISPATCH_RETURNS_ARGS ( 3
+                                , (A0 const& n, A1 const& w, T const& tgt)
+                                , (A0 const& n, A1 const&  , T const&)
+                                , nt2::_( target_t(0)
+                                        , target_t(2)/n
+                                        , target_t(2)*(n-1)/n
+                                        )
+                                );
   };
 
   /// INTERNAL ONLY
@@ -69,10 +67,11 @@ namespace nt2 { namespace ext
                                 ((target_<unspecified_<A1> >))
                               )
   {
-    BOOST_DISPATCH_RETURNS( 2
-                          , (A0 const& n, A1 const& w)
-                          , nt2::_(0., 2./n, 2.*(n-1)/n)
-                          );
+    BOOST_DISPATCH_RETURNS_ARGS ( 2
+                                , (A0 const& n, A1 const& w)
+                                , (A0 const& n, A1 const&  )
+                                , nt2::_(0., 2./n, 2.*(n-1)/n)
+                                );
   };
 } }
 

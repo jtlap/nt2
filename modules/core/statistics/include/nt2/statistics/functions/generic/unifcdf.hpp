@@ -9,63 +9,60 @@
 #ifndef NT2_STATISTICS_FUNCTIONS_GENERIC_UNIFCDF_HPP_INCLUDED
 #define NT2_STATISTICS_FUNCTIONS_GENERIC_UNIFCDF_HPP_INCLUDED
 #include <nt2/statistics/functions/unifcdf.hpp>
-#include <nt2/include/functions/is_gez.hpp>
-#include <nt2/include/functions/is_lez.hpp>
-#include <nt2/include/functions/is_nle.hpp>
-#include <nt2/include/functions/is_ngt.hpp>
-#include <nt2/include/functions/is_greater_equal.hpp>
-#include <nt2/include/functions/is_less_equal.hpp>
+
+#include <nt2/include/functions/is_not_greater.hpp>
 #include <nt2/include/functions/if_allbits_else.hpp>
-#include <nt2/include/functions/if_else_zero.hpp>
 #include <nt2/include/functions/if_zero_else.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/is_nan.hpp>
-#include <nt2/include/functions/logical_and.hpp>
+#include <nt2/include/functions/divides.hpp>
+#include <nt2/include/functions/is_less.hpp>
+#include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/is_ltz.hpp>
+#include <nt2/include/functions/is_lez.hpp>
+#include <nt2/include/functions/minus.hpp>
 #include <nt2/include/constants/one.hpp>
 
 namespace nt2 { namespace ext
 {
-
-
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::unifcdf_, tag::cpu_
-                              , (A0)
-                              , (generic_< floating_<A0> >)
-                              )
+                            , (A0)
+                            , (generic_< floating_<A0> >)
+                            )
   {
     typedef A0 result_type;
+
     NT2_FUNCTOR_CALL(1)
       {
-        return nt2::if_zero_else(nt2::is_ltz(a0),
-                                 nt2::if_else(boost::simd::is_ngt(a0,One<A0>()),
-                                              a0,
-                                              One<A0>()
-                                              )
+        A0 o = One<A0>();
+        return nt2::if_zero_else( nt2::is_ltz(a0),
+                                  nt2::if_else(is_not_greater(a0,o), a0, o)
                                  );
       }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::unifcdf_, tag::cpu_
-                              , (A0)(A1)(A2)
-                              , (generic_< floating_<A0> >)
+                            , (A0)(A1)(A2)
+                            , (generic_< floating_<A0> >)
                               (generic_< floating_<A1> >)
                               (generic_< floating_<A2> >)
-                              )
+                            )
   {
     typedef A0 result_type;
-    NT2_FUNCTOR_CALL(3)
-      {
-        BOOST_AUTO_TPL(z, a2-a1);
-        return nt2::if_allbits_else(is_lez(z),
-                                    nt2::if_zero_else(lt(a0,a1),
-                                                      nt2::if_else(boost::simd::is_ngt(a0,a2),
-                                                                   (a0-a1)/z,
-                                                                   One<A0>()
-                                                                   )
-                                                      )
-                                    );
-      }
-  };
 
+    NT2_FUNCTOR_CALL(3)
+    {
+      A0 z = a2-a1;
+
+      return nt2::if_allbits_else ( is_lez(z)
+                                  , nt2::if_zero_else
+                                    ( lt(a0,a1)
+                                    , nt2::if_else( is_not_greater(a0,a2)
+                                                  , (a0-a1)/z
+                                                  , One<A0>()
+                                                  )
+                                    )
+                                  );
+    }
+  };
 } }
 
 #endif

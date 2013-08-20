@@ -23,7 +23,7 @@ namespace nt2
   {
     //Put the way points points in increasing order
     template <class W>
-    inline bool order_points(W& wpts, bool sort = false)
+    inline bool order_points(W&, bool sort = false)
     {
       bool reverse = false;
        typedef typename W::value_type r_type;

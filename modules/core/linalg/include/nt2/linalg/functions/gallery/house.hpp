@@ -14,6 +14,7 @@
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/norm.hpp>
 #include <nt2/include/functions/colon.hpp>
+#include <nt2/include/functions/hypot.hpp>
 #include <nt2/include/functions/isreal.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/is_gez.hpp>

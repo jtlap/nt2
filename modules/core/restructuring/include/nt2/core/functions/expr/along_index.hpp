@@ -84,7 +84,7 @@ namespace nt2 { namespace ext
 
     typedef i_t result_type;
 
-    result_type operator()(A0& a0, State const& state, Data const& data) const
+    result_type operator()(A0& a0, State const& state, Data const&) const
     {
       pos_type p = as_subscript(a0.extent(), nt2::enumerate<i_t>(state));
       std::size_t i = boost::proto::value(boost::proto::child_c<1>(a0));

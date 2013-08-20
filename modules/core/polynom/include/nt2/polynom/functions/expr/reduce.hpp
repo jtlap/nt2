@@ -68,6 +68,7 @@ namespace nt2 { namespace ext
       return a0(nt2::One<size_t>(), _(idx,na0));
     }
   };
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::reduce_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
@@ -78,7 +79,8 @@ namespace nt2 { namespace ext
     typedef typename A0::value_type value_type;
     typedef typename nt2::meta::call<nt2::tag::colon_(size_t, size_t)>::type                     T1;
     typedef typename nt2::meta::call<nt2::tag::function_(const typename A0::nt2_expression&, size_t, T1)>::type  result_type;
-    NT2_FUNCTOR_CALL(2)
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&) const
     {
       size_t na0 =  nt2::numel(a0);
       size_t idx = na0+1;

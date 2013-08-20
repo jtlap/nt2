@@ -23,7 +23,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename container::table<A0, of_size_<0> > result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
+    BOOST_FORCEINLINE result_type operator()(A0 const&) const
     {
       return result_type();
     }

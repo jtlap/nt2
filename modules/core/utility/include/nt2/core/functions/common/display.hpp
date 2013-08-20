@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
   {
     typedef void result_type;
 
-    result_type operator()(nt2::functor<Tag, Site> const& a0) const
+    result_type operator()(nt2::functor<Tag, Site> const&) const
     {
       std::string tag = type_id<Tag>();
       std::size_t pos = tag.find_last_of(':')+1;

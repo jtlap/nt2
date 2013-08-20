@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
     typedef nt2::container::table<ptrdiff_t>                            ltab_t;
     typedef optimization::output<tab_t,real_type>       result_type;
 
-    result_type operator()(F crit, A const& init, H const& which, O const& o)
+    result_type operator()(F crit, A const& init, H const&, O const& o)
     {
       details::lev_impl<tab_t> lev;
       tab_t a = init;

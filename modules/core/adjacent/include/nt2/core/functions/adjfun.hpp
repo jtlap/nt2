@@ -135,14 +135,24 @@ namespace nt2 { namespace ext
       // If non-0 dimension along chosen direction, decrements it
       if(along >= result_type::static_size)
       {
-        if(result_type::static_size > 0)
-            that[result_type::static_size-1] = 0;
+        fix_size(that, boost::mpl::bool_< !(result_type::static_size <= 0) >());
       }
-      else if(that[along])
-        --that[along];
+      else
+      {
+        if(that[along]) --that[along];
+      }
 
       return that;
     }
+
+    BOOST_FORCEINLINE
+    void fix_size(result_type& that, boost::mpl::true_ const&) const
+    {
+      that[result_type::static_size-1] = 0;
+    }
+
+    BOOST_FORCEINLINE
+    void fix_size(result_type&, boost::mpl::false_ const&) const {}
   };
 
   /// INTERNAL ONLY

@@ -23,7 +23,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef A0 result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&a1) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1) const
     {
       return a0;
     }
@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
   {
     typedef A0 result_type;
     BOOST_FORCEINLINE
-    result_type operator()(A0 const& a0, A1 const&a1, A2 const&) const
+    result_type operator()(A0 const& a0, A1, A2) const
     {
       return a0;
     }

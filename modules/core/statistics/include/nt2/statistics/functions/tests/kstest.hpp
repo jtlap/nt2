@@ -54,7 +54,7 @@ namespace nt2 { namespace ext
   private :
     static inline A2 pks(const A2& lam)
     {
-      const A2 eps1 = 0.001;
+      const A2 eps1 = A2(0.001);
       const A2 eps2 = nt2::Sqrteps<A2>();
       A2 fac = Two<A2>();
       A2 a2 =  -fac*nt2::sqr(lam);

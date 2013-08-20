@@ -49,21 +49,15 @@ namespace nt2 { namespace tag
     };
   }
 
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::lauchli_, lauchli, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::lauchli_, lauchli, 2)
 
-  template<class A0>
-  typename meta::call<tag::lauchli_(const A0 &, typename meta::as_<double> const &)>::type
-  lauchli(const A0& n)
-  {
-    return nt2::lauchli(n, nt2::Sqrteps<double>());
-  }
   template<class T, class A0>
   typename meta::call<tag::lauchli_(const A0 &, typename meta::as_<T> const &)>::type
   lauchli(const A0& n)
   {
-    return nt2::lauchli(n, nt2::Sqrteps<T>());
+    return nt2::lauchli(n, meta::as_<T>());
   }
-
 }
 
 #endif

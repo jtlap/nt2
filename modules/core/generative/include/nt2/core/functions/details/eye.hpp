@@ -47,7 +47,7 @@ namespace nt2 { namespace meta
 
     template<class Pos,class Target>
     BOOST_FORCEINLINE typename Target::type
-    operator()(Pos const& p, _1D const& sz, Target const&) const
+    operator()(Pos const& p, _1D const&, Target const&) const
     {
       typedef typename Target::type type;
       return nt2::if_else(nt2::is_eqz(p), One<type>(), Zero<type>());

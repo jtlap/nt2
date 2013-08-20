@@ -16,29 +16,46 @@
 
 namespace nt2 {namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::lauchli_, tag::cpu_,
-                              (A0)(A1),
-                              (scalar_<integer_<A0> >)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::lauchli_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_<integer_<A0> >)
                               (scalar_<floating_<A1> >)
                             )
   {
-    BOOST_DISPATCH_RETURNS(2, (A0 const& n, A1 const& e),
-                           (nt2::catv(nt2::ones(1, n, meta::as_<A1>()), e*nt2::eye(n, meta::as_<A1>())))
+    BOOST_DISPATCH_RETURNS(2, (A0 const& n, A1 const& e)
+                          , (nt2::catv( nt2::ones(1, n, meta::as_<A1>())
+                                      , e*nt2::eye(n, meta::as_<A1>())
+                                      )
+                            )
                           )
 
-      };
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::lauchli_, tag::cpu_,
-                              (A0)(T),
-                              (scalar_<integer_<A0> >)
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::lauchli_, tag::cpu_
+                            , (A0)
+                            , (scalar_<integer_<A0> >)
+                            )
+  {
+    BOOST_DISPATCH_RETURNS(1, (A0 const& n)
+                          , (nt2::lauchli(n, nt2::Sqrteps<double>()))
+                          )
+
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::lauchli_, tag::cpu_
+                            , (A0)(T)
+                            , (scalar_<integer_<A0> >)
                               (target_<scalar_<floating_<T> > > )
                             )
   {
     typedef typename T::type                   t_t;
-    BOOST_DISPATCH_RETURNS(2, (A0 const& n, T const& t),
-                           (nt2::lauchli(n, nt2::Sqrteps<t_t>()))
-                          )
+    BOOST_DISPATCH_RETURNS_ARGS ( 2
+                                , (A0 const& n, T const& t)
+                                , (A0 const& n, T const&)
+                                , (nt2::lauchli(n, nt2::Sqrteps<t_t>()))
+                                )
 
-      };
+  };
 
 } }
 

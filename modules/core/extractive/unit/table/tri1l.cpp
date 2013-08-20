@@ -13,6 +13,7 @@
 #include <nt2/include/functions/is_not_equal.hpp>
 #include <nt2/include/functions/whereij.hpp>
 #include <nt2/include/functions/reshape.hpp>
+#include <nt2/include/functions/oneplus.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>

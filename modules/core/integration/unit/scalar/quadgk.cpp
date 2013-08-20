@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 integration toolbox - quadgk"
-
 #include <nt2/include/functions/quadgk.hpp>
 #include <nt2/integration/output.hpp>
 #include <nt2/integration/options.hpp>
@@ -39,6 +37,7 @@
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/fliplr.hpp>
 #include <nt2/include/functions/real.hpp>
+#include <nt2/include/functions/cos.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/include/constants/sqrteps.hpp>
@@ -427,8 +426,3 @@ NT2_TEST_CASE_TPL( quadgk_tag_reverse, NT2_REAL_TYPES )
   BOOST_AUTO_TPL(res, (quadgk(nt2::functor<nt2::tag::exp_>(), x)));
   NT2_TEST(res.successful);
 }
-
-
-
-
-

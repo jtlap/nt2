@@ -74,7 +74,7 @@ namespace nt2 { namespace ext
   private:
     template < class T, class dummy = void> struct rempio2
     {
-      static inline result_type rem(A0 const& x, A0 & xr)
+      static inline result_type rem(A0 const&, A0 &)
       {
         BOOST_ASSERT_MSG(false, "wrong target for rem_pio2");
         return nt2::Zero<result_type>();

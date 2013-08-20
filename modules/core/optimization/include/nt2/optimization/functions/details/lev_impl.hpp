@@ -13,6 +13,7 @@
 #include <nt2/include/functions/inbtrue.hpp>
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/oneplus.hpp>
+#include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/linsolve.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/constants/ten.hpp>
@@ -230,9 +231,9 @@ namespace nt2 { namespace details
     static float_t ochisq;
     table_t & a = *pa;
     const btable_t & ia = *pia;
-    if (lambda <  0.0)
+    if (lambda <  float_t(0.0))
     {
-      lambda =  0.001;
+      lambda = float_t(0.001);
       mrqcoef(crit,a,alpha,beta);
       ochisq =  chisq;
       atry = a;
@@ -243,7 +244,7 @@ namespace nt2 { namespace details
 
     for(size_t j = 1; j <= mfit; j++ ) covar(j, j) *= nt2::oneplus(lambda);
     da = nt2::linsolve(covar, nt2::colvect(oneda));
-    if (lambda == 0.0)
+    if (lambda == float_t(0.0))
     {
       if (numel(fvec) > mfit) compcov();
       return true;

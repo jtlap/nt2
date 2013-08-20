@@ -69,7 +69,6 @@ do                                                                             \
                                 , N                                            \
                                 , NT2_COVER_VALUES_LIST(INPUTS)                \
                                 );                                             \
-}                                                                              \
 } BOOST_DISPATCH_ONCE                                                          \
 /**/
 

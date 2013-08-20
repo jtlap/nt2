@@ -136,7 +136,7 @@ namespace nt2 { namespace ext
       get_values(a1,qr,nq,n1);
     }
 
-    void get_values(A1& a1, q_type qr, const size_t& nq, boost::mpl::long_<1> const &) const
+    void get_values(A1&, q_type qr, const size_t& nq, boost::mpl::long_<1> const &) const
     {
       qr.resize(nt2::of_size(1, nq));
     }
