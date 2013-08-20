@@ -11,14 +11,13 @@
 
 #include <boost/simd/arithmetic/functions/idivceil.hpp>
 #include <boost/simd/include/functions/simd/iceil.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>
 #include <boost/simd/include/functions/simd/divides.hpp>
 #include <boost/simd/include/functions/simd/groups.hpp>
 #include <boost/simd/include/functions/simd/split.hpp>
 #include <boost/simd/include/functions/simd/minusone.hpp>
-#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
-#include <boost/simd/include/constants/digits.hpp>
-#include <boost/dispatch/meta/strip.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -29,7 +28,9 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    { return boost::simd::iceil(boost::simd::tofloat(a0)/boost::simd::tofloat(a1)); }
+    {
+      return boost::simd::iceil(boost::simd::tofloat(a0)/boost::simd::tofloat(a1));
+    }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivceil_, tag::cpu_
@@ -39,46 +40,44 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    { return boost::simd::rdivide(boost::simd::minusone(a0+a1), a1); }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivceil_, tag::cpu_
-                                   , (A0)(X)
-                                   , ((simd_<int16_<A0>,X>))((simd_<int16_<A0>,X>))
-                                   )
-  {
-
-    typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename meta::scalar_of<A0>::type              stype;
-      typedef typename dispatch::meta::upgrade<stype>::type   itype;
-      typedef simd::native<itype,X>                          ivtype;
-      ivtype a0l, a0h, a1l, a1h;
-      boost::simd::split(a0, a0l, a0h);
-      boost::simd::split(a1, a1l, a1h);
-      return boost::simd::bitwise_cast<A0>(boost::simd::groups(boost::simd::idivceil(a0l, a1l),
-                                                               boost::simd::idivceil(a0h, a1h)));
+      return boost::simd::rdivide(boost::simd::minusone(a0+a1), a1);
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivceil_, tag::cpu_
                                    , (A0)(X)
-                                   , ((simd_<int8_<A0>,X>))((simd_<int8_<A0>,X>))
+                                   , ((simd_<ints16_<A0>,X>))((simd_<int16_<A0>,X>))
+                                   )
+  {
+
+    typedef A0 result_type;
+
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      typedef typename dispatch::meta::upgrade<A0>::type ivtype;
+      ivtype a0l, a0h, a1l, a1h;
+      boost::simd::split(a0, a0l, a0h);
+      boost::simd::split(a1, a1l, a1h);
+      return boost::simd::groups(boost::simd::idivceil(a0l, a1l),
+                                 boost::simd::idivceil(a0h, a1h));
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivceil_, tag::cpu_
+                                   , (A0)(X)
+                                   , ((simd_<ints8_<A0>,X>))((simd_<int8_<A0>,X>))
                                    )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename meta::scalar_of<A0>::type           stype;
-      typedef typename dispatch::meta::upgrade<stype>::type          itype;
-      typedef simd::native<itype, X>                      ivtype;
+      typedef typename dispatch::meta::upgrade<A0>::type ivtype;
       ivtype a0l, a0h, a1l, a1h;
       boost::simd::split(a0, a0l, a0h);
       boost::simd::split(a1, a1l, a1h);
-      return bitwise_cast<A0>(boost::simd::groups(boost::simd::idivceil(a0l, a1l),
-                                                  boost::simd::idivceil(a0h, a1h) ));
+      return boost::simd::groups(boost::simd::idivceil(a0l, a1l),
+                                 boost::simd::idivceil(a0h, a1h));
     }
   };
 
@@ -89,7 +88,9 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    { return boost::simd::iceil(a0/a1); }
+    {
+      return boost::simd::iceil(a0/a1);
+    }
   };
 } } }
 

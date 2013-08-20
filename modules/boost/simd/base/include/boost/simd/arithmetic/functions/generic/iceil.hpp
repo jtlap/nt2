@@ -8,9 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_ICEIL_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_ICEIL_HPP_INCLUDED
+
 #include <boost/simd/arithmetic/functions/iceil.hpp>
 #include <boost/simd/include/functions/simd/ceil.hpp>
 #include <boost/simd/include/functions/simd/toints.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -20,7 +22,10 @@ namespace boost { namespace simd { namespace ext
                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return a0; }
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return a0;
+    }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::iceil_, tag::cpu_
@@ -29,7 +34,10 @@ namespace boost { namespace simd { namespace ext
                                    )
   {
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return toints(simd::ceil(a0)); }
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return toints(simd::ceil(a0));
+    }
   };
 } } }
 

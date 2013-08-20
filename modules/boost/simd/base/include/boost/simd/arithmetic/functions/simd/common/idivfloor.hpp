@@ -13,7 +13,7 @@
 #include <boost/simd/include/functions/simd/idivceil.hpp>
 #include <boost/simd/include/functions/simd/divides.hpp>
 #include <boost/simd/include/functions/simd/ifloor.hpp>
-#include <boost/simd/include/functions/simd/negate.hpp>
+#include <boost/simd/include/functions/simd/unary_minus.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -24,7 +24,9 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    { return -idivceil(-a0,a1); }
+    {
+      return -idivceil(-a0,a1);
+    }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivfloor_, tag::cpu_
@@ -34,7 +36,9 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    { return rdivide(a0,a1); }
+    {
+      return rdivide(a0,a1);
+    }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivfloor_, tag::cpu_
@@ -44,7 +48,9 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    { return ifloor(a0/a1); }
+    {
+      return ifloor(a0/a1);
+    }
   };
 } } }
 

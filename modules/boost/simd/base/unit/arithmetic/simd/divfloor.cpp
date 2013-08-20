@@ -6,11 +6,11 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+
 #include <boost/simd/arithmetic/include/functions/divfloor.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/module.hpp>
+#include <boost/simd/include/functions/splat.hpp>
 #include <boost/simd/include/constants/two.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/mone.hpp>
@@ -20,9 +20,12 @@
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/nan.hpp>
-
-#include <boost/simd/sdk/config.hpp>
+#include <boost/simd/include/constants/maxflint.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
+#include <boost/simd/sdk/config.hpp>
+
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/module.hpp>
 
 NT2_TEST_CASE_TPL ( divfloor_real,  BOOST_SIMD_SIMD_REAL_TYPES)
 {

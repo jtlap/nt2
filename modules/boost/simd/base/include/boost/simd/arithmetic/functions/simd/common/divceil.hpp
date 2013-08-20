@@ -14,9 +14,11 @@
 #include <boost/simd/include/functions/simd/divides.hpp>
 #include <boost/simd/include/functions/simd/idivceil.hpp>
 #include <boost/simd/include/functions/simd/touints.hpp>
-#include <boost/simd/include/functions/simd/toints.hpp>
+#include <boost/simd/include/functions/simd/tofloat.hpp>
 #include <boost/simd/include/functions/simd/split.hpp>
 #include <boost/simd/include/functions/simd/groups.hpp>
+#include <boost/simd/sdk/meta/is_upgradable.hpp>
+#include <boost/dispatch/meta/upgrade.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -37,17 +39,16 @@ namespace boost { namespace simd { namespace ext
 //  they can fit in so mapping is mandatory.
 //
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)(X)
-                            , ((simd_< int32_<A0>, X>))
-                              ((simd_< int32_<A0>, X>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::divceil_, tag::cpu_, (A0)(X)
+                                      , (simd::meta::is_upgradable_on_ext<A0, X>)
+                                      , ((simd_< int_<A0>, X>))
+                                        ((simd_< int_<A0>, X>))
+                                      )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename meta::scalar_of<A0>::type                     stype;
-      typedef typename dispatch::meta::upgrade<stype>::type          itype;
-      typedef simd::native<itype,X>                                 ivtype;
+      typedef typename dispatch::meta::upgrade<A0>::type ivtype;
       ivtype a0l, a0h, a1l, a1h;
       boost::simd::split(a0, a0l, a0h );
       boost::simd::split(a1, a1l, a1h );
@@ -57,39 +58,17 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)(X)
-                                   , ((simd_<int16_<A0>,X>))
-                                     ((simd_<int16_<A0>,X>))
-                                   )
+ BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::divceil_, tag::cpu_, (A0)(X)
+                                     , (simd::meta::is_upgradable_on_ext<A0, X>)
+                                     , ((simd_< uint_<A0>, X>))
+                                       ((simd_< uint_<A0>, X>))
+                                     )
   {
     typedef A0 result_type;
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename meta::scalar_of<A0>::type                     stype;
-      typedef typename dispatch::meta::upgrade<stype>::type          itype;
-      typedef simd::native<itype,X>                                 ivtype;
-      ivtype a0l, a0h, a1l, a1h;
-      boost::simd::split(a0, a0l, a0h );
-      boost::simd::split(a1, a1l, a1h );
-      ivtype d0 = idivceil(tofloat(a0l), tofloat(a1l));
-      ivtype d1 = idivceil(tofloat(a0h), tofloat(a1h));
-      return groups(d0, d1);
-    }
-  };
-
- BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)(X)
-                                   , ((simd_<uint16_<A0>,X>))
-                                     ((simd_<uint16_<A0>,X>))
-                                   )
-  {
-    typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      typedef typename meta::scalar_of<A0>::type                     stype;
-      typedef typename dispatch::meta::upgrade<stype>::type          itype;
-      typedef simd::native<itype,X>                                 ivtype;
+      typedef typename dispatch::meta::upgrade<A0>::type ivtype;
       ivtype a0l, a0h, a1l, a1h;
       boost::simd::split(a0, a0l, a0h );
       boost::simd::split(a1, a1l, a1h );
@@ -108,12 +87,10 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename meta::scalar_of<A0>::type                     stype;
-      typedef typename dispatch::meta::upgrade<stype>::type          itype;
-      typedef simd::native<itype, X>                                ivtype;
+      typedef typename dispatch::meta::upgrade<A0>::type ivtype;
       ivtype a0l, a0h, a1l, a1h;
-      boost::simd::split(a0, a0l, a0h );
-      boost::simd::split(a1, a1l, a1h );
+      boost::simd::split(a0, a0l, a0h);
+      boost::simd::split(a1, a1l, a1h);
       ivtype d0 = divceil(a0l, a1l);
       ivtype d1 = divceil(a0h, a1h);
       return groups(d0, d1);
