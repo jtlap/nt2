@@ -150,7 +150,7 @@ namespace nt2 { namespace details
 
   struct gelsdUtils
   {
-    static inline nt2_la_int nlvl(const std::string & name, nt2_la_int minnm, nt2_la_int nrsh)
+    static inline nt2_la_int nlvl(const std::string & name, nt2_la_int minnm, nt2_la_int)
     {
       std::string blank =  " ";
       minnm = minnm < 1 ? 1 : minnm;

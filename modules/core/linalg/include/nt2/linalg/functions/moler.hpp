@@ -8,52 +8,68 @@
 //==============================================================================
 #ifndef NT2_LINALG_FUNCTIONS_MOLER_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_MOLER_HPP_INCLUDED
+
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup algebra
- * \defgroup algebra_moler moler
- *
- * moler  moler matrix (symmetric positive definite).
- *    a = moler(n,alpha) is the symmetric positive definite
- *    n-by-n matrix u'*u, where u = triw(n,n,alpha).
- *
- *    for the default alpha = -1, a(i,j) = min(i,j)-2, and a(i,i) = i.
- *    one of the eigenvalues of a is small.
- *
- *    Nash [1] attributes the alpha = -1 matrix to Moler.
- *
- *    Reference:
- *    [1] J. C. Nash, Compact Numerical Methods for Computers: Linear
- *    Algebra and Function Minimisation, second edition, Adam Hilger,
- *    Bristol, 1990 (Appendix 1).
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/moler.hpp>
- * \endcode
- *
- **/
-//==============================================================================
-// moler actual class forward declaration
-//==============================================================================
-
-namespace nt2 { namespace tag
+namespace nt2
+{
+  namespace tag
   {
     /*!
-     * \brief Define the tag moler_ of functor moler
-     *        in namespace nt2::tag for toolbox algebra
+      @brief moler generic tag
+
+      Represents the moler function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
-    struct moler_ : boost::dispatch::tag::formal_
+    struct moler_ : tag::formal_
     {
+      /// @brief Parent hierarchy
       typedef boost::dispatch::tag::formal_ parent;
     };
   }
 
+  /*!
+    @brief Moler matrix.
+
+    Returns the symmetric positive definite n-by-n matrix U'*U, where
+    U = triw(n,alpha).
+
+    @par Reference:
+
+    J. C. Nash, Compact Numerical Methods for Computers: Linear
+    Algebra and Function Minimisation, second edition, Adam Hilger,
+    Bristol, 1990 (Appendix 1).
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::moler_, moler, 2)
 
+  /*!
+    @brief Default Moler matrix.
+
+    Returns the symmetric positive definite n-by-n matrix U'*U, where
+    U = triw(n,-1). In this case, if
+
+    @code
+    a = moler(n);
+    @endcode
+
+    then
+
+    @code
+    a(i,j) = min(i,j)-2
+    a(i,i) = i.
+    @endcode
+
+    One of the eigenvalues of a is small.
+
+    @par Reference:
+
+    J. C. Nash, Compact Numerical Methods for Computers: Linear
+    Algebra and Function Minimisation, second edition, Adam Hilger,
+    Bristol, 1990 (Appendix 1).
+  **/
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::moler_, moler, 1)
 }
 
 #endif
-

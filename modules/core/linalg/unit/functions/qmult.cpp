@@ -18,17 +18,31 @@
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
-
 NT2_TEST_CASE_TPL ( qmult, NT2_REAL_TYPES)
 {
-  typedef typename nt2::meta::as_<T> ta_t;
-  nt2::table<T> qa =  nt2::qmult(nt2::eye(4, nt2::meta::as_<T>()));
-  NT2_TEST_ULP_EQUAL(nt2::mtimes(nt2::transpose(qa), qa), nt2::eye(4, nt2::meta::as_<T>()), 5); //check qa is orthogonal
-  qa = nt2::qmult<T>(3);
-  NT2_TEST_ULP_EQUAL(nt2::mtimes(nt2::transpose(qa), qa), nt2::eye(3, nt2::meta::as_<T>()), 5); //check qa is orthogonal
+  nt2::table<T> qa =  nt2::qmult( nt2::eye(4, nt2::meta::as_<T>()) );
+
+  NT2_TEST_ULP_EQUAL( nt2::mtimes(nt2::transpose(qa), qa)
+                    , nt2::eye(4, nt2::meta::as_<T>())
+                    , 5
+                    );
+
+  nt2::table<T> qi =  nt2::qmult(4, nt2::meta::as_<T>());
+
+  NT2_TEST_ULP_EQUAL( nt2::mtimes(nt2::transpose(qi), qi)
+                    , nt2::eye(4, nt2::meta::as_<T>())
+                    , 5
+                    );
 }
 
+NT2_TEST_CASE( qmult_integer)
+{
+  typedef double T;
 
+  nt2::table<T> qi =  nt2::qmult(4);
 
-
-
+  NT2_TEST_ULP_EQUAL( nt2::mtimes(nt2::transpose(qi), qi)
+                    , nt2::eye(4, nt2::meta::as_<T>())
+                    , 5
+                    );
+}

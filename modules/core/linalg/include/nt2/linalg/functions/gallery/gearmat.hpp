@@ -28,10 +28,13 @@ namespace nt2 {namespace ext
                             )
   {
     typedef typename T::type t_t;
-    BOOST_DISPATCH_RETURNS(4, (A0 const& n,A1 const& i,A2 const& j,T const &t),
-                           ( nt2::tridiag(n, t_t(1), t_t(0), t_t(1))+
-                             nt2::deltaf(1, nt2::iround(nt2::abs(i)), n, n, T())*t_t(nt2::sign(i))+
-                             nt2::deltaf(n, n+1-nt2::iround(nt2::abs(j)), n, n, T())*t_t(nt2::sign(j)))
+    BOOST_DISPATCH_RETURNS(4, (A0 const& n,A1 const& i,A2 const& j,T const &t)
+                          , ( nt2::tridiag(n, t_t(1), t_t(0), t_t(1))
+                            + nt2::deltaf(1, nt2::iround(nt2::abs(i)), n, n, t)
+                            * t_t(nt2::sign(i))
+                            + nt2::deltaf(n, n+1-nt2::iround(nt2::abs(j)), n, n, t)
+                            * t_t(nt2::sign(j))
+                            )
                           )
       };
 
@@ -42,8 +45,8 @@ namespace nt2 {namespace ext
                               (target_<scalar_<unspecified_<T> > >)
                             )
   {
-    BOOST_DISPATCH_RETURNS(3, (A0 const& n,A1 const& i,T const &t),
-                           ( nt2::gearmat(n, i, -ptrdiff_t(n), T()))
+    BOOST_DISPATCH_RETURNS(3, (A0 const& n,A1 const& i,T const &t)
+                          , ( nt2::gearmat(n, i, -ptrdiff_t(n), t))
                           )
       };
 
@@ -53,8 +56,8 @@ namespace nt2 {namespace ext
                               (target_<scalar_<unspecified_<T> > >)
                             )
   {
-    BOOST_DISPATCH_RETURNS(2, (A0 const& n,T const &t),
-                           ( nt2::gearmat(n, n, -ptrdiff_t(n), T()))
+    BOOST_DISPATCH_RETURNS(2, (A0 const& n,T const& t)
+                          , ( nt2::gearmat(n, n, -ptrdiff_t(n), t) )
                           )
       };
 
@@ -65,9 +68,8 @@ namespace nt2 {namespace ext
                               (scalar_<arithmetic_<A2> >)
                             )
   {
-
-    BOOST_DISPATCH_RETURNS(3, (A0 const& n,A1 const& i,A2 const& j),
-                           ( nt2::gearmat(n, i, j, meta::as_<A1>()))
+    BOOST_DISPATCH_RETURNS(3, (A0 const& n,A1 const& i,A2 const& j)
+                          , ( nt2::gearmat(n, i, j, meta::as_<A1>()))
                           )
       };
 
@@ -116,9 +118,6 @@ namespace nt2 {namespace ext
                            ( gearmat(n, n, -ptrdiff_t(n), meta::as_<double>()))
                           )
       };
-
-
-
 } }
 
 #endif

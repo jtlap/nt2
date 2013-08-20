@@ -126,9 +126,10 @@ namespace nt2 { namespace ext
                               (scalar_<unspecified_<A1> >)
                               )
   {
-    BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1),
-                           nt2::zeros(2, 2, nt2::meta::as_<A0>())
-                           )
+    BOOST_DISPATCH_RETURNS_ARGS ( 2, (A0 const& a0, A1 const& a1)
+                                , (A0 const&, A1 const&)
+                                , nt2::zeros(2, 2, nt2::meta::as_<A0>())
+                                )
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cov_, tag::cpu_,
                               (A0)(A1)(A2),
@@ -137,11 +138,11 @@ namespace nt2 { namespace ext
                               (scalar_<integer_<A2> >)
                               )
   {
-    BOOST_DISPATCH_RETURNS(3, (A0 const& a0, A1 const& a1, A2 const& a2),
-                           nt2::zeros(2, 2, nt2::meta::as_<A0>())
-                           )
+    BOOST_DISPATCH_RETURNS_ARGS ( 3, (A0 const& a0, A1 const& a1, A2 const& a2)
+                                , (A0 const&, A1 const&, A2)
+                                , nt2::zeros(2, 2, nt2::meta::as_<A0>())
+                                )
   };
-
 } }
 
 #endif

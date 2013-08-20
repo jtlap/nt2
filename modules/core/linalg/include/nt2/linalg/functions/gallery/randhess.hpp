@@ -35,8 +35,11 @@ namespace nt2
                               )
     {
       typedef typename T::type t_t;
-      BOOST_DISPATCH_RETURNS(2, (A0 const& n, T const & t),
-                             (nt2::Twopi<t_t>()*nt2::randhess(nt2::rand(n, 1, T())))
+      BOOST_DISPATCH_RETURNS( 2
+                            , (A0 const& n, T const & t)
+                            , ( nt2::Twopi<t_t>()
+                              * nt2::randhess(nt2::rand(n, 1, t))
+                              )
                             )
     };
 

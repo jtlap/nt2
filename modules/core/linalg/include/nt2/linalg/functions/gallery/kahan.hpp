@@ -23,7 +23,6 @@
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/utility/box.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -78,18 +77,27 @@ namespace nt2 { namespace ext
                               (scalar_<floating_<A1> >)
                               (scalar_<floating_<A2> >)
                               (target_< scalar_< unspecified_<T> > >)
-    )
+                            )
   {
     typedef typename T::type value_t;
-    BOOST_DISPATCH_RETURNS(4, (A0 const& n, A1 const& theta, A2 const& pert, T  const& t),
-                           (boost::proto::
-                            make_expr<nt2::tag::kahan_, container::domain>
-                            ( value_t(theta)
-                            , value_t(pert)
-                            , boxify(nt2::of_size(size_t(n), size_t(n)))
-                            )
-                           )
-                          )
+    BOOST_DISPATCH_RETURNS_ARGS ( 4
+                                , ( A0 const& n   , A1 const& theta
+                                  , A2 const& pert, T  const& t
+                                  )
+                                , ( A0 const& n   , A1 const& theta
+                                  , A2 const& pert, T  const&
+                                  )
+                                , (boost::proto::make_expr< nt2::tag::kahan_
+                                                          , container::domain
+                                                          >
+                                                          ( value_t(theta)
+                                                          , value_t(pert)
+                                                          , of_size ( size_t(n)
+                                                                    , size_t(n)
+                                                                    )
+                                                          )
+                                  )
+                                )
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::kahan_, tag::cpu_,
@@ -98,18 +106,25 @@ namespace nt2 { namespace ext
                               (scalar_<floating_<A1> >)
                               (scalar_<floating_<A2> >)
                               (target_< scalar_< unspecified_<T> > >)
-    )
+                            )
   {
     typedef typename T::type value_t;
-    BOOST_DISPATCH_RETURNS(4, (A0 const& siz, A1 const& theta, A2 const& pert, T  const& t),
-                           (boost::proto::
-                            make_expr<nt2::tag::kahan_, container::domain>
-                            ( value_t(theta)
-                            , value_t(pert)
-                            , boxify(siz)
-                            )
-                           )
-                          )
+    BOOST_DISPATCH_RETURNS_ARGS ( 4
+                                , ( A0 const& n, A1 const& theta
+                                  , A2 const& pert, T  const& t
+                                  )
+                                , ( A0 const& n   , A1 const& theta
+                                  , A2 const& pert, T  const&
+                                  )
+                                ,(boost::proto::make_expr < nt2::tag::kahan_
+                                                          , container::domain
+                                                          >
+                                                          ( value_t(theta)
+                                                          , value_t(pert)
+                                                          , n
+                                                          )
+                                  )
+                                )
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
