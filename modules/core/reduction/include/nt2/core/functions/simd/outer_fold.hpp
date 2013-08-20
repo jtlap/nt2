@@ -13,6 +13,12 @@
 #include <boost/simd/sdk/simd/meta/is_vectorizable.hpp>
 #include <boost/fusion/include/pop_back.hpp>
 #include <nt2/sdk/config/cache.hpp>
+#include <boost/config.hpp>
+
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable: 4702) // unreachable code false positive
+#endif
 
 #ifndef BOOST_SIMD_NO_SIMD
 namespace nt2 { namespace ext
@@ -92,4 +98,9 @@ namespace nt2 { namespace ext
   } }
 
 #endif
+
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
+
 #endif

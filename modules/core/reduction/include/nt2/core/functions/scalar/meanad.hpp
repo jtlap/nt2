@@ -20,7 +20,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename  meta::call<tag::abs_(A0 const&)>::type result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a) const
+    BOOST_FORCEINLINE result_type operator()(A0 const&) const
     {
       return Zero<result_type>();
     }
@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename  meta::call<tag::abs_(A0 const&)>::type result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const &) const
+    BOOST_FORCEINLINE result_type operator()(A0 const&, A1 const &) const
     {
       return Zero<result_type>();
     }
