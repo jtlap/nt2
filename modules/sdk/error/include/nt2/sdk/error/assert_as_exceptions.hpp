@@ -68,7 +68,7 @@ namespace boost
     ( ::boost::enable_error_info( ::nt2::assert_exception(ss.str()) )
       << ::boost::throw_function(fn)
       << ::boost::throw_file(f)
-      << ::boost::throw_line(l)
+      << ::boost::throw_line(int(l))
     );
     #else
     ::boost::throw_exception( ::nt2::assert_exception(ss.str()) );
@@ -90,7 +90,7 @@ namespace boost
     ::boost::throw_exception( ::boost::enable_error_info( ::nt2::assert_exception(ss.str()) ) <<
         ::boost::throw_function(fn) <<
         ::boost::throw_file(f) <<
-        ::boost::throw_line(l)
+        ::boost::throw_line(int(l))
     );
     #else
     ::boost::throw_exception( ::nt2::assert_exception(ss.str()) );
