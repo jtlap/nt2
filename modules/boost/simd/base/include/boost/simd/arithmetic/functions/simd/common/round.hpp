@@ -15,30 +15,32 @@
 #include <boost/simd/include/functions/simd/bitwise_xor.hpp>
 #include <boost/simd/include/functions/simd/abs.hpp>
 #include <boost/simd/include/functions/simd/bitofsign.hpp>
-#include <boost/simd/include/functions/simd/touint.hpp>
+#include <boost/simd/include/functions/simd/toint.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>
 #include <boost/simd/include/constants/half.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round_, tag::cpu_, (A0)(X)
-                            , ((simd_<integer_<A0>,X>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round_, tag::cpu_,
+                                     (A0)(X)
+                                   , ((simd_<integer_<A0>,X>))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1) { return a0; }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round_, boost::simd::tag::simd_, (A0)(X)
-                            , ((simd_<floating_<A0>,X>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round_, boost::simd::tag::simd_,
+                                     (A0)(X)
+                                   , ((simd_<floating_<A0>,X>))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       const result_type v = simd::abs(a0);
       return if_else(is_nlt(v, Maxflint<result_type>()), a0,
-                     bitwise_xor(tofloat(touint(v+Half<result_type>())), bitofsign(a0))
+                     bitwise_xor(tofloat(toint(v+Half<result_type>())), bitofsign(a0))
                     );
     }
   };
