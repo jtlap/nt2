@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_UTILITY_NUMERIC_CLASS_HPP_INCLUDED
-#define NT2_CORE_UTILITY_NUMERIC_CLASS_HPP_INCLUDED
+#ifndef NT2_CORE_NUMERIC_CLASS_HPP_INCLUDED
+#define NT2_CORE_NUMERIC_CLASS_HPP_INCLUDED
 
 #include <nt2/sdk/meta/as.hpp>
 #include <nt2/sdk/config/types.hpp>

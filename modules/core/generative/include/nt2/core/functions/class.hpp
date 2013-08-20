@@ -17,9 +17,9 @@
 namespace nt2
 {
   /*!
-    @brief Retrieve the numerical class of an object
+    @brief Retrieve the type class of an object
 
-    For any given object, class returns a meta-descriptor that contains
+    For any given object, class returns a type specifier that contains
     informations about the numerical type of values stored inside.
 
     @par Semantic
@@ -33,20 +33,19 @@ namespace nt2
     is equivalent to
 
     @code
-    nt2::meta::as_<meta::value_type_<T>::type> x;
+    auto x = nt2::meta::as_<meta::value_type_<T>::type>();
     @endcode
 
     @param t Object to extract the numeric class from
 
-    @return A meta-object describing the valeu type of t
+    @return A meta-object describing the value type of t
    **/
-  template<class T> BOOST_FORCEINLINE
+  template<typename T> BOOST_FORCEINLINE
   meta::as_<typename meta::value_type_<T>::type>
   class_( T const& t )
   {
     boost::dispatch::ignore_unused(t);
-    meta::as_< typename meta::value_type_<T>::type > that;
-    return that;
+    return meta::as_< typename meta::value_type_<T>::type >();
   }
 }
 

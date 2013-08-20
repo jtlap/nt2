@@ -14,6 +14,7 @@ c180.cpp
 cgold.cpp
 cic.cpp
 cif.cpp
+class.cpp
 colon.cpp
 cols.cpp
 deltac.cpp

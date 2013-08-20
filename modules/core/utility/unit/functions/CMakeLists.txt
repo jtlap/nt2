@@ -13,7 +13,6 @@ SET( SOURCES
   as_index.cpp
   as_size.cpp
   as_subscript.cpp
-  class.cpp
   disp.cpp
   find.cpp
   findi.cpp
