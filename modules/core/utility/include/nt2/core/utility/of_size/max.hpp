@@ -62,6 +62,9 @@ namespace nt2 { namespace utility
         type& that;
         of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D1)> const& a0;
         of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D2)> const& a1;
+
+        private:
+        impl& operator=(impl const&);
       };
 
       template<class A, class B>

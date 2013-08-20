@@ -62,6 +62,8 @@ namespace nt2 { namespace ext
       A0& a0;
       State const& state;
       Data const& data;
+      private:
+      impl& operator=(impl const&);
     };
 
     BOOST_FORCEINLINE result_type operator()(A0& a0, State const& state, Data const& data) const

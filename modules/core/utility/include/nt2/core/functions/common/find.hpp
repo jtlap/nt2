@@ -184,15 +184,17 @@ namespace nt2 { namespace ext
     }
 
     BOOST_FORCEINLINE  //    i = find(x)
-      void getparams(A0 const &a0, bool&,
+      void getparams(A0 const &, bool&,
                      boost::mpl::long_<1> const &//number of inputs
         ) const
-    { }
+    {}
+
     BOOST_FORCEINLINE  //    i = find(x, k)
-      void getparams(A0 const &a0, bool&,
+      void getparams(A0 const &, bool&,
                      boost::mpl::long_<2> const &//number of inputs
         ) const
-    { }
+    {}
+
     BOOST_FORCEINLINE  //    i = find(x, k, 'f') or i = find(x, k, 'l')
       void getparams(A0 const &a0, bool& first,
                      boost::mpl::long_<3> const &//number of inputs

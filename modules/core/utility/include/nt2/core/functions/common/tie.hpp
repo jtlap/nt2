@@ -104,6 +104,9 @@ namespace nt2 { namespace ext
 
       Expr& x;
       Sz const& sz;
+
+      private:
+      impl& operator=(impl const&);
     };
 
     template<class Sz>

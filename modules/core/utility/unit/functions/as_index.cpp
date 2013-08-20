@@ -51,7 +51,6 @@ NT2_TEST_CASE_TPL ( as_index_1D_simd
 
   typedef typename vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type idx_t;
   typedef typename boost::dispatch::meta::as_unsigned<idx_t>::type sidx_t;
-  static const std::size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
 
   NT2_TEST_EQUAL( as_index( make_vector(16)
                           , make_vector(nt2::enumerate<idx_t>(0))

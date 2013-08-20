@@ -12,21 +12,22 @@
 #include <boost/cstdint.hpp>
 #include <boost/mpl/string.hpp>
 
-namespace nt2 { namespace tag { struct permute_ {}; } }
-
 namespace nt2
 {
-  //============================================================================
-  /*! permute_view_ gives an other view of a sequence.
-   *
-   * \tparam Sequence     Sequence to change the view
-   * \tparam Permutation  metafunction with rules of the view
+  namespace tag
+  {
+    struct permute_ {};
+  }
+
+  namespace meta
+  {
+    /*!
+      permute_view_ gives an other view of a sequence.
+
+      @tparam Sequence     Sequence to change the view
+      @tparam Permutation  metafunction with rules of the view
    **/
-  //============================================================================
-
-  namespace meta {
-
-    template<typename Seq, typename Permutation>
+   template<typename Seq, typename Permutation>
     struct permute_view
     {
       typedef Seq sequence_type;
@@ -34,11 +35,12 @@ namespace nt2
       typedef tag::permute_ fusion_tag;
 
       permute_view(Seq& s) : seq(s) {}
+
       Seq& seq;
 
+      private:
+      permute_view& operator=(permute_view const& s);
     };
-
-
 
     template <typename Seq, typename Permutation>
     permute_view<Seq,Permutation> permute(Seq const& seq)
@@ -53,10 +55,7 @@ namespace nt2
       permute_view<Seq const &,Permutation> that(seq);
       return that;
     }
-
-
   }
-
 }
 
 #include <nt2/sdk/meta/permute_meta.hpp>

@@ -70,7 +70,7 @@ namespace nt2 { namespace result_of
     template<class N, class M>
     BOOST_FORCEINLINE void
     eval( type& sub, type_t const& p
-        , Size const& s, N const&, M const& m
+        , Size const& s, N const&, M const&
         , boost::mpl::true_ const&
         ) const
 
