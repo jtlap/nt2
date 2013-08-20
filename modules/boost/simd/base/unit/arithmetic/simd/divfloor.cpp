@@ -83,7 +83,7 @@ NT2_TEST_CASE_TPL ( divfloor_s,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_EQUAL(divfloor(boost::simd::Zero<vT>(),boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( divfloor_s2,  (int64_t))
+NT2_TEST_CASE_TPL ( divfloor_s2,   BOOST_SIMD_SIMD_INT_CONVERT_TYPES)
 {
   using boost::simd::divfloor;
   using boost::simd::tag::divfloor_;
@@ -91,8 +91,9 @@ NT2_TEST_CASE_TPL ( divfloor_s2,  (int64_t))
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
   typedef typename boost::dispatch::meta::call<divfloor_(vT,vT)>::type r_t;
+  typedef typename boost::dispatch::meta::as_floating<T>::type f_t;
 
-  T mf = boost::simd::Maxflint<double>();
+  T mf = boost::simd::Maxflint<f_t>();
   T tz = mf+T(1);
   vT z =  boost::simd::splat<vT>(tz);
   vT mz =  boost::simd::splat<vT>(-tz);
