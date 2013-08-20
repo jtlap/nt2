@@ -33,12 +33,12 @@ using nt2::tag::any_;
 namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(any_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
+  NT2_TIMING(any_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(any_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
+  NT2_TIMING(any_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n3 {
   typedef nt2::int8_t T;
