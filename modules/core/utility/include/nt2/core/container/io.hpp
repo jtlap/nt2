@@ -25,6 +25,21 @@ namespace nt2
 {
   namespace details
   {
+    template<typename Pos> inline
+    void print_ellipsis(std::ostream& os, Pos const& p, boost::mpl::true_ const&)
+    {
+      // add the potential (:,:,...) indicator
+      os << "(:,:";
+      for(std::size_t i=2;i<Pos::static_size;++i) os << "," << p[i];
+      os << ")";
+    }
+
+    template<typename Pos> inline
+    void print_ellipsis(std::ostream&, Pos const&, boost::mpl::false_ const&)
+    {
+
+    }
+
     /// INTERNAL ONLY
     /// Display a 2D page from an expression
     template<class Xpr, class Pos> inline
@@ -42,13 +57,7 @@ namespace nt2
       if(name)
       {
         os << name;
-        if(Pos::static_size > 2)
-        {
-          // .. and the potential (:,:,...) indicator
-          os << "(:,:";
-          for(std::size_t i=2;i<Pos::static_size;++i) os << "," << p[i];
-          os << ")";
-        }
+        print_ellipsis(os,p, boost::mpl::bool_<(Pos::static_size > 2)>() );
         os << " = \n\n";
       }
 
