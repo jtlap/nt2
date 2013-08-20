@@ -25,6 +25,7 @@
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/at.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/preprocessor/control/if.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
@@ -62,12 +63,18 @@ namespace nt2 { namespace details
                               );                                                                   \
   /**/
 
+  #define M4(t) t
+  #define M5(t)
+
   #define M3(z,n,t)                                                                                \
   template<class Dummy>                                                                            \
   struct impl<n, Dummy>                                                                            \
   {                                                                                                \
     BOOST_FORCEINLINE                                                                              \
-    static result_type call(Sizes const& sz, Bases const& bs, Children const& children)            \
+    static result_type call(  Sizes    const& BOOST_PP_IF(n,M4,M5)(sz)                             \
+                            , Bases    const& BOOST_PP_IF(n,M4,M5)(bs)                             \
+                            , Children const& BOOST_PP_IF(n,M4,M5)(children)                       \
+                            )                                                                      \
     {                                                                                              \
       result_type that;                                                                            \
       BOOST_PP_REPEAT(n, M2, t)                                                                    \
@@ -103,6 +110,8 @@ namespace nt2 { namespace details
   #undef M1
   #undef M2
   #undef M3
+  #undef M4
+  #undef M5
 
   template< class Domain
           , class Shape, class Sizes, class Bases
@@ -116,39 +125,69 @@ namespace nt2 { namespace details
     typedef typename nt2::make_size<size_max>::type size_max_type;
 
     typedef typename boost::mpl::
-            if_< boost::mpl::and_< is_definitely_vector<Shape>, is_definitely_vector<idx0_sz> >
-               , typename boost::mpl::if_c< Shape::static_size == 1u, nt2::of_size_<-1>, nt2::of_size_<1, -1> >::type
+            if_< boost::mpl::and_ < is_definitely_vector<Shape>
+                                  , is_definitely_vector<idx0_sz>
+                                  >
+               , typename boost::mpl::if_c< Shape::static_size == 1u
+                                          , nt2::of_size_<-1>
+                                          , nt2::of_size_<1, -1>
+                                          >::type
                , typename boost::mpl::
-                 if_< boost::mpl::or_< is_definitely_not_vector<Shape>, is_definitely_not_vector<idx0_sz> >
+                 if_< boost::mpl::or_ < is_definitely_not_vector<Shape>
+                                      , is_definitely_not_vector<idx0_sz>
+                                      >
                     , idx0_sz
                     , size_max_type
                     >::type
-               >::type result_type;
+               >::type                                result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(Shape const& shp, Sizes const& sz, Bases const& bs, Children const& children) const
+    operator()( Shape const& shp, Sizes const& sz
+              , Bases const& bs, Children const& children
+              ) const
     {
       std::size_t s = nt2::relative_size( boost::proto::child_c<0>(children)
                                         , boost::fusion::at_c<0>(sz)
                                         , boost::fusion::at_c<0>(bs)
                                         );
 
+      // Select shorter computation if relactive_colon is involved
+      typedef boost::is_same< typename Children::proto_child0::proto_tag
+                            , nt2::tag::relative_colon_
+                            > select_t;
+
+      return eval(shp,children,s,typename select_t::type());
+    }
+
+    BOOST_FORCEINLINE result_type
+    eval( Shape const& shp, Children const& children, std::size_t s
+        , boost::mpl::false_ const&
+        ) const
+    {
       idx0_sz const& idx0 = boost::proto::child_c<0>(children).extent();
       std::size_t n = nt2::ndims(shp);
       std::size_t m = nt2::ndims(idx0);
 
-      bool idx0_vector = m == 1u || ( m == 2u && boost::fusion::at_c<0>(idx0) == 1u);
-      if(idx0_vector && n == 1u) // column vector
-        return nt2::of_size(s);
+      bool idx0_vector  =   (m == 1u)
+                        ||  ( m == 2u && boost::fusion::at_c<0>(idx0) == 1u);
 
-      if(idx0_vector && n == 2u && boost::fusion::at_c<0>(shp) == 1u) // row vector
+      // column vector
+      if(idx0_vector && n == 1u) return nt2::of_size(s);
+
+      // row vector
+      if(idx0_vector && n == 2u && boost::fusion::at_c<0>(shp) == 1u)
         return nt2::of_size(1u, s);
 
-      // cannot use size of relative colon directly
-      if(boost::is_same<typename Children::proto_child0::proto_tag, nt2::tag::relative_colon_>::value)
-        return nt2::of_size(1u, s);
-
+      // Else return the extent
       return boost::proto::child_c<0>(children).extent();
+    }
+
+    BOOST_FORCEINLINE result_type
+    eval( Shape const&, Children const&
+        , std::size_t s, boost::mpl::true_ const&
+        ) const
+    {
+      return nt2::of_size(1u, s);
     }
   };
 } }

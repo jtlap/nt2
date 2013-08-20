@@ -6,20 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.arithmetic toolbox - rsqrt/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.arithmetic components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created by jt the 30/11/2010
-///
 #include <nt2/include/functions/bitwise_cast.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/extract.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/rsqrt.hpp>
-#include <nt2/include/functions/cos.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <boost/type_traits/is_same.hpp>

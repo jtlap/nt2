@@ -6,14 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - rec/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of arithmetic components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created by jt the 01/12/2010
-///
-#include <nt2/arithmetic/include/functions/rec.hpp>
+#include <nt2/arithmetic/include/functions/scalar/rec.hpp>
 #include <nt2/include/functions/rdivide.hpp>
 
 #include <boost/type_traits/is_same.hpp>

@@ -79,13 +79,14 @@ struct logical_f
   };
 
   template<class A0>
-  typename result<logical_f(A0 const&)>::type operator()(A0 const& a0) const
+  typename result<logical_f(A0 const&)>::type operator()(A0 const&) const
   {
     return boost::simd::logical<A0>(true);
   }
 
   template<class A0, class X>
-  typename result<logical_f(boost::simd::native<A0, X> const&)>::type operator()(boost::simd::native<A0, X> const& a0) const
+  typename result<logical_f(boost::simd::native<A0, X> const&)>::type
+  operator()(boost::simd::native<A0, X> const& a0) const
   {
     return boost::simd::map(*this, a0);
   }

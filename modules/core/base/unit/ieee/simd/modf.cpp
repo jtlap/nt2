@@ -9,7 +9,7 @@
 #include <nt2/ieee/include/functions/modf.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
-#include <boost/simd/include/functions/splat.hpp>
+#include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/trunc.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <boost/fusion/include/vector_tie.hpp>

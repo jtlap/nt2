@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
   {
     typedef A0& result_type;
 
-    result_type operator()(A0& a0, I0& i0) const
+    result_type operator()(A0& a0, I0&) const
     {
       typedef typename A0::proto_child0::proto_child0 container_ref;
       typedef typename container_ref::base_t base_t;
@@ -78,7 +78,7 @@ namespace nt2 { namespace ext
       return a0;
     }
 
-    result_type operator()(A0& a0, I0& i0, boost::mpl::false_) const
+    result_type operator()(A0& a0, I0&, boost::mpl::false_) const
     {
       typedef typename A0::proto_child0 container_ref;
       typedef typename container_ref::base_t base_t;
@@ -98,9 +98,11 @@ namespace nt2 { namespace ext
                             , ((ast_<A0, nt2::container::domain>))(colon_<I0>)
                             )
   {
-    BOOST_DISPATCH_RETURNS(2, (A0& a0, I0 const& i0),
-      nt2::colvect(a0)
-    )
+    BOOST_DISPATCH_RETURNS_ARGS ( 2
+                                , (A0& a0, I0 const& io)
+                                , (A0& a0, I0 const&)
+                                , nt2::colvect(a0)
+                                );
   };
 
   template<class A0, class T, class Dummy = void>

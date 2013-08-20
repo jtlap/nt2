@@ -6,82 +6,60 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 bitwise toolbox - hi/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of bitwise components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 18/02/2011
-///
 #include <nt2/bitwise/include/functions/hi.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/sdk/meta/downgrade.hpp>
-
-#include <boost/type_traits/is_same.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
+#include <nt2/include/constants/real_splat.hpp>
+#include <nt2/include/functions/splat.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_signed.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/meta/downgrade.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/type_traits/common_type.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
-#include <nt2/constant/constant.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/include/functions/splat.hpp>
-
-
-
-NT2_TEST_CASE_TPL ( hi_real__1_0,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( return_type,  BOOST_SIMD_SIMD_TYPES)
 {
-  using nt2::hi;
   using nt2::tag::hi_;
   using boost::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<hi_(vT)>::type r_t;
-  typedef typename nt2::meta::call<hi_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
 
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>               vT;
 
-  // specific values tests
-  NT2_TEST_EQUAL(hi(nt2::Nan<vT>())[0], nt2::Mone<sr_t>());
-  NT2_TEST_EQUAL(hi(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
-} // end of test for floating_
+  NT2_TEST_TYPE_IS( typename nt2::meta::call<hi_(vT)>::type
+                  , (typename nt2::meta::as_integer<vT,unsigned>::type)
+                  );
+}
 
-NT2_TEST_CASE_TPL ( hi_sintgt_8__1_0,  NT2_SIMD_SIGNED_INT_GT_8_TYPES)
+NT2_TEST_CASE_TPL ( real_hi,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using nt2::hi;
-  using nt2::tag::hi_;
   using boost::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<hi_(vT)>::type r_t;
-  typedef typename nt2::meta::call<hi_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
 
+  typedef BOOST_SIMD_DEFAULT_EXTENSION                          ext_t;
+  typedef native<T,ext_t>                                       vT;
+  typedef typename nt2::meta::as_integer<vT,unsigned>::type  viT;
 
-  // specific values tests
-  NT2_TEST_EQUAL(hi(nt2::One<vT>())[0], nt2::Zero<sr_t>());
-  NT2_TEST_EQUAL(hi(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
-} // end of test for sintgt_8_
+  vT  val = nt2::real_constant<vT, 0x12345678FFFFFFFFLL, 0x1234FFFF>();
+  vT  res = nt2::real_constant<vT, 0x0000000012345678LL, 0x00001234>();
+  viT ref = nt2::bitwise_cast<viT>(res);
+
+  NT2_TEST_EQUAL( hi(val), ref );
+}
+
+NT2_TEST_CASE_TPL( integer_hi, BOOST_SIMD_SIMD_INTEGRAL_TYPES )
+{
+  using nt2::hi;
+  using nt2::splat;
+  using boost::simd::native;
+
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>               vT;
+  typedef typename nt2::meta::as_integer<vT,unsigned>::type viT;
+
+  vT  val = splat<vT>(~0);
+  viT ref = splat<viT>( (T(1)<< (sizeof(T)*(CHAR_BIT/2))) - 1);
+
+  NT2_TEST_EQUAL( hi(val), ref );
+}
