@@ -14,6 +14,12 @@
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/dispatch/functor/meta/make_functor.hpp>
+#include <boost/config.hpp>
+
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable: 4512) // custom operator= required
+#endif
 
 namespace boost { namespace simd { namespace tag
 {
@@ -131,5 +137,9 @@ namespace boost { namespace simd { namespace details
     }
   };
 } } }
+
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
 
 #endif

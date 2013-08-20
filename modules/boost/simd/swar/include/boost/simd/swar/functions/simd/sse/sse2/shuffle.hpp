@@ -559,56 +559,56 @@ namespace boost { namespace simd
       }
 
       BOOST_FORCEINLINE
-      result_type eval( __m128 const a0, __m128 const a1
+      result_type eval( __m128 const a0, __m128 const
                       , sel<-1,-1,0,1,1,false,false,true> const&) const
       {
         return _mm_movelh_ps(Zero<result_type>(),a0);
       }
 
       BOOST_FORCEINLINE
-      result_type eval( __m128 const a0, __m128 const a1
+      result_type eval( __m128 const, __m128 const a1
                       , sel<-1,-1,4,5,0,false,false,true> const&) const
       {
         return _mm_movelh_ps(Zero<result_type>(),a1);
       }
 
       BOOST_FORCEINLINE
-      result_type eval( __m128 const a0, __m128 const a1
+      result_type eval( __m128 const a0, __m128 const
                       , sel<-1,-1,2,3,1,false,false,true> const&) const
       {
         return _mm_movehl_ps(Zero<result_type>(),a0);
       }
 
       BOOST_FORCEINLINE
-      result_type eval( __m128 const a0, __m128 const a1
+      result_type eval( __m128 const, __m128 const a1
                       , sel<-1,-1,6,7,0,false,false,true> const&) const
       {
         return _mm_movehl_ps(a1,Zero<result_type>());
       }
 
       BOOST_FORCEINLINE
-      result_type eval( __m128 const a0, __m128 const a1
+      result_type eval( __m128 const a0, __m128 const
                       , sel<0,1,-1,-1,1,false,false,true> const&) const
       {
         return _mm_movelh_ps(a0,Zero<result_type>());
       }
 
       BOOST_FORCEINLINE
-      result_type eval( __m128 const a0, __m128 const a1
+      result_type eval( __m128 const, __m128 const a1
                       , sel<4,5,-1,-1,0,false,false,true> const&) const
       {
         return _mm_movelh_ps(a1,Zero<result_type>());
       }
 
       BOOST_FORCEINLINE
-      result_type eval( __m128 const a0, __m128 const a1
+      result_type eval( __m128 const a0, __m128 const
                       , sel<2,3,-1,-1,1,false,false,true> const&) const
       {
         return _mm_movehl_ps(a0,Zero<result_type>());
       }
 
       BOOST_FORCEINLINE
-      result_type eval( __m128 const a0, __m128 const a1
+      result_type eval( __m128 const, __m128 const a1
                       , sel<6,7,-1,-1,0,false,false,true> const&) const
       {
         return _mm_movehl_ps(a1,Zero<result_type>());
@@ -643,21 +643,21 @@ namespace boost { namespace simd
       }
 
       BOOST_FORCEINLINE
-      result_type eval( __m128 const a0, __m128 const a1
+      result_type eval( __m128 const a0, __m128 const
                       , sel<0,-1,1,-1,1,false,true> const&) const
       {
         return _mm_unpacklo_ps(a0,Zero<result_type>());
       }
 
       BOOST_FORCEINLINE
-      result_type eval( __m128 const a0, __m128 const a1
+      result_type eval( __m128 const, __m128 const a1
                       , sel<4,-1,5,-1,0,false,true> const&) const
       {
         return _mm_unpacklo_ps(a1,Zero<result_type>());
       }
 
       BOOST_FORCEINLINE
-      result_type eval( __m128 const a0, __m128 const a1
+      result_type eval( __m128 const a0, __m128 const
                       , sel<2,-1,3,-1,1,false,true> const&) const
       {
         return _mm_unpackhi_ps(a0,Zero<result_type>());
@@ -665,7 +665,7 @@ namespace boost { namespace simd
       }
 
       BOOST_FORCEINLINE
-      result_type eval( __m128 const a0, __m128 const a1
+      result_type eval( __m128 const, __m128 const a1
                       , sel<6,-1,7,-1,0,false,true> const&) const
       {
         return _mm_unpackhi_ps(a1,Zero<result_type>());
@@ -673,28 +673,28 @@ namespace boost { namespace simd
       }
 
       BOOST_FORCEINLINE
-      result_type eval( __m128 const a0, __m128 const a1
+      result_type eval( __m128 const a0, __m128 const
                       , sel<-1,0,-1,1,1,false,true> const&) const
       {
         return _mm_unpacklo_ps(Zero<result_type>(),a0);
       }
 
       BOOST_FORCEINLINE
-      result_type eval( __m128 const a0, __m128 const a1
+      result_type eval( __m128 const, __m128 const a1
                       , sel<-1,4,-1,5,0,false,true> const&) const
       {
         return _mm_unpacklo_ps(Zero<result_type>(),a1);
       }
 
       BOOST_FORCEINLINE
-      result_type eval( __m128 const a0, __m128 const a1
+      result_type eval( __m128 const a0, __m128 const
                       , sel<-1,2,-1,3,1,false,true> const&) const
       {
         return _mm_unpackhi_ps(Zero<result_type>(),a0);
       }
 
       BOOST_FORCEINLINE
-      result_type eval( __m128 const a0, __m128 const a1
+      result_type eval( __m128 const, __m128 const a1
                       , sel<-1,6,-1,7,0,false,true> const&) const
       {
         return _mm_unpackhi_ps(Zero<result_type>(),a1);

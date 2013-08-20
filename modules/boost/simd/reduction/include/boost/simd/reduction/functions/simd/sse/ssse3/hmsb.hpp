@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       __m128i mask =  _mm_setr_epi8 ( 0x01,0x03,0x05,0x07,0x09,0x0B,0x0D,0x0F
-                                    , 0x80,0x80,0x80,0x80,0x80,0x80,0x80,0x80
+                                    , -128,-128,-128,-128,-128,-128,-128,-128
                                     );
 
       return _mm_movemask_epi8(_mm_shuffle_epi8(bitwise_cast<__m128i>(a0),mask));

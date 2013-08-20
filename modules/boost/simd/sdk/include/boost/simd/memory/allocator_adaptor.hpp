@@ -64,7 +64,7 @@ namespace boost { namespace simd
     }
 
     /// Deallocate a pointer allocated by the current allocator
-    void deallocate (pointer p, size_type s)
+    void deallocate (pointer p, size_type )
     {
       boost::simd::deallocate(base(), p);
     }

@@ -38,7 +38,7 @@ namespace boost { namespace simd { namespace details
     protected:
     friend class boost::iterator_core_access;
 
-    BOOST_FORCEINLINE
+    inline
     typename input_iterator_base::reference dereference() const
     {
       dispatch::functor<LoadFun> callee;
@@ -47,16 +47,16 @@ namespace boost { namespace simd { namespace details
                     );
     }
 
-    BOOST_FORCEINLINE void increment() { this->base_reference() += C; }
-    BOOST_FORCEINLINE void decrement() { this->base_reference() -= C; }
+    inline void increment() { this->base_reference() += C; }
+    inline void decrement() { this->base_reference() -= C; }
 
-    BOOST_FORCEINLINE
+    inline
     void advance(typename input_iterator_base::difference_type n)
     {
       this->base_reference() += n*C;
     }
 
-    BOOST_FORCEINLINE typename input_iterator_base::difference_type
+    inline typename input_iterator_base::difference_type
     distance_to(input_iterator_base const& other) const
     {
       return (other.base() - this->base()) / cardinal;

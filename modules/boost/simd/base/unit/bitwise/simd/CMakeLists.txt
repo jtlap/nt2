@@ -36,4 +36,4 @@ SET( SOURCES
 # List of simd test files for toolbox bitwise
    )
 
-nt2_module_add_tests(boost.simd.bitwise.simd.unit ${SOURCES})
+nt2_module_add_tests(boost.simd.base.bitwise.simd.unit ${SOURCES})

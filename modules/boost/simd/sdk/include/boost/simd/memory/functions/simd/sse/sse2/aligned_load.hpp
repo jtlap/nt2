@@ -20,6 +20,11 @@
 #include <boost/dispatch/meta/mpl.hpp>
 #include <boost/dispatch/attributes.hpp>
 
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable: 4308) // negative integral conversion
+#endif
+
 namespace boost { namespace simd { namespace ext
 {
   /// INTERNAL ONLY - Load register of SIMD double without offset
@@ -114,35 +119,41 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename A2::type result_type;
 
+    typedef typename A3::value_type align_t;
     static const std::size_t cardinal = meta::cardinal_of<result_type>::value;
-    static const typename A3::value_type unalignment = A3::value % cardinal;
+    static const align_t unalignment  = A3::value % cardinal;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 a0, A2 const& a2, A3 const& a3) const
+    operator()(A0 a0, A2 const&, A3 const& a3) const
     {
       BOOST_SIMD_DETAILS_CHECK_PTR(a0-A3::value, sizeof(result_type));
-      return eval( a0, a2, a3, boost::mpl::bool_<!unalignment>() );
+      return eval( a0, a3, boost::mpl::bool_<!unalignment>() );
     }
 
     // Periodic case - Just load as normal
     BOOST_FORCEINLINE result_type
-    eval( A0 a0, A2 const&, A3 const&, boost::mpl::true_ const&) const
+    eval( A0 a0, A3 const&, boost::mpl::true_ const&) const
     {
       return boost::simd::aligned_load<result_type>(a0);
     }
 
     // Non-periodic case
     BOOST_FORCEINLINE result_type
-    eval(A0 a0, A2 const& a2, A3 const& a3, boost::mpl::false_ const&) const
+    eval(A0 a0, A3 const&, boost::mpl::false_ const&) const
     {
       // Load aligned sources
       result_type a  = aligned_load<result_type>(a0-unalignment);
-      result_type b  = aligned_load<result_type>(a0-unalignment,std::size_t(cardinal));
-
+      result_type b  = aligned_load<result_type>( a0-unalignment
+                                                , std::size_t(cardinal)
+                                                );
       return slide<unalignment>(a,b);
     }
   };
 } } }
+
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
 
 #endif
 #endif

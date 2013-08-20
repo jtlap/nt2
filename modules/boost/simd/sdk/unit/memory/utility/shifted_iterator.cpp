@@ -28,7 +28,7 @@ struct average
 };
 
 template<typename In, typename Out, typename F>
-Out mytransform(In const& b, In const& e, Out const& o, F f)
+inline Out mytransform(In const& b, In const& e, Out const& o, F f)
 {
   In  lb = b;
   Out lo = o;

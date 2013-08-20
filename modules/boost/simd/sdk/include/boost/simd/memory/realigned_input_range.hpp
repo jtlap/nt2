@@ -37,7 +37,7 @@ namespace boost { namespace simd
 
     @return An instance of realigned_input_range
   **/
-  template<std::size_t C, typename Iterator> BOOST_FORCEINLINE
+  template<std::size_t C, typename Iterator> inline
   iterator_range<aligned_input_iterator<Iterator, C> >
   realigned_input_range( Iterator begin, Iterator end )
   {
@@ -54,7 +54,7 @@ namespace boost { namespace simd
     return aligned_input_range<C>( begin + db, begin + db + sz );
   }
 
-  template<typename Iterator> BOOST_FORCEINLINE
+  template<typename Iterator> inline
   iterator_range< aligned_input_iterator<Iterator> >
   realigned_input_range( Iterator begin, Iterator end )
   {
@@ -62,14 +62,14 @@ namespace boost { namespace simd
     return realigned_input_range<pack<type>::static_size>(begin,end);
   }
 
-  template<std::size_t C, typename Range> BOOST_FORCEINLINE
+  template<std::size_t C, typename Range> inline
   iterator_range<aligned_input_iterator<typename range_iterator<Range const>::type,C> >
   realigned_input_range( Range const& r )
   {
     return realigned_input_range<C>( boost::begin(r), boost::end(r) );
   }
 
-  template<typename Range> BOOST_FORCEINLINE
+  template<typename Range> inline
   iterator_range<aligned_input_iterator<typename range_iterator<Range const>::type> >
   realigned_input_range( Range const& r )
   {

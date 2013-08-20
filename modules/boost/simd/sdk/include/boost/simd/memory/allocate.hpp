@@ -35,7 +35,6 @@ namespace boost { namespace simd
 
     @param nbytes Number of bytes to allocate.
     @param align  Alignment boundary to follow
-    @param t      Tag indicating the nothrow behavior of this function.
 
     @return A pointer to a memory block of @c nbytes bytes, aligned on @c align.
   **/

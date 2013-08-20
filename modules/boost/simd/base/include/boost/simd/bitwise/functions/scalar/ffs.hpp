@@ -114,7 +114,7 @@ namespace boost { namespace simd { namespace ext
     {
       result_type t1 = bitwise_cast<result_type>(a0);
       typedef typename meta::make_dependent<uint32_t, A0>::type itype;
-      return boost::simd::ffs(itype(t1));
+      return result_type(boost::simd::ffs(itype(t1)));
     }
   };
 } } }

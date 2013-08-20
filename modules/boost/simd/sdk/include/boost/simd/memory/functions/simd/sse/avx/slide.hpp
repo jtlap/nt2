@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
     static const int hcard = A0::static_size / 2;
 
     BOOST_FORCEINLINE
-    result_type operator()(A0 const& a0, A0 const& a1, N const& n) const
+    result_type operator()(A0 const& a0, A0 const& a1, N const&) const
     {
       typedef typename A0::value_type scalar_type;
 
@@ -51,7 +51,7 @@ namespace boost { namespace simd { namespace ext
     }
 
     BOOST_FORCEINLINE
-    result_type eval( A0 const& a0, A0 const& a1
+    result_type eval( A0 const&, A0 const& a1
                     , boost::mpl::true_ const&, boost::mpl::false_ const&
                     ) const
     {
@@ -59,7 +59,7 @@ namespace boost { namespace simd { namespace ext
     }
 
     BOOST_FORCEINLINE
-    result_type eval( A0 const& a0, A0 const& a1
+    result_type eval( A0 const& a0, A0 const&
                     , boost::mpl::false_ const&, boost::mpl::true_ const&
                     ) const
     {

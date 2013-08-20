@@ -46,7 +46,7 @@ namespace boost { namespace simd
           , It::index
           >::type                                         type;
 
-      static type call(It const& it){ return boost::fusion::at_c<N>(it.seq_); }
+      static type call(It const& it) { return boost::fusion::at_c<N>(it.seq_); }
     };
 
     template<typename It>
@@ -91,6 +91,8 @@ namespace boost { namespace simd
       static type call(It const& it) { return type(it.seq_); }
     };
 
+    private:
+    at_iterator& operator=(at_iterator const&);
   };
 } }
 

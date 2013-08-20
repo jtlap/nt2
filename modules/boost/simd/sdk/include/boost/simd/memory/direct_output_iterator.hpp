@@ -78,7 +78,7 @@ namespace boost { namespace simd
 
     @return An instance of direct_output_iterator
   **/
-  template<typename Iterator> BOOST_FORCEINLINE
+  template<typename Iterator> inline
   direct_output_iterator<Iterator> direct_output_begin(Iterator p)
   {
     return direct_output_iterator<Iterator>(p);
@@ -99,7 +99,7 @@ namespace boost { namespace simd
 
     @return An instance of direct_output_iterator
   **/
-  template<std::size_t C, typename Iterator> BOOST_FORCEINLINE
+  template<std::size_t C, typename Iterator> inline
   direct_output_iterator<Iterator, C> direct_output_begin(Iterator p)
   {
     return direct_output_iterator<Iterator, C>(p);
@@ -118,7 +118,7 @@ namespace boost { namespace simd
 
     @return An instance of direct_output_iterator
   **/
-  template<typename Iterator> BOOST_FORCEINLINE
+  template<typename Iterator> inline
   direct_output_iterator<Iterator> direct_output_end(Iterator p)
   {
     return direct_output_iterator<Iterator>(p);
@@ -139,7 +139,7 @@ namespace boost { namespace simd
 
     @return An instance of direct_output_iterator
   **/
-  template<std::size_t C, typename Iterator> BOOST_FORCEINLINE
+  template<std::size_t C, typename Iterator> inline
   direct_output_iterator<Iterator,C> direct_output_end(Iterator p)
   {
     return direct_output_iterator<Iterator, C>(p);

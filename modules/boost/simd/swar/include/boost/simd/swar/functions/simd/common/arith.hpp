@@ -30,10 +30,10 @@ namespace boost { namespace simd { namespace ext
     }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::arith_, tag::cpu_
-                                      , (A0)(X)(T)
-                                      , (scalar_< arithmetic_<A0> >)
-                                        ((target_< simd_< arithmetic_<T>,X> >))
-                                      )
+                                    , (A0)(X)(T)
+                                    , (scalar_< arithmetic_<A0> >)
+                                      ((target_< simd_< arithmetic_<T>,X> >))
+                                    )
   {
     typedef typename T::type result_type;
 
@@ -45,10 +45,10 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::arith_, tag::cpu_
-                                      , (A0)(X)(T)
-                                      , ((simd_< arithmetic_<A0>, X >))
-                                        ((target_< simd_< arithmetic_<T>,X> >))
-                                      )
+                                    , (A0)(X)(T)
+                                    , ((simd_< arithmetic_<A0>, X >))
+                                      ((target_< simd_< arithmetic_<T>,X> >))
+                                    )
   {
     typedef typename T::type result_type;
 
@@ -59,11 +59,11 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::arith_, tag::cpu_
-                                      , (A0)(A1)(X)(T)
-                                      , (scalar_< arithmetic_<A0> >)
-                                        (scalar_< arithmetic_<A1> >)
-                                        ((target_< simd_< arithmetic_<T>,X> >))
-                                      )
+                                    , (A0)(A1)(X)(T)
+                                    , (scalar_< arithmetic_<A0> >)
+                                      (scalar_< arithmetic_<A1> >)
+                                      ((target_< simd_< arithmetic_<T>,X> >))
+                                    )
   {
     typedef typename T::type result_type;
 
@@ -75,15 +75,15 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::arith_, tag::cpu_
-                                      , (A0)(A1)(X)(T)
-                                      , ((simd_< arithmetic_<A0>, X >))
-                                        (generic_< arithmetic_<A1> >)
-                                        ((target_< simd_< arithmetic_<T>,X> >))
-                                      )
+                                    , (A0)(A1)(X)(T)
+                                    , ((simd_< arithmetic_<A0>, X >))
+                                      (generic_< arithmetic_<A1> >)
+                                      ((target_< simd_< arithmetic_<T>,X> >))
+                                    )
   {
     typedef typename T::type result_type;
 
-    result_type operator()(A0 const& a0, A1 const& a1, T const& ) const
+    result_type operator()(A0 const& a0, A1 const&, T const& ) const
     {
       return bitwise_cast<result_type>(a0);
     }

@@ -13,9 +13,16 @@
 #include <boost/simd/sdk/simd/pack/domain.hpp>
 #include <boost/simd/include/functions/evaluate.hpp>
 #include <boost/simd/include/functions/assign.hpp>
-#include <boost/proto/extends.hpp>
 #include <boost/type_traits/is_base_of.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <boost/proto/extends.hpp>
+#include <boost/config.hpp>
+
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable: 4610) // custom constructor required
+#pragma warning(disable: 4510) // custom constructor required
+#endif
 
 namespace boost { namespace simd
 {
@@ -58,5 +65,9 @@ namespace boost { namespace simd
     }
   };
 } }
+
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
 
 #endif

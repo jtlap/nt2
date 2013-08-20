@@ -81,7 +81,7 @@ struct logical_f
   };
 
   template<class A0>
-  typename result<logical_f(A0 const&)>::type operator()(A0 const& a0) const
+  typename result<logical_f(A0 const&)>::type operator()(A0 const&) const
   {
     return boost::simd::logical<A0>(true);
   }

@@ -7,59 +7,59 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <boost/simd/bitwise/include/functions/hi.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
-#include <boost/dispatch/meta/downgrade.hpp>
-
-#include <boost/type_traits/is_same.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/constants/real_splat.hpp>
+#include <boost/simd/include/functions/splat.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/constant/constant.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
-NT2_TEST_CASE_TPL ( hi_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( return_type,  BOOST_SIMD_SIMD_TYPES)
 {
-  using boost::simd::hi;
   using boost::simd::tag::hi_;
   using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
-  typedef typename boost::dispatch::meta::as_integer<T,unsigned>::type ir_t;
-  typedef typename boost::dispatch::meta::downgrade<ir_t>::type dtype;
-  typedef typename boost::simd::meta::scalar_of<ir_t>::type scal;
+
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::dispatch::meta::call<hi_(vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef native<T,ext_t>               vT;
 
-  // specific values tests
-  NT2_TEST_EQUAL(hi(boost::simd::Nan<vT>())[0], boost::simd::Mone<dtype>());
-  NT2_TEST_EQUAL(hi(boost::simd::Zero<vT>())[0], boost::simd::Zero<dtype>());
-} // end of test for floating_
+  NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<hi_(vT)>::type
+                  , (typename boost::dispatch::meta::as_integer<vT,unsigned>::type)
+                  );
+}
 
-NT2_TEST_CASE_TPL ( hi_sintgt_8__1_0,  BOOST_SIMD_SIMD_SIGNED_INT_GT_8_TYPES)
+NT2_TEST_CASE_TPL ( real_hi,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::hi;
-  using boost::simd::tag::hi_;
   using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
-  typedef typename boost::dispatch::meta::as_integer<T,unsigned>::type ir_t;
-  typedef typename boost::dispatch::meta::downgrade<ir_t>::type dtype;
-  typedef typename boost::simd::meta::scalar_of<ir_t>::type scal;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::dispatch::meta::call<hi_(vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
-  // specific values tests
-  NT2_TEST_EQUAL(hi(boost::simd::One<vT>())[0], boost::simd::Zero<dtype>());
-  NT2_TEST_EQUAL(hi(boost::simd::Zero<vT>())[0], boost::simd::Zero<dtype>());
-} // end of test for sintgt_8_
+  typedef BOOST_SIMD_DEFAULT_EXTENSION                          ext_t;
+  typedef native<T,ext_t>                                       vT;
+  typedef typename boost::dispatch::meta::as_integer<vT,unsigned>::type  viT;
+
+  vT  val = boost::simd::real_constant<vT, 0x12345678FFFFFFFFLL, 0x1234FFFF>();
+  vT  res = boost::simd::real_constant<vT, 0x0000000012345678LL, 0x00001234>();
+  viT ref = boost::simd::bitwise_cast<viT>(res);
+
+  NT2_TEST_EQUAL( hi(val), ref );
+}
+
+NT2_TEST_CASE_TPL( integer_hi, BOOST_SIMD_SIMD_INTEGRAL_TYPES )
+{
+  using boost::simd::hi;
+  using boost::simd::splat;
+  using boost::simd::native;
+
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>               vT;
+  typedef typename boost::dispatch::meta::as_integer<vT,unsigned>::type viT;
+
+  vT  val = splat<vT>(~0);
+  viT ref = splat<viT>( (T(1)<< (sizeof(T)*(CHAR_BIT/2))) - 1);
+
+  NT2_TEST_EQUAL( hi(val), ref );
+}

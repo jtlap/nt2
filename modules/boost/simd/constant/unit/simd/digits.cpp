@@ -19,10 +19,6 @@
 
 #include "../constant.hpp"
 
-#ifdef BOOST_MSVC
-  #pragma warning(disable: 4309) // truncation of constant value
-#endif
-
 NT2_TEST_CASE_TPL( digit_value, BOOST_SIMD_SIMD_TYPES )
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

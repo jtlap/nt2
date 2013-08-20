@@ -186,13 +186,15 @@ namespace boost { namespace simd
     void fill   (const T& value) { std::fill_n(begin(),size(),value); }
 
     /// INTERNAL ONLY
+    #if !defined(BOOST_NO_EXCEPTIONS)
+    static void rangecheck(size_type ) {}
+    #else
     static void rangecheck(size_type i)
     {
-      #if !defined(BOOST_NO_EXCEPTIONS)
       if (i >= size())
         BOOST_THROW_EXCEPTION(std::out_of_range("array<>: index out of range"));
-      #endif
     }
+    #endif
   };
 
   /// Swap the contents of two aligned arrays

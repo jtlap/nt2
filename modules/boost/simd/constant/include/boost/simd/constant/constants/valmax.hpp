@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_VALMAX_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_VALMAX_HPP_INCLUDED
 
@@ -57,6 +54,11 @@
  *
  *
 **/
+
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable: 4310) // cast truncate constants
+#endif
 
 namespace boost { namespace simd
 {
@@ -115,6 +117,10 @@ namespace boost { namespace simd
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Valmax, Valmax)
 } }
+
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
 
 #include <boost/simd/sdk/constant/common.hpp>
 

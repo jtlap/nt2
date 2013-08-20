@@ -66,7 +66,7 @@ namespace boost { namespace simd
                        ? sizeof(native_type)/sizeof(value_type) : 1};
 
     BOOST_FORCEINLINE native() {}
-    BOOST_FORCEINLINE native(native_type data) : data_(data) {}
+    BOOST_FORCEINLINE native(native_type n) : data_(n) {}
 #ifdef BOOST_MSVC
     BOOST_FORCEINLINE native(native const& other) : data_(other.data_) {}
 #endif
@@ -85,9 +85,9 @@ namespace boost { namespace simd
     // Assignment operator from native vector type
     ////////////////////////////////////////////////////////////////////////////
     BOOST_FORCEINLINE
-    native& operator=(native_type data)
+    native& operator=(native_type n)
     {
-      data_ = data;
+      data_ = n;
       return *this;
     }
 

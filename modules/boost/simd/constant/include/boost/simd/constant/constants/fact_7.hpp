@@ -6,15 +6,18 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_FACT_7_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_FACT_7_HPP_INCLUDED
 
 #include <boost/simd/include/functor.hpp>
 #include <boost/simd/sdk/constant/register.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
+#include <boost/config.hpp>
+
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable: 4310) // truncation of constant
+#endif
 
 /*!
  * \ingroup boost_simd_constant
@@ -68,6 +71,10 @@ namespace boost { namespace simd
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Fact_7, Fact_7)
 } }
+
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
 
 #include <boost/simd/sdk/constant/common.hpp>
 

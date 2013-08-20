@@ -69,8 +69,9 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename A2::type result_type;
 
+    typedef typename A3::value_type align_t;
     static const std::size_t cardinal = meta::cardinal_of<result_type>::value;
-    static const typename A3::value_type unalignment = A3::value % cardinal;
+    static const align_t unalignment  = A3::value % cardinal;
 
     BOOST_FORCEINLINE result_type operator()(A0 a0, const A2&, const A3&) const
     {

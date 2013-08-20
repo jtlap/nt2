@@ -6,62 +6,40 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_THOUSAND_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_THOUSAND_HPP_INCLUDED
 
 #include <boost/simd/include/functor.hpp>
 #include <boost/simd/sdk/constant/register.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
+#include <boost/config.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_thousand Thousand
- *
- * \par Description
- * Constant Thousand= 1000
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/thousand.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::thousand_(A0)>::type
- *     Thousand();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Thousand
- *
- * \return type T value
- *
- *
-**/
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable: 4310) // truncation of constant
+#endif
 
 namespace boost { namespace simd
 {
   namespace tag
   {
     /*!
-     * \brief Define the tag Thousand of functor Thousand
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
+      @brief Thousand generic tag
+
+      Represents the Thousand constant function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
     BOOST_SIMD_CONSTANT_REGISTER(Thousand,double,1000, 0x447a0000, 0x408f400000000000ll)
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Thousand, Thousand)
 } }
+
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
 
 #include <boost/simd/sdk/constant/common.hpp>
 

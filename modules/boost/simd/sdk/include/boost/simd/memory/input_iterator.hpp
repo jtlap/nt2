@@ -83,7 +83,7 @@ namespace boost { namespace simd
 
     @return An instance of input_iterator
   **/
-  template<typename Iterator> BOOST_FORCEINLINE
+  template<typename Iterator> inline
   input_iterator<Iterator> input_begin(Iterator p)
   {
     return input_iterator<Iterator>(p);
@@ -104,7 +104,7 @@ namespace boost { namespace simd
 
     @return An instance of input_iterator
   **/
-  template<std::size_t C, typename Iterator> BOOST_FORCEINLINE
+  template<std::size_t C, typename Iterator> inline
   input_iterator<Iterator, C> input_begin(Iterator p)
   {
     return input_iterator<Iterator, C>(p);
@@ -123,7 +123,7 @@ namespace boost { namespace simd
 
     @return An instance of input_iterator
   **/
-  template<typename Iterator> BOOST_FORCEINLINE
+  template<typename Iterator> inline
   input_iterator<Iterator> input_end(Iterator p)
   {
     return input_iterator<Iterator>(p);
@@ -144,7 +144,7 @@ namespace boost { namespace simd
 
     @return An instance of input_iterator
   **/
-  template<std::size_t C, typename Iterator> BOOST_FORCEINLINE
+  template<std::size_t C, typename Iterator> inline
   input_iterator<Iterator,C> input_end(Iterator p)
   {
     return input_iterator<Iterator, C>(p);

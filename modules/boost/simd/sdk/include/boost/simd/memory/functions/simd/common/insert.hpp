@@ -25,7 +25,6 @@
 
 namespace boost { namespace simd { namespace ext
 {
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::insert_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)(X)
@@ -90,6 +89,9 @@ namespace boost { namespace simd { namespace ext
       A0 const& a0;
       A1& a1;
       A2 a2;
+
+      private:
+      insert_fusion& operator=(insert_fusion const&);
     };
 
     typedef void result_type;

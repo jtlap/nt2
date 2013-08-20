@@ -58,13 +58,8 @@ NT2_TEST_CASE_TPL(aligned_constraint, BOOST_SIMD_TYPES)
 
   typedef typename std::vector<T, allocator<T> >::iterator it_t;
 
-  NT2_TEST_ASSERT ( aligned_input_iterator<it_t>
-                    b = aligned_input_begin(data.begin()+1)
-                  );
-
-  NT2_TEST_ASSERT ( aligned_input_iterator<it_t>
-                    e = aligned_input_end(data.end()-1)
-                  );
+  NT2_TEST_ASSERT( aligned_input_begin(data.begin()+1) );
+  NT2_TEST_ASSERT( aligned_input_end(data.end()-1)     );
 }
 
 NT2_TEST_CASE_TPL(iteration, BOOST_SIMD_TYPES)

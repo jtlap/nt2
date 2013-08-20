@@ -16,6 +16,11 @@
 // N needs to be specified
 ////////////////////////////////////////////////////////////////////////////////
 
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable: 4100) // formal parameter unroller not used
+#endif
+
 namespace boost{ namespace simd{
 
   //============================================================================
@@ -55,5 +60,9 @@ namespace boost{ namespace simd{
   }
 
 } }
+
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
 
 #endif

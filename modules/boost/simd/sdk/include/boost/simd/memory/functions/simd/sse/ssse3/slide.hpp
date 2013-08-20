@@ -36,7 +36,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
 
     BOOST_FORCEINLINE
-    result_type operator()(A0 const& a0, A0 const& a1, N const& n) const
+    result_type operator()(A0 const& a0, A0 const& a1, N const&) const
     {
       typedef typename A0::value_type scalar_type;
 
@@ -47,7 +47,7 @@ namespace boost { namespace simd { namespace ext
     }
 
     BOOST_FORCEINLINE
-    result_type eval( A0 const& a0, A0 const& a1
+    result_type eval( A0 const& , A0 const& a1
                     , boost::mpl::true_ const&, boost::mpl::false_ const&
                     ) const
     {

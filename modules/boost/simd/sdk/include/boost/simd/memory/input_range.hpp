@@ -31,7 +31,7 @@ namespace boost { namespace simd
 
     @return An instance of input_range
   **/
-  template<std::size_t N, class Iterator> BOOST_FORCEINLINE
+  template<std::size_t N, class Iterator> inline
   boost::iterator_range<input_iterator<Iterator, N> >
   input_range( Iterator begin, Iterator end )
   {
@@ -56,7 +56,7 @@ namespace boost { namespace simd
 
     @return An instance of input_range
   **/
-  template<class Iterator> BOOST_FORCEINLINE
+  template<class Iterator> inline
   boost::iterator_range< input_iterator<Iterator> >
   input_range( Iterator begin, Iterator end )
   {
@@ -81,7 +81,7 @@ namespace boost { namespace simd
 
     @return An instance of input_range
   **/
-  template<std::size_t N, class Range> BOOST_FORCEINLINE
+  template<std::size_t N, class Range> inline
   boost::iterator_range<input_iterator<typename range_iterator<Range const>::type,N> >
   input_range( Range const& r )
   {
@@ -100,7 +100,7 @@ namespace boost { namespace simd
 
     @return An instance of input_range
   **/
-  template<class Range> BOOST_FORCEINLINE
+  template<class Range> inline
   boost::iterator_range<input_iterator<typename range_iterator<Range const>::type> >
   input_range( Range const& r )
   {

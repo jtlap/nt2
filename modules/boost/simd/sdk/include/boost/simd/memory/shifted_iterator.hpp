@@ -58,35 +58,35 @@ namespace boost { namespace simd
     protected:
 
     /// INTERNAL ONLY - CT-recursive filling of the iterator data
-    template<int N> BOOST_FORCEINLINE void fill(  boost::mpl::int_<N> const& ) const
+    template<int N> inline void fill(  boost::mpl::int_<N> const& ) const
     {
       seq[N] = aligned_load<pack_type,N+Region::w_min>(&*base+N+Region::w_min);
       fill(boost::mpl::int_<N+1>());
     }
 
     /// INTERNAL ONLY
-    BOOST_FORCEINLINE void fill(boost::mpl::int_<Region::width> const&) const {}
+    inline void fill(boost::mpl::int_<Region::width> const&) const {}
 
     /// INTERNAL ONLY
-    BOOST_FORCEINLINE void fill() const { fill( boost::mpl::int_<0>() ); }
+    inline void fill() const { fill( boost::mpl::int_<0>() ); }
 
     private:
     friend class boost::iterator_core_access;
 
     /// INTERNAL ONLY - required by iterator_facade
-    BOOST_FORCEINLINE void increment()
+    inline void increment()
     {
       base += C;
     }
 
     /// INTERNAL ONLY - required by iterator_facade
-    BOOST_FORCEINLINE bool equal(derived_type const& other) const
+    inline bool equal(derived_type const& other) const
     {
       return (this->base == other.base);
     }
 
     /// INTERNAL ONLY - required by iterator_facade
-    BOOST_FORCEINLINE sequence_type const& dereference() const
+    inline sequence_type const& dereference() const
     {
       fill();
       return seq;
@@ -113,8 +113,8 @@ namespace boost { namespace simd
     @return An instance of shifted_iterator
   **/
   template<std::size_t C, typename Iterator, typename Region>
-  BOOST_FORCEINLINE shifted_iterator<Iterator, Region, C>
-  shifted_begin(Iterator p, Region const& r)
+  inline shifted_iterator<Iterator, Region, C>
+  shifted_begin(Iterator p, Region const& )
   {
     return shifted_iterator<Iterator, Region, C>(p+(Region::width/2)*C);
   }
@@ -136,8 +136,8 @@ namespace boost { namespace simd
     @return An instance of shifted_iterator
   **/
   template<std::size_t C, typename Iterator, typename Region>
-  BOOST_FORCEINLINE shifted_iterator<Iterator, Region, C>
-  shifted_end(Iterator p, Region const& r)
+  inline shifted_iterator<Iterator, Region, C>
+  shifted_end(Iterator p, Region const& )
   {
     return shifted_iterator<Iterator, Region, C>(p-(Region::width/2)*C);
   }
@@ -157,7 +157,7 @@ namespace boost { namespace simd
     @return An instance of shifted_iterator
   **/
   template<typename Iterator, typename Region>
-  BOOST_FORCEINLINE shifted_iterator<Iterator, Region>
+  inline shifted_iterator<Iterator, Region>
   shifted_begin(Iterator p, Region const& r)
   {
     return shifted_begin<shifted_iterator<Iterator, Region>::cardinal>(p,r);
@@ -178,7 +178,7 @@ namespace boost { namespace simd
     @return An instance of shifted_iterator
   **/
   template<typename Iterator, typename Region>
-  BOOST_FORCEINLINE shifted_iterator<Iterator, Region>
+  inline shifted_iterator<Iterator, Region>
   shifted_end(Iterator p, Region const& r)
   {
     return shifted_end<shifted_iterator<Iterator, Region>::cardinal>(p,r);

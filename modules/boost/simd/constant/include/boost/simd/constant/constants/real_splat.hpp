@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_REAL_SPLAT_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_REAL_SPLAT_HPP_INCLUDED
 
@@ -17,63 +14,47 @@
 #include <boost/simd/sdk/meta/double.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_pure_constant_real_splat Real_splat
- *
- * \par Description
- * TODO Put description here
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/real_splat.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::real_splat_(A0)>::type
- *     Real_splat();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Real_splat
- *
- * \return type T value
- *
- *
-**/
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable: 4310) // truncation of constant
+#endif
 
 namespace boost { namespace simd
 {
   namespace tag
   {
     /*!
-     * \brief Define the tag Real_splat of functor Real_splat
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
+      @brief Realpattern generic tag
+
+      Represents the real_splat function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
     template<boost::simd::uint32_t F,boost::simd::uint64_t D>
     struct Realpattern : ext::pure_constant_< Realpattern<F, D> >
     {
+      /// @brief Constant default type
       typedef double default_type;
+
+      /// @brief Parent hierarchy
       typedef ext::pure_constant_< Realpattern<F, D> > parent;
 
-      template<class Target, class Dummy=void>
-      struct apply {};
+      /// INTERNAL ONLY
+      template<class Target, class Dummy=void> struct apply {};
 
+      /// INTERNAL ONLY
       template<class T,class Dummy>
-      struct apply<boost::dispatch::meta::single_<T>,Dummy> : meta::single_<F> {};
+      struct apply<boost::dispatch::meta::single_<T>,Dummy> : meta::single_<F>
+      {};
 
+      /// INTERNAL ONLY
       template<class T, class Dummy>
-      struct apply<boost::dispatch::meta::double_<T>,Dummy> : meta::double_<D> {};
+      struct apply<boost::dispatch::meta::double_<T>,Dummy> : meta::double_<D>
+      {};
     };
   }
+
   //////////////////////////////////////////////////////////////////////////////
   // Generic real value splatter from a bit patterns
   //////////////////////////////////////////////////////////////////////////////
@@ -114,6 +95,10 @@ namespace boost { namespace simd
     return callee( boost::dispatch::meta::as_<Target>() );
   }
 } }
+
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
 
 #include <boost/simd/sdk/constant/common.hpp>
 

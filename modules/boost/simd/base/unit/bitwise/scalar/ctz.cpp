@@ -6,100 +6,71 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.bitwise toolbox - ctz/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.bitwise components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 18/02/2011
-///
 #include <boost/simd/bitwise/include/functions/ctz.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/ffs.hpp>
+#include <boost/simd/include/constants/nbmantissabits.hpp>
+#include <boost/simd/include/constants/signmask.hpp>
 #include <boost/simd/include/functions/clz.hpp>
-#include <boost/simd/include/functions/ilog2.hpp>
-#include <boost/simd/include/functions/reversebits.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/constant/constant.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 
-
-NT2_TEST_CASE_TPL ( ctz_real__1_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL( ctz_types, BOOST_SIMD_TYPES )
 {
-
   using boost::simd::ctz;
   using boost::simd::tag::ctz_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<ctz_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type wished_r_t;
+  using boost::simd::Nbmantissabits;
 
+  NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<ctz_(T)>::type
+                  , (typename boost::dispatch::meta::as_integer<T,unsigned>::type)
+                  );
+}
 
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-
-  // specific values tests
-  NT2_TEST_EQUAL(ctz(boost::simd::Inf<T>()), sr_t(boost::simd::Nbmantissabits<T>()));
-  NT2_TEST_EQUAL(ctz(boost::simd::Minf<T>()), sr_t(boost::simd::Nbmantissabits<T>()));
-  NT2_TEST_EQUAL(ctz(boost::simd::Nan<T>()), sr_t(boost::simd::Zero<r_t>()));
-  NT2_TEST_EQUAL(ctz(boost::simd::Signmask<T>()), sr_t(sizeof(T)*8-1));
-  //NT2_TEST_EQUAL(ctz(boost::simd::Zero<T>()), sr_t(sizeof(T)*8));
-} // end of test for real_
-
-NT2_TEST_CASE_TPL ( ctz_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL( ctz_real,  BOOST_SIMD_REAL_TYPES )
 {
-
   using boost::simd::ctz;
   using boost::simd::tag::ctz_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  using boost::simd::Nbmantissabits;
+
   typedef typename boost::dispatch::meta::call<ctz_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type wished_r_t;
 
+  NT2_TEST_EQUAL(ctz(boost::simd::Inf<T>())     , r_t(Nbmantissabits<T>()));
+  NT2_TEST_EQUAL(ctz(boost::simd::Minf<T>())    , r_t(Nbmantissabits<T>()));
+  NT2_TEST_EQUAL(ctz(boost::simd::Nan<T>())     , r_t(0)                  );
+  NT2_TEST_EQUAL(ctz(boost::simd::Signmask<T>()), r_t(sizeof(T)*CHAR_BIT-1)      );
+}
 
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-
-  // specific values tests
-  NT2_TEST_EQUAL(ctz(boost::simd::One<T>()), sr_t(boost::simd::Zero<r_t>()));
-  NT2_TEST_EQUAL(ctz(boost::simd::Signmask<T>()), sr_t(sizeof(T)*8-1));
-  //NT2_TEST_EQUAL(ctz(boost::simd::Zero<T>()), sr_t(sizeof(T)*8));
-} // end of test for signed_int_
-
- NT2_TEST_CASE_TPL ( ctz_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
- {
-
+NT2_TEST_CASE_TPL( ctz_signed_integer,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES )
+{
   using boost::simd::ctz;
   using boost::simd::tag::ctz_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  using boost::simd::Signmask;
+
   typedef typename boost::dispatch::meta::call<ctz_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type wished_r_t;
 
+  for(std::size_t j=0; j< (sizeof(T)*CHAR_BIT-1); j++)
+  {
+    // Test 01111 ... 10000b
+    T value = ~T(0) & ~((T(1)<<j)-1);
+    NT2_TEST_EQUAL(ctz( value ), r_t(j));
+    NT2_TEST_EQUAL(ctz( T(-value) ), r_t(j));
+  }
 
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
+  NT2_TEST_EQUAL(ctz(Signmask<T>()) , r_t(sizeof(T)*CHAR_BIT-1) );
+}
 
-  // specific values tests
-  //   std::cout << int(ctz(boost::simd::One<T>())) << std::endl;
-  NT2_TEST_EQUAL(ctz(boost::simd::One<T>()), boost::simd::Zero<r_t>());
-  //   std::cout << int(ctz(boost::simd::Zero<T>())) << std::endl;
-  //NT2_TEST_EQUAL(ctz(boost::simd::Zero<T>()), sizeof(T)*8);
+NT2_TEST_CASE_TPL( ctz_unsigned_integer, BOOST_SIMD_UNSIGNED_TYPES )
+{
+  using boost::simd::ctz;
+  using boost::simd::tag::ctz_;
 
-  T j = 1;
-  for(T i=2; i< boost::simd::Valmax<T>()/2; i*= 2)
-    {
-      NT2_TEST_EQUAL(ctz(i), j);
-      NT2_TEST_EQUAL(ctz(i+1), T(0));
-      ++j;
-    }
- } // end of test for unsigned_int_
+  typedef typename boost::dispatch::meta::call<ctz_(T)>::type r_t;
+
+  for(std::size_t j=0; j< sizeof(T)*CHAR_BIT; j++)
+  {
+    // Test 1111 ... 10000b
+    T value = ~T(0) & ~((T(1)<<j)-1);
+    NT2_TEST_EQUAL(ctz( value ), r_t(j));
+  }
+ }

@@ -105,7 +105,7 @@ inline void load_runner(bool offset = false)
 }
 
 template<typename Type, typename Target, typename Misalignment>
-inline void misaligned_load_runner(Misalignment const& m, bool offset = false)
+inline void misaligned_load_runner(Misalignment const&, bool offset = false)
 {
   using boost::simd::aligned_load;
   using boost::simd::tag::aligned_load_;

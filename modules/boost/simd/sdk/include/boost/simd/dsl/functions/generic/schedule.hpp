@@ -71,6 +71,9 @@ namespace boost { namespace simd { namespace ext
     }
 
     State& state;
+
+    private:
+    with_state& operator=(with_state const&);
   };
 
   template<class Expr, class State>

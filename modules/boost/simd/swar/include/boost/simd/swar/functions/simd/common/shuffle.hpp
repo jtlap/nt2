@@ -53,8 +53,12 @@ namespace boost { namespace simd { namespace ext
     template<class N>
     BOOST_FORCEINLINE void eval(A0 const& a0, result_type& that, N const&) const
     {
-      typedef typename boost::mpl::apply<permutation_t,N,card_t>::type idx_t;
-      that[N::value] = (idx_t::value >= 0) ? a0[ idx_t::value ] : 0;
+      typedef boost::mpl::apply<permutation_t,N,card_t>  idx_t;
+
+      // MSVC warns on impromptu conversion ...
+      static const std::ptrdiff_t value = std::ptrdiff_t(idx_t::type::value);
+
+      that[N::value] = (value >= 0) ? a0[ std::size_t(value) ]: 0;
       eval(a0,that,boost::mpl::int_<N::value-1>());
     }
 
@@ -105,10 +109,15 @@ namespace boost { namespace simd { namespace ext
     void eval(A0 const& a0, A1 const& a1, result_type& that, N const&) const
     {
       typedef typename boost::mpl::apply<permutation_t,N,card_t>::type idx_t;
-      static const int card = card_t::value;
-      that[N::value]  = (idx_t::value<0)?0:((idx_t::value<card)
-                      ? a0[idx_t::value]
-                      : a1[idx_t::value-card]);
+
+      // MSVC warns on impromptu conversion ...
+      static const std::ptrdiff_t value = std::ptrdiff_t(idx_t::type::value);
+      static const std::ptrdiff_t card  = card_t::value;
+
+      that[N::value]  = (value < 0) ? 0
+                                    : ((value<card) ? a0[value]
+                                                    : a1[value-card]
+                                      );
 
       eval(a0,a1,that,boost::mpl::int_<N::value-1>());
     }

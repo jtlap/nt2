@@ -95,7 +95,7 @@ namespace boost { namespace simd
 
     @return An instance of aligned_output_iterator
   **/
-  template<typename Iterator> BOOST_FORCEINLINE
+  template<typename Iterator> inline
   aligned_output_iterator<Iterator> aligned_output_begin(Iterator p)
   {
     return aligned_output_iterator<Iterator>(p);
@@ -116,7 +116,7 @@ namespace boost { namespace simd
 
     @return An instance of aligned_output_iterator
   **/
-  template<std::size_t C, typename Iterator> BOOST_FORCEINLINE
+  template<std::size_t C, typename Iterator> inline
   aligned_output_iterator<Iterator,C> aligned_output_begin(Iterator p)
   {
     return aligned_output_iterator<Iterator,C>(p);
@@ -135,7 +135,7 @@ namespace boost { namespace simd
 
     @return An instance of aligned_output_iterator
   **/
-  template<typename Iterator> BOOST_FORCEINLINE
+  template<typename Iterator> inline
   aligned_output_iterator<Iterator> aligned_output_end(Iterator p)
   {
     return aligned_output_iterator<Iterator>(p);
@@ -156,7 +156,7 @@ namespace boost { namespace simd
 
     @return An instance of aligned_output_iterator
   **/
-  template<std::size_t C, typename Iterator> BOOST_FORCEINLINE
+  template<std::size_t C, typename Iterator> inline
   aligned_output_iterator<Iterator,C> aligned_output_end(Iterator p)
   {
     return aligned_output_iterator<Iterator,C>(p);

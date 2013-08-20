@@ -16,6 +16,11 @@
 #include <boost/simd/sdk/constant/register.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable: 4310) // cast truncate constants
+#endif
+
 /*!
  * \ingroup boost_simd_constant
  * \defgroup boost_simd_constant_twoto31 Twoto31
@@ -66,5 +71,9 @@ namespace boost { namespace simd
 } }
 
 #include <boost/simd/sdk/constant/common.hpp>
+
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
 
 #endif

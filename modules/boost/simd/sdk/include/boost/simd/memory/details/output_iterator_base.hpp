@@ -39,7 +39,7 @@ namespace boost { namespace simd { namespace details
       SIMD output iterator requires a proxy reference to be returned.
       For performance purpose, the iterator itself acts as its own proxy.
     */
-    template<class Expr> BOOST_FORCEINLINE
+    template<class Expr> inline
     output_iterator_base const& operator=(Expr const& right) const
     {
       dispatch::functor<Store> callee;
@@ -50,22 +50,20 @@ namespace boost { namespace simd { namespace details
     protected:
     friend class boost::iterator_core_access;
 
-    BOOST_FORCEINLINE
-    typename output_iterator_base::reference dereference() const
+    inline typename output_iterator_base::reference dereference() const
     {
       return *this;
     }
 
-    BOOST_FORCEINLINE void increment() { this->base_reference() += C; }
-    BOOST_FORCEINLINE void decrement() { this->base_reference() -= C; }
+    inline void increment() { this->base_reference() += C; }
+    inline void decrement() { this->base_reference() -= C; }
 
-    BOOST_FORCEINLINE
-    void advance(typename output_iterator_base::difference_type n)
+    inline void advance(typename output_iterator_base::difference_type n)
     {
       this->base_reference() += n*C;
     }
 
-    BOOST_FORCEINLINE typename output_iterator_base::difference_type
+    inline typename output_iterator_base::difference_type
     distance_to(output_iterator_base const& other) const
     {
       return (other.base() - this->base()) / cardinal;

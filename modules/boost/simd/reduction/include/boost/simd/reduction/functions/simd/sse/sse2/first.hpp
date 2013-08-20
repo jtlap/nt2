@@ -16,111 +16,110 @@
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is type8_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::first_, boost::simd::tag::sse2_,
-                        (A0),
-                        ((simd_<type8_<A0>,boost::simd::tag::sse_>))
-                       )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::first_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_ < double_<A0>
+                                              , boost::simd::tag::sse_
+                                              >
+                                      ))
+                                    )
   {
     typedef typename meta::scalar_of<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
-    {
-      typedef result_type type;
-      int that = _mm_extract_epi16(a0, 0);
-      return that & 0xFF;
-    }
-  };
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is double
-/////////////////////////////////////////////////////////////////////////////
-
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::first_, boost::simd::tag::sse2_,
-                        (A0),
-                        ((simd_<double_<A0>,boost::simd::tag::sse_>))
-                       )
-  {
-    typedef typename meta::scalar_of<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_FORCEINLINE result_type operator()(__m128d a0) const
     {
       return _mm_cvtsd_f64(a0);
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is float
-/////////////////////////////////////////////////////////////////////////////
-
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::first_, boost::simd::tag::sse2_,
-                        (A0),
-                        ((simd_<single_<A0>,boost::simd::tag::sse_>))
-                       )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::first_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_ < single_<A0>
+                                              , boost::simd::tag::sse_
+                                              >
+                                      ))
+                                    )
   {
     typedef typename meta::scalar_of<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_FORCEINLINE result_type operator()(__m128 a0) const
     {
       typedef typename dispatch::meta::as_integer<A0>::type type;
       return boost::simd::bitwise_cast<result_type>(_mm_cvtsi128_si32(simd::bitwise_cast<type>(a0)));
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is ints32_
-/////////////////////////////////////////////////////////////////////////////
-
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::first_, boost::simd::tag::sse2_,
-                        (A0),
-                        ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
-                       )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::first_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_ < ints32_<A0>
+                                              , boost::simd::tag::sse_
+                                              >
+                                      ))
+                                    )
   {
     typedef typename meta::scalar_of<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_FORCEINLINE result_type operator()(__m128i a0) const
     {
       return _mm_cvtsi128_si32(a0);
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is ints64_
-/////////////////////////////////////////////////////////////////////////////
-
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::first_, boost::simd::tag::sse2_,
-                        (A0),
-                        ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
-                       )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::first_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_ < ints64_<A0>
+                                              , boost::simd::tag::sse_
+                                              >
+                                      ))
+                                    )
   {
     typedef typename meta::scalar_of<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_FORCEINLINE result_type operator()(__m128i a0) const
     {
       typedef typename dispatch::meta::as_floating<A0>::type rtype;
       return boost::simd::bitwise_cast<result_type>(_mm_cvtsd_f64(simd::bitwise_cast<rtype>(a0)));
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is type16_
-/////////////////////////////////////////////////////////////////////////////
-
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::first_, boost::simd::tag::sse2_,
-                        (A0),
-                        ((simd_<type16_<A0>,boost::simd::tag::sse_>))
-                       )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::first_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_ < type16_<A0>
+                                              , boost::simd::tag::sse_
+                                              >
+                                      ))
+                                    )
   {
     typedef typename meta::scalar_of<A0 > ::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_FORCEINLINE result_type operator()(__m128i a0) const
     {
-      return _mm_extract_epi16(a0, 0);
+      return result_type(_mm_extract_epi16(a0, 0));
     }
   };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::first_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_ < type8_<A0>
+                                              , boost::simd::tag::sse_
+                                              >
+                                      ))
+                                    )
+  {
+    typedef typename meta::scalar_of<A0>::type result_type;
+
+    BOOST_FORCEINLINE result_type operator()(__m128i a0) const
+    {
+      typedef result_type type;
+      int that = _mm_extract_epi16(a0, 0);
+      return result_type(that & 0xFF);
+    }
+  };
+
+
 } } }
 #endif
 #endif

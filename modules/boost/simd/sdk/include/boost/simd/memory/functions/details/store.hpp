@@ -35,6 +35,9 @@ namespace boost { namespace simd { namespace details
     A0 const& a0;
     A1 const& a1;
     A2 a2;
+
+    private:
+    storer& operator=(storer const&);
   };
 
   template<typename Tag, typename A0, typename A1>
@@ -50,6 +53,9 @@ namespace boost { namespace simd { namespace details
 
     A0 const& a0;
     A1 const& a1;
+
+    private:
+    storer& operator=(storer const&);
   };
 
   template<typename A0, typename A1, typename A2 = int> struct extractor
@@ -69,6 +75,9 @@ namespace boost { namespace simd { namespace details
     A0 const& a0;
     A1        a1;
     A2        a2;
+
+    private:
+    extractor& operator=(extractor const&);
   };
 } } }
 

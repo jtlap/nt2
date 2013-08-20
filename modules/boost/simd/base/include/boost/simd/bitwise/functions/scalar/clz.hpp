@@ -69,7 +69,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type t1 = bitwise_cast<result_type>(a0);
-      return boost::simd::clz(uint32_t(t1))-16;
+      return result_type(boost::simd::clz(uint32_t(t1))-16);
     }
   };
 
@@ -83,7 +83,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type t1 = bitwise_cast<result_type>(a0);
-      return boost::simd::clz(uint32_t(t1))-24;
+      return result_type(boost::simd::clz(uint32_t(t1))-24);
     }
   };
 } } }

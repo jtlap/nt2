@@ -32,7 +32,7 @@ namespace boost { namespace simd
 
     @return An instance of shifted_range
   **/
-  template<std::size_t C, typename Iterator, typename Region> BOOST_FORCEINLINE
+  template<std::size_t C, typename Iterator, typename Region> inline
   boost::iterator_range<shifted_iterator<Iterator, Region, C> >
   shifted_range( Iterator begin, Iterator end, Region const& r)
   {
@@ -59,7 +59,7 @@ namespace boost { namespace simd
 
     @return An instance of shifted_range
   **/
-  template<typename Iterator, typename Region> BOOST_FORCEINLINE
+  template<typename Iterator, typename Region> inline
   boost::iterator_range< shifted_iterator<Iterator,Region> >
   shifted_range( Iterator begin, Iterator end, Region const& r)
   {
@@ -86,7 +86,7 @@ namespace boost { namespace simd
 
     @return An instance of shifted_range
   **/
-  template<std::size_t C, typename Range, typename Region> BOOST_FORCEINLINE
+  template<std::size_t C, typename Range, typename Region> inline
   boost::iterator_range
           < shifted_iterator< typename range_iterator<Range const>::type
                             , Region
@@ -110,7 +110,7 @@ namespace boost { namespace simd
 
     @return An instance of shifted_range
   **/
-  template<typename Range, typename Region> BOOST_FORCEINLINE
+  template<typename Range, typename Region> inline
   boost::iterator_range
           < shifted_iterator< typename range_iterator<Range const>::type
                             , Region

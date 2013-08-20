@@ -21,54 +21,56 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ctz_, tag::cpu_, (A0)
-                            , (scalar_< type64_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::ctz_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< type64_<A0> >)
+                                    )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      result_type t1 = bitwise_cast<result_type>(a0);
-      BOOST_ASSERT_MSG( t1, "ctz not defined for 0" );
 
-    #if defined __GNUC__
-      return __builtin_ctzll(t1);
-    #else
-      return boost::simd::ffs(t1)-1;
-    #endif
+    BOOST_FORCEINLINE result_type operator()(A0 a0) const
+    {
+      result_type that = bitwise_cast<result_type>(a0);
+      BOOST_ASSERT_MSG( that, "ctz not defined for 0" );
+
+      #if defined __GNUC__
+      return __builtin_ctzll(that);
+      #else
+      return boost::simd::ffs(that)-1;
+      #endif
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ctz_, tag::cpu_
-                            , (A0)
-                            , (scalar_< type32_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::ctz_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< type32_<A0> >)
+                                    )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_FORCEINLINE result_type operator()(A0 a0) const
     {
-      result_type t1 = bitwise_cast<result_type>(a0);
-      BOOST_ASSERT_MSG( t1, "ctz not defined for 0" );
+      result_type that = bitwise_cast<result_type>(a0);
+      BOOST_ASSERT_MSG( that, "ctz not defined for 0" );
 
-    #ifdef __GNUC__
-      return __builtin_ctz(t1);
-    #else
-      return boost::simd::ffs(t1)-1;
-     #endif
+      #if defined __GNUC__
+      return __builtin_ctz(that);
+      #else
+      return boost::simd::ffs(that)-1;
+      #endif
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ctz_, tag::cpu_ , (A0)
-                            , (scalar_< arithmetic_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::ctz_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< arithmetic_<A0> >)
+                                    )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_FORCEINLINE result_type operator()(A0 a0) const
     {
-      result_type t1 = bitwise_cast<result_type>(a0);
-      return boost::simd::ctz(uint32_t(t1));
+      return result_type(boost::simd::ctz(uint32_t(a0)));
     }
   };
 } } }

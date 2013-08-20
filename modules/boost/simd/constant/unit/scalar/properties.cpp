@@ -17,9 +17,9 @@
 
 #include "../constant.hpp"
 
- // unary minus applied to unsigned
 #ifdef BOOST_MSVC
-  #pragma warning(disable: 4146)
+  #pragma warning(disable: 4146) // unary minus applied to unsigned
+  #pragma warning(disable: 4310) // cast truncate constants
 #endif
 
 NT2_TEST_CASE_TPL(allbits_real, BOOST_SIMD_REAL_TYPES)

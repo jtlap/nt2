@@ -15,6 +15,11 @@
 #include <boost/simd/forward/allocator.hpp>
 #include <cstddef>
 
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable: 4100) // argument not reference in destroy()
+#endif
+
 namespace boost { namespace simd
 {
   /*!
@@ -127,5 +132,9 @@ namespace boost { namespace simd
     return false;
   }
 } }
+
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
 
 #endif

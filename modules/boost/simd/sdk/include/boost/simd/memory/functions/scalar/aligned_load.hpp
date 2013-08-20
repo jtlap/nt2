@@ -106,10 +106,11 @@ namespace boost { namespace simd { namespace ext
                                       ((target_< fusion_sequence_<A2> >))
                                     )
   {
-    BOOST_DISPATCH_RETURNS( 3
-                          , (A0 a0, A1 a1, A2 const& a2)
-                          , boost::simd::load<typename A2::type>(a0,a1)
-                          );
+    BOOST_DISPATCH_RETURNS_ARGS ( 3
+                                , (A0 const& a0, A1 const& a1, A2 const& a2)
+                                , (A0 const& a0, A1 a1, A2 const& )
+                                , boost::simd::load<typename A2::type>(a0,a1)
+                                );
   };
 
   /// INTERNAL ONLY - Scalar FusionSequence load without offset
@@ -119,10 +120,11 @@ namespace boost { namespace simd { namespace ext
                                       ((target_< fusion_sequence_<A2> >))
                                     )
   {
-    BOOST_DISPATCH_RETURNS( 2
-                          , (A0 a0, A2 const& a2)
-                          , boost::simd::load<typename A2::type>(a0)
-                          );
+    BOOST_DISPATCH_RETURNS_ARGS ( 2
+                                , (A0 const& a0, A2 const& a2)
+                                , (A0 const& a0, A2 const& )
+                                , boost::simd::load<typename A2::type>(a0)
+                                );
   };
 } } }
 
