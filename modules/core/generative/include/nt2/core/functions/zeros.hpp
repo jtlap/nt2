@@ -27,8 +27,112 @@
 
 namespace nt2
 {
-  #define M0(z,n,t)                                     \
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::Zero, zeros, n) \
+  #if defined(DOXYGEN_ONLY)
+  /*!
+    @brief Zeros generator
+
+    Create an array full of zeros.
+
+    @par Semantic:
+
+    zeros() semantic depends of its parameters type and quantity:
+
+    - The following code:
+      @code
+      double x = zeros();
+      @endcode
+      is equivalent to
+      @code
+      double x = 0.;
+      @endcode
+
+    - For any Integer @c n, the following code:
+      @code
+      auto x = zeros(n);
+      @endcode
+      generates an expression that evaluates as a @c n x @c n table of @c double
+      zeros.
+
+    - For any Integer @c sz1,...,szN , the following code:
+      @code
+      auto x = zeros(sz1,...,szn);
+      @endcode
+      generates an expression that evaluates as a @c sz1 x ... x @c szN
+      table of @c double zeros.
+
+    - For any Expression @c dims evaluating as a row vector of @c N elements,
+      the following code:
+      @code
+      auto x = zeros(dims);
+      @endcode
+      generates an expression that evaluates as a @c dims(1) x ... x @c dims(N)
+      table of @c double zeros.
+
+    - For any type @c T, the following code:
+      @code
+      T x = zeros( as_<T>() );
+      @endcode
+      is equivalent to
+      @code
+      T x = T(0);
+      @endcode
+
+    - For any Integer @c n and any type @c T, the following code:
+      @code
+      auto x = zeros(n, as_<T>());
+      @endcode
+      generates an expression that evaluates as a @c n x @c n table of type @c T
+      zeros.
+
+    - For any Integer @c sz1,...,szn and any type @c T, the following code:
+      @code
+      auto x = zeros(sz1,...,szn, as_<T>());
+      @endcode
+      generates an expression that evaluates as a @c sz1 x ... x @c szn
+      table of type @c T zeros.
+
+    - For any Expression @c dims evaluating as a row vector of @c N elements
+      and any type @c T, the following code:
+      @code
+      auto x = zeros(dims, as_<T>());
+      @endcode
+      generates an expression that evaluates as a @c dims(1) x ... x @c dims(N)
+      table of type @c T zeros.
+
+    @par Matlab equivalent:
+
+    This function is equivalent to the Matlab function
+    <a href="http://www.mathworks.fr/fr/help/matlab/ref/zeros.html">zeros</a>.
+    zeros() doesn't however support the @c like based function. One can actually
+    use the class_ function to generate a Type specifier or use such a
+    predefined specifier.
+
+    @param dims Size of each dimension, specified as one or more integer values
+                or as a row vector of integer values. If any @c dims is lesser
+                or equal to 0, then the resulting expression is empty.
+
+    @param classname  Type specifier of the output. If left unspecified, the
+                      resulting expression behaves as an array of double.
+
+    @return An Expression evaluating as an array of a given type and dimensions
+            full of zeros
+  **/
+  template<typename... Args, typename ClassName>
+  Expression zeros(Args const&... dims, ClassName const& classname);
+
+  /// @overload
+  template<typename... Args> Expression zeros(Args const&... dims);
+
+  /// @overload
+  template<typename ClassName> ClassName::type zeros(ClassName const& classname);
+
+  /// @overload
+  double zeros();
+  #endif
+
+  /// INTERNAL ONLY
+  #define M0(z,n,t)                                                            \
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::Zero, zeros, n)                        \
   /**/
 
   BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_PP_INC(NT2_MAX_DIMENSIONS)),M0,~)
@@ -36,19 +140,21 @@ namespace nt2
   #undef M0
 }
 
-namespace nt2 { namespace ext
+namespace nt2
 {
   /// INTERNAL ONLY
-  template<class Domain, class Expr, int N>
-  struct  value_type<tag::Zero,Domain,N,Expr>
-        : meta::generative_value<Expr>
-  {};
+  namespace ext
+  {
+    template<class Domain, class Expr, int N>
+    struct  value_type<tag::Zero,Domain,N,Expr>
+          : meta::generative_value<Expr>
+    {};
 
-  /// INTERNAL ONLY
-  template<class Domain, class Expr, int N>
-  struct  size_of<tag::Zero,Domain,N,Expr>
-        : meta::generative_size<Expr>
-  {};
-} }
+    template<class Domain, class Expr, int N>
+    struct  size_of<tag::Zero,Domain,N,Expr>
+          : meta::generative_size<Expr>
+    {};
+  }
+}
 
 #endif

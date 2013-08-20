@@ -1,0 +1,67 @@
+[section Type specifiers]
+If Matlab default data type is =double=, one can actually use different types
+in generator functions to obtain arrays of =single= or any integers types. This
+is done by specifying a *type class* string as parameter of the generator.
+Type specifiers are __NT2__ equivalent of Matlab class name and can be used in
+the same cases.
+
+[section Defining a Type Specifier]
+The main way to define a type specifier to pass to a function is to use the
+=as_= construct. =as_= wraps a type into a lightweight object that is recognized
+by __NT2__ function as a type specifier. For example, generating a =3x3= array
+full of 8-bits unsigned integer zero is done by:
+
+``
+x = zeroes(3, as_<char>() );
+``
+
+[endsect]
+
+[section Type Specifiers Generation]
+Sometimes, the type of data to be generated as to be equivalent than the value
+type of another, already existing container or expression. To limit the amount
+of complex type retrieval to get this type and pass it around using =as_=, __NT2__
+provides a function called [funcref nt2::class_] which computes the proper type
+specifier associated to another variable. For example, generating an identity
+matrix with the same type than another matrix =m= is done by doing:
+
+``
+i = eye(5, class_(m) );
+``
+
+[endsect]
+
+[section Predefined Type Specifiers]
+For example, generating a =3x3= array full of =single= ones is done by:
+
+``
+x = ones(3, 'single');
+``
+
+The __NT2__ equivalent is done using type class *object*. Type class objects are
+predefined type specifiers corresponding to each Matlab type class string ( see
+[link constants_and_generative_constructors.type_specifiers.predefined_type_specifiers.typeclass this table]). Those objects are available in the =nt2/core/numeric_class.hpp= header.
+
+For example, the Matlab code given above translates into:
+
+``
+table<float> x = ones(3, single_);
+``
+
+[table:typeclass Matlab/NT2 type class equivalence
+  [ [Matlab]   [__NT2__]  ]
+  [ [='double'=] [=double_=]]
+  [ [='single'=] [=single_=]]
+  [ [='int8'=]   [=int8_=]  ]
+  [ [='int16'=]  [=int16_=] ]
+  [ [='int32'=]  [=int32_=] ]
+  [ [='int64'=]  [=int64_=] ]
+  [ [='uint8'=]  [=uint8_=] ]
+  [ [='uint16'=] [=uint16_=]]
+  [ [='uint32'=] [=uint32_=]]
+  [ [='uint64'=] [=uint64_=]]
+]
+
+[endsect]
+
+[endsect]

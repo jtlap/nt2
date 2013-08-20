@@ -10,6 +10,7 @@
 [/ xinclude arithmetic.xml]
 [/ xinclude predicates.xml]
 [xinclude core.trigonometric.xml]
+[xinclude core.generative.xml]
 [/ xinclude linalg.xml]
 [/ xinclude optimisation.xml]
 [xinclude user/tutorial.xml]
