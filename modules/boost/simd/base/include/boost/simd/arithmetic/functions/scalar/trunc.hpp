@@ -10,8 +10,10 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_TRUNC_HPP_INCLUDED
 #include <boost/simd/arithmetic/functions/trunc.hpp>
 #include <boost/simd/include/functions/scalar/floor.hpp>
-#include <boost/simd/include/functions/scalar/ceil.hpp>
-#include <boost/simd/include/functions/scalar/toint.hpp>
+#include <boost/simd/include/functions/scalar/abs.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_or.hpp>
+#include <boost/simd/include/functions/scalar/bitofsign.hpp>
+#include <math.h>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -33,10 +35,10 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      if (a0 > 0) return boost::simd::floor(a0);
-      else        return boost::simd::ceil(a0);
+      return  b_or(floor(abs(a0)), bitofsign(a0));
     }
   };
+
 } } }
 
 

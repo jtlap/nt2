@@ -6,63 +6,61 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_TRUNC_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_TRUNC_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_trunc trunc
- *
- * \par Description
- * TODO Put description here
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/trunc.hpp>
- * \endcode
- *
- * \par Alias
- * \arg fix
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::trunc_(A0)>::type
- *     trunc(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of trunc
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace boost { namespace simd { namespace tag
   {
     /*!
-     * \brief Define the tag trunc_ of functor trunc
-     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
+      @brief  trunc generic tag
+
+      Represents the trunc function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
-    struct trunc_ : ext::elementwise_<trunc_> { typedef ext::elementwise_<trunc_> parent; };
+    struct trunc_ : ext::elementwise_<trunc_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<trunc_> parent;
+    };
   }
+  /*!
+    Computes the truncation toward zero of its parameter.
+
+    @par semantic:
+    For any given value @c x of type @c T:
+
+    @code
+    T r = sign(x)*floor(abs(x));
+    @endcode
+
+    @par Note:
+
+    For floating point number it is also one of the two ouputs of
+    the modf function.
+    And we have:
+
+    @code
+    trunc(x) + frac(x) == x;
+    @endcode
+
+    except for nans
+
+    @par Alias
+
+    fix
+
+    @param  x
+
+    @return      a value of the same type as the input.
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::trunc_, trunc, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::trunc_, fix, 1)
 } }
 
 #endif
-
-// modified by jt the 25/12/2010

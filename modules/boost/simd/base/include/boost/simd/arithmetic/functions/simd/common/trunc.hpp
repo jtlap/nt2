@@ -12,6 +12,7 @@
 #include <boost/simd/include/functions/simd/abs.hpp>
 #include <boost/simd/include/functions/simd/floor.hpp>
 #include <boost/simd/include/functions/simd/bitofsign.hpp>
+#include <boost/simd/include/functions/simd/bitwise_or.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -28,7 +29,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return  b_xor(floor(abs(a0)), bitofsign(a0)); }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return  b_or(floor(abs(a0)), bitofsign(a0)); }
   };
 } } }
 
