@@ -43,10 +43,6 @@ NT2_TEST_CASE_TPL ( acosh_real__1_0,  NT2_SIMD_REAL_TYPES)
 
   // return type conformity test
 //   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(nt2::acosh(cT(nt2::One<T>(), nt2::Zero<T>())),  cT(nt2::Zero<T>(), nt2::Zero<T>()), 0.75);

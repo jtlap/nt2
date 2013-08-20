@@ -49,8 +49,7 @@ NT2_TEST_CASE_TPL ( definitely_greater_real__3_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::call<definitely_greater_(vT,vT,ivT)>::type r_t;
   typedef typename nt2::meta::call<definitely_greater_(T,T,iT)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
+
 
 
   // specific values tests
@@ -73,8 +72,7 @@ NT2_TEST_CASE_TPL ( definitely_greater_signed_int__3_0,  NT2_SIMD_INTEGRAL_SIGNE
   typedef typename nt2::meta::call<definitely_greater_(vT,vT,ivT)>::type r_t;
   typedef typename nt2::meta::call<definitely_greater_(T,T,iT)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
+
 
 
   // specific values tests
@@ -97,8 +95,7 @@ NT2_TEST_CASE_TPL ( definitely_greater_unsigned_int__3_0,  NT2_SIMD_UNSIGNED_TYP
   typedef typename nt2::meta::call<definitely_greater_(vT,vT,ivT)>::type r_t;
   typedef typename nt2::meta::call<definitely_greater_(T,T,iT)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
+
 
 
   // specific values tests

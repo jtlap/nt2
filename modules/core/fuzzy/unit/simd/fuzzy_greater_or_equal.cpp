@@ -26,7 +26,6 @@ NT2_TEST_CASE_TPL ( fuzzy_greater_or_equal_real__3_0,  NT2_SIMD_REAL_TYPES)
   typedef native<T,ext_t>                vT;
   typedef typename nt2::meta::call<fuzzy_greater_or_equal_(vT,vT,vT)>::type r_t;
 
-
   // specific values tests
   NT2_TEST_EQUAL(fuzzy_greater_or_equal(nt2::splat<vT>(0),nt2::splat<vT>(0),nt2::splat<vT>(1)), nt2::True<r_t>());
   NT2_TEST_EQUAL(fuzzy_greater_or_equal(nt2::splat<vT>(1),nt2::splat<vT>(1)+nt2::Eps<vT>(),nt2::Eps<vT>()), nt2::True<r_t>());

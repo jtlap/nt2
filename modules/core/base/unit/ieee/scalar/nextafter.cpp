@@ -45,8 +45,7 @@ NT2_TEST_CASE_TPL ( nextafter_float_2_0,  (float))
   // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
+
 
 } // end of test for float
 
@@ -65,8 +64,7 @@ NT2_TEST_CASE_TPL ( nextafter_double_2_0,  (double))
   // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
+
 
 } // end of test for double
 
@@ -85,8 +83,7 @@ NT2_TEST_CASE_TPL ( nextafter_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
+
 
 } // end of test for signed_int_
 
@@ -105,7 +102,6 @@ NT2_TEST_CASE_TPL ( nextafter_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
   // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
+
 
 } // end of test for unsigned_int_

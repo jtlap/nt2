@@ -13,10 +13,8 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
-
 NT2_TEST_CASE_TPL ( sech_real__1_0,  NT2_REAL_TYPES)
 {
-
   using nt2::sech;
   using nt2::tag::sech_;
   typedef typename nt2::meta::call<sech_(T)>::type r_t;

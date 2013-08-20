@@ -49,8 +49,7 @@ NT2_TEST_CASE_TPL ( ror_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES)
   typedef typename nt2::meta::call<ror_(vT,ivT)>::type r_t;
   typedef typename nt2::meta::call<ror_(T,iT)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
+
 
 
   // specific values tests

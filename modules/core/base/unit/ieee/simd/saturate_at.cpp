@@ -48,7 +48,6 @@ NT2_TEST_CASE_TPL ( saturate_at_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::call<saturate_at_<nt2::tag::Pi>(vT)>::type r_t;
   typedef typename nt2::meta::call<saturate_at_<nt2::tag::Pi>(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
+
 
 } // end of test for floating_

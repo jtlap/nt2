@@ -39,8 +39,7 @@ NT2_TEST_CASE_TPL ( sqrt1pm1_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef native<cT ,ext_t>                      vcT;
   typedef typename nt2::meta::as_dry<T>::type          dT;
   typedef native<dT ,ext_t>                           vdT;
-  double ulpd;
-  ulpd=0.0;
+
 
   // specific values tests
   {

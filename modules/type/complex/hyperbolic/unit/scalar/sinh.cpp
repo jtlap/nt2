@@ -19,14 +19,13 @@
 
 #include <nt2/constant/constant.hpp>
 
-
-NT2_TEST_CASE_TPL ( sinh_real__1_0,  (double))//NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( sinh_real__1_0, (double))
 {
-
   using nt2::sinh;
   using nt2::tag::sinh_;
   typedef std::complex<T> cT;
   typedef cT r_t;
+
   {
     const int N = 2;
     cT inputs[] =

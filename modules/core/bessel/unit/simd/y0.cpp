@@ -23,6 +23,7 @@ NT2_TEST_CASE_TPL ( y0_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                vT;
   typedef typename nt2::meta::call<y0_(vT)>::type r_t;
+
   // specific values tests
   NT2_TEST_ULP_EQUAL(y0(nt2::One<vT>()), nt2::splat<r_t>( 8.825696421567700e-02), 2);
   NT2_TEST_ULP_EQUAL(y0(nt2::Zero<vT>()), nt2::Minf<r_t>(), 0);

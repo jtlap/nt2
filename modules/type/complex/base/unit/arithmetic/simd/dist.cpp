@@ -52,8 +52,7 @@ NT2_TEST_CASE_TPL ( dist_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename nt2::meta::as_dry<T>::type          dT;
   typedef native<dT ,ext_t>                           vdT;
   typedef vT r_t;
-  double ulpd;
-  ulpd=0.0;
+
 
   {
     NT2_TEST_EQUAL(nt2::dist(vcT(nt2::Inf<vT>(), nt2::Zero<vT>()), vcT(nt2::Inf<vT>(), nt2::Zero<vT>()))[0], nt2::Nan<vT>()[0]);

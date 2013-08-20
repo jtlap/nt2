@@ -44,8 +44,7 @@ NT2_TEST_CASE_TPL ( rec_real__1_0,  BOOST_SIMD_REAL_TYPES)
                     , (cT)
                     );
 
-  double ulpd;
-  ulpd=0.0;
+
 
   // specific values tests
    NT2_TEST_EQUAL(nt2::rec(cT(1)), T(1));

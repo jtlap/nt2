@@ -24,7 +24,6 @@ NT2_TEST_CASE_TPL ( log1p_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<log1p_(T)>::type r_t;
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
-
   NT2_TEST_TYPE_IS(r_t, wished_r_t);
 
   // specific values tests
@@ -48,7 +47,7 @@ NT2_TEST_CASE_TPL ( log1p_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   typedef typename nt2::meta::call<log1p_(T)>::type r_t;
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
- NT2_TEST_TYPE_IS(r_t, wished_r_t);
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(log1p(nt2::One<T>()), nt2::Log_2<r_t>(), 0.5);

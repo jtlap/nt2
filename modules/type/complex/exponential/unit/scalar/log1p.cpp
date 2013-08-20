@@ -44,8 +44,7 @@ NT2_TEST_CASE_TPL ( log1p_real__1_0,  NT2_REAL_TYPES)
   // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
+
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(nt2::log1p(nt2::Inf<cT>()),   cT(nt2::Inf<T>()), 0.5);

@@ -18,13 +18,13 @@
 
 NT2_TEST_CASE_TPL ( sinh_real__1_0,  NT2_REAL_TYPES)
 {
-
   using nt2::sinh;
   using nt2::tag::sinh_;
   typedef typename nt2::meta::call<sinh_(T)>::type r_t;
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
   NT2_TEST_TYPE_IS(r_t, wished_r_t);
+
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
   NT2_TEST_ULP_EQUAL(sinh(nt2::Inf<T>()), nt2::Inf<r_t>(), 0.5);
@@ -38,7 +38,6 @@ NT2_TEST_CASE_TPL ( sinh_real__1_0,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( sinh_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
-
   using nt2::sinh;
   using nt2::tag::sinh_;
   typedef typename nt2::meta::call<sinh_(T)>::type r_t;
@@ -52,11 +51,11 @@ NT2_TEST_CASE_TPL ( sinh_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( sinh_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
-
   using nt2::sinh;
   using nt2::tag::sinh_;
   typedef typename nt2::meta::call<sinh_(T)>::type r_t;
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
+
   NT2_TEST_TYPE_IS(r_t, wished_r_t);
 
   // specific values tests

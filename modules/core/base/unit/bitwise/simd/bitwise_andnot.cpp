@@ -49,8 +49,7 @@ NT2_TEST_CASE_TPL ( bitwise_andnot_real__2_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::call<bitwise_andnot_(vT,vT)>::type r_t;
   typedef typename nt2::meta::call<bitwise_andnot_(T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
+
 
 
   // specific values tests
@@ -76,8 +75,7 @@ NT2_TEST_CASE_TPL ( bitwise_andnot_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES)
   typedef typename nt2::meta::call<bitwise_andnot_(vT,vT)>::type r_t;
   typedef typename nt2::meta::call<bitwise_andnot_(T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
+
 
 
   // specific values tests

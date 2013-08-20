@@ -46,6 +46,7 @@ NT2_TEST_CASE_TPL ( sqrt1pm1_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
   NT2_TEST_TYPE_IS(r_t, wished_r_t);
+
   // specific values tests
   NT2_TEST_ULP_EQUAL(sqrt1pm1(nt2::One<T>()), nt2::Sqrt_2<r_t>()-nt2::One<r_t>(), 2);
   NT2_TEST_ULP_EQUAL(sqrt1pm1(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);

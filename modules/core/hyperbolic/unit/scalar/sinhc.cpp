@@ -34,7 +34,6 @@ NT2_TEST_CASE_TPL ( sinhc_real__1_0,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( sinhc_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
-
   using nt2::sinhc;
   using nt2::tag::sinhc_;
   typedef typename nt2::meta::call<sinhc_(T)>::type r_t;
@@ -48,7 +47,6 @@ NT2_TEST_CASE_TPL ( sinhc_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( sinhc_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
-
   using nt2::sinhc;
   using nt2::tag::sinhc_;
   typedef typename nt2::meta::call<sinhc_(T)>::type r_t;

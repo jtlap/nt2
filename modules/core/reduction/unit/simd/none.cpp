@@ -41,9 +41,7 @@ NT2_TEST_CASE_TPL ( none_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::call<none_(vT)>::type r_t;
   typedef typename nt2::meta::call<none_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-  boost::dispatch::ignore_unused(ulpd);
+
 
   // specific values tests
   NT2_TEST_EQUAL(none(nt2::Inf<vT>()), nt2::False<ssr_t>());
@@ -69,9 +67,7 @@ NT2_TEST_CASE_TPL ( none_integer__1_0,  NT2_SIMD_INTEGRAL_TYPES)
   typedef typename nt2::meta::call<none_(vT)>::type r_t;
   typedef typename nt2::meta::call<none_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-  boost::dispatch::ignore_unused(ulpd);
+
 
   // specific values tests
   NT2_TEST_EQUAL(none(nt2::One<vT>()), nt2::False<ssr_t>());

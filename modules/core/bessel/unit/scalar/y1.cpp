@@ -16,13 +16,13 @@
 
 NT2_TEST_CASE_TPL ( y1_real__1_0,  NT2_REAL_TYPES)
 {
-
   using nt2::y1;
   using nt2::tag::y1_;
   typedef typename nt2::meta::call<y1_(T)>::type r_t;
   typedef T wished_r_t;
 
   NT2_TEST_TYPE_IS(r_t, wished_r_t);
+
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
   NT2_TEST_ULP_EQUAL(y1(nt2::Inf<T>()), nt2::Zero<r_t>(), 0);

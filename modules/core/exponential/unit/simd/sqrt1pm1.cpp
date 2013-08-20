@@ -14,8 +14,6 @@
 #include <nt2/constant/constant.hpp>
 #include <nt2/include/functions/splat.hpp>
 
-
-
 NT2_TEST_CASE_TPL ( sqrt1pm1_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::sqrt1pm1;
@@ -24,6 +22,7 @@ NT2_TEST_CASE_TPL ( sqrt1pm1_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                vT;
   typedef typename nt2::meta::call<sqrt1pm1_(vT)>::type r_t;
+
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
   NT2_TEST_ULP_EQUAL(sqrt1pm1(nt2::Inf<vT>()), nt2::Inf<r_t>(), 0);

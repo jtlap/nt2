@@ -34,12 +34,8 @@ NT2_TEST_CASE_TPL ( sqr_abs_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename std::complex<T> cT;
   typedef T wished_r_t;
 
-
   // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
- ulpd=0.0;
 
   // std::cout << nt2::type_id(nt2::I<T>()) << std::endl;
   // specific values tests

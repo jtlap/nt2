@@ -41,9 +41,7 @@ NT2_TEST_CASE_TPL ( next_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::call<next_(vT)>::type r_t;
   typedef typename nt2::meta::call<next_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-  boost::dispatch::ignore_unused(ulpd);
+
 
   // specific values tests
   NT2_TEST_EQUAL(next(nt2::Inf<vT>())[0], nt2::Inf<sr_t>());
@@ -70,9 +68,7 @@ NT2_TEST_CASE_TPL ( next_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
   typedef typename nt2::meta::call<next_(vT)>::type r_t;
   typedef typename nt2::meta::call<next_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-  boost::dispatch::ignore_unused(ulpd);
+
 
   // specific values tests
   NT2_TEST_EQUAL(next(nt2::One<vT>())[0], nt2::Two<sr_t>());
@@ -95,9 +91,7 @@ NT2_TEST_CASE_TPL ( next_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef typename nt2::meta::call<next_(vT)>::type r_t;
   typedef typename nt2::meta::call<next_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-  boost::dispatch::ignore_unused(ulpd);
+
 
   // specific values tests
   NT2_TEST_EQUAL(next(nt2::Mone<vT>())[0], nt2::Zero<sr_t>());

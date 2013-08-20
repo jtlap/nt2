@@ -51,8 +51,6 @@ NT2_TEST_CASE_TPL ( max_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef native<cT ,ext_t>                           vcT;
   typedef typename nt2::meta::as_dry<T>::type          dT;
   typedef native<dT ,ext_t>                           vdT;
-   double ulpd;
-   ulpd=0.0;
 
    // specific values tests
    {

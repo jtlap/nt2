@@ -49,9 +49,7 @@ NT2_TEST_CASE_TPL ( ellint_2_real__1_0,  NT2_REAL_TYPES)
   // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
-  boost::dispatch::ignore_unused(ulpd);
+
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(ellint_2(nt2::One<T>()), nt2::One<r_t>(), 0);

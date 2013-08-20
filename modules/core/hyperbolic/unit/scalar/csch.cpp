@@ -15,7 +15,6 @@
 
 NT2_TEST_CASE_TPL ( csch_real__1_0,  NT2_REAL_TYPES)
 {
-
   using nt2::csch;
   using nt2::tag::csch_;
   typedef typename nt2::meta::call<csch_(T)>::type r_t;
@@ -32,4 +31,3 @@ NT2_TEST_CASE_TPL ( csch_real__1_0,  NT2_REAL_TYPES)
 #endif
   NT2_TEST_ULP_EQUAL(csch(nt2::Zero<T>()), nt2::Inf<r_t>(), 0.5);
 } // end of test for floating_
-

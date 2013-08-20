@@ -16,10 +16,8 @@
 #include <complex>
 #include <boost/math/complex/acosh.hpp>
 
-
 NT2_TEST_CASE_TPL ( acosh_real__1_0, NT2_REAL_TYPES)
 {
-
   using nt2::acosh;
   using nt2::tag::acosh_;
   typedef std::complex<T> cT;
@@ -59,8 +57,6 @@ NT2_TEST_CASE_TPL ( acosh_real__1_0, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(nt2::acosh(cT(1, 10)),   boost::math::acosh(cT(1, 10)), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::acosh(cT(10, 10)),  boost::math::acosh(cT(10, 10)), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::acosh(cT(10, 1)),  boost::math::acosh(cT(10, 1)), 0.75);
-
-
 } // end of test for floating_
 
 // cacosh(conj(z)) = conj(cacosh(z)).

@@ -6,13 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 complex.operator toolbox - min/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.operator components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 18/02/2011
-///
 #include <nt2/arithmetic/include/functions/min.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/splat.hpp>
@@ -51,31 +44,29 @@ NT2_TEST_CASE_TPL ( min_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef native<cT ,ext_t>                           vcT;
   typedef typename nt2::meta::as_dry<T>::type          dT;
   typedef native<dT ,ext_t>                           vdT;
-   double ulpd;
-   ulpd=0.0;
 
-   // specific values tests
-   {
-     typedef vcT r_t;
-     NT2_TEST_ULP_EQUAL(nt2::min(vcT(nt2::Inf<vT>(), nt2::Zero<vT>()), vcT(nt2::Inf<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::Inf<vT>(), nt2::Zero<vT>())[0], 0);
-     NT2_TEST_EQUAL(nt2::min(vcT(nt2::One<vT>(), nt2::Zero<vT>()), vcT(nt2::Zero<vT>(),nt2::Zero<vT>()))[0], vcT(nt2::Zero<vT>(),nt2::Zero<vT>())[0]);
-     NT2_TEST_EQUAL(nt2::min(vcT(nt2::Zero<vT>(),nt2::Zero<vT>()), vcT(nt2::Zero<vT>(),nt2::Zero<vT>()))[0], vcT(nt2::Zero<vT>(),nt2::Zero<vT>())[0]);
-     NT2_TEST_EQUAL(nt2::min(vcT(nt2::Zero<vT>(),nt2::One<vT>()),  vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::One<vT>(),nt2::Zero<vT>())[0]);
-     NT2_TEST_EQUAL(nt2::min(vcT(nt2::One<vT>(), nt2::Zero<vT>()), vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::One<vT>(), nt2::Zero<vT>())[0]);
+  // specific values tests
+  {
+    typedef vcT r_t;
+    NT2_TEST_ULP_EQUAL(nt2::min(vcT(nt2::Inf<vT>(), nt2::Zero<vT>()), vcT(nt2::Inf<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::Inf<vT>(), nt2::Zero<vT>())[0], 0);
+    NT2_TEST_EQUAL(nt2::min(vcT(nt2::One<vT>(), nt2::Zero<vT>()), vcT(nt2::Zero<vT>(),nt2::Zero<vT>()))[0], vcT(nt2::Zero<vT>(),nt2::Zero<vT>())[0]);
+    NT2_TEST_EQUAL(nt2::min(vcT(nt2::Zero<vT>(),nt2::Zero<vT>()), vcT(nt2::Zero<vT>(),nt2::Zero<vT>()))[0], vcT(nt2::Zero<vT>(),nt2::Zero<vT>())[0]);
+    NT2_TEST_EQUAL(nt2::min(vcT(nt2::Zero<vT>(),nt2::One<vT>()),  vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::One<vT>(),nt2::Zero<vT>())[0]);
+    NT2_TEST_EQUAL(nt2::min(vcT(nt2::One<vT>(), nt2::Zero<vT>()), vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::One<vT>(), nt2::Zero<vT>())[0]);
 
-     NT2_TEST_EQUAL(nt2::min(vdT(nt2::Inf<vdT>()),  vcT(nt2::Inf<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::Inf<vT>(), nt2::Zero<vT>())[0]);
-     NT2_TEST_EQUAL(nt2::min(vdT(nt2::One<vdT>()),  vcT(nt2::Zero<vT>(),nt2::Zero<vT>()))[0], vcT(nt2::Zero<vT>(),nt2::Zero<vT>())[0]);
-     NT2_TEST_EQUAL(nt2::min(vdT(nt2::Zero<vdT>()), vcT(nt2::Zero<vT>(),nt2::Zero<vT>()))[0], vcT(nt2::Zero<vT>(),nt2::Zero<vT>())[0]);
-     NT2_TEST_EQUAL(nt2::min(vdT(nt2::Zero<vdT>()), vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::Zero<vT>(),nt2::Zero<vT>())[0]);
-     NT2_TEST_EQUAL(nt2::min(vdT(nt2::One<vdT>()),  vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::One<vT>(), nt2::Zero<vT>())[0]);
+    NT2_TEST_EQUAL(nt2::min(vdT(nt2::Inf<vdT>()),  vcT(nt2::Inf<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::Inf<vT>(), nt2::Zero<vT>())[0]);
+    NT2_TEST_EQUAL(nt2::min(vdT(nt2::One<vdT>()),  vcT(nt2::Zero<vT>(),nt2::Zero<vT>()))[0], vcT(nt2::Zero<vT>(),nt2::Zero<vT>())[0]);
+    NT2_TEST_EQUAL(nt2::min(vdT(nt2::Zero<vdT>()), vcT(nt2::Zero<vT>(),nt2::Zero<vT>()))[0], vcT(nt2::Zero<vT>(),nt2::Zero<vT>())[0]);
+    NT2_TEST_EQUAL(nt2::min(vdT(nt2::Zero<vdT>()), vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::Zero<vT>(),nt2::Zero<vT>())[0]);
+    NT2_TEST_EQUAL(nt2::min(vdT(nt2::One<vdT>()),  vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::One<vT>(), nt2::Zero<vT>())[0]);
+  }
 
-   }
-   {
-     typedef vdT r_t;
-     NT2_TEST_EQUAL(nt2::min(vdT(nt2::Inf<vdT>()),   vdT(nt2::Inf<vdT>()))[0],  vdT(nt2::Inf<vdT>() )[0]);
-     NT2_TEST_EQUAL(nt2::min(vdT(nt2::One<vdT>()),   vdT(nt2::Zero<vdT>()))[0], vdT(nt2::Zero<vdT>())[0]);
-     NT2_TEST_EQUAL(nt2::min(vdT(nt2::Zero<vdT>()),  vdT(nt2::Zero<vdT>()))[0], vdT(nt2::Zero<vdT>())[0]);
-     NT2_TEST_EQUAL(nt2::min(vdT(nt2::Zero<vdT>()),  vdT(nt2::One<vdT>()))[0],  vdT(nt2::Zero<vdT>())[0]);
-     NT2_TEST_EQUAL(nt2::min(vdT(nt2::One<vdT>()),   vdT(nt2::One<vdT>()))[0],  vdT(nt2::One<vdT>() )[0]);
-   }
+  {
+    typedef vdT r_t;
+    NT2_TEST_EQUAL(nt2::min(vdT(nt2::Inf<vdT>()),   vdT(nt2::Inf<vdT>()))[0],  vdT(nt2::Inf<vdT>() )[0]);
+    NT2_TEST_EQUAL(nt2::min(vdT(nt2::One<vdT>()),   vdT(nt2::Zero<vdT>()))[0], vdT(nt2::Zero<vdT>())[0]);
+    NT2_TEST_EQUAL(nt2::min(vdT(nt2::Zero<vdT>()),  vdT(nt2::Zero<vdT>()))[0], vdT(nt2::Zero<vdT>())[0]);
+    NT2_TEST_EQUAL(nt2::min(vdT(nt2::Zero<vdT>()),  vdT(nt2::One<vdT>()))[0],  vdT(nt2::Zero<vdT>())[0]);
+    NT2_TEST_EQUAL(nt2::min(vdT(nt2::One<vdT>()),   vdT(nt2::One<vdT>()))[0],  vdT(nt2::One<vdT>() )[0]);
+  }
 } // end of test for floating_

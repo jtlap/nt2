@@ -15,7 +15,6 @@
 
 NT2_TEST_CASE_TPL ( atanh_real__1_0,  NT2_REAL_TYPES)
 {
-
   using nt2::atanh;
   using nt2::tag::atanh_;
   typedef typename nt2::meta::call<atanh_(T)>::type r_t;
@@ -36,7 +35,6 @@ NT2_TEST_CASE_TPL ( atanh_real__1_0,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( atanh_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
-
   using nt2::atanh;
   using nt2::tag::atanh_;
   typedef typename nt2::meta::call<atanh_(T)>::type r_t;
@@ -50,7 +48,6 @@ NT2_TEST_CASE_TPL ( atanh_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( atanh_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
-
   using nt2::atanh;
   using nt2::tag::atanh_;
   typedef typename nt2::meta::call<atanh_(T)>::type r_t;

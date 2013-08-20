@@ -21,7 +21,7 @@ NT2_TEST_CASE_TPL ( asech_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<asech_(T)>::type r_t;
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
- NT2_TEST_TYPE_IS(r_t, wished_r_t);
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
 
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
@@ -30,4 +30,3 @@ NT2_TEST_CASE_TPL ( asech_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(asech(nt2::One<T>()), nt2::Zero<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(asech(nt2::Zero<T>()), nt2::Inf<r_t>(), 0.5);
 } // end of test for floating_
-

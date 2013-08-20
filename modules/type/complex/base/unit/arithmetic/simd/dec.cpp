@@ -54,8 +54,7 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  (float))
   typedef native<cT ,ext_t>                           vcT;
   typedef typename nt2::meta::as_dry<T>::type          dT;
   typedef native<dT ,ext_t>                           vdT;
-  double ulpd;
-  ulpd=0.0;
+
 
   {
     typedef vcT r_t;

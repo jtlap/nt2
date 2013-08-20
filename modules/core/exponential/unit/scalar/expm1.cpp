@@ -25,7 +25,6 @@ NT2_TEST_CASE_TPL ( expm1_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<expm1_(T)>::type r_t;
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
-
   NT2_TEST_TYPE_IS(r_t, wished_r_t);
 
   // specific values tests
@@ -62,6 +61,7 @@ NT2_TEST_CASE_TPL ( expm1_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
   NT2_TEST_TYPE_IS(r_t, wished_r_t);
+
   // specific values tests
   NT2_TEST_ULP_EQUAL(expm1(nt2::Mone<T>()), nt2::One<r_t>()/nt2::Exp_1<r_t>()-nt2::One<r_t>(), 1.0);
   NT2_TEST_ULP_EQUAL(expm1(nt2::One<T>()), nt2::Exp_1<r_t>()-nt2::One<r_t>(), 1.0);

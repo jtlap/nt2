@@ -41,8 +41,7 @@ NT2_TEST_CASE_TPL ( definitely_less_real__3_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::call<definitely_less_(vT,vT,ivT)>::type r_t;
   typedef typename nt2::meta::call<definitely_less_(T,T,iT)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
+
 
 
   // specific values tests
@@ -66,8 +65,7 @@ NT2_TEST_CASE_TPL ( definitely_less_signed_int__3_0,  NT2_SIMD_INTEGRAL_SIGNED_T
   typedef typename nt2::meta::call<definitely_less_(vT,vT,ivT)>::type r_t;
   typedef typename nt2::meta::call<definitely_less_(T,T,iT)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
+
 
 
   // specific values tests
@@ -91,8 +89,7 @@ NT2_TEST_CASE_TPL ( definitely_less_unsigned_int__3_0,  NT2_SIMD_UNSIGNED_TYPES)
   typedef typename nt2::meta::call<definitely_less_(vT,vT,ivT)>::type r_t;
   typedef typename nt2::meta::call<definitely_less_(T,T,iT)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
+
 
 
   // specific values tests

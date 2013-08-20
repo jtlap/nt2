@@ -47,8 +47,7 @@ NT2_TEST_CASE_TPL ( fast_hypot_real__2_0,  NT2_REAL_TYPES)
   // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
+
 
 
   // specific values tests
@@ -76,8 +75,7 @@ NT2_TEST_CASE_TPL ( fast_hypot_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
   // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
+
 
 
   // specific values tests
@@ -101,8 +99,7 @@ NT2_TEST_CASE_TPL ( fast_hypot_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
+
 
 
   // specific values tests

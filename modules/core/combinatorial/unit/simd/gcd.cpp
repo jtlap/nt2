@@ -81,8 +81,7 @@ NT2_TEST_CASE_TPL ( gcd_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
   typedef typename nt2::meta::call<gcd_(vT,vT)>::type r_t;
   typedef typename nt2::meta::call<gcd_(T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
+
 
 
   // specific values tests
@@ -109,8 +108,7 @@ NT2_TEST_CASE_TPL ( gcd_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef typename nt2::meta::call<gcd_(vT,vT)>::type r_t;
   typedef typename nt2::meta::call<gcd_(T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
+
 
 
   // specific values tests

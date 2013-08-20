@@ -6,13 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.arithmetic toolbox - rsqrt/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.arithmetic components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created by jt the 30/11/2010
-///
 #include <nt2/arithmetic/include/functions/rsqrt.hpp>
 #include <nt2/arithmetic/include/functions/sqr.hpp>
 #include <nt2/arithmetic/include/functions/rec.hpp>
@@ -39,9 +32,6 @@ NT2_TEST_CASE_TPL ( rsqrt_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
   // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
- ulpd=0.0;
 
   // std::cout << nt2::type_id(nt2::I<T>()) << std::endl;
   // specific values tests
