@@ -13,22 +13,33 @@
 
 #include <boost/simd/memory/details/posix.hpp>
 #include <boost/simd/memory/details/aligned_stash.hpp>
-#include <boost/simd/memory/aligned_free.hpp>
 #include <boost/simd/memory/aligned_malloc.hpp>
+#include <boost/simd/memory/is_aligned.hpp>
+#include <boost/simd/memory/align_on.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/config.hpp>
 
+#include <algorithm>
+#include <cstring>
+#include <cstdlib>
 #include <stdlib.h>
-#include <new>
 
 #if !defined(__APPLE__)
 #include <malloc.h>
 #endif
 
-// ICC warns about combination of inline and noinline
-#if defined(BOOST_INTEL)
-#pragma warning push
-#pragma warning disable 2196
+#if defined(BOOST_SIMD_DEFAULT_REALLOC) && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
+/// INTERNAL ONLY
+#define BOOST_SIMD_MEMORY_NO_BUILTINS
+#endif
+
+#if !defined(BOOST_SIMD_DEFAULT_REALLOC)
+/// INTERNAL ONLY
+#define BOOST_SIMD_DEFAULT_REALLOC std::realloc
+#endif
+
+#ifndef BOOST_SIMD_REALLOC_SHRINK_THRESHOLD
+#define BOOST_SIMD_REALLOC_SHRINK_THRESHOLD 32
 #endif
 
 namespace boost { namespace simd
@@ -49,107 +60,160 @@ namespace boost { namespace simd
 
     is equivalent to :
 
-      - a aligned memory allocation is @c ptr is equal to 0;
+      - a aligned memory allocation if @c ptr is equal to 0;
       - a no-op if the requested @c size is equal to the old size of the memory
         block referenced by @c ptr;
-      - a call to the system specific reallocation function followed by an
-        alignment fix-up.
+      - a call to the system specific reallocation function followed by a
+        potential alignment fix-up.
 
     followed by a potential copy of the original data in the new memory block
     (contrary to aligned_reuse).
 
+    @par Framework specific override
+
+    By default, aligned_realloc use system specific functions to handle memory
+    reallocation. One can specify a custom reallocation function to be used
+    instead. This custom function must have a prototype equivalent to:
+
+    @code
+    void* f(void* ptr, std::size_t sz, std::size_t align);
+    @endcode
+
+    In this case, the following code:
+
+    @code
+    void* r = aligned_realloc(ptr,size,alignment, f);
+    @endcode
+
+    is equivalent to a call to @c f followed by an alignment fix-up.
+
     @pre   @c alignment is a non-zero power of two.
-    @param ptr      Pointer to reallocate
-    @param sz       Number of bytes to allocate
-    @param align    Alignment boundary to respect
+
+    @param ptr        Pointer to reallocate
+    @param size       Number of bytes to allocate
+    @param alignment  Alignment boundary to respect
+    @param realloc_fn Function to use for basic reallocation
+
     @return Pointer referencing the newly allocated memory block.
   **/
-  BOOST_FORCEINLINE
-  void* aligned_realloc(void* const ptr, std::size_t sz, std::size_t align)
+  template<typename ReallocFunction>
+  inline void* aligned_realloc( void* ptr, std::size_t size, std::size_t alignment
+                              , ReallocFunction realloc_fn
+                              )
   {
-#if defined( _MSC_VER ) && defined( BOOST_SIMD_MEMORY_USE_BUILTINS )
+    details::aligned_block_header hdr = {0,0,0};
+    if(ptr)
+      hdr = details::get_block_header(ptr);
 
-    return ::_aligned_realloc( ptr, sz, align );
+    std::size_t nsz = size
+                    ? size + alignment + sizeof(details::aligned_block_header)
+                    : 0u;
 
-#elif     defined( BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN )                  \
-      || (defined( _GNU_SOURCE ) && !defined( __ANDROID__ ))
+    void* fresh_ptr = realloc_fn( static_cast<char*>(ptr) - hdr.offset, nsz );
+    if(!fresh_ptr)
+      return 0;
 
-    // Resizing to 0 free the pointer data and return
-    if(sz == 0)
+    std::size_t old_size = hdr.used_size;
+    std::size_t old_offset = hdr.offset;
+
+    hdr.offset = simd::align_on(static_cast<char const*>(fresh_ptr)+sizeof(details::aligned_block_header), alignment) - static_cast<char const*>(fresh_ptr);
+    hdr.allocated_size = size + alignment + sizeof(details::aligned_block_header) - hdr.offset;
+    hdr.used_size = size;
+
+    if(hdr.offset != old_offset)
+      std::memmove(static_cast<char*>(fresh_ptr) + hdr.offset, static_cast<char const*>(fresh_ptr) + old_offset, std::min(size, old_size));
+
+    *(reinterpret_cast<details::aligned_block_header*>(static_cast<char*>(fresh_ptr) + hdr.offset) - 1) = hdr;
+    return static_cast<char*>(fresh_ptr) + hdr.offset;
+  }
+
+  /// @overload
+  inline void* aligned_realloc(void* ptr, std::size_t size, std::size_t alignment)
+  {
+    // Do we want to use built-ins special aligned free/alloc ?
+    #if defined( _MSC_VER ) && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
+
+    std::size_t* const oldptr = static_cast<std::size_t*>(ptr)-1;
+
+    if(ptr && !size)
     {
-      aligned_free( ptr );
+      ::_aligned_free(oldptr);
       return 0;
     }
 
-    // Reallocating empty pointer performs allocation
-    if(ptr == 0) return aligned_malloc( sz, align );
+    if(ptr && alignment == *oldptr)
+    {
+      std::size_t* fresh_ptr = static_cast<std::size_t*>(::_aligned_offset_realloc(oldptr, size+sizeof(std::size_t), alignment, sizeof(std::size_t)));
+      if(!fresh_ptr)
+        return 0;
+      return fresh_ptr+1;
+    }
 
-#ifdef __ANDROID__
+    std::size_t* fresh_ptr = static_cast<std::size_t*>(::_aligned_offset_malloc(size+sizeof(std::size_t), alignment, sizeof(std::size_t)));
+    if(!fresh_ptr)
+      return 0;
+
+    *fresh_ptr++ = alignment;
+
+    if(ptr)
+    {
+      std::size_t const oldSize( ::_aligned_msize( oldptr, *oldptr, sizeof(std::size_t) ) );
+      std::memcpy( fresh_ptr, ptr, std::min( size, oldSize ) );
+      ::_aligned_free(oldptr);
+    }
+    return fresh_ptr;
+
+    #elif (     defined( BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN )            \
+            ||  (defined( _GNU_SOURCE ) && !defined( __ANDROID__ ))            \
+          )                                                                    \
+       && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
+
+    // Resizing to 0 free the pointer data and return
+    if(size == 0)
+    {
+      ::free(ptr);
+      return 0;
+    }
+
+    #ifdef __ANDROID__
     // https://groups.google.com/forum/?fromgroups=#!topic/android-ndk/VCEUpMfSh_o
     std::size_t const oldSize( ::dlmalloc_usable_size( ptr ) );
-#else
+    #else
     std::size_t const oldSize( ::malloc_usable_size( ptr ) );
-#endif
+    #endif
 
-
-    if( simd::is_aligned(ptr,align ) )
+    if( simd::is_aligned(ptr, alignment) )
     {
-      if ( ( oldSize - sz ) < 32 )
+      if( ( oldSize - size ) < BOOST_SIMD_REALLOC_SHRINK_THRESHOLD )
       {
         return ptr;
       }
       else
       {
-        void* BOOST_DISPATCH_RESTRICT  const new_ptr = std::realloc(ptr, sz);
-        if( simd::is_aligned(new_ptr,align ) ) return new_ptr;
-        std::free(new_ptr);
+        // FIXME: realloc will free the old memory if it moves.
+        // if it moves to a non-aligned memory segment and the subsequent
+        // memory allocation fails, we break the invariant
+        ptr = ::realloc(ptr, size);
+        if( simd::is_aligned(ptr, alignment) )
+          return ptr;
       }
     }
 
-    void * BOOST_DISPATCH_RESTRICT const fresh_ptr = aligned_malloc(sz,align);
+    void* const fresh_ptr = aligned_malloc(size, alignment);
+    if(!fresh_ptr)
+      return 0;
 
-    if( !fresh_ptr ) return 0;
-
-    std::memcpy( fresh_ptr, ptr, std::min( sz, oldSize ) );
-    aligned_free( ptr );
+    std::memcpy(fresh_ptr, ptr, std::min(size, oldSize));
+    ::free(ptr);
 
     return fresh_ptr;
-#else
 
-    // Resizing to 0 free the pointer data and return
-    if(sz == 0)
-    {
-      aligned_free( ptr );
-      return 0;
-    }
+    #else
 
-    // Reallocating empty pointer performs allocation
-    if(ptr == 0) return aligned_malloc( sz, align );
+    return aligned_realloc(ptr, size, alignment, BOOST_SIMD_DEFAULT_REALLOC);
 
-    details::aligned_block_header const oldHeader( details::get_block_header( ptr ) );
-    std::size_t const oldSize( oldHeader.userBlockSize );
-
-    // Return if idempotent reallocation is performed
-    if( oldSize == sz ) return ptr;
-
-    // Else actually realloc the whole stuff and readjust for alignment
-    return details::adjust_pointer
-            ( std::realloc( oldHeader.pBlockBase
-                          , sz + align + sizeof(details::aligned_block_header)
-                          )
-            , sz
-            , align
-            , oldSize
-            , static_cast<char const *>(ptr)
-            - static_cast<char const *>( oldHeader.pBlockBase )
-            );
-#endif
+    #endif
   }
-
 } }
-
-#if defined(BOOST_INTEL)
-#pragma warning pop
-#endif
 
 #endif

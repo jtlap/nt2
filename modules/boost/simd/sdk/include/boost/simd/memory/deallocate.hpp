@@ -11,6 +11,8 @@
 
 #include <boost/simd/memory/align_on.hpp>
 #include <boost/simd/memory/aligned_free.hpp>
+#include <boost/simd/memory/details/allocator_wrapper.hpp>
+#include <boost/simd/memory/details/aligned_stash.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/dispatch/meta/enable_if_type.hpp>
 #include <cstddef>
@@ -39,20 +41,17 @@ namespace boost { namespace simd
     @param ptr    Pointer to the memory to free.
   **/
   template<class Allocator> BOOST_FORCEINLINE
-  #if defined(DOXYGEN_ONLY)
-  void
-  #else
   typename dispatch::meta::enable_if_type<typename Allocator::pointer>::type
-  #endif
   deallocate( Allocator& alloc, void* ptr )
   {
-    // How many elements are needed to store proper number of bytes
-    details::aligned_block_header const old( details::get_block_header( ptr ) );
-    std::size_t const oldSize( old.userBlockSize );
+    if(!ptr)
+      return;
 
-    alloc.deallocate( static_cast<typename Allocator::pointer>(old.pBlockBase)
-                    , oldSize
-                    );
+    details::aligned_block_header* hdr = static_cast<details::aligned_block_header*>(ptr) - 1;
+
+    return aligned_free ( ptr
+                        , details::allocator_free<Allocator>(alloc, hdr->allocated_size + hdr->offset)
+                        );
   }
 } }
 

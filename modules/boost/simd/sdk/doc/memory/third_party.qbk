@@ -1,0 +1,131 @@
+[section Interaction with 3rd party libraries]
+
+Boost.SIMD memory management is, by default, based on the standard =malloc= et
+al. functions or their system specific aligned counterpart. However, some use
+cases may require:
+
+* the need to use 3rd party library allocation functions
+* the need to use 3rd party library allocators
+* the need to disable the system specific aligned allocation to use pointer
+  stashing.
+
+Boost.SIMD provides various way to do enable those use-cases.
+
+[section Forcing pointer stashing implementation]
+Some compiler may provide sub-par allocation functions set or lead to huge
+binary when linked statically against the standard library. In this case, it
+could be interesting to not use the specific allocation function but to force
+the use of the pointer stashing allocation algorithm. This can be done by defining
+the =BOOST_SIMD_NO_BUILTINS= preprocessor symbol.
+[endsect]
+
+[section Global customization]
+All usage of standard =malloc= and related functions inside Boost.SIMD can be
+changed by a set of preprocessor symbols. Each of these symbol control one
+global function override. The symbols are:
+
+* =BOOST_SIMD_DEFAULT_MALLOC=
+* =BOOST_SIMD_DEFAULT_REALLOC=
+* =BOOST_SIMD_DEFAULT_FREE=
+
+This overload is global to the whole compilation unit and affects every memory
+related components of Boost.SIMD. Note that defining any of those symbols
+also defines =BOOST_SIMD_NO_BUILTINS=.
+
+Let's consider as an example we want to use
+[@http://g.oswego.edu/dl/html/malloc.html Doug Lea's =malloc= implementation]
+inside Boost.SIMD. The code will looks like:
+
+``
+    #include <dlmalloc.h>
+    #include <boost/simd/memory/aligned_malloc.hpp>
+    #include <boost/simd/memory/aligned_free.hpp>
+
+    int main()
+    {
+      void* p = boost::simd::aligned_malloc(13*sizeof(int), 16);
+
+      // ... some code
+
+      boost::simd::aligned_free(p);
+    }
+``
+
+and it will get compiled using:
+
+``
+    g++ main.cpp -I$BOOST_ROOT -I/path/to/dlmalloc -DBOOST_SIMD_NO_BUILTINS -DBOOST_SIMD_DEFAULT_MALLOC=dlmalloc -DBOOST_SIMD_DEFAULT_FREE=dlfree
+``
+
+Note that the definition of the custom allocation functions used must be done
+before any inclusion of the definition of the Boost.SIMD functions.
+[endsect]
+
+[section Malloc-style memory management customization]
+Another use case is to need to have *some* allocations in an application to
+be handled by a custom allocation function. Tools like FMOD for example have
+specific allocation functions that, when compiled for some gaming system, will
+use specific hardware buffers. One can imagine an application where such buffers
+are required for sound management while another set of allocation strategy must
+be used for graphic related memory. In this case, we need a way to locally specify
+which function to use for a given memory allocation.
+
+[headerref nt2/modules/boost/simd/sdk/include/boost/simd/memory/aligned_malloc.hpp boost::simd::aligned_malloc] and its friends provide a customizable API in which
+the actual allocation, deallocation or reallocation function can be passed as an
+additional parameters.
+
+``
+    #include <boost/simd/memory/aligned_malloc.hpp>
+    #include <boost/simd/memory/aligned_free.hpp>
+    #include <dlmalloc.h>
+
+    int main()
+    {
+      void* p = boost::simd::aligned_malloc(13*sizeof(int), 16, ::dlmalloc);
+
+      // ... some code
+
+      boost::simd::aligned_free(p, ::dlfree);
+    }
+``
+
+Those overloads support any kind of Callable object as parameters including
+regular function pointer, functor object or even lambda functions. It is of
+course required that you use the correct custom deallocation function to free
+the memory allocated with any custom allocation function. Check the third party
+library documentation to know more about this.
+
+[endsect]
+
+[section Allocator-style memory management customization]
+In a similar fashion, one may want to use a custom *allocator* as the base
+memory allocation system. Use cases like memory pool or static memory allocators
+come to mind. [headerref nt2/modules/boost/simd/sdk/include/boost/simd/memory/allocate.hpp boost::simd::allocate] et al. provide a set of overload using a supplementary
+allocator parameters to be used in the memory allocation process.
+
+As an example, let's use
+[@http://www.boost.org/doc/libs/1_54_0/libs/pool/doc/html/index.html Boost.Pool]
+allocator within Boost.SIMD.
+
+``
+    #include <boost/simd/memory/allocate.hpp>
+    #include <boost/simd/memory/deallocate.hpp>
+    #include <boost/pool/pool_alloc.hpp>
+
+    int main()
+    {
+      boost::pool_allocator<int> a;
+      void* p = boost::simd::allocate(a, 13, 16);
+
+      // ... some code
+
+      boost::simd::deallocate(a,p);
+    }
+``
+
+As for custom functions, allocation and deallocation of allocator-based allocated
+data must be done with the same allocator instance.
+
+[endsect]
+
+[endsect]

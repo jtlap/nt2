@@ -10,11 +10,15 @@
 SET( SOURCES
     align_on.cpp
     aligned_array.cpp
+    aligned_malloc.cpp
+    aligned_malloc_override.cpp
     aligned_input_iterator.cpp
     aligned_input_range.cpp
     aligned_output_iterator.cpp
     aligned_output_range.cpp
     aligned_object.cpp
+    aligned_realloc.cpp
+    aligned_realloc_override.cpp
     allocate.cpp
     allocator.cpp
     allocator_adaptor.cpp

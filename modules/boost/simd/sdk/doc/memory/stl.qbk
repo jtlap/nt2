@@ -1,4 +1,4 @@
-[section STL Integration]
+[section STL Compatibility]
 
 [include stl/new.qbk]
 [include stl/allocator.qbk]

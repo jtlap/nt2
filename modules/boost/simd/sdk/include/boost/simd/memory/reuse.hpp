@@ -106,7 +106,7 @@ namespace boost { namespace simd
   #endif
   reuse(Allocator& alloc, void* ptr, std::size_t nbytes, std::size_t align)
   {
-    // Resizing to 0 free the pointer data and return
+// Resizing to 0 free the pointer data and return
     if(nbytes == 0)
     {
       deallocate(alloc, ptr);
@@ -114,20 +114,25 @@ namespace boost { namespace simd
     }
 
     // Reallocating empty pointer performs allocation
-    if(ptr == 0) return allocate(alloc, nbytes, align );
+    if(ptr == 0)
+      return allocate(alloc, nbytes, align);
 
-    details::aligned_block_header const old( details::get_block_header( ptr ) );
-    std::size_t const oldSize( old.userBlockSize );
+    details::aligned_block_header& old( details::get_block_header( ptr ) );
+    std::size_t const oldSize( old.allocated_size );
 
-    // Return if idempotent reallocation is performed with constant alignment
-    // TODO Try to just readjust if possible (aka align is lower than before ?)
-    if( oldSize == nbytes && is_aligned(ptr,align) ) return ptr;
+    // Return if idempotent reallocation or small shrink is performed with good alignment
+    if( ( oldSize - nbytes ) < BOOST_SIMD_REALLOC_SHRINK_THRESHOLD && is_aligned(ptr, align) )
+    {
+      old.used_size = nbytes;
+      return ptr;
+    }
 
-    // Else reuse manually deallocate old data
-    void* fresh_ptr = allocate(alloc, nbytes, align );
-    if( !fresh_ptr ) return 0;
+    // Else reallocate manually/copy/deallocate old data
+    void* fresh_ptr = allocate(alloc, nbytes, align);
+    if( !fresh_ptr )
+      return 0;
 
-    deallocate(alloc, ptr );
+    deallocate(alloc, ptr);
 
     return fresh_ptr;
   }
