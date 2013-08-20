@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
     typedef typename meta::upgrade<rvec>::type vec;
     typedef rvec result_type;
 
-    result_type operator()(A0& a0, State const& p, Data const& data) const
+    result_type operator()(A0& a0, State const& p, Data const&) const
     {
       vec v0, v1;
       v0 = run(boost::proto::child_c<0>(a0), p, meta::as_<vec>());

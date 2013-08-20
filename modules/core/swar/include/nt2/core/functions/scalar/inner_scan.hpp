@@ -30,7 +30,11 @@ namespace nt2 { namespace ext
     typedef typename A0::value_type                                            value_type;
     typedef typename boost::remove_reference<A1>::type::extent_type            extent_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
+    BOOST_FORCEINLINE result_type operator()( A0& out, A1& in
+                                            , A2 const& neutral
+                                            , A3 const& bop
+                                            , A4 const&
+                                            ) const
     {
       extent_type ext = in.extent();
       std::size_t ibound  = boost::fusion::at_c<0>(ext);

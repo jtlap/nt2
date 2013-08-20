@@ -148,7 +148,11 @@ namespace nt2 { namespace ext
     }
 
     BOOST_FORCEINLINE
-    void compute(A0 const& a0, A1 & a1, bool up, size_t dim, boost::mpl::long_<1> const&, boost::mpl::long_<2> const&, boost::mpl::false_ const &) const
+    void compute( A0 const& a0, A1 & a1
+                , bool, size_t
+                , boost::mpl::long_<1> const&, boost::mpl::long_<2> const&
+                , boost::mpl::false_ const &
+                ) const
     {
       boost::proto::child_c<0>(a1) = boost::proto::child_c<0>(a0);
       // no options  -> up =  true,  dim = 1;
@@ -170,7 +174,7 @@ namespace nt2 { namespace ext
     }
 
     BOOST_FORCEINLINE
-    void compute(A0 const& a0, A1 & a1, bool up, size_t dim, boost::mpl::long_<1> const&, boost::mpl::long_<2> const&, boost::mpl::true_ const &) const
+    void compute(A0 const& a0, A1 & a1, bool, size_t, boost::mpl::long_<1> const&, boost::mpl::long_<2> const&, boost::mpl::true_ const &) const
     {
       // no options  -> up =  true,  dim = 1;
       doindsort2(boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1));
