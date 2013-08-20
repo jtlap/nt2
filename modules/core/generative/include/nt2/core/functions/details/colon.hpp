@@ -175,7 +175,7 @@ namespace nt2 { namespace meta
 
     template<class Pos, class Size,class Target>
     BOOST_FORCEINLINE typename Target::type
-    operator()(Pos const& p, Size const&sz, Target const& t) const
+    operator()(Pos const& p, Size const&, Target const& t) const
     {
       return details::colon_value(lower_,step_,p,t);
     }
@@ -195,7 +195,7 @@ namespace nt2 { namespace meta
 
     template<class Pos, class Size,class Target>
     BOOST_FORCEINLINE typename Target::type
-    operator()(Pos const& p, Size const&sz, Target const& t) const
+    operator()(Pos const& p, Size const&, Target const& t) const
     {
       return details::unity_colon_value(lower_,p,t);
     }

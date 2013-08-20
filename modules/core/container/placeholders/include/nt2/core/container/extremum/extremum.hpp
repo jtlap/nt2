@@ -37,7 +37,7 @@ namespace nt2 { namespace container
     }
 
     BOOST_FORCEINLINE std::ptrdiff_t
-    index(std::ptrdiff_t const& b, std::ptrdiff_t const& s, boost::mpl::false_) const
+    index(std::ptrdiff_t const& b, std::ptrdiff_t const&, boost::mpl::false_) const
     {
       BOOST_ASSERT_MSG( (offset_ >= 0)
                       , "begin_ is used with a non positive offset"

@@ -75,7 +75,7 @@ namespace nt2 { namespace ext
                                           , meta::as_<base_t>
                                           >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& l, A1 const& u) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& l, A1 const&) const
     {
       return  boost::proto::
               make_expr < nt2::tag::colon_
@@ -161,10 +161,10 @@ namespace nt2 { namespace ext
       const std::size_t nelt  = std::size_t(tolerant_floor(base_t(u-l+s)/base_t(s)));
       const base_t      eps3  = Threeeps<base_t>();
 
-      if(!fuzzy_equal(l+(nelt-1)*s, u, eps3))
+      if(!fuzzy_equal(l+base_t(nelt-1)*s, u, eps3))
       {
-              if(fuzzy_equal(l+(nelt-2)*s, u, eps3))  return nelt-1;
-        else  if(fuzzy_equal(l+nelt*s    , u, eps3))  return nelt+1;
+              if(fuzzy_equal(l+base_t(nelt-2)*s, u, eps3))  return nelt-1;
+        else  if(fuzzy_equal(l+base_t(nelt)*s  , u, eps3))  return nelt+1;
       }
       return nelt;
     }
