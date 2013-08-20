@@ -17,9 +17,8 @@
 
 #include "../constant.hpp"
 
- // unary minus applied to unsigned
-#ifdef BOOST_MSVC
-  #pragma warning(disable: 4146)
+ #ifdef BOOST_MSVC
+  #pragma warning(disable: 4146)  // unary minus applied to unsigned
 #endif
 
 NT2_TEST_CASE_TPL(allbits_real, BOOST_SIMD_REAL_TYPES)
@@ -102,7 +101,7 @@ NT2_TEST_CASE_TPL(valmax_unsigned, BOOST_SIMD_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL(valmax_signed, BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
-  NT2_CHECK_CONSTANT(Valmax, T(~(T(1) << (CHAR_BIT*sizeof(T)-1))),T);
+  NT2_CHECK_CONSTANT(Valmax, ~(T(1) << (CHAR_BIT*sizeof(T)-1)),T);
 }
 
 NT2_TEST_CASE(valmin_real)
