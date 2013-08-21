@@ -13,45 +13,39 @@
 #include <boost/simd/reduction/functions/sum.hpp>
 #include <boost/simd/include/constants/one.hpp>
 
-// /////////////////////////////////////////////////////////////////////////////
-// // Implementation when type  is arithmetic_
-// /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sum_, boost::simd::tag::avx_,
-                                    (A0),
-                                    ((simd_<double_<A0>,boost::simd::tag::sse_>))
-                                    ((simd_<double_<A0>,boost::simd::tag::sse_>))
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::sum_, tag::cpu_
+                                    , (A0)(X)
+                                    , ((simd_<double_<A0>,X>))
+                                    )
   {
-    typedef typename meta::scalar_of<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    typedef typename A0::value_type result_type;
+
+    BOOST_FORCEINLINE result_type operator()(__m256d a0) const
     {
-      A0 r = _mm256_dp_pd(a0, One<A0>(), 0x3);
-      return r[0];
+      __m256d half_sum  = _mm256_hadd_pd( a0, a0 );
+      __m128d sum       = _mm_add_pd( _mm256_extractf128_pd( half_sum, 0 )
+                                    , _mm256_extractf128_pd( half_sum, 1 )
+                                    );
+      return sum[0];
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sum_, boost::simd::tag::avx_,
-                                    (A0),
-                                    ((simd_<single_<A0>,boost::simd::tag::avx_>))
-                                    ((simd_<single_<A0>,boost::simd::tag::avx_>))
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::sum_, tag::cpu_
+                                    , (A0)(X)
+                                    , ((simd_<single_<A0>,X>))
+                                    )
   {
     typedef typename meta::scalar_of<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE result_type operator()(__m256 a0) const
     {
       A0 r = _mm256_dp_ps(a0, One<A0>(), 0xFF);
       return r[0]+r[4];
-      // this in another solution for floats,  perhaps speedier ?
-      // x3 = _mm256_add_ps(x0, _mm256_movehdup_ps(x0));
-      // x4 = _mm256_unpackhi_ps(x3, x3)  ;
-      // x4 = _mm256_add_ps(x3, x4)  ;
-      // x5 = _mm256_permute2f128_ps(x4, x4, 0x01)  ;
-      // x5 = _mm256_add_ps(x5, x4)  ;
     }
   };
 
 } } }
+
 #endif
 #endif
