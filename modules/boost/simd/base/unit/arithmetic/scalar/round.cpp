@@ -50,6 +50,10 @@ NT2_TEST_CASE_TPL ( round_real,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(round(T(1.5)), T(2));
   NT2_TEST_EQUAL(round(T(1.6)), T(2));
   NT2_TEST_EQUAL(round(T(2.5)), T(3));
+  NT2_TEST_EQUAL(round(T(-1.4)), T(-1));
+  NT2_TEST_EQUAL(round(T(-1.5)), T(-2));
+  NT2_TEST_EQUAL(round(T(-1.6)), T(-2));
+  NT2_TEST_EQUAL(round(T(-2.5)), T(-3));
   NT2_TEST_EQUAL(round(boost::simd::Half<T>()), boost::simd::One<r_t>());
 } // end of test for floating_
 

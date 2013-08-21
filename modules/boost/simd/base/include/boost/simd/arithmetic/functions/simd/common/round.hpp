@@ -12,11 +12,12 @@
 #include <boost/simd/arithmetic/functions/round.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/is_not_less.hpp>
-#include <boost/simd/include/functions/simd/bitwise_xor.hpp>
+#include <boost/simd/include/functions/simd/bitwise_or.hpp>
 #include <boost/simd/include/functions/simd/abs.hpp>
 #include <boost/simd/include/functions/simd/bitofsign.hpp>
 #include <boost/simd/include/functions/simd/toint.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/constants/half.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -40,7 +41,7 @@ namespace boost { namespace simd { namespace ext
     {
       const result_type v = simd::abs(a0);
       return if_else(is_nlt(v, Maxflint<result_type>()), a0,
-                     bitwise_xor(tofloat(toint(v+Half<result_type>())), bitofsign(a0))
+                     b_or(tofloat(toint(v+Half<result_type>())), bitofsign(a0))
                     );
     }
   };

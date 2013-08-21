@@ -10,7 +10,7 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_ROUND_HPP_INCLUDED
 #include <boost/simd/arithmetic/functions/round.hpp>
 #include <boost/simd/include/functions/scalar/toint.hpp>
-#include <boost/simd/include/functions/scalar/bitwise_xor.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_or.hpp>
 #include <boost/simd/include/functions/scalar/abs.hpp>
 #include <boost/simd/include/functions/scalar/bitofsign.hpp>
 #include <boost/simd/include/constants/maxflint.hpp>
@@ -47,7 +47,7 @@ namespace boost { namespace simd { namespace ext
       if (!(v <=  Maxflint<result_type>()))
           return a0;
       const uint32_t d = v+Half<result_type>();
-      return bitwise_xor(result_type(d), bitofsign(a0));
+      return b_or(result_type(d), bitofsign(a0));
 #endif
     }
   };
@@ -67,7 +67,7 @@ namespace boost { namespace simd { namespace ext
       if (!(v <=  Maxflint<result_type>()))
           return a0;
       const uint64_t d = v+Half<result_type>();
-      return bitwise_xor(result_type(d), bitofsign(a0));
+      return b_or(result_type(d), bitofsign(a0));
 #endif
      }
   };
