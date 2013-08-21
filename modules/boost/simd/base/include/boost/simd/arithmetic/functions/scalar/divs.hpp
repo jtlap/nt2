@@ -11,7 +11,7 @@
 
 #include <boost/simd/arithmetic/functions/divs.hpp>
 #include <boost/simd/include/functions/scalar/genmask.hpp>
-#include <boost/simd/include/functions/scalar/shr.hpp>
+#include <boost/simd/include/functions/scalar/shift_right.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
@@ -50,20 +50,19 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::as_unsigned<A0>::type utype;
-
       A0 const aa0 = a0 + !((a1 + One<A0>()) | ((utype)a0 + Valmin<A0>()));
       if (a1)
         return aa0/a1;
       else if (a0)
-        return Valmax<A0>() + shri(a0, (sizeof(A0)*CHAR_BIT-1));
+      {
+        return Valmax<A0>() + shift_right((utype)a0, (sizeof(A0)*CHAR_BIT-1));
+      }
+
       else
         return Zero<A0>();
     }
   };
-} } }
 
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divs_, tag::cpu_ , (A0)
                                    , (scalar_< uint_<A0> >)
                                      (scalar_< uint_<A0> >)

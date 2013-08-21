@@ -6,37 +6,34 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.arithmetic toolbox - divs/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.arithmetic components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created by jt the 28/11/2010
-///
 #include <boost/simd/arithmetic/include/functions/divs.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/constant/constant.hpp>
-
+#include <boost/simd/include/constants/two.hpp>
+#include <boost/simd/include/constants/mtwo.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/mone.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/minf.hpp>
+#include <boost/simd/include/constants/nan.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 NT2_TEST_CASE_TPL ( divs_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
 
   using boost::simd::divs;
   using boost::simd::tag::divs_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<divs_(T,T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+
   typedef T wished_r_t;
 
 
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
 
   // specific values tests
   NT2_TEST_EQUAL(divs(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::One<T>());
@@ -45,26 +42,32 @@ NT2_TEST_CASE_TPL ( divs_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_EQUAL(divs(boost::simd::Valmax<T>(),boost::simd::One<T>()), boost::simd::Valmax<T>());
   NT2_TEST_EQUAL(divs(boost::simd::Valmin<T>(),boost::simd::Mone<T>()), boost::simd::Valmax<T>());
   NT2_TEST_EQUAL(divs(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<T>());
+  NT2_TEST_EQUAL(divs(boost::simd::Mone<T>(), boost::simd::Zero<T>()), boost::simd::Valmin<T>());
+  NT2_TEST_EQUAL(divs(boost::simd::Mtwo<T>(), boost::simd::Zero<T>()), boost::simd::Valmin<T>());
+  NT2_TEST_EQUAL(divs(boost::simd::Valmin<T>(), boost::simd::Zero<T>()), boost::simd::Valmin<T>());
+  NT2_TEST_EQUAL(divs(boost::simd::One<T>(), boost::simd::Zero<T>()), boost::simd::Valmax<T>());
+  NT2_TEST_EQUAL(divs(boost::simd::Two<T>(), boost::simd::Zero<T>()), boost::simd::Valmax<T>());
+  NT2_TEST_EQUAL(divs(boost::simd::Valmax<T>(), boost::simd::Zero<T>()), boost::simd::Valmax<T>());
 } // end of test for signed_int_
 
-NT2_TEST_CASE_TPL ( divs_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
+
+NT2_TEST_CASE_TPL ( divs_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
 {
 
   using boost::simd::divs;
   using boost::simd::tag::divs_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<divs_(T,T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef T wished_r_t;
 
 
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
 
   // specific values tests
   NT2_TEST_EQUAL(divs(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::One<T>());
   NT2_TEST_EQUAL(divs(boost::simd::Valmax<T>(),boost::simd::One<T>()), boost::simd::Valmax<T>());
   NT2_TEST_EQUAL(divs(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<T>());
+  NT2_TEST_EQUAL(divs(boost::simd::One<T>(), boost::simd::Zero<T>()), boost::simd::Valmax<T>());
+  NT2_TEST_EQUAL(divs(boost::simd::Two<T>(), boost::simd::Zero<T>()), boost::simd::Valmax<T>());
+  NT2_TEST_EQUAL(divs(boost::simd::Valmax<T>(), boost::simd::Zero<T>()), boost::simd::Valmax<T>());
 } // end of test for unsigned_int_
