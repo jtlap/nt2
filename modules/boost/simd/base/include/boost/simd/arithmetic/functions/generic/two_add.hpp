@@ -9,10 +9,10 @@
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_TWO_ADD_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_TWO_ADD_HPP_INCLUDED
 #include <boost/simd/arithmetic/functions/two_add.hpp>
-#include <boost/simd/include/functions/plus.hpp>
-#include <boost/simd/include/functions/minus.hpp>
-#include <boost/simd/include/functions/is_inf.hpp>
-#include <boost/simd/include/functions/if_zero_else.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
+#include <boost/simd/include/functions/simd/is_inf.hpp>
+#include <boost/simd/include/functions/simd/if_zero_else.hpp>
 #include <boost/simd/sdk/config.hpp>
 #include <boost/fusion/include/std_pair.hpp>
 

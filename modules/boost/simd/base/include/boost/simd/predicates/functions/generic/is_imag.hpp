@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_PREDICATES_FUNCTIONS_GENERIC_IS_IMAG_HPP_INCLUDED
 #define BOOST_SIMD_PREDICATES_FUNCTIONS_GENERIC_IS_IMAG_HPP_INCLUDED
 #include <boost/simd/predicates/functions/is_imag.hpp>
-#include <boost/simd/include/functions/is_eqz.hpp>
+#include <boost/simd/include/functions/simd/is_eqz.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
 
 namespace boost { namespace simd { namespace ext

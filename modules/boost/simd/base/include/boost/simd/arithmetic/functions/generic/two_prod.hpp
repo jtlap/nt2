@@ -9,11 +9,11 @@
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_TWO_PROD_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_TWO_PROD_HPP_INCLUDED
 #include <boost/simd/arithmetic/functions/two_prod.hpp>
-#include <boost/simd/include/functions/minus.hpp>
-#include <boost/simd/include/functions/two_split.hpp>
-#include <boost/simd/include/functions/multiplies.hpp>
-#include <boost/simd/include/functions/is_invalid.hpp>
-#include <boost/simd/include/functions/if_zero_else.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
+#include <boost/simd/include/functions/simd/two_split.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
+#include <boost/simd/include/functions/simd/is_invalid.hpp>
+#include <boost/simd/include/functions/simd/if_zero_else.hpp>
 #include <boost/simd/sdk/config.hpp>
 #include <boost/fusion/include/std_pair.hpp>
 

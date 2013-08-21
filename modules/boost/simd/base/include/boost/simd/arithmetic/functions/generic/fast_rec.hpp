@@ -10,7 +10,7 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_REC_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/fast_rec.hpp>
-#include <boost/simd/include/functions/rec.hpp>
+#include <boost/simd/include/functions/simd/rec.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

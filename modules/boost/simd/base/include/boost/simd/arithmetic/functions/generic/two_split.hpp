@@ -10,8 +10,8 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_TWO_SPLIT_HPP_INCLUDED
 #include <boost/simd/arithmetic/functions/two_split.hpp>
 #include <boost/simd/include/constants/splitfactor.hpp>
-#include <boost/simd/include/functions/multiplies.hpp>
-#include <boost/simd/include/functions/minus.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/fusion/include/std_pair.hpp>
 
 namespace boost { namespace simd { namespace ext
