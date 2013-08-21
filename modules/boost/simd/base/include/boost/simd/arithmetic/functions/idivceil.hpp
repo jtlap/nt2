@@ -38,10 +38,10 @@ namespace boost { namespace simd {
     T r = idivceil(x, y);
     @endcode
 
-    The code is similar to:
+    For floating point values the code is equivalent to:
 
     @code
-    as_integer<T> r = toints(ceil(x/y));
+    as_integer<T> r = toint(ceil(x/y));
     @endcode
 
     If y is null, it returns Valmax (resp. Valmin)
