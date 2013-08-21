@@ -21,7 +21,7 @@
 #include <boost/simd/sdk/config.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 
-NT2_TEST_CASE_TPL ( abs_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( abs_real,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::abs;
   using boost::simd::tag::abs_;
@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL ( abs_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(abs(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( abs_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( abs_unsigned_int,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::abs;
   using boost::simd::tag::abs_;
@@ -59,7 +59,7 @@ NT2_TEST_CASE_TPL ( abs_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(abs(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( abs_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( abs_signed_int,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::abs;
   using boost::simd::tag::abs_;
