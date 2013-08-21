@@ -11,6 +11,8 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/reshape.hpp>
+#include <nt2/include/functions/plus.hpp>
+#include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/cif.hpp>
 #include <nt2/include/functions/rif.hpp>

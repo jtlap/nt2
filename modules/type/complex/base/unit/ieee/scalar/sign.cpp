@@ -6,15 +6,11 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 complex.ieee toolbox - sign/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of ieee components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created by jt the 04/12/2010
-///
 #include <nt2/ieee/include/functions/sign.hpp>
-#include <nt2/include/functions/sign.hpp>
+
+#include <complex>
+#include <nt2/sdk/complex/complex.hpp>
+
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
@@ -24,6 +20,7 @@
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/cnan.hpp>
 
 

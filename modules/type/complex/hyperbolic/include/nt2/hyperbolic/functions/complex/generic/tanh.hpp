@@ -13,6 +13,7 @@
 #include <nt2/include/functions/sinhcosh.hpp>
 #include <nt2/include/functions/tan.hpp>
 #include <nt2/include/functions/real.hpp>
+#include <nt2/include/functions/plus.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/tanh.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
@@ -22,6 +23,7 @@
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 #include <nt2/include/functions/bitwise_cast.hpp>
+
 //tanh ( x + iy ) = tanh ( x ) + i . tan ( y ) 1 + i . tanh ( x ) tan ( y ) .
 namespace nt2 { namespace ext
 {
@@ -48,8 +50,8 @@ namespace nt2 { namespace ext
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename meta::as_real<A0>::type rA0;
-    typedef typename meta::as_dry<rA0>::type result_type;
+    typedef typename meta::as_dry<A0>::type result_type;
+
     NT2_FUNCTOR_CALL(1)
     {
       return bitwise_cast<result_type>(nt2::tanh(nt2::real(a0)));

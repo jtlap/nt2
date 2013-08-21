@@ -10,15 +10,11 @@
 #define NT2_IEEE_FUNCTIONS_COMPLEX_GENERIC_SIGNNZ_HPP_INCLUDED
 
 #include <nt2/ieee/functions/signnz.hpp>
-#include <nt2/include/functions/divides.hpp>
 #include <nt2/include/functions/real.hpp>
-#include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/sign.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/is_finite.hpp>
-#include <nt2/sdk/complex/meta/as_real.hpp>
-#include <nt2/sdk/meta/as_logical.hpp>
+#include <nt2/include/constants/one.hpp>
 
 namespace nt2 { namespace ext
 {

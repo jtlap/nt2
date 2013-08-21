@@ -6,15 +6,13 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.arithmetic toolbox - sqrt/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.arithmetic components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created by jt the 30/11/2010
-///
 #include <nt2/arithmetic/include/functions/sqrt.hpp>
+
+#include <complex>
+#include <nt2/sdk/complex/complex.hpp>
+
 #include <nt2/include/functions/pure.hpp>
+#include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/plus.hpp>
 #include <nt2/include/constants/i.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -25,6 +23,9 @@
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/dry.hpp>
+
+#include <complex>
+#include <nt2/sdk/complex/complex.hpp>
 
 NT2_TEST_CASE_TPL ( sqrt_real__1_0,  (double))//BOOST_SIMD_REAL_TYPES)
 {
@@ -38,14 +39,9 @@ NT2_TEST_CASE_TPL ( sqrt_real__1_0,  (double))//BOOST_SIMD_REAL_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef cT wished_r_t;
 
-
   // return type conformity test
   //  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
 
-  // std::cout << nt2::type_id(nt2::I<T>()) << std::endl;
   // specific values tests
    NT2_TEST_ULP_EQUAL(nt2::sqrt(cT(1)), cT(1), 0);
    NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>())), cT(nt2::Inf<T>()));

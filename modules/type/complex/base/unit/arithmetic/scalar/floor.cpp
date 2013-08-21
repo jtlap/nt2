@@ -14,6 +14,10 @@
 /// created by jt the 01/12/2010
 ///
 #include <nt2/arithmetic/include/functions/floor.hpp>
+
+#include <complex>
+#include <nt2/sdk/complex/complex.hpp>
+
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/complex/dry.hpp>

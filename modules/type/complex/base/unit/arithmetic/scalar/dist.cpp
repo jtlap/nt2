@@ -6,36 +6,41 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 complex.operator toolbox - dist/scalar Mode"
+#include <nt2/include/functions/dist.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.operator components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 18/02/2011
-///
-#include <nt2/arithmetic/include/functions/dist.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <complex>
+#include <nt2/sdk/complex/dry.hpp>
+#include <nt2/sdk/complex/complex.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/constant/constant.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/minf.hpp>
+#include <nt2/include/constants/mone.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/sqrt_2.hpp>
 
 NT2_TEST_CASE_TPL ( dist_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
-
   using nt2::dist;
   using nt2::tag::dist_;
-  typedef std::complex<T> cT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<dist_(cT, cT)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+
   typedef nt2::dry<T> dT;
-  typedef T wished_r_t;
+  typedef std::complex<T> cT;
 
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<dist_(cT, cT)>::type
+                  , T
+                  );
+
+  NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<dist_(dT, dT)>::type
+                  , T
+                  );
 
   // specific values tests
   NT2_TEST_EQUAL(dist(cT(nt2::Inf<T>()), cT(nt2::Inf<T>())), nt2::Nan<T>());

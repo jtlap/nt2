@@ -11,22 +11,23 @@
 #include <nt2/arithmetic/functions/abs.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
-#include <nt2/include/functions/logical_and.hpp>
-#include <nt2/include/functions/logical_or.hpp>
-#include <nt2/include/functions/hypot.hpp>
+#include <nt2/include/functions/simd/logical_and.hpp>
+#include <nt2/include/functions/simd/logical_or.hpp>
+#include <nt2/include/functions/simd/hypot.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/include/functions/is_less.hpp>
-#include <nt2/include/functions/is_nan.hpp>
-#include <nt2/include/functions/is_inf.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/exponent.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
+#include <nt2/include/functions/simd/is_less.hpp>
+#include <nt2/include/functions/simd/is_nan.hpp>
+#include <nt2/include/functions/simd/is_inf.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/exponent.hpp>
 #include <nt2/include/functions/ldexp.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/unary_minus.hpp>
+#include <nt2/include/functions/simd/sqrt.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/constants/inf.hpp>
 
 namespace nt2 { namespace ext

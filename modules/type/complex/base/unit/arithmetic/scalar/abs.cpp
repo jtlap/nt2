@@ -6,40 +6,37 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 complex.arithmetic toolbox - abs/scalar Mode"
+#include <nt2/include/functions/abs.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.arithmetic components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created by jt the 30/11/2010
-///
-#include <nt2/arithmetic/include/functions/abs.hpp>
-#include <nt2/include/constants/i.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <complex>
+#include <nt2/sdk/complex/complex.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/constant/constant.hpp>
-#include <nt2/sdk/complex/dry.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
-NT2_TEST_CASE_TPL ( abs_real__1_0,  BOOST_SIMD_REAL_TYPES)
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/minf.hpp>
+#include <nt2/include/constants/mone.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/valmin.hpp>
+#include <nt2/include/constants/valmax.hpp>
+#include <nt2/include/constants/i.hpp>
+
+NT2_TEST_CASE_TPL(abs_real,  BOOST_SIMD_REAL_TYPES)
 {
-
   using nt2::abs;
   using nt2::tag::abs_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<abs_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename std::complex<T> cT;
-  typedef T wished_r_t;
 
+  typedef typename std::complex<T> cT;
 
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
- ulpd=0.0;
+  NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<abs_(cT)>::type
+                  , T
+                  );
 
   // std::cout << nt2::type_id(nt2::I<T>()) << std::endl;
   // specific values tests
@@ -52,9 +49,10 @@ NT2_TEST_CASE_TPL ( abs_real__1_0,  BOOST_SIMD_REAL_TYPES)
    NT2_TEST_EQUAL(nt2::abs(cT(nt2::Valmax<T>())), nt2::Valmax<T>());
    NT2_TEST_EQUAL(nt2::abs(cT(nt2::Valmin<T>())), nt2::Valmax<T>());
    NT2_TEST_EQUAL(nt2::abs(cT(nt2::Zero<T>())), nt2::Zero<T>());
+
    std::complex < T > a(1, 0);
    NT2_TEST_EQUAL(nt2::abs(a), nt2::One<T>());
-   std::complex < T > b(3, 4);
-   NT2_TEST_EQUAL(nt2::abs(b), nt2::Five<T>());
-} // end of test for floating_
 
+   std::complex < T > b(3, 4);
+   NT2_TEST_EQUAL(nt2::abs(b), T(5));
+}

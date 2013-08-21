@@ -11,7 +11,7 @@
 #include <nt2/arithmetic/functions/sqr_abs.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
-#include <nt2/include/functions/sqr.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 
 namespace nt2 { namespace ext

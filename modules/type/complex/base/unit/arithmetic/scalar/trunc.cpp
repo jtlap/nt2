@@ -6,13 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 complex.arithmetic toolbox - trunc/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.arithmetic components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-
 #include <nt2/arithmetic/include/functions/trunc.hpp>
+#include <complex>
+#include <nt2/sdk/complex/complex.hpp>
+
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/include/constants/one.hpp>
@@ -23,7 +20,6 @@
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/nan.hpp>
-
 
 NT2_TEST_CASE_TPL ( trunc_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {

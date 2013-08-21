@@ -24,6 +24,7 @@
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/cnan.hpp>
 
 
@@ -41,7 +42,7 @@ NT2_TEST_CASE_TPL ( signnz_real__2_0,  (float))//NT2_REAL_TYPES)
 
 
   // specific values tests
-   NT2_TEST_EQUAL(signnz(nt2::Inf<cT>()  ), nt2::One<r_t>());
+  NT2_TEST_EQUAL(signnz(nt2::Inf<cT>()  ), nt2::One<r_t>());
   NT2_TEST_EQUAL(signnz(nt2::Minf<cT>() ), nt2::Mone<r_t>());
   NT2_TEST_EQUAL(signnz(nt2::Mone<cT>() ), nt2::Mone<r_t>());
   NT2_TEST_EQUAL(signnz(nt2::Nan<cT>()  ), nt2::Nan<r_t>());

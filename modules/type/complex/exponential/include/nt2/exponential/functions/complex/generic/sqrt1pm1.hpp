@@ -11,7 +11,9 @@
 #include <nt2/exponential/functions/sqrt1pm1.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/include/functions/sqrt.hpp>
+#include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/oneplus.hpp>
+#include <nt2/include/functions/divides.hpp>
 #include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/is_less.hpp>
 #include <nt2/include/constants/half.hpp>

@@ -16,7 +16,7 @@
 #include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/functions/simd/any.hpp>
-#include <nt2/include/functions/simd/fma.hpp>
+#include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/simd/all.hpp>
 #include <nt2/include/functions/simd/is_nez.hpp>
 #include <nt2/include/functions/simd/is_invalid.hpp>

@@ -15,6 +15,9 @@
 ///
 #include <nt2/include/functions/tanpi.hpp>
 #include <nt2/include/functions/tan.hpp>
+#include <nt2/include/functions/multiplies.hpp>
+#include <nt2/include/functions/mul_i.hpp>
+#include <nt2/include/functions/mul_minus_i.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>

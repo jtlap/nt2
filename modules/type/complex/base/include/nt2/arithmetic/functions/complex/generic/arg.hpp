@@ -11,9 +11,9 @@
 #include <nt2/arithmetic/functions/arg.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
-#include <nt2/include/functions/sign.hpp>
-#include <nt2/include/functions/atan2.hpp>
-#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/include/functions/simd/sign.hpp>
+#include <nt2/include/functions/simd/atan2.hpp>
+#include <nt2/include/functions/simd/is_nan.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/pio_2.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>

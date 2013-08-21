@@ -12,11 +12,11 @@
 #include <nt2/arithmetic/functions/sqrt.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
-#include <nt2/include/functions/conj.hpp>
 #include <nt2/include/functions/is_real.hpp>
 #include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/simd/is_ltz.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/conj.hpp>
 #include <nt2/include/functions/is_finite.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/simd/is_equal.hpp>

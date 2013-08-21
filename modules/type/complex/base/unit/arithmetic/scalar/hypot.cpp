@@ -6,17 +6,15 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 complex.operator toolbox - hypot/scalar Mode"
+#include <nt2/include/functions/hypot.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.operator components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 18/02/2011
-///
-#include <nt2/arithmetic/include/functions/hypot.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/ulp.hpp>
+#include <complex>
+#include <nt2/sdk/complex/complex.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/inf.hpp>

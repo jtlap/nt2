@@ -6,11 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 complex.arithmetic toolbox - rec/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of complex.arithmetic components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
 #include <nt2/include/functions/rec.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
@@ -22,6 +17,7 @@
 
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/mzero.hpp>
