@@ -10,8 +10,7 @@
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_SIMD_COMMON_PROD_HPP_INCLUDED
 
 #include <boost/simd/reduction/functions/prod.hpp>
-#include <boost/simd/include/functions/simd/all_reduce.hpp>
-#include <boost/simd/include/functions/simd/multiplies.hpp>
+#include <boost/simd/include/functions/simd/splatted_prod.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -24,7 +23,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return all_reduce<boost::simd::tag::multiplies_>(a0)[0];
+      return splatted_prod(a0)[0];
     }
   };
 } } }
