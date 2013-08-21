@@ -37,7 +37,7 @@ NT2_TEST_CASE(reuse)
   for(int i=0;i<7;++i) NT2_TEST_EQUAL(ptr[i],10*i);
 
   ptr = static_cast<char*>(reuse(ptr,0));
-  NT2_TEST( !ptr );
+  NT2_TEST( !ptr || (::free(ptr), true) );
 }
 
 //==============================================================================
@@ -94,7 +94,7 @@ NT2_TEST_CASE(reuse_align)
   for(int i=0;i<7;++i) NT2_TEST_EQUAL(ptr[i],10*i);
 
   ptr = static_cast<char*>(reuse(ptr,0,8));
-  NT2_TEST( !ptr );
+  NT2_TEST( !ptr || (::free(ptr), true) );
 }
 
 //==============================================================================

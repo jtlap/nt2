@@ -110,8 +110,8 @@ namespace boost { namespace simd
                     : 0u;
 
     void* fresh_ptr = realloc_fn( static_cast<char*>(ptr) - hdr.offset, nsz );
-    if(!fresh_ptr)
-      return 0;
+    if(!fresh_ptr || !nsz)
+      return fresh_ptr;
 
     std::size_t old_size = hdr.used_size;
     std::size_t old_offset = hdr.offset;

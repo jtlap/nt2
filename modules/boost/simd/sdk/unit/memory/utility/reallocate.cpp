@@ -37,7 +37,7 @@ NT2_TEST_CASE(reallocate)
   for(int i=2;i<7;++i) NT2_TEST_EQUAL(ptr[i],2*i);
 
   ptr = static_cast<char*>(reallocate(ptr,0));
-  NT2_TEST( !ptr );
+  NT2_TEST( !ptr || (::free(ptr), true) );
 }
 
 //==============================================================================
@@ -93,7 +93,7 @@ NT2_TEST_CASE(reallocate_align)
   for(int i=2;i<7;++i) NT2_TEST_EQUAL(ptr[i],10*i);
 
   ptr = static_cast<char*>(reallocate(ptr,0,8));
-  NT2_TEST( !ptr );
+  NT2_TEST( !ptr || (::free(ptr), true) );
 }
 
 //==============================================================================

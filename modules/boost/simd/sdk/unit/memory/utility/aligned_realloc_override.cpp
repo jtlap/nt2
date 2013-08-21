@@ -80,7 +80,7 @@ NT2_TEST_CASE(aligned_realloc)
 
   reset_status();
   ptr = static_cast<char*>(aligned_realloc(ptr,0,8));
-  NT2_TEST( !ptr );
+  NT2_TEST( !ptr || (std::free(ptr), true) );
 
   NT2_TEST( had_realloc );
   NT2_TEST_EQUAL( realloc_size, 0u );
