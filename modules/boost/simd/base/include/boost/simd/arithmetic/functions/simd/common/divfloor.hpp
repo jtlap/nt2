@@ -14,6 +14,7 @@
 #include <boost/simd/include/functions/simd/divides.hpp>
 #include <boost/simd/include/functions/simd/idivfloor.hpp>
 #include <boost/simd/include/functions/simd/touints.hpp>
+#include <boost/simd/include/functions/simd/toints.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>
 #include <boost/simd/include/functions/simd/split.hpp>
 #include <boost/simd/include/functions/simd/groups.hpp>
@@ -22,9 +23,6 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  // rationale ///////////////////////////////
-  // see divceil.hpp in the same directory
-  //
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::divfloor_, tag::cpu_, (A0)(X)
                                       , (simd::meta::is_upgradable_on_ext<A0, X>)
                                       , ((simd_< int_<A0>, X>))
@@ -38,8 +36,8 @@ namespace boost { namespace simd { namespace ext
       ivtype a0l, a0h, a1l, a1h;
       boost::simd::split(a0, a0l, a0h );
       boost::simd::split(a1, a1l, a1h );
-      ivtype d0 = idivfloor(tofloat(a0l), tofloat(a1l));
-      ivtype d1 = idivfloor(tofloat(a0h), tofloat(a1h));
+      ivtype d0 = toints(divfloor(tofloat(a0l), tofloat(a1l)));
+      ivtype d1 = toints(divfloor(tofloat(a0h), tofloat(a1h)));
       return groups(d0, d1);
     }
   };
