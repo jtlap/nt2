@@ -74,7 +74,8 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<A0>::type   result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      BOOST_ASSERT_MSG(a0 >=  0, "is_prime input is out of range (< 0)");
+      BOOST_ASSERT_MSG((a0 >  0) || !a0, "is_prime input is out of range (< 0)");
+      // the or-ing is a workaround to a stupid warning if A0 is unsigned
       if (a0 <= 1) return  False<result_type>();
       BOOST_ASSERT_MSG(a0 <=  A0(saturate<A0>(Valmax<uint32_t>())), "is_prime input is out of range");
       return result_type(nt2::globalall(nt2::rem(a0, a1(nt2::lt(a1, a0)))));
