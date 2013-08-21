@@ -65,3 +65,4 @@ NT2_TEST_CASE_TPL ( divs_unsigned_int__2_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(divs(boost::simd::Two<vT>(), boost::simd::Zero<vT>()), boost::simd::Valmax<r_t>());
   NT2_TEST_EQUAL(divs(boost::simd::Valmax<vT>(), boost::simd::Zero<vT>()), boost::simd::Valmax<r_t>());
 } // end of test for unsigned_int_
+
