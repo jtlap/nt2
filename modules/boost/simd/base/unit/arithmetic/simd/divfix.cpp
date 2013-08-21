@@ -8,36 +8,99 @@
 //==============================================================================
 #include <boost/simd/arithmetic/include/functions/divfix.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/toint.hpp>
-
-#include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/constant/constant.hpp>
+#include <boost/simd/include/constants/two.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/mone.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/minf.hpp>
+#include <boost/simd/include/constants/nan.hpp>
+#include <boost/simd/include/constants/maxflint.hpp>
 
-NT2_TEST_CASE_TPL ( divfix_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
+#include <boost/simd/sdk/config.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+
+NT2_TEST_CASE_TPL ( divfix_real,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::divfix;
   using boost::simd::tag::divfix_;
   using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
+  typedef native<T,ext_t>                  vT;
   typedef typename boost::dispatch::meta::call<divfix_(vT,vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(divfix(boost::simd::splat<vT>(4),boost::simd::splat<vT>(3))[0], T(1), 0);
-  NT2_TEST_ULP_EQUAL(divfix(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0], boost::simd::Nan<T>(), 0);
-  NT2_TEST_ULP_EQUAL(divfix(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0], boost::simd::Nan<T>(), 0);
-  NT2_TEST_ULP_EQUAL(divfix(boost::simd::Mone<vT>(), boost::simd::Mone<vT>())[0], boost::simd::One<T>(), 0);
-  NT2_TEST_ULP_EQUAL(divfix(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<T>(), 0);
-  NT2_TEST_ULP_EQUAL(divfix(boost::simd::One<vT>(), boost::simd::One<vT>())[0], boost::simd::One<T>(), 0);
-  NT2_TEST_ULP_EQUAL(divfix(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Nan<T>(), 0);
+#ifndef BOOST_SIMD_NO_INVALIDS
+  NT2_TEST_EQUAL(divfix(boost::simd::Inf<vT>(), boost::simd::Inf<vT>()), boost::simd::Nan<r_t>());
+  NT2_TEST_EQUAL(divfix(boost::simd::Minf<vT>(), boost::simd::Minf<vT>()), boost::simd::Nan<r_t>());
+  NT2_TEST_EQUAL(divfix(boost::simd::Nan<vT>(), boost::simd::Nan<vT>()), boost::simd::Nan<r_t>());
+#endif
+  NT2_TEST_EQUAL(divfix(boost::simd::splat<vT>(4),boost::simd::splat<vT>(0)), boost::simd::Inf<r_t>());
+  NT2_TEST_EQUAL(divfix(boost::simd::splat<vT>(4),boost::simd::splat<vT>(3)),  boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(divfix(boost::simd::Mone<vT>(), boost::simd::Mone<vT>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(divfix(boost::simd::One<vT>(), boost::simd::One<vT>()), boost::simd::One<r_t>());
+} // end of test for floating_
+
+NT2_TEST_CASE_TPL ( divfix_u,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
+{
+  using boost::simd::divfix;
+  using boost::simd::tag::divfix_;
+  using boost::simd::native;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>                  vT;
+  typedef typename boost::dispatch::meta::call<divfix_(vT,vT)>::type r_t;
+
+  // specific values tests
+  NT2_TEST_EQUAL(divfix(boost::simd::splat<vT>(4),boost::simd::splat<vT>(0)), boost::simd::Valmax<r_t>());
+  NT2_TEST_EQUAL(divfix(boost::simd::splat<vT>(4),boost::simd::splat<vT>(3)), boost::simd::splat<r_t>(1));
+  NT2_TEST_EQUAL(divfix(boost::simd::One<vT>(), boost::simd::One<vT>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(divfix(boost::simd::One<vT>(),boost::simd::Zero<vT>()), boost::simd::Valmax<r_t>());
+  NT2_TEST_EQUAL(divfix(boost::simd::Zero<vT>(),boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(divfix(boost::simd::Valmax<vT>(),boost::simd::One<vT>()), boost::simd::Valmax<vT>());
+  NT2_TEST_EQUAL(divfix(boost::simd::Valmax<vT>(),boost::simd::Two<vT>()), boost::simd::Valmax<vT>()/boost::simd::Two<vT>());
+} // end of test for floating_
+
+NT2_TEST_CASE_TPL ( divfix_s,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
+{
+  using boost::simd::divfix;
+  using boost::simd::tag::divfix_;
+  using boost::simd::native;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>                  vT;
+  typedef typename boost::dispatch::meta::call<divfix_(vT,vT)>::type r_t;
+
+  // specific values tests
+  NT2_TEST_EQUAL(divfix(boost::simd::splat<vT>(4),boost::simd::splat<vT>(0)), boost::simd::Valmax<r_t>());
+  NT2_TEST_EQUAL(divfix(boost::simd::splat<vT>(4),boost::simd::splat<vT>(3)), boost::simd::splat<vT>(1));
+  NT2_TEST_EQUAL(divfix(boost::simd::Mone<vT>(), boost::simd::Mone<vT>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(divfix(boost::simd::Mone<vT>(),boost::simd::Zero<vT>()), boost::simd::Valmin<r_t>());
+  NT2_TEST_EQUAL(divfix(boost::simd::One<vT>(), boost::simd::One<vT>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(divfix(boost::simd::One<vT>(),boost::simd::Zero<vT>()), boost::simd::Valmax<r_t>());
+  NT2_TEST_EQUAL(divfix(boost::simd::Zero<vT>(),boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
+} // end of test for floating_
+
+NT2_TEST_CASE_TPL ( divfix_s2,   BOOST_SIMD_SIMD_INT_CONVERT_TYPES)
+{
+  using boost::simd::divfix;
+  using boost::simd::tag::divfix_;
+  using boost::simd::native;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>                  vT;
+  typedef typename boost::dispatch::meta::call<divfix_(vT,vT)>::type r_t;
+  typedef typename boost::dispatch::meta::as_floating<T>::type f_t;
+  T mf = boost::simd::Maxflint<f_t>();
+  T tz = mf+T(1);
+  vT z =  boost::simd::splat<vT>(tz);
+  vT mz =  boost::simd::splat<vT>(-tz);
+  vT mz2 =  boost::simd::splat<vT>(-tz/2);
+  vT z2  =  boost::simd::splat<vT>(tz/2);
+  NT2_TEST_EQUAL(divfix(z,boost::simd::splat<vT>(1)), z);
+  NT2_TEST_EQUAL(divfix(z,boost::simd::splat<vT>(-1)), mz);
+  NT2_TEST_EQUAL(divfix(z,boost::simd::splat<vT>(2)), z2);
+  NT2_TEST_EQUAL(divfix(z,boost::simd::splat<vT>(-2)), mz2);
 } // end of test for floating_

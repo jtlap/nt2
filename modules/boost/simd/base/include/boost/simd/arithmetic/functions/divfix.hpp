@@ -6,60 +6,61 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_DIVFIX_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_DIVFIX_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_divfix divfix
- *
- * \par Description
- * return the \c truncation of the operands real divisionin the input type
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/divfix.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::divfix_(A0,A0)>::type
- *     divfix(const A0 & a0,const A0 & a1);
- * }
- * \endcode
- *
- * \param a0 the first parameter of divfix
- * \param a1 the second parameter of divfix
- *
- * \return a value of the common type of the parameters
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
-
 namespace boost { namespace simd {
   namespace tag
   {
     /*!
-     * \brief Define the tag divfix_ of functor divfix
-     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
+      @brief  divfix generic tag
+
+      Represents the divfix function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
-    struct divfix_ : ext::elementwise_<divfix_> { typedef ext::elementwise_<divfix_> parent; };
+    struct divfix_ : ext::elementwise_<divfix_>
+    {
+      /// @brief Parent hierarchy
+     typedef ext::elementwise_<divfix_> parent;
+    };
   }
+  /*!
+    Computes the truncated division of its parameters.
+
+    @par semantic:
+    For any given value @c x,  @c y of type @c T:
+
+    @code
+    T r = divfix(x, y);
+    @endcode
+
+    For floating point values the code is equivalent to:
+
+    @code
+    T r = trunc(x/y);
+    @endcode
+
+    for integral types, if y is null, it returns Valmax (resp. Valmin)
+    if x is positive (resp. negative) and 0 if x is null.
+    Take also care that dividing Valmin by -1 for signed integral types has
+    undefined behaviour.
+
+    @par Alias
+
+    @c divtrunc
+
+    @param  x
+    @param  y
+
+    @return      a value of the same type as the input.
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::divfix_, divfix, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::divfix_, divtrunc, 2)
 } }
 
 #endif
