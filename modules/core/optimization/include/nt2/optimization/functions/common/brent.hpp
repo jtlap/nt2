@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
         if( nt2::abs(x-xm) <= (tol2 - Half<T>()*(b-a)) )
         {
           // Successful convergence
-          result_type that = {x,fx,iter,true};
+          result_type that = {x,fx,iter,true,T(1)};
           return that;
         }
 
@@ -130,7 +130,7 @@ namespace nt2 { namespace ext
       }
 
       // We didn't converged -- add message for this
-      result_type that = {x,fx,iter,false};
+      result_type that = {x,fx,iter,false,T(1)};
       return that;
     }
 

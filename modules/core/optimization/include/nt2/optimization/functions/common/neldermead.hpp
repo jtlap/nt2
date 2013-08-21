@@ -50,7 +50,7 @@ namespace nt2 { namespace ext
       nelder.optimize(crit, a, w, o);
 //      BOOST_ASSERT_MSG(nelder.convok(), "neldermead was not convergent");
       // We didn't converged -- add message for this
-      result_type that = {a,nelder.lasteval(),nelder.nbiteration(),nelder.convok()};
+      result_type that = {a,nelder.lasteval(),nelder.nbiteration(),nelder.convok(), tab_t()};
       return that;
     }
   };

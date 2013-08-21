@@ -50,7 +50,7 @@ namespace nt2 { namespace ext
       ros.optimize(crit, a, o);
       BOOST_ASSERT_MSG(ros.convok(), "rosenbrock was not convergent");
       // We didn't converged -- add message for this
-      result_type that = {a,ros.lasteval(),ros.nbiteration(),ros.convok()};
+      result_type that = {a,ros.lasteval(),ros.nbiteration(),ros.convok(),tab_t()};
       return that;
     }
   };

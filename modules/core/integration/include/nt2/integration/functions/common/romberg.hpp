@@ -246,7 +246,7 @@ namespace nt2 { namespace ext
     {
       details::romberg_impl<input_t, value_t> q;
       q.compute(f, x, o);
-      result_type that =  {q.result(), q.lasterror(),q.nbeval(),q.ok()};
+      result_type that =  {q.result(), q.lasterror(),q.nbeval(),q.ok(),q.warn()};
       return that;
     }
   };

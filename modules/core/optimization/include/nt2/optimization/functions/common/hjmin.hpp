@@ -189,14 +189,14 @@ namespace nt2 { namespace ext
           if( pbase.isstep_relatively_small(h,tau) )
           {
             valmin = pmin.f();
-            result_type that = {a,valmin,iterdone,true};
+            result_type that = {a,valmin,iterdone,true,tab_t()};
             return that;
           }
         }
       }
       BOOST_ASSERT_MSG(false, "hjmin was not convergent");
       // We didn't converged -- add message for this
-      result_type that = {a,pmin.f(),iterdone,false};
+      result_type that = {a,pmin.f(),iterdone,false,tab_t()};
       return that;
     }
 
