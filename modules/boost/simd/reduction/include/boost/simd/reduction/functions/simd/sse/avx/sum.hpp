@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace ext
       __m128d sum       = _mm_add_pd( _mm256_extractf128_pd( half_sum, 0 )
                                     , _mm256_extractf128_pd( half_sum, 1 )
                                     );
-      return sum[0];
+      return _mm_cvtsd_f64(sum);
     }
   };
 
