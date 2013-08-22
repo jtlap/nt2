@@ -86,15 +86,15 @@ namespace boost { namespace simd
     , (boost::mpl::int_<Cardinal>)
     );
 
-    pack() {}
+    BOOST_DISPATCH_FORCE_INLINE pack() {}
 
-    pack(data_type const& p)
+    BOOST_DISPATCH_FORCE_INLINE pack(data_type const& p)
     {
       proto::value(*this) = p;
     }
 
     template<class ScalarIterator>
-    pack( ScalarIterator i
+    BOOST_DISPATCH_FORCE_INLINE pack( ScalarIterator i
         , typename enable_if< dispatch::meta::is_iterator<ScalarIterator> >::type* = 0)
     {
       typedef typename boost::pointee<ScalarIterator>::type value_type;
@@ -119,7 +119,7 @@ namespace boost { namespace simd
     // Constructor from scalar range
     //==========================================================================
     template<class ScalarIterator>
-    pack( ScalarIterator b, ScalarIterator e
+    BOOST_DISPATCH_FORCE_INLINE pack( ScalarIterator b, ScalarIterator e
         , typename enable_if< dispatch::meta::is_iterator<ScalarIterator> >::type* = 0)
     {
       BOOST_ASSERT_MSG
@@ -138,7 +138,7 @@ namespace boost { namespace simd
     // Constructor from unique scalar value -> splat the value
     //==========================================================================
     template<class T>
-    pack(T const& t, typename enable_if< is_arithmetic<T> >::type* = 0)
+    BOOST_DISPATCH_FORCE_INLINE pack(T const& t, typename enable_if< is_arithmetic<T> >::type* = 0)
     {
       proto::value(*this) = simd::splat<data_type>(t);
     }
@@ -148,7 +148,7 @@ namespace boost { namespace simd
     //==========================================================================
     #define M1(z, n, arg)                                                      \
     template<class T>                                                          \
-    pack( BOOST_PP_ENUM_PARAMS(arg, T const& a)                                \
+    BOOST_DISPATCH_FORCE_INLINE pack( BOOST_PP_ENUM_PARAMS(arg, T const& a)    \
         , typename enable_if< is_arithmetic<T> >::type* = 0)                   \
     {                                                                          \
       proto::value(*this) = simd::make<data_type>(BOOST_PP_ENUM_PARAMS(arg,a));\
@@ -162,7 +162,7 @@ namespace boost { namespace simd
     // Constructor from expression -> evaluate using parent operator=
     //==========================================================================
     template<class T>
-    pack(T const& t, typename T::proto_is_expr_* = 0)
+    BOOST_DISPATCH_FORCE_INLINE pack(T const& t, typename T::proto_is_expr_* = 0)
     {
       static_cast<parent&>(*this) = t;
     }
@@ -185,11 +185,13 @@ namespace boost { namespace simd
       return *this;
     }
 
+    BOOST_DISPATCH_FORCE_INLINE
     reference operator[](std::size_t i)
     {
       return boost::proto::value(*this)[i];
     }
 
+    BOOST_DISPATCH_FORCE_INLINE
     const_reference  operator[](std::size_t i) const
     {
       return boost::proto::value(*this)[i];
