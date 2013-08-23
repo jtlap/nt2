@@ -22,7 +22,7 @@
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/sqr_abs.hpp>
 #include <nt2/include/functions/copysign.hpp>
-#include <nt2/include/functions/conj.hpp>
+#include <nt2/arithmetic/functions/complex/generic/conj.hpp>
 #include <nt2/include/functions/ldexp.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/sdk/complex/complex.hpp>

@@ -114,7 +114,6 @@ namespace nt2 { namespace ext
 
       ltype not_in_safe_zone = logical_or(logical_or(gt(x,s_max), lt(x,s_min)),
                                           logical_or(gt(y,s_max), lt(y,s_min)));
-      ltype invalid = is_invalid(a0);
       if(nt2::any(not_in_safe_zone))
       {
         //treat underflow or overflow

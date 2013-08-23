@@ -6,17 +6,13 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_BENCH_MODULE "nt2 arithmetic toolbox - abs/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of arithmetic components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
 #include <nt2/arithmetic/include/functions/abs.hpp>
+#include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <complex>
 #include <cmath>
-
 
 //////////////////////////////////////////////////////////////////////////////
 // scalar runtime benchmark for functor<abs_> from arithmetic

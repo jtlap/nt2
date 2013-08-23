@@ -12,12 +12,14 @@
 #include <nt2/hyperbolic/functions/acsch.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/asinh.hpp>
+
+#if !defined( BOOST_SIMD_NO_INVALIDS )
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/if_allbits_else.hpp>
+#endif
 
 namespace nt2 { namespace ext
 {
-
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acsch_, tag::cpu_
                             , (A0)
                             , (generic_< unspecified_<A0> >)
@@ -27,7 +29,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       result_type r = nt2::asinh(nt2::rec(a0));
-#ifndef BOOST_SIMD_NO_INVALIDS
+#if defined( BOOST_SIMD_NO_INVALIDS )
       return r;
 #else
       return if_nan_else(is_eqz(a0), r);

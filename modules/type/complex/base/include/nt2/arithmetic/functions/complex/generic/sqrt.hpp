@@ -16,7 +16,7 @@
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/simd/is_ltz.hpp>
 #include <nt2/include/functions/simd/is_eqz.hpp>
-#include <nt2/include/functions/conj.hpp>
+#include <nt2/arithmetic/functions/complex/generic/conj.hpp>
 #include <nt2/include/functions/is_finite.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/simd/is_equal.hpp>

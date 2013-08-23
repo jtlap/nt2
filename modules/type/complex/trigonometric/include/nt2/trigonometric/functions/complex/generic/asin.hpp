@@ -96,7 +96,6 @@ namespace nt2 { namespace ext
       const rtype s_min = safe_min(Four<rtype>());
       rtype xp1 =  oneplus(x);
       rtype xm1 =  minusone(x);
-      ltype invalid = is_invalid(a0);
       ltype not_in_safe_zone = logical_or(logical_or(gt(x,s_max), lt(x,s_min)),
                                           logical_or(gt(y,s_max), lt(y,s_min)));
       //compute for safe zone
@@ -185,9 +184,9 @@ namespace nt2 { namespace ext
         if (nt2::any(nany))
         {
           ltype isimag = is_imag(a0);
-          r =  if_zero_else(logical_and(is_imag(a0), nany), r);
+          r =  if_zero_else(logical_and(isimag, nany), r);
           r =  if_else(logical_and(nany, infx),y, r);
-          i =  if_allbits_else(logical_and(is_imag(a0), nany), i);
+          i =  if_allbits_else(logical_and(isimag, nany), i);
           i =  if_else(logical_and(nany, infx), x, i);
         }
         ltype test = logical_notand(logical_or(nanx, nany), infx);

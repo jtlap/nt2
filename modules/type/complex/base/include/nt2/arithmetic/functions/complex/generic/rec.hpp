@@ -25,7 +25,7 @@
 #include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/sqr_abs.hpp>
 #include <nt2/include/functions/simd/copysign.hpp>
-#include <nt2/include/functions/conj.hpp>
+#include <nt2/arithmetic/functions/complex/generic/conj.hpp>
 #include <nt2/include/functions/all.hpp>
 #include <nt2/include/functions/simd/ldexp.hpp>
 #include <nt2/include/constants/inf.hpp>
