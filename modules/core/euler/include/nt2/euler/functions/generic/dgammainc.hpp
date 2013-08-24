@@ -6,20 +6,22 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_EULER_FUNCTIONS_SCALAR_DGAMMAINC_HPP_INCLUDED
-#define NT2_EULER_FUNCTIONS_SCALAR_DGAMMAINC_HPP_INCLUDED
+#ifndef NT2_EULER_FUNCTIONS_GENERIC_DGAMMAINC_HPP_INCLUDED
+#define NT2_EULER_FUNCTIONS_GENERIC_DGAMMAINC_HPP_INCLUDED
 
 #include <nt2/euler/functions/dgammainc.hpp>
-#include <nt2/include/functions/scalar/tofloat.hpp>
-#include <nt2/include/functions/scalar/exp.hpp>
-#include <nt2/include/functions/scalar/log.hpp>
-#include <nt2/include/functions/scalar/is_equal.hpp>
-#include <nt2/include/functions/scalar/is_eqz.hpp>
-#include <nt2/include/functions/scalar/if_zero_else.hpp>
-#include <nt2/include/functions/scalar/if_allbits_else.hpp>
-#include <nt2/include/functions/scalar/is_nan.hpp>
-#include <nt2/include/functions/scalar/gammaln.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/exp.hpp>
+#include <nt2/include/functions/simd/log.hpp>
+#include <nt2/include/functions/simd/is_equal.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/if_zero_else.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/is_nan.hpp>
+#include <nt2/include/functions/simd/gammaln.hpp>
+#include <nt2/include/functions/simd/minusone.hpp>
 #include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/nan.hpp>
 
 namespace nt2 { namespace ext
 {

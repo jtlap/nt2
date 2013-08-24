@@ -21,8 +21,8 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gammaincinv_, tag::cpu_
                               , (A0)(A1)
-                            , (generic_< arithmetic_<A0> >)
-                              (generic_< arithmetic_<A1> >)
+                            , (scalar_< arithmetic_<A0> >)
+                              (scalar_< arithmetic_<A1> >)
                             )
   {
 
