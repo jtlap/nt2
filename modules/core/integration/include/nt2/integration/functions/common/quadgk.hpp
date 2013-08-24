@@ -85,6 +85,7 @@ namespace nt2 { namespace details
     bool   ok()               const { return warn_ == 0;        }
     const restab_t & result() const { return res_;              }
     void setwarn(size_t w)          { if(w > warn_) warn_ =  w; }
+    size_t  warn()            const { return warn_;             }
 
     template < class FUNC, class X>
     void compute( const FUNC& f, const X & x, const o_t & o,
@@ -350,7 +351,7 @@ namespace nt2 { namespace ext
     {
       details::quadgk_impl<input_t, value_t> q;
       q.compute(f, x, o, input_is_real_t());
-      result_type that =  {q.result(), q.lasterror(),q.nbeval(),q.ok()};
+      result_type that =  {q.result(), q.lasterror(),q.nbeval(),q.ok(),q.warn()};
       return that;
     }
   };
