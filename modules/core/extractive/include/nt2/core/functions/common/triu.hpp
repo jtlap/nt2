@@ -12,10 +12,10 @@
 #include <nt2/core/functions/triu.hpp>
 #include <nt2/include/functions/run.hpp>
 #include <nt2/include/constants/zero.hpp>
-#include <nt2/include/functions/ind2sub.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/enumerate.hpp>
-#include <nt2/include/functions/is_less_equal.hpp>
+#include <nt2/include/functions/simd/ind2sub.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/enumerate.hpp>
+#include <nt2/include/functions/simd/is_less_equal.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
 
 namespace nt2 { namespace ext

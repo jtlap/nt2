@@ -11,15 +11,15 @@
 #define NT2_CORE_FUNCTIONS_COMMON_BAND_HPP_INCLUDED
 
 #include <nt2/core/functions/band.hpp>
-#include <nt2/include/functions/is_greater_equal.hpp>
-#include <nt2/include/functions/is_less_equal.hpp>
-#include <nt2/include/functions/bitwise_cast.hpp>
-#include <nt2/include/functions/if_else_zero.hpp>
-#include <nt2/include/functions/logical_and.hpp>
-#include <nt2/include/functions/enumerate.hpp>
-#include <nt2/include/functions/is_equal.hpp>
-#include <nt2/include/functions/minus.hpp>
-#include <nt2/include/functions/plus.hpp>
+#include <nt2/include/functions/simd/is_greater_equal.hpp>
+#include <nt2/include/functions/simd/is_less_equal.hpp>
+#include <nt2/include/functions/simd/bitwise_cast.hpp>
+#include <nt2/include/functions/simd/if_else_zero.hpp>
+#include <nt2/include/functions/simd/logical_and.hpp>
+#include <nt2/include/functions/simd/enumerate.hpp>
+#include <nt2/include/functions/simd/is_equal.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
 #include <nt2/include/functions/run.hpp>
 #include <nt2/core/utility/as_subscript.hpp>
 #include <nt2/core/utility/as_index.hpp>
