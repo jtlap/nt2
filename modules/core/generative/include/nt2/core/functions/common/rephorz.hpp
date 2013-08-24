@@ -13,8 +13,8 @@
 #include <nt2/core/utility/as_subscript.hpp>
 #include <nt2/core/utility/as_index.hpp>
 #include <nt2/include/functions/run.hpp>
-#include <nt2/include/functions/modulo.hpp>
-#include <nt2/include/functions/enumerate.hpp>
+#include <nt2/include/functions/simd/modulo.hpp>
+#include <nt2/include/functions/simd/enumerate.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
 
 namespace nt2 { namespace ext

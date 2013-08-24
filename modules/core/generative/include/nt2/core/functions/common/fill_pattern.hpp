@@ -11,7 +11,7 @@
 
 #include <nt2/core/functions/fill_pattern.hpp>
 #include <nt2/include/functions/run.hpp>
-#include <nt2/include/functions/enumerate.hpp>
+#include <nt2/include/functions/simd/enumerate.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
 
 namespace nt2 { namespace ext
