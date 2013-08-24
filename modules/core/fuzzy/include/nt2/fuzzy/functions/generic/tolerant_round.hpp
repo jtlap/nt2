@@ -10,10 +10,10 @@
 #define NT2_FUZZY_FUNCTIONS_GENERIC_TOLERANT_ROUND_HPP_INCLUDED
 
 #include <nt2/fuzzy/functions/tolerant_round.hpp>
-#include <nt2/include/functions/tolerant_floor.hpp>
-#include <nt2/include/functions/sign.hpp>
-#include <nt2/include/functions/plus.hpp>
-#include <nt2/include/functions/multiplies.hpp>
+#include <nt2/include/functions/simd/tolerant_floor.hpp>
+#include <nt2/include/functions/simd/sign.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/constants/half.hpp>
 
 namespace nt2 { namespace ext

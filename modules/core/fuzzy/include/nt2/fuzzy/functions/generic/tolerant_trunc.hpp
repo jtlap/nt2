@@ -10,10 +10,10 @@
 #define NT2_FUZZY_FUNCTIONS_GENERIC_TOLERANT_TRUNC_HPP_INCLUDED
 
 #include <nt2/fuzzy/functions/tolerant_trunc.hpp>
-#include <nt2/include/functions/tolerant_floor.hpp>
-#include <nt2/include/functions/negif.hpp>
-#include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/simd/tolerant_floor.hpp>
+#include <nt2/include/functions/simd/negif.hpp>
+#include <nt2/include/functions/simd/is_ltz.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
 
 namespace nt2 { namespace ext
