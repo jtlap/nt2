@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_TOINTS_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_TOINTS_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
@@ -68,7 +65,7 @@ namespace boost { namespace simd { namespace tag
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::toints_, toints, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::toints_, ifix, 1)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::toints_, itrunc, 1)
+  //  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::toints_, itrunc, 1)
 } }
 
 #include <boost/simd/operator/specific/common.hpp>
