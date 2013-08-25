@@ -6,17 +6,11 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.arithmetic toolbox - divround2even/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.arithmetic components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created by jt the 01/12/2010
-///
 #include <boost/simd/arithmetic/include/functions/divround2even.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
@@ -29,7 +23,7 @@
 #include <boost/simd/include/constants/nan.hpp>
 
 
-NT2_TEST_CASE_TPL ( divround2even_real__2_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( divround2even_real,  BOOST_SIMD_REAL_TYPES)
 {
 
   using boost::simd::divround2even;
@@ -50,7 +44,7 @@ NT2_TEST_CASE_TPL ( divround2even_real__2_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(divround2even(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::One<r_t>(), 0);
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( divround2even_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( divround2even_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
 {
 
   using boost::simd::divround2even;
@@ -67,9 +61,19 @@ NT2_TEST_CASE_TPL ( divround2even_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_ULP_EQUAL(divround2even(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(divround2even(T(5), T(2)), T(2), 0);
   NT2_TEST_ULP_EQUAL(divround2even(T(7), T(2)), T(4), 0);
+  NT2_TEST_ULP_EQUAL(divround2even(T(9), T(3)), T(3), 0);
+  NT2_TEST_ULP_EQUAL(divround2even(T(10), T(3)), T(3), 0);
+  NT2_TEST_ULP_EQUAL(divround2even(T(11), T(3)), T(4), 0);
+  NT2_TEST_ULP_EQUAL(divround2even(T(12), T(3)), T(4), 0);
+  NT2_TEST_ULP_EQUAL(divround2even(T(18), T(6)), T(3), 0);
+  NT2_TEST_ULP_EQUAL(divround2even(T(20), T(6)), T(3), 0);
+  NT2_TEST_ULP_EQUAL(divround2even(T(22), T(6)), T(4), 0);
+  NT2_TEST_ULP_EQUAL(divround2even(T(24), T(6)), T(4), 0);
+  NT2_TEST_EQUAL(divround2even(boost::simd::Valmax<T>(),boost::simd::Two<T>()), boost::simd::Valmax<T>()/boost::simd::Two<T>()+boost::simd::One<T>());
+
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( divround2even_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( divround2even_signed_int, BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
 
   using boost::simd::divround2even;
@@ -89,4 +93,37 @@ NT2_TEST_CASE_TPL ( divround2even_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_T
   NT2_TEST_ULP_EQUAL(divround2even(T(7), T(2)), T(4), 0);
   NT2_TEST_ULP_EQUAL(divround2even(T(-5), T(2)), T(-2), 0);
   NT2_TEST_ULP_EQUAL(divround2even(T(-7), T(2)), T(-4), 0);
+
+   NT2_TEST_EQUAL(divround2even(T(-4),T(0)), boost::simd::Valmin<r_t>());
+  NT2_TEST_EQUAL(divround2even(T(4),T(0)), boost::simd::Valmax<r_t>());
+  NT2_TEST_EQUAL(divround2even(T(4),T(3)), T(1));
+  NT2_TEST_EQUAL(divround2even(T(-4),T(-3)), T(1));
+  NT2_TEST_EQUAL(divround2even(T(4),T(-3)), T(-1));
+  NT2_TEST_EQUAL(divround2even(T(-4),T(3)), T(-1));
+  NT2_TEST_EQUAL(divround2even(T(5),T(3)), T(2));
+  NT2_TEST_EQUAL(divround2even(T(-5),T(-3)), T(2));
+  NT2_TEST_EQUAL(divround2even(T(5),T(-3)), T(-2));
+  NT2_TEST_EQUAL(divround2even(T(-5),T(3)), T(-2));
+
+  NT2_TEST_EQUAL(divround2even(T(5),T(4)), T(1));
+  NT2_TEST_EQUAL(divround2even(T(-5),T(-4)), T(1));
+  NT2_TEST_EQUAL(divround2even(T(5),T(-4)), T(-1));
+  NT2_TEST_EQUAL(divround2even(T(-5),T(4)), T(-1));
+  NT2_TEST_EQUAL(divround2even(T(6),T(4)), T(2));
+  NT2_TEST_EQUAL(divround2even(T(-6),T(-4)), T(2));
+  NT2_TEST_EQUAL(divround2even(T(6),T(-4)), T(-2));
+  NT2_TEST_EQUAL(divround2even(T(-6),T(4)), T(-2));
+  NT2_TEST_EQUAL(divround2even(T(8),T(4)), T(2));
+  NT2_TEST_EQUAL(divround2even(T(-8),T(-4)), T(2));
+  NT2_TEST_EQUAL(divround2even(T(8),T(-4)), T(-2));
+  NT2_TEST_EQUAL(divround2even(T(-8),T(4)), T(-2));
+  NT2_TEST_EQUAL(divround2even(T(9),T(4)), T(2));
+  NT2_TEST_EQUAL(divround2even(T(-9),T(-4)), T(2));
+  NT2_TEST_EQUAL(divround2even(T(9),T(-4)), T(-2));
+  NT2_TEST_EQUAL(divround2even(T(-9),T(4)), T(-2));
+  NT2_TEST_EQUAL(divround2even(T(10),T(4)), T(2));
+  NT2_TEST_EQUAL(divround2even(T(-10),T(-4)), T(2));
+  NT2_TEST_EQUAL(divround2even(T(10),T(-4)), T(-2));
+  NT2_TEST_EQUAL(divround2even(T(-10),T(4)), T(-2));
+
 } // end of test for signed_int_
