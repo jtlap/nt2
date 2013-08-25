@@ -29,6 +29,30 @@ namespace boost { namespace simd { namespace ext
       return toints(boost::simd::sqrt(a0));
     }
   };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::isqrt_, tag::cpu_
+                            , (A0)
+                            , (scalar_< uint_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return static_cast<A0>(boost::simd::sqrt(result_type(a0)));
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::isqrt_, tag::cpu_
+                            , (A0)
+                            , (scalar_< int_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return (is_ltz(a0)) ?  Zero<A0>() : static_cast<A0>(boost::simd::sqrt(result_type(a0)));
+    }
+  };
 } } }
 
 
