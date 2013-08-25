@@ -34,15 +34,16 @@ namespace boost { namespace simd { namespace tag
     For any given value @c x,  @c y of floating type @c T:
 
     @code
-    as_floating<T> r = hypot(x, y);
+    T r = hypot(x, y);
     @endcode
 
     The code is similar to:
 
     @code
-    as_floating<T> r = sqrt(sqr(x)+sqr(y));
+    T r = sqrt(sqr(x)+sqr(y));
     @endcode
 
+<<<<<<< HEAD
     Provision are made to avoid overflow as possible and to compute
     @c hypot accurately.
     If these considerations can be put aside use

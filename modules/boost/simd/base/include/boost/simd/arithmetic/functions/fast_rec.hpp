@@ -50,7 +50,6 @@ namespace boost { namespace simd
     Fast means that the computation is possibly done through some
     low precision intrinsic. The result can be not fully accurate
 
-
     @param  a0
 
     @return      a value of the typeof the input.

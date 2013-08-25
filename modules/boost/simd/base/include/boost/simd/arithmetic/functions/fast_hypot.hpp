@@ -49,8 +49,7 @@ namespace boost { namespace simd { namespace tag
     @param  a0
     @param  a1
 
-    @return      a value of the same floating type as the input.
-
+    @return      a value of the same type as the input.
   **/
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::fast_hypot_, fast_hypot, 2)

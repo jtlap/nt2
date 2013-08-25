@@ -49,11 +49,9 @@ namespace boost { namespace simd {
     Saturated means that for signed integer types,
     @c divs(Valmin,-1) returns Valmax.
 
-
     @par Alias
 
     @c saturated_div, rdivide
-
 
     @param  a0
     @param  a1
