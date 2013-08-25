@@ -56,7 +56,7 @@ namespace boost { namespace simd
 
     angle
 
-    @param  a0   of type T
+    @param  a0
 
     @return      a value of the floating type associated to T.
 

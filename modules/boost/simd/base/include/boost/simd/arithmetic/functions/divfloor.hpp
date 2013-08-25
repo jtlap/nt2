@@ -49,12 +49,14 @@ namespace boost { namespace simd {
     Take also care that dividing Valmin by -1 for signed integral types has
     undefined behaviour.
 
-    @param  x
-    @param  y
+    @param  a0
+    @param  a1
 
     @return      a value of the same type as the input.
 
-  **/  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::divfloor_, divfloor, 2)
+  **/
+
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::divfloor_, divfloor, 2)
 } }
 
 #endif

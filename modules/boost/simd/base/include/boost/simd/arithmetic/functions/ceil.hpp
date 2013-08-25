@@ -39,11 +39,7 @@ namespace boost { namespace simd { namespace tag
 
     smallest integral value of type @c T greater or equal to @c x.
 
-    @par Note:
-
-    The function always returns a value of the same type as the entry.
-
-    @param  x
+    @param  a0
 
     @return      an integral value of the same type as the input.
 

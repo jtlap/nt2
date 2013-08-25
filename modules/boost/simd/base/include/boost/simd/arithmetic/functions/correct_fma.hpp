@@ -66,11 +66,11 @@ namespace boost { namespace simd { namespace tag
     This function is never used internally in boost/simd. See also
     the fma function.
 
-    @param  a
+    @param  a0
 
-    @param  b
+    @param  a1
 
-    @param  c
+    @param  a2
 
     @return      a value of the same type as the input.
 
