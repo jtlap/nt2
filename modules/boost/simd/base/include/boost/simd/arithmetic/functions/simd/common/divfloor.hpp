@@ -12,7 +12,6 @@
 #include <boost/simd/arithmetic/functions/divfloor.hpp>
 #include <boost/simd/include/functions/simd/floor.hpp>
 #include <boost/simd/include/functions/simd/divides.hpp>
-#include <boost/simd/include/functions/simd/idivfloor.hpp>
 #include <boost/simd/include/functions/simd/touints.hpp>
 #include <boost/simd/include/functions/simd/toints.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>

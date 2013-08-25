@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return boost::simd::itrunc(boost::simd::sqrt(a0));
+      return boost::simd::toints(boost::simd::sqrt(a0));
     }
   };
 } } }
