@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_FAST_REC_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_FAST_REC_HPP_INCLUDED
-
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
@@ -16,12 +15,47 @@ namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+      @brief  fast_rec generic tag
+
+      Represents the fast_rec function in generic contexts.
+
+      @par Models:
+      Hierarchy
+    **/
     struct fast_rec_ : ext::elementwise_<fast_rec_>
     {
+      /// @brief Parent hierarchy
       typedef ext::elementwise_<fast_rec_> parent;
     };
   }
+  /*!
+    Computes the inverse its parameter.
 
+    @par semantic:
+    For any given value @c x of type @c T:
+
+    @code
+    as_floating<T> r = fast_rec(x);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    as_floating<T> r = T(1)/x;
+    @endcode
+
+    @par Note:
+
+    Fast means that the computation is possibly done through some
+    low precision intrinsic. The result can be not fully accurate
+
+
+    @param  a0    value whose absolute value will be returned.
+
+    @return      a value of the floating type associated to the input.
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::fast_rec_, fast_rec, 1)
 
 } }

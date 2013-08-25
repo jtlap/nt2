@@ -6,61 +6,53 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_IFLOOR_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_IFLOOR_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_ifloor ifloor
- *
- * \par Description
- * return a value of integer type of the same size and signedness than the entry.
- * The value returned is the greatest integer less or equal than the entry
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/ifloor.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::ifloor_(A0)>::type
- *     ifloor(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of ifloor
- *
- * \return an integer value
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
-
 namespace boost { namespace simd { namespace tag
   {
-    /*!
-     * \brief Define the tag ifloor_ of functor ifloor
-     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
+   /*!
+      @brief  ifloor generic tag
+
+      Represents the ifloor function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
-    struct ifloor_ : ext::elementwise_<ifloor_> { typedef ext::elementwise_<ifloor_> parent; };
+    struct ifloor_ : ext::elementwise_<ifloor_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<ifloor_> parent;
+    };
   }
+  /*!
+    Computes the integer conversion of the floor of its parameter.
+
+    @par semantic:
+    For any given value @c x of type @c T:
+
+    @code
+    as_integer<T> r = ifloor(x);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    as_integer<T> r = toints(floor(x));
+    @endcode
+
+
+    @param  a0
+
+    @return an integral value of the integral type associated to the input.
+
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::ifloor_, ifloor, 1)
 } }
 
 #endif
 
-// modified by jt the 25/12/2010
+

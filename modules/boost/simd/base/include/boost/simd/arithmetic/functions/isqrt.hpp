@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_ISQRT_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_ISQRT_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
@@ -54,15 +51,45 @@
 
 namespace boost { namespace simd { namespace tag
   {
-    /*!
-     * \brief Define the tag isqrt_ of functor isqrt
-     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
+   /*!
+      @brief  isqrt generic tag
+
+      Represents the isqrt function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
-    struct isqrt_ : ext::elementwise_<isqrt_> { typedef ext::elementwise_<isqrt_> parent; };
+    struct isqrt_ : ext::elementwise_<isqrt_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<isqrt_> parent;
+    };
   }
+  /*!
+    Computes the integer truncation of the square root of its parameter.
+
+    @par semantic:
+    For any given value @c x of type @c T:
+
+    @code
+    as_integer<T> r = isqrt(x);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    as_integer<T> r = toints(sqrt(x));
+    @endcode
+
+
+    @param  a0
+
+    @return an integral value of the integral type associated to the input.
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::isqrt_, isqrt, 1)
 } }
 
 #endif
 
-// modified by jt the 25/12/2010
+

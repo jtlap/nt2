@@ -6,62 +6,52 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_IROUND_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_IROUND_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_iround iround
- *
- * \par Description
- * return a value of integer type of the same size and signedness than the entry.
- * The value returned is the nearest integer to the entry
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/iround.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::iround_(A0)>::type
- *     iround(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of iround
- *
- * \return an integer value
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
-
 namespace boost { namespace simd { namespace tag
   {
-    /*!
-     * \brief Define the tag iround_ of functor iround
-     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
+   /*!
+      @brief  iround generic tag
+
+      Represents the iround function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
-    struct iround_ : ext::elementwise_<iround_> { typedef ext::elementwise_<iround_> parent; };
+    struct iround_ : ext::elementwise_<iround_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<iround_> parent;
+    };
   }
+  /*!
+    Computes the integer conversion of the round of its parameter.
+
+    @par semantic:
+    For any given value @c x of type @c T:
+
+    @code
+    as_integer<T> r = iround(x);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    as_integer<T> r = toints(round(x));
+    @endcode
+
+
+    @param  a0
+
+    @return an integral value of the integral type associated to the input.
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::iround_, iround, 1)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::iround_, iround2even, 1)
 } }
 
 #endif
 
-// modified by jt the 25/12/2010
+

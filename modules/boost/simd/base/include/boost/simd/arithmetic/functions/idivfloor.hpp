@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_IDIVFLOOR_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_IDIVFLOOR_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
@@ -50,17 +47,51 @@
  *
 **/
 
-namespace boost { namespace simd { namespace tag
+namespace boost { namespace simd {
+  namespace tag
   {
     /*!
-     * \brief Define the tag idivfloor_ of functor idivfloor
-     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
+      @brief  idivfloor generic tag
+
+      Represents the idivfloor function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
-    struct idivfloor_ : ext::elementwise_<idivfloor_> { typedef ext::elementwise_<idivfloor_> parent; };
+    struct idivfloor_ : ext::elementwise_<idivfloor_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<idivfloor_> parent;
+    };
   }
+  /*!
+    Computes the integer conversion of the truncated division of its parameters.
+
+    @par semantic:
+    For any given value @c x,  @c y of type @c T:
+
+    @code
+    T r = idivfix(x, y);
+    @endcode
+
+    For floating point values the code is equivalent to:
+
+    @code
+    as_integer<T> r = toints(floor(x/y));
+    @endcode
+
+    If y is null, it returns Valmax (resp. Valmin)
+    if x is positive (resp. negative) and 0 if x is null.
+
+    @param  a0
+    @param  a1
+
+    @return      a value of the integral type associated to the input.
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::idivfloor_, idivfloor, 2)
 } }
 
 #endif
 
-// modified by jt the 25/12/2010
+

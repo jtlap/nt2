@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_IDIVCEIL_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_IDIVCEIL_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
@@ -44,14 +41,14 @@ namespace boost { namespace simd {
     For floating point values the code is equivalent to:
 
     @code
-    as_integer<T> r = toint(ceil(x/y));
+    as_integer<T> r = toints(ceil(x/y));
     @endcode
 
     If y is null, it returns Valmax (resp. Valmin)
     if x is positive (resp. negative) and 0 if x is null.
 
-    @param  x
-    @param  y
+    @param  a0
+    @param  a1
 
     @return      a value of the integral type associated to the input.
 
@@ -61,5 +58,3 @@ namespace boost { namespace simd {
 } }
 
 #endif
-
-// modified by jt the 25/12/2010

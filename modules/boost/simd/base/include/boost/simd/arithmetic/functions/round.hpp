@@ -44,7 +44,7 @@ namespace boost { namespace simd { namespace tag
     aways from 0 means that half integer values are rounded to the nearest
     integer of greatest absolute value
 
-    @param  x
+    @param  a0
 
     @return      a value of the same type as the input.
 

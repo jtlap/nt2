@@ -41,18 +41,19 @@ namespace boost { namespace simd {
     For floating point values the code is equivalent to:
 
     @code
-    as_integer<T> r = toint(trunc(x/y));
+    as_integer<T> r = toints(trunc(x/y));
     @endcode
 
     If y is null, it returns Valmax (resp. Valmin)
     if x is positive (resp. negative) and 0 if x is null.
 
-    @param  x
-    @param  y
+    @param  a0
+    @param  a1
 
     @return      a value of the integral type associated to the input.
 
-  **/  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::idivfix_, idivfix, 2)
+  **/
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::idivfix_, idivfix, 2)
 } }
 
 #endif

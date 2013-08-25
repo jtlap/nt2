@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_REM_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_REM_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
@@ -70,4 +67,4 @@ namespace boost { namespace simd { namespace tag
 
 #endif
 
-// modified by jt the 25/12/2010
+

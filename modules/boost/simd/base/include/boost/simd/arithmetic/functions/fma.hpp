@@ -6,64 +6,59 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_FMA_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_FMA_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_fma fma
- *
- * \par Description
- * computes \c a0*a1+a2, but the computation with only one rounding operation
- * is only done on architectures possessing this hard wired capability
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/fma.hpp>
- * \endcode
- *
- * \par Aliases
- * \arg madd
- * \arg fam
- * \arg amul
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::fma_(A0,A0,A0)>::type
- *     fma(const A0 & a0,const A0 & a1,const A0 & a2);
- * }
- * \endcode
- *
- * \param a0 the first parameter of fma
- * \param a1 the second parameter of fma
- * \param a2 the third parameter of fma
- *
- * \return a value of the common type of the parameters
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
-
 namespace boost { namespace simd { namespace tag
   {
     /*!
-     * \brief Define the tag fma_ of functor fma
-     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
+      @brief  fma generic tag
+
+      Represents the fma function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
-    struct fma_ : ext::elementwise_<fma_> { typedef ext::elementwise_<fma_> parent; };
+    struct fma_ : ext::elementwise_<fma_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<fma_> parent;
+    };
   }
+  /*!
+    Computes the (fused) multiply add of the three parameters.
+
+    @par semantic:
+    For any given value @c x,  @c y,  @c z of type @c T:
+
+    @code
+    T r = divs(x, y);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    T r = x*y+z;
+    @endcode
+
+    @par Note
+    Correct fused multiply/add implies
+    1) only one rounding
+    2) no "intermediate" overflows
+    fma provides this each time it is reasonable
+    in terms of performance.
+    If you need fma in all circumstances in your own
+    code use correct_fma.
+
+    @param  a0
+    @param  a1
+    @param  a2
+
+    @return      a value of the same type as the input.
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::fma_, fma, 3)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::fma_, madd, 3)
 
