@@ -11,48 +11,54 @@
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_touint touint
- *
- * \par Description
- * convert an entry to unsigned integer by truncation.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/touint.hpp>
- * \endcode
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::touint_(A0)>::type
- *     touint(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of touint
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
-
 namespace boost { namespace simd { namespace tag
   {
     /*!
-     * \brief Define the tag touint_ of functor touint
-     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
+      @brief  touint generic tag
+
+      Represents the touint function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
-    struct touint_ : ext::elementwise_<touint_> { typedef ext::elementwise_<touint_> parent; };
+    struct touint_ : ext::elementwise_<touint_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<touint_> parent;
+    };
   }
+  /*!
+    Convert to unsigned integer by truncation.
+
+    @par semantic:
+    For any given value @c x of type @c T:
+
+    @code
+    as_integer<T, unsigned> r = touint(x);
+    @endcode
+
+    is equivalent to:
+    @code
+    as_integer<T, unsigned> r = static_cast<as_integer<T, unsigned> >(x)
+    @endcode
+
+    @par Notes:
+
+    @c toint cast a floating value to the signed integer value of the same bit size
+    it is done by C casting for scalars and corresponding intrinsic in simd (if available)
+    Peculiarly,  that implies that the behaviour of this function on invalid or negative
+    entries is not defined and possibly unpredictable.
+    If you intend to use nans, infs or negative entries, consider using touints instead.
+
+    @par Alias
+
+    fast_touint
+
+    @param  a0
+
+    @return      a value of the unsigned integer type associated to the input.
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::touint_, touint, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::touint_, fast_touint, 1)
 

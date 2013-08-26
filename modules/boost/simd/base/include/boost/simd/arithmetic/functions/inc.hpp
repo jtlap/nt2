@@ -11,40 +11,6 @@
 
 #include <boost/simd/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_inc inc
- *
- * \par Description
- * Increments a value by 1.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/inc.hpp>
- * \endcode
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *   meta::call<tag::inc_(A0)>::type
- *   inc(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the first parameter of inc
- *
- * \return a value of the same type as the input
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
-
 namespace boost { namespace simd {
   namespace tag
   {

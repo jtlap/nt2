@@ -11,44 +11,6 @@
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_isqrt isqrt
- *
- * \par Description
- * return the integer truncation of the squre root of  the entry.
- * The value returned in the same type as the entry.
- * /par
- * Negative entry leads to zero for integer entry and nan for floating one.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/isqrt.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::isqrt_(A0)>::type
- *     isqrt(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of isqrt
- *
- * \return an integer value
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
-
 namespace boost { namespace simd { namespace tag
   {
    /*!

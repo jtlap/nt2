@@ -11,49 +11,43 @@
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_rec rec
- *
- * \par Description
- * return the inverse of the input as a floating point value.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/rec.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::rec_(A0)>::type
- *     rec(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of rec
- *
- * \return always return floating point values
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
-
 namespace boost { namespace simd { namespace tag
   {
-    /*!
-     * \brief Define the tag rec_ of functor rec
-     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
+   /*!
+      @brief  rec generic tag
+
+      Represents the rec function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
-    struct rec_ : ext::elementwise_<rec_> { typedef ext::elementwise_<rec_> parent; };
+    struct rec_ : ext::elementwise_<rec_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<rec_> parent;
+    };
   }
+  /*!
+    Returns the inverse of the entry.
+
+    @par semantic:
+    For any given value @c x of type @c T:
+
+    @code
+    as_floating<T> r = rec(x);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    as_floating<T> r = 1/x;
+    @endcode
+
+    @param  a0
+
+    @return      a value of the floating type associated to the input.
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::rec_, rec, 1)
 } }
 

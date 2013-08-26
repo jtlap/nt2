@@ -11,56 +11,52 @@
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_subs subs
- *
- * \par Description
- * The result is the mathetical subtraction of the arguments
- * saturated in the interval defined by the common arguments type bounds
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/subs.hpp>
- * \endcode
- *
- * \par Alias
- * \arg satrated_sub
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::subs_(A0,A0)>::type
- *     subs(const A0 & a0,const A0 & a1);
- * }
- * \endcode
- *
- * \param a0 the first parameter of subs
- * \param a1 the second parameter of subs
- *
- * \return a value of the common type of the parameters
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
-
 namespace boost { namespace simd {
   namespace tag
   {
     /*!
-     * \brief Define the tag subs_ of functor subs
-     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
+      @brief  subs generic tag
+
+      Represents the subs function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
-    struct subs_ : ext::elementwise_<subs_> { typedef ext::elementwise_<subs_> parent; };
+    struct subs_ : ext::elementwise_<subs_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<subs_> parent;
+    };
   }
+  /*!
+    Computes the saturated sum of its parameters.
+
+    @par semantic:
+    For any given value @c x,  @c y of type @c T:
+
+    @code
+    T r = subs(x, y);
+    @endcode
+
+    The function coincide with plus for floating point parameters.
+    For integers is equivalent to:
+
+    @code
+    T r = (x-y > Valmax) ? Valmax : (x-y <  Valmin ? Valmin : x-y);
+    @endcode
+
+    @par Alias
+
+    saturated_sub
+
+    @param  a0
+    @param  a1
+
+    @return      a value of the same type as the input.
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::subs_, subs, 2)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::subs_, satrated_sub, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::subs_, saturated_sub, 2)
 } }
 
 #endif

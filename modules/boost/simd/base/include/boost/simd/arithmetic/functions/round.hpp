@@ -26,9 +26,10 @@ namespace boost { namespace simd { namespace tag
       /// @brief Parent hierarchy
       typedef ext::elementwise_<round_> parent;
     };
-}
+  }
   /*!
-    Computes the rounded away from 0 value of its parameter.
+    Computes the rounded to nearest integer away from 0
+    value of its parameter.
 
     @par semantic:
     For any given value @c x of type @c T:
