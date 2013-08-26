@@ -7,10 +7,12 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <boost/simd/arithmetic/include/functions/divs.hpp>
-#include <boost/dispatch/functor/meta/call.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+
 #include <boost/simd/include/constants/two.hpp>
 #include <boost/simd/include/constants/mtwo.hpp>
 #include <boost/simd/include/constants/one.hpp>

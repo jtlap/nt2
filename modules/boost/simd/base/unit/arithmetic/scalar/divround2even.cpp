@@ -86,7 +86,6 @@ NT2_TEST_CASE_TPL ( divround2even_signed_int, BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_TYPE_IS( r_t, wished_r_t );
 
   // specific values tests
-<<<<<<< HEAD
   NT2_TEST_EQUAL(divround2even(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(divround2even(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(divround2even(T(5), T(2)), T(2));

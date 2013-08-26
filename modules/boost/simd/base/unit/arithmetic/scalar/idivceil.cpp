@@ -11,6 +11,7 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/mzero.hpp>
@@ -21,7 +22,6 @@
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/sdk/config.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
 
 NT2_TEST_CASE_TPL ( idivceil_real,  BOOST_SIMD_REAL_TYPES)
 {

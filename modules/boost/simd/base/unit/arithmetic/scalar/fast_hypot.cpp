@@ -52,3 +52,4 @@ NT2_TEST_CASE_TPL ( fast_hypot_real,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(fast_hypot(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<T>(), 0);
 } // end of test for floating_
 
+
