@@ -7,14 +7,17 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <boost/simd/arithmetic/include/functions/divs.hpp>
-#include <boost/dispatch/functor/meta/call.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+
 #include <boost/simd/include/constants/two.hpp>
 #include <boost/simd/include/constants/mtwo.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/mone.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/nan.hpp>
@@ -22,15 +25,13 @@
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/sdk/config.hpp>
 
-NT2_TEST_CASE_TPL ( divs_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( divs_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
 
   using boost::simd::divs;
   using boost::simd::tag::divs_;
   typedef typename boost::dispatch::meta::call<divs_(T,T)>::type r_t;
-
   typedef T wished_r_t;
-
 
   // return type conformity test
   NT2_TEST_TYPE_IS(r_t, wished_r_t);

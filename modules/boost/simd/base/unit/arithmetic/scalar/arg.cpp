@@ -12,12 +12,14 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/nan.hpp>
 #include <boost/simd/include/constants/pi.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 NT2_TEST_CASE_TPL ( arg_real,  BOOST_SIMD_REAL_TYPES)
 {

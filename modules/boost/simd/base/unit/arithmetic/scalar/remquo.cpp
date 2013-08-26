@@ -18,7 +18,9 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <boost/simd/sdk/config.hpp>
 
+#ifndef BOOST_SIMD_NO_INVALIDS
 // All these tests should return NaN
 NT2_TEST_CASE_TPL( remquo_invalid, NT2_REAL_TYPES)
 {
@@ -155,6 +157,7 @@ NT2_TEST_CASE_TPL( remquo_invalid, NT2_REAL_TYPES)
     NT2_TEST_EQUAL(p.first, nan_);
   }
 }
+#endif
 
 NT2_TEST_CASE_TPL( remquo_valid, NT2_REAL_TYPES)
 {
