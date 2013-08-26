@@ -21,6 +21,7 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/constant/constant.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/two.hpp>
 #include <boost/simd/include/constants/inf.hpp>

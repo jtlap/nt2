@@ -34,34 +34,34 @@ NT2_TEST_CASE_TPL ( divs_signed_int,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef typename boost::dispatch::meta::call<divs_(vT,vT)>::type r_t;
 
   // specific values tests
-//   NT2_TEST_EQUAL(divs(boost::simd::Mone<vT>(), boost::simd::Mone<vT>()), boost::simd::One<r_t>());
-//   NT2_TEST_EQUAL(divs(boost::simd::One<vT>(), boost::simd::One<vT>()), boost::simd::One<r_t>());
-//   NT2_TEST_EQUAL(divs(boost::simd::Valmax<vT>(),boost::simd::Mone<vT>()), boost::simd::Valmin<r_t>()+boost::simd::One<r_t>());
-//   NT2_TEST_EQUAL(divs(boost::simd::Valmax<vT>(),boost::simd::One<vT>()), boost::simd::Valmax<r_t>());
-//   NT2_TEST_EQUAL(divs(boost::simd::Valmin<vT>(),boost::simd::Mone<vT>()), boost::simd::Valmax<r_t>());
-//   NT2_TEST_EQUAL(divs(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(divs(boost::simd::Mone<vT>(), boost::simd::Mone<vT>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(divs(boost::simd::One<vT>(), boost::simd::One<vT>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(divs(boost::simd::Valmax<vT>(),boost::simd::Mone<vT>()), boost::simd::Valmin<r_t>()+boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(divs(boost::simd::Valmax<vT>(),boost::simd::One<vT>()), boost::simd::Valmax<r_t>());
+  NT2_TEST_EQUAL(divs(boost::simd::Valmin<vT>(),boost::simd::Mone<vT>()), boost::simd::Valmax<r_t>());
+  NT2_TEST_EQUAL(divs(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
   NT2_TEST_EQUAL(divs(boost::simd::Mone<vT>(), boost::simd::Zero<vT>()), boost::simd::Valmin<r_t>());
-//   NT2_TEST_EQUAL(divs(boost::simd::Mtwo<vT>(), boost::simd::Zero<vT>()), boost::simd::Valmin<r_t>());
-//   NT2_TEST_EQUAL(divs(boost::simd::Valmin<vT>(), boost::simd::Zero<vT>()), boost::simd::Valmin<r_t>());
-//   NT2_TEST_EQUAL(divs(boost::simd::One<vT>(), boost::simd::Zero<vT>()), boost::simd::Valmax<r_t>());
-//   NT2_TEST_EQUAL(divs(boost::simd::Two<vT>(), boost::simd::Zero<vT>()), boost::simd::Valmax<r_t>());
-//   NT2_TEST_EQUAL(divs(boost::simd::Valmax<vT>(), boost::simd::Zero<vT>()), boost::simd::Valmax<r_t>());
+  NT2_TEST_EQUAL(divs(boost::simd::Mtwo<vT>(), boost::simd::Zero<vT>()), boost::simd::Valmin<r_t>());
+  NT2_TEST_EQUAL(divs(boost::simd::Valmin<vT>(), boost::simd::Zero<vT>()), boost::simd::Valmin<r_t>());
+  NT2_TEST_EQUAL(divs(boost::simd::One<vT>(), boost::simd::Zero<vT>()), boost::simd::Valmax<r_t>());
+  NT2_TEST_EQUAL(divs(boost::simd::Two<vT>(), boost::simd::Zero<vT>()), boost::simd::Valmax<r_t>());
+  NT2_TEST_EQUAL(divs(boost::simd::Valmax<vT>(), boost::simd::Zero<vT>()), boost::simd::Valmax<r_t>());
 } // end of test for signed_int_
 
-// NT2_TEST_CASE_TPL ( divs_unsigned_int__2_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
-// {
-//   using boost::simd::divs;
-//   using boost::simd::tag::divs_;
-//   using boost::simd::native;
-//   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-//   typedef native<T,ext_t>                  vT;
-//   typedef typename boost::dispatch::meta::call<divs_(vT,vT)>::type r_t;
+NT2_TEST_CASE_TPL ( divs_unsigned_int__2_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
+{
+  using boost::simd::divs;
+  using boost::simd::tag::divs_;
+  using boost::simd::native;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>                  vT;
+  typedef typename boost::dispatch::meta::call<divs_(vT,vT)>::type r_t;
 
-//   // specific values tests
-//   NT2_TEST_EQUAL(divs(boost::simd::One<vT>(), boost::simd::One<vT>()), boost::simd::One<r_t>());
-//   NT2_TEST_EQUAL(divs(boost::simd::Valmax<vT>(),boost::simd::One<vT>()), boost::simd::Valmax<r_t>());
-//   NT2_TEST_EQUAL(divs(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
-//   NT2_TEST_EQUAL(divs(boost::simd::One<vT>(), boost::simd::Zero<vT>()), boost::simd::Valmax<r_t>());
-//   NT2_TEST_EQUAL(divs(boost::simd::Two<vT>(), boost::simd::Zero<vT>()), boost::simd::Valmax<r_t>());
-//   NT2_TEST_EQUAL(divs(boost::simd::Valmax<vT>(), boost::simd::Zero<vT>()), boost::simd::Valmax<r_t>());
-// } // end of test for unsigned_int_
+  // specific values tests
+  NT2_TEST_EQUAL(divs(boost::simd::One<vT>(), boost::simd::One<vT>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(divs(boost::simd::Valmax<vT>(),boost::simd::One<vT>()), boost::simd::Valmax<r_t>());
+  NT2_TEST_EQUAL(divs(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(divs(boost::simd::One<vT>(), boost::simd::Zero<vT>()), boost::simd::Valmax<r_t>());
+  NT2_TEST_EQUAL(divs(boost::simd::Two<vT>(), boost::simd::Zero<vT>()), boost::simd::Valmax<r_t>());
+  NT2_TEST_EQUAL(divs(boost::simd::Valmax<vT>(), boost::simd::Zero<vT>()), boost::simd::Valmax<r_t>());
+} // end of test for unsigned_int_

@@ -22,7 +22,7 @@
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/include/functions/splat.hpp>
 
-NT2_TEST_CASE_TPL ( ceil_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( ceil_real,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::ceil;
   using boost::simd::tag::ceil_;

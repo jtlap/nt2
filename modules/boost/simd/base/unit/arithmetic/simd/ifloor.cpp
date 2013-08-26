@@ -8,11 +8,18 @@
 //==============================================================================
 #include <boost/simd/arithmetic/include/functions/ifloor.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/constant/constant.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/two.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/mone.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/minf.hpp>
+#include <boost/simd/include/constants/nan.hpp>
+#include <boost/simd/sdk/config.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 
 NT2_TEST_CASE_TPL ( ifloor_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
@@ -31,12 +38,12 @@ NT2_TEST_CASE_TPL ( ifloor_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(ifloor(boost::simd::Half<vT>())[0], boost::simd::Zero<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(ifloor(boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(ifloor(boost::simd::Mhalf<vT>())[0], boost::simd::Mone<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(ifloor(boost::simd::Minf<vT>())[0], boost::simd::Minf<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(ifloor(boost::simd::Mone<vT>())[0], boost::simd::Mone<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(ifloor(boost::simd::Nan<vT>())[0], boost::simd::Zero<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(ifloor(boost::simd::One<vT>())[0], boost::simd::One<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(ifloor(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>(), 0);
+  NT2_TEST_EQUAL(ifloor(boost::simd::Half<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(ifloor(boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>());
+  NT2_TEST_EQUAL(ifloor(boost::simd::Mhalf<vT>())[0], boost::simd::Mone<sr_t>());
+  NT2_TEST_EQUAL(ifloor(boost::simd::Minf<vT>())[0], boost::simd::Minf<sr_t>());
+  NT2_TEST_EQUAL(ifloor(boost::simd::Mone<vT>())[0], boost::simd::Mone<sr_t>());
+  NT2_TEST_EQUAL(ifloor(boost::simd::Nan<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(ifloor(boost::simd::One<vT>())[0], boost::simd::One<sr_t>());
+  NT2_TEST_EQUAL(ifloor(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
 } // end of test for floating_
