@@ -28,6 +28,7 @@ namespace boost { namespace simd { namespace tag
     };
   }
   /*!
+
     Computes the saturated square of the absolute value of its parameter.
 
     @par semantic:
@@ -40,12 +41,12 @@ namespace boost { namespace simd { namespace tag
     is equivalent to:
 
     @code
-    T r = sqr(abs(x);
+    T r = sqr(abs(x));
     @endcode
 
     @par Alias
 
-    @csqr_modulus, @c sqrs,  @saturated_sqr
+    @c sqr_modulus, @c sqrs,  @saturated_sqr
 
     @param  a0
 

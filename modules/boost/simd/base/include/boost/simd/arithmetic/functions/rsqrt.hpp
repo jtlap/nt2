@@ -31,6 +31,7 @@ namespace boost { namespace simd { namespace tag
     Returns the inverse of the square root of the input.
 
     @par semantic:
+
     For any given value @c x of floating type @c T:
 
     @code
@@ -47,7 +48,6 @@ namespace boost { namespace simd { namespace tag
     @param  a0
 
     @return      a value of the type of the input.
-
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::rsqrt_, rsqrt, 1)
 } }

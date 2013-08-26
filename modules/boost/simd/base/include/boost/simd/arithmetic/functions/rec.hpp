@@ -43,6 +43,7 @@ namespace boost { namespace simd { namespace tag
     T r = T(1)/x;
     @endcode
 
+
     @param  a0
 
     @return      a value of the type of the input.
