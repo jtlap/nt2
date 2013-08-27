@@ -39,7 +39,7 @@ namespace boost { namespace simd { namespace tag
     T r = mod(x, y);
     @endcode
 
-    For floating point values the code is equivalent to:
+    The code is similar to:
 
     @code
     T r = x-divfloor(x, y)*y;

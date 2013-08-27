@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace tag
     T r = minusone(x);
     @endcode
 
-    is equivalent to:
+    is similar to:
 
     @code
     T r = x-1

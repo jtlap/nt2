@@ -21,9 +21,17 @@ namespace boost { namespace simd
 {
   namespace tag
   {
-    /// @brief Hierarchy tag for remquo function
+   /*!
+      @brief  remquo generic tag
+
+      Represents the remquo function in generic contexts.
+
+      @par Models:
+      Hierarchy
+    **/
     struct remquo_ : ext::elementwise_<remquo_>
     {
+      /// @brief Parent hierarchy
       typedef ext::elementwise_<remquo_> parent;
     };
   }

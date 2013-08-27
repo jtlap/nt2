@@ -40,7 +40,7 @@ namespace boost { namespace simd
     @endcode
 
     The function coincide with plus for floating point parameters.
-    For integers is equivalent to:
+    For integers is similar to:
 
     @code
     T r = (x+y > Valmax) ? Valmax : (x+y <  Valmin ? Valmin : x+y);

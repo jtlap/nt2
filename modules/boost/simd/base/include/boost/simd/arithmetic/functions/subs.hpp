@@ -38,8 +38,8 @@ namespace boost { namespace simd {
     T r = subs(x, y);
     @endcode
 
-    The function coincide with plus for floating point parameters.
-    For integers is equivalent to:
+    The function coincide with minus for floating point parameters.
+    For integers is similar to:
 
     @code
     T r = (x-y > Valmax) ? Valmax : (x-y <  Valmin ? Valmin : x-y);

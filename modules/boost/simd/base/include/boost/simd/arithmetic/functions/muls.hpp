@@ -39,7 +39,7 @@ namespace boost { namespace simd {
     T r = muls(x, y);
     @endcode
 
-    For floating point values the code is equivalent to:
+    The code is similar to:
 
     @code
     T r = x*y

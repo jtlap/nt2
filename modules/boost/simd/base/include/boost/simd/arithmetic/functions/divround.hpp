@@ -37,7 +37,7 @@ namespace boost { namespace simd {
     T r = divround(x, y);
     @endcode
 
-    For floating point values the code is equivalent to:
+    The code is similar to:
 
     @code
     T r = round(x/y);

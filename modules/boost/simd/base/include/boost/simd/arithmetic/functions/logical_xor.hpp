@@ -37,10 +37,10 @@ namespace boost { namespace simd { namespace tag
     as_logical<T> r = logical(x, y);
     @endcode
 
-    is equivalent to:
+    is similar to:
 
     @code
-    as_logical<T> r = !!x^!!y;
+    as_logical<T> r = (!!x)^(!!y);
     @endcode
 
 

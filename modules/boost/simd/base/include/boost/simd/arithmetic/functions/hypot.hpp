@@ -37,13 +37,13 @@ namespace boost { namespace simd { namespace tag
     as_floating<T> r = hypot(x, y);
     @endcode
 
-    For floating point values the code is equivalent to:
+    The code is similar to:
 
     @code
     as_floating<T> r = sqrt(sqr(x)+sqr(y));
     @endcode
 
-    Provision are made to avoid overflow and to compute
+    Provision are made to avoid overflow as possible and to compute
     @c hypot accurately.
     If these considerations can be put aside use
     @c fast_hypot.

@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace tag
     T r = divs(x, y);
     @endcode
 
-    is equivalent to:
+    The code is similar to:
 
     @code
     T r = x*y+z;
@@ -46,11 +46,16 @@ namespace boost { namespace simd { namespace tag
     @par Note
     Correct fused multiply/add implies
     1) only one rounding
-    2) no "intermediate" overflows
+    2) no "intermediate" overflow
     fma provides this each time it is reasonable
-    in terms of performance.
+    in terms of performance (mainly if the system has the hard
+    wired capability).
     If you need fma in all circumstances in your own
     code use correct_fma.
+
+    @par Alias
+
+    @c madd
 
     @param  a0
     @param  a1

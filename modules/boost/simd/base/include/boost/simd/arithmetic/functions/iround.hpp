@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace tag
     as_integer<T> r = iround(x);
     @endcode
 
-    is equivalent to:
+    is similar to:
 
     @code
     as_integer<T> r = toints(round(x));

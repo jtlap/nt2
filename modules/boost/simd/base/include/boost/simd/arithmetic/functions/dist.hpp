@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace tag
     T r = dist(x, y);
     @endcode
 
-    is equivalent to:
+    is similar to:
 
     @code
     T r = abs(x-y);

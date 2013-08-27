@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace tag
     as_floating<T> r = rec(x);
     @endcode
 
-    is equivalent to:
+    The code is similar to:
 
     @code
     as_floating<T> r = 1/x;

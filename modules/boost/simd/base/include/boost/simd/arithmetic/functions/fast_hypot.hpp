@@ -44,7 +44,7 @@ namespace boost { namespace simd { namespace tag
     @endcode
 
     Fast means that nothing is done to avoid overflow or inaccuracies
-    for large values. See @c hypot
+    for large values. See @c hypot in that matters.
 
     @param  a0
     @param  a1

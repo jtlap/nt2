@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace tag
     T r = idivround2even_(x, y);
     @endcode
 
-    For floating point values the code is equivalent to:
+    The code is similar to:
 
     @code
     as_integer<T> r = toints(round2even(x/y));

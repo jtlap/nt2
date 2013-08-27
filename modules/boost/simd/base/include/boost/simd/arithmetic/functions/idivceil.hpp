@@ -38,7 +38,7 @@ namespace boost { namespace simd {
     T r = idivceil(x, y);
     @endcode
 
-    For floating point values the code is equivalent to:
+    The code is similar to:
 
     @code
     as_integer<T> r = toints(ceil(x/y));

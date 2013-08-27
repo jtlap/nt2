@@ -43,6 +43,8 @@ namespace boost { namespace simd { namespace tag
     as_integer<T> r = toints(ceil(x));
     @endcode
 
+    @par Note:
+    This operation is properly saturated
 
     @param  a0
 

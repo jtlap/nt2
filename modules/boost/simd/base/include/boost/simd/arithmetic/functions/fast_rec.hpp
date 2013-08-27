@@ -39,7 +39,7 @@ namespace boost { namespace simd
     as_floating<T> r = fast_rec(x);
     @endcode
 
-    is equivalent to:
+    is similar to:
 
     @code
     as_floating<T> r = T(1)/x;
@@ -51,7 +51,7 @@ namespace boost { namespace simd
     low precision intrinsic. The result can be not fully accurate
 
 
-    @param  a0    value whose absolute value will be returned.
+    @param  a0
 
     @return      a value of the floating type associated to the input.
 

@@ -38,13 +38,15 @@ namespace boost { namespace simd {
     T r = negs(x);
     @endcode
 
-    For floating point values the code is equivalent to:
+    The code is equivalent to:
 
     @code
     T r = -x
     @endcode
 
+    @par Note:
     For integers types @c negs(Valmin) returns @c Valmax
+    @c negs is not defined for unsigned types.
 
     @param  a0
     @param  a1

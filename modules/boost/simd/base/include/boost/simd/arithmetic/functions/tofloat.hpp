@@ -37,7 +37,8 @@ namespace boost { namespace simd { namespace tag
     as_floating<T> r = tofloat(x);
     @endcode
 
-    is equivalent to:
+    The code is similar to:
+
     @code
     as_floating<T> r = static_cast < as_floating<T> >(x)
     @endcode

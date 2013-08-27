@@ -37,10 +37,10 @@ namespace boost { namespace simd { namespace tag
     as_floating<T> r = rsqrt(x);
     @endcode
 
-    For signed type is the saturated equivalent to:
+    For signed type is similar to:
 
     @code
-    T r = 1/sqrt(x)
+    as_floating<T> r = 1/sqrt(x)
     @endcode
 
 

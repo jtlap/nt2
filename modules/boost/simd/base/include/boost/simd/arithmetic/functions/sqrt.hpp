@@ -32,8 +32,11 @@ namespace boost { namespace simd { namespace tag
     For any given value @c x of type @c T:
 
     @code
-    T r = sqrt(x);
+    as_floating<T> r = sqrt(x);
     @endcode
+
+    @par Note:
+    On "real" types a negative entry leads to Nan.
 
     @param  a0
 

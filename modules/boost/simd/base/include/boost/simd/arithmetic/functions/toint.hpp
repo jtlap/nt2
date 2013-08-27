@@ -37,7 +37,8 @@ namespace boost { namespace simd { namespace tag
     as_integer<T> r = toint(x);
     @endcode
 
-    is equivalent to:
+    The code is similar to:
+
     @code
     as_integer<T> r = static_cast<as_integer<T> >(x)
     @endcode

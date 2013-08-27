@@ -38,7 +38,7 @@ namespace boost { namespace simd {
     T r = divs(x, y);
     @endcode
 
-    For floating point values the code is equivalent to:
+    The code is similar to:
 
     @code
     T r = trunc(x/y);
@@ -48,6 +48,12 @@ namespace boost { namespace simd {
     if x is positive (resp. negative) and 0 if x is null.
     Saturated means that for signed integer types,
     @c divs(Valmin,-1) returns Valmax.
+
+
+    @par Alias
+
+    @c saturated_div, rdivide
+
 
     @param  a0
     @param  a1

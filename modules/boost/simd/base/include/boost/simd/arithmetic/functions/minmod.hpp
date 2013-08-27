@@ -38,7 +38,7 @@ namespace boost { namespace simd { namespace tag
     T r = inc(x);
     @endcode
 
-    is equivalent to:
+    is similar to:
 
     @code
     T r =  x*y > 0 ? min(x, y) : 0;

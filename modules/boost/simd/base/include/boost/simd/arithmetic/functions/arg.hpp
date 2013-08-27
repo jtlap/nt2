@@ -16,7 +16,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-      @brief  abs generic tag
+      @brief  arg generic tag
 
       Represents the arg function in generic contexts.
 
@@ -48,9 +48,10 @@ namespace boost { namespace simd
     @par Note:
 
     The function always returns a floating value.
-    Always 0 or \f$\pi\f$ according to the input sign.
-    This function is the restriction to real numbers of the complex argument
-    function.
+    Always 0 or \f$\pi\f$ according to the input sign,  or Nan
+    is the input is Nan.
+    This function is the restriction to real numbers of the complex
+    argument function.
 
     @par Alias
 
