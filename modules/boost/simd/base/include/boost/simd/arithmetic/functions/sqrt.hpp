@@ -33,9 +33,8 @@ namespace boost { namespace simd { namespace tag
     For any given value @c x of floating type @c T:
 
     @code
-    T r = sqrt(x);
+    as_floating<T> r = sqrt(x);
     @endcode
-
 
     @param  a0
 

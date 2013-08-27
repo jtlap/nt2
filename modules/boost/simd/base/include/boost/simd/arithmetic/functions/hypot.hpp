@@ -43,7 +43,6 @@ namespace boost { namespace simd { namespace tag
     T r = sqrt(sqr(x)+sqr(y));
     @endcode
 
-<<<<<<< HEAD
     Provision are made to avoid overflow as possible and to compute
     @c hypot accurately.
     If these considerations can be put aside use

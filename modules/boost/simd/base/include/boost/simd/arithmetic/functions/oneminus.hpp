@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace tag
     T r = oneminus(x);
     @endcode
 
-    For signed type is the saturated equivalent to:
+    For signed type is similar to:
 
     @code
     T r = 1-x
