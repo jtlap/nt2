@@ -29,7 +29,6 @@ namespace boost { namespace simd { namespace tag
   }
   /*!
     Computes the rounded to nearest integer away from 0
-    value of its parameter.
 
     @par semantic:
     For any given value @c x of type @c T:
