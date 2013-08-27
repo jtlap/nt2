@@ -93,13 +93,23 @@ namespace boost { namespace simd
       return 0;
     }
 
-    std::size_t* fresh_ptr;
     if(ptr && alignment == *oldptr)
-      fresh_ptr = static_cast<std::size_t*>(::_aligned_offset_realloc(oldptr, size+sizeof(std::size_t), alignment, sizeof(std::size_t)));
-    else
-      fresh_ptr = static_cast<std::size_t*>(::_aligned_offset_malloc(size+sizeof(std::size_t), alignment, sizeof(std::size_t)));
+    {
+      std::size_t* fresh_ptr = static_cast<std::size_t*>(::_aligned_offset_realloc(oldptr, size+sizeof(std::size_t), alignment, sizeof(std::size_t)));
+      if(!fresh_ptr)
+        return 0;
+      return fresh_ptr+1;
+    }
+
+    std::size_t* fresh_ptr = static_cast<std::size_t*>(::_aligned_offset_malloc(size+sizeof(std::size_t), alignment, sizeof(std::size_t)));
+    if(!fresh_ptr)
+      return 0;
 
     *fresh_ptr++ = alignment;
+
+    if(ptr)
+      ::_aligned_free(oldptr);
+
     return fresh_ptr;
 
     #elif (     defined( BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN )            \
