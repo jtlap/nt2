@@ -10,10 +10,12 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_REMAINDER_HPP_INCLUDED
 #include <boost/simd/arithmetic/functions/remainder.hpp>
 #include <boost/simd/include/functions/simd/abs.hpp>
-#include <boost/simd/include/functions/simd/idivround.hpp>
-#include <boost/simd/include/functions/simd/divround.hpp>
+#include <boost/simd/include/functions/simd/idivround2even.hpp>
+#include <boost/simd/include/functions/simd/divround2even.hpp>
 #include <boost/simd/include/functions/simd/multiplies.hpp>
 #include <boost/simd/include/functions/simd/minus.hpp>
+#include <boost/simd/include/functions/simd/selsub.hpp>
+#include <boost/simd/include/functions/simd/is_nez.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // The remainder() function computes the remainder of dividing x by y.  The
@@ -26,14 +28,15 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::remainder_, tag::cpu_
                                    , (A0)
-                                   , (generic_< arithmetic_<A0> >)
-                                     (generic_< arithmetic_<A0> >)
+                                   , (generic_< signed_<A0> >)
+                                     (generic_< signed_<A0> >)
                                    )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return a0-boost::simd::multiplies(idivround(a0, a1), a1);
+      return selsub(is_nez(a1),a0,
+                    boost::simd::multiplies(idivround2even(a0, a1), a1));
     }
   };
 
@@ -46,7 +49,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return a0-divround(a0, a1)*a1;
+      return a0-divround2even(a0, a1)*a1;
     }
   };
 } } }

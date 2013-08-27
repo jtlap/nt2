@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace tag
   /*!
     Computes the remainder of division.
     The return value is a0-n*a1, where n is the value a0/a1,
-    rounded to the nearest integer (using round).
+    rounded to the nearest integer (using round2even).
 
     @par semantic:
     For any given value @c x, @c y of type @c T:
@@ -42,8 +42,12 @@ namespace boost { namespace simd { namespace tag
     For floating point values the code is equivalent to:
 
     @code
-    T r = x-divround(x, y)*y;
+    T r = x-divround2even(x, y)*y;
     @endcode
+
+    @par Note:
+
+    As r can be negative @c remainder is not defined for unsigned types.
 
     @par Alias
 

@@ -12,6 +12,7 @@
 #include <boost/simd/arithmetic/functions/oneminus.hpp>
 #include <boost/simd/include/functions/simd/min.hpp>
 #include <boost/simd/include/functions/simd/minus.hpp>
+#include <boost/simd/include/functions/simd/subs.hpp>
 #include <boost/simd/include/constants/one.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -24,7 +25,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return One<result_type>()-a0;
+      return subs(One<result_type>(), a0);
     }
   };
 
