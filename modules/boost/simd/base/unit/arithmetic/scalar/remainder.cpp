@@ -60,4 +60,5 @@ NT2_TEST_CASE_TPL ( remainder_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_EQUAL(remainder(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::Zero<T>());
   NT2_TEST_EQUAL(remainder(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::Zero<T>());
   NT2_TEST_EQUAL(remainder(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<T>());
+  NT2_TEST_EQUAL(remainder(boost::simd::Two<T>(), boost::simd::Three<T>()), boost::simd::Mone<T>());
 } // end of test for signed_int_

@@ -28,7 +28,6 @@
 #include <boost/simd/sdk/simd/io.hpp>
 
 NT2_TEST_CASE_TPL ( rsqrt_real,  BOOST_SIMD_SIMD_REAL_TYPES)
->>>>>>> polishing simd unit tests in arithmetic
 {
   using boost::simd::rsqrt;
   using boost::simd::tag::rsqrt_;
