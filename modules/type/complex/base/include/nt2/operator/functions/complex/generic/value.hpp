@@ -21,7 +21,7 @@ namespace nt2 { namespace ext
   {
     typedef typename A0::type result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const& a0) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       return a0();
     }

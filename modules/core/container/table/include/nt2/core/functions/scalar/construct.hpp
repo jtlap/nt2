@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
   {
     typedef void result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1 const& a1, A2 const& a2, A3 const&) const
     {
       //========================================================================
@@ -59,7 +59,7 @@ namespace nt2 { namespace ext
   {
     typedef void result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1 const& a1, A2 const& a2, A3 const& a3) const
     {
       //========================================================================

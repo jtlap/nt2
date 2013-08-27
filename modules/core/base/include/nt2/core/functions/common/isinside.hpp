@@ -30,14 +30,14 @@ namespace nt2 { namespace ext
     typedef typename meta::strip<at_t>::type                      base_t;
     typedef typename boost::simd::meta::as_logical<base_t>::type  result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0& a0,const A1& a1) const
     {
       typedef typename boost::fusion::result_of::size<A0>::type sz_t;
       return eval(a0,a1,boost::mpl::int_<sz_t::value-1>());
     }
 
-    template<class N> BOOST_DISPATCH_FORCE_INLINE result_type
+    template<class N> BOOST_FORCEINLINE result_type
     eval(const A0& a0,const A1& a1, N const&) const
     {
       return l_and( eval(a0,a1, boost::mpl::int_<N::value-1>())
@@ -47,7 +47,7 @@ namespace nt2 { namespace ext
                   );
     }
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_FORCEINLINE result_type
     eval(const A0& a0,const A1& a1,boost::mpl::int_<0> const&) const
     {
       return lt ( boost::fusion::at_c<0>(a0)
@@ -67,14 +67,14 @@ namespace nt2 { namespace ext
     typedef typename meta::strip<at_t>::type                      base_t;
     typedef typename boost::simd::meta::as_logical<base_t>::type  result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0& a0,const A1& a1,const A2& a2) const
     {
       typedef typename boost::fusion::result_of::size<A0>::type sz_t;
       return eval(a0,a1,a2,boost::mpl::int_<sz_t::value-1>());
     }
 
-    template<class N> BOOST_DISPATCH_FORCE_INLINE result_type
+    template<class N> BOOST_FORCEINLINE result_type
     eval(const A0& a0,const A1& a1,const A2& a2, N const&) const
     {
       return l_and( eval(a0,a1,a2, boost::mpl::int_<N::value-1>())
@@ -85,7 +85,7 @@ namespace nt2 { namespace ext
                   );
     }
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_FORCEINLINE result_type
     eval(const A0& a0,const A1& a1,const A2& a2, boost::mpl::int_<0> const&) const
     {
       return eval_at( boost::fusion::at_c<0>(a0)
@@ -94,7 +94,7 @@ namespace nt2 { namespace ext
                     );
     }
 
-    template<class T0,class T1, class T2> BOOST_DISPATCH_FORCE_INLINE
+    template<class T0,class T1, class T2> BOOST_FORCEINLINE
     result_type eval_at(const T0& a0,const T1& a1,const T2& a2) const
     {
       return l_and( ge( a0, splat<base_t>(a2))

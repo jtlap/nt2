@@ -108,7 +108,7 @@ namespace nt2 { namespace ext
     typedef container::generator_transform<nt2::container::domain> transform;
     typedef typename transform::template result<transform(expr const&)>::type result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(A0& a0, A1& a1) const
     {
       return transform()(expr::make(A0c()(a0), A1c()(a1)));
@@ -127,7 +127,7 @@ namespace nt2 { namespace ext
     typedef container::generator_transform<nt2::container::domain> transform;
     typedef typename transform::template result<transform(expr const&)>::type result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(A0& a0, A1 const& a1) const
     {
       return transform()(expr::make(A0c()(a0), A1c()(a1)));
@@ -142,7 +142,7 @@ namespace nt2 { namespace ext
   {
     typedef A0& result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(A0& a0, A1 const& a1) const
     {
         return assign(a0, A0(a1));

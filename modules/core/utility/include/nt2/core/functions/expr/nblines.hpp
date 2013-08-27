@@ -26,7 +26,7 @@ namespace nt2 { namespace ext
   {
     typedef std::size_t result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0& a0,const A1& dim) const
     {
       if (nt2::isempty(a0))

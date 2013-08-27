@@ -21,7 +21,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename A0::type result_type;
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
+    BOOST_FORCEINLINE result_type operator()(A0 const&) const
     {
       typedef typename meta::as_real<result_type>::type real_t;
       return result_type(boost::dispatch::functor<Tag>()(boost::dispatch::meta::as_<real_t>()));
@@ -34,7 +34,7 @@ namespace nt2 { namespace ext
   {
     typedef typename A0::type result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
+    BOOST_FORCEINLINE result_type operator()(A0 const&) const
     {
       typedef typename meta::as_real<result_type>::type real_t;
       return bitwise_cast<result_type>(boost::dispatch::functor<Tag>()(boost::dispatch::meta::as_<real_t>()));

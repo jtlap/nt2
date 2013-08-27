@@ -26,7 +26,7 @@ namespace nt2 { namespace ext
                   , settings(automatic_,of_size_<1,2>)
                   >                                         result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0&) const
+    BOOST_FORCEINLINE result_type operator()(const A0&) const
     {
       result_type that;
       that.raw()[0] = that.raw()[1] = std::size_t(1);
@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
   {
     typedef std::size_t result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0&,const A1&) const
+    BOOST_FORCEINLINE result_type operator()(const A0&,const A1&) const
     {
       return 1;
     }

@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
       typedef A1 type;
     };
     template<class A1>
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     typename result<size_fold(_0D const&, A1 const&)>::type
     operator()(_0D const&, A1 const& a1) const
     {
@@ -78,7 +78,7 @@ namespace nt2 { namespace ext
       typedef A0 type;
     };
     template<class A0>
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     typename result<size_fold(A0 const&, _0D const&)>::type
     operator()(A0 const& a0, _0D const&) const
     {
@@ -90,7 +90,7 @@ namespace nt2 { namespace ext
     {
       typedef _0D type;
     };
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result<size_fold(_0D const&, _0D const&)>::type
     operator()(_0D const& a0, _0D const&) const
     {
@@ -104,7 +104,7 @@ namespace nt2 { namespace ext
       boost::mpl::if_c< A0::static_status,A0,A1>::type type;
     };
 
-    template<class A0, class A1> BOOST_DISPATCH_FORCE_INLINE
+    template<class A0, class A1> BOOST_FORCEINLINE
     typename result<size_fold(A0 const&, A1 const&)>::type
     operator()(A0 const& a0, A1 const& a1) const
     {
@@ -112,14 +112,14 @@ namespace nt2 { namespace ext
       return selection(a0,a1,boost::mpl::bool_<A0::static_status>());
     }
 
-    template<class A0, class A1> BOOST_DISPATCH_FORCE_INLINE
+    template<class A0, class A1> BOOST_FORCEINLINE
     typename result<size_fold(A0 const&, A1 const&)>::type
     selection(A0 const& a0, A1 const&, boost::mpl::true_ const&) const
     {
       return a0;
     }
 
-    template<class A0, class A1> BOOST_DISPATCH_FORCE_INLINE
+    template<class A0, class A1> BOOST_FORCEINLINE
     typename result<size_fold(A0 const&, A1 const&)>::type
     selection(A0 const&, A1 const& a1, boost::mpl::false_ const&) const
     {

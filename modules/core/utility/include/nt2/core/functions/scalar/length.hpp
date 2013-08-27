@@ -24,7 +24,7 @@ namespace nt2 { namespace ext
   {
     typedef boost::mpl::size_t<1> result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0&) const { return result_type(); }
   };
 
@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
     typedef typename  boost::fusion::result_of::
                       fold<A0,first,func_t>::type   result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0& a0) const
     {
       return boost::fusion::fold( a0

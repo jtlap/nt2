@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
     typedef typename meta::as_real<A0>::type r_type;
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
       result_type operator()(const A0& a0, const A1& a1) const
     {
 
@@ -47,7 +47,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0& a0, const A1& a1) const
     {
       typedef typename A0::value_type value_type;
@@ -66,7 +66,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0& a0, const A1& a1) const
     {
       if(numel(a1)!= 1u)       return false;
@@ -82,7 +82,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0& a0, const A1& a1) const
     {
       if(numel(a0)!= 1u)       return false;
@@ -99,7 +99,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0& a0, const A1& a1, const A2& a2) const
     {
       return nt2::ulpdist(a0, a1) <= a2;
@@ -115,7 +115,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0& a0, const A1& a1, const A2& a2) const
     {
       if(numel(a1)!= 1u)       return false;
@@ -131,7 +131,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0& a0, const A1& a1, const A2& a2) const
     {
       if(numel(a0)!= 1u)       return false;
@@ -148,7 +148,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0& a0, const A1& a1, const A2& a2) const
     {
       if(!havesamesize(a0, a1))       return false;
@@ -164,7 +164,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0& a0, const A1& a1, const A2& a2) const
     {
       if(!havesamesize(a0, a1))       return false;

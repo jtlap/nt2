@@ -20,7 +20,7 @@ namespace nt2 { namespace ext
   {
     typedef std::size_t result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0& a0, const A1& dim) const
+    BOOST_FORCEINLINE result_type operator()(const A0& a0, const A1& dim) const
     {
       return firstoflength(a0.extent(), dim);
     }

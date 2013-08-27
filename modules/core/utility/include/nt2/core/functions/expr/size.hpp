@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
                             , settings(automatic_, of_size_<1, olen>)
                             >                           result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0& a0) const
+    BOOST_FORCEINLINE result_type operator()(const A0& a0) const
     {
       result_type that;
       typename ext_t::value_type i=1;
@@ -54,7 +54,7 @@ namespace nt2 { namespace ext
   {
     typedef std::size_t result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0& a0,const A1& a1) const
     {
       std::size_t nb_dims   = nt2::extent(a0).size();

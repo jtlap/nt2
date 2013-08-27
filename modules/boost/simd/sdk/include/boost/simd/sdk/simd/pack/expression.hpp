@@ -28,7 +28,7 @@ namespace boost { namespace simd
     BOOST_PROTO_BASIC_EXTENDS(Expr, expression, domain)
 
     // Assignment operators force evaluation
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     expression& operator=(expression const& xpr)
     {
       boost::simd::evaluate(
@@ -38,7 +38,7 @@ namespace boost { namespace simd
     }
 
     template<class Xpr>
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     typename boost::disable_if< boost::is_base_of<expression, Xpr>
                               , expression&
                               >::type
@@ -51,7 +51,7 @@ namespace boost { namespace simd
     }
 
     // Conversion operator forces evaluation
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     operator ResultType() const
     {
       return boost::simd::evaluate(*this);

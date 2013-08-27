@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
     typedef typename meta::call<tag::sub2ind_(const A0&, const A1&)>::type s_t;
     typedef typename meta::call<tag::ind2sub_(const A2&, s_t)>::type result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_FORCEINLINE result_type
     operator()(const A0& sizein, const A1& pos, const A2& sizeout) const
     {
       return ind2sub(sizeout, sub2ind(sizein, pos));

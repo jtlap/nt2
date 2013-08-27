@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0& a0, const A1& a1, const A2& dim) const
     {
       typedef typename meta::call<tag::extent_(A0 const&)>::type ext1_t;
@@ -64,7 +64,7 @@ namespace nt2 { namespace ext
                               )
   {
     typedef bool result_type;
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0&, const A1&, const A2&) const
     {
       return true;
@@ -79,7 +79,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef bool result_type;
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0&a0, const A1&, const A2& dim) const
     {
       return isvectoralong(a0, dim);
@@ -93,7 +93,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef bool result_type;
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0&, const A1&a1, const A2& dim) const
     {
       return isvectoralong(a1, dim);

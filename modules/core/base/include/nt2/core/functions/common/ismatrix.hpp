@@ -23,7 +23,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0& a0) const
     {
       typename meta::call<tag::extent_(A0 const&)>::type ex = nt2::extent(a0);

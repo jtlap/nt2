@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
   {
     typedef typename meta::call<tag::numel_(Idx const&)>::type  result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_FORCEINLINE result_type
     operator()(const Idx& idx, const Size&, const Base& ) const
     {
       return nt2::numel( idx );
@@ -51,7 +51,7 @@ namespace nt2 { namespace ext
   {
     typedef Size result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_FORCEINLINE result_type
     operator()(const Idx&, const Size& sz, const Base&) const
     {
       return sz;
@@ -74,7 +74,7 @@ namespace nt2 { namespace ext
   {
     typedef std::size_t result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_FORCEINLINE result_type
     operator()(const Idx& i, const Size& sz, const Base& b) const
     {
       return  details::
@@ -102,7 +102,7 @@ namespace nt2 { namespace ext
   {
     typedef std::size_t result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_FORCEINLINE result_type
     operator()(const Idx& i, const Size& sz, const Base& b) const
     {
       return  details::

@@ -55,7 +55,7 @@ namespace boost { namespace simd { namespace ext
  */
 //==============================================================================
 #define BOOST_SIMD_CONSTANT_IMPLEMENTATION(TAG,NAME)                           \
-template<typename Target> BOOST_DISPATCH_FORCE_INLINE                          \
+template<typename Target> BOOST_FORCEINLINE                          \
 typename boost::dispatch::meta::                                               \
 call<TAG(boost::dispatch::meta::as_<Target> const&)>::type                     \
 NAME()                                                                         \
@@ -63,7 +63,7 @@ NAME()                                                                         \
   typename boost::dispatch::make_functor<TAG, Target>::type callee;            \
   return callee( boost::dispatch::meta::as_<Target>() );                       \
 }                                                                              \
-template<typename Target> BOOST_DISPATCH_FORCE_INLINE                          \
+template<typename Target> BOOST_FORCEINLINE                          \
 typename boost::dispatch::meta::                                               \
 call<TAG(boost::dispatch::meta::as_<Target> const&)>::type                     \
 NAME(boost::dispatch::meta::as_<Target> const& tgt)                            \

@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef bool result_type;
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0& a0) const
+    BOOST_FORCEINLINE result_type operator()(const A0& a0) const
     {
       return nt2::ismatrix(a0) && nt2::isequal(a0, nt2::expand(nt2::from_diag(nt2::diag_of(a0)), size(a0)));
     }
@@ -41,7 +41,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef bool result_type;
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0&) const
+    BOOST_FORCEINLINE result_type operator()(const A0&) const
     {
       return true;
     }
@@ -54,7 +54,7 @@ namespace nt2 { namespace ext
                               )
   {
     typedef bool result_type;
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0& a0, const A1& thresh) const
+    BOOST_FORCEINLINE result_type operator()(const A0& a0, const A1& thresh) const
     {
       if (is_eqz(thresh))
         return isdiagonal(a0);
@@ -70,7 +70,7 @@ namespace nt2 { namespace ext
                               )
   {
     typedef bool result_type;
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0&, const A1&) const
+    BOOST_FORCEINLINE result_type operator()(const A0&, const A1&) const
     {
       return true;
     }

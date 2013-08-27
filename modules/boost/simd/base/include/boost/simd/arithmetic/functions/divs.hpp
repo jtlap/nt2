@@ -70,7 +70,7 @@ namespace boost { namespace simd {
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::divs_, rdivide, 2)
 
   template<class A0, class A1>
-  BOOST_DISPATCH_FORCE_INLINE
+  BOOST_FORCEINLINE
   typename dispatch::meta::call<tag::divs_(A0, A1)>::type
   ldivide(A0 const& a0, A1 const& a1)
   {
@@ -78,7 +78,7 @@ namespace boost { namespace simd {
   }
 
   template<class A0, class A1>
-  BOOST_DISPATCH_FORCE_INLINE
+  BOOST_FORCEINLINE
   typename dispatch::meta::call<tag::divs_(A0, A1)>::type
   ldiv(A0 const& a0, A1 const& a1)
   {

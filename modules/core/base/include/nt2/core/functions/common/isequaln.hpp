@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0& a0, const A1& a1) const
     {
       if (!havesamesize(a0, a1)) return false;
@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0& a0, const A1& a1) const
     {
       if(numel(a1)!= 1u)       return false;
@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0& a0, const A1& a1) const
     {
       if(numel(a0)!= 1u)       return false;
@@ -76,7 +76,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0& a0, const A0& a1) const
     {
       return is_equal_with_equal_nans(a0,a1);
@@ -91,7 +91,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0& a0, const A1& a1) const
     {
       return a0 == a1;
@@ -106,7 +106,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0& a0, const A1& a1) const
     {
       return nt2::all(is_equal_with_equal_nans(a0, a1));
@@ -121,7 +121,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0& a0, const A1& a1) const
     {
       return nt2::all(is_equal_with_equal_nans(a0, a1))();

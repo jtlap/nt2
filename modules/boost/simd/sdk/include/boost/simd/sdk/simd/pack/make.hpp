@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::scalar_of<vtype>::type           stype;
 
     #define M0(z,n,t)                                                          \
-    BOOST_DISPATCH_FORCE_INLINE result_type                                    \
+    BOOST_FORCEINLINE result_type                                    \
     operator()(BOOST_PP_ENUM_PARAMS(n, stype const& a)) const                  \
     {                                                                          \
       return make<vtype>(BOOST_PP_ENUM_PARAMS(n, a));                          \

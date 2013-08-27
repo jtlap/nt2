@@ -18,7 +18,7 @@ namespace boost { namespace simd
   // Stream insertion for pack<T,C>
   ////////////////////////////////////////////////////////////////////////////
   template<class T,std::size_t C>
-  BOOST_DISPATCH_FORCE_INLINE
+  BOOST_FORCEINLINE
   std::ostream& operator<<(std::ostream& os, pack<T,C> const& v )
   {
     return os << evaluate(v);
@@ -28,7 +28,7 @@ namespace boost { namespace simd
   // Stream insertion for SIMD expression
   ////////////////////////////////////////////////////////////////////////////
   template<class X,class T>
-  BOOST_DISPATCH_FORCE_INLINE
+  BOOST_FORCEINLINE
   std::ostream& operator<<(std::ostream& os, expression<X,T> const& v )
   {
     return os << evaluate(v);

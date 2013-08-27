@@ -58,7 +58,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef  typename boost::dispatch::meta::as_floating<A0>::type result_type;
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0&) const
+    BOOST_FORCEINLINE result_type operator()(const A0&) const
     {
       // a0 >= 0 -> 0
       return Zero<result_type>();
