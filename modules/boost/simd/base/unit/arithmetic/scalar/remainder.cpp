@@ -45,22 +45,6 @@ NT2_TEST_CASE_TPL ( remainder_real,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(remainder(boost::simd::Zero<T>(),boost::simd::Zero<T>()), boost::simd::Nan<T>());
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( remainder_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
-{
-
-  using boost::simd::remainder;
-  using boost::simd::tag::remainder_;
-  typedef typename boost::dispatch::meta::call<remainder_(T,T)>::type r_t;
-  typedef T wished_r_t;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
-
-  // specific values tests
-  NT2_TEST_EQUAL(remainder(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::Zero<T>());
-  NT2_TEST_EQUAL(remainder(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<T>());
-} // end of test for unsigned_int_
-
 NT2_TEST_CASE_TPL ( remainder_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
 
@@ -76,4 +60,5 @@ NT2_TEST_CASE_TPL ( remainder_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_EQUAL(remainder(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::Zero<T>());
   NT2_TEST_EQUAL(remainder(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::Zero<T>());
   NT2_TEST_EQUAL(remainder(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<T>());
+  NT2_TEST_EQUAL(remainder(boost::simd::Two<T>(), boost::simd::Three<T>()), boost::simd::Mone<T>());
 } // end of test for signed_int_

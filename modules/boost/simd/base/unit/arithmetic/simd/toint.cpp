@@ -6,12 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.arithmetic toolbox - toint/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.arithmetic components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-
 #include <boost/simd/arithmetic/include/functions/toint.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -24,7 +18,7 @@
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 
-NT2_TEST_CASE_TPL ( toint_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( toint_real,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::toint;
   using boost::simd::tag::toint_;
@@ -40,7 +34,7 @@ NT2_TEST_CASE_TPL ( toint_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(toint(boost::simd::Mone<vT>()), boost::simd::Mone<r_t>());
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( toint_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( toint_unsigned_int,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::toint;
   using boost::simd::tag::toint_;
@@ -56,7 +50,7 @@ NT2_TEST_CASE_TPL ( toint_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(toint(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( toint_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( toint_signed_int,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::toint;
   using boost::simd::tag::toint_;
