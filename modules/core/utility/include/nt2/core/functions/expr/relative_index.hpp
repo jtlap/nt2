@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
                      , meta::cardinal_of<result_type>::value
                      >::type value_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_FORCEINLINE result_type
     operator()(const A0& idx, const A1& bi, const A2&, const A3& p, const A4&) const
     {
       return nt2::splat<result_type>(nt2::run(idx,p,meta::as_<value_type>())-bi);
@@ -63,7 +63,7 @@ namespace nt2 { namespace ext
   {
     typedef typename A4::type result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_FORCEINLINE result_type
     operator()(const A0& idx, const A1& bi, const A2&, const A3&, const A4&) const
     {
       return nt2::splat<result_type>(nt2::run(idx,0u,meta::as_<typename A0::value_type>())-bi);
@@ -88,7 +88,7 @@ namespace nt2 { namespace ext
   {
     typedef typename A4::type result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_FORCEINLINE result_type
     operator()(const A0& idx, const A1& bi, const A2& sz, const A3&, const A4&) const
     {
       return nt2::splat<result_type>(boost::proto::value(idx).index(0u,sz));
@@ -113,7 +113,7 @@ namespace nt2 { namespace ext
   {
     typedef typename A4::type result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_FORCEINLINE result_type
     operator()(const A0&, const A1&, const A2&, const A3& p, const A4&) const
     {
       return p;
@@ -138,7 +138,7 @@ namespace nt2 { namespace ext
   {
     typedef typename A4::type result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_FORCEINLINE result_type
     operator()(const A0& i, const A1& b, const A2& s, const A3& p, const A4&) const
     {
       return  details::
@@ -168,7 +168,7 @@ namespace nt2 { namespace ext
   {
     typedef typename A4::type result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_FORCEINLINE result_type
     operator()(const A0& i, const A1& b, const A2& s, const A3& p, const A4&) const
     {
       return  details::

@@ -24,7 +24,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0& a0, const A1& dim) const
     {
       typename A0::extent_type  ex  = nt2::extent(a0);
@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef bool result_type;
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0&, const A1& ) const
     {
       return true;

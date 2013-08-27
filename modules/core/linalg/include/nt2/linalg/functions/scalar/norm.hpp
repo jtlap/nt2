@@ -91,7 +91,7 @@ namespace nt2 { namespace ext
     typedef typename A0::value_type type_t;
     typedef typename meta::as_real<type_t>::type rtype_t;
     typedef typename meta::as_floating<rtype_t>::type result_type;
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0& a0, const char * a1) const
+    BOOST_FORCEINLINE result_type operator()(A0& a0, const char * a1) const
     {
       if (strcmp(a1, "fro") == 0)
       {

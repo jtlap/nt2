@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
   {
     typedef typename A0::value_type                   value_type;
     typedef typename meta::as_real<value_type>::type result_type;
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0& s, const A1 &tol) const
+    BOOST_FORCEINLINE result_type operator()(const A0& s, const A1 &tol) const
     {
       typedef table<result_type> tab_t;
       typedef table<value_type>  vtab_t;
@@ -78,7 +78,7 @@ namespace nt2 { namespace ext
   {
     typedef typename A0::value_type value_type;
     typedef typename meta::as_real<value_type>::type result_type;
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0& a0) const
+    BOOST_FORCEINLINE result_type operator()(const A0& a0) const
     {
       return nt2::normest(a0, Sqrteps<result_type>());
     }
@@ -91,7 +91,7 @@ namespace nt2 { namespace ext
                               )
   {
     typedef typename meta::as_real<A0>::type result_type;
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0& a0) const
+    BOOST_FORCEINLINE result_type operator()(const A0& a0) const
     {
       return nt2::abs(a0);
     }
@@ -104,7 +104,7 @@ namespace nt2 { namespace ext
                               )
   {
     typedef typename meta::as_real<A0>::type result_type;
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0& a0, const A1 &) const
+    BOOST_FORCEINLINE result_type operator()(const A0& a0, const A1 &) const
     {
       return nt2::abs(a0);
     }

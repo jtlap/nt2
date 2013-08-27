@@ -43,7 +43,7 @@ namespace nt2 { namespace result_of
     typedef typename sequence_value<Position>::type               typeS;
     typedef typename meta::as_unsigned<typeS>::type               type;
 
-    BOOST_DISPATCH_FORCE_INLINE type
+    BOOST_FORCEINLINE type
     operator()(const Size& size, const Position& pos) const
     {
       typedef typename boost::fusion::result_of::size<Position>::type dims;
@@ -54,7 +54,7 @@ namespace nt2 { namespace result_of
     }
 
     template<class Idx, class Sz>
-    BOOST_DISPATCH_FORCE_INLINE type
+    BOOST_FORCEINLINE type
     eval(const Size& s, const Position& p, const Idx&, const Sz& sz) const
     {
       return  splat<type>( boost::fusion::at_c<Idx::value>(p) )
@@ -63,7 +63,7 @@ namespace nt2 { namespace result_of
     }
 
     template<class Sz>
-    BOOST_DISPATCH_FORCE_INLINE type
+    BOOST_FORCEINLINE type
     eval(const Size& s,const Position& p,const boost::mpl::int_<0>&,const Sz& sz) const
     {
       return  splat<type>( boost::fusion::at_c<0>(p) )
@@ -72,13 +72,13 @@ namespace nt2 { namespace result_of
     }
 
     template<class Sz>
-    BOOST_DISPATCH_FORCE_INLINE type
+    BOOST_FORCEINLINE type
     eval(const Size&, const Position& p, const Sz&, const Sz&) const
     {
       return splat<type>( boost::fusion::at_c<Sz::value>(p) );
     }
 
-    BOOST_DISPATCH_FORCE_INLINE type
+    BOOST_FORCEINLINE type
     eval( const Size&, const Position& p
         , const boost::mpl::int_<0>&, const boost::mpl::int_<0>&
         ) const
@@ -86,7 +86,7 @@ namespace nt2 { namespace result_of
       return splat<type>( boost::fusion::at_c<0>(p) );
     }
 
-    BOOST_DISPATCH_FORCE_INLINE type
+    BOOST_FORCEINLINE type
     eval( const Size&, const Position&
         , const boost::mpl::int_<0>&, const boost::mpl::int_<-1>&
         ) const

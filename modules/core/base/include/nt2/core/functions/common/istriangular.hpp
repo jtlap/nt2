@@ -23,7 +23,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0& a0) const
+    BOOST_FORCEINLINE result_type operator()(const A0& a0) const
     {
       return nt2::istriu(a0) || nt2::istril(a0);
     }

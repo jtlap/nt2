@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
                       )
   {
     typedef typename A1::type result_type;
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const& a0, A1 const&) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&) const
     {
       return _mm256_set1_pd(double(a0));
     }
@@ -41,7 +41,7 @@ namespace boost { namespace simd { namespace ext
                       )
   {
     typedef typename A1::type result_type;
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const& a0, A1 const&) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&) const
     {
       return _mm256_set1_ps(float(a0));
     }
@@ -59,7 +59,7 @@ namespace boost { namespace simd { namespace ext
                       )
   {
     typedef typename A1::type result_type;
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const& a0, A1 const&) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&) const
     {
       return _mm256_set1_epi8(a0);
     }
@@ -77,7 +77,7 @@ namespace boost { namespace simd { namespace ext
                       )
   {
     typedef typename A1::type result_type;
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const& a0, A1 const&) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&) const
     {
       return _mm256_set1_epi16(a0);
     }
@@ -95,7 +95,7 @@ namespace boost { namespace simd { namespace ext
                       )
   {
     typedef typename A1::type result_type;
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const& a0, A1 const&) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&) const
     {
       return _mm256_set1_epi32(a0);
     }
@@ -113,7 +113,7 @@ namespace boost { namespace simd { namespace ext
                       )
   {
     typedef typename A1::type result_type;
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const& a0, A1 const&) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&) const
     {
 #ifndef BOOST_MSVC
       result_type that = _mm256_set1_epi64x(a0);

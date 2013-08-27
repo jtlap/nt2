@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
     typedef typename A0::container_type container_type;
     typedef void                        result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(A0& a0, A1 const& a1) const
     {
       boost::proto::value(a0).resize(a1);
@@ -68,7 +68,7 @@ namespace nt2 { namespace ext
     typedef typename A0::container_type container_type;
     typedef void                        result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(A0& a0, A1 const& a1, A2 const& a2) const
     {
       container_type that((extent_type(a1)),(allocator_type(a2)));
@@ -92,7 +92,7 @@ namespace nt2 { namespace ext
   {
     typedef void result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(A0& a0, A1 const& a1) const
     {
       static_cast<typename A0::nt2_expression&>(a0) = a1;
@@ -115,7 +115,7 @@ namespace nt2 { namespace ext
   {
     typedef void result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(A0& a0, A1 const& a1) const
     {
       boost::proto::value(a0).resize(of_size_<1,1>());
@@ -139,7 +139,7 @@ namespace nt2 { namespace ext
   {
     typedef void result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1 const& a1, A2 const& a2, A3 const& a3) const
     {
       typedef typename boost::proto::result_of::value<A0>::type type;

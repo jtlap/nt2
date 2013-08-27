@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
     typedef boost::fusion::result_of::size<A0>                      dims_t;
     typedef boost::array<type_t,dims_t::value>                      result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_FORCEINLINE result_type
     operator()(const A0& size, const A1& pos) const
     {
       type_t p;
@@ -50,7 +50,7 @@ namespace nt2 { namespace ext
     }
 
     template<class N, class M>
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_FORCEINLINE result_type
     eval(result_type& sub,const type_t& p, const A0& s, const N&, const M& m) const
     {
       type_t ls     = splat<type_t>(boost::fusion::at_c<N::value>(s)?boost::fusion::at_c<N::value>(s):1);
@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
       return sub;
     }
 
-    BOOST_DISPATCH_FORCE_INLINE void
+    BOOST_FORCEINLINE void
     eval( result_type& sub, const type_t& p, const A0&
         , const boost::mpl::int_<0>&, const boost::mpl::int_<1>&
         ) const
@@ -69,7 +69,7 @@ namespace nt2 { namespace ext
     }
 
     template<class N>
-    BOOST_DISPATCH_FORCE_INLINE void
+    BOOST_FORCEINLINE void
     eval(result_type&, const type_t&, const A0&, const N&, const N&) const {}
   };
 
@@ -88,7 +88,7 @@ namespace nt2 { namespace ext
     typedef boost::fusion::result_of::size<A0>                      dims_t;
     typedef boost::array<type_t,dims_t::value>                      result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_FORCEINLINE result_type
     operator()(const A0& size, const A1& pos, const A2& base) const
     {
       type_t p;
@@ -101,7 +101,7 @@ namespace nt2 { namespace ext
     }
 
     template<class N, class M>
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_FORCEINLINE result_type
     eval( result_type& sub,const type_t& p, const A0& s, const A2& b
         , const N&, const M& m
         ) const
@@ -114,7 +114,7 @@ namespace nt2 { namespace ext
       return sub;
     }
 
-    BOOST_DISPATCH_FORCE_INLINE void
+    BOOST_FORCEINLINE void
     eval( result_type& sub, const type_t& p, const A0&, const A2& b
         , const boost::mpl::int_<0>&, const boost::mpl::int_<1>&
         ) const
@@ -123,7 +123,7 @@ namespace nt2 { namespace ext
     }
 
     template<class N>
-    BOOST_DISPATCH_FORCE_INLINE void
+    BOOST_FORCEINLINE void
     eval(result_type&,const type_t&,const A0&,const A2&,const N&,const N&) const  {}
   };
 } }

@@ -23,7 +23,7 @@ namespace nt2 { namespace ext
     typedef typename meta::
             call<tag::length_(typename A0::extent_type)>::type result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0& a0) const
+    BOOST_FORCEINLINE result_type operator()(const A0& a0) const
     {
       return nt2::length( a0.extent() );
     }

@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename proto::result_of::
             make_expr<Func, domain, const value&>::type         result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_FORCEINLINE result_type
     operator()(A0 const&) const
     {
       return boost::proto::detail::

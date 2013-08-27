@@ -33,7 +33,7 @@ namespace nt2 { namespace result_of
     typedef boost::fusion::result_of::size<Size>                      dims_t;
     typedef boost::array<type_t,dims_t::value>                        type;
 
-    BOOST_DISPATCH_FORCE_INLINE type
+    BOOST_FORCEINLINE type
     operator()(const Size& size, const Position& pos) const
     {
       type sub;
@@ -50,7 +50,7 @@ namespace nt2 { namespace result_of
 
     // Normal case
     template<class N, class M>
-    BOOST_DISPATCH_FORCE_INLINE void
+    BOOST_FORCEINLINE void
     eval( type& sub, const type_t& p
         , Size const& s, N const&, M const& m
         , boost::mpl::false_ const&
@@ -68,7 +68,7 @@ namespace nt2 { namespace result_of
     }
 
     template<class N, class M>
-    BOOST_DISPATCH_FORCE_INLINE void
+    BOOST_FORCEINLINE void
     eval( type& sub, type_t const& p
         , Size const& s, N const&, M const& m
         , boost::mpl::true_ const&
@@ -82,7 +82,7 @@ namespace nt2 { namespace result_of
       sub[N::value+1] = p / ls;
     }
 
-    BOOST_DISPATCH_FORCE_INLINE void
+    BOOST_FORCEINLINE void
     eval( type& sub, const type_t& p, Size const&
         , boost::mpl::int_<0> const &, boost::mpl::int_<1> const &
         , boost::mpl::false_ const&

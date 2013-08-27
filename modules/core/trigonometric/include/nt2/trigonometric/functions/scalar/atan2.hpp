@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
       result_type operator()(A0 a0, A0 a1) const
     {
       if (nt2::is_nan(a0) || nt2::is_nan(a1)) return nt2::Nan<result_type>();

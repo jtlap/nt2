@@ -101,7 +101,7 @@ namespace boost { namespace dispatch
 namespace boost { namespace simd
 {
   #define M0(z,n,t)                                                                        \
-  template<class T, BOOST_PP_ENUM_PARAMS(n, class A)> BOOST_DISPATCH_FORCE_INLINE          \
+  template<class T, BOOST_PP_ENUM_PARAMS(n, class A)> BOOST_FORCEINLINE          \
   T make(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a))                                      \
   {                                                                                        \
     typename boost::dispatch::make_functor<tag::make_, T>::type callee;                    \

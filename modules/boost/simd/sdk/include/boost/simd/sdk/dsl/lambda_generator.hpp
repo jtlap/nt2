@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace meta
     {
         typedef typename mpl::apply1<Lambda, typename boost::remove_const<typename impl::expr>::type>::type result_type;
 
-        BOOST_DISPATCH_FORCE_INLINE
+        BOOST_FORCEINLINE
         result_type
         operator()( typename impl::expr_param e
                   , typename impl::state_param
@@ -45,7 +45,7 @@ namespace boost { namespace simd { namespace meta
     {
         typedef typename mpl::apply1<Lambda, typename boost::remove_const<typename impl::expr>::type>::type result_type;
 
-        BOOST_DISPATCH_FORCE_INLINE
+        BOOST_FORCEINLINE
         result_type
         operator()( typename impl::expr_param e
                   , typename impl::state_param

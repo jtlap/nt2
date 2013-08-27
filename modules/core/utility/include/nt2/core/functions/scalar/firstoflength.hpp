@@ -20,7 +20,7 @@ namespace nt2 { namespace ext
   {
     typedef boost::mpl::size_t<0> result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(A0 const&, A1 const&) const { return result_type(); }
   };
 
@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
   {
     typedef std::size_t                                      result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(A0 const& a0, A1 const& n) const
     {
       for(std::size_t i = 0; i < a0.size(); ++i)

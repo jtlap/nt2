@@ -37,7 +37,7 @@ namespace nt2
   // Stream insertion for dry<T>
   ////////////////////////////////////////////////////////////////////////////
   template<class T>
-  BOOST_DISPATCH_FORCE_INLINE
+  BOOST_FORCEINLINE
   std::ostream& operator<<(std::ostream& os, dry<T> const& v )
   {
     return os << "(" << v() << ", _ )";
@@ -48,7 +48,7 @@ namespace nt2
 namespace boost { namespace simd
 {
   template<class T, class Ext>
-  BOOST_DISPATCH_FORCE_INLINE
+  BOOST_FORCEINLINE
   std::ostream& operator<<(std::ostream& os, boost::simd::native<nt2::dry<T>,Ext> const& v )
   {
     typedef boost::simd::native<std::complex<T>, Ext> cvtype;

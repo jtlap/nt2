@@ -55,7 +55,7 @@ namespace nt2 { namespace ext
     )
   {
     typedef typename meta::scalar_of<A0>::type result_type;
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
       result_type operator()(const A0& a0,const A0& a1, const A1& ) const
     {
       return nt2:: sum(a0*conj(a1));
@@ -69,7 +69,7 @@ namespace nt2 { namespace ext
     )
   {
     typedef typename meta::scalar_of<A0>::type  result_type;
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
       result_type operator()(const A0& a0,const A0& a1, const A1& ) const
     {
       return result_type(nt2::sum(nt2::real(a0)*nt2::real(a1)));

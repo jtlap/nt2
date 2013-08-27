@@ -86,15 +86,15 @@ namespace boost { namespace simd
     , (boost::mpl::int_<Cardinal>)
     );
 
-    BOOST_DISPATCH_FORCE_INLINE pack() {}
+    BOOST_FORCEINLINE pack() {}
 
-    BOOST_DISPATCH_FORCE_INLINE pack(data_type const& p)
+    BOOST_FORCEINLINE pack(data_type const& p)
     {
       proto::value(*this) = p;
     }
 
     template<class ScalarIterator>
-    BOOST_DISPATCH_FORCE_INLINE pack( ScalarIterator i
+    BOOST_FORCEINLINE pack( ScalarIterator i
         , typename enable_if< dispatch::meta::is_iterator<ScalarIterator> >::type* = 0)
     {
       typedef typename boost::pointee<ScalarIterator>::type value_type;
@@ -119,7 +119,7 @@ namespace boost { namespace simd
     // Constructor from scalar range
     //==========================================================================
     template<class ScalarIterator>
-    BOOST_DISPATCH_FORCE_INLINE pack( ScalarIterator b, ScalarIterator e
+    BOOST_FORCEINLINE pack( ScalarIterator b, ScalarIterator e
         , typename enable_if< dispatch::meta::is_iterator<ScalarIterator> >::type* = 0)
     {
       BOOST_ASSERT_MSG
@@ -138,7 +138,7 @@ namespace boost { namespace simd
     // Constructor from unique scalar value -> splat the value
     //==========================================================================
     template<class T>
-    BOOST_DISPATCH_FORCE_INLINE pack(T const& t, typename enable_if< is_arithmetic<T> >::type* = 0)
+    BOOST_FORCEINLINE pack(T const& t, typename enable_if< is_arithmetic<T> >::type* = 0)
     {
       proto::value(*this) = simd::splat<data_type>(t);
     }
@@ -148,7 +148,7 @@ namespace boost { namespace simd
     //==========================================================================
     #define M1(z, n, arg)                                                      \
     template<class T>                                                          \
-    BOOST_DISPATCH_FORCE_INLINE pack( BOOST_PP_ENUM_PARAMS(arg, T const& a)    \
+    BOOST_FORCEINLINE pack( BOOST_PP_ENUM_PARAMS(arg, T const& a)    \
         , typename enable_if< is_arithmetic<T> >::type* = 0)                   \
     {                                                                          \
       proto::value(*this) = simd::make<data_type>(BOOST_PP_ENUM_PARAMS(arg,a));\
@@ -162,7 +162,7 @@ namespace boost { namespace simd
     // Constructor from expression -> evaluate using parent operator=
     //==========================================================================
     template<class T>
-    BOOST_DISPATCH_FORCE_INLINE pack(T const& t, typename T::proto_is_expr_* = 0)
+    BOOST_FORCEINLINE pack(T const& t, typename T::proto_is_expr_* = 0)
     {
       static_cast<parent&>(*this) = t;
     }
@@ -170,14 +170,14 @@ namespace boost { namespace simd
     //==========================================================================
     // operator= for pack
     //==========================================================================
-    BOOST_DISPATCH_FORCE_INLINE pack& operator=(pack const& src)
+    BOOST_FORCEINLINE pack& operator=(pack const& src)
     {
       boost::proto::value(*this) = boost::proto::value(src);
       return *this;
     }
 
     template<class Xpr>
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     typename boost::disable_if<boost::is_base_of<parent,Xpr>, pack&>::type
     operator=(Xpr const& xpr)
     {
@@ -185,13 +185,13 @@ namespace boost { namespace simd
       return *this;
     }
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     reference operator[](std::size_t i)
     {
       return boost::proto::value(*this)[i];
     }
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     const_reference  operator[](std::size_t i) const
     {
       return boost::proto::value(*this)[i];
@@ -200,22 +200,22 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Range interface
     ////////////////////////////////////////////////////////////////////////////
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     iterator       begin()       { return boost::proto::value(*this).begin(); }
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     const_iterator begin() const { return boost::proto::value(*this).begin(); }
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     iterator       end()         { return boost::proto::value(*this).end();   }
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     const_iterator end()   const { return boost::proto::value(*this).end();   }
 
     ////////////////////////////////////////////////////////////////////////////
     // Array like interface
     ////////////////////////////////////////////////////////////////////////////
-    static BOOST_DISPATCH_FORCE_INLINE
+    static BOOST_FORCEINLINE
     std::size_t size() { return data_type::size(); }
 
-    static BOOST_DISPATCH_FORCE_INLINE
+    static BOOST_FORCEINLINE
     bool empty() { return false; }
 
     ////////////////////////////////////////////////////////////////////////////

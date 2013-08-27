@@ -24,7 +24,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0& a0) const
     {
       for(std::ptrdiff_t j=first_index<2>(a0); j <= last_index<2>(a0) ; ++j)

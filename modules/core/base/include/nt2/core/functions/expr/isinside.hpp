@@ -25,7 +25,7 @@ namespace nt2 { namespace ext
     typedef typename  meta::call
                       < nt2::tag::isinside_(A0&,ext_t)>::type result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0& a0,const A1& a1) const
     {
       return isinside(a0,a1.extent());

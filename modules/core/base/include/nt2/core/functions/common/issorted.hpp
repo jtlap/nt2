@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0&) const
     {
       return true;
@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
       result_type operator()(const A0&, const A1&) const
     {
       return true;
@@ -59,7 +59,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
       result_type operator()(const A0&, const A1&, const A2&) const
     {
       return true;
@@ -73,7 +73,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
       result_type operator()(const A0& a0) const
     {
       typedef typename A0::value_type value_type;
@@ -91,7 +91,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
       result_type operator()(const A0& a0, const A1& dim) const
     {
       typedef typename A0::value_type value_type;
@@ -108,7 +108,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
       result_type operator()(const A0& a0, const A1& up) const
     {
       typedef typename A0::value_type value_type;
@@ -125,7 +125,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
       result_type operator()(const A0& a0, const A1& dim, const A2& up) const
     {
       typedef typename A0::value_type value_type;

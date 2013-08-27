@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename A0::type                                       result_type;
     typedef typename result_type::value_type::value_type            base_type;
     typedef typename result_type::template rebind<base_type>::type  target_type;
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
+    BOOST_FORCEINLINE result_type operator()(A0 const&) const
     {
       return bitwise_cast<result_type>(Zero<target_type>());
     }

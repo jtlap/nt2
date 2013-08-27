@@ -20,7 +20,7 @@ namespace nt2 { namespace ext
   {
     typedef typename A0::extent_type const& result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(const A0& a0) const { return a0.extent(); }
   };
 } }

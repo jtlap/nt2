@@ -19,7 +19,7 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef typename A0::type result_type;
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
+    BOOST_FORCEINLINE result_type operator()(A0 const&) const
     {
       return result_type(true);
     }
