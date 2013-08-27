@@ -43,6 +43,18 @@ namespace boost { namespace dispatch { namespace meta
     typedef T type;
   };
 
+  template<class T, class S>
+  struct value_of< nt2::container::table<T,S>& >
+  {
+    typedef typename nt2::memory::container<T,S>::reference type;
+  };
+
+  template<class T, class S>
+  struct value_of< nt2::container::table<T,S> const&>
+  {
+    typedef typename nt2::memory::container<T,S>::const_reference type;
+  };
+
   //============================================================================
   // model_of specialization
   //============================================================================
