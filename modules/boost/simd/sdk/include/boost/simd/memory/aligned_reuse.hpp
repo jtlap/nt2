@@ -71,9 +71,6 @@ namespace boost { namespace simd
     if(!fresh_ptr || !nsz)
       return fresh_ptr;
 
-    std::size_t old_size = hdr.used_size;
-    std::size_t old_offset = hdr.offset;
-
     hdr.offset = simd::align_on(static_cast<char const*>(fresh_ptr)+sizeof(details::aligned_block_header), alignment) - static_cast<char const*>(fresh_ptr);
     hdr.allocated_size = size + alignment + sizeof(details::aligned_block_header) - hdr.offset;
     hdr.used_size = size;
