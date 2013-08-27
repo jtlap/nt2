@@ -30,13 +30,13 @@ namespace nt2 { namespace ext
   // Generates outer_fold
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION_IF ( nt2::tag::outer_fold_, nt2::tag::openmp_<Site>
-                                , (A0)(L0)(S0)(T0)(N0)(A1)(A2)(A3)(A4)(Site)
+                                , (A0)(K0)(S0)(T0)(N0)(A1)(A2)(A3)(A4)(Site)
                                 , ( boost::simd::meta::
                                     is_vectorizable < typename A0::value_type
                                                     , BOOST_SIMD_DEFAULT_EXTENSION
                                                     >
                                   )
-                                , ((expr_ < container_<unspecified_<A0>,S0,L0>
+                                , ((expr_ < container_<K0,unspecified_<A0>,S0>
                                           , T0
                                           , N0
                                           >

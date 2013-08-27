@@ -25,6 +25,7 @@
 #include <nt2/include/functions/transpose.hpp>
 #include <nt2/sdk/error/warning.hpp>
 #include <nt2/core/container/table/table.hpp>
+#include <nt2/core/container/colon/colon.hpp>
 
 namespace nt2 { namespace ext
 {

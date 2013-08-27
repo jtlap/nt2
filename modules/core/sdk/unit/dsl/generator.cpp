@@ -73,23 +73,24 @@ NT2_TEST_CASE( semantic_of )
 
   NT2_TEST_EXPR_TYPE( a0
                     , semantic_of<_>
-                    , (container<T,S,table_>)
+                    , (container<table_,T,S>)
                     );
 
   NT2_TEST_EXPR_TYPE( nt2::assign(a0, a1)
                     , semantic_of<_>
-                    , (container<T,S,table_>&)
+                    , (container<table_,T,S>&)
                     );
 
   NT2_TEST_EXPR_TYPE( a0 + a1
                     , semantic_of<_>
-                    , (container<T,S,table_>)
+                    , (container<table_,T,S>)
                     );
 
   NT2_TEST_EXPR_TYPE( nt2::toint(a0)
                     , semantic_of<_>
-                    , (container< boost::dispatch::meta::as_integer<T>::type
-                                , S,table_
+                    , (container< table_
+                                , boost::dispatch::meta::as_integer<T>::type
+                                , S
                                 >
                       )
                     );
@@ -110,7 +111,7 @@ NT2_TEST_CASE( semantic_of )
 
   NT2_TEST_EXPR_TYPE( a0 + T(1)
                     , semantic_of<_>
-                    , (container<T,S,table_>)
+                    , (container<table_,T,S>)
                     );
 }
 
@@ -135,7 +136,7 @@ struct is_nt2_basic_expr< nt2::container::expression< boost::proto::basic_expr<T
 };
 
 template<class T, class S>
-struct is_nt2_basic_expr< nt2::table<T, S> > : is_nt2_basic_expr< nt2::container::expression< typename nt2::table<T, S>::proto_base_expr, nt2::memory::container<T, S, nt2::tag::table_>& > > {};
+struct is_nt2_basic_expr< nt2::table<T, S> > : is_nt2_basic_expr< nt2::container::expression< typename nt2::table<T, S>::proto_base_expr, nt2::memory::container<nt2::tag::table_,T, S>& > > {};
 
 template<class K, class T, class S>
 struct  is_nt2_basic_expr< nt2::view<K,T, S> >
@@ -161,7 +162,7 @@ void expr_lifetime_0(Expr const&)
   NT2_TEST( is_nt2_basic_expr<Expr>() );
 
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<Expr>::value_type
-                  , (nt2::memory::container<T, S,table_>)
+                  , (nt2::memory::container<table_,T,S>)
                   );
 }
 
@@ -190,10 +191,10 @@ void expr_lifetime_2_t(Expr const&)
   NT2_TEST( !boost::is_const<child1>::value     );
 
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child0>::value_type
-                  , (container_ref<T, S, table_>)
+                  , (container_ref<table_,T,S>)
                   );
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child1>::value_type
-                  , (container_ref<T, S,table_>)
+                  , (container_ref<table_,T,S>)
                   );
 }
 
@@ -223,10 +224,10 @@ void expr_lifetime_2_ts(Expr const&)
   NT2_TEST( !boost::is_const<child1>::value     );
 
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child0>::value_type
-                  , (container_shared_ref<T, S, table_>)
+                  , (container_shared_ref<table_, T, S>)
                   );
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child1>::value_type
-                  , (container_ref<T, S, table_>)
+                  , (container_ref<table_, T, S>)
                   );
 }
 
@@ -255,7 +256,7 @@ void expr_lifetime_2_i(Expr const&)
   NT2_TEST( !boost::is_const<child1>::value     );
 
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child0>::value_type
-                  , (container_ref<T, S, table_>)
+                  , (container_ref<table_,T,S>)
                   );
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child1>::value_type
                   , T
@@ -287,7 +288,7 @@ void expr_lifetime_2_ir(Expr const&)
   NT2_TEST( !boost::is_const<child1>::value     );
 
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child0>::value_type
-                  , (container_ref<T, S, table_>)
+                  , (container_ref<table_,T,S>)
                   );
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child1>::value_type
                   , T&
@@ -339,7 +340,7 @@ void expr_lifetime_tie_t(Expr const&)
   NT2_TEST( !boost::is_const<child0>::value     );
 
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child0>::value_type
-                  , (container<T, S, table_>&)
+                  , (container<table_,T,S>&)
                   );
 }
 
@@ -366,7 +367,7 @@ void expr_lifetime_tie_ts(Expr const&)
   NT2_TEST( !boost::is_const<child0>::value     );
 
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child0>::value_type
-                  , (container_shared_ref<T, S, table_, true>)
+                  , (container_shared_ref<table_, T, S, true>)
                   );
 }
 
@@ -389,7 +390,7 @@ NT2_TEST_CASE( expr_lifetime )
   typedef nt2::settings S(nt2::_4D);
   table<T, S> a0, a1;
   T i;
-  typedef boost::dispatch::meta::terminal_of_shared< nt2::memory::container<T, S, table_> > shared;
+  typedef boost::dispatch::meta::terminal_of_shared< nt2::memory::container<table_,T, S> > shared;
   shared::type a2 = shared::make(), a3 = shared::make();
 
   expr_lifetime_0(a0);

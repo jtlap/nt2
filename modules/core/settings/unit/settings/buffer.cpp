@@ -9,7 +9,7 @@
 #include <nt2/core/settings/buffer.hpp>
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include "local_kind.hpp"
+#include "local_semantic.hpp"
 #include <vector>
 
 #include <nt2/sdk/unit/module.hpp>

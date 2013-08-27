@@ -25,17 +25,17 @@ namespace nt2 { namespace memory
    * \tparam Setting Options list describing the behavior of the container
    **/
   //============================================================================
-  template<typename T, typename S, typename Sema, bool Own>
+  template<typename Kind, typename T, typename S, bool Own>
   struct container_shared_ref
   {
     /// INTERNAL ONLY Precomputed semantic type
-    typedef Sema                                                 kind_type;
+    typedef Kind                                                 kind_type;
 
     typedef typename boost::remove_const<T>::type                value_type;
     typedef std::size_t                                          size_type;
 
-    typedef typename meta::option<S, tag::of_size_, Sema>::type        extent_type;
-    typedef typename meta::option<S, tag::storage_order_, Sema>::type  order_type;
+    typedef typename meta::option<S, tag::of_size_, Kind>::type        extent_type;
+    typedef typename meta::option<S, tag::storage_order_, Kind>::type  order_type;
 
     typedef typename specific_data< typename boost::dispatch::
                                              default_site<T>::type
@@ -44,8 +44,8 @@ namespace nt2 { namespace memory
 
     typedef typename boost::mpl::
             if_< boost::is_const<T>
-               , container<value_type, S, Sema> const
-               , container<value_type, S, Sema>
+               , container<Kind, value_type, S> const
+               , container<Kind, value_type, S>
                >::type base_t;
 
     typedef typename boost::mpl::
@@ -77,16 +77,16 @@ namespace nt2 { namespace memory
     {
     }
 
-    template<typename U, typename S2, typename Sema2, bool Own2>
-    container_shared_ref(container_shared_ref<U, S2, Sema2, Own2> const& other)
+    template<typename Kind2, typename U, typename S2, bool Own2>
+    container_shared_ref(container_shared_ref<Kind2, U, S2, Own2> const& other)
                         : ptr(other.raw())
                         , sz(other.extent())
                         , base_(other.base_)
     {
     }
 
-    template<typename U, typename S2, typename Sema2, bool Own2>
-    container_shared_ref( container_shared_ref<U, S2, Sema2, Own2> const& other
+    template<typename Kind2, typename U, typename S2, bool Own2>
+    container_shared_ref( container_shared_ref<Kind2, U, S2, Own2> const& other
                         , pointer p
                         , extent_type const& sz_
                         )
@@ -228,10 +228,10 @@ namespace nt2 { namespace memory
     boost::shared_ptr<cbase_t> base() const { return base_; }
 
   private:
-    template<typename U, typename S2, typename Sema2, bool Own2>
+    template<typename Kind2, typename U, typename S2, bool Own2>
     friend struct container_shared_ref;
 
-    template<typename U, typename S2, typename Sema2>
+    template<typename Kind2, typename U, typename S2>
     friend struct container_ref;
 
     pointer                                  ptr;
@@ -240,21 +240,21 @@ namespace nt2 { namespace memory
   };
 
   // this is really just a container adaptor with shallow copying
-  template<typename T, typename S, typename Sema>
-  struct container_shared_ref<T, S, Sema, true>
+  template<typename Kind, typename T, typename S>
+  struct container_shared_ref<Kind, T, S, true>
   {
     typedef T                                                    value_type;
     typedef std::size_t                                          size_type;
 
-    typedef typename meta::option<S, tag::of_size_, Sema>::type        extent_type;
-    typedef typename meta::option<S, tag::storage_order_, Sema>::type  order_type;
+    typedef typename meta::option<S, tag::of_size_, Kind>::type        extent_type;
+    typedef typename meta::option<S, tag::storage_order_, Kind>::type  order_type;
 
     typedef typename specific_data< typename boost::dispatch::
                                              default_site<T>::type
                                   , value_type
                                   >::type                        specific_data_type;
 
-    typedef container<value_type, S, Sema>                             base_t;
+    typedef container<Kind, value_type, S>                             base_t;
 
     typedef typename base_t::reference                           reference;
     typedef typename base_t::const_reference                     const_reference;
@@ -279,8 +279,8 @@ namespace nt2 { namespace memory
       boost::swap(*this, y);
     }
 
-    template<typename S2, typename Sema2>
-    BOOST_FORCEINLINE void swap(container<T, S2, Sema2>& x) const
+    template<typename Kind2, typename S2>
+    BOOST_FORCEINLINE void swap(container<Kind2, T, S2>& x) const
     {
       base_->swap(x);
     }
@@ -405,10 +405,10 @@ namespace nt2 { namespace memory
     BOOST_FORCEINLINE bool is_safe(size_type p) const { return p == 0u || p < size(); }
 
   private:
-    template<typename U, typename S2, typename Sema2, bool Own2>
+    template<typename U, typename S2, typename Kind2, bool Own2>
     friend struct container_shared_ref;
 
-    template<typename U, typename S2, typename Sema2>
+    template<typename U, typename S2, typename Kind2>
     friend struct container_ref;
 
     boost::shared_ptr<base_t>                base_;
@@ -421,47 +421,46 @@ namespace nt2 { namespace memory
    * \param y Second \c container to swap
    **/
   //============================================================================
-  template<typename T, typename S, typename Sema, bool Own>
+  template<typename Kind, typename T, typename S, bool Own>
   BOOST_FORCEINLINE
-  void swap ( container_shared_ref<T, S, Sema, Own>& x
-            , container_shared_ref<T, S, Sema, Own>& y
+  void swap ( container_shared_ref<Kind, T, S, Own>& x
+            , container_shared_ref<Kind, T, S, Own>& y
             )
   {
     x.swap(y);
   }
 
-  template< typename T
-          , typename S1, typename Sema1
-          , typename S2, typename Sema2
+  template< typename Kind1, typename Kind2
+          , typename T
+          , typename S1, typename S2
           >
   BOOST_FORCEINLINE
-  void swap ( container_shared_ref<T, S1, Sema1, true> const& x
-            , container_shared_ref<T, S2, Sema2, true> const& y
+  void swap ( container_shared_ref<Kind1, T, S1, true> const& x
+            , container_shared_ref<Kind2, T, S2, true> const& y
             )
   {
     x.swap(y);
   }
 
-
-  template< typename T
-          , typename S1, typename Sema1
-          , typename S2, typename Sema2
+  template< typename Kind1, typename Kind2
+          , typename T
+          , typename S1, typename S2
           >
   BOOST_FORCEINLINE
-  void swap ( container_shared_ref<T, S1, Sema1, true> const& x
-            , container<T, S2, Sema2>& y
+  void swap ( container_shared_ref<Kind1, T, S1, true> const& x
+            , container<Kind2, T, S2>& y
             )
   {
     x.swap(y);
   }
 
-  template< typename T
-          , typename S1, typename Sema1
-          , typename S2, typename Sema2
+  template< typename Kind1, typename Kind2
+          , typename T
+          , typename S1, typename S2
           >
   BOOST_FORCEINLINE
-  void swap ( container<T, S1, Sema1>& x
-            , container_shared_ref<T, S2, Sema2, true> const& y
+  void swap ( container<Kind1, T, S1>& x
+            , container_shared_ref<Kind2, T, S2, true> const& y
             )
   {
     y.swap(x);

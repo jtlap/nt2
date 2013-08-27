@@ -24,7 +24,7 @@
 #include <nt2/include/functions/scalar/max.hpp>
 #include <nt2/include/functions/scalar/rec.hpp>
 #include <nt2/core/container/table/table.hpp>
-
+#include <nt2/core/container/colon/colon.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

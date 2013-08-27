@@ -42,8 +42,8 @@ namespace nt2 { namespace ext
   // table terminal with a position in scalar read mode
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
-                            , (A0)(T0)(L0)(S0)(State)(Data)
-                            , ((expr_< container_<unspecified_<A0>,S0,L0>
+                            , (A0)(T0)(K0)(S0)(State)(Data)
+                            , ((expr_< container_<K0,unspecified_<A0>,S0>
                                      , T0
                                      , boost::mpl::long_<0>
                                      >
@@ -67,8 +67,8 @@ namespace nt2 { namespace ext
   // table terminal with a position in scalar write mode
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
-                            , (A0)(T0)(S0)(L0)(State)(Data)
-                            , ((expr_< container_<unspecified_<A0>,S0,L0>
+                            , (A0)(T0)(S0)(K0)(State)(Data)
+                            , ((expr_< container_<K0,unspecified_<A0>,S0>
                                      , T0
                                      , boost::mpl::long_<0>
                                      >
@@ -91,8 +91,8 @@ namespace nt2 { namespace ext
   // table terminal with a position in SIMD read mode
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
-                            , (A0)(T0)(S0)(L0)(State)(Data)(X)
-                            , ((expr_< container_<unspecified_<A0>,S0,L0>
+                            , (A0)(T0)(S0)(K0)(State)(Data)(X)
+                            , ((expr_< container_<K0,unspecified_<A0>,S0>
                                      , T0
                                      , boost::mpl::long_<0>
                                      >
@@ -119,8 +119,8 @@ namespace nt2 { namespace ext
   // table terminal with a position in SIMD write mode
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
-                            , (A0)(T0)(S0)(L0)(State)(Data)(X)
-                            , ((expr_< container_<unspecified_<A0>,S0,L0>
+                            , (A0)(T0)(S0)(K0)(State)(Data)(X)
+                            , ((expr_< container_<K0,unspecified_<A0>,S0>
                                      , T0
                                      , boost::mpl::long_<0>
                                      >

@@ -25,46 +25,46 @@ namespace nt2 { namespace details
     return &t;
   }
 
-  template<typename T, typename S, typename Sema>
-  BOOST_FORCEINLINE typename memory::container_ref<T,S,Sema>::pointer
-  raw(memory::container_ref<T,S,Sema> const& c)
+  template<typename Kind, typename T, typename S>
+  BOOST_FORCEINLINE typename memory::container_ref<Kind, T, S>::pointer
+  raw(memory::container_ref<Kind, T, S> const& c)
   {
     return c.raw();
   }
 
-  template<typename T, typename S, typename Sema>
-  BOOST_FORCEINLINE typename memory::container_ref<T,S,Sema>::pointer
-  raw(memory::container_ref<T,S,Sema>& c)
+  template<typename Kind, typename T, typename S>
+  BOOST_FORCEINLINE typename memory::container_ref<Kind, T, S>::pointer
+  raw(memory::container_ref<Kind, T, S>& c)
   {
     return c.raw();
   }
 
-  template<typename T, typename S, typename Sema, bool Own>
+  template<typename Kind, typename T, typename S, bool Own>
   BOOST_FORCEINLINE
-  typename memory::container_shared_ref<T,S,Sema,Own>::pointer
-  raw(memory::container_shared_ref<T,S,Sema, Own> const& c)
+  typename memory::container_shared_ref<Kind, T, S, Own>::pointer
+  raw(memory::container_shared_ref<Kind, T, S, Own> const& c)
   {
     return c.raw();
   }
 
-  template<typename T, typename S, typename Sema, bool Own>
+  template<typename Kind, typename T, typename S, bool Own>
   BOOST_FORCEINLINE
-  typename memory::container_shared_ref<T,S,Sema,Own>::pointer
-  raw(memory::container_shared_ref<T,S,Sema, Own>& c)
+  typename memory::container_shared_ref<Kind, T, S, Own>::pointer
+  raw(memory::container_shared_ref<Kind, T, S, Own>& c)
   {
     return c.raw();
   }
 
-  template<typename T, typename S, typename Sema>
-  BOOST_FORCEINLINE typename memory::container<T, S, Sema>::pointer
-  raw(memory::container<T, S, Sema>& c)
+  template<typename Kind, typename T, typename S>
+  BOOST_FORCEINLINE typename memory::container<Kind, T, S>::pointer
+  raw(memory::container<Kind, T, S>& c)
   {
     return c.raw();
   }
 
-  template<typename T, typename S, typename Sema>
-  BOOST_FORCEINLINE typename memory::container<T, S, Sema>::const_pointer
-  raw(memory::container<T, S, Sema> const& c)
+  template<typename Kind, typename T, typename S>
+  BOOST_FORCEINLINE typename memory::container<Kind, T, S>::const_pointer
+  raw(memory::container<Kind, T, S> const& c)
   {
     return c.raw();
   }

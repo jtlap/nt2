@@ -8,11 +8,12 @@
 //==============================================================================
 #include "buffer_test.hpp"
 #include <nt2/sdk/memory/container.hpp>
+#include <nt2/core/container/table/kind.hpp>
 
 #define NT2_CONTAINER_EXP(T,N)                                                 \
 NT2_RUN_EXPERIMENT_TPL( buffer_test                                            \
                       , ((nt2::memory                                          \
-                            ::container<T,nt2::settings(),tag::table_>         \
+                            ::container<nt2::tag::table_,T,nt2::settings()>    \
                         ))                                                     \
                       , (1 << N)                                               \
                       )                                                        \

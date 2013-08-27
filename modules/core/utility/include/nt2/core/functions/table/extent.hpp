@@ -15,8 +15,8 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::extent_, tag::cpu_
-                            , (A0)(S0)(L0)
-                            , ((container_<unspecified_<A0>,S0,L0>))
+                            , (A0)(S0)(K0)
+                            , ((container_<K0,unspecified_<A0>,S0>))
                             )
   {
     typedef typename A0::extent_type const& result_type;

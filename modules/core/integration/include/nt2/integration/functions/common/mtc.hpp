@@ -34,6 +34,7 @@
 #include <nt2/include/functions/expand_to.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/core/container/table/table.hpp>
+#include <nt2/core/container/colon/colon.hpp>
 #include <nt2/integration/output.hpp>
 #include <nt2/integration/options.hpp>
 #include <nt2/integration/waypoints.hpp>

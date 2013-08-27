@@ -40,20 +40,21 @@ namespace nt2 { namespace memory
     //==========================================================================
     specific_data_type&  specifics() const { return specific_; }
 
-  private:
+    private:
     mutable specific_data_type  specific_;
   };
 
-  template<class Type, class Settings, class Semantic>         struct container;
-  template<class T, class S, class Semantic>                   struct  container_ref;
-  template<class T, class S, class Semantic, bool Own = false> struct  container_shared_ref;
+  template<typename Kind, typename Type, typename Settings> struct container;
+  template<typename Kind, typename Type, typename Settings> struct container_ref;
+  template<typename Kind, typename Type, typename Settings, bool Own = false>
+  struct  container_shared_ref;
 
-  template< typename T
-          , typename S1, typename Sema1
-          , typename S2, typename Sema2
+  template< typename Kind1, typename Kind2
+          , typename T
+          , typename S1, typename S2
           >
   BOOST_FORCEINLINE
-  void swap(container<T,S1,Sema1>&, container<T,S2,Sema2>&);
+  void swap(container<Kind1,T,S1>&, container<Kind2,T,S2>&);
 } }
 
 #endif

@@ -116,7 +116,7 @@ NT2_TEST_CASE( size_cont )
   using nt2::memory::container;
   using nt2::of_size_;
   using nt2::tag::table_;
-  typedef container<float, of_size_<5>, table_ > cont;
+  typedef container<table_, float, of_size_<5> > cont;
   cont x;
 
   NT2_TEST_EQUAL( nt2::size(x)(1), 5u);

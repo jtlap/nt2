@@ -37,12 +37,4 @@ struct some_kind_::default_<nt2::tag::allocator_, Dummy>
   typedef std::allocator<void*> type;
 };
 
-namespace nt2 { namespace tag
-{
-  /// INTERNAL ONLY some_kind_ is a semantic
-  template<class Dummy>
-  struct kind_::apply<some_kind_, Dummy> : boost::mpl::true_
-  {};
-} }
-
 #endif

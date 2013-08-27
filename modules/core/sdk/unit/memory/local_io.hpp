@@ -14,9 +14,9 @@
 #include <iostream>
 
 // Local stream inserter to satisfy NT2_TEST_EQUAL
-template<class T, class S, class Sema>
+template<typename Kind, typename T, typename S>
 std::ostream& operator<<( std::ostream& os
-                        , nt2::memory::container<T,S,Sema> const& c
+                        , nt2::memory::container<Kind,T,S> const& c
                         )
 {
   os << "[";

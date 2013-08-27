@@ -21,15 +21,15 @@ namespace boost { namespace dispatch { namespace meta
     contains informations about the actual container semantic and its
     settings.
   **/
-  template<class T, class Semantic, class Layout>
-  struct container_ : container_<typename T::parent, Semantic, Layout>
+  template<typename Kind, typename T, typename Settings>
+  struct container_ : container_<Kind, typename T::parent, Settings>
   {
-    typedef container_<typename T::parent, Semantic, Layout> parent;
+    typedef container_<Kind, typename T::parent, Settings> parent;
   };
 
   /// INTERNAL ONLY
-  template<class T, class Semantic, class Layout>
-  struct  container_< unspecified_<T>, Semantic, Layout >
+  template<typename Kind, typename T, typename Settings>
+  struct  container_< Kind, unspecified_<T>, Settings >
         : generic_< typename property_of<T>::type >
   {
     typedef generic_< typename property_of<T>::type > parent;

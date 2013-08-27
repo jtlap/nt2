@@ -223,9 +223,9 @@ namespace nt2 { namespace ext
   // Non-assign table expressions are reduced to assign expressions
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::run_, tag::cpu_
-                            , (A0)(S0)(L0)(T)(N)
+                            , (A0)(S0)(K0)(T)(N)
                             , (mpl::not_< is_same<T, boost::simd::tag::assign_> >)
-                            , ((expr_< container_<unspecified_<A0>,S0,L0>
+                            , ((expr_< container_<K0,unspecified_<A0>,S0>
                                      , T
                                      , N
                                      >
@@ -250,8 +250,8 @@ namespace nt2 { namespace ext
   // Running a table terminal does nothing and returns it
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
-                            , (A0)(S0)(L0)(T)
-                            , ((expr_< container_<unspecified_<A0>,S0,L0>
+                            , (A0)(S0)(K0)(T)
+                            , ((expr_< container_<K0,unspecified_<A0>,S0>
                                      , T
                                      , boost::mpl::long_<0>
                                      >

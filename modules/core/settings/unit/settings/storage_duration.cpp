@@ -10,7 +10,7 @@
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/core/settings/storage_duration.hpp>
 #include <nt2/sdk/memory/container.hpp>
-#include "local_kind.hpp"
+#include "local_semantic.hpp"
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -175,9 +175,9 @@ NT2_TEST_CASE( automatic_duration_apply )
   NT2_TEST_EXPR_TYPE( automatic_()
                     , (apply_ < _
                               , container
-                                < int
+                                < some_kind_
+                                , int
                                 , settings(automatic_, of_size_<2,2>)
-                                , some_kind_
                                 >
                               >
                       )
@@ -187,9 +187,9 @@ NT2_TEST_CASE( automatic_duration_apply )
   NT2_TEST_EXPR_TYPE( automatic_()
                     , (apply_ < _
                               , container
-                                < int
+                                < some_kind_
+                                , int
                                 , settings(automatic_, of_size_<12,3>)
-                                , some_kind_
                                 >
                               >
                       )
@@ -211,9 +211,9 @@ NT2_TEST_CASE( dynamic_duration_apply )
   NT2_TEST_EXPR_TYPE( dynamic_()
                     , (apply_ < _
                               , container
-                                < int
+                                < some_kind_
+                                , int
                                 , settings(dynamic_, allocator<int>)
-                                , some_kind_
                                 >
                               >
                       )
@@ -223,9 +223,9 @@ NT2_TEST_CASE( dynamic_duration_apply )
   NT2_TEST_EXPR_TYPE( dynamic_()
                     , (apply_ < _
                               , container
-                                < int
+                                < some_kind_
+                                , int
                                 , settings(dynamic_)
-                                , some_kind_
                                 >
                               >
                       )

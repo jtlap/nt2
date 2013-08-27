@@ -34,22 +34,22 @@ namespace nt2 { namespace container
   struct view
        : expression< boost::proto::basic_expr < boost::proto::tag::terminal
                                               , boost::proto::term
-                                                < memory::container_ref < T
+                                                < memory::container_ref < Kind
+                                                                        , T
                                                                         , S
-                                                                        , Kind
                                                                         >
                                                 >
                                               , 0l
                                               >
-                   , memory::container<T, S, Kind>&
+                   , memory::container<Kind, T, S>&
                    >
   {
-    typedef memory::container_ref<T, S, Kind>             container_ref;
+    typedef memory::container_ref<Kind, T, S>             container_ref;
     typedef boost::proto::basic_expr< boost::proto::tag::terminal
                                     , boost::proto::term<container_ref>
                                     , 0l
                                     >               basic_expr;
-    typedef memory::container<T, S, Kind>&                container_type;
+    typedef memory::container<Kind, T, S>&                container_type;
     typedef expression<basic_expr, container_type>  nt2_expression;
 
     typedef typename container_ref::iterator        iterator;
@@ -132,22 +132,22 @@ namespace nt2 { namespace container
        : expression<  boost::proto
                       ::basic_expr< boost::proto::tag::terminal
                                   , boost::proto::term
-                                    < memory::container_ref<T const,S,Kind> >
+                                    < memory::container_ref<Kind,T const,S> >
                                   , 0l
                                   >
-                   , memory::container<T, S, Kind> const&
+                   , memory::container<Kind,T,S> const&
                    >
   {
-    typedef memory::container_ref<T const, S, Kind>       container_ref;
+    typedef memory::container_ref<Kind,T const,S>       container_ref;
     typedef boost::proto::basic_expr< boost::proto::tag::terminal
-                                    , boost::proto::term< memory::container_ref < T const
+                                    , boost::proto::term< memory::container_ref < Kind
+                                                                                , T const
                                                                                 , S
-                                                                                , Kind
                                                                                 >
                                                         >
                                     , 0l
                                     >               basic_expr;
-    typedef memory::container<T, S, Kind> const&          container_type;
+    typedef memory::container<Kind,T,S> const&          container_type;
     typedef expression<basic_expr, container_type>  nt2_expression;
 
     typedef typename container_ref::iterator        iterator;

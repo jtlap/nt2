@@ -24,16 +24,16 @@ namespace nt2 { namespace memory
    * \tparam Setting Options list describing the behavior of the container
    **/
   //============================================================================
-  template<typename T, typename S, typename Sema>
+  template<typename Kind, typename T, typename S>
   struct container_ref
   {
     /// INTERNAL ONLY Precomputed semantic type
-    typedef Sema                                                 kind_type;
+    typedef Kind                                                 kind_type;
 
     typedef typename boost::remove_const<T>::type                value_type;
     typedef std::size_t                                          size_type;
-    typedef typename meta::option<S, tag::of_size_, Sema>::type        extent_type;
-    typedef typename meta::option<S, tag::storage_order_, Sema>::type  order_type;
+    typedef typename meta::option<S, tag::of_size_, Kind>::type        extent_type;
+    typedef typename meta::option<S, tag::storage_order_, Kind>::type  order_type;
 
     typedef typename specific_data< typename boost::dispatch::
                                              default_site<T>::type
@@ -42,8 +42,8 @@ namespace nt2 { namespace memory
 
     typedef typename boost::mpl::
             if_< boost::is_const<T>
-               , container<value_type, S, Sema> const
-               , container<value_type, S, Sema>
+               , container<Kind, value_type, S> const
+               , container<Kind, value_type, S>
                >::type base_t;
 
     typedef typename boost::mpl::
@@ -79,18 +79,22 @@ namespace nt2 { namespace memory
     {
     }
 
-    template<typename U, typename S2, typename Sema2>
-    container_ref(container_ref<U, S2,Sema2> const& other) : ptr(other.ptr), sz(other.sz), base_(other.base_)
+    template<typename Kind2, typename U, typename S2>
+    container_ref (container_ref<Kind2,U, S2> const& other)
+                  : ptr(other.ptr), sz(other.sz), base_(other.base_)
     {
     }
 
-    template<typename U, typename S2, typename Sema2>
-    container_ref(container_shared_ref<U, S2, Sema2, false> const& other) : ptr(other.ptr), sz(other.sz), base_(other.base_.get())
+    template<typename Kind2, typename U, typename S2>
+    container_ref (container_shared_ref<Kind2, U, S2, false> const& other)
+                  : ptr(other.ptr), sz(other.sz), base_(other.base_.get())
     {
     }
 
-    template<typename U, typename S2, typename Sema2>
-    container_ref(container_shared_ref<U, S2, Sema2, true> const& other) : ptr(other.raw()), sz(other.extent()), base_(other.base_.get())
+    template<typename Kind2, typename U, typename S2>
+    container_ref (container_shared_ref<Kind2, U, S2, true> const& other)
+                  : ptr(other.raw()), sz(other.extent())
+                  , base_(other.base_.get())
     {
     }
 
@@ -98,26 +102,35 @@ namespace nt2 { namespace memory
     {
     }
 
-    template<typename U, typename S2, typename Sema2>
-    container_ref(container<U, S2,Sema2>& c) : ptr(c.raw()), sz(c.extent()), base_(&c)
+    template<typename Kind2, typename U, typename S2>
+    container_ref (container<Kind2, U, S2>& c)
+                  : ptr(c.raw()), sz(c.extent()), base_(&c)
     {
     }
-    template<typename U, typename S2, typename Sema2>
-    container_ref(container<U, S2,Sema2> const& c) : ptr(c.raw()), sz(c.extent()), base_(&c)
-    {
-    }
-
-    template<typename U, typename S2, typename Sema2>
-    container_ref(container<U, S2,Sema2>& c, pointer p, extent_type const& sz_) : ptr(p), sz(sz_), base_(&c)
-    {
-    }
-    template<typename U, typename S2, typename Sema2>
-    container_ref(container<U, S2,Sema2> const& c, pointer p, extent_type const& sz_) : ptr(p), sz(sz_), base_(&c)
+    template<typename Kind2, typename U, typename S2>
+    container_ref (container<Kind2, U, S2> const& c)
+                  : ptr(c.raw()), sz(c.extent()), base_(&c)
     {
     }
 
-    template<typename U, typename S2, typename Sema2>
-    container_ref(container_ref<U, S2,Sema2> const& c, pointer p, extent_type const& sz_) : ptr(p), sz(sz_), base_(c.base_)
+    template<typename Kind2, typename U, typename S2>
+    container_ref (container<Kind2, U, S2>& c, pointer p, extent_type const& sz_)
+                  : ptr(p), sz(sz_), base_(&c)
+    {
+    }
+    template<typename Kind2, typename U, typename S2>
+    container_ref (container<Kind2, U, S2> const& c
+                  , pointer p, extent_type const& sz_
+                  )
+                  : ptr(p), sz(sz_), base_(&c)
+    {
+    }
+
+    template<typename Kind2, typename U, typename S2>
+    container_ref ( container_ref<Kind2, U, S2> const& c
+                  , pointer p, extent_type const& sz_
+                  )
+                  : ptr(p), sz(sz_), base_(c.base_)
     {
     }
 
@@ -255,7 +268,7 @@ namespace nt2 { namespace memory
     cbase_t* base() const { return base_; }
 
   private:
-    template<typename U, typename S2, typename Sema2>
+    template<typename Kind2, typename U, typename S2>
     friend struct container_ref;
 
     pointer                     ptr;
@@ -270,8 +283,12 @@ namespace nt2 { namespace memory
    * \param y Second \c container to swap
    **/
   //============================================================================
-  template<typename T, typename S, typename Sema> inline
-  void swap(container_ref<T, S, Sema>& x, container_ref<T, S, Sema>& y)  { x.swap(y); }
+  template<typename Kind, typename T, typename S> inline
+  void swap(container_ref<Kind, T, S>& x, container_ref<Kind, T, S>& y)
+  {
+    x.swap(y);
+  }
+
 } }
 
 #endif

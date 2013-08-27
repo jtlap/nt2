@@ -39,25 +39,25 @@ namespace nt2 { namespace memory
     container is the base typename handling a container semantic, layout and
     memory used by nt2 terminals. It is built from a value
     @c Type, a list of @c Settings describing how it should behave both at
-    runtime and compile-time and a @c Semantic describing which kind of
+    runtime and compile-time and a @c Kind describing which kind of
     high-level behavior the container will have.
 
-    @tparam Type     Value type to store in the table
-    @tparam Setting  Options list describing the options of the container
-    @tparam semantic Describe the behavior of the container
+    @tparam Kind      Describe the behavior of the container
+    @tparam Type      Value type to store in the table
+    @tparam Setting   Options list describing the options of the container
   **/
-  template<typename Type, typename Settings, typename Semantic>
+  template<typename Kind, typename Type, typename Settings>
   struct container : public container_base<Type>
   {
     public:
 
     /// INTERNAL ONLY Precomputed semantic type
-    typedef Semantic                                      kind_type;
+    typedef Kind                                          kind_type;
 
     /// INTERNAL ONLY storage_scheme option
     typedef typename meta::option < Settings
                                   , tag::storage_scheme_
-                                  , Semantic
+                                  , Kind
                                   >::type                 scheme_t;
 
     /// INTERNAL ONLY Storage Scheme option
@@ -69,7 +69,7 @@ namespace nt2 { namespace memory
     /// INTERNAL ONLY Retrieve interleaving option
     typedef typename meta::option < Settings
                                   , tag::interleaving_
-                                  , Semantic
+                                  , Kind
                                   >::type::interleaving_type  inter_t;
 
     /// INTERNAL ONLY Base buffer type
@@ -134,25 +134,25 @@ namespace nt2 { namespace memory
     /// @brief Type used to store extent of the data
     typedef typename meta::option < Settings
                                   , tag::of_size_
-                                  , Semantic
+                                  , Kind
                                   >::type       extent_type;
 
     /// @brief Type used to store base index value of the data
     typedef typename meta::option < Settings
                                   , tag::index_
-                                  , Semantic
+                                  , Kind
                                   >::type       index_type;
 
     /// @brief Type used to represent the container storage order
     typedef typename meta::option < Settings
                                   , tag::storage_order_
-                                  , Semantic
+                                  , Kind
                                   >::type       order_type;
 
     /// INTERNAL ONLY detects if default initialization is required
     typedef typename meta::option < Settings
                                   , tag::storage_duration_
-                                  , Semantic
+                                  , Kind
                                   >::type                     duration_t;
 
     /// INTERNAL ONLY Check if static initialization is required
@@ -248,8 +248,8 @@ namespace nt2 { namespace memory
 
       @param y container to swap @c *this with
     **/
-    template<typename S2, typename Sema2>
-    BOOST_FORCEINLINE void swap(container<Type,S2,Sema2>& y)
+    template<typename S2, typename Kind2>
+    BOOST_FORCEINLINE void swap(container<Kind2,Type,S2>& y)
     {
       data_.swap(y.data_);
       sizes_.swap(y.sizes_);
@@ -407,7 +407,7 @@ namespace nt2 { namespace memory
     buffer_type                 data_;
     extent_type                 sizes_;
 
-    template<typename T2, typename S2, typename Sema2>
+    template<typename Kind2, typename T2, typename S2>
     friend struct container;
   };
 
@@ -419,20 +419,22 @@ namespace nt2 { namespace memory
     @param x First @c container to swap
     @param y Second @c container to swap
   **/
-  template< typename T
-          , typename S1, typename Sema1
-          , typename S2, typename Sema2
+  template< typename Kind1, typename Kind2
+          , typename T
+          , typename S1, typename S2
           >
   BOOST_FORCEINLINE
-  void swap(container<T,S1,Sema1>& x, container<T,S2,Sema2>& y)  { x.swap(y); }
+  void swap(container<Kind1,T,S1>& x, container<Kind2,T,S2>& y)  { x.swap(y); }
 
-  template<typename T, typename S, typename Sema>
+  /// @overload
+  template<typename Kind, typename T, typename S>
   BOOST_FORCEINLINE
-  void swap(T& x, container<T, S, Sema>& y) { y.swap(x); }
+  void swap(T& x, container<Kind, T, S>& y) { y.swap(x); }
 
-  template<typename T, typename S, typename Sema>
+  /// @overload
+  template<typename Kind, typename T, typename S>
   BOOST_FORCEINLINE
-  void swap(container<T, S, Sema>& x, T& y) { x.swap(y); }
+  void swap(container<Kind, T, S>& x, T& y) { x.swap(y); }
 
 } }
 

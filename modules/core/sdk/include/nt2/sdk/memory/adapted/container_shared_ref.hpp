@@ -22,38 +22,34 @@
 #include <nt2/core/settings/option.hpp>
 #include <boost/dispatch/meta/terminal_of_shared.hpp>
 
-namespace nt2 { namespace tag
-{
-  struct table_;
-} }
-
 namespace nt2 { namespace meta
 {
   /// INTERNAL ONLY memory::container_shared_ref models Container
-  template<typename T, typename S, typename Sema>
-  struct  is_container< memory::container_shared_ref<T, S, Sema, true> >
+  template<typename Kind, typename T, typename S>
+  struct  is_container< memory::container_shared_ref<Kind, T, S, true> >
         : boost::mpl::true_ {};
 
-  template<typename T, typename S, typename Sema, bool Own>
-  struct  is_container_ref< memory::container_shared_ref<T, S, Sema, Own> >
+  template<typename Kind, typename T, typename S, bool Own>
+  struct  is_container_ref< memory::container_shared_ref<Kind, T, S, Own> >
         : boost::mpl::true_ {};
 
   /// INTERNAL ONLY Option of a container use its settings and semantic
-  template<typename T, typename S, typename Sema, bool Own, typename Tag>
-  struct  option<memory::container_shared_ref<T, S, Sema, Own> , Tag>
-        : option<S, Tag, Sema>
+  template<typename Kind, typename T, typename S, bool Own, typename Tag>
+  struct  option<memory::container_shared_ref<Kind, T, S, Own> , Tag>
+        : option<S, Tag, Kind>
   {};
 
   /// INTERNAL ONLY - Adding option directly to a container
-  template<typename T, typename S, typename Sema, bool Own, typename S2>
-  struct add_settings< memory::container_shared_ref<T, S, Sema, Own>, S2 >
+  template<typename Kind, typename T, typename S, bool Own, typename S2>
+  struct add_settings< memory::container_shared_ref<Kind, T, S, Own>, S2 >
   {
-    typedef memory::container_shared_ref<T, typename add_settings<S, S2>::type, Sema, Own> type;
+    typedef typename add_settings<S, S2>::type              s_t;
+    typedef memory::container_shared_ref<Kind, T, s_t, Own> type;
   };
 
   /// INTERNAL ONLY : Extract settings from container
-  template<typename T, typename S, typename Sema, bool Own>
-  struct settings_of< memory::container_shared_ref<T, S, Sema, Own> >
+  template<typename Kind, typename T, typename S, bool Own>
+  struct settings_of< memory::container_shared_ref<Kind, T, S, Own> >
   {
     typedef S type;
   };
@@ -62,40 +58,44 @@ namespace nt2 { namespace meta
 namespace boost { namespace dispatch { namespace meta
 {
   /// INTERNAL ONLY value_of for container_shared_ref
-  template<typename T, typename S, typename Sema, bool Own>
-  struct value_of< nt2::memory::container_shared_ref<T, S, Sema, Own> >
+  template<typename Kind, typename T, typename S, bool Own>
+  struct value_of< nt2::memory::container_shared_ref<Kind, T, S, Own> >
   {
     typedef T& type;
   };
 
   /// INTERNAL ONLY model_of for container_shared_ref
-  template<typename T, typename S, typename Sema, bool Own>
-  struct model_of< nt2::memory::container_shared_ref<T, S, Sema, Own> >
+  template<typename Kind, typename T, typename S, bool Own>
+  struct model_of< nt2::memory::container_shared_ref<Kind, T, S, Own> >
   {
     struct type
     {
       template<typename X> struct apply
       {
-        typedef nt2::memory::container_shared_ref<X, S, Sema, Own> type;
+        typedef nt2::memory::container_shared_ref<X, S, Kind, Own> type;
       };
     };
   };
 
   /// INTERNAL ONLY hierarchy_of for container_shared_ref
-  template<typename T, typename S, typename Sema, bool Own, typename Origin>
-  struct hierarchy_of< nt2::memory::container_shared_ref<T, S, Sema, Own>, Origin >
+  template<typename Kind, typename T, typename S, bool Own, typename Origin>
+  struct hierarchy_of < nt2::memory::container_shared_ref<Kind, T, S, Own>
+                      , Origin
+                      >
   {
-    typedef container_< typename boost::dispatch::meta::property_of<T,Origin>::type
-                      , S, Sema
+    typedef container_< Kind
+                      , typename boost::dispatch::meta
+                                      ::property_of<T,Origin>::type
+                      , S
                       >                   type;
   };
 
   /// INTERNAL ONLY terminal_of_shared specialization
-  template<typename T, typename S, typename Sema>
-  struct terminal_of_shared< nt2::memory::container<T, S,Sema> >
+  template<typename Kind, typename T, typename S>
+  struct terminal_of_shared< nt2::memory::container<Kind, T, S> >
   {
-    typedef nt2::memory::container<T, S, Sema>                    container;
-    typedef nt2::memory::container_shared_ref<T, S, Sema, true>   container_ref;
+    typedef nt2::memory::container<Kind, T, S>                    container;
+    typedef nt2::memory::container_shared_ref<Kind, T, S, true>   container_ref;
     typedef boost::proto::basic_expr< boost::proto::tag::terminal
                                     , boost::proto::term<container_ref>
                                     , 0

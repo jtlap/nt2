@@ -24,8 +24,8 @@
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/core/container/table/table.hpp>
+#include <nt2/core/container/colon/colon.hpp>
 #include <nt2/optimization/options.hpp>
-#include <nt2/core/container/table/table.hpp>
 
 namespace nt2 { namespace details
 {

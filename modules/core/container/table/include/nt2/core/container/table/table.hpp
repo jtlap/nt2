@@ -26,14 +26,16 @@ namespace nt2 { namespace container
   template<typename T, typename S>
   struct  table
         : expression< boost::proto::basic_expr< boost::proto::tag::terminal
-                                              , boost::proto::term< nt2::memory
-                                                                       ::container<T,S,nt2::tag::table_>
-                                                                  >
+                                              , boost::proto::term
+                                                < nt2::memory
+                                                     ::container< nt2::tag::table_
+                                                                , T,S>
+                                                                >
                                               >
-                    , nt2::memory::container<T,S,nt2::tag::table_>
+                    , nt2::memory::container<nt2::tag::table_,T,S>
                     >
   {
-    typedef nt2::memory::container<T,S,nt2::tag::table_>           container_type;
+    typedef nt2::memory::container<nt2::tag::table_,T,S>           container_type;
     typedef expression< boost::proto::basic_expr< boost::proto::tag::terminal
                                                 , boost::proto::term<container_type>
                                                  >

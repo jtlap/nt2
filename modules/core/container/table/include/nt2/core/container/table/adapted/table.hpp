@@ -52,13 +52,13 @@ namespace boost { namespace dispatch { namespace meta
   template<class T, class S>
   struct value_of< nt2::container::table<T,S>& >
   {
-    typedef typename nt2::memory::container<T,S>::reference type;
+    typedef typename nt2::memory::container<nt2::tag::table_,T,S>::reference type;
   };
 
   template<class T, class S>
   struct value_of< nt2::container::table<T,S> const&>
   {
-    typedef typename nt2::memory::container<T,S>::const_reference type;
+    typedef typename nt2::memory::container<nt2::tag::table_,T,S>::const_reference type;
   };
 
   /// INTERNAL ONLY : model_of for table
@@ -78,7 +78,7 @@ namespace boost { namespace dispatch { namespace meta
   template<typename T, typename S>
   struct semantic_of< nt2::container::table<T, S> >
   {
-    typedef typename nt2::container::table<T, S>::container_type  type;
+    typedef nt2::memory::container<nt2::tag::table_,T,S>  type;
   };
 } } }
 

@@ -17,8 +17,8 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isreal_, tag::cpu_
-                            , (A0)(S0)(L0)(T)(M)
-                            , ((expr_< container_< fundamental_<A0>, S0, L0 >
+                            , (A0)(S0)(K0)(T)(M)
+                            , ((expr_< container_<K0,fundamental_<A0>,S0>
                                      , T
                                      , M
                                      >

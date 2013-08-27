@@ -20,6 +20,7 @@
 #include <nt2/include/functions/colvect.hpp>
 #include <nt2/core/functions/table/details/is_vectorizable_indexer.hpp>
 #include <nt2/core/container/colon/category.hpp>
+#include <nt2/core/container/colon/colon.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/sdk/memory/container.hpp>
 #include <nt2/sdk/memory/container_shared_ref.hpp>

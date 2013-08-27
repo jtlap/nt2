@@ -59,12 +59,13 @@ namespace nt2 { namespace details
     eval_if < boost::is_same< size_type, _0D >
             , ext::value_type<Tag, Domain, Arity, Expr>
             , boost::dispatch::meta::
-              transfer_qualifiers < memory::container < typename meta::strip<value_type>::type
-                                                      , nt2::settings(size_type)
-                                                      , kind_type
-                                                      >
-                                  , value_type
-                                  >
+              transfer_qualifiers
+                    < memory::container < kind_type
+                                        , typename meta::strip<value_type>::type
+                                        , nt2::settings(size_type)
+                                        >
+                    , value_type
+                    >
             >::type                                               type;
 
     typedef container::expression< typename boost::

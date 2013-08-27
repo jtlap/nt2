@@ -11,7 +11,7 @@
 #include <nt2/core/settings/sharing.hpp>
 #include <nt2/core/settings/storage_duration.hpp>
 #include <nt2/sdk/memory/container.hpp>
-#include "local_kind.hpp"
+#include "local_semantic.hpp"
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -174,7 +174,7 @@ NT2_TEST_CASE( shared_output )
 
   NT2_TEST_EXPR_TYPE( shared_()
                     , (apply_ < _
-                              , container<int, settings(), some_kind_>
+                              , container<some_kind_, int, settings()>
                               >
                       )
                     , (buffer<int, fixed_allocator<int> >)
@@ -198,9 +198,9 @@ NT2_TEST_CASE( owned_output )
 
   NT2_TEST_EXPR_TYPE( owned_()
                     , (apply_ < _
-                              , container < int
+                              , container < some_kind_
+                                          , int
                                           , settings(automatic_, of_size_<2,7>)
-                                          , some_kind_
                                           >
                               >
                       )
@@ -209,12 +209,12 @@ NT2_TEST_CASE( owned_output )
 
   NT2_TEST_EXPR_TYPE( owned_()
                     , (apply_ < _
-                              , container < int
+                              , container < some_kind_
+                                          , int
                                           , settings( dynamic_
                                                     , of_size_<2,2>
                                                     , std::allocator<int>
                                                     )
-                                          , some_kind_
                                           >
                               >
                       )

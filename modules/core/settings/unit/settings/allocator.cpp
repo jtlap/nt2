@@ -10,7 +10,7 @@
 
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/core/settings/allocator.hpp>
-#include "local_kind.hpp"
+#include "local_semantic.hpp"
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>

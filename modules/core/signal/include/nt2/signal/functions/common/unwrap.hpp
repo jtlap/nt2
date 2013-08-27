@@ -23,6 +23,7 @@
 #include <nt2/include/functions/is_less.hpp>
 #include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/assign.hpp>
+#include <nt2/core/container/colon/colon.hpp>
 
 namespace nt2 { namespace ext
 {

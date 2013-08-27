@@ -18,6 +18,7 @@
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/three.hpp>
 #include <nt2/core/container/table/table.hpp>
+#include <nt2/core/container/colon/colon.hpp>
 
 namespace nt2 { namespace ext
 {

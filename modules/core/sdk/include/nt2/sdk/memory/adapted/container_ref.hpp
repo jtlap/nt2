@@ -25,27 +25,28 @@
 namespace nt2 { namespace meta
 {
   /// INTERNAL ONLY memory::container_ref models ContainerReference
-  template<typename T, typename S, typename Sema>
-  struct  is_container_ref< memory::container_ref<T, S, Sema> >
+  template<typename Kind, typename T, typename S>
+  struct  is_container_ref< memory::container_ref<Kind, T, S> >
         : boost::mpl::true_
   {};
 
   /// INTERNAL ONLY Option of a container use its settings and semantic
-  template<typename T, typename S, typename Sema, typename Tag>
-  struct  option<memory::container_ref<T, S, Sema> , Tag>
-        : option<S, Tag, Sema>
+  template<typename Kind, typename T, typename S, typename Tag>
+  struct  option<memory::container_ref<Kind, T, S> , Tag>
+        : option<S, Tag, Kind>
   {};
 
   /// INTERNAL ONLY - Adding option directly to a container_ref
-  template<typename T, typename S, typename Sema, typename S2>
-  struct add_settings< memory::container_ref<T, S, Sema>, S2 >
+  template<typename Kind, typename T, typename S, typename S2>
+  struct add_settings< memory::container_ref<Kind, T, S>, S2 >
   {
-    typedef memory::container_ref<T, typename add_settings<S, S2>::type, Sema> type;
+    typedef typename add_settings<S, S2>::type  s_t;
+    typedef memory::container_ref<Kind,T,s_t>   type;
   };
 
   /// INTERNAL ONLY : Extract settings from container_ref
-  template<typename T, typename S, typename Sema>
-  struct settings_of< memory::container_ref<T, S, Sema> >
+  template<typename Kind, typename T, typename S>
+  struct settings_of< memory::container_ref<Kind, T, S> >
   {
     typedef S type;
   };
@@ -54,38 +55,40 @@ namespace nt2 { namespace meta
 namespace boost { namespace dispatch { namespace meta
 {
   /// INTERNAL ONLY value_of for container_ref
-  template<typename T, typename S, typename Sema>
-  struct value_of< nt2::memory::container_ref<T, S, Sema> >
+  template<typename Kind, typename T, typename S>
+  struct value_of< nt2::memory::container_ref<Kind, T, S> >
   {
     typedef T& type;
   };
 
   /// INTERNAL ONLY model_of for container_ref
-  template<typename T, typename S, typename Sema>
-  struct model_of< nt2::memory::container_ref<T, S, Sema> >
+  template<typename Kind, typename T, typename S>
+  struct model_of< nt2::memory::container_ref<Kind, T, S> >
   {
     struct type
     {
       template<typename X> struct apply
       {
-        typedef nt2::memory::container_ref<X, S, Sema> type;
+        typedef nt2::memory::container_ref<Kind, X, S> type;
       };
     };
   };
 
   /// INTERNAL ONLY hierarchy_of for container_ref
-  template<typename T, typename S, typename Sema, typename Origin>
-  struct hierarchy_of< nt2::memory::container_ref<T, S, Sema>, Origin >
+  template<typename Kind, typename T, typename S, typename Origin>
+  struct hierarchy_of< nt2::memory::container_ref<Kind, T, S>, Origin >
   {
-    typedef container_< typename boost::dispatch::meta::property_of<T,Origin>::type
-                      , S, Sema
+    typedef container_< Kind
+                      , typename boost::dispatch::meta
+                                                ::property_of<T,Origin>::type
+                      , S
                       >                   type;
   };
 
   /// INTERNAL ONLY container builds a terminal from its semantic
-  template<typename T, typename S, typename Sema>
-  struct  terminal_of< nt2::memory::container_ref<T,S,Sema> >
-        : Sema::template terminal_of<T,S>
+  template<typename Kind, typename T, typename S>
+  struct  terminal_of< nt2::memory::container_ref<Kind, T, S> >
+        : Kind::template terminal_of<T,S>
   {};
 } } }
 

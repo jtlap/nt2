@@ -11,6 +11,7 @@
 #include <nt2/polynom/functions/deconv.hpp>
 
 #include <nt2/core/container/table/table.hpp>
+#include <nt2/core/container/colon/colon.hpp>
 
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/numel.hpp>
@@ -19,15 +20,6 @@
 #include <nt2/include/functions/rowvect.hpp>
 #include <nt2/include/functions/linsolve.hpp>
 #include <nt2/include/functions/eye.hpp>
-
-// #include <nt2/include/functions/scalar/fma.hpp>
-// #include <nt2/include/functions/zeros.hpp>
-// #include <nt2/include/functions/numel.hpp>
-// #include <nt2/include/functions/eye.hpp>
-// #include <nt2/include/functions/colvect.hpp>
-// #include <nt2/include/functions/rowvect.hpp>
-// #include <nt2/include/functions/linsolve.hpp>
-// #include <nt2/include/functions/tie.hpp>
 
 namespace nt2 { namespace ext
 {

@@ -75,26 +75,26 @@ namespace nt2 { namespace container
   {
   };
 
-  template<typename Expr, typename T, typename S, typename Kind>
-  struct as_view_impl_term< Expr, memory::container<T, S, Kind>& >
+  template<typename Expr, typename Kind, typename T, typename S>
+  struct as_view_impl_term< Expr, memory::container<Kind, T, S>& >
   {
     typedef view<Kind, T, S> type;
   };
 
-  template<typename Expr, typename T, typename S, typename Kind>
-  struct as_view_impl_term< Expr, memory::container<T, S, Kind> const& >
+  template<typename Expr, typename Kind, typename T, typename S>
+  struct as_view_impl_term< Expr, memory::container<Kind, T, S> const& >
   {
     typedef view<Kind, T const, S> type;
   };
 
-  template<typename Expr, typename T, typename S, typename Kind>
-  struct as_view_impl_term< Expr, memory::container_shared_ref<T, S, Kind, true> & >
+  template<typename Expr, typename Kind, typename T, typename S>
+  struct as_view_impl_term< Expr, memory::container_shared_ref<Kind, T, S,true> & >
   {
     typedef shared_view<Kind, T, S> type;
   };
 
-  template<typename Expr, typename T, typename S, typename Kind>
-  struct as_view_impl_term< Expr, memory::container_shared_ref<T, S, Kind, true> const& >
+  template<typename Expr, typename Kind, typename T, typename S>
+  struct as_view_impl_term< Expr, memory::container_shared_ref<Kind, T, S, true> const& >
   {
     typedef shared_view<Kind, T, S> type;
   };

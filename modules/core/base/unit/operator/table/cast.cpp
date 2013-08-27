@@ -29,12 +29,12 @@ NT2_TEST_CASE( generator )
 
   NT2_TEST_EXPR_TYPE( nt2::cast<float>(a0)
                     , boost::dispatch::meta::semantic_of<boost::mpl::_>
-                    , (nt2::memory::container<float, S, table_>)
+                    , (nt2::memory::container<table_, float, S>)
                     );
 
   NT2_TEST_EXPR_TYPE( nt2::cast<nt2::int16_t>(a0)
                     , boost::dispatch::meta::semantic_of<boost::mpl::_>
-                    , (nt2::memory::container<nt2::int16_t, S, table_>)
+                    , (nt2::memory::container<table_, nt2::int16_t, S>)
                     );
 }
 
