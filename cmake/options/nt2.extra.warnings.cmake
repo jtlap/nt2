@@ -41,11 +41,11 @@ if(NT2_EXTRA_WARNINGS)
     set(HAS_GCC_WALL 1)
   endif()
 endif()
-  
+
   if(NOT DEFINED HAS_GCC_WALL)
     check_cxx_compiler_flag("-Wall" HAS_GCC_WALL)
   endif()
-    
+
   if(HAS_GCC_WALL)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wno-unused")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-unused")
@@ -72,9 +72,18 @@ if(NT2_EXTRA_WARNINGS)
   if(NOT DEFINED HAS_MSVC_W4)
     check_cxx_compiler_flag("/W4" HAS_MSVC_W4)
   endif()
-  
+
   if(HAS_MSVC_W4)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /W4")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
+
+    if("${CMAKE_C_FLAGS}" MATCHES "/W[1-3]")
+      string(REGEX REPLACE "/W[1-3]" "/W4" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
+    else()
+      set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /W4")
+    endif()
+    if("${CMAKE_CXX_FLAGS}" MATCHES "/W[1-3]")
+      string(REGEX REPLACE "/W[1-3]" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+    else()
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
+    endif()
   endif()
 endif()
