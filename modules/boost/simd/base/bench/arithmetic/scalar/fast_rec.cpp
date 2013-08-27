@@ -17,13 +17,54 @@ using boost::simd::tag::fast_rec_;
 namespace n1
 {
   typedef float T;
-  NT2_TIMING(fast_rec_,(RS(T,T(-100),T(100))))
+  NT2_TIMING(fast_rec_,(RS(T,T(-10),T(10))))
+>>>>>>> bench simd tests for arithmetic
 }
 
 namespace n2
 {
   typedef double T;
-  NT2_TIMING(fast_rec_,(RS(T,T(-100),T(100))))
+  NT2_TIMING(fast_rec_,(RS(T,T(-10),T(10))))
+}
+namespace n3 {
+  typedef boost::simd::uint8_t T;
+
+  NT2_TIMING(fast_rec_,(RS(T,0,100)))
+}
+namespace n4 {
+  typedef boost::simd::uint16_t T;
+
+  NT2_TIMING(fast_rec_,(RS(T,0,100)))
+}
+namespace n5 {
+  typedef boost::simd::uint32_t T;
+
+  NT2_TIMING(fast_rec_,(RS(T,0,100)))
+}
+namespace n6 {
+  typedef boost::simd::uint64_t T;
+
+  NT2_TIMING(fast_rec_,(RS(T,0,100)))
+}
+namespace n7 {
+  typedef boost::simd::int8_t T;
+
+  NT2_TIMING(fast_rec_,(RS(T,-100,100)))
+}
+namespace n8 {
+  typedef boost::simd::int16_t T;
+
+  NT2_TIMING(fast_rec_,(RS(T,-100,100)))
+}
+namespace n9 {
+  typedef boost::simd::int32_t T;
+
+  NT2_TIMING(fast_rec_,(RS(T,-100,100)))
+}
+namespace n10 {
+  typedef boost::simd::int64_t T;
+
+  NT2_TIMING(fast_rec_,(RS(T,-100,100)))
 }
 
 #undef RS

@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define BOOST_SIMD_BENCH_MODULE "nt2 arithmetic toolbox - sqrt1pm1/scalar Mode"
-
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
@@ -30,42 +28,34 @@ using boost::simd::tag::sqrt1pm1_;
 
 namespace n1 {
   typedef float T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
   BOOST_SIMD_TIMING(sqrt1pm1_,(RS(T,T(-10),T(10))))
 }
 namespace n2 {
   typedef double T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
   BOOST_SIMD_TIMING(sqrt1pm1_,(RS(T,T(-10),T(10))))
 }
 namespace n3 {
   typedef boost::simd::uint8_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
   BOOST_SIMD_TIMING(sqrt1pm1_,(RS(T,0,100)))
 }
 namespace n4 {
   typedef boost::simd::uint16_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
   BOOST_SIMD_TIMING(sqrt1pm1_,(RS(T,0,100)))
 }
 namespace n5 {
   typedef boost::simd::uint32_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
   BOOST_SIMD_TIMING(sqrt1pm1_,(RS(T,0,100)))
 }
 namespace n6 {
   typedef boost::simd::uint64_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
   BOOST_SIMD_TIMING(sqrt1pm1_,(RS(T,0,100)))
 }
 namespace n7 {
   typedef boost::simd::int8_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
   BOOST_SIMD_TIMING(sqrt1pm1_,(RS(T,-100,100)))
 }
 namespace n8 {
   typedef boost::simd::int16_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
   BOOST_SIMD_TIMING(sqrt1pm1_,(RS(T,-100,100)))
 }
 namespace n9 {
@@ -75,7 +65,6 @@ namespace n9 {
 }
 namespace n10 {
   typedef boost::simd::int64_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
   BOOST_SIMD_TIMING(sqrt1pm1_,(RS(T,-100,100)))
 }
 
