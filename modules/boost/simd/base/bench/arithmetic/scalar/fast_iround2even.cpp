@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-
-
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of boost.simd.arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
@@ -16,7 +14,6 @@
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <cmath>
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -31,7 +28,6 @@ using boost::simd::tag::fast_iround2even_;
 
 namespace n1 {
   typedef float T;
-
   NT2_TIMING(fast_iround2even_,(RS(T,T(-10),T(10))))
 }
 namespace n2 {
@@ -66,16 +62,6 @@ namespace n7 {
 }
 namespace n8 {
   typedef boost::simd::int16_t T;
-
-  NT2_TIMING(fast_iround2even_,(RS(T,-100,100)))
-}
-namespace n9 {
-  typedef boost::simd::int32_t T;
-
-  NT2_TIMING(fast_iround2even_,(RS(T,-100,100)))
-}
-namespace n10 {
-  typedef boost::simd::int64_t T;
 
   NT2_TIMING(fast_iround2even_,(RS(T,-100,100)))
 }

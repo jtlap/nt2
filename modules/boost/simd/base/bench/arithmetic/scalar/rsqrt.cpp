@@ -12,7 +12,6 @@
 #include <boost/simd/arithmetic/include/functions/rsqrt.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
-#include <cmath>
 
 using boost::simd::tag::rsqrt_;
 #define RS(T,V1,V2) (T, T(V1) ,T(V2))

@@ -6,7 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of boost.simd.arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
@@ -37,13 +36,13 @@ namespace n02 {
   NT2_TIMING(divs_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10))))
 }namespace n1 {
   typedef boost::simd::int8_t T;
-
-  NT2_TIMING(divs_,(RS(T,-3*(boost::simd::Valmin<T>()/4),3*(boost::simd::Valmax<T>()/4)))(RS(T,3*(boost::simd::Valmin<T>()/4),3*(boost::simd::Valmax<T>()/4))))
+  NT2_TIMING(divs_,(RS(T,3*(boost::simd::Valmin<T>()/4),3*(boost::simd::Valmax<T>()/4)))(RS(T,3*(boost::simd::Valmin<T>()/4),3*(boost::simd::Valmax<T>()/4))))
 }
 namespace n2 {
   typedef boost::simd::int16_t T;
 
   NT2_TIMING(divs_,(RS(T,-3*(boost::simd::Valmin<T>()/4),3*(boost::simd::Valmax<T>()/4)))(RS(T,3*(boost::simd::Valmin<T>()/4),3*(boost::simd::Valmax<T>()/4))))
+
 }
 namespace n3 {
   typedef boost::simd::int32_t T;
@@ -54,16 +53,20 @@ namespace n4 {
   typedef boost::simd::int64_t T;
 
   NT2_TIMING(divs_,(RS(T,-3*(boost::simd::Valmin<T>()/4),3*(boost::simd::Valmax<T>()/4)))(RS(T,3*(boost::simd::Valmin<T>()/4),3*(boost::simd::Valmax<T>()/4))))
+
 }
 namespace n5 {
   typedef boost::simd::uint8_t T;
 
+
   NT2_TIMING(divs_,(RS(T,0,3*(boost::simd::Valmax<T>()/4)))(RS(T,3*(boost::simd::Valmin<T>()/4),3*(boost::simd::Valmax<T>()/4))))
+
 }
 namespace n6 {
   typedef boost::simd::uint16_t T;
 
   NT2_TIMING(divs_,(RS(T,0,3*(boost::simd::Valmax<T>()/4)))(RS(T,3*(boost::simd::Valmin<T>()/4),3*(boost::simd::Valmax<T>()/4))))
+
 }
 namespace n7 {
   typedef boost::simd::uint32_t T;

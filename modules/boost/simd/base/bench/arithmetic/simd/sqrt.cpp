@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-
-
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of boost.simd.arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
@@ -29,27 +27,13 @@ using boost::simd::tag::sqrt_;
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, (V1) ,(V2))
 
-namespace n1 {
-  typedef float T;
-
-  typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(sqrt_,(RS(vT,T(-10000),T(10000))))
-}
-namespace n2 {
-  typedef double T;
-
-  typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(sqrt_,(RS(vT,T(-10000),T(10000))))
-}
 namespace n3 {
   typedef float T;
-
   typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(sqrt_,(RS(vT,T(0),T(10000))))
 }
 namespace n4 {
   typedef double T;
-
   typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(sqrt_,(RS(vT,T(0),T(10000))))
 }
