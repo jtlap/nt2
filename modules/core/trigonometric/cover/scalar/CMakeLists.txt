@@ -9,6 +9,8 @@
 ################################################################################
 
 SET( SOURCES
+  sinc.cpp
+  sinpic.cpp
   nbd_atan2.cpp
   proper_tanpi.cpp
   rem_pio2_straight.cpp
