@@ -13,11 +13,6 @@
 #include <nt2/include/constants/one.hpp>
 #include <boost/simd/sdk/config.hpp>
 
-#if !defined(BOOST_SIMD_NO_DENORMALS)
-#include <nt2/include/functions/scalar/abs.hpp>
-#include <nt2/include/constants/eps.hpp>
-#endif
-
 #if !defined(BOOST_SIMD_NO_INFINITIES)
 #include <nt2/include/functions/scalar/is_inf.hpp>
 #include <nt2/include/constants/zero.hpp>
@@ -33,8 +28,8 @@ namespace nt2 { namespace ext
     typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      result_type z = a0;
-      return z ? nt2::sin(z)/z : nt2::One<result_type>();
+      result_type z(a0);
+      return a0 ? nt2::sin(z)/z : nt2::One<result_type>();
     }
   };
 
@@ -52,11 +47,7 @@ namespace nt2 { namespace ext
       if(nt2::is_inf(a0)) return nt2::Zero<A0>();
       #endif
 
-      #if !defined(BOOST_SIMD_NO_DENORMALS)
-      return (nt2::abs(a0) < nt2::Eps<A0>()) ? nt2::One<A0>() : nt2::sin(a0)/a0;
-      #else
-      return nt2::sin(a0)/a0;
-      #endif
+      return a0 ? nt2::sin(a0)/a0 : nt2::One<A0>();
     }
   };
 } }

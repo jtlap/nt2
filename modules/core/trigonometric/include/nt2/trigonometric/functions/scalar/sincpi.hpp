@@ -35,9 +35,8 @@ namespace nt2 { namespace ext
     typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      result_type z = a0;
-      return z ? nt2::Invpi<A0>()*nt2::sinpi(z)/z : nt2::One<result_type>();
-
+      result_type z(a0);
+      return a0 ? nt2::Invpi<A0>()*nt2::sinpi(z)/z : nt2::One<result_type>();
     }
   };
 
@@ -49,16 +48,21 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      #if !defined(BOOST_SIMD_NO_INFINITIES)
-      if(nt2::is_inf(a0)) return nt2::Zero<A0>();
+      // When dealing with platform with no denormal, we need to force the
+      // operation order to guarantee that sinpi(x)/x is equal to pi
+      #if defined(BOOST_SIMD_NO_DENORMALS)
+      #define M0(x) nt2::Invpi<result_type>()*(nt2::sinpi((x))/(x))
+      #else
+      #define M0(x) (nt2::Invpi<result_type>()*nt2::sinpi((x)))/(x)
       #endif
 
-      #if !defined(BOOST_SIMD_NO_DENORMALS)
-      return (nt2::abs(a0)<nt2::Eps<A0>()) ? nt2::One<A0>()
-                                           : nt2::Invpi<A0>()*nt2::sinpi(a0)/a0;
-      #else
-      return nt2::Invpi<A0>()*nt2::sinpi(a0)/a0;
+      #if !defined(BOOST_SIMD_NO_INFINITIES)
+      if(nt2::is_inf(a0)) return nt2::Zero<result_type>();
       #endif
+
+      return a0 ? M0(a0) : nt2::One<result_type>();
+
+      #undef M0
     }
   };
 } }

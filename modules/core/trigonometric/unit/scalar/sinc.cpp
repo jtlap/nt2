@@ -14,6 +14,8 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/eps.hpp>
+#include <nt2/include/constants/mindenormal.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
@@ -36,5 +38,7 @@ NT2_TEST_CASE_TPL( sinc_real,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(sinc(nt2::Nan<T>()), nt2::Nan<T>(), 0.5);
   NT2_TEST_ULP_EQUAL(sinc(nt2::Pi<T>()/T(2)),  T(2)/(nt2::Pi<T>()), 0.5);
   NT2_TEST_ULP_EQUAL(sinc(nt2::Pi<T>()/T(4)), nt2::sin(nt2::Pi<T>()/T(4))*T(4)/(nt2::Pi<T>()), 0.5);
+  NT2_TEST_ULP_EQUAL(sinc(nt2::Eps<T>()), nt2::One<T>(), 0.5);
+  NT2_TEST_ULP_EQUAL(sinc(nt2::Mindenormal<T>()), nt2::One<T>(), 0.5);
   NT2_TEST_ULP_EQUAL(sinc(nt2::Zero<T>()), nt2::One<T>(), 0.5);
 }

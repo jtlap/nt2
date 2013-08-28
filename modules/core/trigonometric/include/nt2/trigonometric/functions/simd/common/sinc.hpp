@@ -12,21 +12,15 @@
 #include <nt2/trigonometric/functions/sinc.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/include/functions/simd/divides.hpp>
-#include <nt2/include/functions/simd/sin.hpp>
-#include <boost/simd/sdk/config.hpp>
-
-#if !defined(BOOST_SIMD_NO_DENORMALS)
-#include <nt2/include/functions/simd/abs.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/simd/is_less.hpp>
-#include <nt2/include/constants/eps.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/sin.hpp>
 #include <nt2/include/constants/one.hpp>
-#endif
+#include <boost/simd/sdk/config.hpp>
 
 #if !defined(BOOST_SIMD_NO_INFINITIES)
 #include <nt2/include/functions/simd/is_inf.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/functions/simd/if_zero_else.hpp>
 #endif
 
 namespace nt2 { namespace ext
@@ -47,24 +41,20 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      result_type r1 =  nt2::sin(a0)/a0;
-
-      #if !defined(BOOST_SIMD_NO_DENORMALS)
-
-      r1 = nt2::if_else ( nt2::lt(nt2::abs(a0), nt2::Eps<A0>())
-                        , nt2::One<A0>()
-                        , r1
-                        );
-
-      #endif
+      result_type r = nt2::if_else( nt2::is_eqz(a0)
+                                  , nt2::One<result_type>()
+                                  , nt2::sin(a0)/a0
+                                  );
 
       #if !defined(BOOST_SIMD_NO_INFINITIES)
 
-      r1 = nt2::if_else(nt2::is_inf(a0), nt2::Zero<A0>(), r1);
+      return nt2::if_zero_else(nt2::is_inf(a0), r);
+
+      #else
+
+      return r;
 
       #endif
-
-      return r1;
     }
   };
 } }

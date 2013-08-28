@@ -14,6 +14,8 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/eps.hpp>
+#include <nt2/include/constants/mindenormal.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -41,5 +43,7 @@ NT2_TEST_CASE_TPL ( sinc_real,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(sinc(nt2::Nan<vT>()), nt2::Nan<vT>(), 0.5);
   NT2_TEST_ULP_EQUAL(sinc(nt2::Pi<vT>()/nt2::splat<T>(2)),  T(2)/(nt2::Pi<vT>()), 0.5);
   NT2_TEST_ULP_EQUAL(sinc(nt2::Pi<vT>()/nt2::splat<T>(4)), nt2::sin(nt2::Pi<vT>()/T(4))*T(4)/(nt2::Pi<vT>()), 1.0);
+  NT2_TEST_ULP_EQUAL(sinc(nt2::Eps<vT>()), nt2::One<vT>(), 0.5);
+  NT2_TEST_ULP_EQUAL(sinc(nt2::Mindenormal<vT>()), nt2::One<vT>(), 0.5);
   NT2_TEST_ULP_EQUAL(sinc(nt2::Zero<vT>()), nt2::One<vT>(), 0.5);
 }
