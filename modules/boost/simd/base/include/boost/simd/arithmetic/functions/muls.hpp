@@ -45,6 +45,10 @@ namespace boost { namespace simd {
     T r = x*y
     @endcode
 
+    @par Alias
+
+    saturated_mul
+
     @param  a0
     @param  a1
 
@@ -52,6 +56,7 @@ namespace boost { namespace simd {
 
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::muls_, muls, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::muls_, saturated_mul, 2)
 } }
 
 #endif

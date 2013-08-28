@@ -39,7 +39,6 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      //      return b_or(is_invalid(a1), selsub(is_nez(a1), a0, tofloat(idivfix(a0,a1))*a1));
       return if_nan_else(is_invalid(a1),
                       selsub(is_nez(a1), a0, divfix(a0,a1)*a1));
 

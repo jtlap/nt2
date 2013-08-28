@@ -52,7 +52,7 @@ namespace boost { namespace simd { namespace tag
 
     @par Alias
 
-    @c ifix,  @c itrunc
+    @c ifix,  @c itrunc, @c saturated_toint
 
     @param  a0
 
@@ -62,6 +62,7 @@ namespace boost { namespace simd { namespace tag
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::toints_, toints, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::toints_, ifix, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::toints_, itrunc, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::toints_, saturated_toint, 1)
 } }
 
 #include <boost/simd/operator/specific/common.hpp>

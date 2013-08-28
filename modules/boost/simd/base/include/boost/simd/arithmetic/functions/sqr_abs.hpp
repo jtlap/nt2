@@ -45,7 +45,7 @@ namespace boost { namespace simd { namespace tag
 
     @par Alias
 
-    sqr_modulus
+    @csqr_modulus, @c sqrs,  @saturated_sqr
 
     @param  a0
 
@@ -54,6 +54,8 @@ namespace boost { namespace simd { namespace tag
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sqr_abs_, sqr_abs, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sqr_abs_, sqr_modulus, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sqr_abs_, sqrs, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sqr_abs_, saturated_sqr, 1)
 } }
 
 #endif

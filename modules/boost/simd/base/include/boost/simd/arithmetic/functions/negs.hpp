@@ -48,6 +48,10 @@ namespace boost { namespace simd {
     For integers types @c negs(Valmin) returns @c Valmax
     @c negs is not defined for unsigned types.
 
+    @par Alias
+
+    saturated_neg
+
     @param  a0
     @param  a1
 

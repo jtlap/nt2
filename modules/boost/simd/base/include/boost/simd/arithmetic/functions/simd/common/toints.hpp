@@ -32,7 +32,8 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::scalar_of<result_type>::type                 s_type;
     result_type operator()(A0 const& a0) const
     {
-      return if_else (ge(a0, splat<A0>(Valmax<s_type>())), Valmax<result_type>(), bitwise_cast<result_type>(a0));
+      return if_else (ge(a0, splat<A0>(Valmax<s_type>())), Valmax<result_type>(),
+                      bitwise_cast<result_type>(a0));
     }
   };
 

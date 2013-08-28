@@ -50,12 +50,17 @@ namespace boost { namespace simd { namespace tag
     All values superior (resp.) less than Valmax (resp. Valmin) of the return type
     are saturated accordingly.
 
+    @par Alias
+
+    saturated_toint
+
     @param  a0
 
     @return      a value of the unsigned integer type associated to the input.
 
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::touints_, touints, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::touints_, saturated_touint, 1)
 
 } }
 
