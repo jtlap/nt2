@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::sum_, tag::cpu_
-                                    , (A0)(X)
+                                    , (A0)
                                     , ((simd_<single_<A0>,boost::simd::tag::avx_>))
                                     )
   {
