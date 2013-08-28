@@ -16,8 +16,8 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::sum_, tag::cpu_
-                                    , (A0)(X)
-                                    , ((simd_<double_<A0>,X>))
+                                    , (A0)
+                                    , ((simd_<double_<A0>,boost::simd::tag::avx_>))
                                     )
   {
     typedef typename A0::value_type result_type;
@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::sum_, tag::cpu_
                                     , (A0)(X)
-                                    , ((simd_<single_<A0>,X>))
+                                    , ((simd_<single_<A0>,boost::simd::tag::avx_>))
                                     )
   {
     typedef typename meta::scalar_of<A0>::type result_type;

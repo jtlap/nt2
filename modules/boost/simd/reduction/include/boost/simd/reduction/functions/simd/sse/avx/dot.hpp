@@ -20,8 +20,8 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::dot_, boost::simd::tag::avx_,
                                     (A0),
-                                    ((simd_<double_<A0>,boost::simd::tag::sse_>))
-                                    ((simd_<double_<A0>,boost::simd::tag::sse_>))
+                                    ((simd_<double_<A0>,boost::simd::tag::avx_>))
+                                    ((simd_<double_<A0>,boost::simd::tag::avx_>))
                                     )
   {
     typedef typename meta::scalar_of<A0>::type result_type;
