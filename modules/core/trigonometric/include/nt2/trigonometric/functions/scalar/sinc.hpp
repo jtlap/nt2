@@ -10,12 +10,18 @@
 #define NT2_TRIGONOMETRIC_FUNCTIONS_SCALAR_SINC_HPP_INCLUDED
 #include <nt2/trigonometric/functions/sinc.hpp>
 #include <nt2/include/functions/scalar/sin.hpp>
-#include <nt2/include/functions/scalar/abs.hpp>
-#include <nt2/include/functions/scalar/is_inf.hpp>
-#include <nt2/include/constants/eps.hpp>
-#include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <boost/simd/sdk/config.hpp>
+
+#if !defined(BOOST_SIMD_NO_DENORMALS)
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/constants/eps.hpp>
+#endif
+
+#if !defined(BOOST_SIMD_NO_INFINITIES)
+#include <nt2/include/functions/scalar/is_inf.hpp>
+#include <nt2/include/constants/zero.hpp>
+#endif
 
 namespace nt2 { namespace ext
 {
@@ -42,10 +48,15 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      #ifndef BOOST_SIMD_NO_INFINITIES
+      #if !defined(BOOST_SIMD_NO_INFINITIES)
       if(nt2::is_inf(a0)) return nt2::Zero<A0>();
       #endif
+
+      #if !defined(BOOST_SIMD_NO_DENORMALS)
       return (nt2::abs(a0) < nt2::Eps<A0>()) ? nt2::One<A0>() : nt2::sin(a0)/a0;
+      #else
+      return nt2::sin(a0)/a0;
+      #endif
     }
   };
 } }

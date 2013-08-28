@@ -11,14 +11,20 @@
 
 #include <nt2/trigonometric/functions/sincpi.hpp>
 #include <nt2/include/functions/scalar/sinpi.hpp>
-#include <nt2/include/functions/scalar/abs.hpp>
-#include <nt2/include/functions/scalar/is_inf.hpp>
 #include <nt2/include/constants/eps.hpp>
-#include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/invpi.hpp>
 #include <boost/simd/sdk/config.hpp>
 
+#if !defined(BOOST_SIMD_NO_DENORMALS)
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/constants/eps.hpp>
+#endif
+
+#if !defined(BOOST_SIMD_NO_INFINITIES)
+#include <nt2/include/functions/simd/is_inf.hpp>
+#include <nt2/include/constants/zero.hpp>
+#endif
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sincpi_, tag::cpu_
@@ -43,10 +49,16 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      #ifndef BOOST_SIMD_NO_INFINITIES
+      #if !defined(BOOST_SIMD_NO_INFINITIES)
       if(nt2::is_inf(a0)) return nt2::Zero<A0>();
       #endif
-      return (nt2::abs(a0) < nt2::Eps<A0>()) ? nt2::One<A0>() : nt2::Invpi<A0>()*nt2::sinpi(a0)/a0;
+
+      #if !defined(BOOST_SIMD_NO_DENORMALS)
+      return (nt2::abs(a0)<nt2::Eps<A0>()) ? nt2::One<A0>()
+                                           : nt2::Invpi<A0>()*nt2::sinpi(a0)/a0;
+      #else
+      return nt2::Invpi<A0>()*nt2::sinpi(a0)/a0;
+      #endif
     }
   };
 } }
