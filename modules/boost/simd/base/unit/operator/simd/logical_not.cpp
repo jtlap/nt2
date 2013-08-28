@@ -7,6 +7,17 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <boost/simd/operator/include/functions/logical_not.hpp>
+#include <boost/simd/include/functions/splat.hpp>
+#include <boost/simd/include/functions/is_less.hpp>
+#include <boost/simd/include/functions/is_greater.hpp>
+#include <boost/simd/include/functions/is_less_equal.hpp>
+#include <boost/simd/include/functions/is_greater_equal.hpp>
+#include <boost/simd/include/functions/is_not_less.hpp>
+#include <boost/simd/include/functions/is_not_greater.hpp>
+#include <boost/simd/include/functions/is_not_less_equal.hpp>
+#include <boost/simd/include/functions/is_not_greater_equal.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+#include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
@@ -14,9 +25,10 @@
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/constant/constant.hpp>
+#include <boost/simd/include/constants/true.hpp>
+#include <boost/simd/include/constants/false.hpp>
 
-NT2_TEST_CASE_TPL ( logical_not_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( logical_not_integer,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
   using boost::simd::logical_not;
   using boost::simd::tag::logical_not_;
@@ -36,9 +48,9 @@ NT2_TEST_CASE_TPL ( logical_not_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   // specific values tests
   NT2_TEST_EQUAL(logical_not(boost::simd::False<vlT>())[0], boost::simd::True<sr_t>());
   NT2_TEST_EQUAL(logical_not(boost::simd::True<vlT>())[0], boost::simd::False<sr_t>());
-} // end of test for integer_
+}
 
-NT2_TEST_CASE_TPL ( logical_not_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( logical_not_real,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::logical_not;
   using boost::simd::tag::logical_not_;
@@ -59,3 +71,27 @@ NT2_TEST_CASE_TPL ( logical_not_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(logical_not(boost::simd::False<vlT>())[0], boost::simd::True<sr_t>());
   NT2_TEST_EQUAL(logical_not(boost::simd::True<vlT>())[0], boost::simd::False<sr_t>());
 } // end of test for real_
+
+NT2_TEST_CASE_TPL ( logical_not_optimization,  BOOST_SIMD_SIMD_TYPES)
+{
+  using boost::simd::logical_not;
+  using boost::simd::tag::is_not_less_;
+  using boost::simd::tag::is_not_less_equal_;
+  using boost::simd::tag::is_not_greater_;
+  using boost::simd::tag::is_not_greater_equal_;
+  using boost::simd::pack;
+  using boost::simd::splat;
+  using boost::dispatch::meta::call;
+
+  typedef typename call<is_not_less_(pack<T>,pack<T>)>::type nl_t;
+  typedef typename call<is_not_less_equal_(pack<T>,pack<T>)>::type nle_t;
+  typedef typename call<is_not_greater_(pack<T>,pack<T>)>::type ng_t;
+  typedef typename call<is_not_greater_equal_(pack<T>,pack<T>)>::type nge_t;
+
+  pack<T> x,y;
+
+  NT2_TEST_EXPR_TYPE( !(x<y) , boost::mpl::_, nl_t  );
+  NT2_TEST_EXPR_TYPE( !(x<=y), boost::mpl::_, nle_t );
+  NT2_TEST_EXPR_TYPE( !(x>y) , boost::mpl::_, ng_t  );
+  NT2_TEST_EXPR_TYPE( !(x>=y), boost::mpl::_, nge_t );
+}

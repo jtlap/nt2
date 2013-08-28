@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
                                    )
   {
     BOOST_DISPATCH_RETURNS(1, (A0 const& a0),
-      is_not_less(boost::proto::child_c<0>(a0))
+      is_not_less(boost::proto::child_c<0>(a0),boost::proto::child_c<1>(a0))
     )
   };
 
@@ -39,7 +39,7 @@ namespace boost { namespace simd { namespace ext
                                    )
   {
     BOOST_DISPATCH_RETURNS(1, (A0 const& a0),
-      is_not_greater(boost::proto::child_c<0>(a0))
+      is_not_greater(boost::proto::child_c<0>(a0),boost::proto::child_c<1>(a0))
     )
   };
 
@@ -49,7 +49,7 @@ namespace boost { namespace simd { namespace ext
                                    )
   {
     BOOST_DISPATCH_RETURNS(1, (A0 const& a0),
-      is_not_less_equal(boost::proto::child_c<0>(a0))
+      is_not_less_equal(boost::proto::child_c<0>(a0),boost::proto::child_c<1>(a0))
     )
   };
 
@@ -59,7 +59,7 @@ namespace boost { namespace simd { namespace ext
                                    )
   {
     BOOST_DISPATCH_RETURNS(1, (A0 const& a0),
-      is_not_greater_equal(boost::proto::child_c<0>(a0))
+      is_not_greater_equal(boost::proto::child_c<0>(a0),boost::proto::child_c<1>(a0))
     )
   };
 } } }
