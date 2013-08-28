@@ -6,52 +6,47 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_SQR_ABS_HPP_INCLUDED
-#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_SQR_ABS_HPP_INCLUDED
+#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_SQR_HPP_INCLUDED
+#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_SQR_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/sqr_abs.hpp>
-#include <boost/simd/include/functions/scalar/sqr.hpp>
-#include <boost/simd/include/functions/scalar/abss.hpp>
-#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/functions/simd/sqr.hpp>
+#include <boost/simd/include/functions/simd/abss.hpp>
+#include <boost/simd/include/functions/simd/is_greater.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
-#include <boost/simd/include/constants/zero.hpp>
-#include <boost/dispatch/meta/upgrade.hpp>
-
+#include <boost/simd/include/constants/sqrtvalmax.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sqr_abs_, tag::cpu_
                             , (A0)
-                            , (scalar_< arithmetic_<A0> >)
+                            , (generic_< int_<A0> >)
                             )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename dispatch::meta::upgrade<A0>::type uptype;
-      uptype tmp = sqr(static_cast<uptype>(a0));
-      return (tmp > Valmax<result_type>()) ? Valmax<result_type>()
-                                           : static_cast<result_type>(tmp);
-    }
-  };
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sqr_abs_, tag::cpu_
-                            , (A0)
-                            , (scalar_< ints64_<A0> >)
-                            )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      if (a0 == 0) return Zero<A0>();
-      A0 aa0 =  abss(a0);
-      A0 z = Valmax<A0>()/aa0;
-      return (z < aa0) ? Valmax<A0>() : sqr(a0);
+      return if_else(gt(abss(a0), boost::simd::Sqrtvalmax<result_type>()),
+                     boost::simd::Valmax<result_type>(), sqr(a0));
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sqr_abs_, tag::cpu_
                             , (A0)
-                            , (scalar_< floating_<A0> >)
+                            , (generic_< uint_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return if_else(gt(a0, boost::simd::Sqrtvalmax<result_type>()),
+                     boost::simd::Valmax<result_type>(), sqr(a0));
+    }
+  };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sqr_abs_, tag::cpu_
+                            , (A0)
+                            , (generic_< floating_<A0> >)
                             )
   {
     typedef A0 result_type;

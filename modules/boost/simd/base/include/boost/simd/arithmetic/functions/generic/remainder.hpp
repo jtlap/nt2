@@ -9,7 +9,6 @@
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_REMAINDER_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_REMAINDER_HPP_INCLUDED
 #include <boost/simd/arithmetic/functions/remainder.hpp>
-#include <boost/simd/include/functions/simd/abs.hpp>
 #include <boost/simd/include/functions/simd/idivround2even.hpp>
 #include <boost/simd/include/functions/simd/divround2even.hpp>
 #include <boost/simd/include/functions/simd/multiplies.hpp>

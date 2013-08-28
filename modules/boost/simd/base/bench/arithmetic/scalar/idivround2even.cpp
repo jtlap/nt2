@@ -9,77 +9,75 @@
 
 
 //////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of boost.simd.arithmetic components in simd mode
+// timing Test behavior of boost.simd.arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/arithmetic/include/functions/idivround.hpp>
+#include <boost/simd/arithmetic/include/functions/idivround2even.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
-typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+
 
 //////////////////////////////////////////////////////////////////////////////
-// simd runtime benchmark for functor<idivround_> from boost.simd.arithmetic
+// scalar runtime benchmark for functor<idivround2even_> from boost.simd.arithmetic
 //////////////////////////////////////////////////////////////////////////////
-using boost::simd::tag::idivround_;
+using boost::simd::tag::idivround2even_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, (V1) ,(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
 namespace n1 {
   typedef float T;
 
-  typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(idivround_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10))))
+  NT2_TIMING(idivround2even_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10))))
 }
 namespace n2 {
   typedef double T;
 
-  typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(idivround_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10))))
+  NT2_TIMING(idivround2even_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10))))
 }
 namespace n3 {
   typedef boost::simd::uint8_t T;
 
-  NT2_TIMING(idivround_,(RS(T,0,100))(RS(T,0,100)))
+  NT2_TIMING(idivround2even_,(RS(T,0,100))(RS(T,1,100)))
 }
 namespace n4 {
   typedef boost::simd::uint16_t T;
 
-  NT2_TIMING(idivround_,(RS(T,0,100))(RS(T,0,100)))
+  NT2_TIMING(idivround2even_,(RS(T,0,100))(RS(T,1,100)))
 }
 namespace n5 {
   typedef boost::simd::uint32_t T;
 
-  NT2_TIMING(idivround_,(RS(T,0,100))(RS(T,0,100)))
+  NT2_TIMING(idivround2even_,(RS(T,0,100))(RS(T,1,100)))
 }
 namespace n6 {
   typedef boost::simd::uint64_t T;
 
-  NT2_TIMING(idivround_,(RS(T,0,100))(RS(T,0,100)))
+  NT2_TIMING(idivround2even_,(RS(T,0,100))(RS(T,1,100)))
 }
 namespace n7 {
   typedef boost::simd::int8_t T;
 
-  NT2_TIMING(idivround_,(RS(T,-100,100))(RS(T,-100,100)))
+  NT2_TIMING(idivround2even_,(RS(T,-100,100))(RS(T,1,100)))
 }
 namespace n8 {
   typedef boost::simd::int16_t T;
 
-  NT2_TIMING(idivround_,(RS(T,-100,100))(RS(T,-100,100)))
+  NT2_TIMING(idivround2even_,(RS(T,-100,100))(RS(T,1,100)))
 }
 namespace n9 {
   typedef boost::simd::int32_t T;
 
-  NT2_TIMING(idivround_,(RS(T,-100,100))(RS(T,-100,100)))
+  NT2_TIMING(idivround2even_,(RS(T,-100,100))(RS(T,1,100)))
 }
 namespace n10 {
   typedef boost::simd::int64_t T;
 
-  NT2_TIMING(idivround_,(RS(T,-100,100))(RS(T,-100,100)))
+  NT2_TIMING(idivround2even_,(RS(T,-100,100))(RS(T,1,100)))
 }
 
 #undef RS

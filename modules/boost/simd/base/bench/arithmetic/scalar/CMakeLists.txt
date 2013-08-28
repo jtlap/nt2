@@ -8,60 +8,63 @@
 ##############################################################################
 
 SET( SOURCES
-  dec.cpp
-  conj.cpp
-  divround.cpp
-  divfloor.cpp
-  divfix.cpp
-  divceil.cpp
-  random.cpp
-  logical_xor.cpp
-  ifloor.cpp
-  fast_hypot.cpp
-  iround.cpp
+  abs.cpp
+  abss.cpp
+  adds.cpp
   arg.cpp
-  fast_rsqrt.cpp
+  average.cpp
+  ceil.cpp
+  conj.cpp
+  correct_fma.cpp
+  dec.cpp
+  dist.cpp
+  divceil.cpp
+  divfix.cpp
+  divfloor.cpp
+  divround.cpp
+  divs.cpp
+  fast_hypot.cpp
+  fast_rec.cpp
+  floor.cpp
+  fma.cpp
+  hypot.cpp
+  iceil.cpp
+  idivceil.cpp
+  idivfix.cpp
+  idivfloor.cpp
+  idivround.cpp
+  idivround2even.cpp
+  ifloor.cpp
+  iround.cpp
+  iround2even.cpp
+  logical_xor.cpp
+  max.cpp
+  min.cpp
+  minmod.cpp
+  minusone.cpp
+  mod.cpp
+  muls.cpp
+  negs.cpp
+  oneminus.cpp
+  oneplus.cpp
+  random.cpp
+  rec.cpp
   remainder.cpp
   rem.cpp
-  mod.cpp
   remquo.cpp
-  minmod.cpp
-  iceil.cpp
-  trunc.cpp
-  ceil.cpp
   round.cpp
-  floor.cpp
-  two_split.cpp
-  two_prod.cpp
-  two_add.cpp
   rsqrt.cpp
-  sqrt.cpp
   sqr.cpp
-  fast_rec.cpp
-  rec.cpp
-  oneplus.cpp
-  oneminus.cpp
-  minusone.cpp
-  min.cpp
-  max.cpp
-  idivround.cpp
-  idivfloor.cpp
-  idivfix.cpp
-  idivceil.cpp
-  hypot.cpp
-  fma.cpp
-  dist.cpp
-  correct_fma.cpp
-  average.cpp
-  abs.cpp
+  sqr_abs.cpp
+  sqrt.cpp
+  subs.cpp
+  tofloat.cpp
   toint.cpp
   toints.cpp
-  tofloat.cpp
-  muls.cpp
-  divs.cpp
-  adds.cpp
-  subs.cpp
-  abss.cpp
+  trunc.cpp
+  two_add.cpp
+  two_prod.cpp
+  two_split.cpp
 # List of scalar test files for toolbox arithmetic
    )
 
