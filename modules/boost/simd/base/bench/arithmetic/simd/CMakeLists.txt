@@ -26,6 +26,7 @@ SET( SOURCES
   fast_hypot.cpp
   fast_iround2even.cpp
   fast_rec.cpp
+  fast_rsqrt.cpp
   floor.cpp
   fma.cpp
   hypot.cpp

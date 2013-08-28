@@ -28,6 +28,7 @@ SET( SOURCES
   fast_iround2even.cpp
   fast_rec.cpp
   floor.cpp
+  fast_rsqrt.cpp
   fma.cpp
   hypot.cpp
   iceil.cpp

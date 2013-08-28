@@ -28,7 +28,6 @@ namespace boost { namespace simd { namespace tag
     };
   }
   /*!
-
     Computes the saturated square of the absolute value of its parameter.
 
     @par semantic:
