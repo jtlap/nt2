@@ -11,9 +11,9 @@
 
 #include <nt2/trigonometric/functions/sincpi.hpp>
 #include <nt2/include/functions/scalar/sinpi.hpp>
+#include <nt2/include/constants/invpi.hpp>
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/invpi.hpp>
 #include <boost/simd/sdk/config.hpp>
 
 #if !defined(BOOST_SIMD_NO_DENORMALS)
@@ -48,24 +48,19 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      // When dealing with platform with no denormal, we need to force the
-      // operation order to guarantee that sinpi(x)/x is equal to pi
-      #if defined(BOOST_SIMD_NO_DENORMALS)
-      #define M0(x) nt2::Invpi<result_type>()*(nt2::sinpi((x))/(x))
-      #else
-      #define M0(x) (nt2::Invpi<result_type>()*nt2::sinpi((x)))/(x)
-      #endif
-
       #if !defined(BOOST_SIMD_NO_INFINITIES)
       if(nt2::is_inf(a0)) return nt2::Zero<result_type>();
       #endif
 
-      return a0 ? M0(a0) : nt2::One<result_type>();
-
-      #undef M0
+      #if !defined(BOOST_SIMD_NO_DENORMALS)
+      return (nt2::abs(a0) < nt2::Eps<result_type>()) ? nt2::One<result_type>()
+                                                      : nt2::Invpi<result_type>()*nt2::sinpi(a0)/a0;
+      #else
+      return a0 ? nt2::Invpi<result_type>()*nt2::sinpi(a0)/a0
+                : nt2::One<result_type>();
+      #endif
     }
   };
 } }
-
 
 #endif

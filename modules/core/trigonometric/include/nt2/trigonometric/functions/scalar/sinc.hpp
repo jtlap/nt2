@@ -18,6 +18,11 @@
 #include <nt2/include/constants/zero.hpp>
 #endif
 
+#if !defined(BOOST_SIMD_NO_DENORMALS)
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/constants/eps.hpp>
+#endif
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinc_, tag::cpu_
@@ -44,10 +49,15 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       #if !defined(BOOST_SIMD_NO_INFINITIES)
-      if(nt2::is_inf(a0)) return nt2::Zero<A0>();
+      if(nt2::is_inf(a0)) return nt2::Zero<result_type>();
       #endif
 
-      return a0 ? nt2::sin(a0)/a0 : nt2::One<A0>();
+      #if !defined(BOOST_SIMD_NO_DENORMALS)
+      return (nt2::abs(a0) < nt2::Eps<result_type>()) ? nt2::One<result_type>()
+                                                      : nt2::sin(a0)/a0;
+      #else
+      return a0 ? nt2::sin(a0)/a0 : nt2::One<result_type>();
+      #endif
     }
   };
 } }
