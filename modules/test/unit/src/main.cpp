@@ -19,13 +19,29 @@
 #include <nt2/sdk/error/exception.hpp>
 #include <boost/throw_exception.hpp>
 
+void float_control_debug();
+
 namespace nt2 { namespace details
 {
   NT2_TEST_UNIT_DECL
   int unit_main(int argc, char* argv[], test_suite const& current_suite)
   {
+    bool no_catch = false;
+    bool float_debug = false;
+
+    for(int i=1; i<argc; ++i)
+    {
+      if(!strcmp(argv[i], "--no-catch"))
+        no_catch = true;
+      else if(!strcmp(argv[i], "--float-debug"))
+        float_debug = true;
+    }
+
+    if(float_debug)
+      float_control_debug();
+
     #ifndef BOOST_NO_EXCEPTIONS
-    if(argc > 1 && !strcmp(argv[1], "--no-catch"))
+    if(no_catch)
     {
       current_suite.process();
       return nt2::unit::error_count() ? -1: 0;

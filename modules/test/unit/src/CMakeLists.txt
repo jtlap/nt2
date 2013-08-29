@@ -17,6 +17,7 @@ set(SOURCES
     suite.cpp
     ulp.cpp
     prng.cpp
+    float_debug.cpp
    )
 
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
