@@ -12,24 +12,9 @@
 #include <nt2/trigonometric/functions/scalar/impl/trigo.hpp>
 #include <nt2/trigonometric/functions/simd/common/impl/trigo.hpp>
 #include <boost/simd/sdk/simd/meta/is_native.hpp>
-#include <nt2/include/functions/tofloat.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cotd_, tag::cpu_
-                            , (A0)
-                            , (generic_< arithmetic_<A0> >)
-                            )
-  {
-
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::cotd(tofloat(a0));
-    }
-  };
-
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cotd_, tag::cpu_
                             , (A0)
                             , (generic_< floating_<A0> >)

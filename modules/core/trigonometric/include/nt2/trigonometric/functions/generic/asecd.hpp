@@ -11,19 +11,18 @@
 #include <nt2/trigonometric/functions/asecd.hpp>
 #include <nt2/include/functions/indeg.hpp>
 #include <nt2/include/functions/asec.hpp>
-#include <nt2/include/functions/tofloat.hpp>
 
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asecd_, tag::cpu_
                             , (A0)
-                            , (generic_< arithmetic_<A0> >)
+                            , (generic_< floating_<A0> >)
                             )
   {
     typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::indeg(nt2::asec(nt2::tofloat(a0)));
+      return nt2::indeg(nt2::asec(a0));
     }
   };
 } }
