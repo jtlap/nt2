@@ -1,4 +1,4 @@
-//==============================================================================
+  //==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
@@ -6,27 +6,28 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_RSQRT_HPP_INCLUDED
-#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_RSQRT_HPP_INCLUDED
+#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_FAST_RSQRT_HPP_INCLUDED
+#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_FAST_RSQRT_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/rsqrt.hpp>
-#include <boost/simd/include/functions/simd/rec.hpp>
-#include <boost/simd/include/functions/simd/sqrt.hpp>
+#include <boost/simd/include/functions/rsqrt.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::rsqrt_, tag::cpu_
-                                    , (A0)
-                                    , (generic_< floating_<A0> >)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::fast_rsqrt_
+                                    , boost::simd::tag::simd_
+                                    , (A0)(X)
+                                    , ((simd_< double_<A0>, X>))
                                     )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return simd::rec(simd::sqrt(a0));
+      return rsqrt(a0);
     }
   };
 } } }
 
 #endif
+

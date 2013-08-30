@@ -20,6 +20,7 @@ SET( SOURCES
   fast_hypot.cpp
   iround.cpp
   arg.cpp
+  fast_rsqrt.cpp
   remainder.cpp
   rem.cpp
   mod.cpp

@@ -6,27 +6,28 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_RSQRT_HPP_INCLUDED
-#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_RSQRT_HPP_INCLUDED
+#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_FAST_RSQRT_HPP_INCLUDED
+#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_FAST_RSQRT_HPP_INCLUDED
 
-#include <boost/simd/arithmetic/functions/rsqrt.hpp>
-#include <boost/simd/include/functions/simd/rec.hpp>
-#include <boost/simd/include/functions/simd/sqrt.hpp>
+#include <boost/simd/arithmetic/functions/fast_rsqrt.hpp>
+#include <boost/simd/include/functions/rsqrt.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::rsqrt_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::fast_rsqrt_
+                                    , tag::cpu_
                                     , (A0)
-                                    , (generic_< floating_<A0> >)
+                                    , (scalar_< floating_<A0> >)
                                     )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_FORCEINLINE result_type operator()(A0 a0) const
     {
-      return simd::rec(simd::sqrt(a0));
+      return simd::rsqrt(a0);
     }
   };
+
 } } }
 
 #endif

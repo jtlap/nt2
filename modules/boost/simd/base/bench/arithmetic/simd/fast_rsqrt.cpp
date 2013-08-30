@@ -6,24 +6,29 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/arithmetic/include/functions/rsqrt.hpp>
+#include <boost/simd/arithmetic/include/functions/fast_rsqrt.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
-#include <cmath>
 
-using nt2::tag::rsqrt_;
-#define RS(T,V1,V2) (T, T(V1) ,T(V2))
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+
+
+using boost::simd::tag::fast_rsqrt_;
+
+#define RS(T,V1,V2) (T, (V1) ,(V2))
 
 namespace n1
 {
   typedef float T;
-  NT2_TIMING(rsqrt_,(RS(T,T(-100),T(100))))
+  typedef boost::simd::native<T,ext_t> vT;
+  NT2_TIMING(fast_rsqrt_,(RS(vT,T(-100),T(100))))
 }
-
 namespace n2
 {
   typedef double T;
-  NT2_TIMING(rsqrt_,(RS(T,T(-100),T(100))))
+  typedef boost::simd::native<T,ext_t> vT;
+  NT2_TIMING(fast_rsqrt_,(RS(vT,T(-100),T(100))))
 }
 
 #undef RS

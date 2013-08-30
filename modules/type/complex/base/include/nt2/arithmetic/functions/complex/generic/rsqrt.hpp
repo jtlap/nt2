@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return rec(sqrt(a0)); //TO DO better
+      return rec(sqrt(a0));
     }
   };
 
@@ -41,11 +41,14 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename meta::as_real<A0>::type rA0;
-    typedef typename meta::as_complex<rA0>::type result_type;
+    typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
       const rA0 root = rsqrt(nt2::abs(a0));
-      return if_else(is_nltz(nt2::real(a0)), result_type(root), result_type(Zero<rA0>(), -root));
+      return if_else( is_nltz( nt2::real(a0))
+                    , result_type(root)
+                    , result_type(Zero<rA0>(), -root)
+                    );
     }
   };
 

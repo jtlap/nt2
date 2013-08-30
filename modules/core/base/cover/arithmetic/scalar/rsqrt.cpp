@@ -6,35 +6,30 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-//////////////////////////////////////////////////////////////////////////////
-// cover test behavior of arithmetic components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
 #include <nt2/arithmetic/include/functions/rsqrt.hpp>
-#include <vector>
-#include <nt2/include/constants/valmin.hpp>
+#include <nt2/include/functions/scalar/sqrt.hpp>
 #include <nt2/include/constants/valmax.hpp>
-#include <nt2/include/functions/sqrt.hpp>
+#include <nt2/include/constants/zero.hpp>
 
 #include <nt2/sdk/unit/tests/cover.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
+#include <vector>
 
-NT2_TEST_CASE_TPL ( rsqrt_real__1_0,  NT2_TYPES)
+NT2_TEST_CASE_TPL ( rsqrt_all_types,  NT2_SIMD_REAL_TYPES)
 {
-
   using nt2::rsqrt;
   using nt2::tag::rsqrt_;
+
   typedef typename nt2::meta::call<rsqrt_(T)>::type r_t;
 
-  nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  // random verifications
+  nt2::uint32_t NR  = NT2_NB_RANDOM_TEST;
   std::vector<T> in1(NR);
-  nt2::roll(in1, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+  nt2::roll(in1, nt2::Zero<T>(), nt2::Valmax<T>());
+
   std::vector<r_t>  ref(NR);
   for(nt2::uint32_t i=0; i < NR ; ++i)
-  {
-    ref[i] = 1.0/nt2::sqrt(in1[i]);
-  }
+    ref[i] = 1./sqrt(in1[i]);
 
-  NT2_COVER_ULP_EQUAL(rsqrt_, ((T, in1)), ref, 0);
+  NT2_COVER_ULP_EQUAL(rsqrt_, ((T, in1)), ref, 1);
 }

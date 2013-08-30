@@ -23,6 +23,7 @@ SET( SOURCES
   logical_xor.cpp
   ifloor.cpp
   fast_hypot.cpp
+  fast_rsqrt.cpp
   iround.cpp
   arg.cpp
   remainder.cpp

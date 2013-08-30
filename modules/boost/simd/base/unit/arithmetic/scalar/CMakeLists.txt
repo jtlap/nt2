@@ -27,6 +27,7 @@ SET( SOURCES
   meanof.cpp
   ifloor.cpp
   fast_hypot.cpp
+  fast_rsqrt.cpp
   iround.cpp
   iround2even.cpp
   arg.cpp
