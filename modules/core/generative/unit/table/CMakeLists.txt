@@ -72,7 +72,7 @@ mten.cpp
 mthree.cpp
 mtwo.cpp
 mzero.cpp
-nans.cpp
+nan.cpp
 nbdigits.cpp
 nbexponentbits.cpp
 nbmantissabits.cpp
