@@ -15,20 +15,20 @@ namespace nt2 { namespace tag
 {
   struct sharing_
   {
-    template<class T, class Dummy = void>
+    template<class T>
     struct apply : boost::mpl::false_
     {};
 
     typedef nt2::owned_ default_type;
   };
 
-  template<class Dummy>
-  struct sharing_::apply<nt2::shared_, Dummy>
+  template<>
+  struct sharing_::apply<nt2::shared_>
                   : boost::mpl::true_
   {};
 
-  template<class Dummy>
-  struct sharing_::apply<nt2::owned_, Dummy>
+  template<>
+  struct sharing_::apply<nt2::owned_>
                   : boost::mpl::true_
   {};
 } }

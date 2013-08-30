@@ -43,7 +43,7 @@ namespace nt2 { namespace tag
     };
 
     /// INTERNAL ONLY Table default option
-    template<typename Option, typename Dummy=void>
+    template<typename Option>
     struct default_
     {
       typedef typename Option::default_type type;
@@ -58,15 +58,15 @@ namespace nt2 { namespace tag
   };
 
   /// INTERNAL ONLY Table default option for size
-  template<typename Dummy>
-  struct table_::default_<nt2::tag::of_size_, Dummy>
+  template<>
+  struct table_::default_<nt2::tag::of_size_>
   {
     typedef _4D type;
   };
 
   /// INTERNAL ONLY Table default option for allocator
-  template<typename Dummy>
-  struct table_::default_<nt2::tag::allocator_, Dummy>
+  template<>
+  struct table_::default_<nt2::tag::allocator_>
   {
     typedef boost::simd::allocator<void> type;
   };

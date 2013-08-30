@@ -15,20 +15,20 @@ namespace nt2 { namespace tag
 {
   struct storage_order_
   {
-    template<class T, class Dummy = void>
+    template<class T>
     struct apply : boost::mpl::false_
     {};
 
     typedef nt2::column_major_ default_type;
   };
 
-  template<class Dummy>
-  struct storage_order_::apply<nt2::row_major_, Dummy>
+  template<>
+  struct storage_order_::apply<nt2::row_major_>
                       : boost::mpl::true_
   {};
 
-  template<class Dummy>
-  struct storage_order_::apply<nt2::column_major_, Dummy>
+  template<>
+  struct storage_order_::apply<nt2::column_major_>
                       : boost::mpl::true_
   {};
 } }

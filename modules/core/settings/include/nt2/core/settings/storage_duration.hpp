@@ -15,20 +15,20 @@ namespace nt2 { namespace tag
 {
   struct storage_duration_
   {
-    template<class T, class Dummy = void>
+    template<class T>
     struct apply : boost::mpl::false_
     {};
 
     typedef nt2::dynamic_ default_type;
   };
 
-  template<class Dummy>
-  struct storage_duration_::apply<nt2::dynamic_, Dummy>
+  template<>
+  struct storage_duration_::apply<nt2::dynamic_>
                           : boost::mpl::true_
   {};
 
-  template<class Dummy>
-  struct storage_duration_::apply<nt2::automatic_, Dummy>
+  template<>
+  struct storage_duration_::apply<nt2::automatic_>
                           : boost::mpl::true_
   {};
 } }

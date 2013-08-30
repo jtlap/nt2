@@ -15,20 +15,20 @@ namespace nt2 { namespace tag
 {
   struct storage_scheme_
   {
-    template<class T, class Dummy = void>
+    template<class T>
     struct apply : boost::mpl::false_
     {};
 
     typedef nt2::conventional_ default_type;
   };
 
-  template<class Dummy>
-  struct storage_scheme_::apply<nt2::conventional_, Dummy>
+  template<>
+  struct storage_scheme_::apply<nt2::conventional_>
                         : boost::mpl::true_
   {};
 
-  template<class Dummy>
-  struct storage_scheme_::apply<nt2::packed_, Dummy>
+  template<>
+  struct storage_scheme_::apply<nt2::packed_>
                         : boost::mpl::true_
   {};
 } }

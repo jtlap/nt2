@@ -16,35 +16,35 @@ namespace nt2 { namespace tag
 {
   struct shape_
   {
-    template<class T, class Dummy = void>
+    template<class T>
     struct apply : boost::mpl::false_
     {};
 
     typedef nt2::rectangular_ default_type;
   };
 
-  template<class Dummy>
-  struct shape_::apply<nt2::rectangular_, Dummy>
+  template<>
+  struct shape_::apply<nt2::rectangular_>
                 : boost::mpl::true_
   {};
 
-  template<class Dummy>
-  struct shape_::apply<nt2::upper_triangular_, Dummy>
+  template<>
+  struct shape_::apply<nt2::upper_triangular_>
                 : boost::mpl::true_
   {};
 
-  template<class Dummy>
-  struct shape_::apply<nt2::lower_triangular_, Dummy>
+  template<>
+  struct shape_::apply<nt2::lower_triangular_>
                 : boost::mpl::true_
   {};
 
-  template<class Dummy>
-  struct shape_::apply<nt2::band_diagonal_, Dummy>
+  template<>
+  struct shape_::apply<nt2::band_diagonal_>
                 : boost::mpl::true_
   {};
 
-  template<class Dummy>
-  struct shape_::apply<nt2::diagonal_, Dummy>
+  template<>
+  struct shape_::apply<nt2::diagonal_>
                 : boost::mpl::true_
   {};
 } }

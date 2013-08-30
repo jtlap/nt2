@@ -24,71 +24,68 @@ struct some_kind_
     typedef Settings type;
   };
 
-  template<typename Option, typename Dummy=void> struct default_;
+  template<typename Option> struct default_
+  {
+    typedef typename Option::default_type type;
+  };
 };
 
-template<typename Dummy>
-struct some_kind_::default_<nt2::tag::of_size_, Dummy>
-{
-  typedef nt2::_4D type;
-};
-
-template<typename Dummy>
-struct some_kind_::default_<nt2::tag::index_, Dummy>
+template<>
+struct some_kind_::default_<nt2::tag::index_>
 {
   typedef nt2::matlab_index_ type;
 };
 
-template<typename Dummy>
-struct some_kind_::default_<nt2::tag::allocator_, Dummy>
+template<>
+struct some_kind_::default_<nt2::tag::allocator_>
 {
   typedef std::allocator<void*> type;
 };
 
-template<typename Dummy>
-struct some_kind_::default_<nt2::tag::interleaving_, Dummy>
+template<>
+struct some_kind_::default_<nt2::tag::interleaving_>
 {
   typedef nt2::interleaved_ type;
 };
 
-template<typename Dummy>
-struct some_kind_::default_<nt2::tag::alignment_, Dummy>
+template<>
+struct some_kind_::default_<nt2::tag::alignment_>
 {
   typedef nt2::aligned_ type;
 };
 
-template<typename Dummy>
-struct some_kind_::default_<nt2::tag::storage_order_, Dummy>
+template<>
+struct some_kind_::default_<nt2::tag::storage_order_>
 {
   typedef nt2::column_major_ type;
 };
 
-template<typename Dummy>
-struct some_kind_::default_<nt2::tag::shape_, Dummy>
+template<>
+struct some_kind_::default_<nt2::tag::shape_>
 {
   typedef nt2::rectangular_ type;
 };
 
-template<typename Dummy>
-struct some_kind_::default_<nt2::tag::storage_scheme_, Dummy>
+template<>
+struct some_kind_::default_<nt2::tag::storage_scheme_>
 {
   typedef nt2::conventional_ type;
 };
 
-template<typename Dummy>
-struct some_kind_::default_<nt2::tag::storage_duration_, Dummy>
+template<>
+struct some_kind_::default_<nt2::tag::storage_duration_>
 {
   typedef nt2::dynamic_ type;
 };
 
-template<typename Dummy>
-struct some_kind_::default_<nt2::tag::buffer_, Dummy>
+template<>
+struct some_kind_::default_<nt2::tag::buffer_>
 {
   typedef nt2::built_in_ type;
 };
 
-template<typename Dummy>
-struct some_kind_::default_<nt2::tag::sharing_, Dummy>
+template<>
+struct some_kind_::default_<nt2::tag::sharing_>
 {
   typedef nt2::owned_ type;
 };

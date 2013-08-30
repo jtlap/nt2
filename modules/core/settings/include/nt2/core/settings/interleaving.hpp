@@ -15,20 +15,20 @@ namespace nt2 { namespace tag
 {
   struct interleaving_
   {
-    template<class T, class Dummy = void>
+    template<class T>
     struct apply : boost::mpl::false_
     {};
 
     typedef nt2::interleaved_ default_type;
   };
 
-  template<class Dummy>
-  struct interleaving_::apply<nt2::interleaved_, Dummy>
+  template<>
+  struct interleaving_::apply<nt2::interleaved_>
                       : boost::mpl::true_
   {};
 
-  template<class Dummy>
-  struct interleaving_::apply<nt2::deinterleaved_, Dummy>
+  template<>
+  struct interleaving_::apply<nt2::deinterleaved_>
                       : boost::mpl::true_
   {};
 } }

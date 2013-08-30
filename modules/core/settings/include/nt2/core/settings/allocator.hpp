@@ -22,7 +22,7 @@ namespace nt2 { namespace tag
   /// @brief Option tag for allocator options
   struct allocator_
   {
-    template<class T, class Dummy = void>
+    template<class T>
     struct  apply
           : details::has_rebind<T>
     {};

@@ -24,15 +24,15 @@ struct some_kind_
     typedef Settings type;
   };
 
-  template<typename Option, typename Dummy=void>
+  template<typename Option>
   struct default_
   {
     typedef typename Option::default_type type;
   };
 };
 
-template<typename Dummy>
-struct some_kind_::default_<nt2::tag::allocator_, Dummy>
+template<>
+struct some_kind_::default_<nt2::tag::allocator_>
 {
   typedef std::allocator<void*> type;
 };

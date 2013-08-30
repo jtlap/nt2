@@ -15,21 +15,19 @@ namespace nt2 { namespace tag
 {
   struct alignment_
   {
-    template<class T, class Dummy = void>
+    template<class T>
     struct apply : boost::mpl::false_
     {};
 
     typedef nt2::aligned_ default_type;
   };
 
-  template<class Dummy>
-  struct alignment_::apply<nt2::aligned_, Dummy>
-                      : boost::mpl::true_
+  template<>
+  struct alignment_::apply<nt2::aligned_> : boost::mpl::true_
   {};
 
-  template<class Dummy>
-  struct alignment_::apply<nt2::unaligned_, Dummy>
-                      : boost::mpl::true_
+  template<>
+  struct alignment_::apply<nt2::unaligned_> : boost::mpl::true_
   {};
 } }
 

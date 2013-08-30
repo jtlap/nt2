@@ -22,20 +22,17 @@ namespace nt2 { namespace tag
   //==========================================================================
   struct index_
   {
-    template<class T, class Dummy = void>
+    template<class T>
     struct apply : boost::mpl::false_
     {};
 
     typedef nt2::matlab_index_ default_type;
   };
 
-  template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t I)
-          , class Dummy
-          >
-  struct index_::apply< nt2::index_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,I)>
-                      , Dummy
-                      >
-                  : boost::mpl::true_
+  template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t I) >
+  struct  index_
+        ::apply< nt2::index_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,I)> >
+        : boost::mpl::true_
   {};
 } }
 

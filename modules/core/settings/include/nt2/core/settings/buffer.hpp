@@ -22,7 +22,7 @@ namespace nt2 { namespace tag
   /// @brief Option tag for allocator options
   struct buffer_
   {
-    template<class T, class Dummy = void>
+    template<class T>
     struct  apply
           : details::is_buffer<T>
     {};
@@ -30,8 +30,8 @@ namespace nt2 { namespace tag
     typedef nt2::built_in_ default_type;
   };
 
-  template<class Dummy>
-  struct  buffer_::apply< nt2::built_in_, Dummy >
+  template<>
+  struct  buffer_::apply< nt2::built_in_>
         : boost::mpl::true_
   {};
 } }

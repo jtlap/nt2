@@ -24,20 +24,17 @@ namespace nt2 { namespace tag
   //==========================================================================
   struct of_size_
   {
-    template<class T, class Dummy = void>
+    template<class T>
     struct apply : boost::mpl::false_
     {};
 
     typedef nt2::of_size_<-1,-1,-1,-1> default_type;
   };
 
-  template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D)
-          , class Dummy
-          >
-  struct of_size_::apply< nt2::of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,D)>
-                        , Dummy
-                        >
-                  : boost::mpl::true_
+  template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D)>
+  struct  of_size_
+        ::apply< nt2::of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,D)> >
+          : boost::mpl::true_
   {};
 } }
 
