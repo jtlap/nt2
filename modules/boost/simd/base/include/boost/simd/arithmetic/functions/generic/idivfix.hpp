@@ -10,6 +10,8 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_IDIVFIX_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/idivfix.hpp>
+#include <boost/simd/include/functions/simd/divides.hpp>
+#include <boost/simd/include/functions/simd/divfix.hpp>
 #include <boost/simd/include/functions/simd/toints.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 

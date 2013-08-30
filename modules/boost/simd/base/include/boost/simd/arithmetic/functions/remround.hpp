@@ -6,52 +6,44 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_REMAINDER_HPP_INCLUDED
-#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_REMAINDER_HPP_INCLUDED
+#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_REMROUND_HPP_INCLUDED
+#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_REMROUND_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
 namespace boost { namespace simd { namespace tag
   {
    /*!
-      @brief  remainder generic tag
+      @brief  rem generic tag
 
-      Represents the remainder function in generic contexts.
+      Represents the remround function in generic contexts.
 
       @par Models:
       Hierarchy
     **/
-    struct remainder_ : ext::elementwise_<remainder_>
+    struct remround_ : ext::elementwise_<remround_>
     {
       /// @brief Parent hierarchy
-      typedef ext::elementwise_<remainder_> parent;
+      typedef ext::elementwise_<remround_> parent;
     };
   }
   /*!
     Computes the remainder of division.
     The return value is a0-n*a1, where n is the value a0/a1,
-    rounded to the nearest integer (using round2even).
+    rounded toward infinity.
 
     @par semantic:
     For any given value @c x, @c y of type @c T:
 
     @code
-    T r = remainder(x, y);
+    T r = remround(x, y);
     @endcode
 
     For floating point values the code is equivalent to:
 
     @code
-    T r = x-divround2even(x, y)*y;
+    T r = x-divround(x, y)*y;
     @endcode
-
-    @par Note:
-
-    As r can be negative @c remainder is not defined for unsigned types.
-
-    @par Alias
-
-    @c drem
 
     @param  a0
     @param  a1
@@ -59,9 +51,7 @@ namespace boost { namespace simd { namespace tag
     @return      a value of the same type as the input.
 
   **/
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::remainder_, remainder, 2)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::remainder_, drem, 2)
-    BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::remainder_, remround2even, 2)
+    BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::remround_, remround, 2)
 } }
 
 #endif

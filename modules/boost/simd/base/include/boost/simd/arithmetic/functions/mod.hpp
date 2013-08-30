@@ -52,6 +52,7 @@ namespace boost { namespace simd { namespace tag
 
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mod_, mod, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mod_, remfloor, 2)
 } }
 
 #endif

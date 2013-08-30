@@ -56,6 +56,7 @@ SET( SOURCES
   remainder.cpp
   rem.cpp
   remquo.cpp
+  remround.cpp
   round2even.cpp
   round.cpp
   rsqrt.cpp

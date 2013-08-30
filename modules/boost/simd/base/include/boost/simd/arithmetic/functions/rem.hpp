@@ -47,7 +47,7 @@ namespace boost { namespace simd { namespace tag
 
     @par Alias
 
-    @c fmod
+    @c fmod,  @c remfix
 
     @param  a0
     @param  a1
@@ -57,6 +57,7 @@ namespace boost { namespace simd { namespace tag
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::rem_, rem, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::rem_, fmod, 2)
+    BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::rem_, remfix, 2)
 } }
 
 #endif
