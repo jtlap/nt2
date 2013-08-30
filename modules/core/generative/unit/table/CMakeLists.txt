@@ -46,7 +46,7 @@ homot.cpp
 hundred.cpp
 ind2sub.cpp
 indices.cpp
-infs.cpp
+inf.cpp
 ldexpmask.cpp
 linspace.cpp
 log10_pi.cpp
