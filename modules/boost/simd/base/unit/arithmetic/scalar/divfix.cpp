@@ -89,4 +89,5 @@ NT2_TEST_CASE_TPL ( divfix_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_EQUAL(divfix(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(divfix(boost::simd::Mone<T>(), boost::simd::Zero<T>()), boost::simd::Valmin<r_t>());
   NT2_TEST_EQUAL(divfix(boost::simd::One<T>(), boost::simd::Zero<T>()), boost::simd::Valmax<r_t>());
+  NT2_TEST_EQUAL(divfix(boost::simd::Valmax<T>(),boost::simd::One<T>()), boost::simd::Valmax<T>());
 } // end of test for signed_int_

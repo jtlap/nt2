@@ -10,7 +10,6 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_IDIVFIX_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/idivfix.hpp>
-#include <boost/simd/include/functions/simd/divs.hpp>
 #include <boost/simd/include/functions/simd/toints.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
@@ -24,7 +23,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return divs(a0, a1);
+      return divfix(a0, a1);
     }
   };
 
@@ -42,7 +41,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename boost::dispatch::meta::as_integer <A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return boost::simd::toints(a0/a1);
+      return itrunc(a0/a1);
     }
   };
 } } }

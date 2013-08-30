@@ -11,22 +11,52 @@
 
 #include <boost/simd/arithmetic/functions/divfix.hpp>
 #include <boost/simd/include/functions/scalar/trunc.hpp>
-#include <boost/simd/include/functions/scalar/divs.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divfix_, tag::cpu_
                                    , (A0)
-                                   , (scalar_< arithmetic_<A0> >)
-                                     (scalar_< arithmetic_<A0> >)
+                                   , (scalar_< signed_<A0> >)
+                                     (scalar_< signed_<A0> >)
                                    )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return divs(a0, a1);
+      if (!a0) return  Zero<result_type>();
+      if(a1)
+      {
+        return a0/a1;
+      }
+      else
+        return ((a0>0) ? Valmax<result_type>() : Valmin<result_type>());
+
     }
   };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divfix_, tag::cpu_
+                                   , (A0)
+                                   , (scalar_< unsigned_<A0> >)
+                                     (scalar_< unsigned_<A0> >)
+                                   )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      if (!a0) return  Zero<result_type>();
+      if(a1)
+      {
+        return a0/a1;
+      }
+      else
+        return Valmax<result_type>();
+
+    }
+  };
+
 
 #ifdef BOOST_MSVC
   #pragma warning(push)

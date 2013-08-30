@@ -27,6 +27,9 @@
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
 
+// perhaps divs for signed integral types must invoke correct Valmin entry and invoke  divfix
+// also call simply divfix for unsigned
+// also rdivide has to be defined as divs for float and as divfix for integers
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divs_, tag::cpu_, (A0)(X)
@@ -74,7 +77,6 @@ namespace boost { namespace simd { namespace ext
 
       // replace valmin/-1 by (valmin+1)/-1
       A0 x = a0 + if_zero_else_one((a1 + One<A0>()) | (a0 + Valmin<A0>()));
-
       // negative -> valmin
       // positive -> valmax
       const A0 x2 = bitwise_xor(Valmax<A0>(), shrai(x, sizeof(A0)*CHAR_BIT));
