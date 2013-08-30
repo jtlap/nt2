@@ -8,4 +8,4 @@
 ##############################################################################
 
 ADD_SUBDIRECTORY(scalar)
-#ADD_SUBDIRECTORY(simd)
+ADD_SUBDIRECTORY(simd)
