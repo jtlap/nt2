@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_FREQSPACE1_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_FREQSPACE1_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Define and implements the  function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/core/container/dsl/generative.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>

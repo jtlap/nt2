@@ -45,23 +45,30 @@ namespace nt2
       @code
       auto x = inf(n);
       @endcode
-      generates an expression that evaluates as a @c n x @c n table of @c double
-      inf.
+      generates an expression that evaluates as a @size2d{n,n} table of @c double
+      positive infinite.
 
-    - For any Integer @c sz1,...,szN , the following code:
+    - For any Integer @c sz1,...,szn , the following code:
       @code
       auto x = inf(sz1,...,szn);
       @endcode
-      generates an expression that evaluates as a @c sz1 x ... x @c szN
-      table of @c double positive infinites.
+      generates an expression that evaluates as a @sizes{sz1,szn}
+      table of @c double positive infinite.
 
     - For any Expression @c dims evaluating as a row vector of @c N elements,
       the following code:
       @code
       auto x = inf(dims);
       @endcode
-      generates an expression that evaluates as a @c dims(1) x ... x @c dims(N)
-      table of @c double positive infinites.
+      generates an expression that evaluates as a @sizes{dims(1),dims(N)}
+      table of @c double positive infinite.
+
+    - For any Fusion Sequence @c dims of @c N elements, the following code:
+      @code
+      auto x = inf(dims);
+      @endcode
+      generates an expression that evaluates as a @sizes{at_c<0>(dims),at_c<N-1>(dims)}
+      table of type @c double positive infinite.
 
     - For any type @c T, the following code:
       @code
@@ -76,28 +83,36 @@ namespace nt2
       @code
       auto x = inf(n, as_<T>());
       @endcode
-      generates an expression that evaluates as a @c n x @c n table of type @c T
-      positive infinites.
+      generates an expression that evaluates as a @size2d{n,n} table of type @c T
+      positive infinite.
 
     - For any Integer @c sz1,...,szN and any type @c T, the following code:
       @code
       auto x = inf(sz1,...,szn, as_<T>());
       @endcode
-      generates an expression that evaluates as a @c sz1 x ... x @c szN
-      table of type @c T positive infinites.
+      generates an expression that evaluates as a @sizes{sz1,szn}
+      table of type @c T positive infinite.
 
     - For any Expression @c dims evaluating as a row vector of @c N elements
       and any type @c T, the following code:
       @code
       auto x = inf(dims, as_<T>());
       @endcode
-      generates an expression that evaluates as a @c dims(1) x ... x @c dims(N)
-      table of type @c T positive infinites.
+      generates an expression that evaluates as a @sizes{dims(1),dims(N)}
+      table of type @c T positive infinite.
+
+    - For any Fusion Sequence @c dims of @c N elements and any type @c T, the
+      following code:
+      @code
+      auto x = inf(dims, as_<T>());
+      @endcode
+      generates an expression that evaluates as a @sizes{at_c<0>(dims),at_c<N-1>(dims)}
+      table of type @c T positive infinite.
 
     @par Matlab equivalent:
 
     This function is equivalent to the Matlab function
-    <a href="http://www.mathworks.fr/fr/help/matlab/ref/inf.html">inf</a>.
+    <a href="http://www.mathworks.com/help/matlab/ref/inf.html">inf</a>.
     inf() doesn't however support the @c like based function. One can actually
     use the class_ function to generate a Type specifier or use such a
     predefined specifier.
@@ -113,19 +128,19 @@ namespace nt2
             full of positive infinites.
   **/
   template<typename... Args, typename ClassName>
-  Expression inf(Args const&... dims, ClassName const& classname);
+  details::unspecified inf(Args const&... dims, ClassName const& classname);
 
   /// @overload
-  template<typename... Args> Expression inf(Args const&... dims);
+  template<typename... Args> details::unspecified inf(Args const&... dims);
 
   /// @overload
   template<typename ClassName> ClassName::type inf(ClassName const& classname);
 
   /// @overload
   double inf();
-  #endif
 
-  /// INTERNAL ONLY
+  #else
+
   #define M0(z,n,t)                                                            \
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::Inf,inf, n)                            \
   /**/
@@ -133,6 +148,8 @@ namespace nt2
   BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_PP_INC(NT2_MAX_DIMENSIONS)),M0,~)
 
   #undef M0
+
+  #endif
 }
 
 namespace nt2 { namespace ext

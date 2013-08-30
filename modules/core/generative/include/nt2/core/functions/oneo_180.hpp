@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_ONEO_180_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_ONEO_180_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the oneo_180 function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/include/constants/oneo_180.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>

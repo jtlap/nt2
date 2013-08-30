@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_ZEROS_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_ZEROS_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Define and implements the zeros function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>
@@ -50,14 +45,14 @@ namespace nt2
       @code
       auto x = zeros(n);
       @endcode
-      generates an expression that evaluates as a @c n x @c n table of @c double
+      generates an expression that evaluates as a @size2d{n,n} table of @c double
       zeros.
 
-    - For any Integer @c sz1,...,szN , the following code:
+    - For any Integer @c sz1,...,szn , the following code:
       @code
       auto x = zeros(sz1,...,szn);
       @endcode
-      generates an expression that evaluates as a @c sz1 x ... x @c szN
+      generates an expression that evaluates as a @sizes{sz1,szn}
       table of @c double zeros.
 
     - For any Expression @c dims evaluating as a row vector of @c N elements,
@@ -65,8 +60,15 @@ namespace nt2
       @code
       auto x = zeros(dims);
       @endcode
-      generates an expression that evaluates as a @c dims(1) x ... x @c dims(N)
+      generates an expression that evaluates as a @sizes{dims(1),dims(N)}
       table of @c double zeros.
+
+    - For any Fusion Sequence @c dims of @c N elements, the following code:
+      @code
+      auto x = zeros(dims);
+      @endcode
+      generates an expression that evaluates as a @sizes{at_c<0>(dims),at_c<N-1>(dims)}
+      table of type @c double zeros.
 
     - For any type @c T, the following code:
       @code
@@ -74,21 +76,21 @@ namespace nt2
       @endcode
       is equivalent to
       @code
-      T x = T(0);
+      T x = T(1);
       @endcode
 
     - For any Integer @c n and any type @c T, the following code:
       @code
       auto x = zeros(n, as_<T>());
       @endcode
-      generates an expression that evaluates as a @c n x @c n table of type @c T
+      generates an expression that evaluates as a @size2d{n,n} table of type @c T
       zeros.
 
-    - For any Integer @c sz1,...,szn and any type @c T, the following code:
+    - For any Integer @c sz1,...,szN and any type @c T, the following code:
       @code
       auto x = zeros(sz1,...,szn, as_<T>());
       @endcode
-      generates an expression that evaluates as a @c sz1 x ... x @c szn
+      generates an expression that evaluates as a @sizes{sz1,szn}
       table of type @c T zeros.
 
     - For any Expression @c dims evaluating as a row vector of @c N elements
@@ -96,13 +98,21 @@ namespace nt2
       @code
       auto x = zeros(dims, as_<T>());
       @endcode
-      generates an expression that evaluates as a @c dims(1) x ... x @c dims(N)
+      generates an expression that evaluates as a @sizes{dims(1),dims(N)}
+      table of type @c T zeros.
+
+    - For any Fusion Sequence @c dims of @c N elements and any type @c T, the
+      following code:
+      @code
+      auto x = zeros(dims, as_<T>());
+      @endcode
+      generates an expression that evaluates as a @sizes{at_c<0>(dims),at_c<N-1>(dims)}
       table of type @c T zeros.
 
     @par Matlab equivalent:
 
     This function is equivalent to the Matlab function
-    <a href="http://www.mathworks.fr/fr/help/matlab/ref/zeros.html">zeros</a>.
+    <a href="http://www.mathworks.com/help/matlab/ref/zeros.html">zeros</a>.
     zeros() doesn't however support the @c like based function. One can actually
     use the class_ function to generate a Type specifier or use such a
     predefined specifier.
@@ -118,19 +128,18 @@ namespace nt2
             full of zeros
   **/
   template<typename... Args, typename ClassName>
-  Expression zeros(Args const&... dims, ClassName const& classname);
+  details::unspecified zeros(Args const&... dims, ClassName const& classname);
 
   /// @overload
-  template<typename... Args> Expression zeros(Args const&... dims);
+  template<typename... Args> details::unspecified zeros(Args const&... dims);
 
   /// @overload
   template<typename ClassName> ClassName::type zeros(ClassName const& classname);
 
   /// @overload
   double zeros();
-  #endif
+  #else
 
-  /// INTERNAL ONLY
   #define M0(z,n,t)                                                            \
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::Zero, zeros, n)                        \
   /**/
@@ -138,6 +147,7 @@ namespace nt2
   BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_PP_INC(NT2_MAX_DIMENSIONS)),M0,~)
 
   #undef M0
+  #endif
 }
 
 namespace nt2

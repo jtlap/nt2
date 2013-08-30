@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_REAL_SPLAT_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_REAL_SPLAT_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the real_splat function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/include/constants/real_splat.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>

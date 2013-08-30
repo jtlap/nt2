@@ -45,14 +45,14 @@ namespace nt2
       @code
       auto x = nan(n);
       @endcode
-      generates an expression that evaluates as a @c n x @c n table of @c double
+      generates an expression that evaluates as a @size2d{n,n} table of @c double
       NaN.
 
-    - For any Integer @c sz1,...,szN , the following code:
+    - For any Integer @c sz1,...,szn , the following code:
       @code
       auto x = nan(sz1,...,szn);
       @endcode
-      generates an expression that evaluates as a @c sz1 x ... x @c szN
+      generates an expression that evaluates as a @sizes{sz1,szn}
       table of @c double NaN.
 
     - For any Expression @c dims evaluating as a row vector of @c N elements,
@@ -60,8 +60,15 @@ namespace nt2
       @code
       auto x = nan(dims);
       @endcode
-      generates an expression that evaluates as a @c dims(1) x ... x @c dims(N)
+      generates an expression that evaluates as a @sizes{dims(1),dims(N)}
       table of @c double NaN.
+
+    - For any Fusion Sequence @c dims of @c N elements, the following code:
+      @code
+      auto x = nan(dims);
+      @endcode
+      generates an expression that evaluates as a @sizes{at_c<0>(dims),at_c<N-1>(dims)}
+      table of type @c double NaN.
 
     - For any type @c T, the following code:
       @code
@@ -76,14 +83,14 @@ namespace nt2
       @code
       auto x = nan(n, as_<T>());
       @endcode
-      generates an expression that evaluates as a @c n x @c n table of type @c T
+      generates an expression that evaluates as a @size2d{n,n} table of type @c T
       NaN.
 
     - For any Integer @c sz1,...,szN and any type @c T, the following code:
       @code
       auto x = nan(sz1,...,szn, as_<T>());
       @endcode
-      generates an expression that evaluates as a @c sz1 x ... x @c szN
+      generates an expression that evaluates as a @sizes{sz1,szn}
       table of type @c T NaN.
 
     - For any Expression @c dims evaluating as a row vector of @c N elements
@@ -91,13 +98,21 @@ namespace nt2
       @code
       auto x = nan(dims, as_<T>());
       @endcode
-      generates an expression that evaluates as a @c dims(1) x ... x @c dims(N)
+      generates an expression that evaluates as a @sizes{dims(1),dims(N)}
+      table of type @c T NaN.
+
+    - For any Fusion Sequence @c dims of @c N elements and any type @c T, the
+      following code:
+      @code
+      auto x = nan(dims, as_<T>());
+      @endcode
+      generates an expression that evaluates as a @sizes{at_c<0>(dims),at_c<N-1>(dims)}
       table of type @c T NaN.
 
     @par Matlab equivalent:
 
     This function is equivalent to the Matlab function
-    <a href="http://www.mathworks.fr/fr/help/matlab/ref/nan.html">NaN</a>.
+    <a href="http://www.mathworks.com/help/matlab/ref/nan.html">NaN</a>.
     nan() doesn't however support the @c like based function. One can actually
     use the class_ function to generate a Type specifier or use such a
     predefined specifier.
@@ -113,19 +128,18 @@ namespace nt2
             full of nan
   **/
   template<typename... Args, typename ClassName>
-  Expression nan(Args const&... dims, ClassName const& classname);
+  details::unspecified nan(Args const&... dims, ClassName const& classname);
 
   /// @overload
-  template<typename... Args> Expression nan(Args const&... dims);
+  template<typename... Args> details::unspecified nan(Args const&... dims);
 
   /// @overload
   template<typename ClassName> ClassName::type nan(ClassName const& classname);
 
   /// @overload
   double nan();
-  #endif
+  #else
 
-  /// INTERNAL ONLY
   #define M0(z,n,t)                                                            \
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::Nan, nan, n)                           \
   /**/
@@ -133,6 +147,7 @@ namespace nt2
   BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_PP_INC(NT2_MAX_DIMENSIONS)),M0,~)
 
   #undef M0
+  #endif
 }
 
 namespace nt2 { namespace ext

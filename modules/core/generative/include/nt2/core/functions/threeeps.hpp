@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_THREEEPS_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_THREEEPS_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the threeeps function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/include/constants/threeeps.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>

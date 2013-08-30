@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_FILL_PATTERN_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_FILL_PATTERN_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the fill_pattern function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/value_as.hpp>
 #include <nt2/sdk/meta/boxed_size.hpp>

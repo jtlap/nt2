@@ -17,9 +17,9 @@
 namespace nt2
 {
   /*!
-    @brief Retrieve the type class of an object
+    @brief Retrieve the type specifier of an object
 
-    For any given object, class returns a type specifier that contains
+    For any given object, class_ returns a type specifier that contains
     informations about the numerical type of values stored inside.
 
     @par Semantic
@@ -38,7 +38,7 @@ namespace nt2
 
     @param t Object to extract the numeric class from
 
-    @return A meta-object describing the value type of t
+    @return A type specifier describing the value type of t
    **/
   template<typename T> BOOST_FORCEINLINE
   meta::as_<typename meta::value_type_<T>::type>

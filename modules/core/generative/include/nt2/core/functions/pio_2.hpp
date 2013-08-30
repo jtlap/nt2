@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_PIO_2_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_PIO_2_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the pio_2 function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/include/constants/pio_2.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>

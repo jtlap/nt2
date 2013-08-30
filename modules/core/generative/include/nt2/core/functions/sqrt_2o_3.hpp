@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_SQRT_2O_3_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_SQRT_2O_3_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the sqrt_2o_3 function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/include/constants/sqrt_2o_3.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>
