@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - remainder/scalar Mode"
-
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
@@ -64,28 +62,6 @@ NT2_TEST_CASE_TPL ( remainder_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(remainder(nt2::Zero<T>(),nt2::Zero<T>()), nt2::Nan<T>(), 0);
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( remainder_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
-{
-
-  using nt2::remainder;
-  using nt2::tag::remainder_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<remainder_(T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::common_type<T>::type wished_r_t;
-
-
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-
-
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(remainder(nt2::One<T>(), nt2::One<T>()), nt2::Zero<T>(), 0);
-  NT2_TEST_ULP_EQUAL(remainder(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
-} // end of test for unsigned_int_
 
 NT2_TEST_CASE_TPL ( remainder_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
