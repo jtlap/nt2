@@ -338,7 +338,7 @@ namespace nt2 { namespace details
   BOOST_FORCEINLINE
   void report_ulp_unit_error( const char* desc, const char* func, int line
                             , Fails const& ulps, double ulpd, double N
-                            , bool ok
+                            , bool
                             )
   {
     if( ulps.empty() )
