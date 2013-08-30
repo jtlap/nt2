@@ -33,29 +33,3 @@ NT2_TEST_CASE_TPL ( coth_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(coth(nt2::Zero<T>()), nt2::Inf<r_t>(), 0.5);
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( coth_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
-{
-
-  using nt2::coth;
-  using nt2::tag::coth_;
-  typedef typename nt2::meta::call<coth_(T)>::type r_t;
-  typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
-
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(coth(nt2::Zero<T>()), nt2::Nan<r_t>(), 0.5);
-} // end of test for unsigned_int_
-
-NT2_TEST_CASE_TPL ( coth_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
-{
-
-  using nt2::coth;
-  using nt2::tag::coth_;
-  typedef typename nt2::meta::call<coth_(T)>::type r_t;
-  typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
-
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(coth(nt2::Zero<T>()), nt2::Nan<r_t>(), 0.5);
-} // end of test for signed_int_

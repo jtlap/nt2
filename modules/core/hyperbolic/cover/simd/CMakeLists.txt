@@ -18,7 +18,6 @@ SET( SOURCES
   cosh.cpp
   atanh.cpp
   asinh.cpp
-  asech1m.cpp
   asech.cpp
   acsch.cpp
   acoth.cpp

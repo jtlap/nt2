@@ -10,22 +10,10 @@
 #define NT2_HYPERBOLIC_FUNCTIONS_GENERIC_SECH_HPP_INCLUDED
 #include <nt2/hyperbolic/functions/sech.hpp>
 #include <nt2/include/functions/cosh.hpp>
-#include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/rec.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sech_, tag::cpu_
-                            , (A0)
-                            , (generic_< arithmetic_<A0> >)
-                            )
-  {
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::rec(nt2::cosh(nt2::tofloat(a0)));
-    }
-  };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sech_, tag::cpu_
                             , (A0)

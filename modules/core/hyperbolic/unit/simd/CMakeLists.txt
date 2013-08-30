@@ -9,7 +9,6 @@
 
 SET( SOURCES
   sinhcosh.cpp
-  asech1m.cpp
   sinhc.cpp
   tanh.cpp
   sinh.cpp
