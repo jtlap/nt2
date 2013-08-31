@@ -22,7 +22,7 @@
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 
-NT2_TEST_CASE_TPL( seldec_floating, BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL( seldec_floating, BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using nt2::seldec;
   using nt2::tag::seldec_;
