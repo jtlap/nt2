@@ -125,6 +125,18 @@ namespace boost { namespace simd { namespace meta
   {
   };
 
+  template<class T, std::size_t Card>
+  struct vector_of<T&, Card>
+  {
+    typedef typename meta::vector_of<T, Card>::type& type;
+  };
+
+  template<class T, std::size_t Card>
+  struct vector_of<T const, Card>
+  {
+    typedef typename meta::vector_of<T, Card>::type const type;
+  };
+
 } } }
 
 #endif
