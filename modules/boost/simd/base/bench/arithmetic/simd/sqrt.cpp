@@ -30,10 +30,22 @@ using boost::simd::tag::sqrt_;
 namespace n3 {
   typedef float T;
   typedef boost::simd::native<T,ext_t> vT;
+  NT2_TIMING(sqrt_,(RS(vT,T(-10000),T(10000))))
+}
+namespace n4 {
+  typedef double T;
+  typedef boost::simd::native<T,ext_t> vT;
+  NT2_TIMING(sqrt_,(RS(vT,T(-10000),T(10000))))
+}
+namespace n3 {
+  typedef float T;
+
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(sqrt_,(RS(vT,T(0),T(10000))))
 }
 namespace n4 {
   typedef double T;
+
   typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(sqrt_,(RS(vT,T(0),T(10000))))
 }

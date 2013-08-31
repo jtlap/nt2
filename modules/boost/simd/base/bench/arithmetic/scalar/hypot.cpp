@@ -40,4 +40,5 @@ namespace n2 {
   NT2_TIMING(hypot_,(RS(T,T(-10000),T(10000)))(RS(T,T(-10000),T(10000))))
 }
 
+
 #undef RS

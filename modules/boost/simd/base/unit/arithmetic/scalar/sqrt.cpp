@@ -6,6 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+#define BOOST_SIMD_NO_DOMAIN_CHECK
 #include <boost/simd/arithmetic/include/functions/sqrt.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
@@ -26,7 +27,6 @@
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/sqrt_2.hpp>
 #include <boost/simd/sdk/config.hpp>
-
 NT2_TEST_CASE_TPL ( sqrt_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
 
@@ -51,6 +51,5 @@ NT2_TEST_CASE_TPL ( sqrt_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(sqrt(boost::simd::Zero<T>()), boost::simd::Zero<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(sqrt(boost::simd::Four<T>()), boost::simd::Two<r_t>(), 0);
 } // end of test for floating_
-
 
 

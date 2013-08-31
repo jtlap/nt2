@@ -5,7 +5,7 @@
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
-//===============================================================
+//==============================================================================
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of boost.simd.arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
@@ -25,9 +25,19 @@ using boost::simd::tag::sqrt_;
 namespace n1 {
   typedef float T;
 
-  NT2_TIMING(sqrt_,(RS(T,T(0),T(10000))))
+  NT2_TIMING(sqrt_,(RS(T,T(-10000),T(10000))))
 }
 namespace n2 {
+  typedef double T;
+
+  NT2_TIMING(sqrt_,(RS(T,T(-10000),T(10000))))
+}
+namespace n3 {
+  typedef float T;
+
+  NT2_TIMING(sqrt_,(RS(T,T(0),T(10000))))
+}
+namespace n4 {
   typedef double T;
 
   NT2_TIMING(sqrt_,(RS(T,T(0),T(10000))))

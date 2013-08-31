@@ -12,7 +12,6 @@
 #include <boost/simd/arithmetic/functions/rsqrt.hpp>
 #include <boost/simd/include/functions/simd/rec.hpp>
 #include <boost/simd/include/functions/simd/sqrt.hpp>
-
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rsqrt_, tag::cpu_
