@@ -41,29 +41,5 @@ namespace n2 {
   typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(asecd_,(RS(vT,T(1.05),nt2::Ten<T>())))
 }
-namespace n3 {
-  typedef nt2::int32_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(asecd_,(RS(vT,nt2::One<T>(),nt2::Ten<T>())))
-}
-namespace n4 {
-  typedef nt2::int64_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(asecd_,(RS(vT,nt2::One<T>(),nt2::Ten<T>())))
-}
-namespace n5 {
-  typedef nt2::uint32_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(asecd_,(RS(vT,nt2::One<T>(),nt2::Ten<T>())))
-}
-namespace n6 {
-  typedef nt2::uint64_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(asecd_,(RS(vT,nt2::One<T>(),nt2::Ten<T>())))
-}
 
 #undef RS
