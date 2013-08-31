@@ -38,21 +38,70 @@ NT2_TEST_CASE_TPL ( rec,  BOOST_SIMD_SIMD_REAL_TYPES)
 #ifndef BOOST_SIMD_NO_INVALIDS
 
   // 1/+-inf = 0
-  NT2_TEST_ULP_EQUAL(rec(boost::simd::Inf<vT>()) , boost::simd::Zero<vT>(), 0.5);
-  NT2_TEST_ULP_EQUAL(rec(boost::simd::Minf<vT>()), boost::simd::Zero<vT>(), 0.5);
+  NT2_TEST_EQUAL(rec(boost::simd::Inf<vT>()) , boost::simd::Zero<vT>());
+  NT2_TEST_EQUAL(rec(boost::simd::Minf<vT>()), boost::simd::Zero<vT>());
 
   // 1/+-0 = +-inf
-  NT2_TEST_ULP_EQUAL(rec(boost::simd::Mzero<vT>()), boost::simd::Minf<vT>(), 0.5);
-  NT2_TEST_ULP_EQUAL(rec(boost::simd::Zero<vT>()), boost::simd::Inf<vT>(), 0.5);
+  NT2_TEST_EQUAL(rec(boost::simd::Mzero<vT>()), boost::simd::Minf<vT>());
+  NT2_TEST_EQUAL(rec(boost::simd::Zero<vT>()), boost::simd::Inf<vT>());
 
   // 1/Nan = Nan
-  NT2_TEST_ULP_EQUAL(rec(boost::simd::Nan<vT>()), boost::simd::Nan<vT>(), 0.5);
+  NT2_TEST_EQUAL(rec(boost::simd::Nan<vT>()), boost::simd::Nan<vT>());
 #endif
 
   // 1/+-1 = +-1
-  NT2_TEST_ULP_EQUAL(rec(boost::simd::Mone<vT>()), boost::simd::Mone<vT>(), 0.5);
-  NT2_TEST_ULP_EQUAL(rec(boost::simd::One<vT>()), boost::simd::One<vT>(), 0.5);
+  NT2_TEST_EQUAL(rec(boost::simd::Mone<vT>()), boost::simd::Mone<vT>());
+  NT2_TEST_EQUAL(rec(boost::simd::One<vT>()), boost::simd::One<vT>());
 
   // 1/(1/x) = x
-  NT2_TEST_ULP_EQUAL(rec(rec(boost::simd::Ten<vT>())), boost::simd::Ten<vT>(), 0.5);
+  NT2_TEST_EQUAL(rec(rec(boost::simd::Ten<vT>())), boost::simd::Ten<vT>());
+}
+
+
+NT2_TEST_CASE_TPL ( rec_ui,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
+{
+  using boost::simd::rec;
+  using boost::simd::tag::rec_;
+  using boost::simd::native;
+
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>               vT;
+
+  // specific values tests
+#ifndef BOOST_SIMD_NO_INVALIDS
+
+  // 1/+inf = 0
+  NT2_TEST_EQUAL(rec(boost::simd::Inf<vT>()) , boost::simd::Zero<vT>());
+
+  // 1/+0 = +inf
+  NT2_TEST_EQUAL(rec(boost::simd::Zero<vT>()), boost::simd::Inf<vT>());
+
+#endif
+
+  // 1/+1 = +1
+  NT2_TEST_EQUAL(rec(boost::simd::One<vT>()), boost::simd::One<vT>());
+}
+NT2_TEST_CASE_TPL ( rec_si,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
+{
+  using boost::simd::rec;
+  using boost::simd::tag::rec_;
+  using boost::simd::native;
+
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>               vT;
+
+  // specific values tests
+#ifndef BOOST_SIMD_NO_INVALIDS
+
+  // 1/+-inf = 0
+  NT2_TEST_EQUAL(rec(boost::simd::Inf<vT>()) , boost::simd::Zero<vT>());
+  NT2_TEST_EQUAL(rec(boost::simd::Minf<vT>()), boost::simd::Zero<vT>());
+
+  // 1/+-0 = +-inf
+  NT2_TEST_EQUAL(rec(boost::simd::Zero<vT>()), boost::simd::Inf<vT>());
+
+#endif
+
+  // 1/+-1 = +-1
+  NT2_TEST_EQUAL(rec(boost::simd::One<vT>()), boost::simd::One<vT>());
 }

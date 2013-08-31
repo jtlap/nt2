@@ -20,6 +20,7 @@
 #include <boost/simd/include/constants/nan.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/sqrt_2.hpp>
 #include <boost/simd/sdk/config.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 

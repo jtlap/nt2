@@ -51,12 +51,8 @@ NT2_TEST_CASE_TPL ( rec_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
 
   using boost::simd::rec;
   using boost::simd::tag::rec_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<rec_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
-
+  typedef T wished_r_t;
 
   // return type conformity test
   NT2_TEST_TYPE_IS(r_t, wished_r_t);
@@ -71,11 +67,8 @@ NT2_TEST_CASE_TPL ( rec_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 
   using boost::simd::rec;
   using boost::simd::tag::rec_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<rec_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
+  typedef T wished_r_t;
 
 
   // return type conformity test

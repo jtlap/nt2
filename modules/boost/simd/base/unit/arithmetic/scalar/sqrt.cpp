@@ -6,6 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+#define BOOST_SIMD_NO_DOMAIN_CHECK
 #include <boost/simd/arithmetic/include/functions/sqrt.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
@@ -26,7 +27,6 @@
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/sqrt_2.hpp>
 #include <boost/simd/sdk/config.hpp>
-
 NT2_TEST_CASE_TPL ( sqrt_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
 
@@ -52,37 +52,3 @@ NT2_TEST_CASE_TPL ( sqrt_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(sqrt(boost::simd::Four<T>()), boost::simd::Two<r_t>(), 0);
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( sqrt_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
-{
-
-  using boost::simd::sqrt;
-  using boost::simd::tag::sqrt_;
-  typedef typename boost::dispatch::meta::call<sqrt_(T)>::type r_t;
-  typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(sqrt(boost::simd::Four<T>()), boost::simd::Two<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(sqrt(boost::simd::One<T>()), boost::simd::One<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(sqrt(boost::simd::Zero<T>()), boost::simd::Zero<r_t>(), 0);
-} // end of test for unsigned_int_
-
-NT2_TEST_CASE_TPL ( sqrt_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
-{
-
-  using boost::simd::sqrt;
-  using boost::simd::tag::sqrt_;
-  typedef typename boost::dispatch::meta::call<sqrt_(T)>::type r_t;
-  typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(sqrt(boost::simd::Four<T>()), boost::simd::Two<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(sqrt(boost::simd::Mone<T>()), boost::simd::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(sqrt(boost::simd::One<T>()), boost::simd::One<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(sqrt(boost::simd::Zero<T>()), boost::simd::Zero<r_t>(), 0);
-} // end of test for signed_int_

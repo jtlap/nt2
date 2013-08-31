@@ -48,38 +48,3 @@ NT2_TEST_CASE_TPL ( isqrt_real,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(isqrt(boost::simd::Two<T>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(isqrt(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
 } // end of test for floating_
-
-NT2_TEST_CASE_TPL ( isqrt_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
-{
-
-  using boost::simd::isqrt;
-  using boost::simd::tag::isqrt_;
-  typedef typename boost::dispatch::meta::call<isqrt_(T)>::type r_t;
-  typedef T wished_r_t;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
-
-  // specific values tests
-  NT2_TEST_EQUAL(isqrt(boost::simd::Four<T>()), boost::simd::Two<r_t>());
-  NT2_TEST_EQUAL(isqrt(boost::simd::One<T>()), boost::simd::One<r_t>());
-  NT2_TEST_EQUAL(isqrt(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
-} // end of test for unsigned_int_
-
-NT2_TEST_CASE_TPL ( isqrt_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
-{
-
-  using boost::simd::isqrt;
-  using boost::simd::tag::isqrt_;
-  typedef typename boost::dispatch::meta::call<isqrt_(T)>::type r_t;
-  typedef T wished_r_t;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
-
-  // specific values tests
-  NT2_TEST_EQUAL(isqrt(boost::simd::Four<T>()), boost::simd::Two<r_t>());
-  NT2_TEST_EQUAL(isqrt(boost::simd::Mone<T>()), boost::simd::Nan<r_t>());
-  NT2_TEST_EQUAL(isqrt(boost::simd::One<T>()), boost::simd::One<r_t>());
-  NT2_TEST_EQUAL(isqrt(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
-} // end of test for signed_int_

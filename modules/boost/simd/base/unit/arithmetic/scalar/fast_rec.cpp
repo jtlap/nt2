@@ -46,3 +46,38 @@ NT2_TEST_CASE_TPL ( fast_rec_real,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Zero<T>()), boost::simd::Inf<r_t>(), 0);
 } // end of test for floating_
 
+NT2_TEST_CASE_TPL ( fast_rec_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
+{
+
+  using boost::simd::fast_rec;
+  using boost::simd::tag::fast_rec_;
+  typedef typename boost::dispatch::meta::call<fast_rec_(T)>::type r_t;
+  typedef T wished_r_t;
+
+
+  // return type conformity test
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::One<T>()), boost::simd::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Zero<T>()), boost::simd::Inf<r_t>(), 0);
+} // end of test for unsigned_int_
+
+
+NT2_TEST_CASE_TPL ( fast_rec_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+{
+
+  using boost::simd::fast_rec;
+  using boost::simd::tag::fast_rec_;
+  typedef typename boost::dispatch::meta::call<fast_rec_(T)>::type r_t;
+  typedef T wished_r_t;
+
+
+  // return type conformity test
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Mone<T>()), boost::simd::Mone<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::One<T>()), boost::simd::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Zero<T>()), boost::simd::Inf<r_t>(), 0);
+} // end of test for signed_int_

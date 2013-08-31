@@ -39,45 +39,5 @@ namespace n2 {
 
   NT2_TIMING(fast_hypot_,(RS(T,T(-10000),T(10000)))(RS(T,T(-10000),T(10000))))
 }
-namespace n3 {
-  typedef boost::simd::uint8_t T;
-
-  NT2_TIMING(fast_hypot_,(RS(T,0,100))(RS(T,0,100)))
-}
-namespace n4 {
-  typedef boost::simd::uint16_t T;
-
-  NT2_TIMING(fast_hypot_,(RS(T,0,100))(RS(T,0,100)))
-}
-namespace n5 {
-  typedef boost::simd::uint32_t T;
-
-  NT2_TIMING(fast_hypot_,(RS(T,0,100))(RS(T,0,100)))
-}
-namespace n6 {
-  typedef boost::simd::uint64_t T;
-
-  NT2_TIMING(fast_hypot_,(RS(T,0,100))(RS(T,0,100)))
-}
-namespace n7 {
-  typedef boost::simd::int8_t T;
-
-  NT2_TIMING(fast_hypot_,(RS(T,-100,100))(RS(T,-100,100)))
-}
-namespace n8 {
-  typedef boost::simd::int16_t T;
-
-  NT2_TIMING(fast_hypot_,(RS(T,-100,100))(RS(T,-100,100)))
-}
-namespace n9 {
-  typedef boost::simd::int32_t T;
-
-  NT2_TIMING(fast_hypot_,(RS(T,-100,100))(RS(T,-100,100)))
-}
-namespace n10 {
-  typedef boost::simd::int64_t T;
-
-  NT2_TIMING(fast_hypot_,(RS(T,-100,100))(RS(T,-100,100)))
-}
 
 #undef RS

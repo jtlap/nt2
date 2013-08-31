@@ -51,36 +51,3 @@ NT2_TEST_CASE_TPL ( hypot_real,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(hypot(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<T>(), 0);
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( hypot_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
-{
-
-  using boost::simd::hypot;
-  using boost::simd::tag::hypot_;
-  typedef typename boost::dispatch::meta::call<hypot_(T,T)>::type r_t;
-  typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
-
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(hypot(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::Sqrt_2<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(hypot(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>(), 0);
-} // end of test for unsigned_int_
-
-NT2_TEST_CASE_TPL ( hypot_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
-{
-
-  using boost::simd::hypot;
-  using boost::simd::tag::hypot_;
-  typedef typename boost::dispatch::meta::call<hypot_(T,T)>::type r_t;
-  typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(hypot(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::Sqrt_2<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(hypot(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::Sqrt_2<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(hypot(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>(), 0);
-} // end of test for signed_int_

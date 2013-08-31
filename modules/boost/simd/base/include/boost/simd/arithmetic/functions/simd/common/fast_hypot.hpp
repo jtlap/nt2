@@ -9,7 +9,6 @@
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_FAST_HYPOT_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_FAST_HYPOT_HPP_INCLUDED
 #include <boost/simd/arithmetic/functions/fast_hypot.hpp>
-#include <boost/simd/include/functions/simd/tofloat.hpp>
 #include <boost/simd/include/functions/simd/abs.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/is_greater.hpp>
@@ -21,31 +20,17 @@
 #include <boost/simd/include/functions/simd/divides.hpp>
 #include <boost/simd/include/constants/eps.hpp>
 #include <boost/simd/include/constants/one.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_hypot_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
-                            )
+                                   , (A0)(X)
+                                   , ((simd_<floating_<A0>,X>))
+                                     ((simd_<floating_<A0>,X>))
+                                   )
   {
 
-    typedef typename dispatch::meta::as_floating<A0>::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      return boost::simd::fast_hypot(tofloat(a0), tofloat(a1));
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_hypot_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<floating_<A0>,X>))((simd_<floating_<A0>,X>))
-                            )
-  {
-
-    typedef typename dispatch::meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
@@ -53,10 +38,10 @@ namespace boost { namespace simd { namespace ext
       A0 x =  boost::simd::abs(a0);
       A0 y =  boost::simd::abs(a1);
       bA0 gtyx = gt(y,x);
-      A0 xx = select(gtyx,y,x);
-      A0 yy = select(gtyx,x,y);
+      A0 xx = if_else(gtyx,y,x);
+      A0 yy = if_else(gtyx,x,y);
       A0 r =  xx*sqrt(One<A0>()+sqr(yy/xx));
-      return select(ge(xx*Eps<A0>(), yy), xx, r);
+      return if_else(ge(xx*Eps<A0>(), yy), xx, r);
    }
   };
 } } }

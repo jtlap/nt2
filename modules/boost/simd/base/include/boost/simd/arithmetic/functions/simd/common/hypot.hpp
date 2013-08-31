@@ -10,52 +10,23 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_HYPOT_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/hypot.hpp>
-#include <boost/simd/include/functions/simd/tofloat.hpp>
 #include <boost/simd/include/functions/simd/abs.hpp>
-#include <boost/simd/include/functions/simd/min.hpp>
 #include <boost/simd/include/functions/simd/max.hpp>
 #include <boost/simd/include/functions/simd/is_inf.hpp>
 #include <boost/simd/include/functions/simd/is_nan.hpp>
 #include <boost/simd/include/functions/simd/logical_and.hpp>
 #include <boost/simd/include/functions/simd/logical_or.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
-#include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/simd/include/functions/simd/unary_minus.hpp>
-#include <boost/simd/include/functions/simd/multiplies.hpp>
-#include <boost/simd/include/functions/simd/bitwise_and.hpp>
-#include <boost/simd/include/functions/simd/bitwise_or.hpp>
-#include <boost/simd/include/functions/simd/logical_or.hpp>
 #include <boost/simd/include/functions/simd/exponent.hpp>
 #include <boost/simd/include/functions/simd/ldexp.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
-#include <boost/simd/include/functions/simd/is_greater.hpp>
-#include <boost/simd/include/functions/simd/is_less.hpp>
+#include <boost/simd/include/functions/simd/sqr.hpp>
 #include <boost/simd/include/functions/simd/sqrt.hpp>
-#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
-#include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/inf.hpp>
-#include <boost/simd/include/functions/simd/max.hpp>
-#include <boost/simd/include/constants/int_splat.hpp>
-#include <boost/simd/sdk/meta/as_logical.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::hypot_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
-                            )
-  {
-
-    typedef typename dispatch::meta::as_floating<A0>::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      return boost::simd::hypot(tofloat(a0), tofloat(a1));
-    }
-  };
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hypot_, tag::cpu_,
                               (A0)(X),
                               ((simd_<floating_<A0>,X>))

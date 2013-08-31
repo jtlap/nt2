@@ -10,20 +10,35 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_REC_HPP_INCLUDED
 #include <boost/simd/arithmetic/functions/rec.hpp>
 #include <boost/simd/include/constants/one.hpp>
-#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/include/functions/abs.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
    BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rec_, tag::cpu_
                             , (A0)
-                            , (scalar_< arithmetic_<A0> >)
+                            , (scalar_< int_<A0> >)
                             )
   {
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef result_type type;
-      return a0 ? One<type>()/a0 : Inf<type>();
+      if (!a0) return Valmax<A0>();
+      return abs(a0) == One<A0>()?  a0 : Zero<A0>();
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rec_, tag::cpu_
+                            , (A0)
+                            , (scalar_< uint_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      if (!a0) return Valmax<A0>();
+      return (a0 == One<A0>());
     }
   };
 
