@@ -15,7 +15,6 @@
 #include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
-
 //////////////////////////////////////////////////////////////////////////////
 // scalar runtime benchmark for functor<fast_iround2even_> from boost.simd.arithmetic
 //////////////////////////////////////////////////////////////////////////////
@@ -65,5 +64,6 @@ namespace n8 {
 
   NT2_TIMING(fast_iround2even_,(RS(T,-100,100)))
 }
+
 
 #undef RS
