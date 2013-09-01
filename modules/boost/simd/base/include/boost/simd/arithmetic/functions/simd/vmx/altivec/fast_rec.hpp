@@ -6,9 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_REC_HPP_INCLUDED
-#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_REC_HPP_INCLUDED
-#ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_VMX_ALTIVEC_REC_HPP_INCLUDED
+#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_VMX_ALTIVEC_REC_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 #include <boost/simd/arithmetic/functions/rec.hpp>
 #include <boost/simd/include/functions/sqr.hpp>
@@ -17,8 +17,8 @@
 #include <boost/simd/include/functions/times.hpp>
 #include <boost/simd/include/functions/genmask.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
-#include <boost/simd/sdk/config.hpp>
 
+#include <boost/simd/sdk/config.hpp>
 #if !defined(BOOST_SIMD_NO_INFINITIES)
 #include <boost/simd/include/functions/is_not_infinite.hpp>
 #include <boost/simd/include/functions/if_else_zero.hpp>
@@ -27,10 +27,10 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::rec_
-                                    , boost::simd::tag::sse2_
+                                    , boost::simd::tag::altivec_
                                     , (A0)
                                     , ((simd_< single_<A0>
-                                            , boost::simd::tag::sse_
+                                            , boost::simd::tag::altivec_
                                             >
                                       ))
                                     )
@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       // Estimation x ~= 1/X
-      A0  inv   = _mm_rcp_ps( a0 );
+      A0  inv   = vec_rece( a0() );
 
       // Square and filter out 1/+-0
       A0  invs  = (a0 * sqr(inv)) & genmask(a0);
@@ -52,6 +52,7 @@ namespace boost { namespace simd { namespace ext
       // handle 1/+-inf
       return if_else_zero( is_not_infinite(a0), (inv+inv) - invs );
     #endif
+
     }
   };
 } } }

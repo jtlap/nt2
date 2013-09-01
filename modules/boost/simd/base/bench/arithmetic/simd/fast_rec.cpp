@@ -6,40 +6,29 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_BENCH_MODULE "nt2 boost.simd.arithmetic toolbox - fast_rec/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of boost.simd.arithmetic components in simd mode
-//////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/arithmetic/include/functions/fast_rec.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <cmath>
+
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
-//////////////////////////////////////////////////////////////////////////////
-// simd runtime benchmark for functor<fast_rec_> from boost.simd.arithmetic
-//////////////////////////////////////////////////////////////////////////////
+
 using boost::simd::tag::fast_rec_;
 
-//////////////////////////////////////////////////////////////////////////////
-// range macro
-//////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, (V1) ,(V2))
 
-namespace n1 {
+namespace n1
+{
   typedef float T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(fast_rec_,(RS(vT,T(-10),T(10))))
+  NT2_TIMING(fast_rec_,(RS(vT,T(-100),T(100))))
 }
-namespace n2 {
+namespace n2
+{
   typedef double T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(fast_rec_,(RS(vT,T(-10),T(10))))
+  NT2_TIMING(fast_rec_,(RS(vT,T(-100),T(100))))
 }
 
 #undef RS
