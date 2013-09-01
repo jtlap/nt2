@@ -9,7 +9,6 @@
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE4_1_ROUND2ZERO_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE4_1_ROUND2ZERO_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
-#include <boost/simd/arithmetic/round2zero.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
