@@ -53,4 +53,10 @@ NT2_TEST_CASE_TPL ( iround2even_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(iround2even(boost::simd::Nan<vT>()), boost::simd::Zero<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(iround2even(boost::simd::One<vT>()), boost::simd::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(iround2even(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>(), 0);
+
+
+  for(int i=-100; i < 100; ++i)
+ {
+   NT2_TEST_ULP_EQUAL(iround2even(boost::simd::splat<vT>(i+0.5)),boost::simd::splat<r_t>(i+((i >= 0)?(i%2):(-i%2))), 0);
+ }
 } // end of test for floating_

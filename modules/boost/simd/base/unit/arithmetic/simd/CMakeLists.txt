@@ -25,6 +25,7 @@ SET( SOURCES
   divround.cpp
   divs.cpp
   fast_hypot.cpp
+  fast_iround2even.cpp
   fast_rec.cpp
   floor.cpp
   fma.cpp

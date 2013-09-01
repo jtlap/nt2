@@ -24,6 +24,7 @@ SET( SOURCES
   divround.cpp
   divs.cpp
   fast_hypot.cpp
+  fast_iround2even.cpp
   fast_rec.cpp
   floor.cpp
   fma.cpp
@@ -54,6 +55,7 @@ SET( SOURCES
   remquo.cpp
   remround.cpp
   round.cpp
+  round2even.cpp
   rsqrt.cpp
   sqr.cpp
   sqr_abs.cpp

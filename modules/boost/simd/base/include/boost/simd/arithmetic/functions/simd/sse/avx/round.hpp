@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type inc = if_else(is_ltz(a0), Mhalf<result_type>(), Half<result_type>());
-      return _mm256_round_pd(a0+inc, 3);
+      return _mm256_round_pd(a0+inc, _MM_FROUND_TO_ZERO|_MM_FROUND_NO_EXC);
     }
   };
 
@@ -38,7 +38,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type inc = if_else(is_ltz(a0), Mhalf<result_type>(), Half<result_type>());
-      return _mm256_round_ps(a0+inc, 3);
+      return _mm256_round_ps(a0+inc, _MM_FROUND_TO_ZERO|_MM_FROUND_NO_EXC);
     }
   };
 } } }
