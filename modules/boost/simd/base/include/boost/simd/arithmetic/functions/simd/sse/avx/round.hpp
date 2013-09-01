@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_ROUND_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_ROUND_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
+#include <boost/simd/arithmetic/round.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/is_ltz.hpp>
 #include <boost/simd/include/constants/half.hpp>
