@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_FAST_IROUND2EVEN_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_FAST_IROUND2EVEN_HPP_INCLUDED
-#ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/arithmetic/functions/fast_iround2even.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
