@@ -19,23 +19,6 @@
 
 namespace boost { namespace simd { namespace ext
 {
-
-//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_iround2even_, boost::simd::tag::sse2_
-//                             , (A0)
-//                             , ((simd_<double_<A0>,boost::simd::tag::sse_>))
-//                             )
-//   {
-//     typedef typename dispatch::meta::as_integer<A0>::type result_type;
-//     BOOST_SIMD_FUNCTOR_CALL(1)
-//     {
-//       return toint(round2even(a0));
-// //       typedef typename dispatch::meta::downgrade<result_type>::type di_type;
-// //       di_type z0 =  _mm_cvtpd_epi32(a0);
-// //       di_type z1 = details::shuffle<0, 2, 1, 3>(z0);
-// //       di_type z2 = details::shuffle<1, 0, 3, 2>(genmask(is_ltz(z1)));
-// //       return bitwise_cast<result_type>( bitwise_or(z1, z2));
-//     }
-//   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_iround2even_, boost::simd::tag::sse2_
                             , (A0)
                             , ((simd_<single_<A0>,boost::simd::tag::sse_>))
