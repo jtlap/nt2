@@ -8,21 +8,33 @@
 //==============================================================================
 #ifndef BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_EXPONENT_HPP_INCLUDED
 #define BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_EXPONENT_HPP_INCLUDED
+
 #include <boost/simd/ieee/functions/exponent.hpp>
-#include <boost/dispatch/meta/adapted_traits.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/scalar/is_invalid.hpp>
 #include <boost/simd/include/functions/scalar/shr.hpp>
 #include <boost/simd/include/functions/scalar/exponentbits.hpp>
-#include <boost/simd/include/functions/scalar/is_nez.hpp>
 #include <boost/simd/include/functions/scalar/is_eqz.hpp>
 #include <boost/simd/include/functions/scalar/if_else_zero.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/simd/include/constants/maxexponent.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/sdk/math.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::exponent_, tag::cpu_
+                            , (A0)
+                            , (scalar_< integer_<A0> >)
+                            )
+  {
+    typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return Zero<result_type>();
+    }
+  };
+
 #ifdef BOOST_SIMD_HAS_ILOGB
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::exponent_, tag::cpu_
                             , (A0)
@@ -64,7 +76,7 @@ namespace boost { namespace simd { namespace ext
       if (is_invalid(a0) || is_eqz(a0)) return Zero<result_type>();
       const int nmb = int(Nbmantissabits<A0>());
       const result_type x = shri(exponentbits(a0), nmb);
-      return x-if_else_zero(is_nez(a0), Maxexponent<A0>());
+      return x-if_else_zero(a0, Maxexponent<A0>());
     }
   };
 } } }

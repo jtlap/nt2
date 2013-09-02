@@ -8,21 +8,38 @@
 //==============================================================================
 #ifndef BOOST_SIMD_IEEE_FUNCTIONS_SIMD_COMMON_MANTISSA_HPP_INCLUDED
 #define BOOST_SIMD_IEEE_FUNCTIONS_SIMD_COMMON_MANTISSA_HPP_INCLUDED
+
 #include <boost/simd/ieee/functions/mantissa.hpp>
-#include <boost/simd/include/constants/nbmantissabits.hpp>
-#include <boost/simd/include/constants/maxexponent.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/simd/is_eqz.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/logical_or.hpp>
+#include <boost/simd/include/functions/simd/bitwise_or.hpp>
+#include <boost/simd/include/functions/simd/bitwise_and.hpp>
 #include <boost/simd/include/functions/simd/is_invalid.hpp>
+#include <boost/simd/include/functions/simd/splat.hpp>
+#include <boost/simd/include/functions/simd/splat.hpp>
+#include <boost/simd/include/constants/nbmantissabits.hpp>
+#include <boost/simd/include/constants/maxexponent.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::mantissa_, tag::cpu_,
-                           (A0)(X),
-                           ((simd_<arithmetic_<A0>,X>))
-                          )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::mantissa_, tag::cpu_,
+                                     (A0)(X),
+                                     ((simd_<integer_<A0>,X>))
+                                   )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    {
+      return a0;
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::mantissa_, tag::cpu_,
+                                     (A0)(X),
+                                     ((simd_<floating_<A0>,X>))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
