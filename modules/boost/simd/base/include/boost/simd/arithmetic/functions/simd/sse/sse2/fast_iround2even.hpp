@@ -24,6 +24,7 @@ namespace boost { namespace simd { namespace ext
       return  _mm_cvtps_epi32(a0);
     }
   };
+
 } } }
 
 
