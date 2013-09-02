@@ -13,7 +13,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/constant/constant.hpp>
 
-NT2_TEST_CASE_TPL ( rsqrt_real__1_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( rsqrt_real,  BOOST_SIMD_REAL_TYPES)
 {
 
   using boost::simd::rsqrt;
