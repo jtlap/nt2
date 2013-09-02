@@ -57,7 +57,6 @@ SET( SOURCES
   remround.cpp
   round.cpp
   round2even.cpp
-  round2zero.cpp
   rsqrt.cpp
   sqr.cpp
   sqr_abs.cpp
