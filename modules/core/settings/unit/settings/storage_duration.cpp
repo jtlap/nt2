@@ -10,6 +10,8 @@
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/core/settings/storage_duration.hpp>
 #include <nt2/sdk/memory/container.hpp>
+#include <boost/simd/memory/allocator.hpp>
+
 #include "local_semantic.hpp"
 
 #include <nt2/sdk/unit/module.hpp>
@@ -203,7 +205,6 @@ NT2_TEST_CASE( dynamic_duration_apply )
   using nt2::settings;
   using nt2::memory::container;
   using boost::simd::allocator;
-  using boost::simd::allocator_adaptor;
   using nt2::dynamic_;
   using nt2::index_;
   using nt2::memory::buffer;
@@ -229,6 +230,6 @@ NT2_TEST_CASE( dynamic_duration_apply )
                                 >
                               >
                       )
-                    , (buffer<int, allocator_adaptor<std::allocator<int> > >)
+                    , (buffer<int, std::allocator<int> >)
                     );
 }

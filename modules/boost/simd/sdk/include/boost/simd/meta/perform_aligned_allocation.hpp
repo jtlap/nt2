@@ -12,20 +12,28 @@
 #include <boost/mpl/bool.hpp>
 #include <boost/simd/forward/allocator.hpp>
 
-namespace nt2 {  namespace memory
+namespace boost {  namespace simd {  namespace meta
 {
-  template<typename T> struct fixed_allocator;
-} }
+  /*!
+    @brief Traits detecting aligned allocator
 
-namespace nt2 {  namespace meta
-{
+    Detects if a given allocator performs aligned allocation.
+
+    @par Semantic:
+
+    For any @c Allocator @c A :
+
+    @code
+    typedef perform_aligned_allocation<A>::type r;
+    @endcode
+
+    evaluates to @c boost::mpl::true_ if @c A allocates memory in an aligned
+    way adn to @c @c boost::mpl::false_ otherwise
+
+    @tparam Allocator
+  **/
   template<typename Allocator>
   struct perform_aligned_allocation : boost::mpl::false_
-  {};
-
-  template<typename T>
-  struct  perform_aligned_allocation< nt2::memory::fixed_allocator<T> >
-        : boost::mpl::true_
   {};
 
   template<typename T>
@@ -37,6 +45,6 @@ namespace nt2 {  namespace meta
   struct  perform_aligned_allocation<boost::simd::allocator_adaptor<A> >
         : boost::mpl::true_
   {};
-} }
+} } }
 
 #endif

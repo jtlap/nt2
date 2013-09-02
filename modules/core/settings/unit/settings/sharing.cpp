@@ -11,6 +11,8 @@
 #include <nt2/core/settings/sharing.hpp>
 #include <nt2/core/settings/storage_duration.hpp>
 #include <nt2/sdk/memory/container.hpp>
+#include <boost/simd/memory/allocator.hpp>
+
 #include "local_semantic.hpp"
 
 #include <nt2/sdk/unit/module.hpp>
@@ -194,7 +196,6 @@ NT2_TEST_CASE( owned_output )
   using nt2::memory::container;
   using nt2::memory::array_buffer;
   using nt2::memory::fixed_allocator;
-  using boost::simd::allocator_adaptor;
 
   NT2_TEST_EXPR_TYPE( owned_()
                     , (apply_ < _
@@ -218,6 +219,6 @@ NT2_TEST_CASE( owned_output )
                                           >
                               >
                       )
-                    , (buffer<int,allocator_adaptor<std::allocator<int> > >)
+                    , (buffer<int,std::allocator<int> >)
                     );
 }

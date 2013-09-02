@@ -15,7 +15,6 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/memory/array_buffer.hpp>
 #include <nt2/sdk/memory/forward/container.hpp>
-#include <nt2/sdk/meta/make_aligned_allocator.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/mpl/size_t.hpp>
 #include <boost/mpl/assert.hpp>
@@ -36,9 +35,8 @@ namespace nt2
         adapted allocator
       */
       typedef typename boost::dispatch::meta::value_of<Container>::type value_t;
-      typedef typename meta::make_aligned_allocator<Alloc>::type        alloc_t;
-      typedef typename alloc_t::template rebind<value_t>::other     allocator_t;
-      typedef memory::buffer<value_t,allocator_t>                   type;
+      typedef typename Alloc::template rebind<value_t>::other       allocator_t;
+      typedef memory::buffer<value_t,allocator_t>                          type;
     };
 
     /// INTERNAL ONLY
