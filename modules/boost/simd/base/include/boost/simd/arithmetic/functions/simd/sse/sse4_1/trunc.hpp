@@ -20,7 +20,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return _mm_round_pd(a0, 3);
+      return _mm_round_pd(a0,  _MM_FROUND_TO_ZERO|_MM_FROUND_NO_EXC);
     }
   };
 
@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return _mm_round_ps(a0, 3);
+      return _mm_round_ps(a0,  _MM_FROUND_TO_ZERO|_MM_FROUND_NO_EXC);
     }
   };
 } } }
