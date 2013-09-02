@@ -34,13 +34,13 @@ namespace boost { namespace simd { namespace tag
     For any given value @c x,  @c y of type @c T:
 
     @code
-    as_floating<T> r = fast_hypot(x, y);
+    T r = fast_hypot(x, y);
     @endcode
 
     The code is equivalent to:
 
     @code
-    as_floating<T> r =sqrt(sqr(x)+sqr(y));
+    T r =sqrt(sqr(x)+sqr(y));
     @endcode
 
     Fast means that nothing is done to avoid overflow or inaccuracies
@@ -49,7 +49,7 @@ namespace boost { namespace simd { namespace tag
     @param  a0
     @param  a1
 
-    @return      a value of the same type as the input.
+    @return      a value of the same floating type as the input.
 
   **/
 

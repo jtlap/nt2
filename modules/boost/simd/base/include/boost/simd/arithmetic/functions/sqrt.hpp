@@ -29,14 +29,14 @@ namespace boost { namespace simd { namespace tag
     Computes the square root of its parameter.
 
     @par semantic:
-    For any given value @c x of type @c T:
+    For any given value @c x of floating type @c T:
 
     @code
     as_floating<T> r = sqrt(x);
     @endcode
 
     @par Note:
-    On "real" types a negative entry leads to Nan.
+    On "real" (i.e. not complex) types a negative entry leads to Nan.
 
     @param  a0
 

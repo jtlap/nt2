@@ -51,10 +51,6 @@ namespace boost { namespace simd { namespace tag
 
     This function does not overflow.
 
-    @par Alias
-
-    saturated_add
-
     @param  a0
     @param  a1
 

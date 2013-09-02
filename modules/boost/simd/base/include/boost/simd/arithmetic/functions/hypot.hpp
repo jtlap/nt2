@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace tag
     Computes  computes $(a_0^2 + a_1^2)^{1/2}$
 
     @par semantic:
-    For any given value @c x,  @c y of type @c T:
+    For any given value @c x,  @c y of floating type @c T:
 
     @code
     as_floating<T> r = hypot(x, y);

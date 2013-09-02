@@ -36,13 +36,13 @@ namespace boost { namespace simd
     For any given value @c x of type @c T:
 
     @code
-    as_floating<T> r = fast_rec(x);
+    T r = fast_rec(x);
     @endcode
 
     is similar to:
 
     @code
-    as_floating<T> r = T(1)/x;
+    T r = T(1)/x;
     @endcode
 
     @par Note:
@@ -53,7 +53,7 @@ namespace boost { namespace simd
 
     @param  a0
 
-    @return      a value of the floating type associated to the input.
+    @return      a value of the typeof the input.
 
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::fast_rec_, fast_rec, 1)

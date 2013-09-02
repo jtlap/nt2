@@ -34,18 +34,18 @@ namespace boost { namespace simd { namespace tag
     For any given value @c x of type @c T:
 
     @code
-    as_floating<T> r = rec(x);
+    T r = rec(x);
     @endcode
 
     The code is similar to:
 
     @code
-    as_floating<T> r = 1/x;
+    T r = T(1)/x;
     @endcode
 
     @param  a0
 
-    @return      a value of the floating type associated to the input.
+    @return      a value of the type of the input.
 
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::rec_, rec, 1)
