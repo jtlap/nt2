@@ -123,23 +123,14 @@ NT2_TEST_CASE( nested_settings_allocator_ )
   using nt2::meta::option;
   using boost::mpl::_;
 
-  NT2_TEST_TYPE_IS( (option < settings( settings(void*,int)
-                                      , settings(allocator<int>,allocator<float>)
-                                      )
+  typedef settings shadow(double,int);
+  typedef settings options(allocator<int>,allocator<float>);
+
+  NT2_TEST_TYPE_IS( (option < settings( shadow, options )
                             , nt2::tag::allocator_
                             , some_kind_
                             >::type
                     )
                   , allocator<int>
-                  );
-
-  NT2_TEST_TYPE_IS( (option < settings( settings(void*,int)
-                                      , settings(allocator<float>,allocator<int>)
-                                      )
-                            , nt2::tag::allocator_
-                            , some_kind_
-                            >::type
-                    )
-                  , allocator<float>
                   );
 }

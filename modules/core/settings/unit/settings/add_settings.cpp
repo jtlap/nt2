@@ -49,8 +49,10 @@ NT2_TEST_CASE( add_option_to_setting )
                   , (settings(int,float))
                   );
 
+  typedef settings out_t(int,base);
+
   NT2_TEST_TYPE_IS( (add_settings<base, int>::type)
-                  , (settings(int,base))
+                  , (out_t)
                   );
 }
 
@@ -90,15 +92,18 @@ NT2_TEST_CASE( add_options_to_settings )
                   , (settings(int,float,char,double,void*))
                   );
 
+  typedef settings out2_t(int,float,base2);
   NT2_TEST_TYPE_IS( (add_settings<base2, new2>::type)
-                  , (settings(int,float,base2))
+                  , (out2_t)
                   );
 
+  typedef settings out3_t(int,float,char,base2);
   NT2_TEST_TYPE_IS( (add_settings<base2, new3>::type)
-                  , (settings(int,float,char,base2))
+                  , (out3_t)
                   );
 
+  typedef settings out4_t(int,float,char,double,base2);
   NT2_TEST_TYPE_IS( (add_settings<base2, new4>::type)
-                  , (settings(int,float,char,double,base2))
+                  , (out4_t)
                   );
 }

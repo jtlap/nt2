@@ -138,9 +138,11 @@ NT2_TEST_CASE( nested_settings_sharing_ )
   using nt2::meta::option;
   using boost::mpl::_;
 
-  NT2_TEST_TYPE_IS( (option < settings( settings(void*,int)
-                                      , settings(shared_,owned_)
-                                      )
+  typedef settings shadow(double,int);
+  typedef settings option1(shared_,owned_);
+  typedef settings option2(owned_,shared_);
+
+  NT2_TEST_TYPE_IS( (option < settings(shadow,option1)
                             , nt2::tag::sharing_
                             , some_kind_
                             >::type
@@ -148,9 +150,7 @@ NT2_TEST_CASE( nested_settings_sharing_ )
                   , shared_
                   );
 
-  NT2_TEST_TYPE_IS( (option < settings( settings(void*,int)
-                                      , settings(owned_,shared_)
-                                      )
+  NT2_TEST_TYPE_IS( (option < settings(shadow,option2)
                             , nt2::tag::sharing_
                             , some_kind_
                             >::type

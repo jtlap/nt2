@@ -112,9 +112,11 @@ NT2_TEST_CASE( nested_settings_shape_ )
   using nt2::meta::option;
   using boost::mpl::_;
 
-  NT2_TEST_TYPE_IS( (option < settings( settings(void*,int)
-                                      , settings(rectangular_,diagonal_)
-                                      )
+  typedef settings shadow(double,int);
+  typedef settings option1(rectangular_,diagonal_);
+  typedef settings option2(diagonal_,rectangular_);
+
+  NT2_TEST_TYPE_IS( (option < settings(shadow,option1)
                             , nt2::tag::shape_
                             , some_kind_
                             >::type
@@ -122,9 +124,7 @@ NT2_TEST_CASE( nested_settings_shape_ )
                   , rectangular_
                   );
 
-  NT2_TEST_TYPE_IS( (option < settings( settings(void*,int)
-                                      , settings(diagonal_,rectangular_)
-                                      )
+  NT2_TEST_TYPE_IS( (option < settings(shadow,option2)
                             , nt2::tag::shape_
                             , some_kind_
                             >::type

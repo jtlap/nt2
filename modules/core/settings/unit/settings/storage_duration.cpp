@@ -137,9 +137,11 @@ NT2_TEST_CASE( nested_settings_storage_duration_ )
   using nt2::meta::option;
   using boost::mpl::_;
 
-  NT2_TEST_TYPE_IS( (option < settings( settings(void*,int)
-                                      , settings(dynamic_,automatic_)
-                                      )
+  typedef settings shadow(double,int);
+  typedef settings option1(dynamic_,automatic_);
+  typedef settings option2(automatic_,dynamic_);
+
+  NT2_TEST_TYPE_IS( (option < settings(shadow,option1)
                             , nt2::tag::storage_duration_
                             , some_kind_
                             >::type
@@ -147,9 +149,7 @@ NT2_TEST_CASE( nested_settings_storage_duration_ )
                   , dynamic_
                   );
 
-  NT2_TEST_TYPE_IS( (option < settings( settings(void*,int)
-                                      , settings(automatic_,dynamic_)
-                                      )
+  NT2_TEST_TYPE_IS( (option < settings(shadow,option2)
                             , nt2::tag::storage_duration_
                             , some_kind_
                             >::type

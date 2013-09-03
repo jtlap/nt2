@@ -153,9 +153,11 @@ NT2_TEST_CASE( nested_settings_storage_order_ )
   using nt2::meta::option;
   using boost::mpl::_;
 
-  NT2_TEST_TYPE_IS( (option < settings( settings(void*,int)
-                                      , settings(column_major_,row_major_)
-                                      )
+  typedef settings shadow(double,int);
+  typedef settings option1(column_major_,row_major_);
+  typedef settings option2(row_major_,column_major_);
+
+  NT2_TEST_TYPE_IS( (option < settings(shadow,option1)
                             , nt2::tag::storage_order_
                             , some_kind_
                             >::type
@@ -163,9 +165,7 @@ NT2_TEST_CASE( nested_settings_storage_order_ )
                   , column_major_
                   );
 
-  NT2_TEST_TYPE_IS( (option < settings( settings(void*,int)
-                                      , settings(row_major_,column_major_)
-                                      )
+  NT2_TEST_TYPE_IS( (option < settings(shadow,option2)
                             , nt2::tag::storage_order_
                             , some_kind_
                             >::type

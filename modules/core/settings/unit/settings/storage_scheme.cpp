@@ -133,9 +133,11 @@ NT2_TEST_CASE( nested_settings_storage_scheme_ )
   using nt2::meta::option;
   using boost::mpl::_;
 
-  NT2_TEST_TYPE_IS( (option < settings( settings(void*,int)
-                                      , settings(conventional_,packed_)
-                                      )
+  typedef settings shadow(double,int);
+  typedef settings option1(conventional_,packed_);
+  typedef settings option2(packed_,conventional_);
+
+  NT2_TEST_TYPE_IS( (option < settings(shadow,option1)
                             , nt2::tag::storage_scheme_
                             , some_kind_
                             >::type
@@ -143,9 +145,7 @@ NT2_TEST_CASE( nested_settings_storage_scheme_ )
                   , conventional_
                   );
 
-  NT2_TEST_TYPE_IS( (option < settings( settings(void*,int)
-                                      , settings(packed_,conventional_)
-                                      )
+  NT2_TEST_TYPE_IS( (option < settings(shadow,option2)
                             , nt2::tag::storage_scheme_
                             , some_kind_
                             >::type

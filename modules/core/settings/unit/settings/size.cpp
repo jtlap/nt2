@@ -138,7 +138,11 @@ NT2_TEST_CASE( nested_settings_of_size_ )
   using nt2::meta::option;
   using boost::mpl::_;
 
-  NT2_TEST_TYPE_IS( (option < settings(settings(void*,int), settings(_2D,_4D))
+  typedef settings shadow(double,int);
+  typedef settings option1(_2D,_4D);
+  typedef settings option2(of_size_<3,4>,_4D);
+
+  NT2_TEST_TYPE_IS( (option < settings(shadow,option1)
                             , nt2::tag::of_size_
                             , some_kind_
                             >::type
@@ -146,9 +150,7 @@ NT2_TEST_CASE( nested_settings_of_size_ )
                   , _2D
                   );
 
-  NT2_TEST_TYPE_IS( (option < settings( settings(void*,int)
-                                      , settings(of_size_<3,4>,_4D)
-                                      )
+  NT2_TEST_TYPE_IS( (option < settings(shadow,option2)
                             , nt2::tag::of_size_
                             , some_kind_
                             >::type

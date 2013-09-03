@@ -120,23 +120,14 @@ NT2_TEST_CASE( nested_settings_buffer_ )
   using nt2::meta::option;
   using boost::mpl::_;
 
-  NT2_TEST_TYPE_IS( (option < settings( settings(void*,int)
-                                      , settings(vector<int>,vector<float>)
-                                      )
+  typedef settings shadow(double,int);
+  typedef settings options(vector<int>,vector<float>);
+
+  NT2_TEST_TYPE_IS( (option < settings(shadow, options)
                             , nt2::tag::buffer_
                             , some_kind_
                             >::type
                     )
                   , vector<int>
-                  );
-
-  NT2_TEST_TYPE_IS( (option < settings( settings(void*,int)
-                                      , settings(vector<float>,vector<int>)
-                                      )
-                            , nt2::tag::buffer_
-                            , some_kind_
-                            >::type
-                    )
-                  , vector<float>
                   );
 }
