@@ -20,6 +20,7 @@ include(nt2.preprocess)
 nt2_preprocess(boost.simd.base.preprocess ${NT2_BOOST.SIMD.BASE_ROOT}/include/boost/simd/operator/functions/simd/common/map.hpp
                                           ${NT2_BOOST.SIMD.BASE_ROOT}/include/boost/simd/operator/functions/simd/sse/sse2/map.hpp
                                           ${NT2_BOOST.SIMD.BASE_ROOT}/include/boost/simd/operator/functions/simd/sse/avx/map.hpp
+                                          ${NT2_BOOST.SIMD.BASE_ROOT}/include/boost/simd/operator/specific/common.hpp
                OPTIONS -DBOOST_SIMD_DONT_USE_PREPROCESSED_FILES
                        -DBOOST_SIMD_CREATE_PREPROCESSED_FILES
                        -DBOOST_SIMD_HAS_SSE2_SUPPORT
