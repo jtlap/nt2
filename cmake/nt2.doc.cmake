@@ -193,8 +193,14 @@ macro(nt2_doc_doxygen file)
                COMMENT "Combining Doxygen XML output..."
               )
 
+  if(${NT2_CURRENT_MODULE} MATCHES "^boost\\.")
+    set(prefix boost)
+  else()
+    set(prefix nt2)
+  endif()
+
   nt2_xsltproc(${file}.xml
-               --stringparam boost.doxygen.header.prefix nt2
+               --stringparam boost.doxygen.header.prefix ${prefix}
                ${BOOSTBOOK_XSL_DIR}/doxygen/doxygen2boostbook.xsl
                ${file}.doxygen/all.xml
                DEPENDS ${file}.doxygen/all.xml
