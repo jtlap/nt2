@@ -66,7 +66,7 @@ namespace nt2
     /// Type of the value stored in current box
     typedef T value_type;
 
-    typedef tag::table_ kind_type;
+    typedef nt2::tag::table_ kind_type;
 
     /*!
       @brief Default constructor for box
