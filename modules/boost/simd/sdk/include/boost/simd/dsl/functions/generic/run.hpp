@@ -94,7 +94,7 @@ namespace boost { namespace simd { namespace ext
       >::type                                                                                      \
       ( BOOST_PP_ENUM(n, M0, ~) )                                                                  \
     >::type result_type;                                                                           \
-    result_type operator()(Expr& expr) const                                                       \
+    BOOST_FORCEINLINE result_type operator()(Expr& expr) const                                     \
     {                                                                                              \
       return typename dispatch::meta::dispatch_call<                                               \
         T( BOOST_PP_ENUM(n, M0, ~) )                                                               \
