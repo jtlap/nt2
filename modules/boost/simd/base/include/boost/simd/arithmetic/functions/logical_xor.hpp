@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace tag
     For any given value @c x and @c y of type @c T:
 
     @code
-    as_logical<T> r = logical(x, y);
+    as_logical<T> r = logical_xor(x, y);
     @endcode
 
     is similar to:
