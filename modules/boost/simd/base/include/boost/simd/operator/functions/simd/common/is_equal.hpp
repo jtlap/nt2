@@ -10,7 +10,6 @@
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_SIMD_COMMON_IS_EQUAL_HPP_INCLUDED
 
 #include <boost/simd/operator/functions/is_equal.hpp>
-#include <boost/simd/include/functions/simd/splat.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/sdk/meta/as_arithmetic.hpp>
@@ -41,32 +40,6 @@ namespace boost { namespace simd { namespace ext
                                   , bitwise_cast<cast_t>(a1)
                                   )
                               );
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_, tag::cpu_,
-                                    (A0)(A1)(X),
-                                    ((simd_<arithmetic_ <A0>,X>))((scalar_<arithmetic_<A1> >))
-                                   )
-  {
-    typedef typename meta::as_logical<A0>::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
-    {
-      return boost::simd::is_equal(a0, boost::simd::splat<A0>(a1));
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_, tag::cpu_,
-                                     (A0)(A1)(X),
-                                     ((scalar_<arithmetic_<A0> >))((simd_<arithmetic_<A1>,X>))
-                                   )
-  {
-    typedef typename meta::as_logical<A1>::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
-    {
-      return boost::simd::is_equal(boost::simd::splat<A1>(a0), a1);
     }
   };
 } } }
