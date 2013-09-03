@@ -10,6 +10,7 @@
 #define BOOST_SIMD_BITWISE_FUNCTIONS_BITS_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
+
 namespace boost { namespace simd { namespace tag
   {
     /*!

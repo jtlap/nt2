@@ -13,12 +13,10 @@
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-namespace boost { namespace simd
-{
-  namespace tag
+namespace boost { namespace simd { namespace tag
   {
     /*!
-      @brief ctz generic tag
+      @brief  ctz generic tag
 
       Represents the ctz function in generic contexts.
 
@@ -42,6 +40,7 @@ namespace boost { namespace simd
 
     @return An unsigned integral value containing the index of the first bit
             set in a0.
+
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::ctz_, ctz, 1)
 } }

@@ -6,60 +6,52 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_BITWISE_FUNCTIONS_ILOG2_HPP_INCLUDED
 #define BOOST_SIMD_BITWISE_FUNCTIONS_ILOG2_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_ilog2 ilog2
- *
- * \par Description
- * The function return the integer part of log2 of the argument
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/ilog2.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::ilog2_(A0)>::type
- *     ilog2(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of ilog2
- *
- * \return always returns an integer value
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace boost { namespace simd { namespace tag
   {
     /*!
-     * \brief Define the tag ilog2_ of functor ilog2
-     *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
+      @brief  ilog2 generic tag
+
+      Represents the ilog2 function in generic contexts.
+
+      @par Models:
+      Ilog2erarchy
     **/
-    struct ilog2_ : ext::elementwise_<ilog2_> { typedef ext::elementwise_<ilog2_> parent; };
+    struct ilog2_ : ext::elementwise_<ilog2_>
+    {
+      /// @brief Parent ilog2erarchy
+      typedef ext::elementwise_<ilog2_> parent;
+    };
   }
+  /*!
+    The function returns the integer part of the base 2
+    logarithm of the input.
+
+    @par semantic:
+    For any given value @c x of type @c T:
+
+    @code
+    as_integer<T> r = ilog2(x);
+    @endcode
+
+    The code is similar to
+
+    @code
+    as_integer<T> r = toints(log2(x));
+    @endcode
+
+    @param  a0
+
+    @return      a value of the integer
+                 type associated to the input.
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::ilog2_, ilog2, 1)
 } }
 
 #endif
-
-// modified by jt the 25/12/2010
