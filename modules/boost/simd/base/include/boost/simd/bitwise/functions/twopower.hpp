@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace tag
     };
   }
   /*!
-    The function returns the  greatest power of two less or equal to the input
+    The function returns 2^n
 
     @par semantic:
     For any given value n  of type @c I:
