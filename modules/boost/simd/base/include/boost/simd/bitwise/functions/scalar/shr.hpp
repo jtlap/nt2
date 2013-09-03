@@ -10,6 +10,7 @@
 #define BOOST_SIMD_BITWISE_FUNCTIONS_SCALAR_SHR_HPP_INCLUDED
 
 #include <boost/simd/bitwise/functions/shr.hpp>
+#include <boost/simd/include/functions/scalar/abs.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/assert.hpp>
@@ -18,7 +19,7 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shr_, tag::cpu_, (A0)(A1)
-                                   , (scalar_< arithmetic_<A0> >)
+                                   , (scalar_< integer_<A0> >)
                                      (scalar_< integer_<A1> >)
                                    )
   {

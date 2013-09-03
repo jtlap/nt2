@@ -29,7 +29,8 @@ namespace boost { namespace simd { namespace tag
   }
   /*!
     The function returns the first entry logically shifted right
-    by the absolute value of the second entry.
+    by value of the second entry. If the second entry is negative
+    the result is not defined.
 
     @par semantic:
     For any given value @c x of type @c T, n  of type @c I:
