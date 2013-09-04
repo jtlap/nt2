@@ -67,11 +67,11 @@ namespace nt2 { namespace details
 
   /// INTERNAL ONLY - Remove MSVC W4 spurrious warning
   template<typename Target> inline void
-  check_expr_equality( Target const&, boost::mpl::false_ const& )
+  check_expr_equality( Target const& t, boost::mpl::false_ const& )
   {
     nt2::unit::error_count()++;
     std::cout << " **failed** is `"
-              << nt2::details::type_id_identity<Target>()
+              << nt2::details::type_id_identity(t)
               << "`\n\n";
   }
 } }
