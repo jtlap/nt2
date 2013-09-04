@@ -29,7 +29,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       result_type r = nt2::asinh(nt2::rec(a0));
-#if defined( BOOST_SIMD_NO_INVALIDS )
+#if !defined( BOOST_SIMD_NO_INVALIDS )
       return r;
 #else
       return if_nan_else(is_eqz(a0), r);

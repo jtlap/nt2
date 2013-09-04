@@ -8,6 +8,7 @@
 //==============================================================================
 #include <nt2/trigonometric/include/functions/simd/sinc.hpp>
 #include <nt2/include/functions/sin.hpp>
+#include <nt2/include/functions/splat.hpp>
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/nan.hpp>
