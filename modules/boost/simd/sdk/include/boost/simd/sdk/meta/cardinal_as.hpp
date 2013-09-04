@@ -11,12 +11,20 @@
 
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/dispatch/meta/na.hpp>
+#include <boost/mpl/size_t.hpp>
 
 namespace boost { namespace simd { namespace meta
 {
   template<class T,class X>
   struct cardinal_as : cardinal_of< native<T,X> >::type
   {};
+
+  template<class T>
+  struct cardinal_as<T, dispatch::meta::na_>
+       : boost::mpl::size_t<1>
+  {
+  };
 } } }
 
 #endif
