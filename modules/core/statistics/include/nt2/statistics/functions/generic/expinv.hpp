@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
     {
       doit(a0, a1, N0(), N1());
     }
-    BOOST_FORCEINLINE static void doit(const A0& a0, A1& a1,
+    BOOST_FORCEINLINE static void doit(const A0&, A1&,
                                        boost::mpl::long_<1> const &, boost::mpl::long_<3> const & )
     {
       BOOST_ASSERT_MSG(false, "Must provide parameter variance to compute confidence bounds.");

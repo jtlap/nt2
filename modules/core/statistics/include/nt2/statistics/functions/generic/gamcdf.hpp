@@ -73,7 +73,7 @@ namespace nt2 { namespace ext
     ////////////////////////////////////////////
     // No enough inputs to computes all ouputs
     ////////////////////////////////////////////
-    BOOST_FORCEINLINE static void doit(const A0& a0, A1& a1,
+    BOOST_FORCEINLINE static void doit(const A0&, A1&,
                                        boost::mpl::long_<1> const &, boost::mpl::long_<3> const & )
     {
       BOOST_ASSERT_MSG(false, "Must provide parameter variance to compute confidence bounds.");
@@ -85,7 +85,7 @@ namespace nt2 { namespace ext
       boost::proto::child_c<0>(a1) =  nt2::gamcdf(boost::proto::child_c<0>(a0),
                                                    boost::proto::child_c<1>(a0));
     }
-    BOOST_FORCEINLINE static void doit(const A0& a0,  A1& a1,
+    BOOST_FORCEINLINE static void doit(const A0&,  A1&,
                                        boost::mpl::long_<3> const &, boost::mpl::long_<3> const & )
     {
       BOOST_ASSERT_MSG(false, "Must provide parameter variance to compute confidence bounds.");
