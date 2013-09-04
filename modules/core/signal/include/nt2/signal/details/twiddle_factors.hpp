@@ -383,7 +383,7 @@ template <unsigned N, typename Vector>
 struct twiddles_interleaved
 {
 public:
-    static split_radix_twiddles<Vector> const * BOOST_DISPATCH_RESTRICT factors() { return twiddles_.factors.begin(); }
+    static split_radix_twiddles<Vector> const * factors() { return twiddles_.factors.begin(); }
 
 private:
     typedef detail::twiddle_holder<Vector, N> twiddle_holder;
@@ -398,7 +398,7 @@ template <unsigned N, typename Vector>
 struct real_separation_twiddles
 {
 public:
-    static twiddle_pair<Vector> const * BOOST_DISPATCH_RESTRICT factors() { return twiddles_.factors.begin(); }
+    static twiddle_pair<Vector> const * factors() { return twiddles_.factors.begin(); }
 
 private:
     typedef detail::real_separation_twiddles_holder<Vector, N> twiddle_holder;
@@ -460,7 +460,7 @@ namespace detail
 template <unsigned N, unsigned Stride, typename T>
 struct real_twiddles
 {
-    static float const * BOOST_DISPATCH_RESTRICT factors() { return factors_.begin(); }
+    static float const * factors() { return factors_.begin(); }
 
     typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_CONFIG_ALIGNMENT ) detail::twiddle<static_cosine, N, N, Stride, T> factors_t;
     static factors_t const factors_;
@@ -472,7 +472,7 @@ typename real_twiddles<N, Stride, T>::factors_t const real_twiddles<N, Stride, T
 template <unsigned N, unsigned Stride, typename T>
 struct imag_twiddles
 {
-    static float const * BOOST_DISPATCH_RESTRICT factors() { return factors_.begin(); }
+    static float const * factors() { return factors_.begin(); }
 
     typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_CONFIG_ALIGNMENT ) detail::twiddle<static_sine, N, N, Stride, T> factors_t;
     static factors_t const factors_;

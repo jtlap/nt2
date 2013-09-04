@@ -527,7 +527,7 @@ namespace detail
 
     template <typename T, T e0, T e1, T e2, T e3>
     BOOST_FORCEINLINE
-    T const (* BOOST_DISPATCH_RESTRICT sign_flipper_aux())[ 4 ]
+    T const (*sign_flipper_aux())[ 4 ]
     {
         unsigned int const mzero_shift( sizeof( T ) * 8 - 1 );
         static unsigned int const cardinal = 4;
@@ -539,7 +539,7 @@ namespace detail
 
     template <typename Vector, bool e0, bool e1, bool e2, bool e3>
     BOOST_FORCEINLINE
-    Vector const * BOOST_DISPATCH_RESTRICT sign_flipper()
+    Vector const * sign_flipper()
     {
         /// \note MSVC10 sometimes generates wrong constants (especially when
         /// the reversed set function (_mm_setr_ps) is used.
@@ -738,6 +738,8 @@ namespace detail
 
         typedef vector_t * BOOST_DISPATCH_RESTRICT parameter0_t;
         typedef vector_t * BOOST_DISPATCH_RESTRICT parameter1_t;
+        typedef vector_t * return0_t;
+        typedef vector_t * return1_t;
 
         typedef dif decimation_t;
         //typedef dit decimation_t; //...zzz...not yet fully ported to the split-radix algorithm...
@@ -806,20 +808,20 @@ namespace detail
         }
 
         template <unsigned N>
-        static twiddles const * BOOST_DISPATCH_RESTRICT twiddle_factors() { return twiddles_interleaved<N, vector_t>::factors(); }
+        static twiddles const * twiddle_factors() { return twiddles_interleaved<N, vector_t>::factors(); }
 
         unsigned int remaining_iterations() const { return counter_; }
 
     public: // (split radix) decimation interface
         //...zzz...instead of lower/upper, left/right or even/odd names could be used...
-        parameter0_t lower_parameter0       () const { return r_prefetched_element<0>(); };
-        parameter1_t lower_parameter1       () const { return i_prefetched_element<0>(); };
+        return0_t lower_parameter0       () const { return r_prefetched_element<0>(); };
+        return1_t lower_parameter1       () const { return i_prefetched_element<0>(); };
 
-        parameter0_t upper_first_parameter0 () const { return r_prefetched_element<2>(); };
-        parameter1_t upper_first_parameter1 () const { return i_prefetched_element<2>(); };
+        return0_t upper_first_parameter0 () const { return r_prefetched_element<2>(); };
+        return1_t upper_first_parameter1 () const { return i_prefetched_element<2>(); };
 
-        parameter0_t upper_second_parameter0() const { return r_prefetched_element<3>(); };
-        parameter1_t upper_second_parameter1() const { return i_prefetched_element<3>(); };
+        return0_t upper_second_parameter0() const { return r_prefetched_element<3>(); };
+        return1_t upper_second_parameter1() const { return i_prefetched_element<3>(); };
 
     public: // data setup interface
         template <unsigned int valid_bits>
