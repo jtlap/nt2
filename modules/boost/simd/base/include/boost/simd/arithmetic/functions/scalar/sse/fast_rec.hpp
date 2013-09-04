@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    BOOST_FORCEINLINE result_type operator()(float a0) const
+    BOOST_FORCEINLINE result_type operator()(A0 a0) const
     {
       float inv;
       _mm_store_ss( &inv, _mm_rcp_ps( _mm_load_ss( &a0 ) ) );
