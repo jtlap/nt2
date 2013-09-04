@@ -35,8 +35,15 @@ namespace nt2{ namespace ext
       return out;
     }
   private :
-    static r_type choice(const A1& in, boost::mpl::long_<1> const &){return Mone<r_type>(); }
-    static r_type choice(const A1& in, boost::mpl::long_<2> const &){return boost::proto::child_c<1>(in); }
+    static r_type choice(const A1&, boost::mpl::long_<1> const &)
+    {
+      return Mone<r_type>();
+    }
+
+    static r_type choice(const A1& in, boost::mpl::long_<2> const &)
+    {
+      return boost::proto::child_c<1>(in);
+    }
   };
 } }
 
