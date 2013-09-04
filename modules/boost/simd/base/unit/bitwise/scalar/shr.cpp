@@ -17,7 +17,6 @@
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
-#include <boost/simd/include/constants/two.hpp>
 #include <boost/simd/include/constants/three.hpp>
 
 

@@ -15,6 +15,7 @@
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/two.hpp>
 #include <boost/simd/include/constants/four.hpp>
+#include <boost/simd/include/constants/signmask.hpp>
 #include <boost/simd/sdk/config.hpp>
 
 NT2_TEST_CASE_TPL ( ror_i,  BOOST_SIMD_INTEGRAL_TYPES)
