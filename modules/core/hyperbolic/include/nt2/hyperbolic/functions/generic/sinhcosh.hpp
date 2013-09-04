@@ -42,9 +42,9 @@ namespace nt2 { namespace ext
     typedef std::pair<A0, A0>                      result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      result_type res;
-      sinhcosh(tofloat(a0), res.first, res.second);
-      return res;
+      A0 first, second;
+      sinhcosh(tofloat(a0), first, second);
+      return result_type(first, second);
     }
   };
 } }

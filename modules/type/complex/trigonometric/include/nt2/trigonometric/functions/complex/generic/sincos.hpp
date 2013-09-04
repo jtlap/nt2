@@ -86,9 +86,9 @@ namespace nt2 { namespace ext
     typedef std::pair<A0, A0>           result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      result_type res;
-      sincos(a0, res.first, res.second);
-      return res;
+      A0 first, second;
+      sincos(a0, first, second);
+      return result_type(first, second);
     }
   };
 } }

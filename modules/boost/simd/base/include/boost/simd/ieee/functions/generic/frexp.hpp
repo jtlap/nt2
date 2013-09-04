@@ -46,9 +46,9 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      result_type res;
-      boost::simd::frexp( a0, res.first, res.second );
-      return res;
+      A0 first, second;
+      boost::simd::frexp( a0, first, second );
+      return result_type(first, second);
     }
   };
 } } }

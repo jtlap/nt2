@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_REM_PIO2_MEDIUM_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_REM_PIO2_MEDIUM_HPP_INCLUDED
+
 #include <nt2/trigonometric/functions/rem_pio2_medium.hpp>
 #include <nt2/include/functions/simd/round2even.hpp>
 #include <nt2/include/functions/simd/toint.hpp>
@@ -25,8 +26,6 @@
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/bitwise_and.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
-
-
 
 namespace nt2 { namespace ext
 {
@@ -53,9 +52,9 @@ namespace nt2 { namespace ext
     typedef std::pair<int_t, A0>               result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      result_type res;
-      res.first = nt2::rem_pio2_medium(a0,res.second);
-      return res;
+      A0 second;
+      int_t const first = nt2::rem_pio2_medium(a0,second);
+      return result_type(first, second);
     }
   };
 

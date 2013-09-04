@@ -46,9 +46,9 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
     {
-      result_type res;
-      boost::simd::split_multiplies( a0, a1, res.first, res.second );
-      return res;
+      part first, second;
+      boost::simd::split_multiplies( a0, a1, first, second );
+      return result_type(first, second);
     }
   };
 } } }

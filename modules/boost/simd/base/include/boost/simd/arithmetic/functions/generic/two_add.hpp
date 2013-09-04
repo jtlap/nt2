@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_TWO_ADD_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_TWO_ADD_HPP_INCLUDED
+
 #include <boost/simd/arithmetic/functions/two_add.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/minus.hpp>
@@ -47,9 +48,9 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,A0 const& a1) const
     {
-      result_type res;
-      boost::simd::two_add( a0, a1, res.first, res.second );
-      return res;
+      A0 first, second;
+      boost::simd::two_add( a0, a1, first, second );
+      return result_type(first, second);
     }
   };
 

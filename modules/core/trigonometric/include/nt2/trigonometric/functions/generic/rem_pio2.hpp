@@ -33,13 +33,13 @@ namespace nt2 { namespace ext
 
     inline result_type operator()(A0 const& a0) const
     {
-      result_type res;
-      boost::fusion::at_c<0>(res) =
+      A0 second, third;
+      itype const first =
         nt2::rem_pio2(a0,
-                      boost::fusion::at_c<1>(res),
-                      boost::fusion::at_c<2>(res)
+                      second,
+                      third
                      );
-      return res;
+      return result_type(first, second, third);
     }
   };
 
