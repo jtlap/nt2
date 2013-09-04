@@ -10,11 +10,6 @@
 #ifndef NT2_SDK_UNIT_TESTS_RELATION_HPP_INCLUDED
 #define NT2_SDK_UNIT_TESTS_RELATION_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Logical comparison testing macros
-**/
-
 #include <iomanip>
 #include <iostream>
 #include <nt2/sdk/unit/stats.hpp>
@@ -51,8 +46,7 @@ do                                                                             \
   For any two given expressions @c A and @c B, consider the test successful if
   and only if @c A @c == @c B evaluates to @c true.
 
-  @usage
-  @include test_equal.cpp
+  @usage{test_equal.cpp}
 **/
 #define NT2_TEST_EQUAL(A,B)                                                    \
 do                                                                             \
@@ -84,8 +78,7 @@ do                                                                             \
   For any two given expressions @c A and @c B, consider the test successful if
   and only if @c A @c != @c B evaluates to @c true.
 
-  @usage
-  @include test_not_equal.cpp
+  @usage{test_not_equal.cpp}
 **/
 #define NT2_TEST_NOT_EQUAL(A,B)                                                \
 do                                                                             \
@@ -117,8 +110,7 @@ do                                                                             \
   For any two given expressions @c A and @c B, consider the test successful if
   and only if @c A @c < @c B evaluates to @c true.
 
-  @usage
-  @include test_lesser.cpp
+  @usage{test_lesser.cpp}
 **/
 #define NT2_TEST_LESSER(A,B) NT2_TEST_FUNC(A,B,<)
 
@@ -128,8 +120,7 @@ do                                                                             \
   For any two given expressions @c A and @c B, consider the test successful if
   and only if @c A @c > @c B evaluates to @c true.
 
-  @usage
-  @include test_greater.cpp
+  @usage{test_greater.cpp}
 **/
 #define NT2_TEST_GREATER(A,B) NT2_TEST_FUNC(A,B,>)
 
@@ -139,8 +130,7 @@ do                                                                             \
   For any two given expressions @c A and @c B, consider the test successful if
   and only if @c A @c <= @c B evaluates to @c true.
 
-  @usage
-  @include test_lesser_equal.cpp
+  @usage{test_lesser_equal.cpp}
 **/
 #define NT2_TEST_LESSER_EQUAL(A,B) NT2_TEST_FUNC(A,B,<=)
 
@@ -150,8 +140,7 @@ do                                                                             \
   For any two given expressions @c A and @c B, consider the test successful if
   and only if @c A @c >= @c B evaluates to @c true.
 
-  @usage
-  @include test_greater_equal.cpp
+  @usage{test_greater_equal.cpp}
 **/
 #define NT2_TEST_GREATER_EQUAL(A,B) NT2_TEST_FUNC(A,B,>=)
 

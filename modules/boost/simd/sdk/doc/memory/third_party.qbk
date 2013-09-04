@@ -54,7 +54,7 @@ inside Boost.SIMD. The code will looks like:
 and it will get compiled using:
 
 ``
-    g++ main.cpp -I$BOOST_ROOT -I/path/to/dlmalloc -DBOOST_SIMD_NO_BUILTINS -DBOOST_SIMD_DEFAULT_MALLOC=dlmalloc -DBOOST_SIMD_DEFAULT_FREE=dlfree
+    g++ main.cpp -II/path/to/boost -I/path/to/dlmalloc -DBOOST_SIMD_NO_BUILTINS -DBOOST_SIMD_DEFAULT_MALLOC=dlmalloc -DBOOST_SIMD_DEFAULT_FREE=dlfree
 ``
 
 Note that the definition of the custom allocation functions used must be done

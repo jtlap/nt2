@@ -21,17 +21,17 @@
 namespace boost { namespace dispatch { namespace meta
 {
   /*!
-   * @brief @metalambda forwarding on Hierarchizable types
+   * @brief @mpllambda forwarding on Hierarchizable types
    *
-   * Forward the application of a given @metalambda @c Lambda onto a
+   * Forward the application of a given @mpllambda @c Lambda onto a
    * fundamental type.
    *
-   * @tparam Lambda @metalambda to apply.
+   * @tparam Lambda @mpllambda to apply.
    * @tparam T      Fundamental type to transform
    *
    * @semantic
    *
-   * For any type @c T and any @metalambda @c Lambda:
+   * For any type @c T and any @mpllambda @c Lambda:
    *
    * @code
    * typedef boost::dispatch::meta::behave_as<Lambda,T>::type r;

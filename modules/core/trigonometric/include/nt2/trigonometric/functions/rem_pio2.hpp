@@ -139,8 +139,7 @@ namespace nt2 { namespace tag
     routines of computation
 
   **/
-
-    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::rem_pio2_, rem_pio2,(A0 const&)(A0&)(const A1&),2)
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::rem_pio2_, rem_pio2,(A0 const&)(A0&)(const A1&),2)
 
  }
 

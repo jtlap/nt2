@@ -10,11 +10,6 @@
 #ifndef NT2_SDK_UNIT_TEST_CASE_HPP_INCLUDED
 #define NT2_SDK_UNIT_TEST_CASE_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Test case macro definition
-**/
-
 #include <cstdio>
 #include <nt2/sdk/unit/stats.hpp>
 #include <nt2/sdk/config/types.hpp>
@@ -56,8 +51,7 @@
   sequences. Each test case has a unique name passed as a parameter that
   identifies the set of tests inside the whole test suite.
 
-  @usage
-  @include test_case.cpp
+  @usage{test_case.cpp}
 **/
 #define NT2_TEST_CASE(Name)                                               \
 void BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)();                                \
@@ -99,8 +93,7 @@ namespace nt2 { namespace details
   case has a unique name passed as a parameter that identifies the set of tests
   inside the whole test suite.
 
-  @usage
-  @include test_case_tpl.cpp
+  @usage{test_case_tpl.cpp}
 **/
 #define NT2_TEST_CASE_TPL(Name, Types)                                         \
 template<class T> void BOOST_PP_CAT ( tpl_                                     \

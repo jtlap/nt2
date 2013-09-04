@@ -10,11 +10,6 @@
 #ifndef NT2_SDK_UNIT_TESTS_BASIC_HPP_INCLUDED
 #define NT2_SDK_UNIT_TESTS_BASIC_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Basic predicate testing macros
-**/
-
 #include <nt2/sdk/unit/stats.hpp>
 
 /*!
@@ -23,8 +18,7 @@
   For any given expression @c X, consider the test successful if and only if
   @c X evaluates to @c true.
 
-  @usage
-  @include test.cpp
+  @usage{test.cpp}
 **/
 #define NT2_TEST(X)                                             \
 ( ::nt2::unit::test_count()++                                   \
@@ -38,8 +32,7 @@
 
   Force the test to fail and output @c X as a custom message.
 
-  @usage
-  @include test_error.cpp
+  @usage{test_error.cpp}
 **/
 #define NT2_TEST_ERROR(X)                                   \
 ( ::nt2::unit::test_count()++                               \
@@ -53,8 +46,7 @@
 
   Register the test suite as complete.
 
-  @usage
-  @include test_completion.cpp
+  @usage{test_completion.cpp}
 **/
 #define NT2_TEST_COMPLETE(X)  \
 ( ::nt2::unit::test_count()++ \

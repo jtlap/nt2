@@ -56,7 +56,7 @@ namespace meta
 {
   /*!
    * \ingroup metafunctions
-   * For any Hierarchizable type, returns a \metalambda which permits the lazy
+   * For any Hierarchizable type, returns a @mpllambda which permits the lazy
    * recomposition of any type of the same hierarchy from a set of types.
    *
    * \tparam Hierarchizable type to deconstruct
@@ -68,7 +68,7 @@ namespace meta
    *  typedef boost::dispatch::meta::factory_of<T>::type l;
    * \endcode
    *
-   * return a \metalambda so that, for any types \c Tn...
+   * return a @mpllambda so that, for any types \c Tn...
    *
    * \code
    *  typedef boost::mpl::apply<l, Tn...>::type r;

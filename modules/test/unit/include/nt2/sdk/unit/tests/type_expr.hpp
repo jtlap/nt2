@@ -10,11 +10,6 @@
 #ifndef NT2_SDK_UNIT_TESTS_TYPE_EXPR_HPP_INCLUDED
 #define NT2_SDK_UNIT_TESTS_TYPE_EXPR_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Type related testing macros
-**/
-
 #include <iostream>
 #include <nt2/sdk/unit/stats.hpp>
 #include <nt2/sdk/unit/details/expr_type.hpp>
@@ -34,12 +29,12 @@
   @brief Check for type equality
 
   For a given @c Expression, consider the test successful if and only if
+
   @code
-  boost::is_same<boost::mpl::apply<Lambda,decltype(Expression)>::type,Type>::value == true
+  is_same<boost::mpl::apply<Lambda,decltype(Expression)>::type,Type>::value == true
   @endcode
 
-  @usage
-  @include test_type_expr.cpp
+  @usage{test_type_expr.cpp}
 **/
 #define NT2_TEST_EXPR_TYPE(Expression, Lambda, Type)                           \
 do {                                                                           \
@@ -74,8 +69,7 @@ do {                                                                           \
   For a given @c Type, consider the test successful if and only if
   @c typeid(Type) evaluates to @c Info.
 
-  @usage
-  @include test_type_info.cpp
+  @usage{test_type_info.cpp}
 **/
 #define NT2_TEST_TYPE_INFO(Info, Type)                                         \
 do {                                                                           \
@@ -106,8 +100,7 @@ do {                                                                           \
   For a given type @c T, consider the test successful if and only if
   @c boost::is_same<T,Type>::value evaluates to @c true.
 
-  @usage
-  @include test_type_is.cpp
+  @usage{test_type_is.cpp}
 **/
 #define NT2_TEST_TYPE_IS(T, Type)                                              \
 do {                                                                           \

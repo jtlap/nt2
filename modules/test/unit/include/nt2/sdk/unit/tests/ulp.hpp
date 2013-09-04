@@ -22,8 +22,7 @@
   For two given values @c A and @c B, consider the test successful if and only
   if the absolute difference between @c A and @b is less or equal to @c N.
 
-  @usage
-  @include test_ulp.cpp
+  @usage{test_ulp.cpp}
 **/
 #define NT2_TEST_ULP_EQUAL(A, B, N)                                            \
 do                                                                             \

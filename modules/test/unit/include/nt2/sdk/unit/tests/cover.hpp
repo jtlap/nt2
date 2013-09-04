@@ -10,8 +10,6 @@
 #ifndef NT2_SDK_UNIT_TESTS_COVER_HPP_INCLUDED
 #define NT2_SDK_UNIT_TESTS_COVER_HPP_INCLUDED
 
-// Temporary fix before cover tests disappear
-
 #include <nt2/sdk/unit/io.hpp>
 #include <nt2/sdk/unit/stats.hpp>
 #include <nt2/sdk/unit/details/cover.hpp>

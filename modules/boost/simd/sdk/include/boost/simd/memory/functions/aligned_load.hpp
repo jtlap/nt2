@@ -40,7 +40,8 @@ namespace boost { namespace simd
     operations and register types for the chosen destination type.
 
     @pre  If @c Type is a SIMD register type, the value of
-          @c(ptr+offset-Misalignment) must follow SIMD alignment constraint.
+          @c ptr + @c offset - @c Misalignment must satisfy SIMD
+          alignment constraint.
 
     @par Semantic
 

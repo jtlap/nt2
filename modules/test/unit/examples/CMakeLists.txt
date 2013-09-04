@@ -9,6 +9,7 @@
 
 SET( SOURCES
   test.cpp
+  test_completion.cpp
   test_error.cpp
   test_assert.cpp
   test_throw.cpp
@@ -25,6 +26,7 @@ SET( SOURCES
   test_greater_equal.cpp
   test_lesser.cpp
   test_lesser_equal.cpp
+  test_ulp.cpp
   )
 
 FOREACH( EXAMPLE ${SOURCES})

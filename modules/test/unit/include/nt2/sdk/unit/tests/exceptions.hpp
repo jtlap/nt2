@@ -27,8 +27,7 @@
   For any given expression @c X, consider the test successful if and only if
   @c X throws an exception of type to @c E.
 
-  @usage
-  @include test_throw.cpp
+  @usage{test_throw.cpp}
 **/
 #define NT2_TEST_THROW(X,E)                                                    \
 do {                                                                           \
@@ -53,8 +52,7 @@ do {                                                                           \
   For any given expression @c X, consider the test successful if and only if
   @c X triggered a run-time assertion.
 
-  @usage
-  @include test_assert.cpp
+  @usage{test_assert.cpp}
 **/
 #define NT2_TEST_ASSERT(X)                                                     \
 do {                                                                           \
@@ -81,8 +79,7 @@ do {                                                                           \
   For any given expression @c X, consider the test successful if and only if
   @c X does not throw any exception.
 
-  @usage
-  @include test_no_throw.cpp
+  @usage{test_no_throw.cpp}
 **/
 #define NT2_TEST_NO_THROW(X)                                                   \
 do {                                                                           \
@@ -102,13 +99,12 @@ do {                                                                           \
 
 
 /*!
-  @brief Check runtime assrtion not failing
+  @brief Check runtime assertion not failing
 
   For any given expression @c X, consider the test successful if and only if
   @c X does not trigger any runtime assertion.
 
-  @usage
-  @include test_no_assert.cpp
+  @usage{test_no_assert.cpp}
 **/
 #define NT2_TEST_NO_ASSERT(X)                                                  \
 do {                                                                           \

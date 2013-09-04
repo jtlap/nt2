@@ -22,7 +22,7 @@
 
   @usage{preprocessor/align_on.cpp}
 
-  @param ALIGN Power of two alignment boundary to apply
+  @param Align Power of two alignment boundary to apply
 **/
 #define BOOST_SIMD_ALIGN_ON(Align)
 #else

@@ -54,7 +54,7 @@ namespace boost { namespace dispatch { namespace meta
    * @endcode
    *
    * where @c Ai is the type with the largest @c sizeof among @c Args...
-   * If any of the @Ai is not a @ref Primitive type, a
+   * If any of the @c Ai is not a Primitive type, a
    * @c BOOST_DISPATCH_NON_FUNDAMENTAL_PRIMITIVE_USED_IN_META_AS_FLOATING static
    * assertion is triggered.
    *

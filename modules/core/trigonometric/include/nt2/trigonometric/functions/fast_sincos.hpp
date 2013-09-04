@@ -15,49 +15,54 @@
 #define NT2_TRIGONOMETRIC_FUNCTIONS_FAST_SINCOS_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-namespace nt2 { namespace tag
+namespace nt2
+{
+  namespace tag
   {
     /// @brief Hierarchy tag for fast_sincos function
-    struct fast_sincos_ : ext::elementwise_<fast_sincos_> { typedef ext::elementwise_<fast_sincos_> parent; };
+    struct fast_sincos_ : ext::elementwise_<fast_sincos_>
+    {
+      typedef ext::elementwise_<fast_sincos_> parent;
+    };
   }
+
   /*!
     @brief fast_sincos
 
-    @c fast_sincos compute simultaneously the sin and cos of the input in the interval \f$[-\pi/4, \pi/4]\f$, nan outside.
+    @c fast_sincos compute simultaneously the sin and cos of the input
+    in the interval \f$[-\pi/4, \pi/4]\f$, nan outside.
 
     @param a0 angle in radian
 
     @return A Fusion Sequence containing the sin and cos of @c a0
   **/
-
   NT2_FUNCTION_IMPLEMENTATION(tag::fast_sincos_, fast_sincos, 1)
 
   /*!
     @brief fast_sincos
 
-    @c fast_sincos compute simultaneously the sin and cos of the input in the interval \f$[-\pi/4, \pi/4]\f$, nan outside.
+    @c fast_sincos compute simultaneously the sin and cos of the input in
+    the interval \f$[-\pi/4, \pi/4]\f$, nan outside.
 
     @param a0 angle in radian
     @param a1 L-Value that will receive the sin off @c a0
 
     @return A Fusion Sequence containing the cos of @c a0
   **/
-
-
-   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::fast_sincos_, fast_sincos,(A0 const&)(A1&),2)
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::fast_sincos_, fast_sincos,(A0 const&)(A1&),2)
 
   /*!
     @brief  fast_sincos
 
-    @c fast_sincos compute simultaneously the sin and cos of the input in the interval \f$[-\pi/4, \pi/4]\f$, nan outside.
+    @c fast_sincos compute simultaneously the sin and cos of the input in
+    the interval \f$[-\pi/4, \pi/4]\f$, nan outside.
 
     @param a0 angle in radian
     @param a1 L-Value that will receive the sin off @c a0
-    @param a1 L-Value that will receive the cos off @c a0
+    @param a2 L-Value that will receive the cos off @c a0
 
   **/
-   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::fast_sincos_, fast_sincos,(A0 const&)(A1&)(A2&),3)
-
-    }
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::fast_sincos_, fast_sincos,(A0 const&)(A1&)(A2&),3)
+}
 
 #endif
