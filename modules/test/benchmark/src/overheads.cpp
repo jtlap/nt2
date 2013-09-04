@@ -12,6 +12,7 @@
 #include <nt2/sdk/bench/config.hpp>
 #include <nt2/sdk/bench/details/overheads.hpp>
 #include <nt2/sdk/bench/perform_benchmark.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace nt2 { namespace details
 {
@@ -22,7 +23,7 @@ namespace nt2 { namespace details
     struct null_benchmark_t : base_experiment
     {
       null_benchmark_t() {}
-      BOOST_DISPATCH_NOTHROW void run() const {}
+      BOOST_DISPATCH_NOTHROW void run() const BOOST_DISPATCH_OVERRIDE {}
     } null_benchmark;
 
     volatile null_benchmark_t& owb( null_benchmark );

@@ -124,7 +124,7 @@ namespace nt2 { namespace details
                           )                                                    \
   {                                                                            \
     int ib = -1;                                                               \
-    int cc = nt2::meta                                                         \
+    std::size_t cc = nt2::meta                                                 \
                         ::cardinal_of < typename boost::mpl                    \
                                                       ::at_c<Types,0>::type    \
                                       >::value;                                \
@@ -136,7 +136,7 @@ namespace nt2 { namespace details
                                                                                \
     BOOST_FOREACH ( typename ULPs::const_reference ff, ulps )                  \
     {                                                                          \
-      int ii = (int(ff.index)/cc)*cc;                                          \
+      int ii = static_cast<int>((ff.index/cc)*cc);                             \
       if(ii > ib)                                                              \
       {                                                                        \
                                                                                \
