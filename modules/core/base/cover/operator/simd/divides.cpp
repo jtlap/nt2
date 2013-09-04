@@ -7,14 +7,15 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <nt2/operator/include/functions/divides.hpp>
-#include <vector>
-#include <nt2/include/constants/valmin.hpp>
-#include <nt2/include/constants/valmax.hpp>
-
-#include <nt2/sdk/unit/tests/cover.hpp>
-#include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/valmin.hpp>
+#include <nt2/include/constants/valmax.hpp>
+#include <vector>
+
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/cover.hpp>
 
 NT2_TEST_CASE_TPL ( divides_all_types,  NT2_SIMD_TYPES)
 {

@@ -37,7 +37,6 @@ std::vector<Type,boost::simd::allocator<Type> > Name(Size);                    \
 do                                                                             \
 {                                                                              \
   for(std::size_t i=0;i<Name.size();++i) Name[i] = Type(rand() % 2);           \
-}                                                                              \
 } BOOST_DISPATCH_ONCE                                                          \
 /**/
 
