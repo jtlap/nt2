@@ -40,10 +40,7 @@ namespace boost { namespace simd { namespace ext
       mn = min(minmax,maxmin);
       mx = max(minmax,maxmin);
 
-      return  details::shuffle<0,1,0,1>
-              ( A0(details::shuffle<0,2,0,2>(mn))
-              , A0(details::shuffle<0,2,0,2>(mx))
-              );
+      return details::shuffle<0,2,0,2>(mn,mx);
     }
   };
 
