@@ -120,7 +120,7 @@ namespace nt2 { namespace ext
 //         extrapval1 = boost::proto::child_c<2>(inputs)(begin_);
 //         extrapval2 = boost::proto::child_c<2>(inputs)(begin_+1);
 //       }
-    static void get(const A1& inputs, bool &, value_type&, value_type&,
+    static void get(const A1& , bool &, value_type&, value_type&,
                     const nt2::meta::as_<nt2::container::colon_> &)        //nothing to get
       {
       }

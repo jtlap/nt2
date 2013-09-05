@@ -90,7 +90,7 @@ namespace nt2
   // Read cycles counter using an approximation of the frequency
   inline cycles_t read_cycles()
   {
-    now() * sysconf(_SC_CLK_TCK);
+    return now() * sysconf(_SC_CLK_TCK);
   }
 }
 

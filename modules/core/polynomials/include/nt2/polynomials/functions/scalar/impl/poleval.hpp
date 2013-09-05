@@ -56,7 +56,7 @@ namespace nt2
 
     template <class T, class V, int N> struct evaluate < T, V, N, N, descending_>
     {
-      static inline V eval(const T& a, const V& x)
+      static inline V eval(const T& a, const V&)
       {
         return splat<V>(a[0]);
       }

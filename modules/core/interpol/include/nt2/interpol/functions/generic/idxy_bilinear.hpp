@@ -129,10 +129,10 @@ namespace nt2 { namespace ext
 
     // Five inputs y and xi yi and two floatings
     static void choices(const A1& inputs,
-                        bool & extrap,
+                        bool & ,
                         value_type& extrapval1x, value_type& extrapval2x,
                         value_type& extrapval1y, value_type& extrapval2y,
-                        std::size_t& dim1, std::size_t& dim2,
+                        std::size_t& , std::size_t& ,
                         boost::mpl::long_<5> const &)                //get extrapval/1x/2x and extrapval/1y/2y commons values
       {
         extrapval1x = extrapval1y = boost::proto::child_c<3>(inputs);
@@ -196,7 +196,7 @@ namespace nt2 { namespace ext
 
     // ten inputs y and xi, yi, two flotings,  _, and 2 integer
     static void choices(const A1& inputs,
-                        bool & extrap,
+                        bool &,
                         value_type& extrapval1x, value_type& extrapval2x,
                         value_type& extrapval1y, value_type& extrapval2y,
                         std::size_t& dim1, std::size_t& dim2,

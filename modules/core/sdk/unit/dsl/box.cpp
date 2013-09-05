@@ -81,7 +81,10 @@ namespace boost { namespace simd { namespace ext
   )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return a0; }
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const&)
+    {
+      return a0;
+    }
   };
 } } }
 

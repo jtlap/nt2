@@ -95,7 +95,7 @@ namespace nt2 { namespace ext
     {}
 
     template<class X, class C1, class C2> static
-    void getdims( const X & xi, const C1& v1, const C2& v2
+    void getdims( const X &, const C1& v1, const C2& v2
                 , std::size_t& dim1, std::size_t& dim2, const boost::mpl::true_&
                 )
     {

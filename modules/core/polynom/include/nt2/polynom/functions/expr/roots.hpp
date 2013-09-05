@@ -28,9 +28,12 @@ namespace nt2 { namespace ext
                             )
   {
     typedef A0   base_t;
-    BOOST_DISPATCH_RETURNS(1, (const A0& a0)
-                          , nt2::zeros(1, 0, nt2::meta::as_<base_t>())
-                          );
+
+    BOOST_DISPATCH_RETURNS_ARGS ( 1
+                                , (const A0& a0)
+                                , (const A0&)
+                                , nt2::zeros(1, 0, nt2::meta::as_<base_t>())
+                                );
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_

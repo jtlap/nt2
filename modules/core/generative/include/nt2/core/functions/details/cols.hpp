@@ -31,7 +31,7 @@ namespace nt2 { namespace meta
 
     template<class Pos, class Size,class Target>
     BOOST_FORCEINLINE typename Target::type
-    operator()(Pos const& p, Size const&sz, Target const&) const
+    operator()(Pos const& p, Size const& sz, Target const&) const
     {
       typedef typename Target::type                 type;
       typedef typename meta::as_index<type>::type i_t;
@@ -41,7 +41,7 @@ namespace nt2 { namespace meta
 
     template<class Pos,class Target>
     BOOST_FORCEINLINE typename Target::type
-    operator()(Pos const& p, _0D const&sz, Target const&) const
+    operator()(Pos const&, _0D const&, Target const&) const
     {
       typedef typename Target::type                 type;
       typedef typename meta::as_index<type>::type i_t;
