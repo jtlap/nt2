@@ -37,6 +37,7 @@
 #define BOOST_SIMD_TAG_SEQ            (::boost::simd::tag::sse_)
 #define BOOST_SIMD_DEFAULT_EXTENSION  ::boost::simd::tag::sse_
 #define BOOST_SIMD_DEFAULT_SITE       ::boost::simd::tag::ssse3_
+#define BOOST_SIMD_SIMD_HAS_ALL_TYPES
 
 #include <tmmintrin.h>
 

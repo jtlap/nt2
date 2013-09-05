@@ -57,6 +57,20 @@
 #define BOOST_SIMD_DEFAULT_SITE       ::boost::simd::tag::altivec_
 #define BOOST_SIMD_NO_DENORMALS
 
+#define BOOST_SIMD_SIMD_REAL_TYPES (float)
+
+#define BOOST_SIMD_SIMD_INTEGRAL_UNSIGNED_TYPES (boost::simd::uint32_t)(boost::simd::uint16_t)(boost::simd::uint8_t)
+#define BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES   (boost::simd:: int32_t)(boost::simd:: int16_t)(boost::simd:: int8_t)
+
+#define BOOST_SIMD_SIMD_INT_CONVERT_TYPES  (boost::simd:: int32_t)
+#define BOOST_SIMD_SIMD_UINT_CONVERT_TYPES (boost::simd::uint32_t)
+
+#define BOOST_SIMD_SIMD_GROUPABLE_TYPES (boost::simd::int16_t)(boost::simd::uint16_t)(boost::simd::int32_t)(boost::simd::uint32_t)
+#define BOOST_SIMD_SIMD_SPLITABLE_TYPES (boost::simd::int16_t)(boost::simd::uint16_t)(boost::simd:: int8_t)(boost::simd:: uint8_t)
+
+#define BOOST_SIMD_SIMD_REAL_GROUPABLE_TYPES
+#define BOOST_SIMD_SIMD_REAL_SPLITABLE_TYPES
+
 #include <boost/simd/sdk/simd/extensions/meta/altivec.hpp>
 
 #endif

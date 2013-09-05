@@ -34,6 +34,20 @@
 #define BOOST_SIMD_DEFAULT_EXTENSION  ::boost::simd::tag::sse_
 #define BOOST_SIMD_DEFAULT_SITE       ::boost::simd::tag::sse_
 
+#define BOOST_SIMD_SIMD_REAL_TYPES (float)
+
+#define BOOST_SIMD_SIMD_INTEGRAL_UNSIGNED_TYPES
+#define BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES
+
+#define BOOST_SIMD_SIMD_INT_CONVERT_TYPES
+#define BOOST_SIMD_SIMD_UINT_CONVERT_TYPES
+
+#define BOOST_SIMD_SIMD_REAL_GROUPABLE_TYPE
+#define BOOST_SIMD_SIMD_REAL_SPLITABLE_TYPES (float)
+
+#define BOOST_SIMD_SIMD_GROUPABLE_TYPES
+#define BOOST_SIMD_SIMD_SPLITABLE_TYPES
+
 #include <emmintrin.h>
 
 #include <boost/simd/sdk/simd/extensions/meta/sse.hpp>
