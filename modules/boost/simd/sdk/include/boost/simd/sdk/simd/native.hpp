@@ -22,6 +22,8 @@
 #include <boost/fusion/adapted/boost_array.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/type_traits/is_const.hpp>
+#include <boost/type_traits/is_reference.hpp>
 
 namespace boost { namespace simd
 {
@@ -41,6 +43,12 @@ namespace boost { namespace simd
       (!is_same<native_type, dispatch::meta::na_>::value),
       BOOST_SIMD_NATIVE_TYPE_UNSUPPORTED_ON_EXTENSION,
       (Scalar, Extension)
+    );
+
+    BOOST_MPL_ASSERT_MSG(
+      (!is_const<Scalar>::value && !is_reference<Scalar>::value),
+      BOOST_SIMD_NATIVE_TYPE_MUST_NOT_BE_REF_OR_QUALIFIED,
+      (Scalar)
     );
 
     ////////////////////////////////////////////////////////////////////////////
