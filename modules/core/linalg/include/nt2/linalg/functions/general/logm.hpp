@@ -241,7 +241,7 @@ namespace nt2
 
       template < class D1, class D2 > static inline
       void logm2by2(const D1& a0,
-                    uint32_t maxsqrt,
+                    uint32_t /*maxsqrt*/,
                     D2& rj)
       {
         value_type a1 = a0(1,1);
@@ -269,7 +269,7 @@ namespace nt2
           rj(1,2) = nt2::multiplies(a0(1,2), dd);
         }
       }
-      static inline r_type unwind(const value_type& z, boost::mpl::false_)
+      static inline r_type unwind(const value_type& /*z*/, boost::mpl::false_)
       {
         return Zero<r_type>();
       }
@@ -284,7 +284,7 @@ namespace nt2
       void logm_tr(const D1& a0,
                   uint32_t maxsqrt,
                   D2& rj,
-                  uint32_t& term)
+                  uint32_t& /*term*/)
       {
         btab_t xvals = nt2::cons<r_type>(1.6206284795015669e-002,   // m = 3
                                          5.3873532631381268e-002,   // m = 4

@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename T::value_type v_t;
-    BOOST_DISPATCH_RETURNS(2, (A0 const& n, T const & t),
+    BOOST_DISPATCH_RETURNS_ARGS(2, (A0 const& n, T const & t), (A0 const& n, T const & ),
                            (nt2::randsvd(n, n, nt2::rec(nt2::Sqrteps<v_t>()), 3, n-1, n-1))
                           )
   };
@@ -70,7 +70,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename T::value_type v_t;
-    BOOST_DISPATCH_RETURNS(3, (A0 const& m, A0 const& n, T const & t),
+    BOOST_DISPATCH_RETURNS_ARGS(3, (A0 const& m, A0 const& n, T const & t),(A0 const& m, A0 const& n, T const & ),
                            (nt2::randsvd(m, n, nt2::rec(nt2::Sqrteps<v_t>()), 3,
                                          nt2::max(n, m)-1, nt2::max(n, m)-1))
                           )
