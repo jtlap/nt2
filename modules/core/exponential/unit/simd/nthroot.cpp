@@ -46,7 +46,7 @@ NT2_TEST_CASE_TPL ( nthroot_real__2_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(nthroot(nt2::splat<vT>(8),nt2::splat<ivT>(3)), nt2::splat<r_t>(2), 0.5);
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( nthroot_sintgt_16__2_0,  NT2_SIMD_SIGNED_INT_GT_16_TYPES)
+NT2_TEST_CASE_TPL ( nthroot_sintgt_16__2_0,  NT2_SIMD_INT_CONVERT_TYPES)
 {
   using nt2::nthroot;
   using nt2::tag::nthroot_;
@@ -63,7 +63,7 @@ NT2_TEST_CASE_TPL ( nthroot_sintgt_16__2_0,  NT2_SIMD_SIGNED_INT_GT_16_TYPES)
   NT2_TEST_ULP_EQUAL(nthroot(nt2::splat<vT>(8),nt2::splat<ivT>(3)), nt2::splat<r_t>(2), 0.5);
 } // end of test for sintgt_16_
 
-NT2_TEST_CASE_TPL ( nthroot_uintgt_16__2_0,  NT2_SIMD_UNSIGNED_INT_GT_16_TYPES)
+NT2_TEST_CASE_TPL ( nthroot_uintgt_16__2_0,  NT2_SIMD_UINT_CONVERT_TYPES)
 {
   using nt2::nthroot;
   using nt2::tag::nthroot_;
