@@ -201,6 +201,7 @@ macro(nt2_doc_doxygen file)
 
   nt2_xsltproc(${file}.xml
                --stringparam boost.doxygen.header.prefix ${prefix}
+               --stringparam boost.doxygen.detailns details
                ${BOOSTBOOK_XSL_DIR}/doxygen/doxygen2boostbook.xsl
                ${file}.doxygen/all.xml
                DEPENDS ${file}.doxygen/all.xml
