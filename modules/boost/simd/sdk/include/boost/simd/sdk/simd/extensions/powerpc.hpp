@@ -15,8 +15,4 @@
 #include <boost/simd/sdk/simd/extensions/powerpc/altivec.hpp>
 //#include <boost/simd/sdk/simd/extensions/powerpc/spu.hpp>
 
-#if defined(BOOST_SIMD_VMX_FAMILY)
-#include <boost/simd/sdk/simd/extensions/powerpc/types.hpp>
-#endif
-
 #endif

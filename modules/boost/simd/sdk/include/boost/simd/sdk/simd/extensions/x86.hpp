@@ -27,10 +27,4 @@
 #include <boost/simd/sdk/simd/extensions/x86/sse.hpp>
 #endif
 
-#if defined(BOOST_SIMD_LRB_FAMILY)
-#include <boost/simd/sdk/simd/extensions/lrb/types.hpp>
-#elif defined(BOOST_SIMD_SSE_FAMILY)
-#include <boost/simd/sdk/simd/extensions/x86/types.hpp>
-#endif
-
 #endif
