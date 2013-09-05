@@ -96,7 +96,7 @@ namespace nt2 { namespace ext
                                           >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,
-                                             A1 const& a1) const
+                                             A1 const&) const
     {
       _2D sizee;
       sizee[0] = sizee[1] = a0;

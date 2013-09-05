@@ -43,7 +43,7 @@ namespace nt2
                                 (target_<scalar_<floating_<T> > > )
                               )
     {
-      BOOST_DISPATCH_RETURNS(2, (A0 const& n, T const& t),
+      BOOST_DISPATCH_RETURNS_ARGS(2, (A0 const& n, T const& t), (A0 const& n, T const& ),
                              (nt2::minusone((nt2::if_zero_else_one(nt2::rem(nt2::oneplus(nt2::cif(n, T())),
                                                                             nt2::oneplus(nt2::rif(n,T())))))*
                                             nt2::oneplus(nt2::rif(n, T()))))

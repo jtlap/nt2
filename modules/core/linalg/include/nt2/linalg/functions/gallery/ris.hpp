@@ -27,7 +27,7 @@ namespace nt2
                               )
     {
       typedef typename T::type t_t;
-      BOOST_DISPATCH_RETURNS(2, (A0 const& n, T const& t),
+      BOOST_DISPATCH_RETURNS_ARGS(2, (A0 const& n, T const& t),(A0 const& n, T const& ),
                              (nt2::cauchy(nt2::fma(nt2::Mtwo<t_t>(), nt2::_(t_t(1), t_t(n)),(t_t(n+1.5)))))
                             )
         };

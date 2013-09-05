@@ -24,7 +24,7 @@ namespace nt2 {namespace ext
                               (target_<scalar_<unspecified_<T> > >)
                             )
   {
-    BOOST_DISPATCH_RETURNS(3, (A0 const& n,A1 const& k,T const &t),
+    BOOST_DISPATCH_RETURNS_ARGS(3, (A0 const& n,A1 const& k,T const &t), (A0 const& n,A1 const& k,T const &),
                            ( nt2::tril(nt2::triu(nt2::ones(n,T())), k) - nt2::from_diag(nt2::ones(n-1,1,T()), -1))
                           )
       };
@@ -35,7 +35,7 @@ namespace nt2 {namespace ext
                               (target_<scalar_<unspecified_<T> > >)
                             )
   {
-    BOOST_DISPATCH_RETURNS(2, (A0 const& n,T const &t),
+    BOOST_DISPATCH_RETURNS_ARGS(2, (A0 const& n,T const &t), (A0 const& n,T const &),
                            ( nt2::grcar(n, 3, T()))
                           )
       };

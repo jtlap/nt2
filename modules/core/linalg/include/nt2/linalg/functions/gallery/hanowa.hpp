@@ -27,7 +27,7 @@ namespace nt2 {namespace ext
                             )
   {
     typedef typename T::type t_t;
-    BOOST_DISPATCH_RETURNS(3, (A0 const& m,A1 const& d,T const &t),
+    BOOST_DISPATCH_RETURNS_ARGS(3, (A0 const& m,A1 const& d,T const &t),(A0 const& m,A1 const& d,T const &),
                            ( t_t(d)*nt2::eye(2*m, T())+
                              nt2::from_diag( nt2::_(t_t(1), t_t(m)), -ptrdiff_t(m))+
                              nt2::from_diag(-nt2::_(t_t(1), t_t(m)), m))
@@ -41,7 +41,7 @@ namespace nt2 {namespace ext
                             )
   {
     typedef typename T::type t_t;
-    BOOST_DISPATCH_RETURNS(2, (A0 const& m,T const &t),
+    BOOST_DISPATCH_RETURNS_ARGS(2, (A0 const& m,T const &t), (A0 const& m,T const &),
                            (nt2::hanowa(m, t_t(-1), T()))
                           )
       };

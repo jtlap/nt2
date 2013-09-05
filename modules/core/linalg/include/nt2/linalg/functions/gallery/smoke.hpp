@@ -31,7 +31,7 @@ namespace nt2
                               )
     {
       typedef typename T::type t_t;
-      BOOST_DISPATCH_RETURNS(2, (A0 const& n, T const& t),
+      BOOST_DISPATCH_RETURNS_ARGS(2, (A0 const& n, T const& t),(A0 const& n, T const& ),
                              (nt2::from_diag(nt2::cumprod(nt2::repnum( nt2::expipi(Two<t_t>()/t_t(n)),nt2::of_size(1, n))))+
                               nt2::from_diag(nt2::ones(n-1, 1, T()), 1)+nt2::deltaf(n, 1, nt2::of_size(n, n), T())
                              )
@@ -46,7 +46,7 @@ namespace nt2
    {
      typedef typename T::type t_t;
      typedef typename nt2::meta::as_<std::complex<t_t> > cT;
-     BOOST_DISPATCH_RETURNS(3, (A0 const& n, A1 const& k,T const& t),
+     BOOST_DISPATCH_RETURNS_ARGS(3, (A0 const& n, A1 const& k,T const& t),(A0 const& n, A1 const& k,T const& ),
                             (nt2::selsub(nt2::is_eqz(t_t(k)),
                                          nt2::smoke(n, T()),
                                          nt2::deltaf(n, 1, nt2::of_size(n, n), cT()))

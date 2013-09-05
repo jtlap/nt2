@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename T::type v_t;
-    BOOST_DISPATCH_RETURNS(2, (A0 const& n, T const& t),
+    BOOST_DISPATCH_RETURNS_ARGS(2, (A0 const& n, T const& t), (A0 const& n, T const& ),
                            ( boost::proto::make_expr<nt2::tag::invol_, container::domain>
                              ( n
                              , T()

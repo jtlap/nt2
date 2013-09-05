@@ -39,7 +39,7 @@ namespace nt2
                               )
     {
 
-      BOOST_DISPATCH_RETURNS(2, (A0 const& n, T const& t),
+      BOOST_DISPATCH_RETURNS_ARGS(2, (A0 const& n, T const&t ),(A0 const& n, T const& ),
                              (nt2::whereij(nt2::details::isifirst(), nt2::ones(n, T()), nt2::hilb(n, T()))
                              )
                             )

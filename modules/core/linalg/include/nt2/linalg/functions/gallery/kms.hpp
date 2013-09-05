@@ -62,7 +62,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename T::type value_t;
-    BOOST_DISPATCH_RETURNS(2, (A0 const& n, T const& t),
+    BOOST_DISPATCH_RETURNS_ARGS(2, (A0 const& n, T const& t),(A0 const& n, T const& ),
                            (boost::proto::
                             make_expr<nt2::tag::kms_, container::domain>
                             ( value_t(0.5)
@@ -96,7 +96,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename T::type value_t;
-    BOOST_DISPATCH_RETURNS(3, (A0 const& n, A1 const& rho, T const& t),
+    BOOST_DISPATCH_RETURNS_ARGS(3, (A0 const& n, A1 const& rho, T const& t),(A0 const& n, A1 const& rho, T const& ),
                            (boost::proto::
                             make_expr<nt2::tag::kms_, container::domain>
                             ( value_t(rho)

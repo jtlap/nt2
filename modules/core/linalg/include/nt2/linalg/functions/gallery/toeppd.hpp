@@ -70,7 +70,7 @@ namespace nt2
                                 (target_<scalar_<floating_<T> > >)
                               )
     {
-      BOOST_DISPATCH_RETURNS(3, (A0 const& n, A1 const& m, T const& t),
+      BOOST_DISPATCH_RETURNS_ARGS(3, (A0 const& n, A1 const& m, T const& t), (A0 const& n, A1 const& m, T const& ),
                              (nt2::toeppd(n, nt2::rand(m, 1, T()), nt2::rand(m, 1, T())))
                             )
 

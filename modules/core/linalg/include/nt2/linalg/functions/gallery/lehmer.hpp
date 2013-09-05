@@ -24,7 +24,7 @@ namespace nt2 {namespace ext
                               (target_<scalar_<floating_<T> > > )
                             )
   {
-    BOOST_DISPATCH_RETURNS(2, (A0 const& n, T const& t),
+    BOOST_DISPATCH_RETURNS_ARGS(2, (A0 const& n, T const& t),(A0 const& n, T const& ),
                            (nt2::whereij(nt2::functor<nt2::tag::is_less_equal_>(),
                                     nt2::rif(n, T())/nt2::cif(n, T()),
                                     nt2::cif(n, T())/nt2::rif(n, T())

@@ -227,7 +227,7 @@ namespace nt2 { namespace ext
       return out;
     }
   private :
-    static void prepare(A0& out, const A1 & in, size_t m, size_t n,boost::mpl::true_)
+    static void prepare(A0& out, const A1 &, size_t m, size_t n,boost::mpl::true_)
     {
       typedef typename A1::value_type                                   v_type;
       BOOST_AUTO_TPL(p, nt2::linspace(Zero<v_type>(), One<v_type>(), n));

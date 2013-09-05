@@ -26,7 +26,7 @@ namespace nt2
                               )
     {
       typedef typename T::type t_t;
-      BOOST_DISPATCH_RETURNS(2, (A0 const& n, T const& t),
+      BOOST_DISPATCH_RETURNS_ARGS(2, (A0 const& n, T const& t), (A0 const& n, T const& ),
                              (nt2::pei(n, nt2::One<t_t>()))
                             )
         };

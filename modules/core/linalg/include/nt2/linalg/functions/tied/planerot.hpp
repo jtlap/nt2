@@ -59,7 +59,7 @@ namespace nt2 { namespace ext
     // potentially fills the second arg out
     //==========================================================================
     BOOST_FORCEINLINE
-      void results(const value_t, A1 & a1, boost::mpl::long_<1> const&) const{}
+      void results(const value_t, A1 &, boost::mpl::long_<1> const&) const{}
 
     BOOST_FORCEINLINE
       void results(const value_t r, A1 & a1, boost::mpl::long_<2> const&) const
