@@ -16,7 +16,7 @@
 
 #include "../constant.hpp"
 
-NT2_TEST_CASE_TPL( real_inf, BOOST_SIMD_REAL )
+NT2_TEST_CASE_TPL( real_inf, BOOST_SIMD_REAL_TYPES )
 {
   NT2_CHECK_CONSTANT(Inf  ,   std::numeric_limits<T>::infinity(), T);
   NT2_CHECK_CONSTANT(Minf ,  -std::numeric_limits<T>::infinity(), T);
