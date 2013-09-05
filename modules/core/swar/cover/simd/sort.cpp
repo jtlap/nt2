@@ -36,7 +36,7 @@
 #include <nt2/constant/constant.hpp>
 
 
-NT2_TEST_CASE_TPL ( sort_gt_16__1_0,  NT2_SIMD_GT16_TYPES)
+NT2_TEST_CASE_TPL ( sort_gt_16__1_0,  NT2_SIMD_TYPES)
 {
   using nt2::sort;
   using nt2::tag::sort_;

@@ -14,7 +14,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/constant/constant.hpp>
 
-NT2_TEST_CASE_TPL ( sort_gt_16__1_0,  BOOST_SIMD_SIMD_GT16_TYPES)
+NT2_TEST_CASE_TPL ( sort_gt_16__1_0,  BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::sort;
   using boost::simd::tag::sort_;
