@@ -222,17 +222,17 @@ namespace details
         extra_pointer_register & operator++() { return this->operator += ( 1 ); }
         extra_pointer_register & operator--() { return this->operator -= ( 1 ); }
 
-        T * BOOST_DISPATCH_RESTRICT const operator++( int )
+        T * const operator++( int )
         {
             T * BOOST_DISPATCH_RESTRICT const result( this->operator->() );
             this->operator++();
             return result;
         }
 
-        T &                         operator *  () const { return *static_cast<T * BOOST_DISPATCH_RESTRICT>( *this ); }
-        T * BOOST_DISPATCH_RESTRICT operator -> () const { return  static_cast<T * BOOST_DISPATCH_RESTRICT>( *this ); }
+        T & operator *  () const { return *static_cast<T * BOOST_DISPATCH_RESTRICT>( *this ); }
+        T * operator -> () const { return  static_cast<T * BOOST_DISPATCH_RESTRICT>( *this ); }
 
-        operator T * BOOST_DISPATCH_RESTRICT () const { return reinterpret_cast<T * BOOST_DISPATCH_RESTRICT>( static_cast<unsigned int>( *this ) ); }
+        operator T * () const { return reinterpret_cast<T * BOOST_DISPATCH_RESTRICT>( static_cast<unsigned int>( *this ) ); }
     };
 
     template <typename T> struct make_extra_pointer_register { typedef extra_pointer_register<T> type; };
