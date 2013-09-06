@@ -18,6 +18,7 @@
 #include <nt2/sdk/unit/stats.hpp>
 
 #include <boost/dispatch/attributes.hpp>
+#include <boost/dispatch/meta/as_unsigned.hpp>
 #include <boost/fusion/include/is_sequence.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <boost/current_function.hpp>
@@ -58,10 +59,11 @@ namespace nt2 { namespace details
                 );
 
   /// Default implementation of max_ulps forward to generic ulpdist
-  template<class A,class B>
-  BOOST_FORCEINLINE double max_ulps(A const& a, B const& b )
+  template<class T>
+  BOOST_FORCEINLINE double max_ulps(T const& a, T const& b)
   {
-    return (a<b) ? b-a : a-b;
+    typedef typename boost::dispatch::meta::as_unsigned<T>::type u_t;
+    return (a<b) ? u_t(b-a) : u_t(a-b);
   }
 
   /// Precompiled implementation max_ulps on double
