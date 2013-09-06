@@ -40,7 +40,7 @@
 
 #include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/seq/for_each.hpp>
+#include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
 
 namespace boost { namespace simd
 {
@@ -155,7 +155,7 @@ namespace boost { namespace simd
     }                                                                          \
     /**/
 
-    BOOST_PP_SEQ_FOR_EACH(M1, ~, BOOST_SIMD_CARDINALS)
+    BOOST_SIMD_PP_REPEAT_POWER_OF_2(M1, ~)
     #undef M1
 
     //==========================================================================
