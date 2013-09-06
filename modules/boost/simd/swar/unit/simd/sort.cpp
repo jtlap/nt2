@@ -13,8 +13,10 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/constant/constant.hpp>
+#include <nt2/include/functions/enumerate.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 
-NT2_TEST_CASE_TPL ( sort_gt_16__1_0,  BOOST_SIMD_SIMD_TYPES)
+NT2_TEST_CASE_TPL ( sort_all,  BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::sort;
   using boost::simd::tag::sort_;
@@ -33,4 +35,23 @@ NT2_TEST_CASE_TPL ( sort_gt_16__1_0,  BOOST_SIMD_SIMD_TYPES)
   // specific values tests
   NT2_TEST_EQUAL(sort(boost::simd::One<vT>())[0], boost::simd::One<sr_t>());
   NT2_TEST_EQUAL(sort(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
-} // end of test for gt_16_
+}
+
+NT2_TEST_CASE_TPL ( sort, BOOST_SIMD_SIMD_REAL_TYPES)
+{
+  using boost::simd::native;
+  using boost::simd::sort;
+  using boost::dispatch::meta::as_;
+  using boost::simd::tag::sort_;
+
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t> vT;
+  typedef typename boost::dispatch::meta::call<sort_(vT)>::type r_t;
+
+  vT a = boost::simd::enumerate<vT>(T(10));
+  NT2_TEST_EQUAL(sort(a), a);
+  a = boost::simd::enumerate<vT>(T(10), T(-1));
+  int N = vT::static_size-1;
+  vT b = boost::simd::enumerate<vT>(T(10-N), T(1));
+  NT2_TEST_EQUAL(sort(a), b);
+ }
