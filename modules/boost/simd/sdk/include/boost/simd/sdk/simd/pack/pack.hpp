@@ -148,10 +148,10 @@ namespace boost { namespace simd
     //==========================================================================
     #define M1(z, n, arg)                                                      \
     template<class T>                                                          \
-    BOOST_FORCEINLINE pack( BOOST_PP_ENUM_PARAMS(arg, T const& a)    \
+    BOOST_FORCEINLINE pack( BOOST_PP_ENUM_PARAMS(n, T const& a)                \
         , typename enable_if< is_arithmetic<T> >::type* = 0)                   \
     {                                                                          \
-      proto::value(*this) = simd::make<data_type>(BOOST_PP_ENUM_PARAMS(arg,a));\
+      proto::value(*this) = simd::make<data_type>(BOOST_PP_ENUM_PARAMS(n,a));  \
     }                                                                          \
     /**/
 
