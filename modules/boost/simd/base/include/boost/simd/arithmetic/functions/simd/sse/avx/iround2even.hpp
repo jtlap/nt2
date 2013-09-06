@@ -17,7 +17,7 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::iround2even_, boost::simd::tag::avx_
                             , (A0)
-                            , ((simd_<single_<A0>,boost::simd::tag::sse_>))
+                            , ((simd_<single_<A0>,boost::simd::tag::avx_>))
                             )
   {
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
