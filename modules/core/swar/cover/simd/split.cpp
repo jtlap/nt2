@@ -37,7 +37,7 @@
 #include <nt2/constant/constant.hpp>
 
 
-NT2_TEST_CASE_TPL ( split_lt_64__1_0,  NT2_SIMD_LT64_TYPES)
+NT2_TEST_CASE_TPL ( split_splitable,  NT2_SIMD_SPLITABLE_TYPES)
 {
   using nt2::split;
   using nt2::tag::split_;
