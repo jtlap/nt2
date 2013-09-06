@@ -35,7 +35,11 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
+      #ifdef BOOST_SIMD_HAS_FABSF
        return ::fabsf(a0);
+      #else
+       return (a0 > 0) ? a0 : -a0;
+      #endif
     }
   };
 
