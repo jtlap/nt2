@@ -20,7 +20,7 @@
 #include <nt2/sdk/unit/tests/cover.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
-NT2_TEST_CASE_TPL ( adds_real__1_0_1,  NT2_TYPES)
+NT2_TEST_CASE_TPL ( adds_real,  NT2_REAL_TYPES)
 {
 
   using nt2::adds;
@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( adds_real__1_0_1,  NT2_TYPES)
   NT2_COVER_ULP_EQUAL(adds_, ((T, in1))((T, in2)), ref, 0);
 }
 
-NT2_TEST_CASE_TPL ( adds_real__1_0_2,  NT2_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( adds_unsigned,  NT2_INTEGRAL_UNSIGNED_TYPES)
 {
 
   using nt2::adds;
@@ -61,7 +61,7 @@ NT2_TEST_CASE_TPL ( adds_real__1_0_2,  NT2_INTEGRAL_TYPES)
 
 }
 
-NT2_TEST_CASE_TPL ( adds_real__1_0_3,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( adds_signed,  NT2_INTEGRAL_SIGNED_TYPES)
 {
 
   using nt2::adds;
