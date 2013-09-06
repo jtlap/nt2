@@ -6,17 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_BENCH_MODULE "nt2 boost.simd.bitwise toolbox - lo/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of boost.simd.bitwise components in simd mode
-//////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/bitwise/include/functions/lo.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <cmath>
+
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
 //////////////////////////////////////////////////////////////////////////////
@@ -31,31 +26,31 @@ using boost::simd::tag::lo_;
 
 namespace n1 {
   typedef float T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
+
   typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(lo_,(RS(vT,T(0),T(10))))
 }
 namespace n2 {
   typedef double T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
+
   typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(lo_,(RS(vT,T(0),T(10))))
 }
 namespace n3 {
   typedef boost::simd::int16_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
+
   typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(lo_,(RS(vT,T(0),T(10))))
 }
 namespace n4 {
   typedef boost::simd::int32_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
+
   typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(lo_,(RS(vT,T(0),T(10))))
 }
 namespace n5 {
   typedef boost::simd::int64_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
+
   typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(lo_,(RS(vT,T(0),T(10))))
 }
