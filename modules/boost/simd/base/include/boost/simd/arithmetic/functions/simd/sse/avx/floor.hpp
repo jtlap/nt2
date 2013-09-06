@@ -10,6 +10,8 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_FLOOR_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
+#include <boost/simd/arithmetic/functions/floor.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::floor_, boost::simd::tag::avx_

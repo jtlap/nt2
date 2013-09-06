@@ -9,8 +9,11 @@
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE4_1_ROUND_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE4_1_ROUND_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
+
+#include <boost/simd/arithmetic/functions/round.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/is_ltz.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/constants/half.hpp>
 #include <boost/simd/include/constants/mhalf.hpp>
 
@@ -25,7 +28,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type inc = if_else(is_ltz(a0), Mhalf<result_type>(), Half<result_type>());
-      return _mm_round_pd(a0+inc, _MM_FROUND_TO_ZERO|_MM_FROUND_NO_EXC);
+      return _mm_round_pd(a0+inc, _MM_FROUND_TO_ZERO);
     }
   };
 
@@ -38,7 +41,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type inc = if_else(is_ltz(a0), Mhalf<result_type>(), Half<result_type>());
-      return _mm_round_ps(a0+inc, _MM_FROUND_TO_ZERO|_MM_FROUND_NO_EXC);
+      return _mm_round_ps(a0+inc, _MM_FROUND_TO_ZERO);
     }
   };
 } } }

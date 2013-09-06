@@ -10,6 +10,8 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_TRUNC_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
+#include <boost/simd/arithmetic/functions/trunc.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::trunc_, boost::simd::tag::avx_
@@ -20,7 +22,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return _mm256_round_pd(a0,  _MM_FROUND_TO_ZERO|_MM_FROUND_NO_EXC);
+      return _mm256_round_pd(a0,  _MM_FROUND_TO_ZERO);
     }
   };
 
@@ -32,7 +34,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return _mm256_round_ps(a0,  _MM_FROUND_TO_ZERO|_MM_FROUND_NO_EXC);
+      return _mm256_round_ps(a0,  _MM_FROUND_TO_ZERO);
     }
   };
 } } }

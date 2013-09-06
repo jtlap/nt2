@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_FAST_IROUND2EVEN_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_FAST_IROUND2EVEN_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
+
 #include <boost/simd/arithmetic/functions/iround2even.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 

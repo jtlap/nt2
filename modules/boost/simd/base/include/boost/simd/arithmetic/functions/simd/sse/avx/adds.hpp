@@ -9,12 +9,11 @@
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_ADDS_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_ADDS_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
+
 #include <boost/simd/arithmetic/functions/adds.hpp>
-#include <boost/dispatch/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/simd/include/functions/simd/bitwise_and.hpp>
 #include <boost/simd/include/functions/simd/minus.hpp>
-#include <boost/simd/include/constants/digits.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
