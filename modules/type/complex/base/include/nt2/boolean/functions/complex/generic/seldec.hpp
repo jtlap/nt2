@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_BOOLEAN_FUNCTIONS_COMPLEX_GENERIC_SELDEC_HPP_DECLUDED
-#define NT2_BOOLEAN_FUNCTIONS_COMPLEX_GENERIC_SELDEC_HPP_DECLUDED
+#ifndef NT2_BOOLEAN_FUNCTIONS_COMPLEX_GENERIC_SELDEC_HPP_INCLUDED
+#define NT2_BOOLEAN_FUNCTIONS_COMPLEX_GENERIC_SELDEC_HPP_INCLUDED
 
 #include <nt2/boolean/functions/seldec.hpp>
 #include <nt2/include/functions/if_one_else_zero.hpp>

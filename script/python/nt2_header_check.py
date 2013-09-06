@@ -108,7 +108,7 @@ if broken_guards:
     for module in broken_guards:
         for file, expected, found in broken_guards[module]:
             if found and found not in 'BOOST_DISPATCH_DECLTYPE BOOST_PP_IS_ITERATING'.split():
-                print("sed -i '' -e's/{0}/{1}/g' {2}".format(found, expected, join(module, 'include', file)))
+                print("sed -i -e 's/{0}/{1}/g' {2}".format(found, expected, join(module, 'include', file)))
 print('\n=== Done. ' + '=' * 70 + '\n')
 
 

@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_REC_HPP_INCLUDED
-#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_REC_HPP_INCLUDED
+#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_FAST_REC_HPP_INCLUDED
+#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_FAST_REC_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/fast_rec.hpp>
 #include <boost/simd/include/functions/simd/rec.hpp>

@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TRIGONOMETRIC_FUNCTIONS_SCALAR_TANGENT_HPP_INCLUDED
-#define NT2_TRIGONOMETRIC_FUNCTIONS_SCALAR_TANGENT_HPP_INCLUDED
+#ifndef NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_TANGENT_HPP_INCLUDED
+#define NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_TANGENT_HPP_INCLUDED
 #include <nt2/trigonometric/functions/tangent.hpp>
 #include <nt2/trigonometric/functions/scalar/impl/trigo.hpp>
 #include <nt2/trigonometric/functions/simd/common/impl/trigo.hpp>
