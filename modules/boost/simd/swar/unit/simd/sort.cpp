@@ -37,7 +37,7 @@ NT2_TEST_CASE_TPL ( sort_all,  BOOST_SIMD_SIMD_TYPES)
   NT2_TEST_EQUAL(sort(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
 }
 
-NT2_TEST_CASE_TPL ( sort, BOOST_SIMD_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( sort, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::native;
   using boost::simd::sort;
