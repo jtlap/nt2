@@ -8,50 +8,30 @@
 //==============================================================================
 #include <boost/simd/swar/include/functions/sort.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/constant/constant.hpp>
-#include <nt2/include/functions/enumerate.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
+#include <iostream>
 
-NT2_TEST_CASE_TPL ( sort_all,  BOOST_SIMD_SIMD_TYPES)
-{
-  using boost::simd::sort;
-  using boost::simd::tag::sort_;
-  using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::dispatch::meta::call<sort_(vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-
-  // specific values tests
-  NT2_TEST_EQUAL(sort(boost::simd::One<vT>())[0], boost::simd::One<sr_t>());
-  NT2_TEST_EQUAL(sort(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
-}
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 
 NT2_TEST_CASE_TPL ( sort, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::native;
   using boost::simd::sort;
-  using boost::dispatch::meta::as_;
-  using boost::simd::tag::sort_;
-
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t> vT;
-  typedef typename boost::dispatch::meta::call<sort_(vT)>::type r_t;
 
-  vT a = boost::simd::enumerate<vT>(T(10));
-  NT2_TEST_EQUAL(sort(a), a);
-  a = boost::simd::enumerate<vT>(T(10), T(-1));
-  int N = vT::static_size-1;
-  vT b = boost::simd::enumerate<vT>(T(10-N), T(1));
-  NT2_TEST_EQUAL(sort(a), b);
+  vT ordered, reversed, mixed;
+  for(std::size_t i=0; i!=vT::static_size; ++i)
+  {
+    ordered[i] = T(i);
+    reversed[vT::static_size-1-i] = T(i);
+    mixed[(i % 2) ? (vT::static_size-i) : i] = T(i);
+  }
+
+  NT2_TEST_EQUAL(sort(ordered), ordered);
+  NT2_TEST_EQUAL(sort(reversed), ordered);
+
+  std::cout << "mixed = " << mixed << std::endl;
+  NT2_TEST_EQUAL(sort(mixed), ordered);
  }
