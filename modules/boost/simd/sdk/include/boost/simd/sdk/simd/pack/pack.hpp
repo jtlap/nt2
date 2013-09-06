@@ -155,7 +155,7 @@ namespace boost { namespace simd
     }                                                                          \
     /**/
 
-    BOOST_SIMD_PP_REPEAT_POWER_OF_2(M1, ~)
+    BOOST_SIMD_PP_REPEAT_POWER_OF_2_FROM(2, M1, ~)
     #undef M1
 
     //==========================================================================
