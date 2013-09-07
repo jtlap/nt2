@@ -20,9 +20,10 @@ int main()
   using boost::simd::output_iterator;
 
   std::vector<float> data(16);
+  typedef std::vector<float>::iterator it_t;
 
-  output_iterator<float,4> vb = output_begin<4>(data.begin());
-  output_iterator<float,4> ve = output_end<4>(data.end());
+  output_iterator<it_t,4> vb = output_begin<4>(data.begin());
+  output_iterator<it_t,4> ve = output_end<4>(data.end());
 
   std::generate(vb, ve, splatted_iota);
 

@@ -15,12 +15,13 @@ int main()
   using boost::simd::aligned_input_iterator;
 
   std::vector<float, allocator<float> > data(16);
+  typedef std::vector<float, allocator<float> >::iterator it_t;
 
   for(std::size_t i=0;i<data.size();++i)
     data[i]  = 1 + i;
 
-  aligned_input_iterator<float,4> vb = aligned_input_begin<4>(data.begin());
-  aligned_input_iterator<float,4> ve = aligned_input_end<4>(data.end());
+  aligned_input_iterator<it_t,4> vb = aligned_input_begin<4>(data.begin());
+  aligned_input_iterator<it_t,4> ve = aligned_input_end<4>(data.end());
 
   std::copy(vb, ve, std::ostream_iterator< pack<float,4> >(std::cout, " "));
   std::cout << std::endl;

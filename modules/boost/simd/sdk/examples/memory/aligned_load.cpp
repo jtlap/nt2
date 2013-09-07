@@ -13,9 +13,6 @@ int main()
   // Regular scalar load
   double d = aligned_load<double>(&data[0]);
 
-  // Scalar load with type casting
-  int i = aligned_load<int>(&data[0]);
-
   // Scalar load with offset
   d = aligned_load<double>(&data[0],2);
 

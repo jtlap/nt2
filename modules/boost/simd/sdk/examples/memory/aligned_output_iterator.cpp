@@ -22,9 +22,10 @@ int main()
   using boost::simd::aligned_output_iterator;
 
   std::vector<float, allocator<float> > data(16);
+  typedef std::vector<float, allocator<float> >::iterator it_t;
 
-  aligned_output_iterator<float,4> vb = aligned_output_begin<4>(data.begin());
-  aligned_output_iterator<float,4> ve = aligned_output_end<4>(data.end());
+  aligned_output_iterator<it_t,4> vb = aligned_output_begin<4>(data.begin());
+  aligned_output_iterator<it_t,4> ve = aligned_output_end<4>(data.end());
 
   std::generate(vb, ve, splatted_iota);
 
