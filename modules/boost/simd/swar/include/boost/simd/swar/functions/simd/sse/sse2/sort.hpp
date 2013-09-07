@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_SWAR_FUNCTIONS_SIMD_SSE_SSE2_SORT_HPP_INCLUDED
 #define BOOST_SIMD_SWAR_FUNCTIONS_SIMD_SSE_SSE2_SORT_HPP_INCLUDED
+
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/swar/functions/sort.hpp>
 #include <boost/simd/include/functions/simd/min.hpp>
@@ -15,7 +16,7 @@
 #include <boost/simd/include/functions/simd/minimum.hpp>
 #include <boost/simd/include/functions/simd/maximum.hpp>
 #include <boost/simd/include/functions/simd/make.hpp>
-#include <boost/simd/swar/functions/details/shuffle.hpp>
+#include <boost/simd/swar/functions/shuffle.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -31,16 +32,27 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      A0 p0  = details::shuffle<2,3,0,1>(a0);
+      // half-permute
+      A0 p0 = shuffle<2,3,0,1>(a0);
       A0 mn = min(a0,p0);
       A0 mx = max(a0,p0);
 
-      A0 minmax = details::shuffle<0,1,0,1>(mn,mx);
-      A0 maxmin = details::shuffle<1,0,1,0>(mn,mx);
+      // cross vector concatenation and reversal
+      A0 minmax = shuffle<0,1,6,7>(mn,mx);
+      A0 maxmin = shuffle<1,0,7,6>(mn,mx);
+
       mn = min(minmax,maxmin);
       mx = max(minmax,maxmin);
 
-      return details::shuffle<0,2,0,2>(mn,mx);
+      // rearrange partial max/min while keeping min and max in place
+      A0 shf3 = shuffle<0,2,5,7>(mn,mx);
+      A0 shf4 = shuffle<0,2,1,3>(shf3);
+
+      mn = min(shf4,shf3);
+      mx = max(shf4,shf3);
+
+      // Bring sorted min/max in the proper place
+      return shuffle<0,1,6,7>(mn,mx);
     }
   };
 
@@ -56,7 +68,11 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return boost::simd::make<A0>(minimum(a0), maximum(a0));
+      A0 p0 = shuffle<1,0>(a0);
+      A0 mn = min(a0,p0);
+      A0 mx = max(a0,p0);
+
+      return shuffle<0,2>(mn,mx);
     }
   };
 } } }

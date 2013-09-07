@@ -6,75 +6,45 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 swar toolbox - sort/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// cover test behavior of swar components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 24/02/2011
-///
 #include <nt2/swar/include/functions/sort.hpp>
+#include <nt2/include/functions/load.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_signed.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/meta/downgrade.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/type_traits/common_type.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 
-#include <nt2/constant/constant.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/aligned_load.hpp>
-#include <nt2/constant/constant.hpp>
+#include <algorithm>
 
+template<typename T>
+struct not_that_small: boost::mpl::bool_< !(sizeof(T) <= 2) >
+{};
 
-NT2_TEST_CASE_TPL ( sort_gt_16__1_0,  NT2_SIMD_TYPES)
+NT2_TEST_CASE_TPL_MPL ( sort
+                      , NT2_TEST_SEQ_MPL_FILTER ( NT2_SIMD_TYPES
+                                                , not_that_small<boost::mpl::_>
+                                                )
+                      )
 {
   using nt2::sort;
   using nt2::tag::sort_;
-  using nt2::aligned_load;
+  using nt2::load;
   using boost::simd::native;
-  using nt2::meta::cardinal_of;
+
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<sort_(vT)>::type r_t;
-  typedef typename nt2::meta::call<sort_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
+  typedef native<T,ext_t>             vT;
 
-  // random verifications
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  T data[vT::static_size];
+
+  for(int i = 0; i<vT::static_size;++i) data[i] = i;
+
+  vT ordered = load<vT>(&data[0]);
+
+  do
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
-      {
-        vT a0 = aligned_load<vT>(&tab_a0[0],j);
-        r_t v = nt2::sort(a0);
-        T z[cardinal_of<r_t>::value];
-        for(uint32_t i=0; i<cardinal_of<n_t>::value; i++) z[i]=a0[i];
-        for(uint32_t i=0; i<cardinal_of<n_t>::value; i++){
-          for(uint32_t k=0; k<cardinal_of<n_t>::value; k++){
-             if (z[i]<z[k]) std::swap(z[i],z[k]);
-          }
-        }
-        for(uint32_t i=0; i<cardinal_of<n_t>::value; i++){
-          NT2_TEST_EQUAL(v[i],z[i]);
-        }
-      }
+    vT current = load<vT>(&data[0]);
+    vT r = nt2::sort(current);
+    NT2_TEST_EQUAL(r,ordered);
 
-  }
-} // end of test for gt_16_
+  } while ( std::next_permutation(data,data+vT::static_size) );
+}
