@@ -32,6 +32,7 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/globalprod.hpp>
 #include <nt2/include/functions/expand_to.hpp>
+#include <nt2/include/functions/tofloat.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/integration/output.hpp>
 #include <nt2/integration/options.hpp>
@@ -109,7 +110,7 @@ namespace nt2 { namespace details
       BOOST_AUTO_TPL(x, nt2::fma(rnd, r2ex, r1ex));
       BOOST_AUTO_TPL(z, f(x));
       if (compute_err_)
-        err_ += nt2::Three<real_t>()*vol*nt2::real(nt2::globalstdev(z))/nt2::sqrt(nbpts_);
+        err_ += nt2::Three<real_t>()*vol*nt2::real(nt2::globalstdev(z))/nt2::sqrt(tofloat(nbpts_));
       return vol*nt2::globalmean(z);
     }
   };
