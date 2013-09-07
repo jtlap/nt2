@@ -62,7 +62,7 @@ namespace nt2 { namespace ext
       return nt2::sort(f, 2);
     }
   private :
-    inline void check(A0 const& n, boost::mpl::false_ const &) const {}
+    inline void check(A0 const&, boost::mpl::false_ const &) const {}
     inline void check(A0 const& n, boost::mpl::true_ const &) const {BOOST_ASSERT_MSG(n > 0, "primes : input must be greater than zero"); }
   };
 } }

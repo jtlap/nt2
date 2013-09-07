@@ -66,7 +66,7 @@ namespace nt2 { namespace details
     template < class FUNC, class X>
     void compute( const FUNC& f, const X & ranges, const o_t & o)
     {
-      init(o, ranges);
+      init(o);
       itab_t facts =  ranges(nt2::_,begin_+1, nt2::_)-ranges(nt2::_,begin_, nt2::_);
       itab_t vols = nt2::prod(facts);
       input_t total_vol = globalasum1(vols);
@@ -90,8 +90,7 @@ namespace nt2 { namespace details
     bool   compute_err_;
 
   private:
-    template < class X >
-    inline void init( const o_t & o, const X&ranges)
+    inline void init( const o_t & o)
     {
       maxfunccnt_ = o.maxfunccnt;
       compute_err_ = o.compute_error;
