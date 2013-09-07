@@ -10,6 +10,7 @@
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <nt2/sdk/unit/tests/exceptions.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/one.hpp>
@@ -36,6 +37,7 @@ NT2_TEST_CASE_TPL ( ctz_real,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(ctz(boost::simd::Minf<T>()), r_t(boost::simd::Nbmantissabits<T>()));
   NT2_TEST_EQUAL(ctz(boost::simd::Nan<T>()), r_t(boost::simd::Zero<r_t>()));
 #endif
+  NT2_TEST_ASSERT(ctz(boost::simd::Zero<T>()));
   NT2_TEST_EQUAL(ctz(boost::simd::Signmask<T>()), r_t(sizeof(T)*8-1));
 } // end of test for real_
 
@@ -47,11 +49,6 @@ NT2_TEST_CASE_TPL ( ctz_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   using boost::simd::Signmask;
 
   typedef typename boost::dispatch::meta::call<ctz_(T)>::type r_t;
-
-  NT2_TEST_EQUAL(ctz(boost::simd::Inf<T>())     , r_t(Nbmantissabits<T>()));
-  NT2_TEST_EQUAL(ctz(boost::simd::Minf<T>())    , r_t(Nbmantissabits<T>()));
-  NT2_TEST_EQUAL(ctz(boost::simd::Nan<T>())     , r_t(0)                  );
-  NT2_TEST_EQUAL(ctz(boost::simd::Signmask<T>()), r_t(sizeof(T)*CHAR_BIT-1)      );
 
   for(std::size_t j=0; j< (sizeof(T)*CHAR_BIT-1); j++)
   {
@@ -76,8 +73,6 @@ NT2_TEST_CASE_TPL( ctz_unsigned_integer, BOOST_SIMD_UNSIGNED_TYPES )
   NT2_TEST_TYPE_IS(r_t, wished_r_t);
 
   // specific values tests
-  NT2_TEST_EQUAL(ctz(boost::simd::One<T>()), boost::simd::Zero<r_t>());
-
   for(std::size_t j=0; j< sizeof(T)*CHAR_BIT; j++)
   {
     // Test 1111 ... 10000b
