@@ -13,7 +13,7 @@
 #include <boost/simd/include/functions/scalar/is_ltz.hpp>
 #include <boost/simd/include/functions/scalar/sqrt.hpp>
 #include <boost/simd/include/functions/scalar/toints.hpp>
-#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/functions/scalar/tofloat.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -27,6 +27,18 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return toints(boost::simd::sqrt(a0));
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::isqrt_, tag::cpu_
+                            , (A0)
+                            , (scalar_< integer_<A0> >)
+                            )
+  {
+    typedef typename  dispatch::meta::as_integer<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return toints(boost::simd::sqrt(tofloat(a0)));
     }
   };
 } } }

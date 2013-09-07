@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace tag
     is equivalent to:
 
     @code
-    as_integer<T> r = toints(sqrt(x));
+    as_integer<T> r = toints(sqrt(tofloat(x)));
     @endcode
 
 

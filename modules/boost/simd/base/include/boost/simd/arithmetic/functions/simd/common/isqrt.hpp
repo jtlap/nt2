@@ -12,6 +12,7 @@
 #include <boost/simd/arithmetic/functions/isqrt.hpp>
 #include <boost/simd/include/functions/simd/sqrt.hpp>
 #include <boost/simd/include/functions/simd/toints.hpp>
+#include <boost/simd/include/functions/simd/tofloat.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -25,6 +26,17 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return boost::simd::toints(boost::simd::sqrt(a0));
+    }
+  };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::isqrt_, tag::cpu_,
+                       (A0)(X),
+                       ((simd_< integer_<A0>, X >))
+                      )
+  {
+    typedef typename dispatch::meta::as_integer<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    {
+      return boost::simd::toints(boost::simd::sqrt(tofloat(a0)));
     }
   };
 } } }
