@@ -14,6 +14,7 @@
 #include <boost/simd/include/functions/simd/divides.hpp>
 #include <boost/simd/include/functions/simd/idivfix.hpp>
 #include <boost/simd/include/functions/simd/touints.hpp>
+#include <boost/simd/include/functions/simd/toints.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>
 #include <boost/simd/include/functions/simd/split.hpp>
 #include <boost/simd/include/functions/simd/groups.hpp>
@@ -35,8 +36,8 @@ namespace boost { namespace simd { namespace ext
       ivtype a0l, a0h, a1l, a1h;
       boost::simd::split(a0, a0l, a0h );
       boost::simd::split(a1, a1l, a1h );
-      ivtype d0 = idivfix(tofloat(a0l), tofloat(a1l));
-      ivtype d1 = idivfix(tofloat(a0h), tofloat(a1h));
+      ivtype d0 = toints(divfix(tofloat(a0l), tofloat(a1l)));
+      ivtype d1 = toints(divfix(tofloat(a0h), tofloat(a1h)));
       return groups(d0, d1);
     }
   };
