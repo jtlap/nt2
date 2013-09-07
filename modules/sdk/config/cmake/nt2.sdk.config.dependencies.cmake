@@ -9,6 +9,5 @@
 
 SET ( NT2_SDK.CONFIG_DEPENDENCIES_EXTRA
       boost.simd.config
-      boost.simd.detect
       boost.simd.sdk
     )

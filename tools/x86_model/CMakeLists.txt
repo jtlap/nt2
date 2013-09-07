@@ -9,7 +9,7 @@
 cmake_minimum_required(VERSION 2.6)
 
 set(NT2_DIR ${CMAKE_SOURCE_DIR}/../../cmake)
-find_package(NT2 REQUIRED COMPONENTS boost.simd.detect)
+find_package(NT2 REQUIRED COMPONENTS boost.simd.config)
 include(${NT2_USE_FILE})
 
 include(nt2.info)

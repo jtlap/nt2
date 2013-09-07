@@ -7,10 +7,10 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-include(NT2Module)
-nt2_module_source_setup(boost.simd.detect)
+nt2_module_use_modules(test.unit)
 
-nt2_module_postconfigure(gather_includes --ignore details --ignore impl --ignore detector
-                                         boost/simd/sdk/config/details
-                                         --out boost/simd/sdk/config/details
-                        )
+SET( SOURCES
+     is_supported.cpp
+   )
+
+nt2_module_add_tests(boost.simd.config.unit ${SOURCES})

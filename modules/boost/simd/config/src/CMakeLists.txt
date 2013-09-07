@@ -15,3 +15,8 @@ nt2_module_postconfigure(gather_includes --ignore details --ignore impl
                                          boost/simd/sdk/simd/extensions/meta
                                          --out boost/simd/sdk/simd/extensions/meta
                         )
+
+nt2_module_postconfigure(gather_includes --ignore details --ignore impl --ignore detector
+                                         boost/simd/sdk/config/details
+                                         --out boost/simd/sdk/config/details
+                        )
