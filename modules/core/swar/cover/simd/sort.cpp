@@ -10,6 +10,7 @@
 #include <nt2/include/functions/load.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
+#include <boost/simd/sdk/meta/cardinal_as.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -17,7 +18,11 @@
 #include <algorithm>
 
 template<typename T>
-struct not_that_small: boost::mpl::bool_< !(sizeof(T) <= 2) >
+struct  not_that_small
+      : boost::mpl::bool_ < boost::simd::meta::
+                            cardinal_as<T, BOOST_SIMD_DEFAULT_EXTENSION>::value
+                          <= 8
+                          >
 {};
 
 NT2_TEST_CASE_TPL_MPL ( sort

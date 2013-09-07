@@ -45,14 +45,11 @@ namespace boost { namespace simd { namespace ext
       mx = max(minmax,maxmin);
 
       // rearrange partial max/min while keeping min and max in place
-      A0 shf3 = shuffle<0,2,5,7>(mn,mx);
-      A0 shf4 = shuffle<0,2,1,3>(shf3);
-
-      mn = min(shf4,shf3);
-      mx = max(shf4,shf3);
+         p0 = shuffle<0,2,5,7>(mn,mx);
+      A0 p1 = shuffle<0,2,1,3>(p0);
 
       // Bring sorted min/max in the proper place
-      return shuffle<0,1,6,7>(mn,mx);
+      return shuffle<0,1,6,7>(min(p1,p0),max(p1,p0));
     }
   };
 
@@ -68,11 +65,9 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
+      // Better latency
       A0 p0 = shuffle<1,0>(a0);
-      A0 mn = min(a0,p0);
-      A0 mx = max(a0,p0);
-
-      return shuffle<0,2>(mn,mx);
+      return shuffle<0,2>(min(a0,p0),max(a0,p0));
     }
   };
 } } }
