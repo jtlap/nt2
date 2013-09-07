@@ -43,7 +43,7 @@ namespace nt2 { namespace time
     * @param  display Boolean value that triggers or inhibits the automatic
     *         display of the number of cycles measured by the current timer.
     **/
-    cycle_timer(nt2::details::cycles_t& elapsed, bool display = true)
+    cycle_timer(nt2::cycles_t& elapsed, bool display = true)
                : elapsed_(elapsed), display_(display)
     {
       ctic();
@@ -59,7 +59,7 @@ namespace nt2 { namespace time
     ~cycle_timer() { elapsed_ = ctoc(display_); }
 
     private:
-    nt2::details::cycles_t& elapsed_;
+    nt2::cycles_t& elapsed_;
     bool display_;
   };
 } }

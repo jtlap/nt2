@@ -3,7 +3,7 @@
 
 int main()
 {
-  nt2::details::cycles_t elapsed;
+  nt2::cycles_t elapsed;
 
   {
     nt2::time::cycle_timer timer(elapsed, false);
