@@ -23,11 +23,11 @@ SET( SOURCES
     globalprod.cpp
     globalmean.cpp
     globalmeanad.cpp
-    globalmedian.cpp 
-    globalmedianad.cpp 
+    globalmedian.cpp
+    globalmedianad.cpp
     globalasum1.cpp
-    globalasum2.cpp 
-    globalasump.cpp 
+    globalasum2.cpp
+    globalasump.cpp
     globalnorm2.cpp
     globalnormp.cpp
     globalvar.cpp

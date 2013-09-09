@@ -21,13 +21,13 @@ nt2_preprocess(boost.dispatch0x.preprocess ${NT2_BOOST.DISPATCH_ROOT}/include/bo
                OPTIONS -DBOOST_DISPATCH_DONT_USE_PREPROCESSED_FILES
                        -DBOOST_DISPATCH_CREATE_PREPROCESSED_FILES
               )
-              
+
 nt2_preprocess(boost.dispatch03.preprocess ${NT2_BOOST.DISPATCH_ROOT}/include/boost/dispatch/functor/functor.hpp
                OPTIONS -DBOOST_DISPATCH_DONT_USE_PREPROCESSED_FILES
                        -DBOOST_DISPATCH_CREATE_PREPROCESSED_FILES
                        -DBOOST_DISPATCH_CREATE_PREPROCESSED_FILES_NO_0X
               )
-            
+
 if(NT2_PREPROCESS_ENABLED)
   add_custom_target(boost.dispatch.preprocess)
   add_dependencies(boost.dispatch.preprocess boost.dispatch0x.preprocess boost.dispatch03.preprocess)

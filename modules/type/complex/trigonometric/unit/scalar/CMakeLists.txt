@@ -22,10 +22,10 @@ set( SOURCES
   sinpi.cpp
   tanpi.cpp
   csc.cpp
-  cscd.cpp 
+  cscd.cpp
   cscpi.cpp
   sec.cpp
-  secd.cpp 
+  secd.cpp
   secpi.cpp
    )
 

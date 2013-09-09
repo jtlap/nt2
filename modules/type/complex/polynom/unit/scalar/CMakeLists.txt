@@ -12,13 +12,13 @@ SET( SOURCES
 #  conv.cpp
 #  deconv.cpp
 #  degree.cpp
-#  polyadd.cpp    
+#  polyadd.cpp
 #  polyder.cpp
   polyfit.cpp
 #  polyint.cpp
 #  polysub.cpp
   polyval.cpp
-#  polyvalm.cpp   
+#  polyvalm.cpp
 #  ratfracder.cpp
 #  reduce.cpp
   roots.cpp
