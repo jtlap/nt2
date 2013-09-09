@@ -21,4 +21,5 @@ nt2_preprocess( core.base.operator.preprocess
                 ${NT2_CORE.BASE_ROOT}/include/nt2/core/functions/cons.hpp
                 OPTIONS -DNT2_DONT_USE_PREPROCESSED_FILES
                         -DNT2_CREATE_PREPROCESSED_FILES
+                DEPENDS boost.simd.base.preprocess
               )

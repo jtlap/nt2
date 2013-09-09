@@ -48,10 +48,15 @@ macro(nt2_preprocess target)
     endif()
 
     set(prev 0)
+    set(depends)
+    if(ARG_DEPENDS)
+      set(depends DEPENDS ${ARG_DEPENDS})
+    endif()
     foreach(src ${ARG_UNPARSED_ARGUMENTS})
       math(EXPR n "${prev} + 1")
       add_custom_target(${target}.${n}
                         COMMAND ${WAVE_EXECUTABLE} --variadics --long_long --timer ${limits} ${ARG_OPTIONS} ${INCLUDE_DIRECTORIES} -o - ${src}
+                        ${depends}
                         WORKING_DIRECTORY ${NT2_BINARY_DIR}/include
                         COMMENT "wave ${src}"
                        )
@@ -59,10 +64,6 @@ macro(nt2_preprocess target)
       add_dependencies(${target} ${target}.${n})
       set(prev ${n})
     endforeach()
-
-    if(ARG_DEPENDS AND ARG_UNPARSED_ARGUMENTS)
-      add_dependencies(${target} ${ARG_DEPENDS})
-    endif()
 
     # Create target "preprocess" if it doesn't already exist, and make it depend on target
     get_target_property(preprocess_exists preprocess EXCLUDE_FROM_ALL)

@@ -1,3 +1,4 @@
+#ifndef BOOST_PP_IS_ITERATING
 //==============================================================================
 //         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
@@ -39,7 +40,9 @@ namespace boost { namespace simd { namespace details
 #include <boost/simd/sdk/functor/preprocessor/dispatch.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <boost/preprocessor/repetition/enum_binary_params.hpp>
+#include <boost/preprocessor/repetition/repeat.hpp>
+#include <boost/preprocessor/iteration/iterate.hpp>
 #if defined(__WAVE__) && defined(BOOST_SIMD_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/common.hpp")
 #undef BOOST_SIMD_MAP_LOG
@@ -49,75 +52,65 @@ namespace boost { namespace simd { namespace details
 ////////////////////////////////////////////////////////////////////////////////
 // Register all tag and extension agnostic call for common code sharing
 ////////////////////////////////////////////////////////////////////////////////
-#define M0(z,n,t) (A##n)
-#define M1(z,n,t) (unspecified_<A##n>)
-
-#define M2(z,n,t)                                                             \
-BOOST_SIMD_REGISTER_DISPATCH_IF( elementwise_<Tag> , tag::formal_             \
-                             , (Tag)BOOST_PP_REPEAT(n,M0,~)                   \
-                             , (mpl::not_< any <  mpl::or_                    \
-                                                  < boost::proto::            \
-                                                    is_expr<mpl::_>           \
-                                                  , boost::dispatch::         \
-                                                    meta::is_proxy<mpl::_>    \
-                                                  >                           \
-                                               , BOOST_PP_ENUM_PARAMS(n,A)    \
-                                               >                              \
-                                          >                                   \
-                                )                                             \
-                             , BOOST_PP_REPEAT(n,M1,~)                        \
-                             )                                                \
-/**/
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),M2,~)
+  #define M0(z,n,t) (A##n)
+  #define M1(z,n,t) (unspecified_<A##n>)
+  #define M2(z,n,t) unspecified_<A##n>
+
+  #define BOOST_PP_ITERATION_PARAMS_1 (3, ( 1, BOOST_DISPATCH_MAX_ARITY, "boost/simd/operator/specific/common.hpp"))
+  #include BOOST_PP_ITERATE()
+
+  #undef M2
+  #undef M1
+  #undef M0
 } } }
-
-#undef M2
-#undef M1
-#undef M0
-
-////////////////////////////////////////////////////////////////////////////////
-// Generate all the common map calls over Tag using boost::simd::map
-////////////////////////////////////////////////////////////////////////////////
-#define M0(z,n,t) unspecified_<A##n>
-
-#define M1(z,n,t)                                                              \
-namespace boost { namespace simd { namespace ext                               \
-{                                                                              \
-  template<BOOST_PP_ENUM_PARAMS(n,class A),class Tag, class Dummy>             \
-  struct implement< elementwise_<Tag>( BOOST_PP_ENUM(n,M0,~) )                 \
-                  , tag::formal_, Dummy                                        \
-                  >                                                            \
-  {                                                                            \
-    BOOST_SIMD_MAP_LOG(Tag)                                                    \
-                                                                               \
-    typedef typename boost::dispatch::meta::                                   \
-       call<tag::map_ ( dispatch::functor<Tag>                                 \
-                      , BOOST_PP_ENUM_PARAMS(n, A)                             \
-                      )                                                        \
-           >::type                                                             \
-    result_type;                                                               \
-                                                                               \
-    result_type                                                                \
-    operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const & a)) const             \
-    {                                                                          \
-      return boost::simd::                                                     \
-             map( dispatch::functor<Tag>(), BOOST_PP_ENUM_PARAMS(n, a) );      \
-    }                                                                          \
-  };                                                                           \
-} } }                                                                          \
-/**/
-
-BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),M1,~)
-
-#undef M1
-#undef M0
 
 #if defined(__WAVE__) && defined(BOOST_SIMD_CREATE_PREPROCESSED_FILES)
 #pragma wave option(output: null)
 #endif
 #endif
+#endif
+
+#else
+#define n BOOST_PP_ITERATION()
+
+  BOOST_SIMD_REGISTER_DISPATCH_IF( elementwise_<Tag> , tag::formal_
+                             , (Tag)BOOST_PP_REPEAT(n,M0,~)
+                             , (mpl::not_< any <  mpl::or_
+                                                  < boost::proto::
+                                                    is_expr<mpl::_>
+                                                  , boost::dispatch::
+                                                    meta::is_proxy<mpl::_>
+                                                  >
+                                               , BOOST_PP_ENUM_PARAMS(n,A)
+                                               >
+                                          >
+                                )
+                             , BOOST_PP_REPEAT(n,M1,~)
+                             )
+
+  template<BOOST_PP_ENUM_PARAMS(n,class A),class Tag, class Dummy>
+  struct implement< elementwise_<Tag>( BOOST_PP_ENUM(n,M2,~) )
+                  , tag::formal_, Dummy
+                  >
+  {
+    BOOST_SIMD_MAP_LOG(Tag)
+
+    typedef typename boost::dispatch::meta::
+       call<tag::map_ ( dispatch::functor<Tag>
+                      , BOOST_PP_ENUM_PARAMS(n, A)
+                      )
+           >::type
+    result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const & a)) const
+    {
+      return boost::simd::
+             map( dispatch::functor<Tag>(), BOOST_PP_ENUM_PARAMS(n, a) );
+    }
+  };
 
 #endif

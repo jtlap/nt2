@@ -15,7 +15,7 @@
 #include <nt2/core/utility/of_size.hpp>
 
 #ifdef NT2_DONT_USE_PREPROCESSED_FILES
-#include <boost/preprocessor/repetition/repeat.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #endif
 
@@ -42,8 +42,6 @@ namespace nt2
 
 #endif
 #else /* BOOST_PP_IS_ITERATING */
-
-#include <boost/preprocessor/repetition/enum_params.hpp>
 
 #define N BOOST_PP_ITERATION()
 

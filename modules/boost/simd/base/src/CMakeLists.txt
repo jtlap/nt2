@@ -25,4 +25,5 @@ nt2_preprocess(boost.simd.base.preprocess ${NT2_BOOST.SIMD.BASE_ROOT}/include/bo
                        -DBOOST_SIMD_CREATE_PREPROCESSED_FILES
                        -DBOOST_SIMD_HAS_SSE2_SUPPORT
                        -DBOOST_SIMD_HAS_AVX_SUPPORT
+               DEPENDS boost.dispatch.preprocess
               )
