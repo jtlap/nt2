@@ -1,3 +1,4 @@
+#ifndef BOOST_PP_IS_ITERATING
 //==============================================================================
 //         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
@@ -21,9 +22,8 @@
 #include <boost/dispatch/meta/as.hpp>
 
 #include <boost/dispatch/details/parameters.hpp>
-#include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/selection/min.hpp>
-#include <boost/preprocessor/arithmetic/inc.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -82,44 +82,10 @@ namespace boost { namespace simd { namespace ext
   ( boost::proto::child_c<n>(expr) )                                                               \
   /**/
 
-  #define M2(z,n,t)                                                                                \
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::formal_                         \
-                                    , (Expr)(T)(D)                                                 \
-                                    , ((node_<Expr, unspecified_<T>, boost::mpl::long_<n>, D>))    \
-                                    )                                                              \
-  {                                                                                                \
-    typedef typename dispatch::meta::result_of<                                                    \
-      typename dispatch::meta::dispatch_call<                                                      \
-        T( BOOST_PP_ENUM(n, M0, ~) )                                                               \
-      >::type                                                                                      \
-      ( BOOST_PP_ENUM(n, M0, ~) )                                                                  \
-    >::type result_type;                                                                           \
-    BOOST_FORCEINLINE result_type operator()(Expr& expr) const                                     \
-    {                                                                                              \
-      return typename dispatch::meta::dispatch_call<                                               \
-        T( BOOST_PP_ENUM(n, M0, ~) )                                                               \
-      >::type()                                                                                    \
-      ( BOOST_PP_ENUM(n, M1, ~) );                                                                 \
-    }                                                                                              \
-  };                                                                                               \
-  /**/
-
-  BOOST_PP_REPEAT_FROM_TO( 1
-                         , BOOST_PP_INC(BOOST_PP_MIN( BOOST_DISPATCH_MAX_ARITY
-                                                    , BOOST_PROTO_MAX_ARITY
-                                                    )
-                                       )
-                         , M2
-                         , ~
-                         )
-  #undef M0
-  #undef M1
-  #undef M2
-
   //============================================================================
   // Run an expression with a state and a data
   //============================================================================
-  #define M0(z,n,t)                                                                                \
+  #define M0d(z,n,t)                                                                               \
   typename dispatch::meta::result_of<                                                              \
     typename dispatch::meta::dispatch_call<                                                        \
       tag::run_( typename boost::proto::result_of::child_c<Expr&, n>::type                         \
@@ -140,7 +106,7 @@ namespace boost { namespace simd { namespace ext
   >::type                                                                                          \
   /**/
 
-  #define M1(z,n,t)                                                                                \
+  #define M1d(z,n,t)                                                                               \
   typename dispatch::meta::dispatch_call<                                                          \
     tag::run_( typename boost::proto::result_of::child_c<Expr&, n>::type                           \
              , State const&                                                                        \
@@ -156,41 +122,18 @@ namespace boost { namespace simd { namespace ext
   )                                                                                                \
   /**/
 
-  #define M2(z,n,t)                                                                                \
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_                            \
-                                    , (Expr)(T)(D)(State)(Data)                                    \
-                                    , ((node_<Expr, unspecified_<T>, boost::mpl::long_<n>, D>))    \
-                                      (unspecified_<State>)                                        \
-                                      (unspecified_<Data>)                                         \
-                                    )                                                              \
-  {                                                                                                \
-    typedef typename dispatch::meta::result_of<                                                    \
-      typename dispatch::meta::dispatch_call<                                                      \
-        T( BOOST_PP_ENUM(n, M0, ~) )                                                               \
-      >::type                                                                                      \
-      ( BOOST_PP_ENUM(n, M0, ~) )                                                                  \
-    >::type result_type;                                                                           \
-    result_type operator()(Expr& expr, State const& state, Data const& data) const                 \
-    {                                                                                              \
-      return typename dispatch::meta::dispatch_call<                                               \
-        T( BOOST_PP_ENUM(n, M0, ~) )                                                               \
-      >::type()                                                                                    \
-      ( BOOST_PP_ENUM(n, M1, ~) );                                                                 \
-    }                                                                                              \
-  };                                                                                               \
-  /**/
+  #define BOOST_PP_ITERATION_PARAMS_1 (3, ( 1, BOOST_PP_MIN( BOOST_DISPATCH_MAX_ARITY              \
+                                                           , BOOST_PROTO_MAX_ARITY                 \
+                                                           )                                       \
+                                          , "boost/simd/dsl/functions/generic/run.hpp"             \
+                                          )                                                        \
+                                      )
+  #include BOOST_PP_ITERATE()
 
-  BOOST_PP_REPEAT_FROM_TO( 1
-                         , BOOST_PP_INC(BOOST_PP_MIN( BOOST_DISPATCH_MAX_ARITY
-                                                    , BOOST_PROTO_MAX_ARITY
-                                                    )
-                                       )
-                         , M2
-                         , ~
-                         )
   #undef M0
   #undef M1
-  #undef M2
+  #undef M0d
+  #undef M1d
 
   //============================================================================
   // Run an expression with a state and data - Terminal cases
@@ -226,5 +169,52 @@ namespace boost { namespace simd { namespace ext
     }
   };
 } } }
+
+#endif
+#else /* BOOST_PP_IS_ITERATING */
+
+#define n BOOST_PP_ITERATION()
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::formal_
+                                    , (Expr)(T)(D)
+                                    , ((node_<Expr, unspecified_<T>, boost::mpl::long_<n>, D>))
+                                    )
+  {
+    typedef typename dispatch::meta::result_of<
+      typename dispatch::meta::dispatch_call<
+        T( BOOST_PP_ENUM(n, M0, ~) )
+      >::type
+      ( BOOST_PP_ENUM(n, M0, ~) )
+    >::type result_type;
+    BOOST_FORCEINLINE result_type operator()(Expr& expr) const
+    {
+      return typename dispatch::meta::dispatch_call<
+        T( BOOST_PP_ENUM(n, M0, ~) )
+      >::type()
+      ( BOOST_PP_ENUM(n, M1, ~) );
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_
+                                    , (Expr)(T)(D)(State)(Data)
+                                    , ((node_<Expr, unspecified_<T>, boost::mpl::long_<n>, D>))
+                                      (unspecified_<State>)
+                                      (unspecified_<Data>)
+                                    )
+  {
+    typedef typename dispatch::meta::result_of<
+      typename dispatch::meta::dispatch_call<
+        T( BOOST_PP_ENUM(n, M0d, ~) )
+      >::type
+      ( BOOST_PP_ENUM(n, M0d, ~) )
+    >::type result_type;
+    BOOST_FORCEINLINE result_type operator()(Expr& expr, State const& state, Data const& data) const
+    {
+      return typename dispatch::meta::dispatch_call<
+        T( BOOST_PP_ENUM(n, M0d, ~) )
+      >::type()
+      ( BOOST_PP_ENUM(n, M1d, ~) );
+    }
+  };
 
 #endif
