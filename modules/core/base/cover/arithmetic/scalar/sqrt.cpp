@@ -20,7 +20,7 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 
-NT2_TEST_CASE_TPL ( sqr_real__1_0,  NT2_TYPES)
+NT2_TEST_CASE_TPL ( sqr_real__1_0,  NT2_REAL_TYPES)
 {
 
   using nt2::sqrt;
