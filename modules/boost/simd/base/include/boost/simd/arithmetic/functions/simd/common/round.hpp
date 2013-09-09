@@ -10,15 +10,12 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ROUND_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/round.hpp>
+#include <boost/simd/include/functions/simd/trunc.hpp>
+#include <boost/simd/include/functions/simd/is_ltz.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
-#include <boost/simd/include/functions/simd/is_not_less.hpp>
-#include <boost/simd/include/functions/simd/bitwise_or.hpp>
-#include <boost/simd/include/functions/simd/abs.hpp>
-#include <boost/simd/include/functions/simd/bitofsign.hpp>
-#include <boost/simd/include/functions/simd/toint.hpp>
-#include <boost/simd/include/functions/simd/tofloat.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/constants/half.hpp>
+#include <boost/simd/include/constants/mhalf.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -39,10 +36,8 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      const result_type v = simd::abs(a0);
-      return if_else(is_nlt(v, Maxflint<result_type>()), a0,
-                     b_or(tofloat(toint(v+Half<result_type>())), bitofsign(a0))
-                    );
+      result_type inc = if_else(is_ltz(a0), Mhalf<result_type>(), Half<result_type>());
+      return trunc(a0+inc);
     }
   };
 } } }

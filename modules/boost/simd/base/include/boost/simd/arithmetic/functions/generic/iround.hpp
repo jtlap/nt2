@@ -10,8 +10,12 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_IROUND_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/iround.hpp>
-#include <boost/simd/include/functions/simd/round.hpp>
+#include <boost/simd/include/functions/simd/is_ltz.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/toints.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
+#include <boost/simd/include/constants/half.hpp>
+#include <boost/simd/include/constants/mhalf.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -36,7 +40,8 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return toints(simd::round(a0));
+      result_type inc = if_else(is_ltz(a0), Mhalf<result_type>(), Half<result_type>());
+      return toints(a0+inc);
     }
   };
 } } }
