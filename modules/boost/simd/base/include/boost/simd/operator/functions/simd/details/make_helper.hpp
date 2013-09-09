@@ -16,7 +16,7 @@
 #define BOOST_SIMD_MAKE_BODY(n)                                                \
 typedef typename A0::type result_type;                                         \
 typedef typename meta::scalar_of<result_type>::type stype;                     \
-BOOST_FORCEINLINE result_type                                        \
+BOOST_FORCEINLINE result_type                                                  \
 operator()(BOOST_PP_ENUM_PARAMS(n, stype const& a)) const                      \
 /**/
 
