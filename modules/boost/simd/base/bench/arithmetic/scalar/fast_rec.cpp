@@ -18,7 +18,6 @@ namespace n1
 {
   typedef float T;
   NT2_TIMING(fast_rec_,(RS(T,T(-10),T(10))))
->>>>>>> bench simd tests for arithmetic
 }
 
 namespace n2
