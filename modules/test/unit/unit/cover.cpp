@@ -33,7 +33,8 @@ struct some_functor
   template<typename T>
   T operator()(T const& x)
   {
-    return x/(x+1);
+    typedef typename boost::dispatch::meta::scalar_of<T>::type sT;
+    return x/(x+sT(1));
   }
 };
 
