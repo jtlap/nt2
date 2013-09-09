@@ -30,7 +30,7 @@ NT2_TEST_CASE_TPL ( exp10_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(exp10(nt2::Minf<vT>()), nt2::Zero<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(exp10(nt2::Nan<vT>()), nt2::Nan<r_t>(), 0);
 #endif
-  NT2_TEST_ULP_EQUAL(exp10(nt2::Mone<vT>()), nt2::One<r_t>()/10, 0);
+  NT2_TEST_ULP_EQUAL(exp10(nt2::Mone<vT>()), nt2::One<r_t>()/r_t(10), 0);
   NT2_TEST_ULP_EQUAL(exp10(nt2::One<vT>()), nt2::Ten<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(exp10(nt2::Zero<vT>()), nt2::One<r_t>(), 0);
 } // end of test for floating_
