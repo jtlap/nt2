@@ -43,27 +43,5 @@ NT2_TEST_CASE_TPL ( hypot_real__1_0_1,  NT2_REAL_TYPES)
  NT2_COVER_ULP_EQUAL(hypot_, ((T, in1))((T, in2)), ref, 2);
 
 }
-NT2_TEST_CASE_TPL ( hypot_real__1_0_2,  NT2_INTEGRAL_TYPES)
-{
-
-  using nt2::hypot;
-  using nt2::tag::hypot_;
-  typedef typename nt2::meta::call<hypot_(T, T)>::type r_t;
-
-  nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
-  std::vector<T> in1(NR), in2(NR);
-  std::vector<r_t> ref(NR);
-  nt2::roll(in1, nt2::Zero<T>()/2, nt2::Hundred<T>()/2);
-  nt2::roll(in2, nt2::Zero<T>()/2, nt2::Hundred<T>()/2);
-  for(nt2::uint32_t i=0; i < NR ; ++i)
-  {
-    ref[i] = ::hypot( in1[i], in2[i]);
-  }
-
-   NT2_COVER_ULP_EQUAL(hypot_, ((T, in1))((T, in2)), ref, 2);
-
-
-}
-
 
 
