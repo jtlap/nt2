@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      result_type inc = if_else(is_ltz(a0), Mhalf<result_type>(), Half<result_type>());
+      A0 inc = if_else(is_ltz(a0), Mhalf<A0>(), Half<A0>());
       return toints(a0+inc);
     }
   };
