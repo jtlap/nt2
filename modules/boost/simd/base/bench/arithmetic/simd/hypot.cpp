@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_BENCH_MODULE "nt2 boost.simd.arithmetic toolbox - hypot/simd Mode"
+
 
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of boost.simd.arithmetic components in simd mode
@@ -31,15 +31,16 @@ using boost::simd::tag::hypot_;
 
 namespace n1 {
   typedef float T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
+
   typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(hypot_,(RS(vT,T(-10000),T(10000)))(RS(vT,T(-10000),T(10000))))
 }
 namespace n2 {
   typedef double T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
+
   typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(hypot_,(RS(vT,T(-10000),T(10000)))(RS(vT,T(-10000),T(10000))))
 }
 
 #undef RS
+

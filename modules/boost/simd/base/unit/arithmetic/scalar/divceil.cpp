@@ -12,13 +12,14 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/include/constants/two.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/nan.hpp>
-#include <boost/simd/sdk/config.hpp>
 #include <boost/simd/include/constants/maxflint.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 NT2_TEST_CASE_TPL ( divceil_real,  BOOST_SIMD_REAL_TYPES)
 {
@@ -80,20 +81,3 @@ NT2_TEST_CASE_TPL ( divceil_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_EQUAL(divceil(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::One<r_t>());
 } // end of test for signed_int_
 
-
-NT2_TEST_CASE_TPL ( divceil_unsigned_int64,  (int64_t))
-{
-
-  using boost::simd::divceil;
-  using boost::simd::tag::divceil_;
-  typedef typename boost::dispatch::meta::call<divceil_(T,T)>::type r_t;
-  typedef T wished_r_t;
-
-  T mf = boost::simd::Maxflint<double>();
-  T z = mf+T(1);
-  // specific values tests
-  NT2_TEST_EQUAL(divceil(z,T(1)), z);
-  NT2_TEST_EQUAL(divceil(z,T(-1)), -z);
-  NT2_TEST_EQUAL(divceil(z,T(2)), z/2+1);
-  NT2_TEST_EQUAL(divceil(z,T(-2)), -(z/2));
-} // end of test for unsigned_int_

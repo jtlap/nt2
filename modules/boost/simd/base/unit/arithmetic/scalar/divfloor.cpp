@@ -18,7 +18,6 @@
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/nan.hpp>
 #include <boost/simd/sdk/config.hpp>
-#include <boost/simd/include/constants/maxflint.hpp>
 
 
 NT2_TEST_CASE_TPL ( divfloor_real,  BOOST_SIMD_REAL_TYPES)

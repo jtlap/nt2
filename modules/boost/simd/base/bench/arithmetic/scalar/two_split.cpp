@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_BENCH_MODULE "nt2 boost.simd.arithmetic toolbox - two_split/scalar Mode"
+
 
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of boost.simd.arithmetic components in scalar mode
@@ -31,12 +31,12 @@ using boost::simd::tag::two_split_;
 
 namespace n1 {
   typedef float T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
+
   NT2_TIMING(two_split_,(RS(T,T(-10),T(10))))
 }
 namespace n2 {
   typedef double T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
+
   NT2_TIMING(two_split_,(RS(T,T(-10),T(10))))
 }
 

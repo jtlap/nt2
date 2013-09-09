@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_EXPR_ZERO_CROSSING_RATE_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_EXPR_ZERO_CROSSING_RATE_HPP_INCLUDED
+#ifndef NT2_SIGNAL_FUNCTIONS_EXPR_ZERO_CROSSING_RATE_HPP_INCLUDED
+#define NT2_SIGNAL_FUNCTIONS_EXPR_ZERO_CROSSING_RATE_HPP_INCLUDED
 
 #include <nt2/signal/functions/zero_crossing_rate.hpp>
 #include <nt2/include/functions/mean.hpp>

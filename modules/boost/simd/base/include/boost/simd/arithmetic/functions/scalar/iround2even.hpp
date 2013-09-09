@@ -10,47 +10,33 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_IROUND2EVEN_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/iround2even.hpp>
-#include <boost/simd/include/functions/scalar/seladd.hpp>
+#include <boost/simd/include/functions/scalar/fast_iround2even.hpp>
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
-#include <boost/simd/include/functions/scalar/is_inf.hpp>
-#include <boost/simd/include/functions/scalar/is_ltz.hpp>
-#include <boost/simd/include/functions/scalar/round2even.hpp>
-#include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/sdk/config.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::iround2even_, tag::cpu_ , (A0)
-                            , (scalar_< fundamental_<A0> >)
-                            )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return a0; }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::iround2even_, tag::cpu_ , (A0)
-                            , (scalar_< floating_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::iround2even_, tag::cpu_
+                                   , (A0)
+                                   , ((scalar_<single_<A0> >))
+                                   )
   {
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-#if !defined(BOOST_SIMD_NO_NANS)
-      if (is_nan(a0)) return Zero<result_type>();
-#endif
-#if !defined(BOOST_SIMD_NO_INFINITIES)
-      if (is_inf(a0))
-      {
-        if (is_ltz(a0)) return Valmin<result_type>();
-        else            return Valmax<result_type>();
-      }
-#endif
-      return result_type(boost::simd::round2even(a0));
+    #ifndef BOOST_SIMD_NO_NANS
+      if (boost::simd::is_nan(a0))       return Zero<result_type>();
+    #endif
+      if (a0 >= Valmax<result_type>())   return Valmax<result_type>();
+      if (a0 <= Valmin<result_type>())   return Valmin<result_type>();
+      return fast_iround2even(a0);
     }
   };
 } } }
+
 
 #endif

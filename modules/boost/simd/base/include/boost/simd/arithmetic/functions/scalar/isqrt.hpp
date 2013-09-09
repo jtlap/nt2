@@ -13,44 +13,32 @@
 #include <boost/simd/include/functions/scalar/is_ltz.hpp>
 #include <boost/simd/include/functions/scalar/sqrt.hpp>
 #include <boost/simd/include/functions/scalar/toints.hpp>
-#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/functions/scalar/tofloat.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::isqrt_, tag::cpu_
                             , (A0)
-                            , (scalar_< arithmetic_<A0> >)
+                            , (scalar_< floating_<A0> >)
                             )
   {
     typedef typename  dispatch::meta::as_integer<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return itrunc(boost::simd::sqrt(a0));
+      return toints(boost::simd::sqrt(a0));
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::isqrt_, tag::cpu_
                             , (A0)
-                            , (scalar_< uint_<A0> >)
+                            , (scalar_< integer_<A0> >)
                             )
   {
-    typedef A0 result_type;
+    typedef typename  dispatch::meta::as_integer<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return static_cast<A0>(boost::simd::sqrt(result_type(a0)));
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::isqrt_, tag::cpu_
-                            , (A0)
-                            , (scalar_< int_<A0> >)
-                            )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      return (is_ltz(a0)) ?  Zero<A0>() : static_cast<A0>(boost::simd::sqrt(result_type(a0)));
+      return toints(boost::simd::sqrt(tofloat(a0)));
     }
   };
 } } }

@@ -9,23 +9,47 @@
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_REC_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_REC_HPP_INCLUDED
 #include <boost/simd/arithmetic/functions/rec.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/simd/sdk/simd/meta/is_real_convertible.hpp>
-#include <boost/simd/include/constants/digits.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/functions/simd/divides.hpp>
-#include <boost/simd/include/functions/simd/tofloat.hpp>
+#include <boost/simd/include/functions/simd/if_one_else_zero.hpp>
+#include <boost/simd/include/functions/simd/if_else_allbits.hpp>
+
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rec_, tag::cpu_
                             , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
+                            , ((simd_<uint_<A0>,X>))
                             )
   {
-    typedef typename dispatch::meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return One<result_type>()/boost::simd::tofloat(a0);
+      return if_else_allbits(a0, if_one_else_zero(a0 == One<A0>()));
+    }
+  };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rec_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<int_<A0>,X>))
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return if_else(a0, if_else_zero(abs(a0) == One<A0>(), a0), Valmax<A0>());
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rec_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<floating_<A0>,X>))
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return One<result_type>()/a0;
     }
   };
 } } }

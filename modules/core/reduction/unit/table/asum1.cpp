@@ -23,7 +23,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
-NT2_TEST_CASE_TPL( asum1_scalar, (float)(double))//NT2_TYPES )
+NT2_TEST_CASE_TPL( asum1_scalar, NT2_TYPES )
 {
   T x = nt2::asum1(T(42));
   NT2_TEST_EQUAL( x, T(42) );
@@ -36,7 +36,7 @@ NT2_TEST_CASE_TPL( asum1_scalar, (float)(double))//NT2_TYPES )
 
 }
 
-NT2_TEST_CASE_TPL( asum1, (float)(double))//NT2_TYPES )
+NT2_TEST_CASE_TPL( asum1, NT2_TYPES )
 {
   using nt2::_;
   nt2::table<T> y( nt2::of_size(5,3) );
@@ -71,24 +71,5 @@ NT2_TEST_CASE_TPL( asum1, (float)(double))//NT2_TYPES )
   sz = nt2::sum(nt2::abs(y(_)));
   display(sy);
   NT2_TEST_EQUAL(sy(1), sz(1));
-
-  {
-    nt2::table<T> z = nt2::ones(1, 3, nt2::meta::as_<T>());
-    typedef typename nt2::meta::as_integer<T>::type itype;
-    nt2::table<itype> z1 = nt2::Two<itype>()*nt2::ones(1, 3, nt2::meta::as_<itype>());
-    nt2::table<T> z2 = nt2::rec(z1)*z;
-//     nt2::table<T> z3 = if_else(is_eqz(z2), z2, nt2::Two<T>());
-//    nt2::table<T> z3 = if_else(is_eqz(z2), z2, nt2::Two<T>()*nt2::ones(1, 3, nt2::meta::as_<T>()));
-    {
-      nt2::table<T> z, z1, z2;
-      z2 =  nt2::zeros(1, 3, nt2::meta::as_<T>());
-      z1=  nt2::ones(1, 3, nt2::meta::as_<T>());
-      nt2::table<T> z3= nt2::if_else(nt2::is_eqz(z2), z1, z2);
-      NT2_DISPLAY(z3);
-      nt2::table<T> z4 = nt2::if_else(nt2::is_eqz(z2), z2, nt2::Two<T>());
-      NT2_DISPLAY(z4);
-    }
-  }
-
 }
 

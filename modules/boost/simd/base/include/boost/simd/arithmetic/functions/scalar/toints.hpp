@@ -8,13 +8,15 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_TOINTS_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_TOINTS_HPP_INCLUDED
+
 #include <boost/simd/arithmetic/functions/toints.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/include/functions/scalar/is_nan.hpp>
+#include <boost/simd/include/functions/scalar/is_finite.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/include/functions/scalar/is_nan.hpp>
-#include <boost/simd/include/functions/scalar/is_finite.hpp>
+#include <boost/simd/sdk/config.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -55,7 +57,9 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_integer<A0> ::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
+    #ifndef BOOST_SIMD_NO_NANS
       if (boost::simd::is_nan(a0))       return Zero<result_type>();
+    #endif
       if (a0 >= Valmax<result_type>())   return Valmax<result_type>();
       if (a0 <= Valmin<result_type>())   return Valmin<result_type>();
       return result_type(a0);

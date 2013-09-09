@@ -12,8 +12,8 @@
 #include <boost/simd/arithmetic/functions/divceil.hpp>
 #include <boost/simd/include/functions/simd/ceil.hpp>
 #include <boost/simd/include/functions/simd/divides.hpp>
-#include <boost/simd/include/functions/simd/idivceil.hpp>
 #include <boost/simd/include/functions/simd/touints.hpp>
+#include <boost/simd/include/functions/simd/toint.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>
 #include <boost/simd/include/functions/simd/split.hpp>
 #include <boost/simd/include/functions/simd/groups.hpp>
@@ -22,22 +22,6 @@
 
 namespace boost { namespace simd { namespace ext
 {
-
-// rationale //////////////////////
-// SIMD integer division is lacking,  so there is two solutions
-//   1 - simply mapping the simd fonctions on the scalar ones
-//   2 - using floating division for integers that fit in them
-//
-// and of course taking the available faster solution
-//  Here we implement divceil for 8 and 16 bits integers simd vectors
-//  by splitting them in as much as necessary 32bits floating points
-//  SIMD vectors (23 bits of mantissa is enough)
-//  For 32 bits integers spliting them in 64 bits floating points
-//  SIMD vectors could fit but is less performing than the map up
-//  to sse4.2 at least (and also does not work for altivec).
-//  For 64 bits integers we currently have no floating points SIMD
-//  they can fit in so mapping is mandatory.
-//
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::divceil_, tag::cpu_, (A0)(X)
                                       , (simd::meta::is_upgradable_on_ext<A0, X>)
@@ -52,8 +36,8 @@ namespace boost { namespace simd { namespace ext
       ivtype a0l, a0h, a1l, a1h;
       boost::simd::split(a0, a0l, a0h );
       boost::simd::split(a1, a1l, a1h );
-      ivtype d0 = idivceil(tofloat(a0l), tofloat(a1l));
-      ivtype d1 = idivceil(tofloat(a0h), tofloat(a1h));
+      ivtype d0 = toints(divceil(tofloat(a0l), tofloat(a1l)));
+      ivtype d1 = toints(divceil(tofloat(a0h), tofloat(a1h)));
       return groups(d0, d1);
     }
   };

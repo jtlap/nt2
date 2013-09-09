@@ -14,6 +14,7 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/constant/constant.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/zero.hpp>
@@ -30,8 +31,6 @@ NT2_TEST_CASE_TPL ( iround_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                                   ivT;
   typedef typename boost::dispatch::meta::call<iround_(vT)>::type r_t;
 
   // specific values tests

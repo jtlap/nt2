@@ -16,7 +16,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-      @brief  arg generic tag
+      @brief  adds generic tag
 
       Represents the adds function in generic contexts.
 
@@ -40,7 +40,7 @@ namespace boost { namespace simd
     @endcode
 
     The function coincide with plus for floating point parameters.
-    For integers is equivalent to:
+    For integers is similar to:
 
     @code
     T r = (x+y > Valmax) ? Valmax : (x+y <  Valmin ? Valmin : x+y);
@@ -50,8 +50,8 @@ namespace boost { namespace simd
 
     saturated_add
 
-    @param  x
-    @param  y
+    @param  a0
+    @param  a1
 
     @return      a value of the same type as the input.
 

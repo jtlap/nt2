@@ -18,8 +18,12 @@
 #include <boost/simd/include/functions/simd/if_zero_else.hpp>
 #include <boost/simd/include/functions/simd/is_greater_equal.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/splat.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/simd/sdk/config.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -32,7 +36,8 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::scalar_of<result_type>::type                 s_type;
     result_type operator()(A0 const& a0) const
     {
-      return if_else (ge(a0, splat<A0>(Valmax<s_type>())), Valmax<result_type>(), bitwise_cast<result_type>(a0));
+      return if_else (ge(a0, splat<A0>(Valmax<s_type>())), Valmax<result_type>(),
+                      bitwise_cast<result_type>(a0));
     }
   };
 
@@ -67,12 +72,20 @@ namespace boost { namespace simd { namespace ext
       typedef typename meta::scalar_of<result_type>::type sr_t;
       static const A0 Vax =  splat<A0>(boost::simd::Valmax<sr_t>());
       static const A0 Vix =  splat<A0>(boost::simd::Valmin<sr_t>());
+    #ifndef BOOST_SIMD_NO_NANS
       A0 aa0 = if_zero_else(is_nan(a0), a0);
       return if_else(boost::simd::lt(aa0, Vix), Valmin<result_type>(),
                      if_else(boost::simd::gt(aa0, Vax), Valmax<result_type>(),
                              toint(aa0)
                             )
                     );
+    #else
+      return if_else(boost::simd::lt(a0, Vix), Valmin<result_type>(),
+                     if_else(boost::simd::gt(a0, Vax), Valmax<result_type>(),
+                             toint(a0)
+                            )
+                    );
+    #endif
     }
   };
 } } }

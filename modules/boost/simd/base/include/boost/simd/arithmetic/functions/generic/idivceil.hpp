@@ -6,42 +6,54 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_DIVFIX_HPP_INCLUDED
-#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_DIVFIX_HPP_INCLUDED
+#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_IDIVCEIL_HPP_INCLUDED
+#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_IDIVCEIL_HPP_INCLUDED
 
-#include <boost/simd/arithmetic/functions/divfix.hpp>
-#include <boost/simd/include/functions/simd/trunc.hpp>
-#include <boost/simd/include/functions/simd/divs.hpp>
+#include <boost/simd/arithmetic/functions/idivceil.hpp>
+#include <boost/simd/include/functions/simd/iceil.hpp>
 #include <boost/simd/include/functions/simd/divides.hpp>
+#include <boost/simd/include/functions/simd/divceil.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divfix_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivceil_, tag::cpu_
                                    , (A0)
                                    , (generic_< arithmetic_<A0> >)
                                      (generic_< arithmetic_<A0> >)
                                    )
   {
     typedef A0 result_type;
+
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return simd::rdivide(a0, a1);
+      return divceil(a0, a1);
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divfix_, tag::cpu_
+#ifdef BOOST_MSVC
+  #pragma warning(push)
+  #pragma warning(disable: 4723) // potential divide by 0
+#endif
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::idivceil_, tag::cpu_
                                    , (A0)
                                    , (generic_< floating_<A0> >)
                                      (generic_< floating_<A0> >)
                                    )
   {
-    typedef A0 result_type;
+    typedef typename dispatch::meta::as_integer<A0>::type result_type;
+
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return simd::trunc(a0/a1);
+      return iceil(a0/a1);
     }
   };
-} } }
 
+#ifdef BOOST_MSVC
+  #pragma warning(pop)
+#endif
+
+} } }
 
 #endif

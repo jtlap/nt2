@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
                       );
 
       if (a0 <= 1) return  False<result_type>();
-      A0 m = oneplus(nt2::sqrt(a0));
+      A0 m = oneplus(nt2::isqrt(a0));
       nt2::container::table<A0> p = nt2::primes(m);
 
       ///TODO perhaps a while with precox ending

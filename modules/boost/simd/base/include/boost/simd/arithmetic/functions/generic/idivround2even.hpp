@@ -6,41 +6,43 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_IDIVROUND2EVEN_HPP_INCLUDED
-#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_IDIVROUND2EVEN_HPP_INCLUDED
+#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_IDIVROUND2EVEN_HPP_INCLUDED
+#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_IDIVROUND2EVEN_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/idivround2even.hpp>
-#include <boost/simd/include/functions/scalar/iround2even.hpp>
-#include <boost/simd/include/functions/scalar/tofloat.hpp>
+#include <boost/simd/include/functions/simd/iround2even.hpp>
+#include <boost/simd/include/functions/simd/divides.hpp>
+#include <boost/simd/include/functions/simd/divround2even.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+
+
+namespace boost { namespace simd { namespace ext
+{
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivround2even_, tag::cpu_
+                        , (A0)
+                        , (generic_< arithmetic_<A0> >)
+                          (generic_< arithmetic_<A0> >)
+                        )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+      {
+        return divround2even(a0, a1);
+      }
+  };
 
 #ifdef BOOST_MSVC
   #pragma warning(push)
   #pragma warning(disable: 4723) // potential divide by 0
 #endif
 
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivround2even_, tag::cpu_
-                        , (A0)
-                        , (scalar_< arithmetic_<A0> >)
-                          (scalar_< arithmetic_<A0> >)
-                        )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-      {
-      return (!a1) ? a1 :iround2even(tofloat(a0)/tofloat(a1));
-      }
-  };
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::idivround2even_, tag::cpu_,
                        (A0),
-                       (scalar_< floating_<A0> > )
-                       (scalar_< floating_<A0> > )
+                       (generic_< floating_<A0> > )
+                       (generic_< floating_<A0> > )
                        )
   {
-    typedef typename dispatch::meta::as_integer < A0 >::type result_type;
+    typedef typename dispatch::meta::as_integer<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return iround2even(a0/a1);

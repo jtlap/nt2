@@ -6,25 +6,26 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_IDIVFIX_HPP_INCLUDED
-#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_IDIVFIX_HPP_INCLUDED
+#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_IDIVFIX_HPP_INCLUDED
+#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_IDIVFIX_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/idivfix.hpp>
-#include <boost/simd/include/functions/scalar/divs.hpp>
-#include <boost/simd/include/functions/scalar/toints.hpp>
+#include <boost/simd/include/functions/simd/divides.hpp>
+#include <boost/simd/include/functions/simd/divfix.hpp>
+#include <boost/simd/include/functions/simd/toints.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivfix_, tag::cpu_, (A0)
-                            , (scalar_< arithmetic_<A0> >)
-                              (scalar_< arithmetic_<A0> >)
+                            , (generic_< arithmetic_<A0> >)
+                              (generic_< arithmetic_<A0> >)
                             )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return boost::simd::rdivide(a0, a1);
+      return divfix(a0, a1);
     }
   };
 
@@ -34,14 +35,15 @@ namespace boost { namespace simd { namespace ext
 #endif
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivfix_, tag::cpu_, (A0)
-                            , (scalar_< floating_<A0> > )(scalar_< floating_<A0> > )
-                            )
+                                   , (generic_< floating_<A0> > )
+                                     (generic_< floating_<A0> > )
+                                   )
 
   {
     typedef typename boost::dispatch::meta::as_integer <A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return boost::simd::toints(a0/a1);
+      return itrunc(a0/a1);
     }
   };
 } } }

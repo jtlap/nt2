@@ -10,26 +10,40 @@
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/simd/constant/constant.hpp>
-
+#include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/ulp.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/mone.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/minf.hpp>
+#include <boost/simd/include/constants/nan.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/maxflint.hpp>
+#include <boost/simd/include/constants/half.hpp>
+#include <boost/simd/include/constants/four.hpp>
 
-NT2_TEST_CASE_TPL ( rsqrt_real, BOOST_SIMD_SIMD_REAL_TYPES)
+#include <boost/simd/sdk/config.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+
+NT2_TEST_CASE_TPL ( rsqrt_real,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::rsqrt;
   using boost::simd::tag::rsqrt_;
   using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>                        vT;
+  typedef native<T,ext_t>                  vT;
+  typedef typename boost::dispatch::meta::call<rsqrt_(vT)>::type r_t;
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(rsqrt(boost::simd::Inf<vT>()), boost::simd::Zero<vT>(), 0.5);
-  NT2_TEST_ULP_EQUAL(rsqrt(boost::simd::Minf<vT>()), boost::simd::Nan<vT>(), 0.5);
-  NT2_TEST_ULP_EQUAL(rsqrt(boost::simd::Mone<vT>()), boost::simd::Nan<vT>(), 0.5);
-  NT2_TEST_ULP_EQUAL(rsqrt(boost::simd::Nan<vT>()), boost::simd::Nan<vT>(), 0.5);
-  NT2_TEST_ULP_EQUAL(rsqrt(boost::simd::One<vT>()), boost::simd::One<vT>(), 0.5);
-  NT2_TEST_ULP_EQUAL(rsqrt(boost::simd::Zero<vT>()), boost::simd::Inf<vT>(), 0.5);
-  NT2_TEST_ULP_EQUAL(rsqrt(boost::simd::Four<vT>()), boost::simd::Half<vT>(), 0.5);
+#ifndef BOOST_SIMD_NO_INVALIDS
+  NT2_TEST_EQUAL(rsqrt(boost::simd::Inf<vT>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(rsqrt(boost::simd::Minf<vT>()), boost::simd::Nan<r_t>());
+  NT2_TEST_EQUAL(rsqrt(boost::simd::Nan<vT>()), boost::simd::Nan<r_t>());
+#endif
+  NT2_TEST_EQUAL(rsqrt(boost::simd::Mone<vT>()), boost::simd::Nan<r_t>());
+  NT2_TEST_EQUAL(rsqrt(boost::simd::One<vT>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(rsqrt(boost::simd::Zero<vT>()), boost::simd::Inf<r_t>());
+  NT2_TEST_EQUAL(rsqrt(boost::simd::Four<vT>()), boost::simd::Half<r_t>());
 } // end of test for floating_

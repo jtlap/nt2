@@ -6,60 +6,58 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_NEGS_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_NEGS_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_negs negs
- *
- * \par Description
- * returns saturation of $-a_0$ in the input type.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/negs.hpp>
- * \endcode
- *
- * \par Alias
- * \arg saturated_neg
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::negs_(A0)>::type
- *     negs(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of negs
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
-
 namespace boost { namespace simd {
   namespace tag
   {
     /*!
-     * \brief Define the tag negs_ of functor negs
-     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
+      @brief  negs generic tag
+
+      Represents the negs function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
-    struct negs_ : ext::elementwise_<negs_> { typedef ext::elementwise_<negs_> parent; };
+    struct negs_ : ext::elementwise_<negs_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<negs_> parent;
+    };
   }
+  /*!
+    Computes the saturated negation of the input.
+
+    @par semantic:
+    For any given value @c x, @c y of type @c T:
+
+    @code
+    T r = negs(x);
+    @endcode
+
+    The code is equivalent to:
+
+    @code
+    T r = -x
+    @endcode
+
+    @par Note:
+    For integers types @c negs(Valmin) returns @c Valmax
+    @c negs is not defined for unsigned types.
+
+    @par Alias
+
+    saturated_neg
+
+    @param  a0
+    @param  a1
+
+    @return      a value of the same type as the input.
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::negs_, negs, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::negs_, saturated_neg, 1)
 } }

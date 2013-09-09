@@ -39,29 +39,3 @@ NT2_TEST_CASE_TPL ( arg_r,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(boost::simd::arg(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( arg_ic,  BOOST_SIMD_SIMD_INT_CONVERT_TYPES)
-{
-  using boost::simd::tag::arg_;
-  using boost::simd::native;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>                  vT;
-  typedef typename boost::dispatch::meta::call<arg_(vT)>::type r_t;
-
-  // specific values tests
-  NT2_TEST_EQUAL(boost::simd::arg(boost::simd::Mone<vT>()), boost::simd::Pi<r_t>());
-  NT2_TEST_EQUAL(boost::simd::arg(boost::simd::One<vT>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(boost::simd::arg(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
-} // end of test for floating_
-
-NT2_TEST_CASE_TPL ( arg_uic,  BOOST_SIMD_SIMD_UINT_CONVERT_TYPES)
-{
-  using boost::simd::tag::arg_;
-  using boost::simd::native;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>                  vT;
-  typedef typename boost::dispatch::meta::call<arg_(vT)>::type r_t;
-
-  // specific values tests
-  NT2_TEST_EQUAL(boost::simd::arg(boost::simd::One<vT>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(boost::simd::arg(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
-} // end of test for floating_

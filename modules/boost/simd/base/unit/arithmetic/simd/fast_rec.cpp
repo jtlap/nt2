@@ -8,14 +8,22 @@
 //==============================================================================
 #include <boost/simd/arithmetic/include/functions/fast_rec.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/sdk/simd/io.hpp>
-
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/simd/constant/constant.hpp>
-
-#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/two.hpp>
+#include <boost/simd/include/constants/mone.hpp>
+#include <boost/simd/include/constants/mtwo.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/minf.hpp>
+#include <boost/simd/include/constants/nan.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/sdk/config.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 
 NT2_TEST_CASE_TPL ( fast_rec,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
@@ -26,22 +34,21 @@ NT2_TEST_CASE_TPL ( fast_rec,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>               vT;
 
-  NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<fast_rec_(vT)>::type
-                  , (native<T,ext_t>)
-                  );
-
   // specific values tests
 
+#ifndef BOOST_SIMD_NO_INVALIDS
   // 1/+-inf = 0
-  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Inf<vT>()) , boost::simd::Zero<vT>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Minf<vT>()), boost::simd::Zero<vT>(), 0.5);
-
-  // 1/+-0 = +-inf
-  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Mzero<vT>()), boost::simd::Minf<vT>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Zero<vT>()), boost::simd::Inf<vT>(), 0.5);
+  NT2_TEST_EQUAL(fast_rec(boost::simd::Inf<vT>()) , boost::simd::Zero<vT>());
+  NT2_TEST_EQUAL(fast_rec(boost::simd::Minf<vT>()), boost::simd::Zero<vT>());
 
   // 1/Nan = Nan
-  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Nan<vT>()), boost::simd::Nan<vT>(), 0.5);
+  NT2_TEST_EQUAL(fast_rec(boost::simd::Nan<vT>()), boost::simd::Nan<vT>());
+#endif
+
+  // 1/+-0 = +-inf
+  NT2_TEST_EQUAL(fast_rec(boost::simd::Mzero<vT>()), boost::simd::Minf<vT>());
+  NT2_TEST_EQUAL(fast_rec(boost::simd::Zero<vT>()), boost::simd::Inf<vT>());
+
 
   // 1/+-1 = +-1
   NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Mone<vT>()), boost::simd::Mone<vT>(), 0.5);

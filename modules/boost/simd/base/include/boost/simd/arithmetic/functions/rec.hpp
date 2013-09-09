@@ -6,60 +6,52 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_REC_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_REC_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_rec rec
- *
- * \par Description
- * return the inverse of the input as a floating point value.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/rec.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::rec_(A0)>::type
- *     rec(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of rec
- *
- * \return always return floating point values
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
-
 namespace boost { namespace simd { namespace tag
   {
-    /*!
-     * \brief Define the tag rec_ of functor rec
-     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
+   /*!
+      @brief  rec generic tag
+
+      Represents the rec function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
-    struct rec_ : ext::elementwise_<rec_> { typedef ext::elementwise_<rec_> parent; };
+    struct rec_ : ext::elementwise_<rec_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<rec_> parent;
+    };
   }
+  /*!
+    Returns the inverse of the entry.
+
+    @par semantic:
+    For any given value @c x of type @c T:
+
+    @code
+    T r = rec(x);
+    @endcode
+
+    The code is similar to:
+
+    @code
+    T r = T(1)/x;
+    @endcode
+
+
+    @param  a0
+
+    @return      a value of the type of the input.
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::rec_, rec, 1)
 } }
 
 #endif
 
-// modified by jt the 25/12/2010
+

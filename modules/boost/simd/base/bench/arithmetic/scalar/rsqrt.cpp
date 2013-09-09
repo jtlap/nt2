@@ -6,10 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of boost.simd.arithmetic components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/arithmetic/include/functions/rsqrt.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
-#include <cmath>
 
 using boost::simd::tag::rsqrt_;
 #define RS(T,V1,V2) (T, T(V1) ,T(V2))
@@ -17,13 +19,13 @@ using boost::simd::tag::rsqrt_;
 namespace n1
 {
   typedef float T;
-  NT2_TIMING(rsqrt_,(RS(T,T(-100),T(100))))
+  NT2_TIMING(rsqrt_,(RS(T,T(-10),T(10))))
 }
 
 namespace n2
 {
   typedef double T;
-  NT2_TIMING(rsqrt_,(RS(T,T(-100),T(100))))
+  NT2_TIMING(rsqrt_,(RS(T,T(-10),T(10))))
 }
 
 #undef RS

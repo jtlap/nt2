@@ -21,6 +21,7 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/constant/constant.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/two.hpp>
 #include <boost/simd/include/constants/inf.hpp>
@@ -36,8 +37,6 @@ NT2_TEST_CASE_TPL ( iround2even_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                                   ivT;
   typedef typename boost::dispatch::meta::call<iround2even_(vT)>::type r_t;
 
 
@@ -54,4 +53,10 @@ NT2_TEST_CASE_TPL ( iround2even_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(iround2even(boost::simd::Nan<vT>()), boost::simd::Zero<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(iround2even(boost::simd::One<vT>()), boost::simd::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(iround2even(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>(), 0);
+
+
+  for(int i=-100; i < 100; ++i)
+ {
+   NT2_TEST_ULP_EQUAL(iround2even(boost::simd::splat<vT>(i+0.5)),boost::simd::splat<r_t>(i+((i >= 0)?(i%2):(-i%2))), 0);
+ }
 } // end of test for floating_

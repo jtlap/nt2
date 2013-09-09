@@ -8,59 +8,53 @@
 //==============================================================================
 #include <boost/simd/arithmetic/include/functions/subs.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/constant/constant.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
+#include <boost/simd/include/constants/mtwo.hpp>
+#include <boost/simd/include/constants/two.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/mone.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/minf.hpp>
+#include <boost/simd/include/constants/nan.hpp>
+#include <boost/simd/sdk/config.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 
-NT2_TEST_CASE_TPL ( subs_signed_int__2_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( subs_signed_int,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::subs;
   using boost::simd::tag::subs_;
   using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
+  typedef native<T,ext_t>                  vT;
   typedef typename boost::dispatch::meta::call<subs_(vT,vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  NT2_TEST_EQUAL(subs(boost::simd::splat<vT>(-2), boost::simd::Valmin<vT>())[0], boost::simd::Valmax<T>()-boost::simd::One<T>());
-  NT2_TEST_EQUAL(subs(boost::simd::Mone<vT>(), boost::simd::Mone<vT>())[0], boost::simd::Zero<T>());
-  NT2_TEST_EQUAL(subs(boost::simd::Mone<vT>(), boost::simd::Valmax<vT>())[0], boost::simd::Valmin<T>());
-  NT2_TEST_EQUAL(subs(boost::simd::Mone<vT>(), boost::simd::Valmin<vT>())[0], boost::simd::Valmax<T>());
-  NT2_TEST_EQUAL(subs(boost::simd::One<vT>(),boost::simd::Mone<vT>())[0], boost::simd::Two<T>());
-  NT2_TEST_EQUAL(subs(boost::simd::Valmin<vT>(),boost::simd::Mone<vT>())[0], boost::simd::Valmin<T>()+boost::simd::One<T>());
-  NT2_TEST_EQUAL(subs(boost::simd::Valmin<vT>(),boost::simd::One<vT>())[0], boost::simd::Valmin<T>());
-  NT2_TEST_EQUAL(subs(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<T>());
-  NT2_TEST_EQUAL(subs(boost::simd::Zero<vT>(), boost::simd::Valmin<vT>())[0], boost::simd::Valmax<T>());
+  NT2_TEST_EQUAL(subs(boost::simd::splat<vT>(-2), boost::simd::Valmin<vT>()), boost::simd::Valmax<r_t>()-boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(subs(boost::simd::Mone<vT>(), boost::simd::Mone<vT>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(subs(boost::simd::Mone<vT>(), boost::simd::Valmax<vT>()), boost::simd::Valmin<r_t>());
+  NT2_TEST_EQUAL(subs(boost::simd::Mone<vT>(), boost::simd::Valmin<vT>()), boost::simd::Valmax<r_t>());
+  NT2_TEST_EQUAL(subs(boost::simd::One<vT>(),boost::simd::Mone<vT>()), boost::simd::Two<r_t>());
+  NT2_TEST_EQUAL(subs(boost::simd::Valmin<vT>(),boost::simd::Mone<vT>()), boost::simd::Valmin<r_t>()+boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(subs(boost::simd::Valmin<vT>(),boost::simd::One<vT>()), boost::simd::Valmin<r_t>());
+  NT2_TEST_EQUAL(subs(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(subs(boost::simd::Zero<vT>(), boost::simd::Valmin<vT>()), boost::simd::Valmax<r_t>());
 } // end of test for signed_int_
 
-NT2_TEST_CASE_TPL ( subs_unsigned_int__2_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( subs_unsigned_int,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::subs;
   using boost::simd::tag::subs_;
   using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
+  typedef native<T,ext_t>                  vT;
   typedef typename boost::dispatch::meta::call<subs_(vT,vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  NT2_TEST_EQUAL(subs(boost::simd::One<vT>(), boost::simd::One<vT>())[0], boost::simd::Zero<T>());
-  NT2_TEST_EQUAL(subs(boost::simd::One<vT>(),boost::simd::Valmax<vT>())[0], boost::simd::Valmin<T>());
-  NT2_TEST_EQUAL(subs(boost::simd::Valmin<vT>(),boost::simd::One<vT>())[0], boost::simd::Valmin<T>());
-  NT2_TEST_EQUAL(subs(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<T>());
+  NT2_TEST_EQUAL(subs(boost::simd::One<vT>(), boost::simd::One<vT>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(subs(boost::simd::One<vT>(),boost::simd::Valmax<vT>()), boost::simd::Valmin<r_t>());
+  NT2_TEST_EQUAL(subs(boost::simd::Valmin<vT>(),boost::simd::One<vT>()), boost::simd::Valmin<r_t>());
+  NT2_TEST_EQUAL(subs(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
 } // end of test for unsigned_int_

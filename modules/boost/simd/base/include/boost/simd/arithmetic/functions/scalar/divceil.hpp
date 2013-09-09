@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
       if (!a0) return  Zero<result_type>();
       if(a1)
       {
-        result_type q = divs(a0, a1);
+        result_type q = a0/a1;
         result_type r =a0-q*a1;
         if ((r != Zero<result_type>())&&((a0^a1) >= 0)) return oneplus(q);
         return q;

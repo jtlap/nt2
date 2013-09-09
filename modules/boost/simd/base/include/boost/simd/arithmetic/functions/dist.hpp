@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace tag
     T r = dist(x, y);
     @endcode
 
-    is equivalent to:
+    is similar to:
 
     @code
     T r = abs(x-y);
@@ -47,9 +47,9 @@ namespace boost { namespace simd { namespace tag
 
     The result is never negative. For floating, it can of course be Nan.
 
-    @param  x
+    @param  a0
 
-    @param  y
+    @param  a1
 
     @return      a value of the same type as the input.
 

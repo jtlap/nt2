@@ -12,19 +12,17 @@
 #include <boost/simd/arithmetic/functions/rsqrt.hpp>
 #include <boost/simd/include/functions/simd/rec.hpp>
 #include <boost/simd/include/functions/simd/sqrt.hpp>
-
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::rsqrt_, tag::cpu_
-                                    , (A0)
-                                    , (generic_< floating_<A0> >)
-                                    )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rsqrt_, tag::cpu_
+                            , (A0)
+                            , (generic_< floating_<A0> >)
+                            )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return simd::rec(simd::sqrt(a0));
+      return rec(simd::sqrt(a0));
     }
   };
 } } }

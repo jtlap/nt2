@@ -6,34 +6,37 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_IROUND_HPP_INCLUDED
-#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_IROUND_HPP_INCLUDED
+#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_IFLOOR_HPP_INCLUDED
+#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_IFLOOR_HPP_INCLUDED
 
-#include <boost/simd/arithmetic/functions/iround.hpp>
+#include <boost/simd/arithmetic/functions/ifloor.hpp>
+#include <boost/simd/include/functions/simd/floor.hpp>
 #include <boost/simd/include/functions/simd/toints.hpp>
-#include <boost/simd/include/functions/simd/round.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::iround_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ifloor_, tag::cpu_
+                                   , (A0)
+                                   , ((generic_<arithmetic_<A0> >))
+                                   )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return a0; }
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return a0;
+    }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::iround_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<floating_<A0>,X>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ifloor_, tag::cpu_
+                                   , (A0)
+                                   , ((generic_<floating_<A0> >))
+                                   )
   {
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return toints(round(a0));
+      return toints(simd::floor(a0));
     }
   };
 } } }

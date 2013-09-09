@@ -6,58 +6,48 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_TOFLOAT_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_TOFLOAT_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_tofloat tofloat
- *
- * \par Description
- * convert an entry to floating points.
- * In SIMD not all integer types can be so converted
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/tofloat.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::tofloat_(A0)>::type
- *     tofloat(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of tofloat
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
-
 namespace boost { namespace simd { namespace tag
   {
     /*!
-     * \brief Define the tag tofloat_ of functor tofloat
-     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
+      @brief  tofloat generic tag
+
+      Represents the tofloat function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
-    struct tofloat_ : ext::elementwise_<tofloat_> { typedef ext::elementwise_<tofloat_> parent; };
+    struct tofloat_ : ext::elementwise_<tofloat_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<tofloat_> parent;
+    };
   }
+  /*!
+    Convert to floating point value.
+
+    @par semantic:
+    For any given value @c x of type @c T:
+
+    @code
+    as_floating<T> r = tofloat(x);
+    @endcode
+
+    The code is similar to:
+
+    @code
+    as_floating<T> r = static_cast < as_floating<T> >(x)
+    @endcode
+
+    @param  a0
+
+    @return      a value of the floating  type associated to the input.
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::tofloat_, tofloat, 1)
 } }
 

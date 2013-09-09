@@ -6,66 +6,58 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SQR_ABS_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SQR_ABS_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_sqr_abs sqr_abs
- *
- * \par Description
- * The function always returns a value of the same type than the entry.
- * \par
- * This is the saturated square modulus of the input.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/sqr_abs.hpp>
- * \endcode
- *
- * \par Alias
- * \arg sqr_modulus
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::sqr_abs_(A0)>::type
- *     sqr_abs(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of sqr_abs
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
-
 namespace boost { namespace simd { namespace tag
   {
-    /*!
-     * \brief Define the tag sqr_abs_ of functor sqr_abs
-     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
-    **/
-    struct sqr_abs_ : ext::elementwise_<sqr_abs_> { typedef ext::elementwise_<sqr_abs_> parent; };
-  }
+   /*!
+      @brief  sqr_abs generic tag
 
+      Represents the sqr_abs function in generic contexts.
+
+      @par Models:
+      Hierarchy
+    **/
+    struct sqr_abs_ : ext::elementwise_<sqr_abs_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<sqr_abs_> parent;
+    };
+  }
+  /*!
+    Computes the saturated square of the absolute value of its parameter.
+
+    @par semantic:
+    For any given value @c x of type @c T:
+
+    @code
+    T r = sqr_abs(x);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    T r = sqr(abs(x));
+    @endcode
+
+    @par Alias
+
+    @c sqr_modulus, @c sqrs,  @saturated_sqr
+
+    @param  a0
+
+    @return      a value of the same type as the input.
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sqr_abs_, sqr_abs, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sqr_abs_, sqr_modulus, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sqr_abs_, sqrs, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sqr_abs_, saturated_sqr, 1)
 } }
 
 #endif
 
-// modified by jt the 25/12/2010
+

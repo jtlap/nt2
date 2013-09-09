@@ -41,11 +41,7 @@ namespace boost { namespace simd
 
     greatest integral value of type @c T less or equal to @c x.
 
-    @par Note:
-
-    The function always returns a value of the same type as the entry.
-
-    @param  x
+    @param  a0
 
     @return      an integral value of the same type as the input.
 

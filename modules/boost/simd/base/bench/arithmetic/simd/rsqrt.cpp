@@ -6,11 +6,13 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of boost.simd.arithmetic components in simd mode
+//////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/arithmetic/include/functions/rsqrt.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
-#include <cmath>
 
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 using boost::simd::tag::rsqrt_;

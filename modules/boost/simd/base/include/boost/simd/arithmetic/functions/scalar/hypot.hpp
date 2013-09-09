@@ -58,14 +58,14 @@ namespace boost { namespace simd { namespace ext
 
  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hypot_, tag::cpu_,
                        (A0),
-                       (scalar_<arithmetic_<A0> >)(scalar_<arithmetic_<A0> >)
+                       (scalar_<floating_<A0> >)(scalar_<floating_<A0> >)
                       )
  {
-   typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
+   typedef A0 result_type;
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return internal(result_type(a0), result_type(a1));
+      return internal(a0, a1);
     }
   private:
 

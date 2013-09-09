@@ -16,7 +16,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-      @brief  abs generic tag
+      @brief  arg generic tag
 
       Represents the arg function in generic contexts.
 
@@ -33,32 +33,32 @@ namespace boost { namespace simd
     Computes the angular orientation of its parameter.
 
     @par semantic:
-    For any given value @c x of type @c T:
+    For any given value @c x of floating type @c T:
 
     @code
-    as_floating<T> r = arg(x);
+    T r = arg(x);
     @endcode
 
     is equivalent to:
 
     @code
-    as_floating<T> r = (is_nan(x)) ? x :(x < zero) ? pi : zero;
+    T r = (is_nan(x)) ? x :(x < zero) ? pi : zero;
     @endcode
 
     @par Note:
 
-    The function always returns a floating value.
-    Always 0 or \f$\pi\f$ according to the input sign.
-    This function is the restriction to real numbers of the complex argument
-    function.
+    Always 0 or \f$\pi\f$ according to the input sign,  or Nan
+    is the input is Nan.
+    This function is the restriction to real numbers of the complex
+    argument function.
 
     @par Alias
 
     angle
 
-    @param  a0   of type T
+    @param  a0
 
-    @return      a value of the floating type associated to T.
+    @return      a value of the type T.
 
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::arg_, arg, 1)

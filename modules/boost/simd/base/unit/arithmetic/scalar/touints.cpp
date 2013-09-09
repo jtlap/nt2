@@ -6,12 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.arithmetic toolbox - touints/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.arithmetic components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-
 #include <boost/simd/arithmetic/include/functions/touints.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -36,14 +30,16 @@ NT2_TEST_CASE_TPL ( touints_real,  BOOST_SIMD_REAL_TYPES)
 
   NT2_TEST_TYPE_IS( r_t, wished_r_t );
   // specific values tests
-  NT2_TEST_EQUAL(touints(T(2)*boost::simd::Valmax<r_t>()),  boost::simd::Valmax<r_t>());
-  NT2_TEST_EQUAL(touints(T(2)*boost::simd::Valmin<r_t>()),  boost::simd::Valmin<r_t>());
+#ifndef BOOST_SIMD_NO_INVALIDS
   NT2_TEST_EQUAL(touints(boost::simd::Inf<T>()) , boost::simd::Inf<r_t>());
   NT2_TEST_EQUAL(touints(boost::simd::Minf<T>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(touints(boost::simd::Mone<T>()), boost::simd::Zero<r_t>());
   NT2_TEST_EQUAL(touints(boost::simd::Nan<T>()) , boost::simd::Zero<r_t>());
+#endif
   NT2_TEST_EQUAL(touints(boost::simd::One<T>()) , boost::simd::One<r_t>());
   NT2_TEST_EQUAL(touints(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(touints(T(2)*boost::simd::Valmax<r_t>()),  boost::simd::Valmax<r_t>());
+  NT2_TEST_EQUAL(touints(T(2)*boost::simd::Valmin<r_t>()),  boost::simd::Valmin<r_t>());
+  NT2_TEST_EQUAL(touints(boost::simd::Mone<T>()), boost::simd::Zero<r_t>());
  } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( touints_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
@@ -55,6 +51,7 @@ NT2_TEST_CASE_TPL ( touints_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
   typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type wished_r_t;
 
   NT2_TEST_TYPE_IS( r_t, wished_r_t );
+
   // specific values tests
   NT2_TEST_EQUAL(touints(boost::simd::One<T>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(touints(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
@@ -69,6 +66,7 @@ NT2_TEST_CASE_TPL ( touints_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type wished_r_t;
 
   NT2_TEST_TYPE_IS( r_t, wished_r_t );
+
 //  NT2_TEST_EQUAL(touints(boost::simd::Mone<T>()), boost::simd::Valmax<r_t>());
   NT2_TEST_EQUAL(touints(boost::simd::Mone<T>()), boost::simd::Zero<r_t>());
   NT2_TEST_EQUAL(touints(boost::simd::One<T>()), boost::simd::One<r_t>());

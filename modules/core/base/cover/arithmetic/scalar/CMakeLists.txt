@@ -32,6 +32,7 @@ idivfloor.cpp
 idivround.cpp
 ifloor.cpp
 iround.cpp
+iround2even.cpp
 isqrt.cpp
 logical_xor.cpp
 max.cpp

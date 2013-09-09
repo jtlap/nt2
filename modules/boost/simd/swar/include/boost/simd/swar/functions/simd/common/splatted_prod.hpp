@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_SWAR_FUNCTIONS_GENERIC_SPLATTED_PROD_HPP_INCLUDED
-#define BOOST_SIMD_SWAR_FUNCTIONS_GENERIC_SPLATTED_PROD_HPP_INCLUDED
+#ifndef BOOST_SIMD_SWAR_FUNCTIONS_SIMD_COMMON_SPLATTED_PROD_HPP_INCLUDED
+#define BOOST_SIMD_SWAR_FUNCTIONS_SIMD_COMMON_SPLATTED_PROD_HPP_INCLUDED
 
 #include <boost/simd/swar/functions/splatted_prod.hpp>
 #include <boost/simd/include/functions/simd/all_reduce.hpp>

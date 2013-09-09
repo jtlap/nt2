@@ -8,71 +8,73 @@
 ##############################################################################
 
 SET( SOURCES
-  conj.cpp
-  sqr_abs.cpp
-  isqrt.cpp
-  negs.cpp
+  abs.cpp
   abss.cpp
   adds.cpp
-  subs.cpp
-  divs.cpp
-  muls.cpp
-  divround.cpp
-  divround2even.cpp
-  idivround2even.cpp
-  divfloor.cpp
-  divfix.cpp
-  divceil.cpp
-  random.cpp
-  logical_xor.cpp
-  fast_rsqrt.cpp
-  ifloor.cpp
-  fast_hypot.cpp
-  iround.cpp
   arg.cpp
+  average.cpp
+  ceil.cpp
+  conj.cpp
+  correct_fma.cpp
+  dec.cpp
+  dist.cpp
+  divceil.cpp
+  divfix.cpp
+  divfloor.cpp
+  divround2even.cpp
+  divround.cpp
+  divs.cpp
+  fast_hypot.cpp
+  fast_iround2even.cpp
+  fast_rec.cpp
+  floor.cpp
+  fast_rsqrt.cpp
+  fma.cpp
+  hypot.cpp
+  iceil.cpp
+  idivceil.cpp
+  idivfix.cpp
+  idivfloor.cpp
+  idivround2even.cpp
+  idivround.cpp
+  ifloor.cpp
+  inc.cpp
+  iround2even.cpp
+  iround.cpp
+  isqrt.cpp
+  logical_xor.cpp
+  max.cpp
+  meanof.cpp
+  min.cpp
+  minmod.cpp
+  minusone.cpp
+  mod.cpp
+  muls.cpp
+  negs.cpp
+  oneminus.cpp
+  oneplus.cpp
+  random.cpp
+  rec.cpp
   remainder.cpp
   rem.cpp
-  meanof.cpp
-  mod.cpp
   remquo.cpp
-  minmod.cpp
-  iceil.cpp
-  trunc.cpp
-  ceil.cpp
-  round.cpp
+  remround.cpp
   round2even.cpp
-  floor.cpp
-  two_split.cpp
-  two_prod.cpp
-  two_add.cpp
+  round.cpp
   rsqrt.cpp
-  sqrt.cpp
+  sqr_abs.cpp
   sqr.cpp
-  rec.cpp
-  fast_rec.cpp
-  oneplus.cpp
-  oneminus.cpp
-  minusone.cpp
-  min.cpp
-  max.cpp
-  idivround.cpp
-  iround2even.cpp
-  idivfloor.cpp
-  idivfix.cpp
-  idivceil.cpp
-  hypot.cpp
-  fma.cpp
-  dist.cpp
-  correct_fma.cpp
-  average.cpp
-  abs.cpp
+  sqrt.cpp
+  subs.cpp
+  tofloat.cpp
   toint.cpp
   toints.cpp
   touint.cpp
   touints.cpp
-  tofloat.cpp
-  inc.cpp
-  dec.cpp
+  trunc.cpp
+  two_add.cpp
+  two_prod.cpp
+  two_split.cpp
 # List of simd test files for toolbox arithmetic
    )
 

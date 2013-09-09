@@ -8,10 +8,10 @@
 //==============================================================================
 #include <boost/simd/arithmetic/include/functions/abss.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/inf.hpp>
@@ -22,7 +22,7 @@
 #include <boost/simd/sdk/config.hpp>
 
 
-NT2_TEST_CASE_TPL ( abss_real__1_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( abss_rea,  BOOST_SIMD_REAL_TYPES)
 {
 
   using boost::simd::abss;
@@ -46,7 +46,7 @@ NT2_TEST_CASE_TPL ( abss_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(abss(boost::simd::Zero<T>()), boost::simd::Zero<T>());
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( abss_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( abss_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
 {
 
   using boost::simd::abss;
@@ -64,7 +64,7 @@ NT2_TEST_CASE_TPL ( abss_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(abss(boost::simd::Zero<T>()), boost::simd::Zero<T>());
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( abss_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( abss_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
 
   using boost::simd::abss;

@@ -6,57 +6,61 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_TOUINTS_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_TOUINTS_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_touints touints
- *
- * \par Description
- * convert an entry to unsigned integer by saturated truncation.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/touints.hpp>
- * \endcode
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::touints_(A0)>::type
- *     touints(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of touints
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
-
 namespace boost { namespace simd { namespace tag
   {
     /*!
-     * \brief Define the tag touints_ of functor touints
-     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
+      @brief  touints generic tag
+
+      Represents the touints function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
-    struct touints_ : ext::elementwise_<touints_> { typedef ext::elementwise_<touints_> parent; };
+    struct touints_ : ext::elementwise_<touints_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<touints_> parent;
+    };
   }
+  /*!
+    Convert to unsigned integer by saturated truncation.
+
+    @par semantic:
+    For any given value @c x of type @c T:
+
+    @code
+    as_integer<T, unsigned> r = touint(x);
+    @endcode
+
+    The code is similar to:
+
+    @code
+    as_integer<T,unsigned> r = static_cast<as_integer<T,unsigned> >(saturate<as_integer<T,unsigned> (x)))
+    @endcode
+
+    @par Notes:
+
+    The Inf, Nan and negative values are treated properly and go respectively to
+    Valmax, and Zero of the destination integral type
+    All values superior (resp.) less than Valmax (resp. Valmin) of the return type
+    are saturated accordingly.
+
+    @par Alias
+
+    saturated_toint
+
+    @param  a0
+
+    @return      a value of the unsigned integer type associated to the input.
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::touints_, touints, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::touints_, saturated_touint, 1)
 
 } }
 

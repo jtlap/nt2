@@ -6,60 +6,57 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_MULS_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_MULS_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_muls muls
- *
- * \par Description
- * return the saturated multiplication of a0 by a1
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/muls.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::muls_(A0,A0)>::type
- *     muls(const A0 & a0,const A0 & a1);
- * }
- * \endcode
- *
- * \param a0 the first parameter of muls
- * \param a1 the second parameter of muls
- *
- * \return a value of the common type of the parameters
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace boost { namespace simd {
   namespace tag
   {
     /*!
-     * \brief Define the tag muls_ of functor muls
-     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
+      @brief  muls generic tag
+
+      Represents the muls function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
-    struct muls_ : ext::elementwise_<muls_> { typedef ext::elementwise_<muls_> parent; };
+    struct muls_ : ext::elementwise_<muls_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<muls_> parent;
+    };
   }
+  /*!
+    Computes the saturated multiplication of the two inputs.
+
+    @par semantic:
+    For any given value @c x, @c y of type @c T:
+
+    @code
+    T r = muls(x, y);
+    @endcode
+
+    The code is similar to:
+
+    @code
+    T r = x*y
+    @endcode
+
+    @par Alias
+
+    saturated_mul
+
+    @param  a0
+    @param  a1
+
+    @return      a value of the same type as the input.
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::muls_, muls, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::muls_, saturated_mul, 2)
 } }
 
 #endif

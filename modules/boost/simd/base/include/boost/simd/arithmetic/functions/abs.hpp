@@ -47,8 +47,6 @@ namespace boost { namespace simd
 
     @par Note:
 
-    The function always returns a value of the same type as the entry.
-
     Take care that for signed integers the absolute value of @c Valmin is
     @c Valmin (thus negative!).
     This is a side effect of the 2-complement representation of integers.
@@ -59,7 +57,7 @@ namespace boost { namespace simd
 
     modulus
 
-    @param  a0    value whose absolute value will be returned.
+    @param  a0
 
     @return      a value of the same type as the input.
 

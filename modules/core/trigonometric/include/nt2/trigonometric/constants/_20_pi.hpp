@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TRIGONOMETRIC_CONSTANTS__20_PI_HPP_INCLUDED
-#define NT2_TRIGONOMETRIC_CONSTANTS__20_PI_HPP_INCLUDED
+#ifndef NT2_TRIGONOMETRIC_CONSTANTS_20_PI_HPP_INCLUDED
+#define NT2_TRIGONOMETRIC_CONSTANTS_20_PI_HPP_INCLUDED
 
 #include <boost/simd/sdk/constant/constant.hpp>
 #include <boost/simd/sdk/constant/register.hpp>

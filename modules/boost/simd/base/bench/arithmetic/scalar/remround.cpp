@@ -6,39 +6,58 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_BENCH_MODULE "nt2 arithmetic toolbox - sqrt1pm1/simd Mode"
+
 
 //////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of arithmetic components in simd mode
+// timing Test behavior of boost.simd.arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/arithmetic/include/functions/sqrt1pm1.hpp>
+#include <boost/simd/arithmetic/include/functions/remround.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
-typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+
 
 //////////////////////////////////////////////////////////////////////////////
-// simd runtime benchmark for functor<sqrt1pm1_> from arithmetic
+// scalar runtime benchmark for functor<remround_> from boost.simd.arithmetic
 //////////////////////////////////////////////////////////////////////////////
-using nt2::tag::sqrt1pm1_;
+using boost::simd::tag::remround_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, (V1) ,(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
 namespace n1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(sqrt1pm1_,(RS(vT,T(-10),T(10))))
+
+  NT2_TIMING(remround_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10))))
 }
 namespace n2 {
   typedef double T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(sqrt1pm1_,(RS(vT,T(-10),T(10))))
+
+  NT2_TIMING(remround_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10))))
+}
+namespace n7 {
+  typedef boost::simd::int8_t T;
+
+  NT2_TIMING(remround_,(RS(T,-100,100))(RS(T,1,100)))
+}
+namespace n8 {
+  typedef boost::simd::int16_t T;
+
+  NT2_TIMING(remround_,(RS(T,-100,100))(RS(T,1,100)))
+}
+namespace n9 {
+  typedef boost::simd::int32_t T;
+
+  NT2_TIMING(remround_,(RS(T,-100,100))(RS(T,1,100)))
+}
+namespace n10 {
+  typedef boost::simd::int64_t T;
+
+  NT2_TIMING(remround_,(RS(T,-100,100))(RS(T,1,100)))
 }
 
 #undef RS

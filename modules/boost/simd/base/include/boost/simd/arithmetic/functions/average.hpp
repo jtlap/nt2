@@ -43,20 +43,16 @@ namespace boost { namespace simd { namespace tag
     T r = (x+y)/T(2);
     @endcode
 
-    for integer it returns a rounded value at a distance guaranteed
+    for integer types  it returns a rounded value at a distance guaranteed
     less or equal to 0.5 of the average floating value,  but can differ
     of one unity from the truncation given by (x1+x2)/T(2).
 
     @par Note:
 
-    The function always returns a value of the same type as the entry.
     This function does not overflow.
-    @par Alias
 
-    saturated_add
-
-    @param  x
-    @param  y
+    @param  a0
+    @param  a1
 
     @return      a value of the same type as the input.
 

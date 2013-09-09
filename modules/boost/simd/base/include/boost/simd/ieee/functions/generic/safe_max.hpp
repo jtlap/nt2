@@ -11,7 +11,9 @@
 
 #include <boost/simd/ieee/functions/safe_max.hpp>
 #include <boost/simd/include/functions/simd/abs.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/constants/sqrtvalmax.hpp>
+#include <boost/simd/include/constants/inf.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -22,7 +24,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
       {
-        return Sqrtvalmax<A0>()/boost::simd::abs(a0);
+        return if_else(is_nez(a0), Sqrtvalmax<A0>()/boost::simd::abs(a0), Inf<result_type>());
       }
   };
 } } }

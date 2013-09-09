@@ -12,12 +12,14 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/nan.hpp>
 #include <boost/simd/include/constants/pi.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 NT2_TEST_CASE_TPL ( arg_real,  BOOST_SIMD_REAL_TYPES)
 {
@@ -38,39 +40,6 @@ NT2_TEST_CASE_TPL ( arg_real,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(arg(boost::simd::Nan<T>()), boost::simd::Nan<r_t>());
 #endif
   NT2_TEST_EQUAL(arg(boost::simd::Mone<T>()), boost::simd::Pi<r_t>());
-  NT2_TEST_EQUAL(arg(boost::simd::One<T>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(arg(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
-} // end of test for floating_
-
-NT2_TEST_CASE_TPL ( arg_real_is,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
-{
-
-  using boost::simd::arg;
-  using boost::simd::tag::arg_;
-  typedef typename boost::dispatch::meta::call<arg_(T)>::type r_t;
-  typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
-
-  // specific values tests
-  NT2_TEST_EQUAL(arg(boost::simd::Mone<T>()), boost::simd::Pi<r_t>());
-  NT2_TEST_EQUAL(arg(boost::simd::One<T>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(arg(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
-} // end of test for floating_
-
-NT2_TEST_CASE_TPL ( arg_real_uis,  BOOST_SIMD_UNSIGNED_TYPES)
-{
-
-  using boost::simd::arg;
-  using boost::simd::tag::arg_;
-  typedef typename boost::dispatch::meta::call<arg_(T)>::type r_t;
-  typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
-
-  // specific values tests
   NT2_TEST_EQUAL(arg(boost::simd::One<T>()), boost::simd::Zero<r_t>());
   NT2_TEST_EQUAL(arg(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
 } // end of test for floating_

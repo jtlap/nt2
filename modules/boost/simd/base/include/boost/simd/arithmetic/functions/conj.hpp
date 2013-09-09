@@ -11,43 +11,6 @@
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_conj conj
- *
- * \par Description
- * conjugate of the entry (identity for reals).
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/conj.hpp>
- * \endcode
- *
- * \par Alias
- * \arg conjugate
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::conj_(A0)>::type
- *     conj(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of conj
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
-
 namespace boost { namespace simd { namespace tag
   {
     /*!
@@ -95,4 +58,3 @@ namespace boost { namespace simd { namespace tag
 
 #endif
 
-// modified by jt the 25/12/2010

@@ -6,61 +6,51 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_MINUSONE_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_MINUSONE_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_minusone minusone
- *
- * \par Description
- * return the entry minus one, saturated in the entry type.
- * minusone(a) is always less or equal to a.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/minusone.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::minusone_(A0)>::type
- *     minusone(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of minusone
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
-
 namespace boost { namespace simd { namespace tag
   {
-    /*!
-     * \brief Define the tag minusone_ of functor minusone
-     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
+   /*!
+      @brief  minusone generic tag
+
+      Represents the minusone function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
-    struct minusone_ : ext::elementwise_<minusone_> { typedef ext::elementwise_<minusone_> parent; };
+    struct minusone_ : ext::elementwise_<minusone_>
+    {
+      typedef ext::elementwise_<minusone_> parent;
+    };
   }
+  /*!
+    Return the entry minus one, saturated in the entry type.
+    @ c minusone(a) is always less or equal to a.
+
+    @par semantic:
+    For any given value @c x of type @c T:
+
+    @code
+    T r = minusone(x);
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = x-1
+    @endcode
+
+    @param  a0
+
+    @return      a value of the same type as the input.
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::minusone_, minusone, 1)
 } }
 
 #endif
 
-// modified by jt the 25/12/2010
+
