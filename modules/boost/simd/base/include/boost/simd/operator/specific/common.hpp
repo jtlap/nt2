@@ -113,4 +113,5 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
+#undef n
 #endif

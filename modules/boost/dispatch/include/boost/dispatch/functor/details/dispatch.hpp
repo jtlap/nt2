@@ -108,4 +108,6 @@ namespace boost { namespace dispatch { namespace meta
     , type
     )
   };
+
+#undef n
 #endif

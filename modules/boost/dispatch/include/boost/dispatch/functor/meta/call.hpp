@@ -98,5 +98,7 @@ namespace boost { namespace dispatch { namespace meta
         : meta::result_of<typename meta::dispatch_call<Tag(BOOST_PP_ENUM(n,M0,~)), Site>::type(BOOST_PP_ENUM_PARAMS(n,A))>
   {
   };
+
+#undef n
 #endif
 

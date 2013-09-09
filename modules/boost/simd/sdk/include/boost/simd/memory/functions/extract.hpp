@@ -11,7 +11,7 @@
 
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
-#include <boost/dispatch/meta/as.hpp>
+#include <boost/mpl/size_t.hpp>
 
 namespace boost { namespace simd
 {
@@ -75,6 +75,20 @@ namespace boost { namespace simd
             ::dispatch_call<tag::extract_ ( Value const&
                                           , Offset const&
                                           )>::type          callee;
+    return callee(value,offset);
+  }
+
+  template<std::size_t Offset,typename Value>
+  BOOST_FORCEINLINE
+  typename boost::dispatch::meta
+                ::call<tag::extract_(Value const&, boost::mpl::size_t<Offset> const&)>::type
+  extract(Value const& value)
+  {
+    typename  boost::dispatch::meta
+            ::dispatch_call<tag::extract_ ( Value const&
+                                          , boost::mpl::size_t<Offset> const&
+                                          )>::type          callee;
+    boost::mpl::size_t<Offset> offset;
     return callee(value,offset);
   }
 } }

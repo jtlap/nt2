@@ -13,10 +13,12 @@
 #include <boost/simd/operator/functions/map.hpp>
 #include <boost/simd/include/functions/simd/insert.hpp>
 #include <boost/simd/include/functions/simd/extract.hpp>
+#include <boost/simd/include/functions/simd/make.hpp>
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_ref.hpp>
+
+#define BOOST_SIMD_MAX_LOG2_CARDINAL_MAKE_MAP 3
 
 #if !defined(BOOST_SIMD_DONT_USE_PREPROCESSED_FILES)
 #include <boost/simd/operator/functions/simd/common/preprocessed/map.hpp>
@@ -29,6 +31,7 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/slot/slot.hpp>
 #if defined(__WAVE__) && defined(BOOST_SIMD_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/map.hpp")
 #undef BOOST_FORCEINLINE
@@ -46,13 +49,17 @@ namespace boost { namespace simd { namespace ext
 
   #define M1(z,n,t) (generic_< unspecified_<A##n> >)
   #define M2(z,n,t) typename meta::scalar_of<A##n>::type
-  #define M3(z,n,t) extract(a##n, i)
+  #define M3(z,n,t) extract(a##n, t)
+  #define M3s(z,n,t) extract<t>(a##n)
   #define M4(z,n,t) (A##n)
+  #define M5(z,n,t) f(BOOST_PP_ENUM(t, M3s, n))
 
-  #define BOOST_PP_ITERATION_PARAMS_1 (3, ( 1, BOOST_DISPATCH_MAX_ARITY, "boost/simd/operator/functions/simd/common/map.hpp"))
+  #define BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_DISPATCH_MAX_ARITY, "boost/simd/operator/functions/simd/common/map.hpp"))
   #include BOOST_PP_ITERATE()
 
+  #undef M5
   #undef M4
+  #undef M3s
   #undef M3
   #undef M2
   #undef M1
@@ -64,8 +71,14 @@ namespace boost { namespace simd { namespace ext
 #endif
 #endif
 
-#else
-#define n BOOST_PP_ITERATION()
+#elif BOOST_PP_ITERATION_DEPTH() == 1
+
+  #define BOOST_PP_VALUE BOOST_PP_ITERATION()
+  #include BOOST_PP_ASSIGN_SLOT(1)
+  #define n BOOST_PP_SLOT(1)
+
+  #define BOOST_PP_VALUE 1
+  #include BOOST_PP_ASSIGN_SLOT(2)
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::map_, tag::cpu_
                             , (Func)BOOST_PP_REPEAT(n, M4, ~)
@@ -77,20 +90,47 @@ namespace boost { namespace simd { namespace ext
              >::type
     rtype;
 
+    static const std::size_t N = map_cardinal_size<BOOST_PP_ENUM_PARAMS(n, A)>::value;
+
     typedef typename meta::
             vector_of< rtype
-                     , map_cardinal_size<BOOST_PP_ENUM_PARAMS(n, A)>::value
+                     , N
                      >::type result_type;
 
-    result_type operator()(Func const& f, BOOST_PP_ENUM_BINARY_PARAMS(n, A, const & a)) const
+    template<std::size_t N, class Dummy = void>
+    struct impl
     {
-      result_type that;
+      static result_type call(Func const& f, BOOST_PP_ENUM_BINARY_PARAMS(n, A, const & a))
+      {
+        result_type that;
+        for(std::size_t i=0; i!=N; ++i)
+          insert(f(BOOST_PP_ENUM(n, M3, i)), that, i);
+      }
+    };
 
-      for(size_t i = 0; i != map_cardinal_size<BOOST_PP_ENUM_PARAMS(n, A)>::value; ++i)
-        insert(f(BOOST_PP_ENUM(n, M3, ~)), that, i);
+  #define BOOST_PP_ITERATION_PARAMS_2 (3, (1, BOOST_SIMD_MAX_LOG2_CARDINAL_MAKE_MAP, "boost/simd/operator/functions/simd/common/map.hpp"))
+  #include BOOST_PP_ITERATE()
 
-      return that;
+    BOOST_FORCEINLINE result_type operator()(Func const& f, BOOST_PP_ENUM_BINARY_PARAMS(n, A, const & a)) const
+    {
+      return impl<N>::call(f, BOOST_PP_ENUM_PARAMS(n, a));
     }
   };
+
+  #undef n
+
+#elif BOOST_PP_ITERATION_DEPTH() == 2
+
+  #define BOOST_PP_VALUE BOOST_PP_SLOT(2)*2
+  #include BOOST_PP_ASSIGN_SLOT(2)
+
+    template<class Dummy>
+    struct impl<BOOST_PP_SLOT(2), Dummy>
+    {
+      BOOST_FORCEINLINE static result_type call(Func const& f, BOOST_PP_ENUM_BINARY_PARAMS(n, A, const & a))
+      {
+        return make<result_type>(BOOST_PP_ENUM(BOOST_PP_SLOT(2), M5, n));
+      }
+    };
 
 #endif
