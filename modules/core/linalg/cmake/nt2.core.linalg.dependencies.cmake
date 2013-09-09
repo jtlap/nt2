@@ -17,7 +17,6 @@ else()
   set ( NT2_CORE.LINALG_DEPENDENCIES_EXTRA
         boost.dispatch
         boost.simd.base
-        boost.simd.constant
         boost.simd.reduction
         boost.simd.sdk
         boost.simd.swar

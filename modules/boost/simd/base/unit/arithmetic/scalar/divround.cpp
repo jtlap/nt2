@@ -8,9 +8,12 @@
 //==============================================================================
 #include <boost/simd/arithmetic/include/functions/divround.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
+#include <boost/simd/sdk/config.hpp>
+
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/module.hpp>
+
 #include <boost/simd/include/constants/two.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/one.hpp>
@@ -18,12 +21,12 @@
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/nan.hpp>
-#include <boost/simd/sdk/config.hpp>
 #include <boost/simd/include/constants/maxflint.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
 
 NT2_TEST_CASE_TPL ( divround_real,  BOOST_SIMD_REAL_TYPES)
 {
-
   using boost::simd::divround;
   using boost::simd::tag::divround_;
   typedef typename boost::dispatch::meta::call<divround_(T,T)>::type r_t;

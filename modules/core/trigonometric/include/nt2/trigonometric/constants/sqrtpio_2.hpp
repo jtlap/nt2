@@ -11,8 +11,8 @@
 /*!
  * \file
 **/
-#include <boost/simd/sdk/constant/constant.hpp>
-#include <boost/simd/sdk/constant/register.hpp>
+#include <boost/simd/constant/hierarchy.hpp>
+#include <boost/simd/constant/register.hpp>
 
 /*!
  * \ingroup trigo_constant

@@ -9,8 +9,8 @@
 #ifndef NT2_TRIGONOMETRIC_CONSTANTS_ONEO_90_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_CONSTANTS_ONEO_90_HPP_INCLUDED
 
-#include <boost/simd/sdk/constant/constant.hpp>
-#include <boost/simd/sdk/constant/register.hpp>
+#include <boost/simd/constant/hierarchy.hpp>
+#include <boost/simd/constant/register.hpp>
 
 namespace nt2
 {

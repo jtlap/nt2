@@ -10,7 +10,6 @@
 SET ( NT2_CORE.REDUCTION_DEPENDENCIES_EXTRA
       boost.dispatch
       boost.simd.base
-      boost.simd.constant
       boost.simd.reduction
       boost.simd.sdk
       boost.simd.swar

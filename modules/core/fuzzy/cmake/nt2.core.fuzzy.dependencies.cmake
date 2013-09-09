@@ -9,7 +9,6 @@
 
 SET ( NT2_CORE.FUZZY_DEPENDENCIES_EXTRA
       boost.simd.base
-      boost.simd.constant
       core.base
       sdk.functor
       sdk.meta

@@ -11,7 +11,7 @@
 
 #include <nt2/sdk/simd/category.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
-#include <boost/simd/sdk/constant/constant.hpp>
+#include <boost/simd/constant/hierarchy.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {

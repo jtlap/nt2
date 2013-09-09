@@ -15,6 +15,7 @@ nt2_module_simd_toolbox(boolean base)
 nt2_module_simd_toolbox(ieee base)
 nt2_module_simd_toolbox(operator base)
 nt2_module_simd_toolbox(predicates base)
+nt2_module_simd_toolbox(constant base)
 
 include(nt2.preprocess)
 nt2_preprocess( core.base.operator.preprocess

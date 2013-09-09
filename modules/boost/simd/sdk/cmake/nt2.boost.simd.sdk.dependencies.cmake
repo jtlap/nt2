@@ -29,5 +29,4 @@ SET ( NT2_BOOST.SIMD.SDK_DEPENDENCIES_EXTRA
       boost.dispatch
       boost.simd.base
       boost.simd.config
-      boost.simd.constant
     )

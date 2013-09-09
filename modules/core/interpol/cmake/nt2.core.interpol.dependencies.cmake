@@ -9,7 +9,6 @@
 
 SET ( NT2_CORE.INTERPOL_DEPENDENCIES_EXTRA
       boost.simd.base
-      boost.simd.constant
       core.adjacent
       core.base
       core.container.table

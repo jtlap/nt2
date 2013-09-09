@@ -7,31 +7,28 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <boost/simd/arithmetic/include/functions/divround2even.hpp>
-#include <boost/simd/sdk/simd/io.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/ulp.hpp>
+#include <boost/simd/sdk/config.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 
-#include <boost/simd/constant/constant.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/nan.hpp>
-#include <boost/simd/sdk/config.hpp>
-
+#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
 
 NT2_TEST_CASE_TPL ( divround2even_real,  BOOST_SIMD_REAL_TYPES)
 {
-
   using boost::simd::divround2even;
   using boost::simd::tag::divround2even_;
   typedef typename boost::dispatch::meta::call<divround2even_(T,T)>::type r_t;
   typedef T wished_r_t;
-
 
   // return type conformity test
   NT2_TEST_TYPE_IS( r_t, wished_r_t );

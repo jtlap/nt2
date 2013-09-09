@@ -9,7 +9,6 @@
 
 SET ( NT2_CORE.POLYNOM_DEPENDENCIES_EXTRA
       boost.simd.base
-      boost.simd.constant
       core.base
       core.container.placeholders
       core.container.table

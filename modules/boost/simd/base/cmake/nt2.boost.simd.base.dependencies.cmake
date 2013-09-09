@@ -10,7 +10,6 @@
 SET ( NT2_BOOST.SIMD.BASE_DEPENDENCIES_EXTRA
       boost.dispatch
       boost.simd.config
-      boost.simd.constant
       boost.simd.sdk
       boost.simd.swar
     )

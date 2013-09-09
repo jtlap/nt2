@@ -11,6 +11,7 @@ nt2_module_use_modules(test.unit)
 
 ADD_SUBDIRECTORY(arithmetic)
 ADD_SUBDIRECTORY(boolean)
+ADD_SUBDIRECTORY(constant)
 ADD_SUBDIRECTORY(ieee)
 ADD_SUBDIRECTORY(operator)
 ADD_SUBDIRECTORY(predicates)

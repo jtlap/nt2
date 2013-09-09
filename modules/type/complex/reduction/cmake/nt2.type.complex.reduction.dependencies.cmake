@@ -10,7 +10,6 @@
 SET ( NT2_TYPE.COMPLEX.REDUCTION_DEPENDENCIES_EXTRA
       boost.dispatch
       boost.simd.base
-      boost.simd.constant
       boost.simd.reduction
       core.base
       sdk.meta

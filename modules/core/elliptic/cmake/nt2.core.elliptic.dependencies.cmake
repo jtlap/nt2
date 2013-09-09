@@ -10,10 +10,8 @@
 SET ( NT2_CORE.ELLIPTIC_DEPENDENCIES_EXTRA
       boost.dispatch
       boost.simd.base
-      boost.simd.constant
       boost.simd.reduction
       core.base
-      core.constant
       core.exponential
       core.polynomials
       core.sdk

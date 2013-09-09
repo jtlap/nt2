@@ -10,7 +10,6 @@
 SET ( NT2_CORE.SIGNAL_DEPENDENCIES_EXTRA
       boost.simd.base
       boost.simd.config
-      boost.simd.constant
       boost.simd.sdk
       boost.simd.swar
       core.adjacent

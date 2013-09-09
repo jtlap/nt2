@@ -10,10 +10,8 @@
 SET ( NT2_CORE.GENERATIVE_DEPENDENCIES_EXTRA
       boost.dispatch
       boost.simd.base
-      boost.simd.constant
       boost.simd.swar
       core.base
-      core.constant
       core.container.placeholders
       core.exponential
       core.fuzzy

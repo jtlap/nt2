@@ -10,7 +10,6 @@
 SET ( NT2_TYPE.COMPLEX.EXPONENTIAL_DEPENDENCIES_EXTRA
       boost.dispatch
       boost.simd.base
-      boost.simd.constant
       core.base
       core.exponential
       core.trigonometric

@@ -10,12 +10,10 @@
 SET ( NT2_CORE.TRIGONOMETRIC_DEPENDENCIES_EXTRA
       boost.dispatch
       boost.simd.base
-      boost.simd.constant
       boost.simd.reduction
       boost.simd.sdk
       boost.simd.swar
       core.base
-      core.constant
       core.polynomials
       core.sdk
       core.utility

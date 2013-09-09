@@ -9,7 +9,6 @@
 
 SET ( NT2_CORE.COMBINATORIAL_DEPENDENCIES_EXTRA
       boost.simd.base
-      boost.simd.constant
       boost.simd.reduction
       boost.simd.swar
       core.base

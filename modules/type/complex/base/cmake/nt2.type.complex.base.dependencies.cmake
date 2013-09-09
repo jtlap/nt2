@@ -9,7 +9,6 @@
 
 SET ( NT2_TYPE.COMPLEX.BASE_DEPENDENCIES_EXTRA
       boost.simd.base
-      boost.simd.constant
       boost.simd.reduction
       core.base
       core.trigonometric

@@ -9,7 +9,6 @@
 
 SET ( NT2_CORE.EXTRACTIVE_DEPENDENCIES_EXTRA
       boost.simd.base
-      boost.simd.constant
       boost.simd.swar
       core.base
       core.sdk

@@ -10,7 +10,6 @@
 SET ( NT2_CORE.POLYNOMIALS_DEPENDENCIES_EXTRA
       boost.dispatch
       boost.simd.base
-      boost.simd.constant
       core.base
       sdk.functor
       sdk.meta

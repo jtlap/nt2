@@ -10,7 +10,6 @@
 SET ( NT2_TYPE.COMPLEX.SDK_DEPENDENCIES_EXTRA
       boost.dispatch
       boost.simd.base
-      boost.simd.constant
       boost.simd.sdk
       core.trigonometric
       sdk.functor

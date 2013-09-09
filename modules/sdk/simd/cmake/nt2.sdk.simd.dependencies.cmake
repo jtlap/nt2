@@ -8,7 +8,6 @@
 ################################################################################
 
 SET ( NT2_SDK.SIMD_DEPENDENCIES_EXTRA
-      boost.simd.constant
       boost.simd.sdk
       sdk.meta
     )
