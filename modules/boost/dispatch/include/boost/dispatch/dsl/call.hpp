@@ -1,3 +1,4 @@
+#ifndef BOOST_PP_IS_ITERATING
 //==============================================================================
 //         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
@@ -26,11 +27,13 @@
 
 #if defined(BOOST_DISPATCH_DONT_USE_PREPROCESSED_FILES)
 #include <boost/dispatch/details/parameters.hpp>
-#include <boost/preprocessor/selection/min.hpp>
 #include <boost/dispatch/functor/preprocessor/dispatch.hpp>
-#include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <boost/preprocessor/selection/min.hpp>
+#include <boost/preprocessor/facilities/intercept.hpp>
+#include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
+#include <boost/preprocessor/iteration/iterate.hpp>
 #endif
 
 namespace boost { namespace dispatch { namespace tag
@@ -80,79 +83,82 @@ namespace meta
 #define M3(z,n,t) (unspecified_<BOOST_PP_CAT(A,n)>)
 #define M4(z,n,t) boost::reference_wrapper<A##n>(a##n)
 
-#define M5(z,n,t)                                                               \
-BOOST_DISPATCH_REGISTER_TO_IF ( (boost)(dispatch)(meta), unspecified_<Func>     \
-                              , tag::formal_                                    \
-                              , (Func)BOOST_PP_REPEAT(n,M2,~)                   \
-                              , (mpl::and_< mpl::not_< is_formal<Func> >        \
-                                          , any < boost::proto::                \
-                                                  is_expr<boost::mpl::_>        \
-                                                , BOOST_PP_ENUM_PARAMS(n,A)     \
-                                                >                               \
-                                          >                                     \
-                          )                                                     \
-                      , BOOST_PP_REPEAT(n,M3,~)                                 \
-                      , (implement<Func(tag::ast_), tag::formal_>)              \
-                      )                                                         \
-/**/
-
-#define M0(z,n,t)                                                              \
-template<class This,BOOST_PP_ENUM_PARAMS(n,class A)>                           \
-struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                                 \
-{                                                                              \
-  typedef typename boost::proto::result_of::                                   \
-  make_expr < typename meta::proto_tag<Func>::type                             \
-            , BOOST_PP_ENUM_BINARY_PARAMS(n, typename meta::                   \
-                                   as_ref<A, >::type BOOST_PP_INTERCEPT)       \
-            >::type type;                                                      \
-};                                                                             \
-template<BOOST_PP_ENUM_PARAMS(n,class A)>                                      \
-BOOST_FORCEINLINE                                                              \
-typename result<implement                                                      \
-                (BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a))                       \
-               >::type                                                         \
-operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const                       \
-{                                                                              \
-  return boost::proto::                                                        \
-  make_expr< typename meta::proto_tag<Func>::type >                            \
-           ( BOOST_PP_ENUM(n, M4, ~) );                                        \
-}                                                                              \
-/**/
-
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_PP_REPEAT_FROM_TO ( 1
-                          , BOOST_PP_INC(BOOST_PP_MIN ( BOOST_DISPATCH_MAX_ARITY
-                                                      , BOOST_PROTO_MAX_ARITY
-                                                      )
-                                        )
-                          ,M5,~
-                          )
+  #define BOOST_PP_ITERATION_PARAMS_1 (4, ( 1, BOOST_PP_MIN( BOOST_DISPATCH_MAX_ARITY              \
+                                                           , BOOST_PROTO_MAX_ARITY                 \
+                                                           )                                       \
+                                          , "boost/dispatch/dsl/call.hpp"                          \
+                                          , 1                                                      \
+                                          )                                                        \
+                                    )
+  #include BOOST_PP_ITERATE()
 
   template<class Func,class Dummy>
   struct implement<Func(tag::ast_),tag::formal_,Dummy>
   {
-    template<class Sig> struct result;
-    BOOST_PP_REPEAT_FROM_TO ( 1
-                            , BOOST_PP_INC(BOOST_PP_MIN ( BOOST_DISPATCH_MAX_ARITY
-                                                        , BOOST_PROTO_MAX_ARITY
-                                                        )
-                                          )
-                            ,M0,~
-                            )
+    template<class Sig>
+    struct result;
+
+    #define BOOST_PP_ITERATION_PARAMS_1 (4, ( 1, BOOST_PP_MIN( BOOST_DISPATCH_MAX_ARITY            \
+                                                             , BOOST_PROTO_MAX_ARITY               \
+                                                             )                                     \
+                                            , "boost/dispatch/dsl/call.hpp"                        \
+                                            , 2                                                    \
+                                            )                                                      \
+                                      )
+    #include BOOST_PP_ITERATE()
   };
 } } }
 
-#undef M0
 #undef M1
 #undef M2
 #undef M3
 #undef M4
-#undef M5
 
 #if defined(__WAVE__) && defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES)
 #pragma wave option(output: null)
 #endif
 #endif
+#endif
 
+#else
+#define n BOOST_PP_ITERATION()
+#if BOOST_PP_ITERATION_FLAGS() == 1
+  BOOST_DISPATCH_REGISTER_TO_IF( (boost)(dispatch)(meta), unspecified_<Func>
+                               , tag::formal_
+                               , (Func)BOOST_PP_REPEAT(n,M2,~)
+                               , (mpl::and_< mpl::not_< is_formal<Func> >
+                                           , any < boost::proto::
+                                                   is_expr<boost::mpl::_>
+                                                 , BOOST_PP_ENUM_PARAMS(n,A)
+                                                 >
+                                           >
+                                 )
+                               , BOOST_PP_REPEAT(n,M3,~)
+                               , (implement<Func(tag::ast_), tag::formal_>)
+                               )
+#else
+    template<class This,BOOST_PP_ENUM_PARAMS(n,class A)>
+    struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>
+    {
+      typedef typename boost::proto::result_of::
+      make_expr < typename meta::proto_tag<Func>::type
+                , BOOST_PP_ENUM_BINARY_PARAMS(n, typename meta::
+                                       as_ref<A, >::type BOOST_PP_INTERCEPT)
+                >::type type;
+    };
+    template<BOOST_PP_ENUM_PARAMS(n,class A)>
+    BOOST_FORCEINLINE
+    typename result<implement
+                    (BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a))
+                   >::type
+    operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+    {
+      return boost::proto::
+      make_expr< typename meta::proto_tag<Func>::type >
+               ( BOOST_PP_ENUM(n, M4, ~) );
+    }
+#endif
+#undef n
 #endif
