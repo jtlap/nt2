@@ -54,6 +54,9 @@ namespace nt2 { namespace memory
     /// INTERNAL ONLY Precomputed semantic type
     typedef Kind                                          kind_type;
 
+    /// INTERNAL ONLY Precomputed settings type
+    typedef Settings                                      settings_type;
+
     /// INTERNAL ONLY storage_scheme option
     typedef typename meta::option < Settings
                                   , tag::storage_scheme_
