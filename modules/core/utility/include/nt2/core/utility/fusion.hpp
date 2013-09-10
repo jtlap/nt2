@@ -20,6 +20,7 @@
 #include <boost/fusion/include/end.hpp>
 #include <boost/mpl/size_t.hpp>
 #include <boost/next_prior.hpp>
+#include <boost/assert.hpp>
 
 namespace nt2 { namespace details
 {
@@ -73,7 +74,7 @@ namespace nt2 { namespace details
                       , boost::mpl::false_ const&
                       )
   {
-    BOOST_ASSERT_MSG(InE(*inb) == value, "Incompatible size in of_size conversion");
+    BOOST_ASSERT_MSG(Value(*inb) == value, "Incompatible size in of_size conversion");
     return details::check_all_equal(boost::fusion::next(inb), inE, value);
   }
 
