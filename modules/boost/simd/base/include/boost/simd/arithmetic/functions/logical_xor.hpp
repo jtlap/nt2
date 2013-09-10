@@ -43,11 +43,10 @@ namespace boost { namespace simd { namespace tag
     as_logical<T> r = (!!x)^(!!y);
     @endcode
 
-
     @param  a0
+    @param  a1
 
     @return a logical value of the logical type associated to the input.
-
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::logical_xor_, logical_xor, 2)
 } }

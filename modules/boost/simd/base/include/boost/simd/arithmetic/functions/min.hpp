@@ -43,8 +43,8 @@ namespace boost { namespace simd { namespace tag
     T r =  if (x > y) ? y : x;
     @endcode
 
-
     @param  a0
+    @param  a1
 
     @return an value of the same type as the input.
 

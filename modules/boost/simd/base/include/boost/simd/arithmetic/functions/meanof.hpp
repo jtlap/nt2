@@ -49,6 +49,7 @@ namespace boost { namespace simd { namespace tag
     the two values.
 
     @param  a0
+    @param  a1
 
     @return an value of the same type as the input.
 

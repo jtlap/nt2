@@ -53,7 +53,6 @@ namespace boost { namespace simd {
     saturated_neg
 
     @param  a0
-    @param  a1
 
     @return      a value of the same type as the input.
 

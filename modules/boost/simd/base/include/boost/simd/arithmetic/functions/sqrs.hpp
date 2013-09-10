@@ -45,7 +45,7 @@ namespace boost { namespace simd { namespace tag
 
     @par Alias
 
-    @c sqrs,  @saturated_sqr
+    @c sqrs, saturated_sqr
 
     @param  a0
 
