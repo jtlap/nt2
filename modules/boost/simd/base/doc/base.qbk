@@ -1,0 +1,10 @@
+[library Boost.SIMD Functions and Operators
+  [quickbook 1.5]
+]
+
+[section Overview]
+This module contains all constants, elementwise functions and operators available
+in Boost.SIMD
+[endsect]
+
+[xinclude reference.xml]
