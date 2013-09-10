@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       // Estimation x ~= 1/X
-      A0  inv   = vec_rece( a0() );
+      A0  inv   = vec_re( a0() );
 
       // Square and filter out 1/+-0
       A0  invs  = (a0 * sqr(inv)) & genmask(a0);
