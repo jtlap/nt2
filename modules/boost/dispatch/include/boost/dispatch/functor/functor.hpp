@@ -1,3 +1,4 @@
+#ifndef BOOST_PP_IS_ITERATING
 //==============================================================================
 //         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
@@ -36,15 +37,19 @@
 #if ((defined(BOOST_NO_VARIADIC_TEMPLATES) || defined(BOOST_NO_RVALUE_REFERENCES)) \
  && defined(BOOST_DISPATCH_DONT_USE_PREPROCESSED_FILES)) || defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES)
 #include <boost/dispatch/details/parameters.hpp>
+#include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/slot/slot.hpp>
+#include <boost/preprocessor/repetition/repeat.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
-#include <boost/preprocessor/repetition/enum_trailing_params.hpp>
-#include <boost/preprocessor/repetition/repeat.hpp>
-#include <boost/preprocessor/repetition/repeat_from_to.hpp>
-#include <boost/preprocessor/punctuation/comma_if.hpp>
-#include <boost/preprocessor/seq/for_each_i.hpp>
 #include <boost/preprocessor/seq/for_each_product.hpp>
+#include <boost/preprocessor/seq/for_each.hpp>
+#include <boost/preprocessor/seq/for_each_i.hpp>
 #include <boost/preprocessor/seq/size.hpp>
+#include <boost/preprocessor/seq/elem.hpp>
+#include <boost/preprocessor/seq/enum.hpp>
+#include <boost/preprocessor/punctuation/comma_if.hpp>
 #endif
 
 namespace boost { namespace dispatch
@@ -124,36 +129,13 @@ namespace boost { namespace dispatch
 #undef BOOST_FORCEINLINE
 #endif
 
-    #define M1(z,n,t) static_cast<typename meta::as_ref<A##n>::type>(a##n)
-    #define M2(z,n,t) typename meta::as_ref<A##n>::type
+    #define M4(z,n,t) typename meta::as_ref<A##n>::type
+    #define M5(z,n,t) static_cast<typename meta::as_ref<A##n>::type>(a##n)
 
-    #define M0(z,n,t)                                                         \
-    template<class This, BOOST_PP_ENUM_PARAMS(n,class A) >                    \
-    struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                            \
-      : meta::                                                                \
-        result_of< typename meta::                                            \
-                   dispatch_call< Tag(BOOST_PP_ENUM(n,M2,~))                  \
-                                , EvalContext                                 \
-                                >::type(BOOST_PP_ENUM(n,M2,~))                \
-                 >                                                            \
-    {};                                                                       \
-                                                                              \
-    template<BOOST_PP_ENUM_PARAMS(n,class A)> BOOST_FORCEINLINE               \
-    typename result<functor(BOOST_PP_ENUM(n, M2, ~))>::type                   \
-    operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, && a)) const                 \
-    {                                                                         \
-      return typename meta::                                                  \
-             dispatch_call< Tag(BOOST_PP_ENUM(n, M2, ~))                      \
-                          , EvalContext                                       \
-                          >::type()                                           \
-             ( BOOST_PP_ENUM(n, M1, ~) );                                     \
-    }                                                                         \
-    /**/
-
-    BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),M0,~)
-    #undef M0
-    #undef M1
-    #undef M2
+    #define BOOST_PP_ITERATION_PARAMS_1 (4, (1, BOOST_DISPATCH_MAX_ARITY, "boost/dispatch/functor/functor.hpp", 0))
+    #include BOOST_PP_ITERATE()
+    #undef M4
+    #undef M5
 
 #if defined(__WAVE__) && defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES)
 #pragma wave option(output: null)
@@ -170,62 +152,20 @@ namespace boost { namespace dispatch
 #undef BOOST_FORCEINLINE
 #endif
 
-    #define param(r,_,i,b) BOOST_PP_COMMA_IF(i)                               \
-    BOOST_PP_CAT(A,i) BOOST_PP_CAT(c,b) & BOOST_PP_CAT(a,i)                   \
-    /**/
+    #define M0(z,n,t) (((A##n)(&))((A##n)(const&)))
+    #define M1(r,data,elem) (BOOST_PP_SEQ_ELEM(0, elem) BOOST_PP_SEQ_ELEM(1, elem))
+    #define M2(r,data,i,elem) BOOST_PP_COMMA_IF(i) elem a##i
+    #define M3(r,product) (BOOST_PP_SEQ_FOR_EACH(M1, ~, product))
+    #define M4(z,n,t) typename meta::as_ref<A##n>::type
 
-    #define arg_type(r,_,i,b) BOOST_PP_COMMA_IF(i) BOOST_PP_CAT(A,i) BOOST_PP_CAT(c,b) &
-
-    #define c0
-    #define c1 const
-    #define bits(z, n, _) ((0)(1))
-    #define n_size(seq) BOOST_PP_SEQ_SIZE(seq)
-
-    #define M1(z,n,t) typename meta::as_ref<A##n>::type
-
-    #define call_operator(r, constness)                                       \
-    template<BOOST_PP_ENUM_PARAMS(n_size(constness),class A)> BOOST_FORCEINLINE \
-    typename result< functor                                                  \
-                     (BOOST_PP_SEQ_FOR_EACH_I_R(r,arg_type,~,constness))      \
-                   >::type                                                    \
-    operator()(BOOST_PP_SEQ_FOR_EACH_I_R(r,param,~,constness)) const          \
-    {                                                                         \
-      return typename meta::                                                  \
-             dispatch_call< Tag(BOOST_PP_SEQ_FOR_EACH_I_R(r,arg_type,~,constness)) \
-                          , EvalContext                                       \
-                          >::type()                                           \
-             ( BOOST_PP_ENUM_PARAMS(n_size(constness),a) );                   \
-    }                                                                         \
-    /**/
-
-    #define M0(z,n,t)                                                         \
-    template<class This, BOOST_PP_ENUM_PARAMS(n,class A) >                    \
-    struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                            \
-      : meta::                                                                \
-        result_of< typename meta::                                            \
-                   dispatch_call< Tag(BOOST_PP_ENUM(n,M1,~))                  \
-                                , EvalContext                                 \
-                                >::type(BOOST_PP_ENUM(n,M1,~))                \
-                 >                                                            \
-    {};                                                                       \
-                                                                              \
-    BOOST_PP_SEQ_FOR_EACH_PRODUCT_R(                                          \
-        z,                                                                    \
-        call_operator                                                         \
-      , BOOST_PP_REPEAT(n, bits, ~)                                           \
-    )                                                                         \
-    /**/
-
-    BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),M0,~)
+    #define BOOST_PP_ITERATION_PARAMS_1 (4, (1, BOOST_DISPATCH_MAX_ARITY, "boost/dispatch/functor/functor.hpp", 1))
+    #include BOOST_PP_ITERATE()
 
     #undef M0
     #undef M1
-    #undef bits
-    #undef n_size
-    #undef c1
-    #undef c0
-    #undef param
-    #undef call_operator
+    #undef M2
+    #undef M3
+    #undef M4
 
 #if defined(__WAVE__) && defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES)
 #pragma wave option(output: null)
@@ -235,5 +175,60 @@ namespace boost { namespace dispatch
     #endif
     };
 } }
+
+#endif
+#elif BOOST_PP_ITERATION_DEPTH() == 1
+  #define BOOST_PP_VALUE BOOST_PP_ITERATION()
+  #include BOOST_PP_ASSIGN_SLOT(1)
+  #define n BOOST_PP_SLOT(1)
+
+    template<class This, BOOST_PP_ENUM_PARAMS(n, class A)>
+    struct result<This(BOOST_PP_ENUM_PARAMS(n, A))>
+      : meta::
+        result_of< typename meta::
+                   dispatch_call< Tag(BOOST_PP_ENUM(n, M4, ~))
+                                , EvalContext
+                                >::type(BOOST_PP_ENUM(n, M4, ~))
+                 >
+    {
+    };
+
+  #if BOOST_PP_ITERATION_FLAGS() == 1
+    #define PERM_SEQ BOOST_PP_SEQ_FOR_EACH_PRODUCT(M3, BOOST_PP_REPEAT(n, M0, ~))
+    #define BOOST_PP_ITERATION_PARAMS_2 (3, (0, BOOST_PP_SEQ_SIZE(PERM_SEQ)-1, "boost/dispatch/functor/functor.hpp"))
+    #include BOOST_PP_ITERATE()
+    #undef PERM_SEQ
+  #else
+
+    template<BOOST_PP_ENUM_PARAMS(n, class A)>
+    typename result<functor(BOOST_PP_ENUM(n, M4, ~))>::type
+    operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, && a)) const
+    {
+      return typename meta::
+             dispatch_call< Tag(BOOST_PP_ENUM(n, M4, ~))
+                          , EvalContext
+                          >::type()
+            (BOOST_PP_ENUM(n, M5, ~));
+    }
+
+  #endif
+  #undef n
+
+#elif BOOST_PP_ITERATION_DEPTH() == 2
+
+  #define SEQ BOOST_PP_SEQ_ELEM(BOOST_PP_ITERATION(), PERM_SEQ)
+
+    template<BOOST_PP_ENUM_PARAMS(n, class A)>
+    typename result<functor(BOOST_PP_SEQ_ENUM(SEQ))>::type
+    operator()(BOOST_PP_SEQ_FOR_EACH_I(M2, ~, SEQ)) const
+    {
+      return typename meta::
+             dispatch_call< Tag(BOOST_PP_SEQ_ENUM(SEQ))
+                          , EvalContext
+                          >::type()
+            (BOOST_PP_ENUM_PARAMS(n, a));
+    }
+
+  #undef SEQ
 
 #endif
