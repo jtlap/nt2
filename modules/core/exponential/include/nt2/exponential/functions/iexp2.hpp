@@ -18,7 +18,7 @@
  * \defgroup exponential_iexp2 iexp2
  *
  * \par Description
- * base two exponential function on integer ranges returning same type integer : $2^{a_0}$
+ * base two exponential function on integer ranges returning same type integer : \f$2^{a_0}\f$
  * Be careful,  overflows are not reported. The results if the power is greater than the bit cardinality
  * of the type minus one (or minus two for signed types) is unspecified.
  * The function is not defined for floating types

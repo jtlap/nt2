@@ -18,7 +18,7 @@
  * \defgroup hyperbolic_tanh tanh
  *
  * \par Description
- * hyperbolic tangent: \f$rac{\sinh(a_0)}{\cosh(a_0)}\f$.
+ * hyperbolic tangent: \f$rac{\sinh(a_0)}{\cosh(a_0)}\f$.
  *
  * \par Header file
  *

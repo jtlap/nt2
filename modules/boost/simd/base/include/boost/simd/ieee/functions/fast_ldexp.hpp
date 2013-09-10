@@ -19,8 +19,8 @@
  * \defgroup boost_simd_ieee_fast_ldexp fast_ldexp
  *
  * \par Description
- * The function multiply a floating entry $a_0$
- * by $2^a_1$
+ * The function multiply a floating entry \f$a_0\f$
+ * by \f$2^a_1\f$
  * \par
  * The fast prefix indicates that for speed sake
  * the result may be incorrect for limiting values:

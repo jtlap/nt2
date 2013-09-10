@@ -18,9 +18,9 @@
  * \defgroup exponential_pow_absi pow_absi
  *
  * \par Description
- * Power function for scalar integer a1: ${a_0}^{a_1}$
+ * Power function for scalar integer a1: \f${a_0}^{a_1}\f$
  * \par
- * $0^0$ returns 1
+ * \f$0^0\f$ returns 1
  *
  * \par Header file
  *

@@ -18,7 +18,7 @@
  * \defgroup expionential_expi expi
  *
  * \par Description
- * expionential function: $e^{ia_0}$ where  $i^{2} = -1$
+ * expionential function: \f$e^{ia_0}\f$ where  \f$i^{2} = -1\f$
  *
  * \par Header file
  *

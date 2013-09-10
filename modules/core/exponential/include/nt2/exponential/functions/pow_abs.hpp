@@ -18,9 +18,9 @@
  * \defgroup exponential_pow_abs pow_abs
  *
  * \par Description
- * Pow_Abser function: ${a_0}^{a_1}$
+ * Pow_Abser function: \f${a_0}^{a_1}\f$
  * \par
- * $0^0$ returns 1
+ * \f$0^0\f$ returns 1
  *
  * \par Header file
  *

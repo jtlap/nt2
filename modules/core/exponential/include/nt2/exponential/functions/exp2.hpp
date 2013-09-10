@@ -18,7 +18,7 @@
  * \defgroup exponential_exp2 exp2
  *
  * \par Description
- * base two exponential function: $2^{a_0}$
+ * base two exponential function: \f$2^{a_0}\f$
  * \par
  * provisions are made for otaining a flint result from a flint input
  *

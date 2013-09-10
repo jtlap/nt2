@@ -42,7 +42,7 @@ namespace nt2 { namespace tag
     @c ellipke compute simultaneously the complete elliptic integral
     of the first and second kinds.
 
-    @param a0 outside of $[0,1]$ the result is nan
+    @param a0 outside of \f$[0,1]\f$ the result is nan
     @param a1 accuracy  of computation. The default is Eps<A0>().
 
     @return A Fusion Sequence containing the cos of @c a0
@@ -57,7 +57,7 @@ namespace nt2 { namespace tag
     @c ellipke compute simultaneously the complete elliptic integral
     of the first and second kinds.
 
-    @param a0 outside of $[0,1]$ the result is nan
+    @param a0 outside of \f$[0,1]\f$ the result is nan
     @param a1 accuracy  of computation. The default is Eps<A0>().
     @param a1 L-Value that will receive the first kind elliptic integral
 
@@ -70,7 +70,7 @@ namespace nt2 { namespace tag
     @c ellipke compute simultaneously the complete elliptic integral
     of the first and second kinds.
 
-    @param a0 outside of $[0,1]$ the result is nan
+    @param a0 outside of \f$[0,1]\f$ the result is nan
     @param a1 accuracy  of computation. The default is Eps<A0>().
     @param a2 L-Value that will receive the first kind elliptic integral
     @param a3 L-Value that will receive the second kind elliptic integral

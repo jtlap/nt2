@@ -18,7 +18,7 @@
  * \defgroup hyperbolic_sech sech
  *
  * \par Description
- * hyperbolic secant: \f$rac1{\cosh(a_0)}\f$.
+ * hyperbolic secant: \f$\frac1{\cosh(a_0)}\f$.
  *
  * \par Header file
  *

@@ -18,7 +18,7 @@
  * \defgroup exponential_expm1 expm1
  *
  * \par Description
- * exponential function minus one: $e^{a_0}-1$
+ * exponential function minus one: \f$e^{a_0}-1\f$
  * \par
  * result is accurate even for small a0
  *

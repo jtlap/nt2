@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace tag
     };
   }
   /*!
-    Computes  computes $(a_0^2 + a_1^2)^{1/2}$
+    Computes  computes \f$(a_0^2 + a_1^2)^{1/2}\f$
 
     @par semantic:
     For any given value @c x,  @c y of type @c T:

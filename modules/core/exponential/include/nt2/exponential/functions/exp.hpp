@@ -18,7 +18,7 @@
  * \defgroup exponential_exp exp
  *
  * \par Description
- * exponential function: $e^{a_0}$
+ * exponential function: \f$e^{a_0}\f$
  *
  * \par Header file
  *

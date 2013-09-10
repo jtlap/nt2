@@ -20,7 +20,7 @@
  * \par Description
  * exponential integral function
  * \par Formula
- * \f[ E_a_0(a_1)=\int_0^\infty rac{e^{-a_1t)}{t^a_0}dt\f]
+ * \f[ E_a_0(a_1)=\int_0^\infty \frac{e^{-a_1t)}{t^a_0}dt\f]
  *
  * \par Header file
  *

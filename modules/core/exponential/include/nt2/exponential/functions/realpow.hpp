@@ -18,9 +18,9 @@
  * \defgroup exponential_realpow realpow
  *
  * \par Description
- * Realpower function: ${a_0}^{a_1}$ but asserts is the result is to be complex
+ * Realpower function: \f${a_0}^{a_1}\f$ but asserts is the result is to be complex
  * \par
- * $0^0$ returns 1
+ * \f$0^0\f$ returns 1
  *
  * \par Header file
  *

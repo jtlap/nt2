@@ -18,7 +18,7 @@
  * \defgroup hyperbolic_csch csch
  *
  * \par Description
- * hyperbolic cosecant: \f$rac1{\sinh(a_0)}\f$.
+ * hyperbolic cosecant: \f$\frac1{\sinh(a_0)}\f$.
  *
  * \par Header file
  *

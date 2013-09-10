@@ -18,9 +18,9 @@
  * \defgroup exponential_pow pow
  *
  * \par Description
- * Power function: ${a_0}^{a_1}$
+ * Power function: \f${a_0}^{a_1}\f$
  * \par
- * $0^0$ returns 1
+ * $0^0$ returns 1
  *
  * \par Header file
  *

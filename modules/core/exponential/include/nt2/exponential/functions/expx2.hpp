@@ -18,7 +18,7 @@
  * \defgroup exponential_expx2 expx2
  *
  * \par Description
- * exponential of square function: $e^{a_0^2}$
+ * exponential of square function: \f$e^{a_0^2}\f$
  * \par
  * provisions are made for otaining correct results for large a0
  *

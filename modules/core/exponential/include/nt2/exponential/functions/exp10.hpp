@@ -18,7 +18,7 @@
  * \defgroup exponential_exp10 exp10
  *
  * \par Description
- * base ten exponential function: $10^{a_0}$
+ * base ten exponential function: \f$10^{a_0}\f$
  * \par
  * provisions are made for otaining a flint result from a flint input
  *

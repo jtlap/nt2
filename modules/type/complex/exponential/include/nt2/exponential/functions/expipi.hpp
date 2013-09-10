@@ -18,7 +18,7 @@
  * \defgroup exponential_expipi expipi
  *
  * \par Description
- * expipionential function: $e^{\pi i a_0}$ where  $i^{2} = -1$
+ * expipionential function: \f$e^{\pi i a_0}\f$ where  \f$i^{2} = -1\f$
  *
  * \par Header file
  *

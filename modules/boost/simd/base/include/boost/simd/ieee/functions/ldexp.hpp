@@ -19,8 +19,8 @@
  * \defgroup boost_simd_ieee_ldexp ldexp
  *
  * \par Description
- * The function multiply a floating entry $a_0$
- * by $2^{a_1}$
+ * The function multiply a floating entry \f$a_0\f$
+ * by \f$2^{a_1}\f$
  * \par
  * Integer version is a shift left
  *
