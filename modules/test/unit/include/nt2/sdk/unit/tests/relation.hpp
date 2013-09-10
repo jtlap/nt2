@@ -10,35 +10,100 @@
 #ifndef NT2_SDK_UNIT_TESTS_RELATION_HPP_INCLUDED
 #define NT2_SDK_UNIT_TESTS_RELATION_HPP_INCLUDED
 
-#include <iomanip>
-#include <iostream>
 #include <nt2/sdk/unit/stats.hpp>
 #include <nt2/sdk/unit/details/eval.hpp>
 #include <nt2/sdk/unit/details/test_for_equality.hpp>
-#include <boost/dispatch/preprocessor/once.hpp>
 #include <boost/current_function.hpp>
+#include <iomanip>
+#include <iostream>
+#include <sstream>
 
-/// INTERNAL ONLY - Base macro for relation checks
-#define NT2_TEST_FUNC(A,B,OP)                                                  \
-do                                                                             \
-{                                                                              \
-  nt2::unit::test_count()++;                                                   \
-  if( nt2::unit::eval(A) OP nt2::unit::eval(B) )                               \
-  {                                                                            \
-    nt2::unit::pass(#A " " #OP " " #B);                                        \
-  }                                                                            \
-  else                                                                         \
-  {                                                                            \
-    nt2::unit::fail ( #A " " #OP " " #B                                        \
-                    , __LINE__,BOOST_CURRENT_FUNCTION                          \
-                    );                                                         \
-    std::cout << #A << ": \n" << std::setprecision(20)                         \
-              << nt2::unit::eval(A) << std::endl;                              \
-    std::cout << #B << ": \n" << std::setprecision(20)                         \
-              << nt2::unit::eval(B) << std::endl;                              \
-  }                                                                            \
-} BOOST_DISPATCH_ONCE                                                          \
-/**/
+namespace nt2
+{
+  namespace unit
+  {
+    template<class A, class B, class F>
+    void test_relation( const char* A_str, A const& a, const char* B_str, B const& b
+                      , unsigned line, const char* fn, const char* Op_str, F const& Op
+                      )
+    {
+      std::ostringstream ss;
+      ss << A_str << " " << Op_str << " " << B_str;
+      std::string info = ss.str();
+
+      nt2::unit::test_count()++;
+      if( Op(a, b) )
+      {
+        nt2::unit::pass( info.c_str() );
+      }
+      else
+      {
+        nt2::unit::fail( info.c_str(), line, fn );
+        std::cout << A_str << ": \n" << std::setprecision(20)
+                  << a << std::endl;
+        std::cout << B_str << ": \n" << std::setprecision(20)
+                  << b << std::endl;
+      }
+    }
+  }
+
+  namespace details
+  {
+    struct equality
+    {
+      template<class A, class B>
+      bool operator()(A const& a, B const& b) const
+      {
+        return nt2::unit::test_for_equality(a, b);
+      }
+    };
+
+    struct not_equality
+    {
+      template<class A, class B>
+      bool operator()(A const& a, B const& b) const
+      {
+        return !nt2::unit::test_for_equality(a, b);
+      }
+    };
+
+    struct lesser
+    {
+      template<class A, class B>
+      bool operator()(A const& a, B const& b) const
+      {
+        return a < b;
+      }
+    };
+
+    struct greater
+    {
+      template<class A, class B>
+      bool operator()(A const& a, B const& b) const
+      {
+        return a > b;
+      }
+    };
+
+    struct lesser_equal
+    {
+      template<class A, class B>
+      bool operator()(A const& a, B const& b) const
+      {
+        return a <= b;
+      }
+    };
+
+    struct greater_equal
+    {
+      template<class A, class B>
+      bool operator()(A const& a, B const& b) const
+      {
+        return a >= b;
+      }
+    };
+  }
+}
 
 /*!
   @brief Check the equality of two values
@@ -49,28 +114,13 @@ do                                                                             \
   @usage{test_equal.cpp}
 **/
 #define NT2_TEST_EQUAL(A,B)                                                    \
-do                                                                             \
-{                                                                              \
-  nt2::unit::test_count()++;                                                   \
-  if( nt2::unit::test_for_equality( nt2::unit::eval(A)                         \
-                                  , nt2::unit::eval(B)                         \
-                                  )                                            \
-    )                                                                          \
-  {                                                                            \
-    nt2::unit::pass(#A " == " #B);                                             \
-  }                                                                            \
-  else                                                                         \
-  {                                                                            \
-    nt2::unit::fail ( #A " == " #B                                             \
-                    , __LINE__,BOOST_CURRENT_FUNCTION                          \
-                    );                                                         \
-    std::cout << #A << ": \n" << std::setprecision(20)                         \
-              << nt2::unit::eval(A) << std::endl;                              \
-    std::cout << #B << ": \n" << std::setprecision(20)                         \
-              << nt2::unit::eval(B) << std::endl;                              \
-  }                                                                            \
-} BOOST_DISPATCH_ONCE                                                          \
+nt2::unit::test_relation( #A, nt2::unit::eval(A)                               \
+                        , #B, nt2::unit::eval(B)                               \
+                        , __LINE__, BOOST_CURRENT_FUNCTION                     \
+                        , "==", nt2::details::equality()                       \
+                        )                                                      \
 /**/
+
 
 /*!
   @brief Check the inequality of two values
@@ -81,27 +131,11 @@ do                                                                             \
   @usage{test_not_equal.cpp}
 **/
 #define NT2_TEST_NOT_EQUAL(A,B)                                                \
-do                                                                             \
-{                                                                              \
-  nt2::unit::test_count()++;                                                   \
-  if( !nt2::unit::test_for_equality ( nt2::unit::eval(A)                       \
-                                    , nt2::unit::eval(B)                       \
-                                    )                                          \
-    )                                                                          \
-  {                                                                            \
-    nt2::unit::pass(#A " != " #B);                                             \
-  }                                                                            \
-  else                                                                         \
-  {                                                                            \
-    nt2::unit::fail ( #A " != " #B                                             \
-                    , __LINE__,BOOST_CURRENT_FUNCTION                          \
-                    );                                                         \
-    std::cout << #A << ": \n" << std::setprecision(20)                         \
-              << nt2::unit::eval(A) << std::endl;                              \
-    std::cout << #B << ": \n" << std::setprecision(20)                         \
-              << nt2::unit::eval(B) << std::endl;                              \
-  }                                                                            \
-} BOOST_DISPATCH_ONCE                                                          \
+nt2::unit::test_relation( #A, nt2::unit::eval(A)                               \
+                        , #B, nt2::unit::eval(B)                               \
+                        , __LINE__, BOOST_CURRENT_FUNCTION                     \
+                        , "!=", nt2::details::not_equality()                   \
+                        )                                                      \
 /**/
 
 /*!
@@ -112,7 +146,13 @@ do                                                                             \
 
   @usage{test_lesser.cpp}
 **/
-#define NT2_TEST_LESSER(A,B) NT2_TEST_FUNC(A,B,<)
+#define NT2_TEST_LESSER(A,B)                                                   \
+nt2::unit::test_relation( #A, nt2::unit::eval(A)                               \
+                        , #B, nt2::unit::eval(B)                               \
+                        , __LINE__, BOOST_CURRENT_FUNCTION                     \
+                        , "<", nt2::details::lesser()                          \
+                        )                                                      \
+/**/
 
 /*!
   @brief Check the ordering of two values
@@ -122,7 +162,13 @@ do                                                                             \
 
   @usage{test_greater.cpp}
 **/
-#define NT2_TEST_GREATER(A,B) NT2_TEST_FUNC(A,B,>)
+#define NT2_TEST_GREATER(A,B)                                                  \
+nt2::unit::test_relation( #A, nt2::unit::eval(A)                               \
+                        , #B, nt2::unit::eval(B)                               \
+                        , __LINE__, BOOST_CURRENT_FUNCTION                     \
+                        , ">", nt2::details::greater()                         \
+                        )                                                      \
+/**/
 
 /*!
   @brief Check the ordering of two values
@@ -132,7 +178,13 @@ do                                                                             \
 
   @usage{test_lesser_equal.cpp}
 **/
-#define NT2_TEST_LESSER_EQUAL(A,B) NT2_TEST_FUNC(A,B,<=)
+#define NT2_TEST_LESSER_EQUAL(A,B)                                             \
+nt2::unit::test_relation( #A, nt2::unit::eval(A)                               \
+                        , #B, nt2::unit::eval(B)                               \
+                        , __LINE__, BOOST_CURRENT_FUNCTION                     \
+                        , "<=", nt2::details::lesser_equal()                   \
+                        )                                                      \
+/**/
 
 /*!
   @brief Check the ordering of two values
@@ -142,6 +194,12 @@ do                                                                             \
 
   @usage{test_greater_equal.cpp}
 **/
-#define NT2_TEST_GREATER_EQUAL(A,B) NT2_TEST_FUNC(A,B,>=)
+#define NT2_TEST_GREATER_EQUAL(A,B)                                            \
+nt2::unit::test_relation( #A, nt2::unit::eval(A)                               \
+                        , #B, nt2::unit::eval(B)                               \
+                        , __LINE__, BOOST_CURRENT_FUNCTION                     \
+                        , ">=", nt2::details::greater_equal()                  \
+                        )                                                      \
+/**/
 
 #endif
