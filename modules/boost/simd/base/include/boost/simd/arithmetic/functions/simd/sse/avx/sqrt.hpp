@@ -9,7 +9,13 @@
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_SQRT_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_SQRT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
+
 #include <boost/simd/arithmetic/functions/sqrt.hpp>
+#include <boost/simd/include/functions/simd/toint.hpp>
+#include <boost/simd/include/functions/simd/touint.hpp>
+#include <boost/simd/include/functions/simd/is_gtz.hpp>
+#include <boost/simd/include/functions/simd/tofloat.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
