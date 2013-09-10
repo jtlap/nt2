@@ -66,7 +66,7 @@ namespace nt2 { namespace ext
   {
     typedef typename nt2::meta::call < nt2::tag::repnum_(size_t, size_t) > ::type T0;
     typedef typename nt2::meta::call < nt2::tag::levenberg_(F, A const &, T0, O const&)>::type result_type;
-    result_type operator()(F f, A const& init, H const& h0, O const& o)
+    result_type operator()(F f, A const& init, H const&, O const& o)
     {
       typedef typename A::value_type                                  value_type;
       typedef typename meta::as_logical<value_type>::type                 l_type;
