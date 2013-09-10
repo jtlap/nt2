@@ -84,10 +84,10 @@ namespace boost { namespace dispatch { namespace meta
 #pragma wave option(output: null)
 #endif
 #endif
+#endif
 
 } } }
 
-#endif
 #endif
 
 #else /* BOOST_PP_IS_ITERATING */
