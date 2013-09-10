@@ -23,7 +23,6 @@
 #include <boost/simd/sdk/config.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 
-
 NT2_TEST_CASE_TPL ( tofloat_real,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::tofloat;
@@ -58,8 +57,8 @@ NT2_TEST_CASE_TPL ( tofloat_int_convert,  BOOST_SIMD_SIMD_INT_CONVERT_TYPES)
   NT2_TEST_EQUAL(tofloat(boost::simd::One<vT>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(tofloat(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
   NT2_TEST_EQUAL(tofloat(boost::simd::Two<vT>()), boost::simd::Two<r_t>());
-  NT2_TEST_EQUAL(tofloat(boost::simd::Valmax<vT>()), boost::simd::splat<vT>(boost::simd::Valmax<T>()));
-  NT2_TEST_EQUAL(tofloat(boost::simd::Valmin<vT>()), boost::simd::splat<vT>(boost::simd::Valmin<T>()));
+  NT2_TEST_EQUAL(tofloat(boost::simd::Valmax<vT>()), boost::simd::splat<r_t>(boost::simd::Valmax<T>()));
+  NT2_TEST_EQUAL(tofloat(boost::simd::Valmin<vT>()), boost::simd::splat<r_t>(boost::simd::Valmin<T>()));
 
 } // end of test for int_convert_
 
@@ -75,7 +74,7 @@ NT2_TEST_CASE_TPL ( tofloat_uint_convert,  BOOST_SIMD_SIMD_UINT_CONVERT_TYPES)
   NT2_TEST_EQUAL(tofloat(boost::simd::One<vT>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(tofloat(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
   NT2_TEST_EQUAL(tofloat(boost::simd::Two<vT>()), boost::simd::Two<r_t>());
-  NT2_TEST_EQUAL(tofloat(boost::simd::Valmax<vT>()), boost::simd::splat<vT>(boost::simd::Valmax<T>()));
+  NT2_TEST_EQUAL(tofloat(boost::simd::Valmax<vT>()), boost::simd::splat<r_t>(boost::simd::Valmax<T>()));
 
 } // end of test for uint_convert_
 
