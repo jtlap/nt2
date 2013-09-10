@@ -19,6 +19,7 @@
 #include <nt2/include/functions/scalar/oneplus.hpp>
 #include <nt2/include/functions/scalar/is_flint.hpp>
 #include <nt2/include/functions/scalar/is_less.hpp>
+#include <nt2/include/functions/scalar/sqrt.hpp>
 #include <nt2/include/constants/valmax.hpp>
 #include <nt2/include/constants/false.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
@@ -44,7 +45,7 @@ namespace nt2 { namespace ext
                       );
 
       if (a0 <= 1) return  False<result_type>();
-      A0 m = oneplus(nt2::isqrt(a0));
+      A0 m = oneplus(nt2::sqrt(a0));
       nt2::container::table<A0> p = nt2::primes(m);
 
       ///TODO perhaps a while with precox ending
@@ -70,7 +71,7 @@ namespace nt2 { namespace ext
       if (a0 <= 1) return False<result_type>();
 
       uint32_t ia0 = a0;
-      nt2::container::table<uint32_t> p = nt2::primes(oneplus(isqrt(ia0)));
+      nt2::container::table<uint32_t> p = nt2::primes(oneplus(sqrt(ia0)));
 
       ///TODO perhaps a while with precox ending
       return result_type(nt2::globalall(nt2::rem(ia0, p(lt(p, ia0)))));

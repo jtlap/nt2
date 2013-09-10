@@ -12,7 +12,7 @@
 #include <nt2/include/functions/is_gtz.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/isqrt.hpp>
+#include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/rowvect.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/two.hpp>
@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
 
       result_type p = _(One<A0>(), Two<A0>(), n);
       size_t q = length(p);
-      size_t l = isqrt(n);
+      size_t l = sqrt(n);
       p(1) = Two<A0>();
       for (size_t k = 3; k <= l; k+= 2)
         {

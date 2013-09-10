@@ -12,7 +12,7 @@
 #include <nt2/include/functions/primes.hpp>
 #include <nt2/include/functions/horzcat.hpp>
 #include <nt2/include/functions/rowvect.hpp>
-#include <nt2/include/functions/isqrt.hpp>
+#include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/rem.hpp>
 #include <nt2/include/functions/find.hpp>
@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
       }
       else
         f = nt2::zeros(1, 0, nt2::meta::as_<A0>());
-      result_type p = nt2::primes(nt2::isqrt(n));
+      result_type p = nt2::primes(nt2::sqrt(n));
       while (n>1)
       {
         itab_t d = nt2::find(nt2::is_eqz(nt2::rem(n,p)));
