@@ -177,7 +177,8 @@ namespace boost { namespace dispatch
 } }
 
 #endif
-#elif BOOST_PP_ITERATION_DEPTH() == 1
+#else
+#if BOOST_PP_ITERATION_DEPTH() == 1
   #define BOOST_PP_VALUE BOOST_PP_ITERATION()
   #include BOOST_PP_ASSIGN_SLOT(1)
   #define n BOOST_PP_SLOT(1)
@@ -231,4 +232,5 @@ namespace boost { namespace dispatch
 
   #undef SEQ
 
+#endif
 #endif
