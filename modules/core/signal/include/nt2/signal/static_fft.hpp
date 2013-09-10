@@ -222,7 +222,7 @@ namespace details
         extra_pointer_register & operator++() { return this->operator += ( 1 ); }
         extra_pointer_register & operator--() { return this->operator -= ( 1 ); }
 
-        T * const operator++( int )
+        T * operator++( int )
         {
             T * BOOST_DISPATCH_RESTRICT const result( this->operator->() );
             this->operator++();
