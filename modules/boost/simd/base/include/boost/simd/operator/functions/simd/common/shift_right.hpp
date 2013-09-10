@@ -12,6 +12,15 @@
 #include <boost/simd/operator/functions/shift_right.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/assert.hpp>
+#include <boost/simd/operator/functions/details/assert_utils.hpp>
+#include <boost/simd/include/functions/simd/is_gez.hpp>
+#include <boost/simd/include/functions/simd/is_less_equal.hpp>
+#include <boost/simd/include/functions/simd/logical_and.hpp>
+#include <boost/simd/include/functions/simd/splat.hpp>
+#include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/assert.hpp>
+#include <boost/simd/operator/functions/details/assert_utils.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -25,6 +34,8 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::as_integer<A0, signed>::type int_type;
+      typedef typename meta::scalar_of<A0>::type sA0;
+      BOOST_ASSERT_MSG(assert_good_shift<A0>(a1), "a shift is out of range");
       return bitwise_cast<result_type>( bitwise_cast<int_type>(a0) >> a1 );
     }
   };

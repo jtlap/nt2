@@ -13,6 +13,8 @@
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/functions/simd/shift_right.hpp>
 #include <boost/dispatch/meta/as_unsigned.hpp>
+#include <boost/assert.hpp>
+#include <boost/simd/operator/functions/details/assert_utils.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -25,6 +27,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::as_unsigned<A0>::type ntype;
+      BOOST_ASSERT_MSG(assert_good_shift<A0>(a1), "a shift is out of range");
       return bitwise_cast<result_type>( bitwise_cast<ntype>(a0) >> a1 );
     }
   };

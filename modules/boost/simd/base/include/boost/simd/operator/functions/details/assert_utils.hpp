@@ -15,6 +15,7 @@
 #include <boost/simd/include/constants/allbits.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <iostream>
 
 namespace boost { namespace simd
 {
@@ -41,6 +42,25 @@ namespace boost { namespace simd
 
       if(uv != Zero<uT>() && uv != Allbits<uT>())
         return false;
+    }
+    return true;
+  }
+
+  template<class A0, class A1>
+  bool assert_good_shift( A1 const& t )
+  {
+    for(std::size_t i = 0; i != meta::cardinal_of<A0>::value; ++i)
+    {
+      typedef typename meta::scalar_of<A1>::type sA1;
+      typedef typename meta::scalar_of<A0>::type sA0;
+      const sA1 N = sizeof(sA0)*8;
+      sA1 v = extract(t, i);
+
+      if(v < Zero<sA1>() || v > N)
+      {
+        return false;
+      }
+
     }
     return true;
   }

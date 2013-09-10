@@ -12,6 +12,8 @@
 #include <boost/simd/bitwise/functions/shr.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/assert.hpp>
+#include <boost/simd/operator/functions/details/assert_utils.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -24,6 +26,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::as_integer<A0, unsigned>::type uitype;
+      BOOST_ASSERT_MSG(assert_good_shift<A0>(a1), "shift is out of range");
       return uitype(a0) >> a1;
     }
   };
@@ -37,7 +40,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::as_integer<A0, unsigned>::type uitype;
-      return bitwise_cast<result_type>(bitwise_cast<uitype>(a0) >> a1);
+      return bitwise_cast<result_type>(shr(bitwise_cast<uitype>(a0), a1));
     }
   };
 } } }
