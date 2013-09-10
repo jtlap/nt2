@@ -34,7 +34,7 @@ NT2_TEST_CASE_TPL ( acoth_real__1_0, NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(nt2::acoth(nt2::splat<cvT>(cT(0.5, -0.5))), nt2::splat<cvT>(nt2::acoth(cT(0.5, -0.5)))   , 0.75);
   NT2_TEST_ULP_EQUAL(nt2::acoth(nt2::splat<cvT>(cT(1, 1))),      nt2::splat<cvT>(nt2::acoth(cT(1, 1)))        , 0.75);
   NT2_TEST_ULP_EQUAL(nt2::acoth(nt2::splat<cvT>(cT(1, 10))),     nt2::splat<cvT>(nt2::acoth(cT(1, 10)))       , 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::acoth(nt2::splat<cvT>(cT(10, 10))),    nt2::splat<cvT>(nt2::acoth(cT(10, 10)))      , 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::acoth(nt2::splat<cvT>(cT(10, 10))),    nt2::splat<cvT>(nt2::acoth(cT(10, 10)))      , 1);
   NT2_TEST_ULP_EQUAL(nt2::acoth(nt2::splat<cvT>(cT(10, 1))),     nt2::splat<cvT>(nt2::acoth(cT(10, 1)))       , 0.75);
 } // end of test for floating_
 

@@ -49,21 +49,21 @@ NT2_TEST_CASE_TPL( meanad, NT2_REAL_TYPES )
   sy = nt2::meanad(y0);
   y =  center(y0);
   sz = nt2::mean(nt2::abs(y));
-  NT2_TEST_ULP_EQUAL(sz, sy, 0.5);
+  NT2_TEST_ULP_EQUAL(sz, sy, 1);
   y =  center(y0, 1);
   sy = nt2::meanad(y0, 1);
   sz = nt2::mean(nt2::abs(y), 1);
-  NT2_TEST_ULP_EQUAL(sz, sy, 0.5);
+  NT2_TEST_ULP_EQUAL(sz, sy, 1);
   y =  center(y0, 2);
   sy = nt2::meanad(y0, 2);
   sz = nt2::mean(nt2::abs(y), 2);
-  NT2_TEST_ULP_EQUAL(sz, sy, 0.5);
+  NT2_TEST_ULP_EQUAL(sz, sy, 1);
   y =  center(y0, 3);
   sy = nt2::meanad(y0, 3);
   sz = nt2::mean(nt2::abs(y), 3);
-  NT2_TEST_ULP_EQUAL(sz, sy, 0.5);
+  NT2_TEST_ULP_EQUAL(sz, sy, 1);
   y =  center(y0(_));
   sy = nt2::meanad(y0(_));
   sz = nt2::mean(nt2::abs(y(_)));
-  NT2_TEST_ULP_EQUAL(sy(1), sz(1), 0.5);
+  NT2_TEST_ULP_EQUAL(sy(1), sz(1), 1);
 }
