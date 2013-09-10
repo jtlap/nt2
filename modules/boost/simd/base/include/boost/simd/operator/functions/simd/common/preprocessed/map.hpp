@@ -24,6 +24,7 @@ namespace boost { namespace simd { namespace ext
         result_type that;
         for(std::size_t i=0; i!=N; ++i)
           insert(f(extract(a0, i)), that, i);
+        return that;
       }
     };
     template<class Dummy>
@@ -74,6 +75,7 @@ namespace boost { namespace simd { namespace ext
         result_type that;
         for(std::size_t i=0; i!=N; ++i)
           insert(f(extract(a0, i) , extract(a1, i)), that, i);
+        return that;
       }
     };
     template<class Dummy>
@@ -124,6 +126,7 @@ namespace boost { namespace simd { namespace ext
         result_type that;
         for(std::size_t i=0; i!=N; ++i)
           insert(f(extract(a0, i) , extract(a1, i) , extract(a2, i)), that, i);
+        return that;
       }
     };
     template<class Dummy>
@@ -174,6 +177,7 @@ namespace boost { namespace simd { namespace ext
         result_type that;
         for(std::size_t i=0; i!=N; ++i)
           insert(f(extract(a0, i) , extract(a1, i) , extract(a2, i) , extract(a3, i)), that, i);
+        return that;
       }
     };
     template<class Dummy>
@@ -224,6 +228,7 @@ namespace boost { namespace simd { namespace ext
         result_type that;
         for(std::size_t i=0; i!=N; ++i)
           insert(f(extract(a0, i) , extract(a1, i) , extract(a2, i) , extract(a3, i) , extract(a4, i)), that, i);
+        return that;
       }
     };
     template<class Dummy>
@@ -274,6 +279,7 @@ namespace boost { namespace simd { namespace ext
         result_type that;
         for(std::size_t i=0; i!=N; ++i)
           insert(f(extract(a0, i) , extract(a1, i) , extract(a2, i) , extract(a3, i) , extract(a4, i) , extract(a5, i)), that, i);
+        return that;
       }
     };
     template<class Dummy>

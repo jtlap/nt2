@@ -106,6 +106,7 @@ namespace boost { namespace simd { namespace ext
         result_type that;
         for(std::size_t i=0; i!=N; ++i)
           insert(f(BOOST_PP_ENUM(n, M3, i)), that, i);
+        return that;
       }
     };
 
