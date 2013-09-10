@@ -19,13 +19,9 @@
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <boost/assert.hpp>
 
-// CHECK IF REALLY REQUIRED
-//#include <nt2/core/settings/details/fusion.hpp>
-
-
 namespace nt2 { namespace ext
 {
-  // MOVE ELSEWHERE DETAILS::
+  // move to details namespace?
   template<class T, class A0>
   std::size_t maxpos(A0 const& a0)
   {
