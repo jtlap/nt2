@@ -9,33 +9,27 @@
 #ifndef NT2_CORE_SETTINGS_DETAILS_BUFFER_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_DETAILS_BUFFER_HPP_INCLUDED
 
-#include <boost/mpl/int.hpp>
 #include <boost/mpl/apply.hpp>
-#include <nt2/core/settings/size.hpp>
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/sharing.hpp>
 
-namespace nt2
+namespace nt2 { namespace details
 {
-  //============================================================================
-  // If any Buffer type is provided, return it w/e other settings are
-  //============================================================================
-  template<class Buffer> struct buffer_
+  /// If a Buffer type is provided, return it directly
+  template<class T> struct make_buffer
   {
-    template<class T,class S> struct apply { typedef Buffer type; };
+    template<class Container> struct apply { typedef T type; };
   };
 
-  //============================================================================
-  // If not, build up the buffer manually from the user-defined settings.
-  //============================================================================
-  template<> struct buffer_<void>
+  /// If not, build up the buffer manually from the user-defined settings.
+  template<> struct make_buffer<nt2::built_in_>
   {
-    template<class T,class S> struct apply
+    template<class Container> struct apply
     {
-      typedef typename meta::option<S, tag::sharing_>::type mode;
-      typedef typename mode::template apply<T,S>::type      type;
+      typedef typename meta::option<Container,tag::sharing_>::type sharing_t;
+      typedef typename sharing_t::template apply<Container>::type  type;
     };
   };
-}
+} }
 
 #endif

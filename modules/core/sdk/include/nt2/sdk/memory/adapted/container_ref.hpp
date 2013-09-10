@@ -11,66 +11,85 @@
 
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/sdk/memory/forward/container.hpp>
+#include <nt2/sdk/memory/category.hpp>
+#include <nt2/core/settings/option.hpp>
+#include <nt2/core/settings/add_settings.hpp>
 #include <nt2/sdk/meta/is_container.hpp>
+#include <nt2/core/settings/add_settings.hpp>
+#include <nt2/sdk/meta/settings_of.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
-
-#include <nt2/core/settings/option.hpp>
-#include <nt2/core/settings/forward/semantic.hpp>
-
-namespace nt2 { namespace tag
-{
-  struct table_;
-} }
+#include <boost/dispatch/meta/terminal_of.hpp>
 
 namespace nt2 { namespace meta
 {
-  template<class T, class S>
-  struct  is_container_ref< memory::container_ref<T, S> >
+  /// INTERNAL ONLY memory::container_ref models ContainerReference
+  template<typename Kind, typename T, typename S>
+  struct  is_container_ref< memory::container_ref<Kind, T, S> >
         : boost::mpl::true_
   {};
+
+  /// INTERNAL ONLY Option of a container use its settings and semantic
+  template<typename Kind, typename T, typename S, typename Tag>
+  struct  option<memory::container_ref<Kind, T, S> , Tag>
+        : option<S, Tag, Kind>
+  {};
+
+  /// INTERNAL ONLY - Adding option directly to a container_ref
+  template<typename Kind, typename T, typename S, typename S2>
+  struct add_settings< memory::container_ref<Kind, T, S>, S2 >
+  {
+    typedef typename add_settings<S, S2>::type  s_t;
+    typedef memory::container_ref<Kind,T,s_t>   type;
+  };
+
+  /// INTERNAL ONLY : Extract settings from container_ref
+  template<typename Kind, typename T, typename S>
+  struct settings_of< memory::container_ref<Kind, T, S> >
+  {
+    typedef S type;
+  };
 } }
 
 namespace boost { namespace dispatch { namespace meta
 {
-  //============================================================================
-  // value_of specializations
-  //============================================================================
-  template<class T, class S>
-  struct value_of< nt2::memory::container_ref<T, S> >
+  /// INTERNAL ONLY value_of for container_ref
+  template<typename Kind, typename T, typename S>
+  struct value_of< nt2::memory::container_ref<Kind, T, S> >
   {
     typedef T& type;
   };
 
-  //============================================================================
-  // model_of specialization
-  //============================================================================
-  template<class T, class S>
-  struct model_of< nt2::memory::container_ref<T, S> >
+  /// INTERNAL ONLY model_of for container_ref
+  template<typename Kind, typename T, typename S>
+  struct model_of< nt2::memory::container_ref<Kind, T, S> >
   {
     struct type
     {
-      template<class X>
-      struct apply
+      template<typename X> struct apply
       {
-        typedef nt2::memory::container_ref<X, S> type;
+        typedef nt2::memory::container_ref<Kind, X, S> type;
       };
     };
   };
 
-  //============================================================================
-  // container hierarchy
-  //============================================================================
-  template<class T, class S, class Origin>
-  struct hierarchy_of< nt2::memory::container_ref<T, S>, Origin >
+  /// INTERNAL ONLY hierarchy_of for container_ref
+  template<typename Kind, typename T, typename S, typename Origin>
+  struct hierarchy_of< nt2::memory::container_ref<Kind, T, S>, Origin >
   {
-    typedef typename nt2::meta::option < S
-                                      , nt2::tag::semantic_
-                                      , nt2::tag::table_
-                                      >::type                   semantic_t;
-    typedef typename semantic_t::template apply<T,S,Origin>::type type;
+    typedef container_< Kind
+                      , typename boost::dispatch::meta
+                                                ::property_of<T,Origin>::type
+                      , S
+                      >                   type;
   };
+
+  /// INTERNAL ONLY container builds a terminal from its semantic
+  template<typename Kind, typename T, typename S>
+  struct  terminal_of< nt2::memory::container_ref<Kind, T, S> >
+        : Kind::template terminal_of<T,S>
+  {};
 } } }
 
 #endif

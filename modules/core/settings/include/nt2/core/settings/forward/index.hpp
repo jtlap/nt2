@@ -37,7 +37,7 @@ namespace nt2
     BOOST_PP_CAT(BOOST_PP_CAT(boost::mpl::vector,NT2_MAX_DIMENSIONS),_c)
               < std::ptrdiff_t
               , BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,I)
-              >                                                       type;
+              >                                                  index_type;
   };
 
   #undef M0
@@ -63,9 +63,8 @@ namespace nt2
      * Option tag for the base index options
      **/
     //==========================================================================
-    struct index_ {};
+    struct index_;
   }
-
 }
 
 #endif

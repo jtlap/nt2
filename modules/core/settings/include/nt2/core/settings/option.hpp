@@ -14,46 +14,46 @@
  * \brief Defines NT2 container option base system
  **/
 
-#include <boost/mpl/assert.hpp>
-
-//==============================================================================
-/*!
- * Defines the maximum number of options that can be passed to a composite
- * settings. This macro can be set by users if needed.
- **/
-//==============================================================================
-#ifndef NT2_META_MAX_OPTIONS_NB
-#define NT2_META_MAX_OPTIONS_NB 16
-#endif
+#include <boost/mpl/eval_if.hpp>
+#include <nt2/core/settings/match_option.hpp>
+#include <nt2/core/settings/details/no_semantic.hpp>
 
 namespace nt2 { namespace meta
 {
-  //============================================================================
   /*!
-   * Extract an option value from a given type or type groups, returning a given
-   * default option if none is found.
+   * @brief Extract an option value from a given type or type groups
    *
-   * \tparam Type Settings type to introspect
-   * \tparam Option Option tag to be retrieved
-   * \tparam Default If no Option is found, use this option as a source
+   * \tparam Settings Settings type to introspect
+   * \tparam Option   Option tag to be retrieved
+   * \tparam Semantic If no Option is found, use this semantic's guidelines
    **/
-  //============================================================================
-  template<class Type, class Option, class Default = void>
-  struct  option : option<Default,Option>
+  template<class Settings, class Option, class Semantic = nt2::no_semantic_>
+  struct  option
+        : boost::mpl::eval_if < match_option<Settings,Option>
+                              , typename Semantic::template option< Settings
+                                                                  , Option
+                                                                  >
+                              , typename Semantic::template default_<Option>
+                              >
   {};
 
-  struct no_such_option {};
+  /// INTERNAL ONLY Forward option retrieval on S(*)(X) to S(X)
+  template<class Settings, class Option, class Semantic>
+  struct  option<Settings*,Option,Semantic>
+        : option<Settings,Option,Semantic>
+  {};
 
-  template<class Option> struct  option<void,Option, void>
-  {
-    typedef no_such_option type;
-  };
+  /// INTERNAL ONLY Forward option retrieval for &
+  template<class Settings, class Option, class Semantic>
+  struct  option<Settings&,Option,Semantic>
+        : option<Settings,Option,Semantic>
+  {};
 
-  //============================================================================
-  // Forward option checking on S(*)(X) to S(X)
-  //============================================================================
-  template<class Type, class Option, class Default>
-  struct option<Type*,Option,Default> : option<Type,Option,Default> {};
+  /// INTERNAL ONLY Forward option retrieval for const
+  template<class Settings, class Option, class Semantic>
+  struct  option<Settings const,Option,Semantic>
+        : option<Settings,Option,Semantic>
+  {};
 } }
 
 #endif

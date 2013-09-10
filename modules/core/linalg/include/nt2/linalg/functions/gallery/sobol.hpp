@@ -12,6 +12,7 @@
 #include <nt2/linalg/functions/sobol.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/core/container/table/table.hpp>
+#include <nt2/core/container/colon/colon.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/constants/nbmantissabits.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>

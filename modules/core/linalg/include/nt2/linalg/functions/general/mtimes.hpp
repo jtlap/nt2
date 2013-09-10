@@ -20,8 +20,8 @@
 #include <nt2/core/container/dsl/alias.hpp>
 #include <nt2/core/container/dsl/as_terminal.hpp>
 #include <nt2/core/container/dsl/assign_swap.hpp>
-#include <nt2/core/container/table/category.hpp>
 #include <nt2/sdk/memory/forward/container.hpp>
+#include <nt2/sdk/memory/category.hpp>
 #include <boost/proto/traits.hpp>
 #include <boost/assert.hpp>
 
@@ -236,7 +236,8 @@ namespace nt2 { namespace ext
         return a0;
       }
 
-      typedef nt2::memory::container<value_type, nt2::_2D> desired_semantic;
+      typedef typename meta::kind_<A1>::type container_kind;
+      typedef nt2::memory::container<container_kind,value_type, nt2::_2D> desired_semantic;
       typename container::as_terminal<desired_semantic, typename boost::proto::result_of::child_c<A1&, 0>::type>::type child0 = boost::proto::child_c<0>(a1);
       typename container::as_terminal<desired_semantic, typename boost::proto::result_of::child_c<A1&, 1>::type>::type child1 = boost::proto::child_c<1>(a1);
       typename container::as_terminal<desired_semantic, A0&>::type result = container::as_terminal<desired_semantic, A0&>::init(a0);

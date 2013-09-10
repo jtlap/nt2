@@ -10,7 +10,7 @@
 #define NT2_CORE_UTILITY_OF_SIZE_HPP_INCLUDED
 
 #include <nt2/core/utility/of_size/fusion.hpp>
-#include <nt2/core/settings/details/fusion.hpp>
+#include <nt2/core/utility/fusion.hpp>
 #include <nt2/core/functions/scalar/numel.hpp>
 #include <nt2/sdk/memory/copy.hpp>
 #include <nt2/sdk/meta/is_iterator.hpp>
@@ -99,6 +99,8 @@ namespace nt2
   template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D) >
   struct of_size_
   {
+    typedef of_size_                            of_size_type;
+
     typedef tag::of_size_                       fusion_tag;
     typedef boost::fusion::fusion_sequence_tag  tag;
 

@@ -10,7 +10,6 @@
 #define NT2_COMBINATORIAL_FUNCTIONS_EXPR_PERMSN_HPP_INCLUDED
 
 #include <nt2/combinatorial/functions/permsn.hpp>
-#include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/prod.hpp>
 #include <nt2/include/functions/min.hpp>
@@ -18,6 +17,7 @@
 #include <nt2/include/functions/colon.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/core/container/table/table.hpp>
+#include <nt2/core/container/colon/colon.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <algorithm>
 

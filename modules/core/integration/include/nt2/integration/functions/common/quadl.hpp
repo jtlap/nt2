@@ -31,6 +31,7 @@
 #include <nt2/include/functions/globalsum.hpp>
 #include <nt2/include/functions/globalasum1.hpp>
 #include <nt2/core/container/table/table.hpp>
+#include <nt2/core/container/colon/colon.hpp>
 #include <nt2/integration/output.hpp>
 #include <nt2/integration/options.hpp>
 #include <nt2/integration/waypoints.hpp>

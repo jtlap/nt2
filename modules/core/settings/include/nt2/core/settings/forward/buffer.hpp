@@ -9,23 +9,19 @@
 #ifndef NT2_CORE_SETTINGS_FORWARD_BUFFER_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_FORWARD_BUFFER_HPP_INCLUDED
 
+/*!
+  @file
+  @brief Defines the buffer_ settings tag
+**/
+
 namespace nt2
 {
-  //============================================================================
-  // Buffer type computing metafunction
-  //============================================================================
-  template<class Buffer = void> struct buffer_;
+  struct built_in_ {};
 
   namespace tag
   {
-    //==========================================================================
-    /*!
-     * Option tag for buffer options
-     **/
-    //==========================================================================
-    struct buffer_ {};
-  }
-}
-
+    /// @brief Option tag for buffer options
+    struct buffer_;
+} }
 
 #endif

@@ -32,6 +32,7 @@
 #include <nt2/include/constants/mhalf.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/core/container/table/table.hpp>
+#include <nt2/core/container/colon/colon.hpp>
 #include <nt2/optimization/options.hpp>
 
 namespace nt2 { namespace details

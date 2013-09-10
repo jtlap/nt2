@@ -12,86 +12,96 @@
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/sdk/memory/forward/container.hpp>
 #include <nt2/sdk/meta/is_container.hpp>
+#include <nt2/core/settings/add_settings.hpp>
+#include <nt2/sdk/meta/settings_of.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/make_shared.hpp>
 
 #include <nt2/core/settings/option.hpp>
-#include <nt2/core/settings/forward/semantic.hpp>
 #include <boost/dispatch/meta/terminal_of_shared.hpp>
-
-namespace nt2 { namespace tag
-{
-  struct table_;
-} }
 
 namespace nt2 { namespace meta
 {
-  //============================================================================
-  // Register container as a proper container
-  //============================================================================
-  template<class T, class S>
-  struct  is_container< memory::container_shared_ref<T, S, true> >
+  /// INTERNAL ONLY memory::container_shared_ref models Container
+  template<typename Kind, typename T, typename S>
+  struct  is_container< memory::container_shared_ref<Kind, T, S, true> >
         : boost::mpl::true_ {};
 
-  template<class T, class S, bool Own>
-  struct  is_container_ref< memory::container_shared_ref<T, S, Own> >
+  template<typename Kind, typename T, typename S, bool Own>
+  struct  is_container_ref< memory::container_shared_ref<Kind, T, S, Own> >
         : boost::mpl::true_ {};
+
+  /// INTERNAL ONLY Option of a container use its settings and semantic
+  template<typename Kind, typename T, typename S, bool Own, typename Tag>
+  struct  option<memory::container_shared_ref<Kind, T, S, Own> , Tag>
+        : option<S, Tag, Kind>
+  {};
+
+  /// INTERNAL ONLY - Adding option directly to a container
+  template<typename Kind, typename T, typename S, bool Own, typename S2>
+  struct add_settings< memory::container_shared_ref<Kind, T, S, Own>, S2 >
+  {
+    typedef typename add_settings<S, S2>::type              s_t;
+    typedef memory::container_shared_ref<Kind, T, s_t, Own> type;
+  };
+
+  /// INTERNAL ONLY : Extract settings from container
+  template<typename Kind, typename T, typename S, bool Own>
+  struct settings_of< memory::container_shared_ref<Kind, T, S, Own> >
+  {
+    typedef S type;
+  };
 } }
 
 namespace boost { namespace dispatch { namespace meta
 {
-  //============================================================================
-  // value_of specializations
-  //============================================================================
-  template<class T, class S, bool Own>
-  struct value_of< nt2::memory::container_shared_ref<T, S, Own> >
+  /// INTERNAL ONLY value_of for container_shared_ref
+  template<typename Kind, typename T, typename S, bool Own>
+  struct value_of< nt2::memory::container_shared_ref<Kind, T, S, Own> >
   {
     typedef T& type;
   };
 
-  //============================================================================
-  // model_of specialization
-  //============================================================================
-  template<class T, class S, bool Own>
-  struct model_of< nt2::memory::container_shared_ref<T, S, Own> >
+  /// INTERNAL ONLY model_of for container_shared_ref
+  template<typename Kind, typename T, typename S, bool Own>
+  struct model_of< nt2::memory::container_shared_ref<Kind, T, S, Own> >
   {
     struct type
     {
-      template<class X>
-      struct apply
+      template<typename X> struct apply
       {
-        typedef nt2::memory::container_shared_ref<X, S, Own> type;
+        typedef nt2::memory::container_shared_ref<X, S, Kind, Own> type;
       };
     };
   };
 
-  //============================================================================
-  // container hierarchy
-  //============================================================================
-  template<class T, class S, bool Own, class Origin>
-  struct hierarchy_of< nt2::memory::container_shared_ref<T, S, Own>, Origin >
+  /// INTERNAL ONLY hierarchy_of for container_shared_ref
+  template<typename Kind, typename T, typename S, bool Own, typename Origin>
+  struct hierarchy_of < nt2::memory::container_shared_ref<Kind, T, S, Own>
+                      , Origin
+                      >
   {
-    typedef typename nt2::meta::option < S
-                                      , nt2::tag::semantic_
-                                      , nt2::tag::table_
-                                      >::type                   semantic_t;
-    typedef typename semantic_t::template apply<T,S,Origin>::type type;
+    typedef container_< Kind
+                      , typename boost::dispatch::meta
+                                      ::property_of<T,Origin>::type
+                      , S
+                      >                   type;
   };
 
-  template<class T, class S>
-  struct terminal_of_shared< nt2::memory::container<T, S> >
+  /// INTERNAL ONLY terminal_of_shared specialization
+  template<typename Kind, typename T, typename S>
+  struct terminal_of_shared< nt2::memory::container<Kind, T, S> >
   {
-    typedef nt2::memory::container<T, S>                        container;
-    typedef nt2::memory::container_shared_ref<T, S, true>       container_ref;
+    typedef nt2::memory::container<Kind, T, S>                    container;
+    typedef nt2::memory::container_shared_ref<Kind, T, S, true>   container_ref;
     typedef boost::proto::basic_expr< boost::proto::tag::terminal
                                     , boost::proto::term<container_ref>
                                     , 0
-                                    >                           basic_expr;
-    typedef nt2::container::expression< basic_expr
-                                      , container&
-                                      >                         type;
+                                    >                             basic_expr;
+    typedef nt2::container::expression< basic_expr, container&>   type;
+
     static type make()
     {
       return type(basic_expr::make(container_ref()));

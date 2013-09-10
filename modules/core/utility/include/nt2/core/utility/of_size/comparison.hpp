@@ -9,7 +9,7 @@
 #ifndef NT2_CORE_UTILITY_OF_SIZE_COMPARISON_HPP_INCLUDED
 #define NT2_CORE_UTILITY_OF_SIZE_COMPARISON_HPP_INCLUDED
 
-#include <nt2/core/settings/details/fusion.hpp>
+#include <nt2/core/utility/fusion.hpp>
 
 #include <nt2/sdk/parameters.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>

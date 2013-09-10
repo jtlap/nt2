@@ -33,7 +33,7 @@ namespace nt2
      * Option tag for of_size_ options
      **/
     //==========================================================================
-    struct of_size_ {};
+    struct of_size_;
   }
 }
 

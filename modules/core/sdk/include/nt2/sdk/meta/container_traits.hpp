@@ -20,14 +20,35 @@
 #include <cstddef>
 #include <memory>
 
+namespace nt2 { namespace tag { struct table_; } }
+
 namespace nt2 { namespace meta
 {
+  //==============================================================================
+  //==============================================================================
+  template<typename T, typename Enable = void>
+  struct kind_
+  {
+    typedef tag::table_ type;
+  };
+
+
+  template<typename T>
+  struct kind_ < T
+                , typename  boost::dispatch::meta::
+                            enable_if_type<typename T::kind_type>::type
+                >
+  {
+    typedef typename T::kind_type type;
+  };
+
   //==============================================================================
   //==============================================================================
   template<class T, class Enable=void> struct size_type_
   {
     typedef std::size_t type;
   };
+
   template<class T> struct size_type_<T&> : size_type_<T> {};
 
    //==============================================================================

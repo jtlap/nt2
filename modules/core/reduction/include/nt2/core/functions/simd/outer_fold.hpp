@@ -26,25 +26,31 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates outer_fold
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::outer_fold_, boost::simd::tag::simd_, (A0)(S0)(T0)(N0)(A1)(A2)(A3)(A4)
-                               , (boost::simd::meta::is_vectorizable<typename A0::value_type, BOOST_SIMD_DEFAULT_EXTENSION>)
-                               , ((expr_< table_< unspecified_<A0>, S0 >
-                                        , T0
-                                        , N0
-                                        >
-                                 ))
-                                 ((ast_< A1, nt2::container::domain>))
-                                 (unspecified_<A2>)
-                                 (unspecified_<A3>)
-                                 (unspecified_<A4>)
-                               )
+  NT2_FUNCTOR_IMPLEMENTATION_IF ( nt2::tag::outer_fold_, boost::simd::tag::simd_
+                                , (A0)(S0)(K0)(T0)(N0)(A1)(A2)(A3)(A4)
+                                , ( boost::simd::meta::
+                                    is_vectorizable < typename A0::value_type
+                                                    , BOOST_SIMD_DEFAULT_EXTENSION
+                                                    >
+                                  )
+                                , ((expr_ < container_<K0,unspecified_<A0>,S0>
+                                          , T0
+                                          , N0
+                                          >
+                                  ))
+                                  ((ast_< A1, nt2::container::domain>))
+                                  (unspecified_<A2>)
+                                  (unspecified_<A3>)
+                                  (unspecified_<A4>)
+                                )
   {
     typedef void                                                              result_type;
     typedef typename A0::value_type                                           value_type;
     typedef typename A1::extent_type                                          extent_type;
     typedef boost::simd::native<value_type,BOOST_SIMD_DEFAULT_EXTENSION>      target_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const&) const
+    BOOST_FORCEINLINE result_type
+    operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const&) const
     {
       extent_type ext = in.extent();
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
@@ -94,8 +100,7 @@ namespace nt2 { namespace ext
       }
     }
   };
-
-  } }
+} }
 
 #endif
 

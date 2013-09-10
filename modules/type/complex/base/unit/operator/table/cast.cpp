@@ -21,6 +21,7 @@
 
 NT2_TEST_CASE( generator )
 {
+  using nt2::tag::table_;
   typedef double T;
   typedef nt2::settings S(nt2::_4D);
   nt2::table<T, S> a0;
@@ -28,12 +29,12 @@ NT2_TEST_CASE( generator )
 
   NT2_TEST_EXPR_TYPE( nt2::cast< std::complex<T> >(a0)
                     , boost::dispatch::meta::semantic_of<boost::mpl::_>
-                    , (nt2::memory::container< std::complex<T>, S>)
+                    , (nt2::memory::container<table_, std::complex<T>, S>)
                     );
 
   NT2_TEST_EXPR_TYPE( nt2::cast< std::complex<float> >(a1)
                     , boost::dispatch::meta::semantic_of<boost::mpl::_>
-                    , (nt2::memory::container< std::complex<float>, S>)
+                    , (nt2::memory::container<table_,std::complex<float>, S>)
                     );
 }
 

@@ -15,24 +15,42 @@
 
 namespace nt2
 {
-  //============================================================================
-  // rectangular_ shape
-  //============================================================================
+  /*!
+    @brief rectangular_ shape  option
+
+    @c rectangular_ is used to tag a Container as being dense, i.e. containing
+    no non-trivial elements.
+  **/
   struct rectangular_
   {
-    //==========================================================================
-    // rectangular_ just use the buffer we asked for
-    //==========================================================================
-    template<class T, class S> struct apply
+    /*!
+      @brief Deduces buffer type from shape information
+
+      For a given @C Container, computes the buffer type required for
+      said buffer to store its data.
+
+      @tparam Container Container type used as options source
+    **/
+    template<typename Container> struct apply
     {
-      typedef typename meta::option<S,tag::buffer_>::type   buffer_t;
-      typedef typename buffer_t::template apply<T,S>::type  type;
+      typedef typename meta::option<Container, tag::buffer_>::type  buffer_t;
+      typedef typename details::make_buffer<buffer_t>
+                              ::template apply<Container>::type type;
     };
 
-    template<class Size> static
+    /*!
+      @brief Number of non-trivial elements
+
+      Computes the number of non-trivial elements stored in the current
+      Container.
+
+      @param sz Extent of current Container
+      @return Number of non-trivial elements to allocate
+    **/
+    template<typename Size> static
     BOOST_FORCEINLINE std::size_t nnz(Size const& sz)
     {
-      return numel(sz);
+      return nt2::numel(sz);
     }
   };
 }

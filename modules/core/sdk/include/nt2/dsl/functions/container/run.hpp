@@ -21,7 +21,7 @@
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/terminal.hpp>
 #include <nt2/include/functions/firstnonsingleton.hpp>
-#include <nt2/core/container/table/category.hpp>
+#include <nt2/sdk/memory/category.hpp>
 #include <nt2/sdk/meta/is_container.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
 #include <boost/proto/traits.hpp>
@@ -223,9 +223,9 @@ namespace nt2 { namespace ext
   // Non-assign table expressions are reduced to assign expressions
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::run_, tag::cpu_
-                            , (A0)(S0)(T)(N)
+                            , (A0)(S0)(K0)(T)(N)
                             , (mpl::not_< is_same<T, boost::simd::tag::assign_> >)
-                            , ((expr_< table_< unspecified_<A0>, S0 >
+                            , ((expr_< container_<K0,unspecified_<A0>,S0>
                                      , T
                                      , N
                                      >
@@ -250,8 +250,8 @@ namespace nt2 { namespace ext
   // Running a table terminal does nothing and returns it
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
-                            , (A0)(S0)(T)
-                            , ((expr_< table_< unspecified_<A0>, S0 >
+                            , (A0)(S0)(K0)(T)
+                            , ((expr_< container_<K0,unspecified_<A0>,S0>
                                      , T
                                      , boost::mpl::long_<0>
                                      >

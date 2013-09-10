@@ -12,10 +12,8 @@ SET ( NT2_CORE.SDK_DEPENDENCIES_EXTRA
       boost.simd.base
       boost.simd.reduction
       boost.simd.sdk
-      core.sdk
       core.base
-      core.container.placeholders
-      core.container.table
+      core.container.view
       core.reduction
       core.restructuring
       core.settings

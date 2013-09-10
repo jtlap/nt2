@@ -11,6 +11,7 @@ SET ( NT2_CORE.CONTAINER.TABLE_DEPENDENCIES_EXTRA
       boost.dispatch
       boost.simd.sdk
       core.base
+      core.container.view
       core.container.placeholders
       core.sdk
       core.settings

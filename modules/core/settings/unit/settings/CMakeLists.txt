@@ -8,10 +8,12 @@
 ################################################################################
 
 SET( SOURCES
+     add_settings.cpp
      alignment.cpp
      allocator.cpp
      buffer.cpp
      index.cpp
+     interleaving.cpp
      size.cpp
      storage_order.cpp
      shape.cpp

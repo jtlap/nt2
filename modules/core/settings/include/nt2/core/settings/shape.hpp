@@ -12,16 +12,42 @@
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/forward/shape.hpp>
 
-namespace nt2
+namespace nt2 { namespace tag
 {
-  namespace meta
+  struct shape_
   {
-    template<class Default> struct option<rectangular_, tag::shape_, Default>
-    {
-      typedef rectangular_ type;
-    };
-  }
-}
+    template<class T>
+    struct apply : boost::mpl::false_
+    {};
+
+    typedef nt2::rectangular_ default_type;
+  };
+
+  template<>
+  struct shape_::apply<nt2::rectangular_>
+                : boost::mpl::true_
+  {};
+
+  template<>
+  struct shape_::apply<nt2::upper_triangular_>
+                : boost::mpl::true_
+  {};
+
+  template<>
+  struct shape_::apply<nt2::lower_triangular_>
+                : boost::mpl::true_
+  {};
+
+  template<>
+  struct shape_::apply<nt2::band_diagonal_>
+                : boost::mpl::true_
+  {};
+
+  template<>
+  struct shape_::apply<nt2::diagonal_>
+                : boost::mpl::true_
+  {};
+} }
 
 #include <nt2/core/settings/details/shape.hpp>
 

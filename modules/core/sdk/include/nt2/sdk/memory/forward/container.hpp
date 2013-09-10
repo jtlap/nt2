@@ -16,8 +16,7 @@
 //==============================================================================
 namespace nt2 { namespace memory
 {
-  template<class T>
-  struct container_base
+  template<class T> struct container_base
   {
     container_base() : specific_() {}
 
@@ -41,17 +40,21 @@ namespace nt2 { namespace memory
     //==========================================================================
     specific_data_type&  specifics() const { return specific_; }
 
-  private:
+    private:
     mutable specific_data_type  specific_;
   };
 
-  template<class T, class S>                   class   container;
-  template<class T, class S>                   struct  container_ref;
-  template<class T, class S, bool Own = false> struct  container_shared_ref;
+  template<typename Kind, typename Type, typename Settings> struct container;
+  template<typename Kind, typename Type, typename Settings> struct container_ref;
+  template<typename Kind, typename Type, typename Settings, bool Own = false>
+  struct  container_shared_ref;
 
-  template<class T, class S1, class S2>
-  void swap(container<T,S1>&, container<T,S2>&);
+  template< typename Kind1, typename Kind2
+          , typename T
+          , typename S1, typename S2
+          >
+  BOOST_FORCEINLINE
+  void swap(container<Kind1,T,S1>&, container<Kind2,T,S2>&);
 } }
-
 
 #endif

@@ -21,6 +21,7 @@
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/sqrteps.hpp>
 #include <nt2/core/container/table/table.hpp>
+#include <nt2/core/container/colon/colon.hpp>
 #include <nt2/optimization/options.hpp>
 
 namespace nt2 { namespace details

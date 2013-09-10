@@ -26,6 +26,7 @@
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/sqrteps.hpp>
 #include <boost/fusion/include/std_pair.hpp>
+#include <nt2/core/container/colon/colon.hpp>
 
 namespace nt2 { namespace ext
 {

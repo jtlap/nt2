@@ -14,35 +14,33 @@
 
 namespace nt2
 {
-  //============================================================================
-  // In conventionnal mode, we store everything in a rectangular shape
-  //============================================================================
+  /// INTERNAL ONLY
+  /// In conventionnal mode, we store everything in a rectangular shape
   struct conventional_
   {
-    template<class T, class S> struct apply
+    template<class Container> struct apply
     {
-      typedef typename rectangular_::apply<T,S>::type type;
+      typedef typename rectangular_::apply<Container>::type type;
 
-      template<class Size> static
-      BOOST_FORCEINLINE std::size_t nnz(Size const& sz)
+      template<class Size>
+      static BOOST_FORCEINLINE std::size_t nnz(Size const& sz)
       {
         return rectangular_::nnz(sz);
       }
     };
   };
 
-  //============================================================================
-  // In packed mode, the shape wraps the buffer and takes care of its behavior
-  //============================================================================
+  /// INTERNAL ONLY
+  /// In packed mode, the shape wraps the buffer and takes care of its behavior
   struct packed_
   {
-    template<class T, class S> struct apply
+    template<class Container> struct apply
     {
-      typedef typename meta::option<S,tag::shape_>::type  shape_t;
-      typedef typename shape_t::template apply<T,S>::type type;
+      typedef typename meta::option<Container, tag::shape_>::type shape_t;
+      typedef typename shape_t::template apply<Container>::type   type;
 
-      template<class Size> static
-      BOOST_FORCEINLINE std::size_t nnz(Size const& sz)
+      template<class Size>
+      static BOOST_FORCEINLINE std::size_t nnz(Size const& sz)
       {
         return shape_t::nnz(sz);
       }

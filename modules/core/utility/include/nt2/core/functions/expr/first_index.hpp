@@ -23,7 +23,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename boost::mpl::
-            at_c< typename A0::index_type::type, A1::value-1>::type
+            at_c< typename A0::index_type::index_type, A1::value-1>::type
     result_type;
 
     BOOST_FORCEINLINE result_type operator()(const A0&, const A1&) const
@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(const A0&, const A1& d) const
     {
-      typedef typename A0::index_type::type idx_t;
+      typedef typename A0::index_type::index_type idx_t;
 
       BOOST_ASSERT_MSG
       ( (d <= NT2_MAX_DIMENSIONS) && (d > 0)

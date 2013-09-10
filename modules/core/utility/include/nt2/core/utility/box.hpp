@@ -18,6 +18,7 @@
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
 #include <nt2/core/container/dsl/expression.hpp>
+#include <nt2/core/container/table/kind.hpp>
 #include <nt2/dsl/functions/terminal.hpp>
 #include <boost/proto/traits.hpp>
 
@@ -64,6 +65,8 @@ namespace nt2
   {
     /// Type of the value stored in current box
     typedef T value_type;
+
+    typedef nt2::tag::table_ kind_type;
 
     /*!
       @brief Default constructor for box

@@ -123,7 +123,8 @@ namespace nt2 { namespace ext
         , 3l
       >
     , nt2::memory::container<
-          T
+          tag::table_
+        , T
         , nt2::settings(
             nt2::of_size_<
                 1l

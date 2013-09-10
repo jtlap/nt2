@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_SETTINGS_DETAILS_FUSION_HPP_INCLUDED
-#define NT2_CORE_SETTINGS_DETAILS_FUSION_HPP_INCLUDED
+#ifndef NT2_CORE_UTILITY_FUSION_HPP_INCLUDED
+#define NT2_CORE_UTILITY_FUSION_HPP_INCLUDED
 
 #include <boost/dispatch/attributes.hpp>
 #include <boost/fusion/include/iterator_range.hpp>

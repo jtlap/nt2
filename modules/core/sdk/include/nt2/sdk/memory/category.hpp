@@ -14,14 +14,22 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  template<class T, class Layout>
-  struct table_ : table_<typename T::parent, Layout>
+  /*!
+    @brief Container hierarchy
+
+    A Container hierarchy is computed from the original type T anc
+    contains informations about the actual container semantic and its
+    settings.
+  **/
+  template<typename Kind, typename T, typename Settings>
+  struct container_ : container_<Kind, typename T::parent, Settings>
   {
-    typedef table_<typename T::parent, Layout> parent;
+    typedef container_<Kind, typename T::parent, Settings> parent;
   };
 
-  template<class T, class Layout>
-  struct  table_< unspecified_<T>, Layout >
+  /// INTERNAL ONLY
+  template<typename Kind, typename T, typename Settings>
+  struct  container_< Kind, unspecified_<T>, Settings >
         : generic_< typename property_of<T>::type >
   {
     typedef generic_< typename property_of<T>::type > parent;
@@ -30,7 +38,7 @@ namespace boost { namespace dispatch { namespace meta
 
 namespace nt2 { namespace ext
 {
-  using boost::dispatch::meta::table_;
+  using boost::dispatch::meta::container_;
 } }
 
 #endif

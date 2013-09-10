@@ -9,30 +9,34 @@
 #ifndef NT2_SDK_META_IS_COLON_HPP_INCLUDED
 #define NT2_SDK_META_IS_COLON_HPP_INCLUDED
 
-#include <nt2/core/container/colon/colon.hpp>
-#include <boost/proto/traits.hpp>
 #include <boost/mpl/bool.hpp>
+#include <boost/proto/traits.hpp>
 #include <boost/utility/enable_if.hpp>
 
-namespace nt2 { namespace meta
+namespace nt2
 {
-  template<class T, class Enable = void>
-  struct is_colon
-    : boost::mpl::false_
-  {
-  };
+  namespace container { struct colon_; }
 
-  template<class T>
-  struct is_colon<T, typename boost::enable_if_c< boost::proto::arity_of<T>::value == 0 >::type>
-    : boost::
-      is_same< typename boost::dispatch::meta::
-               strip< typename boost::proto::result_of::
-                      value<T>::type
-                    >::type
-             , container::colon_
-             >
+  namespace meta
   {
-  };
-} }
+    template<class T, class Enable = void>
+    struct is_colon
+      : boost::mpl::false_
+    {
+    };
+
+    template<class T>
+    struct is_colon<T, typename boost::enable_if_c< boost::proto::arity_of<T>::value == 0 >::type>
+      : boost::
+        is_same< typename boost::dispatch::meta::
+                 strip< typename boost::proto::result_of::
+                        value<T>::type
+                      >::type
+               , container::colon_
+               >
+    {
+    };
+  }
+}
 
 #endif

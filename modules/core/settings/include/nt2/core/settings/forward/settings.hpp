@@ -21,5 +21,4 @@ namespace nt2
   struct settings {};
 }
 
-
 #endif

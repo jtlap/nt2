@@ -11,6 +11,7 @@ SET( SOURCES
      box.cpp
      generator.cpp
      run.cpp
+     kind_of.cpp
      optimize.cpp
      schedule.cpp
    )

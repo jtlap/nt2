@@ -48,7 +48,7 @@ namespace nt2
                     , Pos& p           , boost::mpl::int_<2> const&
                     )
     {
-      typedef typename Xpr::index_type::type    index_type;
+      typedef typename Xpr::index_type::index_type    index_type;
 
       // Base index for making the linear index properly C based
       const std::ptrdiff_t b = boost::mpl::at_c<index_type,0>::type::value;
