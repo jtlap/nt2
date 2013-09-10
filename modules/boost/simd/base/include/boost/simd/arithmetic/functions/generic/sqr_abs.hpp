@@ -11,42 +11,12 @@
 
 #include <boost/simd/arithmetic/functions/sqr_abs.hpp>
 #include <boost/simd/include/functions/simd/sqr.hpp>
-#include <boost/simd/include/functions/simd/abss.hpp>
-#include <boost/simd/include/functions/simd/is_greater.hpp>
-#include <boost/simd/include/functions/simd/if_else.hpp>
-#include <boost/simd/include/constants/valmax.hpp>
-#include <boost/simd/include/constants/sqrtvalmax.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sqr_abs_, tag::cpu_
                             , (A0)
-                            , (generic_< int_<A0> >)
-                            )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      return if_else(gt(abss(a0), boost::simd::Sqrtvalmax<result_type>()),
-                     boost::simd::Valmax<result_type>(), sqr(a0));
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sqr_abs_, tag::cpu_
-                            , (A0)
-                            , (generic_< uint_<A0> >)
-                            )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      return if_else(gt(a0, boost::simd::Sqrtvalmax<result_type>()),
-                     boost::simd::Valmax<result_type>(), sqr(a0));
-    }
-  };
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sqr_abs_, tag::cpu_
-                            , (A0)
-                            , (generic_< floating_<A0> >)
+                            , (generic_< arithmetic_<A0> >)
                             )
   {
     typedef A0 result_type;

@@ -6,54 +6,54 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SQR_ABS_HPP_INCLUDED
-#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SQR_ABS_HPP_INCLUDED
+#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SQRS_HPP_INCLUDED
+#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SQRS_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
 namespace boost { namespace simd { namespace tag
   {
    /*!
-      @brief  sqr_abs generic tag
+      @brief  sqrs generic tag
 
-      Represents the sqr_abs function in generic contexts.
+      Represents the sqrs function in generic contexts.
 
       @par Models:
       Hierarchy
     **/
-    struct sqr_abs_ : ext::elementwise_<sqr_abs_>
+    struct sqrs_ : ext::elementwise_<sqrs_>
     {
       /// @brief Parent hierarchy
-      typedef ext::elementwise_<sqr_abs_> parent;
+      typedef ext::elementwise_<sqrs_> parent;
     };
   }
   /*!
-    Computes the square of the absolute value of its parameter.
+    Computes the saturated square of its parameter.
 
     @par semantic:
     For any given value @c x of type @c T:
 
     @code
-    T r = sqr_abs(x);
+    T r = sqrs(x);
     @endcode
 
-    is equivalent to:
+    is similar to:
 
     @code
-    T r = sqr(abs(x));
+    T r = x*x > Valmax ? Valmax : x*x;
     @endcode
 
     @par Alias
 
-    @c sqr_modulus
+    @c sqrs,  @saturated_sqr
 
     @param  a0
 
     @return      a value of the same type as the input.
 
   **/
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sqr_abs_, sqr_abs, 1)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sqr_abs_, sqr_modulus, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sqrs_, sqrs, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sqrs_, saturated_sqr, 1)
 } }
 
 #endif

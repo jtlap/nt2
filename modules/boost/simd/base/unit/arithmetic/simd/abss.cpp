@@ -31,10 +31,12 @@ NT2_TEST_CASE_TPL ( abss_real,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<abss_(vT)>::type r_t;
 
   // specific values tests
+#ifndef BOOST_SIMD_NO_INVALIDS
   NT2_TEST_EQUAL(abss(boost::simd::Inf<vT>()), boost::simd::Inf<r_t>());
   NT2_TEST_EQUAL(abss(boost::simd::Minf<vT>()), boost::simd::Inf<r_t>());
-  NT2_TEST_EQUAL(abss(boost::simd::Mone<vT>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(abss(boost::simd::Nan<vT>()), boost::simd::Nan<r_t>());
+#endif
+  NT2_TEST_EQUAL(abss(boost::simd::Mone<vT>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(abss(boost::simd::One<vT>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(abss(boost::simd::Valmax<vT>()), boost::simd::Valmax<r_t>());
   NT2_TEST_EQUAL(abss(boost::simd::Valmin<vT>()), boost::simd::Valmax<r_t>());

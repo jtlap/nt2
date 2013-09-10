@@ -64,6 +64,7 @@ SET( SOURCES
   rsqrt.cpp
   sqr_abs.cpp
   sqr.cpp
+  sqrs.cpp
   sqrt.cpp
   subs.cpp
   tofloat.cpp
