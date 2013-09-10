@@ -13,9 +13,9 @@
 #include <boost/simd/arithmetic/functions/sqrt.hpp>
 #include <boost/simd/include/functions/simd/toint.hpp>
 #include <boost/simd/include/functions/simd/touint.hpp>
-#include <boost/simd/include/functions/simd/is_gtz.hpp>
+#include <boost/simd/include/functions/simd/is_gez.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/assert.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -42,9 +42,7 @@ namespace boost { namespace simd { namespace ext
       return _mm256_sqrt_ps(a0);
     }
   };
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is unsigned integer 64
-  /////////////////////////////////////////////////////////////////////////////
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sqrt_, boost::simd::tag::avx_,
                        (A0),
                        ((simd_<uint64_<A0>,boost::simd::tag::avx_>))
@@ -56,9 +54,7 @@ namespace boost { namespace simd { namespace ext
       return boost::simd::touint(boost::simd::sqrt(boost::simd::tofloat(a0)));
     }
   };
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is integer 64
-  /////////////////////////////////////////////////////////////////////////////
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sqrt_, boost::simd::tag::avx_,
                        (A0),
                        ((simd_<int64_<A0>,boost::simd::tag::avx_>))
@@ -67,11 +63,8 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef typename dispatch::meta::as_integer<A0,signed>::type     int_type;
-      typedef typename dispatch::meta::as_integer<A0,unsigned>::type  uint_type;
-      return if_else_zero( is_gtz(a0)
-                         , boost::simd::toint(boost::simd::sqrt(boost::simd::tofloat(a0)))
-                         );
+      BOOST_ASSERT_MSG(is_gez(a0), "sqrt input is negative");
+      return boost::simd::toint(boost::simd::sqrt(boost::simd::tofloat(a0)));
     }
   };
 } } }
