@@ -10,6 +10,7 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_SQRT_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/sqrt.hpp>
+#include <boost/simd/include/functions/scalar/max.hpp>
 #include <boost/simd/sdk/config.hpp>
 #include <math.h>
 #include <cmath>
@@ -43,6 +44,19 @@ namespace boost { namespace simd { namespace ext
       #endif
     }
   };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sqrt_, tag::cpu_
+                            , (A0)
+                            , (scalar_< integer_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return A0(sqrt(max(double(a0), Zero<double>())));
+    }
+  };
+
 } } }
 
 

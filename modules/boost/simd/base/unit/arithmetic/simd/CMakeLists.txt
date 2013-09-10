@@ -41,7 +41,6 @@ SET( SOURCES
   inc.cpp
   iround2even.cpp
   iround.cpp
-  isqrt.cpp
   logical_xor.cpp
   max.cpp
   meanof.cpp

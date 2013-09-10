@@ -9,7 +9,6 @@
 
 SET( SOURCES
   idivide.cpp
-  isqrt.cpp
   negs.cpp
   abss.cpp
   adds.cpp

@@ -26,13 +26,14 @@ namespace boost { namespace simd { namespace tag
     };
   }
   /*!
-    Computes the square root of its parameter.
+    Computes the square root of its parameter. For integers it is the
+    truncation of the real square root.
 
     @par semantic:
-    For any given value @c x of floating type @c T:
+    For any given value @c x of type @c T:
 
     @code
-    as_floating<T> r = sqrt(x);
+    T r = sqrt(x);
     @endcode
 
     @param  a0
