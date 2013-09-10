@@ -33,24 +33,5 @@ namespace n2 {
   typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(arg_,(RS(vT,-10.0,10.0)))
 }
-namespace n3 {
-  typedef boost::simd::int32_t T;
-  typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(arg_,(RS(vT,-100,100)))
-}
-namespace n4 {
-  typedef boost::simd::int64_t T;
-  typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(arg_,(RS(vT,-100,100)))
-}
-namespace n5 {
-  typedef boost::simd::int32_t T;
-  typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(arg_,(RS(vT,-100,100)))
-}
-namespace n6 {
-  typedef boost::simd::int64_t T;
-  typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(arg_,(RS(vT,-100,100)))
-}
+
 #undef RS
