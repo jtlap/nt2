@@ -70,7 +70,7 @@ namespace nt2 { namespace details
   check_expr_equality( Target const& t, boost::mpl::false_ const& )
   {
     nt2::unit::error_count()++;
-    std::cout << " **failed** is `"
+    std::cout << " **failed**     is `"
               << nt2::details::type_id_identity(t)
               << "`\n\n";
   }
