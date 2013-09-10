@@ -5,7 +5,7 @@ ways to do so.
 
 [h4 Global operators overload]
 The simplest way to use aligned new and delete operator overloads is to include
-[headerref nt2/modules/boost/simd/sdk/include/boost/simd/memory/new.hpp boost/simd/memory/new.hpp].
+[headerref boost/simd/memory/new.hpp boost/simd/memory/new.hpp].
 
 ``
     #include <iostream>

@@ -70,7 +70,7 @@ are required for sound management while another set of allocation strategy must
 be used for graphic related memory. In this case, we need a way to locally specify
 which function to use for a given memory allocation.
 
-[headerref nt2/modules/boost/simd/sdk/include/boost/simd/memory/aligned_malloc.hpp boost::simd::aligned_malloc] and its friends provide a customizable API in which
+[headerref boost/simd/memory/aligned_malloc.hpp boost::simd::aligned_malloc] and its friends provide a customizable API in which
 the actual allocation, deallocation or reallocation function can be passed as an
 additional parameters.
 
@@ -100,7 +100,7 @@ library documentation to know more about this.
 [section Allocator-style memory management customization]
 In a similar fashion, one may want to use a custom *allocator* as the base
 memory allocation system. Use cases like memory pool or static memory allocators
-come to mind. [headerref nt2/modules/boost/simd/sdk/include/boost/simd/memory/allocate.hpp boost::simd::allocate] et al. provide a set of overload using a supplementary
+come to mind. [headerref boost/simd/memory/allocate.hpp boost::simd::allocate] et al. provide a set of overload using a supplementary
 allocator parameters to be used in the memory allocation process.
 
 As an example, let's use
