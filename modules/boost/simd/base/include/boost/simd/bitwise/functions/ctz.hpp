@@ -36,6 +36,13 @@ namespace boost { namespace simd { namespace tag
     Finds the first bit set in a0, and returns the index of that bit, 0 being
     the least significant bit index.
 
+    @par semantic:
+    For any given value @c x of type @c T:
+
+    @code
+    as_integer<T,unsigned> r = ctz(x);
+    @endcode
+
     @param a0 Value to check
 
     @return An unsigned integral value containing the index of the first bit
