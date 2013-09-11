@@ -29,7 +29,8 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return b_or(shrai(a0, (sizeof(A0)*8-2)), One<A0>());
+      typedef typename meta::scalar_of<A0>::type sA0;
+      return b_or(shrai(a0, (sizeof(sA0)*8-2)), One<A0>());
     }
   };
 
