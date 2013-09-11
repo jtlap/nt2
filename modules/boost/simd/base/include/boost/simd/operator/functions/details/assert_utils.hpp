@@ -56,7 +56,7 @@ namespace boost { namespace simd
       const sA1 N = sizeof(sA0)*8;
       sA1 v = extract(t, i);
 
-      if(v < Zero<sA1>() || v > N)
+      if(v < Zero<sA1>() || v >= N)
       {
         return false;
       }

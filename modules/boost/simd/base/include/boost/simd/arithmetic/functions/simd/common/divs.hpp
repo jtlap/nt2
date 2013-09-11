@@ -79,7 +79,7 @@ namespace boost { namespace simd { namespace ext
       A0 x = a0 + if_zero_else_one((a1 + One<A0>()) | (a0 + Valmin<A0>()));
       // negative -> valmin
       // positive -> valmax
-      const A0 x2 = bitwise_xor(Valmax<A0>(), shrai(x, sizeof(sA0)*CHAR_BIT));
+      const A0 x2 = bitwise_xor(Valmax<A0>(), shrai(x, sizeof(sA0)*CHAR_BIT-1));
 
       x = if_else(logical_and(iseqza1, is_nez(x)), x2, x);
       const A0 y = if_else(iseqza1, One<A0>(), a1);
