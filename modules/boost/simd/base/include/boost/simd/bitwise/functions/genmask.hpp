@@ -38,6 +38,12 @@ namespace boost { namespace simd { namespace tag
     T r = genmask(x);
     @endcode
 
+    is similar to
+
+    @code
+    T r = x ? Allbits : Zero;
+    @endcode
+
     @par Alias:
     @c typed_mask, @c logical2mask, @c l2m, @c typed_mask
 
