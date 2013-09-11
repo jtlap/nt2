@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
      typedef typename dispatch::meta::as_unsigned<A1>::type type;
-     BOOST_ASSERT_MSG(assert_good_shift<A0>(a1), "a shift is out of range");
+     BOOST_ASSERT_MSG(assert_good_shift<A0>(a1), "shift_right: a shift is out of range");
      type shift = simd::bitwise_cast<type>(a1);
      return vec_sra(a0(), shift());
     }
@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
      typedef typename dispatch::meta::as_unsigned<A1>::type type;
-     BOOST_ASSERT_MSG(assert_good_shift<A0>(a1), "a shift is out of range");
+     BOOST_ASSERT_MSG(assert_good_shift<A0>(a1), "shift_right: a shift is out of range");
      type shift = simd::bitwise_cast<type>(a1);
      return vec_sr(a0(), shift());
     }

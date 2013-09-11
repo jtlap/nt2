@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::as_integer<A0, unsigned>::type uitype;
-      BOOST_ASSERT_MSG(assert_good_shift<A0>(a1), "shift is out of range");
+      BOOST_ASSERT_MSG(assert_good_shift<A0>(a1), "shr : shift is out of range");
       return uitype(a0) >> a1;
     }
   };

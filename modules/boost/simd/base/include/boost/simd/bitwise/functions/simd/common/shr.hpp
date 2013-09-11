@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::as_unsigned<A0>::type ntype;
-      BOOST_ASSERT_MSG(assert_good_shift<A0>(a1), "a shift is out of range");
+      BOOST_ASSERT_MSG(assert_good_shift<A0>(a1), "shr: a shift is out of range");
       return bitwise_cast<result_type>( bitwise_cast<ntype>(a0) >> a1 );
     }
   };
