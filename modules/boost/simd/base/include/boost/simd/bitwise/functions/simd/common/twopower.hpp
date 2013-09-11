@@ -11,7 +11,10 @@
 
 #include <boost/simd/bitwise/functions/twopower.hpp>
 #include <boost/simd/include/functions/simd/shift_left.hpp>
+#include <boost/simd/include/functions/simd/max.hpp>
+#include <boost/simd/include/functions/simd/is_ltz.hpp>
 #include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -22,7 +25,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return shift_left(One<A0>(), a0);
+      return if_zero_else(is_ltz(a0), shift_left(One<A0>(), max(a0, Zero<A0>())));
     }
   };
 } } }
