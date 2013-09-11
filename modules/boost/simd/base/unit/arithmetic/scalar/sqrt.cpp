@@ -18,12 +18,11 @@
 #include <boost/simd/include/constants/two.hpp>
 #include <boost/simd/include/constants/mtwo.hpp>
 #include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/four.hpp>
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/nan.hpp>
-#include <boost/simd/include/constants/valmax.hpp>
-#include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/sqrt_2.hpp>
 #include <boost/simd/sdk/config.hpp>
 NT2_TEST_CASE_TPL ( sqrt_real,  BOOST_SIMD_REAL_TYPES)
@@ -65,7 +64,7 @@ NT2_TEST_CASE_TPL ( sqrt_si,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_TYPE_IS(r_t, wished_r_t);
 
   // specific values tests
-  NT2_TEST_EQUAL(sqrt(boost::simd::Mone<T>()), boost::simd::Nan<r_t>());
+  NT2_TEST_EQUAL(sqrt(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
   NT2_TEST_EQUAL(sqrt(boost::simd::One<T>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(sqrt(boost::simd::Two<T>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(sqrt(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
@@ -86,6 +85,7 @@ NT2_TEST_CASE_TPL ( sqrt_ui,  BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_TYPE_IS(r_t, wished_r_t);
 
   // specific values tests
+  NT2_TEST_EQUAL(sqrt(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
   NT2_TEST_EQUAL(sqrt(boost::simd::One<T>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(sqrt(boost::simd::Two<T>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(sqrt(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());

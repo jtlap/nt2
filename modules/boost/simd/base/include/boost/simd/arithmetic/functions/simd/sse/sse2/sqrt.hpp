@@ -34,6 +34,7 @@
 #include <boost/simd/include/functions/simd/is_greater_equal.hpp>
 #include <boost/simd/include/functions/simd/is_less.hpp>
 #include <boost/simd/include/functions/simd/logical_or.hpp>
+#include <boost/simd/include/functions/simd/all.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/assert.hpp>
@@ -72,7 +73,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      BOOST_ASSERT_MSG(is_gez(a0), "sqrt input is negative");
+      BOOST_ASSERT_MSG(all(is_gez(a0)), "sqrt input is negative");
       typedef typename dispatch::meta::as_integer<A0,unsigned>::type  uint_type;
       return simd::bitwise_cast<result_type>(sqrt( simd::bitwise_cast<uint_type>(a0)));
     }

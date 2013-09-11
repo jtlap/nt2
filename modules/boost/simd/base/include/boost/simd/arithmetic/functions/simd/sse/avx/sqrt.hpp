@@ -15,6 +15,7 @@
 #include <boost/simd/include/functions/simd/touint.hpp>
 #include <boost/simd/include/functions/simd/is_gez.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>
+#include <boost/simd/include/functions/simd/all.hpp>
 #include <boost/assert.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -63,7 +64,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      BOOST_ASSERT_MSG(is_gez(a0), "sqrt input is negative");
+      BOOST_ASSERT_MSG(all(is_gez(a0)), "sqrt input is negative");
       return boost::simd::toint(boost::simd::sqrt(boost::simd::tofloat(a0)));
     }
   };

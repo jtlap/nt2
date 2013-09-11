@@ -10,8 +10,9 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_SQRT_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/sqrt.hpp>
-#include <boost/simd/include/functions/scalar/max.hpp>
+#include <boost/simd/include/functions/scalar/is_gez.hpp>
 #include <boost/simd/sdk/config.hpp>
+#include <boost/assert.hpp>
 #include <math.h>
 #include <cmath>
 
@@ -53,7 +54,8 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return A0(sqrt(max(double(a0), Zero<double>())));
+      BOOST_ASSERT_MSG(is_gez(a0), "sqrt input is negative");
+      return A0(sqrt(double(a0)));
     }
   };
 
