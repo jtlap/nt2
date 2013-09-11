@@ -20,7 +20,7 @@
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 
-NT2_TEST_CASE_TPL ( remainder_all_types,  NT2_SIMD_TYPES)
+NT2_TEST_CASE_TPL ( remainder_all_types,  NT2_SIMD_SIMD_SIGNED_TYPES)
 {
   using nt2::remainder;
   using nt2::tag::remainder_;
