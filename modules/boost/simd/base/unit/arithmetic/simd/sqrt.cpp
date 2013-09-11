@@ -46,9 +46,9 @@ NT2_TEST_CASE_TPL ( sqrt_real,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(sqrt(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( sqrt_si,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
-{
 
+NT2_TEST_CASE_TPL ( sqrt_int,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
+{
   using boost::simd::sqrt;
   using boost::simd::tag::sqrt_;
   using boost::simd::native;
@@ -60,26 +60,5 @@ NT2_TEST_CASE_TPL ( sqrt_si,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_EQUAL(sqrt(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
   NT2_TEST_EQUAL(sqrt(boost::simd::One<vT>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(sqrt(boost::simd::Two<vT>()), boost::simd::One<r_t>());
-  NT2_TEST_EQUAL(sqrt(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
   NT2_TEST_EQUAL(sqrt(boost::simd::Four<vT>()), boost::simd::Two<r_t>());
 } // end of test for floating_
-
-
-NT2_TEST_CASE_TPL ( sqrt_ui,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
-{
-
-  using boost::simd::sqrt;
-  using boost::simd::tag::sqrt_;
-  using boost::simd::native;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>                  vT;
-  typedef typename boost::dispatch::meta::call<sqrt_(vT)>::type r_t;
-
-  // specific values tests
-  NT2_TEST_EQUAL(sqrt(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(sqrt(boost::simd::One<vT>()), boost::simd::One<r_t>());
-  NT2_TEST_EQUAL(sqrt(boost::simd::Two<vT>()), boost::simd::One<r_t>());
-  NT2_TEST_EQUAL(sqrt(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(sqrt(boost::simd::Four<vT>()), boost::simd::Two<r_t>());
-} // end of test for floating_
-
