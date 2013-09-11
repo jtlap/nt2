@@ -58,6 +58,7 @@ namespace boost { namespace simd { namespace tag
     struct twopower_ : ext::elementwise_<twopower_> { typedef ext::elementwise_<twopower_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::twopower_, twopower, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::twopower_, iexp2, 1)
 } }
 
 #endif
