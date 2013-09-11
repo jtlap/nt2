@@ -28,13 +28,19 @@ namespace boost { namespace simd { namespace tag
     };
   }
   /*!
-    The function returns 2^n
+    The function returns \f$2^n\f$ (0 si n is less than zero)
 
     @par semantic:
-    For any given value n  of type @c I:
+    For any given value n  of integral type @c I:
 
     @code
     T r = twopower(n);
+    @endcode
+
+    code is similar to:
+
+    @code
+    T r = 1 << n;
     @endcode
 
     @par Note:
