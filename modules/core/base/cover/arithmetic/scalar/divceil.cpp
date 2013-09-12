@@ -56,7 +56,7 @@ NT2_TEST_CASE_TPL ( divceil_real__1_0_2,  NT2_INTEGRAL_TYPES)
   nt2::roll(in2, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
   for(nt2::uint32_t i=0; i < NR ; ++i)
   {
-    ref[i] = (in2[i] ? r_t(nt2::ceil(double(in1[i])/in2[i])) : ((in1[i]>0)? nt2::Valmax<r_t>(): (in1[i]<0) ? nt2::Valmin<r_t>() : 0));
+    ref[i] = (in2[i] ? r_t(nt2::ceil(double(in1[i])/in2[i])) : ((in1[i]>0)? nt2::Valmax<r_t>(): (in1[i] == 0) ? 0 : nt2::Valmin<r_t>()));
   }
 
  NT2_COVER_ULP_EQUAL(divceil_, ((T, in1))((T, in2)), ref, 0);

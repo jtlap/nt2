@@ -22,6 +22,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/unit/tests/cover_utils.hpp>
 
 
 NT2_TEST_CASE_TPL ( idivround_real__1_0_1,  NT2_REAL_TYPES)
@@ -54,11 +55,11 @@ NT2_TEST_CASE_TPL ( idivround_real__1_0_2,  NT2_INTEGRAL_TYPES)
   nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   std::vector<T> in1(NR), in2(NR);
   std::vector<r_t> ref(NR);
-  nt2::roll(in1, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
-  nt2::roll(in2, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+  nt2::roll(in1, nt2::downgrade_lower<T>(), nt2::downgrade_upper<T>());
+  nt2::roll(in2, nt2::downgrade_lower<T>(), nt2::downgrade_upper<T>());
   for(nt2::uint32_t i=0; i < NR ; ++i)
   {
-    ref[i] = (in2[i] ? r_t(nt2::round(double(in1[i])/in2[i])) : ((in1[i]>0)? nt2::Valmax<r_t>(): (in1[i]<0) ? nt2::Valmin<r_t>() : 0));
+    ref[i] = (in2[i] ? r_t(nt2::round(double(in1[i])/in2[i])) : ((in1[i]>0)? nt2::Valmax<r_t>(): (in1[i] == 0) ? 0 :nt2::Valmin<r_t>()));
   }
 
  NT2_COVER_ULP_EQUAL(idivround_, ((T, in1))((T, in2)), ref, 0);

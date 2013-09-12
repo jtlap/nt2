@@ -31,7 +31,7 @@ NT2_TEST_CASE_TPL ( signnz,  NT2_TYPES)
   std::vector<iT> ref(NR);
   for(nt2::uint32_t i=0; i < NR ; ++i)
   {
-    ref[i] = ( (in1[i] >= 0) ? 1 : -1);
+    ref[i] = ( (in1[i] > 0) ? 1 : (in1[i] ==  0) ? 1 : -1); //oddity to avoid warnings if the type is unsigned
   }
   NT2_COVER_ULP_EQUAL(signnz_, ((T, in1)), ref, 0);
 }

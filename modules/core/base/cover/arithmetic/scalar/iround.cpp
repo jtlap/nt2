@@ -33,6 +33,7 @@ NT2_TEST_CASE_TPL ( iround_real__1_0,  NT2_REAL_TYPES)
   for(nt2::uint32_t i=0; i < NR ; ++i)
   {
     ref[i] = ::round(in1[i]);
+    if(in1[i] > T(0) && ref[i] == nt2::Valmin<r_t>()) ref[i] =  nt2::Valmax<r_t>();
   }
 
   NT2_COVER_ULP_EQUAL(iround_, ((T, in1)), ref, 0);

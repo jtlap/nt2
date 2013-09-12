@@ -31,7 +31,7 @@ NT2_TEST_CASE_TPL ( saturate,  NT2_TYPES)
   std::vector<T> ref(NR);
   for(nt2::uint32_t i=0; i < NR ; ++i)
   {
-    ref[i] = (in1[i] >= 0) ? ((in1[i] > nt2::Valmax<uint16_t>()) ? nt2::Valmax<uint16_t>() : in1[i]) : 0;
+    ref[i] = (in1[i] > 0) ? ((in1[i] > nt2::Valmax<uint16_t>()) ? nt2::Valmax<uint16_t>() : in1[i]) : 0;
   }
   NT2_COVER_ULP_EQUAL(saturate_, ((T, in1))((aT, in2)), ref, 0);
 }

@@ -19,7 +19,25 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 
-NT2_TEST_CASE_TPL ( rec_real__1_0,  NT2_TYPES)
+NT2_TEST_CASE_TPL ( rec_i,  NT2_INTEGRAL_TYPES)
+{
+
+  using nt2::rec;
+  using nt2::tag::rec_;
+  typedef typename nt2::meta::call<rec_(T)>::type r_t;
+
+  nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  std::vector<T> in1(NR);
+  nt2::roll(in1, nt2::Valmin<T>(), nt2::Valmax<T>());
+  std::vector<r_t>  ref(NR);
+  for(nt2::uint32_t i=0; i < NR ; ++i)
+  {
+    ref[i] = (in1[i]) ? 1.0/in1[i] : nt2::Valmax<T>();
+  }
+
+  NT2_COVER_ULP_EQUAL(rec_, ((T, in1)), ref, 0.5);
+}
+NT2_TEST_CASE_TPL ( rec_r,  NT2_REAL_TYPES)
 {
 
   using nt2::rec;
