@@ -15,14 +15,14 @@ namespace nt2 { namespace solvers {
   class options
   {
   public:
-    options(bool trans =  false):
+    options(bool t =  false):
       lt_(false),
       ut_(false),
       uhess_(false),
       sym_(false),
       posdef_(false),
       rect_(true),
-      transa_(trans),
+      transa_(t),
       unidiag_(false),
       general_(true)
     {}

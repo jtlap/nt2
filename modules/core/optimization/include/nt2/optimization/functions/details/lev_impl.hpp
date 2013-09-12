@@ -195,8 +195,8 @@ namespace nt2 { namespace details
   {
     const btable_t & ia = *pia;
     size_t ma = nt2::numel(ia);
-    array_t tmp = nt2::expand(covar, ma, ma);
-    covar = tmp;
+    array_t tmp0 = nt2::expand(covar, ma, ma);
+    covar = tmp0;
     for(size_t j = ma, k = mfit; j ; --j)
     {
       if (ia(j))
@@ -221,8 +221,8 @@ namespace nt2 { namespace details
       }
     }
 
-    float_t sig =  chisq/(nt2::numel(fvec)-mfit);
-    covar *=  sig;
+    float_t fsig =  chisq/(nt2::numel(fvec)-mfit);
+    covar *=  fsig;
   }
 
   template<typename T, typename FLOAT>

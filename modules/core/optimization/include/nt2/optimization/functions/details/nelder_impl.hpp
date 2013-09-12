@@ -88,7 +88,7 @@ namespace nt2 { namespace details
     ptrdiff_t jcount = konvge;
     float_t dn = n;
     size_t nn = n + 1;
-    size_t dnn = nn;
+//    size_t dnn = nn;
     float_t del = One<float_t>();
     float_t rq = reqmin * dn;
     table_t p(nt2::of_size(n, nn));
@@ -177,7 +177,7 @@ namespace nt2 { namespace details
                 y(j) = fn ( xmin );
                 ++icount;
               }
-              float_t ylo = globalmin(y, ilo);
+              ylo = globalmin(y, ilo);
               continue;
             }
             else // Retain contraction.

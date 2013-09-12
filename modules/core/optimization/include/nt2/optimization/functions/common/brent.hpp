@@ -33,13 +33,13 @@ namespace nt2 { namespace ext
   {
     typedef optimization::output<T,T> result_type;
 
-    result_type operator()(F f, T const& x0, T const& l, T const& u, O const& o)
+    result_type operator()(F f, T const& x0, T const& l, T const& uu, O const& o)
     {
       // Iterations count
       std::size_t iter;
 
       // Local values used to perform Brent's iterations
-      T ax(l), bx(x0), cx(u);
+      T ax(l), bx(x0), cx(uu);
       T d(Nan<T>()), e(Zero<T>());
       T a = (ax < cx ? ax : cx);
       T b = (ax > cx ? ax : cx);

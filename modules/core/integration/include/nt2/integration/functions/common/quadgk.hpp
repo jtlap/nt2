@@ -212,9 +212,9 @@ namespace nt2 { namespace details
     void vadapt(FUNC f)
     {
       real_t pathlen;
-      itab_t tmp;
-      details::split(f.interval_, minintervalcount_, tmp, pathlen);
-      interval_ = tmp;
+      itab_t tmp0;
+      details::split(f.interval_, minintervalcount_, tmp0, pathlen);
+      interval_ = tmp0;
       if (pathlen == 0)
       {
         input_t tmp =  nt2::multiplies(f.interval_(end_), nt2::Half<real_t>());

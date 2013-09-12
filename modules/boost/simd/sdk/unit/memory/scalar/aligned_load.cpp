@@ -108,16 +108,16 @@ NT2_TEST_CASE( aligned_load_sequence )
   {
     foo v = aligned_load<foo>(make_vector(&sdata[0], &fdata[0], &cdata[0]), i );
 
-    typedef value_at<foo,boost::mpl::int_<0> >::type foo0_t;
-    typedef value_at<foo,boost::mpl::int_<1> >::type foo1_t;
-    typedef value_at<foo,boost::mpl::int_<2> >::type foo2_t;
+    typedef value_at<foo,boost::mpl::int_<0> >::type foo0_t_;
+    typedef value_at<foo,boost::mpl::int_<1> >::type foo1_t_;
+    typedef value_at<foo,boost::mpl::int_<2> >::type foo2_t_;
 
-    foo0_t sref = aligned_load<foo0_t>(&sdata[0],i);
-    foo1_t fref = aligned_load<foo1_t>(&fdata[0],i);
-    foo2_t cref = aligned_load<foo2_t>(&cdata[0],i);
+    foo0_t_ sref_ = aligned_load<foo0_t>(&sdata[0],i);
+    foo1_t_ fref_ = aligned_load<foo1_t>(&fdata[0],i);
+    foo2_t_ cref_ = aligned_load<foo2_t>(&cdata[0],i);
 
-    NT2_TEST_EQUAL(boost::fusion::at_c<0>(v) , sref);
-    NT2_TEST_EQUAL(boost::fusion::at_c<1>(v) , fref);
-    NT2_TEST_EQUAL(boost::fusion::at_c<2>(v) , cref);
+    NT2_TEST_EQUAL(boost::fusion::at_c<0>(v) , sref_);
+    NT2_TEST_EQUAL(boost::fusion::at_c<1>(v) , fref_);
+    NT2_TEST_EQUAL(boost::fusion::at_c<2>(v) , cref_);
   }
 }

@@ -110,9 +110,9 @@ namespace nt2 { namespace ext
           value_type value = nt2::run(a, i, meta::as_<value_type>());
           if(value)
           {
-            boost::array<idx_t, 2> a = nt2::as_subscript(boost::fusion:: make_vector(idx_t(m),idx_t(n)), idx_t(i) );
-            idx(++z) = index_type(a[1]+1);
-            jdx(  z) = index_type(a[0]+1);
+            boost::array<idx_t, 2> aa = nt2::as_subscript(boost::fusion:: make_vector(idx_t(m),idx_t(n)), idx_t(i) );
+            idx(++z) = index_type(aa[1]+1);
+            jdx(  z) = index_type(aa[0]+1);
           }
         }
       }
@@ -123,9 +123,9 @@ namespace nt2 { namespace ext
           value_type value = nt2::run(a, i, meta::as_<value_type>());
           if(value)
           {
-            boost::array<idx_t, 2> a = nt2::as_subscript(boost::fusion:: make_vector(idx_t(m),idx_t(n)), idx_t(i) );
-            idx(z) = index_type(a[1]+1);
-            jdx(z) = index_type(a[0]+1);
+            boost::array<idx_t, 2> aa = nt2::as_subscript(boost::fusion:: make_vector(idx_t(m),idx_t(n)), idx_t(i) );
+            idx(z) = index_type(aa[1]+1);
+            jdx(z) = index_type(aa[0]+1);
             --z;
           }
         }
@@ -159,9 +159,9 @@ namespace nt2 { namespace ext
           value_type value = nt2::run(a, i, meta::as_<value_type>());
           if(value)
           {
-            boost::array<idx_t, 2> a = nt2::as_subscript(boost::fusion:: make_vector(idx_t(m),idx_t(n)), idx_t(i) );
-            idx(++z) = index_type(a[1]+1);
-            jdx(z) = index_type(a[0]+1);
+            boost::array<idx_t, 2> aa = nt2::as_subscript(boost::fusion:: make_vector(idx_t(m),idx_t(n)), idx_t(i) );
+            idx(++z) = index_type(aa[1]+1);
+            jdx(z) = index_type(aa[0]+1);
             v(z) = value;
           }
         }
@@ -173,9 +173,9 @@ namespace nt2 { namespace ext
           value_type value = nt2::run(a, i, meta::as_<value_type>());
           if(value)
           {
-            boost::array<idx_t, 2> a = nt2::as_subscript(boost::fusion:: make_vector(idx_t(m),idx_t(n)), idx_t(i) );
-            idx(z) = index_type(a[1]+1);
-            jdx(z) = index_type(a[0]+1);
+            boost::array<idx_t, 2> aa = nt2::as_subscript(boost::fusion:: make_vector(idx_t(m),idx_t(n)), idx_t(i) );
+            idx(z) = index_type(aa[1]+1);
+            jdx(z) = index_type(aa[0]+1);
             v(z) = value;
             --z;
           }

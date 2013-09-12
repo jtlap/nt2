@@ -37,7 +37,6 @@ namespace nt2 { namespace details
                     , leading_( values_.leading_size() )
                     , info_(0)
                     , uplo_(uplo)
-                    , that_(of_size(0, 1))
     {
       BOOST_ASSERT_MSG(issquare(values_), "matrix must be square");
       nt2::details::potrf ( &uplo_, &height_
@@ -52,7 +51,6 @@ namespace nt2 { namespace details
       leading_  = src.leading_;
       info_     = src.info_;
       uplo_     = src.uplo_;
-      that_     = src.that_;
       return *this;
     }
 
@@ -66,14 +64,11 @@ namespace nt2 { namespace details
     //==========================================================================
     const result_type& result() const
     {
-      if (isempty(that_))
-      {
-        result_type that_;
-        if(uplo_ == 'U')  that_ = nt2::triu(values_);
-        else              that_ = nt2::tril(values_);
+      result_type that_;
+      if(uplo_ == 'U')  that_ = nt2::triu(values_);
+      else              that_ = nt2::tril(values_);
 
-        if(info_ > 0) that_ = nt2::expand(that_, info_-1, info_-1 );
-      }
+      if(info_ > 0) that_ = nt2::expand(that_, info_-1, info_-1 );
       return that_;
     }
 
@@ -168,7 +163,6 @@ namespace nt2 { namespace details
     data_t      values_;
     nt2_la_int  height_, leading_, info_;
     char        uplo_;
-    result_type that_;
   };
 } }
 
