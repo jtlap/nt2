@@ -31,9 +31,13 @@ namespace boost { namespace simd
       const char*            name;
       bool                   (*function)();
       support_registration*  next;
+
+    private:
+      support_registration(support_registration const&);
+      support_registration& operator=(support_registration const&);
     };
 
-    support_registration registration_list = support_registration(0,0,0);
+    support_registration registration_list(0,0,0);
   }
 } }
 

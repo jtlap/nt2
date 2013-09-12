@@ -12,50 +12,50 @@
 namespace boost { namespace simd { namespace details
 {
   // register detection of X86 extensions
-  support_registration x86_sse  = support_registration ( "sse"
-                                                        , &boost::simd::is_supported<tag::sse_>
-                                                        , &registration_list
-                                                        );
-  support_registration x86_sse2 = support_registration ( "sse2"
-                                                        , &boost::simd::is_supported<tag::sse2_>
-                                                        , &registration_list
-                                                        );
-  support_registration x86_sse3 = support_registration ( "sse3"
-                                                        , &boost::simd::is_supported<tag::sse3_>
-                                                        , &registration_list
-                                                        );
-  support_registration x86_ssse3 = support_registration ( "ssse3"
-                                                        , &boost::simd::is_supported<tag::ssse3_>
-                                                        , &registration_list
-                                                        );
-  support_registration x86_sse4a  = support_registration ( "sse4a"
-                                                        , &boost::simd::is_supported<tag::sse4a_>
-                                                        , &registration_list
-                                                        );
-  support_registration x86_sse41  = support_registration ( "sse4.1"
-                                                        , &boost::simd::is_supported<tag::sse4_1_>
-                                                        , &registration_list
-                                                        );
-  support_registration x86_sse52  = support_registration ( "sse4.2"
-                                                        , &boost::simd::is_supported<tag::sse4_2_>
-                                                        , &registration_list
-                                                        );
-  support_registration x86_avx  = support_registration ( "avx"
-                                                        , &boost::simd::is_supported<tag::avx_>
-                                                        , &registration_list
-                                                        );
-  support_registration x86_xop  = support_registration ( "xop"
-                                                        , &boost::simd::is_supported<tag::xop_>
-                                                        , &registration_list
-                                                        );
-  support_registration x86_fma4  = support_registration ( "fma4"
-                                                        , &boost::simd::is_supported<tag::fma4_>
-                                                        , &registration_list
-                                                        );
-  support_registration x86_lrb  = support_registration ( "lrb"
-                                                        , &boost::simd::is_supported<tag::lrb_>
-                                                        , &registration_list
-                                                        );
+  support_registration x86_sse    ( "sse"
+                                  , &boost::simd::is_supported<tag::sse_>
+                                  , &registration_list
+                                  );
+  support_registration x86_sse2   ( "sse2"
+                                  , &boost::simd::is_supported<tag::sse2_>
+                                  , &registration_list
+                                  );
+  support_registration x86_sse3   ( "sse3"
+                                  , &boost::simd::is_supported<tag::sse3_>
+                                  , &registration_list
+                                  );
+  support_registration x86_ssse3  ( "ssse3"
+                                  , &boost::simd::is_supported<tag::ssse3_>
+                                  , &registration_list
+                                  );
+  support_registration x86_sse4a  ( "sse4a"
+                                  , &boost::simd::is_supported<tag::sse4a_>
+                                  , &registration_list
+                                  );
+  support_registration x86_sse41  ( "sse4.1"
+                                  , &boost::simd::is_supported<tag::sse4_1_>
+                                  , &registration_list
+                                  );
+  support_registration x86_sse52  ( "sse4.2"
+                                  , &boost::simd::is_supported<tag::sse4_2_>
+                                  , &registration_list
+                                  );
+  support_registration x86_avx    ( "avx"
+                                  , &boost::simd::is_supported<tag::avx_>
+                                  , &registration_list
+                                  );
+  support_registration x86_xop    ( "xop"
+                                  , &boost::simd::is_supported<tag::xop_>
+                                  , &registration_list
+                                  );
+  support_registration x86_fma4   ( "fma4"
+                                  , &boost::simd::is_supported<tag::fma4_>
+                                  , &registration_list
+                                  );
+  support_registration x86_lrb    ( "lrb"
+                                  , &boost::simd::is_supported<tag::lrb_>
+                                  , &registration_list
+                                  );
 } } }
 
 #endif

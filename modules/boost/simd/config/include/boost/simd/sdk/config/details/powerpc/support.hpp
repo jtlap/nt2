@@ -12,10 +12,10 @@
 namespace boost { namespace simd { namespace details
 {
   // register detection of VMX extensions
-  support_registration ppc_vmx  = support_registration( "vmx"
-                                                      , &boost::simd::is_supported<tag::altivec_>
-                                                      , &registration_list
-                                                      );
+  support_registration ppc_vmx( "vmx"
+                              , &boost::simd::is_supported<tag::altivec_>
+                              , &registration_list
+                              );
 
 } } }
 
