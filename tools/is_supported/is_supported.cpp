@@ -1,34 +1,11 @@
 #include <boost/simd/sdk/config/is_supported.hpp>
+
 #include <iostream>
 #include <cstddef>
 #include <cstring>
 
 using boost::simd::is_supported;
 using namespace boost::simd::tag;
-
-struct pair
-{
-  const char* name;
-  bool(*function)();
-};
-
-static pair data[] =
-{
-  { "sse",    &is_supported<sse_>     },
-  { "sse2",   &is_supported<sse2_>    },
-  { "sse3",   &is_supported<sse3_>    },
-  { "ssse3",  &is_supported<ssse3_>   },
-  { "sse4a",  &is_supported<sse4a_>   },
-  { "sse4.1", &is_supported<sse4_1_>  },
-  { "sse4.2", &is_supported<sse4_2_>  },
-  { "avx",    &is_supported<avx_>     },
-  { "xop",    &is_supported<xop_>     },
-  { "fma4",   &is_supported<fma4_>    },
-  { "avx",    &is_supported<avx_>     },
-  { "lrb",    &is_supported<lrb_>     },
-  { "vmx",    &is_supported<altivec_> },
-  { "neon",   &is_supported<neon_>    }
-};
 
 int main(int argc, char* argv[])
 {
@@ -38,16 +15,22 @@ int main(int argc, char* argv[])
     return 1;
   }
 
-  for(std::size_t i=0; i!=sizeof data/sizeof *data; ++i)
+  int b = is_supported(argv[1]);
+
+  switch(b)
   {
-    if(!std::strcmp(argv[1], data[i].name))
-    {
-      bool b = data[i].function();
-      std::cout << argv[1] << ": " << (b ? "supported" : "not supported") << std::endl;
-      return !b;
-    }
+    case  1 : std::cout << argv[1] << ": supported" << std::endl;
+              return 0;
+              break;
+
+    case  0 : std::cerr << argv[1] << ": unknown instruction set" << std::endl;
+              return 1;
+              break;
+
+    case -1:  std::cout << argv[1] << ": not supported" << std::endl;
+              return 1;
+              break;
   }
 
-  std::cerr << argv[1] << ": unknown instruction set" << std::endl;
   return 1;
 }

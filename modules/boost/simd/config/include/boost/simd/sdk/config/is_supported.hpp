@@ -16,16 +16,31 @@
  * vendor case and provide the right specialization of cpuid_mask.
 */
 #include <boost/simd/sdk/config/details/detect.hpp>
+#include <boost/simd/sdk/config/registration.hpp>
 
-namespace boost{ namespace simd{
-
-  template<class Tag>
-  bool is_supported()
+namespace boost { namespace simd
+{
+  template<class Tag> inline bool is_supported()
   {
     Tag tag_;
     return config::details::detect(tag_);
   }
 
+  inline int is_supported(const char* name)
+  {
+    int result = 0;
+    details::support_registration* c = details::registration_list.next;
+
+    while(c && result != 1)
+    {
+      if(strcmp(name,c->name) == 0) result = c->function() ? 1 : -1;
+      c = c->next;
+    }
+
+    return result;
+  }
 } }
+
+#include <boost/simd/sdk/config/details/support.hpp>
 
 #endif
