@@ -55,8 +55,8 @@ NT2_TEST_CASE_TPL ( ellie_real__2_0,  NT2_REAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-1e30), T(1e30));
-    NT2_CREATE_BUF(tab_a1,T, NR, T(-1e30), T(1e30));
+    NT2_CREATE_BUF(tab_a1,T, NR, T(0), T(1));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(0), nt2::Pi<T>()/T(2));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     T a1;
@@ -66,7 +66,7 @@ NT2_TEST_CASE_TPL ( ellie_real__2_0,  NT2_REAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::ellie(a0,a1),::cephes_elliel(a0,a1),2.0);
+        NT2_TEST_ULP_EQUAL( nt2::ellie(a0,a1),::cephes_elliel(a0,a1),3);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
