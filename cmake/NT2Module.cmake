@@ -732,6 +732,15 @@ macro(nt2_module_tool_setup tool)
       unset(ENV{${CMAKE_CXX_COMPILER_ENV_VAR}})
     endif()
 
+    # Pass global module lists to tools
+    if(DEFINED NT2_MODULES_GLOBAL)
+      list(APPEND BUILD_OPTION -DNT2_MODULES_GLOBAL=${NT2_MODULES_GLOBAL} )
+
+      # Disable warning about unused macros in tools configuration
+      # as some tools don't use NT2_MODULES_GLOBAL
+      list(APPEND BUILD_OPTION --no-warn-unused-cli )
+    endif()
+
     # workaround in case tool has already been built in source -- temporarily remove CMakeCache
     execute_process(COMMAND ${CMAKE_COMMAND} -E rename ${NT2_TOOL_${tool}_ROOT}/CMakeCache.txt ${NT2_TOOL_${tool}_ROOT}/CMakeCache.txt.tmp ERROR_QUIET)
 
