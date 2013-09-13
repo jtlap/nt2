@@ -32,7 +32,7 @@ void float_control_debug()
   #endif
 
   std::cout << "denormals allowed = " << !!(cw & (1 << 2)) << "\n";
-  int precision = cw << ((cw >> 8) & 0x3);
+  int precision = (cw >> 8) & 0x3;
   std::cout << "precision = " << ((precision == 0) ? "single" : (precision == 2) ? "double" : "extended") << "\n\n";
 
   #ifdef BOOST_SIMD_HAS_SSE_SUPPORT
