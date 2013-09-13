@@ -7,6 +7,7 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <nt2/include/functions/simd/fast_rec.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 
@@ -20,6 +21,7 @@
 NT2_TEST_CASE_TPL ( fast_rec,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using nt2::fast_rec;
+  using nt2::splat;
   using nt2::tag::fast_rec_;
   using boost::simd::native;
 
@@ -30,22 +32,16 @@ NT2_TEST_CASE_TPL ( fast_rec,  BOOST_SIMD_SIMD_REAL_TYPES)
                   , (native<T,ext_t>)
                   );
 
-  // specific values tests
-
-  // 1/+-inf = 0
-  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Inf<vT>()) , boost::simd::Zero<vT>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Minf<vT>()), boost::simd::Zero<vT>(), 0.5);
-
-  // 1/+-0 = +-inf
-  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Mzero<vT>()), boost::simd::Minf<vT>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Zero<vT>()), boost::simd::Inf<vT>(), 0.5);
-
   // 1/Nan = Nan
   NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Nan<vT>()), boost::simd::Nan<vT>(), 0.5);
 
   // 1/+-1 = +-1
   NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Mone<vT>()), boost::simd::Mone<vT>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::One<vT>()), boost::simd::One<vT>(), 0.5);
+
+  NT2_TEST_ULP_EQUAL(fast_rec( splat<vT>(2) ), splat<vT>(0.5)  , 0.5);
+  NT2_TEST_ULP_EQUAL(fast_rec( splat<vT>(10)), splat<vT>(0.1)  , 0.5);
+  NT2_TEST_ULP_EQUAL(fast_rec( splat<vT>(3) ), splat<vT>(1./3.), 0.5);
 
   // 1/(1/x) = x
   NT2_TEST_ULP_EQUAL(fast_rec(fast_rec(boost::simd::Ten<vT>())), boost::simd::Ten<vT>(), 0.5);

@@ -15,14 +15,6 @@
 #include <boost/simd/include/functions/plus.hpp>
 #include <boost/simd/include/functions/minus.hpp>
 #include <boost/simd/include/functions/times.hpp>
-#include <boost/simd/include/functions/genmask.hpp>
-#include <boost/simd/include/functions/bitwise_and.hpp>
-#include <boost/simd/sdk/config.hpp>
-
-#if !defined(BOOST_SIMD_NO_INFINITIES)
-#include <boost/simd/include/functions/is_not_infinite.hpp>
-#include <boost/simd/include/functions/if_else_zero.hpp>
-#endif
 
 namespace boost { namespace simd { namespace ext
 {
@@ -42,16 +34,8 @@ namespace boost { namespace simd { namespace ext
       // Estimation x ~= 1/X
       A0  inv   = _mm_rcp_ps( a0 );
 
-      // Square and filter out 1/+-0
-      A0  invs  = (a0 * sqr(inv)) & genmask(a0);
-
-    #if defined(BOOST_SIMD_NO_INFINITIES)
       // Newton-Raphson: 1/X ~= (2*x - (a0*x^2)
-      return (inv+inv) - invs;
-    #else
-      // handle 1/+-inf
-      return if_else_zero( is_not_infinite(a0), (inv+inv) - invs );
-    #endif
+      return (inv+inv) - (a0 * sqr(inv));
     }
   };
 } } }
