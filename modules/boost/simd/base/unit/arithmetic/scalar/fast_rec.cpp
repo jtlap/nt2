@@ -23,9 +23,8 @@ NT2_TEST_CASE_TPL ( fast_rec_real,  BOOST_SIMD_REAL_TYPES)
   using boost::simd::fast_rec;
   using boost::simd::tag::fast_rec_;
 
-  NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<fast_rec_(T)>::type
-                  , T
-                  );
+  typedef typename boost::dispatch::meta::call<fast_rec_(T)>::type r_t;
+  NT2_TEST_TYPE_IS( r_t, T );
 
   NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Mone<T>()), boost::simd::Mone<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Mzero<T>()), boost::simd::Minf<r_t>(), 0);
