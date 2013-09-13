@@ -28,3 +28,4 @@ Boost.SIMD depends on the following header-only Boost libraries:
 [xinclude ../../sdk/doc/sdk.xml]
 [xinclude ../../base/doc/base.xml]
 [xinclude rationale.xml]
+[xinclude tutorial.xml]

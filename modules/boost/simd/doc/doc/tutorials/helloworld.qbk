@@ -1,0 +1,63 @@
+[section SIMD Hello World]
+
+[section Objectives]
+This tutorial will guides you through using the basic Boost.SIMD components and
+compiles your first Boost.SIMD enabled applications.
+[endsect]
+
+[section The Code]
+Here is a simple program computing a SIMD register full of 42.
+
+  #include <iostream>
+  #include <boost/simd/sdk/simd/io.hpp>
+  #include <boost/simd/sdk/simd/pack.hpp>
+  #include <boost/simd/include/functions/plus.hpp>
+  #include <boost/simd/include/functions/multiplies.hpp>
+
+  int main(int argc, const char *argv[])
+  {
+      boost::simd::pack<int> u(10), r(11);
+      boost::simd::pack<int> res = (u + r) * 2;
+
+      std::cout << res << std::endl;
+
+      return 0;
+  }
+
+[endsect]
+
+[section The Pack Abstraction]
+
+The main element of Boost.SIMD is the [classref boost::simd::pack] class,
+accessible through the [headerref boost/simd/sdk/simd/pack.hpp] header file.
+`pack<T,N>` is an abstraction over a block of `N` elements of type `T`, quite
+similar to `std::array`. The main difference is that, for any given pair of `T`
+and `N` which can actually be mapped over one or more native SIMD register type,
+`pack` will use these instead of a simple scalar storage. Operations on packs
+will be performed on every element in the most efficient way possible for any
+given `T` and `N` which, in the case pack is actually implemented as a SIMD
+register, calling the proper SIMD instructions on those elements.
+
+`pack` supports multiple constructors, two of them being used here:
+
+* the so-called splatting constructor (line 9), that takes one scalar parameters
+  and fill the whole pack with its value.
+
+* a constructor from a pack expression (line 10) that fill the pack with the
+  evaluation of the expression passed as an argument.
+
+Once initialized, operations on `pack` instances are similar to operations on
+scalar. All basic operators and all standard library math functions are provided.
+A simple pattern make those functions and operators available: if you need to use
+function `foo`, you need to include `boost/simd/include/functions/foo.hpp`.
+Here, we include `plus.hpp` and `multiplies.hpp` to be able to use `operator+`
+and `operator*`. Finally, we display the `pack` content by using `operator<<`
+provided by the [headerref boost/simd/sdk/simd/io.hpp] header file.
+
+Finally, we can have a look at the program's output:
+
+[pre
+{42,42,42,42}
+]
+
+[endsect]

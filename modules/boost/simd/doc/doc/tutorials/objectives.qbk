@@ -1,0 +1,16 @@
+[section Objectives]
+
+Those tutorials will drive you through the general principles of Boost.SIMD:
+
+* using the pack abstraction;
+* using operations on pack;
+* using pack in generic programming context;
+* interaction with standard containers.
+
+[note
+For all these tutorials, we will consider the use of a 128 bits wide SIMD
+extensions (like SSE or regular Altivec). Depending on your actual architecture,
+the output of the various tutorial applications may varies.
+]
+
+[endsect]
