@@ -51,6 +51,7 @@ namespace nt2 { namespace details
       leading_  = src.leading_;
       info_     = src.info_;
       uplo_     = src.uplo_;
+      that_     = src.that_;
       return *this;
     }
 
@@ -62,9 +63,8 @@ namespace nt2 { namespace details
     //==========================================================================
     // Return properly formatted result depending on up/low options
     //==========================================================================
-    const result_type& result() const
+    result_type& result()
     {
-      result_type that_;
       if(uplo_ == 'U')  that_ = nt2::triu(values_);
       else              that_ = nt2::tril(values_);
 
@@ -163,6 +163,7 @@ namespace nt2 { namespace details
     data_t      values_;
     nt2_la_int  height_, leading_, info_;
     char        uplo_;
+    result_type that_;
   };
 } }
 
