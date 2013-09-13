@@ -33,7 +33,6 @@ namespace nt2 { namespace details
   public :
 
     typedef FLOAT                     float_t;
-//    typedef typename meta::as_logical<float_t>::type                 bool_t;
     typedef ptrdiff_t bool_t;
     typedef T                         array_t;
     typedef nt2::container::table<FLOAT>         table_t;
@@ -85,14 +84,8 @@ namespace nt2 { namespace details
           if (h == 0.0) h = eps;
           a(j) = temp+h;
           h =  a(j)-temp;
-          //            eval<table_t,table_t,FUNC>::DoEval(f,crit,a);
           f = crit(a);
           df(_, j) = (f(_)-fvec(_))/h;
-
-          //             for(size_t i=1; i <= numel(fvec); ++i)
-          //             {
-          //               df(i, j) = (f(i)-fvec(i))/h;
-          //             }
           a(j) = temp;
         }
         else
@@ -128,7 +121,6 @@ namespace nt2 { namespace details
     oneda= zeros(mfit, 1, meta::as_<float_t>());
     chisq =  Mone<float_t>();
 
-//    eval<table_t,table_t,FUNC>::DoEval(fvec,crit,aa);
     fvec = crit(aa);
     for(size_t i = 1; i <= o.maximum_iterations; ++i)
     {
@@ -141,7 +133,6 @@ namespace nt2 { namespace details
     lambda =  Zero<float_t>();
     mrqmin(crit);
     fvec = crit(aa);
-//    eval<array_t,array_t,FUNC>::DoEval(fvec,crit,aa);
   }
 
   template<typename T, typename FLOAT>
@@ -154,7 +145,6 @@ namespace nt2 { namespace details
     bet =  zeros(nt2::of_size(na, 1), meta::as_<float_t>());
     chisq =  Zero<float_t>();
     fvec = crit(a);
-//    eval<array_t,array_t,FUNC>::DoEval(fvec,crit,a);
     fdjac(crit,a);
 
     for(size_t i = 1; i <= numel(fvec); ++i)
@@ -196,7 +186,7 @@ namespace nt2 { namespace details
     const btable_t & ia = *pia;
     size_t ma = nt2::numel(ia);
     array_t tmp0 = nt2::expand(covar, ma, ma);
-    covar = tmp0;
+    covar = tmp0; //ALIASING
     for(size_t j = ma, k = mfit; j ; --j)
     {
       if (ia(j))
@@ -207,7 +197,7 @@ namespace nt2 { namespace details
           tmp = covar(i, j) ;
           covar(i, j) = covar(i, k);
           covar(i, k) = tmp;
-          //        nt2::swap(covar(i, k), covar(i, j));
+          //        nt2::swap(covar(i, k), covar(i, j)); swapline ?
         }
 
         for(size_t i = 1; i <= ma; ++i)
@@ -215,7 +205,7 @@ namespace nt2 { namespace details
           tmp = covar(j, i) ;
           covar(j, i) = covar(k, i);
           covar(k, i) = tmp;
-          //        nt2::swap(covar(k, i), covar(j, i));
+          //        nt2::swap(covar(k, i), covar(j, i)); swapcol ?
         }
         --k;
       }

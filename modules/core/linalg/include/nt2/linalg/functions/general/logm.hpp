@@ -129,7 +129,6 @@ namespace nt2
           itab_t  ord(nt2::of_size(2u, nt2::size(a0,1)));
           blocking(diag_of(t),delta, ord);
           uint32_t lord = nt2::size(ord, 2);
-//          itab_t terms(nt2::of_size(lord, 1));
           for(uint32_t col=1; col <= lord ; ++col)
           {
             BOOST_AUTO_TPL(j, nt2::_(ord(1, col), ord(2, col)));
