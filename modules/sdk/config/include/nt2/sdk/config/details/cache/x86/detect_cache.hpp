@@ -16,6 +16,8 @@
 #include <boost/simd/sdk/config/details/detector/get_vendor.hpp>
 #include <boost/assert.hpp>
 
+#define NT2_CACHE_DETECT_DEFINED
+
 namespace nt2{ namespace config{ namespace details{
 
   inline int get_range(int reg, int begin, int end)
