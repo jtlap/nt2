@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_IEEE_FUNCTIONS_NEXTAFTER_HPP_INCLUDED
 #define BOOST_SIMD_IEEE_FUNCTIONS_NEXTAFTER_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
@@ -21,9 +18,9 @@
  * \par Description
  * in the type A0 of a0, the next element in the a1 direction.
  * \par
- * rg if a1 is greater than a0 this is next(a0)
- * rg if a1 is equal to a0 this is a0
- * rg if a1 is less than a0 this is prev(a0)
+ * rg if a1 is greater than a0 this is next(a0)
+ * rg if a1 is equal to a0 this is a0
+ * rg if a1 is less than a0 this is prev(a0)
  *
  * \par Header file
  *
