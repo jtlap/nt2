@@ -186,11 +186,18 @@ macro(nt2_doc_doxygen file)
                      DEPENDS ${target_name}
                     )
 
-  nt2_xsltproc(${file}.doxygen/all.xml
+  nt2_xsltproc(${file}.doxygen/all2.xml
                ${file}.doxygen/combine.xslt
                ${file}.doxygen/index.xml
                DEPENDS ${file}.doxygen/index.xml
                COMMENT "Combining Doxygen XML output..."
+              )
+
+  nt2_xsltproc(${file}.doxygen/all.xml
+               ${NT2_SOURCE_ROOT}/cmake/boostbook/sort.xsl
+               ${file}.doxygen/all2.xml
+               DEPENDS ${file}.doxygen/all2.xml
+               COMMENT "XInclude sorting..."
               )
 
   if(${NT2_CURRENT_MODULE} MATCHES "^boost\\.")
