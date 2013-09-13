@@ -98,8 +98,8 @@ NT2_TEST_CASE( sum_2D )
     NT2_TEST_EQUAL(r1(i,1),N) ;
 
 
-  for(int j = 3; j <= NT2_MAX_DIMENSIONS; ++j){
-    r = sum(a,j);
+  for(int k = 3; k <= NT2_MAX_DIMENSIONS; ++k){
+    r = sum(a,k);
     for(std::size_t j = 1; j <= N; ++j)
       for(std::size_t i = 1; i <= M; ++i)
         NT2_TEST_EQUAL(r(i,j), a(i,j));
@@ -175,8 +175,8 @@ NT2_TEST_CASE( sum_3D )
       NT2_TEST_EQUAL(r1(i,j,1),O) ;
 
 
-  for(int j = 4; j <= NT2_MAX_DIMENSIONS; ++j){
-    r = sum(a,j);
+  for(int l = 4; l <= NT2_MAX_DIMENSIONS; ++l){
+    r = sum(a,l);
     for(std::size_t k = 1; k <= O; ++k)
       for(std::size_t j = 1; j <= N; ++j)
         for(std::size_t i = 1; i <= M; ++i)

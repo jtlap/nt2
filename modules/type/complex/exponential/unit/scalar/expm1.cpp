@@ -47,7 +47,6 @@ NT2_TEST_CASE_TPL ( expm1_real__1_0,  NT2_REAL_TYPES)
 
 
   {
-    typedef dT r_t;
     // specific values tests
     NT2_TEST_ULP_EQUAL(expm1(nt2::Inf<cT>()), cT(nt2::Inf<T>()), 1.0);
     NT2_TEST_ULP_EQUAL(expm1(nt2::Minf<cT>()), cT(nt2::Mone<T>()), 1.0);
