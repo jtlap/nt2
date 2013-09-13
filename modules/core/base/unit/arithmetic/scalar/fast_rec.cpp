@@ -24,23 +24,8 @@ NT2_TEST_CASE_TPL ( fast_rec,  BOOST_SIMD_SIMD_REAL_TYPES)
                   , T
                   );
 
-  // specific values tests
-
-  // 1/+-inf = 0
-  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Inf<T>()) , boost::simd::Zero<T>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Minf<T>()), boost::simd::Zero<T>(), 0.5);
-
-  // 1/+-0 = +-inf
-  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Mzero<T>()), boost::simd::Minf<T>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Zero<T>()), boost::simd::Inf<T>(), 0.5);
-
-  // 1/Nan = Nan
-  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Nan<T>()), boost::simd::Nan<T>(), 0.5);
-
-  // 1/+-1 = +-1
-  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Mone<T>()), boost::simd::Mone<T>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::One<T>()), boost::simd::One<T>(), 0.5);
-
-  // 1/(1/x) = x
-  NT2_TEST_ULP_EQUAL(fast_rec(fast_rec(boost::simd::Ten<T>())), boost::simd::Ten<T>(), 0.5);
+  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Mone<T>()), boost::simd::Mone<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Mzero<T>()), boost::simd::Minf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::One<T>()), boost::simd::One<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Zero<T>()), boost::simd::Inf<r_t>(), 0);
 }
