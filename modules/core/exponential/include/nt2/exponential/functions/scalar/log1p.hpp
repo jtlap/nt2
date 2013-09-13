@@ -8,15 +8,16 @@
 //==============================================================================
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_SCALAR_LOG1P_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_LOG1P_HPP_INCLUDED
-#include <nt2/exponential/functions/log1p.hpp>
-#include <nt2/include/constants/eps.hpp>
-#include <nt2/include/constants/inf.hpp>
-#include <nt2/include/constants/mone.hpp>
 
+#include <nt2/exponential/functions/log1p.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/log.hpp>
 #include <nt2/include/functions/scalar/minusone.hpp>
 #include <nt2/include/functions/scalar/oneplus.hpp>
+#include <nt2/include/constants/eps.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/mone.hpp>
+#include <boost/simd/sdk/config/enforce_precision.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -54,13 +55,15 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      boost::simd::config::enforce_precision<A0> enforcer;
+
       typedef result_type type;
       if (nt2::abs(a0) < Eps<A0>()) return a0;
       if (a0 < Mone<A0>())   return Nan<A0>();
       if (a0 == Inf<A0>())   return Inf<A0>();
-      volatile type u = oneplus(a0);
+      type u = oneplus(a0);
       type uu = u;
-      volatile type t =(minusone(uu)-a0);
+      type t =(minusone(uu)-a0);
       type v = u;
       type r =nt2::log(v);
       if (t)
