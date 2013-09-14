@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
   {
     typedef typename boost::remove_const<A0>::type        size_type;
     typedef meta::constant_<Tag,typename T::type>         constant_t;
-    typedef meta::as_<typename constant_t::result_type>   target_t;
+    typedef meta::as_<typename constant_t::base_type>     target_t;
     typedef typename  boost::proto::result_of
                     ::make_expr < Tag, container::domain
                                 , box<size_type>
@@ -56,9 +56,9 @@ namespace nt2 { namespace ext
                             , (fusion_sequence_<A0>)
                             )
   {
-    typedef typename boost::remove_const<A0>::type      size_type;
+    typedef typename boost::remove_const<A0>::type          size_type;
     typedef meta::constant_<Tag,typename Tag::default_type> constant_t;
-    typedef meta::as_<typename constant_t::result_type>     target_t;
+    typedef meta::as_<typename constant_t::base_type>       target_t;
     typedef typename  boost::proto::result_of
                     ::make_expr < Tag, container::domain
                                 , box<size_type>

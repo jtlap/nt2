@@ -68,7 +68,7 @@ namespace nt2 { namespace ext
   {
     typedef typename boost::remove_const<A0>::type          size_type;
     typedef meta::constant_<nt2::tag::cols_,T>              constant_t;
-    typedef meta::as_<typename constant_t::result_type>     target_t;
+    typedef meta::as_<typename constant_t::base_type>     target_t;
     typedef typename  boost::proto::result_of
                     ::make_expr < nt2::tag::cols_
                                 , container::domain

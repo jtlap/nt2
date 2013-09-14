@@ -6,33 +6,36 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_DETAILS_DELTAF_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_DETAILS_DELTAF_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_DETAILS_DELTA_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_DETAILS_DELTA_HPP_INCLUDED
 
-#include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/simd/is_equal.hpp>
+#include <nt2/include/functions/simd/if_else_zero.hpp>
 #include <nt2/include/functions/simd/logical_and.hpp>
+#include <nt2/include/functions/simd/is_equal.hpp>
 #include <nt2/include/functions/simd/enumerate.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/meta/constant_adaptor.hpp>
 #include <nt2/core/utility/as_subscript.hpp>
 #include <nt2/core/utility/of_size.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
 
-namespace nt2 { namespace tag { struct deltaf_; } }
-
 namespace nt2 { namespace meta
 {
-  /// INTERNAL ONLY
-  /// Functor used to generate deltaf values
-  template<class Base> struct constant_<nt2::tag::deltaf_, Base>
+  template<std::ptrdiff_t Index> struct delta_ {};
+
+  template<class Base, std::ptrdiff_t Index>
+  struct constant_<delta_<Index>, Base>
   {
-    typedef Base                                                    result_type;
+    typedef Base                                               base_type;
 
     constant_ () {}
+
     template <class I0, class J0>
-    constant_(const I0& i, const J0& j)  : i_(i-1), j_(j-1){}
+    constant_(const I0& i, const J0& j)  : i_(i-Index), j_(j-Index)
+    {
+
+    }
+
     template<class Pos, class Size, class Target>
     BOOST_FORCEINLINE typename Target::type
     operator()(Pos const& p, Size const& sz, Target const&) const
@@ -45,11 +48,10 @@ namespace nt2 { namespace meta
 
       // Retrieve 2D position from the linear index
       s_t const pos = as_subscript(sz,nt2::enumerate<i_t>(p));
+
       // Return a 1 where it belongs
-      BOOST_AUTO_TPL(ii, nt2::splat<v_t>(i_));
-      BOOST_AUTO_TPL(jj, nt2::splat<v_t>(j_));
-      return nt2::if_else(nt2::logical_and(nt2::eq(pos[0],ii),
-                                           nt2::eq(pos[1],jj)),
+      return nt2::if_else(nt2::logical_and(nt2::eq(pos[0],nt2::splat<v_t>(i_)),
+                                           nt2::eq(pos[1],nt2::splat<v_t>(j_))),
                           nt2::One<type>(), nt2::Zero<type>());
     }
 

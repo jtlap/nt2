@@ -24,7 +24,7 @@ namespace nt2 { namespace meta
   /// Functor used to generate rows values
   template<class Base> struct constant_<nt2::tag::rows_, Base>
   {
-    typedef Base                                          result_type;
+    typedef Base                                          base_type;
 
     constant_()                   : start_(Base())  {}
     constant_(const Base & start) : start_(start)   {}
@@ -33,17 +33,18 @@ namespace nt2 { namespace meta
     BOOST_FORCEINLINE typename Target::type
     operator()(Pos const& p, Size const& sz, Target const&) const
     {
-      typedef typename Target::type                 type;
+      typedef typename Target::type               type;
       typedef typename meta::as_index<type>::type i_t;
 
-      return splat<type>( as_subscript(sz,enumerate<i_t>(p))[0]) + start_ ;
+      return  splat<type>(as_subscript(sz,enumerate<i_t>(p))[0])
+            + splat<type>(start_);
     }
 
     template<class Pos,class Target>
     BOOST_FORCEINLINE typename Target::type
     operator()(Pos const&, _0D const&, Target const&) const
     {
-      typedef typename Target::type                 type;
+      typedef typename Target::type               type;
       return splat<type>(start_);
     }
 

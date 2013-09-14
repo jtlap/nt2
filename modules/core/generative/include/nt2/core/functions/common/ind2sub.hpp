@@ -87,7 +87,7 @@ namespace nt2 { namespace ext
     template<typename X,typename N, typename M,typename Size>
     BOOST_DISPATCH_FORCE_INLINE void
     eval( X const& a0, A1& a1, Size const& sz, value_type bi
-        , N const&, M const& m, boost::mpl::true_ const&
+        , N const&, M const&, boost::mpl::true_ const&
         ) const
 
     {

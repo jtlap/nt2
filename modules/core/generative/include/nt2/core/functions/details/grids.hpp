@@ -51,11 +51,6 @@ namespace nt2 { namespace details
     template<int I> BOOST_FORCEINLINE
     void eval(boost::mpl::true_ const&) const
     {
-      // meshgrid swap 0/1 dimension -- ask Mathworks
-      static const int J  = (boost::is_same<Tag,tag::meshgrid_>::value)
-                          ? !I ? 1 : (I==1 ? 0 : I)
-                          : I;
-
       boost::proto::child_c<I>(a1_) = expand_to ( values<I>(a0_,Tag() )
                                                 , a0_.extent()
                                                 );

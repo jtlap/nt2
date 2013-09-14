@@ -13,6 +13,7 @@
 #include <nt2/core/utility/as_subscript.hpp>
 #include <nt2/core/utility/as_index.hpp>
 #include <nt2/include/functions/run.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/functions/simd/modulo.hpp>
 #include <nt2/include/functions/simd/enumerate.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
@@ -46,7 +47,7 @@ namespace nt2 { namespace ext
 
       // TODO: Unroll this ?
       for(std::size_t i=0; i<sub_t::static_size;i++)
-        pos[i] = pos[i] % in_sz[i];
+        pos[i] = pos[i] % splat<i_t>(in_sz[i]);
 
       return nt2::run ( boost::proto::child_c<1>(a0)
                       , as_index(in_sz, pos)
