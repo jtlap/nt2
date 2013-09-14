@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_FOUR_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_FOUR_HPP_INCLUDED
 
@@ -16,52 +13,33 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_four Four
- *
- * \par Description
- * Constant Four = 4
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/four.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::four_(A0)>::type
- *     Four();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Four
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Four of functor Four
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Four generic tag
+
+     Represents the Four constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Four,double
                                 , 4,0x40800000UL,0x4010000000000000ULL
                                 );
   }
+  /*!
+    Constant Four = 4
 
+    @par Semantic:
+
+    @code
+    T r = Four<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Four, Four)
 } }
 

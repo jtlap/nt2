@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_FOURTHROOTEPS_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_FOURTHROOTEPS_HPP_INCLUDED
 
@@ -16,59 +13,40 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_fourthrooteps Fourthrooteps
- *
- * \par Description
- * Constant Fourthrooteps
- * the 4th root of constant eps
- * \arg 1 for integer types
- * \arg \f$ 2^{-13}\f$ for double
- * \arg \f$ 2^{-5.75}\f$ for float
- * \par
- * The value of this constant is type dependant. This means that for different
- * types it does not represent the same mathematical number.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/fourthrooteps.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::fourthrooteps_(A0)>::type
- *     Fourthrooteps();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Fourthrooteps
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Fourthrooteps of functor Fourthrooteps
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Fourthrooteps generic tag
+
+     Represents the Fourthrooteps constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Fourthrooteps,double,1
                                 , 0x3C9837F0,0x3F20000000000000ULL
                                 );
   }
+  /*!
+    Constant Fourthrooteps \f$\root{eps, 4}\f$
+    the 4th root of constant @c Eps
+    @c 1 for integer types
+     \f$ 2^{-13}\f$ for double
+     \f$ 2^{-5.75}\f$ for float
 
+    The value of this constant is type dependant. This means that for different
+    types it does not represent the same mathematical number.
+
+    @par Semantic:
+
+    @code
+    T r = Fourthrooteps<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Fourthrooteps, Fourthrooteps)
 } }
 

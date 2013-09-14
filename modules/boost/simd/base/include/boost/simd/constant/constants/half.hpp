@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_HALF_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_HALF_HPP_INCLUDED
 
@@ -16,50 +13,31 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_half Half
- *
- * \par Description
- * Constant Half = \f$\frac12\f$ is not defined for integer types
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/half.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::half_(A0)>::type
- *     Half();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Half
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Half of functor Half
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Half generic tag
+
+     Represents the Half constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER(Half,double,0,0x3F000000,0x3FE0000000000000ULL);
   }
+  /*!
+    Constant Half = \f$\frac12\f$ is not properly defined for integer types
 
+    @par Semantic:
+
+    @code
+    T r = Half<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Half, Half)
 } }
 

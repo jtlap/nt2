@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_ONEO_8_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_ONEO_8_HPP_INCLUDED
 
@@ -16,52 +13,33 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_oneo_8 Oneo_8
- *
- * \par Description
- * Constant Oneo_8 = 1/8
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/oneo_8.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::oneo_8_(A0)>::type
- *     Oneo_8();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Oneo_8
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Oneo_8 of functor Oneo_8
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Oneo_8 generic tag
+
+     Represents the Oneo_8 constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Oneo_8, double, 0
                                  , 0x3e000000, 0x3fc0000000000000ll
                                 );
   }
+  /*!
+    Constant Oneo_8 = 1/8
 
+    @par Semantic:
+
+    @code
+    T r = Oneo_8<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Oneo_8, Oneo_8)
 } }
 

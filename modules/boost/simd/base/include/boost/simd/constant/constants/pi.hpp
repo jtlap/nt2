@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_PI_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_PI_HPP_INCLUDED
 
@@ -16,53 +13,34 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_pi Pi
- *
- * \par Description
- * Constant Pi = half length of a circle of radius one
- * ... in normal temperature and pressure conditions.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/pi.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::pi_(A0)>::type
- *     Pi();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Pi
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Pi of functor Pi
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Pi generic tag
+
+     Represents the Pi constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Pi, double, 3
                                 , 0x40490FDB, 0x400921FB54442D18ULL
                                 );
   }
+  /*!
+    Constant Pi = \f$\pi\f$ is the half length of a circle of radius one
+    ... in normal temperature and pressure conditions.
 
+    @par Semantic:
+
+    @code
+    T r = Pi<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Pi, Pi)
 } }
 

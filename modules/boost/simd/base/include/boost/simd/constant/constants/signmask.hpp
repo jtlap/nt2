@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_SIGNMASK_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_SIGNMASK_HPP_INCLUDED
 
@@ -18,51 +15,19 @@
 #include <boost/simd/meta/double.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_signmask Signmask
- *
- * \par Description
- * Constant Signmask : is a mask with the lone most significand bit set to one
- * (even if the type is unsigned).
- * \par
- * The value of this constant is type dependant. This means that for different
- * types it does not represent the same mathematical number.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/signmask.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::signmask_(A0)>::type
- *     Signmask();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Signmask
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Signmask of functor Signmask
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Signmask generic tag
+
+     Represents the Signmask constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct Signmask : ext::pure_constant_<Signmask>
     {
       typedef double default_type;
@@ -100,7 +65,20 @@ namespace boost { namespace simd
                         >
     {};
   }
+  /*!
+    Constant Signmask : is a mask with the lone most significand bit set to one
+    (even if the type is unsigned).
 
+    The value of this constant is type dependant. This means that for different
+    types it does not represent the same mathematical number.
+
+    @par Semantic:
+
+    @code
+    T r = Signmask<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Signmask, Signmask)
 } }
 

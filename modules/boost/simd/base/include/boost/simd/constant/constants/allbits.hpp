@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_ALLBITS_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_ALLBITS_HPP_INCLUDED
 
@@ -18,50 +15,19 @@
 #include <boost/simd/meta/double.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_allbits Allbits
- *
- * \par Description
- * Constant Allbits : all bits set to 1.
- * \par
- * The value of this constant is type dependant. This means that for different
- * types it does not represent the same mathematical number.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/allbits.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::allbits_(A0)>::type
- *     Allbits();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Allbits
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Allbits of functor Allbits
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Allbits generic tag
+
+     Represents the Allbits constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct Allbits : ext::pure_constant_<Allbits>
     {
       typedef double default_type;
@@ -104,7 +70,19 @@ namespace boost { namespace simd
           : meta::int_c<T, 0xFFFFFFFFFFFFFFFFULL> {};
 
   }
+  /*!
+    Constant Allbits : all bits set to 1.
 
+    The value of this constant is type dependant. This means that for different
+    types it does not represent the same mathematical number.
+
+    @par Semantic:
+
+    @code
+    T r = Allbits<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Allbits, Allbits)
 } }
 

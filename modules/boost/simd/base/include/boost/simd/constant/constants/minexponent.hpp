@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_MINEXPONENT_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_MINEXPONENT_HPP_INCLUDED
 
@@ -16,47 +13,19 @@
 #include <boost/simd/meta/int_c.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_minexponent Minexponent
- *
- * \par Description
- * Constant Minexponent
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/minexponent.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::minexponent_(A0)>::type
- *     Minexponent();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Minexponent
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Minexponent of functor Minexponent
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Minexponent generic tag
+
+     Represents the Minexponent constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct Minexponent : ext::pure_constant_<Minexponent>
     {
       typedef double default_type;
@@ -74,7 +43,17 @@ namespace boost { namespace simd
   struct  Minexponent::apply<boost::dispatch::meta::double_<T>,Dummy>
         : meta::int_c<boost::simd::int64_t,-1022> {};
   }
+  /*!
+    Constant Minexponent is the smallest floating exponent i.e. -126 for
+    float and -1022 for double.
 
+    @par Semantic:
+
+    @code
+    T r = Minexponent<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Minexponent, Minexponent)
 } }
 

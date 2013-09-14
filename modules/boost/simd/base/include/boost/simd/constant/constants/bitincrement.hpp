@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_BITINCREMENT_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_BITINCREMENT_HPP_INCLUDED
 
@@ -18,51 +15,19 @@
 #include <boost/simd/meta/double.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_bitincrement Bitincrement
- *
- * \par Description
- * Constant Bitincrement : represents 0x00000001 bitwise casts in the
- * the corresponding type.
- * \par
- * The value of this constant is type dependant. This means that for different
- * types it does not represent the same mathematical number.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/bitincrement.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::bitincrement_(A0)>::type
- *     Bitincrement();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Bitincrement
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Bitincrement of functor Bitincrement
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Bitincrement generic tag
+
+     Represents the Bitincrement constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
 
     struct Bitincrement : ext::pure_constant_<Bitincrement>
     {
@@ -82,7 +47,20 @@ namespace boost { namespace simd
           : meta::double_<1> {};
   }
 
+  /*!
+    Constant Bitincrement : represents 0x00000001 bitwise casts in the
+    the corresponding type.
 
+    The value of this constant is type dependant. This means that for different
+    types it does not represent the same mathematical number.
+
+    @par Semantic:
+
+    @code
+    T r = Bitincrement<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION( boost::simd::tag::Bitincrement, Bitincrement)
 } }
 

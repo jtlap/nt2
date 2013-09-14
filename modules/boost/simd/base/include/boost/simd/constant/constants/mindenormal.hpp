@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_MINDENORMAL_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_MINDENORMAL_HPP_INCLUDED
 
@@ -19,51 +16,19 @@
 #include <boost/simd/constant/hierarchy.hpp>
 #include <boost/simd/sdk/config.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_mindenormal Mindenormal
- *
- * \par Description
- * Constant Mindenormal : the least non zero positive value of floating point numbers,
- * i.e. 4.940656458412465e-324 for double and 1.4012985e-45 for float
- * \par
- * The value of this constant is type dependant. This means that for different
- * types it does not represent the same mathematical number.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/mindenormal.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::mindenormal_(A0)>::type
- *     Mindenormal();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Mindenormal
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Mindenormal of functor Mindenormal
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Mindenormal generic tag
+
+     Represents the Mindenormal constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
 
     #ifdef BOOST_SIMD_NO_DENORMALS
     struct Smallestposval;
@@ -87,7 +52,20 @@ namespace boost { namespace simd
           : meta::double_<1> {};
     #endif
   }
+  /*!
+    Constant Mindenormal : the least non zero positive value of floating point numbers,
+    i.e. 4.940656458412465e-324 for double and 1.4012985e-45 for float
 
+    The value of this constant is type dependant. This means that for different
+    types it does not represent the same mathematical number.
+
+    @par Semantic:
+
+    @code
+    T r = Mindenormal<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Mindenormal, Mindenormal)
 
 } }

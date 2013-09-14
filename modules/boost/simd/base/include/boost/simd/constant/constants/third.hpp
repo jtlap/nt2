@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_THIRD_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_THIRD_HPP_INCLUDED
 
@@ -16,52 +13,33 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_third Third
- *
- * \par Description
- * Constant Third= \f$\frac13\f$
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/third.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::third_(A0)>::type
- *     Third();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Third
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Third of functor Third
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Third generic tag
+
+     Represents the Third constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Third, double, 0
                                 , 0x3EAAAAAB, 0x3FD5555555555555ULL
                                 );
   }
+  /*!
+    Constant Third= \f$\frac13\f$
 
+    @par Semantic:
+
+    @code
+    T r = Third<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Third, Third)
 } }
 
