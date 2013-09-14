@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_THREE_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_THREE_HPP_INCLUDED
 
@@ -16,52 +13,33 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_three Three
- *
- * \par Description
- * Constant Three = 3
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/three.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::three_(A0)>::type
- *     Three();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Three
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Three of functor Three
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Three generic tag
+
+     Represents the Three constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Three, double, 3
                                 , 0x40400000UL, 0x4008000000000000ULL
                                 );
   }
+  /*!
+    Constant Three = 3
 
+    @par Semantic:
+
+    @code
+    T r = Three<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Three, Three)
 } }
 

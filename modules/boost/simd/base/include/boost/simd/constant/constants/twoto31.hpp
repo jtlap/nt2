@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_TWOTO31_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_TWOTO31_HPP_INCLUDED
 
@@ -21,52 +18,33 @@
 #pragma warning(disable: 4310) // cast truncate constants
 #endif
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_twoto31 Twoto31
- *
- * \par Description
- * Constant Twoto31 = \f$2^{31}\f$
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/twoto31.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::twoto31_(A0)>::type
- *     Twoto31();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Twoto31
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Twoto31 of functor Twoto31
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Twoto31 generic tag
+
+     Represents the Twoto31 constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Twoto31, double, (1 << 31)
                                 , 0x4f000000, 0x41e0000000000000LL
                                 );
   }
+  /*!
+    Constant Twoto31 = \f$2^{31}\f$
 
+    @par Semantic:
+
+    @code
+    T r = Twoto31<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Twoto31, Twoto31)
 } }
 

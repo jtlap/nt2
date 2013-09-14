@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_MFOUR_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_MFOUR_HPP_INCLUDED
 
@@ -16,52 +13,33 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_mfour Mfour
- *
- * \par Description
- * Constant Mfour = -4
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/mfour.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::mfour_(A0)>::type
- *     Mfour();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Mfour
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Mfour of functor Mfour
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Mfour generic tag
+
+     Represents the Mfour constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Mfour, double, -4
                                 , 0xc0800000UL, 0xc010000000000000ULL
                                 );
   }
+  /*!
+    Constant Mfour = -4
 
+    @par Semantic:
+
+    @code
+    T r = Mfour<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Mfour, Mfour)
 } }
 #include <boost/simd/constant/common.hpp>

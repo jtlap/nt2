@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_LDEXPMASK_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_LDEXPMASK_HPP_INCLUDED
 
@@ -16,54 +13,19 @@
 #include <boost/simd/meta/int_c.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_ldexpmask Ldexpmask
- *
- * \par Description
- * Constant Ldexpmask
- * This constant is the mask to extract the exponent
- * bits of a floating point value
- * \par
- * Its value depends of the type of the template parameter
- * \par
- * The value of this constant is type dependant. This means that for different
- * types it does not represent the same mathematical number.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/ldexpmask.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::ldexpmask_(A0)>::type
- *     Ldexpmask();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Ldexpmask
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Ldexpmask of functor Ldexpmask
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Ldexpmask generic tag
+
+     Represents the Ldexpmask constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct Ldexpmask : ext::pure_constant_<Ldexpmask>
     {
       typedef double default_type;
@@ -81,7 +43,22 @@ namespace boost { namespace simd
     struct  Ldexpmask::apply<boost::dispatch::meta::double_<T>,Dummy>
           : meta::int_c<boost::simd::int64_t,0x7FF0000000000000ULL> {};
   }
+  /*!
+    Constant Ldexpmask
 
+    This constant is the mask to extract the exponent
+    bits of a floating point value
+
+    The value of this constant is type dependant. This means that for different
+    types it does not represent the same mathematical number.
+
+    @par Semantic:
+
+    @code
+    T r = Ldexpmask<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Ldexpmask, Ldexpmask)
 } }
 

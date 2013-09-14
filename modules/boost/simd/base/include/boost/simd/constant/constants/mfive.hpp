@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_MFIVE_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_MFIVE_HPP_INCLUDED
 
@@ -16,52 +13,33 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_mfive Mfive
- *
- * \par Description
- * Constant Mfive = -5
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/mfive.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::mfive_(A0)>::type
- *     Mfive();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Mfive
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Mfive of functor Mfive
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Mfive generic tag
+
+     Represents the Mfive constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Mfive, double, -5
                                 , 0xc0a00000UL,0xc014000000000000ULL
                                 );
   }
+  /*!
+    Constant Mfive = -5
 
+    @par Semantic:
+
+    @code
+    T r = Mfive<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Mfive, Mfive)
 } }
 #include <boost/simd/constant/common.hpp>

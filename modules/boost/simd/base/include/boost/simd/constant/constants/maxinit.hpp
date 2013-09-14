@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_MAXINIT_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_MAXINIT_HPP_INCLUDED
 
@@ -23,54 +20,19 @@
 #pragma warning(disable: 4146)
 #endif
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_maxinit Maxinit
- *
- * \par Description
- * Constant Maxinit, maximum value of a type.
- * \arg int8    -128, uint8    0,
- * \arg int16 -32768, uint16 0,
- * \arg int32 -2147483648, uint32 0,
- * \arg int64 -9223372036854775808, uint64 0,\arg float \f$-\infty\f$, double \f$-\infty\f$,
- * \par
- * The value of this constant is type dependant. This means that for different
- * types it does not represent the same mathematical number.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/maxinit.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::maxinit_(A0)>::type
- *     Maxinit();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Maxinit
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Maxinit of functor Maxinit
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Maxinit generic tag
+
+     Represents the Maxinit constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct Maxinit : ext::pure_constant_<Maxinit>
     {
       typedef double default_type;
@@ -111,7 +73,23 @@ namespace boost { namespace simd
                     >
     {};
   }
+  /*!
+    Constant Maxinit, the minimum value of a type,  is used to init maxima computations.
+    @c int8    -128, uint8  0,
+    @c int16 -32768, uint16 0,
+    @c int32 -2147483648, uint32 0,
+    @c int64 -9223372036854775808, uint64 0,@c float \f$-\infty\f$, @c double \f$-\infty\f$,
 
+    The value of this constant is type dependant. This means that for different
+    types it does not represent the same mathematical number.
+
+    @par Semantic:
+
+    @code
+    T r = Maxinit<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Maxinit, Maxinit)
 } }
 

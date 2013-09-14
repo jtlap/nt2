@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_C180_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_C180_HPP_INCLUDED
 
@@ -16,52 +13,33 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_c180 c180
- *
- * \par Description
- * Constant c180 = 180
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/c180.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::c180_(A0)>::type
- *     C180();
- * }
- * \endcode
- *
- *
- * \param T template parameter of C180
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag c180 of functor c180
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief C180 generic tag
+
+     Represents the C180 constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( C180, double, 0
                                  , 0x43340000, 0x4066800000000000ll
                                 );
   }
+  /*!
+    Constant c180 = 180
 
+    @par Semantic:
+
+    @code
+    T r = C180<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::C180, C180)
 } }
 

@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_FALSE_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_FALSE_HPP_INCLUDED
 
@@ -17,54 +14,35 @@
 #include <boost/simd/constant/hierarchy.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_false False
- *
- * \par Description
- * Constant False
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/false.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::false_(A0)>::type
- *     False();
- * }
- * \endcode
- *
- *
- * \param T template parameter of False
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag False of functor False
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief False generic tag
+
+     Represents the False constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct False : ext::pure_constant_<False>
     {
       typedef logical<double> default_type;
       typedef ext::pure_constant_<False> parent;
     };
   }
+  /*!
+    Constant False
 
+    @par Semantic:
+
+    @code
+    as_logical<T> r = False<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::False, False)
 } }
 

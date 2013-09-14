@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_TRUE_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_TRUE_HPP_INCLUDED
 
@@ -17,60 +14,41 @@
 #include <boost/simd/constant/hierarchy.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_true True
- *
- * \par Description
- * Constant True is quite system specific as
- * this value is type dependant at the SIMD level.
- * \par
- * \arg For scalar it is the standard bool value \c true,
- * \arg for ssex and avx system it is a all bits set to one value in the type T,
- * \arg for larrabee system it is an 32 integer mask with all bits set to one,
- * \arg etc.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/true.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::true_(A0)>::type
- *     True();
- * }
- * \endcode
- *
- *
- * \param T template parameter of True
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag True of functor True
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief True generic tag
+
+     Represents the True constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct True : ext::pure_constant_<True>
     {
       typedef logical<double> default_type;
       typedef ext::pure_constant_<True> parent;
     };
   }
+  /*!
+    Constant True is quite system specific as
+    this value is type dependant at the SIMD level.
+    \par
+    \arg For scalar it is the standard bool value \c true,
+    \arg for ssex and avx system it is a all bits set to one value in the type T,
+    \arg for larrabee system it is an 32 integer mask with all bits set to one,
+    \arg etc.
 
+    @par Semantic:
+
+    @code
+    T r = True<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::True, True)
 } }
 

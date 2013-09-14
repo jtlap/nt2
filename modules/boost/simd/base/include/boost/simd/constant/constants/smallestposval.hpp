@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_SMALLESTPOSVAL_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_SMALLESTPOSVAL_HPP_INCLUDED
 
@@ -16,54 +13,35 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_smallestposval Smallestposval
- *
- * \par Description
- * Constant Smallestposval : the least non zero positive value of floating point numbers,
- * i.e. 2.225073858507201e-308 for double and  1.1754944e-38 for float
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/smallestposval.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::smallestposval_(A0)>::type
- *     Sqrtsmallestposval();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Smallestposval
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Smallestposval of functor Smallestposval
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Smallestposval generic tag
+
+     Represents the Smallestposval constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Smallestposval , double, 1
                                 , 0x00800000, 0x0010000000000000ULL
                                 );
 
   }
+  /*!
+    Constant Smallestposval : the least non zero, non denormal, positive value of floating point numbers,
+    i.e. 2.225073858507201e-308 for double and  1.1754944e-38 for float
 
+    @par Semantic:
+
+    @code
+    T r = Smallestposval<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Smallestposval, Smallestposval)
 } }
 

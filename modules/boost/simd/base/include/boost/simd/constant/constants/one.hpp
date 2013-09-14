@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_ONE_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_ONE_HPP_INCLUDED
 
@@ -16,52 +13,33 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_one One
- *
- * \par Description
- * Constant One = 1
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/one.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::one_(A0)>::type
- *     One();
- * }
- * \endcode
- *
- *
- * \param T template parameter of One
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag One of functor One
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief One generic tag
+
+     Represents the One constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( One, double, 1
                                 , 0x3f800000UL, 0x3ff0000000000000ULL
                                 );
   }
+  /*!
+    Constant One = 1
 
+    @par Semantic:
+
+    @code
+    T r = One<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::One, One)
 } }
 

@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_MHALF_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_MHALF_HPP_INCLUDED
 
@@ -16,52 +13,33 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_mhalf Mhalf
- *
- * \par Description
- * Constant Mhalf = -\f$\frac12\f$
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/mhalf.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::mhalf_(A0)>::type
- *     Mhalf();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Mhalf
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Mhalf of functor Mhalf
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Mhalf generic tag
+
+     Represents the Mhalf constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Mhalf, double, 0
                                 , 0xBF000000, 0xBFE0000000000000ULL
                                 );
   }
+  /*!
+    Constant Mhalf = -\f$\frac12\f$
 
+    @par Semantic:
+
+    @code
+    T r = Mhalf<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Mhalf, Mhalf)
 } }
 

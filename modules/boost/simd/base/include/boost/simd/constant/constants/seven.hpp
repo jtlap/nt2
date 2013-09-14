@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_SEVEN_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_SEVEN_HPP_INCLUDED
 
@@ -16,52 +13,33 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_seven Seven
- *
- * \par Description
- * Constant Seven = 7
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/seven.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::seven_(A0)>::type
- *     Seven();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Seven
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Seven of functor Seven
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Seven generic tag
+
+     Represents the Seven constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Seven, double, 7
                                 , 0x40e00000UL, 0x401c000000000000ULL
                                 );
   }
+  /*!
+    Constant Seven = 7
 
+    @par Semantic:
+
+    @code
+    T r = Seven<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Seven, Seven)
 } }
 

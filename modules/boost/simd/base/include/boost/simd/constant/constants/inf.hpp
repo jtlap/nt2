@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_INF_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_INF_HPP_INCLUDED
 
@@ -20,54 +17,21 @@
 #include <boost/simd/constant/hierarchy.hpp>
 #include <boost/simd/sdk/config.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_inf Inf
- *
- * \par Description
- * Constant Inf
- * \arg Maximum value of the type for integer types
- * \arg \f$= \infty \f$ for floating points
- * \par
- * The value of this constant is type dependant. This means that for different
- * types it does not represent the same mathematical number.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/inf.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::inf_(A0)>::type
- *     Inf();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Inf
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
+   /*!
+     @brief Inf generic tag
+
+     Represents the Inf constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct Valmax;
 
-    /*!
-     * \brief Define the tag Inf of functor Inf
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
     struct Inf : ext::pure_constant_<Inf>
     {
       typedef double default_type;
@@ -83,8 +47,23 @@ namespace boost { namespace simd
 
     template<class T, class Dummy>
     struct  Inf::apply<boost::dispatch::meta::double_<T>,Dummy>
-          : meta::double_<0x7FF0000000000000ULL> {};
+      : meta::double_<0x7FF0000000000000ULL> {};
   }
+
+  /*!
+    Constant Inf IEEE inf (\f$infty\f$) for floating types and Maximum value
+    of the type for integer types
+
+    The value of this constant is type dependant. This means that for different
+    types it does not represent the same mathematical number.
+
+    @par Semantic:
+
+    @code
+    T r = Inf<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Inf, Inf)
 
 } }

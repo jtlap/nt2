@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_SQRTSMALLESTPOSVAL_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_SQRTSMALLESTPOSVAL_HPP_INCLUDED
 
@@ -16,53 +13,34 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_sqrtsmallestposval Sqrtsmallestposval
- *
- * \par Description
- * Constant Sqrtmallestposval : the square root of the least non zero positive value of floating point numbers,
- * i.e.1.491668146240041e-154 for double and 1.0842022e-19 for float
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/smallestposval.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::sqrtsmallestposval_(A0)>::type
- *     Sqrtsmallestposval();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Sqrtsmallestposval
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Sqrtsmallestposval of functor Sqrtsmallestposval
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Sqrtsmallestposval generic tag
+
+     Represents the Sqrtsmallestposval constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Sqrtsmallestposval , double, 1
                                 , 0x20000000, 0x2000000000000000ll
                                 );
   }
+  /*!
+    Constant Sqrtmallestposval : the square root of the least non zero positive value of floating point numbers,
+    i.e.1.491668146240041e-154 for double and 1.0842022e-19 for float
 
+    @par Semantic:
+
+    @code
+    T r = Sqrtsmallestposval<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Sqrtsmallestposval, Sqrtsmallestposval)
 } }
 

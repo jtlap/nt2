@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_SQRT_2O_2_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_SQRT_2O_2_HPP_INCLUDED
 
@@ -16,53 +13,34 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_sqrt_2o_2 Sqrt_2o_2
- *
- * \par Description
- * Constant Sqrt_2o_2 = \f$ \frac{\sqrt2}2\f$
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/sqrt_2o_2.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::sqrt_2o_2_(A0)>::type
- *     Sqrt_2o_2();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Sqrt_2o_2
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Sqrt_2o_2 of functor Sqrt_2o_2
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Sqrt_2o_2 generic tag
+
+     Represents the Sqrt_2o_2 constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Sqrt_2o_2, double, 0
                                 , 0x3F3504F3, 0x3FE6A09E667F3BCDULL
                                 );
   }
 
+  /*!
+    Constant Sqrt_2o_2 = \f$ \frac{\sqrt2}2\f$
 
+    @par Semantic:
+
+    @code
+    T r = Sqrt_2o_2<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Sqrt_2o_2, Sqrt_2o_2)
 } }
 

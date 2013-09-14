@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_SPLITFACTOR_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_SPLITFACTOR_HPP_INCLUDED
 
@@ -16,56 +13,37 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_splitfactor Splitfactor
- *
- * \par Description
- * Constant Splitfactor is a constant used to split a floating number in two half,
- * in floating point routines such two_add and two_prod to get extra precision.
- * \par
- * The value of this constant is type dependant. This means that for different
- * types it does not represent the same mathematical number.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/splitfactor.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::splitfactor_(A0)>::type
- *     Splitfactor();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Splitfactor
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Splitfactor of functor Splitfactor
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Splitfactor generic tag
+
+     Represents the Splitfactor constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Splitfactor, double, 0
                                 , 0x46000000, 0x41A0000000000000ULL
                                 );
   }
+  /*!
+    Constant Splitfactor is a constant used to split a floating number in two half,
+    in floating point routines such two_add and two_prod to get extra precision.
 
+    The value of this constant is type dependant. This means that for different
+    types it does not represent the same mathematical number.
+
+    @par Semantic:
+
+    @code
+    T r = Splitfactor<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Splitfactor, Splitfactor)
 } }
 

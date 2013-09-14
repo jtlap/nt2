@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_MINF_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_MINF_HPP_INCLUDED
 
@@ -20,52 +17,21 @@
 #include <boost/simd/constant/hierarchy.hpp>
 #include <boost/simd/sdk/config.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_minf Minf
- *
- * \par Description
- * Constant Minf
- * \par
- * The value of this constant is type dependant. This means that for different
- * types it does not represent the same mathematical number.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/minf.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::minf_(A0)>::type
- *     Minf();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Minf
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
+   /*!
+     @brief Minf generic tag
+
+     Represents the Minf constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct Valmin;
 
-    /*!
-     * \brief Define the tag Minf of functor Minf
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
     struct Minf : ext::pure_constant_<Minf>
     {
       typedef double                    default_type;
@@ -83,7 +49,19 @@ namespace boost { namespace simd
     struct  Minf::apply<boost::dispatch::meta::double_<T>,Dummy>
           : meta::double_<0xFFF0000000000000ULL> {};
   }
+  /*!
+    Constant Minf =  \f$\-infty\f$
 
+    The value of this constant is type dependant. This means that for different
+    types it does not represent the same mathematical number.
+
+    @par Semantic:
+
+    @code
+    T r = Minf<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Minf, Minf)
 } }
 
