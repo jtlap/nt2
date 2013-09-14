@@ -66,7 +66,6 @@ namespace boost { namespace simd { namespace ext
       // No denormal provision
       typedef typename meta::scalar_of<result_type>::type             s_type;
       typedef typename dispatch::meta::as_integer<result_type, signed>::type  int_type;
-      typedef typename meta::scalar_of<int_type>::type             sint_type;
 
       // clear exponent in x
       result_type const x = b_andnot(a0, Ldexpmask<A0>());

@@ -11,7 +11,7 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
 #include <boost/simd/swar/functions/deinterleave_first.hpp>
-#include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/simd/sdk/simd/meta/retarget.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -25,8 +25,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
     {
-      typedef typename meta::scalar_of<A0>::type                  sctype;
-      typedef simd::native<sctype, boost::simd::tag::sse_ >       svtype;
+      typedef typename meta::retarget<A0, boost::simd::tag::sse_ >::type svtype;
 
       svtype a00 = _mm256_extractf128_ps(a0, 0);
       svtype a01 = _mm256_extractf128_ps(a0, 1);
@@ -47,9 +46,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
     {
-      typedef typename meta::scalar_of<A0>::type                  sctype;
-      typedef simd::native<sctype, boost::simd::tag::sse_ >       svtype;
-      typedef simd::native<sctype, boost::simd::tag::avx_ >        vtype;
+      typedef typename meta::retarget<A0, boost::simd::tag::sse_ >::type svtype;
 
       svtype a00 = _mm256_extractf128_pd(a0, 0);
       svtype a01 = _mm256_extractf128_pd(a0, 1);
@@ -70,9 +67,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
     {
-      typedef typename meta::scalar_of<A0>::type                  sctype;
-      typedef simd::native<sctype, boost::simd::tag::sse_ >       svtype;
-      typedef simd::native<sctype, boost::simd::tag::avx_ >        vtype;
+      typedef typename meta::retarget<A0, boost::simd::tag::sse_ >::type svtype;
 
       svtype a00 = _mm256_extractf128_si256(a0, 0);
       svtype a01 = _mm256_extractf128_si256(a0, 1);
