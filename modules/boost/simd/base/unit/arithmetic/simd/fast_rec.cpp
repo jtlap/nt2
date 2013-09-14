@@ -15,7 +15,7 @@
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/ten.hpp>
@@ -31,8 +31,9 @@ NT2_TEST_CASE_TPL ( fast_rec,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>               vT;
 
-  // 1/Nan = Nan
-  NT2_TEST_EQUAL(fast_rec(boost::simd::Nan<vT>()), boost::simd::Nan<vT>());
+  NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<fast_rec_(vT)>::type
+                  , vT
+                  );
 
   // 1/+-1 = +-1
   NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Mone<vT>()), boost::simd::Mone<vT>(), 0.5);

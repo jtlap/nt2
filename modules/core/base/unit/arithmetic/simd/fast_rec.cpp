@@ -32,9 +32,6 @@ NT2_TEST_CASE_TPL ( fast_rec,  BOOST_SIMD_SIMD_REAL_TYPES)
                   , (native<T,ext_t>)
                   );
 
-  // 1/Nan = Nan
-  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Nan<vT>()), boost::simd::Nan<vT>(), 0.5);
-
   // 1/+-1 = +-1
   NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Mone<vT>()), boost::simd::Mone<vT>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::One<vT>()), boost::simd::One<vT>(), 0.5);
