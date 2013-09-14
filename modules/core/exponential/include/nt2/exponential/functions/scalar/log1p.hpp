@@ -60,7 +60,9 @@ namespace nt2 { namespace ext
       typedef result_type type;
       if (nt2::abs(a0) < Eps<A0>()) return a0;
       if (a0 < Mone<A0>())   return Nan<A0>();
+#ifndef BOOST_SIMD_NO_INVALIDS
       if (a0 == Inf<A0>())   return Inf<A0>();
+#endif
       type u = oneplus(a0);
       type uu = u;
       type t =(minusone(uu)-a0);
