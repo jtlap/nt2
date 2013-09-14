@@ -13,6 +13,7 @@
 #include <boost/simd/include/constants/splitfactor.hpp>
 #include <boost/simd/include/functions/simd/multiplies.hpp>
 #include <boost/simd/include/functions/simd/minus.hpp>
+#include <boost/simd/sdk/config/enforce_precision.hpp>
 #include <boost/fusion/include/std_pair.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -60,6 +61,7 @@ namespace boost { namespace simd { namespace ext
     typedef void result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a, A0 & r0,A0 & r1) const
     {
+      boost::simd::config::enforce_precision<A0> enforcer;
       A0 const c = boost::simd::Splitfactor<A0>()*a;
       A0 const c1 = c-a;
       r0 = c-c1;

@@ -8,10 +8,12 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_ROUND2EVEN_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_ROUND2EVEN_HPP_INCLUDED
+
 #include <boost/simd/arithmetic/functions/round2even.hpp>
+#include <boost/simd/include/functions/scalar/abs.hpp>
 #include <boost/simd/include/constants/twotonmb.hpp>
 #include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/include/functions/scalar/abs.hpp>
+#include <boost/simd/sdk/config/enforce_precision.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -23,10 +25,12 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
+      boost::simd::config::enforce_precision<A0> enforcer;
+
       const result_type v = boost::simd::abs(a0);
       const result_type t2n = boost::simd::Twotonmb<result_type>();
-      volatile result_type d0 = (v+t2n);
-      volatile result_type d = (d0-t2n);
+      result_type d0 = (v+t2n);
+      result_type d = (d0-t2n);
       d = (v < t2n)?d:v;
       return a0 < Zero<A0>() ? -d : d;
     }
