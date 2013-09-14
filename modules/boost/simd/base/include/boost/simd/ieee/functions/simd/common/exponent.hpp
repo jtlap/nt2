@@ -46,7 +46,6 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<A0>::type             s_type;
-      typedef typename meta::scalar_of<result_type>::type sint_type;
       const int nmb= int(Nbmantissabits<s_type>());
       const result_type x = shri(exponentbits(a0), nmb);
       return if_zero_else( is_invalid(a0), x-if_else_zero(a0, Maxexponent<A0>()));
