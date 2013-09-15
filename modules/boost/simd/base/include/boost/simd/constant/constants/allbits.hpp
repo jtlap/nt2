@@ -79,9 +79,17 @@ namespace boost { namespace simd
     T r = Allbits<T>();
     @endcode
 
-    For floating types this value is the same as @c Nan<T>(),
-    for unsigned type it is the same as @c Valmax<T>()
-    and for signed integral types it is the same as @c Mone<T>()
+    is similar to
+
+    @code
+    if T is floating point
+      r =  Nan<T>();
+    else if T is signed integral
+      r = -1;
+    else
+      r = Valmax<T>();
+    @endcode
+
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Allbits, Allbits)
 } }
