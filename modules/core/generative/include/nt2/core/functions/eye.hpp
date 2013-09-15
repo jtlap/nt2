@@ -122,62 +122,6 @@ namespace nt2
       generates an expression that evaluates as a @sizes{at_c<0>(dims),at_c<N-1>(dims)}
       identity matrix of type @c T.
 
-    @par Examples:
-
-
-    - Creates a @c 4x4 identity matrix.
-      @code
-      I = eye(4);
-      NT2_DISPLAY(I);
-      @endcode
-      @code
-      I =
-
-           1     0     0     0
-           0     1     0     0
-           0     0     1     0
-           0     0     0     1
-      @endcode
-
-    - Create a 2-by-3 identity matrix.
-      @code
-      I = eye(2,3);
-      NT2_DISPLAY(I);
-      @endcode
-      @code
-      I =
-
-           1     0     0
-           0     1     0
-      @endcode
-
-    - Create a 3-by-1 identity vector.
-      @code
-      I = eye( of_size(3,1) );
-      NT2_DISPLAY(I);
-      @endcode
-      @code
-      I =
-
-           1
-           0
-           0
-      @endcode
-
-    - Create a 3-by-3 identity matrix whose elements are 32-bit
-      unsigned integers.
-      @code
-      I = eye( 3, uint32_ );
-      NT2_DISPLAY(I);
-      @endcode
-      @code
-      I =
-
-           1     0     0
-           0     1     0
-           0     0     1
-      @endcode
-
     @par Matlab equivalent:
 
     This function is equivalent to the Matlab function
@@ -185,6 +129,8 @@ namespace nt2
     eye() doesn't however support the @c like based function. One can actually
     use the class_ function to generate a Type specifier or use such a
     predefined specifier.
+
+    @usage_output{eye.cpp,eye.out}
 
     @param dims Size of each dimension, specified as one or more integer values
                 or as a row vector of integer values. If any @c dims is lesser

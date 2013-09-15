@@ -55,20 +55,22 @@ namespace nt2
 
     @par Semantic
 
-    For any Scalar value @c a0 and @c a1 of type @c T, if a1 >= a0, the
+    For any Scalar value @c l and @c h of type @c T, if h >= l, the
     following code:
     @code
-    auto x = colon(a0,a1);
+    auto x = colon(l,h);
     @endcode
 
-    generates an expression that evaluates as a @size2D{1, (a1-a0+1)} table of
+    generates an expression that evaluates as a @size2d{1,h-l+1} table of
     type @c T for which, for any index @c i :
 
     @code
-    x(i) = a0 + i
+    x(i) = l + i
     @endcode
 
-    If a1 < a0, the generated expression evaluates an empty table.
+    If h < l, the generated expression evaluates an empty table.
+
+    @usage_output{colon.cpp,colon.out}
 
     @param a0 First value of the generation space
     @param a1 Last value of the generation space
@@ -80,23 +82,25 @@ namespace nt2
   /*!
     @brief Regular spaced values generator with step
 
-Creates an array filled with values regularly spaced with a given step.
+    Creates an array filled with values regularly spaced with a given step.
 
     @par Semantic
 
-    For any Scalar value @c a0, @c a0 and @c a2 of type @c T
+    For any Scalar value @c l, @c h and @c s of type @c T
     @code
-    auto x = colon(a0,a1,a2);
+    auto x = colon(l,s,h);
     @endcode
 
-    generates an expression that evaluates as a @size2D{1,fix(a2-a0+1)/a1}
+    generates an expression that evaluates as a @size2d{1,fix((h-l+1)/s)}
     table of type @c T for which, for any index @c i :
 
     @code
-    x(i) = a0 + i*a1
+    x(i) = l + i*s
     @endcode
 
-    If a1 < a0, the generated expression evaluates an empty table.
+    If h < l, the generated expression evaluates an empty table.
+
+    @usage_output{colon_step.cpp,colon_step.out}
 
     @param a0 First value of the generation space
     @param a1 Step between generated values

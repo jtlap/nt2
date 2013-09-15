@@ -17,6 +17,7 @@ HIDE_SCOPE_NAMES       = YES
 INLINE_INFO            = YES
 INTERNAL_DOCS          = NO
 INPUT                  = ../include/nt2/core/functions
+EXAMPLE_PATH           = ../examples/
 FULL_PATH_NAMES        = NO
 INHERIT_DOCS           = NO
 RECURSIVE              = NO

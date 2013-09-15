@@ -21,13 +21,69 @@ namespace nt2
   namespace tag
   {
     /*!
-      @brief Tag for fill_pattern functor
+      @brief fill_pattern generic tag
+
+      Represents the fill_pattern function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
     struct fill_pattern_ : ext::elementwise_<fill_pattern_>
     {
+      /// @brief Parent hierarchy
       typedef ext::elementwise_<fill_pattern_> parent;
     };
   }
+
+
+  #if defined(DOXYGEN_ONLY)
+  /*!
+    @brief Pattern generator
+
+    Create an array made of a linear repetition of a given pattern matrix.
+
+    @par Semantic:
+
+    fill_pattern semantic depends of its parameters type and quantity:
+
+    - For any Expression @c p and any Integer @c sz1,...,szn , the
+      following code:
+      @code
+      auto x = fill_pattern(p, sz1,...,szn);
+      @endcode
+      generates an expression that evaluates as a @sizes{sz1,szn} table where,
+      for any indexes @c i, <tt>x(i) = p(i%numel(p))</tt>.
+
+    - For any Expression @c p and any Expression @c dims evaluating as a row
+      vector of @c N elements, the following code:
+      @code
+      auto x = fill_pattern(p, dims);
+      @endcode
+      generates an expression that evaluates as a @sizes{dims(1),dims(N)}
+      table  where, for any indexes @c i, <tt>x(i) = p(i%numel(p))</tt>.
+
+    - For any Expression @c p and any Fusion Sequence @c dims of @c N elements,
+      the following code:
+      @code
+      auto x = fill_pattern(p, dims);
+      @endcode
+      generates an expression that evaluates as a @sizes{at_c<1>(dims),at_c<N-1>(dims)}
+      table where, for any indexes @c i, <tt>x(i) = p(i%numel(p))</tt>.
+
+    @usage_output{fill_pattern.cpp,fill_pattern.out}
+
+    @param p  Data patter to repeat in the result.
+
+    @param dims Size of each dimension, specified as one or more integer values
+                or as a row vector of integer values. If any @c dims is lesser
+                or equal to 0, then the resulting expression is empty.
+
+    @return An Expression evaluating as an array of a given type and dimensions.
+  **/
+  template<typename Pattern, typename... Dims>
+  details::unspecified fill_pattern(Pattern const& p, Args const&... dims);
+
+  #else
 
   #define M0(z,n,t)                                                     \
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::fill_pattern_, fill_pattern, n) \
@@ -36,6 +92,8 @@ namespace nt2
   BOOST_PP_REPEAT_FROM_TO(2,BOOST_PP_INC(BOOST_PP_INC(NT2_MAX_DIMENSIONS)),M0,~)
 
   #undef M0
+
+  #endif
 }
 
 namespace nt2 { namespace ext

@@ -41,6 +41,9 @@ namespace nt2 { namespace ext
     typedef void                                                    result_type;
     typedef typename boost::proto::result_of::child_c<A0&,0>::type       child0;
     typedef typename boost::proto::result_of::child_c<A1&,0>::type       child1;
+    typedef typename boost::proto::result_of::value<child1>::type        type_t;
+    typedef typename meta::is_scalar<type_t>::type                     choice_t;
+
     typedef typename boost::dispatch::meta::
             terminal_of< typename boost::dispatch::meta::
                          semantic_of<child0>::type
@@ -113,9 +116,6 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<2> const &
               ) const//number of outputs
     {
-      typedef typename boost::proto::result_of::child_c<A0&,1>::type child1;
-      typedef typename boost::proto::result_of::value<child1>::type  type_t;
-      typedef typename meta::is_scalar<type_t>::type               choice_t;
       m = getval(boost::proto::value(boost::proto::child_c<1>(a0)),0,choice_t());
       n = getval(boost::proto::value(boost::proto::child_c<1>(a0)),1,choice_t());
     }
@@ -158,9 +158,6 @@ namespace nt2 { namespace ext
               , Dummy()
               ) const
     {
-      typedef typename boost::proto::result_of::child_c<A0&,1>::type child1;
-      typedef typename boost::proto::result_of::value<child1>::type  type_t;
-      typedef typename meta::is_scalar<type_t>::type               choice_t;
       m = getval(boost::proto::value(boost::proto::child_c<1>(a0)),0,choice_t());
       n = getval(boost::proto::value(boost::proto::child_c<1>(a0)),1,choice_t());
     }
@@ -173,9 +170,6 @@ namespace nt2 { namespace ext
               , Dummy()
               ) const
     {
-      typedef typename boost::proto::result_of::child_c<A0&,1>::type child1;
-      typedef typename boost::proto::result_of::value<child1>::type  type_t;
-      typedef typename meta::is_scalar<type_t>::type               choice_t;
       m = getval(boost::proto::value(boost::proto::child_c<1>(a0)),0,choice_t());
       n = getval(boost::proto::value(boost::proto::child_c<1>(a0)),1,choice_t());
       meshgrid = true;

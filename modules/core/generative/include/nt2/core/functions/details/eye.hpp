@@ -16,6 +16,7 @@
 #include <nt2/sdk/meta/constant_adaptor.hpp>
 #include <nt2/core/utility/as_subscript.hpp>
 #include <nt2/include/constants/one.hpp>
+#include <nt2/core/utility/of_size.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
 
 namespace nt2 { namespace tag { struct eye_; } }

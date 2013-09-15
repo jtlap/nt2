@@ -125,6 +125,8 @@ namespace nt2
       generates an expression that evaluates as a @sizes{at_c<1>(dims),at_c<N-1>(dims)}
       table where, for any indexes @c i and @c j, <tt>x(i,j) = T(j)</tt>
 
+    @usage_output{cif.cpp,cif.out}
+
     @param dims Size of each dimension, specified as one or more integer values
                 or as a row vector of integer values. If any @c dims is lesser
                 or equal to 0, then the resulting expression is empty.
