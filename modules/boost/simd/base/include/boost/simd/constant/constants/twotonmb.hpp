@@ -38,7 +38,8 @@ namespace boost { namespace simd
     @code
     T r = Twotonmb<T>();
     @endcode
-   is similar to:
+
+    is similar to:
 
     @code
     T r = pow(2, Nbmantissabits<T>());

@@ -36,13 +36,14 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    generates 2 to the power 31 (\f$2^{31}\f$)
+    Generates 2 to the power 31 (\f$2^{31}\f$)
 
     @par Semantic:
 
     @code
     T r = Twoto31<T>();
     @endcode
+
     is similar to:
 
     @code

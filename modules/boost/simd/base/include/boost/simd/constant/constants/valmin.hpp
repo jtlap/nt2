@@ -75,13 +75,6 @@ namespace boost { namespace simd
   }
   /*!
     Generates the least finite value of a type.
-    @c int8    -128, uint8    0,
-    @c int16 -32768, uint16 0,
-    @c int32 -2147483648, uint32 0,
-    @c int64 -9223372036854775808, uint64 0, @c float \f$-\infty\f$, @c double \f$-\infty\f$,
-    \par
-    The value of this constant is type dependant. This means that for different
-    types it does not represent the same mathematical number.
 
     @par Semantic:
 

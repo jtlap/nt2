@@ -44,8 +44,7 @@ namespace boost { namespace simd
         : meta::int_c<boost::simd::int64_t,-1022> {};
   }
   /*!
-    Generates the smallest floating point exponent i.e. -126 for
-    float and -1022 for double.
+    Generates the smallest floating point exponent.
 
     @par Semantic:
 

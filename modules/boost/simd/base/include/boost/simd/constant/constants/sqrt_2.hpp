@@ -39,10 +39,10 @@ namespace boost { namespace simd
     T r = Sqrt_2<T>();
     @endcode
 
-    is similar for floating types to:
+    is similar to:
 
     @code
-    T r = sqrt(T(2));
+    T r = T(sqrt(as_floating<T>(2)));
     @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Sqrt_2, Sqrt_2)

@@ -42,10 +42,8 @@ namespace boost { namespace simd
     is similar for floating types to:
 
     @code
-    T r = (T(1)+sqrt(T(5)))/T(2);
+    T r = (1+sqrt(5))/2;
     @endcode
-
-    and returns 1 for integral types
 
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Gold, Gold)

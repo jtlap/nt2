@@ -31,10 +31,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Generates the value \f$\eps/2\f$
-
-    The value of this constant is type dependant. This means that for different
-    types it does not represent the same mathematical number.
+    Generates the  machine epsilon divided by 2.
 
     @par Semantic:
 

@@ -51,7 +51,7 @@ namespace boost { namespace simd
 
     @code
     if T is integral
-      r = T(0)
+      r = T(0);
     else if T is floating
       r =  IEEE nan value
     @endcode

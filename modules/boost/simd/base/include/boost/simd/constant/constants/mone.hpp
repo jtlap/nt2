@@ -31,12 +31,18 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Mone = -1
+    Generates value -1
 
     @par Semantic:
 
     @code
     T r = Mone<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r =  T(-1);
     @endcode
 
   **/

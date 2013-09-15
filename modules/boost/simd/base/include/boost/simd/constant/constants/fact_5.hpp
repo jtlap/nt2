@@ -31,7 +31,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Generates 5!, that is 120
+    Generates 5!,  that is 120
 
     @par Semantic:
 

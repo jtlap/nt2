@@ -29,7 +29,7 @@ namespace boost { namespace simd
     BOOST_SIMD_CONSTANT_REGISTER(Twenty,double,20, 0x41a00000,0x4034000000000000ll)
   }
   /*!
-    Constant Twenty= twenty
+    Generates value 20
 
     @par Semantic:
 
@@ -37,6 +37,11 @@ namespace boost { namespace simd
     T r = Twenty<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    T r = T(20);
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Twenty, Twenty)
 } }

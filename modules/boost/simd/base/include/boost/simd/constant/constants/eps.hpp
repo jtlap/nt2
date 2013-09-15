@@ -29,7 +29,7 @@ namespace boost { namespace simd
     BOOST_SIMD_CONSTANT_REGISTER(Eps,double,1,0X34000000,0x3CB0000000000000ULL);
   }
   /*!
-    Generates the machine \f$\eps\f$
+    Generates the machine epsilon.
 
     @par Semantic:
 

@@ -40,7 +40,7 @@ namespace boost { namespace simd
     is similar to:
 
     @code
-    T r = T(T(1)-sqrt(as_floating<T>(5)))/T(2);
+    T r = (1-sqrt(5))/2;
     @endcode
 
   **/
