@@ -205,8 +205,3 @@ NT2_TEST_CASE_TPL( typed_expr, NT2_TYPES )
 
   NT2_TEST_ASSERT( x1 = nt2::valmax(x2, as_< T >()) );
 }
-NT2_TEST_CASE_TPL( pipo, NT2_TYPES )
-{
-  std::cout << std::setprecision(20);
-  std::cout << nt2::Valmax<T>() << std::endl;
-}
