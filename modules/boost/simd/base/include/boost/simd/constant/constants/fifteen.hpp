@@ -31,7 +31,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Fifteen = 15
+    Generates value 15 in the chosen type
 
     @par Semantic:
 
@@ -39,6 +39,11 @@ namespace boost { namespace simd
     T r = Fifteen<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    T r = T(15);
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Fifteen, Fifteen)
 } }

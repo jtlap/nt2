@@ -31,14 +31,8 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Sqrteps
+    Generate square root of constant Eps
     square root of constant Eps
-    @c 1 for integer types
-     \f$2^{-26}\f$ for double
-     \f$2^{-11.5}\f$ for float
-
-    The value of this constant is type dependant. This means that for different
-    types it does not represent the same mathematical number.
 
     @par Semantic:
 
@@ -46,6 +40,16 @@ namespace boost { namespace simd
     T r = Sqrteps<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    if T is integral
+      r = 1
+    else if T is double
+      r =  Pow(2,-26);
+    else if T is float
+      r =  pow(2,-11.5f);
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Sqrteps, Sqrteps)
 } }

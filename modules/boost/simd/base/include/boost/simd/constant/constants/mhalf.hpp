@@ -31,7 +31,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Mhalf = -\f$\frac12\f$
+    Generates value -\f$\frac12\f$
 
     @par Semantic:
 
@@ -39,6 +39,11 @@ namespace boost { namespace simd
     T r = Mhalf<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    T r = -T(1)/T(2);
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Mhalf, Mhalf)
 } }

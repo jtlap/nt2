@@ -31,13 +31,23 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Fact_4 4! = 24
+    Generates 4! that is 24
 
     @par Semantic:
 
     @code
     T r = Fact_4<T>();
     @endcode
+
+    is similar to:
+
+    @code
+    T r = T(24);
+    @endcode
+
+    @par Alias
+
+    Twentyfour
 
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Fact_4, Fact_4)

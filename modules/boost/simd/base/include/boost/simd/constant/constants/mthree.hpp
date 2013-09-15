@@ -31,12 +31,18 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Mthree = -3
+    Generates value -3
 
     @par Semantic:
 
     @code
     T r = Mthree<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = T(-3);
     @endcode
 
   **/

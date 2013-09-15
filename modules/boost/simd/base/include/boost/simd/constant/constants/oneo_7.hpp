@@ -31,7 +31,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Oneo_7 = 1/7
+    Generates value 1/7
 
     @par Semantic:
 
@@ -39,6 +39,11 @@ namespace boost { namespace simd
     T r = Oneo_7<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    T r = T(1)/T(7);
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Oneo_7, Oneo_7)
 } }

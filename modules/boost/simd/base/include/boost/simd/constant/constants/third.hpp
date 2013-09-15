@@ -31,7 +31,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Third= \f$\frac13\f$
+    Generates value 1/3
 
     @par Semantic:
 
@@ -39,8 +39,18 @@ namespace boost { namespace simd
     T r = Third<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    T r = T(1)/T(3);
+    @endcode
+
+    @par Alias:
+
+    Oneo_3
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Third, Third)
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Third, Oneo_3)
 } }
 
 #include <boost/simd/constant/common.hpp>

@@ -44,13 +44,22 @@ namespace boost { namespace simd
         : meta::int_c<boost::simd::int64_t,-1022> {};
   }
   /*!
-    Constant Minexponent is the smallest floating exponent i.e. -126 for
+    Generates the smallest floating point exponent i.e. -126 for
     float and -1022 for double.
 
     @par Semantic:
 
     @code
     T r = Minexponent<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    if T is double
+      r =  -1022;
+    else if T is float
+      r = -126;
     @endcode
 
   **/

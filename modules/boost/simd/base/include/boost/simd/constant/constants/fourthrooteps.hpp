@@ -31,14 +31,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Fourthrooteps \f$\root{eps, 4}\f$
-    the 4th root of constant @c Eps
-    @c 1 for integer types
-     \f$ 2^{-13}\f$ for double
-     \f$ 2^{-5.75}\f$ for float
-
-    The value of this constant is type dependant. This means that for different
-    types it does not represent the same mathematical number.
+    Generates the 4th root of constant @c Eps, that is \f$\root(\eps, 4)\f$
 
     @par Semantic:
 
@@ -46,6 +39,16 @@ namespace boost { namespace simd
     T r = Fourthrooteps<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    if T is integral
+      r = T(1)
+    else if T is double
+      r =  pow(2.0, -13);
+    else if T is float
+      r =  pow(2.0f, -5.75f);
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Fourthrooteps, Fourthrooteps)
 } }

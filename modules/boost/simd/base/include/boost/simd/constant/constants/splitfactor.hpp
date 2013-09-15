@@ -31,11 +31,8 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Splitfactor is a constant used to split a floating number in two half,
-    in floating point routines such two_add and two_prod to get extra precision.
-
-    The value of this constant is type dependant. This means that for different
-    types it does not represent the same mathematical number.
+    Generates a constant used to split a floating number in two parts,
+    in floating point routines (such two_add and two_prod) to get extra precision.
 
     @par Semantic:
 
@@ -43,6 +40,16 @@ namespace boost { namespace simd
     T r = Splitfactor<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    if T is integral
+      r = 0
+    else if T is double
+      r =  pow(2, 27);
+    else if T is float
+      r =  pow(2, 13);
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Splitfactor, Splitfactor)
 } }

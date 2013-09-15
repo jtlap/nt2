@@ -29,12 +29,18 @@ namespace boost { namespace simd
     BOOST_SIMD_CONSTANT_REGISTER(Cgold,double,0,0x3EC3910D,0x3FD8722191A02D61ULL);
   }
   /*!
-    Constant Cgold \f$= \frac{1-\sqrt5}{2}\f$
+    Generates the conjugate golden ration that is\f$\bar\phi = \frac{1-\sqrt5}{2}\f$
 
     @par Semantic:
 
     @code
     T r = Cgold<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = T(T(1)-sqrt(as_floating<T>(5)))/T(2);
     @endcode
 
   **/

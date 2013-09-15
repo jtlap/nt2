@@ -205,3 +205,4 @@ NT2_TEST_CASE_TPL( typed_expr, NT2_TYPES )
 
   NT2_TEST_ASSERT( x1 = nt2::valmin(x2, as_< T >()) );
 }
+

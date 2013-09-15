@@ -53,11 +53,7 @@ namespace boost { namespace simd
     #endif
   }
   /*!
-    Constant Mindenormal : the least non zero positive value of floating point numbers,
-    i.e. 4.940656458412465e-324 for double and 1.4012985e-45 for float
-
-    The value of this constant is type dependant. This means that for different
-    types it does not represent the same mathematical number.
+    Constant Mindenormal : the least of all non zero positive value
 
     @par Semantic:
 
@@ -65,8 +61,19 @@ namespace boost { namespace simd
     T r = Mindenormal<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    if T is integral
+      r = T(1)
+    else if T is double
+      r =  4.940656458412465e-324;
+    else if T is float
+      r = 1.4012985e-45;
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Mindenormal, Mindenormal)
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Mindenormal, Bitincrement)
 
 } }
 

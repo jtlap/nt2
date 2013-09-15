@@ -44,16 +44,24 @@ namespace boost { namespace simd
           : meta::int_c<boost::simd::int64_t,53> {};
   }
   /*!
-    Constant Nbdigits, The number of mantissa bits of a floating point number,
-    i.e. 53 for double and 24 for float.
-
-    The value of this constant is type dependant. This means that for different
-    types it does not represent the same mathematical number.
+    Generates the number of mantissa bits of a floating point number,
+    and the total number of bits for integral types.
 
     @par Semantic:
 
     @code
     T r = Nbdigits<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    if T is integral
+      r = sizeof(T)*8
+    else if T is double
+      r =  53;
+    else if T is float
+      r =  24;
     @endcode
 
   **/

@@ -31,7 +31,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Quarter = \f$\frac14\f$
+    Generate value 1/4
 
     @par Semantic:
 
@@ -39,6 +39,15 @@ namespace boost { namespace simd
     T r = Quarter<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    T r = T(1)/T(4);
+    @endcode
+
+    @par Alias
+
+    Oneo_4
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Quarter, Quarter)
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Quarter, Oneo_4)

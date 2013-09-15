@@ -31,12 +31,18 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant c180 = 180
+    Generates the value 180 in the chosen type
 
     @par Semantic:
 
     @code
     T r = C180<T>();
+    @endcode
+
+    is similar to
+
+    @code
+    T r = T(180);
     @endcode
 
   **/

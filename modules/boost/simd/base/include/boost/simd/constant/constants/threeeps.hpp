@@ -31,13 +31,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Threeeps = 3\f$\times\f$ Eps
-     3 for integer types
-     6.661338147750939e-16 for double
-     3.5762787e-07 for float
-    \par
-    The value of this constant is type dependant. This means that for different
-    types it does not represent the same mathematical number.
+    Generate a value equal to 3 times Eps of the chosen type
 
     @par Semantic:
 
@@ -45,6 +39,14 @@ namespace boost { namespace simd
     T r = Threeeps<T>();
     @endcode
 
+    @code
+    if T is integral
+      r = 3
+    else if T is double
+      r =   6.661338147750939e-16;
+    else if T is float
+      r =  3.5762787e-07;
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Threeeps, Threeeps)
 } }

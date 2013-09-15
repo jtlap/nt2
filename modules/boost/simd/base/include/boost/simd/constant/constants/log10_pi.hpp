@@ -31,12 +31,18 @@ namespace boost { namespace simd
                                   );
   }
   /*!
-    Constant Log10_pi = base ten log of pi used in pispace (\f$\log10(\pi)\f$)
+    Generates base ten logarithm of pi used in pispace (\f$\log10(\pi)\f$)
 
     @par Semantic:
 
     @code
     T r = Log10_pi<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = log10(Pi<T>());
     @endcode
 
   **/

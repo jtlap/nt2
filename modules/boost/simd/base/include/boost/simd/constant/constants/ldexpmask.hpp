@@ -44,13 +44,8 @@ namespace boost { namespace simd
           : meta::int_c<boost::simd::int64_t,0x7FF0000000000000ULL> {};
   }
   /*!
-    Constant Ldexpmask
-
-    This constant is the mask to extract the exponent
+    Generates the mask to extract the exponent
     bits of a floating point value
-
-    The value of this constant is type dependant. This means that for different
-    types it does not represent the same mathematical number.
 
     @par Semantic:
 

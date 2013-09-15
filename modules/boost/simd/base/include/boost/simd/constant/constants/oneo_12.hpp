@@ -31,7 +31,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Oneo_12 = 1/12
+    Generates value 1/12
 
     @par Semantic:
 
@@ -39,6 +39,11 @@ namespace boost { namespace simd
     T r = Oneo_12<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    T r = T(1)/T(12);
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Oneo_12, Oneo_12)
 } }

@@ -29,7 +29,7 @@ namespace boost { namespace simd
     BOOST_SIMD_CONSTANT_REGISTER( Zero, double , 0, 0, 0 );
   }
   /*!
-    Constant Zero = 0
+    Generates value 0
 
     @par Semantic:
 
@@ -37,6 +37,11 @@ namespace boost { namespace simd
     T r = Zero<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    T r = T(0);
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Zero, Zero)
 } }

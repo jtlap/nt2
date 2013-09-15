@@ -31,14 +31,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Mzero = -0
-    This is a special constant as it can be used and considered
-    identical to zero, except that for floating point numbers,
-    there is two different representation of zero with different bit of sign.\par
-    The existence of the sign can be used in special circumstances as
-    choosing between \f$\pm\infty\f$ instead of nan in computing 1/0.
-    \par
-    The sign of zero can be accessed through the is_negative and is_positive predicates.
+    Generates value "negative sign" 0
 
     @par Semantic:
 
@@ -46,6 +39,23 @@ namespace boost { namespace simd
     T r = Mzero<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    T r = -T(0);
+    @endcode
+
+    @ par Note:
+
+    This is a special constant as it can be used and considered
+    identical to zero, except that for floating point numbers,
+    there is two different representation of zero with different bit of sign.\par
+    The existence of the sign can be used in special circumstances as
+    choosing between \f$\pm\infty\f$ instead of nan in computing 1/0.
+    \par
+
+    The sign of zero can be accessed through the @c is_negative
+    and @c is_positive predicates or the @bitofsign function.
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Mzero, Mzero)
 } }

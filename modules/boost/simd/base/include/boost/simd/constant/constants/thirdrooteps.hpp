@@ -31,14 +31,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Thirdrooteps
-    the cubic root of constant Eps
-    @c 1 for integer types
-    @c 6.055454452393343e-06 for double
-    @c 4.9215667e-03 for float
-
-    The value of this constant is type dependant. This means that for different
-    types it does not represent the same mathematical number.
+    Generates the cubic root of Eps
 
     @par Semantic:
 
@@ -46,6 +39,16 @@ namespace boost { namespace simd
     T r = Thirdrooteps<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    if T is integral
+      r = 1
+    else if T is double
+      r =  6.055454452393343e-06;
+    else if T is float
+      r =  4.9215667e-03 ;
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Thirdrooteps, Thirdrooteps)
 } }

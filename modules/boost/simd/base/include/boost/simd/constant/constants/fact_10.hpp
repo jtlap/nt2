@@ -37,11 +37,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Fact_10, 10! = 3628800, the saturated factorial value is
-    min(Valmax<T>(),3628800)
-
-    The value of this constant is type dependant. This means that for different
-    types it does not represent the same mathematical number.
+    Generates 10! that is 3628800
 
     @par Semantic:
 
@@ -49,6 +45,11 @@ namespace boost { namespace simd
     T r = Fact_10<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    T r = T(3628800);
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Fact_10, Fact_10)
 } }

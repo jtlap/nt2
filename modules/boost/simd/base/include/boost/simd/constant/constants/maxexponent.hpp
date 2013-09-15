@@ -45,16 +45,19 @@ namespace boost { namespace simd
 
   }
   /*!
-    Constant Maxexponent, this is the maximum exposant
-    for floating point numbers, i.e. 127 for float , 1023 for double
-
-    The value of this constant is type dependant. This means that for different
-    types it does not represent the same mathematical number.
+    Generates the maximum exposant of floating point numbers
 
     @par Semantic:
 
     @code
-    T r = Maxexponent<T>();
+    as_integer<T> r = Maxexponent<T>();
+    @endcode
+
+    @code
+    if T is double
+      r =  1023;
+    else if T is float
+      r =  127;
     @endcode
 
   **/

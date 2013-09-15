@@ -31,12 +31,18 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Mlogeps2 \f$-\log(eps^2)\f
+    Generates \f$-\log(eps^2)\f value
 
     @par Semantic:
 
     @code
     T r = Mlogeps2<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = log(sqr(Eps<T>()));
     @endcode
 
   **/

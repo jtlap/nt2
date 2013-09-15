@@ -32,7 +32,7 @@ namespace boost { namespace simd
   }
 
   /*!
-    Constant Sqrt_2o_2 = \f$ \frac{\sqrt2}2\f$
+    Generates value \f$\frac{\sqrt2}2\f$
 
     @par Semantic:
 
@@ -40,6 +40,11 @@ namespace boost { namespace simd
     T r = Sqrt_2o_2<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    T r = T(sqrt(as_floating<T>(2)))/T(2);
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Sqrt_2o_2, Sqrt_2o_2)
 } }

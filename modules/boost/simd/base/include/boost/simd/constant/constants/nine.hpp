@@ -31,7 +31,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Nine = 9
+    Generates value 9
 
     @par Semantic:
 
@@ -39,6 +39,11 @@ namespace boost { namespace simd
     T r = Nine<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    T r = T(9);
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Nine, Nine)
 } }

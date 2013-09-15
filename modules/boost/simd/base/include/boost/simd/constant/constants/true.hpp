@@ -34,13 +34,7 @@ namespace boost { namespace simd
     };
   }
   /*!
-    Constant True is quite system specific as
-    this value is type dependant at the SIMD level.
-    \par
-    \arg For scalar it is the standard bool value \c true,
-    \arg for ssex and avx system it is a all bits set to one value in the type T,
-    \arg for larrabee system it is an 32 integer mask with all bits set to one,
-    \arg etc.
+    Generates the value True as a logical associated to chosen type
 
     @par Semantic:
 
@@ -48,6 +42,12 @@ namespace boost { namespace simd
     T r = True<T>();
     @endcode
 
+
+    is similar to:
+
+    @code
+    auto r = logical<T>(true);
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::True, True)
 } }

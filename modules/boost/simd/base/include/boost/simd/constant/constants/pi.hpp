@@ -31,7 +31,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Pi = \f$\pi\f$ is the half length of a circle of radius one
+    Generates value \f$\pi\f$ that is the half length of a circle of radius one
     ... in normal temperature and pressure conditions.
 
     @par Semantic:
@@ -40,6 +40,11 @@ namespace boost { namespace simd
     T r = Pi<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    T r = T(4*atan(1));
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Pi, Pi)
 } }

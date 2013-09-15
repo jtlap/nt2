@@ -29,13 +29,21 @@ namespace boost { namespace simd
     BOOST_SIMD_CONSTANT_REGISTER(Half,double,0,0x3F000000,0x3FE0000000000000ULL);
   }
   /*!
-    Constant Half = \f$\frac12\f$ is not properly defined for integer types
+    Generates value \f$\frac12\f$
 
     @par Semantic:
 
     @code
     T r = Half<T>();
     @endcode
+
+    is similar for floating types to:
+
+    @code
+    T r = T(1)/T(2);
+    @endcode
+
+    and returns 0 for integral types
 
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Half, Half)

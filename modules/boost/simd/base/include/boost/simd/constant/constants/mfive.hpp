@@ -31,7 +31,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Mfive = -5
+    Generates value -5
 
     @par Semantic:
 
@@ -39,6 +39,11 @@ namespace boost { namespace simd
     T r = Mfive<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    T r = T(-5);
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Mfive, Mfive)
 } }

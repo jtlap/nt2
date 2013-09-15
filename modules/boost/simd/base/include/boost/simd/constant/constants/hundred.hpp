@@ -31,12 +31,18 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Hundred = 100
+    Generates the value 100 in the chosen type
 
     @par Semantic:
 
     @code
     T r = Hundred<T>();
+    @endcode
+
+    is similar to
+
+    @code
+    T r = T(100);
     @endcode
 
   **/

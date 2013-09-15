@@ -80,14 +80,7 @@ namespace boost { namespace simd
           : meta::int_c<T, 0xFFFFFFFFFFFFFFFFULL> {};
   }
   /*!
-    Constant Valmax, maximum value of a type.
-    @c int8    127, uint8    255,
-    @c int16 32767, uint16 65535,
-    @c int32 2147483647, uint32 4294967295,
-    @c int64 9223372036854775807, uint64 18446744073709551615,@c float \f$\infty\f$, @c double \f$\infty\f$,
-    \par
-    The value of this constant is type dependant. This means that for different
-    types it does not represent the same mathematical number.
+    Generates the greatest finite value of a type.
 
     @par Semantic:
 
@@ -95,6 +88,18 @@ namespace boost { namespace simd
     T r = Valmax<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    if T is unsigned integral
+      r = Allbits<T>();
+    if T is signed integral
+      r = Allbits<T>()^Signmask<T>();
+    else if T is double
+      r = 1.7976931348623157e+308
+    else if T is float
+      r = 3.4028234e+38f
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Valmax, Valmax)
 } }

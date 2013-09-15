@@ -44,16 +44,23 @@ namespace boost { namespace simd
           : meta::int_c<boost::simd::int64_t,11> {};
   }
   /*!
-    Constant Nbexponentbits, The number of exponent bits of a floating point number,
-    i.e. 11 for double and 8 for float.
-
-    The value of this constant is type dependant. This means that for different
-    types it does not represent the same mathematical number.
+    Generates the number of exponent bits of a floating point number,
 
     @par Semantic:
 
     @code
     T r = Nbexponentbits<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    if T is integral
+      r = 0
+    else if T is double
+      r =  11;
+    else if T is float
+      r =  8;
     @endcode
 
   **/

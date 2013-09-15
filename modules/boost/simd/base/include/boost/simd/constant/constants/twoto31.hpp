@@ -36,14 +36,18 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Twoto31 = \f$2^{31}\f$
+    generates 2 to the power 31 (\f$2^{31}\f$)
 
     @par Semantic:
 
     @code
     T r = Twoto31<T>();
     @endcode
+    is similar to:
 
+    @code
+    T r = pow(2, 31);
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Twoto31, Twoto31)
 } }

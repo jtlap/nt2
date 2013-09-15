@@ -14,7 +14,7 @@
 #include <boost/simd/reduction/functions/maximum.hpp>
 
 #include <nt2/include/functions/max.hpp>
-#include <nt2/include/constants/maxinit.hpp>
+#include <nt2/include/constants/valmin.hpp>
 
 namespace nt2 { namespace ext
 {

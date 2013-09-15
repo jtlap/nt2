@@ -74,7 +74,7 @@ namespace boost { namespace simd
     {};
   }
   /*!
-    Constant Valmin, maximum value of a type.
+    Generates the least finite value of a type.
     @c int8    -128, uint8    0,
     @c int16 -32768, uint16 0,
     @c int32 -2147483648, uint32 0,
@@ -87,6 +87,17 @@ namespace boost { namespace simd
 
     @code
     T r = Valmin<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    if T is integral
+      r = 1 << (sizeof(T)*8-1);
+    else if T is double
+      r = -1.7976931348623157e+308;
+    else if T is float
+      r = -3.4028234e+38f;
     @endcode
 
   **/

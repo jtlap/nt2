@@ -32,12 +32,18 @@ namespace boost { namespace simd
   }
 
   /*!
-    Constant Sqrt_1o_5 = \f$ \sqrt{\frac15}\f$
+    Generates value \f$ \sqrt{\frac15}\f$
 
     @par Semantic:
 
     @code
     T r = Sqrt_1o_5<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = sqrt(T(1)/T(5));
     @endcode
 
   **/

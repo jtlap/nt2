@@ -31,7 +31,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Seven = 7
+    Generates value 7
 
     @par Semantic:
 
@@ -39,6 +39,11 @@ namespace boost { namespace simd
     T r = Seven<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    T r = T(7);
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Seven, Seven)
 } }

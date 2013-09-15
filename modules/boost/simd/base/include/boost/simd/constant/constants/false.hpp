@@ -34,14 +34,19 @@ namespace boost { namespace simd
     };
   }
   /*!
-    Constant False
+    Generates the value False as a logical associated to chosen type
 
     @par Semantic:
 
     @code
-    as_logical<T> r = False<T>();
+    logical<T> r = False<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    auto r = logical<T>(false);
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::False, False)
 } }

@@ -31,7 +31,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Ten = 10
+   Generates value 10
 
     @par Semantic:
 
@@ -39,6 +39,11 @@ namespace boost { namespace simd
     T r = Ten<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    T r = T(10);
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Ten, Ten)
 } }

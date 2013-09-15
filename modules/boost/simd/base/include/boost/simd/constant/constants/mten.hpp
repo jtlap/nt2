@@ -31,12 +31,18 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Mten = -10
+    Generates value -10
 
     @par Semantic:
 
     @code
     T r = Mten<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = T(-10);
     @endcode
 
   **/

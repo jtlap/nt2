@@ -31,7 +31,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Twotom10 = \f$2^{-10}\f$
+    Generates 2 to the power -10 (\f$2^{-10}\f$)
 
     @par Semantic:
 
@@ -39,6 +39,11 @@ namespace boost { namespace simd
     T r = Twotom10<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    T r = pow(2, -10);
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Twotom10, Twotom10)
 } }

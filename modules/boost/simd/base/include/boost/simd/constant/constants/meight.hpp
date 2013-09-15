@@ -31,7 +31,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Meight = -8
+    Generates value -8
 
     @par Semantic:
 
@@ -39,6 +39,11 @@ namespace boost { namespace simd
     T r = Meight<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    T r = T(-8);
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Meight, Meight)
 } }

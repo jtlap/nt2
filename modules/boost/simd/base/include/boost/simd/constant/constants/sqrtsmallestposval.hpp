@@ -31,13 +31,24 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Sqrtmallestposval : the square root of the least non zero positive value of floating point numbers,
-    i.e.1.491668146240041e-154 for double and 1.0842022e-19 for float
+    Generates the square root of the least non zero positive
+    value of the chosen type.
 
     @par Semantic:
 
     @code
     T r = Sqrtsmallestposval<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    if T is integral
+      r = 1
+    else if T is double
+      r =  1.491668146240041e-154;
+    else if T is float
+      r =   1.0842022e-19;
     @endcode
 
   **/

@@ -31,17 +31,23 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Maxflint: the least integer value exactly representable in floating point numbers,
-    equal to its integral successor (Maxflint+1)
-    9007199254740992.0 for double and 16777216.0 for float
-
-    The value of this constant is type dependant. This means that for different
-    types it does not represent the same mathematical number.
+    Generates the least integer value which is exactly
+    representable in floating point numbers and
+    equal to its integral successor.
 
     @par Semantic:
 
     @code
     T r = Maxflint<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    else if T is double
+      r = 9007199254740992.0
+    else if T is float
+      r = 16777216.0f
     @endcode
 
   **/

@@ -67,7 +67,7 @@ namespace boost { namespace simd
           : meta::int_c<T, 3037000499ll> {};
   }
   /*!
-    Constant Sqrtvalmax : the square root of the greatest finite representable value
+    Generates the square root of the greatest finite representable value
 
     @par Semantic:
 
@@ -75,6 +75,11 @@ namespace boost { namespace simd
     T r = Sqrtvalmax<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    T r =  sqrt(Valmax<T>();
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Sqrtvalmax, Sqrtvalmax)
 } }

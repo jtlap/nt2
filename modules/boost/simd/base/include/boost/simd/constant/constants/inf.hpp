@@ -51,16 +51,22 @@ namespace boost { namespace simd
   }
 
   /*!
-    Constant Inf IEEE inf (\f$infty\f$) for floating types and Maximum value
-    of the type for integer types
-
-    The value of this constant is type dependant. This means that for different
-    types it does not represent the same mathematical number.
+    Generates the Inf IEEE value (\f$infty\f$) for floating types and maximum value
+    for integer types
 
     @par Semantic:
 
     @code
     T r = Inf<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    if T is integral
+      r = Valmax<T>()
+    else if T is floating
+      r =  IEEE inf value;
     @endcode
 
   **/

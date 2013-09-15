@@ -31,7 +31,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Oneo_10 = 1/10
+    Generates value 1/10
 
     @par Semantic:
 
@@ -39,6 +39,11 @@ namespace boost { namespace simd
     T r = Oneo_10<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    T r = T(1)/T(10);
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Oneo_10, Oneo_10)
 } }

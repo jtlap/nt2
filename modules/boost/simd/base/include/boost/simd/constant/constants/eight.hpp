@@ -31,7 +31,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Eight = 8
+    Generates the value 8
 
     @par Semantic:
 
@@ -39,6 +39,11 @@ namespace boost { namespace simd
     T r = Eight<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    T r = T(8);
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Eight, Eight)
 } }

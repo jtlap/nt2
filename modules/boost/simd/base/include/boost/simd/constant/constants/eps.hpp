@@ -29,18 +29,23 @@ namespace boost { namespace simd
     BOOST_SIMD_CONSTANT_REGISTER(Eps,double,1,0X34000000,0x3CB0000000000000ULL);
   }
   /*!
-    Constant Eps
-    @c 1 for integer types
-    @c \f$ 2^{-52}\f$ for double
-    @c \f$ 2^{-23}\f$ for float
-
-    The value of this constant is type dependant. This means that for different
-    types it does not represent the same mathematical number.
+    Generates the machine \f$\eps\f$
 
     @par Semantic:
 
     @code
     T r = Eps<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    if T is integral
+      r = T(1)
+    else if T is double
+      r =  pow(2.0, -53);
+    else if T is float
+      r =  pow(2.0f, -23);
     @endcode
 
   **/

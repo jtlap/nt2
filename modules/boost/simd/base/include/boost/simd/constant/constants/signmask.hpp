@@ -66,11 +66,8 @@ namespace boost { namespace simd
     {};
   }
   /*!
-    Constant Signmask : is a mask with the lone most significand bit set to one
+    Generate a mask with the lone most significand bit set to one
     (even if the type is unsigned).
-
-    The value of this constant is type dependant. This means that for different
-    types it does not represent the same mathematical number.
 
     @par Semantic:
 
@@ -78,6 +75,11 @@ namespace boost { namespace simd
     T r = Signmask<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    T r = bitwise_cast<T>(1 << sizeof(T)*8-1);
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Signmask, Signmask)
 } }

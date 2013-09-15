@@ -29,7 +29,7 @@ namespace boost { namespace simd
     BOOST_SIMD_CONSTANT_REGISTER( Pio_2, double, 2, 0x3fc90fdb, 0x3ff921fb54442d18ll)
   }
   /*!
-    Constant Pio_2 = \f$\frac\pi{2}\f$.
+    Generates value \f$\frac\pi{2}\f$.
 
     @par Semantic:
 
@@ -37,6 +37,11 @@ namespace boost { namespace simd
     T r = Pio_2<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    T r = T(2*atan(1));
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Pio_2, Pio_2)
 } }

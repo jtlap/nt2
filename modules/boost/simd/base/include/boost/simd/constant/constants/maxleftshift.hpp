@@ -43,19 +43,19 @@ namespace boost { namespace simd
     };
   }
   /*!
-    Constant Maxleftshift
-    It is senseless to shift a value of more bits than the number of bits - 1
-    of the value type: this is that number.
-    \par
-    The value of this constant is type dependant. This means that for different
-    types it does not represent the same mathematical number.
+    Generates the number of bits-1 of the scalar component of the value type
 
     @par Semantic:
 
     @code
-    T r = Maxleftshift<T>();
+    as_integer<T> r = Maxleftshift<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    as_integer<T> r =size(scalar_of<T>)*8-1;
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Maxleftshift, Maxleftshift)
 } }

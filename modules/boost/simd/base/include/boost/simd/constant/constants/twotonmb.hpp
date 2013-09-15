@@ -31,14 +31,18 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Twotonmb two to the number of mantissa bits.
+    Generates two to the number of mantissa bits.
 
     @par Semantic:
 
     @code
     T r = Twotonmb<T>();
     @endcode
+   is similar to:
 
+    @code
+    T r = pow(2, Nbmantissabits<T>());
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Twotonmb, Twotonmb)
 } }

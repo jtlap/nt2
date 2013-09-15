@@ -31,7 +31,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Mfour = -4
+    Generates value -4
 
     @par Semantic:
 
@@ -39,6 +39,11 @@ namespace boost { namespace simd
     T r = Mfour<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    T r = T(-4);
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Mfour, Mfour)
 } }

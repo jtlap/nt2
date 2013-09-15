@@ -50,10 +50,8 @@ namespace boost { namespace simd
           : meta::double_<0xFFF0000000000000ULL> {};
   }
   /*!
-    Constant Minf =  \f$\-infty\f$
-
-    The value of this constant is type dependant. This means that for different
-    types it does not represent the same mathematical number.
+    Generates  -inf IEEE value (\f$\-infty\f$) for floating types and minimum value
+    for integer types
 
     @par Semantic:
 
@@ -61,6 +59,14 @@ namespace boost { namespace simd
     T r = Minf<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    if T is integral
+      r = Valmin<T>()
+    else if T is floating
+      r =  IEEE -inf value;
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Minf, Minf)
 } }

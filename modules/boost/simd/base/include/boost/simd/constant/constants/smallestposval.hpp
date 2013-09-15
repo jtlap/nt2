@@ -32,8 +32,7 @@ namespace boost { namespace simd
 
   }
   /*!
-    Constant Smallestposval : the least non zero, non denormal, positive value of floating point numbers,
-    i.e. 2.225073858507201e-308 for double and  1.1754944e-38 for float
+    Generates the least non zero, non denormal, positive value.
 
     @par Semantic:
 
@@ -41,6 +40,16 @@ namespace boost { namespace simd
     T r = Smallestposval<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    if T is integral
+      r = 1
+    else if T is double
+      r =  2.225073858507201e-308;
+    else if T is float
+      r =  1.1754944e-38;
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Smallestposval, Smallestposval)
 } }

@@ -31,12 +31,18 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Moneo_6 = 1/6
+    Generates value 1/6
 
     @par Semantic:
 
     @code
     T r = Moneo_6<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = T(1)/T(6);
     @endcode
 
   **/

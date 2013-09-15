@@ -34,6 +34,7 @@ namespace boost { namespace simd
     BOOST_SIMD_CONSTANT_REGISTER(Thousand,double,1000, 0x447a0000, 0x408f400000000000ll)
   }
   /*!
+    Generates value 1000
 
     @par Semantic:
 
@@ -41,6 +42,11 @@ namespace boost { namespace simd
     T r = Thousand<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    T r = T(1000);
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Thousand, Thousand)
 } }

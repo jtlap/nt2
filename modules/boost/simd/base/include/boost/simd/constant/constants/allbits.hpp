@@ -71,10 +71,7 @@ namespace boost { namespace simd
 
   }
   /*!
-    Constant Allbits : all bits set to 1.
-
-    The value of this constant is type dependant. This means that for different
-    types it does not represent the same mathematical number.
+    Generates a value in the chosen type all bits of which are set to 1.
 
     @par Semantic:
 
@@ -82,6 +79,9 @@ namespace boost { namespace simd
     T r = Allbits<T>();
     @endcode
 
+    For floating types this value is the same as @c Nan<T>(),
+    for unsigned type it is the same as @c Valmax<T>()
+    and for signed integral types it is the same as @c Mone<T>()
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Allbits, Allbits)
 } }

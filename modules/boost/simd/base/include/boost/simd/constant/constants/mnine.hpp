@@ -31,12 +31,17 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Mnine= -9
+    Generates value -9
 
     @par Semantic:
 
     @code
     T r = Mnine<T>();
+    @endcode
+    is similar to:
+
+    @code
+    T r = T(-9);
     @endcode
 
   **/

@@ -9,7 +9,6 @@
 
 SET( SOURCES
 allbits.cpp
-bitincrement.cpp
 c180.cpp
 cgold.cpp
 cic.cpp
@@ -50,7 +49,6 @@ linspace.cpp
 log10_pi.cpp
 logspace.cpp
 maxexponent.cpp
-maxinit.cpp
 maxleftshift.cpp
 meight.cpp
 mfive.cpp

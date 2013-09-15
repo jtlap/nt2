@@ -31,10 +31,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Halfeps Eps/2
-    @c 1 for integer types
-     \f$= \2^{-53}\f$ for double
-     \f$= \2^{-24}\f$ for float
+    Generates the value \f$\eps/2\f$
 
     The value of this constant is type dependant. This means that for different
     types it does not represent the same mathematical number.
@@ -43,6 +40,17 @@ namespace boost { namespace simd
 
     @code
     T r = Halfeps<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    if T is integral
+      r = T(1)
+    else if T is double
+      r =  pow(2, -26.5);
+    else if T is float
+      r =  pow(2.0f, -23);
     @endcode
 
   **/

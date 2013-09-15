@@ -31,12 +31,18 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Mtwo = -2
+    Generates value = -2
 
     @par Semantic:
 
     @code
     T r = Mtwo<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = T(-2);
     @endcode
 
   **/

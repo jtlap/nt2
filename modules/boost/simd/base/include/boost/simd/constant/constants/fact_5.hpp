@@ -31,7 +31,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Constant Fact_5 120
+    Generates 5!, that is 120
 
     @par Semantic:
 
@@ -39,6 +39,11 @@ namespace boost { namespace simd
     T r = Fact_5<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    T r = T(120);
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Fact_5, Fact_5)
 } }
