@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace tag
     };
   }
   /*!
-    The function returns the first entry rotated left
+    Returns the first entry rotated left
     by the absolute value of the second entry.
 
     @par semantic:

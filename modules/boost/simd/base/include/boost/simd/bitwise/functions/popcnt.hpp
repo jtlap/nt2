@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace tag
     };
   }
   /*!
-    The function returns the number of bit sets the input.
+    Returns the number of bit sets the input.
 
     @par semantic:
     For any given value @c x of type @c T:

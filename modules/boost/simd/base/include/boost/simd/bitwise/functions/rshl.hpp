@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace tag
     };
   }
   /*!
-    The function returns the first entry shifted left or right
+    Returns the first entry shifted left or right
     by the absolute value of the second entry,
     according to its sign.
 

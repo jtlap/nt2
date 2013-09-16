@@ -29,20 +29,20 @@ namespace boost { namespace simd { namespace tag
     };
   }
   /*!
-    The function returns the low part of the entry
-    as an unsigned integer of the half size of
+    Returns the low part of the entry
+    as an unsigned integer of the size of
     the input.
 
     @par semantic:
     For any given value @c x of type @c T:
 
     @code
-    downgrade<as_integer<T,unsigned> r = lo(x);
+    as_integer<T,unsigned> r = lo(x);
     @endcode
 
     @param  a0
 
-    @return      a value of the downgraded unsigned integer
+    @return      a value of the unsigned integer
     type associated to the input.
 
   **/

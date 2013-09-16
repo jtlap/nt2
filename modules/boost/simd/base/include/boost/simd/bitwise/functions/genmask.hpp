@@ -28,8 +28,8 @@ namespace boost { namespace simd { namespace tag
     };
   }
   /*!
-    The function returns a mask of bits. All ones if the
-    input element is non zero else all zeros
+    Returns a mask of bits. All ones if the
+    input element is non zero else all zeros.
 
     @par semantic:
     For any given value @c x of type @c T:

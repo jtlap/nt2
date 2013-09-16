@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace tag
   }
 
   /*!
-    @brief Count trailing zeroes
+    @brief Returns the bit count of trailing zeroes
 
     Finds the first bit set in a0, and returns the index of that bit, 0 being
     the least significant bit index.

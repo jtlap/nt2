@@ -29,8 +29,7 @@ namespace boost { namespace simd { namespace tag
     };
   }
   /*!
-    The function returns the bits of the entry in reverse order,
-    in the same type as the entry
+    Returns the bits of the entry in reverse order.
 
     @par semantic:
     For any given value @c x of type @c T:

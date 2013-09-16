@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace tag
     };
   }
   /*!
-    The function returns the first entry logically shifted right
+    Returns the first entry logically shifted right
     by value of the second entry. If the second entry is negative
     the result is not defined.
 

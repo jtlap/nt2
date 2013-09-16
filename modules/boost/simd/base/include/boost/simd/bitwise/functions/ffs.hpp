@@ -28,9 +28,9 @@ namespace boost { namespace simd { namespace tag
     };
   }
   /*!
-    The function finds the first bit set (beginning with the least
-    significant bit) in the parameter, and return the index
-    of that bit.
+    returns the index
+    of the first bit set (beginning with the least
+    significant bit) in the parameter.
 
     @par semantic:
     For any given value @c x of type @c T:

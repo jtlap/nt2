@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace tag
     };
   }
   /*!
-    The function returns the integer part of the base 2
+    Returns the integer part of the base 2
     logarithm of the input.
 
     @par semantic:

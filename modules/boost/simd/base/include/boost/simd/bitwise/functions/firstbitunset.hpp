@@ -28,10 +28,8 @@ namespace boost { namespace simd { namespace tag
     };
   }
   /*!
-    The function  find the first bit unset (beginning with the least
-    significant bit) in the parameter, and return the bit pattern in which
-    this bit is the only bit set.
-
+    Returns the bit pattern in which the only bit set is
+    the first bit unset (beginning with the least significant bit) in the parameter.
 
     @par semantic:
     For any given value @c x of type @c T:
