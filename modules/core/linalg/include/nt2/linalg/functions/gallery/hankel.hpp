@@ -52,7 +52,6 @@ namespace nt2 { namespace ext
     template < class C, class R >
     static void compute(A0& out,const C& c, const R& r)
     {
-      typedef typename A0::value_type value_type;
       size_t nc = numel(c);
       size_t nr = numel(r);
       BOOST_AUTO_TPL(x, nt2::vertcat(c, nt2::colvect(r(nt2::_(2, nr)))));

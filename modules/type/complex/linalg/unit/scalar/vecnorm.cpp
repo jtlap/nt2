@@ -28,7 +28,6 @@
 NT2_TEST_CASE_TPL(vecnorm, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_complex<T>::type  cT;
-  typedef T r_t;
   using nt2::vecnorm;
   using nt2::tag::vecnorm_;
   cT f = cT(1, 1)/nt2::Sqrt_2<T>();

@@ -34,16 +34,8 @@ NT2_TEST_CASE_TPL ( factorial_real__1_0,  NT2_SIMD_REAL_TYPES)
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<factorial_(vT)>::type r_t;
-  typedef typename nt2::meta::call<factorial_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(factorial(nt2::Eight<vT>())[0], nt2::min((T(40320ll    )),nt2::Valmax<T>()), 0);
@@ -70,16 +62,8 @@ NT2_TEST_CASE_TPL ( factorial_integer__1_0,  NT2_SIMD_INTEGRAL_TYPES)
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<factorial_(vT)>::type r_t;
-  typedef typename nt2::meta::call<factorial_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(factorial(nt2::Eight<vT>())[0], T(nt2::saturate<T>(40320ull    )), 0);

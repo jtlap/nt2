@@ -33,7 +33,6 @@ NT2_TEST_CASE_TPL ( svd_solve_expr, NT2_REAL_TYPES)
   using nt2::_;
   typedef typename nt2::meta::as_integer<T, signed>::type itype_t;
   typedef nt2::table<T> t_t;
-  typedef nt2::table<itype_t> it_t;
   t_t a = nt2::expand(nt2::triu(nt2::ones(4, 4, nt2::meta::as_<T>())), 2, 4);
   a(2, 2) = T(0);
   t_t b = nt2::expand(T(2)*nt2::eye (4, 4, nt2::meta::as_<T>()), 2, 4);

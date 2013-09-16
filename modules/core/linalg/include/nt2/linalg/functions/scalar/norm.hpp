@@ -49,7 +49,6 @@ namespace nt2 { namespace ext
     typedef rtype_t result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      typedef container::table<result_type> btab_t;
       if (isvector(a0))
       {
         return vecnorm(a0, a1);

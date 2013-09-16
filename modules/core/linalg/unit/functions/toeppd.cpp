@@ -20,7 +20,6 @@
 
 NT2_TEST_CASE_TPL ( toeppd, NT2_REAL_TYPES)
 {
-  typedef typename nt2::meta::as_<T> ta_t;
   nt2::table<T> m3 =nt2::trans(nt2::cons(nt2::of_size(3, 3),
                                          T(6),     T(2),     T(6),
                                          T(2),     T(6),     T(2),

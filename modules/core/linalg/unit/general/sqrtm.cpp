@@ -21,7 +21,6 @@
 
 NT2_TEST_CASE_TPL(sqrtm, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   using nt2::sqrtm;
   using nt2::tag::sqrtm_;
 

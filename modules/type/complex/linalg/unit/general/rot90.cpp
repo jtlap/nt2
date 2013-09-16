@@ -31,7 +31,6 @@
 NT2_TEST_CASE_TPL(rot90, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_complex<T>::type  cT;
-  typedef T r_t;
   using nt2::rot90;
   using nt2::tag::rot90_;
 

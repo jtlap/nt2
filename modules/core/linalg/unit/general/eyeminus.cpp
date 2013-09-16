@@ -19,7 +19,6 @@
 
 NT2_TEST_CASE_TPL(eyeminus, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   using nt2::eyeminus;
   using nt2::tag::eyeminus_;
   nt2::table<T> n = nt2::eye(10, 10, nt2::meta::as_<T>());
@@ -29,7 +28,6 @@ NT2_TEST_CASE_TPL(eyeminus, NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL(eyeminus2, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   using nt2::eyeminus;
   using nt2::tag::eyeminus_;
   nt2::table<T> n = nt2::eye(10, 4, nt2::meta::as_<T>());
@@ -38,7 +36,6 @@ NT2_TEST_CASE_TPL(eyeminus2, NT2_REAL_TYPES)
 }
 NT2_TEST_CASE_TPL(eyeminuss, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   using nt2::eyeminus;
   using nt2::tag::eyeminus_;
   T eyeminusn = nt2::eyeminus(T(3));

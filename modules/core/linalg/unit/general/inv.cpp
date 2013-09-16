@@ -24,7 +24,6 @@
 
 NT2_TEST_CASE_TPL(inv, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   using nt2::inv;
   using nt2::tag::inv_;
   nt2::table<T> n = nt2::eye(10, 10, nt2::meta::as_<T>());
@@ -36,7 +35,6 @@ NT2_TEST_CASE_TPL(inv, NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL(inv_1, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   using nt2::inv;
   using nt2::tag::inv_;
   nt2::table<T> n = nt2::eye(10, 10, nt2::meta::as_<T>()), nn;
@@ -50,7 +48,6 @@ NT2_TEST_CASE_TPL(inv_1, NT2_REAL_TYPES)
  }
 NT2_TEST_CASE_TPL(inv_2, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   using nt2::inv;
   using nt2::tag::inv_;
   nt2::table<T> n = nt2::eye(10, 8, nt2::meta::as_<T>()), nn;
@@ -58,7 +55,6 @@ NT2_TEST_CASE_TPL(inv_2, NT2_REAL_TYPES)
  }
 NT2_TEST_CASE_TPL(inv_nowarn, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   using nt2::inv;
   using nt2::tag::inv_;
   nt2::table<T> n = nt2::eye(10, 10, nt2::meta::as_<T>()), nn;

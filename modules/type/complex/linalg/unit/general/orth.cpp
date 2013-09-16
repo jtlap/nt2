@@ -39,7 +39,6 @@
 NT2_TEST_CASE_TPL(orth, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_complex<T>::type  cT;
-  typedef T r_t;
   using nt2::orth;
   using nt2::tag::orth_;
   std::cout << std::setprecision(20);
@@ -76,7 +75,6 @@ NT2_TEST_CASE_TPL(orth, NT2_REAL_TYPES)
 NT2_TEST_CASE_TPL(orth2, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_complex<T>::type  cT;
-  typedef T r_t;
   using nt2::orth;
   using nt2::tag::orth_;
   std::cout << std::setprecision(20);

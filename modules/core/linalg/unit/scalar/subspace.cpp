@@ -21,7 +21,6 @@
 
 NT2_TEST_CASE_TPL(subspace, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   using nt2::subspace;
   using nt2::tag::subspace_;
   nt2::table<T> n = nt2::eye(10, 10, nt2::meta::as_<T>());
@@ -30,7 +29,6 @@ NT2_TEST_CASE_TPL(subspace, NT2_REAL_TYPES)
 }
 NT2_TEST_CASE_TPL(subspace1, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   using nt2::subspace;
   using nt2::tag::subspace_;
   nt2::table<T> a = nt2::ones(5, 1, nt2::meta::as_<T>());

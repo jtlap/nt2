@@ -37,10 +37,7 @@ NT2_TEST_CASE_TPL ( ellint_1_real__1_0,  NT2_REAL_TYPES)
 
   using nt2::ellint_1;
   using nt2::tag::ellint_1_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<ellint_1_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 

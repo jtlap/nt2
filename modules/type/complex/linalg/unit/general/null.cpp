@@ -28,7 +28,6 @@
 NT2_TEST_CASE_TPL(null, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_complex<T>::type  cT;
-  typedef T r_t;
   using nt2::null;
   using nt2::tag::null_;
   nt2::table<cT> n = nt2::eye(10, 10, nt2::meta::as_<T>());
@@ -49,7 +48,6 @@ NT2_TEST_CASE_TPL(null, NT2_REAL_TYPES)
 NT2_TEST_CASE_TPL(null2, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_complex<T>::type  cT;
-  typedef T r_t;
   using nt2::null;
   using nt2::tag::null_;
   std::cout << std::setprecision(20);

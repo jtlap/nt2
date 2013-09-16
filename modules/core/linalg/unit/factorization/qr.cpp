@@ -70,7 +70,6 @@ NT2_TEST_CASE_TPL(qr_factorizationc, NT2_REAL_TYPES)
 {
   using nt2::tag::factorization::qr_;
   typedef std::complex<T> cT;
-  typedef nt2::table<T> t_t;
   typedef nt2::table<cT> ct_t;
   ct_t b =       nt2::ones (4, 4, nt2::meta::as_<cT>())
     + T(15)*nt2::eye  (4, 4, nt2::meta::as_<cT>());

@@ -18,7 +18,6 @@
 
 NT2_TEST_CASE_TPL ( randsvd, NT2_REAL_TYPES)
 {
-  typedef typename nt2::meta::as_<T> ta_t;
   typedef  nt2::table<T> tab_t;
   tab_t rc;
 

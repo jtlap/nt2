@@ -139,7 +139,6 @@ namespace nt2 { namespace ext
     static inline AA1 case_2(const AA1 & x,  int32_t /*sn*/, const AA1 & n)
     {
       typedef typename meta::as_logical<AA1>::type bAA1;
-      typedef typename meta::scalar_of<AA1>::type sAA1;
       int32_t sk = 1;
       AA1 t;
       AA1 pkm2 = nt2::One<AA1>();

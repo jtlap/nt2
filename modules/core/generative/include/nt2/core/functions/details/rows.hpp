@@ -44,7 +44,6 @@ namespace nt2 { namespace meta
     operator()(Pos const&, _0D const&, Target const&) const
     {
       typedef typename Target::type                 type;
-      typedef typename meta::as_index<type>::type i_t;
       return splat<type>(start_);
     }
 

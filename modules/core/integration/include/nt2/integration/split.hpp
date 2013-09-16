@@ -44,8 +44,6 @@ namespace nt2
       //  collapsed into a single interval of zero length.  Also returns
       //  the integration path length.
       typedef typename X::value_type                         itype_t;
-      typedef typename meta::as_logical<itype_t>             btype_t;
-      typedef typename meta::as_integer<itype_t, signed>    iitype_t;
       typedef typename container::table<itype_t>              itab_t;
       typedef typename meta::as_real<itype_t>::type          rtype_t;
       typedef typename container::table<rtype_t>              rtab_t;
