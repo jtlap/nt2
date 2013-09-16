@@ -71,14 +71,8 @@ namespace boost { namespace simd
     else if T is float
       r = 1.4012985e-45;
     @endcode
-
-    @par Alias :
-
-    Bitincrement
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Mindenormal, Mindenormal)
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Mindenormal, Bitincrement)
-
 } }
 
 #ifdef BOOST_SIMD_NO_DENORMALS
