@@ -13,7 +13,7 @@
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_MAXIMUM_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
-#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/maxinit.hpp>
 
 /*!
  * \ingroup boost_simd_reduction
@@ -62,15 +62,15 @@ namespace boost { namespace simd
   namespace tag
   {
     struct max_;
-    struct Valmin;
+    struct Maxinit;
 
     /*!
      * \brief Define the tag maximum_ of functor maximum
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct maximum_ : ext::reduction_<maximum_, tag::max_, tag::Valmin>
+    struct maximum_ : ext::reduction_<maximum_, tag::max_, tag::Maxinit>
     {
-      typedef ext::reduction_<maximum_, tag::max_, tag::Valmin> parent;
+      typedef ext::reduction_<maximum_, tag::max_, tag::Maxinit> parent;
     };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::maximum_, maximum, 1)

@@ -49,6 +49,7 @@ linspace.cpp
 log10_pi.cpp
 logspace.cpp
 maxexponent.cpp
+maxinit.cpp
 maxleftshift.cpp
 meight.cpp
 mfive.cpp
