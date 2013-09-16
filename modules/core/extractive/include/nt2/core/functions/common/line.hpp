@@ -33,13 +33,13 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
-      typedef typename meta::as_index<result_type>::type  id_t;
+      typedef typename meta::as_index<result_type>::type  idx_t;
 
       std::size_t dist   = boost::proto::child_c<3>(a0);
       std::size_t start  = boost::proto::child_c<2>(a0);
 
       return nt2::run ( boost::proto::child_c<0>(a0)
-                      , nt2::arith<id_t>(start+p*dist, dist)
+                      , nt2::arith<idx_t>(start+p*dist, dist)
                       , t
                       );
     }

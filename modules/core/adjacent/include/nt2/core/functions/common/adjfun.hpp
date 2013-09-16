@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
     typedef typename boost::simd::ext::adapt_data<v_t,Data>::type      target_t;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 const& a0, State const& p, Data const& t) const
+    operator()(A0 const& a0, State const& p, Data const&) const
     {
       // Types for indices computation
       typedef typename A0::extent_type                                  ext_t;
