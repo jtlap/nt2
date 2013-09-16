@@ -14,7 +14,6 @@
 #include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/simd/include/constants/true.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
-#include <boost/simd/sdk/config.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -37,11 +36,7 @@ namespace boost { namespace simd { namespace ext
   {
 
     typedef typename meta::as_logical<A0>::type result_type;
-    #ifdef BOOST_SIMD_NO_INVALIDS
-    inline result_type operator()(const A0&) const { return False<result_type>(); }
-    #else
     BOOST_SIMD_FUNCTOR_CALL(1) { return is_nan(a0-a0); }
-    #endif
   };
 } } }
 
