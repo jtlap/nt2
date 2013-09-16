@@ -26,7 +26,6 @@
 
 NT2_TEST_CASE_TPL(pinv, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   using nt2::pinv;
   using nt2::tag::pinv_;
   using nt2::mtimes;

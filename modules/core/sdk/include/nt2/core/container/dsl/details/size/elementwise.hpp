@@ -127,41 +127,27 @@ namespace nt2 { namespace ext
     }
   };
 
-  template<class Tag, class Domain, int N, class Expr>
-  struct size_of_default;
-
-  template<class Tag, class Domain, int N, class Expr>
-  struct size_of
-       : size_of_default<Tag, Domain, N, Expr>
-  {
-  };
-
-  // element-wise size n-ary
-  template<class Tag, class Domain, int N, class Expr>
-  struct size_of_default
+  template<typename Expr, int N>
+  struct elementwise_size
   {
     typedef typename boost::fusion::result_of::
     transform<Expr const, details::get_extent>::type sizes;
 
-    typedef typename boost::fusion::result_of::
-    at_c<sizes, 0>::type init;
+    typedef typename boost::fusion::result_of::at_c<sizes, 0>::type init;
 
     typedef typename boost::fusion::result_of::
     fold<sizes, init, size_fold>::type  result_type;
 
-    BOOST_FORCEINLINE
-    result_type operator()(Expr& e) const
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       sizes sz = boost::fusion::transform(e, details::get_extent());
       return boost::fusion::fold(sz, boost::fusion::at_c<0>(sz), size_fold());
     }
   };
 
-  // element-wise size unary
-  template<class Tag, class Domain, class Expr>
-  struct size_of_default<Tag, Domain, 1, Expr>
+  template<typename Expr> struct elementwise_size<Expr,1>
   {
-    typedef typename boost::proto::result_of::child_c<Expr, 0>::value_type child0;
+    typedef typename boost::proto::result_of::child_c<Expr&, 0>::value_type child0;
     typedef typename child0::extent_type result_type;
 
     BOOST_FORCEINLINE
@@ -169,6 +155,12 @@ namespace nt2 { namespace ext
     {
       return boost::proto::child_c<0>(e).extent();
     }
+  };
+
+  template<class Tag, class Domain, int N, class Expr>
+  struct size_of
+       : elementwise_size<Expr,N>
+  {
   };
 } }
 

@@ -1,0 +1,11 @@
+[library Constants and Generative Constructors
+  [quickbook 1.5]
+]
+
+[section Overview]
+This module provides functions to generate array filled with constants or using
+procedural computation to generate data.
+[endsect]
+
+[include  type_specifier.qbk]
+[xinclude reference.xml]

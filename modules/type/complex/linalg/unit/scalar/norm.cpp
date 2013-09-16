@@ -26,7 +26,6 @@
 NT2_TEST_CASE_TPL(norm, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_complex<T>::type  cT;
-  typedef T r_t;
   using nt2::norm;
   using nt2::tag::norm_;
   nt2::table<cT> n = nt2::ones(10, 1, nt2::meta::as_<cT>());

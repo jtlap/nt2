@@ -13,3 +13,4 @@ include(nt2.pch)
 nt2_pch(nt2/table.hpp)
 
 ADD_SUBDIRECTORY(table)
+ADD_SUBDIRECTORY(utility)

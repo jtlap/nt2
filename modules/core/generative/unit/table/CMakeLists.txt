@@ -13,6 +13,7 @@ c180.cpp
 cgold.cpp
 cic.cpp
 cif.cpp
+class.cpp
 colon.cpp
 cols.cpp
 deltac.cpp
@@ -42,8 +43,9 @@ half.cpp
 halfeps.cpp
 homot.cpp
 hundred.cpp
+ind2sub.cpp
 indices.cpp
-infs.cpp
+inf.cpp
 ldexpmask.cpp
 linspace.cpp
 log10_pi.cpp
@@ -52,6 +54,7 @@ maxexponent.cpp
 maxinit.cpp
 maxleftshift.cpp
 meight.cpp
+meshgrid.cpp
 mfive.cpp
 mfour.cpp
 mhalf.cpp
@@ -68,10 +71,11 @@ mten.cpp
 mthree.cpp
 mtwo.cpp
 mzero.cpp
-nans.cpp
+nan.cpp
 nbdigits.cpp
 nbexponentbits.cpp
 nbmantissabits.cpp
+ndgrid.cpp
 nine.cpp
 oneo_10.cpp
 oneo_120.cpp
@@ -107,6 +111,7 @@ sqrt_2o_3.cpp
 sqrteps.cpp
 sqrtsmallestposval.cpp
 sqrtvalmax.cpp
+sub2ind.cpp
 ten.cpp
 third.cpp
 thirdrooteps.cpp

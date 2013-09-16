@@ -25,7 +25,6 @@
 
 NT2_TEST_CASE_TPL(poly, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   using nt2::poly;
   using nt2::tag::poly_;
 //  nt2::table<T> n = nt2::eye(2, 2, nt2::meta::as_<T>());

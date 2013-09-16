@@ -17,7 +17,6 @@
 
 NT2_TEST_CASE_TPL ( lehmer, NT2_REAL_TYPES)
 {
-  typedef typename nt2::meta::as_<T> ta_t;
   nt2::table<T> l3 =nt2::cons(nt2::of_size(3, 3),
                               T(6),     T(3),     T(2),
                               T(3),     T(6),     T(4),

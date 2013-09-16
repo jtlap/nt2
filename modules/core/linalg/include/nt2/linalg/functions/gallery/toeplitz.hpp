@@ -49,7 +49,6 @@ namespace nt2 { namespace ext
     template < class C, class R > //real toeplitz
     static void compute(A0& out,const C& c, const R& r)
     {
-      typedef typename A0::value_type value_type;
       size_t p = numel(r);
       size_t m = numel(c);
       BOOST_AUTO_TPL(idx, nt2::_(ptrdiff_t(p), ptrdiff_t(-1), ptrdiff_t(2)));

@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_MONEO_6_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_MONEO_6_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the moneo_6 function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/include/constants/moneo_6.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>

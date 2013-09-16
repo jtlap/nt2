@@ -11,3 +11,10 @@ ALIASES += dco="<a href=\"http://www.boost.org/doc/libs/release/libs/fusion/doc/
 ALIASES += usage{1}="@par Example:\n@include \1"
 ALIASES += usage_output{2}="@usage{\1}\nOutput:\n@include \2"
 ALIASES += model{2}="<a href=\"\1\">\2</a>"
+
+# Matlab look alike code helpers
+ALIASES += size2d{2}="<tt>[\1 \2]</tt>"
+ALIASES += size3d{3}="<tt>[\1 \2 \3]</tt>"
+ALIASES += size4d{4}="<tt>[\1 \2 \3 \4]</tt>"
+ALIASES += sizes{2}="<tt>[\1 ... \2]</tt>"
+

@@ -13,6 +13,7 @@
 #include <nt2/core/utility/as_subscript.hpp>
 #include <nt2/core/utility/as_index.hpp>
 #include <nt2/include/functions/run.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/functions/simd/modulo.hpp>
 #include <nt2/include/functions/simd/enumerate.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
@@ -42,7 +43,7 @@ namespace nt2 { namespace ext
       _2D out_sz  = a0.extent();
 
       sub_t pos = as_subscript(out_sz, nt2::enumerate<i_t>(p));
-      pos[0] = pos[0] % in_sz[0];
+      pos[0] = pos[0] % splat<i_t>(in_sz[0]);
 
       return nt2::run ( boost::proto::child_c<0>(a0)
                       , as_index(in_sz, pos)

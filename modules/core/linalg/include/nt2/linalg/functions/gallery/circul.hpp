@@ -85,7 +85,6 @@ namespace nt2{ namespace ext
     typedef A0&                                                     result_type;
     result_type operator()(A0& out, const A1& in) const
     {
-      typedef typename A0::value_type value_type;
       out.resize(extent(in));
       BOOST_AUTO_TPL( v, nt2::rowvect(boost::proto::child_c<0>(in)));
       BOOST_AUTO_TPL( idx, nt2::_(ptrdiff_t(nt2::numel(v)), ptrdiff_t(-1), ptrdiff_t(2)));

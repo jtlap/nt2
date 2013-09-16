@@ -48,7 +48,6 @@ namespace nt2{ namespace ext
     result_type doit(const A0 & a0, boost::mpl::false_ const &) const
     {
       typedef typename std::complex<value_type>   cmplx_type;
-      typedef nt2::table<value_type, nt2::_2D>        tab_t;
       typedef nt2::table<cmplx_type, nt2::_2D>       ctab_t;
       size_t n = length(a0);
       ctab_t q, t, r;

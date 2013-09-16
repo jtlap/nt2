@@ -116,7 +116,6 @@ NT2_TEST_CASE_TPL( qmtc_flt_out2, NT2_REAL_TYPES )
   using nt2::qmtc;
   using nt2::options;
   using nt2::integration::output;
-  typedef typename nt2::meta::as_complex<T>::type cT;
   typedef nt2::table<T> tab_t;
   tab_t x =  nt2::cons(nt2::of_size(2, 2, 2), T(0), T(0), T(1), T(1), T(-1), T(-1), T(0), T(0));
   BOOST_AUTO_TPL(res, (qmtc(f(), x, options [ nt2::limits::maxfunccnt_ = 100000 ])));

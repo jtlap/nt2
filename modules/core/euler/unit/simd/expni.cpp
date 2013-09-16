@@ -25,7 +25,6 @@ NT2_TEST_CASE_TPL ( expni_real__2_0,  NT2_SIMD_REAL_TYPES)
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
   typedef typename nt2::meta::call<expni_(iT,vT)>::type r_t;
 
   // specific values tests

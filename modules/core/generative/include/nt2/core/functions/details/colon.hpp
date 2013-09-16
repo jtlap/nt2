@@ -108,7 +108,7 @@ namespace nt2 { namespace details
   unity_colon_value(T const& l, Pos const& p, Target const&)
   {
     typedef typename Target::type type;
-    return  nt2::enumerate<type>(p)+l;
+    return  nt2::enumerate<type>(p)+splat<type>(l);
   }
 
   /// INTERNAL ONLY
@@ -168,7 +168,7 @@ namespace nt2 { namespace meta
   /// colon actual functor : precompute step and just iterate over
   template<class Base> struct constant_<nt2::tag::colon_, Base>
   {
-    typedef Base                                          result_type;
+    typedef Base  base_type;
 
     constant_() {}
     constant_( Base const& l, Base const& s) : lower_(l), step_(s) {}
@@ -188,7 +188,7 @@ namespace nt2 { namespace meta
   /// unity_colon actual functor : just forward form lower bound
   template<class Base> struct constant_<nt2::tag::unity_colon_, Base>
   {
-    typedef Base                                          result_type;
+    typedef Base  base_type;
 
     constant_() {}
     constant_( Base const& l ) : lower_(l) {}

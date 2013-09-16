@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_FACT_7_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_FACT_7_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the fact_7 function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/include/constants/fact_7.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>

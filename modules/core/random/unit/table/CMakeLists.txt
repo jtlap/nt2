@@ -9,6 +9,7 @@
 
 SET( SOURCES
      rand.cpp
+     randi.cpp
      randn.cpp
    )
 

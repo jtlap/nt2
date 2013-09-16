@@ -22,7 +22,7 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::issorted_, tag::cpu_
-                              , (A0)
+                            , (A0)
                             , (scalar_<unspecified_<A0> > )
                             )
   {
@@ -36,47 +36,46 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::issorted_, tag::cpu_
-                              , (A0)(A1)
-                              , (scalar_<unspecified_<A0> > )
+                            , (A0)(A1)
+                            , (scalar_<unspecified_<A0> > )
                               (scalar_<integer_ < A1> > )
-                              )
+                            )
   {
     typedef bool result_type;
 
     BOOST_FORCEINLINE
-      result_type operator()(const A0&, const A1&) const
+    result_type operator()(const A0&, const A1&) const
     {
       return true;
     }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::issorted_, tag::cpu_
-                              , (A0)(A1)(A2)
-                              , (scalar_<unspecified_<A0> > )
+                            , (A0)(A1)(A2)
+                            , (scalar_<unspecified_<A0> > )
                               (scalar_<integer_ < A1> > )
                               (scalar_<bool_<A2> >)
-                              )
+                            )
   {
     typedef bool result_type;
 
     BOOST_FORCEINLINE
-      result_type operator()(const A0&, const A1&, const A2&) const
+    result_type operator()(const A0&, const A1&, const A2&) const
     {
       return true;
     }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::issorted_, tag::cpu_
-                              , (A0)
-                              , ((ast_<A0, nt2::container::domain>))
-                              )
+                            , (A0)
+                            , ((ast_<A0, nt2::container::domain>))
+                            )
   {
     typedef bool result_type;
 
     BOOST_FORCEINLINE
-      result_type operator()(const A0& a0) const
+    result_type operator()(const A0& a0) const
     {
-      typedef typename A0::value_type value_type;
       size_t dim =  nt2::firstnonsingleton(a0);
       bool res =  nt2::globalall(nt2::all(is_nltz(diff(a0, dim))));
       return res || nt2::globalall(nt2::all(is_ngtz(diff(a0, dim))));
@@ -92,41 +91,39 @@ namespace nt2 { namespace ext
     typedef bool result_type;
 
     BOOST_FORCEINLINE
-      result_type operator()(const A0& a0, const A1& dim) const
+    result_type operator()(const A0& a0, const A1& dim) const
     {
-      typedef typename A0::value_type value_type;
       bool res =  nt2::globalall(nt2::all(is_nltz(diff(a0, dim))));
       return  res || nt2::globalall(nt2::all(is_ngtz(diff(a0, dim))));
     }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::issorted_, tag::cpu_
-                              , (A0)(A1)
-                              , ((ast_<A0, nt2::container::domain>))
+                            , (A0)(A1)
+                            , ((ast_<A0, nt2::container::domain>))
                               (scalar_<bool_<A1> >)
-                              )
+                            )
   {
     typedef bool result_type;
 
     BOOST_FORCEINLINE
-      result_type operator()(const A0& a0, const A1& up) const
+    result_type operator()(const A0& a0, const A1& up) const
     {
-      typedef typename A0::value_type value_type;
       size_t dim =  nt2::firstnonsingleton(a0);
       return issorted(a0, dim, up);
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::issorted_, tag::cpu_
-                              , (A0)(A1)(A2)
-                              , ((ast_<A0, nt2::container::domain>))
+                            , (A0)(A1)(A2)
+                            , ((ast_<A0, nt2::container::domain>))
                               (scalar_<integer_ < A1> > )
                               (scalar_<bool_<A2> >)
-                              )
+                            )
   {
     typedef bool result_type;
 
     BOOST_FORCEINLINE
-      result_type operator()(const A0& a0, const A1& dim, const A2& up) const
+    result_type operator()(const A0& a0, const A1& dim, const A2& up) const
     {
       typedef typename A0::value_type value_type;
       value_type sgn = up ? One<value_type>() : Mone<value_type>();

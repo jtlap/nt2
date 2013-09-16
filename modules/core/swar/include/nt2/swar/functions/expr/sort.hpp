@@ -18,7 +18,7 @@
 #include <algorithm>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/tie.hpp>
-#include <nt2/include/functions/ind2sub.hpp>
+#include <nt2/core/utility/as_subscript.hpp>
 #include <nt2/include/functions/indices.hpp>
 #include <nt2/include/functions/linesstride.hpp>
 #include <nt2/sdk/meta/is_target.hpp>
@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
     typedef typename st_child0::index_type                           index_type;
     typedef container::table<value_type,index_type>                       res_t;
     typedef typename st_child0::extent_type                               ext_t;
-    typedef typename meta::call<nt2::tag::ind2sub_(ext_t,size_t)>::type   sub_t;
+    typedef typename result_of::as_subscript<ext_t,size_t>::type          sub_t;
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
@@ -218,8 +218,9 @@ namespace nt2 { namespace ext
         value_type* beg = res.raw();
         for(size_t i=0; i < nbslice; ++i)
         {
-          sub_t pos = ind2sub(res.extent(), p);
-          if (pos[dim-1]!= 1)
+          sub_t pos = as_subscript(res.extent(), p);
+
+          if (pos[dim-1]!= 0)
           {
             p+= decal;
           }
@@ -248,8 +249,8 @@ namespace nt2 { namespace ext
       i_type* bep = idx.raw();
       for(size_t i=0; i < nbslice; ++i)
       {
-        sub_t pos = ind2sub(res.extent(), p);
-        if (pos[dim-1]!= 1)
+        sub_t pos = as_subscript(res.extent(), p);
+        if (pos[dim-1]!= 0)
         {
           p+= decal;
         }
@@ -278,8 +279,8 @@ namespace nt2 { namespace ext
       i_type* bep = idx.raw();
       for(size_t i=0; i < nbslice; ++i)
       {
-        sub_t pos = ind2sub(res.extent(), p);
-        if (pos[dim-1]!= 1)
+        sub_t pos = as_subscript(res.extent(), p);
+        if (pos[dim-1]!= 0)
         {
           p+= decal;
         }

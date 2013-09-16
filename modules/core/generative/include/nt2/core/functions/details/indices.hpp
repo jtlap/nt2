@@ -11,6 +11,8 @@
 
 #include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/functions/simd/enumerate.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
 #include <nt2/core/utility/as_subscript.hpp>
 #include <nt2/sdk/meta/constant_adaptor.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
@@ -23,7 +25,7 @@ namespace nt2 { namespace meta
   /// Functor used to generate cif values
   template<class Base> struct constant_<nt2::tag::indices_, Base>
   {
-    typedef Base                                          result_type;
+    typedef Base                                          base_type;
 
     constant_() {}
     constant_(std::size_t d, std::ptrdiff_t b) : dim_(d-1), base_(b)  {}
@@ -37,8 +39,9 @@ namespace nt2 { namespace meta
       typedef typename nt2::result_of::as_subscript<Size,i_t>::type       s_t;
 
       s_t const pos = as_subscript(sz,nt2::enumerate<i_t>(p));
+
       return (dim_ >= pos.size()) ? nt2::splat<type>(base_)
-                                  : splat<type>(pos[dim_])+base_;
+                                  : splat<type>(pos[dim_]) + splat<type>(base_);
     }
 
     private:

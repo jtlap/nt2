@@ -14,6 +14,7 @@
 #include <nt2/core/functions/colvect.hpp>
 #include <nt2/core/settings/size.hpp>
 #include <nt2/sdk/meta/is_container.hpp>
+#include <boost/dispatch/meta/ignore_unused.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/assert.hpp>
 
@@ -56,6 +57,7 @@ namespace nt2 { namespace ext
     template<class Sz>
     BOOST_FORCEINLINE void operator()(Expr&, Sz const& sz, boost::mpl::false_)
     {
+      boost::dispatch::ignore_unused(sz);
       BOOST_ASSERT_MSG( sz == of_size_<>()
                       , "Resizing scalar to size other than 1"
                       );

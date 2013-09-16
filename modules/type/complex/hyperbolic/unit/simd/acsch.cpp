@@ -24,10 +24,7 @@ NT2_TEST_CASE_TPL ( acsch_real__1_0, NT2_SIMD_REAL_TYPES)
   using boost::simd::native;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef std::complex<T>                cT;
-  typedef native<T,ext_t>                vT;
   typedef native<cT,ext_t>              cvT;
-  typedef typename nt2::meta::call<acsch_(cvT)>::type r_t;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(nt2::acsch(nt2::One<cvT>()  ),              nt2::splat<cvT>(nt2::acsch(nt2::One<cT>()))  , 1.0);

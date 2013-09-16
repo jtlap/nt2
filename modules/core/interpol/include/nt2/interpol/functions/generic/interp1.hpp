@@ -47,60 +47,58 @@ namespace nt2 { namespace ext
   private :
 // perhaps xi is not there
     static void choices(const A1&, char&, boost::mpl::long_<3> const &)
-      {
-        // all by default
-      }
+    {
+      // all by default
+    }
     static void choices(const A1& inputs, char & method, boost::mpl::long_<4> const &)
-      {
-        //x, y, xi, method
-        typedef typename boost::proto::result_of::child_c<A1&,3>::type             child3;
-        method =  boost::proto::child_c<3>(inputs);
-      }
+    {
+      //x, y, xi, method
+      method =  boost::proto::child_c<3>(inputs);
+    }
     static void choices(const A1& inputs, char & method, boost::mpl::long_<5> const &)
-      {
-        //x, y, xi, method
-        typedef typename boost::proto::result_of::child_c<A1&,3>::type             child3;
-        method =  boost::proto::child_c<3>(inputs);
-      }
+    {
+      //x, y, xi, method
+      method =  boost::proto::child_c<3>(inputs);
+    }
     static A0& compute(A0& yi, const A1& inputs, char, boost::mpl::long_<3> const &)
-      {
-        const child0 & x   =  boost::proto::child_c<0>(inputs);
-        const child1 & y   =  boost::proto::child_c<1>(inputs);
-        const child2 & xi  =  boost::proto::child_c<2>(inputs);
-        yi = nearest(x, y, xi);  return yi;
-      }
+    {
+      const child0 & x   =  boost::proto::child_c<0>(inputs);
+      const child1 & y   =  boost::proto::child_c<1>(inputs);
+      const child2 & xi  =  boost::proto::child_c<2>(inputs);
+      yi = nearest(x, y, xi);  return yi;
+    }
     static A0& compute(A0& yi, const A1& inputs, char method, boost::mpl::long_<4> const &)
+    {
+      const child0 & x   =  boost::proto::child_c<0>(inputs);
+      const child1 & y   =  boost::proto::child_c<1>(inputs);
+      const child2 & xi  =  boost::proto::child_c<2>(inputs);
+      switch (method)
       {
-        const child0 & x   =  boost::proto::child_c<0>(inputs);
-        const child1 & y   =  boost::proto::child_c<1>(inputs);
-        const child2 & xi  =  boost::proto::child_c<2>(inputs);
-        switch (method)
-          {
-          case 'n' : yi = nearest(x, y, xi);  return yi;
-            //          case 's' : yi = spline(x, y, xi);return yi;
-            //           case 'c' : yi = cubic(x, y, xi);return yi;
-            //           case 'p' : yi = pship(x, y, xi);return yi;
-          default  : yi = linear(x, y, xi); return yi;
-          }
-        return yi;
+        case 'n' : yi = nearest(x, y, xi);  return yi;
+          //          case 's' : yi = spline(x, y, xi);return yi;
+          //           case 'c' : yi = cubic(x, y, xi);return yi;
+          //           case 'p' : yi = pship(x, y, xi);return yi;
+        default  : yi = linear(x, y, xi); return yi;
       }
+      return yi;
+    }
     static A0& compute(A0& yi, A1& inputs, const char method, boost::mpl::long_<5> const &)
-      {
-        typedef typename boost::proto::result_of::child_c<A1&,4>::value_type        child4;
+    {
+      typedef typename boost::proto::result_of::child_c<A1&,4>::value_type        child4;
 
-        const child0 & x   =  boost::proto::child_c<0>(inputs);
-        const child1 & y   =  boost::proto::child_c<1>(inputs);
-        const child2 & xi  =  boost::proto::child_c<2>(inputs);
-        const child4 & ext =  boost::proto::child_c<4>(inputs);
-        switch (method)
-          {
-          case 'n' : yi = nearest(x, y, xi, ext); return yi;
-            //           case 's' : yi = spline(x, y, xi, ext);return yi;
-            //           case 'c' : yi = cubic(x, y, xi, ext);return yi;
-            //           case 'p' : yi = pship(x, y, xi, ext);return yi;
-          default  : yi = linear(x, y, xi, ext); return yi;
-          }
+      const child0 & x   =  boost::proto::child_c<0>(inputs);
+      const child1 & y   =  boost::proto::child_c<1>(inputs);
+      const child2 & xi  =  boost::proto::child_c<2>(inputs);
+      const child4 & ext =  boost::proto::child_c<4>(inputs);
+      switch (method)
+      {
+        case 'n' : yi = nearest(x, y, xi, ext); return yi;
+          //           case 's' : yi = spline(x, y, xi, ext);return yi;
+          //           case 'c' : yi = cubic(x, y, xi, ext);return yi;
+          //           case 'p' : yi = pship(x, y, xi, ext);return yi;
+        default  : yi = linear(x, y, xi, ext); return yi;
       }
+    }
   };
 } }
 

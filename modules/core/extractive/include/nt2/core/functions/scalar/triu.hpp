@@ -14,13 +14,13 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::offset_triu_, tag::cpu_, (A0)(A1)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::triu_, tag::cpu_, (A0)(A1)
                             , (scalar_< unspecified_<A0> >)
                               (scalar_< integer_<A1> >)
                             )
   {
     typedef A0  result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const& k) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 k) const
     {
       return (k > 0) ? Zero<A0>() : a;
     }

@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_TRUES_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_TRUES_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Define and implements the trues function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/include/constants/true.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>

@@ -19,7 +19,6 @@
 
 NT2_TEST_CASE_TPL ( lesp, NT2_REAL_TYPES)
 {
-  typedef typename nt2::meta::as_<T> ta_t;
   nt2::table<T> l3 =nt2::trans(nt2::cons(nt2::of_size(3, 3),
                                          T(-15.000000),  T(  6.0000000), T(          0),
                                          T( 1.5000000),  T(-21.0000000), T(  9.0000000),

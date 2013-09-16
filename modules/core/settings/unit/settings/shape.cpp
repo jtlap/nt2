@@ -21,7 +21,6 @@ NT2_TEST_CASE( shape_concept )
   using nt2::meta::option;
   using nt2::meta::match_option;
 
-  typedef option<nt2::rectangular_, nt2::tag::shape_, some_kind_> opt;
   NT2_TEST( (match_option< nt2::rectangular_, nt2::tag::shape_ >::value) );
 }
 

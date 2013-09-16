@@ -32,8 +32,6 @@ NT2_TEST_CASE_TPL(logm0, NT2_REAL_TYPES)//distinct eigenvalues
 
 NT2_TEST_CASE_TPL(logm1, NT2_REAL_TYPES)//distinct eigenvalues
 {
-  typedef T r_t;
-  typedef std::complex<T> cT;
   using nt2::logm;
   using nt2::tag::logm_;
   nt2::table<T> n =  nt2::from_diag(T(2)*nt2::_((1),T(3)));
@@ -54,8 +52,6 @@ NT2_TEST_CASE_TPL(logm1, NT2_REAL_TYPES)//distinct eigenvalues
 
 NT2_TEST_CASE_TPL(logm2, (float))//NT2_REAL_TYPES)//double eigenvalue
 {
-  typedef T r_t;
-  typedef std::complex<T> cT;
   using nt2::logm;
   using nt2::tag::logm_;
   nt2::table<T> r = nt2::trans(nt2::cons<T>(nt2::of_size(2, 2),
@@ -79,8 +75,6 @@ NT2_TEST_CASE_TPL(logm2, (float))//NT2_REAL_TYPES)//double eigenvalue
 
 NT2_TEST_CASE_TPL(logm3, (float))//NT2_REAL_TYPES)
 {
-  typedef T r_t;
-  typedef std::complex<T> cT;
   using nt2::logm;
   using nt2::tag::logm_;
   nt2::table<T> r = nt2::trans(nt2::cons<T>(nt2::of_size(3, 3),
@@ -98,7 +92,6 @@ NT2_TEST_CASE_TPL(logm3, (float))//NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL(logm4, (float))//NT2_REAL_TYPES)
 {
-  typedef T r_t;
   using nt2::logm;
   using nt2::tag::logm_;
 
@@ -120,7 +113,6 @@ NT2_TEST_CASE_TPL(logm4, (float))//NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL(logm5, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   typedef std::complex<T> cT;
   using nt2::logm;
   using nt2::tag::logm_;
@@ -149,7 +141,6 @@ NT2_TEST_CASE_TPL(logm5, NT2_REAL_TYPES)
 }
 NT2_TEST_CASE_TPL(logm6, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   typedef std::complex<T> cT;
   using nt2::logm;
   using nt2::tag::logm_;
@@ -165,7 +156,6 @@ NT2_TEST_CASE_TPL(logm6, NT2_REAL_TYPES)
  }
 NT2_TEST_CASE_TPL(logm7, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   typedef std::complex<T> cT;
   using nt2::logm;
   using nt2::tag::logm_;

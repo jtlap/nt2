@@ -16,23 +16,23 @@ namespace nt2 { namespace tag { struct repnum_; }}
 
 namespace nt2 { namespace meta
 {
-  template<class T>
-  struct constant_<tag::repnum_,T>
+  template<typename Base>
+  struct constant_<tag::repnum_,Base>
   {
-    typedef T result_type;
+    typedef Base base_type;
 
     constant_ () {}
-    constant_(const T& val)  : val_(val) {}
+    constant_(const Base& val)  : val_(val) {}
 
     template<class Pos, class Size, class Target>
     BOOST_FORCEINLINE typename Target::type
-    operator()(Pos const& , Size const&, Target const& ) const
+    operator()(Pos const&, Size const&, Target const& ) const
     {
       return nt2::splat<typename Target::type>(val_);
     }
 
     private:
-    T val_;
+    Base val_;
   };
 } }
 

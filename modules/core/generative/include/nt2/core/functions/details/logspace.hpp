@@ -19,13 +19,12 @@ namespace nt2 { namespace tag { struct logspace_; }}
 
 namespace nt2 { namespace meta
 {
-  template<class T>
-  struct constant_<tag::logspace_,T>
+  template<typename Base> struct constant_<tag::logspace_,Base>
   {
-    typedef T                                          result_type;
+    typedef Base                        base_type;
 
     constant_() {}
-    constant_( T const& l, T const& u, std::size_t n )
+    constant_( Base const& l, Base const& u, std::size_t n )
             : lower_(n != 1?l:u), step_(n != 1?(u-l)/(n-1):0)
     {}
 
@@ -41,7 +40,7 @@ namespace nt2 { namespace meta
                         );
     }
 
-    T lower_, step_;
+    Base lower_, step_;
   };
 } }
 

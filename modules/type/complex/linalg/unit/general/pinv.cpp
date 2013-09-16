@@ -31,8 +31,6 @@
 
 NT2_TEST_CASE_TPL(pinv, NT2_REAL_TYPES)
 {
-
-  typedef T r_t;
   typedef typename nt2::meta::as_complex<T>::type  cT;
   using nt2::pinv;
   using nt2::tag::pinv_;

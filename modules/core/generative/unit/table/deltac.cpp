@@ -29,11 +29,12 @@ NT2_TEST_CASE( untyped )
 
   nt2::table<float> ref =  nt2::zeros(3, nt2::meta::as_<float>());
   ref(2, 3) = 1.0;
-  NT2_DISPLAY(ref);
   nt2::table<int> p(nt2::of_size(1, 2)); p(1) = p(2) = 3;
   nt2::table<float> x0 = nt2::deltac(0, 2, nt2::of_size(3, 3), nt2::meta::as_<float>());
   nt2::table<float> x1 = nt2::deltac(1, 2, 3, nt2::meta::as_<float>());
-  NT2_DISPLAY(x0);
+
+  NT2_DISPLAY(x1);
+
   NT2_TEST_EQUAL(ref, nt2::deltac(1, 2, 3, nt2::meta::as_<float>()));
   NT2_TEST_EQUAL(ref, nt2::deltac(1, 2, 3, 3, nt2::meta::as_<float>()));
   NT2_TEST_EQUAL(ref, nt2::deltac(1, 2, p, nt2::meta::as_<float>()));

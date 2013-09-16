@@ -32,7 +32,6 @@ NT2_TEST_CASE_TPL ( tr_solve_expr, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_integer<T, signed>::type itype_t;
   typedef nt2::table<T> t_t;
-  typedef nt2::table<itype_t> it_t;
 
   t_t a(nt2::of_size(5, 5));
   for(int i=1; i <= 5; i++)

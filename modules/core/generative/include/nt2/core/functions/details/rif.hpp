@@ -25,7 +25,7 @@ namespace nt2 { namespace meta
   /// Functor used to generate rif values
   template<class Base> struct constant_<nt2::tag::rif_, Base>
   {
-    typedef Base                                          result_type;
+    typedef Base                                          base_type;
 
     template<class Pos, class Size,class Target>
     BOOST_FORCEINLINE typename Target::type
@@ -34,7 +34,7 @@ namespace nt2 { namespace meta
       typedef typename Target::type               type;
       typedef typename meta::as_index<type>::type i_t;
 
-      return splat<type>( as_subscript(sz,enumerate<i_t>(p))[0] + 1 );
+      return splat<type>(as_subscript(sz,enumerate<i_t>(p))[0]) + One<type>();
     }
   };
 } }

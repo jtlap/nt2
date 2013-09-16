@@ -22,7 +22,6 @@
 
 NT2_TEST_CASE_TPL(rref, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   typedef typename nt2::meta::as_integer<T, signed>::type  itype_t;
   typedef nt2::table<itype_t> it_t;
   using nt2::rref;

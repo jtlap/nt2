@@ -303,7 +303,7 @@ void expr_lifetime_tie_i(Expr const&)
   using nt2::memory::container;
 
   typedef double T;
-  typedef nt2::settings S(nt2::_4D);
+  //typedef nt2::settings S(nt2::_4D);
 
   typedef typename boost::proto::result_of::child_c<Expr&, 0>::value_type child0;
 

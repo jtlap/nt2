@@ -163,7 +163,6 @@ NT2_TEST_CASE_TPL( romberg_functor_, NT2_REAL_TYPES ) //ok
   using nt2::options;
   using nt2::integration::output;
   typedef nt2::table<T> tab_t;
-  typedef typename nt2::meta::as_logical<T>::type lT;
   tab_t x = nt2::_(T(0), T(5), T(5));
   tab_t x0= nt2::_(T(0), T(5), T(5));
   BOOST_AUTO_TPL(res, (romberg(f(), T(0), T(5))));
@@ -176,7 +175,6 @@ NT2_TEST_CASE_TPL( romberg_functor__, NT2_REAL_TYPES )
   using nt2::options;
   using nt2::integration::output;
   typedef nt2::table<T> tab_t;
-  typedef typename nt2::meta::as_logical<T>::type lT;
   tab_t x = nt2::_(T(0), T(5), T(5));
   tab_t x0= nt2::_(T(0), T(5), T(5));
   BOOST_AUTO_TPL(res, (romberg(f(), T(0), T(5), options [ nt2::tolerance::abstol_ = T(1.0e-5),
@@ -191,7 +189,6 @@ NT2_TEST_CASE_TPL( romberg_functorc, NT2_REAL_TYPES )
   using nt2::options;
   using nt2::integration::output;
   typedef nt2::table<T> tab_t;
-  typedef typename nt2::meta::as_logical<T>::type lT;
   tab_t x = nt2::_(T(0), T(1), T(5));
   BOOST_AUTO_TPL(res, (romberg(f(), T(0), T(5), options [ nt2::tolerance::abstol_ = T(1.0e-5),
                                                               nt2::range::return_waypoints_ = true,
@@ -205,7 +202,6 @@ NT2_TEST_CASE_TPL( romberg_functorb, NT2_REAL_TYPES )
   using nt2::options;
   using nt2::integration::output;
   typedef nt2::table<T> tab_t;
-  typedef typename nt2::meta::as_logical<T>::type lT;
   tab_t x = nt2::_(T(0), T(5), T(5));
   BOOST_AUTO_TPL(res, (romberg(f(), x, options [ nt2::tolerance::abstol_ = T(1.0e-5),
                                                      nt2::range::return_waypoints_ = true])));
@@ -234,7 +230,6 @@ NT2_TEST_CASE_TPL( romberg_tag, NT2_REAL_TYPES )
   using nt2::options;
   using nt2::integration::output;
   typedef nt2::table<T> tab_t;
-  typedef typename nt2::meta::as_logical<T>::type lT;
   tab_t x = nt2::_(T(0), T(5));
   BOOST_AUTO_TPL(res, (romberg(nt2::functor<nt2::tag::exp_>(), x)));
   NT2_TEST_LESSER_EQUAL(nt2::globalmax(nt2::dist(res.integrals, nt2::expm1(T(5)))), nt2::Rombergabstol<T>());
@@ -246,7 +241,6 @@ NT2_TEST_CASE_TPL( romberg_tag_r, NT2_REAL_TYPES )
   using nt2::options;
   using nt2::integration::output;
   typedef nt2::table<T> tab_t;
-  typedef typename nt2::meta::as_logical<T>::type lT;
   tab_t x = nt2::_(T(5), T(-1), T(4));
   BOOST_AUTO_TPL(res, (romberg(nt2::functor<nt2::tag::exp_>(), T(5), T(4))));
   NT2_TEST_LESSER_EQUAL(nt2::globalmax(nt2::dist(res.integrals, nt2::exp(x(nt2::end_))-nt2::exp(T(5)))), nt2::Rombergabstol<T>());
@@ -258,7 +252,6 @@ NT2_TEST_CASE_TPL( romberg_tag_reverse, NT2_REAL_TYPES )
   using nt2::options;
   using nt2::integration::output;
   typedef nt2::table<T> tab_t;
-  typedef typename nt2::meta::as_logical<T>::type lT;
   tab_t x = nt2::_(T(5), T(-1), T(0));
   BOOST_AUTO_TPL(res, (romberg(nt2::functor<nt2::tag::exp_>(), x)));
   NT2_TEST_LESSER_EQUAL(nt2::globalmax(nt2::dist(res.integrals, nt2::exp(x(nt2::end_))-nt2::exp(T(5)))), nt2::Rombergabstol<T>());

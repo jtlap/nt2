@@ -22,7 +22,6 @@
 
 NT2_TEST_CASE_TPL(orth, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   using nt2::orth;
   using nt2::tag::orth_;
   std::cout << std::setprecision(20);

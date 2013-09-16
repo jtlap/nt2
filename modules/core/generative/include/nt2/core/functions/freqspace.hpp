@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_FREQSPACE_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_FREQSPACE_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Define and implements the freqspace function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/boxed_size.hpp>
 #include <nt2/core/container/dsl/size.hpp>
