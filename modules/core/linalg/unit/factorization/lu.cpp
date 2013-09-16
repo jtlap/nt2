@@ -34,7 +34,9 @@ NT2_TEST_CASE_TPL(lu_factorization, NT2_REAL_TYPES)
   NT2_DISPLAY(res.u());
   NT2_TEST_EQUAL(res.status(), 0);
 
+  typedef typename nt2::meta::as_integer<T, signed>::type itype_t;
   itype_t e;
+
   T m =  res.absdet(e);
   std::cout << "asbdet order " << e << std::endl;
   std::cout << "asbdet mant  " << m << std::endl;
