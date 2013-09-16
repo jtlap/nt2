@@ -11,12 +11,22 @@
 
 #include <nt2/core/functions/tri1u.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/functions/tri1u.hpp>
+#include <nt2/core/container/dsl/size.hpp>
 #include <nt2/include/functions/ismatrix.hpp>
+#include <nt2/sdk/meta/size_as.hpp>
+#include <boost/assert.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tri1u_, tag::cpu_, (A0), ((ast_<A0, nt2::container::domain>)) )
+  template<class Domain, class Expr, int N>
+  struct  size_of<nt2::tag::tri1u_,Domain,N,Expr>
+        : meta::size_as<Expr,0>
+  {};
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tri1u_, tag::cpu_
+                            , (A0)
+                            , ((ast_<A0, nt2::container::domain>))
+                            )
   {
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::tri1u_
@@ -37,27 +47,27 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::offset_tri1u_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tri1u_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
                               (scalar_< integer_<A1> >)
                             )
   {
     typedef typename  boost::proto::
-                      result_of::make_expr< nt2::tag::offset_tri1u_
+                      result_of::make_expr< nt2::tag::tri1u_
                                           , container::domain
                                           , A0 const&
                                           , A1
                                           >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 a1) const
     {
       // Expression must be a matrix
       BOOST_ASSERT_MSG( nt2::ismatrix(a0)
                       , "Error using tri1u: First input must be 2D."
                       );
 
-      return boost::proto::make_expr< nt2::tag::offset_tri1u_
+      return boost::proto::make_expr< nt2::tag::tri1u_
                                     , container::domain
                                     > ( boost::cref(a0), a1 );
     }

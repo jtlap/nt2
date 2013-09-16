@@ -28,16 +28,15 @@ namespace nt2 { namespace ext
                               ((unspecified_<Data>))
                             )
   {
-    typedef typename Data::type                         result_type;
-    typedef typename A0::extent_type                    ext_t;
-    typedef typename meta::as_index<result_type>::type  id_t;
+    typedef typename Data::type                       result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
-      ext_t ex0    = boost::proto::child_c<0>(a0).extent();
-      std::size_t dist  =  boost::proto::child_c<4>(a0);
-      std::size_t start =  boost::proto::child_c<3>(a0);
+      typedef typename meta::as_index<result_type>::type  id_t;
+
+      std::size_t dist   = boost::proto::child_c<3>(a0);
+      std::size_t start  = boost::proto::child_c<2>(a0);
 
       return nt2::run ( boost::proto::child_c<0>(a0)
                       , nt2::arith<id_t>(start+p*dist, dist)

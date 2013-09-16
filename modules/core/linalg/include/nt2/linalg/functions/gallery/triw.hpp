@@ -25,9 +25,9 @@ namespace nt2{ namespace ext
   {
     typedef typename nt2::meta::call<nt2::tag::eye_(const A0&, const A1&)>::type        T1;
     typedef typename nt2::meta::call<nt2::tag::One(const A0&, const A1&)>::type         T2;
-    typedef typename nt2::meta::call<nt2::tag::offset_triu_(T2, size_t)>::type          T3;
+    typedef typename nt2::meta::call<nt2::tag::triu_(T2, size_t)>::type          T3;
     typedef typename nt2::meta::call<nt2::tag::minus_(T1, T3)>::type                    T4;
-    typedef typename nt2::meta::call<nt2::tag::offset_tril_(T4, size_t)>::type result_type;
+    typedef typename nt2::meta::call<nt2::tag::tril_(T4, size_t)>::type result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& m, A1 const& n) const
     {
@@ -45,9 +45,9 @@ namespace nt2{ namespace ext
   {
     typedef typename nt2::meta::call<nt2::tag::eye_(const A0&, const A1&, const T&)>::type       T1;
     typedef typename nt2::meta::call<nt2::tag::One(const A0&, const A1&, const T&)>::type        T2;
-    typedef typename nt2::meta::call<nt2::tag::offset_triu_(T2, size_t)>::type                   T3;
+    typedef typename nt2::meta::call<nt2::tag::triu_(T2, size_t)>::type                   T3;
     typedef typename nt2::meta::call<nt2::tag::minus_(T1, T3)>::type                             T4;
-    typedef typename nt2::meta::call<nt2::tag::offset_tril_(T4, size_t)>::type          result_type;
+    typedef typename nt2::meta::call<nt2::tag::tril_(T4, size_t)>::type          result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& m, A1 const& n, T const&) const
     {
@@ -66,10 +66,10 @@ namespace nt2{ namespace ext
   {
     typedef typename nt2::meta::call<nt2::tag::eye_(const A0&, const A1&, const T&)>::type       T1;
     typedef typename nt2::meta::call<nt2::tag::One(const A0&, const A1&, const T&)>::type        T2;
-    typedef typename nt2::meta::call<nt2::tag::offset_triu_(T2, size_t)>::type                   T3;
+    typedef typename nt2::meta::call<nt2::tag::triu_(T2, size_t)>::type                   T3;
     typedef typename nt2::meta::call<nt2::tag::multiplies_(const A2&, T3)>::type                T3b;
     typedef typename nt2::meta::call<nt2::tag::plus_(T1, T3b)>::type                             T4;
-    typedef typename nt2::meta::call<nt2::tag::offset_tril_(T4, size_t)>::type          result_type;
+    typedef typename nt2::meta::call<nt2::tag::tril_(T4, size_t)>::type          result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& m, A1 const& n, A2 const& alpha, T const&) const
     {
@@ -89,10 +89,10 @@ namespace nt2{ namespace ext
     typedef typename nt2::meta::as_<A2>                                                           T;
     typedef typename nt2::meta::call<nt2::tag::eye_(const A0&, const A1&, const T&)>::type       T1;
     typedef typename nt2::meta::call<nt2::tag::One(const A0&, const A1&, const T&)>::type        T2;
-    typedef typename nt2::meta::call<nt2::tag::offset_triu_(T2, size_t)>::type                   T3;
+    typedef typename nt2::meta::call<nt2::tag::triu_(T2, size_t)>::type                   T3;
     typedef typename nt2::meta::call<nt2::tag::multiplies_(const A2&, T3)>::type                T3b;
     typedef typename nt2::meta::call<nt2::tag::plus_(T1, T3b)>::type                             T4;
-    typedef typename nt2::meta::call<nt2::tag::offset_tril_(T4, size_t)>::type          result_type;
+    typedef typename nt2::meta::call<nt2::tag::tril_(T4, size_t)>::type          result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& m, A1 const& n, A2 const& alpha) const
     {
@@ -112,10 +112,10 @@ namespace nt2{ namespace ext
     typedef typename nt2::meta::as_<A2>                                                           T;
     typedef typename nt2::meta::call<nt2::tag::eye_(const A0&, const A1&, const T&)>::type       T1;
     typedef typename nt2::meta::call<nt2::tag::One(const A0&, const A1&, const T&)>::type        T2;
-    typedef typename nt2::meta::call<nt2::tag::offset_triu_(T2, size_t)>::type                   T3;
+    typedef typename nt2::meta::call<nt2::tag::triu_(T2, size_t)>::type                   T3;
     typedef typename nt2::meta::call<nt2::tag::multiplies_(const A2&, T3)>::type                T3b;
     typedef typename nt2::meta::call<nt2::tag::plus_(T1, T3b)>::type                             T4;
-    typedef typename nt2::meta::call<nt2::tag::offset_tril_(T4, const A3&)>::type       result_type;
+    typedef typename nt2::meta::call<nt2::tag::tril_(T4, const A3&)>::type       result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& m, A1 const& n, A2 const& alpha, A3 const& k) const
     {
@@ -135,10 +135,10 @@ namespace nt2{ namespace ext
   {
     typedef typename nt2::meta::call<nt2::tag::eye_(const A0&, const A1&, const T&)>::type       T1;
     typedef typename nt2::meta::call<nt2::tag::One(const A0&, const A1&, const T&)>::type        T2;
-    typedef typename nt2::meta::call<nt2::tag::offset_triu_(T2, size_t)>::type                          T3;
+    typedef typename nt2::meta::call<nt2::tag::triu_(T2, size_t)>::type                          T3;
     typedef typename nt2::meta::call<nt2::tag::multiplies_(const A2&, T3)>::type                T3b;
     typedef typename nt2::meta::call<nt2::tag::plus_(T1, T3b)>::type                             T4;
-    typedef typename nt2::meta::call<nt2::tag::offset_tril_(T4, const A3&)>::type              result_type;
+    typedef typename nt2::meta::call<nt2::tag::tril_(T4, const A3&)>::type              result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& m, A1 const& n, A2 const& alpha, A3 const& k) const
     {

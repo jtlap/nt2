@@ -26,12 +26,9 @@ namespace nt2 { namespace ext
                               ((unspecified_<Data>))
                             )
   {
-    typedef typename Data::type                                     value_t;
-    typedef typename boost::proto::result_of::
-                     child_c<A0&, 2>::value_type::value_type        func_t;
-
-    typedef typename  boost::dispatch::meta::
-                      result_of<func_t(value_t,value_t)>::type      result_type;
+    typedef typename Data::type                                     result_type;
+    typedef typename boost::proto::result_of::child_c<A0&, 0>::value_type   v_t;
+    typedef typename boost::simd::ext::adapt_data<v_t,Data>::type      target_t;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
@@ -49,15 +46,15 @@ namespace nt2 { namespace ext
 
       // Run the functor on shifted data and original data
       return boost::proto::value(boost::proto::child_c<2>(a0))
-             ( nt2::run( boost::proto::child_c<0>(a0)
-                       , as_index(boost::proto::child_c<0>(a0).extent(), pos1)
-                       , t
-                       )
-             , nt2::run( boost::proto::child_c<0>(a0)
-                       , as_index(boost::proto::child_c<0>(a0).extent(), pos0)
-                       , t
-                       )
-             );
+            ( nt2::run( boost::proto::child_c<0>(a0)
+                      , as_index(boost::proto::child_c<0>(a0).extent(), pos1)
+                      , target_t()
+                      )
+            , nt2::run( boost::proto::child_c<0>(a0)
+                      , as_index(boost::proto::child_c<0>(a0).extent(), pos0)
+                      , target_t()
+                      )
+            );
     }
   };
 } }

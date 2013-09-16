@@ -49,7 +49,6 @@ SET( SOURCES
   negs.cpp
   oneminus.cpp
   oneplus.cpp
-  random.cpp
   rec.cpp
   remainder.cpp
   rem.cpp

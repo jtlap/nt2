@@ -204,7 +204,6 @@ namespace nt2 { namespace ext
   private :
     static void compute(A0& out, size_t n,  size_t k, v_t theta)
     {
-      NT2_DISPLAY(k);
       if (k == 1)   // Cline and Rew (1983), Example B.
       {
         out = nt2::trans(cons<v_t>(nt2::of_size(4, 4),

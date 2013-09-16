@@ -28,7 +28,6 @@ namespace nt2
     struct rand_ : ext::unspecified_<rand_>
     {
       typedef ext::unspecified_<rand_>  parent;
-      typedef double                    default_type;
     };
   }
 

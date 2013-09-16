@@ -33,8 +33,8 @@ NT2_TEST_CASE_TPL( adjfun, (double)(float)(int)(short)(char) )
     for(std::size_t i=1;i <= nt2::size(y, 1);i++)
       y(i,j) = T(i + j)*T(i+j);
 
-  NT2_TEST_EQUAL( adjfun(functor<nt2::tag::minus_>(), y)
-                , y(_(2, end_), _)-y(_(1, end_-1), _)
+  NT2_TEST_EQUAL( adjfun(functor<nt2::tag::is_equal_>(), y)
+                , y(_(2, end_), _) == y(_(1, end_-1), _)
                 );
 
   NT2_TEST_EQUAL( adjfun(functor<nt2::tag::minus_>(), y, 1)

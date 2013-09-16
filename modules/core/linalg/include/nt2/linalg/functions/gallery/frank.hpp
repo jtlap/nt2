@@ -25,7 +25,7 @@ namespace nt2 {namespace ext
                              )
   {
     typedef typename meta::call<tag::minij_(A0 const&, T)>::type            T1;
-    typedef typename meta::call<tag::offset_triu_(T1, ptrdiff_t)>::type   result_type;
+    typedef typename meta::call<tag::triu_(T1, ptrdiff_t)>::type   result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& n,T const &)
     {
       return triu(minij(n,T()), ptrdiff_t(-1));

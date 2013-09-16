@@ -6,20 +6,13 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 statistics toolbox - normrnd/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of statistics  components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 22/02/2011
-///
 #include <nt2/include/functions/normrnd.hpp>
 #include <nt2/include/functions/kstest.hpp>
 #include <nt2/include/functions/caucdf.hpp>
 #include <nt2/include/functions/unifrnd.hpp>
 #include <nt2/include/functions/unifcdf.hpp>
 #include <nt2/include/functions/normcdf.hpp>
-#include <nt2/include/functions/rand.hpp>
+#include <nt2/include/functions/rng.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/linspace.hpp>
@@ -62,9 +55,10 @@ private :
 
 template < class S > struct norm_cdf
 {
-  norm_cdf(const S& ,  const S& sig) : mu_(), sig_(sig){}
+  norm_cdf(const S& m,  const S& sig) : mu_(m), sig_(sig){}
 
-  template < class A >  typename nt2::meta::call<nt2::tag::normcdf0_(const  A&, const  S&,  const S&)>::type
+  template < class A >
+  typename nt2::meta::call<nt2::tag::normcdf0_(const A&,const S&,const S&)>::type
   operator()(const A& a) const
   {
     return nt2::normcdf(a, mu_, sig_);
@@ -73,22 +67,25 @@ private :
   S mu_, sig_;
 };
 
-NT2_TEST_CASE_TPL ( normks,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( normks, NT2_REAL_TYPES)
 {
+  // Fix some seed so we dont get a false positive
+  nt2::rng(10515040);
 
   T mu = 0;
   T sig = 1;
   nt2::table<T> a = nt2::sort(normrnd(mu, sig, nt2::of_size(1, 1000)), 2);
+
   norm_cdf<T>  ca(mu, sig);
   T d, p;
-  nt2:: kstest(a, ca, d, p);
+  nt2::kstest(a, ca, d, p);
+
   //Kolmogorov smirnov at 5% must succeed
   NT2_TEST_GREATER_EQUAL(p, 0.05);
 }
 
 NT2_TEST_CASE_TPL ( cauks,  NT2_REAL_TYPES)
 {
-
   T med = 0;
   T scal = 1;
   nt2::table<T> a = nt2::sort(normrnd(med, scal, nt2::of_size(1, 1000)), 2);
@@ -101,7 +98,6 @@ NT2_TEST_CASE_TPL ( cauks,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( unifks,  NT2_REAL_TYPES)
 {
-
   T a = -1;
   T b = 1;
   nt2::table<T> v = nt2::sort(normrnd(a, b, nt2::of_size(1, 1000)), 2);
