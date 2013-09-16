@@ -9,6 +9,8 @@
 #ifndef BOOST_SIMD_SDK_SIMD_EXTENSIONS_X86_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_EXTENSIONS_X86_HPP_INCLUDED
 
+#include <boost/simd/sdk/config/arch.hpp>
+
 ////////////////////////////////////////////////////////////////////////////////
 // Check for the most recent SSE family extension
 ////////////////////////////////////////////////////////////////////////////////
@@ -25,6 +27,14 @@
 #include <boost/simd/sdk/simd/extensions/x86/sse3.hpp>
 #include <boost/simd/sdk/simd/extensions/x86/sse2.hpp>
 #include <boost/simd/sdk/simd/extensions/x86/sse.hpp>
+#endif
+
+#if defined(BOOST_SIMD_HAS_SSE_SUPPORT) && !defined(BOOST_SIMD_REGISTERS_COUNT)
+  #if defined(BOOST_SIMD_ARCH_X86_64)
+    #define BOOST_SIMD_REGISTERS_COUNT 16u
+  #elif defined(BOOST_SIMD_ARCH_X86)
+    #define BOOST_SIMD_REGISTERS_COUNT  8u
+  #endif
 #endif
 
 #endif

@@ -20,6 +20,10 @@
 #define BOOST_SIMD_DEFAULT_SITE ::boost::dispatch::tag::cpu_
 #endif
 
+#if !defined(BOOST_SIMD_REGISTERS_COUNT)
+#define BOOST_SIMD_REGISTERS_COUNT   0u
+#endif
+
 #include <boost/simd/sdk/config/type_lists.hpp>
 
 #if !defined(BOOST_SIMD_DETECTED) || defined(BOOST_SIMD_SIMD_HAS_ALL_TYPES)

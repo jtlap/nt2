@@ -10,6 +10,7 @@
 SET( SOURCES
     cardinal_of.cpp
     is_pointing_to.cpp
+    register_count.cpp
    )
 
 nt2_module_add_tests(boost.simd.sdk.meta.unit ${SOURCES})
