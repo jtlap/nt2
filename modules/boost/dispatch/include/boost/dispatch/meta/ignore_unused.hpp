@@ -32,7 +32,7 @@ namespace boost { namespace dispatch
     @code
     template<class T> void foo( T const& t )
     {
-      boost::dispatch::ingore_unused(t);
+      boost::dispatch::ignore_unused(t);
     }
     @endcode
 
@@ -53,7 +53,7 @@ namespace boost { namespace dispatch
         {                                                               \
             void ignore()                                               \
             {                                                           \
-                boost::dispatch::details::ingore_unused(&X);            \
+                boost::dispatch::details::ignore_unused(&X);            \
             }                                                           \
         };                                                              \
     }                                                                   \
