@@ -18,7 +18,7 @@
 #include <nt2/include/functions/simd/is_nez.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/seladd.hpp>
-#include <nt2/table.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is integer
 /////////////////////////////////////////////////////////////////////////////

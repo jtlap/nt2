@@ -32,14 +32,14 @@ NT2_TEST_CASE_TPL ( sincpi_real,  NT2_REAL_TYPES)
   NT2_TEST_TYPE_IS(typename nt2::meta::call<sincpi_(T)>::type,T);
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(sincpi(-T(1)/T(2)), T(2)/(nt2::Pi<T>()), 0.5);
-  NT2_TEST_ULP_EQUAL(sincpi(-T(1)/T(4)), nt2::sinpi(T(1)/T(4))*T(4)/(nt2::Pi<T>()), 0.5);
-  NT2_TEST_ULP_EQUAL(sincpi(nt2::Inf<T>()), nt2::Zero<T>(), 0.5);
-  NT2_TEST_ULP_EQUAL(sincpi(nt2::Minf<T>()), nt2::Zero<T>(), 0.5);
-  NT2_TEST_ULP_EQUAL(sincpi(nt2::Nan<T>()), nt2::Nan<T>(), 0.5);
-  NT2_TEST_ULP_EQUAL(sincpi(T(1)/T(2)),  T(2)/(nt2::Pi<T>()), 0.5);
-  NT2_TEST_ULP_EQUAL(sincpi(T(1)/T(4)), nt2::sinpi(T(1)/T(4))*T(4)/(nt2::Pi<T>()), 0.5);
-  NT2_TEST_ULP_EQUAL(sincpi(nt2::Eps<T>()), nt2::One<T>(), 0.5);
-  NT2_TEST_ULP_EQUAL(sincpi(nt2::Mindenormal<T>()), nt2::One<T>(), 0.5);
-  NT2_TEST_ULP_EQUAL(sincpi(nt2::Zero<T>()), nt2::One<T>(), 0.5);
+  NT2_TEST_ULP_EQUAL(sincpi(-T(1)/T(2)), T(2)/(nt2::Pi<T>()), 1.0);
+  NT2_TEST_ULP_EQUAL(sincpi(-T(1)/T(4)), nt2::sinpi(T(1)/T(4))*T(4)/(nt2::Pi<T>()), 1.0);
+  NT2_TEST_ULP_EQUAL(sincpi(nt2::Inf<T>()), nt2::Zero<T>(), 1.0);
+  NT2_TEST_ULP_EQUAL(sincpi(nt2::Minf<T>()), nt2::Zero<T>(), 1.0);
+  NT2_TEST_ULP_EQUAL(sincpi(nt2::Nan<T>()), nt2::Nan<T>(), 1.0);
+  NT2_TEST_ULP_EQUAL(sincpi(T(1)/T(2)),  T(2)/(nt2::Pi<T>()), 1.0);
+  NT2_TEST_ULP_EQUAL(sincpi(T(1)/T(4)), nt2::sinpi(T(1)/T(4))*T(4)/(nt2::Pi<T>()), 1.0);
+  NT2_TEST_ULP_EQUAL(sincpi(nt2::Eps<T>()), nt2::One<T>(), 1.0);
+  NT2_TEST_ULP_EQUAL(sincpi(nt2::Mindenormal<T>()), nt2::One<T>(), 1.0);
+  NT2_TEST_ULP_EQUAL(sincpi(nt2::Zero<T>()), nt2::One<T>(), 1.0);
 }
