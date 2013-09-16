@@ -136,7 +136,7 @@ namespace nt2
   #else
 
   #define M0(z,n,t)                                    \
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::Valmin,Valmin, n) \
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::Valmin,valmin, n) \
   /**/
 
   BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_PP_INC(NT2_MAX_DIMENSIONS)),M0,~)
