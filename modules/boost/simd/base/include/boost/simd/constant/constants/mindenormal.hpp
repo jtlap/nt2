@@ -39,14 +39,17 @@ namespace boost { namespace simd
       typedef double default_type;
       typedef ext::pure_constant_<Mindenormal> parent;
 
+      /// INTERNAL ONLY
       template<class Target, class Dummy=void>
       struct apply : meta::int_c<typename Target::type,1> {};
     };
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Mindenormal::apply<boost::dispatch::meta::single_<T>,Dummy>
           : meta::single_<1> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Mindenormal::apply<boost::dispatch::meta::double_<T>,Dummy>
           : meta::double_<1> {};

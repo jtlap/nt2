@@ -32,6 +32,7 @@ namespace boost { namespace simd
     {
       typedef ext::pure_constant_< Intpattern<I> > parent;
       template<class Target, class Dummy=void>
+      /// INTERNAL ONLY
       struct apply : meta::int_c< typename Target::type
                                 , typename Target::type(I)
                                 > {};

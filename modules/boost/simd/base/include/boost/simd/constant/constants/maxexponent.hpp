@@ -31,14 +31,17 @@ namespace boost { namespace simd
       typedef double default_type;
       typedef ext::pure_constant_<Maxexponent> parent;
 
+      /// INTERNAL ONLY
       template<class Target, class Dummy=void>
       struct  apply : meta::int_c<typename Target::type,0> {};
     };
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Maxexponent::apply<boost::dispatch::meta::single_<T>,Dummy>
           : meta::int_c<boost::simd::int32_t,127> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Maxexponent::apply<boost::dispatch::meta::double_<T>,Dummy>
           : meta::int_c<boost::simd::int64_t,1023> {};

@@ -33,37 +33,42 @@ namespace boost { namespace simd
       typedef double default_type;
       typedef ext::pure_constant_<Signmask> parent;
 
+      /// INTERNAL ONLY
       template<class Target, class Dummy=void>
       struct apply : meta::int_c<typename Target::type,0> {};
     };
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Signmask::apply<boost::dispatch::meta::single_<T>,Dummy>
           : meta::single_<0x80000000UL> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Signmask::apply<boost::dispatch::meta::double_<T>,Dummy>
           : meta::double_<0x8000000000000000ULL> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Signmask::apply<boost::dispatch::meta::int8_<T>,Dummy>
           : meta::int_c<T, boost::simd::int8_t(0x80U)> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Signmask::apply<boost::dispatch::meta::int16_<T>,Dummy>
           : meta::int_c<T, boost::simd::int16_t(0x8000U)> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Signmask::apply<boost::dispatch::meta::int32_<T>,Dummy>
-          : meta::int_c<T, boost::simd::int32_t(0x80000000UL)>
-    {};
+          : meta::int_c<T, boost::simd::int32_t(0x80000000UL)> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Signmask::apply<boost::dispatch::meta::int64_<T>,Dummy>
           : meta::int_c < T
                         , boost::simd::int64_t(0x8000000000000000ULL)
-                        >
-    {};
+                        > {};
   }
   /*!
     Generate a mask with the lone most significand bit set to one

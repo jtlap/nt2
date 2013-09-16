@@ -38,40 +38,45 @@ namespace boost { namespace simd
       typedef double default_type;
       typedef ext::pure_constant_<Valmin> parent;
 
+    /// INTERNAL ONLY
       template<class Target, class Dummy=void>
       struct  apply
             : meta::int_c < typename Target::type, 0> {};
     };
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Valmin::apply<boost::dispatch::meta::single_<T>,Dummy>
           : meta::single_<0xFF7FFFFFUL> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Valmin::apply<boost::dispatch::meta::double_<T>,Dummy>
           : meta::double_<0xFFEFFFFFFFFFFFFFULL> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Valmin::apply<boost::dispatch::meta::int8_<T>,Dummy>
           : meta::int_c<T, T(-128)> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Valmin::apply<boost::dispatch::meta::int16_<T>,Dummy>
           : meta::int_c<T, T(-32768)> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Valmin::apply<boost::dispatch::meta::int32_<T>,Dummy>
     : meta::int_c < T
                   , T(-boost::simd::uint32_t(2147483648UL))
-                  >
-    {};
+                  > {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Valmin::apply<boost::dispatch::meta::int64_<T>,Dummy>
       : meta::int_c < T
                     , T(-boost::simd::uint64_t(9223372036854775808ULL))
-                    >
-    {};
+                    > {};
   }
   /*!
     Generates the least finite value of a type.

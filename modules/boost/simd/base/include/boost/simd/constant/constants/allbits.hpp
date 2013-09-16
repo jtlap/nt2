@@ -33,12 +33,14 @@ namespace boost { namespace simd
       typedef double default_type;
       typedef ext::pure_constant_<Allbits> parent;
 
+      /// INTERNAL ONLY
       template<class Target, class Dummy=void>
       struct  apply
             : meta::int_c<typename Target::type, -1>
       {};
     };
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Allbits::apply<boost::dispatch::meta::single_<T>,Dummy>
           : meta::single_ < apply < boost::dispatch::meta::uint32_<uint32_t>
@@ -46,6 +48,7 @@ namespace boost { namespace simd
                                   >::value
                           > {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Allbits::apply<boost::dispatch::meta::double_<T>,Dummy>
           : meta::double_ < apply < boost::dispatch::meta::uint64_<uint64_t>
@@ -53,18 +56,22 @@ namespace boost { namespace simd
                                   >::value
                           > {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Allbits::apply<boost::dispatch::meta::uint8_<T>,Dummy>
           : meta::int_c<T, 0xFF> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Allbits::apply<boost::dispatch::meta::uint16_<T>,Dummy>
           : meta::int_c<T, 0xFFFFU> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Allbits::apply<boost::dispatch::meta::uint32_<T>,Dummy>
           : meta::int_c<T, 0xFFFFFFFFUL> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Allbits::apply<boost::dispatch::meta::uint64_<T>,Dummy>
           : meta::int_c<T, 0xFFFFFFFFFFFFFFFFULL> {};

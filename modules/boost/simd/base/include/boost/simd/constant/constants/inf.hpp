@@ -37,14 +37,18 @@ namespace boost { namespace simd
       typedef double default_type;
       typedef ext::pure_constant_<Inf> parent;
 
+      /// INTERNAL ONLY
       template<class Target, class Dummy=void>
       struct apply : meta::make_dependent<Valmax, Dummy>::type::template apply<Target,Dummy> {};
     };
 
+
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Inf::apply<boost::dispatch::meta::single_<T>,Dummy>
           : meta::single_<0x7F800000> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Inf::apply<boost::dispatch::meta::double_<T>,Dummy>
       : meta::double_<0x7FF0000000000000ULL> {};

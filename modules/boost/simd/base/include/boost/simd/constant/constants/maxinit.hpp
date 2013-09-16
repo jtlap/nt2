@@ -20,46 +20,6 @@
 #pragma warning(disable: 4146)
 #endif
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_maxinit Maxinit
- *
- * \par Description
- * Constant Maxinit, maximum value of a type.
- * \arg int8    -128, uint8    0,
- * \arg int16 -32768, uint16 0,
- * \arg int32 -2147483648, uint32 0,
- * \arg int64 -9223372036854775808, uint64 0,\arg float \f$-\infty\f$, double \f$-\infty\f$,
- * \par
- * The value of this constant is type dependant. This means that for different
- * types it does not represent the same mathematical number.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/maxinit.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::maxinit_(A0)>::type
- *     Maxinit();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Maxinit
- *
- * \return type T value
- *
- *
-**/
-
 namespace boost { namespace simd
 {
   namespace tag
@@ -77,40 +37,45 @@ namespace boost { namespace simd
       typedef double default_type;
       typedef ext::pure_constant_<Maxinit> parent;
 
+      /// INTERNAL ONLY
       template<class Target, class Dummy=void>
       struct  apply
             : meta::int_c < typename Target::type, 0> {};
     };
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Maxinit::apply<boost::dispatch::meta::single_<T>,Dummy>
           : meta::single_<0xFF7FFFFFUL> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Maxinit::apply<boost::dispatch::meta::double_<T>,Dummy>
           : meta::double_<0xFFEFFFFFFFFFFFFFULL> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Maxinit::apply<boost::dispatch::meta::int8_<T>,Dummy>
           : meta::int_c<T, T(-128)> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Maxinit::apply<boost::dispatch::meta::int16_<T>,Dummy>
           : meta::int_c<T, T(-32768)> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Maxinit::apply<boost::dispatch::meta::int32_<T>,Dummy>
     : meta::int_c < T
                   , T(-boost::simd::uint32_t(2147483648UL))
-                  >
-    {};
+                  > {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Maxinit::apply<boost::dispatch::meta::int64_<T>,Dummy>
       : meta::int_c < T
                     , T(-boost::simd::uint64_t(9223372036854775808ULL))
-                    >
-    {};
+                    > {};
   }
   /*!
     Generates the least finite value of a type for the current order,
