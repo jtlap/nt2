@@ -46,17 +46,17 @@ namespace boost { namespace dispatch
   ) {}
 } }
 
-#define BOOST_DISPATCH_IGNORE_GLOBAL(X)                                 \
-    namespace details                                                   \
-    {                                                                   \
-        struct BOOST_PP_CAT(ignore_, X)                                 \
-        {                                                               \
-            void ignore()                                               \
-            {                                                           \
-                boost::dispatch::details::ignore_unused(&X);            \
-            }                                                           \
-        };                                                              \
-    }                                                                   \
-    /**/
+#define BOOST_DISPATCH_IGNORE_GLOBAL(X)                                        \
+namespace details                                                              \
+{                                                                              \
+    struct BOOST_PP_CAT(ignore_, X)                                            \
+    {                                                                          \
+        void ignore()                                                          \
+        {                                                                      \
+            boost::dispatch::ignore_unused(&X);                                \
+        }                                                                      \
+    };                                                                         \
+}                                                                              \
+/**/
 
 #endif
