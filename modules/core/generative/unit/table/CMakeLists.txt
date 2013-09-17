@@ -9,6 +9,7 @@
 
 SET( SOURCES
 allbits.cpp
+bitincrement.cpp
 c180.cpp
 cgold.cpp
 cic.cpp

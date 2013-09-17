@@ -38,6 +38,7 @@ namespace boost { namespace simd
       typedef double default_type;
       typedef ext::pure_constant_<Valmax> parent;
 
+      /// INTERNAL ONLY
       template<class Target, class Dummy=void>
       struct  apply
       {
@@ -55,26 +56,32 @@ namespace boost { namespace simd
       };
     };
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Valmax::apply< boost::dispatch::meta::single_<T>,Dummy>
           : meta::single_<0x7F7FFFFF> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Valmax::apply<boost::dispatch::meta::double_<T>,Dummy>
           : meta::double_<0x7FEFFFFFFFFFFFFFULL> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Valmax::apply<boost::dispatch::meta::uint8_<T>,Dummy>
           : meta::int_c<T, 0xFF> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Valmax::apply<boost::dispatch::meta::uint16_<T>,Dummy>
           : meta::int_c<T, 0xFFFF> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Valmax::apply<boost::dispatch::meta::uint32_<T>,Dummy>
           : meta::int_c<T, 0xFFFFFFFFUL> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Valmax::apply<boost::dispatch::meta::uint64_<T>,Dummy>
           : meta::int_c<T, 0xFFFFFFFFFFFFFFFFULL> {};
