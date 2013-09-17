@@ -12,15 +12,15 @@ int main()
   NT2_DISPLAY(I);
 
   // Create a 2-by-3 identity matrix.
-  I = eye(2,3);
+  I = nt2::eye(2,3);
   NT2_DISPLAY(I);
 
   // Create a 3-by-1 identity vector.
-  I = eye( nt2::of_size(3,1) );
+  I = nt2::eye( nt2::of_size(3,1) );
   NT2_DISPLAY(I);
 
   // Create a 3-by-3 identity matrix whose elements are 32-bit
   nt2::table<unsigned int> U;
-  U = eye( 3, nt2::uint32_ );
+  U = nt2::eye( 3, nt2::uint32_ );
   NT2_DISPLAY(U);
 }
