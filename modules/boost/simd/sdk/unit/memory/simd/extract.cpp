@@ -59,6 +59,42 @@ NT2_TEST_CASE_TPL( extract, BOOST_SIMD_SIMD_TYPES)
   }
 }
 
+NT2_TEST_CASE_TPL( static_extract, BOOST_SIMD_SIMD_TYPES)
+{
+  using boost::simd::pack;
+  using boost::simd::native;
+  using boost::simd::extract;
+  using boost::simd::tag::extract_;
+  using boost::mpl::int_;
+
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>               vT;
+  typedef pack<T>                       pT;
+
+  typedef typename boost::dispatch::meta
+                        ::call<extract_(vT const&, int_<0>)>::type rT;
+
+  typedef typename boost::dispatch::meta
+                        ::call<extract_(pT const&, int_<0>)>::type qT;
+
+  NT2_TEST_TYPE_IS( rT, T );
+  NT2_TEST_TYPE_IS( qT, T );
+
+  vT value;
+  pT pck;
+
+  for(std::size_t i=0;i<vT::static_size;i++)
+  {
+    value[i] = T(1+i);
+    pck[i] = T(1+i);
+  }
+
+  NT2_TEST_EQUAL( extract<0>(value), T(1) );
+  NT2_TEST_EQUAL( extract<0>(pck)  , T(1) );
+  NT2_TEST_EQUAL( extract<vT::static_size-1>(value), T(vT::static_size) );
+  NT2_TEST_EQUAL( extract<vT::static_size-1>(pck)  , T(vT::static_size) );
+}
+
 NT2_TEST_CASE_TPL( extract_logical, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::logical;
