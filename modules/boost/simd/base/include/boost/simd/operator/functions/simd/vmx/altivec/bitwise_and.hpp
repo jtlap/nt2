@@ -15,14 +15,16 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_and_, boost::simd::tag::altivec_, (A0)(A1)
-                            , ((simd_<arithmetic_<A0>,boost::simd::tag::altivec_>))
-                              ((simd_<arithmetic_<A1>,boost::simd::tag::altivec_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::bitwise_and_
+                                    , boost::simd::tag::altivec_
+                                    , (A0)
+                                    , ((simd_<arithmetic_<A0>,boost::simd::tag::altivec_>))
+                                      ((simd_<arithmetic_<A0>,boost::simd::tag::altivec_>))
+                                    )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
     {
       A0 other = simd::bitwise_cast<A0>( a1 );
       return vec_and(a0(),other());

@@ -14,44 +14,47 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_and_, boost::simd::tag::sse2_
-                            , (A0)(A1)
-                            , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<arithmetic_<A1>,boost::simd::tag::sse_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::bitwise_and_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
     {
-      typedef typename dispatch::meta::as_integer< A0 >::type int_type;
-      return bitwise_cast<A0>( _mm_and_si128 ( bitwise_cast<int_type>( a0 )
-                                             , bitwise_cast<int_type>( a1 )
+      typedef typename dispatch::meta::as_integer< A0 >::type type;
+      return bitwise_cast<A0>( _mm_and_si128 ( bitwise_cast<type>( a0 )
+                                             , bitwise_cast<type>( a1 )
                                              )
                              );
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_and_, boost::simd::tag::sse2_
-                            , (A0)(A1)
-                            , ((simd_<double_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<double_<A1>,boost::simd::tag::sse_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::bitwise_and_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_<double_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<double_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
     {
       return _mm_and_pd(a0,a1);
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_and_, boost::simd::tag::sse2_
-                            , (A0)(A1)
-                            , ((simd_<single_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<single_<A1>,boost::simd::tag::sse_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::bitwise_and_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_<single_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<single_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
     {
       return _mm_and_ps(a0,a1);
     }
