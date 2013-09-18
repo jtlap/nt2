@@ -26,6 +26,24 @@ else()
     else()
       set(TBB_FOUND 0)
     endif()
+  else()
+    set(TBB_ROOT /usr)
+    find_path(TBB_LIBRARY_PATH NAMES "libtbb.so"
+      PATHS ${TBB_ROOT}/lib
+    )
+    find_path(TBB_INCLUDE_PATH NAMES "tbb.h"
+      PATHS ${TBB_ROOT}/include
+      PATH_SUFFIXES tbb
+      )
+    if(DEFINED TBB_LIBRARY_PATH AND TBB_INCLUDE_PATH)
+      set(TBB_CXX_FLAGS "-DNT2_USE_TBB")
+      set(TBB_FOUND 1)
+      set(TBB_LIBRARY tbb)
+      message(STATUS "TBB_LIBRARY=${TBB_LIBRARY}")
+    else()
+      set(TBB_FOUND 0)
+      message(STATUS "TBB not found")
+    endif()
   endif()
 endif()
 

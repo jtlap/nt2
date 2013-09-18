@@ -108,19 +108,23 @@ namespace nt2
   //============================================================================
   // Generates outer_fold
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::outer_fold_, nt2::tag::tbb_<Site>
-                               , (A0)(S0)(A1)(A2)(A3)(A4)(Site)
-                               , (boost::simd::meta::is_vectorizable<typename A0::value_type, BOOST_SIMD_DEFAULT_EXTENSION>)
-                               , ((expr_< table_< unspecified_<A0>, S0 >
-                                        , nt2::tag::terminal_
-                                        , boost::mpl::long_<0>
-                                        >
-                                 ))
-                                 ((ast_< A1, nt2::container::domain>))
-                                 (unspecified_<A2>)
-                                 (unspecified_<A3>)
-                                 (unspecified_<A4>)
-                               )
+  NT2_FUNCTOR_IMPLEMENTATION_IF ( nt2::tag::outer_fold_, nt2::tag::tbb_<Site>
+                                , (A0)(K0)(S0)(T0)(N0)(A1)(A2)(A3)(A4)(Site)
+                                , ( boost::simd::meta::
+                                    is_vectorizable < typename A0::value_type
+                                                    , BOOST_SIMD_DEFAULT_EXTENSION
+                                                    >
+                                  )
+                                , ((expr_ < container_<K0,unspecified_<A0>,S0>
+                                          , T0
+                                          , N0
+                                          >
+                                  ))
+                                  ((ast_< A1, nt2::container::domain>))
+                                  (unspecified_<A2>)
+                                  (unspecified_<A3>)
+                                  (unspecified_<A4>)
+                                )
   {
     typedef void                                                              result_type;
     typedef typename A0::value_type                                           value_type;
