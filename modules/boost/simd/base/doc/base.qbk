@@ -3,8 +3,23 @@
 ]
 
 [section Overview]
-This module contains all constants, elementwise functions and operators available
-in Boost.SIMD
+This module contains all constants, functions and operators available in
+Boost.SIMD. They cover:
+
+* [link boost_simd_functions_and_operators.standard_operators standard C++ operators]
+* classical mathematic functions
+* basic numeric constants like one, zero, factorials, pi, etc...
+* predicates over values and types properties
+* IEEE 754 specific operations like bit count, mantissa extraction, etc ...
+* reduction operations over SIMD values
+
+All those functions act as the basic block of all Boost.SIMD functions and are
+very interdependent. They are gathered into a single module to reduce complex
+dependencies management and simplify access to the core operations of the
+library.
 [endsect]
+
+[include general.qbk]
+[include operators.qbk]
 
 [xinclude reference.xml]
