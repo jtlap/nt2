@@ -26,7 +26,6 @@ NT2_TEST_CASE_TPL(rank, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_complex<T>::type  cT;
   cT f = cT(1, 1)/nt2::Sqrt_2<T>();
-  typedef T r_t;
   using nt2::rank;
   using nt2::tag::rank_;
   nt2::table<cT> n = f*nt2::eye(10, 10, nt2::meta::as_<T>());

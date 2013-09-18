@@ -8,17 +8,23 @@
 //==============================================================================
 #include <nt2/table.hpp>
 #include <nt2/include/functions/tri1l.hpp>
-#include <nt2/include/functions/is_greater_equal.hpp>
-#include <nt2/include/functions/is_less_equal.hpp>
-#include <nt2/include/functions/is_not_equal.hpp>
-#include <nt2/include/functions/whereij.hpp>
-#include <nt2/include/functions/reshape.hpp>
-#include <nt2/include/functions/oneplus.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
-NT2_TEST_CASE_TPL( tri1l_scalar, NT2_TYPES )
+NT2_TEST_CASE_TPL( tri1l_types, NT2_TYPES )
+{
+  using boost::mpl::_;
+  using nt2::meta::value_type_;
+
+  nt2::table<T> x( nt2::of_size(4,4) );
+  NT2_TEST_EXPR_TYPE( nt2::tri1l(x)  , (value_type_<_>), (T));
+  NT2_TEST_EXPR_TYPE( nt2::tri1l(x,1), (value_type_<_>), (T));
+}
+
+NT2_TEST_CASE_TPL( triu_scalar, NT2_TYPES )
 {
   T x = nt2::tri1l(T(42));
   NT2_TEST_EQUAL( x, T(1) );
@@ -33,88 +39,51 @@ NT2_TEST_CASE_TPL( tri1l_scalar, NT2_TYPES )
   NT2_TEST_EQUAL( x, T(0) );
 }
 
-NT2_TEST_CASE_TPL( tri1l_scalar_table, NT2_TYPES )
+NT2_TEST_CASE( triu_assert )
 {
-  nt2::table<T> tx,ty( nt2::of_size(1, 1) );
-  ty(1) = T(42);
-  tx= nt2::tri1l(ty);
-  NT2_TEST_EQUAL( tx(1), T(1) );
-
-  tx= nt2::tri1l(ty, 1);
-  NT2_TEST_EQUAL( tx(1), T(42) );
-
-  tx= nt2::tri1l(ty, 0);
-  NT2_TEST_EQUAL( tx(1), T(1) );
-
-  tx= nt2::tri1l(ty, -1);
-  NT2_TEST_EQUAL( tx(1), T(0) );
+  nt2::table<double> x( nt2::of_size(2,5,3) );
+  NT2_TEST_ASSERT(nt2::tri1l(x));
+  NT2_TEST_ASSERT(nt2::tri1l(x,1));
 }
-
 
 NT2_TEST_CASE_TPL( tri1l, NT2_TYPES )
 {
-  nt2::table<T> xx, x, y = nt2::reshape(nt2::_(T(1), T(20)), 4, 5);
+  nt2::table<T> x
+              , y( nt2::of_size(5,3) )
+              , ref( nt2::of_size(5,3) );
+
+  for(int j=1;j<=3;j++)
+    for(int i=1;i<=5;i++)
+      y(i,j) = i + 10*j;
+
+  for(int j=1;j<=3;j++)
+    for(int i=1;i<=5;i++)
+      ref(i,j) = (i==j) ? T(1) : ((i>=j) ? y(i,j) : 0);
+
   x = nt2::tri1l(y);
-  xx = nt2::whereij(nt2::functor<nt2::tag::is_not_equal_>(),
-                    nt2::whereij(nt2::functor<nt2::tag::is_greater_equal_>(),
-                                 y, T(0)),
-                    T(1));
-  NT2_TEST_EQUAL(x, xx);
-}
 
-struct fct1
-{
-  template < class A0, class A1>
-  typename nt2::meta::as_logical<A0>::type
-  operator ()(const A0& i, const A1& j) const
-  {
-    return nt2::ge(nt2::oneplus(i), j);
-  }
-};
+  NT2_TEST_EQUAL( x, ref );
 
-struct fct2
-{
-  template < class A0, class A1>
-  typename nt2::meta::as_logical<A0>::type
-  operator ()(const A0& i, const A1& j) const
-  {
-    return nt2::ge(i, nt2::oneplus(j));
-  }
-};
+  x = nt2::tri1l(y,0);
 
-struct fct01
-{
-  template < class A0, class A1>
-  typename nt2::meta::as_logical<A0>::type
-  operator ()(const A0& i, const A1& j) const
-  {
-    return nt2::ne(j, nt2::oneplus(i));
-  }
-};
+  NT2_TEST_EQUAL( x, ref );
 
-struct fct02
-{
-  template < class A0, class A1>
-  typename nt2::meta::as_logical<A0>::type
-  operator ()(const A0& i, const A1& j) const
-  {
-    return nt2::ne(nt2::oneplus(j), i);
-  }
-};
-NT2_TEST_CASE_TPL( offset_tri1l, NT2_TYPES )
-{
-  nt2::table<T> xx, x, y = nt2::reshape(nt2::_(T(1), T(20)), 4, 5);
-  x = nt2::tri1l(y, 1);
-  xx = nt2::whereij(fct01(),
-                    nt2::whereij(fct1(),
-                                 y, T(0)),
-                    T(1));
-  NT2_TEST_EQUAL(x, xx);
+  for(int j=1;j<=3;j++)
+    for(int i=1;i<=5;i++)
+      ref(i,j) = (i+1==j) ? T(1) : ((i+1>= j) ? y(i,j) : 0);
 
-  x = nt2::tri1l(y, -1);
-  xx = nt2::whereij(fct02(),
-                    nt2::whereij(fct2(),
-                                 y, T(0)),
-                    T(1));
-  NT2_TEST_EQUAL(x, xx);
+  x = nt2::tri1l(y,1);
+
+  NT2_TEST_EQUAL( x, ref );
+
+  x = nt2::tri1l(y,-1);
+
+  for(int j=1;j<=3;j++)
+    for(int i=1;i<=5;i++)
+      ref(i,j) = (i-1==j) ? T(1) : ((i-1>= j) ? y(i,j) : 0);
+
+  NT2_TEST_EQUAL( x, ref );
+
+  x = nt2::tri1l(y,5);
+  NT2_TEST_EQUAL( x, y );
 }

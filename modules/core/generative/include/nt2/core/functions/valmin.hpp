@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_VALMIN_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_VALMIN_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the valmin function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/include/constants/valmin.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>
@@ -27,6 +22,119 @@
 
 namespace nt2
 {
+  #if defined(DOXYGEN_ONLY)
+  /*!
+    @brief Valmin generator
+
+    Create an array full of the Valmin constant.
+
+    @par Semantic:
+
+    valmin() semantic depends of its parameters type and quantity:
+
+    - The following code:
+      @code
+      double x = valmin();
+      @endcode
+      is equivalent to
+      @code
+      double x = Valmin<double>();
+      @endcode
+
+    - For any Integer @c n, the following code:
+      @code
+      auto x = valmin(n);
+      @endcode
+      generates an expression that evaluates as a @size2d{n,n} table filled with
+      the <tt>Valmin<double>()</tt> value.
+
+    - For any Integer @c sz1,...,szn , the following code:
+      @code
+      auto x = valmin(sz1,...,szn);
+      @endcode
+      generates an expression that evaluates as a @sizes{sz1,szn} table filled
+      with the <tt>Valmin<double>()</tt> value.
+
+    - For any Expression @c dims evaluating as a row vector of @c N elements,
+      the following code:
+      @code
+      auto x = valmin(dims);
+      @endcode
+      generates an expression that evaluates as a @sizes{dims(1),dims(N)}
+      table filled with the <tt>Valmin<double>()</tt> value.
+
+    - For any Fusion Sequence @c dims of @c N elements, the following code:
+      @code
+      auto x = valmin(dims);
+      @endcode
+      generates an expression that evaluates as a @sizes{at_c<0>(dims),at_c<N-1>(dims)}
+      table filled with the <tt>Valmin<double>()</tt> value.
+
+    - For any type @c T, the following code:
+      @code
+      T x = valmin( as_<T>() );
+      @endcode
+      is equivalent to
+      @code
+      T x = Valmin<T>();
+      @endcode
+
+    - For any Integer @c n and any type @c T, the following code:
+      @code
+      auto x = valmin(n, as_<T>());
+      @endcode
+      generates an expression that evaluates as a @size2d{n,n} table filled with
+      the <tt>Valmin<T>()</tt> value.
+
+    - For any Integer @c sz1,...,szN and any type @c T, the following code:
+      @code
+      auto x = valmin(sz1,...,szn, as_<T>());
+      @endcode
+      generates an expression that evaluates as a @sizes{sz1,szn} table filled
+      with the <tt>Valmin<T>()</tt> value.
+
+    - For any Expression @c dims evaluating as a row vector of @c N elements
+      and any type @c T, the following code:
+      @code
+      auto x = valmin(dims, as_<T>());
+      @endcode
+      generates an expression that evaluates as a @sizes{dims(1),dims(N)}
+      table filled with the <tt>Valmin<T>()</tt> value.
+
+    - For any Fusion Sequence @c dims of @c N elements and any type @c T, the
+      following code:
+      @code
+      auto x = valmin(dims, as_<T>());
+      @endcode
+      generates an expression that evaluates as a @sizes{at_c<0>(dims),at_c<N-1>(dims)}
+      table filled with the <tt>Valmin<T>()</tt> value.
+
+    @param dims Size of each dimension, specified as one or more integer values
+                or as a row vector of integer values. If any @c dims is lesser
+                or equal to 0, then the resulting expression is empty.
+
+    @param classname  Type specifier of the output. If left unspecified, the
+                      resulting expression behaves as an array of double.
+
+    @return An Expression evaluating as an array of a given type and dimensions
+            filled with the @c Valmin constant.
+
+    @sa Valmin
+  **/
+  template<typename... Args, typename ClassName>
+  details::unspecified valmin(Args const&... dims, ClassName const& classname);
+
+  /// @overload
+  template<typename... Args> details::unspecified valmin(Args const&... dims);
+
+  /// @overload
+  template<typename ClassName> ClassName::type valmin(ClassName const& classname);
+
+  /// @overload
+  double valmin();
+
+  #else
+
   #define M0(z,n,t)                                    \
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::Valmin,valmin, n) \
   /**/
@@ -34,6 +142,8 @@ namespace nt2
   BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_PP_INC(NT2_MAX_DIMENSIONS)),M0,~)
 
   #undef M0
+
+  #endif
 }
 
 namespace nt2 { namespace ext

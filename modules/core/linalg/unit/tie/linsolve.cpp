@@ -28,7 +28,6 @@ NT2_TEST_CASE_TPL ( linsolve_expr, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_integer<T, signed>::type itype_t;
   typedef nt2::table<T> t_t;
-  typedef nt2::table<itype_t> it_t;
 
   T bc[25] =  {
     1.0, 2.0, 0., 0., 0.,

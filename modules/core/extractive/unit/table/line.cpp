@@ -6,15 +6,13 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2::line function"
-
 #include <nt2/table.hpp>
 #include <nt2/include/functions/line.hpp>
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/nblines.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
 
 NT2_TEST_CASE_TPL( line_scalar, NT2_TYPES )
 {
@@ -26,7 +24,6 @@ NT2_TEST_CASE_TPL( line_scalar, NT2_TYPES )
 
   x = nt2::line(T(42),1, 2);
   NT2_TEST_EQUAL( x, T(42) );
-
 }
 
 NT2_TEST_CASE_TPL( line, NT2_TYPES )
@@ -40,16 +37,11 @@ NT2_TEST_CASE_TPL( line, NT2_TYPES )
       y(i,j) = k++;
 
   for(size_t k=0;k<nt2::nblines(y, 1);++k)
-  {
-    NT2_TEST_EQUAL(nt2::line(y, k, 1)(_), y(_, k+1)(_));
-  }
-  for(size_t k=0;k<nt2::nblines(y, 2);++k)
-  {
-    NT2_TEST_EQUAL(nt2::line(y, k, 2)(_), y(k+1, _)(_));
-  }
-  for(size_t k=0;k<nt2::nblines(y, 3);++k)
-  {
-    NT2_TEST_EQUAL(nt2::line(y, k, 3)(_), y(k+1));
-  }
-}
+    NT2_TEST_EQUAL( nt2::line(y, k, 1), y(_, k+1) );
 
+  for(size_t k=0;k<nt2::nblines(y, 2);++k)
+    NT2_TEST_EQUAL( nt2::line(y, k, 2), y(k+1,_) );
+
+  for(size_t k=0;k<nt2::nblines(y, 3);++k)
+    NT2_TEST_EQUAL( nt2::line(y, k, 3), y(k+1) );
+}

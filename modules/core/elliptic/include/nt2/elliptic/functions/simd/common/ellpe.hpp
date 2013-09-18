@@ -29,7 +29,6 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef result_type type;
       return nt2::ellpe(nt2::tofloat(a0));
     }
   };

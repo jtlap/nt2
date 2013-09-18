@@ -24,7 +24,6 @@
 NT2_TEST_CASE_TPL(sqrtm, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_complex<T>::type  cT;
-  typedef T r_t;
   using nt2::sqrtm;
   using nt2::tag::sqrtm_;
 
@@ -40,7 +39,6 @@ NT2_TEST_CASE_TPL(sqrtm, NT2_REAL_TYPES)
  NT2_TEST_CASE_TPL(sqrtm2, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_complex<T>::type  cT;
-  typedef T r_t;
   using nt2::sqrtm;
   using nt2::tag::sqrtm_;
   nt2::table<cT> n = nt2::trans(nt2::cons(nt2::of_size(2, 2),

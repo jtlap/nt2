@@ -32,7 +32,7 @@ namespace boost { namespace dispatch
     @code
     template<class T> void foo( T const& t )
     {
-      boost::dispatch::ingore_unused(t);
+      boost::dispatch::ignore_unused(t);
     }
     @endcode
 
@@ -45,5 +45,18 @@ namespace boost { namespace dispatch
     #endif
   ) {}
 } }
+
+#define BOOST_DISPATCH_IGNORE_GLOBAL(X)                                        \
+namespace details                                                              \
+{                                                                              \
+    struct BOOST_PP_CAT(ignore_, X)                                            \
+    {                                                                          \
+        void ignore()                                                          \
+        {                                                                      \
+            boost::dispatch::ignore_unused(&X);                                \
+        }                                                                      \
+    };                                                                         \
+}                                                                              \
+/**/
 
 #endif

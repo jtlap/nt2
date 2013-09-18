@@ -27,12 +27,10 @@ NT2_TEST_CASE( storage_duration_concept )
   using boost::mpl::_;
 
   {
-    typedef option<nt2::dynamic_, nt2::tag::storage_duration_, some_kind_> opt;
     NT2_TEST( (match_option< nt2::dynamic_, nt2::tag::storage_duration_ >::value) );
   }
 
   {
-    typedef option<nt2::automatic_, nt2::tag::storage_duration_, some_kind_> opt;
     NT2_TEST( (match_option< nt2::automatic_, nt2::tag::storage_duration_ >::value) );
   }
 }

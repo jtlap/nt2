@@ -42,6 +42,7 @@ NT2_TEST_CASE( run_type )
   using nt2::tag::table_;
   using nt2::view;
   typedef double T;
+  typedef nt2::meta::as_integer<T>::type U;
   typedef nt2::settings S(nt2::_4D);
 
   table<T, S> a0;
@@ -69,6 +70,11 @@ NT2_TEST_CASE( run_type )
                     , run_type
                     , (table<T, S>)
                     );
+
+  NT2_TEST_EXPR_TYPE( nt2::toint(a0)
+                    , run_type
+                    , (table<U, S>)
+                    );
 }
 
 NT2_TEST_CASE( run_data )
@@ -76,7 +82,6 @@ NT2_TEST_CASE( run_data )
   using nt2::table;
   typedef double T;
   typedef nt2::meta::as_integer<T>::type U;
-  typedef nt2::settings S(nt2::_4D);
 
   table<T> a0( nt2::of_size(5, 3) );
 

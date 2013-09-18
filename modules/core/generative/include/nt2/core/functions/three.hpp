@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_THREE_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_THREE_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the three function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/include/constants/three.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>

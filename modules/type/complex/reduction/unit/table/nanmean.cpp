@@ -57,7 +57,6 @@ NT2_TEST_CASE_TPL( nanmean, NT2_REAL_TYPES )
 
 NT2_TEST_CASE_TPL( nanmeanr, NT2_REAL_TYPES )
 {
-  typedef std::complex<T> cT;
   nt2::table<T> y( nt2::of_size(5,3) );
   nt2::table<T> sy;
   nt2::table<T> sy2;

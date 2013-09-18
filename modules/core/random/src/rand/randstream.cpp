@@ -9,30 +9,10 @@
 #include <nt2/core/utility/config.hpp>
 #include <nt2/core/utility/randstream.hpp>
 #include <nt2/core/utility/mt19937stream.hpp>
-#include <nt2/core/utility/lagged_fibonacci2281stream.hpp>
-#include <cstring>
 
 namespace nt2
 {
   randstream_::~randstream_() {}
 
-  NT2_CORE_RANDOM_DECL nt2::randstream_* current_randstream = mt19937stream();
-
-  NT2_CORE_RANDOM_DECL void randstream(const char* choice)
-  {
-    if(strcmp(choice,"mt19937ar") == 0)
-    {
-      current_randstream = mt19937stream();
-    }
-    else if(strcmp(choice,"mlfg6331_64") == 0)
-    {
-      current_randstream = lagged_fibonacci2281stream();
-    }
-  }
-
-  NT2_CORE_RANDOM_DECL void randstream(const char* choice, int s)
-  {
-    randstream(choice);
-    current_randstream->seed(s);
-  }
+  NT2_CORE_RANDOM_DECL rng_settings current_prng_;
 }

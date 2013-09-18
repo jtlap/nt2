@@ -28,7 +28,6 @@ namespace nt2
     typedef typename i_t::input_t              input_t;
     typedef typename i_t::result_t            result_t;
     typedef typename i_t::real_t                real_t;
-    typedef container::table<input_t>           itab_t;
     typedef container::table<result_t>          rtab_t;
     typedef typename details::h2_t<input_t>::ab_t ab_t;
     typedef typename i_t::result_type      result_type;

@@ -113,7 +113,7 @@ void vectorizable_4(T const&)
   typedef typename boost::proto::result_of::child_c<T, 1>::value_type index;
   typedef typename boost::proto::result_of::child_c<index, 0>::value_type aggregate;
   typedef boost::dispatch::meta::as_< boost::simd::native<float, BOOST_SIMD_DEFAULT_EXTENSION> > Data;
-  typedef typename nt2::meta::cardinal_of<typename boost::dispatch::meta::target_value<Data>::type>::type Cardinal;
+  //typedef typename nt2::meta::cardinal_of<typename boost::dispatch::meta::target_value<Data>::type>::type Cardinal;
 
   typedef typename boost::proto::result_of::child_c<aggregate, 0>::value_type idx0;
   NT2_TEST(( nt2::ext::is_vectorizable_indexer<idx0, boost::mpl::size_t<1> >::value ));

@@ -20,7 +20,6 @@
 
 NT2_TEST_CASE_TPL(minuseye, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   using nt2::minuseye;
   using nt2::tag::minuseye_;
   nt2::table<T> n = nt2::eye(10, 10, nt2::meta::as_<T>());
@@ -30,7 +29,6 @@ NT2_TEST_CASE_TPL(minuseye, NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL(minuseye2, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   using nt2::minuseye;
   using nt2::tag::minuseye_;
   nt2::table<T> n = nt2::eye(10, 4, nt2::meta::as_<T>());
@@ -39,7 +37,6 @@ NT2_TEST_CASE_TPL(minuseye2, NT2_REAL_TYPES)
 }
 NT2_TEST_CASE_TPL(minuseyes, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   using nt2::minuseye;
   using nt2::tag::minuseye_;
   T minuseyen = nt2::minuseye(T(3));

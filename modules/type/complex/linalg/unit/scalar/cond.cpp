@@ -22,7 +22,6 @@
 NT2_TEST_CASE_TPL(cond, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_complex<T>::type  cT;
-  typedef T r_t;
   using nt2::cond;
   using nt2::tag::cond_;
   nt2::table<cT> n = cT(1, 1)*nt2::eye(10, 10, nt2::meta::as_<cT>());

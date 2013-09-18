@@ -37,7 +37,6 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_real<A0>::type rtype;
-      typedef typename meta::as_logical<rtype>::type ltype;
       rtype c, s, ch, sh;
       sincos(nt2::imag(a0), s, c);
       sinhcosh(nt2::real(a0), sh, ch);

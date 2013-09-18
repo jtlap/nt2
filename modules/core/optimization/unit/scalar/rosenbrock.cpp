@@ -47,7 +47,6 @@ struct gpp
   template < class Tabin> inline
   Tabout operator()(const Tabin & x ) const
   {
-    typedef typename Tabin::value_type value_type;
     Tabout r=Tabout(100)*nt2::sqr(x(2)-nt2::sqr(x(1)))+nt2::sqr(1-x(1));
     return r;
   }
@@ -66,8 +65,6 @@ struct gpp
 //   using nt2::rosenbrock;
 //   using nt2::optimization::output;
 //   typedef nt2::table<T> tab_t;
-//   typedef typename nt2::meta::as_logical<T>::type lT;
-//   typedef nt2::table<T> ltab_t;
 //   tab_t x0 = nt2::ones(nt2::of_size(1, 3), nt2::meta::as_<T>());
 //   NT2_DISPLAY(x0);
 //   tab_t r = nt2::sqrt(T(3))*nt2::ones (nt2::of_size(1, 3), nt2::meta::as_<T>());
@@ -87,8 +84,6 @@ struct gpp
 //   using nt2::options;
 //   using nt2::optimization::output;
 //   typedef nt2::table<T> tab_t;
-//   typedef typename nt2::meta::as_logical<T>::type lT;
-//   typedef nt2::table<T> ltab_t;
 //   tab_t x0 = nt2::zeros(nt2::of_size(1, 3), nt2::meta::as_<T>());
 //   tab_t r = nt2::_(T(1), T(3));
 //   output<tab_t,T> res = rosenbrock(fpp<tab_t>(), x0,
@@ -109,8 +104,6 @@ NT2_TEST_CASE_TPL( rosenbrock_functor2, NT2_REAL_TYPES )
   using nt2::options;
   using nt2::optimization::output;
   typedef nt2::table<T> tab_t;
-  typedef typename nt2::meta::as_logical<T>::type lT;
-  typedef nt2::table<T> ltab_t;
   tab_t x0 = T(5)*nt2::ones(nt2::of_size(1, 2), nt2::meta::as_<T>());
   tab_t r = nt2::cons(nt2::of_size(1, 2), T(1),T(1));
   output<tab_t,T> res = rosenbrock(gpp<tab_t>(), x0,

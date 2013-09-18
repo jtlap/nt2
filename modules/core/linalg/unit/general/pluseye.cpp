@@ -19,7 +19,6 @@
 
 NT2_TEST_CASE_TPL(pluseye, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   using nt2::pluseye;
   using nt2::tag::pluseye_;
   nt2::table<T> n = nt2::eye(10, 10, nt2::meta::as_<T>());
@@ -29,7 +28,6 @@ NT2_TEST_CASE_TPL(pluseye, NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL(pluseye2, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   using nt2::pluseye;
   using nt2::tag::pluseye_;
   nt2::table<T> n = nt2::eye(10, 4, nt2::meta::as_<T>());
@@ -38,7 +36,6 @@ NT2_TEST_CASE_TPL(pluseye2, NT2_REAL_TYPES)
 }
 NT2_TEST_CASE_TPL(pluseyes, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   using nt2::pluseye;
   using nt2::tag::pluseye_;
   T pluseyen = nt2::pluseye(T(3));

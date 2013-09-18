@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_SQRT_1O_5_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_SQRT_1O_5_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the sqrt_1o_5 function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/include/constants/sqrt_1o_5.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>

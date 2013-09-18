@@ -16,7 +16,7 @@
 #include <nt2/include/functions/vandermonde.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/constants/zero.hpp>
-#include <nt2/include/functions/infs.hpp>
+#include <nt2/include/functions/inf.hpp>
 #include <nt2/include/functions/tr_solve.hpp>
 #include <nt2/polynom/category.hpp>
 #include <nt2/sdk/meta/fusion.hpp>

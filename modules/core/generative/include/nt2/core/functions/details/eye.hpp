@@ -9,15 +9,14 @@
 #ifndef NT2_CORE_FUNCTIONS_DETAILS_EYE_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_DETAILS_EYE_HPP_INCLUDED
 
-#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/if_else_zero.hpp>
+#include <nt2/include/functions/simd/enumerate.hpp>
 #include <nt2/include/functions/simd/is_equal.hpp>
 #include <nt2/include/functions/simd/is_eqz.hpp>
-#include <nt2/include/functions/simd/enumerate.hpp>
 #include <nt2/sdk/meta/constant_adaptor.hpp>
 #include <nt2/core/utility/as_subscript.hpp>
-#include <nt2/core/utility/of_size.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/zero.hpp>
+#include <nt2/core/utility/of_size.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
 
 namespace nt2 { namespace tag { struct eye_; } }
@@ -26,7 +25,7 @@ namespace nt2 { namespace meta
 {
   template<class Base> struct constant_<nt2::tag::eye_, Base>
   {
-    typedef Base                                          result_type;
+    typedef Base                                          base_type;
 
     template<class Pos, class Size, class Target>
     BOOST_FORCEINLINE typename Target::type
@@ -42,7 +41,7 @@ namespace nt2 { namespace meta
       s_t const pos = as_subscript(sz,nt2::enumerate<i_t>(p));
 
       // Return a diagonal of 1
-      return nt2::if_else(nt2::eq(pos[0],pos[1]), One<type>(), Zero<type>());
+      return nt2::if_else_zero(nt2::eq(pos[0],pos[1]), One<type>());
     }
 
     template<class Pos,class Target>
@@ -50,7 +49,7 @@ namespace nt2 { namespace meta
     operator()(Pos const& p, _1D const&, Target const&) const
     {
       typedef typename Target::type type;
-      return nt2::if_else(nt2::is_eqz(p), One<type>(), Zero<type>());
+      return nt2::if_else_zero(nt2::is_eqz(p), One<type>());
     }
   };
 } }

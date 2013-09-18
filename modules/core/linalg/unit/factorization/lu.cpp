@@ -22,9 +22,7 @@ NT2_TEST_CASE_TPL(lu_factorization, NT2_REAL_TYPES)
 {
   using nt2::tag::factorization::lu_;
 
-  typedef typename nt2::meta::as_integer<T, signed>::type itype_t;
   typedef nt2::table<T> t_t;
-  typedef nt2::table<itype_t> it_t;
   t_t b =       nt2::ones (4, 4, nt2::meta::as_<T>())
         + T(10)*nt2::eye  (4, 4, nt2::meta::as_<T>());
 
@@ -36,7 +34,9 @@ NT2_TEST_CASE_TPL(lu_factorization, NT2_REAL_TYPES)
   NT2_DISPLAY(res.u());
   NT2_TEST_EQUAL(res.status(), 0);
 
+  typedef typename nt2::meta::as_integer<T, signed>::type itype_t;
   itype_t e;
+
   T m =  res.absdet(e);
   std::cout << "asbdet order " << e << std::endl;
   std::cout << "asbdet mant  " << m << std::endl;

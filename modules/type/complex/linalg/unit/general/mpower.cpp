@@ -21,7 +21,6 @@
 NT2_TEST_CASE_TPL(mpower, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_complex<T>::type  cT;
-  typedef T r_t;
   using nt2::mpower;
   using nt2::tag::mpower_;
 

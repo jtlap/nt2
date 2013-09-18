@@ -77,7 +77,6 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_real<A0>::type rtype;
       typedef typename meta::as_logical<rtype>::type ltype;
-      typedef typename meta::as_integer<rtype>::type irtype;
         //
       // This implementation is a simd (i.e. no branch) transcription and adaptation of the
       // boost_math code which itself is a transcription of the pseudo-code in:

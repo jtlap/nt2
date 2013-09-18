@@ -24,7 +24,6 @@
 NT2_TEST_CASE_TPL(trace, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_complex<T>::type  cT;
-  typedef T r_t;
   using nt2::trace;
   using nt2::tag::trace_;
   cT f = cT(1, 1);

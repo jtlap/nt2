@@ -24,7 +24,6 @@
 
 NT2_TEST_CASE_TPL(normest, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   using nt2::normest;
   using nt2::tag::normest_;
 

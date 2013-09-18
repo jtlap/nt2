@@ -76,8 +76,6 @@ struct fcosh
 
 NT2_TEST_CASE_TPL(funm1, NT2_REAL_TYPES)
 {
-  typedef T r_t;
-  typedef std::complex<T> cT;
   using nt2::funm;
   using nt2::tag::funm_;
   nt2::table<T> n =  nt2::from_diag(T(2)*nt2::_((1),T(3)));
@@ -88,7 +86,6 @@ NT2_TEST_CASE_TPL(funm1, NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL(funm2, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   using nt2::expm;
   using nt2::tag::expm_;
 
@@ -111,7 +108,6 @@ NT2_TEST_CASE_TPL(funm2, NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL(funm3, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   nt2::table<T> n =  nt2::trans(nt2::cons<T>(nt2::of_size(4, 4),
                                              2.0000,    0.5000,    0,         0,
                                              0,    2.0000,    1.0000,         0,

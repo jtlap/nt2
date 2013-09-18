@@ -28,7 +28,6 @@
 
 NT2_TEST_CASE_TPL(rot90, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   using nt2::rot90;
   using nt2::tag::rot90_;
 
@@ -75,7 +74,6 @@ NT2_TEST_CASE_TPL(rot90, NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL(rot90_2, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   using nt2::rot90;
 
   nt2::table<T> n = nt2::cif(3, 4, nt2::meta::as_<T>())+T(10)*nt2::rif(3, 4, nt2::meta::as_<T>());

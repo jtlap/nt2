@@ -10,9 +10,8 @@
 #ifndef NT2_CORE_FUNCTIONS_DETAILS_CIC_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_DETAILS_CIC_HPP_INCLUDED
 
-#include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/functions/simd/enumerate.hpp>
-#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/core/utility/as_subscript.hpp>
 #include <nt2/sdk/meta/constant_adaptor.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
@@ -25,7 +24,7 @@ namespace nt2 { namespace meta
   /// Functor used to generate cic values
   template<class Base> struct constant_<nt2::tag::cic_, Base>
   {
-    typedef Base                                          result_type;
+    typedef Base                                          base_type;
 
     template<class Pos, class Size,class Target>
     BOOST_FORCEINLINE typename Target::type

@@ -10,59 +10,49 @@
 #ifndef NT2_CORE_FUNCTIONS_LINE_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_LINE_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Define and implements the line function
-**/
-
 #include <nt2/include/functor.hpp>
-#include <nt2/sdk/meta/value_as.hpp>
-#include <nt2/core/container/dsl/size.hpp>
-#include <nt2/core/container/dsl/value_type.hpp>
 
 namespace nt2
 {
   namespace tag
   {
+    /*!
+      @brief line generic tag
+
+      Represents the line function in generic contexts.
+
+      @par Models:
+      Hierarchy
+    **/
     struct line_ : ext::elementwise_<line_>
     {
+      /// @brief Parent hierarchy
       typedef ext::elementwise_<line_> parent;
     };
   }
 
   /*!
-    Returns the line of index i along the selected direction,
-    By default n is the first non-singleton dimension of a0
+    @brief Oriented slice extraction
+
+    Returns the oriented slice @c a1 along the first non-singleton dimension
+    of @c a0.
+
+    @param a0 Source table
+    @param a1 Index of the slice to extract
   **/
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::line_       , line, 1)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::line_       , line, 2)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::line_       , line, 3)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::line_ , line, 2)
+
+
+  /*!
+    @brief Oriented slice extraction
+
+    Returns the oriented slice @c a1 along dimension @c a2 of @c a0.
+
+    @param a0 Source table
+    @param a1 Index of the slice to extract
+    @param a2 Dimension to extract along
+  **/
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::line_ , line, 3)
 }
-
-namespace nt2 { namespace ext
-{
-  /// INTERNAL ONLY
-  template<class Domain, class Expr, int N>
-  struct  size_of<nt2::tag::line_,Domain,N,Expr>
-  {
-    typedef typename  boost::proto::result_of
-                    ::child_c<Expr&,0>::value_type::extent_type result_type;
-
-    BOOST_FORCEINLINE result_type operator ()(Expr& e) const
-    {
-      result_type that(1);
-      std::size_t along = boost::proto::child_c<1>(e);
-      that[along] = boost::proto::child_c<0>(e).extent()[along];
-
-      return that;
-    }
-  };
-
-  /// INTERNAL ONLY
-  template<class Domain, int N, class Expr>
-  struct  value_type<nt2::tag::line_,Domain,N,Expr>
-        : meta::value_as<Expr,0>
-  {};
-} }
 
 #endif

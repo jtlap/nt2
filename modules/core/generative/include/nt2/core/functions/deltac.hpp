@@ -17,14 +17,33 @@
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/preprocessor/arithmetic/inc.hpp>
 
+/*
+In mathematics, the Kronecker delta or Kronecker's delta, named after Leopold Kronecker, is a function of two variables, usually integers.
+The function is 1 if the variables are equal, and 0 otherwise:
+\delta_{ij} = \begin{cases}
+0 &\text{if } i \neq j   \\
+1 &\text{if } i=j,   \end{cases}
+*/
+
 namespace nt2
 {
   namespace tag
   {
-    struct  deltac_ : ext::state_constant_<deltac_>
+    /*!
+      @brief deltac generic tag
+
+      Represents the deltac function in generic contexts.
+
+      @par Models:
+      Hierarchy
+    **/
+    struct deltac_ : ext::state_constant_<deltac_>
     {
+      /// @brief Parent hierarchy
       typedef ext::state_constant_<deltac_> parent;
-      typedef double                 default_type;
+
+      /// @brief default value type for untyped calls
+      typedef double                      default_type;
     };
   }
 

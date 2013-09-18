@@ -29,7 +29,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a, A0 const& b) const
     {
-      return nt2::fma(nt2::rand(1, meta::as_<A0>()), b-a, a);
+      return nt2::fma(nt2::rand(meta::as_<A0>()), b-a, a);
     }
   };
 

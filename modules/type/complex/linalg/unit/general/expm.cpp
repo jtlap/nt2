@@ -25,7 +25,6 @@
  NT2_TEST_CASE_TPL(expm, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_complex<T>::type  cT;
-  typedef T r_t;
   using nt2::expm;
   using nt2::tag::expm_;
   std::cout << std::setprecision(20);
