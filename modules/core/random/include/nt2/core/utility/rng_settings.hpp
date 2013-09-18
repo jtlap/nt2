@@ -9,6 +9,8 @@
 #ifndef NT2_CORE_UTILITY_RNG_SETTINGS_HPP_INCLUDED
 #define NT2_CORE_UTILITY_RNG_SETTINGS_HPP_INCLUDED
 
+#include <nt2/core/utility/config.hpp>
+
 namespace nt2
 {
   class randstream_;
