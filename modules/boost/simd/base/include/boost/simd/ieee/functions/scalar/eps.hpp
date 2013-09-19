@@ -10,11 +10,14 @@
 #define BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_EPS_HPP_INCLUDED
 #include <boost/simd/ieee/functions/eps.hpp>
 #include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/nan.hpp>
 #include <boost/simd/include/constants/mindenormal.hpp>
 #include <boost/simd/include/functions/scalar/is_not_finite.hpp>
-#include <boost/simd/include/functions/scalar/fast_ldexp.hpp>
 #include <boost/simd/include/functions/scalar/exponent.hpp>
 #include <boost/simd/include/functions/scalar/abs.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
+#include <boost/simd/include/constants/nbmantissabits.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -47,9 +50,10 @@ namespace boost { namespace simd { namespace ext
       }
       else
       {
-        return boost::simd::fast_ldexp(One<A0>(), exponent(a)-lim::digits+1);
-        // TODO this can surely be made speedier by computing it directly
-        // as One is a constant
+//        return boost::simd::fast_ldexp(One<A0>(), exponent(a)-lim::digits+1);
+        typedef typename dispatch::meta::as_integer<A0, unsigned>::type int_type;
+        int_type e1 = exponent(a)-lim::digits+1;
+        return bitwise_cast<result_type>(bitwise_cast<int_type>(One<A0>())+(e1 << Nbmantissabits<A0>()));
       }
     }
   };
