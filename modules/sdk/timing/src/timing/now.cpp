@@ -9,6 +9,7 @@
 //==============================================================================
 
 #include <nt2/sdk/timing/now.hpp>
+#include <nt2/sdk/timing/linux_perf_event.hpp>
 #include <nt2/sdk/config/types.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/assert.hpp>
@@ -123,3 +124,52 @@ namespace nt2
     return static_cast<time_quantum_t>( t * inverse_timer_ticks_per_ms);
   }
 }
+
+#ifdef BOOST_SIMD_OS_LINUX
+#ifdef __ANDROID__
+#include "perf_event.h"
+#else
+#include <linux/perf_event.h>
+#endif
+#include <sys/syscall.h>
+#include <unistd.h>
+#include <string.h>
+#include <stdio.h>
+
+namespace nt2
+{
+  namespace linux_
+  {
+    NT2_SDK_TIMING_DECL int perf_event_hw_cycles;
+
+    struct perf_event_hw_cycles_scoped
+    {
+      perf_event_hw_cycles_scoped()
+      {
+        struct perf_event_attr attr;
+        ::memset(&attr, 0, sizeof(attr));
+        attr.type = PERF_TYPE_HARDWARE;
+        attr.size = sizeof(attr);
+        #ifndef __ANDROID__
+        attr.config = PERF_COUNT_HW_REF_CPU_CYCLES;
+        #else
+        attr.config = PERF_COUNT_HW_CPU_CYCLES;
+        #endif
+        attr.exclude_kernel = 1;
+        attr.exclude_hv = 1;
+        //attr.exclude_idle = 1;
+        perf_event_hw_cycles = ::syscall(__NR_perf_event_open, &attr, 0, -1, -1, 0);
+        if(perf_event_hw_cycles == -1)
+          ::perror("perf_event_hw_cycles init failed");
+      }
+
+      ~perf_event_hw_cycles_scoped()
+      {
+        ::close(perf_event_hw_cycles);
+      }
+    };
+
+    static perf_event_hw_cycles_scoped perf_event_hw_cycles_init;
+  }
+}
+#endif
