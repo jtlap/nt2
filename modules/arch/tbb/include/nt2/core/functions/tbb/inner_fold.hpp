@@ -15,15 +15,13 @@
 #include <boost/simd/sdk/simd/meta/is_vectorizable.hpp>
 #include <nt2/sdk/config/cache.hpp>
 #include <nt2/sdk/tbb/tbb.hpp>
-#include <boost/simd/sdk/next_power_of_2.hpp>
+#include <nt2/sdk/tbb/blocked_range.hpp>
 
 #ifndef BOOST_NO_EXCEPTIONS
 #include <boost/exception_ptr.hpp>
 #endif
 
 #ifndef BOOST_SIMD_NO_SIMD
-
-using boost::simd::next_power_of_2;
 
 //==============================================================================
 // tbb + SIMD
@@ -56,7 +54,7 @@ namespace nt2 {
         vec_out_ = neutral_(nt2::meta::as_<target_type>());
       }
 
-      void operator()(tbb::blocked_range<std::size_t> const& r)
+      void operator()(nt2::blocked_range<std::size_t> const& r)
       {
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
 
@@ -96,8 +94,8 @@ namespace nt2 {
 
       void operator()(tbb::blocked_range<std::ptrdiff_t> const& r) const
       {
-      std::size_t std::size_t cache_line_size = nt2::config::top_cache_line_size(2);
-      std::size_t condition = ibound_/next_power_of_2(num_threads);
+      std::size_t cache_line_size = nt2::config::top_cache_line_size(2);
+      std::size_t condition = ibound_/tbb::task_scheduler_init::default_num_threads();
         std::size_t grain = (condition==0)?ibound_:condition;
 
         for(std::ptrdiff_t j = r.begin(); j < r.end(); ++j)
@@ -108,7 +106,7 @@ namespace nt2 {
       , target_type> boppy( out_, in_, neutral_, bop_, r.begin(), k);
 
 
-      tbb::parallel_reduce( tbb::blocked_range<std::size_t>(0,ibound_,grain)
+      tbb::parallel_reduce( nt2::blocked_range<std::size_t>(0,ibound_,grain)
                               , boppy
                               );
 
@@ -161,22 +159,21 @@ namespace nt2 {
       BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop ) const
       {
 
-      std::size_t num_threads( tbb::task_scheduler_init::default_num_threads() );
-        extent_type ext = in.extent();
-        static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
-        std::size_t bound  = boost::fusion::at_c<0>(ext);
-      std::size_t divider = N*next_power_of_2(num_threads);
+      const std::size_t num_threads( tbb::task_scheduler_init::default_num_threads() );
+      extent_type ext = in.extent();
+      static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
+      std::size_t bound  = boost::fusion::at_c<0>(ext);
 
-        std::size_t ibound = (boost::fusion::at_c<0>(ext)/divider) * divider;
-        std::ptrdiff_t obound = nt2::numel(boost::fusion::pop_front(ext));
-
+      std::size_t divider = N*num_threads;
+      std::size_t ibound = (boost::fusion::at_c<0>(ext)/divider) * divider;
+      std::ptrdiff_t obound = nt2::numel(boost::fusion::pop_front(ext));
       std::size_t condition = obound/num_threads;
 
-        std::size_t     grain = (condition == 0)
+      std::size_t     grain = (condition == 0)
                               ? obound
                               : condition;
 
-        details::inner_reduce_simd< A0,A1,A2,A3,A4
+      details::inner_reduce_simd< A0,A1,A2,A3,A4
                                   , target_type
                                   , value_type> ared( out, in, neutral, bop
                                                      , uop, bound, ibound);
@@ -277,7 +274,7 @@ namespace nt2
       std::size_t ibound = boost::fusion::at_c<0>(ext);
       std::ptrdiff_t obound = nt2::numel(boost::fusion::pop_front(ext));
 
-      const std::size_t grain = obound/NUM_THREADS;
+      const std::size_t grain = obound/tbb::task_scheduler_init::default_num_threads();
       details::inner_reduce_scal<A0,A1,A2,A3,A4> ared( out, in, neutral, bop
                                                       , uop, ibound);
 #ifndef BOOST_NO_EXCEPTIONS
