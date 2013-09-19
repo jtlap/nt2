@@ -12,19 +12,21 @@
 #include <boost/simd/operator/functions/is_not_equal.hpp>
 #include <boost/simd/include/functions/simd/splat.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/is_equal.hpp>
+#include <boost/simd/include/functions/simd/logical_not.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/sdk/meta/as_arithmetic.hpp>
-#include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/mpl/equal_to.hpp>
+#include <boost/mpl/sizeof.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::is_not_equal_
                                       , boost::simd::tag::cpu_
                                       , (A0)(X)
-                                      , (mpl::equal_to< boost::simd::meta::cardinal_of<A0>
-                                                      , boost::simd::meta::cardinal_of<typename A0::type>
+                                      , (mpl::equal_to< mpl::sizeof_<A0>
+                                                      , mpl::sizeof_<typename A0::type>
                                                       >
                                         )
                                       , ((simd_<logical_<A0>,X>))
@@ -41,6 +43,21 @@ namespace boost { namespace simd { namespace ext
                                    , bitwise_cast<cast_t>(a1)
                                    )
                               );
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::is_not_equal_
+                                    , boost::simd::tag::cpu_
+                                    , (A0)(X)
+                                    , ((simd_<integer_<A0>,X>))
+                                      ((simd_<integer_<A0>,X>))
+                                    )
+  {
+    typedef typename meta::as_logical<A0>::type result_type;
+
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      return logical_not( a0 == a1 );
     }
   };
 
