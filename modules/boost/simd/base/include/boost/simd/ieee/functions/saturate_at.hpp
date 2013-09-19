@@ -65,6 +65,31 @@ namespace boost { namespace simd
       typedef ext::elementwise_< saturate_at_<T> > parent;
     };
   }
+  /*!
+    Returns the saturated value of the first input relative to the symetric
+    interval defined by the template parameter which has to be the tag of
+    a constant.
+
+    @par Semantic:
+
+    @code
+    T r = saturate <Tag>(x)
+    @endcode
+
+    is similar to:
+
+    @code
+    if (a0 > Tag<T>()) r =  Tag<T>();
+    else if  (a0 < -Tag<T>()) r = -Tag<T>() ;
+    else r = a0;
+    @endcode
+
+    @param a0
+
+    @param a1
+
+    @return a value of same type as the inputs
+  **/
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL( tag::saturate_at_<A0>
                                             , saturate_at
@@ -74,3 +99,4 @@ namespace boost { namespace simd
 } }
 
 #endif
+///
