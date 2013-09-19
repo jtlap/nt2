@@ -10,7 +10,7 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_FAST_REC_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
-#include <boost/simd/arithmetic/functions/rec.hpp>
+#include <boost/simd/arithmetic/functions/fast_rec.hpp>
 #include <boost/simd/include/functions/sqr.hpp>
 #include <boost/simd/include/functions/plus.hpp>
 #include <boost/simd/include/functions/minus.hpp>
