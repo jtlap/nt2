@@ -57,8 +57,12 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag saturate_ of functor saturate
-     *        in namespace boost::simd::tag for toolbox boost.simd.ieee
+      @brief saturate generic tag
+
+      Represents the saturate function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
     struct saturate_ : ext::elementwise_<saturate_>
     {
@@ -67,9 +71,56 @@ namespace boost { namespace simd
   }
 
   // Explicit version : saturate(x, class_)
+  /*!
+    Returns the saturated value of the first input in the template parameter type,
+    but in the same type as the input
+    @par Semantic:
+
+    @code
+    T r = saturate<S>(x)
+    @endcode
+
+    is similar to:
+
+    @code
+    if (a0 > Inf<S>()) r =  T(Inf<S>());
+    else if  (a0 <  Minf<S>()) r =  T(Minf<S>());
+    else r = a0;
+    @endcode
+
+    @param template a0
+
+    @param a1
+
+    @return a value of same type as the inputs
+  **/
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::saturate_, saturate, 2)
 
   // Implicit version : saturate<T>(x)
+  /*!
+    Returns the saturated value of the first input in the target parameter type,
+    but in the same type as the input
+    @par Semantic:
+
+    @code
+    T r = saturate(x, as_<S>())
+    @endcode
+
+    is similar to:
+
+    @code
+    if (a0 > Inf<S>()) r =  T(Inf<S>());
+    else if  (a0 <  Minf<S>()) r =  T(Minf<S>());
+    else r = a0;
+    @endcode
+
+    @param a0
+
+    @param a1
+
+    @return a value of same type as the inputs
+  **/
   template<class T,class A0> BOOST_FORCEINLINE
   typename boost::dispatch::meta::
                   call< tag::saturate_( A0 const&
