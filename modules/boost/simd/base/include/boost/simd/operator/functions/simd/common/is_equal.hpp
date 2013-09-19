@@ -14,17 +14,17 @@
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/sdk/meta/as_arithmetic.hpp>
-#include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/mpl/equal_to.hpp>
+#include <boost/mpl/sizeof.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::is_equal_
                                       , boost::simd::tag::cpu_
                                       , (A0)(X)
-                                      , (mpl::equal_to< boost::simd::meta::cardinal_of<A0>
-                                                      , boost::simd::meta::cardinal_of<typename A0::type>
+                                      , (mpl::equal_to< mpl::sizeof_<A0>
+                                                      , mpl::sizeof_<typename A0::type>
                                                       >
                                         )
                                       , ((simd_<logical_<A0>,X>))
