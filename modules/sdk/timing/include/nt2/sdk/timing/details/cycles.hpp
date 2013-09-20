@@ -11,7 +11,9 @@
 
 #include <boost/config.hpp>
 #include <nt2/sdk/config/types.hpp>
+#include <nt2/sdk/timing/now.hpp>
 #include <boost/simd/sdk/config/arch.hpp>
+#include <boost/simd/sdk/config/os.hpp>
 
 #if    (defined(__GNUC__)     || defined(__ICC)        )      \
     && defined(BOOST_SIMD_ARCH_X86)
@@ -80,17 +82,33 @@ namespace nt2
   }
 }
 
-#elif !defined(_WIN32)
-#include <nt2/sdk/timing/now.hpp>
-#include <sys/times.h>
+#elif defined(BOOST_SIMD_OS_LINUX)
+#include <nt2/sdk/timing/linux_perf_event.hpp>
+#include <boost/dispatch/meta/ignore_unused.hpp>
+#include <unistd.h>
 
 namespace nt2
 {
   // INTERNAL ONLY
-  // Read cycles counter using an approximation of the frequency
   inline cycles_t read_cycles()
   {
-    return now() * sysconf(_SC_CLK_TCK);
+    cycles_t result = 0;
+    ssize_t sz = ::read(linux_::perf_event_hw_cycles, &result, sizeof(result));
+    boost::dispatch::ignore_unused(sz);
+    return result;
+  }
+}
+
+#else
+
+#warning unsupported platform for cycle computation, assuming 200Mhz
+
+namespace nt2
+{
+  // INTERNAL ONLY
+  inline cycles_t read_cycles()
+  {
+    return static_cast<cycles_t>(now() * 200000000.);
   }
 }
 
