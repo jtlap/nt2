@@ -44,20 +44,20 @@ NT2_TEST_CASE(dynamic_prev_power_of_2)
 {
   using boost::simd::prev_power_of_2;
 
-  NT2_TEST_EQUAL( prev_power_of_2(0x00), 0x00 );
-  NT2_TEST_EQUAL( prev_power_of_2(0x01), 0x01 );
-  NT2_TEST_EQUAL( prev_power_of_2(0x02), 0x02 );
-  NT2_TEST_EQUAL( prev_power_of_2(0x03), 0x02 );
-  NT2_TEST_EQUAL( prev_power_of_2(0x04), 0x04 );
-  NT2_TEST_EQUAL( prev_power_of_2(0x05), 0x04 );
-  NT2_TEST_EQUAL( prev_power_of_2(0x06), 0x04 );
-  NT2_TEST_EQUAL( prev_power_of_2(0x07), 0x04 );
-  NT2_TEST_EQUAL( prev_power_of_2(0x08), 0x08 );
-  NT2_TEST_EQUAL( prev_power_of_2(0x0D), 0x08 );
-  NT2_TEST_EQUAL( prev_power_of_2(0x14), 0x10 );
-  NT2_TEST_EQUAL( prev_power_of_2(0x33), 0x20 );
-  NT2_TEST_EQUAL( prev_power_of_2(0x6A), 0x40 );
-  NT2_TEST_EQUAL( prev_power_of_2(0x201), 0x200 );
+  NT2_TEST_EQUAL( prev_power_of_2(0x00), 0x00U );
+  NT2_TEST_EQUAL( prev_power_of_2(0x01), 0x01U );
+  NT2_TEST_EQUAL( prev_power_of_2(0x02), 0x02U );
+  NT2_TEST_EQUAL( prev_power_of_2(0x03), 0x02U );
+  NT2_TEST_EQUAL( prev_power_of_2(0x04), 0x04U );
+  NT2_TEST_EQUAL( prev_power_of_2(0x05), 0x04U );
+  NT2_TEST_EQUAL( prev_power_of_2(0x06), 0x04U );
+  NT2_TEST_EQUAL( prev_power_of_2(0x07), 0x04U );
+  NT2_TEST_EQUAL( prev_power_of_2(0x08), 0x08U );
+  NT2_TEST_EQUAL( prev_power_of_2(0x0D), 0x08U );
+  NT2_TEST_EQUAL( prev_power_of_2(0x14), 0x10U );
+  NT2_TEST_EQUAL( prev_power_of_2(0x33), 0x20U );
+  NT2_TEST_EQUAL( prev_power_of_2(0x6A), 0x40U );
+  NT2_TEST_EQUAL( prev_power_of_2(0x201), 0x200U );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
