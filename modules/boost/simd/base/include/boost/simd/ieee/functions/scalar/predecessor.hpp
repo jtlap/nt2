@@ -13,7 +13,7 @@
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/functions/scalar/bitfloating.hpp>
 #include <boost/simd/include/functions/scalar/bitinteger.hpp>
-#include <boost/simd/include/functions/scalar/dec.hpp>
+#include <boost/simd/include/functions/scalar/minusone.hpp>
 #include <boost/simd/include/functions/scalar/abs.hpp>
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
 
@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-       return dec(a0);
+       return minusone(a0);
     }
   };
 } } }
@@ -83,7 +83,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       if (is_nan(a0)) return a0;
-      return a0==Minf<A0>() ? a0 : bitfloating(dec(bitinteger(a0)));
+      return a0==Minf<A0>() ? a0 : bitfloating(minusone(bitinteger(a0)));
     }
   };
 } } }

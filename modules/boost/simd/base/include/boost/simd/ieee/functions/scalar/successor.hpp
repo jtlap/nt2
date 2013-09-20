@@ -10,7 +10,7 @@
 #define BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_SUCCESSOR_HPP_INCLUDED
 
 #include <boost/simd/ieee/functions/successor.hpp>
-#include <boost/simd/include/functions/scalar/inc.hpp>
+#include <boost/simd/include/functions/scalar/oneplus.hpp>
 #include <boost/simd/include/functions/scalar/bitinteger.hpp>
 #include <boost/simd/include/functions/scalar/bitfloating.hpp>
 #include <boost/simd/include/functions/scalar/abs.hpp>
@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-       return  inc(a0);
+       return  oneplus(a0);
     }
   };
 
@@ -41,7 +41,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return a0==Inf<A0>() ? a0 : bitfloating(inc(bitinteger(a0)));
+      return a0==Inf<A0>() ? a0 : bitfloating(oneplus(bitinteger(a0)));
     }
   };
 
