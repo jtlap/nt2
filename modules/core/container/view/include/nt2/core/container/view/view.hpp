@@ -9,7 +9,6 @@
 #ifndef NT2_CORE_CONTAINER_VIEW_VIEW_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_VIEW_VIEW_HPP_INCLUDED
 
-#include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/sdk/memory/container_ref.hpp>
 #include <nt2/sdk/memory/container_shared_ref.hpp>
 #include <nt2/core/container/view/adapted/view.hpp>
@@ -28,6 +27,8 @@ namespace nt2 { namespace tag
 
 namespace nt2 { namespace container
 {
+  template<class Expression, class ResultType> struct expression;
+
   /* view; an expression of a container_ref terminal.
    * allows construction from an expression of a container terminal */
   template<typename Kind, typename T, typename S>
