@@ -28,7 +28,7 @@
 
 
 
-NT2_TEST_CASE_TPL ( predecessor_real__1_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( predecessor_real,  BOOST_SIMD_REAL_TYPES)
 {
 
   using boost::simd::predecessor;
@@ -54,7 +54,7 @@ NT2_TEST_CASE_TPL ( predecessor_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(predecessor(boost::simd::Zero<T>()), -boost::simd::Bitincrement<T>());
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( predecessor_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( predecessor_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
 {
 
   using boost::simd::predecessor;
@@ -76,7 +76,7 @@ NT2_TEST_CASE_TPL ( predecessor_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(predecessor(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( predecessor_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( predecessor_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
 
   using boost::simd::predecessor;
