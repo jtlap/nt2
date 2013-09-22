@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL ( ilogb_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
   using boost::simd::ilogb;
   using boost::simd::tag::ilogb_;
   typedef typename boost::dispatch::meta::call<ilogb_(T)>::type r_t;
-  typedef typename boost::dispatch::meta::as_integer<T,signed>::type iT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef iT wished_r_t;
 
   // return type conformity test

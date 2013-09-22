@@ -36,7 +36,6 @@ SET( SOURCES
   predecessor.cpp
   prev.cpp
   saturate_at.cpp
-  saturate.cpp
   sbits.cpp
   sign.cpp
   signnz.cpp

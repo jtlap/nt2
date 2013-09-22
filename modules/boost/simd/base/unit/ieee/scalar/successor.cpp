@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL ( successor_real,  BOOST_SIMD_REAL_TYPES)
   std::cout << std::endl;
 
   // specific values tests
-  NT2_TEST_EQUAL(successor(boost::simd::Inf<T>()), boost::simd::Inf<r_t>());
+  NT2_TEST_EQUAL(successor(boost::simd::Inf<T>()), boost::simd::Nan<r_t>());
   NT2_TEST_EQUAL(successor(boost::simd::Minf<T>()), boost::simd::Valmin<r_t>());
   NT2_TEST_EQUAL(successor(boost::simd::Mone<T>()), boost::simd::Mone<r_t>()+boost::simd::Eps<r_t>()/2);
   NT2_TEST_EQUAL(successor(boost::simd::Nan<T>()), boost::simd::Nan<r_t>());
