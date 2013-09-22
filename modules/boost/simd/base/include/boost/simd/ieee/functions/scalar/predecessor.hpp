@@ -10,25 +10,27 @@
 #define BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_PREDECESSOR_HPP_INCLUDED
 #include <boost/simd/ieee/functions/predecessor.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
-#include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/functions/scalar/bitfloating.hpp>
 #include <boost/simd/include/functions/scalar/bitinteger.hpp>
 #include <boost/simd/include/functions/scalar/minusone.hpp>
-#include <boost/simd/include/functions/scalar/abs.hpp>
+#include <boost/simd/include/functions/scalar/subs.hpp>
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
+#include <boost/simd/include/functions/scalar/is_gez.hpp>
+#include <boost/assert.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::predecessor_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< integer_<A1> >)
+                            , (A0)
+                            , (scalar_< arithmetic_<A0> >)(scalar_< integer_<A0> >)
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      if (Valmin<A0>()+boost::simd::abs(a1) > a0) return Valmin<A0>();
-      return a0-boost::simd::abs(a1);
+      BOOST_ASSERT_MSG(is_gez(a1), "predecessor rank must be non negative");
+      if (Valmin<A0>()+a1 > a0) return Valmin<A0>();
+      return a0-a1;
     }
   };
 
@@ -43,15 +45,7 @@ namespace boost { namespace simd { namespace ext
        return minusone(a0);
     }
   };
-} } }
 
-
-////
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::predecessor_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< floating_<A0> >)(scalar_< integer_<A1> >)
@@ -62,16 +56,13 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      typedef typename dispatch::meta::as_integer<A0, signed>::type itype;
+      typedef typename dispatch::meta::as_integer<A0>::type itype;
+      BOOST_ASSERT_MSG(is_gez(a1), "predecessor rank must be non negative");
       if (is_nan(a0)) return a0;
-      return a0==Minf<A0>() ? a0 : bitfloating(bitinteger(a0)-itype(boost::simd::abs(a1)));
+      return bitfloating(subs(bitinteger(a0), itype(a1)));
     }
   };
-} } }
 
-
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::predecessor_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)
@@ -83,7 +74,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       if (is_nan(a0)) return a0;
-      return a0==Minf<A0>() ? a0 : bitfloating(minusone(bitinteger(a0)));
+      return bitfloating(minusone(bitinteger(a0)));
     }
   };
 } } }

@@ -57,7 +57,10 @@ namespace boost { namespace simd { namespace tag
     T r = predecessor(x,n);
     @endcode
 
-    computes the @c n-th greatest value strictly less than x in its type
+    computes the @c n-th greatest value strictly less than x in its type.
+    n must be positive or null.
+    For integer it saturate at Valmin, for floating point numbers Minf
+    strict predecessors are Nan
 
     @param a0
 

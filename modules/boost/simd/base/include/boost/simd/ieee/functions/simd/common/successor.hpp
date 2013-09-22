@@ -11,12 +11,16 @@
 
 #include <boost/simd/ieee/functions/successor.hpp>
 #include <boost/simd/include/functions/simd/is_not_equal.hpp>
+#include <boost/simd/include/functions/simd/if_allbits_else.hpp>
 #include <boost/simd/include/functions/simd/next.hpp>
 #include <boost/simd/include/functions/simd/seladd.hpp>
+#include <boost/simd/include/functions/simd/oneplus.hpp>
+#include <boost/simd/include/functions/simd/adds.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/functions/simd/is_greater.hpp>
-#include <boost/simd/include/functions/simd/abs.hpp>
+#include <boost/assert.hpp>
+#include <boost/simd/operator/functions/details/assert_utils.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -40,7 +44,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return boost::simd::next(a0);
+      return if_nan_else(is_nan(a0), bitfloating(oneplus(bitinteger(a0))));
     }
   };
 
@@ -52,17 +56,13 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return seladd( boost::simd::gt(Valmax<A0>()-boost::simd::abs(a1), a0), a0, boost::simd::abs(a1));
+      BOOST_ASSERT_MSG(assert_all(is_gtz(a1)), "predecessor rank must be non negative");
+      return if_else( boost::simd::gt(Valmax<A0>()-a1, a0),
+                      a0+a1,
+                      Valmax<A0>());
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::successor_, tag::cpu_
                             , (A0)(A1)(X)
                             , ((simd_<floating_<A0>,X>))((simd_<integer_<A1>,X>))
@@ -71,7 +71,8 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return select(eq(a0, Inf<A0>()), a0,  bitfloating(bitinteger(a0)+boost::simd::abs(a1)));
+      BOOST_ASSERT_MSG(assert_all(is_gtz(a1)), "predecessor rank must be non negative");
+      return if_nan_else(is_nan(a0), bitfloating(adds(bitinteger(a0), a1)));
     }
   };
 } } }

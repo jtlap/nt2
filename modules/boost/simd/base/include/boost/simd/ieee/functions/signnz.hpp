@@ -31,7 +31,9 @@ namespace boost { namespace simd { namespace tag
   /*!
     Returns the sign of a0. I.e. -1 or 1, according
     a0 is negative or positive.
-    This function never returns zero (zero is considered positive).
+    This function never returns zero (zero is considered positive for integers,
+    for floating point numbers the bit of sign is taken into account and so
+    we always have signnz(-z) == -signnz(z)).
 
     @par Semantic:
 
@@ -42,7 +44,7 @@ namespace boost { namespace simd { namespace tag
     is similar to:
 
     @code
-    T r = (x >= 0) ? T(1) : ((x < 0) ? T(-1) : Nan<T>());
+    T r = is_nan(x) ? Nan<T>() : (is_negative(x) ? T(-1) : T(1));
     @endcode
 
     @param a0

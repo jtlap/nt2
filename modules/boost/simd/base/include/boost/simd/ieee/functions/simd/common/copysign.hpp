@@ -12,6 +12,7 @@
 #include <boost/simd/include/functions/simd/abss.hpp>
 #include <boost/simd/include/functions/simd/bitofsign.hpp>
 #include <boost/simd/include/functions/simd/bitwise_or.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
 #include <boost/simd/include/functions/simd/signnz.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
