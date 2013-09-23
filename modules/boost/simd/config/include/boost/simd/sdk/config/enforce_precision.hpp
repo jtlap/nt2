@@ -79,7 +79,14 @@ namespace boost { namespace simd { namespace config
     }
   };
 
-  #if defined(BOOST_SIMD_ARCH_X86) && !defined(BOOST_SIMD_ARCH_X86_64)
+  // if x86 32-bit, then we have x87 unless BOOST_SIMD_NO_X87 is defined
+  #if defined(BOOST_SIMD_ARCH_X86) && !defined(BOOST_SIMD_ARCH_X86_64) && !defined(BOOST_SIMD_NO_X87)
+    #ifndef BOOST_SIMD_HAS_X87
+      #define BOOST_SIMD_HAS_X87
+    #endif
+  #endif
+
+  #ifdef BOOST_SIMD_HAS_X87
   template<class T>
   struct enforce_precision<T, typename boost::enable_if< boost::is_floating_point<T> >::type>
   {
