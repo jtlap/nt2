@@ -11,8 +11,10 @@
 
 #include <boost/simd/arithmetic/functions/oneplus.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
-#include <boost/simd/include/functions/simd/adds.hpp>
+#include <boost/simd/include/functions/simd/seladd.hpp>
+#include <boost/simd/include/functions/simd/is_not_equal.hpp>
 #include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -24,7 +26,9 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return adds(a0, One<A0>());
+      return seladd(is_not_equal(a0, Valmax<result_type>()),
+                    a0,
+                    One<A0>());
     }
   };
 
