@@ -31,25 +31,23 @@ namespace boost { namespace simd { namespace tag
   /*!
     Returns the exponent bits of the floating input as an integer value.
     the other bits (sign and mantissa) are just masked.
-
-    The sign \f$ \pm \f$, exponent e and mantissa m of a floating point entry a are related by
-    \f$a = \pm m\times 2^e\f$, with m between zero and one
+    This function is not defined on integral types.
 
     @par Semantic:
 
     @code
-    T r = exponentbits(x);
+    as_integer<T> r = exponentbits(x);
     @endcode
 
     is similar to
 
     @code
-    T r = x&Exponentmask<T>();
+    as_integer<T> r = x&Exponentmask<T>();
     @endcode
 
     @param a0
 
-    @return a value of the  intral type associated to the input
+    @return a value of the integral type associated to the input
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::exponentbits_, exponentbits, 1)
 } }

@@ -6,69 +6,64 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.ieee toolbox - predecessor/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.ieee components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created by jt the 04/12/2010
-///
 #include <boost/simd/ieee/include/functions/predecessor.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/prev.hpp>
-#include <boost/simd/include/constants/eps_related.hpp>
 
-#include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/constant/constant.hpp>
+#include <boost/simd/sdk/config.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
-#include <boost/simd/include/functions/next.hpp>
+#include <boost/simd/include/constants/mone.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/two.hpp>
+#include <boost/simd/include/constants/four.hpp>
+#include <boost/simd/include/constants/mthree.hpp>
+#include <boost/simd/include/constants/minf.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/nan.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/bitincrement.hpp>
+#include <boost/simd/include/constants/eps.hpp>
+#include <boost/simd/include/constants/halfeps.hpp>
 
-
-
-NT2_TEST_CASE_TPL ( predecessor_real,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( predecessor_real_1,  BOOST_SIMD_REAL_TYPES)
 {
 
   using boost::simd::predecessor;
   using boost::simd::tag::predecessor_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<predecessor_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef T wished_r_t;
 
-
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
 
   // specific values tests
+#ifndef BOOST_SIMD_NO_INVALIDS
   NT2_TEST_EQUAL(predecessor(boost::simd::Inf<T>()), boost::simd::Valmax<r_t>());
   NT2_TEST_EQUAL(predecessor(boost::simd::Minf<T>()), boost::simd::Nan<r_t>());
-  NT2_TEST_EQUAL(predecessor(boost::simd::Mone<T>()), boost::simd::Mone<r_t>()-boost::simd::Eps<r_t>());
   NT2_TEST_EQUAL(predecessor(boost::simd::Nan<T>()), boost::simd::Nan<r_t>());
-  NT2_TEST_EQUAL(predecessor(boost::simd::One<T>()), boost::simd::One<r_t>()-boost::simd::Eps<r_t>()/2);
+#endif
+  NT2_TEST_EQUAL(predecessor(boost::simd::Mone<T>()), boost::simd::Mone<r_t>()-boost::simd::Eps<r_t>());
+  NT2_TEST_EQUAL(predecessor(boost::simd::One<T>()), boost::simd::One<r_t>()-boost::simd::Halfeps<r_t>());
   NT2_TEST_EQUAL(predecessor(boost::simd::Valmin<T>()), boost::simd::Minf<r_t>());
+#if !defined(BOOST_SIMD_NO_DENORMALS)
   NT2_TEST_EQUAL(predecessor(boost::simd::Zero<T>()), -boost::simd::Bitincrement<T>());
+#endif
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( predecessor_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( predecessor_ui_1,  BOOST_SIMD_UNSIGNED_TYPES)
 {
 
   using boost::simd::predecessor;
   using boost::simd::tag::predecessor_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<predecessor_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef T wished_r_t;
 
-
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
 
   // specific values tests
   NT2_TEST_EQUAL(predecessor(boost::simd::One<T>()), boost::simd::Zero<r_t>());
@@ -76,21 +71,16 @@ NT2_TEST_CASE_TPL ( predecessor_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(predecessor(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( predecessor_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( predecessor_si_1,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
 
   using boost::simd::predecessor;
   using boost::simd::tag::predecessor_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<predecessor_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef T wished_r_t;
 
-
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
 
   // specific values tests
   NT2_TEST_EQUAL(predecessor(boost::simd::Mone<T>()), -boost::simd::Two<r_t>());
@@ -99,59 +89,61 @@ NT2_TEST_CASE_TPL ( predecessor_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_EQUAL(predecessor(boost::simd::Zero<T>()), boost::simd::Mone<r_t>());
 } // end of test for signed_int_
 
-NT2_TEST_CASE_TPL ( predecessor_real__2_1,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( predecessor_real_2,  BOOST_SIMD_REAL_TYPES)
 {
 
   using boost::simd::predecessor;
   using boost::simd::tag::predecessor_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<predecessor_(T,iT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef T wished_r_t;
 
-
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
 
-} // end of test for floating_
+#ifndef BOOST_SIMD_NO_INVALIDS
+  NT2_TEST_EQUAL(predecessor(boost::simd::Minf<T>(), boost::simd::Two<iT>()), boost::simd::Nan<r_t>());
+  NT2_TEST_EQUAL(predecessor(boost::simd::Nan<T>(), boost::simd::Two<iT>()), boost::simd::Nan<r_t>());
+#endif
+  NT2_TEST_EQUAL(predecessor(boost::simd::Mone<T>(), boost::simd::Two<iT>()), boost::simd::Mone<r_t>()-boost::simd::Eps<r_t>()-boost::simd::Eps<r_t>());
+  NT2_TEST_EQUAL(predecessor(boost::simd::One<T>(), boost::simd::Two<iT>()), boost::simd::One<r_t>()-boost::simd::Eps<r_t>());
+  NT2_TEST_EQUAL(predecessor(boost::simd::Valmin<T>(), boost::simd::Two<iT>()), boost::simd::Nan<r_t>());
+  NT2_TEST_EQUAL(predecessor(boost::simd::Valmin<T>(), boost::simd::Four<iT>()), boost::simd::Nan<r_t>());
+#if !defined(BOOST_SIMD_NO_DENORMALS)
+  NT2_TEST_EQUAL(predecessor(boost::simd::Zero<T>(), boost::simd::Two<iT>()), -boost::simd::Bitincrement<r_t>()-boost::simd::Bitincrement<r_t>());
+#endif
+}
 
-NT2_TEST_CASE_TPL ( predecessor_unsigned_int__2_1,  BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( predecessor_ui_2,  BOOST_SIMD_UNSIGNED_TYPES)
 {
 
   using boost::simd::predecessor;
   using boost::simd::tag::predecessor_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<predecessor_(T,iT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef T wished_r_t;
 
-
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
+  NT2_TEST_EQUAL(predecessor(boost::simd::Four<T>(), boost::simd::Two<iT>()), boost::simd::Two<r_t>());
+  NT2_TEST_EQUAL(predecessor(boost::simd::One<T>(), boost::simd::Two<iT>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(predecessor(boost::simd::Valmin<T>(), boost::simd::Two<iT>()), boost::simd::Valmin<r_t>());
+  NT2_TEST_EQUAL(predecessor(boost::simd::Valmin<T>(), boost::simd::Four<iT>()), boost::simd::Valmin<r_t>());
+}
 
-} // end of test for unsigned_int_
-
-NT2_TEST_CASE_TPL ( predecessor_signed_int__2_1,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( predecessor_si_2,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
 
   using boost::simd::predecessor;
   using boost::simd::tag::predecessor_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<predecessor_(T,iT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef T wished_r_t;
 
-
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
+  NT2_TEST_EQUAL(predecessor(boost::simd::Mone<T>(), boost::simd::Two<iT>()), boost::simd::Mthree<r_t>());
+  NT2_TEST_EQUAL(predecessor(boost::simd::One<T>(), boost::simd::Two<iT>()), boost::simd::Mone<r_t>());
+  NT2_TEST_EQUAL(predecessor(boost::simd::Valmin<T>(), boost::simd::Two<iT>()), boost::simd::Valmin<r_t>());
+  NT2_TEST_EQUAL(predecessor(boost::simd::Valmin<T>(), boost::simd::Four<iT>()), boost::simd::Valmin<r_t>());
 } // end of test for signed_int_

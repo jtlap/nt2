@@ -19,6 +19,7 @@
 #include <boost/simd/include/constants/mindenormal.hpp>
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/two.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/minf.hpp>
@@ -77,4 +78,5 @@ NT2_TEST_CASE_TPL ( eps_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_EQUAL(eps(boost::simd::Mone<T>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(eps(boost::simd::One<T>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(eps(boost::simd::Zero<T>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(eps(boost::simd::Two<T>()), boost::simd::One<r_t>());
 }
