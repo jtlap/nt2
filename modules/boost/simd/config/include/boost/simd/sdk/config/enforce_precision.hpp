@@ -14,10 +14,7 @@
 #include <boost/dispatch/attributes.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
-
-#ifdef _MSC_VER
 #include <float.h>
-#endif
 
 namespace boost { namespace simd { namespace config
 {
@@ -79,8 +76,16 @@ namespace boost { namespace simd { namespace config
     }
   };
 
-  // if x86 32-bit, then we have x87 unless BOOST_SIMD_NO_X87 is defined
-  #if defined(BOOST_SIMD_ARCH_X86) && !defined(BOOST_SIMD_ARCH_X86_64) && !defined(BOOST_SIMD_NO_X87)
+  #ifdef FLT_EVAL_METHOD
+    #if FLT_EVAL_METHOD != 0
+      #ifndef BOOST_SIMD_HAS_X87
+        #define BOOST_SIMD_HAS_X87
+      #endif
+    #endif
+
+  // default without FLT_EVAL_METHOD is to have x87 in 32-bit and no x87 in 64-bit
+  // can force otherwise with BOOST_SIMD_NO_X87
+  #elif defined(BOOST_SIMD_ARCH_X86) && !defined(BOOST_SIMD_ARCH_X86_64) && !defined(BOOST_SIMD_NO_X87)
     #ifndef BOOST_SIMD_HAS_X87
       #define BOOST_SIMD_HAS_X87
     #endif
