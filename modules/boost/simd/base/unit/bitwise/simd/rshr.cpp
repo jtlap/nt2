@@ -8,28 +8,64 @@
 //==============================================================================
 #include <boost/simd/bitwise/include/functions/rshr.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/constant/constant.hpp>
+#include <boost/simd/include/functions/unary_minus.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/three.hpp>
+#include <boost/simd/include/constants/eight.hpp>
 
-NT2_TEST_CASE_TPL ( rshr_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <nt2/sdk/unit/module.hpp>
+
+NT2_TEST_CASE_TPL ( rshr_signed,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::rshr;
   using boost::simd::tag::rshr_;
   using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::dispatch::meta::call<rshr_(vT,ivT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
-  // specific values tests
-  NT2_TEST_EQUAL(rshr(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
-} // end of test for integer_
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::as_integer<T,unsigned>::type uT;
+
+  typedef native<T,ext_t>               vT;
+  typedef native<iT,ext_t>              ivT;
+  typedef native<uT,ext_t>              uvT;
+
+  NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<rshr_(vT,ivT)>::type
+                  , vT
+                  );
+
+  NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<rshr_(vT,uvT)>::type
+                  , vT
+                  );
+
+  // rshr with positive shift
+  NT2_TEST_EQUAL(rshr(boost::simd::Eight<vT>(), boost::simd::Three<ivT>()), boost::simd::One<vT>() );
+  NT2_TEST_EQUAL(rshr(boost::simd::Eight<vT>(), boost::simd::Three<uvT>()), boost::simd::One<vT>() );
+
+  // rshr with negative shift
+  NT2_TEST_EQUAL(rshr(boost::simd::One<vT>(), -boost::simd::Three<vT>()), boost::simd::Eight<vT>() );
+}
+
+NT2_TEST_CASE_TPL ( rshr_unsigned,  BOOST_SIMD_SIMD_INTEGRAL_UNSIGNED_TYPES)
+{
+  using boost::simd::rshr;
+  using boost::simd::tag::rshr_;
+  using boost::simd::native;
+
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+
+  typedef native<T,ext_t>               vT;
+  typedef native<iT,ext_t>              ivT;
+
+  NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<rshr_(vT,ivT)>::type
+                  , vT
+                  );
+
+
+  // rshr with positive shift
+  NT2_TEST_EQUAL(rshr(boost::simd::Eight<vT>(), boost::simd::Three<ivT>()), boost::simd::One<vT>() );
+}

@@ -131,6 +131,7 @@ namespace nt2
 #else
 #include <linux/perf_event.h>
 #endif
+#include <linux/version.h>
 #include <sys/syscall.h>
 #include <unistd.h>
 #include <string.h>
@@ -150,7 +151,7 @@ namespace nt2
         ::memset(&attr, 0, sizeof(attr));
         attr.type = PERF_TYPE_HARDWARE;
         attr.size = sizeof(attr);
-        #ifndef __ANDROID__
+        #if LINUX_VERSION_CODE >= KERNEL_VERSION(3,3,0)
         attr.config = PERF_COUNT_HW_REF_CPU_CYCLES;
         #else
         attr.config = PERF_COUNT_HW_CPU_CYCLES;
