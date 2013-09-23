@@ -38,11 +38,11 @@ NT2_TEST_CASE_TPL( fast_rsqrt, BOOST_SIMD_SIMD_REAL_TYPES )
                   );
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(fast_rsqrt(boost::simd::Mone<vT>()), boost::simd::Nan<vT>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_rsqrt(boost::simd::Nan<vT>()), boost::simd::Nan<vT>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_rsqrt(boost::simd::One<vT>()), boost::simd::One<vT>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_rsqrt(boost::simd::Four<vT>()), boost::simd::Half<vT>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_rsqrt(splat<vT>(0.5)), boost::simd::Sqrt_2<vT>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_rsqrt(splat<vT>(0.01)), splat<vT>(10), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_rsqrt(splat<vT>(0.0001)), splat<vT>(100), 0.5);
+  NT2_TEST_ULP_EQUAL(fast_rsqrt(boost::simd::Mone<vT>()), boost::simd::Nan<vT>(), 75);
+  NT2_TEST_ULP_EQUAL(fast_rsqrt(boost::simd::Nan<vT>()), boost::simd::Nan<vT>(), 75);
+  NT2_TEST_ULP_EQUAL(fast_rsqrt(boost::simd::One<vT>()), boost::simd::One<vT>(), 75);
+  NT2_TEST_ULP_EQUAL(fast_rsqrt(boost::simd::Four<vT>()), boost::simd::Half<vT>(), 75);
+  NT2_TEST_ULP_EQUAL(fast_rsqrt(splat<vT>(0.5)), boost::simd::Sqrt_2<vT>(), 75);
+  NT2_TEST_ULP_EQUAL(fast_rsqrt(splat<vT>(0.01)), splat<vT>(10), 75);
+  NT2_TEST_ULP_EQUAL(fast_rsqrt(splat<vT>(0.0001)), splat<vT>(100), 75);
 }
