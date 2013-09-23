@@ -15,7 +15,7 @@ namespace nt2
 {
   class randstream_;
 
-  struct NT2_CORE_RANDOM_DECL rng_settings
+  struct BOOST_SYMBOL_VISIBLE rng_settings
   {
     NT2_CORE_RANDOM_DECL rng_settings();
     NT2_CORE_RANDOM_DECL rng_settings(rng_settings const&);
