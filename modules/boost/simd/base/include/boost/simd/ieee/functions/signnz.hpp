@@ -31,6 +31,7 @@ namespace boost { namespace simd { namespace tag
   /*!
     Returns the sign of a0. I.e. -1 or 1, according
     a0 is negative or positive.
+
     This function never returns zero (zero is considered positive for integers,
     for floating point numbers the bit of sign is taken into account and so
     we always have signnz(-z) == -signnz(z)).
