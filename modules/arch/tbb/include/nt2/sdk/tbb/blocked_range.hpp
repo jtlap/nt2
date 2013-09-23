@@ -10,7 +10,7 @@
 #ifndef NT2_SDK_TBB_BLOCKED_RANGE_HPP_INCLUDED
 #define NT2_SDK_TBB_BLOCKED_RANGE_HPP_INCLUDED
 
-#include "tbb_stddef.h"
+#include <tbb/tbb_stddef.h>
 
 namespace nt2 {
 
@@ -78,7 +78,7 @@ private:
     //! Auxiliary function used by forking constructor.
     /** Using this function lets us not require that Value support assignment or default construction. */
     static Value do_split( blocked_range& r ) {
-        Value middle = r.my_begin + ((r.my_end-r.my_begin)/(2*my_grainsize))*my_grainsize;
+        Value middle = r.my_begin + ((r.my_end-r.my_begin)/(2*r.my_grainsize))*r.my_grainsize;
         r.my_end = middle;
         return middle;
     }

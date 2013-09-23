@@ -94,7 +94,6 @@ namespace nt2 {
 
       void operator()(tbb::blocked_range<std::ptrdiff_t> const& r) const
       {
-      std::size_t cache_line_size = nt2::config::top_cache_line_size(2);
       std::size_t condition = ibound_/tbb::task_scheduler_init::default_num_threads();
         std::size_t grain = (condition==0)?ibound_:condition;
 
