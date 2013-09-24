@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
                                     , (scalar_< type64_<A0> >)
                                     )
   {
-    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0>::type result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 a0) const
     {
@@ -46,7 +46,7 @@ namespace boost { namespace simd { namespace ext
                                     , (scalar_< type32_<A0> >)
                                     )
   {
-    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0>::type result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 a0) const
     {
@@ -66,7 +66,7 @@ namespace boost { namespace simd { namespace ext
                                     , (scalar_< arithmetic_<A0> >)
                                     )
   {
-    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0>::type result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 a0) const
     {

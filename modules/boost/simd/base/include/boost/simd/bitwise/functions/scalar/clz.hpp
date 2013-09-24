@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< type64_<A0> >)
                             )
   {
-    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
       {
         result_type t1 = bitwise_cast<result_type>(a0);
@@ -44,7 +44,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< type32_<A0> >)
                             )
   {
-    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
@@ -64,11 +64,12 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< type16_<A0> >)
                             )
   {
-    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      result_type t1 = bitwise_cast<result_type>(a0);
+      typedef typename dispatch::meta::as_integer<A0, unsigned>::type i_type;
+      i_type t1 = bitwise_cast<i_type>(a0);
       return result_type(boost::simd::clz(uint32_t(t1))-16);
     }
   };
@@ -78,11 +79,12 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< type8_<A0> >)
                             )
   {
-    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      result_type t1 = bitwise_cast<result_type>(a0);
+      typedef typename dispatch::meta::as_integer<A0, unsigned>::type i_type;
+      i_type t1 = bitwise_cast<i_type>(a0);
       return result_type(boost::simd::clz(uint32_t(t1))-24);
     }
   };

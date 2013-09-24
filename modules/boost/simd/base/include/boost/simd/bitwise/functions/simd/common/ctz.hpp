@@ -11,7 +11,7 @@
 
 #include <boost/simd/bitwise/functions/ctz.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
-#include <boost/simd/include/functions/simd/minusone.hpp>
+#include <boost/simd/include/functions/simd/dec.hpp>
 #include <boost/simd/include/functions/simd/ffs.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/operator/functions/details/assert_utils.hpp>
@@ -25,15 +25,13 @@ namespace boost { namespace simd { namespace ext
                             )
   {
 
-    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type t =  bitwise_cast<result_type>(a0);
-      typedef typename meta::scalar_of<A0>::type s_type;
-
-      BOOST_ASSERT_MSG( assert_all(t), "ctz not defined for 0" );
-      return minusone(boost::simd::ffs(t));
+      BOOST_ASSERT_MSG( assert_all(a0), "ctz not defined for 0" );
+      return bitwise_cast<result_type>(dec(boost::simd::ffs(t)));
     }
   };
 } } }
