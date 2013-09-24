@@ -38,8 +38,8 @@ namespace nt2 { namespace tag
                 : boost::mpl::true_
   {};
 
-  template<>
-  struct shape_::apply<nt2::band_diagonal_>
+  template<int U, int L>
+  struct shape_::apply<nt2::band_diagonal_<U,L> >
                 : boost::mpl::true_
   {};
 

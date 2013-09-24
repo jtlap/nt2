@@ -20,7 +20,11 @@ namespace nt2
   struct rectangular_;
   struct upper_triangular_    {};
   struct lower_triangular_    {};
-  struct band_diagonal_       {};
+  template<int U,int L> struct band_diagonal_
+  {
+    static const int ud = U;
+    static const int ld = L;
+  };
   struct diagonal_            {};
   struct positive_definite_   {};
   struct uhess_               {};
