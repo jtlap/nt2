@@ -42,7 +42,7 @@ operator Op                                                                    \
 }                                                                              \
 /**/
 
-#define BOOST_SIMD_OVERLOAD_UNARY_OP_INC(Tag, Op)                              \
+#define BOOST_SIMD_OVERLOAD_UNARY_OP_INC(Tag, TagInc, Op)                      \
 template<class A0>                                                             \
 BOOST_FORCEINLINE                                                              \
 typename                                                                       \
@@ -54,7 +54,7 @@ operator Op                                                                    \
   A0 & a0                                                                      \
 )                                                                              \
 {                                                                              \
-  return a0 = typename dispatch::make_functor<Tag, A0>::type()(a0, 1);         \
+  return a0 = typename dispatch::make_functor<TagInc, A0>::type()(a0);         \
 }                                                                              \
 template<class A0>                                                             \
 BOOST_FORCEINLINE                                                              \
@@ -138,13 +138,19 @@ namespace boost { namespace simd
   {
   };
 
+  namespace tag
+  {
+    struct inc_;
+    struct dec_;
+  }
+
   // unary operators
   BOOST_SIMD_OVERLOAD_UNARY_OP( boost::proto::tag::unary_plus  ,  + )
   BOOST_SIMD_OVERLOAD_UNARY_OP( boost::proto::tag::negate      ,  - )
   BOOST_SIMD_OVERLOAD_UNARY_OP( boost::proto::tag::complement  ,  ~ )
   BOOST_SIMD_OVERLOAD_UNARY_OP( boost::proto::tag::logical_not ,  ! )
-  BOOST_SIMD_OVERLOAD_UNARY_OP_INC( boost::proto::tag::plus  , ++ )
-  BOOST_SIMD_OVERLOAD_UNARY_OP_INC( boost::proto::tag::minus , -- )
+  BOOST_SIMD_OVERLOAD_UNARY_OP_INC( boost::proto::tag::plus    , boost::simd::tag::inc_, ++ )
+  BOOST_SIMD_OVERLOAD_UNARY_OP_INC( boost::proto::tag::minus   , boost::simd::tag::dec_, -- )
 
   // binary operators
   BOOST_SIMD_OVERLOAD_BINARY_OP_ASSIGN( boost::proto::tag::bitwise_and , &  )
