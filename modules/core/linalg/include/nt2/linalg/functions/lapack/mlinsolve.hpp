@@ -35,6 +35,7 @@ namespace nt2 { namespace ext
     typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
 
     typedef nt2::container::table<type_t>  entry_type;
+    typedef nt2::container::table<type_t,shape>  matrix_type;
 
     BOOST_FORCEINLINE result_type operator()( A0 const& a0, A1 const& a1, A2& a2 ) const
     {
@@ -58,8 +59,8 @@ namespace nt2 { namespace ext
                         , nt2::positive_definite_ const&
                         ) const
     {
-      entry_type var = concrete(a2);
-      entry_type entry = concrete(a0);
+      entry_type var(a2);
+      matrix_type entry(a0);
       nt2_la_int iter = nt2::mposv(entry,concrete(a1),var);
       a2 = var;
     }
@@ -77,10 +78,10 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     void eval ( A0 const& a0, A1 const& a1 , A2& a2) const
     {
-      entry_type var = concrete(a2);
+      // entry_type var(a2);
       entry_type entry(a0);
-      nt2_la_int iter = nt2::msv(entry,concrete(a1),var);
-      a2 = var;
+      nt2_la_int iter = nt2::msv(entry,concrete(a1),concrete(a2));
+      // a2 = var;
 
     }
 

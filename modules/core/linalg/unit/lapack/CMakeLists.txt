@@ -26,6 +26,8 @@ SET ( SOURCES
       mlinsolve.cpp
       ysvx.cpp
       posv.cpp
+      langb.cpp
+      bsv.cpp
    )
 
 nt2_module_add_tests(core.linalg.lapack.unit ${SOURCES})

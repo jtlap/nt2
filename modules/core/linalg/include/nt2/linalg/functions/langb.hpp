@@ -6,12 +6,14 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_PLINSOLVE_HPP_INCLUDED
-#define NT2_TOOLBOX_LINALG_FUNCTIONS_PLINSOLVE_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_LANGB_HPP_INCLUDED
+#define NT2_TOOLBOX_LINALG_FUNCTIONS_LANGB_HPP_INCLUDED
 
 /*!
   @file
-  @brief
+  @brief Defines and implements lapack lange function that returns the value of
+  the one norm, or the Frobenius norm, or the  infinity norm, or the  element
+  of  largest absolute value of a real matrix A.
 **/
 
 #include <nt2/include/functor.hpp>
@@ -20,8 +22,8 @@ namespace nt2
 {
   namespace tag
   {
-    /// @brief Defines  function tag
-    struct plinsolve_ : boost::dispatch::tag::formal_
+    /// @brief Defines lange function tag
+    struct langb_ : boost::dispatch::tag::formal_
     {
       /// INTERNAL ONLY
       typedef boost::dispatch::tag::formal_  parent;
@@ -36,10 +38,12 @@ namespace nt2
 
     @return
   **/
-  NT2_FUNCTION_IMPLEMENTATION_TPL (tag::plinsolve_, plinsolve
-                                  , (A0 const&)(A1 const&)(A2&)
-                                  , 3
+
+  NT2_FUNCTION_IMPLEMENTATION (tag::langb_, langb
+                                  , 2
                                   );
+
+
 }
 
 #endif

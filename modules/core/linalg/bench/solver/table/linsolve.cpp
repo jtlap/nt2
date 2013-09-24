@@ -13,6 +13,7 @@
 #include <nt2/include/functions/linsolve.hpp>
 #include <nt2/include/functions/rand.hpp>
 #include <nt2/include/functions/zeros.hpp>
+#include <nt2/include/functions/transpose.hpp>
 #include "../../flops/solve.hpp"
 #include "../../flops/lu.hpp"
 
@@ -28,12 +29,13 @@ template<typename T> NT2_EXPERIMENT(linsolve< nt2::table<T> >)
 
   virtual void run() const
   {
-    result = nt2::linsolve(a,b);
+    result = nt2::linsolve(a,b,nt2::classic_);
   }
 
   virtual double compute(nt2::benchmark_result_t const& r) const
   {
-    return ((FLOPS_GETRF(h,w)+ FLOPS_DGETRS(h,w))/r.second)/1000.;
+     //return ((FLOPS_GETRF(h,w)+ FLOPS_DGETRS(h,w))/r.second)/1000000;
+     return r.second/1000000.;
   }
 
   virtual void info(std::ostream& os) const
@@ -45,16 +47,17 @@ template<typename T> NT2_EXPERIMENT(linsolve< nt2::table<T> >)
   {
     result = nt2::zeros(h,w, nt2::meta::as_<T>());
     a  = nt2::rand(h,w, nt2::meta::as_<T>());
+    a = a + nt2::transpose(a);
     b  = nt2::rand(h,1, nt2::meta::as_<T>());
   }
 
   private:
   std::size_t   h,w;
-  mutable nt2::table<T> a,b, result;
+  mutable nt2::table<T> b, result;
+  mutable nt2::table<T> a;
 };
 
-NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>)(nt2::table<double>), (1023,1023) );
-NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>)(nt2::table<double>), (2048,2048) );
+
 NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>)(nt2::table<double>), (4000,4000) );
 NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>)(nt2::table<double>), (6000,6000) );
 NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>)(nt2::table<double>), (8000,8000) );

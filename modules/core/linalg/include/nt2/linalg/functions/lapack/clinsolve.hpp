@@ -15,12 +15,16 @@
 #include <nt2/include/functions/issquare.hpp>
 #include <nt2/include/functions/lsy.hpp>
 #include <nt2/include/functions/sv.hpp>
+#include <nt2/include/functions/bsv.hpp>
 #include <nt2/include/functions/posv.hpp>
 #include <nt2/include/functions/ysv.hpp>
 #include <nt2/include/functions/lange.hpp>
+#include <nt2/include/functions/lansy.hpp>
+#include <nt2/include/functions/langb.hpp>
 #include <nt2/include/functions/con.hpp>
 #include <nt2/include/functions/sycon.hpp>
 #include <nt2/include/functions/pocon.hpp>
+#include <nt2/include/functions/gbcon.hpp>
 
 #include <nt2/include/functions/tie.hpp>
 
@@ -28,6 +32,7 @@
 #include <nt2/sdk/meta/concrete.hpp>
 #include <nt2/linalg/functions/details/eval_linsolve.hpp>
 #include <nt2/sdk/meta/settings_of.hpp>
+#include <boost/dispatch/meta/hierarchy_of.hpp>
 
 #include <nt2/core/container/table/table.hpp>
 
@@ -51,6 +56,7 @@ namespace nt2 { namespace ext
     typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
 
     typedef nt2::container::table<type_t>  entry_type;
+    typedef nt2::container::table<type_t,shape>  matrix_type;
 
     BOOST_FORCEINLINE result_type operator()( A0 const& a0, A1 const& a1, A2 const& a2  ) const
     {
@@ -91,6 +97,17 @@ namespace nt2 { namespace ext
       eval(a0, a1, a2, piv, N2(), shape());
     }
 
+    /// INTERNAL ONLY - band diagonal shape - square matrix
+    template<int U, int L>
+    BOOST_FORCEINLINE
+    void shape_analysis ( A0 const& a0, A1 const& a1 , A2 const& a2
+                        , nt2::table<nt2_la_int>& piv, N2 const&
+                        , nt2::band_diagonal_<U,L> const&
+                        ) const
+    {
+      eval(a0, a1, a2, piv, N2(), shape());
+    }
+
     /// INTERNAL ONLY - No info on this shape
     template<typename sh>
     BOOST_FORCEINLINE
@@ -109,7 +126,7 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<1> const&
               ) const
     {
-      entry_type work = concrete(a1);
+      entry_type work(a1);
       entry_type entry(a0);
 
       eval_param( a0, a1, work);
@@ -127,8 +144,8 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<1> const&, nt2::positive_definite_ const&
               ) const
     {
-      entry_type work = concrete(a1);
-      entry_type entry(a0);
+      entry_type work(a1);
+      matrix_type entry(a0);
 
       nt2::posv(entry, a1, work);
 
@@ -142,15 +159,29 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<1> const&, nt2::symmetric_ const&
               ) const
     {
-      entry_type work = concrete(a1);
-      entry_type entry(a0);
+      entry_type work(a1);
+      matrix_type entry(a0);
 
       nt2::ysv(entry, piv, a1, work);
 
       boost::proto::child_c<0>(a2) = work;
     }
 
+    //==========================================================================
+    /// INTERNAL ONLY - X = LINSOLVE(A,B) - band shape
+    template<int U, int L>
+    BOOST_FORCEINLINE
+    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2, nt2::table<nt2_la_int>& piv
+              , boost::mpl::long_<1> const&, nt2::band_diagonal_<U,L> const&
+              ) const
+    {
+      entry_type work(a1);
+      matrix_type entry(a0);
 
+      nt2::bsv(entry, piv, work);
+
+      boost::proto::child_c<0>(a2) = work;
+    }
 
     //==========================================================================
     /// INTERNAL ONLY - [X,R] = LINSOLVE(A,B) -- Rectangular shape
@@ -159,8 +190,8 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<2> const&
               ) const
     {
-      entry_type work = concrete(a1);
-      entry_type entry(a0);
+      entry_type work(a1);
+      matrix_type entry(a0);
 
       eval_param( a0, a1, boost::proto::child_c<0>(a2));
 
@@ -188,10 +219,11 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<2> const&, nt2::symmetric_ const&
               ) const
     {
-      entry_type work = a1;
-      entry_type entry(a0);
+      entry_type work(a1);
+      matrix_type entry(a0);
       char norm = '1';
 
+      typedef typename meta::hierarchy_of<nt2::symmetric_>::stripped h_;
       type_t anorm = nt2::lange(a0, norm);
       nt2::ysv(entry,piv,a1,work);
       boost::proto::child_c<1>(a2) = nt2::sycon(entry,piv,anorm);
@@ -206,13 +238,33 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<2> const&, nt2::positive_definite_ const&
               ) const
     {
-      entry_type work = a1;
-      entry_type entry(a0);
+      entry_type work(a1);
+      matrix_type entry(a0);
 
-      nt2::posv(entry, a1, work);
       char norm = '1';
-      type_t anorm = nt2::lange(a0,norm);
+      typedef typename meta::hierarchy_of<nt2::symmetric_>::stripped h_;
+      type_t anorm = nt2::lange(a0,norm, h_());
+      nt2::posv(entry, a1, work);
       boost::proto::child_c<1>(a2) = nt2::pocon(entry,anorm);
+
+      boost::proto::child_c<0>(a2) = work;
+    }
+
+    //==========================================================================
+    /// INTERNAL ONLY - [X,R] = LINSOLVE(A,B) -- general band shape
+    template<int U, int L>
+    BOOST_FORCEINLINE
+    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2, nt2::table<nt2_la_int>& piv
+              , boost::mpl::long_<2> const&, nt2::band_diagonal_<U,L> const&
+              ) const
+    {
+      entry_type work(a1);
+      matrix_type entry(a0);
+
+      char norm = '1';
+      type_t anorm = nt2::langb(a0,norm);
+      nt2::bsv(entry, piv, work);
+      boost::proto::child_c<1>(a2) = nt2::gbcon(entry,piv,anorm);
 
       boost::proto::child_c<0>(a2) = work;
     }
