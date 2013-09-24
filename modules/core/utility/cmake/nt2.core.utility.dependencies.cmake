@@ -21,7 +21,6 @@ SET ( NT2_CORE.UTILITY_DEPENDENCIES_EXTRA
       core.sdk
       core.settings
       sdk.config
-      sdk.dsl
       sdk.functor
       sdk.meta
     )

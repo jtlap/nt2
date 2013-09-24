@@ -13,7 +13,6 @@ SET ( NT2_CORE.EXTRACTIVE_DEPENDENCIES_EXTRA
       core.base
       core.sdk
       core.utility
-      sdk.dsl
       sdk.functor
       sdk.meta
     )

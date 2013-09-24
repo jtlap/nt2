@@ -16,6 +16,5 @@ SET ( NT2_CORE.CONTAINER.TABLE_DEPENDENCIES_EXTRA
       core.sdk
       core.settings
       core.utility
-      sdk.dsl
       sdk.functor
     )

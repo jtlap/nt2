@@ -33,7 +33,6 @@ else()
         core.sdk
         core.trigonometric
         core.utility
-        sdk.dsl
         sdk.error
         sdk.functor
         sdk.meta

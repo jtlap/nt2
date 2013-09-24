@@ -12,7 +12,6 @@ SET ( NT2_CORE.ADJACENT_DEPENDENCIES_EXTRA
       core.container.table
       core.sdk
       core.utility
-      sdk.dsl
       sdk.functor
       sdk.meta
     )

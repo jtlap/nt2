@@ -18,7 +18,6 @@ SET ( NT2_CORE.GENERATIVE_DEPENDENCIES_EXTRA
       core.sdk
       core.utility
       sdk.config
-      sdk.dsl
       sdk.functor
       sdk.meta
     )

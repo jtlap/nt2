@@ -18,7 +18,6 @@ SET ( NT2_CORE.POLYNOM_DEPENDENCIES_EXTRA
       core.restructuring
       core.sdk
       core.utility
-      sdk.dsl
       sdk.error
       sdk.functor
       sdk.meta

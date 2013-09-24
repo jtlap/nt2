@@ -18,7 +18,6 @@ SET ( NT2_CORE.RESTRUCTURING_DEPENDENCIES_EXTRA
       core.sdk
       core.utility
       sdk.config
-      sdk.dsl
       sdk.functor
       sdk.meta
     )
