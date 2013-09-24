@@ -144,7 +144,10 @@ namespace boost { namespace simd { namespace ext
                                     , ((node_<A0, unspecified_<T>, mpl::long_<0>, D>))
                                     )
   {
-    typedef typename dispatch::meta::dispatch_call<T(A0&)>::type::result_type result_type;
+    typedef typename dispatch::meta::result_of<
+      typename dispatch::meta::dispatch_call<T(A0&)>::type
+      (A0&)
+    >::type result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0& a0) const
@@ -160,7 +163,10 @@ namespace boost { namespace simd { namespace ext
                                       (unspecified_<Data>)
                                     )
   {
-    typedef typename dispatch::meta::dispatch_call<T(A0&, State const&, Data const&)>::type::result_type result_type;
+    typedef typename dispatch::meta::result_of<
+      typename dispatch::meta::dispatch_call<T(A0&, State const&, Data const&)>::type
+      (A0&, State const&, Data const&)
+    >::type result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, State const& state, Data const& data) const

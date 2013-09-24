@@ -74,6 +74,53 @@ namespace nt2 { namespace ext
   };
 
   //============================================================================
+  // when reading a fusion sequence from a tie(...), run each element of the
+  // sequence and store it in another sequence
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
+                            , (A0)(N0)(State)(Data)
+                            , ((node_<A0, nt2::tag::tie_, N0, nt2::container::domain>))
+                              (generic_< integer_<State> >)
+                              (target_< fusion_sequence_<Data> >)
+                            )
+  {
+    typedef typename Data::type result_type;
+
+    struct impl
+    {
+      BOOST_FORCEINLINE impl(A0& a0_, State const& state_, result_type& data_)
+                            : a0(a0_), state(state_), data(data_)
+      {
+      }
+
+      template<int I>
+      void operator()() const
+      {
+        boost::fusion::at_c<I>(data) = nt2::run( boost::proto::child_c<I>(a0)
+                                               , state
+                                               , boost::dispatch::meta::
+                                                 as_< typename boost::fusion::result_of::
+                                                      value_at_c<result_type, I>::type
+                                                    >()
+                                               );
+      }
+
+      A0& a0;
+      State const& state;
+      result_type& data;
+      private:
+      impl& operator=(impl const&);
+    };
+
+    BOOST_FORCEINLINE result_type operator()(A0& a0, State const& state, Data const&) const
+    {
+      result_type data;
+      boost::simd::meta::iterate<N0::value>(impl(a0, state, data));
+      return data;
+    }
+  };
+
+  //============================================================================
   // when storing a fusion sequence in a terminal, take first element
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_

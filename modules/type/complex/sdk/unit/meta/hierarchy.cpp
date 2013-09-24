@@ -57,6 +57,17 @@ NT2_TEST_CASE(complex_hierarchy)
   NT2_TEST_EXPR_TYPE(c, hierarchy<8>, scalar_< fusion_sequence_< complex<float> > >);
   NT2_TEST_EXPR_TYPE(c, hierarchy<9>, scalar_< unspecified_< complex<float> > >);
   NT2_TEST_EXPR_TYPE(c, hierarchy<10>, generic_< complex_< single_< complex<float> > > >);
+  NT2_TEST_EXPR_TYPE(c, hierarchy<11>, generic_< complex_< type32_< complex<float> > > >);
+  NT2_TEST_EXPR_TYPE(c, hierarchy<12>, generic_< complex_< floating_sized_< complex<float> > > >);
+  NT2_TEST_EXPR_TYPE(c, hierarchy<13>, generic_< complex_< floating_< complex<float> > > >);
+  NT2_TEST_EXPR_TYPE(c, hierarchy<14>, generic_< complex_< signed_< complex<float> > > >);
+  NT2_TEST_EXPR_TYPE(c, hierarchy<15>, generic_< complex_< arithmetic_< complex<float> > > >);
+  NT2_TEST_EXPR_TYPE(c, hierarchy<16>, generic_< complex_< fundamental_< complex<float> > > >);
+  NT2_TEST_EXPR_TYPE(c, hierarchy<17>, generic_< complex_< unspecified_< complex<float> > > >);
+  NT2_TEST_EXPR_TYPE(c, hierarchy<18>, generic_< fusion_sequence_< complex<float> > >);
+  NT2_TEST_EXPR_TYPE(c, hierarchy<19>, generic_< unspecified_< complex<float> > >);
+  NT2_TEST_EXPR_TYPE(c, hierarchy<20>, fusion_sequence_< complex<float> >);
+  NT2_TEST_EXPR_TYPE(c, hierarchy<21>, unspecified_< complex<float> >);
 }
 
 NT2_TEST_CASE(complex_hierarchy_simd)
@@ -80,4 +91,15 @@ NT2_TEST_CASE(complex_hierarchy_simd)
   NT2_TEST_EXPR_TYPE(im, hierarchy<8>, (simd_< fusion_sequence_< native<complex<float>, ext_t> >, ext_t >));
   NT2_TEST_EXPR_TYPE(im, hierarchy<9>, (simd_< unspecified_< native<complex<float>, ext_t> >, ext_t >));
   NT2_TEST_EXPR_TYPE(im, hierarchy<10>, (generic_< complex_< single_< native<complex<float>, ext_t> > > >));
+  NT2_TEST_EXPR_TYPE(im, hierarchy<11>, (generic_< complex_< type32_< native<complex<float>, ext_t> > > >));
+  NT2_TEST_EXPR_TYPE(im, hierarchy<12>, (generic_< complex_< floating_sized_< native<complex<float>, ext_t> > > >));
+  NT2_TEST_EXPR_TYPE(im, hierarchy<13>, (generic_< complex_< floating_< native<complex<float>, ext_t> > > >));
+  NT2_TEST_EXPR_TYPE(im, hierarchy<14>, (generic_< complex_< signed_< native<complex<float>, ext_t> > > >));
+  NT2_TEST_EXPR_TYPE(im, hierarchy<15>, (generic_< complex_< arithmetic_< native<complex<float>, ext_t> > > >));
+  NT2_TEST_EXPR_TYPE(im, hierarchy<16>, (generic_< complex_< fundamental_< native<complex<float>, ext_t> > > >));
+  NT2_TEST_EXPR_TYPE(im, hierarchy<17>, (generic_< complex_< unspecified_< native<complex<float>, ext_t> > > >));
+  NT2_TEST_EXPR_TYPE(im, hierarchy<18>, (generic_< fusion_sequence_< native<complex<float>, ext_t> > >));
+  NT2_TEST_EXPR_TYPE(im, hierarchy<19>, (generic_< unspecified_< native<complex<float>, ext_t> > >));
+  NT2_TEST_EXPR_TYPE(im, hierarchy<20>, (fusion_sequence_< native<complex<float>, ext_t> >));
+  NT2_TEST_EXPR_TYPE(im, hierarchy<21>, (unspecified_< native<complex<float>, ext_t> >));
 }
