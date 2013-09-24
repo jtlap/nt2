@@ -16,6 +16,7 @@
 
 #include <boost/simd/sdk/simd/algorithm.hpp>
 #include <boost/simd/include/functions/plus.hpp>
+#include <boost/simd/include/constants/one.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -37,7 +38,7 @@ struct plus_one
   template<class T>
   T operator()(T const& t0) const
   {
-    return t0 + 1;
+    return t0 + One<T>();
   }
 };
 
