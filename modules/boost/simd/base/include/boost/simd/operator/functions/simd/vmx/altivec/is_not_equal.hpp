@@ -17,10 +17,17 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_equal_, boost::simd::tag::altivec_, (A0)
-                            , ((simd_<arithmetic_<A0>, boost::simd::tag::altivec_>))
-                              ((simd_<arithmetic_<A0>, boost::simd::tag::altivec_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::is_not_equal_
+                                    , boost::simd::tag::altivec_, (A0)
+                                    , ((simd_ < floating_<A0>
+                                              , boost::simd::tag::altivec_
+                                              >
+                                      ))
+                                      ((simd_ < floating_<A0>
+                                              , boost::simd::tag::altivec_
+                                              >
+                                      ))
+                                    )
   {
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)

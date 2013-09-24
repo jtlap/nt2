@@ -84,7 +84,6 @@ namespace nt2 { namespace details
     int n = nt2::numel(x);
     bool restart = true;
     array_t xi = nt2::eye(n, n, meta::as_<float_t>());
-    array_t A(of_size(n, n));
     array_t xk = x(nt2::_);
     array_t d = nt2::oneo_10(n, 1, meta::as_<float_t>());
     array_t lambda = nt2::zeros(nt2::of_size(n, 1), meta::as_<float_t>());

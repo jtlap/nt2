@@ -19,6 +19,7 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 
 NT2_TEST_CASE_TPL ( cauchy_ints, NT2_REAL_TYPES)
 {
@@ -40,5 +41,5 @@ NT2_TEST_CASE_TPL ( cauchy_ints_2, NT2_REAL_TYPES)
                                          T(18), T( 30), T( 90))/T(45));
   nt2::table<T> v =  nt2::cauchy(nt2::_(T(1.5), T(3.5)), -nt2::_(T(1), T(3)));
   NT2_DISPLAY(v);
-  NT2_TEST_EQUAL(v, m3);
+  NT2_TEST_ULP_EQUAL(v, m3, 1);
 }

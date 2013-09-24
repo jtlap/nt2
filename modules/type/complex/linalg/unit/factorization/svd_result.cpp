@@ -33,7 +33,6 @@ NT2_TEST_CASE_TPL(svd_resultc, NT2_REAL_TYPES)
   typedef std::complex<T> cT;
   typedef nt2::table<T> t_t;
   typedef nt2::table<cT> ct_t;
-  typedef nt2::table<itype_t> it_t;
   ct_t b =       nt2::ones (4, 4, nt2::meta::as_<cT>())
         + T(10)*nt2::eye  (4, 4, nt2::meta::as_<cT>());
   b(_, 1) = b(_, 3);

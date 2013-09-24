@@ -18,6 +18,11 @@
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/mpl/equal_to.hpp>
 
+#ifndef NDEBUG
+#include <boost/simd/include/functions/simd/max.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#endif
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::rshl_, tag::cpu_, (A0)(A1)(X)
@@ -32,7 +37,11 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
+      #ifndef NDEBUG
+      return if_else(is_gtz(a1), shl(a0, max(Zero<A1>(), a1)), shr(a0, max(Zero<A1>(), -a1)));
+      #else
       return if_else(is_gtz(a1), shl(a0, a1), shr(a0, -a1));
+      #endif
     }
   };
 

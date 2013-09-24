@@ -8,10 +8,10 @@
 //==============================================================================
 #ifndef NT2_BESSEL_FUNCTIONS_SIMD_COMMON_YNI_HPP_INCLUDED
 #define NT2_BESSEL_FUNCTIONS_SIMD_COMMON_YNI_HPP_INCLUDED
+
 #include <nt2/bessel/functions/yni.hpp>
-#include <nt2/sdk/meta/as_logical.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
 #include <nt2/include/functions/simd/oneminus.hpp>
@@ -24,6 +24,8 @@
 #include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/is_ltz.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_
@@ -65,7 +67,6 @@ namespace nt2 { namespace ext
       result_type sign = splat<result_type>((a0<0)?cospi(n1):1);
       if( n1 == 0 ) return( sign * y0(x) );
       if( n1 == 1 ) return( sign * y1(x) );
-      result_type an1 = splat<result_type>(n1);
       /* forward recurrence on n */
 
       result_type anm2 = y0(x);

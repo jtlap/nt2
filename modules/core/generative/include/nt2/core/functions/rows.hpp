@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_ROWS_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_ROWS_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the rows function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/core/functions/details/rows.hpp>
 #include <nt2/core/container/dsl/generative.hpp>

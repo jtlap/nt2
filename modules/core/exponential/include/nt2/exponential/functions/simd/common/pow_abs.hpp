@@ -91,8 +91,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename meta::as_integer<A0>::type       int_type;
-      typedef result_type             r_type;
+      typedef result_type r_type;
       r_type a00 =  tofloat(a0);
       r_type x = nt2::abs(a00);
       r_type r = x;
@@ -104,12 +103,12 @@ namespace nt2 { namespace ext
       r_type w = x;
       n = shri(n,1);
       while( nt2::any(n) )
-        {
-          w =sqr(w);
-          n_oddf = if_else_zero(is_odd(n), One<r_type>());
-          y = y*madd(n_oddf,w,oneminus(n_oddf));
-          n = shri(n,1);
-        }
+      {
+        w =sqr(w);
+        n_oddf = if_else_zero(is_odd(n), One<r_type>());
+        y = y*madd(n_oddf,w,oneminus(n_oddf));
+        n = shri(n,1);
+      }
 
       w = y; //b_xor(y, sign_x);
       y = madd(nf, w, (oneminus(nf))*y);

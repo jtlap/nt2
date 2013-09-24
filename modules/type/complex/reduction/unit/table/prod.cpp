@@ -30,8 +30,6 @@ NT2_TEST_CASE_TPL( prod, NT2_REAL_TYPES)
   using nt2::_;
   typedef std::complex<T>  cT;
 
-  std::size_t M = 5;
-
   table<cT> r, r1;
   table<cT> a = T(2)*nt2::ones(2, 3, nt2::meta::as_<cT>());
 

@@ -6,15 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2::isulpequal function"
-
 #include <nt2/table.hpp>
 #include <nt2/include/functions/isulpequal.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/constants/valmax.hpp>
-#include <nt2/include/functions/nans.hpp>
-#include <nt2/include/functions/ones.hpp>
+#include <nt2/include/functions/nan.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -70,6 +67,6 @@ NT2_TEST_CASE( container_isulpequal )
   NT2_TEST( !nt2::isulpequal(1.0f ,  nt2::ones(1, 2)));
   NT2_TEST(  nt2::isulpequal( nt2::ones(1, 1) , 1.0f));
   NT2_TEST( !nt2::isulpequal( nt2::ones(1, 2) , 1.0f));
-  NT2_TEST(  nt2::isulpequal( nt2::Nan<float>(),  nt2::nans(1, 1)));
-  NT2_TEST( !nt2::isulpequal( nt2::Nan<float>(),  nt2::nans(1, 2)));
+  NT2_TEST(  nt2::isulpequal( nt2::Nan<float>(),  nt2::nan(1, 1)));
+  NT2_TEST( !nt2::isulpequal( nt2::Nan<float>(),  nt2::nan(1, 2)));
 }

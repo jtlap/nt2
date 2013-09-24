@@ -68,8 +68,12 @@ BOOST_DISPATCH_RETURNS_ARGS(N,Args,Args, Body)                                 \
 /**/
 
 #define BOOST_DISPATCH_RETURNS_ARGS(N, Args, Call, Body)                       \
-BOOST_PP_REPEAT(N, BOOST_DISPATCH_RETURNS_, (N, Args))                         \
-typedef BOOST_DISPATCH_TYPEOF(Body) result_type;                               \
+struct dispatch_returns_impl                                                   \
+{                                                                              \
+  BOOST_PP_REPEAT(N, BOOST_DISPATCH_RETURNS_, (N, Args))                       \
+  BOOST_DISPATCH_TYPEOF_(Body, result_type)                                    \
+};                                                                             \
+typedef typename dispatch_returns_impl::result_type result_type;               \
 BOOST_FORCEINLINE result_type operator()Call const { return Body; }            \
 /**/
 

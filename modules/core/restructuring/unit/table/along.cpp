@@ -21,8 +21,7 @@ NT2_TEST_CASE_TPL( along_scalar, NT2_REAL_TYPES )
   using nt2::_;
   nt2::table<T> y( nt2::of_size(3, 4, 2, 3) );
 
-  size_t k = 0;
-  for(size_t m=1;m<=size(y, 4);m++)
+  for(size_t k = 0, m=1;m<=size(y, 4);m++)
     for(size_t l=1;l<=size(y, 3);l++)
       for(size_t j=1;j<=size(y, 2);j++)
         for(size_t i=1;i<=size(y, 1);i++)
@@ -59,8 +58,7 @@ NT2_TEST_CASE_TPL( along_vect, NT2_REAL_TYPES )
 
   nt2::table<T> y( nt2::of_size(3, 4, 2, 3) );
 
-  size_t k = 0;
-  for(size_t m=1;m<=size(y, 4);m++)
+  for(size_t k = 0, m=1;m<=size(y, 4);m++)
     for(size_t l=1;l<=size(y, 3);l++)
       for(size_t j=1;j<=size(y, 2);j++)
         for(size_t i=1;i<=size(y, 1);i++)

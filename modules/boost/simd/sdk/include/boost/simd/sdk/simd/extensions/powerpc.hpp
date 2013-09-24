@@ -15,4 +15,14 @@
 #include <boost/simd/sdk/simd/extensions/powerpc/altivec.hpp>
 //#include <boost/simd/sdk/simd/extensions/powerpc/spu.hpp>
 
+#if defined(BOOST_SIMD_HAS_VMX_SUPPORT)
+  #if !defined(BOOST_SIMD_GPR_COUNT)
+  #define BOOST_SIMD_GPR_COUNT 32u
+  #endif
+
+  #if !defined(BOOST_SIMD_VR_COUNT)
+  #define BOOST_SIMD_VR_COUNT  32u
+  #endif
+#endif
+
 #endif

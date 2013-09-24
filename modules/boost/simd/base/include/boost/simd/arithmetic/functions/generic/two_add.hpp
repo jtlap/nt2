@@ -15,6 +15,7 @@
 #include <boost/simd/include/functions/simd/is_inf.hpp>
 #include <boost/simd/include/functions/simd/if_zero_else.hpp>
 #include <boost/simd/sdk/config.hpp>
+#include <boost/simd/sdk/config/enforce_precision.hpp>
 #include <boost/fusion/include/std_pair.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -66,6 +67,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(A0 const& a,A0 const& b, A0 & r0,A0 & r1) const
     {
+      boost::simd::config::enforce_precision<A0> enforcer;
       r0   = a  + b;
       A0 z = r0 - a;
 #if defined(BOOST_SIMD_NO_INFINITIES)

@@ -25,6 +25,23 @@
 #include <boost/preprocessor/seq/size.hpp>
 #include <boost/preprocessor/cat.hpp>
 
+#if !defined(DOXYGEN_ONLY)
+#define BOOST_DISPATCH_FUNCTION_RETURN_TYPE(Tag,Args)                          \
+typename boost::dispatch::meta::result_of< typename boost::dispatch::meta::    \
+  dispatch_call< Tag( BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Args)                   \
+                                   , BOOST_DISPATCH_FN_ARGS                    \
+                                   , Args                                      \
+                                   )                                           \
+                    )                                                          \
+               >::type                                                         \
+  ( BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Args), BOOST_DISPATCH_FN_ARGS, Args) )     \
+>::type                                                                        \
+/**/
+#else
+#define BOOST_DISPATCH_FUNCTION_RETURN_TYPE(Tag,Args) details::unspecified     \
+/**/
+#endif
+
 /*!
   @brief Generate dispatch-based function prototype
 
@@ -175,15 +192,7 @@ BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(                                    \
 #define BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(Tag, Name, Args, N)         \
 template<BOOST_PP_ENUM_PARAMS(N, class A)>                                     \
 BOOST_FORCEINLINE                                                              \
-typename boost::dispatch::meta::result_of< typename boost::dispatch::meta::    \
-  dispatch_call< Tag( BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Args)                   \
-                                   , BOOST_DISPATCH_FN_ARGS                    \
-                                   , Args                                      \
-                                   )                                           \
-                    )                                                          \
-               >::type                                                         \
-  ( BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Args), BOOST_DISPATCH_FN_ARGS, Args) )     \
->::type                                                                        \
+BOOST_DISPATCH_FUNCTION_RETURN_TYPE(Tag,Args)                                  \
 Name( BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Args), BOOST_DISPATCH_FN_ARGS, Args) )   \
 {                                                                              \
   return typename boost::dispatch::meta::                                      \

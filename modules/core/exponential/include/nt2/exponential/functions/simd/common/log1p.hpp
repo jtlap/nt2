@@ -45,15 +45,17 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       result_type u = oneplus(a0);
-      return if_else(eq(u, Inf<A0>()),
-                     u, if_else(lt(nt2::abs(a0), Eps<result_type>()),
-                                a0,
-                                seladd(is_nez(u),
-                                       log(u),
-                                       -((u-One<A0>())-a0)/u)
-                                )
-                     );
-      // cancels errors with IEEE arithmetic
+      result_type r = if_else(lt(nt2::abs(a0), Eps<result_type>()),
+                              a0,
+                              seladd(is_nez(u),
+                                     log(u),
+                                     -((u-One<A0>())-a0)/u)
+                             ); // cancels errors with IEEE arithmetic
+#ifdef BOOST_SIMD_NO_INVALIDS
+      return r;
+#else
+      return if_else(eq(u, Inf<A0>()),u, r);
+#endif
     }
   };
 } }

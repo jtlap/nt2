@@ -9,6 +9,8 @@
 #ifndef BOOST_SIMD_SDK_SIMD_EXTENSIONS_X86_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_EXTENSIONS_X86_HPP_INCLUDED
 
+#include <boost/simd/sdk/config/arch.hpp>
+
 ////////////////////////////////////////////////////////////////////////////////
 // Check for the most recent SSE family extension
 ////////////////////////////////////////////////////////////////////////////////
@@ -25,6 +27,28 @@
 #include <boost/simd/sdk/simd/extensions/x86/sse3.hpp>
 #include <boost/simd/sdk/simd/extensions/x86/sse2.hpp>
 #include <boost/simd/sdk/simd/extensions/x86/sse.hpp>
+#endif
+
+#if   defined(BOOST_SIMD_HAS_SSE_SUPPORT)
+  #if defined(BOOST_SIMD_ARCH_X86_64)
+
+    #if !defined(BOOST_SIMD_GPR_COUNT)
+    #define BOOST_SIMD_GPR_COUNT 16u
+    #endif
+
+    #if !defined(BOOST_SIMD_VR_COUNT)
+    #define BOOST_SIMD_VR_COUNT  16u
+    #endif
+
+  #elif defined(BOOST_SIMD_ARCH_X86)
+    #if !defined(BOOST_SIMD_GPR_COUNT)
+    #define BOOST_SIMD_GPR_COUNT 8u
+    #endif
+
+    #if !defined(BOOST_SIMD_VR_COUNT)
+    #define BOOST_SIMD_VR_COUNT  8u
+    #endif
+  #endif
 #endif
 
 #endif

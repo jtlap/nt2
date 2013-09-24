@@ -14,11 +14,6 @@
 #include <boost/simd/arithmetic/functions/fast_rec.hpp>
 #include <boost/simd/sdk/config.hpp>
 
-#if !defined(BOOST_SIMD_NO_INFINITIES)
-#include <boost/simd/include/functions/is_not_infinite.hpp>
-#include <boost/simd/include/functions/if_else_zero.hpp>
-#endif
-
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::fast_rec_
@@ -34,16 +29,8 @@ namespace boost { namespace simd { namespace ext
       float inv;
       _mm_store_ss( &inv, _mm_rcp_ps( _mm_load_ss( &a0 ) ) );
 
-      // Square and filter out 1/+-0
-      A0  invs  = a0 ? (a0 * (inv*inv)) : a0;
-
-    #if defined(BOOST_SIMD_NO_INFINITIES)
       // Newton-Raphson: 1/X ~= (2*x - (a0*x^2)
-      return (inv+inv) - invs;
-    #else
-      // handle 1/+-inf
-      return if_else_zero( is_not_infinite(a0), (inv+inv) - invs );
-    #endif
+      return (inv+inv) - (a0 * (inv*inv));
     }
   };
 } } }

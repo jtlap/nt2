@@ -114,7 +114,6 @@ namespace nt2 { namespace ext
       A0 x = nt2::sqr(xx);
       if( xx < static_cast<A0>(3.25) )
       {
-        A0 x =  nt2::sqr(xx);
         return a0 * nt2::polevl( x, AN)/ nt2::polevl( x, AD );
       }
       x =  rec(x);

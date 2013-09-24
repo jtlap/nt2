@@ -27,9 +27,7 @@ NT2_TEST_CASE_TPL(full_lu_solve_resultc, NT2_REAL_TYPES)
   using nt2::_;
   using nt2::tag::solvers::full_lu_solve_;
   typedef std::complex<T> cT;
-  typedef typename nt2::meta::as_integer<T, signed>::type itype_t;
   typedef nt2::table<cT> ct_t;
-  typedef nt2::table<itype_t> it_t;
   ct_t a =       nt2::ones (4, 4, nt2::meta::as_<cT>())
         + T(10)*nt2::eye  (4, 4, nt2::meta::as_<cT>());
   ct_t b = nt2::ones(4, 1, nt2::meta::as_<cT>());

@@ -20,9 +20,9 @@
 #include <nt2/sdk/unit/tests/cover.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
-#include <nt2/include/functions/idivround.hpp>
+#include <nt2/include/functions/idivround2even.hpp>
 
-NT2_TEST_CASE_TPL ( remainder_real__1_0_1,  NT2_TYPES)
+NT2_TEST_CASE_TPL ( remainder_real__1_0_1,  NT2_SIGNED_TYPES)
 {
 
   using nt2::remainder;
@@ -36,7 +36,7 @@ NT2_TEST_CASE_TPL ( remainder_real__1_0_1,  NT2_TYPES)
   nt2::roll(in2, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
   for(nt2::uint32_t i=0; i < NR ; ++i)
   {
-    ref[i] = in2[i]? in1[i]-in2[i]*nt2::idivround(in1[i],in2[i]) : in1[i];
+    ref[i] = in2[i]? in1[i]-in2[i]*nt2::idivround2even(in1[i],in2[i]) : in1[i];
   }
 
   NT2_COVER_ULP_EQUAL(remainder_, ((T, in1))((T, in2)), ref, 0);

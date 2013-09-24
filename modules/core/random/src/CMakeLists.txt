@@ -6,11 +6,11 @@
 #                 See accompanying file LICENSE.txt or copy at
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
-
 include(NT2Module)
 nt2_module_source_setup(core.random)
 
 set(SOURCES
+    rand/rng_settings.cpp
     rand/randstream.cpp
     rand/mt19937stream.cpp
     rand/lagged_fibonacci2281stream.cpp

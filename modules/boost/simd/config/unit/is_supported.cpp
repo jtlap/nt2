@@ -14,7 +14,18 @@
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
-#define BOOST_IS_SUPPORTED_CALL(tag) boost::simd::is_supported<tag>();
+static inline const char* msg(int i)
+{
+  switch(i)
+  {
+    case 1:
+      return "true";
+    case -1:
+      return "false";
+    default:
+      return "unknown";
+  }
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test if the runtime detection of SIMD extensions works according to
@@ -22,15 +33,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE(is_supported)
 {
-  std::cout << "Altivec : " << boost::simd::is_supported<boost::simd::tag::altivec_>() << std::endl;
-  std::cout << "Neon    : " << boost::simd::is_supported<boost::simd::tag::neon_>() << std::endl;
-  std::cout << "AVX     : " << boost::simd::is_supported<boost::simd::tag::avx_>() << std::endl;
-  std::cout << "SSE4.2  : " << boost::simd::is_supported<boost::simd::tag::sse4_2_>() << std::endl;
-  std::cout << "SSE4.1  : " << boost::simd::is_supported<boost::simd::tag::sse4_1_>() << std::endl;
-  std::cout << "SSE4A   : " << boost::simd::is_supported<boost::simd::tag::sse4a_>() << std::endl;
-  std::cout << "SSSE3   : " << boost::simd::is_supported<boost::simd::tag::ssse3_>() << std::endl;
-  std::cout << "SSE3    : " << boost::simd::is_supported<boost::simd::tag::sse3_>() << std::endl;
-  std::cout << "SSE2    : " << boost::simd::is_supported<boost::simd::tag::sse2_>() << std::endl;
+  std::cout << "Altivec : " << msg(boost::simd::is_supported("vmx")) << std::endl;
+  std::cout << "Neon    : " << msg(boost::simd::is_supported("neon")) << std::endl;
+  std::cout << "AVX     : " << msg(boost::simd::is_supported("avx")) << std::endl;
+  std::cout << "SSE4.2  : " << msg(boost::simd::is_supported("sse4.2")) << std::endl;
+  std::cout << "SSE4.1  : " << msg(boost::simd::is_supported("sse4.1")) << std::endl;
+  std::cout << "SSE4A   : " << msg(boost::simd::is_supported("sse4a")) << std::endl;
+  std::cout << "SSSE3   : " << msg(boost::simd::is_supported("ssse3")) << std::endl;
+  std::cout << "SSE3    : " << msg(boost::simd::is_supported("sse3")) << std::endl;
+  std::cout << "SSE2    : " << msg(boost::simd::is_supported("sse2")) << std::endl;
 
   NT2_TEST_COMPLETE("SIMD extensions detection");
 }

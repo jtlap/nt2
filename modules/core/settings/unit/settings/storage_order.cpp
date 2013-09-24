@@ -34,7 +34,6 @@ NT2_TEST_CASE( storage_order_concept )
   using boost::mpl::_;
 
   {
-    typedef option<nt2::column_major_, nt2::tag::storage_order_, some_kind_> opt;
     NT2_TEST( (match_option< nt2::column_major_, nt2::tag::storage_order_ >::value) );
     NT2_TEST_EXPR_TYPE((size_t<0>()),(column_major_apply_<size_t<4>,_>),(size_t<0>));
     NT2_TEST_EXPR_TYPE((size_t<1>()),(column_major_apply_<size_t<4>,_>),(size_t<1>));
@@ -43,8 +42,6 @@ NT2_TEST_CASE( storage_order_concept )
   }
 
   {
-    typedef option<nt2::row_major_, nt2::tag::storage_order_, some_kind_> opt;
-
     NT2_TEST( (match_option< nt2::row_major_, nt2::tag::storage_order_ >::value) );
     NT2_TEST_EXPR_TYPE((size_t<0>()),(row_major_apply_<size_t<4>,_>),(size_t<3>));
     NT2_TEST_EXPR_TYPE((size_t<1>()),(row_major_apply_<size_t<4>,_>),(size_t<2>));

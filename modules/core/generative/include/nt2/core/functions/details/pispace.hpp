@@ -24,13 +24,12 @@ namespace nt2 { namespace meta
   //============================================================================
   // pispace actual functor : precompute step and just iterate over
   //============================================================================
-  template<class T>
-  struct constant_<tag::pispace_,T>
+  template<typename Base> struct constant_<tag::pispace_,Base>
   {
-    typedef T                                          result_type;
+    typedef Base                                         base_type;
     constant_ () {}
-    constant_ ( T const& l, std::size_t n )
-              : lower_(l), step_((Log10_pi<T>()-l)/(n-1))
+    constant_ ( Base const& l, std::size_t n )
+              : lower_(l), step_((Log10_pi<Base>()-l)/(n-1))
     {}
 
     template<class Pos, class Size, class Target>
@@ -39,13 +38,13 @@ namespace nt2 { namespace meta
     {
       typedef typename Target::type type;
 
-      return nt2::exp10(nt2::fma ( nt2::enumerate<type>(p)
-                                   , nt2::splat<type>(step_)
-                                   , nt2::splat<type>(lower_)
-                                   ));
+      return nt2::exp10(nt2::fma( nt2::enumerate<type>(p)
+                                , nt2::splat<type>(step_)
+                                , nt2::splat<type>(lower_)
+                                ) );
     }
 
-    T lower_, step_;
+    Base lower_, step_;
   };
 } }
 

@@ -13,7 +13,7 @@
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/sdk/meta/constant_adaptor.hpp>
 #include <nt2/core/utility/box.hpp>
-#include <nt2/core/functions/details/deltac.hpp>
+#include <nt2/core/functions/details/delta.hpp>
 #include <nt2/core/include/functions/as_size.hpp>
 
 namespace nt2 { namespace ext
@@ -29,9 +29,9 @@ namespace nt2 { namespace ext
                               (target_<scalar_< unspecified_<T> > > )
                             )
   {
-    typedef _2D                                                    size_type;
-    typedef meta::constant_<nt2::tag::deltac_,typename T::type>    constant_t;
-    typedef meta::as_<typename constant_t::result_type>             target_t;
+    typedef _2D                                                     size_type;
+    typedef meta::constant_<nt2::meta::delta_<0>,typename T::type>  constant_t;
+    typedef meta::as_<typename constant_t::base_type>               target_t;
     typedef typename  boost::proto::result_of
       ::make_expr < nt2::tag::deltac_
       , container::domain
@@ -65,9 +65,9 @@ namespace nt2 { namespace ext
                               (target_<scalar_< unspecified_<T> > > )
                             )
   {
-    typedef _2D                                                    size_type;
-    typedef meta::constant_<nt2::tag::deltac_,typename T::type>    constant_t;
-    typedef meta::as_<typename constant_t::result_type>             target_t;
+    typedef _2D                                                     size_type;
+    typedef meta::constant_<nt2::meta::delta_<0>,typename T::type>  constant_t;
+    typedef meta::as_<typename constant_t::base_type>               target_t;
     typedef typename  boost::proto::result_of
       ::make_expr < nt2::tag::deltac_
       , container::domain
@@ -100,9 +100,9 @@ namespace nt2 { namespace ext
                               (target_<scalar_< unspecified_<T> > > )
                             )
   {
-    typedef typename boost::remove_const<FS>::type                 size_type;
-    typedef meta::constant_<nt2::tag::deltac_,typename T::type>    constant_t;
-    typedef meta::as_<typename constant_t::result_type>             target_t;
+    typedef typename boost::remove_const<FS>::type                  size_type;
+    typedef meta::constant_<nt2::meta::delta_<0>,typename T::type>  constant_t;
+    typedef meta::as_<typename constant_t::base_type>               target_t;
     typedef typename  boost::proto::result_of
       ::make_expr < nt2::tag::deltac_
       , container::domain

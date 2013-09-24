@@ -7,7 +7,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-
 #ifndef NT2_CORE_FUNCTIONS_SCALAR_LINE_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_SCALAR_LINE_HPP_INCLUDED
 
@@ -37,8 +36,8 @@ namespace nt2 { namespace ext
                             )
   {
     typedef A0 result_type;
-    BOOST_FORCEINLINE
-    result_type operator()(A0 const& a0, A1, A2) const
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1, A2) const
     {
       return a0;
     }

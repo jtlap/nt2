@@ -8,9 +8,7 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <boost/simd/sdk/simd/extensions.hpp>
-#ifdef _MSC_VER
-#include <float.h>
-#endif
+#include <boost/simd/sdk/config/enforce_precision.hpp>
 #include <iostream>
 
 void float_control_debug()
@@ -21,18 +19,10 @@ void float_control_debug()
   #ifdef BOOST_SIMD_ARCH_X86
 
   std::cout << "x87 settings:\n";
-  short int cw;
-
-  #ifdef __GNUC__
-  __asm__("fstcw %w0" : "=m" (cw));
-  #elif defined(_MSC_VER)
-  cw = _control87(0, 0);
-  #else
-  #error unsupported compiler to debug x86 floating-point control word
-  #endif
+  unsigned short int cw = boost::simd::config::x86::x87_get_control_word();
 
   std::cout << "denormals allowed = " << !!(cw & (1 << 2)) << "\n";
-  int precision = cw << ((cw >> 8) & 0x3);
+  int precision = (cw >> 8) & 0x3;
   std::cout << "precision = " << ((precision == 0) ? "single" : (precision == 2) ? "double" : "extended") << "\n\n";
 
   #ifdef BOOST_SIMD_HAS_SSE_SUPPORT

@@ -16,6 +16,15 @@
 
 namespace nt2 { namespace config { namespace details
 {
+  #ifndef NT2_CACHE_DETECT_DEFINED
+  template<class Seq>
+  inline void detect_cache(Seq&, Seq&)
+  {
+    // dummy detect_cache
+    // by default all is zero
+  }
+  #endif
+
   inline
   boost::array< boost::array<int, NT2_MAX_CACHE_LEVEL>
               , 2

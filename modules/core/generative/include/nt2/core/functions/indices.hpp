@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_INDICES_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_INDICES_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Define and implements the ind2ind function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/core/utility/over.hpp>
 #include <nt2/core/functions/details/indices.hpp>

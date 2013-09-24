@@ -34,8 +34,8 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::as_integer<A0, signed>::type int_type;
-      typedef typename meta::scalar_of<A0>::type sA0;
       BOOST_ASSERT_MSG(assert_good_shift<A0>(a1), "shift_left: a shift is out of range");
+
       return bitwise_cast<result_type>( bitwise_cast<int_type>(a0) << a1 );
     }
   };

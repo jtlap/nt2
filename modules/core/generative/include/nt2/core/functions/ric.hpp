@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_RIC_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_RIC_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the ric function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/core/functions/details/ric.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>

@@ -40,19 +40,15 @@ NT2_TEST_CASE_TPL ( primes_integer__1_0,  (int32_t))//NT2_INTEGRAL_TYPES)
 
   using nt2::primes;
   using nt2::tag::primes_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<primes_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
 
   T p[6] = {2, 3, 5, 7, 11, 13};
   nt2::table<T> myp = primes(T(15));
   // specific values tests
   NT2_DISPLAY(myp);
  for(size_t i=1; i <= 6; ++i)
-   {
-     NT2_TEST_EQUAL(p[i-1], myp(i));
-   }
+ {
+   NT2_TEST_EQUAL(p[i-1], myp(i));
+ }
 
  nt2::table<T> myp1 = primes(T(100000));
  NT2_DISPLAY(primes(T(100)));

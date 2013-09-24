@@ -53,7 +53,6 @@ NT2_TEST_CASE_TPL( nbtrue_expr, NT2_REAL_TYPES )
 {
   typedef std::complex<T> cT;
   using nt2::_;
-  typedef typename nt2::meta::as_integer<T>::type itype_t;
   nt2::table<cT> y( nt2::of_size(5,3) );
   nt2::table<cT> y1;
   nt2::table<T> sy1, sy, sy2, sy3;

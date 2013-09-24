@@ -40,12 +40,12 @@ namespace nt2 { namespace details
 
   public:
     template < class M >
-    fpoint(M& b, const func_t & f)
+    fpoint(M& b, const func_t & f_)
       : x(b),
-        fproc(f),
+        fproc(f_),
         free_x_on_destructing(false)
     {
-      fval = f(b);
+      fval = f_(b);
     }
 
     ~fpoint(){
@@ -135,10 +135,10 @@ namespace nt2 { namespace details
   template < class FPOINT  >
   void update_in_direction(FPOINT& from, FPOINT& to)
   {
-    typedef typename FPOINT::float_t float_t;
+    typedef typename FPOINT::float_t float_t_;
     for(ptrdiff_t i = nt2::first_index<1>(nt2::colvect(from.x)); i <= nt2::last_index<1>(nt2::colvect(from.x)); ++i)
       {
-        const float_t t = to.x(i);
+        const float_t_ t = to.x(i);
         to.x(i)  += (t - from.x(i));
         from.x(i) = t;
       }

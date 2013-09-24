@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename A1::type result_type;
 
-    BOOST_DISPATCH_CALL(2)
+    BOOST_FORCEINLINE result_type operator()(const A0& a0, const A1&) const
     {
       result_type v;
       v[0] = a0;

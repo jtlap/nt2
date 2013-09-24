@@ -11,6 +11,7 @@
 #include <nt2/sdk/unit/stats.hpp>
 #include <iostream>
 #include <cmath>
+#include <limits>
 
 namespace nt2 { namespace details
 {

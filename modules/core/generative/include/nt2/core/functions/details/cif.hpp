@@ -10,8 +10,8 @@
 #ifndef NT2_CORE_FUNCTIONS_DETAILS_CIF_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_DETAILS_CIF_HPP_INCLUDED
 
-#include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/functions/simd/enumerate.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/core/utility/as_subscript.hpp>
 #include <nt2/sdk/meta/constant_adaptor.hpp>
@@ -25,7 +25,7 @@ namespace nt2 { namespace meta
   /// Functor used to generate cif values
   template<class Base> struct constant_<nt2::tag::cif_, Base>
   {
-    typedef Base                                          result_type;
+    typedef Base                                          base_type;
 
     template<class Pos, class Size,class Target>
     BOOST_FORCEINLINE typename Target::type
@@ -34,7 +34,7 @@ namespace nt2 { namespace meta
       typedef typename Target::type               type;
       typedef typename meta::as_index<type>::type i_t;
 
-      return splat<type>( as_subscript(sz,enumerate<i_t>(p))[1] + 1 );
+      return splat<type>(as_subscript(sz,enumerate<i_t>(p))[1]) + One<type>();
     }
   };
 } }

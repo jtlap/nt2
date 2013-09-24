@@ -172,8 +172,8 @@ namespace nt2 { namespace ext
       }
       if (k == 1)
       {
-        tab_t c1 = c(nt2::_(2, n+1), nt2::_(2, n+1));
-        c = c1; //ALIASING
+        tab_t c1_ = c(nt2::_(2, n+1), nt2::_(2, n+1));
+        c = c1_; //ALIASING
       }
     }
   };

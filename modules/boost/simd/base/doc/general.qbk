@@ -1,0 +1,53 @@
+[section General Informations]
+
+[section Functions and operators]
+
+Boost.SIMD provides generic functions and operator so the same code can be
+written and used with both scalar and SIMD values. Those functions and operators
+can be split into three families:
+
+* *Elementwise functions* which apply to all element of its parameters. Examples
+are `plus` or `if_else`. Those functions operate transparently on scalar or
+SIMD values.
+
+* *Reduction functions* which reduce its parameters to a single scalar. Examples
+are `sum` or `compare_equal`. Those functions operate transparently on scalar
+or SIMD values.
+
+* *SWAR functions* operates on SIMD register only and perform operations
+on the SIMD value structure. Examples are `shuffle` or `splatted_sum`.
+
+In all cases, and unless specified otherwise, all Boost.SIMD functions are
+strongly typed in such a way that all their parameters must be of the same type.
+
+[endsect]
+
+[section Constants]
+Handling typed constants in a generic way is a bit challenging. Boost.SIMD implements
+constants are nullary functions which takes their target types as a template parameters.
+For example, the following code generates the constant 0 in various type:
+
+
+
+[endsect]
+
+[section How to use a Boost.SIMD function or constant ?]
+All Boost.SIMD functions are accessible through various headers. Let's say we
+want to use the boost::simd::plus functions, you may have to include:
+
+* `boost/simd/include/functions/plus.hpp` to access both scalar and SIMD variants
+of the function. This is the default behavior you may watn for using the functions
+in your code.
+
+* `boost/simd/include/functions/scalar/plus.hpp` to access the scalar only variant
+of the function. This is the recommended when you are working with strictly
+scalar types as it reduces the compilation times by omitting the SIMD specific
+variants.
+
+For constants, the same apply, but the root folder is `constants` instead of
+`functions`. So using the `Zero` constant will require you to include either
+`boost/simd/include/constants/zero.hpp` or `boost/simd/include/constants/zero.hpp`
+
+[endsect]
+
+[endsect]

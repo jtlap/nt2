@@ -101,8 +101,8 @@ NT2_TEST_CASE( prod_2D )
     NT2_TEST_EQUAL(r1(i,1),1<<N) ;
 
 
-  for(int j = 3; j <= NT2_MAX_DIMENSIONS; ++j){
-    r = prod(a,j);
+  for(int jj = 3; jj <= NT2_MAX_DIMENSIONS; ++jj){
+    r = prod(a,jj);
     for(std::size_t j = 1; j <= N; ++j)
       for(std::size_t i = 1; i <= M; ++i)
         NT2_TEST_EQUAL(r(i,j), a(i,j));
@@ -178,8 +178,8 @@ NT2_TEST_CASE( prod_3D )
       NT2_TEST_EQUAL(r1(i,j,1),1<<O) ;
 
 
-  for(int j = 4; j <= NT2_MAX_DIMENSIONS; ++j){
-    r = prod(a,j);
+  for(int jj = 4; jj <= NT2_MAX_DIMENSIONS; ++jj){
+    r = prod(a,jj);
     for(std::size_t k = 1; k <= O; ++k)
       for(std::size_t j = 1; j <= N; ++j)
         for(std::size_t i = 1; i <= M; ++i)

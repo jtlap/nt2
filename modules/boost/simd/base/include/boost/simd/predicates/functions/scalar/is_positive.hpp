@@ -8,11 +8,13 @@
 //==============================================================================
 #ifndef BOOST_SIMD_PREDICATES_FUNCTIONS_SCALAR_IS_POSITIVE_HPP_INCLUDED
 #define BOOST_SIMD_PREDICATES_FUNCTIONS_SCALAR_IS_POSITIVE_HPP_INCLUDED
+
 #include <boost/simd/predicates/functions/is_positive.hpp>
-#include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
-#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/include/functions/scalar/sbits.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -45,10 +47,10 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename boost::dispatch::meta::as_integer<A0, signed>::type itype;
       return result_type(boost::simd::sbits(a0) >= 0);
 
-      //      return result_type(boost::simd::bitwise_cast<itype>(a0) >=  Zero<itype>());
+      // typedef typename boost::dispatch::meta::as_integer<A0, signed>::type itype;
+      // return result_type(boost::simd::bitwise_cast<itype>(a0) >=  Zero<itype>());
     }
   };
 } } }

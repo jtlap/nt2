@@ -11,19 +11,17 @@
 
 #include <nt2/core/functions/tri1u.hpp>
 #include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/one.hpp>
 
 namespace nt2 { namespace ext
 {
-  //============================================================================
-  // Generates tri1u from a pair of [a, k]
-  //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::offset_tri1u_, tag::cpu_, (A0)(A1)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tri1u_, tag::cpu_, (A0)(A1)
                             , (scalar_< unspecified_<A0> >)
                               (scalar_< integer_<A1> >)
                             )
   {
     typedef A0  result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& k) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 k) const
     {
       return k == 0 ? One<result_type>() : (k > 0) ? Zero<result_type>() : a0;
     }
@@ -33,7 +31,7 @@ namespace nt2 { namespace ext
                             , (scalar_< unspecified_<A0> >)
                             )
   {
-    typedef A0  result_type;
+    typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const&) const
     {
       return One<result_type>();

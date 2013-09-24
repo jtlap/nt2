@@ -23,10 +23,9 @@ namespace boost { namespace simd { namespace ext
                                ((simd_<arithmetic_<A0>,X>))
                               )
   {
- typedef typename dispatch::meta::as_integer<A0, signed>::type  result_type;
+    typedef typename dispatch::meta::as_integer<A0, signed>::type  result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
       typedef typename meta::scalar_of<A0>::type             s_type;
       typedef typename meta::scalar_of<result_type>::type sint_type;
       const sint_type me = Maxexponent<s_type>();

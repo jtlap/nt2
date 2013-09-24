@@ -26,7 +26,6 @@
 NT2_TEST_CASE_TPL(inv, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_complex<T>::type  cT;
-  typedef T r_t;
   using nt2::inv;
   using nt2::tag::inv_;
   nt2::table<cT> n = nt2::eye(10, 10, nt2::meta::as_<cT>());
@@ -37,7 +36,6 @@ NT2_TEST_CASE_TPL(inv, NT2_REAL_TYPES)
 NT2_TEST_CASE_TPL(inv_1, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_complex<T>::type  cT;
-  typedef T r_t;
   using nt2::inv;
   using nt2::tag::inv_;
   nt2::table<cT> n = nt2::eye(10, 10, nt2::meta::as_<cT>()), nn;
@@ -50,7 +48,6 @@ NT2_TEST_CASE_TPL(inv_1, NT2_REAL_TYPES)
 NT2_TEST_CASE_TPL(inv_2, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_complex<T>::type  cT;
-  typedef T r_t;
   using nt2::inv;
   using nt2::tag::inv_;
   nt2::table<cT> n = nt2::eye(10, 8, nt2::meta::as_<cT>()), nn;
@@ -59,7 +56,6 @@ NT2_TEST_CASE_TPL(inv_2, NT2_REAL_TYPES)
 NT2_TEST_CASE_TPL(inv_nowarn, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_complex<T>::type  cT;
-  typedef T r_t;
   using nt2::inv;
   using nt2::tag::inv_;
   nt2::table<cT> n = nt2::eye(10, 10, nt2::meta::as_<cT>()), nn;
@@ -72,7 +68,6 @@ NT2_TEST_CASE_TPL(inv_nowarn, NT2_REAL_TYPES)
 NT2_TEST_CASE_TPL(inv_3, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_complex<T>::type  cT;
-  typedef T r_t;
   using nt2::inv;
   using nt2::tag::inv_;
   nt2::table<cT> a = nt2::cons(nt2::of_size(2, 2),

@@ -15,6 +15,7 @@ endif()
 nt2_module_doc( boost.simd_doc
                 simd.qbk
                 introduction.qbk
+                tutorial.qbk
                 rationale.qbk
               )
 

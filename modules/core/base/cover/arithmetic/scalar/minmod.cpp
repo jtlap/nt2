@@ -23,7 +23,7 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
 
-NT2_TEST_CASE_TPL ( minmod_real__1_0_1,  NT2_TYPES)
+NT2_TEST_CASE_TPL ( minmod_s,  NT2_SIGNED_TYPES)
 {
 
   using nt2::minmod;
@@ -38,6 +38,26 @@ NT2_TEST_CASE_TPL ( minmod_real__1_0_1,  NT2_TYPES)
   for(nt2::uint32_t i=0; i < NR ; ++i)
   {
     ref[i] = (in1[i] >= 0)^(in2[i] >=  0) ? 0 : nt2::min(in1[i], in2[i]);
+  }
+
+  NT2_COVER_ULP_EQUAL(minmod_, ((T, in1))((T, in2)), ref, 0);
+
+}
+NT2_TEST_CASE_TPL ( minmod_u,  NT2_UNSIGNED_TYPES)
+{
+
+  using nt2::minmod;
+  using nt2::tag::minmod_;
+  typedef typename nt2::meta::call<minmod_(T, T)>::type r_t;
+
+  nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  std::vector<T> in1(NR), in2(NR);
+  std::vector<r_t> ref(NR);
+  nt2::roll(in1, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+  nt2::roll(in2, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+  for(nt2::uint32_t i=0; i < NR ; ++i)
+  {
+    ref[i] = nt2::min(in1[i], in2[i]);
   }
 
   NT2_COVER_ULP_EQUAL(minmod_, ((T, in1))((T, in2)), ref, 0);

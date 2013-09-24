@@ -45,7 +45,7 @@ NT2_TEST_CASE_TPL ( rshr_ui_1,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(rshr(boost::simd::Zero<vT>(),-1), boost::simd::Zero<r_t>());
 
 
-} // end of test for unsigned_int_
+}
 
 NT2_TEST_CASE_TPL ( rshr_si_1,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {

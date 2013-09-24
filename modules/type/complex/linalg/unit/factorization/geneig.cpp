@@ -32,8 +32,7 @@ NT2_TEST_CASE_TPL(geneig2, NT2_REAL_TYPES)
   typedef typename nt2::meta::as_integer<T, signed>::type itype_t;
   typedef std::complex<T> cT;
   typedef nt2::table<cT, nt2::_2D > ct_t;
-  typedef nt2::table<T, nt2::_2D> t_t;
-  typedef nt2::table<itype_t, nt2::_2D> it_t;
+//  typedef nt2::table<T, nt2::_2D> t_t;
   typedef typename nt2::meta::call<geneig_(ct_t const&, ct_t const&, char, char, char)>::type result_type;
   ct_t a =       nt2::ones (4, 4, nt2::meta::as_<cT>())
         + T(10)*nt2::eye  (4, 4, nt2::meta::as_<cT>());

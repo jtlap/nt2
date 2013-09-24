@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_SQRTSMALLESTPOSVAL_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_SQRTSMALLESTPOSVAL_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the sqrtsmallestposval function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/include/constants/sqrtsmallestposval.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>

@@ -28,7 +28,7 @@ NT2_TEST_CASE_TPL ( is_ngez,  NT2_TYPES)
   std::vector<r_t>  ref(NR);
   for(nt2::uint32_t i=0; i < NR ; ++i)
   {
-    ref[i] = !(in1[i] >= 0);
+    ref[i] = !((in1[i] > 0)||in1[i] == 0); //avoid warnings for unsigned types
   }
 
   NT2_COVER_ULP_EQUAL(is_ngez_, ((T, in1)), ref, 0);

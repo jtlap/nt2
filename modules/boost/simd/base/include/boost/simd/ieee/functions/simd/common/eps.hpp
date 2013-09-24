@@ -46,7 +46,6 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename dispatch::meta::as_integer<A0, signed>::type        int_type;
       const A0 a = boost::simd::abs(a0);
       return seladd(is_invalid(a),
                 select(boost::simd::is_less(a, Smallestposval<A0>()),

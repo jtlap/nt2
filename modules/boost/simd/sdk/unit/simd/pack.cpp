@@ -13,6 +13,7 @@
 #include <boost/simd/include/functions/aligned_store.hpp>
 #include <boost/simd/include/functions/aligned_load.hpp>
 #include <boost/simd/include/functions/plus.hpp>
+#include <boost/simd/include/functions/compare_equal.hpp>
 
 #include <boost/fusion/include/at.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -31,6 +32,7 @@ namespace foo
     tPack two (2.f);
 
     one = one + two;
+    one = one + 2.f;
 
     return 0;
   }
@@ -40,6 +42,20 @@ NT2_TEST_CASE(issue_495)
 {
   foo::issue_495<4>();
   NT2_TEST_COMPLETE("Issue #495");
+}
+
+NT2_TEST_CASE(compare_equal)
+{
+  using namespace boost::simd;
+  typedef pack<float, 2> f2;
+
+  f2 f2_f (1);
+  f2 f2_g (1);
+
+  logical<float> ret1 = compare_equal(f2_f, f2_g);
+  bool ret2 = compare_equal(f2_f, f2_g);
+  NT2_TEST(ret1);
+  NT2_TEST(ret2);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

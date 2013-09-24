@@ -23,6 +23,7 @@ SET(SOURCES
     minus.cpp
     multiplies.cpp
     divides.cpp
+    fast_divides.cpp
     bitwise_and.cpp
     bitwise_or.cpp
     bitwise_xor.cpp

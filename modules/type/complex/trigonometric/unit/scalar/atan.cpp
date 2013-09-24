@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL ( atan_real__1_0,  (double))//NT2_REAL_TYPES)
 
 
   // return type conformity test
-  //  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl;
 
 

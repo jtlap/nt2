@@ -27,6 +27,7 @@ SET( SOURCES
 #  load.cpp
   if_else.cpp
   divides.cpp
+  fast_divides.cpp
   complement.cpp
   is_not_equal.cpp
   is_less_equal.cpp

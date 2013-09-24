@@ -1,0 +1,33 @@
+[section Standard Operators]
+
+The operator toolbox provides support for operators acting quite the same as
+usual C++ operators.
+
+[table
+    [[C++ operator] [Function name] [Note]]
+    [[`-a` ]        [unary_minus  ]     []]
+    [[`+a` ]        [unary_plus   ]     []]
+    [[`~a`]         [complement   ]     []]
+    [[`!a` ]        [logical_not  ]     [Returns a SIMD logical vector.]]
+    [[`a && b`]     [logical_and  ]     [Returns a SIMD logical vector.]]
+    [[`a || b`]     [logical_or   ]     [Returns a SIMD logical vector.]]
+    [[`a == b`]     [is_equal]          [Returns a SIMD logical vector.]]
+    [[`a >= b`]     [is_greater_equal]  [Returns a SIMD logical vector.]]
+    [[`a > b` ]     [is_greater]        [Returns a SIMD logical vector.]]
+    [[`a <= b`]     [is_less_equal]     [Returns a SIMD logical vector.]]
+    [[`a > b` ]     [is_less ]          [Returns a SIMD logical vector.]]
+    [[`a != b`]     [isnot_equal]       [Returns a SIMD logical vector.]]
+    [[`a & b` ]     [bitwise_and  ]     [Can mix real and integers of same cardinal]]
+    [[`a | b` ]     [bitwise_or   ]     [Can mix real and integers of same cardinal]]
+    [[`a ^ b` ]     [bitwise_xor  ]     [Can mix real and integers of same cardinal]]
+    [[`a - b` ]     [minus        ]     []]
+    [[`a + b` ]     [plus         ]     []]
+    [[`a * b` ]     [multiplies   ]     []]
+    [[`a / b` ]     [divides      ]     []]
+    [[`a % b` ]     [modulo       ]     []]
+    [[`a << b`]     [shift_left   ]     []]
+    [[`a >> b`]     [shift_right  ]     []]
+    [[`a ? b : c` ] [if_else      ]     [`b` an `c` must be of the same type.`a` must share the same cardinal]]
+]
+
+[endsect]

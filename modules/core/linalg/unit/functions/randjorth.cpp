@@ -26,7 +26,6 @@
 
 NT2_TEST_CASE_TPL ( randjorth, NT2_REAL_TYPES)
 {
-  typedef typename nt2::meta::as_<T> ta_t;
   nt2::table<T> rc, p;
   nt2::table<T> j = nt2::blkdiag(nt2::eye(2, nt2::meta::as_<T>()),
                                  -nt2::eye(2, nt2::meta::as_<T>()));

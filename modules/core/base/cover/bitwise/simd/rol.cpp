@@ -32,8 +32,7 @@ NT2_TEST_CASE_TPL ( rol_all_types,  NT2_SIMD_INTEGRAL_TYPES)
   std::vector<T> in1(NR);
   std::vector<iT> in2(NR);
   nt2::roll(in1, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
-  nt2::roll(in2, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
-
+  nt2::roll(in2, 0, sizeof(T)*8-1);
   std::vector<r_t> ref(NR);
   for(nt2::uint32_t i=0; i < NR ; ++i) ref[i] = rol(in1[i], in2[i]);
   NT2_COVER_ULP_EQUAL(rol_, ((nT, in1))((nT, in2)), ref, 0);

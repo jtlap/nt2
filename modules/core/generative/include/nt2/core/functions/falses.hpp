@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_FALSES_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_FALSES_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Define and implements the falses function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/include/constants/false.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>

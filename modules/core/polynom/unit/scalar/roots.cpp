@@ -32,7 +32,6 @@ NT2_TEST_CASE_TPL ( roots_real__1_0,  NT2_REAL_TYPES)
 
   using nt2::roots;
   using nt2::tag::roots_;
-  typedef std::complex<T> cT;
   nt2::table<T> p =  nt2::_(T(1), T(3));
   p(2) = T(-3); p(3) = T(2);
   nt2::table<T> c = nt2::_(T(2), T(-1), T(1));

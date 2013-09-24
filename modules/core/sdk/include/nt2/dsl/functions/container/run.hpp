@@ -280,7 +280,9 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::run_, tag::cpu_
                             , (A0)(T)(N)
-                            , (mpl::not_< is_same<T, boost::simd::tag::assign_> >)
+                            , (mpl::and_< is_same<typename A0::proto_domain, nt2::container::domain>
+                                        , mpl::not_< is_same<T, boost::simd::tag::assign_> >
+                                        >)
                             , ((expr_< scalar_< unspecified_<A0> >
                                      , T
                                      , N

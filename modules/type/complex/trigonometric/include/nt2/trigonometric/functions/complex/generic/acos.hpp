@@ -165,9 +165,9 @@ namespace nt2 { namespace ext
         not_treated = logical_notand(zone4, not_treated);
         if (nt2::any(not_treated))
         {
-          rtype a = nt2::sqrt(oneplus(sqr(y)));
+          rtype aa = nt2::sqrt(oneplus(sqr(y)));
           r = if_else(not_treated, Pio_2<rtype>(), r);
-          i = if_else(not_treated, Half<rtype>()*nt2::log1p(Two<rtype>()*y*(y+a)), i);
+          i = if_else(not_treated, Half<rtype>()*nt2::log1p(Two<rtype>()*y*(y+aa)), i);
         }
       }
       if (nt2::any(is_invalid(a0)))

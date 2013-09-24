@@ -7,6 +7,7 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <boost/simd/meta/prev_power_of_2.hpp>
+#include <boost/simd/sdk/prev_power_of_2.hpp>
 
 #include <boost/mpl/int.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -15,7 +16,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test the meta::prev_power_of_2 version on int_
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(prev_power_of_2)
+NT2_TEST_CASE(static_prev_power_of_2)
 {
   using boost::simd::meta::prev_power_of_2;
   using boost::mpl::int_;
@@ -34,6 +35,29 @@ NT2_TEST_CASE(prev_power_of_2)
   NT2_TEST_EQUAL( (prev_power_of_2< int_<0x33> >::value), 0x20 );
   NT2_TEST_EQUAL( (prev_power_of_2< int_<0x6A> >::value), 0x40 );
   NT2_TEST_EQUAL( (prev_power_of_2< int_<0x201> >::value), 0x200 );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test the meta::prev_power_of_2 version on int
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE(dynamic_prev_power_of_2)
+{
+  using boost::simd::prev_power_of_2;
+
+  NT2_TEST_EQUAL( prev_power_of_2(0x00), 0x00U );
+  NT2_TEST_EQUAL( prev_power_of_2(0x01), 0x01U );
+  NT2_TEST_EQUAL( prev_power_of_2(0x02), 0x02U );
+  NT2_TEST_EQUAL( prev_power_of_2(0x03), 0x02U );
+  NT2_TEST_EQUAL( prev_power_of_2(0x04), 0x04U );
+  NT2_TEST_EQUAL( prev_power_of_2(0x05), 0x04U );
+  NT2_TEST_EQUAL( prev_power_of_2(0x06), 0x04U );
+  NT2_TEST_EQUAL( prev_power_of_2(0x07), 0x04U );
+  NT2_TEST_EQUAL( prev_power_of_2(0x08), 0x08U );
+  NT2_TEST_EQUAL( prev_power_of_2(0x0D), 0x08U );
+  NT2_TEST_EQUAL( prev_power_of_2(0x14), 0x10U );
+  NT2_TEST_EQUAL( prev_power_of_2(0x33), 0x20U );
+  NT2_TEST_EQUAL( prev_power_of_2(0x6A), 0x40U );
+  NT2_TEST_EQUAL( prev_power_of_2(0x201), 0x200U );
 }
 
 ////////////////////////////////////////////////////////////////////////////////

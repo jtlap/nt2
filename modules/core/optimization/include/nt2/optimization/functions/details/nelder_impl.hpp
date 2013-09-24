@@ -88,15 +88,12 @@ namespace nt2 { namespace details
     ptrdiff_t jcount = konvge;
     float_t dn = n;
     size_t nn = n + 1;
-    size_t dnn = nn;
     float_t del = One<float_t>();
     float_t rq = reqmin * dn;
     table_t p(nt2::of_size(n, nn));
     table_t xmin = start;
     table_t y(nt2::of_size(1, nn));
 
-//    table_t pbar;
-//    table_t p2star;
     for(;;)
     {
       p(nt2::_, nn) = start;
@@ -112,47 +109,46 @@ namespace nt2 { namespace details
         start(j) = x;
       }
 
-// %  The simplex construction is complete.
-// %
-// %  Find highest and lowest y values.  ynewlo = y(ihi) indicates
-// %  the vertex of the simplex to be replaced.
+// The simplex construction is complete.
+// Find highest and lowest y values.  ynewlo = y(ihi) indicates
+// the vertex of the simplex to be replaced.
 
       size_t ilo;
       float_t ylo =  globalmin(y, ilo);
-      for(;;)// %  Inner loop.
+      for(;;)// Inner loop.
       {
         if ( kcount <= icount )  break;
         size_t ihi = 1;
         ynewlo =  globalmax(y, ihi);
 
-// %  calculate pbar, the centroid of the simplex vertices
-// %  excepting the vertex with y value ynewlo.
+// calculate pbar, the centroid of the simplex vertices
+// excepting the vertex with y value ynewlo.
 
         table_t pbar =  (sum(p, 2) - p(_,ihi))/dn;
 
-// %  Reflection through the centroid.
+// Reflection through the centroid.
 
         table_t pstar = pbar + rcoeff*(pbar-p(_, ihi));
         float_t ystar = fn ( pstar );
         ++icount;
-// %  Successful reflection, so extension.
+// Successful reflection, so extension.
         if ( ystar < ylo )
         {
           table_t p2star = pbar + ecoeff * ( pstar - pbar );
           float_t y2star = fn ( p2star );
           ++icount;
-          if ( ystar < y2star )// %  Check extension.
+          if ( ystar < y2star )// Check extension.
           {
             p(_, ihi) = pstar;
             y(ihi) = ystar;
-          }                    // %  Retain extension or contraction.
+          }                    // Retain extension or contraction.
           else
           {
             p(_, ihi) = p2star;
             y(ihi) = y2star;
           }
         }
-        else                 // %  No extension.
+        else                 // No extension.
         {
           size_t l = inbtrue(lt(ystar, y));
           if ( l > 1 )
@@ -165,7 +161,7 @@ namespace nt2 { namespace details
             table_t p2star = pbar + ccoeff * ( p(_,ihi) - pbar );
             float_t y2star = fn ( p2star );
             ++icount;
-            if ( y(ihi) < y2star )  // %  Contract the whole simplex.
+            if ( y(ihi) < y2star )  // Contract the whole simplex.
             {
               for(size_t j = 1; j <= nn;  ++j)
               {
@@ -177,7 +173,7 @@ namespace nt2 { namespace details
                 y(j) = fn ( xmin );
                 ++icount;
               }
-              float_t ylo = globalmin(y, ilo);
+              ylo = globalmin(y, ilo);
               continue;
             }
             else // Retain contraction.
@@ -203,7 +199,7 @@ namespace nt2 { namespace details
             }
           }
         }
-        if ( y(ihi) < ylo )  // %  Check if YLO improved.
+        if ( y(ihi) < ylo )  // Check if YLO improved.
         {
           ylo = y(ihi);
           ilo = ihi;
@@ -217,7 +213,7 @@ namespace nt2 { namespace details
           if ( z <= rq ) break;
         }
       }
-// %  Factorial tests to check that YNEWLO is a local minimum.
+// Factorial tests to check that YNEWLO is a local minimum.
       xmin = p(_, ilo);
       ynewlo = y(ilo);
       if ( kcount < icount )

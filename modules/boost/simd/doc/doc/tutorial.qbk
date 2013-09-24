@@ -1,15 +1,6 @@
-[section Tutorials]
+[chapter Tutorials
+  [quickbook 1.5]
+]
 
-[section SIMD "Hello World"]
-[endsect]
-
-[section Operations on SIMD Registers]
-[endsect]
-
-[section Working with standard containers]
-[endsect]
-
-[section SIMD Algorithms]
-[endsect]
-
-[endsect]
+[include tutorials/objectives.qbk]
+[include tutorials/helloworld.qbk]

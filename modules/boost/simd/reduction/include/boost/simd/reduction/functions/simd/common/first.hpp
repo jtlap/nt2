@@ -8,18 +8,24 @@
 //==============================================================================
 #ifndef BOOST_SIMD_REDUCTION_FUNCTIONS_SIMD_COMMON_FIRST_HPP_INCLUDED
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_SIMD_COMMON_FIRST_HPP_INCLUDED
+
 #include <boost/simd/reduction/functions/first.hpp>
+#include <boost/simd/include/functions/simd/extract.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::first_, tag::cpu_,
-                        (A0)(X),
-                        ((simd_<arithmetic_<A0>,X>))
-                       )
+                                    (A0)(X),
+                                    ((simd_<arithmetic_<A0>,X>))
+                                   )
   {
- typedef typename meta::scalar_of<A0 > ::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1) { return a0[0]; }
+    typedef typename meta::scalar_of<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    {
+      return extract<0>(a0);
+    }
   };
 } } }
+
 #endif

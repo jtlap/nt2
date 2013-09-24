@@ -26,14 +26,10 @@ NT2_TEST_CASE( sharing_concept )
   using nt2::meta::match_option;
 
   {
-    typedef option<nt2::shared_, nt2::tag::sharing_, some_kind_> opt;
-
     NT2_TEST( (match_option< nt2::shared_, nt2::tag::sharing_ >::value) );
   }
 
   {
-    typedef option<nt2::owned_, nt2::tag::sharing_, some_kind_> opt;
-
     NT2_TEST( (match_option< nt2::owned_, nt2::tag::sharing_ >::value) );
   }
 }

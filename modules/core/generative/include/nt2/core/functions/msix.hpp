@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_MSIX_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_MSIX_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the msix function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/include/constants/msix.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>

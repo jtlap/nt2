@@ -17,6 +17,7 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 
 NT2_TEST_CASE_TPL ( hilb, NT2_REAL_TYPES)
 {
@@ -29,7 +30,7 @@ NT2_TEST_CASE_TPL ( hilb, NT2_REAL_TYPES)
   nt2::table<T> v = nt2::hilb(3, nt2::meta::as_<T>());
   NT2_DISPLAY(v);
   NT2_DISPLAY(h3);
-  NT2_TEST_EQUAL(v, h3);
+  NT2_TEST_ULP_EQUAL(v, h3, 1);
 }
 
 

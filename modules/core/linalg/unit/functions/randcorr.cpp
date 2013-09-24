@@ -26,7 +26,6 @@
 
 NT2_TEST_CASE_TPL ( randcorr, NT2_REAL_TYPES)
 {
-  typedef typename nt2::meta::as_<T> ta_t;
   nt2::table<T> x0 = nt2::colvect(nt2::_(T(2), T(6)));
   nt2::table<T> x =  (x0/nt2::globalsum(x0))*T(nt2::numel(x0));
   nt2::table<T> rc =  nt2::randcorr(x, 5, 0);

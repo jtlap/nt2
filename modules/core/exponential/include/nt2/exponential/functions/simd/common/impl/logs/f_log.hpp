@@ -74,11 +74,7 @@ namespace nt2 { namespace details
                                             nt2::is_nan(a0)),
                             y2);
       A0 r = nt2::seladd(is_inf(y1), y2, y1);
-    #ifdef BOOST_SIMD_NO_INVALIDS
-      return if_else(is_eqz(a0), nt2::Minf<A0>(), r); //in no_invalid case log(0) would be incorrect
-    #else
-      return r;
-    #endif
+      return if_else(is_eqz(a0), nt2::Minf<A0>(), r);
     }
 
     static inline A0 log2(const A0& a0)
@@ -95,11 +91,7 @@ namespace nt2 { namespace details
                                                           nt2::is_nan(a0)),
                                           z1),
                          y1);
-    #ifdef BOOST_SIMD_NO_INVALIDS
-      return if_else(is_eqz(a0), nt2::Minf<A0>(), r); //in no_invalid case log2(0) would be incorrect
-    #else
-      return r;
-    #endif
+      return if_else(is_eqz(a0), nt2::Minf<A0>(), r);
     }
 
     static inline A0 log10(const A0& a0)
@@ -119,11 +111,7 @@ namespace nt2 { namespace details
                                                           nt2::is_nan(a0)),
                                           z),
                          y1);
-    #ifdef BOOST_SIMD_NO_INVALIDS
-      return if_else(is_eqz(a0), nt2::Minf<A0>(), r); //in no_invalid case log10(0) would be incorrect
-    #else
-      return r;
-    #endif
+      return if_else(is_eqz(a0), nt2::Minf<A0>(), r);
     }
   };
 } }

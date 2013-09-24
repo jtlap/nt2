@@ -15,7 +15,7 @@
 #include <boost/simd/sdk/details/io_fix.hpp>
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/isempty.hpp>
-#include <nt2/include/functions/sub2ind.hpp>
+#include <nt2/core/utility/as_index.hpp>
 #include <nt2/include/functions/last_index.hpp>
 #include <nt2/include/functions/first_index.hpp>
 #include <nt2/core/container/dsl/expression.hpp>
@@ -75,8 +75,11 @@ namespace nt2
             ++p[1]
             )
         {
+          Pos q;
+          for(int i=0;i<Pos::static_size;++i) q[i] = p[i]-b;
+
           os  <<  boost::simd::details
-                ::display(xpr(nt2::sub2ind(nt2::extent(xpr),p,index_type())+b))
+                ::display(xpr(nt2::as_index(nt2::extent(xpr),q)+b))
               << " ";
         }
 

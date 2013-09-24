@@ -30,9 +30,9 @@ namespace nt2 { namespace meta
    **/
   template<typename Functor, typename Base> struct constant_
   {
-    typedef typename Functor::default_type                      default_type;
+    typedef typename Functor::default_type                        default_type;
     typedef typename boost::dispatch::make_functor<Functor,Base>::type f_t;
-    typedef typename meta::call<Functor(meta::as_<Base>)>::type   result_type;
+    typedef typename meta::call<Functor(meta::as_<Base>)>::type   base_type;
 
     template<typename Pos, typename Size, typename Target>
     BOOST_FORCEINLINE typename Target::type

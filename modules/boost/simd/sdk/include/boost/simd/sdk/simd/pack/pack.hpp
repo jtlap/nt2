@@ -97,9 +97,9 @@ namespace boost { namespace simd
     BOOST_FORCEINLINE pack( ScalarIterator i
         , typename enable_if< dispatch::meta::is_iterator<ScalarIterator> >::type* = 0)
     {
-      typedef typename boost::pointee<ScalarIterator>::type value_type;
+      typedef typename boost::pointee<ScalarIterator>::type v_type;
       BOOST_STATIC_ASSERT_MSG
-      ( (boost::is_same<Type,value_type>::value)
+      ( (boost::is_same<Type,v_type>::value)
       , "The constructor of pack<T,C> has been called on a iterator"
         "which value_type is different from T."
       );

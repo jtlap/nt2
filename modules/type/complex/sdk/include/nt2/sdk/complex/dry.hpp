@@ -51,7 +51,6 @@ namespace boost { namespace simd
   BOOST_FORCEINLINE
   std::ostream& operator<<(std::ostream& os, boost::simd::native<nt2::dry<T>,Ext> const& v )
   {
-    typedef boost::simd::native<std::complex<T>, Ext> cvtype;
     const std::size_t size = meta::cardinal_of<boost::simd::native<T, Ext> >::value;
     os << "{";
     for(std::size_t i = 0;  i < size; ++i)

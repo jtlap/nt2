@@ -14,6 +14,7 @@ SET( SOURCES
   tril.cpp
   tri1u.cpp
   tri1l.cpp
+  whereij.cpp
 # List of simd test files for toolbox extractive
    )
 

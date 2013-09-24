@@ -23,7 +23,6 @@
 
 NT2_TEST_CASE_TPL(null, NT2_REAL_TYPES)
 {
-  typedef T r_t;
   using nt2::null;
   using nt2::tag::null_;
   nt2::table<T> n = nt2::eye(10, 10, nt2::meta::as_<T>());

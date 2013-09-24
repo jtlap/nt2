@@ -14,6 +14,7 @@ SET(SOURCES
     comma.cpp
     complement.cpp
     divides.cpp
+    fast_divides.cpp
     if_else.cpp
     is_equal.cpp
     is_greater.cpp

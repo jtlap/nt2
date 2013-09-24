@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_COLON_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_COLON_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the colon function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/core/container/dsl/generative.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>
@@ -23,9 +18,20 @@ namespace nt2
 {
   namespace tag
   {
+    /*!
+      @brief colon generic tag
+
+      Represents the colon function in generic contexts.
+
+      @par Models:
+      Hierarchy
+    **/
     struct colon_ : ext::state_constant_<colon_>
     {
+      /// @brief Parent hierarchy
       typedef ext::state_constant_<colon_> parent;
+
+      /// @brief default value type for untyped calls
       typedef double                      default_type;
     };
 
@@ -42,7 +48,66 @@ namespace nt2
     };
   }
 
+  /*!
+    @brief Regular spaced values generator
+
+    Creates an array filled with regularly spaced values.
+
+    @par Semantic
+
+    For any Scalar value @c l and @c h of type @c T, if h >= l, the
+    following code:
+    @code
+    auto x = colon(l,h);
+    @endcode
+
+    generates an expression that evaluates as a @size2d{1,h-l+1} table of
+    type @c T for which, for any index @c i :
+
+    @code
+    x(i) = l + i
+    @endcode
+
+    If h < l, the generated expression evaluates an empty table.
+
+    @usage_output{colon.cpp,colon.out}
+
+    @param a0 First value of the generation space
+    @param a1 Last value of the generation space
+
+    @return An Expression evaluating as an array of a given type and dimensions.
+  **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::colon_, colon, 2)
+
+  /*!
+    @brief Regular spaced values generator with step
+
+    Creates an array filled with values regularly spaced with a given step.
+
+    @par Semantic
+
+    For any Scalar value @c l, @c h and @c s of type @c T
+    @code
+    auto x = colon(l,s,h);
+    @endcode
+
+    generates an expression that evaluates as a @size2d{1,fix((h-l+1)/s)}
+    table of type @c T for which, for any index @c i :
+
+    @code
+    x(i) = l + i*s
+    @endcode
+
+    If h < l, the generated expression evaluates an empty table.
+
+    @usage_output{colon_step.cpp,colon_step.out}
+
+    @param a0 First value of the generation space
+    @param a1 Step between generated values
+    @param a2 Last value of the generation space
+
+    @return An Expression evaluating as an array of a given type and dimensions.
+  **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::colon_, colon, 3)
 }
 

@@ -142,7 +142,6 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1 const& a1, A2 const& a2, A3 const& a3) const
     {
-      typedef typename boost::proto::result_of::value<A0>::type type;
       std::size_t range_size = std::distance(a2,a3);
 
       BOOST_ASSERT_MSG

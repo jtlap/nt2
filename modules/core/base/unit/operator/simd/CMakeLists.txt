@@ -24,6 +24,7 @@ SET( SOURCES
   is_not_equal.cpp
   complement.cpp
   divides.cpp
+  fast_divides.cpp
   logical_and.cpp
   logical_not.cpp
   logical_or.cpp
