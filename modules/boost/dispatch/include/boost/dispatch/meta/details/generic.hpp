@@ -11,21 +11,23 @@
 
 #include <boost/dispatch/meta/details/hierarchy_base.hpp>
 
+#include <boost/dispatch/meta/fusion.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
+#include <boost/fusion/include/is_sequence.hpp>
+#include <boost/mpl/if.hpp>
+
 namespace boost { namespace dispatch { namespace meta
 {
-  template<class T> struct generic_ : generic_< typename T::parent >
+  template<class T>
+  struct generic_ : generic_< typename T::parent >
   {
     typedef generic_< typename T::parent >  parent;
   };
 
-  template<class T> struct generic_< unspecified_<T> > : unspecified_<T>
+  template<class T>
+  struct generic_< unspecified_<T> > : mpl::if_< boost::fusion::traits::is_sequence< typename meta::scalar_of<T>::type >, fusion_sequence_<T>, unspecified_<T> >::type
   {
-    typedef unspecified_<T> parent;
-  };
-
-  template<class T> struct generic_< unknown_<T> > : unknown_<T>
-  {
-    typedef unknown_<T> parent;
+    typedef typename mpl::if_< boost::fusion::traits::is_sequence< typename meta::scalar_of<T>::type >, fusion_sequence_<T>, unspecified_<T> >::type parent;
   };
 } } }
 
