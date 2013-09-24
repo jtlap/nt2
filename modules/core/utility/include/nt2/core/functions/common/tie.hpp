@@ -22,6 +22,8 @@
 #include <boost/fusion/include/is_sequence.hpp>
 #include <boost/mpl/assert.hpp>
 
+#include <nt2/sdk/meta/container_traits.hpp>
+
 namespace boost { namespace dispatch { namespace meta
 {
   template<class A0>
@@ -37,6 +39,9 @@ namespace boost { namespace dispatch { namespace meta
     typedef boost::fusion::vector1< typename scalar_of<A0>::type > type;
   };
 
+  // ----------------
+  // arity of 2
+  // ----------------
   template<class A0, class A1>
   struct value_of< boost::fusion::vector2<A0, A1> >
   {
@@ -50,6 +55,21 @@ namespace boost { namespace dispatch { namespace meta
     typedef boost::fusion::vector2< typename scalar_of<A0>::type, typename scalar_of<A1>::type > type;
   };
 } } }
+
+namespace nt2 { namespace meta
+{
+  template<class A0>
+  struct value_type_< boost::fusion::vector1<A0> >
+  {
+    typedef boost::fusion::vector1< typename value_type_<A0>::type > type;
+  };
+
+  template<class A0, class A1>
+  struct value_type_< boost::fusion::vector2<A0, A1> >
+  {
+    typedef boost::fusion::vector2< typename value_type_<A0>::type, typename value_type_<A1>::type > type;
+  };
+} }
 
 namespace nt2 { namespace ext
 {
