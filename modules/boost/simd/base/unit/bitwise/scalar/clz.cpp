@@ -12,6 +12,7 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/include/constants/two.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/signmask.hpp>
@@ -24,17 +25,17 @@ NT2_TEST_CASE_TPL ( clz_real,  BOOST_SIMD_REAL_TYPES)
   using boost::simd::clz;
   using boost::simd::tag::clz_;
   typedef typename boost::dispatch::meta::call<clz_(T)>::type r_t;
-  typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type wished_r_t;
 
   // return type conformity test
   NT2_TEST_TYPE_IS(r_t, wished_r_t);
 
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
-  NT2_TEST_EQUAL(clz(boost::simd::Nan<T>()), 0u);
+  NT2_TEST_EQUAL(clz(boost::simd::Nan<T>()), boost::simd::Zero<r_t>());
 #endif
-  NT2_TEST_EQUAL(clz(boost::simd::Mone<T>()), 0u);
-  NT2_TEST_EQUAL(clz(boost::simd::Signmask<T>()),0u);
+  NT2_TEST_EQUAL(clz(boost::simd::Mone<T>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(clz(boost::simd::Signmask<T>()),boost::simd::Zero<r_t>());
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( clz_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
@@ -43,13 +44,13 @@ NT2_TEST_CASE_TPL ( clz_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   using boost::simd::clz;
   using boost::simd::tag::clz_;
   typedef typename boost::dispatch::meta::call<clz_(T)>::type r_t;
-  typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type wished_r_t;
 
   // return type conformity test
   NT2_TEST_TYPE_IS(r_t, wished_r_t);
 
   // specific values tests
-  NT2_TEST_EQUAL(clz(boost::simd::One<T>()), sizeof(T)*8-boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(clz(boost::simd::One<T>()), r_t(sizeof(T)*8 -1));
   NT2_TEST_EQUAL(clz(boost::simd::Signmask<T>()), boost::simd::Zero<r_t>());
 } // end of test for signed_int_
 
@@ -59,7 +60,7 @@ NT2_TEST_CASE_TPL ( clz_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   using boost::simd::clz;
   using boost::simd::tag::clz_;
   typedef typename boost::dispatch::meta::call<clz_(T)>::type r_t;
-  typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type wished_r_t;
 
 
   // return type conformity test

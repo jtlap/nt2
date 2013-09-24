@@ -20,7 +20,7 @@
 #include <boost/simd/sdk/config.hpp>
 
 
-NT2_TEST_CASE_TPL ( bitwise_andnot_real__2_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( bitwise_andnot_real,  BOOST_SIMD_REAL_TYPES)
 {
 
   using boost::simd::bitwise_andnot;
@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( bitwise_andnot_real__2_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(bitwise_andnot(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( bitwise_andnot_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( bitwise_andnot_integer,  BOOST_SIMD_INTEGRAL_TYPES)
 {
 
   using boost::simd::bitwise_andnot;
@@ -58,3 +58,24 @@ NT2_TEST_CASE_TPL ( bitwise_andnot_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
   NT2_TEST_EQUAL(bitwise_andnot(boost::simd::One<T>(),boost::simd::Zero<T>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(bitwise_andnot(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
 } // end of test for integer_
+
+
+NT2_TEST_CASE_TPL(bitwise_andnot_mix, BOOST_SIMD_REAL_TYPES)
+{
+  using boost::simd::bitwise_andnot;
+  using boost::simd::tag::bitwise_andnot_;
+  typedef typename  boost::dispatch::meta::as_integer<T>::type siT;
+  typedef typename  boost::dispatch::meta::as_integer<T, unsigned>::type uiT;
+
+  // return type conformity test
+  NT2_TEST_TYPE_IS(typename boost::dispatch::meta::call<bitwise_andnot_(T,uiT)>::type, T);
+  NT2_TEST_TYPE_IS(typename boost::dispatch::meta::call<bitwise_andnot_(T,siT)>::type, T);
+  NT2_TEST_TYPE_IS(typename boost::dispatch::meta::call<bitwise_andnot_(uiT, T)>::type, uiT);
+  NT2_TEST_TYPE_IS(typename boost::dispatch::meta::call<bitwise_andnot_(siT, T)>::type, siT);
+
+  // specific values tests
+  NT2_TEST_EQUAL(bitwise_andnot(boost::simd::Nan<T>(),boost::simd::Zero<uiT>()), boost::simd::Nan<T>());
+  NT2_TEST_EQUAL(bitwise_andnot(boost::simd::Nan<T>(), boost::simd::Zero<siT>()), boost::simd::Nan<T>());
+  NT2_TEST_EQUAL(bitwise_andnot(boost::simd::Mone<siT>(),boost::simd::Zero<T>()), boost::simd::Mone<siT>());
+  NT2_TEST_EQUAL(bitwise_andnot(boost::simd::Valmax<uiT>(), boost::simd::Zero<T>()), boost::simd::Valmax<uiT>());
+}

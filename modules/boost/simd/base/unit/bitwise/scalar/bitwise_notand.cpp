@@ -37,20 +37,23 @@ NT2_TEST_CASE_TPL ( bitwise_notand_real,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(bitwise_notand(boost::simd::Zero<T>(),boost::simd::One<T>()), boost::simd::One<r_t>());
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( bitwise_notand_integer,  BOOST_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL(bitwise_notand_mix, BOOST_SIMD_REAL_TYPES)
 {
-
   using boost::simd::bitwise_notand;
   using boost::simd::tag::bitwise_notand_;
-  typedef typename boost::dispatch::meta::call<bitwise_notand_(T,T)>::type r_t;
-  typedef T wished_r_t;
-
+  using boost::simd::native;
+  typedef typename  boost::dispatch::meta::as_integer<T>::type siT;
+  typedef typename  boost::dispatch::meta::as_integer<T, unsigned>::type uiT;
 
   // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
+  NT2_TEST_TYPE_IS(typename boost::dispatch::meta::call<bitwise_notand_(T,uiT)>::type, T);
+  NT2_TEST_TYPE_IS(typename boost::dispatch::meta::call<bitwise_notand_(T,siT)>::type, T);
+  NT2_TEST_TYPE_IS(typename boost::dispatch::meta::call<bitwise_notand_(uiT, T)>::type, uiT);
+  NT2_TEST_TYPE_IS(typename boost::dispatch::meta::call<bitwise_notand_(siT, T)>::type, siT);
 
   // specific values tests
-  NT2_TEST_EQUAL(bitwise_notand(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(bitwise_notand(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(bitwise_notand(boost::simd::Zero<T>(),boost::simd::One<T>()), boost::simd::One<r_t>());
-} // end of test for integer_
+  NT2_TEST_EQUAL(bitwise_notand(boost::simd::Zero<T>(),boost::simd::Valmax<uiT>()), boost::simd::Nan<T>());
+  NT2_TEST_EQUAL(bitwise_notand(boost::simd::Zero<T>(), boost::simd::Mone<siT>()), boost::simd::Nan<T>());
+  NT2_TEST_EQUAL(bitwise_notand(boost::simd::Zero<siT>(),boost::simd::Nan<T>()), boost::simd::Mone<siT>());
+  NT2_TEST_EQUAL(bitwise_notand(boost::simd::Zero<uiT>(), boost::simd::Nan<T>()), boost::simd::Valmax<uiT>());
+}

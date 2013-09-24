@@ -19,7 +19,7 @@
 #include <boost/simd/include/constants/nan.hpp>
 #include <boost/simd/sdk/config.hpp>
 
-NT2_TEST_CASE_TPL ( bitwise_ornot_real__2_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( bitwise_ornot_real,  BOOST_SIMD_REAL_TYPES)
 {
 
   using boost::simd::bitwise_ornot;
@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( bitwise_ornot_real__2_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(bitwise_ornot(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Nan<r_t>());
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( bitwise_ornot_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( bitwise_ornot_integer,  BOOST_SIMD_INTEGRAL_TYPES)
 {
 
   using boost::simd::bitwise_ornot;
@@ -58,3 +58,24 @@ NT2_TEST_CASE_TPL ( bitwise_ornot_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
   NT2_TEST_EQUAL(bitwise_ornot(boost::simd::One<T>(),boost::simd::Zero<T>()), boost::simd::Mone<r_t>());
   NT2_TEST_EQUAL(bitwise_ornot(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Mone<r_t>());
 } // end of test for integer_
+
+
+NT2_TEST_CASE_TPL(bitwise_ornot_mix, BOOST_SIMD_REAL_TYPES)
+{
+  using boost::simd::bitwise_ornot;
+  using boost::simd::tag::bitwise_ornot_;
+  typedef typename  boost::dispatch::meta::as_integer<T>::type siT;
+  typedef typename  boost::dispatch::meta::as_integer<T, unsigned>::type uiT;
+
+  // return type conformity test
+  NT2_TEST_TYPE_IS(typename boost::dispatch::meta::call<bitwise_ornot_(T,uiT)>::type, T);
+  NT2_TEST_TYPE_IS(typename boost::dispatch::meta::call<bitwise_ornot_(T,siT)>::type, T);
+  NT2_TEST_TYPE_IS(typename boost::dispatch::meta::call<bitwise_ornot_(uiT, T)>::type, uiT);
+  NT2_TEST_TYPE_IS(typename boost::dispatch::meta::call<bitwise_ornot_(siT, T)>::type, siT);
+
+  // specific values tests
+  NT2_TEST_EQUAL(bitwise_ornot(boost::simd::Zero<T>(),boost::simd::Zero<uiT>()), boost::simd::Nan<T>());
+  NT2_TEST_EQUAL(bitwise_ornot(boost::simd::Zero<T>(), boost::simd::Zero<siT>()), boost::simd::Nan<T>());
+  NT2_TEST_EQUAL(bitwise_ornot(boost::simd::Valmin<siT>(),boost::simd::Nan<T>()), boost::simd::Valmin<siT>());
+  NT2_TEST_EQUAL(bitwise_ornot(boost::simd::Zero<uiT>(), boost::simd::Nan<T>()), boost::simd::Zero<uiT>());
+}
