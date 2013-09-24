@@ -114,9 +114,10 @@ NT2_EXPERIMENT(dgesv_test)
 };
 
 
-// NT2_RUN_EXPERIMENT_TPL( sgesv_test, (float), (1024,1024) );
-// NT2_RUN_EXPERIMENT_TPL( sgesv_test, (float), (2048,2048) );
-// NT2_RUN_EXPERIMENT_TPL( sgesv_test, (float), (12000,12000) );
+ NT2_RUN_EXPERIMENT_TPL( dgesv_test, (double), (2000,2000) );
+ NT2_RUN_EXPERIMENT_TPL( dgesv_test, (double), (4000,4000) );
+ NT2_RUN_EXPERIMENT_TPL( dgesv_test, (double), (8000,8000) );
+
 
 
 // NT2_RUN_EXPERIMENT_TPL( sgesv_test, (float), (1000,1000) );
@@ -124,5 +125,5 @@ NT2_EXPERIMENT(dgesv_test)
 // NT2_RUN_EXPERIMENT_TPL( sgesv_test, (float), (4000,4000) );
 // NT2_RUN_EXPERIMENT_TPL( sgesv_test, (float), (6000,6000) );
 // NT2_RUN_EXPERIMENT_TPL( sgesv_test, (float), (8000,8000) );
-NT2_RUN_EXPERIMENT_TPL( sgesv_test, (float), (10000,10000) );
+//NT2_RUN_EXPERIMENT_TPL( sgesv_test, (float), (10000,10000) );
 // NT2_RUN_EXPERIMENT_TPL( sgesv_test, (float), (12000,12000) );

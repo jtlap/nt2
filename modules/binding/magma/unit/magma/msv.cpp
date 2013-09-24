@@ -32,14 +32,21 @@ typedef nt2::table<nt2_la_int>         t_i;
 
 
 
-t_t a = nt2::ones(127 , 127, nt2::meta::as_<T>());
-t_t b = nt2::ones(127 , 1,nt2::meta::as_<T>() );
+t_t a = nt2::rand(4000 , 4000, nt2::meta::as_<T>());
+t_t b = nt2::rand(4000 , 1,nt2::meta::as_<T>() );
+
+
 
 t_t a1(a);
 
 t_t x(b);
 t_t x1(b);
 t_i piv;
-nt2_la_int iter= nt2::msv(a,b,x);s
+
+nt2_la_int iter= nt2::msv(a,b,x);
+nt2_la_int p= nt2::sv(a1,piv,x1);
+
+
+NT2_TEST_ULP_EQUAL(x , x1, T(1000000) );
 
 }

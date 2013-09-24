@@ -21,4 +21,17 @@
 #define FMULS_GETRS(n, nrhs) ((nrhs) * (n) *  (n)      )
 #define FADDS_GETRS(n, nrhs) ((nrhs) * (n) * ((n) - 1 ))
 
+
+#define FMULS_POTRF(__n) ((__n) * (((1. / 6.) * (__n) + 0.5) * (__n) + (1. / 3.)))
+#define FADDS_POTRF(__n) ((__n) * (((1. / 6.) * (__n)      ) * (__n) - (1. / 6.)))
+
+#define FMULS_POTRS(__n, __nrhs) ((__nrhs) * (__n) * ((__n) + 1 ))
+#define FADDS_POTRS(__n, __nrhs) ((__nrhs) * (__n) * ((__n) - 1 ))
+
+#define FLOPS_DPOTRF(__n) (     FMULS_POTRF((double)(__n)) +       FADDS_POTRF((double)(__n)) )
+#define FLOPS_SPOTRF(__n) (     FMULS_POTRF((double)(__n)) +       FADDS_POTRF((double)(__n)) )
+
+
+#define FLOPS_DPOTRS(__n, __nrhs) (     FMULS_POTRS((double)(__n), (double)(__nrhs)) +       FADDS_POTRS((double)(__n), (double)(__nrhs)) )
+#define FLOPS_SPOTRS(__n, __nrhs) (     FMULS_POTRS((double)(__n), (double)(__nrhs)) +       FADDS_POTRS((double)(__n), (double)(__nrhs)) )
 #endif

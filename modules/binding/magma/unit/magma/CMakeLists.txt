@@ -13,6 +13,7 @@ SET ( SOURCES
       qrf.cpp
       qp3.cpp
       msv.cpp
+      posv.cpp
    )
 
 nt2_module_add_tests(binding.linalg.magma.unit ${SOURCES})
