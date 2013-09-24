@@ -17,6 +17,8 @@
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 
+#include <stdio.h>
+
 extern "C"
 {
   double NT2_F77NAME(dlange)( const char* norm     , const nt2_la_int* m
@@ -29,6 +31,7 @@ extern "C"
                           , const nt2_la_int* lda  , float* work
                           );
 }
+
 
 namespace nt2 { namespace ext
 {
@@ -99,6 +102,7 @@ namespace nt2 { namespace ext
       return norm;
     }
   };
+
 } }
 
 #endif

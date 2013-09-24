@@ -79,7 +79,7 @@ namespace nt2 { namespace ext
      {
         result_type that;
         nt2_la_int  n  = nt2::height(a0);
-        nt2_la_int  nhrs = nt2::width(a2);
+        nt2_la_int  nhrs = nt2::width(a1);
         nt2_la_int  ldb = n;
         char fact  = 'N';
         char trans = 'N';

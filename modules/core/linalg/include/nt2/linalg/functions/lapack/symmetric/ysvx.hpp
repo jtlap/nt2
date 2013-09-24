@@ -80,7 +80,7 @@ namespace nt2 { namespace ext
      typedef nt2_la_int result_type;
      typedef double T;
 
-     BOOST_FORCEINLINE result_type operator()( A0 const& a0, A1& a1, A2& a2
+     BOOST_FORCEINLINE result_type operator()( A0 const& a0, A1& a1, A2 const& a2
                                              , A3& a3, A4& a4) const
      {
         result_type that;
@@ -90,6 +90,7 @@ namespace nt2 { namespace ext
         char fact = 'N';
         char uplo = 'L';
 
+        a1 = nt2::zeros(n,1, nt2::meta::as_<nt2_la_int>());
         details::workspace<typename A2::value_type> work;
 
         NT2_F77NAME(dsysvx)( &fact       , &uplo
@@ -140,7 +141,7 @@ namespace nt2 { namespace ext
      typedef nt2_la_int result_type;
      typedef double T;
 
-     BOOST_FORCEINLINE result_type operator() (A0 const& a0, A1& a1, A2& a2
+     BOOST_FORCEINLINE result_type operator() (A0 const& a0, A1& a1, A2 const& a2
                                             , A3& a3, A4& a4, A5& a5) const
      {
         result_type that;
@@ -202,7 +203,7 @@ namespace nt2 { namespace ext
      typedef nt2_la_int result_type;
      typedef float T;
 
-     BOOST_FORCEINLINE result_type operator()( A0 const& a0, A1& a1, A2& a2
+     BOOST_FORCEINLINE result_type operator()( A0 const& a0, A1& a1, A2 const& a2
                                              , A3& a3, A4& a4) const
      {
         result_type that;
@@ -212,6 +213,7 @@ namespace nt2 { namespace ext
         char fact = 'N';
         char uplo = 'L';
 
+        a1 = nt2::zeros(n,1, nt2::meta::as_<nt2_la_int>());
         details::workspace<typename A2::value_type> work;
 
         NT2_F77NAME(ssysvx)( &fact       , &uplo
@@ -263,7 +265,7 @@ namespace nt2 { namespace ext
      typedef nt2_la_int result_type;
      typedef float T;
 
-     BOOST_FORCEINLINE result_type operator() (A0 const& a0, A1& a1, A2& a2
+     BOOST_FORCEINLINE result_type operator() (A0 const& a0, A1& a1, A2 const& a2
                                             , A3& a3, A4& a4, A5& a5) const
      {
         result_type that;

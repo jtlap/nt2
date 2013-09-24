@@ -16,6 +16,9 @@
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
+#include <nt2/sdk/meta/type_id.hpp>
+#include <stdio.h>
+#include <iostream>
 
 extern "C"
 {
@@ -41,25 +44,26 @@ namespace nt2 { namespace ext
                                       >
                               ))
                               (scalar_< ints8_<A1> >)             //  norm
+                              (unspecified_<nt2::symmetric_>)             //  norm
                             )
   {
     typedef double  result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0& a0, A1 a1) const
+    BOOST_FORCEINLINE result_type operator()(A0& a0, A1 a1, nt2::symmetric_ const&) const
     {
       result_type norm;
       char uplo = 'L';
       nt2_la_int n = nt2::width(a0);
       nt2_la_int ld = n;
 
-     if(a1 =='I')
+     if(a1 =='I'|| a1 =='1'|| a1 =='O')
      {
-        nt2::table<result_type> work(nt2::of_size(m,1));
-        norm = NT2_F77NAME(dlange)( &a1, &uplo, &n, a0.raw(), &ld, work.raw());
+        nt2::table<result_type> work(nt2::of_size(n,1));
+        norm = NT2_F77NAME(dlansy)( &a1, &uplo, &n, a0.raw(), &ld, work.raw());
       }
       else
       {
-        norm = NT2_F77NAME(dlange)( &a1, &uplo, &n, a0.raw(), &ld, 0);
+        norm = NT2_F77NAME(dlansy)( &a1, &uplo, &n, a0.raw(), &ld, 0);
       }
 
       return norm;
@@ -75,25 +79,27 @@ namespace nt2 { namespace ext
                                       >
                               ))
                               (scalar_< ints8_<A1> >)             //  norm
+                              (unspecified_<nt2::symmetric_>)             //  norm
                             )
   {
     typedef float result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0& a0, A1 a1) const
+    BOOST_FORCEINLINE result_type operator()(A0& a0, A1 a1, nt2::symmetric_ const&) const
     {
       result_type norm;
       char uplo = 'L';
       nt2_la_int n = nt2::width(a0);
       nt2_la_int ld = n;
 
-      if(a1 =='I')
+
+      if(a1 =='I' || a1 =='1'|| a1 =='O')
       {
-        nt2::table<result_type> work(nt2::of_size(m,1));
-        norm = NT2_F77NAME(slange)( &a1, &uplo, &n, a0.raw(), &ld, work.raw());
+        nt2::table<result_type> work(nt2::of_size(n,1));
+        norm = NT2_F77NAME(slansy)( &a1, &uplo, &n, a0.raw(), &ld, work.raw());
       }
       else
       {
-        norm = NT2_F77NAME(slange)( &a1, &uplo, &n, a0.raw(), &ld, 0);
+        norm = NT2_F77NAME(slansy)( &a1, &uplo, &n, a0.raw(), &ld, 0);
       }
 
       return norm;
