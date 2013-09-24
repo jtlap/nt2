@@ -36,6 +36,7 @@ namespace nt2 { namespace ext
     typedef typename A0::value_type type_t;
     typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
     typedef nt2::container::table<type_t>  entry_type;
+    typedef nt2::container::table<type_t,shape>  matrix_type;
 
     BOOST_FORCEINLINE result_type operator()( A0 const& a0, A1 const& a1, A2&  a2 ) const
     {
@@ -60,7 +61,7 @@ namespace nt2 { namespace ext
                         ) const
     {
       type_t rcond;
-      entry_type var = concrete(a2);
+      entry_type var(a2);
       nt2_la_int iter = nt2::posvx(concrete(a0),concrete(a1),var,rcond);
       a2 = var;
     }
@@ -71,9 +72,8 @@ namespace nt2 { namespace ext
                         ) const
     {
       type_t rcond;
-      entry_type var = concrete(a2);
-      nt2_la_int iter = nt2::ysvx(concrete(a0),concrete(a1),var,rcond);
-      a2 = var;
+      nt2::table<nt2_la_int> piv;
+      nt2_la_int iter = nt2::ysvx(concrete(a0),piv,concrete(a1),a2,rcond);
     }
 
     /// INTERNAL ONLY - No info on this shape
@@ -90,8 +90,7 @@ namespace nt2 { namespace ext
     void eval ( A0 const& a0, A1 const& a1 , A2& a2) const
     {
       type_t rcond;
-
-      entry_type var = concrete(a2);
+      entry_type var(a2);
       nt2::svx( concrete(a0), concrete(a1), var, rcond );
       a2 = var;
 

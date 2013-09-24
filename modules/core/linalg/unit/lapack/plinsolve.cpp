@@ -35,13 +35,13 @@ t_t lu;
 
 t_t a = nt2::cons<T>(nt2::of_size(3,3),2,1,1,1,2,2,2,5,7);
 t_t b = nt2::cons<T>(nt2::of_size(3,1),1,2,5);
-t_t x = nt2::ones(nt2::of_size(10,1));
+t_t x = nt2::ones(nt2::of_size(10,1),nt2::meta::as_<T>());
 t_t x1(b);
 t_i piv;
 
-nt2::plinsolve(a ,b, x(nt2::_(3,5)) );
+nt2::plinsolve(a ,b, x);
 nt2_la_int iter = nt2::sv(a,piv,x1);
 
-NT2_TEST_ULP_EQUAL(x(nt2::_(3,5)), x1 , T(10));
+NT2_TEST_ULP_EQUAL(x(_(1,3)), x1 , T(10));
 
 }

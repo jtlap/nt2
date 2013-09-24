@@ -6,12 +6,13 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_PLINSOLVE_HPP_INCLUDED
-#define NT2_TOOLBOX_LINALG_FUNCTIONS_PLINSOLVE_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_BSV_HPP_INCLUDED
+#define NT2_TOOLBOX_LINALG_FUNCTIONS_BSV_HPP_INCLUDED
 
 /*!
   @file
-  @brief
+  @brief Defines and implements lapack sysv function that computes the solution
+  of real system of linear equations a*x = b for a symmetric matrix
 **/
 
 #include <nt2/include/functor.hpp>
@@ -20,8 +21,8 @@ namespace nt2
 {
   namespace tag
   {
-    /// @brief Defines  function tag
-    struct plinsolve_ : boost::dispatch::tag::formal_
+    /// @brief Defines gesv function tag
+    struct bsv_ : boost::dispatch::tag::formal_
     {
       /// INTERNAL ONLY
       typedef boost::dispatch::tag::formal_  parent;
@@ -36,10 +37,12 @@ namespace nt2
 
     @return
   **/
-  NT2_FUNCTION_IMPLEMENTATION_TPL (tag::plinsolve_, plinsolve
-                                  , (A0 const&)(A1 const&)(A2&)
+  NT2_FUNCTION_IMPLEMENTATION_TPL (tag::bsv_, bsv
+                                  , (A0&)(A1&)(A2&)
                                   , 3
                                   );
+
+
 }
 
 #endif
