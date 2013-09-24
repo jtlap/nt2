@@ -58,19 +58,20 @@ namespace nt2 { namespace ext
      {
         nt2_la_int  n  = std::min(nt2::height(a0),nt2::width(a0));
         nt2_la_int  lda = n;
-        nt2_la_int  nhrs = nt2::width(a2);
-        nt2_la_int  ldb = a2.leading_size();
+        nt2_la_int  nhrs = nt2::width(a1);
+        nt2_la_int  ldb = a1.leading_size();
         nt2_la_int iter,info;
         char trans = 'N';
 
         nt2::table<nt2_la_int> ipiv(nt2::of_size(n,1));
+        nt2::table<double> copyb(a1);
 
         details::magma_buffer<float>      swork(n*(n+nhrs),1);
         details::magma_buffer<double>     dwork(n*nhrs,1);
         details::magma_buffer<nt2_la_int> dipiv(n,1);
 
         details::magma_buffer<double>     dA(n,n   ,a0.raw());
-        details::magma_buffer<double>     dB(n,nhrs, a1.raw());
+        details::magma_buffer<double>     dB(n,nhrs, copyb.raw());
         details::magma_buffer<double>     dX(n,nhrs);
 
         magma_dsgesv_gpu( trans             , n          , nhrs

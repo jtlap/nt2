@@ -11,6 +11,7 @@ SET(  SOURCES
   lu.cpp
   qr.cpp
   linsolve.cpp
+  linsolveposv.cpp
    )
 
 nt2_module_add_tests(binding.magma.factorization.table.bench ${SOURCES})
