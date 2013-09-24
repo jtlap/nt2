@@ -39,14 +39,15 @@ namespace nt2
   **/
 
   NT2_FUNCTION_IMPLEMENTATION_TPL (tag::msv_, msv
-                                  , (A0&)(A1 const&)(A2&)
+                                  , (A0&)(A1&)(A2&)
                                   , 3
                                   );
 
   NT2_FUNCTION_IMPLEMENTATION_TPL (tag::msv_, msv
-                                  , (A0&)(A1&)(A2&)
+                                  , (A0&)(A1 const&)(A2&)
                                   , 3
                                   );
+
 }
 
 #endif

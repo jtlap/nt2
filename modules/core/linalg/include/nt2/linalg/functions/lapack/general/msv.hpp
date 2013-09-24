@@ -61,8 +61,8 @@ namespace nt2 { namespace ext
         details::workspace<typename A2::value_type> w;
         nt2_la_int  n  = std::min(nt2::height(a0),nt2::width(a0));
         nt2_la_int  lda = n;
-        nt2_la_int  nhrs = nt2::width(a2);
-        nt2_la_int  ldb = a2.leading_size();
+        nt2_la_int  nhrs = nt2::width(a1);
+        nt2_la_int  ldb = a1.leading_size();
         nt2_la_int iter,info;
 
         nt2::table<float> swork(nt2::of_size(n*(n+nhrs),1));

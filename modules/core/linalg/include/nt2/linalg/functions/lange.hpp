@@ -42,6 +42,12 @@ namespace nt2
                                   , 2
                                   );
 
+  NT2_FUNCTION_IMPLEMENTATION_TPL (tag::lange_, lange
+                                  , (A0 const&)(A1 const&)(A2)
+                                  , 3
+                                  );
+
+
 }
 
 #endif
