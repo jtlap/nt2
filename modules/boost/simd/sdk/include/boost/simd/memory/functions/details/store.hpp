@@ -57,28 +57,6 @@ namespace boost { namespace simd { namespace details
     private:
     storer& operator=(storer const&);
   };
-
-  template<typename A0, typename A1, typename A2 = int> struct extractor
-  {
-    extractor (A0 const& a0_, A1 a1_, A2 a2_ = 0)
-              : a0(a0_), a1(a1_), a2(a2_)
-    {}
-
-    template<int I> void operator()() const
-    {
-      A1 p = a1;
-      typedef typename fusion::result_of::at_c<A0,I>::type type;
-      for(std::size_t i=0;i<meta::cardinal_of<type>::value;++i)
-        fusion::at_c<I>(*(p++ + a2)) = extract(fusion::at_c<I>(a0), i);
-    }
-
-    A0 const& a0;
-    A1        a1;
-    A2        a2;
-
-    private:
-    extractor& operator=(extractor const&);
-  };
 } } }
 
 #endif
