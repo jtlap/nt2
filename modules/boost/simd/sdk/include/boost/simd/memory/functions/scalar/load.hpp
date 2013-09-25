@@ -93,46 +93,6 @@ namespace boost { namespace simd { namespace ext
       return that;
     }
   };
-
-  /// INTERNAL ONLY - Load through pointer of fusion sequence
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
-                                    , tag::cpu_
-                                    , (A0)(A1)(A2)
-                                    , (iterator_< fusion_sequence_<A0> >)
-                                      (scalar_< integer_<A1> >)
-                                      (target_< fusion_sequence_<A2> >)
-                                    )
-  {
-    typedef typename A2::type result_type;
-    inline result_type operator()(const A0& a0, const A1& a1, const A2&) const
-    {
-      result_type that;
-
-      static const int N = fusion::result_of::size<result_type>::type::value;
-      meta::iterate<N>( details::inserter<A0,result_type,A1>(a0,that,a1) );
-
-      return that;
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
-                                    , tag::cpu_
-                                    , (A0)(A2)
-                                    , (iterator_< fusion_sequence_<A0> >)
-                                      (target_< fusion_sequence_<A2> >)
-                                    )
-  {
-    typedef typename A2::type result_type;
-    inline result_type operator()(const A0& a0, const A2&) const
-    {
-      result_type that;
-
-      static const int N = fusion::result_of::size<result_type>::type::value;
-      meta::iterate<N>( details::inserter<A0,result_type>(a0,that) );
-
-      return that;
-    }
-  };
 } } }
 
 #endif

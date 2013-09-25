@@ -102,7 +102,7 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_, tag::cpu_
                                     , (A0)(A1)(A2)
                                     , (fusion_sequence_<A0>)
-                                      (scalar_< integer_<A1> >)
+                                      (generic_< integer_<A1> >)
                                       ((target_< fusion_sequence_<A2> >))
                                     )
   {

@@ -95,38 +95,6 @@ namespace boost { namespace simd { namespace ext
                     );
     }
   };
-
-  /// Handles store( seq, seq'*)
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
-                                    , tag::cpu_
-                                    , (A0)(A1)
-                                    , (fusion_sequence_<A0>)
-                                      (iterator_< fusion_sequence_<A1> >)
-                                    )
-  {
-    typedef void result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
-    {
-      static const int N = fusion::result_of::size<A0>::type::value;
-      meta::iterate<N>( details::extractor<A0,A1>(a0,a1) );
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
-                                    , tag::cpu_
-                                    , (A0)(A1)(A2)
-                                    , (fusion_sequence_<A0>)
-                                      (iterator_< fusion_sequence_<A1> >)
-                                      (scalar_< integer_<A2> >)
-                                    )
-  {
-    typedef void result_type;
-    BOOST_SIMD_FUNCTOR_CALL(3)
-    {
-      static const int N = fusion::result_of::size<A0>::type::value;
-      meta::iterate<N>( details::extractor<A0,A1,A2>(a0,a1,a2) );
-    }
-  };
 } } }
 
 #endif
