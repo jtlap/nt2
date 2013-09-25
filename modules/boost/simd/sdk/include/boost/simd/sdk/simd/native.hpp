@@ -127,8 +127,8 @@ namespace boost { namespace simd
     static BOOST_FORCEINLINE std::size_t  size()  { return static_size; }
     static BOOST_FORCEINLINE bool         empty() { return false; }
 
-    reference       operator[](std::size_t i)       { return data()[i]; }
-    const_reference operator[](std::size_t i) const { return data()[i]; }
+    BOOST_FORCEINLINE reference       operator[](std::size_t i)       { return data()[i]; }
+    BOOST_FORCEINLINE const_reference operator[](std::size_t i) const { return data()[i]; }
 
 #if defined(BOOST_SIMD_COMPILER_GCC) && BOOST_SIMD_GCC_VERSION == 40603
     // workaround for GCC bug #52407 affecting GCC 4.6.3

@@ -60,7 +60,7 @@ namespace boost { namespace simd
     struct splat_ : ext::elementwise_<splat_> { typedef ext::elementwise_<splat_> parent; };
   }
 
-  template<class T, class A0> inline
+  template<class T, class A0> BOOST_FORCEINLINE
   typename boost::dispatch::meta::call<tag::splat_(A0, boost::dispatch::meta::as_<T>)>::type
   splat(A0 const& a0)
   {
