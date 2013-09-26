@@ -12,7 +12,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_MAP_LOG(Tag)
     typedef typename boost::dispatch::meta::
        call<tag::map_ ( dispatch::functor<Tag>
-                      , A0
+                      , A0 const &
                       )
            >::type
     result_type;
@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_MAP_LOG(Tag)
     typedef typename boost::dispatch::meta::
        call<tag::map_ ( dispatch::functor<Tag>
-                      , A0 , A1
+                      , A0 const & , A1 const &
                       )
            >::type
     result_type;
@@ -52,7 +52,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_MAP_LOG(Tag)
     typedef typename boost::dispatch::meta::
        call<tag::map_ ( dispatch::functor<Tag>
-                      , A0 , A1 , A2
+                      , A0 const & , A1 const & , A2 const &
                       )
            >::type
     result_type;
@@ -72,7 +72,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_MAP_LOG(Tag)
     typedef typename boost::dispatch::meta::
        call<tag::map_ ( dispatch::functor<Tag>
-                      , A0 , A1 , A2 , A3
+                      , A0 const & , A1 const & , A2 const & , A3 const &
                       )
            >::type
     result_type;
@@ -92,7 +92,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_MAP_LOG(Tag)
     typedef typename boost::dispatch::meta::
        call<tag::map_ ( dispatch::functor<Tag>
-                      , A0 , A1 , A2 , A3 , A4
+                      , A0 const & , A1 const & , A2 const & , A3 const & , A4 const &
                       )
            >::type
     result_type;
@@ -112,7 +112,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_MAP_LOG(Tag)
     typedef typename boost::dispatch::meta::
        call<tag::map_ ( dispatch::functor<Tag>
-                      , A0 , A1 , A2 , A3 , A4 , A5
+                      , A0 const & , A1 const & , A2 const & , A3 const & , A4 const & , A5 const &
                       )
            >::type
     result_type;

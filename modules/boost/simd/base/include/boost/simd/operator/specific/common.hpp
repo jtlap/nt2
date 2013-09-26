@@ -43,6 +43,7 @@ namespace boost { namespace simd { namespace details
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/facilities/intercept.hpp>
 #if defined(__WAVE__) && defined(BOOST_SIMD_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/common.hpp")
 #undef BOOST_SIMD_MAP_LOG
@@ -100,7 +101,7 @@ namespace boost { namespace simd { namespace ext
 
     typedef typename boost::dispatch::meta::
        call<tag::map_ ( dispatch::functor<Tag>
-                      , BOOST_PP_ENUM_PARAMS(n, A)
+                      , BOOST_PP_ENUM_BINARY_PARAMS(n, A, const & BOOST_PP_INTERCEPT)
                       )
            >::type
     result_type;
