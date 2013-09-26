@@ -59,7 +59,7 @@ namespace boost { namespace simd { namespace ext
                                     , (A0)(A1)(A2)
                                     , (fusion_sequence_<A0>)
                                       (fusion_sequence_<A1>)
-                                      (scalar_< integer_<A2> >)
+                                      (generic_< integer_<A2> >)
                                     )
   {
     typedef void result_type;
