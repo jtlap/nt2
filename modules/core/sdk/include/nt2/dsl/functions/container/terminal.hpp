@@ -12,6 +12,7 @@
 #include <nt2/dsl/functions/terminal.hpp>
 #include <boost/simd/include/functions/load.hpp>
 #include <boost/simd/include/functions/store.hpp>
+#include <boost/simd/include/functions/splat.hpp>
 #include <nt2/include/functions/simd/maximum.hpp>
 #include <nt2/sdk/memory/category.hpp>
 #include <nt2/sdk/simd/category.hpp>
@@ -200,12 +201,12 @@ namespace nt2 { namespace ext
                               ((target_< simd_< unspecified_<Data>,X > >))
                             )
   {
-    typedef typename meta::scalar_of<typename Data::type>::type result_type;
+    typedef typename Data::type result_type;
 
     BOOST_FORCEINLINE
     result_type operator()(A0& a0, State const&, Data const&) const
     {
-      return static_cast<result_type>(boost::proto::value(a0));
+      return nt2::splat<result_type>(boost::proto::value(a0));
     }
   };
 
