@@ -9,11 +9,14 @@
 #ifndef NT2_CORE_CONTAINER_DSL_FUSION_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_DSL_FUSION_HPP_INCLUDED
 
+#include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/include/functions/extent.hpp>
-#include <boost/fusion/include/tag_of_fwd.hpp>
-#include <nt2/core/container/extent/extent.hpp>
-#include <boost/simd/sdk/details/at_iterator.hpp>
 #include <nt2/sdk/meta/is_statically_sized.hpp>
+#include <boost/simd/sdk/details/at_iterator.hpp>
+#include <boost/fusion/support.hpp>
+#include <boost/fusion/sequence/intrinsic.hpp>
+#include <boost/mpl/size_t.hpp>
+#include <boost/mpl/if.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // TODO REFRESH TO USE PROPER TYPES ETC...
@@ -73,9 +76,9 @@ namespace boost { namespace fusion { namespace extension
   {
     template<typename Sequence>
     struct  apply
-          : mpl::int_ < dispatch::meta::call<nt2::tag::extent_(Sequence)>
-                                ::type::static_numel
-                      >
+          : mpl::size_t < dispatch::meta::call<nt2::tag::extent_(Sequence)>
+                                  ::type::static_numel
+                        >
     {};
   };
 
