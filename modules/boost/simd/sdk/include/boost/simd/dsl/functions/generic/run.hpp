@@ -54,7 +54,7 @@ namespace boost { namespace simd { namespace ext
     typedef boost::dispatch::meta::as_<
       typename boost::simd::meta::vector_of<
         typename Expr::value_type
-      , Expr::extent_type::static_numel == 1u ? 1u : boost::simd::meta::cardinal_of< boost::simd::native<T, X> >::value
+      , boost::simd::meta::cardinal_of< boost::simd::native<T, X> >::value
       >::type
     > type;
     BOOST_FORCEINLINE static type call(boost::dispatch::meta::as_< boost::simd::native<T, X> > const&)
