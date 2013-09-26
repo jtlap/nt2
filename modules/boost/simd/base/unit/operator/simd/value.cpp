@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "boost::simd::value"
-
 #include <boost/mpl/integral_c.hpp>
 #include <boost/simd/include/functions/value.hpp>
 #include <boost/simd/sdk/config/types.hpp>
