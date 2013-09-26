@@ -159,14 +159,15 @@ macro(nt2_doc_doxygen file)
     set(DXY_EX     "EXAMPLE_PATH = ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}/examples\n")
   endif()
 
-  set(DXY_TARGET "GENERATE_LATEX=NO\nGENERATE_HTML=NO\nGENERATE_XML=YES\n")
+  set(DXY_TARGET "GENERATE_LATEX=NO\nGENERATE_HTML=YES\nGENERATE_XML=YES\n")
   set(DXY_XML    "XML_OUTPUT = ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen\n")
+  set(DXY_HTML   "HTML_OUTPUT = ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen/html\n")
 
   # Add our alias lists
   file(READ ${CMAKE_SOURCE_DIR}/cmake/alias.dox DOXYGEN_ALIAS)
 
   set(DOXYGEN_CONTENT
-      "${DOXYGEN_CONTENT}${DXY_EX}${DXY_PATH}${DXY_PP}${DXY_PDEF}${DXY_EXCLUDE}${DXY_TARGET}${DXY_XML}${DOXYGEN_ALIAS}"
+      "${DOXYGEN_CONTENT}${DXY_EX}${DXY_PATH}${DXY_PP}${DXY_PDEF}${DXY_EXCLUDE}${DXY_TARGET}${DXY_XML}${DXY_HTML}${DOXYGEN_ALIAS}"
      )
 
   file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen/doxyfile ${DOXYGEN_CONTENT})
@@ -175,12 +176,14 @@ macro(nt2_doc_doxygen file)
   set(target_name target_${relative})
   string(REPLACE "/" "_" target_name ${target_name})
 
+  file(MAKE_DIRECTORY ${NT2_BINARY_DIR}/doc/html/images/${target_name})
   add_custom_target(${target_name}
                     COMMAND ${DOXYGEN_EXECUTABLE}
                             ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen/doxyfile
+                    COMMAND find ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen/html/ -name form_*.png -exec cp {} ${NT2_BINARY_DIR}/doc/html/images/${target_name}/ "\\;"
                     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
                     DEPENDS ${file}.doxyfile ${ARGN}
-                    COMMENT "Running doxygen with XML output on ${file}.dox..."
+                    COMMENT "Running doxygen with XML and HTML output on ${file}.dox..."
                     SOURCES ${file}.doxyfile
                    )
 
@@ -199,7 +202,7 @@ macro(nt2_doc_doxygen file)
                ${NT2_SOURCE_ROOT}/cmake/boostbook/sort.xsl
                ${file}.doxygen/all2.xml
                DEPENDS ${file}.doxygen/all2.xml
-               COMMENT "XInclude sorting..."
+               COMMENT "Sorting Doxygen entries..."
               )
 
   if(${NT2_CURRENT_MODULE} MATCHES "^boost\\.")
@@ -211,6 +214,7 @@ macro(nt2_doc_doxygen file)
   nt2_xsltproc(${file}.xml
                --stringparam boost.doxygen.header.prefix ${prefix}
                --stringparam boost.doxygen.detailns details
+               --stringparam boost.doxygen.formuladir images/${target_name}/
                ${BOOSTBOOK_XSL_DIR}/doxygen/doxygen2boostbook.xsl
                ${file}.doxygen/all.xml
                DEPENDS ${file}.doxygen/all.xml
