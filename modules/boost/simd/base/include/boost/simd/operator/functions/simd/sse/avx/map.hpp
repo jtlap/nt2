@@ -11,6 +11,7 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
 #include <boost/simd/operator/functions/map.hpp>
+#include <boost/simd/include/functions/combine.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/meta/iterate.hpp>
@@ -23,79 +24,6 @@
 // This is done by splitting it into 2 SSE vectors calling the functor on each
 // and merging the two results.
 ////////////////////////////////////////////////////////////////////////////////
-
-// map_avx_sse is used to merge two SSE vectors into a single AVX one
-namespace boost { namespace simd
-{
-  namespace tag
-  {
-    struct map_avx_sse_ : dispatch::tag::formal_ { typedef dispatch::tag::formal_ parent; };
-  }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::map_avx_sse_, map_avx_sse, 2)
-} }
-
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION
-  ( boost::simd::tag::map_avx_sse_, boost::simd::tag::avx_
-  , (A0)
-  , ((simd_< logical_<A0>, boost::simd::tag::sse_ >))
-    ((simd_< logical_<A0>, boost::simd::tag::sse_ >))
-  )
-  {
-    typedef simd::native< typename meta::scalar_of<A0>::type
-                        , boost::simd::tag::avx_
-                        > result_type;
-
-    inline result_type
-    operator()(A0 const& a0, A0 const& a1) const
-    {
-      typedef typename A0::type arith_t;
-      return bitwise_cast<result_type>(
-        map_avx_sse( bitwise_cast<arith_t>(a0), bitwise_cast<arith_t>(a1) )
-      );
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION
-  ( boost::simd::tag::map_avx_sse_, boost::simd::tag::avx_
-  , (A0)
-  , ((simd_< fusion_sequence_<A0>, boost::simd::tag::sse_ >))
-    ((simd_< fusion_sequence_<A0>, boost::simd::tag::sse_ >))
-  )
-  {
-    typedef simd::native< typename meta::scalar_of<A0>::type
-                        , boost::simd::tag::avx_
-                        > result_type;
-
-    struct map_avx_sse_impl
-    {
-      BOOST_FORCEINLINE map_avx_sse_impl(result_type& that_, A0 const& a0_, A0 const& a1_)
-                                        : that(that_), a0(a0_), a1(a1_)
-                                        {
-                                        }
-
-      template<int I>
-      BOOST_FORCEINLINE void operator()() const
-      {
-        boost::fusion::at_c<I>(that) = map_avx_sse( boost::fusion::at_c<I>(a0), boost::fusion::at_c<I>(a1) );
-      }
-
-      result_type& that;
-      A0 const& a0;
-      A0 const& a1;
-    };
-
-    inline result_type
-    operator()(A0 const& a0, A0 const& a1) const
-    {
-      static const int N = fusion::result_of::size<A0>::type::value;
-      result_type that;
-      meta::iterate<N>(map_avx_sse_impl(that, a0, a1));
-      return that;
-    }
-  };
-} } }
 
 #if !defined(BOOST_SIMD_DONT_USE_PREPROCESSED_FILES)
 #include <boost/simd/operator/functions/simd/sse/avx/preprocessed/map.hpp>
@@ -151,35 +79,13 @@ namespace boost { namespace simd { namespace ext                               \
       BOOST_PP_REPEAT(n, M4, BOOST_PP_TUPLE_ELEM(3, 1, t))                     \
       r0 = f(BOOST_PP_ENUM_PARAMS(n, a0) );                                    \
       r1 = f(BOOST_PP_ENUM_PARAMS(n, a1) );                                    \
-      return map_avx_sse(r0, r1);                                                \
+      return boost::simd::combine(r0, r1);                                     \
     }                                                                          \
   };                                                                           \
 } } }                                                                          \
 /**/
 
 #define BOOST_SIMD_MAP_CALL(T,C,CC)                                            \
-namespace boost { namespace simd { namespace ext                               \
-{                                                                              \
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION                                            \
-  ( boost::simd::tag::map_avx_sse_, boost::simd::tag::avx_                       \
-  , (A0)                                                                       \
-  , ((simd_< T<A0>, boost::simd::tag::sse_ >))                                 \
-    ((simd_< T<A0>, boost::simd::tag::sse_ >))                                 \
-  )                                                                            \
-  {                                                                            \
-    typedef simd::native< typename meta::scalar_of<A0>::type                   \
-                        , boost::simd::tag::avx_                               \
-                        > result_type;                                         \
-                                                                               \
-    inline result_type                                                         \
-    operator()(A0 const& a0, A0 const& a1) const                               \
-    {                                                                          \
-      result_type that = BOOST_PP_CAT(_mm256_cast, CC)(a0());                  \
-                  that = BOOST_PP_CAT(_mm256_insertf128_, C)(that(), a1(), 1); \
-      return that;                                                             \
-    }                                                                          \
-  };                                                                           \
-} } }                                                                          \
 BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),M5,(T,C,CC))  \
 /**/
 
