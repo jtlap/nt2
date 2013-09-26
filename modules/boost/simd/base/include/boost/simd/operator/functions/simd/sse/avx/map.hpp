@@ -13,6 +13,10 @@
 #include <boost/simd/operator/functions/map.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/simd/sdk/meta/iterate.hpp>
+#include <boost/dispatch/meta/fusion.hpp>
+#include <boost/fusion/include/at.hpp>
+#include <boost/fusion/include/size.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Implements a SIMD map that applies a given function to any AVX vector type.
@@ -50,6 +54,45 @@ namespace boost { namespace simd { namespace ext
       return bitwise_cast<result_type>(
         map_avx_sse( bitwise_cast<arith_t>(a0), bitwise_cast<arith_t>(a1) )
       );
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION
+  ( boost::simd::tag::map_avx_sse_, boost::simd::tag::avx_
+  , (A0)
+  , ((simd_< fusion_sequence_<A0>, boost::simd::tag::sse_ >))
+    ((simd_< fusion_sequence_<A0>, boost::simd::tag::sse_ >))
+  )
+  {
+    typedef simd::native< typename meta::scalar_of<A0>::type
+                        , boost::simd::tag::avx_
+                        > result_type;
+
+    struct map_avx_sse_impl
+    {
+      BOOST_FORCEINLINE map_avx_sse_impl(result_type& that_, A0 const& a0_, A0 const& a1_)
+                                        : that(that_), a0(a0_), a1(a1_)
+                                        {
+                                        }
+
+      template<int I>
+      BOOST_FORCEINLINE void operator()() const
+      {
+        boost::fusion::at_c<I>(that) = map_avx_sse( boost::fusion::at_c<I>(a0), boost::fusion::at_c<I>(a1) );
+      }
+
+      result_type& that;
+      A0 const& a0;
+      A0 const& a1;
+    };
+
+    inline result_type
+    operator()(A0 const& a0, A0 const& a1) const
+    {
+      static const int N = fusion::result_of::size<A0>::type::value;
+      result_type that;
+      meta::iterate<N>(map_avx_sse_impl(that, a0, a1));
+      return that;
     }
   };
 } } }
