@@ -206,7 +206,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(A0& a0, State const&, Data const&) const
     {
-      return nt2::splat<result_type>(boost::proto::value(a0));
+      return boost::simd::splat<result_type>(boost::proto::value(a0));
     }
   };
 
