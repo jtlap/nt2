@@ -42,10 +42,10 @@ namespace nt2{ namespace ext
                             )
   {
     typedef typename T::type value_type;
-    typedef typename nt2::meta::call < nt2::tag::colon_(value_type, value_type)>::type C;
+    typedef typename nt2::meta::call < nt2::tag::colon_(value_type, value_type)>::type C_;
     typedef typename boost::proto::result_of::make_expr< nt2::tag::circul_
       , container::domain
-      , C const &,
+      , C_ const &,
       box<_2D> >::type                        result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,T const& ) const
     {

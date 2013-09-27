@@ -30,11 +30,11 @@ namespace nt2 { namespace ext
     typedef void                                                     result_type;
     typedef typename boost::proto::result_of::child_c<A1&,0>::type   child0;
     typedef typename meta::call<tag::run_(child0)>::type             result_t;
-    typedef typename boost::add_reference<result_t>::type            result;
+    typedef typename boost::add_reference<result_t>::type            result_;
 
     typedef typename meta::
             call< nt2::tag::factorization::
-                  chol_(result, char, nt2::details::in_place_)
+                  chol_(result_, char, nt2::details::in_place_)
                 >::type                                              fact_t;
 
 

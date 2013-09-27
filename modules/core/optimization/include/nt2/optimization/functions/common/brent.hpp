@@ -51,7 +51,7 @@ namespace nt2 { namespace ext
       // Starts iterating ...
       for(iter=1;iter<=o.maximum_iterations;++iter)
       {
-        T etemp,fu,p1,q,r,u;
+        T etemp,fu,p1,q,r,u = Zero<T>();
 
         T xm    = nt2::average(a, b);
         T tol1  = tol * nt2::abs(x) + Sqrteps<T>();
