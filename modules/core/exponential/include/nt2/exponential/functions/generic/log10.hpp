@@ -13,6 +13,8 @@
 #include <nt2/exponential/functions/scalar/impl/logs.hpp>
 #include <nt2/exponential/functions/simd/common/impl/logs.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/toint.hpp>
+#include <nt2/include/functions/simd/touint.hpp>
 #include <boost/simd/sdk/simd/meta/is_native.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 
@@ -20,16 +22,27 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log10_, tag::cpu_
                             , (A0)
-                            , (generic_< arithmetic_<A0> >)
+                            , (generic_< int_<A0> >)
                             )
   {
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::log10(nt2::tofloat(a0));
+      return toint(nt2::log10(nt2::tofloat(a0)));
     }
   };
 
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log10_, tag::cpu_
+                            , (A0)
+                            , (generic_< uint_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1)
+    {
+      return touint(nt2::log10(nt2::tofloat(a0)));
+    }
+  };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log10_, tag::cpu_
                             , (A0)
                             , (generic_< floating_<A0> >)

@@ -9,6 +9,7 @@
 
 SET( SOURCES
   ilog2.cpp
+  ilog10.cpp
   clz.cpp
   ctz.cpp
   genmask.cpp
