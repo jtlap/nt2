@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_MTEN_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_MTEN_HPP_INCLUDED
 
@@ -16,52 +13,39 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_mten Mten
- *
- * \par Description
- * Constant Mten = -10
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/mten.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::mten_(A0)>::type
- *     Mten();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Mten
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Mten of functor Mten
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Mten generic tag
+
+     Represents the Mten constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Mten, double, -10
                                 , 0xc1200000UL, 0xc024000000000000ULL
                                 );
   }
+  /*!
+    Generates value -10
 
+    @par Semantic:
+
+    @code
+    T r = Mten<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = T(-10);
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Mten, Mten)
 } }
 #include <boost/simd/constant/common.hpp>

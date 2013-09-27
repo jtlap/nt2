@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_TWELVE_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_TWELVE_HPP_INCLUDED
 
@@ -16,52 +13,38 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_twelve Twelve
- *
- * \par Description
- * Constant Twelve = 12
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/twelve.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::twelve_(A0)>::type
- *     Twelve();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Twelve
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Twelve of functor Twelve
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Twelve generic tag
+
+     Represents the Twelve constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Twelve, double, 12
                                 ,0x41400000, 0x4028000000000000ll
                                 );
   }
+  /*!
+    Generates value 12
 
+    @par Semantic:
+
+    @code
+    T r = Twelve<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = T(12);
+    @endcode
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Twelve, Twelve)
 } }
 

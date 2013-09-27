@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_QUARTER_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_QUARTER_HPP_INCLUDED
 
@@ -16,53 +13,44 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_quarter Quarter
- *
- * \par Description
- * Constant Quarter = \f$\frac14\f$
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/quarter.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::quarter_(A0)>::type
- *     Quarter();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Quarter
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Quarter of functor Quarter
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Quarter generic tag
+
+     Represents the Quarter constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Quarter, double, 0
                                 , 0x3E800000, 0x3FD0000000000000ULL
                                 );
   }
+  /*!
+    Generate value 1/4
 
+    @par Semantic:
+
+    @code
+    T r = Quarter<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = T(1)/T(4);
+    @endcode
+
+    @par Alias
+
+    Oneo_4
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Quarter, Quarter)
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Quarter, Oneo_4)
 } }
 
 #include <boost/simd/constant/common.hpp>

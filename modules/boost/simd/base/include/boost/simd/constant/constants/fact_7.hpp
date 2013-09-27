@@ -19,56 +19,38 @@
 #pragma warning(disable: 4310) // truncation of constant
 #endif
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_fact_7 Fact_7
- *
- * \par Description
- * Constant Fact_7, 7! = 5040, the saturated factorial value is
- * min(Valmax<T>(),5040)
- * \par
- * The value of this constant is type dependant. This means that for different
- * types it does not represent the same mathematical number.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/fact_7.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::fact_7_(A0)>::type
- *     Fact_7();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Fact_7
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Fact_7 of functor Fact_7
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Fact_7 generic tag
+
+     Represents the Fact_7 constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Fact_7,double
                                 , 5040, 0x459d8000, 0x40b3b00000000000ll
                                 );
   }
+  /*!
+    Generates 7! that is 5040
 
+    @par Semantic:
+
+    @code
+    T r = Fact_7<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = T(5040);
+    @endcode
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Fact_7, Fact_7)
 } }
 

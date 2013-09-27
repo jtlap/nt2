@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_SQRT_1O_5_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_SQRT_1O_5_HPP_INCLUDED
 
@@ -16,53 +13,40 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_sqrt_1o_5 Sqrt_1o_5
- *
- * \par Description
- * Constant Sqrt_1o_5 = \f$ \sqrt{\frac15}\f$
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/sqrt_1o_5.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::sqrt_1o_5_(A0)>::type
- *     Sqrt_1o_5();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Sqrt_1o_5
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Sqrt_1o_5 of functor Sqrt_1o_5
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Sqrt_1o_5 generic tag
+
+     Represents the Sqrt_1o_5 constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Sqrt_1o_5, double, 0
                                 , 0x3ee4f92e, 0x3fdc9f25c5bfedd9ll
                                 );
   }
 
+  /*!
+    Generates value \f$ \sqrt{\frac15}\f$
 
+    @par Semantic:
+
+    @code
+    T r = Sqrt_1o_5<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = sqrt(T(1)/T(5));
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Sqrt_1o_5, Sqrt_1o_5)
 } }
 

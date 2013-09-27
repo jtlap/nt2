@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_ZERO_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_ZERO_HPP_INCLUDED
 
@@ -16,50 +13,36 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_zero Zero
- *
- * \par Description
- * Constant Zero = 0
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/zero.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::zero_(A0)>::type
- *     Zero();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Zero
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Zero of functor Zero
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Zero generic tag
+
+     Represents the Zero constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Zero, double , 0, 0, 0 );
   }
+  /*!
+    Generates value 0
 
+    @par Semantic:
+
+    @code
+    T r = Zero<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = T(0);
+    @endcode
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Zero, Zero)
 } }
 

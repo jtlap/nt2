@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_GOLD_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_GOLD_HPP_INCLUDED
 
@@ -16,52 +13,39 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_gold Gold
- *
- * \par Description
- * Constant Gold \f$= \frac{1+\sqrt5}{2}\f$
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/gold.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::gold_(A0)>::type
- *     Gold();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Gold
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Gold of functor Gold
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Gold generic tag
+
+     Represents the Gold constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Gold,double,1
                                 , 0x3FCF1BBD,0x3FF9E3779B97F4A8ULL
                                 );
   }
+  /*!
+    Generates the golden ratio that is \f$\phi = \frac{1+\sqrt5}{2}\f$
 
+    @par Semantic:
+
+    @code
+    T r = Gold<T>();
+    @endcode
+
+    is similar for floating types to:
+
+    @code
+    T r = (1+sqrt(5))/2;
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Gold, Gold)
 } }
 

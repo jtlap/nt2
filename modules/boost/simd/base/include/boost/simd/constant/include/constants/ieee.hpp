@@ -15,6 +15,5 @@
 #include <boost/simd/constant/include/constants/minexponent.hpp>
 #include <boost/simd/constant/include/constants/nbmantissabits.hpp>
 #include <boost/simd/constant/include/constants/nbexponentbits.hpp>
-#include <boost/simd/constant/include/constants/bitincrement.hpp>
 
 #endif

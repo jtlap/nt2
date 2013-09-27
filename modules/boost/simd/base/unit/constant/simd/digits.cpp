@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "boost::simd::constants digits"
-
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/functions/splat.hpp>
 #include <boost/simd/sdk/simd/native.hpp>

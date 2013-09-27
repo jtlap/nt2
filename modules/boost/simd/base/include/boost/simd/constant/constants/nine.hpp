@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_NINE_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_NINE_HPP_INCLUDED
 
@@ -16,52 +13,38 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_nine Nine
- *
- * \par Description
- * Constant Nine = 9
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/nine.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::nine_(A0)>::type
- *     Nine();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Nine
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Nine of functor Nine
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Nine generic tag
+
+     Represents the Nine constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Nine, double, 9
                                 , 0x41100000UL, 0x4022000000000000ULL
                                 );
   }
+  /*!
+    Generates value 9
 
+    @par Semantic:
+
+    @code
+    T r = Nine<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = T(9);
+    @endcode
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Nine, Nine)
 } }
 

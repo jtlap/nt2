@@ -18,71 +18,58 @@
 #include <boost/simd/meta/double.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_bitincrement Bitincrement
- *
- * \par Description
- * Constant Bitincrement : represents 0x00000001 bitwise casts in the
- * the corresponding type.
- * \par
- * The value of this constant is type dependant. This means that for different
- * types it does not represent the same mathematical number.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/bitincrement.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::bitincrement_(A0)>::type
- *     Bitincrement();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Bitincrement
- *
- * \return type T value
- *
- *
-**/
-
 namespace boost { namespace simd
 {
   namespace tag
   {
     /*!
-     * \brief Define the tag Bitincrement of functor Bitincrement
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+      @brief Bitincrement generic tag
 
+      Represents the Bitincrement constant in generic contexts.
+
+      @par Models:
+      Hierarchy
+    **/
     struct Bitincrement : ext::pure_constant_<Bitincrement>
     {
       typedef double default_type;
       typedef ext::pure_constant_<Bitincrement> parent;
 
+      /// INTERNAL ONLY
       template<class Target, class Dummy=void>
       struct apply : meta::int_c<typename Target::type,1> {};
     };
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Bitincrement::apply<boost::dispatch::meta::single_<T>,Dummy>
           : meta::single_<1> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Bitincrement::apply<boost::dispatch::meta::double_<T>,Dummy>
           : meta::double_<1> {};
   }
 
+  /*!
+    Generates a value in the chosen type all bits of which are set to 1.
 
+    @par Semantic:
+
+    @code
+    T r = Bitincrement<T>();
+    @endcode
+
+    is similar to
+
+    @code
+    if NO_DENORMAL
+      r =  Smallestpositivevalue<T>();
+    else
+      r =  minDenormal<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION( boost::simd::tag::Bitincrement, Bitincrement)
 } }
 

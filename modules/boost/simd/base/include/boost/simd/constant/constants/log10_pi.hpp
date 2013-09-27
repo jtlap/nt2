@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_LOG10_PI_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_LOG10_PI_HPP_INCLUDED
 
@@ -16,52 +13,39 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_log10_pi Log10_pi
- *
- * \par Description
- * Constant Log10_pi = base ten log of pi used in pispace
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/log10_pi.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::log10_pi_(A0)>::type
- *     Log10_Pi();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Log10_Pi
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Log10_Pi of functor Log10_Pi
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Log10_pi generic tag
+
+     Represents the Log10_pi constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Log10_pi, double, 3
                                   , 0x3efe8a6e, 0x3fdfd14db31ba3bbll
                                   );
   }
+  /*!
+    Generates base ten logarithm of pi used in pispace (\f$\log10(\pi)\f$)
 
+    @par Semantic:
+
+    @code
+    T r = Log10_pi<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = log10(Pi<T>());
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Log10_pi, Log10_pi)
 } }
 

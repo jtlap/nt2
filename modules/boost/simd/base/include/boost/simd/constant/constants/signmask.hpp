@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_SIGNMASK_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_SIGNMASK_HPP_INCLUDED
 
@@ -18,89 +15,77 @@
 #include <boost/simd/meta/double.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_signmask Signmask
- *
- * \par Description
- * Constant Signmask : is a mask with the lone most significand bit set to one
- * (even if the type is unsigned).
- * \par
- * The value of this constant is type dependant. This means that for different
- * types it does not represent the same mathematical number.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/signmask.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::signmask_(A0)>::type
- *     Signmask();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Signmask
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Signmask of functor Signmask
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Signmask generic tag
+
+     Represents the Signmask constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct Signmask : ext::pure_constant_<Signmask>
     {
       typedef double default_type;
       typedef ext::pure_constant_<Signmask> parent;
 
+      /// INTERNAL ONLY
       template<class Target, class Dummy=void>
       struct apply : meta::int_c<typename Target::type,0> {};
     };
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Signmask::apply<boost::dispatch::meta::single_<T>,Dummy>
           : meta::single_<0x80000000UL> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Signmask::apply<boost::dispatch::meta::double_<T>,Dummy>
           : meta::double_<0x8000000000000000ULL> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Signmask::apply<boost::dispatch::meta::int8_<T>,Dummy>
           : meta::int_c<T, boost::simd::int8_t(0x80U)> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Signmask::apply<boost::dispatch::meta::int16_<T>,Dummy>
           : meta::int_c<T, boost::simd::int16_t(0x8000U)> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Signmask::apply<boost::dispatch::meta::int32_<T>,Dummy>
-          : meta::int_c<T, boost::simd::int32_t(0x80000000UL)>
-    {};
+          : meta::int_c<T, boost::simd::int32_t(0x80000000UL)> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Signmask::apply<boost::dispatch::meta::int64_<T>,Dummy>
           : meta::int_c < T
                         , boost::simd::int64_t(0x8000000000000000ULL)
-                        >
-    {};
+                        > {};
   }
+  /*!
+    Generate a mask with the lone most significand bit set to one
+    (even if the type is unsigned).
 
+    @par Semantic:
+
+    @code
+    T r = Signmask<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = bitwise_cast<T>(1 << sizeof(T)*8-1);
+    @endcode
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Signmask, Signmask)
 } }
 
