@@ -19,25 +19,18 @@
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 
-NT2_TEST_CASE_TPL ( reversebits_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( reversebits_integer,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
   using boost::simd::reversebits;
   using boost::simd::tag::reversebits_;
   using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
+  typedef native<T,ext_t>                  vT;
   typedef typename boost::dispatch::meta::call<reversebits_(vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  NT2_TEST_EQUAL(reversebits(boost::simd::Mone<vT>())[0], boost::simd::Mone<sr_t>());
-  NT2_TEST_EQUAL(reversebits(boost::simd::One<vT>())[0], sr_t(boost::simd::One<sr_t>()<<(sizeof(sr_t)*8-1)));
-  NT2_TEST_EQUAL(reversebits(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(reversebits(boost::simd::Mone<vT>()), boost::simd::Mone<r_t>());
+  NT2_TEST_EQUAL(reversebits(boost::simd::One<vT>()), boost::simd::splat<r_t>(boost::simd::One<T>()<<(sizeof(T)*8-1)));
+  NT2_TEST_EQUAL(reversebits(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
 } // end of test for integer_
 
