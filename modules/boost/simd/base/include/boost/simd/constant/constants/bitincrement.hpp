@@ -16,7 +16,7 @@
 #include <boost/simd/meta/float.hpp>
 #include <boost/simd/meta/int_c.hpp>
 #include <boost/simd/meta/double.hpp>
-#include <boost/simd/constant/constant.hpp>
+#include <boost/simd/constant/hierarchy.hpp>
 
 namespace boost { namespace simd
 {
