@@ -19,6 +19,7 @@ SET( SOURCES
   groups.cpp
   lookup.cpp
   put_first.cpp
+  slice.cpp
   sort.cpp
   splatted_first.cpp
   splatted_maximum.cpp
