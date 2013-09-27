@@ -57,11 +57,11 @@ namespace nt2
       // * evaluations of the two branches and selection using flags
       // * return with flag based corrections and inf and nan or specific invalid cases inputs considerations
 
-      static inline A0_n cosa(const A0& a0){ return cosa(a0, style()); }
-      static inline A0_n sina(const A0& a0){ return sina(a0, style()); }
-      static inline A0_n tana(const A0& a0){ return tana(a0, style()); }
-      static inline A0_n cota(const A0& a0){ return cota(a0, style()); }
-      static inline A0_n sincosa(const A0& a0, A0& c){ return sincosa(a0,c,style()); }
+      static inline A0_n cosa(const A0_n a0){ return cosa(a0, style()); }
+      static inline A0_n sina(const A0_n a0){ return sina(a0, style()); }
+      static inline A0_n tana(const A0_n a0){ return tana(a0, style()); }
+      static inline A0_n cota(const A0_n a0){ return cota(a0, style()); }
+      static inline A0_n sincosa(const A0_n a0, A0_n& c){ return sincosa(a0,c,style()); }
 
     private:
       static inline A0_n cosa(const A0_n a0_n, const fast&)
@@ -75,7 +75,7 @@ namespace nt2
         const A0 a0 = a0_n;
         const A0 x = nt2::abs(a0);
         A0 xr = Nan<A0>(), xc;
-        const int_type n =  redu_t::reduce(x, xr); //, xc);
+        const int_type n =  redu_t::reduce(x, xr);
         const int_type swap_bit = n&One<int_type>();
         const int_type sign_bit = shli(b_xor(swap_bit, shri(n&Two<int_type>(), 1)), Maxleftshift<sint_type>());
         const A0 z = sqr(xr);
@@ -117,7 +117,7 @@ namespace nt2
         const A0 a0 = a0_n;
         const A0 x =  nt2::abs(a0);
         A0 xr = Nan<A0>(); //, xc;
-        const int_type n = redu_t::reduce(x, xr); //, xc);
+        const int_type n = redu_t::reduce(x, xr);
         const A0 y = eval_t::tan_eval(xr, oneminus(shli((n&One<int_type>()), 1)));
         // 1 -- n even  -1 -- n odd
         const bA0 testnan = redu_t::tan_invalid(a0);
@@ -135,7 +135,7 @@ namespace nt2
         const A0 a0 = a0_n;
         const A0 x = nt2::abs(a0);
         A0 xr = Nan<A0>(); //, xc;
-        const int_type n = redu_t::reduce(x, xr); //, xc);
+        const int_type n = redu_t::reduce(x, xr);
         const A0 y = eval_t::cot_eval(xr, oneminus(shli((n&One<int_type>()), 1)));
         // 1 -- n even -1 -- n odd
         const bA0 testnan = redu_t::cot_invalid(a0);
@@ -145,7 +145,7 @@ namespace nt2
       }
 
       // simultaneous cosa and sina function
-      static inline A0_n sincosa(const A0_n a0_n, A0& c, const fast&)
+      static inline A0_n sincosa(const A0_n a0_n, A0_n& c, const fast&)
       {
         const A0 x = scale(a0_n);
         const A0 z = sqr(x);
@@ -153,12 +153,12 @@ namespace nt2
         return eval_t::sin_eval(z, x);
       }
 
-      static inline A0_n sincosa(const A0_n a0_n, A0& c, const regular&)
+      static inline A0_n sincosa(const A0_n a0_n, A0_n& c, const regular&)
       {
         const A0 a0 = a0_n;
         const A0 x =  nt2::abs(a0);
         A0 xr = Nan<A0>(); //, xc;
-        const int_type n = redu_t::reduce(x, xr); //, xc);
+        const int_type n = redu_t::reduce(x, xr);
         const int_type swap_bit = n&One<int_type>();
         const A0 z = nt2::sqr(xr);
         const int_type cos_sign_bit = shli(b_xor(swap_bit, shri(n&Two<int_type>(), 1)),  Maxleftshift<sint_type>());

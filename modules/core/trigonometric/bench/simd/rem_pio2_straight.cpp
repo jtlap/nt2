@@ -16,6 +16,9 @@
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <nt2/include/constants/pio_2.hpp>
+#include <nt2/include/constants/pio_4.hpp>
+#include <nt2/include/constants/zero.hpp>
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
