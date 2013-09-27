@@ -10,6 +10,7 @@
 #define BOOST_SIMD_CONSTANT_INCLUDE_CONSTANTS_PROPERTIES_HPP_INCLUDED
 
 #include <boost/simd/constant/include/constants/allbits.hpp>
+#include <boost/simd/constant/include/constants/bitincrement.hpp>
 #include <boost/simd/constant/include/constants/ieee.hpp>
 #include <boost/simd/constant/include/constants/maxleftshift.hpp>
 #include <boost/simd/constant/include/constants/signmask.hpp>
