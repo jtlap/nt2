@@ -75,11 +75,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       if (is_nan(a0)) return a0;
-<<<<<<< HEAD
       return bitfloating(minusone(bitinteger(a0)));
-=======
-      return a0==Minf<A0>() ? a0 : bitfloating(dec(bitinteger(a0)));
->>>>>>> 2c0168e13cabbca0c38f62efa4cb725008bfa343
     }
   };
 } } }
