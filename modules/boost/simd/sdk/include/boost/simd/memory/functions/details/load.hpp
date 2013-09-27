@@ -68,6 +68,27 @@ namespace boost { namespace simd { namespace details
     private:
     loader& operator=(loader const&);
   };
+
+  template<typename A0, typename A1, typename A2 = int> struct inserter
+  {
+    inserter( A0 a0_, A1& a1_, A2 a2_ = 0)
+            : a0(a0_), a1(a1_), a2(a2_)
+    {}
+
+    template<int I> void operator()() const
+    {
+      typedef typename fusion::result_of::at_c<A1,I>::type type;
+      for(std::size_t i=0;i<meta::cardinal_of<type>::value;++i)
+        insert(fusion::at_c<I>(*(a0+a2)),fusion::at_c<I>(a1),i);
+    }
+
+    A0  a0;
+    A1& a1;
+    A2  a2;
+
+    private:
+    inserter& operator=(inserter const&);
+  };
 } } }
 
 #endif

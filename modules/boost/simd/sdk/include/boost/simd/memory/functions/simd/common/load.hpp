@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
                                     , tag::cpu_
                                     , (A0)(A2)(X)
                                     , (iterator_<unspecified_<A0> >)
-                                      ((target_<simd_< unspecified_<A2>, X> >))
+                                      ((target_<simd_< fundamental_<A2>, X> >))
                                     )
   {
     typedef typename A2::type result_type;
@@ -47,7 +47,7 @@ namespace boost { namespace simd { namespace ext
                                     , (A0)(A1)(A2)(X)
                                     , (iterator_<unspecified_<A0> >)
                                       (scalar_< integer_<A1> >)
-                                      ((target_<simd_< unspecified_<A2>, X> >))
+                                      ((target_<simd_< fundamental_<A2>, X> >))
                                     )
   {
     typedef typename A2::type result_type;
