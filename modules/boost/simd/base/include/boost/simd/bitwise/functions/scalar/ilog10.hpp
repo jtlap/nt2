@@ -13,6 +13,16 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/assert.hpp>
 
+#ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+#include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/include/functions/sum.hpp>
+#include <boost/simd/include/functions/make.hpp>
+#include <boost/simd/include/functions/is_greater_equal.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/splat.hpp>
+#include <boost/simd/include/functions/multiplies.hpp>
+#endif
+
 namespace boost { namespace simd { namespace ext
 {
 
@@ -52,12 +62,17 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      int32_t i = a0;
+#ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+      typedef native<int32_t,  boost::simd::tag::sse_> v_type;
+      v_type t = make<v_type>(10000, 1000, 100, 10);
+      return -sum(bitwise_cast<v_type>(a0 >= t));
+#else
       return
-        (i >= 10000) ? 4 :
-        (i >= 1000) ? 3 :
-        (i >= 100) ? 2 :
-        (i >= 10) ? 1 : 0;
+        (a0 >= 10000) ? 4 :
+        (a0 >= 1000) ? 3 :
+        (a0 >= 100) ? 2 :
+        (a0 >= 10) ? 1 : 0;
+#endif
     }
   };
 
@@ -69,17 +84,25 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      int32_t i = a0;
+#ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+      typedef native<int32_t,  boost::simd::tag::sse_> v_type;
+      v_type t1 = make<v_type>(10000, 1000, 100, 10);
+      v_type t2 = t1*splat<v_type>(10000);
+      return (a0 >= 1000000000) ? 9 :
+        -(sum(bitwise_cast<v_type>(a0 >= t1))+
+          sum(bitwise_cast<v_type>(a0 >= t2)));
+#else
       return
-        (i >= 1000000000) ? 9 :
-        (i >= 100000000) ? 8 :
-        (i >= 10000000) ? 7 :
-        (i >= 1000000) ? 6 :
-        (i >= 100000) ? 5 :
-        (i >= 10000) ? 4 :
-        (i >= 1000) ? 3 :
-        (i >= 100) ? 2 :
-        (i >= 10) ? 1 : 0;
+        (a0 >= 1000000000) ? 9 :
+        (a0 >= 100000000) ? 8 :
+        (a0 >= 10000000) ? 7 :
+        (a0 >= 1000000) ? 6 :
+        (a0 >= 100000) ? 5 :
+        (a0 >= 10000) ? 4 :
+        (a0 >= 1000) ? 3 :
+        (a0 >= 100) ? 2 :
+        (a0 >= 10) ? 1 : 0;
+#endif
     }
   };
 
