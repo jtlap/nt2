@@ -6,62 +6,46 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_BITWISE_FUNCTIONS_RSHR_HPP_INCLUDED
 #define BOOST_SIMD_BITWISE_FUNCTIONS_RSHR_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_rshr rshr
- *
- * \par Description
- * The function returns the first entry shifted right or left
- * by the absolute value of second entry according to its sign.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/rshr.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::rshr_(A0,A0)>::type
- *     rshr(const A0 & a0,const A0 & a1);
- * }
- * \endcode
- *
- * \param a0 the first parameter of rshr
- * \param a1 the second parameter of rshr, must be an integer value
- *
- * \return returns a value of the type of the first parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
-
 namespace boost { namespace simd { namespace tag
   {
     /*!
-     * \brief Define the tag rshr_ of functor rshr
-     *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
+      @brief  rshr generic tag
+
+      Represents the rshr function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
-    struct rshr_ : ext::elementwise_<rshr_> { typedef ext::elementwise_<rshr_> parent; };
+    struct rshr_ : ext::elementwise_<rshr_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<rshr_> parent;
+    };
   }
+  /*!
+    Returns the first entry shifted right or left
+    by the absolute value of the second entry,
+    according to its sign.
+
+    @par semantic:
+    For any given value @c x of type @c T, n  of type @c I:
+
+    @code
+    T r = rshr(x, n);
+    @endcode
+
+    @param  a0
+    @param  a1
+
+    @return      a value of the same type as the input.
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::rshr_, rshr, 2)
 } }
 
 #endif
-
-// modified by jt the 25/12/2010

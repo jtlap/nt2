@@ -9,12 +9,14 @@
 #ifndef BOOST_SIMD_BITWISE_FUNCTIONS_SIMD_SSE_SSE2_BITWISE_NOTAND_HPP_INCLUDED
 #define BOOST_SIMD_BITWISE_FUNCTIONS_SIMD_SSE_SSE2_BITWISE_NOTAND_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/mpl/equal_to.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::bitwise_notand_, boost::simd::tag::sse2_, (A0)(A1)
-                                , (boost::mpl::equal_to < boost::mpl::sizeof_<A0>
-                                                        , boost::mpl::sizeof_<A1>
+                                , (boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
+                                                        , boost::simd::meta::cardinal_of<A1>
                                                         >
                                   )
                                 , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))

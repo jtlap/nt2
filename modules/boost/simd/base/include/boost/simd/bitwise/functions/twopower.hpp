@@ -6,61 +6,54 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_BITWISE_FUNCTIONS_TWOPOWER_HPP_INCLUDED
 #define BOOST_SIMD_BITWISE_FUNCTIONS_TWOPOWER_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_twopower twopower
- *
- * \par Description
- * The function returns greatest power of two less or equal to the input.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/twopower.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::twopower_(A0)>::type
- *     twopower(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of twopower
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
-
 namespace boost { namespace simd { namespace tag
   {
     /*!
-     * \brief Define the tag twopower_ of functor twopower
-     *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
+      @brief  twopower generic tag
+
+      Represents the twopower function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
-    struct twopower_ : ext::elementwise_<twopower_> { typedef ext::elementwise_<twopower_> parent; };
+    struct twopower_ : ext::elementwise_<twopower_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<twopower_> parent;
+    };
   }
+  /*!
+    Returns \f$2^n\f$ (0 si n is less than zero)
+
+    @par semantic:
+    For any given value n  of integral type @c I:
+
+    @code
+    T r = twopower(n);
+    @endcode
+
+    code is similar to:
+
+    @code
+    T r = 1 << n;
+    @endcode
+
+    @par Note:
+
+    This function is not defined for floating entries
+
+    @param  a0
+    @param  a1
+
+    @return      a value of the same type as the input.
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::twopower_, twopower, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::twopower_, iexp2, 1)
 } }
-
 #endif
-
-// modified by jt the 25/12/2010

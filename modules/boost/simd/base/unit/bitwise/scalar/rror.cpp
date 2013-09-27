@@ -6,38 +6,38 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.bitwise toolbox - rror/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.bitwise components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 18/02/2011
-///
 #include <boost/simd/bitwise/include/functions/rror.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/constant/constant.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/mone.hpp>
+#include <boost/simd/include/constants/two.hpp>
+#include <boost/simd/include/constants/four.hpp>
+#include <boost/simd/sdk/config.hpp>
 
-
-NT2_TEST_CASE_TPL ( rror_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( rror_i,  BOOST_SIMD_INTEGRAL_TYPES)
 {
 
   using boost::simd::rror;
   using boost::simd::tag::rror_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<rror_(T,iT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::call<rror_(T,int32_t)>::type r_t;
   typedef T wished_r_t;
 
 
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
 
   // specific values tests
+  NT2_TEST_EQUAL(rror(boost::simd::Mone<T>(),T(1)), boost::simd::Mone<r_t>());
+  NT2_TEST_EQUAL(rror(boost::simd::Mone<T>(),T(5)), boost::simd::Mone<r_t>());
+  NT2_TEST_EQUAL(rror(boost::simd::Two<T>(),-1),  boost::simd::Four<T>());
+  NT2_TEST_EQUAL(rror(boost::simd::Two<T>(),1), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(rror(boost::simd::Four<T>(),1), boost::simd::Two<r_t>());
+  NT2_TEST_EQUAL(rror(boost::simd::Two<T>(),-1), boost::simd::Four<r_t>());
+  NT2_TEST_EQUAL(rror(boost::simd::Four<T>(), 2), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(rror(boost::simd::One<T>(),-2), boost::simd::Four<r_t>());
   NT2_TEST_EQUAL(rror(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
 } // end of test for integer_
+

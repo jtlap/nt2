@@ -6,11 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_BENCH_MODULE "nt2 boost.simd.bitwise toolbox - rshr/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of boost.simd.bitwise components in simd mode
-//////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/bitwise/include/functions/rshr.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
@@ -18,7 +13,7 @@
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <cmath>
+
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
 //////////////////////////////////////////////////////////////////////////////

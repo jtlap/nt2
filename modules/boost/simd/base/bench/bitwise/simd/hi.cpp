@@ -6,11 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_BENCH_MODULE "nt2 boost.simd.bitwise toolbox - hi/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of boost.simd.bitwise components in simd mode
-//////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/bitwise/include/functions/hi.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
@@ -18,7 +13,7 @@
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <cmath>
+
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
 //////////////////////////////////////////////////////////////////////////////
@@ -33,31 +28,31 @@ using boost::simd::tag::hi_;
 
 namespace n1 {
   typedef float T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
+
   typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(hi_,(RS(vT,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
 }
 namespace n2 {
   typedef double T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
+
   typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(hi_,(RS(vT,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
 }
 namespace n3 {
   typedef boost::simd::int16_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
+
   typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(hi_,(RS(vT,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
 }
 namespace n4 {
   typedef boost::simd::int32_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
+
   typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(hi_,(RS(vT,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
 }
 namespace n5 {
   typedef boost::simd::int64_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
+
   typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(hi_,(RS(vT,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
 }

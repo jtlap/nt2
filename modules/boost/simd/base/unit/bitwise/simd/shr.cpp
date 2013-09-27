@@ -1,33 +1,29 @@
 //==============================================================================
-//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2013   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.bitwise toolbox - shr/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.bitwise components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 18/02/2011
-///
 #include <boost/simd/bitwise/include/functions/shr.hpp>
+
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/sdk/simd/io.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/sdk/config.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+
 #include <boost/simd/include/constants/mone.hpp>
-#include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/include/constants/two.hpp>
+#include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/three.hpp>
+#include <boost/simd/include/constants/two.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 
-NT2_TEST_CASE_TPL ( shr_unsigned_int__2_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
+
+
+NT2_TEST_CASE_TPL ( shr_ui_1,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::shr;
   using boost::simd::tag::shr_;
@@ -46,7 +42,7 @@ NT2_TEST_CASE_TPL ( shr_unsigned_int__2_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(shr(boost::simd::Zero<vT>(),1), boost::simd::Zero<r_t>());
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( shr_unsigned_int__2_0_1,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( shr_si_1,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::shr;
   using boost::simd::tag::shr_;
@@ -65,7 +61,7 @@ NT2_TEST_CASE_TPL ( shr_unsigned_int__2_0_1,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TY
   NT2_TEST_EQUAL(shr(boost::simd::Zero<vT>(),1), boost::simd::Zero<r_t>());
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( shr_unsigned_int__2_1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( shr_ui_2,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::shr;
   using boost::simd::tag::shr_;
@@ -84,7 +80,7 @@ NT2_TEST_CASE_TPL ( shr_unsigned_int__2_1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(shr(boost::simd::Zero<vT>(),boost::simd::One<ivT>()), boost::simd::Zero<r_t>());
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( shr_unsigned_int__2_1_1,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( shr_si_2,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::shr;
   using boost::simd::tag::shr_;

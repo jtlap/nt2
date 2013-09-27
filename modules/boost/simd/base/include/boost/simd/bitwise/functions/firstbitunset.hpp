@@ -6,62 +6,45 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_BITWISE_FUNCTIONS_FIRSTBITUNSET_HPP_INCLUDED
 #define BOOST_SIMD_BITWISE_FUNCTIONS_FIRSTBITUNSET_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_firstbitunset firstbitunset
- *
- * \par Description
- * The function  find the first bit unset (beginning with the least
- * significant bit) in a0, and return the bit pattern in which
- * this bit is the only bit set.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/firstbitunset.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::firstbitunset_(A0)>::type
- *     firstbitunset(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of firstbitunset
- *
- * \return always returns an integer value
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
-
 namespace boost { namespace simd { namespace tag
   {
     /*!
-     * \brief Define the tag firstbitunset_ of functor firstbitunset
-     *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
+      @brief  firstbitunset generic tag
+
+      Represents the firstbitunset function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
-    struct firstbitunset_ : ext::elementwise_<firstbitunset_> { typedef ext::elementwise_<firstbitunset_> parent; };
+    struct firstbitunset_ : ext::elementwise_<firstbitunset_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<firstbitunset_> parent;
+    };
   }
+  /*!
+    Returns the bit pattern in which the only bit set is
+    the first bit unset (beginning with the least significant bit) in the parameter.
+
+    @par semantic:
+    For any given value @c x of type @c T:
+
+    @code
+    as_integer<T,unsigned> r = firstbitunset(x);
+    @endcode
+
+    @param  a0
+
+    @return      a value unsigned integral type associated to the input.
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::firstbitunset_, firstbitunset, 1)
 } }
 
 #endif
 
-// modified by jt the 25/12/2010
