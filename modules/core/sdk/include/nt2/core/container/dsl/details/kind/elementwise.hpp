@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_DSL_DETAILS_SEMANTIC_ELEMENTWISE_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_DSL_DETAILS_SEMANTIC_ELEMENTWISE_HPP_INCLUDED
+#ifndef NT2_CORE_CONTAINER_DSL_DETAILS_KIND_ELEMENTWISE_HPP_INCLUDED
+#define NT2_CORE_CONTAINER_DSL_DETAILS_KIND_ELEMENTWISE_HPP_INCLUDED
 
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
