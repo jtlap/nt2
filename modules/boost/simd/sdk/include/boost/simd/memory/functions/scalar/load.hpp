@@ -15,6 +15,8 @@
 #include <boost/simd/memory/iterator_category.hpp>
 #include <boost/simd/memory/functions/details/load.hpp>
 #include <boost/simd/sdk/meta/iterate.hpp>
+#include <boost/simd/sdk/simd/meta/is_native.hpp>
+#include <boost/mpl/not.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -95,13 +97,14 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - Load through pointer of fusion sequence
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
-                                    , tag::cpu_
-                                    , (A0)(A1)(A2)
-                                    , (iterator_< fusion_sequence_<A0> >)
-                                      (scalar_< integer_<A1> >)
-                                      (target_< fusion_sequence_<A2> >)
-                                    )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::load_
+                                      , tag::cpu_
+                                      , (A0)(A1)(A2)
+                                      , (mpl::not_< simd::meta::is_native<typename A2::type> >)
+                                      , (iterator_< fusion_sequence_<A0> >)
+                                        (scalar_< integer_<A1> >)
+                                        (target_< fusion_sequence_<A2> >)
+                                      )
   {
     typedef typename A2::type result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A2&) const
@@ -115,12 +118,13 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
-                                    , tag::cpu_
-                                    , (A0)(A2)
-                                    , (iterator_< fusion_sequence_<A0> >)
-                                      (target_< fusion_sequence_<A2> >)
-                                    )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::load_
+                                      , tag::cpu_
+                                      , (A0)(A2)
+                                      , (mpl::not_< simd::meta::is_native<typename A2::type> >)
+                                      , (iterator_< fusion_sequence_<A0> >)
+                                        (target_< fusion_sequence_<A2> >)
+                                      )
   {
     typedef typename A2::type result_type;
     inline result_type operator()(const A0& a0, const A2&) const

@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
                                     , tag::cpu_
                                     , (A0)(A1)(X)
-                                    , ((simd_< fundamental_<A0>, X >))
+                                    , ((simd_< unspecified_<A0>, X >))
                                       (iterator_<unspecified_<A1> >)
                                     )
   {
@@ -42,7 +42,7 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)(X)
-                                    , ((simd_< fundamental_<A0>, X >))
+                                    , ((simd_< unspecified_<A0>, X >))
                                       (iterator_< unspecified_<A1> >)
                                       (scalar_< integer_<A2> >)
                                     )

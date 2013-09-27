@@ -15,7 +15,8 @@
 #include <boost/simd/memory/functions/details/store.hpp>
 #include <boost/simd/memory/iterator_category.hpp>
 #include <boost/simd/sdk/meta/iterate.hpp>
-#include <boost/dispatch/meta/mpl.hpp>
+#include <boost/simd/sdk/simd/meta/is_native.hpp>
+#include <boost/mpl/not.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -97,12 +98,13 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// Handles store( seq, seq'*)
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
-                                    , tag::cpu_
-                                    , (A0)(A1)
-                                    , (fusion_sequence_<A0>)
-                                      (iterator_< fusion_sequence_<A1> >)
-                                    )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::store_
+                                      , tag::cpu_
+                                      , (A0)(A1)
+                                      , (mpl::not_< simd::meta::is_native<A0> >)
+                                      , (fusion_sequence_<A0>)
+                                        (iterator_< fusion_sequence_<A1> >)
+                                      )
   {
     typedef void result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
@@ -112,13 +114,14 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
-                                    , tag::cpu_
-                                    , (A0)(A1)(A2)
-                                    , (fusion_sequence_<A0>)
-                                      (iterator_< fusion_sequence_<A1> >)
-                                      (scalar_< integer_<A2> >)
-                                    )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::store_
+                                      , tag::cpu_
+                                      , (A0)(A1)(A2)
+                                      , (mpl::not_< simd::meta::is_native<A0> >)
+                                      , (fusion_sequence_<A0>)
+                                        (iterator_< fusion_sequence_<A1> >)
+                                        (scalar_< integer_<A2> >)
+                                      )
   {
     typedef void result_type;
     BOOST_SIMD_FUNCTOR_CALL(3)
