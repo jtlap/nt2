@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace tag
     };
   }
   /*!
-    Computes  computes \f$(a_0^2 + a_1^2)^{1/2}\f$
+    Computes \f$(x^2 + y^2)^{1/2}\f$
 
     @par semantic:
     For any given value @c x,  @c y of type @c T:
@@ -44,7 +44,7 @@ namespace boost { namespace simd { namespace tag
     @endcode
 
     Fast means that nothing is done to avoid overflow or inaccuracies
-    for large values. See @c hypot in that matters.
+    for large values. See @c hypot if that matters.
 
     @param  a0
     @param  a1

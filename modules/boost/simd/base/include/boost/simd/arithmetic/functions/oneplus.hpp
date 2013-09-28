@@ -29,6 +29,7 @@ namespace boost { namespace simd { namespace tag
   }
   /*!
     Returns the one plus the entry, saturated in the entry type.
+    If @c x is not Nan, @c oneplus(x) is greater or equal to x.
 
     @par semantic:
     For any given value @c x of type @c T:

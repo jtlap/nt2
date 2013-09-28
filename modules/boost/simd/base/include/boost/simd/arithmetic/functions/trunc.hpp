@@ -35,6 +35,12 @@ namespace boost { namespace simd { namespace tag
     For any given value @c x of type @c T:
 
     @code
+    T r = trunc(x);
+    @endcode
+
+    The code is similar to:
+
+    @code
     T r = sign(x)*floor(abs(x));
     @endcode
 

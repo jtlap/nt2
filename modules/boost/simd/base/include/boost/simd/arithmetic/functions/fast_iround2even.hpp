@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace tag
   }
   /*!
     Convert to integer by rounding using round2even.
-    values greater than 2^32-1 can be not correctly converted
+    large values can be not correctly converted
     The invalid entries lead to undefined results
 
     @par semantic:
