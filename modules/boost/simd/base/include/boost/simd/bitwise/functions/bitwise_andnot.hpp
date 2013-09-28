@@ -37,13 +37,13 @@ namespace boost { namespace simd { namespace tag
     of same memory size:
 
     @code
-    T r = bitwise_andnot(x, y);
+    T1 r = bitwise_andnot(x, y);
     @endcode
 
     The code is equivalent to:
 
     @code
-    T r = x & ~y;
+    T1 r = x & ~y;
     @endcode
 
     @par Alias
@@ -53,7 +53,7 @@ namespace boost { namespace simd { namespace tag
     @param  a0
     @param  a1
 
-    @return      a value of the same type as the input.
+    @return      a value of the same type as the first input.
 
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_andnot_, bitwise_andnot, 2)
