@@ -38,6 +38,7 @@ struct plus_one
   template<class T>
   T operator()(T const& t0) const
   {
+    using boost::simd::One;
     return t0 + One<T>();
   }
 };
