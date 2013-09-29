@@ -17,6 +17,7 @@
 #include <boost/simd/include/functions/simd/toint.hpp>
 #include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
+#include <boost/simd/include/functions/simd/inc.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
@@ -47,8 +48,8 @@ namespace boost { namespace simd { namespace ext
     operator()(A0 const& a0) const
     {
       typedef typename dispatch::meta::as_integer<typename meta::scalar_of<A0>::type, signed>::type signed_integer;
-      A0 sign_f = splat<A0>(Valmax<signed_integer>())+1;
-      result_type sign_i = splat<result_type>(Valmax<signed_integer>())+1;
+      A0 sign_f = inc(splat<A0>(Valmax<signed_integer>()));
+      result_type sign_i = inc(splat<result_type>(Valmax<signed_integer>()));
       return if_else(a0 < sign_f, bitwise_cast<result_type>(toint(a0)), bitwise_cast<result_type>(toint(a0 - sign_f)) + sign_i);
     }
   };
