@@ -57,7 +57,7 @@ NT2_TEST_CASE_TPL(firstbitunset_ui, BOOST_SIMD_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(firstbitunset(boost::simd::Zero<vT>()), boost::simd::One<r_t>());
 }
 
-NT2_TEST_CASE_TPL(firstbitunset_si, BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL(firstbitunset_si, BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::firstbitunset;
   using boost::simd::tag::firstbitunset_;
