@@ -97,6 +97,7 @@ namespace nt2 { namespace ext
       input_type input = boost::proto::child_c<0>(a1);
       extent_type ext = input.extent();
       std::size_t dim = nt2::ndims(ext);
+      std::size_t lo_dim = nt2::firstnonsingleton(ext);
       std::size_t red = reduction_dim(a1, boost::mpl::bool_<!(boost::proto::arity_of<A1>::value <= 1)>());
 
       std::size_t inner = red-1 < ext.size() ? ext[red-1] : 1;
@@ -113,10 +114,10 @@ namespace nt2 { namespace ext
                                       , std::multiplies<std::size_t>()
                                       );
 
-      if(red == 1)
+      if(red <= lo_dim)
       {
         nt2::inner_fold( container::as_view(a0)
-                       , input
+                       , reshape(input, of_size(inner, hi))
                        , typename nt2::make_functor<Neutral1, A0>::type()
                        , typename nt2::make_functor<O1, A0>::type()
                        , typename nt2::make_functor<T1, A0>::type()
@@ -124,7 +125,7 @@ namespace nt2 { namespace ext
       }
       else
       {
-        nt2::outer_fold( reshape(container::as_view(a0), of_size(lo, hi))
+        nt2::outer_fold( reshape(a0, of_size(lo, hi))
                        , reshape(input, of_size(lo, inner, hi))
                        , typename nt2::make_functor<Neutral1, A0>::type()
                        , typename nt2::make_functor<O1, A0>::type()
@@ -170,6 +171,7 @@ namespace nt2 { namespace ext
       input_type input = boost::proto::child_c<0>(a1);
       extent_type ext = input.extent();
       std::size_t dim = nt2::ndims(ext);
+      std::size_t lo_dim = nt2::firstnonsingleton(ext);
       std::size_t red = reduction_dim(a1, boost::mpl::bool_<!(boost::proto::arity_of<A1>::value <= 1)>());
 
       std::size_t inner = red-1 < ext.size() ? ext[red-1] : 1;
@@ -186,10 +188,10 @@ namespace nt2 { namespace ext
                                       , std::multiplies<std::size_t>()
                                       );
 
-      if(red == 1)
+      if(red <= lo_dim)
       {
         nt2::inner_scan( container::as_view(a0)
-                       , input
+                       , reshape(input, of_size(inner, hi))
                        , typename nt2::make_functor<Neutral1, A0>::type()
                        , typename nt2::make_functor<O1, A0>::type()
                        , typename nt2::make_functor<T1, A0>::type()
@@ -197,7 +199,7 @@ namespace nt2 { namespace ext
       }
       else
       {
-        nt2::outer_scan( reshape(container::as_view(a0), of_size(lo, inner, hi))
+        nt2::outer_scan( reshape(a0, of_size(lo, inner, hi))
                        , reshape(input, of_size(lo, inner, hi))
                        , typename nt2::make_functor<Neutral1, A0>::type()
                        , typename nt2::make_functor<O1, A0>::type()
