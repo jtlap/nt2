@@ -13,9 +13,13 @@
 #include <nt2/core/functions/cdiff.hpp>
 #include <nt2/include/functions/run.hpp>
 #include <nt2/include/functions/enumerate.hpp>
-#include <nt2/sdk/meta/as_index.hpp>
+#include <nt2/include/functions/plus.hpp>
+#include <nt2/include/functions/minus.hpp>
+#include <nt2/include/constants/two.hpp>
 #include <nt2/core/utility/as_index.hpp>
 #include <nt2/core/utility/as_subscript.hpp>
+#include <nt2/sdk/meta/as_index.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -41,7 +45,7 @@ namespace nt2 { namespace ext
 
       sub_t pos0 = as_subscript(a0.extent(),enumerate<i_t>(p));
       sub_t pos1 = pos0;
-      pos1[along] += 2;
+      pos1[along] += Two<typename meta::scalar_of<p_t>::type>();
 
       return nt2::run(boost::proto::child_c<0>(a0),as_index(ex0, pos1),t)
            - nt2::run(boost::proto::child_c<0>(a0),as_index(ex0, pos0),t);
