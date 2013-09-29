@@ -68,7 +68,6 @@ namespace nt2 { namespace ext
     result_type operator()(F f, A const& init, H const& step, O const& o)
     {
       typedef typename A::value_type                                  value_type;
-      typedef typename meta::as_logical<value_type>::type                 l_type;
       return neldermead(f, init, nt2::repnum(value_type(step), size_t(1), nt2::numel(init)), o);
     }
   };
