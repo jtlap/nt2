@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_COMPLEX_CONSTANTS_GENERIC_MAXINIT_HPP_INCLUDED
-#define NT2_COMPLEX_CONSTANTS_GENERIC_MAXINIT_HPP_INCLUDED
+#ifndef NT2_CONSTANT_CONSTANTS_COMPLEX_MAXINIT_HPP_INCLUDED
+#define NT2_CONSTANT_CONSTANTS_COMPLEX_MAXINIT_HPP_INCLUDED
 
 #include <nt2/constant/constants/maxinit.hpp>
 #include <nt2/include/constants/zero.hpp>
@@ -15,7 +15,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::Maxinit, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::Maxinit, tag::cpu_, (A0)
                              , ((target_< generic_< complex_< arithmetic_<A0> > > >))
                              )
   {
@@ -26,7 +26,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::Maxinit, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::Maxinit, tag::cpu_, (A0)
                              , ((target_< generic_< dry_< arithmetic_<A0> > > >))
                              )
   {
