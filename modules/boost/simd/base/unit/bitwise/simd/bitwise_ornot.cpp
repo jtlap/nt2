@@ -25,7 +25,7 @@
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 
-NT2_TEST_CASE_TPL(bitwise_ornot_real, BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL(bitwise_ornot_real, BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::bitwise_ornot;
   using boost::simd::tag::bitwise_ornot_;
@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL(bitwise_ornot_real, BOOST_SIMD_REAL_TYPES)
 }
 
 
-NT2_TEST_CASE_TPL(bitwise_ornot_ui, BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL(bitwise_ornot_ui, BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::bitwise_ornot;
   using boost::simd::tag::bitwise_ornot_;
@@ -57,7 +57,7 @@ NT2_TEST_CASE_TPL(bitwise_ornot_ui, BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(bitwise_ornot(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::Valmax<r_t>());
 }
 
-NT2_TEST_CASE_TPL(bitwise_ornot_si, BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL(bitwise_ornot_si, BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::bitwise_ornot;
   using boost::simd::tag::bitwise_ornot_;
@@ -71,7 +71,7 @@ NT2_TEST_CASE_TPL(bitwise_ornot_si, BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 }
 
 
-NT2_TEST_CASE_TPL(bitwise_ornot_mix, BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL(bitwise_ornot_mix, BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::bitwise_ornot;
   using boost::simd::tag::bitwise_ornot_;

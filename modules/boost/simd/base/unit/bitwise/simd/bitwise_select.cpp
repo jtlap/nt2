@@ -22,7 +22,7 @@
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/nan.hpp>
 
-NT2_TEST_CASE_TPL(bitwise_select_real, BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL(bitwise_select_real, BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::bitwise_select;
   using boost::simd::tag::bitwise_select_;
@@ -41,7 +41,7 @@ NT2_TEST_CASE_TPL(bitwise_select_real, BOOST_SIMD_REAL_TYPES)
 }
 
 
-NT2_TEST_CASE_TPL(bitwise_select_ui, BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL(bitwise_select_ui, BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::bitwise_select;
   using boost::simd::tag::bitwise_select_;
@@ -54,7 +54,7 @@ NT2_TEST_CASE_TPL(bitwise_select_ui, BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(bitwise_select(boost::simd::Zero<vT>(), boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
 }
 
-NT2_TEST_CASE_TPL(bitwise_select_si, BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL(bitwise_select_si, BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::bitwise_select;
   using boost::simd::tag::bitwise_select_;

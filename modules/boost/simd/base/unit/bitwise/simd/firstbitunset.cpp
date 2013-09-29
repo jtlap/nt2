@@ -23,7 +23,7 @@
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/nan.hpp>
 
-NT2_TEST_CASE_TPL(firstbitunset_real, BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL(firstbitunset_real, BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::firstbitunset;
   using boost::simd::tag::firstbitunset_;
@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL(firstbitunset_real, BOOST_SIMD_REAL_TYPES)
 
 
 
-NT2_TEST_CASE_TPL(firstbitunset_ui, BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL(firstbitunset_ui, BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::firstbitunset;
   using boost::simd::tag::firstbitunset_;
