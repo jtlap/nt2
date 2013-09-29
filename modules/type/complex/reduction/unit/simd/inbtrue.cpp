@@ -45,8 +45,8 @@ NT2_TEST_CASE_TPL ( inbtrue_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::call<inbtrue_(vcT)>::type r_t;
   typedef typename nt2::meta::call<inbtrue_(T)>::type   sr_t;
 
-  vT r =  nt2::arith<vT>(0, 1);
-  vT i =  nt2::arith<vT>(0, 1);
+  vT r =  nt2::arith<vT>();
+  vT i =  nt2::arith<vT>();
   vcT z = vcT(r, i);
 
   NT2_TEST_EQUAL(inbtrue(z), cardinal_of<vT>::value-1u);

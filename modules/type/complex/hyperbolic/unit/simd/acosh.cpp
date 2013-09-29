@@ -48,10 +48,10 @@ NT2_TEST_CASE_TPL ( acosh_real__1_0, NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::One  <vT>(), nt2::Inf <vT>())), cvT(nt2::Inf<vT>(),  nt2::Pio_2<vT>()), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::One <vT>(), nt2::Inf<vT>())),  nt2::acosh(cvT(nt2::One <vT>(), nt2::Inf<vT>())), 0.75);
   // cacosh(~inf + i inf) returns +inf + i3 pi /4.                         --- matlab : Inf +    NaNi
-  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Minf <vT>(), nt2::Inf<vT>())),  cvT(nt2::Inf<vT>(), 3*nt2::Pi<vT>()/4), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Minf <vT>(), nt2::Inf<vT>())),  cvT(nt2::Inf<vT>(), 3.*nt2::Pi<vT>()/4.), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Minf <vT>(), nt2::Inf<vT>())),  nt2::acosh(cvT(nt2::Minf <vT>(), nt2::Inf<vT>())), 0.75);
   //  cacosh(+inf + i inf) returns +inf + i pi /4.
-  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Inf  <vT>(), nt2::Inf<vT>())),  cvT(nt2::Inf <vT>(),  nt2::Pi<vT>()/4), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Inf  <vT>(), nt2::Inf<vT>())),  cvT(nt2::Inf <vT>(),  nt2::Pi<vT>()/4.), 0.75);
   //  cacosh(NaN + i0) returns NaN + iNan.
   NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Nan  <vT>(), nt2::Zero<vT>())), cvT(nt2::Nan <vT>(), nt2::Nan<vT>()), 0.75);
 #endif

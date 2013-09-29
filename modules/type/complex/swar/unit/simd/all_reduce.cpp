@@ -45,7 +45,7 @@ NT2_TEST_CASE_TPL ( all_reduce_cplx, NT2_SIMD_REAL_TYPES)
   for(std::size_t i=0;i<n;++i) data[i] = i+1;
 
   vT  v = boost::simd::load<vT>(&data[0]);
-  vcT vn(v,2*v);
+  vcT vn(v,2.*v);
 
   NT2_TEST_EQUAL(all_reduce<plus_>(vn), splat<vcT>( cT(n*(n+1)/2,n*(n+1)) ) );
 }
