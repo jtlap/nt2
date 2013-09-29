@@ -29,7 +29,7 @@
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/nan.hpp>
 
-NT2_TEST_CASE_TPL(is_not_nan_real, BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL(is_not_nan_real, BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::is_not_nan;
   using boost::simd::tag::is_not_nan_;
@@ -54,7 +54,7 @@ NT2_TEST_CASE_TPL(is_not_nan_real, BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(is_not_nan(boost::simd::Zero<vT>()), boost::simd::True<r_t>());
 }
 
-NT2_TEST_CASE_TPL(is_not_nan_ui, BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL(is_not_nan_ui, BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::is_not_nan;
   using boost::simd::tag::is_not_nan_;
@@ -70,7 +70,7 @@ NT2_TEST_CASE_TPL(is_not_nan_ui, BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(is_not_nan(boost::simd::Zero<vT>()), boost::simd::True<r_t>());
 }
 
-NT2_TEST_CASE_TPL(is_not_nan_si, BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL(is_not_nan_si, BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::is_not_nan;
   using boost::simd::tag::is_not_nan_;
