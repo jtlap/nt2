@@ -24,6 +24,8 @@
 #include <boost/simd/include/functions/simd/abs.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/functions/simd/shift_left.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -48,9 +50,10 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename dispatch::meta::as_integer<A0>::type int_type;
+      typedef typename dispatch::meta::scalar_of<A0>::type sA0;
       result_type a = boost::simd::abs(a0);
       int_type e1 = exponent(a)-Nbmantissabits<A0>();
-      result_type e =  bitwise_cast<result_type>(bitwise_cast<int_type>(One<A0>())+(shl(e1,Nbmantissabits<A0>())));
+      result_type e =  bitwise_cast<result_type>(bitwise_cast<int_type>(One<A0>())+(shl(e1,Nbmantissabits<sA0>())));
       return seladd(is_invalid(a),
                 select(boost::simd::is_less(a, Smallestposval<A0>()),
                      Mindenormal<A0>(), e),
