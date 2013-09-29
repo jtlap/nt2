@@ -11,51 +11,52 @@
 
 #include <boost/simd/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_boolean
- * \defgroup boost_simd_boolean_selinc selinc
- *
- * \par Description
- * Increments a value by 1 if a predicate is true.
- *
- * \par Header file
- *
- * \code
- * #selinclude <nt2/include/functions/selinc.hpp>
- * \endcode
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *   meta::call<tag::selinc_(A0, A1)>::type
- *   selinc(const A0 & a0, const A1 & a1);
- * }
- * \endcode
- *
- * \param a0 the condition that says whether to increment
- * \param a1 the value to increment
- *
- * \return a value of the same type as \c a1
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace boost { namespace simd {
   namespace tag
   {
-    /*!
-     * \brief Define the tag selinc_ of functor selinc
-     *        in namespace boost::simd::tag for toolbox boost.simd.boolean
-    **/
-    struct selinc_ : ext::elementwise_<selinc_> { typedef ext::elementwise_<selinc_> parent; };
+   /*!
+     @brief selinc generic tag
+
+     Represents the selinc function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct selinc_ : ext::elementwise_<selinc_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<selinc_> parent;
+    };
   }
+  /*!
+    Increments a value by 1 if a predicate is true.
+
+    @par Semantic:
+
+    For every parameters of types respectively T0, T1:
+
+    @code
+    T r = selinc(a0,a1);
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = a0 ? a1+one : a1;
+    @endcode
+
+    @par Alias:
+    @c ifinc
+
+    @param a0
+
+    @param a1
+
+    @return a value of the same type as the second parameter
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::selinc_, selinc, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::selinc_, ifinc,  2)
 } }
 
 #endif

@@ -6,61 +6,53 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_BOOLEAN_FUNCTIONS_MASK2LOGICAL_HPP_INCLUDED
 #define BOOST_SIMD_BOOLEAN_FUNCTIONS_MASK2LOGICAL_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_boolean
- * \defgroup boost_simd_boolean_mask2logical mask2logical
- *
- * \par Description
- * The function converts an arithmetic mask where each element is
- * Zero or Allbits to a logical value.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/mask2logical.hpp>
- * \endcode
- *
-* \par Alias
- * \arg m2l
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::mask2logical(A0)>::type
- *     mask2logical(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the first parameter of mask2logical
- *
- * \return a value of type \c as_logical<A0>::type
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 
 namespace boost { namespace simd { namespace tag
   {
-    /*!
-     * \brief Define the tag mask2logical_ of functor mask2logical
-     *        in namespace boost::simd::tag for toolbox boost.simd.boolean
-    **/
-     struct mask2logical_ : ext::elementwise_<mask2logical_> { typedef ext::elementwise_<mask2logical_> parent; };
+   /*!
+     @brief mask2logical generic tag
+
+     Represents the mask2logical function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct mask2logical_ : ext::elementwise_<mask2logical_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<mask2logical_> parent;
+    };
   }
+
+  /*!
+    The function converts an arithmetic mask where each element is
+    Zero or Allbits to a logical value.
+    If it is not the case this function asserts.
+
+    @par Semantic:
+
+    For every parameters of types respectively T0:
+
+    @code
+    as_logical<T> r = mask2logical(a0);
+    @endcode
+
+    is similar to:
+
+    @code
+    as_logical<T> r = logical(a0);
+    @endcode
+
+    @param a0
+
+    @return a value of the same type as the second parameter
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mask2logical_, mask2logical, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mask2logical_, m2l, 1)
 } }

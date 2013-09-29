@@ -6,67 +6,58 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_BOOLEAN_FUNCTIONS_IF_ELSE_ZERO_HPP_INCLUDED
 #define BOOST_SIMD_BOOLEAN_FUNCTIONS_IF_ELSE_ZERO_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
-/*!
- * \ingroup boost_simd_boolean
- * \defgroup boost_simd_boolean_if_else_zero if_else_zero
- *
- * \par Description
- * If a0 is true returns a1 else returns zero
- * \par
- * The first operand must be a boolean type according to
- * the SIMD architecture compatible to the  other one.
- * the result type is the same as the second parameter one.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/if_else_zero.hpp>
- * \endcode
- *
- * \par Alias
- * \arg ifelsezero
- * \arg ifnot_zero_else
- * \arg ifnotzeroelse
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0,class A1>
- *     meta::call<tag::if_else_zero_(A0,A1)>::type
- *     if_else_zero(const A0 & a0,const A1 & a1);
- * }
- * \endcode
- *
- * \param a0 the first parameter of if_else_zero
- * \param a1 the second parameter of if_else_zero
- *
- * \return a value of the type of the second parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 
 
 namespace boost { namespace simd { namespace tag
   {
-    /*!
-     * \brief Define the tag if_else_zero_ of functor if_else_zero
-     *        in namespace boost::simd::tag for toolbox boost.simd.boolean
-    **/
-    struct if_else_zero_ : ext::elementwise_<if_else_zero_> { typedef ext::elementwise_<if_else_zero_> parent; };
+   /*!
+     @brief if_else_zero generic tag
+
+     Represents the if_else_zero function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct if_else_zero_ : ext::elementwise_<if_else_zero_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<if_else_zero_> parent;
+    };
   }
+  /*!
+    If a0 is true returns a1 else returns zero
+
+    @par Semantic:
+
+    For every parameters of types respectively T0, T1:
+
+    @code
+    T r = if_else_zero(a0,a1);
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = a0 ? a1 : zero;
+    @endcode
+
+    @par Alias:
+    @c  if_else_zero,
+    @c  ifelsezero,
+    @c  ifnot_zero_else,
+    @c  ifnotzeroelse,
+
+    @param a0
+
+    @param a1
+
+    @return a value of the same type as the second parameter
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_else_zero_, if_else_zero, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_else_zero_, ifelsezero, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_else_zero_, ifnot_zero_else, 2)
