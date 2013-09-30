@@ -15,7 +15,7 @@
 #if defined( _MSC_VER )
     #pragma once
     #pragma inline_recursion( on )
-#elif defined( __GNUC__ ) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)) && !defined(BOOST_SIMD_ARCH_POWERPC)
+#elif defined( __GNUC__ ) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)) && defined(BOOST_SIMD_ARCH_X86)
     #pragma GCC push_options
     #pragma GCC optimize ( "fast-math" )
 #endif // compiler
@@ -2880,7 +2880,7 @@ void irealfft_split(float *data,long n){
 } // namespace nt2
 //------------------------------------------------------------------------------
 
-#if defined( __GNUC__ ) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)) && !defined(BOOST_SIMD_ARCH_POWERPC)
+#if defined( __GNUC__ ) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)) && defined(BOOST_SIMD_ARCH_X86)
     #pragma GCC pop_options
 #endif // compiler
 
