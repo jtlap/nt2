@@ -50,7 +50,7 @@ namespace boost { namespace simd
                                                     )
                                   >::type                callee;
 
-        dispatch::meta::as_<T> const target;
+        dispatch::meta::as_<T> const target = {};
         return callee(a0, target);
       }
     };
