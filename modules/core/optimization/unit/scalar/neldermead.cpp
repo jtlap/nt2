@@ -48,7 +48,6 @@ template<class Tab > typename Tab::value_type f1(const Tab & x )
 //   using nt2::nedlermead;
 //   using nt2::optimization::output;
 //   typedef nt2::table<T> tab_t;
-//   typedef typename nt2::meta::as_logical<T>::type lT;
 //   typedef nt2::table<T> ltab_t;
 //   tab_t x0 = nt2::zeros(nt2::of_size(1, 3), nt2::meta::as_<T>());
 //   ltab_t h = nt2::is_nez(nt2::ones (nt2::of_size(1, 3), nt2::meta::as_<T>())*nt2::Half<T>());
@@ -68,7 +67,6 @@ NT2_TEST_CASE_TPL( nedlermead_functor, NT2_REAL_TYPES )
   using nt2::options;
   using nt2::optimization::output;
   typedef nt2::table<T> tab_t;
-  typedef typename nt2::meta::as_logical<T>::type lT;
   tab_t x0 = nt2::zeros(nt2::of_size(1, 2), nt2::meta::as_<T>());
   tab_t h = nt2::ones (nt2::of_size(1, 2), nt2::meta::as_<T>())*nt2::Oneo_10<T>();
   tab_t r = nt2::_(T(1), T(2));

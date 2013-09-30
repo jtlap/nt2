@@ -108,7 +108,7 @@ namespace nt2 { namespace details
   unity_colon_value(T const& l, Pos const& p, Target const&)
   {
     typedef typename Target::type type;
-    return  nt2::enumerate<type>(p)+splat<type>(l);
+    return  nt2::enumerate<type>(p)+nt2::splat<type>(l);
   }
 
   /// INTERNAL ONLY

@@ -11,6 +11,7 @@
 
 #include <nt2/core/functions/flipdim.hpp>
 #include <nt2/include/functions/run.hpp>
+#include <nt2/include/functions/dec.hpp>
 #include <nt2/core/utility/as_subscript.hpp>
 #include <nt2/core/utility/as_index.hpp>
 #include <nt2/include/functions/enumerate.hpp>
@@ -42,7 +43,7 @@ namespace nt2 { namespace ext
       ext_t ex = a0.extent();
 
       sub_t pos = as_subscript(ex,nt2::enumerate<i_t>(p));
-      pos[along] = ex[along]-pos[along]-1;
+      pos[along] = dec(ex[along]-pos[along]);
 
       return nt2::run(boost::proto::child_c<0>(a0),as_index(ex,pos),t);
     }

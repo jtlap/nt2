@@ -12,7 +12,6 @@
 #include <boost/simd/swar/functions/enumerate.hpp>
 #include <boost/simd/include/functions/simd/splat.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
-#include <boost/simd/include/functions/simd/multiplies.hpp>
 #include <boost/simd/sdk/meta/as_arithmetic.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -90,7 +89,7 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(A0 const& a0, A1 const& a1, T const& ) const
     {
-      return plus(a0, a1);
+      return plus(splat<result_type>(a0), splat<result_type>(a1));
     }
   };
 

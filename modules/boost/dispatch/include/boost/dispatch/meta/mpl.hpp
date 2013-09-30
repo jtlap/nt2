@@ -16,9 +16,11 @@
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/size_t.hpp>
 #include <boost/mpl/integral_c_tag.hpp>
+#include <boost/mpl/if.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/type_traits/remove_const.hpp>
 #include <boost/dispatch/meta/enable_if_type.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -71,10 +73,13 @@ namespace details
                         ::enable_if_c<details::is_mpl_integral<T>::value>::type
                       >
   {
+    typedef typename remove_const<Origin>::type stripped;
+    typedef typename mpl::if_< is_same< T, stripped >, stripped, Origin>::type origin_;
+
     typedef meta::
     mpl_integral_< typename meta::
                    hierarchy_of< typename T::value_type
-                               , Origin
+                               , origin_
                                >::type
                  >                                                            type;
   };

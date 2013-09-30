@@ -12,6 +12,7 @@
 
 #include <nt2/include/functions/simd/enumerate.hpp>
 #include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/core/utility/as_subscript.hpp>
 #include <nt2/sdk/meta/constant_adaptor.hpp>

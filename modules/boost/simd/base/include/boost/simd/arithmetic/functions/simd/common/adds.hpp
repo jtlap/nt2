@@ -23,6 +23,7 @@
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/sdk/meta/scalar_of.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -66,7 +67,7 @@ namespace boost { namespace simd { namespace ext
       utype uy = bitwise_cast<utype>(a1);
       utype res = ux + uy;
 
-      ux = shrai(ux, sizeof(stype)*CHAR_BIT-1) + Valmax<stype>();
+      ux = shrai(ux, sizeof(stype)*CHAR_BIT-1) + static_cast<typename meta::scalar_of<utype>::type>(Valmax<stype>());
 
       return bitwise_cast<A0>(if_else(bitwise_cast<A0>((ux ^ uy) | ~(uy ^ res)) >=  Zero<A0>(), ux, res));
 
