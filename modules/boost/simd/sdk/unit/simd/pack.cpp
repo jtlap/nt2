@@ -14,6 +14,8 @@
 #include <boost/simd/include/functions/aligned_load.hpp>
 #include <boost/simd/include/functions/plus.hpp>
 #include <boost/simd/include/functions/compare_equal.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/constants/one.hpp>
 
 #include <boost/fusion/include/at.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -56,6 +58,16 @@ NT2_TEST_CASE(compare_equal)
   bool ret2 = compare_equal(f2_f, f2_g);
   NT2_TEST(ret1);
   NT2_TEST(ret2);
+}
+
+NT2_TEST_CASE(bitwise_cast_target)
+{
+  using namespace boost::simd;
+  typedef pack<float, 2> ftype;
+  typedef pack<int32_t, 2> itype;
+
+  itype i(0x3f800000);
+  NT2_TEST_EQUAL(bitwise_cast<ftype>(i), One<ftype>());
 }
 
 ////////////////////////////////////////////////////////////////////////////////
