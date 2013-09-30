@@ -15,6 +15,9 @@
 #include <boost/simd/include/functions/simd/extract.hpp>
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
 #include <boost/simd/sdk/meta/iterate.hpp>
+#include <boost/dispatch/meta/fusion.hpp>
+#include <boost/fusion/include/at.hpp>
+#include <boost/fusion/include/size.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

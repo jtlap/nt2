@@ -10,7 +10,8 @@
 #define BOOST_SIMD_SWAR_FUNCTIONS_SIMD_COMMON_SLICE_HPP_INCLUDED
 
 #include <boost/simd/swar/functions/slice.hpp>
-#include <boost/simd/include/functions/simd/extract.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/sdk/meta/as_arithmetic.hpp>
 #include <boost/fusion/include/std_pair.hpp>
 #include <boost/mpl/bool.hpp>
 
@@ -37,6 +38,33 @@ namespace boost { namespace simd { namespace ext
         a1[i] = a0[i];
         a2[i] = a0[i+A1::static_size];
       }
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::slice_
+                                      , tag::cpu_
+                                      , (A0)(A1)(X)(Y)
+                                      , ( boost::mpl::bool_
+                                          <
+                                            A1::static_size == A0::static_size/2
+                                          >
+                                        )
+                                      , ((simd_<logical_<A0>,X>))
+                                        ((simd_<logical_<A1>,Y>))
+                                        ((simd_<logical_<A1>,Y>))
+                                      )
+  {
+    typedef void result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0,A1& a1, A1& a2) const
+    {
+      typedef typename boost::simd::meta::as_arithmetic<A0>::type type0;
+      typedef typename boost::simd::meta::as_arithmetic<A1>::type type1;
+
+      type1 l1,l2;
+      boost::simd::slice(bitwise_cast<type0>(a0),l1,l2);
+
+      a1 = bitwise_cast<A1>(l1);
+      a2 = bitwise_cast<A1>(l2);
     }
   };
 } } }
