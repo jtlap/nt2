@@ -34,43 +34,43 @@ using nt2::tag::split_;
 namespace n1 {
   typedef nt2::int16_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(split_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
 }
 namespace n2 {
   typedef nt2::uint16_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(split_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
 }
 namespace n3 {
   typedef nt2::int32_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(split_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
 }
 namespace n4 {
   typedef nt2::uint32_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(split_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
 }
 namespace n5 {
   typedef nt2::int8_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(split_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
 }
 namespace n6 {
   typedef nt2::uint8_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(split_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
 }
 namespace n7 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(split_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 

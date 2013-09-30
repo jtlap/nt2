@@ -29,52 +29,52 @@ using boost::simd::tag::divfix_;
 
 namespace n1 {
   typedef float T;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(divfix_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10))))
 }
 namespace n2 {
   typedef double T;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(divfix_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10))))
 }
 namespace n3 {
   typedef boost::simd::int8_t T;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(divfix_,(RS(vT,T(3*(boost::simd::Valmin<T>()/4)),T(3*(boost::simd::Valmin<T>()/4))))(RS(vT,T(-3*(boost::simd::Valmin<T>()/4)),T(3*(boost::simd::Valmin<T>()/4)))))
 }
 namespace n4 {
   typedef boost::simd::int16_t T;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(divfix_,(RS(vT,T(3*(boost::simd::Valmin<T>()/4)),T(3*(boost::simd::Valmin<T>()/4))))(RS(vT,T(-3*(boost::simd::Valmin<T>()/4)),T(3*(boost::simd::Valmin<T>()/4)))))
 }
 namespace n5 {
   typedef boost::simd::int32_t T;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(divfix_,(RS(vT,T(3*(boost::simd::Valmin<T>()/4)),T(3*(boost::simd::Valmin<T>()/4))))(RS(vT,T(-3*(boost::simd::Valmin<T>()/4)),T(3*(boost::simd::Valmin<T>()/4)))))
 }
 namespace n6 {
   typedef boost::simd::int64_t T;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(divfix_,(RS(vT,T(3*(boost::simd::Valmin<T>()/4)),T(3*(boost::simd::Valmin<T>()/4))))(RS(vT,T(-3*(boost::simd::Valmin<T>()/4)),T(3*(boost::simd::Valmin<T>()/4)))))
 }
 namespace n7 {
   typedef boost::simd::uint8_t T;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(divfix_,(RS(vT,T(0),T(3*(boost::simd::Valmin<T>()/4))))(RS(vT,T(0),T(3*(boost::simd::Valmin<T>()/4)))))
 }
 namespace n8 {
   typedef boost::simd::uint16_t T;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(divfix_,(RS(vT,T(0),T(3*(boost::simd::Valmin<T>()/4))))(RS(vT,T(0),T(3*(boost::simd::Valmin<T>()/4)))))
 }
 namespace n9 {
   typedef boost::simd::uint32_t T;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(divfix_,(RS(vT,T(0),T(3*(boost::simd::Valmin<T>()/4))))(RS(vT,T(0),T(3*(boost::simd::Valmin<T>()/4)))))
 }
 namespace n10 {
   typedef boost::simd::uint64_t T;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(divfix_,(RS(vT,T(0),T(3*(boost::simd::Valmin<T>()/4))))(RS(vT,T(0),T(3*(boost::simd::Valmin<T>()/4)))))
 }
 

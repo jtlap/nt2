@@ -32,13 +32,13 @@ using nt2::tag::fast_sincosd_;
 namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(fast_sincosd_,(RS(vT,T(-45),T(45))))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(fast_sincosd_,(RS(vT,T(-45),T(45))))
 }
 

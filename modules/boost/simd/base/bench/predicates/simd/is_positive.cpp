@@ -18,52 +18,52 @@ typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
 namespace bench1 {
   typedef boost::simd::int16_t T;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(is_positive_,(RS(vT,T(-10000),T(10000))))
 }
 namespace bench2 {
   typedef boost::simd::int32_t T;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(is_positive_,(RS(vT,T(-10000),T(10000))))
 }
 namespace bench3 {
   typedef boost::simd::int64_t T;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(is_positive_,(RS(vT,T(-10000),T(10000))))
 }
 namespace bench4 {
   typedef boost::simd::int8_t T;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(is_positive_,(RS(vT,T(-128),T(127))))
 }
 namespace bench5 {
   typedef boost::simd::uint16_t T;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(is_positive_,(RS(vT,T(0),T(10000))))
 }
 namespace bench6 {
   typedef boost::simd::uint32_t T;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(is_positive_,(RS(vT,T(0),T(10000))))
 }
 namespace bench7 {
   typedef boost::simd::uint64_t T;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(is_positive_,(RS(vT,T(0),T(10000))))
 }
 namespace bench8 {
   typedef boost::simd::uint8_t T;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(is_positive_,(RS(vT,T(0),T(255))))
 }
 namespace bench9 {
   typedef double T;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(is_positive_,(RS(vT,T(-10000),T(10000))))
 }
 namespace bench10 {
   typedef float T;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(is_positive_,(RS(vT,T(-10000),T(10000))))
 }
 #undef RS

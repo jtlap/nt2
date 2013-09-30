@@ -32,16 +32,16 @@ using nt2::tag::almost_less_or_equal_;
 namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   typedef boost::simd::native<iT,ext_t> viT;
   NT2_TIMING(almost_less_or_equal_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10)))(RS(viT,iT(0),iT(10))))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   typedef boost::simd::native<iT,ext_t> viT;
   NT2_TIMING(almost_less_or_equal_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10)))(RS(viT,iT(0),iT(10))))
 }

@@ -24,13 +24,13 @@ using boost::simd::tag::fast_rec_;
 namespace n1
 {
   typedef float T;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(fast_rec_,(RS(vT,T(-100),T(100))))
 }
 namespace n2
 {
   typedef double T;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(fast_rec_,(RS(vT,T(-100),T(100))))
 }
 
