@@ -55,7 +55,7 @@ namespace boost { namespace simd
   }
 
   /*!
-    Generates the Inf IEEE value (\f$infty\f$) for floating types and maximum value
+    Generates the Inf IEEE value (\f$\infty\f$) for floating types and maximum value
     for integer types
 
     @par Semantic:
