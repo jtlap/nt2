@@ -93,6 +93,11 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wshadow"
+#endif // __clang__
+
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return _mm_or_si128(
@@ -111,6 +116,11 @@ namespace boost { namespace simd { namespace ext
                     )
              );
     }
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif // __clang__
+
   };
 } } }
 
