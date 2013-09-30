@@ -11,7 +11,7 @@
 
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
-#include <boost/simd/sdk/simd/as_simd.hpp>
+#include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/dispatch/meta/na.hpp>
 #include <boost/fusion/include/is_sequence.hpp>
 #include <boost/mpl/size_t.hpp>
