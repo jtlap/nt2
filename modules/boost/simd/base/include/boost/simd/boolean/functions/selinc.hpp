@@ -37,13 +37,13 @@ namespace boost { namespace simd {
     For every parameters of types respectively T0, T1:
 
     @code
-    T r = selinc(a0,a1);
+    T1 r = selinc(a0,a1);
     @endcode
 
     is similar to:
 
     @code
-    T r = a0 ? a1+one : a1;
+    T1 r = a0 ? a1+one : a1;
     @endcode
 
     @par Alias:

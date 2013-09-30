@@ -31,7 +31,7 @@ namespace boost { namespace simd
                                   );
   }
   /*!
-    Generates base ten logarithm of pi used in pispace (\f$\log10(\pi)\f$)
+    Generates base ten logarithm of pi used in pispace (\f$\log(\pi)\f$)
 
     @par Semantic:
 

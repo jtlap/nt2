@@ -49,9 +49,10 @@ namespace boost { namespace simd
 
     This is a special constant as it can be used and considered
     identical to zero, except that for floating point numbers,
-    there is two different representation of zero with different bit of sign.\par
+    there is two different representation of zero with different bit of sign.
+
     The existence of the sign can be used in special circumstances as
-    choosing between \f$\pm\infty\f$ instead of nan in computing 1/0.
+    choosing between \f$+\infty\f$ and \f$-\infty\f$ instead of nan in computing 1/0.
     \par
 
     The sign of zero can be accessed through the @c is_negative

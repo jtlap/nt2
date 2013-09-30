@@ -35,13 +35,13 @@ namespace boost { namespace simd { namespace tag
     For every parameters of types respectively T0, T1, T1:
 
     @code
-    T r = selsub(a0,a1,a2);
+    T1 r = selsub(a0,a1,a2);
     @endcode
 
     is similar to:
 
     @code
-    T r = a0 ? a1-a2 : a1;
+    T1 r = a0 ? a1-a2 : a1;
     @endcode
 
     @par Alias:

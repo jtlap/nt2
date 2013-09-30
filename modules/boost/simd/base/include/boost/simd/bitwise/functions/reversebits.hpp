@@ -20,11 +20,11 @@ namespace boost { namespace simd { namespace tag
       Represents the reversebits function in generic contexts.
 
       @par Models:
-      Reversebitserarchy
+      Hieerarchy
     **/
     struct reversebits_ : ext::elementwise_<reversebits_>
     {
-      /// @brief Parent reversebitserarchy
+      /// @brief Parent hierarchy
       typedef ext::elementwise_<reversebits_> parent;
     };
   }

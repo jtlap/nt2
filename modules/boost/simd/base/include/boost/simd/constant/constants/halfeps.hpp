@@ -31,7 +31,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Generates the  machine epsilon divided by 2.
+    Generates the  machine epsilon.
 
     @par Semantic:
 
@@ -45,9 +45,9 @@ namespace boost { namespace simd
     if T is integral
       r = T(1)
     else if T is double
-      r =  pow(2, -26.5);
+      r =  pow(2, -54);
     else if T is float
-      r =  pow(2.0f, -23);
+      r =  pow(2.0f, -24);
     @endcode
 
   **/

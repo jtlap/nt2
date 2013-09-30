@@ -42,7 +42,7 @@ namespace boost { namespace simd { namespace tag
     is similar to:
 
     @code
-    T r = a0 ? llbits : a1;
+    T r = a0 ? Allbits : a1;
     @endcode
 
     @par Alias:

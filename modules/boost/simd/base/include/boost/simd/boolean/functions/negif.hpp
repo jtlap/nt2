@@ -38,13 +38,13 @@ namespace boost { namespace simd { namespace tag
     For every parameters of types respectively T0, T1:
 
     @code
-    T r = negif(a0,a1);
+    T1 r = negif(a0,a1);
     @endcode
 
     is similar to:
 
     @code
-    T r = a0 ? -a1 : a1;
+    T1 r = a0 ? -a1 : a1;
     @endcode
 
     @param a0

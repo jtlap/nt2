@@ -53,7 +53,7 @@ namespace boost { namespace simd
           : meta::double_<0xFFF0000000000000ULL> {};
   }
   /*!
-    Generates  -inf IEEE value (\f$\-infty\f$) for floating types and minimum value
+    Generates  -inf IEEE value (\f$-\infty\f$) for floating types and minimum value
     for integer types
 
     @par Semantic:

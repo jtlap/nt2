@@ -31,7 +31,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Generates the 4th root of constant @c Eps, that is \f$\root(\eps, 4)\f$
+    Generates the 4th root of constant @c Eps.
 
     @par Semantic:
 

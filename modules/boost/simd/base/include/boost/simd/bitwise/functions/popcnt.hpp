@@ -19,11 +19,11 @@ namespace boost { namespace simd { namespace tag
       Represents the popcnt function in generic contexts.
 
       @par Models:
-      Popcnterarchy
+      Hierarchy
     **/
     struct popcnt_ : ext::elementwise_<popcnt_>
     {
-      /// @brief Parent popcnterarchy
+      /// @brief Parent hierarchy
       typedef ext::elementwise_<popcnt_> parent;
     };
   }
