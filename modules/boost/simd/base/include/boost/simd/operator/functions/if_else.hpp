@@ -6,69 +6,63 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_IF_ELSE_HPP_INCLUDED
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_IF_ELSE_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 #include <boost/proto/tags.hpp>
 
-/*!
- * \ingroup boost_simd_operator
- * \defgroup boost_simd_operator_if_else if_else
- *
- * \par Description
- * return the elementwise selected element from the second and third operand
- * according to the non nullity of the first operand.
- * parameters 2 and 3 must share the same type and also the same element size
- * as parameter 1
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/if_else.hpp>
- * \endcode
- *
- * \par Alias
- * \arg where
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0,class A1,class A2>
- *     meta::call<tag::if_else_(A0,A1,A2)>::type
- *     if_else(const A0 & a0,const A1 & a1,const A2 & a2);
- * }
- * \endcode
- *
- * \param a0 the first parameter of if_else
- * \param a1 the second parameter of if_else
- * \param a2 the third parameter of if_else
- *
- * \return a value of the common type of the second and third  parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag if_else_ of functor if_else
-     *        in namespace boost::simd::tag for toolbox boost.simd.operator
-    **/
-    struct if_else_ : ext::elementwise_<if_else_> { typedef ext::elementwise_<if_else_> parent; };
+   /*!
+     @brief if_else generic tag
+
+     Represents the if_else function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct if_else_ : ext::elementwise_<if_else_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<if_else_> parent;
+    };
     typedef if_else_ select_;
   }
+  /*!
+    return the elementwise selected element from the second and third operand
+    according to the non nullity of the first operand.
+    parameters 2 and 3 must share the same type and also the same element size
+    as parameter 1
 
+    @par Semantic:
+
+    For every parameters of types respectively T0, T1, T2:
+
+    @code
+    T0 r = if_else(a0,a1,a2);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = a0 ? a1 : a2;
+    @endcode
+
+    @par Alias:
+    @c where, @c select,  @c sel
+
+    @param a0
+
+    @param a1
+
+    @param a2
+
+    @return a value of the same type as the second parameter
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_else_          , if_else         , 3 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_else_          , where           , 3 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_else_          , select          , 3 )
@@ -93,3 +87,5 @@ namespace boost { namespace dispatch { namespace meta
 #include <boost/simd/operator/specific/common.hpp>
 
 #endif
+
+///

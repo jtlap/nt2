@@ -6,66 +6,58 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_MULTIPLIES_HPP_INCLUDED
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_MULTIPLIES_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 #include <boost/proto/tags.hpp>
 
-/*!
- * \ingroup boost_simd_operator
- * \defgroup boost_simd_operator_multiplies multiplies
- *
- * \par Description
- * return the elementwise multiplication of the two parameters
- * Infix notation can be used with operator '*'
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/multiplies.hpp>
- * \endcode
- *
- * \par Alias
- * \arg mul
- * \arg times
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::multiplies_(A0,A0)>::type
- *     multiplies(const A0 & a0,const A0 & a1);
- * }
- * \endcode
- *
- * \param a0 the first parameter of multiplies
- * \param a1 the second parameter of multiplies
- *
- * \return a value of the common type of the parameters
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag multiplies_ of functor multiplies
-     *        in namespace boost::simd::tag for toolbox boost.simd.operator
-    **/
-    struct multiplies_ : ext::elementwise_<multiplies_> { typedef ext::elementwise_<multiplies_> parent; };
-  }
+   /*!
+     @brief multiplies generic tag
 
+     Represents the multiplies function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct multiplies_ : ext::elementwise_<multiplies_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<multiplies_> parent;
+    };
+  }
+  /*!
+    return the elementwise multiplication of the two parameters
+    Infix notation can be used with operator '*'
+
+    @par Semantic:
+
+    For every parameters of type T0:
+
+    @code
+    T0 r = multiplies(a0,a1);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = a0*a1;
+    @endcode
+
+    @par Alias:
+    @c mul, @c times
+
+    @param a0
+
+    @param a1
+
+    @return a value of the same type as the parameters
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::multiplies_             , multiplies      , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::multiplies_             , mul             , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::multiplies_             , times           , 2 )
@@ -88,3 +80,5 @@ namespace boost { namespace dispatch { namespace meta
 #include <boost/simd/operator/specific/common.hpp>
 
 #endif
+
+///
