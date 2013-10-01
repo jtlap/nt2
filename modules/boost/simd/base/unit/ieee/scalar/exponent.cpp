@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL ( exponent_i,  BOOST_SIMD_INTEGRAL_TYPES)
   using boost::simd::exponent;
   using boost::simd::tag::exponent_;
   typedef typename boost::dispatch::meta::call<exponent_(T)>::type r_t;
-  typedef typename boost::dispatch::meta::as_integer<T>::type  wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<T, signed>::type  wished_r_t;
 
   // return type conformity test
   NT2_TEST_TYPE_IS(r_t, wished_r_t);

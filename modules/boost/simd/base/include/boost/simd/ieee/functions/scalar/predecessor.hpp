@@ -12,7 +12,6 @@
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/functions/scalar/bitfloating.hpp>
 #include <boost/simd/include/functions/scalar/bitinteger.hpp>
-
 #include <boost/simd/include/functions/scalar/minusone.hpp>
 #include <boost/simd/include/functions/scalar/subs.hpp>
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
@@ -43,7 +42,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-       return dec(a0);
+       return minusone(a0);
     }
   };
 

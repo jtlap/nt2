@@ -11,7 +11,7 @@
 #include <boost/simd/ieee/functions/prev.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/minf.hpp>
-#include <boost/simd/include/functions/scalar/minusone.hpp>
+#include <boost/simd/include/functions/scalar/dec.hpp>
 #include <boost/simd/include/functions/scalar/nextafter.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -22,7 +22,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return minusone(a0); }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return dec(a0); }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::prev_, tag::cpu_

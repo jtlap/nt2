@@ -61,7 +61,7 @@ NT2_TEST_CASE_TPL ( next_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
 
   // specific values tests
   NT2_TEST_EQUAL(next(boost::simd::One<T>()), boost::simd::Two<r_t>());
-  NT2_TEST_EQUAL(next(boost::simd::Valmax<T>()), boost::simd::Valmax<r_t>());
+  NT2_TEST_EQUAL(next(boost::simd::Valmax<T>()), boost::simd::Valmin<r_t>());
   NT2_TEST_EQUAL(next(boost::simd::Zero<T>()), boost::simd::One<r_t>());
 }
 
@@ -78,6 +78,6 @@ NT2_TEST_CASE_TPL ( next_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   // specific values tests
   NT2_TEST_EQUAL(next(boost::simd::Mone<T>()), boost::simd::Zero<r_t>());
   NT2_TEST_EQUAL(next(boost::simd::One<T>()), boost::simd::Two<r_t>());
-  NT2_TEST_EQUAL(next(boost::simd::Valmax<T>()), boost::simd::Valmax<r_t>());
+  NT2_TEST_EQUAL(next(boost::simd::Valmax<T>()), boost::simd::Valmin<r_t>());
   NT2_TEST_EQUAL(next(boost::simd::Zero<T>()), boost::simd::One<r_t>());
 }

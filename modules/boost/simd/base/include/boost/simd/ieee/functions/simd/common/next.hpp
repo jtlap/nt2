@@ -9,12 +9,11 @@
 #ifndef BOOST_SIMD_IEEE_FUNCTIONS_SIMD_COMMON_NEXT_HPP_INCLUDED
 #define BOOST_SIMD_IEEE_FUNCTIONS_SIMD_COMMON_NEXT_HPP_INCLUDED
 #include <boost/simd/ieee/functions/next.hpp>
-#include <boost/simd/include/functions/simd/oneplus.hpp>
+#include <boost/simd/include/functions/simd/inc.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/is_equal.hpp>
 #include <boost/simd/include/functions/simd/bitinteger.hpp>
 #include <boost/simd/include/functions/simd/bitfloating.hpp>
-#include <boost/simd/include/functions/simd/oneplus.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/one.hpp>
 
@@ -28,7 +27,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return oneplus(a0);
+      return inc(a0);
     }
   };
 
@@ -40,7 +39,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return select(eq(a0, Inf<A0>()), a0,  bitfloating(oneplus(bitinteger(a0))));
+      return select(eq(a0, Inf<A0>()), a0,  bitfloating(inc(bitinteger(a0))));
     }
   };
 } } }
