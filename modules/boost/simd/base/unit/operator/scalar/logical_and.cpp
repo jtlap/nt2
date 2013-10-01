@@ -6,38 +6,35 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.operator toolbox - logical_and/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.operator components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 18/02/2011
-///
 #include <boost/simd/operator/include/functions/logical_and.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/constant/constant.hpp>
 
+#include <boost/dispatch/functor/meta/call.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <boost/simd/sdk/config.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/mone.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/three.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/minf.hpp>
+#include <boost/simd/include/constants/nan.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
 
 NT2_TEST_CASE_TPL ( logical_and_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
 {
 
   using boost::simd::logical_and;
   using boost::simd::tag::logical_and_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<logical_and_(T,T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::simd::logical<T> wished_r_t;
 
-
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
 
   // specific values tests
   NT2_TEST_EQUAL(logical_and(boost::simd::One<T>(), boost::simd::One<T>()), r_t(true));
@@ -50,16 +47,11 @@ NT2_TEST_CASE_TPL ( logical_and_real__2_0,  BOOST_SIMD_REAL_TYPES)
 
   using boost::simd::logical_and;
   using boost::simd::tag::logical_and_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<logical_and_(T,T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::simd::logical<T> wished_r_t;
 
-
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
 
   // specific values tests
   NT2_TEST_EQUAL(logical_and(boost::simd::Inf<T>(), boost::simd::Inf<T>()), r_t(true));
