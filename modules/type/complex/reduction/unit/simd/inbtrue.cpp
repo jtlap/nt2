@@ -14,7 +14,7 @@
 /// created  by jt the 24/02/2011
 ///
 #include <nt2/reduction/include/functions/inbtrue.hpp>
-#include <nt2/include/functions/arith.hpp>
+#include <nt2/include/functions/enumerate.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -45,12 +45,12 @@ NT2_TEST_CASE_TPL ( inbtrue_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::call<inbtrue_(vcT)>::type r_t;
   typedef typename nt2::meta::call<inbtrue_(T)>::type   sr_t;
 
-  vT r =  nt2::arith<vT>();
-  vT i =  nt2::arith<vT>();
+  vT r =  nt2::enumerate<vT>();
+  vT i =  nt2::enumerate<vT>();
   vcT z = vcT(r, i);
 
   NT2_TEST_EQUAL(inbtrue(z), cardinal_of<vT>::value-1u);
-  i =  nt2::arith<vT>(T(cardinal_of<vT>::value-1), T(-1));
+  i =  nt2::enumerate<vT>(T(cardinal_of<vT>::value-1), T(-1));
   z = vcT(r, i);
 
   NT2_TEST_EQUAL(inbtrue(z), cardinal_of<vT>::value);

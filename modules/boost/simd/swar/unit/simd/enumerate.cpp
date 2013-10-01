@@ -8,12 +8,13 @@
 //==============================================================================
 #include <boost/simd/swar/include/functions/enumerate.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 
-#include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/constant/constant.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
 NT2_TEST_CASE_TPL ( enumerate, BOOST_SIMD_SIMD_TYPES)
 {
@@ -24,39 +25,32 @@ NT2_TEST_CASE_TPL ( enumerate, BOOST_SIMD_SIMD_TYPES)
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>               vT;
-  typedef typename boost::dispatch::meta::call<enumerate_(T, as_<vT> )>::type r_t;
+
+  NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<enumerate_(as_<vT> )>::type
+                  , vT
+                  );
+
+  NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<enumerate_(T,as_<vT> )>::type
+                  , vT
+                  );
+
+  NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<enumerate_(T,T,as_<vT> )>::type
+                  , vT
+                  );
+
+  vT ref;
 
   for(std::size_t i=0; i < vT::static_size;++i)
-    NT2_TEST_EQUAL(enumerate<vT>(T(10))[i], T(i+10));
-}
+    ref[i] = T(i);
 
-NT2_TEST_CASE_TPL ( enumerate_from_int, BOOST_SIMD_SIMD_TYPES)
-{
-  using boost::simd::native;
-  using boost::simd::enumerate;
-  using boost::dispatch::meta::as_;
-  using boost::simd::tag::enumerate_;
-
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>               vT;
-  typedef typename boost::dispatch::meta::call<enumerate_(int, as_<vT> )>::type r_t;
+  NT2_TEST_EQUAL(enumerate<vT>(), ref);
 
   for(std::size_t i=0; i < vT::static_size;++i)
-    NT2_TEST_EQUAL(enumerate<vT>(int(10))[i], T(10 + i));
-}
+    ref[i] = T(i+42);
 
-NT2_TEST_CASE_TPL ( enumerate_from_logical, BOOST_SIMD_SIMD_TYPES)
-{
-  using boost::simd::logical;
-  using boost::simd::native;
-  using boost::simd::enumerate;
-  using boost::dispatch::meta::as_;
-  using boost::simd::tag::enumerate_;
-
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<logical<T>,ext_t>               vT;
-  typedef typename boost::dispatch::meta::call<enumerate_(T, as_<vT> )>::type r_t;
-
+  NT2_TEST_EQUAL(enumerate<vT>(42), ref);
   for(std::size_t i=0; i < vT::static_size;++i)
-    NT2_TEST_EQUAL(enumerate<vT>(T(10))[i], T(10 + i));
+    ref[i] = T(3*i+4);
+
+  NT2_TEST_EQUAL(enumerate<vT>(4,3), ref);
 }

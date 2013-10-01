@@ -10,7 +10,7 @@
 
 #include <nt2/core/utility/as_subscript.hpp>
 #include <nt2/include/functions/enumerate.hpp>
-#include <nt2/include/functions/arith.hpp>
+#include <nt2/include/functions/enumerate.hpp>
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
@@ -93,7 +93,7 @@ NT2_TEST_CASE_TPL ( as_subscript_2D_simd
   for(std::size_t j=0;j<2;++j)
   {
     boost::array<sidx_t, 2>
-    a = nt2::as_subscript( make_vector(sz,2), nt2::arith<idx_t>(j*sz,1) );
+    a = nt2::as_subscript( make_vector(sz,2), nt2::enumerate<idx_t>(j*sz,1) );
 
     for(std::size_t k=0;k<sz;++k)
     {
@@ -144,7 +144,7 @@ NT2_TEST_CASE_TPL ( as_subscript_3D_simd
     {
       boost::array<sidx_t, 3>
       a = nt2::as_subscript ( make_vector(sz,2,5)
-                            , nt2::arith<idx_t>(sz*(j+2*k),1)
+                            , nt2::enumerate<idx_t>(sz*(j+2*k),1)
                             );
 
       for(std::size_t n=0;n<sz;++n)
@@ -201,7 +201,7 @@ NT2_TEST_CASE_TPL( as_subscript_4D_simd, (nt2::int32_t)(nt2::uint32_t)(nt2::int6
       {
         boost::array<sidx_t, 4>
         a = nt2::as_subscript ( make_vector(sz,2,5,3)
-                              , nt2::arith<idx_t>(sz*(j+2*(k+5*l)),1)
+                              , nt2::enumerate<idx_t>(sz*(j+2*(k+5*l)),1)
                               );
 
         for(std::size_t n=0;n<sz;++n)
