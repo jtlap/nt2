@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
     typedef typename meta::strip<extent_t>::type                ext1_t;
     typedef typename meta::strip<reps_t>::type                  ext2_t;
 
-    typedef typename  make_size < (ext1_t::static_size > ext2_t::static_size)
+    typedef typename  make_size < !(ext1_t::static_size <= ext2_t::static_size)
                                 ? ext1_t::static_size
                                 : ext2_t::static_size
                                 >::type                         result_type;

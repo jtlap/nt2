@@ -29,7 +29,7 @@ namespace boost { namespace dispatch { namespace meta
    * @tparam Lambda @mpllambda to apply.
    * @tparam T      Fundamental type to transform
    *
-   * @semantic
+   * @par Semantic:
    *
    * For any type @c T and any @mpllambda @c Lambda:
    *

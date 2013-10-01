@@ -38,7 +38,7 @@ namespace boost { namespace dispatch { namespace meta
    *
    * \metafunction
    *
-   * \semantic
+   * \par Semantic:
    *
    * \code
    * typedef boost::dispatch::meta::downgrade<T, Sign>::type r;
@@ -54,7 +54,7 @@ namespace boost { namespace dispatch { namespace meta
    *                  >::type                                  r;
    * \endcode
    *
-   * if \c primitive_of<T> is of hierarchy \ref boost::dispatch::tag::floating_
+   * if \c primitive_of<T> is of hierarchy \ref boost::dispatch::meta::floating_
    * and to:
    *
    * \code
@@ -66,7 +66,7 @@ namespace boost { namespace dispatch { namespace meta
    *
    * otherwise.
    *
-   * \usage
+   * \par Usage:
    *
    * \include downgrade.cpp
    */

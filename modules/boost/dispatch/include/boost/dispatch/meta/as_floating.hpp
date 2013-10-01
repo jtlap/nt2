@@ -31,7 +31,7 @@ namespace boost { namespace dispatch { namespace meta
    * Computes the smallest floating point type able to hold a value of the
    * common type of its input parameters.
    *
-   * @tparam Args @ref Primitive types to transform
+   * @tparam Args Primitive types to transform
    *
    * @par Models:
    *
