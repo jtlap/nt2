@@ -64,7 +64,7 @@ NT2_TEST_CASE(bitwise_cast_target)
 {
   using namespace boost::simd;
   typedef pack<float, 2> ftype;
-  typedef pack<int32_t, 2> itype;
+  typedef pack<boost::simd::int32_t, 2> itype;
 
   itype i(0x3f800000);
   NT2_TEST_EQUAL(bitwise_cast<ftype>(i), One<ftype>());
