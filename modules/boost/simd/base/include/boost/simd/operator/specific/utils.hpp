@@ -84,7 +84,7 @@ namespace boost { namespace simd { namespace ext
   };
 
 
-  template<class T, std::size_t N, class X, int Cmp = ((meta::cardinal_as<T, X>::value < N) ? -1 : (meta::cardinal_as<T, X>::value > N) ? 1 : 0) >
+  template<class T, std::size_t N, class X, int Cmp = (!(meta::cardinal_as<T, X>::value >= N) ? -1 : !(meta::cardinal_as<T, X>::value <= N) ? 1 : 0) >
   struct vector_on_ext;
 
   template<class T, std::size_t N, class X>
