@@ -11,9 +11,11 @@
 
 #include <boost/simd/swar/functions/slice.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
-#include <boost/simd/sdk/meta/as_arithmetic.hpp>
 #include <boost/fusion/include/std_pair.hpp>
+#include <boost/mpl/equal_to.hpp>
+#include <boost/mpl/sizeof.hpp>
 #include <boost/mpl/bool.hpp>
+#include <boost/mpl/and.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -44,9 +46,17 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::slice_
                                       , tag::cpu_
                                       , (A0)(A1)(X)(Y)
-                                      , ( boost::mpl::bool_
-                                          <
-                                            A1::static_size == A0::static_size/2
+                                      , ( boost::mpl::and_
+                                          < boost::mpl::bool_
+                                            <
+                                              A1::static_size == A0::static_size/2
+                                            >
+                                          , mpl::equal_to < mpl::sizeof_<A0>
+                                                          , mpl::sizeof_<typename A0::type>
+                                                          >
+                                          , mpl::equal_to < mpl::sizeof_<A1>
+                                                          , mpl::sizeof_<typename A1::type>
+                                                          >
                                           >
                                         )
                                       , ((simd_<logical_<A0>,X>))
@@ -57,8 +67,8 @@ namespace boost { namespace simd { namespace ext
     typedef void result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,A1& a1, A1& a2) const
     {
-      typedef typename boost::simd::meta::as_arithmetic<A0>::type type0;
-      typedef typename boost::simd::meta::as_arithmetic<A1>::type type1;
+      typedef typename A0::type type0;
+      typedef typename A1::type type1;
 
       type1 l1,l2;
       boost::simd::slice(bitwise_cast<type0>(a0),l1,l2);

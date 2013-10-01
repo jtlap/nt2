@@ -13,11 +13,14 @@
 #include <boost/simd/swar/functions/combine.hpp>
 #include <boost/simd/include/functions/simd/insert.hpp>
 #include <boost/simd/include/functions/simd/extract.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
 #include <boost/simd/sdk/meta/iterate.hpp>
 #include <boost/dispatch/meta/fusion.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/size.hpp>
+#include <boost/mpl/equal_to.hpp>
+#include <boost/mpl/sizeof.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -47,12 +50,17 @@ namespace boost { namespace simd { namespace ext
   };
 
   // combine logical by combining internal representation
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::combine_
-                                    , tag::cpu_
-                                    , (A0)(X)
-                                    , ((simd_<logical_<A0>,X>))
-                                      ((simd_<logical_<A0>,X>))
-                                    )
+  // Only valid if native<T,X> and native<logical<T><X> has same size
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::combine_
+                                      , tag::cpu_
+                                      , (A0)(X)
+                                      , ( mpl::equal_to < mpl::sizeof_<A0>
+                                                        , mpl::sizeof_<typename A0::type>
+                                                        >
+                                        )
+                                      , ((simd_<logical_<A0>,X>))
+                                        ((simd_<logical_<A0>,X>))
+                                      )
   {
     typedef typename  meta::vector_of < typename A0::value_type
                                       , A0::static_size * 2
