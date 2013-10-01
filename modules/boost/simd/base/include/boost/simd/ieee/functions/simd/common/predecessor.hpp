@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_IEEE_FUNCTIONS_SIMD_COMMON_PREDECESSOR_HPP_INCLUDED
 #define BOOST_SIMD_IEEE_FUNCTIONS_SIMD_COMMON_PREDECESSOR_HPP_INCLUDED
 #include <boost/simd/ieee/functions/predecessor.hpp>
-#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/if_allbits_else.hpp>
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
@@ -17,9 +17,14 @@
 #include <boost/simd/include/functions/simd/is_not_equal.hpp>
 #include <boost/simd/include/functions/simd/is_equal.hpp>
 #include <boost/simd/include/functions/simd/prev.hpp>
-#include <boost/simd/include/functions/simd/abs.hpp>
+#include <boost/simd/include/functions/simd/subs.hpp>
+#include <boost/simd/include/functions/simd/minusone.hpp>
 #include <boost/simd/include/functions/simd/bitinteger.hpp>
 #include <boost/simd/include/functions/simd/bitfloating.hpp>
+#include <boost/simd/include/functions/simd/is_gtz.hpp>
+#include <boost/assert.hpp>
+#include <boost/simd/operator/functions/details/assert_utils.hpp>
+
 
 namespace boost { namespace simd { namespace ext
 {
@@ -43,19 +48,20 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-        return prev(a0);
-      }
+      return if_nan_else(is_nan(a0), bitfloating(minusone(bitinteger(a0))));
+    }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::predecessor_, tag::cpu_
-                            , (A0)(A1)(X)
-                            , ((simd_<integer_<A0>,X>))((simd_<integer_<A1>,X>))
+                            , (A0)(X)
+                            , ((simd_<integer_<A0>,X>))((simd_<integer_<A0>,X>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return selsub( le(Valmin<A0>()+boost::simd::abs(a1), a0), a0, boost::simd::abs(a1));
+      BOOST_ASSERT_MSG(assert_all(is_gtz(a1)), "predecessor rank must be non negative");
+      return selsub( le(Valmin<A0>()+a1, a0), a0, a1);
     }
   };
 
@@ -69,7 +75,8 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return select(eq(a0, boost::simd::Minf<A0>()), a0,  bitfloating(bitinteger(a0)-boost::simd::abs(a1)));
+      BOOST_ASSERT_MSG(assert_all(is_gtz(a1)), "predecessor rank must be non negative");
+      return if_nan_else(is_nan(a0), bitfloating(subs(bitinteger(a0), a1)));
     }
   };
 } } }

@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace ext
       A0 aa1 =  boost::simd::abs(a1);
       return select(lt(aa0, aa1), a0,
                     select(gt(aa0, aa1), a1,
-                           boost::simd::max(a0, a1)
+                           boost::simd::min(a0, a1)
                           )
                    );
     }

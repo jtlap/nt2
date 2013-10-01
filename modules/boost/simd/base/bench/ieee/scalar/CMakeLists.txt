@@ -8,40 +8,39 @@
 ##############################################################################
 
 SET( SOURCES
-  negate.cpp
-  sign.cpp
-  sbits.cpp
-  signnz.cpp
-  prev.cpp
-  next.cpp
-  ulpdist.cpp
-  ulp.cpp
-  successor.cpp
-  predecessor.cpp
-  nextpow2.cpp
-  nextafter.cpp
-  modf.cpp
-  minnummag.cpp
-  minnum.cpp
-  minmag.cpp
-  maxnummag.cpp
-  maxnum.cpp
-  maxmag.cpp
-  mantissa.cpp
-  ldexp.cpp
-  ilogb.cpp
-  frexp.cpp
-  frac.cpp
-  fast_ldexp.cpp
-  fast_frexp.cpp
-  exponentbits.cpp
-  exponent.cpp
-  eps.cpp
-  copysign.cpp
-  bitofsign.cpp
-  bitinteger.cpp
   bitfloating.cpp
-# List of scalar test files for toolbox ieee
+  bitinteger.cpp
+  bitofsign.cpp
+  copysign.cpp
+  eps.cpp
+  exponent.cpp
+  exponentbits.cpp
+  fast_frexp.cpp
+  fast_ldexp.cpp
+  frac.cpp
+  frexp.cpp
+  ilogb.cpp
+  ldexp.cpp
+  mantissa.cpp
+  maxmag.cpp
+  maxnum.cpp
+  maxnummag.cpp
+  minmag.cpp
+  minnum.cpp
+  minnummag.cpp
+  modf.cpp
+  negate.cpp
+  next.cpp
+  nextafter.cpp
+  nextpow2.cpp
+  predecessor.cpp
+  prev.cpp
+  sbits.cpp
+  sign.cpp
+  signnz.cpp
+  successor.cpp
+  ulp.cpp
+  ulpdist.cpp
    )
 
 nt2_module_add_tests(boost.simd.base.ieee.scalar.bench ${SOURCES})

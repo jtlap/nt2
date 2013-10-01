@@ -11,7 +11,6 @@
 
 #include <boost/simd/ieee/functions/exponentbits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_and.hpp>
 #include <boost/simd/include/constants/maxexponent.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
@@ -20,10 +19,10 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::exponentbits_, tag::cpu_
                             , (A0)
-                            , (scalar_< fundamental_<A0> >)
+                            , (scalar_< floating_<A0> >)
                             )
   {
-    typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return b_and((2*Maxexponent<A0>()+1)<<Nbmantissabits<A0>(), a0);

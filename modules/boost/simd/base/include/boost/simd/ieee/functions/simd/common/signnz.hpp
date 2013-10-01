@@ -11,7 +11,7 @@
 
 #include <boost/simd/ieee/functions/signnz.hpp>
 #include <boost/simd/include/functions/simd/is_nan.hpp>
-#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/if_allbits_else.hpp>
 #include <boost/simd/include/functions/simd/bitwise_or.hpp>
 #include <boost/simd/include/functions/simd/bitwise_and.hpp>
 #include <boost/simd/include/functions/simd/shift_right.hpp>
@@ -55,7 +55,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       #ifndef BOOST_SIMD_NO_NANS
-      return if_else(is_nan(a0), a0, b_or(One<A0>(), b_and(Signmask<A0>(), a0)));
+      return if_nan_else(is_nan(a0), b_or(One<A0>(), b_and(Signmask<A0>(), a0)));
       #else
       return b_or(One<A0>(), b_and(Signmask<A0>(), a0));
       #endif

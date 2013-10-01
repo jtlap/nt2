@@ -6,60 +6,51 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_IEEE_FUNCTIONS_SBITS_HPP_INCLUDED
 #define BOOST_SIMD_IEEE_FUNCTIONS_SBITS_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_sbits sbits
- *
- * \par Description
- * The function return signed integer value which has the same bits of the input
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/sbits.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::sbits_(A0)>::type
- *     sbits(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of sbits
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace boost { namespace simd { namespace tag
   {
-    /*!
-     * \brief Define the tag sbits_ of functor sbits
-     *        in namespace boost::simd::tag for toolbox boost.simd.ieee
-    **/
-    struct sbits_ : ext::elementwise_<sbits_> { typedef ext::elementwise_<sbits_> parent; };
+   /*!
+     @brief sbits generic tag
+
+     Represents the sbits function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct sbits_ : ext::elementwise_<sbits_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<sbits_> parent;
+    };
   }
+  /*!
+    Returns signed integer value which has the same bits of the input
+
+    @par Semantic:
+
+    @code
+    T r = sbits(x);
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = bitwise_cast<as_integer<T,signed>>(x);
+    @endcode
+
+    @param a0
+
+    @return a value of same type as the input
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sbits_, sbits, 1)
 } }
 
 #endif
 
-// modified by jt the 25/12/2010
+
+///

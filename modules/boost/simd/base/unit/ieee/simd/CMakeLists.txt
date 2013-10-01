@@ -8,41 +8,40 @@
 ##############################################################################
 
 SET( SOURCES
-  saturate_at.cpp
-  saturate.cpp
-  negate.cpp
-  sign.cpp
-  sbits.cpp
-  signnz.cpp
-  prev.cpp
-  next.cpp
-  ulpdist.cpp
-  ulp.cpp
-  successor.cpp
-  predecessor.cpp
-  nextpow2.cpp
-  nextafter.cpp
-  modf.cpp
-  minnummag.cpp
-  minnum.cpp
-  minmag.cpp
-  maxnummag.cpp
-  maxnum.cpp
-  maxmag.cpp
-  mantissa.cpp
-  ldexp.cpp
-  ilogb.cpp
-  frexp.cpp
-  frac.cpp
-  fast_ldexp.cpp
-  fast_frexp.cpp
+  bitfloating.cpp
+  bitinteger.cpp
+  bitofsign.cpp
+  copysign.cpp
+  eps.cpp
   exponentbits.cpp
   exponent.cpp
-  eps.cpp
-  copysign.cpp
-  bitofsign.cpp
-  bitinteger.cpp
-  bitfloating.cpp
+  fast_frexp.cpp
+  fast_ldexp.cpp
+  frac.cpp
+  frexp.cpp
+  ilogb.cpp
+  ldexp.cpp
+  mantissa.cpp
+  maxmag.cpp
+  maxnum.cpp
+  maxnummag.cpp
+  minmag.cpp
+  minnum.cpp
+  minnummag.cpp
+  modf.cpp
+  negate.cpp
+  nextafter.cpp
+  next.cpp
+  nextpow2.cpp
+  predecessor.cpp
+  prev.cpp
+  saturate_at.cpp
+  sbits.cpp
+  sign.cpp
+  signnz.cpp
+  successor.cpp
+  ulp.cpp
+  ulpdist.cpp
 # List of simd test files for toolbox ieee
    )
 

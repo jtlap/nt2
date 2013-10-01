@@ -10,7 +10,7 @@
 #define BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_NEXT_HPP_INCLUDED
 
 #include <boost/simd/ieee/functions/next.hpp>
-#include <boost/simd/include/functions/scalar/oneplus.hpp>
+#include <boost/simd/include/functions/scalar/inc.hpp>
 #include <boost/simd/include/functions/scalar/nextafter.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/inf.hpp>
@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return oneplus(a0);
+      return inc(a0);
     }
   };
 
