@@ -9,55 +9,55 @@
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_boolean
- * \defgroup boost_simd_boolean_selsub selsub
- *
- * \par Description
- * The function returns the second entry or the difference of the second and third entries,
- * according to the first entry being True or False
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/selsub.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0, class A1>
- *     meta::call<tag::selsub_(A0,A1,A1)>::type
- *     selsub(const A0 & a0,const A1 & a1,const A1 & a2);
- * }
- * \endcode
- *
- * \param a0 the first parameter of selsub
- * \param a1 the second parameter of selsub, must be an integer value
- * \param a2 the third parameter of selsub
- *
- * \return a value of the common type of the 2 last parameters
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace boost { namespace simd { namespace tag
   {
-    /*!
-     * \brief Define the tag selsub_ of functor selsub
-     *        in namespace boost::simd::tag for toolbox boost.simd.boolean
-    **/
-    struct selsub_ : ext::elementwise_<selsub_> { typedef ext::elementwise_<selsub_> parent; };
+   /*!
+     @brief selsub generic tag
+
+     Represents the selsub function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct selsub_ : ext::elementwise_<selsub_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<selsub_> parent;
+    };
   }
+  /*!
+    The function returns the second entry or the difference of the second and third entries,
+    according to the first entry being True or False
+
+    @par Semantic:
+
+    For every parameters of types respectively T0, T1, T1:
+
+    @code
+    T1 r = selsub(a0,a1,a2);
+    @endcode
+
+    is similar to:
+
+    @code
+    T1 r = a0 ? a1-a2 : a1;
+    @endcode
+
+    @par Alias:
+    @c ifsub
+
+    @param a0
+
+    @param a1
+
+    @param a2
+
+    @return a value of the same type as the second parameter
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::selsub_, selsub, 3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::selsub_, ifsub,  3)
 } }
 
 #endif
 
-// modified by jt the 25/12/2010

@@ -6,62 +6,46 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_BITWISE_FUNCTIONS_RROL_HPP_INCLUDED
 #define BOOST_SIMD_BITWISE_FUNCTIONS_RROL_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_rrol rrol
- *
- * \par Description
- * The function returns the first entry rotated left or right
- * by the absolute value of second entry according to its sign.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/rrol.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::rrol_(A0,A0)>::type
- *     rrol(const A0 & a0,const A0 & a1);
- * }
- * \endcode
- *
- * \param a0 the first parameter of rrol
- * \param a1 the second parameter of rrol, must be an integer value
- *
- * \return returns a value of the type of the first parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
-
 namespace boost { namespace simd { namespace tag
   {
     /*!
-     * \brief Define the tag rrol_ of functor rrol
-     *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
+      @brief  rrol generic tag
+
+      Represents the rrol function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
-    struct rrol_ : ext::elementwise_<rrol_> { typedef ext::elementwise_<rrol_> parent; };
+    struct rrol_ : ext::elementwise_<rrol_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<rrol_> parent;
+    };
   }
+  /*!
+    Returns the first entry rotated left or right
+    by the absolute value of the second entry,
+    according to its sign.
+
+    @par semantic:
+    For any given value @c x of type @c T, n  of type @c I:
+
+    @code
+    T r = rrol(x, n);
+    @endcode
+
+    @param  a0
+    @param  a1
+
+    @return      a value of the same type as the first input.
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::rrol_, rrol, 2)
 } }
 
 #endif
-
-// modified by jt the 25/12/2010

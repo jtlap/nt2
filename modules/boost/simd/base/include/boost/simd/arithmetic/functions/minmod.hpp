@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace tag
     For any given value @c x,  @c y of type @c T:
 
     @code
-    T r = inc(x);
+    T r = minmod(x, y);
     @endcode
 
     is similar to:

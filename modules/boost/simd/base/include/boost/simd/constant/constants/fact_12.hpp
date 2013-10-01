@@ -19,56 +19,39 @@
 #pragma warning(disable: 4310) // truncation of constant
 #endif
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_fact_12 Fact_12
- *
- * \par Description
- * Constant Fact_12, 12! = 479001600, the saturated factorial value is
- * min(Valmax<T>(),479001600)
- * \par
- * The value of this constant is type dependant. This means that for different
- * types it does not represent the same mathematical number.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/fact_12.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::fact_12_(A0)>::type
- *     Fact_12();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Fact_12
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Fact_12 of functor Fact_12
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Fact_12 generic tag
+
+     Represents the Fact_12 constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Fact_12,double
                                 , 479001600,0x4de467e0, 0x41bc8cfc00000000ll
                                 );
   }
+  /*!
+    Generates 12! that is 479001600
 
+    @par Semantic:
+
+    @code
+    T r = Fact_12<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = T(479001600);
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Fact_12, Fact_12)
 } }
 

@@ -28,7 +28,7 @@
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/nan.hpp>
 
-NT2_TEST_CASE_TPL(is_not_less_real, BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL(is_not_less_real, BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::is_not_less;
   using boost::simd::tag::is_not_less_;
@@ -53,7 +53,7 @@ NT2_TEST_CASE_TPL(is_not_less_real, BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(is_not_less(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::True<r_t>());
 }
 
-NT2_TEST_CASE_TPL(is_not_less_ui, BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL(is_not_less_ui, BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::is_not_less;
   using boost::simd::tag::is_not_less_;
@@ -69,7 +69,7 @@ NT2_TEST_CASE_TPL(is_not_less_ui, BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(is_not_less(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::True<r_t>());
 }
 
-NT2_TEST_CASE_TPL(is_not_less_si, BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL(is_not_less_si, BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::is_not_less;
   using boost::simd::tag::is_not_less_;

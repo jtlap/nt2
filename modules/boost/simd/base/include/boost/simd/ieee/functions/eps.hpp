@@ -11,7 +11,6 @@
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-
 namespace boost { namespace simd { namespace tag
   {
    /*!
@@ -29,7 +28,9 @@ namespace boost { namespace simd { namespace tag
     };
   }
   /*!
-    Returns 2 times the Machine epsilon
+    Except for numbers whose absolute value is smaller than Smallestpositivevalue,
+    @c eps(x) returns 2^(exponent(x))*Eps
+
 
     @par Semantic:
 
@@ -40,21 +41,12 @@ namespace boost { namespace simd { namespace tag
     is similar to:
 
     @code
-    if T is double
-       r = pow(2.0, -52);
-    else if T is float
-      r = pow(2.0, -23);
-    else  T is integral
-      r =  1;
+
+    if T is floating
+      r = 2^(exponent(x))*Eps<T>
+    else if T is integral
+      r = 1;
     @endcode
-
-    @par Note:
-
-    The Machine epsilon gives an upper bound on the relative
-    error due to rounding in floating point arithmetic.
-    MATLAB(TM) language defines the value eps
-    as the distance from 1.0 to the next larger double
-    which is two times the machine epsilon.
 
     @param a0
 

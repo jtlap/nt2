@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL (sum_cplx, NT2_SIMD_REAL_TYPES)
   for(std::size_t i=0;i<n;++i) data[i] = i+1;
 
   vT vr = boost::simd::load<vT>(&data[0]);
-  vT vi = 2*vr;
+  vT vi = 2.*vr;
 
   vcT vn(vr,vi);
 

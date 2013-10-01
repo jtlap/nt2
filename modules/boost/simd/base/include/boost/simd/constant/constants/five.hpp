@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_FIVE_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_FIVE_HPP_INCLUDED
 
@@ -16,52 +13,38 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_five Five
- *
- * \par Description
- * Constant Five = 5
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/five.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::five_(A0)>::type
- *     Five();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Five
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Five of functor Five
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Five generic tag
+
+     Represents the Five constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Five,double
                                 , 5,0x40a00000UL,0x4014000000000000ULL
                                 );
   }
+  /*!
+     Generates value 5 in the chosen type
 
+    @par Semantic:
+
+    @code
+    T r = Five<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = T(5);
+    @endcode
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Five, Five)
 } }
 

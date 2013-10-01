@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_FACT_4_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_FACT_4_HPP_INCLUDED
 
@@ -16,52 +13,43 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_fact_4 Fact_4
- *
- * \par Description
- * Constant Fact_4 4! = 24
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/fact_4.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::fact_4_(A0)>::type
- *     Fact_4();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Fact_4
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Fact_4 of functor Fact_4
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Fact_4 generic tag
+
+     Represents the Fact_4 constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Fact_4,double
                                 , 24, 0x41c00000, 0x4038000000000000ll
                                 );
   }
+  /*!
+    Generates 4! that is 24
 
+    @par Semantic:
+
+    @code
+    T r = Fact_4<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = T(24);
+    @endcode
+
+    @par Alias
+
+    Twentyfour
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Fact_4, Fact_4)
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Fact_4, Twentyfour)
 } }

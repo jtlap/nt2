@@ -17,11 +17,44 @@ namespace boost { namespace simd
 {
   namespace tag
   {
-    struct assign_ : ext::elementwise_<assign_> { typedef ext::elementwise_<assign_> parent; };
-  }
+   /*!
+     @brief assign generic tag
 
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_SELF(tag::assign_ , assign , 2 )
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_SELF(tag::assign_ , set    , 2 )
+     Represents the assign function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct assign_ : ext::elementwise_<assign_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<assign_> parent;
+    };
+  }
+  /*!
+
+    @par Semantic:
+
+    For every parameters of types respectively T0, T1:
+
+    @code
+    T0 r = assign(a0,a1);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = ;
+    @endcode
+
+    @param a0
+
+    @param a1
+
+    @return a value of the same type as the second parameter
+  **/
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_SELF(tag::assign_ , assign , 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_SELF(tag::assign_ , set    , 2)
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL (tag::assign_ , assign, (A0 const&)(A1 const&), 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL (tag::assign_ , assign, (A0 const&)(A1&), 2)
@@ -45,3 +78,6 @@ namespace boost { namespace dispatch { namespace meta
 #include <boost/simd/operator/specific/common.hpp>
 
 #endif
+///
+
+///

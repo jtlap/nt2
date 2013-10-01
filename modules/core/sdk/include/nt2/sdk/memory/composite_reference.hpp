@@ -14,6 +14,9 @@
 #include <boost/simd/sdk/tuple.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/meta/strip.hpp>
+#include <boost/dispatch/meta/value_of.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
+#include <boost/dispatch/meta/model_of.hpp>
 #include <boost/fusion/include/io.hpp>
 #include <boost/fusion/include/copy.hpp>
 #include <boost/fusion/include/as_vector.hpp>
@@ -24,6 +27,8 @@
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/is_convertible.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/type_traits/add_reference.hpp>
 #include <boost/utility/enable_if.hpp>
 
 //==============================================================================
@@ -103,6 +108,33 @@ namespace boost { namespace dispatch { namespace meta
   struct strip< nt2::container::composite_reference<T> >
   {
     typedef typename nt2::container::composite_reference<T>::value_type type;
+  };
+
+  template<typename T>
+  struct value_of< nt2::container::composite_reference<T> >
+       : add_reference<typename value_of<T>::type>
+  {
+  };
+
+  template<typename T>
+  struct scalar_of< nt2::container::composite_reference<T> >
+       : mpl::if_< is_same< typename scalar_of<T>::type
+                          , T
+                          >
+                 , nt2::container::composite_reference<T>
+                 , typename add_reference<typename scalar_of<T>::type>::type
+                 >
+  {
+  };
+
+  template<typename T>
+  struct model_of< nt2::container::composite_reference<T> >
+  {
+    template<class X>
+    struct apply
+    {
+      typedef nt2::container::composite_reference<X> type;
+    };
   };
 } } }
 

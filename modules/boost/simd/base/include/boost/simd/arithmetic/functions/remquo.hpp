@@ -8,12 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_REMQUO_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_REMQUO_HPP_INCLUDED
-
-/*!
-  @file
-  @brief Definition of the remquo function
-**/
-
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 

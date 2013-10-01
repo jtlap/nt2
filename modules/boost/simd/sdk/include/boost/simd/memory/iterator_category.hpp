@@ -12,7 +12,6 @@
 
 #include <boost/dispatch/meta/is_iterator.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
-#include <boost/type_traits/is_pointer.hpp>
 #include <boost/pointee.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -37,6 +36,12 @@ namespace boost { namespace dispatch { namespace details
                   >
         : boost::pointee<T>
   {};
+
+  template<>
+  struct  value_of<void*>
+  {
+    typedef void type;
+  };
 
   template<class T, class Origin>
   struct  hierarchy_of< T

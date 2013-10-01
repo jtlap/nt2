@@ -45,13 +45,13 @@ NT2_TEST_CASE_TPL ( rem_pio2_real__1_0,  NT2_REAL_TYPES)
   typedef typename boost::fusion::result_of::value_at_c<r_t,2>::type r_t2;
   {
     r_t res = rem_pio2(nt2::Zero<T>());
-    NT2_TEST_ULP_EQUAL( boost::fusion::get<0>(res), nt2::Zero<r_t0>(), 0.5);
-    NT2_TEST_ULP_EQUAL( boost::fusion::get<1>(res), nt2::Zero<r_t1>(), 0.5);
-    NT2_TEST_ULP_EQUAL( boost::fusion::get<2>(res), nt2::Zero<r_t2>(), 0.5);
+    NT2_TEST_ULP_EQUAL( boost::fusion::get<0>(res), nt2::Zero<r_t0>(), 1);
+    NT2_TEST_ULP_EQUAL( boost::fusion::get<1>(res), nt2::Zero<r_t1>(), 1);
+    NT2_TEST_ULP_EQUAL( boost::fusion::get<2>(res), nt2::Zero<r_t2>(), 1);
     T xr;
     iT n = rem_pio2(nt2::Zero<T>(), xr);
-    NT2_TEST_ULP_EQUAL( xr, nt2::Zero<T>(), 0.5);
-    NT2_TEST_ULP_EQUAL( n, nt2::Zero<iT>(), 0.5);
+    NT2_TEST_ULP_EQUAL( xr, nt2::Zero<T>(), 1);
+    NT2_TEST_ULP_EQUAL( n, nt2::Zero<iT>(), 1);
 
   }
 } // end of test for floating_
@@ -66,16 +66,20 @@ NT2_TEST_CASE_TPL ( rem_pio2_targeted,  NT2_REAL_TYPES)
   iT n;
   T x = nt2::Pio_2<T>(), xr;
   n = rem_pio2(x, xr, nt2::meta::as_<nt2::big_>());
-  NT2_TEST_ULP_EQUAL( xr, nt2::Zero<T>(), 0.5);
+  NT2_TEST_ULP_EQUAL( xr, nt2::Zero<T>(), 1);
+  NT2_TEST_ULP_EQUAL( n, nt2::Zero<iT>(), 1);
 
   n = rem_pio2(x, xr, nt2::meta::as_<nt2::medium_>());
-  NT2_TEST_ULP_EQUAL( xr, nt2::Zero<T>(), 0.5);
+  NT2_TEST_ULP_EQUAL( xr, nt2::Zero<T>(), 1);
+  NT2_TEST_ULP_EQUAL( n, nt2::Zero<iT>(), 1);
 
   n = rem_pio2(x, xr, nt2::meta::as_<nt2::small_>());
-  NT2_TEST_ULP_EQUAL( xr, nt2::Zero<T>(), 0.5);
+  NT2_TEST_ULP_EQUAL( xr, nt2::Zero<T>(), 1);
+  NT2_TEST_ULP_EQUAL( n, nt2::Zero<iT>(), 1);
 
   n = rem_pio2(x, xr, nt2::meta::as_<nt2::very_small_>());
-  NT2_TEST_ULP_EQUAL( xr, nt2::Zero<T>(), 0.5);
+  NT2_TEST_ULP_EQUAL( xr, nt2::Zero<T>(), 1);
+  NT2_TEST_ULP_EQUAL( n, nt2::Zero<iT>(), 1);
 }
 
 

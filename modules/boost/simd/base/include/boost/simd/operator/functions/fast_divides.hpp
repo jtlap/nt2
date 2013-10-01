@@ -15,58 +15,44 @@ namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-      @brief load generic tag
+   /*!
+     @brief fast_divides generic tag
 
-      Represents the load function in generic contexts.
+     Represents the fast_divides function in generic contexts.
 
-      @par Models:
-      Hierarchy
-    **/
+     @par Models:
+        Hierarchy
+   **/
     struct fast_divides_ : ext::elementwise_<fast_divides_>
     {
       /// @brief Parent hierarchy
       typedef ext::elementwise_<fast_divides_> parent;
     };
   }
-
   /*!
-    @brief Approximate division
-
-    Performs the division between two values using an approximate algorithm
-    whenever possible. Contrary to divides, fast_divides does not make any
-    provision for handling inputs or outputs.
 
     @par Semantic:
 
-    For any values @c x and @c y of type @c T,
+    For every parameters of types respectively T0, T1:
 
     @code
-    T r = fast_divides(x,y)
+    T0 r = fast_divides(a0,a1);
     @endcode
 
-    is equivalent to
+    is similar to:
 
-    - if  @c T is a floating point type:
     @code
-    T r = x * fast_rec(y)
+    T0 r = a0*fast_rec(a1);
     @endcode
-
-    - if  @c T is a integral type:
-    @code
-    T r = x / y
-    @endcode
-
-    Precision of result is around 0.5 ULPs.
 
     @par Alias:
-
-    fast_div, fast_rdiv
+    @c fast_div, @c fast_rdiv
 
     @param a0
+
     @param a1
 
-    @return An approximate value of a0/a1
+    @return a value of the same type as the second parameter
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::fast_divides_ , fast_divides  , 2)
 
@@ -78,3 +64,5 @@ namespace boost { namespace simd
 } }
 
 #endif
+
+///

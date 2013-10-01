@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_TABLE_SEMANTIC_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_TABLE_SEMANTIC_HPP_INCLUDED
+#ifndef NT2_CORE_CONTAINER_TABLE_KIND_HPP_INCLUDED
+#define NT2_CORE_CONTAINER_TABLE_KIND_HPP_INCLUDED
 
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/core/container/dsl/domain.hpp>

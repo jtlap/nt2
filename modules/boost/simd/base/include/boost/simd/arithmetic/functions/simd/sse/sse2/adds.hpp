@@ -21,7 +21,7 @@ namespace boost { namespace simd { namespace ext
                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return _mm_adds_epu8(a0, a1);
     }
@@ -34,10 +34,10 @@ namespace boost { namespace simd { namespace ext
                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-      {
-        return _mm_adds_epi8(a0, a1);
-      }
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      return _mm_adds_epi8(a0, a1);
+    }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::adds_, boost::simd::tag::sse2_,
@@ -47,9 +47,9 @@ namespace boost { namespace simd { namespace ext
                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-        return _mm_adds_epu16(a0, a1);
+      return _mm_adds_epu16(a0, a1);
     }
   };
 
@@ -60,7 +60,7 @@ namespace boost { namespace simd { namespace ext
                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return _mm_adds_epi16(a0, a1);
     }

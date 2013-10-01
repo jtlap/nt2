@@ -9,7 +9,7 @@
 #include <boost/simd/swar/include/functions/reverse.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
-#include <boost/simd/swar/include/functions/arith.hpp>
+#include <boost/simd/swar/include/functions/enumerate.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -37,9 +37,9 @@ NT2_TEST_CASE_TPL ( reverse_real__2_0, BOOST_SIMD_SIMD_TYPES)
   // specific values tests
   T s =  0;
   T h = 1;
-  std::cout << boost::simd::arith<vT>(s, h) << std::endl;
-  std::cout << reverse(boost::simd::arith<vT>(s, h)) << std::endl;
+  std::cout << boost::simd::enumerate<vT>(s, h) << std::endl;
+  std::cout << reverse(boost::simd::enumerate<vT>(s, h)) << std::endl;
   for(std::size_t i=0; i < vT::static_size;++i)
-    NT2_TEST_EQUAL(reverse(boost::simd::arith<vT>(s, h))[i], T(n-i));
+    NT2_TEST_EQUAL(reverse(boost::simd::enumerate<vT>(s, h))[i], T(n-i));
 } // end of test
 

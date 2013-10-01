@@ -6,21 +6,19 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.boolean toolbox - if_zero_else_one/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.boolean components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 18/02/2011
-///
 #include <boost/simd/boolean/include/functions/if_zero_else_one.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/constant/constant.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/minf.hpp>
+#include <boost/simd/include/constants/mone.hpp>
+#include <boost/simd/include/constants/nan.hpp>
 
 NT2_TEST_CASE_TPL ( if_zero_else_one_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
@@ -28,16 +26,11 @@ NT2_TEST_CASE_TPL ( if_zero_else_one_real__2_0,  BOOST_SIMD_REAL_TYPES)
   using boost::simd::if_zero_else_one;
   using boost::simd::tag::if_zero_else_one_;
   using boost::simd::logical;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<if_zero_else_one_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::common_type<T>::type wished_r_t;
 
-
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
+  NT2_TEST_TYPE_IS( r_t, wished_r_t );
 
   // specific values tests
   NT2_TEST_EQUAL(if_zero_else_one(T(0)), 1);
@@ -58,16 +51,11 @@ NT2_TEST_CASE_TPL ( if_zero_else_one_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNE
   using boost::simd::if_zero_else_one;
   using boost::simd::tag::if_zero_else_one_;
   using boost::simd::logical;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<if_zero_else_one_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::common_type<T>::type wished_r_t;
 
-
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
+  NT2_TEST_TYPE_IS( r_t, wished_r_t );
 
   // specific values tests
   NT2_TEST_EQUAL(if_zero_else_one(T(0)), 1);

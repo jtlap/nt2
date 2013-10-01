@@ -9,8 +9,8 @@
 
 SET( SOURCES
   shuffle.cpp
-  arith.cpp
   all_reduce.cpp
+  combine.cpp
   cumsum.cpp
   cumprod.cpp
   enumerate.cpp
@@ -18,6 +18,7 @@ SET( SOURCES
   groups.cpp
   lookup.cpp
   put_first.cpp
+  slice.cpp
   sort.cpp
   splatted_first.cpp
   splatted_maximum.cpp

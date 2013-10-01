@@ -25,12 +25,12 @@ using boost::simd::tag::arg_;
 
 namespace n1 {
   typedef float T;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(arg_,(RS(vT,-10.0f,10.0f)))
 }
 namespace n2 {
   typedef double T;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(arg_,(RS(vT,-10.0,10.0)))
 }
 

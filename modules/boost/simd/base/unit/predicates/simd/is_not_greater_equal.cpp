@@ -29,7 +29,7 @@
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/nan.hpp>
 
-NT2_TEST_CASE_TPL(is_not_greater_equal_real, BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL(is_not_greater_equal_real, BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::is_not_greater_equal;
   using boost::simd::tag::is_not_greater_equal_;
@@ -56,7 +56,7 @@ NT2_TEST_CASE_TPL(is_not_greater_equal_real, BOOST_SIMD_REAL_TYPES)
 
 
 
-NT2_TEST_CASE_TPL(is_not_greater_equal_ui, BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL(is_not_greater_equal_ui, BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::is_not_greater_equal;
   using boost::simd::tag::is_not_greater_equal_;
@@ -72,7 +72,7 @@ NT2_TEST_CASE_TPL(is_not_greater_equal_ui, BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(is_not_greater_equal(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::False<r_t>());
 }
 
-NT2_TEST_CASE_TPL(is_not_greater_equal_si, BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL(is_not_greater_equal_si, BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::is_not_greater_equal;
   using boost::simd::tag::is_not_greater_equal_;

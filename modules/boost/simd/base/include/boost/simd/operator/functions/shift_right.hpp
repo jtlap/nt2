@@ -6,67 +6,60 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_SHIFT_RIGHT_HPP_INCLUDED
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_SHIFT_RIGHT_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 #include <boost/proto/tags.hpp>
 
-/*!
- * \ingroup boost_simd_operator
- * \defgroup boost_simd_operator_shift_right shift_right
- *
- * \par Description
- * return right shift of the first operand by the second
- * that must be of integer type and of the same number
- * of elements as the first parameter
- * Infix notation can be used with operator '>>'
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/shift_right.hpp>
- * \endcode
- *
- * \par Alias
- * \arg shr
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0,class A1>
- *     meta::call<tag::shift_right_(A0,A1)>::type
- *     shift_right(const A0 & a0,const A1 & a1);
- * }
- * \endcode
- *
- * \param a0 the first parameter of shift_right
- * \param a1 the second parameter of shift_right, must be integer
- *
- * \return a value of the type of the first parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag shift_right_ of functor shift_right
-     *        in namespace boost::simd::tag for toolbox boost.simd.operator
-    **/
-    struct shift_right_ : ext::elementwise_<shift_right_> { typedef ext::elementwise_<shift_right_> parent; };
-  }
+   /*!
+     @brief shift_right generic tag
 
+     Represents the shift_right function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct shift_right_ : ext::elementwise_<shift_right_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<shift_right_> parent;
+    };
+  }
+  /*!
+    return right shift of the first operand by the second
+    that must be of integer type and of the same number
+    of elements as the first parameter
+    Infix notation can be used with operator '>>'
+
+    @par Semantic:
+
+    For every parameters of types respectively T0, T1:
+
+    @code
+    T0 r = shift_right(a0,a1);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = a0 >> a1;
+    @endcode
+
+    @par Alias:
+    @c shra, @c shar, @c shrai
+
+    @param a0
+
+    @param a1
+
+    @return a value of the same type as the second parameter
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::shift_right_             , shift_right     , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::shift_right_             , shra            , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::shift_right_             , shar            , 2 )
@@ -90,3 +83,5 @@ namespace boost { namespace dispatch { namespace meta
 #include <boost/simd/operator/specific/common.hpp>
 
 #endif
+
+///

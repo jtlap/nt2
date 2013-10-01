@@ -41,15 +41,18 @@ NT2_TEST_CASE( extent )
 template<class Expr>
 void meta_impl(Expr const&)
 {
-  NT2_TEST_TYPE_IS(typename boost::dispatch::meta::scalar_of<Expr>::type, (boost::fusion::vector2< std::complex<float>&, std::complex<float> >));
+  typedef std::complex<float> cT;
+  typedef nt2::container::composite_reference<cT> cTref;
+
+  NT2_TEST_TYPE_IS(typename boost::dispatch::meta::scalar_of<Expr>::type, (boost::fusion::vector2< cTref, cT >));
   NT2_TEST_TYPE_IS(typename boost::dispatch::meta::primitive_of<Expr>::type, (boost::fusion::vector2<float&, float>));
-  NT2_TEST_TYPE_IS(typename Expr::value_type, (boost::fusion::vector2<std::complex<float>, std::complex<float> >));
+  NT2_TEST_TYPE_IS(typename Expr::value_type, (boost::fusion::vector2<cT, cT>));
 }
 
 NT2_TEST_CASE( meta )
 {
   using nt2::table;
-  table< std::complex<float> > a, b, c, d;
+  table< std::complex<float>, nt2::deinterleaved_ > a, b, c, d;
 
   meta_impl(nt2::tie(a, b + c));
 }

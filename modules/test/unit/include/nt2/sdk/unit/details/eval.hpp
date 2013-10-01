@@ -18,11 +18,17 @@
 /*
   Various forward declarations
 */
-namespace boost { namespace simd { namespace details
+namespace boost { namespace simd
 {
+  namespace details
+  {
   template<class T, class X>
   struct soa_proxy;
-} } }
+  }
+
+  template<class Expr, class ResultType>
+  struct expression;
+} }
 
 namespace nt2
 {
@@ -49,6 +55,13 @@ namespace nt2
     template<class Expr, class Result>
     typename boost::dispatch::meta::terminal_of<Result>::type
     eval(nt2::container::expression<Expr, Result> const& t)
+    {
+      return t;
+    }
+
+    template<class Expr, class Result>
+    typename boost::dispatch::meta::terminal_of<Result>::type
+    eval(boost::simd::expression<Expr, Result> const& t)
     {
       return t;
     }

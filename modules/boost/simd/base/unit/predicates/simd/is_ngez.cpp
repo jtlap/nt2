@@ -30,7 +30,7 @@
 #include <boost/simd/include/constants/nan.hpp>
 
 
-NT2_TEST_CASE_TPL(is_ngez_real, BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL(is_ngez_real, BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::is_ngez;
   using boost::simd::tag::is_ngez_;
@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL(is_ngez_real, BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(is_ngez(boost::simd::Zero<vT>()), boost::simd::False<r_t>());
 }
 
-NT2_TEST_CASE_TPL(is_ngez_ui, BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL(is_ngez_ui, BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::is_ngez;
   using boost::simd::tag::is_ngez_;
@@ -71,7 +71,7 @@ NT2_TEST_CASE_TPL(is_ngez_ui, BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(is_ngez(boost::simd::Zero<vT>()), boost::simd::False<r_t>());
 }
 
-NT2_TEST_CASE_TPL(is_ngez_si, BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL(is_ngez_si, BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::is_ngez;
   using boost::simd::tag::is_ngez_;

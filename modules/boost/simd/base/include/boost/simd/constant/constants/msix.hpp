@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_MSIX_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_MSIX_HPP_INCLUDED
 
@@ -16,52 +13,39 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_msix Msix
- *
- * \par Description
- * Constant Msix = -6
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/msix.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::msix_(A0)>::type
- *     Msix();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Msix
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Msix of functor Msix
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Msix generic tag
+
+     Represents the Msix constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Msix, double, -6
                                 , 0xc0c00000UL, 0xc018000000000000ULL
                                 );
   }
+  /*!
+    Generates value -6
 
+    @par Semantic:
+
+    @code
+    T r = Msix<T>();
+    @endcode
+
+
+    is similar to:
+
+    @code
+    T r = T(-6));
+    @endcode
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Msix, Msix)
 } }
 #include <boost/simd/constant/common.hpp>

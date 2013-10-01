@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_FACT_5_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_FACT_5_HPP_INCLUDED
 
@@ -16,52 +13,38 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_fact_5 Fact_5
- *
- * \par Description
- * Constant Fact_5 120
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/fact_5.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::fact_5_(A0)>::type
- *     Fact_5();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Fact_5
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Fact_5 of functor Fact_5
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Fact_5 generic tag
+
+     Represents the Fact_5 constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Fact_5,double
                                 , 120, 0x42f00000,0x405e000000000000ll
                                 );
   }
+  /*!
+    Generates 5!,  that is 120
 
+    @par Semantic:
+
+    @code
+    T r = Fact_5<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = T(120);
+    @endcode
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Fact_5, Fact_5)
 } }
 

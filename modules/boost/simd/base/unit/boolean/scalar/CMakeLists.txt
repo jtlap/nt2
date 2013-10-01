@@ -11,10 +11,19 @@ SET( SOURCES
   negif.cpp
   seladd.cpp
   selsub.cpp
+  if_allbits_else.cpp
+  if_else_allbits.cpp
   if_one_else_zero.cpp
   if_zero_else_one.cpp
+  if_else_zero.cpp
+  if_zero_else.cpp
   selinc.cpp
   seldec.cpp
+  logical_andnot.cpp
+  logical_ornot.cpp
+  logical_notand.cpp
+  logical_notor.cpp
+  mask2logical.cpp
 # List of scalar test files for toolbox boolean
    )
 

@@ -6,63 +6,55 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_BOOLEAN_FUNCTIONS_NEGIF_HPP_INCLUDED
 #define BOOST_SIMD_BOOLEAN_FUNCTIONS_NEGIF_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_boolean
- * \defgroup boost_simd_boolean_negif negif
- *
- * \par Description
- * The function returns -a1 if a0 is true and a1 otherwise.
- * The two operands must have the same cardinal.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/negif.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0, class A1>
- *     meta::call<tag::negif_(A0,A1)>::type
- *     negif(const A0 & a0,const A1 & a1);
- * }
- * \endcode
- *
- * \param a0 the first parameter of negif
- * \param a1 the second parameter of negif
- *
- * \return always of the type of the second parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 
 namespace boost { namespace simd { namespace tag
   {
-    /*!
-     * \brief Define the tag negif_ of functor negif
-     *        in namespace boost::simd::tag for toolbox boost.simd.boolean
-    **/
-     struct negif_ : ext::elementwise_<negif_> { typedef ext::elementwise_<negif_> parent; };
+   /*!
+     @brief negif generic tag
+
+     Represents the negif function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct negif_ : ext::elementwise_<negif_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<negif_> parent;
+    };
   }
+  /*!
+    The function returns -a1 if a0 is true and a1 otherwise.
+    The two operands must have the same cardinal.
+
+    @par Semantic:
+
+    For every parameters of types respectively T0, T1:
+
+    @code
+    T1 r = negif(a0,a1);
+    @endcode
+
+    is similar to:
+
+    @code
+    T1 r = a0 ? -a1 : a1;
+    @endcode
+
+    @param a0
+
+    @param a1
+
+    @return a value of the same type as the second parameter
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::negif_, negif, 2)
 } }
 
 #endif
 
-// modified by jt the 25/12/2010

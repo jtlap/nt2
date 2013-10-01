@@ -22,7 +22,7 @@
 #include <nt2/include/functions/simd/sincospi.hpp>
 
 #include <boost/simd/sdk/simd/extensions.hpp>
-#include <boost/simd/include/functions/simd/arith.hpp>
+#include <boost/simd/include/functions/simd/enumerate.hpp>
 
 #include <boost/concept_check.hpp>
 #include <boost/preprocessor/arithmetic/add.hpp>
@@ -130,7 +130,7 @@ namespace detail
             long double const increment  (         omega );
 
             typedef typename Vector::value_type scalar_t;
-            Vector const result ( boost::simd::arith<Vector>( static_cast<scalar_t>( start_value ), static_cast<scalar_t>( increment ) ) );
+            Vector const result ( boost::simd::enumerate<Vector>( static_cast<scalar_t>( start_value ), static_cast<scalar_t>( increment ) ) );
             BOOST_ASSERT( result[ Vector::static_size - 1 ] <= omega_scale * Impl::full_circle() / 4 );
             return result;
         }

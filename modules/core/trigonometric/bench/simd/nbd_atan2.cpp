@@ -32,13 +32,13 @@ using nt2::tag::nbd_atan2_;
 namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(nbd_atan2_,(RS(vT,nt2::Mone<T>(),nt2::One<T>()))(RS(vT,nt2::Mone<T>(),nt2::One<T>())))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(nbd_atan2_,(RS(vT,nt2::Mone<T>(),nt2::One<T>()))(RS(vT,nt2::Mone<T>(),nt2::One<T>())))
 }
 

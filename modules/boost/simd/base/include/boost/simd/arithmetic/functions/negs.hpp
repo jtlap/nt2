@@ -45,7 +45,8 @@ namespace boost { namespace simd {
     @endcode
 
     @par Note:
-    For integers types @c negs(Valmin) returns @c Valmax
+    For integers types @c negs(Valmin) returns @c Valmax.
+
     @c negs is not defined for unsigned types.
 
     @par Alias

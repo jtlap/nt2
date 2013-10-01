@@ -10,14 +10,15 @@
 #define BOOST_DISPATCH_META_DETAILS_GENERIC_HPP_INCLUDED
 
 #include <boost/dispatch/meta/details/hierarchy_base.hpp>
-
-#include <boost/dispatch/meta/fusion.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/fusion/include/is_sequence.hpp>
 #include <boost/mpl/if.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
+  template<class T>
+  struct fusion_sequence_;
+
   template<class T>
   struct generic_ : generic_< typename T::parent >
   {
@@ -30,5 +31,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef typename mpl::if_< boost::fusion::traits::is_sequence< typename meta::scalar_of<T>::type >, fusion_sequence_<T>, unspecified_<T> >::type parent;
   };
 } } }
+
+#include <boost/dispatch/meta/fusion.hpp>
 
 #endif

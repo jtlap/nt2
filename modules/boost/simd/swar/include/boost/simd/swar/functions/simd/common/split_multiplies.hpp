@@ -11,6 +11,7 @@
 
 #include <boost/simd/swar/functions/split_multiplies.hpp>
 #include <boost/simd/include/functions/simd/split.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
 #include <boost/simd/sdk/meta/is_upgradable.hpp>
 
 namespace boost { namespace simd { namespace ext

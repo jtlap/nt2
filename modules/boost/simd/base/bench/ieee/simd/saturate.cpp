@@ -34,25 +34,25 @@ using boost::simd::tag::saturate_;
 namespace n1 {
   typedef boost::simd::uint8_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(saturate_<uint16_t>,(RS(vT,boost::simd::Valmin<T>(),boost::simd::Valmax<T>())))
 }
 namespace n2 {
   typedef boost::simd::uint16_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(saturate_<uint16_t>,(RS(vT,boost::simd::Valmin<T>(),boost::simd::Valmax<T>())))
 }
 namespace n3 {
   typedef boost::simd::uint32_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(saturate_<uint16_t>,(RS(vT,boost::simd::Valmin<T>(),boost::simd::Valmax<T>())))
 }
 namespace n4 {
   typedef boost::simd::uint64_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(saturate_<uint16_t>,(RS(vT,boost::simd::Valmin<T>(),boost::simd::Valmax<T>())))
 }
 

@@ -51,3 +51,5 @@ NT2_TEST_CASE_TPL( integer_hi, BOOST_SIMD_INTEGRAL_TYPES )
 
   NT2_TEST_EQUAL( hi(val), ref );
 }
+
+

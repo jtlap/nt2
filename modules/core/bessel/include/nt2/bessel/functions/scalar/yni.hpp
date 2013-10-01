@@ -92,7 +92,6 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef A1 result_type;
       if (is_ltz(a1)) return Nan<result_type>();
 #ifndef BOOST_SIMD_NO_INVALIDS
       if (is_nan(a1)) return Nan<result_type>();

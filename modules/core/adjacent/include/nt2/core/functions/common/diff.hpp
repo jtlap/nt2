@@ -14,6 +14,7 @@
 #include <nt2/include/functions/run.hpp>
 #include <nt2/include/functions/enumerate.hpp>
 #include <nt2/include/functions/minus.hpp>
+#include <nt2/include/functions/inc.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
 #include <nt2/core/utility/as_index.hpp>
 #include <nt2/core/utility/as_subscript.hpp>

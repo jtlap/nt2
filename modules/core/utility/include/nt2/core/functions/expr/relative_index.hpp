@@ -16,6 +16,7 @@
 #include <nt2/core/container/colon/category.hpp>
 #include <nt2/core/functions/details/colon.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
 
 namespace nt2 { namespace ext
@@ -41,7 +42,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(const A0& idx, const A1& bi, const A2&, const A3& p, const A4&) const
     {
-      return nt2::splat<result_type>(nt2::run(idx,p,meta::as_<value_type>())-bi);
+      return nt2::splat<result_type>(nt2::run(idx,p,meta::as_<value_type>())-(typename A0::value_type)bi);
     }
   };
 
@@ -66,7 +67,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(const A0& idx, const A1& bi, const A2&, const A3&, const A4&) const
     {
-      return nt2::splat<result_type>(nt2::run(idx,0u,meta::as_<typename A0::value_type>())-bi);
+      return nt2::splat<result_type>(nt2::run(idx,0u,meta::as_<typename A0::value_type>())-(typename A0::value_type)bi);
     }
   };
 
@@ -146,7 +147,7 @@ namespace nt2 { namespace ext
                                   value(boost::proto::child_c<0>(i)).lower(b,s)
                                 , p
                                 , meta::as_<result_type>()
-                                ) - b;
+                                ) - (typename meta::scalar_of<result_type>::type)b;
     }
   };
 
@@ -177,7 +178,7 @@ namespace nt2 { namespace ext
                           , boost::proto::value(boost::proto::child_c<1>(i))
                           , p
                           , meta::as_<result_type>()
-                          ) - b;
+                          ) - (typename meta::scalar_of<result_type>::type)b;
     }
   };
 } }

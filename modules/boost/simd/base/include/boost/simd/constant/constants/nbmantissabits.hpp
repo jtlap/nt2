@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_NBMANTISSABITS_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_NBMANTISSABITS_HPP_INCLUDED
 
@@ -16,56 +13,25 @@
 #include <boost/simd/meta/int_c.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_nbmantissabits Nbmantissabits
- *
- * \par Description
- * Constant Nbmantissabits, The number of mantissa bits of a floating point number,
- * i.e. 53 for double and 24 for float.
- * \par
- * The value of this constant is type dependant. This means that for different
- * types it does not represent the same mathematical number.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/nbmantissabits.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::nbmantissabits_(A0)>::type
- *     Nbmantissabits();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Nbmantissabits
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Nbmantissabits of functor Nbmantissabits
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Nbmantissabits generic tag
+
+     Represents the Nbmantissabits constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct Nbmantissabits : ext::pure_constant_<Nbmantissabits>
     {
       typedef double default_type;
       typedef ext::pure_constant_<Nbmantissabits> parent;
 
+      /// INTERNAL ONLY
       template<class Target, class Dummy=void>
       struct  apply : meta::int_c < typename Target::type
                                   , sizeof(typename Target::type)*CHAR_BIT
@@ -73,15 +39,30 @@ namespace boost { namespace simd
       {};
     };
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Nbmantissabits::apply<boost::dispatch::meta::single_<T>,Dummy>
           : meta::int_c<boost::simd::int32_t,23> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Nbmantissabits::apply<boost::dispatch::meta::double_<T>,Dummy>
           : meta::int_c<boost::simd::int64_t,52> {};
   }
+  /*!
+    Constant Nbmantissabits, The number of mantissa bits of a floating point number,
+    i.e. 52 for double and 23 for float.
 
+    The value of this constant is type dependant. This means that for different
+    types it does not represent the same mathematical number.
+
+    @par Semantic:
+
+    @code
+    T r = Nbmantissabits<T>();
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Nbmantissabits, Nbmantissabits)
 } }
 

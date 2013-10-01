@@ -6,69 +6,62 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_BITWISE_AND_HPP_INCLUDED
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_BITWISE_AND_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 #include <boost/proto/tags.hpp>
 
-/*!
- * \ingroup boost_simd_operator
- * \defgroup boost_simd_operator_bitwise_and bitwise_and
- *
- * \par Description
- * return the bitwise and of the two parameters
- * the operands must share the same bit size and
- * the result type is the one of the first operand
- * Infix notation can be used with operator '&',
- * but this will not work in scalar mode if any
- * operand is floating point because of C++ limitations.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/bitwise_and.hpp>
- * \endcode
- *
- * \par Alias
- * \arg b_and
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0,class A1>
- *     meta::call<tag::bitwise_and_(A0,A1)>::type
- *     bitwise_and(const A0 & a0,const A1 & a1);
- * }
- * \endcode
- *
- * \param a0 the first parameter of bitwise_and
- * \param a1 the second parameter of bitwise_and
- *
- * \return a value of the type of the first parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag bitwise_and_ of functor bitwise_and
-     *        in namespace boost::simd::tag for toolbox boost.simd.operator
-    **/
-    struct bitwise_and_ : ext::elementwise_<bitwise_and_> { typedef ext::elementwise_<bitwise_and_> parent; };
-  }
+   /*!
+     @brief bitwise_and generic tag
 
+     Represents the bitwise_and function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct bitwise_and_ : ext::elementwise_<bitwise_and_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<bitwise_and_> parent;
+    };
+  }
+  /*!
+    return the bitwise and of the two parameters
+    the operands must share the same bit size and
+    the result type is the one of the first operand
+    Infix notation can be used with operator '&',
+    but this will not work in scalar mode if any
+    operand is floating point because of C++ limitations.
+
+    @par Semantic:
+
+    For every parameters of types respectively T0, T1:
+
+    @code
+    T0 r = bitwise_and(a0,a1);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = a0 & a1;
+    @endcode
+
+    @par Alias:
+    @c b_and
+
+    @param a0
+
+    @param a1
+
+    @return a value of the same type as the first parameter
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_and_      , bitwise_and     , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_and_      , b_and           , 2 )
 } }
@@ -90,3 +83,5 @@ namespace boost { namespace dispatch { namespace meta
 #include <boost/simd/operator/specific/common.hpp>
 
 #endif
+
+///

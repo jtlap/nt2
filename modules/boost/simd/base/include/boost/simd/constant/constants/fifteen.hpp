@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_FIFTEEN_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_FIFTEEN_HPP_INCLUDED
 
@@ -16,52 +13,38 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_fifteen Fifteen
- *
- * \par Description
- * Constant Fifteen = 15
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/fifteen.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::fifteen_(A0)>::type
- *     Fifteen();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Fifteen
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Fifteen of functor Fifteen
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Fifteen generic tag
+
+     Represents the Fifteen constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Fifteen,double
                                 , 15,0x41700000,0x402e000000000000ll
                                 );
   }
+  /*!
+    Generates value 15 in the chosen type
 
+    @par Semantic:
+
+    @code
+    T r = Fifteen<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = T(15);
+    @endcode
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Fifteen, Fifteen)
 } }
 

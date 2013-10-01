@@ -35,7 +35,6 @@ NT2_TEST_CASE_TPL ( rem_pio2_cephes_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef std::pair<viT, vT>  r_t;
 
   {
-    r_t res = rem_pio2_cephes(nt2::Zero<vT>());
     vT r1;
     NT2_TEST_EQUAL( rem_pio2_cephes(nt2::Zero<vT>(), r1), nt2::Zero<viT>());
     NT2_TEST_ULP_EQUAL( r1, nt2::Zero<vT>(), 0.5);

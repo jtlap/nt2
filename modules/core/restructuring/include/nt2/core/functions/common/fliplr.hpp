@@ -11,6 +11,7 @@
 
 #include <nt2/core/functions/fliplr.hpp>
 #include <nt2/include/functions/run.hpp>
+#include <nt2/include/functions/dec.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/core/utility/as_subscript.hpp>
 #include <nt2/core/utility/as_index.hpp>
@@ -42,7 +43,7 @@ namespace nt2 { namespace ext
       sub_t pos = as_subscript(ex, nt2::enumerate<i_t>(p));
 
       // Compute the flipped start of the enumeration
-      pos[1] = width(a0)-pos[1]-1;
+      pos[1] = dec(width(a0)-pos[1]);
 
       return nt2::run(boost::proto::child_c<0>(a0),as_index(ex,pos),t);
     }

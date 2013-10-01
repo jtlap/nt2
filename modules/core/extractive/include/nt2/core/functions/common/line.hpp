@@ -11,7 +11,7 @@
 
 #include <nt2/core/functions/line.hpp>
 #include <nt2/include/functions/run.hpp>
-#include <nt2/include/functions/simd/arith.hpp>
+#include <nt2/include/functions/simd/enumerate.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/plus.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
       std::size_t start  = boost::proto::child_c<2>(a0);
 
       return nt2::run ( boost::proto::child_c<0>(a0)
-                      , nt2::arith<idx_t>(start+p*dist, dist)
+                      , nt2::enumerate<idx_t>(start+p*dist, dist)
                       , t
                       );
     }

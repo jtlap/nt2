@@ -6,63 +6,52 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_BITWISE_FUNCTIONS_GENMASK_HPP_INCLUDED
 #define BOOST_SIMD_BITWISE_FUNCTIONS_GENMASK_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_genmask genmask
- *
- * \par Description
- * The function returns a mask of bits. All ones if the
- * input element is non zero else all zeros
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/genmask.hpp>
- * \endcode
- *
- * \par Alias
- * \arg typed_mask
- * \arg logical2mask
- * \arg l2m
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::genmask_(A0)>::type
- *     genmask(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of genmask
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
-
 namespace boost { namespace simd { namespace tag
   {
     /*!
-     * \brief Define the tag genmask_ of functor genmask
-     *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
+      @brief  genmask generic tag
+
+      Represents the genmask function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
-    struct genmask_ : ext::elementwise_<genmask_> { typedef ext::elementwise_<genmask_> parent; };
+    struct genmask_ : ext::elementwise_<genmask_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<genmask_> parent;
+    };
   }
+  /*!
+    Returns a mask of bits. All ones if the
+    input element is non zero else all zeros.
+
+    @par semantic:
+    For any given value @c x of type @c T:
+
+    @code
+    T r = genmask(x);
+    @endcode
+
+    is similar to
+
+    @code
+    T r = x ? Allbits : Zero;
+    @endcode
+
+    @par Alias:
+    @c typed_mask, @c logical2mask, @c l2m, @c typed_mask
+
+    @param  a0
+
+    @return      a value of the type of the input.
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::genmask_, genmask, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::genmask_, typed_mask, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::genmask_, logical2mask, 1)
@@ -70,5 +59,3 @@ namespace boost { namespace simd { namespace tag
 } }
 
 #endif
-
-// modified by jt the 25/12/2010

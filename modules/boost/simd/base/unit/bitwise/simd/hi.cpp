@@ -1,23 +1,24 @@
 //==============================================================================
-//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2013   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <boost/simd/bitwise/include/functions/hi.hpp>
+
+#include <boost/dispatch/functor/meta/call.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <boost/simd/sdk/config.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/include/constants/real_splat.hpp>
 #include <boost/simd/include/functions/splat.hpp>
-#include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/sdk/simd/io.hpp>
 
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
 
 NT2_TEST_CASE_TPL ( return_type,  BOOST_SIMD_SIMD_TYPES)
 {

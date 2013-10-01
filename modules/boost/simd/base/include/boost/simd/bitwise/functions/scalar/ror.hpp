@@ -10,6 +10,7 @@
 #define BOOST_SIMD_BITWISE_FUNCTIONS_SCALAR_ROR_HPP_INCLUDED
 
 #include <boost/simd/bitwise/functions/ror.hpp>
+#include <boost/simd/include/functions/scalar/abs.hpp>
 #include <boost/simd/include/functions/scalar/shr.hpp>
 #include <boost/simd/include/functions/scalar/shift_left.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
@@ -19,8 +20,23 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::ror_, tag::cpu_
                                     , (A0)(A1)
-                                    , (scalar_< arithmetic_<A0> >)
-                                      (scalar_< integer_<A1> >)
+                                    , (scalar_< integer_<A0> >)
+                                      (scalar_< int_<A1> >)
+                                    )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(2)
+    {
+      std::size_t const width = sizeof(A0)*CHAR_BIT;
+      A1 aa1 = boost::simd::abs(a1);
+      return shri(a0, aa1) | shli(a0, (width-aa1) & (width-1));
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::ror_, tag::cpu_
+                                    , (A0)(A1)
+                                    , (scalar_< integer_<A0> >)
+                                      (scalar_< uint_<A1> >)
                                     )
   {
     typedef A0 result_type;
@@ -30,7 +46,6 @@ namespace boost { namespace simd { namespace ext
       return shri(a0, a1) | shli(a0, (width-a1) & (width-1));
     }
   };
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::ror_, tag::cpu_
                                     , (A0)(A1)
                                     , (scalar_< floating_<A0> >)

@@ -71,7 +71,7 @@ namespace boost { namespace simd { namespace ext
       utype res0, res1;
       split_multiplies(a0, a1, res0, res1);
 
-      untype res2 = shrai(bitwise_cast<untype>(a0 ^ a1), sizeof(stype)*CHAR_BIT-1) + Valmax<stype>();
+      untype res2 = shrai(bitwise_cast<untype>(a0 ^ a1), sizeof(stype)*CHAR_BIT-1) + static_cast<typename meta::scalar_of<untype>::type>(Valmax<stype>());
 
       A0 hi = group( shrai(res0, sizeof(stype)*CHAR_BIT)
                    , shrai(res1, sizeof(stype)*CHAR_BIT)
