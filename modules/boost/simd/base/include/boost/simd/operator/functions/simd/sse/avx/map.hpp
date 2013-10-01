@@ -38,6 +38,8 @@
 #undef BOOST_FORCEINLINE
 #endif
 
+namespace boost { namespace simd { namespace ext
+{
   #define M0(z,n,h) ((simd_< unspecified_<A##n>, boost::simd::tag::avx_ >))
   #define M1(z,n,t) simd::native<typename meta::scalar_of<A##n>::type, tag::sse_>
   #define M2(z,n,t) (A##n)
@@ -54,6 +56,7 @@
   #undef M2
   #undef M1
   #undef M0
+} } }
 
 #if defined(__WAVE__) && defined(BOOST_SIMD_CREATE_PREPROCESSED_FILES)
 #pragma wave option(output: null)
@@ -66,8 +69,6 @@
 #else
   #define n BOOST_PP_ITERATION()
 
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::map_
                                     , boost::simd::tag::avx_
                                     , (Func)BOOST_PP_REPEAT(n, M2, ~)
@@ -82,7 +83,7 @@ namespace boost { namespace simd { namespace ext
                         , boost::simd::tag::avx_
                         > result_type;
 
-    inline result_type
+    BOOST_FORCEINLINE result_type
     operator()( Func const& f
               , BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a)
               ) const
@@ -93,7 +94,6 @@ namespace boost { namespace simd { namespace ext
                                   );
     }
   };
-} } }
 
   #undef n
 

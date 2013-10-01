@@ -7,7 +7,7 @@ namespace boost { namespace simd { namespace ext
     typedef simd::native< typename meta::scalar_of<base>::type
                         , boost::simd::tag::avx_
                         > result_type;
-    inline result_type
+    BOOST_FORCEINLINE result_type
     operator()( Func const& f
               , A0 const& a0
               ) const
@@ -18,9 +18,6 @@ namespace boost { namespace simd { namespace ext
                                   );
     }
   };
-} } }
-namespace boost { namespace simd { namespace ext
-{
   } } } namespace boost { namespace dispatch { namespace meta { template< class Func , class A0 , class A1 > BOOST_FORCEINLINE :: boost :: simd :: ext :: implement< boost::simd::tag::map_ ( unspecified_<Func> , simd_< unspecified_<A0>, boost::simd::tag::avx_ > , simd_< unspecified_<A1>, boost::simd::tag::avx_ > ) , boost::simd::tag::avx_ > dispatching( boost::simd::tag::map_, boost::simd::tag::avx_ , unspecified_<Func> const , simd_< unspecified_<A0>, boost::simd::tag::avx_ > const , simd_< unspecified_<A1>, boost::simd::tag::avx_ > const , adl_helper = adl_helper() ) { return :: boost :: simd :: ext :: implement< boost::simd::tag::map_ ( unspecified_<Func> , simd_< unspecified_<A0>, boost::simd::tag::avx_ > , simd_< unspecified_<A1>, boost::simd::tag::avx_ > ) , boost::simd::tag::avx_ >(); } } } } namespace boost { namespace simd { namespace ext { template< class Func , class A0 , class A1 > struct implement< boost::simd::tag::map_ ( unspecified_<Func> , simd_< unspecified_<A0>, boost::simd::tag::avx_ > , simd_< unspecified_<A1>, boost::simd::tag::avx_ > ) , boost::simd::tag::avx_ >
   {
     typedef typename dispatch::meta::
@@ -28,7 +25,7 @@ namespace boost { namespace simd { namespace ext
     typedef simd::native< typename meta::scalar_of<base>::type
                         , boost::simd::tag::avx_
                         > result_type;
-    inline result_type
+    BOOST_FORCEINLINE result_type
     operator()( Func const& f
               , A0 const& a0 , A1 const& a1
               ) const
@@ -39,9 +36,6 @@ namespace boost { namespace simd { namespace ext
                                   );
     }
   };
-} } }
-namespace boost { namespace simd { namespace ext
-{
   } } } namespace boost { namespace dispatch { namespace meta { template< class Func , class A0 , class A1 , class A2 > BOOST_FORCEINLINE :: boost :: simd :: ext :: implement< boost::simd::tag::map_ ( unspecified_<Func> , simd_< unspecified_<A0>, boost::simd::tag::avx_ > , simd_< unspecified_<A1>, boost::simd::tag::avx_ > , simd_< unspecified_<A2>, boost::simd::tag::avx_ > ) , boost::simd::tag::avx_ > dispatching( boost::simd::tag::map_, boost::simd::tag::avx_ , unspecified_<Func> const , simd_< unspecified_<A0>, boost::simd::tag::avx_ > const , simd_< unspecified_<A1>, boost::simd::tag::avx_ > const , simd_< unspecified_<A2>, boost::simd::tag::avx_ > const , adl_helper = adl_helper() ) { return :: boost :: simd :: ext :: implement< boost::simd::tag::map_ ( unspecified_<Func> , simd_< unspecified_<A0>, boost::simd::tag::avx_ > , simd_< unspecified_<A1>, boost::simd::tag::avx_ > , simd_< unspecified_<A2>, boost::simd::tag::avx_ > ) , boost::simd::tag::avx_ >(); } } } } namespace boost { namespace simd { namespace ext { template< class Func , class A0 , class A1 , class A2 > struct implement< boost::simd::tag::map_ ( unspecified_<Func> , simd_< unspecified_<A0>, boost::simd::tag::avx_ > , simd_< unspecified_<A1>, boost::simd::tag::avx_ > , simd_< unspecified_<A2>, boost::simd::tag::avx_ > ) , boost::simd::tag::avx_ >
   {
     typedef typename dispatch::meta::
@@ -49,7 +43,7 @@ namespace boost { namespace simd { namespace ext
     typedef simd::native< typename meta::scalar_of<base>::type
                         , boost::simd::tag::avx_
                         > result_type;
-    inline result_type
+    BOOST_FORCEINLINE result_type
     operator()( Func const& f
               , A0 const& a0 , A1 const& a1 , A2 const& a2
               ) const
@@ -60,9 +54,6 @@ namespace boost { namespace simd { namespace ext
                                   );
     }
   };
-} } }
-namespace boost { namespace simd { namespace ext
-{
   } } } namespace boost { namespace dispatch { namespace meta { template< class Func , class A0 , class A1 , class A2 , class A3 > BOOST_FORCEINLINE :: boost :: simd :: ext :: implement< boost::simd::tag::map_ ( unspecified_<Func> , simd_< unspecified_<A0>, boost::simd::tag::avx_ > , simd_< unspecified_<A1>, boost::simd::tag::avx_ > , simd_< unspecified_<A2>, boost::simd::tag::avx_ > , simd_< unspecified_<A3>, boost::simd::tag::avx_ > ) , boost::simd::tag::avx_ > dispatching( boost::simd::tag::map_, boost::simd::tag::avx_ , unspecified_<Func> const , simd_< unspecified_<A0>, boost::simd::tag::avx_ > const , simd_< unspecified_<A1>, boost::simd::tag::avx_ > const , simd_< unspecified_<A2>, boost::simd::tag::avx_ > const , simd_< unspecified_<A3>, boost::simd::tag::avx_ > const , adl_helper = adl_helper() ) { return :: boost :: simd :: ext :: implement< boost::simd::tag::map_ ( unspecified_<Func> , simd_< unspecified_<A0>, boost::simd::tag::avx_ > , simd_< unspecified_<A1>, boost::simd::tag::avx_ > , simd_< unspecified_<A2>, boost::simd::tag::avx_ > , simd_< unspecified_<A3>, boost::simd::tag::avx_ > ) , boost::simd::tag::avx_ >(); } } } } namespace boost { namespace simd { namespace ext { template< class Func , class A0 , class A1 , class A2 , class A3 > struct implement< boost::simd::tag::map_ ( unspecified_<Func> , simd_< unspecified_<A0>, boost::simd::tag::avx_ > , simd_< unspecified_<A1>, boost::simd::tag::avx_ > , simd_< unspecified_<A2>, boost::simd::tag::avx_ > , simd_< unspecified_<A3>, boost::simd::tag::avx_ > ) , boost::simd::tag::avx_ >
   {
     typedef typename dispatch::meta::
@@ -70,7 +61,7 @@ namespace boost { namespace simd { namespace ext
     typedef simd::native< typename meta::scalar_of<base>::type
                         , boost::simd::tag::avx_
                         > result_type;
-    inline result_type
+    BOOST_FORCEINLINE result_type
     operator()( Func const& f
               , A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3
               ) const
@@ -81,9 +72,6 @@ namespace boost { namespace simd { namespace ext
                                   );
     }
   };
-} } }
-namespace boost { namespace simd { namespace ext
-{
   } } } namespace boost { namespace dispatch { namespace meta { template< class Func , class A0 , class A1 , class A2 , class A3 , class A4 > BOOST_FORCEINLINE :: boost :: simd :: ext :: implement< boost::simd::tag::map_ ( unspecified_<Func> , simd_< unspecified_<A0>, boost::simd::tag::avx_ > , simd_< unspecified_<A1>, boost::simd::tag::avx_ > , simd_< unspecified_<A2>, boost::simd::tag::avx_ > , simd_< unspecified_<A3>, boost::simd::tag::avx_ > , simd_< unspecified_<A4>, boost::simd::tag::avx_ > ) , boost::simd::tag::avx_ > dispatching( boost::simd::tag::map_, boost::simd::tag::avx_ , unspecified_<Func> const , simd_< unspecified_<A0>, boost::simd::tag::avx_ > const , simd_< unspecified_<A1>, boost::simd::tag::avx_ > const , simd_< unspecified_<A2>, boost::simd::tag::avx_ > const , simd_< unspecified_<A3>, boost::simd::tag::avx_ > const , simd_< unspecified_<A4>, boost::simd::tag::avx_ > const , adl_helper = adl_helper() ) { return :: boost :: simd :: ext :: implement< boost::simd::tag::map_ ( unspecified_<Func> , simd_< unspecified_<A0>, boost::simd::tag::avx_ > , simd_< unspecified_<A1>, boost::simd::tag::avx_ > , simd_< unspecified_<A2>, boost::simd::tag::avx_ > , simd_< unspecified_<A3>, boost::simd::tag::avx_ > , simd_< unspecified_<A4>, boost::simd::tag::avx_ > ) , boost::simd::tag::avx_ >(); } } } } namespace boost { namespace simd { namespace ext { template< class Func , class A0 , class A1 , class A2 , class A3 , class A4 > struct implement< boost::simd::tag::map_ ( unspecified_<Func> , simd_< unspecified_<A0>, boost::simd::tag::avx_ > , simd_< unspecified_<A1>, boost::simd::tag::avx_ > , simd_< unspecified_<A2>, boost::simd::tag::avx_ > , simd_< unspecified_<A3>, boost::simd::tag::avx_ > , simd_< unspecified_<A4>, boost::simd::tag::avx_ > ) , boost::simd::tag::avx_ >
   {
     typedef typename dispatch::meta::
@@ -91,7 +79,7 @@ namespace boost { namespace simd { namespace ext
     typedef simd::native< typename meta::scalar_of<base>::type
                         , boost::simd::tag::avx_
                         > result_type;
-    inline result_type
+    BOOST_FORCEINLINE result_type
     operator()( Func const& f
               , A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4
               ) const
@@ -102,9 +90,6 @@ namespace boost { namespace simd { namespace ext
                                   );
     }
   };
-} } }
-namespace boost { namespace simd { namespace ext
-{
   } } } namespace boost { namespace dispatch { namespace meta { template< class Func , class A0 , class A1 , class A2 , class A3 , class A4 , class A5 > BOOST_FORCEINLINE :: boost :: simd :: ext :: implement< boost::simd::tag::map_ ( unspecified_<Func> , simd_< unspecified_<A0>, boost::simd::tag::avx_ > , simd_< unspecified_<A1>, boost::simd::tag::avx_ > , simd_< unspecified_<A2>, boost::simd::tag::avx_ > , simd_< unspecified_<A3>, boost::simd::tag::avx_ > , simd_< unspecified_<A4>, boost::simd::tag::avx_ > , simd_< unspecified_<A5>, boost::simd::tag::avx_ > ) , boost::simd::tag::avx_ > dispatching( boost::simd::tag::map_, boost::simd::tag::avx_ , unspecified_<Func> const , simd_< unspecified_<A0>, boost::simd::tag::avx_ > const , simd_< unspecified_<A1>, boost::simd::tag::avx_ > const , simd_< unspecified_<A2>, boost::simd::tag::avx_ > const , simd_< unspecified_<A3>, boost::simd::tag::avx_ > const , simd_< unspecified_<A4>, boost::simd::tag::avx_ > const , simd_< unspecified_<A5>, boost::simd::tag::avx_ > const , adl_helper = adl_helper() ) { return :: boost :: simd :: ext :: implement< boost::simd::tag::map_ ( unspecified_<Func> , simd_< unspecified_<A0>, boost::simd::tag::avx_ > , simd_< unspecified_<A1>, boost::simd::tag::avx_ > , simd_< unspecified_<A2>, boost::simd::tag::avx_ > , simd_< unspecified_<A3>, boost::simd::tag::avx_ > , simd_< unspecified_<A4>, boost::simd::tag::avx_ > , simd_< unspecified_<A5>, boost::simd::tag::avx_ > ) , boost::simd::tag::avx_ >(); } } } } namespace boost { namespace simd { namespace ext { template< class Func , class A0 , class A1 , class A2 , class A3 , class A4 , class A5 > struct implement< boost::simd::tag::map_ ( unspecified_<Func> , simd_< unspecified_<A0>, boost::simd::tag::avx_ > , simd_< unspecified_<A1>, boost::simd::tag::avx_ > , simd_< unspecified_<A2>, boost::simd::tag::avx_ > , simd_< unspecified_<A3>, boost::simd::tag::avx_ > , simd_< unspecified_<A4>, boost::simd::tag::avx_ > , simd_< unspecified_<A5>, boost::simd::tag::avx_ > ) , boost::simd::tag::avx_ >
   {
     typedef typename dispatch::meta::
@@ -112,7 +97,7 @@ namespace boost { namespace simd { namespace ext
     typedef simd::native< typename meta::scalar_of<base>::type
                         , boost::simd::tag::avx_
                         > result_type;
-    inline result_type
+    BOOST_FORCEINLINE result_type
     operator()( Func const& f
               , A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5
               ) const
