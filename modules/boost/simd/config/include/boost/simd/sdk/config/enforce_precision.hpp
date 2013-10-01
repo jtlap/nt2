@@ -45,7 +45,7 @@ namespace boost { namespace simd { namespace config
     BOOST_FORCEINLINE unsigned short x87_get_control_word()
     {
     #ifdef _MSC_VER
-      return _control87(0, 0);
+      return static_cast<unsigned short>(_control87(0, 0));
     #elif defined(__GNUC__)
       unsigned short cw;
       __asm__ __volatile__ ("fstcw %w0" : "=m" (cw));
