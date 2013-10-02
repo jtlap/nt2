@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace tag
       @par Models:
       Hierarchy
     **/
-    struct cumsum_ : ext::elementwise_<cumsum_>
+    struct cumsum_ : ext::cumulative_<cumsum_, tag::plus_, tag::Zero>
     {
       /// @brief Parent hierarchy
       typedef ext::cumulative_<cumsum_, tag::plus_, tag::Zero> parent;

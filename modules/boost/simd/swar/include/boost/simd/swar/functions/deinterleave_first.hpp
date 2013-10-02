@@ -24,10 +24,10 @@ namespace boost { namespace simd {
      @par Models:
         Hierarchy
    **/
-    struct deinterleave_first_ : ext::elementwise_<deinterleave_first_>
+    struct deinterleave_first_ : ext::unspecified_<deinterleave_first_>
     {
       /// @brief Parent hierarchy
-      typedef ext::elementwise_<deinterleave_first_> parent;
+      typedef ext::unspecified_<deinterleave_first_> parent;
     };
   }
 

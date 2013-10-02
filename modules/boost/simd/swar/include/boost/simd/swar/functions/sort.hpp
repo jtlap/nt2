@@ -26,10 +26,10 @@ namespace boost { namespace simd
      @par Models:
         Hierarchy
    **/
-    struct sort_ : ext::elementwise_<sort_>
+    struct sort_ : ext::tieable_<sort_>
     {
       /// @brief Parent hierarchy
-      typedef ext::elementwise_<sort_> parent;
+      typedef ext::tieable_<sort_> parent;
     };
   }
   /*!

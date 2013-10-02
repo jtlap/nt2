@@ -22,10 +22,10 @@ namespace boost { namespace simd { namespace tag
      @par Models:
         Hierarchy
    **/
-    struct reverse_ : ext::elementwise_<reverse_>
+    struct reverse_ : ext::unspecified_<reverse_>
     {
       /// @brief Parent hierarchy
-      typedef ext::elementwise_<reverse_> parent;
+      typedef ext::unspecified_<reverse_> parent;
     };
   }
   /*!

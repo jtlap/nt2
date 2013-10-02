@@ -25,10 +25,10 @@ namespace boost { namespace simd {
      @par Models:
         Hierarchy
    **/
-    struct repeat_lower_half_ : ext::elementwise_<repeat_lower_half_>
+    struct repeat_lower_half_ : ext::unspecified_<repeat_lower_half_>
     {
       /// @brief Parent hierarchy
-      typedef ext::elementwise_<repeat_lower_half_> parent;
+      typedef ext::unspecified_<repeat_lower_half_> parent;
     };
   }
 

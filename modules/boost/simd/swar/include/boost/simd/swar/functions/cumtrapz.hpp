@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace tag
      @par Models:
         Hierarchy
    **/
-    struct cumtrapz_ : ext::elementwise_<cumtrapz_>
+    struct cumtrapz_ : tag::formal_
     {
       /// @brief Parent hierarchy
       typedef tag::formal_ parent;
