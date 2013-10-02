@@ -59,7 +59,7 @@ NT2_TEST_CASE_TPL ( bitwise_xor_integer,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 
 
 
-NT2_TEST_CASE_TPL(bitwise_xor_mix, BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL(bitwise_xor_mix, BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::bitwise_xor;
   using boost::simd::tag::bitwise_xor_;

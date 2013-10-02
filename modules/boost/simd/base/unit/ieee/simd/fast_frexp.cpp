@@ -19,7 +19,7 @@
 #include <nt2/sdk/unit/module.hpp>
 
 
-NT2_TEST_CASE_TPL( fast_frexp,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL( fast_frexp, BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::fast_frexp;
   using boost::simd::tag::fast_frexp_;

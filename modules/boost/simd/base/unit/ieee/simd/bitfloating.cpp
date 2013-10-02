@@ -23,7 +23,7 @@
 #include <boost/simd/include/constants/bitincrement.hpp>
 
 
-NT2_TEST_CASE_TPL ( bitfloating_int_convert,  BOOST_SIMD_INT_CONVERT_TYPES)
+NT2_TEST_CASE_TPL ( bitfloating_int_convert,  BOOST_SIMD_SIMD_INT_CONVERT_TYPES)
 {
   using boost::simd::bitfloating;
   using boost::simd::tag::bitfloating_;
@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( bitfloating_int_convert,  BOOST_SIMD_INT_CONVERT_TYPES)
   NT2_TEST_EQUAL(bitfloating(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
 }
 
-NT2_TEST_CASE_TPL ( bitfloating_uint_convert,  BOOST_SIMD_UINT_CONVERT_TYPES)
+NT2_TEST_CASE_TPL ( bitfloating_uint_convert,  BOOST_SIMD_SIMD_UINT_CONVERT_TYPES)
 {
   using boost::simd::bitfloating;
   using boost::simd::tag::bitfloating_;
