@@ -44,7 +44,7 @@ namespace boost { namespace simd
     is similar to:
 
     @code
-    else if T is double
+    if T is double
       r = 9007199254740992.0
     else if T is float
       r = 16777216.0f
