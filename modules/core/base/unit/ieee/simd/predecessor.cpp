@@ -37,7 +37,7 @@ NT2_TEST_CASE_TPL ( predecessor_real__1_0,  NT2_SIMD_REAL_TYPES)
 
   // specific values tests
   NT2_TEST_EQUAL(predecessor(nt2::Inf<vT>())[0], nt2::Valmax<sr_t>());
-  NT2_TEST_EQUAL(predecessor(nt2::Minf<vT>())[0], nt2::Minf<sr_t>());
+  NT2_TEST_EQUAL(predecessor(nt2::Minf<vT>())[0], nt2::Nan<sr_t>());
   NT2_TEST_EQUAL(predecessor(nt2::Mone<vT>())[0], nt2::Mone<sr_t>()-nt2::Eps<sr_t>());
   NT2_TEST_EQUAL(predecessor(nt2::Nan<vT>())[0], nt2::Nan<sr_t>());
   NT2_TEST_EQUAL(predecessor(nt2::One<vT>())[0], nt2::One<sr_t>()-nt2::Eps<sr_t>()/2);

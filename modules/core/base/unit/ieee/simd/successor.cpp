@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL ( successor_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  NT2_TEST_EQUAL(successor(nt2::Inf<vT>())[0], nt2::Inf<sr_t>());
+  NT2_TEST_EQUAL(successor(nt2::Inf<vT>())[0], nt2::Nan<sr_t>());
   NT2_TEST_EQUAL(successor(nt2::Minf<vT>())[0], nt2::Valmin<sr_t>());
   NT2_TEST_EQUAL(successor(nt2::Mone<vT>())[0], nt2::Mone<sr_t>()+nt2::Eps<sr_t>()/2);
   NT2_TEST_EQUAL(successor(nt2::Nan<vT>())[0], nt2::Nan<sr_t>());
