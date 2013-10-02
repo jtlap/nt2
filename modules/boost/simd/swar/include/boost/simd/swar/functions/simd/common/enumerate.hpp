@@ -119,7 +119,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(A0 const& a0, A1 const&, T const& ) const
     {
-      return splat<result_type>(a0);// + splat<result_type>(a1);
+      return splat<result_type>(a0);
     }
   };
 } } }

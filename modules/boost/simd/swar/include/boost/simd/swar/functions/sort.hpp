@@ -8,11 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_SWAR_FUNCTIONS_SORT_HPP_INCLUDED
 #define BOOST_SIMD_SWAR_FUNCTIONS_SORT_HPP_INCLUDED
+
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 #include <boost/dispatch/meta/tieable.hpp>
-#include <boost/dispatch/meta/tieable.hpp>
-
 
 namespace boost { namespace simd
 {
@@ -54,5 +53,3 @@ namespace boost { namespace simd
 } }
 
 #endif
-
-///

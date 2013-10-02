@@ -121,4 +121,3 @@ shuffle(A0 const& a0, A1 const& a1)                                            \
 } }
 
 #endif
-///
