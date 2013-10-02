@@ -117,9 +117,9 @@ namespace boost { namespace simd { namespace ext
     typedef typename T::type result_type;
 
     BOOST_FORCEINLINE
-    result_type operator()(A0 const& a0, A1 const& a1, T const& ) const
+    result_type operator()(A0 const& a0, A1 const&, T const& ) const
     {
-      return splat<result_type>(a0) + splat<result_type>(a1);
+      return splat<result_type>(a0);// + splat<result_type>(a1);
     }
   };
 } } }
