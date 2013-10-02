@@ -8,12 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_SWAR_FUNCTIONS_SPLIT_MULTIPLIES_HPP_INCLUDED
 #define BOOST_SIMD_SWAR_FUNCTIONS_SPLIT_MULTIPLIES_HPP_INCLUDED
-
-/*!
-  @file
-  @brief Definition of split_multiplies function
-**/
-
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
@@ -78,3 +72,4 @@ namespace boost { namespace simd
 } }
 
 #endif
+///

@@ -9,10 +9,6 @@
 #ifndef BOOST_SIMD_SWAR_FUNCTIONS_SHUFFLE_HPP_INCLUDED
 #define BOOST_SIMD_SWAR_FUNCTIONS_SHUFFLE_HPP_INCLUDED
 
-/*!
-  @file
-**/
-
 #include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
@@ -94,7 +90,7 @@ typename boost::dispatch::meta                                                 \
                     , boost::dispatch::meta::                                  \
                       as_<details::random_permute                              \
                           <boost::mpl::                                        \
-                           BOOST_PP_CAT(vector, BOOST_PP_CAT(n, _c))                                       \
+                           BOOST_PP_CAT(vector, BOOST_PP_CAT(n, _c))           \
                            <int                                                \
                            ,BOOST_PP_ENUM_PARAMS(n, I)                         \
                            >                                                   \
@@ -111,7 +107,7 @@ shuffle(A0 const& a0, A1 const& a1)                                            \
                  as_< details::                                                \
                       random_permute                                           \
                       <boost::mpl::                                            \
-                       BOOST_PP_CAT(vector, BOOST_PP_CAT(n, _c))<int                                       \
+                       BOOST_PP_CAT(vector, BOOST_PP_CAT(n, _c))<int           \
                                ,BOOST_PP_ENUM_PARAMS(n, I)                     \
                                >                                               \
                       >                                                        \
@@ -125,3 +121,4 @@ shuffle(A0 const& a0, A1 const& a1)                                            \
 } }
 
 #endif
+///

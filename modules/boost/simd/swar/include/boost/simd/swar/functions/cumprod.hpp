@@ -63,18 +63,47 @@
 namespace boost { namespace simd { namespace tag
   {
     /*!
-     * \brief Define the tag cumprod_ of functor cumprod
-     *        in namespace boost::simd::tag for toolbox boost.simd.swar
+      @brief  cumprod generic tag
+
+      Represents the cumprod function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
     struct cumprod_ : ext::cumulative_<cumprod_, tag::multiplies_, tag::One>
     {
+      /// @brief Parent hierarchy
       typedef ext::cumulative_<cumprod_, tag::multiplies_, tag::One> parent;
     };
   }
+  /*!
+    Computes the cumulated product of the vector elements
+
+    @par semantic:
+    For any given vector @c x of type @c T:
+
+    @code
+    T r = cumprod(x);
+    @endcode
+
+    The function coincide with plus for floating point parameters.
+    For integers is similar to:
+
+    @code
+    T r =x;
+    for(int i=0;i < T::static_size; ++i)
+      r[i]*= r[i-1];
+    @endcode
+
+    @param  a0
+
+    @return      a value of the same type as the input.
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::cumprod_, cumprod, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::cumprod_, cumprod, 2)
 } }
 
 #endif
 
-// modified by jt the 25/12/2010
+///

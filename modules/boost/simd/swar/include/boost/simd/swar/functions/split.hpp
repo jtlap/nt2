@@ -8,12 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_SWAR_FUNCTIONS_SPLIT_HPP_INCLUDED
 #define BOOST_SIMD_SWAR_FUNCTIONS_SPLIT_HPP_INCLUDED
-
-/*!
-  @file
-  @brief Definition of split function
-**/
-
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
@@ -21,9 +15,17 @@ namespace boost { namespace simd
 {
   namespace tag
   {
-    /// @brief Hierarchy tag for split function
+   /*!
+     @brief split generic tag
+
+     Represents the split function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct split_ : ext::elementwise_<split_>
     {
+      /// @brief Parent hierarchy
       typedef ext::elementwise_<split_> parent;
     };
   }
@@ -34,6 +36,9 @@ namespace boost { namespace simd
     @c split splits a SIMD register @c v in two SIMD register of half the
     cardinal of @c v containing the same value than @c v but transtyped to
     their associated scalar type.
+
+    @par Alias:
+    @c promote, @c widen
 
     @param a0 Value to split
 
@@ -78,3 +83,4 @@ namespace boost { namespace simd
 } }
 
 #endif
+///

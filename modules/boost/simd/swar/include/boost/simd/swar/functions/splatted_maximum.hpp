@@ -17,6 +17,14 @@ namespace boost { namespace simd
 {
   namespace tag
   {
+   /*!
+     @brief splatted_maximum generic tag
+
+     Represents the splatted_maximum function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     /*!
       @brief splatted_maximum generic tag
 
@@ -28,7 +36,6 @@ namespace boost { namespace simd
       typedef ext::unspecified_<splatted_maximum_> parent;
     };
   }
-
   /*!
     @brief Splatted maximum
 
@@ -43,24 +50,20 @@ namespace boost { namespace simd
     Type r = splatted_maximum(v);
     @endcode
 
-    If @c Type is a SIMD value, this code is equivalent to:
+    is similar to:
 
     @code
     for(int i=0;i<Type::static_size;++i)
       x[i] = maximum(v);
     @endcode
 
-    If @c Type is a scalar type, then it is equivalent to:
+    @param a0
 
-    @code
-    r = v;
-    @endcode
-
-    @param a0 value to maximum
-
-    @return A value containing the splatted maximum of @c a0
-  */
+    @return a value of the same type as the parameter
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::splatted_maximum_, splatted_maximum, 1)
 } }
 
 #endif
+
+///
