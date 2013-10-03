@@ -17,6 +17,10 @@
 #include <boost/mpl/size_t.hpp>
 #include <boost/utility/enable_if.hpp>
 
+/* WKRD: for some unknown reason, MSVC seems to require this even if
+ * cardinal_as isn't instantiated */
+#include <boost/simd/sdk/simd/details/native/meta/cardinal_of.hpp>
+
 namespace boost { namespace simd
 {
   namespace details
