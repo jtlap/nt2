@@ -397,7 +397,7 @@ namespace nt2 { namespace memory
      * @return A reference to the specific data of the container.
      **/
     //==========================================================================
-    specific_data_type&  specifics() const { base_->specifics(); }
+    specific_data_type&  specifics() const { return base_->specifics(); }
 
     //==========================================================================
     // Check if a position is safely R/W in the current container
