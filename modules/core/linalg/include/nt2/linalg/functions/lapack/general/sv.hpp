@@ -11,7 +11,7 @@
 
 #include <nt2/linalg/functions/sv.hpp>
 #include <nt2/dsl/functions/terminal.hpp>
-#include <nt2/core/container/table/category.hpp>
+#include <nt2/core/container/table/kind.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 
 #include <nt2/include/functions/of_size.hpp>
@@ -35,17 +35,17 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sv_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(S2)
-                            , ((expr_ < table_< double_<A0>, S0 >   // A
+                            , ((expr_ < container_< nt2::tag::table_, double_<A0>, S0 >   // A
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< integer_<A1>, S1 >  // IPIV
+                              ((expr_ < container_< nt2::tag::table_, integer_<A1>, S1 >  // IPIV
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< double_<A2>, S2 >   // B
+                              ((expr_ < container_< nt2::tag::table_, double_<A2>, S2 >   // B
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
@@ -72,17 +72,17 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sv_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(S2)
-                            , ((expr_ < table_< single_<A0>, S0 >
+                            , ((expr_ < container_< nt2::tag::table_, single_<A0>, S0 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< integer_<A1>, S1 >
+                              ((expr_ < container_< nt2::tag::table_, integer_<A1>, S1 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< single_<A2>, S2 >
+                              ((expr_ < container_< nt2::tag::table_, single_<A2>, S2 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >

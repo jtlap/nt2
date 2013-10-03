@@ -12,7 +12,7 @@
 #include <nt2/linalg/functions/tri.hpp>
 #include <nt2/dsl/functions/terminal.hpp>
 #include <nt2/include/functions/width.hpp>
-#include <nt2/core/container/table/category.hpp>
+#include <nt2/core/container/table/kind.hpp>
 #include <nt2/linalg/details/utility/options.hpp>
 #include <nt2/linalg/details/utility/workspace.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
@@ -39,12 +39,12 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY - Use existing workspace
     NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tri_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)
-                            , ((expr_ < table_< double_<A0>, S0 >
+                            , ((expr_ < container_< nt2::tag::table_, double_<A0>, S0 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< integer_<A1>, S1 >
+                              ((expr_ < container_< nt2::tag::table_, integer_<A1>, S1 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
@@ -74,12 +74,12 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY - Use existing workspace
     NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tri_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)
-                            , ((expr_ < table_< single_<A0>, S0 >
+                            , ((expr_ < container_< nt2::tag::table_, single_<A0>, S0 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< integer_<A1>, S1 >
+                              ((expr_ < container_< nt2::tag::table_, integer_<A1>, S1 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
@@ -110,12 +110,12 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY - COmpute workspace then perform actions
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tri_, tag::cpu_
                             , (A0)(S0)(A1)(S1)
-                            , ((expr_ < table_< double_<A0>, S0 >
+                            , ((expr_ < container_< nt2::tag::table_, double_<A0>, S0 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< integer_<A1>, S1 >
+                              ((expr_ < container_< nt2::tag::table_, integer_<A1>, S1 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
@@ -148,12 +148,12 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tri_, tag::cpu_
                             , (A0)(S0)(A1)(S1)
-                            , ((expr_ < table_< single_<A0>, S0 >
+                            , ((expr_ < container_< nt2::tag::table_, single_<A0>, S0 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< integer_<A1>, S1 >
+                              ((expr_ < container_< nt2::tag::table_, integer_<A1>, S1 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
