@@ -18,7 +18,7 @@
 #include <boost/simd/include/functions/simd/adds.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/one.hpp>
-#include <boost/simd/include/functions/simd/is_greater.hpp>
+#include <boost/simd/include/functions/simd/is_gez.hpp>
 #include <boost/assert.hpp>
 #include <boost/simd/operator/functions/details/assert_utils.hpp>
 
@@ -56,7 +56,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      BOOST_ASSERT_MSG(assert_all(is_gtz(a1)), "predecessor rank must be non negative");
+      BOOST_ASSERT_MSG(assert_all(is_gez(a1)), "predecessor rank must be non negative");
       return if_else( boost::simd::gt(Valmax<A0>()-a1, a0),
                       a0+a1,
                       Valmax<A0>());
@@ -71,7 +71,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      BOOST_ASSERT_MSG(assert_all(is_gtz(a1)), "predecessor rank must be non negative");
+      BOOST_ASSERT_MSG(assert_all(is_gez(a1)), "predecessor rank must be non negative");
       return if_nan_else(is_nan(a0), bitfloating(adds(bitinteger(a0), a1)));
     }
   };
