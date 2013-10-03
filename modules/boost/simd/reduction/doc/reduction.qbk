@@ -1,0 +1,10 @@
+[library Boost.SIMD Reductions Functions
+  [quickbook 1.5]
+]
+
+[section Overview]
+This module contains all reduction functions in Boost.SIMD.
+[endsect]
+
+
+[xinclude reference.xml]
