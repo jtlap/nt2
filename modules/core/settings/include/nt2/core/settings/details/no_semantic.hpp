@@ -10,9 +10,7 @@
 #define NT2_CORE_SETTINGS_DETAILS_NO_SEMANTIC_HPP_INCLUDED
 
 #include <nt2/core/settings/size.hpp>
-#include <nt2/core/settings/index.hpp>
 #include <nt2/core/settings/alignment.hpp>
-#include <nt2/core/settings/storage_order.hpp>
 
 namespace nt2
 {
@@ -27,33 +25,23 @@ namespace nt2
     };
 
     /// INTERNAL ONLY no_semantic_ default option
-    template<typename Option, typename Dummy=void> struct default_;
+    template<typename Option>
+    struct default_
+    {
+      typedef typename Option::default_type type;
+    };
   };
 
   /// INTERNAL ONLY
-  template<typename Dummy>
-  struct no_semantic_::default_<nt2::tag::index_, Dummy>
-  {
-    typedef matlab_index_ type;
-  };
-
-  /// INTERNAL ONLY
-  template<typename Dummy>
-  struct no_semantic_::default_<nt2::tag::storage_order_, Dummy>
-  {
-    typedef column_major_ type;
-  };
-
-  /// INTERNAL ONLY
-  template<typename Dummy>
-  struct no_semantic_::default_<nt2::tag::of_size_, Dummy>
+  template<>
+  struct no_semantic_::default_<nt2::tag::of_size_>
   {
     typedef _0D type;
   };
 
   /// INTERNAL ONLY
-  template<typename Dummy>
-  struct no_semantic_::default_<nt2::tag::alignment_, Dummy>
+  template<>
+  struct no_semantic_::default_<nt2::tag::alignment_>
   {
     typedef unaligned_ type;
   };
