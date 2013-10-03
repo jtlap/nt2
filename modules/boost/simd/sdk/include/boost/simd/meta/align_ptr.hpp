@@ -71,7 +71,7 @@ template<typename T> struct align_ptr<T,n>                                     \
                                                                                \
   static type value(T* pointer)                                                \
   {                                                                            \
-    BOOST_SIMD_ASSUME_ALIGNED(pointer,n)                                       \
+    BOOST_SIMD_ASSUME_ALIGNED(pointer,n);                                      \
     return static_cast<type>(pointer);                                         \
   }                                                                            \
 };                                                                             \
