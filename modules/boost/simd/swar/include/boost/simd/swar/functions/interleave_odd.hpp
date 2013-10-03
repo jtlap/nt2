@@ -32,7 +32,7 @@ namespace boost { namespace simd {
   }
 
   /*!
-    Compute
+    Computes a vector from a combination of the two inputs.
 
     @par Semantic:
 

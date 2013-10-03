@@ -6,74 +6,57 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_REDUCTION_FUNCTIONS_MINIMUM_HPP_INCLUDED
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_MINIMUM_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_reduction
- * \defgroup boost_simd_reduction_minimum minimum
- *
- * \par Description
- * Returns the least element of the SIMD vector
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/minimum.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::minimum_(A0)>::type
- *     minimum(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of minimum
- *
- * \return always a scalar value
- *
- * \par Notes
- * \par
- * This is a reduction operation. As such it has no real interest outside
- * SIMD mode.
- * \par
- * Such an operation always has a scalar result which translate a property
- * of the whole SIMD vector.
- * \par
- * If usable and used in scalar mode, it reduces to the operation as acting
- * on a one element vector.
- *
-**/
-
 namespace boost { namespace simd
 {
   namespace tag
   {
+   /*!
+     @brief minimum generic tag
+
+     Represents the minimum function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct min_;
     struct Valmax;
 
-    /*!
-     * \brief Define the tag minimum_ of functor minimum
-     *        in namespace boost::simd::tag for toolbox boost.simd.reduction
-    **/
     struct minimum_ : ext::reduction_<minimum_, tag::min_, tag::Valmax>
     {
+      /// @brief Parent hierarchy
       typedef ext::reduction_<minimum_, tag::min_, tag::Valmax> parent;
     };
   }
+  /*!
+    Returns the least element of the SIMD vector
+
+    @par Semantic:
+
+    For every parameter of type T0
+
+    @code
+    scalar_of<T0> r = minimum(a0);
+    @endcode
+
+    is similar to:
+
+    @code
+      scalar_of<T0> r = Inf;
+      for(std::size_t i=0;i<cardinal_of<T0>;++i)
+        r =  r > a0[i] ? a0[i] : r;
+    @endcode
+
+    @param a0
+
+    @return a value of the scalar type associated to the parameter
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::minimum_, minimum, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::minimum_, minimum, 2)
 } }
-
 #endif
+

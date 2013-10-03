@@ -6,69 +6,51 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_REDUCTION_FUNCTIONS_SECOND_HPP_INCLUDED
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_SECOND_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_reduction
- * \defgroup boost_simd_reduction_second second
- *
- * \par Description
- * returns the second element of the input vector.
- * \par
- * In scalar mode returns the first element!
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/second.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::second_(A0)>::type
- *     second(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of second
- *
- * \return always a scalar value
- *
- * \par Notes
- * \par
- * This is a reduction operation. As such it has no real interest outside
- * SIMD mode.
- * \par
- * Such an operation always has a scalar result which translate a property
- * of the whole SIMD vector.
- * \par
- * If usable and used in scalar mode, it reduces to the operation as acting
- * on a one element vector.
- *
-**/
-
 namespace boost { namespace simd { namespace tag
   {
-    /*!
-     * \brief Define the tag second_ of functor second
-     *        in namespace boost::simd::tag for toolbox boost.simd.reduction
-    **/
-    struct second_ : ext::unspecified_<second_> { typedef ext::unspecified_<second_> parent; };
+   /*!
+     @brief second generic tag
+
+     Represents the second function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct second_ : ext::unspecified_<second_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::unspecified_<second_> parent;
+    };
   }
+  /*!
+    returns the second element of the input vector.
+
+    In scalar mode returns the first element!
+
+    @par Semantic:
+
+    For every parameter of type T0
+
+    @code
+    scalar<T0> r = second(a0);
+    @endcode
+
+    is similar to:
+
+    @code
+    scalar<T0> r = a0[1];
+    @endcode
+
+    @param a0
+
+    @return a value of the scalar type associated to the parameter
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::second_, second, 1)
 } }
-
 #endif
 
-// modified by jt the 25/12/2010

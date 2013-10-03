@@ -53,10 +53,12 @@ namespace boost { namespace simd { namespace tag
     @code
     T r(0] = zero;
     for(int i=1;i < size(x); ++i)
-      r[i] += (y[i-1]+y[i])*h*half;
+      r[i] = r[i-1]+(y[i-1]+y[i])*h*half;
     @endcode
 
     @param a0
+
+    @param a1
 
     @return a value of the same type as the second parameter
   **/

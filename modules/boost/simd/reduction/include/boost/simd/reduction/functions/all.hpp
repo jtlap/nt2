@@ -6,75 +6,57 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_REDUCTION_FUNCTIONS_ALL_HPP_INCLUDED
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_ALL_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_reduction
- * \defgroup boost_simd_reduction_all all
- *
- * \par Description
- * returns true if all elements of the input vector are non zero.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/all.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::all_(A0)>::type
- *     all(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of all
- *
- * \return always a scalar value
- *
- * \par Notes
- * \par
- * This is a reduction operation. As such it has no real interest outside
- * SIMD mode.
- * \par
- * Such an operation always has a scalar result which translate a property
- * of the whole SIMD vector.
- * \par
- * If usable and used in scalar mode, it reduces to the operation as acting
- * on a one element vector.
- *
-**/
-
 namespace boost { namespace simd
 {
   namespace tag
   {
+   /*!
+     @brief all generic tag
+
+     Represents the all function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct logical_and_;
     struct True;
 
-    /*!
-     * \brief Define the tag all_ of functor all
-     *        in namespace boost::simd::tag for toolbox boost.simd.reduction
-    **/
     struct all_ : ext::reduction_<all_, tag::logical_and_, tag::True>
     {
+      /// @brief Parent hierarchy
       typedef ext::reduction_<all_, tag::logical_and_, tag::True> parent;
     };
   }
+  /*!
+    Returns true if all elements of the input vector are non zero.
+
+    @par Semantic:
+
+    For every parameter of type T0
+
+    @code
+    logical<scalar_of<T0>> r = all(a0);
+    @endcode
+
+    is similar to:
+
+    @code
+    logical<scalar_of<T0>> r = True;
+    for(result_type i = 0; i != meta::cardinal_of<T0>; ++i)
+      if (!a0[i]) {r =  False; break; }
+    @endcode
+
+    @param a0
+
+    @return a value of the scalar logical type asssociated to the parameter
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::all_, all, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::all_, all, 2)
 } }
-
-
 #endif
+
