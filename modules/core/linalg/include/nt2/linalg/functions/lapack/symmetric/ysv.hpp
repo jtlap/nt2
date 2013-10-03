@@ -11,7 +11,7 @@
 
 #include <nt2/linalg/functions/ysv.hpp>
 #include <nt2/include/functions/zeros.hpp>
-#include <nt2/core/container/table/category.hpp>
+#include <nt2/core/container/table/kind.hpp>
 #include <nt2/linalg/details/utility/workspace.hpp>
 #include <nt2/dsl/functions/terminal.hpp>
 #include <nt2/include/functions/width.hpp>
@@ -43,22 +43,22 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY - Compute the workspace
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ysv_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(S2)(A3)(S3)
-                            , ((expr_ < table_< double_<A0>, S0 >     // A
+                            , ((expr_ < container_< nt2::tag::table_, double_<A0>, S0 >     // A
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< integer_<A1>, S1 >    // PIV
+                              ((expr_ < container_< nt2::tag::table_, integer_<A1>, S1 >    // PIV
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< double_<A2>, S2 >     // B
+                              ((expr_ < container_< nt2::tag::table_, double_<A2>, S2 >     // B
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< double_<A3>, S3 >     // X
+                              ((expr_ < container_< nt2::tag::table_, double_<A3>, S3 >     // X
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
@@ -92,22 +92,22 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY - Workspace is ready
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ysv_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(S2)(A3)(S3)(A4)
-                            , ((expr_ < table_< double_<A0>, S0 >   // A
+                            , ((expr_ < container_< nt2::tag::table_, double_<A0>, S0 >   // A
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< integer_<A1>, S1 >  // PIV
+                              ((expr_ < container_< nt2::tag::table_, integer_<A1>, S1 >  // PIV
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< double_<A2>, S2 >   // B
+                              ((expr_ < container_< nt2::tag::table_, double_<A2>, S2 >   // B
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< double_<A3>, S3 >   // X
+                              ((expr_ < container_< nt2::tag::table_, double_<A3>, S3 >   // X
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
@@ -139,22 +139,22 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY - Compute the workspace
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ysv_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(S2)(A3)(S3)
-                            , ((expr_ < table_< single_<A0>, S0 >     // A
+                            , ((expr_ < container_< nt2::tag::table_, single_<A0>, S0 >     // A
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< integer_<A1>, S1 >    // PIV
+                              ((expr_ < container_< nt2::tag::table_, integer_<A1>, S1 >    // PIV
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< single_<A2>, S2 >     // B
+                              ((expr_ < container_< nt2::tag::table_, single_<A2>, S2 >     // B
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< single_<A3>, S3 >     // X
+                              ((expr_ < container_< nt2::tag::table_, single_<A3>, S3 >     // X
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
@@ -188,22 +188,22 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY - Workspace is ready
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ysv_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(S2)(A3)(S3)(A4)
-                            , ((expr_ < table_< single_<A0>, S0 >
+                            , ((expr_ < container_< nt2::tag::table_, single_<A0>, S0 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< integer_<A1>, S1 >
+                              ((expr_ < container_< nt2::tag::table_, integer_<A1>, S1 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< single_<A2>, S2 >
+                              ((expr_ < container_< nt2::tag::table_, single_<A2>, S2 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< single_<A3>, S3 >
+                              ((expr_ < container_< nt2::tag::table_, single_<A3>, S3 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >

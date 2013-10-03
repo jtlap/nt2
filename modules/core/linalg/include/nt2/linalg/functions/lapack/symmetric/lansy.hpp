@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_LAPACK_LANSY_HPP_INCLUDED
 
 #include <nt2/linalg/functions/lange.hpp>
-#include <nt2/core/container/table/category.hpp>
+#include <nt2/core/container/table/kind.hpp>
 #include <nt2/dsl/functions/terminal.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::lange_, tag::cpu_
                             , (A0)(S0)(A1)
-                            , ((expr_ < table_< double_<A0>, S0 >
+                            , ((expr_ < container_< nt2::tag::table_, double_<A0>, S0 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
@@ -73,7 +73,7 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::lange_, tag::cpu_
                             , (A0)(S0)(A1)
-                            , ((expr_ < table_< single_<A0>, S0 >
+                            , ((expr_ < container_< nt2::tag::table_, single_<A0>, S0 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
