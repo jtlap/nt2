@@ -26,7 +26,8 @@
 #include <cstdio>
 
 #define M0(z,n,t)                                                              \
-typedef boost::mpl::apply<perm_t,boost::mpl::int_<n>,card_t>::type  i##n##_t;  \
+typedef typename boost::mpl::apply<perm_t,boost::mpl::int_<n>,card_t>::type    \
+                                                                    i##n##_t;  \
 /**/
 
 #define M1(z,n,var) pick(BOOST_DISPATCH_PP_STRIP(var),i##n##_t())
