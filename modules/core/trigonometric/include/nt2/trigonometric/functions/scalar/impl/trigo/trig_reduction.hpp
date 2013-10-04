@@ -261,6 +261,7 @@ namespace nt2 { namespace details
   {
     typedef typename meta::as_logical<A0>::type              bA0;
     typedef typename meta::as_integer<A0, signed>::type int_type;
+    typedef typename boost::simd::meta::register_of<A0>::type          A0_n;
 
     static BOOST_FORCEINLINE bA0 cot_invalid(const A0& x) { return logical_and(nt2::is_nez(x), is_flint(x/_180<A0>())); }
     static BOOST_FORCEINLINE bA0 tan_invalid(const A0& x) { return nt2::is_flint((x-nt2::_90<A0>())/nt2::_180<A0>()); }
@@ -281,6 +282,7 @@ namespace nt2 { namespace details
   {
     typedef typename meta::as_logical<A0>::type              bA0;
     typedef typename meta::as_integer<A0, signed>::type int_type;
+    typedef typename boost::simd::meta::register_of<A0>::type          A0_n;
 
     static BOOST_FORCEINLINE bA0 cot_invalid(const A0& x) { return logical_and(nt2::is_nez(x), nt2::is_flint(x)); }
     static BOOST_FORCEINLINE bA0 tan_invalid(const A0& x) { return nt2::is_flint(x-nt2::Half<A0>()) ; }
