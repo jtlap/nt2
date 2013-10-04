@@ -107,21 +107,25 @@ namespace nt2 { namespace details
         return clipto(x, boost::mpl::int_<Mode::range>());
       }
     private :
-      static BOOST_FORCEINLINE A0 clipto(const A0_n x, boost::mpl::int_<r_0_pio4> const&)
+      static BOOST_FORCEINLINE A0 clipto(const A0_n x_n, boost::mpl::int_<r_0_pio4> const&)
       {
-        return if_else_nan(is_0_pio4_reduced(x), x);
+        A0 x = x_n;
+        return if_else_nan(is_0_pio4_reduced(x_n), x);
       }
-      static BOOST_FORCEINLINE A0 clipto(const A0_n x, boost::mpl::int_<r_0_20pi> const&)
+      static BOOST_FORCEINLINE A0 clipto(const A0_n x_n, boost::mpl::int_<r_0_20pi> const&)
       {
-        return if_else_nan(is_0_20pi_reduced(x), x);
+        A0 x = x_n;
+        return if_else_nan(is_0_20pi_reduced(x_n), x);
       }
-      static BOOST_FORCEINLINE A0 clipto(const A0_n x, boost::mpl::int_<r_0_mpi> const&)
+      static BOOST_FORCEINLINE A0 clipto(const A0_n x_n, boost::mpl::int_<r_0_mpi> const&)
       {
-        return if_else_nan(is_0_mpi_reduced(x), x);
+        A0 x = x_n;
+        return if_else_nan(is_0_mpi_reduced(x_n), x);
       }
-      static BOOST_FORCEINLINE A0 clipto(const A0_n x, boost::mpl::int_<r_0_dmpi> const&)
+      static BOOST_FORCEINLINE A0 clipto(const A0_n x_n, boost::mpl::int_<r_0_dmpi> const&)
       {
-        return if_else_nan(is_0_dmpi_reduced(x), x);
+        A0 x = x_n;
+        return if_else_nan(is_0_dmpi_reduced(x_n), x);
       }
     };
 
@@ -243,9 +247,8 @@ namespace nt2 { namespace details
       return n;
     }
 
-    static BOOST_FORCEINLINE int_type use_conversion(const A0_n x_n,  A0& xr,  const tag::simd_type &, boost::mpl::true_)
+    static BOOST_FORCEINLINE int_type use_conversion(const A0& x,  A0& xr,  const tag::simd_type &, boost::mpl::true_)
     {
-      A0 x =  x_n;
       // all of x are in [0, 2^18*pi],  conversion to double is used to reduce
       typedef typename meta::upgrade<A0>::type uA0;
       typedef typename meta::upgrade<int_type>::type uint_type;
@@ -291,7 +294,7 @@ namespace nt2 { namespace details
     static BOOST_FORCEINLINE bA0 cot_invalid(const A0_n x_n) { A0 x = x_n; return logical_and(nt2::is_nez(x), nt2::is_flint(x)); }
     static BOOST_FORCEINLINE bA0 tan_invalid(const A0_n x_n) { A0 x = x_n; return nt2::is_flint(x-nt2::Half<A0>()) ; }
 
-    static inline int_type reduce(const A0 x_n,  A0& xr)
+    static inline int_type reduce(const A0_n x_n,  A0& xr)
     {
       A0 x = x_n;
       A0 xi = nt2::round2even(x*nt2::Two<A0>());
