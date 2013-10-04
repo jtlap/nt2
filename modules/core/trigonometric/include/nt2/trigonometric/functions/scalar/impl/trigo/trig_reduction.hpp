@@ -40,6 +40,7 @@
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
+#include <boost/simd/sdk/meta/register_of.hpp>
 #include <boost/simd/sdk/meta/is_upgradable.hpp>
 #include <boost/mpl/int.hpp>
 
@@ -69,24 +70,26 @@ namespace nt2 { namespace details
   template<class A0, class style, class mode>
   struct trig_reduction < A0, radian_tag, style, mode>
   {
-    typedef typename meta::scalar_of<A0>::type           base_A0;
-    typedef typename meta::as_logical<A0>::type              bA0;
-    typedef typename meta::as_integer<A0, signed>::type int_type;
+    typedef typename meta::scalar_of<A0>::type                         base_A0;
+    typedef typename meta::as_logical<A0>::type                        bA0;
+    typedef typename meta::as_integer<A0, signed>::type                int_type;
+    typedef typename boost::simd::meta::register_of<A0>::type          A0_n;
+    typedef typename boost::simd::meta::is_upgradable_on_ext<A0>::type conversion_allowed;
 
     static BOOST_FORCEINLINE bA0 is_0_pio4_reduced(const A0&a0) { return boost::simd::is_ngt(a0, nt2::Pio_4<A0>()); }
     static BOOST_FORCEINLINE bA0 is_0_pio2_reduced(const A0&a0) { return boost::simd::is_ngt(a0, nt2::Pio_2<A0>()); }
     static BOOST_FORCEINLINE bA0 is_0_20pi_reduced(const A0&a0) { return boost::simd::is_ngt(a0, _20_pi<A0>()); }
     static BOOST_FORCEINLINE bA0 is_0_mpi_reduced (const A0&a0) { return boost::simd::is_ngt(a0, Medium_pi<A0>()); }  //2^6pi
     static BOOST_FORCEINLINE bA0 is_0_dmpi_reduced(const A0&a0) { return boost::simd::is_ngt(a0, single_constant<A0,0x49490fdb>()); }  //2^18pi
-    typedef typename boost::simd::meta::is_upgradable_on_ext<A0>::type conversion_allowed;
 
     static BOOST_FORCEINLINE bA0 cot_invalid(const A0& ) { return False<bA0>(); }
     static BOOST_FORCEINLINE bA0 tan_invalid(const A0& ) { return False<bA0>(); }
 
     static BOOST_FORCEINLINE int_type reduce(const A0& x, A0& xr) { return inner_reduce(x, xr); }
   private:
-    static inline int_type inner_reduce(const A0& x, A0& xr)
+    static inline int_type inner_reduce(const A0_n x_n, A0& xr)
     {
+      A0 x = x_n;
       A0 xx =  preliminary<mode>::clip(x);
       return select_mode(xx, xr, boost::mpl::int_<mode::start>());
     }
@@ -262,8 +265,9 @@ namespace nt2 { namespace details
     static BOOST_FORCEINLINE bA0 cot_invalid(const A0& x) { return logical_and(nt2::is_nez(x), is_flint(x/_180<A0>())); }
     static BOOST_FORCEINLINE bA0 tan_invalid(const A0& x) { return nt2::is_flint((x-nt2::_90<A0>())/nt2::_180<A0>()); }
 
-    static inline int_type reduce(const A0& x, A0& xr)
+    static inline int_type reduce(const A0_n x_n, A0& xr)
     {
+      A0 x = x_n;
       A0 xi = nt2::round2even(x*nt2::Oneo_90<A0>());
       A0 x2 = x - xi * nt2::_90<A0>();
 
@@ -281,8 +285,9 @@ namespace nt2 { namespace details
     static BOOST_FORCEINLINE bA0 cot_invalid(const A0& x) { return logical_and(nt2::is_nez(x), nt2::is_flint(x)); }
     static BOOST_FORCEINLINE bA0 tan_invalid(const A0& x) { return nt2::is_flint(x-nt2::Half<A0>()) ; }
 
-    static inline int_type reduce(const A0& x,  A0& xr)
+    static inline int_type reduce(const A0_n x_n,  A0& xr)
     {
+      A0 x = x_n;
       A0 xi = nt2::round2even(x*nt2::Two<A0>());
       A0 x2 = x - xi * nt2::Half<A0>();
       xr = x2*nt2::Pi<A0>();
