@@ -66,7 +66,7 @@ namespace boost { namespace simd {  namespace meta
 #define M0(z,n,t)                                                              \
 template<typename T> struct align_ptr<T,n>                                     \
 {                                                                              \
-  typedef BOOST_SIMD_ALIGNED_TYPE_ON(T,n) base;                                \
+  typedef BOOST_SIMD_ALIGNED_TYPE_ON_TPL(T,n) base;                            \
   typedef base*                           type;                                \
                                                                                \
   static type value(T* pointer)                                                \
