@@ -6,12 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.swar toolbox - interleave_second"
-
-#include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/include/functions/interleave_second.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
+
+#include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
 NT2_TEST_CASE_TPL(interleave_second, BOOST_SIMD_SIMD_TYPES)
@@ -23,10 +21,9 @@ NT2_TEST_CASE_TPL(interleave_second, BOOST_SIMD_SIMD_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION      ext_t;
   typedef native<T,ext_t>                      vT;
 
-  const std::size_t card = cardinal_of<vT>::value;
   vT a,b,c;
 
-  for(std::size_t i=1; i<=card; ++i)
+  for(std::size_t i=1; i<=vT::static_size; ++i)
   {
     a[i-1]=T(i);
     b[i-1]=T(i*10);
@@ -34,8 +31,8 @@ NT2_TEST_CASE_TPL(interleave_second, BOOST_SIMD_SIMD_TYPES)
 
   c = boost::simd::interleave_second(a,b);
 
-  std::size_t index = card/2;
-  for(std::size_t i=0; i<card; ++i)
+  std::size_t index = vT::static_size/2;
+  for(std::size_t i=0; i<vT::static_size; ++i)
   {
     NT2_TEST_EQUAL(c[i],(i%2==0)?a[index]:b[index]);
     if(i%2!=0) index++;
