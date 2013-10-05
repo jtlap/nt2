@@ -6,59 +6,47 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_ASIN_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_ASIN_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup trigonometric
- * \defgroup trigonometric_asin asin
- *
- * \par Description
- * inverse sine.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/asin.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::asin_(A0)>::type
- *     asin(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of asin
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag asin_ of functor asin
-     *        in namespace nt2::tag for toolbox trigonometric
-    **/
-    struct asin_ : ext::elementwise_<asin_> { typedef ext::elementwise_<asin_> parent; };
+   /*!
+     @brief asin generic tag
+
+     Represents the asin function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct asin_ : ext::elementwise_<asin_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<asin_> parent;
+    };
   }
+  /*!
+    inverse sine. The arc \f$x\f$ in the interval
+    \f$\[-\pi/2, \pi/2\[\f$ such that \f$\sin x\f$ of which is equal to
+    the input.
+
+    @par Semantic:
+
+    For every parameter of floating type T0
+
+    @code
+    T0 r = asin(a0);
+    @endcode
+
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::asin_, asin, 1)
 }
 
 #endif
 
-// modified by jt the 25/12/2010
+///

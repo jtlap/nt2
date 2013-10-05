@@ -6,59 +6,47 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_ACOSD_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_ACOSD_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup trigonometric
- * \defgroup trigonometric_acosd acosd
- *
- * \par Description
- * inverse cosine in degree.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/acosd.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::acosd_(A0)>::type
- *     acosd(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of acosd
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag acosd_ of functor acosd
-     *        in namespace nt2::tag for toolbox trigonometric
-    **/
-    struct acosd_ : ext::elementwise_<acosd_> { typedef ext::elementwise_<acosd_> parent; };
+   /*!
+     @brief acosd generic tag
+
+     Represents the acosd function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct acosd_ : ext::elementwise_<acosd_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<acosd_> parent;
+    };
   }
+  /*!
+    inverse cosine in degree. The arc \f$x\f$ in the interval
+    \f$\[0, 180\[\$ such that \f$\cos(\pi \frac{x}{180})\f$ is
+    equal to the input.
+
+    @par Semantic:
+
+    For every parameter of floating type T0
+
+    @code
+    T0 r = acosd(a0);
+    @endcode
+
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::acosd_, acosd, 1)
 }
 
 #endif
 
-// modified by jt the 25/12/2010
+///
