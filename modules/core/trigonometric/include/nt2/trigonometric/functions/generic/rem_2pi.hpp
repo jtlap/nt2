@@ -70,7 +70,7 @@ namespace nt2 { namespace ext
   private:
     template < class T, class dummy = void> struct rem2pi
     {
-      static inline result_type rem(A0 const& x, A0 & xr, A0& xc)
+      static inline result_type rem(A0 const&, A0 &, A0&)
       {
         BOOST_ASSERT_MSG(false, "wrong target for rem_2pi");
       }
