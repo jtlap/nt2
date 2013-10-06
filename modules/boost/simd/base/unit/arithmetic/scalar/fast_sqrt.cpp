@@ -36,10 +36,10 @@ NT2_TEST_CASE_TPL ( fast_sqrt_real,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_TYPE_IS(r_t, wished_r_t);
 
   NT2_TEST_EQUAL(fast_sqrt(boost::simd::Mone<T>()), boost::simd::Nan<r_t>());
-  NT2_TEST_ULP_EQUAL(fast_sqrt(boost::simd::One<T>()), boost::simd::One<r_t>(), 70);
-  NT2_TEST_ULP_EQUAL(fast_sqrt(boost::simd::Two<T>()), boost::simd::Sqrt_2<r_t>(), 70);
-  NT2_TEST_ULP_EQUAL(fast_sqrt(boost::simd::Zero<T>()), boost::simd::Zero<r_t>(), 70);
-  NT2_TEST_ULP_EQUAL(fast_sqrt(boost::simd::Four<T>()), boost::simd::Two<r_t>(), 70);
+  NT2_TEST_ULP_EQUAL(fast_sqrt(boost::simd::One<T>()), boost::simd::One<r_t>(), 75);
+  NT2_TEST_ULP_EQUAL(fast_sqrt(boost::simd::Two<T>()), boost::simd::Sqrt_2<r_t>(), 75);
+  NT2_TEST_ULP_EQUAL(fast_sqrt(boost::simd::Zero<T>()), boost::simd::Zero<r_t>(), 75);
+  NT2_TEST_ULP_EQUAL(fast_sqrt(boost::simd::Four<T>()), boost::simd::Two<r_t>(), 75);
 }
 
 NT2_TEST_CASE_TPL ( fast_sqrt_si,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
