@@ -8,59 +8,49 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_CONSTANTS_180_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_CONSTANTS_180_HPP_INCLUDED
-/*!
- * \file
-**/
 #include <boost/simd/constant/hierarchy.hpp>
 #include <boost/simd/constant/register.hpp>
 
-/*!
- * \ingroup trigo_constant
- * \defgroup trigo_constant__180 _180
- *
- * \par Description
- * Constant _180 : 180.
- * \par
- * The value of this constant is type dependant. This means that for different
- * types it does not represent the same mathematical number.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/_180.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::_180_(A0)>::type
- *     _180();
- * }
- * \endcode
- *
- *
- * \param T template parameter of _180
- *
- * \return type T value
- *
- *
-**/
 
 namespace nt2
 {
   namespace tag
   {
+   /*!
+     @brief _180 generic tag
+
+     Represents the _180 constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( _180, double
                                 , 180, 0x43340000
                                 , 0x4066800000000000ll
                                 );
   }
 
+  /*!
+    Constant 180.
+
+    @par Semantic:
+
+    For type T0:
+
+    @code
+    T0 r = _180<T0>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = 180;
+    @endcode
+
+    @return a value of type T0
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::_180, _180);
 }
 
 #endif
+///

@@ -8,55 +8,46 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_CONSTANTS_RADINDEG_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_CONSTANTS_RADINDEG_HPP_INCLUDED
-/*!
- * \file
-**/
 #include <boost/simd/constant/hierarchy.hpp>
 #include <boost/simd/constant/register.hpp>
 
-/*!
- * \ingroup trigo_constant
- * \defgroup trigo_constant_radindeg Radindeg
- *
- * \par Description
- * Constant Radindeg : Degree in radian multiplier, \f$\frac{180}\pi\f$.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/radindeg.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::_radindeg_(A0)>::type
- *     Radindeg();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Radindeg
- *
- * \return type T value
- *
- *
-**/
 
 namespace nt2
 {
   namespace tag
   {
+   /*!
+     @brief Radindeg generic tag
+
+     Represents the Radindeg constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Radindeg, double
                                 , 57, 0x42652ee1
                                 , 0x404ca5dc1a63c1f8ll
                                 );
   }
+  /*!
+    Constant Radindeg : Degree in Radian multiplier, \f$\frac{180}\pi\f$.
 
+    @par Semantic:
+
+    For type T0:
+
+    @code
+    T0 r = Radindeg<T0>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = _180<T0>()/Pi<T0>();
+    @endcode
+
+    @return a value of type T0
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Radindeg, Radindeg);
 }
 
@@ -66,3 +57,4 @@ namespace nt2
 }
 
 #endif
+///

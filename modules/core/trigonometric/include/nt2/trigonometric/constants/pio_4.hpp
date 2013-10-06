@@ -8,55 +8,48 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_CONSTANTS_PIO_4_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_CONSTANTS_PIO_4_HPP_INCLUDED
-/*!
- * \file
-**/
 #include <boost/simd/constant/hierarchy.hpp>
 #include <boost/simd/constant/register.hpp>
 
-/*!
- * \ingroup trigo_constant
- * \defgroup trigo_constant_pio_4 Pio_4
- *
- * \par Description
- * Constant pio_4 : \f$\frac\pi{4}\f$.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/pio_4.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::_pio_4_(A0)>::type
- *     pio_4();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Pio_4
- *
- * \return type T value
- *
- **/
 
 namespace nt2
 {
   namespace tag
   {
+   /*!
+     @brief pio_4 generic tag
+
+     Represents the pio_4 constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Pio_4, double
                                 , 0, 0x3f490fdb
                                 , 0x3fe921fb54442d18ll
                                 );
   }
+  /*!
+    Constant \f$\frac\pi{4}\f$.
 
+    @par Semantic:
+
+    For type T0:
+
+    @code
+    T0 r = Pio_4<T0>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = Pi<T0>()/Four<T0>();
+    @endcode
+
+    @return a value of type T0
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Pio_4, Pio_4);
 }
 
 #endif
+///

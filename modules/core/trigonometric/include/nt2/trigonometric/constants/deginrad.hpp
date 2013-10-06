@@ -8,57 +8,50 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_CONSTANTS_DEGINRAD_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_CONSTANTS_DEGINRAD_HPP_INCLUDED
-/*!
- * \file
-**/
 #include <boost/simd/constant/hierarchy.hpp>
 #include <boost/simd/constant/register.hpp>
 
-/*!
- * \ingroup trigo_constant
- * \defgroup trigo_constant_deginrad Deginrad
- * \par Description
- * Constant Deginrad : radian in degree  multiplier, \f$\frac\pi{180}\f$.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/deginrad.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::_deginrad_(A0)>::type
- *     Deginrad();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Deginrad
- *
- * \return type T value
- *
- *
-**/
 
 namespace nt2
 {
   namespace tag
   {
+   /*!
+     @brief Deginrad generic tag
+
+     Represents the Deginrad constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Deginrad, double
                                 , 0, 0x3c8efa35
                                 , 0x3f91df46a2529d39ll
                                 );
   }
+  /*!
+    Constant radian in Degree multiplier, \f$\frac{180}\pi\f$.
 
+    @par Semantic:
+
+    For type T0:
+
+    @code
+    T0 r = Deginrad<T0>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = _180<T0>()/Pi<T0>() ;
+    @endcode
+
+    @return a value of type T0
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Deginrad, Deginrad);
 
   static const long double long_deginrad = 0.017453292519943295769236907684886l;
 }
 
 #endif
+///

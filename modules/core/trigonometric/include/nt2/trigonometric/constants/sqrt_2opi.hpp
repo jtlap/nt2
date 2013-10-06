@@ -8,55 +8,48 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_CONSTANTS_SQRT_2OPI_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_CONSTANTS_SQRT_2OPI_HPP_INCLUDED
-/*!
- * \file
-**/
 #include <boost/simd/constant/hierarchy.hpp>
 #include <boost/simd/constant/register.hpp>
 
-/*!
- * \ingroup trigo_constant
- * \defgroup trigo_constant_sqrt_2opi Sqrt_2opi
- *
- * \par Description
- * Constant sqrt_2opi : \f$\frac{\sqrt2}{\pi}\f$.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/sqrt_2opi.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::_sqrt_2opi_(A0)>::type
- *     sqrt_2opi();
- * }
- * \endcode
- *
- *
- * \param T template parameter of sqrt_2opi
- *
- * \return type T value
- *
- **/
 
 namespace nt2
 {
   namespace tag
   {
+   /*!
+     @brief Sqrt_2opi generic tag
+
+     Represents the Sqrt_2opi constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Sqrt_2opi, double
                                 , 0, 0x3f4c422a
                                 , 0x3fe9884533d43651ll
                                 );
   }
+  /*!
+    Constant  \f$\frac{\Sqrt2}{\pi}\f$.
 
+    @par Semantic:
+
+    For type T0:
+
+    @code
+    T0 r = Sqrt_2opi<T0>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = sqrt(Two<T0>())/Pi<T0>();
+    @endcode
+
+    @return a value of type T0
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Sqrt_2opi, Sqrt_2opi);
 }
 
 #endif
+///

@@ -8,57 +8,49 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_CONSTANTS_INVPIO_2_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_CONSTANTS_INVPIO_2_HPP_INCLUDED
-/*!
- * \file
-**/
 #include <boost/simd/constant/hierarchy.hpp>
 #include <boost/simd/constant/register.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_invpio_2 invpio_2 constant
- *
- * \par Description
- * Constant Invpio_2 : \f$\frac1\pi\f$.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/invpio_2.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::_invpio_2_(A0)>::type
- *     Invpio_2();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Invpio_2
- *
- * \return type T value
- *
- *
-**/
 
 namespace nt2
 {
   namespace tag
   {
+   /*!
+     @brief Invpio_2 generic tag
+
+     Represents the invpio_2 constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     // 6.36619772367581382433e-01
     BOOST_SIMD_CONSTANT_REGISTER( Invpio_2, double
                                 , 0, 0x3f22f984
                                 , 0x3FE45F306DC9C883ll
                                 );
   }
+  /*!
+    Constant  \f$\frac2\pi\f$.
 
+    @par Semantic:
+
+    For type T0:
+
+    @code
+    T0 r = Invpio_2<T0>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = Two<T0>()/Pi<T0>();
+    @endcode
+
+    @return a value of type T0
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Invpio_2, Invpio_2);
 }
 
 #endif
+///

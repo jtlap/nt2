@@ -8,56 +8,48 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_CONSTANTS_90_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_CONSTANTS_90_HPP_INCLUDED
-/*!
- * \file
-**/
 #include <boost/simd/constant/hierarchy.hpp>
 #include <boost/simd/constant/register.hpp>
 
-/*!
- * \ingroup trigo_constant
- * \defgroup trigo_constant__90 _90
- *
- * \par Description
- * Constant _90 : 90.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/_90.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::_90_(A0)>::type
- *     _90();
- * }
- * \endcode
- *
- *
- * \param T template parameter of _90
- *
- * \return type T value
- *
- *
-**/
 
 namespace nt2
 {
   namespace tag
   {
+   /*!
+     @brief _90 generic tag
+
+     Represents the _90 constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( _90, double
                                 , 90, 0x42b40000
                                 , 0x4056800000000000ll
                                 );
   }
+  /*!
+    Constant 90.
 
+    @par Semantic:
+
+    For type T0:
+
+    @code
+    T0 r = _90<T0>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = 90;
+    @endcode
+
+    @return a value of type T0
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::_90, _90);
 }
 
 #endif
+///

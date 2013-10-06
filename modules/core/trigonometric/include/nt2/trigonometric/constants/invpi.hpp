@@ -8,56 +8,48 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_CONSTANTS_INVPI_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_CONSTANTS_INVPI_HPP_INCLUDED
-/*!
- * \file
-**/
 #include <boost/simd/constant/hierarchy.hpp>
 #include <boost/simd/constant/register.hpp>
 
-/*!
- * \ingroup trigo_constant
- * \defgroup trigo_constant_invpi Invpi
- *
- * \par Description
- * Constant Invpi : \f$\frac1\pi\f$.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/invpi.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::_invpi_(A0)>::type
- *     Invpi();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Invpi
- *
- * \return type T value
- *
- *
-**/
 
 namespace nt2
 {
   namespace tag
   {
+   /*!
+     @brief Invpi generic tag
+
+     Represents the Invpi constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Invpi, double
                                 , 0, 0x3ea2f983
                                 , 0x3fd45f306dc9c883ll
                                 );
   }
+  /*!
+    Constant\f$\frac1\pi\f$.
 
+    @par Semantic:
+
+    For type T0:
+
+    @code
+    T0 r = Invpi<T0>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = rec(Pi<T0>());
+    @endcode
+
+    @return a value of type T0
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Invpi, Invpi);
 }
 
 #endif
+///

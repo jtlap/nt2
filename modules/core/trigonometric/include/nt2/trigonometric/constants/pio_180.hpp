@@ -8,55 +8,48 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_CONSTANTS_PIO_180_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_CONSTANTS_PIO_180_HPP_INCLUDED
-/*!
- * \file
-**/
 #include <boost/simd/constant/hierarchy.hpp>
 #include <boost/simd/constant/register.hpp>
 
-/*!
- * \ingroup trigo_constant
- * \defgroup trigo_constant_pio_180 pio_180 constant
- *
- * \par Description
- * Constant pio_180 : \f$\frac\pi{180}\f$.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/pio_180.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::_pio_180_(A0)>::type
- *     pio_180();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Pio_180
- *
- * \return type T value
- *
- **/
 
 namespace nt2
 {
   namespace tag
   {
+   /*!
+     @brief Pio_180 generic tag
+
+     Represents the pio_180 constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Pio_180, double
                                 , 0, 0x3c8efa35
                                 , 0x3f91df46a2529d3all
                                 );
   }
+  /*!
+    Constant \f$\frac\pi{180}\f$.
 
+    @par Semantic:
+
+    For type T0:
+
+    @code
+    T0 r = Pio_180<T0>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = Pi<T0>()/_180<T0>();
+    @endcode
+
+    @return a value of type T0
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Pio_180, Pio_180);
 }
 
 #endif
+///
