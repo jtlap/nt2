@@ -29,6 +29,7 @@ SET( SOURCES
   fast_rec.cpp
   floor.cpp
   fast_rsqrt.cpp
+  fast_sqrt.cpp
   fma.cpp
   hypot.cpp
   iceil.cpp
