@@ -10,6 +10,7 @@
 #define NT2_CORE_FUNCTIONS_SIMD_INNER_FOLD_HPP_INCLUDED
 
 #include <nt2/core/functions/inner_fold.hpp>
+#include <nt2/core/functions/inner_fold_step.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/meta/is_vectorizable.hpp>
 
@@ -50,16 +51,14 @@ namespace nt2 { namespace ext
       std::size_t bound  = boost::fusion::at_c<0>(ext);
       std::size_t ibound = (boost::fusion::at_c<0>(ext)/N) * N;
       std::size_t obound = nt2::numel(boost::fusion::pop_front(ext));
-      target_type vec_out;
+
+      nt2::functor<tag::inner_fold_step_> vecworker;
 
       for(std::size_t j = 0, k = 0; j != obound; ++j, k+=bound)
       {
-        vec_out = neutral(nt2::meta::as_<target_type>());
-
-        for(std::size_t i = 0; i != ibound; i+=N)
-          vec_out = bop(vec_out, nt2::run(in, i+k, meta::as_<target_type>()));
-
-        value_type s_out = uop(vec_out);
+        target_type vec_out;
+        vecworker(vec_out,in,neutral,bop,k,ibound);
+        value_type s_out = uop( vec_out );
 
         for(std::size_t i = ibound; i != bound; ++i)
           s_out = bop(s_out, nt2::run(in, i+k, meta::as_<value_type>()));

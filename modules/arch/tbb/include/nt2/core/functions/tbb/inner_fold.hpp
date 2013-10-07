@@ -11,11 +11,13 @@
 #if defined(NT2_USE_TBB)
 
 #include <nt2/core/functions/inner_fold.hpp>
+#include <nt2/include/functions/inner_fold_step.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/meta/is_vectorizable.hpp>
 #include <nt2/sdk/config/cache.hpp>
 #include <nt2/sdk/tbb/tbb.hpp>
 #include <nt2/sdk/tbb/blocked_range.hpp>
+#include <nt2/sdk/tbb/worker.hpp>
 
 #ifndef BOOST_NO_EXCEPTIONS
 #include <boost/exception_ptr.hpp>
@@ -30,61 +32,11 @@ namespace nt2 {
 
   namespace details
   {
-    // Create the correct functor for tbb::parallel reduce according to the
-    // requested Site.
-    template<class A0, class A1, class A2, class A3, class Target>
-    struct bop_reduce_simd
-    {
-      typedef Target target_type;
-
-      bop_reduce_simd( A0& out, A1& in, A2 const& n, A3 const& bop
-                     , std::ptrdiff_t const& begin
-                     , std::size_t const& jump
-                     )
-      : out_(out), in_(in), neutral_(n), bop_(bop)
-      , begin_(begin), jump_(jump)
-      {
-        vec_out_ = neutral_(nt2::meta::as_<target_type>());
-      }
-
-      bop_reduce_simd(bop_reduce_simd& src, tbb::split)
-      : out_(src.out_), in_(src.in_), neutral_(src.neutral_), bop_(src.bop_)
-      , begin_(src.begin_), jump_(src.jump_)
-      {
-        vec_out_ = neutral_(nt2::meta::as_<target_type>());
-      }
-
-      void operator()(nt2::blocked_range<std::size_t> const& r)
-      {
-      static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
-
-      BOOST_ASSERT_MSG( r.size() % N == 0, "tbb bop_reduce range not divisible by N");
-      for(std::size_t i = r.begin(); i < r.end(); i+=N)
-      {
-          vec_out_ = bop_( vec_out_
-                         , nt2::run( in_
-                                   , i+jump_, meta::as_<target_type>()));
-      }
-      }
-
-      void join(bop_reduce_simd& rhs) { vec_out_ = bop_(vec_out_, rhs.vec_out_); }
-
-      target_type         vec_out_;
-      A0&                     out_;
-      A1&                      in_;
-      A2                  neutral_;
-      A3                      bop_;
-      std::ptrdiff_t        begin_;
-      std::size_t           jump_;
-    };
-
-
-
-    template<class A0, class A1, class A2, class A3, class A4, class Target, class Value>
+    template<class Site, class A0, class A1, class A2, class A3, class A4>
     struct inner_reduce_simd
     {
-      typedef Target target_type;
-      typedef Value   value_type;
+      typedef typename A0::value_type value_type;
+      typedef boost::simd::native<value_type,BOOST_SIMD_DEFAULT_EXTENSION> target_type;
 
       inner_reduce_simd( A0& out, A1& in, A2 const& n, A3 const& bop, A4 const& uop
                        , std::size_t const& bound, std::size_t const& ibound)
@@ -94,22 +46,22 @@ namespace nt2 {
 
       void operator()(tbb::blocked_range<std::ptrdiff_t> const& r) const
       {
-      std::size_t condition = ibound_/tbb::task_scheduler_init::default_num_threads();
+        std::size_t condition = ibound_/tbb::task_scheduler_init::default_num_threads();
         std::size_t grain = (condition==0)?ibound_:condition;
 
         for(std::ptrdiff_t j = r.begin(); j < r.end(); ++j)
         {
           std::size_t k = j*bound_;
 
-      bop_reduce_simd< A0,A1,A2,A3
-      , target_type> boppy( out_, in_, neutral_, bop_, r.begin(), k);
+          nt2::worker<tag::inner_fold_step_,tag::tbb_<Site>,target_type,A1,A2,A3>
+          vecworker(in_,neutral_,bop_);
 
 
-      tbb::parallel_reduce( nt2::blocked_range<std::size_t>(0,ibound_,grain)
-                              , boppy
+          tbb::parallel_reduce( nt2::blocked_range<std::size_t>(k,k+ibound_,grain)
+                              , vecworker
                               );
 
-          nt2::run(out_, j, uop_(boppy.vec_out_));
+          nt2::run(out_, j, uop_(vecworker.out_));
 
           for(std::size_t i = ibound_; i < bound_; ++i)
             nt2::run(out_, j
@@ -172,10 +124,9 @@ namespace nt2 {
                               ? obound
                               : condition;
 
-      details::inner_reduce_simd< A0,A1,A2,A3,A4
-                                  , target_type
-                                  , value_type> ared( out, in, neutral, bop
-                                                     , uop, bound, ibound);
+
+      details::inner_reduce_simd<Site,A0,A1,A2,A3,A4>
+      ared( out, in, neutral, bop, uop, bound, ibound);
 
 
 #ifndef BOOST_NO_EXCEPTIONS

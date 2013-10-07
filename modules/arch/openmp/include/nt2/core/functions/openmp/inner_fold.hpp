@@ -11,10 +11,12 @@
 #if defined(_OPENMP) && _OPENMP >= 200203 /* OpenMP 2.0 */
 
 #include <nt2/core/functions/inner_fold.hpp>
+#include <nt2/include/functions/inner_fold_step.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/meta/is_vectorizable.hpp>
 #include <nt2/sdk/config/cache.hpp>
 #include <nt2/sdk/openmp/openmp.hpp>
+#include <nt2/sdk/openmp/worker.hpp>
 
 #ifndef BOOST_NO_EXCEPTIONS
 #include <boost/exception_ptr.hpp>
@@ -70,16 +72,18 @@ namespace nt2 { namespace ext
         #pragma omp for schedule(static)
         for(std::ptrdiff_t j = 0; j < obound; ++j)
         {
+
+           nt2::worker< tag::inner_fold_step_,
+                        nt2::tag::openmp_<Site>,
+                        target_type,A1,A2,A3     > vecworker(in,neutral,bop);
+
           std::size_t k = j*bound;
-          target_type vec_out = neutral(nt2::meta::as_<target_type>());;
 #ifndef BOOST_NO_EXCEPTIONS
           try
           {
 #endif
-            for(std::size_t i = 0; i != ibound; i+=N)
-              vec_out = bop(vec_out, nt2::run(in, i+k, meta::as_<target_type>()));
-
-            value_type s_out = uop(vec_out);
+           vecworker(k,ibound);
+           value_type s_out = uop(vecworker.out_);
 
             for(std::size_t i = ibound; i != bound; ++i)
               s_out = bop(s_out, nt2::run(in, i+k, meta::as_<value_type>()));
