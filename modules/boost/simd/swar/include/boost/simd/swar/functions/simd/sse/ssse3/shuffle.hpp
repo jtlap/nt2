@@ -30,10 +30,15 @@ namespace boost { namespace simd { namespace ext
     typedef P                               permutation_t;
     typedef meta::cardinal_of<result_type>  card_t;
 
+    typedef typename A0::template rebind<unsigned char>::type mask_type;
+
     result_type operator()(__m128i a, P const&) const
     {
       return  _mm_shuffle_epi8( a
-                              , details::permute<P,card_t::value>::call()
+                              , details::permute< P
+                                                , mask_type
+                                                , card_t::value
+                                                >::call()
                               );
     }
   };
@@ -51,11 +56,13 @@ namespace boost { namespace simd { namespace ext
     typedef A0                              result_type;
     typedef P                               permutation_t;
     typedef meta::cardinal_of<result_type>  card_t;
-
     result_type operator()(__m128i a, P const&) const
     {
       return  _mm_shuffle_epi8( a
-                              , details::permute<P,card_t::value>::call()
+                              , details::permute< P
+                                                , result_type
+                                                , card_t::value
+                                                >::call()
                               );
     }
   };

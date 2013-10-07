@@ -43,7 +43,6 @@ namespace boost { namespace simd { namespace ext
     typedef A0                                     result_type;
     typedef typename P::type                       permutation_t;
 
-
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, P const&) const
     {
       return shuffle<permutation_t>(a0,a0);
@@ -68,6 +67,9 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::scalar_of<A0>::type     scalar_t;
     typedef P                                      permutation_t;
     typedef meta::cardinal_of<result_type>         card_t;
+
+    typedef typename A0::template rebind<unsigned char>::type mask_type;
+
     typedef mpl::vector<>                          empty_t;
     typedef typename mpl::copy< mpl::range_c<int,0,card_t::value>
                               , mpl::back_inserter<empty_t>
@@ -83,7 +85,7 @@ namespace boost { namespace simd { namespace ext
 
     template<std::size_t I>
     struct  mask_t
-          : mpl::char_< mpl::at_c < result_t
+          : mpl::int_< mpl::at_c < result_t
                                   , I/sizeof(scalar_t)
                                   >::type::value == -1
                       ? 0x00 : 0xFF
@@ -112,7 +114,10 @@ namespace boost { namespace simd { namespace ext
     {
       result_type that = vec_perm( a0()
                                  , a1()
-                                 , details::permute<P,card_t::value>::call()
+                                 , details::permute < P
+                                                    , mask_type
+                                                    , card_t::value
+                                                    >::call()()
                                  );
       return that;
     }
@@ -132,8 +137,9 @@ namespace boost { namespace simd { namespace ext
       result_type that = vec_and( vec_perm( a0()
                                           , a1()
                                           , details::permute< P
+                                                            , mask_type
                                                             , card_t::value
-                                                            >::call()
+                                                            >::call()()
                                           )
                                 , bitwise_cast<A0>(mask)()
                                 );
