@@ -8,8 +8,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_MEMORY_ALIGN_ON_HPP_INCLUDED
-#define BOOST_SIMD_MEMORY_ALIGN_ON_HPP_INCLUDED
+#ifndef BOOST_SIMD_MEMORY_ALIGN_UNDER_HPP_INCLUDED
+#define BOOST_SIMD_MEMORY_ALIGN_UNDER_HPP_INCLUDED
 
 #include <boost/simd/meta/align_ptr.hpp>
 #include <boost/simd/memory/align_ptr.hpp>
@@ -24,7 +24,7 @@ namespace boost { namespace simd
 {
   /*!
     @brief Align value or pointer on an arbitrary alignment boundary and
-           return the next aligned value or pointer.
+           return the previous aligned value or pointer.
 
     Force the alignment of an  integral value or pointer @c value
     on an arbitrary power of two boundary @c align.
@@ -35,7 +35,7 @@ namespace boost { namespace simd
     value @c v
 
     @code
-    auto r = align_on(v,a);
+    auto r = align_under(v,a);
     @endcode
 
     is such that
@@ -50,43 +50,41 @@ namespace boost { namespace simd
     referencing element of type @c T:
 
     @code
-    auto r = align_on(p,a);
+    auto r = align_under(p,a);
     @endcode
 
     is equivalent to:
 
     @code
-    auto r = reinterpret_cast<T*>(align_on(reinterpret_cast<size_t>(p),a));
+    auto r = reinterpret_cast<T*>(align_under(reinterpret_cast<size_t>(p),a));
     @endcode
 
-    @usage_output{memory/align_on.cpp, memory/align_on.out}
-
     @param value Value or pointer to align
-    @param align Integral power of two alignment boundary.
+    @param align Integral zero or power of two alignment boundary.
 
     @return The aligned integral value or pointer
   **/
-  BOOST_FORCEINLINE std::size_t align_on(std::size_t value, std::size_t align)
+  BOOST_FORCEINLINE std::size_t align_under(std::size_t value, std::size_t align)
   {
-    BOOST_ASSERT_MSG( ::boost::simd::is_power_of_2(align)
+    BOOST_ASSERT_MSG( align == 0 || ::boost::simd::is_power_of_2(align)
                     , "Invalid alignment boundary. You tried to align an "
-                      "address or a value on a non-power of 2 boundary."
+                      "address or a value on a non-zero and non-power of 2 boundary."
                     );
 
-    return (value+align-1) & ~(align-1);
+    return value & ~(align-1);
   }
 
   /// @overload
   template<class T> BOOST_FORCEINLINE
-  T* align_on(T* value, std::size_t align)
+  T* align_under(T* value, std::size_t align)
   {
     std::size_t v = reinterpret_cast<std::size_t>(value);
-    return reinterpret_cast<T*>(::boost::simd::align_on(v,align));
+    return reinterpret_cast<T*>(::boost::simd::align_under(v,align));
   }
 
   /*!
-    @brief Align value or pointer on current SIMD alignment boundary and
-           return the next aligned value or pointer.
+    @brief Align value or pointer on current SIMD alignment boundary
+           return the previous aligned value or pointer.
 
     Force the alignment of an  integral value or pointer @c value
     on the current SIMD alignment boundary.
@@ -96,13 +94,13 @@ namespace boost { namespace simd
     For any integral value or pointer @c v
 
     @code
-    auto r = align_on(v,a);
+    auto r = align_under(v,a);
     @endcode
 
     is equivalent to:
 
     @code
-    auto r = align_on(v,BOOST_SIMD_CONFIG_ALIGNMENT);
+    auto r = align_under(v,BOOST_SIMD_CONFIG_ALIGNMENT);
     @endcode
 
     When called on a pointer, the returned pointer is correctly flagged as aligned
@@ -111,23 +109,21 @@ namespace boost { namespace simd
     @see align_ptr
     @see meta::align_ptr
 
-    @usage{memory/align_on_default.cpp}
-
     @param value Value or pointer to align
 
     @return The aligned integral value or pointer
   **/
-  BOOST_FORCEINLINE std::size_t align_on(std::size_t value)
+  BOOST_FORCEINLINE std::size_t align_under(std::size_t value)
   {
-    return ::boost::simd::align_on(value,BOOST_SIMD_CONFIG_ALIGNMENT);
+    return ::boost::simd::align_under(value,BOOST_SIMD_CONFIG_ALIGNMENT);
   }
 
   /// @overload
   template<class T> BOOST_FORCEINLINE
-  typename ::boost::simd::meta::align_ptr<T>::type align_on(T* value)
+  typename ::boost::simd::meta::align_ptr<T>::type align_under(T* value)
   {
     return ::boost::simd::align_ptr ( ::boost::simd::
-                                          align_on( value
+                                          align_under( value
                                                   , BOOST_SIMD_CONFIG_ALIGNMENT
                                                   )
                                     );
