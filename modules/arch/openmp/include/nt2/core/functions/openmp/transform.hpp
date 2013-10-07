@@ -14,6 +14,7 @@
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/sdk/config/cache.hpp>
 #include <nt2/sdk/openmp/openmp.hpp>
+#include <nt2/sdk/openmp/worker.hpp>
 #include <cstddef>
 #include <cstdio>
 
@@ -74,7 +75,7 @@ namespace nt2 { namespace ext
       #pragma omp parallel firstprivate(top_cache_line_size, nblocks, leftover)
       {
         // Local transform
-        nt2::functor<tag::transform_,Site> transformer;
+        nt2::worker<tag::transform_,nt2::tag::openmp_<Site>,A0,A1> vecworker(a0,a1);
 
         // Dispatch group of blocks over each threads
         #pragma omp for schedule(dynamic) nowait
@@ -84,8 +85,10 @@ namespace nt2 { namespace ext
           try
           {
 #endif
-              // Call transform over the sub-architecture in the memory hierachy
-              transformer(a0,a1,it+(std::size_t)n*top_cache_line_size,top_cache_line_size);
+
+            // Call transform over the sub-architecture in the memory hierachy
+            vecworker(it+(std::size_t)n*top_cache_line_size,top_cache_line_size);
+
 #ifndef BOOST_NO_EXCEPTIONS
           }
           catch(...)
@@ -98,11 +101,13 @@ namespace nt2 { namespace ext
 
         #pragma omp single nowait
         {
+
 #ifndef BOOST_NO_EXCEPTIONS
           try
           {
 #endif
-            if(leftover) transformer(a0,a1,it+nblocks*top_cache_line_size,leftover);
+          if(leftover) vecworker(it+nblocks*top_cache_line_size,leftover);
+
 #ifndef BOOST_NO_EXCEPTIONS
           }
           catch(...)
@@ -111,12 +116,8 @@ namespace nt2 { namespace ext
             exception = boost::current_exception();
           }
 #endif
-        }
-      }
-#ifndef BOOST_NO_EXCEPTIONS
-      if(exception) boost::rethrow_exception(exception);
-#endif
-    }
+       }
+     }
   };
 } }
 #endif
