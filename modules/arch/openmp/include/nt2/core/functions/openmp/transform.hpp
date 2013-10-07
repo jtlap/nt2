@@ -14,6 +14,7 @@
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/sdk/config/cache.hpp>
 #include <nt2/sdk/openmp/openmp.hpp>
+#include <boost/simd/memory/align_under.hpp>
 #include <cstddef>
 #include <cstdio>
 
@@ -66,8 +67,8 @@ namespace nt2 { namespace ext
 #endif
 
       std::size_t top_cache_line_size = config::top_cache_size()/sizeof(typename A0::value_type);
-      std::size_t nblocks  = sz / top_cache_line_size;
-      std::size_t leftover = sz % top_cache_line_size;
+      std::size_t nblocks  = boost::simd::align_under(sz, top_cache_line_size);
+      std::size_t leftover = sz - nblocks*top_cache_line_size;
 
       #pragma omp parallel firstprivate(top_cache_line_size, nblocks, leftover)
       {
