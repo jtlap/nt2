@@ -10,9 +10,9 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_FAST_SQRT_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/fast_sqrt.hpp>
-#include <boost/simd/include/functions/multiplies.hpp>
-#include <boost/simd/include/functions/fast_rsqrt.hpp>
-#include <boost/simd/include/functions/if_else_zero.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
+#include <boost/simd/include/functions/simd/fast_rsqrt.hpp>
+#include <boost/simd/include/functions/simd/if_else_zero.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
