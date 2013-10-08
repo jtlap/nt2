@@ -29,16 +29,19 @@ namespace nt2 {
     };
   }
   /*!
-    inverse cosine in \f$\pi\f$ multiples. The arc \f$x\f$ in the interval
-    \f$\[0, 1\[\f$ such that \f$\cos(\pi x)\f$ is equal to the input.
+    inverse cosine in \f$\pi\f$ multiples.
 
     @par Semantic:
 
     For every parameter of floating type T0
 
     @code
-    T0 r = acospi(a0);
+    T0 r = acospi(x);
     @endcode
+
+    Returns the arc @c r in the interval
+    \f$[0, 1[\f$ such that <tt>cospi(r) == x</tt>.
+    If @c x is outside \f$[-1, 1[\f$ the result is Nan.
 
     @param a0
 
@@ -48,5 +51,3 @@ namespace nt2 {
 }
 
 #endif
-
-///

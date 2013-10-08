@@ -28,17 +28,18 @@ namespace nt2 { namespace tag
     };
   }
   /*!
-    inverse cotangent in degree. The arc \f$x\f$ in the interval
-    \f$\[0, 180\[\f$ such that the \f$\cot(\pi \frac{x}{180})\f$
-    is equal to the input.
+    inverse cotangent in degree.
 
     @par Semantic:
 
     For every parameter of floating type T0
 
     @code
-    T0 r = acotd(a0);
+    T0 r = acotd(x);
     @endcode
+
+    Returns the arc @c r in the interval
+    \f$[0, 180[\f$ such that <tt>cotd(r) == x</tt>.
 
     @param a0
 
@@ -49,4 +50,4 @@ namespace nt2 { namespace tag
 
 #endif
 
-///
+

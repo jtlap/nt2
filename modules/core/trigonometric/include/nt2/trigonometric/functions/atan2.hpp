@@ -29,31 +29,30 @@ namespace nt2 { namespace tag
   }
   /*!
     atan2 function.
-    The two-argument function atan2 is a variation of the arctangent function.
-
-    For any real arguments \f$a_0\f$ and \f$a_1\f$ not both equal to zero, atan2(a0, a1)
-    is the angle in radians between the positive x-axis of a plane and the point
-    given by the coordinates \f$(a_1, a_0)\f$ on it.
-
-    It is the angle in \f$[-\pi,\pi[ \f$ such that
-    \f$a1/\sqrt{a_0^2+a_1^2}\f$ and \f$a0/\sqrt{a_0^2+a_1^2}\f$
-    are respectively the sine and the cosine.
 
     @par Semantic:
 
     For every parameters of floating types respectively T0, T1:
 
     @code
-    T0 r = atan2(a0,a1);
+    T0 r = atan2(x, y);
     @endcode
 
-    is similar but not fully defined by:
+    is similar but not fully equivalent to:
 
     @code
-    T0 r =  atan(a1/a0);;
+    T0 r =  atan(y/x);;
     @endcode
 
     as it is quadrant aware.
+
+    For any real arguments @c x and @c y not both equal to zero, <tt>atan2(x, y)</tt>
+    is the angle in radians between the positive x-axis of a plane and the point
+    given by the coordinates  <tt>(y, x)</tt>.
+
+    It is also the angle in \f$[-\pi,\pi[\f$ such that
+    \f$x/\sqrt{x^2+y^2}\f$ and \f$y/\sqrt{x^2+y^2}\f$
+    are respectively the sine and the cosine.
 
     @param a0
 
@@ -66,6 +65,3 @@ namespace nt2 { namespace tag
 
 #endif
 
-// modified by jt the 25/12/2010
-
-///

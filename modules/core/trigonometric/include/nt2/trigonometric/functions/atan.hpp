@@ -28,9 +28,7 @@ namespace nt2 { namespace tag
     };
   }
   /*!
-    inverse tangent. The arc x in the interval
-    \f$\[-\pi/2, \pi/2\[\f$ such that \f$\tan x\f$
-    is equal to the input.
+    inverse tangent.
 
     @par Semantic:
 
@@ -39,6 +37,10 @@ namespace nt2 { namespace tag
     @code
     T0 r = atan(a0);
     @endcode
+
+    Returns the arc @c r in the interval
+    \f$[-\pi/2, \pi/2[\f$ such that <tt>tan(r) == x</tt>.
+    If @c x is outside \f$[-1, 1[\f$ the result is Nan.
 
     @param a0
 
@@ -49,4 +51,4 @@ namespace nt2 { namespace tag
 
 #endif
 
-///
+

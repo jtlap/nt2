@@ -29,9 +29,7 @@ namespace nt2 {
     };
   }
   /*!
-    inverse sine in \f$\pi\f$ multiples. The arc \f$x\f$ in the interval
-    \f$\[0, 1\[\f$ such that \f$\sin(\pi x)\f$ is equal to the input.
-
+    inverse sine in \f$\pi\f$ multiples.
     @par Semantic:
 
     For every parameter of floating type T0
@@ -39,6 +37,10 @@ namespace nt2 {
     @code
     T0 r = asinpi(a0);
     @endcode
+
+    Returns the arc @c r in the interval
+    \f$[-0.5, 0.5[\f$ such that <tt>cos(r) == x</tt>.
+    If @c x is outside \f$[-1, 1[\f$ the result is Nan.
 
     @param a0
 
@@ -49,4 +51,4 @@ namespace nt2 {
 
 #endif
 
-///
+

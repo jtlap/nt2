@@ -28,17 +28,18 @@ namespace nt2 { namespace tag
     };
   }
   /*!
-    inverse cotangent. The arc x in the interval
-    \f$\[0, \pi\[\f$ the \f$\cot x\f$ such that
-    is equal to the input.
+    inverse cotangent.
 
     @par Semantic:
 
     For every parameter of floating type T0
 
     @code
-    T0 r = acot(a0);
+    T0 r = acot(x);
     @endcode
+
+    Returns the arc @c r in the interval
+    \f$[0, \pi[\f$ such that <tt>cot(r) == x</tt>.
 
     @param a0
 
@@ -49,4 +50,3 @@ namespace nt2 { namespace tag
 
 #endif
 
-///

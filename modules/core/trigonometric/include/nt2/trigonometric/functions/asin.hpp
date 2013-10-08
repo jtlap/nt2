@@ -28,9 +28,7 @@ namespace nt2 { namespace tag
     };
   }
   /*!
-    inverse sine. The arc \f$x\f$ in the interval
-    \f$\[-\pi/2, \pi/2\[\f$ such that \f$\sin x\f$ of which is equal to
-    the input.
+    inverse sine.
 
     @par Semantic:
 
@@ -39,6 +37,10 @@ namespace nt2 { namespace tag
     @code
     T0 r = asin(a0);
     @endcode
+
+    Returns the arc @c r in the interval
+    \f$[-\pi/2, \pi/2]\f$ such that <tt>sin(r) == x</tt>.
+    If @c x is outside \f$[-1, 1]\f$ the result is Nan.
 
     @param a0
 
@@ -49,4 +51,4 @@ namespace nt2 { namespace tag
 
 #endif
 
-///
+

@@ -28,9 +28,7 @@ namespace nt2 { namespace tag
     };
   }
   /*!
-    inverse sine in degree. The arc \f$x\f$ in the interval
-    \f$\[0, 180\[\$ such that \f$\sin(\pi \frac{x}{180})\f$ is
-    equal to the input.
+    inverse sine in degree.
 
     @par Semantic:
 
@@ -39,6 +37,10 @@ namespace nt2 { namespace tag
     @code
     T0 r = asind(a0);
     @endcode
+
+    Returns the arc @c r in the interval
+    \f$[-90, 90[\f$ such that <tt>sin(r) == x</tt>.
+    If @c x is outside \f$[-1, 1[\f$ the result is Nan.
 
     @param a0
 
@@ -49,4 +51,4 @@ namespace nt2 { namespace tag
 
 #endif
 
-///
+
