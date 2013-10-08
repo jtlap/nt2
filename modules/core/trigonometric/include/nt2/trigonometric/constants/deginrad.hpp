@@ -50,8 +50,6 @@ namespace nt2
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Deginrad, Deginrad);
 
-  /// INTERNAL ONLY
-  static const long double long_deginrad = 0.017453292519943295769236907684886l;
 }
 
 #endif

@@ -55,6 +55,7 @@ NT2_TEST_CASE_TPL ( cscd_real__1_0,  NT2_REAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
+    const long double long_deginrad = 0.017453292519943295769236907684886l;
     NT2_CREATE_BUF(tab_a0,T, NR, T(-79), T(79));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
@@ -63,7 +64,7 @@ NT2_TEST_CASE_TPL ( cscd_real__1_0,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::cscd(a0),1.0l/(::cephes_sinl(nt2::long_deginrad*(a0))),1.5);
+        NT2_TEST_ULP_EQUAL( nt2::cscd(a0),1.0l/(::cephes_sinl(long_deginrad*(a0))),1.5);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
