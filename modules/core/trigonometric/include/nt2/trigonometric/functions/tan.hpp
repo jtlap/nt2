@@ -6,59 +6,50 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_TAN_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_TAN_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup trigonometric
- * \defgroup trigonometric_tan tan
- *
- * \par Description
- * tangent.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/tan.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::tan_(A0)>::type
- *     tan(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of tan
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag tan_ of functor tan
-     *        in namespace nt2::tag for toolbox trigonometric
-    **/
-    struct tan_ : ext::elementwise_<tan_> { typedef ext::elementwise_<tan_> parent; };
+   /*!
+     @brief tan generic tag
+
+     Represents the tan function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct tan_ : ext::elementwise_<tan_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<tan_> parent;
+    };
   }
+  /*!
+    tangent of the input in radians.
+
+    @par Semantic:
+
+    For every parameter of floating type T0
+
+    @code
+    T0 r = tan(x);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = sin(x)/cos(x);
+    @endcode
+
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::tan_, tan, 1)
 }
 
 #endif
 
-// modified by jt the 25/12/2010

@@ -6,59 +6,53 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_FAST_COTD_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_FAST_COTD_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup trigonometric
- * \defgroup trigonometric_fast_cotd fast_cotd
- *
- * \par Description
- * cotangent of the angle in degree, in the interval \f$[-45, 45]\f$, nan outside.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/fast_cotd.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::fast_cotd_(A0)>::type
- *     fast_cotd(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of fast_cotd
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag fast_cotd_ of functor fast_cotd
-     *        in namespace nt2::tag for toolbox trigonometric
-    **/
-    struct fast_cotd_ : ext::elementwise_<fast_cotd_> { typedef ext::elementwise_<fast_cotd_> parent; };
+   /*!
+     @brief fast_cotd generic tag
+
+     Represents the fast_cotd function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct fast_cotd_ : ext::elementwise_<fast_cotd_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<fast_cotd_> parent;
+    };
   }
+  /*!
+    cotangent of the angle in degree, in the interval \f$[-45, 45]\f$, nan outside.
+
+    @par Semantic:
+
+    For every parameter of floating type T0
+
+    @code
+    T0 r = fast_cotd(x);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = cotd(x);
+    @endcode
+
+    provided that x belongs to \f$[-45, 45]\f$
+
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::fast_cotd_, fast_cotd, 1)
 }
 
 #endif
 
-// modified by jt the 25/12/2010
+

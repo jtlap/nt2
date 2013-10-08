@@ -6,59 +6,51 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_CSCPI_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_CSCPI_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup trigonometric
- * \defgroup trigonometric_cscpi cscpi
- *
- * \par Description
- * cosecant of angle in \f$\pi\f$ multiples: \f$\cot(\pi a_0)\f$.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/cscpi.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::cscpi_(A0)>::type
- *     cscpi(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of cscpi
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag cscpi_ of functor cscpi
-     *        in namespace nt2::tag for toolbox trigonometric
-    **/
-    struct cscpi_ : ext::elementwise_<cscpi_> { typedef ext::elementwise_<cscpi_> parent; };
+   /*!
+     @brief cscpi generic tag
+
+     Represents the cscpi function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct cscpi_ : ext::elementwise_<cscpi_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<cscpi_> parent;
+    };
   }
+  /*!
+    cosecant of angle in \f$\pi\f$ multiples.
+
+    @par Semantic:
+
+    For every parameter of floating type T0
+
+    @code
+    T0 r = cscpi(x);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = rec(sinpi(x));
+    @endcode
+
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::cscpi_, cscpi, 1)
 }
 
 #endif
 
-// modified by jt the 25/12/2010
+

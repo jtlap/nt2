@@ -8,34 +8,44 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_REM_PIO2_CEPHES_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_REM_PIO2_CEPHES_HPP_INCLUDED
-
-/*!
-  @file
-  @brief Definition of rem_pio2_cephes function
-**/
-
 #include <nt2/include/functor.hpp>
 
 namespace nt2
 {
   namespace tag
   {
-    /// @brief Hierarchy tag for rem_pio2_cephes function
     struct rem_pio2_cephes_ : ext::elementwise_<rem_pio2_cephes_>
     {
+      /// @brief Parent hierarchy
       typedef ext::elementwise_<rem_pio2_cephes_> parent;
     };
   }
   /*!
-    @brief rem_pio2_cephes
 
-    @c rem_pio2_cephes compute the remainder modulo \f$\pi/2\f$ with cephes algorthm,
+    Computes the remainder modulo \f$\pi/2\f$ with cephes algorithm,
     and return the angle quadrant between 0 and 3.
-    This is a quick version accurate if the input is in \f$[-20\pi,20\pi\f$.
+    This is a quick version accurate if the input is in \f$[-20\pi,20\pi]\f$.
+
+    @par Semantic:
+
+    For every parameters of floating type T0:
+
+    @code
+    T0 r;
+    as_integer<T0> n;
+    tie(r, n) = rem_pio2_cephes_(x);
+    @endcode
+
+    is similar to:
+
+    @code
+    as_integer<T0> n = idivround2even(x,, Pio_2<T0>());
+    T0 r =  remainder(x, Pio_2<T0>());;
+    @endcode
 
     @param a0 angle in radian
 
-    @return the integer value of the quadrant
+    @return A pair containing the remainder and quadrant of @c a0
   **/
 
   NT2_FUNCTION_IMPLEMENTATION_TPL ( tag::rem_pio2_cephes_
@@ -44,16 +54,32 @@ namespace nt2
                                   )
 
   /*!
-    @brief  rem_pio2_cephes
 
-    @c rem_pio2_cephes compute the remainder modulo \f$\pi/2\f$ with cephes algorthm,
+    Computes the remainder modulo \f$\pi/2\f$ with cephes algorithm,
     and the angle quadrant between 0 and 3.
-    This is a quick version accurate if the input is in \f$[-20\pi,20\pi\f$.
+    This is a quick version accurate if the input is in \f$[-20\pi,20\pi]\f$.
+
+    @par Semantic:
+
+    For every parameters of floating type T0:
+
+    @code
+    T0 r;
+    as_integer<T0> n;
+    n = rem_pio2_cephes_(x, r);
+    @endcode
+
+    is similar to:
+
+    @code
+    as_integer<T0> n = idivround2even(x,, Pio_2<T0>());
+    T0 r =  remainder(x, Pio_2<T0>());;
+    @endcode
 
     @param a0 angle in radian
-    @param a1 L-Value that will receive the remainder modulo \f$\pi/2\f$ off @c a0
+    @param a1 L-Value that will receive the remainder modulo \f$\pi/2\f$ of @c a0
 
-    @return A pair containing the remainder and quadrant  of @c a0
+    @return the integer value of the quadrant
   **/
   NT2_FUNCTION_IMPLEMENTATION_TPL ( tag::rem_pio2_cephes_
                                   , rem_pio2_cephes
@@ -62,15 +88,30 @@ namespace nt2
                                   )
 
   /*!
-    @brief  rem_pio2_cephes
-
-    @c rem_pio2_cephes compute the remainder modulo \f$\pi/2\f$ with cephes algorthm,
+    Computes the remainder modulo \f$\pi/2\f$ with cephes algorithm,
     and the angle quadrant between 0 and 3.
-    This is a quick version accurate if the input is in \f$[-20\pi,20\pi\f$.
+    This is a quick version accurate if the input is in \f$[-20\pi,20\pi]\f$.
+
+    @par Semantic:
+
+    For every parameters of floating type T0:
+
+    @code
+    T0 r;
+    as_integer<T0> n;
+    rem_pio2_cephes_(x, n, r);
+    @endcode
+
+    is similar to:
+
+    @code
+    as_integer<T0> n = idivround2even(x,, Pio_2<T0>());
+    T0 r =  remainder(x, Pio_2<T0>());;
+    @endcode
 
     @param a0 angle in radian
-    @param a1 L-Value that will receive the quadrant off @c a0
-    @param a2 L-Value that will receive the remainder modulo \f$\pi/2\f$ off @c a0
+    @param a1 L-Value that will receive the quadrant of @c a0
+    @param a2 L-Value that will receive the remainder modulo \f$\pi/2\f$ of @c a0
 
   **/
   NT2_FUNCTION_IMPLEMENTATION_TPL ( tag::rem_pio2_cephes_
@@ -81,3 +122,4 @@ namespace nt2
 }
 
 #endif
+

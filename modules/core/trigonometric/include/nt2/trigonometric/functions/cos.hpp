@@ -6,59 +6,44 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_COS_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_COS_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup trigonometric
- * \defgroup trigonometric_cos cos
- *
- * \par Description
- * cosine.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/cos.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::cos_(A0)>::type
- *     cos(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of cos
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
-
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag cos_ of functor cos
-     *        in namespace nt2::tag for toolbox trigonometric
-    **/
-    struct cos_ : ext::elementwise_<cos_> { typedef ext::elementwise_<cos_> parent; };
+   /*!
+     @brief cos generic tag
+
+     Represents the cos function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct cos_ : ext::elementwise_<cos_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<cos_> parent;
+    };
   }
+  /*!
+    cosine of the input in radians.
+
+    @par Semantic:
+
+    For every parameter of floating type T0
+
+    @code
+    T0 r = cos(x);
+    @endcode
+
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::cos_, cos, 1)
 }
 
 #endif
 
-// modified by jt the 25/12/2010
+

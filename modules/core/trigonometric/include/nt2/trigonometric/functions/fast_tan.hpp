@@ -6,59 +6,51 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_FAST_TAN_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_FAST_TAN_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup trigonometric
- * \defgroup trigonometric_fast_tan fast_tan
- *
- * \par Description
- * tangent in the interval \f$[-\pi/4, \pi/4]\f$, nan outside.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/fast_tan.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::fast_tan_(A0)>::type
- *     fast_tan(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of fast_tan
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag fast_tan_ of functor fast_tan
-     *        in namespace nt2::tag for toolbox trigonometric
-    **/
-    struct fast_tan_ : ext::elementwise_<fast_tan_> { typedef ext::elementwise_<fast_tan_> parent; };
+   /*!
+     @brief fast_tan generic tag
+
+     Represents the fast_tan function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct fast_tan_ : ext::elementwise_<fast_tan_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<fast_tan_> parent;
+    };
   }
+  /*!
+    tangent in the interval \f$[-\pi/4, \pi/4]\f$, nan outside.
+
+    @par Semantic:
+
+    For every parameter of floating type T0
+
+    @code
+    T0 r = fast_tan(x);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = tan(x);
+    @endcode
+
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::fast_tan_, fast_tan, 1)
 }
 
 #endif
 
-// modified by jt the 25/12/2010
+

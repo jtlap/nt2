@@ -6,37 +6,52 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
-  @file
-  @brief Definition of rem_pio2_medium function
-**/
-
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_REM_PIO2_MEDIUM_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_REM_PIO2_MEDIUM_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
 namespace nt2 { namespace tag
   {
-    /// @brief Hierarchy tag for rem_pio2_medium function
     struct rem_pio2_medium_ : ext::elementwise_<rem_pio2_medium_>
     {
+      /// @brief Parent hierarchy
       typedef ext::elementwise_<rem_pio2_medium_> parent;
     };
   }
   /*!
-    @brief rem_pio2_medium
-
-    @c rem_pio2_medium compute the remainder modulo \f$\pi/2\f$ with medium algorithm,
+    Computes the remainder modulo \f$\pi/2\f$ with medium algorithm,
     and return the angle quadrant between 0 and 3.
-    This function is mainly for internal reduction purposes
+
+    @par Semantic:
+
+
+    For every parameter of floating type T0
+
+    @code
+    T0 r;
+    as_integer<T0> n;
+    tie(n, r) = rem_pio2_cephes(x);
+    @endcode
+
+    is similar to:
+
+    @code
+    as_integer<T0> n = idivround2even(x,, Pio_2<T0>());
+    T0 r =  remainder(x, Pio_2<T0>());;
+    @endcode
+
+
+    @par Note:
+
+    This function is mainly for internal trigonometric reduction purposes
     This is a medium_ version version accurate if the input is in:
-    \arg \f$[-2^6\pi,2^6\pi\f$ for float,
-    \arg \f$[-2^18\pi,2^18\pi\f$ for double.
+     \f$[-2^6\pi,2^6\pi]\f$ for float,
+     \f$[-2^{18}\pi,2^{18}\pi]\f$ for double.
     \par
-    The reduction of the argument modulo \f$pi/2\f$ is generally
+    The reduction of the argument modulo \f$\pi/2\f$ is generally
     the most difficult part of trigonometric evaluations.
     The accurate algorithm is over costly and implies the knowledge
-    of a few hundred \f$pi\f$ decimals
+    of a few hundred \f$\pi\f$ decimals
     some simpler algorithms as this one
     can be used, but the precision is only insured on smaller intervals.
 
@@ -48,15 +63,34 @@ namespace nt2 { namespace tag
    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::rem_pio2_medium_, rem_pio2_medium,(A0 const&),1)
 
   /*!
-    @brief  rem_pio2_medium
-
-    @c rem_pio2_medium compute the remainder modulo \f$\pi/2\f$ with medium algorithm,
+    Computes the remainder modulo \f$\pi/2\f$ with medium algorithm,
     and the angle quadrant between 0 and 3.
+
+
+    @par Semantic:
+
+    For every parameter of floating type T0
+
+    @code
+    T0 r, rc;
+    as_integer<T0> n;
+    n = rem_pio2_cephes(x, r);
+    @endcode
+
+    is similar to:
+
+    @code
+    as_integer<T0> n = idivround2even(x,, Pio_2<T0>());
+    T0 r =  remainder(x, Pio_2<T0>());
+    @endcode
+
+    @par Note:
+
     This is a medium_ version version accurate if the input is in:
-    \arg \f$[-2^6\pi,2^6\pi\f$ for float,
-    \arg \f$[-2^18\pi,2^18\pi\f$ for double.
+     \f$[-2^6\pi,2^6\pi]\f$ for float,
+     \f$[-2^{18}\pi,2^{18}\pi]\f$ for double.
     \par
-    The reduction of the argument modulo \f$pi/2\f$ is generally
+    The reduction of the argument modulo \f$\pi/2\f$ is generally
     the most difficult part of trigonometric evaluations.
     The accurate algorithm is over costly and implies the knowledge
     of a few hundred \f$pi\f$ decimals
@@ -64,22 +98,43 @@ namespace nt2 { namespace tag
     can be used, but the precision is only insured on smaller intervals.
 
     @param a0 angle in radian
-    @param a1 L-Value that will receive the remainder modulo \f$\pi/2\f$ off @c a0
+    @param a1 L-Value that will receive the remainder modulo \f$\pi/2\f$ of @c a0
 
     @return A pair containing the remainder and quadrant  of @c a0
   **/
    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::rem_pio2_medium_, rem_pio2_medium,(A0 const&)(A0&),1)
 
   /*!
-    @brief  rem_pio2_medium
+    Computes the remainder modulo \f$\pi/2\f$ with medium algorithm,
+    and the angle quadrant between 0 and 3.
+
+
+    @par Semantic:
+
+    For every parameter of floating type T0
+
+    @code
+    T0 r, rc;
+    as_integer<T0> n;
+    rem_pio2_cephes(x, n, r);
+    @endcode
+
+    is similar to:
+
+    @code
+    as_integer<T0> n = idivround2even(x,, Pio_2<T0>());
+    T0 r =  remainder(x, Pio_2<T0>());
+    @endcode
+
+    @par Note:
 
     @c rem_pio2_medium compute the remainder modulo \f$\pi/2\f$ with medium algorithm,
     and the angle quadrant between 0 and 3.
     This is a medium_ version version accurate if the input is in:
-    \arg \f$[-2^6\pi,2^6\pi\f$ for float,
-    \arg \f$[-2^18\pi,2^18\pi\f$ for double.
+     \f$[-2^6\pi,2^6\pi]\f$ for float,
+     \f$[-2^{18}\pi,2^{18}]\pi\f$ for double.
     \par
-    The reduction of the argument modulo \f$pi/2\f$ is generally
+    The reduction of the argument modulo \f$\pi/2\f$ is generally
     the most difficult part of trigonometric evaluations.
     The accurate algorithm is over costly and implies the knowledge
     of a few hundred \f$pi\f$ decimals
@@ -87,8 +142,8 @@ namespace nt2 { namespace tag
     can be used, but the precision is only insured on smaller intervals.
 
     @param a0 angle in radian
-    @param a1 L-Value that will receive the quadrant off @c a0
-    @param a2 L-Value that will receive the remainder modulo \f$\pi/2\f$ off @c a0
+    @param a1 L-Value that will receive the quadrant of @c a0
+    @param a2 L-Value that will receive the remainder modulo \f$\pi/2\f$ of @c a0
 
   **/
    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::rem_pio2_medium_, rem_pio2_medium,(A0 const&)(A1&)(A0&),2)
@@ -96,4 +151,5 @@ namespace nt2 { namespace tag
     }
 
 #endif
+
 

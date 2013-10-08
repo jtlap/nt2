@@ -6,62 +6,58 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_PROPER_TANPI_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_PROPER_TANPI_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup trigonometric
- * \defgroup trigonometric_proper_tanpi proper_tanpi
- *
- * \par Description
- * tangent of angle in \f$\pi\f$ multiples: \f$\tan(\pi a_0)\f$.
- * a0 between -0.5 and +0.5
- * This function is the inverse of atanpi and so is such that proper_tanpi(0.5) is inf
- * and  proper_tanpi(-0.5) is -inf
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/proper_tanpi.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::proper_tanpi_(A0)>::type
- *     proper_tanpi(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of proper_tanpi
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag proper_tanpi_ of functor proper_tanpi
-     *        in namespace nt2::tag for toolbox trigonometric
-    **/
-    struct proper_tanpi_ : ext::elementwise_<proper_tanpi_> { typedef ext::elementwise_<proper_tanpi_> parent; };
+   /*!
+     @brief proper_tanpi generic tag
+
+     Represents the proper_tanpi function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct proper_tanpi_ : ext::elementwise_<proper_tanpi_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<proper_tanpi_> parent;
+    };
   }
+  /*!
+    tangent of angle in \f$\pi\f$ multiples,
+    restricted between -0.5 and +0.5.
+    This function is the inverse of @c atanpi and so is
+    such that @c proper_tanpi(0.5) is inf
+    and @c proper_tanpi(-0.5) is -inf
+
+    @par Semantic:
+
+    For every parameter of floating type T0
+
+    @code
+    T0 r = proper_tanpi(x);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = tanpi(x);
+    @endcode
+
+    provided input is in \f$]-0.5,  0.5[\f$
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::proper_tanpi_, proper_tanpi, 1)
 }
 
 #endif
 
 // modified by jt the 25/12/2010
+
+

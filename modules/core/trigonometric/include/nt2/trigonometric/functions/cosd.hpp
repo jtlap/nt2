@@ -6,59 +6,49 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_COSD_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_COSD_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup trigonometric
- * \defgroup trigonometric_cosd cosd
- *
- * \par Description
- * cosine of angle in degree.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/cosd.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::cosd_(A0)>::type
- *     cosd(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of cosd
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
-
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag cosd_ of functor cosd
-     *        in namespace nt2::tag for toolbox trigonometric
-    **/
-    struct cosd_ : ext::elementwise_<cosd_> { typedef ext::elementwise_<cosd_> parent; };
+   /*!
+     @brief cosd generic tag
+
+     Represents the cosd function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct cosd_ : ext::elementwise_<cosd_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<cosd_> parent;
+    };
   }
+  /*!
+    cosine of the input in degree.
+
+    @par Semantic:
+
+    For every parameter of floating type T0
+
+    @code
+    T0 r = cosd(x);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = cos(deginrad<T0>()*x);
+    @endcode
+
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::cosd_, cosd, 1)
 }
 
 #endif
 
-// modified by jt the 25/12/2010

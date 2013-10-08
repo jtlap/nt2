@@ -6,11 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
-  @file
-  @brief Definition of sincosd function
-**/
-
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_SINCOSD_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_SINCOSD_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
@@ -18,14 +13,30 @@
 namespace nt2 { namespace tag
   {
     /// @brief Hierarchy tag for sincosd function
-    struct sincosd_ : ext::elementwise_<sincosd_> { typedef ext::elementwise_<sincosd_> parent; };
+    struct sincosd_ : ext::elementwise_<sincosd_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<sincosd_> parent;
+    };
   }
   /*!
-    @brief sincosd
+    Computes simultaneously the sind and cosd of the input
 
-    @c sincosd compute simultaneously the sind and cosd of the input
+    @par Semantic:
 
-    @param a0 angle in radian
+    @code
+    T0 s, c;
+    tie(s, c) = sincosd(x);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 s =  sind(x);
+    T0 c =  cosd(x);
+    @endcode
+
+    @param a0 angle in degree
 
     @return A Fusion Sequence containing the sind and cosd of @c a0
   **/
@@ -33,12 +44,24 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::sincosd_, sincosd, 1)
 
   /*!
-    @brief sincosd
+    Computes simultaneously the sind and cosd of the input
 
-    @c sincosd compute simultaneously the sind and cosd of the input
+    @par Semantic:
 
-    @param a0 angle in radian
-    @param a1 L-Value that will receive the sind off @c a0
+    @code
+    T0 s, c;
+    s = sincosd(x, c);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 s =  sind(x);
+    T0 c =  cosd(x);
+    @endcode
+
+    @param a0 angle in degree
+    @param a1 L-Value that will receive the sind of @c a0
 
     @return A Fusion Sequence containing the cosd of @c a0
   **/
@@ -47,13 +70,25 @@ namespace nt2 { namespace tag
    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sincosd_, sincosd,(A0 const&)(A1&),2)
 
   /*!
-    @brief  sincosd
+    Computes simultaneously the sind and cosd of the input
 
-    @c sincosd compute simultaneously the sind and cosd of the input
+    @par Semantic:
 
-    @param a0 angle in radian
-    @param a1 L-Value that will receive the sind off @c a0
-    @param a1 L-Value that will receive the cosd off @c a0
+    @code
+    T0 s, c;
+    sincosd(x, s, c);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 s =  sind(x);
+    T0 c =  cosd(x);
+    @endcode
+
+    @param a0 angle in degree
+    @param a1 L-Value that will receive the sind of @c a0
+    @param a2 L-Value that will receive the cosd of @c a0
 
   **/
    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sincosd_, sincosd,(A0 const&)(A1&)(A2&),3)
@@ -61,3 +96,4 @@ namespace nt2 { namespace tag
     }
 
 #endif
+
