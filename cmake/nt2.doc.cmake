@@ -178,7 +178,7 @@ macro(nt2_doc_doxygen file)
 
   file(MAKE_DIRECTORY ${NT2_BINARY_DIR}/doc/html/images/${target_name})
   add_custom_target(${target_name}
-                    COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen/html/formula.repository
+                    COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen/html/
                     COMMAND ${DOXYGEN_EXECUTABLE}
                             ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen/doxyfile
                     COMMAND find ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen/html/ -name form_*.png -exec cp {} ${NT2_BINARY_DIR}/doc/html/images/${target_name}/ "\\;"
