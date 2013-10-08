@@ -36,17 +36,17 @@ namespace nt2 { namespace tag
     cover test one ulp of difference with the according crlibm result.
     \par
     Each one covers respectively intervals \f$[-A, A]\f$ with :
-    \verbatim
+    \code
     |--------------|-------------------|----------------|
     |              |   float  A        |  double  A     |
     |--------------|-------------------|----------------|
-    |    small_     |   20\pi           | 20\pi          |
+    |    small_    |   20*pi           | 20*pi          |
     |--------------|-------------------|----------------|
-    |    medium_    |   2^6\pi          | 2^{18}\pi        |
+    |    medium_   |   2^6*pi          | 2^18*pi        |
     |--------------|-------------------|----------------|
-    |    big_       |   Inf<float>      |  Inf<double>   |
+    |    big_      |   Inf<float>      |  Inf<double>   |
     |--------------|------------------------------------|
-    \endverbatim
+    \endcode
     In fact for each scalar singleton or simd vector of angles
     There are two possibilities :
     \arg one is to test if all vector element(s) are in the proper range
@@ -84,7 +84,7 @@ namespace nt2 { namespace tag
     \f$N(direct_i)\f$
     On the other side the number of cycles for the non-direct methods will have a more
     complicated expression :
-    \f$\sum_{i=1}^{m} p(Ai-1, A_i)^k N(direct_i)\f$
+    \f$\sum_{i=1}^{m} p(A_{i-1}, A_i)^k N(direct_i)\f$
     So the non direct methods will be interesting only if you want accurate
     results everywhere and have anyhow a big_ proportion of small_ angles.
     This is even more true (if possible) in simd and the more k is big_, because

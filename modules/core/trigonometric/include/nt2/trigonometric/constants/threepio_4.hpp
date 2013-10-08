@@ -31,7 +31,7 @@ namespace nt2
                                 );
   }
   /*!
-    Constant threepio_4 : \f$2\pi\f$.
+    Constant threepio_4 : \f$3\pi/4\f$.
 
     @par Semantic:
 

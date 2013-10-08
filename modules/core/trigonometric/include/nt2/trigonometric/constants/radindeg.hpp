@@ -53,6 +53,7 @@ namespace nt2
 
 namespace nt2
 {
+  /// INTERNAL ONLY
   static const long double long_radindeg =  57.295779513082320876798154814105l;
 }
 
