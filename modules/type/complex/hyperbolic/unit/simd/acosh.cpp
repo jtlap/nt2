@@ -30,36 +30,34 @@ NT2_TEST_CASE_TPL ( acosh_real__1_0, NT2_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::One<vT>(), nt2::Zero<vT>())),  cvT(nt2::Zero<vT>(), nt2::Zero<vT>()), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Zero<vT>(), nt2::Zero<vT>())),  cvT(nt2::Zero<vT>(), nt2::Pio_2<vT>()), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Mzero<vT>(), nt2::Zero<vT>())), cvT(nt2::Zero<vT>(), nt2::Pio_2<vT>()), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::One<vT>(), nt2::Zero<vT>())),  cvT(nt2::Zero<vT>(), nt2::Zero<vT>()), 1);
+  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Zero<vT>(), nt2::Zero<vT>())),  cvT(nt2::Zero<vT>(), nt2::Pio_2<vT>()), 1);
+  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Mzero<vT>(), nt2::Zero<vT>())), cvT(nt2::Zero<vT>(), nt2::Pio_2<vT>()), 1);
 #ifndef BOOSvT_SIMD_NO_INVALIDS
-  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::One  <vT>(), nt2::Nan <vT>())), cvT(nt2::Nan<vT>(),  nt2::Nan<vT>()), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Minf <vT>(), nt2::Nan<vT>())),  cvT(nt2::Inf<vT>(), nt2::Nan<vT>()), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Inf  <vT>(), nt2::Nan<vT>())),  cvT(nt2::Inf <vT>(), nt2::Nan<vT>()), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Nan  <vT>(), nt2::One<vT>())),  cvT(nt2::Nan <vT>(), nt2::Nan<vT>()), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Nan  <vT>(), nt2::Inf<vT>())),  cvT(nt2::Inf <vT>(), nt2::Nan<vT>()), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Nan  <vT>(), nt2::Nan<vT>())),  cvT(nt2::Nan <vT>(), nt2::Nan<vT>()), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::One  <vT>(), nt2::Nan <vT>())), cvT(nt2::Nan<vT>(),  nt2::Nan<vT>()), 1);
+  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Minf <vT>(), nt2::Nan<vT>())),  cvT(nt2::Inf<vT>(), nt2::Nan<vT>()), 1);
+  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Inf  <vT>(), nt2::Nan<vT>())),  cvT(nt2::Inf <vT>(), nt2::Nan<vT>()), 1);
+  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Nan  <vT>(), nt2::One<vT>())),  cvT(nt2::Nan <vT>(), nt2::Nan<vT>()), 1);
+  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Nan  <vT>(), nt2::Inf<vT>())),  cvT(nt2::Inf <vT>(), nt2::Nan<vT>()), 1);
+  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Nan  <vT>(), nt2::Nan<vT>())),  cvT(nt2::Nan <vT>(), nt2::Nan<vT>()), 1);
   // cacosh(+inf + iy) returns +inf + i0, for positive-signed finite y. --- matlab : Inf
-  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Inf  <vT>(), nt2::One <vT>())), cvT(nt2::Inf <vT>(), nt2::Zero<vT>()), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Inf  <vT>(), nt2::One <vT>())), cvT(nt2::Inf <vT>(), nt2::Zero<vT>()), 1);
   // cacosh(~inf + iy) returns +inf + i pi , for positive-signed finite y. --- matlab :  Inf + 3.1416i
-  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Minf <vT>(), nt2::One <vT>())), cvT(nt2::Inf<vT>(), nt2::Pi<vT>()), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Minf <vT>(), nt2::One <vT>())), cvT(nt2::Inf<vT>(), nt2::Pi<vT>()), 1);
   // cacosh(x + i inf) returns +inf + i pi /2, for finite x.               --- matlab : Inf +    NaNi
-  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::One  <vT>(), nt2::Inf <vT>())), cvT(nt2::Inf<vT>(),  nt2::Pio_2<vT>()), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::One <vT>(), nt2::Inf<vT>())),  nt2::acosh(cvT(nt2::One <vT>(), nt2::Inf<vT>())), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::One  <vT>(), nt2::Inf <vT>())), cvT(nt2::Inf<vT>(),  nt2::Pio_2<vT>()), 1);
+  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::One <vT>(), nt2::Inf<vT>())),  nt2::acosh(cvT(nt2::One <vT>(), nt2::Inf<vT>())), 1);
   // cacosh(~inf + i inf) returns +inf + i3 pi /4.                         --- matlab : Inf +    NaNi
-  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Minf <vT>(), nt2::Inf<vT>())),  cvT(nt2::Inf<vT>(), 3.*nt2::Pi<vT>()/4.), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Minf <vT>(), nt2::Inf<vT>())),  nt2::acosh(cvT(nt2::Minf <vT>(), nt2::Inf<vT>())), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Minf <vT>(), nt2::Inf<vT>())),  cvT(nt2::Inf<vT>(), 3.*nt2::Pi<vT>()/4.), 1);
+  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Minf <vT>(), nt2::Inf<vT>())),  nt2::acosh(cvT(nt2::Minf <vT>(), nt2::Inf<vT>())), 1);
   //  cacosh(+inf + i inf) returns +inf + i pi /4.
-  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Inf  <vT>(), nt2::Inf<vT>())),  cvT(nt2::Inf <vT>(),  nt2::Pi<vT>()/4.), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Inf  <vT>(), nt2::Inf<vT>())),  cvT(nt2::Inf <vT>(),  nt2::Pi<vT>()/4.), 1);
   //  cacosh(NaN + i0) returns NaN + iNan.
-  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Nan  <vT>(), nt2::Zero<vT>())), cvT(nt2::Nan <vT>(), nt2::Nan<vT>()), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::acosh(cvT(nt2::Nan  <vT>(), nt2::Zero<vT>())), cvT(nt2::Nan <vT>(), nt2::Nan<vT>()), 1);
 #endif
-  NT2_TEST_ULP_EQUAL(nt2::acosh(nt2::splat<cvT>(cT(0.5, -0.5))), nt2::splat<cvT>(nt2::acosh(cT(0.5, -0.5))), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::acosh(nt2::splat<cvT>(cT(1, 1))),      nt2::splat<cvT>(nt2::acosh(cT(1, 1))), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::acosh(nt2::splat<cvT>(cT(1, 10))),     nt2::splat<cvT>(nt2::acosh(cT(1, 10))), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::acosh(nt2::splat<cvT>(cT(10, 10))),    nt2::splat<cvT>(nt2::acosh(cT(10, 10))), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::acosh(nt2::splat<cvT>(cT(10, 1))),     nt2::splat<cvT>(nt2::acosh(cT(10, 1))), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::acosh(nt2::splat<cvT>(cT(0.5, -0.5))), nt2::splat<cvT>(nt2::acosh(cT(0.5, -0.5))), 1);
+  NT2_TEST_ULP_EQUAL(nt2::acosh(nt2::splat<cvT>(cT(1, 1))),      nt2::splat<cvT>(nt2::acosh(cT(1, 1))), 1);
+  NT2_TEST_ULP_EQUAL(nt2::acosh(nt2::splat<cvT>(cT(1, 10))),     nt2::splat<cvT>(nt2::acosh(cT(1, 10))), 1);
+  NT2_TEST_ULP_EQUAL(nt2::acosh(nt2::splat<cvT>(cT(10, 10))),    nt2::splat<cvT>(nt2::acosh(cT(10, 10))), 1);
+  NT2_TEST_ULP_EQUAL(nt2::acosh(nt2::splat<cvT>(cT(10, 1))),     nt2::splat<cvT>(nt2::acosh(cT(10, 1))), 1);
 } // end of test for floating_
-
-

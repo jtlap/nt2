@@ -30,13 +30,13 @@ NT2_TEST_CASE_TPL ( coth_real__1_0, NT2_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(nt2::coth(nt2::One<cvT>()  ),              nt2::splat<cvT>(nt2::coth(nt2::One<cT>()))  , 1.00);
-  NT2_TEST_ULP_EQUAL(nt2::coth(nt2::Zero<cvT>() ),              nt2::splat<cvT>(nt2::coth(nt2::Zero<cT>())) , 1.00);
-  NT2_TEST_ULP_EQUAL(nt2::coth(nt2::Mzero<cvT>()),              nt2::splat<cvT>(nt2::coth(nt2::Mzero<cT>())), 1.00);
-  NT2_TEST_ULP_EQUAL(nt2::coth(nt2::splat<cvT>(cT(0.5, -0.5))), nt2::splat<cvT>(nt2::coth(cT(0.5, -0.5)))   , 1.00);
-  NT2_TEST_ULP_EQUAL(nt2::coth(nt2::splat<cvT>(cT(1, 1))),      nt2::splat<cvT>(nt2::coth(cT(1, 1)))        , 1.00);
-  NT2_TEST_ULP_EQUAL(nt2::coth(nt2::splat<cvT>(cT(1, 10))),     nt2::splat<cvT>(nt2::coth(cT(1, 10)))       , 1.00);
-  NT2_TEST_ULP_EQUAL(nt2::coth(nt2::splat<cvT>(cT(10, 10))),    nt2::splat<cvT>(nt2::coth(cT(10, 10)))      , 1.00);
-  NT2_TEST_ULP_EQUAL(nt2::coth(nt2::splat<cvT>(cT(10, 1))),     nt2::splat<cvT>(nt2::coth(cT(10, 1)))       , 1.00);
+  NT2_TEST_ULP_EQUAL(nt2::coth(nt2::One<cvT>()  ),              nt2::splat<cvT>(nt2::coth(nt2::One<cT>()))  , 2.00);
+  NT2_TEST_ULP_EQUAL(nt2::coth(nt2::Zero<cvT>() ),              nt2::splat<cvT>(nt2::coth(nt2::Zero<cT>())) , 2.00);
+  NT2_TEST_ULP_EQUAL(nt2::coth(nt2::Mzero<cvT>()),              nt2::splat<cvT>(nt2::coth(nt2::Mzero<cT>())), 2.00);
+  NT2_TEST_ULP_EQUAL(nt2::coth(nt2::splat<cvT>(cT(0.5, -0.5))), nt2::splat<cvT>(nt2::coth(cT(0.5, -0.5)))   , 2.00);
+  NT2_TEST_ULP_EQUAL(nt2::coth(nt2::splat<cvT>(cT(1, 1))),      nt2::splat<cvT>(nt2::coth(cT(1, 1)))        , 2.00);
+  NT2_TEST_ULP_EQUAL(nt2::coth(nt2::splat<cvT>(cT(1, 10))),     nt2::splat<cvT>(nt2::coth(cT(1, 10)))       , 2.00);
+  NT2_TEST_ULP_EQUAL(nt2::coth(nt2::splat<cvT>(cT(10, 10))),    nt2::splat<cvT>(nt2::coth(cT(10, 10)))      , 2.00);
+  NT2_TEST_ULP_EQUAL(nt2::coth(nt2::splat<cvT>(cT(10, 1))),     nt2::splat<cvT>(nt2::coth(cT(10, 1)))       , 2.00);
 } // end of test for floating_
 

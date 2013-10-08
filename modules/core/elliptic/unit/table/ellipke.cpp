@@ -35,8 +35,8 @@ NT2_TEST_CASE_TPL(ellipke_table, NT2_REAL_TYPES)
     {
       T s1, c1;
       boost::fusion::vector_tie(s1, c1) = nt2::ellipke(a(i));
-      NT2_TEST_ULP_EQUAL(s(i), s1, 1);
-      NT2_TEST_ULP_EQUAL(c(i), c1, 1);
+      NT2_TEST_ULP_EQUAL(s(i), s1, 2);
+      NT2_TEST_ULP_EQUAL(c(i), c1, 2);
     }
   }
 
@@ -46,8 +46,8 @@ NT2_TEST_CASE_TPL(ellipke_table, NT2_REAL_TYPES)
     {
       T s1, c1;
       boost::fusion::vector_tie(s1, c1) = nt2::ellipke(a(i));
-      NT2_TEST_ULP_EQUAL(s(i), s1, 1);
-      NT2_TEST_ULP_EQUAL(c(i), c1, 1);
+      NT2_TEST_ULP_EQUAL(s(i), s1, 2);
+      NT2_TEST_ULP_EQUAL(c(i), c1, 2);
     }
   }
 
@@ -57,8 +57,8 @@ NT2_TEST_CASE_TPL(ellipke_table, NT2_REAL_TYPES)
     {
       T s1, c1;
       boost::fusion::vector_tie(s1, c1) = nt2::ellipke(a(i));
-      NT2_TEST_ULP_EQUAL(s(i), s1, 1);
-      NT2_TEST_ULP_EQUAL(c(i), c1, 1);
+      NT2_TEST_ULP_EQUAL(s(i), s1, 2);
+      NT2_TEST_ULP_EQUAL(c(i), c1, 2);
     }
   }
 }

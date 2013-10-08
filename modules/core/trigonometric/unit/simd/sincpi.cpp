@@ -36,14 +36,14 @@ NT2_TEST_CASE_TPL ( sincpi_real,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_TYPE_IS( typename nt2::meta::call<sincpi_(vT)>::type, vT);
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(sincpi(-nt2::Quarter<vT>()), nt2::Sqrt_2o_2<vT>()*T(4)/nt2::Pi<vT>(), 0.5);
+  NT2_TEST_ULP_EQUAL(sincpi(-nt2::Quarter<vT>()), nt2::Sqrt_2o_2<vT>()*T(4)/nt2::Pi<vT>(), 1);
   NT2_TEST_ULP_EQUAL(sincpi(nt2::Half<vT>()), nt2::Two<vT>()/nt2::Pi<vT>(), 0.5);
   NT2_TEST_ULP_EQUAL(sincpi(nt2::Inf<vT>()), nt2::Zero<vT>(), 0.5);
   NT2_TEST_ULP_EQUAL(sincpi(nt2::Mhalf<vT>()), nt2::Two<vT>()/nt2::Pi<vT>(), 0.5);
   NT2_TEST_ULP_EQUAL(sincpi(nt2::Minf<vT>()), nt2::Zero<vT>(), 0.5);
   NT2_TEST_ULP_EQUAL(sincpi(nt2::Nan<vT>()), nt2::Nan<vT>(), 0.5);
   NT2_TEST_ULP_EQUAL(sincpi(nt2::One<vT>()), nt2::Zero<vT>(), 0.5);
-  NT2_TEST_ULP_EQUAL(sincpi(nt2::Quarter<vT>()), nt2::Sqrt_2o_2<vT>()*T(4)/nt2::Pi<vT>(), 0.5);
+  NT2_TEST_ULP_EQUAL(sincpi(nt2::Quarter<vT>()), nt2::Sqrt_2o_2<vT>()*T(4)/nt2::Pi<vT>(), 1);
   NT2_TEST_ULP_EQUAL(sincpi(nt2::Eps<vT>()), nt2::One<vT>(), 0.5);
   NT2_TEST_ULP_EQUAL(sincpi(nt2::Mindenormal<vT>()), nt2::One<vT>(), 0.5);
   NT2_TEST_ULP_EQUAL(sincpi(nt2::Zero<vT>()), nt2::One<vT>(), 0.5);
