@@ -59,7 +59,7 @@ namespace nt2 { namespace tag
     cover test one ulp of difference with the according crlibm result.
 
     Each one covers respectively intervals \f$[-A, A]\f$ with :
-    \f{verbatim}{
+    @verbatim
     |--------------|-------------------|----------------|
     |              |   float  A        |  double  A     |
     |--------------|-------------------|----------------|
@@ -69,7 +69,7 @@ namespace nt2 { namespace tag
     |--------------|-------------------|----------------|
     |    big_      |   Inf<float>      |  Inf<double>   |
     |--------------|------------------------------------|
-    \f}
+    @endverbatim
 
     In fact for each scalar singleton or simd vector of angles
     There are two possibilities :
@@ -107,7 +107,7 @@ namespace nt2 { namespace tag
     to be in interval \f$[a, b]\f$ is \f$p(a, b)\f$
     the number of cycles used by a
     direct\f${}_i\f$ method is simply the reduction time:
-    \f$\N(\f$direct\f${}_i)\f$
+    \f$N(\f$direct\f${}_i)\f$
     On the other side the number of cycles for the non-direct methods will have a more
     complicated expression :
 
@@ -120,7 +120,7 @@ namespace nt2 { namespace tag
 
     @par For instance in the medium_ float case:
 
-    if angles are equidistributed  on \f$[0, 2^\{16} \pi]\f$,
+    if angles are equidistributed  on \f$[0, 2^{16} \pi]\f$,
     the \f$p(0, 20\pi)\f$ will be
     less than \f$2^{-11}\f$ and thus in sse2 there will be 1 quadruple over
     1.76e+13 falling in the small_ case...

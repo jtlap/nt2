@@ -30,7 +30,7 @@ namespace nt2
                                 );
   }
   /*!
-    Constant  \f$\frac1\sqrt{2\pi}\f$.
+    Constant  \f$\frac1{\sqrt{2\pi}}\f$.
 
     @par Semantic:
 

@@ -19,7 +19,7 @@ namespace nt2 { namespace tag
     };
   }
   /*!
-    Computes the remainder modulo \f$2\pi/2\f$.
+    Computes the remainder modulo \f$\pi/2\f$.
 
 
     @par Semantic:
@@ -61,7 +61,7 @@ namespace nt2 { namespace tag
    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::rem_pio2_straight_, rem_pio2_straight,(A0 const&),1)
 
   /*!
-    Computes the remainder modulo \f$2\pi/2\f$.
+    Computes the remainder modulo \f$\pi/2\f$.
 
     @par Semantic:
 

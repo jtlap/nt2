@@ -90,7 +90,7 @@ namespace nt2 { namespace tag
     This is even more true (if possible) in simd and the more k is big_, because
     of the kth power
     \par For instance in the medium_ float case:
-    \arg  if angles are equidistributed  on \f$[0, 2^\{16}\pi]\f$,
+    \arg  if angles are equidistributed  on \f$[0, 2^{16}\pi]\f$,
     the \f$p(0, 20\pi)\f$ will be
     less than \f$2^{ 11 }\f$ and thus in sse2 there will be 1 quadruple over
     1.76e+13 falling in the small_ case...
