@@ -44,7 +44,7 @@ namespace nt2
     is similar to:
 
     @code
-    T0 r = ;
+    T0 r = Three<T0>()*Pi<T0>()/Four<T0>();
     @endcode
 
     @return a value of type T0
