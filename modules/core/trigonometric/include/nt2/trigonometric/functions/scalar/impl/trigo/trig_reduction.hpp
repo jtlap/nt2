@@ -35,6 +35,7 @@
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/_20_pi.hpp>
 #include <nt2/include/constants/oneo_90.hpp>
+#include <nt2/include/constants/oneo_180.hpp>
 #include <nt2/include/constants/medium_pi.hpp>
 #include <nt2/include/constants/false.hpp>
 #include <nt2/sdk/meta/upgrade.hpp>
@@ -265,8 +266,8 @@ namespace nt2 { namespace details
     typedef typename boost::simd::meta::register_of<A0>::type          A0_n;
     typedef typename boost::simd::meta::register_of<int_type>::type int_type_n;
 
-    static BOOST_FORCEINLINE bA0 cot_invalid(const A0& x) { return logical_and(nt2::is_nez(x), is_flint(x/_180<A0>())); }
-    static BOOST_FORCEINLINE bA0 tan_invalid(const A0& x) { return nt2::is_flint((x-nt2::_90<A0>())/nt2::_180<A0>()); }
+    static BOOST_FORCEINLINE bA0 cot_invalid(const A0& x) { return logical_and(nt2::is_nez(x), is_flint(x*nt2::Oneo_180<A0>())); }
+    static BOOST_FORCEINLINE bA0 tan_invalid(const A0& x) { return nt2::is_flint((x-nt2::_90<A0>())*nt2::Oneo_180<A0>()); }
 
     static inline int_type_n reduce(const A0_n x_n, A0& xr)
     {
