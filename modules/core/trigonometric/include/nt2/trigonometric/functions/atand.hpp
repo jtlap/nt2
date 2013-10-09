@@ -41,6 +41,7 @@ namespace nt2 { namespace tag
     Returns the arc @c r in the interval
     \f$[-90, 90[\f$ such that <tt>tand(r) == x</tt>.
 
+    @see @funcref{atan2}, @funcref{atan}, @funcref{atanpi}, @funcref{nbd_atan2}
     @param a0
 
     @return a value of the same type as the parameter

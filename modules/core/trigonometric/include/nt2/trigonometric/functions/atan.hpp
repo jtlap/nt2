@@ -42,6 +42,7 @@ namespace nt2 { namespace tag
     \f$[-\pi/2, \pi/2[\f$ such that <tt>tan(r) == x</tt>.
     If @c x is outside \f$[-1, 1[\f$ the result is Nan.
 
+    @see @funcref{atan2}, @funcref{atand}, @funcref{atanpi}, @funcref{nbd_atan2}
     @param a0
 
     @return a value of the same type as the parameter

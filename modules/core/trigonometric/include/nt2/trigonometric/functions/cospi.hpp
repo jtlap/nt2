@@ -44,6 +44,7 @@ namespace nt2 { namespace tag
     T0 r = cos(Pi<T0>()*x);;
     @endcode
 
+    @see @funcref{fast_cospi}, @funcref{sincospi}, @funcref{cos}, @funcref{cosd}
     @param a0
 
     @return a value of the same type as the parameter

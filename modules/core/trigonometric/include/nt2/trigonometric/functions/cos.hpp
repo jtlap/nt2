@@ -37,6 +37,7 @@ namespace nt2 { namespace tag
     T0 r = cos(x);
     @endcode
 
+    @see @funcref{cosine}, @funcref{fast_cos}, @funcref{sincos}, @funcref{cosd}, @funcref{cospi}
     @param a0
 
     @return a value of the same type as the parameter

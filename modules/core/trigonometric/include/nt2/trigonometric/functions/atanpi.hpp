@@ -42,6 +42,7 @@ namespace nt2 {
     Returns the arc @c r in the interval
     \f$[-0.5, 0.5[\f$ such that <tt>tanpi(r) == x</tt>.
 
+    @see @funcref{atan2}, @funcref{atand}, @funcref{atan}, @funcref{nbd_atan2}
     @param a0
 
     @return a value of the same type as the parameter

@@ -43,6 +43,7 @@ namespace nt2 { namespace tag
     T0 r = cos(deginrad<T0>()*x);
     @endcode
 
+    @see @funcref{fast_cosd}, @funcref{sincosd}, @funcref{cos}, @funcref{cospi}
     @param a0
 
     @return a value of the same type as the parameter

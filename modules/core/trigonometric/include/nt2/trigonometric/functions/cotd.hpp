@@ -44,6 +44,7 @@ namespace nt2 { namespace tag
     T0 r = cot(Deginrad<T0>()*x);
     @endcode
 
+    @see @funcref{cot}, @funcref{cotangent}, @funcref{fast_cotd},
     @param a0
 
     @return a value of the same type as the parameter

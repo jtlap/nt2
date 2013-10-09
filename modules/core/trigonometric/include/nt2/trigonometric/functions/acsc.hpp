@@ -44,6 +44,7 @@ namespace nt2 { namespace tag
     T0 r = asin(rec(a0));
     @endcode
 
+    @see @funcref{acscd}
     @param a0
 
     @return a value of the same type as the parameter

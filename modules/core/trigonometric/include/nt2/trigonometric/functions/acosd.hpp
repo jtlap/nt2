@@ -42,6 +42,7 @@ namespace nt2 { namespace tag
     \f$[0, 180[\f$ such that <tt>cosd(r) == x</tt>.
     If @c x is outside \f$[-1, 1[\f$ the result is Nan.
 
+    @see @funcref{acos}, @funcref{acospi}
     @param a0
 
     @return a value of the same type as the parameter

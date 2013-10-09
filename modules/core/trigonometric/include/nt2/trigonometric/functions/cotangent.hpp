@@ -46,6 +46,7 @@ namespace nt2 { namespace tag
     T0 r = cosine<Range>(x)/sine<Range>(x);
     @endcode
 
+    @see @funcref{cot}, @funcref{fast_cot}, @funcref{cotd}, @funcref{cotpi}
     @param a0
 
     @return a value of the same type as the parameter

@@ -43,6 +43,7 @@ namespace nt2 {
     \f$[0, 1[\f$ such that <tt>cospi(r) == x</tt>.
     If @c x is outside \f$[-1, 1[\f$ the result is Nan.
 
+    @see @funcref{acosd}, @funcref{acos}
     @param a0
 
     @return a value of the same type as the parameter

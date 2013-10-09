@@ -44,6 +44,7 @@ namespace nt2 { namespace tag
     T0 r =  acos(rec(a0));
     @endcode
 
+    @see @funcref{asecd}
     @param a0
 
     @return a value of the same type as the parameter

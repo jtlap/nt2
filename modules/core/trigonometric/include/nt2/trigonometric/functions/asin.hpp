@@ -42,6 +42,7 @@ namespace nt2 { namespace tag
     \f$[-\pi/2, \pi/2]\f$ such that <tt>sin(r) == x</tt>.
     If @c x is outside \f$[-1, 1]\f$ the result is Nan.
 
+    @see @funcref{asind}, @funcref{asinpi}
     @param a0
 
     @return a value of the same type as the parameter

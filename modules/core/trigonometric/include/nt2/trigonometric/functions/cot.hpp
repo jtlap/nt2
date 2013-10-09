@@ -44,6 +44,7 @@ namespace nt2 { namespace tag
     T0 r = cos(x)/sin(x);
     @endcode
 
+    @see @funcref{cotangent}, @funcref{fast_cot}, @funcref{cotd}, @funcref{cotpi}
     @param a0
 
     @return a value of the same type as the parameter

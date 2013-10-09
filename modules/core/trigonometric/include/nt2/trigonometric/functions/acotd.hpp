@@ -41,6 +41,7 @@ namespace nt2 { namespace tag
     Returns the arc @c r in the interval
     \f$[0, 180[\f$ such that <tt>cotd(r) == x</tt>.
 
+    @see @funcref{acot}
     @param a0
 
     @return a value of the same type as the parameter
