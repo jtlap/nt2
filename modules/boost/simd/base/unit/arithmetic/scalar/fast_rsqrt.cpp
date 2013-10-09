@@ -30,6 +30,7 @@ NT2_TEST_CASE_TPL( fast_rsqrt, BOOST_SIMD_REAL_TYPES )
                   );
 
   // specific values tests
+  NT2_TEST_ULP_EQUAL(fast_rsqrt(boost::simd::Mone<T>()), boost::simd::Nan<T>(), 75);
   NT2_TEST_ULP_EQUAL(fast_rsqrt(boost::simd::Nan<T>()), boost::simd::Nan<T>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_rsqrt(boost::simd::One<T>()), boost::simd::One<T>(), 30);
   NT2_TEST_ULP_EQUAL(fast_rsqrt(boost::simd::Four<T>()), boost::simd::Half<T>(), 30);

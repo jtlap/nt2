@@ -28,13 +28,20 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::as_integer<A0>::type i_t;
 
-      // Quake III Arena fast RSQRT - We do 2 NR steps for precision purpose
-      // TODO: Fit this # of NR step into the policy from issue #281
+      // Quake III Arena RSQRT approximation
+      i_t x = bitwise_cast<i_t>(a0);
+      i_t y = 0x5f3759df - (x >> 1);
+
+      // make negative values be NaN
+      y |= x >> (sizeof(i_t)*CHAR_BIT-1);
+
       A0 x2 = a0 * 0.5f;
-      A0 y  = bitwise_cast<float>( 0x5f3759df - (bitwise_cast<i_t>(a0) >> 1) );
+      A0 y2 = bitwise_cast<A0>(y);
 
-      y  = y * ( 1.5f - ( x2 * y * y ) );
-
+      // Newton-Rhapson refinement steps
+      // - We do 2 NR steps for precision purpose
+      // TODO: Fit this # of NR step into the policy from issue #281
+      y    = y * ( 1.5f - ( x2 * y * y ) );
       return y * ( 1.5f - ( x2 * y * y ) );
     }
   };
