@@ -74,6 +74,7 @@ namespace nt2 { namespace details
     typedef typename meta::as_logical<A0>::type                        bA0;
     typedef typename meta::as_integer<A0, signed>::type                int_type;
     typedef typename boost::simd::meta::register_of<A0>::type          A0_n;
+    typedef typename boost::simd::meta::register_of<int_type>::type int_type_n;
     typedef typename boost::simd::meta::is_upgradable_on_ext<A0>::type conversion_allowed;
 
     static BOOST_FORCEINLINE bA0 is_0_pio4_reduced(const A0&a0) { return boost::simd::is_ngt(a0, nt2::Pio_4<A0>()); }
@@ -85,9 +86,9 @@ namespace nt2 { namespace details
     static BOOST_FORCEINLINE bA0 cot_invalid(const A0& ) { return False<bA0>(); }
     static BOOST_FORCEINLINE bA0 tan_invalid(const A0& ) { return False<bA0>(); }
 
-    static BOOST_FORCEINLINE int_type reduce(const A0& x, A0& xr) { return inner_reduce(x, xr); }
+    static BOOST_FORCEINLINE int_type_n reduce(const A0& x, A0& xr) { return inner_reduce(x, xr); }
   private:
-    static inline int_type inner_reduce(const A0_n x_n, A0& xr)
+    static inline int_type_n inner_reduce(const A0_n x_n, A0& xr)
     {
       A0 x = x_n;
       A0 xx =  preliminary<mode>::clip(x);
@@ -127,7 +128,7 @@ namespace nt2 { namespace details
       }
     };
 
-    static BOOST_FORCEINLINE int_type
+    static BOOST_FORCEINLINE int_type_n
     select_range( const A0& xx, A0& xr
                 , boost::mpl::true_ const&
                 , boost::mpl::int_<r_0_pio4> const&
@@ -137,7 +138,7 @@ namespace nt2 { namespace details
       return Zero<int_type>();
     }
 
-    static BOOST_FORCEINLINE int_type
+    static BOOST_FORCEINLINE int_type_n
     select_range( const A0& xx, A0& xr
                 , boost::mpl::false_ const&
                 , boost::mpl::int_<r_0_pio4> const& r
@@ -149,20 +150,20 @@ namespace nt2 { namespace details
       return select_mode(xx,xr,boost::mpl::int_<r_0_pio2>());
     }
 
-    static BOOST_FORCEINLINE int_type
+    static BOOST_FORCEINLINE int_type_n
     select_mode(const A0& xx, A0& xr, boost::mpl::int_<r_0_pio4> const& r)
     {
       return select_range(xx,xr,boost::mpl::bool_<mode::range == r_0_pio4>(),r);
     }
 
-    static BOOST_FORCEINLINE int_type select_mode(const A0& xx, A0& xr, boost::mpl::int_<r_0_pio2> const&)
+    static BOOST_FORCEINLINE int_type_n select_mode(const A0& xx, A0& xr, boost::mpl::int_<r_0_pio2> const&)
     {
       if(nt2::all(is_0_pio2_reduced(xx)))
         return rem_pio2_straight(xx, xr);
       return select_mode(xx,xr,boost::mpl::int_<r_0_20pi>());
     }
 
-    static BOOST_FORCEINLINE int_type
+    static BOOST_FORCEINLINE int_type_n
     select_range( const A0& xx, A0& xr
                 , boost::mpl::true_ const&
                 , boost::mpl::int_<r_0_20pi> const&
@@ -171,7 +172,7 @@ namespace nt2 { namespace details
       return rem_pio2_cephes(xx, xr);
     }
 
-    static BOOST_FORCEINLINE int_type
+    static BOOST_FORCEINLINE int_type_n
     select_range( const A0& xx, A0& xr
                 , boost::mpl::false_ const&
                 , boost::mpl::int_<r_0_20pi> const& r
@@ -183,7 +184,7 @@ namespace nt2 { namespace details
       return select_mode(xx,xr,boost::mpl::int_<r_0_mpi>());
     }
 
-    static BOOST_FORCEINLINE int_type
+    static BOOST_FORCEINLINE int_type_n
     select_mode(const A0& xx, A0& xr, boost::mpl::int_< r_0_20pi> const& r)
     {
       return select_range(xx,xr,boost::mpl::bool_<mode::range == r_0_20pi>(),r);
@@ -191,7 +192,7 @@ namespace nt2 { namespace details
 
 
 
-    static BOOST_FORCEINLINE int_type
+    static BOOST_FORCEINLINE int_type_n
     select_range( const A0& xx, A0& xr
                 , boost::mpl::true_ const&
                 , boost::mpl::int_<r_0_mpi> const&
@@ -200,7 +201,7 @@ namespace nt2 { namespace details
       return rem_pio2_medium(xx, xr);
     }
 
-    static BOOST_FORCEINLINE int_type
+    static BOOST_FORCEINLINE int_type_n
     select_range( const A0& xx, A0& xr
                 , boost::mpl::false_ const&
                 , boost::mpl::int_<r_0_mpi> const& r
@@ -212,24 +213,24 @@ namespace nt2 { namespace details
       return select_mode(xx,xr,boost::mpl::int_<r_0_dmpi>());
     }
 
-    static BOOST_FORCEINLINE int_type select_mode(const A0& xx, A0& xr, boost::mpl::int_< r_0_mpi> const& r)
+    static BOOST_FORCEINLINE int_type_n select_mode(const A0& xx, A0& xr, boost::mpl::int_< r_0_mpi> const& r)
     {
       return select_range(xx,xr,boost::mpl::bool_<mode::range == r_0_mpi>(),r);
     }
 
-    static BOOST_FORCEINLINE int_type select_mode(const A0& xx, A0& xr, boost::mpl::int_< r_0_dmpi> const&)
+    static BOOST_FORCEINLINE int_type_n select_mode(const A0& xx, A0& xr, boost::mpl::int_< r_0_dmpi> const&)
     {
       if(nt2::all(is_0_dmpi_reduced(xx)))
         return use_conversion(xx, xr, style(), conversion_allowed());
       return rem_pio2(xx, xr);
     }
 
-    static BOOST_FORCEINLINE int_type use_conversion(const A0 & xx,  A0& xr,  const style &, boost::mpl::false_)
+    static BOOST_FORCEINLINE int_type_n use_conversion(const A0 & xx,  A0& xr,  const style &, boost::mpl::false_)
     {
       return rem_pio2(xx, xr);
     }
 
-    static BOOST_FORCEINLINE int_type use_conversion(const A0 & xx,  A0& xr,  const tag::not_simd_type &, boost::mpl::true_)
+    static BOOST_FORCEINLINE int_type_n use_conversion(const A0 & xx,  A0& xr,  const tag::not_simd_type &, boost::mpl::true_)
     {
       // all of x are in [0, 2^18*pi],  conversion to double is used to reduce
       typedef typename meta::upgrade<A0>::type uA0;
@@ -240,7 +241,7 @@ namespace nt2 { namespace details
       return n;
     }
 
-    static BOOST_FORCEINLINE int_type use_conversion(const A0 & x,  A0& xr,  const tag::simd_type &, boost::mpl::true_)
+    static BOOST_FORCEINLINE int_type_n use_conversion(const A0 & x,  A0& xr,  const tag::simd_type &, boost::mpl::true_)
     {
       // all of x are in [0, 2^18*pi],  conversion to double is used to reduce
       typedef typename meta::upgrade<A0>::type uA0;
@@ -262,11 +263,12 @@ namespace nt2 { namespace details
     typedef typename meta::as_logical<A0>::type              bA0;
     typedef typename meta::as_integer<A0, signed>::type int_type;
     typedef typename boost::simd::meta::register_of<A0>::type          A0_n;
+    typedef typename boost::simd::meta::register_of<int_type>::type int_type_n;
 
     static BOOST_FORCEINLINE bA0 cot_invalid(const A0& x) { return logical_and(nt2::is_nez(x), is_flint(x/_180<A0>())); }
     static BOOST_FORCEINLINE bA0 tan_invalid(const A0& x) { return nt2::is_flint((x-nt2::_90<A0>())/nt2::_180<A0>()); }
 
-    static inline int_type reduce(const A0_n x_n, A0& xr)
+    static inline int_type_n reduce(const A0_n x_n, A0& xr)
     {
       A0 x = x_n;
       A0 xi = nt2::round2even(x*nt2::Oneo_90<A0>());
@@ -283,11 +285,12 @@ namespace nt2 { namespace details
     typedef typename meta::as_logical<A0>::type              bA0;
     typedef typename meta::as_integer<A0, signed>::type int_type;
     typedef typename boost::simd::meta::register_of<A0>::type          A0_n;
+    typedef typename boost::simd::meta::register_of<int_type>::type int_type_n;
 
     static BOOST_FORCEINLINE bA0 cot_invalid(const A0& x) { return logical_and(nt2::is_nez(x), nt2::is_flint(x)); }
     static BOOST_FORCEINLINE bA0 tan_invalid(const A0& x) { return nt2::is_flint(x-nt2::Half<A0>()) ; }
 
-    static inline int_type reduce(const A0_n x_n,  A0& xr)
+    static inline int_type_n reduce(const A0_n x_n,  A0& xr)
     {
       A0 x = x_n;
       A0 xi = nt2::round2even(x*nt2::Two<A0>());
