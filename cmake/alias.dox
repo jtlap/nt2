@@ -18,3 +18,12 @@ ALIASES += size3d{3}="<tt>[\1 \2 \3]</tt>"
 ALIASES += size4d{4}="<tt>[\1 \2 \3 \4]</tt>"
 ALIASES += sizes{2}="<tt>[\1 ... \2]</tt>"
 
+# Boostbook references
+ALIASES += funcref{1}="\xmlonly<functionname>\1</functionname>\endxmlonly"
+ALIASES += classref{1}="\xmlonly<classname>\1</classname>\endxmlonly"
+ALIASES += memberref{1}="\xmlonly<methodname>\1</methodname>\endxmlonly"
+ALIASES += enumref{1}="\xmlonly<enumname>\1</enumname>\endxmlonly"
+ALIASES += macroref{1}="\xmlonly<macroname>\1</macroname>\endxmlonly"
+ALIASES += conceptref{1}="\xmlonly<conceptname>\1</conceptname>\endxmlonly"
+ALIASES += headerref{1}="\xmlonly<headername>\1</headername>\endxmlonly"
+ALIASES += globalref{1}="\xmlonly<globalname>\1</globalname>\endxmlonly"
