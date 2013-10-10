@@ -52,6 +52,8 @@ namespace boost { namespace simd
     @par Alias:
     @c b_not, @c bitwise_not
 
+    @see  @funcref{bitwise_and}, @funcref{bitwise_or}, @funcref{bitwise_xor}, @funcref{bitwise_notand},
+    @funcref{bitwise_andnot}, @funcref{bitwise_notor}, @funcref{bitwise_ornot}
     @param a0
 
     @return a value of the same type as the second parameter

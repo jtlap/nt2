@@ -55,6 +55,9 @@ namespace boost { namespace simd
     @par Alias:
     @c where, @c select,  @c sel
 
+
+    @see  @funcref{if_else_zero}, @funcref{if_else_allbits}, @funcref{if_zero_else},
+    @funcref{if_allbit_elses}, @funcref{if_one_else_zero}, @funcref{if_zero_else_one}, @funcref{bitwise_select}
     @param a0
 
     @param a1

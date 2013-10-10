@@ -47,6 +47,9 @@ namespace boost { namespace simd { namespace tag
 
     b_notand
 
+    @see  @funcref{bitwise_or}, @funcref{bitwise_xor}, @funcref{bitwise_and},
+    @funcref{bitwise_andnot}, @funcref{bitwise_notor}, @funcref{bitwise_ornot}, @funcref{complement}
+
     @param  a0
     @param  a1
 

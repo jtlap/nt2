@@ -51,6 +51,7 @@ namespace boost { namespace simd
     @par Alias:
     @c gt, @c is_gt
 
+    @see  @funcref{is_greater_equal}, @funcref{is_gtz}, @funcref{is_nle}, @funcref{is_nlez}
     @param a0
 
     @param a1

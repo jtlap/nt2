@@ -51,6 +51,7 @@ namespace boost { namespace simd
     @par Alias:
     @c eq, @c is_eq
 
+    @see  @funcref{is_not_equal}, @funcref{is_eqz}, @funcref{is_equal_with_equal_nans}
     @param a0
 
     @param a1

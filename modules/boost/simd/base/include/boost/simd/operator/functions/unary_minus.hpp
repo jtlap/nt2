@@ -52,6 +52,7 @@ namespace boost { namespace simd
     @par Alias:
     @c neg
 
+    @see  @funcref{minus}, @funcref{unary_plus}
     @param a0
 
     @return a value of the same type as the parameter

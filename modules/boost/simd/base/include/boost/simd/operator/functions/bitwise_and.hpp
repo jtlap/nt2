@@ -56,6 +56,9 @@ namespace boost { namespace simd
     @par Alias:
     @c b_and
 
+    @see  @funcref{bitwise_or}, @funcref{bitwise_xor}, @funcref{bitwise_notand},
+    @funcref{bitwise_andnot}, @funcref{bitwise_notor}, @funcref{bitwise_ornot}, @funcref{complement}
+
     @param a0
 
     @param a1

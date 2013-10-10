@@ -52,6 +52,7 @@ namespace boost { namespace simd
     @par Alias:
     @c sub
 
+    @see  @funcref{subs}, @funcref{oneminus}, @funcref{minusone}, @funcref{dec},
     @param a0
 
     @param a1

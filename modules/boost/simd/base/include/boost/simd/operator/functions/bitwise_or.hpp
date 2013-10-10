@@ -53,6 +53,8 @@ namespace boost { namespace simd
     T0 r = a0 | a1 ;
     @endcode
 
+    @see  @funcref{bitwise_and}, @funcref{bitwise_xor}, @funcref{bitwise_notand},
+    @funcref{bitwise_andnot}, @funcref{bitwise_notor}, @funcref{bitwise_ornot}, @funcref{complement}
     @param a0
 
     @param a1

@@ -54,6 +54,7 @@ namespace boost { namespace simd
     @par Alias:
     @c shl, @c shli
 
+    @see  @funcref{shift_right}, @funcref{shr}, @funcref{rshl}, @funcref{rshr}, @funcref{rol}, @funcref{ror},
     @param a0
 
     @param a1

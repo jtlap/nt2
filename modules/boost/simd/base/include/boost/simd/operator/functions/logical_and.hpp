@@ -53,6 +53,8 @@ namespace boost { namespace simd
     @par Alias:
     @c l_and
 
+    @see  @funcref{logical_or}, @funcref{logical_xor}, @funcref{logical_notand},
+    @funcref{logical_andnot}, @funcref{logical_notor}, @funcref{logical_ornot}, @funcref{logical_not}
     @param a0
 
     @param a1
