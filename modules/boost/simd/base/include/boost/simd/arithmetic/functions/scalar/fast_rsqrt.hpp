@@ -41,8 +41,8 @@ namespace boost { namespace simd { namespace ext
       // Newton-Rhapson refinement steps
       // - We do 2 NR steps for precision purpose
       // TODO: Fit this # of NR step into the policy from issue #281
-      y    = y * ( 1.5f - ( x2 * y * y ) );
-      return y * ( 1.5f - ( x2 * y * y ) );
+      y2    = y2 * ( 1.5f - ( x2 * y2 * y2 ) );
+      return  y2 * ( 1.5f - ( x2 * y2 * y2 ) );
     }
   };
 
