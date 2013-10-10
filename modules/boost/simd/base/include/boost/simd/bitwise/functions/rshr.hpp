@@ -39,6 +39,7 @@ namespace boost { namespace simd { namespace tag
     T r = rshr(x, n);
     @endcode
 
+    @see  @funcref{rshl}, @funcref{shr}, @funcref{shl}
     @param  a0
     @param  a1
 

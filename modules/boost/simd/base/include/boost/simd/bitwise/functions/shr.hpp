@@ -43,6 +43,7 @@ namespace boost { namespace simd { namespace tag
 
     @c shri
 
+    @see  @funcref{shift_right}, @funcref{shift_left}, @funcref{rshl}, @funcref{rshr}, @funcref{rol}, @funcref{ror}
     @param  a0
     @param  a1
 

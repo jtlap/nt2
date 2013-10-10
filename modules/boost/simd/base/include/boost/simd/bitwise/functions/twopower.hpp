@@ -47,6 +47,7 @@ namespace boost { namespace simd { namespace tag
 
     This function is not defined for floating entries
 
+    @see  @funcref{ilog2}
     @param  a0
     @param  a1
 

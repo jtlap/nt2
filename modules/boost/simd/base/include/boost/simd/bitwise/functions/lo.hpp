@@ -40,6 +40,7 @@ namespace boost { namespace simd { namespace tag
     as_integer<T,unsigned> r = lo(x);
     @endcode
 
+    @see  @funcref{hi}
     @param  a0
 
     @return      a value of the unsigned integer

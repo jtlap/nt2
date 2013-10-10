@@ -38,6 +38,7 @@ namespace boost { namespace simd { namespace tag
     T r = rol(x, n);
     @endcode
 
+    @see  @funcref{ror}, @funcref{rrol}, @funcref{rror}
     @param  a0
     @param  a1
 

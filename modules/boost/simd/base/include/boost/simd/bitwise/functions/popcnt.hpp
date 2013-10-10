@@ -37,6 +37,7 @@ namespace boost { namespace simd { namespace tag
     as_integer<T, unsigned> r = popcnt(x);
     @endcode
 
+    @see  @funcref{clz}, @funcref{ctz}
     @param  a0
 
     @return      a value of the unsigned integer
