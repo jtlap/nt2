@@ -47,6 +47,7 @@ namespace nt2 { namespace tag
 
     provided that x belongs to \f$[-1/4, 1/4]\f$
 
+    @see @funcref{fast_cos}, @funcref{sincospi}, @funcref{cos}, @funcref{cosd}
     @param a0
 
     @return a value of the same type as the parameter

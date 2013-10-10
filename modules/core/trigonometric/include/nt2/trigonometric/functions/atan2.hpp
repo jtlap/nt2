@@ -54,6 +54,7 @@ namespace nt2 { namespace tag
     \f$x/\sqrt{x^2+y^2}\f$ and \f$y/\sqrt{x^2+y^2}\f$
     are respectively the sine and the cosine.
 
+    @see @funcref{nbd_atan2}, @funcref{atan}
     @param a0
 
     @param a1

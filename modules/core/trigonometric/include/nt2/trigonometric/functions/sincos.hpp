@@ -38,6 +38,7 @@ namespace nt2 { namespace tag
     T0 c =  cos(x);
     @endcode
 
+    @see @funcref{fast_sincos}, @funcref{sincosine}, @funcref{sincosd}, @funcref{sincospi}
     @param a0 angle in radian
 
     @return A Fusion Sequence containing the sin and cos of @c a0

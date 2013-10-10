@@ -44,6 +44,7 @@ namespace nt2 { namespace tag
     T0 r = sin(Pi<T0>()*x);
     @endcode
 
+    @see @funcref{sine}, @funcref{fast_sin}, @funcref{sincospi}, @funcref{sin}, @funcref{sind}
     @param a0
 
     @return a value of the same type as the parameter

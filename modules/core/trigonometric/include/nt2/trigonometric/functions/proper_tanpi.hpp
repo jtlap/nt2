@@ -49,6 +49,8 @@ namespace nt2 { namespace tag
     @endcode
 
     provided input is in \f$]-0.5,  0.5[\f$
+
+    @see @funcref{tanpi}, @funcref{fast_tanpi}
     @param a0
 
     @return a value of the same type as the parameter

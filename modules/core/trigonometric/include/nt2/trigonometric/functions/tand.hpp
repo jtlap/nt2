@@ -40,6 +40,7 @@ namespace nt2 { namespace tag
     T0 r =  sind(x)/cosd(x);
     @endcode
 
+    @see @funcref{fast_tand}, @funcref{tangent}, @funcref{tan}, @funcref{tanpi}
     @param a0
 
     @return a value of the same type as the parameter

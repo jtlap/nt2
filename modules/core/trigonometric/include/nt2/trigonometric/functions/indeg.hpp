@@ -44,6 +44,7 @@ namespace nt2 { namespace tag
     T0 r = Radindeg<T0>()*x;
     @endcode
 
+    @see  @funcref{inrad}, @funcref{Radindeg}, @funcref{Radindegr}, @funcref{Deginrad}
     @param a0
 
     @return a value of the same type as the parameter

@@ -36,6 +36,7 @@ namespace nt2 { namespace tag
     T0 c =  cosd(x);
     @endcode
 
+    @see @funcref{fast_sincosd}, @funcref{sincos}, @funcref{sincospi}
     @param a0 angle in degree
 
     @return A Fusion Sequence containing the sind and cosd of @c a0

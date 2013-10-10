@@ -44,6 +44,7 @@ namespace nt2 { namespace tag
     T0 r = rec(cos(x));
     @endcode
 
+    @see @funcref{secd}, @funcref{secpi}, @funcref{secant},
     @param a0
 
     @return a value of the same type as the parameter

@@ -43,6 +43,7 @@ namespace nt2 { namespace tag
     T0 s = fast_sinpi(x);
     @endcode
 
+    @see @funcref{fast_sinpi}, @funcref{sincospi}, @funcref{fast_cospi}
     @param a0 input
 
     @return a pair of value of the same type as the parameter
@@ -68,6 +69,7 @@ namespace nt2 { namespace tag
     T0 s = fast_sinpi(x);
     @endcode
 
+    @see @funcref{fast_sinpi}, @funcref{sincospi}, @funcref{fast_cospi}
     @param a0 input in pi multiples
     @param a1 L-Value that will receive the cosine of a0
     @return the sine of a0
@@ -94,6 +96,7 @@ namespace nt2 { namespace tag
     T0 s = fast_sinpi(x);
     @endcode
 
+    @see @funcref{fast_sinpi}, @funcref{sincospi}, @funcref{fast_cospi}
     @param a0 input in pi multiples
     @param a1 L-Value that will receive the sine of a0
     @param a2 L-Value that will receive the cosine of a0

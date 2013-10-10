@@ -45,6 +45,7 @@ namespace nt2 { namespace tag
     T0 r =  sine<Range>(x)/cosine<Range>(x);;
     @endcode
 
+    @see @funcref{fast_tan}, @funcref{tan}, @funcref{tand}, @funcref{tanpi}
     @param a0
 
     @return a value of the same type as the parameter

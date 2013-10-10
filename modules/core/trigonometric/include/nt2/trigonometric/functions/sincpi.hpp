@@ -44,6 +44,7 @@ namespace nt2 { namespace tag
     T0 r = sin(pi*x)/(pi*x);
     @endcode
 
+    @see @funcref{sinc}
     @param a0
 
     @return a value of the same type as the parameter

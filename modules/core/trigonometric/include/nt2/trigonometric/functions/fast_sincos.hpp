@@ -49,6 +49,7 @@ namespace nt2
     T0 s = fast_sin(x);
     @endcode
 
+    @see @funcref{sine}, @funcref{fast_sin}, @funcref{sincos}, @funcref{fast_cos}
     @param a0 input
 
     @return a pair of value of the same type as the parameter
@@ -74,6 +75,7 @@ namespace nt2
     T0 s = fast_sin(x);
     @endcode
 
+    @see @funcref{sine}, @funcref{fast_sin}, @funcref{sincos}, @funcref{fast_cos}
     @param a0 input
     @param a1 L-Value that will receive the cosine of a0
     @return the sine of a0
@@ -100,6 +102,7 @@ namespace nt2
     T0 s = fast_sin(x);
     @endcode
 
+    @see @funcref{sine}, @funcref{fast_sin}, @funcref{sincos}, @funcref{fast_cos}
     @param a0 Value to decompose
     @param a1 L-Value that will receive the sine of @c a0
     @param a2 L-Value that will receive the cosine of @c a0

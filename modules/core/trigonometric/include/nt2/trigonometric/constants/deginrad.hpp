@@ -46,6 +46,7 @@ namespace nt2
     T0 r = _180<T0>()/Pi<T0>() ;
     @endcode
 
+    @see  @funcref{inrad}, @funcref{indeg}, @funcref{Radindeg}, @funcref{Radindegr}
     @return a value of type T0
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Deginrad, Deginrad);

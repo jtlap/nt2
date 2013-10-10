@@ -46,6 +46,7 @@ namespace nt2 { namespace tag
 
     provided that x belongs to \f$[-45, 45]\f$
 
+    @see @funcref{sin}, @funcref{sind}, @funcref{sincosd}
     @param a0
 
     @return a value of the same type as the parameter

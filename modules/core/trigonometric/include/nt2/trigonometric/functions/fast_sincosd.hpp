@@ -49,6 +49,7 @@ namespace nt2 { namespace tag
 
     @param a0
 
+    @see @funcref{fast_sind}, @funcref{sincosd}, @funcref{fast_cosd}
     @return a pair of value of the same type as the parameter
   **/
   NT2_FUNCTION_IMPLEMENTATION(tag::fast_sincosd_, fast_sincosd, 1)
@@ -72,6 +73,7 @@ namespace nt2 { namespace tag
     T0 s = fast_sind(x);
     @endcode
 
+    @see @funcref{fast_sind}, @funcref{sincosd}, @funcref{fast_cosd}
     @param a0
     @param a1 L-Value that will receive the cosine of a0
     @return the sine of a0
@@ -99,6 +101,7 @@ namespace nt2 { namespace tag
     T0 s = fast_sind(x);
     @endcode
 
+    @see @funcref{fast_sind}, @funcref{sincosd}, @funcref{fast_cosd}
     @param a0 input in degree
     @param a1 L-Value that will receive the sine of a0
     @param a2 L-Value that will receive the cosine of a0

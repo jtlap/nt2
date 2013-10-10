@@ -44,6 +44,7 @@ namespace nt2 { namespace tag
     T0 r =  sinpi(x)/cospi(x);;
     @endcode
 
+    @see @funcref{fast_tanpi}, @funcref{tangent}, @funcref{tan}, @funcref{tand}
     @param a0
 
     @return a value of the same type as the parameter

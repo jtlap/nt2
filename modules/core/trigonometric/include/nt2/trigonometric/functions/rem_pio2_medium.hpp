@@ -55,6 +55,7 @@ namespace nt2 { namespace tag
     some simpler algorithms as this one
     can be used, but the precision is only insured on smaller intervals.
 
+    @see @funcref{rem_pio2}, @funcref{rem_pio2_straight},@funcref{rem_2pi},  @funcref{rem_pio2_cephes},
     @param a0 angle in radian
 
     @return the integer value of the quadrant
@@ -97,6 +98,7 @@ namespace nt2 { namespace tag
     some simpler algorithms as this one
     can be used, but the precision is only insured on smaller intervals.
 
+    @see @funcref{rem_pio2}, @funcref{rem_pio2_straight},@funcref{rem_2pi},  @funcref{rem_pio2_cephes},
     @param a0 angle in radian
     @param a1 L-Value that will receive the remainder modulo \f$\pi/2\f$ of @c a0
 
@@ -141,6 +143,7 @@ namespace nt2 { namespace tag
     some simpler algorithms as this one
     can be used, but the precision is only insured on smaller intervals.
 
+    @see @funcref{rem_pio2}, @funcref{rem_pio2_straight},@funcref{rem_2pi},  @funcref{rem_pio2_cephes},
     @param a0 angle in radian
     @param a1 L-Value that will receive the quadrant of @c a0
     @param a2 L-Value that will receive the remainder modulo \f$\pi/2\f$ of @c a0

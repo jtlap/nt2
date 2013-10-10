@@ -44,6 +44,7 @@ namespace nt2 { namespace tag
     T0 r = sin(x)/x;
     @endcode
 
+    @see @funcref{sincpi}
     @param a0
 
     @return a value of the same type as the parameter

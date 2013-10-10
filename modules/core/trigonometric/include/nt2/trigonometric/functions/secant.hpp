@@ -47,6 +47,7 @@ namespace nt2 { namespace tag
     but with the limitations and speed-up than can be implied
     by the @c Range choice (see cosine for details)
 
+    @see @funcref{secd}, @funcref{secpi}, @funcref{sec},
     @param a0
 
     @return a value of the same type as the parameter

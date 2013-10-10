@@ -48,6 +48,7 @@ namespace nt2 { namespace tag
     T0 r = atan2(x,y);
     @endcode
 
+    @see @funcref{atan2}, @funcref{atan}
     @param a0
 
     @param a1

@@ -44,6 +44,7 @@ namespace nt2 { namespace tag
     T0 r = tan(x);
     @endcode
 
+    @see @funcref{tangent}, @funcref{tan}, @funcref{tand}, @funcref{tanpi}
     @param a0
 
     @return a value of the same type as the parameter

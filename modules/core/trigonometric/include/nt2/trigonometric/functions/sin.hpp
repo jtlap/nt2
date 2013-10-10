@@ -39,6 +39,7 @@ namespace nt2 { namespace tag
     @endcode
 
 
+    @see @funcref{sine}, @funcref{fast_sin}, @funcref{sincos}, @funcref{sind}, @funcref{sinpi}
     @param a0
 
     @return a value of the same type as the parameter

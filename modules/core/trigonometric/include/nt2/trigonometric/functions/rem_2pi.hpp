@@ -45,6 +45,7 @@ namespace nt2 { namespace tag
     T0 r = remainder(x, _2_pi<T0>();
     @endcode
 
+    @see @funcref{rem_pio2}, @funcref{rem_pio2_straight},@funcref{rem_pio2_cephes},  @funcref{rem_pio2_medium},
     @param a0
 
     @return a value of the same type as the parameter

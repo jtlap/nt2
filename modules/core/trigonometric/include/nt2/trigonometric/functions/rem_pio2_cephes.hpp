@@ -43,6 +43,7 @@ namespace nt2
     T0 r =  remainder(x, Pio_2<T0>());;
     @endcode
 
+    @see @funcref{rem_pio2}, @funcref{rem_pio2_straight},@funcref{rem_2pi},  @funcref{rem_pio2_medium},
     @param a0 angle in radian
 
     @return A pair containing the remainder and quadrant of @c a0
@@ -76,6 +77,7 @@ namespace nt2
     T0 r =  remainder(x, Pio_2<T0>());;
     @endcode
 
+    @see @funcref{rem_pio2}, @funcref{rem_pio2_straight},@funcref{rem_2pi},  @funcref{rem_pio2_medium},
     @param a0 angle in radian
     @param a1 L-Value that will receive the remainder modulo \f$\pi/2\f$ of @c a0
 
@@ -109,6 +111,7 @@ namespace nt2
     T0 r =  remainder(x, Pio_2<T0>());;
     @endcode
 
+    @see @funcref{rem_pio2}, @funcref{rem_pio2_straight},@funcref{rem_2pi},  @funcref{rem_pio2_medium},
     @param a0 angle in radian
     @param a1 L-Value that will receive the quadrant of @c a0
     @param a2 L-Value that will receive the remainder modulo \f$\pi/2\f$ of @c a0

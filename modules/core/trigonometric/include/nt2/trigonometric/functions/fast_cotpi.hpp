@@ -46,6 +46,7 @@ namespace nt2 { namespace tag
 
     provided that x belongs to \f$[-1/4, 1/4]\f$
 
+    @see @funcref{cot}, @funcref{cotangent}, @funcref{cotpi},
     @param a0
 
     @return a value of the same type as the parameter

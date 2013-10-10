@@ -44,6 +44,7 @@ namespace nt2 { namespace tag
     T0 r = sin(Deginrad<T0>()*x);
     @endcode
 
+    @see @funcref{sine}, @funcref{fast_sin}, @funcref{sincosd}, @funcref{sin}, @funcref{sinpi}
     @param a0
 
     @return a value of the same type as the parameter

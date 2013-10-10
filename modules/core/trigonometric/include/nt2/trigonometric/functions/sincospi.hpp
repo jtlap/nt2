@@ -38,6 +38,7 @@ namespace nt2 { namespace tag
     T0 c =  cospi(x);
     @endcode
 
+    @see @funcref{fast_sincospi}, @funcref{sincos}, @funcref{sincosd}
     @param a0 input
 
     @return A Fusion Sequence containing the sinpi and cospi of @c a0

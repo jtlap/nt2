@@ -29,6 +29,7 @@ namespace nt2 { namespace tag
 
     @c sinecosine compute simultaneously the  templatized sine and cosine of the input
 
+    @see @funcref{fast_sincos}, @funcref{sincosine}, @funcref{sincosd}, @funcref{sincos}
     @param a0 angle in radian
 
     @return A Fusion Sequence containing the  templatized sine and cosine of @c a0
@@ -42,6 +43,7 @@ namespace nt2 { namespace tag
 
     @c sinecosine compute simultaneously the templatized sine and cosine of the input
 
+    @see @funcref{fast_sincos}, @funcref{sincosine}, @funcref{sincosd}, @funcref{sincos}
     @param a0 angle in radian
     @param a1 L-Value that will receive the  templatized sine of @c a0
 
@@ -55,6 +57,7 @@ namespace nt2 { namespace tag
 
     @c sinecosine compute simultaneously the templatized sine and cosine of the input
 
+    @see @funcref{fast_sincos}, @funcref{sincosine}, @funcref{sincosd}, @funcref{sincos}
     @param a0 angle in radian
     @param a1 L-Value that will receive the templatized sined of @c a0
     @param a2 L-Value that will receive the templatized cosine of @c a0

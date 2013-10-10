@@ -44,6 +44,7 @@ namespace nt2 { namespace tag
     T0 r = rec(sinpi(x));
     @endcode
 
+    @see @funcref{cscd}, @funcref{cosecant}, @funcref{csc},
     @param a0
 
     @return a value of the same type as the parameter
