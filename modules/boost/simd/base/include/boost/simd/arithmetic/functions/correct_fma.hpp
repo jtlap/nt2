@@ -66,6 +66,7 @@ namespace boost { namespace simd { namespace tag
     This function is never used internally in boost/simd. See also
     the fma function.
 
+    @see  @funcref{fma}
     @param  a0
 
     @param  a1

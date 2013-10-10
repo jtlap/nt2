@@ -52,8 +52,8 @@ namespace boost { namespace simd
     @par Alias:
     @c div, @c rdiv
 
-    @see  @funcref{fast_divides}, @funcref{divs}, @funcref{divfloor},
-    @funcref{divceil}, @funcref{divround}, @funcref{divround2even}
+    @see  @funcref{fast_divides}, @funcref{rec}, @funcref{fast_rec}, @funcref{divs}, @funcref{divfloor},
+    @funcref{divceil}, @funcref{divround}, @funcref{divround2even}, @funcref{divfix}
     @param a0
 
     @param a1

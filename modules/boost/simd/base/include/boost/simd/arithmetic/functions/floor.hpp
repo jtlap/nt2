@@ -41,6 +41,7 @@ namespace boost { namespace simd
 
     greatest integral value of type @c T less or equal to @c x.
 
+    @see  @funcref{ceil}, @funcref{round}, @funcref{round2even}}, @funcref{trunc}, @funcref{ifloor}
     @param  a0
 
     @return      an integral value of the same type as the input.

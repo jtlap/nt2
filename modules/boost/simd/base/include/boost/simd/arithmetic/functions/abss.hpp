@@ -56,6 +56,7 @@ namespace tag
 
     saturated_abs
 
+    @see  @funcref{abs}, @funcref{sqr_abs}, @funcref{sqrs}
     @param  a0    value whose absolute value will be returned.
 
     @return         a value of the same type as the input.

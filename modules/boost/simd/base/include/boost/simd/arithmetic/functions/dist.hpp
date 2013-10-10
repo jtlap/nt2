@@ -47,6 +47,7 @@ namespace boost { namespace simd { namespace tag
 
     The result is never negative. For floating, it can of course be Nan.
 
+    @see  @funcref{ulpdist}
     @param  a0
 
     @param  a1

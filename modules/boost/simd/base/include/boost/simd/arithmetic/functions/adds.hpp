@@ -50,6 +50,7 @@ namespace boost { namespace simd
 
     saturated_add
 
+    @see  @funcref{plus}, @funcref{oneplus}, @funcref{inc}
     @param  a0
     @param  a1
 

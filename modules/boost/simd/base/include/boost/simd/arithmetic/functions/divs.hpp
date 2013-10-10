@@ -53,6 +53,8 @@ namespace boost { namespace simd {
 
     @c saturated_div, rdivide
 
+    @see  @funcref{divides}, @funcref{fast_divides}, @funcref{rec}, @funcref{fast_rec}, @funcref{divfloor},
+    @funcref{divceil}, @funcref{divround}, @funcref{divround2even}, @funcref{divfix}
     @param  a0
     @param  a1
 

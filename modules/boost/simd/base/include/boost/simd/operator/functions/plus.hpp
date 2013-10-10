@@ -52,7 +52,7 @@ namespace boost { namespace simd
     @par Alias:
     @c add
 
-    @see  @funcref{adds}, @funcref{oneplus}, @funcref{inc},
+    @see  @funcref{adds}, @funcref{oneplus}, @funcref{inc}
     @param a0
 
     @param a1

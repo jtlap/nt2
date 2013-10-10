@@ -53,6 +53,8 @@ namespace boost { namespace simd {
 
     @c divtrunc
 
+    @see  @funcref{divides}, @funcref{fast_divides}, @funcref{rec}, @funcref{fast_rec}, @funcref{divs}, @funcref{divfloor},
+    @funcref{divround}, @funcref{divround2even}
     @param  a0
     @param  a1
 

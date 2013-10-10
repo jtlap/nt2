@@ -57,6 +57,7 @@ namespace boost { namespace simd
 
     modulus
 
+    @see  @funcref{abss}, @funcref{sqr_abs}, @funcref{sqrs}
     @param  a0
 
     @return      a value of the same type as the input.

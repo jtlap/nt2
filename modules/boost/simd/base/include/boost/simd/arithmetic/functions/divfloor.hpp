@@ -49,6 +49,8 @@ namespace boost { namespace simd {
     Take also care that dividing Valmin by -1 for signed integral types has
     undefined behaviour.
 
+    @see  @funcref{divides}, @funcref{fast_divides}, @funcref{rec}, @funcref{fast_rec}, @funcref{divs}, @funcref{divfix},
+    @funcref{divround}, @funcref{divround2even}
     @param  a0
     @param  a1
 

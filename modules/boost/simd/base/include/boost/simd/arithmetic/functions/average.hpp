@@ -51,6 +51,7 @@ namespace boost { namespace simd { namespace tag
 
     This function does not overflow.
 
+    @see  @funcref{meanof}
     @param  a0
     @param  a1
 
