@@ -49,6 +49,7 @@ namespace boost { namespace simd { namespace tag
     @return  A pair containing the integer and fractionnal part of @c a0
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::modf_, modf, 1)
+
   /*!
     Computes the integer and the fractionnal part of the input
 
@@ -71,6 +72,7 @@ namespace boost { namespace simd { namespace tag
     @return a value of same type as the input
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::modf_, modf,(A0 const&)(A1&)(A1&),2)
+
   /*!
     Computes the integer and the fractionnal part of the input
 
@@ -89,7 +91,7 @@ namespace boost { namespace simd { namespace tag
 
     @param a0 Value to decompose
     @param a1 L-Value that will receive the fractionnal part of @c a0
-    @param a1 L-Value that will receive the integer part of @c a0
+    @param a2 L-Value that will receive the integer part of @c a0
 
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::modf_, modf,(A0 const&)(A1&),2)

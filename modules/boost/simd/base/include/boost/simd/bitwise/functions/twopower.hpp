@@ -27,6 +27,7 @@ namespace boost { namespace simd { namespace tag
       typedef ext::elementwise_<twopower_> parent;
     };
   }
+
   /*!
     Returns \f$2^n\f$ (0 si n is less than zero)
 
@@ -49,7 +50,6 @@ namespace boost { namespace simd { namespace tag
 
     @see  @funcref{ilog2}
     @param  a0
-    @param  a1
 
     @return      a value of the same type as the input.
 

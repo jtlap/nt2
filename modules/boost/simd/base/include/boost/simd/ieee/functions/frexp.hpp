@@ -53,7 +53,7 @@ namespace boost { namespace simd
 
     @par Note:
 
-    @c frexp splits a floating point value @v f in its signed mantissa @c m and
+    @c frexp splits a floating point value @c v f in its signed mantissa @c m and
     exponent @c e so that
 
     @f$v = m\times 2^e@f$
@@ -69,7 +69,7 @@ namespace boost { namespace simd
 
 
   /*!
-    Returns the mantissa computes the  exponent of the input
+    Returns the mantissa computes the exponent of the input
 
     @code
     m = frexp(x, e);
@@ -84,7 +84,7 @@ namespace boost { namespace simd
 
     @par Note:
 
-    @c frexp splits a floating point value @v f in its signed mantissa @c m and
+    @c frexp splits a floating point value @c v f in its signed mantissa @c m and
     exponent @c e so that
 
     @param a0 Value to decompose
@@ -96,7 +96,7 @@ namespace boost { namespace simd
                                             )
 
   /*!
-    Computes the mantissa and the  exponent of the input
+    Computes the mantissa and the exponent of the input
 
     @code
     m = frexp(x, e);
@@ -111,7 +111,7 @@ namespace boost { namespace simd
 
     @par Note:
 
-    @c frexp splits a floating point value @v f in its signed mantissa @c m and
+    @c frexp splits a floating point value @c v f in its signed mantissa @c m and
     exponent @c e so that
 
     @param a0 Value to decompose

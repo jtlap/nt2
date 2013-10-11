@@ -45,18 +45,17 @@ namespace boost { namespace simd { namespace tag
     @endcode
 
     @par Note:
-    The fast prefix indicates that for speed sake
-    the result may be incorrect for limiting values:
-    inf, -inf nan and zero that deserve special treatment.
-    If you are not sure use @c frexp at the expense
-    of some more machine cycles.
+    The fast prefix indicates that, for speed consideration, the result may be
+    incorrect for special values like inf, -inf nan and zero that deserve
+    special treatment. If you are not sure use @c frexp at the expense of some
+    more machine cycles.
 
     @param a0 Value to decompose
-    @param a1 L-Value that will receive the exponent of @c a0
 
     @return A pair containing the signed mantissa and exponent of @c a0
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::fast_frexp_, fast_frexp, 1)
+
   /*!
     Returns the mantissa computes the  exponent of the input
 
@@ -84,7 +83,11 @@ namespace boost { namespace simd { namespace tag
     @param a1 L-Value that will receive the exponent of @c a0
     @return The mantissa of @c a0
   **/
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::fast_frexp_, fast_frexp,(A0 const&)(A1&),2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL( tag::fast_frexp_
+                                            , fast_frexp,(A0 const&)(A1&)
+                                            , 2
+                                            )
+
   /*!
     Computes the mantissa and the  exponent of the input
 
@@ -112,7 +115,10 @@ namespace boost { namespace simd { namespace tag
     @param a1 L-Value that will receive the mantissa of @c a0
     @param a2 L-Value that will receive the exponent of @c a0
   **/
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::fast_frexp_, fast_frexp,(A0 const&)(A1&)(A2&),3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL( tag::fast_frexp_
+                                            , fast_frexp,(A0 const&)(A1&)(A2&)
+                                            , 3
+                                            )
 } }
 
 #endif

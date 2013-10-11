@@ -31,7 +31,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Generates value "negative sign" 0
+    Generates value -0
 
     @par Semantic:
 
@@ -56,7 +56,7 @@ namespace boost { namespace simd
     \par
 
     The sign of zero can be accessed through the @c is_negative
-    and @c is_positive predicates or the @bitofsign function.
+    and @c is_positive predicates or the @funcref{boost::simd::bitofsign} function.
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Mzero, Mzero)
 } }
