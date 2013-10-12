@@ -6,61 +6,57 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_EXP10_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_EXP10_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup exponential
- * \defgroup exponential_exp10 exp10
- *
- * \par Description
- * base ten exponential function: \f$10^{a_0}\f$
- * \par
- * provisions are made for otaining a flint result from a flint input
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/exp10.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::exp10_(A0)>::type
- *     exp10(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of exp10
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag exp10_ of functor exp10
-     *        in namespace nt2::tag for toolbox exponential
-    **/
-    struct exp10_ : ext::elementwise_<exp10_> { typedef ext::elementwise_<exp10_> parent; };
+   /*!
+     @brief exp10 generic tag
+
+     Represents the exp10 function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct exp10_ : ext::elementwise_<exp10_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<exp10_> parent;
+    };
   }
+  /*!
+    Computes the base ten exponential function: \f$10^{x}\f$
+
+    @par Semantic:
+
+    For every parameter of floating type T0
+
+    @code
+    T0 r = exp10(x);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = exp(x*log_10<T0>());
+    @endcode
+
+    @par Note:
+
+    provisions are made for obtaining a flint result from a flint input
+
+    @see @funcref{exp2}, @funcref{exp}, @funcref{pow}
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::exp10_, exp10, 1)
 }
 
 #endif
 
-// modified by jt the 25/12/2010
+
+///

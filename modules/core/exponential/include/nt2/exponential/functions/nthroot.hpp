@@ -6,63 +6,59 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_NTHROOT_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_NTHROOT_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup exponential
- * \defgroup exponential_nthroot nthroot
- *
- * \par Description
- * nth root function: \f$\sqrt[a_1]{a_0}\f$
- * \par
- * \arg a1 must be of integer type
- * \arg if a1 is even and a0 negative the result is nan
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/nthroot.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::nthroot_(A0,A0)>::type
- *     nthroot(const A0 & a0,const A0 & a1);
- * }
- * \endcode
- *
- * \param a0 the first parameter of nthroot
- * \param a1 the second parameter of nthroot, must be of integer type
- *
- * \return a value of the common type of the parameters
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag nthroot_ of functor nthroot
-     *        in namespace nt2::tag for toolbox exponential
-    **/
-    struct nthroot_ : ext::elementwise_<nthroot_> { typedef ext::elementwise_<nthroot_> parent; };
+   /*!
+     @brief nthroot generic tag
+
+     Represents the nthroot function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct nthroot_ : ext::elementwise_<nthroot_>
+    {
+      /// @brief Parent hierarchy
+       typedef ext::elementwise_<nthroot_> parent;
+    };
   }
+  /*!
+    nth root function: \f$\sqrt[a_1]{a_0}\f$
+    \par
+    \arg a1 must be of integer type
+    \arg if a1 is even and a0 negative the result is nan
+
+    @par Semantic:
+
+    For every parameters of  floating type T0 and integral type T1:
+
+    @code
+    T0 r = nthroot(x, n);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = n >= 0 ? pow(x, rec(T0(n))) : nan;
+    @endcode
+
+
+    @see @funcref{pow}, @funcref{rec}, @funcref{sqrt}, @funcref{cbrt}
+    @param a0  must be of floating type
+
+    @param a1  must be of integral type.
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::nthroot_, nthroot, 2)
 }
 
 #endif
 
-// modified by jt the 25/12/2010
+
+///
