@@ -1,0 +1,9 @@
+[library Elliptic Functions
+  [quickbook 1.5]
+]
+
+[section Overview]
+This module provides implementation of elliptic functions.
+[endsect]
+
+[xinclude reference.xml]

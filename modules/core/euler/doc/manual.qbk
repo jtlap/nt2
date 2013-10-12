@@ -1,0 +1,9 @@
+[library Euler Functions
+  [quickbook 1.5]
+]
+
+[section Overview]
+This module provides implementation of Euler functions.
+[endsect]
+
+[xinclude reference.xml]
