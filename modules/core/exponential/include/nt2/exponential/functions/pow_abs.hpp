@@ -28,21 +28,20 @@ namespace nt2 { namespace tag
     };
   }
   /*!
-    Returns  function: \f${a_0}^{|a_1|}\f$
-    (\f$0^0\f$ returns 1)
+    Returns \f${a_0}^{\|a_1\|}\f$.(\f$0^0\f$ returns 1)
 
     @par Semantic:
 
     For every parameters of floating types respectively T0, T1:
 
     @code
-    T0 r = pow_abs(a0,a1);
+    T0 r = pow_abs(x,y);
     @endcode
 
     is similar to:
 
     @code
-    T0 r = pow(a0, abs(a1));
+    T0 r = pow(x, abs(y));
     @endcode
 
     @see @funcref{pow}, @funcref{abs}

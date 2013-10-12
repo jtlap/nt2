@@ -29,7 +29,6 @@ namespace nt2 { namespace tag
   }
   /*!
     nth root function: \f$\sqrt[a_1]{a_0}\f$
-    \par
     \arg a1 must be of integer type
     \arg if a1 is even and a0 negative the result is nan
 

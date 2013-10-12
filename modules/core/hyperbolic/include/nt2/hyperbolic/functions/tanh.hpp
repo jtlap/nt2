@@ -24,7 +24,7 @@ namespace nt2 { namespace tag
     struct tanh_ : ext::elementwise_<tanh_> { typedef ext::elementwise_<tanh_> parent; };
   }
   /*!
-    Returns the hyperbolic tangent: \f$rac{\sinh(a_0)}{\cosh(a_0)}\f$.
+    Returns the hyperbolic tangent: \f$\frac{\sinh(a_0)}{\cosh(a_0)}\f$.
 
     @par Semantic:
 

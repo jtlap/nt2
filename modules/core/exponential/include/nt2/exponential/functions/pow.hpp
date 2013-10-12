@@ -21,25 +21,27 @@ namespace nt2 { namespace tag
      @par Models:
         Hierarchy
    **/
-    struct pow_ : ext::elementwise_<pow_> { typedef ext::elementwise_<pow_> parent; };
+    struct pow_ : ext::elementwise_<pow_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<pow_> parent;
+    };
   }
   /*!
-    Power function: \f${a_0}^{a_1}\f$
-    \par
-    $0^0$ returns 1
+    Computes power function: \f${a_0}^{a_1}\f$. (\f$0^0\f$ returns 1)
 
     @par Semantic:
 
     For every parameters of floating types respectively T0, T1:
 
     @code
-    T0 r = pow(a0,a1);
+    T0 r = pow(x,y);
     @endcode
 
     is similar to:
 
     @code
-    T0 r = ;
+    T0 r = exp(y*log(x));
     @endcode
 
     @param a0

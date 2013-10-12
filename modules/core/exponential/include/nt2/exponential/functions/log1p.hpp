@@ -33,13 +33,13 @@ namespace nt2 { namespace tag
     For every parameter of floating type T0
 
     @code
-    T0 r = log1p(a0);
+    T0 r = log1p(x);
     @endcode
 
     is similar to:
 
     @code
-    T0 r = ;
+    T0 r = log(1+x);
     @endcode
 
     @param a0

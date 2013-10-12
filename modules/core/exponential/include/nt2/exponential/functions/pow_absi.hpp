@@ -28,21 +28,20 @@ namespace nt2 { namespace tag
     };
   }
   /*!
-    Power function for scalar integer a1: \f${a_0}^{|a_1|}\f$
-    (\f$0^0\f$ returns 1)
+    Power function for scalar integer a1: \f${a_0}^{\|a_1\|}\f$. (\f$0^0\f$ returns 1)
 
     @par Semantic:
 
     For every parameters of floating types respectively T0, T1:
 
     @code
-    T0 r = pow_absi(a0,a1);
+    T0 r = pow_absi(x,y);
     @endcode
 
     is similar to:
 
     @code
-    T0 r =  pow_absi(a0,abs(a1));;
+    T0 r =  pow_absi(x,abs(y));;
     @endcode
 
     @param a0

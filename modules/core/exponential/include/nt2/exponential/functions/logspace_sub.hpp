@@ -29,7 +29,7 @@ namespace nt2 { namespace tag
   }
   /*!
      Compute the log of a sum from logs of terms
-     properly compute \$\log (\exp (\logx) - \exp (\logy))\$
+     properly compute \$\log (\exp (\log x) - \exp (\log y))\$
 
     @par Semantic:
 
@@ -42,7 +42,7 @@ namespace nt2 { namespace tag
     is similar to:
 
     @code
-    T0 r =  log(exp(log(x)) - exp (log(y)));
+    T0 r =  log(exp(log(x)) - exp(log(y)));
     @endcode
 
     @param a0

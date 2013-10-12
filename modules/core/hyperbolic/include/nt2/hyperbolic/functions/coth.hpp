@@ -35,7 +35,7 @@ namespace nt2 { namespace tag
     For every parameter of floating type T0
 
     @code
-    T0 r = coth(a0);
+    T0 r = coth(x);
     @endcode
 
     is similar to:

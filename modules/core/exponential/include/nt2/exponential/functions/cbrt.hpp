@@ -44,7 +44,7 @@ namespace nt2 { namespace tag
     T0 r = pow(x, T0(1/3.0));
     @endcode
 
-    @see @funcref{pow}, @funcref{sqrt}
+    @see @funcref{pow}, @funcref{boost::simd::sqrt}
     @param a0
 
     @return a value of the same type as the parameter

@@ -28,7 +28,7 @@ namespace nt2 { namespace tag
     };
   }
   /*!
-    exponential function minus one: \f$e^{x}-1\f$
+    exponential function minus one:\f$e^{x}-1\f$
 
     @par Semantic:
 

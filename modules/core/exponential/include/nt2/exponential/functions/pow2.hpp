@@ -21,7 +21,11 @@ namespace nt2 { namespace tag
      @par Models:
         Hierarchy
    **/
-    struct pow2_ : ext::elementwise_<pow2_> { typedef ext::elementwise_<pow2_> parent; };
+    struct pow2_ : ext::elementwise_<pow2_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<pow2_> parent;
+    };
   }
   /*!
      Returns  base 2 power of input
@@ -47,7 +51,7 @@ namespace nt2 { namespace tag
   **/
   NT2_FUNCTION_IMPLEMENTATION(tag::pow2_, pow2, 1)
   /*!
-    Returns /f$x2^y/f$.
+    Returns \f$x2^y\f$.
 
     @par Semantic:
 

@@ -38,7 +38,7 @@ namespace nt2 { namespace tag
     T0 r = exp(a0);
     @endcode
 
-    @see @funcref{exp2}, @funcref{exp10}, @funcref{pow}, @funcref{xpm1}
+    @see @funcref{exp2}, @funcref{exp10}, @funcref{pow}, @funcref{expm1}
     @param a0
 
     @return a value of the same type as the parameter
