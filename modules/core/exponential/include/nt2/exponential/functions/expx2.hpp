@@ -57,5 +57,3 @@ namespace nt2 { namespace tag
 
 #endif
 
-
-///
