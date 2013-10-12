@@ -6,59 +6,53 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_HYPERBOLIC_FUNCTIONS_SECH_HPP_INCLUDED
 #define NT2_HYPERBOLIC_FUNCTIONS_SECH_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup hyperbolic
- * \defgroup hyperbolic_sech sech
- *
- * \par Description
- * hyperbolic secant: \f$\frac1{\cosh(a_0)}\f$.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/sech.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::sech_(A0)>::type
- *     sech(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of sech
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag sech_ of functor sech
-     *        in namespace nt2::tag for toolbox hyperbolic
-    **/
-    struct sech_ : ext::elementwise_<sech_> { typedef ext::elementwise_<sech_> parent; };
+   /*!
+     @brief sech generic tag
+
+     Represents the sech function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct sech_ : ext::elementwise_<sech_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<sech_> parent;
+    };
   }
+  /*!
+    Returns the hyperbolic secant: \f$\frac1{\cosh(a_0)}\f$.
+
+    @par Semantic:
+
+    For every parameter of floating type T0
+
+    @code
+    T0 r = sech(x);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = rec(cosh(x));
+    @endcode
+
+    @see @funcref{rec}, @funcref{cosh}
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::sech_, sech, 1)
 }
 
 #endif
 
-// modified by jt the 25/12/2010
+
+///

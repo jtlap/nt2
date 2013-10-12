@@ -6,59 +6,53 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_HYPERBOLIC_FUNCTIONS_ASECH_HPP_INCLUDED
 #define NT2_HYPERBOLIC_FUNCTIONS_ASECH_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup hyperbolic
- * \defgroup hyperbolic_asech asech
- *
- * \par Description
- * hyperbolic secant argument \f$\mathop{\textrm{acosh}}(1/a_0)\f$
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/asech.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::asech_(A0)>::type
- *     asech(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of asech
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag asech_ of functor asech
-     *        in namespace nt2::tag for toolbox hyperbolic
-    **/
-    struct asech_ : ext::elementwise_<asech_> { typedef ext::elementwise_<asech_> parent; };
+   /*!
+     @brief asech generic tag
+
+     Represents the asech function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct asech_ : ext::elementwise_<asech_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<asech_> parent;
+    };
   }
+  /*!
+    Returns the hyperbolic secant argument \f$\mathop{\textrm{acosh}}(1/a_0)\f$
+
+    @par Semantic:
+
+    For every parameter of floating type T0
+
+    @code
+    T0 r = asech(x);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = acosh(rec(x));
+    @endcode
+
+    @see @funcref{acosh}, @funcref{cosh}, @funcref{rec}
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::asech_, asech, 1)
 }
 
 #endif
 
-// modified by jt the 25/12/2010
+
+///

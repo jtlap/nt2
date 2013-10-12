@@ -6,59 +6,53 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_HYPERBOLIC_FUNCTIONS_SINH_HPP_INCLUDED
 #define NT2_HYPERBOLIC_FUNCTIONS_SINH_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup hyperbolic
- * \defgroup hyperbolic_sinh sinh
- *
- * \par Description
- * hyperbolic sine: \f$\frac{e^{a_0}-e^{-a_0}}2\f$.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/sinh.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::sinh_(A0)>::type
- *     sinh(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of sinh
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag sinh_ of functor sinh
-     *        in namespace nt2::tag for toolbox hyperbolic
-    **/
-    struct sinh_ : ext::elementwise_<sinh_> { typedef ext::elementwise_<sinh_> parent; };
+   /*!
+     @brief sinh generic tag
+
+     Represents the sinh function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct sinh_ : ext::elementwise_<sinh_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<sinh_> parent;
+    };
   }
+  /*!
+    Returns the hyperbolic sine: \f$\frac{e^{a_0}-e^{-a_0}}2\f$.
+
+    @par Semantic:
+
+    For every parameter of floating type T0
+
+    @code
+    T0 r = sinh(a0);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = Half<T0>()*(exp(x)-exp(-x));;
+    @endcode
+
+    @see @funcref{exp}, @funcref{cosh}
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::sinh_, sinh, 1)
 }
 
 #endif
 
-// modified by jt the 25/12/2010
+
+///

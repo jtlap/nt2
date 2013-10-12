@@ -6,10 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
-  @file
-  @brief Definition of sinhcosh function
-**/
 
 #ifndef NT2_HYPERBOLIC_FUNCTIONS_SINHCOSH_HPP_INCLUDED
 #define NT2_HYPERBOLIC_FUNCTIONS_SINHCOSH_HPP_INCLUDED
@@ -17,50 +13,98 @@
 
 namespace nt2 { namespace tag
   {
+   /*!
+     @brief sinhcosh generic tag
+
+     Represents the sinhcosh function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     /// @brief Hierarchy tag for sinhcosh function
     struct sinhcosh_ : ext::elementwise_<sinhcosh_>
     {
       typedef ext::elementwise_<sinhcosh_> parent;
     };
   }
+  }
   /*!
-    @brief sinhcosh
 
-    @c sinhcosh compute simultaneously the sinh and cosh of the input
+    @par Semantic:
 
-    @param a0 angle in radian
+    For every parameter of floating type T0
 
-    @return A Fusion Sequence containing the sinh and cosh of @c a0
+    @code
+    T0 ch, sh
+    tie(sh, ch)= sinhcosh(x);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 sh = sinh(x);
+    T0 ch = cosh(x);
+    @endcode
+
+    @see @funcref{cosh}, @funcref{sinh}
+    @param a0
+
+    @return a value of the same type as the parameter
   **/
-
   NT2_FUNCTION_IMPLEMENTATION(tag::sinhcosh_, sinhcosh, 1)
 
-  /*!
-    @brief sinhcosh
-
-    @c sinhcosh compute simultaneously the sinh and cosh of the input
-
-    @param a0 angle in radian
-    @param a1 L-Value that will receive the sinh off @c a0
-
-    @return A Fusion Sequence containing the cosh of @c a0
-  **/
 
 
    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sinhcosh_, sinhcosh,(A0 const&)(A1&),2)
-
   /*!
-    @brief  sinhcosh
 
-    @c sinhcosh compute simultaneously the sinh and cosh of the input
+    @par Semantic:
 
-    @param a0 angle in radian
-    @param a1 L-Value that will receive the sinh off @c a0
-    @param a1 L-Value that will receive the cosh off @c a0
+    For every parameter of floating type T0
 
+    @code
+    T0 ch, sh
+    sh = sinhcosh(x, sh, ch);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 sh = sinh(x);
+    T0 ch = cosh(x);
+    @endcode
+
+    @see @funcref{cosh}, @funcref{sinh}
+    @param a0
+
+    @return a value of the same type as the parameter
   **/
    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sinhcosh_, sinhcosh,(A0 const&)(A1&)(A2&),3)
+  /*!
+    Computes  simultaneously cosh ans sinh
+    @par Semantic:
 
+    For every parameter of floating type T0
+
+    @code
+    T0 ch, sh
+    sinhcosh(x, sh, ch);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 sh = sinh(x);
+    T0 ch = cosh(x);
+    @endcode
+
+    @see @funcref{cosh}, @funcref{sinh}
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
     }
 
 #endif
+
+///
