@@ -21,9 +21,13 @@ namespace nt2 { namespace ext
                               (scalar_< unspecified_<A1> >)
                             )
   {
-    BOOST_DISPATCH_RETURNS(3, (A0 const& a0, A1 const& a1, A1 const& a2)
-                            , a0(0,0) ? a1 : a2
-                          );
+    typedef A1 result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 const& a0, A1 const& a1, A2 const& a2) const
+    {
+      return a0(0,0) ? a1 : a2;
+    }
   };
 } }
 
