@@ -36,7 +36,7 @@ set(CTEST_CUSTOM_POST_TEST "${SOURCE_DIRECTORY}/cmake/bench/CDashBench/benchLaun
 
 # SITE is host name
 execute_process(COMMAND hostname OUTPUT_VARIABLE HOST OUTPUT_STRIP_TRAILING_WHITESPACE)
-string(REGEX REPLACE "\\.local$" "" HOST ${HOST})
+string(REGEX REPLACE "\\.(local|home)$" "" HOST ${HOST})
 string(TOLOWER ${HOST} SITE)
 
 # BUILDNAME is generated from OS, architecture, compiler and SIMD level (in-project only)
