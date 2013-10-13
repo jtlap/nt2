@@ -10,7 +10,6 @@
 #define BOOST_SIMD_SDK_SIMD_PACK_CALL_HPP_INCLUDED
 
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
-#include <boost/dispatch/dsl/semantic_of.hpp>
 #include <boost/proto/make_expr.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -21,20 +20,16 @@ namespace boost { namespace simd { namespace ext
                         , ((target_< ast_<A0, boost::simd::domain> >))
                         )
   {
-    typedef typename proto::domain_of<typename A0::type>::type  domain;
-    typedef dispatch::meta::
-            as_<typename dispatch::meta::
-                semantic_of<typename A0::type>::type
-               >  value;
+    typedef typename A0::type::proto_domain domain;
 
     typedef typename proto::result_of::
-            make_expr<Func, domain, const value&>::type         result_type;
+            make_expr<Func, domain, const A0&>::type result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 const&) const
+    operator()(A0 const& a0) const
     {
       return boost::proto::detail::
-             make_expr_<Func, domain, const value&>()(value());
+             make_expr_<Func, domain, const A0&>()(a0);
     }
   };
 } } }
