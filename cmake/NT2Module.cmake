@@ -203,6 +203,7 @@ macro(nt2_configure_tests)
       endif()
     endforeach()
   endif()
+
 endmacro()
 
 # main function to call in a module's root CMakeLists file
@@ -276,6 +277,31 @@ macro(nt2_module_add_library libname)
       set_property(TARGET ${libname}_static PROPERTY OUTPUT_NAME "${libname}")
       set_property(TARGET ${libname}_static PROPERTY OUTPUT_NAME_DEBUG "${libname}_d")
     endif()
+
+    # create symbolic links on Windows for DLLs to avoid having to set PATH
+    if(WIN32)
+      foreach(debug_dir unit debug cover exhaustive)
+        if(NOT IS_DIRECTORY ${NT2_BINARY_DIR}/${debug_dir})
+          file(MAKE_DIRECTORY ${NT2_BINARY_DIR}/${debug_dir})
+        endif()
+        if(NOT EXISTS ${NT2_BINARY_DIR}/${debug_dir}/${libname}_d.dll)
+          execute_process(COMMAND cmd /C mklink "${debug_dir}\\${libname}_d.dll" "..\\lib\\${libname}_d.dll"
+                          WORKING_DIRECTORY ${NT2_BINARY_DIR}
+                         )
+        endif()
+      endforeach()
+      foreach(release_dir bench)
+        if(NOT IS_DIRECTORY ${NT2_BINARY_DIR}/${release_dir})
+          file(MAKE_DIRECTORY ${NT2_BINARY_DIR}/${release_dir})
+        endif()
+        if(NOT EXISTS ${NT2_BINARY_DIR}/${release_dir}/${libname}.dll)
+          execute_process(COMMAND mklink "${release_dir}\\${libname}.dll" "..\\lib\\${libname}.dll"
+                          WORKING_DIRECTORY ${NT2_BINARY_DIR}
+                         )
+        endif()
+      endforeach()
+    endif()
+
   else()
     set(targets ${libname})
     if(NOT CMAKE_CONFIGURATION_TYPES)
