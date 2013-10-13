@@ -60,13 +60,31 @@ boost.simd.operator.scalar.unit
 
 and it's also possible to compile many tests at the same time by going up this scheme (=boost.simd.operator.unit=, =boost.simd.unit=, =boost.unit=, =unit=).
 
+[heading Multi-Configuration Generators]
+
+When using a multi-configuration generator, such as Visual Studio, the user will have to manually choose which set of compilation flags to use for a particular target.
+
+The intended targets are as follows:
+ * Tests (unit, cover and exhaustive) must be built with NT2Test or NT2TestDebug
+ * Benchmarks must be built with NT2Bench
+ * Libraries must be built in Release (for NT2Bench) or Debug (for NT2Test and NT2TestDebug)
+
 [heading Performance Concerns]
 
 __NT2__ uses C++ programming techniques which can require significant resources to compile tests. Compiling a test may require up to 4GB of RAM,
 in particular for the tests of the =core= module, though most tests run well below 2GB. This can limit parallelization opportunities depending on how much RAM is available.
 
-Compiling the full set of unit and cover tests takes 2 hours on bi-xeon quadcore server using 4 threads.
+The tests are purposely built without debug symbols, since enabling them negatively affects disk usage and compilation time.
 
+Compiling the full set of unit and cover tests with GCC takes 4 hours on a bi-xeon quadcore server using 4 threads.
+
+[heading Dynamic Linking]
+
+By default, NT2 will use dynamic linking for the tests and benchmarks. This means that when running a test executable, the system will need to be able
+to find the NT2 libraries that the executable uses. On POSIX systems, the RPATH mechanism is used so that the path to the library is hardcoded in the
+executables. However, on Microsoft Windows, if creating the symbolic links fails, one may need to alter the PATH environment variable so that the libraries can be found.
+
+All library files (.dll/.so/.dylib/.a/.lib) are in =/lib= while executables are in =/unit=, =/bench= or =/cover=.
 
 [heading Reporting]
 
