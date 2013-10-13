@@ -10,7 +10,7 @@
 #define NT2_CORE_UTILITY_OF_SIZE_MPL_VALUE_HPP_INCLUDED
 
 #include <nt2/sdk/meta/strip.hpp>
-#include <boost/mpl/int.hpp>
+#include <boost/mpl/integral_c.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
 
 namespace nt2
@@ -20,7 +20,7 @@ namespace nt2
   // If not, return -1 so the of_size will be flagged as dynamic
   //============================================================================
   template<class T, class Enable = void>
-  struct mpl_value : boost::mpl::int_<-1> {};
+  struct mpl_value : boost::mpl::integral_c<std::ptrdiff_t, -1> {};
 
   template<class T>
   struct mpl_value < T

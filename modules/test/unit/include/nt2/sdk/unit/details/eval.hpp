@@ -81,7 +81,7 @@ namespace nt2
     template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D) >
     BOOST_FORCEINLINE typename
     make_dependent_c< of_size_<  BOOST_PP_ENUM_PARAMS ( NT2_MAX_DIMENSIONS
-                                                      , -1 BOOST_PP_INTERCEPT
+                                                      , std::ptrdiff_t(-1) BOOST_PP_INTERCEPT
                                                       )
                               >
                     , D0

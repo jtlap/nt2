@@ -9,8 +9,7 @@
 #ifndef NT2_CORE_SETTINGS_SIZE_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_SIZE_HPP_INCLUDED
 
-#include <nt2/core/settings/forward/size.hpp>
-#include <nt2/core/utility/of_size.hpp>
+#include <nt2/core/utility/of_size/predef.hpp>
 #include <nt2/sdk/parameters.hpp>
 #include <boost/mpl/bool.hpp>
 
@@ -28,7 +27,7 @@ namespace nt2 { namespace tag
     struct apply : boost::mpl::false_
     {};
 
-    typedef nt2::of_size_<-1,-1,-1,-1> default_type;
+    typedef nt2::of_size_max default_type;
   };
 
   template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D)>
