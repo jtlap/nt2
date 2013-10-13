@@ -34,9 +34,9 @@ NT2_TEST_CASE( function )
                                      , node1 < nt2::tag::aggregate_
                                              , boost::proto::tag::terminal
                                              >
-                                     , boost::simd::tag::box_
-                                     , boost::simd::tag::box_
-                                     , boost::simd::tag::box_
+                                     , boost::proto::tag::terminal
+                                     , boost::proto::tag::terminal
+                                     , boost::proto::tag::terminal
                                      >
                               >
                       )

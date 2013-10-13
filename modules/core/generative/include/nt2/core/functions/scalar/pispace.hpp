@@ -13,7 +13,6 @@
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/include/functions/scalar/fma.hpp>
 #include <nt2/include/functions/scalar/exp10.hpp>
-#include <nt2/core/utility/box.hpp>
 #include <nt2/core/functions/of_size.hpp>
 #include <nt2/core/functions/pispace.hpp>
 #include <nt2/include/functions/scalar/splat.hpp>
@@ -38,8 +37,8 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::pispace_
                                           , container::domain
-                                          , box< of_size_<1,50> >
-                                          , box< nt2::details::pispace<A0> >
+                                          , of_size_<1,50>
+                                          , nt2::details::pispace<A0>
                                           , meta::as_<A0>
                                           >::type             result_type;
 
@@ -48,8 +47,8 @@ namespace nt2 { namespace ext
       return  boost::proto::
               make_expr < nt2::tag::pispace_
                         , container::domain
-                        > ( boxify(of_size_<1,50>())
-                          , boxify(nt2::details::pispace<A0>(l,50))
+                        > ( of_size_<1,50>()
+                          , nt2::details::pispace<A0>(l,50)
                           , meta::as_<A0>()
                           );
     }
@@ -67,8 +66,8 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::pispace_
                                           , container::domain
-                                          , box< _2D >
-                                          , box< nt2::details::pispace<A0> >
+                                          , _2D
+                                          , nt2::details::pispace<A0>
                                           , meta::as_<A0>
                                           >::type             result_type;
 
@@ -78,11 +77,10 @@ namespace nt2 { namespace ext
       return  boost::proto::
               make_expr < nt2::tag::pispace_
                         , container::domain
-                        > ( boxify(of_size(1,n))
-                            , boxify(nt2::details::pispace<A0> (  l
-                                                                   , (n<2 ? 2 : n)
-                                                                   )
-                                  )
+                        > ( of_size(1,n)
+                            , nt2::details::pispace<A0> (  l
+                                                        , (n<2 ? 2 : n)
+                                                        )
                           , meta::as_<A0>()
                           );
     }

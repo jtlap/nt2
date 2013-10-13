@@ -27,67 +27,60 @@
 
 namespace nt2 { namespace ext
 {
-  //
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::hadamard_, tag::cpu_,
-                              (A0)(T),
-                              (scalar_<integer_<A0> >)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::hadamard_, tag::cpu_
+                            , (A0)(T)
+                            , (scalar_<integer_<A0> >)
                               (target_< scalar_< unspecified_<T> > >)
-    )
+                            )
   {
     typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::hadamard_
-      , container::domain
-      , size_t
-      , T
-      , box<_2D>
-      >::type             result_type;
+                      result_of::make_expr< nt2::tag::hadamard_
+                                          , container::domain
+                                          , std::size_t
+                                          , T
+                                          , _2D
+                                          >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0,
-                                             T  const&) const
+    BOOST_FORCEINLINE result_type operator()(A0 a0, T const& tgt) const
     {
-      _2D sizee;
-      sizee[0] = sizee[1] = a0;
       return  boost::proto::
-        make_expr<nt2::tag::hadamard_, container::domain>
-        ( size_t(a0)
-          , T()
-          , boxify(sizee)
-          );
+              make_expr<nt2::tag::hadamard_, container::domain>
+              ( std::size_t(a0)
+              , tgt
+              , _2D(a0,a0)
+              );
     }
   };
 
-  //2
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::hadamard_, tag::cpu_,
-                              (A0),
-                              (scalar_<integer_<A0> >)
-    )
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::hadamard_, tag::cpu_
+                            , (A0)
+                            , (scalar_<integer_<A0> >)
+                            )
   {
     typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::hadamard_
-      , container::domain
-      , size_t
-      , meta::as_<double>
-      , box<_2D>
-      >::type             result_type;
+                      result_of::make_expr< nt2::tag::hadamard_
+                                          , container::domain
+                                          , std::size_t
+                                          , meta::as_<double>
+                                          , _2D
+                                          >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
+    BOOST_FORCEINLINE result_type operator()(A0 a0) const
     {
-      _2D sizee;
-      sizee[0] = sizee[1] = a0;
       return  boost::proto::
-        make_expr<nt2::tag::hadamard_, container::domain>
-        ( size_t(a0)
-          , meta::as_<double>()
-          , boxify(sizee)
-          );
+              make_expr<nt2::tag::hadamard_, container::domain>
+              ( std::size_t(a0)
+              , meta::as_<double>()
+              , _2D(a0,a0)
+              );
     }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
-                              , (A0)(A1)(N)
-                              , ((ast_<A0, nt2::container::domain>))
+                            , (A0)(A1)(N)
+                            , ((ast_<A0, nt2::container::domain>))
                               ((node_<A1,nt2::tag::hadamard_,N,nt2::container::domain>))
-    )
+                            )
   {
     typedef A0&                                                          result_type;
     typedef typename boost::proto::result_of::child_c<A1&,1>::type            p_type;

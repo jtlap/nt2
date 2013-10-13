@@ -10,7 +10,6 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_COLON_HPP_INCLUDED
 
 #include <nt2/core/functions/colon.hpp>
-#include <nt2/core/utility/box.hpp>
 #include <nt2/core/utility/of_size.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/include/constants/threeeps.hpp>
@@ -34,8 +33,8 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::colon_
                                           , container::domain
-                                          , box< of_size_<1, -1> >
-                                          , box< constant_t >
+                                          , of_size_<1, -1>
+                                          , constant_t
                                           , meta::as_<base_t>
                                           >::type             result_type;
 
@@ -44,10 +43,8 @@ namespace nt2 { namespace ext
       return  boost::proto::
               make_expr < nt2::tag::colon_
                         , container::domain
-                        > ( boxify( of_size_<1, -1>
-                                    (1,details::unity_colon_size(l,u))
-                                  )
-                          , boxify(constant_t(l))
+                        > ( of_size_<1, -1>(1,details::unity_colon_size(l,u))
+                          , constant_t(l)
                           , meta::as_<base_t>()
                           );
     }
@@ -70,8 +67,8 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::colon_
                                           , container::domain
-                                          , box< of_size_<1, sz> >
-                                          , box< constant_t >
+                                          , of_size_<1, sz>
+                                          , constant_t
                                           , meta::as_<base_t>
                                           >::type             result_type;
 
@@ -80,8 +77,8 @@ namespace nt2 { namespace ext
       return  boost::proto::
               make_expr < nt2::tag::colon_
                         , container::domain
-                        > ( boxify(of_size_<1, sz>())
-                          , boxify(constant_t(l))
+                        > ( of_size_<1, sz>()
+                          , constant_t(l)
                           , meta::as_<base_t>()
                           );
     }
@@ -102,8 +99,8 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::colon_
                                           , container::domain
-                                          , box< of_size_<1, -1> >
-                                          , box< constant_t >
+                                          , of_size_<1, -1>
+                                          , constant_t
                                           , meta::as_<base_t>
                                           >::type             result_type;
 
@@ -113,8 +110,8 @@ namespace nt2 { namespace ext
       return  boost::proto::
               make_expr < nt2::tag::colon_
                         , container::domain
-                        > ( boxify(of_size_<1,-1>(1,details::colon_size(l,s,u)))
-                          , boxify(constant_t(l,s))
+                        > ( of_size_<1,-1>(1,details::colon_size(l,s,u))
+                          , constant_t(l,s)
                           , meta::as_<A0>()
                           );
     }
@@ -136,8 +133,8 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::colon_
                                           , container::domain
-                                          , box< of_size_<1, -1> >
-                                          , box< constant_t >
+                                          , of_size_<1, -1>
+                                          , constant_t
                                           , meta::as_<base_t>
                                           >::type             result_type;
 
@@ -149,8 +146,8 @@ namespace nt2 { namespace ext
 
       return boost::proto::make_expr< nt2::tag::colon_
                                     , container::domain
-                                    > ( boxify(of_size_<1, -1>(1,n))
-                                      , boxify(constant_t(l,s))
+                                    > ( of_size_<1, -1>(1,n)
+                                      , constant_t(l,s)
                                       , meta::as_<base_t>()
                                       );
     }

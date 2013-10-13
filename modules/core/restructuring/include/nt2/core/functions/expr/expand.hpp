@@ -10,7 +10,6 @@
 #define NT2_CORE_FUNCTIONS_EXPR_EXPAND_HPP_INCLUDED
 
 #include <nt2/core/functions/expand.hpp>
-#include <nt2/core/utility/box.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/as_size.hpp>
@@ -28,7 +27,7 @@ namespace nt2 { namespace ext
                           , (boost::proto::make_expr< nt2::tag::expand_
                                                     , container::domain
                                                     > ( boost::cref(a0)
-                                                      , boxify(a1)
+                                                      , a1
                                                       , nt2::numel(a0)-1
                                                       )
                             )
@@ -46,7 +45,7 @@ namespace nt2 { namespace ext
                           , (boost::proto::make_expr< nt2::tag::expand_
                                                     , container::domain
                                                     > ( boost::cref(a0)
-                                                      , boxify(a1)
+                                                      , a1
                                                       , 0
                                                       )
                             )

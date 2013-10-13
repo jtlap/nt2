@@ -12,12 +12,10 @@
 #include <nt2/linalg/functions/condex.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/utility/box.hpp>
 
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
-
 #include <nt2/include/functions/colon.hpp>
 #include <nt2/include/functions/colvect.hpp>
 #include <nt2/include/functions/expand.hpp>
@@ -37,141 +35,118 @@
 
 namespace nt2 { namespace ext
 {
-  //1
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::condex_, tag::cpu_,
-                              (A0)(A1),
-                              (scalar_<integer_<A0> >)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::condex_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_<integer_<A0> >)
                               (scalar_<integer_<A1> >)
-    )
+                            )
   {
     typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::condex_
-      , container::domain
-      , A0 const&
-      , A1 const&
-      , double
-      , box<_2D>
-      >::type             result_type;
+                      result_of::make_expr< nt2::tag::condex_
+                                          , container::domain
+                                          , A0 const&, A1 const&
+                                          , double, _2D
+                                          >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0,
-                                             A1 const& a1) const
+    BOOST_FORCEINLINE  result_type operator()(A0 const& a0, A1 const& a1) const
     {
-      _2D sizee;
-      sizee[0] = sizee[1] = a0;
-      double v = 100.0;
-      return  boost::proto::
-        make_expr<nt2::tag::condex_, container::domain>
-        ( boost::cref(a0)
-          , boost::cref(a1)
-          ,  v
-          , boxify(sizee)
-          );
+      return  boost::proto::make_expr < nt2::tag::condex_
+                                      , container::domain
+                                      > ( boost::cref(a0)
+                                        , boost::cref(a1)
+                                        , 100.0, _2D(a0,a0)
+                                        );
     }
   };
-  //2
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::condex_, tag::cpu_,
-                              (A0)(A1)(T),
-                              (scalar_<integer_<A0> >)
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::condex_, tag::cpu_
+                            , (A0)(A1)(T)
+                            , (scalar_<integer_<A0> >)
                               (scalar_<integer_<A1> >)
                               (target_< scalar_< floating_<T> > >)
-    )
+                            )
   {
     typedef typename T::type value_type;
     typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::condex_
-      , container::domain
-      , A0 const&
-      , A1 const&
-      , value_type
-      , box<_2D>
-      >::type             result_type;
+                      result_of::make_expr< nt2::tag::condex_
+                                          , container::domain
+                                          , A0 const&
+                                          , A1 const&
+                                          , value_type
+                                          , _2D
+                                          >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0,
-                                             A1 const& a1,
-                                             T  const&) const
+    BOOST_FORCEINLINE
+    result_type operator()(A0 const& a0, A1 const& a1, T const&) const
     {
-      _2D sizee;
-      sizee[0] = sizee[1] = a0;
-      value_type v = value_type(100);
-      return  boost::proto::
-        make_expr<nt2::tag::condex_, container::domain>
-        ( boost::cref(a0)
-          , boost::cref(a1)
-          , v
-          , boxify(sizee)
-          );
+      return  boost::proto::make_expr < nt2::tag::condex_
+                                      , container::domain
+                                      > ( boost::cref(a0)
+                                        , boost::cref(a1)
+                                        , value_type(100)
+                                        , _2D(a0,a0)
+                                        );
     }
-
   };
-  //3
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::condex_, tag::cpu_,
-                              (A0)(A1)(A2),
-                              (scalar_<integer_<A0> >)
-                              (scalar_<integer_<A1> >)
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::condex_, tag::cpu_
+                            , (A0)(A1)(A2)
+                            , (scalar_< integer_<A0> > )
+                              (scalar_< integer_<A1> > )
                               (scalar_< floating_<A2> >)
-    )
+                            )
   {
     typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::condex_
-      , container::domain
-      , A0 const&
-      , A1 const&
-      , A2 const&
-      , box<_2D>
-      >::type             result_type;
+                      result_of::make_expr< nt2::tag::condex_
+                                          , container::domain
+                                          , A0 const&
+                                          , A1 const&
+                                          , A2 const&
+                                          , _2D
+                                          >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0,
-                                             A1 const& a1,
-                                             A2  const& a2) const
+    BOOST_FORCEINLINE
+    result_type operator()(A0 const& a0, A1 const& a1, A2  const& a2) const
     {
-      _2D sizee;
-      sizee[0] = sizee[1] = a0;
-      return  boost::proto::
-        make_expr<nt2::tag::condex_, container::domain>
-        ( boost::cref(a0)
-          , boost::cref(a1)
-          , boost::cref(a2)
-          , boxify(sizee)
-          );
+      return  boost::proto::make_expr < nt2::tag::condex_
+                                      , container::domain
+                                      > ( boost::cref(a0)
+                                        , boost::cref(a1)
+                                        , boost::cref(a2)
+                                        , _2D(a0,a0)
+                                        );
     }
-
   };
-  //4
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::condex_, tag::cpu_,
-                              (A0)(A1)(A2)(T),
-                              (scalar_<integer_<A0> >)
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::condex_, tag::cpu_
+                            , (A0)(A1)(A2)(T)
+                            , (scalar_<integer_<A0> >)
                               (scalar_<integer_<A1> >)
                               (scalar_< floating_<A2> >)
                               (target_< scalar_< floating_<T> > >)
-    )
+                            )
   {
     typedef typename T::type value_type;
     typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::condex_
-      , container::domain
-      , A0 const&
-      , A1 const&
-      , value_type
-      , box<_2D>
-      >::type             result_type;
+                      result_of::make_expr< nt2::tag::condex_
+                                          , container::domain
+                                          , A0 const&
+                                          , A1 const&
+                                          , value_type
+                                          , _2D
+                                          >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0,
-                                             A1 const& a1,
-                                             A2 const& a2,
-                                             T  const&) const
+    BOOST_FORCEINLINE result_type
+    operator()(A0 const& a0, A1 const& a1, A2 const& a2, T const&) const
     {
-      _2D sizee;
-      sizee[0] = sizee[1] = a0;
-      value_type v = value_type(a2);
-      return  boost::proto::
-        make_expr<nt2::tag::condex_, container::domain>
-        ( boost::cref(a0)
-          , boost::cref(a1)
-          , v
-          , boxify(sizee)
-          );
+      return  boost::proto::make_expr < nt2::tag::condex_
+                                      , container::domain
+                                      > ( boost::cref(a0)
+                                        , boost::cref(a1)
+                                        , value_type(a2)
+                                        , _2D(a0,a0)
+                                        );
     }
-
   };
 
   //////////////////////////////////////////////////////////////////////////////

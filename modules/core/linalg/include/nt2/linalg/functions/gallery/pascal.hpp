@@ -21,7 +21,6 @@
 #include <nt2/include/functions/from_diag.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/utility/box.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -38,7 +37,7 @@ namespace nt2 { namespace ext
                                           , A0 const&
                                           , A1 const&
                                           , meta::as_<double>
-                                          , box<_2D>
+                                          , _2D
                                           >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,
@@ -51,7 +50,7 @@ namespace nt2 { namespace ext
         ( boost::cref(a0)
           , boost::cref(a1)
           , meta::as_<double>()
-          , boxify(sizee)
+          , sizee
           );
     }
   };
@@ -68,7 +67,7 @@ namespace nt2 { namespace ext
                                           , A0 const
                                           , size_t
                                           , meta::as_<double>
-                                          , box<_2D>
+                                          , _2D
                                           >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
@@ -80,7 +79,7 @@ namespace nt2 { namespace ext
         ( boost::cref(a0)
           , size_t(0)
           , meta::as_<double>()
-          , boxify(sizee)
+          , sizee
           );
     }
   };
@@ -99,7 +98,7 @@ namespace nt2 { namespace ext
                                           , A0 const&
                                           , A1 const&
                                           , T
-                                          , box<_2D>
+                                          , _2D
                                           >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,
@@ -113,7 +112,7 @@ namespace nt2 { namespace ext
         ( boost::cref(a0)
           , boost::cref(a1)
           , T()
-          , boxify(sizee)
+          , sizee
           );
     }
   };
@@ -132,7 +131,7 @@ namespace nt2 { namespace ext
                                           , A0 const&
                                           , size_t
                                           , T
-                                          , box<_2D>
+                                          , _2D
                                           >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,
@@ -145,7 +144,7 @@ namespace nt2 { namespace ext
         ( boost::cref(a0)
           , size_t(0)
           , T()
-          , boxify(sizee)
+          , sizee
           );
     }
   };

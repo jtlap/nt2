@@ -11,7 +11,6 @@
 
 #include <nt2/core/functions/cols.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/utility/box.hpp>
 #include <nt2/core/functions/details/cols.hpp>
 #include <nt2/core/include/functions/as_size.hpp>
 
@@ -72,8 +71,8 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::result_of
                     ::make_expr < nt2::tag::cols_
                                 , container::domain
-                                , box<size_type>
-                                , box<constant_t>
+                                , size_type
+                                , constant_t
                                 , target_t
                                 >::type                     result_type;
 
@@ -82,8 +81,8 @@ namespace nt2 { namespace ext
       return  boost::proto
             ::make_expr < nt2::tag::cols_
                         , container::domain
-                        > ( boxify(a0)
-                          , boxify(constant_t(s))
+                        > ( a0
+                          , constant_t(s)
                           , target_t()
                           );
     }

@@ -11,7 +11,6 @@
 
 #include <nt2/core/functions/rows.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/utility/box.hpp>
 #include <nt2/core/functions/details/rows.hpp>
 #include <nt2/core/include/functions/as_size.hpp>
 
@@ -70,11 +69,8 @@ namespace nt2 { namespace ext
     typedef meta::constant_<nt2::tag::rows_,T>              constant_t;
     typedef meta::as_<typename constant_t::base_type>     target_t;
     typedef typename  boost::proto::result_of
-                    ::make_expr < nt2::tag::rows_
-                                , container::domain
-                                , box<size_type>
-                                , box<constant_t>
-                                , target_t
+                    ::make_expr < nt2::tag::rows_, container::domain
+                                , size_type, constant_t, target_t
                                 >::type                     result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, T const& s) const
@@ -82,10 +78,7 @@ namespace nt2 { namespace ext
       return  boost::proto
             ::make_expr < nt2::tag::rows_
                         , container::domain
-                        > ( boxify(a0)
-                          , boxify(constant_t(s))
-                          , target_t()
-                          );
+                        > ( a0, constant_t(s), target_t() );
     }
   };
 } }

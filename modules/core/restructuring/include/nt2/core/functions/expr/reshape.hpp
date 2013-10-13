@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
                       result_of::make_expr< nt2::tag::reshape_
                                           , container::domain
                                           , A0 &
-                                          , box<sizes_t>
+                                          , sizes_t
                                           >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 & a0, A1 const& a1) const
@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
       return  boost::proto::
               make_expr < nt2::tag::reshape_
                         , container::domain
-                        > ( boost::reference_wrapper<A0>(a0), boxify(a1) );
+                        > ( boost::reference_wrapper<A0>(a0), a1 );
     }
   };
 

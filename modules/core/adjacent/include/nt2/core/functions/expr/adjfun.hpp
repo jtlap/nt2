@@ -11,7 +11,6 @@
 #define NT2_CORE_FUNCTIONS_EXPR_ADJFUN_HPP_INCLUDED
 
 #include <nt2/core/functions/adjfun.hpp>
-#include <nt2/core/utility/box.hpp>
 #include <nt2/include/functions/firstnonsingleton.hpp>
 
 namespace nt2 { namespace ext
@@ -28,7 +27,7 @@ namespace nt2 { namespace ext
                                           , container::domain
                                           , A0 const&
                                           , std::size_t
-                                          , box<Functor>
+                                          , Functor
                                           >::type             result_type;
 
     BOOST_FORCEINLINE
@@ -37,11 +36,7 @@ namespace nt2 { namespace ext
       std::size_t along = nt2::firstnonsingleton(a0) - 1u;
       return boost::proto::make_expr< nt2::tag::adjfun_
                                     , container::domain
-                                    >
-                                    ( boost::cref(a0)
-                                    , along
-                                    , boxify(f)
-                                    );
+                                    >( boost::cref(a0), along, f );
     }
   };
 
@@ -58,7 +53,7 @@ namespace nt2 { namespace ext
                                           , container::domain
                                           , A0 const&
                                           , std::size_t
-                                          , box<Functor>
+                                          , Functor
                                           >::type             result_type;
 
     BOOST_FORCEINLINE
@@ -67,11 +62,7 @@ namespace nt2 { namespace ext
       std::size_t along = d-1;
       return boost::proto::make_expr< nt2::tag::adjfun_
                                     , container::domain
-                                    >
-                                    ( boost::cref(a0)
-                                    , along
-                                    , boxify(f)
-                                    );
+                                    >( boost::cref(a0), along, f );
     }
   };
 } }

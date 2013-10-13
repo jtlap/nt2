@@ -66,23 +66,16 @@ namespace nt2 { namespace ext
     typedef _2D                               result_type;
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
-      return boost::proto::value(boost::proto::child_c<N-1>(e));
+      return boost::proto::value(boost::proto::child_c<2>(e));
     }
   };
-
-//   template <class Domain, class Expr,  int N>
-//   struct value_type < tag::chebspec_, Domain,N,Expr>
-//   {
-//     typedef double type;
-//   };
 
   template <class Domain, class Expr, int N>
   struct value_type < tag::cycol_, Domain,N,Expr>
   {
-    typedef typename boost::proto::result_of::child_c<Expr&,N-2>::type    tmp_type;
-    typedef typename meta::strip<tmp_type>::type                         tmp1_type;
-    typedef typename boost::dispatch::meta::semantic_of<tmp1_type >::type   t_type;
-    typedef typename t_type::type                                             type;
+    typedef typename boost::proto::result_of::child_c<Expr&,1>::type   tmp_t;
+    typedef typename boost::proto::result_of::value<tmp_t>::value_type t_t;
+    typedef typename t_t::type                                         type;
   };
 } }
 #endif

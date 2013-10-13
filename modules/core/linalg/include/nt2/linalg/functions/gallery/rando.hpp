@@ -43,18 +43,27 @@ namespace nt2 { namespace ext
                               (target_<scalar_<floating_<T> > > )
                             )
   {
-    typedef typename T::type                                                  v_t;
-    BOOST_DISPATCH_RETURNS_ARGS(4
-                          , (A0 const& n, A1 const& m, A2 const& k, T const & t), (A0 const& n, A1 const& m, A2 const& k, T const & )
-                          , (boost::proto::make_expr<nt2::tag::rando_, container::domain>
-                             (nt2::_(k == 1?v_t(0):v_t(-1),
-                                     k == 2? v_t(k):v_t(1),
-                                     v_t(1))
-                             , boxify(nt2::of_size(size_t(n), size_t(m)))
-                             )
-                            )
-                          )
-      };
+    typedef typename T::type                                                v_t;
+    BOOST_DISPATCH_RETURNS_ARGS ( 4
+                                , ( A0 const& n, A1 const& m
+                                  , A2 const& k, T const & t
+                                  )
+                                , ( A0 const& n, A1 const& m
+                                  , A2 const& k, T const&
+                                  )
+                                , ( boost::proto
+                                    ::make_expr < nt2::tag::rando_
+                                                , container::domain
+                                                > ( nt2::_( k == 1?v_t(0):v_t(-1)
+                                                          , k == 2 ? v_t(k):v_t(1)
+                                                          , v_t(1)
+                                                          )
+                                                  , nt2::of_size(n,m)
+                                                  )
+                                  )
+                                )
+  };
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rando_, tag::cpu_,
                               (A0)(A1)(T),
                               (scalar_<integer_<A0> >)
@@ -115,7 +124,7 @@ namespace nt2 { namespace ext
     result_type operator()(A0& out, const A1& in) const
     {
       BOOST_AUTO_TPL(x,boost::proto::child_c<0>(in));
-      _2D siz =  boost::proto::child_c<1>(in).value();
+      _2D siz =  boost::proto::value(boost::proto::child_c<1>(in));
       size_t n = siz[0];
       size_t m = siz[1];
       tab_t rnd = nt2::rand(n*m, 1, nt2::meta::as_<value_t>());
@@ -125,8 +134,6 @@ namespace nt2 { namespace ext
       return out;
     }
   };
-
 } }
-
 
 #endif

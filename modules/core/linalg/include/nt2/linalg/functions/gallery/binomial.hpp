@@ -23,66 +23,54 @@
 
 namespace nt2 { namespace ext
 {
-  //
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::binomial_, tag::cpu_,
-                              (A0)(T),
-                              (scalar_<integer_<A0> >)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::binomial_, tag::cpu_
+                            , (A0)(T)
+                            , (scalar_<integer_<A0> >)
                               (target_< scalar_< unspecified_<T> > >)
-    )
+                            )
   {
     typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::binomial_
-      , container::domain
-      , size_t
-      , T
-      , box<_2D>
-      >::type             result_type;
+                      result_of::make_expr< nt2::tag::binomial_
+                                          , container::domain
+                                          , std::size_t, T, _2D
+                                          >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0,
-                                             T  const&) const
+    BOOST_FORCEINLINE result_type operator()(A0 a0, T const& tgt) const
     {
-      _2D sizee;
-      sizee[0] = sizee[1] = a0;
       return  boost::proto::
-        make_expr<nt2::tag::binomial_, container::domain>
-        ( size_t(a0)
-          , T()
-          , boxify(sizee)
-          );
+              make_expr<nt2::tag::binomial_, container::domain>
+              ( std::size_t(a0)
+              , tgt
+              , _2D(a0,a0)
+              );
     }
   };
 
-  //2
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::binomial_, tag::cpu_,
-                              (A0),
-                              (scalar_<integer_<A0> >)
-    )
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::binomial_, tag::cpu_
+                            , (A0)
+                            , (scalar_<integer_<A0> >)
+                            )
   {
     typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::binomial_
-      , container::domain
-      , size_t
-      , meta::as_<double>
-      , box<_2D>
-      >::type             result_type;
+                      result_of::make_expr< nt2::tag::binomial_
+                                          , container::domain
+                                          , std::size_t
+                                          , meta::as_<double>
+                                          , _2D
+                                          >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
+    BOOST_FORCEINLINE result_type operator()(A0 a0) const
     {
-      _2D sizee;
-      sizee[0] = sizee[1] = a0;
       return  boost::proto::
-        make_expr<nt2::tag::binomial_, container::domain>
-        ( size_t(a0)
-          , meta::as_<double>()
-          , boxify(sizee)
-          );
+              make_expr<nt2::tag::binomial_, container::domain>
+              ( std::size_t(a0), meta::as_<double>(), _2D(a0,a0) );
     }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
                               , (A0)(A1)(N)
                               , ((ast_<A0, nt2::container::domain>))
-                              ((node_<A1,nt2::tag::binomial_,N,nt2::container::domain>))
+                                ((node_<A1,nt2::tag::binomial_,N,nt2::container::domain>))
     )
   {
     typedef A0&                                                          result_type;
@@ -90,9 +78,10 @@ namespace nt2 { namespace ext
     typedef typename meta::strip<p_type>::type                             tmp1_type;
     typedef typename boost::dispatch::meta::semantic_of<tmp1_type>::type      t_type;
     typedef typename t_type::type                                         value_type;
+
     result_type operator()(A0& out, const A1& in) const
     {
-      size_t n =  boost::proto::child_c<0>(in);
+      std::size_t n =  boost::proto::child_c<0>(in);
       out.resize(nt2::of_size(n, n));
       nt2::table<value_type, _2D> l = nt2::abs(nt2::pascal(n, 1, nt2::meta::as_<value_type>()));
       nt2::table<value_type, _2D> u = nt2::fliplr(nt2::flipud(l));
@@ -102,6 +91,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 
 #endif

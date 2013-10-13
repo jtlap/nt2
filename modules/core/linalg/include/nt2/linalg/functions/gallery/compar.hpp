@@ -8,9 +8,12 @@
 //==============================================================================
 #ifndef NT2_LINALG_FUNCTIONS_GALLERY_COMPAR_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_GALLERY_COMPAR_HPP_INCLUDED
+
+#include <nt2/linalg/functions/compar.hpp>
 #include <nt2/include/functions/colon.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
+#include <nt2/include/functions/extent.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/from_diag.hpp>
 #include <nt2/include/functions/diag_of.hpp>
@@ -20,45 +23,46 @@
 #include <nt2/include/functions/tril.hpp>
 #include <nt2/include/functions/triu.hpp>
 #include <nt2/include/functions/expand.hpp>
-#include <nt2/include/functions/oneplus.hpp>
+#include <nt2/include/functions/inc.hpp>
 #include <nt2/include/functions/ones.hpp>
-#include <nt2/core/container/table/table.hpp>
 
 namespace nt2{ namespace ext
 {
-
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::compar_, tag::cpu_,
                               (A0),
                               ((ast_<A0, nt2::container::domain >))
                             )
   {
-    typedef typename  boost::proto::result_of::make_expr< nt2::tag::compar_
-      , container::domain
-      , A0 const &, size_t, box<_2D>
-      >::type                        result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
-    {
-      _2D sizee; sizee[0] = nt2::height(a0); sizee[1] = nt2::width(a0);
-      return  boost::proto::make_expr<nt2::tag::compar_, nt2::container::domain>
-        ( boost::cref(a0), size_t(0), boxify(sizee));
-    }
+    BOOST_DISPATCH_RETURNS( 1
+                          , (A0 const& a0)
+                          , ( boost::proto::make_expr
+                              < nt2::tag::compar_
+                              , container::domain
+                              > ( boost::cref(a0)
+                                , std::size_t(0)
+                                , _2D(nt2::extent(a0))
+                                )
+                            )
+                          );
   };
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::compar_, tag::cpu_,
                               (A0)(A1),
                               ((ast_<A0, nt2::container::domain >))
                               (scalar_<integer_<A1> > )
                             )
   {
-    typedef typename  boost::proto::result_of::make_expr< nt2::tag::compar_
-      , container::domain
-      , A0 const &, size_t, box<_2D>
-      >::type                        result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
-    {
-      _2D sizee; sizee[0] = nt2::height(a0); sizee[1] = nt2::width(a0);
-      return  boost::proto::make_expr<nt2::tag::compar_, nt2::container::domain>
-        ( boost::cref(a0), size_t(a1), boxify(sizee));
-    }
+    BOOST_DISPATCH_RETURNS( 2
+                          , (A0 const& a0, A1 const& a1)
+                          , ( boost::proto::make_expr
+                              < nt2::tag::compar_
+                              , container::domain
+                              > ( boost::cref(a0)
+                                , std::size_t(a1)
+                                , _2D(nt2::extent(a0))
+                                )
+                            )
+                          );
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
@@ -73,7 +77,7 @@ namespace nt2{ namespace ext
       typedef typename A0::value_type value_type;
       size_t k = boost::proto::child_c<1>(in);
       out.resize(extent(in));
-      BOOST_AUTO_TPL(idx, nt2::_(size_t(1), nt2::oneplus(height(out)), nt2::numel(out)));
+      BOOST_AUTO_TPL(idx, nt2::_(size_t(1), nt2::inc(height(out)), nt2::numel(out)));
       BOOST_AUTO_TPL(absa,nt2::abs(boost::proto::child_c<0>(in)));
       if (k == 0)
       {

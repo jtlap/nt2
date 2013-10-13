@@ -34,10 +34,8 @@
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/vertcat.hpp>
-
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/eps.hpp>
-
 #include <nt2/core/container/table/table.hpp>
 
 namespace nt2 { namespace ext
@@ -64,6 +62,7 @@ namespace nt2 { namespace ext
       return nt2::randcorr(x0, size_t(n), size_t(k));
     }
   };
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randcorr_, tag::cpu_,
                               (A0)(T),
                               (scalar_<integer_<A0> >)
@@ -75,62 +74,69 @@ namespace nt2 { namespace ext
                           )
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randcorr_, tag::cpu_,
-                              (A0)(A1)(A2),
-                              ((ast_<A0, nt2::container::domain>))
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randcorr_, tag::cpu_
+                            , (A0)(A1)(A2)
+                            , ((ast_<A0, nt2::container::domain>))
                               (scalar_<integer_<A1> >)
                               (scalar_<integer_<A2> >)
                             )
   {
     typedef typename  A0::value_type value_t;
     typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::randcorr_
-      , container::domain
-      , const A0&
-      , size_t
-      , size_t
-      , box<_2D>
-      >::type             result_type;
+                      result_of::make_expr< nt2::tag::randcorr_
+                                          , container::domain
+                                          , const A0&
+                                          , std::size_t
+                                          , std::size_t
+                                          , _2D
+                                          >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& x0,  A1 const & m, A2 const & k) const
+    BOOST_FORCEINLINE
+    result_type operator()(A0 const& x0,  A1 const & m, A2 const & k) const
     {
-      _2D sizee;
-      sizee[0] = m; sizee[1] = numel(x0);
-      BOOST_ASSERT_MSG( size_t(m) >=  numel(x0), "m must be greater or equal to numel(x0)");
-      BOOST_ASSERT_MSG(nt2::isvector(x0),
-                       "x must be a vector");
-      BOOST_ASSERT_MSG(nt2::globalall(nt2::is_gtz(x0)),
-                       "x elements must be strictly  positive");
-      BOOST_ASSERT_MSG(nt2::abs(nt2::globalsum(x0)-value_t(numel(x0))) <= value_t(100)*nt2::Eps<value_t>(),
-                       "x norm must be length(x)");
+      BOOST_ASSERT_MSG( size_t(m) >=  numel(x0)
+                      , "m must be greater or equal to numel(x0)"
+                      );
+
+      BOOST_ASSERT_MSG( nt2::isvector(x0)
+                      , "x must be a vector"
+                      );
+
+      BOOST_ASSERT_MSG( nt2::globalall(nt2::is_gtz(x0))
+                      , "x elements must be strictly  positive"
+                      );
+
+      BOOST_ASSERT_MSG(    nt2::abs(nt2::globalsum(x0)-value_t(numel(x0)))
+                        <= value_t(100)*nt2::Eps<value_t>()
+                      , "x norm must be length(x)"
+                      );
+
       return  boost::proto::
         make_expr<nt2::tag::randcorr_, container::domain>
-        (boost::cref(x0)
-        , size_t(k)
-        , size_t(m)
-        , boxify(sizee)
-        );
+        ( boost::cref(x0), std::size_t(k), std::size_t(m), _2D(m,numel(x0)) );
     }
-  };  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randcorr_, tag::cpu_,
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randcorr_, tag::cpu_,
                               (A0)(A1),
                               ((ast_<A0, nt2::container::domain>))
                               (scalar_<integer_<A1> >)
                             )
   {
-    BOOST_DISPATCH_RETURNS(2, (A0 const& x0,  A1 const & m),
-                           (nt2::randcorr(x0, m, 0))
+    BOOST_DISPATCH_RETURNS(2, (A0 const& x0,  A1 const & m)
+                          , (nt2::randcorr(x0, m, 0))
                           )
-      };
+  };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randcorr_, tag::cpu_,
                               (A0),
                               ((ast_<A0, nt2::container::domain>))
                             )
   {
-    BOOST_DISPATCH_RETURNS(1, (A0 const& x0),
-                           (nt2::randcorr(x0, nt2::numel(x0), 0))
+    BOOST_DISPATCH_RETURNS(1, (A0 const& x0)
+                          , (nt2::randcorr(x0, nt2::numel(x0), 0))
                           )
-      };
+  };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
                             , (A0)(A1)(N)

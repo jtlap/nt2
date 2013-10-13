@@ -27,65 +27,49 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::house_, tag::cpu_,
-                              (A0),
-                              ((ast_<A0, nt2::container::domain>))
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::house_, tag::cpu_
+                            , (A0)
+                            , ((ast_<A0, nt2::container::domain>))
                             )
   {
-    typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::house_
-      , container::domain
-      , A0 const&
-      , size_t
-      , box<_2D>
-      >::type             result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
-    {
-      _2D sizee;
-      sizee[0] =  numel(a0);
-      sizee[1] =  1;
-      size_t k = 0;
-      return  boost::proto::
-        make_expr<nt2::tag::house_, container::domain>
-        ( boost::cref(a0)
-        , k
-        , boxify(sizee)
-        );
-    }
+    BOOST_DISPATCH_RETURNS( 1
+                          , (A0 const& a0)
+                          , ( boost::proto::make_expr
+                              < nt2::tag::house_
+                              , container::domain
+                              > ( boost::cref(a0)
+                                , std::size_t(0)
+                                , _2D(numel(a0),1)
+                                )
+                            )
+                          );
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::house_, tag::cpu_,
-                              (A0)(A1),
-                              ((ast_<A0, nt2::container::domain>))
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::house_, tag::cpu_
+                            , (A0)(A1)
+                            , ((ast_<A0, nt2::container::domain>))
                               (scalar_<integer_<A1> >)
                             )
   {
     typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::house_
-      , container::domain
-      , A0 const&
-      , size_t
-      , box<_2D>
-      >::type             result_type;
+                      result_of::make_expr< nt2::tag::house_
+                                          , container::domain
+                                          , A0 const&
+                                          , std::size_t
+                                          , _2D
+                                          >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,
-                                             A1 const& a1) const
+                                             A1 a1) const
     {
-      _2D sizee;
-      sizee[0] = numel(a0);
-      sizee[1] = 1;
-      size_t k = a1;
       return  boost::proto::
-        make_expr<nt2::tag::house_, container::domain>
-        ( boost::cref(a0)
-        , k
-        , boxify(sizee)
-        );
+              make_expr<nt2::tag::house_, container::domain>
+              ( boost::cref(a0)
+              , std::size_t(a1)
+              , _2D(numel(a0),1)
+              );
     }
   };
-
-
 
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::house_, tag::cpu_
@@ -148,9 +132,7 @@ namespace nt2 { namespace ext
       }
       beta = -rec(conj(s)*v(1));
     }
-
   };
 } }
 
 #endif
-

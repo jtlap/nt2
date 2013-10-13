@@ -11,7 +11,6 @@
 
 #include <nt2/core/functions/function_index.hpp>
 #include <nt2/core/functions/aggregate.hpp>
-#include <nt2/core/utility/box.hpp>
 #include <boost/type_traits/remove_const.hpp>
 
 namespace nt2 { namespace ext
@@ -28,23 +27,19 @@ namespace nt2 { namespace ext
                      make_expr < nt2::tag::function_index_
                                , container::domain
                                , I
-                               , box<typename boost::remove_const<Sz>::type>
-                               , box<size_type>
-                               , box<Idx>
+                               , typename boost::remove_const<Sz>::type
+                               , size_type
+                               , Idx
                                >::type                              result_type;
 
     result_type operator()(I const& i, Sz const& sz, Idx const& idx) const
     {
       size_type compact(sz);
-      return boost::proto::make_expr<tag::function_index_, container::domain>
-                                    ( i
-                                    , nt2::boxify(sz)
-                                    , nt2::boxify(compact)
-                                    , nt2::boxify(idx)
-                                    );
+      return boost::proto::make_expr< tag::function_index_
+                                    , container::domain
+                                    >( i, sz, compact, idx);
     }
   };
-
 } }
 
 #endif

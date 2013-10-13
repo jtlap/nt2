@@ -8,12 +8,11 @@
 ##############################################################################
 
 SET( SOURCES
-     box.cpp
-     generator.cpp
-     run.cpp
-     kind_of.cpp
-     optimize.cpp
-     schedule.cpp
+    generator.cpp
+    run.cpp
+    kind_of.cpp
+    optimize.cpp
+    schedule.cpp
    )
 
 nt2_module_add_tests(core.sdk.dsl.unit ${SOURCES})

@@ -12,13 +12,11 @@
 #include <nt2/core/functions/deltac.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/sdk/meta/constant_adaptor.hpp>
-#include <nt2/core/utility/box.hpp>
 #include <nt2/core/functions/details/delta.hpp>
 #include <nt2/core/include/functions/as_size.hpp>
 
 namespace nt2 { namespace ext
 {
-
   /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::deltac_, tag::cpu_
                             , (A0)(A1)(D1)(D2)(T)
@@ -29,30 +27,24 @@ namespace nt2 { namespace ext
                               (target_<scalar_< unspecified_<T> > > )
                             )
   {
-    typedef _2D                                                     size_type;
     typedef meta::constant_<nt2::meta::delta_<0>,typename T::type>  constant_t;
     typedef meta::as_<typename constant_t::base_type>               target_t;
     typedef typename  boost::proto::result_of
-      ::make_expr < nt2::tag::deltac_
-      , container::domain
-      , box<size_type>
-      , box<constant_t>
-      , target_t
-      >::type     result_type;
+                    ::make_expr < nt2::tag::deltac_, container::domain
+                                , _2D, constant_t, target_t
+                                >::type                             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& i, A1 const& j,
-                                             D1 const& d1, D2 const& d2, T const& ) const
+    BOOST_FORCEINLINE
+    result_type operator()( A0 const& i, A1 const& j
+                          , D1 const& d1, D2 const& d2, T const&
+                          ) const
     {
-      size_type sizee;
-      sizee[0] = d1;
-      sizee[1] = d2;
-      return  boost::proto
-        ::make_expr < nt2::tag::deltac_
-        , container::domain
-        > ( boxify(sizee)
-          , boxify(constant_t(i, j))
-          , target_t()
-          );
+      return  boost::proto::make_expr < nt2::tag::deltac_
+                                      , container::domain
+                                      > ( _2D(d1,d2)
+                                        , constant_t(i, j)
+                                        , target_t()
+                                        );
     }
   };
 
@@ -65,29 +57,22 @@ namespace nt2 { namespace ext
                               (target_<scalar_< unspecified_<T> > > )
                             )
   {
-    typedef _2D                                                     size_type;
     typedef meta::constant_<nt2::meta::delta_<0>,typename T::type>  constant_t;
     typedef meta::as_<typename constant_t::base_type>               target_t;
     typedef typename  boost::proto::result_of
-      ::make_expr < nt2::tag::deltac_
-      , container::domain
-      , box<size_type>
-      , box<constant_t>
-      , target_t
-      >::type     result_type;
+                    ::make_expr < nt2::tag::deltac_, container::domain
+                                , _2D, constant_t, target_t
+                                >::type                             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& i, A1 const& j,
                                              D1 const& d1, T const& ) const
     {
-      size_type sizee;
-      sizee[1] = sizee[0] = d1;
-      return  boost::proto
-        ::make_expr < nt2::tag::deltac_
-        , container::domain
-        > ( boxify(sizee)
-          , boxify(constant_t(i, j))
-          , target_t()
-          );
+      return  boost::proto::make_expr < nt2::tag::deltac_
+                                      , container::domain
+                                      > ( _2D(d1,d1)
+                                        , constant_t(i, j)
+                                        , target_t()
+                                        );
     }
   };
 
@@ -104,23 +89,19 @@ namespace nt2 { namespace ext
     typedef meta::constant_<nt2::meta::delta_<0>,typename T::type>  constant_t;
     typedef meta::as_<typename constant_t::base_type>               target_t;
     typedef typename  boost::proto::result_of
-      ::make_expr < nt2::tag::deltac_
-      , container::domain
-      , box<size_type>
-      , box<constant_t>
-      , target_t
-      >::type     result_type;
+                    ::make_expr < nt2::tag::deltac_, container::domain
+                                , size_type, constant_t, target_t
+                                >::type                             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& i, A1 const& j,
                                              FS const& fs, T const& ) const
     {
-      return  boost::proto
-        ::make_expr < nt2::tag::deltac_
-        , container::domain
-        > ( boxify(fs)
-          , boxify(constant_t(i, j))
-          , target_t()
-          );
+      return  boost::proto::make_expr < nt2::tag::deltac_
+                                      , container::domain
+                                      > ( fs
+                                        , constant_t(i, j)
+                                        , target_t()
+                                        );
     }
   };
 } }

@@ -26,7 +26,7 @@ namespace nt2 { namespace ext
                           , (boost::proto::make_expr< nt2::tag::resize_
                                                     , container::domain
                                                     > ( boost::cref(a0)
-                                                      , boxify(a1)
+                                                      , a1
                                                       , nt2::numel(a0)-1
                                                       )
                             )

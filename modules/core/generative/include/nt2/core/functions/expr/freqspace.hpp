@@ -24,7 +24,7 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::freqspace_
                                           , container::domain
-                                          , box<_2D>
+                                          , _2D
                                           , A0 const&
                                           , meta::as_<double>
                                           >::type             result_type;
@@ -34,7 +34,7 @@ namespace nt2 { namespace ext
       return  boost::proto
               ::make_expr < nt2::tag::freqspace_
                           , container::domain
-                          > ( boxify( _2D(1,1+a0(begin_)/2) )
+                          > ( _2D(1,1+a0(begin_)/2)
                             , boost::cref(a0)
                             , meta::as_<double>()
                             );
@@ -53,7 +53,7 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::freqspace_
                                           , container::domain
-                                          , box<_2D>
+                                          , _2D
                                           , A0 const&
                                           , meta::as_<A1>
                                           >::type             result_type;
@@ -63,9 +63,9 @@ namespace nt2 { namespace ext
       return  boost::proto
               ::make_expr < nt2::tag::freqspace_
                           , container::domain
-                          > ( boxify( _2D(1,a0(begin_)) )
-                              ,boost:: cref(a0)
-                              , meta::as_<A1>()
+                          > ( _2D(1,a0(begin_))
+                            , boost:: cref(a0)
+                            , meta::as_<A1>()
                             );
     }
   };
@@ -82,7 +82,7 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::freqspace_
                                           , container::domain
-                                          , box<_2D>
+                                          , _2D
                                           , A0 const&
                                           , meta::as_<A1>
                                           >::type             result_type;
@@ -93,8 +93,10 @@ namespace nt2 { namespace ext
       return  boost::proto
               ::make_expr < nt2::tag::freqspace_
                           , container::domain
-                > ( boxify( _2D(1,1+a0/2) ),
-            boost:: cref(a0), a1 );
+                > ( _2D(1,1+a0/2)
+                  , boost::cref(a0)
+                  , a1
+                  );
     }
   };
 
@@ -111,7 +113,7 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::freqspace_
                                           , container::domain
-                                          , box<_2D>
+                                          , _2D
                                           , A0 const&
                                           , meta::as_<A2>
                                           , meta::as_<A1>
@@ -123,8 +125,11 @@ namespace nt2 { namespace ext
       return  boost::proto
               ::make_expr < nt2::tag::freqspace_
                           , container::domain
-                          > ( boxify( _2D(1,a0) ),
-                              cref(a0), a2, meta::as_<A1>());
+                          > (  _2D(1,a0)
+                            , cref(a0)
+                            , a2
+                            , meta::as_<A1>()
+                            );
     }
   };
 } }

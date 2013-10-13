@@ -33,11 +33,9 @@
 #include <nt2/include/functions/sx.hpp>
 #include <nt2/include/functions/oneminus.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/utility/box.hpp>
 
 namespace nt2 { namespace ext
 {
-  //1
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::chebspec_, tag::cpu_,
                               (A0)(A1),
                               (scalar_<integer_<A0> >)
@@ -47,25 +45,20 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::chebspec_
                                           , container::domain
-                                          , A0 const&
-                                          , A1 const&
-                                          , box<_2D>
+                                          , A0 const&, A1 const&
+                                          , _2D
                                           >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,
                                              A1 const& a1) const
     {
-      _2D sizee;
-      sizee[0] = sizee[1] = a0;
-      return  boost::proto::
-        make_expr<nt2::tag::chebspec_, container::domain>
-        ( boost::cref(a0)
-          , boost::cref(a1)
-          , boxify(sizee)
-          );
+      return  boost::proto
+            ::make_expr < nt2::tag::chebspec_
+                        , container::domain
+                        > ( boost::cref(a0), boost::cref(a1), _2D(a0,a0) );
     }
   };
-  //2
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::chebspec_, tag::cpu_,
                               (A0)(A1)(T),
                               (scalar_<integer_<A0> >)
@@ -77,60 +70,64 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::chebspec_
                                           , container::domain
-                                          , A0 const&
-                                          , A1 const&
+                                          , A0 const&, A1 const&
                                           , T
-                                          , box<_2D>
+                                          , _2D
                                           >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,
                                              A1 const& a1,
                                              T  const&) const
     {
-      _2D sizee;
-      sizee[0] = sizee[1] = a0;
-      return  boost::proto::
-        make_expr<nt2::tag::chebspec_, container::domain>
-        ( boost::cref(a0)
-          , boost::cref(a1)
-          , T()
-          , boxify(sizee)
-          );
+      return  boost::proto
+            ::make_expr < nt2::tag::chebspec_
+                        , container::domain
+                        >( boost::cref(a0), boost::cref(a1), T(), _2D(a0,a0) );
     }
 
   };
-  //////////////////////////////////////////////////////////////////////////////
-  //     chebspec  Chebyshev spectral differentiation matrix.
-  //////////////////////////////////////////////////////////////////////////////
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
-                              , (A0)(A1)(N)
-                              , ((ast_<A0, nt2::container::domain>))
-                              ((node_<A1,nt2::tag::chebspec_,N,nt2::container::domain>))
-    )
+                            , (A0)(A1)(N)
+                            , ((ast_<A0, nt2::container::domain>))
+                              ((node_ < A1,nt2::tag::chebspec_,N
+                                      , nt2::container::domain
+                                      >
+                              ))
+                            )
   {
-    typedef A0&                                                     result_type;
+    typedef A0&                                     result_type;
+
+
     result_type operator()(A0& out, const A1& in) const
     {
       size_t n =  boost::proto::child_c<0>(in);
       size_t k =  boost::proto::child_c<1>(in);
+
       if (n == 0)
       {
         out.resize(of_size(0, 1));
         return out;
       }
+
       if(k == 1) ++n;
+
       out.resize(of_size(n, n));
+
       compute(out, n, k, N());
+
       return out;
     }
-  private :
-    static void compute(A0& out, size_t n,  size_t k,  boost::mpl::long_<3> const &)
+
+    private :
+
+    static void compute(A0& out, size_t n, size_t k, boost::mpl::long_<3> const&)
     {
       typedef typename A0::value_type                                   v_type;
       typedef typename meta::as_<v_type>                                t_type;
       chsp<v_type, t_type>(out, n, k);
     }
+
     static void compute(A0& out, size_t n,  size_t k,  boost::mpl::long_<4> const &)
     {
       typedef typename boost::proto::result_of::child_c<A1&,2>::type       tt_type;
@@ -139,6 +136,7 @@ namespace nt2 { namespace ext
       typedef typename t_type::type                                         v_type;
       chsp<v_type, t_type>(out, n, k);
     }
+
     template < class V, class T >
     static void chsp(A0& c, size_t n,  size_t k)
     {
@@ -177,7 +175,6 @@ namespace nt2 { namespace ext
       }
     }
   };
-
 } }
 
 #endif

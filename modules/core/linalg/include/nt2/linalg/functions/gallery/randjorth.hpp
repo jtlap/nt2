@@ -36,145 +36,99 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randjorth_, tag::cpu_,
-                              (A0)(A1)(A2)(A3),
-                              (scalar_<integer_<A0> >)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randjorth_, tag::cpu_
+                            , (A0)(A1)(A2)(A3)
+                            , (scalar_<integer_<A0> >)
                               (scalar_<integer_<A1> >)
                               (scalar_<floating_<A2> >)
                               (scalar_<integer_<A3> >)
                             )
   {
-    typedef  A2 value_t;
     typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::randjorth_
-      , container::domain
-      , size_t
-      , size_t
-      , A2
-      , size_t
-      , box<_2D>
-      >::type             result_type;
+                      result_of::make_expr< nt2::tag::randjorth_
+                                          , container::domain
+                                          , A2, std::size_t, _2D
+                                          >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& p,  A1 const & q, A2 const & c, A3 const & symm) const
+    BOOST_FORCEINLINE result_type operator()(A0 p,  A1 q, A2 c, A3 symm) const
     {
-      _2D sizee;
-      sizee[0] = p; sizee[1] = q;
       return  boost::proto::
-        make_expr<nt2::tag::randjorth_, container::domain>
-        ( size_t(p)
-        , size_t(q)
-        , c
-        , size_t(symm)
-        , boxify(sizee)
-        );
+              make_expr<nt2::tag::randjorth_, container::domain>
+              ( c, std::size_t(symm), _2D(p,q) );
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randjorth_, tag::cpu_,
-                              (A0)(A1)(A2),
-                              (scalar_<integer_<A0> >)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randjorth_, tag::cpu_
+                            , (A0)(A1)(A2)
+                            , (scalar_<integer_<A0> >)
                               (scalar_<integer_<A1> >)
                               (scalar_<floating_<A2> >)
                             )
   {
-    typedef A2 value_t;
     typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::randjorth_
-      , container::domain
-      , size_t
-      , size_t
-      , value_t
-      , size_t
-      , box<_2D>
-      >::type             result_type;
+                      result_of::make_expr< nt2::tag::randjorth_
+                                          , container::domain
+                                          , A2, std::size_t, _2D
+                                          >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& p,  A1 const & q, A2 const & c) const
+    BOOST_FORCEINLINE result_type operator()(A0 p, A1 q, A2 c) const
     {
-      _2D sizee;
-      sizee[0] = p; sizee[1] = q;
       return  boost::proto::
-        make_expr<nt2::tag::randjorth_, container::domain>
-        (
-          size_t(p)
-          , size_t(q)
-          , c
-          , size_t(0)
-          , boxify(sizee)
-        );
+              make_expr<nt2::tag::randjorth_, container::domain>
+              ( c, std::size_t(0), _2D(p,q) );
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randjorth_, tag::cpu_,
-                              (A0)(A1)(A2),
-                              (scalar_<integer_<A0> >)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randjorth_, tag::cpu_
+                            , (A0)(A1)(A2)
+                            , (scalar_<integer_<A0> >)
                               (scalar_<integer_<A1> >)
                               (target_<floating_<A2> >)
                             )
   {
-    typedef typename A2::type value_t;
     typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::randjorth_
-      , container::domain
-      , size_t
-      , size_t
-      , value_t
-      , size_t
-      , box<_2D>
-      >::type             result_type;
+                      result_of::make_expr< nt2::tag::randjorth_
+                                          , container::domain
+                                          , typename A2::type
+                                          , std::size_t
+                                          , _2D
+                                          >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& p,  A1 const & q, A2 const &) const
+    BOOST_FORCEINLINE result_type operator()(A0 p, A1 q, A2) const
     {
-      _2D sizee;
-      sizee[0] = p; sizee[1] = q;
-      value_t c =  nt2::rec(nt2::Sqrteps<value_t>());
       return  boost::proto::
-        make_expr<nt2::tag::randjorth_, container::domain>
-        (
-          size_t(p)
-          , size_t(q)
-          , c
-          , size_t(0)
-          , boxify(sizee)
-        );
+              make_expr < nt2::tag::randjorth_, container::domain>
+                        ( nt2::rec(nt2::Sqrteps<typename A2::type>())
+                        , std::size_t(0)
+                        , _2D(p,q)
+                        );
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randjorth_, tag::cpu_,
-                              (A0)(A1),
-                              (scalar_<integer_<A0> >)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randjorth_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_<integer_<A0> >)
                               (target_<floating_<A1> >)
                             )
   {
-    typedef typename  A1::type value_t;
     typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::randjorth_
-      , container::domain
-      , size_t
-      , size_t
-      , value_t
-      , size_t
-      , box<_2D>
-      >::type             result_type;
+                      result_of::make_expr< nt2::tag::randjorth_
+                                          , container::domain
+                                          , typename A1::type, std::size_t, _2D
+                                          >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& n, A1 const &) const
     {
-      _2D sizee;
-      size_t p = n >> 1;
-      size_t q = n-p;
-      sizee[0] = p; sizee[1] = q;
-      value_t c =  nt2::rec(nt2::Sqrteps<value_t>());
+      std::size_t p = n >> 1;
+
       return  boost::proto::
-        make_expr<nt2::tag::randjorth_, container::domain>
-        (
-          size_t(p)
-          , size_t(q)
-          , c
-          , size_t(0)
-          , boxify(sizee)
-        );
+              make_expr<nt2::tag::randjorth_, container::domain>
+              ( nt2::rec(nt2::Sqrteps<typename A1::type>())
+              , std::size_t(0)
+              , _2D(p,n-p)
+              );
     }
   };
-
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
                             , (A0)(A1)(N)
@@ -183,20 +137,25 @@ namespace nt2 { namespace ext
                             )
   {
     typedef A0&                                                         result_type;
-    typedef typename  boost::proto::result_of::child_c<A1&,2>::type        tmp_type;
-    typedef typename  meta::strip<tmp_type>::type                         tmp1_type;
-    typedef typename  tmp1_type::value_type                                 value_t;
-    typedef nt2::table<value_t> tab_t;
+    typedef typename  boost::proto::result_of::child_c<A1&,0>::type     tmp_type;
+    typedef typename  meta::strip<tmp_type>::type                       tmp1_type;
+    typedef typename  tmp1_type::value_type                             value_t;
+    typedef nt2::table<value_t>                                         tab_t;
+
     result_type operator()(A0& out, const A1& in) const
     {
-      size_t p = boost::proto::child_c<0>(in);
-      size_t q = boost::proto::child_c<1>(in);
+      std::size_t p = boost::proto::value(boost::proto::child_c<2>(in))[0];
+      std::size_t q = boost::proto::value(boost::proto::child_c<2>(in))[1];
       bool swaped =  (p > q);
       if (swaped) std::swap(p, q);
-      value_t cc = boost::proto::child_c<2>(in);
-      size_t symm =  boost::proto::child_c<3>(in);
-      size_t n =  p+q;
-      BOOST_ASSERT_MSG(cc >= 1, "provided condition number must be greater or equal one");
+      value_t cc = boost::proto::value(boost::proto::child_c<0>(in));
+      std::size_t symm = boost::proto::value(boost::proto::child_c<1>(in));
+      std::size_t n =  p+q;
+
+      BOOST_ASSERT_MSG( cc >= 1
+                      , "provided condition number must be greater or equal one"
+                      );
+
       value_t c1 =  nt2::oneplus(cc)/(nt2::Two<value_t>()*nt2::sqrt(cc));
       tab_t c = nt2::catv(c1, nt2::oneplus(nt2::minusone(c1)*nt2::rand(p-1, 1, nt2::meta::as_<value_t>())));
       tab_t s = nt2::sqrt(nt2::minusone(nt2::sqr(c)));
@@ -227,33 +186,6 @@ namespace nt2 { namespace ext
       return out;
     }
   };
-
-}
-
-//   meta::call<tag::randjorth_(const size_t &, meta::as_<double> const &)>::type
-//   randjorth(ptrdiff_t n)
-//   {
-//     return nt2::randjorth(n,  meta::as_<double>());
-//   }
-//   template<class T>
-//   typename meta::call<tag::randjorth_(const size_t &, typename meta::as_<T> const &)>::type
-//   randjorth(ptrdiff_t n)
-//   {
-//     return nt2::randjorth(n,  meta::as_<T>());
-//   }
-//   meta::call<tag::randjorth_(const ptrdiff_t &, const ptrdiff_t &, meta::as_<double> const &)>::type
-//   randjorth(ptrdiff_t n, ptrdiff_t k)
-//   {
-//     return nt2::randjorth(n, k, meta::as_<double>());
-//   }
-//   template<class T>
-//   typename meta::call<tag::randjorth_(const ptrdiff_t &, const ptrdiff_t &, typename meta::as_<T> const &)>::type
-//   randjorth(ptrdiff_t n, ptrdiff_t k)
-//   {
-//     return nt2::randjorth(n,  k, meta::as_<T>());
-//   }
-
-}
-
+} }
 
 #endif

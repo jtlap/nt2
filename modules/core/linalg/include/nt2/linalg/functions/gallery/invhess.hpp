@@ -17,54 +17,53 @@
 #include <nt2/include/functions/uminus.hpp>
 #include <nt2/include/functions/repmat.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/utility/box.hpp>
 
 namespace nt2 { namespace ext
 {
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::invhess_, tag::cpu_,
-                              (A0),
-                              (scalar_<integer_<A0> > )
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::invhess_, tag::cpu_
+                            , (A0)
+                            , (scalar_<integer_<A0> > )
                             )
   {
-    BOOST_DISPATCH_RETURNS(1, (A0 const& n),
-                           ( nt2::invhess(n, nt2::meta::as_<double>())
-                           )
+    BOOST_DISPATCH_RETURNS(1, (A0 const& n)
+                          , ( nt2::invhess(n, nt2::meta::as_<double>()) )
                           )
+  };
 
-      };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::invhess_, tag::cpu_,
-                              (A0)(T),
-                              (scalar_<integer_<A0> > )
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::invhess_, tag::cpu_
+                            , (A0)(T)
+                            , (scalar_<integer_<A0> > )
                               (target_<scalar_<floating_<T> > > )
                             )
   {
     typedef typename T::type v_t;
-    BOOST_DISPATCH_RETURNS_ARGS(2, (A0 const& n, T const& t),(A0 const& n, T const& ),
-                           ( boost::proto::make_expr<nt2::tag::invhess_, container::domain>
-                             ( boost::cref(nt2::_(v_t(1), v_t(n)))
-                             , boost::cref(-nt2::_(v_t(1), v_t(n-1)))
-                             , boxify(of_size(n, n))
-                             )
-                           )
-                          )
+    BOOST_DISPATCH_RETURNS_ARGS ( 2
+                                , (A0 const& n, T const& t),(A0 const& n, T const& )
+                                , ( boost::proto::make_expr
+                                    <nt2::tag::invhess_, container::domain>
+                                    ( nt2::_(v_t(1), v_t(n))
+                                    , -nt2::_(v_t(1), v_t(n-1))
+                                    , of_size(n, n)
+                                    )
+                                  )
+                                )
 
       };
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::invhess_, tag::cpu_,
-                              (A0)(A1),
-                              ((ast_<A0, nt2::container::domain>))
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::invhess_, tag::cpu_
+                            , (A0)(A1)
+                            , ((ast_<A0, nt2::container::domain>))
                               ((ast_<A1, nt2::container::domain>))
                             )
   {
-
-    BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1),
-                           ( boost::proto::make_expr<nt2::tag::invhess_, container::domain>
-                             ( boost::cref(a0)
-                             , boost::cref(a1)
-                             , boxify(of_size(numel(a0), numel(a0)))
-                             )
-                           )
+    BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1)
+                          , ( boost::proto::make_expr
+                              <nt2::tag::invhess_, container::domain>
+                              ( boost::cref(a0)
+                              , boost::cref(a1)
+                              , of_size(numel(a0), numel(a0))
+                              )
+                            )
                           )
 
   };
@@ -75,13 +74,14 @@ namespace nt2 { namespace ext
                             )
   {
 
-    BOOST_DISPATCH_RETURNS(1, (A0 const& a0),
-                           ( boost::proto::make_expr<nt2::tag::invhess_, container::domain>
-                             ( boost::cref(a0)
-                             , boost::cref(-a0(nt2::_(1, numel(a0)-1)))
-                             , boxify(of_size(numel(a0), numel(a0)))
-                             )
-                           )
+    BOOST_DISPATCH_RETURNS(1, (A0 const& a0)
+                          , ( boost::proto::make_expr
+                              <nt2::tag::invhess_, container::domain>
+                              ( boost::cref(a0)
+                              , -a0(nt2::_(1, numel(a0)-1))
+                              , of_size(numel(a0), numel(a0))
+                              )
+                            )
                           )
   };
 
@@ -89,23 +89,26 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
                               , (A0)(A1)(N)
                               , ((ast_<A0, nt2::container::domain>))
-                              ((node_<A1,nt2::tag::invhess_,N,nt2::container::domain>))
-    )
+                                ((node_<A1,nt2::tag::invhess_,N,nt2::container::domain>))
+                            )
   {
-    typedef A0&                                                     result_type;
+    typedef A0&                                       result_type;
     result_type operator()(A0& out, const A1& in) const
     {
       BOOST_AUTO_TPL(x, nt2::rowvect(boost::proto::child_c<0>(in)));
       BOOST_AUTO_TPL(y, nt2::colvect(boost::proto::child_c<1>(in)));
       size_t n =  numel(x);
+
       out.resize(nt2::of_size(n, n));
+
       out = nt2::repmat(x, n, 1);
+
       for (size_t j = 2; j <= n; ++j)
         out(nt2::_(1, j-1),j) = y(nt2::_(1, j-1));
+
       return out;
     }
   };
-
 } }
 
 #endif
