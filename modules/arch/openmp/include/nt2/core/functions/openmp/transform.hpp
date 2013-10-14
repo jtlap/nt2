@@ -76,30 +76,42 @@ namespace nt2 { namespace ext
         // Local transform
         nt2::functor<tag::transform_,Site> transformer;
 
-#ifndef BOOST_NO_EXCEPTIONS
-        try
+        // Dispatch group of blocks over each threads
+        #pragma omp for schedule(dynamic) nowait
+        for(std::ptrdiff_t n=0;n<(std::ptrdiff_t)nblocks;++n)
         {
-#endif
-          // Dispatch group of blocks over each threads
-          #pragma omp for schedule(dynamic) nowait
-          for(std::ptrdiff_t n=0;n<(std::ptrdiff_t)nblocks;++n)
+#ifndef BOOST_NO_EXCEPTIONS
+          try
           {
+#endif
               // Call transform over the sub-architecture in the memory hierachy
               transformer(a0,a1,it+(std::size_t)n*top_cache_line_size,top_cache_line_size);
-          }
-          #pragma omp single nowait
-          {
-            if(leftover) transformer(a0,a1,it+nblocks*top_cache_line_size,leftover);
-          }
-
 #ifndef BOOST_NO_EXCEPTIONS
-        }
-        catch(...)
-        {
-          #pragma omp critical
-          exception = boost::current_exception();
-        }
+          }
+          catch(...)
+          {
+            #pragma omp critical
+            exception = boost::current_exception();
+          }
 #endif
+        }
+
+        #pragma omp single nowait
+        {
+#ifndef BOOST_NO_EXCEPTIONS
+          try
+          {
+#endif
+            if(leftover) transformer(a0,a1,it+nblocks*top_cache_line_size,leftover);
+#ifndef BOOST_NO_EXCEPTIONS
+          }
+          catch(...)
+          {
+            #pragma omp critical
+            exception = boost::current_exception();
+          }
+#endif
+        }
       }
 #ifndef BOOST_NO_EXCEPTIONS
       if(exception) boost::rethrow_exception(exception);
