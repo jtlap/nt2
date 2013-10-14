@@ -6,57 +6,48 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_EULER_FUNCTIONS_DGAMMAINC_HPP_INCLUDED
 #define NT2_EULER_FUNCTIONS_DGAMMAINC_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup euler
- * \defgroup euler_dgammainc dgammainc
- *
- * \par Description
- * Dérivative of incomplete Gamma function relative to the second parameter
- * \par Formula
- * \f[ dgammainc(x)=\int_0^\a t^{x-1}e^{-t}dt\f]
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/dgammainc.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::dgammainc_(A0, A1)>::type
- *     dgammainc(const A0 & x, const A0& a);
- * }
- * \endcode
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag dgammainc_ of functor dgammainc
-     *        in namespace nt2::tag for toolbox euler
-    **/
-    struct dgammainc_ : ext::elementwise_<dgammainc_> { typedef ext::elementwise_<dgammainc_> parent; };
+   /*!
+     @brief dgammainc generic tag
+
+     Represents the dgammainc function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct dgammainc_ : ext::elementwise_<dgammainc_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<dgammainc_> parent;
+    };
   }
+  /*!
+    Computes the derivative of incomplete Gamma function relative to the first parameter
+
+    @par Semantic:
+
+    For every parameters of floating type respectively T0:
+
+    @code
+    T0 r = dgammainc(x, a);
+    @endcode
+
+    Computes:  \f$ \mathop{\mbox{dgammainc}}(x, a)=\frac{x^{a-1}e^{-x}}{\gamma(x)}\f$
+
+    @param a0
+
+    @param a1
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::dgammainc_, dgammainc, 2)
 }
 
 #endif
 
-// modified by jt the 25/12/2010
