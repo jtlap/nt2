@@ -73,4 +73,6 @@ cons(nt2::of_size_max const& sz, BOOST_PP_ENUM_PARAMS(N, T const& a))
   );
 }
 
+#undef N
+
 #endif
