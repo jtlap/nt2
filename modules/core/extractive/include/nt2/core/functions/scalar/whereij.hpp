@@ -24,7 +24,7 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 const& a0, A1 const& a1, A2 const& a2) const
+    operator()(A0 const& a0, A1 const& a1, A1 const& a2) const
     {
       return a0(0,0) ? a1 : a2;
     }
