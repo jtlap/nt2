@@ -1,9 +1,29 @@
 [library Hyperbolic Functions
   [quickbook 1.5]
 ]
-
 [section Overview]
-This module provides implementation of hyperbolic functions.
-[endsect]
+This module provides direct access to descriptions of the hyperbolic functions  defined in __NT2__.
+
+This is a list of all trigonometric and hyperbolic functions defined in __NT2__
+they are supported for real and complex inputs
+
+[table:id   __NT2__ hyperbolic, direct and inverse
+[[ Name                          ][ Description                            ]]
+[[[funcref nt2::acosh  `acosh  `]][Inverse hyperbolic cosine               ]]
+[[[funcref nt2::acoth  `acoth  `]][Inverse hyperbolic cotangent            ]]
+[[[funcref nt2::acsch  `acsch  `]][Inverse hyperbolic cosecant             ]]
+[[[funcref nt2::asech  `asech  `]][Inverse hyperbolic secant               ]]
+[[[funcref nt2::asinh  `asinh  `]][Inverse hyperbolic sine                 ]]
+[[[funcref nt2::atanh  `atanh  `]][Inverse hyperbolic tangent              ]]
+[[[funcref nt2::cosh   `cosh   `]][Hyperbolic cosine                       ]]
+[[[funcref nt2::coth   `coth   `]][Hyperbolic cotangent                    ]]
+[[[funcref nt2::csch   `csch   `]][Hyperbolic cosecant                     ]]
+[[[funcref nt2::sech   `sech   `]][Hyperbolic secant                       ]]
+[[[funcref nt2::sinh   `sinh   `]][Hyperbolic sine                         ]]
+[[[funcref nt2::sinh   `sinch  `]][Hyperbolic sine cardinal                ]]
+[[[funcref nt2::sinh   `sinhcosh  `]][Simultaneous hyperbolic  sine and cosine]]
+]
+
 
 [xinclude reference.xml]
+[endsect]

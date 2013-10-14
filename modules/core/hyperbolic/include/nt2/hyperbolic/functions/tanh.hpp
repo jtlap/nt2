@@ -21,7 +21,11 @@ namespace nt2 { namespace tag
      @par Models:
         Hierarchy
    **/
-    struct tanh_ : ext::elementwise_<tanh_> { typedef ext::elementwise_<tanh_> parent; };
+    struct tanh_ : ext::elementwise_<tanh_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<tanh_> parent;
+    };
   }
   /*!
     Returns the hyperbolic tangent: \f$\frac{\sinh(a_0)}{\cosh(a_0)}\f$.
