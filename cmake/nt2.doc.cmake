@@ -271,22 +271,23 @@ macro(nt2_doc output_file)
 endmacro()
 
 macro(nt2_module_doc module)
-  set(output_file ${NT2_BINARY_DIR}/doc/${module}.xml)
-  nt2_doc(${output_file} ${ARGN})
+  set(output_file_base ${NT2_BINARY_DIR}/doc/${module})
+  nt2_doc(${output_file_base}.xml ${ARGN})
 
   add_custom_target(${module}.boostbook
-                    DEPENDS ${output_file}
+                    DEPENDS ${output_file_base}.xml
                    )
   nt2_module_target_parent(${module}.boostbook)
 
-  if(NOT NT2_SOURCE_DIR)
-    nt2_doc_boostbook(${module})
-    nt2_doc_html(${NT2_BINARY_DIR}/doc ${module})
+  if(NOT NT2_SOURCE_DIR OR NT2_DOC_MAIN STREQUAL ${module})
+    nt2_doc_boostbook(${output_file_base})
+    nt2_doc_html(${NT2_BINARY_DIR}/doc ${output_file_base})
     add_custom_target(doc
                       COMMAND ${CMAKE_COMMAND}
                       -E copy_directory ${NT2_SOURCE_ROOT}/doc/html
                                         ${NT2_BINARY_DIR}/doc/html
                       DEPENDS ${NT2_BINARY_DIR}/doc/html/index.html
                      )
+    install(DIRECTORY ${NT2_BINARY_DIR}/doc/html DESTINATION doc PATTERN ".*" EXCLUDE)
   endif()
 endmacro()

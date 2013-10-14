@@ -337,7 +337,7 @@ macro(nt2_module_add_library libname)
   if(PROJECT_NAME MATCHES "^NT2")
     install( DIRECTORY ${NT2_BINARY_DIR}/lib
              DESTINATION . COMPONENT ${NT2_CURRENT_MODULE}
-             FILES_MATCHING PATTERN "*${libname}.*"
+             FILES_MATCHING PATTERN "*${libname}.*" PATTERN "*${libname}_d.*"
            )
   endif()
 
