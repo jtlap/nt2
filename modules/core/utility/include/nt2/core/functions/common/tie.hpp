@@ -163,4 +163,5 @@ namespace nt2 { namespace meta
   };
 } }
 
+#undef n
 #endif
