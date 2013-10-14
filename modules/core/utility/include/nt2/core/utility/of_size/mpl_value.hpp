@@ -12,6 +12,8 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <boost/mpl/integral_c.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
+#include <boost/dispatch/meta/enable_if_type.hpp>
+#include <cstddef>
 
 namespace nt2
 {
