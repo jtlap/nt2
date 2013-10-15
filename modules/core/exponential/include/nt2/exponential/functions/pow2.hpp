@@ -51,7 +51,7 @@ namespace nt2 { namespace tag
   **/
   NT2_FUNCTION_IMPLEMENTATION(tag::pow2_, pow2, 1)
   /*!
-    Returns \f$x2^y\f$.
+    Returns \f$ x 2^y\f$.
 
     @par Semantic:
 

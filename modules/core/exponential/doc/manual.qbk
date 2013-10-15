@@ -4,6 +4,59 @@
 
 [section Overview]
 This module provides implementation of exponential functions.
+
+This is a list of all exponential functions defined in __NT2__
+they are supported for real and complex inputs
+
+
+[table:id   __NT2__ trigonometric, direct and inverse
+[[ Name                                           ][ Description                                     ]]
+[[[funcref nt2::cbrt            `cbrt            `]][ Cubic root                                     ]]
+[[[funcref nt2::exp10           `exp10           `]][ base ten exponential                           ]]
+[[[funcref nt2::exp2            `exp2            `]][ base two exponential                           ]]
+[[[funcref nt2::exp             `exp             `]][ exponential                                    ]]
+[[[funcref nt2::expm1           `expm1           `]][ accurate exponential minus one                 ]]
+[[[funcref nt2::expx2           `expx2           `]][ exponential of square                          ]]
+[[[funcref nt2::log10           `log10           `]][ base ten logarithm                             ]]
+[[[funcref nt2::log1p           `log1p           `]][ natural logarithm of 1+input                   ]]
+[[[funcref nt2::log2            `log2            `]][ base two logarithm                             ]]
+[[[funcref nt2::log             `log             `]][ natural logarithm                              ]]
+[[[funcref nt2::logspace_add    `logspace_add    `]][ add in logspace                                ]]
+[[[funcref nt2::logspace_sub    `logspace_sub    `]][ minus in logspace                              ]]
+[[[funcref nt2::nthroot         `nthroot         `]][ nth root                                       ]]
+[[[funcref nt2::pow2            `pow2            `]][ two power and scaling                          ]]
+[[[funcref nt2::pow_abs         `pow_abs         `]][ power of absolute value                        ]]
+[[[funcref nt2::pow_absi        `pow_absi        `]][ power of absolute value of integer             ]]
+[[[funcref nt2::pow             `pow             `]][ power                                          ]]
+[[[funcref nt2::reallog         `reallog         `]][ natural logarithm restricted to positive reals ]]
+[[[funcref nt2::realpow         `realpow         `]][ power restricted to positive reals             ]]
+[[[funcref nt2::realsqrt        `realsqrt        `]][ square root restricted to positive reals       ]]
+[[[funcref nt2::sqrt1pm1        `sqrt1pm1        `]][ square root of 1+input, minus one              ]]
+]
+
 [endsect]
 
 [xinclude reference.xml]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

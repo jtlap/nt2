@@ -28,7 +28,7 @@ namespace nt2 { namespace tag
     };
   }
   /*!
-    Power function for scalar integer a1: \f${a_0}^{\|a_1\|}\f$. (\f$0^0\f$ returns 1)
+    Computes a0 to abs(a1),  for scalar integer a1.
 
     @par Semantic:
 

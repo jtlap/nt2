@@ -28,7 +28,7 @@ namespace nt2 { namespace tag
     };
   }
   /*!
-    Computes power function: \f${a_0}^{a_1}\f$. (\f$0^0\f$ returns 1)
+    Computes a0 to a1
 
     @par Semantic:
 
