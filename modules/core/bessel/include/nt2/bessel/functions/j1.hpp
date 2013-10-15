@@ -38,7 +38,7 @@ namespace nt2 { namespace tag
     T0 r = j1(x);
     @endcode
 
-    Computes \f$\displaystyle \frac1{\pi} \int_0^\pi \cos(x \sint - t)\mbox{d}t\f$
+    Computes \f$\displaystyle \frac1{\pi} \int_0^\pi \cos(x \sin t - t)\mbox{d}t\f$
 
 
     @param a0
