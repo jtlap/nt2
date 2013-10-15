@@ -6,68 +6,54 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_FUZZY_FUNCTIONS_FUZZY_EQUAL_HPP_INCLUDED
 #define NT2_FUZZY_FUNCTIONS_FUZZY_EQUAL_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup fuzzy
- * \defgroup fuzzy_fuzzy_equal fuzzy_equal
- *
- * \par Description
- * \f$|a_0-a_1| \le a_2*\max(|a_0|,|a1|)\f$
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/fuzzy_equal.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::fuzzy_equal_(A0,A0,A0)>::type
- *     fuzzy_equal(const A0 & a0,const A0 & a1,const A0 & a2);
- * }
- * \endcode
- *
- * \param a0 the first parameter of fuzzy_equal
- * \param a1 the second parameter of fuzzy_equal
- * \param a2 the third parameter of fuzzy_equal
- *
- * \return a value of the common type of the parameters
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- * This is a predicate operation. Such operations return bool in scalar mode,
- * but not in SIMD mode.
- * \par
- * The return type in SIMD mode is the common type of the parameters and is
- * a 'signed boolean' type. This means that in this case True has all its bits
- * sets to one. This is to facilitate masking operations. You are invited to
- * consult the rationale.
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag fuzzy_equal_ of functor fuzzy_equal
-     *        in namespace nt2::tag for toolbox fuzzy
-    **/
-    struct fuzzy_equal_ : ext::elementwise_<fuzzy_equal_> { typedef ext::elementwise_<fuzzy_equal_> parent; };
+   /*!
+     @brief fuzzy_equal generic tag
+
+     Represents the fuzzy_equal function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct fuzzy_equal_ : ext::elementwise_<fuzzy_equal_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<fuzzy_equal_> parent;
+    };
   }
+  /*!
+    \f$|a_0-a_1| \le a_2*\max(|a_0|,|a1|)\f$
+
+    @par Semantic:
+
+    For every parameters of floating types respectively T0, T1, T2:
+
+    @code
+    T0 r = fuzzy_equal(a0,a1,a2);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = abs(a0-a1) <=  a2*max(abs(a0),abs(a1));
+    @endcode
+
+    @param a0
+
+    @param a1
+
+    @param a2
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::fuzzy_equal_, fuzzy_equal, 3)
 }
 
 #endif
 
-// modified by jt the 25/12/2010
