@@ -38,7 +38,8 @@ namespace nt2 { namespace tag
     T0 r = gammaincinv(a0,a1);
     @endcode
 
-    satisfies @c a1 = gammainc(r, a1);
+    satisfies @c a0 = gammainc(r, a1);
+
     @param a0
 
     @param a1

@@ -33,7 +33,7 @@ namespace nt2 { namespace tag
     T0 r = expni(a0,a1);
     @endcode
 
-    Computes \f$ E_{a_0}(a_1)=\int_0^\infty \frac{e^{-a_1t}}{t^{a_0}}} \mbox{d}t\f$
+    Computes \f$ E_{a_0}(a_1)=\int_0^\infty \frac{e^{-a_1t}}{t^{a_0}} \mbox{d}t\f$
 
 
     @param a0

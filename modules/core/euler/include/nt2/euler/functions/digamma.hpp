@@ -38,7 +38,7 @@ namespace nt2 { namespace tag
     T0 r = digamma(x);
     @endcode
 
-    Computes:  \f$\Psi(a_0) = \frac{\Gamma\^prime(x)}{\Gamma(x}\f$
+    Computes:  \f$\Psi(a_0) = \frac{\Gamma^prime(x)}{\Gamma(x}\f$
 
     @param a0
 
