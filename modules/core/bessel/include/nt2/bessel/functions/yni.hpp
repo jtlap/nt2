@@ -38,11 +38,7 @@ namespace nt2 { namespace tag
     T0 r = yni(a0,a1);
     @endcode
 
-    is similar to:
-
-    @code
-    T0 r = ;
-    @endcode
+    Computes \f$\displaystyle \lim_{\nu \rightarrow n} \frac{\cos(\nu\pi)J_{\nu}(x)-J_{-\nu}(x)}{\cos(\nu\pi)}\f$
 
     @param a0
 
@@ -55,5 +51,3 @@ namespace nt2 { namespace tag
 
 #endif
 
-
-///

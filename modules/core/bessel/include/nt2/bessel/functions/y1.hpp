@@ -6,59 +6,46 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_BESSEL_FUNCTIONS_Y1_HPP_INCLUDED
 #define NT2_BESSEL_FUNCTIONS_Y1_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup bessel
- * \defgroup bessel_y1 y1
- *
- * \par Description
- * Bessel function of the second kind of order 1.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/y1.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::y1_(A0)>::type
- *     y1(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of y1
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag y1_ of functor y1
-     *        in namespace nt2::tag for toolbox bessel
-    **/
-    struct y1_ : ext::elementwise_<y1_> { typedef ext::elementwise_<y1_> parent; };
+   /*!
+     @brief y1 generic tag
+
+     Represents the y1 function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct y1_ : ext::elementwise_<y1_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<y1_> parent;
+    };
   }
+  /*!
+    Bessel function of the second kind of order 1.
+
+    @par Semantic:
+
+    For every parameter of floating type T0
+
+    @code
+    T0 r = y1(a0);
+    @endcode
+
+    Computes \f$\displaystyle \lim_{\nu \rightarrow 1} \frac{\cos(\nu\pi)J_{\nu}(x)-J_{-\nu}(x)}{\cos(\nu\pi)}\f$
+
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::y1_, y1, 1)
 }
 
 #endif
 
-// modified by jt the 25/12/2010

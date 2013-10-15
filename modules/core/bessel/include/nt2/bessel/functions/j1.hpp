@@ -6,59 +6,47 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_BESSEL_FUNCTIONS_J1_HPP_INCLUDED
 #define NT2_BESSEL_FUNCTIONS_J1_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup bessel
- * \defgroup bessel_j1 j1
- *
- * \par Description
- * Bessel function of the first kind of order 1.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/j1.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::j1_(A0)>::type
- *     j1(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of j1
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag j1_ of functor j1
-     *        in namespace nt2::tag for toolbox bessel
-    **/
-    struct j1_ : ext::elementwise_<j1_> { typedef ext::elementwise_<j1_> parent; };
+   /*!
+     @brief j1 generic tag
+
+     Represents the j1 function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct j1_ : ext::elementwise_<j1_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<j1_> parent;
+    };
   }
+  /*!
+    Bessel function of the first kind of order 1.
+
+    @par Semantic:
+
+    For every parameter of floating type T0
+
+    @code
+    T0 r = j1(x);
+    @endcode
+
+    Computes \f$\displaystyle \frac1{\pi} \int_0^\pi \cos(x \sint - t)\mbox{d}t\f$
+
+
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::j1_, j1, 1)
 }
 
 #endif
 
-// modified by jt the 25/12/2010
