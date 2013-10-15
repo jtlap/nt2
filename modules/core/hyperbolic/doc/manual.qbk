@@ -4,7 +4,7 @@
 [section Overview]
 This module provides direct access to descriptions of the hyperbolic functions  defined in __NT2__.
 
-This is a list of all trigonometric and hyperbolic functions defined in __NT2__
+This is a list of all hyperbolic functions defined in __NT2__
 they are supported for real and complex inputs
 
 [table:id   __NT2__ hyperbolic, direct and inverse
