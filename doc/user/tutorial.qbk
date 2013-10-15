@@ -13,7 +13,7 @@ Those coming from straight C/__CPP__
 For each kind we propose
 
 # A catalog of equivalence between what can be done in Matlab (respectively C/__CPP__ and what can be used in NT2,
-# A pack of do and don't in order to get better performance out of the written code.
+# A number of DO's and DON'Ts in order to get better performance out of the written code.
 
 
 [endsect]
