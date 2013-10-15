@@ -295,7 +295,7 @@ macro(nt2_module_add_library libname)
           file(MAKE_DIRECTORY ${NT2_BINARY_DIR}/${release_dir})
         endif()
         if(NOT EXISTS ${NT2_BINARY_DIR}/${release_dir}/${libname}.dll)
-          execute_process(COMMAND mklink "${release_dir}\\${libname}.dll" "..\\lib\\${libname}.dll"
+          execute_process(COMMAND cmd /C mklink "${release_dir}\\${libname}.dll" "..\\lib\\${libname}.dll"
                           WORKING_DIRECTORY ${NT2_BINARY_DIR}
                          )
         endif()
