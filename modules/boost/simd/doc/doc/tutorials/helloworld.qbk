@@ -19,7 +19,7 @@ Here is a simple program computing a SIMD register full of 42.
     boost::simd::pack<float> u(10);
     boost::simd::pack<float> r(11,11,11,11);
 
-    res = (u + r) * 2;
+    res = (u + r) * 2.f;
 
     std::cout << res << std::endl;
 
@@ -59,14 +59,17 @@ to try to not depend on a fixed size for [classref boost::simd::pack].
 
 Once initialized, operations on [classref boost::simd::pack] instances are similar
 to operations on scalar as all operators and standard library math functions
-are provided.
-
-  res = (u + r) * 2;
-
-A simple pattern make those functions and operators available: if you need to
-use function `foo`, you need to include `boost/simd/include/functions/foo.hpp`.
+are provided. A simple pattern make those functions and operators available:
+if you need to use function `foo`, you need to include `boost/simd/include/functions/foo.hpp`.
 Here, we include `plus.hpp` and `multiplies.hpp` to be able to use `operator+`
 and `operator*`.
+
+  res = (u + r) * 2.f;
+
+Note that type checking is stricter than one may expect when scalar and SIMD
+values are mixed. Boost.SIMD only allows mixing types of the same scalar kind,
+i.e reals with reals or integers with integers. Here, we have to multiply by
+`2.f` and not simply `2`.
 
 Finally, we display the [classref boost::simd::pack] content by using
 `operator<<` provided by the [headerref boost/simd/sdk/simd/io.hpp] header file.
