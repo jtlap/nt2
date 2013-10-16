@@ -39,7 +39,6 @@
 #include "fill.hpp"
 
 #define NT2_TEST_STORE(r, data, elem) BOOST_PP_CAT(nt2_test_run_, data)<T, elem>::call();
-#define NT2_TEST_APPLY(r, data, elem) data<elem>
 
 template<class T, class U>
 struct nt2_test_run_store

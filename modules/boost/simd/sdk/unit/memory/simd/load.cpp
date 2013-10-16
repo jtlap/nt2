@@ -96,7 +96,7 @@ struct nt2_test_run_load_gather
     NT2_TEST( (boost::is_same<vT,r_t>::value) );
 
     U data[ cardinal_of<vT>::value*3 ];
-    for(size_t i=0;i<cardinal_of<vT>::value*3;++i) data[i] = T(1+i);
+    for(size_t i=0;i<cardinal_of<vT>::value*3;++i) data[i] = U(1+i);
 
     viT index;
     for(size_t i=0;i<cardinal_of<viT>::value;++i)
