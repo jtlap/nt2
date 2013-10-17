@@ -53,6 +53,10 @@ namespace nt2
     };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mtimes_, mtimes, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mtimes_, mtimes, 3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mtimes_, mtimes, 4)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mtimes_, mtimes, 5)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mtimes_, mtimes, 6)
 }
 
 #endif

@@ -11,6 +11,7 @@
 
 #include <nt2/linalg/functions/mtimes.hpp>
 #include <nt2/linalg/details/blas/mm.hpp>
+#include <nt2/core/functions/transpose.hpp>
 #include <nt2/core/functions/ctranspose.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/multiplies.hpp>
@@ -25,6 +26,33 @@
 #include <boost/proto/traits.hpp>
 #include <boost/assert.hpp>
 
+namespace nt2 { namespace tag
+{
+  struct blas_normal_
+  {
+    BOOST_FORCEINLINE static char call()
+    {
+      return 'N';
+    }
+  };
+
+  struct blas_transpose_
+  {
+    BOOST_FORCEINLINE static char call()
+    {
+      return 'T';
+    }
+  };
+
+  struct blas_ctranspose_
+  {
+    BOOST_FORCEINLINE static char call()
+    {
+      return 'C';
+    }
+  };
+} }
+
 namespace nt2 { namespace ext
 {
   template<class Domain, int N,class Expr>
@@ -33,11 +61,19 @@ namespace nt2 { namespace ext
     typedef typename boost::proto::result_of::child_c<Expr&, 0>::value_type child0;
     typedef typename boost::proto::result_of::child_c<Expr&, 1>::value_type child1;
 
+    typedef typename boost::proto::result_of::value< typename boost::proto::result_of::child_c<Expr&, 4>::value_type >::value_type trs0;
+    typedef typename boost::proto::result_of::value< typename boost::proto::result_of::child_c<Expr&, 5>::value_type >::value_type trs1;
+
     typedef typename child0::extent_type sz0;
     typedef typename child1::extent_type sz1;
 
-    typedef of_size_< mpl_value< typename boost::fusion::result_of::at_c<sz0, 0>::type>::value
-                    , mpl_value< typename boost::fusion::result_of::at_c<sz1, 1>::type>::value
+    static const std::size_t sz0_0 = boost::is_same<trs0, tag::blas_normal_>::value ? 0 : 1;
+    static const std::size_t sz0_1 = boost::is_same<trs0, tag::blas_normal_>::value ? 1 : 0;
+    static const std::size_t sz1_0 = boost::is_same<trs1, tag::blas_normal_>::value ? 0 : 1;
+    static const std::size_t sz1_1 = boost::is_same<trs1, tag::blas_normal_>::value ? 1 : 0;
+
+    typedef of_size_< mpl_value< typename boost::fusion::result_of::at_c<sz0, sz0_0>::type>::value
+                    , mpl_value< typename boost::fusion::result_of::at_c<sz1, sz1_1>::type>::value
                     >  result_type;
 
     result_type operator()(Expr& e) const
@@ -49,19 +85,87 @@ namespace nt2 { namespace ext
                       , "Inputs must be 2-D, or at least one input must be scalar"
                       );
 
-      BOOST_ASSERT_MSG( boost::fusion::at_c<1>(size0) == boost::fusion::at_c<0>(size1)
+      BOOST_ASSERT_MSG( boost::fusion::at_c<sz0_1>(size0) == boost::fusion::at_c<sz1_0>(size1)
                       , "Inner dimensions must agree"
                       );
 
-      return result_type( boost::fusion::at_c<0>(size0)
-                        , boost::fusion::at_c<1>(size1)
+      return result_type( boost::fusion::at_c<sz0_0>(size0)
+                        , boost::fusion::at_c<sz1_1>(size1)
                         );
     }
+  };
+
+  template<class Domain, int N,class Expr>
+  struct value_type<tag::mtimes_, Domain, N, Expr>
+  {
+    typedef typename boost::proto::result_of::child_c<Expr&, 0>::type child0;
+    typedef typename boost::proto::result_of::child_c<Expr&, 1>::type child1;
+
+    typedef typename boost::dispatch::meta::semantic_of<child0>::type semantic0;
+    typedef typename boost::dispatch::meta::semantic_of<child1>::type semantic1;
+
+    typedef typename boost::dispatch::meta::scalar_of<semantic0>::type s0;
+    typedef typename boost::dispatch::meta::scalar_of<semantic0>::type s1;
+
+    typedef typename boost::dispatch::meta::call<tag::multiplies_(s0, s1)>::type type;
   };
 } }
 
 namespace nt2 { namespace ext
 {
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mtimes_, tag::cpu_
+                            , (A0)(A1)
+                            , (unspecified_<A0>)
+                              (unspecified_<A1>)
+                            )
+  {
+    typedef typename meta::scalar_of<A0>::type T;
+    BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1),
+      mtimes(a0, a1, One<T>())
+    )
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mtimes_, tag::cpu_
+                            , (A0)(A1)(A2)
+                            , (unspecified_<A0>)
+                              (unspecified_<A1>)
+                              (unspecified_<A2>)
+                            )
+  {
+    typedef typename meta::scalar_of<A0>::type T;
+    BOOST_DISPATCH_RETURNS(3, (A0 const& a0, A1 const& a1, A2 const& a2),
+      mtimes(a0, a1, a2, Zero<T>())
+    )
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mtimes_, tag::cpu_
+                            , (A0)(A1)(A2)(A3)
+                            , (unspecified_<A0>)
+                              (unspecified_<A1>)
+                              (unspecified_<A2>)
+                              (unspecified_<A3>)
+                            )
+  {
+    BOOST_DISPATCH_RETURNS(4, (A0 const& a0, A1 const& a1, A2 const& a2, A3 const& a3),
+      mtimes(a0, a1, a2, a3, tag::blas_normal_())
+    )
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mtimes_, tag::cpu_
+                            , (A0)(A1)(A2)(A3)(A4)
+                            , (unspecified_<A0>)
+                              (unspecified_<A1>)
+                              (unspecified_<A2>)
+                              (unspecified_<A3>)
+                              (unspecified_<A4>)
+                            )
+  {
+    BOOST_DISPATCH_RETURNS(5, (A0 const& a0, A1 const& a1, A2 const& a2, A3 const& a3, A4 const& a4),
+      mtimes(a0, a1, a2, a3, a4, tag::blas_normal_())
+    )
+  };
+
+  #if 1
   // Recognize scalar/matrix, matrix/scalar and scalar/scalar
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mtimes_, tag::cpu_
                             , (A0)(A1)(T1)(N1)
@@ -101,126 +205,129 @@ namespace nt2 { namespace ext
       return nt2::multiplies(a0, a1);
     }
   };
+  #endif
 
-  #if 0
   // Recognize transpose
-  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::mtimes_, tag::cpu_
-                               , (A0)(A1)(T1)(N1)
-                               , (is_real<typename A0::value_type>)
-                               , ((node_< A0, nt2::tag::transpose_, boost::mpl::long_<1> , nt2::container::domain>))
-                                 ((node_< A1, T1, N1 , nt2::container::domain>))
-                               )
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mtimes_, tag::cpu_
+                            , (A0)(A1)(A2)(A3)(A4)(A5)
+                            , ((node_< A0, nt2::tag::transpose_, boost::mpl::long_<1> , nt2::container::domain>))
+                              ((ast_< A1, nt2::container::domain>))
+                              (unspecified_<A2>)
+                              (unspecified_<A3>)
+                              (unspecified_<A4>)
+                              (unspecified_<A5>)
+                            )
   {
-    typedef int result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
-    {
-      return 0;
-    }
+    BOOST_DISPATCH_RETURNS_ARGS(6, (A0 const& a0, A1 const& a1, A2 const& a2, A3 const& a3, A4 const& a4, A5 const& a5), (A0 const& a0, A1 const& a1, A2 const& a2, A3 const& a3, A4 const&, A5 const& a5),
+      mtimes(boost::proto::child_c<0>(a0), a1, a2, a3, tag::blas_transpose_(), a5)
+    )
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::mtimes_, tag::cpu_
-                               , (A0)(T0)(N0)(A1)
-                               , (is_real<typename A1::value_type>)
-                               , ((node_< A0, T0, N0 , nt2::container::domain>))
-                                 ((node_< A1, nt2::tag::transpose_, boost::mpl::long_<1> , nt2::container::domain>))
-                               )
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mtimes_, tag::cpu_
+                            , (A0)(A1)(A2)(A3)(A4)(A5)
+                            , ((ast_< A0, nt2::container::domain>))
+                              ((node_< A1, nt2::tag::transpose_, boost::mpl::long_<1> , nt2::container::domain>))
+                              (unspecified_<A2>)
+                              (unspecified_<A3>)
+                              (unspecified_<A4>)
+                              (unspecified_<A5>)
+                            )
   {
-    typedef int result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
-    {
-      return 0;
-    }
+    BOOST_DISPATCH_RETURNS_ARGS(6, (A0 const& a0, A1 const& a1, A2 const& a2, A3 const& a3, A4 const& a4, A5 const& a5), (A0 const& a0, A1 const& a1, A2 const& a2, A3 const& a3, A4 const& a4, A5 const&),
+      mtimes(a0, boost::proto::child_c<0>(a1), a2, a3, a4, tag::blas_transpose_())
+    )
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::mtimes_, tag::cpu_
-                               , (A0)(A1)
-                               , (mpl::and_< is_real<typename A0::value_type>
-                                           , is_real<typename A1::value_type>
-                                           >)
-                               , ((node_< A0, nt2::tag::transpose_, boost::mpl::long_<1> , nt2::container::domain>))
-                                 ((node_< A1, nt2::tag::transpose_, boost::mpl::long_<1> , nt2::container::domain>))
-                               )
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mtimes_, tag::cpu_
+                            , (A0)(A1)(A2)(A3)(A4)(A5)
+                            , ((node_< A0, nt2::tag::transpose_, boost::mpl::long_<1> , nt2::container::domain>))
+                              ((node_< A1, nt2::tag::transpose_, boost::mpl::long_<1> , nt2::container::domain>))
+                              (unspecified_<A2>)
+                              (unspecified_<A3>)
+                              (unspecified_<A4>)
+                              (unspecified_<A5>)
+                            )
   {
-    typedef int result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
-    {
-      return 0;
-    }
+    BOOST_DISPATCH_RETURNS_ARGS(6, (A0 const& a0, A1 const& a1, A2 const& a2, A3 const& a3, A4 const& a4, A5 const& a5), (A0 const& a0, A1 const& a1, A2 const& a2, A3 const& a3, A4 const&, A5 const&),
+      mtimes(boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1), a2, a3, tag::blas_transpose_(), tag::blas_transpose_())
+    )
   };
 
   // Recognize ctranspose
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mtimes_, tag::cpu_
-                            , (A0)(A1)(T1)(N1)
+                            , (A0)(A1)(A2)(A3)(A4)(A5)
                             , ((node_< A0, nt2::tag::ctranspose_, boost::mpl::long_<1> , nt2::container::domain>))
-                              ((node_< A1, T1, N1 , nt2::container::domain>))
+                              ((ast_< A1, nt2::container::domain>))
+                              (unspecified_<A2>)
+                              (unspecified_<A3>)
+                              (unspecified_<A4>)
+                              (unspecified_<A5>)
                             )
   {
-    typedef int result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
-    {
-      return 0;
-    }
+    BOOST_DISPATCH_RETURNS_ARGS(6, (A0 const& a0, A1 const& a1, A2 const& a2, A3 const& a3, A4 const& a4, A5 const& a5), (A0 const& a0, A1 const& a1, A2 const& a2, A3 const& a3, A4 const&, A5 const& a5),
+      mtimes(boost::proto::child_c<0>(a0), a1, a2, a3, tag::blas_ctranspose_(), a5)
+    )
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mtimes_, tag::cpu_
-                            , (A0)(T0)(N0)(A1)
-                            , ((node_< A0, T0, N0 , nt2::container::domain>))
+                            , (A0)(A1)(A2)(A3)(A4)(A5)
+                            , ((ast_< A0, nt2::container::domain>))
                               ((node_< A1, nt2::tag::ctranspose_, boost::mpl::long_<1> , nt2::container::domain>))
+                              (unspecified_<A2>)
+                              (unspecified_<A3>)
+                              (unspecified_<A4>)
+                              (unspecified_<A5>)
                             )
   {
-    typedef int result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
-    {
-      return 0;
-    }
+    BOOST_DISPATCH_RETURNS_ARGS(6, (A0 const& a0, A1 const& a1, A2 const& a2, A3 const& a3, A4 const& a4, A5 const& a5), (A0 const& a0, A1 const& a1, A2 const& a2, A3 const& a3, A4 const& a4, A5 const&),
+      mtimes(a0, boost::proto::child_c<0>(a1), a2, a3, a4, tag::blas_ctranspose_())
+    )
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mtimes_, tag::cpu_
-                            , (A0)(A1)
+                            , (A0)(A1)(A2)(A3)(A4)(A5)
                             , ((node_< A0, nt2::tag::ctranspose_, boost::mpl::long_<1> , nt2::container::domain>))
                               ((node_< A1, nt2::tag::ctranspose_, boost::mpl::long_<1> , nt2::container::domain>))
+                              (unspecified_<A2>)
+                              (unspecified_<A3>)
+                              (unspecified_<A4>)
+                              (unspecified_<A5>)
                             )
   {
-    typedef int result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
-    {
-      return 0;
-    }
+    BOOST_DISPATCH_RETURNS_ARGS(6, (A0 const& a0, A1 const& a1, A2 const& a2, A3 const& a3, A4 const& a4, A5 const& a5), (A0 const& a0, A1 const& a1, A2 const& a2, A3 const& a3, A4 const&, A5 const&),
+      mtimes(boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1), a2, a3, tag::blas_ctranspose_(), tag::blas_ctranspose_())
+    )
   };
+
 
   // Recognize alpha
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< unspecified_<A0> >)
-                              ((node_< A1, nt2::tag::mtimes_, boost::mpl::long_<2> , nt2::container::domain>))
+                              ((node_< A1, nt2::tag::mtimes_, boost::mpl::long_<6> , nt2::container::domain>))
                             )
   {
-    typedef int result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
-    {
-      return 0;
-    }
+    BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1),
+      mtimes(boost::proto::child_c<0>(a1), boost::proto::child_c<1>(a1), a0 * boost::proto::child_c<2>(a1), boost::proto::child_c<3>(a1), boost::proto::child_c<4>(a1), boost::proto::child_c<5>(a1))
+    )
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_
                             , (A0)(A1)
-                            , ((node_< A0, nt2::tag::mtimes_, boost::mpl::long_<2> , nt2::container::domain>))
+                            , ((node_< A0, nt2::tag::mtimes_, boost::mpl::long_<6> , nt2::container::domain>))
                               (scalar_< unspecified_<A1> >)
                             )
   {
-    typedef int result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
-    {
-      return 0;
-    }
+    BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1),
+      mtimes(boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a0), a1 * boost::proto::child_c<2>(a0), boost::proto::child_c<3>(a0), boost::proto::child_c<4>(a0), boost::proto::child_c<5>(a0))
+    )
   };
-  #endif
 
   // run_assign
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
-                              ((node_< A1, nt2::tag::mtimes_, boost::mpl::long_<2> , nt2::container::domain>))
+                              ((node_< A1, nt2::tag::mtimes_, boost::mpl::long_<6> , nt2::container::domain>))
                             )
   {
     typedef A0& result_type;
@@ -236,17 +343,20 @@ namespace nt2 { namespace ext
         return a0;
       }
 
-      typedef typename meta::kind_<A1>::type container_kind;
-      typedef nt2::memory::container<container_kind,value_type, nt2::_2D> desired_semantic;
+      typedef nt2::memory::container<tag::table_, value_type, nt2::_2D> desired_semantic;
       typename container::as_terminal<desired_semantic, typename boost::proto::result_of::child_c<A1&, 0>::type>::type child0 = boost::proto::child_c<0>(a1);
       typename container::as_terminal<desired_semantic, typename boost::proto::result_of::child_c<A1&, 1>::type>::type child1 = boost::proto::child_c<1>(a1);
       typename container::as_terminal<desired_semantic, A0&>::type result = container::as_terminal<desired_semantic, A0&>::init(a0);
 
-      value_type alpha = One<value_type>();
-      value_type beta = Zero<value_type>();
-      nt2_la_int m = at_c<0>(child0.extent());
-      nt2_la_int n = at_c<1>(child1.extent());
-      nt2_la_int k = at_c<1>(child0.extent());
+      value_type alpha = boost::proto::value(boost::proto::child_c<2>(a1));
+      value_type beta = boost::proto::value(boost::proto::child_c<3>(a1));
+
+      char transA = A1::proto_child4::proto_child0::call();
+      char transB = A1::proto_child5::proto_child0::call();
+
+      nt2_la_int m = transA == 'N' ? at_c<0>(child0.extent()) : at_c<1>(child0.extent());
+      nt2_la_int n = transB == 'N' ? at_c<1>(child1.extent()) : at_c<0>(child1.extent());
+      nt2_la_int k = transA == 'N' ? at_c<1>(child0.extent()) : at_c<0>(child0.extent());
       nt2_la_int lda = at_c<0>(child0.extent());
       nt2_la_int ldb = at_c<0>(child1.extent());
       nt2_la_int ldc = at_c<0>(a1.extent());
@@ -273,7 +383,7 @@ namespace nt2 { namespace ext
       }
 
       nt2::details::
-      gemm( "N", "N"
+      gemm( &transA, &transB
           , &m, &n, &k
           , &alpha
           , child0.raw(), &lda

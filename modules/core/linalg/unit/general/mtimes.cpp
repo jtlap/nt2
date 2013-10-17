@@ -245,9 +245,21 @@ NT2_TEST_CASE_TPL ( table1, NT2_REAL_TYPES)
   NT2_TEST_EQUAL(b, nt2::ones(5, 5, nt2::meta::as_<T>())*T(3.0));
 }
 
+struct child0_arity
+{
+  template<class X>
+  struct apply
+  {
+    typedef boost::mpl::long_< X::proto_child0::proto_arity_c > type;
+  };
+};
+
 NT2_TEST_CASE_TPL ( table2, NT2_REAL_TYPES)
 {
   nt2::table<T, nt2::of_size_<3,5> > a = nt2::ones(3,5, nt2::meta::as_<T>() );
+
+  NT2_TEST_EXPR_TYPE( nt2::mtimes(nt2::trans(a), a), child0_arity, boost::mpl::long_<0> );
+
   nt2::table<T, nt2::of_size_<5,5> > b = nt2::mtimes(nt2::trans(a), a);
   NT2_TEST_EQUAL(b, nt2::ones(5, 5, nt2::meta::as_<T>())*T(3.0));
 }
