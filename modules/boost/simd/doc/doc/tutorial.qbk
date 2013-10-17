@@ -4,3 +4,4 @@
 
 [include tutorials/objectives.qbk]
 [include tutorials/helloworld.qbk]
+[include tutorials/processing_data.qbk]
