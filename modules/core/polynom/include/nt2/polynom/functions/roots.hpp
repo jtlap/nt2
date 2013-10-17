@@ -16,17 +16,42 @@
 #include <nt2/core/container/dsl/value_type.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 
-// roots(p, x)
-// This compute the roots of a polynomial p of degree N
-// The polynomial is supposed to be given by an array of N+1 elements
-// in decreasing degrees order. The type of returned roots is always
-// the complexification of the input data type. Use realroots if you only want the real
-// roots in "real" form.
-
 namespace nt2 { namespace tag
   {
-    struct roots_ : ext::unspecified_<roots_> { typedef ext::unspecified_<roots_> parent; };
+   /*!
+     @brief roots generic tag
+
+     Represents the roots function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct roots_ : ext::unspecified_<roots_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::unspecified_<roots_> parent;
+    };
   }
+  /*!
+    Computes the roots of a polynomial p
+
+    @par Semantic:
+
+    For every polynomial p
+
+    @code
+    auto r = roots(p);
+    @endcode
+
+    @par Note:
+    The polynomial is supposed to be given by an array of N+1 elements
+    in decreasing degrees order. The type of returned roots is always
+    the complexification of the input data type.
+
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::roots_, roots, 1)
 
 }
@@ -55,3 +80,5 @@ namespace nt2 { namespace tag
   };
 } }
 #endif
+
+///

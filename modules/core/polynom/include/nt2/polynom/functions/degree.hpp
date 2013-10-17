@@ -10,19 +10,44 @@
 #define NT2_POLYNOM_FUNCTIONS_DEGREE_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/**
- * @brief Perform polynomial format reduction
- *
- *   degree(p) returns the degree of the input polynomial.
- *   null polynomial has degree -1
- *   non null constant polynomial has degree 0
- *
- *
- **/
 namespace nt2 { namespace tag
   {
-    struct degree_: ext::elementwise_<degree_> { typedef ext::elementwise_<degree_> parent; };
+   /*!
+     @brief degree generic tag
+
+     Represents the degree function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct degree_ : ext::elementwise_<degree_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<degree_> parent;
+    };
   }
+  /*!
+    returns the degree of the input polynomial expression.
+
+    @par Semantic:
+
+    For every expression representing a polynomial:
+
+    @code
+    ptrdiff_t r = degree(p);
+    @endcode
+
+    The degree is the greatest exponent associated to a non null coefficient.
+    null polynomial has degree -1
+    non null constant polynomial has degree 0
+
+
+    @param a0
+
+    @return an integral value
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::degree_,degree, 1)
 }
 #endif
+
+///

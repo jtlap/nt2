@@ -10,19 +10,50 @@
 #define NT2_POLYNOM_FUNCTIONS_COMPAN_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/**
- * @brief companion matrix of a polynomial
- *
- *   compan(p) returns the compan of the input polynomial.
- *   null polynomial has compan -1
- *   non null constant polynomial has compan 0
- *
- *
- **/
 namespace nt2 { namespace tag
   {
-    struct compan_: ext::elementwise_<compan_> { typedef ext::elementwise_<compan_> parent; };
+   /*!
+     @brief compan generic tag
+
+     Represents the compan function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct compan_ : ext::elementwise_<compan_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<compan_> parent;
+    };
   }
+  /*!
+    returns the companion matrix of the input polynomial.
+
+    @par Semantic:
+
+    For every expression representing a polynomial
+
+    @code
+    auto r = compan(p);
+    @endcode
+
+    @par Note:
+    The eigenvalues of @c compan(p) are the roots of the polynomial.
+
+    @Note:
+    The first row of r is -p(_(2, n))/p(1).
+
+    null polynomial has compan -1
+    non null constant polynomial has compan 0
+
+    @see @funcref{colon}
+
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::compan_,compan, 1)
 }
 #endif
+
+///

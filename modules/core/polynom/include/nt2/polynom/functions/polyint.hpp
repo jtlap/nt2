@@ -10,19 +10,61 @@
 #define NT2_POLYNOM_FUNCTIONS_POLYINT_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/**
- * @brief Perform polynomial integration
- *
- *   polyint(p, k) returns the primitive of the polynomial whose
- *   coefficients are the elements of vector p with integration constant k
- *   defaulting to 0.
- *
- **/
 namespace nt2 { namespace tag
   {
-    struct polyint_: ext::elementwise_<polyint_> { typedef ext::elementwise_<polyint_> parent; };
+   /*!
+     @brief polyint generic tag
+
+     Represents the polyint function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct polyint_ : ext::elementwise_<polyint_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<polyint_> parent;
+    };
   }
+  /*!
+    returns a polynomial representing the primitive null at zero
+    of polynomial p
+
+    @par semantic:
+
+    For every expression representing a polynomial
+
+    @code
+    auto r = polyint(p);
+    @endcode
+
+    is such that if p represents \f$\displaystyle \sum_0^n a_i x^i\f$ then r represents
+    \f$\displaystyle \sum_0^n \frac{a_ix^{i+1}}{i+1}\f$
+
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::polyint_,polyint, 1)
-  NT2_FUNCTION_IMPLEMENTATION(tag::polyint_,polyint, 2)
+  /*!
+    returns a polynomial representing the primitive null at zero
+    of polynomial p, using a scalar constant of integration k.
+    @par semantic:
+
+    For every expression representing a polynomial
+
+    @code
+    auto r = polyint(p, k);
+    @endcode
+
+    is such that if p represents \f$\displaystyle \sum_0^n a_i x^i\f$ then r represents
+    \f$\displaystyle k+\sum_0^n \frac{a_ix^{i+1}}{i+1}\f$
+
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/  NT2_FUNCTION_IMPLEMENTATION(tag::polyint_,polyint, 2)
 }
 #endif
+
+///

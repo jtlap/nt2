@@ -2,8 +2,22 @@
   [quickbook 1.5]
 ]
 
+
 [section Overview]
 This module provides implementation of polynom related functions.
+
+__NT2__ expressions can be considered as polynomials as soon as they can
+evaluate to row vectors of floating scalar entities (including
+complex), and the polynom leading term (higher degree) is considered
+to be the first element (decreasing degrees order).
+
+We intend in the future to provide a specialization such that the
+standard operators + - * can be used with the proper semantic on this
+specialization. Up to this time polyadd polysub and conv have to be
+used.
+
+All functions in this section obey to the preceding convention of storage.
+
 [endsect]
 
 [xinclude reference.xml]

@@ -14,21 +14,52 @@
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
-// polyvalm(p, x)
-// This compute the valuation of a polynomial p of degree N at x
-// The polynomial is supposed to be given by an array of N+1 elements
-// in decreasing degrees order
 
 namespace nt2 { namespace tag
   {
-    struct polyvalm_ : ext::unspecified_<polyvalm_> { typedef ext::unspecified_<polyvalm_> parent; };
+   /*!
+     @brief polyvalm generic tag
+
+     Represents the polyvalm function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct polyvalm_ : ext::unspecified_<polyvalm_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::unspecified_<polyvalm_> parent;
+    };
   }
+  /*!
+    computes the value of a polynomial p at a square matrix a using matricial product.
+    the polynomial is supposed to be given by an array coefficients
+    in decreasing degrees order
+
+    @par Semantic:
+
+    For every expression p representing and a representing a square matrix
+
+    @code
+    auto r = polyvalm(p, a);
+    @endcode
+
+    Computes \f$\displaystyle \sum_0^n p_i \mbox{mpow}(a, i)\f$.
+
+    @see @funcref{mpower}
+    @param a0
+
+    @param a1
+
+    @return an expression
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::polyvalm_, polyvalm, 2)
 
 }
 
  namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
   template<class Domain, int N, class Expr>
   struct  size_of<tag::polyvalm_,Domain,N,Expr>
   {
@@ -40,9 +71,12 @@ namespace nt2 { namespace tag
     }
   };
 
+  /// INTERNAL ONLY
   template<class Domain, int N, class Expr>
   struct  value_type<tag::polyvalm_,Domain,N,Expr>
         : meta::value_as<Expr,0>
   {};
 } }
 #endif
+
+///

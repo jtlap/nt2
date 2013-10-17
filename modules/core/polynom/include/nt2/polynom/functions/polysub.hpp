@@ -14,16 +14,49 @@
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
-// polysub(a, b)
-// This compute the sum of two polynomials.
-// The polynomials are supposed to be given by an array of elements
-// in decreasing degrees order
 
 namespace nt2 { namespace tag
   {
-    struct polysub_ : ext::elementwise_<polysub_> { typedef ext::elementwise_<polysub_> parent; };
+   /*!
+     @brief polysub generic tag
+
+     Represents the polysub function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct polysub_ : ext::elementwise_<polysub_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<polysub_> parent;
+    };
   }
+  /*!
+    Computes the difference of two polynomials.
+    The polynomials are supposed to be given by an expression representing a vector
+    of coefficients in decreasing degrees order
+
+    @par Semantic:
+
+    For every expressions representing polynomials a, b:
+
+    @code
+    auto r = polysub(a0,a1);
+    @endcode
+
+    is such that if a represents \f$\displaystyle \sum_0^n a_i x^i\f$ and b represents
+    \f$\displaystyle \sum_0^n b_ix^i\f$ then r represents
+    \f$\displaystyle \sum_0^n(a_i-b_i)x^i\f$
+
+    @param a0
+
+    @param a1
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::polysub_, polysub, 2)
 }
 
 #endif
+
+///
