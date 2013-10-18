@@ -90,7 +90,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(A0 a0, const A2&, const A3&) const
     {
-      BOOST_SIMD_DETAILS_CHECK_PTR_CVT(a0, result_type, typename std::iterator_traits<A0>::value_type);
+      BOOST_SIMD_DETAILS_CHECK_PTR_CVT(a0-A3::value, result_type, typename std::iterator_traits<A0>::value_type);
       return load<result_type>(a0);
     }
   };
