@@ -12,7 +12,7 @@
 #include <nt2/combinatorial/functions/lcm.hpp>
 #include <nt2/include/functions/simd/gcd.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
-#include <nt2/include/functions/simd/divs.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
 
 namespace nt2 { namespace ext
@@ -26,7 +26,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return nt2::abs(a0*rdivide(a1, gcd(a0,a1)));
+      return nt2::abs(a0 * a1 / gcd(a0,a1));
     }
   };
 } }
