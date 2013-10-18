@@ -183,7 +183,7 @@ macro(nt2_doc_doxygen file)
                             ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen/doxyfile
                     COMMAND find ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen/html/ -name form_*.png -exec cp {} ${NT2_BINARY_DIR}/doc/html/images/${target_name}/ "\\;"
                     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-                    DEPENDS ${file}.doxyfile ${ARGN}
+                    DEPENDS ${file}.doxyfile
                     COMMENT "Running doxygen with XML and HTML output on ${file}.dox..."
                     SOURCES ${file}.doxyfile
                    )
@@ -212,15 +212,36 @@ macro(nt2_doc_doxygen file)
     set(prefix nt2)
   endif()
 
-  nt2_xsltproc(${file}.xml
-               --stringparam boost.doxygen.header.prefix ${prefix}
-               --stringparam boost.doxygen.detailns details
-               --stringparam boost.doxygen.formuladir images/${target_name}/
-               ${BOOSTBOOK_XSL_DIR}/doxygen/doxygen2boostbook.xsl
-               ${file}.doxygen/all.xml
-               DEPENDS ${file}.doxygen/all.xml
-               COMMENT "Converting Doxygen XML to Boostbook (${file}.xml)..."
-              )
+  # Did we get a special title for this doxyfile output ?
+  set (dox_title ${ARGN})
+  list(LENGTH dox_title has_title)
+
+  if (${has_title} GREATER 0)
+    list(GET dox_title 0 ref_title)
+
+    nt2_xsltproc(${file}.xml
+                 --stringparam boost.doxygen.header.prefix ${prefix}
+                 --stringparam boost.doxygen.detailns details
+                 --stringparam boost.doxygen.formuladir images/${target_name}/
+                 --stringparam boost.doxygen.reftitle "\"${ref_title}\""
+                 ${BOOSTBOOK_XSL_DIR}/doxygen/doxygen2boostbook.xsl
+                 ${file}.doxygen/all.xml
+                 DEPENDS ${file}.doxygen/all.xml
+                 COMMENT "Converting Doxygen XML to Boostbook (${file}.xml)..."
+                )
+  else()
+    nt2_xsltproc(${file}.xml
+                 --stringparam boost.doxygen.header.prefix ${prefix}
+                 --stringparam boost.doxygen.detailns details
+                 --stringparam boost.doxygen.formuladir images/${target_name}/
+
+                 ${BOOSTBOOK_XSL_DIR}/doxygen/doxygen2boostbook.xsl
+                 ${file}.doxygen/all.xml
+                 DEPENDS ${file}.doxygen/all.xml
+                 COMMENT "Converting Doxygen XML to Boostbook (${file}.xml)..."
+                )
+  endif()
+
 endmacro()
 
 # Convert all files to a single Boostbook XML
