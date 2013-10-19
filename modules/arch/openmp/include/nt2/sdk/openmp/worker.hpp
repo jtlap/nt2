@@ -2,14 +2,18 @@
 #define NT2_SDK_OPENMP_WORKER_HPP_INCLUDED
 
 #include <nt2/sdk/shared_memory/worker/worker.hpp>
-#include <nt2/core/functions/transform.hpp>
-#include <nt2/core/include/functions/inner_fold.hpp>
-#include <nt2/core/include/functions/outer_fold.hpp>
-#include <nt2/sdk/openmp/openmp.hpp>
 #include <nt2/include/functor.hpp>
 
 namespace nt2
 {
+  namespace tag
+  {
+    struct transform_;
+    struct outer_fold_;
+    struct inner_fold_step_;
+    template<class T> struct openmp_;
+  }
+
   // Transform Worker
   template<class Site, class Out, class In>
   struct worker<tag::transform_,tag::openmp_<Site>,Out,In>

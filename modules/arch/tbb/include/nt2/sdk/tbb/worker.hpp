@@ -3,16 +3,19 @@
 #define NT2_SDK_TBB_WORKER_HPP_INCLUDED
 
 #include <nt2/sdk/shared_memory/worker/worker.hpp>
-#include <nt2/include/functions/transform.hpp>
-#include <nt2/core/include/functions/inner_fold_step.hpp>
-#include <nt2/core/include/functions/outer_fold.hpp>
-#include <nt2/sdk/tbb/tbb.hpp>
-#include <nt2/sdk/tbb/blocked_range.hpp>
-#include <nt2/sdk/tbb/worker.hpp>
 #include <nt2/include/functor.hpp>
 
 namespace nt2
 {
+
+  namespace tag
+  {
+    struct transform_;
+    struct outer_fold_;
+    struct inner_fold_step_;
+    template<class T> struct tbb_;
+  }
+
   // Transform Worker
   template<class Site, class Out, class In>
   struct worker<tag::transform_,tag::tbb_<Site>,Out,In>
@@ -77,7 +80,7 @@ namespace nt2
     : out_(out), in_(in), neutral_(n), bop_(bop)
     {}
 
-    void operator()(tbb::blocked_range<std::size_t> const& r) const
+    void operator()(nt2::blocked_range<std::size_t> const& r) const
     {
       work(out_,in_,neutral_,bop_,r.begin(),r.size());
     }
