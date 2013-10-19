@@ -10,18 +10,21 @@
 #define NT2_SDK_OPENMP_OPENMP_HPP_INCLUDED
 
 #include <boost/dispatch/functor/forward.hpp>
+#include <nt2/sdk/shared_memory/shared_memory.hpp>
 
 namespace nt2 { namespace tag
 {
-  template<class T> struct openmp_ : T
+  template<typename Site> struct openmp_ : shared_memory_< openmp_<Site>, Site >
   {
-    typedef T parent;
+    typedef shared_memory_< openmp_<Site>, Site > parent;
   };
 } }
 
 #ifdef _OPENMP
 BOOST_DISPATCH_COMBINE_SITE( nt2::tag::openmp_<tag::cpu_> )
 #include <omp.h>
+#include <nt2/sdk/openmp/worker.hpp>
+#include <nt2/sdk/openmp/spawner.hpp>
 #endif
 
 #endif

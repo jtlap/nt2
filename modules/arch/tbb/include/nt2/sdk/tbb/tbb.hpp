@@ -10,16 +10,22 @@
 #define NT2_SDK_TBB_TBB_HPP_INCLUDED
 
 #include <boost/dispatch/functor/forward.hpp>
+#include <nt2/sdk/shared_memory/shared_memory.hpp>
 
 namespace nt2 { namespace tag
 {
-  template<class T> struct tbb_ : T
+  template<typename Site> struct tbb_ : shared_memory_< tbb_<Site>, Site >
   {
-    typedef T parent;
+    typedef shared_memory_< tbb_<Site>, Site > parent;
   };
 } }
 
+#if defined(NT2_USE_TBB)
 BOOST_DISPATCH_COMBINE_SITE( nt2::tag::tbb_<tag::cpu_> )
 #include <tbb/tbb.h>
+#include <nt2/sdk/tbb/blocked_range.hpp>
+#include <nt2/sdk/tbb/worker.hpp>
+#include <nt2/sdk/tbb/spawner.hpp>
+#endif
 
 #endif
