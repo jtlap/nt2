@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_INTERPOL_FUNCTIONS_IDXY_BILINEAR_HPP_INCLUDED
 #define NT2_INTERPOL_FUNCTIONS_IDXY_BILINEAR_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
@@ -18,50 +15,76 @@
 #include <boost/mpl/bool.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
 
-/*!
- * \ingroup interpol
- * \defgroupinterpol_idxy_bilinear idxy_bilinear
- *
- * \par Description
- * one dimensional idxy_bilinear interpolation
- * given an array a and a vector idx of "real" indices
- * provides the interpolated values along the a rows
- * by bilinear formula.
- * calls can be idxy_bilinear(a0, idx, idy)
- *              idxy_bilinear(a0, idx, idy, true) allowing extrapolation
- *              idxy_bilinear(a0, idx, idy, val1) putting val1 outside the bounds
- *              idxy_bilinear(a0, idx, idy, val1, val2)}, putting val1 under the index bounds val2 over
- *              idxy_bilinear(a0, idx, idy, val1x val2x, val1y, val2y)
- *              idxy_bilinear(a0, idx, idy, _, dim1, dim2) are the dimensions of interpolation 2 (rows), 1 (columns) of a0 by default
- *              idxy_bilinear(a0, idx, idy, val1, dim1, dim2)
- *              idxy_bilinear(a0, idx, idy, val1, val2, dim1, dim2)
- *              idxy_bilinear(a0, idx, idy, val1x val2x, val1y, val2y, dim1, dim2) can also be used
- * \par
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/idxy_bilinear.hpp>
- * \endcode
- *
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag idxy_bilinear_ of functor idxy_bilinear
-     *        in namespace nt2::tag for toolbox statistics
-    **/
-    struct idxy_bilinear_ : ext::unspecified_<idxy_bilinear_> { typedef ext::unspecified_<idxy_bilinear_> parent; };
+   /*!
+     @brief idxy_bilinear generic tag
+
+     Represents the idxy_bilinear function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct idxy_bilinear_ : ext::unspecified_<idxy_bilinear_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::unspecified_<idxy_bilinear_> parent;
+    };
   }
-  NT2_FUNCTION_IMPLEMENTATION(tag::idxy_bilinear_, idxy_bilinear, 3)
-  NT2_FUNCTION_IMPLEMENTATION(tag::idxy_bilinear_, idxy_bilinear, 4)
-  NT2_FUNCTION_IMPLEMENTATION(tag::idxy_bilinear_, idxy_bilinear, 5)
-  NT2_FUNCTION_IMPLEMENTATION(tag::idxy_bilinear_, idxy_bilinear, 6)
-  NT2_FUNCTION_IMPLEMENTATION(tag::idxy_bilinear_, idxy_bilinear, 7)
-  NT2_FUNCTION_IMPLEMENTATION(tag::idxy_bilinear_, idxy_bilinear, 9)
+  /*!
+    Performs two dimensional idxy_bilinear interpolation given an
+    array a and two vector idx and idy of "real" indices provides the
+    interpolated values along the two chosen array dimensions by
+    bilinear formula.
+
+    @par Semantic:
+
+    calls can be of the forms:
+
+      - idxy_bilinear(a0, idx, idy)
+      - idxy_bilinear(a0, idx, idy, true) allowing extrapolation
+      - idxy_bilinear(a0, idx, idy, val1) putting val1 outside the bounds
+      - idxy_bilinear(a0, idx, idy, val1, val2)}, putting val1 under the index bounds val2 over
+      - idxy_bilinear(a0, idx, idy, val1x val2x, val1y, val2y)
+      - idxy_bilinear(a0, idx, idy, _, dim1, dim2) are the dimensions of interpolation 2 (rows), 1 (columns) of a0 by default
+      - idxy_bilinear(a0, idx, idy, val1, dim1, dim2)
+      - idxy_bilinear(a0, idx, idy, val1, val2, dim1, dim2)
+      - idxy_bilinear(a0, idx, idy, val1x val2x, val1y, val2y, dim1, dim2) can also be used
+
+      typically if a is a matrix, idx is a value situated between i and i+1 and
+      idy is a value situated between j and j+1 the result is:
+      @code
+      (a(i, j)*(idx-i)+a(i+1, j)*(i+1-idx))*(jdx-j)+
+      (a(i, j+1)*(idx-i)+a(i+1, j+1)*(i+1-idx))*(j+1-jdx)
+      @endcode
+
+    @param a0
+    @param a1
+    @param a2
+    @param a3
+    @param a4
+    @param a5
+    @param a6
+    @param a7
+    @param a8
+    @param a9
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::idxy_bilinear_, idxy_bilinear, 10)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(tag::idxy_bilinear_, idxy_bilinear, 3)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(tag::idxy_bilinear_, idxy_bilinear, 4)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(tag::idxy_bilinear_, idxy_bilinear, 5)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(tag::idxy_bilinear_, idxy_bilinear, 6)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(tag::idxy_bilinear_, idxy_bilinear, 7)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(tag::idxy_bilinear_, idxy_bilinear, 9)
 }
 
 namespace nt2 { namespace ext

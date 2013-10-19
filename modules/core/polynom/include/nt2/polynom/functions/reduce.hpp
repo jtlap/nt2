@@ -63,6 +63,7 @@ namespace nt2 { namespace tag
     first index p(i) is neglectable if any p(j)/pi() is infinite.
 
     @param a0
+    @param a1
 
     @return a value of the same type as the parameter
   **/

@@ -42,7 +42,6 @@ namespace nt2 { namespace tag
 
 
     @param a0
-
     @return a value of the same type as the parameter
   **/
   NT2_FUNCTION_IMPLEMENTATION(tag::polyder_,polyder, 1)
@@ -66,6 +65,8 @@ namespace nt2 { namespace tag
     without computing the product.
 
     @param a0
+    @param a1
+
 
     @return a value of the same type as the parameter
   **/

@@ -61,6 +61,7 @@ namespace nt2 { namespace tag
     \f$\displaystyle k+\sum_0^n \frac{a_ix^{i+1}}{i+1}\f$
 
     @param a0
+    @param a1
 
     @return a value of the same type as the parameter
   **/  NT2_FUNCTION_IMPLEMENTATION(tag::polyint_,polyint, 2)

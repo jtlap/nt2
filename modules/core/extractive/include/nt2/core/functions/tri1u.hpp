@@ -33,7 +33,7 @@ namespace nt2
   /*!
     @brief Apply a 1-upper-triangular masking to an expression
 
-    returns the elements  above the @c #a1 diagonal of @c a0,  1 on the kth diagonal
+    returns the elements  above the @c a1 diagonal of @c a0,  1 on the kth diagonal
     and 0 elsewhere.
       - @c a1 = 0 is the main diagonal,
       - @c a1 > 0 is above the main diagonal,

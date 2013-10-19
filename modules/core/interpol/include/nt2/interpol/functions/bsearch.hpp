@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_INTERPOL_FUNCTIONS_BSEARCH_HPP_INCLUDED
 #define NT2_INTERPOL_FUNCTIONS_BSEARCH_HPP_INCLUDED
 
@@ -17,42 +14,58 @@
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
 
-/*!
- * \ingroup statistics
- * \defgroup interpol bsearch
- *
- * \par Description
- * one dimensional binary search
- * \par
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/bsearch.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::bsearch_(A0)>::type
- *     bsearch(const A0 & a0, const A1 & a1, const A2 & a2);
- * }
- * \endcode
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag bsearch_ of functor bsearch
-     *        in namespace nt2::tag for toolbox interpol
-    **/
-    struct bsearch_ : ext::unspecified_<bsearch_> { typedef ext::unspecified_<bsearch_> parent; };
+   /*!
+     @brief bsearch generic tag
+
+     Represents the bsearch function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct bsearch_ : ext::unspecified_<bsearch_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::unspecified_<bsearch_> parent;
+    };
   }
+  /*!
+    one dimensional binary search
+    \par
+
+    @par Semantic:
+
+    For every parameters expressions
+
+    @code
+    auto index = bsearch(xx, xi);
+    @endcode
+
+    Performs a binary search of an ordered array of increasing values.
+    and returns the indices of the xi such that xi belongs to the interval
+    [xx(index(i)), xx(index(i)+1)] and the implicit bracket [index(i), index(i)+1]
+    always corresponds to a region within the implicit value range of
+    the value array.
+
+    Note that this means the relationship of x = xi(i) to xx(index)
+    and xx(index+1) depends on the result region, i.e. the
+    behaviour at the boundaries may not correspond to what you
+    expect. We have the following complete specification of the
+    behaviour.
+
+    Suppose the input is xx = { x0, x1, ..., xN }
+      - if ( x == x0 )           then  index == 0
+      - if ( x > x0 && x <= x1 ) then  index == 0, and similarly for other interior pts
+      - if ( x >= xN )           then  index == N-1
+
+    @param a0
+
+    @param a1
+
+    @return a index expression
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::bsearch_, bsearch, 2)
 
 }

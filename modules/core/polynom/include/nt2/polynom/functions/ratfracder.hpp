@@ -67,6 +67,7 @@ namespace nt2 { namespace tag
     @endcode
 
     @param a0
+    @param a1
 
     @return a value of the same type as the parameter
   **/
