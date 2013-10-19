@@ -63,9 +63,9 @@ namespace nt2 { namespace tag
 
     @see  @funcref{sinh}, @funcref{cosh}
     @param a0 angle in radian
-    @param a1 L-Value that will receive the sinh off @c a0
+    @param a1 L-Value that will receive the cosh off @c a0
 
-    @return A Fusion Sequence containing the cosh of @c a0
+    @return  the sinh of @c a0
   **/
 
 
@@ -92,7 +92,7 @@ namespace nt2 { namespace tag
     @see  @funcref{sinh}, @funcref{cosh}
     @param a0 angle in radian
     @param a1 L-Value that will receive the sinh off @c a0
-    @param a1 L-Value that will receive the cosh off @c a0
+    @param a2 L-Value that will receive the cosh off @c a0
 
   **/
    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sinhcosh_, sinhcosh,(A0 const&)(A1&)(A2&),3)

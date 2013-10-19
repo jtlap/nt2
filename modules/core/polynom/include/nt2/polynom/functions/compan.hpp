@@ -38,12 +38,12 @@ namespace nt2 { namespace tag
     @endcode
 
     @par Note:
+
     The eigenvalues of @c compan(p) are the roots of the polynomial.
 
-    @Note:
     The first row of r is -p(_(2, n))/p(1).
 
-    null polynomial has compan -1
+    null polynomial has compan -1 and
     non null constant polynomial has compan 0
 
     @see @funcref{colon}

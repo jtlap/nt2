@@ -33,8 +33,8 @@ namespace nt2
   /*!
     @brief Apply a 1-lower-triangular masking to an expression
 
-    Apply a mask on an expression that evaluates to 0 everywhere except on the
-    lower triangular part of @c a0 and 1 on the diagonal.
+    returns the elements  below the diagonal of @c a0,  1 on the diagonal
+    and 0 elsewhere.
 
     @param a0 Expression to mask.
   **/
@@ -44,9 +44,13 @@ namespace nt2
   /*!
     @brief Apply an offset 1-lower-triangular masking to an expression
 
-    Apply a mask on an expression that evaluates to 0 everywhere except on the
-    lower triangular part of @c a0 and @c a1 subdiagonal and 1 on the diagonal.
+    returns the elements  below the @c #a1 diagonal of @c a0,  1 on the kth diagonal
+    and 0 elsewhere.
+      - @c a1 = 0 is the main diagonal,
+      - @c a1 > 0 is above the main diagonal,
+      - @c a1 < 0 is below the main diagonal.
 
+    @see funcref{triu}, funcref{tri1u}, funcref{tril}
     @param a0 Expression to mask.
     @param a1 Diagonal offset to the mask.
   **/

@@ -62,7 +62,7 @@ namespace nt2
     @brief Apply a dual band masking to an expression
 
     Apply a mask on an expression that evaluates to 0 everywhere except on a
-    band ranging from sub/super-diagonal @c a0 and @c a1
+    band ranging from sub/super-diagonal @c a1 and @c a2
 
     @param a0 Expression to mask
     @param a1 Index of the lowest diagonal to include in the mask.

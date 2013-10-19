@@ -69,6 +69,7 @@ namespace nt2 { namespace tag
 
     @see @funcref{exp2}, @funcref{trunc}, @funcref{ldexp}
     @param a0
+    @param a1
 
     @return a value of the same type as the parameter
   **/

@@ -134,7 +134,7 @@ namespace nt2 { namespace tag
     and the angle quadrant between 0 and 3.
     This is a medium_ version version accurate if the input is in:
      \f$[-2^6\pi,2^6\pi]\f$ for float,
-     \f$[-2^{18}\pi,2^{18}\pi\]f$ for double.
+     \f$[-2^{18}\pi,2^{18}\pi]\f$ for double.
     \par
     The reduction of the argument modulo \f$\pi/2\f$ is generally
     the most difficult part of trigonometric evaluations.

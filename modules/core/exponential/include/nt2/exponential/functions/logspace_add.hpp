@@ -29,7 +29,7 @@ namespace nt2 { namespace tag
   }
   /*!
      Compute the log of a sum from logs of terms
-     properly compute \$\log (\exp (\log x) + \exp (\log y))\$
+     properly compute \f$\log (\exp (\log x) + \exp (\log y))\f$
 
     @par Semantic:
 

@@ -28,7 +28,7 @@ namespace nt2 { namespace tag
     };
   }
   /*!
-    a_0 <  a_1-a_2*\max(|a_0|,|a1|)
+    a_0 <  a_1-a_2*max(|a_0|,|a1|)
 
     @par Semantic:
 
