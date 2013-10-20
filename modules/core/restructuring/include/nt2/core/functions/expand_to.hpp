@@ -56,7 +56,7 @@ namespace nt2
     @return an expression which eventually will evaluate to the result
   **/
 
-#define M0(z,n,t)                                                       \
+  #define M0(z,n,t)                                                           \
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::expand_to_, expand_to, n)             \
   /**/
 
