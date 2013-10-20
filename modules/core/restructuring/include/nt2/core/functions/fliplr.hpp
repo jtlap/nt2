@@ -33,7 +33,6 @@ namespace nt2
       typedef ext::elementwise_<fliplr_> parent;
     };
   }
-  }
   /*!
     Flips an expression around the vertical axis
     @par Semantic:

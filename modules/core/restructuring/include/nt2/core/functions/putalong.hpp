@@ -29,7 +29,6 @@ namespace nt2
       typedef boost::dispatch::tag::formal_ parent;
     };
   }
-  }
   /*!
 
     transform a0 in an expression "vector" in direction a1

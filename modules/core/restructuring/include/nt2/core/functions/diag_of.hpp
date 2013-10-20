@@ -21,14 +21,14 @@ namespace nt2
 {
   namespace tag
   {
-   /*!
-     @brief diag_of generic tag
+    /*!
+      @brief diag_of generic tag
 
-     Represents the diag_of function in generic contexts.
+      Represents the diag_of function in generic contexts.
 
-     @par Models:
-        Hierarchy
-   **/
+      @par Models:
+      Hierarchy
+    **/
     struct diag_of_ : ext::elementwise_<diag_of_>
     {
       /// @brief Parent hierarchy
@@ -40,7 +40,6 @@ namespace nt2
       /// @brief Parent hierarchy
       typedef ext::elementwise_<offset_diag_of_>  parent;
     };
-   }
   }
 
   /*!

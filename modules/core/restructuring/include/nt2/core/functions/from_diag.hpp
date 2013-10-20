@@ -34,7 +34,6 @@ namespace nt2
       typedef ext::elementwise_<from_diag_> parent;
     };
   }
-  }
   /*!
 
     Computes the square matricial expression full of zero except the

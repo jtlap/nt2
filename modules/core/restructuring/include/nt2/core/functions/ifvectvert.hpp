@@ -35,7 +35,6 @@ namespace nt2
       typedef ext::reshaping_<ifvectvert_> parent;
     };
   }
-  }
   /*!
 
     Column reshaping if input is vector

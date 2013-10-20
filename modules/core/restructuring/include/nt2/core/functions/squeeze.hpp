@@ -37,10 +37,10 @@ namespace nt2
 
     @par Semantic:
 
-    For every parameter of type T0
+    For every table expression
 
     @code
-    T0 r = squeeze(a0);
+    auto r = squeeze(a0);
     @endcode
 
     @param a0

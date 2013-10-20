@@ -28,7 +28,6 @@ namespace nt2
       typedef boost::dispatch::tag::formal_ parent;
     };
   }
-  }
   /*!
     Vertical concatenation
 

@@ -62,10 +62,10 @@ namespace nt2
 //==============================================================================
 namespace nt2 { namespace ext
 {
+    /// INTERNAL ONLY
   template<class Domain, int N, class Expr>
   struct size_of<nt2::tag::rowvect_,Domain,N,Expr>
   {
-    /// INTERNAL ONLY
     typedef typename boost::proto::result_of
                           ::child_c<Expr&, 0>::value_type::extent_type ext_t;
     typedef typename meta::call<tag::numel_(ext_t const&)>::type num;

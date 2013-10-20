@@ -33,7 +33,6 @@ namespace nt2
       typedef ext::elementwise_<flipud_> parent;
     };
   }
-  }
   /*!
     Flips an expression around the horizontal axis
 

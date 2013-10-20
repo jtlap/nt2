@@ -33,8 +33,6 @@ namespace nt2
       typedef ext::elementwise_<flipdim_> parent;
     };
   }
-
-  }
   /*!
     Flips an expression around an arbitrary dimension axis
 
