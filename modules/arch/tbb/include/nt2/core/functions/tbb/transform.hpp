@@ -10,7 +10,7 @@
 #define NT2_CORE_FUNCTIONS_TBB_TRANSFORM_HPP_INCLUDED
 #if defined(NT2_USE_TBB)
 
-#include <nt2/core/functions/transform.hpp>
+#include <nt2/include/functions/transform.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/sdk/config/cache.hpp>
 #include <nt2/sdk/tbb/tbb.hpp>
@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
       nt2::transform(a0,a1,0,nt2::numel(a0.extent()));
     }
   };
-} }
+ }
 
 #endif
 #endif
