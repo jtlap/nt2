@@ -49,5 +49,3 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::degree_,degree, 1)
 }
 #endif
-
-///

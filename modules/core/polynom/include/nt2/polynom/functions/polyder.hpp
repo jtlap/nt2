@@ -73,5 +73,3 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::polyder_,polyder, 2)
 }
 #endif
-
-///

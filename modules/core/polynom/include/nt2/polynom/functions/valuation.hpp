@@ -50,5 +50,3 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::valuation_,valuation, 1)
 }
 #endif
-
-///

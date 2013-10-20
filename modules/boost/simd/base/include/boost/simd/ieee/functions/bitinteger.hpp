@@ -56,6 +56,3 @@ namespace boost { namespace simd { namespace tag
 } }
 
 #endif
-
-
-///

@@ -70,5 +70,3 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::reduce_,reduce, 2)
 }
 #endif
-
-///

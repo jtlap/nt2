@@ -54,5 +54,3 @@ namespace nt2
 }
 
 #endif
-
-///

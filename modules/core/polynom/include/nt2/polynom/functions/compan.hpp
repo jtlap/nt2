@@ -55,5 +55,3 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::compan_,compan, 1)
 }
 #endif
-
-///

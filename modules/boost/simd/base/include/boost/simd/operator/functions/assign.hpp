@@ -79,5 +79,3 @@ namespace boost { namespace dispatch { namespace meta
 
 #endif
 ///
-
-///

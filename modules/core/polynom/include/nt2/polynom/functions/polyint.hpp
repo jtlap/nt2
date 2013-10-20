@@ -67,5 +67,3 @@ namespace nt2 { namespace tag
   **/  NT2_FUNCTION_IMPLEMENTATION(tag::polyint_,polyint, 2)
 }
 #endif
-
-///
