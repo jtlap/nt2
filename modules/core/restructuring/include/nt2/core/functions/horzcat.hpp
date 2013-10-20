@@ -10,35 +10,50 @@
 #ifndef NT2_CORE_FUNCTIONS_HORZCAT_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_HORZCAT_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Define the horzcat function
-**/
 #include <nt2/include/functor.hpp>
 
 namespace nt2
 {
   namespace tag
   {
-    /*!
-      @brief Tag for the horzcat function
-    **/
+   /*!
+     @brief horzcat generic tag
+
+     Represents the horzcat function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct  horzcat_ : boost::dispatch::tag::formal_
     {
+      /// @brief Parent hierarchy
       typedef boost::dispatch::tag::formal_ parent;
     };
   }
-
+  }
   /*!
-    @brief Horizontal concatenation
+    Horizontal concatenation
 
-    Build a new expression which is the horizontal concatenation of all
-    elements of a0 and a1.
+    @par Semantic:
 
-    @param a0 First expression to concatenate
-    @param a1 Second (optionnal) expression to concatenate
+    For every table expressions:
 
-    @return An expression epresenting the concatenation of a0 and a1.
+    @code
+    auto r = horzcat(a0,a1);
+    @endcode
+
+    is similar to:
+
+    @code
+    auto r = cat(2, a0, a1);
+    @endcode
+
+    @see @funcref{vertcat}, @funcref{cat}
+    @par alias: @c cath
+    @param a0
+    @param a1
+
+    @return an expression which eventually will evaluate to the result
   **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::horzcat_, horzcat, 2)
 
@@ -52,3 +67,5 @@ namespace nt2
 }
 
 #endif
+
+///

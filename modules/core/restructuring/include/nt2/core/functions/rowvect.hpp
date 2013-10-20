@@ -8,12 +8,6 @@
 //==============================================================================
 #ifndef NT2_CORE_FUNCTIONS_ROWVECT_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_ROWVECT_HPP_INCLUDED
-
-/*!
- * \file
- * \brief Defines and implements the nt2::rowvect function
- */
-
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/reshaping_hierarchy.hpp>
 #include <nt2/core/container/dsl/size.hpp>
@@ -24,19 +18,42 @@ namespace nt2
 {
   namespace tag
   {
+   /*!
+     @brief rowvect generic tag
+
+     Represents the rowvect function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct rowvect_ : ext::reshaping_<rowvect_>
     {
+      /// @brief Parent hierarchy
       typedef ext::reshaping_<rowvect_> parent;
     };
   }
-
-  //============================================================================
   /*!
-   * superior triangular part of a 2D table.
-   *
-   * \param xpr 2D table (must verify is_matrix(a))
-   */
-  //============================================================================
+    Reshapes an expression into a row shaped table.
+
+    @par Semantic:
+
+    For every table expression
+
+    @code
+    auto r = rowvect(a0);
+    @endcode
+
+    is similar to:
+
+    @code
+    auto r = resize(a0, 1, numel(a0));
+    @endcode
+
+    @see @funcref{colvect}, @funcref{resize}, @funcref{numel}
+    @param a0
+
+    @return an expression which eventually will evaluate to the result
+  **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::rowvect_       , rowvect, 1)
 }
 
@@ -48,6 +65,7 @@ namespace nt2 { namespace ext
   template<class Domain, int N, class Expr>
   struct size_of<nt2::tag::rowvect_,Domain,N,Expr>
   {
+    /// INTERNAL ONLY
     typedef typename boost::proto::result_of
                           ::child_c<Expr&, 0>::value_type::extent_type ext_t;
     typedef typename meta::call<tag::numel_(ext_t const&)>::type num;
@@ -62,3 +80,5 @@ namespace nt2 { namespace ext
 } }
 
 #endif
+
+///

@@ -10,10 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_FLIPUD_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_FLIPUD_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the flipud function
-**/
 
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/size_as.hpp>
@@ -23,22 +19,42 @@ namespace nt2
 {
   namespace tag
   {
-    /*!
-      @brief Tag for flipud functor
-    **/
+   /*!
+     @brief flipud generic tag
+
+     Represents the flipud function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct flipud_ : ext::elementwise_<flipud_>
     {
+      /// @brief Parent hierarchy
       typedef ext::elementwise_<flipud_> parent;
     };
   }
-
+  }
   /*!
-    @brief Flip an expression around the horizontal axis
+    Flips an expression around the horizontal axis
 
-    Return an expression which columns are in reverse order of the input
+    @par Semantic:
 
-    @param  a0 Expression to flip
-    @return the flipped expression
+    For every table expression
+
+    @code
+    auto r = flipud(a0);
+    @endcode
+
+    is similar to:
+
+    @code
+    auto r = a0(_, _(width(a0), -1, 1), ..., _);
+    @endcode
+
+    @see @funcref{width}, @funcref{colon}
+    @param a0
+
+    @return an expression which eventually will evaluate to the result
   **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::flipud_       , flipud, 1)
 }
@@ -53,3 +69,5 @@ namespace nt2 { namespace ext
 } }
 
 #endif
+
+///

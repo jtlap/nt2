@@ -10,10 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_BLKDIAG_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_BLKDIAG_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the blkdiag function
-**/
 
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/value_as.hpp>
@@ -24,23 +20,39 @@ namespace nt2
 {
   namespace tag
   {
-    /*!
-      @brief Tag for the blkdiag functor
-    **/
+   /*!
+     @brief blkdiag generic tag
+
+     Represents the blkdiag function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct  blkdiag_ : ext::elementwise_<blkdiag_>
     {
+      /// @brief Parent hierarchy
       typedef ext::elementwise_<blkdiag_> parent;
     };
   }
-
   /*!
-    @brief Build a block diabgonal matrix
+    Builds a block diagonal matrix
+
+    @par Semantic:
+
+
+    @code
+    auto r = blkdiag(a0,a1);
+    @endcode
 
     Build a block diagonal matrix by concatenating two matrix along their
     diagonal.
 
-    @param a0 First matrix to concatenate
-    @param a1 Second matrix to concatenate
+    @see @funcref{cat}, @funcref{cath}, @funcref{catv}, @funcref{from_diag}, @funcref{diag_of}
+    @param a0
+
+    @param a1
+
+    @return an expression which eventually will evaluate to the result
   **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::blkdiag_, blkdiag, 2)
 
@@ -87,3 +99,5 @@ namespace nt2 { namespace ext
 } }
 
 #endif
+
+///

@@ -11,51 +11,46 @@
 
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup core
- * \defgroup core along_index
- *
- * \par Description
- * Computes the linear index \c ind along the \c i-th dimension
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/along_index.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *   typename meta::call<tag::along_index_(A0)>::type
- *   along_index(A0& ind, A1 const& i, A2 const& sz);
- * }
- * \endcode
- *
- * \param ind the indexer
- * \param i the dimension on which to index
- * \param sz the size of the data being indexed
- *
- * \return expr(_, ..., ind, ..., _) with \c ind at the \c i-th argument
- *
- *
-**/
 
 namespace nt2
 {
   namespace tag
   {
+   /*!
+     @brief along_index generic tag
+
+     Represents the along_index function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct along_index_ : ext::elementwise_<along_index_>
     {
+      /// @brief Parent hierarchy
       typedef ext::elementwise_<along_index_> parent;
     };
   }
+  /*!
+    Computes the linear index \c ind along the \c i-th dimension
 
+    @par Semantic:
+
+    For every parameters of floating types respectively T0, T1, T2:
+
+    @code
+    auto r = along_index(a0,a1,a2);
+    @endcode
+
+
+    \param a0 the indexer
+    \param a1 the dimension on which to index
+    \param a2 the size of the data being indexed
+
+    @return an expression which eventually will evaluate to the result
+  **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::along_index_       , along_index, 3)
 }
 
 #endif
+
+///

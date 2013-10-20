@@ -26,6 +26,7 @@ namespace nt2
   {
     struct reshape_ : ext::reshaping_<reshape_>
     {
+      /// @brief Parent hierarchy
       typedef ext::reshaping_<reshape_> parent;
     };
   }
@@ -53,11 +54,13 @@ namespace nt2
 //==============================================================================
 namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
   template<class Domain, class Expr, int N>
   struct  value_type<nt2::tag::reshape_,Domain,N,Expr>
         : meta::value_as<Expr,0>
   {};
 
+  /// INTERNAL ONLY
   template<class Domain, class Expr,int N>
   struct  size_of<nt2::tag::reshape_,Domain,N,Expr>
         : meta::boxed_size<Expr,1>
@@ -65,3 +68,4 @@ namespace nt2 { namespace ext
 } }
 
 #endif
+///

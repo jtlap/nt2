@@ -8,12 +8,6 @@
 //==============================================================================
 #ifndef NT2_CORE_FUNCTIONS_TRANSPOSE_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_TRANSPOSE_HPP_INCLUDED
-
-/*!
- * \file
- * \brief Defines and implements the nt2::transpose function
- */
-
 #include <nt2/include/functor.hpp>
 #include <nt2/core/container/dsl/size.hpp>
 
@@ -21,25 +15,49 @@ namespace nt2
 {
   namespace tag
   {
+   /*!
+     @brief transpose generic tag
+
+     Represents the transpose function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct transpose_ : ext::elementwise_<transpose_>
     {
+      /// @brief Parent hierarchy
       typedef ext::elementwise_<transpose_> parent;
     };
   }
-
-  //============================================================================
   /*!
-   * transposepose a matrix
-   *
-   * \param xpr 2D table (must verify is_matrix(a))
-   */
-  //============================================================================
+    Transpose a matrix expression.
+
+    @par Semantic:
+
+    For every parameter of type T0
+
+    @code
+    T0 r = transpose(a0);
+    @endcode
+
+    produces r such that for every valid couple of indices i, j:
+
+    @code
+    r(j, i) = a0(i, j)
+    @endcode
+
+    @par alias: @c trans
+    @param a0
+
+    @return an expression which eventually will evaluate to the result
+  **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::transpose_, transpose, 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::transpose_, trans, 1)
 }
 
 namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
   template<class Domain, int N, class Expr>
   struct size_of<tag::transpose_,Domain,N,Expr>
   {
@@ -56,3 +74,5 @@ namespace nt2 { namespace ext
 } }
 
 #endif
+
+///

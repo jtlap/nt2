@@ -8,12 +8,6 @@
 //==============================================================================
 #ifndef NT2_CORE_FUNCTIONS_SQUEEZE_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_SQUEEZE_HPP_INCLUDED
-
-/*!
- * \file
- * \brief Defines and implements the nt2::squeeze function
- */
-
 #include <nt2/include/functor.hpp>
 #include <nt2/core/container/dsl/reshaping.hpp>
 #include <nt2/sdk/meta/reshaping_hierarchy.hpp>
@@ -22,27 +16,43 @@ namespace nt2
 {
   namespace tag
   {
+   /*!
+     @brief squeeze generic tag
+
+     Represents the squeeze function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct squeeze_ : ext::reshaping_<squeeze_>
     {
+      /// @brief Parent hierarchy
       typedef ext::reshaping_<squeeze_> parent;
     };
   }
 
-  //============================================================================
   /*!
-   * squeeze an expression by removing its singleton dimensions
-   *
-   * \param xpr   Expression to squeeze
-   */
-  //============================================================================
+
+    squeeze an expression by removing its singleton dimensions
+
+    @par Semantic:
+
+    For every parameter of type T0
+
+    @code
+    T0 r = squeeze(a0);
+    @endcode
+
+    @param a0
+
+    @return an expression which eventually will evaluate to the result
+  **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::squeeze_, squeeze, 1)
 }
 
-//==============================================================================
-// Setup squeeze generator traits
-//==============================================================================
 namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
   template<class Domain, int N, class Expr>
   struct size_of<nt2::tag::squeeze_,Domain,N,Expr>
   {
@@ -79,3 +89,5 @@ namespace nt2 { namespace ext
 } }
 
 #endif
+
+///
