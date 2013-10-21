@@ -14,6 +14,8 @@
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/selinc.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -26,7 +28,8 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return nt2::abs(a0 * a1 / gcd(a0,a1));
+      A0 div = selinc(is_eqz(a1), a1);
+      return nt2::abs(a0 * (a1 / gcd(a0, div)));
     }
   };
 } }

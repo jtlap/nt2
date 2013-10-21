@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-     return nt2::abs(a0 * a1 / gcd(a0,a1));
+     return nt2::abs(a0 * (a1 / gcd(a0, a1 ? a1 : A0(1))));
     }
   };
 } }
