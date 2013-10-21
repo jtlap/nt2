@@ -1,0 +1,20 @@
+# This file limits noise in doxygen output
+
+# define DOXYGEN_ONLY trigger
+PREDEFINED += DOXYGEN_ONLY
+
+# exclude Boost.Preprocessor style local macros
+EXCLUDE_SYMBOLS += M0
+EXCLUDE_SYMBOLS += M1
+EXCLUDE_SYMBOLS += M2
+EXCLUDE_SYMBOLS += M3
+EXCLUDE_SYMBOLS += M4
+EXCLUDE_SYMBOLS += M5
+EXCLUDE_SYMBOLS += M6
+EXCLUDE_SYMBOLS += M7
+EXCLUDE_SYMBOLS += M8
+EXCLUDE_SYMBOLS += M9
+
+# make some boost macro silent
+PREDEFINED             += BOOST_MPL_ASSERT_MSG(x,y,z)=
+EXPAND_AS_DEFINED      += BOOST_MPL_ASSERT_MSG
