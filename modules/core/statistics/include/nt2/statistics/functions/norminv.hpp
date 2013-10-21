@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_STATISTICS_FUNCTIONS_NORMINV_HPP_INCLUDED
 #define NT2_STATISTICS_FUNCTIONS_NORMINV_HPP_INCLUDED
 
@@ -21,66 +18,91 @@
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
 #include <nt2/core/utility/max_extent.hpp>
 
-/*!
- * \ingroup statistics
- * \defgroup statistics_norm norminv
- *
- * \par Description
- * normal cumulative distribution
- *
- * All inv (inverse distribution functions  can be called with the syntax
- * r = xxxinv(values, param_1, ...,  param_n)
- * the type of values elements determines the type of the output expression elements.
- * normal has 2 parameter: mean value and standard deviation
- * default are 0 and 1 respectively
- *
- * invcdf can also be called using the following syntax:
- *
- *  nt2::tie(x,xlo,xup) = invcdf(p,mu,sigma, pcov, alpha)
- *
- * to produce confidence bounds for p when the input parameters mu and sigma are estimates.
- * pcov is a  2-by-2 matrix containing the covariance matrix of the estimated parameters.
- * alpha has a default value of 0.05, and specifies 100*(1-alpha)% confidence
- * bounds.  xlo and xup are arrays of the same size as x containing the lower
- * and upper confidence bounds.
- * \par
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/norminv.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::norminv_(A0)>::type
- *     norminv(const A0 & a0, const A1 & m = 0, const A2 & sig = 1);
- * }
- * \endcode
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag norminv_ of functor norminv
-     *        in namespace nt2::tag for toolbox statistics
-    **/
-    struct norminv_ : ext::tieable_<norminv_> { typedef ext::tieable_<norminv_> parent; };
-    struct norminv0_ : ext::elementwise_<norminv0_> { typedef ext::elementwise_<norminv0_> parent; };
+   /*!
+     @brief norminv generic tag
+
+     Represents the norminv function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct norminv_ : ext::tieable_<norminv_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::tieable_<norminv_> parent;
+    };
+    struct norminv0_ : ext::elementwise_<norminv0_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<norminv0_> parent;
+    };
   }
-  NT2_FUNCTION_IMPLEMENTATION(tag::norminv0_, norminv, 1)
-  NT2_FUNCTION_IMPLEMENTATION(tag::norminv0_, norminv, 2)
+  /*!
+    normal inverse cumulative distribution
+
+    @par Semantic:
+
+    For every table expression
+
+    @code
+    auto r = norminv(a0, m, s);
+    @endcode
+
+    is similar to:
+
+    @code
+    auto r = -Sqrt_2*erfcinv(2*a0)*s+m;
+    @endcode
+
+    @param a0
+    @param a1
+    @param a2
+
+    @return an expression which eventually will evaluate to the result
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::norminv0_, norminv, 3)
-  NT2_FUNCTION_IMPLEMENTATION(tag::norminv_,  norminv, 4)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(tag::norminv0_, norminv, 2)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(tag::norminv0_, norminv, 1)
+  /*!
+    normal inverse cumulative distribution
+
+    @par Semantic:
+
+    For every table expression
+
+    @code
+    tie(r, rlo, rup)= expinv(a0, m, s, cov, alpha);
+    @endcode
+
+    Returns r = expinv(a0, m, s), but also produces confidence bounds
+    for r when the input parameters m and s are estimates.  cov is a
+    2-by-2 matrix containing the covariance matrix of the estimated
+    parameters.  alpha has a default value of 0.05, and specifies
+    100*(1-alpha)% confidence bounds.  rlo and rup are arrays of the
+    same size as a0 containing the lower and upper confidence bounds.
+
+    @param a0
+    @param a1 estimated  mean
+    @param a2 estimated standard deviation
+    @param a3 covariance of the estimates
+    @param a4 optional confidence bound (default to 0.05)
+
+
+    @return an expression which eventually will evaluate to the result
+  **/
+
   NT2_FUNCTION_IMPLEMENTATION(tag::norminv_,  norminv, 5)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(tag::norminv_,  norminv, 4)
 }
 namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
   template<class Domain, int N, class Expr>
   struct  size_of<tag::norminv_,Domain,N,Expr> // N =  4 or 5
   {
@@ -99,15 +121,12 @@ namespace nt2 { namespace ext
     }
   };
 
+  /// INTERNAL ONLY
   template<class Domain, class Expr>
   struct  size_of<tag::norminv_,Domain,1,Expr>
         : meta::size_as<Expr,0>
   {};
 
-//   template<class Domain, int N, class Expr>
-//   struct  value_type<tag::norminv_,Domain,N,Expr>
-//         : meta::value_as<Expr,0>
-//   {};
 } }
 
 #endif

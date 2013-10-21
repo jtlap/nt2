@@ -71,7 +71,7 @@ namespace nt2 { namespace ext
       doit(a0, a1, N0(), N1());
     }
     ////////////////////////////////////////////
-    // No enough inputs to computes all ouputs
+    // Not enough inputs to computes all ouputs
     ////////////////////////////////////////////
     BOOST_FORCEINLINE static void doit(const A0&, A1&,
                                        boost::mpl::long_<1> const &, boost::mpl::long_<3> const & )
@@ -92,7 +92,7 @@ namespace nt2 { namespace ext
 
     }
     ////////////////////////////////////////////
-    // No enough output to computes all ouputs
+    // Not enough output to computes all ouputs
     ////////////////////////////////////////////
     template < class T >
     BOOST_FORCEINLINE static void doit(const A0& a0, A1& a1,
@@ -139,48 +139,26 @@ namespace nt2 { namespace ext
       typedef typename boost::proto::result_of::child_c<A1&,1>::type         Out1;
       typedef typename boost::proto::result_of::child_c<A1&,2>::type         Out2;
 
-      //      NT2_DISPLAY(a0.extent());   NT2_DISPLAY(a1.extent());
       p.resize(a0.extent());
       const In0& x  = boost::proto::child_c<0>(a0);
-      //      NT2_DISPLAY(x);
       const In1& a = boost::proto::child_c<1>(a0);
-      //      NT2_DISPLAY(a);
       const In2& b = boost::proto::child_c<2>(a0);
-      //       NT2_DISPLAY(b);
       BOOST_AUTO_TPL(z, x/b);
-      //       NT2_DISPLAY(z);
-      //       NT2_DISPLAY(nt2::gammainc(z, a));
-      //       NT2_DISPLAY(size(p));
       p =  nt2::exp(z); //nt2::gammainc(z, a);
-      //       NT2_DISPLAY(p);
-      //      Out0& p = boost::proto::child_c<0>(a1);
-      //      NT2_DISPLAY(p);
       BOOST_AUTO_TPL(itp, (p/nt2::oneminus(p)));
-      //       NT2_DISPLAY(itp);
       BOOST_AUTO_TPL(dp, nt2::rec(p*oneminus(p))); // derivative of logit(p) w.r.t. p
-      //       NT2_DISPLAY(dp);
       BOOST_AUTO_TPL(da, dgammainc(z,a)*dp);       // dlogitp/da = dp/da * dlogitp/dp
-      //       NT2_DISPLAY(da);
       BOOST_AUTO_TPL(db, -nt2::exp(a*nt2::log(z)-z-nt2::gammaln(a)-nt2::log(b))* dp); // dlogitp/db = dp/db * dlogitp/dp
-      //      NT2_DISPLAY(db);
       BOOST_AUTO_TPL(varLogitp, pcov(1,1)*sqr(da) + (Two<value_type>()*pcov(1,2)*da + pcov(2,2)*db)*db);
-      //       NT2_DISPLAY(varLogitp);
-      //       NT2_DISPLAY(normz);
       BOOST_AUTO_TPL(exp_halfwidth, nt2::exp(normz*nt2::sqrt(varLogitp)));
-      //       NT2_DISPLAY(exp_halfwidth);
       Out1 & plo = boost::proto::child_c<1>(a1);
       Out2 & pup = boost::proto::child_c<2>(a1);
       plo.resize(a0.extent());
       pup.resize(a0.extent());
-      //      std::cout << "1" << std::endl;
       plo = itp*exp_halfwidth;
-      //      std::cout << "2" << std::endl;
       pup = itp/exp_halfwidth;
-      //      std::cout << "3" << std::endl;
       plo /= nt2::oneplus(plo);
-      //      std::cout << "4" << std::endl;
       pup /= nt2::oneplus(pup);
-      //      std::cout << "5" << std::endl;
     }
   private :
     template < class T > BOOST_FORCEINLINE static
@@ -191,33 +169,6 @@ namespace nt2 { namespace ext
       BOOST_ASSERT_MSG(is_gez(pcov(1, 1)*pcov(2, 2)-sqr(pcov(1, 2))),
                        "pcov must be positive") ;
     }
-// try
-//     z = x ./ b;
-//     p = gammainc(z, a);
-// catch
-//     error(message('stats:gamcdf:InputSizeMismatch'));
-// end
-
-// % Compute confidence bounds if requested.
-// if nargout >= 2
-//     % Approximate the variance of p on the logit scale
-//     logitp = log(p./(1-p));
-//     dp = 1 ./ (p.*(1-p)); % derivative of logit(p) w.r.t. p
-//     da = dgammainc(z,a) .* dp; % dlogitp/da = dp/da * dlogitp/dp
-//     db = -exp(a.*log(z)-z-gammaln(a)-log(b)) .* dp; % dlogitp/db = dp/db * dlogitp/dp
-//     varLogitp = pcov(1,1).*da.^2 + 2.*pcov(1,2).*da.*db + pcov(2,2).*db.^2;
-//     if any(varLogitp(:) < 0)
-//         error(message('stats:gamcdf:BadCovariancePosSemiDef'));
-//     end
-
-//     % Use a normal approximation on the logit scale, then transform back to
-//     % the original CDF scale
-//     halfwidth = -norminv(alpha/2) * sqrt(varLogitp);
-//     explogitplo = exp(logitp - halfwidth);
-//     explogitpup = exp(logitp + halfwidth);
-//     plo = explogitplo ./ (1 + explogitplo);
-//     pup = explogitpup ./ (1 + explogitpup);
-// end
   };
 
 } }
