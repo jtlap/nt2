@@ -83,7 +83,7 @@ NT2_TEST_CASE_TPL ( lcm_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(lcm(T(28), T(16)), T(112), 0);
   NT2_TEST_ULP_EQUAL(lcm(nt2::One<T>(), nt2::One<T>()), nt2::One<T>(), 0);
- //  NT2_TEST_ULP_EQUAL(lcm(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
+  NT2_TEST_ULP_EQUAL(lcm(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
 } // end of test for unsigned_int_
 
 NT2_TEST_CASE_TPL ( lcm_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
@@ -107,5 +107,5 @@ NT2_TEST_CASE_TPL ( lcm_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_ULP_EQUAL(lcm(T(28), T(16)), T(112), 0);
   NT2_TEST_ULP_EQUAL(lcm(nt2::Mone<T>(), nt2::Mone<T>()), nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(lcm(nt2::One<T>(), nt2::One<T>()), nt2::One<T>(), 0);
- //  NT2_TEST_ULP_EQUAL(lcm(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
+  NT2_TEST_ULP_EQUAL(lcm(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
 } // end of test for signed_int_
