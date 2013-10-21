@@ -115,57 +115,29 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mtimes_, tag::cpu_
                             , (A0)(A1)
-                            , (unspecified_<A0>)
-                              (unspecified_<A1>)
+                            , ((ast_<A0, nt2::container::domain>))
+                              ((ast_<A1, nt2::container::domain>))
                             )
   {
     typedef typename meta::scalar_of<A0>::type T;
     BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1),
-      mtimes(a0, a1, One<T>())
+      mtimes(a0, a1, Zero<T>(), One<T>(), tag::blas_normal_(), tag::blas_normal_())
     )
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mtimes_, tag::cpu_
                             , (A0)(A1)(A2)
-                            , (unspecified_<A0>)
-                              (unspecified_<A1>)
-                              (unspecified_<A2>)
+                            , ((ast_<A0, nt2::container::domain>))
+                              ((ast_<A1, nt2::container::domain>))
+                              (scalar_< unspecified_<A2> >)
                             )
   {
     typedef typename meta::scalar_of<A0>::type T;
     BOOST_DISPATCH_RETURNS(3, (A0 const& a0, A1 const& a1, A2 const& a2),
-      mtimes(a0, a1, a2, Zero<T>())
+      mtimes(a0, a1, a2, One<T>(), tag::blas_normal_(), tag::blas_normal_())
     )
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mtimes_, tag::cpu_
-                            , (A0)(A1)(A2)(A3)
-                            , (unspecified_<A0>)
-                              (unspecified_<A1>)
-                              (unspecified_<A2>)
-                              (unspecified_<A3>)
-                            )
-  {
-    BOOST_DISPATCH_RETURNS(4, (A0 const& a0, A1 const& a1, A2 const& a2, A3 const& a3),
-      mtimes(a0, a1, a2, a3, tag::blas_normal_())
-    )
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mtimes_, tag::cpu_
-                            , (A0)(A1)(A2)(A3)(A4)
-                            , (unspecified_<A0>)
-                              (unspecified_<A1>)
-                              (unspecified_<A2>)
-                              (unspecified_<A3>)
-                              (unspecified_<A4>)
-                            )
-  {
-    BOOST_DISPATCH_RETURNS(5, (A0 const& a0, A1 const& a1, A2 const& a2, A3 const& a3, A4 const& a4),
-      mtimes(a0, a1, a2, a3, a4, tag::blas_normal_())
-    )
-  };
-
-  #if 1
   // Recognize scalar/matrix, matrix/scalar and scalar/scalar
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mtimes_, tag::cpu_
                             , (A0)(A1)(T1)(N1)
@@ -205,15 +177,14 @@ namespace nt2 { namespace ext
       return nt2::multiplies(a0, a1);
     }
   };
-  #endif
 
   // Recognize transpose
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mtimes_, tag::cpu_
                             , (A0)(A1)(A2)(A3)(A4)(A5)
                             , ((node_< A0, nt2::tag::transpose_, boost::mpl::long_<1> , nt2::container::domain>))
                               ((ast_< A1, nt2::container::domain>))
-                              (unspecified_<A2>)
-                              (unspecified_<A3>)
+                              (scalar_< unspecified_<A2> >)
+                              (scalar_< unspecified_<A3> >)
                               (unspecified_<A4>)
                               (unspecified_<A5>)
                             )
@@ -227,8 +198,8 @@ namespace nt2 { namespace ext
                             , (A0)(A1)(A2)(A3)(A4)(A5)
                             , ((ast_< A0, nt2::container::domain>))
                               ((node_< A1, nt2::tag::transpose_, boost::mpl::long_<1> , nt2::container::domain>))
-                              (unspecified_<A2>)
-                              (unspecified_<A3>)
+                              (scalar_< unspecified_<A2> >)
+                              (scalar_< unspecified_<A3> >)
                               (unspecified_<A4>)
                               (unspecified_<A5>)
                             )
@@ -242,8 +213,8 @@ namespace nt2 { namespace ext
                             , (A0)(A1)(A2)(A3)(A4)(A5)
                             , ((node_< A0, nt2::tag::transpose_, boost::mpl::long_<1> , nt2::container::domain>))
                               ((node_< A1, nt2::tag::transpose_, boost::mpl::long_<1> , nt2::container::domain>))
-                              (unspecified_<A2>)
-                              (unspecified_<A3>)
+                              (scalar_< unspecified_<A2> >)
+                              (scalar_< unspecified_<A3> >)
                               (unspecified_<A4>)
                               (unspecified_<A5>)
                             )
@@ -258,8 +229,8 @@ namespace nt2 { namespace ext
                             , (A0)(A1)(A2)(A3)(A4)(A5)
                             , ((node_< A0, nt2::tag::ctranspose_, boost::mpl::long_<1> , nt2::container::domain>))
                               ((ast_< A1, nt2::container::domain>))
-                              (unspecified_<A2>)
-                              (unspecified_<A3>)
+                              (scalar_< unspecified_<A2> >)
+                              (scalar_< unspecified_<A3> >)
                               (unspecified_<A4>)
                               (unspecified_<A5>)
                             )
@@ -273,8 +244,8 @@ namespace nt2 { namespace ext
                             , (A0)(A1)(A2)(A3)(A4)(A5)
                             , ((ast_< A0, nt2::container::domain>))
                               ((node_< A1, nt2::tag::ctranspose_, boost::mpl::long_<1> , nt2::container::domain>))
-                              (unspecified_<A2>)
-                              (unspecified_<A3>)
+                              (scalar_< unspecified_<A2> >)
+                              (scalar_< unspecified_<A3> >)
                               (unspecified_<A4>)
                               (unspecified_<A5>)
                             )
@@ -288,8 +259,8 @@ namespace nt2 { namespace ext
                             , (A0)(A1)(A2)(A3)(A4)(A5)
                             , ((node_< A0, nt2::tag::ctranspose_, boost::mpl::long_<1> , nt2::container::domain>))
                               ((node_< A1, nt2::tag::ctranspose_, boost::mpl::long_<1> , nt2::container::domain>))
-                              (unspecified_<A2>)
-                              (unspecified_<A3>)
+                              (scalar_< unspecified_<A2> >)
+                              (scalar_< unspecified_<A3> >)
                               (unspecified_<A4>)
                               (unspecified_<A5>)
                             )
@@ -308,7 +279,7 @@ namespace nt2 { namespace ext
                             )
   {
     BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1),
-      mtimes(boost::proto::child_c<0>(a1), boost::proto::child_c<1>(a1), a0 * boost::proto::child_c<2>(a1), boost::proto::child_c<3>(a1), boost::proto::child_c<4>(a1), boost::proto::child_c<5>(a1))
+      mtimes(boost::proto::child_c<0>(a1), boost::proto::child_c<1>(a1), boost::proto::child_c<2>(a1), a0 * boost::proto::child_c<3>(a1), boost::proto::child_c<4>(a1), boost::proto::child_c<5>(a1))
     )
   };
 
@@ -319,7 +290,7 @@ namespace nt2 { namespace ext
                             )
   {
     BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1),
-      mtimes(boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a0), a1 * boost::proto::child_c<2>(a0), boost::proto::child_c<3>(a0), boost::proto::child_c<4>(a0), boost::proto::child_c<5>(a0))
+      mtimes(boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a0), boost::proto::child_c<2>(a0), a1 * boost::proto::child_c<3>(a0), boost::proto::child_c<4>(a0), boost::proto::child_c<5>(a0))
     )
   };
 
@@ -348,8 +319,8 @@ namespace nt2 { namespace ext
       typename container::as_terminal<desired_semantic, typename boost::proto::result_of::child_c<A1&, 1>::type>::type child1 = boost::proto::child_c<1>(a1);
       typename container::as_terminal<desired_semantic, A0&>::type result = container::as_terminal<desired_semantic, A0&>::init(a0);
 
-      value_type alpha = boost::proto::value(boost::proto::child_c<2>(a1));
-      value_type beta = boost::proto::value(boost::proto::child_c<3>(a1));
+      value_type alpha = boost::proto::value(boost::proto::child_c<3>(a1));
+      value_type beta = boost::proto::value(boost::proto::child_c<2>(a1));
 
       char transA = A1::proto_child4::proto_child0::call();
       char transB = A1::proto_child5::proto_child0::call();

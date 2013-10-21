@@ -8,54 +8,54 @@
 //==============================================================================
 #ifndef NT2_LINALG_FUNCTIONS_MTIMES_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_MTIMES_HPP_INCLUDED
-#include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup algebra
- * \defgroup algebra_mtimes mtimes
- *
- * \par Description
- * Matrix product
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/mtimes.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \param a0 a matrix, vector or scalar
- *
- * \param a1 a matrix, vector or scalar
- *
- * \par Notes
- *   Call the dedicated BLAS/LAPACK routines available on the target (DOT, GEMV, GEMM)
- * \par
- *
-**/
-//==============================================================================
-// mtimes actual class forward declaration
-//==============================================================================
+#include <nt2/include/functor.hpp>
 
 namespace nt2
 {
   namespace tag
   {
     /*!
-     * \brief Define the tag mtimes_ of functor mtimes
-     *        in namespace nt2::tag for toolbox algebra
-     **/
+      @brief mtimes generic tag
+
+      Represents the mtimes function in generic contexts.
+
+      @par Models:
+      Hierarchy
+    **/
     struct mtimes_ : ext::unspecified_<mtimes_>
     {
+      /// @brief Parent hierarchy
       typedef ext::unspecified_<mtimes_> parent;
     };
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mtimes_, mtimes, 2)
+
+  /*!
+    @brief Matrix product
+
+    Calls either of the \c GEMM, \c GEMV or \c DOT BLAS functions
+    depending on the sizes of the inputs.
+
+    Patterns such as
+    @code
+    s0*mtimes(transpose(a0), a1);
+    @endcode
+    will be recognized automatically and optimized to a single \c GEMM call.
+
+    @param a0 Left-hand side of the matrix product of size NxM
+    @param a1 Right-hand side of the matrix product of size MxP
+    @param a2 Optional scalar that will be used when assigning the
+              result to a value \c out so that
+              \f$out \leftarrow a0 \times a1 + a2 \times out\f$
+
+    @return A matrix of size NxP containing \f$a0 \times a1\f$
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mtimes_, mtimes, 3)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mtimes_, mtimes, 4)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mtimes_, mtimes, 5)
+
+  /// @overload
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mtimes_, mtimes, 2)
+
+  /// INTERNAL ONLY
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mtimes_, mtimes, 6)
 }
 
