@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_FAST_FREXP_HPP_INCLUDED
 #define BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_FAST_FREXP_HPP_INCLUDED
+
 #include <boost/simd/ieee/functions/fast_frexp.hpp>
 #include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
@@ -17,38 +18,6 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  /// INTERNAL ONLY - map to ::frexp
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::fast_frexp_, tag::cpu_
-                                    , (A0)(A2)
-                                    , (scalar_< double_<A0> >)
-                                      (scalar_< double_<A0> >)
-                                      (scalar_< int64_<A2> >)
-                                    )
-  {
-    typedef void result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0,A0 & a1,A2 & a2) const
-    {
-      boost::simd::int32_t r = 0;
-      a1 = ::frexp(a0, &r);
-      a2 = r;
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::fast_frexp_, tag::cpu_
-                                    , (A0)(A2)
-                                    , (scalar_< single_<A0> >)
-                                      (scalar_< single_<A0> >)
-                                      (scalar_< int32_<A2> >)
-                                    )
-  {
-    typedef void result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0,A0 & a1,A2 & a2) const
-    {
-      a2 = 0;
-      a1 = ::frexpf(a0, &a2);
-    }
-  };
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::fast_frexp_, tag::cpu_
                                       , (A0)(A2)
                                       , ( boost::is_same
@@ -58,15 +27,40 @@ namespace boost { namespace simd { namespace ext
                                           >
                                         )
                                       , (scalar_< floating_<A0> >)
+                                        (scalar_< floating_<A0> >)
                                         (scalar_< integer_<A2> >)
                                       )
+  {
+    typedef void result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0,A0 & a1,A2 & a2) const
+    {
+      a1 = boost::simd::fast_frexp(a0, a2);
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_frexp_, tag::cpu_
+                                   , (A0)(A2)
+                                   , (scalar_< single_<A0> >)
+                                     (scalar_< int32_<A2> >)
+                                   )
   {
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,A2 & a2) const
     {
-      A0 a1;
-      boost::simd::fast_frexp(a0, a1, a2);
-      return a1;
+      return ::frexpf(a0, &a2);
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_frexp_, tag::cpu_
+                                   , (A0)(A2)
+                                   , (scalar_< double_<A0> >)
+                                     (scalar_< int64_<A2> >)
+                                   )
+  {
+    typedef A0 result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0,A2 & a2) const
+    {
+      return ::frexp(a0, &a2);
     }
   };
 
