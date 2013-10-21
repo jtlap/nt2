@@ -44,12 +44,12 @@ namespace nt2 {
       , bound_(bound), ibound_(ibound)
       {}
 
-      void operator()(tbb::blocked_range<std::ptrdiff_t> const& r) const
+      void operator()(nt2::blocked_range<std::size_t> const& r) const
       {
         std::size_t condition = ibound_/tbb::task_scheduler_init::default_num_threads();
         std::size_t grain = (condition==0)?ibound_:condition;
 
-        for(std::ptrdiff_t j = r.begin(); j < r.end(); ++j)
+        for(std::size_t j = r.begin(); j < r.end(); ++j)
         {
           std::size_t k = j*bound_;
 
@@ -117,7 +117,7 @@ namespace nt2 {
 
       std::size_t divider = N*num_threads;
       std::size_t ibound = (boost::fusion::at_c<0>(ext)/divider) * divider;
-      std::ptrdiff_t obound = nt2::numel(boost::fusion::pop_front(ext));
+      std::size_t obound = nt2::numel(boost::fusion::pop_front(ext));
       std::size_t condition = obound/num_threads;
 
       std::size_t     grain = (condition == 0)
@@ -134,7 +134,7 @@ namespace nt2 {
         try
         {
 #endif
-          tbb::parallel_for( tbb::blocked_range<std::ptrdiff_t>(0,obound,grain)
+          tbb::parallel_for( nt2::blocked_range<std::size_t>(0,obound,grain)
                            , ared
                            );
 
