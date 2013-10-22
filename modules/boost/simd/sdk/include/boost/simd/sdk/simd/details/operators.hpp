@@ -12,6 +12,7 @@
 #include <boost/simd/sdk/simd/meta/is_native.hpp>
 #include <boost/dispatch/functor/functor.hpp>
 #include <boost/dispatch/meta/is_iterator.hpp>
+#include <boost/dispatch/meta/sfinae_enable_if.hpp>
 #include <boost/type_traits/is_fundamental.hpp>
 #include <boost/dispatch/meta/proxy.hpp>
 #include <boost/dispatch/meta/is_scalar.hpp>
@@ -28,11 +29,11 @@
 #define BOOST_SIMD_OVERLOAD_UNARY_OP(Tag, Op)                                  \
 template<class A0>                                                             \
 BOOST_FORCEINLINE                                                              \
-typename                                                                       \
-lazy_enable_if< is_value<A0>                                                   \
-              , dispatch::meta::                                               \
-                call< Tag(A0 const&) >                                         \
-         >::type                                                               \
+typename boost::dispatch::meta::                                               \
+sfinae_enable_if< is_value<A0>                                                 \
+                , dispatch::meta::                                             \
+                  call< Tag(A0 const&) >                                       \
+                >::type                                                        \
 operator Op                                                                    \
 (                                                                              \
   A0 const & a0                                                                \
@@ -77,11 +78,11 @@ operator Op                                                                    \
 #define BOOST_SIMD_OVERLOAD_BINARY_OP(Tag, Op)                                 \
 template<class A0, class A1>                                                   \
 BOOST_FORCEINLINE                                                              \
-typename                                                                       \
-lazy_enable_if< mpl::and_< is_value<A0>, is_value<A1> >                        \
-              , dispatch::meta::                                               \
-                call<Tag(A0 const&, A1 const&)>                                \
-              >::type                                                          \
+typename boost::dispatch::meta::                                               \
+sfinae_enable_if< mpl::and_< is_value<A0>, is_value<A1> >                      \
+                , dispatch::meta::                                             \
+                  call<Tag(A0 const&, A1 const&)>                              \
+                >::type                                                        \
 operator Op                                                                    \
 (                                                                              \
   A0 const & a0,                                                               \
