@@ -9,9 +9,11 @@
 //==============================================================================
 #ifndef NT2_CORE_FUNCTIONS_EXPAND_TO_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_EXPAND_TO_HPP_INCLUDED
+
 #include <nt2/include/functor.hpp>
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/sdk/meta/boxed_size.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
 
 #include <nt2/sdk/parameters.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
@@ -69,6 +71,12 @@ namespace nt2 { namespace ext
   template<class Domain, class Expr,int N>
   struct  size_of<nt2::tag::expand_to_,Domain,N,Expr>
         : meta::boxed_size<Expr,1>
+  {};
+
+  /// INTERNAL ONLY
+  template<class Domain, class Expr, int N>
+  struct  value_type<nt2::tag::expand_to_,Domain,N,Expr>
+        : meta::value_as<Expr,0>
   {};
 } }
 
