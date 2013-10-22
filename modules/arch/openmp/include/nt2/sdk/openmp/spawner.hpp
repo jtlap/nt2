@@ -41,14 +41,14 @@ namespace nt2
       {
         // Dispatch group of blocks over each threads
         #pragma omp for schedule(dynamic)
-        for(std::ptrdiff_t n=0;n<(std::ptrdiff_t)nblocks;++n)
+        for(std::size_t n=0;n<nblocks;++n)
         {
 #ifndef BOOST_NO_EXCEPTIONS
           try
           {
 #endif
             // Call operation
-            worker_(begin_+(std::size_t)n*grain_,grain_);
+            worker_(begin_+n*grain_,grain_);
 
 #ifndef BOOST_NO_EXCEPTIONS
           }
