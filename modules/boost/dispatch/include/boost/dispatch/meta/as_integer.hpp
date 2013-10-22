@@ -29,7 +29,7 @@ namespace boost { namespace dispatch { namespace meta
    * Computes an integral type which is compatible with the input type @c T and
    * with a given signedness  @c Signed.
    *
-   * @tparam T    @ref Primitive type to transform
+   * @tparam T    Type to transform
    * @tparam Sign Signedness of expected output. By default, the signedness
    * of @c T
    *

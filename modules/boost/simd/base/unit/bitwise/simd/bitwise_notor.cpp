@@ -25,7 +25,7 @@
 #include <boost/simd/include/constants/bitincrement.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 
-NT2_TEST_CASE_TPL(bitwise_notor_real, BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL(bitwise_notor_real, BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::bitwise_notor;
   using boost::simd::tag::bitwise_notor_;
@@ -45,7 +45,7 @@ NT2_TEST_CASE_TPL(bitwise_notor_real, BOOST_SIMD_REAL_TYPES)
 
 
 
-NT2_TEST_CASE_TPL(bitwise_notor_ui, BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL(bitwise_notor_ui, BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::bitwise_notor;
   using boost::simd::tag::bitwise_notor_;
@@ -58,7 +58,7 @@ NT2_TEST_CASE_TPL(bitwise_notor_ui, BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(bitwise_notor(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::Valmax<r_t>());
 }
 
-NT2_TEST_CASE_TPL(bitwise_notor_si, BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL(bitwise_notor_si, BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::bitwise_notor;
   using boost::simd::tag::bitwise_notor_;
@@ -71,7 +71,7 @@ NT2_TEST_CASE_TPL(bitwise_notor_si, BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_EQUAL(bitwise_notor(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::Mone<r_t>());
 }
 
-NT2_TEST_CASE_TPL(bitwise_notor_mix, BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL(bitwise_notor_mix, BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::bitwise_notor;
   using boost::simd::tag::bitwise_notor_;

@@ -18,11 +18,17 @@
 /*
   Various forward declarations
 */
-namespace boost { namespace simd { namespace details
+namespace boost { namespace simd
 {
+  namespace details
+  {
   template<class T, class X>
   struct soa_proxy;
-} } }
+  }
+
+  template<class Expr, class ResultType>
+  struct expression;
+} }
 
 namespace nt2
 {
@@ -53,6 +59,13 @@ namespace nt2
       return t;
     }
 
+    template<class Expr, class Result>
+    typename boost::dispatch::meta::terminal_of<Result>::type
+    eval(boost::simd::expression<Expr, Result> const& t)
+    {
+      return t;
+    }
+
     template<class T, class X>
     T eval(boost::simd::details::soa_proxy<T, X> const& t)
     {
@@ -68,7 +81,7 @@ namespace nt2
     template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D) >
     BOOST_FORCEINLINE typename
     make_dependent_c< of_size_<  BOOST_PP_ENUM_PARAMS ( NT2_MAX_DIMENSIONS
-                                                      , -1 BOOST_PP_INTERCEPT
+                                                      , std::ptrdiff_t(-1) BOOST_PP_INTERCEPT
                                                       )
                               >
                     , D0

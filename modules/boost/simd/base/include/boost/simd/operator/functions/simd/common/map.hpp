@@ -14,6 +14,7 @@
 #include <boost/simd/include/functions/simd/insert.hpp>
 #include <boost/simd/include/functions/simd/extract.hpp>
 #include <boost/simd/include/functions/simd/make.hpp>
+#include <boost/simd/operator/specific/utils.hpp>
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
@@ -39,24 +40,18 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  template<BOOST_PP_ENUM_BINARY_PARAMS(BOOST_DISPATCH_MAX_ARITY, class A, = int BOOST_PP_INTERCEPT)>
-  struct map_cardinal_size
-  {
-    #define M0(z,n,t) meta::cardinal_of<A##n>::value != 1u ? meta::cardinal_of<A##n>::value :
-    static const std::size_t value = BOOST_PP_REPEAT(BOOST_DISPATCH_MAX_ARITY, M0, ~) 1u;
-    #undef M0
-  };
-
   #define M1(z,n,t) (generic_< unspecified_<A##n> >)
   #define M2(z,n,t) typename meta::scalar_of<A##n>::type
   #define M3(z,n,t) extract(a##n, t)
   #define M3s(z,n,t) extract<t>(a##n)
   #define M4(z,n,t) (A##n)
   #define M5(z,n,t) f(BOOST_PP_ENUM(t, M3s, n))
+  #define M6(z,n,t) meta::cardinal_of<BOOST_PP_CAT(A,n)>::value
 
   #define BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_DISPATCH_MAX_ARITY, "boost/simd/operator/functions/simd/common/map.hpp"))
   #include BOOST_PP_ITERATE()
 
+  #undef M6
   #undef M5
   #undef M4
   #undef M3s
@@ -91,7 +86,7 @@ namespace boost { namespace simd { namespace ext
              >::type
     rtype;
 
-    static const std::size_t N = map_cardinal_size<BOOST_PP_ENUM_PARAMS(n, A)>::value;
+    static const std::size_t N = BOOST_DISPATCH_FOLD(n, cardinal_common<, >::value, M6, ~);
 
     typedef typename meta::
             vector_of< rtype

@@ -9,12 +9,6 @@
 //==============================================================================
 #ifndef NT2_CORE_FUNCTIONS_CAT_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_CAT_HPP_INCLUDED
-
-/*!
-  @file
-  @brief Defines the @c cat function
- **/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/extent.hpp>
@@ -29,20 +23,19 @@ namespace nt2
     /// Tag for @c cat functor
     struct cat_ : ext::elementwise_<cat_>
     {
+      /// @brief Parent hierarchy
       typedef ext::elementwise_<cat_> parent;
     };
   }
 
   /*!
-    @brief Concatenate tables along specified dimension
+    Concatenates tables along specified dimension
 
     @param dim Dimension along which to concatenate
     @param a0  First table to concatenate
     @param a1  Second table to concatenate
 
     @return A lazy expression that will evaluate as the concatenation of a0 and a1
-
-    @par Example:
 
   **/
   template<class Dimension, class A0, class A1>

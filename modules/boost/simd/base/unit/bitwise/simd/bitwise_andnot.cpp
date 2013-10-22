@@ -24,7 +24,7 @@
 #include <boost/simd/include/constants/nan.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 
-NT2_TEST_CASE_TPL(bitwise_andnot_real, BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL(bitwise_andnot_real, BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::bitwise_andnot;
   using boost::simd::tag::bitwise_andnot_;
@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL(bitwise_andnot_real, BOOST_SIMD_REAL_TYPES)
 }
 
 
-NT2_TEST_CASE_TPL(bitwise_andnot_ui, BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL(bitwise_andnot_ui, BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::bitwise_andnot;
   using boost::simd::tag::bitwise_andnot_;
@@ -58,7 +58,7 @@ NT2_TEST_CASE_TPL(bitwise_andnot_ui, BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(bitwise_andnot(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
 }
 
-NT2_TEST_CASE_TPL(bitwise_andnot_si, BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL(bitwise_andnot_si, BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::bitwise_andnot;
   using boost::simd::tag::bitwise_andnot_;
@@ -72,7 +72,7 @@ NT2_TEST_CASE_TPL(bitwise_andnot_si, BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_EQUAL(bitwise_andnot(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
 }
 
-NT2_TEST_CASE_TPL(bitwise_andnot_mix, BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL(bitwise_andnot_mix, BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::bitwise_andnot;
   using boost::simd::tag::bitwise_andnot_;

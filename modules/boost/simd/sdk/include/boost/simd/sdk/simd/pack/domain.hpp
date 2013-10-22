@@ -13,6 +13,7 @@
 #include <boost/simd/sdk/simd/meta/is_native.hpp>
 #include <boost/proto/domain.hpp>
 #include <boost/proto/traits.hpp>
+#include <boost/dispatch/dsl/semantic_of.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/remove_const.hpp>
@@ -35,7 +36,7 @@ namespace boost { namespace simd
     {
       typedef typename boost::remove_const<T>::type term_t;
       typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<term_t> > expr_t;
-      typedef expression<expr_t, term_t> result_type;
+      typedef expression<expr_t, typename boost::dispatch::meta::semantic_of<term_t>::type> result_type;
       BOOST_FORCEINLINE result_type operator()(typename boost::add_reference<T>::type t) const
       {
         result_type that = { expr_t::make(t) };

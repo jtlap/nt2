@@ -17,9 +17,10 @@
 
 namespace nt2 { namespace tag
   {
-    /// @brief Hierarchy tag for sinecosine function
+
     template < class T > struct sinecosine_ : ext::elementwise_< sinecosine_<T> >
     {
+      /// @brief Parent hierarchy
       typedef ext::elementwise_< sinecosine_<T> > parent;
     };
   }
@@ -28,6 +29,7 @@ namespace nt2 { namespace tag
 
     @c sinecosine compute simultaneously the  templatized sine and cosine of the input
 
+    @see @funcref{fast_sincos}, @funcref{sincosine}, @funcref{sincosd}, @funcref{sincos}
     @param a0 angle in radian
 
     @return A Fusion Sequence containing the  templatized sine and cosine of @c a0
@@ -41,8 +43,9 @@ namespace nt2 { namespace tag
 
     @c sinecosine compute simultaneously the templatized sine and cosine of the input
 
+    @see @funcref{fast_sincos}, @funcref{sincosine}, @funcref{sincosd}, @funcref{sincos}
     @param a0 angle in radian
-    @param a1 L-Value that will receive the  templatized sine off @c a0
+    @param a1 L-Value that will receive the  templatized sine of @c a0
 
     @return A Fusion Sequence containing the  templatized cosine of @c a0
   **/
@@ -54,9 +57,10 @@ namespace nt2 { namespace tag
 
     @c sinecosine compute simultaneously the templatized sine and cosine of the input
 
+    @see @funcref{fast_sincos}, @funcref{sincosine}, @funcref{sincosd}, @funcref{sincos}
     @param a0 angle in radian
-    @param a1 L-Value that will receive the templatized sined off @c a0
-    @param a1 L-Value that will receive the templatized cosine off @c a0
+    @param a1 L-Value that will receive the templatized sined of @c a0
+    @param a2 L-Value that will receive the templatized cosine of @c a0
 
   **/
     NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sinecosine_<A0>, sinecosine, (A1 const&)(A2&)(A2&),3)
@@ -65,3 +69,4 @@ namespace nt2 { namespace tag
     }
 
 #endif
+

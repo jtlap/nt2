@@ -11,25 +11,34 @@
 
 #include <boost/simd/dsl/functions/terminal.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
-#include <boost/proto/traits.hpp>
+#include <boost/simd/sdk/simd/pack/forward.hpp>
+#include <boost/dispatch/dsl/semantic_of.hpp>
+#include <boost/dispatch/meta/as.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_TPL( boost::simd::tag::terminal_,tag::cpu_
-                                , (class Value)(class State)
-                                  (class Data)(std::size_t N)
-                                , ((array_<scalar_< arithmetic_<Value > >,N>))
-                                  ((target_<array_<scalar_< arithmetic_<State> >,N> >))
-                                  (scalar_< integer_<Data> >)
-                                )
-{
-    typedef typename Value::value_type result_type;
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::terminal_, tag::cpu_
+                                   , (Expr)(X)
+                                   , ((expr_< target_< simd_< unspecified_<Expr>, X> >, boost::simd::tag::terminal_, mpl::long_<0> >))
+                                   )
+  {
+    typedef typename boost::dispatch::meta::
+            semantic_of<typename Expr::proto_child0>::type result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()( Value const& v, State const&, Data const& p ) const
+    operator()( Expr& ) const
     {
-      return v[p];
+      return result_type();
     }
+  };
+} } }
+
+namespace boost { namespace dispatch { namespace meta
+{
+  template<class T, std::size_t N>
+  struct semantic_of< as_< boost::simd::pack<T, N> > >
+  {
+    typedef as_< typename boost::simd::pack<T, N>::data_type > type;
   };
 } } }
 

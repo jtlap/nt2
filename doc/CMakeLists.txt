@@ -8,7 +8,7 @@
 ################################################################################
 
 include(nt2.doc)
-if(NOT NT2_DOCUMENTATION_ENABLED)
+if(NOT NT2_DOCUMENTATION_ENABLED OR DEFINED NT2_DOC_MAIN)
   return()
 endif()
 
@@ -51,3 +51,4 @@ add_custom_target(doc
                                     ${NT2_BINARY_DIR}/doc/html
                   DEPENDS ${NT2_BINARY_DIR}/doc/html/index.html
                  )
+install(DIRECTORY ${NT2_BINARY_DIR}/doc/html DESTINATION doc PATTERN ".*" EXCLUDE)

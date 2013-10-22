@@ -28,7 +28,7 @@
 //COMMENTED
 
 
-NT2_TEST_CASE_TPL ( splat_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( splat_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
 //   using nt2::splat;
 //   using nt2::tag::splat_;

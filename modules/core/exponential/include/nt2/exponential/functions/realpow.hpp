@@ -6,62 +6,53 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_REALPOW_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_REALPOW_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup exponential
- * \defgroup exponential_realpow realpow
- *
- * \par Description
- * Realpower function: \f${a_0}^{a_1}\f$ but asserts is the result is to be complex
- * \par
- * \f$0^0\f$ returns 1
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/realpow.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::realpow_(A0,A0)>::type
- *     realpow(const A0 & a0,const A0 & a1);
- * }
- * \endcode
- *
- * \param a0 the first parameter of realpow
- * \param a1 the second parameter of realpow
- *
- * \return a value of the common type of the parameters
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag realpow_ of functor realpow
-     *        in namespace nt2::tag for toolbox exponential
-    **/
-    struct realpow_ : ext::elementwise_<realpow_> { typedef ext::elementwise_<realpow_> parent; };
+   /*!
+     @brief realpow generic tag
+
+     Represents the realpow function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct realpow_ : ext::elementwise_<realpow_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<realpow_> parent;
+    };
   }
+  /*!
+    Returns power function,  but
+    asserts if the result is to be complex
+
+    @par Semantic:
+
+    For every parameters of floating types respectively T0, T1:
+
+    @code
+    T0 r = realpow(a0,a1);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = pow(a0, a1);
+    @endcode
+
+    @param a0
+
+    @param a1
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::realpow_, realpow, 2)
 }
 
 #endif
 
-// modified by jt the 25/12/2010

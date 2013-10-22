@@ -19,56 +19,38 @@
 #pragma warning(disable: 4310) // truncation of constant
 #endif
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_fact_8 Fact_8
- *
- * \par Description
- * Constant Fact_8,  8! = 40320, the saturated factorial value is
- * min(Valmax<T>(),40320)
- * \par
- * The value of this constant is type dependant. This means that for different
- * types it does not represent the same mathematical number.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/fact_8.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::fact_8_(A0)>::type
- *     Fact_8();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Fact_8
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Fact_8 of functor Fact_8
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Fact_8 generic tag
+
+     Represents the Fact_8 constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Fact_8,double
                                 , 40320,0x471d8000,0x40e3b00000000000ll
                                 );
   }
+  /*!
+    Generates  8! that is 40320
 
+    @par Semantic:
+
+    @code
+    T r = Fact_8<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = T(40320);
+    @endcode
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Fact_8, Fact_8)
 } }
 

@@ -10,7 +10,7 @@
 #include <nt2/reduction/include/functions/posmax.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
-#include <nt2/include/functions/arith.hpp>
+#include <nt2/include/functions/enumerate.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -32,11 +32,11 @@ NT2_TEST_CASE_TPL ( posmax_real,  NT2_SIMD_REAL_TYPES)
   typedef native<cT ,ext_t>                           vcT;
 
   // specific values tests
-  vT r =  nt2::arith<vT>(0, 1);
-  vT i =  nt2::arith<vT>(0, 1);
+  vT r =  nt2::enumerate<vT>(0, 1);
+  vT i =  nt2::enumerate<vT>(0, 1);
   vcT z = vcT(r, i);
   NT2_TEST_EQUAL(posmax(z), r_t(cardinal_of<vT>::value-1));
-  i =  nt2::arith<vT>(T(cardinal_of<vT>::value-1), T(-1));
+  i =  nt2::enumerate<vT>(T(cardinal_of<vT>::value-1), T(-1));
   z = vcT(r, i);
   NT2_TEST_EQUAL(posmax(z), r_t(0));
 

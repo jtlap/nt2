@@ -10,18 +10,43 @@
 #define NT2_POLYNOM_FUNCTIONS_VALUATION_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/**
- * @brief Perform polynomial format reduction
- *
- *   valuation(p) returns the valuation of the input polynomial.
- *   null polynomial has valuation -1
- *   non null constant polynomial has valuation 0
- *
- **/
 namespace nt2 { namespace tag
   {
-    struct valuation_: ext::elementwise_<valuation_> { typedef ext::elementwise_<valuation_> parent; };
+   /*!
+     @brief valuation generic tag
+
+     Represents the valuation function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct valuation_ : ext::elementwise_<valuation_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<valuation_> parent;
+    };
   }
+  /*!
+    returns the valuation of the input polynomial.
+    null polynomial has valuation -1.
+    non null constant polynomial has valuation 0.
+
+    @par Semantic:
+
+    For every polynomial p
+
+    @code
+    ptrdiff_t r = valuation(p);
+    @endcode
+
+    The valuation is the least exponent associated to a non null coefficient.
+    null polynomial has valuation -1.
+    non null constant polynomial has valuation 0.
+
+    @param a0
+
+    @return a ptrdiff_t value
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::valuation_,valuation, 1)
 }
 #endif

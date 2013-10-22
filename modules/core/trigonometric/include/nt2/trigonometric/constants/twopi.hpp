@@ -8,55 +8,48 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_CONSTANTS_TWOPI_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_CONSTANTS_TWOPI_HPP_INCLUDED
-/*!
- * \file
-**/
 #include <boost/simd/constant/hierarchy.hpp>
 #include <boost/simd/constant/register.hpp>
 
-/*!
- * \ingroup trigo_constant
- * \defgroup trigo_constant_twopi Twopi constant
- *
- * \par Description
- * Constant twopi : \f$\frac2\pi\f$.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/twopi.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::_twopi_(A0)>::type
- *     twopi();
- * }
- * \endcode
- *
- *
- * \param T template parameter of twopi
- *
- * \return type T value
- *
- **/
 
 namespace nt2
 {
   namespace tag
   {
+   /*!
+     @brief Twopi generic tag
+
+     Represents the Twopi constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Twopi, double
                                 , 0, 0x40c90fdb
                                 , 0x401921fb54442d18ll
                                 );
   }
+  /*!
+    Constant \f$\frac2\pi\f$.
 
+    @par Semantic:
+
+    For type T0:
+
+    @code
+    T0 r = Twopi<T0>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = Two<T0>()*Pi<T0>();
+    @endcode
+
+    @return a value of type T0
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Twopi, Twopi);
 }
 
 #endif
+

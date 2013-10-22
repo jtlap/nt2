@@ -15,29 +15,68 @@
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
 
-/**
- * @brief Perform polynomial/or rational fraction derivative
- *
- *   ratfracder(p) returns the derivative of the polynomial whose
- *   coefficients are the elements of vector p.
- *
- *   ratfracder(a,b) returns the derivative of rational fraction. a/b.
- *
- *   [n,d] = ratfracder(a, b) returns the derivative of the
- *   polynomial ratio a/b, represented as n/d.
- *
- **/
 namespace nt2 { namespace tag
   {
-    struct ratfracder_ : ext::tieable_<ratfracder_> { typedef ext::tieable_<ratfracder_> parent; };
-  }
+   /*!
+     @brief ratfracder generic tag
 
+     Represents the ratfracder function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct ratfracder_ : ext::tieable_<ratfracder_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::tieable_<ratfracder_> parent;
+    };
+  }
+  /*!
+    Returns the derivative of the polynomial whose
+    coefficients are the elements of vector p.
+
+    @par Semantic:
+
+    For every polynomial
+
+    @code
+    auto r = ratfracder(p);
+    @endcode
+
+    is similar to
+
+    @code
+    auto r = polyder(p);
+    @endcode
+
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::ratfracder_, ratfracder, 1)
+  /*!
+    Returns the derivative of the
+    polynomial ratio a/b, represented as n/d.
+
+    @par Semantic:
+
+    For every polynomial
+
+    @code
+    tie(n, d) = ratfracder(a, b);
+    @endcode
+
+    @param a0
+    @param a1
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::ratfracder_, ratfracder, 2)
 }
 
  namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
   template<class Domain, class Expr>
   struct  size_of<tag::ratfracder_,Domain,1,Expr>
   {
@@ -52,6 +91,7 @@ namespace nt2 { namespace tag
       return sizee;
     }
   };
+  /// INTERNAL ONLY
   template<class Domain, class Expr>
   struct  size_of<tag::ratfracder_,Domain,2,Expr>
   {
@@ -69,6 +109,7 @@ namespace nt2 { namespace tag
     }
   };
 
+  /// INTERNAL ONLY
   template<class Domain, int N, class Expr>
   struct  value_type<tag::ratfracder_,Domain,N,Expr>
         : meta::value_as<Expr,0>

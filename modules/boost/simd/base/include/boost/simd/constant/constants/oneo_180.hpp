@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_ONEO_180_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_ONEO_180_HPP_INCLUDED
 
@@ -16,52 +13,38 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_oneo_180 oneo_180
- *
- * \par Description
- * Constant oneo_180 = 1/180
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/oneo_180.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::oneo_180_(A0)>::type
- *     oneo_180();
- * }
- * \endcode
- *
- *
- * \param T template parameter of oneo_180
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag oneo_180 of functor oneo_180
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Oneo_180 generic tag
+
+     Represents the Oneo_180 constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Oneo_180, double, 0
                                  , 0x3bb60b61, 0x3f76c16c16c16c17ll
                                 );
   }
+  /*!
+    Generates value 1/180
 
+    @par Semantic:
+
+    @code
+    T r = Oneo_180<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = T(1)/T(180);
+    @endcode
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Oneo_180, Oneo_180)
 } }
 

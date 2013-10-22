@@ -16,6 +16,9 @@
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <nt2/include/constants/pio_2.hpp>
+#include <nt2/include/constants/pio_4.hpp>
+#include <nt2/include/constants/zero.hpp>
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
@@ -32,13 +35,13 @@ using nt2::tag::rem_pio2_straight_;
 namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(rem_pio2_straight_,(RS(vT,nt2::Pio_4<T>(),nt2::Pio_2<T>())))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(rem_pio2_straight_,(RS(vT,nt2::Pio_4<T>(),nt2::Pio_2<T>())))
 }
 

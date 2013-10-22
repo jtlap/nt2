@@ -11,84 +11,76 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
 #include <boost/simd/swar/functions/interleave_second.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
-#include <boost/simd/swar/functions/details/shuffle.hpp>
-#include <boost/simd/swar/functions/details/perm.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::interleave_second_
                                    , boost::simd::tag::avx_
-                                   , (A0)(A1)
+                                   , (A0)
                                    , ((simd_<single_<A0>,boost::simd::tag::avx_>))
-                                     ((simd_<single_<A1>,boost::simd::tag::avx_>))
+                                     ((simd_<single_<A0>,boost::simd::tag::avx_>))
                                    )
   {
     typedef A0 result_type;
 
-    result_type operator()(__m256 const a0, __m256 const a1) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
     {
-      result_type that0 = details::perm2<1, 1>(a0, a0);
-      that0 = details::shuffle_pairs<0, 1, 1, 3>(that0, that0);
-      result_type that1 = details::perm2<1, 1>(a1, a1);
-      that1 = details::shuffle_pairs<0, 1, 1, 3>(that1, that1);
-      return _mm256_unpacklo_ps(that0,that1);
+      // 0x31 is SCR1[128:255]|SRC2[128:255] according to Intel AVX manual
+      // The result of unpack_*_ps puts parts in the proper pairs beforehand
+      return _mm256_permute2f128_ps ( _mm256_unpacklo_ps(a0,a1)
+                                    , _mm256_unpackhi_ps(a0,a1)
+                                    , 0x31
+                                    );
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::interleave_second_
                                    , boost::simd::tag::avx_
-                                   , (A0)(A1)
+                                   , (A0)
                                    , ((simd_<double_<A0>,boost::simd::tag::avx_>))
-                                     ((simd_<double_<A1>,boost::simd::tag::avx_>))
+                                     ((simd_<double_<A0>,boost::simd::tag::avx_>))
                                    )
   {
     typedef A0 result_type;
 
-    result_type operator()(__m256d const a0, __m256d const a1) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
     {
-      result_type that0 = details::perm2<1, 1>(a0, a0);
-      that0 = details::shuffle<0, 1, 1, 3>(that0, that0);
-      result_type that1 = details::perm2<1, 1>(a1, a1);
-      that1 = details::shuffle<0, 1, 1, 3>(that1, that1);
-      return _mm256_unpacklo_pd(that0,that1);
-
+      // 0x31 is SCR1[128:255]|SRC2[128:255] according to Intel AVX manual
+      // The result of unpack_*_pd puts parts in the proper pairs beforehand
+      return _mm256_permute2f128_pd ( _mm256_unpacklo_pd(a0,a1)
+                                    , _mm256_unpackhi_pd(a0,a1)
+                                    , 0x31
+                                    );
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::interleave_second_
-                                   , boost::simd::tag::avx_
-                                   , (A0)(A1)
-                                   , ((simd_<type32_<A0>,boost::simd::tag::avx_>))
-                                     ((simd_<type32_<A1>,boost::simd::tag::avx_>))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::interleave_second_
+                                    , boost::simd::tag::avx_
+                                    , (A0)
+                                    , ((simd_ < floating_sized_<A0>
+                                              , boost::simd::tag::avx_
+                                              >
+                                      ))
+                                      ((simd_ < floating_sized_<A0>
+                                              , boost::simd::tag::avx_
+                                              >
+                                      ))
                                    )
   {
     typedef A0 result_type;
 
-    result_type operator()(__m256i const a0, __m256i const a1) const
-    {
-      typedef typename boost::dispatch::meta::as_floating<A0>::type  ftype;
-      return  bitwise_cast<result_type>(interleave_second(bitwise_cast<ftype>(a0), bitwise_cast<ftype>(a1)));
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::interleave_second_
-                                   , boost::simd::tag::avx_
-                                   , (A0)(A1)
-                                   , ((simd_<type64_<A0>,boost::simd::tag::avx_>))
-                                     ((simd_<type64_<A1>,boost::simd::tag::avx_>))
-                                   )
-  {
-    typedef A0 result_type;
-
-    result_type operator()(A0 const& a0, A1 const& a1) const
+    result_type operator()(A0 const& a0, A0 const& a1) const
     {
       typedef typename boost::dispatch::meta::as_floating<A0>::type  ftype;
-      return bitwise_cast<result_type>(interleave_second(bitwise_cast<ftype>(a0), bitwise_cast<ftype>(a1)));
+      return  bitwise_cast<result_type>
+              ( interleave_second ( bitwise_cast<ftype>(a0)
+                                  , bitwise_cast<ftype>(a1)
+                                  )
+              );
     }
   };
-
 } } }
 
 #endif

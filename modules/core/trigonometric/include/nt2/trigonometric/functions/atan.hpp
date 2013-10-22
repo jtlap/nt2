@@ -6,59 +6,50 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_ATAN_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_ATAN_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup trigonometric
- * \defgroup trigonometric_atan atan
- *
- * \par Description
- * inverse tangent.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/atan.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::atan_(A0)>::type
- *     atan(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of atan
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag atan_ of functor atan
-     *        in namespace nt2::tag for toolbox trigonometric
-    **/
-    struct atan_ : ext::elementwise_<atan_> { typedef ext::elementwise_<atan_> parent; };
+   /*!
+     @brief atan generic tag
+
+     Represents the atan function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct atan_ : ext::elementwise_<atan_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<atan_> parent;
+    };
   }
+  /*!
+    inverse tangent.
+
+    @par Semantic:
+
+    For every parameter of floating type T0
+
+    @code
+    T0 r = atan(a0);
+    @endcode
+
+    Returns the arc @c r in the interval
+    \f$[-\pi/2, \pi/2[\f$ such that <tt>tan(r) == x</tt>.
+    If @c x is outside \f$[-1, 1[\f$ the result is Nan.
+
+    @see @funcref{atan2}, @funcref{atand}, @funcref{atanpi}, @funcref{nbd_atan2}
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::atan_, atan, 1)
 }
 
 #endif
 
-// modified by jt the 25/12/2010
+

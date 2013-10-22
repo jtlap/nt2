@@ -6,69 +6,55 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_REDUCTION_FUNCTIONS_HMSB_HPP_INCLUDED
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_HMSB_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_reduction
- * \defgroup boost_simd_reduction_hmsb hmsb
- *
- * \par Description
- * returns a scalar integer value composed by the highiest bits.
- * of each vector element
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/hmsb.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::hmsb_(A0)>::type
- *     hmsb(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of hmsb
- *
- * \return always a scalar value
- *
- * \par Notes
- * \par
- * This is a reduction operation. As such it has no real interest outside
- * SIMD mode.
- * \par
- * Such an operation always has a scalar result which translate a property
- * of the whole SIMD vector.
- * \par
- * If usable and used in scalar mode, it reduces to the operation as acting
- * on a one element vector.
- *
-**/
-
 namespace boost { namespace simd { namespace tag
   {
-    /*!
-     * \brief Define the tag hmsb_ of functor hmsb
-     *        in namespace boost::simd::tag for toolbox boost.simd.reduction
-    **/
+   /*!
+     @brief hmsb generic tag
 
-    struct hmsb_ : ext::unspecified_<hmsb_> { typedef ext::unspecified_<hmsb_> parent;  };
+     Represents the hmsb function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+
+    struct hmsb_ : ext::unspecified_<hmsb_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::unspecified_<hmsb_> parent;
+    };
   }
+  /*!
+    Returns a size_t value composed by the highiest bits.
+    of each vector element
+
+    @par Semantic:
+
+    For every parameter of type T0
+
+    @code
+    size_t r = hmsb(a0);
+    @endcode
+
+    is similar to:
+
+    @code
+      size_t r = 0;
+      for(result_type i = 0; i != cardinal_of<T0>; ++i)
+      {
+        r |= (bits(a0[i]) >> (sizeof(stype)*8 - 1)) << i;
+      }
+    @endcode
+
+    @param a0
+
+    @return a size_t value
+  **/
     BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::hmsb_, hmsb, 1)
 } }
-
 #endif
 
-// modified by jt the 25/12/2010

@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_STATISTICS_FUNCTIONS_GAMCDF_HPP_INCLUDED
 #define NT2_STATISTICS_FUNCTIONS_GAMCDF_HPP_INCLUDED
 
@@ -22,70 +19,95 @@
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
 #include <nt2/core/utility/max_extent.hpp>
 
-/*!
- * \ingroup statistics
- * \defgroup statistics_exp gamcdf
- *
- * \par Description
- * gamma  cumulative distribution
- *
- * All cdf (cumulative distribution functions  can be called with the syntax
- * r = xxxcdf(values, param_1, ...,  param_n)
- * the type of values elements determines the type of the output expression elements.
- * gamma has 2 parameters: shape (a) and scale (b)
- *
- * Some references refer to the gamma distribution with a single
- * parameter.  This corresponds to the default of b = 1.
- * a has no default.
- *
- * gamcdf can also be called using the following syntax:
- *
- *  nt2::tie(p,plo,pup) = gamcdf(x, a, b, pcov, alpha)
- *
- * to produce confidence bounds for p when the input parameter mu is an estimate.
- *  pcov is 2x2 matrix of the estimated a, b,  alpha has a default value of 0.05, and
- * specifies 100*(1-alpha)% confidence bounds.  plo and pup are arrays of
- * the same size as p containing the lower and upper confidence bounds.
- *
- * \par
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/gamcdf.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::gamcdf_(A0)>::type
- *     gamcdf(const A0 & a0, const A1 & mu = 1);
- * }
- * \endcode
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag gamcdf_ of functor gamcdf
-     *        in namespace nt2::tag for toolbox statistics
-    **/
-    struct gamcdf_ : ext::tieable_<gamcdf_> { typedef ext::tieable_<gamcdf_> parent; };
-    struct gamcdf0_: ext::elementwise_<gamcdf0_> { typedef ext::elementwise_<gamcdf0_> parent; };
-  }
+   /*!
+     @brief gamcdf generic tag
 
-  NT2_FUNCTION_IMPLEMENTATION(tag::gamcdf0_, gamcdf, 2)
+     Represents the gamcdf function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct gamcdf_ : ext::tieable_<gamcdf_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::tieable_<gamcdf_> parent;
+    };
+    struct gamcdf0_: ext::elementwise_<gamcdf0_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<gamcdf0_> parent;
+    };
+  }
+  /*!
+    gamma  cumulative distribution
+
+    @par Semantic:
+
+    For every table expressions and optional scalars shape and scale
+
+    @code
+    auto r = gamcdf(a0, shape, scale);
+    @endcode
+
+    is similar to:
+
+    @code
+    auto r = gammainc(shape, a0/scale);
+    @endcode
+
+    Some papers refer to the gamma distribution with a single
+    parameter.  This corresponds to the default of scale = 1.
+    shape has no default.
+
+    @see @funcref{gammainc}
+    @param a0
+    @param a1 shape
+    @param a2 optional scale (default to 1)
+
+    @return an expression which eventually will evaluate to the result
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::gamcdf0_, gamcdf, 3)
-  NT2_FUNCTION_IMPLEMENTATION(tag::gamcdf_, gamcdf, 4)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(tag::gamcdf0_, gamcdf, 2)
+
+  /*!
+    gamma  cumulative distribution
+
+    @par Semantic:
+
+    For every table expressions and optional scalar m
+
+    @code
+    tie(r, rlo, rup) = expcdf(a0, shape, scale, cov, alpha);
+    @endcode
+
+    Returns r = gammacdf(a0, shape, scale), but also produces
+    confidence bounds for r when the input parameter lambda is an
+    estimate.  cov is the variance of the estimated m.  alpha has a
+    default value of 0.05, and specifies 100*(1-alpha)% confidence
+    bounds.  rlo and rup are tables of the same size as a0 containing
+    the lower and upper confidence bounds.
+
+    @see @funcref{gammainc}
+    @param a0
+    @param a1  shape estimate
+    @param a2  optional scale estimate (default to 1)
+    @param a3 variance of the estimated a1
+    @param a4 optional confidence bound (default to 0.05)
+
+    @return an expression which eventually will evaluate to the result
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::gamcdf_, gamcdf, 5)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(tag::gamcdf_, gamcdf, 4)
 }
 
 namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
   template<class Domain, int N, class Expr>
   struct  size_of<tag::gamcdf_,Domain,N,Expr>
   {
@@ -105,19 +127,12 @@ namespace nt2 { namespace ext
     }
   };
 
+  /// INTERNAL ONLY
   template<class Domain, class Expr>
   struct  size_of<tag::gamcdf_,Domain,1,Expr>
         : meta::size_as<Expr,0>
   {};
 
-//   template<class Domain, int N, class Expr>
-//   struct  value_type<tag::gamcdf_,Domain,N,Expr>
-//         : meta::value_as<Expr,0>
-//   {};
 } }
 
 #endif
-
-// /////////////////////////////////////////////////////////////////////////////
-// End of gamcdf.hpp
-// /////////////////////////////////////////////////////////////////////////////

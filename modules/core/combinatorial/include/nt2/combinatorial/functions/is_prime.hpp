@@ -6,59 +6,46 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_COMBINATORIAL_FUNCTIONS_IS_PRIME_HPP_INCLUDED
 #define NT2_COMBINATORIAL_FUNCTIONS_IS_PRIME_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup combinatorial
- * \defgroup combinatorial_is_prime is_prime
- *
- * \par Description
- * returns the table of prime numbers less or equal to the input
- * \par
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/is_prime.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class T,class A0>
- *     meta::call<tag::is_prime_(A0)>::type
- *     is_prime(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of is_prime
- *
- * \param T template parameter of is_prime
- *
- * \return a value of the template parameter type T.
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag is_prime_ of functor is_prime
-     *        in namespace nt2::tag for toolbox combinatorial
-    **/
+   /*!
+     @brief is_prime generic tag
+
+     Represents the is_prime function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     //    struct is_prime_ : ext::elementwise_<is_prime_> { typedef ext::elementwise_<is_prime_> parent; };
-    struct is_prime_ : tag::formal_{ typedef tag::formal_ parent; };
+    struct is_prime_ : tag::formal_
+    {
+      /// @brief Parent hierarchy
+      typedef tag::formal_ parent;
+    };
   }
+  /*!
+    computes if each element of the table is prime or not in an expression table of logical.
+
+    @par Semantic:
+
+    For every table expression
+
+    @code
+    auto r = is_prime(a0);
+    @endcode
+
+    an integer is prime if it is positive and has exactly 2 distinct exact divisors.
+
+    @see @funcref{primes},  @funcref{factor}
+    @param a0
+
+    @return an expression which eventually will evaluate to the result
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::is_prime_,is_prime, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::is_prime_,is_prime, 2)
 }

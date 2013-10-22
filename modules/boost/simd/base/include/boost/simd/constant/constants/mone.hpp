@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_MONE_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_MONE_HPP_INCLUDED
 
@@ -16,52 +13,39 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_mone Mone
- *
- * \par Description
- * Constant Mone = -1
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/mone.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::mone_(A0)>::type
- *     Mone();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Mone
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Mone of functor Mone
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Mone generic tag
+
+     Represents the Mone constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Mone, double, -1
                                 , 0xbf800000UL, 0xbff0000000000000ULL
                                 );
   }
+  /*!
+    Generates value -1
 
+    @par Semantic:
+
+    @code
+    T r = Mone<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r =  T(-1);
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Mone, Mone)
 } }
 

@@ -20,7 +20,7 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::exponentbits_, tag::cpu_,
                                (A0)(X),
-                               ((simd_<arithmetic_<A0>,X>))
+                               ((simd_<floating_<A0>,X>))
                               )
   {
     typedef typename dispatch::meta::as_integer<A0, signed>::type  result_type;

@@ -6,10 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
-  @file
-  @brief Definition of rem_pio2 function
-**/
 
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_REM_PIO2_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_REM_PIO2_HPP_INCLUDED
@@ -17,133 +13,164 @@
 
 namespace nt2 { namespace tag
   {
-    /// @brief Hierarchy tag for rem_pio2 function
+   /*!
+     @brief rem_pio2 generic tag
+
+     Represents the rem_pio2 function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct rem_pio2_ : ext::elementwise_<rem_pio2_>
     {
+      /// @brief Parent hierarchy
       typedef ext::elementwise_<rem_pio2_> parent;
     };
   }
+
   /*!
-    @brief rem_pio2
+    Computes the remainder modulo \f$\pi/2\f$.
 
-    @c rem_pio2 compute the remainder modulo \f$\pi/2\f$ with cephes algorthm,
-    and return the angle quadrant between 0 and 3.
-    This is the always accurate super costly version.
-    This function is mainly for internal purposes
-    \par
-    The reduction of the argument modulo \f$pi/2\f$ is generally
-    the most difficult part of trigonometric evaluations.
-    The accurate algorithm is over costly and implies the knowledge
-    of a few hundred \f$pi\f$ decimals
-    some simpler algorithms
-    can be used, but the precision is only insured on smaller intervals.
+    @par Semantic:
 
-    @param a0 angle in radian
+    For every parameter of floating type T0
 
-    @return the fusion vector : integer value of the quadrant,
-     reduced angle and eventual coorection
+    @code
+    T0 r, rc;
+    as_integer<T0> n;
+    tie(n, r, rc) = rem_pio2(x);
+    @endcode
+
+    is similar to:
+
+    @code
+    as_integer<T0> n = idivround2even(x,, Pio_2<T0>());
+    T0 r =  remainder(x, Pio_2<T0>());
+    T0 rc = more_bits_for_r;
+    @endcode
+
+    @par Note:
+
+    This function which is accurate and the whole floating range
+    is very expansive and its use must
+    be limited to huge absolute values of the input.
+    (see rem_pio2_cephes,  rem_pio2_medium, etc. for details)
+
+    @param a0
+
+    @return A pair containing quadrant and  the remainder
   **/
-
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::rem_pio2_, rem_pio2,(A0 const&),1)
-
   /*!
-    @brief  rem_pio2
+    Computes the remainder modulo \f$\pi/2\f$,
+    the angle quadrant between 0 and 3 and
+    a correction to the remainder.
 
-    @c rem_pio2 compute the remainder modulo \f$\pi/2\f$ with cephes algorthm,
-    and the angle quadrant between 0 and 3.
-    This is the always accurate super costly version.
-    This function is mainly for internal purposes
-    \par
-    The reduction of the argument modulo \f$pi/2\f$ is generally
-    the most difficult part of trigonometric evaluations.
-    The accurate algorithm is over costly and implies the knowledge
-    of a few hundred \f$pi\f$ decimals
-    some simpler algorithms
-    can be used, but the precision is only insured on smaller intervals.
+    @par Semantic:
 
-    @param a0 angle in radian
-    @param a1 L-Value that will receive the remainder modulo \f$\pi/2\f$ of @c a0
+    For every parameter of floating type T0
 
-    @return A pair containing the remainder and quadrant  of @c a0
-  **/
-    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::rem_pio2_, rem_pio2,(A0 const&)(A0&),1)
+    @code
+    T0 r;
+    as_integer<T0> n;
+    tie(n, r) = rem_pio2(x);
+    @endcode
 
-  /*!
-    @brief  rem_pio2
+    is similar to:
 
-    @c rem_pio2 compute the remainder modulo \f$\pi/2\f$ with cephes algorthm,
-    and the angle quadrant between 0 and 3.
-    This is the always accurate super costly version.
-    This function is mainly for internal purposes
-    \par
-    The reduction of the argument modulo \f$pi/2\f$ is generally
-    the most difficult part of trigonometric evaluations.
-    The accurate algorithm is over costly and implies the knowledge
-    of a few hundred \f$pi\f$ decimals
-    some simpler algorithms
-    can be used, but the precision is only insured on smaller intervals.
+    @code
+    as_integer<T0> n = idivround2even(x,, Pio_2<T0>());
+    T0 r =  remainder(x, Pio_2<T0>());;
+    @endcode
 
-    @param a0 angle in radian
-    @param a1 L-Value that will receive the quadrant off @c a0
-    @param a2 L-Value that will receive the remainder modulo \f$\pi/2\f$ of @c a0
+    @par Note:
 
-  **/
-    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::rem_pio2_, rem_pio2,(A0 const&)(A1&)(A0&),2)
+    This function which is accurate and the whole floating range
+    is very expansive and its use must
+    be limited to huge absolute values of the input.
+    (see rem_pio2_cephes,  rem_pio2_medium, etc. for details)
 
+    @param a0
+    @param a1
 
-  /*!
-    @brief  rem_pio2
-
-    @c rem_pio2 compute the remainder modulo \f$\pi/2\f$ with cephes algorthm,
-    and the angle quadrant between 0 and 3.
-    This is the always accurate super costly version.
-    This function is mainly for internal purposes
-    \par
-    The reduction of the argument modulo \f$pi/2\f$ is generally
-    the most difficult part of trigonometric evaluations.
-    The accurate algorithm is over costly and implies the knowledge
-    of a few hundred \f$pi\f$ decimals
-    some simpler algorithms
-    can be used, but the precision is only insured on smaller intervals.
-
-    @param a0 angle in radian
-    @param a1 L-Value that will receive the quadrant off @c a0
-    @param a2 L-Value that will receive the remainder modulo \f$\pi/2\f$ of @c a0
-    @param a3 L-Value that will receive the remainder correction
-
+    @return A triplet containing quadrant, remainder and extra precision
   **/
 
-    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::rem_pio2_, rem_pio2,(A0 const&)(A1&)(A0&)(A0&),2)
-
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::rem_pio2_, rem_pio2,(A0 const&)(A0&),1)
   /*!
-    @brief  rem_pio2
+    Computes the remainder modulo \f$\pi/2\f$,
+    the angle quadrant between 0 and 3.
 
-    @c rem_pio2 compute the remainder modulo \f$\pi/2\f$ with cephes algorthm,
-    and the angle quadrant between 0 and 3.
-    This is the always accurate super costly version.
-    This function is mainly for internal purposes
-    \par
-    The reduction of the argument modulo \f$pi/2\f$ is generally
-    the most difficult part of trigonometric evaluations.
-    The accurate algorithm is over costly and implies the knowledge
-    of a few hundred \f$pi\f$ decimals
-    some simpler algorithms
-    can be used, but the precision is only insured on smaller intervals.
+    @par Semantic:
 
-    @param a0 angle in radian
-    @param a1 L-Value that will receive the quadrant off @c a0
-    @param a2 L-Value that will receive the remainder modulo \f$\pi/2\f$ of @c a0
-    @param a3 Computation target indicating statically if the angles passed are
-    very_small_, small_, medium_, big_, information that allow to choose
-    among rem_pio2_straight,  rem_pio2_cephes,  rem_pio2_medium, and full rem_pio2
-    routines of computation
+    For every parameter of floating type T0
 
+    @code
+    T0 r;
+    as_integer<T0> n;
+    tie(n, r) = rem_pio2(x);
+    @endcode
+
+    is similar to:
+
+    @code
+    as_integer<T0> n = idivround2even(x,, Pio_2<T0>());
+    T0 r =  remainder(x, Pio_2<T0>());;
+    @endcode
+
+    @par Note:
+
+    This function which is accurate and the whole floating range
+    is very expansive and its use must
+    be limited to huge absolute values of the input.
+    (see rem_pio2_cephes,  rem_pio2_medium, etc. for details)
+
+    @param a0
+    @param a1
+    @param a2
+
+    @return A pair containing quadrant and  the remainder
   **/
+
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::rem_pio2_, rem_pio2,(A0 const&)(A1&)(A0&),2)
+  /*!
+    Computes the remainder modulo \f$\pi/2\f$.
+
+    @par Semantic:
+
+    For every parameter of floating type T0
+
+    @code
+    T0 r, rc;
+    as_integer<T0> n;
+    n = rem_pio2<Range>(x, r);
+    @endcode
+
+    is similar to:
+
+    @code
+    as_integer<T0> n = idivround2even(x,, Pio_2<T0>());
+    T0 r =  remainder(x, Pio_2<T0>());
+    @endcode
+
+    @par Note:
+
+    The Range parameter is a type among big_,  medium_,  small_,  very_small_
+    that allow to statically choose the computation process.
+
+    @param a0
+    @param a1
+    @param a2
+    @param a3
+
+    @return  the remainder
+  **/
+
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::rem_pio2_, rem_pio2,(A0 const&)(A1&)(A0&)(A0&),2)
+  ///INTERNAL ONLY
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::rem_pio2_, rem_pio2,(A0 const&)(A0&)(const A1&),2)
 
  }
 
 #endif
-
-
 

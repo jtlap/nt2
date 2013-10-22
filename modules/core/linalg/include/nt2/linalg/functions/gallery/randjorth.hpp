@@ -124,7 +124,6 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& p,  A1 const & q, A2 const &) const
     {
-      typedef typename A2::value_type value_t;
       _2D sizee;
       sizee[0] = p; sizee[1] = q;
       value_t c =  nt2::rec(nt2::Sqrteps<value_t>());
@@ -159,7 +158,6 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& n, A1 const &) const
     {
-      typedef typename A1::value_type value_t;
       _2D sizee;
       size_t p = n >> 1;
       size_t q = n-p;

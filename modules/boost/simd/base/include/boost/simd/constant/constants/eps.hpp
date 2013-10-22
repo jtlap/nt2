@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_EPS_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_EPS_HPP_INCLUDED
 
@@ -16,56 +13,42 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_eps Eps
- *
- * \par Description
- * Constant Eps
- * \arg 1 for integer types
- * \arg \f$ 2^{-52}\f$ for double
- * \arg \f$ 2^{-23}\f$ for float
- * \par
- * The value of this constant is type dependant. This means that for different
- * types it does not represent the same mathematical number.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/eps.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::eps_(A0)>::type
- *     Eps();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Eps
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Eps of functor Eps
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Eps generic tag
+
+     Represents the Eps constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER(Eps,double,1,0X34000000,0x3CB0000000000000ULL);
   }
+  /*!
+    Generates two times the machine epsilon.
 
+    @par Semantic:
+
+    @code
+    T r = Eps<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    if T is integral
+      r = T(1)
+    else if T is double
+      r =  pow(2.0, -53);
+    else if T is float
+      r =  pow(2.0f, -23);
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Eps, Eps)
 } }
 

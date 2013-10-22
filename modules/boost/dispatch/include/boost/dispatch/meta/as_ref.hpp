@@ -49,10 +49,6 @@ namespace boost { namespace dispatch { namespace meta
    * @endcode
    *
    * otherwise.
-   *
-   * @par Usage:
-   *
-   * @include as_ref.cpp
    */
   template<class T> struct as_ref
   {

@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_NBEXPONENTBITS_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_NBEXPONENTBITS_HPP_INCLUDED
 
@@ -16,69 +13,60 @@
 #include <boost/simd/meta/int_c.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_nbexponentbits Nbexponentbits
- *
- * \par Description
- * Constant Nbexponentbits, The number of exponent bits of a floating point number,
- * i.e. 11 for double and 8 for float.
- * \par
- * The value of this constant is type dependant. This means that for different
- * types it does not represent the same mathematical number.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/nbexponentbits.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::nbexponentbits_(A0)>::type
- *     Nbexponentbits();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Nbexponentbits
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Nbexponentbits of functor Nbexponentbits
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Nbexponentbits generic tag
+
+     Represents the Nbexponentbits constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct Nbexponentbits : ext::pure_constant_<Nbexponentbits>
     {
       typedef double default_type;
       typedef ext::pure_constant_<Nbexponentbits> parent;
 
+      /// INTERNAL ONLY
       template<class Target, class Dummy=void>
       struct  apply : meta::int_c<typename Target::type,0> {};
     };
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Nbexponentbits::apply<boost::dispatch::meta::single_<T>,Dummy>
           : meta::int_c<boost::simd::int32_t,8> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Nbexponentbits::apply<boost::dispatch::meta::double_<T>,Dummy>
           : meta::int_c<boost::simd::int64_t,11> {};
   }
+  /*!
+    Generates the number of exponent bits of a floating point number,
 
+    @par Semantic:
+
+    @code
+    T r = Nbexponentbits<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    if T is integral
+      r = 0
+    else if T is double
+      r =  11;
+    else if T is float
+      r =  8;
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Nbexponentbits, Nbexponentbits)
 } }
 

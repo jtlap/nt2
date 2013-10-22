@@ -151,22 +151,24 @@ macro(nt2_doc_doxygen file)
 
   file(READ ${absolute} DOXYGEN_CONTENT)
   set(DXY_PP      "SEARCH_INCLUDES=YES\nENABLE_PREPROCESSING=YES\nMACRO_EXPANSION=YES\n")
-  set(DXY_PDEF    "PREDEFINED=DOXYGEN_ONLY\n")
-  set(DXY_EXCLUDE "EXCLUDE_SYMBOLS=M0\nEXCLUDE_SYMBOLS+=M1\nEXCLUDE_SYMBOLS+=M2\nEXCLUDE_SYMBOLS+=M3\nEXCLUDE_SYMBOLS+=M4\n")
 
   set(DXY_EX)
   if(EXISTS ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}/examples)
     set(DXY_EX     "EXAMPLE_PATH = ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}/examples\n")
   endif()
 
-  set(DXY_TARGET "GENERATE_LATEX=NO\nGENERATE_HTML=NO\nGENERATE_XML=YES\n")
+  set(DXY_TARGET "GENERATE_LATEX=NO\nGENERATE_HTML=YES\nGENERATE_XML=YES\n")
   set(DXY_XML    "XML_OUTPUT = ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen\n")
+  set(DXY_HTML   "HTML_OUTPUT = ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen/html\n")
 
   # Add our alias lists
   file(READ ${CMAKE_SOURCE_DIR}/cmake/alias.dox DOXYGEN_ALIAS)
 
+  # Add our predef lists
+  file(READ ${CMAKE_SOURCE_DIR}/cmake/predef.dox DOXYGEN_PREDEF)
+
   set(DOXYGEN_CONTENT
-      "${DOXYGEN_CONTENT}${DXY_EX}${DXY_PATH}${DXY_PP}${DXY_PDEF}${DXY_EXCLUDE}${DXY_TARGET}${DXY_XML}${DOXYGEN_ALIAS}"
+      "${DOXYGEN_CONTENT}${DXY_EX}${DXY_PATH}${DXY_PP}${DXY_PDEF}${DXY_EXCLUDE}${DXY_TARGET}${DXY_XML}${DXY_HTML}${DOXYGEN_ALIAS}${DOXYGEN_PREDEF}"
      )
 
   file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen/doxyfile ${DOXYGEN_CONTENT})
@@ -175,12 +177,15 @@ macro(nt2_doc_doxygen file)
   set(target_name target_${relative})
   string(REPLACE "/" "_" target_name ${target_name})
 
+  file(MAKE_DIRECTORY ${NT2_BINARY_DIR}/doc/html/images/${target_name})
   add_custom_target(${target_name}
+                    COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen/html/
                     COMMAND ${DOXYGEN_EXECUTABLE}
                             ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen/doxyfile
+                    COMMAND find ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen/html/ -name form_*.png -exec cp {} ${NT2_BINARY_DIR}/doc/html/images/${target_name}/ "\\;"
                     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-                    DEPENDS ${file}.doxyfile ${ARGN}
-                    COMMENT "Running doxygen with XML output on ${file}.dox..."
+                    DEPENDS ${file}.doxyfile
+                    COMMENT "Running doxygen with XML and HTML output on ${file}.dox..."
                     SOURCES ${file}.doxyfile
                    )
 
@@ -199,7 +204,7 @@ macro(nt2_doc_doxygen file)
                ${NT2_SOURCE_ROOT}/cmake/boostbook/sort.xsl
                ${file}.doxygen/all2.xml
                DEPENDS ${file}.doxygen/all2.xml
-               COMMENT "XInclude sorting..."
+               COMMENT "Sorting Doxygen entries..."
               )
 
   if(${NT2_CURRENT_MODULE} MATCHES "^boost\\.")
@@ -208,14 +213,36 @@ macro(nt2_doc_doxygen file)
     set(prefix nt2)
   endif()
 
-  nt2_xsltproc(${file}.xml
-               --stringparam boost.doxygen.header.prefix ${prefix}
-               --stringparam boost.doxygen.detailns details
-               ${BOOSTBOOK_XSL_DIR}/doxygen/doxygen2boostbook.xsl
-               ${file}.doxygen/all.xml
-               DEPENDS ${file}.doxygen/all.xml
-               COMMENT "Converting Doxygen XML to Boostbook (${file}.xml)..."
-              )
+  # Did we get a special title for this doxyfile output ?
+  set (dox_title ${ARGN})
+  list(LENGTH dox_title has_title)
+
+  if (${has_title} GREATER 0)
+    list(GET dox_title 0 ref_title)
+
+    nt2_xsltproc(${file}.xml
+                 --stringparam boost.doxygen.header.prefix ${prefix}
+                 --stringparam boost.doxygen.detailns details
+                 --stringparam boost.doxygen.formuladir images/${target_name}/
+                 --stringparam boost.doxygen.reftitle "\"${ref_title}\""
+                 ${BOOSTBOOK_XSL_DIR}/doxygen/doxygen2boostbook.xsl
+                 ${file}.doxygen/all.xml
+                 DEPENDS ${file}.doxygen/all.xml
+                 COMMENT "Converting Doxygen XML to Boostbook (${file}.xml)..."
+                )
+  else()
+    nt2_xsltproc(${file}.xml
+                 --stringparam boost.doxygen.header.prefix ${prefix}
+                 --stringparam boost.doxygen.detailns details
+                 --stringparam boost.doxygen.formuladir images/${target_name}/
+
+                 ${BOOSTBOOK_XSL_DIR}/doxygen/doxygen2boostbook.xsl
+                 ${file}.doxygen/all.xml
+                 DEPENDS ${file}.doxygen/all.xml
+                 COMMENT "Converting Doxygen XML to Boostbook (${file}.xml)..."
+                )
+  endif()
+
 endmacro()
 
 # Convert all files to a single Boostbook XML
@@ -266,22 +293,23 @@ macro(nt2_doc output_file)
 endmacro()
 
 macro(nt2_module_doc module)
-  set(output_file ${NT2_BINARY_DIR}/doc/${module}.xml)
-  nt2_doc(${output_file} ${ARGN})
+  set(output_file_base ${NT2_BINARY_DIR}/doc/${module})
+  nt2_doc(${output_file_base}.xml ${ARGN})
 
   add_custom_target(${module}.boostbook
-                    DEPENDS ${output_file}
+                    DEPENDS ${output_file_base}.xml
                    )
   nt2_module_target_parent(${module}.boostbook)
 
-  if(NOT NT2_SOURCE_DIR)
-    nt2_doc_boostbook(${module})
-    nt2_doc_html(${NT2_BINARY_DIR}/doc ${module})
+  if(NOT NT2_SOURCE_DIR OR NT2_DOC_MAIN STREQUAL ${module})
+    nt2_doc_boostbook(${output_file_base})
+    nt2_doc_html(${NT2_BINARY_DIR}/doc ${output_file_base})
     add_custom_target(doc
                       COMMAND ${CMAKE_COMMAND}
                       -E copy_directory ${NT2_SOURCE_ROOT}/doc/html
                                         ${NT2_BINARY_DIR}/doc/html
                       DEPENDS ${NT2_BINARY_DIR}/doc/html/index.html
                      )
+    install(DIRECTORY ${NT2_BINARY_DIR}/doc/html DESTINATION doc PATTERN ".*" EXCLUDE)
   endif()
 endmacro()

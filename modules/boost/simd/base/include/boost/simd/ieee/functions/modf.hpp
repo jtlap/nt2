@@ -6,72 +6,96 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_IEEE_FUNCTIONS_MODF_HPP_INCLUDED
 #define BOOST_SIMD_IEEE_FUNCTIONS_MODF_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_modf modf
- *
- * \par Description
- * Computes the integer part and the fractionnal part of the input
- * \par
- * As demonstrated in the synopsis this function can be called in various ways.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/modf.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template<class A0> inline
- *   typename boost::dispatch::meta::call<tag::modf_(A0 const&)
- *                                       >::type
- *   modf(A0 const& a0);
- *    template<class A0> inline
- *   typename boost::dispatch::meta::call<tag::modf_(A0 const&,A0&)
- *                                        >::type
- *   modf(A0 const& a0,A1& a2);
- *    template<class A0> inline
- *   int modf(A0 const& a0,A0& a2,A0& a3);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of modf
- *
- * \return with one parameter the returned result is a fusion sequence of the two results, with two parameters the returned result is the intrger part, with three parameters the returned result is always 0
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace boost { namespace simd { namespace tag
   {
-    /*!
-     * \brief Define the tag modf_ of functor modf
-     *        in namespace boost::simd::tag for toolbox boost.simd.ieee
-    **/
-    struct modf_ : ext::elementwise_<modf_> { typedef ext::elementwise_<modf_> parent; };
+   /*!
+     @brief modf generic tag
+
+     Represents the modf function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct modf_ : ext::elementwise_<modf_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<modf_> parent;
+    };
   }
+  /*!
+    Returns the integer and the fractionnal part of the input
+
+    @par Semantic:
+
+    @code
+    tie(t, f) = modf(x);
+    @endcode
+
+    is similar to:
+
+    @code
+    T t = trunc(x);
+    T r = frac(x);
+    @endcode
+
+    @param a0 Value to decompose
+
+    @return  A pair containing the integer and fractionnal part of @c a0
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::modf_, modf, 1)
+
+  /*!
+    Computes the integer and the fractionnal part of the input
+
+    @par Semantic:
+
+    @code
+    f = modf(x, t);
+    @endcode
+
+    is similar to:
+
+    @code
+    T t = trunc(x);
+    T f = frac(x);
+    @endcode
+
+    @param a0 Value to decompose
+    @param a1 L-Value that will receive the fractionnal part of a0
+
+    @return a value of same type as the input
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::modf_, modf,(A0 const&)(A1&)(A1&),2)
+
+  /*!
+    Computes the integer and the fractionnal part of the input
+
+    @par Semantic:
+
+    @code
+    modf(x, t, f);
+    @endcode
+
+    is similar to:
+
+    @code
+    T t = trunc(x);
+    T f = frac(x);
+    @endcode
+
+    @param a0 Value to decompose
+    @param a1 L-Value that will receive the fractionnal part of @c a0
+    @param a2 L-Value that will receive the integer part of @c a0
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::modf_, modf,(A0 const&)(A1&),2)
 
 } }
 
 #endif
-
-// modified by jt the 25/12/2010

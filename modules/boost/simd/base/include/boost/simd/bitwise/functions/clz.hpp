@@ -37,6 +37,7 @@ namespace boost { namespace simd { namespace tag
     as_integer<T,unsigned> r = clz(x);
     @endcode
 
+    @see  @funcref{ctz}, @funcref{popcnt}
     @param  a0
 
     @return      a value unsigned integral type associated to the input.

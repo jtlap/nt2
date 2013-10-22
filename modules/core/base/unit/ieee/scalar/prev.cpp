@@ -81,8 +81,8 @@ NT2_TEST_CASE_TPL ( prev_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 
   // specific values tests
   NT2_TEST_EQUAL(prev(nt2::One<T>()), nt2::Zero<r_t>());
-  NT2_TEST_EQUAL(prev(nt2::Valmin<T>()), nt2::Valmin<r_t>());
-  NT2_TEST_EQUAL(prev(nt2::Zero<T>()), nt2::Zero<r_t>());
+  NT2_TEST_EQUAL(prev(nt2::Valmin<T>()), nt2::Valmax<r_t>());
+  NT2_TEST_EQUAL(prev(nt2::Zero<T>()), nt2::Valmax<r_t>());
 } // end of test for unsigned_int_
 
 NT2_TEST_CASE_TPL ( prev_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
@@ -106,6 +106,6 @@ NT2_TEST_CASE_TPL ( prev_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   // specific values tests
   NT2_TEST_EQUAL(prev(nt2::Mone<T>()), -nt2::Two<r_t>());
   NT2_TEST_EQUAL(prev(nt2::One<T>()), nt2::Zero<r_t>());
-  NT2_TEST_EQUAL(prev(nt2::Valmin<T>()), nt2::Valmin<r_t>());
+  NT2_TEST_EQUAL(prev(nt2::Valmin<T>()), nt2::Valmax<r_t>());
   NT2_TEST_EQUAL(prev(nt2::Zero<T>()), nt2::Mone<r_t>());
 } // end of test for signed_int_

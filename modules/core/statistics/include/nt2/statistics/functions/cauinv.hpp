@@ -6,62 +6,56 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_STATISTICS_FUNCTIONS_CAUINV_HPP_INCLUDED
 #define NT2_STATISTICS_FUNCTIONS_CAUINV_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup statistics
- * \defgroup statistics_cau cauinv
- *
- * \par Description
- * cauchy inverse of cumulative distribution
- *
- * All inv (inverse cumulative distribution functions  can be called with the syntax
- * r = xxxinv(values, param_1, ...,  param_n)
- * the type of values elements determines the type of the output expression elements.
- * values outside of [0 1] return Nan
- * cauchy has 2 parameters: median and scale
- * defaults are 0 and 1 respectively
- * \par
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/cauinv.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::cauinv_(A0)>::type
- *     cauinv(const A0 & a0, const A1 & median = 0, const A2 & scale = 1);
- * }
- * \endcode
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag cauinv_ of functor cauinv
-     *        in namespace nt2::tag for toolbox statistics
-    **/
-    struct cauinv_ : ext::elementwise_<cauinv_> { typedef ext::elementwise_<cauinv_> parent; };
+   /*!
+     @brief cauinv generic tag
+
+     Represents the cauinv function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct cauinv_ : ext::elementwise_<cauinv_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<cauinv_> parent;
+    };
   }
-  NT2_FUNCTION_IMPLEMENTATION(tag::cauinv_, cauinv, 1)
-  NT2_FUNCTION_IMPLEMENTATION(tag::cauinv_, cauinv, 2)
+  /*!
+    inverse of Cauchy cumulative distribution
+
+    @par Semantic:
+
+    For every table expression a0 and optional scalars m and s
+
+    @code
+    auto r = cauinv(a0{, m, s});
+    @endcode
+
+    is similar to:
+
+    @code
+    auto r = tanpi(a0-Half<A0>()*s+m;
+    @endcode
+
+    @see @funcref{tanpi},  @funcref{proper_tanpi}
+    @param a0 points of evaluation
+    @param a1 optional median default to 0
+    @param a2 optional scale default to 1
+
+    @return an expression which eventually will evaluate to the result
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::cauinv_, cauinv, 3)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(tag::cauinv_, cauinv, 1)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(tag::cauinv_, cauinv, 2)
 }
 
 #endif
-
-// /////////////////////////////////////////////////////////////////////////////
-// End of cauinv.hpp
-// /////////////////////////////////////////////////////////////////////////////

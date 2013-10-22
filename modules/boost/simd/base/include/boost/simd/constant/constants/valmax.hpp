@@ -15,45 +15,6 @@
 #include <boost/simd/meta/double.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_valmax Valmax
- *
- * \par Description
- * Constant Valmax, maximum value of a type.
- * \arg int8    127, uint8    255,
- * \arg int16 32767, uint16 65535,
- * \arg int32 2147483647, uint32 4294967295,
- * \arg int64 9223372036854775807, uint64 18446744073709551615,\arg float \f$\infty\f$, double \f$\infty\f$,
- * \par
- * The value of this constant is type dependant. This means that for different
- * types it does not represent the same mathematical number.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/valmax.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::valmax_(A0)>::type
- *     Valmax();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Valmax
- *
- * \return type T value
- *
- *
-**/
 
 #ifdef BOOST_MSVC
 #pragma warning(push)
@@ -64,15 +25,20 @@ namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Valmax of functor Valmax
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Valmax generic tag
+
+     Represents the Valmax constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct Valmax : ext::pure_constant_<Valmax>
     {
       typedef double default_type;
       typedef ext::pure_constant_<Valmax> parent;
 
+      /// INTERNAL ONLY
       template<class Target, class Dummy=void>
       struct  apply
       {
@@ -90,31 +56,58 @@ namespace boost { namespace simd
       };
     };
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Valmax::apply< boost::dispatch::meta::single_<T>,Dummy>
           : meta::single_<0x7F7FFFFF> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Valmax::apply<boost::dispatch::meta::double_<T>,Dummy>
           : meta::double_<0x7FEFFFFFFFFFFFFFULL> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Valmax::apply<boost::dispatch::meta::uint8_<T>,Dummy>
           : meta::int_c<T, 0xFF> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Valmax::apply<boost::dispatch::meta::uint16_<T>,Dummy>
           : meta::int_c<T, 0xFFFF> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Valmax::apply<boost::dispatch::meta::uint32_<T>,Dummy>
           : meta::int_c<T, 0xFFFFFFFFUL> {};
 
+    /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Valmax::apply<boost::dispatch::meta::uint64_<T>,Dummy>
           : meta::int_c<T, 0xFFFFFFFFFFFFFFFFULL> {};
   }
+  /*!
+    Generates the greatest finite value of a type.
 
+    @par Semantic:
+
+    @code
+    T r = Valmax<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    if T is unsigned integral
+      r = Allbits<T>();
+    if T is signed integral
+      r = Allbits<T>()^Signmask<T>();
+    else if T is double
+      r = 1.7976931348623157e+308
+    else if T is float
+      r = 3.4028234e+38f
+    @endcode
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Valmax, Valmax)
 } }
 

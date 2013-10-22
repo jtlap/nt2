@@ -6,56 +6,50 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_REALSQRT_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_REALSQRT_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup exponential
- * \defgroup exponential_realsqrt realsqrt
- *
- * \par Description
- *  sqrt function which asserts if called with non real positive values.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/realsqrt.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::realsqrt_(A0)>::type
- *     realsqrt(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of realsqrt
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag realsqrt_ of functor realsqrt
-     *        in namespace nt2::tag for toolbox exponential
-    **/
-    struct realsqrt_ : ext::elementwise_<realsqrt_> { typedef ext::elementwise_<realsqrt_> parent; };
+   /*!
+     @brief realsqrt generic tag
+
+     Represents the realsqrt function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct realsqrt_ : ext::elementwise_<realsqrt_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<realsqrt_> parent;
+    };
   }
+  /*!
+    Returns sqrt function, but asserts
+    if called with non real positive values.
+
+    @par Semantic:
+
+    For every parameter of floating type T0
+
+    @code
+    T0 r = realsqrt(a0);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = sqrt(a0);
+    @endcode
+
+    @see @funcref{sqrt}
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::realsqrt_, realsqrt, 1)
 }
 

@@ -47,6 +47,7 @@
  * belonging to the hierarchies specified by \c (Types,Seq).
  * This forwards to the PFO specified by \c Ret.
  *
+ * \param NS Current namespace as a preprocessor sequence
  * \param Tag Function tag to register
  * \param Site Evaluation context to use in this overload
  * \param Types Preprocessor sequence of template types used in the hierarchy
@@ -86,6 +87,7 @@ BOOST_DISPATCH_REOPEN(NS)                                                      \
  * contain non-type hierarchy template parameters.
  * This forwards to the PFO specified by \c Ret.
  *
+ * \param NS Current namespace as a preprocessor sequence
  * \param Tag Function tag to register
  * \param Site Evaluation context to use in this overload
  * \param Types Preprocessor sequence of template types used in the hierarchy
@@ -125,6 +127,7 @@ BOOST_DISPATCH_REOPEN(NS)                                                      \
  * time condition \c Cond is verified.
  * This forwards to the PFO specified by \c Ret.
  *
+ * \param NS Current namespace as a preprocessor sequence
  * \param Tag Function tag to register
  * \param Site Evaluation context to use in this overload
  * \param Types Preprocessor sequence of template types used in the hierarchy
@@ -168,6 +171,7 @@ BOOST_DISPATCH_REOPEN(NS)                                                      \
  * time condition \c Cond is verified.
  * This forwards to the PFO specified by \c Ret.
  *
+ * \param NS Current namespace as a preprocessor sequence
  * \param Tag Function tag to register
  * \param Site Evaluation context to use in this overload
  * \param Types Preprocessor sequence of template types used in the hierarchy

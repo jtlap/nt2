@@ -33,8 +33,13 @@ namespace nt2
   /*!
     @brief Apply a 1-upper-triangular masking to an expression
 
-    Apply a mask on an expression that evaluates to 0 everywhere except on the
-    upper triangular part of @c a0 and 1 on the diagonal.
+    returns the elements  above the @c a1 diagonal of @c a0,  1 on the kth diagonal
+    and 0 elsewhere.
+      - @c a1 = 0 is the main diagonal,
+      - @c a1 > 0 is above the main diagonal,
+      - @c a1 < 0 is below the main diagonal.
+
+    @see funcref{triu}, funcref{tril}, funcref{tri1l}
 
     @param a0 Expression to mask.
   **/

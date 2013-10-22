@@ -23,14 +23,14 @@ namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-      @brief Realpattern generic tag
+   /*!
+     @brief Real_splat generic tag
 
-      Represents the real_splat function in generic contexts.
+     Represents the Real_splat constant in generic contexts.
 
-      @par Models:
-      Hierarchy
-    **/
+     @par Models:
+        Hierarchy
+   **/
     template<boost::simd::uint32_t F,boost::simd::uint64_t D>
     struct Realpattern : ext::pure_constant_< Realpattern<F, D> >
     {

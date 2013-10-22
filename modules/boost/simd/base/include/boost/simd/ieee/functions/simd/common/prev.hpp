@@ -10,7 +10,7 @@
 #define BOOST_SIMD_IEEE_FUNCTIONS_SIMD_COMMON_PREV_HPP_INCLUDED
 #include <boost/simd/ieee/functions/prev.hpp>
 #include <boost/simd/include/constants/one.hpp>
-#include <boost/simd/include/functions/simd/subs.hpp>
+#include <boost/simd/include/functions/simd/dec.hpp>
 #include <boost/simd/include/functions/simd/if_allbits_else.hpp>
 #include <boost/simd/include/functions/simd/next.hpp>
 #include <boost/simd/include/functions/simd/is_nan.hpp>
@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return subs(a0, One<A0>());
+      return dec(a0);
     }
   };
 

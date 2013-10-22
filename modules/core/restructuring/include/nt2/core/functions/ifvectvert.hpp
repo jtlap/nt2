@@ -10,10 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_IFVECTVERT_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_IFVECTVERT_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the ifvectvert function
-**/
 
 #include <nt2/include/functor.hpp>
 #include <nt2/core/container/dsl/size.hpp>
@@ -25,24 +21,41 @@ namespace nt2
 {
   namespace tag
   {
-    /*!
-      @brief Tag for ifvectvert functor
-    **/
+   /*!
+     @brief ifvectvert generic tag
+
+     Represents the ifvectvert function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct ifvectvert_ : ext::reshaping_<ifvectvert_>
     {
+      /// @brief Parent hierarchy
       typedef ext::reshaping_<ifvectvert_> parent;
     };
   }
-
   /*!
-    @brief Column reshaping if input is vector
 
-    Reshape an expression into a column shaped table if an only if
-    the input is a vector.
+    Column reshaping if input is vector
+    @par Semantic:
 
-    @param a0 Expression to reshape
+    For every parameter of type T0
 
-    @return The reshaped expression
+    @code
+    auto r = ifvectvert(a0);
+    @endcode
+
+    is similar to:
+
+    @code
+    auto r = isvect(a0) ? colvect(a0) : a0;
+    @endcode
+
+    @see @funcref{isvect}, @funcref{colvect}
+    @param a0
+
+    @return an expression which eventually will evaluate to the result
   **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ifvectvert_       , ifvectvert, 1)
   NT2_FUNCTION_IMPLEMENTATION_SELF(nt2::tag::ifvectvert_  , ifvectvert, 1)

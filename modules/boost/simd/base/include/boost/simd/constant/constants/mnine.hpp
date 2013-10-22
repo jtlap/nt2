@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_MNINE_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_MNINE_HPP_INCLUDED
 
@@ -16,52 +13,38 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_mnine Mnine
- *
- * \par Description
- * Constant Mnine= -9
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/mnine.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::mnine_(A0)>::type
- *     Mnine();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Mnine
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Mnine of functor Mnine
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Mnine generic tag
+
+     Represents the Mnine constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Mnine , double, -9
                                 , 0xc1100000UL, 0xc022000000000000ULL
                                 );
   }
+  /*!
+    Generates value -9
 
+    @par Semantic:
+
+    @code
+    T r = Mnine<T>();
+    @endcode
+    is similar to:
+
+    @code
+    T r = T(-9);
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Mnine, Mnine)
 } }
 #include <boost/simd/constant/common.hpp>

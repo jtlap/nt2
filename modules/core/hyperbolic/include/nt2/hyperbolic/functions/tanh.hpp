@@ -6,59 +6,50 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_HYPERBOLIC_FUNCTIONS_TANH_HPP_INCLUDED
 #define NT2_HYPERBOLIC_FUNCTIONS_TANH_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup hyperbolic
- * \defgroup hyperbolic_tanh tanh
- *
- * \par Description
- * hyperbolic tangent: \f$rac{\sinh(a_0)}{\cosh(a_0)}\f$.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/tanh.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::tanh_(A0)>::type
- *     tanh(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of tanh
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag tanh_ of functor tanh
-     *        in namespace nt2::tag for toolbox hyperbolic
-    **/
-    struct tanh_ : ext::elementwise_<tanh_> { typedef ext::elementwise_<tanh_> parent; };
+   /*!
+     @brief tanh generic tag
+
+     Represents the tanh function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct tanh_ : ext::elementwise_<tanh_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<tanh_> parent;
+    };
   }
+  /*!
+    Returns the hyperbolic tangent: \f$\frac{\sinh(a_0)}{\cosh(a_0)}\f$.
+
+    @par Semantic:
+
+    For every parameter of floating type T0
+
+    @code
+    T0 r = tanh(x);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = sinh(x)/cosh(x);
+    @endcode
+
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::tanh_, tanh, 1)
 }
 
 #endif
 
-// modified by jt the 25/12/2010

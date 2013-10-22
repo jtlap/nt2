@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_STATISTICS_FUNCTIONS_EXPINV_HPP_INCLUDED
 #define NT2_STATISTICS_FUNCTIONS_EXPINV_HPP_INCLUDED
 
@@ -20,72 +17,91 @@
 #include <nt2/core/container/dsl/value_type.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
 #include <nt2/core/utility/max_extent.hpp>
-/*!
- * \ingroup statistics
- * \defgroup statistics_exp expinv
- *
- * \par Description
- * exponential inverse cumulative distribution
- *
- * All inv (inverse cumulative distribution functions  can be called with the syntax
- * r = xxxinv(values, param_1, ...,  param_n)
- * the type of values elements determines the type of the output expression elements.
- * values outside of [0 1] return Nan
- * exponential has 1 parameters: mean value default of which is 1
- *
- * expinv can also be called using the following syntax:
- *
- *  nt2::tie(p,plo,pup) = expinv(x,mu,pcov,alpha)
- *
- * to produce confidence bounds for p when the input parameter mu is an estimate.
- *  pcov is the variance of the estimated mu. alpha has a default value of 0.05, and
- * specifies 100*(1-alpha)% confidence bounds. xlo and xup are arrays of
- * the same size as x containing the lower and upper confidence bounds.
- * the bounds are based on a normal approximation for the distribution of
- * the log of the estimate of mu.
- * You can get a more accurate set ofbounds simply by using expfit to get a confidence
- * interval for mu,  and evaluating expinv at the lower and upper end points
- * of that interval.
- *
- * \par
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/expinv.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::expinv_(A0)>::type
- *     expinv(const A0 & a0, const A1 & mu = 1);
- * }
- * \endcode
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag expinv_ of functor expinv
-     *        in namespace nt2::tag for toolbox statistics
-    **/
-    struct expinv_ : ext::tieable_<expinv_> { typedef ext::tieable_<expinv_> parent; };
-    struct expinv0_ : ext::elementwise_<expinv0_> { typedef ext::elementwise_<expinv0_> parent; };
+   /*!
+     @brief expinv generic tag
+
+     Represents the expinv function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct expinv_ : ext::tieable_<expinv_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::tieable_<expinv_> parent;
+    };
+    struct expinv0_ : ext::elementwise_<expinv0_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<expinv0_> parent;
+    };
   }
-  NT2_FUNCTION_IMPLEMENTATION(tag::expinv0_, expinv, 1)
+  /*!
+    exponential inverse cumulative distribution
+
+    @par Semantic:
+
+    For every table expression
+
+    @code
+    auto r = expinv(a0, lambda);
+    @endcode
+
+    is similar to:
+
+    @code
+    auto r = -log1p(-a0)*lambda;
+    @endcode
+
+    @see @funcref{log1p}
+    @param a0
+    @param a1 optional mean default to 1
+
+    @return an expression which eventually will evaluate to the result
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::expinv0_, expinv, 2)
-  NT2_FUNCTION_IMPLEMENTATION(tag::expinv_,  expinv, 3)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(tag::expinv0_, expinv, 1)
+  /*!
+    exponential inverse cumulative distribution
+
+    @par Semantic:
+
+    For every table expression,  mean lambda
+
+    @code
+    tie(r, rlo, rup)= expinv(a0, lambda, cov, alpha);
+    @endcode
+
+    Returns r = expinv(a0, lambda), but also produces confidence
+    bounds for r when the input parameter lambda is an estimate.  cov
+    is the variance of the estimated lambda.  alpha has a default
+    value of 0.05, and specifies 100*(1-alpha)% confidence bounds.
+    rlo and rup are tables of the same size as a0 containing the lower
+    and upper confidence bounds.  the bounds are based on a normal
+    approximation for the distribution of the log of the estimate of
+    lambda.
+
+    @param a0
+    @param a1 optional mean default to 1
+    @param a2 variance of the estimated a1
+    @param a3 optional confidence bound (default to 0.05)
+
+    @return an expression which eventually will evaluate to the result
+  **/
+
   NT2_FUNCTION_IMPLEMENTATION(tag::expinv_,  expinv, 4)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(tag::expinv_,  expinv, 3)
 }
 
 
 namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
   template<class Domain, int N, class Expr> // N =  3 or 4
   struct  size_of<tag::expinv_,Domain,N,Expr>
   {
@@ -102,11 +118,13 @@ namespace nt2 { namespace ext
     }
   };
 
+  /// INTERNAL ONLY
   template<class Domain, class Expr>
   struct  size_of<tag::expinv_,Domain,1,Expr>
         : meta::size_as<Expr,0>
   {};
 
+  /// INTERNAL ONLY
   template<class Domain, int N, class Expr>
   struct  value_type<tag::expinv_,Domain,N,Expr>
         : meta::value_as<Expr,0>

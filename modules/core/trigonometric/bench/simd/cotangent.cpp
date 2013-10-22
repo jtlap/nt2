@@ -32,13 +32,13 @@ using nt2::tag::cotangent_;
 namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(cotangent_<nt2::medium_>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(cotangent_<nt2::medium_>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 

@@ -16,6 +16,7 @@
 #include <nt2/core/settings/storage_order.hpp>
 #include <nt2/core/settings/specific_data.hpp>
 #include <nt2/core/settings/storage_scheme.hpp>
+#include <nt2/core/utility/of_size.hpp>
 #include <nt2/include/functions/scalar/numel.hpp>
 #include <nt2/sdk/memory/adapted/container.hpp>
 #include <nt2/sdk/memory/composite_buffer.hpp>

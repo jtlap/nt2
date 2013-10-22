@@ -79,7 +79,6 @@ namespace nt2 { namespace details
   {
     size_t maxiter =  o.maximum_iterations;
     float_t epsi =  o.absolute_tolerance;
-    float_t relepsi = o.relative_tolerance;
     ok =  false;
     int n = nt2::numel(x);
     bool restart = true;

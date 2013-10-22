@@ -1,3 +1,4 @@
+#ifndef BOOST_PP_IS_ITERATING
 //==============================================================================
 //         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
@@ -11,9 +12,8 @@
 
 #include <nt2/core/functions/tie.hpp>
 #include <nt2/include/functions/assign.hpp>
-#include <boost/simd/sdk/meta/iterate.hpp>
-
 #include <nt2/core/container/dsl/value_type.hpp>
+#include <nt2/sdk/meta/container_traits.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/is_scalar.hpp>
@@ -22,54 +22,16 @@
 #include <boost/fusion/include/is_sequence.hpp>
 #include <boost/mpl/assert.hpp>
 
-#include <nt2/sdk/meta/container_traits.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/tuple/elem.hpp>
+#include <boost/preprocessor/cat.hpp>
 
-namespace boost { namespace dispatch { namespace meta
-{
-  template<class A0>
-  struct value_of< boost::fusion::vector1<A0> >
-  {
-    typedef boost::fusion::vector1< typename value_of<A0>::type > type;
-  };
-
-  // necessary because otherwise scalar_of doesn't know that vector1< complex<T> > is a scalar
-  template<class A0>
-  struct scalar_of< boost::fusion::vector1<A0> >
-  {
-    typedef boost::fusion::vector1< typename scalar_of<A0>::type > type;
-  };
-
-  // ----------------
-  // arity of 2
-  // ----------------
-  template<class A0, class A1>
-  struct value_of< boost::fusion::vector2<A0, A1> >
-  {
-    typedef boost::fusion::vector2< typename value_of<A0>::type, typename value_of<A1>::type > type;
-  };
-
-  // necessary because otherwise scalar_of doesn't know that vector2< complex<T>, complex<T> > is a scalar
-  template<class A0, class A1>
-  struct scalar_of< boost::fusion::vector2<A0, A1> >
-  {
-    typedef boost::fusion::vector2< typename scalar_of<A0>::type, typename scalar_of<A1>::type > type;
-  };
-} } }
-
-namespace nt2 { namespace meta
-{
-  template<class A0>
-  struct value_type_< boost::fusion::vector1<A0> >
-  {
-    typedef boost::fusion::vector1< typename value_type_<A0>::type > type;
-  };
-
-  template<class A0, class A1>
-  struct value_type_< boost::fusion::vector2<A0, A1> >
-  {
-    typedef boost::fusion::vector2< typename value_type_<A0>::type, typename value_type_<A1>::type > type;
-  };
-} }
+#define FUNCTION_PARAMS(z,n,t) BOOST_PP_TUPLE_ELEM(3, 0, t) BOOST_PP_CAT(BOOST_PP_TUPLE_ELEM(3, 1, t), n) BOOST_PP_TUPLE_ELEM(3, 2, t)
+#define BOOST_PP_ITERATION_PARAMS_1 (3, ( 1, BOOST_DISPATCH_MAX_ARITY, "nt2/core/functions/common/tie.hpp"))
+#include BOOST_PP_ITERATE()
+#undef FUNCTION_PARAMS
 
 namespace nt2 { namespace ext
 {
@@ -171,4 +133,35 @@ namespace nt2 { namespace ext
   };
 } }
 
+#endif
+#else
+#define n BOOST_PP_ITERATION()
+
+namespace boost { namespace dispatch { namespace meta
+{
+  template<BOOST_PP_ENUM_PARAMS(n, class A)>
+  struct value_of< boost::fusion::BOOST_PP_CAT(vector, n)<BOOST_PP_ENUM_PARAMS(n, A)> >
+  {
+    typedef boost::fusion::BOOST_PP_CAT(vector, n)< BOOST_PP_ENUM(n, FUNCTION_PARAMS, (typename value_of<, A, >::type)) > type;
+  };
+
+  // necessary because otherwise scalar_of doesn't know that vector1< complex<T> > is a scalar
+  template<BOOST_PP_ENUM_PARAMS(n, class A)>
+  struct scalar_of< boost::fusion::BOOST_PP_CAT(vector, n)<BOOST_PP_ENUM_PARAMS(n, A)> >
+  {
+    typedef boost::fusion::BOOST_PP_CAT(vector, n)< BOOST_PP_ENUM(n, FUNCTION_PARAMS, (typename scalar_of<, A, >::type)) > type;
+  };
+} } }
+
+namespace nt2 { namespace meta
+{
+  // necessary otherwise references on the elements to do not get stripped
+  template<BOOST_PP_ENUM_PARAMS(n, class A)>
+  struct value_type_< boost::fusion::BOOST_PP_CAT(vector, n)<BOOST_PP_ENUM_PARAMS(n, A)> >
+  {
+    typedef boost::fusion::BOOST_PP_CAT(vector, n)< BOOST_PP_ENUM(n, FUNCTION_PARAMS, (typename value_type_<, A, >::type)) > type;
+  };
+} }
+
+#undef n
 #endif

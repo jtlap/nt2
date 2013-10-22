@@ -38,6 +38,7 @@ namespace boost { namespace simd { namespace tag
     as_integer<T,unsigned> r = firstbitunset(x);
     @endcode
 
+    @see  @funcref{ffs},  @funcref{firstbitset}
     @param  a0
 
     @return      a value unsigned integral type associated to the input.

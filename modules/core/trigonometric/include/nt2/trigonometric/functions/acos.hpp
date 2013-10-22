@@ -6,59 +6,49 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_ACOS_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_ACOS_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup trigonometric
- * \defgroup trigonometric_acos acos
- *
- * \par Description
- * inverse cosine.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/acos.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::acos_(A0)>::type
- *     acos(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of acos
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag acos_ of functor acos
-     *        in namespace nt2::tag for toolbox trigonometric
-    **/
-    struct acos_ : ext::elementwise_<acos_> { typedef ext::elementwise_<acos_> parent; };
+   /*!
+     @brief acos generic tag
+
+     Represents the acos function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct acos_ : ext::elementwise_<acos_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<acos_> parent;
+    };
   }
+  /*!
+    inverse cosine in radian.
+
+    @par Semantic:
+
+    For every parameter of floating type T0
+
+    @code
+    T0 r = acos(x);
+    @endcode
+
+    Returns the arc @c r in the interval
+    \f$[0, \pi[\f$ such that <tt>cos(r) == x</tt>.
+    If @c x is outside \f$[-1, 1[\f$ the result is Nan.
+
+    @see @funcref{acosd}, @funcref{acospi}
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::acos_, acos, 1)
 }
 
 #endif
 
-// modified by jt the 25/12/2010

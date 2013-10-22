@@ -8,56 +8,48 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_CONSTANTS_45_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_CONSTANTS_45_HPP_INCLUDED
-/*!
- * \file
-**/
 #include <boost/simd/constant/hierarchy.hpp>
 #include <boost/simd/constant/register.hpp>
 
-/*!
- * \ingroup trigo_constant
- * \defgroup trigo_constant__45 _45
- *
- * \par Description
- * Constant _45 : 45.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/_45.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::_45_(A0)>::type
- *     _45();
- * }
- * \endcode
- *
- *
- * \param T template parameter of _45
- *
- * \return type T value
- *
- *
-**/
 
 namespace nt2
 {
   namespace tag
   {
+   /*!
+     @brief _45 generic tag
+
+     Represents the _45 constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( _45, double
                                 , 45, 0x42340000
                                 , 0x4046800000000000ll
                                 );
   }
+  /*!
+    Constant 45.
 
+    @par Semantic:
+
+    For type T0:
+
+    @code
+    T0 r = _45<T0>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = 45;
+    @endcode
+
+    @return a value of type T0
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::_45, _45);
 }
 
 #endif
+

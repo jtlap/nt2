@@ -47,7 +47,7 @@ NT2_TEST_CASE_TPL ( idivround_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 } // end of test for floating_
 
 
-NT2_TEST_CASE_TPL ( idivround_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( idivround_unsigned_int__2_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
 
   using boost::simd::idivround;
@@ -65,7 +65,7 @@ NT2_TEST_CASE_TPL ( idivround_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_ULP_EQUAL(idivround(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::One<r_t>(), 0);
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( idivround_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( idivround_signed_int__2_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
 
   using boost::simd::idivround;

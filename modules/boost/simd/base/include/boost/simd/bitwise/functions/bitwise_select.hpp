@@ -32,17 +32,17 @@ namespace boost { namespace simd { namespace tag
     of the first operand
 
     @par semantic:
-    For any given value @c x, of type @c T1 @c y of type @c T2
+    For any given value @c x, of type @c T1, @c y of type @c T2 and @c z of type @c T2
     of same memory size:
 
     @code
-    T r = bitwise_select(x, y, z);
+    T2 r = bitwise_select(x, y, z);
     @endcode
 
     The code is equivalent to:
 
     @code
-    T r = (x&y)|(z&~y);
+    T2 r = (x&y)|(z&~y);
     @endcode
 
     @par Alias
@@ -53,7 +53,7 @@ namespace boost { namespace simd { namespace tag
     @param  a1 bits selected for a0 bits that are on
     @param  a2 bits selected for a0 bits that are off
 
-    @return      a value of the same type as the input.
+    @return      a value of the same type as the second input.
 
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_select_, bitwise_select, 3)

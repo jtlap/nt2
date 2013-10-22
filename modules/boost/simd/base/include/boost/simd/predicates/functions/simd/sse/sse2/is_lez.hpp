@@ -9,15 +9,12 @@
 #ifndef BOOST_SIMD_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_LEZ_HPP_INCLUDED
 #define BOOST_SIMD_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_LEZ_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+
 #include <boost/simd/predicates/functions/is_lez.hpp>
-#include <boost/simd/include/functions/simd/bitwise_or.hpp>
-#include <boost/simd/include/functions/simd/bitofsign.hpp>
-#include <boost/simd/include/functions/simd/is_less_equal.hpp>
-#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
-#include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/functions/simd/logical_or.hpp>
+#include <boost/simd/include/functions/simd/is_eqz.hpp>
+#include <boost/simd/include/functions/simd/is_ltz.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -28,8 +25,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename dispatch::meta::as_floating<A0>::type ftype;
-      return bitwise_cast<result_type>(is_less_equal(b_or(One<ftype>(), bitofsign(a0)), Zero<ftype>()));
+      return is_eqz(a0) || is_ltz(a0);
     }
   };
 } } }

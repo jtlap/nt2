@@ -6,62 +6,53 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_STATISTICS_FUNCTIONS_EXPPDF_HPP_INCLUDED
 #define NT2_STATISTICS_FUNCTIONS_EXPPDF_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup statistics
- * \defgroup statistics_exp exppdf
- *
- * \par Description
- * exponential  distribution
- *
- * All pdf ( distribution functions  can be called with the syntax
- * r = xxxpdf(values, param_1, ...,  param_n)
- * the type of values elements determines the type of the output expression elements.
- * cauchy has 1 parameter: mean value
- * default is 1
- * \par
-
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/exppdf.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::exppdf_(A0)>::type
- *     exppdf(const A0 & a0, const A1 & mu = 1);
- * }
- * \endcode
- *
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag exppdf_ of functor exppdf
-     *        in namespace nt2::tag for toolbox statistics
-    **/
-    struct exppdf_ : ext::elementwise_<exppdf_> { typedef ext::elementwise_<exppdf_> parent; };
+   /*!
+     @brief exppdf generic tag
+
+     Represents the exppdf function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct exppdf_ : ext::elementwise_<exppdf_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<exppdf_> parent;
+    };
   }
-  NT2_FUNCTION_IMPLEMENTATION(tag::exppdf_, exppdf, 1)
+  /*!
+    exponential  distribution
+
+    @par Semantic:
+
+    For every table expression
+
+    @code
+    auto r = exppdf(a0, lambda);
+    @endcode
+
+    is similar to:
+
+    @code
+    auto r = lambda*exp(-a0*lambda);
+    @endcode
+
+    @see @funcref{exp}
+    @param a0
+    @param a1 optional mean (default to 1)
+
+    @return an expression which eventually will evaluate to the result
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::exppdf_, exppdf, 2)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(tag::exppdf_, exppdf, 1)
 }
 
 #endif
-
-// /////////////////////////////////////////////////////////////////////////////
-// End of exppdf.hpp
-// /////////////////////////////////////////////////////////////////////////////

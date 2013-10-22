@@ -23,7 +23,8 @@
 namespace boost { namespace simd
 {
   /*!
-    @brief Align value or pointer on an arbitrary alignment boundary
+    @brief Align value or pointer on an arbitrary alignment boundary and
+           return the next aligned value or pointer.
 
     Force the alignment of an  integral value or pointer @c value
     on an arbitrary power of two boundary @c align.
@@ -84,7 +85,8 @@ namespace boost { namespace simd
   }
 
   /*!
-    @brief Align value or pointer on current SIMD alignment boundary
+    @brief Align value or pointer on current SIMD alignment boundary and
+           return the next aligned value or pointer.
 
     Force the alignment of an  integral value or pointer @c value
     on the current SIMD alignment boundary.

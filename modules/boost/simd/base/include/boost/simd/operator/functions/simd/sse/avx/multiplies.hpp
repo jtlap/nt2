@@ -22,7 +22,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return _mm256_mul_pd(a0,a1);
     }
@@ -36,7 +36,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return _mm256_mul_ps(a0,a1);
     }

@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * \brief Defines macros for building a \ref boost::dispatch::ext::call specialization
+ * \brief Defines macros for building a \ref implement specialization
  */
 
 #include <boost/dispatch/details/typeof.hpp>
@@ -26,10 +26,10 @@
 
 //==============================================================================
 /*!
- * Generates a \ref boost::dispatch::ext::call specialization \c operator() prototype.
+ * Generates a \ref implement \c operator() prototype.
  * In this function, arguments are defined as \c a0,...,an-1.
  *
- * \param N Number of parameters for the current \ref boost::dispatch::ext::call
+ * \param N Number of parameters for the current \ref implement
  *
  * \usage
  *
@@ -47,10 +47,10 @@ result_type operator()( BOOST_PP_ENUM_BINARY_PARAMS(N,A,const& a) ) const      \
 
 //==============================================================================
 /*!
- * Generates a \ref boost::dispatch::ext::call specialization \c operator() prototype
+ * Generates a \ref implement specialization \c operator() prototype
  * along with a result_type typedef.
  *
- * \param N Number of parameters for the current \ref boost::dispatch::ext::call
+ * \param N Number of parameters for the current \ref implement
  * \param Args Arguments to the function, with type and name
  * \param Body Function body, must be a single expression
  *
@@ -83,11 +83,11 @@ static BOOST_PP_ARRAY_ELEM(n, Args);                                           \
 
 //==============================================================================
 /*!
- * Generates a \ref boost::dispatch::ext::call specialization \c operator() prototype.
+ * Generates a \ref implement \c operator() prototype.
  * In this function, arguments are defined as \c a0,...,an-1 of the same type
  * \c A0.
  *
- * \param N Number of parameters for the current \ref boost::dispatch::ext::call
+ * \param N Number of parameters for the current \ref implement
  *
  * \usage
  *

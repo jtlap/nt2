@@ -23,17 +23,31 @@ namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-      @brief Thousand generic tag
+   /*!
+     @brief Thousand generic tag
 
-      Represents the Thousand constant function in generic contexts.
+     Represents the Thousand constant in generic contexts.
 
-      @par Models:
-      Hierarchy
-    **/
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER(Thousand,double,1000, 0x447a0000, 0x408f400000000000ll)
   }
+  /*!
+    Generates value 1000
 
+    @par Semantic:
+
+    @code
+    T r = Thousand<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = T(1000);
+    @endcode
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Thousand, Thousand)
 } }
 

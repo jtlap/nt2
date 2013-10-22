@@ -36,9 +36,6 @@ namespace boost { namespace simd
 
     @par Semantic
 
-    Depending on the type of its arguments, splatted_prod exhibits different
-    semantics. For any type @c Type and value @c v of type @c Type:
-
     @code
     Type r = splatted_prod(v);
     @endcode
@@ -50,15 +47,10 @@ namespace boost { namespace simd
       x[i] = prod(v);
     @endcode
 
-    If @c Type is a scalar type, then it is equivalent to:
 
-    @code
-    r = v;
-    @endcode
+    @param a0
 
-    @param a0 value to prod
-
-    @return A value containign the splatted product of @c a0
+    @return a value of the same type as the parameter
   */
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::splatted_prod_, splatted_prod, 1)
 } }

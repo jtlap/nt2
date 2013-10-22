@@ -6,58 +6,50 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_ATANPI_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_ATANPI_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup trigonometric
- * \defgroup trigonometric_atanpi atanpi
- *
- * \par Description
- * inverse tangent in \f$\pi\f$ multiples.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/atanpi.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::atanpi_(A0)>::type
- *     atanpi(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of atanpi
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag atanpi_ of functor atanpi
-     *        in namespace nt2::tag for toolbox trigonometric
-    **/
-    struct atanpi_ : ext::elementwise_<atanpi_> { typedef ext::elementwise_<atanpi_> parent; };
+   /*!
+     @brief atanpi generic tag
+
+     Represents the atanpi function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct atanpi_ : ext::elementwise_<atanpi_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<atanpi_> parent;
+    };
   }
+  /*!
+    inverse tangent in \f$\pi\f$ multiples.
+
+    @par Semantic:
+
+    For every parameter of floating type T0
+
+    @code
+    T0 r = atanpi(a0);
+    @endcode
+
+    Returns the arc @c r in the interval
+    \f$[-0.5, 0.5[\f$ such that <tt>tanpi(r) == x</tt>.
+
+    @see @funcref{atan2}, @funcref{atand}, @funcref{atan}, @funcref{nbd_atan2}
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::atanpi_, atanpi, 1)
 }
 
 #endif
+
+

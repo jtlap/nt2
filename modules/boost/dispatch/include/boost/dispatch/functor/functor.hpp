@@ -103,9 +103,9 @@ namespace boost { namespace dispatch
     /*!
      * Polymorphic variadic function call operator. This catch-all operators
      * dispatches its arguments to the proper type and architecture based
-     * implementation using the \ref hierarchy system.
+     * implementation using the \ref hierarchy_of system.
      *
-     * \params args Arguments of function \c Tag implementation
+     * \param args Arguments of function \c Tag implementation
      * \return The result of the calculation of function \c Tag
      */
     //==========================================================================

@@ -6,60 +6,44 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_IEEE_FUNCTIONS_NEXT_HPP_INCLUDED
 #define BOOST_SIMD_IEEE_FUNCTIONS_NEXT_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_next next
- *
- * \par Description
- * in the type A0 of a0, the least A0 strictly greater than a0
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/next.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::next_(A0)>::type
- *     next(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of next
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace boost { namespace simd { namespace tag
   {
-    /*!
-     * \brief Define the tag next_ of functor next
-     *        in namespace boost::simd::tag for toolbox boost.simd.ieee
-    **/
-    struct next_ : ext::elementwise_<next_> { typedef ext::elementwise_<next_> parent; };
+   /*!
+     @brief next generic tag
+
+     Represents the next function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct next_ : ext::elementwise_<next_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<next_> parent;
+    };
   }
+  /*!
+    Returns the least element strictly greater than the parameter
+
+    @par Semantic:
+
+    @code
+    T r = next(a0);
+    @endcode
+
+    compute the least value strictly greater than a0 in type T
+
+    @param a0
+
+    @return a value of same type as the input
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::next_, next, 1)
 } }
 
 #endif
-
-// modified by jt the 25/12/2010

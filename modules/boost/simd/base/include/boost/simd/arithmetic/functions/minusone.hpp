@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace tag
   }
   /*!
     Return the entry minus one, saturated in the entry type.
-    @ c minusone(a) is always less or equal to a.
+    If @c x is not Nan, @c minusone(x) is always less or equal to x.
 
     @par semantic:
     For any given value @c x of type @c T:

@@ -6,58 +6,53 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_LOGSPACE_SUB_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_LOGSPACE_SUB_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup exponential
- * \defgroup exponential_logspace_sub logspace_sub
- *
- * \par Description
- *  Compute the log of a sum from logs of terms
- *  properly compute \$\log (\exp (\logx) - \exp (\logy))\$
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/logspace_sub.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::logspace_sub_(A0, A0)>::type
- *     logspace_sub(const A0 & a0, const A0 & a1);
- * }
- * \endcode
- *
- * \return a value of the same type as the parameters
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag logspace_sub_ of functor logspace_sub
-     *        in namespace nt2::tag for toolbox exponential
-    **/
-    struct logspace_sub_ : ext::elementwise_<logspace_sub_> { typedef ext::elementwise_<logspace_sub_> parent; };
+   /*!
+     @brief logspace_sub generic tag
+
+     Represents the logspace_sub function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct logspace_sub_ : ext::elementwise_<logspace_sub_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<logspace_sub_> parent;
+    };
   }
+  /*!
+     Compute the log of a sum from logs of terms
+     properly compute \f$\log (\exp (\log x) - \exp (\log y))\f$
+
+    @par Semantic:
+
+    For every parameters of floating types respectively T0, T1:
+
+    @code
+    T0 r = logspace_sub(x, y);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r =  log(exp(log(x)) - exp(log(y)));
+    @endcode
+
+    @param a0
+
+    @param a1
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::logspace_sub_, logspace_sub, 2)
 }
 
 #endif
 
-// modified by jt the 25/12/2010

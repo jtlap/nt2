@@ -1,0 +1,9 @@
+[library Adjacent Functions
+  [quickbook 1.5]
+]
+
+[section Overview]
+This module provides implementation of adjacent functions.
+[endsect]
+
+[xinclude reference.xml]

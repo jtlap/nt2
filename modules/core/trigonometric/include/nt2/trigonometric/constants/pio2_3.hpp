@@ -16,14 +16,35 @@ namespace nt2
 {
   namespace tag
   {
+   /*!
+     @brief Pio2_3 generic tag
+
+     Represents the Pio2_3 constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     // 2.02226624871116645580e-21
     BOOST_SIMD_CONSTANT_REGISTER( Pio2_3, double
                                 , 0, 0x2e85a300
                                 , 0x3BA3198A2E000000ll
                                 );
   }
+  /*!
+    Constant used in modular computation involving \f$\pi\f$
 
+    @par Semantic:
+
+    For type T0:
+
+    @code
+    T0 r = Pio2_3<T0>();
+    @endcode
+
+    @return a value of type T0
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Pio2_3, Pio2_3);
 }
 
 #endif
+

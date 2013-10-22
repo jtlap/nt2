@@ -6,59 +6,50 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_EULER_FUNCTIONS_GAMMALN_HPP_INCLUDED
 #define NT2_EULER_FUNCTIONS_GAMMALN_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup euler
- * \defgroup euler_gammaln gammaln
- *
- * \par Description
- * Natural logarithm of the absolute value of the Gamma function
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/gammaln.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::gammaln_(A0)>::type
- *     gammaln(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of gammaln
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag gammaln_ of functor gammaln
-     *        in namespace nt2::tag for toolbox euler
-    **/
-    struct gammaln_ : ext::elementwise_<gammaln_> { typedef ext::elementwise_<gammaln_> parent; };
+   /*!
+     @brief gammaln generic tag
+
+     Represents the gammaln function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct gammaln_ : ext::elementwise_<gammaln_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<gammaln_> parent;
+    };
   }
+  /*!
+    Natural logarithm of the absolute value of the Gamma function
+
+    @par Semantic:
+
+    For every parameter of floating type T0
+
+    @code
+    T0 r = gammaln(x);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = log(gamma(abs(x)));
+    @endcode
+
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::gammaln_, gammaln, 1)
 }
 
 #endif
 
-// modified by jt the 25/12/2010

@@ -6,17 +6,17 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 operator toolbox - splat/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of operator components in simd mode
-//////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/operator/include/functions/splat.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
-#include <boost/type_traits/is_same.hpp>
+
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <boost/simd/sdk/config.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/include/functions/splat.hpp>
 
 NT2_TEST_CASE_TPL ( splat,  BOOST_SIMD_SIMD_TYPES)
 {

@@ -32,36 +32,36 @@ using nt2::tag::erfinv_;
 namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(erfinv_,(RS(vT,T(-1),T(1))))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(erfinv_,(RS(vT,T(-1),T(1))))
 }
 namespace n3 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(erfinv_,(RS(vT,T(-0.7),T(0.7))))
 }
 namespace n4 {
   typedef double T;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(erfinv_,(RS(vT,T(-0.7),T(0.7))))
 }
 namespace n5 {
   typedef float T;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(erfinv_,(RS(vT,T(0.7),T(1))))
 }
 namespace n6 {
   typedef double T;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(erfinv_,(RS(vT,T(0.7),T(1))))
 }

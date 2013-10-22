@@ -18,6 +18,7 @@
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 
 NT2_TEST_CASE_TPL(rem_pio2_straight_table, NT2_REAL_TYPES)
 {
@@ -38,7 +39,7 @@ NT2_TEST_CASE_TPL(rem_pio2_straight_table, NT2_REAL_TYPES)
       T r1;
       rem_pio2_straight(a(i), n1, r1);
       NT2_TEST_EQUAL(n(i), n1);
-      NT2_TEST_EQUAL(r(i), r1);
+      NT2_TEST_ULP_EQUAL(r(i), r1, 0.5);
     }
 
   }
@@ -51,7 +52,7 @@ NT2_TEST_CASE_TPL(rem_pio2_straight_table, NT2_REAL_TYPES)
       T r1;
       rem_pio2_straight(a(i), n1, r1);
       NT2_TEST_EQUAL(n(i), n1);
-      NT2_TEST_EQUAL(r(i), r1);
+      NT2_TEST_ULP_EQUAL(r(i), r1, 0.5);
     }
   }
 
@@ -63,7 +64,7 @@ NT2_TEST_CASE_TPL(rem_pio2_straight_table, NT2_REAL_TYPES)
       T r1;
       rem_pio2_straight(a(i), n1, r1);
       NT2_TEST_EQUAL(n(i), n1);
-      NT2_TEST_EQUAL(r(i), r1);
+      NT2_TEST_ULP_EQUAL(r(i), r1, 0.5);
     }
   }
 }

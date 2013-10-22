@@ -6,66 +6,54 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_COMBINATORIAL_FUNCTIONS_RAT_HPP_INCLUDED
 #define NT2_COMBINATORIAL_FUNCTIONS_RAT_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup combinatorial
- * \defgroup combinatorial_rat rat
- *
- * \par Description
- * greatest common divisor
- * \par
- * If parameters are floating point and not flint,
- * nan is returned.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/rat.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::rat_(A0,A0)>::type
- *     rat(const A0 & a0,const A0 & a1);
- * }
- * \endcode
- *
- * \param a0 the first parameter of rat
- * \param a1 the second parameter of rat
- *
- * \return a value of the common type of the parameters
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag rat_ of functor rat
-     *        in namespace nt2::tag for toolbox combinatorial
-    **/
-    struct rat_ : ext::elementwise_<rat_> { typedef ext::elementwise_<rat_> parent; };
+   /*!
+     @brief rat generic tag
+
+     Represents the rat function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct rat_ : ext::elementwise_<rat_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<rat_> parent;
+    };
   }
-    NT2_FUNCTION_IMPLEMENTATION(tag::rat_, rat, 1)
+  /*!
+    rational approximation of floating numbers
+
+    @par Semantic:
+
+    For every table expression
+
+    @code
+    tie(n, d) = rat(a0, tol);
+    @endcode
+
+    returns n and d such that (whenever possible) n/d
+    represents n within a tolerance of tol
+
+    @param a0
+    @param a1
+
+    @return an expression which eventually will evaluate to the result
+  **/
     NT2_FUNCTION_IMPLEMENTATION(tag::rat_, rat, 2)
+    /// @overload
+    NT2_FUNCTION_IMPLEMENTATION(tag::rat_, rat, 1)
+    /// @overload
     NT2_FUNCTION_IMPLEMENTATION_TPL(tag::rat_, rat,(A0 const&)(A1 const&)(A2&)(A3&),4)
+    /// @overload
     NT2_FUNCTION_IMPLEMENTATION_TPL(tag::rat_, rat,(A0 const&)(A1&)(A2&),3)
 }
 
 #endif
 
-// modified by jt the 25/12/2010

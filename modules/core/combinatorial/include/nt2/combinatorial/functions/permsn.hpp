@@ -18,32 +18,50 @@ namespace nt2
 {
   namespace tag
   {
-    /*!
-      @brief permsn generic tag
+   /*!
+     @brief permsn generic tag
 
-      Represents the permsn function in generic contexts.
+     Represents the permsn function in generic contexts.
 
-      @par Models:
-      Hierarchy
-    **/
+     @par Models:
+        Hierarchy
+   **/
     struct permsn_ : ext::unspecified_<permsn_>
     {
       /// @brief Parent hierarchy
       typedef ext::unspecified_<permsn_> parent;
     };
   }
-
   /*!
-    @brief Permutations enumeration
+    Computes permutations enumeration
 
-    Return the k or, by default, the n! permutations of [1 ... n]
+    @par Semantic:
+
+    For every n and k
+
+    @code
+    auto r = permsn(n, k);
+    @endcode
+
+    is similar to:
+
+    @code
+    auto r = perms(_(1, n), k);
+    @endcode
+
+    @see @funcref{perms}, @funcref{colon}
+    @param a0
+    @param a1
+    Return the k first or, by default, the n! permutations of [1 ... n]
   **/
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::permsn_, permsn, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::permsn_, permsn, 2)
+  /// overload
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::permsn_, permsn, 1)
 }
 
 namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
   template<class Domain, class Expr,  int N>
   struct  size_of<tag::permsn_, Domain, N, Expr>
   {
@@ -63,6 +81,7 @@ namespace nt2 { namespace ext
   };
 
 
+  /// INTERNAL ONLY
   template <class Domain, class Expr, int N>
   struct value_type < tag::permsn_, Domain,N,Expr>
   {

@@ -39,6 +39,7 @@ namespace boost { namespace simd { namespace tag
     as_integer<T,unsigned> r = hi(x);
     @endcode
 
+    @see  @funcref{lo}
     @param  a0
 
     @return      a value of the unsigned integer

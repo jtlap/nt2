@@ -16,13 +16,40 @@ namespace nt2
 {
   namespace tag
   {
+   /*!
+     @brief _20_pi generic tag
+
+     Represents the _20_pi constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( _20_pi, double
-                                , 63, 0x427b53d1       //20*pi
-                                , 0x404f6a7a2955385ell  //20*pi
+                                , 63, 0x427b53d1       //20\pi
+                                , 0x404f6a7a2955385ell  //20\pi
                                 );
   }
+  /*!
+    Constant \f$20\pi\f$.
 
+    @par Semantic:
+
+    For type T0:
+
+    @code
+    T0 r = _20_pi<T0>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = Twenty<T0>()*Pi<T0>();
+    @endcode
+
+    @return a value of type T0
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::_20_pi, _20_pi);
 }
 
 #endif
+

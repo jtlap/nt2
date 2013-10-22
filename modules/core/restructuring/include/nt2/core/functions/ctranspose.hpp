@@ -9,11 +9,6 @@
 #ifndef NT2_CORE_FUNCTIONS_CTRANSPOSE_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_CTRANSPOSE_HPP_INCLUDED
 
-/*!
- * \file
- * \brief Defines and implements the nt2::ctranspose function
- */
-
 #include <nt2/include/functor.hpp>
 #include <nt2/core/container/dsl/size.hpp>
 
@@ -21,19 +16,43 @@ namespace nt2
 {
   namespace tag
   {
+   /*!
+     @brief ctranspose generic tag
+
+     Represents the ctranspose function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct ctranspose_ : ext::elementwise_<ctranspose_>
     {
+      /// @brief Parent hierarchy
       typedef ext::elementwise_<ctranspose_> parent;
     };
   }
-
-  //============================================================================
   /*!
-   * conjugate and transpose a matrix. On real matrice this is just transpose
-   *
-   * \param xpr 2D table (must verify is_matrix(a))
-   */
-  //============================================================================
+    Transpose and conjugate a matrix expression.
+
+    @par Semantic:
+
+    For every matricial expression
+
+    @code
+    auto r = ctranspose(a0);
+    @endcode
+
+    produces r such that for every valid couple of indices i, j:
+
+    @code
+    r(j, i) = conj(a0(i, j))
+    @endcode
+
+    @see @funcref{transpose}
+    @par alias: @c ctrans, @c ct
+    @param a0
+
+    @return an expression which eventually will evaluate to the result
+  **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ctranspose_, ctranspose, 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ctranspose_, ctrans, 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ctranspose_, ct    , 1)
@@ -41,6 +60,7 @@ namespace nt2
 
 namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
   template<class Domain, int N, class Expr>
   struct size_of<tag::ctranspose_,Domain,N,Expr>
   {

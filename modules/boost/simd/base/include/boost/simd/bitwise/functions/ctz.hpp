@@ -43,6 +43,7 @@ namespace boost { namespace simd { namespace tag
     as_integer<T,unsigned> r = ctz(x);
     @endcode
 
+    @see  @funcref{clz}, @funcref{popcnt}
     @param a0 Value to check
 
     @return An unsigned integral value containing the index of the first bit

@@ -6,61 +6,57 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_STATISTICS_FUNCTIONS_NORMPDF_HPP_INCLUDED
 #define NT2_STATISTICS_FUNCTIONS_NORMPDF_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup statistics
- * \defgroup statistics_norm normpdf
- *
- * \par Description
- * normal  distribution
- *
- * All pdf ( distribution functions  can be called with the syntax
- * r = xxxpdf(values, param_1, ...,  param_n)
- * the type of values elements determines the type of the output expression elements.
- * cauchy has 2 parameters: mean value and standard deviation
- * defaults are 0 and 1 respectively
- * \par
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/normpdf.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::normpdf_(A0)>::type
- *     normpdf(const A0 & a0, const A1 & m = 0, const A2 & sigma = 1);
- * }
- * \endcode
- **/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag normpdf_ of functor normpdf
-     *        in namespace nt2::tag for toolbox statistics
-    **/
-    struct normpdf_ : ext::elementwise_<normpdf_> { typedef ext::elementwise_<normpdf_> parent; };
+   /*!
+     @brief normpdf generic tag
+
+     Represents the normpdf function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct normpdf_ : ext::elementwise_<normpdf_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<normpdf_> parent;
+    };
   }
-  NT2_FUNCTION_IMPLEMENTATION(tag::normpdf_, normpdf, 1)
-  NT2_FUNCTION_IMPLEMENTATION(tag::normpdf_, normpdf, 2)
+  /*!
+    normal distribution
+
+    @par Semantic:
+
+    For every table expression
+
+    @code
+    auto r = normpdf(a0, m, s);
+    @endcode
+
+    is similar to:
+
+    @code
+    auto r = exp(sqr((a0-m)/s)/2)*Invsqrt_2pi;
+    @endcode
+
+    @see @funcref{exp}, @funcref{sqr}, @funcref{Invsqrt_2pi},
+    @param a0
+    @param a1 optional mean default to 0
+    @param a2 optional standard deviation default to 1
+
+
+    @return an expression which eventually will evaluate to the result
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::normpdf_, normpdf, 3)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(tag::normpdf_, normpdf, 2)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(tag::normpdf_, normpdf, 1)
 }
 
 #endif
-
-// /////////////////////////////////////////////////////////////////////////////
-// End of normpdf.hpp
-// /////////////////////////////////////////////////////////////////////////////

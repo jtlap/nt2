@@ -6,70 +6,78 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_IEEE_FUNCTIONS_SATURATE_HPP_INCLUDED
 #define BOOST_SIMD_IEEE_FUNCTIONS_SATURATE_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
-
-/*!
- * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_saturate saturate
- *
- * \par Description
- * saturate the value a0 in the template parameter type T,
- * but the value returned is of type A0
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/saturate.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::saturate_(A0)>::type
- *     saturate(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of saturate
- *
- * \param T template parameter of saturate
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
     /*!
-     * \brief Define the tag saturate_ of functor saturate
-     *        in namespace boost::simd::tag for toolbox boost.simd.ieee
+      @brief saturate generic tag
+
+      Represents the saturate function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
     struct saturate_ : ext::elementwise_<saturate_>
     {
+      /// @brief parent Hierarchy
       typedef ext::elementwise_<saturate_> parent;
     };
   }
 
-  // Explicit version : saturate(x, class_)
+  /*!
+
+    Saturate a value of type @c T with the limit values of type @c S.
+
+    @par Semantic:
+
+    @code
+    T r = saturate(x, as_<S>())
+    @endcode
+
+    is similar to:
+
+    @code
+    if (a0 > Inf<S>()) r =  T(Inf<S>());
+    else if  (a0 <  Minf<S>()) r =  T(Minf<S>());
+    else r = a0;
+    @endcode
+
+    @param a0 Value to saturate
+    @param a1 Type specifier of the saturation limit
+
+    @return  The input value saturated on limit of the type specifier
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::saturate_, saturate, 2)
 
-  // Implicit version : saturate<T>(x)
+  /*!
+    Returns the saturated value of the first input in the template parameter type,
+    but in the same type as the input.
+
+    @par Semantic:
+
+    @code
+    T r = saturate<S>(x)
+    @endcode
+
+    is similar to:
+
+    @code
+    if (a0 > Inf<S>()) r =  T(Inf<S>());
+    else if  (a0 <  Minf<S>()) r =  T(Minf<S>());
+    else r = a0;
+    @endcode
+
+    @param a0
+    @param a1
+
+    @return a value of same type as the inputs
+  **/
   template<class T,class A0> BOOST_FORCEINLINE
   typename boost::dispatch::meta::
                   call< tag::saturate_( A0 const&

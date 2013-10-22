@@ -46,7 +46,8 @@ namespace boost { namespace simd { namespace tag
     @par Notes:
 
     The Inf, Nan and negative values are treated properly and go respectively to
-    Valmax, and Zero of the destination integral type
+    Valmax, and Zero of the destination integral type.
+
     All values superior (resp.) less than Valmax (resp. Valmin) of the return type
     are saturated accordingly.
 

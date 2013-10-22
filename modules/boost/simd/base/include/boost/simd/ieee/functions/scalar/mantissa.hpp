@@ -11,8 +11,6 @@
 
 #include <boost/simd/ieee/functions/mantissa.hpp>
 #include <boost/simd/include/functions/scalar/is_invalid.hpp>
-#include <boost/simd/include/functions/scalar/bitwise_and.hpp>
-#include <boost/simd/include/functions/scalar/bitwise_or.hpp>
 #include <boost/simd/include/constants/maxexponent.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

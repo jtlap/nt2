@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_COMBINATORIAL_FUNCTIONS_SIMD_COMMON_GCD_HPP_INCLUDED
 #define NT2_COMBINATORIAL_FUNCTIONS_SIMD_COMMON_GCD_HPP_INCLUDED
+
 #include <nt2/combinatorial/functions/gcd.hpp>
 #include <nt2/include/functions/simd/is_nez.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>

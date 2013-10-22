@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_ELEVEN_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_ELEVEN_HPP_INCLUDED
 
@@ -16,52 +13,38 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_eleven Eleven
- *
- * \par Description
- * Constant Eleven = 11
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/eleven.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::eleven_(A0)>::type
- *     Eleven();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Eleven
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Eleven of functor Eleven
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Eleven generic tag
+
+     Represents the Eleven constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Eleven, double, 11
                                 ,0x41300000,0x4026000000000000ll
                                 );
   }
+  /*!
+     Generates the value 11
 
+    @par Semantic:
+
+    @code
+    T r = Eleven<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = T(11);
+    @endcode
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Eleven, Eleven)
 } }
 

@@ -17,9 +17,8 @@ nt2_module_doc( boost.simd_doc
                 introduction.qbk
                 tutorial.qbk
                 rationale.qbk
+                boost.simd.boostbook
               )
-
-add_dependencies( boost.simd_doc.boostbook boost.simd.boostbook )
 
 if(NOT IS_DIRECTORY ${NT2_BINARY_DIR}/doc/html/simd)
   file(MAKE_DIRECTORY ${NT2_BINARY_DIR}/doc/html/simd)

@@ -16,7 +16,6 @@
 #include <boost/simd/include/functions/simd/shr.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/minus.hpp>
-#include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/bitwise_and.hpp>
 #include <boost/simd/include/functions/simd/bitwise_xor.hpp>
 #include <boost/simd/include/functions/simd/complement.hpp>
@@ -24,6 +23,7 @@
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/as_unsigned.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -68,7 +68,7 @@ namespace boost { namespace simd { namespace ext
       utype uy = bitwise_cast<utype>(a1);
       utype res = ux - uy;
 
-      ux = shri(ux, sizeof(stype)*CHAR_BIT-1) + Valmax<stype>();
+      ux = shri(ux, sizeof(stype)*CHAR_BIT-1) + static_cast<typename meta::scalar_of<utype>::type>(Valmax<stype>());
 
       return bitwise_cast<A0>(if_else(bitwise_cast<A0>((ux ^ uy) & (ux ^ res)) < Zero<A0>(), ux, res));
     }

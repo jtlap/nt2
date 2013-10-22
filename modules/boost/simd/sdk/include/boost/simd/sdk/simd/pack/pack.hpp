@@ -50,12 +50,14 @@ namespace boost { namespace simd
   ////////////////////////////////////////////////////////////////////////////
   template<class Type, std::size_t Cardinal>
   struct BOOST_SIMD_MAY_ALIAS pack
-    : expression< typename
-                  proto::terminal< typename
-                                   meta::vector_of< Type
-                                                  , Cardinal
-                                                  >::type
-                                 >::type
+    : expression< boost::proto::basic_expr< boost::proto::tag::terminal
+                                          , boost::proto::term< typename
+                                                                meta::vector_of< Type
+                                                                               , Cardinal
+                                                                               >::type
+                                                              >
+                                          , 0l
+                                          >
                  , typename
                    meta::vector_of< Type
                                   , Cardinal
@@ -65,7 +67,7 @@ namespace boost { namespace simd
     static const std::size_t static_size = Cardinal;
 
     typedef typename meta::vector_of<Type, Cardinal>::type  data_type;
-    typedef typename proto::terminal<data_type>::type       expr_type;
+    typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<data_type>, 0l > expr_type;
 
     typedef Type                                value_type;
     typedef typename data_type::reference       reference;

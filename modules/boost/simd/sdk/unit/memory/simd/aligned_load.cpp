@@ -16,6 +16,10 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
+#include <boost/preprocessor/seq/for_each.hpp>
+#include <boost/preprocessor/seq/transform.hpp>
+#include <boost/preprocessor/cat.hpp>
+
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/preprocessor/stack_buffer.hpp>
 
@@ -26,32 +30,40 @@
 #include "../common/foo.hpp"
 #include "fill.hpp"
 
+#define NT2_TEST_ALIGNED_LOAD(r, data, elem) BOOST_PP_CAT(nt2_test_run_, data)<T, elem>::call();
+
+template<class T, class U>
+struct nt2_test_run_aligned_load
+{
+  static void call(bool offset = false)
+  {
+    std::cout << "With U = " << nt2::type_id<U>() << std::endl;
+    using boost::simd::logical;
+    using boost::simd::native;
+    using boost::simd::pack;
+
+    typedef BOOST_SIMD_DEFAULT_EXTENSION ext_t;
+
+    aligned_load_runner< U          , native<T,ext_t>           >(offset);
+    aligned_load_runner< logical<U> , native<logical<T>,ext_t>  >(offset);
+    aligned_load_runner< U          , pack<T>                   >(offset);
+  }
+};
+
 NT2_TEST_CASE_TPL( load,  BOOST_SIMD_SIMD_TYPES)
 {
-  using boost::simd::logical;
-  using boost::simd::native;
-  using boost::simd::pack;
-
-  typedef BOOST_SIMD_DEFAULT_EXTENSION ext_t;
-
-  aligned_load_runner< T          , native<T,ext_t>           >();
-  aligned_load_runner< T          , pack<T>                   >();
-  aligned_load_runner< logical<T> , native<logical<T>,ext_t>  >();
-  aligned_load_runner< logical<T> , pack< logical<T> >        >();
+  BOOST_PP_SEQ_FOR_EACH(NT2_TEST_ALIGNED_LOAD, aligned_load, BOOST_SIMD_TYPES)
 }
+
+template<class T, class U>
+struct nt2_test_run_aligned_load_offset
+{
+  static void call() { nt2_test_run_aligned_load<T,U>::call(true); }
+};
 
 NT2_TEST_CASE_TPL( load_offset,  BOOST_SIMD_SIMD_TYPES)
 {
-  using boost::simd::logical;
-  using boost::simd::native;
-  using boost::simd::pack;
-
-  typedef BOOST_SIMD_DEFAULT_EXTENSION ext_t;
-
-  aligned_load_runner< T          , native<T,ext_t>           >(true);
-  aligned_load_runner< T          , pack<T>                   >(true);
-  aligned_load_runner< logical<T> , native<logical<T>,ext_t>  >(true);
-  aligned_load_runner< logical<T> , pack< logical<T> >        >(true);
+  BOOST_PP_SEQ_FOR_EACH(NT2_TEST_ALIGNED_LOAD, aligned_load, BOOST_SIMD_TYPES)
 }
 
 NT2_TEST_CASE( load_sequence_pointer )
@@ -111,44 +123,54 @@ NT2_TEST_CASE_TPL( load_suboffset_backward,  BOOST_SIMD_SIMD_TYPES)
   misaligned_load_runner< logical<T>, pack<logical<T> >         >(boost::mpl::int_<-1>());
 }
 
+template<class T, class U>
+struct nt2_test_run_aligned_load_gather
+{
+  static void call()
+  {
+    std::cout << "With U = " << nt2::type_id<U>() << std::endl;
+    using boost::simd::aligned_load;
+    using boost::simd::tag::aligned_load_;
+    using boost::simd::native;
+    using boost::simd::meta::cardinal_of;
+
+    typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+    typedef native<T,ext_t>                        vT;
+    typedef typename boost::dispatch::meta::as_integer<vT>::type viT;
+
+    typedef typename
+            boost::dispatch::
+            meta::call<aligned_load_(U*,viT,boost::dispatch::meta::as_<vT>)>::type rT;
+
+    NT2_TEST_TYPE_IS( rT, vT );
+
+    BOOST_SIMD_ALIGNED_STACK_BUFFER( data,  U, cardinal_of<vT>::value*3 );
+
+    for(size_t i=0;i<cardinal_of<vT>::value*3;++i) data[i] = U(1+i);
+
+    viT index;
+    rT ref;
+
+    // Spread out the gather values
+    index[0] = cardinal_of<vT>::value*3 -1;
+    index[cardinal_of<viT>::value-1] = 0;
+
+    for(size_t i=1;i<cardinal_of<viT>::value-1;++i)
+    {
+      index[i] = T(i*(cardinal_of<vT>::value*3)/(cardinal_of<vT>::value-1));
+    }
+
+    for(size_t i=0;i<cardinal_of<vT>::value;++i) ref[i] = data[index[i]];
+
+    rT v = boost::simd::aligned_load<vT>(&data[0], index);
+
+    NT2_TEST_EQUAL(v , ref);
+  }
+};
+
 NT2_TEST_CASE_TPL( load_gather, BOOST_SIMD_SIMD_TYPES)
 {
-  using boost::simd::aligned_load;
-  using boost::simd::tag::aligned_load_;
-  using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
-
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>                        vT;
-  typedef typename boost::dispatch::meta::as_integer<vT>::type viT;
-
-  typedef typename
-          boost::dispatch::
-          meta::call<aligned_load_(T*,viT,boost::dispatch::meta::as_<vT>)>::type rT;
-
-  NT2_TEST_TYPE_IS( rT, vT );
-
-  BOOST_SIMD_ALIGNED_STACK_BUFFER( data,  T, cardinal_of<vT>::value*3 );
-
-  for(size_t i=0;i<cardinal_of<vT>::value*3;++i) data[i] = T(1+i);
-
-  viT index;
-  rT ref;
-
-  // Spread out the gather values
-  index[0] = cardinal_of<vT>::value*3 -1;
-  index[cardinal_of<viT>::value-1] = 0;
-
-  for(size_t i=1;i<cardinal_of<viT>::value-1;++i)
-  {
-    index[i] = T(i*(cardinal_of<vT>::value*3)/(cardinal_of<vT>::value-1));
-  }
-
-  for(size_t i=0;i<cardinal_of<vT>::value;++i) ref[i] = data[index[i]];
-
-  rT v = boost::simd::aligned_load<vT>(&data[0], index);
-
-  NT2_TEST_EQUAL(v , ref);
+  BOOST_PP_SEQ_FOR_EACH(NT2_TEST_ALIGNED_LOAD, aligned_load_gather, BOOST_SIMD_TYPES)
 }
 
 NT2_TEST_CASE( load_sequence )

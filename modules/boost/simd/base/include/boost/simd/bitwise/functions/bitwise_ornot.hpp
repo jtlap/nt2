@@ -35,23 +35,25 @@ namespace boost { namespace simd { namespace tag
     of same memory size:
 
     @code
-    T r = bitwise_ornot(x, y);
+    T1 r = bitwise_ornot(x, y);
     @endcode
 
     The code is equivalent to:
 
     @code
-    T r = x | ~y;
+    T1 r = x | ~y;
     @endcode
 
     @par Alias
 
     b_ornot
 
+    @see  @funcref{bitwise_and}, @funcref{bitwise_xor}, @funcref{bitwise_notand},
+    @funcref{bitwise_andnot}, @funcref{bitwise_notor}, @funcref{bitwise_ornot}, @funcref{complement}
     @param  a0
     @param  a1
 
-    @return      a value of the same type as the input.
+    @return      a value of the same type as the first input.
 
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_ornot_, bitwise_ornot, 2)

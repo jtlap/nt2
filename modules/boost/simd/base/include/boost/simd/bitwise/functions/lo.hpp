@@ -20,11 +20,11 @@ namespace boost { namespace simd { namespace tag
       Represents the lo function in generic contexts.
 
       @par Models:
-      Loerarchy
+      Hierarchy
     **/
     struct lo_ : ext::elementwise_<lo_>
     {
-      /// @brief Parent loerarchy
+      /// @brief Parent hierarchy
       typedef ext::elementwise_<lo_> parent;
     };
   }
@@ -40,6 +40,7 @@ namespace boost { namespace simd { namespace tag
     as_integer<T,unsigned> r = lo(x);
     @endcode
 
+    @see  @funcref{hi}
     @param  a0
 
     @return      a value of the unsigned integer

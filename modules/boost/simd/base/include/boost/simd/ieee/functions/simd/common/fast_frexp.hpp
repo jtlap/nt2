@@ -11,6 +11,7 @@
 #include <boost/simd/ieee/functions/fast_frexp.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/simd/shr.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/simd/include/functions/simd/bitwise_andnot.hpp>
 #include <boost/simd/include/constants/maxexponent.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>

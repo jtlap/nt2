@@ -6,68 +6,54 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_FUZZY_FUNCTIONS_KNUTH_EQUAL_HPP_INCLUDED
 #define NT2_FUZZY_FUNCTIONS_KNUTH_EQUAL_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup fuzzy
- * \defgroup fuzzy_knuth_equal knuth_equal
- *
- * \par Description
- * \f$|a_0-a_1| \le a_2*\mathop{\mathrm{exponent(\max(|a_0|, |a_1|))}}\f$
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/knuth_equal.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::knuth_equal_(A0,A0,A0)>::type
- *     knuth_equal(const A0 & a0,const A0 & a1,const A0 & a2);
- * }
- * \endcode
- *
- * \param a0 the first parameter of knuth_equal
- * \param a1 the second parameter of knuth_equal
- * \param a2 the third parameter of knuth_equal
- *
- * \return a value of the common type of the parameters
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- * This is a predicate operation. Such operations return bool in scalar mode,
- * but not in SIMD mode.
- * \par
- * The return type in SIMD mode is the common type of the parameters and is
- * a 'signed boolean' type. This means that in this case True has all its bits
- * sets to one. This is to facilitate masking operations. You are invited to
- * consult the rationale.
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag knuth_equal_ of functor knuth_equal
-     *        in namespace nt2::tag for toolbox fuzzy
-    **/
-    struct knuth_equal_ : ext::elementwise_<knuth_equal_> { typedef ext::elementwise_<knuth_equal_> parent; };
+   /*!
+     @brief knuth_equal generic tag
+
+     Represents the knuth_equal function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct knuth_equal_ : ext::elementwise_<knuth_equal_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<knuth_equal_> parent;
+    };
   }
+  /*!
+    \f$|a_0-a_1| \le a_2*\mathop{\mathrm{exponent(\max(|a_0|, |a_1|))}}\f$
+
+    @par Semantic:
+
+    For every parameters of floating type T0:
+
+    @code
+    logical<T0> r = knuth_equal(a0,a1,a2);
+    @endcode
+
+    is similar to:
+
+    @code
+    logical<T0> r = abs(a0-a1) <= a2*pow2(exponent(max(abs(a0), abs(a1))));
+    @endcode
+
+    @param a0
+
+    @param a1
+
+    @param a2
+
+    @return a logical value  of the type associated the first parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::knuth_equal_, knuth_equal, 3)
 }
 
 #endif
 
-// modified by jt the 25/12/2010

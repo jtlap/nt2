@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 operator toolbox - map/simd Mode"
-
 #include <boost/simd/operator/include/functions/map.hpp>
 #include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/include/functions/unary_plus.hpp>
@@ -30,7 +28,7 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
-NT2_TEST_CASE_TPL ( map_integer__2_0,  BOOST_SIMD_SIMD_TYPES)
+NT2_TEST_CASE_TPL ( map_integer,  BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::map;
   using boost::simd::native;

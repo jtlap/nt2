@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_MEIGHT_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_MEIGHT_HPP_INCLUDED
 
@@ -16,52 +13,38 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_meight Meight
- *
- * \par Description
- * Constant Meight = -8
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/meight.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::meight_(A0)>::type
- *     Meight();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Meight
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Meight of functor Meight
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Meight generic tag
+
+     Represents the Meight constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Meight, double, -8
                                 , 0xc1000000UL,0xc020000000000000ULL
                                 );
   }
+  /*!
+    Generates value -8
 
+    @par Semantic:
+
+    @code
+    T r = Meight<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = T(-8);
+    @endcode
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Meight, Meight)
 } }
 

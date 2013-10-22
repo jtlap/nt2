@@ -1,4 +1,4 @@
-  //==============================================================================
+//==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_FAST_RSQRT_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_FAST_RSQRT_HPP_INCLUDED
 
-#include <boost/simd/arithmetic/functions/rsqrt.hpp>
+#include <boost/simd/arithmetic/functions/fast_rsqrt.hpp>
 #include <boost/simd/include/functions/rsqrt.hpp>
 
 namespace boost { namespace simd { namespace ext

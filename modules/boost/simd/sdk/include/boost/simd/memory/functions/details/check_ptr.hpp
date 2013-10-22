@@ -29,4 +29,12 @@ BOOST_ASSERT_MSG( boost::simd::is_aligned                                      \
                 )                                                              \
 /**/
 
+#define BOOST_SIMD_DETAILS_CHECK_PTR_CVT(Pointer, SIMD, Scalar)                                    \
+BOOST_SIMD_DETAILS_CHECK_PTR(Pointer, std::min( sizeof(SIMD)                                       \
+                                              , sizeof(SIMD) * sizeof(Scalar)                      \
+                                                             / sizeof(typename SIMD::value_type)   \
+                                              )                                                    \
+                            )                                                                      \
+/**/
+
 #endif

@@ -90,6 +90,7 @@ namespace nt2 { namespace ext
           }
           catch(...)
           {
+            #pragma omp critical
             // Store exception for late rethrow
             exception = boost::current_exception();
           }

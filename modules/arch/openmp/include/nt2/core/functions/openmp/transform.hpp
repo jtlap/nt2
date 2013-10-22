@@ -65,7 +65,9 @@ namespace nt2 { namespace ext
       boost::exception_ptr exception;
 #endif
 
-      std::size_t top_cache_line_size = config::top_cache_size()/sizeof(typename A0::value_type);
+      std::size_t top_cache_line_size = config::top_cache_line_size()/sizeof(typename A0::value_type);
+      if(!top_cache_line_size)
+        top_cache_line_size = 1u;
       std::size_t nblocks  = sz / top_cache_line_size;
       std::size_t leftover = sz % top_cache_line_size;
 
@@ -82,9 +84,8 @@ namespace nt2 { namespace ext
           try
           {
 #endif
-            // Call transform over the sub-architecture in the memory hierachy
-            transformer(a0,a1,it+(std::size_t)n*top_cache_line_size,top_cache_line_size);
-
+              // Call transform over the sub-architecture in the memory hierachy
+              transformer(a0,a1,it+(std::size_t)n*top_cache_line_size,top_cache_line_size);
 #ifndef BOOST_NO_EXCEPTIONS
           }
           catch(...)
@@ -94,9 +95,22 @@ namespace nt2 { namespace ext
           }
 #endif
         }
+
         #pragma omp single nowait
         {
-         if(leftover) transformer(a0,a1,it+nblocks*top_cache_line_size,leftover);
+#ifndef BOOST_NO_EXCEPTIONS
+          try
+          {
+#endif
+            if(leftover) transformer(a0,a1,it+nblocks*top_cache_line_size,leftover);
+#ifndef BOOST_NO_EXCEPTIONS
+          }
+          catch(...)
+          {
+            #pragma omp critical
+            exception = boost::current_exception();
+          }
+#endif
         }
       }
 #ifndef BOOST_NO_EXCEPTIONS

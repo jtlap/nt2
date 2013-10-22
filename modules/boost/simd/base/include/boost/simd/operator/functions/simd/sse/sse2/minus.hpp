@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return _mm_sub_pd(a0,a1);
     }
@@ -41,7 +41,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return _mm_sub_ps(a0,a1);
     }
@@ -58,7 +58,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return _mm_sub_epi8(a0,a1);
     }
@@ -75,7 +75,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return _mm_sub_epi16(a0,a1);
     }
@@ -92,7 +92,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return _mm_sub_epi32(a0,a1);
     }
@@ -109,7 +109,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return _mm_sub_epi64(a0,a1);
     }

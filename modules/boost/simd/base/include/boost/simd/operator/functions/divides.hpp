@@ -6,66 +6,60 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_DIVIDES_HPP_INCLUDED
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_DIVIDES_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 #include <boost/proto/tags.hpp>
 
-/*!
- * \ingroup boost_simd_operator
- * \defgroup boost_simd_operator_divides divides
- *
- * \par Description
- * return the elementwise division of the two parameters
- * Infix notation can be used with operator '/'
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/divides.hpp>
- * \endcode
- *
- * \par Aliases
- * \arg div
- * \arg rdiv
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::divides_(A0,A0)>::type
- *     divides(const A0 & a0,const A0 & a1);
- * }
- * \endcode
- *
- * \param a0 the first parameter of divides
- * \param a1 the second parameter of divides
- *
- * \return a value of the common type of the parameters
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag divides_ of functor divides
-     *        in namespace boost::simd::tag for toolbox boost.simd.operator
-    **/
-    struct divides_ : ext::elementwise_<divides_> { typedef ext::elementwise_<divides_> parent; };
-  }
+   /*!
+     @brief divides generic tag
 
+     Represents the divides function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct divides_ : ext::elementwise_<divides_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<divides_> parent;
+    };
+  }
+  /*!
+    return the elementwise division of the two parameters
+    Infix notation can be used with operator '/'
+
+    @par Semantic:
+
+    For every parameters of types respectively T0, T1:
+
+    @code
+    T0 r = divides(a0,a1);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = a0/a1;
+    @endcode
+
+    @par Alias:
+    @c div, @c rdiv
+
+    @see  @funcref{fast_divides}, @funcref{rec}, @funcref{fast_rec}, @funcref{divs}, @funcref{divfloor},
+    @funcref{divceil}, @funcref{divround}, @funcref{divround2even}, @funcref{divfix}
+    @param a0
+
+    @param a1
+
+    @return a value of the same type as the second parameter
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::divides_             , divides         , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::divides_             , div             , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::divides_             , rdiv            , 2 )

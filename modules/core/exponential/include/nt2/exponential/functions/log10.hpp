@@ -6,59 +6,51 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_LOG10_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_LOG10_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup exponential
- * \defgroup exponential_log10 log10
- *
- * \par Description
- * base ten logarithm function.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/log10.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::log10_(A0)>::type
- *     log10(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of log10
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag log10_ of functor log10
-     *        in namespace nt2::tag for toolbox exponential
-    **/
-    struct log10_ : ext::elementwise_<log10_> { typedef ext::elementwise_<log10_> parent; };
+   /*!
+     @brief log10 generic tag
+
+     Represents the log10 function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct log10_ : ext::elementwise_<log10_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<log10_> parent;
+    };
   }
+  /*!
+    base ten logarithm function.
+
+    @par Semantic:
+
+    For every parameter of floating type T0
+
+    @code
+    T0 r = log10(x);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = log(x)/log(Ten<T0>());
+    @endcode
+
+    @see @funcref{log}, @funcref{log2}, @funcref{log1p}
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::log10_, log10, 1)
 }
 
 #endif
 
-// modified by jt the 25/12/2010

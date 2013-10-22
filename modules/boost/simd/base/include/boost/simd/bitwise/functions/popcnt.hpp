@@ -19,11 +19,11 @@ namespace boost { namespace simd { namespace tag
       Represents the popcnt function in generic contexts.
 
       @par Models:
-      Popcnterarchy
+      Hierarchy
     **/
     struct popcnt_ : ext::elementwise_<popcnt_>
     {
-      /// @brief Parent popcnterarchy
+      /// @brief Parent hierarchy
       typedef ext::elementwise_<popcnt_> parent;
     };
   }
@@ -37,6 +37,7 @@ namespace boost { namespace simd { namespace tag
     as_integer<T, unsigned> r = popcnt(x);
     @endcode
 
+    @see  @funcref{clz}, @funcref{ctz}
     @param  a0
 
     @return      a value of the unsigned integer

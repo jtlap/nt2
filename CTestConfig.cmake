@@ -8,7 +8,7 @@
 ################################################################################
 set(CTEST_PROJECT_NAME "NT2")
 set(CTEST_NIGHTLY_START_TIME "00:00:00 CEST")
-set(CTEST_TEST_TIMEOUT "60")
+set(CTEST_TEST_TIMEOUT "180")
 
 set(CTEST_DROP_METHOD "http")
 set(CTEST_DROP_SITE "cdash.lri.fr")
@@ -36,7 +36,7 @@ set(CTEST_CUSTOM_POST_TEST "${SOURCE_DIRECTORY}/cmake/bench/CDashBench/benchLaun
 
 # SITE is host name
 execute_process(COMMAND hostname OUTPUT_VARIABLE HOST OUTPUT_STRIP_TRAILING_WHITESPACE)
-string(REGEX REPLACE "\\.local$" "" HOST ${HOST})
+string(REGEX REPLACE "\\.(local|home)$" "" HOST ${HOST})
 string(TOLOWER ${HOST} SITE)
 
 # BUILDNAME is generated from OS, architecture, compiler and SIMD level (in-project only)

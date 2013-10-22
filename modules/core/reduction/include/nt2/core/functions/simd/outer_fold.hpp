@@ -11,6 +11,7 @@
 
 #include <nt2/core/functions/outer_fold.hpp>
 #include <boost/simd/sdk/simd/meta/is_vectorizable.hpp>
+#include <boost/simd/memory/align_under.hpp>
 #include <boost/fusion/include/pop_back.hpp>
 #include <nt2/sdk/config/cache.hpp>
 #include <boost/config.hpp>
@@ -62,7 +63,7 @@ namespace nt2 { namespace ext
       std::size_t cache_line_size = nt2::config::top_cache_line_size(2); // in byte
       std::size_t nb_vec = cache_line_size/(sizeof(value_type)*N);
       std::size_t cache_bound = (nb_vec)*N;
-      std::size_t bound  =  ((ibound)/cache_bound) * cache_bound;
+      std::size_t bound  =  boost::simd::align_under(ibound, cache_bound);
 
       for(std::size_t o = 0, o_ = 0; o < obound; ++o, o_+=ibound)
       {

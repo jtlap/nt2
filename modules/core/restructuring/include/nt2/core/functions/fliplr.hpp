@@ -10,10 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_FLIPLR_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_FLIPLR_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the fliplr function
-**/
 
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/size_as.hpp>
@@ -23,22 +19,40 @@ namespace nt2
 {
   namespace tag
   {
-    /*!
-      @brief Tag for fliplr functor
-    **/
+   /*!
+     @brief fliplr generic tag
+
+     Represents the fliplr function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct fliplr_ : ext::elementwise_<fliplr_>
     {
+      /// @brief Parent hierarchy
       typedef ext::elementwise_<fliplr_> parent;
     };
   }
+  /*!
+    Flips an expression around the vertical axis
+    @par Semantic:
 
-    /*!
-    @brief Flip an expression around the vertical axis
+    For every table expression
 
-    Return an expression which rows are in reverse order of the input
+    @code
+    auto r = fliplr(a0);
+    @endcode
 
-    @param  a0 Expression to flip
-    @return the flipped expression
+    is similar to:
+
+    @code
+    auto r = a0(_(height(a0), -1, 1), ..., _);
+    @endcode
+
+    @see @funcref{height}, @funcref{colon}
+    @param a0
+
+    @return an expression which eventually will evaluate to the result
   **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::fliplr_       , fliplr, 1)
 }

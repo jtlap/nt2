@@ -10,7 +10,7 @@
 #define NT2_CORE_FUNCTIONS_COMMON_DIAG_OF_HPP_INCLUDED
 
 #include <nt2/core/functions/diag_of.hpp>
-#include <nt2/include/functions/arith.hpp>
+#include <nt2/include/functions/enumerate.hpp>
 #include <nt2/include/functions/run.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
 
@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
     {
       std::size_t offset = boost::proto::child_c<1>(a0);
       return nt2::run ( boost::proto::child_c<0>(a0)
-                      , nt2::arith<id_t>(p*offset,offset)
+                      , nt2::enumerate<id_t>(p*offset,offset)
                       , t
                       );
     }
@@ -67,7 +67,7 @@ namespace nt2 { namespace ext
       std::size_t offset = boost::proto::child_c<2>(a0);
       std::size_t start  = boost::proto::child_c<1>(a0);
       return nt2::run ( boost::proto::child_c<0>(a0)
-                      , nt2::arith<id_t>(start+p*offset,offset)
+                      , nt2::enumerate<id_t>(start+p*offset,offset)
                       , t
                       );
     }

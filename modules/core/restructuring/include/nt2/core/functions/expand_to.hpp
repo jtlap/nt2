@@ -9,12 +9,6 @@
 //==============================================================================
 #ifndef NT2_CORE_FUNCTIONS_EXPAND_TO_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_EXPAND_TO_HPP_INCLUDED
-
-/*!
-  @file
-  @brief Defines and implements the expand_to function
- **/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/sdk/meta/boxed_size.hpp>
@@ -27,30 +21,41 @@ namespace nt2
 {
   namespace tag
   {
-    /*!
-      @brief Tag for expand_to functor
-     **/
+   /*!
+     @brief expand_to generic tag
+
+     Represents the expand_to function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct expand_to_ : ext::elementwise_<expand_to_>
     {
+      /// @brief Parent hierarchy
       typedef ext::elementwise_<expand_to_> parent;
     };
   }
 
   /*!
-    @brief expand expression to a given size enabling singleton expansion
+    Expands expression to a given size enabling singleton expansion
 
-    expand_to(a,siz) is coceptually equivalent (for additive element types) to
-    bsxfun(plus, a, zeros(siz))
+    @par semantic:
 
-    size(a)  and @c siz must be such that for every involved dimension  @c i
-    size(a, i) == siz(i) or 1
-        Whenever a dimension of @c a or @c b is singleton (i.e equal
-    to one), expand_to virtually replicates the array along that dimension to match
-    the given dimension in siz.
+    expand_to(a,siz) is conceptually equivalent (for additive element
+    types) to bsxfun(plus, a, zeros(siz))
 
-    @param a expression to process
-    @param b size to expand to
+    size(a) and @c siz must be such that for every involved dimension
+    @c i size(a, i) == siz(i) or 1.
+
+    Whenever a dimension of @c a or @c b is singleton (i.e equal to
+    one), expand_to virtually replicates the array along that
+    dimension to match the given dimension in siz.
+
+    @param a0 expression to process
+    @param a1 size to expand to
+    @return an expression which eventually will evaluate to the result
   **/
+
   #define M0(z,n,t)                                                           \
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::expand_to_, expand_to, n)             \
   /**/
@@ -60,6 +65,7 @@ namespace nt2
 }
 namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
   template<class Domain, class Expr,int N>
   struct  size_of<nt2::tag::expand_to_,Domain,N,Expr>
         : meta::boxed_size<Expr,1>

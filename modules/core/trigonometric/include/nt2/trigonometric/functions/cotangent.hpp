@@ -6,64 +6,54 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_COTANGENT_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_COTANGENT_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup trigonometric
- * \defgroup trigonometric_cotangent cotangent
- *
- * \par Description
- * templated cosine.
- * \par
- * see cosine for details
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/cotangent.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class T,class A0>
- *     meta::call<tag::cotangent_(A0)>::type
- *     cotangent(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of cotangent
- *
- * \param T template parameter of cotangent, used to control accuracy and speed
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag cotangent_ of functor cotangent
-     *        in namespace nt2::tag for toolbox trigonometric
-    **/
-    template <class T> struct cotangent_ : ext::elementwise_< cotangent_<T> > { typedef ext::elementwise_< cotangent_<T> > parent; };
-  }
+   /*!
+     @brief cotangent generic tag
 
+     Represents the cotangent function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    template <class T>
+    struct cotangent_ : ext::elementwise_< cotangent_<T> >
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_< cotangent_<T> > parent;
+    };
+  }
+  /*!
+    cotangent with template selection.
+
+    @par Semantic:
+
+    For template selector @c Range in proper selector types choice
+    and for every parameter of floating type T0:
+
+    @code
+    T0 r = cotangent<Range>(x);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = cosine<Range>(x)/sine<Range>(x);
+    @endcode
+
+    @see @funcref{cot}, @funcref{fast_cot}, @funcref{cotd}, @funcref{cotpi}
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::cotangent_<A0> , cotangent, (A1 const&), 2)
 }
 
 #endif
 
-// modified by jt the 25/12/2010
+

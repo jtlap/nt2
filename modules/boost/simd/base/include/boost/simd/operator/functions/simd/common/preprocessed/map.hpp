@@ -1,17 +1,12 @@
 namespace boost { namespace simd { namespace ext
 {
-  template<class A0 = int , class A1 = int , class A2 = int , class A3 = int , class A4 = int , class A5 = int>
-  struct map_cardinal_size
-  {
-    static const std::size_t value = meta::cardinal_of<A0>::value != 1u ? meta::cardinal_of<A0>::value : meta::cardinal_of<A1>::value != 1u ? meta::cardinal_of<A1>::value : meta::cardinal_of<A2>::value != 1u ? meta::cardinal_of<A2>::value : meta::cardinal_of<A3>::value != 1u ? meta::cardinal_of<A3>::value : meta::cardinal_of<A4>::value != 1u ? meta::cardinal_of<A4>::value : meta::cardinal_of<A5>::value != 1u ? meta::cardinal_of<A5>::value : 1u;
-  };
   } } } namespace boost { namespace dispatch { namespace meta { template< class Func , class A0 > BOOST_FORCEINLINE :: boost :: simd :: ext :: implement< boost::simd::tag::map_ ( unspecified_<Func> , generic_< unspecified_<A0> > ) , tag::cpu_ > dispatching( boost::simd::tag::map_, tag::cpu_ , unspecified_<Func> const , generic_< unspecified_<A0> > const , adl_helper = adl_helper() ) { return :: boost :: simd :: ext :: implement< boost::simd::tag::map_ ( unspecified_<Func> , generic_< unspecified_<A0> > ) , tag::cpu_ >(); } } } } namespace boost { namespace simd { namespace ext { template< class Func , class A0 > struct implement< boost::simd::tag::map_ ( unspecified_<Func> , generic_< unspecified_<A0> > ) , tag::cpu_ >
   {
     typedef typename dispatch::meta::
     result_of< Func const( typename meta::scalar_of<A0>::type )
              >::type
     rtype;
-    static const std::size_t N = map_cardinal_size<A0>::value;
+    static const std::size_t N = meta::cardinal_of<A0>::value;
     typedef typename meta::
             vector_of< rtype
                      , N
@@ -62,7 +57,7 @@ namespace boost { namespace simd { namespace ext
     result_of< Func const( typename meta::scalar_of<A0>::type , typename meta::scalar_of<A1>::type )
              >::type
     rtype;
-    static const std::size_t N = map_cardinal_size<A0 , A1>::value;
+    static const std::size_t N = cardinal_common< meta::cardinal_of<A0>::value , meta::cardinal_of<A1>::value >::value;
     typedef typename meta::
             vector_of< rtype
                      , N
@@ -113,7 +108,7 @@ namespace boost { namespace simd { namespace ext
     result_of< Func const( typename meta::scalar_of<A0>::type , typename meta::scalar_of<A1>::type , typename meta::scalar_of<A2>::type )
              >::type
     rtype;
-    static const std::size_t N = map_cardinal_size<A0 , A1 , A2>::value;
+    static const std::size_t N = cardinal_common< meta::cardinal_of<A0>::value , cardinal_common< meta::cardinal_of<A1>::value , meta::cardinal_of<A2>::value >::value >::value;
     typedef typename meta::
             vector_of< rtype
                      , N
@@ -164,7 +159,7 @@ namespace boost { namespace simd { namespace ext
     result_of< Func const( typename meta::scalar_of<A0>::type , typename meta::scalar_of<A1>::type , typename meta::scalar_of<A2>::type , typename meta::scalar_of<A3>::type )
              >::type
     rtype;
-    static const std::size_t N = map_cardinal_size<A0 , A1 , A2 , A3>::value;
+    static const std::size_t N = cardinal_common< meta::cardinal_of<A0>::value , cardinal_common< meta::cardinal_of<A1>::value , cardinal_common< meta::cardinal_of<A2>::value , meta::cardinal_of<A3>::value >::value >::value >::value;
     typedef typename meta::
             vector_of< rtype
                      , N
@@ -215,7 +210,7 @@ namespace boost { namespace simd { namespace ext
     result_of< Func const( typename meta::scalar_of<A0>::type , typename meta::scalar_of<A1>::type , typename meta::scalar_of<A2>::type , typename meta::scalar_of<A3>::type , typename meta::scalar_of<A4>::type )
              >::type
     rtype;
-    static const std::size_t N = map_cardinal_size<A0 , A1 , A2 , A3 , A4>::value;
+    static const std::size_t N = cardinal_common< meta::cardinal_of<A0>::value , cardinal_common< meta::cardinal_of<A1>::value , cardinal_common< meta::cardinal_of<A2>::value , cardinal_common< meta::cardinal_of<A3>::value , meta::cardinal_of<A4>::value >::value >::value >::value >::value;
     typedef typename meta::
             vector_of< rtype
                      , N
@@ -266,7 +261,7 @@ namespace boost { namespace simd { namespace ext
     result_of< Func const( typename meta::scalar_of<A0>::type , typename meta::scalar_of<A1>::type , typename meta::scalar_of<A2>::type , typename meta::scalar_of<A3>::type , typename meta::scalar_of<A4>::type , typename meta::scalar_of<A5>::type )
              >::type
     rtype;
-    static const std::size_t N = map_cardinal_size<A0 , A1 , A2 , A3 , A4 , A5>::value;
+    static const std::size_t N = cardinal_common< meta::cardinal_of<A0>::value , cardinal_common< meta::cardinal_of<A1>::value , cardinal_common< meta::cardinal_of<A2>::value , cardinal_common< meta::cardinal_of<A3>::value , cardinal_common< meta::cardinal_of<A4>::value , meta::cardinal_of<A5>::value >::value >::value >::value >::value >::value;
     typedef typename meta::
             vector_of< rtype
                      , N

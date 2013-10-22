@@ -15,10 +15,14 @@
  * \brief Defines and implements the of_size functions
  */
 
-#include <nt2/core/settings/size.hpp>
+#include <nt2/core/utility/of_size.hpp>
 #include <nt2/core/utility/of_size/mpl_value.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <nt2/sdk/meta/is_iterator.hpp>
+#include <nt2/sdk/parameters.hpp>
+#include <boost/utility/enable_if.hpp>
+
+#include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>

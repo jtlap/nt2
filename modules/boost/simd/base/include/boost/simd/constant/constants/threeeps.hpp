@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_THREEEPS_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_THREEEPS_HPP_INCLUDED
 
@@ -16,58 +13,41 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_threeeps Threeeps
- *
- * \par Description
- * Constant Threeeps = 3\f$\times\f$ Eps<T>()
- * \arg 3 for integer types
- * \arg 6.661338147750939e-16 for double
- * \arg 3.5762787e-07 for float
- * \par
- * The value of this constant is type dependant. This means that for different
- * types it does not represent the same mathematical number.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/threeeps.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::threeeps_(A0)>::type
- *     Threeeps();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Threeeps
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Threeeps of functor Threeeps
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Threeeps generic tag
+
+     Represents the Threeeps constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Threeeps, double, 3
                                 , 0x34C00000, 0x3CC8000000000000ULL
                                 );
   }
+  /*!
+    Generate a value equal to 3 times Eps of the chosen type
 
+    @par Semantic:
+
+    @code
+    T r = Threeeps<T>();
+    @endcode
+
+    @code
+    if T is integral
+      r = 3
+    else if T is double
+      r =   6.661338147750939e-16;
+    else if T is float
+      r =  3.5762787e-07;
+    @endcode
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Threeeps, Threeeps)
 } }
 

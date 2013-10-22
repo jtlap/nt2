@@ -7,26 +7,28 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <boost/simd/operator/include/functions/shift_right.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/sdk/simd/io.hpp>
-#include <boost/simd/constant/constant.hpp>
+
 #include <boost/dispatch/functor/meta/call.hpp>
-
-#include <nt2/sdk/unit/module.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <boost/simd/constant/constant.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <boost/simd/sdk/config.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/include/functions/splat.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/two.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 
-NT2_TEST_CASE_TPL ( shift_right_signed__2_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( shift_right_signed,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::shift_right;
   using boost::simd::tag::shift_right_;
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
+  typedef native<T,ext_t>                  vT;
+  typedef typename boost::dispatch::meta::as_integer<vT>::type ivT;
   typedef typename boost::dispatch::meta::call<shift_right_(vT,ivT)>::type r_t;
 
   // specific values tests
@@ -37,17 +39,14 @@ NT2_TEST_CASE_TPL ( shift_right_signed__2_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TY
   NT2_TEST_EQUAL(shift_right(boost::simd::Allbits<vT>(),boost::simd::splat<ivT>(sizeof(T)*CHAR_BIT-1)), boost::simd::Allbits<r_t>());
 }
 
-NT2_TEST_CASE_TPL ( shift_right_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( shift_right_real,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::shift_right;
   using boost::simd::tag::shift_right_;
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
+  typedef native<T,ext_t>                  vT;
+  typedef typename boost::dispatch::meta::as_integer<vT>::type ivT;
   typedef typename boost::dispatch::meta::call<shift_right_(vT,ivT)>::type r_t;
 
   // specific values tests
@@ -55,15 +54,13 @@ NT2_TEST_CASE_TPL ( shift_right_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(shift_right(boost::simd::Zero<vT>(),boost::simd::One<ivT>()), boost::simd::Zero<r_t>());
 }
 
-NT2_TEST_CASE_TPL ( shift_right_unsigned_scalar_2_0,  BOOST_SIMD_SIMD_INTEGRAL_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( shift_right_unsigned_scalar,  BOOST_SIMD_SIMD_INTEGRAL_UNSIGNED_TYPES)
 {
   using boost::simd::shift_right;
   using boost::simd::tag::shift_right_;
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
+  typedef native<T,ext_t>                  vT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<shift_right_(vT,iT)>::type r_t;
 
@@ -75,15 +72,13 @@ NT2_TEST_CASE_TPL ( shift_right_unsigned_scalar_2_0,  BOOST_SIMD_SIMD_INTEGRAL_U
   NT2_TEST_EQUAL(shift_right(boost::simd::Allbits<vT>(),boost::simd::splat<iT>(sizeof(T)*CHAR_BIT-1)), boost::simd::One<r_t>());
 }
 
-NT2_TEST_CASE_TPL ( shift_right_signed_scalar_2_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( shift_right_signed_scalar,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::shift_right;
   using boost::simd::tag::shift_right_;
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
+  typedef native<T,ext_t>                  vT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<shift_right_(vT,iT)>::type r_t;
 
@@ -95,15 +90,13 @@ NT2_TEST_CASE_TPL ( shift_right_signed_scalar_2_0,  BOOST_SIMD_SIMD_INTEGRAL_SIG
   NT2_TEST_EQUAL(shift_right(boost::simd::Allbits<vT>(),boost::simd::splat<iT>(sizeof(T)*CHAR_BIT-1)), boost::simd::Allbits<r_t>());
 }
 
-NT2_TEST_CASE_TPL ( shift_right_real_scalar_2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( shift_right_real_scalar,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::shift_right;
   using boost::simd::tag::shift_right_;
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
+  typedef native<T,ext_t>                  vT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<shift_right_(vT,iT)>::type r_t;
 

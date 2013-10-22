@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_HUNDRED_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_HUNDRED_HPP_INCLUDED
 
@@ -16,52 +13,39 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_hundred Hundred
- *
- * \par Description
- * Constant Hundred= 1000
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/hundred.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::hundred_(A0)>::type
- *     Hundred();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Hundred
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Hundred of functor Hundred
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Hundred generic tag
+
+     Represents the Hundred constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Hundred,double
                                 , 100, 0x42c80000, 0x4059000000000000ll
                                 );
   }
+  /*!
+    Generates the value 100 in the chosen type
 
+    @par Semantic:
+
+    @code
+    T r = Hundred<T>();
+    @endcode
+
+    is similar to
+
+    @code
+    T r = T(100);
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Hundred, Hundred)
 } }
 

@@ -47,7 +47,7 @@ namespace boost { namespace simd { namespace tag
 
     @par Note:
 
-    As r can be negative @c remainder is not defined for unsigned types.
+    As r can be negative, @c remainder is not defined for unsigned types.
 
     @par Alias
 

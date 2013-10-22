@@ -8,12 +8,11 @@
 //==============================================================================
 #ifndef NT2_COMBINATORIAL_FUNCTIONS_SCALAR_GCD_HPP_INCLUDED
 #define NT2_COMBINATORIAL_FUNCTIONS_SCALAR_GCD_HPP_INCLUDED
+
 #include <nt2/combinatorial/functions/gcd.hpp>
 #include <nt2/include/functions/scalar/is_flint.hpp>
-#include <nt2/include/functions/scalar/is_not_finite.hpp>
-#include <nt2/include/functions/scalar/is_nez.hpp>
 #include <nt2/include/functions/scalar/rem.hpp>
-#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/nan.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

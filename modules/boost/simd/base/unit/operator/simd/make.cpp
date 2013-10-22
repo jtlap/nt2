@@ -6,22 +6,13 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 operator toolbox - make/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of operator components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 18/02/2011
-///
 #include <boost/simd/operator/include/functions/make.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 
-#include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
+
 
 
 template<class T> T fibo(std::size_t n)

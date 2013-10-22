@@ -35,6 +35,8 @@ namespace nt2
     @param f Binary Polymorphic Function object to apply to 0 based indices
     @param a First expression to process
     @param b Second expression to process
+
+    see @funcref{if_else}
   **/
   template<class Functor, class A0, class A1> BOOST_FORCEINLINE
   typename meta::call<tag::whereij_(Functor const&, A0 const&, A1 const&)>::type

@@ -10,10 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_FROM_DIAG_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_FROM_DIAG_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Define and implements the from_diag function
-**/
 
 #include <nt2/include/functor.hpp>
 #include <nt2/core/container/dsl/size.hpp>
@@ -24,16 +20,44 @@ namespace nt2
 {
   namespace tag
   {
-    /*!
-      @brief Tag for the from_diag functor
-    **/
+   /*!
+     @brief from_diag generic tag
+
+     Represents the from_diag function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct from_diag_ : ext::elementwise_<from_diag_>
     {
+      /// @brief Parent hierarchy
       typedef ext::elementwise_<from_diag_> parent;
     };
   }
+  /*!
 
+    Computes the square matricial expression full of zero except the
+    a1-th diagonal which is given by a0.
+
+    @par Semantic:
+
+    For every vector expression a0 and integer a1:
+
+    @code
+    auto r = from_diag(a0{,k});
+    @endcode
+
+    computes the square matrix for which a0 is the k-th diagonal (k
+    defaults to 0).
+
+    @see @funcref{diag_of}
+    @param a0
+    @param a1 optional,  default to 0
+
+    @return an expression which eventually will evaluate to the result
+  **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::from_diag_ , from_diag, 2)
+  /// @overload
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::from_diag_ , from_diag, 1)
 }
 

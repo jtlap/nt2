@@ -10,10 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_COLVECT_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_COLVECT_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the colvect function
-**/
 
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/reshaping_hierarchy.hpp>
@@ -22,25 +18,44 @@ namespace nt2
 {
   namespace tag
   {
-    /*!
-      @brief Tag for colvect functor
-    **/
+   /*!
+     @brief colvect generic tag
+
+     Represents the colvect function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct colvect_ : ext::reshaping_<colvect_>
     {
+      /// @brief Parent hierarchy
       typedef ext::reshaping_<colvect_> parent;
     };
   }
-
   /*!
-    @brief Column reshaping
+    Reshapes an expression into a column shaped table.
 
-    Reshape an expression into a column shaped table.
+    @par Semantic:
 
-    @param a0 Expression to reshape
+    For every table expression
 
-    @return The reshaped expression
+    @code
+    auto r = colvect(a0);
+    @endcode
+
+    is similar to:
+
+    @code
+    auto r = resize(a0, numel(a0), 1);
+    @endcode
+
+    @see @funcref{rowvect}, @funcref{resize}, @funcref{numel}
+
+    @param a0
+    @return an expression which eventually will evaluate to the result
   **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::colvect_       , colvect, 1)
+  /// INTERNAL ONLY
   NT2_FUNCTION_IMPLEMENTATION_SELF(nt2::tag::colvect_  , colvect, 1)
 }
 

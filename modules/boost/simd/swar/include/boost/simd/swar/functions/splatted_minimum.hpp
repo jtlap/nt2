@@ -36,29 +36,18 @@ namespace boost { namespace simd
 
     @par Semantic
 
-    Depending on the type of its arguments, splatted_minimum exhibits different
-    semantics. For any type @c Type and value @c v of type @c Type:
-
     @code
     Type r = splatted_minimum(v);
     @endcode
-
-    If @c Type is a SIMD value, this code is equivalent to:
 
     @code
     for(int i=0;i<Type::static_size;++i)
       x[i] = minimum(v);
     @endcode
 
-    If @c Type is a scalar type, then it is equivalent to:
+    @param a0
 
-    @code
-    r = v;
-    @endcode
-
-    @param a0 value to minimum
-
-    @return A value containing the splatted minimum of @c a0
+    @return  a value of the same type as the parameter
   */
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::splatted_minimum_, splatted_minimum, 1)
 } }

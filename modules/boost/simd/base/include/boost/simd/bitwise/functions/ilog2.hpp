@@ -20,11 +20,11 @@ namespace boost { namespace simd { namespace tag
       Represents the ilog2 function in generic contexts.
 
       @par Models:
-      Ilog2erarchy
+      Hierarchy
     **/
     struct ilog2_ : ext::elementwise_<ilog2_>
     {
-      /// @brief Parent ilog2erarchy
+      /// @brief Parent hierarchy
       typedef ext::elementwise_<ilog2_> parent;
     };
   }
@@ -45,6 +45,7 @@ namespace boost { namespace simd { namespace tag
     as_integer<T> r = toints(log2(x));
     @endcode
 
+    @see  @funcref{twopower}
     @param  a0
 
     @return      a value of the integer

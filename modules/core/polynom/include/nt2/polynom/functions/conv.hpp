@@ -13,29 +13,51 @@
 
 namespace nt2 {  namespace tag
   {
-    struct conv_ :  ext::unspecified_<conv_>
+   /*!
+     @brief conv generic tag
+
+     Represents the conv function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct conv_ : ext::unspecified_<conv_>
     {
+      /// @brief Parent hierarchy
       typedef ext::unspecified_<conv_>  parent;
     };
   }
+  /*!
 
-  /**
-   * @brief Perform characteristic conv computation
-   *
-   * convolves vectors a and b.  the resulting vector is
-   * numel max(cons(numel(a)+numel(b)-1,numel(a),numel(b))). if a and b are
-   * vectors of polynomial coefficients, convolving them is almost
-   * equivalent to multiplying the two polynom.
-   *
-   * c = conv(a, b, shape) returns a subsection of the convolution with size
-   * specified by shape:
-   *   'f'  - (default) returns the 'full' convolution,
-   *   's'  - returns the central part of the convolution
-   *             that is the 'same' size as a.
-   *   'v' - returns only those ('valid') parts of the convolution
-   *             that are computed without the zero-padded edges.
-   *             numel(c) is max(numel(a)-max(0,numel(b)-1),0).
-   **/
+    Polynomials multiplication and vectors convolution
+
+    @par Semantic:
+
+    For every expressions a,  b representing a polynomial:
+
+    @code
+    auto r = conv(a, b, shape);
+    @endcode
+
+    convolves vectors a and b.
+
+
+    c = conv(a, b, shape) returns a subvector of the convolution with size
+    specified by shape:
+      - 'f'  (default) returns the 'full' convolution,
+      - 's'  returns the central part of the convolution that is the 'same' size as a.
+      - 'v'  returns only those 'valid' parts of the convolution that are computed without the zero-padded edges.
+
+    If a and b are vectors representing polynomial coefficients, convolving them is almost
+    equivalent to multiplying the two polynoms.
+    @see @funcref{numel}
+
+    @param a0
+
+    @param a1
+
+    @return returns an expression
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::conv_, conv, 2)
 
 }

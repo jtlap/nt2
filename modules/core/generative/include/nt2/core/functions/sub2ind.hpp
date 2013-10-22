@@ -48,13 +48,13 @@ namespace nt2
     Determines the linear index equivalents to the specified subscripts for
     each dimension of an N-dimensional container of size .
 
-    @param a0 Size sequence of target container
-    @param a1 Subscript to convert
+    @param sz Size sequence of target container
+    @param dims Subscript to convert
 
     @return A linear index pointing to the same element than \c pos.
   **/
   template<typename Size, typename Dims...>
-  detail::unspecified sub2ind(Size const&, Dims const& ... dims);
+  detail::unspecified sub2ind(Size const& sz, Dims const& ... dims);
   #endif
 }
 

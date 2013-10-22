@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_CONSTANT_CONSTANTS_TWOTONMB_HPP_INCLUDED
 #define BOOST_SIMD_CONSTANT_CONSTANTS_TWOTONMB_HPP_INCLUDED
 
@@ -16,52 +13,38 @@
 #include <boost/simd/constant/register.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 
-/*!
- * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_twotonmb Twotonmb
- *
- * \par Description
- * Constant Twotonmb two to the number of mantissa bits.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/twotonmb.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::twotonmb_(A0)>::type
- *     Twotonmb();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Twotonmb
- *
- * \return type T value
- *
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag Twotonmb of functor Twotonmb
-     *        in namespace boost::simd::tag for toolbox boost.simd.constant
-    **/
+   /*!
+     @brief Twotonmb generic tag
+
+     Represents the Twotonmb constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     BOOST_SIMD_CONSTANT_REGISTER( Twotonmb, double, 0
                                 , 0x4B000000, 0x4330000000000000ULL
                                 );
   }
+  /*!
+    Generates two to the number of mantissa bits.
 
+    @par Semantic:
+
+    @code
+    T r = Twotonmb<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = pow(2, Nbmantissabits<T>());
+    @endcode
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Twotonmb, Twotonmb)
 } }
 

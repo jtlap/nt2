@@ -10,10 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_DIAG_OF_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_DIAG_OF_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Defines and implements the diag_of function
-**/
 
 #include <nt2/include/functor.hpp>
 #include <nt2/core/container/dsl/size.hpp>
@@ -26,44 +22,59 @@ namespace nt2
   namespace tag
   {
     /*!
-      @brief Tag for the diag_of functor
+      @brief diag_of generic tag
+
+      Represents the diag_of function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
     struct diag_of_ : ext::elementwise_<diag_of_>
     {
+      /// @brief Parent hierarchy
       typedef ext::elementwise_<diag_of_> parent;
     };
 
-    /*!
-      @brief Tag for the offset_diag_of functor
-    **/
     struct offset_diag_of_ : ext::elementwise_<offset_diag_of_>
     {
+      /// @brief Parent hierarchy
       typedef ext::elementwise_<offset_diag_of_>  parent;
     };
-   }
+  }
 
   /*!
-    @brief Diagonal extraction
+    Extracts diagonal.
 
-    Retrieves the diagonal of an expression. Contrary to diagonal, this
-    is an extarction of data and not a simple masking operation.
+    @par Semantic:
 
-    @param a0 Expression to process
-    @return The diagonal of a0
+    For every matrix expression
+
+    @code
+    auto r = diag_of(a0{, k});
+    @endcode
+
+    Retrieves the k-th sub or super diagonal of an
+    expression. Contrary to diagonal, this is an extraction of data
+    and not a simple masking operation. (k defaults to 0)
+
+    The code is similar to
+
+    @code
+    auto r = tril(triu(a0, k), k);
+    @endcode
+
+    k defaults to 0.
+
+    @see @funcref{from_diag}
+    @param a0
+    @param a1 optional, default to 0
+
+    @return an expression which eventually will evaluate to the result
   **/
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::diag_of_       , diag_of, 1)
 
-  /*!
-    @brief Diagonal extraction with offset
-
-    Retrieves the kth sub or super-diagonal of an expression. Contrary to band,
-    this is an extarction of data and not a simple masking operation.
-
-    @param a0 Expression to process
-    @param a1 Diagonal offset
-    @return The diagonal of a0
-  **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::offset_diag_of_, diag_of, 2)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::diag_of_       , diag_of, 1)
 }
 
 namespace nt2 { namespace ext

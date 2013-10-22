@@ -11,12 +11,46 @@
 
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/sdk/simd/meta/as_simd.hpp>
+#include <boost/dispatch/meta/na.hpp>
+#include <boost/fusion/include/is_sequence.hpp>
+#include <boost/mpl/size_t.hpp>
+#include <boost/utility/enable_if.hpp>
 
-namespace boost { namespace simd { namespace meta
+/* WKRD: for some unknown reason, MSVC seems to require this even if
+ * cardinal_as isn't instantiated */
+#include <boost/simd/sdk/simd/details/native/meta/cardinal_of.hpp>
+
+namespace boost { namespace simd
 {
-  template<class T,class X>
-  struct cardinal_as : cardinal_of< native<T,X> >::type
-  {};
-} } }
+  namespace details
+  {
+    template<class T, class X, class U>
+    struct cardinal_as
+         : meta::cardinal_of< native<T,X> >
+    {
+    };
+
+    template<class T, class X>
+    struct cardinal_as<T, X, typename dispatch::meta::na_>
+         : mpl::size_t<1>
+    {
+    };
+  }
+
+  namespace meta
+  {
+    template<class T, class X, class Enable = void>
+    struct cardinal_as : details::cardinal_as<T, X, typename as_simd<T, X>::type>
+    {};
+
+    template<class T, class X>
+    struct cardinal_as<T, X, typename enable_if< fusion::traits::is_sequence<T> >::type>
+         : meta::cardinal_of< native<T, X> >
+    {
+    };
+  }
+
+} }
 
 #endif

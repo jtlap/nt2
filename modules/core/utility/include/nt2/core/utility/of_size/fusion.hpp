@@ -9,14 +9,15 @@
 #ifndef NT2_CORE_UTILITY_OF_SIZE_FUSION_HPP_INCLUDED
 #define NT2_CORE_UTILITY_OF_SIZE_FUSION_HPP_INCLUDED
 
+
+#include <nt2/core/settings/size.hpp>
+#include <boost/simd/sdk/details/at_iterator.hpp>
+#include <boost/fusion/sequence/intrinsic.hpp>
+#include <boost/fusion/support.hpp>
 #include <boost/mpl/at.hpp>
 #include <boost/mpl/size_t.hpp>
-#include <boost/fusion/support.hpp>
-#include <nt2/core/settings/size.hpp>
-#include <boost/type_traits/is_const.hpp>
-#include <boost/fusion/sequence/intrinsic.hpp>
 #include <boost/type_traits/remove_reference.hpp>
-#include <boost/simd/sdk/details/at_iterator.hpp>
+#include <boost/type_traits/is_const.hpp>
 
 namespace boost { namespace fusion { namespace extension
 {

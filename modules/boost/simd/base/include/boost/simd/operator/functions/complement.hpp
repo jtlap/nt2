@@ -6,65 +6,58 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_COMPLEMENT_HPP_INCLUDED
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_COMPLEMENT_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 #include <boost/proto/tags.hpp>
 
-/*!
- * \ingroup boost_simd_operator
- * \defgroup boost_simd_operator_complement complement
- *
- * \par Description
- * return the bitwise complement of the entry
- * Infix notation can be used with operator '~'
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/complement.hpp>
- * \endcode
- *
- * \par Aliases
- * \arg bitwise_not
- * \arg b_not
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::complement_(A0)>::type
- *     complement(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of complement
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag complement_ of functor complement
-     *        in namespace boost::simd::tag for toolbox boost.simd.operator
-    **/
-    struct complement_ : ext::elementwise_<complement_> { typedef ext::elementwise_<complement_> parent; };
-  }
+   /*!
+     @brief complement generic tag
 
+     Represents the complement function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct complement_ : ext::elementwise_<complement_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<complement_> parent;
+    };
+  }
+  /*!
+    return the bitwise complement of the entry
+    Infix notation can be used with operator '~'
+
+    @par Semantic:
+
+    For every parameter of type T0
+
+    @code
+    T0 r = complement(a0);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = ~a0;
+    @endcode
+
+    @par Alias:
+    @c b_not, @c bitwise_not
+
+    @see  @funcref{bitwise_and}, @funcref{bitwise_or}, @funcref{bitwise_xor}, @funcref{bitwise_notand},
+    @funcref{bitwise_andnot}, @funcref{bitwise_notor}, @funcref{bitwise_ornot}
+    @param a0
+
+    @return a value of the same type as the second parameter
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::complement_ , complement  , 1 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::complement_ , bitwise_not , 1 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::complement_ , b_not       , 1 )

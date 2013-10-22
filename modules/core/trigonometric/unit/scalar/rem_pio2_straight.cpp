@@ -40,7 +40,6 @@ NT2_TEST_CASE_TPL ( rem_pio2_straight_real__1_0,  NT2_REAL_TYPES)
                   );
 
   {
-    r_t res = rem_pio2_straight(nt2::Pio_2<T>());
     T r1;
     NT2_TEST_EQUAL( rem_pio2_straight(nt2::Pio_2<T>(), r1), nt2::One<iT>());
     NT2_TEST_ULP_EQUAL( r1, nt2::Zero<T>(), 0.5);

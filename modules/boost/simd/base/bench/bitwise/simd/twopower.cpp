@@ -27,25 +27,25 @@ using boost::simd::tag::twopower_;
 namespace n1 {
   typedef boost::simd::uint8_t T;
 
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(twopower_,(RS(vT,0,sizeof(T)*8-1)))
 }
 namespace n2 {
   typedef boost::simd::uint16_t T;
 
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(twopower_,(RS(vT,0,sizeof(T)*8-1)))
 }
 namespace n3 {
   typedef boost::simd::uint32_t T;
 
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(twopower_,(RS(vT,0,sizeof(T)*8-1)))
 }
 namespace n4 {
   typedef boost::simd::uint64_t T;
 
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(twopower_,(RS(vT,0,sizeof(T)*8-1)))
 }
 

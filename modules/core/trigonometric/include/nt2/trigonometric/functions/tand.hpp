@@ -6,59 +6,48 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_TAND_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_TAND_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup trigonometric
- * \defgroup trigonometric_tand tand
- *
- * \par Description
- * TODO Put description here
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/tand.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::tand_(A0)>::type
- *     tand(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of tand
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag tand_ of functor tand
-     *        in namespace nt2::tag for toolbox trigonometric
-    **/
+   /*!
+     @brief tand generic tag
+
+     Represents the tand function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct tand_ : ext::elementwise_<tand_> { typedef ext::elementwise_<tand_> parent; };
   }
+  /*!
+    tangent of the input in degrees.
+
+    @par Semantic:
+
+    For every parameter of floating type T0
+
+    @code
+    T0 r = tand(a0);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r =  sind(x)/cosd(x);
+    @endcode
+
+    @see @funcref{fast_tand}, @funcref{tangent}, @funcref{tan}, @funcref{tanpi}
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::tand_, tand, 1)
 }
 
 #endif
 
-// modified by jt the 25/12/2010
+

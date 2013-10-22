@@ -11,51 +11,53 @@
 
 #include <boost/simd/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_boolean
- * \defgroup boost_simd_boolean_seldec seldec
- *
- * \par Description
- * Decrements a value by 1 if a predicate is true.
- *
- * \par Header file
- *
- * \code
- * #seldeclude <nt2/include/functions/seldec.hpp>
- * \endcode
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *   meta::call<tag::seldec_(A0, A1)>::type
- *   seldec(const A0 & a0, const A1 & a1);
- * }
- * \endcode
- *
- * \param a0 the condition that says whether to decrement
- * \param a1 the value to decrement
- *
- * \return a value of the same type as \c a1
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace boost { namespace simd {
   namespace tag
   {
-    /*!
-     * \brief Define the tag seldec_ of functor seldec
-     *        in namespace boost::simd::tag for toolbox boost.simd.boolean
-    **/
-    struct seldec_ : ext::elementwise_<seldec_> { typedef ext::elementwise_<seldec_> parent; };
+   /*!
+     @brief seldec generic tag
+
+     Represents the seldec function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct seldec_ : ext::elementwise_<seldec_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<seldec_> parent;
+    };
   }
+
+  /*!
+    Decrements a value by 1 if a predicate is true.
+
+    @par Semantic:
+
+    For every parameters of types respectively T0, T1:
+
+    @code
+    T1 r = seldec(a0,a1);
+    @endcode
+
+    is similar to:
+
+    @code
+    T1 r = a0 : a1-one : a1;
+    @endcode
+
+    @par Alias:
+    @c ifdec
+
+    @param a0
+
+    @param a1
+
+    @return a value of the same type as the second parameter
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::seldec_, seldec, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::seldec_, ifdec,  2)
 } }
 
 #endif

@@ -7,6 +7,17 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <boost/simd/operator/include/functions/logical_not.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
+
+#include <boost/dispatch/functor/meta/call.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <boost/simd/sdk/config.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+
 #include <boost/simd/include/functions/splat.hpp>
 #include <boost/simd/include/functions/is_less.hpp>
 #include <boost/simd/include/functions/is_greater.hpp>
@@ -16,38 +27,24 @@
 #include <boost/simd/include/functions/is_not_greater.hpp>
 #include <boost/simd/include/functions/is_not_less_equal.hpp>
 #include <boost/simd/include/functions/is_not_greater_equal.hpp>
-#include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/sdk/simd/pack.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
 
-#include <boost/type_traits/is_same.hpp>
-#include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/include/constants/true.hpp>
 #include <boost/simd/include/constants/false.hpp>
+#include <boost/simd/include/constants/true.hpp>
 
 NT2_TEST_CASE_TPL ( logical_not_integer,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
   using boost::simd::logical_not;
   using boost::simd::tag::logical_not_;
   using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
+  typedef native<T,ext_t>                  vT;
   typedef native< boost::simd::logical<T>, ext_t> vlT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<logical_not_(vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  NT2_TEST_EQUAL(logical_not(boost::simd::False<vlT>())[0], boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(logical_not(boost::simd::True<vlT>())[0], boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(logical_not(boost::simd::False<vlT>()), boost::simd::True<r_t>());
+  NT2_TEST_EQUAL(logical_not(boost::simd::True<vlT>()), boost::simd::False<r_t>());
 }
 
 NT2_TEST_CASE_TPL ( logical_not_real,  BOOST_SIMD_SIMD_REAL_TYPES)
@@ -57,19 +54,13 @@ NT2_TEST_CASE_TPL ( logical_not_real,  BOOST_SIMD_SIMD_REAL_TYPES)
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
+  typedef native<T,ext_t>                  vT;
   typedef native< boost::simd::logical<T>, ext_t> vlT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<logical_not_(vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  NT2_TEST_EQUAL(logical_not(boost::simd::False<vlT>())[0], boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(logical_not(boost::simd::True<vlT>())[0], boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(logical_not(boost::simd::False<vlT>()), boost::simd::True<r_t>());
+  NT2_TEST_EQUAL(logical_not(boost::simd::True<vlT>()), boost::simd::False<r_t>());
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( logical_not_optimization,  BOOST_SIMD_SIMD_TYPES)

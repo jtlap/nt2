@@ -37,10 +37,10 @@ NT2_TEST_CASE_TPL ( expinv_1,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(expinv(nt2::Half<T>()),  nt2::Log_2<T>(), 0);
 
   table<T> a = _(T(0), T(0.5), T(5))/T(5);
-  NT2_TEST_ULP_EQUAL(a, nt2::expcdf(expinv(a)), T(2));
+  NT2_TEST_ULP_EQUAL(a, nt2::expcdf(expinv(a)), T(3));
 
   table<T> b = _(T(0), T(0.5), T(10))/T(5);
-  NT2_TEST_ULP_EQUAL(b, nt2::expinv(nt2::expcdf(b)), T(2));
+  NT2_TEST_ULP_EQUAL(b, nt2::expinv(nt2::expcdf(b)), T(3));
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( expinv_2, NT2_REAL_TYPES)

@@ -6,72 +6,61 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_IS_LESS_EQUAL_HPP_INCLUDED
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_IS_LESS_EQUAL_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_operator
- * \defgroup boost_simd_operator_is_less_equal is_less_equal
- *
- * \par Description
- * Returns True<result_type>() or False<result_type>() according a0 is less or equal to a1 or not.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/is_less_equal.hpp>
- * \endcode
- *
- * \par Alias
- * \arg le
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::is_less_equal_(A0,A0)>::type
- *     is_less_equal(const A0 & a0,const A0 & a1);
- * }
- * \endcode
- *
- * \param a0 the first parameter of is_less_equal
- * \param a1 the second parameter of is_less_equal
- *
- * \return an integer value
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- * This is a predicate operation. Such operations return bool in scalar mode,
- * but not in SIMD mode.
- * \par
- * The return type in SIMD mode is the common type of the parameters and is
- * a 'signed boolean' type. This means that in this case True has all its bits
- * sets to one. This is to facilitate masking operations. You are invited to
- * consult the rationale.
- *
-**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag is_less_equal_ of functor is_less_equal
-     *        in namespace boost::simd::tag for toolbox boost.simd.operator
-    **/
-    struct is_less_equal_ : ext::elementwise_<is_less_equal_> { typedef ext::elementwise_<is_less_equal_> parent; };
-  }
+   /*!
+     @brief is_less_equal generic tag
 
+     Represents the is_less_equal function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct is_less_equal_ : ext::elementwise_<is_less_equal_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<is_less_equal_> parent;
+    };
+  }
+  /*!
+    Returns True<result_type>() or False<result_type>() according a0 is less or equal to a1 or not.
+    Infix notation can be used with operator '<='.
+
+    @par Semantic:
+
+    For every parameters of types respectively T0, T1:
+
+    @code
+    as_logical<T0> r = is_less_equal(a0,a1);
+    @endcode
+
+    is similar to:
+
+    @code
+    as_logical<T0> r = a0 <= a1;
+    @endcode
+
+    @par Alias:
+    @c le, @c is_le
+
+    @see  @funcref{is_equal}, @funcref{is_eqz}, @funcref{is_nez}
+    @param a0
+
+    @param a1
+
+    @return a logical value
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_less_equal_, is_less_equal , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_less_equal_, le            , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_less_equal_, is_le         , 2 )
 } }
 
 namespace boost { namespace dispatch { namespace meta

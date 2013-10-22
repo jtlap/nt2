@@ -6,75 +6,56 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_REDUCTION_FUNCTIONS_ANY_HPP_INCLUDED
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_ANY_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_reduction
- * \defgroup boost_simd_reduction_any any
- *
- * \par Description
- * returns true if at least one element of the input vector is non zero.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/any.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::any_(A0)>::type
- *     any(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of any
- *
- * \return always a scalar value
- *
- * \par Notes
- * \par
- * This is a reduction operation. As such it has no real interest outside
- * SIMD mode.
- * \par
- * Such an operation always has a scalar result which translate a property
- * of the whole SIMD vector.
- * \par
- * If usable and used in scalar mode, it reduces to the operation as acting
- * on a one element vector.
- *
-**/
-
 namespace boost { namespace simd
 {
   namespace tag
   {
+   /*!
+     @brief any generic tag
+
+     Represents the any function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct logical_or_;
     struct False;
 
-    /*!
-     * \brief Define the tag any_ of functor any
-     *        in namespace boost::simd::tag for toolbox boost.simd.reduction
-    **/
     struct any_ : ext::reduction_<any_, tag::logical_or_, tag::False>
     {
+      /// @brief Parent hierarchy
       typedef ext::reduction_<any_, tag::logical_or_, tag::False> parent;
     };
   }
+  /*!
+    Returns true if at least one element of the input vector is non zero.
+
+    @par Semantic:
+
+    For every parameter of type T0
+
+    @code
+    logical<scalar_of<T0>> r = any(a0);
+    @endcode
+
+    is similar to:
+
+    @code
+    logical<scalar_of<T0>> r = False;
+    for(result_type i = 0; i != cardinal_of<T0>; ++i)
+      if (a0[i]) {r =  True; break; }
+    @endcode
+
+    @param a0
+
+    @return a value of the scalar type associated to the parameter
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::any_, any, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::any_, any, 2)
 } }
-
-
 #endif

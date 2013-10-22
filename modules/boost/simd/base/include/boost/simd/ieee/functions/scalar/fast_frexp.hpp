@@ -8,46 +8,71 @@
 //==============================================================================
 #ifndef BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_FAST_FREXP_HPP_INCLUDED
 #define BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_FAST_FREXP_HPP_INCLUDED
+
 #include <boost/simd/ieee/functions/fast_frexp.hpp>
 #include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/fusion/include/std_pair.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <math.h>
+#include <boost/simd/sdk/config/compiler.hpp>
+#include <boost/simd/sdk/math.hpp>
+#include <cmath>
 
 namespace boost { namespace simd { namespace ext
 {
-  /// INTERNAL ONLY - map to ::frexp
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::fast_frexp_, tag::cpu_
-                                    , (A0)(A2)
-                                    , (scalar_< double_<A0> >)
-                                      (scalar_< double_<A0> >)
-                                      (scalar_< int64_<A2> >)
-                                    )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::fast_frexp_, tag::cpu_
+                                      , (A0)(A2)
+                                      , ( boost::is_same
+                                          < typename dispatch::meta::
+                                                     as_integer<A0,signed>::type
+                                          , A2
+                                          >
+                                        )
+                                      , (scalar_< floating_<A0> >)
+                                        (scalar_< floating_<A0> >)
+                                        (scalar_< integer_<A2> >)
+                                      )
   {
     typedef void result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,A0 & a1,A2 & a2) const
     {
-      boost::simd::int32_t r = 0;
-      a1 = ::frexp(a0, &r);
-      a2 = r;
+      a1 = boost::simd::fast_frexp(a0, a2);
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::fast_frexp_, tag::cpu_
-                                    , (A0)(A2)
-                                    , (scalar_< single_<A0> >)
-                                      (scalar_< single_<A0> >)
-                                      (scalar_< int32_<A2> >)
-                                    )
+  // frexpf appears to be buggy on GCC 4.6.3
+  #if defined(BOOST_SIMD_HAS_FREXPF) && !(defined(__GNUC__) && BOOST_SIMD_GCC_VERSION < 40700)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_frexp_, tag::cpu_
+                                   , (A0)(A2)
+                                   , (scalar_< single_<A0> >)
+                                     (scalar_< int32_<A2> >)
+                                   )
   {
-    typedef void result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0,A0 & a1,A2 & a2) const
+    typedef A0 result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0,A2 & a2) const
     {
-      a2 = 0;
-      a1 = ::frexpf(a0, &a2);
+      return ::frexpf(a0, &a2);
     }
   };
+  #endif
+
+  #ifdef BOOST_SIMD_HAS_FREXP
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_frexp_, tag::cpu_
+                                   , (A0)(A2)
+                                   , (scalar_< double_<A0> >)
+                                     (scalar_< int64_<A2> >)
+                                   )
+  {
+    typedef A0 result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0,A2 & a2) const
+    {
+      int r;
+      A0 that = ::frexp(a0, &r);
+      a2 = r;
+      return that;
+    }
+  };
+  #endif
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::fast_frexp_, tag::cpu_
                                       , (A0)(A2)
@@ -64,9 +89,10 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,A2 & a2) const
     {
-      A0 a1;
-      boost::simd::fast_frexp(a0, a1, a2);
-      return a1;
+      int r;
+      A0 that = std::frexp(a0, &r);
+      a2 = r;
+      return that;
     }
   };
 

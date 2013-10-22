@@ -16,14 +16,35 @@ namespace nt2
 {
   namespace tag
   {
+   /*!
+     @brief Pix2_3 generic tag
+
+     Represents the Pix2_3 constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     // 12.56637061
     BOOST_SIMD_CONSTANT_REGISTER( Pix2_3, double
                                 , 1, 0x31885a30
                                 , 0x3bc3198a2e037073ll//3b498a2e03707345ll
                                 );
   }
+  /*!
+    Constant used in modular computation involving \f$\pi\f$
 
+    @par Semantic:
+
+    For type T0:
+
+    @code
+    T0 r = Pix2_3<T0>();
+    @endcode
+
+    @return a value of type T0
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Pix2_3, Pix2_3);
 }
 
 #endif
+

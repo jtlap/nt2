@@ -83,7 +83,7 @@ has not to match dimensions exactly, but only the total number of elements matte
     [[NT2]                      [Matlab]]
     [[`a(2)            = 25;                   `] [`a(2)         = 25              `]]
     [[`a(_(2,2,6))     = a(_(3,2,7));          `] [`a(2:2:6)     = a(3:2:7)        `]]
-    [[`a(_(1,2,end))   = 12;                   `] [`a(1:2:end)   = 12              `]]
+    [[`a(_(1,2,end_))  = 12;                   `] [`a(1:2:end)   = 12              `]]
     [[`a(cons(3,7,2,2))= cons(6.0, 19.0, 23.0, 14.0);  `] [`a([3,7,2,2]) = [6, 19, 23, 14] `]]
     [[`a(_)            = _(24.0, -1.0, 1.0);   `] [`a(:)         = 24:-1:1         `]]
     [[`a(a>5.0)        = a(a>5.0)*2;           `] [`a(a>5)       = a(a>5)*2        `]]
@@ -95,7 +95,7 @@ In Matlab and NT2 we can suppress elements of a matrix by affecting to them the 
 
 [table:id More matrices indexations
     [[NT2]                      [Matlab]]
-    [[`a(2,:) = [];`] [`a(2,_) = _()`]]
+    [[`a(2,_) = _();`] [`a(2,:) = []`]]
 ]
 
 In this fashion, it is only possible to suppress gridded parts of a matrix where all indices but one is `_`, to leave

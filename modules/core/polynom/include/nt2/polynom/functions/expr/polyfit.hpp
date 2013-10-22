@@ -46,7 +46,7 @@ namespace nt2 {
   namespace ext
   {
     //============================================================================
-    // This version of balance is called whenever a tie(...) = balance(...) is captured
+    // This version of polyfit is called whenever a tie(...) = balance(...) is captured
     // before assign is resolved. As a tieable function, balance retrieves rhs/lhs
     // pair as inputs
     //============================================================================

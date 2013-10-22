@@ -32,14 +32,14 @@ using boost::simd::tag::lookup_;
 namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   typedef boost::simd::native<iT,ext_t> viT;
   NT2_TIMING(lookup_,(RS(vT,T(-100),T(100)))(RS(viT,0,boost::simd::meta::cardinal_of<T>::value-1)))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   typedef boost::simd::native<iT,ext_t> viT;
   NT2_TIMING(lookup_,(RS(vT,T(-100),T(100)))(RS(viT,0,boost::simd::meta::cardinal_of<T>::value-1)))
 }

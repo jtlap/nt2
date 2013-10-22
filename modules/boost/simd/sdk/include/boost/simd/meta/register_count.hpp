@@ -6,13 +6,13 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_SDK_META_REGISTER_COUNT_HPP_INCLUDED
-#define BOOST_SIMD_SDK_META_REGISTER_COUNT_HPP_INCLUDED
+#ifndef BOOST_SIMD_META_REGISTER_COUNT_HPP_INCLUDED
+#define BOOST_SIMD_META_REGISTER_COUNT_HPP_INCLUDED
 
 #include <boost/mpl/size_t.hpp>
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/simd/pack/forward.hpp>
-#include <boost/simd/sdk/simd/extensions/extensions.hpp>
+#include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 
 namespace boost { namespace simd { namespace meta

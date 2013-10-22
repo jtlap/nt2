@@ -19,7 +19,7 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
-NT2_TEST_CASE_TPL( split, BOOST_SIMD_SPLITABLE_TYPES )
+NT2_TEST_CASE_TPL( split, BOOST_SIMD_SIMD_SPLITABLE_TYPES )
 {
   using nt2::splat;
   using nt2::split;

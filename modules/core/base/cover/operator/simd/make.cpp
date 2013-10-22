@@ -28,7 +28,7 @@
 //COMMENTED
 
 
-NT2_TEST_CASE_TPL ( make_real__2_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( make_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
 //   using nt2::make;
 //   using nt2::tag::make_;

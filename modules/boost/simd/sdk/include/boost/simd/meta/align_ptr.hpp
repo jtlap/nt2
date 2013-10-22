@@ -11,12 +11,13 @@
 #define BOOST_SIMD_META_ALIGN_PTR_HPP_INCLUDED
 
 #include <boost/simd/preprocessor/parameters.hpp>
-#include <boost/simd/sdk/config/compiler.hpp>
 #include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
+#include <boost/simd/preprocessor/aligned_type.hpp>
+#include <boost/simd/preprocessor/assume_aligned.hpp>
 
 namespace boost { namespace simd {  namespace meta
 {
-  #if defined(DOXYGEN_ONLY)
+#if defined(DOXYGEN_ONLY)
   /*!
     @brief Apply alignment attribute to type
 
@@ -55,92 +56,30 @@ namespace boost { namespace simd {  namespace meta
   template<typename T, std::size_t Alignment = BOOST_SIMD_CONFIG_ALIGNMENT>
   struct align_ptr
   {
-    typedef unspecified_pointer_type type;
+    typedef details::unspecified type;
   };
-  #else
+#else
   template<typename T, std::size_t Alignment = BOOST_SIMD_CONFIG_ALIGNMENT>
   struct align_ptr;
-  #endif
-
-#if defined(__INTEL_COMPILER)
-
-#define M0(z,n,t)                                                              \
-template<typename T>                                                           \
-struct align_ptr<T,n>                                                          \
-{                                                                              \
-  typedef T __attribute__ (( aligned ((n)) )) base;                            \
-  typedef base*                               type;                            \
-                                                                               \
-  static type value(T* const pointer)                                          \
-  {                                                                            \
-    __assume_aligned(pointer, n);                                              \
-    return static_cast<type>(pointer);                                         \
-  }                                                                            \
-};                                                                             \
-/**/
-
-  BOOST_SIMD_PP_REPEAT_POWER_OF_2(M0, ~)
-
-#undef M0
-
-#elif defined(BOOST_SIMD_COMPILER_GCC_LIKE)
-
-  template<typename T, std::size_t Alignment>
-  struct align_ptr
-  {
-    #if (BOOST_SIMD_GCC_VERSION >= 40300) || defined(__clang__)
-    typedef T __attribute__ (( aligned ((Alignment)) )) base;
-    #else
-    typedef T                                           base;
-    #endif
-
-    typedef base*                               type;
-
-    static type value(T* const pointer)
-    {
-      #if (BOOST_SIMD_GCC_VERSION >= 40700)
-      return static_cast<type>(__builtin_assume_aligned(pointer, Alignment));
-      #else
-      return static_cast<type>(pointer);
-      #endif
-    }
-  };
-
-#elif defined(BOOST_SIMD_COMPILER_MSVC)
-
-#define M0(z,n,t)                                                              \
-template<typename T>                                                           \
-struct align_ptr<T,n>                                                          \
-{                                                                              \
-  typedef T __declspec(align(n))  base;                                        \
-  typedef base*                   type;                                        \
-                                                                               \
-  static type value(T* const pointer)                                          \
-  {                                                                            \
-    __assume((std::size_t)(pointer) % n == 0);                                 \
-    return static_cast<type>(pointer);                                         \
-  }                                                                            \
-};                                                                             \
-/**/
-
-  BOOST_SIMD_PP_REPEAT_POWER_OF_2(M0, ~)
-
-#undef M0
-
-#else
-
-  template<typename T, std::size_t Alignment>
-  struct align_ptr;
-  {
-    typedef T* type
-
-    static type value(T* const pointer)
-    {
-      return static_cast<type>(pointer);
-    }
-  };
-
 #endif
+
+#define M0(z,n,t)                                                              \
+template<typename T> struct align_ptr<T,n>                                     \
+{                                                                              \
+  typedef BOOST_SIMD_ALIGNED_TYPE_ON_TPL(T,n) base;                            \
+  typedef base*                           type;                                \
+                                                                               \
+  static type value(T* pointer)                                                \
+  {                                                                            \
+    BOOST_SIMD_ASSUME_ALIGNED(pointer,n);                                      \
+    return static_cast<type>(pointer);                                         \
+  }                                                                            \
+};                                                                             \
+/**/
+
+  BOOST_SIMD_PP_REPEAT_POWER_OF_2(M0, ~)
+
+#undef M0
 
 } } }
 

@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_SWAR_FUNCTIONS_CUMTRAPZ_HPP_INCLUDED
 #define BOOST_SIMD_SWAR_FUNCTIONS_CUMTRAPZ_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
@@ -17,72 +14,83 @@
 #include <boost/simd/constant/constants/one.hpp>
 
 
-/*!
- * \ingroup boost_simd_swar
- * \defgroup boost_simd_swar_cumtrapz cumtrapz
- *
- * \par Description
- * compute the cumulate trapz of the vector elements using the abscissae differences
- * is they are given
- *  z = cumtrapz(y) computes an approximation of the cumulative
- *  integral of y via the trapezoidal method (with unit spacing).  to
- *  compute the integral for spacing different from one, multiply z by
- *  the spacing incrementor use cumtrapz(dx, y) where dx is the abscisae
- *  constant and SCALAR increment.
- *
- *  for vectors, cumtrapz(y) is a vector containing the cumulative
- *  integral of y. for matrices, cumtrapz(y) is a matrix the same size as
- *  x with the cumulative integral over each column. for n-d arrays,
- *  cumtrapz(y) works along the first non-singleton dimension.
- *
- *  z = cumtrapz(x,y) computes the cumulative integral of y with respect
- *  to x using trapezoidal integration.  x and y must be vectors of the
- *  same length, or x must be a column vector and y an array whose first
- *  non-singleton dimension is length(x).  cumtrapz operates across this
- *  dimension.
- *  if x is scalar the increment is considered constant and of value x.
- *  (A 1x1 matrix expression is not a scalar)
- *
- *  z = cumtrapz(x,y,dim) or cumtrapz(y,dim) integrates along dimension
- *  dim of y. the length of x must be the same as size(y,dim)).
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/cumtrapz.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::cumtrapz_(A0)>::type
- *     cumtrapz(const A0 & x, const A1 & y, const A2 & dim);
- * }
- * \endcode
- *
- *
-**/
 
 namespace boost { namespace simd { namespace tag
   {
-    /*!
-     * \brief Define the tag cumtrapz_ of functor cumtrapz
-     *        in namespace boost::simd::tag for toolbox boost.simd.swar
-    **/
+   /*!
+     @brief cumtrapz generic tag
+
+     Represents the cumtrapz function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct cumtrapz_ : tag::formal_
     {
+      /// @brief Parent hierarchy
       typedef tag::formal_ parent;
     };
   }
+  /*!
+    Computes the cumulate trapz of the vector elements using the abscissae differences
+    is they are given
+    z = cumtrapz(y) computes an approximation of the cumulative
+    integral of y via the trapezoidal method (with unit spacing).  to
+    compute the integral for spacing different from one, multiply z by
+    the spacing increment or use cumtrapz(dx, y) where dx is the abscisae
+    constant and SCALAR increment.
+
+    @par Semantic:
+
+    For every h of scalar type T0 and y of type T1:
+
+    @code
+    T0 r = cumtrapz(h, y);
+    @endcode
+
+    is similar to:
+
+    @code
+    T r(0] = zero;
+    for(int i=1;i < size(x); ++i)
+      r[i] = r[i-1]+(y[i-1]+y[i])*h*half;
+    @endcode
+
+    @param a0
+
+    @param a1
+
+    @return a value of the same type as the second parameter
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::cumtrapz_, cumtrapz, 1)
+  /*!
+    Computes the cumulate trapz of the vector elements using the abscissae differences
+    is they are given
+    z = cumtrapz(y) computes an approximation of the cumulative
+    integral of y via the trapezoidal method (with unit spacing).
+
+    @par Semantic:
+
+    For every  y of type T0:
+
+    @code
+    T0 r = cumtrapz(y);
+    @endcode
+
+    is similar to:
+
+    @code
+    T r(0] = zero;
+    for(int i=1;i < size(x); ++i)
+      r[i] += (y[i-1]+y[i])*half;
+    @endcode
+
+    @param a0
+
+    @return a value of the same type as the second parameter
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::cumtrapz_, cumtrapz, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::cumtrapz_, cumtrapz, 3)
 } }
 
 #endif
-
-// modified by jt the 25/12/2010

@@ -8,12 +8,12 @@
 //==============================================================================
 #ifndef NT2_COMBINATORIAL_FUNCTIONS_SCALAR_LCM_HPP_INCLUDED
 #define NT2_COMBINATORIAL_FUNCTIONS_SCALAR_LCM_HPP_INCLUDED
+
 #include <nt2/combinatorial/functions/lcm.hpp>
-#include <nt2/include/functions/divs.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/gcd.hpp>
-#include <nt2/include/functions/scalar/trunc.hpp>
-#include <nt2/include/functions/scalar/is_invalid.hpp>
+//#include <nt2/include/functions/scalar/trunc.hpp>
+//#include <nt2/include/functions/scalar/is_invalid.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-     return nt2::abs(a0*rdivide(a1,gcd(a0,a1)));
+     return nt2::abs(a0 * (a1 / gcd(a0, a1 ? a1 : A0(1))));
     }
   };
 } }

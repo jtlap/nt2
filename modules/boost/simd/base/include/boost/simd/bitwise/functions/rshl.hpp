@@ -39,10 +39,11 @@ namespace boost { namespace simd { namespace tag
     T r = rshl(x, n);
     @endcode
 
+    @see  @funcref{rshr}, @funcref{shr}, @funcref{shl}
     @param  a0
     @param  a1
 
-    @return      a value of the same type as the input.
+    @return      a value of the same type as the first input.
 
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::rshl_, rshl, 2)

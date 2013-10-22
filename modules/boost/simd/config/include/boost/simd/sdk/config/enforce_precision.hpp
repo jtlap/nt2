@@ -11,6 +11,7 @@
 #define BOOST_SIMD_SDK_CONFIG_ENFORCE_PRECISION_HPP_INCLUDED
 
 #include <boost/simd/sdk/config/arch.hpp>
+#include <boost/dispatch/meta/ignore_unused.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
@@ -45,10 +46,19 @@ namespace boost { namespace simd { namespace config
     BOOST_FORCEINLINE unsigned short x87_get_control_word()
     {
     #ifdef _MSC_VER
-      return _control87(0, 0);
+      #ifndef BOOST_SIMD_ARCH_X86_64
+      unsigned short cw;
+      __asm {
+        fnstcw cw
+      }
+      return cw;
+      #else
+      // FIXME: MSVC x64 doesn't support inline ASM
+      return 0;
+      #endif
     #elif defined(__GNUC__)
       unsigned short cw;
-      __asm__ __volatile__ ("fstcw %w0" : "=m" (cw));
+      __asm__ __volatile__ ("fnstcw %w0" : "=m" (cw));
       return cw;
     #else
       #error unsupported compiler to manage x87 floating-point control word
@@ -58,7 +68,14 @@ namespace boost { namespace simd { namespace config
     BOOST_FORCEINLINE void x87_set_control_word(unsigned short cw)
     {
     #ifdef _MSC_VER
-      _control87(cw, 0xFFFF);
+      #ifndef BOOST_SIMD_ARCH_X86_64
+      __asm {
+        fldcw cw
+      }
+      #else
+      // FIXME: MSVC x64 doesn't support inline ASM
+      boost::dispatch::ignore_unused(cw);
+      #endif
     #elif defined(__GNUC__)
       __asm__ __volatile__ ("fldcw %0" : : "m" (cw));
     #else

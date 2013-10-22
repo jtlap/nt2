@@ -6,71 +6,51 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef BOOST_SIMD_REDUCTION_FUNCTIONS_NONE_HPP_INCLUDED
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_NONE_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup boost_simd_reduction
- * \defgroup boost_simd_reduction_none none
- *
- * \par Description
- * returns true if all elements of the input vector are zero.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/none.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::none_(A0)>::type
- *     none(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of none
- *
- * \return always a scalar value
- *
- * \par Notes
- * \par
- * This is a reduction operation. As such it has no real interest outside
- * SIMD mode.
- * \par
- * Such an operation always has a scalar result which translate a property
- * of the whole SIMD vector.
- * \par
- * If usable and used in scalar mode, it reduces to the operation as acting
- * on a one element vector.
- *
-**/
-
 namespace boost { namespace simd
 {
   namespace tag
   {
-    /*!
-     * \brief Define the tag none_ of functor none
-     *        in namespace boost::simd::tag for toolbox boost.simd.reduction
-    **/
+   /*!
+     @brief none generic tag
+
+     Represents the none function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
     struct none_ : dispatch::tag::formal_
     {
+      /// @brief Parent hierarchy
       typedef dispatch::tag::formal_ parent;
     };
   }
+  /*!
+    Returns True if all elements of the input vector are zero.
+
+    @par Semantic:
+
+    For every parameter of type T0
+
+    @code
+    as_logical<scalar_of<T0>> r = none(a0);
+    @endcode
+
+    is similar to:
+
+    @code
+    as_logical<scalar_of<T0>> r = !any(a0);
+    @endcode
+
+    @param a0
+
+    @return a value of the scalar logical type associated to the parameter
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::none_, none, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::none_, none, 2)
 } }
-
 #endif

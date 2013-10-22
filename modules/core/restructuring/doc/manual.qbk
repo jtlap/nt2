@@ -1,0 +1,9 @@
+[library Restructuring Functions
+  [quickbook 1.5]
+]
+
+[section Overview]
+This module provides implementation of container restructuring functions.
+[endsect]
+
+[xinclude reference.xml]

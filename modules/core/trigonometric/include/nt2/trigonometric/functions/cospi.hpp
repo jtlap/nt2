@@ -6,59 +6,52 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_COSPI_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_COSPI_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup trigonometric
- * \defgroup trigonometric_cospi cospi
- *
- * \par Description
- * cosine of angle in \f$\pi\f$ multiples: \f$\cos(\pi a_0)\f$.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/cospi.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::cospi_(A0)>::type
- *     cospi(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of cospi
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag cospi_ of functor cospi
-     *        in namespace nt2::tag for toolbox trigonometric
-    **/
-    struct cospi_ : ext::elementwise_<cospi_> { typedef ext::elementwise_<cospi_> parent; };
+   /*!
+     @brief cospi generic tag
+
+     Represents the cospi function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct cospi_ : ext::elementwise_<cospi_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<cospi_> parent;
+    };
   }
+  /*!
+    cosine of angle in \f$\pi\f$ multiples.
+
+    @par Semantic:
+
+    For every parameter of floating type T0
+
+    @code
+    T0 r = cospi(x);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r = cos(Pi<T0>()*x);;
+    @endcode
+
+    @see @funcref{fast_cospi}, @funcref{sincospi}, @funcref{cos}, @funcref{cosd}
+    @param a0
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::cospi_, cospi, 1)
 }
 
 #endif
 
-// modified by jt the 25/12/2010
+

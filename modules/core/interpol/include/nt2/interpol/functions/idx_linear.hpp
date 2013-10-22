@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_INTERPOL_FUNCTIONS_IDX_LINEAR_HPP_INCLUDED
 #define NT2_INTERPOL_FUNCTIONS_IDX_LINEAR_HPP_INCLUDED
 
@@ -18,44 +15,63 @@
 #include <nt2/core/container/dsl/value_type.hpp>
 #include <boost/mpl/bool.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
-/*!
- * \ingroup interpol
- * \defgroupinterpol_idx_linear idx_linear
- *
- * \par Description
- * one dimensional idx_linear interpolation
- * given an array a and a vector idx of "real" indices
- * provides the interpolated values along the a rows
- * by linear formula.
- * calls can be idx_linear(a, idx)
- *              idx_linear(a, idx, true) allowing extrapolation
- *              idx_linear(a, idx, val1) putting val1 outside the bounds
- *              idx_linear(a, idx, val1, val2)}, putting val1 under the index bounds val2 ovr
- *              idx_linear(a, idx, _, dim) dim is the dimension of interpolation firstnonsingletopn of xi by default
- *              idx_linear(a, idx, val1, dim)
- *              idx_linear(a, idx, val1, val2, dim) can also be used
- * \par
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/idx_linear.hpp>
- * \endcode
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag idx_linear_ of functor idx_linear
-     *        in namespace nt2::tag for toolbox statistics
-    **/
-    struct idx_linear_ : ext::unspecified_<idx_linear_> { typedef ext::unspecified_<idx_linear_> parent; };
+   /*!
+     @brief idx_linear generic tag
+
+     Represents the idx_linear function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct idx_linear_ : ext::unspecified_<idx_linear_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::unspecified_<idx_linear_> parent;
+    };
   }
-  NT2_FUNCTION_IMPLEMENTATION(tag::idx_linear_, idx_linear, 2)
-  NT2_FUNCTION_IMPLEMENTATION(tag::idx_linear_, idx_linear, 3)
-  NT2_FUNCTION_IMPLEMENTATION(tag::idx_linear_, idx_linear, 4)
+  /*!
+    one dimensional linear interpolation along a dimension
+
+    given an ordered array a of increasing values and a vector idx of
+    "real" indices provides the interpolated values along the a chosen
+    direction in the array by linear formula.
+
+    @par Semantic:
+
+    calls can be of the forms:
+
+      - idx_linear(a, idx)
+      - idx_linear(a, idx, true) allowing extrapolation
+      - idx_linear(a, idx, val1) putting val1 outside the bounds
+      - idx_linear(a, idx, val1, val2)}, putting val1 under the index bounds val2 over
+      - idx_linear(a, idx, _, dim) dim is the dimension of interpolation (firstnonsingleton of xi by default)
+      - idx_linear(a, idx, val1, dim)
+      - idx_linear(a, idx, val1, val2, dim)
+
+      typically if a is a vector and  x is a value situated between i and i+1 the result is
+      @code
+      a(i)*(x-i)+a(i+1)*(i+1-x)
+      @endcode
+
+    @param a0
+    @param a1
+    @param a2
+    @param a3
+    @param a4
+
+    @return a value of the same type as the parameter
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::idx_linear_, idx_linear, 5)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(tag::idx_linear_, idx_linear, 2)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(tag::idx_linear_, idx_linear, 3)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(tag::idx_linear_, idx_linear, 4)
+
 }
 
 namespace nt2 { namespace ext
