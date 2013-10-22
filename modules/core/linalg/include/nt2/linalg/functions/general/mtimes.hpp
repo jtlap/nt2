@@ -279,7 +279,7 @@ namespace nt2 { namespace ext
                             )
   {
     BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1),
-      mtimes(boost::proto::child_c<0>(a1), boost::proto::child_c<1>(a1), boost::proto::child_c<2>(a1), a0 * boost::proto::child_c<3>(a1), boost::proto::child_c<4>(a1), boost::proto::child_c<5>(a1))
+      mtimes(boost::proto::child_c<0>(a1), boost::proto::child_c<1>(a1), boost::proto::child_c<2>(a1), a0 * boost::proto::value(boost::proto::child_c<3>(a1)), boost::proto::child_c<4>(a1), boost::proto::child_c<5>(a1))
     )
   };
 
@@ -290,7 +290,7 @@ namespace nt2 { namespace ext
                             )
   {
     BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1),
-      mtimes(boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a0), boost::proto::child_c<2>(a0), a1 * boost::proto::child_c<3>(a0), boost::proto::child_c<4>(a0), boost::proto::child_c<5>(a0))
+      mtimes(boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a0), boost::proto::child_c<2>(a0), a1 * boost::proto::value(boost::proto::child_c<3>(a0)), boost::proto::child_c<4>(a0), boost::proto::child_c<5>(a0))
     )
   };
 
