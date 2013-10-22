@@ -20,6 +20,7 @@
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/dispatch/meta/print.hpp>
 #include <boost/dispatch/meta/any.hpp>
+#include <boost/dispatch/meta/enable_if_type.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/proto/traits.hpp>
@@ -71,10 +72,12 @@ namespace boost { namespace simd { namespace ext
   #define M5(z,n,t) typename vector_on_ext< typename meta::scalar_of<A##n>::type, N, X >::type
   #define M6(z,n,t) splat<M5(z,n,t)>(a##n)
   #define M7(z,n,t) BOOST_PP_EXPR_IF(n, ||) (meta::cardinal_of<A##n>::value == 1u)
+  #define M8(z,n,t) typename meta::scalar_of<A##n>::type
 
   #define BOOST_PP_ITERATION_PARAMS_1 (3, ( 1, BOOST_DISPATCH_MAX_ARITY, "boost/simd/operator/specific/common.hpp"))
   #include BOOST_PP_ITERATE()
 
+  #undef M8
   #undef M7
   #undef M6
   #undef M5
@@ -94,77 +97,94 @@ namespace boost { namespace simd { namespace ext
 #else
 #define n BOOST_PP_ITERATION()
 
-  BOOST_SIMD_REGISTER_DISPATCH_IF( elementwise_<Tag> , tag::formal_
-                             , (Tag)BOOST_PP_REPEAT(n,M0,~)
-                             , (mpl::not_< any <  mpl::or_
-                                                  < boost::proto::
-                                                    is_expr<mpl::_>
-                                                  , boost::dispatch::
-                                                    meta::is_proxy<mpl::_>
-                                                  >
-                                               , BOOST_PP_ENUM_PARAMS(n,A)
-                                               >
-                                          >
-                                )
-                             , BOOST_PP_REPEAT(n,M1,~)
-                             )
-
-  template<BOOST_PP_ENUM_PARAMS(n,class A),class Tag, class Dummy>
-  struct implement< elementwise_<Tag>( BOOST_PP_ENUM(n,M2,~) )
-                  , tag::formal_, Dummy
-                  >
+  template<BOOST_PP_ENUM_PARAMS(n, class A), class X, std::size_t N, class Callee, class Result = boost::dispatch::meta::result_of<Callee(BOOST_PP_ENUM(n, M5, ~))>, class Enable = void>
+  struct BOOST_PP_CAT(splat_impl, n)
   {
-    typedef BOOST_DISPATCH_FOLD(n, typename ext_common<, >::type, M3, ~) X;
-    static const std::size_t N = BOOST_DISPATCH_FOLD(n, cardinal_common<, >::value, M4, ~);
-    static const bool is_splat_case =    N != 1
-                                      && !is_same<X, dispatch::meta::na_>::value
-                                      && (BOOST_PP_REPEAT(n, M7, ~));
+  };
 
-    template<bool B, class Dummy2 = void>
-    struct splat_or_map
-    {
-      typedef typename boost::dispatch::meta::
-      dispatch_call<Tag(BOOST_PP_ENUM(n, M5, ~))>::type Callee;
-
-      typedef typename boost::dispatch::meta::
-      result_of<Callee(BOOST_PP_ENUM(n, M5, ~))>::type type;
-
-      BOOST_FORCEINLINE static type
-      call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const & a))
-      {
-        return Callee()(BOOST_PP_ENUM(n, M6, ~));
-      }
-    };
-
-    template<class Dummy2>
-    struct splat_or_map<false, Dummy2>
-    {
-      BOOST_SIMD_MAP_LOG(Tag)
-
-      typedef typename boost::dispatch::meta::
-         call<tag::map_ ( dispatch::functor<Tag>
-                        , BOOST_PP_ENUM_BINARY_PARAMS(n, A, const & BOOST_PP_INTERCEPT)
-                        )
-             >::type
-      type;
-
-      BOOST_FORCEINLINE static type
-      call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const & a))
-      {
-        return boost::simd::
-               map( dispatch::functor<Tag>(), BOOST_PP_ENUM_PARAMS(n, a) );
-      }
-    };
-
-    typedef splat_or_map<is_splat_case> impl;
-    typedef typename impl::type result_type;
+  template<BOOST_PP_ENUM_PARAMS(n, class A), class X, std::size_t N, class Callee, class Result>
+  struct BOOST_PP_CAT(splat_impl, n)<BOOST_PP_ENUM_PARAMS(n, A), X, N, Callee, Result, typename boost::dispatch::meta::enable_if_type<typename Result::type>::type>
+  {
+    typedef typename Result::type result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const & a)) const
     {
-      return impl::call(BOOST_PP_ENUM_PARAMS(n, a));
+      return Callee()(BOOST_PP_ENUM(n, M6, ~));
     }
   };
+
+  template<class Tag, BOOST_PP_ENUM_PARAMS(n, class A), class X, std::size_t N, bool B = N != 1
+                                      && !is_same<X, dispatch::meta::na_>::value
+                                      && (BOOST_PP_REPEAT(n, M7, ~))>
+  struct BOOST_PP_CAT(splat_or_map_choose, n);
+
+  template<class Tag, BOOST_PP_ENUM_PARAMS(n, class A), class X, std::size_t N>
+  struct BOOST_PP_CAT(splat_or_map_choose, n)<Tag, BOOST_PP_ENUM_PARAMS(n, A), X, N, true>
+       : BOOST_PP_CAT(splat_impl, n)< BOOST_PP_ENUM_PARAMS(n, A)
+                                    , X, N
+                                    , typename boost::dispatch::meta::
+                                      dispatch_call<Tag(BOOST_PP_ENUM(n, M5, ~))>::type
+                                    >
+  {
+  };
+
+  template<class Tag, BOOST_PP_ENUM_PARAMS(n, class A), class SResult, class Enable = void>
+  struct BOOST_PP_CAT(map_impl, n)
+  {
+  };
+
+  template<class Tag, BOOST_PP_ENUM_PARAMS(n, class A), class SResult>
+  struct BOOST_PP_CAT(map_impl, n)<Tag, BOOST_PP_ENUM_PARAMS(n, A), SResult, typename boost::dispatch::meta::enable_if_type<typename SResult::type>::type>
+  {
+    BOOST_SIMD_MAP_LOG(Tag)
+
+    typedef typename boost::dispatch::meta::
+            call<tag::map_( boost::dispatch::functor<Tag>
+                          , BOOST_PP_ENUM_BINARY_PARAMS(n, A, const & BOOST_PP_INTERCEPT)
+                          )
+                >::type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const & a)) const
+    {
+      return map( dispatch::functor<Tag>(), BOOST_PP_ENUM_PARAMS(n, a) );
+    }
+  };
+
+  template<class Tag, BOOST_PP_ENUM_PARAMS(n, class A), class X, std::size_t N>
+  struct BOOST_PP_CAT(splat_or_map_choose, n)<Tag, BOOST_PP_ENUM_PARAMS(n, A), X, N, false>
+       : BOOST_PP_CAT(map_impl, n)< Tag, BOOST_PP_ENUM_PARAMS(n, A)
+                                  , boost::dispatch::meta::
+                                    call<Tag(BOOST_PP_ENUM(n, M8, ~))>
+                                  >
+  {
+  };
+
+  template<class Tag, BOOST_PP_ENUM_PARAMS(n, class A)>
+  struct BOOST_PP_CAT(splat_or_map, n)
+       : BOOST_PP_CAT(splat_or_map_choose, n)< Tag, BOOST_PP_ENUM_PARAMS(n, A)
+                                             , BOOST_DISPATCH_FOLD(n, typename ext_common<, >::type, M3, ~)
+                                             , BOOST_DISPATCH_FOLD(n, cardinal_common<, >::value, M4, ~)
+                                             >
+  {
+  };
+
+  BOOST_SIMD_REGISTER_DISPATCH_TO_IF( elementwise_<Tag> , tag::formal_
+                                    , (Tag)BOOST_PP_REPEAT(n,M0,~)
+                                    , (mpl::not_< any <  mpl::or_
+                                                         < boost::proto::
+                                                           is_expr<mpl::_>
+                                                         , boost::dispatch::
+                                                           meta::is_proxy<mpl::_>
+                                                         >
+                                                      , BOOST_PP_ENUM_PARAMS(n,A)
+                                                      >
+                                                >
+                                      )
+                                    , BOOST_PP_REPEAT(n,M1,~)
+                                    , (boost::simd::ext::BOOST_PP_CAT(splat_or_map, n)< Tag, BOOST_PP_ENUM_PARAMS(n, A) >)
+                                    )
 
 #undef n
 #endif
