@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_COMBINATORIAL_FUNCTIONS_FIBONACCI_HPP_INCLUDED
 #define NT2_COMBINATORIAL_FUNCTIONS_FIBONACCI_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
@@ -17,59 +14,53 @@
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
 
-/*!
- * \ingroup combinatorial
- * \defgroup combinatorial_fibonacci fibonacci
- *
- * \par Description
- * returns the selected values by n of a fibonacci sequence starting by a and b
- * the values are computed by the Binet formula.
- * \par
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/fibonacci.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0, class A1>
- *     meta::call<tag::fibonacci_(A0, A0, A1)>::type
- *     fibonacci(const A0 & a, const A0 & b,  const A1& n);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of fibonacci
- *
- * \param T template parameter of fibonacci
- *
- * \return a value of the template parameter type T.
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on n vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag fibonacci_ of functor fibonacci
-     *        in namespace nt2::tag for toolbox combinatorial
-    **/
-    struct fibonacci_ : ext::unspecified_<fibonacci_> { typedef ext::unspecified_<fibonacci_> parent; };
-//    struct fibonacci_ : ext::elementwise_<fibonacci_> { typedef ext::elementwise_<fibonacci_> parent; };
-//    struct fibonacci_ : tag::formal_{ typedef tag::formal_ parent; };
+   /*!
+     @brief fibonacci generic tag
+
+     Represents the fibonacci function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct fibonacci_ : ext::unspecified_<fibonacci_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::unspecified_<fibonacci_> parent;
+    };
   }
+  /*!
+    returns the values selected by a2 of a fibonacci sequence starting by a0 and a1
+    the values are computed by the Binet formula.
+
+    @par Semantic:
+
+    For every table expressions
+
+    @code
+    auto r = fibonacci(a, b, n);
+    @endcode
+
+    The recurrence formula defining the fibonacci sequence is:
+
+      - r(1) = a
+      - r(2) = b
+      - r(i+2) = r(i+1)+r(i),  i > 2
+
+    @param a0
+    @param a1
+    @param a2
+
+    @return an expression which eventually will evaluate to the result
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::fibonacci_,fibonacci, 3)
 }
 
 namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
   template<class Domain, class Expr,  int N>
   struct  size_of<tag::fibonacci_, Domain, N, Expr>
   {
@@ -81,8 +72,8 @@ namespace nt2 { namespace ext
     }
   };
 
-
-  template <class Domain, class Expr, int N>
+  /// INTERNAL ONLY
+   template <class Domain, class Expr, int N>
   struct value_type < tag::fibonacci_, Domain,N,Expr>
     : meta::value_as<Expr,2>
   { };

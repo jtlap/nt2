@@ -6,6 +6,7 @@
 [xinclude user/tutorial.xml]
 [xinclude core.linalg.xml]
 [xinclude core.bessel.xml]
+[xinclude core.combinatorial.xml]
 [xinclude core.elliptic.xml]
 [xinclude core.euler.xml]
 [xinclude core.exponential.xml]

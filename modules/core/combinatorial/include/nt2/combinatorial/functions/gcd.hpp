@@ -6,63 +6,52 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_COMBINATORIAL_FUNCTIONS_GCD_HPP_INCLUDED
 #define NT2_COMBINATORIAL_FUNCTIONS_GCD_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup combinatorial
- * \defgroup combinatorial_gcd gcd
- *
- * \par Description
- * greatest common divisor
- * \par
- * If parameters are floating point and not flint,
- * nan is returned.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/gcd.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::gcd_(A0,A0)>::type
- *     gcd(const A0 & a0,const A0 & a1);
- * }
- * \endcode
- *
- * \param a0 the first parameter of gcd
- * \param a1 the second parameter of gcd
- *
- * \return a value of the common type of the parameters
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag gcd_ of functor gcd
-     *        in namespace nt2::tag for toolbox combinatorial
-    **/
-    struct gcd_ : ext::elementwise_<gcd_> { typedef ext::elementwise_<gcd_> parent; };
+   /*!
+     @brief gcd generic tag
+
+     Represents the gcd function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct gcd_ : ext::elementwise_<gcd_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<gcd_> parent;
+    };
   }
+  /*!
+    Computes the greatest common divisor
+
+    @par Semantic:
+
+    For every table expressions
+
+    @code
+    auto r = gcd(a0,a1);
+    @endcode
+
+    is the greater positive integer which exactly divides a0 and a1
+
+      - If any input is zero 0 is returned
+      - If parameters are floating point and not flint,
+      nan is returned.
+
+    @see @funcref{lcm}, \ref flint
+    @param a0
+    @param a1
+
+    @return an expression which eventually will evaluate to the result
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::gcd_, gcd, 2)
 }
 
 #endif
 
-// modified by jt the 25/12/2010

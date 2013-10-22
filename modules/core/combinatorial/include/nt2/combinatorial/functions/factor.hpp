@@ -6,58 +6,43 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
 #ifndef NT2_COMBINATORIAL_FUNCTIONS_FACTOR_HPP_INCLUDED
 #define NT2_COMBINATORIAL_FUNCTIONS_FACTOR_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup combinatorial
- * \defgroup combinatorial_factor factor
- *
- * \par Description
- * returns the table of prime numbers less or equal to the input
- * \par
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/factor.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class T,class A0>
- *     meta::call<tag::factor_(A0)>::type
- *     factor(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of factor
- *
- * \param T template parameter of factor
- *
- * \return a value of the template parameter type T.
- *
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
- *
-**/
 
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag factor_ of functor factor
-     *        in namespace nt2::tag for toolbox combinatorial
-    **/
-    struct factor_ : ext::elementwise_<factor_> { typedef ext::elementwise_<factor_> parent; };
+   /*!
+     @brief factor generic tag
+
+     Represents the factor function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct factor_ : ext::elementwise_<factor_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::elementwise_<factor_> parent;
+    };
   }
+  /*!
+    returns the expression table of prime numbers
+    the product of which is equal to the input
+
+    @par Semantic:
+
+    For every table expression
+
+    @code
+    auto r = factor(a0);
+    @endcode
+
+    @param a0
+
+    @return an expression which eventually will evaluate to the result
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::factor_,factor, 1)
 }
 
