@@ -34,7 +34,6 @@
 //   using boost::simd::native;
 //   using nt2::meta::cardinal_of;
 //   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-//   typedef typename nt2::meta::upgrade<T>::type   u_t;
 //   typedef native<T,ext_t>                        n_t;
 //   typedef n_t                                     vT;
 //   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -67,7 +66,6 @@ NT2_TEST_CASE_TPL ( lcm_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -89,7 +87,6 @@ NT2_TEST_CASE_TPL ( lcm_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
