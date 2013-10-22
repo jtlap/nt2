@@ -13,7 +13,7 @@
 #include<boost/fusion/include/pop_front.hpp>
 #include<nt2/include/functions/scalar/numel.hpp>
 
-namespacent2 { namespace details
+namespace nt2 { namespace details
 {
  template <class X, class N, class B, class U>
  BOOST_FORCEINLINE typename X::value_type
@@ -33,7 +33,7 @@ namespacent2 { namespace details
  }
 }}
 
-namespacent2 { namespace ext
+namespace nt2 { namespace ext
 {
  //============================================================================
  // Generates outer_fold
