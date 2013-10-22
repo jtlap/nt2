@@ -9,7 +9,6 @@
 
 SET( SOURCES
   ilog2.cpp
-  ilog10.cpp
   genmask.cpp
   twopower.cpp
   shr.cpp
