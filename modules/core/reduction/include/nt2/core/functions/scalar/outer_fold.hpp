@@ -6,18 +6,18 @@
 //                See accompanying file LICENSE.txt or copy at
 //                    http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndefNT2_CORE_FUNCTIONS_SCALAR_OUTER_FOLD_HPP_INCLUDED
-#defineNT2_CORE_FUNCTIONS_SCALAR_OUTER_FOLD_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_SCALAR_OUTER_FOLD_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_SCALAR_OUTER_FOLD_HPP_INCLUDED
 
-#include<nt2/core/functions/outer_fold.hpp>
-#include<boost/fusion/include/pop_front.hpp>
-#include<nt2/include/functions/scalar/numel.hpp>
+#include <nt2/core/functions/outer_fold.hpp>
+#include <boost/fusion/include/pop_front.hpp>
+#include <nt2/include/functions/scalar/numel.hpp>
 
 namespace nt2 { namespace details
 {
  template <class X, class N, class B, class U>
  BOOST_FORCEINLINE typename X::value_type
- outer_fold_step(X const& in, const std::size_t& p, const std::size_t& mbound, N const& neutral, B const& bop, U const&)
+ outer_fold_step (X const& in, const std::size_t& p, const std::size_t& mbound, N const& neutral, B const& bop, U const&)
  {
    typedef typename X::value_type   value_type;
    typedef typename X::extent_type  extent_type;
