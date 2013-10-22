@@ -56,12 +56,21 @@ namespace nt2 { namespace ext
     operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& ) const
     {
       extent_type ext = in.extent();
-      std::ptrdiff_t obound = boost::fusion::at_c<2>(ext);
+      std::size_t obound = boost::fusion::at_c<2>(ext);
+      std::size_t ibound = boost::fusion::at_c<0>(ext);
+      std::size_t top_cache_line_size = config::top_cache_size(2)/sizeof(typename A0::value_type);
+      if(!top_cache_line_size) top_cache_line_size = 1u;
 
-
-      std::size_t nblocs   = omp_get_num_threads();
-      std::size_t grain    = obound / nblocs;
-      std::size_t leftover = obound % nblocs;
+      std::size_t a(ibound);
+      std::size_t b(top_cache_line_size);
+      while (b) {
+        std::size_t  r = a % b;
+        a = b;
+        b = r;
+      }
+      std::size_t grain = top_cache_line_size/a;
+      std::size_t nblocs   = obound / grain;
+      std::size_t leftover = obound - nblocs*grain;
 
       nt2::worker<tag::outer_fold_,tag::openmp_<Site>,A0,A1,A2,A3>
       vecworker( out, in, neutral, bop);
@@ -74,7 +83,7 @@ namespace nt2 { namespace ext
       {
 
         #pragma omp for schedule(static)
-        for(std::ptrdiff_t n=0;n<(std::ptrdiff_t)nblocs;++n)
+        for(std::size_t n=0;n<nblocs;++n)
         {
 #ifndef BOOST_NO_EXCEPTIONS
           try
