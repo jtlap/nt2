@@ -9,10 +9,6 @@
 #ifndef NT2_INTEGRATION_FUNCTIONS_ROMBERG_HPP_INCLUDED
 #define NT2_INTEGRATION_FUNCTIONS_ROMBERG_HPP_INCLUDED
 
-/*!
- * \file
- * \brief Defines and implements the nt2::romberg function
- */
 #include <nt2/integration/interface.hpp>
 
 namespace nt2
@@ -21,19 +17,23 @@ namespace nt2
   {
     struct romberg_ : ext::unspecified_<romberg_>
     {
+      /// @brief Parent hierarchy
       typedef ext::unspecified_<romberg_> parent;
     };
 
     // definition  of abstol constant for romberg method
+    /// INTERNAL ONLY
     BOOST_SIMD_CONSTANT_REGISTER( Rombergabstol, double
                                   , 0, 0x3a83126f             //1.0e-3
                                   , 0x3eb0c6f7a0b5ed8dll      //1.0e-6
       );
   }
 
+  /// INTERNAL ONLY
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Rombergabstol, Rombergabstol);
 
   // specialization of abstol for romberg method
+  /// INTERNAL ONLY
   template<class T, class V> struct integ_params<T, V, tag::romberg_>
   : integ_params<T, V, void>
   {
@@ -53,27 +53,30 @@ namespace nt2
 
   //============================================================================
   /*!
-   * Apply romberg algorithm to integrate a function over a real interval
-   *
-   * \param func  Function to optimize
-   * \param x    required points in the interval or 2 abscissae a and b
-   * \param opt   Options pack related to the tolerance handling
-   *
-   * \return  a tuple containing the results of the integration, the last error value,
-   * the number of required function evaluation and a boolean
-   * notifying success of the whole process.
-   *
-   *    q = romberg(fun,a,b) tries to approximate the integral of scalar-valued
-   *    function fun from a to b to within a default error of nt2::Rombergabstol<real_t>()
-   *    where real_t can be float (1.0e-3) or double (1.0e-6) using recursive
-   *    adaptive simpson rombergrature. fun is a function handle. the function
-   *    y=fun(x) should accept a vector argument x and return a vector result
-   *    y, the integrand evaluated at each element of x.
-   *
+    Applies romberg algorithm to integrate a function over a real interval
+
+    \param func  Function to optimize
+    \param x    required points in the interval or 2 abscissae a and b
+    \param opt   Options pack related to the tolerance handling
+
+    \return  a tuple containing the results of the integration, the last error value,
+    the number of required function evaluation and a boolean
+    notifying success of the whole process.
+
+       Tries to approximate the integral of scalar-valued function
+       fun from a to b to within a default error of
+       nt2::Rombergabstol<real_t>() where real_t can be float
+       (1.0e-3) or double (1.0e-6) using Romberg quadrature.
+
+       f is a functor that should accept a vector argument x and
+       return a vector result y, the integrand evaluated at each
+       element of x.
+
    */
   //============================================================================
 
 
+  /// @overload
   template<class F, class X> BOOST_FORCEINLINE
   typename details::integration<F, X, tag::romberg_>::result_type
   romberg(F f, X const& x)
@@ -88,6 +91,7 @@ namespace nt2
     return details::integration<F, X, tag::romberg_>::call(f, x, opt);
   }
 
+  /// @overload
   template<class F, class A> BOOST_FORCEINLINE
   typename details::integration<F, typename details::h2_t<A>::ab_t, tag::romberg_>::result_type
   romberg(F f, A a, A b)
@@ -96,6 +100,7 @@ namespace nt2
     return details::integration<F, ab_t, tag::romberg_>::call(f, nt2::cath(a, b));
   }
 
+  /// @overload
   template<class F, class A, class Xpr> BOOST_FORCEINLINE
   typename details::integration<F, typename details::h2_t<A>::ab_t, tag::romberg_>::result_type
   romberg(F f, A a, A b, nt2::details::option_expr<Xpr> const& opt)

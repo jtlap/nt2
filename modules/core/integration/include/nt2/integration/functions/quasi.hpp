@@ -13,53 +13,50 @@
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
 
-/*!
- * \file
- * \brief Defines and implements the nt2::quasi function
- */
-
-/*!
- * \ingroup statistics
- * \defgroup statistics_exp2 exp2
- *
- * \par Description
- * uniform pseudo random numbers generator
- * \par
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/quasi.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace nt2
- * {
- *   template <class A0>
- *     meta::call<tag::quasi_(A0)>::type
- *     quasi(const A0 & a, const A1 & b, ... dimensions);
- * }
- * \endcode
-**/
-
 namespace nt2 { namespace tag
   {
-    /*!
-     * \brief Define the tag quasi_ of functor quasi
-     *        in namespace nt2::tag for toolbox statistics
-     **/
-    struct quasi_ : ext::unspecified_<quasi_> { typedef ext::unspecified_<quasi_> parent; };
-  }
+   /*!
+     @brief quasi generic tag
 
+     Represents the quasi function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+    struct quasi_ : ext::unspecified_<quasi_>
+    {
+      /// @brief Parent hierarchy
+      typedef ext::unspecified_<quasi_> parent;
+    };
+  }
+  /*!
+    uniform quasi random numbers generator used by qmtc
+
+    @par Semantic:
+
+    For every integers n,  m and floating type T0
+
+    @code
+    auto r = quasi(n, m, as_<T>());
+    @endcode
+
+    produces a table of quasi-random number of size nxm of
+    elements of type T0 in the interval [0, 1[
+
+    @see @funcref{qmtc}
+    @param a0
+    @param a1
+    @param a2
+
+    @return an expression which eventually will evaluate to the result
+  **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::quasi_, quasi, 3)
  }
 
 namespace nt2 { namespace ext
 {
-  template<class Domain, class Expr,  int N>
+  /// INTERNAL ONLY
+   template<class Domain, class Expr,  int N>
   struct  size_of<tag::quasi_, Domain, N, Expr>
   {
     typedef _2D                               result_type;
@@ -74,7 +71,8 @@ namespace nt2 { namespace ext
     }
   };
 
-  template <class Domain, class Expr, int N>
+  /// INTERNAL ONLY
+   template <class Domain, class Expr, int N>
   struct value_type < tag::quasi_, Domain,N,Expr>
   {
     typedef typename  boost::proto::result_of::child_c<Expr&,2>::type  t_t;
