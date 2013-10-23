@@ -13,6 +13,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/two.hpp>
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/minf.hpp>
@@ -21,7 +22,8 @@
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/maxflint.hpp>
 #include <boost/simd/include/constants/half.hpp>
-
+#include <boost/simd/include/functions/splat.hpp>
+#include <boost/simd/include/functions/multiplies.hpp>
 #include <boost/simd/sdk/config.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 
@@ -49,8 +51,11 @@ NT2_TEST_CASE_TPL ( round2even_real,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(round2even(boost::simd::Mone<vT>()), boost::simd::Mone<r_t>());
   NT2_TEST_EQUAL(round2even(boost::simd::One<vT>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(round2even(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(round2even(boost::simd::Maxflint<T>()-boost::simd::Half<T>()),boost::simd::Maxflint<T>());
-  NT2_TEST_EQUAL(round2even(boost::simd::Maxflint<T>()),boost::simd::Maxflint<T>());
+  NT2_TEST_EQUAL(round2even(boost::simd::Maxflint<vT>()-boost::simd::Half<vT>()),boost::simd::Maxflint<vT>());
+  NT2_TEST_EQUAL(round2even(boost::simd::Maxflint<vT>()),boost::simd::Maxflint<vT>());
+  NT2_TEST_EQUAL(round2even(boost::simd::Twotonmb<vT>()),boost::simd::Twotonmb<vT>());
+  vT z = boost::simd::splat<vT>(140737488355328.0);
+  NT2_TEST_EQUAL(round2even(z),z);
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( round2even_unsigned_int,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
