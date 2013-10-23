@@ -17,5 +17,11 @@
     #define BOOST_SIMD_ARCH "ARM"
   #endif
 
+  #if     defined(__aarch64__)
+    #define BOOST_SIMD_ARCH_ARM
+    #define BOOST_SIMD_ARCH_ARM_64
+    #define BOOST_SIMD_ARCH "AArch64"
+  #endif
+
 #endif
 #endif
