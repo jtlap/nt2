@@ -8,8 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ROUND2EVEN_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ROUND2EVEN_HPP_INCLUDED
+
 #include <boost/simd/arithmetic/functions/round2even.hpp>
-#include <boost/simd/include/functions/simd/abs.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/bitwise_xor.hpp>
 #include <boost/simd/include/functions/simd/is_less.hpp>
@@ -35,12 +35,13 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      const result_type v   = boost::simd::abs(a0);
+      const result_type s   = bitofsign(a0);
+      const result_type v   = a0 ^ s;
       const result_type t2n = boost::simd::Twotonmb<A0>();
       const result_type d0  = v+t2n;
       const result_type d   = d0-t2n;
       const result_type d1  = if_else(lt(v,t2n),d,v);
-      return (d1^bitofsign(a0));
+      return (d1^s);
     }
   };
 } } }

@@ -19,6 +19,7 @@
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/mone.hpp>
+#include <boost/simd/include/constants/mhalf.hpp>
 #include <boost/simd/include/constants/nan.hpp>
 #include <boost/simd/sdk/config.hpp>
 
