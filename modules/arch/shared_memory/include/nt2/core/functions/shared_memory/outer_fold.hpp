@@ -17,22 +17,13 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION_IF ( nt2::tag::outer_fold_, (nt2::tag::shared_memory_<BackEnd,Site>)
-                                , (A0)(K0)(S0)(T0)(N0)(A1)(A2)(A3)(BackEnd)(Site)
-                                , ( boost::simd::meta::
-                                    is_vectorizable < typename A0::value_type
-                                                    , BOOST_SIMD_DEFAULT_EXTENSION
-                                                    >
-                                  )
-                                , ((expr_ < container_<K0,unspecified_<A0>,S0>
-                                          , T0
-                                          , N0
-                                          >
-                                  ))
-                                  ((ast_< A1, nt2::container::domain>))
-                                  (unspecified_<A2>)
-                                  (unspecified_<A3>)
-                                )
+  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::outer_fold_, (nt2::tag::shared_memory_<BackEnd,Site>)
+                             , (A0)(A1)(A2)(A3)(BackEnd)(Site)
+                             , ((ast_<A0, nt2::container::domain>))
+                               ((ast_<A1, nt2::container::domain>))
+                               (unspecified_<A2>)
+                               (unspecified_<A3>)
+                              )
   {
     typedef void                                                              result_type;
     typedef typename boost::remove_reference<A1>::type::extent_type           extent_type;
