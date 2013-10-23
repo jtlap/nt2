@@ -9,12 +9,6 @@
 //==============================================================================
 #ifndef NT2_CORE_FUNCTIONS_ADJFUN_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_ADJFUN_HPP_INCLUDED
-
-/*!
-  @file
-  @brief Defines the adjfun function
- **/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/value_as.hpp>
 #include <nt2/core/container/dsl/size.hpp>
@@ -29,6 +23,7 @@ namespace nt2
     **/
     struct adjfun_ : ext::elementwise_<adjfun_>
     {
+      /// @brief Parent hierarchy
       typedef  ext::elementwise_<adjfun_> parent;
     };
   }
@@ -41,8 +36,8 @@ namespace nt2
 
     @par Semantic:
 
-    For any given table @c a of size @c [d1,...,dn] which first non singleton
-    dimension is @c k and any binary functor @c f:
+    For any given table expression @c a of size @c [d1,...,dn] which
+    first non singleton dimension is @c k and any binary functor @c f:
 
     @code
     x = adjfun(f,a);
@@ -52,18 +47,18 @@ namespace nt2
 
     @code
     for(int in=1;in<=size(x,n);++in)
-     ...
-      for(int ik=1;ik<=size(x,k)-1;++ik)
-       ...
-        for(int i1=1;in<=size(x,1);++i1)
-         x(i1,...,ik,...,in) = f(a(i1,...,ik+1,...,in),a(i1,...,ik,...,in));
+      ...
+        for(int ik=1;ik<=size(x,k)-1;++ik)
+          ...
+            for(int i1=1;in<=size(x,1);++i1)
+              x(i1,...,ik,...,in) = f(a(i1,...,ik+1,...,in),a(i1,...,ik,...,in));
     @endcode
 
     This semantic implies that if @c a is of size @c [s1 ... sn] then the size
     of @c adjfun(f,a) is equal to @c [s1 ... sk -1 ... sn].
 
     @param f  Binary functor to apply to a
-    @param a Table to process
+    @param a Table expression to process
 
     @par Example:
   **/
@@ -104,7 +99,7 @@ namespace nt2
     of @c adjfun(f,a,k) is equal to @c [s1 ... sk -1 ... sn].
 
     @param f  Binary functor to apply to a0
-    @param a0 Table to process
+    @param a  Table to process
     @param k  Dimension along which to process @c a0
 
     @par Example:

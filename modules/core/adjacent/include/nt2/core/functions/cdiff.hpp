@@ -9,12 +9,6 @@
 //==============================================================================
 #ifndef NT2_CORE_FUNCTIONS_CDIFF_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_CDIFF_HPP_INCLUDED
-
-/*!
-  @file
-  @brief Defines the cdiff function
- **/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/value_as.hpp>
 #include <nt2/core/container/dsl/size.hpp>
@@ -29,19 +23,41 @@ namespace nt2
     **/
     struct cdiff_ : ext::elementwise_<cdiff_>
     {
+      /// @brief Parent hierarchy
       typedef  ext::elementwise_<cdiff_> parent;
     };
   }
-
   /*!
+    Computes centered diferences along a dimension
 
-  **/
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::cdiff_, cdiff, 1)
+    @par Semantic:
 
-  /*!
+    For every table expressions n and p
 
+    @code
+    auto x = cdiff(a, n);
+    @endcode
+
+    is similar to:
+
+    @code
+    for(int in=1;in<=size(x,n);++in)
+      ...
+        for(int ik=2;ik<=size(x,k)-1;++ik)
+          ...
+            for(int i1=1;in<=size(x,1);++i1)
+              x(i1,...,ik,...,in) = a(i1,...,ik+1,...,in)-a(i1,...,ik-1,...,in);
+    @endcode
+
+
+    @param a0
+    @param a1
+
+    @return an expression which eventually will evaluate to the result
   **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::cdiff_, cdiff, 2)
+  /// overload
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::cdiff_, cdiff, 1)
 }
 
 namespace nt2 { namespace ext

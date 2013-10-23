@@ -9,12 +9,6 @@
 //==============================================================================
 #ifndef NT2_CORE_FUNCTIONS_DIFF_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_DIFF_HPP_INCLUDED
-
-/*!
-  @file
-  @brief Defines and implements the diff function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/value_as.hpp>
 #include <nt2/core/container/dsl/size.hpp>
@@ -29,38 +23,50 @@ namespace nt2
     **/
     struct diff_ : ext::elementwise_<diff_>
     {
+      /// @brief Parent hierarchy
       typedef  ext::elementwise_<diff_> parent;
     };
   }
-
   /*!
-    @brief
+    Computes diferences along a dimension
+
+    @par Semantic:
+
+    For every table expressions n and p
+
+    @code
+    auto x = cdiff(a, order, n);
+    @endcode
+
+    is similar to:
+
+    @code
+    for(int i=1;i <= order;++in)
+    {
+      for(int in=1;in<=size(x,n);++in)
+        ...
+          for(int ik=2;ik<=size(x,k)-1;++ik)
+            ...
+              for(int i1=1;in<=size(x,1);++i1)
+                x(i1,...,ik,...,in) = a(i1,...,ik+1,...,in)-a(i1,...,ik-1,...,in);
+      a = x;
+    }
+
+    @endcode
 
 
-    @param
-  **/
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::diff_       , diff, 1)
+    @param a0
+    @param a1
+    @param a2
 
-
-  /*!
-    @brief
-
-    @param
-    @param
-  **/
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::diff_       , diff, 2)
-
-
-  /*!
-    @brief
-
-    @param
-    @param
-    @param
+    @return an expression which eventually will evaluate to the result
   **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::diff_       , diff, 3)
+  /// overload
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::diff_       , diff, 1)
+  /// overload
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::diff_       , diff, 2)
 }
-
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
