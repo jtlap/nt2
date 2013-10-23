@@ -119,7 +119,7 @@ namespace nt2 { namespace ext
                               ((ast_<A1, nt2::container::domain>))
                             )
   {
-    typedef typename meta::scalar_of<A0>::type T;
+    typedef typename A0::value_type T;
     BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1),
       mtimes(a0, a1, Zero<T>(), One<T>(), tag::blas_normal_(), tag::blas_normal_())
     )
@@ -132,7 +132,7 @@ namespace nt2 { namespace ext
                               (scalar_< unspecified_<A2> >)
                             )
   {
-    typedef typename meta::scalar_of<A0>::type T;
+    typedef typename A0::value_type T;
     BOOST_DISPATCH_RETURNS(3, (A0 const& a0, A1 const& a1, A2 const& a2),
       mtimes(a0, a1, a2, One<T>(), tag::blas_normal_(), tag::blas_normal_())
     )
