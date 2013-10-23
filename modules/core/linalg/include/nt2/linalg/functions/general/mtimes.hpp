@@ -325,9 +325,9 @@ namespace nt2 { namespace ext
       char transA = A1::proto_child4::proto_child0::call();
       char transB = A1::proto_child5::proto_child0::call();
 
-      nt2_la_int m = transA == 'N' ? at_c<0>(child0.extent()) : at_c<1>(child0.extent());
-      nt2_la_int n = transB == 'N' ? at_c<1>(child1.extent()) : at_c<0>(child1.extent());
-      nt2_la_int k = transA == 'N' ? at_c<1>(child0.extent()) : at_c<0>(child0.extent());
+      nt2_la_int m = transA == 'N' ? nt2_la_int(at_c<0>(child0.extent())) : nt2_la_int(at_c<1>(child0.extent()));
+      nt2_la_int n = transB == 'N' ? nt2_la_int(at_c<1>(child1.extent())) : nt2_la_int(at_c<0>(child1.extent()));
+      nt2_la_int k = transA == 'N' ? nt2_la_int(at_c<1>(child0.extent())) : nt2_la_int(at_c<0>(child0.extent()));
       nt2_la_int lda = at_c<0>(child0.extent());
       nt2_la_int ldb = at_c<0>(child1.extent());
       nt2_la_int ldc = at_c<0>(a1.extent());
