@@ -44,12 +44,16 @@ namespace boost { namespace simd { namespace tag
     to even means that half integer values are rounded to the nearest
     even value
 
+    @par Alias:
+    @c rint
+
     @param  a0
 
     @return      a value of the same type as the input.
 
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::round2even_, round2even, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::round2even_, rint, 1)
 } }
 
 #endif
