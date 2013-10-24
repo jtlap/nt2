@@ -60,6 +60,7 @@ namespace boost
                         , char const* f, long l
                         )
   {
+    std::abort();
     std::ostringstream ss;
     ss << f << ':' << l << ": " << fn << ": Assertion " << expr << " failed.";
 
@@ -82,6 +83,7 @@ namespace boost
                             , char const* fn, char const* f, long l
                             )
   {
+    std::abort();
     std::ostringstream ss;
     ss  << f << ':' << l << ": " << fn << ": Assertion "
         << expr << " failed.\n\t" << msg;

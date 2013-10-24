@@ -11,16 +11,9 @@
 
 #include <boost/simd/operator/functions/shift_right.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/operator/functions/details/assert_utils.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/assert.hpp>
-#include <boost/simd/operator/functions/details/assert_utils.hpp>
-#include <boost/simd/include/functions/simd/is_gez.hpp>
-#include <boost/simd/include/functions/simd/is_less_equal.hpp>
-#include <boost/simd/include/functions/simd/logical_and.hpp>
-#include <boost/simd/include/functions/simd/splat.hpp>
-#include <boost/simd/sdk/meta/scalar_of.hpp>
-#include <boost/assert.hpp>
-#include <boost/simd/operator/functions/details/assert_utils.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

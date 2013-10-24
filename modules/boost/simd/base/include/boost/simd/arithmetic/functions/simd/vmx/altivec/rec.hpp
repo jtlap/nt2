@@ -15,9 +15,9 @@
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/mzero.hpp>
 #include <boost/simd/include/constants/inf.hpp>
-#include <boost/simd/include/functions/copysign.hpp>
-#include <boost/simd/include/functions/if_else.hpp>
-#include <boost/simd/include/functions/is_eqz.hpp>
+#include <boost/simd/include/functions/simd/copysign.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/is_eqz.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

@@ -11,10 +11,10 @@
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 #include <boost/simd/arithmetic/functions/fast_rec.hpp>
-#include <boost/simd/include/functions/sqr.hpp>
-#include <boost/simd/include/functions/plus.hpp>
-#include <boost/simd/include/functions/minus.hpp>
-#include <boost/simd/include/functions/times.hpp>
+#include <boost/simd/include/functions/simd/sqr.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
+#include <boost/simd/include/functions/simd/times.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

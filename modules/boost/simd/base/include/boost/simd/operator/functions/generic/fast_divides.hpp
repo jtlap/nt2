@@ -10,9 +10,9 @@
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_GENERIC_FAST_DIVIDES_HPP_INCLUDED
 
 #include <boost/simd/operator/functions/fast_divides.hpp>
-#include <boost/simd/include/functions/multiplies.hpp>
-#include <boost/simd/include/functions/divides.hpp>
-#include <boost/simd/include/functions/fast_rec.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
+#include <boost/simd/include/functions/simd/divides.hpp>
+#include <boost/simd/include/functions/simd/fast_rec.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
