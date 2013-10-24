@@ -11,18 +11,19 @@
 #ifndef BOOST_SIMD_PREPROCESSOR_ASSUME_ALIGNED_HPP_INCLUDED
 #define BOOST_SIMD_PREPROCESSOR_ASSUME_ALIGNED_HPP_INCLUDED
 
+#include <boost/simd/sdk/config/compiler.hpp>
 #include <boost/config.hpp>
 
 #if defined(_MSC_VER)
 #define BOOST_SIMD_ASSUME_ALIGNED(Ptr, Align)                                  \
 __assume((std::size_t)(Ptr) % Align == 0);                                     \
 /**/
+#elif defined(__INTEL_COMPILER)
+#define BOOST_SIMD_ASSUME_ALIGNED(Ptr,Align)  __assume_aligned(Ptr, Align)
 #elif defined(BOOST_SIMD_GCC_VERSION) && (BOOST_SIMD_GCC_VERSION >= 40700)
 #define BOOST_SIMD_ASSUME_ALIGNED(Ptr, Align)                                  \
 Ptr = __builtin_assume_aligned(Ptr, Align);                                    \
 /**/
-#elif defined(__INTEL_COMPILER)
-#define BOOST_SIMD_ASSUME_ALIGNED(Ptr,Align)  __assume_aligned(Ptr, Align)
 #else
 /*!
   @brief Macro wrapper for alignment assertion
