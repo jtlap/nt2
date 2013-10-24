@@ -127,7 +127,7 @@ namespace nt2 { namespace ext
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log10_, tag::avx_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log10_,  boost::simd::tag::avx_
                             , (A0)
                             , (scalar_< uint32_<A0> >)
                             )
@@ -135,14 +135,15 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef native<int32_t, tag::avx_> v_type;
+      typedef boost::simd::native<int32_t, boost::simd::tag::avx_> v_type;
       if (a0 > 999999999) return 9;
+      v_type va0 = splat<v_type>(a0);
       v_type t = make<v_type>(99999999, 9999999, 999999, 99999, 9999, 999, 99, 9);
       return -sum(bitwise_cast<v_type>(gt(va0, t)));
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log10_, tag::avx_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log10_,  boost::simd::tag::avx_
                             , (A0)
                             , (scalar_< uint64_<A0> >)
                             )
@@ -150,22 +151,22 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef native<int32_t, tag::avx_> v_type_0;
-      typedef native<int32_t, tag::sse_> v_type_1;
-      v_type t2 = make<v_type1>(99999999, 9999999, 999999, 99999);
+      typedef boost::simd::native<int32_t, boost::simd::tag::avx_> v_type_0;
+      typedef boost::simd::native<int32_t, boost::simd::tag::sse_> v_type_1;
+      v_type_1 t2 = make<v_type_1>(99999999, 9999999, 999999, 99999);
       if (a0 >99999999999999999ull)
       {
-        v_type va0 = splat<v_type>(a0/1000000000000ull);
-        return 16-sum(bitwise_cast<v_type>(gt(va0, t2)));
+        v_type_1 va0 = splat<v_type_1>(a0/1000000000000ull);
+        return 16-sum(bitwise_cast<v_type_1>(gt(va0, t2)));
       }
-      v_type_0 t1 = make<v_type>(99999999, 9999999, 999999, 99999, 9999, 999, 99, 9);
+      v_type_0 t1 = make<v_type_0>(99999999, 9999999, 999999, 99999, 9999, 999, 99, 9);
       if (a0 >999999999ull)
       {
-        v_type va0 = splat<v_type>(a0/100000000ull);
-        return 12-sum(bitwise_cast<v_type>(gt(va0, t2)));
+        v_type_0 va0 = splat<v_type_0>(a0/100000000ull);
+        return 8-sum(bitwise_cast<v_type_0>(gt(va0, t1)));
       }
-      v_type_0 va0 = splat<v_type>(a0);
-      return -sum(bitwise_cast<v_type>(gt(va0, t1)));
+      v_type_0 va0 = splat<v_type_0>(a0);
+      return -sum(bitwise_cast<v_type_0>(gt(va0, t1)));
     }
   };
 } }
