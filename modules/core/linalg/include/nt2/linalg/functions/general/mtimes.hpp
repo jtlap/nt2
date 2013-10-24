@@ -98,16 +98,9 @@ namespace nt2 { namespace ext
   template<class Domain, int N,class Expr>
   struct value_type<tag::mtimes_, Domain, N, Expr>
   {
-    typedef typename boost::proto::result_of::child_c<Expr&, 0>::type child0;
-    typedef typename boost::proto::result_of::child_c<Expr&, 1>::type child1;
-
-    typedef typename boost::dispatch::meta::semantic_of<child0>::type semantic0;
-    typedef typename boost::dispatch::meta::semantic_of<child1>::type semantic1;
-
-    typedef typename boost::dispatch::meta::scalar_of<semantic0>::type s0;
-    typedef typename boost::dispatch::meta::scalar_of<semantic0>::type s1;
-
-    typedef typename boost::dispatch::meta::call<tag::multiplies_(s0, s1)>::type type;
+    typedef typename boost::proto::result_of::child_c<Expr&, 0>::value_type child0;
+    typedef typename boost::proto::result_of::child_c<Expr&, 1>::value_type child1;
+    typedef typename meta::call<tag::multiplies_(typename child0::value_type, typename child1::value_type)>::type type;
   };
 } }
 
@@ -119,7 +112,7 @@ namespace nt2 { namespace ext
                               ((ast_<A1, nt2::container::domain>))
                             )
   {
-    typedef typename A0::value_type T;
+    typedef typename meta::call<tag::multiplies_(typename A0::value_type, typename A1::value_type)>::type T;
     BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1),
       mtimes(a0, a1, Zero<T>(), One<T>(), tag::blas_normal_(), tag::blas_normal_())
     )
@@ -132,7 +125,7 @@ namespace nt2 { namespace ext
                               (scalar_< unspecified_<A2> >)
                             )
   {
-    typedef typename A0::value_type T;
+    typedef typename meta::call<tag::multiplies_(typename A0::value_type, typename A1::value_type)>::type T;
     BOOST_DISPATCH_RETURNS(3, (A0 const& a0, A1 const& a1, A2 const& a2),
       mtimes(a0, a1, a2, One<T>(), tag::blas_normal_(), tag::blas_normal_())
     )
