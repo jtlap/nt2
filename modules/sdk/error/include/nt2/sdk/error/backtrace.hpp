@@ -9,9 +9,9 @@
 #define NT2_SDK_ERROR_BACKTRACE_HPP_INCLUDED
 
 #include <boost/dispatch/attributes.hpp>
+#include <ostream>
 #ifdef __linux__
 #include <execinfo.h>
-#include <ostream>
 #include <iomanip>
 #endif
 
