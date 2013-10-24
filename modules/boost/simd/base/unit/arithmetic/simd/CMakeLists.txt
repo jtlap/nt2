@@ -30,6 +30,7 @@ SET( SOURCES
   floor.cpp
   fast_rsqrt.cpp
   fast_sqrt.cpp
+  fast_trunc.cpp
   fma.cpp
   hypot.cpp
   iceil.cpp

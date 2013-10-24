@@ -6,17 +6,15 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_SSE_TRUNC_HPP_INCLUDED
-#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_SSE_TRUNC_HPP_INCLUDED
-#ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_SSE_FAST_TRUNC_HPP_INCLUDED
+#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_SSE_FAST_TRUNC_HPP_INCLUDED
 
-#include <boost/simd/arithmetic/functions/trunc.hpp>
-#include <boost/simd/include/functions/scalar/abs.hpp>
-#include <boost/simd/include/constants/maxflint.hpp>
+#if defined(BOOST_SIMD_HAS_SSE2_SUPPORT)
+#include <boost/simd/arithmetic/functions/fast_trunc.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::trunc_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_trunc_
                                    , boost::simd::tag::sse_
                                    , (A0)
                                    , (scalar_< single_<A0> >)
@@ -26,13 +24,13 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 a0) const
     {
-      if (!(abs(a0) <=  Maxflint<result_type>()))
-        return a0;
       return result_type(_mm_cvttss_si32(_mm_set_ss(a0)));
     }
   };
 
+
 } } }
+
 
 #endif
 #endif
