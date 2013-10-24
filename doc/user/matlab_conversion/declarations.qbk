@@ -1,9 +1,11 @@
 [section Declarations and initializations]
-If Matlab has quite no need for variable declarations, it is not the case of C++.
-Thus in NT2 every matrix must be declared. This obligation is however quite in
-harmony with matlab pre-allocation strategy which is advised to improve performances.
 
-[note using C++, take advantage of the mandatory declaration to properly declare and initialize datas in one step.]
+Matlab has no need for variable declarations. This is not the case of C++.
+Thus in NT2 every array must be declared. This requirement is however quite in
+conformance with the Matlab pre-allocation strategy which is advised to improve 
+performance.
+
+[note using C++, take advantage of the mandatory declaration to properly declare and initialize data in one step.]
 
 
 [table:id Minimal declaration of a matrix
@@ -13,12 +15,11 @@ harmony with matlab pre-allocation strategy which is advised to improve performa
     [[`M_t a(of_size(3,4));`]    []]
 ]
 
-In both situation (NT2/Matlab),
+In both situations (NT2/Matlab),
 the first line creates an empty matrix and the second line a 3x4 matrix full of zeros
 
-The third line creates a matrix of size 3x4, just allocated and ready to receive whatever values,
-but there is no such thing as an non empty, non initialized Matlab matrix.
-
+The third line creates a matrix of size 3x4, and reserves memory for it, ready to receive whatever values.
+In Matlab a non-empty uninitialized matrix does not exist.
 
 
 [table:id More matrices declarations
@@ -40,14 +41,14 @@ To work around the first limitation, one can use this syntax:
    double tmp[]={4,5,6,2,8};
    M_t c(&tmp[0],&tmp[5]);
   ``
-The second problem arise if you want to create a 2X4 matrix as:
+To create a 2x4 matrix like this: 
   [c++]
   ``
   [ 1 2 3 4
     5 6 7 8 ]
   ``
 
-You have at least three solutions:
+there are at least three options:
 
 [table:id More matrices declarations
     [[NT2]                      [Matlab]]
@@ -57,14 +58,14 @@ You have at least three solutions:
 ]
 
 
-Forgiving to type `trans` (respectively \') with size 2x4 will produce the matrix:
+If the matrix transpose `trans` is omitted (Matlab \') this will produce the matrix:
   [c++]
   ``
   [ 1 3 5 7
     2 4 6 8 ]
   ``
 
-as the storage is in major column order.
+as the storage is in column major order.
 [endsect]
 
 

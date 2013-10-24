@@ -53,7 +53,7 @@ function.
 
 There, we compute =x= to be equal to =y= times 40 plus 2. As we see, all operations
 are naturally applied on [classref nt2::table table]. Most of the time, you will
-want to write such compact expression so __NT2__ code generator can produce proper
+want to write such compact expression so the __NT2__ code generator can produce proper
 parallel code.
 
 [c++]

@@ -1,7 +1,7 @@
 [section A Matlab to __NT2__ Introduction]
 This section will take a sample Matlab code and turn it into its __NT2__ counterpart.
-Each steps will try to enforce how __NT2__ and Matlab code relate to each other,
-highlighting both similarities and differences.
+Each step will show __NT2__ and Matlab code relate to each other, highlighting 
+both similarities and differences.
 
 Here's our Matlab sample
 
@@ -24,9 +24,9 @@ int main()
 }
 ``
 
-First step will be to declare our table =x= and =y= so we can work with.
+The first step will be to declare our table =x= and =y=.
 Contrary to Matlab, C++ requires you to declare variables before usign them.
-To do this we'll use the table type provided by __NT2__ provided by the following
+To do this we'll use the __NT2__ table type provided by the following
 include file.
 
 [c++]
@@ -59,17 +59,18 @@ int main()
 
 These two lines defines two __NT2__ tables, =x= and =y=. Notice the
 =using namespace nt2;= line. __NT2__ containers and functions live in the
-`nt2` namespace, which is a C++ construct that behaves like a module. There
-we dump its whole content in the global namespace for simplicity even if good
-practice is to use symbol level using directives.
+`nt2` namespace, which is a C++ construct that behaves like a module. With the
+=using= directive we pull the whole content of the =nt2= namespace in the 
+global namespace for simplicity even if good practice is to use symbol-level 
+instead of namespace-level using directives.
 
-Once our table are declared, we can start filling them in. To fill =y=, we'll
-use the __NT2__ function [funcref nt2::ones ones] which is a copy-cat of Matlab
-=ones=. As a rule of thumb, except for corner cases, if you are used to calling
-=foo= in Matlab, __NT2__ surely has a =nt2::foo= function available. This is
-that simple. Now, every __NT2__ functions lives in its own dedicated header file
-for better granularity and compile-time control. Here, we will use the proper
-include to access [funcref nt2::ones ones].
+Once our tables are declared, we can start filling them with data. To fill =y=, 
+we'll use the __NT2__ function [funcref nt2::ones ones] which is a copy-cat of 
+Matlab =ones=. As a rule of thumb, except for corner cases, if you are used to 
+calling =foo= in Matlab, __NT2__ usually has a =nt2::foo= function available. 
+Every __NT2__ functions lives in its own dedicated header file for better 
+granularity and compile-time control. Here, we will use the proper include to 
+access [funcref nt2::ones ones].
 
 [c++]
 ``
@@ -117,16 +118,17 @@ int main()
 }
 ``
 
-What happens to =x= ? Well, if =x= is left uninitialized, it will behave as
+What happens to =x=? Well, if =x= is left uninitialized, it will behave as
 an empty table of size =0x1= (just like in Matlab =persistent= variables declarations).
 
-We now compute =x= using the same operators than in Matlab. There are
+We now compute =x= using the same operators as in Matlab. There are
 however two subtle difference.
 
 * First =.*= does not exist in C++, it's just plain =*=.
 
 * Then, __NT2__ requires a struct type conformance when mixing tables and
-  scalar. This means that our =40= and =2= have to be =double=.
+  scalar. This means that our =40= and =2= have to be =double=. We enfoce this
+  by adding a decimal point to our scalars.
 
 This leads us to this code:
 
@@ -148,12 +150,12 @@ int main()
 }
 ``
 
-Most of the time, you will want to write such compact expression so __NT2__
+Most of the time, you will want to write such compact expression so the __NT2__
 code generator can produce proper parallel code without any extra work on your
 side.
 
 We're almost done. We still need to display =x=. This is done in __NT2__ using
-the NT2_DISPLAY macro that will gives you an output similar to Matlab. One can
+the NT2_DISPLAY macro that will give you an output similar to Matlab. One can
 also just use the standard output stream.
 
 

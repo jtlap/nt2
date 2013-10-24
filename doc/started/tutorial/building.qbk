@@ -72,8 +72,8 @@ include(${NT2_USE_FILE})
 ``
 
 If __NT2__ has been detected properly, it provides a `NT2_USE_FILE` script that
-setup all the required paths and libraries to use for compiling a __NT2__
-application. Additionally, this script detect the best set of option for the
+sets up all the required paths and libraries to use for compiling a __NT2__
+application. Additionally, this script detects the best set of options for the
 current architecture, thus activating any compiler flags related to SIMD or
 multi-core optimization.
 
@@ -103,7 +103,7 @@ cmake /path/to/CMakeLists.txt
 ``
 
 This will generate the proper build system and commands to build our "Hello World"
-program. Everything should ends up successful. You may know build the project
+program. Everything should ends up successful. You may now build the project
 by typing:
 
 [teletype]
