@@ -11,7 +11,7 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/arithmetic/functions/fast_rec.hpp>
-#include <boost/simd/include/functions/simd/qr.hpp>
+#include <boost/simd/include/functions/simd/sqr.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/simd/include/functions/simd/times.hpp>
