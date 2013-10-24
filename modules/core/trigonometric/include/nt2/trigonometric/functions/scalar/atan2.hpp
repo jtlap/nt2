@@ -39,6 +39,9 @@ namespace nt2 { namespace ext
     {
       #ifndef BOOST_SIMD_NO_NANS
       if (nt2::is_nan(a0) || nt2::is_nan(a1)) return nt2::Nan<result_type>();
+      #endif
+
+      #ifndef BOOST_SIMD_NO_INFINITIES
       if (nt2::is_inf(a0) && nt2::is_inf(a1))
       {
         a0 = nt2::copysign(nt2::One<A0>(), a0);
