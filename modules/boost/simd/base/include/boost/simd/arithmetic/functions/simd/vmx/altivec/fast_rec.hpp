@@ -14,7 +14,7 @@
 #include <boost/simd/include/functions/simd/sqr.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/minus.hpp>
-#include <boost/simd/include/functions/simd/times.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
