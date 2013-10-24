@@ -22,6 +22,7 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/pi.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -36,12 +37,14 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
       result_type operator()(A0 a0, A0 a1) const
     {
+      #ifndef BOOST_SIMD_NO_NANS
       if (nt2::is_nan(a0) || nt2::is_nan(a1)) return nt2::Nan<result_type>();
       if (nt2::is_inf(a0) && nt2::is_inf(a1))
       {
         a0 = nt2::copysign(nt2::One<A0>(), a0);
         a1 = nt2::copysign(nt2::One<A0>(), a1);
       }
+      #endif
       A0 z = details::invtrig_base<result_type,radian_tag, tag::not_simd_type>::kernel_atan(a0/a1);
       z = nt2::if_else(nt2::is_gtz(a1), z, nt2::Pi<A0>()-z)*nt2::signnz(a0);
       return nt2::if_else(nt2::is_eqz(a0), nt2::if_else_zero(nt2::is_ltz(a1), nt2::Pi<A0>()), z);
