@@ -18,17 +18,18 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::outer_fold_, (nt2::tag::shared_memory_<BackEnd,Site>)
-                             , (A0)(A1)(A2)(A3)(BackEnd)(Site)
+                             , (A0)(A1)(A2)(A3)(A4)(BackEnd)(Site)
                              , ((ast_<A0, nt2::container::domain>))
                                ((ast_<A1, nt2::container::domain>))
                                (unspecified_<A2>)
                                (unspecified_<A3>)
+                               (unspecified_<A4>)
                               )
   {
     typedef void                                                              result_type;
     typedef typename boost::remove_reference<A1>::type::extent_type           extent_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop) const
+    BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
     {
       extent_type ext = in.extent();
       std::size_t obound = boost::fusion::at_c<2>(ext);
@@ -46,7 +47,7 @@ namespace nt2 { namespace ext
 
       std::size_t grain = top_cache_line_size/a;
 
-      nt2::worker<tag::outer_fold_,BackEnd,A0,A1,A2,A3> w(out, in, neutral, bop);
+      nt2::worker<tag::outer_fold_,BackEnd,A0,A1,A2,A3,A4> w(out, in, neutral, bop, uop);
       nt2::spawner< tag::parfor_,BackEnd >              s;
 
       s(w,0,obound,grain);

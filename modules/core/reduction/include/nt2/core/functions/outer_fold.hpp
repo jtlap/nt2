@@ -30,6 +30,7 @@ namespace nt2
    * \param a2 Functor to initialize the accumulator with
    * \param a3 Function to apply for binary reduction, first argument is accumulator
    * \param a4 Function to apply for unary reduction (for SIMD usage)
+   * \param a5 Optional pair containing linear offset and number of element to process
    * \return nothing
    */
   //============================================================================

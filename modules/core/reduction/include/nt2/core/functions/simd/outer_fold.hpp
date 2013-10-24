@@ -25,6 +25,31 @@
 namespace nt2 { namespace ext
 {
   //============================================================================
+  // Global outer_fold
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION  ( nt2::tag::outer_fold_, boost::simd::tag::simd_
+                                , (A0)(A1)(A2)(A3)(A4)
+                                , ((ast_< A0, nt2::container::domain>))
+                                  ((ast_< A1, nt2::container::domain>))
+                                  (unspecified_<A2>)
+                                  (unspecified_<A3>)
+                                  (unspecified_<A4>)
+                                )
+  {
+    typedef void                                                              result_type;
+    typedef typename A1::extent_type                                          extent_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
+    {
+      extent_type ext = in.extent();
+      std::size_t obound =  boost::fusion::at_c<2>(ext);
+
+      nt2::outer_fold(out,in,neutral,bop,uop,std::make_pair(0,obound));
+    }
+  };
+
+  //============================================================================
   // Partial outer_fold with offset/size
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION_IF ( nt2::tag::outer_fold_, boost::simd::tag::simd_
@@ -42,8 +67,8 @@ namespace nt2 { namespace ext
                                   ((ast_< A1, nt2::container::domain>))
                                   (unspecified_<A2>)
                                   (unspecified_<A3>)
-                                  (scalar_< integer_<A4> >)
-                                  (scalar_< integer_<A5> >)
+                                  (unspecified_<A4>)
+                                  (unspecified_<A5>)
                                 )
   {
     typedef void                                                              result_type;
@@ -52,7 +77,7 @@ namespace nt2 { namespace ext
     typedef boost::simd::native<value_type,BOOST_SIMD_DEFAULT_EXTENSION>      target_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& begin, A5 const& size) const
+    operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const&, A5 const& a5) const
     {
       extent_type ext = in.extent();
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
@@ -65,6 +90,8 @@ namespace nt2 { namespace ext
       std::size_t nb_vec = cache_line_size/(sizeof(value_type)*N);
       std::size_t cache_bound = (nb_vec)*N;
       std::size_t bound  =  boost::simd::align_under(ibound, cache_bound);
+      std::size_t begin = a5.first;
+      std::size_t size = a5.second;
 
       for(std::size_t o = begin, o_ =begin*ibound; o < begin+size; ++o, o_+=ibound)
       {
