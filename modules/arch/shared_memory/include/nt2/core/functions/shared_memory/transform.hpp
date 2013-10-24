@@ -26,20 +26,21 @@ namespace nt2 { namespace ext
   // using the partial transform syntax.
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::transform_, (nt2::tag::shared_memory_<BackEnd,Site>)
-                            , (A0)(A1)(BackEnd)(Site)(A2)(A3)
+                            , (A0)(A1)(BackEnd)(Site)(A2)
                             , ((ast_<A0, nt2::container::domain>))
                               ((ast_<A1, nt2::container::domain>))
-                              (scalar_< integer_<A2> >)
-                              (scalar_< integer_<A3> >)
+                              (unspecified_<A2>)
                             )
   {
 
     typedef void                                                             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1, A2 it, A3 sz) const
+    BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1, A2 a2) const
     {
-      std::size_t top_cache_line_size = config::top_cache_size()/sizeof(typename A0::value_type);
 
+      std::size_t top_cache_line_size = config::top_cache_size()/sizeof(typename A0::value_type);
+      std::size_t it = a2.first;
+      std::size_t sz = a2.second;
       if(!top_cache_line_size) top_cache_line_size = 1u;
 
        nt2::worker<tag::transform_, BackEnd,A0,A1> w(a0,a1);

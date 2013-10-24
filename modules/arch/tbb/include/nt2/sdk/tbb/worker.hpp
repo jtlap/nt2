@@ -34,7 +34,7 @@ namespace nt2
 
     void operator()(nt2::blocked_range<std::size_t> const& r) const
     {
-      work(out_,in_,r.begin(),r.size());
+      work(out_,in_,std::make_pair(r.begin(),r.size()));
     };
 
     Out & out_;
@@ -64,7 +64,7 @@ namespace nt2
 
     void operator()(nt2::blocked_range<std::size_t> const& r)
     {
-      work(out_,in_,neutral_,bop_,r.begin(),r.size());
+      work(out_,in_,neutral_,bop_,std::make_pair(r.begin(),r.size()));
     };
 
     void join(worker& rhs) { out_ = bop_(out_, rhs.out_); }
@@ -81,22 +81,23 @@ namespace nt2
   };
 
   // Outer Fold worker
-  template<class Site, class Out, class In, class Neutral,class Bop>
-  struct worker<tag::outer_fold_,tag::tbb_<Site>,Out,In,Neutral,Bop>
+  template<class Site, class Out, class In, class Neutral,class Bop,class Uop>
+  struct worker<tag::outer_fold_,tag::tbb_<Site>,Out,In,Neutral,Bop,Uop>
   {
-    worker(Out& out, In& in, Neutral const& n, Bop const& bop)
-    : out_(out), in_(in), neutral_(n), bop_(bop)
+    worker(Out& out, In& in, Neutral const& n, Bop const& bop, Uop const& uop)
+    : out_(out), in_(in), neutral_(n), bop_(bop), uop_(uop)
     {}
 
     void operator()(nt2::blocked_range<std::size_t> const& r) const
     {
-      work(out_,in_,neutral_,bop_,r.begin(),r.size());
+      work(out_,in_,neutral_,bop_,uop_,std::make_pair(r.begin(),r.size()));
     }
 
     Out&                     out_;
     In&                      in_;
     Neutral const &          neutral_;
     Bop const &              bop_;
+    Uop const &              uop_;
 
     nt2::functor<tag::outer_fold_,Site> work;
 

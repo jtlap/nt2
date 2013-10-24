@@ -18,6 +18,7 @@ namespace nt2
           , class A1
           , class A2 = void
           , class A3 = void
+          , class A4 = void
           >
   struct worker;
 }

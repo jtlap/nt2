@@ -41,7 +41,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1& a1) const
     {
-      nt2::transform(a0,a1,0,nt2::numel(a0.extent()));
+      nt2::transform(a0,a1,std::make_pair(0,nt2::numel(a0.extent())));
     }
   };
 

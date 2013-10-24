@@ -15,11 +15,12 @@
 
 namespace nt2
 {
-  namespace tag
+namespace tag
   {
     struct transform_;
     struct outer_fold_;
-    struct inner_fold_step_;
+    struct inner_fold_;
+    // struct inner_fold_step_;
     template<class T> struct openmp_;
   }
 
@@ -34,7 +35,7 @@ namespace nt2
 
     void operator()(std::size_t begin, std::size_t size)
     {
-      work(out_,in_,begin,size);
+      work(out_,in_,std::make_pair(begin,size));
     };
 
     Out & out_;
@@ -47,48 +48,48 @@ namespace nt2
   };
 
   // Inner Fold worker
-  template<class Site, class Out, class In, class Neutral, class Bop>
-  struct worker<tag::inner_fold_step_,tag::openmp_<Site>,Out,In,Neutral,Bop>
+  template<class Site, class Out, class In, class Neutral, class Bop, class Uop>
+  struct worker<tag::inner_fold_,tag::openmp_<Site>,Out,In,Neutral,Bop,Uop>
   {
-    worker(In & in, Neutral const & neutral, Bop const & bop)
-          :in_(in),neutral_(neutral),bop_(bop)
-    {
-      out_ = neutral_(nt2::meta::as_<Out>());
-    }
+    worker(Out& out, In & in, Neutral const & neutral, Bop const & bop, Uop const & uop)
+          : out_(out), in_(in),neutral_(neutral),bop_(bop),uop_(uop)
+    {}
 
     void operator()(std::size_t begin, std::size_t size)
     {
-      work(out_,in_,neutral_,bop_,begin,size);
+      work(out_,in_,neutral_,bop_,uop_,std::make_pair(begin,size));
     };
 
-    Out out_;
+    Out & out_;
     In & in_;
     Neutral const & neutral_;
     Bop const & bop_;
+    Uop const & uop_;
 
-    nt2::functor<tag::inner_fold_step_,Site> work;
+    nt2::functor<tag::inner_fold_,Site> work;
 
     private:
     worker& operator=(worker const&);
   };
 
   // Outer Fold worker
-  template<class Site, class Out, class In, class Neutral,class Bop>
-  struct worker<tag::outer_fold_,tag::openmp_<Site>,Out,In,Neutral,Bop>
+  template<class Site, class Out, class In, class Neutral,class Bop,class Uop>
+  struct worker<tag::outer_fold_,tag::openmp_<Site>,Out,In,Neutral,Bop,Uop>
   {
-    worker(Out& out, In& in, Neutral const& n, Bop const& bop)
-    : out_(out), in_(in), neutral_(n), bop_(bop)
+    worker(Out& out, In& in, Neutral const& n, Bop const& bop, Uop const& uop)
+    : out_(out), in_(in), neutral_(n), bop_(bop), uop_(uop)
     {}
 
     void operator()(std::size_t begin, std::size_t size) const
     {
-      work(out_,in_,neutral_,bop_,begin,size);
+      work(out_,in_,neutral_,bop_,uop_,std::make_pair(begin,size));
     }
 
     Out&                     out_;
     In&                      in_;
     Neutral const &          neutral_;
     Bop const &              bop_;
+    Uop const &              uop_;
 
     nt2::functor<tag::outer_fold_,Site> work;
 

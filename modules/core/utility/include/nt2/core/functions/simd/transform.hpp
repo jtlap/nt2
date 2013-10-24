@@ -34,7 +34,7 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
     {
-      nt2::transform(a0,a1,0,nt2::numel(a0));
+      nt2::transform(a0,a1,std::make_pair(0,nt2::numel(a0)));
     }
   };
 
@@ -42,12 +42,11 @@ namespace nt2 { namespace ext
   // Partial nD element-wise transform with offset/size
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::transform_, boost::simd::tag::simd_
-                               , (A0)(A1)(A2)(A3)
+                               , (A0)(A1)(A2)
                                , (boost::simd::meta::is_vectorizable<typename A0::value_type, BOOST_SIMD_DEFAULT_EXTENSION>)
                                , ((ast_<A0, nt2::container::domain>))
                                  ((ast_<A1, nt2::container::domain>))
-                                 (scalar_< integer_<A2> >)
-                                 (scalar_< integer_<A3> >)
+                                 (unspecified_<A2>)
                                )
   {
     typedef void result_type;
@@ -56,8 +55,11 @@ namespace nt2 { namespace ext
     typedef boost::simd::native<stype, BOOST_SIMD_DEFAULT_EXTENSION> target_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0& a0, A1& a1, A2 p, A3 sz) const
+    operator()(A0& a0, A1& a1, A2 a2) const
     {
+      std::size_t p (a2.first);
+      std::size_t sz (a2.second);
+
       static const std::size_t N = boost::simd::meta
                                         ::cardinal_of<target_type>::value;
 
