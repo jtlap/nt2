@@ -6,59 +6,13 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-/*!
- * \file
-**/
+
 #ifndef BOOST_SIMD_SWAR_FUNCTIONS_CUMPROD_HPP_INCLUDED
 #define BOOST_SIMD_SWAR_FUNCTIONS_CUMPROD_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/operator/functions/multiplies.hpp>
 #include <boost/simd/constant/constants/one.hpp>
-
-
-/*!
- * \ingroup boost_simd_swar
- * \defgroup boost_simd_swar_cumprod cumprod
- *
- * \par Description
- * compute the cumulate prod of the vector elements
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/cumprod.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::cumprod_(A0)>::type
- *     cumprod(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of cumprod
- *
- * \return a value of the same type as the parameter
- *
- * \par Notes
- * \par
- * This is a swar operation. As such it has no real interest outside
- * SIMD mode.
- * \par
- * Such an operation is a transform of an SIMD vector, that will return
- * vectors obtained on a non necessarily elementwise basis from the inputs
- * elements
- * \par
- * If usable and used in scalar mode, it reduces to the operation
- * on a one element vector.
- *
-**/
 
 namespace boost { namespace simd { namespace tag
   {
@@ -78,6 +32,9 @@ namespace boost { namespace simd { namespace tag
   }
   /*!
     Computes the cumulated product of the vector elements
+
+    Take care that overflow is very easy to get here especially for integral types
+    char and unsigned char always overflow except for 0 and 1 !
 
     @par semantic:
     For any given vector @c x of type @c T:
