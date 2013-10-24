@@ -24,7 +24,7 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::divfix_, tag::cpu_, (A0)(X)
-                                      , (simd::meta::is_upgradable_on_ext<A0, X>)
+                                      , (simd::meta::is_upgradable_as_real_on_ext<A0, X>)
                                       , ((simd_< int_<A0>, X>))
                                         ((simd_< int_<A0>, X>))
                                       )
@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::divfix_, tag::cpu_, (A0)(X)
-                                      , (simd::meta::is_upgradable_on_ext<A0, X>)
+                                      , (simd::meta::is_upgradable_as_real_on_ext<A0, X>)
                                       , ((simd_<uint_<A0>,X>))
                                         ((simd_<uint_<A0>,X>))
                                       )
