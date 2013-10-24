@@ -12,9 +12,10 @@
 
 #include <nt2/exponential/functions/log10.hpp>
 #include <nt2/include/functions/make.hpp>
-#include <nt2/include/functions/is_greater.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/sum.hpp>
+#include <nt2/include/functions/simd/is_greater.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/simd/sum.hpp>
+#include <nt2/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/assert.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
