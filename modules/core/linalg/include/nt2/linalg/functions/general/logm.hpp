@@ -45,6 +45,7 @@
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/isempty.hpp>
 #include <nt2/include/functions/horzcat.hpp>
+#include <nt2/include/functions/complexify.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/core/container/table/table.hpp>
@@ -157,9 +158,10 @@ namespace nt2
                   itab_t k1 = horzcat(k, nt2::_(ord(1, l), ord(2, l)));
                   k = k1;
                 }
-                ctab_t rhs =  mtimes(r(i,i), a0(i,j)) - mtimes(a0(i,j), r(j,j));
-                if(!isempty(k)) rhs += mtimes(r(i,k), a0(k,j)) -  mtimes(a0(i,k), r(k,j));
-                r(i,j) = sylv_tri(a0(i,i),-a0(j,j),rhs);
+                ctab_t a00 = complexify(a0);
+                ctab_t rhs =  mtimes(r(i,i), a00(i,j)) - mtimes(a00(i,j), r(j,j));
+                if(!isempty(k)) rhs += mtimes(r(i,k), a00(k,j)) -  mtimes(a00(i,k), r(k,j));
+                r(i,j) = sylv_tri(a00(i,i),-a00(j,j),rhs);
               }
             }
             ctab_t z =  mtimes(mtimes(u, r), ctrans(u));
