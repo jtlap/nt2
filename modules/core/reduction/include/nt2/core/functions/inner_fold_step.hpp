@@ -39,9 +39,7 @@ namespace nt2
     @param a1 Expression to reduce
     @param a2 Functor to initialize the accumulator with
     @param a3 Function to apply for binary reduction, first argument is accumulator
-    @param a4 Linear offset
-    @param a5 Begin of range
-    @param a6 End of range
+    @param a4 Pair containing linear offset and number of element to process
   **/
 
 BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::inner_fold_step_, inner_fold_step,
