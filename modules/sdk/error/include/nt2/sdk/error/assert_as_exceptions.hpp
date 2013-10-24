@@ -24,32 +24,8 @@
 #endif
 
 #if defined(NT2_ASSERTS_AS_EXCEPTIONS)
-#include <nt2/sdk/error/exception.hpp>
-#include <iosfwd>
-#include <sstream>
+#include <nt2/sdk/error/assert_exception.hpp>
 #include <boost/assert.hpp>
-#include <boost/exception/all.hpp>
-#include <boost/throw_exception.hpp>
-
-namespace nt2
-{
-  /**
-  * @brief Runtime assertion exception
-  *
-  * assert_exception is thrown when a runtime assertion triggers while the
-  * preprocessor symbol NT2_ASSERTS_AS_EXCEPTIONS is defined.
-  *
-  * @usage
-  * @include assert_exception.cpp
-  **/
-  struct BOOST_SYMBOL_VISIBLE assert_exception : nt2::exception
-  {
-    /**
-    * Builds an assert_exception from the actual runtime assertion message
-    **/
-    assert_exception(std::string const& msg) : nt2::exception(msg) {}
-  };
-}
 
 namespace boost
 {
@@ -60,20 +36,7 @@ namespace boost
                         , char const* f, long l
                         )
   {
-    std::abort();
-    std::ostringstream ss;
-    ss << f << ':' << l << ": " << fn << ": Assertion " << expr << " failed.";
-
-    #ifndef BOOST_EXCEPTION_DISABLE
-    ::boost::throw_exception
-    ( ::boost::enable_error_info( ::nt2::assert_exception(ss.str()) )
-      << ::boost::throw_function(fn)
-      << ::boost::throw_file(f)
-      << ::boost::throw_line(int(l))
-    );
-    #else
-    ::boost::throw_exception( ::nt2::assert_exception(ss.str()) );
-    #endif
+    nt2::except_assertion_failed_msg(expr, fn, f, l);
   }
 
   // INTERNAL ONLY
@@ -83,20 +46,7 @@ namespace boost
                             , char const* fn, char const* f, long l
                             )
   {
-    std::abort();
-    std::ostringstream ss;
-    ss  << f << ':' << l << ": " << fn << ": Assertion "
-        << expr << " failed.\n\t" << msg;
-
-    #ifndef BOOST_EXCEPTION_DISABLE
-    ::boost::throw_exception( ::boost::enable_error_info( ::nt2::assert_exception(ss.str()) ) <<
-        ::boost::throw_function(fn) <<
-        ::boost::throw_file(f) <<
-        ::boost::throw_line(int(l))
-    );
-    #else
-    ::boost::throw_exception( ::nt2::assert_exception(ss.str()) );
-    #endif
+    nt2::except_assertion_failed_msg(expr, msg, fn, f, l);
   }
 }
 

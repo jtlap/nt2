@@ -22,7 +22,7 @@
 #include <nt2/sdk/unit/details/unit_test.hpp>
 #include <nt2/sdk/unit/details/main.hpp>
 #include <nt2/sdk/error/exception.hpp>
-#include <nt2/sdk/error/assert_as_exceptions.hpp>
+#include <nt2/sdk/error/assert_as_flexible.hpp>
 #include <boost/preprocessor/cat.hpp>
 
 #if !defined(NT2_UNIT_MAIN_SUITE)

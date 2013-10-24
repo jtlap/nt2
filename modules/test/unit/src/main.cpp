@@ -16,55 +16,72 @@
 #include <nt2/sdk/unit/config.hpp>
 #include <nt2/sdk/unit/details/main.hpp>
 #include <nt2/sdk/unit/details/suite.hpp>
-#include <nt2/sdk/error/exception.hpp>
-#include <boost/throw_exception.hpp>
+#include <nt2/sdk/error/assert_as_flexible.hpp>
+#include <stdexcept>
 
 void float_control_debug();
 
-namespace nt2 { namespace details
+namespace nt2
 {
-  NT2_TEST_UNIT_DECL
-  int unit_main(int argc, char* argv[], test_suite const& current_suite)
+  BOOST_SYMBOL_EXPORT assert_mode_t assert_mode;
+
+  namespace details
   {
-    bool no_catch = false;
-    bool float_debug = false;
-
-    for(int i=1; i<argc; ++i)
+    NT2_TEST_UNIT_DECL
+    int unit_main(int argc, char* argv[], test_suite const& current_suite)
     {
-      if(!strcmp(argv[i], "--no-catch"))
-        no_catch = true;
-      else if(!strcmp(argv[i], "--float-debug"))
-        float_debug = true;
-    }
+      bool no_catch = false;
+      bool float_debug = false;
 
-    if(float_debug)
-      float_control_debug();
+      assert_mode = ASSERT_EXCEPT;
 
-    #ifndef BOOST_NO_EXCEPTIONS
-    if(no_catch)
-    {
+      for(int i=1; i<argc; ++i)
+      {
+        if(!strcmp(argv[i], "--no-catch"))
+          no_catch = true;
+        else if(!strcmp(argv[i], "--float-debug"))
+          float_debug = true;
+        else if(!strcmp(argv[i], "--assert-stackdump"))
+          assert_mode = assert_mode_t(ASSERT_LOG | ASSERT_STACKDUMP | ASSERT_ABORT);
+        else if(!strcmp(argv[i], "--assert-abort"))
+          assert_mode = assert_mode_t(ASSERT_LOG | ASSERT_ABORT);
+        else if(!strcmp(argv[i], "--assert-trap"))
+          assert_mode = assert_mode_t(ASSERT_LOG | ASSERT_TRAP);
+        else if(!strcmp(argv[i], "--assert-log"))
+          assert_mode = assert_mode_t(ASSERT_LOG);
+        else if(!strcmp(argv[i], "--assert-ignore"))
+          assert_mode = assert_mode_t(ASSERT_IGNORE);
+      }
+
+      if(float_debug)
+        float_control_debug();
+
+      #ifndef BOOST_NO_EXCEPTIONS
+      if(no_catch)
+      {
+        current_suite.process();
+        return nt2::unit::error_count() ? -1: 0;
+      }
+
+      try
+      {
+        current_suite.process();
+        return nt2::unit::error_count() ? -1: 0;
+      }
+      catch(std::exception const& e)
+      {
+        std::cout << "uncaught exception: " << e.what() << std::endl;
+        return 1;
+      }
+      catch(...)
+      {
+        std::cout << "uncaught exception" << std::endl;
+        return 1;
+      }
+      #else
       current_suite.process();
       return nt2::unit::error_count() ? -1: 0;
+      #endif
     }
-
-    try
-    {
-      current_suite.process();
-      return nt2::unit::error_count() ? -1: 0;
-    }
-    catch(std::exception const& e)
-    {
-      std::cout << "uncaught exception: " << e.what() << std::endl;
-      return 1;
-    }
-    catch(...)
-    {
-      std::cout << "uncaught exception" << std::endl;
-      return 1;
-    }
-    #else
-    current_suite.process();
-    return nt2::unit::error_count() ? -1: 0;
-    #endif
   }
-} }
+}

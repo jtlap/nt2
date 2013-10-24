@@ -56,6 +56,10 @@ do {                                                                           \
 **/
 #define NT2_TEST_ASSERT(X)                                                     \
 do {                                                                           \
+  nt2::assert_mode_t old_assert_mode = nt2::assert_mode;                       \
+  nt2::assert_mode = nt2::assert_mode_t(                                       \
+    (nt2::assert_mode & ~nt2::ASSERT_ABORT) | nt2::ASSERT_EXCEPT               \
+  );                                                                           \
   ::nt2::unit::test_count()++;                                                 \
   bool caught = false;                                                         \
   try             { BOOST_DISPATCH_PP_STRIP(X); }                              \
@@ -70,6 +74,7 @@ do {                                                                           \
     ::nt2::unit::fail( #X " asserts "                                          \
                         , __LINE__, BOOST_CURRENT_FUNCTION);                   \
   }                                                                            \
+  nt2::assert_mode = old_assert_mode;                                          \
 } BOOST_DISPATCH_ONCE                                                          \
 /**/
 
@@ -108,6 +113,10 @@ do {                                                                           \
 **/
 #define NT2_TEST_NO_ASSERT(X)                                                  \
 do {                                                                           \
+  nt2::assert_mode_t old_assert_mode = nt2::assert_mode;                       \
+  nt2::assert_mode = nt2::assert_mode_t(                                       \
+    (nt2::assert_mode & ~nt2::ASSERT_ABORT) | nt2::ASSERT_EXCEPT               \
+  );                                                                           \
   bool nt2_test_no_throw = true;                                               \
   ::nt2::unit::test_count()++;                                                 \
   try { BOOST_DISPATCH_PP_STRIP(X); }                                          \
@@ -122,6 +131,7 @@ do {                                                                           \
   catch(...) {}                                                                \
   if(nt2_test_no_throw)                                                        \
     ::nt2::unit::pass(#X " does not assert " );                                \
+  nt2::assert_mode = old_assert_mode;                                          \
 } BOOST_DISPATCH_ONCE                                                          \
 /**/
 
