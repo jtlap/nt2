@@ -79,9 +79,11 @@ namespace nt2 { namespace ext
       A0 a0 = a0_n;
       A0 a1 = a1_n;
       typedef typename meta::as_logical<A0>::type lA0;
+#ifndef BOOST_SIMD_NO_INFINITIES
       lA0 test =  nt2::logical_and(nt2::is_inf(a0),  nt2::is_inf(a1));
       a0 =  nt2::if_else(test, nt2::copysign(One<A0>(), a0), a0);
       a1 =  nt2::if_else(test, nt2::copysign(One<A0>(), a1), a1);
+#endif
       A0 z = details::invtrig_base<result_type,radian_tag, tag::simd_type>::kernel_atan(a0/a1);
       //A0 z = atan(abs(a0/a1));  // case a1 > 0,  a0 > 0
       z = nt2::if_else(nt2::is_gtz(a1), z, nt2::Pi<A0>()-z)*nt2::signnz(a0);
