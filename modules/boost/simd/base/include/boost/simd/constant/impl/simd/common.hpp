@@ -18,15 +18,16 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/property_of.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
+#include <boost/simd/sdk/meta/adapt_type.hpp>
 
 //==============================================================================
-// Forward all constant call to the simd version of themselves that splat
+// Forward all constant call to the SIMD version of themselves that splat
 // the appropriate scalar constants into a proper SIMD vector.
 //==============================================================================
 namespace boost { namespace simd { namespace ext
 {
   //============================================================================
-  // By default we splat the constant contained into the extarcted value from
+  // By default we splat the constant contained into the extracted value from
   // the Tag over a given Target.
   //============================================================================
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( pure_constant_<Tag>, tag::cpu_
@@ -59,7 +60,10 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::scalar_of<target_type>::type   base_type;
     typedef typename dispatch::meta::property_of<base_type>::type   disp_type;
     typedef typename boost::mpl::apply<Tag,disp_type>::type         value_type;
-    typedef boost::simd::native<typename value_type::value_type,X>  result_type;
+
+    typedef typename simd::meta::adapt_type< typename value_type::value_type
+                                           , target_type
+                                            >::type                 result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const&) const
     {
