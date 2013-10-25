@@ -10,13 +10,10 @@
 #define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_LOG10_HPP_INCLUDED
 
 #include <nt2/exponential/functions/log10.hpp>
-#include <nt2/exponential/functions/scalar/impl/logs.hpp>
-#include <nt2/exponential/functions/simd/common/impl/logs.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
-#include <nt2/include/functions/simd/toint.hpp>
-#include <nt2/include/functions/simd/touint.hpp>
+#include <nt2/include/functions/scalar/tofloat.hpp>
+#include <nt2/include/functions/scalar/toint.hpp>
+#include <nt2/include/functions/scalar/touint.hpp>
 #include <boost/simd/sdk/simd/meta/is_native.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
 
 namespace nt2 { namespace ext
 {

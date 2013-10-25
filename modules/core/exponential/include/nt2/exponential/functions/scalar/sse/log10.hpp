@@ -11,15 +11,15 @@
 #if defined(BOOST_SIMD_HAS_SSE2_SUPPORT)
 
 #include <nt2/exponential/functions/log10.hpp>
-#include <nt2/include/functions/make.hpp>
+#include <nt2/include/functions/simd/make.hpp>
 #include <nt2/include/functions/simd/is_greater.hpp>
 #include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/functions/simd/sum.hpp>
 #include <nt2/include/functions/simd/bitwise_cast.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 #include <boost/assert.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/sdk/simd/io.hpp>
+
+#include <boost/simd/sdk/simd/native.hpp>
 
 namespace nt2 { namespace ext
 {
