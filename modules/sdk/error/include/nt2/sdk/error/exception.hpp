@@ -12,9 +12,7 @@
 #include <boost/exception/exception.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/config.hpp>
-#include <iostream>
 #include <stdexcept>
-#include <cstdlib>
 #include <string>
 
 namespace nt2
@@ -41,12 +39,8 @@ namespace boost
   /// This is a custom Boost.Exception handler that catch exceptions that were
   /// not caught by any tests inside the test function. This is usually the sign
   /// of something wrong in the test.
-  extern inline
-  void throw_exception(std::exception const& e)
-  {
-    std::cout << "uncaught exception: " << e.what() << std::endl;
-    std::abort();
-  }
+  BOOST_SYMBOL_IMPORT
+  void throw_exception(std::exception const& e);
 }
 #endif
 
