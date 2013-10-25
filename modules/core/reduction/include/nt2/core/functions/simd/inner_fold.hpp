@@ -10,18 +10,44 @@
 #define NT2_CORE_FUNCTIONS_SIMD_INNER_FOLD_HPP_INCLUDED
 
 #include <nt2/core/functions/inner_fold.hpp>
-#include <nt2/core/functions/inner_fold_step.hpp>
+#include <nt2/core/include/functions/inner_fold_step.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/meta/is_vectorizable.hpp>
 
 #ifndef BOOST_SIMD_NO_SIMD
+
 namespace nt2 { namespace ext
 {
+//============================================================================
+// General inner_fold
+//============================================================================
+   NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::inner_fold_, boost::simd::tag::simd_
+                             , (A0)(A1)(A2)(A3)(A4)
+                             , ((ast_< A0, nt2::container::domain>))
+                               ((ast_< A1, nt2::container::domain>))
+                               (unspecified_<A2>)
+                               (unspecified_<A3>)
+                               (unspecified_<A4>)
+                             )
+    {
+      typedef void                                                              result_type;
+      typedef typename A1::extent_type                                          extent_type;
+
+      BOOST_FORCEINLINE result_type
+      operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
+      {
+        extent_type ext = in.extent();
+        std::size_t obound = nt2::numel(boost::fusion::pop_front(ext));
+
+        nt2::inner_fold(out,in,neutral,bop,uop,std::make_pair(0,obound));
+      }
+    };
+
   //============================================================================
-  // Generates inner_fold
+  // Partial inner_fold with offset/size
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION_IF ( nt2::tag::inner_fold_, boost::simd::tag::simd_
-                                , (A0)(S0)(K0)(A1)(A2)(A3)(A4)
+                                , (A0)(S0)(K0)(A1)(A2)(A3)(A4)(A5)
                                 , ( boost::simd::meta::
                                     is_vectorizable < typename A0::value_type
                                                     , BOOST_SIMD_DEFAULT_EXTENSION
@@ -36,6 +62,7 @@ namespace nt2 { namespace ext
                                   (unspecified_<A2>)
                                   (unspecified_<A3>)
                                   (unspecified_<A4>)
+                                  (unspecified_<A5>)
                                 )
   {
     typedef void                                                              result_type;
@@ -44,20 +71,26 @@ namespace nt2 { namespace ext
     typedef boost::simd::native<value_type,BOOST_SIMD_DEFAULT_EXTENSION>      target_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
+    operator()(A0& out, A1& in
+              , A2 const& neutral, A3 const& bop, A4 const& uop
+              , A5 const& a5
+              ) const
     {
       extent_type ext = in.extent();
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
       std::size_t bound  = boost::fusion::at_c<0>(ext);
       std::size_t ibound = (boost::fusion::at_c<0>(ext)/N) * N;
       std::size_t obound = nt2::numel(boost::fusion::pop_front(ext));
+      std::size_t begin = a5.first;
+      std::size_t size  = a5.second;
 
-      nt2::functor<tag::inner_fold_step_> vecworker;
-
-      for(std::size_t j = 0, k = 0; j != obound; ++j, k+=bound)
+      for(std::size_t j = begin, k = begin*bound; j != begin+size; ++j, k+=bound)
       {
         target_type vec_out;
-        vecworker(vec_out,in,neutral,bop,k,ibound);
+        vec_out = neutral(nt2::meta::as_<target_type>());
+
+        nt2::inner_fold_step(vec_out,in,neutral,bop,std::make_pair(k,ibound));
+
         value_type s_out = uop( vec_out );
 
         for(std::size_t i = ibound; i != bound; ++i)
