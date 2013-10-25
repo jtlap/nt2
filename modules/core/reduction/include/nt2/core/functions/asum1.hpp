@@ -9,12 +9,6 @@
 //==============================================================================
 #ifndef NT2_CORE_FUNCTIONS_ASUM1_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_ASUM1_HPP_INCLUDED
-
-/*!
-  @file
-  @brief Define the asum1 function
-**/
-
 #include <nt2/include/functor.hpp>
 
 namespace nt2
@@ -26,30 +20,32 @@ namespace nt2
     **/
     struct asum1_ : boost::dispatch::tag::formal_
     {
+      /// @brief Parent hierarchy
       typedef boost::dispatch::tag::formal_ parent;
     };
   }
-
   /*!
-    @brief Sum of of absolute value of table
+    @brief Sum of absolute values of a table expression along a dimension
 
-
-    Compute the sum of the absolute value of all the elements of a table along
-    its first non-singleton dimension.
+    Compute the sum of the absolute value of all the elements of a
+    table expression along a given dimension.
 
     @par Semantic
 
-    For any table @c t of type @c table<T> :
+    For any table  expression @c t and any integer @c n:
 
     @code
-    table<T> r = asum1(t);
+    auto r = asum1(t,n);
     @endcode
 
     is equivalent to:
 
     @code
-    table<T> r = sum(abs(t),firstnonsingleton(a0));
+    auto r = sum(abs(t),n);
     @endcode
+
+    @par Note:
+    n default to firstnonsingleton(t)
 
     @par Alias
 
@@ -57,44 +53,15 @@ namespace nt2
      * @c asum
      * @c norm1
 
+    @see @funcref{firstnonsingleton}, @funcref{globalasum1}
     @param a0 Table to process
+    @param a1 Dimension along which to process a0
 
-    @return A @nt2 expression representing @c sum(abs(a0),firstnonsingleton(a0))
-  **/
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum1_, asum1 , 1 )
-
-  /*!
-    @brief Sum of absolute values of table along a dimension
-
-    Compute the sum of the absolute value of all the elements of a table along
-    a given dimension.
-
-    @par Semantic
-
-    For any table @c t of type @c table<T> and any integer @c n:
-
-    @code
-    table<T> r = asum1(t,n);
-    @endcode
-
-    is equivalent to:
-
-    @code
-    table<T> r = sum(abs(t),n);
-    @endcode
-
-    @par Alias
-
-    asum1 is also called:
-     * @c asum
-     * @c norm1
-
-    @param a0 Table to process
-    @param a1 Dimension alogn which to process a0
-
-    @return A @nt2 expression representing @c sum(abs(a0),a1)
+    @return An expression eventually evaluated to the result
   **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum1_, asum1 , 2 )
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum1_, asum1 , 1 )
 
   /// INTERNAL ONLY
   /// Alias for asum1

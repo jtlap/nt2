@@ -10,13 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_GLOBAL_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_GLOBAL_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Define and implements the global function
-**/
-
-#include <nt2/include/functor.hpp>
-
 namespace nt2
 {
   namespace tag
@@ -26,18 +19,22 @@ namespace nt2
     **/
     struct global_ : boost::dispatch::tag::formal_
     {
+      /// @brief Parent hierarchy
       typedef boost::dispatch::tag::formal_ parent;
     };
   }
 
   /*!
-    @brief Apply a reduction operation to every elements of an expression
+    @brief Apply a reduction operation with one or two parametersto
+    every elements of an expression
 
     @param a0 Functor tag to apply
     @param a1 Expression to process
+    @param a2 additionnal parameter if needed by a0
   **/
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::global_, global, 3)
+  /// @overload
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::global_, global, 2)
-    NT2_FUNCTION_IMPLEMENTATION(nt2::tag::global_, global, 3)
 }
 
 #endif

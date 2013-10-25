@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_GLOBALSTDEV_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_GLOBALSTDEV_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Define and implements the globalstdev function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/include/functions/stdev.hpp>
 #include <nt2/include/functions/global.hpp>
@@ -28,21 +23,44 @@ namespace nt2
     **/
     struct globalstdev_ : boost::dispatch::tag::formal_
     {
+      /// @brief Parent hierarchy
       typedef boost::dispatch::tag::formal_ parent;
     };
   }
-
   /*!
-    @brief Stdev of all the elements of an expression
+    @brief Standard Deviation  of all the elements of an expression
 
-    @param a0 Expression to stdev
+    Computes the standard deviation  of all the elements of a table expression
+
+    @par Semantic
+
+    For any table expression :
+
+    @code
+    T r = globalstdev(t, k);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    T r = stdev(t(_), k)(1);
+    @endcode
+
+
+    @see @funcref{colon}, @funcref{stdev}
+    @param a0 Table expression to process
+    @param a1 Table expression or integer
+
+    @return An expression eventually evaluated to the result
   **/
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalstdev_, globalstdev, 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalstdev_, globalstdev, 2)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalstdev_, globalstdev, 1)
 }
 
 namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalstdev_, tag::cpu_
                             , (A0)
                             , (unspecified_<A0>)
@@ -57,6 +75,7 @@ namespace nt2 { namespace ext
        return global(nt2::functor<tag::stdev_>(), a0);
     }
   };
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalstdev_, tag::cpu_
                               , (A0)(A1)
                               , (unspecified_<A0>)

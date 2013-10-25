@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_GLOBALASUM2_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_GLOBALASUM2_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Define and implements the globalasum2 function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/include/functions/asum2.hpp>
 #include <nt2/include/functions/global.hpp>
@@ -28,20 +23,41 @@ namespace nt2
     **/
     struct globalasum2_ : boost::dispatch::tag::formal_
     {
+      /// @brief Parent hierarchy
       typedef boost::dispatch::tag::formal_ parent;
     };
   }
-
   /*!
-    @brief Asum2 of all the elements of an expression
+    @brief Sum of the absolute square of all the elements of a table expression
 
-    @param a0 Expression to asum2
+    Computes the sum of the absolute square of all the elements of a
+    table expression
+
+    @par Semantic
+
+    For any table @c t:
+
+    @code
+    T r = globalasum2(t);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    T r = asum2(a(_))(1);
+    @endcode
+
+    @see @funcref{colon}, @funcref{asum2}
+    @param a0 Table expression to process
+
+    @return An expression eventually evaluated to the result
   **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalasum2_, globalasum2, 1)
 }
 
 namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalasum2_, tag::cpu_
                             , (A0)
                             , (unspecified_<A0>)

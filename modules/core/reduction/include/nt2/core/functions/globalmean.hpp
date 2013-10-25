@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_GLOBALMEAN_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_GLOBALMEAN_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Define and implements the globalmean function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/include/functions/mean.hpp>
 #include <nt2/include/functions/global.hpp>
@@ -28,6 +23,7 @@ namespace nt2
     **/
     struct globalmean_ : boost::dispatch::tag::formal_
     {
+      /// @brief Parent hierarchy
       typedef boost::dispatch::tag::formal_ parent;
     };
   }
@@ -35,13 +31,33 @@ namespace nt2
   /*!
     @brief Mean of all the elements of an expression
 
-    @param a0 Expression to mean
+    Computes the mean of all the elements of a table expression
+
+    @par Semantic
+
+    For any table expression :
+
+    @code
+    T r = globalmean(t);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    T r = mean(t(_))(1);
+    @endcode
+
+    @see @funcref{colon}, @funcref{mean}
+    @param a0 Table to process
+
+    @return An expression eventually evaluated to the result
   **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalmean_, globalmean, 1)
 }
 
 namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalmean_, tag::cpu_
                             , (A0)
                             , (unspecified_<A0>)

@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_GLOBALVAR_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_GLOBALVAR_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Define and implements the globalvar function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/include/functions/var.hpp>
 #include <nt2/include/functions/global.hpp>
@@ -28,21 +23,44 @@ namespace nt2
     **/
     struct globalvar_ : boost::dispatch::tag::formal_
     {
+      /// @brief Parent hierarchy
       typedef boost::dispatch::tag::formal_ parent;
     };
   }
-
   /*!
-    @brief Var of all the elements of an expression
+    @brief Variance  of all the elements of an expression
 
-    @param a0 Expression to var
+    Computes the variance  of all the elements of a table expression
+
+    @par Semantic
+
+    For any table expression :
+
+    @code
+    T r = globavar(t, k);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    T r = var(t(_), k)(1);
+    @endcode
+
+
+    @see @funcref{colon}, @funcref{var}
+    @param a0 Table expression to process
+    @param a1 Table expression or integer
+
+    @return An expression eventually evaluated to the result
   **/
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalvar_, globalvar, 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalvar_, globalvar, 2)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalvar_, globalvar, 1)
 }
 
 namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalvar_, tag::cpu_
                               , (A0)(A1)
                             , (unspecified_<A0>)
@@ -59,6 +77,7 @@ namespace nt2 { namespace ext
        return global(nt2::functor<tag::var_>(), a0, a1);
     }
   };
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalvar_, tag::cpu_
                             , (A0)
                             , (unspecified_<A0>)

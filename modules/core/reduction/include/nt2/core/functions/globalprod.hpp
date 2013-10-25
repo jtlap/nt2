@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_GLOBALPROD_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_GLOBALPROD_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Define and implements the globalprod function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/include/functions/prod.hpp>
 #include <nt2/include/functions/global.hpp>
@@ -28,20 +23,40 @@ namespace nt2
     **/
     struct globalprod_ : tag::formal_
     {
+      /// @brief Parent hierarchy
       typedef tag::formal_ parent;
     };
   }
 
-  /*!
-    @brief Product of all the elements of an expression
+ /*!
+    @brief product of all the elements of a table expression .
 
-    @param a0 Expression to multiply
+    Computes the product of all the elements of a table expression
+
+    @par Semantic
+
+    For any table expression @c t:
+
+    @code
+    T r = globalprod(t);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    T r = prod(a(_))(1);
+    @endcode
+
+    @param a0 Table expression to process
+    @return A scalar
+
   **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalprod_       , globalprod, 1)
 }
 
 namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalprod_, tag::cpu_
                             , (A0)
                             , (unspecified_<A0>)

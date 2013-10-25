@@ -9,11 +9,6 @@
 #ifndef NT2_CORE_FUNCTIONS_INNER_FOLD_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_INNER_FOLD_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Define and implements the inner_fold function
-**/
-
 #include <nt2/include/functor.hpp>
 
 namespace nt2
@@ -42,8 +37,11 @@ namespace nt2
     @param a4 Function to apply for unary reduction (for SIMD usage)
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::inner_fold_, inner_fold, (A0 const&)(A1 const&)(A2 const&)(A3 const&)(A4 const&), 5)
+  /// @overload
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::inner_fold_, inner_fold, (A0&)(A1 const&)(A2 const&)(A3 const&)(A4 const&), 5)
+  /// @overload
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::inner_fold_, inner_fold, (A0 const&)(A1&)(A2 const&)(A3 const&)(A4 const&), 5)
+  /// @overload
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::inner_fold_, inner_fold, (A0&)(A1&)(A2 const&)(A3 const&)(A4 const&), 5)
 }
 

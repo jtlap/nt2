@@ -12,74 +12,75 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/include/functions/minimum.hpp>
 #include <nt2/include/functions/global.hpp>
-/*!
- * \ingroup core
- * \defgroup core globalmin
- *
- * \par Description
- * sentimentaly bool(min(a0(_)))
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/globalmin.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::globalmin_(A0)>::type
- *     globalmin(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of globalmin
- *
- * \return always a scalar value
- *
- * \par Notes
- * \par
- * This is a reduction operation. As such it has no real interest outside
- * SIMD mode.
- * \par
- * Such an operation always has a scalar result which translate a property
- * of the whole SIMD vector.
- * \par
- * If usable and used in scalar mode, it reduces to the operation as acting
- * on a one element vector.
- *
-**/
-
 
 namespace nt2
 {
   namespace tag
   {
+    /*!
+      @brief Tag for the globalmjn functor
+    **/
     struct globalmin_ : tag::formal_
     {
+      /// @brief Parent hierarchy
       typedef tag::formal_ parent;
     };
   }
 
-  //============================================================================
   /*!
-   * min of absolute squares of a table
-   *
-   * \param xpr  table
-   */
-  //============================================================================
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalmin_       , globalmin, 1)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalmin_       , g_min, 1)
+    @brief minimum  of all the elements of a table expression and its position.
+
+    Computes minimum of all the elements of a table expression and optionaly its linear index
+
+    @par Semantic
+
+    For any table expression @c t and any arithmetic value @c p :
+
+    @code
+    T r = globalmin(t);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    T r = min(a(_));
+    @endcode
+
+    and
+
+    @code
+    ptrdiff_t i;
+    T m = globalmin(t, i);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    T r = min(a(_));
+    ptrdiff_t i =  globalfind(eq(a0, m))
+    @endcode
+
+
+    @see @funcref{colon}, @funcref{asump}, @funcref{globalfind}
+    @param a0 Table to process
+    @param a1  optional L-value to receive the index
+
+    @return An expression eventually evaluated to the result
+  **/
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::globalmin_, globalmin,(A0 const&)(A1&),2)
+  /// @overload
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::globalmin_, g_min ,(A0 const&)(A1&),2)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalmin_       , globalmin, 1)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalmin_       , g_min, 1)
+
 }
+
 
 namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalmin_, tag::cpu_, (A0), (unspecified_<A0>) )
   {
     typedef typename meta::call<tag::global_(nt2::functor<tag::minimum_>, const A0&)>::type result_type;
@@ -88,6 +89,7 @@ namespace nt2 { namespace ext
        return global(nt2::functor<tag::minimum_>(), a0);
     }
   };
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalmin_, tag::cpu_, (A0)(A1), (unspecified_<A0>)(scalar_<integer_<A1> > ))
   {
     typedef typename meta::call<tag::global_(nt2::functor<tag::minimum_>, const A0&)>::type result_type;

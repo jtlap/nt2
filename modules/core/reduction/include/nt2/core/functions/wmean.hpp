@@ -11,68 +11,52 @@
 
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup core
- * \defgroup core wmean
- *
- * \par Description
- * Returns the wmean of the elements of the SIMD vector
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/wmean.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::wmean_(A0, A1)>::type
- *     wmean(const A0 & a0, const A1 & w);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of wmean
- *
- * \return always a scalar value
- *
- * \par Notes
- * \par
- * This is a reduction operation. As such it has no real interest outside
- * SIMD mode.
- * \par
- * Such an operation always has a scalar result which translate a property
- * of the whole SIMD vector.
- * \par
- * If usable and used in scalar mode, it reduces to the operation as acting
- * on a one element vector.
- *
-**/
-
 
 namespace nt2
 {
   namespace tag
   {
-    struct wmean_ : boost::dispatch::tag::formal_
+    /*!
+      @brief Tag for the wmean functor
+    **/
+     struct wmean_ : boost::dispatch::tag::formal_
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      /// @brief Parent hierarchy
+       typedef boost::dispatch::tag::formal_ parent;
     };
   }
-
-  //============================================================================
   /*!
-   * sum of absolute squares of a table
-   *
-   * \param xpr  table
-   */
-  //============================================================================
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::wmean_       , wmean, 2)
+    @brief weigthed mean of a table along a given dimension
+
+    Returns the weigthed mean of a table along a given dimension
+
+    @par Semantic
+
+    For any table expression of T @c t,  weights w   and any integer @c n:
+
+    @code
+    auto r = wmean(t, w, n);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    auto r = dot(a, expand_to(a, w), n)/sum(w);
+    @endcode
+
+    @par Note:
+    n default to firstnonsingleton(t)
+
+    @see @funcref{firstnonsingleton}, @funcref{mean}, @funcref{asum2}
+    @param a0 Table expression to process
+    @param a1 normalization hint or table of weights
+    @param a2 Dimension along which to process a0
+
+    @return An expression eventually evaluated to the result
+  **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::wmean_       , wmean, 3)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::wmean_       , wmean, 2)
 }
 
 #endif

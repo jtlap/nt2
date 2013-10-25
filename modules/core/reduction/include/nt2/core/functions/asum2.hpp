@@ -9,12 +9,6 @@
 //==============================================================================
 #ifndef NT2_CORE_FUNCTIONS_ASUM2_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_ASUM2_HPP_INCLUDED
-
-/*!
-  @file
-  @brief Define the asum2 function
-**/
-
 #include <nt2/include/functor.hpp>
 
 namespace nt2
@@ -26,63 +20,42 @@ namespace nt2
     **/
     struct asum2_ : boost::dispatch::tag::formal_
     {
+      /// @brief Parent hierarchy
       typedef boost::dispatch::tag::formal_ parent;
     };
   }
-
   /*!
-    @brief Sum of squared absolute value of table
+    @brief Sum of absolute values of a table expression along a dimension
 
-    Compute the sum of the squared absolute value of all the elements of a table
-    along its first non-singleton dimension.
+    Compute the sum of the squared absolute value of all the elements
+    of a table expression along a given dimension.
 
     @par Semantic
 
-    For any table @c t of type @c table<T> :
+    For any table  expression @c t and any integer @c n:
 
     @code
-    table<T> r = asum2(t);
+    auto r = asum2(t,n);
     @endcode
 
     is equivalent to:
 
     @code
-    table<T> r = sum(sqr_abs(t),firstnonsingleton(t));
+    auto r = sum(sqr_abs(t),n);
     @endcode
 
-    @param a0 Table to process
+    @par Note:
+    n default to firstnonsingleton(t)
 
-    @return A @nt2 expression representing
-            @c sum(sqr_abs(a0),firstnonsingleton(a0))
-  **/
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum2_, asum2, 1 )
-
-  /*!
-    @brief Sum of absolute values of table along a dimension
-
-    Compute the sum of the squared absolute value of all the elements of a table
-    along a given dimension.
-
-    @par Semantic
-
-    For any table @c t of type @c table<T> and any integer @c n:
-
-    @code
-    table<T> r = asum2(t,n);
-    @endcode
-
-    is equivalent to:
-
-    @code
-    table<T> r = sum(sqr_abs(t),n);
-    @endcode
-
+    @see @funcref{firstnonsingleton}, @funcref{globalasum2}
     @param a0 Table to process
     @param a1 Dimension along which to process a0
 
-    @return A @nt2 expression representing @c sum(sqr_abs(a0),a1)
+    @return An expression eventually evaluated to the result
   **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum2_, asum2, 2 )
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum2_, asum2, 1 )
 }
 
 #endif

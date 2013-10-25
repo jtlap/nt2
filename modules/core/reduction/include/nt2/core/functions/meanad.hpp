@@ -12,69 +12,53 @@
 
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup core
- * \defgroup core meanad
- *
- * \par Description
- * Returns the mean of absolute centered values of the elements matrix along the selected direction,
- * by default direction is the first non-singleton dimension of a0
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/meanad.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::meanad_(A0)>::type
- *     meanad(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of meanad
- *
- * \return always a scalar value
- *
- * \par Notes
- * \par
- * This is a reduction operation. As such it has no real interest outside
- * SIMD mode.
- * \par
- * Such an operation always has a scalar result which translate a property
- * of the whole SIMD vector.
- * \par
- * If usable and used in scalar mode, it reduces to the operation as acting
- * on a one element vector.
- *
-**/
-
-
 namespace nt2
 {
   namespace tag
   {
-    struct meanad_ : boost::dispatch::tag::formal_
+   /*!
+      @brief Tag for the meanad functor
+    **/
+     struct meanad_ : boost::dispatch::tag::formal_
     {
       typedef boost::dispatch::tag::formal_ parent;
     };
   }
-
-  //============================================================================
   /*!
-   * sum of absolute squares of a table
-   *
-   * \param xpr  table
+    @brief mean of the absolute deviation to the mean of an expression
+
+    Computes the mean of the of the absolute deviation to the mean of
+    non nan elements of a table expression along a given dimension.
+
+    @par Semantic
+
+    For any table  expression @c t and any integer @c n:
+
+    @code
+    auto r = meanad(t,n);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    auto r = mean(abs(a-expand_to(mean(a,n), size(a))), n);
+    @endcode
+
+    @par Note:
+    n default to firstnonsingleton(t)
+
+    @see @funcref{firstnonsingleton}, @funcref{mean},
+    @funcref{abs}, @funcref{size}, @funcref{expand_to}
+
+    @param a0 Table to process @param a1 Dimension along which to
+    process a0
+
+    @return An expression eventually evaluated to the result
    */
-  //============================================================================
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::meanad_       , meanad, 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::meanad_       , meanad, 2)
+  ///@overload
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::meanad_       , meanad, 1)
+
 }
 
 #endif

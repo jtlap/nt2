@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_GLOBALALL_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_GLOBALALL_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Define and implements the globalall function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/include/functions/all.hpp>
 #include <nt2/include/functions/global.hpp>
@@ -28,20 +23,38 @@ namespace nt2
     **/
     struct globalall_ : boost::dispatch::tag::formal_
     {
+      /// @brief Parent hierarchy
       typedef boost::dispatch::tag::formal_ parent;
     };
   }
-
   /*!
     @brief Checks that all elements of an expression is non-zero
 
-    @param a0 Expression to check
+    @par Semantic
+
+    For any table expression @c t:
+
+    @code
+    logical<T> r = globalall(t);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    logical<T> r = all(t(_))(1);
+    @endcode
+
+    @see @funcref{colon}, @funcref{all}
+    @param a0 Table to process
+
+    @return An expression eventually evaluated to the result
   **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalall_       , globalall, 1)
 }
 
 namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalall_
                             , tag::cpu_
                             , (A0)

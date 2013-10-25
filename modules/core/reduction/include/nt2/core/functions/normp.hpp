@@ -12,70 +12,56 @@
 
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup core
- * \defgroup core normp
- *
- * \par Description
- * Returns the normp of the elements matrix along the selected direction,
- * i.e. the  power(asump(a0, p, n), 1/p)
- * by default n is the first non-singleton dimension of a0
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/normp.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0, class A1,  class A2>
- *     meta::call<tag::normp_(const A0& a0, const A1& p, const A2 n = 1)>::type
- *     normp(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the first parameter of normp
- * \param  p the second parameter of normp
- * \param  n the thrird parameter of normp
- *
- * \return always a scalar value
- *
- * \par Notes
- * \par
- * This is a reduction operation. As such it has no real interest outside
- * SIMD mode.
- * \par
- * Such an operation always has a scalar result which translate a property
- * of the whole SIMD vector.
- * \par
- * If usable and used in scalar mode, it reduces to the operation as acting
- * on a one element vector.
- *
-**/
-
-
 namespace nt2
 {
   namespace tag
   {
+    /*!
+      @brief Tag for the normp functor
+    **/
     struct normp_ : boost::dispatch::tag::formal_
     {
+      /// @brief Parent hierarchy
       typedef boost::dispatch::tag::formal_ parent;
     };
   }
-
-  //============================================================================
   /*!
-   * sum of absolute p power of a table
-   */
-  //============================================================================
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::normp_       , normp, 2)
+    @brief Sum of the p power of absolute values of table to 1/p
+
+
+    Computes the 1/p power of the sum of the pth power of the absolute
+    value of all the elements of a table expression along its first
+    non-singleton dimension : the \f$l_p\f$ norm
+
+    @par Semantic
+
+    For any table expression @c t and any arithmetic value @c
+    p and integer n :
+
+    @code
+    auto r = normp(t,p,n);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    auto r = pow_abs(asump(t),1/p),n);
+    @endcode
+
+    @par Note:
+    n default to firstnonsingleton(t)
+
+    @see @funcref{firstnonsingleton}, @funcref{pow_abs}
+    @param a0 Table expression to process
+    @param a1 Power at which absolute values are raised
+    @param a2 Dimension along which to process a0
+
+    @return An expression eventually evaluated to the result
+
+  **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::normp_       , normp, 3)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::normp_       , normp, 2)
 }
 
 #endif

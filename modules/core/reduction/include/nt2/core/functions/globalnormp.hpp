@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_GLOBALNORMP_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_GLOBALNORMP_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Define and implements the globalnormp function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/include/functions/normp.hpp>
 #include <nt2/include/functions/global.hpp>
@@ -28,20 +23,49 @@ namespace nt2
     **/
     struct globalnormp_ : boost::dispatch::tag::formal_
     {
+      /// @brief Parent hierarchy
       typedef boost::dispatch::tag::formal_ parent;
     };
   }
-
   /*!
-    @brief Normp of all the elements of an expression
+    @brief Sum of the p power of absolute values of table to 1/p
 
-    @param a0 Expression to normp
+
+    Computes the 1/p power of the sum of the pth power of the absolute value of all the elements
+    of a table expression: the \f$l_p\f$ norm
+
+    @par Semantic
+
+    For any table expression @c t of T and any arithmetic value @c
+    p:
+
+    @code
+    T r = globalnormp(t,p);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    T r = normp(t(_),p));
+    @endcode
+
+    @par Note:
+    n default to firstnonsingleton(t)
+
+    @see @funcref{colon}, @funcref{normp}
+    @param a0 Table to process
+    @param a1 Power at which absolute values are raised
+
+    @return An expression eventually evaluated to the result
+
   **/
+
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalnormp_, globalnormp, 2)
 }
 
 namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalnormp_, tag::cpu_
                               , (A0)(A1)
                               , (unspecified_<A0>)

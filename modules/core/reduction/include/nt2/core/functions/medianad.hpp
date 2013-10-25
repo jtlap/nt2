@@ -10,70 +10,50 @@
 #ifndef NT2_CORE_FUNCTIONS_MEDIANAD_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_MEDIANAD_HPP_INCLUDED
 
-/*!
- * \ingroup core
- * \defgroup core medianad
- *
- * \par Description
- * Returns the sum of absolute values of the elements matrix along the selected direction,
- * i.e. the 1-norm medianad(a0, n))
- * by default n is the first non-singleton dimension of a0
- *
- * \alias norm1,  asum
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/medianad.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::medianad_(A0)>::type
- *     medianad(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of medianad
- *
- * \return always a scalar value
- *
- * \par Notes
- * \par
- * This is a reduction operation. As such it has no real interest outside
- * SIMD mode.
- * \par
- * Such an operation always has a scalar result which translate a property
- * of the whole SIMD vector.
- * \par
- * If usable and used in scalar mode, it reduces to the operation as acting
- * on a one element vector.
- *
-**/
-
-
 namespace nt2
 {
   namespace tag
   {
+    /*!
+      @brief Tag for the medianad functor
+    **/
     struct medianad_ : boost::dispatch::tag::formal_
     {
+      /// @brief Parent hierarchy
       typedef boost::dispatch::tag::formal_ parent;
     };
   }
-
-  //============================================================================
   /*!
-   * sum of absolute squares of a table
-   *
-   * \param xpr  table
+    @brief median of the absolute deviation to the median of a table
+
+    Computes the meian of the of the absolute deviation to the median of
+    non nan elements of a table expression along a given dimension.
+
+    @par Semantic
+
+    For any table  expression @c t and any integer @c n:
+
+    @code
+    auto r = medianad(t,n);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    auto r = median(abs(a-expand_to(median(a,n), size(a))), n);
+    @endcode
+
+    @par Note:
+    n default to firstnonsingleton(t)
+
+    @see @funcref{firstnonsingleton}, @funcref{median},
+    @funcref{abs}, @funcref{size}, @funcref{expand_to}
+
+    @param a0 Table to process @param a1 Dimension along which to
+    process a0
+
+    @return An expression eventually evaluated to the result
    */
-  //============================================================================
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::medianad_       , medianad, 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::medianad_       , medianad, 2)
 }

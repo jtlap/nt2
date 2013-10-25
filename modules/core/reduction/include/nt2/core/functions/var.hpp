@@ -11,69 +11,62 @@
 
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup core
- * \defgroup core var
- *
- * \par Description
- * Returns the var of the elements of the SIMD vector
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/var.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::var_(A0)>::type
- *     var(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of var
- *
- * \return always a scalar value
- *
- * \par Notes
- * \par
- * This is a reduction operation. As such it has no real interest outside
- * SIMD mode.
- * \par
- * Such an operation always has a scalar result which translate a property
- * of the whole SIMD vector.
- * \par
- * If usable and used in scalar mode, it reduces to the operation as acting
- * on a one element vector.
- *
-**/
-
-
 namespace nt2
 {
   namespace tag
   {
+    /*!
+      @brief Tag for the var functor
+    **/
     struct var_ : boost::dispatch::tag::formal_
     {
+      /// @brief Parent hierarchy
        typedef boost::dispatch::tag::formal_ parent;
     };
   }
-
-  //============================================================================
   /*!
-   * var of a table
-   *
-   * \param xpr  table
-   */
-  //============================================================================
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::var_       , var, 1)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::var_       , var, 2)
+    @brief variance of a table along a given dimension
+
+    Returns the variance of a table along a given dimension
+
+    @par Semantic
+
+    For any table expression of T @c t integer or weights w   and any integer @c n:
+
+    @code
+    auto r = var(t, w, n);
+    @endcode
+
+    is equivalent to:
+
+    if w is an integer
+
+    @code
+    size_t h = size(a, n);
+    auto r = asum2(a-mean(a, n))/(w || (h == 1))? h : h-1);
+    @endcode
+
+    if w is an expression table of positive weights
+
+    @code
+    auto r = asum2(a-mean(a, w, n))/sum(w);
+    @endcode
+
+    @par Note:
+    n default to firstnonsingleton(t)
+
+    @see @funcref{firstnonsingleton}, @funcref{mean}, @funcref{asum2}
+    @param a0 Table expression to process
+    @param a1 normalization hint or table expression of weights
+    @param a2 Dimension along which to process a0
+
+    @return An expression eventually evaluated to the result
+  **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::var_       , var, 3)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::var_       , var, 2)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::var_       , var, 1)
 }
 
 

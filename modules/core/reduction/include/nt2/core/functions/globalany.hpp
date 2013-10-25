@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_GLOBALANY_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_GLOBALANY_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Define and implements the globalany function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/include/functions/any.hpp>
 #include <nt2/include/functions/global.hpp>
@@ -28,6 +23,7 @@ namespace nt2
     **/
     struct globalany_ : tag::formal_
     {
+      /// @brief Parent hierarchy
       typedef tag::formal_ parent;
     };
   }
@@ -35,13 +31,31 @@ namespace nt2
   /*!
     @brief Checks that any elements of an expression is non-zero
 
-    @param a0 Expression to check
+    @par Semantic
+
+    For any table expression @c t:
+
+    @code
+    logical<T> r = globalany(t);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    logical<T> r = any(t(_))(1);
+    @endcode
+
+    @see @funcref{colon}, @funcref{any}
+    @param a0 expression table to process
+
+    @return An expression eventually evaluated to the result
   **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalany_       , globalany, 1)
 }
 
 namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalany_, tag::cpu_
                             , (A0)
                             , (unspecified_<A0>)

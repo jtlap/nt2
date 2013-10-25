@@ -9,12 +9,6 @@
 //==============================================================================
 #ifndef NT2_CORE_FUNCTIONS_GLOBALASUMP_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_GLOBALASUMP_HPP_INCLUDED
-
-/*!
-  @file
-  @brief Define and implements the globalasump function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/include/functions/asump.hpp>
 #include <nt2/include/functions/global.hpp>
@@ -28,20 +22,43 @@ namespace nt2
     **/
     struct globalasump_ : boost::dispatch::tag::formal_
     {
+      /// @brief Parent hierarchy
       typedef boost::dispatch::tag::formal_ parent;
     };
   }
 
   /*!
-    @brief Asump of all the elements of an expression
+    @brief Sum of the power of absolute values of all the elements of a table expression
 
-    @param a0 Expression to asump
+    Computes the sum of the pth power of the absolute value of all the elements
+    of a table expression
+
+    @par Semantic
+
+    For any table @c t and any arithmetic value @c p :
+
+    @code
+    T r = globalasump(t, p);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    T r = asump(a(_), p)(1);
+    @endcode
+
+    @see @funcref{colon}, @funcref{asump}
+    @param a0 Table expression to process
+    @param a1 Power at which absolute values are raised
+
+    @return An expression eventually evaluated to the result
   **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalasump_, globalasump, 2)
 }
 
 namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalasump_, tag::cpu_
                               , (A0)(A1)
                               , (unspecified_<A0>)

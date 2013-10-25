@@ -14,72 +14,76 @@
 #include <nt2/include/functions/global.hpp>
 #include <nt2/include/functions/is_equal.hpp>
 #include <nt2/include/functions/globalfind.hpp>
-/*!
- * \ingroup core
- * \defgroup core globalmax
- *
- * \par Description
- * sentimentaly bool(max(a0(_)))
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/globalmax.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::globalmax_(A0)>::type
- *     globalmax(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of globalmax
- *
- * \return always a scalar value
- *
- * \par Notes
- * \par
- * This is a reduction operation. As such it has no real interest outside
- * SIMD mode.
- * \par
- * Such an operation always has a scalar result which translate a property
- * of the whole SIMD vector.
- * \par
- * If usable and used in scalar mode, it reduces to the operation as acting
- * on a one element vector.
- *
-**/
 
 
 namespace nt2
 {
   namespace tag
   {
-    struct globalmax_ : tag::formal_ { typedef tag::formal_ parent; };
+    /*!
+      @brief Tag for the globalmax functor
+    **/
+     struct globalmax_ : tag::formal_
+    {
+      /// @brief Parent hierarchy
+      typedef tag::formal_ parent;
+    };
   }
 
-  //============================================================================
   /*!
-   * max of absolute squares of a table
-   *
-   * \param xpr  table
-   */
-  //============================================================================
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalmax_       , globalmax, 1)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalmax_       , g_max, 1)
+    @brief maximum  of all the elements of a table expression and its position.
+
+    Computes maximum of all the elements of a table expression and optionaly its linear index
+
+    @par Semantic
+
+    For any table expression @c t:
+
+    @code
+    T r = globalmax(t);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    T r = max(a(_));
+    @endcode
+
+    and
+
+    @code
+    ptrdiff_t i;
+    T m = globalmax(t, i);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    T r = max(a(_));
+    ptrdiff_t i =  globalfind(eq(a0, m))
+    @endcode
+
+
+    @see @funcref{colon}, @funcref{max}, @funcref{globalfind}
+    @param a0 Table to process
+    @param a1 optional L-value to receive the index
+
+    @return An expression eventually evaluated to the result
+  **/
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::globalmax_, globalmax,(A0 const&)(A1&),2)
+  /// @overload
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::globalmax_, g_max ,(A0 const&)(A1&),2)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalmax_       , globalmax, 1)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalmax_       , g_max, 1)
+  /// @overload
 
 }
 
 namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalmax_, tag::cpu_,
                               (A0),
                               (unspecified_<A0>)
@@ -93,6 +97,7 @@ namespace nt2 { namespace ext
       return nt2::global(nt2::functor<tag::maximum_>(), a0);
     }
   };
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalmax_, tag::cpu_,
                               (A0)(A1),
                               (unspecified_<A0>)(scalar_<integer_<A1> > )

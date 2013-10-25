@@ -10,11 +10,6 @@
 #ifndef NT2_CORE_FUNCTIONS_GLOBALNONE_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_GLOBALNONE_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Define and implements the globalnone function
-**/
-
 #include <nt2/include/functor.hpp>
 #include <nt2/include/functions/none.hpp>
 #include <nt2/include/functions/global.hpp>
@@ -28,6 +23,7 @@ namespace nt2
     **/
     struct globalnone_ : boost::dispatch::tag::formal_
     {
+      /// @brief Parent hierarchy
       typedef boost::dispatch::tag::formal_ parent;
     };
   }
@@ -35,13 +31,31 @@ namespace nt2
   /*!
     @brief Checks that none element of an expression is non-zero
 
-    @param a0 Expression to check
+    @par Semantic
+
+    For any table expression @c t:
+
+    @code
+    logical<T> r = globalnone(t);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    logical<T> r = none(t(_));
+    @endcode
+
+    @see @funcref{colon}, @funcref{none}
+    @param a0 Table to process
+
+    @return An expression eventually evaluated to the result
   **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalnone_       , globalnone, 1)
 }
 
 namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalnone_
                             , tag::cpu_
                             , (A0)

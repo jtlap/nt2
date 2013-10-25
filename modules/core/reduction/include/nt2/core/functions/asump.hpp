@@ -9,12 +9,6 @@
 //==============================================================================
 #ifndef NT2_CORE_FUNCTIONS_ASUMP_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_ASUMP_HPP_INCLUDED
-
-/*!
-  @file
-  @brief Define the asump function
-**/
-
 #include <nt2/include/functor.hpp>
 
 namespace nt2
@@ -26,66 +20,48 @@ namespace nt2
     **/
     struct asump_ : boost::dispatch::tag::formal_
     {
+      /// @brief Parent hierarchy
       typedef boost::dispatch::tag::formal_ parent;
     };
   }
 
   /*!
-    @brief Sum of the power of absolute values of table
+    @brief Sum of the power of absolute values of a table  expression along a dimension
 
-
-    Compute the sum of the pth power of the absolute value of all the elements
-    of a table along its first non-singleton dimension.
+    Computes the sum of the pth power of the absolute value of all the elements
+    of a table along a given dimension.
 
     @par Semantic
 
-    For any table @c t of type @c table<T> and any arithmetic value @c p :
+    For any table  expression and any arithmetic value @c
+    p and integer n  :
 
     @code
-    table<T> r = asump(t,p);
+    auto r = asump(t,p n);
     @endcode
 
     is equivalent to:
 
     @code
-    table<T> r = sum(pow_abs(t,p),firstnonsingleton(t));
+    auto r = sum(pow_abs(t,p),n);
     @endcode
 
-    @param a0 Table to process
-    @param a1 Power at which absolute values are raised
+    @par Note:
+    n default to firstnonsingleton(t)
 
-    @return A @nt2 expression representing
-            @c sum(pow_abs(a0,a1),firstnonsingleton(a0))
-  **/
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asump_, asump, 2)
-
-  /*!
-    @brief Sum of power of absolute values of table along a dimension
-
-    Compute the sum of the pth power of absolute value of all the elements of
-    a table along a given dimension.
-
-    @par Semantic
-
-    For any table @c t of type @c table<T> and any integer @c n:
-
-    @code
-    table<T> r = asump(t,p,n);
-    @endcode
-
-    is equivalent to:
-
-    @code
-    table<T> r = sum(pow_abs(t,p),n);
-    @endcode
-
+    @see @funcref{firstnonsingleton}, @funcref{pow_abs}
     @param a0 Table to process
     @param a1 Power at which absolute values are raised
     @param a2 Dimension along which to process a0
 
-    @return A @nt2 expression representing @c sum(pow_abs(a0,a1),a2)
+    @return An expression eventually evaluated to the result
+
   **/
+
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asump_, asump, 3)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asump_, asump, 2)
+
 }
 
 #endif

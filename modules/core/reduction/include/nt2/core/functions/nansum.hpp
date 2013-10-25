@@ -12,68 +12,52 @@
 
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup core
- * \defgroup core nansum
- *
- * \par Description
- * Returns the nansum of the elements of the SIMD vector
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/nansum.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::nansum_(A0)>::type
- *     nansum(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of nansum
- *
- * \return always a scalar value
- *
- * \par Notes
- * \par
- * This is a reduction operation. As such it has no real interest outside
- * SIMD mode.
- * \par
- * Such an operation always has a scalar result which translate a property
- * of the whole SIMD vector.
- * \par
- * If usable and used in scalar mode, it reduces to the operation as acting
- * on a one element vector.
- *
-**/
-
-
 namespace nt2
 {
   namespace tag
   {
+    /*!
+      @brief Tag for the nansum functor
+    **/
     struct nansum_ : boost::dispatch::tag::formal_
     {
+      /// @brief Parent hierarchy
       typedef boost::dispatch::tag::formal_ parent;
     };
   }
-
-  //============================================================================
   /*!
-   * mean of a table,  suppressing Nans
-   *
-   * \param xpr  table
+    @brief sum of a table expression,  suppressing Nans
+
+    Computes the sum of the non nan elements of a table expression
+    along a given dimension.
+
+    @par Semantic
+
+    For any table  expression @c t and any integer @c n:
+
+    @code
+    auto r = nansum(t,n);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    auto r = sum(if_zero_else(isnan(t), t),n);
+    @endcode
+
+    @par Note:
+    n default to firstnonsingleton(t)
+
+    @see @funcref{firstnonsingleton}, @funcref{sum}, @funcref{if_zero_else}
+    @param a0 Table expression to process
+    @param a1 Dimension along which to process a0
+
+    @return An expression eventually evaluated to the result
    */
-  //============================================================================
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::nansum_       , nansum, 1)
+
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::nansum_       , nansum, 2)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::nansum_       , nansum, 1)
 }
 
 #endif

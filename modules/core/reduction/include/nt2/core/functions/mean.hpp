@@ -13,68 +13,54 @@
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \ingroup core
- * \defgroup core mean
- *
- * \par Description
- * Returns the mean of the elements of the SIMD vector
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/mean.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::mean_(A0)>::type
- *     mean(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of mean
- *
- * \return always a scalar value
- *
- * \par Notes
- * \par
- * This is a reduction operation. As such it has no real interest outside
- * SIMD mode.
- * \par
- * Such an operation always has a scalar result which translate a property
- * of the whole SIMD vector.
- * \par
- * If usable and used in scalar mode, it reduces to the operation as acting
- * on a one element vector.
- *
-**/
-
 
 namespace nt2
 {
   namespace tag
   {
+    /*!
+      @brief Tag for the mean functor
+    **/
     struct mean_ : boost::dispatch::tag::formal_
     {
+      /// @brief Parent hierarchy
       typedef boost::dispatch::tag::formal_ parent;
     };
   }
-
-  //============================================================================
   /*!
-   * sum of absolute squares of a table
-   *
-   * \param xpr  table
+   @brief mean of a table along a given dimension
+
+    Compute the mean of the  elements of a table expression
+    along a given dimension.
+
+    @par Semantic
+
+    For any table  expression @c t and any integer @c n:
+
+    @code
+    auto r = mean(t,n);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    auto r = sum(t,n)/size(a, n);
+    @endcode
+
+
+    @par Note:
+    n default to firstnonsingleton(t)
+
+    @see @funcref{firstnonsingleton}, @funcref{sum}, @funcref{size},
+
+    @param a0 Table to process
+    @param a1 Dimension along which to process a0
+
+    @return An expression eventually evaluated to the result
    */
-  //============================================================================
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::mean_       , mean, 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::mean_       , mean, 2)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::mean_       , mean, 1)
 }
 
 #endif

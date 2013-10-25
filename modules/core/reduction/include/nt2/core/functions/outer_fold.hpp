@@ -8,12 +8,6 @@
 //==============================================================================
 #ifndef NT2_CORE_FUNCTIONS_OUTER_FOLD_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_OUTER_FOLD_HPP_INCLUDED
-
-/*!
- * \file
- * \brief Defines and implements the nt2::outer_fold function
- */
-
 #include <nt2/include/functor.hpp>
 
 namespace nt2
@@ -40,8 +34,11 @@ namespace nt2
    */
   //============================================================================
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::outer_fold_, outer_fold, (A0 const&)(A1 const&)(A2 const&)(A3 const&)(A4 const&), 5)
+  /// @overload
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::outer_fold_, outer_fold, (A0&)(A1 const&)(A2 const&)(A3 const&)(A4 const&), 5)
+  /// @overload
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::outer_fold_, outer_fold, (A0 const&)(A1&)(A2 const&)(A3 const&)(A4 const&), 5)
+  /// @overload
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::outer_fold_, outer_fold, (A0&)(A1&)(A2 const&)(A3 const&)(A4 const&), 5)
 }
 

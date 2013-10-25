@@ -12,71 +12,56 @@
 
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup core
- * \defgroup core norm2
- *
- * \par Description
- * Returns the norm2 of the elements matrix along the selected direction,
- * i.e. the euclidian norm sqrt(asum2(a0, n))
- * by default n is the first non-singleton dimension of a0
- *
- * \alias norm_eucl
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/norm2.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::norm2_(A0)>::type
- *     norm2(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of norm2
- *
- * \return always a scalar value
- *
- * \par Notes
- * \par
- * This is a reduction operation. As such it has no real interest outside
- * SIMD mode.
- * \par
- * Such an operation always has a scalar result which translate a property
- * of the whole SIMD vector.
- * \par
- * If usable and used in scalar mode, it reduces to the operation as acting
- * on a one element vector.
- *
-**/
-
-
 namespace nt2
 {
   namespace tag
   {
+    /*!
+      @brief Tag for the norm2 functor
+    **/
     struct norm2_ : boost::dispatch::tag::formal_
     {
+      /// @brief Parent hierarchy
       typedef boost::dispatch::tag::formal_ parent;
     };
   }
-
-  //============================================================================
   /*!
-   * sum of absolute squares of a table
-   *
-   * \param xpr  table
-   */
-  //============================================================================
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::norm2_       , norm2, 1)
+    @brief euclidian norm of a table expression along a given dimension
+
+    Returns the euclidian norm of a table along a given dimension
+
+    @par Semantic
+
+    For any table expression of T @c t integer or weights w   and any integer @c n:
+
+    @code
+    auto r = norm2(t, w, n);
+    @endcode
+
+    is equivalent to:
+
+    if w is an integer
+
+    @code
+    auto r = sqrt(asum2(t, n));
+    @endcode
+
+    @par Note:
+    n default to firstnonsingleton(t)
+
+    @par alias:
+    norm_eucl
+
+    @see @funcref{firstnonsingleton}, @funcref{asum2}, @funcref{sqrt}
+    @param a0 Table expression to process
+    @param a1 Dimension along which to process a0
+
+    @return An expression eventually evaluated to the result
+  **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::norm2_       , norm2, 2)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::norm2_       , norm2, 1)
+
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::norm2_       , norm_eucl, 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::norm2_       , norm_eucl, 2)
 }
