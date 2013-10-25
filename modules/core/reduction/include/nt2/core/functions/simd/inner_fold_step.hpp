@@ -35,8 +35,7 @@ namespace nt2 { namespace ext
     typedef void result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop,
-         A4 const & a4)
+    operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const & a4)
     {
       static const std::size_t N = boost::simd::meta::cardinal_of<A0>::value;
       std::size_t begin = a4.first;

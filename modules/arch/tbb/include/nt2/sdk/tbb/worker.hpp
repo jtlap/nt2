@@ -12,6 +12,8 @@
 
 #include <nt2/sdk/shared_memory/worker/worker.hpp>
 #include <nt2/include/functor.hpp>
+#include <nt2/sdk/config/cache.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 
 namespace nt2
 {
@@ -20,8 +22,25 @@ namespace nt2
   {
     struct transform_;
     struct outer_fold_;
+    struct inner_fold_;
     struct inner_fold_step_;
     template<class T> struct tbb_;
+  }
+
+  namespace details
+  {
+   template<class Site, class value_type>
+   struct target_type_from_site
+   {
+     typedef boost::simd::native<value_type,BOOST_SIMD_DEFAULT_EXTENSION> type;
+   };
+
+   template<class value_type>
+   struct target_type_from_site<tag::cpu_,value_type>
+   {
+     typedef value_type type;
+   };
+
   }
 
   // Transform Worker
@@ -79,6 +98,60 @@ namespace nt2
     private:
     worker& operator=(worker const&);
   };
+
+  // Inner Fold worker
+  template<class Site, class Out, class In, class Neutral,class Bop,class Uop>
+  struct worker<tag::inner_fold_,tag::tbb_<Site>,Out,In,Neutral,Bop,Uop>
+  {
+    typedef typename boost::remove_reference<In>::type::extent_type           extent_type;
+
+    typedef typename Out::value_type                                          value_type;
+    typedef typename details::target_type_from_site<Site,value_type>::type    target_type;
+
+    worker(Out& out, In& in, Neutral const& n, Bop const& bop, Uop const& uop)
+    : out_(out), in_(in), neutral_(n), bop_(bop), uop_(uop)
+    {}
+
+    void operator()(nt2::blocked_range<std::size_t> const& r) const
+    {
+      extent_type ext = in_.extent();
+      std::size_t top_cache_line_size = config::top_cache_size(2)/sizeof(value_type);
+
+      std::size_t bound  = boost::fusion::at_c<0>(ext);
+      std::size_t ibound = (bound/top_cache_line_size) * top_cache_line_size;
+      std::size_t obound = nt2::numel(boost::fusion::pop_front(ext));
+      std::size_t grain  = top_cache_line_size;
+
+      for(std::size_t j = r.begin(); j < r.end(); ++j)
+      {
+        std::size_t k = j*bound;
+
+         nt2::worker<tag::inner_fold_step_,tag::tbb_<Site>,target_type,In,Neutral,Bop>
+         w(in_,neutral_,bop_);
+
+
+        tbb::parallel_reduce( nt2::blocked_range<std::size_t>(k,k+ibound,grain)
+                            , w
+                            );
+
+        nt2::run(out_, j, uop_(w.out_));
+
+        for(std::size_t i = ibound; i < bound; ++i)
+          nt2::run(out_, j
+                  , bop_( nt2::run( out_, j, meta::as_<value_type>())
+                                  , nt2::run(in_, i+k, meta::as_<value_type>())));
+      }
+    }
+
+    Out&                     out_;
+    In&                      in_;
+    Neutral const &          neutral_;
+    Bop const &              bop_;
+    Uop const &              uop_;
+
+    private:
+    worker& operator=(worker const&);
+   };
 
   // Outer Fold worker
   template<class Site, class Out, class In, class Neutral,class Bop,class Uop>
