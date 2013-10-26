@@ -10,7 +10,6 @@
 #define NT2_SDK_ERROR_EXCEPTION_HPP_INCLUDED
 
 #include <boost/exception/exception.hpp>
-#include <boost/throw_exception.hpp>
 #include <boost/config.hpp>
 #include <stdexcept>
 #include <string>
@@ -31,17 +30,5 @@ namespace nt2
     {}
   };
 }
-
-#ifdef BOOST_NO_EXCEPTIONS
-namespace boost
-{
-  /// INTERNAL ONLY
-  /// This is a custom Boost.Exception handler that catch exceptions that were
-  /// not caught by any tests inside the test function. This is usually the sign
-  /// of something wrong in the test.
-  BOOST_SYMBOL_IMPORT
-  void throw_exception(std::exception const& e);
-}
-#endif
 
 #endif

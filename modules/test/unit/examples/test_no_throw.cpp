@@ -1,6 +1,5 @@
 #include "some_exception.hpp"
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/error/exception.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
 void f(bool b)

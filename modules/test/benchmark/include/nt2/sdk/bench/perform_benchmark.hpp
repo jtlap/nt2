@@ -12,7 +12,6 @@
 
 #include <nt2/sdk/bench/config.hpp>
 #include <nt2/sdk/bench/details/base_experiment.hpp>
-#include <nt2/sdk/error/exception.hpp>
 #include <nt2/sdk/timing/now.hpp>
 #include <boost/dispatch/attributes.hpp>
 

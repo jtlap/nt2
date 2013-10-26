@@ -7,16 +7,17 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <stdexcept>
+#include <iostream>
 #include <nt2/sdk/unit/stats.hpp>
 #include <nt2/sdk/unit/config.hpp>
 #include <nt2/sdk/unit/details/main.hpp>
 #include <nt2/sdk/unit/details/suite.hpp>
 #include <nt2/sdk/error/assert_as_flexible.hpp>
-#include <boost/throw_exception.hpp>
 #include <stdexcept>
-#include <iostream>
-#include <cstdlib>
-#include <cstring>
 
 void float_control_debug();
 
@@ -84,15 +85,3 @@ namespace nt2
     }
   }
 }
-
-#ifdef BOOST_NO_EXCEPTIONS
-namespace boost
-{
-  BOOST_SYMBOL_EXPORT
-  void throw_exception(std::exception const& e)
-  {
-    std::cout << "uncaught exception: " << e.what() << std::endl;
-    std::abort();
-  }
-}
-#endif
