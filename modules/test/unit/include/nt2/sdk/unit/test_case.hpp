@@ -75,13 +75,13 @@ BOOST_PP_CAT(tpl_, BOOST_PP_CAT(NT2_UNIT_PREFIX,name))          \
 
 namespace nt2 { namespace details
 {
-  void report_empty(boost::mpl::true_ const&)
+  inline void report_empty(boost::mpl::true_ const&)
   {
     std::cout << "Test skipped: Types PP sequence is empty.\n";
     ::nt2::unit::test_count()++;
   }
 
-  void report_empty(boost::mpl::false_ const&) {}
+  inline void report_empty(boost::mpl::false_ const&) {}
 } }
 
 /*!
