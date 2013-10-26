@@ -14,6 +14,7 @@
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/simd/exp10.hpp>
+#include <nt2/include/functions/simd/sqrt.hpp>
 #include <nt2/include/constants/ten.hpp>
 
 namespace nt2 { namespace ext
@@ -27,7 +28,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
     {
-      return a1*nt2::exp10(a0/Twenty<result_type>());
+      return sqrt(a1)*nt2::exp10(a0/Twenty<result_type>());
     }
   };
 

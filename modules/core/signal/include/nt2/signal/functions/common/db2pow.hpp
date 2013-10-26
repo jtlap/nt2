@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
     {
-      return a1*nt2::exp10(a0/Ten<result_type>());
+      return sqrt(a1)*nt2::exp10(a0/Two<result_type>());
     }
   };
 
@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return nt2::exp10(a0/Ten<result_type>());
+      return nt2::exp10(a0/Two<result_type>());
     }
   };
 } }

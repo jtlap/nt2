@@ -29,7 +29,6 @@ NT2_TEST_CASE_TPL ( pow2db_real__1_0,  NT2_REAL_TYPES)
 
   using nt2::pow2db;
   using nt2::tag::pow2db_;
-  NT2_TEST_ULP_EQUAL(T(10)*log10(T(0.5)), pow2db(T(2), T(4)), 0.5);
   NT2_TEST_ULP_EQUAL(T(10)*log10(T(0.5)), pow2db(T(0.5)), 0.5);
 } // end of test for floating_
 

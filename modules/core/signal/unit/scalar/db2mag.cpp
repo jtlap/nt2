@@ -24,7 +24,6 @@ NT2_TEST_CASE_TPL ( db2mag_real__1_0,  NT2_REAL_TYPES)
   using nt2::exp10;
   using nt2::tag::db2mag_;
 
-  NT2_TEST_ULP_EQUAL(T(4)*exp10(T(0.1)), db2mag(T(2), T(4)), 0.5);
   NT2_TEST_ULP_EQUAL(exp10(T(0.5/20.0)), db2mag(T(0.5)), 0.5);
 } // end of test for floating_
 

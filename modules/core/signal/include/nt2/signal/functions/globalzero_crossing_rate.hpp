@@ -13,56 +13,54 @@
 #include <nt2/include/functions/zero_crossing_rate.hpp>
 #include <nt2/include/functions/global.hpp>
 
-/*!
- * \ingroup core
- * \defgroup core globalzero_crossing_rate
- *
- * \par Description
- * Returns the globalzero_crossing_rate of the elements of the SIMD vector
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/globalzero_crossing_rate.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::globalzero_crossing_rate_(A0)>::type
- *     globalzero_crossing_rate(const A0 & a0);
- * }
- * \endcode
-**/
-
-
 namespace nt2
 {
   namespace tag
   {
-    struct globalzero_crossing_rate_ : boost::dispatch::tag::formal_
+    /*!
+      @brief Tag for the golbalzero_crossing_rate functor
+    **/
+     struct globalzero_crossing_rate_ : boost::dispatch::tag::formal_
     {
+      /// @brief Parent hierarchy
       typedef boost::dispatch::tag::formal_ parent;
     };
   }
-
-  //============================================================================
   /*!
-   * rate of sign changes along a signal
-   *
-   * \param xpr  table
-   */
-  //============================================================================
+    @brief rate of sign changes along a signal
+
+    Computes the rate of sign changes along all elements of a signal
+
+    @par Semantic
+
+    For any table expression and integer:
+
+    @code
+    auto r = globalzero_crossing_rate(s, n);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    auto r = zero_crossing_rate(s(_))(1);
+    @endcode
+
+    n default to firstnonsingleton(s)
+
+    @see @funcref{zero_crossing_rate}, @funcref{colon},
+
+    @param a0 Table expression to process
+
+    @return An expression eventually evaluated to the result
+  **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalzero_crossing_rate_, globalzero_crossing_rate, 1)
+  ///  @overload
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalzero_crossing_rate_, globalzcr, 1)
 }
 
 namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalzero_crossing_rate_, tag::cpu_
                             , (A0)
                             , (unspecified_<A0>)

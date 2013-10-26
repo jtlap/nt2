@@ -10,55 +10,56 @@
 #ifndef NT2_SIGNAL_FUNCTIONS_ZERO_CROSSING_RATE_HPP_INCLUDED
 #define NT2_SIGNAL_FUNCTIONS_ZERO_CROSSING_RATE_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
-/*!
- * \ingroup core
- * \defgroup core zero_crossing_rate
- *
- * \par Description
- * Returns the zero_crossing_rate of the elements of the SIMD vector
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/zero_crossing_rate.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0, class A1>
- *     meta::call<tag::zero_crossing_rate_(A0, A1)>::type
- *     zero_crossing_rate(const A0 & a0, const A1& n);
- * }
- * \endcode
- *
-**/
-
 
 namespace nt2
 {
   namespace tag
   {
+    /*!
+      @brief Tag for the zero_crossing_rate functor
+    **/
     struct zero_crossing_rate_ : boost::dispatch::tag::formal_
     {
+      /// @brief Parent hierarchy
       typedef boost::dispatch::tag::formal_ parent;
     };
   }
-
-  //============================================================================
   /*!
-   * rate of sign changes along a signal
-   *
-   * \param xpr  table
-   */
-  //============================================================================
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::zero_crossing_rate_, zero_crossing_rate, 1)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::zero_crossing_rate_, zcr, 1)
+    @brief rate of sign changes along a signal
+
+    Computes the rate of sign changes along a signal along a given dimension
+
+    @par Semantic
+
+    For any table expression and integer:
+
+    @code
+    auto r = zero_crossing_rate(s, n);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    auto r = mean(if_one_else_zero(is_ltz(adjprod(s, n))), n));
+    @endcode
+
+    n default to firstnonsingleton(s)
+
+    @see @funcref{mean}, @funcref{adjprod}, @funcref{if_one_else_zero}
+
+    @param a0 Table expression to process
+    @param a1 optional normalization
+
+
+    @return An expression eventually evaluated to the result
+  **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::zero_crossing_rate_, zero_crossing_rate, 2)
+  ///  @overload
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::zero_crossing_rate_, zcr, 2)
+  ///  @overload
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::zero_crossing_rate_, zero_crossing_rate, 1)
+  ///  @overload
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::zero_crossing_rate_, zcr, 1)
 }
 
 #endif

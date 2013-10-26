@@ -23,6 +23,6 @@ NT2_TEST_CASE_TPL ( db2pow_real__1_0,  NT2_REAL_TYPES)
   using nt2::db2pow;
   using nt2::exp10;
   using nt2::tag::db2pow_;
-  NT2_TEST_ULP_EQUAL(T(4)*exp10(T(0.2)), db2pow(T(2), T(4)), 0.5);
-  NT2_TEST_ULP_EQUAL(exp10(T(0.5/10.0)), db2pow(T(0.5)), 0.5);
+  NT2_TEST_ULP_EQUAL(T(2)*exp10(T(1)), db2pow(T(2), T(4)), 0.5);
+  NT2_TEST_ULP_EQUAL(exp10(T(0.5/2.0)), db2pow(T(0.5)), 0.5);
 } // end of test for floating_

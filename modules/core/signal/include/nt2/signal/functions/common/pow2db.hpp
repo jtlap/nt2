@@ -18,18 +18,6 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow2db_, tag::cpu_
-                            , (A0)
-                            , (generic_< arithmetic_<A0> >)
-                              (generic_< arithmetic_<A0> >)
-                            )
-  {
-    typedef A0 result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
-    {
-      return nt2::Ten<result_type>()*nt2::log10(a0/a1);
-    }
-  };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow2db_, tag::cpu_
                             , (A0)
