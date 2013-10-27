@@ -4,6 +4,7 @@
 
 [#user_manual]
 [xinclude user/tutorial.xml]
+[xinclude core.base.xml]
 [xinclude core.linalg.xml]
 [xinclude core.bessel.xml]
 [xinclude core.combinatorial.xml]

@@ -1,0 +1,36 @@
+################################################################################
+#         Copyright 2003 - 2012  LASMEA UMR 6602 CNRS/Univ. Clermont II
+#         Copyright 2009 - 2012  LRI    UMR 8623 CNRS/Univ Paris Sud XI
+#
+#          Distributed under the Boost Software License, Version 1.0.
+#                 See accompanying file LICENSE.txt or copy at
+#                     http://www.boost.org/LICENSE_1_0.txt
+################################################################################
+
+WARN_IF_UNDOCUMENTED   = YES
+WARNINGS               = YES
+EXTRACT_ALL            = NO
+EXTRACT_PRIVATE        = NO
+HIDE_UNDOC_MEMBERS     = YES
+HIDE_UNDOC_CLASSES     = YES
+HIDE_SCOPE_NAMES       = YES
+INLINE_INFO            = YES
+INTERNAL_DOCS          = NO
+INPUT                  = ../include/nt2/arithmetic/functions
+INPUT                 += $(NT2_BINARY_DIR)/include/nt2/arithmetic/functions
+INPUT                 += ../include/nt2/bitwise/functions
+INPUT                 += $(NT2_BINARY_DIR)/include/nt2/bitwise/functions
+INPUT                 += ../include/nt2/boolean/functions
+INPUT                 += $(NT2_BINARY_DIR)/include/nt2/boolean/functions
+INPUT                 += ../include/nt2/constant/constants
+INPUT                 += $(NT2_BINARY_DIR)/include/nt2/constant/constants
+INPUT                 += ../include/nt2/ieee/functions
+INPUT                 += $(NT2_BINARY_DIR)/include/nt2/ieee/functions
+INPUT                 += ../include/nt2/operator/functions
+INPUT                 += $(NT2_BINARY_DIR)/include/nt2/operator/functions
+INPUT                 += ../include/nt2/predicates/functions
+INPUT                 += $(NT2_BINARY_DIR)/include/nt2/predicates/functions
+INPUT                 += ../include/nt2/meta
+FULL_PATH_NAMES        = NO
+INHERIT_DOCS           = NO
+RECURSIVE              = NO

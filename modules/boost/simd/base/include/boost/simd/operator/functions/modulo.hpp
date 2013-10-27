@@ -50,7 +50,7 @@ namespace boost { namespace simd
     T0 r = a0 % a1;
     @endcode
 
-    @see  @funcref{rem}, @funcref{remaider}, @funcref{mod},
+    @see  @funcref{rem}, @funcref{remainder}, @funcref{mod},
     @param a0
 
     @param a1

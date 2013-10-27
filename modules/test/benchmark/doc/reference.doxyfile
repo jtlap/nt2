@@ -7,7 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-QUIET                  = NO
 WARN_IF_UNDOCUMENTED   = YES
 WARNINGS               = YES
 EXTRACT_ALL            = NO

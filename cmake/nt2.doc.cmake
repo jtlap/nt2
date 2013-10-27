@@ -65,11 +65,10 @@ macro(nt2_xsltproc output)
 
   add_custom_command(OUTPUT ${output}
                      COMMAND ${CMAKE_COMMAND}
-                     "-DXSLTPROC_EXECUTABLE=${XSLTPROC_EXECUTABLE}"
-                     "-DCATALOG=${NT2_BINARY_DIR}/doc/catalog.xml"
-                     "-DOUTPUT=${output}"
-                     "-DARGS=\"${ARG_UNPARSED_ARGUMENTS}\""
-                     -P "${NT2_SOURCE_ROOT}/cmake/nt2.xsltproc.cmake"
+                     "-DVAR=XML_CATALOG_FILES"
+                     "-DVALUE=${NT2_BINARY_DIR}/doc/catalog.xml"
+                     "-DCOMMAND=\"${XSLTPROC_EXECUTABLE};--output;${output};--xinclude;--nonet;${ARG_UNPARSED_ARGUMENTS}\""
+                     -P "${NT2_SOURCE_ROOT}/cmake/nt2.env.cmake"
                      DEPENDS ${ARG_DEPENDS}
                      COMMENT ${ARG_COMMENT}
                     )
@@ -160,6 +159,7 @@ macro(nt2_doc_doxygen file)
   set(DXY_TARGET "GENERATE_LATEX=NO\nGENERATE_HTML=YES\nGENERATE_XML=YES\n")
   set(DXY_XML    "XML_OUTPUT = ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen\n")
   set(DXY_HTML   "HTML_OUTPUT = ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen/html\n")
+  set(DXY_QUIET  "QUIET = YES\n")
 
   # Add our alias lists
   file(READ ${CMAKE_SOURCE_DIR}/cmake/alias.dox DOXYGEN_ALIAS)
@@ -168,7 +168,7 @@ macro(nt2_doc_doxygen file)
   file(READ ${CMAKE_SOURCE_DIR}/cmake/predef.dox DOXYGEN_PREDEF)
 
   set(DOXYGEN_CONTENT
-      "${DOXYGEN_CONTENT}${DXY_EX}${DXY_PATH}${DXY_PP}${DXY_PDEF}${DXY_EXCLUDE}${DXY_TARGET}${DXY_XML}${DXY_HTML}${DOXYGEN_ALIAS}${DOXYGEN_PREDEF}"
+      "${DOXYGEN_CONTENT}${DXY_EX}${DXY_PATH}${DXY_PP}${DXY_PDEF}${DXY_EXCLUDE}${DXY_TARGET}${DXY_XML}${DXY_HTML}${DXY_QUIET}${DOXYGEN_ALIAS}${DOXYGEN_PREDEF}"
      )
 
   file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen/doxyfile ${DOXYGEN_CONTENT})
@@ -180,8 +180,9 @@ macro(nt2_doc_doxygen file)
   file(MAKE_DIRECTORY ${NT2_BINARY_DIR}/doc/html/images/${target_name})
   add_custom_target(${target_name}
                     COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen/html/
-                    COMMAND ${DOXYGEN_EXECUTABLE}
-                            ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen/doxyfile
+                    COMMAND ${CMAKE_COMMAND} "-DVAR=NT2_BINARY_DIR" "-DVALUE=${NT2_BINARY_DIR}"
+                            "-DCOMMAND=\"${DOXYGEN_EXECUTABLE};${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen/doxyfile\""
+                            -P "${NT2_SOURCE_ROOT}/cmake/nt2.env.cmake"
                     COMMAND find ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen/html/ -name form_*.png -exec cp {} ${NT2_BINARY_DIR}/doc/html/images/${target_name}/ "\\;"
                     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
                     DEPENDS ${file}.doxyfile

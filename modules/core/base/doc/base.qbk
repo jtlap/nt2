@@ -1,0 +1,10 @@
+[library Base Functions and Operators
+  [quickbook 1.5]
+]
+
+[section Overview]
+This module adapts all constants, functions and operators available in
+Boost.SIMD to make them available in NT2.
+[endsect]
+
+[xinclude reference.xml]
