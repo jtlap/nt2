@@ -15,8 +15,6 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/assert.hpp>
 
-#include <iostream>
-
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shift_right_, tag::cpu_
