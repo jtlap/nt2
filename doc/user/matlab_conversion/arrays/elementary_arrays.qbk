@@ -10,7 +10,7 @@ by default is double) the syntax are for instance:
 functions as freqspace can return several results, in __NT2__ too... The respective syntaxes are:
 
 # `[a,b] = freqspace(...)` in Matlab
-# `tie(a,b) = freqspace(...)` in Nt2 (note that `tie_` is in namespace `nt2`)
+# `tie(a,b) = freqspace(...)` in __NT2__ (note that `tie_` is in namespace `nt2`)
 
 
 [table:id Elementary Arrays
@@ -63,11 +63,11 @@ functions as freqspace can return several results, in __NT2__ too... The respect
 ]
 
 
-[note TODO
+[note
 
 __NT2__ has chosen to extend the scheme presented by  `ones`, `zeros` to all of its mathematical constants.
-For instance `Sqrt_2<T>` produces the square root of 2 in the type T, and `Sqrt_2s<T>(n,m)`[footnote note the s],
- will produce an array expression of size nXm full of this constant, as well as`Sqrt_2s(n,m, as_<T>())` ]
+For instance `Sqrt_2<T>()` produces the square root of 2 in the type T, and `Sqrt_2<T>(n,m)`,
+ will produce an array expression of size nXm full of this constant, as well as`Sqrt_2(n,m, as_<T>())` ]
 [endsect]
 
 

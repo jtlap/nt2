@@ -20,7 +20,7 @@ Nt2 has C++ support and some macros to do the job.
 [h3 Global predicates]
 
 Matlab has two species of predicates routines `isxxx`, some returning a scalar logical
-and stating something about a whole arrays or expressions, the other beeing elementwise
+and stating something about a whole array or expression, the other being elementwise
 assertions about the elements of the arrays or expressions and returning logical arrays.
 
 In Nt2 we have chosen to keep Matlab names `isxxx`for the first category, but use `is_xxx`

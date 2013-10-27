@@ -15,14 +15,14 @@ __NT2__ has C++ support and some macros to do the job.
 [[__MATLAB__        ][ __NT2__                      ][ Description                                      ]]
 [[`disp            `][`std::cout <<...<< std::endl;`][ Display text or array.                           ]]
 [[`disp            `][`display(string,value)`       ][ Display text or array.                           ]]
-[[`display         `][`NT2_DISPLAY`                 ][ Display text or array.  In __NT2__ its a macro   ]]
+[[`display         `][`NT2_DISPLAY`                 ][ Display text or array.  In __NT2__ it is a macro   ]]
 ]
 
 
 [h3 Global predicates]
 
 __MATLAB__ has two species of predicates routines `isxxx`, some returning a scalar logical
-and stating something about a whole arrays or expressions, the other beeing elementwise
+and stating something about a whole array or expression, the other being elementwise
 assertions about the elements of the arrays or expressions and returning logical arrays.
 
 In __NT2__ we have chosen to keep __MATLAB__ names `isxxx` for the first category, but use `is_xxx`
@@ -108,7 +108,7 @@ meaning by this [*never a scalar], difference which of course has no meaning usi
 For instance in __MATLAB__ `max(a(:))` is the largest element of the whole `a` array. This can be written in __NT2__
 
 # `max(a(_))` -> this is a 1x1 sized expression
-# `globalmax(a(_))` -> this is a scalar
+# `globalmax(a)` -> this is a scalar
 
 
 Finally of course syntaxes like `[m,i]=max(a)` are in __NT2__ equivalent to `tie(m,i)=max(a)`.

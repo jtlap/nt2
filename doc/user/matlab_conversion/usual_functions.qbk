@@ -16,7 +16,7 @@ Almost all standard library function are supported and can be applied in an elem
 directly on matricial expressions, just as in Matlab.
 
 We support complex arithmetic, but real and complex types are not the same.
-We have 3 (template) complex types than can be mixed in order to always use (best) complex
+We have 2 (template) complex types than can be mixed in order to always use (best) complex
 arithmetic, and can also be mixed with a scalar one (see complex rationale).
 [endsect]
 

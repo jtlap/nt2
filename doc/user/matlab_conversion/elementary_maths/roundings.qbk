@@ -15,11 +15,11 @@
                            'ceil'  -> nt2::tag::ceil_()
 
                          __NT2__ also has direct call to `(i)divfix`,
-                         `(i)divfloor`,`(i)divceil` and `(i)divround`
+                         `(i)divfloor`, `(i)divceil` and `(i)divround`
                                                                          ]]
 [[`mod     `][`mod     `][ Modulus after division                        ]]
 [[`rem     `][`rem     `][ Remainder after division                      ]]
-[[`round   `][`round   `][ Round to nearest integer                      ]]
+[[`round   `][`round   `][ Round to nearest integer. __NT2__ as also round2even    ]]
 
 ]
 

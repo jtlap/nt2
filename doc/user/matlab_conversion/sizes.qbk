@@ -1,7 +1,7 @@
 [section Sizes]
 [h3 Consulting sizes]
 
-Once a matrix declared, it is possible to kow its size.
+Once a matrix declared, it is possible to know its size.
 [table:id information about the size of a matrix
     [[NT2 and Matlab] [description]]
     [[`size(a)`]      [row vector of dimensions]]

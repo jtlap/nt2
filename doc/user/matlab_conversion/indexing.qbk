@@ -10,7 +10,7 @@ vectors of integer and vectors of boolean.
 One can distinguish:
 
 # simple indexing: using integers,
-# multiple indexing : using vectors of integers,
+# multiple indexing: using vectors of integers,
 # logical indexing: using vectors of boolean.
 
 Indexing produces expressions in NT2 the evaluation of which could produce scalars or matrix values.
@@ -44,7 +44,7 @@ This is not the case in NT2 and there is no automatic conversion in most cases.
 [h3 Begin and end index values]
 
 We have seen at the previous item the use of `end_` inside indexation ranges as `a(_(1,2,end_)`.
-This symbol has the same meaning as Matlab `end` and can be used as a valid substitute of the last index
+This symbol has the same meaning as Matlab `end` and can be used as a valid substitute of the last index of
 an indexing expression. In that context, end_ == size(a,k) when used as part of the k-th index.
 
 
@@ -59,11 +59,11 @@ that represent the first index when used in  indexation ranges but that does not
 
 Indices are used to extract datas from a matrix expression only if they are located
 on the right side of an affectation or are function parameters. At the opposite
-when located at the left of affectation, indexing serves to designates the
+when located at the left of affectation, indexing serves to designate the
 elements of the matrix that will be modified by the affectation.
 
 
-An affectation like `a = b;` modifies (f necessary) the size of `a`
+An affectation like `a = b;` modifies (if necessary) the size of `a`
 by replacing the contents of a by those from `b`: The result getting the size of `b`.
 
 Contrarily the following affectations do not modify at all the size
@@ -86,7 +86,7 @@ has not to match dimensions exactly, but only the total number of elements matte
     [[`a(_(1,2,end_))  = 12;                   `] [`a(1:2:end)   = 12              `]]
     [[`a(cons(3,7,2,2))= cons(6.0, 19.0, 23.0, 14.0);  `] [`a([3,7,2,2]) = [6, 19, 23, 14] `]]
     [[`a(_)            = _(24.0, -1.0, 1.0);   `] [`a(:)         = 24:-1:1         `]]
-    [[`a(a>5.0)        = a(a>5.0)*2;           `] [`a(a>5)       = a(a>5)*2        `]]
+    [[`a(a>5.0)        = a(a>5.0)*2.0;         `] [`a(a>5)       = a(a>5)*2        `]]
 ]
 
 [h3 Elements suppression]

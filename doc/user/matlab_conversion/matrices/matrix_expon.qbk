@@ -7,7 +7,7 @@
                       __MATLAB__ version doesnot play well with non diagonalisable matrices.
 ]]
 [[`mpower`][`mpower`][Matrix powerential]]
-[[`logm  `][`logm  `][TODO Matrix logarithm  ]]
+[[`logm  `][`logm  `][Matrix logarithm  ]]
 [[`sqrtm `][`sqrtm `][Matrix square root]]
 ]
 [endsect]
