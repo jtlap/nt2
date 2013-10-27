@@ -8,58 +8,43 @@
 //==============================================================================
 #ifndef NT2_EXPONENTIAL_CONSTANTS_LOG_10_HPP_INCLUDED
 #define NT2_EXPONENTIAL_CONSTANTS_LOG_10_HPP_INCLUDED
-/*!
- * \file
-**/
 #include <boost/simd/constant/hierarchy.hpp>
 #include <boost/simd/constant/register.hpp>
 
-/*!
- * \ingroup expon_constant
- * \defgroup expon_constant_log_10 Log_10
- *
- * \par Description
- * Constant log_10 : \f$\log(10)\f$ constant.
- * \par
- * The value of this constant is type dependant. This means that for different
- * types it does not represent the same mathematical number.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/log_10.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::log_10_(A0)>::type
- *     log_10();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Log_10
- *
- * \return type T value
- *
- *
-**/
-
 namespace nt2
 {
+  **/
   namespace tag
   {
+    /*!
+      @brief Log_10 generic tag
+
+      Represents the Log_10 constant in generic contexts.
+
+      @par Models:
+      Hierarchy
+    **/
     BOOST_SIMD_CONSTANT_REGISTER( Log_10, double
-                                , 1, 0x40135d8e
+                                , 2, 0x40135d8e
                                 , 0x40026bb1bbb55516LL
                                 );
   }
+  /*!
+    Generates constant Log_10. (\f$\log(10)\f$)
 
+    @par Semantic:
+
+    @code
+    T r = Log_10<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+      r =  T(2.302585092994045684017991454684364207601101488628773);
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Log_10, Log_10);
 }
 

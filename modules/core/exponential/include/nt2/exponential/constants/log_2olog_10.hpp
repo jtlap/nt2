@@ -8,58 +8,43 @@
 //==============================================================================
 #ifndef NT2_EXPONENTIAL_CONSTANTS_LOG_2OLOG_10_HPP_INCLUDED
 #define NT2_EXPONENTIAL_CONSTANTS_LOG_2OLOG_10_HPP_INCLUDED
-/*!
- * \file
-**/
+
 #include <boost/simd/constant/hierarchy.hpp>
 #include <boost/simd/constant/register.hpp>
-
-/*!
- * \ingroup expon_constant
- * \defgroup expon_constant_log_2olog_10 log_2olog_10
- *
- * \par Description
- * Constant log_2olog_10 : \f$\frac{\log(2)}{\log(10)}\f$ constant.
- * \par
- * The value of this constant is type dependant. This means that for different
- * types it does not represent the same mathematical number.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/log_2olog_10.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::log_2olog_10_(A0)>::type
- *     log_2olog_10();
- * }
- * \endcode
- *
- *
- * \param T template parameter of log_2olog_10
- *
- * \return type T value
- *
- *
-**/
 
 namespace nt2
 {
   namespace tag
   {
+    /*!
+      @brief Log_2olog_10 generic tag
+
+      Represents the Log_2olog_10 constant in generic contexts.
+
+      @par Models:
+      Hierarchy
+    **/
     BOOST_SIMD_CONSTANT_REGISTER( Log_2olog_10, double
                                 , 0, 0x3e9a209b
                                 , 0x3fd34413509f79ffLL
                                 );
   }
+  /*!
+    Generates constant Log_2olog_10.  (\f$\frac{\log(2)}{\log(10)}\f$)
 
+    @par Semantic:
+
+    @code
+    T r = Log_2olog_10<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+      r =  T(0.3010299956639811952137388947244930267681898814621085);
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Log_2olog_10, Log_2olog_10);
 }
 

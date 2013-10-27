@@ -16,12 +16,35 @@ namespace nt2
 {
   namespace tag
   {
+    /*!
+      @brief Invlog_10 generic tag
+
+      Represents the Invlog_10 constant in generic contexts.
+
+      @par Models:
+      Hierarchy
+    **/
     BOOST_SIMD_CONSTANT_REGISTER( Invlog_2, double
                                 , 1, 0x3fb8aa3b
                                 , 0x3ff71547652b82feLL
                                 );
   }
+  /*!
+    Generates constant 1/log(2).
 
+    @par Semantic:
+
+    @code
+    T r = Invlog_2<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+     r =  T(1.442695040888963407359924681001892137426645954152986);
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Invlog_2, Invlog_2);
 }
 

@@ -16,6 +16,7 @@ HIDE_SCOPE_NAMES       = YES
 INLINE_INFO            = YES
 INTERNAL_DOCS          = NO
 INPUT                  = ../include/nt2/exponential/functions
+INPUT                 += ../include/nt2/exponential/constants
 FULL_PATH_NAMES        = NO
 INHERIT_DOCS           = NO
 RECURSIVE              = NO

@@ -16,12 +16,40 @@ namespace nt2
 {
   namespace tag
   {
+    /*!
+      @brief Expnibig generic tag
+
+      Represents the Expnibig constant in generic contexts.
+
+      @par Models:
+      Hierarchy
+    **/
     BOOST_SIMD_CONSTANT_REGISTER( Expnibig, double
                                 , 0, 0x4b800000         // 2^24
-                                , 0x4380000000000000ll  // 1.0/128
+                                , 0x4380000000000000ll  // 2^57
                                 );
   }
+  /*!
+    Generates a constant used in expni.
 
+    @par Semantic:
+
+    @code
+    T r = Expnibig<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    if T is integral
+      r = T(0)
+    else if T is double
+      r =  pow(2.0, 57);
+    else if T is float
+      r =  pow(2.0f, 24);
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Expnibig, Expnibig);
 }
 

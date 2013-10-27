@@ -8,58 +8,42 @@
 //==============================================================================
 #ifndef NT2_EXPONENTIAL_CONSTANTS_INVLOG_10_HPP_INCLUDED
 #define NT2_EXPONENTIAL_CONSTANTS_INVLOG_10_HPP_INCLUDED
-/*!
- * \file
-**/
 #include <boost/simd/constant/hierarchy.hpp>
 #include <boost/simd/constant/register.hpp>
-
-/*!
- * \ingroup expon_constant
- * \defgroup expon_constant_Invlog_10 Invlog_10
- *
- * \par Description
- * Constant Invlog_10 : \f$\frac1{\log(10)}\f$ constant.
- * \par
- * The value of this constant is type dependant. This means that for different
- * types it does not represent the same mathematical number.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/Invlog_10.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::Invlog_10_(A0)>::type
- *     Invlog_10();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Invlog_10
- *
- * \return type T value
- *
- *
-**/
 
 namespace nt2
 {
   namespace tag
   {
+    /*!
+      @brief Invlog_10 generic tag
+
+      Represents the Invlog_10 constant in generic contexts.
+
+      @par Models:
+      Hierarchy
+    **/
     BOOST_SIMD_CONSTANT_REGISTER( Invlog_10, double
                                 , 0, 0x3ede5bd9
                                 , 0x3fdbcb7b1526e50dLL
                                 );
   }
+  /*!
+    Generates constant 1/log(10).
 
+    @par Semantic:
+
+    @code
+    T r = Invlog_10<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    r =  T(0.4342944819032518276511289189166050822943970058036666);
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Invlog_10, Invlog_10);
 }
 

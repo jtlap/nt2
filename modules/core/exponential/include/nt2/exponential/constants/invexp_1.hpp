@@ -8,56 +8,43 @@
 //==============================================================================
 #ifndef NT2_EXPONENTIAL_CONSTANTS_INVEXP_1_HPP_INCLUDED
 #define NT2_EXPONENTIAL_CONSTANTS_INVEXP_1_HPP_INCLUDED
-/*!
- * \file
-**/
 #include <boost/simd/constant/hierarchy.hpp>
 #include <boost/simd/constant/register.hpp>
-
-/*!
- * \ingroup expon_constant
- * \defgroup expon_constant_invexp_1 invexp_1 (0.36787944117144232159552377016146...)
- *
- * \par Description
- * Constant invexp_1 : \f$e = \exp(-1)\f$ constant.
- * \par
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/invexp_1.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::invexp_1_(A0)>::type
- *     invexp_1();
- * }
- * \endcode
- *
- *
- * \param T template parameter of invexp_1
- *
- * \return type T value
- *
- *
-**/
 
 namespace nt2
 {
   namespace tag
   {
+   /*!
+     @brief Invexp_1 generic tag
+
+     Represents the Invexp_1 constant in generic contexts.
+
+     @par Models:
+        Hierarchy
+   */
     BOOST_SIMD_CONSTANT_REGISTER( Invexp_1, double
-                                , 2, 0x3ebc5ab2
+                                , 0, 0x3ebc5ab2
                                 , 0x3fd78b56362cef38ll
                                 );
   }
+  /*!
+    Generates constant 1/e.
 
+    @par Semantic:
+    The e constant is the real number such that \f$\log(e) = 1\f$.
+
+    @code
+    T r = Invexp_1<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    r =  T(0.3678794411714423215955237701614608674458111310317678);
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Invexp_1, Invexp_1);
 }
 

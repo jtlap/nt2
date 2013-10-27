@@ -16,12 +16,40 @@ namespace nt2
 {
   namespace tag
   {
+    /*!
+      @brief Expx2c2 generic tag
+
+      Represents the Expx2c2 constant in generic contexts.
+
+      @par Models:
+      Hierarchy
+    **/
     BOOST_SIMD_CONSTANT_REGISTER( Expx2c2, double
                                 , 0, 0x3d000000         // 1.f/32
                                 , 0x3f80000000000000ll  // 1.0/128
                                 );
   }
+  /*!
+    Generates a costant used in expx2.
 
+    @par Semantic:
+
+    @code
+    T r = Expx2c2<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+    if T is integral
+      r = T(0)
+    else if T is double
+      r =  1/T(128);
+    else if T is float
+      r =  1/T(32);
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Expx2c2, Expx2c2);
 }
 

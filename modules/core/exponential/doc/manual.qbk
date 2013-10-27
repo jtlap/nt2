@@ -9,7 +9,7 @@ This is a list of all exponential functions defined in __NT2__
 they are supported for real and complex inputs
 
 
-[table:id   __NT2__ trigonometric, direct and inverse
+[table:id   __NT2__ exponential and logarithms
 [[ Name                                           ][ Description                                     ]]
 [[[funcref nt2::cbrt            `cbrt            `]][ Cubic root                                     ]]
 [[[funcref nt2::exp10           `exp10           `]][ base ten exponential                           ]]

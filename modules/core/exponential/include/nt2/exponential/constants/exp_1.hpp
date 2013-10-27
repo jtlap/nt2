@@ -8,58 +8,44 @@
 //==============================================================================
 #ifndef NT2_EXPONENTIAL_CONSTANTS_EXP_1_HPP_INCLUDED
 #define NT2_EXPONENTIAL_CONSTANTS_EXP_1_HPP_INCLUDED
-/*!
- * \file
-**/
+
 #include <boost/simd/constant/hierarchy.hpp>
 #include <boost/simd/constant/register.hpp>
-
-/*!
- * \ingroup expon_constant
- * \defgroup expon_constant_exp_1 Exp_1
- *
- * \par Description
- * Constant exp_1 : \f$e = \exp(1)\f$ constant.
- * \par
- * The value of this constant is type dependant. This means that for different
- * types it does not represent the same mathematical number.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/exp_1.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class T,class A0>
- *     meta::call<tag::exp_1_(A0)>::type
- *     exp_1();
- * }
- * \endcode
- *
- *
- * \param T template parameter of Exp_1
- *
- * \return type T value
- *
- *
-**/
 
 namespace nt2
 {
   namespace tag
   {
+    /*!
+      @brief Exp_1 generic tag
+
+      Represents the Exp_1 constant in generic contexts.
+
+      @par Models:
+      Hierarchy
+    **/
     BOOST_SIMD_CONSTANT_REGISTER( Exp_1, double
                                 , 2, 0x402df854
                                 , 0x4005bf0a8b145769LL
                                 );
   }
+  /*!
+    Generates constant e.
 
+    @par Semantic:
+    The e constant is the real number such that \f$\log(e) = 1\f$
+
+    @code
+    T r = Exp_1<T>();
+    @endcode
+
+    is similar to:
+
+    @code
+      r =  T(2.71828182845904523536028747135266249775724709369995);
+    @endcode
+
+  **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Exp_1, Exp_1);
 }
 
