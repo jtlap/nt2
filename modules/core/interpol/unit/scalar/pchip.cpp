@@ -15,8 +15,9 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/exceptions.hpp>
 
-NT2_TEST_CASE_TPL( pchip, (float)(double) )
+NT2_TEST_CASE_TPL( pchip, NT2_REAL_TYPES)
 {
   using nt2::_;
   nt2::table<T> x =  nt2::linspace(T(1),  T(4), 4);
@@ -47,7 +48,7 @@ NT2_TEST_CASE_TPL( pchip, (float)(double) )
   NT2_TEST_ULP_EQUAL(yi, r0, 10.0);
 }
 
-/*NT2_TEST_CASE_TPL( pchip2, (float)(double))//NT2_TYPES )
+NT2_TEST_CASE_TPL( pchip2, NT2_REAL_TYPES )
 {
   using nt2::_;
   nt2::table<T> x =  nt2::linspace(T(1),  T(4), 4);
@@ -76,4 +77,35 @@ NT2_TEST_CASE_TPL( pchip, (float)(double) )
   NT2_DISPLAY(yi);
   NT2_TEST_EQUAL(y0, yi);
 }
-*/
+
+NT2_TEST_CASE_TPL( pchip3, NT2_REAL_TYPES )
+{
+  using nt2::_;
+  T x = 3;
+  T y = 2, y1;
+  nt2::table<T> xi=  nt2::linspace(T(1),  T(4), 4);
+  NT2_DISPLAY(x);
+  NT2_DISPLAY(y);
+  NT2_DISPLAY(xi);
+  nt2::table<T> y0;
+  NT2_TEST_ASSERT(y0=nt2::pchip(x, y, xi));
+  NT2_TEST_ASSERT(y0=nt2::pchip(T(3), y, xi));
+  NT2_TEST_ASSERT(y0=nt2::pchip(T(3), y, xi, T(32)));
+  NT2_TEST_ASSERT(y0=nt2::pchip(T(3), y, xi, true));
+  NT2_TEST_ASSERT(y1=nt2::pchip(x, y, T(25), true));
+  NT2_TEST_ASSERT(y1=nt2::pchip(x, y, T(25), false));
+  NT2_TEST_ASSERT(y1=nt2::pchip(x, y, T(25), T(32)));
+}
+NT2_TEST_CASE_TPL( pchip4, NT2_REAL_TYPES )
+{
+  using nt2::_;
+  nt2::table<T> x =  T(3);
+  nt2::table<T> y =  T(2);
+  nt2::table<T> xi=  nt2::linspace(T(1),  T(4),4);
+  nt2::table<T> y0;
+  NT2_TEST_ASSERT(y0=nt2::pchip(x, y, xi));
+  NT2_TEST_ASSERT(y0=nt2::pchip(x, y, xi, T(32)));
+  NT2_TEST_ASSERT(y0=nt2::pchip(x, y, xi, true));
+
+}
+

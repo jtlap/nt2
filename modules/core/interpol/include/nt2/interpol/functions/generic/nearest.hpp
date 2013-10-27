@@ -12,6 +12,7 @@
 #include <nt2/interpol/functions/nearest.hpp>
 #include <nt2/include/functions/is_nge.hpp>
 #include <nt2/include/functions/is_nle.hpp>
+#include <nt2/include/functions/is_equal.hpp>
 #include <nt2/include/functions/issorted.hpp>
 #include <nt2/include/functions/bsearch.hpp>
 #include <nt2/include/functions/if_else.hpp>
@@ -22,6 +23,7 @@
 #include <nt2/include/functions/repnum.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/average.hpp>
+#include <nt2/include/functions/numel.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
@@ -30,6 +32,39 @@
 
 namespace nt2 { namespace ext
 {
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nearest_, tag::cpu_
+                            , (A0)(A1)(A2)
+                            , (scalar_<arithmetic_<A0> > )
+                              (unspecified_<A1> )
+                              (unspecified_<A2> )
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_FORCEINLINE
+    result_type operator()(const A0 & a0, const A1 &, const A2 &) const
+
+    {
+      BOOST_ASSERT_MSG(false, "Interpolation requires at least two sample points in each dimension.");
+      return Nan<A0>();
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nearest_, tag::cpu_
+                            , (A0)(A1)(A2)(A3)
+                            , (scalar_<arithmetic_<A0> > )
+                              (unspecified_<A1> )
+                              (unspecified_<A2> )
+                              (unspecified_<A3> )
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_FORCEINLINE
+    result_type operator()(const A0 & a0, const A0 & , const A0 & , const A0 & ) const
+    {
+      BOOST_ASSERT_MSG(false, "Interpolation requires at least two sample points in each dimension.");
+      return  Nan<A0>();
+    }
+  };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
                             , (A0)(A1)(N1)
@@ -49,20 +84,27 @@ namespace nt2 { namespace ext
     {
       yi.resize(inputs.extent());
       const child0 & x   =  boost::proto::child_c<0>(inputs);
-      BOOST_ASSERT_MSG(issorted(x, 'a'), "for 'nearest' interpolation x values must be sorted in ascending order");
-      const child1 & y   =  boost::proto::child_c<1>(inputs);
-      const child2 & xi  =  boost::proto::child_c<2>(inputs);
-      bool extrap = false;
-      value_type extrapval = Nan<value_type>();
-      choices(inputs, extrap, extrapval, N1());
-      table<index_type>   index = bsearch (x, xi);
-      table<value_type>  dx    =  xi-x(index);
-      table<index_type> indexp1 =  oneplus(index);
-      yi = y(nt2::if_else(lt(nt2::abs(xi-x(index)), nt2::abs(xi-x(indexp1))), index,  indexp1));
-      value_type  b =  value_type(x(begin_));
-      value_type  e =  value_type(x(end_));
-      if (!extrap) yi = nt2::if_else(nt2::logical_or(boost::simd::is_nge(xi, b),
-                                                      boost::simd::is_nle(xi, e)), extrapval, yi);
+      if (numel(x) <=  1)
+        BOOST_ASSERT_MSG(numel(x) >  1, "Interpolation requires at least two sample points in each dimension.");
+      else
+      {
+        BOOST_ASSERT_MSG(issorted(x, 'a'), "for 'nearest' interpolation x values must be sorted in ascending order");
+        const child1 & y   =  boost::proto::child_c<1>(inputs);
+        BOOST_ASSERT_MSG(numel(x) == numel(y), "The grid vectors do not define a grid of points that match the given values.");
+        const child2 & xi  =  boost::proto::child_c<2>(inputs);
+        bool extrap = false;
+        value_type extrapval = Nan<value_type>();
+        choices(inputs, extrap, extrapval, N1());
+        table<index_type>   index = bsearch (x, xi);
+        table<value_type>  dx    =  xi-x(index);
+        table<index_type> indexp1 =  oneplus(index);
+        yi = y(nt2::if_else(lt(nt2::abs(xi-x(index)), nt2::abs(xi-x(indexp1))), index,  indexp1));
+        value_type  b =  value_type(x(begin_));
+        value_type  e =  value_type(x(end_));
+        if (!extrap) yi = nt2::if_else(nt2::logical_or(boost::simd::is_nge(xi, b),
+                                                       boost::simd::is_nle(xi, e)), extrapval, yi);
+      }
+
       return yi;
     }
   private :

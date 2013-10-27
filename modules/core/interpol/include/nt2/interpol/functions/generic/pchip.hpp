@@ -36,8 +36,10 @@
 #include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/reshape.hpp>
 #include <nt2/include/functions/vertcat.hpp>
+#include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/logical_and.hpp>
+#include <nt2/include/functions/unary_plus.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/three.hpp>
 #include <nt2/core/container/table/table.hpp>
@@ -47,6 +49,39 @@
 
 namespace nt2 { namespace ext
 {
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pchip_, tag::cpu_
+                            , (A0)(A1)(A2)
+                            , (scalar_<arithmetic_<A0> > )
+                              (unspecified_<A1> )
+                              (unspecified_<A2> )
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_FORCEINLINE
+    result_type operator()(const A0 & a0, const A1 &, const A2 &) const
+
+    {
+      BOOST_ASSERT_MSG(false, "Interpolation requires at least two sample points in each dimension.");
+      return Nan<A0>();
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pchip_, tag::cpu_
+                            , (A0)(A1)(A2)(A3)
+                            , (scalar_<arithmetic_<A0> > )
+                              (unspecified_<A1> )
+                              (unspecified_<A2> )
+                              (unspecified_<A3> )
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_FORCEINLINE
+    result_type operator()(const A0 & a0, const A0 & , const A0 & , const A0 & ) const
+    {
+      BOOST_ASSERT_MSG(false, "Interpolation requires at least two sample points in each dimension.");
+      return Nan<A0>();
+    }
+  };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
                             , (A0)(A1)(N1)
@@ -68,25 +103,32 @@ namespace nt2 { namespace ext
     {
       yi.resize(inputs.extent());
       const child0 & x   =  boost::proto::child_c<0>(inputs);
-      BOOST_ASSERT_MSG(issorted(x, 'a'), "for 'pchip' interpolation x values must be sorted in ascending order");
-      const child1 & y   =  boost::proto::child_c<1>(inputs);
-      const child2 & xi  =  boost::proto::child_c<2>(inputs);
-      bool extrap = false;
-      value_type extrapval = Nan<value_type>();
-      choices(inputs, extrap, extrapval, N1());
-      vtab_t h  =  nt2::diff(x,1,2);
-      vtab_t del = nt2::diff(y,1,2)/h;
-      pchipslopes(x,y,del, yi);
-      ppval <value_type> pp(x,y,yi,h,del);
-      yi =pp.eval(xi);
-      if (!extrap)
+      if (numel(x) <=  1)
+        BOOST_ASSERT_MSG(numel(x) >  1, "Interpolation requires at least two sample points in each dimension.");
+      else
       {
-        value_type  b =  value_type(x(begin_));
-        value_type  e =  value_type(x(end_));
-        yi = nt2::if_else(nt2::logical_or(boost::simd::is_nge(xi, b),
-                                          boost::simd::is_nle(xi, e)), extrapval, yi);
+        BOOST_ASSERT_MSG(issorted(x, 'a'), "for 'pchip' interpolation x values must be sorted in ascending order");
+        const child1 & y   =  boost::proto::child_c<1>(inputs);
+        BOOST_ASSERT_MSG(numel(x) == numel(y), "The grid vectors do not define a grid of points that match the given values.");
+        const child2 & xi  =  boost::proto::child_c<2>(inputs);
+        bool extrap = false;
+        value_type extrapval = Nan<value_type>();
+        choices(inputs, extrap, extrapval, N1());
+        vtab_t h  =  nt2::diff(x,1,2);
+        vtab_t del = nt2::diff(y,1,2)/h;
+        pchipslopes(x,y,del, yi);
+        ppval <value_type> pp(x,y,yi,h,del);
+        yi =pp.eval(xi);
+        if (!extrap)
+        {
+          value_type  b =  value_type(x(begin_));
+          value_type  e =  value_type(x(end_));
+          yi = nt2::if_else(nt2::logical_or(boost::simd::is_nge(xi, b),
+                                            boost::simd::is_nle(xi, e)), extrapval, yi);
+        }
       }
-      return yi;
+
+       return yi;
     }
   private :
     static void choices(const A1&, bool &,  value_type&, boost::mpl::long_<3> const &)

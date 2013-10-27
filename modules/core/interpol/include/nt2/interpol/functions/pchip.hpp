@@ -73,11 +73,6 @@ namespace nt2 { namespace ext
         : meta::size_as<Expr,2>
   {};
 
-  /// INTERNAL ONLY
-  template <class Domain, class Expr,  int N>
-  struct  value_type < tag::pchip_, Domain,N,Expr>
-        : meta::value_as<Expr,2>
-  {};
 } }
 
 #endif

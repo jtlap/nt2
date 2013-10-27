@@ -73,12 +73,6 @@ namespace nt2 { namespace ext
   struct  size_of<tag::linear_, Domain, N, Expr>
         : meta::size_as<Expr,2>
   {};
-
-  /// INTERNAL ONLY
-  template <class Domain, class Expr,  int N>
-  struct  value_type < tag::linear_, Domain,N,Expr>
-        : meta::value_as<Expr,1>
-  {};
 } }
 
 #endif

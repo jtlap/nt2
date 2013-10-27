@@ -15,6 +15,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/tests/exceptions.hpp>
 
 
 NT2_TEST_CASE_TPL( linear, NT2_REAL_TYPES )
@@ -80,4 +81,22 @@ NT2_TEST_CASE_TPL( linear2, NT2_REAL_TYPES )
   yi =nt2::linear(x, y, xi, T(33));
   NT2_DISPLAY(yi);
   NT2_TEST_EQUAL(y0, yi);
+}
+NT2_TEST_CASE_TPL( linear3, NT2_REAL_TYPES )
+{
+  using nt2::_;
+  T x = 3;
+  T y = 2, y1;
+  nt2::table<T> xi=  nt2::linspace(T(1),  T(4), 4);
+  NT2_DISPLAY(x);
+  NT2_DISPLAY(y);
+  NT2_DISPLAY(xi);
+  nt2::table<T> y0;
+  NT2_TEST_ASSERT(y0=nt2::linear(x, y, xi));
+  NT2_TEST_ASSERT(y0=nt2::linear(T(3), y, xi));
+  NT2_TEST_ASSERT(y0=nt2::linear(T(3), y, xi, T(32)));
+  NT2_TEST_ASSERT(y0=nt2::linear(T(3), y, xi, true));
+  NT2_TEST_ASSERT(y1=nt2::linear(x, y, T(25), true));
+  NT2_TEST_ASSERT(y1=nt2::linear(x, y, T(25), false));
+  NT2_TEST_ASSERT(y1=nt2::linear(x, y, T(25), T(32)));
 }

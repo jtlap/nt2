@@ -77,8 +77,8 @@ namespace nt2 { namespace ext
     result_type operator()(const A0& a0) const
     {
       size_t dim =  nt2::firstnonsingleton(a0);
-      bool res =  nt2::globalall(nt2::all(is_nltz(diff(a0, dim))));
-      return res || nt2::globalall(nt2::all(is_ngtz(diff(a0, dim))));
+      bool res =  nt2::globalall(is_nltz(diff(a0, dim)));
+      return res || nt2::globalall(is_ngtz(diff(a0, dim)));
     }
   };
 
@@ -93,8 +93,8 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(const A0& a0, const A1& dim) const
     {
-      bool res =  nt2::globalall(nt2::all(is_nltz(diff(a0, dim))));
-      return  res || nt2::globalall(nt2::all(is_ngtz(diff(a0, dim))));
+      bool res =  nt2::globalall(is_nltz(diff(a0, dim)));
+      return  res || nt2::globalall(is_ngtz(diff(a0, dim)));
     }
   };
 
@@ -127,7 +127,7 @@ namespace nt2 { namespace ext
     {
       typedef typename A0::value_type value_type;
       value_type sgn = up ? One<value_type>() : Mone<value_type>();
-      return nt2::globalall(nt2::all(is_nltz(diff(a0, dim)*sgn)));
+      return nt2::globalall(is_nltz(diff(a0, dim)*sgn));
     }
   };
 
