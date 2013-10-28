@@ -412,7 +412,7 @@ function(nt2_module_add_exe name)
   nt2_module_target_parent(${name})
 
   # if full tests mode, also add debug targets for unit tests
-  if(suffix STREQUAL unit AND NT2_WITH_TESTS_FULL AND NOT CMAKE_CONFIGURATION_TYPES)
+  if(suffix STREQUAL unit AND NOT CMAKE_CONFIGURATION_TYPES)
     nt2_module_add_exe(${basename}.debug ${ARGN})
   endif()
 
