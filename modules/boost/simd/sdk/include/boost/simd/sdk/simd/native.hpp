@@ -27,16 +27,33 @@
 
 namespace boost { namespace simd
 {
-  //////////////////////////////////////////////////////////////////////////////
-  /// Platform independant native SIMD type
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Scalar,class Extension,class Enable>
+  /*!
+    @brief Platform independent native SIMD type
+
+    native is a portable wrapper around compiler and instruction set specific
+    SIMD register types. It is designed to behave exactly as such types except
+    with a proper type information and a correct value semantic. native also
+    exhibits a Random Access Range interface and is adapted as a Random Access
+    Fusion sequence.
+
+    @tparam Scalar    Base scalar type to store in a register
+    @tparam Extension SIMD extension tag
+  **/
+  template< typename Scalar
+          , typename Extension
+#if !defined(DOXYGEN_ONLY)
+          , typename Enable
+#endif
+          >
   struct BOOST_SIMD_MAY_ALIAS native
   {
-    ////////////////////////////////////////////////////////////////////////////
-    // native<S,E> is a SIMD type encapsulation
-    ////////////////////////////////////////////////////////////////////////////
+    //==========================================================================
+    // native specific static interface
+    //==========================================================================
+    /// @brief Current extension tag type
     typedef Extension                                       extension_type;
+
+    /// @brief Native extension specific register type
     typedef typename meta::as_simd<Scalar, Extension>::type    native_type;
 
     BOOST_MPL_ASSERT_MSG(
@@ -51,128 +68,159 @@ namespace boost { namespace simd
       (Scalar)
     );
 
-    ////////////////////////////////////////////////////////////////////////////
+    //==========================================================================
     // native<S,E> models RandomAccessRange and FusionRandomAccessSequence
-    ////////////////////////////////////////////////////////////////////////////
-    typedef Scalar                                              value_type;
-    typedef typename meta::may_alias<Scalar>::type&              reference;
-    typedef typename meta::may_alias<Scalar>::type const&  const_reference;
-    typedef std::size_t                                          size_type;
-    typedef typename meta::may_alias<Scalar>::type*               iterator;
-    typedef typename meta::may_alias<Scalar>::type const*   const_iterator;
-    typedef boost::fusion::boost_array_tag                      fusion_tag;
+    //==========================================================================
+    typedef Scalar                                          value_type;
+    typedef typename meta::may_alias<Scalar>::type&         reference;
+    typedef typename meta::may_alias<Scalar>::type const&   const_reference;
+    typedef typename meta::may_alias<Scalar>::type*         pointer;
+    typedef typename meta::may_alias<Scalar>::type const*   const_pointer;
+    typedef pointer                                         iterator;
+    typedef const_pointer                                   const_iterator;
+    typedef std::size_t                                     size_type;
+    typedef boost::fusion::boost_array_tag                  fusion_tag;
 
+    /*!
+      @brief Internal type rebinder
+
+      Rebind a native type to another base scalar type.
+
+      @par Semantic:
+
+      For any type @c T, @c U and any extension tag @c X, the following code:
+
+      @code
+      typedef native<T,X>::rebind<U>::type r;
+      @endcode
+
+      is equivalent to
+
+      @code
+      typedef native<U,X> r;
+      @endcode
+
+      @tparam U new base scalar type
+    **/
     template<class U> struct rebind
     {
       typedef native<U, extension_type> type;
     };
 
-    ////////////////////////////////////////////////////////////////////////////
-    // vector size
-    ////////////////////////////////////////////////////////////////////////////
+    /// @brief Number of element stored in a native type
     enum v_size { static_size = sizeof(native_type)/sizeof(value_type)
-                       ? sizeof(native_type)/sizeof(value_type) : 1};
+                              ? sizeof(native_type)/sizeof(value_type) : 1
+                };
 
+    /// @brief Default constructor
     BOOST_FORCEINLINE native() {}
-    BOOST_FORCEINLINE native(native_type n) : data_(n) {}
-#ifdef BOOST_MSVC
+
+    /// @brief Constructs a native from a extension specific register
+    BOOST_FORCEINLINE native(native_type s) : data_(s) {}
+
+#if defined(BOOST_MSVC) || defined(DOXYGEN_ONLY)
+    /// @brief Copy constructs a native from another one
     BOOST_FORCEINLINE native(native const& other) : data_(other.data_) {}
 #endif
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Assignment operator from same type (generates better code than default-generated one)
-    ////////////////////////////////////////////////////////////////////////////
-    BOOST_FORCEINLINE
-    native& operator=(native const& s)
+    /// @brief Assignment between native instances
+    BOOST_FORCEINLINE native& operator=(native const& s)
     {
+      // This operator= generates better code than the default-generated one
       data_ = s.data_;
       return *this;
     }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Assignment operator from native vector type
-    ////////////////////////////////////////////////////////////////////////////
-    BOOST_FORCEINLINE
-    native& operator=(native_type n)
+    /// @brief Assign an extension specific register to a native
+    BOOST_FORCEINLINE native& operator=(native_type s)
     {
-      data_ = n;
+      data_ = s;
       return *this;
     }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Type casting operator for compatibility with intrinsic functions
-    // Use operator() for explicit conversion.
-    ////////////////////////////////////////////////////////////////////////////
-    BOOST_FORCEINLINE operator native_type &           ()             { return data_; }
-    BOOST_FORCEINLINE          native_type & operator()()             { return data_; }
+    //==========================================================================
+    // Typecasting operators for compatibility with intrinsics
+    //==========================================================================
+    /// @brief Conversion operator from native to the underlying register type
+    BOOST_FORCEINLINE operator native_type &      ()        { return data_; }
 
-    BOOST_FORCEINLINE operator native_type const&           ()  const { return data_; }
-    BOOST_FORCEINLINE          native_type const& operator()()  const { return data_; }
+    /// @overload
+    BOOST_FORCEINLINE operator native_type const& ()  const { return data_; }
 
-    ////////////////////////////////////////////////////////////////////////////
+    /// @brief Explicit conversion from native to the underlying register type
+    BOOST_FORCEINLINE native_type const&  operator()()  const { return data_; }
+
+    /// @overload
+    BOOST_FORCEINLINE native_type&        operator()()        { return data_; }
+
+    //==========================================================================
     // new/delete operator to force alignment on heap of native values
-    ////////////////////////////////////////////////////////////////////////////
+    //==========================================================================
     BOOST_SIMD_MEMORY_OVERLOAD_NEW_DELETE_SIMD()
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Range interface
-    ////////////////////////////////////////////////////////////////////////////
-    BOOST_FORCEINLINE
-    iterator       begin()       { return data(); };
+    //==========================================================================
+    // RandomAccessSequence interface
+    //==========================================================================
 
-    BOOST_FORCEINLINE
-    iterator       end()         { return data() + static_size; };
+    /*!
+      @brief Return the size in element of current native instance
 
-    BOOST_FORCEINLINE
-    const_iterator begin() const { return data(); };
-
-    BOOST_FORCEINLINE
-    const_iterator end()   const { return data() + static_size; };
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Array like interface
-    ////////////////////////////////////////////////////////////////////////////
+      @return An unsigned integral equal to native::static_size
+    **/
     static BOOST_FORCEINLINE std::size_t  size()  { return static_size; }
+
+    /*!
+      @brief Checks if a given native contains 0 element
+
+      @return A boolean equals to @c false
+    **/
     static BOOST_FORCEINLINE bool         empty() { return false; }
 
-    BOOST_FORCEINLINE reference       operator[](std::size_t i)       { return data()[i]; }
+    /// @brief Random access to a given native scalar element
+    BOOST_FORCEINLINE reference operator[](std::size_t i) { return data()[i]; }
+
+    /// @overload
     BOOST_FORCEINLINE const_reference operator[](std::size_t i) const { return data()[i]; }
 
-#if defined(BOOST_SIMD_COMPILER_GCC) && BOOST_SIMD_GCC_VERSION == 40603
-    // workaround for GCC bug #52407 affecting GCC 4.6.3
-    union
-    {
-#endif
-      native_type data_;
-#if defined(BOOST_SIMD_COMPILER_GCC) && BOOST_SIMD_GCC_VERSION == 40603
-    };
-#endif
+    /// @brief Access to the beginning of the native register data in memory
+    BOOST_FORCEINLINE iterator       begin()       { return data(); };
 
-    BOOST_FORCEINLINE
-    iterator data()
+    /// @overload
+    BOOST_FORCEINLINE const_iterator begin() const { return data(); };
+
+    /// @brief Access to past the end of the native register data in memory
+    BOOST_FORCEINLINE iterator       end()        { return data() + static_size; };
+
+    /// @overload
+    BOOST_FORCEINLINE const_iterator end()  const { return data() + static_size; };
+
+    /// @brief Returns a pointer to the data of the native in memory
+    BOOST_FORCEINLINE pointer data()
     {
       return reinterpret_cast<iterator>(&data_);
     }
 
-    BOOST_FORCEINLINE
-    const_iterator data() const
+    /// @overload
+    BOOST_FORCEINLINE const_pointer data() const
     {
       return const_cast<native&>(*this).data();
     }
+
+    //==========================================================================
+    // Inner data
+    //==========================================================================
+#if defined(BOOST_SIMD_COMPILER_GCC) && BOOST_SIMD_GCC_VERSION == 40603
+    // workaround for GCC bug #52407 affecting GCC 4.6.3
+    /// INTERNAL ONLY
+    union
+    {
+#endif
+      /// INTERNAL ONLY
+      native_type data_;
+#if defined(BOOST_SIMD_COMPILER_GCC) && BOOST_SIMD_GCC_VERSION == 40603
+    };
+#endif
   };
 } }
-
-namespace boost { namespace simd { namespace meta
-{
-  template<class T, class X>
-  struct zero_initialize< native<T, X> >
-  {
-    static BOOST_FORCEINLINE native<T, X> call()
-    {
-      typename native<T, X>::native_type n = {};
-      return native<T, X>(n);
-    }
-  };
-} } }
 
 #endif

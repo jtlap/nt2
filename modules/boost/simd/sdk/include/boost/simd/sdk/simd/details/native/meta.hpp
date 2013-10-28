@@ -16,5 +16,6 @@
 #include <boost/simd/sdk/simd/details/native/meta/upgrade.hpp>
 #include <boost/simd/sdk/simd/details/native/meta/downgrade.hpp>
 #include <boost/simd/sdk/simd/details/native/meta/register_of.hpp>
+#include <boost/simd/sdk/simd/details/native/meta/zero_initialize.hpp>
 
 #endif
