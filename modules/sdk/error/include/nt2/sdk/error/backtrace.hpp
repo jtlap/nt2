@@ -17,16 +17,20 @@
 
 namespace nt2
 {
+  #ifdef __linux__
   BOOST_FORCEINLINE void backtrace(std::ostream& os)
   {
-    #ifdef __linux__
     void *bt[1024];
     int bt_size = ::backtrace(bt, 1024);
     for(int i=0; i!=bt_size; ++i)
       os << bt[i] << "\n";
     os << std::flush;
-    #endif
   }
+  #else
+  BOOST_FORCEINLINE void backtrace(std::ostream&)
+  {
+  }
+  #endif
 }
 
 #endif
