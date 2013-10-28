@@ -23,10 +23,9 @@ namespace nt2 { namespace tag
 
 #if defined(NT2_USE_TBB)
 BOOST_DISPATCH_COMBINE_SITE( nt2::tag::tbb_<tag::cpu_> )
-#include <tbb/tbb.h>
-#include <nt2/sdk/tbb/blocked_range.hpp>
+
 #include <nt2/sdk/tbb/worker.hpp>
 #include <nt2/sdk/tbb/spawner.hpp>
-#endif
 
+#endif
 #endif

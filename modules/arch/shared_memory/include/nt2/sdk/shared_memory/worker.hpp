@@ -7,13 +7,19 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_SHARED_MEMORY_SPAWNER_SPAWNER_HPP_INCLUDED
-#define NT2_SDK_SHARED_MEMORY_SPAWNER_SPAWNER_HPP_INCLUDED
+#ifndef NT2_SDK_SHARED_MEMORY_WORKER_HPP_INCLUDED
+#define NT2_SDK_SHARED_MEMORY_WORKER_HPP_INCLUDED
 
 namespace nt2
 {
-  template< class Tag, class Arch >
-  struct spawner;
+  template< class Tag
+          , class Arch
+          , class A0
+          , class A1
+          , class A2 = void
+          , class A3 = void
+          , class A4 = void
+          >
+  struct worker;
 }
 #endif
-

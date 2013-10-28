@@ -12,8 +12,8 @@
 
 #include <nt2/core/functions/inner_fold.hpp>
 #include <nt2/sdk/shared_memory/shared_memory.hpp>
-#include <nt2/sdk/shared_memory/worker/worker.hpp>
-#include <nt2/sdk/shared_memory/spawner/spawner.hpp>
+#include <nt2/sdk/shared_memory/worker.hpp>
+#include <nt2/sdk/shared_memory/spawner.hpp>
 #include <nt2/sdk/shared_memory/spawner/parfor.hpp>
 
 namespace nt2 { namespace ext

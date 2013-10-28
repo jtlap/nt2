@@ -21,10 +21,11 @@ namespace nt2 { namespace tag
 } }
 
 #ifdef _OPENMP
+
 BOOST_DISPATCH_COMBINE_SITE( nt2::tag::openmp_<tag::cpu_> )
-#include <omp.h>
+
 #include <nt2/sdk/openmp/worker.hpp>
 #include <nt2/sdk/openmp/spawner.hpp>
-#endif
 
+#endif
 #endif
