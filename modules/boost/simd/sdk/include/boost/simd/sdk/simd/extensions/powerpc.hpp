@@ -17,7 +17,7 @@
   #if !defined(BOOST_SIMD_VR_COUNT)
   #define BOOST_SIMD_VR_COUNT 64u
   #endif
-#if defined(BOOST_SIMD_HAS_VMX_SUPPORT) || defined(BOOST_SIMD_HAS_QPX_SUPPORT)
+#elif defined(BOOST_SIMD_HAS_VMX_SUPPORT) || defined(BOOST_SIMD_HAS_QPX_SUPPORT)
   #if !defined(BOOST_SIMD_VR_COUNT)
   #define BOOST_SIMD_VR_COUNT 32u
   #endif
