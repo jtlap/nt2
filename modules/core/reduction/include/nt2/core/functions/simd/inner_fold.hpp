@@ -18,31 +18,6 @@
 
 namespace nt2 { namespace ext
 {
-//============================================================================
-// General inner_fold
-//============================================================================
-   NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::inner_fold_, boost::simd::tag::simd_
-                             , (A0)(A1)(A2)(A3)(A4)
-                             , ((ast_< A0, nt2::container::domain>))
-                               ((ast_< A1, nt2::container::domain>))
-                               (unspecified_<A2>)
-                               (unspecified_<A3>)
-                               (unspecified_<A4>)
-                             )
-    {
-      typedef void                                                              result_type;
-      typedef typename A1::extent_type                                          extent_type;
-
-      BOOST_FORCEINLINE result_type
-      operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
-      {
-        extent_type ext = in.extent();
-        std::size_t obound = nt2::numel(boost::fusion::pop_front(ext));
-
-        nt2::inner_fold(out,in,neutral,bop,uop,std::make_pair(0,obound));
-      }
-    };
-
   //============================================================================
   // Partial inner_fold with offset/size
   //============================================================================
