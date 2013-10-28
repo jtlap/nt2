@@ -28,7 +28,8 @@ namespace nt2 { namespace tag
     };
   }
   /*!
-    base ten logarithm function.
+    base ten logarithm function. For integer input types log10 return the truncation
+    of the real result.
 
     @par Semantic:
 

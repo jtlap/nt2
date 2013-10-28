@@ -41,5 +41,29 @@ namespace n2 {
   typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(log10_,(RS(vT,T(0.1),T(10))))
 }
+namespace n3 {
+  typedef int32_t T;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  NT2_TIMING(log10_,(RS(vT,T(1),T(1000))))
+}
+namespace n4 {
+  typedef uint32_t T;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  NT2_TIMING(log10_,(RS(vT,T(1),T(1000))))
+}
+namespace n5 {
+  typedef int64_t T;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  NT2_TIMING(log10_,(RS(vT,T(1),T(10000))))
+}
+namespace n6 {
+  typedef uint64_t T;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  NT2_TIMING(log10_,(RS(vT,T(1),T(10000))))
+}
 
 #undef RS
