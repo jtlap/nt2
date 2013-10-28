@@ -12,18 +12,25 @@
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/sdk/simd/meta/is_final_downgrade.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/dispatch/meta/primitive_of.hpp>
 #include <boost/utility/enable_if.hpp>
 
-
 namespace boost { namespace dispatch { namespace ext
 {
-  ////////////////////////////////////////////////////////////////////////////
-  // Extension Point for downgrade on native<T,Ext>.
-  ////////////////////////////////////////////////////////////////////////////
+  // Extension Point for downgrade on native<T,X>
   template<class T, class Ext, class Sign>
-  struct downgrade< boost::simd::native<T, Ext>, Sign, typename boost::enable_if_c< !(sizeof(typename meta::primitive_of<T>::type) <= 1) >::type >
+  struct downgrade< boost::simd::native<T, Ext>
+                  , Sign
+                  , typename  boost::disable_if
+                              < simd::meta::
+                                is_final_downgrade<typename meta::
+                                                            primitive_of<T>::type
+                                                  , Ext
+                                                  >
+                              >::type
+                  >
   {
     typedef typename
     simd::meta::vector_of< typename dispatch::meta::downgrade<T,Sign>::type
@@ -32,4 +39,4 @@ namespace boost { namespace dispatch { namespace ext
   };
 } } }
 
-#endif /* BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_META_DOWNGRADE_HPP_INCLUDED */
+#endif
