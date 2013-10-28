@@ -46,7 +46,7 @@ namespace boost { namespace simd { namespace ext
       const result_type v = simd::abs(a0);
       if (!(v <=  Maxflint<result_type>()))
           return a0;
-      const uint32_t d = v+Half<result_type>();
+      const uint32_t d = static_cast<uint32_t>(v+Half<result_type>());
       return b_or(result_type(d), bitofsign(a0));
 #endif
     }
@@ -66,7 +66,7 @@ namespace boost { namespace simd { namespace ext
       const result_type v = simd::abs(a0);
       if (!(v <=  Maxflint<result_type>()))
           return a0;
-      const uint64_t d = v+Half<result_type>();
+      const uint64_t d = static_cast<uint64_t>(v+Half<result_type>());
       return b_or(result_type(d), bitofsign(a0));
 #endif
      }
