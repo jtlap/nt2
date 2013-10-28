@@ -10,6 +10,7 @@
 #define BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_META_MODEL_OF_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/native_fwd.hpp>
+#include <boost/simd/sdk/simd/meta/vector_of.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 
 namespace boost { namespace dispatch { namespace meta
@@ -20,9 +21,9 @@ namespace boost { namespace dispatch { namespace meta
     struct type
     {
       template<class T>
-      struct apply
+      struct  apply
+            : simd::meta::vector_of<T,simd::native<Type,Extension>::static_size>
       {
-          typedef simd::native<T, Extension> type;
       };
     };
   };
