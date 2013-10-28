@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace tag
     is similar to:
 
     @code
-    as_logical<T> r = (!!x)^(!!y);
+    as_logical<T> r = !x != !y;
     @endcode
 
     @param  a0

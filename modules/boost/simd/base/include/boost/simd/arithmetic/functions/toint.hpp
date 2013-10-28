@@ -45,8 +45,9 @@ namespace boost { namespace simd { namespace tag
 
     @par Notes:
 
-    @c toint cast a floating value to the signed integer value of the same bit size
-    it is done by C casting for scalars and corresponding intrinsic in simd (if available)
+    @c toint cast a floating value to the signed integer value of the same bit size.
+
+    This is done by C casting for scalars and corresponding intrinsic in simd (if available).
 
     Peculiarly,  that implies that the behaviour of this function on invalid entries is
     not defined and quite unpredictable.

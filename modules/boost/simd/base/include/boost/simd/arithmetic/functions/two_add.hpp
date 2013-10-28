@@ -39,7 +39,7 @@ namespace boost { namespace simd
     @endcode
 
     using perfect arithmetic. Its main usage is to be able to compute
-    sum of reals and the residual error using IEEE 457 arithmetic.
+    sum of reals and the residual error using IEEE 754 arithmetic.
 
     @param a0 First parameter of the sum
     @param a1 Second parameter of the sum
@@ -60,7 +60,7 @@ namespace boost { namespace simd
     @endcode
 
     using perfect arithmetic. Its main usage is to be able to compute
-    sum of reals and the residual error using IEEE 457 arithmetic.
+    sum of reals and the residual error using IEEE  754 arithmetic.
 
     @param a0 First parameter of the sum
     @param a1 Second parameter of the sum
@@ -85,7 +85,7 @@ namespace boost { namespace simd
     @endcode
 
     using perfect arithmetic. Its main usage is to be able to compute
-    sum of reals and the residual error using IEEE 457 arithmetic.
+    sum of reals and the residual error using IEEE  754 arithmetic.
 
     @param a0 First parameter of the sum
     @param a1 Second parameter of the sum

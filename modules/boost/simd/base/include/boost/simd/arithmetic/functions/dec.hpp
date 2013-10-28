@@ -44,7 +44,7 @@ namespace boost { namespace simd
     T r =  x-T(1);
     @endcode
 
-    @see  @funcref{minus}
+    @see  @funcref{minusone}, @funcref{minus}
     @param  a0
 
     @return      a value of the same type as the input.

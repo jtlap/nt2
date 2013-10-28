@@ -49,6 +49,7 @@ namespace boost { namespace simd { namespace tag
 
     As r can be negative, @c remainder is not defined for unsigned types.
 
+    @see @funcref{mod}, @funcref{rem}
     @par Alias
 
     @c drem

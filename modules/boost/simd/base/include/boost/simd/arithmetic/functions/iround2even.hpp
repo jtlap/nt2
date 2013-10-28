@@ -43,6 +43,7 @@ namespace boost { namespace simd { namespace tag
     @endcode
 
 
+    @see funcref{fast_iround2even}
     @param  a0
 
     @return an integral value of the integral type associated to the input.

@@ -39,7 +39,7 @@ namespace boost { namespace simd { namespace tag
 
     smallest integral value of type @c T greater or equal to @c x.
 
-    @see  @funcref{floor}, @funcref{round}, @funcref{round2even}}, @funcref{trunc}, @funcref{iceil}
+    @see  @funcref{floor}, @funcref{round}, @funcref{round2even}, @funcref{trunc}, @funcref{iceil}
     @param  a0
 
     @return      an integral value of the same type as the input.

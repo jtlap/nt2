@@ -45,6 +45,7 @@ namespace boost { namespace simd { namespace tag
     T r = x-divfloor(x, y)*y;
     @endcode
 
+    @see @funcref{remainder}, @funcref{rem}
     @param  a0
     @param  a1
 

@@ -30,7 +30,33 @@ namespace boost { namespace simd
       typedef ext::elementwise_<fast_sqrt_> parent;
     };
   }
+ /*!
+    Computes the square root of its parameter.
 
+    @par semantic:
+    For any given value @c x of type @c T:
+
+    @code
+    T r = fast_sqrt(x);
+    @endcode
+
+    is similar to:
+
+    @code
+    T r = sqrt(x);
+    @endcode
+
+    @par Note:
+
+    Fast means that the computation is possibly done through some
+    low precision intrinsic. The result can be not fully accurate
+
+    @see funcref{sqrt}
+    @param  a0
+
+    @return      a value of the typeof the input.
+
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::fast_sqrt_, fast_sqrt, 1)
 } }
 

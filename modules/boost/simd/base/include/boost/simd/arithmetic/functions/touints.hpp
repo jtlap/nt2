@@ -48,13 +48,14 @@ namespace boost { namespace simd { namespace tag
     The Inf, Nan and negative values are treated properly and go respectively to
     Valmax, and Zero of the destination integral type.
 
-    All values superior (resp.) less than Valmax (resp. Valmin) of the return type
+    All values superior (resp. less) than Valmax (resp. Valmin) of the return type
     are saturated accordingly.
 
     @par Alias
 
     saturated_toint
 
+    @see funcref{toint}
     @param  a0
 
     @return      a value of the unsigned integer type associated to the input.

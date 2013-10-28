@@ -49,6 +49,7 @@ namespace boost { namespace simd { namespace tag
 
     @c fmod,  @c remfix
 
+    @see @funcref{remainder}, @funcref{mod}
     @param  a0
     @param  a1
 

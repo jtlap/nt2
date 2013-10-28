@@ -52,6 +52,7 @@ namespace boost { namespace simd
 
     @param  a0
 
+    @see funcref{rec}
     @return      a value of the typeof the input.
 
   **/

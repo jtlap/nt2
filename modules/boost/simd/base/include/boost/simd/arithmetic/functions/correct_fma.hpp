@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace tag
     };
   }
   /*!
-    Computes fused multiply/add its parameter.
+    Computes fused multiply/add of its parameter.
 
     @par semantic:
     For any given value @c a, @c b, @c c of type @c T:
@@ -64,7 +64,7 @@ namespace boost { namespace simd { namespace tag
     performances
 
     This function is never used internally in boost/simd. See also
-    the fma function.
+    the @funcref{fma} function.
 
     @see  @funcref{fma}
     @param  a0

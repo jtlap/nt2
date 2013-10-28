@@ -50,6 +50,7 @@ namespace boost { namespace simd {
     @param  a0
     @param  a1
 
+    @see funcref{toints}, funcref{trunc}
     @return      a value of the integral type associated to the input.
 
   **/

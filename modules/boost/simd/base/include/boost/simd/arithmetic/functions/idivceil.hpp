@@ -47,6 +47,7 @@ namespace boost { namespace simd {
     If y is null, it returns Valmax (resp. Valmin)
     if x is positive (resp. negative) and 0 if x is null.
 
+    @see funcref{toints}, funcref{ceil}
     @param  a0
     @param  a1
 

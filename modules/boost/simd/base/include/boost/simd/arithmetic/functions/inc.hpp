@@ -44,6 +44,7 @@ namespace boost { namespace simd {
     T r =  x+T(1);
     @endcode
 
+    @see  @funcref{oneplus}, @funcref{plus}
     @param  a0
 
     @return      a value of the same type as the input.
