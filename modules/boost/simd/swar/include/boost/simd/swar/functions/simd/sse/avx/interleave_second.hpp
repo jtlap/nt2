@@ -47,9 +47,16 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
     {
+      // workaround for bad ICC optimisation
+      #ifdef __INTEL_COMPILER
+      __m256d volatile lo = _mm256_unpacklo_pd(a0,a1);
+      #else
+      __m256d lo = _mm256_unpacklo_pd(a0,a1);
+      #endif
+
       // 0x31 is SCR1[128:255]|SRC2[128:255] according to Intel AVX manual
       // The result of unpack_*_pd puts parts in the proper pairs beforehand
-      return _mm256_permute2f128_pd ( _mm256_unpacklo_pd(a0,a1)
+      return _mm256_permute2f128_pd ( lo
                                     , _mm256_unpackhi_pd(a0,a1)
                                     , 0x31
                                     );
