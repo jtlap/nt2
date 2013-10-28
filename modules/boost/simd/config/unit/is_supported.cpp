@@ -33,8 +33,14 @@ static inline const char* msg(int i)
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE(is_supported)
 {
-  std::cout << "Altivec : " << msg(boost::simd::is_supported("vmx")) << std::endl;
+  std::cout << "QPX     : " << msg(boost::simd::is_supported("qpx")) << std::endl;
+  std::cout << "VSX     : " << msg(boost::simd::is_supported("vsx")) << std::endl;
+  std::cout << "VMX     : " << msg(boost::simd::is_supported("vmx")) << std::endl;
+  std::cout << std::endl;
+
   std::cout << "NEON    : " << msg(boost::simd::is_supported("neon")) << std::endl;
+  std::cout << std::endl;
+
   std::cout << "AVX2    : " << msg(boost::simd::is_supported("avx2")) << std::endl;
   std::cout << "FMA     : " << msg(boost::simd::is_supported("fma")) << std::endl;
   std::cout << "XOP     : " << msg(boost::simd::is_supported("xop")) << std::endl;

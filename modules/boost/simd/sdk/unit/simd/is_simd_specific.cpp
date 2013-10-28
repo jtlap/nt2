@@ -22,16 +22,16 @@ NT2_TEST_CASE(simd_specific)
   #endif
 
   #if defined(BOOST_SIMD_VMX_FAMILY)
-  NT2_TEST( (is_simd_specific<__vector float,boost::simd::tag::altivec_>::value) );
-  NT2_TEST( (is_simd_specific<__vector signed int,boost::simd::tag::altivec_>::value) );
-  NT2_TEST( (is_simd_specific<__vector signed short,boost::simd::tag::altivec_>::value) );
-  NT2_TEST( (is_simd_specific<__vector signed char,boost::simd::tag::altivec_>::value) );
-  NT2_TEST( (is_simd_specific<__vector unsigned int,boost::simd::tag::altivec_>::value) );
-  NT2_TEST( (is_simd_specific<__vector unsigned short,boost::simd::tag::altivec_>::value) );
-  NT2_TEST( (is_simd_specific<__vector unsigned char,boost::simd::tag::altivec_>::value) );
-  NT2_TEST( (is_simd_specific<__vector __bool int,boost::simd::tag::altivec_>::value) );
-  NT2_TEST( (is_simd_specific<__vector __bool short,boost::simd::tag::altivec_>::value) );
-  NT2_TEST( (is_simd_specific<__vector __bool char,boost::simd::tag::altivec_>::value) );
+  NT2_TEST( (is_simd_specific<__vector float,boost::simd::tag::vmx_>::value) );
+  NT2_TEST( (is_simd_specific<__vector signed int,boost::simd::tag::vmx_>::value) );
+  NT2_TEST( (is_simd_specific<__vector signed short,boost::simd::tag::vmx_>::value) );
+  NT2_TEST( (is_simd_specific<__vector signed char,boost::simd::tag::vmx_>::value) );
+  NT2_TEST( (is_simd_specific<__vector unsigned int,boost::simd::tag::vmx_>::value) );
+  NT2_TEST( (is_simd_specific<__vector unsigned short,boost::simd::tag::vmx_>::value) );
+  NT2_TEST( (is_simd_specific<__vector unsigned char,boost::simd::tag::vmx_>::value) );
+  NT2_TEST( (is_simd_specific<__vector __bool int,boost::simd::tag::vmx_>::value) );
+  NT2_TEST( (is_simd_specific<__vector __bool short,boost::simd::tag::vmx_>::value) );
+  NT2_TEST( (is_simd_specific<__vector __bool char,boost::simd::tag::vmx_>::value) );
   #endif
 
   NT2_TEST( (is_simd_specific< boost::simd::aligned_array<int, 2>, boost::simd::tag::simd_emulation_<sizeof(int)*2> >::value) );

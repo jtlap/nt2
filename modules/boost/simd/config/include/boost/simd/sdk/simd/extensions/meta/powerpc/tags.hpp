@@ -15,8 +15,11 @@
 
 namespace boost { namespace simd { namespace tag
 {
-  // Tag hierarchy for Altivec PPC extensions
-  BOOST_DISPATCH_HIERARCHY_CLASS(altivec_, simd_);
+  // Tag hierarchy for VMX PPC extensions
+  BOOST_DISPATCH_HIERARCHY_CLASS(vmx_, simd_);
+  BOOST_DISPATCH_HIERARCHY_CLASS(vsx_, vmx_);
+
+  BOOST_DISPATCH_HIERARCHY_CLASS(qpx_, simd_);
 } } }
 
 #endif

@@ -19,10 +19,10 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::fast_rec_
-                                    , boost::simd::tag::altivec_
+                                    , boost::simd::tag::vmx_
                                     , (A0)
                                     , ((simd_< single_<A0>
-                                            , boost::simd::tag::altivec_
+                                            , boost::simd::tag::vmx_
                                             >
                                       ))
                                     )

@@ -17,9 +17,9 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_, boost::simd::tag::altivec_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_, boost::simd::tag::vmx_, (A0)(A1)
                             , (scalar_< fundamental_<A0> >)
-                              ((target_<simd_<arithmetic_<A1>,boost::simd::tag::altivec_> >))
+                              ((target_<simd_<arithmetic_<A1>,boost::simd::tag::vmx_> >))
                             )
   {
     typedef typename A1::type result_type;

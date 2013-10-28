@@ -12,9 +12,9 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_not_equal_, boost::simd::tag::altivec_, (A0)
-                            , ((simd_<arithmetic_<A0>,boost::simd::tag::altivec_>))
-                              ((simd_<arithmetic_<A0>,boost::simd::tag::altivec_>))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_not_equal_, boost::simd::tag::vmx_, (A0)
+                            , ((simd_<arithmetic_<A0>,boost::simd::tag::vmx_>))
+                              ((simd_<arithmetic_<A0>,boost::simd::tag::vmx_>))
                             )
   {
     typedef bool result_type;

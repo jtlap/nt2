@@ -20,7 +20,7 @@ namespace boost { namespace simd { namespace ext
 {
   /// INTERNAL ONLY SIMD unaligned store without offset
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::store_
-                                      , boost::simd::tag::altivec_
+                                      , boost::simd::tag::vmx_
                                       , (A0)(A1)
                                       , ( simd::meta::is_pointing_to
                                           < A1
@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
                                           >
                                         )
                                       , ((simd_ < arithmetic_<A0>
-                                                , boost::simd::tag::altivec_
+                                                , boost::simd::tag::vmx_
                                                 >
                                         ))
                                         (iterator_< scalar_< arithmetic_<A1> > >)

@@ -31,10 +31,10 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_
-                                    , boost::simd::tag::altivec_
+                                    , boost::simd::tag::vmx_
                                     , (A0)(P)
                                     , ((simd_< arithmetic_<A0>
-                                             , boost::simd::tag::altivec_
+                                             , boost::simd::tag::vmx_
                                              >
                                       ))
                                       (target_< unspecified_<P> >)
@@ -50,14 +50,14 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_
-                                    , boost::simd::tag::altivec_
+                                    , boost::simd::tag::vmx_
                                     , (A0)(P)
                                     , ((simd_< arithmetic_<A0>
-                                             , boost::simd::tag::altivec_
+                                             , boost::simd::tag::vmx_
                                              >
                                       ))
                                       ((simd_< arithmetic_<A0>
-                                             , boost::simd::tag::altivec_
+                                             , boost::simd::tag::vmx_
                                              >
                                       ))
                                       (target_< unspecified_<P> >)

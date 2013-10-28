@@ -1,4 +1,3 @@
-
 //==============================================================================
 //         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
@@ -43,6 +42,12 @@ namespace boost { namespace simd { namespace meta
   template<> struct is_simd_specific<__vector __bool   int  , tag::vmx_> : boost::mpl::true_ {};
   template<> struct is_simd_specific<__vector __bool   short, tag::vmx_> : boost::mpl::true_ {};
   template<> struct is_simd_specific<__vector __bool   char , tag::vmx_> : boost::mpl::true_ {};
+  #ifdef BOOST_SIMD_HAS_VSX_SUPPORT
+  template<> struct is_simd_specific<__vector        double , tag::vmx_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__vector unsigned long , tag::vmx_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__vector   signed long , tag::vmx_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__vector __bool   long , tag::vmx_> : boost::mpl::true_ {};
+  #endif
 
   //////////////////////////////////////////////////////////////////////////////
   // For a given type and extension, return the associated SIMD register type
@@ -76,6 +81,15 @@ namespace boost { namespace simd { namespace meta
     template<class Type, class Dummy>
     struct entry<Type,   8, true, true,  Dummy> { typedef __vector signed char  type;   };
 
+    #ifdef BOOST_SIMD_HAS_VSX_SUPPORT
+    template<bool Sign, class Dummy>
+    struct entry<double, 64, false, Sign, Dummy> { typedef __vector double  type;        };
+    template<class Type, class Dummy>
+    struct entry<Type,  64, true, false, Dummy> { typedef __vector unsigned long   type; };
+    template<class Type, class Dummy>
+    struct entry<Type,  64, true, true,  Dummy> { typedef __vector signed long   type;   };
+    #endif
+
     typedef typename entry<T>::type type;
   };
 
@@ -95,6 +109,11 @@ namespace boost { namespace simd { namespace meta
     template<class Type, class Dummy>
     struct entry<Type,  8, Dummy>     { typedef __vector __bool char type;    };
 
+    #ifdef BOOST_SIMD_HAS_VSX_SUPPORT
+    template<class Type, class Dummy>
+    struct entry<Type, 64, Dummy>     { typedef __vector __bool long type;    };
+    #endif
+
     typedef typename entry<T>::type type;
   };
 
@@ -102,6 +121,7 @@ namespace boost { namespace simd { namespace meta
   // For a given type and extension, return the biggest integer supported by
   // the extension.
   //////////////////////////////////////////////////////////////////////////////
+  #ifndef BOOST_SIMD_HAS_VSX_SUPPORT
   template<> struct  biggest_integer<tag::vmx_>
   {
     typedef boost::simd::int32_t type;
@@ -111,6 +131,7 @@ namespace boost { namespace simd { namespace meta
   {
     typedef boost::simd::uint32_t type;
   };
+  #endif
 
   //////////////////////////////////////////////////////////////////////////////
   // For a given SIMD register type, return the associated SIMD extension tag
@@ -135,6 +156,17 @@ namespace boost { namespace simd { namespace meta
   struct extension_of<__vector __bool short   ,X> { typedef tag::vmx_ type; };
   template<class X>
   struct extension_of<__vector __bool char    ,X> { typedef tag::vmx_ type; };
+
+  #ifdef BOOST_SIMD_HAS_VSX_SUPPORT
+  template<class X>
+  struct extension_of<__vector double         ,X> { typedef tag::vmx_ type; };
+  template<class X>
+  struct extension_of<__vector unsigned long  ,X> { typedef tag::vmx_ type; };
+  template<class X>
+  struct extension_of<__vector signed long    ,X> { typedef tag::vmx_ type; };
+  template<class X>
+  struct extension_of<__vector __bool long    ,X> { typedef tag::vmx_ type; };
+  #endif
 
 } } }
 

@@ -17,11 +17,11 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_
-                                    , boost::simd::tag::altivec_
+                                    , boost::simd::tag::vmx_
                                     , (T)
                                     , ((target_
                                         < simd_ < ints8_<T>
-                                                , boost::simd::tag::altivec_
+                                                , boost::simd::tag::vmx_
                                                 >
                                         >
                                       ))

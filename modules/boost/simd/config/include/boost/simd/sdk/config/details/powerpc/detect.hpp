@@ -24,7 +24,7 @@
 
 namespace boost { namespace simd { namespace config { namespace details
 {
-  inline bool detect(tag::altivec_ const&)
+  inline bool detect(tag::vmx_ const&)
   {
 #if defined(BOOST_SIMD_OS_LINUX)
     return config::linux_::hwcap() & PPC_FEATURE_HAS_ALTIVEC;

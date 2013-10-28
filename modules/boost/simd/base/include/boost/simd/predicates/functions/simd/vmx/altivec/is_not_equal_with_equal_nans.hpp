@@ -19,9 +19,9 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_equal_with_equal_nans_, boost::simd::tag::altivec_, (A0)
-                            , ((simd_<floating_<A0>, boost::simd::tag::altivec_>))
-                              ((simd_<floating_<A0>, boost::simd::tag::altivec_>))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_equal_with_equal_nans_, boost::simd::tag::vmx_, (A0)
+                            , ((simd_<floating_<A0>, boost::simd::tag::vmx_>))
+                              ((simd_<floating_<A0>, boost::simd::tag::vmx_>))
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
@@ -31,9 +31,9 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_equal_with_equal_nans_, boost::simd::tag::altivec_, (A0)
-                            , ((simd_<integer_<A0>, boost::simd::tag::altivec_>))
-                              ((simd_<integer_<A0>, boost::simd::tag::altivec_>))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_equal_with_equal_nans_, boost::simd::tag::vmx_, (A0)
+                            , ((simd_<integer_<A0>, boost::simd::tag::vmx_>))
+                              ((simd_<integer_<A0>, boost::simd::tag::vmx_>))
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;

@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
 {
   /// INTERNAL ONLY - SIMD load without offset
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::aligned_load_
-                                      , boost::simd::tag::altivec_
+                                      , boost::simd::tag::vmx_
                                       , (A0)(A2)
                                       , ( simd::meta::is_pointing_to
                                           < A0
@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace ext
                                       , (iterator_< scalar_< arithmetic_<A0> > >)
                                         ((target_
                                           < simd_ < arithmetic_<A2>
-                                                  , boost::simd::tag::altivec_
+                                                  , boost::simd::tag::vmx_
                                                   >
                                           >
                                         ))
@@ -50,7 +50,7 @@ namespace boost { namespace simd { namespace ext
 
   /// INTERNAL ONLY - Load with static misalignment without offset
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::aligned_load_
-                                      , boost::simd::tag::altivec_
+                                      , boost::simd::tag::vmx_
                                       , (A0)(A2)(A3)
                                       , ( simd::meta::is_pointing_to
                                           < A0
@@ -60,7 +60,7 @@ namespace boost { namespace simd { namespace ext
                                       , (iterator_< scalar_< arithmetic_<A0> > >)
                                         ((target_
                                           < simd_ < arithmetic_<A2>
-                                                  , boost::simd::tag::altivec_
+                                                  , boost::simd::tag::vmx_
                                                   >
                                           >
                                         ))

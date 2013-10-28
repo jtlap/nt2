@@ -6,14 +6,14 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_SDK_SIMD_EXTENSIONS_POWERPC_ALTIVEC_HPP_INCLUDED
-#define BOOST_SIMD_SDK_SIMD_EXTENSIONS_POWERPC_ALTIVEC_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_SIMD_EXTENSIONS_POWERPC_VMX_HPP_INCLUDED
+#define BOOST_SIMD_SDK_SIMD_EXTENSIONS_POWERPC_VMX_HPP_INCLUDED
 
 #if defined(__ALTIVEC__) || defined(__VEC__)
 #  ifndef BOOST_SIMD_HAS_VMX_SUPPORT
 #    define BOOST_SIMD_HAS_VMX_SUPPORT
 #  endif
-#elif defined(NT2_HAS_VMX_SUPPORT)
+#elif defined(BOOST_SIMD_HAS_VMX_SUPPORT)
 #  undef BOOST_SIMD_HAS_VMX_SUPPORT
 #endif
 
@@ -46,15 +46,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 #define BOOST_SIMD_DETECTED
 #define BOOST_SIMD_ALTIVEC
-#define BOOST_SIMD_STRING             "Altivec"
-#define BOOST_SIMD_STRING_LIST        "Altivec"
+#define BOOST_SIMD_STRING             "VMX"
+#define BOOST_SIMD_STRING_LIST        "VMX"
 #define BOOST_SIMD_VMX_FAMILY
 #define BOOST_SIMD_BYTES              16
 #define BOOST_SIMD_BITS               128
 #define BOOST_SIMD_CARDINALS          (4)(8)(16)
-#define BOOST_SIMD_TAG_SEQ            (::boost::simd::tag::altivec_)
-#define BOOST_SIMD_DEFAULT_EXTENSION  ::boost::simd::tag::altivec_
-#define BOOST_SIMD_DEFAULT_SITE       ::boost::simd::tag::altivec_
+#define BOOST_SIMD_TAG_SEQ            (::boost::simd::tag::vmx_)
+#define BOOST_SIMD_DEFAULT_EXTENSION  ::boost::simd::tag::vmx_
+#define BOOST_SIMD_DEFAULT_SITE       ::boost::simd::tag::vmx_
 #define BOOST_SIMD_NO_DENORMALS
 
 #define BOOST_SIMD_SIMD_REAL_TYPES (float)
@@ -71,7 +71,7 @@
 #define BOOST_SIMD_SIMD_REAL_GROUPABLE_TYPES
 #define BOOST_SIMD_SIMD_REAL_SPLITABLE_TYPES
 
-#include <boost/simd/sdk/simd/extensions/meta/altivec.hpp>
+#include <boost/simd/sdk/simd/extensions/meta/vmx.hpp>
 
 #endif
 #endif

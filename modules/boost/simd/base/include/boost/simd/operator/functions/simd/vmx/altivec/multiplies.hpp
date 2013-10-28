@@ -19,9 +19,9 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, boost::simd::tag::altivec_, (A0)
-                            , ((simd_<single_<A0>,boost::simd::tag::altivec_>))
-                              ((simd_<single_<A0>,boost::simd::tag::altivec_>))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, boost::simd::tag::vmx_, (A0)
+                            , ((simd_<single_<A0>,boost::simd::tag::vmx_>))
+                              ((simd_<single_<A0>,boost::simd::tag::vmx_>))
                             )
   {
     typedef A0 result_type;
@@ -33,9 +33,9 @@ namespace boost { namespace simd { namespace ext
   };
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, boost::simd::tag::altivec_, (A0)
-                            , ((simd_<type16_<A0>,boost::simd::tag::altivec_>))
-                              ((simd_<type16_<A0>,boost::simd::tag::altivec_>))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, boost::simd::tag::vmx_, (A0)
+                            , ((simd_<type16_<A0>,boost::simd::tag::vmx_>))
+                              ((simd_<type16_<A0>,boost::simd::tag::vmx_>))
                             )
   {
     typedef A0 result_type;
@@ -45,9 +45,9 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, boost::simd::tag::altivec_, (A0)
-                            , ((simd_<type8_<A0>,boost::simd::tag::altivec_>))
-                              ((simd_<type8_<A0>,boost::simd::tag::altivec_>))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, boost::simd::tag::vmx_, (A0)
+                            , ((simd_<type8_<A0>,boost::simd::tag::vmx_>))
+                              ((simd_<type8_<A0>,boost::simd::tag::vmx_>))
                             )
   {
     typedef A0 result_type;

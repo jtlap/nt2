@@ -18,9 +18,9 @@
 //==============================================================================
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::make_, boost::simd::tag::altivec_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::make_, boost::simd::tag::vmx_
                                    , (A0)
-                                   , ((target_< simd_< type32_<A0>, boost::simd::tag::altivec_ > >))
+                                   , ((target_< simd_< type32_<A0>, boost::simd::tag::vmx_ > >))
                                    )
   {
     BOOST_SIMD_MAKE_BODY(4)
@@ -30,9 +30,9 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::make_, boost::simd::tag::altivec_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::make_, boost::simd::tag::vmx_
                                    , (A0)
-                                   , ((target_< simd_< type16_<A0>, boost::simd::tag::altivec_ > >))
+                                   , ((target_< simd_< type16_<A0>, boost::simd::tag::vmx_ > >))
                                    )
   {
     BOOST_SIMD_MAKE_BODY(8)
@@ -42,9 +42,9 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::make_, boost::simd::tag::altivec_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::make_, boost::simd::tag::vmx_
                                    , (A0)
-                                   , ((target_< simd_< type8_<A0>, boost::simd::tag::altivec_ > >))
+                                   , ((target_< simd_< type8_<A0>, boost::simd::tag::vmx_ > >))
                                    )
   {
     BOOST_SIMD_MAKE_BODY(16)

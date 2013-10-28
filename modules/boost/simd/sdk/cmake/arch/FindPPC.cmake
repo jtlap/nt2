@@ -21,7 +21,7 @@ else()
 endif()
 
 if(NT2_HAS_VMX_SUPPORT)
-  message(STATUS "[boost.simd.sdk] PPC Altivec available")
+  message(STATUS "[boost.simd.sdk] PPC VMX (Altivec) available")
   set(NT2_SIMD_EXT altivec)
 
   # Find the proper options to compile

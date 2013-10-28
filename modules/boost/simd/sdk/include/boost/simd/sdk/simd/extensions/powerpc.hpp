@@ -9,19 +9,23 @@
 #ifndef BOOST_SIMD_SDK_SIMD_EXTENSIONS_POWERPC_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_EXTENSIONS_POWERPC_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// No SIMD extensions have been found yet
-////////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/sdk/simd/extensions/powerpc/altivec.hpp>
-//#include <boost/simd/sdk/simd/extensions/powerpc/spu.hpp>
+#include <boost/simd/sdk/simd/extensions/powerpc/qpx.hpp>
+#include <boost/simd/sdk/simd/extensions/powerpc/vsx.hpp>
+#include <boost/simd/sdk/simd/extensions/powerpc/vmx.hpp>
 
-#if defined(BOOST_SIMD_HAS_VMX_SUPPORT)
-  #if !defined(BOOST_SIMD_GPR_COUNT)
-  #define BOOST_SIMD_GPR_COUNT 32u
-  #endif
-
+#if defined(BOOST_SIMD_HAS_VSX_SUPPORT)
   #if !defined(BOOST_SIMD_VR_COUNT)
-  #define BOOST_SIMD_VR_COUNT  32u
+  #define BOOST_SIMD_VR_COUNT 64u
+  #endif
+#if defined(BOOST_SIMD_HAS_VMX_SUPPORT) || defined(BOOST_SIMD_HAS_QPX_SUPPORT)
+  #if !defined(BOOST_SIMD_VR_COUNT)
+  #define BOOST_SIMD_VR_COUNT 32u
+  #endif
+#endif
+
+#if defined(BOOST_SIMD_HAS_VMX_SUPPORT) || defined(BOOST_SIMD_HAS_QPX_SUPPORT)
+  #if !defined(BOOST_SIMD_GPR_COUNT)
+  #define BOOST_SIMD_GPR_COUNT  32u
   #endif
 #endif
 
