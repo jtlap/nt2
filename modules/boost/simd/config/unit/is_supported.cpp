@@ -42,7 +42,7 @@ NT2_TEST_CASE(is_supported)
   std::cout << std::endl;
 
   std::cout << "AVX2    : " << msg(boost::simd::is_supported("avx2")) << std::endl;
-  std::cout << "FMA     : " << msg(boost::simd::is_supported("fma")) << std::endl;
+  std::cout << "FMA3    : " << msg(boost::simd::is_supported("fma3")) << std::endl;
   std::cout << "XOP     : " << msg(boost::simd::is_supported("xop")) << std::endl;
   std::cout << "FMA4    : " << msg(boost::simd::is_supported("fma4")) << std::endl;
   std::cout << "AVX     : " << msg(boost::simd::is_supported("avx")) << std::endl;

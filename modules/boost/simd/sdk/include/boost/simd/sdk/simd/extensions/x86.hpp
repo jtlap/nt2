@@ -18,7 +18,7 @@
 
 #ifndef BOOST_SIMD_HAS_LRB_SUPPORT
 #include <boost/simd/sdk/simd/extensions/x86/avx2.hpp>
-#include <boost/simd/sdk/simd/extensions/x86/fma.hpp>
+#include <boost/simd/sdk/simd/extensions/x86/fma3.hpp>
 #include <boost/simd/sdk/simd/extensions/x86/xop.hpp>
 #include <boost/simd/sdk/simd/extensions/x86/fma4.hpp>
 #include <boost/simd/sdk/simd/extensions/x86/avx.hpp>

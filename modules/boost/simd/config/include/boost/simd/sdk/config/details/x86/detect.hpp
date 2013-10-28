@@ -104,7 +104,7 @@ namespace boost { namespace simd { namespace config { namespace details
     return false;
   }
 
-  inline bool detect(tag::fma_ const&)
+  inline bool detect(tag::fma3_ const&)
   {
     if (x86::get_vendor() == x86::intel || x86::get_vendor() == x86::amd)
       return x86_detection(12,0x00000001,3) && x86_detection(27,0x00000001,3);
