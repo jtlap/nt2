@@ -11,7 +11,6 @@
 
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/simd/sdk/simd/meta/vector_of.hpp>
 #include <boost/simd/sdk/simd/details/native/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
@@ -21,12 +20,6 @@
 
 namespace boost { namespace simd { namespace meta
 {
-  template<class T,std::size_t Card>
-  struct vector_of<logical<T>,Card>
-   : as_logical<typename vector_of<T,Card>::type >
-  {
-  };
-
   template<class T, class X >
   struct  cardinal_of< simd::native<simd::logical<T>, X> >
         : cardinal_of< simd::native<T, X> >
