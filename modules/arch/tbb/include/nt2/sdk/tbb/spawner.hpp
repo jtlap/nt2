@@ -27,7 +27,7 @@ namespace nt2
     spawner(){}
 
     template<typename Worker>
-    void operator()(Worker worker_, std::size_t begin_, std::size_t size_, std::size_t grain_)
+    void operator()(Worker & worker_, std::size_t begin_, std::size_t size_, std::size_t grain_)
     {
 
 #ifndef BOOST_NO_EXCEPTIONS
