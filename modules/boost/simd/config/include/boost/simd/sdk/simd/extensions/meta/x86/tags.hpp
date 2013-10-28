@@ -31,6 +31,12 @@ namespace boost { namespace simd { namespace tag
   BOOST_DISPATCH_HIERARCHY_CLASS(avx_, sse4_2_);
   BOOST_DISPATCH_HIERARCHY_CLASS(fma4_, avx_);
   BOOST_DISPATCH_HIERARCHY_CLASS(xop_, fma4_);
+#ifdef BOOST_SIMD_ARCH_AMD
+  BOOST_DISPATCH_HIERARCHY_CLASS(fma_, xop_);
+#else
+  BOOST_DISPATCH_HIERARCHY_CLASS(fma_, avx_);
+#endif
+  BOOST_DISPATCH_HIERARCHY_CLASS(avx2_, fma_);
 
   // Tag hierarchy for larrabee extensions
   BOOST_DISPATCH_HIERARCHY_CLASS(lrb_, simd_);

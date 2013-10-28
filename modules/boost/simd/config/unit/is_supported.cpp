@@ -34,7 +34,11 @@ static inline const char* msg(int i)
 NT2_TEST_CASE(is_supported)
 {
   std::cout << "Altivec : " << msg(boost::simd::is_supported("vmx")) << std::endl;
-  std::cout << "Neon    : " << msg(boost::simd::is_supported("neon")) << std::endl;
+  std::cout << "NEON    : " << msg(boost::simd::is_supported("neon")) << std::endl;
+  std::cout << "AVX2    : " << msg(boost::simd::is_supported("avx2")) << std::endl;
+  std::cout << "FMA     : " << msg(boost::simd::is_supported("fma")) << std::endl;
+  std::cout << "XOP     : " << msg(boost::simd::is_supported("xop")) << std::endl;
+  std::cout << "FMA4    : " << msg(boost::simd::is_supported("fma4")) << std::endl;
   std::cout << "AVX     : " << msg(boost::simd::is_supported("avx")) << std::endl;
   std::cout << "SSE4.2  : " << msg(boost::simd::is_supported("sse4.2")) << std::endl;
   std::cout << "SSE4.1  : " << msg(boost::simd::is_supported("sse4.1")) << std::endl;
@@ -42,6 +46,7 @@ NT2_TEST_CASE(is_supported)
   std::cout << "SSSE3   : " << msg(boost::simd::is_supported("ssse3")) << std::endl;
   std::cout << "SSE3    : " << msg(boost::simd::is_supported("sse3")) << std::endl;
   std::cout << "SSE2    : " << msg(boost::simd::is_supported("sse2")) << std::endl;
+  std::cout << "SSE     : " << msg(boost::simd::is_supported("sse")) << std::endl;
 
   NT2_TEST_COMPLETE("SIMD extensions detection");
 }

@@ -18,7 +18,7 @@ macro(nt2_simd_set_fpmath ext)
 
   if(NT2_COMPILER_GCC)
 
-      if(ext_u MATCHES "AVX|FMA4|XOP")
+      if(ext_u MATCHES "AVX|FMA4|XOP|FMA|AVX2")
         set(ext_u AVX)
       else()
         set(ext_u SSE)
@@ -39,7 +39,7 @@ macro(nt2_simd_set_fpmath ext)
 
   elseif(NT2_COMPILER_MSVC)
 
-      if(ext_u MATCHES "AVX|FMA4|XOP")
+      if(ext_u MATCHES "AVX|FMA4|XOP|FMA|AVX2")
         set(ext_u AVX)
       elseif(NOT ext_u STREQUAL SSE)
         set(ext_u SSE2)
@@ -79,6 +79,16 @@ macro(nt2_simd_cpuid_check ext)
       # find a way to test if compiler really supports it?
       set(NT2_SIMD_FLAGS "-DBOOST_SIMD_HAS_${ext}_SUPPORT")
     endif()
+
+    if(${ext} STREQUAL avx2)
+      check_cxx_compiler_flag("-mfma" HAS_GCC_FMA)
+      if(HAS_GCC_FMA)
+        set(NT2_SIMD_FLAGS "${NT2_SIMD_FLAGS} -mfma")
+      else()
+        # find a way to test if compiler really supports it?
+        set(NT2_SIMD_FLAGS "${NT2_SIMD_FLAGS} -DBOOST_SIMD_HAS_FMA_SUPPORT")
+      endif()
+    endif()
   endif()
 
   if(NT2_HAS_${ext}_SUPPORT)
@@ -94,6 +104,8 @@ macro(nt2_simd_cpuid_check ext)
 endmacro()
 
 function(nt2_simd_cpuid_find)
+  nt2_simd_cpuid_check(AVX2)
+  nt2_simd_cpuid_check(FMA)
   nt2_simd_cpuid_check(XOP)
   nt2_simd_cpuid_check(FMA4)
   nt2_simd_cpuid_check(AVX)

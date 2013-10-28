@@ -44,12 +44,20 @@ namespace boost { namespace simd { namespace details
                                   , &boost::simd::is_supported<tag::avx_>
                                   , &registration_list
                                   );
+  support_registration x86_fma4   ( "fma4"
+                                  , &boost::simd::is_supported<tag::fma4_>
+                                  , &registration_list
+                                  );
   support_registration x86_xop    ( "xop"
                                   , &boost::simd::is_supported<tag::xop_>
                                   , &registration_list
                                   );
-  support_registration x86_fma4   ( "fma4"
-                                  , &boost::simd::is_supported<tag::fma4_>
+  support_registration x86_fma    ( "fma"
+                                  , &boost::simd::is_supported<tag::fma_>
+                                  , &registration_list
+                                  );
+  support_registration x86_avx2   ( "avx2"
+                                  , &boost::simd::is_supported<tag::avx2_>
                                   , &registration_list
                                   );
   support_registration x86_lrb    ( "lrb"

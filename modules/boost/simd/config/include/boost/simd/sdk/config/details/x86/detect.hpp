@@ -38,82 +38,84 @@ namespace boost { namespace simd { namespace config { namespace details
   {
     if (x86::get_vendor() == x86::intel || x86::get_vendor() == x86::amd)
       return x86_detection(25,0x00000001,4);
-    else return false;
+    return false;
   }
 
   inline bool detect(tag::sse2_ const&)
   {
     if (x86::get_vendor() == x86::intel || x86::get_vendor() == x86::amd)
       return x86_detection(26,0x00000001,4);
-    else return false;
+    return false;
   }
 
   inline bool detect(tag::sse3_ const&)
   {
     if (x86::get_vendor() == x86::intel || x86::get_vendor() == x86::amd)
       return x86_detection(0,0x00000001,3);
-    else return false;
+    return false;
   }
 
   inline bool detect(tag::ssse3_ const&)
   {
     if (x86::get_vendor() == x86::intel || x86::get_vendor() == x86::amd)
       return x86_detection(9,0x00000001,3);
-    else return false;
+    return false;
   }
 
   inline bool detect(tag::sse4a_ const&)
   {
     if (x86::get_vendor() == x86::amd)
       return x86_detection(6,0x80000001,3);
-    else return false;
+    return false;
   }
 
   inline bool detect(tag::sse4_1_ const&)
   {
     if (x86::get_vendor() == x86::intel || x86::get_vendor() == x86::amd)
       return x86_detection(19,0x00000001,3);
-    else return false;
+    return false;
   }
 
   inline bool detect(tag::sse4_2_ const&)
   {
     if (x86::get_vendor() == x86::intel || x86::get_vendor() == x86::amd)
       return x86_detection(20,0x00000001,3);
-    else return false;
+    return false;
   }
 
   inline bool detect(tag::avx_ const&)
   {
     if (x86::get_vendor() == x86::intel || x86::get_vendor() == x86::amd)
-    {
-      if(x86_detection(28,0x00000001,3) && x86_detection(27,0x00000001,3))
-        return true;
-      else return false;
-    }
-    else return false;
+      return x86_detection(28,0x00000001,3) && x86_detection(27,0x00000001,3);
+    return false;
   }
 
   inline bool detect(tag::fma4_ const&)
   {
     if (x86::get_vendor() == x86::amd)
-    {
-      if(x86_detection(16,0x80000001,3) && x86_detection(27,0x00000001,3))
-        return true;
-      else return false;
-    }
-    else return false;
+      return x86_detection(16,0x80000001,3) && x86_detection(27,0x00000001,3);
+    return false;
   }
 
   inline bool detect(tag::xop_ const&)
   {
     if (x86::get_vendor() == x86::amd)
-    {
-      if(x86_detection(11,0x80000001,3) && x86_detection(27,0x00000001,3))
-        return true;
-      else return false;
-    }
-    else return false;
+      return x86_detection(11,0x80000001,3) && x86_detection(27,0x00000001,3);
+    return false;
+  }
+
+  inline bool detect(tag::fma_ const&)
+  {
+    if (x86::get_vendor() == x86::intel || x86::get_vendor() == x86::amd)
+      return x86_detection(12,0x00000001,3) && x86_detection(27,0x00000001,3);
+    return false;
+  }
+
+  inline bool detect(tag::avx2_ const&)
+  {
+    if (x86::get_vendor() == x86::intel || x86::get_vendor() == x86::amd)
+      return x86_detection(5,0x00000007,3) && x86_detection(27,0x00000001,3);
+    return false;
   }
 
 } } } }
