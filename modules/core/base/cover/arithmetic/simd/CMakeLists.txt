@@ -23,6 +23,7 @@ SET( SOURCES
   divround.cpp
   divs.cpp
   fast_hypot.cpp
+  fast_rec.cpp
   floor.cpp
   fma.cpp
   hypot.cpp
