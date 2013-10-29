@@ -13,6 +13,7 @@
 #include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/sdk/complex/hierarchy.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
+#include <boost/fusion/include/at.hpp>
 
 namespace nt2 { namespace ext
 {
