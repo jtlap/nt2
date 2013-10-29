@@ -22,19 +22,19 @@ namespace nt2 { namespace ext
   // General inner_fold
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::inner_fold_, tag::cpu_
-                              , (A0)(A1)(A2)(A3)(A4)
-                              , ((ast_< A0, nt2::container::domain>))
-                                ((ast_< A1, nt2::container::domain>))
-                                (unspecified_<A2>)
-                                (unspecified_<A3>)
-                                (unspecified_<A4>)
+                              , (Out)(In)(Neutral)(Bop)(Uop)
+                              , ((ast_< Out, nt2::container::domain>))
+                                ((ast_< In, nt2::container::domain>))
+                                (unspecified_<Neutral>)
+                                (unspecified_<Bop>)
+                                (unspecified_<Uop>)
                              )
   {
     typedef void                                                              result_type;
-    typedef typename A1::extent_type                                          extent_type;
+    typedef typename In::extent_type                                          extent_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
+    operator()(Out& out, In& in, Neutral const& neutral, Bop const& bop, Uop const& uop) const
     {
       extent_type ext = in.extent();
       std::size_t obound = nt2::numel(boost::fusion::pop_front(ext));
@@ -47,29 +47,29 @@ namespace nt2 { namespace ext
   // Generates inner_fold
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::inner_fold_, tag::cpu_
-                            , (A0)(A1)(A2)(A3)(A4)(A5)
-                            , ((ast_< A0, nt2::container::domain>))
-                              ((ast_< A1, nt2::container::domain>))
-                              (unspecified_<A2>)
-                              (unspecified_<A3>)
-                              (unspecified_<A4>)
-                              (unspecified_<A5>)
+                            , (Out)(In)(Neutral)(Bop)(Uop)(Range)
+                            , ((ast_< Out, nt2::container::domain>))
+                              ((ast_< In, nt2::container::domain>))
+                              (unspecified_<Neutral>)
+                              (unspecified_<Bop>)
+                              (unspecified_<Uop>)
+                              (unspecified_<Range>)
                             )
   {
     typedef void                                                               result_type;
-    typedef typename A0::value_type                                            value_type;
-    typedef typename boost::remove_reference<A1>::type::extent_type            extent_type;
+    typedef typename Out::value_type                                            value_type;
+    typedef typename boost::remove_reference<In>::type::extent_type            extent_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0& out, A1& in
-                                            , A2 const& neutral, A3 const& bop, A4 const& uop
-                                            , A5 const& a5
+    BOOST_FORCEINLINE result_type operator()(Out& out, In& in
+                                            , Neutral const& neutral, Bop const& bop, Uop const& uop
+                                            , Range const& range
                                             ) const
     {
       extent_type ext = in.extent();
       std::size_t ibound  = boost::fusion::at_c<0>(ext);
       std::size_t obound =  nt2::numel(boost::fusion::pop_front(ext));
-      std::size_t begin = a5.first;
-      std::size_t size = a5.second;
+      std::size_t begin = range.first;
+      std::size_t size = range.second;
 
       for(std::size_t j = begin, k = begin*ibound; j < begin+size; ++j, k+=ibound)
       {

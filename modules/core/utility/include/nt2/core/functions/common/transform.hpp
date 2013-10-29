@@ -20,16 +20,16 @@ namespace nt2 { namespace ext
   // Global version
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::transform_, tag::cpu_
-                            , (A0)(A1)
-                            , ((ast_<A0, nt2::container::domain>))
-                              ((ast_<A1, nt2::container::domain>))
+                            , (Out)(In)
+                            , ((ast_<Out, nt2::container::domain>))
+                              ((ast_<In, nt2::container::domain>))
                             )
   {
     typedef void result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
+    BOOST_FORCEINLINE result_type operator()(Out& out, In& in) const
     {
-      nt2::transform(a0,a1,std::make_pair(0,nt2::numel(a0)));
+      nt2::transform(out,in,std::make_pair(0,nt2::numel(out)));
     }
   };
 
@@ -38,24 +38,24 @@ namespace nt2 { namespace ext
   // Note that p should be properly set beforehand
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::transform_, tag::cpu_
-                            , (A0)(A1)(A2)
-                            , ((ast_<A0, nt2::container::domain>))
-                              ((ast_<A1, nt2::container::domain>))
-                              (unspecified_<A2>)
+                            , (Out)(In)(Range)
+                            , ((ast_<Out, nt2::container::domain>))
+                              ((ast_<In, nt2::container::domain>))
+                              (unspecified_<Range>)
                             )
   {
     typedef void result_type;
 
-    typedef typename A0::value_type                stype;
+    typedef typename Out::value_type                stype;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0& a0, A1& a1, A2 a2) const
+    operator()(Out& out, In& in, Range range) const
     {
-      std::size_t p = a2.first;
-      std::size_t sz = a2.second;
+      std::size_t p = range.first;
+      std::size_t sz = range.second;
       std::size_t bound = p+sz;
       for(std::size_t i=p; i != bound; ++i)
-        nt2::run(a0, i, nt2::run(a1, i, meta::as_<stype>()));
+        nt2::run(out, i, nt2::run(in, i, meta::as_<stype>()));
     }
   };
 } }

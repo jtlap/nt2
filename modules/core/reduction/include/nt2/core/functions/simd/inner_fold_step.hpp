@@ -24,27 +24,27 @@ namespace nt2 { namespace ext
   // Generates inner_fold_step
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::inner_fold_step_, boost::simd::tag::simd_
-            , (A0)(A1)(A2)(A3)(A4)
-            , (unspecified_<A0>)
-              ((ast_<A1, nt2::container::domain>))
-              (unspecified_<A2>)
-              (unspecified_<A3>)
-              (unspecified_<A4>)
+            , (Out)(In)(Neutral)(Bop)(Range)
+            , (unspecified_<Out>)
+              ((ast_<In, nt2::container::domain>))
+              (unspecified_<Neutral>)
+              (unspecified_<Bop>)
+              (unspecified_<Range>)
               )
   {
     typedef void result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const & a4)
+    operator()(Out& out, In& in, Neutral const& neutral, Bop const& bop, Range const & range)
     {
-      static const std::size_t N = boost::simd::meta::cardinal_of<A0>::value;
-      std::size_t begin = a4.first;
-      std::size_t size = a4.second;
+      static const std::size_t N = boost::simd::meta::cardinal_of<Out>::value;
+      std::size_t begin = range.first;
+      std::size_t size = range.second;
 
       BOOST_ASSERT_MSG( (size % N) == 0, "Range for inner_fold_step not divisible by N");
 
       for(std::size_t i = begin; i != begin+size; i+=N)
-       out = bop(out, nt2::run(in, i, meta::as_<A0>()));
+       out = bop(out, nt2::run(in, i, meta::as_<Out>()));
     }
   };
 } }

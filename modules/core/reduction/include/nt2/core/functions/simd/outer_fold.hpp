@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
     typedef boost::simd::native<value_type,BOOST_SIMD_DEFAULT_EXTENSION>      target_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const&, A5 const& a5) const
+    operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const&, A5 const& range) const
     {
       extent_type ext = in.extent();
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
@@ -65,8 +65,8 @@ namespace nt2 { namespace ext
       std::size_t nb_vec = cache_line_size/(sizeof(value_type)*N);
       std::size_t cache_bound = (nb_vec)*N;
       std::size_t bound  =  boost::simd::align_under(ibound, cache_bound);
-      std::size_t begin = a5.first;
-      std::size_t size = a5.second;
+      std::size_t begin = range.first;
+      std::size_t size = range.second;
 
       for(std::size_t o = begin, o_ =begin*ibound; o < begin+size; ++o, o_+=ibound)
       {

@@ -25,23 +25,23 @@ namespace nt2 { namespace ext
   // Partial nD element-wise transform with offset/size
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::transform_, boost::simd::tag::simd_
-                               , (A0)(A1)(A2)
-                               , (boost::simd::meta::is_vectorizable<typename A0::value_type, BOOST_SIMD_DEFAULT_EXTENSION>)
-                               , ((ast_<A0, nt2::container::domain>))
-                                 ((ast_<A1, nt2::container::domain>))
-                                 (unspecified_<A2>)
+                               , (Out)(In)(Range)
+                               , (boost::simd::meta::is_vectorizable<typename Out::value_type, BOOST_SIMD_DEFAULT_EXTENSION>)
+                               , ((ast_<Out, nt2::container::domain>))
+                                 ((ast_<In, nt2::container::domain>))
+                                 (unspecified_<Range>)
                                )
   {
     typedef void result_type;
 
-    typedef typename A0::value_type stype;
+    typedef typename Out::value_type stype;
     typedef boost::simd::native<stype, BOOST_SIMD_DEFAULT_EXTENSION> target_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0& a0, A1& a1, A2 a2) const
+    operator()(Out& out, In& in, Range range) const
     {
-      std::size_t p (a2.first);
-      std::size_t sz (a2.second);
+      std::size_t p (range.first);
+      std::size_t sz (range.second);
 
       static const std::size_t N = boost::simd::meta
                                         ::cardinal_of<target_type>::value;
@@ -50,10 +50,10 @@ namespace nt2 { namespace ext
       std::size_t it          = p;
 
       for(std::size_t m=p+aligned_sz; it != m; it+=N)
-        nt2::run( a0, it, nt2::run(a1, it, meta::as_<target_type>()) );
+        nt2::run( out, it, nt2::run(in, it, meta::as_<target_type>()) );
 
       for(std::size_t m=p+sz; it != m; ++it)
-        nt2::run( a0, it, nt2::run(a1, it, meta::as_<stype>()) );
+        nt2::run( out, it, nt2::run(in, it, meta::as_<stype>()) );
     }
   };
 } }
