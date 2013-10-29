@@ -7,8 +7,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_TBB_SPAWNER_PARFOR_HPP_INCLUDED
-#define NT2_SDK_TBB_SPAWNER_PARFOR_HPP_INCLUDED
+#ifndef NT2_SDK_TBB_SPAWNER_TRANSFORM_HPP_INCLUDED
+#define NT2_SDK_TBB_SPAWNER_TRANSFORM_HPP_INCLUDED
 
 #if defined(NT2_USE_TBB)
 

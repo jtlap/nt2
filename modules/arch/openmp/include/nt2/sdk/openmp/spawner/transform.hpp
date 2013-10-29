@@ -7,8 +7,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_OPENMP_SPAWNER_PARFOR_HPP_INCLUDED
-#define NT2_SDK_OPENMP_SPAWNER_PARFOR_HPP_INCLUDED
+#ifndef NT2_SDK_OPENMP_SPAWNER_TRANSFORM_HPP_INCLUDED
+#define NT2_SDK_OPENMP_SPAWNER_TRANSFORM_HPP_INCLUDED
 
 #if defined(_OPENMP) && _OPENMP >= 200203 /* OpenMP 2.0 */
 
