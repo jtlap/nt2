@@ -10,6 +10,7 @@
 SET( SOURCES
   shuffle.cpp
   all_reduce.cpp
+  broadcast.cpp
   combine.cpp
   cumsum.cpp
   cumprod.cpp
