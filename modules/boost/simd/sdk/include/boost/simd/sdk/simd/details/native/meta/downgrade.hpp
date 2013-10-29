@@ -12,7 +12,7 @@
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
-#include <boost/simd/sdk/simd/meta/is_final_downgrade.hpp>
+#include <boost/simd/sdk/simd/details/is_final_downgrade.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/dispatch/meta/primitive_of.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -24,10 +24,9 @@ namespace boost { namespace dispatch { namespace ext
   struct downgrade< boost::simd::native<T, Ext>
                   , Sign
                   , typename  boost::disable_if
-                              < simd::meta::
+                              < simd::details::
                                 is_final_downgrade<typename meta::
                                                             primitive_of<T>::type
-                                                  , Ext
                                                   >
                               >::type
                   >

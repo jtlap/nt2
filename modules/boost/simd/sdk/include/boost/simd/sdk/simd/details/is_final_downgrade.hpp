@@ -7,21 +7,21 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_SDK_SIMD_META_IS_FINAL_DOWNGRADE_HPP_INCLUDED
-#define BOOST_SIMD_SDK_SIMD_META_IS_FINAL_DOWNGRADE_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_SIMD_DETAILS_IS_FINAL_DOWNGRADE_HPP_INCLUDED
+#define BOOST_SIMD_SDK_SIMD_DETAILS_IS_FINAL_DOWNGRADE_HPP_INCLUDED
 
 #include <boost/mpl/bool.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace simd { namespace details
 {
-  template<typename Type, typename Extension>
+  template<typename Type>
   struct  is_final_downgrade
         : boost::mpl::bool_< sizeof(Type) == 1 >
   {
   };
 
-  template<typename Extension>
-  struct  is_final_downgrade<float,Extension>
+  template<>
+  struct  is_final_downgrade<float>
         : boost::mpl::true_
   {
   };
