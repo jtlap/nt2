@@ -10,7 +10,8 @@
 #ifndef NT2_SDK_META_CONSTANT_ADAPTOR_HPP_INCLUDED
 #define NT2_SDK_META_CONSTANT_ADAPTOR_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/adapt_type.hpp>
+#include <boost/dispatch/meta/factory_of.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/functor/meta/make_functor.hpp>
 
 namespace nt2 { namespace meta
@@ -45,8 +46,13 @@ namespace nt2 { namespace meta
     {
       // Type casting constants need to recompute their input target or
       // the wrong specialization is called.
-      typedef typename boost::simd
-                            ::meta::adapt_type<Base, Target>::type target_type;
+      typedef typename boost::dispatch::meta
+                             ::factory_of< Target
+                                         , typename boost::dispatch::meta
+                                                         ::scalar_of<Target>::type
+                                         >::type factory_t;
+
+      typedef typename factory_t::template apply<Base>::type target_type;
 
       typename boost::dispatch::make_functor<Functor,Base>::type callee;
       return callee(target_type());

@@ -18,7 +18,7 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/property_of.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
-#include <boost/simd/sdk/meta/adapt_type.hpp>
+#include <boost/simd/sdk/simd/meta/vector_of.hpp>
 
 //==============================================================================
 // Forward all constant call to the SIMD version of themselves that splat
@@ -61,9 +61,9 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::property_of<base_type>::type   disp_type;
     typedef typename boost::mpl::apply<Tag,disp_type>::type         value_type;
 
-    typedef typename simd::meta::adapt_type< typename value_type::value_type
-                                           , target_type
-                                            >::type                 result_type;
+    typedef typename meta::vector_of< typename value_type::value_type
+                                    , target_type::static_size
+                                    >::type                         result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const&) const
     {
