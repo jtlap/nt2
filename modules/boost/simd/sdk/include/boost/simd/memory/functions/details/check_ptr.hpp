@@ -16,12 +16,15 @@
 #include <boost/assert.hpp>
 #include <algorithm>
 
+#define BOOST_SIMD_DETAIL_MIN(A, B) (A) < (B) ? (A) : (B)
+
 #define BOOST_SIMD_DETAILS_CHECK_PTR(Pointer, Alignment)                       \
 BOOST_ASSERT_MSG( boost::simd::is_aligned                                      \
                         ( Pointer                                              \
-                        , std::min( std::size_t(Alignment)                     \
-                                  , std::size_t(BOOST_SIMD_CONFIG_ALIGNMENT)   \
-                                  )                                            \
+                        , BOOST_SIMD_DETAIL_MIN                                \
+                          ( std::size_t(Alignment)                             \
+                          , std::size_t(BOOST_SIMD_CONFIG_ALIGNMENT)           \
+                          )                                                    \
                         )                                                      \
                 , "Unaligned memory location. You tried to access a "          \
                   "memory location which is not aligned properly with "        \
@@ -29,12 +32,14 @@ BOOST_ASSERT_MSG( boost::simd::is_aligned                                      \
                 )                                                              \
 /**/
 
-#define BOOST_SIMD_DETAILS_CHECK_PTR_CVT(Pointer, SIMD, Scalar)                                    \
-BOOST_SIMD_DETAILS_CHECK_PTR(Pointer, std::min( sizeof(SIMD)                                       \
-                                              , sizeof(SIMD) * sizeof(Scalar)                      \
-                                                             / sizeof(typename SIMD::value_type)   \
-                                              )                                                    \
-                            )                                                                      \
+#define BOOST_SIMD_DETAILS_CHECK_PTR_CVT(Pointer, SIMD, Scalar)                \
+BOOST_SIMD_DETAILS_CHECK_PTR( Pointer                                          \
+                            , BOOST_SIMD_DETAIL_MIN                            \
+                              ( sizeof(SIMD)                                   \
+                              , sizeof(SIMD) * sizeof(Scalar)                  \
+                                            / sizeof(typename SIMD::value_type)\
+                              )                                                \
+                            )                                                  \
 /**/
 
 #endif
