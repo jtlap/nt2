@@ -8,8 +8,6 @@
 ################################################################################
 
 set ( NT2_ARCH.SHARED_MEMORY_DEPENDENCIES_EXTRA
-      boost.dispatch
-      boost.simd.sdk
       core.reduction
       core.utility
       sdk.config

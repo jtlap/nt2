@@ -10,11 +10,11 @@
 #ifndef NT2_CORE_FUNCTIONS_SHARED_MEMORY_INNER_FOLD_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_SHARED_MEMORY_INNER_FOLD_HPP_INCLUDED
 
+#include <nt2/core/functions/transform.hpp>
 #include <nt2/core/functions/inner_fold.hpp>
 #include <nt2/sdk/shared_memory/shared_memory.hpp>
 #include <nt2/sdk/shared_memory/worker.hpp>
 #include <nt2/sdk/shared_memory/spawner.hpp>
-#include <nt2/sdk/shared_memory/spawner/parfor.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -22,19 +22,19 @@ namespace nt2 { namespace ext
   // Generates inner_fold
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::inner_fold_, (nt2::tag::shared_memory_<BackEnd,Site>)
-                                , (A0)(A1)(A2)(A3)(A4)(BackEnd)(Site)
-                                , ((ast_< A0, nt2::container::domain>))
-                                  ((ast_< A1, nt2::container::domain>))
-                                  (unspecified_<A2>)
-                                  (unspecified_<A3>)
-                                  (unspecified_<A4>)
+                                , (Out)(In)(Neutral)(Bop)(Uop)(BackEnd)(Site)
+                                , ((ast_< Out, nt2::container::domain>))
+                                  ((ast_< In, nt2::container::domain>))
+                                  (unspecified_<Neutral>)
+                                  (unspecified_<Bop>)
+                                  (unspecified_<Uop>)
                                 )
   {
     typedef void                                                              result_type;
-    typedef typename boost::remove_reference<A1>::type::extent_type           extent_type;
+    typedef typename boost::remove_reference<In>::type::extent_type           extent_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
+    operator()(Out& out, In& in, Neutral const& neutral, Bop const& bop, Uop const& uop) const
     {
 
       extent_type ext = in.extent();
@@ -42,10 +42,10 @@ namespace nt2 { namespace ext
 
       std::size_t grain = 8;
 
-      nt2::worker<tag::inner_fold_,BackEnd,A0,A1,A2,A3,A4>
+      nt2::worker<tag::inner_fold_,BackEnd,Out,In,Neutral,Bop,Uop>
       w(out, in, neutral, bop, uop);
 
-      nt2::spawner< tag::parfor_, BackEnd > s;
+      nt2::spawner< tag::transform_, BackEnd > s;
 
       s(w,0,obound,grain);
 

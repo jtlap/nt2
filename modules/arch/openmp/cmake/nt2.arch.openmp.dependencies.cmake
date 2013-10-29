@@ -21,9 +21,7 @@ if(NOT MSVC)
 endif()
 
 set ( NT2_ARCH.OPENMP_DEPENDENCIES_EXTRA
+      arch.shared_memory
       boost.dispatch
-      boost.simd.sdk
-      core.reduction
-      core.utility
-      sdk.config
+      sdk.functor
     )

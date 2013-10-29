@@ -10,6 +10,7 @@
 #ifndef NT2_CORE_FUNCTIONS_SHARED_MEMORY_OUTER_FOLD_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_SHARED_MEMORY_OUTER_FOLD_HPP_INCLUDED
 
+#include <nt2/core/functions/transform.hpp>
 #include <nt2/core/functions/outer_fold.hpp>
 #include <nt2/sdk/shared_memory/shared_memory.hpp>
 #include <nt2/sdk/config/cache.hpp>
@@ -18,39 +19,42 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::outer_fold_, (nt2::tag::shared_memory_<BackEnd,Site>)
-                             , (A0)(A1)(A2)(A3)(A4)(BackEnd)(Site)
-                             , ((ast_<A0, nt2::container::domain>))
-                               ((ast_<A1, nt2::container::domain>))
-                               (unspecified_<A2>)
-                               (unspecified_<A3>)
-                               (unspecified_<A4>)
+                             , (Out)(In)(Neutral)(Bop)(Uop)(BackEnd)(Site)
+                             , ((ast_<Out, nt2::container::domain>))
+                               ((ast_<In, nt2::container::domain>))
+                               (unspecified_<Neutral>)
+                               (unspecified_<Bop>)
+                               (unspecified_<Uop>)
                               )
   {
     typedef void                                                              result_type;
-    typedef typename boost::remove_reference<A1>::type::extent_type           extent_type;
+    typedef typename boost::remove_reference<In>::type::extent_type           extent_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
+    BOOST_FORCEINLINE result_type operator()(Out& out, In& in, Neutral const& neutral, Bop const& bop, Uop const& uop) const
     {
       extent_type ext = in.extent();
       std::size_t obound = boost::fusion::at_c<2>(ext);
       std::size_t ibound = boost::fusion::at_c<0>(ext);
-      std::size_t top_cache_line_size = config::top_cache_size(2)/sizeof(typename A0::value_type);
+      std::size_t top_cache_line_size = config::top_cache_size(2)/sizeof(typename Out::value_type);
       if(!top_cache_line_size) top_cache_line_size = 1u;
 
-      std::size_t a(ibound);
-      std::size_t b(top_cache_line_size);
-      while (b) {
+      std::size_t grain = top_cache_line_size/gcd(ibound,top_cache_line_size);
+
+      nt2::worker<tag::outer_fold_,BackEnd,Out,In,Neutral,Bop,Uop> w(out, in, neutral, bop, uop);
+      nt2::spawner< tag::transform_,BackEnd >              s;
+
+      s(w,0,obound,grain);
+    }
+
+    private:
+    static std::size_t gcd (std::size_t a, std::size_t b)
+    {
+        while (b) {
         std::size_t  r = a % b;
         a = b;
         b = r;
-      }
-
-      std::size_t grain = top_cache_line_size/a;
-
-      nt2::worker<tag::outer_fold_,BackEnd,A0,A1,A2,A3,A4> w(out, in, neutral, bop, uop);
-      nt2::spawner< tag::parfor_,BackEnd >              s;
-
-      s(w,0,obound,grain);
+        }
+        return a;
     }
   };
 

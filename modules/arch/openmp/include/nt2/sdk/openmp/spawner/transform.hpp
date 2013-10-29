@@ -23,12 +23,12 @@ namespace nt2
 {
   namespace tag
     {
-      struct parfor_;
+      struct transform_;
       template<class T> struct openmp_;
     }
 
   template<class Site>
-  struct spawner< tag::parfor_, tag::openmp_<Site> >
+  struct spawner< tag::transform_, tag::openmp_<Site> >
   {
 
     spawner() {}

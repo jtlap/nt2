@@ -10,6 +10,6 @@
 #ifndef NT2_SDK_OPENMP_SPAWNER_HPP_INCLUDED
 #define NT2_SDK_OPENMP_SPAWNER_HPP_INCLUDED
 
-#include <nt2/sdk/openmp/spawner/parfor.hpp>
+#include <nt2/sdk/openmp/spawner/transform.hpp>
 
 #endif

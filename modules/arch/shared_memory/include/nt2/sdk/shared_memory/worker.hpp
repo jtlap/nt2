@@ -14,8 +14,8 @@ namespace nt2
 {
   template< class Tag
           , class Arch
-          , class A0
-          , class A1
+          , class Out
+          , class In
           , class A2 = void
           , class A3 = void
           , class A4 = void

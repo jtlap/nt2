@@ -10,6 +10,6 @@
 #ifndef NT2_SDK_TBB_SPAWNER_HPP_INCLUDED
 #define NT2_SDK_TBB_SPAWNER_HPP_INCLUDED
 
-#include <nt2/sdk/tbb/spawner/parfor.hpp>
+#include <nt2/sdk/tbb/spawner/transform.hpp>
 
 #endif

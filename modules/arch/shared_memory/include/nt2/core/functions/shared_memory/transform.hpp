@@ -14,7 +14,6 @@
 #include <nt2/sdk/shared_memory/shared_memory.hpp>
 #include <nt2/sdk/shared_memory/worker.hpp>
 #include <nt2/sdk/shared_memory/spawner.hpp>
-#include <nt2/sdk/shared_memory/spawner/parfor.hpp>
 #include <nt2/sdk/config/cache.hpp>
 #include <cstddef>
 
@@ -26,25 +25,25 @@ namespace nt2 { namespace ext
   // using the partial transform syntax.
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::transform_, (nt2::tag::shared_memory_<BackEnd,Site>)
-                            , (A0)(A1)(BackEnd)(Site)(A2)
-                            , ((ast_<A0, nt2::container::domain>))
-                              ((ast_<A1, nt2::container::domain>))
-                              (unspecified_<A2>)
+                            , (Out)(In)(BackEnd)(Site)(Range)
+                            , ((ast_<Out, nt2::container::domain>))
+                              ((ast_<In, nt2::container::domain>))
+                              (unspecified_<Range>)
                             )
   {
 
     typedef void                                                             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1, A2 a2) const
+    BOOST_FORCEINLINE result_type operator()(Out& out, In& in, Range range) const
     {
 
-      std::size_t top_cache_line_size = config::top_cache_size()/sizeof(typename A0::value_type);
-      std::size_t it = a2.first;
-      std::size_t sz = a2.second;
+      std::size_t top_cache_line_size = config::top_cache_size()/sizeof(typename Out::value_type);
+      std::size_t it = range.first;
+      std::size_t sz = range.second;
       if(!top_cache_line_size) top_cache_line_size = 1u;
 
-       nt2::worker<tag::transform_, BackEnd,A0,A1> w(a0,a1);
-       nt2::spawner<tag::parfor_, BackEnd>         s;
+       nt2::worker<tag::transform_, BackEnd,Out,In> w(out,in);
+       nt2::spawner<tag::transform_, BackEnd>         s;
 
        s(w,it,sz,top_cache_line_size);
     }

@@ -53,4 +53,10 @@ set(NT2_ARCH.TBB_DEPENDENCIES_INCLUDE_DIR ${TBB_INCLUDE_PATH})
 set(NT2_ARCH.TBB_DEPENDENCIES_LIBRARY_DIR ${TBB_LIBRARY_PATH})
 set(NT2_ARCH.TBB_DEPENDENCIES_LIBRARIES        ${TBB_LIBRARY})
 
-set(NT2_ARCH.TBB_DEPENDENCIES_EXTRA core.utility)
+set(NT2_ARCH.TBB_DEPENDENCIES_EXTRA
+    arch.shared_memory
+    boost.dispatch
+    boost.simd.sdk
+    sdk.config
+    sdk.functor
+    )
