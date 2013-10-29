@@ -40,12 +40,13 @@ namespace boost { namespace simd { namespace tag
     T r = bitofsign(a0);
     @endcode
 
-    is similar to:
+    for signed types is similar to:
 
     @code
     T r = a0&SignMask;
     @endcode
 
+    @see @funcref{sign}, @funcref{signnz}
     @param a0
 
     @return a value of same type as the input

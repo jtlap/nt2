@@ -29,14 +29,12 @@ namespace boost { namespace simd { namespace tag
     };}
   /*!
     Returns True if a0 is positive else False.
-    \par
+
     This function differs from is_gtz from floating point argument,
-    because Zero<A0>() is positive but not greater than zero,
-    and Mzero<A0>() is not positive and not greater than zero,
-    \par
-    Mzero<A0>() is the floating point 'minus zero',
-    i.e. all bits are zero but the sign bit.
-    Such a value is treated as zero by ieee standards.
+    because Zero is positive but not greater than zero, and Mzero is
+    not positive and not greater than zero, It's probably is_gtz that
+    you want.
+
 
     @par Semantic:
 
@@ -47,8 +45,18 @@ namespace boost { namespace simd { namespace tag
     is similar to:
 
     @code
-    logical<T> r = ;
+    if T is signed
+      logical<T> r = bitofsign(a0) == 0;
+    else
+      logical<T> r = True;
     @endcode
+
+
+    @par Note:
+
+    Mzero is the floating point 'minus zero',
+    i.e. all bits are zero but the sign bit.
+    Such a value is treated as zero by ieee standards.
 
     @param a0
 

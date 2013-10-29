@@ -30,12 +30,7 @@ namespace boost { namespace simd { namespace tag
   }
   /*!
     The function multiply a floating entry \f$a_0\f$
-    by \f$2^a_1\f$
-    \par
-    The fast prefix indicates that for speed sake
-    the result may be incorrect for limiting values:
-    inf, -inf nan and zero that deserve special treatment.If you are not sure use \c ldexp, at the expense
-    of some more machine cycles.
+    by \f$2^{a_1}\f$
 
     @par Semantic:
 
@@ -46,9 +41,16 @@ namespace boost { namespace simd { namespace tag
     is similar to:
 
     @code
-    T r = ;
+    T r =  a0*pow(2, a1);
     @endcode
 
+    @par Note:
+    The fast prefix indicates that for speed sake
+    the result may be incorrect for limiting values:
+    inf, -inf nan and zero that deserve special treatment.If you are not sure use @funcref{ldexp}, at the expense
+    of some more machine cycles.
+
+    @see  @funcref{ldexp}
     @param a0
 
     @param a1

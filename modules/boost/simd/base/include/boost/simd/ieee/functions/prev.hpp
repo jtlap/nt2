@@ -37,11 +37,7 @@ namespace boost { namespace simd { namespace tag
     T r = prev(a0);
     @endcode
 
-    is similar to:
-
-    @code
-    T r = ;
-    @endcode
+    computes the greatest value strictly less than a0 in type T
 
     @param a0
 

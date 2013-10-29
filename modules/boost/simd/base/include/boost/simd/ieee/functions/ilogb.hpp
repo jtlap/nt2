@@ -46,6 +46,7 @@ namespace boost { namespace simd { namespace tag
     T r = toints(log2(a0));
     @endcode
 
+    @see @funcref{exponent}
     @param a0
 
     @return a value of same type as the input

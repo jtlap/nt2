@@ -60,6 +60,7 @@ namespace boost { namespace simd
 
     with absolute value of @c m between 0.5 and 1
 
+    @see @funcref{exponent},  @funcref{mantissa}
     @param a0 Value to decompose
     @return A pair containing the signed mantissa and exponent of @c a0
 
@@ -87,6 +88,11 @@ namespace boost { namespace simd
     @c frexp splits a floating point value @c v f in its signed mantissa @c m and
     exponent @c e so that
 
+    @f$v = m\times 2^e@f$
+
+    with absolute value of @c m between 0.5 and 1
+
+    @see @funcref{exponent},  @funcref{mantissa}
     @param a0 Value to decompose
     @param a1 L-Value that will receive the exponent of @c a0
     @return The mantissa of @c a0
@@ -114,6 +120,11 @@ namespace boost { namespace simd
     @c frexp splits a floating point value @c v f in its signed mantissa @c m and
     exponent @c e so that
 
+    @f$v = m\times 2^e@f$
+
+    with absolute value of @c m between 0.5 and 1
+
+    @see @funcref{exponent},  @funcref{mantissa}
     @param a0 Value to decompose
     @param a1 L-Value that will receive the mantissa of @c a0
     @param a2 L-Value that will receive the exponent of @c a0

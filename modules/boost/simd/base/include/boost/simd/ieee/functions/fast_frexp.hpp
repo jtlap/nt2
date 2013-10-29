@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace tag
     @par Semantic:
 
     @code
-    tie(m, e) = frexp(x);
+    tie(m, e) = fast_frexp(x);
     @endcode
 
     is similar to:
@@ -47,9 +47,10 @@ namespace boost { namespace simd { namespace tag
     @par Note:
     The fast prefix indicates that, for speed consideration, the result may be
     incorrect for special values like inf, -inf nan and zero that deserve
-    special treatment. If you are not sure use @c frexp at the expense of some
+    special treatment. If you are not sure use @funcref{frexp} at the expense of some
     more machine cycles.
 
+    @see  @funcref{frexp}
     @param a0 Value to decompose
 
     @return A pair containing the signed mantissa and exponent of @c a0
@@ -60,7 +61,7 @@ namespace boost { namespace simd { namespace tag
     Returns the mantissa computes the  exponent of the input
 
     @code
-    m = frexp(x, e);
+    m = fast_frexp(x, e);
     @endcode
 
     is similar to:
@@ -92,7 +93,7 @@ namespace boost { namespace simd { namespace tag
     Computes the mantissa and the  exponent of the input
 
     @code
-    m = frexp(x, e);
+    m = fast_frexp(x, e);
     @endcode
 
     is similar to:

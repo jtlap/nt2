@@ -48,31 +48,35 @@ namespace boost { namespace simd { namespace tag
     If the common type is integer it is the same as @c dist
 
     If the common type is floating point the ulpdist is is computed,
-    by the above described method:
+    by the above described method.
 
-    It is often difficult to  answer to the following question:
-    "are these two floating computations results similar enough?"
+    It is often difficult to answer to the following question: "are
+    these two floating computations results similar enough?". The
+    ulpdist is a way to answer which is tuned for relative errors
+    estimations and peculiarly adapted to cope with the limited bits
+    accuracy of floating point representations.
 
-    The ulpdist is a way to answer which is tuned for relative errors estimations
-    and peculiarly adapted to cope with the limited bits accuracy of floating point
-    representations.
     The method is the following:
 
-    Properly normalize the two numbers by the same factor in a way that
-    the largest of the two numbers exponents will be brought to zero
-    Return the absolute difference of these normalized numbers
-    divided by the rounding error Eps
+     - Properly normalize the two numbers by the same factor in a way
+     that the largest of the two numbers exponents will be brought to
+     zero
+
+      -Return the absolute difference of these normalized numbers
+      divided by the rounding error Eps
 
     The roundind error is the ulp (unit in the last place) value, i.e. the
     floating number, the exponent of which is 0 and the mantissa is all zeros
     but a 1 in the last digit (it is not hard coded that way however).
-    This means 2^-23 for floats and 2^-52 for double
+    This means \f$2^-23\f$ for float and \f$2^-52\f$ for double.
 
     \arg For instance if two floating numbers (of same type) have an ulpdist of
     zero that means that their floating representation are identical.
 
     \arg Generally equality up to 0.5 ulp is the best that one can wish beyond
     strict equality.
+
+    @par Examples:
 
     \arg Typically if a double is compared to the float representation of
     its floating conversion (they are exceptions as for fully representable
@@ -87,8 +91,8 @@ namespace boost { namespace simd { namespace tag
     \arg  @c ulpdist(1.0,1-Eps\<double\>())==0.5
     \arg  @c ulpdist(double(Pi\<float\>()),Pi\<double\>())==9.84293e+07
 
+    @see @funcref{ulp}, @funcref{Eps}, @funcref{eps}
     @param a0
-
     @param a1
 
     @return a value of same type as the inputs

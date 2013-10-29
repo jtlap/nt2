@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace tag
     T r = next(a0);
     @endcode
 
-    compute the least value strictly greater than a0 in type T
+    computes the least value strictly greater than a0 in type T
 
     @param a0
 

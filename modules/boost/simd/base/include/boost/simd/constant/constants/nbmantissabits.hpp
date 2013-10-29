@@ -50,11 +50,7 @@ namespace boost { namespace simd
           : meta::int_c<boost::simd::int64_t,52> {};
   }
   /*!
-    Constant Nbmantissabits, The number of mantissa bits of a floating point number,
-    i.e. 52 for double and 23 for float.
-
-    The value of this constant is type dependant. This means that for different
-    types it does not represent the same mathematical number.
+    Constant Nbmantissabits, The number of mantissa bits of a floating point number.
 
     @par Semantic:
 
@@ -62,6 +58,16 @@ namespace boost { namespace simd
     T r = Nbmantissabits<T>();
     @endcode
 
+    is similar to:
+
+    @code
+    if T is integral
+      r = sizeof(T)*8
+    else if T is double
+      r =  52;
+    else if is float
+      r =  23;
+    @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Nbmantissabits, Nbmantissabits)
 } }

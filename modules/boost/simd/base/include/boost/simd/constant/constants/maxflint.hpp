@@ -35,6 +35,8 @@ namespace boost { namespace simd
     representable in floating point numbers and
     equal to its integral successor.
 
+    All floating numbers greater than Maxflint are integral.
+
     @par Semantic:
 
     @code

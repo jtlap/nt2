@@ -45,7 +45,7 @@ namespace boost { namespace simd { namespace tag
     if T is signed
       logical<T> r = bitofsign(a0) == 1;
     else
-      logical<T> r = a0 < 0;
+      logical<T> r = False;
     @endcode
 
     @par Note:

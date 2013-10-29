@@ -74,7 +74,6 @@ namespace boost { namespace simd
     @endcode
 
     @param a0
-    @param a1
 
     @return a value of same type as the inputs
   **/

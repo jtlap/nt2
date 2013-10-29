@@ -31,7 +31,7 @@ namespace boost { namespace simd
                                 );
   }
   /*!
-    Generates \f$-\log(eps^2)\f value
+    Generates \f$-\log(eps^2)\f$ value
 
     @par Semantic:
 

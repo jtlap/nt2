@@ -36,18 +36,13 @@ namespace boost { namespace simd { namespace tag
     logical<T> r = is_flint(a0);
     @endcode
 
-    is similar to:
-
-    @code
-    logical<T> r = ;
-    @endcode
-
     @par Note:
 
     A flint is a 'floating integer' i.e. a floating number
-    representing an integer value
+    representing exactly an integer value.
 
-    Be conscious that all sufficiently great floating points values are flint...
+    Be conscious that all sufficiently great floating points values
+    are flint and even are even...
 
     @param a0
 

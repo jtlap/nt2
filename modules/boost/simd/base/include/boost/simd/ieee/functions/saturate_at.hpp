@@ -53,8 +53,6 @@ namespace boost { namespace simd
 
     @param a0
 
-    @param a1
-
     @return a value of same type as the inputs
   **/
 
