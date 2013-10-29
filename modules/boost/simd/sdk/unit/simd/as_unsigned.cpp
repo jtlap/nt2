@@ -19,7 +19,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test that as_unsigned is correct on ntive
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(as_unsigned_native, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(as_unsigned_native, BOOST_SIMD_SIMD_TYPES)
 {
         using boost::simd::native;
   using boost::dispatch::meta::as_unsigned;
@@ -35,7 +35,7 @@ NT2_TEST_CASE_TPL(as_unsigned_native, BOOST_SIMD_TYPES)
 ////////////////////////////////////////////////////////////////////////////////
 // Test that as_unsigned is correct on pack
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(as_unsigned_pack, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(as_unsigned_pack, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::pack;
   using boost::dispatch::meta::as_unsigned;

@@ -19,7 +19,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test that make_floating on SIMD
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(make_real_simd_native, BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL(make_real_simd_native, BOOST_SIMD_SIMD_REAL_CONVERTIBLE_TYPES)
 {
   using boost::simd::native;
   using boost::dispatch::meta::make_floating;
@@ -39,7 +39,7 @@ NT2_TEST_CASE_TPL(make_real_simd_native, BOOST_SIMD_REAL_TYPES)
 ////////////////////////////////////////////////////////////////////////////////
 // Test that make_floating on pack
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(make_real_simd, BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL(make_real_simd, BOOST_SIMD_SIMD_REAL_CONVERTIBLE_TYPES)
 {
   using boost::simd::pack;
   using boost::dispatch::meta::make_floating;

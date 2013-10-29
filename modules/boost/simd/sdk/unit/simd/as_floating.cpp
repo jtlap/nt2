@@ -6,40 +6,37 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "boost::simd::meta::as_floating SIMD"
-
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <boost/simd/sdk/simd/meta/vector_of.hpp>
 
-#include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Test that as_floating on SIMD
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(as_real_simd_native, BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( as_floating_simd_native
+                  , BOOST_SIMD_SIMD_REAL_CONVERTIBLE_TYPES
+                  )
 {
   using boost::simd::native;
+  using boost::simd::meta::vector_of;
   using boost::dispatch::meta::as_floating;
   using boost::is_same;
   using boost::mpl::_;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION                ext_t;
-  typedef native<typename as_floating<T>::type,ext_t> dst_t;
+  typedef typename vector_of< typename as_floating<T>::type
+                            , native<T,ext_t>::static_size
+                            >::type dst_t;
 
-  NT2_TEST( (is_same< typename as_floating< native<T,ext_t> >::type
-                    , dst_t
-                    >::value
-            )
-          );
+  NT2_TEST_TYPE_IS( (typename as_floating< native<T,ext_t> >::type)
+                  , dst_t
+                  );
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Test that as_floating on SIMD
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(as_real_simd_pack, BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( as_floating_simd_pack
+                  , BOOST_SIMD_SIMD_REAL_CONVERTIBLE_TYPES
+                  )
 {
   using boost::simd::pack;
   using boost::dispatch::meta::as_floating;
@@ -48,9 +45,7 @@ NT2_TEST_CASE_TPL(as_real_simd_pack, BOOST_SIMD_REAL_TYPES)
 
   typedef pack<typename as_floating<T>::type>   dst_t;
 
-  NT2_TEST( (is_same< typename as_floating< pack<T> >::type
-                    , dst_t
-                    >::value
-            )
-          );
+  NT2_TEST_TYPE_IS( (typename as_floating< pack<T> >::type)
+                  , dst_t
+                  );
 }
