@@ -29,8 +29,10 @@ namespace boost { namespace simd { namespace tag
     };
   }
   /*!
-    The function returns the second entry or the sum of the second and third entries,
-    according to the first entry being True or False
+
+    The function returns the second entry or the sum of the second
+    and third entries, according to the first entry being False or
+    True
 
     @par Semantic:
 

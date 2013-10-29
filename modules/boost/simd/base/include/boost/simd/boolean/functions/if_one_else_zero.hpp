@@ -47,6 +47,7 @@ namespace boost { namespace simd { namespace tag
     @par Alias:
     @c  if_one_else_zero, @c ifoneelsezero, @c sb2b;
 
+    @see  @funcref{genmask}
     @par Note:
 
     @c T0:type denotes here @c T0 in most cases, but @c T if @c T0 is @c as_logical<T>

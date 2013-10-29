@@ -55,7 +55,7 @@ namespace boost { namespace simd { namespace tag
 
     saturated_toint
 
-    @see funcref{toint}
+    @see @funcref{toint}
     @param  a0
 
     @return      a value of the unsigned integer type associated to the input.

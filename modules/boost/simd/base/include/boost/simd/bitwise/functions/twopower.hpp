@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace tag
   }
 
   /*!
-    Returns \f$2^n\f$ (0 si n is less than zero)
+    Returns \f$2^n\f$ (0 if n is less than zero)
 
     @par semantic:
     For any given value n  of integral type @c I:

@@ -45,8 +45,9 @@ namespace boost { namespace simd { namespace tag
     @endcode
 
     @par Alias:
-    @c typed_mask, @c logical2mask, @c l2m, @c typed_mask
+    @c typed_mask, @c logical2mask, @c l2m, @c typed_mask, @c if_allbits_else_zero
 
+    @see @funcref{if_allbits_else}
     @param  a0
 
     @return      a value of the type of the input.
@@ -56,6 +57,7 @@ namespace boost { namespace simd { namespace tag
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::genmask_, typed_mask, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::genmask_, logical2mask, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::genmask_, l2m, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::genmask_, if_allbits_else_zero, 1)
 } }
 
 #endif

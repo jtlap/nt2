@@ -55,6 +55,7 @@ namespace boost { namespace simd { namespace tag
     @c ifnot_else_nan,
     @c ifnotelsenan
 
+    @see @funcref{genmask}
     @param a0
 
     @param a1

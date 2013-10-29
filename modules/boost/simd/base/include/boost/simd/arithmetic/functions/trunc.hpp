@@ -60,6 +60,7 @@ namespace boost { namespace simd { namespace tag
 
     fix
 
+    @see @funcref{abs}, @funcref{frac}, @funcref{floor}, @funcref{sign}
     @param  a0
 
     @return      a value of the same type as the input.

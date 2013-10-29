@@ -45,7 +45,7 @@ namespace boost { namespace simd { namespace tag
     as_integer<T> r = toints(log2(x));
     @endcode
 
-    @see  @funcref{twopower}
+    @see  @funcref{twopower}, @funcref{exponent}
     @param  a0
 
     @return      a value of the integer
