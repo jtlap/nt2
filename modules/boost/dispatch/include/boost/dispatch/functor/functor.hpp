@@ -201,7 +201,7 @@ namespace boost { namespace dispatch
     #undef PERM_SEQ
   #else
 
-    template<BOOST_PP_ENUM_PARAMS(n, class A)>
+    template<BOOST_PP_ENUM_PARAMS(n, class A)> BOOST_FORCEINLINE
     typename result<functor(BOOST_PP_ENUM(n, M4, ~))>::type
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, && a)) const
     {
@@ -219,7 +219,7 @@ namespace boost { namespace dispatch
 
   #define SEQ BOOST_PP_SEQ_ELEM(BOOST_PP_ITERATION(), PERM_SEQ)
 
-    template<BOOST_PP_ENUM_PARAMS(n, class A)>
+    template<BOOST_PP_ENUM_PARAMS(n, class A)> BOOST_FORCEINLINE
     typename result<functor(BOOST_PP_SEQ_ENUM(SEQ))>::type
     operator()(BOOST_PP_SEQ_FOR_EACH_I(M2, ~, SEQ)) const
     {

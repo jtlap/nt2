@@ -8,7 +8,7 @@
                  >
     {
     };
-    template<class A0>
+    template<class A0> BOOST_FORCEINLINE
     typename result<functor(typename meta::as_ref<A0>::type)>::type
     operator()(A0 && a0) const
     {
@@ -28,7 +28,7 @@
                  >
     {
     };
-    template<class A0 , class A1>
+    template<class A0 , class A1> BOOST_FORCEINLINE
     typename result<functor(typename meta::as_ref<A0>::type , typename meta::as_ref<A1>::type)>::type
     operator()(A0 && a0 , A1 && a1) const
     {
@@ -48,7 +48,7 @@
                  >
     {
     };
-    template<class A0 , class A1 , class A2>
+    template<class A0 , class A1 , class A2> BOOST_FORCEINLINE
     typename result<functor(typename meta::as_ref<A0>::type , typename meta::as_ref<A1>::type , typename meta::as_ref<A2>::type)>::type
     operator()(A0 && a0 , A1 && a1 , A2 && a2) const
     {
@@ -68,7 +68,7 @@
                  >
     {
     };
-    template<class A0 , class A1 , class A2 , class A3>
+    template<class A0 , class A1 , class A2 , class A3> BOOST_FORCEINLINE
     typename result<functor(typename meta::as_ref<A0>::type , typename meta::as_ref<A1>::type , typename meta::as_ref<A2>::type , typename meta::as_ref<A3>::type)>::type
     operator()(A0 && a0 , A1 && a1 , A2 && a2 , A3 && a3) const
     {
@@ -88,7 +88,7 @@
                  >
     {
     };
-    template<class A0 , class A1 , class A2 , class A3 , class A4>
+    template<class A0 , class A1 , class A2 , class A3 , class A4> BOOST_FORCEINLINE
     typename result<functor(typename meta::as_ref<A0>::type , typename meta::as_ref<A1>::type , typename meta::as_ref<A2>::type , typename meta::as_ref<A3>::type , typename meta::as_ref<A4>::type)>::type
     operator()(A0 && a0 , A1 && a1 , A2 && a2 , A3 && a3 , A4 && a4) const
     {
@@ -108,7 +108,7 @@
                  >
     {
     };
-    template<class A0 , class A1 , class A2 , class A3 , class A4 , class A5>
+    template<class A0 , class A1 , class A2 , class A3 , class A4 , class A5> BOOST_FORCEINLINE
     typename result<functor(typename meta::as_ref<A0>::type , typename meta::as_ref<A1>::type , typename meta::as_ref<A2>::type , typename meta::as_ref<A3>::type , typename meta::as_ref<A4>::type , typename meta::as_ref<A5>::type)>::type
     operator()(A0 && a0 , A1 && a1 , A2 && a2 , A3 && a3 , A4 && a4 , A5 && a5) const
     {
