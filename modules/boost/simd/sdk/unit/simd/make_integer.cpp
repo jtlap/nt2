@@ -19,7 +19,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test that make_integer on SIMD with unsigned target
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(make_uinteger_simd_native, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(make_uinteger_simd_native, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::native;
   using boost::dispatch::meta::make_integer;
@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL(make_uinteger_simd_native, BOOST_SIMD_TYPES)
 ////////////////////////////////////////////////////////////////////////////////
 // Test that make_integer on SIMD with signed target
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(make_integer_simd_native, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(make_integer_simd_native, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::native;
   using boost::dispatch::meta::make_integer;
@@ -61,7 +61,7 @@ NT2_TEST_CASE_TPL(make_integer_simd_native, BOOST_SIMD_TYPES)
 ////////////////////////////////////////////////////////////////////////////////
 // Test that make_integer on SIMD with unsigned target
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(make_uinteger_simd_pack, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(make_uinteger_simd_pack, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::pack;
   using boost::dispatch::meta::make_integer;
@@ -81,7 +81,7 @@ NT2_TEST_CASE_TPL(make_uinteger_simd_pack, BOOST_SIMD_TYPES)
 ////////////////////////////////////////////////////////////////////////////////
 // Test that make_integer on SIMD with signed target
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(make_integer_simd_pack, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(make_integer_simd_pack, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::pack;
   using boost::dispatch::meta::make_integer;
