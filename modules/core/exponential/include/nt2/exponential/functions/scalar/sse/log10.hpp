@@ -111,10 +111,14 @@ namespace nt2 { namespace ext
         v_type va0 =  splat<v_type>(a0/10000ull);
         return 8-sum(bitwise_cast<v_type>(gt(va0, t2)));
       }
+
+      v_type va0 = splat<v_type>(a0);
+
       if (a0 >99999ull)
       {
         return 4-sum(bitwise_cast<v_type>(gt(va0, t2)));
       }
+
       v_type t1 = make<v_type>(9999, 999, 99, 9);
       return -sum(bitwise_cast<v_type>(gt(va0, t1)));
     }
