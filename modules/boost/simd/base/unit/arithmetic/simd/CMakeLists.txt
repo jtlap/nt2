@@ -32,6 +32,12 @@ SET( SOURCES
   fast_sqrt.cpp
   fast_trunc.cpp
   fma.cpp
+  fsm.cpp
+  fms.cpp
+  fnam.cpp
+  fnma.cpp
+  fnms.cpp
+  fnsm.cpp
   hypot.cpp
   iceil.cpp
   idivceil.cpp

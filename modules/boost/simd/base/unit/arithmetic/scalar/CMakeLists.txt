@@ -32,6 +32,12 @@ SET( SOURCES
   fast_trunc.cpp
   floor.cpp
   fma.cpp
+  fms.cpp
+  fsm.cpp
+  fnsm.cpp
+  fnms.cpp
+  fnma.cpp
+  fnam.cpp
   hypot.cpp
   iceil.cpp
   idivceil.cpp
