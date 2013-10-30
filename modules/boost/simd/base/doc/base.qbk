@@ -21,7 +21,5 @@ library.
 
 [include general.qbk]
 [include operators.qbk]
-[include arith.qbk]
-
 
 [xinclude reference.xml]
