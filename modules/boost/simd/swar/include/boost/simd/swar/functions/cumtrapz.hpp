@@ -31,21 +31,20 @@ namespace boost { namespace simd { namespace tag
       typedef tag::formal_ parent;
     };
   }
-  /*!
-    Computes the cumulate trapz of the vector elements using the abscissae differences
-    is they are given
-    z = cumtrapz(y) computes an approximation of the cumulative
-    integral of y via the trapezoidal method (with unit spacing).  to
-    compute the integral for spacing different from one, multiply z by
-    the spacing increment or use cumtrapz(dx, y) where dx is the abscisae
-    constant and SCALAR increment.
+  /*!  Computes the cumulate trapz of the vector elements using the
+    abscissae differences is they are given z = cumtrapz(y) computes
+    an approximation of the cumulative integral of y via the
+    trapezoidal method (with unit spacing).  to compute the integral
+    for spacing different from one, multiply z by the spacing
+    increment or use cumtrapz(dx, y) where dx is the abscisae constant
+    and SCALAR spacing.
 
     @par Semantic:
 
     For every h of scalar type T0 and y of type T1:
 
     @code
-    T0 r = cumtrapz(h, y);
+    T0 r = cumtrapz(h, y, dim);
     @endcode
 
     is similar to:
@@ -56,13 +55,17 @@ namespace boost { namespace simd { namespace tag
       r[i] = r[i-1]+(y[i-1]+y[i])*h*half;
     @endcode
 
-    @param a0
+    this take place along the first non singleton dimension of y or
+    the dimension can be given by dim.
 
+    @param a0
     @param a1
+    @param a2
 
     @return a value of the same type as the second parameter
   **/
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::cumtrapz_, cumtrapz, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::cumtrapz_, cumtrapz, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::cumtrapz_, cumtrapz, 3)
   /*!
     Computes the cumulate trapz of the vector elements using the abscissae differences
     is they are given
@@ -89,8 +92,7 @@ namespace boost { namespace simd { namespace tag
 
     @return a value of the same type as the second parameter
   **/
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::cumtrapz_, cumtrapz, 2)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::cumtrapz_, cumtrapz, 3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::cumtrapz_, cumtrapz, 1)
 } }
 
 #endif

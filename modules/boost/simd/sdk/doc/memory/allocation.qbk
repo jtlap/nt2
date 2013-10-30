@@ -29,7 +29,7 @@ left to be checked by the client code.
 In a similar fashion, aligned memory deallocation can be performed by two functions:
 
 * [funcref boost::simd::aligned_free] which interface is similar to =free= with
-an optionnal deallcoation function parameters.
+an optionnal deallocation function parameters.
 * [headerref boost/simd/memory/deallocate.hpp boost::simd::deallocate]
   which provides a richer interface than
   [funcref boost::simd::aligned_free] by supporting both regular and allocator based deallocation.
@@ -62,7 +62,7 @@ architecture SIMD preferred alignment.
 
 Boost.SIMD.Memory provides various macros that use the proper system dependent
 ways to define stack based buffer fulfilling both stack alignment and SIMD
-alignment is constraints:
+alignment constraints:
 
 * [macroref BOOST_SIMD_STACK_BUFFER] and [macroref BOOST_SIMD_SCOPED_STACK_BUFFER]
 provides macro to generate a stack-based range aligned on current stack alignment.

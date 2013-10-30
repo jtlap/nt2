@@ -54,7 +54,7 @@ namespace boost { namespace simd { namespace tag
       x[i] = a0[N];
     @endcode
 
-    @param a0
+    @param value
 
     @return A SIMD register full of <tt>a0[N]</tt>
   **/

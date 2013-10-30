@@ -24,9 +24,11 @@ strongly typed in such a way that all their parameters must be of the same type.
 
 [section Constants]
 Handling typed constants in a generic way is a bit challenging. Boost.SIMD implements
-constants are nullary functions which takes their target types as a template parameters.
+constants as nullary functions which takes their target types as a template parameters.
 For example, the following code generates the constant 0 in various type:
 
+
+  T z = Zero<T>();
 
 
 [endsect]
@@ -44,9 +46,9 @@ of the function. This is the recommended when you are working with strictly
 scalar types as it reduces the compilation times by omitting the SIMD specific
 variants.
 
-For constants, the same apply, but the root folder is `constants` instead of
-`functions`. So using the `Zero` constant will require you to include either
-`boost/simd/include/constants/zero.hpp` or `boost/simd/include/constants/zero.hpp`
+For constants, the root folder is `constants` instead of
+`functions`. So using the `Zero` constant will require you to include
+`boost/simd/include/constants/zero.hpp`
 
 [endsect]
 

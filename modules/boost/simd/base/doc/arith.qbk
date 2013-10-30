@@ -1,0 +1,146 @@
+[section Standard arithmetic functions]
+
+The base.arithmetic toolbox provides support for most arithmetic functions
+
+[table
+    [[C++ function] [Function name       ] [Note                             ]]
+    [[            ] [[funcref boost::simd::abs               `abs`               ]] [ absolute value                  ]]
+    [[            ] [[funcref boost::simd::abss              `abss`              ]] [ saturated absolute value        ]]
+    [[            ] [[funcref boost::simd::adds              `adds`              ]] [ saturated addition              ]]
+    [[            ] [[funcref boost::simd::arg               `arg`               ]] [ angle                           ]]
+    [[            ] [[funcref boost::simd::average           `average`           ]] [ arithmetic mean                 ]]
+    [[            ] [[funcref boost::simd::ceil              `ceil`              ]] [ least integer greater or equal  ]]
+    [[            ] [[funcref boost::simd::conj              `conj`              ]] [ conjugate                       ]]
+    [[            ] [[funcref boost::simd::correct_fma       `correct_fma`       ]] [ 1 rounding a*b+c                ]]
+    [[            ] [[funcref boost::simd::dec               `dec`               ]] [ minus 1                         ]]
+    [[            ] [[funcref boost::simd::dist              `dist`              ]] [ distance: |a-b|                 ]]
+    [[            ] [[funcref boost::simd::divceil           `divceil`           ]] [ ceil(a/b)                       ]]
+    [[            ] [[funcref boost::simd::divfix            `divfix`            ]] [ trunc(a/b)                      ]]
+    [[            ] [[funcref boost::simd::divfloor          `divfloor`          ]] [ floor(a/b)                      ]]
+    [[            ] [[funcref boost::simd::divround2even     `divround2even`     ]] [ round2even(a/b)                 ]]
+    [[            ] [[funcref boost::simd::divround          `divround`          ]] [ round(a/b)                      ]]
+    [[            ] [[funcref boost::simd::divs              `divs`              ]] [ saturated division              ]]
+    [[            ] [[funcref boost::simd::fast_hypot        `fast_hypot`        ]] [ sqrt(sqr(a)+sqr(b)) can be less accurate than [funcref boost::simd::hypot `hypot`]]]
+    [[            ] [[funcref boost::simd::fast_iround2even  `fast_iround2even`  ]] [ faster [funcref boost::simd::iround2even `iround2even`] limited in range  ]]
+    [[            ] [[funcref boost::simd::fast_rec          `fast_rec`          ]] [ faster inverse [funcref boost::simd::rec `rec`], can be less accurate]]
+    [[            ] [[funcref boost::simd::fast_rsqrt        `fast_rsqrt`        ]] [ faster [funcref boost::simd::rsqrt `rsqrt` rsqrt], can be less accurate]]
+    [[            ] [[funcref boost::simd::fast_sqrt         `fast_sqrt`         ]] [ faster [funcref boost::simd::sqrt `sqrt` sqrt], can be less accurate ]]
+    [[            ] [[funcref boost::simd::fast_trunc        `fast_trunc`        ]] [ faster [funcref boost::simd::trunc `trunc`] limited in range   ]]
+    [[            ] [[funcref boost::simd::floor             `floor`             ]] [ greater integer less or equal   ]]
+    [[            ] [[funcref boost::simd::fma               `fma`               ]] [ a*b+c                           ]]
+    [[            ] [[funcref boost::simd::hypot             `hypot`             ]] [ sqrt(sqr(a)+sqr(b))             ]]
+    [[            ] [[funcref boost::simd::iceil             `iceil`             ]] [ integer conversion of [funcref boost::simd::ceil     `ceil`]]]
+    [[            ] [[funcref boost::simd::idivceil          `idivceil`          ]] [ integer conversion of [funcref boost::simd::divceil  `divceil`]]]
+    [[            ] [[funcref boost::simd::idivfix           `idivfix`           ]] [ integer conversion of [funcref boost::simd::divfix   `divfix`]]]
+    [[            ] [[funcref boost::simd::idivfloor         `idivfloor`         ]] [ integer conversion of [funcref boost::simd::divfloor `divfloor`]]]
+    [[            ] [[funcref boost::simd::idivround2even    `idivround2even`    ]] [ integer conversion of [funcref boost::simd::divround2even `divround2even`]]]
+    [[            ] [[funcref boost::simd::idivround         `idivround`         ]] [ integer conversion of [funcref boost::simd::divround  `divround`] ]]
+    [[            ] [[funcref boost::simd::ifloor            `ifloor`            ]] [ integer conversion of [funcref boost::simd::floor  `floor`]]]
+    [[            ] [[funcref boost::simd::inc               `inc`               ]] [ a+1       ]]
+    [[            ] [[funcref boost::simd::iround2even       `iround2even`       ]] [ integer conversion of [funcref boost::simd::round2even `round2even` ]]]
+    [[            ] [[funcref boost::simd::iround            `iround`            ]] [ integer conversion of [funcref boost::simd::round `round`]]]
+    [[            ] [[funcref boost::simd::logical_xor       `logical_xor`       ]] [ a != b       ]]
+    [[            ] [[funcref boost::simd::max               `max`               ]] [ maximum of two elements       ]]
+    [[            ] [[funcref boost::simd::meanof            `meanof`            ]] [ arithmetic mean               ]]
+    [[            ] [[funcref boost::simd::min               `min`               ]] [ minimum of two elements         ]]
+    [[            ] [[funcref boost::simd::minmod            `minmod`            ]] [ minimum of the two entries if they have the same sign, otherwise 0 ]]
+    [[            ] [[funcref boost::simd::minusone          `minusone`          ]] [ saturated a-1       ]]
+    [[            ] [[funcref boost::simd::mod               `mod`               ]] [ remainder of division        ]]
+    [[            ] [[funcref boost::simd::muls              `muls`              ]] [ saturated multiplies       ]]
+    [[            ] [[funcref boost::simd::negs              `negs`              ]] [ saturated negation       ]]
+    [[            ] [[funcref boost::simd::oneminus          `oneminus`          ]] [ saturated 1-a       ]]
+    [[            ] [[funcref boost::simd::oneplus           `oneplus`           ]] [ saturated 1+a       ]]
+    [[            ] [[funcref boost::simd::rec               `rec`               ]] [ inverse       ]]
+    [[            ] [[funcref boost::simd::remainder         `remainder`         ]] [ remainder of division       ]]
+    [[            ] [[funcref boost::simd::rem               `rem`               ]] [ remainder of division        ]]
+    [[            ] [[funcref boost::simd::remquo            `remquo`            ]] [ remainder and 3 bits of quotient of division        ]]
+    [[            ] [[funcref boost::simd::remround          `remround`          ]] [ remainder of division         ]]
+    [[            ] [[funcref boost::simd::round2even        `round2even`        ]] [ rounding       ]]
+    [[            ] [[funcref boost::simd::round             `round`             ]] [ rounding         ]]
+    [[            ] [[funcref boost::simd::rsqrt             `rsqrt`             ]] [ inverse suare root       ]]
+    [[            ] [[funcref boost::simd::sqr_abs           `sqr_abs`           ]] [ square of absolute value       ]]
+    [[            ] [[funcref boost::simd::sqr               `sqr`               ]] [ square       ]]
+    [[            ] [[funcref boost::simd::sqrs              `sqrs`              ]] [ saturated square       ]]
+    [[            ] [[funcref boost::simd::sqrt              `sqrt`              ]] [ square root       ]]
+    [[            ] [[funcref boost::simd::subs              `subs`              ]] [ saturated minus       ]]
+    [[            ] [[funcref boost::simd::tofloat           `tofloat`           ]] [ conversion to floating type       ]]
+    [[            ] [[funcref boost::simd::toint             `toint`             ]] [ fast conversion to integer type       ]]
+    [[            ] [[funcref boost::simd::toints            `toints`            ]] [ conversion to integer type       ]]
+    [[            ] [[funcref boost::simd::touint            `touint`            ]] [ fast conversion to unsigned integer type       ]]
+    [[            ] [[funcref boost::simd::touints           `touints`           ]] [ conversion to unsigned integer type        ]]
+    [[            ] [[funcref boost::simd::trunc             `trunc`             ]] [ truncation       ]]
+    [[            ] [[funcref boost::simd::two_add           `two_add`           ]] [ sum and error       ]]
+    [[            ] [[funcref boost::simd::two_prod          `two_prod`          ]] [ product and error       ]]
+    [[            ] [[funcref boost::simd::two_split         `two_split`         ]] [ splitting of floating number       ]]
+]
+[endsect]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

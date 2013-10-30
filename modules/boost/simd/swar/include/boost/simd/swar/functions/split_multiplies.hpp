@@ -63,7 +63,7 @@ namespace boost { namespace simd
     @param a0 LHS of multiplication
     @param a1 RHS of multiplication
     @param a2 L-Value that will receive the first sub-part of @c a0 * @c a1
-    @param a2 L-Value that will receive the second sub-part of @c a0 * @c a1
+    @param a3 L-Value that will receive the second sub-part of @c a0 * @c a1
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL( tag::split_multiplies_, split_multiplies
                                             , (A0 const &)(A0 const&)(A1&)(A1&)

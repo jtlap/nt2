@@ -9,7 +9,7 @@ cases may require:
 * the need to disable the system specific aligned allocation to use pointer
   stashing.
 
-Boost.SIMD provides various way to do enable those use-cases.
+Boost.SIMD provides various ways to do enable those use-cases.
 
 [section Forcing pointer stashing implementation]
 Some compiler may provide sub-par allocation functions set or lead to huge
