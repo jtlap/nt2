@@ -86,7 +86,7 @@ NT2_TEST_CASE_TPL( linear3, NT2_REAL_TYPES )
 {
   using nt2::_;
   T x = 3;
-  T y = 2, y1;
+  T y = 2;
   nt2::table<T> xi=  nt2::linspace(T(1),  T(4), 4);
   NT2_DISPLAY(x);
   NT2_DISPLAY(y);

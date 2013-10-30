@@ -41,7 +41,7 @@ namespace nt2 { namespace ext
   {
     typedef A0 result_type;
     BOOST_FORCEINLINE
-    result_type operator()(const A0 & a0, const A1 &, const A2 &) const
+    result_type operator()(const A0 &, const A1 &, const A2 &) const
 
     {
       BOOST_ASSERT_MSG(false, "Interpolation requires at least two sample points in each dimension.");
@@ -59,7 +59,7 @@ namespace nt2 { namespace ext
   {
     typedef A0 result_type;
     BOOST_FORCEINLINE
-    result_type operator()(const A0 & a0, const A0 & , const A0 & , const A0 & ) const
+    result_type operator()(const A0 &, const A0 & , const A0 & , const A0 & ) const
     {
       BOOST_ASSERT_MSG(false, "Interpolation requires at least two sample points in each dimension.");
       return  Nan<A0>();
