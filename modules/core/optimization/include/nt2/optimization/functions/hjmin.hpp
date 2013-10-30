@@ -8,12 +8,6 @@
 //==============================================================================
 #ifndef NT2_OPTIMIZATION_FUNCTIONS_HJMIN_HPP_INCLUDED
 #define NT2_OPTIMIZATION_FUNCTIONS_HJMIN_HPP_INCLUDED
-
-/*!
- * \file
- * \brief Defines and implements the nt2::hjmin function
- */
-
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/option/options.hpp>
 #include <nt2/optimization/options.hpp>
@@ -22,17 +16,23 @@ namespace nt2
 {
   namespace tag
   {
-    struct hjmin_ : ext::unspecified_<hjmin_>
+   /*!
+     @brief hjmin generic tag
+
+     Represents the hjmin function in generic contexts.
+
+     @par Models:
+        Hierarchy
+   **/
+      struct hjmin_ : ext::unspecified_<hjmin_>
     {
       typedef ext::unspecified_<hjmin_> parent;
     };
   }
-
-  //============================================================================
   /*!
    * Apply hjmin (Hooke-Jeeves) algorithm to find local minimum of a function
    *
-   * \param func  Function to optimize
+   * \param f     Function to optimize
    * \param init  Initial value
    * \param stps  Initial step(s) in every (each) direction
    * \param opt   Options pack related to the minimization handling
@@ -52,23 +52,7 @@ namespace nt2
    * method is usually quite effective, and should be tried if both the
    * quasi-Newton and Simplex methods fail to produce reasonable estimates.
    */
-  //============================================================================
-  template<class F, class A, class H> BOOST_FORCEINLINE
-  typename boost::dispatch::meta
-                ::call<tag::hjmin_( F
-                                  , A, H
-                                    , details::optimization_settings<typename A::value_type> const&
-                                  )
-                      >::type
-  hjmin(F f, A init, H stps)
-  {
-    typename boost::dispatch::make_functor<tag::hjmin_, F>::type callee;
-    return callee ( f
-                  , init
-                  , stps
-                  , details::optimization_settings<typename A::value_type>()
-                  );
-  }
+
 
   template<class F, class A, class H, class Xpr>
   BOOST_FORCEINLINE
@@ -85,6 +69,23 @@ namespace nt2
                   , init
                   , stps
                   , details::optimization_settings<typename A::value_type>(opt)
+                  );
+  }
+  /// @overload
+  template<class F, class A, class H> BOOST_FORCEINLINE
+  typename boost::dispatch::meta
+                ::call<tag::hjmin_( F
+                                  , A, H
+                                    , details::optimization_settings<typename A::value_type> const&
+                                  )
+                      >::type
+  hjmin(F f, A init, H stps)
+  {
+    typename boost::dispatch::make_functor<tag::hjmin_, F>::type callee;
+    return callee ( f
+                  , init
+                  , stps
+                  , details::optimization_settings<typename A::value_type>()
                   );
   }
 }
