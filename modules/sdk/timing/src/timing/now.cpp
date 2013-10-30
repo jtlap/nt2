@@ -121,7 +121,7 @@ namespace nt2
 
   NT2_SDK_TIMING_DECL time_quantum_t to_timequantums( microseconds_t const t )
   {
-    return static_cast<time_quantum_t>( t * inverse_timer_ticks_per_ms);
+    return static_cast<time_quantum_t>( t * timer_ticks_per_microsecond );
   }
 }
 
