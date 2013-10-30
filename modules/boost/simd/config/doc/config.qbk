@@ -1,0 +1,10 @@
+[chapter Boost.SIMD Config
+    [quickbook 1.5]
+]
+
+[section Overview]
+Boost.SIMD Config headers help is detecting the compiler, the operating system and the architecture, in particular
+the SIMD instruction sets.
+[endsect]
+
+[xinclude reference.xml]

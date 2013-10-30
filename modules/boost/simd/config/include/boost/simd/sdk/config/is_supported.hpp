@@ -16,7 +16,7 @@
  * vendor case and provide the right specialization of cpuid_mask.
 */
 #include <boost/simd/sdk/config/details/detect.hpp>
-#include <boost/simd/sdk/config/registration.hpp>
+#include <boost/simd/sdk/config/details/registration.hpp>
 #include <string.h>
 
 namespace boost { namespace simd
