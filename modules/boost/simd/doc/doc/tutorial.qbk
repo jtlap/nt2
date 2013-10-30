@@ -5,3 +5,4 @@
 [include tutorials/objectives.qbk]
 [include tutorials/helloworld.qbk]
 [include tutorials/processing_data.qbk]
+[include tutorials/runtime_dispatching.qbk]

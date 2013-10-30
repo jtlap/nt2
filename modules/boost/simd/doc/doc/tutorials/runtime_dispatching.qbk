@@ -1,0 +1,108 @@
+[section Choosing between different SIMD extensions at runtime]
+
+[h2 Objectives]
+Using Boost.SIMD requires compiling for a particular target machine which has particular
+SIMD instructions available. For many architectures (x86 in particular), SIMD instructions
+may be conditionally supported depending on the exact hardware being used, with more recent
+hardware typically supporting more SIMD instructions than older ones.
+
+In this tutorial, we will demonstrate how to switch between SSE and AVX for the same code
+depending on the capabilities of the x86 hardware that the program is running on.
+
+Choosing between what is supported by the hardware can be done using the [funcref boost::simd::is_supported]
+function.
+
+[h2 The Boost.SIMD model, Translation Units and Shared Objects]
+Boost.SIMD assumes that you are building for a specific architecture for the whole
+duration of a translation unit (the compilation of a single .cpp file). It is not possible
+to switch between targeting an architecture with AVX and without AVX in the same translation unit,
+the only option supported is to recompile with different compilation flags. This model is the safest
+one and allows to make the best of all compilers.
+
+Linking objects compiled with different settings can also lead to subtle issues, such as
+breaking the One Definition Rule when collapsing inline functions. For this reason it is recommended
+to isolate the translation units in DLLs or shared object with hidden visibility.
+
+[h2 The Code]
+For this tutorial, we will define a very simple function, and we take care that the code is extension-agnostic
+so that we can compile the same code for different targets.
+
+We also use the preprocessor symbol =BOOST_SIMD_DEFAULT_SITE=, which expands to the current SIMD extension being
+target, to decorate the symbol.
+
+=my_add_impl.cpp=:
+```
+#include <boost/simd/sdk/simd/pack.hpp>
+#include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/include/functions/store.hpp>
+#include <boost/simd/include/functions/plus.hpp>
+#include <boost/config.hpp>
+
+BOOST_SYMBOL_EXPORT
+void my_add(float* a, float* b, float* out, size_t n, BOOST_SIMD_DEFAULT_SITE)
+{
+  using namespace boost::simd;
+  typedef pack<float> vT;
+  std::size_t i;
+  for(i=0; i<n; i += vT::static_size)
+    store( load<vT>(a, i) + load<vT>(b, i), out, i );
+  for(i=0; i!=n; ++i)
+    out[i] = a[i] + b[i];
+}
+```
+
+We can now compile different variants of =my_add.cpp=.
+
+With GCC on Linux:
+```
+g++ -O3 -DNDEBUG -shared -fvisibility=hidden -msse2 -I$BOOST_ROOT -I$NT2_ROOT/include my_add_impl.cpp -o libmy_add_sse2.so
+g++ -O3 -DNDEBUG -shared -fvisibility=hidden -mavx  -I$BOOST_ROOT -I$NT2_ROOT/include my_add_impl.cpp -o libmy_add_avx.so
+```
+
+With MSVC on Windows:
+```
+cl /Oxt /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS /fp:precise /LD /arch:SSE2 /I$BOOST_ROOT /I$NT2_ROOT/include my_add_impl.cpp /Femy_add_sse2.dll
+cl /Oxt /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS /fp:precise /LD /arch:AVX  /I$BOOST_ROOT /I$NT2_ROOT/include my_add_impl.cpp /Femy_add_avx.dll
+```
+
+or just set up your build system accordingly.
+
+[h2 The Dispatcher]
+
+=my_add.cpp=:
+```
+#include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
+#include <boost/simd/sdk/config/is_supported.hpp>
+#include <boost/config.hpp>
+
+BOOST_SYMBOL_IMPORT
+void my_add(float* a, float* b, float* out, size_t n, boost::simd::tag::avx_);
+
+BOOST_SYMBOL_IMPORT
+void my_add(float* a, float* b, float* out, size_t n, boost::simd::tag::sse2_);
+
+void my_add(float* a, float* b, float* out, size_t n)
+{
+  if(boost::simd::is_supported<boost::simd::tag::avx_>())
+    my_add(a, b, out, n, boost::simd::tag::avx_());
+  else
+    my_add(a, b, out, n, boost::simd::tag::sse2_());
+}
+
+int main()
+{
+  // ...
+}
+```
+
+With GCC on Linux:
+```
+g++ -O3 -DNDEBUG -I$BOOST_ROOT -I$NT2_ROOT/include my_add.cpp -o my_add -lmy_add_sse2 -lmy_add_avx
+```
+
+With MSVC on Windows:
+```
+cl /Oxt /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS /fp:precise /I$BOOST_ROOT /I$NT2_ROOT/include my_add.cpp /Femy_add /link my_add_sse2.lib my_add_avx.lib
+```
+
+[endsect]
