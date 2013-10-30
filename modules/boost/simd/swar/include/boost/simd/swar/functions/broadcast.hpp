@@ -41,25 +41,26 @@ namespace boost { namespace simd { namespace tag
 
     @par Semantic:
 
-    For every parameter of type T0 and any integer @c N
+    For every parameter of type Type and any integer @c N
 
     @code
-    T0 r = broadcast<N>(a0);
+    Type r = broadcast<N>(value);
     @endcode
 
     is similar to:
 
     @code
     for(int i=0;i<Type::static_size;++i)
-      x[i] = a0[N];
+      r[i] = value[N];
     @endcode
 
-    @param value
+    @param value SIMD register containing the value to broadcast
+    @tparam N index of the value to broadcast everywhere
 
-    @return A SIMD register full of <tt>a0[N]</tt>
+    @return A SIMD register full of <tt>value[N]</tt>
   **/
   template<std::size_t N, typename Type>
-  BOOST_FORCEINLINE Type broadcast(Type const& value )
+  BOOST_FORCEINLINE Type broadcast(Type const& value)
   {
     typename  boost::dispatch::meta
             ::dispatch_call<tag::broadcast_
