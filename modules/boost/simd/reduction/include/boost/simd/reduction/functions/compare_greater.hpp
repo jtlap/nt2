@@ -58,6 +58,7 @@ namespace boost { namespace simd
     @par Alias:
     @c compare_gt
 
+    @see @funcref{is_greater}
     @param a0
 
     @param a1

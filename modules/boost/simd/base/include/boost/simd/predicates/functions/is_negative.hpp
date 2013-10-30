@@ -29,9 +29,11 @@ namespace boost { namespace simd { namespace tag
     };}
   /*!
     Returns True if a0 is negative else False.
+
     This function differs from is_ltz from floating point argument,
-    because Mzero is negative but not less than zero.
-    It's probably is_ltz that you want.
+    because Mzero is negative but not less than zero.  and Mzero is
+    not positive and not greater than zero, It's probably is_ltz that
+    you want.
 
     @par Semantic:
 

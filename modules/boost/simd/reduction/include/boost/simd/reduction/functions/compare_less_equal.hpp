@@ -53,6 +53,7 @@ namespace boost { namespace simd
     @par Alias:
     @c compare_le
 
+    @see @funcref{is_less_equal}
     @param a0
 
     @param a1

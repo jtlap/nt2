@@ -56,6 +56,7 @@ namespace boost { namespace simd
     @par Alias:
     @c compare_eq
 
+    @see @funcref{is_equal}
     @param a0
 
     @param a1

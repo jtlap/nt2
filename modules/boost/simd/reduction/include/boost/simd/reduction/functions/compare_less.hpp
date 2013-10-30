@@ -55,6 +55,7 @@ namespace boost { namespace simd
       }
     @endcode
 
+    @see @funcref{is_less}
     @par Alias:
     @c compare_lt
 
