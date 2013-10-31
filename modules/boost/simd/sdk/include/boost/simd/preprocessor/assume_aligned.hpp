@@ -15,14 +15,14 @@
 #include <boost/config.hpp>
 
 #if defined(_MSC_VER)
-#define BOOST_SIMD_ASSUME_ALIGNED(Ptr, Align)                                  \
+#define BOOST_SIMD_ASSUME_ALIGNED(Type,Ptr,Align)                              \
 __assume((std::size_t)(Ptr) % Align == 0);                                     \
 /**/
 #elif defined(__INTEL_COMPILER)
-#define BOOST_SIMD_ASSUME_ALIGNED(Ptr,Align)  __assume_aligned(Ptr, Align)
+#define BOOST_SIMD_ASSUME_ALIGNED(Type,Ptr,Align)  __assume_aligned(Ptr, Align)
 #elif defined(BOOST_SIMD_GCC_VERSION) && (BOOST_SIMD_GCC_VERSION >= 40700)
-#define BOOST_SIMD_ASSUME_ALIGNED(Ptr, Align)                                  \
-Ptr = __builtin_assume_aligned(Ptr, Align);                                    \
+#define BOOST_SIMD_ASSUME_ALIGNED(Type,Ptr,Align)                              \
+Ptr = static_cast<Type>(__builtin_assume_aligned(Ptr, Align));                 \
 /**/
 #else
 /*!
@@ -33,10 +33,11 @@ Ptr = __builtin_assume_aligned(Ptr, Align);                                    \
 
   @usage{preprocessor/assume_aligned.cpp}
 
+  @param Type   Pointer type to handle
   @param Ptr    Pointer to check
   @param Align  Power of two alignment boundary to apply
 **/
-#define BOOST_SIMD_ASSUME_ALIGNED(Ptr,Align)
+#define BOOST_SIMD_ASSUME_ALIGNED(Type,Ptr,Align)
 #endif
 
 #endif
