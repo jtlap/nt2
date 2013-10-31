@@ -132,7 +132,7 @@ template<class T> int f(T, scalar_< floating_<T> > const&)
   return 0;
 }
 
-template<class T> int f(T, scalar_< signed_<T> > const&)
+template<class T> int f(T, scalar_< integer_<T> > const&)
 {
   return 1;
 }

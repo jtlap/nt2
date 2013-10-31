@@ -11,7 +11,7 @@ for a particular backend or user-defined type, you should do so in a module name
 backend's name rather than in the module that defines the basic or fully generic versions of that function.
 
 Each file should include the file that define the function that forwards to Boost.Dispatch, and all of its dependencies.
-Specializations may then be injected in the in the `nt2::ext` namespace, using the `NT2_FUNCTION_IMPLEMENTATION` and
+Specializations may then be injected in the `nt2::ext` namespace, using the `NT2_FUNCTION_IMPLEMENTATION` and
 other related macros.
 
 Each file is responsible for disabling those specializations if the compiler does not have the necessary support

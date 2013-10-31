@@ -35,9 +35,9 @@ struct H : P<T>
     typedef P<T> parent;
 };
 ``
-This allows to select the parent hierarchy according ot what the type is,
+This allows to select the parent hierarchy according to what the type is,
 removing some of the limitations of single inheritance. Embedding the type
-inside the hierarchy also enables to use them directly for declaring template overloads
+inside the hierarchy also enables to use it directly for declaring template overloads
 in place of the real arguments.
 [endsect]
 
