@@ -7,39 +7,37 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <boost/simd/swar/include/functions/reverse.hpp>
+#include <boost/simd/include/constants/signmask.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
-#include <boost/simd/swar/include/functions/enumerate.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/constant/constant.hpp>
-#include <boost/simd/sdk/meta/cardinal_of.hpp>
 
-NT2_TEST_CASE_TPL ( reverse_real__2_0, BOOST_SIMD_SIMD_TYPES)
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+
+NT2_TEST_CASE_TPL ( reverse, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::reverse;
   using boost::simd::tag::reverse_;
   using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
+
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::dispatch::meta::call<reverse_(vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef native<T,ext_t>               vT;
 
-  std::size_t n = vT::static_size-1;
-  // specific values tests
-  T s =  0;
-  T h = 1;
-  std::cout << boost::simd::enumerate<vT>(s, h) << std::endl;
-  std::cout << reverse(boost::simd::enumerate<vT>(s, h)) << std::endl;
+  NT2_TEST_TYPE_IS(typename boost::dispatch::meta::call<reverse_(vT)>::type, vT);
+
+  vT origin, reversed;
+
   for(std::size_t i=0; i < vT::static_size;++i)
-    NT2_TEST_EQUAL(reverse(boost::simd::enumerate<vT>(s, h))[i], T(n-i));
-} // end of test
+  {
+    origin[i]   = i;
+    reversed[i] = vT::static_size-1-i;
+  }
 
+  origin[0] = reversed[vT::static_size-1] = boost::simd::Signmask<T>();
+  origin[vT::static_size-1] = reversed[0] = boost::simd::Valmax<T>();
+
+  NT2_TEST_EQUAL(reverse(origin),reversed);
+}
