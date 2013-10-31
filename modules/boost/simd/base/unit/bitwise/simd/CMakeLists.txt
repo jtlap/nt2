@@ -12,6 +12,7 @@ SET( SOURCES
   clz.cpp
   ctz.cpp
   genmask.cpp
+  genmaskc.cpp
   twopower.cpp
   shr.cpp
   rshr.cpp

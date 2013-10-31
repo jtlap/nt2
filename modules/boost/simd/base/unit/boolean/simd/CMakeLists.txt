@@ -12,7 +12,12 @@ SET( SOURCES
   if_else_zero.cpp
   if_allbits_else.cpp
   if_else_allbits.cpp
+  ifnotadd.cpp
+  ifnotsub.cpp
+  ifnotinc.cpp
+  ifnotdec.cpp
   negif.cpp
+  negifnot.cpp
   seladd.cpp
   selsub.cpp
   if_one_else_zero.cpp

@@ -11,6 +11,8 @@ SET( SOURCES
   negif.cpp
   seladd.cpp
   selsub.cpp
+  ifnotadd.cpp
+  ifnotsub.cpp
   if_allbits_else.cpp
   if_else_allbits.cpp
   if_one_else_zero.cpp
@@ -19,6 +21,8 @@ SET( SOURCES
   if_zero_else.cpp
   selinc.cpp
   seldec.cpp
+  ifnotinc.cpp
+  ifnotdec.cpp
   logical_andnot.cpp
   logical_ornot.cpp
   logical_notand.cpp

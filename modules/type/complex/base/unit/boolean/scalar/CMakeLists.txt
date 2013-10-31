@@ -18,6 +18,10 @@ SET( SOURCES
   selsub.cpp
   selinc.cpp
   seldec.cpp
+  ifnotsub.cpp
+  ifnotadd.cpp
+  ifnotinc.cpp
+  ifnotdec.cpp
 # List of scalar test files for toolbox boolean
    )
 
