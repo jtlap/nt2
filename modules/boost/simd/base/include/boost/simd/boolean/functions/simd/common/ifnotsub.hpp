@@ -12,6 +12,7 @@
 #include <boost/simd/boolean/functions/ifnotsub.hpp>
 #include <boost/simd/include/functions/simd/if_else_zero.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/mpl/equal_to.hpp>
 
