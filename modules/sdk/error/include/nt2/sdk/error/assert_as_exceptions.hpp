@@ -36,7 +36,7 @@ namespace boost
                         , char const* f, long l
                         )
   {
-    nt2::except_assertion_failed_msg(expr, fn, f, l);
+    nt2::except_assertion_failed(expr, fn, f, l);
   }
 
   // INTERNAL ONLY
