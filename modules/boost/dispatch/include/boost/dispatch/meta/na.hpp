@@ -19,7 +19,7 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   /*!
    * Empty type used to represent empty elements in compile-time containers.
-   * boost::dispatch::meta::na_ is used in \nt2 to prevent some ADL issues with Boost.MPL.
+   * boost::dispatch::meta::na_ is used in nt2 to prevent some ADL issues with Boost.MPL.
    */
   //============================================================================
   struct na_ {};

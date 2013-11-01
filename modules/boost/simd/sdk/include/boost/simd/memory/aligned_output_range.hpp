@@ -24,8 +24,8 @@ namespace boost { namespace simd
     @usage_output{memory/aligned_output_range.cpp,memory/aligned_output_range.out}
 
     @tparam C Width of the SIMD register to use as iteration value.
-    @param r A Range addressing a contiguous memory block
-
+    @param begin  A Range addressing a contiguous memory block
+    @param end
     @return An instance of aligned_output_range
   **/
   template<std::size_t C, class Iterator> inline

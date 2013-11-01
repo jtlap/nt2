@@ -33,9 +33,9 @@ namespace nt2
   /*!
     @brief Translate a linear index between two dimensions sets
 
-   @param sizein  Input size M
-   @param pos     Index to convert
-   @param sizeout Output size N
+   @param a0 sizein  Input size M
+   @param a1 pos     Index to convert
+   @param a2 sizeout Output size N
 
    @return The index inside N corresponding to the index inside M.
   **/

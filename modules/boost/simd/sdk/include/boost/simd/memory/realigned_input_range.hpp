@@ -33,7 +33,8 @@ namespace boost { namespace simd
     scalar iterators.
 
     @tparam C Width of the SIMD register to use as iteration value.
-    @param r A Range addressing a contiguous memory block
+    @param begin A Range addressing a contiguous memory block
+    @param end
 
     @return An instance of realigned_input_range
   **/

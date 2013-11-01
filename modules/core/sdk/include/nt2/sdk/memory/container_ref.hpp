@@ -137,8 +137,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     /**!
      * Swap the contents of two container of same type and settings
-     * \param x First \c container to swap
-     * \param y Second \c container to swap
+     * \param y Second \c container to swap, the first being *this
      **/
     //==========================================================================
     BOOST_FORCEINLINE void swap(container_ref& y)

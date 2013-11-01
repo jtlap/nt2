@@ -30,11 +30,6 @@ namespace boost { namespace simd { namespace meta
    *
    * \metafunction
    *
-   * \semantic
-   *
-   * \usage
-   *
-   * \include cardinal_of.cpp
    */
   //============================================================================
   template<class T> struct cardinal_of : boost::mpl::size_t<1> {};

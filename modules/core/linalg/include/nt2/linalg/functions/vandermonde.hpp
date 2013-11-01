@@ -25,8 +25,6 @@
  * \endcode
  *
  *
- * \synopsis
- *
  * \param x the fundamental column of the matrix,
  *        x is always treated as a big column vector
  *

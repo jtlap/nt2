@@ -28,8 +28,6 @@ namespace boost { namespace dispatch { namespace meta
    *
    * \metafunction
    *
-   * \semantic
-   *
    * For any type \c T
    *
    * \code
@@ -38,8 +36,6 @@ namespace boost { namespace dispatch { namespace meta
    *
    * evaluates to \true_ if \c T hierarchy inherits from \c fundamental_<T>
    * and to \false_ otherwise
-   *
-   * \usage
    *
    * \include is_fundamental.cpp
    */

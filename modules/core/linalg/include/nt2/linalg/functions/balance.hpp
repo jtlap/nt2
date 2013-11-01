@@ -46,7 +46,7 @@ namespace nt2
    * said decomposition, nt2::balance returns a result similar to the Matlab interface,
    * making it useful for Matlab like usage.
    *
-   * @param  xpr  Matrix expression to factorize
+   * @param  a0  Matrix expression to factorize
    *
    * @return A tuple-like type containing the factorized matrix and an indicator
    * of the success of the factorization

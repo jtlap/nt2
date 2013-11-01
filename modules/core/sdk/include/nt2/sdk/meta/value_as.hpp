@@ -23,18 +23,18 @@ namespace nt2 { namespace meta
     @brief value_type helper for child-like value_type cases
 
     This @metafunction extracts the value type of the @c Nth child of an
-    @nt2 expression @c Expr to use as @c Expr value_type specialization.
+    nt2 expression @c Expr to use as @c Expr value_type specialization.
 
     @note value_as doesn't perform any checks on the validity of the result
     with respect to a given expression hierarchy. Additionnal compile-time
     assertiosn may be included in the value_type specialisation itself.
 
-    @tparam Expr @nt2 expression to extract the value type from.
+    @tparam Expr nt2 expression to extract the value type from.
     @tparam N    Integral index of the chidl providing the value type.
 
     @par Semantic:
 
-    For any given @nt2 expression @c Expr and any integral @c N,
+    For any given nt2 expression @c Expr and any integral @c N,
 
     @code
     typedef meta::value_as<Expr,N>::type r;
@@ -46,7 +46,7 @@ namespace nt2 { namespace meta
     typedef boost::proto::result_of::child_c<Expr&,N>::value_type::value_type r;
     @endcode
 
-    This behavior is tied to the fact @nt2 expression stores their children by
+    This behavior is tied to the fact nt2 expression stores their children by
     values.
    **/
   template<class Expr, int N> struct value_as

@@ -24,8 +24,6 @@
  * \endcode
  *
  *
- * \synopsis
- *
  * \param a the matrix a
  *
  * \param p the norm in which trace is computed

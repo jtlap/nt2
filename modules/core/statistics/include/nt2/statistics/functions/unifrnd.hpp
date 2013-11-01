@@ -41,7 +41,7 @@ namespace nt2 { namespace tag
     @endcode
 
     generates a table expression of random numbers following the uniform distribution
-    on interval [a, b[ and of size defined by the \ref sizing parameters
+    on interval [a, b[ and of size defined by the sizing parameters
 
     @code
     auto r = (b-a)*rand(<sizing parameters>, as_<T0>())+a;

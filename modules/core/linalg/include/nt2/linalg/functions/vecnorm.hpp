@@ -31,8 +31,6 @@
  * \endcode
  *
  *
- * \synopsis
- *
  * \param v the expresion vector, even if matricial it is always considered as a
  *          big column vector
  *

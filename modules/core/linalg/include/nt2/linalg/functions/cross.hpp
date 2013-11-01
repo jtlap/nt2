@@ -31,8 +31,6 @@
  * \endcode
  *
  *
- * \synopsis
- *
  * \param a0 a matrix, vector or scalar
  *
  * \param a1 a matrix, vector or scalar

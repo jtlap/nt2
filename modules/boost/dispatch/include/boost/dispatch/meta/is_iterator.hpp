@@ -80,13 +80,7 @@ namespace boost { namespace dispatch { namespace meta
 {
   //============================================================================
   /*!
-   * Checks if a given type models the \iterator concept.
-   *
-   * \model
-   *
-   * \metafunction
-   *
-   * \semantic
+   * Checks if a given type models the iterator concept.
    *
    * For any type \c T,
    *
@@ -94,11 +88,9 @@ namespace boost { namespace dispatch { namespace meta
    *  typedef boost::dispatch::meta::is_iterator<T>::type v;
    * \endcode
    *
-   * evaluates to \true_ if \c T is a type modeling the \iterator concept.
+   * evaluates to \true_ if \c T is a type modeling the iterator concept.
    * Such types includes standard conforming iterator classes and non-function
    * pointers.
-   *
-   * \usage
    *
    * \include is_iterator.cpp
    */

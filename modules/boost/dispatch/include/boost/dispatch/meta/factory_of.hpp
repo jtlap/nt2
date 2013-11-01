@@ -61,8 +61,6 @@ namespace meta
    *
    * \tparam Hierarchizable type to deconstruct
    *
-   * \semantic
-   *
    * For any Hierarchizable \c H,
    * \code
    *  typedef boost::dispatch::meta::factory_of<T>::type l;
@@ -76,8 +74,6 @@ namespace meta
    *
    * returns a type \c r which is a Hierarchizable of the same hierarchy than
    * \c H and an equivalent semantic.
-   *
-   * \usage
    *
    * \include factory_of.cpp
    */

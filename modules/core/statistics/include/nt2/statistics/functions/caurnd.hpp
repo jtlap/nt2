@@ -40,7 +40,7 @@ namespace nt2 { namespace tag
     @endcode
 
     generates a table expression of random numbers following the cauchy distribution
-    of median m, scale factor s and of size defined by the \ref sizing parameters
+    of median m, scale factor s and of size defined by the sizing parameters
 
     @code
     auto r = cauinv(rand(<sizing parameters>, as_<T0>(), m, s);

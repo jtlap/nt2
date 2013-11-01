@@ -36,8 +36,6 @@
  * \endcode
  *
  *
- * \synopsis
- *
  * \param n order of the matrix output
  *
  *

@@ -36,8 +36,6 @@ namespace nt2
    *
    * \param d Values to use as dimensions
    *
-   * \usage
-   *
    * \code
    * #include <iostream>
    * #include <nt2/core/functions/of_size.hpp>
@@ -69,8 +67,6 @@ namespace nt2
    *
    * \return an extent of the maximum number of dimensions allowed which value
    * have been set accordingly to the Range values.
-   * \usage
-   *
    * \code
    * #include <iostream>
    * #include <nt2/core/functions/of_size.hpp>

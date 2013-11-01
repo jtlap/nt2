@@ -35,8 +35,6 @@
  * \endcode
  *
  *
- * \synopsis
- *
  * \param a the matrix a
  *
  * \param b the matrix b

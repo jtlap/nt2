@@ -39,7 +39,7 @@ namespace boost { namespace dispatch
   /*!
     @brief Unproxify a value
 
-    For any given value @c t of type @T, return either @c t if @T is not a
+    For any given value @c t of type @c T, return either @c t if @c T is not a
     proxy type or a value of the concrete type of @c T if @c T is a proxy type.
 
     @param t Value to unproxify

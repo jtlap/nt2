@@ -27,8 +27,6 @@
  * \par Alias
  * \arg eq
  *
- * \synopsis
- *
  * \code
  * namespace boost::simd
  * {

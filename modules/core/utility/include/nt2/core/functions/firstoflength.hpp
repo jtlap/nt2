@@ -31,12 +31,13 @@ namespace nt2
   }
 
   /*!
-    @brief First non-singleton dimension
+    @brief First  dimension of given length
 
     For a given expression, returns the first dimension which is not equal to 1.
 
     @param a0 Expression to inspect
-    @return The value of the first dimension of a0 not equal to 1.
+    @param a1 length to match
+    @return The value of the first dimension of length a1.
   **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::firstoflength_,firstoflength,2)
 }

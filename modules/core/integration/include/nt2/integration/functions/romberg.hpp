@@ -55,7 +55,7 @@ namespace nt2
   /*!
     Applies romberg algorithm to integrate a function over a real interval
 
-    \param func  Function to optimize
+    \param f  Function to optimize
     \param x    required points in the interval or 2 abscissae a and b
     \param opt   Options pack related to the tolerance handling
 
@@ -76,19 +76,19 @@ namespace nt2
   //============================================================================
 
 
+  template<class F, class X, class Xpr> BOOST_FORCEINLINE
+  typename details::integration<F, X, tag::romberg_>::result_type
+  romberg(F f, X const& x, nt2::details::option_expr<Xpr> const& opt)
+  {
+    return details::integration<F, X, tag::romberg_>::call(f, x, opt);
+  }
+
   /// @overload
   template<class F, class X> BOOST_FORCEINLINE
   typename details::integration<F, X, tag::romberg_>::result_type
   romberg(F f, X const& x)
   {
     return details::integration<F, X, tag::romberg_>::call(f, x);
-  }
-
-  template<class F, class X, class Xpr> BOOST_FORCEINLINE
-  typename details::integration<F, X, tag::romberg_>::result_type
-  romberg(F f, X const& x, nt2::details::option_expr<Xpr> const& opt)
-  {
-    return details::integration<F, X, tag::romberg_>::call(f, x, opt);
   }
 
   /// @overload

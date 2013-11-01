@@ -44,7 +44,7 @@ namespace nt2 { namespace tag
       - If parameters are floating point and not flint,
       nan is returned.
 
-    @see @funcref{lcm}, \ref flint
+    @see @funcref{lcm}, @funcref{is_flint}
     @param a0
     @param a1
 

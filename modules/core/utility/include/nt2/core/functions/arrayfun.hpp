@@ -9,12 +9,6 @@
 //==============================================================================
 #ifndef NT2_CORE_FUNCTIONS_ARRAYFUN_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_ARRAYFUN_HPP_INCLUDED
-
-/*!
-  @file
-  @brief Defines and implements the arrayfun function
- **/
-
 #include <nt2/include/functor.hpp>
 
 namespace nt2
@@ -33,18 +27,21 @@ namespace nt2
   /*!
     @brief Apply element-by-element operation to n expressions
 
-    arrayfun(f,a,b) applies the element-by-element @pfo @c f to expressions
+    arrayfun(f,a,b) applies the element-by-element pfo @c f to expressions
     @c a and @c b.
 
     The corresponding dimensions of @c a and @c b must be equal to each other.
 
-    @param f Polymorphic Function object to apply
-    @param a First expression to process
-    @param b Second expression to process
+    @param a0 Polymorphic Function object to apply
+    @param a1 First expression to process
+    @param a2 Second expression to process
+    @param a2 Third expression to process
   **/
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::arrayfun_, arrayfun, 2)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::arrayfun_, arrayfun, 3)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::arrayfun_, arrayfun, 4)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::arrayfun_, arrayfun, 2)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::arrayfun_, arrayfun, 3)
 }
 
 #endif

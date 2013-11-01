@@ -23,12 +23,6 @@ namespace boost { namespace dispatch { namespace meta
   /*!
    * Checks if a given Hierarchizable type is a scalar type.
    *
-   * \model
-   *
-   * \metafunction
-   *
-   * \semantic
-   *
    * For any given Hierarchizable \c T,
    *
    * \code
@@ -36,8 +30,6 @@ namespace boost { namespace dispatch { namespace meta
    * \endcode
    *
    * evaluates to \true_ is T has a hierarchy tied to \c scalar_
-   *
-   * \usage
    *
    * \include is_scalar.cpp
    */

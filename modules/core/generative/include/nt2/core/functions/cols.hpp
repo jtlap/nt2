@@ -92,7 +92,7 @@ namespace nt2
                 or as a row vector of integer values. If any @c dims is lesser
                 or equal to 0, then the resulting expression is empty.
 
-    @param classname  Type specifier of the output. If left unspecified, the
+    @param base  Type specifier of the output. If left unspecified, the
                       resulting expression behaves as an array of double.
 
     @return An Expression evaluating as an array of a given type and dimensions.

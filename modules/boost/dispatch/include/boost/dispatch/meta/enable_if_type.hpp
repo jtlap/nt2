@@ -22,8 +22,6 @@ namespace boost { namespace dispatch { namespace meta
    * @tparam T Type to check existence of.
    * @tparam R Type to return if \c T is defined.
    *
-   * @usage
-   *
    * @include enable_if_type.cpp
    **/
   template<class T, class R=void>

@@ -30,11 +30,11 @@ namespace nt2
   /*!
    * Performs an index translation to be used in indexed access computation
    *
-   * \param xpr Indexing expression
-   * \param bi  Base indexes of indexed expression
-   * \param sz  Sizes of indexed expression
-   * \param idx Index being computed
-   * \param target Desired index type
+   * \param a0 xpr Indexing expression
+   * \param a1 bi  Base indexes of indexed expression
+   * \param a2 sz  Sizes of indexed expression
+   * \param a3 idx Index being computed
+   * \param a4 target Desired index type
    * \return The translated index to access current indexing expression
    */
   //============================================================================

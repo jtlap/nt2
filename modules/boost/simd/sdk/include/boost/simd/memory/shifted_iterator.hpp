@@ -108,7 +108,6 @@ namespace boost { namespace simd
     @tparam C Width of the SIMD register to use as iteration value.
 
     @param p Iterator to adapt.
-    @param r The Region of Interest descriptor of the sliding window.
 
     @return An instance of shifted_iterator
   **/
@@ -131,7 +130,6 @@ namespace boost { namespace simd
     @tparam C Width of the SIMD register to use as iteration value.
 
     @param p Iterator to adapt.
-    @param r The Region of Interest descriptor of the sliding window.
 
     @return An instance of shifted_iterator
   **/

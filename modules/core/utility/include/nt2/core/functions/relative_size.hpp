@@ -30,9 +30,9 @@ namespace nt2
   /*!
    * Computes parts if the size to be used in indexed access computation
    *
-   * \param xpr   Indexing expression
-   * \param szs   Indexed node Size
-   * \param bis   Indexed node base indices
+   * \param a0 xpr   Indexing expression
+   * \param a1 szs   Indexed node Size
+   * \param a2 bis   Indexed node base indices
    * \return The number of elements dimensions required to store \c xpr
    */
   //============================================================================

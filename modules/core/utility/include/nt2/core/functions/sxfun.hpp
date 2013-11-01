@@ -34,7 +34,7 @@ namespace nt2
     @brief Apply element-by-element operation to n expressions
     with singleton expansion enabled
 
-    sxfun(f,a,b) applies the element-by-element @pfo @c f to expressions
+    sxfun(f,a,b) applies the element-by-element pfo @c f to expressions
     @c a and @c b, with singleton expansion enabled.
 
     The corresponding dimensions of @c a and @c b must be equal to each other
@@ -42,14 +42,18 @@ namespace nt2
     to one), sxfun virtually replicates the array along that dimension to match
     the other array.
 
-    @param f Polymorphic Function object to apply
-    @param a First expression to process
-    @param b Second expression to process
+    @param a0  Polymorphic Function object to apply
+    @param a1 First expression to process
+    @param a2  Second expression to process
+    @param a3  Third  expression to process
   **/
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sxfun_       , bsxfun, 3)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sxfun_       , sxfun, 3)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sxfun_       , sxfun, 4)
+  ///@overload
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sxfun_       , tsxfun, 4)
+  ///@overload
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sxfun_       , bsxfun, 3)
+  ///@overload
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sxfun_       , sxfun, 3)
 }
 
 #endif

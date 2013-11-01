@@ -24,8 +24,6 @@ namespace boost { namespace dispatch { namespace meta
    *
    * \tparam T Type to strip from reference and cv-qualifier.
    *
-   * \semantic:
-   *
    * For any given type \c T,
    *
    * \code
@@ -37,8 +35,6 @@ namespace boost { namespace dispatch { namespace meta
    * \code
    * typedef remove_cv< remove_reference<T>::type >::type r;
    * \endcode
-   *
-   * \usage
    *
    * \include strip.cpp
    */

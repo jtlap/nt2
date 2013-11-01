@@ -27,7 +27,8 @@ namespace boost { namespace simd
     @usage_output{memory/aligned_input_range.cpp,memory/aligned_input_range.out}
 
     @tparam C Width of the SIMD register to use as iteration value.
-    @param r A Range addressing a contiguous memory block
+    @param begin A Range addressing a contiguous memory block
+    @param end
 
     @return An instance of aligned_input_range
   **/
@@ -54,7 +55,8 @@ namespace boost { namespace simd
 
     @usage_output{memory/aligned_input_range.cpp,memory/aligned_input_range.out}
 
-    @param r A Range addressing a contiguous memory block
+    @param begin
+    @param end
 
     @return An instance of aligned_input_range
   **/

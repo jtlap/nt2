@@ -24,8 +24,6 @@
  * \endcode
  *
  *
- * \synopsis
- *
  * \param a the matrix a on entry, destroyed on exit
  *
  * \param b the second member(s) b on entry, solution on exit

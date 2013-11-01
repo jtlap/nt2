@@ -30,8 +30,8 @@ namespace nt2
   /*!
    * Compute the number of dimensions of a given entity.
    *
-   * \param xpr Expression to compute the size in number of dimensions
-   * \return The number of elements dimensions required to store \c xpr
+   * \param a0 Expression to compute the size in number of dimensions
+   * \return The number of elements dimensions required to store \c a0
    */
   //============================================================================
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ndims_, ndims, 1)

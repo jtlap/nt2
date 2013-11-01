@@ -36,15 +36,15 @@ namespace nt2
   /*!
     @brief
 
-    @param
+    @param a0
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::findi_, findi, 1)
 
   /*!
     @brief
 
-    @param
-    @param
+    @param a0
+    @param a1
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::findi_, findi, 2)
 }

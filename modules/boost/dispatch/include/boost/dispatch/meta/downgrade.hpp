@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * \brief Defines and implements the \ref boost::dispatch::meta::downgrade \metafunction
+ * \brief Defines and implements the boost::dispatch::meta::downgrade \metafunction
  */
 
 #include <boost/dispatch/meta/sign_of.hpp>
@@ -54,7 +54,7 @@ namespace boost { namespace dispatch { namespace meta
    *                  >::type                                  r;
    * \endcode
    *
-   * if \c primitive_of<T> is of hierarchy \ref boost::dispatch::meta::floating_
+   * if \c primitive_of<T> is of hierarchy boost::dispatch::meta::floating_
    * and to:
    *
    * \code

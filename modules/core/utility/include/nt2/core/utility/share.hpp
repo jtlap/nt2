@@ -32,8 +32,6 @@ namespace nt2
    *
    * @return A \c nt2::memory::fixed_allocator adapting the initial Range.
    *
-   * @usage
-   *
    * @code
    * std::vector<float> v(16);
    * table<float, shared_> t( share(v.begin(), v.end(), of_size(16) );

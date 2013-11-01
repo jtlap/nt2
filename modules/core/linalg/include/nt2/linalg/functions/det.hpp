@@ -24,8 +24,6 @@
  * \endcode
  *
  *
- * \synopsis
- *
  * \param a the matrix a,  a must be square
  *
  * \par Notes

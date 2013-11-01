@@ -28,12 +28,6 @@ namespace boost { namespace dispatch { namespace meta
    *
    * \tparam T Function-type call to resolve
    *
-   * \model
-   *
-   * \metafunction
-   *
-   * \semantic
-   *
    *  For any type \c T,
    *
    *  \code
@@ -41,8 +35,6 @@ namespace boost { namespace dispatch { namespace meta
    *  \endcode
    *
    *  evaluates to \true_ if \c result_of<T>::type is defined.
-   *
-   * \usage
    *
    * \include is_result_of_supported.cpp
    */

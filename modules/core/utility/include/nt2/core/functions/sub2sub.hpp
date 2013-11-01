@@ -30,9 +30,9 @@ namespace nt2
   /*!
    * Determines a N-dimensional subscript from a M-dimensional subscript.
    *
-   * \param sizein  Input size M
-   * \param pos     Subscript to convert
-   * \param sizeout Output size N
+   * \param a0 sizein  Input size M
+   * \param a1 pos     Subscript to convert
+   * \param a2 sizeout Output size N
    * \return The subscript of size N corresponding to pos of size M.
    */
   //============================================================================

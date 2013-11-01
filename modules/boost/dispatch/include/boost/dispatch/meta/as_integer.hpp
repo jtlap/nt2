@@ -54,7 +54,7 @@ namespace boost { namespace dispatch { namespace meta
    *                      >::type                           type;
    * @endcode
    *
-   * If any of the @Ai is not a @ref Primitive type, a
+   * If any of the Ai is not a Primitive type, a
    * @c BOOST_DISPATCH_NON_FUNDAMENTAL_PRIMITIVE_USED_IN_META_AS_INTEGER static
    * assertion is triggered.
    *

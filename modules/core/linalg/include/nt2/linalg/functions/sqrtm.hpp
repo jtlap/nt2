@@ -27,8 +27,6 @@
  * \endcode
  *
  *
- * \synopsis
- *
  * \param a the matrix or vector expression a
  *
  * \param type of sqrtm required

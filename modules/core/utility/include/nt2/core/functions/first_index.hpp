@@ -50,8 +50,8 @@ namespace nt2
   /*!
     @brief First index of an expression
 
-    @param
-    @param
+    @param a0
+    @param dim
 
     @return
   **/

@@ -30,7 +30,7 @@ namespace nt2
   /*!
    * Compute the width of a given entity in number of elements
    *
-   * \param xpr Expression to inspect
+   * \param a0 Expression to inspect
    * \return The width of \c xpr
    */
   //============================================================================

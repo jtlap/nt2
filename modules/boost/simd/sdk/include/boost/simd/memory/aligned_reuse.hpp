@@ -54,6 +54,7 @@ namespace boost { namespace simd
     @param ptr        Pointer to reuse
     @param size       Number of bytes to allocate
     @param alignment  Alignment boundary to respect
+    @param realloc_fn
     @return Pointer referencing the newly allocated memory block.
   **/
   template<typename ReallocFunction>

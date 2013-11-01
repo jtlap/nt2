@@ -33,11 +33,11 @@ namespace nt2
   /*!
     @brief Last valid index of an expression
 
-    Return an unsigned integer @c l for which the expression @c(...,l,...)
+    Return an unsigned integer @c l for which the expression @c (...,l,...)
     is a valid access.
 
     @param a0 Expression to inspect
-    @tparam
+    @tparam ?
 
     @return
   **/
@@ -53,7 +53,7 @@ namespace nt2
   /*!
     @brief Last valid index of an expression
 
-    Return an unsigned integer @c l for which the expression @c(...,l,...)
+    Return an unsigned integer @c l for which the expression @c (...,l,...)
     is a valid access.
 
     @param a0  Expression to inspect

@@ -36,7 +36,7 @@ namespace meta
   //============================================================================
   /*!
    * \ingroup metafunctions
-   * For a given \ref Hierarchizable type T, returns the underlying type used to
+   * For a given Hierarchizable type T, returns the underlying type used to
    * define T
    *
    * \tparam Hierarchizable Type to extract a primitive from.
@@ -45,7 +45,7 @@ namespace meta
    * \metafunction
    *
    * \par Semantic:
-   * For a given \ref Hierarchizable type T,
+   * For a given Hierarchizable type T,
    *
    * \code
    * typedef primitive_of<T>::type r;
@@ -56,8 +56,6 @@ namespace meta
    * \code
    * is_same<T, apply<factory_of<T>,r>::type>::value == true
    * \endcode
-   *
-   * \usage
    *
    * \include primitive_of.cpp
    */

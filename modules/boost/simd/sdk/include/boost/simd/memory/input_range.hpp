@@ -27,8 +27,8 @@ namespace boost { namespace simd
     @usage_output{memory/input_range.cpp,memory/input_range.out}
 
     @tparam C Width of the SIMD register to use as iteration value.
-    @param r A Range addressing a contiguous memory block
-
+    @param begin A Range addressing a contiguous memory block
+    @param end
     @return An instance of input_range
   **/
   template<std::size_t N, class Iterator> inline
@@ -52,8 +52,8 @@ namespace boost { namespace simd
 
     @usage_output{memory/input_range.cpp,memory/input_range.out}
 
-    @param r A Range addressing a contiguous memory block
-
+    @param begin A Range addressing a contiguous memory block
+    @param end
     @return An instance of input_range
   **/
   template<class Iterator> inline

@@ -55,13 +55,14 @@ namespace boost { namespace simd
 
     @usage_output{memory/shifted_range.cpp,memory/shifted_range.out}
 
-    @param r A Range addressing a contiguous memory block
+    @param begin A Range addressing a contiguous memory block
+    @param end A Range addressing a contiguous memory block
 
     @return An instance of shifted_range
   **/
   template<typename Iterator, typename Region> inline
   boost::iterator_range< shifted_iterator<Iterator,Region> >
-  shifted_range( Iterator begin, Iterator end, Region const& r)
+  shifted_range( Iterator begin, Iterator end, Region const& )
   {
     BOOST_ASSERT_MSG
     ( is_aligned(std::distance(begin,end) , shifted_iterator<Iterator>::cardinal)

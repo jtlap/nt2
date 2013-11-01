@@ -44,19 +44,23 @@ namespace nt2
   /*!
     @brief
 
-    @param
+    @param a0
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::find_, find, 1)
 
   /*!
     @brief
 
-    @param
-    @param
+    @param a0
+    @param a1
+    @param a2
+    @param a3
   **/
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::find_, find, 2)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::find_, find, 3)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::find_, find, 4)
+  /// @overload
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::find_, find, 2)
+  /// @overload
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::find_, find, 3)
 }
 
 namespace nt2 { namespace ext

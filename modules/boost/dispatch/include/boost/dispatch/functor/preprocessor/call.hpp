@@ -9,11 +9,6 @@
 #ifndef BOOST_DISPATCH_FUNCTOR_PREPROCESSOR_CALL_HPP_INCLUDED
 #define BOOST_DISPATCH_FUNCTOR_PREPROCESSOR_CALL_HPP_INCLUDED
 
-/*!
- * \file
- * \brief Defines macros for building a \ref implement specialization
- */
-
 #include <boost/dispatch/details/typeof.hpp>
 #include <boost/dispatch/meta/result_of.hpp>
 #include <boost/dispatch/preprocessor/strip.hpp>
@@ -26,12 +21,11 @@
 
 //==============================================================================
 /*!
- * Generates a \ref implement \c operator() prototype.
+ * Generates a implement \c operator() prototype.
  * In this function, arguments are defined as \c a0,...,an-1.
  *
- * \param N Number of parameters for the current \ref implement
+ * \param N Number of parameters for the current implement
  *
- * \usage
  *
  * \code
  * BOOST_DISPATCH_CALL(3)
@@ -47,14 +41,13 @@ result_type operator()( BOOST_PP_ENUM_BINARY_PARAMS(N,A,const& a) ) const      \
 
 //==============================================================================
 /*!
- * Generates a \ref implement specialization \c operator() prototype
+ * Generates a implement specialization \c operator() prototype
  * along with a result_type typedef.
  *
- * \param N Number of parameters for the current \ref implement
+ * \param N Number of parameters for the current implement
  * \param Args Arguments to the function, with type and name
  * \param Body Function body, must be a single expression
  *
- * \usage
  *
  * \code
  * BOOST_DISPATCH_RETURNS(3, (A0 const& a0, A1 const& a1, A2 const& a2),
@@ -83,13 +76,11 @@ static BOOST_PP_ARRAY_ELEM(n, Args);                                           \
 
 //==============================================================================
 /*!
- * Generates a \ref implement \c operator() prototype.
+ * Generates a implement \c operator() prototype.
  * In this function, arguments are defined as \c a0,...,an-1 of the same type
  * \c A0.
  *
- * \param N Number of parameters for the current \ref implement
- *
- * \usage
+ * \param N Number of parameters for the current implement
  *
  * \code
  * BOOST_DISPATCH_CALL_REPEAT(3)

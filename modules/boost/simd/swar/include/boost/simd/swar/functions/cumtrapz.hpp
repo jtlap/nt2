@@ -64,8 +64,9 @@ namespace boost { namespace simd { namespace tag
 
     @return a value of the same type as the second parameter
   **/
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::cumtrapz_, cumtrapz, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::cumtrapz_, cumtrapz, 3)
+  /// @overload
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::cumtrapz_, cumtrapz, 2)
   /*!
     Computes the cumulate trapz of the vector elements using the abscissae differences
     is they are given

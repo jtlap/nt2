@@ -12,9 +12,6 @@
 #include <nt2/include/functor.hpp>
 
 /*!
- * \ingroup core
- * \defgroup core sx
- *
  * \par Description
  * sx sx<Tag>(a0, a1)      is equivalent to bsxfun(functor<Tag>(), a0, a1) if Tag is a binary functor
  *    sx<Tag>(a0, a1, a2)  is equivalent to tsxfun(functor<Tag>(), a0, a1, a2) if Tag is a ternary functor
@@ -25,8 +22,6 @@
  * #include <nt2/include/functions/sx.hpp>
  * \endcode
  *
- *
- * \synopsis
  *
  * \code
  * namespace boost::simd
