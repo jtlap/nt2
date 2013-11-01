@@ -7,7 +7,6 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <nt2/core/container/table/table.hpp>
-#include <nt2/table.hpp>
 #include <nt2/include/functions/adjfun.hpp>
 #include <nt2/include/functions/isempty.hpp>
 #include <nt2/include/functions/isequal.hpp>
@@ -18,6 +17,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/core/container/io.hpp>
 
 NT2_TEST_CASE_TPL( adjfun, NT2_TYPES)
 {
