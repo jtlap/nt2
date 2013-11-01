@@ -21,7 +21,7 @@
 #include <boost/simd/include/constants/nan.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
 
-NT2_TEST_CASE_TPL ( if_else_allbits_real__2_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( if_else_allbits_real,  BOOST_SIMD_REAL_TYPES)
 {
 
   using boost::simd::if_else_allbits;
@@ -47,7 +47,7 @@ NT2_TEST_CASE_TPL ( if_else_allbits_real__2_0,  BOOST_SIMD_REAL_TYPES)
 
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( if_else_allbits_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( if_else_allbits_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
 
   using boost::simd::if_else_allbits;

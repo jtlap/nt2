@@ -8,17 +8,18 @@
 ##############################################################################
 
 SET( SOURCES
-  negif.cpp
-  seladd.cpp
-  selsub.cpp
-  ifnotadd.cpp
-  ifnotsub.cpp
   if_allbits_else.cpp
   if_else_allbits.cpp
   if_one_else_zero.cpp
   if_zero_else_one.cpp
   if_else_zero.cpp
   if_zero_else.cpp
+  negif.cpp
+  negifnot.cpp
+  seladd.cpp
+  selsub.cpp
+  ifnotadd.cpp
+  ifnotsub.cpp
   selinc.cpp
   seldec.cpp
   ifnotinc.cpp

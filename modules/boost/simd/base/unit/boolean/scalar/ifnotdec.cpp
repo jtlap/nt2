@@ -21,7 +21,7 @@
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 
-NT2_TEST_CASE_TPL ( ifnotdec_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( ifnotdec_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::ifnotdec;
   using boost::simd::tag::ifnotdec_;
@@ -38,7 +38,7 @@ NT2_TEST_CASE_TPL ( ifnotdec_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_EQUAL(ifnotdec(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Mone<T>());
 }
 
-NT2_TEST_CASE_TPL ( ifnotdec_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( ifnotdec_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::ifnotdec;
   using boost::simd::tag::ifnotdec_;

@@ -7,8 +7,6 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <boost/simd/boolean/include/functions/if_allbits_else.hpp>
-#include <boost/simd/sdk/simd/io.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
@@ -21,7 +19,7 @@
 #include <boost/simd/include/constants/nan.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
 
-NT2_TEST_CASE_TPL ( if_allbits_else_real__2_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( if_allbits_else_real,  BOOST_SIMD_REAL_TYPES)
 {
 
   using boost::simd::if_allbits_else;
@@ -47,7 +45,7 @@ NT2_TEST_CASE_TPL ( if_allbits_else_real__2_0,  BOOST_SIMD_REAL_TYPES)
 
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( if_allbits_else_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( if_allbits_else_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
 
   using boost::simd::if_allbits_else;
