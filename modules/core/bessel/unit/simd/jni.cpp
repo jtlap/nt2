@@ -11,8 +11,15 @@
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/mone.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/minf.hpp>
+#include <boost/simd/include/constants/nan.hpp>
+#include <boost/simd/sdk/config.hpp>
 
-#include <nt2/constant/constant.hpp>
 #include <nt2/include/functions/splat.hpp>
 
 NT2_TEST_CASE_TPL ( jni_real__2_0,  NT2_SIMD_REAL_TYPES)

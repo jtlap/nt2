@@ -11,10 +11,14 @@
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/minf.hpp>
+#include <boost/simd/include/constants/nan.hpp>
+#include <boost/simd/sdk/config.hpp>
 
-#include <nt2/constant/constant.hpp>
-
-NT2_TEST_CASE_TPL ( i0_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( i0_real,  NT2_REAL_TYPES)
 {
   using nt2::i0;
   using nt2::tag::i0_;
