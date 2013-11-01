@@ -22,7 +22,7 @@ namespace nt2 { namespace ext
                             , (scalar_<unspecified_<A0> >)
                             )
   {
-    typedef table<A0, of_size_<0> > result_type;
+    typedef typename container::table<A0, of_size_<0> > result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& ) const
     {
       return result_type();
@@ -32,11 +32,11 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cdiff_, tag::cpu_
                             , (A0)(A1)
-                            , (scalar_<A0>)
+                            , (scalar_<unspecified_<A0> >)
                               (scalar_<integer_<A1> >)
                             )
   {
-    typedef table<A0, of_size_<0> > result_type;
+    typedef typename container::table<A0, of_size_<0> > result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const&, A1 const& ) const
     {
       return result_type();

@@ -1,8 +1,8 @@
 
 Basic Information
 
-disp                            |    Display text or array                                              | done almost
-display                         |    Display text or array (overloaded method)                          | ??
+disp                            |    Display text or array                                              | done
+display                         |    Display text or array (overloaded method)                          | NT2_DISPLAY
 iscolumn                        |    Determine whether input is column vector                           | done
 isempty                         |    Determine whether array is empty                                   | done
 isequal                         |    Test arrays for equality                                           | done depends of all
@@ -19,7 +19,7 @@ isrow                           |    Determine whether input is row vector      
 isscalar                        |    Determine whether input is scalar                                  |
 issparse                        |    Determine whether input is sparse                                  | done
 isvector                        |    Determine whether input is vector                                  | done
-length                          |    Length of vector or largest array dimension                        | done 
+length                          |    Length of vector or largest array dimension                        | done
 max                             |    Largest elements in array                                          | done but does not return position
 min                             |    Smallest elements in array                                         | done but does not return position
 ndims                           |    Number of array dimensions                                         | done
@@ -28,78 +28,79 @@ size                            |    Array dimensions                           
 
 Elementary Matrices and Arrays
 
-blkdiag                         |    Construct block diagonal matrix from input arguments               | 
-colon (:)                       |    Create vectors, array subscripting, and for-loop iterators         | done 
-diag                            |    Diagonal matrices and diagonals of matrix                          | 
+blkdiag                         |    Construct block diagonal matrix from input arguments               | done
+colon (:)                       |    Create vectors, array subscripting, and for-loop iterators         | done _
+diag                            |    Diagonal matrices and diagonals of matrix                          | done from_diag diag_of
 eye                             |    Identity matrix                                                    | done
 freqspace                       |    Frequency spacing for frequency response                           | done freqspace1 freqspace2
 ind2sub                         |    Subscripts from linear index                                       | done ?
-linspace                        |    Generate linearly spaced vectors                                   | done 
+linspace                        |    Generate linearly spaced vectors                                   | done
 logspace                        |    Generate logarithmically spaced vectors                            | done
 ndgrid                          |    Rectangular grid in N-D space                                      | done
-ones                            |    Create array of all ones                                           | 
-rand                            |    Uniformly distributed pseudorandom numbers                         | 
-randi                           |    Uniformly distributed pseudorandom integers                        | 
-randn                           |    Normally distributed pseudorandom numbers                          | 
-RandStream                      |    Random number stream                                               | ??
-rng                             |    Control random number generation                                   |
-sub2ind                         |    Convert subscripts to linear indices                               | done ?
+ones                            |    Create array of all ones                                           | done
+rand                            |    Uniformly distributed pseudorandom numbers                         | done
+randi                           |    Uniformly distributed pseudorandom integers                        | done
+randn                           |    Normally distributed pseudorandom numbers                          | done
+RandStream                      |    Random number stream                                               | done
+rng                             |    Control random number generation                                   | done
+sub2ind                         |    Convert subscripts to linear indices                               | done
 zeros                           |    Create array of all zeros                                          | done
-                                                                                                          
-                                                                                                          
-Array Operations                     See Linear Algebra and Elementary Math for other array operations.   
-                                                                                                          
-accumarray                      |    Construct array with accumulation                                  | 
-arrayfun                        |    Apply function to each element of array                            | 
-bsxfun                          |    Apply element-by-element binary operation to                       | done waiting for repmat
-                                     two arrays with singleton expansion enabled                          
-cast                            |    Cast variable to different data type                               | 
-cross                           |    Vector cross product                                               | 
-cumprod                         |    Cumulative product                                                 | 
-cumsum                          |    Cumulative sum                                                     | 
-dot                             |    Vector dot product                                                 | 
-idivide                         |    Integer division with rounding option                              | 
-kron                            |    Kronecker tensor product                                           | 
-prod                            |    Product of array elements                                          | 
+
+
+Array Operations                     See Linear Algebra and Elementary Math for other array operations.
+
+accumarray                      |    Construct array with accumulation                                  |
+arrayfun                        |    Apply function to each element of array                            | done
+bsxfun                          |    Apply element-by-element binary operation to                       | done tsxfun sx expand_to
+                                     two arrays with singleton expansion enabled
+cast                            |    Cast variable to different data type                               | done
+cross                           |    Vector cross product                                               | done
+cumprod                         |    Cumulative product                                                 | done
+cumsum                          |    Cumulative sum                                                     | done
+dot                             |    Vector dot product                                                 | done
+idivide                         |    Integer division with rounding option                              |
+kron                            |    Kronecker tensor product                                           | done
+prod                            |    Product of array elements                                          | done
 sum                             |    Sum of array elements                                              | done
-surfnorm                        |    Compute and display 3-D surface normals                            | 
+surfnorm                        |    Compute and display 3-D surface normals                            |
 tril                            |    Lower triangular part of matrix                                    | done
 triu                            |    Upper triangular part of matrix                                    | done
-                                                                                                          
-Array Manipulation                                                                                        
-                                                                                                          
-blkdiag                         |    Construct block diagonal matrix from input arguments               | 
-cat                             |    Concatenate arrays along specified dimension                       | 
-circshift                       |    Shift array circularly                                             | 
-diag                            |    Diagonal matrices and diagonals of matrix                          | 
-end                             |    Terminate block of code, or indicate last array index              | 
-flipdim                         |    Flip array along specified dimension                               | 
-fliplr                          |    Flip matrix left to right                                          | 
-flipud                          |    Flip matrix up to down                                             | 
-horzcat                         |    Concatenate arrays horizontally                                    | 
-inline                          |    Construct inline object                                            | 
-ipermute                        |    Inverse permute dimensions of N-D array                            | 
-permute                         |    Rearrange dimensions of N-D array                                  | 
-repmat                          |    Replicate and tile array                                           | 
+
+Array Manipulation
+
+blkdiag                         |    Construct block diagonal matrix from input arguments               | done
+cat                             |    Concatenate arrays along specified dimension                       | done
+circshift                       |    Shift array circularly                                             |
+diag                            |    Diagonal matrices and diagonals of matrix                          | done
+end                             |    Terminate block of code, or indicate last array index              | done
+flipdim                         |    Flip array along specified dimension                               | done
+fliplr                          |    Flip matrix left to right                                          | done
+flipud                          |    Flip matrix up to down                                             | done
+horzcat                         |    Concatenate arrays horizontally                                    | done
+inline                          |    Construct inline object                                            | ...
+ipermute                        |    Inverse permute dimensions of N-D array                            |
+permute                         |    Rearrange dimensions of N-D array                                  | done
+repmat                          |    Replicate and tile array                                           | done
 reshape                         |    Reshape array                                                      | done
 rot90                           |    Rotate matrix 90 degrees                                           | done
-shiftdim                        |    Shift dimensions                                                   | 
-sort                            |    Sort array elements in ascending or descending order               | 
-sortrows                        |    Sort rows in ascending order                                       | 
-squeeze                         |    Remove singleton dimensions                                        | 
+shiftdim                        |    Shift dimensions                                                   | done
+sort                            |    Sort array elements in ascending or descending order               |
+sortrows                        |    Sort rows in ascending order                                       | done
+squeeze                         |    Remove singleton dimensions                                        |
 vectorize                       |    Vectorize expression                                               | ??
-vertcat                         |    Concatenate arrays vertically                                      | 
-                                                                                                          
-Specialized Matrices                                                                                      
-compan                          |    Companion matrix                                                   | 
-gallery                         |    Test matrices                                                      | partially done untested
-hadamard                        |    Hadamard matrix                                                    | 
-hankel                          |    Hankel matrix                                                      | 
-hilb                            |    Hilbert matrix                                                     | done untested 
-invhilb                         |    Inverse of Hilbert matrix                                          | 
-magic                           |    Magic square                                                       | done untested
-pascal                          |    Pascal matrix                                                      | done untested 
-rosser                          |    Classic symmetric eigenvalue test problem                          | done untested 
-toeplitz                        |    Toeplitz matrix                                                    | done untested 
-vander                          |    Vandermonde matrix                                                 | done untested 
-wilkinson                       |    Wilkinson's eigenvalue test matrix                                 | 
+vertcat                         |    Concatenate arrays vertically                                      | done
+
+Specialized Matrices
+compan                          |    Companion matrix                                                   | done
+gallery                         |    Test matrices                                                      | done
+hadamard                        |    Hadamard matrix                                                    | done
+hankel                          |    Hankel matrix                                                      | done
+hilb                            |    Hilbert matrix                                                     | done
+invhilb                         |    Inverse of Hilbert matrix                                          | done
+magic                           |    Magic square                                                       | done
+pascal                          |    Pascal matrix                                                      | done
+rosser                          |    Classic symmetric eigenvalue test problem                          | done
+toeplitz                        |    Toeplitz matrix                                                    | done
+vander                          |    Vandermonde matrix                                                 | done
+wilkinson                       |    Wilkinson's eigenvalue test matrix                                 |
+
