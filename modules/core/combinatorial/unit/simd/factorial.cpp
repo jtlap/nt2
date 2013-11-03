@@ -1,81 +1,89 @@
 //==============================================================================
-//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2013   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <nt2/combinatorial/include/functions/factorial.hpp>
+
+#include <nt2/sdk/functor/meta/call.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <boost/simd/sdk/config.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+
+#include <nt2/include/constants/eight.hpp>
+#include <nt2/include/constants/eleven.hpp>
+#include <nt2/include/constants/five.hpp>
+#include <nt2/include/constants/four.hpp>
+#include <nt2/include/constants/nine.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/seven.hpp>
+#include <nt2/include/constants/six.hpp>
+#include <nt2/include/constants/ten.hpp>
+#include <nt2/include/constants/three.hpp>
+#include <nt2/include/constants/twelve.hpp>
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/constants/valmax.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/nan.hpp>
 #include <nt2/include/functions/min.hpp>
+#include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/saturate.hpp>
 
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_signed.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/meta/downgrade.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/type_traits/common_type.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/constant/constant.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/include/functions/splat.hpp>
 
-NT2_TEST_CASE_TPL ( factorial_real__1_0,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( factorial_real,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::factorial;
   using nt2::tag::factorial_;
   using boost::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>                  vT;
+
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Eight<vT>())[0], nt2::min((T(40320ll    )),nt2::Valmax<T>()), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Eleven<vT>())[0], nt2::min((T(39916800ll )),nt2::Valmax<T>()), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Five<vT>())[0], T(120), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Four<vT>())[0], T(24), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Inf<vT>())[0], nt2::Inf<T>(), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Nan<vT>())[0], nt2::Nan<T>(), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Nine<vT>())[0], nt2::min((T(362880ll   )),nt2::Valmax<T>()), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::One<vT>())[0], nt2::One<T>(), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Seven<vT>())[0], nt2::min((T(5040ll     )),nt2::Valmax<T>()), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Six<vT>())[0], nt2::min((T(720ll      )),nt2::Valmax<T>()), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Ten<vT>())[0], nt2::min((T(3628800ll  )),nt2::Valmax<T>()), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Three<vT>())[0], nt2::Six<T>(), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Twelve<vT>())[0], nt2::min((T(479001600ll)),nt2::Valmax<T>()), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Two<vT>())[0], nt2::Two<T>(), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Zero<vT>())[0], nt2::One<T>(), 0);
-} // end of test for floating_
-
-NT2_TEST_CASE_TPL ( factorial_integer__1_0,  NT2_SIMD_INTEGRAL_TYPES)
+#ifndef BOOST_SIMD_NO_INVALIDS
+  NT2_TEST_EQUAL(factorial(nt2::Inf<vT>()), nt2::Inf<vT>());
+  NT2_TEST_EQUAL(factorial(nt2::Nan<vT>()), nt2::Nan<vT>());
+#endif
+  NT2_TEST_EQUAL(factorial(nt2::Eight<vT>()), nt2::min((nt2::splat<vT>(40320ll)),nt2::Valmax<vT>()));
+  NT2_TEST_EQUAL(factorial(nt2::Eleven<vT>()), nt2::min((nt2::splat<vT>(39916800ll)),nt2::Valmax<vT>()));
+  NT2_TEST_EQUAL(factorial(nt2::Five<vT>()), nt2::splat<vT>(120));
+  NT2_TEST_EQUAL(factorial(nt2::Four<vT>()), nt2::splat<vT>(24));
+  NT2_TEST_EQUAL(factorial(nt2::Nine<vT>()), nt2::min((nt2::splat<vT>(362880ll)),nt2::Valmax<vT>()));
+  NT2_TEST_EQUAL(factorial(nt2::One<vT>()), nt2::One<vT>());
+  NT2_TEST_EQUAL(factorial(nt2::Seven<vT>()), nt2::min((nt2::splat<vT>(5040ll)),nt2::Valmax<vT>()));
+  NT2_TEST_EQUAL(factorial(nt2::Six<vT>()), nt2::min((nt2::splat<vT>(720ll)),nt2::Valmax<vT>()));
+  NT2_TEST_EQUAL(factorial(nt2::Ten<vT>()), nt2::min((nt2::splat<vT>(3628800ll  )),nt2::Valmax<vT>()));
+  NT2_TEST_EQUAL(factorial(nt2::Three<vT>()), nt2::Six<vT>());
+  NT2_TEST_EQUAL(factorial(nt2::Twelve<vT>()), nt2::min((nt2::splat<vT>(479001600ll)),nt2::Valmax<vT>()));
+  NT2_TEST_EQUAL(factorial(nt2::Two<vT>()), nt2::Two<vT>());
+  NT2_TEST_EQUAL(factorial(nt2::Zero<vT>()), nt2::One<vT>());
+}
+NT2_TEST_CASE_TPL ( factorial_int,  NT2_SIMD_INTEGRAL_TYPES)
 {
   using nt2::factorial;
   using nt2::tag::factorial_;
   using boost::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>                  vT;
+
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Eight<vT>())[0], T(nt2::saturate<T>(40320ull    )), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Eleven<vT>())[0], T(nt2::saturate<T>(39916800ull )), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Five<vT>())[0], T(120), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Four<vT>())[0], T(24), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Nine<vT>())[0], T(nt2::saturate<T>(362880ull   )), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::One<vT>())[0], nt2::One<T>(), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Seven<vT>())[0], T(nt2::saturate<T>(5040ull     )), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Six<vT>())[0], T(nt2::saturate<T>(720ull      )), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Ten<vT>())[0], T(nt2::saturate<T>(3628800ull  )), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Three<vT>())[0], nt2::Six<T>(), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Twelve<vT>())[0], T(nt2::saturate<T>(479001600ull)), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Zero<vT>())[0], nt2::One<T>(), 0);
-} // end of test for integer_
+  NT2_TEST_EQUAL(factorial(nt2::Eight<T>()),nt2::splat<vT>(nt2::saturate<T>(40320ull)));
+  NT2_TEST_EQUAL(factorial(nt2::Eleven<T>()),nt2::splat<vT>(nt2::saturate<T>(39916800ull)));
+  NT2_TEST_EQUAL(factorial(nt2::Five<T>()),nt2::splat<vT>(nt2::saturate<T>(120)));
+  NT2_TEST_EQUAL(factorial(nt2::Four<T>()),nt2::splat<vT>(nt2::saturate<T>(24)));
+  NT2_TEST_EQUAL(factorial(nt2::Nine<T>()),nt2::splat<vT>(nt2::saturate<T>(362880ull)));
+  NT2_TEST_EQUAL(factorial(nt2::One<T>()),nt2::One<T>());
+  NT2_TEST_EQUAL(factorial(nt2::Seven<T>()),nt2::splat<vT>(nt2::saturate<T>(5040ull)));
+  NT2_TEST_EQUAL(factorial(nt2::Six<T>()),nt2::splat<vT>(nt2::saturate<T>(720ull)));
+  NT2_TEST_EQUAL(factorial(nt2::Ten<T>()),nt2::splat<vT>(nt2::saturate<T>(3628800ull)));
+  NT2_TEST_EQUAL(factorial(nt2::Three<T>()),nt2::Six<T>());
+  NT2_TEST_EQUAL(factorial(nt2::Twelve<T>()),nt2::splat<vT>(nt2::saturate<T>(479001600ull)));
+  NT2_TEST_EQUAL(factorial(nt2::Zero<T>()),nt2::One<T>());
+}

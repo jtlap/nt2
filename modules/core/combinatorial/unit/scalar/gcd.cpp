@@ -24,6 +24,10 @@ NT2_TEST_CASE_TPL ( gcd_real__2_0,  NT2_REAL_TYPES)
 {
   using nt2::gcd;
   using nt2::tag::gcd_;
+  typedef T wished_r_t;
+
+  // return type conformity test
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
 
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
@@ -44,6 +48,10 @@ NT2_TEST_CASE_TPL ( gcd_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 {
   using nt2::gcd;
   using nt2::tag::gcd_;
+  typedef T wished_r_t;
+
+  // return type conformity test
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(gcd(T(120),T(80)), 40, 0);

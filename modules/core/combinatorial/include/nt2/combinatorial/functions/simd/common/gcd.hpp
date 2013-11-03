@@ -25,8 +25,8 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gcd_, tag::cpu_
                             , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                              ((simd_<arithmetic_<A0>,X>))
+                            , ((simd_<integer_<A0>,X>))
+                              ((simd_<integer_<A0>,X>))
                             )
   {
     typedef A0 result_type;
@@ -60,9 +60,9 @@ namespace nt2 { namespace ext
       A0 a =  nt2::if_else_zero(ints, a0);
       A0 b =  nt2::if_else_zero(ints, a1);
       bA0 t= nt2::is_nez(b);
-      while (nt2::any(t))
+      while (bool(nt2::any(t)))
       {
-        A0 r = nt2::if_zero_else(t, rem(a, b));
+        A0 r = nt2::if_else_zero(t, rem(a, b));
         a = nt2::if_else(t, b, a);
         b = r;
         t = nt2::is_nez(b);
