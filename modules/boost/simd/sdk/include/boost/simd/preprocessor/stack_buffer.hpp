@@ -35,7 +35,7 @@ variableName( &__##variableName##helper_pointer__[ 0 ]                         \
 
 /// INTERNAL ONLY
 #define BOOST_SIMD_STACK_BUFFER_AUX_BUILTIN_ALLOCA( type, size )               \
-::alloca( size * sizeof( type ) )                                              \
+::alloca( (size) * sizeof( type ) )                                            \
 /**/
 
 #if BOOST_SIMD_ALLOCA_ALIGNMENT >= BOOST_SIMD_CONFIG_ALIGNMENT
@@ -51,7 +51,7 @@ reinterpret_cast<void *>                                                       \
   (                                                                            \
     reinterpret_cast</*std::*/intptr_t>                                        \
     (                                                                          \
-      ::alloca( size * sizeof( type )                                          \
+      ::alloca( (size) * sizeof( type )                                        \
     + BOOST_SIMD_CONFIG_ALIGNMENT - BOOST_SIMD_ALLOCA_ALIGNMENT )              \
     )                                                                          \
     + BOOST_SIMD_CONFIG_ALIGNMENT - BOOST_SIMD_ALLOCA_ALIGNMENT                \
@@ -69,7 +69,7 @@ static_cast<type * BOOST_DISPATCH_RESTRICT const>( impl( type, size ) );       \
 BOOST_ASSERT_MSG                                                               \
 (                                                                              \
   reinterpret_cast<std::size_t>( __##variableName##helper_pointer__ )          \
-  % alignment == 0                                                             \
+  % (alignment) == 0                                                           \
 ,  "Alignment assumption breached in BOOST_SIMD_STACK_BUFFER"                  \
 );                                                                             \
 BOOST_SIMD_STACK_BUFFER_AUX_MAKE_RANGE( variableName, type, size )             \
