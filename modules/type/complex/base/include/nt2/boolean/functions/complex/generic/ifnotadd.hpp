@@ -12,7 +12,6 @@
 #include <nt2/boolean/functions/ifnotadd.hpp>
 #include <nt2/include/functions/if_zero_else.hpp>
 #include <nt2/include/functions/is_nez.hpp>
-#include <nt2/sdk/meta/as_logical.hpp>
 
 namespace nt2 { namespace ext
 {

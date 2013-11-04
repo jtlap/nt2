@@ -19,7 +19,6 @@
 #include <boost/simd/sdk/meta/as_arithmetic.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/mpl/sizeof.hpp>
-#include <boost/mpl/not.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

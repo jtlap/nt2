@@ -11,9 +11,7 @@
 
 #include <nt2/boolean/functions/ifnotinc.hpp>
 #include <nt2/include/functions/if_zero_else_one.hpp>
-#include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/plus.hpp>
-#include <nt2/sdk/meta/as_logical.hpp>
 
 namespace nt2 { namespace ext
 {
