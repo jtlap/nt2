@@ -74,16 +74,16 @@ NT2_TEST_CASE_TPL ( factorial_int,  NT2_SIMD_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(factorial(nt2::Eight<T>()),nt2::splat<vT>(nt2::saturate<T>(40320ull)));
-  NT2_TEST_EQUAL(factorial(nt2::Eleven<T>()),nt2::splat<vT>(nt2::saturate<T>(39916800ull)));
-  NT2_TEST_EQUAL(factorial(nt2::Five<T>()),nt2::splat<vT>(nt2::saturate<T>(120)));
-  NT2_TEST_EQUAL(factorial(nt2::Four<T>()),nt2::splat<vT>(nt2::saturate<T>(24)));
-  NT2_TEST_EQUAL(factorial(nt2::Nine<T>()),nt2::splat<vT>(nt2::saturate<T>(362880ull)));
-  NT2_TEST_EQUAL(factorial(nt2::One<T>()),nt2::One<T>());
-  NT2_TEST_EQUAL(factorial(nt2::Seven<T>()),nt2::splat<vT>(nt2::saturate<T>(5040ull)));
-  NT2_TEST_EQUAL(factorial(nt2::Six<T>()),nt2::splat<vT>(nt2::saturate<T>(720ull)));
-  NT2_TEST_EQUAL(factorial(nt2::Ten<T>()),nt2::splat<vT>(nt2::saturate<T>(3628800ull)));
-  NT2_TEST_EQUAL(factorial(nt2::Three<T>()),nt2::Six<T>());
-  NT2_TEST_EQUAL(factorial(nt2::Twelve<T>()),nt2::splat<vT>(nt2::saturate<T>(479001600ull)));
-  NT2_TEST_EQUAL(factorial(nt2::Zero<T>()),nt2::One<T>());
+  NT2_TEST_EQUAL(factorial(nt2::Eight<vT>()),nt2::splat<vT>(nt2::saturate<vT>(40320ull)));
+  NT2_TEST_EQUAL(factorial(nt2::Eleven<vT>()),nt2::splat<vT>(nt2::saturate<vT>(39916800ull)));
+  NT2_TEST_EQUAL(factorial(nt2::Five<vT>()),nt2::splat<vT>(nt2::saturate<vT>(120)));
+  NT2_TEST_EQUAL(factorial(nt2::Four<vT>()),nt2::splat<vT>(nt2::saturate<vT>(24)));
+  NT2_TEST_EQUAL(factorial(nt2::Nine<vT>()),nt2::splat<vT>(nt2::saturate<vT>(362880ull)));
+  NT2_TEST_EQUAL(factorial(nt2::One<vT>()),nt2::One<vT>());
+  NT2_TEST_EQUAL(factorial(nt2::Seven<vT>()),nt2::splat<vT>(nt2::saturate<vT>(5040ull)));
+  NT2_TEST_EQUAL(factorial(nt2::Six<vT>()),nt2::splat<vT>(nt2::saturate<vT>(720ull)));
+  NT2_TEST_EQUAL(factorial(nt2::Ten<vT>()),nt2::splat<vT>(nt2::saturate<vT>(3628800ull)));
+  NT2_TEST_EQUAL(factorial(nt2::Three<vT>()),nt2::Six<vT>());
+  NT2_TEST_EQUAL(factorial(nt2::Twelve<vT>()),nt2::splat<vT>(nt2::saturate<vT>(479001600ull)));
+  NT2_TEST_EQUAL(factorial(nt2::Zero<vT>()),nt2::One<vT>());
 }
