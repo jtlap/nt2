@@ -75,6 +75,24 @@ BOOST_ASSERT_MSG                                                               \
 BOOST_SIMD_STACK_BUFFER_AUX_MAKE_RANGE( variableName, type, size )             \
 /**/
 
+#ifdef __GNUC__
+#define BOOST_SIMD_SCOPED_STACK_BUFFER_AUX(variableName, type, size, alignment, impl) \
+BOOST_SIMD_ALIGN_ON( alignment ) type                                          \
+__##variableName##helper_pointer__[ size ];                                    \
+BOOST_ASSERT_MSG                                                               \
+(                                                                              \
+  reinterpret_cast<std::size_t>( __##variableName##helper_pointer__ )          \
+  % (alignment) == 0,                                                          \
+  "Alignment assumption breached in BOOST_SIMD_SCOPED_STACK_BUFFER"            \
+);                                                                             \
+BOOST_SIMD_STACK_BUFFER_AUX_MAKE_RANGE( variableName, type, size )             \
+/**/
+#else
+#define BOOST_SIMD_SCOPED_STACK_BUFFER_AUX(variableName, type, size, alignment, impl) \
+BOOST_SIMD_STACK_BUFFER_AUX(variableName, type, size, alignment, impl)         \
+/**/
+#endif
+
 /*!
   @brief Defines a memory buffer allocated on the stack
 
@@ -91,7 +109,7 @@ BOOST_SIMD_STACK_BUFFER_AUX_MAKE_RANGE( variableName, type, size )             \
 #define BOOST_SIMD_STACK_BUFFER( variableName, type, size )                    \
 BOOST_SIMD_STACK_BUFFER_AUX ( variableName, type, size                         \
                             , BOOST_SIMD_ALLOCA_ALIGNMENT                      \
-                            , BOOST_SIMD_STACK_BUFFER_AUX_ALIGNED_ALLOCA       \
+                            , BOOST_SIMD_STACK_BUFFER_AUX_BUILTIN_ALLOCA       \
                             )                                                  \
 /**/
 
@@ -115,7 +133,6 @@ BOOST_SIMD_STACK_BUFFER_AUX ( variableName, type, size                         \
                             )                                                  \
 /**/
 
-#if defined(DOXYGEN_ONLY)
 /*!
   @brief Defines a scoped memory buffer allocated on the stack
 
@@ -131,26 +148,14 @@ BOOST_SIMD_STACK_BUFFER_AUX ( variableName, type, size                         \
   @param size         Number of element in the buffer
 
 **/
-#define BOOST_SIMD_SCOPED_STACK_BUFFER( variableName, type, size )
-#else
-#if defined( __GNUC__ )
 #define BOOST_SIMD_SCOPED_STACK_BUFFER( variableName, type, size )             \
-BOOST_SIMD_ALIGN_ON( BOOST_SIMD_CONFIG_ALIGNMENT ) type                        \
-__##variableName##helper_pointer__[ size ];                                    \
-BOOST_ASSERT_MSG                                                               \
-(                                                                              \
-    reinterpret_cast<std::size_t>( __##variableName##helper_pointer__ )        \
-  % BOOST_SIMD_CONFIG_ALIGNMENT == 0,                                          \
-  "Alignment assumption breached in BOOST_SIMD_SCOPED_STACK_BUFFER"            \
-);                                                                             \
-BOOST_SIMD_STACK_BUFFER_AUX_MAKE_RANGE( variableName, type, size )             \
+BOOST_SIMD_SCOPED_STACK_BUFFER_AUX( variableName, type, size                   \
+                                  , BOOST_SIMD_ARCH_ALIGNMENT                  \
+                                  , BOOST_SIMD_STACK_BUFFER_AUX_BUILTIN_ALLOCA \
+                                  )                                            \
 /**/
-#else
-#define BOOST_SIMD_SCOPED_STACK_BUFFER BOOST_SIMD_STACK_BUFFER
-#endif
-#endif
 
-#if defined(DOXYGEN_ONLY)
+
 /*!
   @brief Defines a scoped memory buffer allocated on the stack suitable for SIMD
 
@@ -166,13 +171,11 @@ BOOST_SIMD_STACK_BUFFER_AUX_MAKE_RANGE( variableName, type, size )             \
   @param size         Number of element in the buffer
 
 **/
-#define BOOST_SIMD_ALIGNED_SCOPED_STACK_BUFFER( variableName, type, size )
-#else
-#if BOOST_SIMD_ARCH_ALIGNMENT >= BOOST_SIMD_CONFIG_ALIGNMENT
-#define BOOST_SIMD_ALIGNED_SCOPED_STACK_BUFFER BOOST_SIMD_SCOPED_STACK_BUFFER
-#else
-#define BOOST_SIMD_ALIGNED_SCOPED_STACK_BUFFER BOOST_SIMD_ALIGNED_STACK_BUFFER
-#endif
-#endif
+#define BOOST_SIMD_ALIGNED_SCOPED_STACK_BUFFER( variableName, type, size )     \
+BOOST_SIMD_SCOPED_STACK_BUFFER_AUX( variableName, type, size                   \
+                                  , BOOST_SIMD_CONFIG_ALIGNMENT                \
+                                  , BOOST_SIMD_STACK_BUFFER_AUX_ALIGNED_ALLOCA \
+                                  )                                            \
+/**/
 
 #endif
