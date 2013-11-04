@@ -78,6 +78,19 @@ namespace boost { namespace simd
                                         )>::type          callee;
     callee(value,data,offset);
   }
+
+  template<std::size_t Offset, typename Value, typename Data>
+  BOOST_FORCEINLINE
+  void insert(Value const& value, Data& data)
+  {
+    typename  boost::dispatch::meta
+            ::dispatch_call<tag::insert_( Value const&
+                                        , Data&
+                                        , boost::mpl::size_t<Offset> const&
+                                        )>::type          callee;
+    boost::mpl::size_t<Offset> offset;
+    callee(value,data,offset);
+  }
 } }
 
 #endif
