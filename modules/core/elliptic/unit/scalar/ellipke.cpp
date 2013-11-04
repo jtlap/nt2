@@ -8,18 +8,14 @@
 #include <nt2/elliptic/include/functions/scalar/ellipke.hpp>
 #include <nt2/elliptic/include/functions/simd/ellipke.hpp>
 
-#include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/pio_2.hpp>
 #include <nt2/include/constants/inf.hpp>
-#include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/eps.hpp>
-#include <nt2/include/functions/sin.hpp>
-#include <nt2/include/functions/cos.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/fusion/include/vector_tie.hpp>
 

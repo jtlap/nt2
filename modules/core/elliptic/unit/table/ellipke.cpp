@@ -10,12 +10,9 @@
 #include <nt2/elliptic/include/functions/scalar/ellipke.hpp>
 #include <nt2/elliptic/include/functions/simd/ellipke.hpp>
 #include <nt2/include/functions/ellipke.hpp>
-#include <nt2/include/functions/sin.hpp>
-#include <nt2/include/functions/cos.hpp>
 #include <nt2/include/functions/linspace.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/tie.hpp>
-#include <nt2/include/constants/pi.hpp>
 #include <boost/fusion/include/vector_tie.hpp>
 
 #include <nt2/sdk/unit/module.hpp>

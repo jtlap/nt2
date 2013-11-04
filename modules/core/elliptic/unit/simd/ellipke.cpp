@@ -15,11 +15,8 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/pio_2.hpp>
 #include <nt2/include/constants/inf.hpp>
-#include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/eps.hpp>
-#include <nt2/include/functions/sin.hpp>
-#include <nt2/include/functions/cos.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/fusion/include/vector_tie.hpp>
 
@@ -27,7 +24,7 @@
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
-NT2_TEST_CASE_TPL ( ellipke_real__1_0,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( ellipke_real,  NT2_SIMD_REAL_TYPES)
 {
 
   using nt2::ellipke;
