@@ -11,12 +11,13 @@
 
 #include <boost/simd/sdk/simd/pack/forward.hpp>
 #include <boost/simd/sdk/dsl/typed_expression.hpp>
+#include <boost/simd/dsl/functions/evaluate.hpp>
 #include <boost/dispatch/meta/is_scalar.hpp>
-#include <boost/mpl/if.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/mpl/lambda.hpp>
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/placeholders.hpp>
-#include <boost/type_traits/remove_const.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace boost { namespace simd
 {
@@ -35,26 +36,47 @@ namespace boost { namespace simd
   struct generator
     : proto::transform<generator>
   {
-    template<class Expr, class State, class Data>
-    struct impl : proto::transform_impl<Expr, State, Data>
+    // normal case: return an expression
+    template< class Expr, class State, class Data
+            , class RawExpr = typename dispatch::meta::strip<Expr>::type
+            , class Semantic = typename mpl::apply1< meta::typed_expression<details::mpl_2>, RawExpr>::type
+            , class Enable = void
+            >
+    struct impl
+         : proto::transform_impl<Expr, State, Data>
     {
-        typedef typename boost::remove_const<typename impl::expr>::type raw_expr;
+      typedef expression<RawExpr, Semantic> result_type;
 
-        typedef typename mpl::apply1< meta::typed_expression<details::mpl_2>, raw_expr>::type semantic;
-        typedef expression<raw_expr, semantic> simd_expr;
+      BOOST_FORCEINLINE result_type
+      operator()( typename impl::expr_param e
+                , typename impl::state_param
+                , typename impl::data_param
+                ) const
+      {
+        result_type const that = {e};
+        return that;
+      }
+    };
 
-        typedef typename mpl::if_< dispatch::meta::is_scalar<semantic>, semantic, simd_expr >::type result_type;
+    // scalar or void case: evaluate the expression and return it
+    template< class Expr, class State, class Data
+            , class RawExpr, class Semantic
+            >
+    struct impl<Expr, State, Data, RawExpr, Semantic, typename enable_if< dispatch::meta::is_scalar<Semantic> >::type>
+         : proto::transform_impl<Expr, State, Data>
+    {
+      typedef Semantic result_type;
+      typedef expression<RawExpr, Semantic> simd_expr;
 
-        BOOST_FORCEINLINE
-        result_type
-        operator()( typename impl::expr_param e
-                  , typename impl::state_param
-                  , typename impl::data_param
-                  ) const
-        {
-          simd_expr const that = {e};
-          return that;
-        }
+      BOOST_FORCEINLINE result_type
+      operator()( typename impl::expr_param e
+                , typename impl::state_param
+                , typename impl::data_param
+                ) const
+      {
+        simd_expr const that = {e};
+        return evaluate(that);
+      }
     };
   };
 } }

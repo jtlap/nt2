@@ -15,6 +15,8 @@
 #include <boost/simd/include/functions/plus.hpp>
 #include <boost/simd/include/functions/compare_equal.hpp>
 #include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/make.hpp>
+#include <boost/simd/include/functions/slice.hpp>
 #include <boost/simd/include/constants/one.hpp>
 
 #include <boost/fusion/include/at.hpp>
@@ -68,6 +70,17 @@ NT2_TEST_CASE(bitwise_cast_target)
 
   itype i(0x3f800000);
   NT2_TEST_EQUAL(bitwise_cast<ftype>(i), One<ftype>());
+}
+
+NT2_TEST_CASE(multi_return)
+{
+  using namespace boost::simd;
+  pack<float, 4> a(1.f, 2.f, 3.f, 4.f);
+  typedef pack<float, 2> htype;
+  htype lo, hi;
+  slice(a, lo, hi);
+  NT2_TEST_EQUAL(lo, make<htype>(1.f, 2.f));
+  NT2_TEST_EQUAL(hi, make<htype>(3.f, 4.f));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
