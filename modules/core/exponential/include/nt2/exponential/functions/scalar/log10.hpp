@@ -19,30 +19,6 @@
 
 namespace nt2 { namespace ext
 {
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log10_, tag::cpu_
-//                             , (A0)
-//                             , (scalar_< int_<A0> >)
-//                             )
-//   {
-//     typedef A0 result_type;
-//     NT2_FUNCTOR_CALL(1)
-//     {
-//       return toint(nt2::log10(nt2::tofloat(a0)));
-//     }
-//   };
-
-
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log10_, tag::cpu_
-//                             , (A0)
-//                             , (scalar_< uint_<A0> >)
-//                             )
-//   {
-//     typedef A0 result_type;
-//     NT2_FUNCTOR_CALL(1)
-//     {
-//       return touint(nt2::log10(nt2::tofloat(a0)));
-//     }
-//   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log10_
                                    , boost::simd::tag::cpu_
