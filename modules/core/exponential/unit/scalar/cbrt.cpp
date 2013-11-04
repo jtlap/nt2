@@ -53,8 +53,10 @@ NT2_TEST_CASE_TPL ( cbrt_unsigned_int,  NT2_UNSIGNED_TYPES)
   using nt2::cbrt;
   using nt2::tag::cbrt_;
 
+
   typedef typename nt2::meta::call<cbrt_(T)>::type r_t;
   typedef typename nt2::meta::as_floating<T>::type wished_r_t;
+  typedef typename nt2::meta::call<cbrt_(T)>::type r_t;
 
   // return type conformity test
   NT2_TEST_TYPE_IS(r_t, wished_r_t);

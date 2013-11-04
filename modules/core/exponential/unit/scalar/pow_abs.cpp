@@ -88,7 +88,7 @@ NT2_TEST_CASE_TPL ( pow_abs_signed_int,  NT2_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_ULP_EQUAL(pow_abs(nt2::Zero<T>(), nt2::Zero<T>()), nt2::One<r_t>(), 0);
 }
 
-NT2_TEST_CASE_TPL ( pow_abs_real__2_1,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( pow_abs_real_2,  NT2_REAL_TYPES)
 {
   using nt2::pow_abs;
   using nt2::tag::pow_abs_;

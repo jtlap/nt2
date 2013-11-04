@@ -15,7 +15,6 @@
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/config.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
 
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/one.hpp>
@@ -64,7 +63,8 @@ NT2_TEST_CASE_TPL ( log10_unsigned_uint8,  (uint8_t))
   NT2_TEST_ULP_EQUAL(log10(T(100)), T(2), 0);
 }
 
-NT2_TEST_CASE_TPL ( log10_unsigned_int,  (uint16_t))
+
+NT2_TEST_CASE_TPL ( log10_unsigned_int,  (uint16_t))//NT2_UNSIGNED_TYPES)
 {
   using nt2::log10;
   using nt2::tag::log10_;

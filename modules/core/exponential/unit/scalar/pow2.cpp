@@ -15,7 +15,7 @@
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/config.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 
 #include <nt2/include/constants/four.hpp>
 #include <nt2/include/constants/mone.hpp>
@@ -31,7 +31,7 @@ NT2_TEST_CASE_TPL ( pow2_real,  BOOST_SIMD_REAL_TYPES)
   using nt2::tag::pow2_;
   typedef typename nt2::meta::as_integer<T>::type          iT;
   typedef typename boost::dispatch::meta::call<pow2_(T,iT)>::type r_t;
-  typedef typename nt2::meta::as_floating<T>::type wished_r_t;
+  typedef T wished_r_t;
 
   // return type conformity test
   NT2_TEST_TYPE_IS(r_t, wished_r_t);

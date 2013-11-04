@@ -15,7 +15,6 @@
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/config.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
 
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/one.hpp>
@@ -25,6 +24,7 @@
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/log_2.hpp>
+
 
 NT2_TEST_CASE_TPL ( logspace_add_real__2_1,  NT2_REAL_TYPES)
 {

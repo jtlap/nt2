@@ -15,7 +15,6 @@
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/config.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
 
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/one.hpp>

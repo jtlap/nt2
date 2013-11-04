@@ -56,6 +56,7 @@ NT2_TEST_CASE_TPL ( exp2_unsigned_int,  NT2_UNSIGNED_TYPES)
   typedef typename nt2::meta::call<exp2_(T)>::type r_t;
   typedef typename nt2::meta::as_floating<T>::type wished_r_t;
 
+
   // return type conformity test
   NT2_TEST_TYPE_IS(r_t, wished_r_t);
 
