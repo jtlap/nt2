@@ -38,35 +38,6 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log10_, boost::simd::tag::sse_
-                            , (A0)
-                            , (scalar_< uint8_<A0> >)
-                            )
-  {
-    typedef A0 result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef boost::simd::native<int64_t, boost::simd::tag::sse_> v_type;
-      v_type t = make<v_type>(99, 9);
-      v_type va0 = splat<v_type>(a0);
-      return -sum(bitwise_cast<v_type>(gt(va0, t)));
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log10_, boost::simd::tag::sse_
-                            , (A0)
-                            , (scalar_< uint16_<A0> >)
-                            )
-  {
-    typedef A0 result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef boost::simd::native<int32_t, boost::simd::tag::sse_> v_type;
-      v_type t = make<v_type>(9999, 999, 99, 9);
-      v_type va0 = splat<v_type>(a0);
-      return -sum(bitwise_cast<v_type>(gt(va0, t)));
-    }
-  };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log10_, boost::simd::tag::sse_
                             , (A0)
