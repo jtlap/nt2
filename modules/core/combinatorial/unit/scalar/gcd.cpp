@@ -20,10 +20,11 @@
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
 
-NT2_TEST_CASE_TPL ( gcd_real__2_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( gcd_real,  NT2_REAL_TYPES)
 {
   using nt2::gcd;
   using nt2::tag::gcd_;
+  typedef typename nt2::meta::call<gcd_(T,T)>::type r_t;
   typedef T wished_r_t;
 
   // return type conformity test
@@ -44,10 +45,11 @@ NT2_TEST_CASE_TPL ( gcd_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(gcd(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
 }
 
-NT2_TEST_CASE_TPL ( gcd_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( gcd_unsigned_int,  NT2_UNSIGNED_TYPES)
 {
   using nt2::gcd;
   using nt2::tag::gcd_;
+  typedef typename nt2::meta::call<gcd_(T,T)>::type r_t;
   typedef T wished_r_t;
 
   // return type conformity test
@@ -62,11 +64,15 @@ NT2_TEST_CASE_TPL ( gcd_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
   NT2_TEST_ULP_EQUAL(gcd(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
 }
 
-NT2_TEST_CASE_TPL ( gcd_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( gcd_signed_int,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::gcd;
   using nt2::tag::gcd_;
+  typedef typename nt2::meta::call<gcd_(T,T)>::type r_t;
+  typedef T wished_r_t;
 
+  // return type conformity test
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
   // specific values tests
   NT2_TEST_ULP_EQUAL(gcd(T(120),T(80)), 40, 0);
   NT2_TEST_ULP_EQUAL(gcd(T(3),T(15)), 3, 0);
