@@ -19,7 +19,7 @@ namespace boost { namespace simd { namespace ext
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)(A2)
                                     , (scalar_< integer_<A0> >)
-                                    , ((simd_< ints8_<A1>, boost::simd::tag::sse_ >))
+                                      ((simd_< ints8_<A1>, boost::simd::tag::sse_ >))
                                       (mpl_integral_< scalar_< integer_<A2> > >)
                                     )
   {
@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)(A2)
                                     , (scalar_< integer_<A0> >)
-                                    , ((simd_< ints32_<A1>, boost::simd::tag::sse_ >))
+                                      ((simd_< ints32_<A1>, boost::simd::tag::sse_ >))
                                       (mpl_integral_< scalar_< integer_<A2> > >)
                                     )
   {
@@ -49,7 +49,7 @@ namespace boost { namespace simd { namespace ext
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)(A2)
                                     , (scalar_< integer_<A0> >)
-                                    , ((simd_< ints64_<A1>, boost::simd::tag::sse_ >))
+                                      ((simd_< ints64_<A1>, boost::simd::tag::sse_ >))
                                       (mpl_integral_< scalar_< integer_<A2> > >)
                                     )
   {
