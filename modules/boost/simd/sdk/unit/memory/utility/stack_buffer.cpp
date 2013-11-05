@@ -19,7 +19,6 @@ NT2_TEST_CASE_TPL(stack_buffer, BOOST_SIMD_TYPES)
 
   BOOST_SIMD_STACK_BUFFER( array, T, 13 );
 
-  NT2_TEST( is_aligned(&array[ 0 ], BOOST_SIMD_ALLOCA_ALIGNMENT) );
   for(std::size_t i=0; i < 13; ++i) array[i] = T(i+1);
   for(std::size_t i=0; i < 13; ++i) NT2_TEST_EQUAL(array[i], T(i+1));
 }
@@ -41,7 +40,6 @@ NT2_TEST_CASE_TPL(scoped_buffer, BOOST_SIMD_TYPES)
 
   BOOST_SIMD_SCOPED_STACK_BUFFER( array, T, 13 );
 
-  NT2_TEST( is_aligned(&array[ 0 ], BOOST_SIMD_ALLOCA_ALIGNMENT) );
   for(std::size_t i=0; i < 13; ++i) array[i] = T(i+1);
   for(std::size_t i=0; i < 13; ++i) NT2_TEST_EQUAL(array[i], T(i+1));
 }

@@ -108,7 +108,7 @@ BOOST_SIMD_STACK_BUFFER_AUX(variableName, type, size, alignment, impl)         \
 **/
 #define BOOST_SIMD_STACK_BUFFER( variableName, type, size )                    \
 BOOST_SIMD_STACK_BUFFER_AUX ( variableName, type, size                         \
-                            , BOOST_SIMD_ALLOCA_ALIGNMENT                      \
+                            , sizeof(type)                                     \
                             , BOOST_SIMD_STACK_BUFFER_AUX_BUILTIN_ALLOCA       \
                             )                                                  \
 /**/
@@ -150,7 +150,7 @@ BOOST_SIMD_STACK_BUFFER_AUX ( variableName, type, size                         \
 **/
 #define BOOST_SIMD_SCOPED_STACK_BUFFER( variableName, type, size )             \
 BOOST_SIMD_SCOPED_STACK_BUFFER_AUX( variableName, type, size                   \
-                                  , BOOST_SIMD_ARCH_ALIGNMENT                  \
+                                  , sizeof(type)                               \
                                   , BOOST_SIMD_STACK_BUFFER_AUX_BUILTIN_ALLOCA \
                                   )                                            \
 /**/
