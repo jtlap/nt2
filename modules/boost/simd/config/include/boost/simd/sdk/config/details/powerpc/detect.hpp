@@ -11,14 +11,14 @@
 
 #include <boost/simd/sdk/config/arch/powerpc.hpp>
 
-#if defined(BOOST_SIMD_ARCH_POWERPC)
-#include <boost/simd/sdk/config/details/detector/linux_auxv.hpp>
-#include <boost/simd/sdk/config/os/macos.hpp>
+#ifdef BOOST_SIMD_ARCH_POWERPC
+#include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
+#include <boost/simd/sdk/config/os.hpp>
 
 #if defined(BOOST_SIMD_OS_LINUX)
+#include <boost/simd/sdk/config/details/detector/linux_auxv.hpp>
 #include <asm/cputable.h>
 #elif defined(BOOST_SIMD_OS_MACOS)
-#include <boost/simd/sdk/config/details/detect.hpp>
 #include <Gestalt.h>
 #endif
 
