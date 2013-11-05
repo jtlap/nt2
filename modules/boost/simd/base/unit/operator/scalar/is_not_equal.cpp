@@ -22,6 +22,8 @@
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/nan.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/include/constants/true.hpp>
+#include <boost/simd/include/constants/false.hpp>
 
 NT2_TEST_CASE_TPL ( is_not_equal_integer,  BOOST_SIMD_INTEGRAL_TYPES)
 {

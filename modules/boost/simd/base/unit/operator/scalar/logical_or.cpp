@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <boost/simd/operator/include/functions/logical_and.hpp>
+#include <boost/simd/operator/include/functions/logical_or.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
 #include <boost/dispatch/functor/meta/call.hpp>

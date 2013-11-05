@@ -10,7 +10,7 @@
 #define BOOST_SIMD_BOOLEAN_FUNCTIONS_SIMD_COMMON_IFNOTADD_HPP_INCLUDED
 
 #include <boost/simd/boolean/functions/ifnotadd.hpp>
-#include <boost/simd/include/functions/simd/if_else_zero.hpp>
+#include <boost/simd/include/functions/simd/if_zero_else.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/mpl/equal_to.hpp>

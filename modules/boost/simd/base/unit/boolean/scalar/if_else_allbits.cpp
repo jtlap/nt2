@@ -19,6 +19,8 @@
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/nan.hpp>
+#include <boost/simd/include/constants/false.hpp>
+#include <boost/simd/include/constants/true.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
 
 NT2_TEST_CASE_TPL ( if_else_allbits_real,  BOOST_SIMD_REAL_TYPES)

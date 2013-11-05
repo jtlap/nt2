@@ -19,8 +19,8 @@
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/nan.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
-
-
+#include <boost/simd/include/constants/true.hpp>
+#include <boost/simd/include/constants/false.hpp>
 
 NT2_TEST_CASE_TPL ( mask2logical_real,  BOOST_SIMD_SIMD_REAL_TYPES)
 {

@@ -17,6 +17,8 @@
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/two.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
 
 NT2_TEST_CASE_TPL ( selinc_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {

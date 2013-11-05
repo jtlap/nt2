@@ -10,8 +10,7 @@
 #define BOOST_SIMD_BOOLEAN_FUNCTIONS_SIMD_COMMON_IFNOTSUB_HPP_INCLUDED
 
 #include <boost/simd/boolean/functions/ifnotsub.hpp>
-#include <boost/simd/include/functions/simd/if_else_zero.hpp>
-#include <boost/simd/include/functions/simd/plus.hpp>
+#include <boost/simd/include/functions/simd/if_zero_else.hpp>
 #include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/mpl/equal_to.hpp>
@@ -29,8 +28,9 @@ namespace boost { namespace simd { namespace ext
                                )
   {
     typedef A1 result_type;
-    inline result_type
-    operator()(A0 const& a0, A1 const& a1, A1 const& a2) const
+
+    BOOST_FORCEINLINE
+    result_type operator()(A0 const& a0, A1 const& a1, A1 const& a2) const
     {
       return a1-if_zero_else(a0, a2);
     }
