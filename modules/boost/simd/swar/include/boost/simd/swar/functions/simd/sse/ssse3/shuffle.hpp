@@ -38,7 +38,6 @@ namespace boost { namespace simd { namespace ext
                               , details::permute< P
                                                 , mask_type
                                                 , card_t::value
-                                                , BOOST_SIMD_BYTES
                                                 >::call()
                               );
     }
@@ -63,7 +62,6 @@ namespace boost { namespace simd { namespace ext
                               , details::permute< P
                                                 , result_type
                                                 , card_t::value
-                                                , BOOST_SIMD_BYTES
                                                 >::call()
                               );
     }

@@ -33,8 +33,10 @@ namespace boost { namespace simd { namespace details
   {};
 
   // Permute specialization
-  template<class P, class Type, int N, int Bytes> struct permute
+  template<class P, class Type, int N> struct permute
   {
+    static const std::size_t Bytes = sizeof(Type);
+
     template<char I>
     struct  mask_
           : generate_ < P
