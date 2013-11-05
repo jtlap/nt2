@@ -117,6 +117,7 @@ namespace boost { namespace simd { namespace ext
                                  , details::permute < P
                                                     , mask_type
                                                     , card_t::value
+                                                    , BOOST_SIMD_BYTES
                                                     >::call()()
                                  );
       return that;
@@ -139,6 +140,7 @@ namespace boost { namespace simd { namespace ext
                                           , details::permute< P
                                                             , mask_type
                                                             , card_t::value
+                                                            , BOOST_SIMD_BYTES
                                                             >::call()()
                                           )
                                 , bitwise_cast<A0>(mask)()
