@@ -13,9 +13,9 @@ considered:
   so load and store can be issued properly. This value is accessible through the
   [macroref BOOST_SIMD_CONFIG_ALIGNMENT] symbol.
 
-* Stack alignment, which is the alignment of data on the stack. has it's usually
+* Stack alignment, which is the alignment of data on the stack. As it's usually
   smaller than the previous value, it may be interesting to check its value
-  through the [macroref BOOST_SIMD_ALLOCA_ALIGNMENT] symbol.
+  through the [macroref BOOST_SIMD_ARCH_ALIGNMENT] symbol.
 
 [endsect]
 
