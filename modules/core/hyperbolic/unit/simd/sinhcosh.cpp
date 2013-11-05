@@ -13,7 +13,8 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/include/functions/cosh.hpp>
 #include <nt2/include/functions/sinh.hpp>
-#include <nt2/constant/constant.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/one.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <boost/fusion/include/vector_tie.hpp>
 
