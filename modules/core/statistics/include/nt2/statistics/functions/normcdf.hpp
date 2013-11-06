@@ -79,10 +79,10 @@ namespace nt2 { namespace tag
     deviation.
 
     @code
-    tie(r, rlo, rup) = expcdf(a0, m, s, cov, alpha);
+    tie(r, rlo, rup) = normcdf(a0, m, s, cov, alpha);
     @endcode
 
-    Returns r = expcdf(a0, m, s), but also produces confidence bounds
+    Returns r = normcdf(a0, m, s), but also produces confidence bounds
     for p when the input parameters m and s are estimates.  cov is a
     2-by-2 matrix containing the covariance matrix of the estimated parameters.
     alpha has a default value of 0.05, and specifies 100*(1-alpha)% confidence
@@ -94,7 +94,7 @@ namespace nt2 { namespace tag
     @param a0
     @param a1 mean estimate
     @param a2 standard deviation estimate.
-    @param a3 covarianc matrix of the estimated a1 and a2
+    @param a3 covariance matrix of the estimated a1 and a2
     @param a4 optional confidence bound (default to 0.05)
 
     @return an expression which eventually will evaluate to the result
