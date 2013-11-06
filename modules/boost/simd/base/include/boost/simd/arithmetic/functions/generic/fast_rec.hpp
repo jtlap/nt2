@@ -16,7 +16,7 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION (  boost::simd::tag::fast_rec_, tag::cpu_
                                     , (A0)
-                                    , ((generic_< arithmetic_<A0> >))
+                                    , (generic_< arithmetic_<A0> >)
                                     )
   {
     BOOST_DISPATCH_RETURNS(1,(A0 const& a0), boost::simd::rec(a0));
