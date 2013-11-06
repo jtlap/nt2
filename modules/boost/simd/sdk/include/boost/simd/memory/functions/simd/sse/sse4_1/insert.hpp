@@ -9,7 +9,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_SSE_SSE4_1_INSERT_HPP_INCLUDED
 #define BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_SSE_SSE4_1_INSERT_HPP_INCLUDED
-#ifdef BOOST_SIMD_HAS_SSE4_2_SUPPORT
+#ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
 
 #include <boost/simd/memory/functions/insert.hpp>
 
@@ -45,6 +45,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
+#ifdef BOOST_SIMD_ARCH_X86_64
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::insert_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)(A2)
@@ -59,6 +60,8 @@ namespace boost { namespace simd { namespace ext
       a1 = _mm_insert_epi64(a1, a0, A2::value);
     }
   };
+#endif
+
 } } }
 
 #endif
