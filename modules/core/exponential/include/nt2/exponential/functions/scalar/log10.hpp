@@ -10,10 +10,6 @@
 #define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_LOG10_HPP_INCLUDED
 
 #include <nt2/exponential/functions/log10.hpp>
-#include <nt2/include/functions/scalar/tofloat.hpp>
-#include <nt2/include/functions/scalar/toint.hpp>
-#include <nt2/include/functions/scalar/touint.hpp>
-#include <boost/simd/sdk/simd/meta/is_native.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <boost/assert.hpp>
 
@@ -21,10 +17,10 @@ namespace nt2 { namespace ext
 {
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log10_
-                                   , boost::simd::tag::cpu_
-                                   , (A0)
-                                   , (scalar_< int_<A0> >)
-                                   )
+                            , boost::simd::tag::cpu_
+                            , (A0)
+                            , (scalar_< int_<A0> >)
+                            )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
