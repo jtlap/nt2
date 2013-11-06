@@ -8,62 +8,37 @@
 //==============================================================================
 #include <boost/simd/swar/include/functions/lookup.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/constant/constant.hpp>
+#include <boost/simd/include/functions/enumerate.hpp>
+#include <boost/simd/include/functions/reverse.hpp>
+#include <boost/simd/include/functions/divides.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/include/constants/two.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 
-NT2_TEST_CASE_TPL ( lookup_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( lookup,  BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::lookup;
   using boost::simd::tag::lookup_;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::dispatch::meta::call<lookup_(vT,ivT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef native<T,ext_t>                  vT;
+  typedef typename boost::dispatch::meta::as_integer<vT>::type ivT;
 
-  // specific values tests
-  NT2_TEST_EQUAL(lookup(boost::simd::Inf<vT>(),boost::simd::Zero<ivT>())[0], boost::simd::Inf<sr_t>());
-  NT2_TEST_EQUAL(lookup(boost::simd::Minf<vT>(),boost::simd::Zero<ivT>())[0], boost::simd::Minf<sr_t>());
-  NT2_TEST_EQUAL(lookup(boost::simd::Mone<vT>(),boost::simd::Zero<ivT>())[0], boost::simd::Mone<sr_t>());
-  NT2_TEST_EQUAL(lookup(boost::simd::Nan<vT>(),boost::simd::Zero<ivT>())[0], boost::simd::Nan<sr_t>());
-  NT2_TEST_EQUAL(lookup(boost::simd::One<vT>(),boost::simd::Zero<ivT>())[0], boost::simd::One<sr_t>());
-  NT2_TEST_EQUAL(lookup(boost::simd::Zero<vT>(),boost::simd::Zero<ivT>())[0], boost::simd::Zero<sr_t>());
-  NT2_TEST_EQUAL(lookup(boost::simd::Inf<vT>(),boost::simd::One<ivT>())[0], boost::simd::Inf<sr_t>());
-  NT2_TEST_EQUAL(lookup(boost::simd::Minf<vT>(),boost::simd::One<ivT>())[0], boost::simd::Minf<sr_t>());
-  NT2_TEST_EQUAL(lookup(boost::simd::Mone<vT>(),boost::simd::One<ivT>())[0], boost::simd::Mone<sr_t>());
-  NT2_TEST_EQUAL(lookup(boost::simd::Nan<vT>(),boost::simd::One<ivT>())[0], boost::simd::Nan<sr_t>());
-  NT2_TEST_EQUAL(lookup(boost::simd::One<vT>(),boost::simd::One<ivT>())[0], boost::simd::One<sr_t>());
-  NT2_TEST_EQUAL(lookup(boost::simd::Zero<vT>(),boost::simd::One<ivT>())[0], boost::simd::Zero<sr_t>());
-} // end of test for floating_
+  ivT inds =  boost::simd::enumerate<ivT>();
+  vT vals  =  boost::simd::enumerate<vT>();
+  vT  r =  lookup(vals, inds);
+  NT2_TEST_EQUAL(r, vals);
+  ivT indsr =  boost::simd::reverse(inds);
+  r = lookup(vals, indsr);
+  NT2_TEST_EQUAL(r, boost::simd::reverse(vals));
 
-NT2_TEST_CASE_TPL ( lookup_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
-{
-  using boost::simd::lookup;
-  using boost::simd::tag::lookup_;
-  using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::dispatch::meta::call<lookup_(vT,ivT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  vals =  boost::simd::enumerate<vT>(boost::simd::Valmax<vT>()/boost::simd::Two<vT>());
+  r = lookup(vals, inds);
+  NT2_TEST_EQUAL(r, vals);
+  r = lookup(vals, indsr);
+  NT2_TEST_EQUAL(r, boost::simd::reverse(vals));
 
-  // specific values tests
-  NT2_TEST_EQUAL(lookup(boost::simd::One<vT>(),boost::simd::Zero<ivT>())[0], boost::simd::One<sr_t>());
-  NT2_TEST_EQUAL(lookup(boost::simd::Zero<vT>(),boost::simd::Zero<ivT>())[0], boost::simd::Zero<sr_t>());
-  NT2_TEST_EQUAL(lookup(boost::simd::One<vT>(),boost::simd::One<ivT>())[0], boost::simd::One<sr_t>());
-  NT2_TEST_EQUAL(lookup(boost::simd::Zero<vT>(),boost::simd::One<ivT>())[0], boost::simd::Zero<sr_t>());
-} // end of test for integer_
+}
