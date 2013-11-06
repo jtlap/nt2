@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename meta::as_complex<rtype>::type esult_type;
+    typedef typename meta::as_complex<rtype>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       return result_type(nt2::real(a0));
