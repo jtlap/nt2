@@ -11,19 +11,16 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/operator/functions/multiplies.hpp>
-#include <boost/dispatch/meta/scalar_of.hpp>
+#include <boost/simd/include/constants/int_splat.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
-
-#include <boost/simd/include/functions/simd/bitwise_or.hpp>
-#include <boost/simd/include/constants/digits.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, boost::simd::tag::sse2_
-                            , (A0)
-                            , ((simd_<double_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<double_<A0>,boost::simd::tag::sse_>))
-                            )
+                                   , (A0)
+                                   , ((simd_<double_<A0>,boost::simd::tag::sse_>))
+                                     ((simd_<double_<A0>,boost::simd::tag::sse_>))
+                                   )
   {
     typedef A0 result_type;
 
@@ -34,10 +31,10 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, boost::simd::tag::sse2_
-                            , (A0)
-                            , ((simd_<single_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<single_<A0>,boost::simd::tag::sse_>))
-                            )
+                                   , (A0)
+                                   , ((simd_<single_<A0>,boost::simd::tag::sse_>))
+                                     ((simd_<single_<A0>,boost::simd::tag::sse_>))
+                                   )
   {
     typedef A0 result_type;
 
@@ -48,10 +45,10 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, boost::simd::tag::sse2_
-                            , (A0)
-                            , ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
-                            )
+                                   , (A0)
+                                   , ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
+                                     ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
+                                   )
   {
     typedef A0 result_type;
 
@@ -67,15 +64,15 @@ namespace boost { namespace simd { namespace ext
       type abh   = _mm_and_si128(mask1, _mm_mullo_epi16(a0,a1));
       type ab    = _mm_mullo_epi16(al,bl);
       type abl   = _mm_slli_epi16(_mm_and_si128(mask1, ab), 8);
-      return bitwise_cast<result_type>(abh | abl);
+      return _mm_or_si128(abh, abl);
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, boost::simd::tag::sse2_
-                            , (A0)
-                            , ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
-                            )
+                                   , (A0)
+                                   , ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
+                                     ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
+                                   )
   {
     typedef A0 result_type;
 
@@ -86,10 +83,10 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, boost::simd::tag::sse2_
-                            , (A0)
-                            , ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
-                            )
+                                   , (A0)
+                                   , ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
+                                     ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
+                                   )
   {
     typedef A0 result_type;
 
