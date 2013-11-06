@@ -8,6 +8,7 @@
 //==============================================================================
 #include <boost/simd/swar/include/functions/enumerate.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -25,6 +26,44 @@ NT2_TEST_CASE_TPL ( enumerate, BOOST_SIMD_SIMD_TYPES)
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>               vT;
+
+  NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<enumerate_(as_<vT> )>::type
+                  , vT
+                  );
+
+  NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<enumerate_(T,as_<vT> )>::type
+                  , vT
+                  );
+
+  NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<enumerate_(T,T,as_<vT> )>::type
+                  , vT
+                  );
+
+  vT ref;
+
+  for(std::size_t i=0; i < vT::static_size;++i)
+    ref[i] = T(i);
+
+  NT2_TEST_EQUAL(enumerate<vT>(), ref);
+
+  for(std::size_t i=0; i < vT::static_size;++i)
+    ref[i] = T(i+42);
+
+  NT2_TEST_EQUAL(enumerate<vT>(42), ref);
+  for(std::size_t i=0; i < vT::static_size;++i)
+    ref[i] = T(3*i+4);
+
+  NT2_TEST_EQUAL(enumerate<vT>(4,3), ref);
+}
+
+NT2_TEST_CASE_TPL ( enumerate_pack, BOOST_SIMD_SIMD_TYPES)
+{
+  using boost::simd::pack;
+  using boost::simd::enumerate;
+  using boost::dispatch::meta::as_;
+  using boost::simd::tag::enumerate_;
+
+  typedef pack<T>               vT;
 
   NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<enumerate_(as_<vT> )>::type
                   , vT
