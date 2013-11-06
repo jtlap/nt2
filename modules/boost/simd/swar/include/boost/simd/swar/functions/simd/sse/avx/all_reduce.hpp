@@ -52,7 +52,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE
     result_type eval(__m256i a0, dispatch::functor<base> const& op) const
     {
-      __m256d     xs    = _mm256_permute_pd(__m256d(a0), _MM_SHUFFLE2(2,1));
+      __m256d     xs    = _mm256_permute_pd(_mm256_castsi256_pd(a0), _MM_SHUFFLE2(2,1));
       result_type that  = op( bitwise_cast<A0>(xs)
                             , bitwise_cast<A0>(_mm256_permute2f128_pd(xs,xs,1))
                             );
@@ -105,7 +105,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE
     result_type eval(__m256i a0, dispatch::functor<base> const& op) const
     {
-      __m256      xs    = _mm256_permute_ps(__m256(a0),_MM_SHUFFLE(0,3,2,1));
+      __m256      xs    = _mm256_permute_ps(_mm256_castsi256_ps(a0),_MM_SHUFFLE(0,3,2,1));
       result_type that  = op( bitwise_cast<A0>(xs)
                             , bitwise_cast<A0>(_mm256_permute2f128_ps(xs,xs,1))
                             );
