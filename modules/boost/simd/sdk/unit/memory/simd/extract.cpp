@@ -59,6 +59,50 @@ NT2_TEST_CASE_TPL( extract, BOOST_SIMD_SIMD_TYPES)
   }
 }
 
+template<typename V> void extract_n(V const& v, boost::mpl::int_<0> const& ) {}
+
+template<typename V, int N>
+void extract_n(V const& v, boost::mpl::int_<N> const& )
+{
+  typedef typename V::value_type T;
+  using boost::simd::extract;
+  NT2_TEST_EQUAL( extract<N-1>(v), T(N) );
+  extract_n(v, boost::mpl::int_<N-1>());
+}
+
+NT2_TEST_CASE_TPL( extract_static, BOOST_SIMD_SIMD_TYPES)
+{
+  using boost::simd::pack;
+  using boost::simd::native;
+  using boost::simd::extract;
+  using boost::simd::tag::extract_;
+
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>               vT;
+  typedef pack<T>                       pT;
+
+  typedef typename boost::dispatch::meta
+                        ::call<extract_(vT const&, boost::mpl::int_<0>)>::type rT;
+
+  typedef typename boost::dispatch::meta
+                        ::call<extract_(pT const&, boost::mpl::int_<0>)>::type qT;
+
+  NT2_TEST_TYPE_IS( rT, T );
+  NT2_TEST_TYPE_IS( qT, T );
+
+  vT value;
+  pT pck;
+
+  for(std::size_t i=0;i<vT::static_size;i++)
+  {
+    value[i] = T(1+i);
+    pck[i] = T(1+i);
+  }
+
+  extract_n(value, boost::mpl::int_<vT::static_size>() );
+  extract_n(pck, boost::mpl::int_<vT::static_size>() );
+}
+
 NT2_TEST_CASE_TPL( static_extract, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::pack;

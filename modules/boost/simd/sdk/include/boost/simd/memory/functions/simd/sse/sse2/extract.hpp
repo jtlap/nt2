@@ -9,7 +9,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_SSE_SSE2_EXTRACT_HPP_INCLUDED
 #define BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_SSE_SSE2_EXTRACT_HPP_INCLUDED
-#ifndef BOOST_SIMD_HAS_SSE2_SUPPORT
+#ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/memory/functions/extract.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
@@ -28,10 +28,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1) const
     {
       int v = _mm_extract_epi16(a0, A1::value / 2);
-      if(A1::value % 2 == 0)
-        return result_type(v & 0xFF);
-      else
-        return result_type((v >> 8) & 0xFF);
+      return result_type((v >> (8*(A1::value % 2)))& 0xFF);
     }
   };
 
@@ -65,6 +62,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
+#ifdef BOOST_SIMD_ARCH_X86_64
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::extract_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)
@@ -79,6 +77,7 @@ namespace boost { namespace simd { namespace ext
       return result_type(_mm_cvtsi128_si64(_mm_srli_si128(a0, A1::value * 8)));
     }
   };
+#endif
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::extract_
                                     , boost::simd::tag::sse2_
@@ -106,7 +105,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1) const
     {
-      return _mm_cvtss_f64(_mm_castsi128_pd(_mm_srli_si128(_mm_castpd_si128(a0), A1::value * 8)));
+      return _mm_cvtsd_f64(_mm_castsi128_pd(_mm_srli_si128(_mm_castpd_si128(a0), A1::value * 8)));
     }
   };
 

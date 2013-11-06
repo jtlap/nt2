@@ -9,7 +9,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_SSE_SSE4_1_INSERT_HPP_INCLUDED
 #define BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_SSE_SSE4_1_INSERT_HPP_INCLUDED
-#ifndef BOOST_SIMD_HAS_SSE4_2_SUPPORT
+#ifdef BOOST_SIMD_HAS_SSE4_2_SUPPORT
 
 #include <boost/simd/memory/functions/insert.hpp>
 

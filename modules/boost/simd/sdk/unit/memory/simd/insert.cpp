@@ -56,6 +56,49 @@ NT2_TEST_CASE_TPL( insert, BOOST_SIMD_SIMD_TYPES)
   }
 
   NT2_TEST_EQUAL( ref, value );
+  NT2_TEST_EQUAL( rpck, pck );
+}
+
+template<typename V> void insert_n(V& v, boost::mpl::int_<0> const& ) {}
+
+template<typename V, int N>
+void insert_n(V& v, boost::mpl::int_<N> const& )
+{
+  typedef typename V::value_type T;
+  using boost::simd::insert;
+  insert<N-1>(T(N),v);
+  insert_n(v, boost::mpl::int_<N-1>());
+}
+
+NT2_TEST_CASE_TPL( insert_static, BOOST_SIMD_SIMD_TYPES)
+{
+  using boost::simd::pack;
+  using boost::simd::native;
+  using boost::simd::insert;
+  using boost::simd::tag::insert_;
+
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>               vT;
+  typedef pack<T>                       pT;
+
+  typedef typename boost::dispatch::meta::call<insert_(T, vT&, boost::mpl::int_<0>)>::type rT;
+  typedef typename boost::dispatch::meta::call<insert_(T, pT&, boost::mpl::int_<0>)>::type qT;
+
+  NT2_TEST_TYPE_IS( rT, void );
+  NT2_TEST_TYPE_IS( qT, void );
+
+  vT ref;
+  vT value;
+  pT rpck;
+  pT pck;
+
+  for(std::size_t i=0;i<vT::static_size;++i) rpck[i] = ref[i] = T(1+i);
+
+  insert_n(value, boost::mpl::int_<vT::static_size>() );
+  insert_n(pck, boost::mpl::int_<vT::static_size>() );
+
+  NT2_TEST_EQUAL( ref , value );
+  NT2_TEST_EQUAL( rpck, pck );
 }
 
 NT2_TEST_CASE_TPL( insert_logical, BOOST_SIMD_SIMD_TYPES)
