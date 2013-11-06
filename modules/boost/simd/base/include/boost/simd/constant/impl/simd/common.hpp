@@ -13,12 +13,11 @@
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/simd/sdk/simd/tags.hpp>
-#include <boost/dispatch/meta/as.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/property_of.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
-#include <boost/simd/sdk/simd/meta/vector_of.hpp>
+#include <boost/simd/constant/impl/constant_type.hpp>
 
 //==============================================================================
 // Forward all constant call to the SIMD version of themselves that splat
@@ -56,14 +55,9 @@ namespace boost { namespace simd { namespace ext
                                     , ((target_< simd_< arithmetic_<A0>,X> >))
                                     )
   {
-    typedef typename A0::type                                       target_type;
-    typedef typename dispatch::meta::scalar_of<target_type>::type   base_type;
-    typedef typename dispatch::meta::property_of<base_type>::type   disp_type;
-    typedef typename boost::mpl::apply<Tag,disp_type>::type         value_type;
-
-    typedef typename meta::vector_of< typename value_type::value_type
-                                    , target_type::static_size
-                                    >::type                         result_type;
+    typedef details::constant_type<A0,Tag>    constant_t;
+    typedef typename constant_t::value_type   value_type;
+    typedef typename constant_t::type         result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const&) const
     {
