@@ -1,5 +1,9 @@
-#include <boost/simd/sdk/config/details/detector/cpuid.hpp>
+#include <boost/simd/sdk/config/arch.hpp>
 #include <cstdio>
+
+#ifdef BOOST_SIMD_ARCH_X86
+
+#include <boost/simd/sdk/config/details/detector/cpuid.hpp>
 
 int main()
 {
@@ -10,3 +14,12 @@ int main()
   std::printf("%02X_%02X\n", family, model);
 }
 
+#else
+
+int main()
+{
+  std::printf("This tool can only be used on the x86 architecture\n");
+  return 1;
+}
+
+#endif

@@ -1,3 +1,7 @@
+#include <boost/simd/sdk/config/arch.hpp>
+
+#ifdef BOOST_SIMD_ARCH_X86
+
 #include <boost/simd/sdk/config/details/detector/cpuid.hpp>
 #include <boost/simd/sdk/config/details/detector/get_vendor.hpp>
 #include <cassert>
@@ -59,7 +63,14 @@ int get_physical_cores()
   }
   else return -1;
 }
+#else
 
+int get_physical_cores()
+{
+  return -1;
+}
+
+#endif
 
 int main(int argc, char *argv[])
 {
