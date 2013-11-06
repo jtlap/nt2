@@ -31,6 +31,7 @@
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 namespace nt2 { namespace details
 {
@@ -81,7 +82,11 @@ namespace nt2 { namespace details
       // ln(2)lo  =  1.90821492927058770002e-10  or  0x3dea39ef35793c76
       if (a0 == Inf<A0>()) return a0;
       if (is_eqz(a0)) return nt2::Minf<A0>();
+#ifdef BOOST_SIMD_NO_NANS
+      if (nt2::is_ltz(a0)) return nt2::Nan<A0>();
+#else
       if (nt2::is_nan(a0)||nt2::is_ltz(a0)) return nt2::Nan<A0>();
+#endif
       A0 dk, hfsq, s, R, f;
       kernel_log(a0, dk, hfsq, s, R, f);
       return  nt2::mul(dk, double_constant<A0, 0x3fe62e42fee00000ll>())-
@@ -92,7 +97,11 @@ namespace nt2 { namespace details
     {
       if (a0 == nt2::Inf<A0>()) return a0;
       if (nt2::is_eqz(a0)) return nt2::Minf<A0>();
+#ifdef BOOST_SIMD_NO_NANS
+      if (nt2::is_ltz(a0)) return nt2::Nan<A0>();
+#else
       if (nt2::is_nan(a0)||nt2::is_ltz(a0)) return nt2::Nan<A0>();
+#endif
       A0 dk, hfsq, s, R, f;
       kernel_log(a0, dk, hfsq, s, R, f);
       return -(hfsq-(s*(hfsq+R))-f)*Invlog_2<A0>()+dk;
@@ -102,7 +111,11 @@ namespace nt2 { namespace details
     {
       if (a0 == nt2::Inf<A0>()) return a0;
       if (nt2::is_eqz(a0)) return nt2::Minf<A0>();
+#ifdef BOOST_SIMD_NO_NANS
+      if (nt2::is_ltz(a0)) return nt2::Nan<A0>();
+#else
       if (nt2::is_nan(a0)||nt2::is_ltz(a0)) return nt2::Nan<A0>();
+#endif
       A0 dk, hfsq, s, R, f;
       kernel_log(a0, dk, hfsq, s, R, f);
       return -(hfsq-(s*(hfsq+R))-f)*nt2::Invlog_10<A0>()+dk*nt2::Log_2olog_10<A0>();

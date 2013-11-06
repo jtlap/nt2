@@ -26,6 +26,7 @@
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/mhalf.hpp>
 #include <nt2/include/constants/zero.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 namespace nt2 { namespace details
 {
@@ -69,21 +70,29 @@ namespace nt2 { namespace details
     static inline A0 log(const A0& a0)
     {
       if (a0 == nt2::Inf<A0>()) return a0;
-          if (nt2::is_eqz(a0)) return nt2::Minf<A0>();
-          if (nt2::is_nan(a0)||nt2::is_ltz(a0)) return nt2::Nan<A0>();
-          A0 x, fe, x2, y;
-          kernel_log(a0, fe, x, x2, y);
-          y = nt2::fma(fe, single_constant<A0, 0xb95e8083>(), y);
-          y = nt2::fma(nt2::Mhalf<A0>(), x2, y);
-          A0 z  = x + y;
-          return nt2::fma(single_constant<A0, 0x3f318000>(), fe, z);
-        }
+      if (nt2::is_eqz(a0)) return nt2::Minf<A0>();
+#ifdef BOOST_SIMD_NO_NANS
+      if (nt2::is_ltz(a0)) return nt2::Nan<A0>();
+#else
+      if (nt2::is_nan(a0)||nt2::is_ltz(a0)) return nt2::Nan<A0>();
+#endif
+      A0 x, fe, x2, y;
+      kernel_log(a0, fe, x, x2, y);
+      y = nt2::fma(fe, single_constant<A0, 0xb95e8083>(), y);
+      y = nt2::fma(nt2::Mhalf<A0>(), x2, y);
+      A0 z  = x + y;
+      return nt2::fma(single_constant<A0, 0x3f318000>(), fe, z);
+    }
 
     static inline A0 log2(const A0& a0)
     {
       if (a0 == nt2::Inf<A0>()) return a0;
       if (nt2::is_eqz(a0)) return nt2::Minf<A0>();
+#ifdef BOOST_SIMD_NO_NANS
+      if (nt2::is_ltz(a0)) return nt2::Nan<A0>();
+#else
       if (nt2::is_nan(a0)||nt2::is_ltz(a0)) return nt2::Nan<A0>();
+#endif
       A0 x, fe, x2, y;
       kernel_log(a0, fe, x, x2, y);
       y =  nt2::fma(nt2::Mhalf<A0>(),x2, y);
@@ -98,17 +107,21 @@ namespace nt2 { namespace details
     static inline A0 log10(const A0& a0)
     {
       if (a0 == nt2::Inf<A0>()) return a0;
-          if (nt2::is_eqz(a0)) return nt2::Minf<A0>();
-          if (nt2::is_nan(a0)||nt2::is_ltz(a0)) return nt2::Nan<A0>();
-          A0 x, fe, x2, y;
-          kernel_log(a0, fe, x, x2, y);
-          y =  nt2::amul(y, Mhalf<A0>(), x2);
-          // multiply log of fraction by log10(e) and base 2 exponent by log10(2)
-          A0 z = nt2::mul(x+y, single_constant<A0, 0x3a37b152>());//7.00731903251827651129E-4f // log10(e)lo
-          z = nt2::amul(z, y, single_constant<A0, 0x3ede0000>()); //4.3359375E-1f         // log10(e)hi
-          z = nt2::amul(z, x, single_constant<A0, 0x3ede0000>());
-          z = nt2::amul(z, fe, single_constant<A0, 0x39826a14>());//3.0078125E-1f              // log10(2)hi
-          return nt2::amul(z, fe, single_constant<A0, 0x3e9a0000 >());//2.48745663981195213739E-4f // log10(2)lo
+      if (nt2::is_eqz(a0)) return nt2::Minf<A0>();
+#ifdef BOOST_SIMD_NO_NANS
+      if (nt2::is_ltz(a0)) return nt2::Nan<A0>();
+#else
+      if (nt2::is_nan(a0)||nt2::is_ltz(a0)) return nt2::Nan<A0>();
+#endif
+      A0 x, fe, x2, y;
+      kernel_log(a0, fe, x, x2, y);
+      y =  nt2::amul(y, Mhalf<A0>(), x2);
+      // multiply log of fraction by log10(e) and base 2 exponent by log10(2)
+      A0 z = nt2::mul(x+y, single_constant<A0, 0x3a37b152>());//7.00731903251827651129E-4f // log10(e)lo
+      z = nt2::amul(z, y, single_constant<A0, 0x3ede0000>()); //4.3359375E-1f         // log10(e)hi
+      z = nt2::amul(z, x, single_constant<A0, 0x3ede0000>());
+      z = nt2::amul(z, fe, single_constant<A0, 0x39826a14>());//3.0078125E-1f              // log10(2)hi
+      return nt2::amul(z, fe, single_constant<A0, 0x3e9a0000 >());//2.48745663981195213739E-4f // log10(2)lo
     }
   };
 } }

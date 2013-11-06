@@ -12,10 +12,10 @@
 #include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/include/functions/simd/is_nan.hpp>
 #include <nt2/include/functions/simd/is_ltz.hpp>
+#include <nt2/include/functions/simd/is_equal.hpp>
 #include <nt2/include/functions/simd/is_eqz.hpp>
 #include <nt2/include/functions/simd/is_inf.hpp>
 #include <nt2/include/functions/simd/fast_frexp.hpp>
-#include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/fma.hpp>
 #include <nt2/include/functions/simd/seladd.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
@@ -26,6 +26,7 @@
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/mhalf.hpp>
 #include <nt2/include/constants/minf.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 namespace nt2 { namespace details
 {
@@ -68,13 +69,8 @@ namespace nt2 { namespace details
       y = nt2::fma(fe, single_constant<A0, 0xb95e8083>(), y);
       y = nt2::fma(Mhalf<A0>(), x2, y);
       A0 z  = x + y;
-      A0 y1 = a0-nt2::rec(abs(a0));// trick to reduce selection testing
       A0 y2 = nt2::fma(single_constant<A0, 0x3f318000>(), fe, z);
-      y2 = nt2::if_nan_else(nt2::logical_or(nt2::is_ltz(a0),
-                                            nt2::is_nan(a0)),
-                            y2);
-      A0 r = nt2::seladd(is_inf(y1), y2, y1);
-      return if_else(is_eqz(a0), nt2::Minf<A0>(), r);
+      return finalize(a0, y2);
     }
 
     static inline A0 log2(const A0& a0)
@@ -85,13 +81,7 @@ namespace nt2 { namespace details
       // multiply log of fraction by log2(e)
       A0 z = nt2::fma(x,single_constant<A0, 0x3ee2a8ed>(),mul(y,single_constant<A0, 0x3ee2a8ed>()));// 0.44269504088896340735992
       A0 z1 = ((z+y)+x)+fe;
-      A0 y1 = a0-nt2::rec(abs(a0)); // trick to reduce selection testing
-      A0 r = nt2::seladd(is_inf(y1),
-                         nt2::if_nan_else(nt2::logical_or(nt2::is_ltz(a0),
-                                                          nt2::is_nan(a0)),
-                                          z1),
-                         y1);
-      return if_else(is_eqz(a0), nt2::Minf<A0>(), r);
+      return finalize(a0, z1);
     }
 
     static inline A0 log10(const A0& a0)
@@ -105,13 +95,21 @@ namespace nt2 { namespace details
       z = nt2::amul(z, x, single_constant<A0, 0x3ede0000>());
       z = nt2::amul(z, fe, single_constant<A0, 0x39826a14>());//3.0078125E-1f              // log10(2)hi
       z = nt2::amul(z, fe, single_constant<A0, 0x3e9a0000>());//2.48745663981195213739E-4f // log10(2)lo
-      A0 y1 = a0-nt2::rec(abs(a0)); // trick to reduce selection testing perhaps bad TODO
-      A0 r = nt2::seladd(nt2::is_inf(y1),
-                         nt2::if_nan_else(nt2::logical_or(nt2::is_ltz(a0),
-                                                          nt2::is_nan(a0)),
-                                          z),
-                         y1);
-      return if_else(is_eqz(a0), nt2::Minf<A0>(), r);
+      return finalize(a0, z);
+    }
+  private:
+    static inline A0 finalize(const A0& a0, const A0& y)
+    {
+    #ifdef BOOST_SIMD_NO_NANS
+      BOOST_AUTO_TPL(test, nt2::is_ltz(a0));
+    #else
+      BOOST_AUTO_TPL(test, nt2::logical_or(nt2::is_ltz(a0), nt2::is_nan(a0)));
+    #endif
+      A0 y1 = nt2::if_nan_else(test, y);
+    #ifndef BOOST_SIMD_NO_INFINITIES
+      y1 = if_else(nt2::is_equal(a0, nt2::Inf<A0>()), a0, y1);
+    #endif
+      return if_else(is_eqz(a0), nt2::Minf<A0>(), y1);
     }
   };
 } }

@@ -56,8 +56,6 @@ NT2_TEST_CASE_TPL ( log_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::call<log_(vT)>::type r_t;
   typedef typename nt2::meta::call<log_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
 
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;

@@ -10,8 +10,8 @@
 #define NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_IMPL_LOGS_D_LOG_HPP_INCLUDED
 #include <nt2/include/functions/simd/minusone.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
-#include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/is_ltz.hpp>
+#include <nt2/include/functions/simd/is_equal.hpp>
 #include <nt2/include/functions/simd/is_nan.hpp>
 #include <nt2/include/functions/simd/fast_frexp.hpp>
 #include <nt2/include/functions/simd/seladd.hpp>
@@ -26,6 +26,8 @@
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/sqrt_2o_2.hpp>
 #include <nt2/include/constants/mone.hpp>
+#include <boost/simd/sdk/config.hpp>
+
 namespace nt2 { namespace details
 {
   //////////////////////////////////////////////////////////////////////////////
@@ -75,45 +77,42 @@ namespace nt2 { namespace details
       // ln(2)lo  =  1.90821492927058770002e-10  or  0x3dea39ef35793c76
       A0 dk, hfsq, s, R, f;
       kernel_log(a0, dk, hfsq, s, R, f);
-      A0 y2 =  nt2::mul(dk, double_constant<A0, 0x3fe62e42fee00000ll>())-
+      A0 y =  nt2::mul(dk, double_constant<A0, 0x3fe62e42fee00000ll>())-
         ((hfsq-(s*(hfsq+R)+nt2::mul(dk,double_constant<A0, 0x3dea39ef35793c76ll>())))-f);
-      A0 y1 = a0-rec(abs(a0));// trick to reduce selection testing
-      A0 r = nt2::seladd(nt2::is_inf(y1),
-                         nt2::if_nan_else(nt2::logical_or(nt2::is_ltz(a0),
-                                                          nt2::is_nan(a0)),
-                                          y2),
-                         y1);
-      return if_else(is_eqz(a0), nt2::Minf<A0>(), r);
+      return finalize(a0, y);
     }
 
     static inline A0 log2(const A0& a0)
     {
       A0 dk, hfsq, s, R, f;
       kernel_log(a0, dk, hfsq, s, R, f);
-      A0 y2 = -(hfsq-(s*(hfsq+R))-f)*nt2::Invlog_2<A0>()+dk;
-      A0 y1 = a0-nt2::rec(abs(a0));// trick to reduce selection testing
-      A0 r = nt2::seladd(nt2::is_inf(y1),
-                         nt2::if_nan_else(nt2::logical_or(nt2::is_ltz(a0),
-                                                          nt2::is_nan(a0)),
-                                          y2),
-                         y1);
-      return if_else(is_eqz(a0), nt2::Minf<A0>(), r);
+      A0 y = -(hfsq-(s*(hfsq+R))-f)*nt2::Invlog_2<A0>()+dk;
+      return finalize(a0, y);
     }
 
     static inline A0 log10(const A0& a0)
     {
       A0 dk, hfsq, s, R, f;
       kernel_log(a0, dk, hfsq, s, R, f);
-      A0 y2 = -(hfsq-(s*(hfsq+R))-f)*nt2::Invlog_10<A0>()+dk*nt2::Log_2olog_10<A0>();
-      A0 y1 = a0-nt2::rec(abs(a0));// trick to reduce selection testing
-      A0 r = nt2::seladd(nt2::is_inf(y1),
-                         nt2::if_nan_else(nt2::logical_or(nt2::is_ltz(a0),
-                                                          nt2::is_nan(a0)),
-                                          y2),
-                         y1);
-      return if_else(is_eqz(a0), nt2::Minf<A0>(), r);
+      A0 y = -(hfsq-(s*(hfsq+R))-f)*nt2::Invlog_10<A0>()+dk*nt2::Log_2olog_10<A0>();
+      return finalize(a0, y);
+    }
+  private:
+    static inline A0 finalize(const A0& a0, const A0& y)
+    {
+    #ifdef BOOST_SIMD_NO_NANS
+      BOOST_AUTO_TPL(test, nt2::is_ltz(a0));
+    #else
+      BOOST_AUTO_TPL(test, nt2::logical_or(nt2::is_ltz(a0), nt2::is_nan(a0)));
+    #endif
+      A0 y1 = nt2::if_nan_else(test, y);
+    #ifndef BOOST_SIMD_NO_INFINITIES
+      y1 = if_else(nt2::eq(a0, nt2::Inf<A0>()), a0, y1);
+    #endif
+      return if_else(is_eqz(a0), nt2::Minf<A0>(), y1);
     }
   };
+
 } }
 
 #endif
