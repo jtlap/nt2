@@ -15,7 +15,7 @@
 #include <nt2/sdk/magma/magma.hpp>
 
 #include <nt2/dsl/functions/terminal.hpp>
-#include <nt2/core/container/table/category.hpp>
+#include <nt2/core/container/table/kind.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/linalg/details/utility/options.hpp>
 #include <nt2/linalg/details/utility/workspace.hpp>
@@ -34,12 +34,12 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY - Compute the workspace
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::qrf_, nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(site)
-                            , ((expr_ < table_< double_<A0>, S0 >
+                            , ((expr_ < container_<nt2::tag::table_,  double_<A0>, S0 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< double_<A1>, S1 >
+                              ((expr_ < container_<nt2::tag::table_,  double_<A1>, S1 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
@@ -71,12 +71,12 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY - Workspace is ready
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::qrf_, nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(site)
-                            , ((expr_ < table_< double_<A0>, S0 >
+                            , ((expr_ < container_<nt2::tag::table_,  double_<A0>, S0 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< double_<A1>, S1 >
+                              ((expr_ < container_<nt2::tag::table_,  double_<A1>, S1 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
@@ -106,12 +106,12 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY - Compute the workspace
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::qrf_, nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(site)
-                            , ((expr_ < table_< single_<A0>, S0 >
+                            , ((expr_ < container_<nt2::tag::table_,  single_<A0>, S0 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< single_<A1>, S1 >
+                              ((expr_ < container_<nt2::tag::table_,  single_<A1>, S1 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
@@ -145,12 +145,12 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY - Workspace is ready
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::qrf_, nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(site)
-                            , ((expr_ < table_< single_<A0>, S0 >
+                            , ((expr_ < container_<nt2::tag::table_,  single_<A0>, S0 >
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
                               ))
-                              ((expr_ < table_< single_<A1>, S1 >
+                              ((expr_ < container_<nt2::tag::table_,  single_<A1>, S1>
                                       , nt2::tag::terminal_
                                       , boost::mpl::long_<0>
                                       >
@@ -176,6 +176,7 @@ namespace nt2 { namespace ext
         return that;
      }
   };
+
 } }
 
 #endif
