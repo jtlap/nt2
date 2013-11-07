@@ -11,7 +11,6 @@
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 #include <boost/simd/arithmetic/functions/fma.hpp>
-#include <boost/simd/include/functions/correct_fma.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -25,7 +24,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
     {
-      return correct_fma(a0, a1, a2);
+      return vec_madd(a0(), a1(), a2());
     }
   };
 } } }
