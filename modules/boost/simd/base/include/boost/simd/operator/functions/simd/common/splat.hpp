@@ -10,11 +10,11 @@
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_SIMD_COMMON_SPLAT_HPP_INCLUDED
 
 #include <boost/simd/operator/functions/splat.hpp>
-#include <boost/simd/include/functions/simd/insert.hpp>
 #include <boost/simd/include/functions/simd/extract.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>
 #include <boost/simd/include/functions/simd/toint.hpp>
 #include <boost/simd/include/functions/simd/touint.hpp>
+#include <boost/simd/include/functions/simd/make.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
 #include <boost/simd/include/constants/zero.hpp>
