@@ -10,11 +10,13 @@
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_LAPACK_MLINSOLVE_HPP_INCLUDED
 
 #include <nt2/linalg/functions/mlinsolve.hpp>
+#include <nt2/linalg/functions/clinsolve.hpp>
 #include <nt2/include/functions/msv.hpp>
 #include <nt2/include/functions/mposv.hpp>
 #include <nt2/linalg/options.hpp>
 #include <nt2/sdk/meta/concrete.hpp>
 #include <nt2/sdk/meta/settings_of.hpp>
+#include <nt2/include/functions/tie.hpp>
 
 #include <nt2/core/container/table/table.hpp>
 
@@ -78,13 +80,25 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     void eval ( A0 const& a0, A1 const& a1 , A2& a2) const
     {
-      // entry_type var(a2);
-      entry_type entry(a0);
-      nt2_la_int iter = nt2::msv(entry,concrete(a1),concrete(a2));
-      // a2 = var;
-
+      const type_t x = type_t(0);
+      eval(a0,a1,a2,x);
     }
 
+    //==========================================================================
+    /// INTERNAL ONLY - Solve with no shape info Todo : Analyse shape
+    BOOST_FORCEINLINE
+    void eval ( A0 const& a0, A1 const& a1 , A2& a2, double const) const
+    {
+      entry_type entry(a0);
+      nt2_la_int iter = nt2::msv(entry,concrete(a1),concrete(a2));
+    }
+
+    /// INTERNAL ONLY - Solve with no shape info Todo : Analyse shape
+    BOOST_FORCEINLINE
+    void eval ( A0 const& a0, A1 const& a1 , A2& a2, float const) const
+    {
+      nt2::clinsolve(a0,a1,nt2::tie(a2));
+    }
   };
 
 

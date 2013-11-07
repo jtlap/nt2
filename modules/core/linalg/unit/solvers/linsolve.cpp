@@ -31,7 +31,7 @@
 
 
 
-NT2_TEST_CASE_TPL(linsolv_fast, (double) )
+NT2_TEST_CASE_TPL(linsolv_fast, NT2_REAL_TYPES )
 {
 using nt2::_;
 using nt2::meta::as_;
@@ -145,7 +145,7 @@ NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
 
 // // SYMMETRIC
 
-NT2_TEST_CASE_TPL(linsolv_fast_sy, (double) )
+NT2_TEST_CASE_TPL(linsolv_fast_sy, NT2_REAL_TYPES )
 {
 using nt2::_;
 using nt2::meta::as_;
@@ -261,7 +261,7 @@ NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
 
 // Positive definite
 
-NT2_TEST_CASE_TPL(linsolv_fast_posdef, (double) )
+NT2_TEST_CASE_TPL(linsolv_fast_posdef, NT2_REAL_TYPES )
 {
 using nt2::_;
 using nt2::meta::as_;

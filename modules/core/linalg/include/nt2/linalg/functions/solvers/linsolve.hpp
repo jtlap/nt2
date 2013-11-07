@@ -55,7 +55,8 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<1> const&
               ) const
     {
-      solve_sqr(a0,a1,nt2::policy<ext::classic_>() );
+      const type_t x = type_t(0);
+      solve_sqr(a0,a1,nt2::policy<ext::classic_>(),x);
     }
 
     //==========================================================================
@@ -81,12 +82,14 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<1> const&
               ) const
     {
-      solve_sqr(a0,a1,boost::proto::value(boost::proto::child_c<2>(a0)));
+      const type_t x = type_t(0);
+      solve_sqr(a0,a1,boost::proto::value(boost::proto::child_c<2>(a0)),x);
     }
     //==========================================================================
     /// INTERNAL ONLqY - X = LINSOLVE(A,B,opts) with sv or gelsy
     BOOST_FORCEINLINE
-    void solve_sqr(A0 const& a0, A1 const& a1 ,nt2::policy<ext::classic_> const&) const
+    void solve_sqr(A0 const& a0, A1 const& a1 ,nt2::policy<ext::classic_> const&
+                  , type_t const ) const
     {
       nt2::clinsolve( boost::proto::child_c<0>(a0)           // A
                     , boost::proto::child_c<1>(a0)           // B
@@ -96,7 +99,8 @@ namespace nt2 { namespace ext
 
     /// INTERNAL ONLY - X = LINSOLVE(A,B,opts) with svx
     BOOST_FORCEINLINE
-    void solve_sqr(A0 const& a0, A1 const& a1,nt2::policy<ext::precise_> const&) const
+    void solve_sqr(A0 const& a0, A1 const& a1,nt2::policy<ext::precise_> const&
+                  , type_t const ) const
     {
       nt2::plinsolve( boost::proto::child_c<0>(a0) // A
                     , boost::proto::child_c<1>(a0) // B
@@ -106,13 +110,24 @@ namespace nt2 { namespace ext
 
     /// INTERNAL ONLY - X = LINSOLVE(A,B,opts) with dsgesv or dsposv
     BOOST_FORCEINLINE
-    void solve_sqr(A0 const& a0, A1 const& a1,nt2::policy<ext::fast_> const&) const
+    void solve_sqr(A0 const& a0, A1 const& a1,nt2::policy<ext::fast_> const&
+                  , double const ) const
     {
       nt2::mlinsolve( boost::proto::child_c<0>(a0) // A
                     , boost::proto::child_c<1>(a0) // B
                     , boost::proto::child_c<0>(a1) // X
                     );
     }
+
+
+    /// INTERNAL ONLY - X = LINSOLVE(A,B,opts) with dsgesv or dsposv
+    BOOST_FORCEINLINE
+    void solve_sqr(A0 const& a0, A1 const& a1,nt2::policy<ext::fast_> const&
+                  , float const x ) const
+    {
+      solve_sqr(a0,a1,nt2::policy<ext::classic_>(),x);
+    }
+
   };
 } }
 
