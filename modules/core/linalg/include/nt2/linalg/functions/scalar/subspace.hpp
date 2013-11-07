@@ -15,6 +15,7 @@
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/orth.hpp>
 #include <nt2/include/functions/norm.hpp>
+#include <nt2/include/functions/asin.hpp>
 #include <nt2/include/functions/ofsameheight.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/core/container/table/table.hpp>

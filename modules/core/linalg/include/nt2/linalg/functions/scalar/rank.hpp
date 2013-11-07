@@ -10,7 +10,15 @@
 #define NT2_LINALG_FUNCTIONS_SCALAR_RANK_HPP_INCLUDED
 #include <nt2/linalg/functions/rank.hpp>
 #include <nt2/include/functions/scalar/rank.hpp>
-#include <nt2/include/functions/scalar/svd.hpp>
+#include <nt2/include/functions/if_one_else_zero.hpp>
+#include <nt2/include/functions/sum.hpp>
+#include <nt2/include/functions/gt.hpp>
+#include <nt2/include/functions/height.hpp>
+#include <nt2/include/functions/width.hpp>
+#include <nt2/include/functions/eps.hpp>
+#include <nt2/include/functions/gesvd.hpp>
+#include <nt2/linalg/details/utility/f77_wrapper.hpp>
+#include <nt2/core/container/table/table.hpp>
 
 namespace nt2{ namespace ext
 {
@@ -19,10 +27,26 @@ namespace nt2{ namespace ext
                                 ,((ast_<A0, nt2::container::domain>))
                                 )
   {
+    typedef typename A0::value_type type_t;
+    typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
     typedef size_t result_type;
+    typedef nt2::table<type_t>  entry_type;
+    typedef nt2::table<type_t,shape>  matrix_type;
+
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::details::svd_result<A0>(a0, 'N', 'N').rank();
+      entry_type u,s,v;
+      matrix_type work(a0);
+
+      nt2_la_int  m  = nt2::height(work);
+      nt2_la_int  n  = nt2::width(work);
+
+      s.resize(nt2::of_size(std::min(m,n), 1));
+
+      nt2::gesvd(work,s,u,v,'N','N');
+      type_t epsi = nt2::max(n, m)*nt2::eps(s(1));
+
+      return size_t(sum(if_one_else_zero(gt(s, epsi))(_)));;
     }
   };
     NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rank_, tag::cpu_,
@@ -31,10 +55,27 @@ namespace nt2{ namespace ext
                                 (scalar_<floating_<A1 > >)
                                 )
   {
+    typedef typename A0::value_type type_t;
+    typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
     typedef size_t result_type;
+    typedef nt2::table<type_t>  entry_type;
+    typedef nt2::table<type_t,shape>  matrix_type;
+
     NT2_FUNCTOR_CALL(2)
     {
-      return nt2::details::svd_result<A0>(a0, 'N', 'N').rank(a1);
+      entry_type u,s,v;
+      matrix_type work(a0);
+      type_t epsi = a1;
+
+      nt2_la_int  m  = nt2::height(work);
+      nt2_la_int  n  = nt2::width(work);
+
+      s.resize(nt2::of_size(std::min(m,n), 1));
+
+      nt2::gesvd(work,s,u,v,'N','N');
+      epsi =  (epsi < 0) ?  nt2::max(n, m)*nt2::eps(s(1)): epsi;
+
+      return size_t(sum(if_one_else_zero(gt(s, epsi))(_)));;
     }
   };
 

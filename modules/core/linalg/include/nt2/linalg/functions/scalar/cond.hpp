@@ -9,12 +9,13 @@
 #ifndef NT2_LINALG_FUNCTIONS_SCALAR_COND_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_SCALAR_COND_HPP_INCLUDED
 #include <nt2/linalg/functions/cond.hpp>
-#include <nt2/include/functions/svd.hpp>
+#include <nt2/include/functions/gesvd.hpp>
 #include <nt2/include/functions/inv.hpp>
 #include <nt2/include/functions/norm.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/functions/issquare.hpp>
+#include <nt2/include/functions/is_nan.hpp>
 
 namespace nt2{ namespace ext
 {
@@ -26,10 +27,25 @@ namespace nt2{ namespace ext
     typedef typename A0::value_type type_t;
     typedef typename meta::as_real<type_t>::type rtype_t;
     typedef typename meta::as_floating<rtype_t>::type result_type;
+    typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
+    typedef nt2::table<type_t>  entry_type;
+    typedef nt2::table<type_t,shape>  matrix_type;
+
     NT2_FUNCTOR_CALL(1)
     {
       BOOST_ASSERT_MSG(issquare(a0), "cond for non square matrix");
-      return nt2::details::svd_result<A0>(a0,'N','N').cond();
+      entry_type u,s,v;
+      matrix_type work(a0);
+
+      nt2_la_int  m  = nt2::height(work);
+      nt2_la_int  n  = nt2::width(work);
+
+      s.resize(nt2::of_size(std::min(m,n), 1));
+
+      nt2::gesvd(work,s,u,v,'N','N');
+
+      type_t r =  s(1)/s(nt2::min(m,n));
+      return is_nan(r) ? Inf<type_t>() : r;
     }
   };
 

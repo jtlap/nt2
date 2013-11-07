@@ -39,7 +39,8 @@ namespace nt2 { namespace ext
   {
     typedef typename A0::value_type type_t;
     typedef typename meta::as_real<type_t>::type rtype_t;
-    typedef typename meta::as_floating<rtype_t>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<rtype_t>
+                                          ::type  result_type;
     inline result_type operator()(A0 const &a0) const
       {
         return norm2(a0(_));
@@ -54,7 +55,8 @@ namespace nt2 { namespace ext
   {
     typedef typename A0::value_type type_t;
     typedef typename meta::as_real<type_t>::type rtype_t;
-    typedef typename meta::as_floating<rtype_t>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<rtype_t>
+                                          ::type  result_type;
     inline result_type operator()(A0 const &a0, A1 const& a1) const
       {
         result_type choice = result_type(a1);
@@ -80,7 +82,8 @@ namespace nt2 { namespace ext
                                      )
   {
     typedef typename meta::as_real<A0>::type rtype_t;
-    typedef typename meta::as_floating<rtype_t>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<rtype_t>
+                                          ::type  result_type;
     inline result_type operator()(A0 const &a0, A1 const& ) const
       {
         return result_type(nt2::abs(a0));
@@ -93,7 +96,8 @@ namespace nt2 { namespace ext
                                      )
   {
     typedef typename meta::as_real<A0>::type rtype_t;
-    typedef typename meta::as_floating<rtype_t>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<rtype_t>
+                                          ::type  result_type;
     inline result_type operator()(A0 const &a0) const
       {
         return result_type(nt2::abs(a0));

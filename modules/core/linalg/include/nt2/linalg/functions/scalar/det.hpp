@@ -9,6 +9,7 @@
 //==============================================================================
 #ifndef NT2_LINALG_FUNCTIONS_SCALAR_DET_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_SCALAR_DET_HPP_INCLUDED
+
 #include <nt2/linalg/functions/det.hpp>
 #include <nt2/include/functions/trf.hpp>
 #include <nt2/include/functions/numel.hpp>
@@ -24,8 +25,9 @@ namespace nt2{ namespace ext
                             , ((ast_<A0, nt2::container::domain>))
                             )
   {
-    typedef typename A0::value_type                 base;
-    typedef typename meta::as_floating<base>::type  result_type;
+    typedef typename A0::value_type                 type_t;
+    typedef typename boost::dispatch::meta::as_floating<type_t>
+                                          ::type  result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
@@ -57,7 +59,8 @@ namespace nt2{ namespace ext
                             , (scalar_< unspecified_<A0> >)
                             )
   {
-    typedef typename meta::as_floating<A0>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>
+                                          ::type  result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       return a0;
