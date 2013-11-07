@@ -16,7 +16,7 @@
 #include <nt2/sdk/magma/magma.hpp>
 
 #include <nt2/dsl/functions/terminal.hpp>
-#include <nt2/core/container/table/category.hpp>
+#include <nt2/core/container/table/kind.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/linalg/details/utility/workspace.hpp>
 
@@ -71,10 +71,7 @@ magma_dgerfs_gpu(char trans, magma_int_t N, magma_int_t NRHS,
         magma_int_t     i, j, iiter;
 
 
-
 cublasStatus_t stat;
-
-
 
         /*
            Check The Parameters.
@@ -101,13 +98,7 @@ cublasStatus_t stat;
 
         eps  = lapackf77_dlamch("Epsilon");
 
-
-
-
     Anrm = magmablas_dlange('I', N, N, dA, ldda, dworkd );
-
-
-
 
     cte  = Anrm * eps * pow((double)N,0.5) * BWDMAX;
 
