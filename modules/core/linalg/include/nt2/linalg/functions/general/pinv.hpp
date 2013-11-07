@@ -10,9 +10,19 @@
 #define NT2_LINALG_FUNCTIONS_GENERAL_PINV_HPP_INCLUDED
 
 #include <nt2/linalg/functions/pinv.hpp>
-#include <nt2/include/functions/svd.hpp>
+#include <nt2/include/functions/gesvd.hpp>
 #include <nt2/include/functions/assign.hpp>
+#include <nt2/include/functions/length.hpp>
+#include <nt2/include/functions/from_diag.hpp>
+#include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/gt.hpp>
+#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/conj.hpp>
+#include <nt2/include/functions/mtimes.hpp>
+#include <nt2/include/functions/eps.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
+
+#include <nt2/include/constants/mone.hpp>
 
 namespace nt2{ namespace ext
 {
@@ -26,12 +36,30 @@ namespace nt2{ namespace ext
     typedef A0&                                                   result_type;
     typedef typename A0::value_type                                value_type;
     typedef typename nt2::meta::as_real<value_type>::type              r_type;
+    typedef nt2::table<value_type>                                     tab_t;
+
     result_type operator()(A0& out, const A1& in) const
     {
+      tab_t u,s,v;
+
       out.resize(in.extent());
       r_type tol = choice(in, N());
       out = boost::proto::child_c<0>(in);
-      out =  nt2::details::svd_result<A0>(out, 'A', 'A').pinv(tol);
+
+
+      nt2_la_int  m  = nt2::height(out);
+      nt2_la_int  n  = nt2::width(out);
+
+      s.resize(nt2::of_size(std::min(m,n), 1));
+      v.resize(nt2::of_size(n,n));
+      u.resize(nt2::of_size(m,m));
+
+      nt2::gesvd(out,s,u,v,'A','A');
+
+      value_type epsi = (tol <0  ? nt2::eps(s(1)) : tol)*length(out);
+      tab_t w1 = nt2::if_else( nt2::gt(s, epsi), nt2::rec(s), nt2::Zero<r_type>());
+      out = mtimes(trans(conj(v)), mtimes(from_diag(w1), trans(conj(u))));
+
       return out;
     }
   private :
@@ -45,6 +73,8 @@ namespace nt2{ namespace ext
       return boost::proto::child_c<1>(in);
     }
   };
+
+
 } }
 
 #endif
