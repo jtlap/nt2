@@ -8,42 +8,95 @@
 //==============================================================================
 #ifndef NT2_LINALG_FUNCTIONS_GENERAL_ORTH_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_GENERAL_ORTH_HPP_INCLUDED
-#include <nt2/include/functions/orth.hpp>
-#include <nt2/include/functions/svd.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/asin.hpp>
-#include <nt2/include/functions/min.hpp>
+
+#include <nt2/linalg/functions/orth.hpp>
+#include <nt2/include/functions/gesvd.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/height.hpp>
-#include <nt2/include/functions/orth.hpp>
-#include <nt2/include/functions/norm.hpp>
-#include <nt2/include/constants/mone.hpp>
+#include <nt2/include/functions/gt.hpp>
+#include <nt2/include/functions/sum.hpp>
+#include <nt2/include/functions/eps.hpp>
+#include <nt2/include/functions/if_one_else_zero.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
+
+#include <nt2/include/constants/one.hpp>
+#include <nt2/core/container/table/table.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::orth_, tag::cpu_,
-                                       (A0)(A1),
-                                       ((ast_<A0, nt2::container::domain>))
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::orth_, tag::cpu_
+                            , (A0)
+                            , ((ast_<A0, nt2::container::domain>))
+                            )
+  {
+    typedef typename A0::value_type type_t;
+    typedef nt2::table<type_t>  result_type;
+    typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
+
+    typedef nt2::table<type_t>  entry_type;
+    typedef nt2::table<type_t,shape>  matrix_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a) const
+    {
+      entry_type u,s,v;
+      matrix_type work(a);
+
+      nt2_la_int  m  = nt2::height(work);
+      nt2_la_int  n  = nt2::width(work);
+
+      s.resize(nt2::of_size(std::min(m,n), 1));
+      u.resize(nt2::of_size(m,m));
+
+      nt2::gesvd(work,s,u,v,'A','N');
+
+      type_t epsi = nt2::max(m, n)*nt2::eps(s(1));
+
+      return orthr(epsi,u,s);
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::orth_, tag::cpu_
+                                      ,(A0)(A1)
+                                      ,((ast_<A0, nt2::container::domain>))
                                        (scalar_<floating_<A1> > )
                                        )
   {
-    BOOST_DISPATCH_RETURNS(2, (const A0& a0, const A1 epsi),
-                           (nt2::factorization::svd<A0>(a0, 'A', 'N').orth(epsi))
-                           )
+
+    typedef typename A0::value_type type_t;
+    typedef nt2::table<type_t> result_type;
+    typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
+
+    typedef nt2::table<type_t>  entry_type;
+    typedef nt2::table<type_t,shape>  matrix_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const epsi) const
+    {
+      entry_type u,s,v;
+
+      matrix_type work(a);
+      nt2_la_int  m  = nt2::height(work);
+      nt2_la_int  n  = nt2::width(work);
+
+      s.resize(nt2::of_size(std::min(m,n), 1));
+      u.resize(nt2::of_size(m,m));
+
+      nt2_la_int info = nt2::gesvd(work,s,u,v,'A','N');
+
+      type_t epsir = epsi<0 ? nt2::max(m, n)*nt2::eps(s(1)) : epsi;
+
+      return orthr(epsir,u,s);
+    }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::orth_, tag::cpu_,
-                                     (A0),
-                                     ((ast_<A0, nt2::container::domain>))
-                                     )
-  {
-    typedef typename A0::value_type                     value_type;
-    typedef typename nt2::meta::as_real<value_type>::type   r_type;
-    BOOST_DISPATCH_RETURNS(1, (const A0& a0),
-                           (nt2::factorization::svd<A0>(a0, 'A', 'N').orth(Mone<r_type>()))
-                           )
-  };
+
+template<typename T, typename mat, typename vec>
+mat orthr(T const epsi, mat const& u, vec const& s)
+{
+  size_t r = size_t(sum(if_one_else_zero(gt(s, epsi))(_)));
+  return u(_, _(One<size_t>(), r));
+}
+
 
 } }
 
