@@ -21,7 +21,7 @@ NT2_TEST_CASE_TPL(swap, NT2_REAL_TYPES )
   typedef nt2::table<T>           t_t;
   typedef nt2::table<nt2_la_int>  t_i;
 
-  t_t a = nt2::rand(8);
+  t_t a = nt2::rand(8,nt2::meta::as_<T>());
 
   t_t y,x;
 
