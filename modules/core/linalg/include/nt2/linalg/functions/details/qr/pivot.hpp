@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_DETAILS_QR_PIVOT_HPP_INCLUDED
 
 #include <nt2/linalg/options.hpp>
+#include <nt2/include/functions/cast.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/inv.hpp>
@@ -31,7 +32,9 @@ namespace nt2 { namespace ext
                 , nt2::policy<ext::vector_> const&
                 )
   {
-    boost::proto::child_c<2>(a1) = ip;
+    typedef typename boost::proto::result_of
+                               ::child_c<A1&,2>::value_type::value_type t_t;
+    boost::proto::child_c<2>(a1) = nt2::cast<t_t>(ip);
   }
 
   /// INTERNAL ONLY - Helper to extract permutation matrix
@@ -40,7 +43,10 @@ namespace nt2 { namespace ext
                 , int const&
                 )
   {
-    boost::proto::child_c<2>(a1) = ip;
+    typedef typename boost::proto::result_of
+                               ::child_c<A1&,2>::value_type::value_type t_t;
+
+    boost::proto::child_c<2>(a1) = nt2::cast<t_t>(ip);
   }
 
   /// INTERNAL ONLY - Helper to extract permutation matrix
@@ -49,8 +55,11 @@ namespace nt2 { namespace ext
                 , nt2::policy<ext::no_pivot_> const&
                 )
   {
+    typedef typename boost::proto::result_of
+                             ::child_c<A1&,1>::value_type::value_type t_t;
+
     nt2_la_int n = nt2::width(boost::proto::child_c<1>(a1));
-    boost::proto::child_c<2>(a1) = nt2::eye(n,n);
+    boost::proto::child_c<2>(a1) = nt2::eye(n,n,meta::as_<t_t>());
   }
 
   /// INTERNAL ONLY - Helper to extract permutation matrix
