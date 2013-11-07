@@ -27,9 +27,6 @@ namespace nt2
 
   }
 
-  // Lower/upper
-  static const char lower_    = 'L';
-  static const char upper_    = 'U';
 
   meta::as_<details::in_place_> const in_place_ = {};
   meta::as_<details::whole_>    const whole_    = {};
