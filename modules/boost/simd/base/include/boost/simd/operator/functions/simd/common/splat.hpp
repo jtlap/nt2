@@ -18,6 +18,7 @@
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
 #include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
 #include <boost/simd/sdk/meta/as_arithmetic.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
@@ -26,27 +27,36 @@
 
 namespace boost { namespace simd { namespace ext
 {
+  #define M0(z, n, arg)                                                      \
+  BOOST_FORCEINLINE                                                          \
+  result_type eval(const A0& a0, boost::mpl::size_t<n> const&) const         \
+  {                                                                          \
+    return make<result_type>(BOOST_PP_ENUM(n, arg, ~));                      \
+  }                                                                          \
+  /**/
+
   //============================================================================
   // With no idea what we're doing, just fill the vector piecewise
   //============================================================================
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_, tag::cpu_
-                            , (A0)(A1)(X)
-                            , (scalar_< unspecified_<A0> >)
-                              ((target_< simd_< unspecified_<A1>, X > >))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::splat_, tag::cpu_
+                                    , (A0)(A1)(X)
+                                    , (scalar_< unspecified_<A0> >)
+                                      ((target_< simd_< unspecified_<A1>, X > >))
+                                    )
   {
-    typedef typename A1::type result_type;
+    typedef typename A1::type                           result_type;
+    typedef typename meta::scalar_of<result_type>::type sA1;
 
-    inline result_type operator()(const A0& a0, const A1&) const
+    BOOST_FORCEINLINE result_type operator()(const A0& a0, const A1&) const
     {
-      typedef typename meta::scalar_of<result_type>::type sA1;
-
-      result_type tmp;
-      for(unsigned int i = 0; i != meta::cardinal_of<result_type>::value; ++i)
-        tmp[i] = static_cast<sA1>(a0);
-
-      return tmp;
+      return eval(a0,typename simd::meta::cardinal_of<result_type>::type());
     }
+
+    #define M1(z, n, t) static_cast<sA1>(a0)
+
+    BOOST_SIMD_PP_REPEAT_POWER_OF_2_FROM(2, M0, M1)
+
+    #undef M1
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::splat_, tag::cpu_
@@ -61,19 +71,22 @@ namespace boost { namespace simd { namespace ext
                                         ((target_< simd_< unspecified_<A1>, Y > >))
                                       )
   {
-    typedef typename A1::type result_type;
+    typedef typename A1::type                           result_type;
+    typedef typename meta::scalar_of<result_type>::type sA1;
 
-    inline result_type operator()(const A0& a0, const A1&) const
+    BOOST_FORCEINLINE result_type operator()(const A0& a0, const A1&) const
     {
-      typedef typename meta::scalar_of<result_type>::type sA1;
-
-      result_type tmp;
-      for(unsigned int i = 0; i != meta::cardinal_of<result_type>::value; ++i)
-        tmp[i] = static_cast<sA1>(a0[i]);
-
-      return tmp;
+      return eval(a0,typename simd::meta::cardinal_of<result_type>::type());
     }
+
+    #define M1(z, n, t) static_cast<sA1>(extract<n>(a0))
+
+    BOOST_SIMD_PP_REPEAT_POWER_OF_2_FROM(2, M0, M1)
+
+    #undef M1
   };
+
+#undef M0
 
   //============================================================================
   // Splatting a SIMD value to another can use toint, touint or tofloat (optimizations)
