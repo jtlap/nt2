@@ -121,19 +121,19 @@ namespace nt2 { namespace details
     void resize_reals(std::size_t s)
     {
       reals_size_ = s;
-      if(s > nt2_la_int(reals_.size()))  reals_.resize(s);
+      if(s > size_t(reals_.size()))  reals_.resize(s);
     }
 
     void resize_integers(std::size_t s)
     {
       integers_size_ = s;
-      if(s > nt2_la_int(integers_.size())) integers_.resize(s);
+      if(s > size_t(integers_.size())) integers_.resize(s);
     }
 
     void resize_logicals(std::size_t s)
     {
       logicals_size_ = s;
-      if(s > nt2_la_int(logicals_.size())) logicals_.resize(s);
+      if(s > size_t(logicals_.size())) logicals_.resize(s);
     }
 
     bool is_ok(std::size_t w, std::size_t rw, std::size_t iw, std::size_t bw) const
@@ -142,6 +142,26 @@ namespace nt2 { namespace details
             &&  (iw >= integers_.size())  && (bw >= logicals_.size());
     }
 
+    nt2_la_int main_need(nt2_la_int s = 0)
+    {
+      main_need_ = (s ? s : static_cast<nt2_la_int>(nt2::real(main_[0])));
+      return main_need_;
+    }
+
+    nt2_la_int reals_need(nt2_la_int s = 0)
+    {
+      return reals_need_ = (s ? s : static_cast<nt2_la_int>(reals_[0]));
+    }
+
+    nt2_la_int integers_need(nt2_la_int s = 0)
+    {
+      return integers_need_ = (s ? s : integers_[0]);
+    }
+
+    nt2_la_int logicals_need(nt2_la_int s = 0)
+    {
+      return logicals_need_ = (s ? s : logicals_[0]);
+    }
     main_pointer     main()      { return &main_[0];     }
     reals_pointer    reals()     { return &reals_[0];    }
     integers_pointer integers()  { return &integers_[0]; }
@@ -157,6 +177,8 @@ namespace nt2 { namespace details
     main_base_workspace_t reals_;
     main_int_workspace_t  integers_, logicals_;
     nt2_la_int            main_size_,reals_size_,integers_size_,logicals_size_;
+    nt2_la_int            main_need_, reals_need_;
+    nt2_la_int            integers_need_, logicals_need_;
   };
 } }
 
