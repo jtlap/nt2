@@ -52,10 +52,10 @@ NT2_TEST_CASE_TPL(mqr_non_square, NT2_REAL_TYPES )
   r_p3 = nt2::triu ( q_p3 );
 
   std::size_t d = nt2::numel(jpvt);
-  t_t p = nt2::zeros(d);
+  t_t p = nt2::zeros(d, nt2::meta::as_<T>());
 
   for(std::size_t i = 1; i<= d;++i)
-   p(jpvt(i),i) = 1;
+   p(jpvt(i),i) = T(1);
 
 
   NT2_TEST_ULP_EQUAL(q, mtimes(c,r_rf) , T(10));
@@ -92,10 +92,10 @@ NT2_TEST_CASE_TPL(mqr_square, NT2_REAL_TYPES )
   r_p3 = nt2::triu ( q_p3 );
 
   std::size_t d = nt2::numel(jpvt);
-  t_t p = nt2::zeros(d);
+  t_t p = nt2::zeros(d, nt2::meta::as_<T>());
 
   for(std::size_t i = 1; i<= d;++i)
-   p(jpvt(i),i) = 1;
+   p(jpvt(i),i) = T(1);
 
 
   NT2_TEST_ULP_EQUAL(q, mtimes(c,r_rf) , T(10));
