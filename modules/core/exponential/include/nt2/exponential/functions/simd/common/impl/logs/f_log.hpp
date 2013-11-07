@@ -17,6 +17,8 @@
 #include <nt2/include/functions/simd/is_inf.hpp>
 #include <nt2/include/functions/simd/fast_frexp.hpp>
 #include <nt2/include/functions/simd/fma.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/simd/seladd.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
 #include <nt2/include/functions/simd/if_else_zero.hpp>

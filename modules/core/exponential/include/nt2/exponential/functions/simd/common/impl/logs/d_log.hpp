@@ -16,6 +16,8 @@
 #include <nt2/include/functions/simd/fast_frexp.hpp>
 #include <nt2/include/functions/simd/seladd.hpp>
 #include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/simd/bitwise_and.hpp>
 #include <nt2/include/functions/simd/logical_or.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
