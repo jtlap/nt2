@@ -30,7 +30,7 @@ namespace nt2{ namespace ext
       nt2_la_int  n   = nt2::width(a0);
       nt2_la_int  n1  = nt2::width(a1);
 
-      BOOST_ASSERT_MSG( m = m1 ,"Nonconformant arguments");
+      BOOST_ASSERT_MSG( m == m1 ,"Nonconformant arguments");
 
 
       if(m1 < n)
