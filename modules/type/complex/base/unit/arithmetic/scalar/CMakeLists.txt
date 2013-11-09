@@ -30,6 +30,7 @@ set( SOURCES
   max.cpp
   proj.cpp
   rec.cpp
+  conj.cpp
    )
 
 nt2_module_add_tests(type.complex.base.arithmetic.scalar.unit ${SOURCES})
