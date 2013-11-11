@@ -8,11 +8,15 @@
 //==============================================================================
 #ifndef NT2_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_PLUS_HPP_INCLUDED
 #define NT2_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_PLUS_HPP_INCLUDED
+
 #include <nt2/operator/functions/plus.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/include/functions/bitwise_cast.hpp>
+
+// for optimize
+#include <nt2/include/functions/fma.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -66,7 +70,6 @@ namespace nt2 { namespace ext
                               (generic_< complex_< arithmetic_<A1> > >)
                             )
   {
-    typedef typename meta::as_real<A0>::type rtype;
     typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
@@ -80,7 +83,6 @@ namespace nt2 { namespace ext
                               (generic_< dry_< arithmetic_<A1> > >)
                             )
   {
-    typedef typename meta::as_real<A1>::type rtype;
     typedef typename meta::as_complex<A1>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
