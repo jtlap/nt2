@@ -22,8 +22,7 @@
 #include <boost/simd/sdk/meta/as_arithmetic.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
-#include <boost/mpl/equal_to.hpp>
-#include <boost/mpl/sizeof.hpp>
+#include <boost/simd/sdk/simd/meta/is_logical_mask.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -158,7 +157,7 @@ namespace boost { namespace simd { namespace ext
   //============================================================================
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::splat_, tag::cpu_
                                       , (A0)(A1)(X)
-                                      , (mpl::equal_to< mpl::sizeof_<typename A1::type>, mpl::sizeof_<typename A1::type::type> >)
+                                      , (boost::simd::meta::is_logical_mask<typename A1::type>)
                                       , (scalar_< unspecified_<A0>  >)
                                         ((target_< simd_< logical_<A1>, X > >))
                                       )

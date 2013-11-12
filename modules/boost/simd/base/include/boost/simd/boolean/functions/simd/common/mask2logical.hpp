@@ -12,15 +12,14 @@
 #include <boost/simd/boolean/functions/mask2logical.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
-#include <boost/mpl/equal_to.hpp>
-#include <boost/mpl/sizeof.hpp>
+#include <boost/simd/sdk/simd/meta/is_logical_mask.hpp>
 #include <boost/simd/operator/functions/details/assert_utils.hpp>
 #include <boost/assert.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::mask2logical_, tag::cpu_, (A0)(X)
-                            , (mpl::equal_to< mpl::sizeof_<A0>, mpl::sizeof_<typename simd::meta::as_logical<A0>::type> >)
+                            , (boost::simd::meta::is_logical_mask<typename simd::meta::as_logical<A0>::type>)
                             , ((simd_< arithmetic_<A0>, X >))
                             )
   {

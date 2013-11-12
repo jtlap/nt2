@@ -14,10 +14,8 @@
 #include <boost/simd/include/functions/simd/if_else_zero.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
+#include <boost/simd/sdk/simd/meta/is_logical_mask.hpp>
 #include <boost/simd/sdk/meta/as_arithmetic.hpp>
-#include <boost/mpl/equal_to.hpp>
-#include <boost/mpl/sizeof.hpp>
-#include <boost/mpl/not.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -47,7 +45,7 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::genmask_, tag::cpu_
                             , (A0)(X)
-                            , (mpl::equal_to< mpl::sizeof_<A0>, mpl::sizeof_<typename A0::type> >)
+                            , (boost::simd::meta::is_logical_mask<A0>)
                             , ((simd_<logical_<A0>,X>))
                             )
   {

@@ -8,16 +8,18 @@
 //==============================================================================
 #ifndef BOOST_SIMD_IEEE_FUNCTIONS_SIMD_COMMON_FAST_LDEXP_HPP_INCLUDED
 #define BOOST_SIMD_IEEE_FUNCTIONS_SIMD_COMMON_FAST_LDEXP_HPP_INCLUDED
+
 #include <boost/simd/ieee/functions/fast_ldexp.hpp>
-#include <boost/simd/sdk/meta/size.hpp>
-#include <boost/dispatch/meta/adapted_traits.hpp>
-#include <boost/simd/include/constants/properties.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/functions/simd/bitwise_andnot.hpp>
+#include <boost/simd/include/functions/simd/bitwise_and.hpp>
 #include <boost/simd/include/functions/simd/bitwise_or.hpp>
 #include <boost/simd/include/functions/simd/shift_left.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
+#include <boost/simd/include/constants/ldexpmask.hpp>
+#include <boost/simd/include/constants/nbmantissabits.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/mpl/equal_to.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -25,8 +27,8 @@
 namespace boost { namespace simd { namespace ext
 {
  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::fast_ldexp_, tag::cpu_,(A0)(A1)(X)
-                                , (boost::mpl::equal_to < boost::mpl::sizeof_<A0>
-                                                        , boost::mpl::sizeof_<A1>
+                                , (boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
+                                                        , boost::simd::meta::cardinal_of<A1>
                                                         >
                                   )
                                 , ((simd_<arithmetic_<A0>,X>))
@@ -62,8 +64,8 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF(boost::simd::tag::fast_ldexp_, tag::cpu_,
                                 (A0)(A1)(X),
-                                (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,
-                                                        boost::mpl::sizeof_<A1>
+                                (boost::mpl::equal_to< boost::simd::meta::cardinal_of<A0>,
+                                                       boost::simd::meta::cardinal_of<A1>
                                                       >
                                  ),
                                 ((simd_<floating_<A0>,X>))

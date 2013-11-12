@@ -13,6 +13,7 @@
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/simd/sdk/simd/meta/extension_of.hpp>
 #include <boost/simd/sdk/simd/meta/is_simd_specific.hpp>
+#include <boost/simd/sdk/simd/meta/is_logical_mask.hpp>
 #include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
 
 namespace boost { namespace simd { namespace meta
@@ -29,10 +30,16 @@ namespace boost { namespace simd { namespace meta
     typedef vector4double type;
   };
 
-  template>
+  template<>
   struct as_simd<logical<double>, tag::qpx_>
   {
     typedef vector4double type;
+  };
+
+  template<>
+  struct is_logical_mask<logical<double>, tag::qpx_>
+       : boost::mpl::false_
+  {
   };
 
   template<>

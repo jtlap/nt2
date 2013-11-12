@@ -13,12 +13,13 @@
 #include <boost/simd/include/functions/simd/aligned_load.hpp>
 #include <boost/simd/include/functions/simd/genmask.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
-#include <boost/simd/preprocessor/aligned_type.hpp>
+#include <boost/simd/sdk/simd/meta/is_logical_mask.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
+#include <boost/simd/preprocessor/aligned_type.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
-#include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/mpl/sizeof.hpp>
 
@@ -47,11 +48,7 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::make_, tag::cpu_
                                       , (A0)(X)
-                                      , (mpl::equal_to
-                                              < mpl::sizeof_<A0>
-                                              , mpl::sizeof_<typename A0::type>
-                                              >
-                                        )
+                                      , (simd::meta::is_logical_mask<A0>)
                                       , ((target_< simd_< logical_<A0>, X > >))
                                       )
   {
