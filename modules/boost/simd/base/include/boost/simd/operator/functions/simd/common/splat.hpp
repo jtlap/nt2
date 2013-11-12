@@ -127,7 +127,8 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&) const
     {
-      return simd::toint(a0);
+      // bitwise_cast because long vs long long for same width
+      return bitwise_cast<result_type>(simd::toint(a0));
     }
   };
 
@@ -147,7 +148,8 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&) const
     {
-      return simd::touint(a0);
+      // bitwise_cast because long vs long long for same width
+      return bitwise_cast<result_type>(simd::touint(a0));
     }
   };
 
