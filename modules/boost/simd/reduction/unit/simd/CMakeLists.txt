@@ -14,7 +14,6 @@ SET( SOURCES
   none.cpp
   hmsb.cpp
   sum.cpp
-  second.cpp
   prod.cpp
   posmin.cpp
   posmax.cpp
@@ -22,7 +21,6 @@ SET( SOURCES
   inbtrue.cpp
   minimum.cpp
   maximum.cpp
-  first.cpp
   dot.cpp
   all.cpp
   any.cpp

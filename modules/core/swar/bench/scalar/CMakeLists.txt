@@ -8,16 +8,13 @@
 ##############################################################################
 
 SET( SOURCES
-  splatted_second.cpp
   lookup.cpp
   sort.cpp
   cumsum.cpp
   splatted_maximum.cpp
   splatted_minimum.cpp
   splatted_prod.cpp
-  splatted_first.cpp
   splatted_sum.cpp
-  put_first.cpp
 # List of scalar test files for toolbox swar
    )
 

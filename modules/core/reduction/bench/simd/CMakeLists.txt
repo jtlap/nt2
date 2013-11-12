@@ -10,14 +10,12 @@
 SET( SOURCES
   hmsb.cpp
   sum.cpp
-  second.cpp
   prod.cpp
   posmin.cpp
   posmax.cpp
   nbtrue.cpp
   minimum.cpp
   maximum.cpp
-  first.cpp
   dot.cpp
   all.cpp
   any.cpp

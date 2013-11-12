@@ -18,14 +18,11 @@ SET( SOURCES
   group.cpp
   groups.cpp
   lookup.cpp
-  put_first.cpp
   slice.cpp
   sort.cpp
-  splatted_first.cpp
   splatted_maximum.cpp
   splatted_minimum.cpp
   splatted_prod.cpp
-  splatted_second.cpp
   splatted_sum.cpp
   split.cpp
   reverse.cpp

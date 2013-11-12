@@ -11,13 +11,10 @@
 SET( SOURCES
   split.cpp
   splatted_sum.cpp
-  splatted_second.cpp
   splatted_prod.cpp
   splatted_minimum.cpp
   splatted_maximum.cpp
-  splatted_first.cpp
   sort.cpp
-  put_first.cpp
   lookup.cpp
   group.cpp
   cumsum.cpp
