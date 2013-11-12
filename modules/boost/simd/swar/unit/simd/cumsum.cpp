@@ -8,36 +8,52 @@
 //==============================================================================
 #include <boost/simd/swar/include/functions/cumsum.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/all.hpp>
-
-#include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/constant/constant.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/two.hpp>
+#include <boost/simd/include/constants/mone.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/minf.hpp>
+#include <boost/simd/include/constants/nan.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/sdk/config.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
 
-NT2_TEST_CASE_TPL ( cumsum_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
+template < class vT > vT byhands(const vT & a)
+{
+  vT that = a;
+  for(size_t i=1; i!= boost::simd::meta::cardinal_of<vT>::value; ++i)
+    that[i] += that[i-1];
+  return that;
+}
+
+
+
+NT2_TEST_CASE_TPL ( cumsum_real,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::cumsum;
   using boost::simd::tag::cumsum_;
   using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
+  typedef native<T,ext_t>                  vT;
   typedef typename boost::dispatch::meta::call<cumsum_(vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+
   // specific values tests
-  NT2_TEST_EQUAL(cumsum(boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>());
-  NT2_TEST_EQUAL(cumsum(boost::simd::Minf<vT>())[0], boost::simd::Minf<sr_t>());
-  NT2_TEST_EQUAL(cumsum(boost::simd::Mone<vT>())[0], boost::simd::Mone<sr_t>());
-  NT2_TEST_EQUAL(cumsum(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
-  NT2_TEST_EQUAL(cumsum(boost::simd::One<vT>())[0], boost::simd::One<sr_t>());
-  NT2_TEST_EQUAL(cumsum(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+#ifndef BOOST_SIMD_NO_INVALIDS
+  NT2_TEST_EQUAL(cumsum(boost::simd::Inf<vT>()) ,  byhands(boost::simd::Inf<vT>()));
+  NT2_TEST_EQUAL(cumsum(boost::simd::Minf<vT>()),  byhands(boost::simd::Minf<vT>()));
+  NT2_TEST_EQUAL(cumsum(boost::simd::Nan<vT>()) ,  byhands(boost::simd::Nan<vT>()));
+#endif
+  NT2_TEST_EQUAL(cumsum(boost::simd::Mone<vT>()), byhands(boost::simd::Mone<vT>()));
+  NT2_TEST_EQUAL(cumsum(boost::simd::One<vT>()) , byhands(boost::simd::One<vT>()) );
+  NT2_TEST_EQUAL(cumsum(boost::simd::Zero<vT>()), byhands(boost::simd::Zero<vT>()));
+  NT2_TEST_EQUAL(cumsum(boost::simd::Two<vT>()),byhands(boost::simd::Two<vT>()) );
+
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( cumsum_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
@@ -45,21 +61,15 @@ NT2_TEST_CASE_TPL ( cumsum_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYP
   using boost::simd::cumsum;
   using boost::simd::tag::cumsum_;
   using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
+  typedef native<T,ext_t>                  vT;
   typedef typename boost::dispatch::meta::call<cumsum_(vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  NT2_TEST_EQUAL(cumsum(boost::simd::Mone<vT>())[0], boost::simd::Mone<sr_t>());
-  NT2_TEST_EQUAL(cumsum(boost::simd::One<vT>())[0], boost::simd::One<sr_t>());
-  NT2_TEST_EQUAL(cumsum(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(cumsum(boost::simd::Mone<vT>()),byhands(boost::simd::Mone<vT>()) );
+  NT2_TEST_EQUAL(cumsum(boost::simd::One<vT>()) ,byhands(boost::simd::One<vT>())  );
+  NT2_TEST_EQUAL(cumsum(boost::simd::Zero<vT>()),byhands(boost::simd::Zero<vT>()) );
+  NT2_TEST_EQUAL(cumsum(boost::simd::Two<vT>()),byhands(boost::simd::Two<vT>()) );
 } // end of test for signed_int_
 
 NT2_TEST_CASE_TPL ( cumsum_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
@@ -67,18 +77,12 @@ NT2_TEST_CASE_TPL ( cumsum_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
   using boost::simd::cumsum;
   using boost::simd::tag::cumsum_;
   using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
+  typedef native<T,ext_t>                  vT;
   typedef typename boost::dispatch::meta::call<cumsum_(vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  NT2_TEST_EQUAL(cumsum(boost::simd::One<vT>())[0], boost::simd::One<sr_t>());
-  NT2_TEST_EQUAL(cumsum(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(cumsum(boost::simd::One<vT>()) ,byhands(boost::simd::One<vT>())  );
+  NT2_TEST_EQUAL(cumsum(boost::simd::Zero<vT>()),byhands(boost::simd::Zero<vT>()) );
+  NT2_TEST_EQUAL(cumsum(boost::simd::Two<vT>()),byhands(boost::simd::Two<vT>()) );
 } // end of test for unsigned_int_
