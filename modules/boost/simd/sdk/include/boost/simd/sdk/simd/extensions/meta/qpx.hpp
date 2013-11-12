@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace meta
   };
 
   template<>
-  struct is_logical_mask<logical<double>, tag::qpx_>
+  struct is_logical_mask< native<logical<double>, tag::qpx_> >
        : boost::mpl::false_
   {
   };
