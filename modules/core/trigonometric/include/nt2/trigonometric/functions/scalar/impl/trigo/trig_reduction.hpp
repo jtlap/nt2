@@ -35,6 +35,7 @@
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/_20_pi.hpp>
 #include <nt2/include/constants/oneo_90.hpp>
+#include <nt2/include/constants/_180.hpp>
 #include <nt2/include/constants/oneo_180.hpp>
 #include <nt2/include/constants/medium_pi.hpp>
 #include <nt2/include/constants/false.hpp>
@@ -42,6 +43,7 @@
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
 #include <boost/simd/sdk/meta/is_upgradable.hpp>
+#include <boost/simd/sdk/config/enforce_precision.hpp>
 #include <boost/mpl/int.hpp>
 
 namespace nt2 { namespace details
@@ -272,6 +274,27 @@ namespace nt2 { namespace details
       return nt2::toint(xi);
     }
   };
+
+  #ifdef BOOST_SIMD_HAS_X87
+  template<class A0>
+  struct trig_reduction<A0,degree_tag, tag::not_simd_type, big_>
+  {
+    typedef typename meta::as_logical<A0>::type              bA0;
+    typedef typename meta::as_integer<A0, signed>::type int_type;
+
+    static BOOST_FORCEINLINE bA0 cot_invalid(const A0& x) { return logical_and(nt2::is_nez(x), is_flint(x/nt2::_180<A0>())); }
+    static BOOST_FORCEINLINE bA0 tan_invalid(const A0& x) { return nt2::is_flint((x-nt2::_90<A0>())/nt2::_180<A0>()); }
+
+    static BOOST_FORCEINLINE int_type reduce(const A0& x, A0& xr)
+    {
+      A0 xi = nt2::round2even(x*nt2::Oneo_90<A0>());
+      A0 x2 = x - xi * nt2::_90<A0>();
+
+      xr =  nt2::inrad(x2);
+      return nt2::toint(xi);
+    }
+  };
+  #endif
 
   template < class A0, class style>
   struct trig_reduction < A0, pi_tag,  style, big_>
