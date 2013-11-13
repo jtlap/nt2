@@ -48,6 +48,10 @@ namespace boost { namespace simd
     else r = a0;
     @endcode
 
+    @par Note:
+    Note that the functor is only valid if conceptually the type S is included in type T
+    (or the contrary but this case leads to identity)
+
     @param a0 Value to saturate
     @param a1 Type specifier of the saturation limit
 

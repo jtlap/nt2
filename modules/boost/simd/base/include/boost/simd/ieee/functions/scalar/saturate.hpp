@@ -12,6 +12,7 @@
 #include <boost/simd/ieee/functions/saturate.hpp>
 #include <boost/simd/include/functions/touints.hpp>
 #include <boost/simd/include/functions/toints.hpp>
+#include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
@@ -48,6 +49,9 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, T const& ) const
     {
+      #ifndef BOOST_SIMD_NO_NANS
+      if (is_nan(a0)) return a0;
+      #endif
       return saturate<target_t>(touints(a0));
     }
   };
@@ -63,6 +67,9 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, T const& ) const
     {
+      #ifndef BOOST_SIMD_NO_NANS
+      if (is_nan(a0)) return a0;
+      #endif
       return saturate<target_t>(toints(a0));
     }
   };

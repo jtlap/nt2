@@ -35,6 +35,7 @@ SET( SOURCES
   nextpow2.cpp
   predecessor.cpp
   prev.cpp
+  saturate.cpp
   saturate_at.cpp
   sbits.cpp
   sign.cpp

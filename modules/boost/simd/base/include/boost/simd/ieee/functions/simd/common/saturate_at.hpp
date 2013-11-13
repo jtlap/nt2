@@ -11,10 +11,8 @@
 #include <boost/simd/ieee/functions/saturate_at.hpp>
 #include <boost/dispatch/functor/meta/make_functor.hpp>
 #include <boost/simd/include/functions/simd/unary_minus.hpp>
-#include <boost/simd/include/functions/simd/is_greater.hpp>
-#include <boost/simd/include/functions/simd/is_less.hpp>
-#include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/min.hpp>
+#include <boost/simd/include/functions/simd/max.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -29,7 +27,7 @@ namespace boost { namespace simd { namespace ext
     {
       typename dispatch::make_functor<Tag, A0>::type callee;
       const A0 z = callee( dispatch::meta::as_<A0>() );
-      return select(gt(a0, z), z, select(lt(a0, -z), -z, a0));
+      return min(z, max(-z, a0));
     }
   };
 

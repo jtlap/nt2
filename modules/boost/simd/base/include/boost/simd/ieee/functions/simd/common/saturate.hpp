@@ -10,13 +10,10 @@
 #define BOOST_SIMD_IEEE_FUNCTIONS_SIMD_COMMON_SATURATE_HPP_INCLUDED
 
 #include <boost/simd/ieee/functions/saturate.hpp>
-#include <boost/simd/include/functions/simd/is_greater.hpp>
-#include <boost/simd/include/functions/simd/is_less.hpp>
-#include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/splat.hpp>
-#include <boost/simd/include/functions/simd/insert.hpp>
-#include <boost/simd/include/functions/simd/extract.hpp>
 #include <boost/simd/include/functions/simd/splat.hpp>
+#include <boost/simd/include/functions/simd/min.hpp>
+#include <boost/simd/include/functions/simd/max.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 
@@ -42,8 +39,23 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::saturate_, tag::cpu_
                                     , (A0)(T)(X)
-                                    , ((simd_<int_<A0>,X>))
-                                      (target_< generic_<arithmetic_<T> > >)
+                                    , ((simd_< floating_<A0>,X>))
+                                      (target_< generic_<floating_<T> > >)
+                                    )
+  {
+    typedef A0 result_type;
+    typedef typename meta::scalar_of<T>::type target_t;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, T const& ) const
+    {
+      return a0;
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::saturate_, tag::cpu_
+                                    , (A0)(T)(X)
+                                    , ((simd_<signed_<A0>,X>))
+                                      (target_< generic_<integer_<T> > >)
                                     )
   {
     typedef A0 result_type;
@@ -53,7 +65,7 @@ namespace boost { namespace simd { namespace ext
     {
       const A0 vma = splat<A0>(Valmax<target_t>());
       const A0 vmi = splat<A0>(Valmin<target_t>());
-      return select(gt(a0, vma), vma, select(lt(a0, vmi), vmi, a0));
+      return min(vma, max(vmi, a0));
     }
   };
 
@@ -69,7 +81,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, T const& ) const
     {
       const A0 vma = splat<A0>(Valmax<target_t>());
-      return select(gt(a0, vma), vma, a0);
+      return min(a0, vma);
     }
   };
 } } }
