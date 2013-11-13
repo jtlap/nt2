@@ -16,7 +16,6 @@
 #include <nt2/include/functions/enumerate.hpp>
 #include <nt2/include/functions/run.hpp>
 #include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/first.hpp>
 #include <nt2/include/functions/extract.hpp>
 #include <nt2/sdk/meta/value_as.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
