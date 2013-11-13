@@ -8,31 +8,27 @@
 //==============================================================================
 #ifndef BOOST_SIMD_REDUCTION_FUNCTIONS_SIMD_COMMON_NONE_HPP_INCLUDED
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_SIMD_COMMON_NONE_HPP_INCLUDED
+
 #include <boost/simd/reduction/functions/none.hpp>
-#include <boost/simd/include/constants/true.hpp>
-#include <boost/simd/include/constants/false.hpp>
+#include <boost/simd/include/functions/simd/any.hpp>
+#include <boost/simd/include/functions/simd/logical_not.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
-#include <boost/simd/sdk/meta/cardinal_of.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::none_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<fundamental_<A0>,X>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::none_, tag::cpu_
+                                    , (A0)(X)
+                                    , ((simd_<fundamental_<A0>,X>))
+                                    )
   {
     typedef typename meta::scalar_of<A0>::type sA0;
     typedef typename meta::as_logical<sA0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      for(size_t i=0; i < boost::simd::meta::cardinal_of<A0>::value; i++)
-      {
-        if(a0[i]) return False<result_type>();
-      }
-      return True<result_type>();
+      return boost::simd::logical_not(boost::simd::any(a0));
     }
   };
 } } }
-
 
 #endif
