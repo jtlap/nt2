@@ -9,60 +9,59 @@
 #include <boost/simd/reduction/include/functions/all.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/simd/constant/constant.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <boost/dispatch/functor/meta/call.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+#include <boost/simd/include/constants/true.hpp>
+#include <boost/simd/include/constants/false.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/nan.hpp>
+#include <boost/simd/include/constants/minf.hpp>
+#include <boost/simd/include/constants/mzero.hpp>
+
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
-NT2_TEST_CASE_TPL ( all_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( all, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::all;
+  using boost::simd::True;
+  using boost::simd::False;
   using boost::simd::tag::all_;
   using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef native< boost::simd::logical<T>, ext_t> vlT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::dispatch::meta::call<all_(vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION            ext_t;
+  typedef native<T,ext_t>                         vT;
+  typedef boost::simd::logical<T>                 lT;
 
-  // specific values tests
-  NT2_TEST_EQUAL(boost::simd::all(boost::simd::Inf<vT>()), boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(boost::simd::all(boost::simd::Minf<vT>()), boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(boost::simd::all(boost::simd::Mone<vT>()), boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(boost::simd::all(boost::simd::Nan<vT>()), boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(boost::simd::all(boost::simd::True<vlT>()), boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(boost::simd::all(boost::simd::False<vlT>()), boost::simd::False<sr_t>());
-} // end of test for floating_
+  vT all_ok, none_ok, some_ok;
+  for(std::size_t i=0;i<vT::static_size;++i)
+  {
+    none_ok[i] = T(0);
+    some_ok[i] = all_ok[i] =T(1+i);
+  }
 
-// NT2_TEST_CASE_TPL ( all_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
-// {
-//   using boost::simd::all;
-//   using boost::simd::tag::all_;
-//   using boost::simd::aligned_load;
-//   using boost::simd::native;
-//   using boost::simd::meta::cardinal_of;
-//   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-//   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-//   typedef native<T,ext_t>                        n_t;
-//   typedef n_t                                     vT;
-//    typedef native< boost::simd::logical<T>, ext_t> vlT;
-//   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-//   typedef native<iT,ext_t>                       ivT;
-//   typedef typename boost::dispatch::meta::call<all_(vT)>::type r_t;
-//   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-//   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  some_ok[vT::static_size/2] = T(0);
 
+  NT2_TEST_EQUAL( all(all_ok) , True<lT>()  );
+  NT2_TEST_EQUAL( all(some_ok), False<lT>() );
+  NT2_TEST_EQUAL( all(none_ok), False<lT>() );
+}
 
-//   // specific values tests
-//   NT2_TEST_EQUAL(boost::simd::all(boost::simd::True<vlT>()), boost::simd::True<sr_t>());
-//   NT2_TEST_EQUAL(boost::simd::all(boost::simd::False<vlT>()),boost::simd::False<sr_t>());
-//   NT2_TEST_EQUAL(boost::simd::all(boost::simd::One<vT>()),  boost::simd::True<sr_t>());
-//   NT2_TEST_EQUAL(boost::simd::all(boost::simd::Zero<vT>()), boost::simd::False<sr_t>());
-// } // end of test for integer_
+NT2_TEST_CASE_TPL ( all_real, BOOST_SIMD_SIMD_REAL_TYPES)
+{
+  using boost::simd::all;
+  using boost::simd::True;
+  using boost::simd::Minf;
+  using boost::simd::Inf;
+  using boost::simd::Nan;
+  using boost::simd::Mzero;
+  using boost::simd::False;
+  using boost::simd::tag::all_;
+  using boost::simd::native;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION            ext_t;
+  typedef native<T,ext_t>                         vT;
+  typedef boost::simd::logical<T>                 lT;
+
+  NT2_TEST_EQUAL( all(Inf<vT>()) , True<lT>()   );
+  NT2_TEST_EQUAL( all(Minf<vT>()), True<lT>()   );
+  NT2_TEST_EQUAL( all(Nan<vT>()) , True<lT>()   );
+  NT2_TEST_EQUAL( all(Mzero<vT>()), False<lT>() );
+}

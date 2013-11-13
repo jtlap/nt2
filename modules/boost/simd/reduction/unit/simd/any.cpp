@@ -9,58 +9,59 @@
 #include <boost/simd/reduction/include/functions/any.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <boost/dispatch/functor/meta/call.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+#include <boost/simd/include/constants/true.hpp>
+#include <boost/simd/include/constants/false.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/nan.hpp>
+#include <boost/simd/include/constants/minf.hpp>
+#include <boost/simd/include/constants/mzero.hpp>
+
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/constant/constant.hpp>
 
-NT2_TEST_CASE_TPL ( any_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( any, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::any;
+  using boost::simd::True;
+  using boost::simd::False;
   using boost::simd::tag::any_;
   using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef native< boost::simd::logical<T>, ext_t> vlT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::dispatch::meta::call<any_(vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef boost::simd::logical<T> vsr_t;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION            ext_t;
+  typedef native<T,ext_t>                         vT;
+  typedef boost::simd::logical<T>                 lT;
 
-  // specific values tests
-  NT2_TEST_EQUAL(boost::simd::any(boost::simd::Inf<vT>()), vsr_t(true));
-  NT2_TEST_EQUAL(boost::simd::any(boost::simd::Minf<vT>()), vsr_t(true));
-  NT2_TEST_EQUAL(boost::simd::any(boost::simd::Mone<vT>()), vsr_t(true));
-  NT2_TEST_EQUAL(boost::simd::any(boost::simd::Nan<vT>()), vsr_t(true));
-  NT2_TEST_EQUAL(boost::simd::any(boost::simd::True<vlT>()), vsr_t(true));
-  NT2_TEST_EQUAL(boost::simd::any(boost::simd::Zero<vT>()), vsr_t(false));
-} // end of test for floating_
+  vT all_ok, none_ok, some_ok;
+  for(std::size_t i=0;i<vT::static_size;++i)
+  {
+    none_ok[i] = T(0);
+    some_ok[i] = all_ok[i] =T(1+i);
+  }
 
-NT2_TEST_CASE_TPL ( any_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
+  some_ok[vT::static_size/2] = T(0);
+
+  NT2_TEST_EQUAL( any(all_ok) , True<lT>()  );
+  NT2_TEST_EQUAL( any(some_ok), True<lT>()  );
+  NT2_TEST_EQUAL( any(none_ok), False<lT>() );
+}
+
+NT2_TEST_CASE_TPL ( any_real, BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::any;
+  using boost::simd::True;
+  using boost::simd::Minf;
+  using boost::simd::Inf;
+  using boost::simd::Nan;
+  using boost::simd::False;
+  using boost::simd::Mzero;
   using boost::simd::tag::any_;
   using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef native< boost::simd::logical<T>, ext_t> vlT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::dispatch::meta::call<any_(vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef boost::simd::logical<T> vsr_t;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION            ext_t;
+  typedef native<T,ext_t>                         vT;
+  typedef boost::simd::logical<T>                 lT;
 
-  // specific values tests
-  NT2_TEST_EQUAL(boost::simd::any(boost::simd::One<vT>()), vsr_t(true));
-  NT2_TEST_EQUAL(boost::simd::any(boost::simd::Zero<vT>()), vsr_t(false));
-} // end of test for integer_
+  NT2_TEST_EQUAL( any(Inf<vT>()) , True<lT>()   );
+  NT2_TEST_EQUAL( any(Minf<vT>()), True<lT>()   );
+  NT2_TEST_EQUAL( any(Nan<vT>()) , True<lT>()   );
+  NT2_TEST_EQUAL( any(Mzero<vT>()), False<lT>() );
+}
