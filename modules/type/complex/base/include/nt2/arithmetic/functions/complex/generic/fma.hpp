@@ -30,6 +30,9 @@
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <boost/simd/sdk/config.hpp>
 
+// for optimize
+#include <nt2/include/functions/fnma.hpp>
+
 namespace nt2 { namespace ext
 {
 

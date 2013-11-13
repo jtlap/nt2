@@ -8,11 +8,15 @@
 //==============================================================================
 #ifndef NT2_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_UNARY_MINUS_HPP_INCLUDED
 #define NT2_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_UNARY_MINUS_HPP_INCLUDED
+
 #include <nt2/operator/functions/unary_minus.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
-#include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/include/functions/bitwise_cast.hpp>
+
+// for optimize
+#include <nt2/include/functions/fnma.hpp>
+#include <nt2/include/functions/fnms.hpp>
 
 namespace nt2 { namespace ext
 {

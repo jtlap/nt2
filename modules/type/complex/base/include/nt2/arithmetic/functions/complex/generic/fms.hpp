@@ -14,6 +14,9 @@
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/minus.hpp>
 
+// for optimize
+#include <nt2/include/functions/fnms.hpp>
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fms_, tag::cpu_, (A0)(A1)(A2)
