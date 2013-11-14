@@ -33,7 +33,7 @@ namespace boost { namespace simd
     };
   }
   /*!
-    Returns the saturated value of the first input relative to the symetric
+    Returns the saturated value of the first input relative to the symmetric
     interval defined by the template parameter which has to be the tag of
     a constant.
 
