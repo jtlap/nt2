@@ -11,18 +11,17 @@
 
 #include <boost/simd/arithmetic/functions/toints.hpp>
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
-#include <boost/simd/include/functions/scalar/is_finite.hpp>
+#include <boost/simd/include/functions/scalar/saturate.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
-#include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/sdk/config.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::toints_, tag::cpu_ , (A0)
-                            , (scalar_< int_<A0> >)
-                            )
+                                   , (scalar_< int_<A0> >)
+                                   )
   {
     typedef A0 result_type;
 
@@ -42,11 +41,10 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< uint_<A0> >)
                             )
   {
-    typedef typename dispatch::meta::as_integer<A0, signed> ::type result_type;
+    typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
     result_type operator()(A0 const& a0) const
     {
-      if (a0 >= A0(Valmax<result_type>()))   return Valmax<result_type>();
-      return result_type(a0);
+      return result_type(saturate<result_type>(a0));
     }
   };
 
@@ -54,7 +52,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< floating_<A0> >)
                             )
   {
-    typedef typename dispatch::meta::as_integer<A0> ::type result_type;
+    typedef typename dispatch::meta::as_integer<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
     #ifndef BOOST_SIMD_NO_NANS

@@ -8,13 +8,13 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_TOUINTS_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_TOUINTS_HPP_INCLUDED
+
 #include <boost/simd/arithmetic/functions/touints.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/constants/inf.hpp>
-#include <boost/simd/include/constants/minf.hpp>
+#include <boost/simd/include/functions/scalar/is_ngez.hpp>
+#include <boost/simd/include/functions/scalar/saturate.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
-#include <boost/simd/include/functions/scalar/is_ngez.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -22,22 +22,27 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< int_<A0> >)
                             )
   {
-    typedef typename dispatch::meta::as_integer<A0, unsigned> ::type result_type;
+    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
 
     BOOST_FORCEINLINE  result_type
     operator()(A0 const& a0) const
     {
-      return a0 >= 0 ? result_type(a0) : Zero<result_type>();
+      return result_type(saturate<result_type>(a0));
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::touints_, tag::cpu_ , (A0)
-                            , (scalar_< uint_<A0> >)
-                            )
+                                   , (scalar_< uint_<A0> >)
+                                   )
   {
-    typedef typename dispatch::meta::as_integer<A0, unsigned> ::type result_type;
+    typedef A0 result_type;
 
-    BOOST_FORCEINLINE  result_type
+    BOOST_FORCEINLINE
+    #ifdef BOOST_PROTO_STRICT_RESULT_OF
+    result_type
+    #else
+    A0 const&
+    #endif
     operator()(A0 const& a0) const
     {
       return a0;
@@ -45,13 +50,13 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::touints_, tag::cpu_, (A0)
-                            , (scalar_< floating_<A0> >)
-                            )
+                                   , (scalar_< floating_<A0> >)
+                                   )
   {
-    typedef typename dispatch::meta::as_integer<A0, unsigned> ::type result_type;
+    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      if (boost::simd::is_ngez(a0))                  return Zero<result_type>();
+      if (is_ngez(a0)) return Zero<result_type>();
       if (a0 >= boost::simd::Valmax<result_type>())  return boost::simd::Valmax<result_type>();
       return result_type(a0);
     }
