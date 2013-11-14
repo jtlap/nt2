@@ -16,6 +16,8 @@
 #include <nt2/sdk/unit/config.hpp>
 #include <nt2/sdk/unit/details/main.hpp>
 #include <nt2/sdk/unit/details/suite.hpp>
+
+#define NT2_ASSERTS_AS_FLEXIBLE_SOURCE
 #include <nt2/sdk/error/assert_as_flexible.hpp>
 #include <stdexcept>
 

@@ -28,7 +28,11 @@ namespace nt2
     ASSERT_EXCEPT    = 1 << 4
   };
 
+#ifdef NT2_ASSERTS_AS_FLEXIBLE_SOURCE
+  extern BOOST_SYMBOL_EXPORT assert_mode_t assert_mode;
+#else
   extern BOOST_SYMBOL_IMPORT assert_mode_t assert_mode;
+#endif
 }
 
 #if defined(NT2_ASSERTS_AS_FLEXIBLE) && !defined(BOOST_ENABLE_ASSERT_HANDLER)
