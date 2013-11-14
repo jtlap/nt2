@@ -702,6 +702,8 @@ macro(nt2_module_simd_toolbox name base)
                    "  using boost::simd::${file_c};\n"
                    "}\n"
                    "\n"
+                   "#include <nt2/constant/common.hpp>\n"
+                   "\n"
                    "#endif\n"
             )
       endif()

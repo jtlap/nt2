@@ -17,6 +17,11 @@ nt2_module_simd_toolbox(operator base)
 nt2_module_simd_toolbox(predicates base)
 nt2_module_simd_toolbox(constant base)
 
+nt2_module_postconfigure(gather_includes ---ignore details --ignore preprocessed
+                                         nt2/constant/impl boost/simd/constant/impl
+                                         --out nt2/constant
+                        )
+
 include(nt2.preprocess)
 nt2_preprocess( core.base.operator.preprocess
                 ${NT2_CORE.BASE_ROOT}/include/nt2/core/functions/cons.hpp
