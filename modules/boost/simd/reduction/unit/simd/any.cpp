@@ -22,7 +22,6 @@
 
 NT2_TEST_CASE_TPL ( any, BOOST_SIMD_SIMD_TYPES)
 {
-  using boost::simd::any;
   using boost::simd::True;
   using boost::simd::False;
   using boost::simd::tag::any_;
@@ -40,14 +39,13 @@ NT2_TEST_CASE_TPL ( any, BOOST_SIMD_SIMD_TYPES)
 
   some_ok[vT::static_size/2] = T(0);
 
-  NT2_TEST_EQUAL( any(all_ok) , True<lT>()  );
-  NT2_TEST_EQUAL( any(some_ok), True<lT>()  );
-  NT2_TEST_EQUAL( any(none_ok), False<lT>() );
+  NT2_TEST_EQUAL( boost::simd::any(all_ok) , True<lT>()  );
+  NT2_TEST_EQUAL( boost::simd::any(some_ok), True<lT>()  );
+  NT2_TEST_EQUAL( boost::simd::any(none_ok), False<lT>() );
 }
 
 NT2_TEST_CASE_TPL ( any_real, BOOST_SIMD_SIMD_REAL_TYPES)
 {
-  using boost::simd::any;
   using boost::simd::True;
   using boost::simd::Minf;
   using boost::simd::Inf;
@@ -60,8 +58,8 @@ NT2_TEST_CASE_TPL ( any_real, BOOST_SIMD_SIMD_REAL_TYPES)
   typedef native<T,ext_t>                         vT;
   typedef boost::simd::logical<T>                 lT;
 
-  NT2_TEST_EQUAL( any(Inf<vT>()) , True<lT>()   );
-  NT2_TEST_EQUAL( any(Minf<vT>()), True<lT>()   );
-  NT2_TEST_EQUAL( any(Nan<vT>()) , True<lT>()   );
-  NT2_TEST_EQUAL( any(Mzero<vT>()), False<lT>() );
+  NT2_TEST_EQUAL( boost::simd::any(Inf<vT>()) , True<lT>()   );
+  NT2_TEST_EQUAL( boost::simd::any(Minf<vT>()), True<lT>()   );
+  NT2_TEST_EQUAL( boost::simd::any(Nan<vT>()) , True<lT>()   );
+  NT2_TEST_EQUAL( boost::simd::any(Mzero<vT>()), False<lT>() );
 }
