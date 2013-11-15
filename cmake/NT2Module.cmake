@@ -468,11 +468,11 @@ macro(nt2_module_add_tests name)
       endif()
 
       if(NOT suffix STREQUAL bench OR NT2_WITH_TESTS_BENCH)
-        if(CMAKE_CROSSCOMPILING AND CMAKE_CROSSCOMPILING_HOST)
+        if(CMAKE_CROSSCOMPILING_HOST)
           add_test(${prefix}.${basename}-${suffix} /bin/sh -c
                    "scp \"${NT2_BINARY_DIR}/${suffix}/${exe}\" ${CMAKE_CROSSCOMPILING_HOST}:/tmp && ssh ${CMAKE_CROSSCOMPILING_HOST} /tmp/${exe} ${arg} && ssh ${CMAKE_CROSSCOMPILING_HOST} rm /tmp/${exe}"
                   )
-        elseif(CMAKE_CROSSCOMPILING AND CMAKE_CROSSCOMPILING_CMD)
+        elseif(CMAKE_CROSSCOMPILING_CMD)
           add_test(${prefix}.${basename}-${suffix} ${CMAKE_CROSSCOMPILING_CMD} ${NT2_BINARY_DIR}/${suffix}/${exe} ${arg})
         else()
           add_test(${prefix}.${basename}-${suffix} ${NT2_BINARY_DIR}/${suffix}/${exe} ${arg})
