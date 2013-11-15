@@ -20,7 +20,7 @@
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
-
+#include <boost/simd/include/functions/ldexp.hpp>
 
 NT2_TEST_CASE_TPL ( toints_real,  BOOST_SIMD_REAL_TYPES)
 {
@@ -47,6 +47,19 @@ NT2_TEST_CASE_TPL ( toints_real,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(toints(boost::simd::Nan<T>()),  boost::simd::Zero<r_t>());
   NT2_TEST_EQUAL(toints(boost::simd::One<T>()),  boost::simd::One<r_t>());
   NT2_TEST_EQUAL(toints(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
+
+  T v = T(1);
+  wished_r_t iv = 1;
+  int N = sizeof(T)*8-1;
+  for(int i=0; i < N ; i++, v*= 2, iv <<= 1)
+  {
+    NT2_TEST_EQUAL(toints(v), iv);
+    NT2_TEST_EQUAL(toints(-v), -iv);
+  }
+  NT2_TEST_EQUAL(toints(boost::simd::ldexp(boost::simd::One<T>(), N)), boost::simd::Valmax<r_t>());
+  NT2_TEST_EQUAL(toints(boost::simd::ldexp(boost::simd::One<T>(), N+1)), boost::simd::Valmax<r_t>());
+  NT2_TEST_EQUAL(toints(-boost::simd::ldexp(boost::simd::One<T>(), N+1)), boost::simd::Valmin<r_t>());
+  NT2_TEST_EQUAL(toints(-boost::simd::ldexp(boost::simd::One<T>(), N+1)), boost::simd::Valmin<r_t>());
 
 } // end of test for floating_
 

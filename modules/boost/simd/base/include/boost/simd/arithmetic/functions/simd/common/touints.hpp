@@ -16,7 +16,7 @@
 #include <boost/simd/include/functions/simd/touint.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
-#include <boost/simd/include/functions/simd/is_greater.hpp>
+#include <boost/simd/include/functions/simd/is_greater_equal.hpp>
 #include <boost/simd/include/functions/simd/saturate.hpp>
 #include <boost/simd/include/functions/simd/splat.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
@@ -67,7 +67,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename meta::scalar_of<result_type>::type sr_t;
       static const A0 Vax = splat<A0>(boost::simd::Valmax<sr_t>());
       return if_zero_else(boost::simd::is_ngez(a0),
-                          if_else(boost::simd::gt(a0, Vax), Valmax<result_type>(),
+                          if_else(boost::simd::ge(a0, Vax), Valmax<result_type>(),
                                   touint(a0)
                                  )
                          );

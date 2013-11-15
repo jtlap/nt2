@@ -15,14 +15,16 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/include/functions/splat.hpp>
 #include <boost/simd/include/functions/multiplies.hpp>
+#include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/include/functions/ldexp.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/nan.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/two.hpp>
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
-#include <boost/simd/include/functions/load.hpp>
 
 NT2_TEST_CASE_TPL ( toints_real,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
@@ -49,7 +51,22 @@ NT2_TEST_CASE_TPL ( toints_real,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(toints(boost::simd::Nan<vT>()),  boost::simd::Zero<r_t>());
   NT2_TEST_EQUAL(toints(boost::simd::One<vT>()),  boost::simd::One<r_t>());
   NT2_TEST_EQUAL(toints(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
-} // end of test for floating_
+
+  vT v = boost::simd::One<vT>();
+  r_t iv = boost::simd::One<r_t>();
+  int N = sizeof(T)*8-1;
+  for(int i=0; i < N ; i++)
+  {
+    NT2_TEST_EQUAL(toints(v), iv);
+    NT2_TEST_EQUAL(toints(-v), -iv);
+    v *= boost::simd::Two<vT>();
+    iv *= boost::simd::Two<r_t>();
+  }
+  NT2_TEST_EQUAL(toints(boost::simd::ldexp(boost::simd::One<vT>(), N)), boost::simd::Valmax<r_t>());
+  NT2_TEST_EQUAL(toints(boost::simd::ldexp(boost::simd::One<vT>(), N+1)), boost::simd::Valmax<r_t>());
+  NT2_TEST_EQUAL(toints(-boost::simd::ldexp(boost::simd::One<vT>(), N)), boost::simd::Valmin<r_t>());
+  NT2_TEST_EQUAL(toints(-boost::simd::ldexp(boost::simd::One<vT>(), N+1)), boost::simd::Valmin<r_t>());
+}
 
 NT2_TEST_CASE_TPL ( toints_real2,   BOOST_SIMD_SIMD_REAL_TYPES)
 {
