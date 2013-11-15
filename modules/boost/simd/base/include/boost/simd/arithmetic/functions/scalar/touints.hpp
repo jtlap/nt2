@@ -57,7 +57,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       if (is_ngez(a0)) return Zero<result_type>();
-      if (a0 >= boost::simd::Valmax<result_type>())  return boost::simd::Valmax<result_type>();
+      if (a0 > boost::simd::Valmax<result_type>())  return boost::simd::Valmax<result_type>();
       return result_type(a0);
     }
   };
