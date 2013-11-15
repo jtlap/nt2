@@ -76,8 +76,8 @@ NT2_TEST_CASE_TPL ( factorial_int,  NT2_SIMD_INTEGRAL_TYPES)
   // specific values tests
   NT2_TEST_EQUAL(factorial(nt2::Eight<vT>()),nt2::splat<vT>(nt2::saturate<vT>(40320ull)));
   NT2_TEST_EQUAL(factorial(nt2::Eleven<vT>()),nt2::splat<vT>(nt2::saturate<vT>(39916800ull)));
-  NT2_TEST_EQUAL(factorial(nt2::Five<vT>()),nt2::splat<vT>(nt2::saturate<vT>(120ull)));
-  NT2_TEST_EQUAL(factorial(nt2::Four<vT>()),nt2::splat<vT>(nt2::saturate<vT>(24ull)));
+  NT2_TEST_EQUAL(factorial(nt2::Five<vT>()),nt2::splat<vT>(nt2::saturate<vT>(120)));
+  NT2_TEST_EQUAL(factorial(nt2::Four<vT>()),nt2::splat<vT>(nt2::saturate<vT>(24)));
   NT2_TEST_EQUAL(factorial(nt2::Nine<vT>()),nt2::splat<vT>(nt2::saturate<vT>(362880ull)));
   NT2_TEST_EQUAL(factorial(nt2::One<vT>()),nt2::One<vT>());
   NT2_TEST_EQUAL(factorial(nt2::Seven<vT>()),nt2::splat<vT>(nt2::saturate<vT>(5040ull)));
