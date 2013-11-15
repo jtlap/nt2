@@ -19,7 +19,7 @@
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/mpl/equal_to.hpp>
+#include <boost/mpl/comparison.hpp>
 #include <boost/mpl/sizeof.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -39,14 +39,16 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
+  // any->any, only works if target is strictly smaller
+  // FIXME: is Valmax<target_t>/Valmin<target_t> representable with A0 if floating-point?
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::saturate_, tag::cpu_
                                     , (A0)(T)
-                                    , (generic_< signed_<A0> >)
+                                    , (generic_< unspecified_<A0> >)
                                       (target_< generic_< arithmetic_<T> > >)
                                     )
   {
     typedef A0 result_type;
-    typedef typename meta::scalar_of<T>::type target_t;
+    typedef typename meta::scalar_of<typename T::type>::type target_t;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, T const& ) const
     {
@@ -56,6 +58,8 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
+  // unsigned->any, only works if target is smaller or equal
+  // FIXME: is Valmax<target_t> representable with A0 if floating-point?
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::saturate_, tag::cpu_
                                     , (A0)(T)
                                     , (generic_<unsigned_<A0> >)
@@ -63,7 +67,7 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef A0 result_type;
-    typedef typename meta::scalar_of<T>::type target_t;
+    typedef typename meta::scalar_of<typename T::type>::type target_t;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, T const& ) const
     {
@@ -72,9 +76,10 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
+  // if target is greater or equal and signed->unsigned, just need to check if negative
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::saturate_, tag::cpu_
                                       , (A0)(T)
-                                      , (mpl::equal_to< mpl::sizeof_<typename meta::scalar_of<typename T::type>::type>, mpl::sizeof_<typename meta::scalar_of<A0>::type> >)
+                                      , (mpl::greater_equal< mpl::sizeof_<typename meta::scalar_of<typename T::type>::type>, mpl::sizeof_<typename meta::scalar_of<A0>::type> >)
                                       , (generic_< int_<A0> >)
                                         (target_< generic_< uint_<T> > >)
                                       )
@@ -84,6 +89,22 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, T const& ) const
     {
       return max(Zero<A0>(), a0);
+    }
+  };
+
+  // if target is strictly greater, nothing to saturate
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::saturate_, tag::cpu_
+                                      , (A0)(T)
+                                      , (mpl::greater< mpl::sizeof_<typename meta::scalar_of<typename T::type>::type>, mpl::sizeof_<typename meta::scalar_of<A0>::type> >)
+                                      , (generic_< integer_<A0> >)
+                                        (target_< generic_< arithmetic_<T> > >)
+                                      )
+  {
+    typedef A0 result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, T const& ) const
+    {
+      return a0;
     }
   };
 } } }
