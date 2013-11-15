@@ -79,8 +79,8 @@ NT2_TEST_CASE_TPL ( factorial_integer__1_0,  NT2_INTEGRAL_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(factorial(nt2::Eight<T>()), T(nt2::saturate<T>(40320ull    )), 0);
   NT2_TEST_ULP_EQUAL(factorial(nt2::Eleven<T>()), T(nt2::saturate<T>(39916800ull)), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Five<T>()), T(nt2::saturate<T>(120)), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Four<T>()), T(nt2::saturate<T>(24)), 0);
+  NT2_TEST_ULP_EQUAL(factorial(nt2::Five<T>()), T(nt2::saturate<T>(120ull)), 0);
+  NT2_TEST_ULP_EQUAL(factorial(nt2::Four<T>()), T(nt2::saturate<T>(24ull)), 0);
   NT2_TEST_ULP_EQUAL(factorial(nt2::Nine<T>()), T(nt2::saturate<T>(362880ull   )), 0);
   NT2_TEST_ULP_EQUAL(factorial(nt2::One<T>()), nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(factorial(nt2::Seven<T>()), T(nt2::saturate<T>(5040ull     )), 0);
