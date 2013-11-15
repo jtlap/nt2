@@ -13,12 +13,11 @@
 #include <boost/simd/arithmetic/functions/toints.hpp>
 #include <boost/simd/include/functions/simd/toint.hpp>
 #include <boost/simd/include/functions/simd/is_nan.hpp>
-#include <boost/simd/include/functions/simd/if_else.hpp>
-#include <boost/simd/include/functions/simd/is_less_equal.hpp>
-#include <boost/simd/include/functions/simd/is_greater_equal.hpp>
 #include <boost/simd/include/functions/simd/if_zero_else.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/functions/simd/saturate.hpp>
+#include <boost/simd/include/functions/simd/is_less.hpp>
+#include <boost/simd/include/functions/simd/is_greater.hpp>
 #include <boost/simd/include/functions/simd/splat.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
@@ -72,14 +71,14 @@ namespace boost { namespace simd { namespace ext
       static const A0 Vix = splat<A0>(boost::simd::Valmin<sr_t>());
     #ifndef BOOST_SIMD_NO_NANS
       A0 aa0 = if_zero_else(is_nan(a0), a0);
-      return if_else(boost::simd::le(aa0, Vix), Valmin<result_type>(),
-                     if_else(boost::simd::ge(aa0, Vax), Valmax<result_type>(),
+      return if_else(boost::simd::lt(aa0, Vix), Valmin<result_type>(),
+                     if_else(boost::simd::gt(aa0, Vax), Valmax<result_type>(),
                              toint(aa0)
                             )
                     );
     #else
-      return if_else(boost::simd::le(a0, Vix), Valmin<result_type>(),
-                     if_else(boost::simd::ge(a0, Vax), Valmax<result_type>(),
+      return if_else(boost::simd::lt(a0, Vix), Valmin<result_type>(),
+                     if_else(boost::simd::gt(a0, Vax), Valmax<result_type>(),
                              toint(a0)
                             )
                     );

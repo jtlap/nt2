@@ -21,9 +21,6 @@
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/include/functions/multiplies.hpp>
 #include <boost/simd/include/functions/splat.hpp>
-#include <boost/simd/include/functions/ldexp.hpp>
-#include <boost/simd/include/functions/next.hpp>
-#include <boost/simd/include/functions/prev.hpp>
 
 
 
@@ -49,17 +46,6 @@ NT2_TEST_CASE_TPL ( touints_real,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(touints(boost::simd::Nan<vT>()), boost::simd::Zero<r_t>());
   NT2_TEST_EQUAL(touints(boost::simd::One<vT>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(touints(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
-  vT v = boost::simd::One<vT>();
-  r_t iv = boost::simd::One<r_t>();
-  int N = sizeof(T)*8-1;
-  for(int i=0; i <= N ; i++)
-  {
-      NT2_TEST_EQUAL(touints(v), iv);
-      v *= boost::simd::Two<vT>();
-      iv *= boost::simd::Two<r_t>();
-  }
-  NT2_TEST_EQUAL(touints(boost::simd::ldexp(boost::simd::One<vT>(), N+1)), boost::simd::Valmax<r_t>());
-  NT2_TEST_EQUAL(touints(boost::simd::ldexp(boost::simd::One<vT>(), N+2)), boost::simd::Valmax<r_t>());
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( touints_integral,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
