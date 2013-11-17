@@ -15,5 +15,6 @@ namespace nt2
   template< class Tag, class Arch >
   struct spawner;
 }
+
 #endif
 

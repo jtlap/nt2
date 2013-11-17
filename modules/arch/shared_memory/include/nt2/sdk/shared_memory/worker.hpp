@@ -13,7 +13,8 @@
 namespace nt2
 {
   template< class Tag
-          , class Arch
+          , class BackEnd
+          , class Site
           , class Out
           , class In
           , class A2 = void
