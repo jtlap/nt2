@@ -11,5 +11,6 @@
 #define NT2_SDK_OPENMP_SPAWNER_HPP_INCLUDED
 
 #include <nt2/sdk/openmp/spawner/transform.hpp>
+#include <nt2/sdk/openmp/spawner/fold.hpp>
 
 #endif

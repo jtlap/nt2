@@ -11,5 +11,6 @@
 #define NT2_SDK_TBB_SPAWNER_HPP_INCLUDED
 
 #include <nt2/sdk/tbb/spawner/transform.hpp>
+#include <nt2/sdk/tbb/spawner/fold.hpp>
 
 #endif

@@ -35,11 +35,11 @@ namespace nt2
     spawner(){}
 
     template<typename Worker>
-    void operator()(Worker & worker_, std::size_t begin_, std::size_t size_, std::size_t grain_)
+    void operator()(Worker & w, std::size_t begin, std::size_t size, std::size_t grain)
     {
 
 #ifndef BOOST_NO_EXCEPTIONS
-      boost::exception_ptr exception;
+        boost::exception_ptr exception;
 #endif
 
       #ifndef BOOST_NO_EXCEPTIONS
@@ -47,8 +47,12 @@ namespace nt2
             {
       #endif
 
-             tbb::parallel_for( nt2::blocked_range<std::size_t>(begin_,begin_+size_,grain_),
-                                worker_);
+             tbb::parallel_for( nt2::blocked_range<std::size_t>(begin,begin+size,grain),
+                               [&](nt2::blocked_range<std::size_t> const& r)
+                               {
+                                   w(r.begin(),r.size());
+                               }
+                               );
 
       #ifndef BOOST_NO_EXCEPTIONS
             }
