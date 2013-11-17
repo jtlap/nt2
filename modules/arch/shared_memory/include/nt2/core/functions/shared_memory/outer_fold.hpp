@@ -13,6 +13,7 @@
 #include <nt2/core/functions/transform.hpp>
 #include <nt2/core/functions/outer_fold.hpp>
 #include <nt2/sdk/shared_memory/shared_memory.hpp>
+#include <nt2/sdk/shared_memory/worker/outer_fold.hpp>
 #include <nt2/sdk/config/cache.hpp>
 #include <cstddef>
 
@@ -40,8 +41,8 @@ namespace nt2 { namespace ext
 
       std::size_t grain = top_cache_line_size/gcd(ibound,top_cache_line_size);
 
-      nt2::worker<tag::outer_fold_,BackEnd,Out,In,Neutral,Bop,Uop> w(out, in, neutral, bop, uop);
-      nt2::spawner< tag::transform_,BackEnd >              s;
+      nt2::worker<tag::outer_fold_,BackEnd,Site,Out,In,Neutral,Bop,Uop> w(out, in, neutral, bop, uop);
+      nt2::spawner< tag::transform_,BackEnd > s;
 
       s(w,0,obound,grain);
     }

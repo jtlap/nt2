@@ -13,7 +13,7 @@
 #include <nt2/core/functions/transform.hpp>
 #include <nt2/core/functions/inner_fold.hpp>
 #include <nt2/sdk/shared_memory/shared_memory.hpp>
-#include <nt2/sdk/shared_memory/worker.hpp>
+#include <nt2/sdk/shared_memory/worker/inner_fold.hpp>
 #include <nt2/sdk/shared_memory/spawner.hpp>
 
 namespace nt2 { namespace ext
@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
 
       std::size_t grain = 8;
 
-      nt2::worker<tag::inner_fold_,BackEnd,Out,In,Neutral,Bop,Uop>
+      nt2::worker<tag::inner_fold_,BackEnd,Site,Out,In,Neutral,Bop,Uop>
       w(out, in, neutral, bop, uop);
 
       nt2::spawner< tag::transform_, BackEnd > s;

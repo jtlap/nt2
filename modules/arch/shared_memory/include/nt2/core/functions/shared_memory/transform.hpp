@@ -12,7 +12,7 @@
 
 #include <nt2/core/functions/transform.hpp>
 #include <nt2/sdk/shared_memory/shared_memory.hpp>
-#include <nt2/sdk/shared_memory/worker.hpp>
+#include <nt2/sdk/shared_memory/worker/transform.hpp>
 #include <nt2/sdk/shared_memory/spawner.hpp>
 #include <nt2/sdk/config/cache.hpp>
 #include <cstddef>
@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef void                                                             result_type;
+    typedef void result_type;
 
     BOOST_FORCEINLINE result_type operator()(Out& out, In& in, Range range) const
     {
@@ -42,8 +42,8 @@ namespace nt2 { namespace ext
       std::size_t sz = range.second;
       if(!top_cache_line_size) top_cache_line_size = 1u;
 
-       nt2::worker<tag::transform_, BackEnd,Out,In> w(out,in);
-       nt2::spawner<tag::transform_, BackEnd>         s;
+       nt2::worker<tag::transform_,BackEnd,Site,Out,In> w(out,in);
+       nt2::spawner<tag::transform_, BackEnd> s;
 
        s(w,it,sz,top_cache_line_size);
     }
