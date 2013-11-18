@@ -34,15 +34,15 @@ namespace nt2
     spawner() {}
 
     template<typename Worker>
-    void operator()(Worker & worker_, std::size_t begin_, std::size_t size_, std::size_t grain_)
+    void operator()(Worker & w, std::size_t begin, std::size_t size, std::size_t grain)
     {
 #ifndef BOOST_NO_EXCEPTIONS
       boost::exception_ptr exception;
 #endif
 
-      std::size_t nblocks  = size_/grain_;
-      std::size_t ibound   = nblocks * grain_;
-      std::size_t leftover = size_ % grain_;
+      std::size_t nblocks  = size/grain;
+      std::size_t ibound   = nblocks * grain;
+      std::size_t leftover = size % grain;
 
       #pragma omp parallel
       {
@@ -55,7 +55,7 @@ namespace nt2
           {
 #endif
             // Call operation
-            worker_(begin_+n*grain_,grain_);
+            w(begin+n*grain,grain);
 
 #ifndef BOOST_NO_EXCEPTIONS
           }
@@ -74,7 +74,7 @@ namespace nt2
           try
           {
 #endif
-          if(leftover) worker_(begin_+ibound,leftover);
+          if(leftover) w(begin+ibound,leftover);
 
 #ifndef BOOST_NO_EXCEPTIONS
           }

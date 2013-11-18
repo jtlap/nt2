@@ -41,6 +41,8 @@ namespace nt2
       boost::exception_ptr exception;
 #endif
 
+      BOOST_ASSERT_MSG( size % grain == 0, "Reduce size not divisible by grain");
+
       std::size_t nblocks  = size/grain;
       std::size_t ibound   = nblocks * grain;
       std::size_t leftover = size % grain;
