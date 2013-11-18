@@ -36,13 +36,51 @@ namespace nt2
     template<typename Worker>
     result_type operator()(Worker & w, std::size_t begin, std::size_t size, std::size_t grain)
     {
-        result_type out;
-        out = w.neutral_(nt2::meta::as_<result_type>());
-        w(out,begin,size);
 
-        return out;
+#ifndef BOOST_NO_EXCEPTIONS
+      boost::exception_ptr exception;
+#endif
+
+      std::size_t nblocks  = size/grain;
+      std::size_t ibound   = nblocks * grain;
+      std::size_t leftover = size % grain;
+
+      result_type reduced_out = w.neutral_(nt2::meta::as_<result_type>());
+
+      #pragma omp parallel
+      {
+        // Dispatch group of blocks over each threads
+        #pragma omp for schedule(dynamic)
+        for(std::size_t n=0;n<nblocks;++n)
+        {
+          result_type out;
+          out = w.neutral_(nt2::meta::as_<result_type>());
+
+#ifndef BOOST_NO_EXCEPTIONS
+          try
+          {
+#endif
+            // Call operation
+            w(out,begin+n*grain,grain);
+
+#ifndef BOOST_NO_EXCEPTIONS
+          }
+          catch(...)
+          {
+
+            #pragma omp critical
+            exception = boost::current_exception();
+          }
+#endif
+
+            #pragma omp critical
+            reduced_out = w.bop_(reduced_out, out);
+         }
+      }
+
+      return reduced_out;
     }
- };
+  };
 }
 
 #endif
