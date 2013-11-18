@@ -18,14 +18,20 @@ set( SOURCES
   dist.cpp
   floor.cpp
   fma.cpp
+  fms.cpp
+  fnms.cpp
+  fnma.cpp
+  hypot.cpp
   trunc.cpp
   round.cpp
   round2even.cpp
   max.cpp
+  meanof.cpp
   min.cpp
   minusone.cpp
   oneminus.cpp
   oneplus.cpp
+  rec.cpp
   rsqrt.cpp
   sqr.cpp
   sqrt.cpp
