@@ -29,17 +29,20 @@ namespace boost { namespace simd { namespace details
                                  >
   {
     static const typename output_iterator_base::difference_type cardinal = C;
-    output_iterator_base() : output_iterator_base::iterator_adaptor_() {}
+    BOOST_FORCEINLINE output_iterator_base()
+                    : output_iterator_base::iterator_adaptor_()
+    {}
 
-    explicit  output_iterator_base(Iterator p)
-            : output_iterator_base::iterator_adaptor_(p)
+    BOOST_FORCEINLINE explicit
+    output_iterator_base( Iterator p )
+                        : output_iterator_base::iterator_adaptor_(p)
     {}
 
     /*
       SIMD output iterator requires a proxy reference to be returned.
       For performance purpose, the iterator itself acts as its own proxy.
     */
-    template<class Expr> inline
+    template<class Expr> BOOST_FORCEINLINE
     output_iterator_base const& operator=(Expr const& right) const
     {
       dispatch::functor<Store> callee;
@@ -50,20 +53,22 @@ namespace boost { namespace simd { namespace details
     protected:
     friend class boost::iterator_core_access;
 
-    inline typename output_iterator_base::reference dereference() const
+    BOOST_FORCEINLINE
+    typename output_iterator_base::reference dereference() const
     {
       return *this;
     }
 
-    inline void increment() { this->base_reference() += C; }
-    inline void decrement() { this->base_reference() -= C; }
+    BOOST_FORCEINLINE  void increment() { this->base_reference() += C; }
+    BOOST_FORCEINLINE  void decrement() { this->base_reference() -= C; }
 
-    inline void advance(typename output_iterator_base::difference_type n)
+    BOOST_FORCEINLINE
+    void advance(typename output_iterator_base::difference_type n)
     {
       this->base_reference() += n*C;
     }
 
-    inline typename output_iterator_base::difference_type
+    BOOST_FORCEINLINE typename output_iterator_base::difference_type
     distance_to(output_iterator_base const& other) const
     {
       return (other.base() - this->base()) / cardinal;
