@@ -11,36 +11,49 @@
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 #include <boost/simd/arithmetic/functions/rec.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/simd/include/constants/one.hpp>
-#include <boost/simd/include/constants/mzero.hpp>
-#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/functions/simd/fast_rec.hpp>
 #include <boost/simd/include/functions/simd/copysign.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/is_eqz.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+
+#if !defined( BOOST_SIMD_NO_INFINITIES )
+#include <boost/simd/include/functions/simd/is_inf.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#endif
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rec_
                                    , boost::simd::tag::vmx_
                                    , (A0)
-                                   , ((simd_<floating_<A0>, boost::simd::tag::vmx_>))
+                                   , (( simd_ < floating_<A0>
+                                              , boost::simd::tag::vmx_
+                                              >
+                                     ))
                                    )
   {
-    typedef typename dispatch::meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      result_type erb   = vec_re(a0());
-      result_type vmadd = vec_madd( vec_nmsub(erb(), a0(), One<result_type>()())
-                                             , erb()
-                                             , erb()
-                                             );
-      result_type rec_b  = if_else( is_eqz(a0)
-                                  , copysign(Inf<result_type>(),a0)
-                                  , vmadd
-                                  );
-      return if_else(is_eqz(erb), copysign(erb,a0), rec_b);
+      result_type estimate = fast_rec(a0);
+
+      // fix rec(+/-0)
+      estimate = if_else( is_eqz(a0)
+                        , copysign(Inf<result_type>(),a0)
+                        , estimate
+                        );
+
+      // fix rec(+/-inf)
+      #if !defined( BOOST_SIMD_NO_INFINITIES )
+      estimate = if_else( is_inf(a0)
+                        , copysign(Zero<result_type>(),a0)
+                        , estimate
+                        );
+      #endif
+
+      return estimate;
     }
   };
 } } }
