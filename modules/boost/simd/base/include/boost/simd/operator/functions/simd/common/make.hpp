@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::scalar_of<result_type>::type stype;
 
     #define M0(z,n,t)                                                                              \
-    inline result_type                                                                             \
+    BOOST_FORCEINLINE result_type                                                                  \
     operator()(BOOST_PP_ENUM_PARAMS(n, stype const& a)) const                                      \
     {                                                                                              \
       BOOST_SIMD_ALIGNED_TYPE(stype) tmp[n] = { BOOST_PP_ENUM_PARAMS(n, a) };                      \
