@@ -7,8 +7,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_TBB_SPAWNER_TRANSFORM_HPP_INCLUDED
-#define NT2_SDK_TBB_SPAWNER_TRANSFORM_HPP_INCLUDED
+#ifndef NT2_SDK_TBB_SPAWNER_FOLD_HPP_INCLUDED
+#define NT2_SDK_TBB_SPAWNER_FOLD_HPP_INCLUDED
 
 #if defined(NT2_USE_TBB)
 
@@ -32,15 +32,15 @@ namespace nt2
   namespace details
   {
     template<class Worker, class result_type>
-    struct Tbb_Worker
+    struct Tbb_Folder
     {
-        Tbb_Worker(Worker & w)
+        Tbb_Folder(Worker & w)
         :w_(w)
         {
             out_ = w.neutral_(nt2::meta::as_<result_type>());
         }
 
-        Tbb_Worker(Tbb_Worker& src, tbb::split)
+        Tbb_Folder(Tbb_Folder& src, tbb::split)
         : w_(src.w_)
         {
             out_ = w_.neutral_(nt2::meta::as_<result_type>());
@@ -51,24 +51,24 @@ namespace nt2
             w_(out_,r.begin(),r.size());
         };
 
-        void join(Tbb_Worker& rhs) { out_ = w_.bop_(out_, rhs.out_); }
+        void join(Tbb_Folder& rhs) { out_ = w_.bop_(out_, rhs.out_); }
 
         Worker & w_;
         result_type out_;
 
     private:
-        Tbb_Worker& operator=(Tbb_Worker const&);
+        Tbb_Folder& operator=(Tbb_Folder const&);
 
     };
   }
 
-  template<class Site>
-  struct spawner< tag::fold_, tag::tbb_<Site> >
+  template<class Site, class result_type>
+  struct spawner< tag::fold_, tag::tbb_<Site>, result_type>
   {
 
     spawner(){}
 
-    template<typename Worker, typename result_type>
+    template<typename Worker>
     result_type operator()(Worker & w, std::size_t begin, std::size_t size, std::size_t grain)
     {
 
@@ -78,12 +78,12 @@ namespace nt2
 
      BOOST_ASSERT_MSG( size % grain == 0, "Reduce size not divisible by grain");
 
+     details::Tbb_Folder<Worker,result_type> tbb_w ( w );
+
 #ifndef BOOST_NO_EXCEPTIONS
             try
             {
 #endif
-             details::Tbb_Worker<Worker,result_type> tbb_w ( w );
-
              tbb::parallel_reduce( nt2::blocked_range<std::size_t>(begin,begin+size,grain)
                                   ,tbb_w
                                  );

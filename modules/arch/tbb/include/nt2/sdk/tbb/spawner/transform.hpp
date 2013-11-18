@@ -28,6 +28,28 @@ namespace nt2
     template<class T> struct tbb_;
   }
 
+  namespace details
+  {
+    template<class Worker>
+    struct Tbb_Transformer
+    {
+        Tbb_Transformer(Worker & w)
+        :w_(w)
+        {}
+
+        void operator()(nt2::blocked_range<std::size_t> const& r) const
+        {
+            w_(r.begin(),r.size());
+        };
+
+        Worker & w_;
+
+    private:
+        Tbb_Transformer& operator=(Tbb_Transformer const&);
+
+    };
+  }
+
   template<class Site>
   struct spawner< tag::transform_, tag::tbb_<Site> >
   {
@@ -46,13 +68,11 @@ namespace nt2
             try
             {
       #endif
+             details::Tbb_Transformer<Worker> tbb_w ( w );
 
              tbb::parallel_for( nt2::blocked_range<std::size_t>(begin,begin+size,grain),
-                               [&](nt2::blocked_range<std::size_t> const& r)
-                               {
-                                   w(r.begin(),r.size());
-                               }
-                               );
+                                tbb_w
+                              );
 
       #ifndef BOOST_NO_EXCEPTIONS
             }

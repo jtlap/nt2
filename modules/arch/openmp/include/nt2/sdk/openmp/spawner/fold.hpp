@@ -27,18 +27,17 @@ namespace nt2
       template<class T> struct openmp_;
     }
 
-  template<class Site>
-  struct spawner< tag::fold_, tag::openmp_<Site> >
+  template<class Site, class result_type>
+  struct spawner< tag::fold_, tag::openmp_<Site> , result_type>
   {
 
     spawner() {}
 
-    template<typename Worker, typename result_type>
+    template<typename Worker>
     result_type operator()(Worker & w, std::size_t begin, std::size_t size, std::size_t grain)
     {
         result_type out;
         out = w.neutral_(nt2::meta::as_<result_type>());
-
         w(out,begin,size);
 
         return out;

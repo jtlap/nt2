@@ -7,8 +7,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_TBB_TBB_HPP_INCLUDED
-#define NT2_SDK_TBB_TBB_HPP_INCLUDED
+#ifndef NT2_SDK_TBB_SHARED_MEMORY_HPP_INCLUDED
+#define NT2_SDK_TBB_SHARED_MEMORY_HPP_INCLUDED
 
 #include <boost/dispatch/functor/forward.hpp>
 #include <nt2/sdk/shared_memory/shared_memory.hpp>

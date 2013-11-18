@@ -11,11 +11,11 @@
 #define NT2_CORE_FUNCTIONS_SHARED_MEMORY_TRANSFORM_HPP_INCLUDED
 
 #include <nt2/core/functions/transform.hpp>
-#include <nt2/sdk/shared_memory/shared_memory.hpp>
+#include <nt2/sdk/shared_memory.hpp>
 #include <nt2/sdk/shared_memory/worker/transform.hpp>
 #include <nt2/sdk/shared_memory/spawner.hpp>
 #include <nt2/sdk/config/cache.hpp>
-#include <cstddef>
+#include <cstdio>
 
 namespace nt2 { namespace ext
 {
@@ -42,10 +42,10 @@ namespace nt2 { namespace ext
       std::size_t sz = range.second;
       if(!top_cache_line_size) top_cache_line_size = 1u;
 
-       nt2::worker<tag::transform_,BackEnd,Site,Out,In> w(out,in);
-       nt2::spawner<tag::transform_, BackEnd> s;
+      nt2::worker<tag::transform_,BackEnd,Site,Out,In> w(out,in);
+      nt2::spawner<tag::transform_, BackEnd> s;
 
-       s(w,it,sz,top_cache_line_size);
+      s(w,it,sz,top_cache_line_size);
     }
   };
 

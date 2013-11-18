@@ -11,6 +11,8 @@
 #define NT2_SDK_SHARED_MEMORY_WORKER_INNER_FOLD_HPP_INCLUDED
 
 #include <nt2/sdk/shared_memory/worker.hpp>
+#include <nt2/sdk/shared_memory/spawner.hpp>
+
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/config/cache.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
@@ -86,22 +88,20 @@ namespace nt2
       std::size_t obound = nt2::numel(boost::fusion::pop_front(ext));
       std::size_t grain  = top_cache_line_size;
 
-      for(std::size_t j = begin; j < begin+size; ++j)
+      for(std::size_t j = begin, k=begin*bound; j < begin+size; ++j, k+=bound)
       {
-        std::size_t k = j*bound;
-
         nt2::worker<tag::inner_fold_step_,BackEnd,Site,In,Neutral,Bop>
         w(in_,neutral_,bop_);
 
-        nt2::spawner<tag::fold_, BackEnd> s;
+        nt2::spawner<tag::fold_, BackEnd, target_type> s;
         target_type vec_out = s( w, k, ibound, grain );
 
-        nt2::run(out_, j, uop_(vec_out));
+        value_type s_out = uop_( vec_out );
 
-        for(std::size_t i = ibound; i < bound; ++i)
-          nt2::run(out_, j
-                  , bop_( nt2::run( out_, j, meta::as_<value_type>())
-                                  , nt2::run(in_, i+k, meta::as_<value_type>())));
+        for(std::size_t i = ibound; i != bound; ++i)
+          s_out = bop_(s_out, nt2::run(in_, i+k, meta::as_<value_type>()));
+
+        nt2::run(out_, j, s_out);
       }
     }
 

@@ -17,6 +17,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
+
 NT2_TEST_CASE_TPL( direct_transform, NT2_TYPES )
 {
   nt2::table<T> out( nt2::of_size(5,7) );

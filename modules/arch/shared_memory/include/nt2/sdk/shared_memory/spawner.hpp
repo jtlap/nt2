@@ -12,7 +12,7 @@
 
 namespace nt2
 {
-  template< class Tag, class Arch >
+  template< class Tag, class Arch, class result_type = void >
   struct spawner;
 }
 
