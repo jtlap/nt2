@@ -30,7 +30,7 @@
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/inf.hpp>
 
-NT2_TEST_CASE_TPL ( hypot_real,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( hypot_real,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using nt2::hypot;
   using nt2::tag::hypot_;

@@ -33,7 +33,7 @@
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/mhalf.hpp>
 
-NT2_TEST_CASE_TPL ( rec_real,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( rec_real,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using nt2::rec;
   using nt2::tag::rec_;
