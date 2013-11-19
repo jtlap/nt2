@@ -73,8 +73,7 @@ namespace nt2 { namespace ext
 
       for(std::size_t j = begin, k = begin*ibound; j < begin+size; ++j, k+=ibound)
       {
-          value_type s_out;
-          s_out = neutral(nt2::meta::as_<value_type>());
+          value_type s_out = neutral(nt2::meta::as_<value_type>());
 
           nt2::inner_fold_step(s_out,in,neutral,bop,std::make_pair(k,ibound));
 

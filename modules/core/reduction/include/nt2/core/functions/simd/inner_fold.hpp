@@ -61,8 +61,7 @@ namespace nt2 { namespace ext
 
       for(std::size_t j = begin, k = begin*bound; j != begin+size; ++j, k+=bound)
       {
-        target_type vec_out;
-        vec_out = neutral(nt2::meta::as_<target_type>());
+        target_type vec_out = neutral(nt2::meta::as_<target_type>());
 
         nt2::inner_fold_step(vec_out,in,neutral,bop,std::make_pair(k,ibound));
 

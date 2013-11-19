@@ -55,8 +55,7 @@ namespace nt2
         #pragma omp for schedule(dynamic)
         for(std::size_t n=0;n<nblocks;++n)
         {
-          result_type out;
-          out = w.neutral_(nt2::meta::as_<result_type>());
+          result_type out = w.neutral_(nt2::meta::as_<result_type>());
 
 #ifndef BOOST_NO_EXCEPTIONS
           try
