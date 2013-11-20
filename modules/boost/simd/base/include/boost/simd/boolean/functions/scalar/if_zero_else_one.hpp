@@ -27,12 +27,12 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_zero_else_one_, tag::cpu_, (A0)
-                            , (scalar_< unspecified_<A0> >)
+                            , (scalar_< fundamental_<A0> >)
                             )
   {
     typedef A0 result_type;
     inline result_type operator()(const A0 & a0) const
-    { return boost::simd::is_nez(a0) ? Zero<A0>() : One<A0>(); }
+    { return  result_type(a0 == boost::simd::Zero<A0>()); }
   };
 } } }
 

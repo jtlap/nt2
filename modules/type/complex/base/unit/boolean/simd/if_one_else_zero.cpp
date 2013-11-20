@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/include/functions/ifnotinc.hpp>
+#include <nt2/include/functions/if_one_else_zero.hpp>
 
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -19,29 +19,36 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/config.hpp>
 
-#include <nt2/include/constants/mone.hpp>
-#include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/two.hpp>
-#include <nt2/include/constants/valmax.hpp>
 #include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/false.hpp>
+#include <nt2/include/constants/true.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/minf.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/i.hpp>
+#include <nt2/sdk/simd/logical.hpp>
 
-NT2_TEST_CASE_TPL( ifnotinc_floating, BOOST_SIMD_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( if_one_else_zero_real,  NT2_REAL_TYPES)
 {
-  using nt2::ifnotinc;
-  using nt2::tag::ifnotinc_;
+  using nt2::if_one_else_zero;
+  using nt2::tag::if_one_else_zero_;
   typedef typename std::complex<T> cT;
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
   typedef native<cT,ext_t>                vcT;
+  typedef native<nt2::logical<T>,ext_t>      vclT;
 
   // specific values tests
-  NT2_TEST_EQUAL(ifnotinc(nt2::Zero<vT>(), nt2::Mone<vT>()), nt2::Zero<vT>());
-  NT2_TEST_EQUAL(ifnotinc(nt2::Zero<vT>(), nt2::One<vT>()), nt2::Two<vT>());
-  NT2_TEST_EQUAL(ifnotinc(nt2::Zero<vT>(), nt2::Valmax<vT>()), nt2::Valmax<vT>());
-  NT2_TEST_EQUAL(ifnotinc(nt2::Zero<vT>(), nt2::Zero<vT>()), nt2::One<vT>());
-  NT2_TEST_EQUAL(ifnotinc(nt2::One<vT>(), nt2::Mone<vT>()), nt2::Mone<vT>());
-  NT2_TEST_EQUAL(ifnotinc(nt2::One<vT>(), nt2::Zero<vT>()), nt2::Zero<vT>());
-  NT2_TEST_EQUAL(ifnotinc(nt2::One<vT>(), nt2::Valmax<vT>()), nt2::Valmax<vT>());
-  NT2_TEST_EQUAL(ifnotinc(nt2::One<vT>(), nt2::Zero<vT>()), nt2::Zero<vT>());
+#ifndef BOOST_SIMD_NO_INVALIDS
+  NT2_TEST_EQUAL(if_one_else_zero(nt2::Inf<vcT>()), nt2::One<vT>());
+  NT2_TEST_EQUAL(if_one_else_zero(nt2::Minf<vcT>()),  nt2::One<vT>());
+  NT2_TEST_EQUAL(if_one_else_zero(nt2::Nan<vcT>()) ,  nt2::One<vT>());
+#endif
+  NT2_TEST_EQUAL(if_one_else_zero(nt2::False<vclT>()), nt2::Zero<vT>());
+  NT2_TEST_EQUAL(if_one_else_zero(nt2::True<vclT>()), nt2::One<vT>());
+  NT2_TEST_EQUAL(if_one_else_zero(nt2::Zero<vcT>()),  nt2::Zero<vT>());
+  NT2_TEST_EQUAL(if_one_else_zero(nt2::One<vcT>()),  nt2::One<vT>());
 }

@@ -10,8 +10,7 @@
 #define BOOST_SIMD_BOOLEAN_FUNCTIONS_SIMD_COMMON_IF_ZERO_ELSE_ONE_HPP_INCLUDED
 
 #include <boost/simd/boolean/functions/if_zero_else_one.hpp>
-#include <boost/simd/include/functions/simd/if_else.hpp>
-#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/functions/simd/if_zero_else.hpp>
 #include <boost/simd/include/constants/one.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -19,13 +18,13 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::if_zero_else_one_
                                       , tag::cpu_
                                       , (A0)(X)
-                                      , ((simd_<unspecified_<A0>,X>))
+                                      , ((simd_<arithmetic_<A0>,X>))
                                 )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return if_else(a0, Zero<A0>(), One<A0>());
+      return if_zero_else(a0, One<A0>());
     }
   };
 
@@ -38,7 +37,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename A0::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return if_else(a0, Zero<result_type>(), One<result_type>());
+      return if_zero_else(a0, One<result_type>());
     }
   };
 } } }

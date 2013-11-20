@@ -8,14 +8,14 @@
 ##############################################################################
 
 SET( SOURCES
-#  if_else_zero.cpp
-#  if_zero_else.cpp
-#  if_else_allbits.cpp
-#  if_allbits_else.cpp
-#  if_one_else_zero.cpp
-#  if_zero_else_one.cpp
-#  seladd.cpp
-#  selsub.cpp
+  if_else_zero.cpp
+  if_zero_else.cpp
+  if_else_allbits.cpp
+  if_allbits_else.cpp
+  if_one_else_zero.cpp
+  if_zero_else_one.cpp
+  seladd.cpp
+  selsub.cpp
   selinc.cpp
   seldec.cpp
   ifnotinc.cpp

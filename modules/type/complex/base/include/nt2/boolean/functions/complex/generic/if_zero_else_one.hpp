@@ -10,8 +10,9 @@
 #define NT2_BOOLEAN_FUNCTIONS_COMPLEX_GENERIC_IF_ZERO_ELSE_ONE_HPP_INCLUDED
 
 #include <nt2/boolean/functions/if_zero_else_one.hpp>
-#include <nt2/include/functions/is_nez.hpp>
-#include <nt2/sdk/meta/as_logical.hpp>
+#include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/boolean/functions/if_else_zero.hpp>
+#include <nt2/include/constants/one.hpp>
 
 
 namespace nt2 { namespace ext
@@ -23,7 +24,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     result_type  operator()(A0 const& a0) const
     {
-      return result_type(nt2::if_zero_else_one(nt2::is_nez(a0)));
+      return nt2::if_else_zero(nt2::is_eqz(a0), One<result_type>());
     }
   };
 } }

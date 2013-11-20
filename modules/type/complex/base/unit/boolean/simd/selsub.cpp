@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/include/functions/ifnotinc.hpp>
+#include <nt2/include/functions/selsub.hpp>
 
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -20,15 +20,15 @@
 #include <boost/simd/sdk/config.hpp>
 
 #include <nt2/include/constants/mone.hpp>
+#include <nt2/include/constants/mtwo.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/valmax.hpp>
 #include <nt2/include/constants/zero.hpp>
 
-NT2_TEST_CASE_TPL( ifnotinc_floating, BOOST_SIMD_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL( selsub_floating, BOOST_SIMD_SIMD_REAL_TYPES)
 {
-  using nt2::ifnotinc;
-  using nt2::tag::ifnotinc_;
+  using nt2::selsub;
+  using nt2::tag::selsub_;
   typedef typename std::complex<T> cT;
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -36,12 +36,12 @@ NT2_TEST_CASE_TPL( ifnotinc_floating, BOOST_SIMD_SIMD_REAL_TYPES)
   typedef native<cT,ext_t>                vcT;
 
   // specific values tests
-  NT2_TEST_EQUAL(ifnotinc(nt2::Zero<vT>(), nt2::Mone<vT>()), nt2::Zero<vT>());
-  NT2_TEST_EQUAL(ifnotinc(nt2::Zero<vT>(), nt2::One<vT>()), nt2::Two<vT>());
-  NT2_TEST_EQUAL(ifnotinc(nt2::Zero<vT>(), nt2::Valmax<vT>()), nt2::Valmax<vT>());
-  NT2_TEST_EQUAL(ifnotinc(nt2::Zero<vT>(), nt2::Zero<vT>()), nt2::One<vT>());
-  NT2_TEST_EQUAL(ifnotinc(nt2::One<vT>(), nt2::Mone<vT>()), nt2::Mone<vT>());
-  NT2_TEST_EQUAL(ifnotinc(nt2::One<vT>(), nt2::Zero<vT>()), nt2::Zero<vT>());
-  NT2_TEST_EQUAL(ifnotinc(nt2::One<vT>(), nt2::Valmax<vT>()), nt2::Valmax<vT>());
-  NT2_TEST_EQUAL(ifnotinc(nt2::One<vT>(), nt2::Zero<vT>()), nt2::Zero<vT>());
+  NT2_TEST_EQUAL(selsub(nt2::One<vT>(), nt2::Mone<vT>()   , nt2::One<vT>()   ), nt2::Mtwo<vT>());
+  NT2_TEST_EQUAL(selsub(nt2::One<vT>(), nt2::One<vT>()    , nt2::One<vT>()    ), nt2::Zero<vT>());
+  NT2_TEST_EQUAL(selsub(nt2::One<vT>(), nt2::Valmax<vT>() , nt2::One<vT>() ), nt2::Valmax<vT>());
+  NT2_TEST_EQUAL(selsub(nt2::One<vT>(), nt2::Zero<vT>()   , nt2::One<vT>()   ), nt2::Mone<vT>());
+  NT2_TEST_EQUAL(selsub(nt2::Zero<vT>(), nt2::Mone<vT>()  , nt2::One<vT>()  ), nt2::Mone<vT>());
+  NT2_TEST_EQUAL(selsub(nt2::Zero<vT>(), nt2::Zero<vT>()  , nt2::One<vT>()  ), nt2::Zero<vT>());
+  NT2_TEST_EQUAL(selsub(nt2::Zero<vT>(), nt2::Valmax<vT>(), nt2::One<vT>()), nt2::Valmax<vT>());
+  NT2_TEST_EQUAL(selsub(nt2::Zero<vT>(), nt2::Zero<vT>()  , nt2::One<vT>()  ), nt2::Zero<vT>());
 }
