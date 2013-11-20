@@ -13,12 +13,17 @@ set( SOURCES
     imag.cpp
     is_equal.cpp
     is_not_equal.cpp
+    is_greater_equal.cpp
+    is_less_equal.cpp
+    is_greater.cpp
+    is_less.cpp
     minus.cpp
     multiplies.cpp
     plus.cpp
     real.cpp
     sqrti.cpp
     value.cpp
+    unary_minus.cpp
    )
 
 nt2_module_add_tests(type.complex.base.operator.scalar.unit ${SOURCES})
