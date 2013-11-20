@@ -1,67 +1,37 @@
-////////////////////////////////////////////////////////////////////////
-// exhaustive test in simd mode for functor nt2::arg
-//        versus a0>=0 ? 0 : nt2::Pi<r_t>() with float elements
-////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2009 - 2013 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2013        MetaScale SAS
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
+#include <nt2/sdk/unit/exhaustive.hpp>
 #include <nt2/include/functions/arg.hpp>
+
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/successor.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/functions/iround.hpp>
-#include <cmath>
+#include <nt2/include/constants/valmin.hpp>
+#include <nt2/include/constants/valmax.hpp>
+#include <nt2/include/constants/pi.hpp>
 
+struct raw_arg
+{
+  float operator()(float x) const
+  {
+    return x >= 0.f ? 0.f : nt2::Pi<float>();
+  }
+};
 
-#include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/include/functions/aligned_load.hpp>
-#include <nt2/include/functions/min.hpp>
-#include <iostream>
-typedef BOOST_SIMD_DEFAULT_EXTENSION               ext_t;
-typedef boost::simd::native<float,ext_t>  n_t;
-typedef typename nt2::meta::as_integer<n_t>::type   in_t;
-typedef typename nt2::meta::call<arg_(n_t)>::type r_t;
-static inline r_t repfunc(const float & a0){
-   return a0>=0 ? 0 : nt2::Pi<r_t>()(a0);
-}
-int main(){
-  float mini = nt2::Valmin<float>();
-  float maxi = nt2::Valmax<float>();
-  const nt2::uint32_t N = nt2::meta::cardinal_of<n_t>::value;
-  const in_t vN = nt2::splat<in_t>(N);
-  const nt2::uint32_t M =  10;
-  nt2::uint32_t histo[M+1];
-  for(nt2::uint32_t i = 0; i < M; i++) histo[i] = 0;
-  float a[N];
-  a[0] = mini;
-  for(nt2::uint32_t i = 1; i < N; i++)
-    a[i] = nt2::successor(a[i-1], 1);
-  n_t a0 = nt2::aligned_load<n_t>(&a[0],0);
-  nt2::uint32_t k = 0;
-  std::cout << "a line of points to wait for... be patient!" << std::endl;
-  for(; a0[N-1] < maxi; a0 = nt2::successor(a0, vN))
-    {
-      n_t z =  nt2::arg(a0);
-      for(nt2::uint32_t i = 0; i < N; i++)
-        {
-           float v = repfunc(a0[i]);
-           float sz = z[i];
-           ++histo[nt2::min(M, nt2::iround(2*nt2::ulpdist(v, sz)))];
-           ++k;
-           if (k%100000000 == 0){
-             std::cout << "." << std::flush; ++j;
-             if (j == 80){std::cout << std::endl; j = 0;}
-           }
-        }
-      }
-    std::cout << "exhaustive test for " << std::endl;
-    std::cout << " nt2::arg versus a0>=0 ? 0 : nt2::Pi<r_t>() " << std::endl;
-    std::cout << " in simd mode and float type" << std::endl;
-    for(nt2::uint32_t i = 0; i < M; i++)
-      std::cout << i/2.0 << " -> " << histo[i] << std::endl;
-    std::cout << k << " values computed" << std::endl;
-    std::cout << std::endl;
-    std::cout << std::endl;
-    for(nt2::uint32_t i = 0; i < M; i++)
-      std::cout << i/2.0 << " -> "
-                << (histo[i]*100.0/k) << "%" << std::endl;
-    return 0;
+int main()
+{
+  typedef BOOST_SIMD_DEFAULT_EXTENSION             ext_t;
+  typedef boost::simd::native<float,ext_t>           n_t;
+
+  nt2::exhaustive_test<n_t> ( nt2::Valmin<float>()
+                            , nt2::Valmax<float>()
+                            , nt2::functor<nt2::tag::arg_>()
+                            , raw_arg()
+                            );
+
+  return 0;
 }
