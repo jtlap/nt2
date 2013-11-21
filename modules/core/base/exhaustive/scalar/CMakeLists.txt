@@ -7,8 +7,10 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-SET( SOURCES
+SET (  SOURCES
+      fast_rec.cpp
+      rec.cpp
 # List of simd test files for toolbox arithmetic
-   )
+    )
 
 nt2_module_add_tests(core.base.arithmetic.scalar.exhaustive ${SOURCES})

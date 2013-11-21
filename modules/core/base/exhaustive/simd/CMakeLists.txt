@@ -13,6 +13,8 @@ SET ( SOURCES
       arg.cpp
       ceil.cpp
       fast_rec.cpp
+      raw_rec.cpp
+      rec.cpp
     # List of simd test files for toolbox arithmetic
     )
 
