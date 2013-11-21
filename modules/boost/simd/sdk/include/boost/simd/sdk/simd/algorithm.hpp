@@ -17,6 +17,8 @@
 #include <boost/simd/memory/align_on.hpp>
 #include <boost/mpl/assert.hpp>
 
+#include <algorithm>
+
 namespace boost { namespace simd
 {
   template<class T, class U, class UnOp>
@@ -33,7 +35,7 @@ namespace boost { namespace simd
     static const std::size_t N = vU::static_size;
 
     std::size_t shift = simd::align_on(out, N * sizeof(U)) - out;
-    T const* end2 = begin + shift;
+    T const* end2 = begin + std::min<size_t>(shift, end-begin);
     T const* end3 = end2 + (end - end2)/N*N;
 
     // prologue
@@ -65,7 +67,7 @@ namespace boost { namespace simd
     static const std::size_t N = vU::static_size;
 
     std::size_t shift = simd::align_on(out, N * sizeof(U)) - out;
-    T1 const* end2 = begin1 + shift;
+    T1 const* end2 = begin1 + std::min<size_t>(shift, end-begin1);
     T1 const* end3 = end2 + (end - end2)/N*N;
 
     // prologue
