@@ -30,7 +30,7 @@
 #include <nt2/include/constants/i.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 
-NT2_TEST_CASE_TPL ( if_zero_else_one_real,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( if_zero_else_one_real,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::if_zero_else_one;
   using nt2::tag::if_zero_else_one_;

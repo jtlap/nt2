@@ -32,7 +32,7 @@
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 
-NT2_TEST_CASE_TPL ( if_else_allbits_real,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( if_else_allbits_real,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::if_else_allbits;
   using nt2::tag::if_else_allbits_;
