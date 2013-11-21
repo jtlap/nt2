@@ -9,9 +9,7 @@
 #ifndef NT2_BOOLEAN_FUNCTIONS_COMPLEX_GENERIC_IF_ONE_ELSE_ZERO_HPP_INCLUDED
 #define NT2_BOOLEAN_FUNCTIONS_COMPLEX_GENERIC_IF_ONE_ELSE_ZERO_HPP_INCLUDED
 #include <nt2/boolean/functions/if_one_else_zero.hpp>
-#include <nt2/boolean/functions/if_else_zero.hpp>
 #include <nt2/include/functions/is_nez.hpp>
-#include <nt2/include/constants/one.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -22,7 +20,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     result_type  operator()(A0 const& a0) const
     {
-      return nt2::if_else_zero(nt2::is_nez(a0), One<result_type>());
+      return nt2::if_one_else_zero(nt2::is_nez(a0));
     }
   };
 } }
