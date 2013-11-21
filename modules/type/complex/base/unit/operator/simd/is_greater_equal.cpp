@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/include/functions/divides.hpp>
+#include <nt2/include/functions/is_greater_equal.hpp>
 
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -21,16 +21,21 @@
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/config.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/true.hpp>
+#include <nt2/include/constants/false.hpp>
+#include <nt2/include/constants/i.hpp>
 
-NT2_TEST_CASE_TPL ( divides_real,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( is_greater_equal_real,  BOOST_SIMD_REAL_TYPES)
 {
-  using nt2::divides;
-  using nt2::tag::divides_;
+  using nt2::is_greater_equal;
+  using nt2::tag::is_greater_equal_;
   typedef typename std::complex<T> cT;
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -38,18 +43,19 @@ NT2_TEST_CASE_TPL ( divides_real,  NT2_SIMD_REAL_TYPES)
   typedef native<cT,ext_t>                vcT;
   typedef typename nt2::dry<T>             dT;
   typedef native<dT,ext_t>                vdT;
+  typedef typename nt2::meta::as_logical<T>::type     lT;
+  typedef native<lT,ext_t>                vlT;
+
 
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
-    NT2_TEST_EQUAL(nt2::divides(vcT(nt2::Inf<vT>(), nt2::Zero<vT>()), vcT(nt2::Inf<vT>(), nt2::Zero<vT>())), vcT(nt2::Nan<vT>(), nt2::Zero<vT>()));
-    NT2_TEST_EQUAL(nt2::divides(vdT(nt2::Inf<vdT>()),   vdT(nt2::Inf<vdT>())),  vdT(nt2::Nan<vdT>() ));
+  NT2_TEST_EQUAL(is_greater_equal(nt2::Inf<vcT>(),  nt2::Inf<vcT>()),  nt2::True<vlT>());
+  NT2_TEST_EQUAL(is_greater_equal(nt2::Minf<vcT>(),  nt2::Minf<vcT>()),  nt2::True<vlT>());
+  NT2_TEST_EQUAL(is_greater_equal(nt2::Nan<vcT>(),  nt2::Nan<vcT>()),  nt2::False<vlT>());
 #endif
-    NT2_TEST_EQUAL(nt2::divides(vcT(nt2::One<vT>(), nt2::Zero<vT>()), vcT(nt2::Zero<vT>(),nt2::Zero<vT>())), vcT(nt2::Inf<vT>(),nt2::Zero<vT>()));
-    NT2_TEST_EQUAL(nt2::divides(vcT(nt2::Zero<vT>(),nt2::Zero<vT>()), vcT(nt2::Zero<vT>(),nt2::Zero<vT>())), vcT(nt2::Nan<vT>(),nt2::Zero<vT>()));
-    NT2_TEST_EQUAL(nt2::divides(vcT(nt2::Zero<vT>(),nt2::One<vT>()),  vcT(nt2::One<vT>(), nt2::Zero<vT>())), vcT(nt2::Zero<vT>(),nt2::One<vT>()));
-    NT2_TEST_EQUAL(nt2::divides(vcT(nt2::One<vT>(), nt2::Zero<vT>()), vcT(nt2::One<vT>(), nt2::Zero<vT>())), vcT(nt2::One<vT>(), nt2::Zero<vT>()));
-    NT2_TEST_EQUAL(nt2::divides(vdT(nt2::One<vdT>()),   vdT(nt2::Zero<vdT>())), vdT(nt2::Inf<vdT>()));
-    NT2_TEST_EQUAL(nt2::divides(vdT(nt2::Zero<vdT>()),  vdT(nt2::Zero<vdT>())), vdT(nt2::Nan<vdT>()));
-    NT2_TEST_EQUAL(nt2::divides(vdT(nt2::Zero<vdT>()),  vdT(nt2::One<vdT>())),  vdT(nt2::Zero<vdT>()));
-    NT2_TEST_EQUAL(nt2::divides(vdT(nt2::One<vdT>()),   vdT(nt2::One<vdT>())),  vdT(nt2::One<vdT>() ));
+  NT2_TEST_EQUAL(is_greater_equal(nt2::One<vcT>(),  nt2::Zero<vcT>()),  nt2::True<vlT>());
+  NT2_TEST_EQUAL(is_greater_equal(nt2::Zero<vcT>(), nt2::Zero<vcT>()),  nt2::True<vlT>());
+  NT2_TEST_EQUAL(is_greater_equal(nt2::I<vcT>(), nt2::I<vcT>()), nt2::True<vlT>());
+  NT2_TEST_EQUAL(is_greater_equal(nt2::One<vcT>(), nt2::I<vcT>()), nt2::True<vlT>());
+  NT2_TEST_EQUAL(is_greater_equal(nt2::One<vcT>(), nt2::One<vT>()),  nt2::True<vlT>());
 }

@@ -16,7 +16,13 @@ set( SOURCES
   real.cpp
   i.cpp
   sqrti.cpp
-#  divides.cpp
-   )
+  divides.cpp
+  is_equal.cpp
+  is_not_equal.cpp
+  is_less_equal.cpp
+  is_less.cpp
+  is_greater_equal.cpp
+  is_greater.cpp
+  )
 
 nt2_module_add_tests(type.complex.base.operator.simd.unit ${SOURCES})

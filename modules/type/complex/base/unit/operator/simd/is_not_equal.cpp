@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/include/constants/sqrti.hpp>
+#include <nt2/include/functions/is_not_equal.hpp>
 
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -21,12 +21,21 @@
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/config.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 
-#include <nt2/include/constants/sqrt_2.hpp>
-#include <nt2/include/constants/sqrt_2o_2.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/minf.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/true.hpp>
+#include <nt2/include/constants/false.hpp>
+#include <nt2/include/constants/i.hpp>
 
-NT2_TEST_CASE_TPL ( abs_cplx,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( is_not_equal_real,  BOOST_SIMD_REAL_TYPES)
 {
+  using nt2::is_not_equal;
+  using nt2::tag::is_not_equal_;
   typedef typename std::complex<T> cT;
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -34,7 +43,18 @@ NT2_TEST_CASE_TPL ( abs_cplx,  NT2_SIMD_REAL_TYPES)
   typedef native<cT,ext_t>                vcT;
   typedef typename nt2::dry<T>             dT;
   typedef native<dT,ext_t>                vdT;
+  typedef typename nt2::meta::as_logical<T>::type     lT;
+  typedef native<lT,ext_t>                vlT;
+
 
   // specific values tests
-    NT2_TEST_EQUAL(nt2::Sqrti<vcT>(),  vcT(nt2::Sqrt_2o_2<vT>(),nt2::Sqrt_2o_2<vT>()));
+#ifndef BOOST_SIMD_NO_INVALIDS
+  NT2_TEST_EQUAL(is_not_equal(nt2::Inf<vcT>(),  nt2::Inf<vcT>()),  nt2::False<vlT>());
+  NT2_TEST_EQUAL(is_not_equal(nt2::Minf<vcT>(),  nt2::Minf<vcT>()),  nt2::False<vlT>());
+  NT2_TEST_EQUAL(is_not_equal(nt2::Nan<vcT>(),  nt2::Nan<vcT>()),  nt2::True<vlT>());
+#endif
+  NT2_TEST_EQUAL(is_not_equal(nt2::One<vcT>(),  nt2::Zero<vcT>()),  nt2::True<vlT>());
+  NT2_TEST_EQUAL(is_not_equal(nt2::Zero<vcT>(), nt2::Zero<vcT>()),  nt2::False<vlT>());
+  NT2_TEST_EQUAL(is_not_equal(nt2::I<vcT>(), nt2::I<vcT>()), nt2::False<vlT>());
+  NT2_TEST_EQUAL(is_not_equal(nt2::One<vcT>(), nt2::One<vT>()),  nt2::False<vlT>());
 }
