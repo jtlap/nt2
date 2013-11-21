@@ -9,9 +9,11 @@
 
 set( SOURCES
     all_reduce.cpp
+    combine.cpp
     enumerate.cpp
     group.cpp
     groups.cpp
+    slice.cpp
     splatted_prod.cpp
     splatted_maximum.cpp
     splatted_minimum.cpp
