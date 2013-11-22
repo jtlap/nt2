@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2::cast function"
-
 #include <nt2/table.hpp>
 #include <nt2/include/functions/cast.hpp>
 
@@ -69,9 +67,9 @@ void assign_test()
 };
 
 
-NT2_TEST_CASE_TPL( assign, BOOST_SIMD_REAL_TYPES )
+NT2_TEST_CASE_TPL( assign, NT2_REAL_TYPES )
 {
   #define M0(r, data, elem) assign_test<T, elem>();
-  BOOST_PP_SEQ_FOR_EACH(M0, ~, BOOST_SIMD_REAL_TYPES)
+  BOOST_PP_SEQ_FOR_EACH(M0, ~, NT2_REAL_TYPES)
   #undef M0
 }
