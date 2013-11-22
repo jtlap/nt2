@@ -54,8 +54,8 @@ but keep in mind that __NT2__ pushes the compiler significantly.
 Supported architectures include:
 
 * [@http://en.wikipedia.org/wiki/SIMD#Hardware SIMD Extensions]:
- * SSE2, SSE3, SSSE3, SSE4a, SSE4.1, SSE4.2, AVX, FMA4 and XOP on x86 processors.
- * AltiVec on PowerPC processors.
+ * SSE2, SSE3, SSSE3, SSE4a, SSE4.1, SSE4.2 and AVX x86 processors.
+ * AltiVec VMX on PowerPC processors.
 * Multi-core processors through [@http://openmp.org/wp/ OpenMP] 2.0 compliant
   compilers.
 
