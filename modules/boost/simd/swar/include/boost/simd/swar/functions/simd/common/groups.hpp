@@ -35,5 +35,20 @@ namespace boost { namespace simd { namespace ext
       return group(saturate<result_type>(a0), saturate<result_type>(a1));
     }
   };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::groups_, tag::cpu_,
+                          (A0)(X),
+                          (boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::downgrade<A0>::type> >),
+                          ((simd_<floating_<A0>,X>))((simd_<floating_<A0>,X>))
+                        )
+  {
+
+    typedef typename dispatch::meta::downgrade<A0>::type result_type;
+
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      return group(a0, a1);
+    }
+  };
 } } }
 #endif

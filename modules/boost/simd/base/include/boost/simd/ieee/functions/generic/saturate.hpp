@@ -14,8 +14,9 @@
 #include <boost/simd/include/functions/simd/splat.hpp>
 #include <boost/simd/include/functions/simd/min.hpp>
 #include <boost/simd/include/functions/simd/max.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
-#include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -52,8 +53,8 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, T const& ) const
     {
-      const A0 vma = splat<A0>(Valmax<target_t>());
-      const A0 vmi = splat<A0>(Valmin<target_t>());
+      const A0 vma = splat<A0>(Inf<target_t>());
+      const A0 vmi = splat<A0>(Minf<target_t>());
       return min(vma, max(vmi, a0));
     }
   };
