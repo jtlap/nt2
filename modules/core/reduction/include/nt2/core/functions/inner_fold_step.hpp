@@ -14,21 +14,8 @@
   @brief Define and implements the inner_fold_step function
 **/
 
-#include <nt2/include/functor.hpp>
-
 namespace nt2
 {
-  namespace tag
-  {
-    /*!
-      @brief Tag for the inner_fold_step functor
-    **/
-    struct inner_fold_step_ : boost::dispatch::tag::formal_
-    {
-      typedef boost::dispatch::tag::formal_ parent;
-    };
-  }
-
   /*!
     @brief PreFold over inner dimension
 
@@ -41,9 +28,22 @@ namespace nt2
     @param a3 Function to apply for binary reduction, first argument is accumulator
     @param a4 Pair containing linear offset and number of element to process
   **/
+  namespace details
+  {
+    template<class Out, class In, class Neutral, class Bop, class Range>
+    void inner_fold_step(Out& out, In& in, Neutral const& neutral, Bop const& bop, Range const & range)
+    {
+      static const std::size_t N = boost::simd::meta::cardinal_of<Out>::value;
+      std::size_t begin = range.first;
+      std::size_t size = range.second;
 
-BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::inner_fold_step_, inner_fold_step,
-(A0&)(A1 const&)(A2 const&)(A3 const&)(A4 const&), 5)
-}
+      BOOST_ASSERT_MSG( (size % N) == 0, "Range for inner_fold_step not divisible by N");
+
+      for(std::size_t i = begin; i != begin+size; i+=N)
+       out = bop(out, nt2::run(in, i, meta::as_<Out>()));
+    }
+  }
+
+};
 
 #endif

@@ -10,7 +10,7 @@
 #define NT2_CORE_FUNCTIONS_SIMD_INNER_FOLD_HPP_INCLUDED
 
 #include <nt2/core/functions/inner_fold.hpp>
-#include <nt2/core/include/functions/inner_fold_step.hpp>
+#include <nt2/core/functions/inner_fold_step.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/meta/is_vectorizable.hpp>
 
@@ -63,7 +63,7 @@ namespace nt2 { namespace ext
       {
         target_type vec_out = neutral(nt2::meta::as_<target_type>());
 
-        nt2::inner_fold_step(vec_out,in,neutral,bop,std::make_pair(k,ibound));
+        details::inner_fold_step(vec_out,in,neutral,bop,std::make_pair(k,ibound));
 
         value_type s_out = uop( vec_out );
 

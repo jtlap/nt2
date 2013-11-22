@@ -53,14 +53,12 @@ namespace nt2
     template<class Out>
     void operator()(Out & out, std::size_t begin, std::size_t size)
     {
-      work(out,in_,neutral_,bop_,std::make_pair(begin,size));
+      details::inner_fold_step(out,in_,neutral_,bop_,std::make_pair(begin,size));
     };
 
     In & in_;
     Neutral const & neutral_;
     Bop const & bop_;
-
-    nt2::functor<tag::inner_fold_step_,Site> work;
 
     private:
     worker& operator=(worker const&);

@@ -75,7 +75,7 @@ namespace nt2 { namespace ext
       {
           value_type s_out = neutral(nt2::meta::as_<value_type>());
 
-          nt2::inner_fold_step(s_out,in,neutral,bop,std::make_pair(k,ibound));
+          details::inner_fold_step(s_out,in,neutral,bop,std::make_pair(k,ibound));
 
           nt2::run(out, j, s_out);
       }
