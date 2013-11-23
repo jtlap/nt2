@@ -20,7 +20,10 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return False<result_type>(); }
+    BOOST_FORCEINLINE result_type operator()(A0 const&) const
+    {
+       return False<result_type>();
+    }
   };
 } } }
 

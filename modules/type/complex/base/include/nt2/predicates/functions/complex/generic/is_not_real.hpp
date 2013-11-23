@@ -9,11 +9,11 @@
 #ifndef NT2_PREDICATES_FUNCTIONS_COMPLEX_GENERIC_IS_NOT_REAL_HPP_INCLUDED
 #define NT2_PREDICATES_FUNCTIONS_COMPLEX_GENERIC_IS_NOT_REAL_HPP_INCLUDED
 #include <nt2/predicates/functions/is_not_real.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/is_nez.hpp>
+#include <nt2/include/functions/imag.hpp>
 #include <nt2/include/constants/false.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
-#include <nt2/sdk/complex/meta/as_dry.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 
 namespace nt2 { namespace ext

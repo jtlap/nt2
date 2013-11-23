@@ -19,6 +19,18 @@ set( SOURCES
      is_not_nan.cpp
      is_real.cpp
      is_imag.cpp
+     is_lez.cpp
+     is_gez.cpp
+     is_gtz.cpp
+     is_ltz.cpp
+     is_nlez.cpp
+     is_ngez.cpp
+     is_ngtz.cpp
+     is_nltz.cpp
+     is_equal_with_equal_nans.cpp
+     is_not_equal_with_equal_nans.cpp
+     is_not_imag.cpp
+     is_not_real.cpp
    )
 
 nt2_module_add_tests(type.complex.base.predicates.scalar.unit ${SOURCES})

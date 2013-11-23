@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/is_not_imag.hpp>
 
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -19,31 +19,26 @@
 #include <boost/simd/sdk/config.hpp>
 
 #include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/zero.hpp>
-#include <nt2/include/constants/inf.hpp>
-#include <nt2/include/constants/minf.hpp>
-#include <nt2/include/constants/nan.hpp>
 
-NT2_TEST_CASE_TPL ( is_eqz_real,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( is_not_imag_real,  BOOST_SIMD_REAL_TYPES)
 {
-  using nt2::is_eqz;
-  using nt2::tag::is_eqz_;
+  using nt2::is_not_imag;
+  using nt2::tag::is_not_imag_;
   typedef typename std::complex<T> cT;
-  typedef typename boost::dispatch::meta::call<is_eqz_(cT)>::type r_t;
+  typedef typename boost::dispatch::meta::call<is_not_imag_(cT)>::type r_t;
 
   // return type conformity test
   NT2_TEST_TYPE_IS(r_t, nt2::logical<T>);
 
   // specific values tests
-#ifndef BOOST_SIMD_NO_INVALIDS
-  NT2_TEST_EQUAL(is_eqz(cT(nt2::Inf<T>())), r_t(false));
-  NT2_TEST_EQUAL(is_eqz(cT(nt2::Minf<T>())), r_t(false));
-  NT2_TEST_EQUAL(is_eqz(cT(nt2::Nan<T>())), r_t(false));
-#endif
-  NT2_TEST_EQUAL(is_eqz(cT(nt2::One<T>())), r_t(false));
-  NT2_TEST_EQUAL(is_eqz(cT(nt2::Zero<T>())), r_t(true));
-  NT2_TEST_EQUAL(is_eqz(cT(0, 0)), r_t(true));
-  NT2_TEST_EQUAL(is_eqz(cT(1, 0)), r_t(false));
-  NT2_TEST_EQUAL(is_eqz(cT(0, 2)), r_t(false));
-  NT2_TEST_EQUAL(is_eqz(cT(0, 1)), r_t(false));
+  NT2_TEST_EQUAL(is_not_imag(nt2::One<T>()), r_t(true));
+  NT2_TEST_EQUAL(is_not_imag(nt2::Two<T>()), r_t(true));
+  NT2_TEST_EQUAL(is_not_imag(nt2::Zero<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_imag(cT(0, 0)), r_t(false));
+  NT2_TEST_EQUAL(is_not_imag(cT(1, 0)), r_t(true));
+  NT2_TEST_EQUAL(is_not_imag(cT(0, 2)), r_t(false));
+  NT2_TEST_EQUAL(is_not_imag(cT(0, 1)), r_t(false));
+  NT2_TEST_EQUAL(is_not_imag(cT(2, 1)), r_t(true));
 }

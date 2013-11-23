@@ -10,12 +10,10 @@
 #define NT2_PREDICATES_FUNCTIONS_COMPLEX_GENERIC_IS_NOT_IMAG_HPP_INCLUDED
 
 #include <nt2/predicates/functions/is_not_imag.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/constants/false.hpp>
+#include <nt2/include/functions/is_nez.hpp>
+#include <nt2/include/functions/real.hpp>
 #include <nt2/sdk/complex/complex.hpp>
-#include <nt2/sdk/meta/as_logical.hpp>
-#include <nt2/sdk/complex/meta/as_dry.hpp>
-#include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/meta/real_of.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -24,7 +22,7 @@ namespace nt2 { namespace ext
                             , (generic_< complex_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename  meta::imag_of<A0>::type rA0;
+    typedef typename  meta::real_of<A0>::type rA0;
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
@@ -37,7 +35,7 @@ namespace nt2 { namespace ext
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename  meta::imag_of<A0>::type rA0;
+    typedef typename  meta::real_of<A0>::type rA0;
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
