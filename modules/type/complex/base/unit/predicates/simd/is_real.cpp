@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/include/functions/is_not_equal.hpp>
+#include <nt2/include/functions/is_real.hpp>
 
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -29,30 +29,32 @@
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/i.hpp>
 
-NT2_TEST_CASE_TPL ( is_not_equal_real,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( is_real_real,  NT2_SIMD_REAL_TYPES)
 {
-  using nt2::is_not_equal;
-  using nt2::tag::is_not_equal_;
+  using nt2::is_real;
+  using nt2::tag::is_real_;
   typedef typename std::complex<T> cT;
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
   typedef native<cT,ext_t>                vcT;
   typedef typename nt2::meta::as_logical<vcT>::type vlT;
-  typedef typename boost::dispatch::meta::call<is_not_equal_(vcT, vcT)>::type r_t;
+  typedef typename boost::dispatch::meta::call<is_real_(vcT)>::type r_t;
 
   // return type conformity test
   NT2_TEST_TYPE_IS(r_t, vlT);
 
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
-  NT2_TEST_EQUAL(is_not_equal(nt2::Inf<vcT>()  , nt2::Inf<vcT>()), nt2::False<r_t>());
-  NT2_TEST_EQUAL(is_not_equal(nt2::Minf<vcT>() , nt2::Minf<vcT>()), nt2::False<r_t>());
-  NT2_TEST_EQUAL(is_not_equal(nt2::Nan<vcT>()  , nt2::Nan<vcT>()), nt2::True<r_t>());
+  NT2_TEST_EQUAL(is_real(nt2::Inf<vcT>()), nt2::True<r_t>());
+  NT2_TEST_EQUAL(is_real(nt2::Minf<vcT>()), nt2::True<r_t>());
+  NT2_TEST_EQUAL(is_real(nt2::Nan<vcT>()), nt2::True<r_t>());
 #endif
-  NT2_TEST_EQUAL(is_not_equal(nt2::Mzero<vcT>(), nt2::Mzero<vcT>()), nt2::False<r_t>());
-  NT2_TEST_EQUAL(is_not_equal(nt2::Mone<vcT>() , nt2::Mone<vcT>()), nt2::False<r_t>());
-  NT2_TEST_EQUAL(is_not_equal(nt2::One<vcT>()  , nt2::One<vcT>()), nt2::False<r_t>());
-  NT2_TEST_EQUAL(is_not_equal(nt2::Zero<vcT>() , nt2::Zero<vcT>()), nt2::False<r_t>());
+  NT2_TEST_EQUAL(is_real(nt2::Mzero<vcT>()), nt2::True<r_t>());
+  NT2_TEST_EQUAL(is_real(nt2::Mone<vcT>()), nt2::True<r_t>());
+  NT2_TEST_EQUAL(is_real(nt2::One<vcT>()), nt2::True<r_t>());
+  NT2_TEST_EQUAL(is_real(nt2::Zero<vcT>()), nt2::True<r_t>());
+  NT2_TEST_EQUAL(is_real(nt2::I<vcT>()), nt2::False<r_t>());
 }
