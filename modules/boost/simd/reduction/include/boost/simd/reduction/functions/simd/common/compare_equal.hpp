@@ -10,25 +10,23 @@
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_SIMD_COMMON_COMPARE_EQUAL_HPP_INCLUDED
 
 #include <boost/simd/reduction/functions/compare_equal.hpp>
+#include <boost/simd/include/functions/simd/is_equal.hpp>
+#include <boost/simd/include/functions/simd/all.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
-#include <boost/simd/sdk/meta/cardinal_of.hpp>
-#include <boost/simd/sdk/meta/scalar_of.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_equal_, tag::cpu_, (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                              ((simd_<arithmetic_<A0>,X>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::compare_equal_
+                                    , tag::cpu_, (A0)(X)
+                                    , ((simd_<arithmetic_<A0>,X>))
+                                      ((simd_<arithmetic_<A0>,X>))
+                                    )
   {
-    typedef typename meta::scalar_of<A0>::type  sA0;
-    typedef logical<sA0> result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    typedef typename meta::as_logical<typename A0::value_type>::type result_type;
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      bool that = true;
-      for(std::size_t i=0;i<boost::simd::meta::cardinal_of<A0>::value;++i)
-        that = that && (a0[i] == a1[i]);
-      return result_type(that);
+      return boost::simd::all(a0 == a1);
     }
   };
 } } }

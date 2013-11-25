@@ -10,10 +10,9 @@
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_SIMD_COMMON_COMPARE_NOT_EQUAL_HPP_INCLUDED
 
 #include <boost/simd/reduction/functions/compare_not_equal.hpp>
+#include <boost/simd/include/functions/simd/is_not_equal.hpp>
+#include <boost/simd/include/functions/simd/any.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
-#include <boost/simd/include/functions/simd/compare_equal.hpp>
-#include <boost/simd/include/functions/simd/logical_not.hpp>
-#include <boost/simd/sdk/meta/scalar_of.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -23,11 +22,11 @@ namespace boost { namespace simd { namespace ext
                                       ((simd_<arithmetic_<A0>,X>))
                                     )
   {
-    typedef typename meta::scalar_of<A0>::type  sA0;
-    typedef typename meta::as_logical<sA0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    typedef typename meta::as_logical<typename A0::value_type>::type result_type;
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return result_type(!compare_equal(a0,a1));
+      return boost::simd::any(a0 != a1);
     }
   };
 } } }

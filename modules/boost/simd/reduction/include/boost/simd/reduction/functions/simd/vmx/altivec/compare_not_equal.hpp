@@ -10,15 +10,24 @@
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_SIMD_VMX_ALTIVEC_COMPARE_NOT_EQUAL_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
+#include <boost/simd/reduction/functions/compare_not_equal.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_not_equal_, boost::simd::tag::vmx_, (A0)
-                            , ((simd_<arithmetic_<A0>,boost::simd::tag::vmx_>))
-                              ((simd_<arithmetic_<A0>,boost::simd::tag::vmx_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::compare_not_equal_
+                                    , boost::simd::tag::vmx_
+                                    , (A0)
+                                    , ((simd_<arithmetic_<A0>,boost::simd::tag::vmx_>))
+                                      ((simd_<arithmetic_<A0>,boost::simd::tag::vmx_>))
+                                    )
   {
-    typedef bool result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return vec_any_ne(a0(),a1()); }
+    typedef typename meta::as_logical<typename A0::value_type>::type result_type;
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      return vec_any_ne(a0(),a1());
+    }
   };
 } } }
 
