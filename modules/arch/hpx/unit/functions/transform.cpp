@@ -8,6 +8,8 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2::transform function"
 
+#include <hpx/config.hpp>
+
 #include <nt2/table.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/zeros.hpp>
@@ -16,8 +18,6 @@
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-
-#include <hpx/hpx_main.hpp>
 
 NT2_TEST_CASE_TPL( direct_transform, NT2_TYPES )
 {
@@ -48,3 +48,4 @@ NT2_TEST_CASE_TPL( partial_transform, (double) )
 
   NT2_DISPLAY(out);
 }
+

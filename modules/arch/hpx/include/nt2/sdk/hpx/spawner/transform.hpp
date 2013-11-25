@@ -35,24 +35,23 @@ namespace nt2
     template<typename Worker>
     void operator()(Worker & w, std::size_t begin, std::size_t size, std::size_t grain)
     {
-
       std::size_t nblocks  = size/grain;
       std::size_t ibound   = nblocks * grain;
       std::size_t leftover = size % grain;
 
       std::vector< hpx::lcos::future<void> > barrier;
-      barrier.reserve(nblocks);
+      barrier.reserve(nblocks+1);
 
-        for(std::size_t n=0;n<nblocks;++n)
-        {
-            // Call operation
-            barrier.push_back ( hpx::async(w, begin+n*grain, grain) );
+      printf("spawner hpx\n");
+      for(std::size_t n=0;n<nblocks;++n)
+      {
+         // Call operation
+         barrier.push_back ( hpx::async(w, begin+n*grain, grain) );
+      }
 
-        }
+      if(leftover) barrier.push_back ( hpx::async(w, begin+ibound,leftover) );
 
-        if(leftover) barrier.push_back ( hpx::async(w, begin+ibound,leftover) );
-
-        hpx::lcos::wait(barrier);
+      hpx::lcos::wait(barrier);
    }
  };
 }
