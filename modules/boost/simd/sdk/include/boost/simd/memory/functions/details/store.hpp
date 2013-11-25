@@ -61,20 +61,33 @@ namespace boost { namespace simd { namespace details
   template<typename A0, typename A1, typename A2 = int> struct extractor
   {
     extractor (A0 const& a0_, A1 a1_, A2 a2_ = 0)
-              : a0(a0_), a1(a1_), a2(a2_)
+              : a0(a0_), a1(a1_+a2_)
     {}
 
-    template<int I> void operator()() const
+    template<int I> BOOST_FORCEINLINE void operator()() const
     {
-      A1 p = a1;
       typedef typename fusion::result_of::at_c<A0,I>::type type;
-      for(std::size_t i=0;i<meta::cardinal_of<type>::value;++i)
-        fusion::at_c<I>(*(p++ + a2)) = extract(fusion::at_c<I>(a0), i);
+      step(boost::mpl::int_<I>(), typename meta::cardinal_of<type>::type());
+    }
+
+    template<typename Idx, typename Step>
+    BOOST_FORCEINLINE void step(Idx const& idx, Step const&) const
+    {
+      fusion::at_c<Idx::value>(*(a1 + Step::value-1))
+                      = extract<Step::value-1>(fusion::at_c<Idx::value>(a0));
+
+      step(idx,boost::mpl::size_t<Step::value-1>());
+    }
+
+    template<typename Idx>
+    BOOST_FORCEINLINE void step(Idx const&, boost::mpl::size_t<0> const&) const
+    {
+      fusion::at_c<Idx::value>(*(a1))
+                      = extract<0>(fusion::at_c<Idx::value>(a0));
     }
 
     A0 const& a0;
     A1        a1;
-    A2        a2;
 
     private:
     extractor& operator=(extractor const&);

@@ -177,3 +177,30 @@ NT2_TEST_CASE( store_sequence )
     NT2_TEST_EQUAL(boost::fusion::at_c<2>(v)[j] , scdata[j]);
   }
 }
+
+NT2_TEST_CASE(tuple_native_isomorphism)
+{
+  using boost::fusion::vector;
+  using boost::simd::load;
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  using boost::simd::uint8_t;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  X;
+
+  typedef vector<uint8_t, uint8_t, uint8_t> pixel;
+  typedef vector<native<float,X>, native<float,X>, native<float,X> > simd_pixel;
+  typedef native< vector<float,float,float> ,X> simd_pixel2;
+
+  pixel data[simd_pixel2::static_size], dst[simd_pixel2::static_size];
+
+  for(int i=0;i<simd_pixel2::static_size;++i) data[i]= pixel(65+i,i+66,i+67);
+
+  simd_pixel rgb = load<simd_pixel>(&data[0]);
+
+  store(rgb, &dst[0]);
+  simd_pixel drgb = load<simd_pixel>(&dst[0]);
+
+  NT2_TEST_EQUAL(boost::fusion::at_c<0>(rgb),boost::fusion::at_c<0>(drgb));
+  NT2_TEST_EQUAL(boost::fusion::at_c<1>(rgb),boost::fusion::at_c<1>(drgb));
+  NT2_TEST_EQUAL(boost::fusion::at_c<2>(rgb),boost::fusion::at_c<2>(drgb));
+}

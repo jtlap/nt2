@@ -11,11 +11,12 @@
 #define BOOST_SIMD_MEMORY_FUNCTIONS_DETAILS_LOAD_HPP_INCLUDED
 
 #include <boost/simd/memory/functions/insert.hpp>
-#include <boost/dispatch/meta/as.hpp>
-#include <boost/dispatch/functor/meta/make_functor.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
-#include <boost/fusion/include/at_c.hpp>
+#include <boost/dispatch/functor/meta/make_functor.hpp>
+#include <boost/dispatch/meta/as.hpp>
 #include <boost/fusion/include/value_at.hpp>
+#include <boost/fusion/include/at_c.hpp>
+#include <boost/fusion/include/at.hpp>
 #include <boost/config.hpp>
 
 // Helper for load over a fusion sequence.
@@ -75,11 +76,30 @@ namespace boost { namespace simd { namespace details
             : a0(a0_), a1(a1_), a2(a2_)
     {}
 
-    template<int I> void operator()() const
+    template<int I> BOOST_FORCEINLINE void operator()() const
     {
       typedef typename fusion::result_of::at_c<A1,I>::type type;
-      for(std::size_t i=0;i<meta::cardinal_of<type>::value;++i)
-        insert(fusion::at_c<I>(*(a0+a2)),fusion::at_c<I>(a1),i);
+      step(boost::mpl::int_<I>(), typename meta::cardinal_of<type>::type());
+    }
+
+    template<typename Idx, typename Step>
+    BOOST_FORCEINLINE void step(Idx const& idx, Step const&) const
+    {
+      typedef typename fusion::result_of::at<A1,Idx>::type type;
+
+      insert<Step::value-1> ( fusion::at<Idx>(*(a0+a2+Step::value-1))
+                            , fusion::at<Idx>(a1)
+                            );
+
+      step(idx,boost::mpl::size_t<Step::value-1>());
+    }
+
+    template<typename Idx>
+    BOOST_FORCEINLINE void step(Idx const&, boost::mpl::size_t<0> const&) const
+    {
+      typedef typename fusion::result_of::at<A1,Idx>::type type;
+
+      insert<0> ( fusion::at<Idx>(*(a0+a2)), fusion::at<Idx>(a1) );
     }
 
     A0  a0;
