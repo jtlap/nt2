@@ -59,7 +59,7 @@ NT2_TEST_CASE_TPL( insert, BOOST_SIMD_SIMD_TYPES)
   NT2_TEST_EQUAL( rpck, pck );
 }
 
-template<typename V> void insert_n(V& v, boost::mpl::int_<0> const& ) {}
+template<typename V> void insert_n(V&, boost::mpl::int_<0> const& ) {}
 
 template<typename V, int N>
 void insert_n(V& v, boost::mpl::int_<N> const& )

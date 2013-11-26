@@ -59,7 +59,7 @@ NT2_TEST_CASE_TPL( extract, BOOST_SIMD_SIMD_TYPES)
   }
 }
 
-template<typename V> void extract_n(V const& v, boost::mpl::int_<0> const& ) {}
+template<typename V> void extract_n(V const&, boost::mpl::int_<0> const& ) {}
 
 template<typename V, int N>
 void extract_n(V const& v, boost::mpl::int_<N> const& )

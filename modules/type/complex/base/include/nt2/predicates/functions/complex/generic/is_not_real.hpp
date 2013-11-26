@@ -37,7 +37,7 @@ namespace nt2 { namespace ext
   {
     typedef typename  meta::as_real<A0>::type rA0;
     typedef typename meta::as_logical<rA0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
+    BOOST_FORCEINLINE result_type operator()(const A0&) const
     {
       return False<result_type>();
     }
