@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return vec_any_ne(a0(),a1());
+      return result_type(vec_any_ne(a0(),a1()));
     }
   };
 } } }
