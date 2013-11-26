@@ -31,9 +31,9 @@ NT2_TEST_CASE_TPL ( fast_rec_real,  BOOST_SIMD_REAL_TYPES)
 
   NT2_TEST_TYPE_IS(T,r_t);
 
-  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Two<T>()), boost::simd::Half<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Mone<T>()), boost::simd::Mone<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::One<T>()), boost::simd::One<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Ten<T>()), boost::simd::Oneo_10<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Three<T>()), boost::simd::Third<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Two<T>()), boost::simd::Half<r_t>(), 16);
+  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Mone<T>()), boost::simd::Mone<r_t>(), 16);
+  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::One<T>()), boost::simd::One<r_t>(), 16);
+  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Ten<T>()), boost::simd::Oneo_10<r_t>(), 16);
+  NT2_TEST_ULP_EQUAL(fast_rec(boost::simd::Three<T>()), boost::simd::Third<r_t>(), 16);
 }

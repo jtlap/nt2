@@ -8,8 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_SSE_RAW_REC_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_SSE_RAW_REC_HPP_INCLUDED
-
 #if defined(BOOST_SIMD_HAS_SSE2_SUPPORT)
+
 #include <boost/simd/arithmetic/functions/raw_rec.hpp>
 #include <boost/simd/sdk/config.hpp>
 
@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 a0) const
     {
       float inv;
-      _mm_store_ss( &inv, _mm_rcp_ps( _mm_load_ss( &a0 ) ) );
+      _mm_store_ss( &inv, _mm_rcp_ss( _mm_load_ss( &a0 ) ) );
 
       return inv;
     }

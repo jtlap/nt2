@@ -8,9 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_SSE_FAST_REC_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_SSE_FAST_REC_HPP_INCLUDED
-
 #if defined(BOOST_SIMD_HAS_SSE2_SUPPORT)
+
 #include <boost/simd/arithmetic/functions/fast_rec.hpp>
+#include <boost/simd/include/functions/scalar/refine_rec.hpp>
 #include <boost/simd/sdk/config.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -25,11 +26,25 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 a0) const
     {
-      float inv;
-      _mm_store_ss( &inv, _mm_rcp_ps( _mm_load_ss( &a0 ) ) );
+      return refine_rec(a0, raw_rec( a0 ));
+    }
+  };
 
-      // Newton-Raphson: 1/X ~= x*(1-a0*x) + x
-      return inv*(1.f - a0*inv) + inv;
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::fast_rec_
+                                    , boost::simd::tag::sse_
+                                    , (A0)
+                                    , (scalar_< double_<A0> >)
+                                    )
+  {
+    typedef A0 result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 a0) const
+    {
+      float x  = a0;
+      double e = static_cast<float>(raw_rec( x ));
+             e = refine_rec(a0, e);
+
+      return refine_rec(a0, e);
     }
   };
 } } }

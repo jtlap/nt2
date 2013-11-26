@@ -12,9 +12,7 @@
 
 #include <boost/simd/arithmetic/functions/fast_rec.hpp>
 #include <boost/simd/include/functions/simd/raw_rec.hpp>
-#include <boost/simd/include/functions/simd/fnms.hpp>
-#include <boost/simd/include/functions/simd/fma.hpp>
-#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/functions/simd/refine_rec.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -28,11 +26,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      // Estimation x ~= 1/X
-      A0  inv   = raw_rec( a0 );
-
-      // Newton-Raphson: 1/X ~= x*(1-a0*x) + x
-      return fma(fsm(One<A0>(), a0, inv), inv, inv);
+      return refine_rec(a0, raw_rec( a0 ));
     }
   };
 } } }
