@@ -12,6 +12,7 @@
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/include/functions/sincos.hpp>
+#include <nt2/include/functions/multiplies.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -25,7 +26,7 @@ namespace nt2 { namespace ext
     {
       A0 s, c;
       nt2::sincos(a1, s, c);
-      return a0*result_type(c, s);
+      return multiplies(a0, result_type(c, s));
     }
   };
 

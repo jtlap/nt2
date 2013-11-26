@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/include/functions/frac.hpp>
+#include <nt2/include/functions/negate.hpp>
 
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -14,8 +14,8 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <complex>
 #include <nt2/sdk/complex/complex.hpp>
-#include <nt2/sdk/complex/dry.hpp>
-#include <nt2/sdk/unit/tests/ulp.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/config.hpp>
 
@@ -27,22 +27,24 @@
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/i.hpp>
 
-NT2_TEST_CASE_TPL ( frac_real,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( negate_real,  NT2_REAL_TYPES)
 {
-  using nt2::frac;
-  using nt2::tag::frac_;
+  using nt2::negate;
+  using nt2::tag::negate_;
   typedef typename std::complex<T> cT;
-  NT2_TEST_TYPE_IS( (typename nt2::meta::call<frac_(cT)>::type), cT );
+  typedef typename nt2::meta::call<negate_(cT, cT)>::type r_t;
+
+  // return type conformity test
+  NT2_TEST_TYPE_IS(r_t, cT);
 
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
-  NT2_TEST_EQUAL( frac(nt2::Inf<cT>()  ), nt2::Nan<cT>());
-  NT2_TEST_EQUAL( frac(nt2::Minf<cT>() ), nt2::Nan<cT>());
-  NT2_TEST_EQUAL( frac(nt2::Nan<cT>()  ), nt2::Nan<cT>());
+  NT2_TEST_EQUAL(negate(nt2::Inf<cT>(), nt2::Inf<cT>()), nt2::Inf<r_t>());
+  NT2_TEST_EQUAL(negate(nt2::Minf<cT>(), nt2::Minf<cT>()), nt2::Inf<r_t>());
+  NT2_TEST_EQUAL(negate(nt2::Nan<cT>(), nt2::Nan<cT>()), nt2::Nan<r_t>());
 #endif
-  NT2_TEST_EQUAL( frac(nt2::Mone<cT>() ), nt2::Zero<cT>());
-  NT2_TEST_EQUAL( frac(nt2::One<cT>()  ), nt2::Zero<cT>());
-  NT2_TEST_EQUAL( frac(nt2::Zero<cT>() ), nt2::Zero<cT>());
-  NT2_TEST_EQUAL(frac(cT(1.5, 2.25)), cT(0.5, 0.25));
-  NT2_TEST_ULP_EQUAL(frac(cT(1.5, 2.3)), cT(0.5, 0.3), 2);
+  NT2_TEST_EQUAL(negate(nt2::Mone<cT>(), nt2::Mone<cT>()), nt2::One<r_t>());
+  NT2_TEST_EQUAL(negate(nt2::One<cT>(), nt2::Mone<cT>()), nt2::Mone<r_t>());
+  NT2_TEST_EQUAL(negate(nt2::One<cT>(), nt2::One<cT>()), nt2::One<r_t>());
+  NT2_TEST_EQUAL(negate(nt2::Zero<cT>(), nt2::Zero<cT>()), nt2::Zero<r_t>());
 }

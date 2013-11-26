@@ -14,6 +14,8 @@ set( SOURCES
   sign.cpp
   signnz.cpp
   frac.cpp
+  copysign.cpp
+  negate.cpp
   )
 
 nt2_module_add_tests(type.complex.base.ieee.scalar.unit ${SOURCES})
