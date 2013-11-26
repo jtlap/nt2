@@ -6,12 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2::ishermitian function"
-
 #include <nt2/table.hpp>
 #include <nt2/include/functions/ishermitian.hpp>
 #include <nt2/include/functions/ones.hpp>
-
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <complex>
@@ -38,25 +35,9 @@ NT2_TEST_CASE( table_ishermitian )
          a(i, j) = (i < j) ? type(i, j) : ((i > j) ? type(j, -i) : type(i, 0));
        }
    }
-  for(std::ptrdiff_t i=1; i <= 3; i++)
-   {
-     for(std::ptrdiff_t j=1; j <= 3; j++)
-       {
-         std::cout << a(i, j) << "    ";
-       }
-     std::cout << std::endl;
-   }
 
   NT2_TEST( nt2::ishermitian(a)     );
   a(1, 2) = type(25.0f);
-  for(std::ptrdiff_t i=1; i <= 3; i++)
-   {
-     for(std::ptrdiff_t j=1; j <= 3; j++)
-       {
-         std::cout << a(i, j) << "    ";
-       }
-     std::cout << std::endl;
-   }
   NT2_TEST( !nt2::ishermitian(a)     );
 
 }

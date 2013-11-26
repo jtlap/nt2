@@ -6,15 +6,11 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2::isreal function for complex tables"
-
 #include <nt2/table.hpp>
 #include <nt2/include/functions/isreal.hpp>
 #include <nt2/include/functions/ones.hpp>
-
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
-#include <nt2/include/constants/nan.hpp>
 
 NT2_TEST_CASE( scalar_isreal_cplx )
 {
