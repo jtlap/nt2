@@ -74,6 +74,19 @@ namespace boost { namespace fusion { namespace extension
     };
   };
 
+  //============================================================================
+  // value_at value of pack given operator[] as a non cref-qualified value
+  //============================================================================
+  template<> struct value_at_impl<boost::simd::tag::pack_>
+  {
+    template<typename Sequence, typename Index>
+    struct apply
+    {
+      typedef typename boost::dispatch::meta::strip<Sequence>::type base;
+      typedef typename base::value_type                             type;
+    };
+  };
+
   //==========================================================================
   // begin returns the inner data_type begin as it is itself a Fusion Sequence
   //==========================================================================

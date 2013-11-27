@@ -20,8 +20,10 @@
 #include <boost/simd/include/constants/one.hpp>
 
 #include <boost/fusion/include/at.hpp>
+#include <boost/fusion/include/value_at.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <vector>
 
@@ -221,4 +223,8 @@ NT2_TEST_CASE_TPL(pack_fusion, BOOST_SIMD_SIMD_TYPES)
   p = boost::simd::aligned_load<p_t>(&data[0],0);
 
   boost::simd::meta::iterate<card>( iterate_test<p_t>(p));
+
+  NT2_TEST_TYPE_IS( (typename boost::fusion::result_of::value_at_c<p_t,0>::type)
+                  , T
+                  );
 }
