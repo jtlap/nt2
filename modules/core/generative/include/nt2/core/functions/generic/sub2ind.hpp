@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
 
     BOOST_FORCEINLINE
-    result_type operator()(SZ const& sz, BOOST_PP_ENUM_PARAMS(N,A1 a) ) const
+    result_type operator()(SZ const& sz, BOOST_PP_ENUM_PARAMS(N,A1 const& a) ) const
     {
       A1 one  = One<A1>();
       A1 that = one
