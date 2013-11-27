@@ -16,6 +16,10 @@ set( SOURCES
   frac.cpp
   copysign.cpp
   negate.cpp
+  minmag.cpp
+  maxmag.cpp
+  minnummag.cpp
+  maxnummag.cpp
   )
 
 nt2_module_add_tests(type.complex.base.ieee.scalar.unit ${SOURCES})

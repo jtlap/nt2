@@ -13,6 +13,7 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <complex>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -29,6 +30,7 @@ NT2_TEST_CASE_TPL ( min_real,  BOOST_SIMD_REAL_TYPES)
   using nt2::min;
   using nt2::tag::min_;
   typedef typename std::complex<T> cT;
+  typedef typename nt2::meta::as_dry<T>::type dT;
   typedef typename boost::dispatch::meta::call<min_(cT, cT)>::type r_t;
 
   // return type conformity test
@@ -40,4 +42,7 @@ NT2_TEST_CASE_TPL ( min_real,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(nt2::min(cT(nt2::Zero<T>()), cT(nt2::Zero<T>())),cT(nt2::Zero<T>()));
   NT2_TEST_EQUAL(nt2::min(cT(0, 1), cT(1, 0)), cT(1, 0));
   NT2_TEST_EQUAL(nt2::min(cT(2, 1), cT(2, 2)), cT(2, 1));
+  NT2_TEST_EQUAL(nt2::min(dT(1),dT(-1)), dT(1));
+  NT2_TEST_EQUAL(nt2::min(dT(1),T(-1)), dT(1));
+  NT2_TEST_EQUAL(nt2::min(T(1),dT(-1)), dT(1));
 }

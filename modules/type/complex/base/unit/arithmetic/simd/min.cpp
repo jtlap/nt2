@@ -50,11 +50,14 @@ NT2_TEST_CASE_TPL ( min_real,  BOOST_SIMD_SIMD_REAL_TYPES)
     NT2_TEST_EQUAL(nt2::min(vcT(nt2::Zero<vT>(),nt2::One<vT>()),  vcT(nt2::One<vT>(), nt2::Zero<vT>())), vcT(nt2::One<vT>(),nt2::Zero<vT>()));
     NT2_TEST_EQUAL(nt2::min(vcT(nt2::One<vT>(), nt2::Zero<vT>()), vcT(nt2::One<vT>(), nt2::Zero<vT>())), vcT(nt2::One<vT>(), nt2::Zero<vT>()));
     NT2_TEST_EQUAL(nt2::min(vdT(nt2::One<vdT>()),  vcT(nt2::Zero<vT>(),nt2::Zero<vT>())), vcT(nt2::Zero<vT>(),nt2::Zero<vT>()));
-    NT2_TEST_EQUAL(nt2::min(vdT(nt2::Zero<vdT>()), vcT(nt2::Zero<vT>(),nt2::Zero<vT>())), vcT(nt2::Zero<vT>(),nt2::Zero<vT>()));
-    NT2_TEST_EQUAL(nt2::min(vdT(nt2::Zero<vdT>()), vcT(nt2::One<vT>(), nt2::Zero<vT>())), vcT(nt2::Zero<vT>(),nt2::Zero<vT>()));
-    NT2_TEST_EQUAL(nt2::min(vdT(nt2::One<vdT>()),  vcT(nt2::One<vT>(), nt2::Zero<vT>())), vcT(nt2::One<vT>(), nt2::Zero<vT>()));
-    NT2_TEST_EQUAL(nt2::min(vdT(nt2::One<vdT>()),   vdT(nt2::Zero<vdT>())), vdT(nt2::Zero<vdT>()));
-    NT2_TEST_EQUAL(nt2::min(vdT(nt2::Zero<vdT>()),  vdT(nt2::Zero<vdT>())), vdT(nt2::Zero<vdT>()));
-    NT2_TEST_EQUAL(nt2::min(vdT(nt2::Zero<vdT>()),  vdT(nt2::One<vdT>())),  vdT(nt2::Zero<vdT>()));
-    NT2_TEST_EQUAL(nt2::min(vdT(nt2::One<vdT>()),   vdT(nt2::One<vdT>())),  vdT(nt2::One<vdT>() ));
+    NT2_TEST_EQUAL(nt2::min(nt2::Zero<vdT>(), nt2::Zero<vcT>()), nt2::Zero<vcT>());
+    NT2_TEST_EQUAL(nt2::min(nt2::Zero<vdT>(), nt2::One<vcT>()),  nt2::Zero<vcT>());
+    NT2_TEST_EQUAL(nt2::min(nt2::One<vdT>(),  nt2::One<vcT>()),  nt2::One<vcT>());
+    NT2_TEST_EQUAL(nt2::min(nt2::One<vdT>(), nt2::Zero<vdT>()), vdT(nt2::Zero<vdT>()));
+    NT2_TEST_EQUAL(nt2::min(nt2::Zero<vdT>(),nt2::Zero<vdT>()), vdT(nt2::Zero<vdT>()));
+    NT2_TEST_EQUAL(nt2::min(nt2::Zero<vdT>(),nt2::One<vdT>()),  vdT(nt2::Zero<vdT>()));
+    NT2_TEST_EQUAL(nt2::min(nt2::One<vdT>(), nt2::One<vdT>()),  vdT(nt2::One<vdT>() ));
+    NT2_TEST_EQUAL(nt2::min(nt2::One<vdT>(), nt2::Mone<vdT>()), vdT(nt2::One<vdT>()));
+    NT2_TEST_EQUAL(nt2::min(nt2::One<vT>(),  nt2::Mone<vdT>()), vdT(nt2::One<vdT>()));
+    NT2_TEST_EQUAL(nt2::min(nt2::One<vdT>(), nt2::Mone<vT>()), vdT(nt2::One<vdT>()));
 }

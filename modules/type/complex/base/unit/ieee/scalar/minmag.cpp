@@ -6,45 +6,44 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/include/functions/max.hpp>
+#include <nt2/include/functions/minmag.hpp>
 
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <complex>
-#include <nt2/sdk/complex/meta/as_dry.hpp>
 #include <nt2/sdk/complex/complex.hpp>
-#include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/config.hpp>
 
+#include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/minf.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/i.hpp>
 
-NT2_TEST_CASE_TPL ( max_real,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( minmag_real,  NT2_REAL_TYPES)
 {
-  using nt2::max;
-  using nt2::tag::max_;
+  using nt2::minmag;
+  using nt2::tag::minmag_;
   typedef typename std::complex<T> cT;
-  typedef typename nt2::meta::as_dry<T>::type dT;
-  typedef typename boost::dispatch::meta::call<max_(cT, cT)>::type r_t;
+  typedef typename nt2::meta::call<minmag_(cT, cT)>::type r_t;
 
   // return type conformity test
   NT2_TEST_TYPE_IS(r_t, cT);
 
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
-  NT2_TEST_ULP_EQUAL(nt2::max(cT(nt2::Inf<T>()), cT(nt2::Inf<T>())), cT(nt2::Inf<T>()), 0);
+  NT2_TEST_EQUAL(minmag(nt2::Inf<cT>(), nt2::Inf<cT>()), nt2::Inf<r_t>());
+  NT2_TEST_EQUAL(minmag(nt2::Minf<cT>(), nt2::Inf<cT>()), nt2::Inf<r_t>());
+  NT2_TEST_EQUAL(minmag(nt2::Nan<cT>(), nt2::Nan<cT>()), nt2::Nan<r_t>());
 #endif
-  NT2_TEST_EQUAL(nt2::max(cT(nt2::One<T>()), cT(nt2::Zero<T>())), cT(nt2::One<T>()));
-  NT2_TEST_EQUAL(nt2::max(cT(nt2::Zero<T>()), cT(nt2::Zero<T>())),cT(nt2::Zero<T>()));
-  NT2_TEST_EQUAL(nt2::max(cT(0, 1), cT(1, 0)), cT(0, 1));
-  NT2_TEST_EQUAL(nt2::max(cT(2, 1), cT(2, 2)), cT(2, 2));
-  NT2_TEST_EQUAL(nt2::max(dT(1),dT(-1)), dT(-1));
-  NT2_TEST_EQUAL(nt2::max(dT(1),T(-1)), dT(-1));
-  NT2_TEST_EQUAL(nt2::max(T(1),dT(-1)), dT(-1));
+  NT2_TEST_EQUAL(minmag(nt2::Mone<cT>(), nt2::Zero<cT>()), nt2::Zero<r_t>());
+  NT2_TEST_EQUAL(minmag(nt2::One<cT>(), nt2::Mone<cT>()), nt2::One<r_t>());
+  NT2_TEST_EQUAL(minmag(nt2::Zero<cT>(), nt2::Zero<cT>()), nt2::Zero<r_t>());
 }

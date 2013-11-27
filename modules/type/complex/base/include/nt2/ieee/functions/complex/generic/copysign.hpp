@@ -10,6 +10,8 @@
 #define NT2_IEEE_FUNCTIONS_COMPLEX_GENERIC_COPYSIGN_HPP_INCLUDED
 
 #include <nt2/ieee/functions/copysign.hpp>
+#include <nt2/include/functions/copysign.hpp>
+#include <nt2/include/functions/if_else_zero.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/sign.hpp>
