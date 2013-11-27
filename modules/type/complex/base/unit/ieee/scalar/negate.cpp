@@ -39,12 +39,12 @@ NT2_TEST_CASE_TPL ( negate_real,  NT2_REAL_TYPES)
 
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
-  NT2_TEST_EQUAL(negate(nt2::Inf<cT>(), nt2::Inf<cT>()), nt2::Inf<r_t>());
-  NT2_TEST_EQUAL(negate(nt2::Minf<cT>(), nt2::Minf<cT>()), nt2::Inf<r_t>());
-  NT2_TEST_EQUAL(negate(nt2::Nan<cT>(), nt2::Nan<cT>()), nt2::Nan<r_t>());
+  NT2_TEST_EQUAL(nt2::negate(nt2::Inf<cT>(), nt2::Inf<cT>()), nt2::Inf<r_t>());
+  NT2_TEST_EQUAL(nt2::negate(nt2::Minf<cT>(), nt2::Minf<cT>()), nt2::Inf<r_t>());
+  NT2_TEST_EQUAL(nt2::negate(nt2::Nan<cT>(), nt2::Nan<cT>()), nt2::Nan<r_t>());
 #endif
-  NT2_TEST_EQUAL(negate(nt2::Mone<cT>(), nt2::Mone<cT>()), nt2::One<r_t>());
-  NT2_TEST_EQUAL(negate(nt2::One<cT>(), nt2::Mone<cT>()), nt2::Mone<r_t>());
-  NT2_TEST_EQUAL(negate(nt2::One<cT>(), nt2::One<cT>()), nt2::One<r_t>());
-  NT2_TEST_EQUAL(negate(nt2::Zero<cT>(), nt2::Zero<cT>()), nt2::Zero<r_t>());
+  NT2_TEST_EQUAL(nt2::negate(nt2::Mone<cT>(), nt2::Mone<cT>()), nt2::One<r_t>());
+  NT2_TEST_EQUAL(nt2::negate(nt2::One<cT>(), nt2::Mone<cT>()), nt2::Mone<r_t>());
+  NT2_TEST_EQUAL(nt2::negate(nt2::One<cT>(), nt2::One<cT>()), nt2::One<r_t>());
+  NT2_TEST_EQUAL(nt2::negate(nt2::Zero<cT>(), nt2::Zero<cT>()), nt2::Zero<r_t>());
 }
