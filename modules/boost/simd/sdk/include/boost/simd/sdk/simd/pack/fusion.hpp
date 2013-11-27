@@ -64,10 +64,9 @@ namespace boost { namespace fusion { namespace extension
     template<typename Sequence, typename Index>
     struct apply
     {
-      typedef typename  boost::dispatch::meta::strip<Sequence>::type    base;
       typedef typename  mpl::if_< is_const<Sequence>
-                                , typename base::const_reference
-                                , typename base::reference
+                                , typename Sequence::const_reference
+                                , typename Sequence::reference
                                 >::type                             type;
 
       static type call(Sequence& seq) { return seq[Index::value]; }
@@ -82,8 +81,7 @@ namespace boost { namespace fusion { namespace extension
     template<typename Sequence, typename Index>
     struct apply
     {
-      typedef typename boost::dispatch::meta::strip<Sequence>::type base;
-      typedef typename base::value_type                             type;
+      typedef typename Sequence::value_type type;
     };
   };
 
@@ -107,7 +105,6 @@ namespace boost { namespace fusion { namespace extension
     template<typename Sequence>
     struct apply
     {
-      typedef typename  boost::dispatch::meta::strip<Sequence>::type          base;
       typedef typename  boost::simd::details::
                         fusion_iterator< Sequence
                                        , boost::simd::meta::cardinal_of<Sequence>::value
