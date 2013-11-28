@@ -38,16 +38,21 @@ namespace nt2 { namespace ext
     {
 
       extent_type ext = in.extent();
-      std::ptrdiff_t obound = nt2::numel(boost::fusion::pop_front(ext));
+      std::size_t obound = nt2::numel(boost::fusion::pop_front(ext));
 
       std::size_t grain = 8;
 
       nt2::worker<tag::inner_fold_,BackEnd,Site,Out,In,Neutral,Bop,Uop>
       w(out, in, neutral, bop, uop);
 
-      nt2::spawner< tag::transform_, BackEnd > s;
+      if(obound > grain)
+      {
+        nt2::spawner< tag::transform_, BackEnd > s;
+        s(w,0,obound,grain);
+      }
 
-      s(w,0,obound,grain);
+      else
+      w(0,obound);
 
     }
 

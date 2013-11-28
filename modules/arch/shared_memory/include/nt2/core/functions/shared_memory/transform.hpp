@@ -15,7 +15,6 @@
 #include <nt2/sdk/shared_memory/worker/transform.hpp>
 #include <nt2/sdk/shared_memory/spawner.hpp>
 #include <nt2/sdk/config/cache.hpp>
-#include <cstdio>
 
 namespace nt2 { namespace ext
 {
@@ -36,16 +35,17 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(Out& out, In& in, Range range) const
     {
-      std::cout<<"shared_memory"<<std::endl;
       std::size_t top_cache_line_size = config::top_cache_size()/sizeof(typename Out::value_type);
       std::size_t it = range.first;
       std::size_t sz = range.second;
+
       if(!top_cache_line_size) top_cache_line_size = 1u;
 
       nt2::worker<tag::transform_,BackEnd,Site,Out,In> w(out,in);
       nt2::spawner<tag::transform_, BackEnd> s;
 
-      s(w,it,sz,top_cache_line_size);
+      if(sz > top_cache_line_size)  s(w,it,sz,top_cache_line_size);
+      else  w(it,sz);
     }
   };
 

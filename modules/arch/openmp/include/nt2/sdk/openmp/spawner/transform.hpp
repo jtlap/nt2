@@ -14,7 +14,6 @@
 
 #include <omp.h>
 #include <nt2/sdk/shared_memory/spawner.hpp>
-#include <cstdio>
 
 #ifndef BOOST_NO_EXCEPTIONS
 #include <boost/exception_ptr.hpp>
@@ -37,7 +36,6 @@ namespace nt2
     template<typename Worker>
     void operator()(Worker & w, std::size_t begin, std::size_t size, std::size_t grain)
     {
-       printf("openmp\n");
 
 #ifndef BOOST_NO_EXCEPTIONS
       boost::exception_ptr exception;

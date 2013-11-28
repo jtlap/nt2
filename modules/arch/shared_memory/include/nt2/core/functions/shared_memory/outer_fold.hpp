@@ -41,10 +41,13 @@ namespace nt2 { namespace ext
 
       std::size_t grain = top_cache_line_size/gcd(ibound,top_cache_line_size);
 
-      nt2::worker<tag::outer_fold_,BackEnd,Site,Out,In,Neutral,Bop,Uop> w(out, in, neutral, bop, uop);
+      nt2::worker<tag::outer_fold_,BackEnd,Site,Out,In,Neutral,Bop,Uop>
+      w(out, in, neutral, bop, uop);
+
       nt2::spawner< tag::transform_,BackEnd > s;
 
-      s(w,0,obound,grain);
+      if( obound > grain ) s(w,0,obound,grain);
+      else w(0,obound);
     }
 
     private:

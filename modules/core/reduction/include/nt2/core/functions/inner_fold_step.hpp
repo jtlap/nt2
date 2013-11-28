@@ -22,16 +22,15 @@ namespace nt2
     Folds elements of @c a1 along inner dimension, possibly in parallel, and
     store the result in @c a0.
 
-    @param a0 Expression to store result in
-    @param a1 Expression to reduce
-    @param a2 Functor to initialize the accumulator with
-    @param a3 Function to apply for binary reduction, first argument is accumulator
-    @param a4 Pair containing linear offset and number of element to process
+    @param Out Expression to store result in
+    @param In Expression to reduce
+    @param Bop Function to apply for binary reduction, first argument is accumulator
+    @param Range Pair containing linear offset and number of element to process
   **/
   namespace details
   {
-    template<class Out, class In, class Neutral, class Bop, class Range>
-    void inner_fold_step(Out& out, In& in, Neutral const& neutral, Bop const& bop, Range const & range)
+    template<class Out, class In, class Bop, class Range>
+    void inner_fold_step(Out& out, In& in, Bop const& bop, Range const & range)
     {
       static const std::size_t N = boost::simd::meta::cardinal_of<Out>::value;
       std::size_t begin = range.first;

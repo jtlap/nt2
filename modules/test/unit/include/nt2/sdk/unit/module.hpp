@@ -15,7 +15,7 @@
   @brief Main Unit test module header
 **/
 
-#include <hpx/hpx_init.hpp>
+//#include <hpx/hpx_init.hpp>
 
 #include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/unit/io.hpp>
@@ -33,13 +33,13 @@
 #define NT2_UNIT_MAIN_SUITE nt2::details::unit_tests
 #endif
 
-int hpx_main(int argc, char* argv[])
-{
-  int res = nt2::details::unit_main(argc,argv,NT2_UNIT_MAIN_SUITE);
-  std::cout<<"hpx"<<std::endl;
-  hpx::finalize();
-  return res;
-}
+//int hpx_main(int argc, char* argv[])
+//{
+//  int res = nt2::details::unit_main(argc,argv,NT2_UNIT_MAIN_SUITE);
+//  std::cout<<"hpx"<<std::endl;
+//  hpx::finalize();
+//  return res;
+//}
 
 /*!
   @brief Embedded main for testing purpose.
@@ -50,8 +50,8 @@ int hpx_main(int argc, char* argv[])
 **/
 NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int argc, char* argv[])
 {
-  return hpx::init(argc, argv);
-  //return nt2::details::unit_main(argc,argv,NT2_UNIT_MAIN_SUITE);
+  //return hpx::init(argc, argv);
+  return nt2::details::unit_main(argc,argv,NT2_UNIT_MAIN_SUITE);
 }
 
 #endif

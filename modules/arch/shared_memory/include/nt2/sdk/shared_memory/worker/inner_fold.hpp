@@ -43,7 +43,7 @@ namespace nt2
   }
 
   // Inner Fold Step worker
-  template<class BackEnd, class Site, class In, class Neutral,class Bop>
+  template<class BackEnd, class Site, class In, class Neutral, class Bop>
   struct worker<tag::inner_fold_step_,BackEnd,Site,In,Neutral,Bop>
   {
     worker(In & in, Neutral const & neutral, Bop const & bop)
@@ -53,7 +53,7 @@ namespace nt2
     template<class Out>
     void operator()(Out & out, std::size_t begin, std::size_t size)
     {
-      details::inner_fold_step(out,in_,neutral_,bop_,std::make_pair(begin,size));
+      details::inner_fold_step(out,in_,bop_,std::make_pair(begin,size));
     };
 
     In & in_;
@@ -86,13 +86,23 @@ namespace nt2
       std::size_t obound = nt2::numel(boost::fusion::pop_front(ext));
       std::size_t grain  = top_cache_line_size;
 
+      nt2::worker<tag::inner_fold_step_,BackEnd,Site,In,Neutral,Bop>
+      w(in_,neutral_,bop_);
+
+      nt2::spawner<tag::fold_, BackEnd, target_type> s;
+
       for(std::size_t j = begin, k=begin*bound; j < begin+size; ++j, k+=bound)
       {
-        nt2::worker<tag::inner_fold_step_,BackEnd,Site,In,Neutral,Bop>
-        w(in_,neutral_,bop_);
+        target_type vec_out;
 
-        nt2::spawner<tag::fold_, BackEnd, target_type> s;
-        target_type vec_out = s( w, k, ibound, grain );
+        if( (size == obound) && (grain < ibound) )
+          vec_out = s( w, k, ibound, grain );
+
+        else
+        {
+          vec_out = neutral_(nt2::meta::as_<target_type>());
+          w(vec_out, k, ibound);
+        }
 
         value_type s_out = uop_( vec_out );
 
