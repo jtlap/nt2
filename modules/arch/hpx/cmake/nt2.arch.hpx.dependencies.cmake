@@ -19,7 +19,6 @@ else()
     foreach(tmp ${HPX_VARIABLE_CFLAGS})
       set(HPX_CXX_FLAGS "${HPX_CXX_FLAGS} ${tmp}")
     endforeach()
-    message(STATUS "${HPX_CXX_FLAGS}")
   endif ()
 endif()
 

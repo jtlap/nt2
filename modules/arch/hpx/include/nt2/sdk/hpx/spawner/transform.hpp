@@ -42,7 +42,6 @@ namespace nt2
       std::vector< hpx::lcos::future<void> > barrier;
       barrier.reserve(nblocks+1);
 
-      printf("spawner hpx\n");
       for(std::size_t n=0;n<nblocks;++n)
       {
          // Call operation
