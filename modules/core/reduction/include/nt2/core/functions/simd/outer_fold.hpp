@@ -58,7 +58,6 @@ namespace nt2 { namespace ext
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
       std::size_t ibound  = boost::fusion::at_c<0>(ext);
       std::size_t mbound =  boost::fusion::at_c<1>(ext);
-      std::size_t obound =  boost::fusion::at_c<2>(ext);
       std::size_t id;
 
       std::size_t cache_line_size = nt2::config::top_cache_line_size(2); // in byte
