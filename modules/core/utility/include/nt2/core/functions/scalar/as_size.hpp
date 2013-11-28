@@ -11,7 +11,7 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_AS_SIZE_HPP_INCLUDED
 
 #include <nt2/core/functions/as_size.hpp>
-#include <nt2/core/utility/of_size.hpp>
+#include <nt2/include/functions/of_size.hpp>
 #include <nt2/core/utility/of_size/mpl_value.hpp>
 
 #include <nt2/sdk/parameters.hpp>

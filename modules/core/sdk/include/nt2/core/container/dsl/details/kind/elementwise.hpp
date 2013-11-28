@@ -9,9 +9,6 @@
 #ifndef NT2_CORE_CONTAINER_DSL_DETAILS_KIND_ELEMENTWISE_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_DSL_DETAILS_KIND_ELEMENTWISE_HPP_INCLUDED
 
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <boost/dispatch/meta/scalar_of.hpp>
-#include <boost/dispatch/dsl/semantic_of.hpp>
 #include <boost/dispatch/details/parameters.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>

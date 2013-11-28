@@ -33,7 +33,7 @@ namespace nt2 { namespace tag
     table_ tag marking a type as using the table semantic and defines
     table default settings
   **/
-  struct table_ : container::domain
+  struct table_ : nt2::container::domain
   {
     /// INTERNAL ONLY Table usually use whatever the use specify
     template<typename Settings, typename Option>

@@ -11,6 +11,8 @@
 
 #include <nt2/sdk/meta/as.hpp>
 #include <nt2/include/functions/colon.hpp>
+#include <nt2/core/container/dsl/domain.hpp>
+#include <nt2/core/container/table/kind.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 
 namespace nt2 { namespace container

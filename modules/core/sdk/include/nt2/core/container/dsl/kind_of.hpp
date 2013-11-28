@@ -10,11 +10,7 @@
 #ifndef NT2_CORE_CONTAINER_DSL_KIND_OF_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_DSL_KIND_OF_HPP_INCLUDED
 
-#include <nt2/sdk/memory/forward/container.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
-#include <nt2/core/container/dsl/domain.hpp>
-#include <nt2/core/container/table/kind.hpp>
-#include <nt2/dsl/functions/terminal.hpp>
 #include <boost/proto/traits.hpp>
 
 namespace nt2

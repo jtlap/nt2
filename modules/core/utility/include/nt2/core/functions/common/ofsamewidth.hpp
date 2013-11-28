@@ -10,6 +10,7 @@
 #define NT2_CORE_FUNCTIONS_COMMON_OFSAMEWIDTH_HPP_INCLUDED
 
 #include <nt2/core/functions/ofsamewidth.hpp>
+#include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/include/functions/width.hpp>
 
 namespace nt2 { namespace ext
