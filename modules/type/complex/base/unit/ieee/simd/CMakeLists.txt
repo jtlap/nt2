@@ -8,6 +8,18 @@
 ##############################################################################
 
 set( SOURCES
+  ulpdist.cpp
+  eps.cpp
+  ldexp.cpp
+  sign.cpp
+  signnz.cpp
+  frac.cpp
+  copysign.cpp
+  negate.cpp
+  minmag.cpp
+  maxmag.cpp
+  minnummag.cpp
+  maxnummag.cpp
    )
 
 nt2_module_add_tests(type.complex.base.ieee.simd.unit ${SOURCES})

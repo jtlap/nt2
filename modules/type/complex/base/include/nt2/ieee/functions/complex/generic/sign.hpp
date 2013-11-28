@@ -10,12 +10,13 @@
 #define NT2_IEEE_FUNCTIONS_COMPLEX_GENERIC_SIGN_HPP_INCLUDED
 
 #include <nt2/ieee/functions/sign.hpp>
-#include <nt2/include/functions/simd/divides.hpp>
+#include <nt2/include/functions/divides.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/is_real.hpp>
 #include <nt2/include/functions/is_imag.hpp>
+#include <nt2/include/functions/mul_i.hpp>
 #include <nt2/include/functions/simd/max.hpp>
 #include <nt2/include/functions/simd/is_finite.hpp>
 #include <nt2/include/functions/simd/is_nan.hpp>
@@ -51,7 +52,7 @@ namespace nt2 { namespace ext
       i = nt2::ldexp(i,e);
       real_t mod = nt2::hypot(r, i);
       result_type z = result_type(r, i)/mod;
- #ifndef BOOST_SIMD_NO_NANS
+#ifndef BOOST_SIMD_NO_NANS
        logi_t isinv = nt2::is_invalid(a0);
        if(nt2::any(isinv))
        {
@@ -61,7 +62,7 @@ namespace nt2 { namespace ext
                           nt2::if_else(nt2::logical_andnot(nt2::is_finite(i),nt2::is_nan(r)),
                                        result_type(sr),
                                        nt2::if_else(nt2::logical_andnot(nt2::is_finite(r),nt2::is_nan(i)),
-                                                    result_type(0, si),
+                                                    mul_i(si),
                                                     z
                                                    )
                                       ),
@@ -70,7 +71,7 @@ namespace nt2 { namespace ext
        }
        z =  nt2::if_else(nt2::is_real(a0),
                          result_type(nt2::real(z)),
-                         nt2::if_else(nt2::is_imag(a0), result_type(0, nt2::imag(z)), z)
+                         nt2::if_else(nt2::is_imag(a0), mul_i(nt2::imag(z)), z)
                         );
 #endif
        return nt2::if_else(nt2::is_eqz(mod), a0, z);

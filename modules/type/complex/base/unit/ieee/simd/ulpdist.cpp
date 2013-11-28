@@ -6,12 +6,14 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/include/functions/eps.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
 
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 #include <complex>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -21,36 +23,35 @@
 
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/sqrt_2.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/i.hpp>
 
-NT2_TEST_CASE_TPL ( eps_real,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( ulpdist_real,  NT2_REAL_TYPES)
 {
-  using nt2::eps;
-  using nt2::tag::eps_;
+  using nt2::ulpdist;
+  using nt2::tag::ulpdist_;
   typedef typename std::complex<T> cT;
-  typedef typename nt2::meta::call<eps_(cT)>::type r_t;
+  using boost::simd::native;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>                  vT;
+  typedef native<cT,ext_t>                vcT;
+  typedef typename nt2::dry<T>             dT;
+  typedef native<dT,ext_t>                vdT;
+  typedef typename nt2::meta::call<ulpdist_(vcT, vcT)>::type r_t;
 
   // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, T);
+  NT2_TEST_TYPE_IS(r_t, vT);
 
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
-  NT2_TEST_EQUAL(eps(nt2::Inf<cT>() ), nt2::Nan<T>());
-  NT2_TEST_EQUAL(eps(nt2::Minf<cT>()), nt2::Nan<T>());
-  NT2_TEST_EQUAL(eps(nt2::Nan<cT>() ), nt2::Nan<T>());
-  NT2_TEST_EQUAL(eps(cT(nt2::Inf<T>(), nt2::Inf<T>() )), nt2::Nan<T>());
-  NT2_TEST_EQUAL(eps(cT(nt2::Minf<T>(),nt2::Minf<T>())), nt2::Nan<T>());
-  NT2_TEST_EQUAL(eps(cT(nt2::Nan<T>() ,nt2::Nan<T>()) ), nt2::Nan<T>());
+  NT2_TEST_EQUAL(ulpdist(nt2::Inf<vcT>(), nt2::Inf<vcT>()), nt2::Zero<r_t>());
+  NT2_TEST_EQUAL(ulpdist(nt2::Minf<vcT>(), nt2::Minf<vcT>()), nt2::Zero<r_t>());
+  NT2_TEST_EQUAL(ulpdist(nt2::Nan<vcT>(), nt2::Nan<vcT>()), nt2::Zero<r_t>());
 #endif
-  NT2_TEST_EQUAL(eps(nt2::Mone<cT>()), eps(nt2::Mone<T>()));
-  NT2_TEST_EQUAL(eps(nt2::One<cT>() ), eps(nt2::One<T>() ));
-  NT2_TEST_EQUAL(eps(nt2::Zero<cT>()), eps(nt2::Zero<T>()));
-  NT2_TEST_EQUAL(eps(cT(nt2::Mone<T>(),nt2::Mone<T>())), eps(nt2::Sqrt_2<T>()));
-  NT2_TEST_EQUAL(eps(cT(nt2::One<T>() ,nt2::One<T>()) ), eps(nt2::Sqrt_2<T>() ));
-  NT2_TEST_EQUAL(eps(cT(nt2::Zero<T>(),nt2::Zero<T>())), eps(nt2::Zero<T>()));
+  NT2_TEST_EQUAL(ulpdist(nt2::Mone<vcT>(), nt2::Mone<vcT>()), nt2::Zero<r_t>());
+  NT2_TEST_EQUAL(ulpdist(nt2::One<vcT>(), nt2::One<vcT>()), nt2::Zero<r_t>());
+  NT2_TEST_EQUAL(ulpdist(nt2::Zero<vcT>(), nt2::Zero<vcT>()), nt2::Zero<r_t>());
 }
