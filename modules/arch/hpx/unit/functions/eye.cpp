@@ -8,6 +8,8 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2::eye function"
 
+#include <hpx/config.hpp>
+
 #include <nt2/table.hpp>
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/eye.hpp>
