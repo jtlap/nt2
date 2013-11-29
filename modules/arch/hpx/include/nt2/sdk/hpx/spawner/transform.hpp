@@ -12,7 +12,6 @@
 
 #if defined(NT2_USE_HPX)
 
-#include <hpx/include/async.hpp>
 #include <hpx/include/lcos.hpp>
 #include <hpx/lcos/future_wait.hpp>
 

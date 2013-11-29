@@ -40,7 +40,6 @@
 
 int hpx_main(int argc, char* argv[])
 {
-  std::cout<<"HPX"<<std::endl;
   int res = nt2::details::unit_main(argc,argv,NT2_UNIT_MAIN_SUITE);
   hpx::finalize();
   return res;
