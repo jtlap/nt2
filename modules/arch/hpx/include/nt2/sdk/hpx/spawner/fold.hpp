@@ -17,6 +17,10 @@
 
 #include <nt2/sdk/shared_memory/spawner.hpp>
 
+#ifndef BOOST_NO_EXCEPTIONS
+#include <boost/exception_ptr.hpp>
+#endif
+
 namespace nt2
 {
   namespace tag
@@ -37,6 +41,15 @@ namespace nt2
          result_type reduced_out = w.neutral_(nt2::meta::as_<result_type>());
          std::vector< hpx::lcos::future<result_type> > out;
 
+#ifndef BOOST_NO_EXCEPTIONS
+         boost::exception_ptr exception;
+#endif
+
+#ifndef BOOST_NO_EXCEPTIONS
+      try
+      {
+#endif
+
          if(size == grain) w(reduced_out,begin,size);
          else
          {
@@ -53,6 +66,14 @@ namespace nt2
               reduced_out = w.bop_( reduced_out, out[i].get() );
         }
 
+#ifndef BOOST_NO_EXCEPTIONS
+      }
+      catch(...)
+      {
+        exception = boost::current_exception();
+      }
+#endif
+
         return reduced_out;
      }
    };
@@ -67,10 +88,6 @@ namespace nt2
     template<typename Worker>
     result_type operator()(Worker & w, std::size_t begin, std::size_t size, std::size_t grain)
     {
-
-#ifndef BOOST_NO_EXCEPTIONS
-      boost::exception_ptr exception;
-#endif
 
       BOOST_ASSERT_MSG( size % grain == 0, "Reduce size not divisible by grain");
 

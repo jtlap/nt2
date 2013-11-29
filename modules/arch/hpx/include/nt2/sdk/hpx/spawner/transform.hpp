@@ -17,6 +17,10 @@
 
 #include <nt2/sdk/shared_memory/spawner.hpp>
 
+#ifndef BOOST_NO_EXCEPTIONS
+#include <boost/exception_ptr.hpp>
+#endif
+
 namespace nt2
 {
   namespace tag
@@ -41,6 +45,15 @@ namespace nt2
       std::vector< hpx::lcos::future<void> > barrier;
       barrier.reserve(nblocks+1);
 
+#ifndef BOOST_NO_EXCEPTIONS
+      boost::exception_ptr exception;
+#endif
+
+#ifndef BOOST_NO_EXCEPTIONS
+      try
+      {
+#endif
+
       for(std::size_t n=0;n<nblocks;++n)
       {
          // Call operation
@@ -50,6 +63,14 @@ namespace nt2
       if(leftover) barrier.push_back ( hpx::async(w, begin+ibound,leftover) );
 
       hpx::lcos::wait(barrier);
+
+#ifndef BOOST_NO_EXCEPTIONS
+      }
+      catch(...)
+      {
+        exception = boost::current_exception();
+      }
+#endif
    }
  };
 }
