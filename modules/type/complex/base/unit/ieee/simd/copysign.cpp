@@ -33,7 +33,7 @@
 #include <nt2/include/constants/i.hpp>
 #include <nt2/include/constants/sqrt_2.hpp>
 
-NT2_TEST_CASE_TPL ( copysign_real,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( copysign_real,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::copysign;
   using nt2::tag::copysign_;

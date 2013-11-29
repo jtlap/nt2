@@ -30,7 +30,7 @@
 #include <nt2/include/constants/i.hpp>
 #include <nt2/include/functions/splat.hpp>
 
-NT2_TEST_CASE_TPL ( ldexp_real,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( ldexp_real,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::ldexp;
   using nt2::tag::ldexp_;
