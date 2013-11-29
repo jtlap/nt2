@@ -25,9 +25,9 @@ NT2_TEST_CASE_TPL ( fast_divides_real,  BOOST_SIMD_REAL_TYPES)
                   , T
                   );
 
-  NT2_TEST_ULP_EQUAL(fast_divides(T(1) , T(2) ), T(0.5)  , 0.5);
-  NT2_TEST_ULP_EQUAL(fast_divides(T(1) , T(10)), T(0.1)  , 0.5);
-  NT2_TEST_ULP_EQUAL(fast_divides(T(2) , T(3) ), T(2./3.), 0.5);
+  NT2_TEST_ULP_EQUAL(fast_divides(T(1) , T(2) ), T(0.5)  , 16);
+  NT2_TEST_ULP_EQUAL(fast_divides(T(1) , T(10)), T(0.1)  , 16);
+  NT2_TEST_ULP_EQUAL(fast_divides(T(2) , T(3) ), T(2./3.), 16);
 }
 
 NT2_TEST_CASE_TPL ( fast_divides_ints,  BOOST_SIMD_INTEGRAL_TYPES)

@@ -35,5 +35,5 @@ NT2_TEST_CASE_TPL ( fast_divides_all_types,  NT2_SIMD_REAL_TYPES)
     ref[i] = in1[i]/in2[i];
   }
 
-  NT2_COVER_ULP_EQUAL(fast_divides_, ((nT, in1))((nT, in2)), ref, 1);
+  NT2_COVER_ULP_EQUAL(fast_divides_, ((nT, in1))((nT, in2)), ref, 16);
 }
