@@ -19,6 +19,8 @@ else()
     foreach(tmp ${HPX_VARIABLE_CFLAGS})
       set(HPX_CXX_FLAGS "${HPX_CXX_FLAGS} ${tmp}")
     endforeach()
+  else()
+    set(HPX_FOUND 0)
   endif ()
 endif()
 
