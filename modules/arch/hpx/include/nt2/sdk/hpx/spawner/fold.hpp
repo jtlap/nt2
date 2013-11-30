@@ -17,6 +17,8 @@
 
 #include <nt2/sdk/shared_memory/spawner.hpp>
 
+#include <cstdio>
+
 #ifndef BOOST_NO_EXCEPTIONS
 #include <boost/exception_ptr.hpp>
 #endif
@@ -38,43 +40,23 @@ namespace nt2
 
        result_type operator()(Worker & w, std::size_t begin, std::size_t size, std::size_t grain)
        {
-         result_type reduced_out = w.neutral_(nt2::meta::as_<result_type>());
-         std::vector< hpx::lcos::future<result_type> > out;
+         if (size == grain)
+         {
+           result_type out = w.neutral_(nt2::meta::as_<result_type>());
+           w(out,begin,size);
+           return out;
+         }
 
-#ifndef BOOST_NO_EXCEPTIONS
-         boost::exception_ptr exception;
-#endif
-
-#ifndef BOOST_NO_EXCEPTIONS
-      try
-      {
-#endif
-
-         if(size == grain) w(reduced_out,begin,size);
          else
          {
-           while (size > grain)
-           {
-              std::size_t middle = begin + (size/(2*grain))*grain;
-              out.push_back( hpx::async((*this),w,middle,begin+size-middle,grain) );
-              size = middle - begin;
-           }
+           std::size_t middle = begin + (size/(2*grain))*grain;
 
-           w(reduced_out,begin,size);
+           hpx::lcos::future<result_type>
+             other_out = hpx::async((*this),w,middle,begin+size-middle,grain);
 
-           for(std::size_t i=0; i<out.size(); i++)
-              reduced_out = w.bop_( reduced_out, out[i].get() );
-        }
-
-#ifndef BOOST_NO_EXCEPTIONS
-      }
-      catch(...)
-      {
-        exception = boost::current_exception();
-      }
-#endif
-
-        return reduced_out;
+           result_type my_out = (*this)(w, begin, middle-begin, grain);
+           return w.bop_( my_out, other_out.get() );
+         }
      }
    };
   }
