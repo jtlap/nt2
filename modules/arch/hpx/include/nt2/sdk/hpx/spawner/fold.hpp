@@ -31,36 +31,6 @@ namespace nt2
     template<class T> struct hpx_;
   }
 
-  namespace details
-  {
-     template<class Worker, class result_type>
-     struct Hpx_Folder
-     {
-       Hpx_Folder(){}
-
-       result_type operator()(Worker & w, std::size_t begin, std::size_t size, std::size_t grain)
-       {
-         if (size == grain)
-         {
-           result_type out = w.neutral_(nt2::meta::as_<result_type>());
-           w(out,begin,size);
-           return out;
-         }
-
-         else
-         {
-           std::size_t middle = begin + (size/(2*grain))*grain;
-
-           hpx::lcos::future<result_type>
-             other_out = hpx::async((*this),w,middle,begin+size-middle,grain);
-
-           result_type my_out = (*this)(w, begin, middle-begin, grain);
-           return w.bop_( my_out, other_out.get() );
-         }
-     }
-   };
-  }
-
   template<class Site, class result_type>
   struct spawner< tag::fold_, tag::hpx_<Site> , result_type>
   {
@@ -73,8 +43,20 @@ namespace nt2
 
       BOOST_ASSERT_MSG( size % grain == 0, "Reduce size not divisible by grain");
 
-      details::Hpx_Folder<Worker, result_type> hpx_w;
-      return hpx_w(w,begin,size,grain);
+      if (size == grain)
+       {
+         result_type out = w.neutral_(nt2::meta::as_<result_type>());
+         w(out,begin,size);
+         return out;
+        }
+
+       std::size_t middle = begin + (size/(2*grain))*grain;
+
+       hpx::lcos::future<result_type>
+          other_out = hpx::async((*this),w,middle,begin+size-middle,grain);
+       result_type my_out = (*this)(w, begin, middle-begin, grain);
+       return w.bop_( my_out, other_out.get() );
+
     }
   };
 }
