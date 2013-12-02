@@ -11,7 +11,7 @@
 #define NT2_CORE_FUNCTIONS_EXPR_AS_SIZE_HPP_INCLUDED
 
 #include <nt2/core/functions/as_size.hpp>
-#include <nt2/core/functions/of_size.hpp>
+#include <nt2/core/utility/of_size.hpp>
 #include <nt2/include/functions/isrow.hpp>
 #include <nt2/include/functions/length.hpp>
 #include <nt2/core/container/dsl/forward.hpp>

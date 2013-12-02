@@ -24,7 +24,7 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::result_of
                     ::make_expr < nt2::tag::fill_pattern_
                                 , container::domain
-                                , box<typename boost::remove_const<A1>::type>
+                                , typename boost::remove_const<A1>::type
                                 , A0 const&
                                 , std::size_t
                                 >::type                     result_type;
@@ -34,10 +34,7 @@ namespace nt2 { namespace ext
       return  boost::proto
             ::make_expr < nt2::tag::fill_pattern_
                         , container::domain
-                        > ( boxify(sz)
-                          , boost::cref(p)
-                          , nt2::numel(p)
-                          );
+                        > ( sz, boost::cref(p), nt2::numel(p) );
     }
   };
 
@@ -47,9 +44,9 @@ namespace nt2 { namespace ext
                               ((ast_<A1, nt2::container::domain>))
                             )
   {
-        BOOST_DISPATCH_RETURNS( 2, ( A0 const& a0, A1 const& a1 )
-                              , (nt2::fill_pattern(a0,nt2::as_size(a1)))
-                              )
+    BOOST_DISPATCH_RETURNS( 2, ( A0 const& a0, A1 const& a1 )
+                          , (nt2::fill_pattern(a0,nt2::as_size(a1)))
+                          )
   };
 } }
 

@@ -60,8 +60,8 @@ namespace nt2 {  namespace ext
     typedef typename  boost::proto::result_of
                     ::make_expr < nt2::tag::indices_
                                 , container::domain
-                                , box<size_type>
-                                , box<constant_t>
+                                , size_type
+                                , constant_t
                                 , target_t
                                 >::type                     result_type;
 
@@ -70,8 +70,8 @@ namespace nt2 {  namespace ext
       return  boost::proto
             ::make_expr < nt2::tag::indices_
                         , container::domain
-                        > ( boxify(a0)
-                          , boxify(constant_t(s[0],s[1]))
+                        > ( a0
+                          , constant_t(s[0],s[1])
                           , target_t()
                           );
     }
@@ -91,8 +91,8 @@ namespace nt2 {  namespace ext
     typedef typename  boost::proto::result_of
                     ::make_expr < nt2::tag::indices_
                                 , container::domain
-                                , box<size_type>
-                                , box<constant_t>
+                                , size_type
+                                , constant_t
                                 , target_t
                                 >::type                     result_type;
 
@@ -102,8 +102,8 @@ namespace nt2 {  namespace ext
       return  boost::proto
             ::make_expr < nt2::tag::indices_
                         , container::domain
-                        > ( boxify(a0)
-                          , boxify(constant_t(s[0],s[1]))
+                        > ( a0
+                          , constant_t(s[0],s[1])
                           , target_t()
                           );
     }

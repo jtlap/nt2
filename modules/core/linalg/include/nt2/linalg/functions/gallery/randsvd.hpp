@@ -157,9 +157,9 @@ namespace nt2 { namespace ext
                           )
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randsvd_, tag::cpu_,
-                              (A0)(A1)(A2)(A3)(A4)(A5),
-                              (scalar_<integer_<A0> >)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randsvd_, tag::cpu_
+                            , (A0)(A1)(A2)(A3)(A4)(A5)
+                            , (scalar_<integer_<A0> >)
                               (scalar_<integer_<A1> >)
                               (scalar_<floating_<A2> >)
                               (scalar_<integer_<A3> >)
@@ -167,22 +167,19 @@ namespace nt2 { namespace ext
                               (scalar_<integer_<A5> >)
                             )
   {
-    BOOST_DISPATCH_RETURNS(6, (A0 const& m, A1 const& n, A2 const & kappa,
-                               A3 const & mode, A4 const & kl, A5 const & ku),
-                           ( boost::proto::
-                             make_expr<nt2::tag::randsvd_, container::domain>
-                             (
-                               size_t(m)
-                               , size_t(n)
-                               , kappa
-                               , ptrdiff_t(mode)
-                               , size_t(kl)
-                               , size_t(ku)
-                               , boxify(_2D(of_size(m, n)))
-                             )
-                           )
+    BOOST_DISPATCH_RETURNS(6, ( A0 const& m, A1 const& n, A2 const & kappa
+                              , A3 const & mode, A4 const & kl, A5 const & ku
+                              )
+                          , ( boost::proto::
+                              make_expr<nt2::tag::randsvd_, container::domain>
+                              ( size_t(m), size_t(n)
+                              , kappa, std::ptrdiff_t(mode)
+                              , std::size_t(kl), std::size_t(ku)
+                              , _2D(m, n)
+                              )
+                            )
                           )
-      };
+  };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
                             , (A0)(A1)(N)

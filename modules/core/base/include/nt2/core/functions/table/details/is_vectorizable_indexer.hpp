@@ -98,16 +98,25 @@ namespace nt2 { namespace ext
       boost::proto::basic_expr<
           nt2::tag::colon_
         , boost::proto::list3<
-              nt2::box<
-                  nt2::of_size_<
-                      1l
-                    , N
-                    , 1l
-                    , 1l
+              nt2::container::expression<
+                  boost::proto::basic_expr<
+                      boost::proto::tag::terminal
+                    , boost::proto::term<
+                          nt2::of_size_<1l, N, 1l, 1l>
+                      >
+                    , 0l
                   >
+                , nt2::of_size_<1l, N, 1l, 1l>
               >
-            , nt2::box<
-                  nt2::meta::constant_<nt2::tag::unity_colon_, T>
+            , nt2::container::expression<
+                  boost::proto::basic_expr<
+                      boost::proto::tag::terminal
+                    , boost::proto::term<
+                          nt2::meta::constant_<nt2::tag::unity_colon_, T>
+                      >
+                    , 0l
+                  >
+                , nt2::meta::constant_<nt2::tag::unity_colon_, T>
               >
             , nt2::container::expression<
                   boost::proto::basic_expr<

@@ -25,39 +25,30 @@
 
 namespace nt2 { namespace ext
 {
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::quasi_, tag::cpu_,
-                              (A0)(A1)(A2),
-                              (scalar_<integer_<A0> >)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::quasi_, tag::cpu_
+                            , (A0)(A1)(A2)
+                            , (scalar_<integer_<A0> >)
                               (scalar_<integer_<A1> >)
                               (target_<scalar_<floating_<A2> > >)
-    )
+                            )
   {
     typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::quasi_
-      , container::domain
-      , size_t
-      , size_t
-      , A2
-      , box<_2D>
-      >::type             result_type;
+                      result_of::make_expr< nt2::tag::quasi_
+                                          , container::domain
+                                          , std::size_t, std::size_t
+                                          , A2, _2D
+                                          >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1, A2 const&) const
+    BOOST_FORCEINLINE result_type operator()(A0 a0, A1 a1, A2 const& tgt) const
     {
-      _2D sizee;
-      sizee[0] = a0; sizee[1] = a1;
       return  boost::proto::
-        make_expr<nt2::tag::quasi_, container::domain>
-        ( size_t(a0)
-        , size_t(a1)
-        , A2()
-        , boxify(sizee)
-        );
+              make_expr<nt2::tag::quasi_, container::domain>
+              ( std::size_t(a0), std::size_t(a1)
+              , tgt, _2D(a0,a1)
+              );
     }
   };
-  //============================================================================
-  // rand evaluation
-  //============================================================================
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
                             , (A0)(A1)(N)
                             , ((ast_<A0, nt2::container::domain>))

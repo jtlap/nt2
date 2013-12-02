@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::result_of
                     ::make_expr < nt2::tag::repmat_
                                 , container::domain
-                                , box<size_type>
+                                , size_type
                                 , A0 const&
                                 >::type                     result_type;
 
@@ -37,7 +37,7 @@ namespace nt2 { namespace ext
       return  boost::proto
             ::make_expr < nt2::tag::repmat_
                         , container::domain
-                        > ( boxify(s)
+                        > ( s
                           , boost::cref(a0)
                           );
     }

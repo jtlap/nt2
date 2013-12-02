@@ -11,6 +11,8 @@
 
 #include <nt2/sdk/meta/as.hpp>
 #include <nt2/include/functions/colon.hpp>
+#include <nt2/core/container/dsl/domain.hpp>
+#include <nt2/core/container/table/kind.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 
 namespace nt2 { namespace container
@@ -26,14 +28,14 @@ namespace nt2 { namespace container
     // _() as []
     boost::proto::result_of::
     make_expr< nt2::tag::empty_colon_, container::domain
-             , box< of_size_<0> >
-             , box< meta::constant_<nt2::tag::unity_colon_, double> >
+             , of_size_<0>
+             , meta::constant_<nt2::tag::unity_colon_, double>
              , meta::as_<double>
              >::type
     operator()() const
     {
       return boost::proto::make_expr< nt2::tag::empty_colon_, container::domain >
-            ( boxify(of_size_<0>()), boxify(meta::constant_<nt2::tag::unity_colon_, double>(1.)), meta::as_<double>() );
+            ( of_size_<0>(), meta::constant_<nt2::tag::unity_colon_, double>(1.), meta::as_<double>() );
     }
 
     // colon as a:b

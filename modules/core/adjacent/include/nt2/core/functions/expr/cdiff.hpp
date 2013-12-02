@@ -15,7 +15,6 @@
 
 #include <nt2/sdk/memory/copy.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/utility/box.hpp>
 #include <nt2/core/functions/of_size.hpp>
 #include <nt2/include/functions/firstnonsingleton.hpp>
 

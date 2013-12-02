@@ -12,7 +12,6 @@
 
 #include <nt2/core/functions/linspace.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/utility/box.hpp>
 #include <nt2/core/functions/of_size.hpp>
 #include <nt2/core/functions/details/linspace.hpp>
 
@@ -29,8 +28,8 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::linspace_
                                           , container::domain
-                                          , box< of_size_<1,100> >
-                                          , box<constant_t>
+                                          , of_size_<1,100>
+                                          , constant_t
                                           , meta::as_<A0>
                                           >::type             result_type;
 
@@ -39,8 +38,8 @@ namespace nt2 { namespace ext
       return  boost::proto::
               make_expr < nt2::tag::linspace_
                         , container::domain
-                        > ( boxify(of_size_<1,100>())
-                          , boxify(constant_t(l,u,100))
+                        > ( of_size_<1,100>()
+                          , constant_t(l,u,100)
                           , meta::as_<A0>()
                           );
     }
@@ -58,8 +57,8 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::linspace_
                                           , container::domain
-                                          , box< _2D >
-                                          , box< constant_t >
+                                          , _2D
+                                          , constant_t
                                           , meta::as_<A0>
                                           >::type             result_type;
 
@@ -69,12 +68,8 @@ namespace nt2 { namespace ext
       return  boost::proto::
               make_expr < nt2::tag::linspace_
                         , container::domain
-                        > ( boxify(of_size(1,n))
-                          , boxify(constant_t ( (n<2 ? u : l)
-                                              , u
-                                              , (n<2 ? 2 : n)
-                                              )
-                                  )
+                        > ( of_size(1,n)
+                          , constant_t( (n<2 ? u : l), u, (n<2 ? 2 : n) )
                           , meta::as_<A0>()
                           );
     }

@@ -10,6 +10,7 @@
 #define NT2_CORE_FUNCTIONS_COMMON_ARECATCOMPATIBLE_HPP_INCLUDED
 
 #include <nt2/core/functions/arecatcompatible.hpp>
+#include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/include/functions/extent.hpp>
 #include <nt2/include/functions/isrow.hpp>
 #include <nt2/include/functions/isempty.hpp>
@@ -20,11 +21,11 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::arecatcompatible_, tag::cpu_
-                              , (A0)(A1)(A2)
-                              , ((ast_<A0, nt2::container::domain>))
+                            , (A0)(A1)(A2)
+                            , ((ast_<A0, nt2::container::domain>))
                               ((ast_<A1, nt2::container::domain>))
                               (scalar_<integer_<A2> >)
-                              )
+                            )
   {
     typedef bool result_type;
 
@@ -57,11 +58,11 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::arecatcompatible_, tag::cpu_
-                              , (A0)(A1)(A2)
+                            , (A0)(A1)(A2)
                             , (scalar_<unspecified_<A0> >)
                               (scalar_<unspecified_<A1> >)
                               (scalar_<integer_<A2> >)
-                              )
+                            )
   {
     typedef bool result_type;
     BOOST_FORCEINLINE
@@ -88,7 +89,8 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::arecatcompatible_, tag::cpu_
                             , (A0)(A1)(A2)
-                            , (scalar_<unspecified_<A0> >)((ast_<A1, nt2::container::domain>))
+                            , (scalar_<unspecified_<A0> >)
+                              ((ast_<A1, nt2::container::domain>))
                               (scalar_<integer_<A2> >)
                             )
   {

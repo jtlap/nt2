@@ -11,12 +11,9 @@
 
 #include <nt2/linalg/functions/dramadah.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/utility/box.hpp>
 #include <nt2/core/container/table/table.hpp>
-
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
-
 #include <nt2/include/functions/colon.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/ones.hpp>
@@ -24,96 +21,49 @@
 
 namespace nt2 { namespace ext
 {
-  //0
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::dramadah_, tag::cpu_,
-                              (A0),
-                              (scalar_<integer_<A0> >)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::dramadah_, tag::cpu_
+                            , (A0)
+                            , (scalar_<integer_<A0> >)
                             )
   {
-    typedef typename  boost::proto::
-                      result_of::make_expr< nt2::tag::dramadah_
-                                          , container::domain
-                                          , A0 const&
-                                          , size_t
-                                          , meta::as_<double>
-                                          , box<_2D>
-                                          >::type             result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
-    {
-      _2D sizee;
-      sizee[0] = sizee[1] = a0;
-      size_t k = 1;
-      return  boost::proto::
-        make_expr<nt2::tag::dramadah_, container::domain>
-        ( boost::cref(a0)
-          , k
-          , meta::as_<double>()
-          , boxify(sizee)
-          );
-    }
+    BOOST_DISPATCH_RETURNS(1, (A0 a0)
+                          , ( boost::proto::make_expr
+                              <nt2::tag::dramadah_, container::domain>
+                              ( a0, std::size_t(1)
+                              , meta::as_<double>(), _2D(a0,a0)
+                              )
+                            )
+                          );
   };
- //00
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::dramadah_, tag::cpu_,
-                              (A0)(T),
-                              (scalar_<integer_<A0> >)
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::dramadah_, tag::cpu_
+                            , (A0)(T)
+                            , (scalar_<integer_<A0> >)
                               (target_< scalar_< unspecified_<T> > >)
-    )
+                            )
   {
-    typedef typename  boost::proto::
-                      result_of::make_expr< nt2::tag::dramadah_
-                                          , container::domain
-                                          , A0 const&
-                                          , size_t
-                                          , T
-                                          , box<_2D>
-                                          >::type             result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
-    {
-      _2D sizee;
-      sizee[0] = sizee[1] = a0;
-      size_t k = 1;
-      return  boost::proto::
-        make_expr<nt2::tag::dramadah_, container::domain>
-        ( boost::cref(a0)
-          , k
-          , T()
-          , boxify(sizee)
-          );
-    }
+    BOOST_DISPATCH_RETURNS(2, (A0 a0, T const& t)
+                          , ( boost::proto::make_expr
+                              <nt2::tag::dramadah_, container::domain>
+                              ( boost::cref(a0), std::size_t(1), t, _2D(a0,a0) )
+                            )
+                          );
   };
 
-//1
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::dramadah_, tag::cpu_,
-                              (A0)(A1),
-                              (scalar_<integer_<A0> >)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::dramadah_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_<integer_<A0> >)
                               (scalar_<integer_<A1> >)
                             )
   {
-    typedef typename  boost::proto::
-                      result_of::make_expr< nt2::tag::dramadah_
-                                          , container::domain
-                                          , A0 const&
-                                          , A1 const&
-                                          , meta::as_<double>
-                                          , box<_2D>
-                                          >::type             result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0,
-                                             A1 const& a1) const
-    {
-      _2D sizee;
-      sizee[0] = sizee[1] = a0;
-      return  boost::proto::
-        make_expr<nt2::tag::dramadah_, container::domain>
-        ( boost::cref(a0)
-          , boost::cref(a1)
-          , meta::as_<double>()
-          , boxify(sizee)
-          );
-    }
+    BOOST_DISPATCH_RETURNS(2, (A0 a0, A1 a1)
+                          , ( boost::proto::make_expr
+                              <nt2::tag::dramadah_, container::domain>
+                              ( a0, a1, meta::as_<double>(), _2D(a0,a0) )
+                            )
+                          );
   };
+
   //2
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::dramadah_, tag::cpu_,
                               (A0)(A1)(T),
@@ -122,31 +72,12 @@ namespace nt2 { namespace ext
                               (target_< scalar_< unspecified_<T> > >)
                             )
   {
-    typedef typename T::type value_type;
-    typedef typename  boost::proto::
-                      result_of::make_expr< nt2::tag::dramadah_
-                                          , container::domain
-                                          , A0 const&
-                                          , A1 const&
-                                          , T
-                                          , box<_2D>
-                                          >::type             result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0,
-                                             A1 const& a1,
-                                             T  const&) const
-    {
-      _2D sizee;
-      sizee[0] = sizee[1] = a0;
-      return  boost::proto::
-        make_expr<nt2::tag::dramadah_, container::domain>
-        ( boost::cref(a0)
-          , boost::cref(a1)
-          , T()
-          , boxify(sizee)
-          );
-    }
-
+    BOOST_DISPATCH_RETURNS(3, (A0 a0, A1 a1, T const& t)
+                          , ( boost::proto::make_expr
+                              <nt2::tag::dramadah_, container::domain>
+                              ( a0, a1, t, _2D(a0,a0) )
+                            )
+                          );
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
@@ -213,7 +144,6 @@ namespace nt2 { namespace ext
       }
     }
   };
-
 } }
 
 #endif

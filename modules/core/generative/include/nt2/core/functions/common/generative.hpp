@@ -9,7 +9,6 @@
 #ifndef NT2_CORE_FUNCTIONS_COMMON_GENERATIVE_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_COMMON_GENERATIVE_HPP_INCLUDED
 
-#include <nt2/core/utility/box.hpp>
 #include <nt2/sdk/meta/constant_adaptor.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>
 #include <nt2/core/container/dsl/generative.hpp>
@@ -34,18 +33,15 @@ namespace nt2 { namespace ext
     typedef meta::as_<typename constant_t::base_type>     target_t;
     typedef typename  boost::proto::result_of
                     ::make_expr < Tag, container::domain
-                                , box<size_type>
-                                , box<constant_t>
+                                , size_type
+                                , constant_t
                                 , target_t
                                 >::type                   result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, T const&) const
     {
       return  boost::proto
-            ::make_expr<Tag, container::domain> ( boxify(a0)
-                                                , boxify(constant_t())
-                                                , target_t()
-                                                );
+            ::make_expr<Tag, container::domain>(a0, constant_t(), target_t());
     }
   };
 
@@ -61,16 +57,16 @@ namespace nt2 { namespace ext
     typedef meta::as_<typename constant_t::base_type>       target_t;
     typedef typename  boost::proto::result_of
                     ::make_expr < Tag, container::domain
-                                , box<size_type>
-                                , box<constant_t>
+                                , size_type
+                                , constant_t
                                 , target_t
                                 >::type                   result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       return  boost::proto
-            ::make_expr<Tag, container::domain> ( boxify(a0)
-                                                , boxify(constant_t())
+            ::make_expr<Tag, container::domain> ( a0
+                                                , constant_t()
                                                 , target_t()
                                                 );
     }

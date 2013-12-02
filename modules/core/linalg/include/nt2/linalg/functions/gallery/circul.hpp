@@ -8,79 +8,74 @@
 //==============================================================================
 #ifndef NT2_LINALG_FUNCTIONS_GALLERY_CIRCUL_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_GALLERY_CIRCUL_HPP_INCLUDED
+
+#include <nt2/linalg/functions/circul.hpp>
 #include <nt2/include/functions/colon.hpp>
 #include <nt2/include/functions/rowvect.hpp>
 #include <nt2/include/functions/horzcat.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/toeplitz.hpp>
 
-namespace nt2{ namespace ext
+namespace nt2 { namespace ext
 {
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::circul_, tag::cpu_,
-                              (A0),
-                              (scalar_<integer_<A0> >)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::circul_, tag::cpu_
+                            , (A0)
+                            , (scalar_<integer_<A0> >)
                             )
   {
-    typedef typename nt2::meta::call<nt2::tag::colon_(A0, A0)>::type C;
-    typedef typename boost::proto::result_of::make_expr< nt2::tag::circul_
-      , container::domain
-      , C const&, box<_2D> >::type                        result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
-    {
-
-      _2D sizee; sizee[0] = a0; sizee[1] = a0;
-      C v = nt2::_(A0(1), a0);
-      return  boost::proto::make_expr<nt2::tag::circul_, container::domain>
-        ( boost::cref(v), boxify(sizee));
-    }
+    BOOST_DISPATCH_RETURNS( 1
+                          , (A0 const& a0)
+                          , ( boost::proto::make_expr
+                              < nt2::tag::circul_
+                              , container::domain
+                              >( nt2::_(A0(1), a0), _2D(a0,a0))
+                            )
+                          );
   };
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::circul_, tag::cpu_,
-                              (A0)(T),
-                              (scalar_<integer_<A0> >)
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::circul_, tag::cpu_
+                            , (A0)(T)
+                            , (scalar_<integer_<A0> >)
                               (target_<scalar_<unspecified_<T> > > )
                             )
   {
-    typedef typename T::type value_type;
-    typedef typename nt2::meta::call < nt2::tag::colon_(value_type, value_type)>::type C_;
-    typedef typename boost::proto::result_of::make_expr< nt2::tag::circul_
-      , container::domain
-      , C_ const &,
-      box<_2D> >::type                        result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0,T const& ) const
-    {
-      _2D sizee; sizee[0] = a0; sizee[1] = a0;
-       typedef typename meta::call < tag::colon_(value_type, value_type) > ::type C;
+    typedef typename  T::type value_type;
 
-       C v = nt2::_(value_type(1), value_type(a0));
-
-     return  boost::proto::make_expr<nt2::tag::circul_, container::domain>
-        ( boost::cref(v), boxify(sizee));
-    }
+    BOOST_DISPATCH_RETURNS_ARGS ( 2
+                                , (A0 const& a0, T const& tgt)
+                                , (A0 const& a0, T const& )
+                                , ( boost::proto::make_expr
+                                    < nt2::tag::circul_
+                                    , container::domain
+                                    >( nt2::_(value_type(1), value_type(a0))
+                                      , _2D(a0,a0)
+                                      )
+                                  )
+                                );
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::circul_, tag::cpu_,
-                              (A0),
-                              ((ast_<A0, nt2::container::domain >))
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::circul_, tag::cpu_
+                            , (A0)
+                            , ((ast_<A0, nt2::container::domain >))
                             )
   {
-    typedef typename  boost::proto::result_of::make_expr< nt2::tag::circul_
-      , container::domain
-      , A0 const &, box<_2D>
-      >::type                        result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
-    {
-      _2D sizee; sizee[0] = nt2::numel(a0); sizee[1] = nt2::numel(a0);
-      return  boost::proto::make_expr<nt2::tag::circul_, nt2::container::domain>
-        ( boost::cref(a0), boxify(sizee));
-    }
+    BOOST_DISPATCH_RETURNS( 1
+                          , (A0 const& a0)
+                          , ( boost::proto::make_expr
+                              < nt2::tag::circul_
+                              , container::domain
+                              > ( boost::cref(a0)
+                                , _2D(nt2::numel(a0),nt2::numel(a0))
+                                )
+                            )
+                          );
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
-                              , (A0)(A1)(N)
-                              , ((ast_<A0, nt2::container::domain>))
+                            , (A0)(A1)(N)
+                            , ((ast_<A0, nt2::container::domain>))
                               ((node_<A1,nt2::tag::circul_,N,nt2::container::domain>))
-    )
+                            )
   {
     typedef A0&                                                     result_type;
     result_type operator()(A0& out, const A1& in) const
@@ -94,6 +89,5 @@ namespace nt2{ namespace ext
     }
   };
 } }
-
 
 #endif

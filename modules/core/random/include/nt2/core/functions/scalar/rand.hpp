@@ -47,14 +47,14 @@ namespace nt2 { namespace ext
     typedef typename boost::remove_const<A0>::type            size_type;
     typedef typename  boost::proto::result_of
                     ::make_expr < nt2::tag::rand_, container::domain
-                                , box<size_type>
+                                , size_type
                                 , T
                                 >::type                   result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, T const& tgt) const
     {
       return  boost::proto
-            ::make_expr<nt2::tag::rand_,container::domain>( boxify(a0), tgt );
+            ::make_expr<nt2::tag::rand_,container::domain>( a0, tgt );
     }
   };
 
@@ -68,7 +68,7 @@ namespace nt2 { namespace ext
     typedef typename boost::remove_const<A0>::type            size_type;
     typedef typename  boost::proto::result_of
                     ::make_expr < nt2::tag::rand_, container::domain
-                                , box<size_type>
+                                , size_type
                                 , meta::as_<double>
                                 >::type                   result_type;
 
@@ -77,7 +77,7 @@ namespace nt2 { namespace ext
       return  boost::proto
             ::make_expr < nt2::tag::rand_
                         , container::domain
-                        >( boxify(a0), meta::as_<double>() );
+                        >( a0, meta::as_<double>() );
     }
   };
 

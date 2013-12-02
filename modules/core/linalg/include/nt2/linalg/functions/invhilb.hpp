@@ -8,9 +8,11 @@
 //==============================================================================
 #ifndef NT2_LINALG_FUNCTIONS_INVHILB_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_INVHILB_HPP_INCLUDED
+
 #include <nt2/include/functor.hpp>
-#include <nt2/include/functions/colon.hpp>
-#include <nt2/core/container/table/table.hpp>
+#include <nt2/sdk/meta/boxed_size.hpp>
+#include <nt2/core/container/dsl/size.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
 
 /*!
  * \ingroup algebra
@@ -32,9 +34,6 @@
  *
  *
 **/
-//==============================================================================
-// invhilb actual class forward declaration
-//==============================================================================
 
 namespace nt2 { namespace tag
   {
@@ -42,12 +41,19 @@ namespace nt2 { namespace tag
      * \brief Define the tag invhilb_ of functor invhilb
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct invhilb_ : ext::unspecified_<invhilb_> { typedef ext::unspecified_<invhilb_> parent; };
+    struct invhilb_ : ext::unspecified_<invhilb_>
+    {
+      typedef ext::unspecified_<invhilb_> parent;
+    };
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::invhilb_, invhilb, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::invhilb_, invhilb, 2)
-  template < class T> container::table<T> invhilb(size_t n)
+
+  template<typename T, typename A0>
+  typename  boost::dispatch
+          ::meta::call<tag::invhilb_( A0 const&, meta::as_<T> const&)>::type
+  invhilb(A0 const& n)
   {
     return nt2::invhilb(n, meta::as_<T>());
   }
@@ -57,25 +63,16 @@ namespace nt2 { namespace ext
 {
   template<class Domain, class Expr,  int N>
   struct  size_of<tag::invhilb_, Domain, N, Expr>
-  {
-    typedef _2D                               result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      size_t n =  boost::proto::child_c<0>(e);
-      result_type sizee;
-      sizee[0] = sizee[1] = n;
-      return sizee;
-    }
-  };
+        : meta::boxed_size<Expr,1>
+  {};
 
   template <class Domain, class Expr,  int N>
   struct value_type < tag::invhilb_, Domain,N,Expr>
   {
-    typedef typename  boost::proto::result_of::child_c<Expr&,1>::type      tmp_type;
-    typedef typename  meta::strip<tmp_type>::type                         tmp1_type;
-    typedef typename  boost::dispatch::meta::semantic_of<tmp1_type>::type tmp2_type;
-    typedef typename  tmp2_type::type                                          type;
+    typedef typename boost::proto::result_of::child_c<Expr&,0>::value_type c0_t;
+    typedef typename boost::proto::result_of::value<c0_t>::value_type       v_t;
+    typedef typename v_t::type                                             type;
   };
 } }
-#endif
 
+#endif

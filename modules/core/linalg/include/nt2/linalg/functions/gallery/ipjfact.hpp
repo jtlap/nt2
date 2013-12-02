@@ -12,7 +12,6 @@
 #include <nt2/linalg/functions/ipjfact.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/tie.hpp>
-
 #include <nt2/include/functions/is_odd.hpp>
 #include <nt2/include/functions/hankel.hpp>
 #include <nt2/include/functions/rec.hpp>
@@ -22,83 +21,81 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ipjfact_, tag::cpu_,
-                              (A0)(A1)(T),
-                              (scalar_<integer_<A0> > )
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ipjfact_, tag::cpu_
+                            , (A0)(A1)(T)
+                            , (scalar_<integer_<A0> > )
                               (scalar_<integer_<A1> > )
                               (target_<scalar_<floating_<T> > > )
                             )
   {
-    BOOST_DISPATCH_RETURNS_ARGS(3, (A0 const& n, A1 const& k, T const& t),(A0 const& n, A1 const& k, T const&),
-                           ( boost::proto::make_expr<nt2::tag::ipjfact_, container::domain>
-                             ( n
-                             , k
-                             , T()
-                             , boxify(nt2::of_size(n, n))
-                             )
-                           )
-                          )
-
-      };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ipjfact_, tag::cpu_,
-                              (A0)(A1),
-                              (scalar_<integer_<A0> > )
-                              (scalar_<integer_<A1> > )
+    BOOST_DISPATCH_RETURNS( 3
+                          , (A0 n, A1 k, T const& t)
+                          , ( boost::proto::make_expr < nt2::tag::ipjfact_
+                                                      , container::domain
+                                                      > ( n, k
+                                                        , t
+                                                        , nt2::of_size(n, n)
+                                                        )
                             )
-  {
-    typedef typename meta::as_<double> T;
-    BOOST_DISPATCH_RETURNS(2, (A0 const& n, A1 const& k),
-                           ( boost::proto::make_expr<nt2::tag::ipjfact_, container::domain>
-                             ( n
-                             , k
-                             , T()
-                             , boxify(nt2::of_size(n, n))
-                             )
-                           )
                           )
-
-      };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ipjfact_, tag::cpu_,
-                              (A0)(T),
-                              (scalar_<integer_<A0> > )
-                              (target_<scalar_<floating_<T> > > )
-                            )
-  {
-    BOOST_DISPATCH_RETURNS_ARGS(2, (A0 const& n, T const& t),(A0 const& n, T const& ),
-                           ( boost::proto::make_expr<nt2::tag::ipjfact_, container::domain>
-                             ( n
-                             , 0
-                             , T()
-                             , boxify(nt2::of_size(n, n))
-                             )
-                           )
-                          )
-
-      };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ipjfact_, tag::cpu_,
-                              (A0),
-                              (scalar_<integer_<A0> > )
-                            )
-  {
-    typedef typename meta::as_<double> T;
-    BOOST_DISPATCH_RETURNS(1, (A0 const& n),
-                           ( boost::proto::make_expr<nt2::tag::ipjfact_, container::domain>
-                             ( n
-                             , 0
-                             , T()
-                             , boxify(nt2::of_size(n, n))
-                             )
-                           )
-                          )
-
-      };
+  };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ipjfact_, tag::cpu_
-                              , (A0)(N0)(A1)(N1)
-                              , ((node_<A0, nt2::tag::ipjfact_, N0, nt2::container::domain>))
+                            , (A0)(A1)
+                            , (scalar_<integer_<A0> > )
+                              (scalar_<integer_<A1> > )
+                            )
+  {
+    BOOST_DISPATCH_RETURNS(2
+                          , (A0 n, A1 k)
+                          , ( boost::proto::make_expr < nt2::tag::ipjfact_
+                                                      , container::domain
+                                                      > ( n, k
+                                                        , meta::as_<double>()
+                                                        , nt2::of_size(n, n)
+                                                        )
+                            )
+                          )
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ipjfact_, tag::cpu_
+                            , (A0)(T)
+                            , (scalar_<integer_<A0> > )
+                              (target_<scalar_<floating_<T> > > )
+                            )
+  {
+    BOOST_DISPATCH_RETURNS( 2
+                          , (A0 n, T const& t)
+                          , ( boost::proto::make_expr < nt2::tag::ipjfact_
+                                                      , container::domain
+                                                      > ( n, 0
+                                                        , t
+                                                        , nt2::of_size(n, n)
+                                                        )
+                            )
+                          )
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ipjfact_, tag::cpu_
+                            , (A0)
+                            , (scalar_<integer_<A0> > )
+                            )
+  {
+    BOOST_DISPATCH_RETURNS(1, (A0 n)
+                          , ( boost::proto::make_expr < nt2::tag::ipjfact_
+                                                      , container::domain
+                                                      > ( n, 0
+                                                        , meta::as_<double>()
+                                                        , nt2::of_size(n, n)
+                                                        )
+                            )
+                          )
+
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ipjfact_, tag::cpu_
+                            , (A0)(N0)(A1)(N1)
+                            , ((node_<A0, nt2::tag::ipjfact_, N0, nt2::container::domain>))
                               ((node_<A1, nt2::tag::tie_ , N1, nt2::container::domain>))
                             )
   {
@@ -164,4 +161,3 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-

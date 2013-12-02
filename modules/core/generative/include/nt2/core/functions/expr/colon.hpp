@@ -10,7 +10,6 @@
 #define NT2_CORE_FUNCTIONS_EXPR_COLON_HPP_INCLUDED
 
 #include <nt2/core/functions/colon.hpp>
-#include <nt2/core/utility/box.hpp>
 #include <nt2/core/container/extremum/category.hpp>
 #include <nt2/core/functions/details/colon.hpp>
 
@@ -32,14 +31,14 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::result_of
                     ::make_expr < nt2::tag::relative_colon_
                                 , container::domain
-                                , box<relative_t>
+                                , relative_t
                                 >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& l, A1 const& u) const
     {
       relative_t that = {l,u};
       return  boost::proto::
-              make_expr<tag::relative_colon_, container::domain>(boxify(that));
+              make_expr<tag::relative_colon_, container::domain>(that);
     }
   };
 
@@ -59,14 +58,14 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::result_of
                     ::make_expr < nt2::tag::relative_colon_
                                 , container::domain
-                                , box<relative_t>
+                                , relative_t
                                 >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& l, A1 const& u) const
     {
       relative_t that = {l,u};
       return  boost::proto::
-              make_expr<tag::relative_colon_, container::domain>(boxify(that));
+              make_expr<tag::relative_colon_, container::domain>(that);
     }
   };
 
@@ -86,14 +85,14 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::result_of
                     ::make_expr < nt2::tag::relative_colon_
                                 , container::domain
-                                , box<relative_t>
+                                , relative_t
                                 >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& l, A1 const& u) const
     {
       relative_t that = {l,u};
       return  boost::proto::
-              make_expr<tag::relative_colon_, container::domain>(boxify(that));
+              make_expr<tag::relative_colon_, container::domain>(that);
     }
   };
 
@@ -114,7 +113,7 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::result_of
                     ::make_expr < nt2::tag::relative_colon_
                                 , container::domain
-                                , box<relative_t>
+                                , relative_t
                                 , base_t
                                 >::type             result_type;
 
@@ -125,7 +124,7 @@ namespace nt2 { namespace ext
       return  boost::proto::
               make_expr < tag::relative_colon_
                         , container::domain
-                        > ( boxify(that)
+                        > ( that
                           , base_t(s)
                           );
     }
@@ -148,7 +147,7 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::result_of
                     ::make_expr < nt2::tag::relative_colon_
                                 , container::domain
-                                , box<relative_t>
+                                , relative_t
                                 , base_t
                                 >::type             result_type;
 
@@ -159,7 +158,7 @@ namespace nt2 { namespace ext
       return  boost::proto::
               make_expr < tag::relative_colon_
                         , container::domain
-                        > ( boxify(that)
+                        > ( that
                           , base_t(s)
                           );
     }
@@ -182,7 +181,7 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::result_of
                     ::make_expr < nt2::tag::relative_colon_
                                 , container::domain
-                                , box<relative_t>
+                                , relative_t
                                 , typename meta::strip<A1>::type
                                 >::type             result_type;
 
@@ -193,7 +192,7 @@ namespace nt2 { namespace ext
       return  boost::proto::
               make_expr < tag::relative_colon_
                         , container::domain
-                        > ( boxify(that)
+                        > ( that
                           , s
                           );
     }

@@ -15,6 +15,7 @@
 //#include <nt2/core/container/dsl/index_of.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
 #include <nt2/core/container/dsl/kind_of.hpp>
+#include <nt2/sdk/memory/forward/container.hpp>
 
 #include <nt2/sdk/meta/strip.hpp>
 #include <boost/dispatch/meta/transfer_qualifiers.hpp>

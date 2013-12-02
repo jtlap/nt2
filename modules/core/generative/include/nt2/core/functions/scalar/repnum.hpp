@@ -28,8 +28,8 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::result_of
                     ::make_expr < nt2::tag::repnum_
                                 , container::domain
-                                , box<size_type>
-                                , box<constant_t>
+                                , size_type
+                                , constant_t
                                 , target_t
                                 >::type                     result_type;
 
@@ -38,8 +38,8 @@ namespace nt2 { namespace ext
       return  boost::proto
             ::make_expr < nt2::tag::repnum_
                         , container::domain
-                        > ( boxify(s)
-                          , boxify(constant_t(a0))
+                        > ( s
+                          , constant_t(a0)
                           , target_t()
                           );
     }

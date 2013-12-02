@@ -10,6 +10,7 @@
 #define NT2_CORE_FUNCTIONS_COMMON_TRANSFORM_HPP_INCLUDED
 
 #include <nt2/core/functions/transform.hpp>
+#include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/run.hpp>
 

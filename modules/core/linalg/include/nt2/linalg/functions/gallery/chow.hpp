@@ -22,37 +22,50 @@
 
 namespace nt2{ namespace ext
 {
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::chow_, tag::cpu_,
-                              (A0),
-                              (scalar_<integer_<A0> >)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::chow_, tag::cpu_
+                            , (A0)
+                            , (scalar_<integer_<A0> >)
                             )
   {
-    typedef typename  boost::proto::result_of::make_expr< nt2::tag::chow_
-      , container::domain
-      , A0 const &, double, double, box<_2D> >::type                        result_type;
+    typedef typename  boost::proto::result_of
+                    ::make_expr < nt2::tag::chow_
+                                , container::domain
+                                , A0 const &, double, double, _2D
+                                >::type                        result_type;
+
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      _2D sizee; sizee[0] = a0; sizee[1] = a0;
-      return  boost::proto::make_expr<nt2::tag::chow_, container::domain>
-        ( boost::cref(a0), 1.0, 0.0, boxify(sizee));
+      return  boost::proto::
+              make_expr < nt2::tag::chow_
+                        , container::domain
+                        >( boost::cref(a0), 1.0, 0.0, _2D(a0,a0));
     }
   };
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::chow_, tag::cpu_,
-                              (A0)(T),
-                              (scalar_<integer_<A0> >)
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::chow_, tag::cpu_
+                            , (A0)(T)
+                            , (scalar_<integer_<A0> >)
                               (target_<scalar_<unspecified_<T> > > )
                             )
   {
     typedef typename T::type value_type;
-    typedef typename  boost::proto::result_of::make_expr< nt2::tag::chow_
-      , container::domain
-      , A0 const &, value_type, value_type, box<_2D> >::type                        result_type;
+    typedef typename  boost::proto::result_of
+                    ::make_expr < nt2::tag::chow_
+                                , container::domain
+                                , A0 const &
+                                , value_type, value_type
+                                , _2D
+                                >::type                        result_type;
+
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,T const& ) const
     {
-      _2D sizee; sizee[0] = a0; sizee[1] = a0;
-      return  boost::proto::make_expr<nt2::tag::chow_, container::domain>
-        ( boost::cref(a0), value_type(1), value_type(0), boxify(sizee));
+      return  boost::proto
+            ::make_expr < nt2::tag::chow_
+                        , container::domain
+                        > ( boost::cref(a0)
+                          , value_type(1), value_type(0)
+                          , _2D(a0,a0)
+                          );
     }
   };
 
@@ -62,15 +75,22 @@ namespace nt2{ namespace ext
                               (scalar_<unspecified_<A1> > )
                             )
   {
-    typedef typename  boost::proto::result_of::make_expr< nt2::tag::chow_
-      , container::domain
-      , A0 const &, A1, A1, box<_2D> >::type                        result_type;
+    typedef typename  boost::proto::result_of
+                    ::make_expr < nt2::tag::chow_
+                                , container::domain
+                                , A0 const &
+                                , A1, A1
+                                , _2D
+                                >::type                        result_type;
+
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,
                                              A1 const& a1) const
     {
-      _2D sizee; sizee[0] = a0; sizee[1] = a0;
-      return  boost::proto::make_expr<nt2::tag::chow_, container::domain>
-        ( boost::cref(a0), boost::cref(a1), A1(0), boxify(sizee));
+      return  boost::proto::make_expr < nt2::tag::chow_
+                                      , container::domain
+                                      > ( boost::cref(a0), boost::cref(a1)
+                                        , A1(0), _2D(a0,a0)
+                                        );
     }
   };
 
@@ -81,25 +101,32 @@ namespace nt2{ namespace ext
                               (scalar_<unspecified_<A2> >  )
                             )
   {
-    typedef typename A1::type value_type;
-    typedef typename  boost::proto::result_of::make_expr< nt2::tag::chow_
-      , container::domain
-      , A0 const &, A1, A1, box<_2D> >::type                        result_type;
+    typedef typename  A1::type value_type;
+    typedef typename  boost::proto::result_of
+                      ::make_expr < nt2::tag::chow_, container::domain
+                                  , A0 const &, A1, A1
+                                  , _2D
+                                  >::type                        result_type;
+
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,
                                              A1 const& a1,
                                              A2 const& a2) const
     {
       _2D sizee; sizee[0] = a0; sizee[1] = a0;
-      return  boost::proto::make_expr<nt2::tag::chow_, container::domain>
-        ( boost::cref(a0), boost::cref(a1), cref(a2), boxify(sizee));
+      return  boost::proto::make_expr < nt2::tag::chow_
+                                      , container::domain
+                                      > ( boost::cref(a0)
+                                        , boost::cref(a1), cref(a2)
+                                        , _2D(a0,a0)
+                                        );
     }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
-                              , (A0)(A1)(N)
-                              , ((ast_<A0, nt2::container::domain>))
+                            , (A0)(A1)(N)
+                            , ((ast_<A0, nt2::container::domain>))
                               ((node_<A1,nt2::tag::chow_,N,nt2::container::domain>))
-    )
+                            )
   {
     typedef A0&                                                     result_type;
     result_type operator()(A0& out, const A1& in) const

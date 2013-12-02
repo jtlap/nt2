@@ -10,7 +10,6 @@
 #define NT2_CORE_FUNCTIONS_EXPR_EXPAND_TO_HPP_INCLUDED
 
 #include <nt2/core/functions/expand_to.hpp>
-#include <nt2/core/utility/box.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/include/functions/isexpandable_to.hpp>
 #include <nt2/include/functions/repnum.hpp>
@@ -30,7 +29,7 @@ namespace nt2 { namespace ext
                       result_of::make_expr< nt2::tag::expand_to_
                                           , container::domain
                                           , A0 const&
-                                          , box<sizes_t>
+                                          , sizes_t
                                           >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
@@ -42,7 +41,7 @@ namespace nt2 { namespace ext
       return  boost::proto::
               make_expr < nt2::tag::expand_to_
                         , container::domain
-                        > ( boost::cref(a0), boxify(a1) );
+                        > ( boost::cref(a0), a1 );
     }
   };
 

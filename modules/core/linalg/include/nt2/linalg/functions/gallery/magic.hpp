@@ -24,59 +24,50 @@
 
 namespace nt2{ namespace ext
 {
- //
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::magic_, tag::cpu_,
-                              (A0)(T),
-                              (scalar_<integer_<A0> >)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::magic_, tag::cpu_
+                            , (A0)(T)
+                            , (scalar_<integer_<A0> >)
                               (target_< scalar_< unspecified_<T> > >)
-    )
+                            )
   {
     typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::magic_
-      , container::domain
-      , size_t
-      , T
-      , box<_2D>
-      >::type             result_type;
+                      result_of::make_expr< nt2::tag::magic_
+                                          , container::domain
+                                          , std::size_t, T, _2D
+                                          >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0,
-                                             T  const&) const
+    BOOST_FORCEINLINE result_type operator()(A0 a0, T const& tgt) const
     {
-      _2D sizee;
-      sizee[0] = sizee[1] = a0;
       return  boost::proto::
-        make_expr<nt2::tag::magic_, container::domain>
-        ( size_t(a0)
-          , T()
-          , boxify(sizee)
-          );
+              make_expr<nt2::tag::magic_, container::domain>
+              ( std::size_t(a0)
+              , tgt
+              , _2D(a0,a0)
+              );
     }
   };
 
-  //2
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::magic_, tag::cpu_,
-                              (A0),
-                              (scalar_<integer_<A0> >)
-    )
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::magic_, tag::cpu_
+                            , (A0)
+                            , (scalar_<integer_<A0> >)
+                            )
   {
     typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::magic_
-      , container::domain
-      , size_t
-      , meta::as_<double>
-      , box<_2D>
-      >::type             result_type;
+                      result_of::make_expr< nt2::tag::magic_
+                                          , container::domain
+                                          , std::size_t
+                                          , meta::as_<double>
+                                          , _2D
+                                          >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      _2D sizee;
-      sizee[0] = sizee[1] = a0;
       return  boost::proto::
-        make_expr<nt2::tag::magic_, container::domain>
-        ( size_t(a0)
-          , meta::as_<double>()
-          , boxify(sizee)
-          );
+              make_expr<nt2::tag::magic_, container::domain>
+              ( std::size_t(a0)
+              , meta::as_<double>()
+              , _2D(a0,a0)
+              );
     }
   };
 
@@ -91,11 +82,15 @@ namespace nt2{ namespace ext
     typedef typename  meta::strip<tmp_type>::type                         tmp1_type;
     typedef typename  boost::dispatch::meta::semantic_of<tmp1_type>::type tmp2_type;
     typedef typename  tmp2_type::type                                    value_type;
+
     result_type operator()(A0& out, const A1& in) const
     {
-      size_t n = boost::proto::child_c<0>(in);
+      std::size_t n = boost::proto::child_c<0>(in);
+
       BOOST_ASSERT_MSG(n!= 2, "There is no 2x2 magic matrix");
+
       out.resize(nt2::of_size(n, n));
+
       if(n%2 == 1) //Odd order
       {
         oddOrderMagicSquare(out,n);
@@ -111,7 +106,7 @@ namespace nt2{ namespace ext
       return out;
     }
   private :
-    static void oddOrderMagicSquare(A0& out, size_t n)
+    static void oddOrderMagicSquare(A0& out, std::size_t n)
     {
         value_type nn = n;
         BOOST_AUTO_TPL(pp, nt2::_(value_type(1), nn));
@@ -122,7 +117,7 @@ namespace nt2{ namespace ext
         BOOST_AUTO_TPL(mm2, nt2::mod(nt2::sx(nt2::tag::plus_(),pprim,p2),nn));
         out = nt2::oneplus(nn*mm1+mm2);
     }
-    static void evenx2(A0& out, size_t n)
+    static void evenx2(A0& out, std::size_t n)
     {
       value_type nn = n;
       BOOST_AUTO_TPL(p, nt2::_(value_type(1), nn));
@@ -133,20 +128,20 @@ namespace nt2{ namespace ext
       out(k) = nt2::oneplus(sqr(nn)) - out(k);
     }
 
-    static void evenx1(A0& out, size_t n)
+    static void evenx1(A0& out, std::size_t n)
     {
-      size_t m = n >> 1;   //m is odd.
+      std::size_t m = n >> 1;   //m is odd.
       oddOrderMagicSquare(out, m);
       value_type m2 = sqr(m);
       container::table<value_type> t =  nt2::catv(cath(out, out+Two<value_type>()*m2),
                                                   cath(out+Three<value_type>()*m2, out+m2));
       BOOST_AUTO_TPL(i,  colvect(nt2::_(1, m)));
-      size_t k = (n-2) >> 2;
-      BOOST_AUTO_TPL(j, nt2::cath(nt2::_(size_t(1), k), nt2::_(n-k+2, n)));
+      std::size_t k = (n-2) >> 2;
+      BOOST_AUTO_TPL(j, nt2::cath(nt2::_(std::size_t(1), k), nt2::_(n-k+2, n)));
       swap_lines(t, i, i+m, j);
-      size_t k1 = k+1;
+      std::size_t k1 = k+1;
       BOOST_AUTO_TPL(ii, nt2::_(k1, k1));
-      BOOST_AUTO_TPL(jj, nt2::_(size_t(1), k+1));
+      BOOST_AUTO_TPL(jj, nt2::_(std::size_t(1), k+1));
       swap_lines(t, ii, ii+m, jj);
       out =  t;
     }
@@ -161,46 +156,4 @@ namespace nt2{ namespace ext
   };
 } }
 
-
 #endif
-// function M = magic(n)
-// %MAGIC  Magic square.
-// %   MAGIC(N) is an N-by-N matrix constructed from the integers
-// %   1 through N^2 with equal row, column, and diagonal sums.
-// %   Produces valid magic squares for all N > 0 except N = 2.
-
-// %   Copyright 1984-2011 The MathWorks, Inc.
-// %   $Revision: 5.15.4.2 $  $Date: 2011/07/05 19:02:34 $
-
-// n = floor(real(double(n(1))));
-
-// if mod(n,2) == 1
-//    % Odd order
-//    M = oddOrderMagicSquare(n);
-// elseif mod(n,4) == 0
-//    % Doubly even order.
-//    % Doubly even order.
-//    J = fix(mod(1:n,4)/2);
-//    K = bsxfun(@eq,J',J);
-//    M = bsxfun(@plus,(1:n:(n*n))',0:n-1);
-//    M(K) = n*n+1 - M(K);
-// else
-//    % Singly even order.
-//    p = n/2;   %p is odd.
-//    M = oddOrderMagicSquare(p);
-//    M = [M M+2*p^2; M+3*p^2 M+p^2];
-//    if n == 2
-//       return
-//    end
-//    i = (1:p)';
-//    k = (n-2)/4;
-//    j = [1:k (n-k+2):n];
-//    M([i; i+p],j) = M([i+p; i],j);
-//    i = k+1;
-//    j = [1 i];
-//    M([i; i+p],j) = M([i+p; i],j);
-// end
-
-// function M = oddOrderMagicSquare(n)
-// p = 1:n;
-// M = n*mod(bsxfun(@plus,p',p-(n+3)/2),n) + mod(bsxfun(@plus,p',2*p-2),n) + 1;

@@ -23,31 +23,27 @@
 
 namespace nt2 { namespace ext
 {
-
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::permsn_, tag::cpu_,
-                              (A0)(A1),
-                              (scalar_<integer_<A0> >)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::permsn_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_<integer_<A0> >)
                               (scalar_<integer_<A1> >)
                             )
   {
     BOOST_DISPATCH_RETURNS(2, (A0 const& n, A1 const& k),
                            ( boost::proto::make_expr<nt2::tag::permsn_, container::domain>
-                             (size_t(n), size_t(k), boxify(_2D(nt2::of_size(n, k))))
+                             (size_t(n), size_t(k), _2D(nt2::of_size(n, k)))
                            ))
-      };
+  };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::permsn_, tag::cpu_,
-                              (A0),
-                              (scalar_<integer_<A0> >)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::permsn_, tag::cpu_
+                            , (A0)
+                            , (scalar_<integer_<A0> >)
                             )
   {
     BOOST_DISPATCH_RETURNS(1, (A0 const& n),
                            (nt2::permsn(n, nt2::prod(nt2::_(size_t(1), n))))
                           )
-      };
-
-
+  };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
                             , (A0)(A1)(N)
@@ -73,8 +69,6 @@ namespace nt2 { namespace ext
       return out;
     }
   };
-
 } }
-
 
 #endif
