@@ -8,6 +8,7 @@
 ################################################################################
 
 include(NT2Module)
+nt2_module_source_setup(arch.shared_memory)
 nt2_module_postconfigure(gather_includes --name shared_memory.hpp
                                          nt2/sdk/
                                          --out nt2/sdk
