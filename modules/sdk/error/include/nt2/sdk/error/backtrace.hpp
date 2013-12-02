@@ -10,14 +10,14 @@
 
 #include <boost/dispatch/attributes.hpp>
 #include <ostream>
-#ifdef __linux__
+#if defined(__linux__) && !defined(__ANDROID__)
 #include <execinfo.h>
 #include <iomanip>
 #endif
 
 namespace nt2
 {
-  #ifdef __linux__
+  #if defined(__linux__) && !defined(__ANDROID__)
   BOOST_FORCEINLINE void backtrace(std::ostream& os)
   {
     void *bt[1024];
