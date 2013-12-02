@@ -23,8 +23,6 @@
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/int.hpp>
 
-#include <cstdio>
-
 #define M0(z,n,t)                                                              \
 typedef typename boost::mpl::apply<perm_t,boost::mpl::int_<n>,card_t>::type    \
                                                                     i##n##_t;  \
