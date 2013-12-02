@@ -1,74 +1,61 @@
 //==============================================================================
-//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2013   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 bitwise toolbox - bitwise_select/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of bitwise components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 18/02/2011
-///
 #include <nt2/bitwise/include/functions/bitwise_select.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_signed.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/meta/downgrade.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/type_traits/common_type.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
+#include <boost/simd/sdk/config.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
+#include <nt2/include/functions/splat.hpp>
+#include <nt2/include/constants/allbits.hpp>
+#include <nt2/include/constants/zero.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
-#include <nt2/constant/constant.hpp>
-
-
-NT2_TEST_CASE_TPL ( bitwise_select_real__3_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL(bitwise_select, NT2_TYPES)
 {
-
+  using nt2::splat;
+  using nt2::bitwise_cast;
   using nt2::bitwise_select;
   using nt2::tag::bitwise_select_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<bitwise_select_(T,T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
+  using boost::dispatch::meta::as_integer;
 
+  typedef typename as_integer<T,unsigned>::type iT;
 
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  NT2_TEST_TYPE_IS( (typename boost::dispatch::meta
+                                   ::call<bitwise_select_(T,T,T)>::type
+                    )
+                  , T
+                  );
 
-  // specific values tests
-  NT2_TEST_EQUAL(bitwise_select(nt2::Inf<T>(), nt2::Inf<T>(), nt2::Inf<T>()), nt2::Inf<r_t>());
-  NT2_TEST_EQUAL(bitwise_select(nt2::Minf<T>(), nt2::Minf<T>(), nt2::Minf<T>()), nt2::Minf<r_t>());
-  NT2_TEST_EQUAL(bitwise_select(nt2::Nan<T>(), nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<r_t>());
-  NT2_TEST_EQUAL(bitwise_select(nt2::Zero<T>(), nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>());
-} // end of test for floating_
+  NT2_TEST_TYPE_IS( (typename boost::dispatch::meta
+                                   ::call<bitwise_select_(iT,T,T)>::type
+                    )
+                  , T
+                  );
 
-NT2_TEST_CASE_TPL ( bitwise_select_integer__3_0,  NT2_INTEGRAL_TYPES)
-{
+  nt2::uint64_t base = 0xF5555552F552F5F2ULL;
+  iT imask = splat<iT>(base & nt2::uint64_t(~iT(0)));
+  T  mask  = bitwise_cast<T>(imask);
 
-  using nt2::bitwise_select;
-  using nt2::tag::bitwise_select_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<bitwise_select_(T,T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
+  NT2_TEST_EQUAL( bitwise_select( imask
+                                , nt2::Allbits<T>()
+                                , nt2::Zero<T>()
+                                )
+                , mask
+                );
 
-
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-
-  // specific values tests
-  NT2_TEST_EQUAL(bitwise_select(T(-1),T(1),T(2)), r_t(1));
-  NT2_TEST_EQUAL(bitwise_select(T(0),T(1),T(2)), r_t(2));
-  NT2_TEST_EQUAL(bitwise_select(nt2::Zero<T>(), nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>());
-} // end of test for integer_
+  NT2_TEST_EQUAL( bitwise_select( mask
+                                , nt2::Allbits<T>()
+                                , nt2::Zero<T>()
+                                )
+                , mask
+                );
+}

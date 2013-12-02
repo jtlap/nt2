@@ -7,62 +7,61 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <boost/simd/bitwise/include/functions/bitwise_select.hpp>
-
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/sdk/config.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
-
-#include <boost/simd/include/constants/one.hpp>
-#include <boost/simd/include/constants/two.hpp>
+#include <boost/simd/sdk/config.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/splat.hpp>
+#include <boost/simd/include/constants/allbits.hpp>
 #include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/include/constants/inf.hpp>
-#include <boost/simd/include/constants/minf.hpp>
-#include <boost/simd/include/constants/nan.hpp>
 
-NT2_TEST_CASE_TPL(bitwise_select_real, BOOST_SIMD_SIMD_REAL_TYPES)
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+
+NT2_TEST_CASE_TPL(bitwise_select, BOOST_SIMD_SIMD_TYPES)
 {
+  using boost::simd::splat;
+  using boost::simd::bitwise_cast;
   using boost::simd::bitwise_select;
   using boost::simd::tag::bitwise_select_;
   using boost::simd::native;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>                  vT;
-  typedef typename boost::dispatch::meta::call<bitwise_select_(vT,vT,vT)>::type r_t;
+  using boost::dispatch::meta::as_integer;
 
-  // specific values tests
-#ifndef BOOST_SIMD_NO_INVALIDS
-  NT2_TEST_EQUAL(bitwise_select(boost::simd::Inf<vT>(), boost::simd::Inf<vT>(), boost::simd::Inf<vT>()), boost::simd::Inf<r_t>());
-  NT2_TEST_EQUAL(bitwise_select(boost::simd::Minf<vT>(), boost::simd::Minf<vT>(), boost::simd::Minf<vT>()), boost::simd::Minf<r_t>());
-  NT2_TEST_EQUAL(bitwise_select(boost::simd::Nan<vT>(), boost::simd::Nan<vT>(), boost::simd::Nan<vT>()), boost::simd::Nan<r_t>());
-#endif
-  NT2_TEST_EQUAL(bitwise_select(boost::simd::Zero<vT>(), boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
-}
+  typedef BOOST_SIMD_DEFAULT_EXTENSION          ext_t;
+  typedef native<T,ext_t>                       vT;
+  typedef typename as_integer<T,unsigned>::type iT;
+  typedef typename as_integer<vT,unsigned>::type ivT;
 
+  NT2_TEST_TYPE_IS( (typename boost::dispatch::meta
+                                   ::call<bitwise_select_(vT,vT,vT)>::type
+                    )
+                  , vT
+                  );
 
-NT2_TEST_CASE_TPL(bitwise_select_ui, BOOST_SIMD_SIMD_UNSIGNED_TYPES)
-{
-  using boost::simd::bitwise_select;
-  using boost::simd::tag::bitwise_select_;
-  using boost::simd::native;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>                  vT;
-  typedef typename boost::dispatch::meta::call<bitwise_select_(vT,vT,vT)>::type r_t;
+  NT2_TEST_TYPE_IS( (typename boost::dispatch::meta
+                                   ::call<bitwise_select_(ivT,vT,vT)>::type
+                    )
+                  , vT
+                  );
 
-  // specific values tests
-  NT2_TEST_EQUAL(bitwise_select(boost::simd::Zero<vT>(), boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
-}
+  boost::simd::uint64_t base = 0xF5555552F552F5F2ULL;
+  ivT imask = splat<ivT>(base & boost::simd::uint64_t(~iT(0)));
+  vT  mask  = bitwise_cast<vT>(imask);
 
-NT2_TEST_CASE_TPL(bitwise_select_si, BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
-{
-  using boost::simd::bitwise_select;
-  using boost::simd::tag::bitwise_select_;
-  using boost::simd::native;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>                  vT;
-  typedef typename boost::dispatch::meta::call<bitwise_select_(vT,vT,vT)>::type r_t;
+  NT2_TEST_EQUAL( bitwise_select( imask
+                                , boost::simd::Allbits<vT>()
+                                , boost::simd::Zero<vT>()
+                                )
+                , mask
+                );
 
-  // specific values tests
-  NT2_TEST_EQUAL(bitwise_select(boost::simd::Zero<vT>(), boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL( bitwise_select( mask
+                                , boost::simd::Allbits<vT>()
+                                , boost::simd::Zero<vT>()
+                                )
+                , mask
+                );
 }
