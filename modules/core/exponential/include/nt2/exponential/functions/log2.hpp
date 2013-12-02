@@ -8,9 +8,8 @@
 //==============================================================================
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_LOG2_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_LOG2_HPP_INCLUDED
-#include <nt2/include/functor.hpp>
-#include <nt2/include/functions/frexp.hpp>
 
+#include <nt2/include/functor.hpp>
 
 namespace nt2 { namespace tag
   {
@@ -51,8 +50,8 @@ namespace nt2 { namespace tag
     @return a value of the same type as the parameter
   **/
   NT2_FUNCTION_IMPLEMENTATION(tag::log2_, log2, 1)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::frexp_, log2,(A0 const&)(A1&)(A2&),3)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::frexp_, log2,(A0 const&)(A1&),2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::log2_, log2,(A0 const&)(A1&)(A2&),3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::log2_, log2,(A0 const&)(A1&),2)
 
 }
 

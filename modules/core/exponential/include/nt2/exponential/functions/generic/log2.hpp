@@ -12,9 +12,9 @@
 #include <nt2/exponential/functions/log2.hpp>
 #include <nt2/exponential/functions/scalar/impl/logs.hpp>
 #include <nt2/exponential/functions/simd/common/impl/logs.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/frexp.hpp>
+#include <nt2/include/functions/simd/ilog2.hpp>
 #include <boost/simd/sdk/simd/meta/is_native.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -23,10 +23,37 @@ namespace nt2 { namespace ext
                             , (generic_< arithmetic_<A0> >)
                             )
   {
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
+    typedef A0 result_type;
+    BOOST_FORCEINLINE NT2_FUNCTOR_CALL(1)
     {
-      return nt2::log2(nt2::tofloat(a0));
+      return nt2::ilog2(a0);
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log2_, tag::cpu_
+                            , (A0)(A1)
+                            , (generic_< floating_<A0> >)
+                              (generic_< integer_<A1> >)
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1& a1) const
+    {
+      return frexp(a0, a1);
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log2_, tag::cpu_
+                            , (A0)(A1)(A2)
+                            , (generic_< floating_<A0> >)
+                              (generic_< floating_<A1> >)
+                              (generic_< integer_<A2> >)
+                            )
+  {
+    typedef void result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1& a1, A2& a2) const
+    {
+      return frexp(a0, a1, a2);
     }
   };
 
@@ -37,7 +64,7 @@ namespace nt2 { namespace ext
   {
     typedef A0 result_type;
     typedef typename boost::simd::meta::is_native<A0>::type is_native_t;
-    NT2_FUNCTOR_CALL(1)
+    BOOST_FORCEINLINE NT2_FUNCTOR_CALL(1)
     {
       return details::logarithm<A0,is_native_t>::log2(a0);
     }
