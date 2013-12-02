@@ -17,6 +17,8 @@
 #include <nt2/sdk/config/cache.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 
+#include <iostream>
+
 namespace nt2
 {
 
@@ -80,11 +82,11 @@ namespace nt2
     {
       extent_type ext = in_.extent();
       std::size_t top_cache_line_size = config::top_cache_size(2)/sizeof(value_type);
+      std::size_t grain  = 8*top_cache_line_size;
 
       std::size_t bound  = boost::fusion::at_c<0>(ext);
-      std::size_t ibound = (bound/top_cache_line_size) * top_cache_line_size;
+      std::size_t ibound = (bound/grain) * grain;
       std::size_t obound = nt2::numel(boost::fusion::pop_front(ext));
-      std::size_t grain  = top_cache_line_size;
 
       nt2::worker<tag::inner_fold_step_,BackEnd,Site,In,Neutral,Bop>
       w(in_,neutral_,bop_);
