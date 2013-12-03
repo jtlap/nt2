@@ -16,7 +16,11 @@
 #define BOOST_SIMD_BITS       128
 #define BOOST_SIMD_STRING     "simd_emulation"
 #define BOOST_SIMD_CARDINALS  (2)(4)(8)(16)
+
+#ifndef BOOST_SIMD_DEFAULT_EXTENSION
 #define BOOST_SIMD_DEFAULT_EXTENSION ::boost::simd::tag::simd_emulation_<16u>
+#endif
+
 #define BOOST_SIMD_DEFAULT_SITE ::boost::dispatch::tag::cpu_
 #endif
 

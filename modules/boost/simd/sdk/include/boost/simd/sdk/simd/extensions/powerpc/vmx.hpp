@@ -53,7 +53,11 @@
 #define BOOST_SIMD_BITS               128
 #define BOOST_SIMD_CARDINALS          (4)(8)(16)
 #define BOOST_SIMD_TAG_SEQ            (::boost::simd::tag::vmx_)
+
+#ifndef BOOST_SIMD_DEFAULT_EXTENSION
 #define BOOST_SIMD_DEFAULT_EXTENSION  ::boost::simd::tag::vmx_
+#endif
+
 #define BOOST_SIMD_DEFAULT_SITE       ::boost::simd::tag::vmx_
 #define BOOST_SIMD_NO_DENORMALS
 

@@ -35,7 +35,11 @@
 #define BOOST_SIMD_BITS               128
 #define BOOST_SIMD_CARDINALS          (2)(4)(8)(16)
 #define BOOST_SIMD_TAG_SEQ            (::boost::simd::tag::sse_)
+
+#ifndef BOOST_SIMD_DEFAULT_EXTENSION
 #define BOOST_SIMD_DEFAULT_EXTENSION  ::boost::simd::tag::sse_
+#endif
+
 #define BOOST_SIMD_DEFAULT_SITE       ::boost::simd::tag::sse3_
 #define BOOST_SIMD_SIMD_HAS_ALL_TYPES
 

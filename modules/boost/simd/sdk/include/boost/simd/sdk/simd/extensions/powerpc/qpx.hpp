@@ -31,7 +31,11 @@
 #define BOOST_SIMD_BITS               256
 #define BOOST_SIMD_CARDINALS          (8)
 #define BOOST_SIMD_TAG_SEQ            (::boost::simd::tag::qpx_)
+
+#ifndef BOOST_SIMD_DEFAULT_EXTENSION
 #define BOOST_SIMD_DEFAULT_EXTENSION  ::boost::simd::tag::qpx_
+#endif
+
 #define BOOST_SIMD_DEFAULT_SITE       ::boost::simd::tag::qpx_
 #define BOOST_SIMD_NO_DENORMALS
 
