@@ -48,7 +48,7 @@ namespace nt2
       #pragma omp parallel
       {
         // Dispatch group of blocks over each threads
-        #pragma omp for schedule(dynamic)
+        #pragma omp for schedule(static)
         for(std::size_t n=0;n<nblocks;++n)
         {
 #ifndef BOOST_NO_EXCEPTIONS
@@ -68,24 +68,7 @@ namespace nt2
 #endif
         }
 
-        #pragma omp single nowait
-        {
-
-#ifndef BOOST_NO_EXCEPTIONS
-          try
-          {
-#endif
-          if(leftover) w(begin+ibound,leftover);
-
-#ifndef BOOST_NO_EXCEPTIONS
-          }
-          catch(...)
-          {
-            #pragma omp critical
-            exception = boost::current_exception();
-          }
-#endif
-       }
+        if(leftover) w(begin+ibound,leftover);
 
      }
    }

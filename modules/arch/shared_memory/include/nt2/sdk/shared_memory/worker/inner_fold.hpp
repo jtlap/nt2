@@ -1,4 +1,4 @@
-//==============================================================================
+//=:=============================================================================
 //         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //         Copyright 2012 - 2013   MetaScale SAS
@@ -82,7 +82,7 @@ namespace nt2
     {
       extent_type ext = in_.extent();
       std::size_t top_cache_line_size = config::top_cache_size(2)/sizeof(value_type);
-      std::size_t grain  = 8*top_cache_line_size;
+      std::size_t grain  = top_cache_line_size;
 
       std::size_t bound  = boost::fusion::at_c<0>(ext);
       std::size_t ibound = (bound/grain) * grain;
@@ -97,14 +97,14 @@ namespace nt2
       {
         target_type vec_out;
 
-        if( (size == obound) && (grain < ibound) )
-          vec_out = s( w, k, ibound, grain );
+//        if( (size == obound) && (grain < ibound) )
+//          vec_out = s( w, k, ibound, grain );
 
-        else
-        {
+//        else
+//        {
           vec_out = neutral_(nt2::meta::as_<target_type>());
           w(vec_out, k, ibound);
-        }
+//        }
 
         value_type s_out = uop_( vec_out );
 

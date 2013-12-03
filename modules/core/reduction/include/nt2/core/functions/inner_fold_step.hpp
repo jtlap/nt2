@@ -30,7 +30,7 @@ namespace nt2
   namespace details
   {
     template<class Out, class In, class Bop, class Range>
-    void inner_fold_step(Out& out, In& in, Bop const& bop, Range const & range)
+    inline void inner_fold_step(Out& out, In& in, Bop const& bop, Range const & range)
     {
       static const std::size_t N = boost::simd::meta::cardinal_of<Out>::value;
       std::size_t begin = range.first;
