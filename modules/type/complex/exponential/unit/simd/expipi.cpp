@@ -33,7 +33,7 @@
 #include <nt2/include/functions/mul_minus_i.hpp>
 #include <nt2/include/functions/multiplies.hpp>
 
-NT2_TEST_CASE_TPL ( expipi_real,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( expipi_real,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::expipi;
   using nt2::tag::expipi_;

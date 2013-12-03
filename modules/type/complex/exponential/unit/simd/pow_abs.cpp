@@ -27,7 +27,7 @@
 #include <nt2/include/constants/i.hpp>
 #include <nt2/include/constants/two.hpp>
 
-NT2_TEST_CASE_TPL ( pow_abs3,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( pow_abs3,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::pow_abs;
   using nt2::tag::pow_abs_;
@@ -47,7 +47,7 @@ NT2_TEST_CASE_TPL ( pow_abs3,  NT2_REAL_TYPES)
     NT2_TEST_EQUAL(nt2::splat<vcT>(a(i)), nt2::pow_abs(nt2::splat<vcT>(a(i)), nt2::splat<vcT>(b(i))));
 }
 
-NT2_TEST_CASE_TPL ( pow_abs4,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( pow_abs4,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::pow_abs;
   using nt2::tag::pow_abs_;

@@ -31,7 +31,7 @@
 #include <nt2/include/functions/mul_i.hpp>
 #include <nt2/include/functions/exp.hpp>
 
-NT2_TEST_CASE_TPL ( expi_real,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( expi_real,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::expi;
   using nt2::tag::expi_;
