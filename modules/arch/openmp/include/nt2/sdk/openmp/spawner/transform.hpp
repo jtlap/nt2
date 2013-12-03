@@ -41,9 +41,8 @@ namespace nt2
       boost::exception_ptr exception;
 #endif
 
-      std::size_t nblocks  = size/grain;
-      std::size_t ibound   = nblocks * grain;
       std::size_t leftover = size % grain;
+      std::size_t nblocks  = size/grain;
 
       #pragma omp parallel
       {
@@ -55,8 +54,10 @@ namespace nt2
           try
           {
 #endif
+            std::size_t chunk = (n<nblocks-1) ? grain : grain+leftover;
+
             // Call operation
-            w(begin+n*grain,grain);
+            w(begin+n*grain,chunk);
 
 #ifndef BOOST_NO_EXCEPTIONS
           }
@@ -67,8 +68,6 @@ namespace nt2
           }
 #endif
         }
-
-        if(leftover) w(begin+ibound,leftover);
 
      }
    }
