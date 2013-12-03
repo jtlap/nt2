@@ -78,9 +78,7 @@ NT2_TEST_CASE_TPL ( log2_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   using nt2::tag::log2_;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<log2_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
+  typedef T wished_r_t;
 
 
   // return type conformity test
@@ -98,9 +96,7 @@ NT2_TEST_CASE_TPL ( log2_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   using nt2::tag::log2_;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<log2_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
+  typedef T wished_r_t;
 
 
   // return type conformity test
