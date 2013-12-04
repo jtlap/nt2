@@ -27,6 +27,7 @@ set( SOURCES
   sec.cpp
   secd.cpp
   secpi.cpp
-   )
+  sincos.cpp
+  )
 
 nt2_module_add_tests(type.complex.trigonometric.scalar.unit ${SOURCES})
