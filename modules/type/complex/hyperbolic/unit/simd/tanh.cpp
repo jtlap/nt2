@@ -7,7 +7,6 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <nt2/include/functions/tanh.hpp>
-#include <nt2/exponential/constants.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
@@ -15,6 +14,9 @@
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <complex>
 #include <nt2/include/functions/splat.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/mzero.hpp>
 
 NT2_TEST_CASE_TPL ( tanh_real__1_0, NT2_SIMD_REAL_TYPES)
 {

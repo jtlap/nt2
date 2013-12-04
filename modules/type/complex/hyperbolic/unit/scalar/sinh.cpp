@@ -40,7 +40,6 @@ NT2_TEST_CASE_TPL ( sinh_real__1_0, (double))
 
     for(int i=0; i < N; i++)
     {
-      std::cout << "input = " << inputs[i] << " -> " << results[i] << std::endl;
       NT2_TEST_ULP_EQUAL(nt2::sinh(inputs[i]), results[i], 1);
       NT2_TEST_ULP_EQUAL(nt2::sinh(-inputs[i]), -results[i], 1);
     }
@@ -66,7 +65,6 @@ NT2_TEST_CASE_TPL ( sinh_real__1_0, (double))
 
     for(int i=0; i < N; i++)
     {
-      std::cout << "input = " << inputs[i] << " -> " << results[i] << std::endl;
       NT2_TEST_ULP_EQUAL(nt2::sinh(inputs[i]), results[i], 1);
       NT2_TEST_ULP_EQUAL(nt2::sinh(-inputs[i]), -results[i], 1);
     }

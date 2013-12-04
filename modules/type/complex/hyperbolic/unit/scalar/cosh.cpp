@@ -42,7 +42,6 @@ NT2_TEST_CASE_TPL ( cosh_real__1_0,  NT2_REAL_TYPES)
 
     for(int i=0; i < N; i++)
     {
-      std::cout << i << " input = " << inputs[i] << " -> " << results[i] << std::endl;
       NT2_TEST_EQUAL(nt2::cosh(inputs[i]), results[i]);
       NT2_TEST_EQUAL(nt2::cosh(-inputs[i]), nt2::cosh(inputs[i]));
       NT2_TEST_EQUAL(nt2::cosh(inputs[i]), nt2::cos(nt2::mul_i(inputs[i])));
@@ -100,7 +99,6 @@ NT2_TEST_CASE_TPL ( cosh_real__1_0,  NT2_REAL_TYPES)
 
     for(int i=0; i < N; i++)
     {
-      std::cout << i << " input = " << inputs[i] << " -> " << results[i] << std::endl;
       NT2_TEST_EQUAL(nt2::cosh(inputs[i]), results[i]);
       NT2_TEST_EQUAL(nt2::cosh(-inputs[i]), nt2::cosh(inputs[i]));
       NT2_TEST_EQUAL(nt2::cosh(inputs[i]), nt2::cos(nt2::mul_i(inputs[i])));
