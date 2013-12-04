@@ -65,16 +65,49 @@ std::ostream& operator<<(std::ostream& os, table_sum<T> const& p)
   return os << "(" << p.extent() << ") @ " << p.dim();
 }
 
-NT2_REGISTER_BENCHMARK_TPL( table_sum, (float)(double) )
-{
-  std::size_t mn = args("min" , 2   );
-  std::size_t mx = args("max" , 2048);
-  std::size_t s  = args("step", 2   );
+#define NT2_SUM_EXP(T,D,N)                                        \
+NT2_RUN_EXPERIMENT_TPL( sum_over, ((T,D)), (1<<N,1<<N) )          \
+NT2_RUN_EXPERIMENT_TPL( sum_over, ((T,D)), ((1<<N)-1,(1<<N)-1 ) ) \
+NT2_RUN_EXPERIMENT_TPL( sum_over, ((T,D)), (1   ,1<<N) )          \
+NT2_RUN_EXPERIMENT_TPL( sum_over, ((T,D)), (1<<N,1   ) )          \
+/**/
 
-  run_during_with< table_sum<T> > ( 1.
-                                    , repeat( arithmetic(1,2)
-                                            , geometric(mn,mx,s)
-                                            )
-                                    , cycles_per_element<stat::median_>()
-                                    );
-}
+NT2_SUM_EXP(double , 1,  4 );
+NT2_SUM_EXP(double , 1,  5 );
+NT2_SUM_EXP(double , 1,  6 );
+NT2_SUM_EXP(double , 1,  7 );
+NT2_SUM_EXP(double , 1,  8 );
+NT2_SUM_EXP(double , 1,  9 );
+NT2_SUM_EXP(double , 1, 10 );
+NT2_SUM_EXP(double , 1, 11 );
+NT2_SUM_EXP(double , 1, 12 );
+
+NT2_SUM_EXP(float , 1,  4 );
+NT2_SUM_EXP(float , 1,  5 );
+NT2_SUM_EXP(float , 1,  6 );
+NT2_SUM_EXP(float , 1,  7 );
+NT2_SUM_EXP(float , 1,  8 );
+NT2_SUM_EXP(float , 1,  9 );
+NT2_SUM_EXP(float , 1, 10 );
+NT2_SUM_EXP(float , 1, 11 );
+NT2_SUM_EXP(float , 1, 12 );
+
+NT2_SUM_EXP(double , 2,  4 );
+NT2_SUM_EXP(double , 2,  5 );
+NT2_SUM_EXP(double , 2,  6 );
+NT2_SUM_EXP(double , 2,  7 );
+NT2_SUM_EXP(double , 2,  8 );
+NT2_SUM_EXP(double , 2,  9 );
+NT2_SUM_EXP(double , 2, 10 );
+NT2_SUM_EXP(double , 2, 11 );
+NT2_SUM_EXP(double , 2, 12 );
+
+NT2_SUM_EXP(float , 2,  4 );
+NT2_SUM_EXP(float , 2,  5 );
+NT2_SUM_EXP(float , 2,  6 );
+NT2_SUM_EXP(float , 2,  7 );
+NT2_SUM_EXP(float , 2,  8 );
+NT2_SUM_EXP(float , 2,  9 );
+NT2_SUM_EXP(float , 2, 10 );
+NT2_SUM_EXP(float , 2, 11 );
+NT2_SUM_EXP(float , 2, 12 );

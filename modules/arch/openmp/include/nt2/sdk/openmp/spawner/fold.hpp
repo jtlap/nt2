@@ -44,15 +44,12 @@ namespace nt2
       BOOST_ASSERT_MSG( size % grain == 0, "Reduce size not divisible by grain");
 
       std::size_t nblocks  = size/grain;
-      std::size_t ibound   = nblocks * grain;
-      std::size_t leftover = size % grain;
-
       result_type reduced_out = w.neutral_(nt2::meta::as_<result_type>());
 
       #pragma omp parallel
       {
         // Dispatch group of blocks over each threads
-        #pragma omp for schedule(dynamic)
+        #pragma omp for schedule(static)
         for(std::size_t n=0;n<nblocks;++n)
         {
           result_type out = w.neutral_(nt2::meta::as_<result_type>());
@@ -64,6 +61,9 @@ namespace nt2
             // Call operation
             w(out,begin+n*grain,grain);
 
+            #pragma omp critical
+            reduced_out = w.bop_(reduced_out, out);
+
 #ifndef BOOST_NO_EXCEPTIONS
           }
           catch(...)
@@ -74,8 +74,6 @@ namespace nt2
           }
 #endif
 
-            #pragma omp critical
-            reduced_out = w.bop_(reduced_out, out);
          }
       }
 
