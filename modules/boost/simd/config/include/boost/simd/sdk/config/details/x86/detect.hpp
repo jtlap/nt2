@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace config { namespace details
   inline bool x86_detection(int const& bit, int const& function, int const& register_id)
   {
     int regs_x86[4] = {0x00000000,0x00000000,0x00000000,0x00000000};
-    config::x86::cpuid(regs_x86, function);
+    config::x86::cpuidex(regs_x86, function, 0);
     return has_bit_set(regs_x86[register_id-1], bit);
   }
 
@@ -114,7 +114,7 @@ namespace boost { namespace simd { namespace config { namespace details
   inline bool detect(tag::avx2_ const&)
   {
     if (x86::get_vendor() == x86::intel || x86::get_vendor() == x86::amd)
-      return x86_detection(5,0x00000007,3) && x86_detection(27,0x00000001,3);
+      return x86_detection(5,0x00000007,2) && x86_detection(27,0x00000001,3);
     return false;
   }
 
