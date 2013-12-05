@@ -26,9 +26,6 @@
 
 namespace boost { namespace simd
 {
-  ////////////////////////////////////////////////////////////////////////////
-  // Here is the domain-specific expression wrapper
-  ////////////////////////////////////////////////////////////////////////////
   template<class Expr, class ResultType>
   struct expression
   {
@@ -63,6 +60,13 @@ namespace boost { namespace simd
     {
       return boost::simd::evaluate(*this);
     }
+  };
+
+  // avoid warnings about unusable conversion operator
+  template<class Expr>
+  struct expression<Expr, void>
+  {
+    BOOST_PROTO_BASIC_EXTENDS(Expr, expression, domain)
   };
 } }
 
