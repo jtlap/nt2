@@ -8,6 +8,25 @@
 ##############################################################################
 
 set( SOURCES
+  asin.cpp
+  acos.cpp
+  atan.cpp
+  cos.cpp
+  sin.cpp
+  tan.cpp
+  cot.cpp
+  cosd.cpp
+  cospi.cpp
+  sind.cpp
+  tand.cpp
+  sinpi.cpp
+  tanpi.cpp
+  csc.cpp
+  cscd.cpp
+  cscpi.cpp
+  sec.cpp
+  secd.cpp
+  secpi.cpp
    )
 
 nt2_module_add_tests(type.complex.trigonometric.simd.unit ${SOURCES})
