@@ -290,6 +290,14 @@ function(nt2_find_modules)
     endif()
   endwhile()
 
+  # list of include dirs for all extras, used as a hack to work with
+  # gather_includes
+  set(EXTRA_INCLUDES)
+  foreach(COMPONENT ${EXTRA})
+    string(TOUPPER ${COMPONENT} COMPONENT_U)
+    list(APPEND EXTRA_INCLUDES ${NT2_${COMPONENT_U}_INCLUDE_ROOT})
+  endforeach()
+
   # sorting in reverse topological order makes sure that dependencies
   # will get loaded before modules that depend on them
   topological_sort_u(EXTRA "NT2_" "_DEPENDENCIES_EXTRA")
@@ -298,6 +306,12 @@ function(nt2_find_modules)
   set(FOUND_COMPONENTS)
   foreach(COMPONENT ${EXTRA})
     string(TOUPPER ${COMPONENT} COMPONENT_U)
+
+    if(NOT DEFINED NT2_${COMPONENT_U}_DEPENDENCIES_FOUND OR NT2_${COMPONENT_U}_DEPENDENCIES_FOUND)
+      list(APPEND NT2_${COMPONENT_U}_DEPENDENCIES_INCLUDE_DIR ${EXTRA_INCLUDES})
+      nt2_remove_duplicates(NT2_${COMPONENT_U}_DEPENDENCIES_INCLUDE_DIR)
+    endif()
+
     nt2_find_module(${COMPONENT})
     if(NT2_${COMPONENT_U}_FOUND)
       list(APPEND FOUND_COMPONENTS ${COMPONENT})
