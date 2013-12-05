@@ -85,8 +85,6 @@ namespace boost { namespace simd { namespace details
     template<typename Idx, typename Step>
     BOOST_FORCEINLINE void step(Idx const& idx, Step const&) const
     {
-      typedef typename fusion::result_of::at<A1,Idx>::type type;
-
       insert<Step::value-1> ( fusion::at<Idx>(*(a0+a2+Step::value-1))
                             , fusion::at<Idx>(a1)
                             );
@@ -97,8 +95,6 @@ namespace boost { namespace simd { namespace details
     template<typename Idx>
     BOOST_FORCEINLINE void step(Idx const&, boost::mpl::size_t<0> const&) const
     {
-      typedef typename fusion::result_of::at<A1,Idx>::type type;
-
       insert<0> ( fusion::at<Idx>(*(a0+a2)), fusion::at<Idx>(a1) );
     }
 
