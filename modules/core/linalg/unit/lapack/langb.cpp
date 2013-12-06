@@ -25,7 +25,7 @@ NT2_TEST_CASE_TPL(band, NT2_REAL_TYPES )
   char norm = '1';
   T rnorm ;
 
-  rnorm = nt2::langb(a,norm);
+  rnorm = nt2::langb(boost::proto::value(a),norm);
 
 
 }

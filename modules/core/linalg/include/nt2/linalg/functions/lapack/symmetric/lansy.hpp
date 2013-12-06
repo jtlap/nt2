@@ -31,6 +31,16 @@ extern "C"
                           , const nt2_la_int* n    , const float* a
                           , const nt2_la_int* lda  , float* work
                           );
+
+  double NT2_F77NAME(zlansy)( const char* norm     , const char* uplo
+                          , const nt2_la_int* n    , const nt2_la_complex* a
+                          , const nt2_la_int* lda  , double* work
+                          );
+
+  float NT2_F77NAME(clansy)( const char* norm      , const char* uplo
+                          , const nt2_la_int* n    , const nt2_la_complex* a
+                          , const nt2_la_int* lda  , float* work
+                          );
 }
 
 namespace nt2 { namespace ext
@@ -38,11 +48,7 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::lange_, tag::cpu_
                             , (A0)(S0)(A1)
-                            , ((expr_ < container_< nt2::tag::table_, double_<A0>, S0 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
+                            , ((container_< nt2::tag::table_, double_<A0>, S0 >))
                               (scalar_< ints8_<A1> >)             //  norm
                               (unspecified_<nt2::symmetric_>)             //  norm
                             )
@@ -73,11 +79,7 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::lange_, tag::cpu_
                             , (A0)(S0)(A1)
-                            , ((expr_ < container_< nt2::tag::table_, single_<A0>, S0 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
+                            , ((container_< nt2::tag::table_, single_<A0>, S0 >))
                               (scalar_< ints8_<A1> >)             //  norm
                               (unspecified_<nt2::symmetric_>)             //  norm
                             )
@@ -100,6 +102,69 @@ namespace nt2 { namespace ext
       else
       {
         norm = NT2_F77NAME(slansy)( &a1, &uplo, &n, a0.raw(), &ld, 0);
+      }
+
+      return norm;
+    }
+  };
+
+  /// INTERNAL ONLY
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::lange_, tag::cpu_
+                            , (A0)(S0)(A1)
+                            , ((container_< nt2::tag::table_, complex_<double_<A0> >, S0 >))
+                              (scalar_< ints8_<A1> >)             //  norm
+                              (unspecified_<nt2::symmetric_>)             //  norm
+                            )
+  {
+    typedef double  result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0& a0, A1 a1, nt2::symmetric_ const&) const
+    {
+      result_type norm;
+      char uplo = 'L';
+      nt2_la_int n = nt2::width(a0);
+      nt2_la_int ld = n;
+
+     if(a1 =='I'|| a1 =='1'|| a1 =='O')
+     {
+        nt2::table<result_type> work(nt2::of_size(n,1));
+        norm = NT2_F77NAME(zlansy)( &a1, &uplo, &n, a0.raw(), &ld, work.raw());
+      }
+      else
+      {
+        norm = NT2_F77NAME(zlansy)( &a1, &uplo, &n, a0.raw(), &ld, 0);
+      }
+
+      return norm;
+    }
+  };
+
+  /// INTERNAL ONLY
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::lange_, tag::cpu_
+                            , (A0)(S0)(A1)
+                            , ((container_< nt2::tag::table_, complex_<single_<A0> >, S0 >))
+                              (scalar_< ints8_<A1> >)             //  norm
+                              (unspecified_<nt2::symmetric_>)             //  norm
+                            )
+  {
+    typedef float result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0& a0, A1 a1, nt2::symmetric_ const&) const
+    {
+      result_type norm;
+      char uplo = 'L';
+      nt2_la_int n = nt2::width(a0);
+      nt2_la_int ld = n;
+
+
+      if(a1 =='I' || a1 =='1'|| a1 =='O')
+      {
+        nt2::table<result_type> work(nt2::of_size(n,1));
+        norm = NT2_F77NAME(clansy)( &a1, &uplo, &n, a0.raw(), &ld, work.raw());
+      }
+      else
+      {
+        norm = NT2_F77NAME(clansy)( &a1, &uplo, &n, a0.raw(), &ld, 0);
       }
 
       return norm;

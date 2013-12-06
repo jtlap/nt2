@@ -24,7 +24,7 @@
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
 
-NT2_TEST_CASE_TPL(band, NT2_REAL_TYPES )
+NT2_TEST_CASE_TPL(potrf, NT2_REAL_TYPES )
 {
   using nt2::_;
 
@@ -32,14 +32,41 @@ NT2_TEST_CASE_TPL(band, NT2_REAL_TYPES )
   t_t a = nt2::cons<T>(nt2::of_size(3,3),2,-1,0,-1,2,-1,0,-1,2);
   t_t run(a);
 
-  nt2_la_int info = nt2::potrf(run,'U');
+  nt2_la_int info = nt2::potrf(boost::proto::value(run),'U');
 
   NT2_TEST_EQUAL(info,T(0));
   NT2_TEST_ULP_EQUAL(a,nt2::mtimes(nt2::trans(nt2::triu(run)),nt2::triu(run)), T(20) );
 
   run = a;
 
-  info = nt2::potrf(run,'L');
+  info = nt2::potrf(boost::proto::value(run),'L');
+
+ NT2_TEST_EQUAL(info,T(0));
+ NT2_TEST_ULP_EQUAL(a,nt2::mtimes(nt2::tril(run),nt2::trans(nt2::tril(run))), T(20) );
+
+}
+
+
+NT2_TEST_CASE_TPL(potrfc, NT2_REAL_TYPES )
+{
+  using nt2::_;
+
+  typedef std::complex<T> cT;
+  typedef nt2::table<cT,nt2::positive_definite_> t_t;
+  t_t a = nt2::cons<cT>(nt2::of_size(3,3)
+                      ,cT(2,0),cT(-1,0),cT(0,0)
+                      ,cT(-1,0),cT(2,0),cT(-1,0)
+                      ,cT(0,0),cT(-1,0),cT(2,0));
+  t_t run(a);
+
+  nt2_la_int info = nt2::potrf(boost::proto::value(run),'U');
+
+  NT2_TEST_EQUAL(info,T(0));
+  NT2_TEST_ULP_EQUAL(a,nt2::mtimes(nt2::trans(nt2::triu(run)),nt2::triu(run)), T(20) );
+
+  run = a;
+
+  info = nt2::potrf(boost::proto::value(run),'L');
 
  NT2_TEST_EQUAL(info,T(0));
  NT2_TEST_ULP_EQUAL(a,nt2::mtimes(nt2::tril(run),nt2::trans(nt2::tril(run))), T(20) );

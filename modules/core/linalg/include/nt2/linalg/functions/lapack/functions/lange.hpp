@@ -30,6 +30,16 @@ extern "C"
                           , const nt2_la_int* n    , const float* a
                           , const nt2_la_int* lda  , float* work
                           );
+
+  double NT2_F77NAME(zlange)( const char* norm     , const nt2_la_int* m
+                          , const nt2_la_int* n    , const nt2_la_complex* a
+                          , const nt2_la_int* lda  , double* work
+                          );
+
+  float NT2_F77NAME(clange)( const char* norm      , const nt2_la_int* m
+                          , const nt2_la_int* n    , const nt2_la_complex* a
+                          , const nt2_la_int* lda  , float* work
+                          );
 }
 
 
@@ -38,11 +48,7 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::lange_, tag::cpu_
                             , (A0)(S0)(A1)
-                            , ((expr_ < container_< nt2::tag::table_, double_<A0>, S0 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
+                            , ((container_< nt2::tag::table_, double_<A0>, S0 >))
                               (scalar_< ints8_<A1> >)             //  norm
                             )
   {
@@ -72,11 +78,7 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::lange_, tag::cpu_
                             , (A0)(S0)(A1)
-                            , ((expr_ < container_< nt2::tag::table_, single_<A0>, S0 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
+                            , ((container_< nt2::tag::table_, single_<A0>, S0 >))
                               (scalar_< ints8_<A1> >)             //  norm
                             )
   {
@@ -103,6 +105,65 @@ namespace nt2 { namespace ext
     }
   };
 
+  /// INTERNAL ONLY
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::lange_, tag::cpu_
+                            , (A0)(S0)(A1)
+                            , ((container_< nt2::tag::table_, complex_<double_<A0> >, S0 >))
+                              (scalar_< ints8_<A1> >)             //  norm
+                            )
+  {
+    typedef double  result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0& a0, A1 a1) const
+    {
+      result_type norm;
+      nt2_la_int m = nt2::height(a0);
+      nt2_la_int n = nt2::width(a0);
+      nt2_la_int ld = m;
+
+     if(a1 =='I')
+     {
+        nt2::table<result_type> work(nt2::of_size(m,1));
+        norm = NT2_F77NAME(zlange)( &a1, &m, &n, a0.raw(), &ld, work.raw());
+      }
+      else
+      {
+        norm = NT2_F77NAME(zlange)( &a1, &m, &n, a0.raw(), &ld, 0);
+      }
+
+      return norm;
+    }
+  };
+
+  /// INTERNAL ONLY
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::lange_, tag::cpu_
+                            , (A0)(S0)(A1)
+                            , ((container_< nt2::tag::table_, complex_<single_<A0> >, S0 >))
+                              (scalar_< ints8_<A1> >)             //  norm
+                            )
+  {
+    typedef float result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0& a0, A1 a1) const
+    {
+      result_type norm;
+      nt2_la_int m = nt2::height(a0);
+      nt2_la_int n = nt2::width(a0);
+      nt2_la_int ld = m;
+
+      if(a1 =='I')
+      {
+        nt2::table<result_type> work(nt2::of_size(m,1));
+        norm = NT2_F77NAME(clange)( &a1, &m, &n, a0.raw(), &ld, work.raw());
+      }
+      else
+      {
+        norm = NT2_F77NAME(clange)( &a1, &m, &n, a0.raw(), &ld, 0);
+      }
+
+      return norm;
+    }
+  };
 } }
 
 #endif

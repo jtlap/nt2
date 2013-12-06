@@ -23,8 +23,6 @@
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
-#include <time.h>
-#include <stdio.h>
 
 NT2_TEST_CASE_TPL(msv, (double) )
 {
@@ -41,9 +39,43 @@ t_t x1(b);
 t_i piv;
 
 
-nt2_la_int iter= nt2::msv(a,b,x);
-nt2_la_int info= nt2::sv(a1,piv,x1);
+nt2_la_int iter= nt2::msv( boost::proto::value(a),boost::proto::value(b)
+                         , boost::proto::value(x));
+nt2_la_int info= nt2::sv( boost::proto::value(a1),boost::proto::value(piv)
+                         , boost::proto::value(x1));
 
 NT2_TEST_ULP_EQUAL(x, x1 , T(10));
+NT2_TEST_EQUAL(iter>=0?true:false,true);
+}
+
+
+NT2_TEST_CASE_TPL(msvc , (double) )
+{
+using nt2::_;
+
+  typedef std::complex<T> cT;
+  typedef nt2::table<cT>           t_t;
+  typedef nt2::table<nt2_la_int>  t_i;
+
+t_t a = nt2::cons<cT>(nt2::of_size(3,3)
+                    ,cT(2,2),cT(1,1),cT(1,1)
+                    ,cT(1,1),cT(2,2),cT(2,2)
+                    ,cT(2,2),cT(5,5),cT(7,7)
+                    );
+t_t a1(a);
+t_t b = nt2::cons<cT>(nt2::of_size(3,1)
+                    ,cT(1,1),cT(2,2),cT(5,5));
+t_t x(b);
+t_t x1(b);
+t_i piv;
+
+
+nt2_la_int iter= nt2::msv( boost::proto::value(a),boost::proto::value(b)
+                         , boost::proto::value(x));
+nt2_la_int info= nt2::sv( boost::proto::value(a1),boost::proto::value(piv)
+                         , boost::proto::value(x1));
+
+NT2_TEST_ULP_EQUAL(x, x1 , T(10));
+NT2_TEST_EQUAL(iter>=0?true:false,true);
 
 }

@@ -20,24 +20,41 @@
 
 extern "C"
 {
-  void NT2_F77NAME(dgbcon)( const char* norm     , const nt2_la_int* n
-                          , const nt2_la_int* kl , const nt2_la_int* ku
-                          , const double* a      , const nt2_la_int* lda
+  void NT2_F77NAME(dgbcon)( const char* norm        , const nt2_la_int* n
+                          , const nt2_la_int* kl    , const nt2_la_int* ku
+                          , const double* a         , const nt2_la_int* lda
                           , const nt2_la_int* ipiv
-                          , const double* anorm  , double* rcond
-                          , double* work         , nt2_la_int* iwork
+                          , const double* anorm     , double* rcond
+                          , double* work            , nt2_la_int* iwork
                           , nt2_la_int* info
                           );
 
-  void NT2_F77NAME(sgbcon)( const char* norm     , const nt2_la_int* n
-                          , const nt2_la_int* kl , const nt2_la_int* ku
-                          , const float* a       , const nt2_la_int* lda
+  void NT2_F77NAME(sgbcon)( const char* norm        , const nt2_la_int* n
+                          , const nt2_la_int* kl    , const nt2_la_int* ku
+                          , const float* a          , const nt2_la_int* lda
                           , const nt2_la_int* ipiv
-                          , const float * anorm  , float* rcond
-                          , float* work          , nt2_la_int* iwork
+                          , const float * anorm     , float* rcond
+                          , float* work             , nt2_la_int* iwork
                           , nt2_la_int* info
                           );
 
+  void NT2_F77NAME(cgbcon)( const char* norm        , const nt2_la_int* n
+                          , const nt2_la_int* kl    , const nt2_la_int* ku
+                          , const nt2_la_complex* a , const nt2_la_int* lda
+                          , const nt2_la_int* ipiv
+                          , const float * anorm     , float* rcond
+                          , nt2_la_complex* work    , float* rwork
+                          , nt2_la_int* info
+                          );
+
+  void NT2_F77NAME(zgbcon)( const char* norm        , const nt2_la_int* n
+                          , const nt2_la_int* kl    , const nt2_la_int* ku
+                          , const nt2_la_complex* a , const nt2_la_int* lda
+                          , const nt2_la_int* ipiv
+                          , const double * anorm    , double* rcond
+                          , nt2_la_complex* work    , double* rwork
+                          , nt2_la_int* info
+                          );
 }
 
 namespace nt2 { namespace ext
@@ -45,16 +62,8 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gbcon_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)
-                            , ((expr_ < container_< nt2::tag::table_, double_<A0>, S0 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
-                              ((expr_ < container_< nt2::tag::table_, integer_<A1>, S1 >  // ipiv
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
+                            , ((container_< nt2::tag::table_, double_<A0>, S0 >))
+                              ((container_< nt2::tag::table_, integer_<A1>, S1 >))
                               (scalar_< floating_<A2> >)            //  anorm
                             )
   {
@@ -63,7 +72,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&a1, A2 const& a2) const
     {
 
-      typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
+      typedef typename meta::option<A0,nt2::tag::shape_>::type shape;
       result_type rcond;
       nt2_la_int n = nt2::width(a0);
       nt2_la_int ku = shape::ud;
@@ -86,16 +95,8 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gbcon_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)
-                            , ((expr_ < container_< nt2::tag::table_, single_<A0>, S0 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
-                              ((expr_ < container_< nt2::tag::table_, integer_<A1>, S1 >  // ipiv
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
+                            , ((container_< nt2::tag::table_, single_<A0>, S0 >))
+                              ((container_< nt2::tag::table_, integer_<A1>, S1 >))
                               (scalar_< floating_<A2> >)            //  anorm
                             )
   {
@@ -104,7 +105,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&a1, A2 const& a2) const
     {
 
-      typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
+      typedef typename meta::option<A0,nt2::tag::shape_>::type shape;
       result_type rcond;
       nt2_la_int n = nt2::width(a0);
       nt2_la_int ku = shape::ud;
@@ -124,6 +125,72 @@ namespace nt2 { namespace ext
     }
   };
 
+
+  /// INTERNAL ONLY
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gbcon_, tag::cpu_
+                            , (A0)(S0)(A1)(S1)(A2)
+                            , ((container_< nt2::tag::table_, complex_<single_<A0> >, S0 >))
+                              ((container_< nt2::tag::table_, integer_<A1>, S1 >))
+                              (scalar_< floating_<A2> >)            //  anorm
+                            )
+  {
+    typedef float  result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&a1, A2 const& a2) const
+    {
+
+      typedef typename meta::option<A0,nt2::tag::shape_>::type shape;
+      result_type rcond;
+      nt2_la_int n = nt2::width(a0);
+      nt2_la_int ku = shape::ud;
+      nt2_la_int kl = shape::ld;
+      nt2_la_int ld = n;
+      nt2_la_int info;
+      char norm = '1';
+
+      nt2::table<std::complex<result_type> > work(nt2::of_size(2*n,1));
+      nt2::table<float>  rwork(nt2::of_size(n,1));
+
+      NT2_F77NAME(cgbcon) ( &norm, &n, &ku, &kl, a0.raw(), &ld, a1.raw(), &a2, &rcond
+                          , work.raw(), rwork.raw(), &info
+                          );
+
+      return rcond;
+    }
+  };
+
+  /// INTERNAL ONLY
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gbcon_, tag::cpu_
+                            , (A0)(S0)(A1)(S1)(A2)
+                            , ((container_< nt2::tag::table_, complex_<double_<A0> >, S0 >))
+                              ((container_< nt2::tag::table_, integer_<A1>, S1 >))
+                              (scalar_< floating_<A2> >)            //  anorm
+                            )
+  {
+    typedef double  result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&a1, A2 const& a2) const
+    {
+
+      typedef typename meta::option<A0,nt2::tag::shape_>::type shape;
+      result_type rcond;
+      nt2_la_int n = nt2::width(a0);
+      nt2_la_int ku = shape::ud;
+      nt2_la_int kl = shape::ld;
+      nt2_la_int ld = n;
+      nt2_la_int info;
+      char norm = '1';
+
+      nt2::table<std::complex<result_type> > work(nt2::of_size(2*n,1));
+      nt2::table<double>  rwork(nt2::of_size(n,1));
+
+      NT2_F77NAME(zgbcon) ( &norm, &n, &ku, &kl, a0.raw(), &ld, a1.raw(), &a2, &rcond
+                          , work.raw(), rwork.raw(), &info
+                          );
+
+      return rcond;
+    }
+  };
 } }
 
 #endif

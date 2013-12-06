@@ -38,6 +38,17 @@ extern "C"
                           , const nt2_la_int* lwork , nt2_la_int* info
                           );
 
+  void NT2_F77NAME(cgeqrf)( const nt2_la_int* m     , const nt2_la_int* n
+                          , nt2_la_complex* a       , const nt2_la_int* lda
+                          , nt2_la_complex* tau     , nt2_la_complex* work
+                          , const nt2_la_int* lwork , nt2_la_int* info
+                          );
+
+  void NT2_F77NAME(zgeqrf)( const nt2_la_int* m     , const nt2_la_int* n
+                          , nt2_la_complex* a       , const nt2_la_int* lda
+                          , nt2_la_complex* tau     , nt2_la_complex* work
+                          , const nt2_la_int* lwork , nt2_la_int* info
+                          );
 }
 
 
@@ -46,16 +57,8 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY - Compute the workspace
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::qrf_, tag::cpu_
                             , (A0)(S0)(A1)(S1)
-                            , ((expr_ < container_< nt2::tag::table_, double_<A0>, S0 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
-                              ((expr_ < container_< nt2::tag::table_, double_<A1>, S1 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
+                            , ((container_< nt2::tag::table_, double_<A0>, S0 >))
+                              ((container_< nt2::tag::table_, double_<A1>, S1 >))
                             )
   {
      typedef nt2_la_int result_type;
@@ -82,16 +85,8 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY - Workspace is ready
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::qrf_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)
-                            , ((expr_ < container_< nt2::tag::table_, double_<A0>, S0 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
-                              ((expr_ < container_< nt2::tag::table_, double_<A1>, S1 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
+                            , ((container_< nt2::tag::table_, double_<A0>, S0 >))
+                              ((container_< nt2::tag::table_, double_<A1>, S1 >))
                              (unspecified_<A2>)
                             )
   {
@@ -117,16 +112,9 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY - Compute the workspace
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::qrf_, tag::cpu_
                             , (A0)(S0)(A1)(S1)
-                            , ((expr_ < container_< nt2::tag::table_, single_<A0>, S0 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
-                              ((expr_ < container_< nt2::tag::table_, single_<A1>, S1 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
+                            , ((container_< nt2::tag::table_, single_<A0>, S0 >))
+                              ((container_< nt2::tag::table_, single_<A1>, S1 >))
+
                             )
   {
      typedef nt2_la_int result_type;
@@ -155,16 +143,8 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY - Workspace is ready
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::qrf_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)
-                            , ((expr_ < container_< nt2::tag::table_, single_<A0>, S0 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
-                              ((expr_ < container_< nt2::tag::table_, single_<A1>, S1 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
+                            , ((container_< nt2::tag::table_, single_<A0>, S0 >))
+                              ((container_< nt2::tag::table_, single_<A1>, S1 >))
                              (unspecified_<A2>)
                             )
   {
@@ -181,6 +161,122 @@ namespace nt2 { namespace ext
         a1.resize( nt2::of_size(std::min(n, m), 1) );
 
         NT2_F77NAME(sgeqrf) (&m, &n, a0.raw(), &ld, a1.raw(), a2.main()
+                            , &wn, &that
+                            );
+        return that;
+     }
+  };
+
+//---------------------------------------Complex-----------------------------------------//
+
+  /// INTERNAL ONLY - Compute the workspace
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::qrf_, tag::cpu_
+                            , (A0)(S0)(A1)(S1)
+                            , ((container_< nt2::tag::table_, complex_<single_<A0> >, S0 >))
+                              ((container_< nt2::tag::table_, complex_<single_<A1> >, S1 >))
+                            )
+  {
+     typedef nt2_la_int result_type;
+
+     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
+     {
+        result_type that;
+        nt2_la_int  m  = nt2::height(a0);
+        nt2_la_int  n  = nt2::width(a0);
+        nt2_la_int  ld = a0.leading_size();
+
+        details::workspace<typename A0::value_type> w;
+        a1.resize( nt2::of_size(std::min(n, m), 1) );
+
+        NT2_F77NAME(cgeqrf)(&m, &n, 0, &ld, 0, w.main()
+                          , details::query(), &that
+                           );
+
+          w.prepare_main();
+          nt2::qrf(a0,a1,w);
+
+          return that;
+     }
+  };
+
+  /// INTERNAL ONLY - Workspace is ready
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::qrf_, tag::cpu_
+                            , (A0)(S0)(A1)(S1)(A2)
+                            , ((container_< nt2::tag::table_, complex_<single_<A0> >, S0 >))
+                              ((container_< nt2::tag::table_, complex_<single_<A1> >, S1 >))
+                             (unspecified_<A2>)
+                            )
+  {
+     typedef nt2_la_int result_type;
+
+     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1,A2& a2) const
+     {
+        result_type that;
+        nt2_la_int  m  = nt2::height(a0);
+        nt2_la_int  n  = nt2::width(a0);
+        nt2_la_int  ld = a0.leading_size();
+        nt2_la_int  wn = a2.main_size();
+
+        a1.resize( nt2::of_size(std::min(n, m), 1) );
+
+        NT2_F77NAME(cgeqrf) (&m, &n, a0.raw(), &ld, a1.raw(), a2.main()
+                            , &wn, &that
+                            );
+        return that;
+     }
+  };
+
+  /// INTERNAL ONLY - Compute the workspace
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::qrf_, tag::cpu_
+                            , (A0)(S0)(A1)(S1)
+                            , ((container_< nt2::tag::table_, complex_<double_<A0> >, S0 >))
+                              ((container_< nt2::tag::table_, complex_<double_<A1> >, S1 >))
+                            )
+  {
+     typedef nt2_la_int result_type;
+
+     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
+     {
+        result_type that;
+        nt2_la_int  m  = nt2::height(a0);
+        nt2_la_int  n  = nt2::width(a0);
+        nt2_la_int  ld = a0.leading_size();
+
+        details::workspace<typename A0::value_type> w;
+        a1.resize( nt2::of_size(std::min(n, m), 1) );
+
+        NT2_F77NAME(zgeqrf)(&m, &n, 0, &ld, 0, w.main()
+                          , details::query(), &that
+                           );
+
+          w.prepare_main();
+          nt2::qrf(a0,a1,w);
+
+          return that;
+     }
+  };
+
+  /// INTERNAL ONLY - Workspace is ready
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::qrf_, tag::cpu_
+                            , (A0)(S0)(A1)(S1)(A2)
+                            , ((container_< nt2::tag::table_, complex_<double_<A0> >, S0 >))
+                              ((container_< nt2::tag::table_, complex_<double_<A1> >, S1 >))
+                             (unspecified_<A2>)
+                            )
+  {
+     typedef nt2_la_int result_type;
+
+     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1,A2& a2) const
+     {
+        result_type that;
+        nt2_la_int  m  = nt2::height(a0);
+        nt2_la_int  n  = nt2::width(a0);
+        nt2_la_int  ld = a0.leading_size();
+        nt2_la_int  wn = a2.main_size();
+
+        a1.resize( nt2::of_size(std::min(n, m), 1) );
+
+        NT2_F77NAME(zgeqrf) (&m, &n, a0.raw(), &ld, a1.raw(), a2.main()
                             , &wn, &that
                             );
         return that;
