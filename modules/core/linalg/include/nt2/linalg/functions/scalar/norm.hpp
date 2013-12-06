@@ -21,6 +21,7 @@
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/core/container/table/table.hpp>
+#include <nt2/sdk/meta/property_of.hpp>
 #include <string>
 
 // *     DLANGE = ( max(abs(A(i,j))), NORM = 'M' or 'm'
@@ -47,9 +48,10 @@ namespace nt2 { namespace ext
     typedef typename meta::strip<typename A0::value_type>::type type_t;
     typedef typename meta::as_real<type_t>::type rtype_t;
     typedef rtype_t result_type;
-    typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
+    typedef typename meta::option<A0,nt2::tag::shape_>::type shape;
     typedef nt2::table<type_t,shape>  matrix_type;
     typedef nt2::table<type_t>  entry_type;
+    typedef nt2::table<result_type>  base_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -64,14 +66,16 @@ namespace nt2 { namespace ext
         } else if (a1 == 'I'|| a1 == 'i'|| a1 == Inf<A1>()){
           return nt2::globalmax(nt2::asum1(a0, 2));
         } else if (a1 == Two<A1>()){
-        entry_type u,s,v;
+        entry_type u,v;
+        base_type s;
         matrix_type work(a0);
 
         nt2_la_int  m  = nt2::height(work);
         nt2_la_int  n  = nt2::width(work);
 
         s.resize(nt2::of_size(std::min(m,n), 1));
-        nt2::gesvd(work,s,u,v,'N','N');
+        nt2::gesvd(boost::proto::value(work),boost::proto::value(s)
+                  ,boost::proto::value(u),boost::proto::value(v),'N','N');
         return s(1);
         } else if (a1 == '1' || a1 == 'O' || a1 == 'o' ||a1 == One<A1>()) {
          return nt2::globalmax(nt2::asum1(a0, 1));

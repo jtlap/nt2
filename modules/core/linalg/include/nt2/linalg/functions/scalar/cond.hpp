@@ -30,11 +30,13 @@ namespace nt2{ namespace ext
     typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
     typedef nt2::table<type_t>  entry_type;
     typedef nt2::table<type_t,shape>  matrix_type;
+    typedef nt2::table<rtype_t>  base_type;
 
     NT2_FUNCTOR_CALL(1)
     {
       BOOST_ASSERT_MSG(issquare(a0), "cond for non square matrix");
-      entry_type u,s,v;
+      entry_type u,v;
+      base_type s;
       matrix_type work(a0);
 
       nt2_la_int  m  = nt2::height(work);
@@ -42,7 +44,8 @@ namespace nt2{ namespace ext
 
       s.resize(nt2::of_size(std::min(m,n), 1));
 
-      nt2::gesvd(work,s,u,v,'N','N');
+      nt2::gesvd( boost::proto::value(work), boost::proto::value(s)
+                , boost::proto::value(u), boost::proto::value(v),'N','N');
 
       type_t r =  s(1)/s(nt2::min(m,n));
       return is_nan(r) ? Inf<type_t>() : r;

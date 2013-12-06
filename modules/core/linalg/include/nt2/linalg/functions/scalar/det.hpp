@@ -39,7 +39,7 @@ namespace nt2{ namespace ext
       nt2::container::table<nt2_la_int>               ip;
 
       // Factorize A as L/U
-      nt2_la_int  info = nt2::trf(lu,ip);
+      nt2_la_int  info = nt2::trf(boost::proto::value(lu),boost::proto::value(ip));
 
       // DET(A) is the product of LU(A) diagonal by -1 at the power of
       // the number of non-permutations done in LU(A)

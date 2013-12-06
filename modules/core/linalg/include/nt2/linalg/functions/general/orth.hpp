@@ -31,15 +31,16 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename A0::value_type type_t;
-    typedef nt2::table<type_t>  result_type;
+    typedef typename meta::as_real<type_t>::type rtype_t;
     typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
-
-    typedef nt2::table<type_t>  entry_type;
+    typedef nt2::table<type_t>  result_type;
+    typedef nt2::table<rtype_t>  base_type;
     typedef nt2::table<type_t,shape>  matrix_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a) const
     {
-      entry_type u,s,v;
+      result_type u,v;
+      base_type s;
       matrix_type work(a);
 
       nt2_la_int  m  = nt2::height(work);
@@ -48,7 +49,8 @@ namespace nt2 { namespace ext
       s.resize(nt2::of_size(std::min(m,n), 1));
       u.resize(nt2::of_size(m,m));
 
-      nt2::gesvd(work,s,u,v,'A','N');
+      nt2::gesvd( boost::proto::value(work),boost::proto::value(s)
+                , boost::proto::value(u),boost::proto::value(v),'A','N');
 
       type_t epsi = nt2::max(m, n)*nt2::eps(s(1));
 
@@ -64,15 +66,16 @@ namespace nt2 { namespace ext
   {
 
     typedef typename A0::value_type type_t;
-    typedef nt2::table<type_t> result_type;
+    typedef typename meta::as_real<type_t>::type rtype_t;
     typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
-
-    typedef nt2::table<type_t>  entry_type;
+    typedef nt2::table<type_t> result_type;
+    typedef nt2::table<rtype_t>  base_type;
     typedef nt2::table<type_t,shape>  matrix_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const epsi) const
     {
-      entry_type u,s,v;
+      result_type u,v;
+      base_type s;
 
       matrix_type work(a);
       nt2_la_int  m  = nt2::height(work);
@@ -81,7 +84,8 @@ namespace nt2 { namespace ext
       s.resize(nt2::of_size(std::min(m,n), 1));
       u.resize(nt2::of_size(m,m));
 
-      nt2_la_int info = nt2::gesvd(work,s,u,v,'A','N');
+      nt2::gesvd( boost::proto::value(work),boost::proto::value(s)
+                , boost::proto::value(u),boost::proto::value(v),'A','N');
 
       type_t epsir = epsi<0 ? nt2::max(m, n)*nt2::eps(s(1)) : epsi;
 

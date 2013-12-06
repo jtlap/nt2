@@ -47,7 +47,8 @@ namespace nt2{ namespace ext
       s.resize(nt2::of_size(std::min(m,n), 1));
       v.resize(nt2::of_size(n,n));
 
-      nt2::gesvd(work,s,u,v,'N','A');
+      nt2::gesvd(boost::proto::value(work),boost::proto::value(s)
+                ,boost::proto::value(u),boost::proto::value(v),'N','A');
 
       type_t epsi = nt2::eps(s(1));
 
@@ -81,7 +82,8 @@ namespace nt2{ namespace ext
       s.resize(nt2::of_size(std::min(m,n), 1));
       v.resize(nt2::of_size(n,n));
 
-      nt2_la_int info = nt2::gesvd(work,s,u,v,'N','A');
+      nt2::gesvd(boost::proto::value(work),boost::proto::value(s)
+                ,boost::proto::value(u),boost::proto::value(v),'N','A');
 
       type_t epsi_ =  epsi < 0 ? nt2::eps(s(1)) : epsi;
 
