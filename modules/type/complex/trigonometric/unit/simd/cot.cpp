@@ -49,7 +49,7 @@ NT2_TEST_CASE_TPL ( cot, NT2_SIMD_REAL_TYPES)
   size_t N =  sizeof(a)/sizeof(cT);
   for(size_t i=0; i < N; ++i)
   {
-    NT2_TEST_ULP_EQUAL(nt2::cot(nt2::splat<vcT>(a[i])), nt2::splat<vcT>(cot(a[i])), 1.0);
+    NT2_TEST_ULP_EQUAL(nt2::cot(nt2::splat<vcT>(a[i])), nt2::splat<vcT>(nt2::cot(a[i])), 1.0);
   }
 
 }
