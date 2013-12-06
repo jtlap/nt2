@@ -42,7 +42,35 @@ NT2_TEST_CASE_TPL(gesvd, NT2_REAL_TYPES )
   s.resize(nt2::of_size(std::min(1000,1000),1));
 
   nt2_la_int p = 5;
-  p = nt2::gesvd(in,s,u,vt,jobu,jobvt);
+  p = nt2::gesvd( boost::proto::value(in),boost::proto::value(s)
+                , boost::proto::value(u),boost::proto::value(vt),jobu,jobvt);
+
+  NT2_TEST_EQUAL(p, 0);
+}
+
+
+NT2_TEST_CASE_TPL(gesvdc, NT2_REAL_TYPES )
+{
+  using nt2::_;
+
+  typedef std::complex<T>          cT;
+  typedef nt2::table<cT>           t_t;
+
+
+  t_t in  = nt2::ones (1000, 1000, nt2::meta::as_<cT>())
+          + T(10)*nt2::eye  (1000,1000, nt2::meta::as_<cT>());
+
+  char jobu =  'N';
+  char jobvt = 'N';
+
+  t_t vt,u;
+  nt2::table<T> s;
+
+  s.resize(nt2::of_size(std::min(1000,1000),1));
+
+  nt2_la_int p = 5;
+  p = nt2::gesvd( boost::proto::value(in),boost::proto::value(s)
+                , boost::proto::value(u),boost::proto::value(vt),jobu,jobvt);
 
   NT2_TEST_EQUAL(p, 0);
 }

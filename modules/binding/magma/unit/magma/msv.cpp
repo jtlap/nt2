@@ -32,8 +32,9 @@ typedef nt2::table<nt2_la_int>         t_i;
 
 
 
-t_t a = nt2::rand(4000 , 4000, nt2::meta::as_<T>());
-t_t b = nt2::rand(4000 , 1,nt2::meta::as_<T>() );
+t_t a = T(10)* nt2::ones (4000, 4000, nt2::meta::as_<T>())
+           - T(4)*nt2::eye  (4000, 4000, nt2::meta::as_<T>());
+t_t b = nt2::ones (4000, 1, nt2::meta::as_<T>());
 
 
 
@@ -43,8 +44,47 @@ t_t x(b);
 t_t x1(b);
 t_i piv;
 
-nt2_la_int iter= nt2::msv(a,b,x);
-nt2_la_int p= nt2::sv(a1,piv,x1);
+nt2_la_int p= nt2::sv( boost::proto::value(a1),boost::proto::value(piv)
+                     , boost::proto::value(x1) );
+
+
+nt2_la_int iter= nt2::msv( boost::proto::value(a),boost::proto::value(b)
+                         , boost::proto::value(x) );
+
+
+NT2_TEST_ULP_EQUAL(x , x1, T(1000000) );
+
+}
+
+
+NT2_TEST_CASE_TPL(msvc, (double) )
+{
+using nt2::_;
+
+typedef std::complex<T>                cT;
+typedef nt2::table<cT>                  t_t;
+typedef nt2::table<nt2_la_int>         t_i;
+
+
+
+t_t a = T(10)* nt2::ones (4000, 4000, nt2::meta::as_<cT>())
+           - T(4)*nt2::eye  (4000, 4000, nt2::meta::as_<cT>());
+t_t b = nt2::ones (4000, 1, nt2::meta::as_<cT>());
+
+
+
+t_t a1(a);
+
+t_t x(b);
+t_t x1(b);
+t_i piv;
+
+nt2_la_int p= nt2::sv( boost::proto::value(a1),boost::proto::value(piv)
+                     , boost::proto::value(x1) );
+
+
+nt2_la_int iter= nt2::msv( boost::proto::value(a),boost::proto::value(b)
+                         , boost::proto::value(x) );
 
 
 NT2_TEST_ULP_EQUAL(x , x1, T(1000000) );

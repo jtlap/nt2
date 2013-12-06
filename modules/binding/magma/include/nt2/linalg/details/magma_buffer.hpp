@@ -18,6 +18,7 @@
 
 namespace nt2 { namespace details
 {
+
   //============================================================================
   // Allocate a raw buffer of bytes using MAGMA
   //============================================================================
@@ -59,7 +60,7 @@ namespace nt2 { namespace details
 
     pointer raw() const { return gpu_ptr_; }
 
-    pointer raw( pointer host ) const
+    void* raw( pointer host ) const
     {
       cublasGetMatrix ( height_, width_, sizeof(value_type)
                       , gpu_ptr_, height_, host, height_
@@ -71,6 +72,8 @@ namespace nt2 { namespace details
     pointer   gpu_ptr_;
     size_type height_, width_;
   };
+
+
 } }
 
 #endif

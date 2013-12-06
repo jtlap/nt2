@@ -30,21 +30,9 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sv_, nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(S2)(site)
-                            , ((expr_ < container_<nt2::tag::table_,  double_<A0>, S0 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
-                              ((expr_ < container_<nt2::tag::table_,  double_<A1>, S1 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
-                              ((expr_ < container_<nt2::tag::table_,  double_<A2>, S2 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
+                            , ((container_<nt2::tag::table_,  double_<A0>, S0 >))
+                              ((container_<nt2::tag::table_,  double_<A1>, S1 >))
+                              ((container_<nt2::tag::table_,  double_<A2>, S2 >))
                             )
   {
      typedef nt2_la_int result_type;
@@ -67,21 +55,9 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sv_, nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(S2)(site)
-                            , ((expr_ < container_<nt2::tag::table_,  single_<A0>, S0 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
-                              ((expr_ < container_<nt2::tag::table_,  single_<A1>, S1 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
-                              ((expr_ < container_<nt2::tag::table_,  single_<A2>, S2 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
+                            , ((container_<nt2::tag::table_,  single_<A0>, S0 >))
+                              ((container_<nt2::tag::table_,  single_<A1>, S1 >))
+                              ((container_<nt2::tag::table_,  single_<A2>, S2 >))
                             )
   {
      typedef nt2_la_int result_type;
@@ -102,6 +78,58 @@ namespace nt2 { namespace ext
      }
   };
 
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sv_, nt2::tag::magma_<site>
+                            , (A0)(S0)(A1)(S1)(A2)(S2)(site)
+                            , ((container_< nt2::tag::table_, complex_<double_<A0> >, S0 >))  // A
+                              ((container_< nt2::tag::table_, integer_<A1>, S1 >)) // IPIV
+                              ((container_< nt2::tag::table_, complex_<double_<A2> >, S2 >))   // B
+                            )
+  {
+     typedef nt2_la_int result_type;
+
+     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1, A2& a2) const
+     {
+        result_type that;
+        nt2_la_int  n  = std::min(nt2::height(a0),nt2::width(a0));
+        nt2_la_int  lda = n;
+        nt2_la_int  nhrs = nt2::width(a2);
+        nt2_la_int  ldb = a2.leading_size();
+
+        a1.resize(nt2::of_size(n,1));
+
+        magma_zgesv(n,nhrs,(cuDoubleComplex*)a0.raw(),lda,a1.raw()
+                   ,(cuDoubleComplex*)a2.raw(),ldb,&that);
+
+        return that;
+     }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sv_, nt2::tag::magma_<site>
+                            , (A0)(S0)(A1)(S1)(A2)(S2)(site)
+                            , ((container_< nt2::tag::table_, complex_<single_<A0> >, S0 >))  // A
+                              ((container_< nt2::tag::table_, integer_<A1>, S1 >)) // IPIV
+                              ((container_< nt2::tag::table_, complex_<single_<A2> >, S2 >))   // B
+                            )
+  {
+     typedef nt2_la_int result_type;
+
+     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1, A2& a2) const
+     {
+        result_type that;
+        nt2_la_int  n  = std::min(nt2::height(a0),nt2::width(a0));
+        nt2_la_int  lda = n;
+        nt2_la_int  nhrs = nt2::width(a2);
+        nt2_la_int  ldb = a2.leading_size();
+
+        a1.resize(nt2::of_size(n,1));
+
+        magma_cgesv(n,nhrs,(cuFloatComplex*)a0.raw(),lda,a1.raw()
+                   ,(cuDoubleComplex*)a2.raw(),ldb,&that);
+
+        return that;
+     }
+  };
 } }
 
 #endif

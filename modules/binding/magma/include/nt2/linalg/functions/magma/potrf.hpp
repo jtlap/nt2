@@ -28,14 +28,10 @@
 
 namespace nt2 { namespace ext
 {
-  /// INTERNAL ONLY - Compute the workspace
+  /// INTERNAL ONLY -
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::potrf_, nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(site)
-                            , ((expr_ < container_< nt2::tag::table_, double_<A0>, S0 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
+                            , ((container_< nt2::tag::table_, double_<A0>, S0 >))
                               (scalar_< ints8_<A1> >)
                             )
   {
@@ -54,14 +50,10 @@ namespace nt2 { namespace ext
   };
 
 
-  /// INTERNAL ONLY - Compute the workspace
+  /// INTERNAL ONLY -
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::potrf_, nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(site)
-                            , ((expr_ < container_< nt2::tag::table_, single_<A0>, S0 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
+                            , ((container_< nt2::tag::table_, single_<A0>, S0 >))
                               (scalar_< ints8_<A1> >)
                             )
   {
@@ -79,6 +71,49 @@ namespace nt2 { namespace ext
      }
   };
 
+
+  /// INTERNAL ONLY -
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::potrf_, nt2::tag::magma_<site>
+                            , (A0)(S0)(A1)(site)
+                            , ((container_< nt2::tag::table_, complex_<double_<A0> >, S0 >))
+                              (scalar_< ints8_<A1> >)
+                            )
+  {
+     typedef nt2_la_int result_type;
+
+     BOOST_FORCEINLINE result_type operator()(A0& a0, A1 const a1) const
+     {
+        result_type that;
+        nt2_la_int n   = nt2::width(a0);
+        nt2_la_int lda = a0.leading_size();
+
+        magma_zpotrf(a1,n,(cuDoubleComplex*)a0.raw(),lda,&that);
+
+        return that;
+     }
+  };
+
+
+  /// INTERNAL ONLY -
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::potrf_, nt2::tag::magma_<site>
+                            , (A0)(S0)(A1)(site)
+                            , ((container_< nt2::tag::table_, complex_<single_<A0> >, S0 >))
+                              (scalar_< ints8_<A1> >)
+                            )
+  {
+     typedef nt2_la_int result_type;
+
+     BOOST_FORCEINLINE result_type operator()(A0& a0, A1 const a1) const
+     {
+        result_type that;
+        nt2_la_int n   = nt2::width(a0);
+        nt2_la_int lda = a0.leading_size();
+
+        magma_spotrf(a1,n,(cuFloatComplex*)a0.raw(),lda,&that);
+
+        return that;
+     }
+  };
 } }
 
 #endif

@@ -29,27 +29,14 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::posv_, nt2::tag::magma_<site>
-                            , (A0)(S0)(A1)(S1)(A2)(S2)(site)
-                            , ((expr_ < container_<nt2::tag::table_,  double_<A0>, S0 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
-                              ((expr_ < container_<nt2::tag::table_,  double_<A1>, S1 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
-                              ((expr_ < container_<nt2::tag::table_,  double_<A2>, S2 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
+                            , (A0)(S0)(A1)(S1)(site)
+                            , ((container_<nt2::tag::table_,  double_<A0>, S0 >))
+                              ((container_<nt2::tag::table_,  double_<A1>, S1 >))
                             )
   {
      typedef nt2_la_int result_type;
 
-     BOOST_FORCEINLINE result_type operator()(A0& a0, A1 const& a1, A2& a2) const
+     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
      {
         result_type that;
         nt2_la_int  n  = nt2::width(a0);
@@ -58,36 +45,21 @@ namespace nt2 { namespace ext
         nt2_la_int  nhrs = nt2::width(a1);
         char uplo = 'L';
 
-        magma_dposv( uplo, n, nhrs, a0.raw(), ld, a2.raw(), ldb
-                           , &that
-                            );
+        magma_dposv( uplo, n, nhrs, a0.raw(), ld, a1.raw(), ldb, &that);
 
         return that;
      }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::posv_, nt2::tag::magma_<site>
-                            , (A0)(S0)(A1)(S1)(A2)(S2)(site)
-                            , ((expr_ < container_<nt2::tag::table_,  single_<A0>, S0 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
-                              ((expr_ < container_<nt2::tag::table_,  single_<A1>, S1 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
-                              ((expr_ < container_<nt2::tag::table_,  single_<A2>, S2 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
+                            , (A0)(S0)(A1)(S1)(site)
+                            , ((container_<nt2::tag::table_,  single_<A0>, S0 >))
+                              ((container_<nt2::tag::table_,  single_<A1>, S1 >))
                             )
   {
      typedef nt2_la_int result_type;
 
-     BOOST_FORCEINLINE result_type operator()(A0& a0, A1 const& a1, A2& a2) const
+     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
      {
         result_type that;
         nt2_la_int  n  = nt2::width(a0);
@@ -97,14 +69,59 @@ namespace nt2 { namespace ext
         char uplo = 'L';
 
 
-        magma_sposv( uplo, n, nhrs, a0.raw(), ld, a2.raw(), ldb
-                           , &that
-                            );
+        magma_sposv( uplo, n, nhrs, a0.raw(), ld, a1.raw(), ldb , &that );
 
         return that;
      }
   };
 
+  /// INTERNAL ONLY
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::posv_, nt2::tag::magma_<site>
+                            , (A0)(S0)(A1)(S1)(site)
+                            , ((container_< nt2::tag::table_, complex_<double_<A0> >, S0 >))   // A
+                              ((container_< nt2::tag::table_, complex_<double_<A1> >, S1 >))   // B
+                            )
+  {
+     typedef nt2_la_int result_type;
+
+     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
+     {
+        result_type that;
+        nt2_la_int  n  = nt2::width(a0);
+        nt2_la_int  ld = a0.leading_size();
+        nt2_la_int  ldb = a1.leading_size();
+        nt2_la_int  nhrs = nt2::width(a1);
+        char uplo = 'L';
+
+        magma_zposv( uplo, n, nhrs, (cuDoubleComplex*)a0.raw(), ld, (cuDoubleComplex*)a1.raw(), ldb , &that );
+
+        return that;
+     }
+  };
+
+  /// INTERNAL ONLY
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::posv_, nt2::tag::magma_<site>
+                            , (A0)(S0)(A1)(S1)(site)
+                            , ((container_< nt2::tag::table_, complex_<single_<A0> >, S0 >))   // A
+                              ((container_< nt2::tag::table_, complex_<single_<A1> >, S1 >))   // B
+                            )
+  {
+     typedef nt2_la_int result_type;
+
+     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
+     {
+        result_type that;
+        nt2_la_int  n  = nt2::width(a0);
+        nt2_la_int  ld = a0.leading_size();
+        nt2_la_int  ldb = a1.leading_size();
+        nt2_la_int  nhrs = nt2::width(a1);
+        char uplo = 'L';
+
+        magma_cposv( uplo, n, nhrs, (cuFloatComplex*)a0.raw(), ld, (cuFloatComplex*) a1.raw(), ldb, &that);
+
+        return that;
+     }
+  };
 
 } }
 

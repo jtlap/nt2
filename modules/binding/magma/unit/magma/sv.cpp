@@ -35,7 +35,8 @@ t_t b = nt2::rand(10000,1,nt2::meta::as_<T>() );
 t_i ipiv;
 
 nt2_la_int p = 5;
-p = nt2::sv(a,ipiv,b);
+p = nt2::sv( boost::proto::value(a),boost::proto::value(ipiv)
+           , boost::proto::value(b) );
 
 NT2_TEST_EQUAL(p,0);
 }

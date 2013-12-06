@@ -40,16 +40,33 @@ a = a + nt2::transpose(a);
 a = a + T(n)*nt2::eye(n,n,nt2::meta::as_<T>());
 
 nt2_la_int p = 5;
-p = nt2::posv(a,b,x);
+p = nt2::posv( boost::proto::value(a), boost::proto::value(x) );
 
 
 NT2_TEST_EQUAL(p,0);
 }
 
+NT2_TEST_CASE_TPL(magma_posvc, NT2_REAL_TYPES )
+{
+using nt2::_;
+
+typedef std::complex<T>              cT;
+typedef nt2::table<cT>               t_t;
+typedef nt2::table<nt2_la_int>       t_i;
+
+nt2_la_int n = 6000;
+
+t_t a = T(10)* nt2::ones (6000, 6000, nt2::meta::as_<cT>())
+           - T(4)*nt2::eye  (6000, 6000, nt2::meta::as_<cT>());
+t_t b = nt2::ones (6000, 1, nt2::meta::as_<cT>());
+t_t x(b);
+
+a = a + nt2::transpose(a);
+a = a + cT(n)*nt2::eye(n,n,nt2::meta::as_<cT>());
+
+nt2_la_int p = 5;
+p = nt2::posv( boost::proto::value(a), boost::proto::value(x) );
 
 
-
-
-
-
-
+NT2_TEST_EQUAL(p,0);
+}
