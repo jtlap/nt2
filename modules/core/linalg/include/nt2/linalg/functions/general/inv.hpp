@@ -47,8 +47,8 @@ namespace nt2 { namespace ext
       nt2::container::table<nt2_la_int> ip;
 
       // Factorize A as L/U and call tri
-      nt2::trf(tmp,ip);
-      nt2::tri(tmp,ip);
+      nt2::trf(boost::proto::value(tmp),boost::proto::value(ip));
+      nt2::tri(boost::proto::value(tmp),boost::proto::value(ip));
 
     // NT2_WARNING( (rcond(boost::proto::child_c<0>(in),tmp) >= nt2::Eps<base_t>())
     //            , "INV: matrix is singular to machine precision."

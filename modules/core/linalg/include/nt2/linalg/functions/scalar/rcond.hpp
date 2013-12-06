@@ -35,8 +35,8 @@ namespace nt2{ namespace ext
       nt2::container::table<type_t>  lu(a0);
       nt2::container::table<nt2_la_int>               ip;
 
-      nt2::trf(lu,ip);
-      nt2::tri(lu,ip);
+      nt2::trf(boost::proto::value(lu), boost::proto::value(ip) );
+      nt2::tri(boost::proto::value(lu), boost::proto::value(ip) );
       return nt2::rec(nt2::norm(a0, 1) * nt2::norm(lu, 1));
     }
   };
@@ -73,8 +73,8 @@ namespace nt2{ namespace ext
         nt2::container::table<type_t>  lu(a0);
         nt2::container::table<nt2_la_int>               ip;
 
-        nt2::trf(lu,ip);
-        nt2::tri(lu,ip);
+      nt2::trf(boost::proto::value(lu), boost::proto::value(ip) );
+      nt2::tri(boost::proto::value(lu), boost::proto::value(ip) );
         return nt2::rec(nt2::norm(a0, a1)*nt2::norm(lu, a1));
       }
     }

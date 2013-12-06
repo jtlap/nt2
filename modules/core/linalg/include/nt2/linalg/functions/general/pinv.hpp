@@ -35,15 +35,17 @@ namespace nt2{ namespace ext
     typedef typename boost::proto::result_of::child_c<A1&,0>::type       Out0;
     typedef A0&                                                   result_type;
     typedef typename A0::value_type                                value_type;
-    typedef typename nt2::meta::as_real<value_type>::type              r_type;
-    typedef nt2::table<value_type>                                     tab_t;
+    typedef typename nt2::meta::as_real<value_type>::type             rtype_t;
+    typedef nt2::table<value_type>                                 entry_type;
+    typedef nt2::table<rtype_t>                                     base_type;
 
     result_type operator()(A0& out, const A1& in) const
     {
-      tab_t u,s,v;
+      entry_type u,v;
+      base_type s;
 
       out.resize(in.extent());
-      r_type tol = choice(in, N());
+      rtype_t tol = choice(in, N());
       out = boost::proto::child_c<0>(in);
 
 
@@ -54,21 +56,22 @@ namespace nt2{ namespace ext
       v.resize(nt2::of_size(n,n));
       u.resize(nt2::of_size(m,m));
 
-      nt2::gesvd(out,s,u,v,'A','A');
+      nt2::gesvd(boost::proto::value(out),boost::proto::value(s)
+                ,boost::proto::value(u), boost::proto::value(v),'A','A');
 
       value_type epsi = (tol <0  ? nt2::eps(s(1)) : tol)*length(out);
-      tab_t w1 = nt2::if_else( nt2::gt(s, epsi), nt2::rec(s), nt2::Zero<r_type>());
+      entry_type w1 = nt2::if_else( nt2::gt(s, epsi), nt2::rec(s), nt2::Zero<rtype_t>());
       out = mtimes(trans(conj(v)), mtimes(from_diag(w1), trans(conj(u))));
 
       return out;
     }
   private :
-    static r_type choice(const A1&, boost::mpl::long_<1> const &)
+    static rtype_t choice(const A1&, boost::mpl::long_<1> const &)
     {
-      return Mone<r_type>();
+      return Mone<rtype_t>();
     }
 
-    static r_type choice(const A1& in, boost::mpl::long_<2> const &)
+    static rtype_t choice(const A1& in, boost::mpl::long_<2> const &)
     {
       return boost::proto::child_c<1>(in);
     }
