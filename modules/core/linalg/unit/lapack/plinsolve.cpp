@@ -40,7 +40,8 @@ t_t x1(b);
 t_i piv;
 
 nt2::plinsolve(a ,b, x);
-nt2_la_int iter = nt2::sv(a,piv,x1);
+nt2_la_int iter = nt2::sv( boost::proto::value(a), boost::proto::value(piv)
+                         , boost::proto::value(x1) );
 
 NT2_TEST_ULP_EQUAL(x(_(1,3)), x1 , T(10));
 

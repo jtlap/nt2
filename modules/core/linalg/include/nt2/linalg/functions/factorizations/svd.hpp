@@ -72,7 +72,10 @@ namespace nt2 { namespace ext
 
       boost::proto::child_c<0>(a1).resize(nt2::of_size(std::min(m,n),1));
 
-      nt2_la_int info = nt2::gesvd( work,boost::proto::child_c<0>(a1),u,vt,jobu,jobvt);
+      nt2_la_int info = nt2::gesvd(boost::proto::value(work)
+                        , boost::proto::value(boost::proto::child_c<0>(a1))
+                        , boost::proto::value(u), boost::proto::value(vt)
+                        , jobu,jobvt);
 
     }
 
@@ -97,7 +100,9 @@ namespace nt2 { namespace ext
       u.resize(nt2::of_size(m,m));
       vt.resize(nt2::of_size(n,n));
 
-      nt2_la_int info = nt2::gesvd(work,s,u,vt,jobu,jobvt);
+      nt2_la_int info = nt2::gesvd( boost::proto::value(work), boost::proto::value(s)
+                                  , boost::proto::value(u), boost::proto::value(vt)
+                                  , jobu,jobvt);
 
       boost::proto::child_c<0>(a1) = u;
       boost::proto::child_c<2>(a1) = nt2::trans(vt);
@@ -152,7 +157,9 @@ namespace nt2 { namespace ext
       }
       else boost::proto::child_c<0>(a1).resize(nt2::of_size(m,m)) ;
 
-      nt2_la_int info = nt2::gesvd(work,s,boost::proto::child_c<0>(a1),vt,jobu,jobvt);
+      nt2_la_int info = nt2::gesvd( boost::proto::value(work), boost::proto::value(s)
+                       , boost::proto::value(boost::proto::child_c<0>(a1))
+                       , boost::proto::value(vt),jobu,jobvt );
 
       boost::proto::child_c<2>(a1) = nt2::trans(vt);
       boost::proto::child_c<1>(a1) = nt2::from_diag(s);
@@ -197,7 +204,9 @@ namespace nt2 { namespace ext
       }
 
 
-      nt2_la_int info = nt2::gesvd(work,s,boost::proto::child_c<0>(a1),vt,jobu,jobvt);
+      nt2_la_int info = nt2::gesvd( boost::proto::value(work), boost::proto::value(s)
+                       , boost::proto::value(boost::proto::child_c<0>(a1))
+                       ,  boost::proto::value(vt), jobu, jobvt );
 
       boost::proto::child_c<1>(a1) = nt2::from_diag(s);
       boost::proto::child_c<2>(a1) = nt2::trans(vt);

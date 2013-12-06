@@ -17,6 +17,7 @@
 #include <nt2/include/functions/gqr.hpp>
 #include <nt2/include/functions/mqr.hpp>
 #include <nt2/include/functions/colon.hpp>
+#include <nt2/include/functions/eye.hpp>
 
 
 namespace nt2{
@@ -39,7 +40,7 @@ void extract_qr(A1& a1, W& work, nt2::table<type_t>& tau, int const&)
       work = nt2::expand(local,nt2::of_size(m,m));
      }
 
-    nt2::gqr(work, tau);
+    nt2::gqr(boost::proto::value(work), boost::proto::value(tau));
 
     boost::proto::child_c<0>(a1) = work;
   }
@@ -57,8 +58,9 @@ void extract_qr(A1& a1, W& work, nt2::table<type_t>& tau, Policy const&)
 
     if (m>n)
       {
-        nt2::table<type_t> complete_q;
-        nt2::mqr(work, tau,complete_q);
+        nt2::table<type_t> complete_q = nt2::eye(m,m, nt2::meta::as_<type_t>());
+        nt2::mqr( boost::proto::value(work), boost::proto::value(tau)
+                , boost::proto::value(complete_q) );
         boost::proto::child_c<0>(a1) = complete_q;
       }
     else
@@ -70,7 +72,7 @@ void extract_qr(A1& a1, W& work, nt2::table<type_t>& tau, Policy const&)
           work = nt2::expand(local,nt2::of_size(m,m));
         }
 
-        nt2::gqr(work, tau);
+        nt2::gqr(boost::proto::value(work), boost::proto::value(tau));
 
         boost::proto::child_c<0>(a1) = work;
       }

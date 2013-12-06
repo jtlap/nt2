@@ -14,6 +14,8 @@
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/linalg/options.hpp>
 #include <nt2/sdk/meta/concrete.hpp>
+#include <nt2/include/functions/width.hpp>
+#include <nt2/include/functions/zeros.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -41,6 +43,7 @@ namespace nt2 { namespace ext
     {
       nt2::table<nt2_la_int>  ip;
       nt2::table<type_t>      tau;
+      ip = nt2::zeros(nt2::width(a0),1,nt2::meta::as_<nt2_la_int>());
       eval(a0, a1, tau, ip, N0(), N1());
     }
 
@@ -54,6 +57,9 @@ namespace nt2 { namespace ext
     {
       typedef typename boost::proto::result_of::child_c<A1&,0>::type s0_t;
       typedef typename meta::concrete<s0_t>::type                     c_t;
+
+      ip = nt2::zeros(nt2::width(a0),1,nt2::meta::as_<nt2_la_int>());
+
       c_t work = shallow_concrete ( boost::proto::child_c<0>(a1)
                                   , boost::proto::child_c<0>(a0)
                                   );
@@ -94,6 +100,8 @@ namespace nt2 { namespace ext
     {
       typedef typename boost::proto::result_of::child_c<A1&,0>::type s0_t;
       typedef typename meta::concrete<s0_t>::type                     c_t;
+
+      ip = nt2::zeros(nt2::width(a0),1,nt2::meta::as_<nt2_la_int>());
 
       c_t work = shallow_concrete ( boost::proto::child_c<0>(a1)
                                   , boost::proto::child_c<0>(a0)
