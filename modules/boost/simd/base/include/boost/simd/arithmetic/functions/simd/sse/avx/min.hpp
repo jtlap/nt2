@@ -13,16 +13,19 @@
 #include <boost/simd/arithmetic/functions/min.hpp>
 #include <boost/simd/include/functions/simd/is_unord.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/slice.hpp>
+#include <boost/simd/include/functions/simd/combine.hpp>
+#include <boost/simd/sdk/simd/meta/retarget.hpp>
 #include <boost/simd/sdk/config/compiler.hpp>
 #include <boost/simd/sdk/config.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::min_, boost::simd::tag::avx_,
-                      (A0),
-                      ((simd_<double_<A0>,boost::simd::tag::avx_>))
-                      ((simd_<double_<A0>,boost::simd::tag::avx_>))
-                     )
+                                    (A0),
+                                    ((simd_<double_<A0>,boost::simd::tag::avx_>))
+                                    ((simd_<double_<A0>,boost::simd::tag::avx_>))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
@@ -37,10 +40,10 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::min_, boost::simd::tag::avx_,
-                      (A0),
-                      ((simd_<single_<A0>,boost::simd::tag::avx_>))
-                      ((simd_<single_<A0>,boost::simd::tag::avx_>))
-                     )
+                                    (A0),
+                                    ((simd_<single_<A0>,boost::simd::tag::avx_>))
+                                    ((simd_<single_<A0>,boost::simd::tag::avx_>))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
@@ -51,6 +54,22 @@ namespace boost { namespace simd { namespace ext
 #else
       return _mm256_min_ps(a0,a1);
 #endif
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::min_, boost::simd::tag::avx_
+                                   , (A0)
+                                   , ((simd_<integer_<A0>, boost::simd::tag::avx_>))
+                                     ((simd_<integer_<A0>, boost::simd::tag::avx_>))
+                                   )
+  {
+    typedef A0 result_type;
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      typename meta::retarget<A0, tag::sse_>::type a00, a01, a10, a11;
+      slice(a0, a00, a01);
+      slice(a1, a10, a11);
+      return combine(min(a00, a10), min(a01, a11));
     }
   };
 } } }
