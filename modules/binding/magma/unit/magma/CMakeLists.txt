@@ -10,6 +10,7 @@
 SET ( SOURCES
       trf.cpp
       sv.cpp
+      svx.cpp
       qrf.cpp
       qp3.cpp
       msv.cpp

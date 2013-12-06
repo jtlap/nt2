@@ -9,8 +9,8 @@
 
 SET( SOURCES
      balance.cpp
-     chol.cpp
-#     geneig.cpp
+#    chol.cpp
+#    geneig.cpp
      lsq_lse_solve.cpp
      planerot.cpp
      rref.cpp

@@ -35,26 +35,14 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::msv_, nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(S2)(site)
-                            , ((expr_ < container_<nt2::tag::table_,  double_<A0>, S0 > //A
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
-                              ((expr_ < container_<nt2::tag::table_,  double_<A1>, S1 > //B
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
-                              ((expr_ < container_<nt2::tag::table_,  double_<A2>, S2 > //X
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
+                            , ((container_<nt2::tag::table_,  double_<A0>, S0 >)) //A
+                              ((container_<nt2::tag::table_,  double_<A1>, S1 >)) //B
+                              ((container_<nt2::tag::table_,  double_<A2>, S2 >)) //X
                             )
   {
      typedef nt2_la_int result_type;
 
-     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1, A2& a2) const
+     BOOST_FORCEINLINE result_type operator()(A0& a0, A1 const& a1, A2& a2) const
      {
         nt2_la_int  n  = std::min(nt2::height(a0),nt2::width(a0));
         nt2_la_int  lda = n;
@@ -63,12 +51,16 @@ namespace nt2 { namespace ext
         nt2_la_int iter,info;
         char trans = 'N';
 
+        nt2::container::table<double> copyb(nt2::of_size(ldb,nhrs));
+        copyb = a1;
+
         nt2::table<nt2_la_int> ipiv(nt2::of_size(n,1));
-        nt2::table<double> copyb(a1);
 
         details::magma_buffer<float>      swork(n*(n+nhrs),1);
         details::magma_buffer<double>     dwork(n*nhrs,1);
         details::magma_buffer<nt2_la_int> dipiv(n,1);
+
+
 
         details::magma_buffer<double>     dA(n,n   ,a0.raw());
         details::magma_buffer<double>     dB(n,nhrs, copyb.raw());
@@ -86,6 +78,49 @@ namespace nt2 { namespace ext
      }
   };
 
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::msv_, nt2::tag::magma_<site>
+                            , (A0)(S0)(A1)(S1)(A2)(S2)(site)
+                            , ((container_< nt2::tag::table_, complex_<double_<A0> >, S0 >)) // A
+                              ((container_< nt2::tag::table_, complex_<double_<A1> >, S1 >)) // B
+                              ((container_< nt2::tag::table_, complex_<double_<A2> >, S2 >)) // X
+                            )
+  {
+     typedef nt2_la_int result_type;
+     typedef std::complex<double> dComplex;
+     typedef cuDoubleComplex* mT;
+
+     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1, A2& a2) const
+     {
+        nt2_la_int  n  = std::min(nt2::height(a0),nt2::width(a0));
+        nt2_la_int  lda = n;
+        nt2_la_int  nhrs = nt2::width(a1);
+        nt2_la_int  ldb = a1.leading_size();
+        nt2_la_int iter,info;
+        char trans = 'N';
+
+        nt2::table<nt2_la_int> ipiv(nt2::of_size(n,1));
+        A1 copyb(a1);
+
+        details::magma_buffer<std::complex<float> >      swork(n*(n+nhrs),1);
+        details::magma_buffer<dComplex>                  dwork(n*nhrs,1);
+        details::magma_buffer<nt2_la_int>                dipiv(n,1);
+
+        details::magma_buffer<dComplex>     dA(n,n   ,a0.raw());
+        details::magma_buffer<dComplex>     dB(n,nhrs, copyb.raw());
+        details::magma_buffer<dComplex>     dX(n,nhrs);
+
+        magma_zcgesv_gpu( trans                        , n          , nhrs
+                        , (cuDoubleComplex*)dA.raw()   , lda        , ipiv.raw()
+                        , dipiv.raw(), (cuDoubleComplex*)dB.raw()   , ldb
+                        , (cuDoubleComplex*)dX.raw()   , ldb        , dwork.raw()
+                        , (cuFloatComplex*)swork.raw(), &iter      , &info
+                        );
+
+        dX.raw( a2.raw() );
+        return iter;
+     }
+  };
 } }
 
 #endif

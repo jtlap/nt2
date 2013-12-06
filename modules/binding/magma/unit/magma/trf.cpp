@@ -29,13 +29,33 @@ NT2_TEST_CASE_TPL(trf, (float) )
   typedef nt2::table<T>           t_t;
   typedef nt2::table<nt2_la_int>  i_t;
 
-  t_t in  = nt2::ones (10000, 10000, nt2::meta::as_<T>())
-          + T(10)*nt2::eye  (10000,10000, nt2::meta::as_<T>());
+  t_t in  = nt2::ones (6000, 6000, nt2::meta::as_<T>())
+          + T(10)*nt2::eye  (6000,6000, nt2::meta::as_<T>());
   t_t ref(in),l,u;
   i_t pv;
 
   nt2_la_int p = 5;
-  p = nt2::trf(in,pv);
+  p = nt2::trf(boost::proto::value(in),boost::proto::value(pv) );
+
+  NT2_TEST_EQUAL(p, 0);
+}
+
+
+NT2_TEST_CASE_TPL(trfc, (float) )
+{
+  using nt2::_;
+
+  typedef std::complex<T>         cT;
+  typedef nt2::table<cT>          t_t;
+  typedef nt2::table<nt2_la_int>  i_t;
+
+  t_t in  = nt2::ones (6000, 6000, nt2::meta::as_<cT>())
+          + T(10)*nt2::eye  (6000,6000, nt2::meta::as_<cT>());
+  t_t ref(in),l,u;
+  i_t pv;
+
+  nt2_la_int p = 5;
+  p = nt2::trf(boost::proto::value(in),boost::proto::value(pv) );
 
   NT2_TEST_EQUAL(p, 0);
 }
