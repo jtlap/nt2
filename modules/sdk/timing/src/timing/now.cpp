@@ -102,6 +102,14 @@ namespace nt2
 }
 #endif
 
+#ifdef BOOST_SIMD_OS_LINUX
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+#endif
+
 namespace nt2
 {
   NT2_SDK_TIMING_DECL double now()
@@ -123,6 +131,31 @@ namespace nt2
   {
     return static_cast<time_quantum_t>( t * timer_ticks_per_microsecond );
   }
+
+  NT2_SDK_TIMING_DECL unsigned long max_cpu_freq = 1000000; // 1Ghz by default
+
+  struct max_cpu_freq_scoped
+  {
+    max_cpu_freq_scoped()
+    {
+      #ifdef BOOST_SIMD_OS_LINUX
+      int fd = ::open("/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq", O_RDONLY);
+      if(fd < 0)
+        return;
+
+      char buffer[256];
+      ssize_t sz = ::read(fd, buffer, sizeof buffer);
+      ::close(fd);
+      if(sz < 0)
+        return;
+
+      buffer[sz-1] = '\0';
+      max_cpu_freq = ::strtoul(buffer, NULL, 10);
+      #endif
+    }
+  };
+
+  static max_cpu_freq_scoped max_cpu_freq_init;
 }
 
 #ifdef BOOST_SIMD_OS_LINUX

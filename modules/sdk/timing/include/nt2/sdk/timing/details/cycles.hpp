@@ -82,7 +82,7 @@ namespace nt2
   }
 }
 
-#elif defined(BOOST_SIMD_OS_LINUX)
+#elif defined(BOOST_SIMD_OS_LINUX) && !defined(__ANDROID__)
 #include <nt2/sdk/timing/linux_perf_event.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
 #include <unistd.h>
@@ -101,14 +101,17 @@ namespace nt2
 
 #else
 
-#warning unsupported platform for cycle computation, assuming 200Mhz
+#include <nt2/sdk/timing/config.hpp>
 
 namespace nt2
 {
   // INTERNAL ONLY
+  NT2_SDK_TIMING_DECL extern unsigned long max_cpu_freq;
+
+  // INTERNAL ONLY
   inline cycles_t read_cycles()
   {
-    return static_cast<cycles_t>(now() * 200000000.);
+    return static_cast<cycles_t>(now() * max_cpu_freq);
   }
 }
 
