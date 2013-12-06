@@ -28,6 +28,8 @@ SET ( SOURCES
       posv.cpp
       langb.cpp
       bsv.cpp
+      gesvd.cpp
+      potrf.cpp
    )
 
 nt2_module_add_tests(core.linalg.lapack.unit ${SOURCES})

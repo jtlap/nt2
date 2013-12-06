@@ -22,12 +22,13 @@
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
-NT2_TEST_CASE_TPL(sv, NT2_REAL_TYPES )
+NT2_TEST_CASE_TPL(svx, NT2_REAL_TYPES )
 {
 using nt2::_;
 
 typedef nt2::table<T>         t_t;
-nt2::table<nt2_la_int> piv;
+nt2::table<nt2_la_int>  piv = nt2::zeros( nt2::of_size(3,1)
+                                        , nt2::meta::as_<nt2_la_int>());
 T rcond;
 
 t_t a = nt2::cons<T>(nt2::of_size(3,3),2,1,1,1,2,2,2,5,7);
@@ -37,9 +38,42 @@ t_t x(nt2::of_size(3,1));
 
 
 
-nt2_la_int p = nt2::svx(a,b,x,rcond);
-nt2_la_int p1 = nt2::lsy(a1,piv,b);
+nt2_la_int p = nt2::svx(boost::proto::value(a),boost::proto::value(b)
+                        ,boost::proto::value(x),rcond);
+nt2_la_int p1 = nt2::lsy(boost::proto::value(a1),boost::proto::value(piv)
+                        ,boost::proto::value(b));
 
 NT2_TEST_ULP_EQUAL(x,b,T(10));
+
+}
+
+
+NT2_TEST_CASE_TPL(svxc, NT2_REAL_TYPES )
+{
+using nt2::_;
+
+typedef std::complex<T> cT;
+typedef nt2::table<cT>           t_t;
+nt2::table<nt2_la_int>  piv = nt2::zeros( nt2::of_size(3,1)
+                                        , nt2::meta::as_<nt2_la_int>());
+T rcond;
+
+t_t a = nt2::cons<cT>(nt2::of_size(3,3)
+                    ,cT(2,2),cT(1,1),cT(1,1)
+                    ,cT(1,1),cT(2,2),cT(2,2)
+                    ,cT(2,2),cT(5,5),cT(7,7)
+                    );
+t_t a1(a);
+t_t b = nt2::cons<cT>(nt2::of_size(3,1)
+                    ,cT(1,1),cT(2,2),cT(5,5));
+t_t x(nt2::of_size(3,1));
+
+nt2_la_int p = nt2::svx(boost::proto::value(a),boost::proto::value(b)
+                        ,boost::proto::value(x),rcond);
+
+nt2_la_int p1 = nt2::lsy(boost::proto::value(a1),boost::proto::value(piv)
+                        ,boost::proto::value(b));
+
+NT2_TEST_ULP_EQUAL(x,b,T(30));
 
 }

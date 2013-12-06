@@ -38,7 +38,38 @@ NT2_TEST_CASE_TPL(laswp, NT2_REAL_TYPES )
   ipiv(6) = 6;
   ipiv(7) = 7;
 
-  nt2::laswp(a,ipiv);
+  nt2::laswp(boost::proto::value(a),boost::proto::value(ipiv));
 
   NT2_TEST_EQUAL(a, nt2::eye(7, 7, nt2::meta::as_<T>()) );
+}
+
+
+NT2_TEST_CASE_TPL(laswpc, NT2_REAL_TYPES )
+{
+  using nt2::_;
+
+  typedef std::complex<T>          cT;
+  typedef nt2::table<cT>          t_t;
+  typedef nt2::table<nt2_la_int>  t_i;
+
+  t_t a = nt2::zeros(7, 7, nt2::meta::as_<T>());
+  t_i ipiv( nt2::of_size(7));
+
+  for(std::size_t i=1;i<=7;++i)
+  {
+    a(i,7-i+1) = 1;
+
+  }
+
+  ipiv(1) = 7;
+  ipiv(2) = 6;
+  ipiv(3) = 5;
+  ipiv(4) = 4;
+  ipiv(5) = 5;
+  ipiv(6) = 6;
+  ipiv(7) = 7;
+
+  nt2::laswp(boost::proto::value(a),boost::proto::value(ipiv));
+
+  NT2_TEST_EQUAL(a, nt2::eye(7, 7, nt2::meta::as_<cT>()) );
 }

@@ -15,6 +15,7 @@
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/mtimes.hpp>
+#include <nt2/include/functions/cons.hpp>
 
 #include <nt2/table.hpp>
 
@@ -34,7 +35,30 @@ NT2_TEST_CASE_TPL(trf, NT2_REAL_TYPES )
   t_t ref(in),l,u;
   i_t pv;
 
-  nt2_la_int p = nt2::trf(in,pv);
+  nt2_la_int p = nt2::trf(boost::proto::value(in),boost::proto::value(pv));
+
+  u = nt2::triu ( in( _(1, 4), _       ) );
+  l = nt2::tri1l( in(_       , _(1, 4) ) );
+
+  NT2_TEST_ULP_EQUAL( (nt2::mtimes(l, u)), ref, 0.5 );
+  NT2_TEST_EQUAL(p, 0);
+}
+
+NT2_TEST_CASE_TPL(trfc, NT2_REAL_TYPES )
+{
+  using nt2::_;
+
+  typedef std::complex<T> cT;
+  typedef nt2::table<cT>           t_t;
+  typedef nt2::table<nt2_la_int>  i_t;
+
+  t_t in  = nt2::ones(4, 4, nt2::meta::as_<cT>())
+          + T(10)*nt2::eye(4, 4, nt2::meta::as_<cT>());
+
+  t_t ref(in),l,u;
+  i_t pv;
+
+  nt2_la_int p = nt2::trf(boost::proto::value(in),boost::proto::value(pv));
 
   u = nt2::triu ( in( _(1, 4), _       ) );
   l = nt2::tri1l( in(_       , _(1, 4) ) );

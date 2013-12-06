@@ -27,10 +27,31 @@ NT2_TEST_CASE_TPL(band, NT2_REAL_TYPES )
   char norm = '1';
   nt2::table<nt2_la_int> piv;
 
-  T anorm = nt2::langb(a,norm);
-  nt2_la_int info = nt2::bsv(a,piv,b);
+  T anorm = nt2::langb(boost::proto::value(a),norm);
+  nt2_la_int info = nt2::bsv( boost::proto::value(a),boost::proto::value(piv)
+                            , boost::proto::value(b));
 
-  T rnorm = nt2::gbcon(a,piv,anorm);
+  T rnorm = nt2::gbcon(boost::proto::value(a),boost::proto::value(piv),anorm);
+
+  NT2_TEST_EQUAL(info,T(0));
+}
+
+
+NT2_TEST_CASE_TPL(bandc, NT2_REAL_TYPES )
+{
+  using nt2::_;
+  typedef std::complex<T>  cT;
+  nt2::table<cT, nt2::band_diagonal_<2,2> >  a = nt2::ones(7, 7, nt2::meta::as_<cT>())
+          + T(10)*nt2::eye(7, 7, nt2::meta::as_<cT>());
+  nt2::table<cT> b = nt2::ones(7, 1, nt2::meta::as_<cT>());
+  char norm = '1';
+  nt2::table<nt2_la_int> piv;
+
+  T anorm = nt2::langb(boost::proto::value(a),norm);
+  nt2_la_int info = nt2::bsv( boost::proto::value(a),boost::proto::value(piv)
+                            , boost::proto::value(b));
+
+  T rnorm = nt2::gbcon(boost::proto::value(a),boost::proto::value(piv),anorm);
 
   NT2_TEST_EQUAL(info,T(0));
 }

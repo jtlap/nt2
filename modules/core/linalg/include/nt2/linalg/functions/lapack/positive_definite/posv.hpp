@@ -23,42 +23,41 @@ extern "C"
 {
   void NT2_F77NAME(dposv)(  const char* uplo         , const nt2_la_int* n
                           , const nt2_la_int* nhrs   , double* a
-                          , const nt2_la_int* lda    , const double* b
+                          , const nt2_la_int* lda    , double* b
                           , const nt2_la_int* ldb    , nt2_la_int* info
                           );
 
   void NT2_F77NAME(sposv)(  const char* uplo         , const nt2_la_int* n
                           , const nt2_la_int* nhrs   , float* a
-                          , const nt2_la_int* lda    , const float* b
+                          , const nt2_la_int* lda    , float* b
+                          , const nt2_la_int* ldb    , nt2_la_int* info
+                          );
+
+  void NT2_F77NAME(cposv)(  const char* uplo         , const nt2_la_int* n
+                          , const nt2_la_int* nhrs   , nt2_la_complex* a
+                          , const nt2_la_int* lda    , nt2_la_complex* b
+                          , const nt2_la_int* ldb    , nt2_la_int* info
+                          );
+
+  void NT2_F77NAME(zposv)(  const char* uplo         , const nt2_la_int* n
+                          , const nt2_la_int* nhrs   , nt2_la_complex* a
+                          , const nt2_la_int* lda    , nt2_la_complex* b
                           , const nt2_la_int* ldb    , nt2_la_int* info
                           );
 }
 
 namespace nt2 { namespace ext
 {
-  /// INTERNAL ONLY - Compute the workspace
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::posv_, tag::cpu_
-                            , (A0)(S0)(A1)(S1)(A2)(S2)
-                            , ((expr_ < container_< nt2::tag::table_, double_<A0>, S0 >     // A
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
-                              ((expr_ < container_< nt2::tag::table_, double_<A1>, S1 >     // B
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
-                              ((expr_ < container_< nt2::tag::table_, double_<A2>, S2 >     // X
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
+                            , (A0)(S0)(A1)(S1)
+                            , ((container_< nt2::tag::table_, double_<A0>, S0 >))   // A
+                              ((container_< nt2::tag::table_, double_<A1>, S1 >))   // B
                             )
   {
      typedef nt2_la_int result_type;
 
-     BOOST_FORCEINLINE result_type operator()(A0& a0, A1 const& a1, A2& a2) const
+     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
      {
         result_type that;
         nt2_la_int  n  = nt2::width(a0);
@@ -67,7 +66,7 @@ namespace nt2 { namespace ext
         nt2_la_int  nhrs = nt2::width(a1);
         char uplo = 'L';
 
-        NT2_F77NAME(dposv) ( &uplo, &n, &nhrs, a0.raw(), &ld, a2.raw(), &ldb
+        NT2_F77NAME(dposv) ( &uplo, &n, &nhrs, a0.raw(), &ld, a1.raw(), &ldb
                            , &that
                             );
 
@@ -77,32 +76,18 @@ namespace nt2 { namespace ext
 
 
 
-  /// INTERNAL ONLY - Compute the workspace
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::posv_, tag::cpu_
-                            , (A0)(S0)(A1)(S1)(A2)(S2)
-                            , ((expr_ < container_< nt2::tag::table_, single_<A0>, S0 >     // A
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
-                              ((expr_ < container_< nt2::tag::table_, single_<A1>, S1 >     // B
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
-                              ((expr_ < container_< nt2::tag::table_, single_<A2>, S2 >     // X
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
+                            , (A0)(S0)(A1)(S1)
+                            , ((container_< nt2::tag::table_, single_<A0>, S0 >))   // A
+                              ((container_< nt2::tag::table_, single_<A1>, S1 >))   // B
                             )
   {
      typedef nt2_la_int result_type;
 
-     BOOST_FORCEINLINE result_type operator()(A0& a0, A1 const& a1, A2& a2) const
+     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
      {
         result_type that;
-        details::workspace<typename A0::value_type> w;
         nt2_la_int  n  = nt2::width(a0);
         nt2_la_int  ld = a0.leading_size();
         nt2_la_int  ldb = a1.leading_size();
@@ -110,7 +95,7 @@ namespace nt2 { namespace ext
         char uplo = 'L';
 
 
-        NT2_F77NAME(sposv) ( &uplo, &n, &nhrs, a0.raw(), &ld, a2.raw(), &ldb
+        NT2_F77NAME(sposv) ( &uplo, &n, &nhrs, a0.raw(), &ld, a1.raw(), &ldb
                            , &that
                             );
 
@@ -118,6 +103,57 @@ namespace nt2 { namespace ext
      }
   };
 
+  /// INTERNAL ONLY
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::posv_, tag::cpu_
+                            , (A0)(S0)(A1)(S1)
+                            , ((container_< nt2::tag::table_, complex_<double_<A0> >, S0 >))   // A
+                              ((container_< nt2::tag::table_, complex_<double_<A1> >, S1 >))   // B
+                            )
+  {
+     typedef nt2_la_int result_type;
+
+     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
+     {
+        result_type that;
+        nt2_la_int  n  = nt2::width(a0);
+        nt2_la_int  ld = a0.leading_size();
+        nt2_la_int  ldb = a1.leading_size();
+        nt2_la_int  nhrs = nt2::width(a1);
+        char uplo = 'L';
+
+        NT2_F77NAME(zposv) ( &uplo, &n, &nhrs, a0.raw(), &ld, a1.raw(), &ldb
+                           , &that
+                            );
+
+        return that;
+     }
+  };
+
+  /// INTERNAL ONLY
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::posv_, tag::cpu_
+                            , (A0)(S0)(A1)(S1)
+                            , ((container_< nt2::tag::table_, complex_<single_<A0> >, S0 >))   // A
+                              ((container_< nt2::tag::table_, complex_<single_<A1> >, S1 >))   // B
+                            )
+  {
+     typedef nt2_la_int result_type;
+
+     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
+     {
+        result_type that;
+        nt2_la_int  n  = nt2::width(a0);
+        nt2_la_int  ld = a0.leading_size();
+        nt2_la_int  ldb = a1.leading_size();
+        nt2_la_int  nhrs = nt2::width(a1);
+        char uplo = 'L';
+
+        NT2_F77NAME(cposv) ( &uplo, &n, &nhrs, a0.raw(), &ld, a1.raw(), &ldb
+                           , &that
+                            );
+
+        return that;
+     }
+  };
 
 } }
 

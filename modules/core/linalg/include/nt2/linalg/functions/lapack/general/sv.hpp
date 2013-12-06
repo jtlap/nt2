@@ -29,27 +29,25 @@ extern "C"
                          , float* a, const nt2_la_int* lda, nt2_la_int* ipiv
                          , float* b, const nt2_la_int* ldb, nt2_la_int* info
                          );
+
+  void NT2_F77NAME(cgesv)( const nt2_la_int* n, const nt2_la_int* nrhs
+                         , nt2_la_complex* a, const nt2_la_int* lda, nt2_la_int* ipiv
+                         , nt2_la_complex* b, const nt2_la_int* ldb, nt2_la_int* info
+                         );
+
+  void NT2_F77NAME(zgesv)( const nt2_la_int* n, const nt2_la_int* nrhs
+                         , nt2_la_complex* a, const nt2_la_int* lda, nt2_la_int* ipiv
+                         , nt2_la_complex* b, const nt2_la_int* ldb, nt2_la_int* info
+                         );
 }
 
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sv_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(S2)
-                            , ((expr_ < container_< nt2::tag::table_, double_<A0>, S0 >   // A
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
-                              ((expr_ < container_< nt2::tag::table_, integer_<A1>, S1 >  // IPIV
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
-                              ((expr_ < container_< nt2::tag::table_, double_<A2>, S2 >   // B
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
+                            , ((container_< nt2::tag::table_, double_<A0>, S0 >))  // A
+                              ((container_< nt2::tag::table_, integer_<A1>, S1 >)) // IPIV
+                              ((container_< nt2::tag::table_, double_<A2>, S2 >))   // B
                             )
   {
      typedef nt2_la_int result_type;
@@ -72,21 +70,9 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sv_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(S2)
-                            , ((expr_ < container_< nt2::tag::table_, single_<A0>, S0 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
-                              ((expr_ < container_< nt2::tag::table_, integer_<A1>, S1 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
-                              ((expr_ < container_< nt2::tag::table_, single_<A2>, S2 >
-                                      , nt2::tag::terminal_
-                                      , boost::mpl::long_<0>
-                                      >
-                              ))
+                            , ((container_< nt2::tag::table_, single_<A0>, S0 >))  // A
+                              ((container_< nt2::tag::table_, integer_<A1>, S1 >)) // IPIV
+                              ((container_< nt2::tag::table_, single_<A2>, S2 >))   // B
                             )
   {
      typedef nt2_la_int result_type;
@@ -107,6 +93,55 @@ namespace nt2 { namespace ext
      }
   };
 
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sv_, tag::cpu_
+                            , (A0)(S0)(A1)(S1)(A2)(S2)
+                            , ((container_< nt2::tag::table_, complex_<double_<A0> >, S0 >))  // A
+                              ((container_< nt2::tag::table_, integer_<A1>, S1 >)) // IPIV
+                              ((container_< nt2::tag::table_, complex_<double_<A2> >, S2 >))   // B
+                            )
+  {
+     typedef nt2_la_int result_type;
+
+     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1, A2& a2) const
+     {
+        result_type that;
+        nt2_la_int  n  = std::min(nt2::height(a0),nt2::width(a0));
+        nt2_la_int  lda = n;
+        nt2_la_int  nhrs = nt2::width(a2);
+        nt2_la_int  ldb = a2.leading_size();
+
+        a1.resize(nt2::of_size(n,1));
+
+        NT2_F77NAME(zgesv)(&n,&nhrs,a0.raw(),&lda,a1.raw(),a2.raw(),&ldb,&that);
+
+        return that;
+     }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sv_, tag::cpu_
+                            , (A0)(S0)(A1)(S1)(A2)(S2)
+                            , ((container_< nt2::tag::table_, complex_<single_<A0> >, S0 >))  // A
+                              ((container_< nt2::tag::table_, integer_<A1>, S1 >)) // IPIV
+                              ((container_< nt2::tag::table_, complex_<single_<A2> >, S2 >))   // B
+                            )
+  {
+     typedef nt2_la_int result_type;
+
+     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1, A2& a2) const
+     {
+        result_type that;
+        nt2_la_int  n  = std::min(nt2::height(a0),nt2::width(a0));
+        nt2_la_int  lda = n;
+        nt2_la_int  nhrs = nt2::width(a2);
+        nt2_la_int  ldb = a2.leading_size();
+
+        a1.resize(nt2::of_size(n,1));
+
+        NT2_F77NAME(cgesv)(&n,&nhrs,a0.raw(),&lda,a1.raw(),a2.raw(),&ldb,&that);
+
+        return that;
+     }
+  };
 } }
 
 #endif
