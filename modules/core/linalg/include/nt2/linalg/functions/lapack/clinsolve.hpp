@@ -131,8 +131,15 @@ namespace nt2 { namespace ext
 
       eval_param( a0, a1, work);
 
-      if (issquare(entry)) nt2::sv(entry,piv,work);
-      else                 nt2::lsy(entry,piv,work);
+      if (issquare(entry)) nt2::sv(boost::proto::value(entry)
+                           ,boost::proto::value(piv), boost::proto::value(work));
+
+      else {
+        nt2_la_int n = nt2::width(a0),;
+        piv = nt2::zeros(n,1, nt2::meta::as_<nt2_la_int>());
+        nt2::lsy( boost::proto::value(entry) ,boost::proto::value(piv)
+                , boost::proto::value(work) );
+      }
 
       boost::proto::child_c<0>(a2) = work;
     }
@@ -147,7 +154,7 @@ namespace nt2 { namespace ext
       entry_type work(a1);
       matrix_type entry(a0);
 
-      nt2::posv(entry, a1, work);
+      nt2::posv(boost::proto::value(entry), boost::proto::value(work));
 
       boost::proto::child_c<0>(a2) = work;
     }
@@ -162,7 +169,8 @@ namespace nt2 { namespace ext
       entry_type work(a1);
       matrix_type entry(a0);
 
-      nt2::ysv(entry, piv, a1, work);
+      nt2::ysv( boost::proto::value(entry),boost::proto::value(piv)
+              , boost::proto::value(work));
 
       boost::proto::child_c<0>(a2) = work;
     }
@@ -178,7 +186,8 @@ namespace nt2 { namespace ext
       entry_type work(a1);
       matrix_type entry(a0);
 
-      nt2::bsv(entry, piv, work);
+      nt2::bsv( boost::proto::value(entry),boost::proto::value(piv)
+              , boost::proto::value(work));
 
       boost::proto::child_c<0>(a2) = work;
     }
@@ -197,15 +206,20 @@ namespace nt2 { namespace ext
 
       if (issquare(entry))
       {
-        nt2::sv(entry, piv, work );
+        nt2::sv( boost::proto::value(entry), boost::proto::value(piv)
+               , boost::proto::value(work) );
         char norm = '1';
-        type_t anorm = nt2::lange(a0,norm);
-        boost::proto::child_c<1>(a2) = nt2::con(entry,norm,anorm);
+        type_t anorm = nt2::lange(boost::proto::value(a0),norm);
+        boost::proto::child_c<1>(a2) = nt2::con(boost::proto::value(entry),norm,anorm);
       }
       else
       {
         nt2_la_int rank;
-        nt2::lsy(entry, piv, work, rank);
+        nt2_la_int n = nt2::width(a0),;
+        piv = nt2::zeros(n,1, nt2::meta::as_<nt2_la_int>());
+
+        nt2::lsy( boost::proto::value(entry), boost::proto::value(piv)
+                , boost::proto::value(work), rank);
         boost::proto::child_c<1>(a2) = static_cast<type_t>(rank);
       }
 
@@ -224,9 +238,11 @@ namespace nt2 { namespace ext
       char norm = '1';
 
       typedef typename meta::hierarchy_of<nt2::symmetric_>::stripped h_;
-      type_t anorm = nt2::lange(a0, norm);
-      nt2::ysv(entry,piv,a1,work);
-      boost::proto::child_c<1>(a2) = nt2::sycon(entry,piv,anorm);
+      type_t anorm = nt2::lange(boost::proto::value(a0), norm);
+      nt2::ysv( boost::proto::value(entry),boost::proto::value(piv)
+              , boost::proto::value(work));
+      boost::proto::child_c<1>(a2) = nt2::sycon( boost::proto::value(entry)
+                                               , boost::proto::value(piv) ,anorm);
 
       boost::proto::child_c<0>(a2) = work;
     }
@@ -243,9 +259,9 @@ namespace nt2 { namespace ext
 
       char norm = '1';
       typedef typename meta::hierarchy_of<nt2::symmetric_>::stripped h_;
-      type_t anorm = nt2::lange(a0,norm, h_());
-      nt2::posv(entry, a1, work);
-      boost::proto::child_c<1>(a2) = nt2::pocon(entry,anorm);
+      type_t anorm = nt2::lange(boost::proto::value(a0) ,norm, h_());
+      nt2::posv(boost::proto::value(entry), boost::proto::value(work));
+      boost::proto::child_c<1>(a2) = nt2::pocon(boost::proto::value(entry),anorm);
 
       boost::proto::child_c<0>(a2) = work;
     }
@@ -262,9 +278,11 @@ namespace nt2 { namespace ext
       matrix_type entry(a0);
 
       char norm = '1';
-      type_t anorm = nt2::langb(a0,norm);
-      nt2::bsv(entry, piv, work);
-      boost::proto::child_c<1>(a2) = nt2::gbcon(entry,piv,anorm);
+      type_t anorm = nt2::langb(boost::proto::value(a0),norm);
+      nt2::bsv( boost::proto::value(entry), boost::proto::value(piv)
+              , boost::proto::value(work));
+      boost::proto::child_c<1>(a2) = nt2::gbcon( boost::proto::value(entry)
+                                               , boost::proto::value(piv),anorm);
 
       boost::proto::child_c<0>(a2) = work;
     }

@@ -38,13 +38,13 @@ namespace nt2
     @return
   **/
   NT2_FUNCTION_IMPLEMENTATION_TPL (tag::ysv_, ysv
-                                  , (A0&)(A1&)(A2 const&)(A3&)
-                                  , 4
+                                  , (A0&)(A1&)(A2&)
+                                  , 3
                                   );
 
   NT2_FUNCTION_IMPLEMENTATION_TPL (tag::ysv_, ysv
-                                  , (A0&)(A1&)(A2 const&)(A3&)(A4&)
-                                  , 5
+                                  , (A0&)(A1&)(A2&)(A3&)
+                                  , 4
                                   );
 }
 

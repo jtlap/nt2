@@ -57,7 +57,7 @@ namespace nt2 { namespace ext
       nt2::table<type_t> work = boost::proto::child_c<0>(a0);
 
 
-      nt2_la_int info = nt2::potrf( work,'U');
+      nt2_la_int info = nt2::potrf( boost::proto::value(work),'U');
 
       boost::proto::child_c<0>(a1) = nt2::triu(work);
     }
@@ -84,7 +84,7 @@ namespace nt2 { namespace ext
     {
       nt2::table<type_t> work = boost::proto::child_c<0>(a0);
 
-      nt2_la_int info = nt2::potrf( work,'L');
+      nt2_la_int info = nt2::potrf(  boost::proto::value(work),'L');
 
       boost::proto::child_c<0>(a1) = nt2::tril(work);
     }
@@ -111,7 +111,7 @@ namespace nt2 { namespace ext
     {
       nt2::table<type_t> work = boost::proto::child_c<0>(a0);
 
-      nt2_la_int info = nt2::potrf( work,'U');
+      nt2_la_int info = nt2::potrf(  boost::proto::value(work),'U');
 
       boost::proto::child_c<0>(a1) = nt2::triu(work);
       boost::proto::child_c<1>(a1) = info;
@@ -139,7 +139,7 @@ namespace nt2 { namespace ext
     {
       nt2::table<type_t> work = boost::proto::child_c<0>(a0);
 
-      nt2_la_int info = nt2::potrf( work,'L');
+      nt2_la_int info = nt2::potrf(  boost::proto::value(work),'L');
 
       boost::proto::child_c<0>(a1) = nt2::tril(work);
       boost::proto::child_c<1>(a1) = info;

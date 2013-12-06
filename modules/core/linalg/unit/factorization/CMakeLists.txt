@@ -17,7 +17,7 @@ SET( SOURCES
   lu.cpp
   qr.cpp
   schur_result.cpp
-  svd_result.cpp
+  svd.cpp
   symeig.cpp
   symeig_result.cpp
   )

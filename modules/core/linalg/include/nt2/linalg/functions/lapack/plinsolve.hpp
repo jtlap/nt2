@@ -62,7 +62,8 @@ namespace nt2 { namespace ext
     {
       type_t rcond;
       entry_type var(a2);
-      nt2_la_int iter = nt2::posvx(concrete(a0),concrete(a1),var,rcond);
+      nt2_la_int iter = nt2::posvx( boost::proto::value(a0), boost::proto::value(a1)
+                                  , boost::proto::value(var), rcond);
       a2 = var;
     }
     /// INTERNAL ONLY - Symmetric shape
@@ -73,7 +74,9 @@ namespace nt2 { namespace ext
     {
       type_t rcond;
       nt2::table<nt2_la_int> piv;
-      nt2_la_int iter = nt2::ysvx(concrete(a0),piv,concrete(a1),a2,rcond);
+      nt2_la_int iter = nt2::ysvx( boost::proto::value(a0),boost::proto::value(piv)
+                                 , boost::proto::value(a1),boost::proto::value(a2)
+                                 , rcond);
     }
 
     /// INTERNAL ONLY - No info on this shape
@@ -91,7 +94,8 @@ namespace nt2 { namespace ext
     {
       type_t rcond;
       entry_type var(a2);
-      nt2::svx( concrete(a0), concrete(a1), var, rcond );
+      nt2::svx( boost::proto::value(concrete(a0)), boost::proto::value(concrete(a1))
+              , boost::proto::value(var), rcond );
       a2 = var;
 
     }

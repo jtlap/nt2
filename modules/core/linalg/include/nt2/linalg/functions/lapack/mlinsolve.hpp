@@ -63,7 +63,8 @@ namespace nt2 { namespace ext
     {
       entry_type var(a2);
       matrix_type entry(a0);
-      nt2_la_int iter = nt2::mposv(entry,concrete(a1),var);
+      nt2_la_int iter = nt2::mposv( boost::proto::value(entry)
+                                  , boost::proto::value(a1) ,var);
       a2 = var;
     }
 
@@ -90,7 +91,8 @@ namespace nt2 { namespace ext
     void eval ( A0 const& a0, A1 const& a1 , A2& a2, double const) const
     {
       entry_type entry(a0);
-      nt2_la_int iter = nt2::msv(entry,concrete(a1),concrete(a2));
+      nt2_la_int iter = nt2::msv(boost::proto::value(entry)
+                       ,boost::proto::value(a1),boost::proto::value(a2) );
     }
 
     /// INTERNAL ONLY - Solve with no shape info Todo : Analyse shape

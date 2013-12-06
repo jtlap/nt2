@@ -44,7 +44,8 @@ t_i ipiv;
 
 nt2::mlinsolve(a+a,b, x );
 a = a+a;
-nt2_la_int iter= nt2::msv(a,b,x1);
+nt2_la_int iter= nt2::msv( boost::proto::value(a), boost::proto::value(b)
+                         , boost::proto::value(x1) );
 
 NT2_TEST_ULP_EQUAL(x(_(1,3)), x1, T(10) );
 

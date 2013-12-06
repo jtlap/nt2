@@ -53,7 +53,7 @@ namespace nt2 { namespace ext
                                 );
 
       nt2::table<nt2_la_int> ip;
-      nt2_la_int lapack_info = nt2::trf(out,ip);
+      nt2_la_int lapack_info = nt2::trf(boost::proto::value(out),boost::proto::value(ip));
 
       NT2_WARNING ( lapack_info <= 0
                   , "LU factorization has been completed, but U is exactly "
@@ -110,13 +110,13 @@ namespace nt2 { namespace ext
                                     , boost::proto::child_c<0>(a0)
                                     );
 
-        info = nt2::trf(work,ip);
+        info = nt2::trf(boost::proto::value(work),boost::proto::value(ip));
         extract_lu(a1,work);
       }
       else
       {
         tab0_t work = boost::proto::child_c<0>(a0);
-        info = nt2::trf(work,ip);
+        info = nt2::trf(boost::proto::value(work),boost::proto::value(ip));
         extract_lu(a1,work);
       }
 
