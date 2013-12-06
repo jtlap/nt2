@@ -7,6 +7,8 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <boost/simd/operator/include/functions/multiplies.hpp>
+#include <boost/simd/include/functions/enumerate.hpp>
+#include <boost/simd/include/functions/splat.hpp>
 
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
@@ -46,6 +48,10 @@ NT2_TEST_CASE_TPL ( multiplies_real,  BOOST_SIMD_SIMD_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( multiplies_integer,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
+  using boost::simd::Valmin;
+  using boost::simd::Valmax;
+  using boost::simd::splat;
+  using boost::simd::enumerate;
   using boost::simd::multiplies;
   using boost::simd::tag::multiplies_;
   using boost::simd::native;
@@ -53,9 +59,18 @@ NT2_TEST_CASE_TPL ( multiplies_integer,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef native<T,ext_t>                  vT;
   typedef typename boost::dispatch::meta::call<multiplies_(vT,vT)>::type r_t;
 
+  T step = (Valmax<T>() - Valmin<T>() ) / 8*(vT::static_size-1);
+  vT v = enumerate<vT>( Valmin<T>()/4, step );
+  vT w = enumerate<vT>( Valmax<T>()/4, -step );
+
+  vT ref;
+  for(std::size_t i=0;i<vT::static_size;++i)
+    ref[i] = v[i] * w[i];
+
   // specific values tests
   NT2_TEST_EQUAL(multiplies(boost::simd::One<vT>(), boost::simd::One<vT>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(multiplies(boost::simd::One<vT>(),boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
   NT2_TEST_EQUAL(multiplies(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
   NT2_TEST_EQUAL(multiplies(boost::simd::Mzero<vT>(), boost::simd::One<vT>()), boost::simd::Mzero<r_t>());
-} // end of test for integer_
+  NT2_TEST_EQUAL(multiplies(v,w), ref);
+}
