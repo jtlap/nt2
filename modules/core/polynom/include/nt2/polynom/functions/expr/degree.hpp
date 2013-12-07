@@ -13,6 +13,7 @@
 #include <nt2/include/functions/reduce.hpp>
 #include <nt2/include/functions/if_zero_else_one.hpp>
 #include <nt2/include/functions/size.hpp>
+#include <nt2/include/functions/real.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -41,7 +42,7 @@ namespace nt2 { namespace ext
     typedef ptrdiff_t result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return -if_zero_else_one(a0);
+      return -real(if_zero_else_one(a0));
     }
   };
 } }

@@ -6,13 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 polynom toolbox - polyfit"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of polynom components
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 06/03/2011
-///
 #include <nt2/include/functions/polyfit.hpp>
 #include <nt2/include/functions/polyval.hpp>
 #include <nt2/sdk/unit/tests.hpp>

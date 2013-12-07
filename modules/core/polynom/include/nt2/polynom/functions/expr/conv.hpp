@@ -15,6 +15,7 @@
 
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/core/container/colon/colon.hpp>
+#include <nt2/include/functions/repnum.hpp>
 
 #include <nt2/include/functions/isvector.hpp>
 #include <nt2/include/functions/numel.hpp>
@@ -60,34 +61,34 @@ namespace nt2{ namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::conv_, tag::cpu_,
                               (A0),
-                              (scalar_<floating_<A0> >)
-                              (scalar_<floating_<A0> >)
+                              (scalar_<unspecified_<A0> >)
+                              (scalar_<unspecified_<A0> >)
                             )
   {
     BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A0 const& a1),
-                           ( conv(nt2::_(a0, a0), nt2::_(a1, a1)))
+                           ( conv(nt2::repnum(a0, 1, 1), nt2::repnum(a1, 1, 1)))
                           )
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::conv_, tag::cpu_,
                               (A0)(A1),
-                              (scalar_<floating_<A0> >)
+                              (scalar_<unspecified_<A0> >)
                               ((ast_<A1, nt2::container::domain>))
                             )
   {
     BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1),
-                           ( conv(nt2::_(a0, a0), a1))
+                           ( conv(nt2::repnum(a0, 1, 1), a1))
                           )
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::conv_, tag::cpu_,
                               (A0)(A1),
                               ((ast_<A0, nt2::container::domain>))
-                              (scalar_<floating_<A1> >)
+                              (scalar_<unspecified_<A1> >)
                             )
   {
     BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1),
-                           ( conv(a0, nt2::_(a1, a1)))
+                           ( conv(a0, nt2::repnum(a1, 1, 1)))
                           )
   };
 

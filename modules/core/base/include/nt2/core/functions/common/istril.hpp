@@ -13,7 +13,7 @@
 #include <nt2/include/functions/issquare.hpp>
 #include <nt2/include/functions/last_index.hpp>
 #include <nt2/include/functions/first_index.hpp>
-#include <nt2/include/functions/is_not_equal.hpp>
+#include <nt2/include/functions/is_nez.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
       {
         for(std::ptrdiff_t i=1; i < j ; ++i)
         {
-          if(a0(i, j)) return false;
+          if(is_nez(a0(i, j))) return false;
         }
       }
       return true;

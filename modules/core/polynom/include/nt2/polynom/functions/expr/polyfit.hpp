@@ -27,6 +27,8 @@
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/stdev.hpp>
 #include <nt2/include/functions/mean.hpp>
+#include <nt2/include/functions/globalstdev.hpp>
+#include <nt2/include/functions/globalmean.hpp>
 #include <nt2/include/functions/minus.hpp>
 
 namespace nt2 {
@@ -139,15 +141,15 @@ namespace nt2 {
         typedef typename cdf_type::value_type df_type;
         BOOST_AUTO_TPL(mu, boost::proto::child_c<4>(a1));
         mu.resize(nt2::of_size(1, 2));
-        BOOST_AUTO_TPL(mm, nt2::mean(nt2::colvect(x))(1));
-        BOOST_AUTO_TPL(ss, nt2::stdev(nt2::colvect(x))(1));
-        mu(1) = mm;
-        mu(2) = ss;
+        //      BOOST_AUTO_TPL(mm, nt2::mean(nt2::colvect(x))(1));
+        //      BOOST_AUTO_TPL(ss, nt2::stdev(nt2::colvect(x))(1));
+        mu(1) = globalmean(x);
+        mu(2) = globalstdev(x);
         BOOST_AUTO_TPL(p, boost::proto::child_c<0>(a1));
         BOOST_AUTO_TPL(r, boost::proto::child_c<1>(a1));
         BOOST_AUTO_TPL(df, boost::proto::child_c<2>(a1));
         BOOST_AUTO_TPL(normr, boost::proto::child_c<3>(a1));
-        BOOST_AUTO_TPL(vnd, nt2::vandermonde((nt2::colvect(x)-mm)/ss, l));
+        BOOST_AUTO_TPL(vnd, nt2::vandermonde((nt2::colvect(x)-mu(1))/mu(2), l));
         typedef typename nt2::meta::call<nt2::tag::colvect_(x_type const &)>::type cx_t;
         typedef typename nt2::meta::call<nt2::tag::minus_(cx_t, value_type)>::type tmp1_t;
         typedef typename nt2::meta::call<nt2::tag::divides_(tmp1_t, value_type)>::type tmp2_t;

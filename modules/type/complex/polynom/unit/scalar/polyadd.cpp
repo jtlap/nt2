@@ -7,24 +7,26 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <nt2/include/functions/polyadd.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/table.hpp>
+#include <nt2/include/functions/complexify.hpp>
 
-NT2_TEST_CASE_TPL ( polyadd_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( polyadd,  NT2_REAL_TYPES)
 {
 
+  typedef std::complex<T> cT;
   using nt2::polyadd;
   using nt2::tag::polyadd_;
-  nt2::table<T, nt2::_2D> a =  nt2::_(T(1), T(4));
-  nt2::table<T, nt2::_2D> b =  nt2::_(T(1), T(2));
-  nt2::table<T, nt2::_2D> c;
-  T aab[] = { 1, 2, 4, 6};
-  nt2::table<T> d(nt2::of_size(1, 4), &aab[0], &aab[4]);
+  nt2::table<cT, nt2::_2D> a =  nt2::complexify(nt2::_(T(1), T(4)));
+  nt2::table<cT, nt2::_2D> b =  nt2::complexify(nt2::_(T(1), T(2)));
+  nt2::table<cT, nt2::_2D> c;
+  cT aab[] = { 1, 2, 4, 6};
+  nt2::table<cT> d(nt2::of_size(1, 4), &aab[0], &aab[4]);
   c = polyadd(a, b);
 
   NT2_TEST_EQUAL(d,polyadd(a, b));
   NT2_TEST_EQUAL(d,polyadd(b, a));
-}
+} // end of test for floating_
 
 

@@ -35,7 +35,8 @@ namespace nt2 { namespace ext
   {
 
     typedef typename A0::value_type value_type;
-    typedef typename nt2::meta::call<nt2::tag::colon_(value_type, value_type, value_type)>::type T0;
+    typedef typename meta::as_real<value_type>::type                                      real_type;
+    typedef typename nt2::meta::call<nt2::tag::colon_(real_type, real_type, real_type)>::type    T0;
     typedef typename nt2::meta::call<nt2::tag::colon_(size_t, size_t)>::type                     T1;
     typedef typename nt2::meta::call<nt2::tag::function_(const typename A0::nt2_expression&, size_t, T1)>::type           T2;
     typedef typename nt2::meta::call<nt2::tag::multiplies_(T2, T0)>::type               result_type;
@@ -44,7 +45,7 @@ namespace nt2 { namespace ext
       size_t na0 = nt2::numel(a0);
       na0 =  na0 ? na0-1u:0u;
       return nt2::multiplies(a0(One<size_t>(), nt2::_(nt2::One<size_t>(), na0)),
-                             nt2::_(value_type(na0), nt2::Mone<value_type>(), One<value_type>()));
+                             nt2::_(real_type(na0), nt2::Mone<real_type>(), One<real_type>()));
     }
   };
 

@@ -8,21 +8,21 @@
 ##############################################################################
 
 SET( SOURCES
-#  compan.cpp
-#  conv.cpp
-#  deconv.cpp
-#  degree.cpp
-#  polyadd.cpp
-#  polyder.cpp
+  compan.cpp
+  conv.cpp
+  deconv.cpp
+  degree.cpp
+  polyadd.cpp
+  polyder.cpp
   polyfit.cpp
-#  polyint.cpp
-#  polysub.cpp
+  polyint.cpp
+  polysub.cpp
   polyval.cpp
-#  polyvalm.cpp
-#  ratfracder.cpp
-#  reduce.cpp
+  polyvalm.cpp
+  ratfracder.cpp
+  reduce.cpp
   roots.cpp
-#  valuation.cpp
+  valuation.cpp
 # List of scalar test files for toolbox polynomials
    )
 

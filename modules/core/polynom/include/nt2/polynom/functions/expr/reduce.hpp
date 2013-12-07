@@ -59,7 +59,7 @@ namespace nt2 { namespace ext
     {
       size_t na0 =  nt2::numel(a0);
       size_t idx = na0+1;
-      value_type thresh = a1*nt2::globalmax(nt2::abs(a0));
+      A1 thresh = a1*nt2::globalmax(nt2::abs(a0));
       for(size_t i=1; i <= na0 ; ++i)
       {
         if (nt2::gt(nt2::abs(a0(i)), thresh)) {idx = i; break;}

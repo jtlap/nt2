@@ -21,7 +21,7 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::polyint_, tag::cpu_,
                               (A0),
-                              (scalar_<floating_<A0> >)
+                              (scalar_<unspecified_<A0> >)
                             )
   {
     BOOST_DISPATCH_RETURNS(1, (A0 const& a0),
@@ -31,17 +31,18 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::polyint_, tag::cpu_
                               , (A0)(A1)
                               , ((ast_<A0, nt2::container::domain>))
-                              (scalar_<floating_<A1> >)
+                              (scalar_<unspecified_<A1> >)
                             )
   {
 
     typedef typename A0::value_type                                                      value_type;
-    typedef typename nt2::meta::call<nt2::tag::colon_(value_type, value_type, value_type)>::type T0;
+    typedef typename meta::as_real<value_type>::type                                      real_type;
+    typedef typename nt2::meta::call<nt2::tag::colon_(real_type, real_type, real_type)>::type    T0;
     typedef typename nt2::meta::call<nt2::tag::divides_(const A0&, T0)>::type                    T1;
     typedef typename nt2::meta::call<nt2::tag::horzcat_(T1, value_type)>::type          result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return nt2::cath(a0/nt2::_(value_type(nt2::numel(a0)), Mone<value_type>(), One<value_type>()), value_type(a1));
+      return nt2::cath(a0/nt2::_(real_type(nt2::numel(a0)), Mone<real_type>(), One<real_type>()), value_type(a1));
     }
   };
 
