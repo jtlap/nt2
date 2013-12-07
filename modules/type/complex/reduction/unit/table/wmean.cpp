@@ -44,48 +44,24 @@ NT2_TEST_CASE_TPL( wmean, NT2_REAL_TYPES )
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
       y(i,j) = cT(i + 10*j, i + 10*j);
-  display("y", y);
 
-  std::cout << "firstnonsingleton" << std::endl;
   sy = nt2::sum(y)/T(nt2::size(y, nt2::firstnonsingleton(y)));
   sy2 = nt2::wmean(y, w);
-  display("sy", sy);
-  display("sy2", sy2);
   for(size_t j=1;j<=size(sy, 2);j++)
     for(size_t i=1;i<=size(sy, 1);i++)
       NT2_TEST_ULP_EQUAL(sy(i,j), sy2(i, j), 0.5);
 
-  std::cout << "dim1" << std::endl;
   sy = nt2::sum(y)/T(nt2::size(y, 1));
   sy2 = nt2::wmean(y, w, 1);
-  display("sy", sy);
-  display("sy2", sy2);
   for(size_t j=1;j<=size(sy, 2);j++)
     for(size_t i=1;i<=size(sy, 1);i++)
       NT2_TEST_ULP_EQUAL(sy(i,j), sy2(i, j), 0.5);
 
-  std::cout << "dim2" << std::endl;
   w = nt2::repnum(nt2::rec(T(1)),1, 3);
   sy = nt2::sum(y, 2)/T(nt2::size(y, 2));
   sy2 = nt2::wmean(y, w, 2);
-  display("sy", sy);
-  display("sy2", sy2);
   for(size_t j=1;j<=size(sy, 2);j++)
     for(size_t i=1;i<=size(sy, 1);i++)
       NT2_TEST_ULP_EQUAL(sy(i,j), sy2(i, j), 0.5);
-
-//   std::cout << "dim3" << std::endl;
-//   w = nt2::repnum(nt2::rec(T(12)),1, 1);
-//   sy = nt2::sum(y, 3)/T(nt2::size(y, 3));
-//   sy2 = nt2::wmean(y, w, 3);
-//   display("sy", sy);
-//   display("sy2", sy2);
-//   for(int j=1;j<=size(sy, 2);j++)
-//     for(int i=1;i<=size(sy, 1);i++)
-//       NT2_TEST_EQUAL(sy(i,j), sy2(i, j));
-
-//   w = nt2::repnum(nt2::rec(T(12)),numel(y), 1);
-
-//   std::cout <<  nt2::wmean(y(nt2::_), w);
 }
 

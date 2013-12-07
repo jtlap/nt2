@@ -66,7 +66,6 @@ NT2_TEST_CASE_TPL( normp, NT2_REAL_TYPES )
 
   sy = nt2::normp(y(_), nt2::Three<T>());
   sz = nt2::pow(nt2::sum(nt2::pow_abs(y(_), nt2::Three<T>())),nt2::rec(nt2::Three<T>() ));
-  display(sy);
   NT2_TEST_EQUAL(sy(1), sz(1));
 
 }

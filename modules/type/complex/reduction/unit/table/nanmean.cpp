@@ -47,7 +47,6 @@ NT2_TEST_CASE_TPL( nanmean, NT2_REAL_TYPES )
     for(size_t i=1;i<=5;i++)
       y(i,j) = i + 10*j;
   y(2, 3) = nt2::Nan<cT> ();
-  display("y", y);
   nt2::table<cT> y1 = y;
   y1(2, 3) =  nt2::Zero<cT> ();
   sy = nt2::nansum(y)*nt2::rec(nt2::nbtrue(y1));
@@ -65,7 +64,6 @@ NT2_TEST_CASE_TPL( nanmeanr, NT2_REAL_TYPES )
     for(size_t i=1;i<=5;i++)
       y(i,j) = i + 10*j;
   y(2, 3) = nt2::Nan<T> ();
-  display("y", y);
   nt2::table<T> y1 = y;
   y1(2, 3) =  nt2::Zero<T> ();
   sy = nt2::nansum(y)*nt2::rec(nt2::nbtrue(y1));

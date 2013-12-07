@@ -44,7 +44,6 @@ NT2_TEST_CASE_TPL( norm2, NT2_REAL_TYPES )
   for(size_t j=1;j<=size(y, 2);j++)
     for(size_t i=1;i<=size(y, 1);i++)
       y(i,j) = i - j;
-  display("y", y);
 
   sy = nt2::norm2(y);
   sz = nt2::sqrt(nt2::sum(nt2::sqr_abs(y)));

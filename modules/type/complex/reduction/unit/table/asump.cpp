@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2::asump function"
-
 #include <nt2/table.hpp>
 #include <nt2/include/functions/asump.hpp>
 #include <nt2/include/functions/asum1.hpp>
@@ -45,12 +43,7 @@ NT2_TEST_CASE_TPL( asump, NT2_REAL_TYPES )
       y(i,j) = cT(i + 10*j);
 
   sy = nt2::asump(y(_), nt2::Three<T>());
-  display("rr", nt2::sum(nt2::pow_abs(y(_), nt2::Three<T>())));
   sz = nt2::sum(nt2::pow_abs(y(_), nt2::Three<T>()));
-  std::cout << nt2::size(sy) << std::endl;
-  std::cout << nt2::size(sz) << std::endl;
-  std::cout << sy(1) << std::endl;
-  std::cout << sz(1) << std::endl;
   NT2_TEST_ULP_EQUAL(sy(1), sz(1), 0.5);
 
 }

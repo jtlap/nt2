@@ -12,7 +12,6 @@
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/minimum.hpp>
-#include <nt2/include/functions/isequal.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
@@ -44,22 +43,14 @@ NT2_TEST_CASE_TPL( minimum_2, (float)(double) )
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
       y(i,j) =  -cT(i + 10*j, i + 10*j);
-  display("y", y);
   sy = nt2::minimum(y);
-  NT2_DISPLAY(sy);
-  NT2_DISPLAY(y(1, nt2::_));
-  NT2_TEST(nt2::isequal(y(1, nt2::_),  nt2::minimum(y)));
+  NT2_TEST_EQUAL(y(1, nt2::_),  nt2::minimum(y));
   sy = nt2::minimum(y, 1);
-  NT2_DISPLAY(sy);
-  NT2_DISPLAY(y(1, nt2::_));
-  NT2_TEST(nt2::isequal(y(1, nt2::_),  nt2::minimum(y, 1)));
+  NT2_TEST_EQUAL(y(1, nt2::_),  nt2::minimum(y, 1));
   sy = nt2::minimum(y, 2);
-  NT2_DISPLAY(sy);
-  NT2_DISPLAY(y(nt2::_, 1));
-  NT2_TEST(nt2::isequal(y(nt2::_, 1),  nt2::minimum(y, 2)));
+  NT2_TEST_EQUAL(y(nt2::_, 1),  nt2::minimum(y, 2));
   sy = nt2::minimum(y, 1);
-  NT2_DISPLAY(y);
-  NT2_TEST(nt2::isequal(y,  nt2::minimum(y, 3)));
+  NT2_TEST_EQUAL(y,  nt2::minimum(y, 3));
 
 }
 

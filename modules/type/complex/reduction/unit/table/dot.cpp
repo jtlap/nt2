@@ -16,7 +16,6 @@
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/size.hpp>
-#include <nt2/include/functions/isequal.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -75,8 +74,5 @@ NT2_TEST_CASE_TPL( dot, NT2_REAL_TYPES )
 
   sy = nt2::dot(y(_), y(_));
   sz = nt2::sum(nt2::sqr_abs(y(_)));
-  display(y(_));
-  display(sy);
-  display(sz);
   NT2_TEST_EQUAL(sy(1), sz(1));
 }

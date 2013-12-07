@@ -17,6 +17,8 @@ set( SOURCES
   sum.cpp
   prod.cpp
   inbtrue.cpp
-   )
+  dot.cpp
+  none.cpp
+  )
 
 nt2_module_add_tests(type.complex.reduction.simd.unit ${SOURCES})

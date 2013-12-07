@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2::sum1 function"
-
 #include <nt2/table.hpp>
 #include <nt2/include/functions/asum1.hpp>
 #include <nt2/include/functions/sum.hpp>
@@ -71,7 +69,6 @@ NT2_TEST_CASE_TPL( asum1, NT2_REAL_TYPES )
 
   sy = nt2::asum1(y(_));
   sz = nt2::sum(nt2::abs(y(_)));
-  display(sy);
   NT2_TEST_EQUAL(sy(1), sz(1));
 
 }

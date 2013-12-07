@@ -16,7 +16,6 @@
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/firstnonsingleton.hpp>
 #include <nt2/include/functions/zeros.hpp>
-#include <nt2/include/functions/isequal.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -48,31 +47,22 @@ NT2_TEST_CASE_TPL( var, NT2_REAL_TYPES )
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
       y(i,j) = T(i + 10*j);
-  display("y", y);
-  std::cout << "---------------- nt2::var(y, 0, 2)" << std::endl;
   cy =  center(y, 2);
   sy =  asum2(cy, 2)/T(nt2::size(y, 2)-1);
-  display("sy", sy);
   sy2 = nt2::var(y, 0, 2);
-  display("sy2", sy2);
-  NT2_TEST(isequal(sy, sy2));
-  NT2_TEST(isequal(sy,  nt2::var(y, 0, 2)));
+  NT2_TEST_EQUAL(sy, sy2);
+  NT2_TEST_EQUAL(sy,  nt2::var(y, 0, 2));
 
-  std::cout << "---------------- nt2::var(y, 0, 1)" << std::endl;
   cy =  center(y, 1);
   sy =  asum2(cy, 1)/T(nt2::size(y, 1)-1);
-  display("sy", sy);
   sy2 = nt2::var(y, 0, 1);
-  display("sy2", sy2);
-  NT2_TEST(isequal(sy, sy2));
-  NT2_TEST(isequal(sy,  nt2::var(y, 0, 1)));
+  NT2_TEST_EQUAL(sy, sy2);
+  NT2_TEST_EQUAL(sy,  nt2::var(y, 0, 1));
 
 
-  std::cout << "---------------- nt2::var(y, 0, 3)" << std::endl;
   sy2 = nt2::var(y, 0, 3);
-  display("sy2", sy2);
-  NT2_TEST(isequal(zeros(size(sy2), nt2::meta::as_<T>()), sy2));
-  NT2_TEST(isequal(zeros(size(sy2), nt2::meta::as_<T>()), nt2::var(y, 0, 3)));
+  NT2_TEST_EQUAL(zeros(size(sy2), nt2::meta::as_<T>()), sy2);
+  NT2_TEST_EQUAL(zeros(size(sy2), nt2::meta::as_<T>()), nt2::var(y, 0, 3));
 
 
 }

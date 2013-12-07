@@ -6,13 +6,6 @@
 ///                 See accompinbtrueing file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 reduction toolbox - inbtrue/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of reduction components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 24/02/2011
-///
 #include <nt2/reduction/include/functions/inbtrue.hpp>
 #include <nt2/include/functions/enumerate.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
@@ -43,7 +36,6 @@ NT2_TEST_CASE_TPL ( inbtrue_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef native<std::complex<T> ,ext_t>            vcT;
   typedef native<T ,ext_t>                          vT;
   typedef typename nt2::meta::call<inbtrue_(vcT)>::type r_t;
-  typedef typename nt2::meta::call<inbtrue_(T)>::type   sr_t;
 
   vT r =  nt2::enumerate<vT>();
   vT i =  nt2::enumerate<vT>();

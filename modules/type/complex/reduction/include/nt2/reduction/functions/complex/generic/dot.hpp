@@ -15,6 +15,7 @@
 #include <nt2/include/constants/false.hpp>
 #include <nt2/include/functions/sum.hpp>
 #include <nt2/include/functions/conj.hpp>
+#include <nt2/include/functions/multiplies.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
@@ -30,7 +31,7 @@ namespace nt2 { namespace ext
     typedef typename meta::scalar_of<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return nt2:: sum(a0*conj(a1));
+      return nt2:: sum(nt2::multiplies(a0, conj(a1)));
     }
   };
 
@@ -58,7 +59,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
       result_type operator()(const A0& a0,const A0& a1, const A1& ) const
     {
-      return nt2:: sum(a0*conj(a1));
+      return dot(a0, a1);
     }
   };
 
@@ -72,7 +73,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
       result_type operator()(const A0& a0,const A0& a1, const A1& ) const
     {
-      return result_type(nt2::sum(nt2::real(a0)*nt2::real(a1)));
+      return dot(a0, a1);
     }
   };
 
