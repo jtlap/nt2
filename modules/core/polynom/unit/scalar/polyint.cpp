@@ -9,6 +9,7 @@
 #include <nt2/include/functions/polyder.hpp>
 #include <nt2/include/functions/polyint.hpp>
 #include <nt2/include/functions/ones.hpp>
+#include <nt2/include/functions/colon.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/table.hpp>
