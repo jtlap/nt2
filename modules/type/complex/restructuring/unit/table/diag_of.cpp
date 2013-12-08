@@ -6,18 +6,13 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2::diag_of function"
-
 #include <nt2/table.hpp>
 #include <nt2/include/functions/length.hpp>
 #include <nt2/include/functions/diag_of.hpp>
-#include <nt2/include/functions/is_less_equal.hpp>
-#include <nt2/include/functions/isequal.hpp>
 #include <nt2/include/functions/isempty.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
 
 
 NT2_TEST_CASE_TPL( diag_of_exprc, NT2_REAL_TYPES )

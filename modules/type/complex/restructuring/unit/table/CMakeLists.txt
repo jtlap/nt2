@@ -8,27 +8,27 @@
 ##############################################################################
 
 SET( SOURCES
-#  along.cpp
-#  blkdiag.cpp
-#  cat.cpp
+  along.cpp
+  blkdiag.cpp
+  cat.cpp
   colvect.cpp
   diag_of.cpp
-#  expand.cpp
-#  expand_to.cpp
-#  flipdim.cpp
-#  fliplr.cpp
-#  flipud.cpp
+  expand.cpp
+  expand_to.cpp
+  flipdim.cpp
+  fliplr.cpp
+  flipud.cpp
   from_diag.cpp
-#  horzcat.cpp
-#  ifvectvert.cpp
-#  putalong.cpp
-#  reshape.cpp
-#  resize.cpp
+  horzcat.cpp
+  ifvectvert.cpp
+  putalong.cpp
+  reshape.cpp
+  resize.cpp
   rowvect.cpp
-#  squeeze.cpp
-#  transpose.cpp
-#  ctranspose.cpp
-#  vertcat.cpp
+  squeeze.cpp
+  trans.cpp
+  ctranspose.cpp
+  vertcat.cpp
 # List of simd test files for toolbox generative
    )
 

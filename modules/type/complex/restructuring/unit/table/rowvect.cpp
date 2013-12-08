@@ -6,17 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2::rowvect function"
-
 #include <nt2/table.hpp>
 #include <nt2/include/functions/rowvect.hpp>
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/transpose.hpp>
-
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
-
 
 NT2_TEST_CASE_TPL( rowvect_scalar, NT2_REAL_TYPES )
 {

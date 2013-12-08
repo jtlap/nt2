@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2::from_diag function"
-
 #include <nt2/table.hpp>
 #include <nt2/include/functions/length.hpp>
 #include <nt2/include/functions/from_diag.hpp>
@@ -23,11 +21,7 @@ NT2_TEST_CASE_TPL( from_diag_offsetc, NT2_REAL_TYPES )
   nt2::table<cT> y( nt2::of_size(1,5) ), x;
 
   for(size_t i=1;i<=nt2::length(y);i++) y(i) = cT(i);
-  NT2_DISPLAY(y);
-
   x = nt2::from_diag(y, -2);
-  NT2_DISPLAY(x);
-
   NT2_TEST_EQUAL( nt2::ndims(x) , 2u             );
   NT2_TEST_EQUAL( nt2::size(x,1), nt2::length(y)+2);
   NT2_TEST_EQUAL( nt2::size(x,2), nt2::length(y)+2);
@@ -35,8 +29,6 @@ NT2_TEST_CASE_TPL( from_diag_offsetc, NT2_REAL_TYPES )
   for(size_t i=1;i<=nt2::length(y);i++) NT2_TEST_EQUAL( x(i+2,i), y(i) );
 
   x = nt2::from_diag(y, +2);
-  NT2_DISPLAY(x);
-
   NT2_TEST_EQUAL( nt2::ndims(x) , 2u             );
   NT2_TEST_EQUAL( nt2::size(x,1), nt2::length(y)+2);
   NT2_TEST_EQUAL( nt2::size(x,2), nt2::length(y)+2);

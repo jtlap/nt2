@@ -7,28 +7,34 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <nt2/table.hpp>
-#include <nt2/include/functions/colvect.hpp>
+#include <nt2/include/functions/flipud.hpp>
 #include <nt2/include/functions/ones.hpp>
-
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
-
-NT2_TEST_CASE_TPL( colvect_scalar, NT2_REAL_TYPES )
+NT2_TEST_CASE_TPL( flipud_scalar, NT2_TYPES )
 {
   typedef std::complex<T> cT;
-  NT2_TEST_EQUAL(nt2::colvect(cT(0, 1)), cT(0, 1));
+  cT x = nt2::flipud(cT(42));
+  NT2_TEST_EQUAL( x, cT(42) );
 }
 
-NT2_TEST_CASE_TPL( colvect2, NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL( flipud, NT2_TYPES )
 {
   typedef std::complex<T> cT;
-  nt2::table<cT> r;
-  nt2::table<cT, nt2::_2D> y( nt2::of_size(4,4) );
-  for(int j=1;j<=4;j++)
-    for(int i=1;i<=4;i++)
-      y(i,j) = cT(i + 10*j, j);
-  r = nt2::colvect(y);
-  NT2_TEST_EQUAL(r, y(nt2::_));
-  NT2_TEST_EQUAL(nt2::colvect(y), y(nt2::_));
+  nt2::table<cT> x,y( nt2::of_size(5,3) );
+
+  for(int j=1;j<=3;j++)
+    for(int i=1;i<=5;i++)
+      y(i,j) = cT(i + 10*j);
+
+  x = nt2::flipud(y);
+
+  for(int j=1;j<=3;j++)
+  {
+    for(int i=1;i<=5;i++)
+    {
+      NT2_TEST_EQUAL( x(i,j),y(6-i,j) );
+    }
+  }
 }
