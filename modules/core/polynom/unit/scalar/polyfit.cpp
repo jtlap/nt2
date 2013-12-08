@@ -8,14 +8,13 @@
 //==============================================================================
 #include <nt2/include/functions/polyfit.hpp>
 #include <nt2/include/functions/polyval.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/table.hpp>
 #include <nt2/include/functions/tie.hpp>
 
-NT2_TEST_CASE_TPL ( plevl_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( plev_1_0,  NT2_REAL_TYPES)
 {
 
   using nt2::polyfit;

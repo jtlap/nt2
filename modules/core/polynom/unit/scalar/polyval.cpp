@@ -6,26 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 polynom toolbox - polyval/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of polynom components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 06/03/2011
-///
 #include <nt2/include/functions/polyval.hpp>
 #include <nt2/include/functions/polyfit.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
-
-#include <nt2/include/constants/real.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/table.hpp>
-
-#include <boost/array.hpp>
 
 
 NT2_TEST_CASE_TPL ( polyval1,  NT2_REAL_TYPES)
@@ -35,11 +21,8 @@ NT2_TEST_CASE_TPL ( polyval1,  NT2_REAL_TYPES)
   using nt2::tag::polyval_;
   nt2::table<T> x =  nt2::_(T(1), T(4));
   nt2::table<T> p =  nt2::_(T(1), T(4));
-  NT2_DISPLAY(polyval(p, T(1)));
   NT2_TEST_EQUAL(polyval(p, T(1)), T(10));
   NT2_TEST_EQUAL(polyval(p, T(2)), T(26));
-
-  NT2_DISPLAY(polyval(p, nt2::_(T(1), T(4))));
   T cv[] = { 10, 26, 58, 112 };
   nt2::table<T> v(nt2::of_size(1, 4), &cv[0], &cv[4]);
   NT2_TEST_ULP_EQUAL(v, polyval(p, nt2::_(T(1), T(4))), 0.5);

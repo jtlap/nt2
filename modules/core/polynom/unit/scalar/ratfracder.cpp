@@ -6,19 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 polynom toolbox - ratfracder/table Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of polynomials components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
 #include <nt2/table.hpp>
 #include <nt2/include/functions/ratfracder.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/of_size.hpp>
-
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-
 
 NT2_TEST_CASE_TPL ( ratfracder_real__1_0, NT2_REAL_TYPES)
 {

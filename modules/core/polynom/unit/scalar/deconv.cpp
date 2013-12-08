@@ -6,13 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 polynom toolbox - deconv"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of polynom components
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 06/03/2011
-///
 #include <nt2/include/functions/deconv.hpp>
 #include <nt2/include/functions/cons.hpp>
 #include <nt2/include/functions/zeros.hpp>
@@ -25,7 +18,7 @@
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/core/container/table/table.hpp>
 
-NT2_TEST_CASE_TPL ( deconv_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( deconv_1_0,  NT2_REAL_TYPES)
 {
 
   using nt2::deconv;
@@ -40,7 +33,7 @@ NT2_TEST_CASE_TPL ( deconv_real__1_0,  NT2_REAL_TYPES)
   q1 =  deconv(a, b);
   NT2_TEST_ULP_EQUAL(q, q1, 0.5);
 
-} // end of test for floating_
+}
 
 
 NT2_TEST_CASE_TPL ( deconv_real__2_0,  NT2_REAL_TYPES)

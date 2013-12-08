@@ -7,13 +7,12 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <nt2/include/functions/polyadd.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/table.hpp>
 
 NT2_TEST_CASE_TPL ( polyadd_real__1_0,  NT2_REAL_TYPES)
 {
-
   using nt2::polyadd;
   using nt2::tag::polyadd_;
   nt2::table<T, nt2::_2D> a =  nt2::_(T(1), T(4));

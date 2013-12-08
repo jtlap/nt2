@@ -6,17 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 polynom toolbox - reduce/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of polynom components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 06/03/2011
-///
 #include <nt2/table.hpp>
 #include <nt2/include/functions/reduce.hpp>
 #include <nt2/include/constants/eps.hpp>
-
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
