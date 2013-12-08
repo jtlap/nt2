@@ -13,6 +13,8 @@
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/complexify.hpp>
+#include <nt2/include/functions/ones.hpp>
+#include <nt2/include/functions/colon.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/array.hpp>
 
