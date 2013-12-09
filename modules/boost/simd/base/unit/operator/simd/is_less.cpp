@@ -26,8 +26,10 @@
 #include <boost/simd/include/constants/nan.hpp>
 #include <boost/simd/include/constants/false.hpp>
 #include <boost/simd/include/constants/true.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
 
-NT2_TEST_CASE_TPL ( is_less_integer,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( is_less_integer,  BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::is_less;
   using boost::simd::tag::is_less_;
@@ -38,24 +40,24 @@ NT2_TEST_CASE_TPL ( is_less_integer,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef native<T,ext_t>                  vT;
   typedef typename boost::dispatch::meta::call<is_less_(vT,vT)>::type r_t;
 
-  // specific values tests
-  NT2_TEST_EQUAL(is_less(boost::simd::One<vT>(), boost::simd::One<vT>()), False<r_t>());
-  NT2_TEST_EQUAL(is_less(boost::simd::One<vT>(),boost::simd::Zero<vT>()), False<r_t>());
-  NT2_TEST_EQUAL(is_less(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), False<r_t>());
-} // end of test for integer_
+  NT2_TEST_EQUAL(is_less(boost::simd::Valmax<vT>(), boost::simd::Valmin<vT>()), False<r_t>());
+  NT2_TEST_EQUAL(is_less(boost::simd::Valmax<vT>(), boost::simd::Valmax<vT>()), False<r_t>());
+  NT2_TEST_EQUAL(is_less(boost::simd::Valmin<vT>(), boost::simd::Valmax<vT>()), True<r_t>());
+}
 
 NT2_TEST_CASE_TPL ( is_less_signed_integer,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
-  using boost::simd::splat;
   using boost::simd::is_less;
   using boost::simd::tag::is_less_;
-  using boost::simd::logical;
+  using boost::simd::native;
   using boost::simd::True;
-  typedef boost::simd::native<T, BOOST_SIMD_DEFAULT_EXTENSION> vT;
+  using boost::simd::False;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>                  vT;
   typedef typename boost::dispatch::meta::call<is_less_(vT,vT)>::type r_t;
 
-  T hvalmin = T(1) << (sizeof(T)*CHAR_BIT/2-1);
-  NT2_TEST_EQUAL( is_less(splat<vT>(hvalmin-1), splat<vT>(hvalmin)),  True<r_t>() );
+  NT2_TEST_EQUAL(is_less(boost::simd::Zero<vT>(), boost::simd::Mone<vT>()), False<r_t>());
+  NT2_TEST_EQUAL(is_less(boost::simd::Zero<vT>(), boost::simd::One<vT>()) , True<r_t>());
 }
 
 NT2_TEST_CASE_TPL ( is_less_real,  BOOST_SIMD_SIMD_REAL_TYPES)
@@ -69,10 +71,10 @@ NT2_TEST_CASE_TPL ( is_less_real,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef native<T,ext_t>                  vT;
   typedef typename boost::dispatch::meta::call<is_less_(vT,vT)>::type r_t;
 
-  // specific values tests
-  NT2_TEST_EQUAL(is_less(boost::simd::Inf<vT>(), boost::simd::Inf<vT>()), False<r_t>());
+  NT2_TEST_EQUAL(is_less(boost::simd::Inf<vT>() , boost::simd::Inf<vT>()) , False<r_t>());
   NT2_TEST_EQUAL(is_less(boost::simd::Minf<vT>(), boost::simd::Minf<vT>()), False<r_t>());
-  NT2_TEST_EQUAL(is_less(boost::simd::Nan<vT>(), boost::simd::Nan<vT>()), False<r_t>());
-  NT2_TEST_EQUAL(is_less(boost::simd::One<vT>(),boost::simd::Zero<vT>()), False<r_t>());
-  NT2_TEST_EQUAL(is_less(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), False<r_t>());
-} // end of test for floating_
+  NT2_TEST_EQUAL(is_less(boost::simd::Inf<vT>() , boost::simd::Minf<vT>()), False<r_t>());
+  NT2_TEST_EQUAL(is_less(boost::simd::Nan<vT>() , boost::simd::Nan<vT>()) , False<r_t>());
+  NT2_TEST_EQUAL(is_less(boost::simd::Zero<vT>(), boost::simd::Mone<vT>()), False<r_t>());
+  NT2_TEST_EQUAL(is_less(boost::simd::Zero<vT>(), boost::simd::One<vT>()) , True<r_t>());
+}
