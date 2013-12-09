@@ -25,6 +25,8 @@ SET( SOURCES
   splatted_prod.cpp
   splatted_sum.cpp
   split.cpp
+  split_high.cpp
+  split_low.cpp
   reverse.cpp
   deinterleave_first.cpp
   deinterleave_second.cpp
