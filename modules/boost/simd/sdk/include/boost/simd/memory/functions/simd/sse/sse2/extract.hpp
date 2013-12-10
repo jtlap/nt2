@@ -13,6 +13,9 @@
 
 #include <boost/simd/memory/functions/extract.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/simd/sdk/config/enforce_precision.hpp>
+#include <boost/simd/sdk/config/compiler.hpp>
+#include <boost/simd/sdk/config/arch.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -47,6 +50,8 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
+// workaround for bug with GCC 32-bit x87, causing weird issues with splat int,sse -> complex<float>,sse
+#if !(defined(BOOST_SIMD_COMPILER_GCC) && !defined(BOOST_SIMD_ARCH_X86_64) && defined(BOOST_SIMD_HAS_X87))
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::extract_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)
@@ -61,6 +66,7 @@ namespace boost { namespace simd { namespace ext
       return result_type(_mm_cvtsi128_si32(_mm_srli_si128(a0, A1::value * 4)));
     }
   };
+#endif
 
 #ifdef BOOST_SIMD_ARCH_X86_64
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::extract_
