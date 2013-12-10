@@ -15,7 +15,6 @@
 #include <nt2/core/utility/as_subscript.hpp>
 #include <nt2/sdk/meta/constant_adaptor.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
-#include <nt2/sdk/meta/as_real.hpp>
 
 namespace nt2 { namespace tag { struct cic_; } }
 
@@ -32,9 +31,8 @@ namespace nt2 { namespace meta
     operator()(Pos const& p, Size const&sz, Target const&) const
     {
       typedef typename Target::type                 type;
-      typedef typename meta::as_real<type>::type   rtype;
-      typedef typename meta::as_index<rtype>::type   i_t;
-      return splat<rtype>( as_subscript(sz,enumerate<i_t>(p))[1] );
+      typedef typename meta::as_index<type>::type   i_t;
+      return splat<type>( as_subscript(sz,enumerate<i_t>(p))[1] );
     }
   };
 } }
