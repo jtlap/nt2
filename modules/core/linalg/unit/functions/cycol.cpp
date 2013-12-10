@@ -15,10 +15,9 @@
 #include <nt2/sdk/unit/module.hpp>
 
 using nt2::_;
-NT2_TEST_CASE_TPL ( cycol, (double))
+NT2_TEST_CASE_TPL ( cycol, NT2_REAL_TYPES)
 {
-  nt2::table<T> v2 = nt2::cycol(size_t(4), size_t(6), size_t(2));
-  NT2_DISPLAY(v2);
+  nt2::table<T> v2 = nt2::cycol(size_t(4), size_t(6), size_t(2),nt2::meta::as_<T>());
   NT2_TEST_EQUAL(v2(_, nt2::_(1, 2)), v2(_, nt2::_(3, 4)));
   NT2_TEST_EQUAL(v2(_, 1), v2(_, 5));
 }

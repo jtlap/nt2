@@ -16,6 +16,7 @@
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/idivround.hpp>
 #include <nt2/include/functions/idivceil.hpp>
+#include <nt2/include/functions/ones.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -86,7 +87,7 @@ namespace nt2 { namespace ext
                               < nt2::tag::cycol_
                               , container::domain
                               > ( a2
-                                , meta::as_<double>()
+                                , tgt
                                 , _2D(a0,a1)
                                 )
                             )
@@ -116,7 +117,8 @@ namespace nt2 { namespace ext
                               , std::size_t(1)
                               );
 
-      tab_t c1, c = nt2::randn<v_t>(sizee[0], k);
+      tab_t c1, c = nt2::randn(sizee[0], k, meta::as_<v_t>());
+//      tab_t c1, c = nt2::ones(sizee[0], k, meta::as_<v_t>());
       std::size_t imax = idivceil(sizee[1], k);
 
       for(std::size_t i=2; i <= imax; ++i)
