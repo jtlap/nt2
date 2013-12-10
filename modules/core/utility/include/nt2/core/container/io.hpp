@@ -131,11 +131,14 @@ namespace nt2
         {
           case 1:
 
-#define M0(z,n,t)                                         \
-case n: boost::array<std::ptrdiff_t,n> p##n;              \
-        print_expr(os,name,s,p##n,boost::mpl::int_<n>()); \
-        break;                                            \
-/**/
+          #define M0(z,n,t)                                                    \
+          case n:                                                              \
+          {                                                                    \
+            boost::array<std::ptrdiff_t,n> p##n;                               \
+            print_expr(os,name,s,p##n,boost::mpl::int_<n>());                  \
+            break;                                                             \
+          }                                                                    \
+          /**/
 
           BOOST_PP_REPEAT_FROM_TO(2,BOOST_PP_INC(NT2_MAX_DIMENSIONS),M0,~)
 
