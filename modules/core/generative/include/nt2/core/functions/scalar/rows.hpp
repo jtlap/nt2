@@ -62,7 +62,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rows_, tag::cpu_
                             , (A0)(T)
                             , (fusion_sequence_<A0>)
-                              (scalar_< arithmetic_<T> >)
+                              (scalar_< unspecified_<T> >)
                             )
   {
     typedef typename boost::remove_const<A0>::type          size_type;

@@ -21,8 +21,8 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::logspace_, tag::cpu_
                             , (A0)
-                            , (scalar_< floating_<A0> >)
-                              (scalar_< floating_<A0> >)
+                            , (scalar_< unspecified_<A0> >)
+                              (scalar_< unspecified_<A0> >)
                             )
   {
     typedef meta::constant_<nt2::tag::logspace_,A0> constant_t;
@@ -51,8 +51,8 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::logspace_, tag::cpu_
                             , (A0)(A2)
-                            , (scalar_< floating_<A0> >)
-                              (scalar_< floating_<A0> >)
+                            , (scalar_< unspecified_<A0> >)
+                              (scalar_< unspecified_<A0> >)
                               (target_ < unspecified_ < A2> >)
                             )
   {
@@ -81,8 +81,8 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::logspace_, tag::cpu_
                             , (A0)(A1)
-                            , (scalar_< floating_<A0> >)
-                              (scalar_< floating_<A0> >)
+                            , (scalar_< unspecified_<A0> >)
+                              (scalar_< unspecified_<A0> >)
                               (scalar_< integer_<A1> >)
                             )
   {
@@ -114,8 +114,8 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::logspace_, tag::cpu_
                             , (A0)(A1)(A2)
-                            , (scalar_< floating_<A0> >)
-                              (scalar_< floating_<A0> >)
+                            , (scalar_< unspecified_<A0> >)
+                              (scalar_< unspecified_<A0> >)
                               (scalar_< integer_ <A1> >)
                               (target_ < unspecified_ < A2> >)
                             )

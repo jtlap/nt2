@@ -25,7 +25,7 @@ namespace nt2 { namespace meta
 
     constant_() {}
     constant_( Base const& l, Base const& u, std::size_t n )
-            : lower_(n != 1?l:u), step_(n != 1?(u-l)/(n-1):0)
+      : lower_(n != 1?l:u), step_(n != 1?(u-l)/Base(n-1):Base(0))
     {}
 
     template<class Pos, class Size, class Target>
