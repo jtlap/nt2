@@ -31,19 +31,46 @@ namespace nt2
   // means ((1*x+2)*x+3) or x^2+2x+3
   //////////////////////////////////////////////////////////////////////////////
   namespace details
-    {
+  {
     template<int N, class Seq> struct static_horner_
     {
       template<class Sig> struct result;
       template<class This,class T> struct result<This(T)> : meta::strip<T> {};
 
-      template<class T> inline
+      template<class T> BOOST_FORCEINLINE
       T operator()(T const& x) const
       {
         static_horner_<N-1,typename boost::mpl::pop_back<Seq>::type> callee;
+        return callee.eval(x,Const<T,boost::mpl::at_c<Seq,N-1>::type::value>());
+      }
+
+      template<class T> BOOST_FORCEINLINE
+      T eval(T const& x, T const& l) const
+      {
+        static_horner_<N-1,typename boost::mpl::pop_back<Seq>::type> callee;
+        return callee.eval(x,fma(x,l,Const<T,boost::mpl::at_c<Seq,N-1>::type::value>()));
+      }
+    };
+
+    template<class Seq> struct static_horner_<2,Seq>
+    {
+      template<class Sig> struct result;
+      template<class This,class T> struct result<This(T)> : meta::strip<T> {};
+
+      template<class T> BOOST_FORCEINLINE
+      T operator()(T const& x) const
+      {
         return fma( x
-                  , callee(x)
-                  , Const<T,boost::mpl::at_c<Seq,N-1>::type::value>()
+                  , Const<T,boost::mpl::at_c<Seq,1>::type::value>()
+                  , Const<T,boost::mpl::at_c<Seq,0>::type::value>()
+                  );
+      }
+
+      template<class T> BOOST_FORCEINLINE
+      T eval(T const& x, T const& l) const
+      {
+        return fma( x, l
+                  , Const<T,boost::mpl::at_c<Seq,0>::type::value>()
                   );
       }
     };
@@ -53,7 +80,7 @@ namespace nt2
       template<class Sig> struct result;
       template<class This,class T> struct result<This(T)> : meta::strip<T> {};
 
-      template<class T> inline
+      template<class T> BOOST_FORCEINLINE
       T operator()(T const& ) const
       {
         return Const<T, boost::mpl::at_c<Seq,0>::type::value >();
@@ -65,7 +92,7 @@ namespace nt2
   /// @brief Static Horner scheme
   //////////////////////////////////////////////////////////////////////////////
   template<class Coeff,class Type>
-  static inline Type horner( Type const& x )
+  static BOOST_FORCEINLINE Type horner( Type const& x )
   {
     details::static_horner_<boost::mpl::size<Coeff>::value,Coeff> callee;
     return callee(x);
@@ -102,9 +129,5 @@ boost::mpl::vector< BOOST_PP_ENUM(Size                                        \
                                   ,Seq)                                       \
                                  ) >                                          \
 /**/
-
-
-
-
 
 #endif
