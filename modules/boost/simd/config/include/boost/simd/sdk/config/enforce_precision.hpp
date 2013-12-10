@@ -93,6 +93,10 @@ namespace boost { namespace simd { namespace config
     }
   };
 
+  #if !defined(FLT_EVAL_METHOD) && defined(__FLT_EVAL_METHOD__)
+  #define FLT_EVAL_METHOD __FLT_EVAL_METHOD__
+  #endif
+
   #ifdef FLT_EVAL_METHOD
     #if FLT_EVAL_METHOD != 0
       #ifndef BOOST_SIMD_HAS_X87
