@@ -10,18 +10,20 @@
 #define NT2_STATISTICS_FUNCTIONS_GENERIC_FASTNORMCDF_HPP_INCLUDED
 #include <nt2/statistics/functions/fastnormcdf.hpp>
 #include <nt2/polynomials/functions/scalar/impl/horner.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/fma.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/fma.hpp>
+#include <nt2/include/functions/simd/seldec.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/invsqrt_2pi.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/is_gtz.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/splat.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/exp.hpp>
+#include <nt2/include/functions/simd/is_gtz.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+
 
 namespace nt2 { namespace ext
 {
@@ -42,7 +44,7 @@ namespace nt2 { namespace ext
                                                    , 0x3ea385fa
                                                    ))>(k);
       w*=Invsqrt_2pi<result_type>()*exp(-sqr(l)*Half<result_type>());
-      return if_else(is_gtz(a0),oneminus(w),w);
+      return(seldec(is_gtz(a0),w));
     }
   };
 } }
