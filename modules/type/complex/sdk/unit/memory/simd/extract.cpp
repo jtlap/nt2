@@ -8,6 +8,7 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <nt2/include/functions/extract.hpp>
+#include <nt2/include/functions/insert.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
