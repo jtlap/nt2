@@ -77,9 +77,8 @@ void operator delete[](void* m, const std::nothrow_t&)                         \
 {                                                                              \
   boost::simd::deallocate(m);                                                  \
 }                                                                              \
-void operator delete(void* p, void*)                                           \
+void operator delete(void*, void*)                                             \
 {                                                                              \
-  boost::simd::deallocate(p);                                                  \
 }                                                                              \
 /**/
 
