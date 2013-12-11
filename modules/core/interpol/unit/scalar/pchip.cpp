@@ -82,7 +82,7 @@ NT2_TEST_CASE_TPL( pchip3, NT2_REAL_TYPES )
 {
   using nt2::_;
   T x = 3;
-  T y = 2, y1;
+  T y = 2;
   nt2::table<T> xi=  nt2::linspace(T(1),  T(4), 4);
   NT2_DISPLAY(x);
   NT2_DISPLAY(y);
@@ -92,9 +92,9 @@ NT2_TEST_CASE_TPL( pchip3, NT2_REAL_TYPES )
   NT2_TEST_ASSERT(y0=nt2::pchip(T(3), y, xi));
   NT2_TEST_ASSERT(y0=nt2::pchip(T(3), y, xi, T(32)));
   NT2_TEST_ASSERT(y0=nt2::pchip(T(3), y, xi, true));
-  NT2_TEST_ASSERT(y1=nt2::pchip(x, y, T(25), true));
-  NT2_TEST_ASSERT(y1=nt2::pchip(x, y, T(25), false));
-  NT2_TEST_ASSERT(y1=nt2::pchip(x, y, T(25), T(32)));
+  NT2_TEST_ASSERT(T(nt2::pchip(x, y, T(25), true)));
+  NT2_TEST_ASSERT(T(nt2::pchip(x, y, T(25), false)));
+  NT2_TEST_ASSERT(T(nt2::pchip(x, y, T(25), T(32))));
 }
 NT2_TEST_CASE_TPL( pchip4, NT2_REAL_TYPES )
 {
