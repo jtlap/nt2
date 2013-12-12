@@ -47,9 +47,6 @@ NT2_TEST_CASE_TPL ( ellint_1_real__1_0,  NT2_REAL_TYPES)
 
   // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
 
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;

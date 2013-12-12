@@ -22,6 +22,7 @@
 #include <nt2/include/constants/pio_2.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/half.hpp>
 
 NT2_TEST_CASE_TPL ( ellint_1_real,  NT2_SIMD_REAL_TYPES)
 {
@@ -41,7 +42,12 @@ NT2_TEST_CASE_TPL ( ellint_1_real,  NT2_SIMD_REAL_TYPES)
 #ifndef BOOST_SIMD_NO_INVALIDS
   NT2_TEST_ULP_EQUAL(ellint_1(nt2::One<vT>()), nt2::Inf<r_t>(), 0);
 #endif
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
   NT2_TEST_ULP_EQUAL(ellint_1(nt2::Zero<vT>()), nt2::Pio_2<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(ellint_1(nt2::Half<vT>()), nt2::splat<vT>(ellint_1(nt2::Half<T>())), 0.5);
+
+ for(int i=0; i < 11 ; i++)
+ {
+   NT2_TEST_ULP_EQUAL(ellint_1(nt2::splat<vT>(T(i)/10)), nt2::splat<vT>(ellint_1(T(i)/10)), 1);
+
+ }
 }
