@@ -10,14 +10,17 @@ Here is a simple program computing a SIMD register full of 42.
   #include <iostream>
   #include <boost/simd/sdk/simd/io.hpp>
   #include <boost/simd/sdk/simd/pack.hpp>
+  #include <boost/simd/include/functions/splat.hpp>
   #include <boost/simd/include/functions/plus.hpp>
   #include <boost/simd/include/functions/multiplies.hpp>
 
   int main(int argc, const char *argv[])
   {
-    boost::simd::pack<float> res;
-    boost::simd::pack<float> u(10);
-    boost::simd::pack<float> r(11,11,11,11);
+    typedef boost::simd::pack<float> p_t;
+
+    p_t res;
+    p_t u(10);
+    p_t r = boost::simd::splat<p_t>(11);
 
     res = (u + r) * 2.f;
 
@@ -43,10 +46,16 @@ on those elements.
 copy constructible and default constructible. It also supports different way to
 initialize a [classref boost::simd::pack]'s content.
 
-Those initializations include a so-called splatting constructor that takes one
+A typedef statement is used before the declaration of the packs for brevity. 
+These declarations include a so-called splatting constructor that takes one
 scalar value and replicates it in all elements of the pack.
 
-  boost::simd::pack<float> u(10);
+  p_t u(10);
+
+This is equivalent to the constructor on the following line:
+
+  p_t r = boost::simd::splat<p_t>(11);
+
 
 One can also initializes every element of the [classref boost::simd::pack] itself
 by enumerating them.
