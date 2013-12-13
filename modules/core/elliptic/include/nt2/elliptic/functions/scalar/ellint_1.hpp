@@ -9,30 +9,42 @@
 #ifndef NT2_ELLIPTIC_FUNCTIONS_SCALAR_ELLINT_1_HPP_INCLUDED
 #define NT2_ELLIPTIC_FUNCTIONS_SCALAR_ELLINT_1_HPP_INCLUDED
 #include <nt2/elliptic/functions/ellint_1.hpp>
-#include <boost/math/special_functions.hpp>
-#include <nt2/trigonometric/constants.hpp>
-#include <nt2/include/functions/scalar/is_eqz.hpp>
-#include <nt2/sdk/error/policies.hpp>
+#include <nt2/include/functions/scalar/oneminus.hpp>
+#include <nt2/include/functions/scalar/average.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/sqrt.hpp>
+#include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/constants/eps.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/pio_2.hpp>
 
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ellint_1_, tag::cpu_
                             , (A0)
-                            , (scalar_< arithmetic_<A0> >)
+                            , (scalar_< floating_<A0> >)
                             )
   {
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
       result_type x = a0;
-      if (x > nt2::One<result_type>()) return nt2::Nan<result_type>();
+      if (abs(x) > nt2::One<result_type>()) return nt2::Nan<result_type>();
       if (x == nt2::One<result_type>())  return nt2::Inf<result_type>();
-      if (nt2::is_eqz(x))      return nt2::Pio_2<result_type>();
-      return boost::math::ellint_1(x, nt2_policy());
+      result_type a = One<result_type>();
+      result_type b = nt2::sqrt(oneminus(sqr(a0)));
+      result_type c = a0;
+      while (abs(c) > Eps<result_type>())
+      {
+        result_type an=average(a, b);
+        result_type bn=nt2::sqrt(a*b);
+        c=average(a, -b);
+        a=an;
+        b=bn;
+      }
+      return  Pio_2<result_type>()/a;
     }
   };
 } }

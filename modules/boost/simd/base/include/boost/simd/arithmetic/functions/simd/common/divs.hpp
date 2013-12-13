@@ -71,7 +71,6 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename meta::as_logical<A0>::type bA0;
       typedef typename meta::scalar_of<A0>::type sA0;
-      typedef typename dispatch::meta::as_unsigned<A0>::type utype;
 
       const bA0 iseqza1 = is_eqz(a1);
 

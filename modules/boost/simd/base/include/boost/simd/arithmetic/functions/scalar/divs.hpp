@@ -11,7 +11,7 @@
 
 #include <boost/simd/arithmetic/functions/divs.hpp>
 #include <boost/simd/include/functions/scalar/genmask.hpp>
-#include <boost/simd/include/functions/scalar/shift_right.hpp>
+#include <boost/simd/include/functions/scalar/shr.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
@@ -54,10 +54,7 @@ namespace boost { namespace simd { namespace ext
       if (a1)
         return aa0/a1;
       else if (a0)
-      {
-        return Valmax<A0>() + shift_right((utype)a0, (sizeof(A0)*CHAR_BIT-1));
-      }
-
+        return Valmax<A0>() + shr(a0, sizeof(A0)*CHAR_BIT-1);
       else
         return Zero<A0>();
     }
