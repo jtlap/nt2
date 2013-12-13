@@ -10,7 +10,9 @@
 cmake_minimum_required(VERSION 2.8)
 
 set(NT2_DIR ${CMAKE_SOURCE_DIR}/../../../cmake)
+
 find_package(NT2 REQUIRED)
 include(${NT2_USE_FILE})
+
 set(CMAKE_BUILD_TYPE Release)
 add_executable(saxpy_scalar saxpy_scalar.cpp)
