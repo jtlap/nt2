@@ -9,16 +9,24 @@
 #ifndef BOOST_SIMD_IEEE_FUNCTIONS_SIMD_SSE_SSE2_ILOGB_HPP_INCLUDED
 #define BOOST_SIMD_IEEE_FUNCTIONS_SIMD_SSE_SSE2_ILOGB_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+
 #include <boost/simd/ieee/functions/ilogb.hpp>
-#include <boost/simd/ieee/functions/simd/common/ilogb.hpp>
-#include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>
+#include <boost/simd/include/functions/simd/exponent.hpp>
 #include <boost/simd/include/functions/simd/seladd.hpp>
 #include <boost/simd/include/functions/simd/is_gtz.hpp>
 #include <boost/simd/include/functions/simd/is_nez.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
-#include <boost/simd/include/functions/simd/predecessor.hpp>
-#include <boost/simd/include/functions/simd/dist.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
+#include <boost/simd/include/functions/simd/is_eqz.hpp>
+#include <boost/simd/include/functions/simd/bitwise_and.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/int_splat.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+
 #define MKN(N) simd::bitwise_cast<vtype##N>
 
 namespace boost { namespace simd { namespace ext
@@ -49,8 +57,6 @@ namespace boost { namespace simd { namespace ext
       typedef A0 vtype8;
       static const vtype8& o = One<vtype8>();
       static const vtype8 mask =  boost::simd::integral_constant<vtype8, 0x7f>();
-      typedef typename A0::extension_type cat;
-      typedef boost::simd::native<boost::uint16_t, cat> type;
       vtype8 n = a0;
       vtype8 i = o;
       n = b_and(MKN(8)(_mm_srli_epi16(n, 1)), mask);
@@ -172,6 +178,8 @@ namespace boost { namespace simd { namespace ext
     }
   };
 } } }
+
+#undef MKN
 
 #endif
 #endif
