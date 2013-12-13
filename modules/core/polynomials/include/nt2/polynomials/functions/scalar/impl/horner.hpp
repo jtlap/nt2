@@ -40,7 +40,7 @@ namespace nt2
       template<class T> BOOST_FORCEINLINE
       T operator()(T const& x) const
       {
-        static_horner_<N-2,typename boost::mpl::pop_front< typename boost::mpl::pop_front<Seq>::type >::type> callee; 
+        static_horner_<N-2,typename boost::mpl::pop_front< typename boost::mpl::pop_front<Seq>::type >::type> callee;
         return callee.eval(x,fma(x,Const<T,boost::mpl::at_c<Seq,0>::type::value>(),Const<T,boost::mpl::at_c<Seq,1>::type::value>() ));
       }
 
@@ -69,7 +69,7 @@ namespace nt2
       template<class T> BOOST_FORCEINLINE
       T eval(T const& x, T const& l) const
       {
-        static_horner_<1,typename boost::mpl::pop_front<Seq>::type> callee; 
+        static_horner_<1,typename boost::mpl::pop_front<Seq>::type> callee;
         return callee.eval(x , fma( x, l, Const<T,boost::mpl::at_c<Seq,0>::type::value>()) );
       }
     };
@@ -91,7 +91,7 @@ namespace nt2
         return fma( x, l
                   , Const<T,boost::mpl::at_c<Seq,0>::type::value>()
                   );
-      }      
+      }
     };
   }
 
@@ -101,7 +101,7 @@ namespace nt2
   template<class Coeff,class Type>
   static BOOST_FORCEINLINE Type horner( Type const& x )
   {
-    details::static_horner_<boost::mpl::size<Coeff>::value,Coeff> callee;    
+    details::static_horner_<boost::mpl::size<Coeff>::value,Coeff> callee;
     return callee(x);
   }
 }
