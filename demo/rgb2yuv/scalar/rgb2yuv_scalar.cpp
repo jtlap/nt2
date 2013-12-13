@@ -16,7 +16,7 @@ template<typename T>
 NT2_EXPERIMENT(rgb2yuv)
 {
   public :
-    rgb2yuv(int h, int w) 
+    rgb2yuv(int h, int w)
     : NT2_EXPRIMENT_CTOR(1,"cycles/elements"), height(h), width(w), size(h*w)
   {
     y  = (T*)malloc(size*sizeof(T));
@@ -25,17 +25,17 @@ NT2_EXPERIMENT(rgb2yuv)
     r  = (T*)malloc(size*sizeof(T));
     g  = (T*)malloc(size*sizeof(T));
     b  = (T*)malloc(size*sizeof(T));
-    
+
     for(int i=0; i<size; i++)
-      r[i] = g[i] = b[i] = y[i] = u[i] = v[i] = T(i); 
+      r[i] = g[i] = b[i] = y[i] = u[i] = v[i] = T(i);
   }
-  
+
   virtual void info(std::ostream& os) const { os <<size; }
-  
+
   BOOST_FORCEINLINE virtual void run() const
   {
     #pragma simd
-    for(int i=0; i < size; i++) 
+    for(int i=0; i < size; i++)
       {
         y[i]=0.299f*r[i] + 0.587f*g[i] + 0.114f*b[i];
         u[i]=0.492f*(b[i]-y[i]);
@@ -46,8 +46,8 @@ NT2_EXPERIMENT(rgb2yuv)
   virtual double compute(nt2::benchmark_result_t const& r) const
   {
     return r.first/double(size);
-  }  
-  
+  }
+
   virtual void reset()
   {
     free(r);

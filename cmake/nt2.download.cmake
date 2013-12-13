@@ -24,8 +24,8 @@ macro(nt2_download_module module)
 
     set(module_ ${module})
     set(module_path_ ${module_path})
-  
-    set(repo_found 0) 
+
+    set(repo_found 0)
     foreach(mod_comp ${module_path_list})
       foreach(repo ${NT2_FIND_REPOSITORIES})
         if(NOT repo_found)
@@ -34,11 +34,11 @@ macro(nt2_download_module module)
                           OUTPUT_VARIABLE ls_remote_out
                           OUTPUT_STRIP_TRAILING_WHITESPACE
                          )
-                     
+
           if(ls_remote_out)
             set(repo_found 1)
             message(STATUS "[nt2] downloading module ${module} from ${repo}...")
-            
+
             if(IS_DIRECTORY ${PROJECT_SOURCE_DIR}/modules/${module_path_})
               file(RENAME ${PROJECT_SOURCE_DIR}/modules/${module_path_} ${PROJECT_SOURCE_DIR}/modules/__${module_path_})
             endif()
@@ -52,16 +52,16 @@ macro(nt2_download_module module)
               endforeach()
               file(REMOVE_RECURSE ${PROJECT_SOURCE_DIR}/modules/__${module_path_})
             endif()
-                           
+
             set(NT2_${module_U}_ROOT ${PROJECT_SOURCE_DIR}/modules/${module_path})
           endif()
-          
+
         endif()
       endforeach()
-      
+
       string(REGEX REPLACE "^(.+)+\\.[^.]+$" "\\1" module_ ${module_})
       string(REGEX REPLACE "^(.+)+/[^/]+$" "\\1" module_path_ ${module_path_})
-      
+
     endforeach()
   endif()
 endmacro()

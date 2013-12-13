@@ -15,12 +15,12 @@
 #define TURBOFREQ 1.008000
 #define NOPS 2.0
 
-template<typename T> 
+template<typename T>
 NT2_EXPERIMENT(Taxpy)
 {
-  public:   
-    
-    Taxpy(std::size_t const& s, T const& a) 
+  public:
+
+    Taxpy(std::size_t const& s, T const& a)
     : NT2_EXPRIMENT_CTOR(1., "GFLOPS"),
     size_(s), alpha(a)
     {
@@ -30,7 +30,7 @@ NT2_EXPERIMENT(Taxpy)
     }
 
     inline T Taxpy_scalar(std::size_t const& s) const
-    {   
+    {
       #pragma simd
       for(int i = 0; i<size_; i++)
       {
@@ -42,15 +42,15 @@ NT2_EXPERIMENT(Taxpy)
       Taxpy_scalar(size_);
     }
     virtual double compute(nt2::benchmark_result_t const& r) const
-    { 
+    {
     //  return r.first/double(size_);
      // printf("%e\n",r.first );
             return(double(size_)*NOPS*TURBOFREQ/r.first);
     }
 
     virtual void info(std::ostream& os) const { os << size_; }
-   
-    virtual void reset() const 
+
+    virtual void reset() const
     {
     }
   private:

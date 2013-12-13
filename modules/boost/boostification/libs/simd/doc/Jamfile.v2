@@ -20,7 +20,7 @@ path-constant here : . ;
 import path ;
 
 project
-    : requirements 
+    : requirements
         <doxygen:param>EXTRACT_ALL=NO
         <doxygen:param>"PREDEFINED=BOOST_SIMD_DOXYGEN_INVOKED \\
                                    \"BOOST_CONCEPT_REQUIRES(a,b)=/** Requires: a */ b \""
@@ -64,7 +64,7 @@ xml simd
         <dependency>reduction
         <dependency>swar
     ;
-    
+
 doxygen sdk_reference
     :
         [ path.glob-tree $(here)/../../../boost/simd/sdk : *.hpp : .svn details ]
@@ -72,7 +72,7 @@ doxygen sdk_reference
         <xsl:param>boost.doxygen.reftitle="SDK reference"
     ;
 
-    
+
 doxygen arithmetic
     :
         [ glob ../../../boost/simd/toolbox/arithmetic/functions/*.hpp ]
@@ -90,7 +90,7 @@ doxygen bitwise
     :
         <xsl:param>boost.doxygen.reftitle="Bitwise Toolbox"
     ;
-    
+
 doxygen constant
     :
         [ glob ../../../boost/simd/toolbox/constant/constants/*.hpp ]
@@ -117,7 +117,7 @@ doxygen operator
     :
         <xsl:param>boost.doxygen.reftitle="Operator Toolbox"
     ;
-    
+
 doxygen predicates
     :
         [ glob ../../../boost/simd/toolbox/predicates/functions/*.hpp ]
@@ -126,7 +126,7 @@ doxygen predicates
     :
         <xsl:param>boost.doxygen.reftitle="Predicates Toolbox"
     ;
-    
+
 doxygen reduction
     :
         [ glob ../../../boost/simd/toolbox/reduction/functions/*.hpp ]
@@ -135,7 +135,7 @@ doxygen reduction
     :
         <xsl:param>boost.doxygen.reftitle="Reduction Toolbox"
     ;
-    
+
 doxygen swar
     :
         [ glob ../../../boost/simd/toolbox/swar/functions/*.hpp ]

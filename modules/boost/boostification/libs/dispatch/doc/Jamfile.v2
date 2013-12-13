@@ -20,7 +20,7 @@ path-constant here : . ;
 import path ;
 
 project
-    : requirements 
+    : requirements
         <doxygen:param>EXTRACT_ALL=NO
         <doxygen:param>"PREDEFINED=BOOST_SIMD_DOXYGEN_INVOKED \\
                                    \"BOOST_CONCEPT_REQUIRES(a,b)=/** Requires: a */ b \""
@@ -57,7 +57,7 @@ xml dispatch
         <dependency>tags
         <dependency>reference
     ;
-    
+
 doxygen reference
     :
         [ SORT [ path.glob-tree $(here)/../../../boost/dispatch : *.hpp : .svn details ] ]

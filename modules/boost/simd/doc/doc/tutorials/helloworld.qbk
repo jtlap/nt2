@@ -46,7 +46,7 @@ on those elements.
 copy constructible and default constructible. It also supports different way to
 initialize a [classref boost::simd::pack]'s content.
 
-A typedef statement is used before the declaration of the packs for brevity. 
+A typedef statement is used before the declaration of the packs for brevity.
 These declarations include a so-called splatting constructor that takes one
 scalar value and replicates it in all elements of the pack.
 

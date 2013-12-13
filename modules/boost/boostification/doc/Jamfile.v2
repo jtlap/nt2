@@ -17,10 +17,10 @@ boostbook doc
 
     <implicit-dependency>../libs/dispatch/doc//dispatch
     <dependency>../libs/dispatch/doc//dispatch
-    
+
     <implicit-dependency>../libs/simd/doc//simd
     <dependency>../libs/simd/doc//simd
-    
+
 
     <xsl:param>boost.libraries=../../libs/libraries.htm
 

@@ -21,7 +21,7 @@ NT2_EXPERIMENT(rgb2yuv)
 {
   public :
     typedef T value_type;
-    rgb2yuv(int h, int w) 
+    rgb2yuv(int h, int w)
     : NT2_EXPRIMENT_CTOR( 1,"cycles/elements"), height(h), width(w), size(h*w)
   {
     y.resize(nt2::of_size(size));
@@ -32,10 +32,10 @@ NT2_EXPERIMENT(rgb2yuv)
     b.resize(nt2::of_size(size));
 
     for(int i=1; i<=size; i++)
-      r(i) = g(i) = b(i) = y(i) = u(i) = v(i) = T(i); 
+      r(i) = g(i) = b(i) = y(i) = u(i) = v(i) = T(i);
   }
   virtual void info(std::ostream& os) const { os <<size; }
-  
+
   BOOST_FORCEINLINE virtual void run() const
   {
     y = 0.299f*r + 0.587f*g + 0.114f*b;
@@ -46,8 +46,8 @@ NT2_EXPERIMENT(rgb2yuv)
   virtual double compute(nt2::benchmark_result_t const& r) const
   {
     return r.first/double(size);
-  }  
-  
+  }
+
   virtual void reset() const
   {
   }

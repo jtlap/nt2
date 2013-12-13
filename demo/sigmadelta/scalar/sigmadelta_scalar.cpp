@@ -14,7 +14,7 @@ using namespace nt2;
 
 template<typename T>
 NT2_EXPERIMENT(sigmadelta_scalar)
-{    
+{
    public :
       sigmadelta_scalar(int h, int w, int seq)
       : NT2_EXPRIMENT_CTOR(1,"cycles/element"),
@@ -29,20 +29,20 @@ NT2_EXPERIMENT(sigmadelta_scalar)
         frames[k]  = (T*)malloc(size*sizeof(T));
 
       for(int k=0; k<nb_frames; k++)
-      {  
-       
+      {
+
         frame = frames[k];
         for(int i=0; i<height;i++)
         {
           for(int j=0; j<width; j++)
-          { 
-            if(i>(height/4) && i<(height/2) && j>((width/4)+k%10) && j<((width/2)+k%10)) 
+          {
+            if(i>(height/4) && i<(height/2) && j>((width/4)+k%10) && j<((width/2)+k%10))
               frame[i*width+j] = 255;
             else frame[i*width+j] = 0;
           }
         }
 
-        for(int i=0; i < size; i++) 
+        for(int i=0; i < size; i++)
         {
           variance_img[i] = 1;
           background_img[i] = (frames[0])[i];
@@ -50,8 +50,8 @@ NT2_EXPERIMENT(sigmadelta_scalar)
         }
       }
     }
-   
-  
+
+
     BOOST_FORCEINLINE virtual void run() const
     {
       unsigned char d,mul;
@@ -61,45 +61,45 @@ NT2_EXPERIMENT(sigmadelta_scalar)
         frame = frames[k];
 
         #pragma simd
-        for(int i=0; i < size; i++) 
+        for(int i=0; i < size; i++)
         {
           if(background_img[i] < frame[i])
           {
             background_img[i] += 1;
-          } 
+          }
           else
           {
-            if(background_img[i] > frame[i]) 
+            if(background_img[i] > frame[i])
             {
               background_img[i] -= 1;
             }
           }
-      
+
           d = abs(background_img[i]-frame[i]);
-            
+
           mul = N * d;
           if(d != 0)
           {
             if(variance_img[i] < mul)
             {
               variance_img[i] += 1;
-            } 
+            }
             else
             {
-              if(variance_img[i] > mul) 
+              if(variance_img[i] > mul)
               {
                 variance_img[i] -= 1;
               }
             }
-          }           
+          }
           if(d < variance_img[i])
-          { 
+          {
             etiquette_binaire[i] = 0;
           }
           else
           {
             etiquette_binaire[i] = 255;
-          }           
+          }
         }
       }
     }
@@ -108,7 +108,7 @@ NT2_EXPERIMENT(sigmadelta_scalar)
     virtual double compute(nt2::benchmark_result_t const& r) const
     {
       return r.first/double(height*width)/nb_frames;
-    }  
+    }
 
     virtual void reset()
     {

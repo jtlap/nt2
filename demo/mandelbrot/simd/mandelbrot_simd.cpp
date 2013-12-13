@@ -25,13 +25,13 @@ namespace mandelbrot
 {
 
   struct step
-  { 
+  {
     template<class Sig> struct result;
-    template<class This, class A0, class A1> 
-    struct result<This(A0,A1)> 
+    template<class This, class A0, class A1>
+    struct result<This(A0,A1)>
     {
       typedef typename boost::dispatch::meta::
-              as_integer<typename boost::dispatch::meta::strip<A0>::type 
+              as_integer<typename boost::dispatch::meta::strip<A0>::type
                         >::type type;
     };
 
@@ -53,8 +53,8 @@ namespace mandelbrot
       do
       {
         x2 = x*x;
-        y2 = y*y; 
-        xy = s_type(2)	*x*y;
+        y2 = y*y;
+        xy = s_type(2)  *x*y;
         x = x2 - y2 + a;
         y = xy + b;
         m2 = x2 + y2;
@@ -63,7 +63,7 @@ namespace mandelbrot
         flag = boost::simd::any(mask);
         i++;
       }while(flag && i < 256);
-      
+
       return iter;
     }
 
@@ -87,13 +87,13 @@ public:
     A.resize(size_);
     B.resize(size_);
     C.resize(size_);
-  } 
+  }
 
   virtual void run() const
   {
     using boost::simd::pack;
     using boost::simd::aligned_store;
-    typedef pack<value_type> type; 
+    typedef pack<value_type> type;
     for (std::size_t ii=0;ii<size_;ii+=boost::simd::meta::cardinal_of<type>::value){
       type A_pack = (&A[ii]);
       type B_pack = (&B[ii]);
@@ -108,10 +108,10 @@ public:
 
   virtual void info(std::ostream& os) const { os << h_ << "x" << w_; }
 
-  virtual void reset() const 
+  virtual void reset() const
   {
     static int pass = 0;
-    if(pass==1) 
+    if(pass==1)
     {
       utils::save_pgm(C,h_,w_, "test_pgm.pgm");
     }
@@ -122,17 +122,17 @@ public:
     T new_val=a0_;
     for (int jj=0;jj<w_;jj++){
       for (int ii=0;ii<h_;ii++){
-	      A[jj*h_+ii]=new_val;
-	      new_val+=interval_A;
+        A[jj*h_+ii]=new_val;
+        new_val+=interval_A;
       }
       new_val=a0_;
     }
     B.resize(size_);
     new_val=b0_;
-    T interval_B=(b1_-b0_)/(w_-1);  
+    T interval_B=(b1_-b0_)/(w_-1);
     for (int jj=0;jj<w_;jj++){
       for (int ii=0;ii<h_;ii++){
-	      B[jj*h_+ii]=new_val;
+        B[jj*h_+ii]=new_val;
       }
       new_val+=interval_B;
     }

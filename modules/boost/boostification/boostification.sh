@@ -86,7 +86,7 @@ cd "$cwd"
 for i in `echo "$directories"`
 do
     top=`echo $i | sed -r 's@^../([^/]+)/.*$@\1@g'`
-    
+
     # copy sources
     cd $i/src
     for j in `find . -name '*.cpp'`
@@ -95,7 +95,7 @@ do
         cp --parents "$j" "$cwd/libs/$top/src"
     done;
     cd $cwd
-    
+
     # copy tests (jamfiles to generate still)
     cd $i/unit
     for j in `find . -name '*.cpp'`
@@ -104,7 +104,7 @@ do
         cp --parents "$j" "$cwd/libs/$top/test"
     done;
     cd $cwd
-    
+
 done
 
 rm -rf install_tmp

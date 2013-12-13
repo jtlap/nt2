@@ -32,7 +32,7 @@ keeping a high level of abstraction.
 Documentation
 -------------
 
-`The (in progress) documentation is available here <http://nt2.metascale.fr/doc/html/>`_ 
+`The (in progress) documentation is available here <http://nt2.metascale.fr/doc/html/>`_
 
 ----------
 References
@@ -43,7 +43,7 @@ References
 License
 ----------
 
-NT2 uses the `Boost Software License <http://www.boost.org/LICENSE_1_0.txt>`_. A copy should be available in the doc directory of this repository. 
+NT2 uses the `Boost Software License <http://www.boost.org/LICENSE_1_0.txt>`_. A copy should be available in the doc directory of this repository.
 
 ----------
 Contact
@@ -52,4 +52,4 @@ Contact
 :Website: http://nt2.metascale.org
 :Mailing List: `nt2-dev <http://groups.google.com/group/nt2-dev>`_
 :Repository: `nt2 on GitHub <http://github/MetaScale/nt2>`_
-:IRC: #nt2 at `irc.freenode.net <http://freenode.net>`_ 
+:IRC: #nt2 at `irc.freenode.net <http://freenode.net>`_

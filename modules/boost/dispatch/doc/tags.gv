@@ -5,75 +5,75 @@ digraph tag_hierarchy
 
     {
         rank = same;
-        "arithmetic_"; "bool_"; 
-        
+        "arithmetic_"; "bool_";
+
         "arithmetic_" -> "bool_" [style="invis"];
     }
-    
+
     {
         rank = same;
         "integer_"; "real_";
     }
-    
+
     {
         rank = same;
         "type8_"; "type16_";
         "type32_"; "type64_";
     }
-    
+
     {
         rank = same;
         "float_"; "double_";
         "int8_"; "int16_"; "int32_"; "int64_";
         "uint8_"; "uint16_"; "uint32_"; "uint64_";
-        
+
         "uint8_"     ->  "int16_" [style="invis"];
     }
 
     "fundamental_"   ->  "arithmetic_";
-    
+
     "arithmetic_"    ->  "integer_";
     "integer_"       ->  "signed_";
     "arithmetic_"    ->  "signed_";
     "integer_"       ->  "unsigned_";
-    
+
     "signed_"        ->  "real_";
     "signed_"        ->  "int_";
     "unsigned_"      ->  "uint_";
-    
+
     "int_"           ->  "type8_";
     "uint_"          ->  "type8_";
-    
+
     "int_"           ->  "type16_";
     "uint_"          ->  "type16_";
-    
+
     "real_"          ->  "real_sized_";
     "int_"           ->  "real_sized_";
     "uint_"          ->  "real_sized_";
-    
+
     "real_sized_"    ->  "type32_";
     "real_sized_"    ->  "type64_";
-    
+
     "type8_"         ->  "ints8_";
     "type16_"        ->  "ints16_";
     "type32_"        ->  "ints32_";
     "type64_"        ->  "ints64_";
-    
+
     "ints8_"         ->  "int8_";
     "ints16_"        ->  "int16_";
     "ints32_"        ->  "int32_";
     "ints64_"        ->  "int64_";
-    
+
     "ints8_"         ->  "uint8_";
     "ints16_"        ->  "uint16_";
     "ints32_"        ->  "uint32_";
     "ints64_"        ->  "uint64_";
-    
+
     "type32_"        ->  "float_";
     "type64_"        ->  "double_";
-    
+
     "fundamental_"   ->  "bool_";
-    
+
 
     "fundamental_"   [ URL = "#unspecified_"  ];
     "arithmetic_"    [ URL = "#arithmetic_"   ];

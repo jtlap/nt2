@@ -12,6 +12,6 @@
 ################################################################################
 include(FindSphinx)
 IF(SPHINX_FOUND)
-MESSAGE(STATUS "Found Sphinx Documentation system" ) 
+MESSAGE(STATUS "Found Sphinx Documentation system" )
 ENDIF(SPHINX_FOUND)
 

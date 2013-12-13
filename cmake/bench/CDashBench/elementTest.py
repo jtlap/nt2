@@ -11,7 +11,7 @@ class ElementTest :
 
   # Retourne un element xml correspondant au test
   def getXmlElement(self) :
-   
+
     xml = config.TEST_DESC_XML_STRING.format(self._name, self._value, self._output)
 
     # Creation de l'element representant le test

@@ -22,17 +22,17 @@
 #define NOPS 2.0
 
 template <class A0>
-BOOST_FORCEINLINE __attribute__((flatten)) A0 Tdot_simd(A0 const& X, A0 const& Y) 
-{   
+BOOST_FORCEINLINE __attribute__((flatten)) A0 Tdot_simd(A0 const& X, A0 const& Y)
+{
   return(X*Y);
 }
 
-template<typename T> 
+template<typename T>
 NT2_EXPERIMENT(Tdot)
 {
-  public:   
-    
-    Tdot(std::size_t const& s) 
+  public:
+
+    Tdot(std::size_t const& s)
     : NT2_EXPRIMENT_CTOR(1., "GFLOPS"),
     size_(s)
     {
@@ -61,13 +61,13 @@ NT2_EXPERIMENT(Tdot)
     }
 
     virtual void info(std::ostream& os) const { os << size_; }
-   
-    virtual void reset() const 
+
+    virtual void reset() const
     {
     }
   private:
     mutable T res;
-    std::size_t size_; 
+    std::size_t size_;
     mutable std::size_t step_size_;
     mutable typename std::vector<T, boost::simd::allocator<T> > X, Y;
 };

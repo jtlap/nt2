@@ -13,12 +13,12 @@
 #define TURBOFREQ 3.401
 #define NOPS 2.0
 
-template<typename T> 
+template<typename T>
 NT2_EXPERIMENT(Tdot)
 {
-  public:   
-    
-    Tdot(std::size_t const& s) 
+  public:
+
+    Tdot(std::size_t const& s)
     : NT2_EXPRIMENT_CTOR(1., "GFLOPS"),
     size_(s)
     {
@@ -37,13 +37,13 @@ NT2_EXPERIMENT(Tdot)
     }
 
     virtual void info(std::ostream& os) const { os << size_; }
-   
-    virtual void reset() const 
+
+    virtual void reset() const
     {
     }
   private:
     mutable T res;
-    std::size_t size_; 
+    std::size_t size_;
     mutable typename std::vector<T> X, Y;
 };
 typedef float K;

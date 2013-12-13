@@ -1,15 +1,15 @@
 Prioririty to : logical with all and any
                 use of begin and end in indexes
-                indexing with vector of indices 
+                indexing with vector of indices
                 diag_of and from_diag
                 easy ways to construct a table from datas (cons {} or from C array or boost_array)
                 repmat
 
-                                                                            
+
 // Matrix Analysis
 // cond              Condition number with respect to inversion                    | done
 // condeig           Condition number with respect to eigenvalues                  |
-// det               Matrix determinant                                            | done also 2 versions of absdet 
+// det               Matrix determinant                                            | done also 2 versions of absdet
 //                                                                                   one with no overflow
 // norm              Vector and matrix norms                                       | done
 // normest           2-norm estimate                                               | almost done tie version waiting
@@ -19,12 +19,12 @@ Prioririty to : logical with all and any
 // rcond             Matrix reciprocal condition number estimate                   | done
 // rref              Reduced row echelon form                                      | done
 // subspace          Angle between two subspacestraceSum of diagonal elements      | almost done
-                                                                                
-// Linear Equations                                                             
+
+// Linear Equations
 // chol              Cholesky factorization                                        | done
 // cholinc           Sparse incomplete Cholesky and Cholesky-Infinity              |  SPARSE
 // cond              Condition number with respect to inversion                    | done
-// condest           1-norm condition number estimate                              | almost done 
+// condest           1-norm condition number estimate                              | almost done
 // funm              Evaluate general matrix function                              |
 // ichol             Incomplete Cholesky factorization                             |  SPARSE
 // ilu               Sparse incomplete LU factorization                            |  SPARSE
@@ -44,7 +44,7 @@ Prioririty to : logical with all and any
 // condeig              Condition number with respect to eigenvalues               |
 // eig                  Eigenvalues and eigenvectors                               | done
 // eigs                 Largest eigenvalues and eigenvectors of matrix             |
-// gsvd                 Generalized singular value decomposition                   | 
+// gsvd                 Generalized singular value decomposition                   |
 // hess                 Hessenberg form of matrix                                  |
 // ordeig               Eigenvalues of quasitriangular matrices                    |
 // ordqz                Reorder eigenvalues in QZ factorization                    |
@@ -65,12 +65,12 @@ Prioririty to : logical with all and any
 // Factorization
 // balance                Diagonal scaling to improve eigenvalue accuracy          | done
 // cdf2rdf                Convert complex diagonal form to real block diagonal form|  matlab source
-// cholupdate             Rank 1 update to Cholesky factorization                  | 
+// cholupdate             Rank 1 update to Cholesky factorization                  |
 // planerot               Givens plane rotation                                    | done
 // qrdelete               Remove column or row from QR factorization               | source exists in matlab
 // qrinsert               Insert column or row into QR factorization               | source exists in matlab
-// qrupdate               Rank 1 update to QR factorization                        | qrupdate is implemented in 
+// qrupdate               Rank 1 update to QR factorization                        | qrupdate is implemented in
                                                                                    | libqrupdate lib which is gpl and in FORTRAN
 // qz                     QZ factorization for generalized eigenvalues             | in lapack not done
-// rsf2csf                Convert real Schur form to complex Schur form            | source exists in matlab 
+// rsf2csf                Convert real Schur form to complex Schur form            | source exists in matlab
 

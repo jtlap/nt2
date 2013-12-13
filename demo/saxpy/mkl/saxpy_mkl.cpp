@@ -20,7 +20,7 @@ template<typename T>
 NT2_EXPERIMENT(daxpy_mkl)
 {
   public:
-    daxpy_mkl(std::size_t const& s, double const& a) 
+    daxpy_mkl(std::size_t const& s, double const& a)
     : NT2_EXPRIMENT_CTOR(1., "GFLOPS"), alpha(a), size(s)
     {
       incx = incy = 1;
@@ -61,7 +61,7 @@ template<typename T>
 NT2_EXPERIMENT(saxpy_mkl)
 {
   public:
-    saxpy_mkl(std::size_t const& s, float const& a) 
+    saxpy_mkl(std::size_t const& s, float const& a)
     : NT2_EXPRIMENT_CTOR(1., "GFLOPS"), alpha(a), size(s)
     {
       incx = incy = 1;

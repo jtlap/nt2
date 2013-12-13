@@ -18,17 +18,17 @@
 #define NUM_ITER 1e5
 
 template <class A0, class A1>
-BOOST_FORCEINLINE __attribute__((flatten)) A0 Taxpy_simd(A1 const& alpha, A0 const& X, A0 &Y) 
-{   
+BOOST_FORCEINLINE __attribute__((flatten)) A0 Taxpy_simd(A1 const& alpha, A0 const& X, A0 &Y)
+{
   return(boost::simd::fma(alpha, X, Y));
 }
 
-template<typename T> 
+template<typename T>
 NT2_EXPERIMENT(Taxpy)
 {
-  public:   
-    
-    Taxpy(std::size_t const& s, T const& a) 
+  public:
+
+    Taxpy(std::size_t const& s, T const& a)
     : NT2_EXPRIMENT_CTOR(1., "GFLOPS"),
     size_(s), alpha(a)
     {
@@ -57,13 +57,13 @@ NT2_EXPERIMENT(Taxpy)
     }
 
     virtual void info(std::ostream& os) const { os << size_; }
-   
-    virtual void reset() const 
+
+    virtual void reset() const
     {
     }
   private:
     T alpha;
-    std::size_t size_; 
+    std::size_t size_;
     mutable std::size_t step_size_;
     mutable typename std::vector<T, boost::simd::allocator<T> > X, Y;
 };

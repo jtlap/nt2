@@ -36,9 +36,9 @@ BOOST_FORCEINLINE Pixel do_work(Pixel &bkg, const Pixel &fr, Pixel &var)
         );
   diff_img = max(bkg, fr) - min(bkg, fr);
 
-	mul_img = adds(adds(diff_img,diff_img),diff_img);
+  mul_img = adds(adds(diff_img,diff_img),diff_img);
 
-	var = if_else( diff_img != zero, selinc( var < mul_img
+  var = if_else( diff_img != zero, selinc( var < mul_img
                                  , seldec( var > mul_img
                                  , var
                                  )
@@ -81,23 +81,23 @@ public:
     background_img = frames[0];
     std::fill(etiquette_binaire.begin(),etiquette_binaire.end(),0);
   }
-  
+
   virtual void run() const
   {
     using boost::simd::pack;
     using boost::simd::aligned_load;
     using boost::simd::aligned_store;
-  
-    typedef pack<T> type; 
+
+    typedef pack<T> type;
 
     for(int k=1; k<nb_frames; k++)
     {
       for (int j=0; j<size; j+=boost::simd::meta::cardinal_of<type>::value){
-	      type bkg(&background_img[j]); 
-	      type fr(&frames[k][j]); 
-	      type var(&variance_img[j]); 
-	      aligned_store(do_work(bkg,fr,var),&etiquette_binaire[j]);
-	      aligned_store(var,&variance_img[j]);
+        type bkg(&background_img[j]);
+        type fr(&frames[k][j]);
+        type var(&variance_img[j]);
+        aligned_store(do_work(bkg,fr,var),&etiquette_binaire[j]);
+        aligned_store(var,&variance_img[j]);
       }
     }
   }
@@ -107,7 +107,7 @@ public:
     return r.first/double(height*width)/nb_frames;
   }
 
-  virtual void info(std::ostream& os) const { os << height << "x" << width; 
+  virtual void info(std::ostream& os) const { os << height << "x" << width;
 }
 
   virtual void reset() const
