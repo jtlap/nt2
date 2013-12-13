@@ -19,7 +19,7 @@ template<typename T> NT2_EXPERIMENT(tchebeval_bench)
   public:
   typedef typename boost::simd::meta::scalar_of<T>::type base_t;
 
-  tchebeval_bench(std::size_t s) : NT2_EXPRIMENT_CTOR(1,"cycles/elements"), size(s)
+  tchebeval_bench(std::size_t s) : NT2_EXPERIMENT_CTOR(1,"cycles/elements"), size(s)
   {
     coeff[0] = base_t(2); coeff[1] = base_t(3); coeff[2] = base_t(4);
   }

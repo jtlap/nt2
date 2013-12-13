@@ -18,7 +18,7 @@ NT2_EXPERIMENT(test_norm)
 {
   public:
   test_norm ( std::size_t s0, std::size_t s1)
-            : NT2_EXPRIMENT_CTOR(1., "cycles/elements" )
+            : NT2_EXPERIMENT_CTOR(1., "cycles/elements" )
             , d0(s0), d1(s1)
   {}
 
@@ -53,7 +53,7 @@ NT2_EXPERIMENT(test_norm_expr)
 {
   public:
   test_norm_expr( std::size_t s0, std::size_t s1)
-                : NT2_EXPRIMENT_CTOR(1., "cycles/elements" )
+                : NT2_EXPERIMENT_CTOR(1., "cycles/elements" )
                 , d0(s0), d1(s1)
   {}
 

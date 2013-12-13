@@ -26,7 +26,7 @@ NT2_EXPERIMENT(per_matrix)
 {
   public:
   per_matrix( std::size_t s0, std::size_t s1 )
-            : NT2_EXPRIMENT_CTOR(5,"ms")
+            : NT2_EXPERIMENT_CTOR(5,"ms")
             , d0(s0), d1(s1)
   {}
 
@@ -58,7 +58,7 @@ NT2_EXPERIMENT(per_column)
 {
   public:
   per_column( std::size_t s0, std::size_t s1 )
-            : NT2_EXPRIMENT_CTOR(5,"ms")
+            : NT2_EXPERIMENT_CTOR(5,"ms")
             , d0(s0), d1(s1)
   {}
 
@@ -93,7 +93,7 @@ NT2_EXPERIMENT(per_element)
 {
   public:
   per_element ( std::size_t s0, std::size_t s1 )
-              : NT2_EXPRIMENT_CTOR(5,"ms")
+              : NT2_EXPERIMENT_CTOR(5,"ms")
               , d0(s0), d1(s1)
   {}
 
@@ -141,7 +141,7 @@ NT2_EXPERIMENT(raw_C)
 {
   public:
   raw_C( std::size_t s0, std::size_t s1 )
-       : NT2_EXPRIMENT_CTOR(5,"ms")
+       : NT2_EXPERIMENT_CTOR(5,"ms")
        , d(s0*s1)
   {}
 

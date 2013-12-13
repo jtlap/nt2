@@ -20,7 +20,7 @@ NT2_EXPERIMENT(redundant_loads)
 {
   public:
   redundant_loads ( std::size_t s0, std::size_t s1, bool status = false )
-            : NT2_EXPRIMENT_CTOR(1.,status ? "cycles/elements" : "speed-up")
+            : NT2_EXPERIMENT_CTOR(1.,status ? "cycles/elements" : "speed-up")
             , d0(s0), d1(s1)
             , is_ref(status)
   {}
@@ -63,7 +63,7 @@ template<typename T> NT2_EXPERIMENT(redundant_loads< std::vector<T> >)
 {
   public:
   redundant_loads ( std::size_t s0, std::size_t s1)
-            : NT2_EXPRIMENT_CTOR(1.,"cycles/elements")
+            : NT2_EXPERIMENT_CTOR(1.,"cycles/elements")
             , d0(s0), d1(s1)
   {}
 

@@ -54,7 +54,7 @@ template<typename T> NT2_EXPERIMENT(sigmadelta_exp)
 public:
 
   sigmadelta_exp( std::size_t const& h, std::size_t const& w, std::size_t const& seq)
-  : NT2_EXPRIMENT_CTOR(1., "cycles/elements")
+  : NT2_EXPERIMENT_CTOR(1., "cycles/elements")
   , height(h), width(w), size(h*w), nb_frames(seq)
   {
     frames.resize(seq);

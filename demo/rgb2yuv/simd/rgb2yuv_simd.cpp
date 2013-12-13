@@ -25,7 +25,7 @@ NT2_EXPERIMENT(rgb2yuv)
 {
   public :
     rgb2yuv(int h, int w)
-    : NT2_EXPRIMENT_CTOR(1,"cycles/elements"), height(h), width(w), size(h*w)
+    : NT2_EXPERIMENT_CTOR(1,"cycles/elements"), height(h), width(w), size(h*w)
   {
     y.resize(size);
     u.resize(size);

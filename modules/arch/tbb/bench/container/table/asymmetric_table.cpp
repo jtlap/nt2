@@ -23,7 +23,7 @@ NT2_EXPERIMENT(small_table)
 {
   public:
   small_table ( std::size_t s0, std::size_t s1 )
-              : NT2_EXPRIMENT_CTOR(1.,"cycles/elements")
+              : NT2_EXPERIMENT_CTOR(1.,"cycles/elements")
               , d0(s0), d1(s1)
   {}
 

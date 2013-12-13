@@ -26,7 +26,7 @@ struct  buffer_test
 {
   public:
   buffer_test(std::size_t sz)
-        : NT2_EXPRIMENT_CTOR(1.,"cycles/elements")
+        : NT2_EXPERIMENT_CTOR(1.,"cycles/elements")
         , up(sz), data(sz), data2(sz)
   {}
 
@@ -55,7 +55,7 @@ struct  buffer_test< nt2::memory::container<T,nt2::settings(),nt2::tag::table_> 
   typedef nt2::memory::container<T,nt2::settings(),nt2::tag::table_> buffer_t;
 
   buffer_test(std::size_t sz)
-        : NT2_EXPRIMENT_CTOR(1.,"cycles/elements")
+        : NT2_EXPERIMENT_CTOR(1.,"cycles/elements")
         , up(sz), data(nt2::of_size(sz)), data2(nt2::of_size(sz))
   {}
 

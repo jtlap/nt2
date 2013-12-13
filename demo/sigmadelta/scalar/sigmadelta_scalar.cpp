@@ -17,7 +17,7 @@ NT2_EXPERIMENT(sigmadelta_scalar)
 {
    public :
       sigmadelta_scalar(int h, int w, int seq)
-      : NT2_EXPRIMENT_CTOR(1,"cycles/element"),
+      : NT2_EXPERIMENT_CTOR(1,"cycles/element"),
       height(h), width(w), size(h*w), nb_frames(seq)
    {
       variance_img      = (T*)malloc(size*sizeof(T));

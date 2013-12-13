@@ -20,7 +20,7 @@ NT2_EXPERIMENT(sum_over)
 {
   public:
   sum_over( std::size_t s0, std::size_t s1 )
-          : NT2_EXPRIMENT_CTOR(1.,"cycles/operations")
+          : NT2_EXPERIMENT_CTOR(1.,"cycles/operations")
           , d0(s0), d1(s1)
   {}
 

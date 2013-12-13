@@ -21,7 +21,7 @@ NT2_EXPERIMENT(Taxpy)
   public:
 
     Taxpy(std::size_t const& s, T const& a)
-    : NT2_EXPRIMENT_CTOR(1., "GFLOPS"),
+    : NT2_EXPERIMENT_CTOR(1., "GFLOPS"),
     size_(s), alpha(a)
     {
 

@@ -64,7 +64,7 @@ template<typename T>  NT2_EXPERIMENT((bandwidth<T,nt2_>))
 
   public:
   bandwidth( std::size_t byte_size, double d )
-            : NT2_EXPRIMENT_CTOR(d,"Gb/s")
+            : NT2_EXPERIMENT_CTOR(d,"Gb/s")
             , base(byte_size)
   {}
 
@@ -100,7 +100,7 @@ template<typename T>  NT2_EXPERIMENT((bandwidth<T,C_>))
 
   public:
   bandwidth( std::size_t byte_size, double d )
-            : NT2_EXPRIMENT_CTOR(d,"Gb/s")
+            : NT2_EXPERIMENT_CTOR(d,"Gb/s")
             , base(byte_size)
   {}
 
@@ -134,7 +134,7 @@ template<typename T>  NT2_EXPERIMENT((bandwidth<T,memcpy_>))
 
   public:
   bandwidth( std::size_t byte_size, double d )
-            : NT2_EXPRIMENT_CTOR(d,"Gb/s")
+            : NT2_EXPERIMENT_CTOR(d,"Gb/s")
             , base(byte_size)
   {}
 

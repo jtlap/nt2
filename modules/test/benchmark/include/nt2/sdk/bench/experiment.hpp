@@ -29,7 +29,7 @@ class BOOST_DISPATCH_PP_STRIP(Type) : public nt2::details::base_experiment \
 /*!
  @brief Definition of an Experiment Constructor
 **/
-#define NT2_EXPRIMENT_CTOR(Duration, Unit)                      \
+#define NT2_EXPERIMENT_CTOR(Duration, Unit)                     \
 nt2::details::base_experiment ( (Duration)                      \
                               , ::nt2::type_id(*this)           \
                               , Unit                            \

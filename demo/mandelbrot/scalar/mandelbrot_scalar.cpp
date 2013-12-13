@@ -54,7 +54,7 @@ public:
                 , value_type const& b0, value_type const& b1
                 , std::size_t const& max_iter
                 )
-  : NT2_EXPRIMENT_CTOR(10., "cycles/elements")
+  : NT2_EXPERIMENT_CTOR(10., "cycles/elements")
   , h_(h), w_(w), a0_(a0), a1_(a1), b0_(b0), b1_(b1), max_iter_(max_iter)
   {
     C.resize(h*w);

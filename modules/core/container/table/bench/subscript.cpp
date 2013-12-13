@@ -23,7 +23,7 @@ NT2_EXPERIMENT((test_subscript<nt2::table<T>, _1D>))
 {
   public:
   test_subscript( std::size_t s0, bool status = false )
-                : NT2_EXPRIMENT_CTOR(1.,status ? "cycles/elements" : "speed-up")
+                : NT2_EXPERIMENT_CTOR(1.,status ? "cycles/elements" : "speed-up")
                 , d0(s0)
                 , is_ref(status)
   {}
@@ -68,7 +68,7 @@ NT2_EXPERIMENT((test_subscript<nt2::table<T>, _2D>))
 {
   public:
   test_subscript( std::size_t s0, std::size_t s1, bool status = false )
-                : NT2_EXPRIMENT_CTOR(1.,status ? "cycles/elements" : "speed-up")
+                : NT2_EXPERIMENT_CTOR(1.,status ? "cycles/elements" : "speed-up")
                 , d0(s0), d1(s1)
                 , is_ref(status)
   {}
@@ -114,7 +114,7 @@ NT2_EXPERIMENT((test_subscript<std::vector<T>, _1D>))
 {
   public:
   test_subscript( std::size_t s0)
-                : NT2_EXPRIMENT_CTOR(1.,"cycles/elements")
+                : NT2_EXPERIMENT_CTOR(1.,"cycles/elements")
                 , d0(s0)
   {}
 
@@ -150,7 +150,7 @@ NT2_EXPERIMENT((test_subscript<std::vector<T>, _2D>))
 {
   public:
   test_subscript( std::size_t s0, std::size_t s1)
-                : NT2_EXPRIMENT_CTOR(1.,"cycles/elements")
+                : NT2_EXPERIMENT_CTOR(1.,"cycles/elements")
                 , d0(s0), d1(s1)
   {}
 

@@ -13,7 +13,7 @@
 template<typename T> NT2_EXPERIMENT(polevl_bench)
 {
   public:
-  polevl_bench(std::size_t s) : NT2_EXPRIMENT_CTOR(1,"cycles/elements"), size(s)
+  polevl_bench(std::size_t s) : NT2_EXPERIMENT_CTOR(1,"cycles/elements"), size(s)
   {
     coeff[0] = T(2); coeff[1] = T(3); coeff[2] = T(4);
   }

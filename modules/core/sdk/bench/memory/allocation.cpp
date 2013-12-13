@@ -18,7 +18,7 @@ template<class Allocator> NT2_EXPERIMENT(allocation_test)
 
   typedef typename Allocator::pointer pointer;
 
-  allocation_test(int n) : NT2_EXPRIMENT_CTOR(1.,"cycles/elements"), N(n)
+  allocation_test(int n) : NT2_EXPERIMENT_CTOR(1.,"cycles/elements"), N(n)
   {
     a0.reserve(n);
   }

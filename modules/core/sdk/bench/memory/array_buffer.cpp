@@ -19,7 +19,7 @@ template<class Buffer> NT2_EXPERIMENT(static_buffer_test)
 {
   public:
   static_buffer_test(std::size_t sz)
-        : NT2_EXPRIMENT_CTOR(1.,"cycles"), up(sz)
+        : NT2_EXPERIMENT_CTOR(1.,"cycles"), up(sz)
   {}
 
   ~static_buffer_test() { pump[rand() % up] = data[rand() % up]; }

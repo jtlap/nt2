@@ -19,7 +19,7 @@ NT2_EXPERIMENT(Tdot)
   public:
 
     Tdot(std::size_t const& s)
-    : NT2_EXPRIMENT_CTOR(1., "GFLOPS"),
+    : NT2_EXPERIMENT_CTOR(1., "GFLOPS"),
     size_(s)
     {
       X.resize(s); Y.resize(s);
