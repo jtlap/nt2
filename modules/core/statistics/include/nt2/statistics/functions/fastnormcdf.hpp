@@ -11,7 +11,9 @@
 
 #include <nt2/include/functor.hpp>
 
-namespace nt2 { namespace tag
+namespace nt2
+{
+  namespace tag
   {
    /*!
      @brief fastnormcdf generic tag

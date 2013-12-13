@@ -8,10 +8,12 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_SIN_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_SIN_HPP_INCLUDED
+
 #include <nt2/include/functor.hpp>
 
-
-namespace nt2 { namespace tag
+namespace nt2
+{
+  namespace tag
   {
    /*!
      @brief sin generic tag
