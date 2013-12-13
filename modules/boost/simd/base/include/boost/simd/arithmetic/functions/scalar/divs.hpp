@@ -53,7 +53,7 @@ namespace boost { namespace simd { namespace ext
       if (a1)
         return aa0/a1;
       else if (a0)
-        return Valmax<A0>() + ((utype)a0 >> sizeof(A0)*CHAR_BIT-1);
+        return Valmax<A0>() + ((utype)a0 >> (sizeof(A0)*CHAR_BIT-1));
       else
         return Zero<A0>();
     }
