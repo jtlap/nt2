@@ -16,6 +16,7 @@
 #include <boost/simd/include/functions/simd/touint.hpp>
 #include <boost/simd/include/functions/simd/make.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/preprocessor/make.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
@@ -26,14 +27,6 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  #define M0(z, n, arg)                                                      \
-  BOOST_FORCEINLINE                                                          \
-  result_type eval(const A0& a0, boost::mpl::size_t<n> const&) const         \
-  {                                                                          \
-    return make<result_type>(BOOST_PP_ENUM(n, arg, ~));                      \
-  }                                                                          \
-  /**/
-
   //============================================================================
   // With no idea what we're doing, just fill the vector piecewise
   //============================================================================
@@ -51,11 +44,11 @@ namespace boost { namespace simd { namespace ext
       return eval(a0,typename simd::meta::cardinal_of<result_type>::type());
     }
 
-    #define M1(z, n, t) static_cast<sA1>(a0)
+    #define M0(z, n, t) static_cast<sA1>(a0)
 
-    BOOST_SIMD_PP_REPEAT_POWER_OF_2_FROM(2, M0, M1)
+    BOOST_SIMD_PP_IMPLEMENT_WITH_MAKE(1, M0)
 
-    #undef M1
+    #undef M0
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::splat_, tag::cpu_
@@ -78,14 +71,12 @@ namespace boost { namespace simd { namespace ext
       return eval(a0,typename simd::meta::cardinal_of<result_type>::type());
     }
 
-    #define M1(z, n, t) static_cast<sA1>(extract<n>(a0))
+    #define M0(z, n, t) static_cast<sA1>(extract<n>(a0))
 
-    BOOST_SIMD_PP_REPEAT_POWER_OF_2_FROM(2, M0, M1)
+    BOOST_SIMD_PP_IMPLEMENT_WITH_MAKE(1, M0)
 
-    #undef M1
+    #undef M0
   };
-
-#undef M0
 
   //============================================================================
   // Splatting a SIMD value to another can use toint, touint or tofloat (optimizations)
