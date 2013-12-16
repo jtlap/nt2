@@ -13,6 +13,7 @@ SET( SOURCES
   cauinv.cpp
   caurnd.cpp
   normcdf.cpp
+  fastnormcdf.cpp
   normpdf.cpp
   normrnd.cpp
   norminv.cpp

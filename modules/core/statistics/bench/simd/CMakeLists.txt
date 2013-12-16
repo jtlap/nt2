@@ -9,6 +9,8 @@
 
 SET( SOURCES
 # List of simd test files for toolbox statistics
+   normcdf.cpp
+   fastnormcdf.cpp
    )
 
 nt2_module_add_tests(core.statistics.simd.bench ${SOURCES})
