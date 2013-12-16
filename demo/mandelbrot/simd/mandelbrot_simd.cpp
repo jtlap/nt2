@@ -94,11 +94,16 @@ public:
     using boost::simd::pack;
     using boost::simd::aligned_store;
     typedef pack<value_type> type;
-    for (std::size_t ii=0;ii<size_;ii+=boost::simd::meta::cardinal_of<type>::value){
+    std::size_t ii=0;
+    step_size_=boost::simd::meta::cardinal_of<type>::value;
+    while (size_-ii>=step_size_){
       type A_pack = (&A[ii]);
       type B_pack = (&B[ii]);
       aligned_store(julia(A_pack, B_pack), &C[ii]);
+      ii+=step_size_;
     }
+    for (;ii<size_;ii++)
+      C[ii]=julia(A[ii],B[ii]);
   }
 
   virtual double compute(nt2::benchmark_result_t const& r) const
@@ -139,12 +144,14 @@ public:
     pass++;
   }
 
- private:
-  mutable std::vector<value_type, boost::simd::allocator<value_type> > A, B;
-  mutable std::vector<int, boost::simd::allocator<int> > C;
-  mandelbrot::step julia;
-  std::size_t h_, w_, max_iter_, size_;
-  value_type a0_, a1_, b0_, b1_;
+  private:
+    mutable std::vector<value_type, boost::simd::allocator<value_type> > A, B;
+    mutable std::vector<int, boost::simd::allocator<int> > C;
+    mandelbrot::step julia;
+    std::size_t h_, w_, max_iter_, size_;
+    mutable std::size_t step_size_;
+    value_type a0_, a1_, b0_, b1_;
 };
 
 NT2_RUN_EXPERIMENT_TPL( mandelbrot_exp, (float), (2000,2000,-1.5,0.5,-1.0,1.0,256));
+NT2_RUN_EXPERIMENT_TPL( mandelbrot_exp, (float), (100,100,-1.5,0.5,-1.0,1.0,256));

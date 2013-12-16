@@ -15,4 +15,8 @@ find_package(NT2 REQUIRED)
 include(${NT2_USE_FILE})
 
 set(CMAKE_BUILD_TYPE Release)
+if(CMAKE_COMPILER_IS_GNUCXX)
+  add_definitions(-DBOOST_SIMD_NO_STRICT_ALIASING -fno-strict-aliasing)
+endif()
+
 add_executable(mandelbrot_scalar mandelbrot_scalar.cpp)
