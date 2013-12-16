@@ -23,7 +23,7 @@ namespace nt2
      @par Models:
         Hierarchy
    **/
-    struct fastnormcdf_ : ext::tieable_<fastnormcdf_>
+    struct fastnormcdf_ : ext::elementwise_<fastnormcdf_>
     {
       /// @brief Parent hierarchy
       typedef ext::elementwise_<fastnormcdf_> parent;
@@ -50,6 +50,6 @@ namespace nt2
     @return a value of the same type as the parameter
   **/
   NT2_FUNCTION_IMPLEMENTATION(tag::fastnormcdf_, fastnormcdf, 1)
-} }
+}
 
 #endif
