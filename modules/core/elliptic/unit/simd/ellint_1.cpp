@@ -47,7 +47,7 @@ NT2_TEST_CASE_TPL ( ellint_1_real,  NT2_SIMD_REAL_TYPES)
 
  for(int i=0; i < 11 ; i++)
  {
-   NT2_TEST_ULP_EQUAL(ellint_1(nt2::splat<vT>(T(i)/10)), nt2::splat<vT>(ellint_1(T(i)/10)), 1);
+   NT2_TEST_ULP_EQUAL(ellint_1(nt2::splat<vT>(T(i)/10)), nt2::splat<vT>(ellint_1(T(i)/10)), 1.5);
 
  }
 }
