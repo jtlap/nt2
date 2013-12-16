@@ -132,7 +132,7 @@ namespace nt2
     return static_cast<time_quantum_t>( t * timer_ticks_per_microsecond );
   }
 
-  NT2_SDK_TIMING_DECL unsigned long max_cpu_freq = 1000000; // 1Ghz by default
+  NT2_SDK_TIMING_DECL unsigned long max_cpu_freq = 1000000000; // 1Ghz by default
 
   struct max_cpu_freq_scoped
   {
@@ -150,7 +150,7 @@ namespace nt2
         return;
 
       buffer[sz-1] = '\0';
-      max_cpu_freq = ::strtoul(buffer, NULL, 10);
+      max_cpu_freq = ::strtoul(buffer, NULL, 10)*1000;
       #endif
     }
   };
