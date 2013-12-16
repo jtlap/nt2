@@ -11,10 +11,6 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
 #include <boost/simd/swar/functions/repeat_lower_half.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
-#include <boost/simd/include/functions/interleave_first.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/simd/swar/functions/details/perm.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -26,9 +22,9 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(__m256 const a0) const
+    BOOST_FORCEINLINE result_type operator()(__m256 const a0) const
     {
-      return details::perm2<0, 0>(a0, a0);
+      return _mm256_permute2f128_ps(a0,a0,0x00);
     }
   };
 
@@ -40,9 +36,9 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(__m256i const a0) const
+    BOOST_FORCEINLINE result_type operator()(__m256i const a0) const
     {
-      return   details::perm2<0, 0>(a0, a0);
+      return _mm256_permute2f128_si256(a0,a0,0x00);
     }
   };
 
@@ -54,9 +50,9 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(__m256d const a0) const
+    BOOST_FORCEINLINE result_type operator()(__m256d const a0) const
     {
-      return  details::perm2<0, 0>(a0, a0);
+      return _mm256_permute2f128_pd(a0,a0,0x00);
     }
   };
 } } }

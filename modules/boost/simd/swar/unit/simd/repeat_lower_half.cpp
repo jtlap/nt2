@@ -6,28 +6,37 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.swar toolbox - repeat_lower_half"
-
-#include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/include/functions/repeat_lower_half.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
 NT2_TEST_CASE_TPL(repeat_lower_half, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::native;
+  using boost::simd::tag::repeat_lower_half_;
   using boost::simd::meta::cardinal_of;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION      ext_t;
   typedef native<T,ext_t>                      vT;
 
-  const std::size_t card = cardinal_of<vT>::value;
-  vT a,c;
+  NT2_TEST_TYPE_IS( typename boost::dispatch::meta
+                                            ::call<repeat_lower_half_(vT)>::type
+                  , vT
+                  );
 
-  for(std::size_t i=1; i<=card; ++i) a[i-1]=T(i);
-  c = boost::simd::repeat_lower_half(a);
+  const std::size_t card = cardinal_of<vT>::value;
+  vT origin,ref;
 
   for(std::size_t i=0; i<card; ++i)
-    NT2_TEST_EQUAL(c[i],((i<(card/2))?a[i]:a[(i-card/2)]));
+  {
+    origin[i] = T(i+1);
+    ref[i]    = i<(card/2) ? T(i+1) : T(i+1-card/2);
+  }
+
+  NT2_TEST_EQUAL(boost::simd::repeat_lower_half(origin),ref);
 }

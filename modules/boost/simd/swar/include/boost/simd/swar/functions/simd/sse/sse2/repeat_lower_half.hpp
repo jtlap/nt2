@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(__m128 const a0) const
+    BOOST_FORCEINLINE result_type operator()(__m128 const a0) const
     {
       return _mm_movelh_ps(a0,a0);
     }
@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(__m128i const a0) const
+    BOOST_FORCEINLINE result_type operator()(__m128i const a0) const
     {
       return  details::shuffle<0, 1, 0, 1>(a0, a0);
     }
@@ -51,7 +51,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(__m128i const a0) const
+    BOOST_FORCEINLINE result_type operator()(__m128i const a0) const
     {
       return  details::shuffle<0, 1, 0, 1>(a0, a0);
     }
@@ -65,7 +65,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(__m128d const a0) const
+    BOOST_FORCEINLINE result_type operator()(__m128d const a0) const
     {
       return _mm_unpacklo_pd(a0,a0);
     }
