@@ -13,10 +13,13 @@
 #include <nt2/include/functions/svx.hpp>
 #include <nt2/include/functions/ysvx.hpp>
 #include <nt2/include/functions/posvx.hpp>
+#include <nt2/include/functions/of_size.hpp>
+#include <nt2/include/functions/resize.hpp>
 #include <nt2/linalg/options.hpp>
 #include <nt2/sdk/meta/concrete.hpp>
 #include <nt2/linalg/functions/details/eval_linsolve.hpp>
 #include <nt2/sdk/meta/settings_of.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 
 #include <nt2/core/container/table/table.hpp>
 
@@ -33,10 +36,11 @@ namespace nt2 { namespace ext
                             )
   {
     typedef void  result_type;
-    typedef typename A0::value_type type_t;
+    typedef typename A0::value_type ctype_t;
+    typedef typename nt2::meta::as_real<ctype_t>::type   type_t;
     typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
-    typedef nt2::container::table<type_t>  entry_type;
-    typedef nt2::container::table<type_t,shape>  matrix_type;
+    typedef nt2::container::table<ctype_t>  entry_type;
+    typedef nt2::container::table<ctype_t,shape>  matrix_type;
 
     BOOST_FORCEINLINE result_type operator()( A0 const& a0, A1 const& a1, A2&  a2 ) const
     {
@@ -61,10 +65,9 @@ namespace nt2 { namespace ext
                         ) const
     {
       type_t rcond;
-      entry_type var(a2);
+      a2.resize(nt2::of_size(a0.leading_size(),1));
       nt2_la_int iter = nt2::posvx( boost::proto::value(a0), boost::proto::value(a1)
-                                  , boost::proto::value(var), rcond);
-      a2 = var;
+                                  , boost::proto::value(a2), rcond);
     }
     /// INTERNAL ONLY - Symmetric shape
     BOOST_FORCEINLINE
@@ -73,7 +76,8 @@ namespace nt2 { namespace ext
                         ) const
     {
       type_t rcond;
-      nt2::table<nt2_la_int> piv;
+      nt2::table<nt2_la_int> piv(nt2::of_size(a0.leading_size(),1));
+      a2.resize(nt2::of_size(a0.leading_size(),1));
       nt2_la_int iter = nt2::ysvx( boost::proto::value(a0),boost::proto::value(piv)
                                  , boost::proto::value(a1),boost::proto::value(a2)
                                  , rcond);
@@ -93,11 +97,9 @@ namespace nt2 { namespace ext
     void eval ( A0 const& a0, A1 const& a1 , A2& a2) const
     {
       type_t rcond;
-      entry_type var(a2);
+      a2.resize(nt2::of_size(a0.leading_size(),1));
       nt2::svx( boost::proto::value(concrete(a0)), boost::proto::value(concrete(a1))
-              , boost::proto::value(var), rcond );
-      a2 = var;
-
+              , boost::proto::value(a2), rcond );
     }
 
   };
