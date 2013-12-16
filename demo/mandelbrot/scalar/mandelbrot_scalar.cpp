@@ -49,8 +49,10 @@ public:
     float da, db;
     float a, b;
 
-    for(i=0; i<h_; i++){
-      for(j=0; j<w_; j++){
+    for(i=0; i<h_; i++)
+    {
+      for(j=0; j<w_; j++)
+      {
         C[j+w_*i] = mandelbrot_scalar(A[j+w_*i], B[j+w_*i], max_iter_);
       }
     }

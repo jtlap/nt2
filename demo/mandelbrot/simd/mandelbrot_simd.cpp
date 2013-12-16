@@ -16,6 +16,9 @@
 #include <boost/simd/include/functions/plus.hpp>
 #include <boost/simd/include/functions/minus.hpp>
 #include <boost/simd/include/functions/times.hpp>
+#include <boost/simd/include/functions/is_less.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/one.hpp>
 #include "../include/utils.hpp"
 #include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/simd/include/functions/aligned_store.hpp>
@@ -96,7 +99,8 @@ public:
     typedef pack<value_type> type;
     std::size_t ii=0;
     step_size_=boost::simd::meta::cardinal_of<type>::value;
-    while (size_-ii>=step_size_){
+    while (size_-ii>=step_size_)
+    {
       type A_pack = (&A[ii]);
       type B_pack = (&B[ii]);
       aligned_store(julia(A_pack, B_pack), &C[ii]);
@@ -125,8 +129,10 @@ public:
 
     T interval_A=(a1_-a0_)/(h_-1);
     T new_val=a0_;
-    for (int jj=0;jj<w_;jj++){
-      for (int ii=0;ii<h_;ii++){
+    for (int jj=0;jj<w_;jj++)
+    {
+      for (int ii=0;ii<h_;ii++)
+      {
         A[jj*h_+ii]=new_val;
         new_val+=interval_A;
       }
