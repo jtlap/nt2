@@ -8,12 +8,14 @@
 ##############################################################################
 
 SET( SOURCES
+  am.cpp
   ellpk.cpp
   ellpe.cpp
   ellint_2.cpp
   ellint_1.cpp
   ellik.cpp
   ellie.cpp
+  ellipj.cpp
   ellipke.cpp
 # List of simd test files for toolbox elliptic
    )

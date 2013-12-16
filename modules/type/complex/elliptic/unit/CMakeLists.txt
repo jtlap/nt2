@@ -7,17 +7,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-SET( SOURCES
-  am.cpp
-  ellpk.cpp
-  ellpe.cpp
-  ellint_2.cpp
-  ellint_1.cpp
-  ellik.cpp
-  ellie.cpp
-  ellipj.cpp
-  ellipke.cpp
-# List of scalar test files for toolbox elliptic
-   )
-
-nt2_module_add_tests(core.elliptic.scalar.unit ${SOURCES})
+nt2_module_use_modules(test.unit)
+add_subdirectory(scalar)
+add_subdirectory(simd)
