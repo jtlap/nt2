@@ -13,6 +13,7 @@
 #include <nt2/linalg/functions/clinsolve.hpp>
 
 #include <nt2/include/functions/issquare.hpp>
+#include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/lsy.hpp>
 #include <nt2/include/functions/sv.hpp>
 #include <nt2/include/functions/bsv.hpp>
@@ -33,8 +34,11 @@
 #include <nt2/linalg/functions/details/eval_linsolve.hpp>
 #include <nt2/sdk/meta/settings_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 
 #include <nt2/core/container/table/table.hpp>
+
+#include <iostream>
 
 namespace nt2 { namespace ext
 {
@@ -52,11 +56,12 @@ namespace nt2 { namespace ext
                             )
   {
     typedef void  result_type;
-    typedef typename A0::value_type type_t;
+    typedef typename A0::value_type ctype_t;
+    typedef typename nt2::meta::as_real<ctype_t>::type   type_t;
     typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
 
-    typedef nt2::container::table<type_t>  entry_type;
-    typedef nt2::container::table<type_t,shape>  matrix_type;
+    typedef nt2::container::table<ctype_t>  entry_type;
+    typedef nt2::container::table<ctype_t,shape>  matrix_type;
 
     BOOST_FORCEINLINE result_type operator()( A0 const& a0, A1 const& a1, A2 const& a2  ) const
     {
@@ -135,7 +140,7 @@ namespace nt2 { namespace ext
                            ,boost::proto::value(piv), boost::proto::value(work));
 
       else {
-        nt2_la_int n = nt2::width(a0),;
+        nt2_la_int n = nt2::width(a0);
         piv = nt2::zeros(n,1, nt2::meta::as_<nt2_la_int>());
         nt2::lsy( boost::proto::value(entry) ,boost::proto::value(piv)
                 , boost::proto::value(work) );
@@ -215,7 +220,7 @@ namespace nt2 { namespace ext
       else
       {
         nt2_la_int rank;
-        nt2_la_int n = nt2::width(a0),;
+        nt2_la_int n = nt2::width(a0);
         piv = nt2::zeros(n,1, nt2::meta::as_<nt2_la_int>());
 
         nt2::lsy( boost::proto::value(entry), boost::proto::value(piv)
@@ -237,13 +242,17 @@ namespace nt2 { namespace ext
       matrix_type entry(a0);
       char norm = '1';
 
+      piv = nt2::zeros(a0.leading_size(), 1, nt2::meta::as_<nt2_la_int>() );
+
       typedef typename meta::hierarchy_of<nt2::symmetric_>::stripped h_;
-      type_t anorm = nt2::lange(boost::proto::value(a0), norm);
+
+      type_t anorm = nt2::lange(boost::proto::value(a0), norm, h_());
+
       nt2::ysv( boost::proto::value(entry),boost::proto::value(piv)
               , boost::proto::value(work));
       boost::proto::child_c<1>(a2) = nt2::sycon( boost::proto::value(entry)
                                                , boost::proto::value(piv) ,anorm);
-
+      std::cout << "test"  << std::endl;
       boost::proto::child_c<0>(a2) = work;
     }
 

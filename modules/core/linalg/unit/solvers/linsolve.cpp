@@ -31,6 +31,7 @@
 
 
 
+
 NT2_TEST_CASE_TPL(linsolv_fast, NT2_REAL_TYPES )
 {
 using nt2::_;
@@ -66,6 +67,48 @@ NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
 
 }
 
+NT2_TEST_CASE_TPL(linsolv_fast_complex, NT2_REAL_TYPES )
+{
+using nt2::_;
+using nt2::meta::as_;
+using nt2::classic_;
+using nt2::fast_;
+using nt2::precise_;
+
+typedef std::complex<T> cT;
+typedef nt2::table<cT,nt2::rectangular_>    t_t;
+
+
+t_t a = nt2::cons<cT>(nt2::of_size(3,3)
+                    ,cT(2,2),cT(1,1),cT(1,1)
+                    ,cT(1,1),cT(2,2),cT(2,2)
+                    ,cT(2,2),cT(5,5),cT(7,7)
+                    );
+t_t b = nt2::cons<cT>(nt2::of_size(3,1)
+                    ,cT(1,1),cT(2,2),cT(5,5));
+t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<cT>());
+t_t x1(b);
+
+T rcond,rcond1,anorm;
+char norm = '1';
+
+
+// X = linsolve(A,B)
+x = nt2::linsolve(a+a,b,fast_);
+nt2::mlinsolve(a+a,b,x1 );
+
+NT2_TEST_ULP_EQUAL( x , x1 , T(10));
+
+// [X,R] = linsolve(A,B)
+nt2::tie(x,rcond) = nt2::linsolve(a,b);
+
+t_t lu = nt2::lu(a);
+anorm = nt2::lange(boost::proto::value(a), norm);
+rcond1 = nt2::con( boost::proto::value(lu),norm,anorm);
+
+NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
+
+}
 
 
 NT2_TEST_CASE_TPL(linsolv_precise, NT2_REAL_TYPES )
@@ -105,6 +148,51 @@ NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
 
 }
 
+
+NT2_TEST_CASE_TPL(linsolv_precise_complex, NT2_REAL_TYPES )
+{
+using nt2::_;
+using nt2::meta::as_;
+using nt2::classic_;
+using nt2::fast_;
+using nt2::precise_;
+
+typedef std::complex<T> cT;
+typedef nt2::table<cT,nt2::rectangular_>    t_t;
+
+
+t_t a = nt2::cons<cT>(nt2::of_size(3,3)
+                    ,cT(2,2),cT(1,1),cT(1,1)
+                    ,cT(1,1),cT(2,2),cT(2,2)
+                    ,cT(2,2),cT(5,5),cT(7,7)
+                    );
+t_t b = nt2::cons<cT>(nt2::of_size(3,1)
+                    ,cT(1,1),cT(2,2),cT(5,5));
+t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<cT>());
+t_t x1(b);
+T rcond,rcond1,anorm;
+char norm = '1';
+
+
+// X = linsolve(A,B)
+x = nt2::linsolve(a+a,b,precise_);
+nt2::plinsolve(a+a,b,x1 );
+
+NT2_TEST_ULP_EQUAL( x , x1 , T(10));
+
+ // // [X,R] = linsolve(A,B)
+
+nt2::tie(x,rcond) = nt2::linsolve(a,b);
+
+t_t lu = nt2::lu(a);
+anorm = nt2::lange( boost::proto::value(a), norm);
+rcond1 = nt2::con( boost::proto::value(lu),norm,anorm);
+
+NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
+
+}
+
+
 NT2_TEST_CASE_TPL(linsolv_classic, NT2_REAL_TYPES )
 {
 using nt2::_;
@@ -141,9 +229,91 @@ rcond1 = nt2::con( boost::proto::value(lu),norm,anorm);
 NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
 }
 
+NT2_TEST_CASE_TPL(linsolv_classic_complex, NT2_REAL_TYPES )
+{
+using nt2::_;
+using nt2::meta::as_;
+using nt2::classic_;
+using nt2::fast_;
+using nt2::precise_;
 
+typedef std::complex<T> cT;
+typedef nt2::table<cT,nt2::rectangular_>    t_t;
+
+
+t_t a = nt2::cons<cT>(nt2::of_size(3,3)
+                    ,cT(2,2),cT(1,1),cT(1,1)
+                    ,cT(1,1),cT(2,2),cT(2,2)
+                    ,cT(2,2),cT(5,5),cT(7,7)
+                    );
+t_t b = nt2::cons<cT>(nt2::of_size(3,1)
+                    ,cT(1,1),cT(2,2),cT(5,5));
+t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<T>());
+t_t x1(b);
+T rcond,rcond1,anorm;
+char norm = '1';
+
+
+// X = linsolve(A,B)
+
+x = nt2::linsolve(a+a,b,classic_);
+nt2::clinsolve(a+a,b,nt2::tie(x1) );
+
+NT2_TEST_ULP_EQUAL( x , x1 , T(10));
+
+// [X,R] = linsolve(A,B)
+
+nt2::tie(x,rcond) = nt2::linsolve(a,b);
+
+t_t lu = nt2::lu(a);
+anorm = nt2::lange( boost::proto::value(a), norm);
+rcond1 = nt2::con( boost::proto::value(lu),norm,anorm);
+
+NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
+}
 
 // // SYMMETRIC
+
+NT2_TEST_CASE_TPL(linsolv_fast_sy_complex, NT2_REAL_TYPES )
+{
+using nt2::_;
+using nt2::meta::as_;
+using nt2::classic_;
+using nt2::fast_;
+using nt2::precise_;
+
+typedef std::complex<T>                  cT;
+typedef nt2::table<cT,nt2::symmetric_>   t_t;
+
+t_t a = nt2::cons<cT>(nt2::of_size(3,3)
+                    ,cT(2,0),cT(1,0),cT(1,0)
+                    ,cT(1,0),cT(1,0),cT(1,0)
+                    ,cT(1,0),cT(1,0),cT(2,0)
+                    );
+t_t b = nt2::cons<cT>(nt2::of_size(3,1)
+                    ,cT(1,0),cT(2,0),cT(5,0));
+t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<cT>());
+t_t x1(b);
+T rcond,rcond1,anorm;
+char norm = '1';
+
+
+// X = linsolve(A,B)
+x = nt2::linsolve(a+a,b,fast_);
+nt2::mlinsolve(a+a,b,x1 );
+
+NT2_TEST_ULP_EQUAL( x , x1 , T(10));
+
+// [X,R] = linsolve(A,B)
+nt2::tie(x,rcond) = nt2::linsolve(a,b);
+
+t_t lu = nt2::lu(a);
+anorm = nt2::lange( boost::proto::value(a), norm);
+rcond1 = nt2::con( boost::proto::value(lu),norm,anorm);
+
+NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
+
+}
 
 NT2_TEST_CASE_TPL(linsolv_fast_sy, NT2_REAL_TYPES )
 {
@@ -179,7 +349,6 @@ rcond1 = nt2::con( boost::proto::value(lu),norm,anorm);
 NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
 
 }
-
 
 NT2_TEST_CASE_TPL(linsolv_precise_sy,NT2_REAL_TYPES )
 {
@@ -218,6 +387,47 @@ NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
 
 }
 
+NT2_TEST_CASE_TPL(linsolv_precise_sy_complex,NT2_REAL_TYPES )
+{
+using nt2::_;
+using nt2::meta::as_;
+using nt2::classic_;
+using nt2::fast_;
+using nt2::precise_;
+
+typedef std::complex<T>                  cT;
+typedef nt2::table<cT,nt2::symmetric_>   t_t;
+
+t_t a = nt2::cons<cT>(nt2::of_size(3,3)
+                    ,cT(2,0),cT(1,0),cT(1,0)
+                    ,cT(1,0),cT(1,0),cT(1,0)
+                    ,cT(1,0),cT(1,0),cT(2,0)
+                    );
+t_t b = nt2::cons<cT>(nt2::of_size(3,1)
+                    ,cT(1,0),cT(2,0),cT(5,0));
+t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<cT>());
+t_t x1(b);
+T rcond,rcond1,anorm;
+char norm = '1';
+
+
+// X = linsolve(A,B)
+x = nt2::linsolve(a,b,precise_);
+nt2::plinsolve(a,b,x1);
+
+NT2_TEST_ULP_EQUAL( x , x1 , T(10));
+
+ // // [X,R] = linsolve(A,B)
+
+nt2::tie(x,rcond) = nt2::linsolve(a,b);
+
+t_t lu = nt2::lu(a);
+anorm = nt2::lange( boost::proto::value(a), norm);
+rcond1 = nt2::con( boost::proto::value(lu),norm,anorm);
+
+NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
+
+}
 
 NT2_TEST_CASE_TPL(linsolv_classic_sy, NT2_REAL_TYPES )
 {
@@ -232,6 +442,50 @@ typedef nt2::table<T,nt2::symmetric_>    t_t;
 t_t a = nt2::cons<T>(nt2::of_size(3,3),2,1,1,1,1,1,1,1,2);
 t_t b = nt2::cons<T>(nt2::of_size(3,1),1,2,5);
 t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<T>());
+t_t x1(b);
+T rcond,rcond1,anorm;
+char norm = '1';
+
+
+// X = linsolve(A,B)
+
+x = nt2::linsolve(a+a,b,classic_);
+nt2::clinsolve(a+a,b,nt2::tie(x1) );
+
+NT2_TEST_ULP_EQUAL( x , x1 , T(10));
+
+// [X,R] = linsolve(A,B)
+
+nt2::tie(x,rcond) = nt2::linsolve(a,b);
+
+t_t lu = nt2::lu(a);
+anorm = nt2::lange( boost::proto::value(a), norm);
+rcond1 = nt2::con( boost::proto::value(lu),norm,anorm);
+
+NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
+
+
+}
+
+NT2_TEST_CASE_TPL(linsolv_classic_sy_complex, NT2_REAL_TYPES )
+{
+using nt2::_;
+using nt2::meta::as_;
+using nt2::classic_;
+using nt2::fast_;
+using nt2::precise_;
+
+typedef std::complex<T>                  cT;
+typedef nt2::table<cT,nt2::symmetric_>   t_t;
+
+t_t a = nt2::cons<cT>(nt2::of_size(3,3)
+                    ,cT(2,0),cT(1,0),cT(1,0)
+                    ,cT(1,0),cT(1,0),cT(1,0)
+                    ,cT(1,0),cT(1,0),cT(2,0)
+                    );
+t_t b = nt2::cons<cT>(nt2::of_size(3,1)
+                    ,cT(1,0),cT(2,0),cT(5,0));
+t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<cT>());
 t_t x1(b);
 T rcond,rcond1,anorm;
 char norm = '1';
@@ -296,7 +550,44 @@ NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
 
 }
 
+NT2_TEST_CASE_TPL(linsolv_fast_posdef_complex, NT2_REAL_TYPES )
+{
+using nt2::_;
+using nt2::meta::as_;
+using nt2::classic_;
+using nt2::fast_;
+using nt2::precise_;
 
+typedef std::complex<T>                           cT;
+typedef nt2::table<cT,nt2::positive_definite_>    t_t;
+
+t_t a = nt2::cons<cT>(nt2::of_size(3,3)
+                     ,cT(2,0),cT(-1,0),cT(0,0)
+                     ,cT(-1,0),cT(2,0),cT(-1,0)
+                     ,cT(0,0),cT(-1,0),cT(2,0));
+t_t b = nt2::cons<cT>(nt2::of_size(3,1),cT(1,0),cT(2,0),cT(5,0));
+t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<cT>());
+t_t x1(b);
+T rcond,rcond1,anorm;
+char norm = '1';
+
+
+// X = linsolve(A,B)
+x = nt2::linsolve(a+a,b,fast_);
+nt2::mlinsolve(a+a,b,x1 );
+
+NT2_TEST_ULP_EQUAL( x , x1 , T(10));
+
+// [X,R] = linsolve(A,B)
+nt2::tie(x,rcond) = nt2::linsolve(a,b);
+
+t_t lu = nt2::lu(a);
+anorm = nt2::lange( boost::proto::value(a), norm);
+rcond1 = nt2::con(  boost::proto::value(lu),norm,anorm);
+
+NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
+
+}
 
 NT2_TEST_CASE_TPL(linsolv_precise_posdef, NT2_REAL_TYPES )
 {
@@ -309,9 +600,50 @@ using nt2::precise_;
 typedef nt2::table<T,nt2::positive_definite_>    t_t;
 
 
-t_t a = nt2::cons<T>(nt2::of_size(3,3),2,1,1,1,1,1,1,1,2);
+t_t a = nt2::cons<T>(nt2::of_size(3,3),2,-1,0,-1,2,-1,0,-1,2);
 t_t b = nt2::cons<T>(nt2::of_size(3,1),1,2,5);
 t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<T>());
+t_t x1(b);
+T rcond,rcond1,anorm;
+char norm = '1';
+
+
+// X = linsolve(A,B)
+x = nt2::linsolve(a+a,b,precise_);
+nt2::plinsolve(a+a,b,x1 );
+
+NT2_TEST_ULP_EQUAL( x , x1 , T(10));
+
+ // // [X,R] = linsolve(A,B)
+
+nt2::tie(x,rcond) = nt2::linsolve(a,b);
+
+t_t lu = nt2::lu(a);
+anorm = nt2::lange(  boost::proto::value(a), norm);
+rcond1 = nt2::con(  boost::proto::value(lu),norm,anorm);
+
+NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
+
+}
+
+
+NT2_TEST_CASE_TPL(linsolv_precise_posdef_complex, NT2_REAL_TYPES )
+{
+using nt2::_;
+using nt2::meta::as_;
+using nt2::classic_;
+using nt2::fast_;
+using nt2::precise_;
+
+typedef std::complex<T>                           cT;
+typedef nt2::table<cT,nt2::positive_definite_>    t_t;
+
+t_t a = nt2::cons<cT>(nt2::of_size(3,3)
+                     ,cT(2,0),cT(-1,0),cT(0,0)
+                     ,cT(-1,0),cT(2,0),cT(-1,0)
+                     ,cT(0,0),cT(-1,0),cT(2,0));
+t_t b = nt2::cons<cT>(nt2::of_size(3,1),cT(1,0),cT(2,0),cT(5,0));
+t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<cT>());
 t_t x1(b);
 T rcond,rcond1,anorm;
 char norm = '1';
@@ -345,7 +677,7 @@ using nt2::precise_;
 
 typedef nt2::table<T,nt2::positive_definite_>    t_t;
 
-t_t a = nt2::cons<T>(nt2::of_size(3,3),2,1,1,1,1,1,1,1,2);
+t_t a = nt2::cons<T>(nt2::of_size(3,3),2,-1,0,-1,2,-1,0,-1,2);
 t_t b = nt2::cons<T>(nt2::of_size(3,1),1,2,5);
 t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<T>());
 t_t x1(b);
@@ -374,6 +706,49 @@ NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
 }
 
 
+NT2_TEST_CASE_TPL(linsolv_classic_posdef_complex, NT2_REAL_TYPES )
+{
+using nt2::_;
+using nt2::meta::as_;
+using nt2::classic_;
+using nt2::fast_;
+using nt2::precise_;
+
+
+typedef std::complex<T>                           cT;
+typedef nt2::table<cT,nt2::positive_definite_>    t_t;
+
+t_t a = nt2::cons<cT>(nt2::of_size(3,3)
+                     ,cT(2,0),cT(-1,0),cT(0,0)
+                     ,cT(-1,0),cT(2,0),cT(-1,0)
+                     ,cT(0,0),cT(-1,0),cT(2,0));
+t_t b = nt2::cons<cT>(nt2::of_size(3,1),cT(1,0),cT(2,0),cT(5,0));
+t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<cT>());
+t_t x1(b);
+T rcond,rcond1,anorm;
+char norm = '1';
+
+
+// X = linsolve(A,B)
+
+x = nt2::linsolve(a+a,b,classic_);
+nt2::clinsolve(a+a,b,nt2::tie(x1) );
+
+NT2_TEST_ULP_EQUAL( x , x1 , T(10));
+
+// [X,R] = linsolve(A,B)
+
+nt2::tie(x,rcond) = nt2::linsolve(a,b);
+
+t_t lu = nt2::lu(a);
+anorm = nt2::lange( boost::proto::value(a), norm);
+rcond1 = nt2::con(  boost::proto::value(lu) ,norm,anorm);
+
+NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
+
+
+}
+
 // Band matrix
 
 NT2_TEST_CASE_TPL(linsolv_classic_band, NT2_REAL_TYPES )
@@ -389,6 +764,42 @@ nt2::table<T> b = nt2::rand(7, 1, nt2::meta::as_<T>());
 
 nt2::table<T> x = nt2::ones(nt2::of_size(7,1),nt2::meta::as_<T>());
 nt2::table<T> x1(b);
+T rcond,rcond1,anorm;
+char norm = '1';
+
+
+// X = linsolve(A,B)
+
+x = nt2::linsolve(a,b,classic_);
+nt2::clinsolve(a,b,nt2::tie(x1) );
+
+NT2_TEST_ULP_EQUAL( x , x1 , T(10));
+
+// [X,R] = linsolve(A,B)
+
+nt2::tie(x,rcond) = nt2::linsolve(a,b);
+
+NT2_TEST_ULP_EQUAL(x, x1, T(10) );
+
+
+}
+
+
+NT2_TEST_CASE_TPL(linsolv_classic_band_complex, NT2_REAL_TYPES )
+{
+using nt2::_;
+using nt2::meta::as_;
+using nt2::classic_;
+using nt2::fast_;
+using nt2::precise_;
+
+typedef std::complex<T>  cT;
+nt2::table<cT, nt2::band_diagonal_<2,2> >  a = nt2::ones(7, 7, nt2::meta::as_<cT>())
+                                             + T(10)*nt2::eye(7, 7, nt2::meta::as_<cT>());
+nt2::table<cT> b = nt2::ones(7, 1, nt2::meta::as_<cT>());
+
+nt2::table<cT> x = nt2::ones(nt2::of_size(7,1),nt2::meta::as_<cT>());
+nt2::table<cT> x1(b);
 T rcond,rcond1,anorm;
 char norm = '1';
 

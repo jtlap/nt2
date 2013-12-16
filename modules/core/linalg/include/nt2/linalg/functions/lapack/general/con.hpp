@@ -123,7 +123,7 @@ namespace nt2 { namespace ext
       nt2_la_int ld = n;
       nt2_la_int info;
 
-      nt2::table<result_type> work(nt2::of_size(4*n,1));
+      nt2::table<std::complex<result_type> > work(nt2::of_size(2*n,1));
       nt2::table<double>      rwork(nt2::of_size(2*n,1));
 
       NT2_F77NAME(zgecon) ( &a1, &n, a0.raw(), &ld, &a2, &rcond , work.raw()
@@ -151,7 +151,7 @@ namespace nt2 { namespace ext
       nt2_la_int ld = n;
       nt2_la_int info;
 
-      nt2::table<result_type> work(nt2::of_size(4*n,1));
+      nt2::table<std::complex<result_type> > work(nt2::of_size(2*n,1));
       nt2::table<float>  rwork(nt2::of_size(2*n,1));
 
       NT2_F77NAME(cgecon) ( &a1, &n, a0.raw(), &ld, &a2, &rcond , work.raw()

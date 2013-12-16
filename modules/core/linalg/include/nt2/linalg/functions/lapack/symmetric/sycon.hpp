@@ -130,7 +130,7 @@ namespace nt2 { namespace ext
       nt2_la_int info;
       char uplo = 'L';
 
-      nt2::table<result_type> work(nt2::of_size(2*n,1));
+      nt2::table<std::complex<result_type> > work(nt2::of_size(2*n,1));
 
       NT2_F77NAME(zsycon) ( &uplo, &n, a0.raw(), &ld, a1.raw(), &a2, &rcond
                           , work.raw(), &info
@@ -158,7 +158,7 @@ namespace nt2 { namespace ext
       nt2_la_int info;
       char uplo = 'L';
 
-      nt2::table<result_type> work(nt2::of_size(2*n,1));
+      nt2::table<std::complex<result_type> > work(nt2::of_size(2*n,1));
 
       NT2_F77NAME(csycon) ( &uplo, &n, a0.raw(), &ld, a1.raw(), &a2, &rcond
                           , work.raw(), &info

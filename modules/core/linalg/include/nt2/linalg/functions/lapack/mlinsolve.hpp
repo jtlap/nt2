@@ -17,6 +17,7 @@
 #include <nt2/sdk/meta/concrete.hpp>
 #include <nt2/sdk/meta/settings_of.hpp>
 #include <nt2/include/functions/tie.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 
 #include <nt2/core/container/table/table.hpp>
 
@@ -33,11 +34,12 @@ namespace nt2 { namespace ext
                             )
   {
     typedef void  result_type;;
-    typedef typename A0::value_type type_t;
+    typedef typename A0::value_type ctype_t;
+    typedef typename nt2::meta::as_real<ctype_t>::type   type_t;
     typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
 
-    typedef nt2::container::table<type_t>  entry_type;
-    typedef nt2::container::table<type_t,shape>  matrix_type;
+    typedef nt2::container::table<ctype_t>  entry_type;
+    typedef nt2::container::table<ctype_t,shape>  matrix_type;
 
     BOOST_FORCEINLINE result_type operator()( A0 const& a0, A1 const& a1, A2& a2 ) const
     {
@@ -77,7 +79,7 @@ namespace nt2 { namespace ext
       eval(a0, a1, a2);
     }
     //==========================================================================
-    /// INTERNAL ONLY - Solve with no shape info Todo : Analyse shape
+    /// INTERNAL ONLY -
     BOOST_FORCEINLINE
     void eval ( A0 const& a0, A1 const& a1 , A2& a2) const
     {
@@ -95,8 +97,7 @@ namespace nt2 { namespace ext
                        ,boost::proto::value(a1),boost::proto::value(a2) );
     }
 
-    /// INTERNAL ONLY - Solve with no shape info Todo : Analyse shape
-    BOOST_FORCEINLINE
+    /// INTERNAL ONLY -
     void eval ( A0 const& a0, A1 const& a1 , A2& a2, float const) const
     {
       nt2::clinsolve(a0,a1,nt2::tie(a2));
