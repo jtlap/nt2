@@ -113,7 +113,7 @@ namespace nt2 { namespace ext
         magma_zcgesv_gpu( trans                        , n          , nhrs
                         , (cuDoubleComplex*)dA.raw()   , lda        , ipiv.raw()
                         , dipiv.raw(), (cuDoubleComplex*)dB.raw()   , ldb
-                        , (cuDoubleComplex*)dX.raw()   , ldb        , dwork.raw()
+                        , (cuDoubleComplex*)dX.raw()   , ldb        , (cuDoubleComplex*)dwork.raw()
                         , (cuFloatComplex*)swork.raw(), &iter      , &info
                         );
 

@@ -42,6 +42,18 @@ else()
               PATHS /usr/local/include /usr/include ${MAGMA_ROOT}/include
             )
 
+  # try find common_magma.h
+  find_path(  MAGMA_COMMON_HEADER
+              NAMES common_magma.h
+              PATHS /usr/local/control /usr/control ${MAGMA_ROOT}/control
+            )
+
+  # try find common_magma.h
+  find_path(  CUDA_ERROR_HEADER
+              NAMES error.h
+              PATHS /usr/local/control /usr/control ${MAGMA_ROOT}/interface_cuda
+            )
+
   # try find cublas.h
   find_path( CUBLAS_HEADER
               NAMES cublas.h
@@ -50,9 +62,9 @@ else()
 
   # if everything is there ...
   if(MAGMA_MAGMA_LIBRARY AND MAGMA_MAGMABLAS_LIBRARY AND MAGMA_MAGMA_HEADER
-    AND CUBLAS_LIBRARY AND CUDART_LIBRARY AND CUBLAS_HEADER )
+    AND CUBLAS_LIBRARY AND CUDART_LIBRARY AND CUBLAS_HEADER AND MAGMA_COMMON_HEADER )
     set(MAGMA_FOUND 1)
-    set(MAGMA_INCLUDE_PATH "${MAGMA_MAGMA_HEADER}/")
+    set(MAGMA_INCLUDE_PATH "${MAGMA_MAGMA_HEADER}/" "${MAGMA_COMMON_HEADER}/" "${CUDA_ERROR_HEADER}/")
     set(MAGMA_CXX_FLAGS "-DNT2_USE_MAGMA")
     set(MAGMA_LIBRARY ${MAGMA_MAGMA_LIBRARY} ${MAGMA_MAGMABLAS_LIBRARY}
         ${CUDART_LIBRARY} ${CUBLAS_LIBRARY}
