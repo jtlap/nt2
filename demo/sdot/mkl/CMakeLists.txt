@@ -22,8 +22,3 @@ if(CMAKE_COMPILER_IS_GNUCXX)
 endif()
 
 add_executable(sdot_mkl sdot_mkl.cpp)
-
-#The MKLROOT environment variable must be set by the user. This can be done by running the script compilervars.sh in the bin folder of your mkl installation.
-#The linker command below may need to be modified for your paticular mkl installation. Use the mkl link advisor http://software.intel.com/sites/products/mkl/MKL_Link_Line_Advisor.html to generate the correct link command for your system and paste it below.
-
-target_link_libs(sdot_mkl -Wl,--start-group  ${MKLROOT}/lib/intel64/libmkl_intel_lp64.a ${MKLROOT}/lib/intel64/libmkl_sequential.a ${MKLROOT}/lib/intel64/libmkl_core.a -Wl,--end-group -lpthread -lm)
