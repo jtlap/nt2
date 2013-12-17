@@ -11,11 +11,11 @@
 #include <iostream>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/include/functions/log.hpp>
-#include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/fastnormcdf.hpp>
 #include <boost/simd/include/functions/fma.hpp>
 #include <boost/simd/include/functions/sqrt.hpp>
+#include <boost/simd/include/functions/sqr.hpp>
 #include <boost/simd/include/constants/half.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/include/functions/aligned_store.hpp>
@@ -30,9 +30,9 @@
 using namespace nt2;
 
 template <class A0>
-BOOST_FORCEINLINE __attribute__((flatten)) A0 blackandscholes(A0 const &a0, A0 const &a1, A0 const &a2, A0 const &a3, A0 const &a4)
+BOOST_FORCEINLINE A0 blackandscholes(A0 const &a0, A0 const &a1, A0 const &a2, A0 const &a3, A0 const &a4)
 {
-  A0 da   = nt2::sqrt(a2);
+  A0 da   = boost::simd::sqrt(a2);
   A0 tmp1 = nt2::log(a0/a1);
   A0 tmp2 = boost::simd::sqr(a4);
   A0 tmp4 = nt2::fma(tmp2,nt2::Half<A0>(),a3);
