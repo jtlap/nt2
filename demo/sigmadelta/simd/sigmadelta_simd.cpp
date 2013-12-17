@@ -133,7 +133,6 @@ public:
   mutable std::vector<T, boost::simd::allocator<T> > variance_img;
   mutable std::vector<T, boost::simd::allocator<T> > background_img;
   mutable std::vector<T, boost::simd::allocator<T> > etiquette_binaire;
-  mutable std::vector<T, boost::simd::allocator<T> > frame;
   static const T N=3;
   mutable std::size_t step_size;
   std::size_t nb_frames;
