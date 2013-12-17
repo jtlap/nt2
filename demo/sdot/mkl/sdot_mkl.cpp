@@ -39,11 +39,8 @@ NT2_EXPERIMENT(ddot_mkl)
 
   virtual void run() const
   {
-   // res = cblas_ddot(size, x, incx, y, incy);
     nt2_la_int sz = size;
-        res = NT2_F77NAME(ddot)(&sz, x, &incx, y, &incy);
-
-    //for(int i = 0; i<size; i++) std::cout << y[i] << "\n";
+    res = NT2_F77NAME(ddot)(&sz, x, &incx, y, &incy);
   }
 
       virtual double compute(nt2::benchmark_result_t const& r) const
@@ -53,10 +50,10 @@ NT2_EXPERIMENT(ddot_mkl)
 
 private:
   std::size_t size;
-  nt2_la_int     incx, incy;
+  nt2_la_int incx, incy;
   mutable T res;
-  double      *x, *y;
-  nt2_la_int     len_x, len_y;
+  double *x, *y;
+  nt2_la_int len_x, len_y;
 };
 
 template<typename T>
@@ -84,11 +81,9 @@ NT2_EXPERIMENT(sdot_mkl)
 
   virtual void run() const
   {
-        nt2_la_int sz = size;
-   // res = cblas_sdot(size, x, incx, y, incy);
-            res = NT2_F77NAME(sdot)(&sz, x, &incx, y, &incy);
+    nt2_la_int sz = size;
+    res = NT2_F77NAME(sdot)(&sz, x, &incx, y, &incy);
 
-    //for(int i = 0; i<size; i++) std::cout << y[i] << "\n";
   }
 
       virtual double compute(nt2::benchmark_result_t const& r) const
@@ -99,13 +94,11 @@ NT2_EXPERIMENT(sdot_mkl)
 private:
   std::size_t size;
   mutable T res;
-  nt2_la_int     incx, incy;
-  float      *x, *y;
-  nt2_la_int     len_x, len_y;
+  nt2_la_int incx, incy;
+  float *x, *y;
+  nt2_la_int len_x, len_y;
 };
 
-
-//NT2_RUN_EXPERIMENT_TPL( daxpy_mkl, (double), (8000,2.7f));
 typedef double K;
 NT2_RUN_EXPERIMENT_TPL( sdot_mkl, (K), (16));
 NT2_RUN_EXPERIMENT_TPL( sdot_mkl, (K), (32));
@@ -119,68 +112,3 @@ NT2_RUN_EXPERIMENT_TPL( sdot_mkl, (K), (4096));
 NT2_RUN_EXPERIMENT_TPL( sdot_mkl, (K), (8192));
 NT2_RUN_EXPERIMENT_TPL( sdot_mkl, (K), (16384));
 NT2_RUN_EXPERIMENT_TPL( sdot_mkl, (K), (163840));
-
-/*struct saxpy_mkl
-{
-
-  saxpy_mkl(std::size_t const& s, float const& a) : alpha(a), size(s)
-  {
-    incx = incy = 1;
-    len_x = s;
-    len_y = s;
-    x    = (float *)calloc( len_x, sizeof( float ) );
-    y    = (float *)calloc( len_y, sizeof( float ) );
-    for(int i = 0; i<size; i++) x[i] = y[i] = i;
-  }
-
-  ~saxpy_mkl()
-  {
-    free(x);
-    free(y);
-  }
-
-  inline void operator()()
-  {
-    cblas_saxpy(size, alpha, x, incx, y, incy);
-    //for(int i = 0; i<size; i++) std::cout << y[i] << "\n";
-  }
-
-private:
-  std::size_t size;
-  MKL_INT     incx, incy;
-  float      alpha;
-  float      *x, *y;
-  MKL_INT     len_x, len_y;
-};
-*/
-/*
-int main(int argc, char *argv[])
-{
-  std::size_t size = atoi(argv[1]);
-  double nanotimec;
-
-  std::cout << "saxpy mkl float\n";
-  nt2::unit::benchmark_result<nt2::details::cycles_t> fc;
-  nt2::unit::perform_benchmark( saxpy_mkl(size,6.558943), 1.0, fc);
-  std::cout << "\tcycles/element : "<< fc.median/double(size) << "\n\t";
-  //nt2::unit::benchmark_result<double> fd;
-  //nt2::unit::perform_benchmark( saxpy_mkl(size,6.558943), 1.0, fd);
-  //std::cout << "\ttime : "<< fd.median << "\n\t";
-  nanotimec = fc.median/TURBOFREQ;
-  //std::cout << "\ttime from cycles : "<< nanotimec << "\n";
-  std::cout << (double(size)*NOPS)/nanotimec << "\n";
-
-  std::cout << "saxpy mkl double\n";
-  nt2::unit::benchmark_result<nt2::details::cycles_t> dc;
-  nt2::unit::perform_benchmark( daxpy_mkl(size,6.558943), 1.0, dc);
-  std::cout << "\tcycles/element : "<< dc.median/double(size) << "\n\t";
-  //nt2::unit::benchmark_result<double> dd;
-  //nt2::unit::perform_benchmark( daxpy_mkl(size,6.558943), 1.0, dd);
-  //std::cout << "\ttime : "<< dd.median << "\n\t";
-  nanotimec = dc.median/TURBOFREQ;
-  //std::cout << "\ttime from cycles : "<< nanotimec << "\n";
-  std::cout << (double(size)*NOPS)/nanotimec << "\n";
-
-  return 0;
-}
-*/
