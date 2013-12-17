@@ -1,3 +1,4 @@
+//==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
@@ -7,10 +8,10 @@
 //==============================================================================
 #ifndef NT2_ELLIPTIC_FUNCTIONS_SIMD_ELLINT_1_HPP_INCLUDED
 #define NT2_ELLIPTIC_FUNCTIONS_SIMD_ELLINT_1_HPP_INCLUDED
+
 #include <nt2/elliptic/functions/ellint_1.hpp>
 #include <nt2/include/functions/simd/is_greater.hpp>
-#include <nt2/include/functions/simd/is_ltz.hpp>
-#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/is_equal.hpp>
 #include <nt2/include/functions/simd/oneminus.hpp>
 #include <nt2/include/functions/simd/average.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
@@ -19,6 +20,9 @@
 #include <nt2/include/functions/simd/maximum.hpp>
 #include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/inf.hpp>
