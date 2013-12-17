@@ -15,7 +15,6 @@
 #include <nt2/include/functions/width.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 
-#include <iostream>
 #include <nt2/table.hpp>
 
 extern "C"
