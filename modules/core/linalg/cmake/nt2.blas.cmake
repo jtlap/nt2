@@ -34,6 +34,17 @@ if(NT2_BLAS_VENDOR STREQUAL "Intel" OR (NOT DEFINED NT2_BLAS_VENDOR AND NOT NT2_
     message(STATUS "[nt2.blas] trying Intel...")
   endif()
 
+  # workaround for Ubuntu 13.10
+  if(NOT DEFINED NT2_BLAS_STATIC)
+    execute_process(COMMAND lsb_release -rs RESULT_VARIABLE RESULT_VAR OUTPUT_VARIABLE RESULT)
+    if(RESULT_VAR EQUAL 0 AND NOT RESULT VERSION_LESS 13.10)
+      message(STATUS "[nt2.blas] Ubuntu 13.10+ detected, using static MKL as workaround")
+      set(NT2_BLAS_STATIC 1)
+      set(OLD_CMAKE_FIND_LIBRARY_SUFFIXES ${CMAKE_FIND_LIBRARY_SUFFIXES})
+      set(CMAKE_FIND_LIBRARY_SUFFIXES ".a;.lib")
+    endif()
+  endif()
+
   set(MKLROOT $ENV{MKLROOT})
   if(NOT MKLROOT)
     set(MKLROOT /opt/intel/mkl)
