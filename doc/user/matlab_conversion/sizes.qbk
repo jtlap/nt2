@@ -21,10 +21,10 @@ can be bypassed by defining NT2_MAX_DIMENSION to the appropriate value. or by us
 
 [h3 Modifying sizes]
 
-Once initialized, it is possible to change a matrix size in various ways as
+Once initialized, it is possible to change the size of a matrix in various ways such as
 affectation, expansion, resizing
 
-Affectation `a=b;` replaces the contain of `a` by the contain of `b`
+Affectation `a=b;` replaces the contents of `a` with the contents of `b`
 
 
 
@@ -40,7 +40,7 @@ If `a` is the matrix
   [ 1 2 3 4
     5 6 7 8 ]
   ``
-The lines is the previous table respectively produce:
+The lines in the previous table respectively produce:
   [c++]
   ``
   a = [ 1 2 3 4 0 0
@@ -55,7 +55,7 @@ The lines is the previous table respectively produce:
 To be more precise,
 
 # `resize` respects the matrix contents but put them at the beginning of the matrix
-in major column order.
+in major column major order.
 # `expand` considers the new matrix as an extension (or a shrink) of the original
 and respects the positions of the values involved.
 
