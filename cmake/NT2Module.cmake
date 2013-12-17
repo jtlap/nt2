@@ -793,6 +793,7 @@ macro(nt2_module_tool_setup tool)
     execute_process(COMMAND ${CMAKE_COMMAND}
                             ${BUILD_OPTION} -UNT2_BINARY_DIR
                             ${NT2_TOOL_${tool}_ROOT}
+                            -B${NT2_BINARY_DIR}/tools/${tool}
                     WORKING_DIRECTORY ${NT2_BINARY_DIR}/tools/${tool}
                     OUTPUT_VARIABLE tool_configure_out
                     RESULT_VARIABLE tool_configure
