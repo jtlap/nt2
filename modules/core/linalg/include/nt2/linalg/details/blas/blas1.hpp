@@ -111,7 +111,7 @@ extern "C"
                         const nt2_la_int* incx, const nt2_la_complex *cy,
                         const nt2_la_int* incy);
 
-  double NT2_F77NAME(zdotu)(const *c, const nt2_la_int* n,
+  double NT2_F77NAME(zdotu)(const nt2_la_complex *c, const nt2_la_int* n,
                         const nt2_la_complex *cx, const nt2_la_int* incx,
                         const nt2_la_complex *cy, const nt2_la_int* incy);
 
@@ -120,7 +120,7 @@ extern "C"
                       const nt2_la_int* incx, nt2_la_complex *dy,
                       const nt2_la_int* incy);
 
-  void NT2_F77NAME(zcopy)(const nt2_la_int* n, const *dx, const nt2_la_int* incx,
+  void NT2_F77NAME(zcopy)(const nt2_la_int* n, const nt2_la_complex *dx, const nt2_la_int* incx,
                       nt2_la_complex *dy, const nt2_la_int* incy);
 
   double  NT2_F77NAME(dzasum)(const nt2_la_int* n, const nt2_la_complex *dx,
