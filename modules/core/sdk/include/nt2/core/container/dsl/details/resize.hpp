@@ -10,8 +10,10 @@
 #define NT2_CORE_CONTAINER_DSL_DETAILS_RESIZE_HPP_INCLUDED
 
 #include <nt2/dsl/functions/terminal.hpp>
-#include <nt2/core/settings/size.hpp>
 #include <nt2/sdk/meta/is_container.hpp>
+#include <nt2/core/functions/scalar/numel.hpp>
+#include <nt2/core/settings/storage_size.hpp>
+#include <nt2/core/settings/size.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/assert.hpp>
@@ -49,6 +51,14 @@ namespace nt2 { namespace ext
     template<class Sz>
     BOOST_FORCEINLINE void operator()(Expr& x, Sz const& sz, boost::mpl::true_)
     {
+      typedef typename meta::option<Expr, tag::storage_size_>::type ss_t;
+
+      // Assert that we don't resize out of any given storage_size
+      BOOST_ASSERT_MSG
+      ( nt2::numel(sz) <= std::size_t(ss_t::storage_size_type::value)
+      , "Resizing over available storage size"
+      );
+
       boost::proto::value(x).resize(sz);
     }
 

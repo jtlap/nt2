@@ -11,6 +11,9 @@
 
 #include <nt2/core/container/dsl/forward.hpp>
 #include <boost/dispatch/dsl/semantic_of.hpp>
+#include <nt2/core/settings/add_settings.hpp>
+#include <nt2/core/settings/option.hpp>
+#include <nt2/sdk/meta/settings_of.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
@@ -23,5 +26,22 @@ namespace boost { namespace dispatch { namespace meta
     typedef ResultType type;
   };
 } } }
+
+namespace nt2 { namespace meta
+{
+  /// INTERNAL ONLY : Option of expression use its settings and semantic
+  template<typename Expr, typename Result, typename Tag>
+  struct  option< nt2::container::expression<Expr, Result> , Tag>
+        : option< typename meta::settings_of<Result>::type
+                , Tag, tag::table_>
+  {};
+
+  /// INTERNAL ONLY : Extract settings from expression
+  template<typename Expr, typename Result>
+  struct settings_of< nt2::container::expression<Expr, Result> >
+  {
+    typedef typename meta::settings_of<Result>::type  type;
+  };
+} }
 
 #endif

@@ -44,7 +44,8 @@ namespace nt2
     template<class Container> struct apply
     {
       typedef typename meta::option<Container,tag::storage_duration_>::type sd_t;
-      typedef typename sd_t::template apply<Container>::type                type;
+      typedef typename sd_t::storage_duration_type                          sdt_t;
+      typedef typename sdt_t::template apply<Container>::type               type;
     };
   };
 }
