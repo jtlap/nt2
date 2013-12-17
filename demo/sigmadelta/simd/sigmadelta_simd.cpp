@@ -12,7 +12,6 @@
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <boost/simd/include/functions/max.hpp>
 #include <boost/simd/include/functions/min.hpp>
-#include <boost/simd/functions/plus.hpp>
 #include <boost/simd/include/functions/minus.hpp>
 #include <boost/simd/include/functions/multiplies.hpp>
 #include <boost/simd/include/functions/selinc.hpp>
@@ -30,7 +29,7 @@ template<class Pixel>
 BOOST_FORCEINLINE Pixel do_work(Pixel &bkg, const Pixel &fr, Pixel &var)
 {
   Pixel diff_img, mul_img, zero=0;
-   bkg = selinc( bkg < fr, seldec( bkg > fr
+  bkg = selinc( bkg < fr, seldec( bkg > fr
                       , bkg
                       )
         );
@@ -92,7 +91,8 @@ public:
 
     for(int k=1; k<nb_frames; k++)
     {
-      for (int j=0; j<size; j+=boost::simd::meta::cardinal_of<type>::value){
+      for (int j=0; j<size; j+=boost::simd::meta::cardinal_of<type>::value)
+      {
         type bkg(&background_img[j]);
         type fr(&frames[k][j]);
         type var(&variance_img[j]);
@@ -107,8 +107,7 @@ public:
     return r.first/double(height*width)/nb_frames;
   }
 
-  virtual void info(std::ostream& os) const { os << height << "x" << width;
-}
+  virtual void info(std::ostream& os) const { os << height << "x" << width;}
 
   virtual void reset() const
   {

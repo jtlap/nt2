@@ -7,17 +7,5 @@
 #                 See accompanying file LICENSE.txt or copy at
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
-cmake_minimum_required(VERSION 2.8)
-
-set(NT2_DIR ${CMAKE_SOURCE_DIR}/../../../cmake)
-
-find_package(NT2 REQUIRED)
-include(${NT2_USE_FILE})
-
-set(CMAKE_BUILD_TYPE Release)
-if(CMAKE_COMPILER_IS_GNUCXX)
-  add_definitions(-DBOOST_SIMD_NO_STRICT_ALIASING -fno-strict-aliasing)
-endif()
 
 add_executable(sdot_simd sdot_simd.cpp)
-

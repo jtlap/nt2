@@ -57,11 +57,11 @@ NT2_EXPERIMENT(rgb2yuv)
       type x2 = aligned_load< type >(&g[i]);
       type x3 = aligned_load< type >(&b[i]);
 
-      tmp_y = 0.299f*x1 + 0.587f*x2 + 0.114f*x3;
+      tmp_y = T(0.299f)*x1 + T(0.587f)*x2 + T(0.114f)*x3;
 
       aligned_store(tmp_y, &y[i]);
-      aligned_store(0.492f*(x3 - tmp_y), &u[i]);
-      aligned_store(0.877f*(x1 - tmp_y), &v[i]);
+      aligned_store(T(0.492f)*(x3 - tmp_y), &u[i]);
+      aligned_store(T(0.877f)*(x1 - tmp_y), &v[i]);
       i += step_size_;
     }
     for (;i<size;i++)
@@ -94,7 +94,7 @@ NT2_EXPERIMENT(rgb2yuv)
     mutable std::vector<T,boost::simd::allocator<T> > v;
 };
 
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float),(100,100));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float),(50,50));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float),(1000,500));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float),(312,43));
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float)(double),(100,100));
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float)(double),(50,50));
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float)(double),(1000,500));
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float)(double),(312,43));

@@ -10,10 +10,11 @@
 
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <fstream>
-#include <nt2/operator/functions/multiplies.hpp>
-#include <nt2/include/functions/plus.hpp>
-#include <nt2/include/functions/sum.hpp>
 #include <nt2/table.hpp>
+#include <nt2/include/functions/multiplies.hpp>
+#include <nt2/include/functions/plus.hpp>
+#include <nt2/include/functions/minus.hpp>
+#include <nt2/include/functions/sum.hpp>
 
 using namespace nt2;
 template<typename T>
@@ -38,9 +39,9 @@ NT2_EXPERIMENT(rgb2yuv)
 
   BOOST_FORCEINLINE virtual void run() const
   {
-    y = 0.299f*r + 0.587f*g + 0.114f*b;
-    u = 0.492f*(b - y);
-    v = 0.877f*(r - y);
+    y = T(0.299f)*r + T(0.587f)*g + T(0.114f)*b;
+    u = T(0.492f)*(b - y);
+    v = T(0.877f)*(r - y);
   }
 
   virtual double compute(nt2::benchmark_result_t const& r) const
@@ -60,7 +61,7 @@ NT2_EXPERIMENT(rgb2yuv)
     nt2::table<value_type> r, g, b;
 };
 
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float),(100,100));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float),(50,50));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float),(1000,500));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float),(312,43));
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float)(double),(100,100));
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float)(double),(50,50));
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float)(double),(1000,500));
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float)(double),(312,43));
