@@ -10,17 +10,19 @@
 #include <iostream>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/include/functor.hpp>
+#include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/fastnormcdf.hpp>
+#include <boost/simd/include/functions/sqrt.hpp>
+#include <boost/simd/include/functions/fma.hpp>
 
 template <class A0>
 BOOST_FORCEINLINE A0 blackandscholes(A0 const &a0, A0 const &a1, A0 const &a2, A0 const &a3, A0 const &a4)
 {
-  A0 da   = sqrt(a2);
-  A0 tmp1 = log(a0/a1);
+  A0 da   = boost::simd::sqrt(a2);
+  A0 tmp1 = nt2::log(a0/a1);
   A0 tmp2 = a4*a4;
-  A0 tmp4 = fma(tmp2,nt2::Half<A0>(),a3);
+  A0 tmp4 = boost::simd::fma(tmp2,nt2::Half<A0>(),a3);
   A0 tmp3 = (tmp4*a2)/(a4*da);
   A0 ed   = nt2::exp(-a3*a2);
   A0 d1   = tmp1 + tmp3;
