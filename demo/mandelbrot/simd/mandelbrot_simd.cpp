@@ -23,7 +23,6 @@
 #include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/simd/include/functions/aligned_store.hpp>
 
-
 namespace mandelbrot
 {
 

@@ -48,7 +48,10 @@ NT2_EXPERIMENT(rgb2yuv)
 
     typedef pack<T> type;
     type tmp_y;
-    for(int i=0; i < size; i+=type::static_size)
+    std::size_t i=0;
+    step_size_=boost::simd::meta::cardinal_of<type>::value;
+
+    while (size-i>=step_size_)
     {
       type x1 = aligned_load< type >(&r[i]);
       type x2 = aligned_load< type >(&g[i]);
@@ -59,6 +62,13 @@ NT2_EXPERIMENT(rgb2yuv)
       aligned_store(tmp_y, &y[i]);
       aligned_store(0.492f*(x3 - tmp_y), &u[i]);
       aligned_store(0.877f*(x1 - tmp_y), &v[i]);
+      i += step_size_;
+    }
+    for (;i<size;i++)
+    {
+      y[i]=0.299f*r[i] + 0.587f*g[i] + 0.114f*b[i];
+      u[i]=0.492f*(b[i]-y[i]);
+      v[i]=0.877f*(r[i]-y[i]);
     }
   }
 
@@ -78,6 +88,7 @@ NT2_EXPERIMENT(rgb2yuv)
     std::vector<T,boost::simd::allocator<T> > r;
     std::vector<T,boost::simd::allocator<T> > g;
     std::vector<T,boost::simd::allocator<T> > b;
+    mutable std::size_t step_size_;
     mutable std::vector<T,boost::simd::allocator<T> > y;
     mutable std::vector<T,boost::simd::allocator<T> > u;
     mutable std::vector<T,boost::simd::allocator<T> > v;
@@ -85,12 +96,5 @@ NT2_EXPERIMENT(rgb2yuv)
 
 NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float),(100,100));
 NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float),(50,50));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float),(100,50));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float),(500,10));
-
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(double),(100,100));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(double),(50,50));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(double),(100,50));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(double),(500,10));
-
-
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float),(1000,500));
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float),(312,43));

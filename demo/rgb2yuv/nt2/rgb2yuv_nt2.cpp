@@ -62,12 +62,5 @@ NT2_EXPERIMENT(rgb2yuv)
 
 NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float),(100,100));
 NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float),(50,50));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float),(100,50));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float),(500,10));
-
-//NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(double),(100,100));
-//NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(double),(50,50));
-//NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(double),(100,50));
-//NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(double),(500,10));
-
-
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float),(1000,500));
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float),(312,43));

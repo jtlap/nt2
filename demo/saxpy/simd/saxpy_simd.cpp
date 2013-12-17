@@ -13,6 +13,7 @@
 #include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/simd/memory/allocator.hpp>
 #include <nt2/include/functions/aligned_store.hpp>
+
 #define TURBOFREQ 3.401
 #define NOPS 2.0
 #define NUM_ITER 1e5
