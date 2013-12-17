@@ -18,7 +18,6 @@
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/sdk/meta/type_id.hpp>
 #include <stdio.h>
-#include <iostream>
 
 extern "C"
 {

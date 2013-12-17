@@ -23,7 +23,7 @@ template<typename T> NT2_EXPERIMENT(linsolve< nt2::table<T> >)
 {
   public:
   linsolve( std::size_t h_, std::size_t w_)
-      : NT2_EXPRIMENT_CTOR(1.,"GFLOPS")
+      : NT2_EXPRIMENT_CTOR(130.,"GFLOPS")
       , h(h_), w(w_)
   {}
 
@@ -34,8 +34,8 @@ template<typename T> NT2_EXPERIMENT(linsolve< nt2::table<T> >)
 
   virtual double compute(nt2::benchmark_result_t const& r) const
   {
-     //return ((FLOPS_GETRF(h,w)+ FLOPS_DGETRS(h,w))/r.second)/1000000;
-     return r.second/1000000.;
+    return ((FLOPS_GETRF(h,w)+ FLOPS_DGETRS(h,w))/r.second)/1000.;
+    //return r.second/1000000.;
   }
 
   virtual void info(std::ostream& os) const
@@ -57,9 +57,16 @@ template<typename T> NT2_EXPERIMENT(linsolve< nt2::table<T> >)
   mutable nt2::table<T> a;
 };
 
+// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<double>), (200,200) );
+// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<double>), (500,500) );
+// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<double>), (800,800) );
+NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<double>), (1000,1000) );
+// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<double>), (2000,2000) );
+// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<double>), (4000,4000) );
+// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<double>), (6000,6000) );
+// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<double>), (8000,8000) );
+// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<double>), (10000,10000) );
+// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<double>), (12000,12000) );
 
-NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>)(nt2::table<double>), (4000,4000) );
-NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>)(nt2::table<double>), (6000,6000) );
-NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>)(nt2::table<double>), (8000,8000) );
-NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>)(nt2::table<double>), (10000,10000) );
-NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>)(nt2::table<double>), (12000,12000) );
+
+

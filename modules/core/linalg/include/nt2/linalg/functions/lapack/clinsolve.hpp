@@ -38,7 +38,6 @@
 
 #include <nt2/core/container/table/table.hpp>
 
-#include <iostream>
 
 namespace nt2 { namespace ext
 {
@@ -252,7 +251,6 @@ namespace nt2 { namespace ext
               , boost::proto::value(work));
       boost::proto::child_c<1>(a2) = nt2::sycon( boost::proto::value(entry)
                                                , boost::proto::value(piv) ,anorm);
-      std::cout << "test"  << std::endl;
       boost::proto::child_c<0>(a2) = work;
     }
 
