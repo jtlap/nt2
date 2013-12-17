@@ -25,26 +25,27 @@
 #include <boost/simd/include/functions/aligned_store.hpp>
 
 using namespace nt2;
+
 template<class Pixel>
 BOOST_FORCEINLINE Pixel do_work(Pixel &bkg, const Pixel &fr, Pixel &var)
 {
   Pixel diff_img, mul_img, zero=0;
-  bkg = selinc( bkg < fr, seldec( bkg > fr
+  bkg = boost::simd::selinc( bkg < fr, boost::simd::seldec( bkg > fr
                       , bkg
                       )
         );
-  diff_img = max(bkg, fr) - min(bkg, fr);
+  diff_img = boost::simd::max(bkg, fr) - boost::simd::min(bkg, fr);
 
-  mul_img = adds(adds(diff_img,diff_img),diff_img);
+  mul_img = boost::simd::adds(boost::simd::adds(diff_img,diff_img),diff_img);
 
-  var = if_else( diff_img != zero, selinc( var < mul_img
-                                 , seldec( var > mul_img
+  var = boost::simd::if_else( diff_img != zero, boost::simd::selinc( var < mul_img
+                                 , boost::simd::seldec( var > mul_img
                                  , var
                                  )
                                  )
                             , var
                             );
-  return if_zero_else_one( diff_img < var );
+  return boost::simd::if_zero_else_one( diff_img < var );
 }
 
 
@@ -60,7 +61,6 @@ public:
     variance_img.resize(size);
     background_img.resize(size);
     etiquette_binaire.resize(size);
-
     for(int k=0; k<nb_frames; k++)
       frames[k].resize(size);
 
@@ -71,8 +71,8 @@ public:
         for(int i=0; i<height;i++)
         {
           if(i>(height/4) && i<(height/2) && j>((width/4)+k%10) && j<((width/2)+k%10))
-            frames[k][i,j] = 255;
-          else frames[k][i,j] = 0;
+            frames[k][i*width+j] = 255;
+          else frames[k][i*width+j] = 0;
         }
       }
     }
@@ -91,13 +91,22 @@ public:
 
     for(int k=1; k<nb_frames; k++)
     {
-      for (int j=0; j<size; j+=boost::simd::meta::cardinal_of<type>::value)
+      std::size_t j=0;
+      step_size=boost::simd::meta::cardinal_of<type>::value;
+
+      while (size-j>=step_size)
       {
         type bkg(&background_img[j]);
         type fr(&frames[k][j]);
         type var(&variance_img[j]);
         aligned_store(do_work(bkg,fr,var),&etiquette_binaire[j]);
         aligned_store(var,&variance_img[j]);
+
+        j += step_size;
+      }
+      for (;j<size;j++)
+      {
+        etiquette_binaire[j] = do_work(background_img[j],frames[k][j], variance_img[j]);
       }
     }
   }
@@ -116,16 +125,17 @@ public:
     std::fill(etiquette_binaire.begin(),etiquette_binaire.end(),0);
   }
 
- private:
+ //private:
   std::size_t height;
   std::size_t width;
   std::size_t size;
   mutable std::vector< std::vector<T, boost::simd::allocator<T> > > frames;
-  mutable std::vector<T, boost::simd::allocator<T> >  variance_img;
+  mutable std::vector<T, boost::simd::allocator<T> > variance_img;
   mutable std::vector<T, boost::simd::allocator<T> > background_img;
   mutable std::vector<T, boost::simd::allocator<T> > etiquette_binaire;
   mutable std::vector<T, boost::simd::allocator<T> > frame;
   static const T N=3;
+  mutable std::size_t step_size;
   std::size_t nb_frames;
 };
 

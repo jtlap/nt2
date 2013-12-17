@@ -11,6 +11,8 @@ cmake_minimum_required(VERSION 2.8)
 
 set(NT2_DIR ${CMAKE_SOURCE_DIR}/../cmake)
 
+set(NT2_BLAS_MULTICORE 0)
+
 find_package(NT2 REQUIRED)
 include(${NT2_USE_FILE})
 
@@ -40,6 +42,7 @@ add_subdirectory(rgb2yuv/simd)
 #saxpy
 add_subdirectory(saxpy/scalar)
 add_subdirectory(saxpy/simd)
+add_subdirectory(saxpy/mkl)
 
 #sigmadelta
 add_subdirectory(sigmadelta/scalar)
@@ -48,4 +51,4 @@ add_subdirectory(sigmadelta/simd)
 #sdot
 add_subdirectory(sdot/scalar)
 add_subdirectory(sdot/simd)
-
+add_subdirectory(sdot/mkl)
