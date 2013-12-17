@@ -22,7 +22,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename A0::value_type result_type;
-    inline result_type operator()(const A0 & a0) const
+    BOOST_FORCEINLINE result_type operator()(const A0 & a0) const
       { return a0 ? Zero<result_type>() : One<result_type>(); }
   };
 
@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    inline result_type operator()(const A0 & a0) const
+    BOOST_FORCEINLINE result_type operator()(const A0 & a0) const
     { return  result_type(a0 == boost::simd::Zero<A0>()); }
   };
 
@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    inline result_type operator()(const A0 & a0) const
+    BOOST_FORCEINLINE result_type operator()(const A0 & a0) const
     { return !a0; }
   };
 } } }
