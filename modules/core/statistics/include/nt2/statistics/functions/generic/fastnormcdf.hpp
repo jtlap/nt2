@@ -15,7 +15,8 @@
 #include <nt2/include/functions/simd/abs.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/fma.hpp>
-#include <nt2/include/functions/simd/seladd.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/oneminus.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/include/functions/simd/exp.hpp>
 #include <nt2/include/functions/simd/is_gtz.hpp>
@@ -25,6 +26,7 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/invsqrt_2pi.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -34,21 +36,21 @@ namespace nt2 { namespace ext
                             )
   {
     typedef A0 result_type;
-    typedef typename meta::scalar_of<A0>::type sA0;
     NT2_FUNCTOR_CALL(1)
     {
       result_type l = abs(a0);
       result_type k = rec(fma(splat<result_type>(0.2316419f),l,One<result_type>()));
-      result_type w1 = horner< NT2_HORNER_COEFF_T( typename meta::scalar_of<result_type>::type
-                                                 , 5
-                                               , ( 0x3faa466f   //           1.330274429f,
-                                                 , 0xbfe91eea   //           -1.821255978f,
-                                                 , 0x3fe40778   //           1.781477937f,
-                                                 ,  0xbeb68f87  //           - 0.356563782f,
-                                                 , 0x3ea385fa   //           0.31938153f
-                                                 ))>(k);
-      w1*=k*Invsqrt_2pi<result_type>()*exp(-sqr(l)*Half<result_type>());
-      return if_else(is_gtz(a0),oneminus(w1), w1);
+      result_type w = horner< NT2_HORNER_COEFF_T( typename meta::scalar_of<result_type>::type
+                                                , 5
+                                                , ( 0x3faa466f   //           1.330274429f,
+                                                  , 0xbfe91eea   //           -1.821255978f,
+                                                  , 0x3fe40778   //           1.781477937f,
+                                                  , 0xbeb68f87   //           -0.356563782f,
+                                                  , 0x3ea385fa   //           0.31938153f
+                                                  )
+                                                )>(k);
+      w*=k*Invsqrt_2pi<result_type>()*exp(-sqr(l)*Half<result_type>());
+      return if_else(is_gtz(a0),oneminus(w),w);
     }
   };
 } }

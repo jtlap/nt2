@@ -9,16 +9,11 @@
 #ifndef NT2_STATISTICS_FUNCTIONS_FASTNORMCDF_HPP_INCLUDED
 #define NT2_STATISTICS_FUNCTIONS_FASTNORMCDF_HPP_INCLUDED
 
-#include <nt2/options.hpp>
 #include <nt2/include/functor.hpp>
-#include <nt2/sdk/meta/size_as.hpp>
-#include <nt2/sdk/meta/value_as.hpp>
-#include <nt2/core/container/dsl/size.hpp>
-#include <nt2/core/container/dsl/value_type.hpp>
-#include <nt2/sdk/meta/tieable_hierarchy.hpp>
-#include <nt2/core/utility/max_extent.hpp>
 
-namespace nt2 { namespace tag
+namespace nt2
+{
+  namespace tag
   {
    /*!
      @brief fastnormcdf generic tag
@@ -34,8 +29,7 @@ namespace nt2 { namespace tag
       typedef ext::elementwise_<fastnormcdf_> parent;
     };
   }
-
-/*!
+  /*!
     fast normal cumulative distribution
 
     @par Semantic:
