@@ -38,8 +38,8 @@ namespace nt2
     @return
   **/
   NT2_FUNCTION_IMPLEMENTATION_TPL (tag::posv_, posv
-                                  , (A0&)(A1 const&)(A2&)
-                                  , 3
+                                  , (A0&)(A1&)
+                                  , 2
                                   );
 
 }
