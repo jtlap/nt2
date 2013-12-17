@@ -22,6 +22,7 @@
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <boost/simd/sdk/config.hpp>
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::erfc_, tag::cpu_
@@ -44,22 +45,22 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      static const boost::array<A0, 5 > erf0_P4 = {{
+      static const boost::array<A0, 5> erf0_P4 = {{
           A0(6.49254556481904E-05),
           A0(1.20339380863079E-03),
           A0(4.03259488531795E-02),
           A0(0.135894887627278   ),
           A0(1.12837916709551    )
-        }};
-      static const boost::array<A0, 5 > erf0_Q4 = {{
+      }};
+      static const boost::array<A0, 5> erf0_Q4 = {{
           A0(3.64915280629351E-04),
           A0(8.49717371168693E-03),
           A0(8.69936222615386E-02),
           A0(0.453767041780003   ),
           A0(1                   )
-        }};
+      }};
 
-      static const boost::array<A0, 7 > erfc1_P5 = {{
+      static const boost::array<A0, 7> erfc1_P5 = {{
           A0(0                   ),
           A0(7.06940843763253E-03),
           A0(7.14193832506776E-02),
@@ -67,8 +68,8 @@ namespace nt2 { namespace ext
           A0(0.878115804155882   ),
           A0(1.33154163936765    ),
           A0(0.999999992049799   )
-        }};
-      static const boost::array<A0, 7 > erfc1_Q5 = {{
+      }};
+      static const boost::array<A0, 7> erfc1_Q5 = {{
           A0(1.25304936549413E-02),
           A0(0.126579413030178   ),
           A0(0.594651311286482   ),
@@ -76,9 +77,9 @@ namespace nt2 { namespace ext
           A0(2.65383972869776    ),
           A0(2.45992070144246    ),
           A0(1                   )
-        }};
+      }};
 
-      static const boost::array<A0, 7 > erfc2_P5 = {{
+      static const boost::array<A0, 7> erfc2_P5 = {{
           A0(0                   ),
           A0(2.25716982919218E-02),
           A0(0.157289620742839   ),
@@ -86,8 +87,8 @@ namespace nt2 { namespace ext
           A0(1.26739901455873    ),
           A0(1.62356584489367    ),
           A0(0.99992114009714    )
-        }};
-      static const boost::array<A0, 7 > erfc2_Q5 = {{
+      }};
+      static const boost::array<A0, 7> erfc2_Q5 = {{
           A0(4.00072964526861E-02),
           A0(0.278788439273629   ),
           A0(1.05074004614827    ),
@@ -95,7 +96,7 @@ namespace nt2 { namespace ext
           A0(3.37367334657285    ),
           A0(2.75143870676376    ),
           A0(1                   )
-        }};
+      }};
 
 #ifndef BOOST_SIMD_NO_INVALIDS
       if(nt2::is_nan(a0)) return a0;
@@ -103,26 +104,25 @@ namespace nt2 { namespace ext
       A0 x =  nt2::abs(a0);
       A0 xx =  nt2::sqr(x);
       A0 z =  nt2::Zero<A0>();
-      if(x<= A0(0.0000000001))
+      if(x <= A0(0.0000000001))
       {
         z = nt2::oneminus(x*nt2::Two<A0>()/nt2::sqrt(nt2::Pi<A0>()));
       }
       else if (x<= A0(0.65))
-       {
-         z = nt2::oneminus(x*nt2::polevl( xx, erf0_P4)/nt2::polevl( xx, erf0_Q4 ));
-       }
-       else if(x<= A0(2.2))
-       {
-         z = nt2::exp(-xx)*nt2::polevl(x, erfc1_P5)/nt2::polevl( x, erfc1_Q5);
-       }
-       else if(x<= A0(6))
-       {
-         z = nt2::exp(-xx)*nt2::polevl(x, erfc2_P5)/nt2::polevl( x, erfc2_Q5);
-       }
-       return nt2::is_ltz(a0) ? nt2::Two<A0>()-z : z;
+      {
+        z = nt2::oneminus(x*nt2::polevl( xx, erf0_P4)/nt2::polevl( xx, erf0_Q4 ));
+      }
+      else if(x<= A0(2.2))
+      {
+        z = nt2::exp(-xx)*nt2::polevl(x, erfc1_P5)/nt2::polevl( x, erfc1_Q5);
+      }
+      else if(x<= A0(6))
+      {
+        z = nt2::exp(-xx)*nt2::polevl(x, erfc2_P5)/nt2::polevl( x, erfc2_Q5);
+      }
+      return nt2::is_ltz(a0) ? nt2::Two<A0>()-z : z;
     }
   };
-
 
 } }
 
