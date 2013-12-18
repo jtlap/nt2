@@ -91,22 +91,23 @@ public:
 
     for(int k=1; k<nb_frames; k++)
     {
-      std::size_t size       = frames[0].size();
-      std::size_t step_size  = boost::simd::meta::cardinal_of<type>::value;
-      std::size_t aligned_sz = size & ~(step_size-1);
-      std::size_t it         = 0;
+      std::size_t j=0;
+      step_size=boost::simd::meta::cardinal_of<type>::value;
 
-      for(std::size_t m=aligned_sz; it != m; it+=step_size)
+      while (size-j>=step_size)
       {
-        type bkg(&background_img[it]);
-        type fr(&frames[k][it]);
-        type var(&variance_img[it]);
-        aligned_store(do_work(bkg,fr,var),&etiquette_binaire[it]);
-        aligned_store(var,&variance_img[it]);
-      }
+        type bkg(&background_img[j]);
+        type fr(&frames[k][j]);
+        type var(&variance_img[j]);
+        aligned_store(do_work(bkg,fr,var),&etiquette_binaire[j]);
+        aligned_store(var,&variance_img[j]);
 
-      for(std::size_t m=size; it != m; it++)
-        etiquette_binaire[it] = do_work(background_img[it],frames[k][it], variance_img[it]);
+        j += step_size;
+      }
+      for (;j<size;j++)
+      {
+        etiquette_binaire[j] = do_work(background_img[j],frames[k][j], variance_img[j]);
+      }
     }
   }
 
@@ -127,7 +128,8 @@ public:
   std::size_t height;
   std::size_t width;
   std::size_t size;
-  mutable std::vector<T, boost::simd::allocator<T> > variance_img, background_img, etiquette_binaire, frames;
+  mutable std::vector< std::vector<T, boost::simd::allocator<T> > > frames;
+  mutable std::vector<T, boost::simd::allocator<T> > variance_img, background_img, etiquette_binaire;
   static const T N=3;
   mutable std::size_t step_size;
   std::size_t nb_frames;
