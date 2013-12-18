@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2013 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -10,7 +11,11 @@
 #include <vector>
 #include <nt2/sdk/bench/benchmark.hpp>
 
-#define TURBOFREQ 3.401
+#ifdef __ANDROID__
+  #define TURBOFREQ 1.008000
+#else
+  #define TURBOFREQ 3.401
+#endif
 #define NOPS 2.0
 
 template<typename T>

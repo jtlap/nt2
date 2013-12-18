@@ -8,4 +8,8 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
+if(NOT NT2_CORE.LINALG_FOUND)
+  return()
+endif()
+
 add_executable(sdot_mkl sdot_mkl.cpp)

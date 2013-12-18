@@ -13,7 +13,11 @@
 #include <cmath>
 #include <cstdlib>
 
-#define TURBOFREQ 3.401
+#ifdef __ANDROID__
+  #define TURBOFREQ 1.008000
+#else
+  #define TURBOFREQ 3.401
+#endif
 #define NOPS 2.0
 
 template<typename T>
@@ -84,7 +88,6 @@ NT2_EXPERIMENT(sdot_mkl)
   {
     nt2_la_int sz = size;
     res = NT2_F77NAME(sdot)(&sz, x, &incx, y, &incy);
-
   }
 
   virtual double compute(nt2::benchmark_result_t const& r) const

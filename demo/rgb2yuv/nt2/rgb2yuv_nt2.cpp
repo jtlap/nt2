@@ -16,12 +16,11 @@
 #include <nt2/include/functions/minus.hpp>
 #include <nt2/include/functions/sum.hpp>
 
-#define vec table<K>
 
 using namespace nt2;
 
 template<typename K>
-BOOST_FORCEINLINE void rgb2yuv_work(const vec& r, const vec& g, const vec& b, vec& y, vec& u, vec& v)
+BOOST_FORCEINLINE void rgb2yuv_work(const table<K>& r, const table<K>& g, const table<K>& b, table<K>& y, table<K>& u, table<K>& v)
 {
   y = K(0.299f)*r + K(0.587f)*g + K(0.114f)*b;
   u = K(0.492f)*(b - y);

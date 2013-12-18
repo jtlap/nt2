@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2013 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -14,9 +15,12 @@
 #include <boost/simd/memory/allocator.hpp>
 #include <nt2/include/functions/aligned_store.hpp>
 
-#define TURBOFREQ 3.401
+#ifdef __ANDROID__
+  #define TURBOFREQ 1.008000
+#else
+  #define TURBOFREQ 3.401
+#endif
 #define NOPS 2.0
-#define NUM_ITER 1e5
 
 template <class A0, class A1>
 BOOST_FORCEINLINE __attribute__((flatten)) A0 Taxpy_simd(A1 const& alpha, A0 const& X, A0 &Y)
@@ -39,7 +43,6 @@ NT2_EXPERIMENT(Taxpy)
 
     virtual void run() const
     {
-      for (int j=0;j<NUM_ITER;j++){
       using boost::simd::pack;
       using boost::simd::native;
       using boost::simd::aligned_store;
@@ -51,10 +54,9 @@ NT2_EXPERIMENT(Taxpy)
         aligned_store(Taxpy_simd(alpha, X_pack, Y_pack),&Y[i]);
       }
     }
-    }
     virtual double compute(nt2::benchmark_result_t const& r) const
     {
-      return(double(size_)*NOPS*TURBOFREQ/r.first*NUM_ITER);
+      return(double(size_)*NOPS*TURBOFREQ*1000/r.first);
     }
 
     virtual void info(std::ostream& os) const { os << size_; }

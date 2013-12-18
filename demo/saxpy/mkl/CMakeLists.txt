@@ -7,5 +7,8 @@
 #                 See accompanying file LICENSE.txt or copy at
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
+if(NOT NT2_CORE.LINALG_FOUND)
+  return()
+endif()
 
 add_executable(saxpy_mkl saxpy_mkl.cpp)

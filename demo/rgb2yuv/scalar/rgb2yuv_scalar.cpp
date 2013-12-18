@@ -10,23 +10,23 @@
 
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <fstream>
+#include <boost/simd/sdk/simd/pack.hpp>
+#include <boost/simd/include/functions/aligned_load.hpp>
+#include  <boost/simd/operator/functions/multiplies.hpp>
+#include <boost/simd/arithmetic/functions/muls.hpp>
+#include <boost/simd/include/functions/plus.hpp>
+#include <boost/simd/include/functions/sum.hpp>
+#include <boost/simd/include/functions/aligned_store.hpp>
+#include <boost/simd/memory/allocator.hpp>
 
 using namespace nt2;
 
-#define vec std::vector<K>
-
-//typedef std::vector<K,boost::simd::allocator<K> > vec;
-template<typename K>
-BOOST_FORCEINLINE void rgb2yuv_work(const vec& r, const vec& g, const vec& b, vec& y, vec& u, vec& v)
+template<typename K, typename L>
+BOOST_FORCEINLINE void rgb2yuv_work(const K& r, const K& g, const K& b, L *y, L *u, L *v)
 {
-  std::size_t size = r.size();
-  #pragma simd
-  for(std::size_t i=0; i < size; i++)
-  {
-    y[i] = 0.299f*r[i] + 0.587f*g[i] + 0.114f*b[i];
-    u[i] = 0.492f*(b[i]-y[i]);
-    v[i] = 0.877f*(r[i]-y[i]);
-  }
+  *y = 0.299f*r + 0.587f*g + 0.114f*b;
+  *u = 0.492f*(b - *y);
+  *v = 0.877f*(r - *y);
 }
 
 template<typename T>
@@ -42,8 +42,7 @@ NT2_EXPERIMENT(rgb2yuv)
     r.resize(size);
     g.resize(size);
     b.resize(size);
-
-    for(std::size_t i=0; i<size; i++)
+    for(int i=0; i<size; i++)
       r[i] = g[i] = b[i] = y[i] = u[i] = v[i] = T(i);
   }
 
@@ -51,7 +50,11 @@ NT2_EXPERIMENT(rgb2yuv)
 
   BOOST_FORCEINLINE virtual void run() const
   {
-    rgb2yuv_work(r, g, b, y, u, v);
+    std::size_t size = r.size();
+
+    #pragma simd
+    for(std::size_t it = 0; it < size; it++)
+      rgb2yuv_work(r[it], g[it], b[it], &y[it], &u[it], &v[it]);
   }
 
   virtual double compute(nt2::benchmark_result_t const& r) const
@@ -60,10 +63,19 @@ NT2_EXPERIMENT(rgb2yuv)
   }
 
   virtual void reset()
-  {}
+  {
+  }
 
-  std::size_t height, width, size;
-  mutable std::vector<T> r, g ,b ,y ,u ,v;
+  private:
+    int height;
+    int width;
+    int size;
+    std::vector<T,boost::simd::allocator<T> > r;
+    std::vector<T,boost::simd::allocator<T> > g;
+    std::vector<T,boost::simd::allocator<T> > b;
+    mutable std::vector<T,boost::simd::allocator<T> > y;
+    mutable std::vector<T,boost::simd::allocator<T> > u;
+    mutable std::vector<T,boost::simd::allocator<T> > v;
 };
 
 NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float)(double),(37,1));

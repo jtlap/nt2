@@ -21,44 +21,14 @@
 
 using namespace nt2;
 
-#define vec std::vector<K,boost::simd::allocator<K> >
-
-//typedef std::vector<K,boost::simd::allocator<K> > vec;
-
-template<typename K>
-BOOST_FORCEINLINE void rgb2yuv_work(const vec& r, const vec& g, const vec& b, vec& y, vec& u, vec& v)
+template<typename K, typename L>
+BOOST_FORCEINLINE void rgb2yuv_work(const K& r, const K& g, const K& b, L *y, L *u, L *v)
 {
-  using boost::simd::pack;
-  using boost::simd::aligned_load;
   using boost::simd::aligned_store;
-  using boost::simd::sum;
-
-  typedef pack<K> type;
-  type tmp_y;
-  std::size_t size       = r.size();
-  std::size_t step_size  = boost::simd::meta::cardinal_of<type>::value;
-  std::size_t aligned_sz = size & ~(step_size-1);
-  std::size_t it         = 0;
-
-  for(std::size_t m=aligned_sz; it != m; it+=step_size)
-  {
-    type x1 = aligned_load< type >(&r[it]);
-    type x2 = aligned_load< type >(&g[it]);
-    type x3 = aligned_load< type >(&b[it]);
-
-    tmp_y   = K(0.299f)*x1 + K(0.587f)*x2 + K(0.114f)*x3;
-
-    aligned_store(tmp_y, &y[it]);
-    aligned_store(K(0.492f)*(x3 - tmp_y), &u[it]);
-    aligned_store(K(0.877f)*(x1 - tmp_y), &v[it]);
-  }
-
-  for(std::size_t m=size; it != m; it++)
-  {
-    y[m] = 0.299f*r[it] + 0.587f*g[m] + 0.114f*b[it];
-    u[m] = 0.492f*(b[it]-y[it]);
-    v[m] = 0.877f*(r[it]-y[it]);
-  }
+  K tmp_y = K(0.299f)*r + K(0.587f)*g + K(0.114f)*b;
+  aligned_store(tmp_y, y);
+  aligned_store(K(0.492f)*(b - tmp_y), u);
+  aligned_store(K(0.877f)*(r - tmp_y), v);
 }
 
 template<typename T>
@@ -82,7 +52,29 @@ NT2_EXPERIMENT(rgb2yuv)
 
   BOOST_FORCEINLINE virtual void run() const
   {
-    rgb2yuv_work(r, g, b, y, u, v);
+    using boost::simd::pack;
+    using boost::simd::aligned_load;
+    using boost::simd::sum;
+
+    typedef pack<T> type;
+    std::size_t size       = r.size();
+    std::size_t step_size  = boost::simd::meta::cardinal_of<type>::value;
+    std::size_t aligned_sz = size & ~(step_size-1);
+    std::size_t it         = 0;
+
+    for(std::size_t m=aligned_sz; it != m; it+=step_size)
+    {
+      type x1 = aligned_load< type >(&r[it]);
+      type x2 = aligned_load< type >(&g[it]);
+      type x3 = aligned_load< type >(&b[it]);
+
+      rgb2yuv_work(x1, x2, x3, &y[it], &u[it], &v[it]);
+    }
+
+    for(std::size_t m=size; it != m; it++)
+    {
+      rgb2yuv_work(r[it], g[it], b[it], &y[it], &u[it], &v[it]);
+    }
   }
 
   virtual double compute(nt2::benchmark_result_t const& r) const

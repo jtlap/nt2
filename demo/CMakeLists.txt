@@ -41,10 +41,10 @@ add_subdirectory(rgb2yuv/simd)
 
 #saxpy
 add_subdirectory(saxpy/scalar)
+add_subdirectory(saxpy/nt2)
 add_subdirectory(saxpy/simd)
-if(NOT ${CMAKE_SYSTEM_PROCESSOR} MATCHES "arm")
-  add_subdirectory(saxpy/mkl)
-endif()
+add_subdirectory(saxpy/mkl)
+
 
 #sigmadelta
 add_subdirectory(sigmadelta/scalar)
@@ -53,7 +53,6 @@ add_subdirectory(sigmadelta/simd)
 
 #sdot
 add_subdirectory(sdot/scalar)
+add_subdirectory(sdot/nt2)
 add_subdirectory(sdot/simd)
-if(NOT ${CMAKE_SYSTEM_PROCESSOR} MATCHES  "arm")
-  add_subdirectory(sdot/mkl)
-endif()
+add_subdirectory(sdot/mkl)

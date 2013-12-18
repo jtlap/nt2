@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2013 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -9,10 +10,12 @@
 #include <iostream>
 #include <vector>
 #include <nt2/sdk/bench/benchmark.hpp>
-#include <boost/simd/include/functions/fma.hpp>
-#include <boost/simd/reduction/functions/sum.hpp>
-//#define TURBOFREQ 3.401
-#define TURBOFREQ 1.008000
+
+#ifdef __ANDROID__
+  #define TURBOFREQ 1.008000
+#else
+  #define TURBOFREQ 3.401
+#endif
 #define NOPS 2.0
 
 template<typename T>
@@ -22,40 +25,36 @@ NT2_EXPERIMENT(Taxpy)
 
     Taxpy(std::size_t const& s, T const& a)
     : NT2_EXPERIMENT_CTOR(1., "GFLOPS"),
-    size_(s), alpha(a)
+    size(s), alpha(a)
     {
 
       X.resize(s); Y.resize(s);
-      for(int i = 0; i<size_; ++i) X[i] = Y[i] = T(i);
+      for(int i = 0; i<size; ++i) X[i] = Y[i] = T(i);
     }
 
     inline T Taxpy_scalar(std::size_t const& s) const
     {
       #pragma simd
-      for(int i = 0; i<size_; i++)
-      {
+      for(int i = 0; i<size; i++)
         Y[i] = Y[i] + alpha*(X[i]);
-      }
     }
     virtual void run() const
     {
-      Taxpy_scalar(size_);
+      Taxpy_scalar(size);
     }
     virtual double compute(nt2::benchmark_result_t const& r) const
     {
-    //  return r.first/double(size_);
-     // printf("%e\n",r.first );
-            return(double(size_)*NOPS*TURBOFREQ/r.first);
+      return(double(size)*NOPS*TURBOFREQ/r.first);
     }
 
-    virtual void info(std::ostream& os) const { os << size_; }
+    virtual void info(std::ostream& os) const { os << size; }
 
     virtual void reset() const
     {
     }
   private:
     T alpha;
-    std::size_t size_;
+    std::size_t size;
     mutable typename std::vector<T> X, Y;
 };
 

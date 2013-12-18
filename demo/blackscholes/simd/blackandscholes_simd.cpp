@@ -62,7 +62,7 @@ public:
     va.resize(size_);
     R.resize(size_);
 
-    for(int i = 0; i <size_; ++i) Sa[i]=Xa[i]=Ta[i]=ra[i]=va[i]= T(i+1);
+    for(i = 0; i <size_; ++i) Sa[i]=Xa[i]=Ta[i]=ra[i]=va[i]= T(i+1);
   }
 
   virtual void run() const
@@ -74,7 +74,8 @@ public:
 
     typedef native<T,BOOST_SIMD_DEFAULT_EXTENSION> type;
     step_size_=boost::simd::meta::cardinal_of<type>::value;
-    std::size_t i=0;
+    i=0;
+
     while (size_-i>=step_size_)
     {
       type Sa_tmp = aligned_load<type>(&Sa[i]);
@@ -86,12 +87,12 @@ public:
       i += step_size_;
     }
     for (; i<size_; i++)
-      R[i] = blackandscholes(Sa[i], Xa[i], Ta[i], ra[i], va[i]);
+      R[i] += blackandscholes(Sa[i], Xa[i], Ta[i], ra[i], va[i]);
   }
 
   virtual double compute(nt2::benchmark_result_t const& r) const
   {
-    return r.first/double(size_);
+    return r.first/(double(size_));
   }
 
   virtual void info(std::ostream& os) const { os << size_; }
@@ -103,6 +104,7 @@ public:
   mutable std::vector<T, boost::simd::allocator<T> > Sa, Xa, Ta, ra, va, R;
   mutable std::size_t step_size_;
   std::size_t size_;
+  mutable std::size_t i, j;
 };
 
 NT2_RUN_EXPERIMENT_TPL( blackandscholes_exp, (float), (13));
