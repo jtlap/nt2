@@ -53,11 +53,11 @@ NT2_TEST_CASE_TPL ( am_real,  NT2_SIMD_REAL_TYPES)
      for(int k=0; k < 3 ; k++)
      {
        NT2_TEST_ULP_EQUAL(am(nt2::splat<vT>(in1[i]), nt2::splat<vT>(in2[j]), in3[k]),
-                          nt2::splat<vT>(am( in1[i], in2[j], in3[k])), 0.5
+                          nt2::splat<vT>(am( in1[i], in2[j], in3[k])), 1
                          );
        #ifndef BOOST_SIMD_NO_INVALIDS
        NT2_TEST_ULP_EQUAL(am(nt2::splat<vT>(in1i[i]), nt2::splat<vT>(in2[j]), in3[k]),
-                          nt2::splat<vT>(am( in1i[i], in2[j], in3[k])), 0.5
+                          nt2::splat<vT>(am( in1i[i], in2[j], in3[k])), 1
                          );
 
        #endif
