@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_ELLIPTIC_FUNCTIONS_SCALAR_ELLINT_1_HPP_INCLUDED
 #define NT2_ELLIPTIC_FUNCTIONS_SCALAR_ELLINT_1_HPP_INCLUDED
+
 #include <nt2/elliptic/functions/ellint_1.hpp>
 #include <nt2/include/functions/scalar/oneminus.hpp>
 #include <nt2/include/functions/scalar/average.hpp>

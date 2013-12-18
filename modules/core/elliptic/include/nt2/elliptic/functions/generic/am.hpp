@@ -10,10 +10,12 @@
 #define NT2_ELLIPTIC_FUNCTIONS_GENERIC_AM_HPP_INCLUDED
 
 #include <nt2/elliptic/functions/am.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/sin.hpp>
-#include <nt2/include/functions/colon.hpp>
+#include <nt2/include/functions/simd/sqrt.hpp>
+#include <nt2/include/functions/simd/sin.hpp>
+#include <nt2/include/functions/simd/colon.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
 #include <nt2/include/constants/eps.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
 
 namespace nt2 { namespace ext
 {

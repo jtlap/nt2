@@ -8,19 +8,21 @@
  ******************************************************************************/
 #ifndef NT2_ELLIPTIC_FUNCTIONS_GENERIC_DETAILS_AM_KERNEL_HPP_INCLUDED
 #define NT2_ELLIPTIC_FUNCTIONS_GENERIC_DETAILS_AM_KERNEL_HPP_INCLUDED
-#include <vector>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/average.hpp>
+
+#include <nt2/include/functions/simd/sqrt.hpp>
+#include <nt2/include/functions/simd/oneminus.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/average.hpp>
+#include <nt2/include/functions/simd/asin.hpp>
+#include <nt2/include/functions/simd/sin.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/maximum.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/include/functions/scalar/asin.hpp>
-#include <nt2/include/functions/scalar/sin.hpp>
-#include <nt2/include/functions/divides.hpp>
-#include <nt2/include/functions/multiplies.hpp>
-#include <nt2/include/functions/unary_minus.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/maximum.hpp>
+#include <vector>
 
 namespace nt2
 {
