@@ -22,7 +22,6 @@
 #include <nt2/include/functions/simd/abs.hpp>
 #include <nt2/include/functions/simd/maximum.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <vector>
 
 namespace nt2
 {
@@ -31,10 +30,10 @@ namespace nt2
     template < class A0, class A1, class A2>
     BOOST_FORCEINLINE static A0 am_kernel(const A0 & u,const A1 & k, const A2 & tol)
     {
-      const int N = 30;
-      std::vector<A0> a(N+1);
-      std::vector<A0> g(N+1);
-      std::vector<A0> c(N+1);
+      static const int N = 30;
+      A0 a[N+1];
+      A0 g[N+1];
+      A0 c[N+1];
       a[0] = One<A0>();
       g[0] = nt2::sqrt(oneminus(sqr(k)));
       c[0] = k;
