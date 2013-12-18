@@ -46,6 +46,7 @@ add_subdirectory(saxpy/mkl)
 
 #sigmadelta
 add_subdirectory(sigmadelta/scalar)
+add_subdirectory(sigmadelta/nt2)
 add_subdirectory(sigmadelta/simd)
 
 #sdot

@@ -16,12 +16,22 @@
 #include <nt2/include/functions/minus.hpp>
 #include <nt2/include/functions/sum.hpp>
 
+#define vec table<K>
+
 using namespace nt2;
+
+template<typename K>
+BOOST_FORCEINLINE void rgb2yuv_work(const vec& r, const vec& g, const vec& b, vec& y, vec& u, vec& v)
+{
+  y = K(0.299f)*r + K(0.587f)*g + K(0.114f)*b;
+  u = K(0.492f)*(b - y);
+  v = K(0.877f)*(r - y);
+}
+
 template<typename T>
 NT2_EXPERIMENT(rgb2yuv)
 {
   public :
-    typedef T value_type;
     rgb2yuv(int h, int w)
     : NT2_EXPERIMENT_CTOR( 1,"cycles/elements"), height(h), width(w), size(h*w)
   {
@@ -39,9 +49,7 @@ NT2_EXPERIMENT(rgb2yuv)
 
   BOOST_FORCEINLINE virtual void run() const
   {
-    y = T(0.299f)*r + T(0.587f)*g + T(0.114f)*b;
-    u = T(0.492f)*(b - y);
-    v = T(0.877f)*(r - y);
+    rgb2yuv_work(r, g, b, y, u, v);
   }
 
   virtual double compute(nt2::benchmark_result_t const& r) const
@@ -57,11 +65,11 @@ NT2_EXPERIMENT(rgb2yuv)
     int height;
     int width;
     int size;
-    mutable nt2::table<value_type> y, u, v;
-    nt2::table<value_type> r, g, b;
+    mutable nt2::table<T> y, u, v;
+    nt2::table<T> r, g, b;
 };
 
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float)(double),(100,100));
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float)(double),(37,1));
 NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float)(double),(50,50));
 NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float)(double),(1000,500));
 NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float)(double),(312,43));

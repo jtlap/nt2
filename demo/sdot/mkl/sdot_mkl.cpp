@@ -43,10 +43,10 @@ NT2_EXPERIMENT(ddot_mkl)
     res = NT2_F77NAME(ddot)(&sz, x, &incx, y, &incy);
   }
 
-      virtual double compute(nt2::benchmark_result_t const& r) const
-    {
-      return(double(size)*NOPS*TURBOFREQ/r.first);
-    }
+  virtual double compute(nt2::benchmark_result_t const& r) const
+  {
+    return(double(size)*NOPS*TURBOFREQ/r.first);
+  }
 
 private:
   std::size_t size;
@@ -86,10 +86,10 @@ NT2_EXPERIMENT(sdot_mkl)
 
   }
 
-      virtual double compute(nt2::benchmark_result_t const& r) const
-    {
-      return(double(size)*NOPS*TURBOFREQ/r.first);
-    }
+  virtual double compute(nt2::benchmark_result_t const& r) const
+  {
+    return(double(size)*NOPS*TURBOFREQ/r.first);
+  }
 
 private:
   std::size_t size;
@@ -99,7 +99,7 @@ private:
   nt2_la_int len_x, len_y;
 };
 
-typedef double K;
+typedef float K;
 NT2_RUN_EXPERIMENT_TPL( sdot_mkl, (K), (16));
 NT2_RUN_EXPERIMENT_TPL( sdot_mkl, (K), (32));
 NT2_RUN_EXPERIMENT_TPL( sdot_mkl, (K), (64));
@@ -112,3 +112,17 @@ NT2_RUN_EXPERIMENT_TPL( sdot_mkl, (K), (4096));
 NT2_RUN_EXPERIMENT_TPL( sdot_mkl, (K), (8192));
 NT2_RUN_EXPERIMENT_TPL( sdot_mkl, (K), (16384));
 NT2_RUN_EXPERIMENT_TPL( sdot_mkl, (K), (163840));
+
+typedef double L;
+NT2_RUN_EXPERIMENT_TPL( ddot_mkl, (L), (16));
+NT2_RUN_EXPERIMENT_TPL( ddot_mkl, (L), (32));
+NT2_RUN_EXPERIMENT_TPL( ddot_mkl, (L), (64));
+NT2_RUN_EXPERIMENT_TPL( ddot_mkl, (L), (128));
+NT2_RUN_EXPERIMENT_TPL( ddot_mkl, (L), (256));
+NT2_RUN_EXPERIMENT_TPL( ddot_mkl, (L), (512));
+NT2_RUN_EXPERIMENT_TPL( ddot_mkl, (L), (1024));
+NT2_RUN_EXPERIMENT_TPL( ddot_mkl, (L), (2048));
+NT2_RUN_EXPERIMENT_TPL( ddot_mkl, (L), (4096));
+NT2_RUN_EXPERIMENT_TPL( ddot_mkl, (L), (8192));
+NT2_RUN_EXPERIMENT_TPL( ddot_mkl, (L), (16384));
+NT2_RUN_EXPERIMENT_TPL( ddot_mkl, (L), (163840));

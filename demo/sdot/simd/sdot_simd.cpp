@@ -53,7 +53,7 @@ NT2_EXPERIMENT(Tdot)
         type Y_pack(&Y[i]);
         res_pack += Tdot_simd(X_pack, Y_pack);
       }
-      res = boost::simd::sum(res_pack);//, step_size_);
+      res = boost::simd::sum(res_pack);
     }
     virtual double compute(nt2::benchmark_result_t const& r) const
     {
@@ -83,4 +83,3 @@ NT2_RUN_EXPERIMENT_TPL( Tdot, (K), (2048));
 NT2_RUN_EXPERIMENT_TPL( Tdot, (K), (4096));
 NT2_RUN_EXPERIMENT_TPL( Tdot, (K), (8192));
 NT2_RUN_EXPERIMENT_TPL( Tdot, (K), (16384));
-//NT2_RUN_EXPERIMENT_TPL( Taxpy, (K), (163840));
