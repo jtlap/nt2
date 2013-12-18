@@ -375,7 +375,7 @@ function(nt2_find_module COMPONENT)
     string(TOUPPER ${extra} extra_U)
 
     get_property(NT2_${extra_U}_FOUND GLOBAL PROPERTY NT2_${extra_U}_FOUND)
-    if(NOT NT2_${extra_U}_DEPENDENCIES_FOUND AND NOT ${extra} STREQUAL ${COMPONENT})
+    if(DEFINED NT2_${extra_U}_DEPENDENCIES_FOUND AND NOT NT2_${extra_U}_DEPENDENCIES_FOUND AND NOT ${extra} STREQUAL ${COMPONENT})
       set(NT2_${COMPONENT_U}_FOUND 0 PARENT_SCOPE)
       return()
     endif()
