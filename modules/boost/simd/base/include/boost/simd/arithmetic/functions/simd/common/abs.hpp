@@ -15,8 +15,7 @@
 #include <boost/simd/include/functions/simd/bitwise_notand.hpp>
 #include <boost/simd/include/functions/simd/bitwise_xor.hpp>
 #include <boost/simd/include/functions/simd/shr.hpp>
-#include <boost/simd/include/functions/simd/minus.hpp>
-#include <boost/simd/include/functions/simd/unary_minus.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -31,7 +30,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<result_type, signed>::type int_type;
       typedef typename meta::scalar_of<int_type>::type                      sint_type;
       result_type const s = shri(a0, Maxleftshift<sint_type>());
-      return (a0-s)^(-s);
+      return (a0+s)^s;
     }
   };
 
