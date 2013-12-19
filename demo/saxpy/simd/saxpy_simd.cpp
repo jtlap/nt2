@@ -35,10 +35,10 @@ NT2_EXPERIMENT(Taxpy_simd)
 
     Taxpy_simd(std::size_t const& s, T const& a)
     : NT2_EXPERIMENT_CTOR(1., "GFLOPS"),
-    size_(s), alpha(a)
+      alpha(a), size_(s)
     {
       X.resize(s); Y.resize(s);
-      for(int i = 0; i<size_; ++i) X[i] = Y[i] = T(i);
+      for(std::size_t i = 0; i<size_; ++i) X[i] = Y[i] = T(i);
     }
 
     virtual void run() const
@@ -48,7 +48,7 @@ NT2_EXPERIMENT(Taxpy_simd)
       using boost::simd::aligned_store;
       typedef pack<T> type;
       step_size_ = boost::simd::meta::cardinal_of<type>::value;
-      for (int i = 0; i<size_; i+=step_size_){
+      for (std::size_t i = 0; i<size_; i+=step_size_){
         type X_pack(&X[i]);
         type Y_pack(&Y[i]);
         aligned_store(Taxpy_work(alpha, X_pack, Y_pack),&Y[i]);

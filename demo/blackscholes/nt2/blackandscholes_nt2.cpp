@@ -76,7 +76,7 @@ public:
     va.resize(nt2::of_size(size_));
     R.resize(nt2::of_size(size_));
 
-    for(int i = 1; i <= size_; ++i) Sa(i)=Xa(i)=Ta(i)=ra(i)=va(i)= value_type(i);
+    for(std::size_t i = 1; i <= size_; ++i) Sa(i)=Xa(i)=Ta(i)=ra(i)=va(i)= value_type(i);
   }
 
   virtual void run () const

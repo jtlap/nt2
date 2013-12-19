@@ -38,14 +38,14 @@ public:
                 , std::size_t const& max_iter
                 )
   : NT2_EXPERIMENT_CTOR(1., "cycles/elements")
-  , h_(h), w_(w), a0_(a0), a1_(a1), b0_(b0), b1_(b1), max_iter_(max_iter), size_(h*w)
+  , size_(h*w), h_(h), w_(w), max_iter_(max_iter), a0_(a0), a1_(a1), b0_(b0), b1_(b1)
   {
     C.resize(h*w);
   }
 
   virtual void run() const
   {
-    int i, j;
+    std::size_t i, j;
     float da, db;
     float a, b;
 
@@ -77,8 +77,8 @@ public:
 
     T interval_A=(a1_-a0_)/(h_-1);
     T new_val=a0_;
-    for (int jj=0;jj<w_;jj++){
-      for (int ii=0;ii<h_;ii++){
+    for (std::size_t jj=0;jj<w_;jj++){
+      for (std::size_t ii=0;ii<h_;ii++){
         A[jj*h_+ii]=new_val;
         new_val+=interval_A;
       }
@@ -87,8 +87,8 @@ public:
     B.resize(size_);
     new_val=b0_;
     T interval_B=(b1_-b0_)/(w_-1);
-    for (int jj=0;jj<w_;jj++){
-      for (int ii=0;ii<h_;ii++){
+    for (std::size_t jj=0;jj<w_;jj++){
+      for (std::size_t ii=0;ii<h_;ii++){
         B[jj*h_+ii]=new_val;
       }
       new_val+=interval_B;

@@ -25,17 +25,17 @@ NT2_EXPERIMENT(Taxpy_scalar)
 
     Taxpy_scalar(std::size_t const& s, T const& a)
     : NT2_EXPERIMENT_CTOR(1., "GFLOPS"),
-    size(s), alpha(a)
+      alpha(a), size(s)
     {
 
       X.resize(s); Y.resize(s);
-      for(int i = 0; i<size; ++i) X[i] = Y[i] = T(i);
+      for(std::size_t i = 0; i<size; ++i) X[i] = Y[i] = T(i);
     }
 
-    inline T Taxpy_work(std::size_t const& s) const
+    inline void Taxpy_work(std::size_t const& s) const
     {
       #pragma simd
-      for(int i = 0; i<size; i++)
+      for(std::size_t i = 0; i<size; i++)
         Y[i] = Y[i] + alpha*(X[i]);
     }
     virtual void run() const

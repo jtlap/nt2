@@ -49,12 +49,12 @@ public:
     va.resize(size_);
     R.resize(size_);
 
-    for(int i = 0; i < size_; ++i) Sa[i]=Xa[i]=Ta[i]=ra[i]=va[i]= value_type(i+1);
+    for(std::size_t i = 0; i < size_; ++i) Sa[i]=Xa[i]=Ta[i]=ra[i]=va[i]= value_type(i+1);
   }
 
   virtual void run() const
   {
-    for (int ii=0;ii<size_;ii++)
+    for (std::size_t ii=0;ii<size_;ii++)
       R[ii] = blackandscholes(Sa[ii], Xa[ii], Ta[ii], ra[ii], va[ii]);
     }
 

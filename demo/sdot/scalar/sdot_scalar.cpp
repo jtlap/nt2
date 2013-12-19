@@ -28,12 +28,12 @@ NT2_EXPERIMENT(Tdot_scalar)
     size_(s)
     {
       X.resize(s); Y.resize(s);
-      for(int i = 0; i<size_; ++i) X[i] = Y[i] = T(i);
+      for(std::size_t i = 0; i<size_; ++i) X[i] = Y[i] = T(i);
     }
 
     virtual void run() const
     {
-      for (int i = 0; i<size_; i++)
+      for (std::size_t i = 0; i<size_; i++)
         res += X[i] * Y[i];
     }
     virtual double compute(nt2::benchmark_result_t const& r) const

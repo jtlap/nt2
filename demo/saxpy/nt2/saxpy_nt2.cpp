@@ -27,10 +27,10 @@ NT2_EXPERIMENT(Taxpy_nt2)
 
     Taxpy_nt2(std::size_t const& s, T const& a)
     : NT2_EXPERIMENT_CTOR(1., "GFLOPS"),
-    size(s), alpha(a)
+      alpha(a), size(s)
     {
       X.resize(nt2::of_size(s)); Y.resize(nt2::of_size(s));
-      for(int i = 1; i<=size; ++i) X(i) = Y(i) = T(i-1);
+      for(std::size_t i = 1; i<=size; ++i) X(i) = Y(i) = T(i-1);
     }
 
     virtual void run() const

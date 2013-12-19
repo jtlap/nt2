@@ -64,14 +64,14 @@ public:
     mul_img.resize(nt2::of_size(h,w));
     background_img.resize(nt2::of_size(h,w));
     etiquette_binaire.resize(nt2::of_size(h,w));
-    for(int k=0; k<nb_frames; k++)
+    for(std::size_t k=0; k<nb_frames; k++)
       frames[k].resize(nt2::of_size(h,w));
 
-    for(int k=0; k<nb_frames; k++)
+    for(std::size_t k=0; k<nb_frames; k++)
     {
-      for(int j=1; j<=width; j++)
+      for(std::size_t j=1; j<=width; j++)
       {
-        for(int i=1; i<=height;i++)
+        for(std::size_t i=1; i<=height;i++)
         {
           if(i-1>(height/4) && i-1<(height/2) && j-1>((width/4)+k%10) && j-1<((width/2)+k%10))
             frames[k](i,j) = 255;
@@ -80,15 +80,15 @@ public:
       }
     }
     variance_img = ones(nt2::of_size(size),nt2::meta::as_<T>());
-    for (int i=1;i<=height;i++)
-      for (int j=1;j<=width;j++)
+    for (std::size_t i=1;i<=height;i++)
+      for (std::size_t j=1;j<=width;j++)
       background_img(i,j) = frames[0](i,j);
     etiquette_binaire = zeros(nt2::of_size(height,width),nt2::meta::as_<T>());
   }
 
   virtual void run() const
   {
-    for(int k=1; k<nb_frames; k++)
+    for(std::size_t k=1; k<nb_frames; k++)
     {
       do_work(background_img, frames[k], variance_img, diff_img, mul_img, etiquette_binaire );
     }
@@ -103,8 +103,8 @@ public:
 
   virtual void reset() const
   {
-    for (int i=1;i<=height;i++)
-      for (int j=1;j<=width;j++)
+    for (std::size_t i=1;i<=height;i++)
+      for (std::size_t j=1;j<=width;j++)
         background_img(i,j) = frames[0](i,j);
 
     etiquette_binaire = zeros(nt2::of_size(height,width),nt2::meta::as_<T>());

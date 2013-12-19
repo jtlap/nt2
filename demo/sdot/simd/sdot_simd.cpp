@@ -43,7 +43,7 @@ NT2_EXPERIMENT(Tdot_simd)
     size(s)
     {
       X.resize(s); Y.resize(s);
-      for(int i = 0; i<size; ++i) X[i] = Y[i] = T(i);
+      for(std::size_t i = 0; i<size; ++i) X[i] = Y[i] = T(i);
     }
 
     virtual void run() const
@@ -54,7 +54,7 @@ NT2_EXPERIMENT(Tdot_simd)
       typedef pack<T> type;
       step_size = boost::simd::meta::cardinal_of<type>::value;
       type res_pack = type(0.);
-      for (int i = 0; i<size; i+=step_size){
+      for (std::size_t i = 0; i<size; i+=step_size){
         type X_pack(&X[i]);
         type Y_pack(&Y[i]);
         res_pack += Tdot_work(X_pack, Y_pack);

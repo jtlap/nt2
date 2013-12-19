@@ -88,7 +88,7 @@ public:
                 , std::size_t const& max_iter
                 )
   : NT2_EXPERIMENT_CTOR(1., "cycles/elements")
-  , h_(h), w_(w), a0_(a0), a1_(a1), b0_(b0), b1_(b1), max_iter_(max_iter), julia(max_iter), size_(h_*w_)
+  , julia(max_iter), h_(h), w_(w), max_iter_(max_iter), size_(h_*w_), a0_(a0), a1_(a1), b0_(b0), b1_(b1)
   {
     A.resize(nt2::of_size(h_,w_));
     B.resize(nt2::of_size(h_,w_));
