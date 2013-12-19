@@ -7,6 +7,8 @@
 #                 See accompanying file LICENSE.txt or copy at
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
+
+get_property(NT2_CORE.LINALG_FOUND GLOBAL PROPERTY NT2_CORE.LINALG_FOUND)
 if(NOT NT2_CORE.LINALG_FOUND)
   return()
 endif()
