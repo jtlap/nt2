@@ -14,7 +14,6 @@
 #include <nt2/sdk/bench/perform_benchmark.hpp>
 #include <nt2/sdk/timing/now.hpp>
 #include <vector>
-
 namespace nt2
 {
   namespace details
@@ -30,7 +29,7 @@ namespace nt2
       individual_measurement_cycles       .clear();
       individual_measurement_time_quantums.clear();
 
-      time_quantum_t const total_duration( to_timequantums( d * 1000000 ) );
+      time_quantum_t const total_duration( to_timequantums( d * 1000000000 ) );
       time_quantum_t       duration      (0);
 
       test.reset();
@@ -50,7 +49,6 @@ namespace nt2
         time_quantum_t const elapsed_time ( time_end   - time_start   );
 
         duration += elapsed_time;
-
         individual_measurement_cycles       .push_back( burned_cycles );
         individual_measurement_time_quantums.push_back( elapsed_time  );
 
@@ -73,7 +71,7 @@ namespace nt2
 
     return  benchmark_result_t
             ( irs.first - details::cycles_overhead
-            , to_microseconds(irs.second - details::quantums_overhead)
+            , to_nanoseconds(irs.second - details::quantums_overhead)
             );
   }
 
