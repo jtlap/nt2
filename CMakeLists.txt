@@ -199,9 +199,30 @@ include(nt2.directive)
 # external projects: demo and sandbox
 ################################################################################
 include(ExternalProject)
+
+# we want to build those external projects with the same configuration
+set(CMAKE_OPTIONS)
+foreach(var NT2_SIMD_FLAGS NT2_MODULES_BLACKLIST
+            CMAKE_C_FLAGS CMAKE_CXX_FLAGS CMAKE_TOOLCHAIN_FILE
+            CMAKE_SYSTEM_NAME CMAKE_SYSTEM_VERSION CMAKE_SYSTEM_PROCESSOR
+            CMAKE_FIND_ROOT_PATH CMAKE_FIND_ROOT_PATH_MODE_PROGRAM
+            CMAKE_FIND_ROOT_PATH_MODE_LIBRARY CMAKE_FIND_ROOT_PATH_MODE_INCLUDE
+       )
+  if(DEFINED ${var})
+    list(APPEND CMAKE_OPTIONS "-D${var}:STRING=${${var}}")
+  endif()
+endforeach()
+
 set(BUILD)
 if(CMAKE_GENERATOR STREQUAL Ninja)
   set(BUILD BUILD_COMMAND ninja -j2)
 endif()
-ExternalProject_Add(demo    SOURCE_DIR ${CMAKE_SOURCE_DIR}/demo    BINARY_DIR ${CMAKE_BINARY_DIR}/demo    ${BUILD} INSTALL_COMMAND "")
-ExternalProject_Add(sandbox SOURCE_DIR ${CMAKE_SOURCE_DIR}/sandbox BINARY_DIR ${CMAKE_BINARY_DIR}/sandbox ${BUILD} INSTALL_COMMAND "")
+
+foreach(project demo sandbox)
+  ExternalProject_Add( ${project} SOURCE_DIR ${CMAKE_SOURCE_DIR}/${project} BINARY_DIR ${CMAKE_BINARY_DIR}/${project}
+                       CMAKE_CACHE_ARGS ${CMAKE_OPTIONS} ${BUILD} INSTALL_COMMAND ""
+                       STEP_TARGETS configure
+                     )
+  set_target_properties(${project} PROPERTIES EXCLUDE_FROM_ALL TRUE)
+  set_target_properties(${project}-configure PROPERTIES EXCLUDE_FROM_ALL FALSE)
+endforeach()
