@@ -10,6 +10,8 @@
 #include <iostream>
 #include <vector>
 #include <nt2/sdk/bench/benchmark.hpp>
+#include <nt2/include/functions/fma.hpp>
+#include <nt2/table.hpp>
 
 #ifdef __ANDROID__
   #define TURBOFREQ 1.008000
@@ -19,28 +21,21 @@
 #define NOPS 2.0
 
 template<typename T>
-NT2_EXPERIMENT(Taxpy_scalar)
+NT2_EXPERIMENT(Taxpy_nt2)
 {
   public:
 
-    Taxpy_scalar(std::size_t const& s, T const& a)
+    Taxpy_nt2(std::size_t const& s, T const& a)
     : NT2_EXPERIMENT_CTOR(1., "GFLOPS"),
     size(s), alpha(a)
     {
-
-      X.resize(s); Y.resize(s);
-      for(int i = 0; i<size; ++i) X[i] = Y[i] = T(i);
+      X.resize(nt2::of_size(s)); Y.resize(nt2::of_size(s));
+      for(int i = 1; i<=size; ++i) X(i) = Y(i) = T(i-1);
     }
 
-    inline T Taxpy_work(std::size_t const& s) const
-    {
-      #pragma simd
-      for(int i = 0; i<size; i++)
-        Y[i] = Y[i] + alpha*(X[i]);
-    }
     virtual void run() const
     {
-      Taxpy_work(size);
+      Y = nt2::fma(alpha, X, Y);
     }
     virtual double compute(nt2::benchmark_result_t const& r) const
     {
@@ -55,19 +50,18 @@ NT2_EXPERIMENT(Taxpy_scalar)
   private:
     T alpha;
     std::size_t size;
-    mutable typename std::vector<T> X, Y;
+    mutable nt2::table<T> X, Y;
 };
-
 typedef float K;
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (K), (16,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (K), (32,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (K), (64,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (K), (128,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (K), (256,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (K), (512,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (K), (1024,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (K), (2048,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (K), (4096,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (K), (8192,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (K), (16384,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (K), (163840,2.7f));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (K), (16,2.7f));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (K), (32,2.7f));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (K), (64,2.7f));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (K), (128,2.7f));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (K), (256,2.7f));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (K), (512,2.7f));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (K), (1024,2.7f));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (K), (2048,2.7f));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (K), (4096,2.7f));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (K), (8192,2.7f));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (K), (16384,2.7f));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (K), (163840,2.7f));

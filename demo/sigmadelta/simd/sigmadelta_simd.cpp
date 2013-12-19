@@ -49,11 +49,11 @@ BOOST_FORCEINLINE Pixel do_work(Pixel &bkg, const Pixel &fr, Pixel &var)
 }
 
 
-template<typename T> NT2_EXPERIMENT(sigmadelta_exp)
+template<typename T> NT2_EXPERIMENT(sigmadelta_simd)
 {
 public:
 
-  sigmadelta_exp( std::size_t const& h, std::size_t const& w, std::size_t const& seq)
+  sigmadelta_simd( std::size_t const& h, std::size_t const& w, std::size_t const& seq)
   : NT2_EXPERIMENT_CTOR(1., "cycles/elements")
   , height(h), width(w), size(h*w), nb_frames(seq)
   {
@@ -135,8 +135,8 @@ public:
   std::size_t nb_frames;
 };
 
-NT2_RUN_EXPERIMENT_TPL( sigmadelta_exp, (nt2::uint8_t), (32,33,8));
-NT2_RUN_EXPERIMENT_TPL( sigmadelta_exp, (nt2::uint8_t), (64,65,8));
-NT2_RUN_EXPERIMENT_TPL( sigmadelta_exp, (nt2::uint8_t), (256,257,8));
-NT2_RUN_EXPERIMENT_TPL( sigmadelta_exp, (nt2::uint8_t), (512,513,8));
-NT2_RUN_EXPERIMENT_TPL( sigmadelta_exp, (nt2::uint8_t), (1024,1025,8));
+NT2_RUN_EXPERIMENT_TPL( sigmadelta_simd, (nt2::uint8_t), (32,33,8));
+NT2_RUN_EXPERIMENT_TPL( sigmadelta_simd, (nt2::uint8_t), (64,65,8));
+NT2_RUN_EXPERIMENT_TPL( sigmadelta_simd, (nt2::uint8_t), (256,257,8));
+NT2_RUN_EXPERIMENT_TPL( sigmadelta_simd, (nt2::uint8_t), (512,513,8));
+NT2_RUN_EXPERIMENT_TPL( sigmadelta_simd, (nt2::uint8_t), (1024,1024,100));

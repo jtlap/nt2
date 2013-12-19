@@ -42,9 +42,9 @@ namespace utils
       std::ofstream file;
       file.open(file_name.c_str());
       file << "P2\n" << h << " " << w << "\n255\n";
-      for(std::size_t i=1;i<=h;i++)
+      for(std::size_t i=0;i<h;i++)
       {
-        for(std::size_t j=1;j<=w;j++)
+        for(std::size_t j=0;j<w;j++)
           file << (int)(unsigned char) t[j+w*i] << " ";
         file << "\n";
       }
@@ -58,9 +58,9 @@ namespace utils
       std::ofstream file;
       file.open(file_name.c_str());
       file << "P2\n" << h << " " << w << "\n255\n";
-      for(std::size_t i=1;i<=h;i++)
+      for(std::size_t i=0;i<h;i++)
       {
-        for(std::size_t j=1;j<=w;j++)
+        for(std::size_t j=0;j<w;j++)
           file << (int)(unsigned char) t[j+w*i] << " ";
         file << "\n";
       }

@@ -32,6 +32,7 @@ add_subdirectory(blackscholes/simd)
 
 #mandelbrot
 add_subdirectory(mandelbrot/scalar)
+add_subdirectory(mandelbrot/nt2)
 add_subdirectory(mandelbrot/simd)
 
 #rgb2yuv
@@ -44,7 +45,6 @@ add_subdirectory(saxpy/scalar)
 #add_subdirectory(saxpy/nt2)
 add_subdirectory(saxpy/simd)
 add_subdirectory(saxpy/mkl)
-
 
 #sigmadelta
 add_subdirectory(sigmadelta/scalar)

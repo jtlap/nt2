@@ -32,10 +32,10 @@ BOOST_FORCEINLINE void rgb2yuv_work(const K& r, const K& g, const K& b, L *y, L 
 }
 
 template<typename T>
-NT2_EXPERIMENT(rgb2yuv)
+NT2_EXPERIMENT(rgb2yuv_simd)
 {
   public :
-    rgb2yuv(int h, int w)
+    rgb2yuv_simd(int h, int w)
     : NT2_EXPERIMENT_CTOR(1,"cycles/elements"), height(h), width(w), size(h*w)
   {
     y.resize(size);
@@ -98,7 +98,7 @@ NT2_EXPERIMENT(rgb2yuv)
     mutable std::vector<T,boost::simd::allocator<T> > v;
 };
 
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float)(double),(37,1));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float)(double),(50,50));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float)(double),(1000,500));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float)(double),(312,43));
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv_simd,(float)(double),(37,1));
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv_simd,(float)(double),(50,50));
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv_simd,(float)(double),(1000,500));
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv_simd,(float)(double),(312,43));

@@ -28,10 +28,10 @@ BOOST_FORCEINLINE void rgb2yuv_work(const table<K>& r, const table<K>& g, const 
 }
 
 template<typename T>
-NT2_EXPERIMENT(rgb2yuv)
+NT2_EXPERIMENT(rgb2yuv_nt2)
 {
   public :
-    rgb2yuv(int h, int w)
+    rgb2yuv_nt2(int h, int w)
     : NT2_EXPERIMENT_CTOR( 1,"cycles/elements"), height(h), width(w), size(h*w)
   {
     y.resize(nt2::of_size(size));
@@ -42,7 +42,7 @@ NT2_EXPERIMENT(rgb2yuv)
     b.resize(nt2::of_size(size));
 
     for(int i=1; i<=size; i++)
-      r(i) = g(i) = b(i) = y(i) = u(i) = v(i) = T(i);
+      r(i) = g(i) = b(i) = y(i) = u(i) = v(i) = T(i-1);
   }
   virtual void info(std::ostream& os) const { os <<size; }
 
@@ -68,7 +68,7 @@ NT2_EXPERIMENT(rgb2yuv)
     nt2::table<T> r, g, b;
 };
 
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float)(double),(37,1));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float)(double),(50,50));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float)(double),(1000,500));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv,(float)(double),(312,43));
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv_nt2,(float)(double),(37,1));
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv_nt2,(float)(double),(50,50));
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv_nt2,(float)(double),(1000,500));
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv_nt2,(float)(double),(312,43));

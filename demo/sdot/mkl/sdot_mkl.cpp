@@ -28,24 +28,20 @@ NT2_EXPERIMENT(ddot_mkl)
     : NT2_EXPERIMENT_CTOR(1., "GFLOPS"), size(s)
     {
       incx = incy = 1;
-      len_x = s;
-      len_y = s;
-      x    = (double *)calloc( len_x, sizeof( double ) );
-      y    = (double *)calloc( len_y, sizeof( double ) );
+      x.resize(s);
+      y.resize(s);
       for(int i = 0; i<size; i++) x[i] = y[i] = i;
     }
 
   virtual void reset()
   {
-    free(x);
-    free(y);
   }
+
   virtual void info(std::ostream& os) const { os << size; }
 
   virtual void run() const
   {
-    nt2_la_int sz = size;
-    res = NT2_F77NAME(ddot)(&sz, x, &incx, y, &incy);
+    res = NT2_F77NAME(ddot)(&size, &x[0], &incx, &y[0], &incy);
   }
 
   virtual double compute(nt2::benchmark_result_t const& r) const
@@ -54,11 +50,11 @@ NT2_EXPERIMENT(ddot_mkl)
   }
 
 private:
-  std::size_t size;
   nt2_la_int incx, incy;
   mutable T res;
-  double *x, *y;
-  nt2_la_int len_x, len_y;
+  std::vector<double> x;
+  mutable std::vector<double> y;
+  nt2_la_int size;
 };
 
 template<typename T>
@@ -69,25 +65,20 @@ NT2_EXPERIMENT(sdot_mkl)
     : NT2_EXPERIMENT_CTOR(1., "GFLOPS"), size(s)
     {
       incx = incy = 1;
-      len_x = s;
-      len_y = s;
-      x    = (float *)calloc( len_x, sizeof( float ) );
-      y    = (float *)calloc( len_y, sizeof( float ) );
+      x.resize(s);
+      y.resize(s);
       for(int i = 0; i<size; i++) x[i] = y[i] = i;
     }
 
   virtual void reset()
   {
-    free(x);
-    free(y);
   }
 
   virtual void info(std::ostream& os) const { os << size; }
 
   virtual void run() const
   {
-    nt2_la_int sz = size;
-    res = NT2_F77NAME(sdot)(&sz, x, &incx, y, &incy);
+    res = NT2_F77NAME(sdot)(&size, &x[0], &incx, &y[0], &incy);
   }
 
   virtual double compute(nt2::benchmark_result_t const& r) const
@@ -96,11 +87,11 @@ NT2_EXPERIMENT(sdot_mkl)
   }
 
 private:
-  std::size_t size;
-  mutable T res;
   nt2_la_int incx, incy;
-  float *x, *y;
-  nt2_la_int len_x, len_y;
+  mutable T res;
+  std::vector<float> x;
+  mutable std::vector<float> y;
+  nt2_la_int size;
 };
 
 typedef float K;

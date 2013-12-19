@@ -47,11 +47,11 @@ BOOST_FORCEINLINE A0 blackandscholes(A0 const &a0, A0 const &a1, A0 const &a2, A
 }
 
 template<typename T>
-NT2_EXPERIMENT(blackandscholes_exp)
+NT2_EXPERIMENT(blackandscholes_simd)
 {
 public:
 
-  blackandscholes_exp( std::size_t const& n)
+  blackandscholes_simd( std::size_t const& n)
   : NT2_EXPERIMENT_CTOR(1., "cycles/elements")
   , size_(n)
   {
@@ -107,14 +107,14 @@ public:
   mutable std::size_t i, j;
 };
 
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_exp, (float), (13));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_exp, (float), (32));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_exp, (float), (64));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_exp, (float), (128));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_exp, (float), (256));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_exp, (float), (512));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_exp, (float), (1024));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_exp, (float), (2048));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_exp, (float), (20480));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_exp, (float), (204800));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_exp, (float), (1027*1024));
+NT2_RUN_EXPERIMENT_TPL( blackandscholes_simd, (float), (13));
+NT2_RUN_EXPERIMENT_TPL( blackandscholes_simd, (float), (32));
+NT2_RUN_EXPERIMENT_TPL( blackandscholes_simd, (float), (64));
+NT2_RUN_EXPERIMENT_TPL( blackandscholes_simd, (float), (128));
+NT2_RUN_EXPERIMENT_TPL( blackandscholes_simd, (float), (256));
+NT2_RUN_EXPERIMENT_TPL( blackandscholes_simd, (float), (512));
+NT2_RUN_EXPERIMENT_TPL( blackandscholes_simd, (float), (1024));
+NT2_RUN_EXPERIMENT_TPL( blackandscholes_simd, (float), (2048));
+NT2_RUN_EXPERIMENT_TPL( blackandscholes_simd, (float), (20480));
+NT2_RUN_EXPERIMENT_TPL( blackandscholes_simd, (float), (204800));
+NT2_RUN_EXPERIMENT_TPL( blackandscholes_simd, (float), (1027*1024));

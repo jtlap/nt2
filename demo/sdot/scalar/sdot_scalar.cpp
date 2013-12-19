@@ -19,11 +19,11 @@
 #define NOPS 2.0
 
 template<typename T>
-NT2_EXPERIMENT(Tdot)
+NT2_EXPERIMENT(Tdot_scalar)
 {
   public:
 
-    Tdot(std::size_t const& s)
+    Tdot_scalar(std::size_t const& s)
     : NT2_EXPERIMENT_CTOR(1., "GFLOPS"),
     size_(s)
     {
@@ -52,15 +52,14 @@ NT2_EXPERIMENT(Tdot)
     mutable typename std::vector<T> X, Y;
 };
 typedef float K;
-NT2_RUN_EXPERIMENT_TPL( Tdot, (K), (16));
-NT2_RUN_EXPERIMENT_TPL( Tdot, (K), (32));
-NT2_RUN_EXPERIMENT_TPL( Tdot, (K), (64));
-NT2_RUN_EXPERIMENT_TPL( Tdot, (K), (128));
-NT2_RUN_EXPERIMENT_TPL( Tdot, (K), (256));
-NT2_RUN_EXPERIMENT_TPL( Tdot, (K), (512));
-NT2_RUN_EXPERIMENT_TPL( Tdot, (K), (1024));
-NT2_RUN_EXPERIMENT_TPL( Tdot, (K), (2048));
-NT2_RUN_EXPERIMENT_TPL( Tdot, (K), (4096));
-NT2_RUN_EXPERIMENT_TPL( Tdot, (K), (8192));
-NT2_RUN_EXPERIMENT_TPL( Tdot, (K), (16384));
-//NT2_RUN_EXPERIMENT_TPL( Taxpy, (K), (163840));
+NT2_RUN_EXPERIMENT_TPL( Tdot_scalar, (K), (16));
+NT2_RUN_EXPERIMENT_TPL( Tdot_scalar, (K), (32));
+NT2_RUN_EXPERIMENT_TPL( Tdot_scalar, (K), (64));
+NT2_RUN_EXPERIMENT_TPL( Tdot_scalar, (K), (128));
+NT2_RUN_EXPERIMENT_TPL( Tdot_scalar, (K), (256));
+NT2_RUN_EXPERIMENT_TPL( Tdot_scalar, (K), (512));
+NT2_RUN_EXPERIMENT_TPL( Tdot_scalar, (K), (1024));
+NT2_RUN_EXPERIMENT_TPL( Tdot_scalar, (K), (2048));
+NT2_RUN_EXPERIMENT_TPL( Tdot_scalar, (K), (4096));
+NT2_RUN_EXPERIMENT_TPL( Tdot_scalar, (K), (8192));
+NT2_RUN_EXPERIMENT_TPL( Tdot_scalar, (K), (16384));

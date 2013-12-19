@@ -61,11 +61,11 @@ namespace nt2 {
   }
 }
 
-template<typename T> NT2_EXPERIMENT(blackandscholes_exp)
+template<typename T> NT2_EXPERIMENT(blackandscholes_nt2)
 {
 public:
   typedef T value_type;
-  blackandscholes_exp( std::size_t const& n)
+  blackandscholes_nt2( std::size_t const& n)
   : NT2_EXPERIMENT_CTOR(1., "cycles/elements")
   , size_(n)
   {
@@ -98,14 +98,14 @@ public:
   mutable nt2::table<value_type> Sa, Xa, Ta, ra, va, R;
   std::size_t size_;
 };
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_exp, (float), (16));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_exp, (float), (32));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_exp, (float), (64));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_exp, (float), (128));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_exp, (float), (256));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_exp, (float), (512));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_exp, (float), (1024));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_exp, (float), (2048));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_exp, (float), (20480));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_exp, (float), (204800));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_exp, (float), (1024*1024));
+NT2_RUN_EXPERIMENT_TPL( blackandscholes_nt2, (float), (16));
+NT2_RUN_EXPERIMENT_TPL( blackandscholes_nt2, (float), (32));
+NT2_RUN_EXPERIMENT_TPL( blackandscholes_nt2, (float), (64));
+NT2_RUN_EXPERIMENT_TPL( blackandscholes_nt2, (float), (128));
+NT2_RUN_EXPERIMENT_TPL( blackandscholes_nt2, (float), (256));
+NT2_RUN_EXPERIMENT_TPL( blackandscholes_nt2, (float), (512));
+NT2_RUN_EXPERIMENT_TPL( blackandscholes_nt2, (float), (1024));
+NT2_RUN_EXPERIMENT_TPL( blackandscholes_nt2, (float), (2048));
+NT2_RUN_EXPERIMENT_TPL( blackandscholes_nt2, (float), (20480));
+NT2_RUN_EXPERIMENT_TPL( blackandscholes_nt2, (float), (204800));
+NT2_RUN_EXPERIMENT_TPL( blackandscholes_nt2, (float), (1024*1024));

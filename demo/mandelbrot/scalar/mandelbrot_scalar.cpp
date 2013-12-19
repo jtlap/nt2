@@ -11,7 +11,7 @@
 #include <nt2/sdk/bench/benchmark.hpp>
 #include "../include/utils.hpp"
 
-int mandelbrot_scalar(float a, float b, int max_iter)
+int mandelbrot_work(float a, float b, int max_iter)
 {
   int iter = 0;
   float x = 0;
@@ -27,12 +27,12 @@ int mandelbrot_scalar(float a, float b, int max_iter)
     return iter;
 }
 
-template<typename T> NT2_EXPERIMENT(mandelbrot_exp)
+template<typename T> NT2_EXPERIMENT(mandelbrot_scalar)
 {
 public:
   typedef T value_type;
 
-  mandelbrot_exp( std::size_t const& h, std::size_t const& w
+  mandelbrot_scalar( std::size_t const& h, std::size_t const& w
                 , value_type const& a0, value_type const& a1
                 , value_type const& b0, value_type const& b1
                 , std::size_t const& max_iter
@@ -53,7 +53,7 @@ public:
     {
       for(j=0; j<w_; j++)
       {
-        C[j+w_*i] = mandelbrot_scalar(A[j+w_*i], B[j+w_*i], max_iter_);
+        C[j+w_*i] = mandelbrot_work(A[j+w_*i], B[j+w_*i], max_iter_);
       }
     }
   }
@@ -104,5 +104,5 @@ public:
     value_type a0_, a1_, b0_, b1_;
 };
 
-NT2_RUN_EXPERIMENT_TPL( mandelbrot_exp, (float), (2000,2000,-1.5,0.5,-1.0,1.0,256));
-NT2_RUN_EXPERIMENT_TPL( mandelbrot_exp, (float), (100,100,-1.5,0.5,-1.0,1.0,256));
+NT2_RUN_EXPERIMENT_TPL( mandelbrot_scalar, (float), (2000,2000,-1.5,0.5,-1.0,1.0,256));
+NT2_RUN_EXPERIMENT_TPL( mandelbrot_scalar, (float), (100,100,-1.5,0.5,-1.0,1.0,256));

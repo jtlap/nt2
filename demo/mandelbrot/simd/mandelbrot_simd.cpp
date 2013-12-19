@@ -73,12 +73,12 @@ namespace mandelbrot
   };
 }
 
-template<typename T> NT2_EXPERIMENT(mandelbrot_exp)
+template<typename T> NT2_EXPERIMENT(mandelbrot_simd)
 {
 public:
   typedef T value_type;
 
-  mandelbrot_exp( std::size_t const& h, std::size_t const& w
+  mandelbrot_simd( std::size_t const& h, std::size_t const& w
                 , value_type const& a0, value_type const& a1
                 , value_type const& b0, value_type const& b1
                 , std::size_t const& max_iter
@@ -158,5 +158,5 @@ public:
     value_type a0_, a1_, b0_, b1_;
 };
 
-NT2_RUN_EXPERIMENT_TPL( mandelbrot_exp, (float), (2000,2000,-1.5,0.5,-1.0,1.0,256));
-NT2_RUN_EXPERIMENT_TPL( mandelbrot_exp, (float), (100,100,-1.5,0.5,-1.0,1.0,256));
+NT2_RUN_EXPERIMENT_TPL( mandelbrot_simd, (float), (2000,2000,-1.5,0.5,-1.0,1.0,256));
+NT2_RUN_EXPERIMENT_TPL( mandelbrot_simd, (float), (100,100,-1.5,0.5,-1.0,1.0,256));

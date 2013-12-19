@@ -28,24 +28,19 @@ NT2_EXPERIMENT(daxpy_mkl)
     : NT2_EXPERIMENT_CTOR(1., "GFLOPS"), alpha(a), size(s)
     {
       incx = incy = 1;
-      len_x = s;
-      len_y = s;
-      x    = (double *)calloc( len_x, sizeof( double ) );
-      y    = (double *)calloc( len_y, sizeof( double ) );
+      x.resize(s);
+      y.resize(s);
       for(int i = 0; i<size; i++) x[i] = y[i] = i;
     }
 
   virtual void reset()
   {
-    free(x);
-    free(y);
   }
   virtual void info(std::ostream& os) const { os << size; }
 
   virtual void run() const
   {
-    nt2_la_int sz = size;
-    NT2_F77NAME(daxpy)(&size, &alpha, x, &incx, y, &incy);
+    NT2_F77NAME(daxpy)(&size, &alpha, &x[0], &incx, &y[0], &incy);
   }
 
   virtual double compute(nt2::benchmark_result_t const& r) const
@@ -54,11 +49,11 @@ NT2_EXPERIMENT(daxpy_mkl)
   }
 
 private:
-  std::size_t size;
   nt2_la_int incx, incy;
-  float      alpha;
-  float      *x, *y;
-  nt2_la_int len_x, len_y;
+  double      alpha;
+  std::vector<double> x;
+  mutable std::vector<double> y;
+  nt2_la_int size;
 };
 
 template<typename T>
@@ -69,25 +64,20 @@ NT2_EXPERIMENT(saxpy_mkl)
     : NT2_EXPERIMENT_CTOR(1., "GFLOPS"), alpha(a), size(s)
     {
       incx = incy = 1;
-      len_x = s;
-      len_y = s;
-      x    = (float *)calloc( len_x, sizeof( float ) );
-      y    = (float *)calloc( len_y, sizeof( float ) );
+      x.resize(s);
+      y.resize(s);
       for(int i = 0; i<size; i++) x[i] = y[i] = i;
     }
 
   virtual void reset()
   {
-    free(x);
-    free(y);
   }
 
   virtual void info(std::ostream& os) const { os << size; }
 
   virtual void run() const
   {
-    nt2_la_int sz = size;
-    NT2_F77NAME(saxpy)(&size, &alpha, x, &incx, y, &incy);
+    NT2_F77NAME(saxpy)(&size, &alpha, &x[0], &incx, &y[0], &incy);
   }
 
   virtual double compute(nt2::benchmark_result_t const& r) const
@@ -96,15 +86,16 @@ NT2_EXPERIMENT(saxpy_mkl)
   }
 
 private:
-  std::size_t size;
   nt2_la_int incx, incy;
   float      alpha;
-  float      *x, *y;
-  nt2_la_int len_x, len_y;
+  std::vector<float> x;
+  mutable std::vector<float> y;
+  nt2_la_int size;
 };
 
 typedef float K;
 
+NT2_RUN_EXPERIMENT_TPL( saxpy_mkl, (K), (16,2.7f));
 NT2_RUN_EXPERIMENT_TPL( saxpy_mkl, (K), (32,2.7f));
 NT2_RUN_EXPERIMENT_TPL( saxpy_mkl, (K), (64,2.7f));
 NT2_RUN_EXPERIMENT_TPL( saxpy_mkl, (K), (128,2.7f));

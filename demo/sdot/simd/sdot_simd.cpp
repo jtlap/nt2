@@ -28,17 +28,17 @@
 #define NOPS 2.0
 
 template <class A0>
-BOOST_FORCEINLINE __attribute__((flatten)) A0 Tdot_simd(A0 const& X, A0 const& Y)
+BOOST_FORCEINLINE __attribute__((flatten)) A0 Tdot_work(A0 const& X, A0 const& Y)
 {
   return(X*Y);
 }
 
 template<typename T>
-NT2_EXPERIMENT(Tdot)
+NT2_EXPERIMENT(Tdot_simd)
 {
   public:
 
-    Tdot(std::size_t const& s)
+    Tdot_simd(std::size_t const& s)
     : NT2_EXPERIMENT_CTOR(1., "GFLOPS"),
     size(s)
     {
@@ -57,7 +57,7 @@ NT2_EXPERIMENT(Tdot)
       for (int i = 0; i<size; i+=step_size){
         type X_pack(&X[i]);
         type Y_pack(&Y[i]);
-        res_pack += Tdot_simd(X_pack, Y_pack);
+        res_pack += Tdot_work(X_pack, Y_pack);
       }
       res = boost::simd::sum(res_pack);
     }
@@ -78,14 +78,14 @@ NT2_EXPERIMENT(Tdot)
     mutable typename std::vector<T, boost::simd::allocator<T> > X, Y;
 };
 typedef float K;
-NT2_RUN_EXPERIMENT_TPL( Tdot, (K), (16));
-NT2_RUN_EXPERIMENT_TPL( Tdot, (K), (32));
-NT2_RUN_EXPERIMENT_TPL( Tdot, (K), (64));
-NT2_RUN_EXPERIMENT_TPL( Tdot, (K), (128));
-NT2_RUN_EXPERIMENT_TPL( Tdot, (K), (256));
-NT2_RUN_EXPERIMENT_TPL( Tdot, (K), (512));
-NT2_RUN_EXPERIMENT_TPL( Tdot, (K), (1024));
-NT2_RUN_EXPERIMENT_TPL( Tdot, (K), (2048));
-NT2_RUN_EXPERIMENT_TPL( Tdot, (K), (4096));
-NT2_RUN_EXPERIMENT_TPL( Tdot, (K), (8192));
-NT2_RUN_EXPERIMENT_TPL( Tdot, (K), (16384));
+NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (K), (16));
+NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (K), (32));
+NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (K), (64));
+NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (K), (128));
+NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (K), (256));
+NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (K), (512));
+NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (K), (1024));
+NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (K), (2048));
+NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (K), (4096));
+NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (K), (8192));
+NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (K), (16384));
