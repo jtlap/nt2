@@ -18,6 +18,7 @@
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/two.hpp>
+#include <boost/simd/include/constants/ten.hpp>
 #include <boost/simd/include/constants/mtwo.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/minf.hpp>
