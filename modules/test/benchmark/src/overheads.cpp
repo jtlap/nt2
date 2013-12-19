@@ -36,7 +36,7 @@ namespace nt2 { namespace details
                           );
   }
 
-  static std::pair<unsigned int,unsigned int> const ior(calculate_overhead());
+  static std::pair<unsigned int,unsigned int> const ior(0,0);
 
   unsigned int const cycles_overhead(ior.first);
   unsigned int const quantums_overhead(ior.second);
