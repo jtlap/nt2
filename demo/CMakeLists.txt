@@ -16,7 +16,7 @@ set(NT2_BLAS_MULTICORE 0)
 find_package(NT2 REQUIRED)
 include(${NT2_USE_FILE})
 
-set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_BUILD_TYPE Debug)
 if(CMAKE_COMPILER_IS_GNUCXX)
   add_definitions(-DBOOST_SIMD_NO_STRICT_ALIASING -fno-strict-aliasing)
 endif()
@@ -42,17 +42,17 @@ add_subdirectory(rgb2yuv/simd)
 
 #saxpy
 add_subdirectory(saxpy/scalar)
-#add_subdirectory(saxpy/nt2)
+add_subdirectory(saxpy/nt2)
 add_subdirectory(saxpy/simd)
 add_subdirectory(saxpy/mkl)
 
 #sigmadelta
 add_subdirectory(sigmadelta/scalar)
-#add_subdirectory(sigmadelta/nt2)
+add_subdirectory(sigmadelta/nt2)
 add_subdirectory(sigmadelta/simd)
 
 #sdot
 add_subdirectory(sdot/scalar)
-#add_subdirectory(sdot/nt2)
+add_subdirectory(sdot/nt2)
 add_subdirectory(sdot/simd)
 add_subdirectory(sdot/mkl)
