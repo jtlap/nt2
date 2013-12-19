@@ -28,7 +28,8 @@
 #include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-
+#include <nt2/include/functions/eps.hpp>
+#include <nt2/include/functions/rec.hpp>
 #include <nt2/constant/constant.hpp>
 
 
@@ -57,6 +58,7 @@ NT2_TEST_CASE_TPL ( acot_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(acot(nt2::Nan<T>()), nt2::Nan<r_t>(), 1.5);
   NT2_TEST_ULP_EQUAL(acot(nt2::One<T>()), 7.853981633974483e-01, 1.5);
   NT2_TEST_ULP_EQUAL(acot(nt2::Zero<T>()), 1.570796326794897e+00, 1.5);
+  NT2_TEST_ULP_EQUAL(acot(nt2::rec(nt2::Eps<T>())), nt2::Eps<T>(), 1.5);
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( acot_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
