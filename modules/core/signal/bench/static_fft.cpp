@@ -305,7 +305,7 @@ namespace bench
     void do_perform_benchmark( char const * const benchmark_name, std::size_t const length )
     {
         typedef nt2::cycles_t           cycles_t          ;
-        typedef nt2::microseconds_t     microseconds_t    ;
+        typedef nt2::nanoseconds_t     nanoseconds_t    ;
         typedef nt2::benchmark_result_t benchmark_result_t;
 
         double const benchmark_run_time( 0.6 );
@@ -317,7 +317,7 @@ namespace bench
 
         printf
         (
-            "%.2f cycles/value,\t %.2f microseconds/array\n",
+            "%.2f cycles/value,\t %.2f nanoseconds/array\n",
             static_cast<double>( benchmark_result.first ) / benchmark.number_of_values(),
             benchmark_result.second
         );
@@ -357,7 +357,7 @@ extern "C" int main( int /*argc*/, char * /*argv*/[] )
             "\n\tnow() + read_cycles() + virtual run() in nanoseconds %.3f"
             "\n\tread_cycles() + virtual run() in cycles %d"
             "\n",
-            nt2::to_microseconds( quantums_overhead ) * 1000,
+            nt2::to_nanoseconds( quantums_overhead ) ,
                                   cycles_overhead
                                 );
     }
