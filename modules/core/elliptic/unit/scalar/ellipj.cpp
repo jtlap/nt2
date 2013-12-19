@@ -109,7 +109,7 @@ NT2_TEST_CASE_TPL ( ellipj_real__1_0,  NT2_REAL_TYPES)
     {
       ellipj(u[i-1], m[j-1],nt2::_(), s, c, d);
       NT2_TEST_ULP_EQUAL(s, sn(i, j), 13);
-      NT2_TEST_ULP_EQUAL(c, cn(i, j), 13);
+      NT2_TEST_ULP_EQUAL(c, cn(i, j), 25);
       NT2_TEST_ULP_EQUAL(d, dn(i, j), 13);
     }
   }
@@ -132,7 +132,7 @@ NT2_TEST_CASE_TPL ( ellipj_real__1_0,  NT2_REAL_TYPES)
     {
       s = ellipj(u[i-1], m[j-1],nt2::Eps<T>(), c, d);
       NT2_TEST_ULP_EQUAL(s, sn(i, j), 13);
-      NT2_TEST_ULP_EQUAL(c, cn(i, j), 13);
+      NT2_TEST_ULP_EQUAL(c, cn(i, j), 25);
       NT2_TEST_ULP_EQUAL(d, dn(i, j), 13);
     }
   }
@@ -156,7 +156,7 @@ NT2_TEST_CASE_TPL ( ellipj_real__1_0,  NT2_REAL_TYPES)
       boost::fusion::vector_tie(s, c) = ellipj(u[i-1], m[j-1],nt2::Eps<T>(), d);
       std::cout << s << " -<s c >- " << c << std::endl;
       NT2_TEST_ULP_EQUAL(s, sn(i, j), 13);
-      NT2_TEST_ULP_EQUAL(c, cn(i, j), 13);
+      NT2_TEST_ULP_EQUAL(c, cn(i, j), 25);
       NT2_TEST_ULP_EQUAL(d, dn(i, j), 13);
     }
   }
@@ -179,7 +179,7 @@ NT2_TEST_CASE_TPL ( ellipj_real__1_0,  NT2_REAL_TYPES)
     {
       boost::fusion::vector_tie(s, c, d) = ellipj(u[i-1], m[j-1],nt2::Eps<T>());
       NT2_TEST_ULP_EQUAL(s, sn(i, j), 13);
-      NT2_TEST_ULP_EQUAL(c, cn(i, j), 13);
+      NT2_TEST_ULP_EQUAL(c, cn(i, j), 25);
       NT2_TEST_ULP_EQUAL(d, dn(i, j), 13);
     }
   }
@@ -202,7 +202,7 @@ NT2_TEST_CASE_TPL ( ellipj_real__1_0,  NT2_REAL_TYPES)
     {
     boost::fusion::tuple<T, T, T> t = ellipj(u[i-1], m[j-1]);
       NT2_TEST_ULP_EQUAL(boost::fusion::at_c<0>(t), sn(i, j), 13);
-      NT2_TEST_ULP_EQUAL(boost::fusion::at_c<1>(t), cn(i, j), 13);
+      NT2_TEST_ULP_EQUAL(boost::fusion::at_c<1>(t), cn(i, j), 25);
       NT2_TEST_ULP_EQUAL(boost::fusion::at_c<2>(t), dn(i, j), 13);
     }
 
