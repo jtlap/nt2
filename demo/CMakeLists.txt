@@ -16,7 +16,7 @@ set(NT2_BLAS_MULTICORE 0)
 find_package(NT2 REQUIRED)
 include(${NT2_USE_FILE})
 
-set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_BUILD_TYPE Release)
 if(CMAKE_COMPILER_IS_GNUCXX)
   add_definitions(-DBOOST_SIMD_NO_STRICT_ALIASING -fno-strict-aliasing)
 endif()
