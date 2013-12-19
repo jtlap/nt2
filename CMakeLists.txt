@@ -6,7 +6,7 @@
 ##                 See accompanying file LICENSE.txt or copy at
 ##                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8)
 
 ################################################################################
 # Project nt2 that loads many modules
@@ -194,3 +194,14 @@ endforeach()
 ################################################################################
 nt2_postconfigure_run()
 include(nt2.directive)
+
+################################################################################
+# external projects: demo and sandbox
+################################################################################
+include(ExternalProject)
+set(BUILD)
+if(CMAKE_GENERATOR STREQUAL Ninja)
+  set(BUILD BUILD_COMMAND ninja -j2)
+endif()
+ExternalProject_Add(demo    SOURCE_DIR ${CMAKE_SOURCE_DIR}/demo    BINARY_DIR ${CMAKE_BINARY_DIR}/demo    ${BUILD} INSTALL_COMMAND "")
+ExternalProject_Add(sandbox SOURCE_DIR ${CMAKE_SOURCE_DIR}/sandbox BINARY_DIR ${CMAKE_BINARY_DIR}/sandbox ${BUILD} INSTALL_COMMAND "")

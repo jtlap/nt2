@@ -20,8 +20,8 @@ set( SOURCES
 #    foo.cpp
 #    table_dim.cpp
      transform_pass.cpp
-     table.cpp
-     index_test.cpp
+#    table.cpp
+#    index_test.cpp
    )
 
 foreach(src ${SOURCES})
