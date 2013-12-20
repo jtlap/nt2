@@ -47,8 +47,8 @@ namespace boost { namespace simd
     is similar to:
 
     @code
-    as_integer<T > e = exponent(x);
-    T m = mantissa(x);
+    as_integer<T > e = exponent(x)+1;
+    T m = mantissa(x)/2;
     @endcode
 
     @par Note:
@@ -79,8 +79,8 @@ namespace boost { namespace simd
     is similar to:
 
     @code
-    as_integer<T > e = exponent(x);
-    T m = mantissa(x);
+    as_integer<T > e = exponent(x)+1;
+    T m = mantissa(x)/2;
     @endcode
 
     @par Note:
