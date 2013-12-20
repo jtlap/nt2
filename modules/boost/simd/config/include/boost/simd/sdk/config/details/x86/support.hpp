@@ -9,6 +9,10 @@
 #ifndef BOOST_SIMD_SDK_CONFIG_DETAILS_X86_SUPPORT_HPP_INCLUDED
 #define BOOST_SIMD_SDK_CONFIG_DETAILS_X86_SUPPORT_HPP_INCLUDED
 
+#include <boost/simd/sdk/simd/extensions/meta/x86/tags.hpp>
+#include <boost/simd/sdk/config/details/registration.hpp>
+#include <boost/simd/sdk/config/is_supported.hpp>
+
 namespace boost { namespace simd { namespace details
 {
   // register detection of X86 extensions
