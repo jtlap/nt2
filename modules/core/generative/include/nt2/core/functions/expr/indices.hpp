@@ -19,7 +19,10 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
-                              ((array_< scalar_< integer_<A1> >,2>))
+                              ((array_< scalar_< integer_<A1> >
+                                      , boost::mpl::size_t<2>
+                                      >
+                              ))
                             )
   {
     BOOST_DISPATCH_RETURNS( 2, (A0 const& a0, A1 const& a1)
@@ -31,7 +34,10 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_
                             , (A0)(A1)(T)
                             , ((ast_<A0, nt2::container::domain>))
-                              ((array_< scalar_< integer_<A1> >,2>))
+                              ((array_< scalar_< integer_<A1> >
+                                      , boost::mpl::size_t<2>
+                                      >
+                              ))
                               (target_< scalar_< unspecified_<T> > >)
                             )
   {

@@ -20,6 +20,7 @@
 #include <boost/dispatch/meta/primitive_of.hpp>
 #include <boost/fusion/include/is_sequence.hpp>
 #include <boost/proto/traits.hpp>
+#include <boost/mpl/size_t.hpp>
 #include <boost/array.hpp>
 
 namespace boost { namespace dispatch { namespace meta
@@ -35,13 +36,13 @@ namespace boost { namespace dispatch { namespace meta
   //==========================================================================
   /*! boost::array hierarchy type                                           */
   //==========================================================================
-  template<class T, std::size_t N>
+  template<typename T, typename N>
   struct array_ : array_<typename T::parent, N>
   {
     typedef array_<typename T::parent, N> parent;
   };
 
-  template<class T, std::size_t N>
+  template<class T, typename N>
   struct array_<unspecified_<T>, N> : fusion_sequence_<T>
   {
     typedef fusion_sequence_<T> parent;
@@ -114,7 +115,9 @@ namespace meta
                       , Origin
                       >
   {
-    typedef array_<typename hierarchy_of<T, Origin>::type, N> type;
+    typedef array_< typename hierarchy_of<T, Origin>::type
+                  , boost::mpl::size_t<N>
+                  > type;
   };
 
 } } }

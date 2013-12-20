@@ -20,7 +20,10 @@ namespace nt2 {  namespace ext
   /// Along only returns a scalar
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_
                             , (A0)
-                            , ((array_< scalar_< integer_<A0> >,2>))
+                            , ((array_< scalar_< integer_<A0> >
+                                      , boost::mpl::size_t<2>
+                                      >
+                              ))
                             )
   {
     typedef double result_type;
@@ -35,7 +38,10 @@ namespace nt2 {  namespace ext
   /// Along only returns a scalar wityh a given target type
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_
                             , (A0)(T)
-                            , ((array_< scalar_< integer_<A0> >,2>))
+                            , ((array_< scalar_< integer_<A0> >
+                                      , boost::mpl::size_t<2>
+                                      >
+                              ))
                               (target_< unspecified_<T> >)
                             )
   {
@@ -51,7 +57,10 @@ namespace nt2 {  namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_
                             , (A0)(A1)
                             , (fusion_sequence_<A0>)
-                              ((array_< scalar_< integer_<A1> >,2>))
+                              ((array_< scalar_< integer_<A1> >
+                                      , boost::mpl::size_t<2>
+                                      >
+                              ))
                             )
   {
     typedef typename boost::remove_const<A0>::type          size_type;
@@ -81,7 +90,10 @@ namespace nt2 {  namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_
                             , (A0)(A1)(T)
                             , (fusion_sequence_<A0>)
-                              ((array_< scalar_< integer_<A1> >,2>))
+                              ((array_< scalar_< integer_<A1> >
+                                      , boost::mpl::size_t<2>
+                                      >
+                              ))
                               (target_< scalar_< unspecified_<T> > >)
                             )
   {
@@ -117,7 +129,10 @@ namespace nt2 {  namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_                     \
                             , BOOST_PP_REPEAT(n,M2,~)(X)                        \
                             , BOOST_PP_REPEAT(n,M1,~)                           \
-                              ((array_< scalar_< integer_<X> >,2>))             \
+                              ((array_< scalar_< integer_<X> >                  \
+                                      , boost::mpl::size_t<2>                   \
+                                      >                                         \
+                              ))                                                \
                             )                                                   \
   {                                                                             \
     BOOST_DISPATCH_RETURNS( BOOST_PP_INC(n)                                     \
@@ -135,7 +150,10 @@ namespace nt2 {  namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_                     \
                             , BOOST_PP_REPEAT(n,M2,~)(X)(T)                     \
                             , BOOST_PP_REPEAT(n,M1,~)                           \
-                              ((array_< scalar_< integer_<X> >,2>))             \
+                              ((array_< scalar_< integer_<X> >                  \
+                                      , boost::mpl::size_t<2>                   \
+                                      >                                         \
+                              ))                                                \
                               (target_< scalar_< unspecified_<T> > >)           \
                             )                                                   \
   {                                                                             \
