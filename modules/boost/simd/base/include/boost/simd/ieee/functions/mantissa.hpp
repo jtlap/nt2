@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace tag
     Returns the signed mantissa of the floating input.
     \par
     The exponent e and signed mantissa m of a floating point entry a are related by
-    \f$a = m\times 2^e\f$, with the absolute value of m between one half and one
+    \f$a = m\times 2^e\f$, with the absolute value of m between one (included) ans two (excluded)
 
     @par Semantic:
 

@@ -58,7 +58,7 @@ namespace boost { namespace simd
 
     @f$v = m\times 2^e@f$
 
-    with absolute value of @c m between 0.5 and 1
+    with absolute value of @c m between 0.5 (included) and 1 (excluded)
 
     @see @funcref{exponent},  @funcref{mantissa}
     @param a0 Value to decompose
@@ -90,7 +90,7 @@ namespace boost { namespace simd
 
     @f$v = m\times 2^e@f$
 
-    with absolute value of @c m between 0.5 and 1
+    with absolute value of @c m between 0.5 (included) and 1 (excluded)
 
     @see @funcref{exponent},  @funcref{mantissa}
     @param a0 Value to decompose
@@ -122,7 +122,7 @@ namespace boost { namespace simd
 
     @f$v = m\times 2^e@f$
 
-    with absolute value of @c m between 0.5 and 1
+    with absolute value of @c m between 0.5 (included) and 1 (excluded)
 
     @see @funcref{exponent},  @funcref{mantissa}
     @param a0 Value to decompose
