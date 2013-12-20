@@ -19,7 +19,7 @@
 
 namespace nt2
 {
-  typedef std::pair<nt2::cycles_t, nt2::nanoseconds_t> benchmark_result_t;
+  typedef std::pair<nt2::cycles_t, nt2::microseconds_t> benchmark_result_t;
 
   namespace details
   {
