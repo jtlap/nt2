@@ -13,22 +13,25 @@
 #include <nt2/sdk/config/types.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/assert.hpp>
+
 #if (defined(_WIN32) || defined(__WIN32__) || defined(WIN32))
 //==============================================================================
 // QueryPerformanceCounter systems
 //==============================================================================
 #include <windows.h>
+
 namespace nt2
 {
   static unsigned long long get_timer_resolution()
   {
     LARGE_INTEGER frequency;
     BOOST_VERIFY( ::QueryPerformanceFrequency( &frequency ) );
+
     return frequency.QuadPart;
   }
 
   static unsigned long long const timer_resolution           ( get_timer_resolution()                                        );
-  static double             const timer_ticks_per_nanosecond( static_cast<signed long long>( timer_resolution ) / 1000000000.0 );
+  static double             const timer_ticks_per_microsecond( static_cast<signed long long>( timer_resolution ) / 1000000.0 );
 
   NT2_SDK_TIMING_DECL time_quantum_t time_quantum()
   {
@@ -62,20 +65,14 @@ namespace nt2
 }
 
 //==============================================================================
-// clock_gettime systems
+// gettimeofday systems
 //==============================================================================
 #elif defined( BOOST_HAS_GETTIMEOFDAY )
 #include <sys/time.h>
+
 namespace nt2
 {
-  static unsigned long long get_timer_resolution()
-  {
-    timespec tp;
-    BOOST_VERIFY( ::clock_getres(CLOCK_MONOTONIC, &tp) == 0 );
-    return static_cast<time_quantum_t>( tp.tv_sec ) * 1000000000 + tp.tv_nsec;
-  }
-
-  static double const timer_ticks_per_nanosecond( get_timer_resolution() );
+  static double const timer_ticks_per_microsecond( 1 );
 
   NT2_SDK_TIMING_DECL time_quantum_t time_quantum()
   {
@@ -84,9 +81,9 @@ namespace nt2
     /// http://pubs.opengroup.org/onlinepubs/009695399/functions/clock_gettime.html
     /// http://gruntthepeon.free.fr/blog/index.php/2011/05/30/56-clock_gettime-is-slow
     ///                                     (18.10.2012.) (Domagoj Saric)
-    timespec tp;
-    BOOST_VERIFY( ::clock_gettime (CLOCK_MONOTONIC, &tp ) == 0 );
-    return static_cast<time_quantum_t>( tp.tv_sec ) * 1000000000 + tp.tv_nsec;
+    timeval tp;
+    BOOST_VERIFY( ::gettimeofday( &tp, NULL ) == 0 );
+    return static_cast<time_quantum_t>( tp.tv_sec ) * 1000000 + tp.tv_usec;
   }
 }
 
@@ -95,12 +92,13 @@ namespace nt2
 //==============================================================================
 #else
 #include <ctime>
+
 namespace nt2
 {
-  // TODO: Invesitgate boost/std::chrono. (18.10.2012.) (Domagoj Saric)
-  static double const timer_ticks_per_nanosecond( CLOCKS_PER_SEC / 1000000000.0 );
+    // TODO: Invesitgate boost/std::chrono. (18.10.2012.) (Domagoj Saric)
+    static double const timer_ticks_per_microsecond( CLOCKS_PER_SEC / 1000000.0 );
 
-  NT2_SDK_TIMING_DECL time_quantum_t time_quantum() { return std::clock(); }
+    NT2_SDK_TIMING_DECL time_quantum_t time_quantum() { return std::clock(); }
 }
 #endif
 
@@ -116,22 +114,22 @@ namespace nt2
 {
   NT2_SDK_TIMING_DECL double now()
   {
-    return to_nanoseconds( time_quantum() ) / 1000000000.;
+    return to_microseconds( time_quantum() ) / 1000000.;
   }
 
-  static nanoseconds_t const
-  inverse_timer_ticks_per_ns( static_cast<nanoseconds_t>(1)
-                            / timer_ticks_per_nanosecond
+  static microseconds_t const
+  inverse_timer_ticks_per_ms( static_cast<microseconds_t>(1)
+                            / timer_ticks_per_microsecond
                             );
 
-  NT2_SDK_TIMING_DECL nanoseconds_t to_nanoseconds( time_quantum_t const t )
+  NT2_SDK_TIMING_DECL microseconds_t to_microseconds( time_quantum_t const t )
   {
-    return static_cast<nanoseconds_t>(t) * inverse_timer_ticks_per_ns;
+    return static_cast<microseconds_t>(t) * inverse_timer_ticks_per_ms;
   }
 
-  NT2_SDK_TIMING_DECL time_quantum_t to_timequantums( nanoseconds_t const t )
+  NT2_SDK_TIMING_DECL time_quantum_t to_timequantums( microseconds_t const t )
   {
-    return static_cast<time_quantum_t>( t * timer_ticks_per_nanosecond );
+    return static_cast<time_quantum_t>( t * timer_ticks_per_microsecond );
   }
 
   NT2_SDK_TIMING_DECL unsigned long max_cpu_freq = 1000000000; // 1Ghz by default

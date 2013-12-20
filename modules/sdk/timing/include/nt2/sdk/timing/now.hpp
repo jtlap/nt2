@@ -11,7 +11,6 @@
 
 #include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/timing/config.hpp>
-#include <nt2/sdk/timing/now.hpp>
 
 #include <boost/noncopyable.hpp>
 #include <boost/dispatch/attributes.hpp>
@@ -22,7 +21,7 @@ namespace nt2
   typedef nt2::uint64_t cycles_t;
   typedef nt2::uint64_t time_quantum_t;
   typedef double        seconds_t;
-  typedef double        nanoseconds_t;
+  typedef double        microseconds_t;
 
   BOOST_DISPATCH_NOTHROW cycles_t       read_cycles();
 
@@ -33,10 +32,10 @@ namespace nt2
   BOOST_DISPATCH_NOTHROW seconds_t      now();
 
   NT2_SDK_TIMING_DECL
-  BOOST_DISPATCH_NOTHROW nanoseconds_t to_nanoseconds( time_quantum_t );
+  BOOST_DISPATCH_NOTHROW microseconds_t to_microseconds( time_quantum_t );
 
   NT2_SDK_TIMING_DECL
-  BOOST_DISPATCH_NOTHROW time_quantum_t to_timequantums( nanoseconds_t );
+  BOOST_DISPATCH_NOTHROW time_quantum_t to_timequantums( microseconds_t );
 }
 
 #include <nt2/sdk/timing/details/cycles.hpp>
