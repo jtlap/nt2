@@ -61,11 +61,11 @@ namespace boost { namespace simd { namespace tag
 
     @return a value of the same type as the second parameter
   **/
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::group_, group, 2)
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::group_, group, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::group_, demote, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::group_, narrow, 1)
-
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::group_, group, 2)
 } }
 
 #endif

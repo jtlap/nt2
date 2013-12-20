@@ -13,10 +13,12 @@
 #include <boost/simd/include/functions/simd/deinterleave_first.hpp>
 #include <boost/simd/include/functions/simd/deinterleave_second.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/extract.hpp>
 #include <boost/simd/include/functions/simd/insert.hpp>
-#include <boost/simd/include/constants/signmask.hpp>
+#include <boost/simd/include/functions/simd/slice.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/sdk/simd/meta/vector_of.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -24,13 +26,54 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::group_, tag::cpu_,
-                          (A0)(X),
-                          (boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::downgrade<A0>::type> >),
-                          ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
-                        )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::group_
+                                    , tag::cpu_
+                                    , (A0)(X)
+                                    , ((simd_<arithmetic_<A0>,X>))
+                                    )
   {
+    typedef typename dispatch::meta::downgrade<typename A0::value_type>::type base_t;
+    typedef typename simd::meta::vector_of< base_t
+                                          , A0::static_size
+                                          >::type result_type;
 
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    {
+      return eval(a0, boost::mpl::bool_<(A0::static_size>=4)>());
+    }
+
+    BOOST_FORCEINLINE
+    result_type eval(A0 const& a0, boost::mpl::true_ const&) const
+    {
+      typename simd::meta::vector_of< typename A0::value_type
+                                    , A0::static_size/2
+                                    >::type a00,a01;
+      boost::simd::slice(a0,a00,a01);
+      return boost::simd::group(a00,a01);
+    }
+
+    BOOST_FORCEINLINE
+    result_type eval(A0 const& a0, boost::mpl::false_ const&) const
+    {
+      return make<result_type>( static_cast<base_t>( extract<0>(a0) )
+                              , static_cast<base_t>( extract<1>(a0) )
+                              );
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::group_, tag::cpu_
+                                      , (A0)(X)
+                                      , ( boost::mpl::not_
+                                          < boost::is_same
+                                            < A0
+                                            , typename dispatch::meta::downgrade<A0>::type
+                                            >
+                                          >
+                                        )
+                                      , ((simd_<arithmetic_<A0>,X>))
+                                        ((simd_<arithmetic_<A0>,X>))
+                                      )
+  {
     typedef typename dispatch::meta::downgrade<A0>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
@@ -46,16 +89,22 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::group_, tag::cpu_,
-                          (A0)(X),
-                          (boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::downgrade<A0>::type> >),
-                          ((simd_<integer_<A0>,X>))((simd_<integer_<A0>,X>))
-                        )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::group_, tag::cpu_
+                                      , (A0)(X)
+                                      , ( boost::mpl::not_
+                                          < boost::is_same
+                                            < A0
+                                            , typename dispatch::meta::downgrade<A0>::type
+                                            >
+                                          >
+                                        )
+                                      , ((simd_<integer_<A0>,X>))
+                                        ((simd_<integer_<A0>,X>))
+                                      )
   {
-
     typedef typename dispatch::meta::downgrade<A0>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       #ifdef BOOST_LITTLE_ENDIAN
       return deinterleave_first(bitwise_cast<result_type>(a0), bitwise_cast<result_type>(a1));

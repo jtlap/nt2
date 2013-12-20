@@ -8,6 +8,7 @@
 //==============================================================================
 #include <boost/simd/swar/include/functions/group.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/swar/include/functions/group.hpp>
 #include <boost/simd/include/functions/enumerate.hpp>
 #include <boost/simd/include/functions/divides.hpp>
@@ -19,6 +20,22 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
+NT2_TEST_CASE_TPL( demote, BOOST_SIMD_SIMD_GROUPABLE_TYPES)
+{
+  using boost::simd::enumerate;
+  using boost::simd::group;
+  using boost::simd::tag::group_;
+  using boost::simd::native;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>               vT;
+  typedef typename boost::dispatch::meta::downgrade<vT>::type    dvT;
+  typedef typename boost::dispatch::meta::call<group_(vT)>::type r_t;
+
+  NT2_TEST_EQUAL( group(boost::simd::enumerate<vT>(T(-vT::static_size/2)))
+                , boost::simd::enumerate<dvT>(T(-vT::static_size/2))
+                );
+}
+/*
 NT2_TEST_CASE_TPL_MPL( group_groupable__2_0, NT2_TEST_SEQ_MPL_FILTER(BOOST_SIMD_SIMD_GROUPABLE_TYPES, not_< boost::is_floating_point<_> >) )
 {
   using boost::simd::group;
@@ -150,3 +167,4 @@ NT2_TEST_CASE_TPL ( group_groupable__4_1,  (int32_t))
                   );
   }
 } // end of test for groupable_
+*/
