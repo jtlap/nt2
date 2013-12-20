@@ -60,7 +60,7 @@ NT2_TEST_CASE_TPL ( acot_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(acot(nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 1.5);
   NT2_TEST_ULP_EQUAL(acot(nt2::One<vT>())[0], 7.853981633974483e-01, 1.5);
   NT2_TEST_ULP_EQUAL(acot(nt2::Zero<vT>())[0], 1.570796326794897e+00, 1.5);
-  NT2_TEST_ULP_EQUAL(acot(nt2::Eps<vT>())[0], nt2::Eps<T>(), 1.5);
+  NT2_TEST_ULP_EQUAL(acot(rec(nt2::Eps<vT>()))[0], nt2::Eps<T>(), 1.5);
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( acot_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
