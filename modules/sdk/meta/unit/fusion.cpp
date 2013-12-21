@@ -53,24 +53,24 @@ NT2_TEST_CASE(hierarchy_of_array)
 
   typedef hierarchy_of< array<double,7> >::type base;
 
-  NT2_TEST( (is_same<array_<scalar_<double_< array<double,7> > >, 7  >      , base >::value) );
-  NT2_TEST( (is_same<array_<scalar_<type64_< array<double,7> > >, 7  >      , UP(base,1) >::value) );
-  NT2_TEST( (is_same<array_<scalar_<floating_sized_< array<double,7> > >, 7  >  , UP(base,2) >::value) );
-  NT2_TEST( (is_same<array_<scalar_<floating_< array<double,7> > >, 7  >        , UP(base,3) >::value) );
-  NT2_TEST( (is_same<array_<scalar_<signed_< array<double,7> > >, 7  >      , UP(base,4) >::value) );
-  NT2_TEST( (is_same<array_<scalar_<arithmetic_< array<double,7> > >, 7  >  , UP(base,5) >::value) );
-  NT2_TEST( (is_same<array_<scalar_<fundamental_< array<double,7> > >, 7  > , UP(base,6) >::value) );
-  NT2_TEST( (is_same<array_<scalar_<unspecified_< array<double,7> > >, 7  > , UP(base,7) >::value) );
+  NT2_TEST( (is_same<array_<scalar_<double_< array<double,7> > >, boost::mpl::size_t<7>  >      , base >::value) );
+  NT2_TEST( (is_same<array_<scalar_<type64_< array<double,7> > >, boost::mpl::size_t<7>  >      , UP(base,1) >::value) );
+  NT2_TEST( (is_same<array_<scalar_<floating_sized_< array<double,7> > >, boost::mpl::size_t<7>  >  , UP(base,2) >::value) );
+  NT2_TEST( (is_same<array_<scalar_<floating_< array<double,7> > >, boost::mpl::size_t<7>  >        , UP(base,3) >::value) );
+  NT2_TEST( (is_same<array_<scalar_<signed_< array<double,7> > >, boost::mpl::size_t<7>  >      , UP(base,4) >::value) );
+  NT2_TEST( (is_same<array_<scalar_<arithmetic_< array<double,7> > >, boost::mpl::size_t<7>  >  , UP(base,5) >::value) );
+  NT2_TEST( (is_same<array_<scalar_<fundamental_< array<double,7> > >, boost::mpl::size_t<7>  > , UP(base,6) >::value) );
+  NT2_TEST( (is_same<array_<scalar_<unspecified_< array<double,7> > >, boost::mpl::size_t<7>  > , UP(base,7) >::value) );
 
-  NT2_TEST( (is_same<array_<generic_<double_< array<double,7> > >, 7  >      , UP(base,8) >::value) );
-  NT2_TEST( (is_same<array_<generic_<type64_< array<double,7> > >, 7  >      , UP(base,9) >::value) );
-  NT2_TEST( (is_same<array_<generic_<floating_sized_< array<double,7> > >, 7  >  , UP(base,10) >::value) );
-  NT2_TEST( (is_same<array_<generic_<floating_< array<double,7> > >, 7  >        , UP(base,11) >::value) );
-  NT2_TEST( (is_same<array_<generic_<signed_< array<double,7> > >, 7  >      , UP(base,12) >::value) );
-  NT2_TEST( (is_same<array_<generic_<arithmetic_< array<double,7> > >, 7  >  , UP(base,13) >::value) );
-  NT2_TEST( (is_same<array_<generic_<fundamental_< array<double,7> > >, 7  > , UP(base,14) >::value) );
-  NT2_TEST( (is_same<array_<generic_<unspecified_< array<double,7> > >, 7  > , UP(base,15) >::value) );
-  NT2_TEST( (is_same<array_<unspecified_< array<double,7> >, 7  >            , UP(base,16) >::value) );
+  NT2_TEST( (is_same<array_<generic_<double_< array<double,7> > >, boost::mpl::size_t<7>  >      , UP(base,8) >::value) );
+  NT2_TEST( (is_same<array_<generic_<type64_< array<double,7> > >, boost::mpl::size_t<7>  >      , UP(base,9) >::value) );
+  NT2_TEST( (is_same<array_<generic_<floating_sized_< array<double,7> > >, boost::mpl::size_t<7>  >  , UP(base,10) >::value) );
+  NT2_TEST( (is_same<array_<generic_<floating_< array<double,7> > >, boost::mpl::size_t<7>  >        , UP(base,11) >::value) );
+  NT2_TEST( (is_same<array_<generic_<signed_< array<double,7> > >, boost::mpl::size_t<7>  >      , UP(base,12) >::value) );
+  NT2_TEST( (is_same<array_<generic_<arithmetic_< array<double,7> > >, boost::mpl::size_t<7>  >  , UP(base,13) >::value) );
+  NT2_TEST( (is_same<array_<generic_<fundamental_< array<double,7> > >, boost::mpl::size_t<7>  > , UP(base,14) >::value) );
+  NT2_TEST( (is_same<array_<generic_<unspecified_< array<double,7> > >, boost::mpl::size_t<7>  > , UP(base,15) >::value) );
+  NT2_TEST( (is_same<array_<unspecified_< array<double,7> >, boost::mpl::size_t<7>  >            , UP(base,16) >::value) );
   NT2_TEST( (is_same<fusion_sequence_< array<double,7> >                     , UP(base,17) >::value) );
   NT2_TEST( (is_same<unspecified_< array<double,7> >                         , UP(base,18) >::value) );
 }
