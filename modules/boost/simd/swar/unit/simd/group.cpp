@@ -35,7 +35,7 @@ NT2_TEST_CASE_TPL( demote, BOOST_SIMD_SIMD_GROUPABLE_TYPES)
                 , boost::simd::enumerate<dvT>(T(-vT::static_size/2))
                 );
 }
-/*
+
 NT2_TEST_CASE_TPL_MPL( group_groupable__2_0, NT2_TEST_SEQ_MPL_FILTER(BOOST_SIMD_SIMD_GROUPABLE_TYPES, not_< boost::is_floating_point<_> >) )
 {
   using boost::simd::group;
@@ -167,4 +167,4 @@ NT2_TEST_CASE_TPL ( group_groupable__4_1,  (int32_t))
                   );
   }
 } // end of test for groupable_
-*/
+
