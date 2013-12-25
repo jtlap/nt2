@@ -1,219 +1,223 @@
 //==============================================================================
-//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2013   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/table.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
+#include <nt2/sdk/unit/details/prng.hpp>
+#include <nt2/sdk/bench/metric/cycles_per_element.hpp>
+#include <nt2/sdk/bench/metric/speedup.hpp>
+#include <nt2/sdk/bench/setup/geometric.hpp>
+#include <nt2/sdk/bench/setup/combination.hpp>
+#include <nt2/sdk/bench/protocol/max_duration.hpp>
+#include <nt2/sdk/bench/stat/median.hpp>
 
-struct _1D {};
-struct _2D {};
+#include <nt2/include/functions/plus.hpp>
+#include <nt2/include/functions/height.hpp>
+#include <nt2/include/functions/width.hpp>
+#include <nt2/table.hpp>
 
-template< typename Container
-        , typename Dims
-        , typename Tag = boost::dispatch::default_site<void>::type
-        >
-class test_subscript;
+#include <vector>
+#include <cmath>
 
+using nt2::table;
+using nt2::of_size;
+using namespace nt2::bench;
+
+//==============================================================================
+// std::vector based 1D subscript benchmark
+//==============================================================================
 template<typename T>
-NT2_EXPERIMENT((test_subscript<nt2::table<T>, _1D>))
+struct vector_subscript1D
 {
-  public:
-  test_subscript( std::size_t s0, bool status = false )
-                : NT2_EXPERIMENT_CTOR(1.,status ? "cycles/elements" : "speed-up")
-                , d0(s0)
-                , is_ref(status)
-  {}
-
-  virtual void run() const
+  vector_subscript1D( std::size_t n = 0 ) : size_(n), a(size_),b(size_)
   {
-    for (std::size_t i=1; i <= d0; i++)
-      a0(i) = a1(i);
+    nt2::roll(b,-10.,10.);
   }
 
-  virtual double compute(nt2::benchmark_result_t const& r) const
+  void operator()()
   {
-    if(is_ref)
-    {
-      nt2::reference_timing().second = double(r.first);
-      return r.first/double(d0);
-    }
-    else
-    {
-      return nt2::reference_timing().first / nt2::reference_timing().second;
-    }
+    for(std::size_t i=0; i<size_; ++i) a[i] = b[i];
   }
 
-  virtual void info(std::ostream& os) const { os << d0; }
-
-  virtual void reset() const
-  {
-    a0.resize(nt2::of_size(d0));
-    a1.resize(nt2::of_size(d0));
-
-    nt2::roll ( a1, -100, 100 );
-  }
+  std::size_t size() const { return size_; }
 
   private:
-          std::size_t               d0;
-          bool                      is_ref;
-  mutable nt2::table<T>             a0,a1;
+  std::size_t size_;
+  std::vector<T> a,b;
 };
 
 template<typename T>
-NT2_EXPERIMENT((test_subscript<nt2::table<T>, _2D>))
+std::ostream& operator<<(std::ostream& os, vector_subscript1D<T> const& p)
 {
-  public:
-  test_subscript( std::size_t s0, std::size_t s1, bool status = false )
-                : NT2_EXPERIMENT_CTOR(1.,status ? "cycles/elements" : "speed-up")
-                , d0(s0), d1(s1)
-                , is_ref(status)
-  {}
+  return os << "(" << p.size() << ")";
+}
 
-  virtual void run() const
+NT2_REGISTER_BENCHMARK_TPL( vector_subscript1D, (float)(double) )
+{
+  std::size_t mn = args("min1D" , 2);
+  std::size_t mx = args("max1D" , 4096);
+  std::size_t s  = args("step1D", 2);
+
+  run_during_with< vector_subscript1D<T> >( 1.
+                                          , geometric(mn,mx,s)
+                                          , cycles_per_element<stat::median_>()
+                                          );
+}
+
+//==============================================================================
+// std::vector based 2D subscript benchmark
+//==============================================================================
+template<typename T>
+struct vector_subscript2D
+{
+  vector_subscript2D() {}
+
+  template<typename Args>
+  vector_subscript2D( Args const& args )
+                    : d0_( boost::fusion::at_c<0>(args) )
+                    , d1_( boost::fusion::at_c<1>(args) )
+                    , a(d0_*d1_),b(d0_*d1_)
   {
-    for (std::size_t j=1; j <= d1; j++)
-      for (std::size_t i=1; i <= d0; i++)
-        a0(i,j) = a1(i,j);
+    nt2::roll(b,-10.,10.);
   }
 
-  virtual double compute(nt2::benchmark_result_t const& r) const
+  void operator()()
   {
-    if(is_ref)
-    {
-      nt2::reference_timing().second = double(r.first);
-      return r.first/double(d0*d1);
-    }
-    else
-    {
-      return nt2::reference_timing().first / nt2::reference_timing().second;
-    }
+    for(std::size_t j=0; j<d1_; ++j)
+      for(std::size_t i=0; i<d0_; ++i)
+        a[i+j*d0_] = b[i+j*d0_];
   }
 
-  virtual void info(std::ostream& os) const { os << d0 << "x" << d1; }
-
-  virtual void reset() const
-  {
-    a0.resize(nt2::of_size(d0,d1));
-    a1.resize(nt2::of_size(d0,d1));
-
-    nt2::roll ( a1, -100, 100 );
-  }
+  std::size_t size() const { return d0_*d1_; }
+  std::size_t d0()   const { return d0_; }
+  std::size_t d1()   const { return d1_; }
 
   private:
-          std::size_t               d0,d1;
-          bool                      is_ref;
-  mutable nt2::table<T>             a0,a1;
+  std::size_t d0_,d1_;
+  std::vector<T> a,b;
 };
 
 template<typename T>
-NT2_EXPERIMENT((test_subscript<std::vector<T>, _1D>))
+std::ostream& operator<<(std::ostream& os, vector_subscript2D<T> const& p)
 {
-  public:
-  test_subscript( std::size_t s0)
-                : NT2_EXPERIMENT_CTOR(1.,"cycles/elements")
-                , d0(s0)
-  {}
+  return os << "(" << p.d0() << " x " << p.d1() << ")";
+}
 
-  virtual void run() const
+NT2_REGISTER_BENCHMARK_TPL( vector_subscript2D, (float)(double) )
+{
+  std::size_t mn = args("min2D" , 2);
+  std::size_t mx = args("max2D" , 4096);
+  std::size_t s  = args("step2D", 2);
+
+  run_during_with< vector_subscript2D<T> >( 1.
+                                          , and_( geometric(mn,mx,s)
+                                                , geometric(mn,mx,s)
+                                                )
+                                          , cycles_per_element<stat::median_>()
+                                          );
+}
+
+//==============================================================================
+// nt2::table based 1D subscript benchmark
+//==============================================================================
+template<typename T>
+struct table_subscript1D
+{
+  table_subscript1D ( std::size_t n = 0 )
+                    : size_(n)
+                    , a(nt2::of_size(size_)),b(nt2::of_size(size_))
   {
-    for(std::size_t i=0; i<d0; ++i) a0[i] = a1[i];
+    nt2::roll(b,-10.,10.);
   }
 
-  virtual double compute(nt2::benchmark_result_t const& r) const
+  void operator()()
   {
-    nt2::reference_timing() = r;
-    return r.first/double(d0);
+    for(std::size_t i=1; i<=size_; ++i) a(i) = b(i);
   }
 
-  virtual void info(std::ostream& os) const { os << d0; }
-
-  virtual void reset() const
-  {
-    a0.resize(d0);
-    a1.resize(d0);
-
-    nt2::roll ( a1, -.28319, .28319 );
-  }
+  std::size_t size()   const { return size_; }
+  nt2::_1D    extent() const { return a.extent(); }
 
   private:
-          std::size_t               d0;
-          bool                      is_ref;
-  mutable std::vector<T>            a0,a1;
+  std::size_t size_;
+  nt2::table<T> a,b;
 };
 
 template<typename T>
-NT2_EXPERIMENT((test_subscript<std::vector<T>, _2D>))
+std::ostream& operator<<(std::ostream& os, table_subscript1D<T> const& p)
 {
-  public:
-  test_subscript( std::size_t s0, std::size_t s1)
-                : NT2_EXPERIMENT_CTOR(1.,"cycles/elements")
-                , d0(s0), d1(s1)
-  {}
+  return os << p.extent();
+}
 
-  virtual void run() const
+NT2_REGISTER_BENCHMARK_TPL( table_subscript1D, (float)(double) )
+{
+  std::size_t mn = args("min1D" , 2);
+  std::size_t mx = args("max1D" , 4096);
+  std::size_t s  = args("step1D", 2);
+
+  run_during_with< table_subscript1D<T> > ( 1.
+                                          , geometric(mn,mx,s)
+                                          , cycles_per_element<stat::median_>()
+                                          , speedup < vector_subscript1D<T>
+                                                    , cycles_per_element<stat::median_>
+                                                    >()
+                                          );
+}
+
+//==============================================================================
+// nt2::table based 2D subscript benchmark
+//==============================================================================
+template<typename T>
+struct table_subscript2D
+{
+  table_subscript2D() {}
+
+  template<typename Args>
+  table_subscript2D( Args const& args )
+                    : d0_( boost::fusion::at_c<0>(args) )
+                    , d1_( boost::fusion::at_c<1>(args) )
+                    , a(nt2::of_size(d0_,d1_)),b(nt2::of_size(d0_,d1_))
   {
-    for(std::size_t j=0; j<d1; ++j)
-      for(std::size_t i=0; i<d0; ++i)
-        a0[i+j*d0] = a1[i+j*d0];
+    nt2::roll(b,-10.,10.);
   }
 
-  virtual double compute(nt2::benchmark_result_t const& r) const
+  void operator()()
   {
-    nt2::reference_timing() = r;
-    return r.first/double(d0*d1);
+    for(std::size_t j=1; j<=d1_; ++j)
+      for(std::size_t i=1; i<=d0_; ++i)
+        a(i,j) = b(i,j);
   }
 
-  virtual void info(std::ostream& os) const { os << d0 << "x" << d1; }
+  std::size_t size()    const { return d0_*d1_; }
+  nt2::_2D    extent()  const { return a.extent(); }
 
-  virtual void reset() const
+  friend std::ostream& operator<<(std::ostream& os, table_subscript2D<T> const& p)
   {
-    a0.resize(d0*d1);
-    a1.resize(d0*d1);
-
-    nt2::roll ( a1, -.28319, .28319 );
+    return os << p.a.extent();
   }
 
   private:
-          std::size_t               d0,d1;
-          bool                      is_ref;
-  mutable std::vector<T>            a0,a1;
+  std::size_t d0_,d1_;
+  nt2::table<T> a,b;
 };
 
-#define NT2_TABLE_EXP(T,N)                                                      \
-NT2_RUN_EXPERIMENT_TPL( test_subscript, ((std::vector<T>,_1D)) , (1<<N ));      \
-NT2_RUN_EXPERIMENT_TPL( test_subscript, ((nt2::table<T>,_1D))  , (1<<N ,true)); \
-NT2_RUN_EXPERIMENT_TPL( test_subscript, ((nt2::table<T>,_1D))  , (1<<N ));      \
-NT2_RUN_EXPERIMENT_TPL( test_subscript, ((std::vector<T>,_2D)) , (1<<N,1<<N ));      \
-NT2_RUN_EXPERIMENT_TPL( test_subscript, ((nt2::table<T>,_2D))  , (1<<N,1<<N,true)); \
-NT2_RUN_EXPERIMENT_TPL( test_subscript, ((nt2::table<T>,_2D))  , (1<<N,1<<N ));      \
-/**/
+NT2_REGISTER_BENCHMARK_TPL( table_subscript2D, (float)(double) )
+{
+  std::size_t mn = args("min2D" , 2);
+  std::size_t mx = args("max2D" , 4096);
+  std::size_t s  = args("step2D", 2);
 
-NT2_TABLE_EXP(double ,  1 );
-NT2_TABLE_EXP(double ,  2 );
-NT2_TABLE_EXP(double ,  3 );
-NT2_TABLE_EXP(double ,  4 );
-NT2_TABLE_EXP(double ,  5 );
-NT2_TABLE_EXP(double ,  6 );
-NT2_TABLE_EXP(double ,  7 );
-NT2_TABLE_EXP(double ,  8 );
-NT2_TABLE_EXP(double ,  9 );
-NT2_TABLE_EXP(double , 10 );
-NT2_TABLE_EXP(double , 11 );
-NT2_TABLE_EXP(double , 12 );
-
-NT2_TABLE_EXP(float ,  1 );
-NT2_TABLE_EXP(float ,  2 );
-NT2_TABLE_EXP(float ,  3 );
-NT2_TABLE_EXP(float ,  4 );
-NT2_TABLE_EXP(float ,  5 );
-NT2_TABLE_EXP(float ,  6 );
-NT2_TABLE_EXP(float ,  7 );
-NT2_TABLE_EXP(float ,  8 );
-NT2_TABLE_EXP(float ,  9 );
-NT2_TABLE_EXP(float , 10 );
-NT2_TABLE_EXP(float , 11 );
-NT2_TABLE_EXP(float , 12 );
+  run_during_with< table_subscript2D<T> > ( 1.
+                                          , and_( geometric(mn,mx,s)
+                                                , geometric(mn,mx,s)
+                                                )
+                                          , cycles_per_element<stat::median_>()
+                                          , speedup < vector_subscript2D<T>
+                                                    , cycles_per_element<stat::median_>
+                                                    >()
+                                          );
+}

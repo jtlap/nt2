@@ -7,9 +7,10 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
+nt2_module_use_modules(test.benchmark)
+
 SET( SOURCES
   basic.cpp
-  unary.cpp
 # List of scalar test files for toolbox arithmetic
    )
 

@@ -1,46 +1,58 @@
 //==============================================================================
 //         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2013   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/polynomials/include/functions/plevl.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
+#include <nt2/sdk/unit/details/prng.hpp>
+#include <nt2/sdk/bench/metric/cycles_per_element.hpp>
+#include <nt2/sdk/bench/setup/fixed.hpp>
+#include <nt2/sdk/bench/protocol/max_duration.hpp>
+#include <nt2/sdk/bench/stat/median.hpp>
 
-template<typename T> NT2_EXPERIMENT(plevl_bench)
+#include <nt2/include/functions/plevl.hpp>
+#include <vector>
+
+using namespace nt2::bench;
+
+template<typename T>
+struct plevl_
 {
-  public:
-  plevl_bench(std::size_t s) : NT2_EXPERIMENT_CTOR(1,"cycles/elements"), size(s)
+  plevl_( std::size_t n ) : size_(n), in(size_),out(size_)
   {
+    nt2::roll(in,-10.,10.);
     coeff[0] = T(2); coeff[1] = T(3); coeff[2] = T(4);
   }
 
-  virtual void run() const
+  void operator()()
   {
-    for(int i=0;i<size;++i) out[i] = nt2::plevl(in[i], coeff);
+    for(std::size_t i=0;i<size_;++i)
+      out[i] = nt2::plevl(in[i], coeff);
   }
 
-  virtual double compute(nt2::benchmark_result_t const& r) const
-  {
-    return r.first/double(size);
-  }
+  std::size_t size() const { return size_; }
 
-  virtual void info(std::ostream& os) const { os << size; }
-
-  virtual void reset() const
+  friend std::ostream& operator<<(std::ostream& os, plevl_<T> const& p)
   {
-    in.resize(size);
-    out.resize(size);
-    nt2::roll(in,-10,10);
+    return os << "(" << p.size_ << ")";
   }
 
   private:
-  int       size;
-  mutable   std::vector<T>  in,out;
-  boost::array<T,3>         coeff;
+  std::size_t       size_;
+  std::vector<T>    in,out;
+  boost::array<T,3> coeff;
 };
 
-NT2_RUN_EXPERIMENT_TPL( plevl_bench, (float)(double), (1024) );
+NT2_REGISTER_BENCHMARK_TPL( plevl_, (float)(double) )
+{
+  std::size_t s = args("size", 1024);
+
+  run_during_with< plevl_<T> > ( 3.
+                                , fixed(s)
+                                , cycles_per_element<stat::median_>()
+                                );
+}

@@ -1,8 +1,6 @@
 //==============================================================================
-//         Copyright 2003 - 2012 LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2012        MetaScale SAS
-//         Copyright 2012        Domagoj Saric, Little Endian Ltd.
+//         Copyright 2009 - 2013 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2013 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -11,37 +9,77 @@
 #ifndef NT2_SDK_BENCH_TIMING_HPP_INCLUDED
 #define NT2_SDK_BENCH_TIMING_HPP_INCLUDED
 
-#include <nt2/sdk/bench/nary_benchmark.hpp>
-#include <boost/dispatch/functor/preprocessor/dispatch.hpp>
+#include <nt2/sdk/bench/benchmark.hpp>
+#include <nt2/sdk/bench/protocol/max_duration.hpp>
+#include <nt2/sdk/bench/metric/cycles_per_element.hpp>
+#include <nt2/sdk/bench/details/process_functor.hpp>
+#include <nt2/sdk/bench/setup/combination.hpp>
+#include <nt2/sdk/bench/setup/fixed.hpp>
+#include <nt2/sdk/bench/stat/median.hpp>
+#include <nt2/sdk/meta/type_id.hpp>
 
-#include <boost/preprocessor/cat.hpp>
-#include <boost/preprocessor/stringize.hpp>
-#include <boost/preprocessor/tuple/elem.hpp>
-#include <boost/preprocessor/seq/for_each_i.hpp>
+#include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/punctuation/comma_if.hpp>
+#include <boost/preprocessor/repetition/repeat.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>
+#include <boost/preprocessor/seq/for_each_i.hpp>
+#include <boost/preprocessor/tuple/elem.hpp>
+#include <boost/preprocessor/stringize.hpp>
+#include <boost/preprocessor/cat.hpp>
 
-#define NT2_TIMING_RANGE_ELEM(r,d,i,e)              \
-BOOST_PP_COMMA_IF(i)  BOOST_PP_TUPLE_ELEM(3, 1, e)  \
-                    , BOOST_PP_TUPLE_ELEM(3, 2, e)  \
+/// INTERNAL ONLY
+#define NT2_TIMING_TYPES(r,d,i,e)                                              \
+BOOST_PP_COMMA_IF(i) BOOST_DISPATCH_PP_STRIP(BOOST_PP_TUPLE_ELEM(3,0,e))       \
 /**/
 
-#define NT2_TIMING_RANGE( RANGE )                       \
-BOOST_PP_SEQ_FOR_EACH_I(NT2_TIMING_RANGE_ELEM,~,RANGE)  \
+/// INTERNAL ONLY
+#define NT2_TIMING_RANGE_ELEM(r,d,i,e)                                         \
+BOOST_PP_COMMA_IF(i) nt2::bench                                                \
+                        ::fixed ( std::make_pair( BOOST_PP_TUPLE_ELEM(3,1,e)   \
+                                                , BOOST_PP_TUPLE_ELEM(3,2,e)   \
+                                                )                              \
+                                )                                              \
 /**/
 
-#define NT2_TIMING_TYPES(r,d,i,e)                                         \
-BOOST_PP_COMMA_IF(i) BOOST_DISPATCH_PP_STRIP(BOOST_PP_TUPLE_ELEM(3,0,e))  \
+/// INTERNAL ONLY
+#define NT2_TIMING_IMPL(NAME, FUNC, CODE, RANGE )                              \
+NT2_REGISTER_BENCHMARK_NAMED                                                   \
+( NAME                                                                         \
+, nt2::type_id<FUNC( BOOST_PP_SEQ_FOR_EACH_I(NT2_TIMING_TYPES,~,RANGE) )>()    \
+)                                                                              \
+{                                                                              \
+  nt2::bench::run_during_with                                                  \
+    <                                                                          \
+      nt2::details::process_functor                                            \
+      < CODE                                                                   \
+      , BOOST_PP_SEQ_SIZE(RANGE)                                               \
+      , BOOST_PP_SEQ_FOR_EACH_I(NT2_TIMING_TYPES,~,RANGE)                      \
+      >                                                                        \
+    >                                                                          \
+    ( 3.                                                                       \
+    , nt2::bench::and_                                                         \
+      ( nt2::bench::fixed(nt2::bench::args("samples",1024u))                   \
+      , BOOST_PP_SEQ_FOR_EACH_I(NT2_TIMING_RANGE_ELEM,~,RANGE)                 \
+      )                                                                        \
+    , nt2::bench::cycles_per_element<nt2::bench::stat::median_>()              \
+    );                                                                         \
+}                                                                              \
 /**/
 
-#define NT2_TIMING_NAME(FUNC,RANGE)                     \
-FUNC(BOOST_PP_SEQ_FOR_EACH_I(NT2_TIMING_TYPES,~,RANGE)) \
+/*!
+
+**/
+#define NT2_TIMING(FUNC, RANGE )                                               \
+NT2_TIMING_IMPL ( BOOST_PP_CAT(timing_,__LINE__), FUNC                         \
+                , boost::dispatch::functor<FUNC>, RANGE                        \
+                )                                                              \
 /**/
 
-#define NT2_TIMING(FUNC, RANGE )                                              \
-nt2::unit::nary_benchmark                                                     \
-    < boost::dispatch::functor<FUNC>                                          \
-      (BOOST_PP_SEQ_FOR_EACH_I(NT2_TIMING_TYPES,~,RANGE)) > const             \
-BOOST_PP_CAT(Func ## _experiment_, __COUNTER__)( NT2_TIMING_RANGE( RANGE ) ); \
+/*!
+
+**/
+#define NT2_TIMING_EXT(FUNC, RANGE )                                           \
+NT2_TIMING_IMPL ( BOOST_PP_CAT(timing_,__LINE__), FUNC, FUNC, RANGE )          \
 /**/
 
 #endif

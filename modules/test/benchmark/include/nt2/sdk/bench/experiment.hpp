@@ -1,8 +1,6 @@
 //==============================================================================
-//         Copyright 2003 - 2012 LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2012        MetaScale SAS
-//         Copyright 2012        Domagoj Saric, Little Endian Ltd.
+//         Copyright 2009 - 2013 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2013       MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -11,52 +9,27 @@
 #ifndef NT2_SDK_BENCH_EXPERIMENT_HPP_INCLUDED
 #define NT2_SDK_BENCH_EXPERIMENT_HPP_INCLUDED
 
-#include <nt2/sdk/meta/type_id.hpp>
-#include <nt2/sdk/error/throw_exception.hpp>
-#include <nt2/sdk/bench/details/suite.hpp>
-#include <nt2/sdk/unit/details/prng.hpp>
-#include <boost/dispatch/preprocessor/strip.hpp>
-#include <boost/preprocessor/tuple/elem.hpp>
-#include <boost/preprocessor/seq/for_each.hpp>
+#include <cstddef>
+#include <iostream>
 
-/*!
- @brief Definition of an Experiment
-**/
-#define NT2_EXPERIMENT(Type)                      \
-class BOOST_DISPATCH_PP_STRIP(Type) : public nt2::details::base_experiment \
-/**/
+namespace nt2 { namespace bench
+{
+  /*!
 
-/*!
- @brief Definition of an Experiment Constructor
-**/
-#define NT2_EXPERIMENT_CTOR(Duration, Unit)                     \
-nt2::details::base_experiment ( (Duration)                      \
-                              , ::nt2::type_id(*this)           \
-                              , Unit                            \
-                              , &nt2::details::main_bench_suite \
-                              )                                 \
-/**/
+  **/
+  struct experiment
+  {
+    void operator()() {}
+    std::size_t size() const { return 1u; }
+  };
 
-/*!
- @brief Registration of an Experiment
-**/
-#define NT2_RUN_EXPERIMENT(Type)                        \
-Type const BOOST_PP_CAT(Type ## _experiment_, __LINE__) \
-/**/
+  /*!
 
-#define NT2_RUN_EXPERIMENT_STEP(r, data, elem)                          \
-BOOST_PP_TUPLE_ELEM(2,0,data)<BOOST_DISPATCH_PP_STRIP(elem)> const      \
-BOOST_PP_CAT( BOOST_PP_CAT(BOOST_PP_TUPLE_ELEM(2,0,data),_experiment_)  \
-            , __COUNTER__                                               \
-            )                                                           \
-BOOST_PP_TUPLE_ELEM(2,1,data);                                          \
-/**/
-
-/*!
- @brief Registration of a set of template Experiments
-**/
-#define NT2_RUN_EXPERIMENT_TPL(Type,Types,Ctor)                   \
-BOOST_PP_SEQ_FOR_EACH(NT2_RUN_EXPERIMENT_STEP,(Type,Ctor),Types)  \
-/**/
+  **/
+  std::ostream& operator<<(std::ostream& os, experiment const&)
+  {
+    return os << "n/a";
+  }
+} }
 
 #endif
