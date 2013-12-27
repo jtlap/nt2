@@ -68,12 +68,11 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename boost::common_type<A0>::type type;
       typedef typename dispatch::meta::as_integer<A0>::type itype;
-      if (a0 == a1)               return Zero<type>();
-      if (is_nan(a0)&&is_nan(a1)) return Zero<type>();
+      if (a0 == a1)               return Zero<A0>();
+      if (is_nan(a0)&&is_nan(a1)) return Zero<A0>();
       itype e1 = Zero<itype>(), e2 = Zero<itype>();
-      type m1 = Zero<type>(), m2 = Zero<type>();
+      A0 m1 = Zero<A0>(), m2 = Zero<A0>();
       boost::simd::frexp(a0, m1, e1);
       boost::simd::frexp(a1, m2, e2);
       itype expo = -boost::simd::max(e1, e2);
@@ -81,7 +80,7 @@ namespace boost { namespace simd { namespace ext
                             :   boost::simd::abs( boost::simd::ldexp(a0, expo)
                                                 - boost::simd::ldexp(a1, expo)
                                                 );
-      return e/static_cast<A0>(Eps<type>());
+      return e/Eps<A0>();
     }
   };
 } } }

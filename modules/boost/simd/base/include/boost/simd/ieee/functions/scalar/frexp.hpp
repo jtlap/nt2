@@ -17,7 +17,10 @@
 #include <boost/simd/include/functions/scalar/shr.hpp>
 #include <boost/simd/include/functions/scalar/minus.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
-#include <boost/simd/include/constants/maxexponent.hpp>
+#include <boost/simd/include/constants/limitexponent.hpp>
+#include <boost/simd/include/constants/maxexponentm1.hpp>
+#include <boost/simd/include/constants/mask1frexp.hpp>
+#include <boost/simd/include/constants/mask2frexp.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
@@ -42,21 +45,16 @@ namespace boost { namespace simd { namespace ext
       else
       {
         typedef typename dispatch::meta::as_integer<A0, signed>::type int_type;
-        const int_type me = Maxexponent<A0>()-1;
-        const int_type nmb= Nbmantissabits<A0>();
-        const int_type n1 = ((2*me+3)<<nmb);
-        const int_type n2 = me<<nmb;
-
-        A0 ci = simd::bitwise_cast<A0>(n1);
-           r1 = simd::bitwise_cast<int_type>(b_and(ci, a0));  // extract exp.
-        A0 x  = b_notand(ci, a0);                             // clear exp. in a0
-           r1 = sub(shri(r1,nmb), me);                        // compute exp.
-           r0 = b_or(x,n2);                                   // insert exp.+1 in x
-        if (r1 > Maxexponent<A0>())
+        r1 = simd::bitwise_cast<int_type>(b_and(Mask1frexp<A0>(), a0));  // extract exp.
+        A0 x  = b_andnot(a0, Mask1frexp<A0>());                          // clear exp. in a0
+        r1 = sub(shri(r1,Nbmantissabits<A0>()), Maxexponentm1<A0>());    // compute exp.
+        if (r1 > Limitexponent<A0>())
         {
           r1   = 0;
-          r0  += a0;
+          r0   = a0;
+          return;
         }
+        r0 = b_or(x,Mask2frexp<A0>());                                   // insert exp.+1 in x
       }
     }
   };

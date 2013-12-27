@@ -9,6 +9,7 @@
 #include <boost/simd/ieee/include/functions/frexp.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/half.hpp>
+#include <boost/simd/include/constants/limitexponent.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/fusion/include/vector_tie.hpp>
@@ -16,6 +17,26 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
+
+NT2_TEST_CASE_TPL( frexp0, BOOST_SIMD_SIMD_REAL_TYPES)
+{
+  using boost::simd::frexp;
+  using boost::simd::tag::frexp_;
+
+  typedef typename boost::dispatch::meta::as_integer<T,signed>::type iT;
+
+    {
+    iT e;
+    T  m;
+
+    frexp(boost::simd::Valmax<T>(), m, e);
+    NT2_TEST_ULP_EQUAL(m, boost::simd::One<T>(), 1);
+    NT2_TEST_EQUAL(e, boost::simd::Limitexponent<T>());
+  }
+
+
+}
 
 NT2_TEST_CASE_TPL( frexp, BOOST_SIMD_SIMD_REAL_TYPES)
 {
