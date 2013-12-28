@@ -39,12 +39,12 @@ namespace boost { namespace simd
     /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Mask2frexp::apply<boost::dispatch::meta::single_<T>,Dummy>
-          : meta::int_c<boost::simd::int32_t,1056964608> {};
+          : meta::int_c<boost::simd::int32_t,0x3f000000> {};
 
     /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Mask2frexp::apply<boost::dispatch::meta::double_<T>,Dummy>
-          : meta::int_c<boost::simd::int64_t,4602678819172646912ll> {};
+          : meta::int_c<boost::simd::int64_t,0x3fe0000000000000ll> {};
 
   }
   /*!
@@ -58,9 +58,9 @@ namespace boost { namespace simd
 
     @code
     if T is double
-      r =  1023;
+      r =  4602678819172646912ll;
     else if T is float
-      r =  127;
+      r =  1056964608;
     @endcode
 
   **/

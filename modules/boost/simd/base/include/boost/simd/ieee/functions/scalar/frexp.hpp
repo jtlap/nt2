@@ -47,7 +47,7 @@ namespace boost { namespace simd { namespace ext
         typedef typename dispatch::meta::as_integer<A0, signed>::type int_type;
         r1 = simd::bitwise_cast<int_type>(b_and(Mask1frexp<A0>(), a0));  // extract exp.
         A0 x  = b_andnot(a0, Mask1frexp<A0>());                          // clear exp. in a0
-        r1 = sub(shri(r1,Nbmantissabits<A0>()), Maxexponentm1<A0>());    // compute exp.
+        r1 = shri(r1,Nbmantissabits<A0>())- Maxexponentm1<A0>();         // compute exp.
         if (r1 > Limitexponent<A0>())
         {
           r1   = 0;

@@ -13,7 +13,6 @@
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/functions/simd/bitwise_and.hpp>
 #include <boost/simd/include/functions/simd/bitwise_or.hpp>
-//#include <boost/simd/include/functions/simd/bitwise_notand.hpp>
 #include <boost/simd/include/functions/simd/bitwise_andnot.hpp>
 #include <boost/simd/include/functions/simd/logical_notand.hpp>
 #include <boost/simd/include/functions/simd/shr.hpp>
@@ -31,7 +30,6 @@
 #include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <iostream>
 
 namespace boost { namespace simd { namespace ext
 {
