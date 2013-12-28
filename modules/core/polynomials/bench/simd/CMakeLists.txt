@@ -14,6 +14,7 @@ SET( SOURCES
   legendre.cpp
   hermite.cpp
   laguerre.cpp
+  horner.cpp
 # List of simd test files for toolbox polynomials
    )
 

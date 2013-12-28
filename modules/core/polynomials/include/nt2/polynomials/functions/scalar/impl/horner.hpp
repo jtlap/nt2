@@ -27,9 +27,12 @@ namespace nt2
   //////////////////////////////////////////////////////////////////////////////
   // static unrollign of horner scheme
   // Coefficients are given in decreasing powers and hexadecimal form
-  // horner< NT2_HORNER_COEFF(float,3,(0x3f800000,0x40000000,0x40400000))>(2.0f)
-  // means ((1*x+2)*x+3) or x^2+2x+3
+  // horner< NT2_HORNER_COEFF(float,5,(a0, a1, a2, a3, a4))>(x)
+  // means a0*x^4 + a1*x^3 + a2*x^2 + a3*x + a4
+  // computed as a4 + x*(a3 + x*(a2 + x*(a1 + x*a0))))
+  // aka fma(x, fma(x, fma(x, fma(x, a0, a1), a2), a3), a4)
   //////////////////////////////////////////////////////////////////////////////
+
   namespace details
   {
     template<int N, class Seq> struct static_horner_
