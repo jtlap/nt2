@@ -44,7 +44,7 @@ namespace boost { namespace simd
     /// INTERNAL ONLY
     template<class T, class Dummy>
     struct  Mask2frexp::apply<boost::dispatch::meta::double_<T>,Dummy>
-          : meta::int_c<boost::simd::int64_t,4602678819172646912> {};
+          : meta::int_c<boost::simd::int64_t,4602678819172646912ll> {};
 
   }
   /*!
