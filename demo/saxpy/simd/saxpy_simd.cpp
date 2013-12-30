@@ -48,7 +48,8 @@ NT2_EXPERIMENT(Taxpy_simd)
       using boost::simd::aligned_store;
       typedef pack<T> type;
       step_size_ = boost::simd::meta::cardinal_of<type>::value;
-      for (std::size_t i = 0; i<size_; i+=step_size_){
+      for (std::size_t i = 0; i<size_; i+=step_size_)
+      {
         type X_pack(&X[i]);
         type Y_pack(&Y[i]);
         aligned_store(Taxpy_work(alpha, X_pack, Y_pack),&Y[i]);
@@ -70,16 +71,29 @@ NT2_EXPERIMENT(Taxpy_simd)
     mutable std::size_t step_size_;
     mutable typename std::vector<T, boost::simd::allocator<T> > X, Y;
 };
-typedef float K;
-NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (K), (16,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (K), (32,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (K), (64,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (K), (128,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (K), (256,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (K), (512,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (K), (1024,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (K), (2048,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (K), (4096,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (K), (8192,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (K), (16384,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (K), (163840,2.7f));
+
+NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (float), (16,2.7f));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (float), (32,2.7f));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (float), (64,2.7f));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (float), (128,2.7f));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (float), (256,2.7f));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (float), (512,2.7f));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (float), (1024,2.7f));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (float), (2048,2.7f));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (float), (4096,2.7f));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (float), (8192,2.7f));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (float), (16384,2.7f));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (float), (163840,2.7f));
+
+NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (double), (16,2.7));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (double), (32,2.7));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (double), (64,2.7));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (double), (128,2.7));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (double), (256,2.7));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (double), (512,2.7));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (double), (1024,2.7));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (double), (2048,2.7));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (double), (4096,2.7));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (double), (8192,2.7));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (double), (16384,2.7));
+NT2_RUN_EXPERIMENT_TPL( Taxpy_simd, (double), (163840,2.7));
