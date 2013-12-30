@@ -40,7 +40,7 @@ public:
   typedef T value_type;
 
   blackandscholes_scalar( std::size_t const& n)
-  : NT2_EXPERIMENT_CTOR(.1f, "cycles/elements")
+  : NT2_EXPERIMENT_CTOR(1., "cycles/elements")
   , size_(n)
   {
     Sa.resize(size_);
