@@ -7,22 +7,22 @@
 // See accompanying file LICENSE.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <iostream>
-#include <string>
-#include <nt2/sdk/bench/benchmark.hpp>
+#include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/simd/include/functions/max.hpp>
 #include <boost/simd/include/functions/min.hpp>
 #include <boost/simd/include/functions/minus.hpp>
-#include <boost/simd/include/functions/multiplies.hpp>
 #include <boost/simd/include/functions/selinc.hpp>
 #include <boost/simd/include/functions/seldec.hpp>
 #include <boost/simd/include/functions/if_zero_else_one.hpp>
-#include <boost/simd/include/functions/split_multiplies.hpp>
 #include <boost/simd/include/functions/adds.hpp>
-#include <boost/simd/include/functions/muls.hpp>
-#include <boost/simd/sdk/simd/pack.hpp>
-#include <boost/simd/memory/allocator.hpp>
+#include <boost/simd/include/functions/is_less.hpp>
+#include <boost/simd/include/functions/is_greater.hpp>
 #include <boost/simd/include/functions/aligned_store.hpp>
+#include <boost/simd/memory/allocator.hpp>
+
+#include <nt2/sdk/bench/benchmark.hpp>
+#include <iostream>
+#include <string>
 
 using namespace nt2;
 
@@ -31,18 +31,18 @@ BOOST_FORCEINLINE Pixel do_work(Pixel &bkg, const Pixel &fr, Pixel &var)
 {
   Pixel diff_img, mul_img, zero=0;
   bkg = boost::simd::selinc( bkg < fr, boost::simd::seldec( bkg > fr
-                      , bkg
-                      )
-        );
+                                                          , bkg
+                                                          )
+                           );
   diff_img = boost::simd::max(bkg, fr) - boost::simd::min(bkg, fr);
 
   mul_img = boost::simd::adds(boost::simd::adds(diff_img,diff_img),diff_img);
 
   var = boost::simd::if_else( diff_img != zero, boost::simd::selinc( var < mul_img
-                                 , boost::simd::seldec( var > mul_img
-                                 , var
-                                 )
-                                 )
+                                                                   , boost::simd::seldec( var > mul_img
+                                                                                        , var
+                                                                                        )
+                                                                   )
                             , var
                             );
   return boost::simd::if_zero_else_one( diff_img < var );
@@ -72,7 +72,8 @@ public:
         {
           if(i>(height/4) && i<(height/2) && j>((width/4)+k%10) && j<((width/2)+k%10))
             frames[k][i*width+j] = 255;
-          else frames[k][i*width+j] = 0;
+          else
+            frames[k][i*width+j] = 0;
         }
       }
     }

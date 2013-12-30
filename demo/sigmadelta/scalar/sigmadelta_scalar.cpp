@@ -35,7 +35,8 @@ NT2_EXPERIMENT(sigmadelta_scalar)
         {
           if(i>(height/4) && i<(height/2) && j>((width/4)+k%10) && j<((width/2)+k%10))
             frames[k][i*width+j] = 255;
-          else frames[k][i*width+j] = 0;
+          else
+            frames[k][i*width+j] = 0;
         }
       }
     }

@@ -7,9 +7,6 @@
 // See accompanying file LICENSE.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <iostream>
-#include <string>
-#include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/table.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/min.hpp>
@@ -18,12 +15,14 @@
 #include <nt2/include/functions/selinc.hpp>
 #include <nt2/include/functions/seldec.hpp>
 #include <nt2/include/functions/if_zero_else_one.hpp>
-#include <nt2/include/functions/split_multiplies.hpp>
-#include <nt2/include/functions/adds.hpp>
-#include <nt2/include/functions/muls.hpp>
+#include <nt2/include/functions/is_less.hpp>
+#include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/zeros.hpp>
+
+#include <nt2/sdk/bench/benchmark.hpp>
 #include <iostream>
+#include <string>
 
 using namespace nt2;
 template<class Pixel>
@@ -32,20 +31,20 @@ BOOST_FORCEINLINE void do_work(Pixel &bkg, const Pixel &fr, Pixel &var, Pixel &d
   typename Pixel::value_type zero = 0;
 
   bkg = nt2::selinc( bkg < fr, nt2::seldec( bkg > fr
-                      , bkg
-                      )
-        );
+                                          , bkg
+                                          )
+                   );
   diff_img = nt2::max(bkg, fr) - nt2::min(bkg, fr);
 
   mul_img = nt2::adds(nt2::adds(diff_img,diff_img),diff_img);
 
   var = nt2::if_else( diff_img != zero, nt2::selinc( var < mul_img
-                                 , nt2::seldec( var > mul_img
-                                 , var
-                                 )
-                                 )
-                            , var
-                            );
+                                                   , nt2::seldec( var > mul_img
+                                                                , var
+                                                                )
+                                                   )
+                    , var
+                    );
   out = nt2::if_zero_else_one( diff_img < var );
 }
 
@@ -75,14 +74,15 @@ public:
         {
           if(i-1>(height/4) && i-1<(height/2) && j-1>((width/4)+k%10) && j-1<((width/2)+k%10))
             frames[k](i,j) = 255;
-          else frames[k](i,j) = 0;
+          else
+            frames[k](i,j) = 0;
         }
       }
     }
     variance_img = ones(nt2::of_size(size),nt2::meta::as_<T>());
     for (std::size_t i=1;i<=height;i++)
       for (std::size_t j=1;j<=width;j++)
-      background_img(i,j) = frames[0](i,j);
+        background_img(i,j) = frames[0](i,j);
     etiquette_binaire = zeros(nt2::of_size(height,width),nt2::meta::as_<T>());
   }
 
