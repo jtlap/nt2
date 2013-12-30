@@ -36,7 +36,7 @@ namespace boost { namespace simd { namespace tag
     For any given value @c x,  @c y,  @c z of type @c T:
 
     @code
-    T r = fnsm(x, y, z);
+    T r = fnms(x, y, z);
     @endcode
 
     The code is similar to:
@@ -60,7 +60,7 @@ namespace boost { namespace simd { namespace tag
     For any given value @c x,  @c y,  @c z of type @c T:
 
     @code
-    T r = fnms(x, y, z);
+    T r = fsm(x, y, z);
     @endcode
 
     The code is similar to:
