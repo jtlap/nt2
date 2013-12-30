@@ -6,22 +6,15 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 linalg toolbox - svd_result factorization"
 
 #include <nt2/table.hpp>
-#include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/svd.hpp>
-#include <nt2/include/functions/ldexp.hpp>
-#include <nt2/include/functions/repnum.hpp>
 #include <nt2/include/functions/mtimes.hpp>
-#include <nt2/include/functions/isulpequal.hpp>
-#include <nt2/include/functions/globalmax.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/exceptions.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 
 NT2_TEST_CASE_TPL(svd_result, NT2_REAL_TYPES)
 {
@@ -47,8 +40,8 @@ NT2_TEST_CASE_TPL(svd_result, NT2_REAL_TYPES)
   nt2::display("vt    ", vt);
   t_t w  = f.w();
   nt2::display("w    ", w);
-  NT2_TEST(nt2::isulpequal(nt2::mtimes(u, nt2::mtimes(w, vt)), bb, T(16.0)));
-  std::cout << nt2::globalmax(nt2::ulpdist(nt2::mtimes(u, nt2::mtimes(w, vt)), b)) << std::endl;
+  NT2_TEST_ULP_EQUAL(nt2::mtimes(u, nt2::mtimes(w, vt)), bb, 16.5);
+
   t_t sg = f.singular();
   nt2::display("sg   ", sg);
   t_t nul = f.null();
