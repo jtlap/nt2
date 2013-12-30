@@ -7,10 +7,11 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <iostream>
-#include <nt2/sdk/bench/benchmark.hpp>
+
+#include <nt2/table.hpp>
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/fma.hpp>
+#include <nt2/include/functions/fnms.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/exp.hpp>
@@ -21,10 +22,12 @@
 #include <nt2/include/functions/minus.hpp>
 #include <nt2/include/functions/unary_minus.hpp>
 #include <nt2/include/constants/half.hpp>
-#include <nt2/table.hpp>
 #include <nt2/include/functor.hpp>
+#include <nt2/sdk/bench/benchmark.hpp>
+#include <iostream>
 
-namespace nt2 {
+namespace nt2
+{
   namespace tag
   {
     struct blackandscholes_ : ext::elementwise_<blackandscholes_> { typedef ext::elementwise_<blackandscholes_> parent; };
@@ -52,10 +55,10 @@ namespace nt2 {
         A0 tmp3 = (tmp4*a2)/(a4*da);
         A0 ed   = nt2::exp(-a3*a2);
         A0 d1   = tmp1 + tmp3;
-        A0 d2   = nt2::fma(-a4,da,d1);
+        A0 d2   = nt2::fnms(a4,da,d1);
         A0 fd1  = nt2::fastnormcdf(d1);
         A0 fd2  = nt2::fastnormcdf(d2);
-        return a0*fd1 -a1 * ed * fd2;
+        return nt2::fnms(a1*ed, fd2, a0*fd1);
       }
     };
   }
@@ -76,7 +79,8 @@ public:
     va.resize(nt2::of_size(size_));
     R.resize(nt2::of_size(size_));
 
-    for(std::size_t i = 1; i <= size_; ++i) Sa(i)=Xa(i)=Ta(i)=ra(i)=va(i)= value_type(i);
+    for(std::size_t i = 1; i <= size_; ++i)
+      Sa(i) = Xa(i) = Ta(i) = ra(i) = va(i) = value_type(i);
   }
 
   virtual void run () const
@@ -98,6 +102,7 @@ public:
   mutable nt2::table<value_type> Sa, Xa, Ta, ra, va, R;
   std::size_t size_;
 };
+
 NT2_RUN_EXPERIMENT_TPL( blackandscholes_nt2, (float), (16));
 NT2_RUN_EXPERIMENT_TPL( blackandscholes_nt2, (float), (32));
 NT2_RUN_EXPERIMENT_TPL( blackandscholes_nt2, (float), (64));

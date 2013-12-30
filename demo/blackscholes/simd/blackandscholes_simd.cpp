@@ -7,17 +7,15 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <boost/simd/sdk/simd/extensions.hpp>
-#include <iostream>
-#include <nt2/sdk/bench/benchmark.hpp>
+
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/fastnormcdf.hpp>
 #include <boost/simd/include/functions/fma.hpp>
+#include <boost/simd/include/functions/fnms.hpp>
 #include <boost/simd/include/functions/sqrt.hpp>
 #include <boost/simd/include/functions/sqr.hpp>
-#include <boost/simd/include/constants/half.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/include/functions/aligned_store.hpp>
 #include <boost/simd/include/functions/aligned_load.hpp>
 #include <boost/simd/include/functions/divides.hpp>
@@ -25,9 +23,10 @@
 #include <boost/simd/include/functions/unary_minus.hpp>
 #include <boost/simd/include/functions/plus.hpp>
 #include <boost/simd/include/functions/minus.hpp>
+#include <boost/simd/include/constants/half.hpp>
 #include <boost/simd/memory/allocator.hpp>
-
-using namespace nt2;
+#include <nt2/sdk/bench/benchmark.hpp>
+#include <iostream>
 
 template <class A0>
 BOOST_FORCEINLINE A0 blackandscholes(A0 const &a0, A0 const &a1, A0 const &a2, A0 const &a3, A0 const &a4)
@@ -35,15 +34,14 @@ BOOST_FORCEINLINE A0 blackandscholes(A0 const &a0, A0 const &a1, A0 const &a2, A
   A0 da   = boost::simd::sqrt(a2);
   A0 tmp1 = nt2::log(a0/a1);
   A0 tmp2 = boost::simd::sqr(a4);
-  A0 tmp4 = nt2::fma(tmp2,nt2::Half<A0>(),a3);
+  A0 tmp4 = boost::simd::fma(tmp2,nt2::Half<A0>(),a3);
   A0 tmp3 = (tmp4*a2)/(a4*da);
   A0 ed   = nt2::exp(-a3*a2);
   A0 d1   = tmp1 + tmp3;
-  A0 d2   = nt2::fma(-a4,da,d1);
+  A0 d2   = boost::simd::fnms(a4,da,d1);
   A0 fd1  = nt2::fastnormcdf(d1);
   A0 fd2  = nt2::fastnormcdf(d2);
-
-  return a0*fd1 -a1 * ed * fd2;
+  return boost::simd::fnms(a1*ed, fd2, a0*fd1);
 }
 
 template<typename T>
@@ -62,7 +60,8 @@ public:
     va.resize(size_);
     R.resize(size_);
 
-    for(i = 0; i <size_; ++i) Sa[i]=Xa[i]=Ta[i]=ra[i]=va[i]= T(i+1);
+    for(i = 0; i <size_; ++i)
+      Sa[i] = Xa[i] = Ta[i] = ra[i] = va[i] = T(i+1);
   }
 
   virtual void run() const
@@ -83,7 +82,7 @@ public:
       type Ta_tmp = aligned_load<type>(&Ta[i]);
       type ra_tmp = aligned_load<type>(&ra[i]);
       type va_tmp = aligned_load<type>(&va[i]);
-      aligned_store(blackandscholes(Sa_tmp, Xa_tmp, Ta_tmp, ra_tmp, va_tmp),&R[i]);
+      aligned_store(blackandscholes(Sa_tmp, Xa_tmp, Ta_tmp, ra_tmp, va_tmp), &R[i]);
       i += step_size_;
     }
     for (; i<size_; i++)

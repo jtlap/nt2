@@ -7,14 +7,15 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <iostream>
-#include <nt2/sdk/bench/benchmark.hpp>
-#include <nt2/include/functor.hpp>
+
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/fastnormcdf.hpp>
 #include <boost/simd/include/functions/sqrt.hpp>
 #include <boost/simd/include/functions/fma.hpp>
+#include <boost/simd/include/functions/fnms.hpp>
+#include <nt2/sdk/bench/benchmark.hpp>
+#include <iostream>
 
 template <class A0>
 BOOST_FORCEINLINE A0 blackandscholes(A0 const &a0, A0 const &a1, A0 const &a2, A0 const &a3, A0 const &a4)
@@ -26,10 +27,10 @@ BOOST_FORCEINLINE A0 blackandscholes(A0 const &a0, A0 const &a1, A0 const &a2, A
   A0 tmp3 = (tmp4*a2)/(a4*da);
   A0 ed   = nt2::exp(-a3*a2);
   A0 d1   = tmp1 + tmp3;
-  A0 d2   = nt2::fma(-a4,da,d1);
+  A0 d2   = boost::simd::fnms(a4,da,d1);
   A0 fd1  = nt2::fastnormcdf(d1);
   A0 fd2  = nt2::fastnormcdf(d2);
-  return a0*fd1 -a1 * ed * fd2;
+  return boost::simd::fnms(a1*ed, fd2, a0*fd1);
 }
 
 template<typename T>
@@ -49,14 +50,15 @@ public:
     va.resize(size_);
     R.resize(size_);
 
-    for(std::size_t i = 0; i < size_; ++i) Sa[i]=Xa[i]=Ta[i]=ra[i]=va[i]= value_type(i+1);
+    for(std::size_t i = 0; i < size_; ++i)
+      Sa[i] = Xa[i] = Ta[i] = ra[i] = va[i] = value_type(i+1);
   }
 
   virtual void run() const
   {
     for (std::size_t ii=0;ii<size_;ii++)
       R[ii] = blackandscholes(Sa[ii], Xa[ii], Ta[ii], ra[ii], va[ii]);
-    }
+  }
 
   virtual double compute(nt2::benchmark_result_t const& r) const
   {
