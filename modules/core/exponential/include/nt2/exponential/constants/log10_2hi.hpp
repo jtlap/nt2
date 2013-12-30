@@ -25,8 +25,8 @@ namespace nt2
       Hierarchy
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Log10_2hi, double
-                                , 0, 0x39826a14 // 3.0078125E-1f
-                                , 0x0ll
+                                , 0, 0x39826a14UL // 3.0078125E-1f
+                                , 0x0ULL
                                 );
   }
  /*!
