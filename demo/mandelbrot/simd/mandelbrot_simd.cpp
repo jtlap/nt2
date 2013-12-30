@@ -95,18 +95,25 @@ public:
   {
     using boost::simd::pack;
     using boost::simd::aligned_store;
+
     typedef pack<value_type> type;
-    std::size_t ii=0;
-    step_size_=boost::simd::meta::cardinal_of<type>::value;
-    while (size_-ii>=step_size_)
+
+    step_size_  = boost::simd::meta::cardinal_of<type>::value;
+    aligned_sz = size_ & ~(step_size_-1);
+    std::size_t it = 0;
+    //std::cout<<"aligned size "<<aligned_sz<<" step_size " << step_size_ <<'\n';
+
+    for(std::size_t m=aligned_sz; it != m; it+=step_size_)
     {
-      type A_pack = (&A[ii]);
-      type B_pack = (&B[ii]);
-      aligned_store(julia(A_pack, B_pack), &C[ii]);
-      ii+=step_size_;
+      type A_pack = (&A[it]);
+      type B_pack = (&B[it]);
+      aligned_store(julia(A_pack, B_pack), &C[it]);
     }
-    for (;ii<size_;ii++)
-      C[ii]=julia(A[ii],B[ii]);
+
+    for(std::size_t m=size_; it != m; it++)
+    {
+      C[it]=julia(A[it],B[it]);
+    }
   }
 
   virtual double compute(nt2::benchmark_result_t const& r) const
@@ -155,8 +162,14 @@ public:
     mandelbrot::step julia;
     std::size_t h_, w_, max_iter_, size_;
     mutable std::size_t step_size_;
+    mutable std::size_t aligned_sz;
+    mutable std::size_t it;
     value_type a0_, a1_, b0_, b1_;
 };
 
-NT2_RUN_EXPERIMENT_TPL( mandelbrot_simd, (float), (2000,2000,-1.5,0.5,-1.0,1.0,256));
 NT2_RUN_EXPERIMENT_TPL( mandelbrot_simd, (float), (100,100,-1.5,0.5,-1.0,1.0,256));
+NT2_RUN_EXPERIMENT_TPL( mandelbrot_simd, (float), (200,200,-1.5,0.5,-1.0,1.0,256));
+NT2_RUN_EXPERIMENT_TPL( mandelbrot_simd, (float), (400,400,-1.5,0.5,-1.0,1.0,256));
+NT2_RUN_EXPERIMENT_TPL( mandelbrot_simd, (float), (800,800,-1.5,0.5,-1.0,1.0,256));
+NT2_RUN_EXPERIMENT_TPL( mandelbrot_simd, (float), (1600,1600,-1.5,0.5,-1.0,1.0,256));
+NT2_RUN_EXPERIMENT_TPL( mandelbrot_simd, (float), (3200,3200,-1.5,0.5,-1.0,1.0,256));
