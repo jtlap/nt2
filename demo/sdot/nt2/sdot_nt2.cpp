@@ -12,10 +12,8 @@
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/table.hpp>
 #include <nt2/include/functions/multiplies.hpp>
-#include <nt2/include/functions/muls.hpp>
-#include <nt2/include/functions/muls.hpp>
 #include <nt2/include/functions/plus.hpp>
-#include <nt2/include/functions/sum.hpp>
+#include <nt2/include/functions/globalsum.hpp>
 
 #ifdef __ANDROID__
   #define TURBOFREQ 1.008000
@@ -23,12 +21,6 @@
   #define TURBOFREQ 3.401
 #endif
 #define NOPS 2.0
-
-template <class A0>
-BOOST_FORCEINLINE __attribute__((flatten)) A0 Tdot_work(A0 const& X, A0 const& Y)
-{
-  return(X*Y);
-}
 
 template<typename T>
 NT2_EXPERIMENT(Tdot_nt2)
@@ -45,8 +37,7 @@ NT2_EXPERIMENT(Tdot_nt2)
 
     virtual void run() const
     {
-      nt2::table<T> res = Tdot_work(X, Y);
-      result = nt2::sum(res);
+      result = nt2::globalsum(X*Y);
     }
     virtual double compute(nt2::benchmark_result_t const& r) const
     {
@@ -64,15 +55,27 @@ NT2_EXPERIMENT(Tdot_nt2)
     mutable std::size_t step_size;
     mutable nt2::table<T> X, Y;
 };
-typedef float K;
-NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (K), (16));
-NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (K), (32));
-NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (K), (64));
-NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (K), (128));
-NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (K), (256));
-NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (K), (512));
-NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (K), (1024));
-NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (K), (2048));
-NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (K), (4096));
-NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (K), (8192));
-NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (K), (16384));
+
+NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (float), (16));
+NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (float), (32));
+NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (float), (64));
+NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (float), (128));
+NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (float), (256));
+NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (float), (512));
+NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (float), (1024));
+NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (float), (2048));
+NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (float), (4096));
+NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (float), (8192));
+NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (float), (16384));
+
+NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (double), (16));
+NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (double), (32));
+NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (double), (64));
+NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (double), (128));
+NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (double), (256));
+NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (double), (512));
+NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (double), (1024));
+NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (double), (2048));
+NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (double), (4096));
+NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (double), (8192));
+NT2_RUN_EXPERIMENT_TPL( Tdot_nt2, (double), (16384));
