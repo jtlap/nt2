@@ -89,24 +89,22 @@ public:
 
     typedef pack<T> type;
 
+    step_size=boost::simd::meta::cardinal_of<type>::value;
+    aligned_sz = size & ~(step_size-1);
     for(std::size_t k=1; k<nb_frames; k++)
     {
-      std::size_t j=0;
-      step_size=boost::simd::meta::cardinal_of<type>::value;
-
-      while (size-j>=step_size)
+      it         = 0;
+      for(std::size_t m=aligned_sz; it != m; it += step_size)
       {
-        type bkg(&background_img[j]);
-        type fr(&frames[k][j]);
-        type var(&variance_img[j]);
-        aligned_store(do_work(bkg,fr,var),&etiquette_binaire[j]);
-        aligned_store(var,&variance_img[j]);
-
-        j += step_size;
+        type bkg(&background_img[it]);
+        type fr(&frames[k][it]);
+        type var(&variance_img[it]);
+        aligned_store(do_work(bkg,fr,var),&etiquette_binaire[it]);
+        aligned_store(var,&variance_img[it]);
       }
-      for (;j<size;j++)
+      for(std::size_t m=size; it != m; it++)
       {
-        etiquette_binaire[j] = do_work(background_img[j],frames[k][j], variance_img[j]);
+        etiquette_binaire[it] = do_work(background_img[it],frames[k][it], variance_img[it]);
       }
     }
   }
@@ -128,6 +126,8 @@ public:
   std::size_t height;
   std::size_t width;
   std::size_t size;
+  mutable std::size_t aligned_sz;
+  mutable std::size_t it;
   mutable std::vector< std::vector<T, boost::simd::allocator<T> > > frames;
   mutable std::vector<T, boost::simd::allocator<T> > variance_img, background_img, etiquette_binaire;
   static const T N=3;
@@ -135,8 +135,9 @@ public:
   std::size_t nb_frames;
 };
 
-NT2_RUN_EXPERIMENT_TPL( sigmadelta_simd, (nt2::uint8_t), (32,33,8));
-NT2_RUN_EXPERIMENT_TPL( sigmadelta_simd, (nt2::uint8_t), (64,65,8));
-NT2_RUN_EXPERIMENT_TPL( sigmadelta_simd, (nt2::uint8_t), (256,257,8));
-NT2_RUN_EXPERIMENT_TPL( sigmadelta_simd, (nt2::uint8_t), (512,513,8));
-NT2_RUN_EXPERIMENT_TPL( sigmadelta_simd, (nt2::uint8_t), (1024,1024,100));
+NT2_RUN_EXPERIMENT_TPL( sigmadelta_simd, (nt2::uint8_t), (32,32,100));
+NT2_RUN_EXPERIMENT_TPL( sigmadelta_simd, (nt2::uint8_t), (64,64,100));
+NT2_RUN_EXPERIMENT_TPL( sigmadelta_simd, (nt2::uint8_t), (256,256,100));
+NT2_RUN_EXPERIMENT_TPL( sigmadelta_simd, (nt2::uint8_t), (512,512,100));
+NT2_RUN_EXPERIMENT_TPL( sigmadelta_simd, (nt2::uint8_t), (2048,2048,100));
+NT2_RUN_EXPERIMENT_TPL( sigmadelta_simd, (nt2::uint8_t), (4096,4096,100));
