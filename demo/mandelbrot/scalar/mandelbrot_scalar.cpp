@@ -104,5 +104,9 @@ public:
     value_type a0_, a1_, b0_, b1_;
 };
 
-NT2_RUN_EXPERIMENT_TPL( mandelbrot_scalar, (float), (2000,2000,-1.5,0.5,-1.0,1.0,256));
 NT2_RUN_EXPERIMENT_TPL( mandelbrot_scalar, (float), (100,100,-1.5,0.5,-1.0,1.0,256));
+NT2_RUN_EXPERIMENT_TPL( mandelbrot_scalar, (float), (200,200,-1.5,0.5,-1.0,1.0,256));
+NT2_RUN_EXPERIMENT_TPL( mandelbrot_scalar, (float), (400,400,-1.5,0.5,-1.0,1.0,256));
+NT2_RUN_EXPERIMENT_TPL( mandelbrot_scalar, (float), (800,800,-1.5,0.5,-1.0,1.0,256));
+NT2_RUN_EXPERIMENT_TPL( mandelbrot_scalar, (float), (1600,1600,-1.5,0.5,-1.0,1.0,256));
+NT2_RUN_EXPERIMENT_TPL( mandelbrot_scalar, (float), (3200,3200,-1.5,0.5,-1.0,1.0,256));
