@@ -113,8 +113,9 @@ NT2_EXPERIMENT(sigmadelta_scalar)
   int nb_frames;
 };
 
-NT2_RUN_EXPERIMENT_TPL( sigmadelta_scalar, (nt2::uint8_t), (32,33,8));
-NT2_RUN_EXPERIMENT_TPL( sigmadelta_scalar, (nt2::uint8_t), (64,65,8));
-NT2_RUN_EXPERIMENT_TPL( sigmadelta_scalar, (nt2::uint8_t), (256,257,8));
-NT2_RUN_EXPERIMENT_TPL( sigmadelta_scalar, (nt2::uint8_t), (512,513,8));
-NT2_RUN_EXPERIMENT_TPL( sigmadelta_scalar, (nt2::uint8_t), (1024,1025,8));
+NT2_RUN_EXPERIMENT_TPL( sigmadelta_scalar, (nt2::uint8_t), (32,32,100));
+NT2_RUN_EXPERIMENT_TPL( sigmadelta_scalar, (nt2::uint8_t), (64,64,100));
+NT2_RUN_EXPERIMENT_TPL( sigmadelta_scalar, (nt2::uint8_t), (256,256,100));
+NT2_RUN_EXPERIMENT_TPL( sigmadelta_scalar, (nt2::uint8_t), (512,512,100));
+NT2_RUN_EXPERIMENT_TPL( sigmadelta_scalar, (nt2::uint8_t), (2048,2048,100));
+NT2_RUN_EXPERIMENT_TPL( sigmadelta_scalar, (nt2::uint8_t), (4096,4096,100));
