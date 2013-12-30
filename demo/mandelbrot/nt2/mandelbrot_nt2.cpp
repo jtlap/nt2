@@ -7,7 +7,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <iostream>
+
+#include <nt2/table.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/strip.hpp>
@@ -22,7 +23,6 @@
 #include <nt2/include/functions/colvect.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/table.hpp>
 #include <nt2/include/functions/arrayfun.hpp>
 
 #include "../include/utils.hpp"
@@ -120,7 +120,6 @@ public:
     A=nt2::expand_to(nt2::linspace(a0_,a1_,h_),h_,w_);
     B=nt2::expand_to(nt2::colvect(nt2::linspace(b0_,b1_,w_)),h_,w_);
     pass++;
-    pass++;
   }
 
   private:
@@ -132,5 +131,9 @@ public:
     value_type a0_, a1_, b0_, b1_;
 };
 
-NT2_RUN_EXPERIMENT_TPL( mandelbrot_nt2, (float), (2000,2000,-1.5,0.5,-1.0,1.0,256));
-NT2_RUN_EXPERIMENT_TPL( mandelbrot_nt2, (float), (100,100,-1.5,0.5,-1.0,1.0,256));
+NT2_RUN_EXPERIMENT_TPL( mandelbrot_nt2, (float), (100,100,-1.5f,0.5f,-1.0f,1.0f,256));
+NT2_RUN_EXPERIMENT_TPL( mandelbrot_nt2, (float), (200,200,-1.5f,0.5f,-1.0f,1.0f,256));
+NT2_RUN_EXPERIMENT_TPL( mandelbrot_nt2, (float), (400,400,-1.5f,0.5f,-1.0f,1.0f,256));
+NT2_RUN_EXPERIMENT_TPL( mandelbrot_nt2, (float), (800,800,-1.5f,0.5f,-1.0f,1.0f,256));
+NT2_RUN_EXPERIMENT_TPL( mandelbrot_nt2, (float), (1600,1600,-1.5f,0.5f,-1.0f,1.0f,256));
+NT2_RUN_EXPERIMENT_TPL( mandelbrot_nt2, (float), (3200,3200,-1.5f,0.5f,-1.0f,1.0f,256));
