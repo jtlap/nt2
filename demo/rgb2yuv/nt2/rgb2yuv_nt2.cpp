@@ -68,7 +68,11 @@ NT2_EXPERIMENT(rgb2yuv_nt2)
     nt2::table<T> r, g, b;
 };
 
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv_nt2,(float)(double),(37,1));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv_nt2,(float)(double),(50,50));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv_nt2,(float)(double),(1000,500));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv_nt2,(float)(double),(312,43));
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv_nt2,(float),(32,32));
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv_nt2,(float),(64,64));
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv_nt2,(float),(128,128));
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv_nt2,(float),(256,256));
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv_nt2,(float),(512,512));
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv_nt2,(float),(1024,1024));
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv_nt2,(float),(2048,2048));
+NT2_RUN_EXPERIMENT_TPL(rgb2yuv_nt2,(float),(4196,4196));
