@@ -6,17 +6,18 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/sdk/unit/exhaustive.hpp>
 #include <nt2/include/functions/log.hpp>
-
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/valmax.hpp>
+
+#include <nt2/sdk/unit/exhaustive.hpp>
+#include <cmath>
 
 struct raw_log
 {
   float operator()(float x) const
   {
-    return nt2::log(double(x));
+    return std::log(double(x));
   }
 };
 

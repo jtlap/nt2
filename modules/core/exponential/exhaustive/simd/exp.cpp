@@ -6,6 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/constants/valmin.hpp>
 #include <nt2/include/constants/valmax.hpp>
@@ -17,17 +18,20 @@ struct raw_exp
 {
   float operator()(float x) const
   {
-    return std::exp(double(x));
+    return float(std::exp(double(x)));
   }
 };
 
 int main()
 {
-  nt2::exhaustive_test<float> ( nt2::Valmin<float>()
-                              , nt2::Valmax<float>()
-                              , nt2::functor<nt2::tag::exp_>()
-                              , raw_exp()
-                              );
+  typedef BOOST_SIMD_DEFAULT_EXTENSION             ext_t;
+  typedef boost::simd::native<float,ext_t>           n_t;
+
+  nt2::exhaustive_test<n_t> ( nt2::Valmin<float>()
+                            , nt2::Valmax<float>()
+                            , nt2::functor<nt2::tag::exp_>()
+                            , raw_exp()
+                            );
 
   return 0;
 }
