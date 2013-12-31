@@ -8,8 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_ABS_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_ABS_HPP_INCLUDED
+
 #include <boost/simd/arithmetic/functions/abs.hpp>
-#include <math.h>
+#include <boost/simd/sdk/math.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

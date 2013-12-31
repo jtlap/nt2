@@ -8,12 +8,12 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_TRUNC_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_TRUNC_HPP_INCLUDED
+
 #include <boost/simd/arithmetic/functions/trunc.hpp>
 #include <boost/simd/include/functions/scalar/floor.hpp>
 #include <boost/simd/include/functions/scalar/abs.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_or.hpp>
 #include <boost/simd/include/functions/scalar/bitofsign.hpp>
-#include <math.h>
 
 namespace boost { namespace simd { namespace ext
 {

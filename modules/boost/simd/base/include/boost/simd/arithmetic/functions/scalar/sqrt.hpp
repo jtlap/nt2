@@ -11,9 +11,8 @@
 
 #include <boost/simd/arithmetic/functions/sqrt.hpp>
 #include <boost/simd/include/functions/scalar/is_gez.hpp>
-#include <boost/simd/sdk/config.hpp>
+#include <boost/simd/sdk/math.hpp>
 #include <boost/assert.hpp>
-#include <math.h>
 #include <cmath>
 
 namespace boost { namespace simd { namespace ext
