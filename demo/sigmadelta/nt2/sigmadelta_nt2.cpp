@@ -10,6 +10,7 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/min.hpp>
+#include <nt2/include/functions/adds.hpp>
 #include <nt2/include/functions/minus.hpp>
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/selinc.hpp>
