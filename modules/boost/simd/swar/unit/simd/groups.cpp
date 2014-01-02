@@ -15,6 +15,7 @@
 ///
 #include <boost/simd/swar/include/functions/groups.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/include/functions/enumerate.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -24,6 +25,23 @@
 #include <boost/simd/memory/is_aligned.hpp>
 #include <boost/simd/include/functions/load.hpp>
 #include <boost/simd/include/functions/divides.hpp>
+
+NT2_TEST_CASE_TPL( demote, BOOST_SIMD_SIMD_TYPES)
+{
+  using boost::simd::enumerate;
+  using boost::simd::groups;
+  using boost::simd::tag::groups_;
+  using boost::simd::native;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>               vT;
+  typedef typename boost::simd::meta::vector_of< typename boost::dispatch::meta::downgrade<T>::type, vT::static_size >::type dvT;
+  typedef typename boost::dispatch::meta::call<groups_(vT)>::type r_t;
+  NT2_TEST_TYPE_IS(r_t, dvT);
+
+  NT2_TEST_EQUAL( groups(boost::simd::enumerate<vT>(10))
+                , boost::simd::enumerate<dvT>(10)
+                );
+}
 
 NT2_TEST_CASE_TPL ( groups_groupsable__2_0, BOOST_SIMD_SIMD_GROUPABLE_TYPES)
 {
