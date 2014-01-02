@@ -32,15 +32,25 @@ NT2_TEST_CASE_TPL( demote, BOOST_SIMD_SIMD_TYPES)
   using boost::simd::groups;
   using boost::simd::tag::groups_;
   using boost::simd::native;
+  using boost::simd::Valmax;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>               vT;
   typedef typename boost::simd::meta::vector_of< typename boost::dispatch::meta::downgrade<T>::type, vT::static_size >::type dvT;
   typedef typename boost::dispatch::meta::call<groups_(vT)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type s_t;
   NT2_TEST_TYPE_IS(r_t, dvT);
 
-  NT2_TEST_EQUAL( groups(boost::simd::enumerate<vT>(10))
-                , boost::simd::enumerate<dvT>(10)
-                );
+  vT origin = boost::simd::enumerate<vT>( T(Valmax<s_t>()) - vT::static_size/2
+                                        , T(1)
+                                        );
+
+  dvT ref;
+
+  for(std::size_t i=0;i<vT::static_size;++i)
+    ref[i] = groups(origin[i]);
+
+  NT2_TEST_EQUAL( groups(origin), ref );
+
 }
 
 NT2_TEST_CASE_TPL ( groups_groupsable__2_0, BOOST_SIMD_SIMD_GROUPABLE_TYPES)
