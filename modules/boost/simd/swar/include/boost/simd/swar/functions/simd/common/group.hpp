@@ -39,11 +39,23 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return eval(a0, boost::mpl::bool_<(A0::static_size>=4)>());
+      return eval(a0, boost::is_same<A0, result_type>());
+    }
+
+    BOOST_FORCEINLINE
+    result_type eval(A0 const& a0, boost::mpl::false_ const&) const
+    {
+      return eval2(a0, boost::mpl::bool_<(A0::static_size>=4)>());
     }
 
     BOOST_FORCEINLINE
     result_type eval(A0 const& a0, boost::mpl::true_ const&) const
+    {
+      return a0;
+    }
+
+    BOOST_FORCEINLINE
+    result_type eval2(A0 const& a0, boost::mpl::true_ const&) const
     {
       typename simd::meta::vector_of< typename A0::value_type
                                     , A0::static_size/2
@@ -53,7 +65,7 @@ namespace boost { namespace simd { namespace ext
     }
 
     BOOST_FORCEINLINE
-    result_type eval(A0 const& a0, boost::mpl::false_ const&) const
+    result_type eval2(A0 const& a0, boost::mpl::false_ const&) const
     {
       return make<result_type>( static_cast<base_t>( extract<0>(a0) )
                               , static_cast<base_t>( extract<1>(a0) )
