@@ -31,10 +31,6 @@ NT2_TEST_CASE_TPL( split, BOOST_SIMD_SIMD_SPLITABLE_TYPES )
 
   typedef typename boost::dispatch::meta::upgrade<vT>::type uvT;
 
-  NT2_TEST_TYPE_IS( (typename nt2::meta::call<split_(vT)>::type)
-                  , (std::pair<uvT,uvT>)
-                  );
-
   {
     uvT f,s;
 
@@ -58,28 +54,37 @@ NT2_TEST_CASE_TPL( split, BOOST_SIMD_SIMD_SPLITABLE_TYPES )
     NT2_TEST_EQUAL(f, nt2::splat<uvT>(nt2::Valmin<T>()) );
     NT2_TEST_EQUAL(s, nt2::splat<uvT>(nt2::Valmin<T>()) );
   }
+}
+
+NT2_TEST_CASE_TPL( split_one_output, BOOST_SIMD_SIMD_TYPES )
+{
+  using nt2::splat;
+  using nt2::split;
+  using nt2::tag::split_;
+  using boost::simd::native;
+
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>             vT;
+
+  typedef typename boost::dispatch::meta::upgrade<vT>::type uvT;
+
+  typedef typename boost::simd::meta::
+          vector_of< typename boost::dispatch::meta::
+                     upgrade<T>::type
+                   , vT::static_size
+                   >::type uvT2;
+
+  NT2_TEST_TYPE_IS( (typename nt2::meta::call<split_(vT)>::type)
+                  , uvT2
+                  );
 
   {
-    uvT f,s;
-
-    boost::fusion::vector_tie(f,s) = split(nt2::Valmax<vT>());
-    NT2_TEST_EQUAL(f, nt2::splat<uvT>(nt2::Valmax<T>()) );
-    NT2_TEST_EQUAL(s, nt2::splat<uvT>(nt2::Valmax<T>()) );
-
-    boost::fusion::vector_tie(f,s) = split(nt2::Valmin<vT>());
-    NT2_TEST_EQUAL(f, nt2::splat<uvT>(nt2::Valmin<T>()) );
-    NT2_TEST_EQUAL(s, nt2::splat<uvT>(nt2::Valmin<T>()) );
-  }
-
-  {
-    std::pair<uvT,uvT> p;
+    uvT2 p;
 
     p = split(nt2::Valmax<vT>());
-    NT2_TEST_EQUAL(p.first, nt2::splat<uvT>(nt2::Valmax<T>()) );
-    NT2_TEST_EQUAL(p.second, nt2::splat<uvT>(nt2::Valmax<T>()) );
+    NT2_TEST_EQUAL(p, nt2::splat<uvT2>(nt2::Valmax<T>()) );
 
     p = split(nt2::Valmin<vT>());
-    NT2_TEST_EQUAL(p.first, nt2::splat<uvT>(nt2::Valmin<T>()) );
-    NT2_TEST_EQUAL(p.second, nt2::splat<uvT>(nt2::Valmin<T>()) );
+    NT2_TEST_EQUAL(p, nt2::splat<uvT2>(nt2::Valmin<T>()) );
   }
 }
