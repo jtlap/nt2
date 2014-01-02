@@ -19,8 +19,9 @@
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
-NT2_TEST_CASE_TPL( demote, BOOST_SIMD_SIMD_GROUPABLE_TYPES)
+NT2_TEST_CASE_TPL( demote, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::enumerate;
   using boost::simd::group;
@@ -28,8 +29,9 @@ NT2_TEST_CASE_TPL( demote, BOOST_SIMD_SIMD_GROUPABLE_TYPES)
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>               vT;
-  typedef typename boost::dispatch::meta::downgrade<vT>::type    dvT;
+  typedef typename boost::simd::meta::vector_of< typename boost::dispatch::meta::downgrade<T>::type, vT::static_size >::type dvT;
   typedef typename boost::dispatch::meta::call<group_(vT)>::type r_t;
+  NT2_TEST_TYPE_IS(r_t, dvT);
 
   NT2_TEST_EQUAL( group(boost::simd::enumerate<vT>(T(-vT::static_size/2)))
                 , boost::simd::enumerate<dvT>(T(-vT::static_size/2))
