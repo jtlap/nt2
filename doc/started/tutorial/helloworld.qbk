@@ -2,7 +2,7 @@
 Here is our proverbial __NT2__ 'Hello World' application which performs a simple
 AXPY operation.
 
-[import ../../demo/helloworld/nt2/helloworld.cpp]
+[import ../../../demo/helloworld/nt2/helloworld_nt2.cpp]
 [hello]
 
 Let's go over each parts of this code.

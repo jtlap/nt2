@@ -36,7 +36,7 @@ namespace nt2 { namespace tag
     @see @funcref{am}
     @param a0 angle in radian
     @param a1 modulus
-    @param a1 tolérance : lesser accuracy versus speed (default is Eps<T0>())
+    @param a1 tolerance : lesser accuracy versus speed (default is Eps<T0>())
 
     @return A Fusion Sequence containing the sn, cn and dn values
   **/

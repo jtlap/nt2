@@ -1,3 +1,5 @@
+//[hello
+
 #include <iostream>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/sdk/simd/pack.hpp>
@@ -19,3 +21,5 @@ int main(int argc, const char *argv[])
 
   return 0;
 }
+//]
+
