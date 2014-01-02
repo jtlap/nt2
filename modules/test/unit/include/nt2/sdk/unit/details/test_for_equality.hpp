@@ -62,9 +62,10 @@ namespace nt2 { namespace details
     BOOST_FORCEINLINE bool
     eval(A const& a, B const& b,boost::mpl::true_ const&) const
     {
-      return eval ( a , b
-                  , typename boost::fusion::result_of::size<A>::type()
-                  );
+      return (boost::fusion::size(a) == boost::fusion::size(b))
+            && eval ( a , b
+                    , typename boost::fusion::result_of::size<A>::type()
+                    );
     }
 
     BOOST_FORCEINLINE bool
@@ -100,18 +101,22 @@ namespace nt2 { namespace details
 
     BOOST_FORCEINLINE bool operator()(A const& a, B const& b) const
     {
+      if(std::distance(a.begin(),a.end()) == std::distance(b.begin(),b.end()))
+      {
 #if BOOST_WORKAROUND(BOOST_MSVC, >= 1400) && BOOST_WORKAROUND(BOOST_MSVC, < 1600)
-      return stdext::unchecked_equal(a.begin(),a.end(),b.begin(),check_());
+        return stdext::unchecked_equal(a.begin(),a.end(),b.begin(),check_());
 #elif BOOST_WORKAROUND(BOOST_MSVC, > 1500)
 
-      return std::equal
-            ( a.begin(), a.end()
-            , stdext::make_unchecked_array_iterator(b.begin())
-            , check_()
-            );
+      return std::equal ( a.begin(), a.end()
+                        , stdext::make_unchecked_array_iterator(b.begin())
+                        , check_()
+                        );
 #else
-    return std::equal(a.begin(),a.end(),b.begin(),check_());
+      return std::equal(a.begin(),a.end(),b.begin(),check_());
 #endif
+      }
+
+      return false;
     }
   };
 
