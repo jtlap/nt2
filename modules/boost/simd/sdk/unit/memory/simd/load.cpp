@@ -84,9 +84,10 @@ struct nt2_test_run_load_gather
 
     typedef native<T,ext_t>                                       vT;
     typedef typename boost::dispatch::meta::
-            as_integer< typename boost::simd::meta::
-                        as_arithmetic<vT>::type
-                      >::type                                     viT;
+            make_integer< 4, unsigned>::type                      iT;
+
+    typedef typename boost::simd::meta
+                          ::vector_of<iT,cardinal_of<vT>::value>::type viT;
     typedef typename
             boost::dispatch::
             meta::call<load_(U*,viT,boost::dispatch::meta::as_<vT>)>::type r_t;
@@ -96,7 +97,8 @@ struct nt2_test_run_load_gather
     NT2_TEST( (boost::is_same<vT,r_t>::value) );
 
     U data[ cardinal_of<vT>::value*3 ];
-    for(size_t i=0;i<cardinal_of<vT>::value*3;++i) data[i] = U(1+i);
+    for(size_t i=0;i<cardinal_of<vT>::value*3;++i)
+      data[i] = i%2 ? U(1+i) : -U(1+i);
 
     viT index;
     for(size_t i=0;i<cardinal_of<viT>::value;++i)
