@@ -17,6 +17,8 @@
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/value.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/zero.hpp>
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/core/container/dsl/alias.hpp>
 #include <nt2/core/container/dsl/as_terminal.hpp>
