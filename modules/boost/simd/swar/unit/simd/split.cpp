@@ -34,10 +34,6 @@ NT2_TEST_CASE_TPL( split, BOOST_SIMD_SIMD_SPLITABLE_TYPES )
   typedef typename boost::dispatch::meta::upgrade<T>::type uT;
   typedef typename boost::dispatch::meta::upgrade<vT>::type uvT;
 
-  NT2_TEST_TYPE_IS( (typename boost::dispatch::meta::call<split_(vT)>::type)
-                  , (std::pair<uvT,uvT>)
-                  );
-
 
   uvT ref0, ref1;
   uint64_t i=0;
@@ -61,20 +57,6 @@ NT2_TEST_CASE_TPL( split, BOOST_SIMD_SIMD_SPLITABLE_TYPES )
   }
 
   {
-    uvT out0, out1;
-    boost::fusion::vector_tie(out0,out1) = split(enumerate<vT>(0));
-    NT2_TEST_EQUAL(out0, ref0);
-    NT2_TEST_EQUAL(out1, ref1);
-  }
-
-  {
-    std::pair<uvT,uvT> p;
-    p = split(enumerate<vT>(0));
-    NT2_TEST_EQUAL(p.first, ref0);
-    NT2_TEST_EQUAL(p.second, ref1);
-  }
-
-  {
     uvT f,s;
 
     split(boost::simd::Valmax<vT>(), f, s);
@@ -84,5 +66,38 @@ NT2_TEST_CASE_TPL( split, BOOST_SIMD_SIMD_SPLITABLE_TYPES )
     split(boost::simd::Valmin<vT>(), f, s);
     NT2_TEST_EQUAL(f, boost::simd::splat<uvT>(boost::simd::Valmin<T>()) );
     NT2_TEST_EQUAL(s, boost::simd::splat<uvT>(boost::simd::Valmin<T>()) );
+  }
+}
+
+NT2_TEST_CASE_TPL( split_one_output, BOOST_SIMD_SIMD_TYPES )
+{
+  using boost::simd::split;
+  using boost::simd::tag::split_;
+  using boost::simd::native;
+  using boost::simd::splat;
+  using boost::simd::enumerate;
+
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>             vT;
+
+  typedef typename boost::dispatch::meta::upgrade<T>::type uT;
+
+  typedef typename boost::simd::meta::
+          vector_of< uT
+                   , vT::static_size
+                   >::type uvT2;
+
+  NT2_TEST_TYPE_IS( (typename boost::dispatch::meta::call<split_(vT)>::type)
+                  , (uvT2)
+                  );
+
+  {
+    uvT2 p;
+
+    p = split(boost::simd::Valmax<vT>());
+    NT2_TEST_EQUAL(p, boost::simd::splat<uvT2>(boost::simd::Valmax<T>()) );
+
+    p = split(boost::simd::Valmin<vT>());
+    NT2_TEST_EQUAL(p, boost::simd::splat<uvT2>(boost::simd::Valmin<T>()) );
   }
 }

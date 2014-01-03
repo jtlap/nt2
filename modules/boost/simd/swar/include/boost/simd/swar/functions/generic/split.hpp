@@ -11,8 +11,6 @@
 
 #include <boost/simd/swar/functions/split.hpp>
 #include <boost/simd/sdk/meta/is_upgradable.hpp>
-#include <boost/fusion/include/std_pair.hpp>
-#include <boost/mpl/not.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -30,23 +28,6 @@ namespace boost { namespace simd { namespace ext
       result_type a1;
       boost::simd::split(a0, a1, a2);
       return a1;
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::split_, tag::cpu_
-                                      , (A0)
-                                      , ( simd::meta::is_upgradable<A0> )
-                                      , (generic_< unspecified_<A0> >)
-                                      )
-  {
-    typedef typename dispatch::meta::upgrade<A0>::type        part;
-    typedef std::pair<part,part>                       result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
-    {
-      part first, second;
-      boost::simd::split( a0, first, second );
-      return result_type(first, second);
     }
   };
 } } }
