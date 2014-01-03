@@ -12,14 +12,12 @@
 #include <nt2/swar/functions/group.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/sdk/complex/hierarchy.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/type_traits/is_same.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is downgradable
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::group_, tag::cpu_,
@@ -47,7 +45,37 @@ namespace nt2 { namespace ext
     typedef typename boost::dispatch::meta::downgrade<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return result_type(group(nt2::real(a0), nt2::real(a1)));
+      return bitwise_cast<result_type>(group(nt2::real(a0), nt2::real(a1)));
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::group_, tag::cpu_,
+                             (A0)(X),
+                             ((simd_<complex_<arithmetic_<A0> >,X>))
+                           )
+  {
+    typedef typename boost::dispatch::meta::downgrade<typename A0::value_type>::type base_t;
+    typedef typename boost::simd::meta::vector_of< base_t
+                                                 , A0::static_size
+                                                 >::type result_type;
+    NT2_FUNCTOR_CALL_REPEAT(1)
+    {
+      return result_type(group(nt2::real(a0)), group(nt2::imag(a0)));
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::group_, tag::cpu_,
+                             (A0)(X),
+                             ((simd_<dry_<arithmetic_<A0> >,X>))
+                           )
+  {
+    typedef typename boost::dispatch::meta::downgrade<typename A0::value_type>::type base_t;
+    typedef typename boost::simd::meta::vector_of< base_t
+                                                 , A0::static_size
+                                                 >::type result_type;
+    NT2_FUNCTOR_CALL_REPEAT(1)
+    {
+      return bitwise_cast<result_type>(group(nt2::real(a0)));
     }
   };
 } }

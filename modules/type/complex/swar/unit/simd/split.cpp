@@ -35,11 +35,6 @@ NT2_TEST_CASE_TPL( split_complex, BOOST_SIMD_SIMD_REAL_SPLITABLE_TYPES )
 
   typedef typename boost::dispatch::meta::upgrade<vT>::type uvT;
   typedef typename nt2::meta::as_complex<uvT>::type        ucvT;
-  typedef typename nt2::meta::call<split_(cvT)>::type  wished_t;
-
-  NT2_TEST_TYPE_IS( (wished_t)
-                  , (std::pair<ucvT,ucvT>)
-                  );
 
   {
     ucvT f,s;
@@ -64,18 +59,37 @@ NT2_TEST_CASE_TPL( split_complex, BOOST_SIMD_SIMD_REAL_SPLITABLE_TYPES )
     NT2_TEST_EQUAL(f, nt2::Zero<ucvT>() );
     NT2_TEST_EQUAL(s, nt2::Zero<ucvT>() );
   }
+}
+
+NT2_TEST_CASE_TPL( split_one_output, BOOST_SIMD_SIMD_REAL_TYPES )
+{
+  using nt2::splat;
+  using nt2::split;
+  using nt2::tag::split_;
+  using boost::simd::native;
+
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>             vT;
+  typedef typename nt2::meta::as_complex<T>::type          cT;
+  typedef typename nt2::meta::as_complex<vT>::type        cvT;
+
+  typedef typename boost::simd::meta::
+          vector_of< typename boost::dispatch::meta::
+                     upgrade<cT>::type
+                   , cvT::static_size
+                   >::type ucvT2;
+
+  NT2_TEST_TYPE_IS( (typename nt2::meta::call<split_(cvT)>::type)
+                  , ucvT2
+                  );
 
   {
-    std::pair<ucvT, ucvT> p;
-    p = split(nt2::Zero<cvT>());
-
-    NT2_TEST_EQUAL(p.first, nt2::Zero<ucvT>() );
-    NT2_TEST_EQUAL(p.second, nt2::Zero<ucvT>() );
+    ucvT2 p;
 
     p = split(nt2::One<cvT>());
+    NT2_TEST_EQUAL(p, nt2::One<ucvT2>());
 
-    NT2_TEST_EQUAL(p.first, nt2::One<ucvT>() );
-    NT2_TEST_EQUAL(p.second, nt2::One<ucvT>() );
+    p = split(nt2::Zero<cvT>());
+    NT2_TEST_EQUAL(p, nt2::Zero<ucvT2>());
   }
-
 }
