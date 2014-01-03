@@ -84,13 +84,16 @@ namespace nt2 { namespace ext
     result_type operator()(A0& a0, I0&, boost::mpl::false_) const
     {
       typedef typename A0::proto_child0 container_ref;
-      typedef typename container_ref::base_t base_t;
+      typedef typename container_ref::base_t base0_t;
+      typedef typename meta::add_settings<base0_t, _4D>::type base_t;
+
       typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<base_t&>, 0l> basic_expr;
       typedef nt2::container::expression<basic_expr, base_t&> nt2_expr;
 
+      // FIXME: this static_cast isn't really safe
       nt2_expr c(basic_expr::make(static_cast<base_t&>(*boost::proto::value(a0).base())));
-      std::size_t b = c.raw()-a0.raw() + 1u;
-      nt2::erase(c, nt2::aggregate(_(b, b+numel(a0))));
+      std::size_t b = c.raw()-a0.raw();
+      nt2::erase(c, nt2::aggregate(_(b+1u, b+numel(a0))));
       return a0;
     }
   };

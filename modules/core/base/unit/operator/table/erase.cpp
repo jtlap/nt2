@@ -46,12 +46,27 @@ NT2_TEST_CASE( erase_function )
                                                                                             , nt2::vertcat(_(T(41), T(44)), _(T(45), T(48)))
                                                                       )
                                                             )
+
                             );
   nt2::table<T> b = nt2::cat(boost::mpl::int_<3>(), nt2::vertcat( _(T(9), T(12)), _(T(13), T(16)) )
-                                                  , nt2::vertcat( _(T(17), T(20)), _(T(21), T(24)) )
+                                                  , nt2::cat(boost::mpl::int_<3>(), nt2::vertcat( _(T(17), T(20)), _(T(21), T(24)) )
+                                                            , nt2::cat(boost::mpl::int_<3>(), nt2::vertcat(_(T(25), T(28)), _(T(29), T(32)))
+                                                                      , nt2::cat(boost::mpl::int_<3>(), nt2::vertcat(_(T(33), T(36)), _(T(37), T(40)))
+                                                                                                      , nt2::vertcat(_(T(41), T(44)), _(T(45), T(48)))
+                                                                                )
+                                                                      )
+
+                                                            )
                             );
   nt2::table<T> c = nt2::cat(boost::mpl::int_<3>(), nt2::vertcat( _(T(10), T(12)), _(T(14), T(16)) )
-                                                  , nt2::vertcat( _(T(18), T(20)), _(T(22), T(24)) )
+                                                  , nt2::cat(boost::mpl::int_<3>(), nt2::vertcat(_(T(18), T(20)), _(T(22), T(24)))
+                                                            , nt2::cat(boost::mpl::int_<3>(), nt2::vertcat(_(T(26), T(28)), _(T(30), T(32)))
+                                                                      , nt2::cat(boost::mpl::int_<3>(), nt2::vertcat(_(T(34), T(36)), _(T(38), T(40)))
+                                                                                                      , nt2::vertcat(_(T(42), T(44)), _(T(46), T(48)))
+                                                                                )
+                                                                      )
+
+                                                            )
                             );
 
   nt2::table<T> a2 = a;
@@ -61,8 +76,8 @@ NT2_TEST_CASE( erase_function )
 
   a = a2;
   a(_, _, 1, 1) = _();
+  //nt2::erase(a, nt2::aggregate(_(1, 8)));
   NT2_TEST_EQUAL(a, b);
-
 
   a = b;
   nt2::erase(a, nt2::aggregate(_, 1, _));
@@ -74,10 +89,10 @@ NT2_TEST_CASE( erase_function )
 
   a = c;
   nt2::erase(a, nt2::aggregate(1, 1, 1));
-  NT2_TEST_EQUAL(a, nt2::cons<T>(of_size(1, 11), 14, 11, 15, 12, 16, 18, 22, 19, 23, 20, 24));
+  NT2_TEST_EQUAL(a, nt2::cons<T>(of_size(1, 29), 14, 11, 15, 12, 16, 18, 22, 19, 23, 20, 24, 26, 30, 27, 31, 28, 32, 34, 38, 35, 39, 36, 40, 42, 46, 43, 47, 44, 48));
 
   nt2::erase(b, nt2::aggregate(1, _, 1));
-  NT2_TEST_EQUAL(b, nt2::cons<T>(of_size(1, 12), 13, 14, 15, 16, 17, 21, 18, 22, 19, 23, 20, 24));
+  NT2_TEST_EQUAL(b, nt2::cons<T>(of_size(1, 36), 13, 14, 15, 16, 17, 21, 18, 22, 19, 23, 20, 24, 25, 29, 26, 30, 27, 31, 28, 32, 33, 37, 34, 38, 35, 39, 36, 40, 41, 45, 42, 46, 43, 47, 44, 48));
 }
 
 NT2_TEST_CASE( erase_along )

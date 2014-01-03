@@ -20,18 +20,38 @@ namespace nt2
   template<std::size_t N, class A, class Phi>
   void erase_impl(A& a, Phi const& phi)
   {
+    std::size_t m = nt2::numel(phi);
+    if(!m)
+      return;
+
     std::size_t j = nt2::run(phi, 0u, meta::as_<std::size_t>());
     std::size_t k = 0u;
+    std::size_t i = 0u;
 
     typename A::value_type* p = a.raw();
     std::size_t n = nt2::numel(a);
-    for(std::size_t i = 0; i != n; ++i)
+
+    for(; i != n; ++i)
     {
       if(i != j)
+      {
         p[k++] = p[i];
+      }
       else
-        j = nt2::run(phi, i-k+1, meta::as_<std::size_t>());
+      {
+        if(i-k+1 < m)
+        {
+          j = nt2::run(phi, i-k+1, meta::as_<std::size_t>());
+        }
+        else
+        {
+          ++i;
+          break;
+        }
+      }
     }
+    for(; i != n; ++i)
+      p[k++] = p[i];
 
     // compute size: if only one size changes (+ trailing ones) then keep the shape, otherwise linearize
     typedef typename nt2::make_size<N>::type size_type;
@@ -43,11 +63,10 @@ namespace nt2
     {
       if(phi_sz[i] != sz[i])
       {
-        if(found == -1 || phi_sz[i] == 1u)
+        if(found == -1)
         {
           sz[i] -= phi_sz[i];
-          if(found == -1)
-            found = i;
+          found = i;
         }
         else
         {
@@ -56,6 +75,7 @@ namespace nt2
         }
       }
     }
+
     if(found == -1 || found == 0)
       sz = nt2::of_size(1u, k);
     a.resize(sz);
