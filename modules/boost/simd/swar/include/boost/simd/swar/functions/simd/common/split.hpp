@@ -13,6 +13,8 @@
 #include <boost/simd/include/functions/simd/split_low.hpp>
 #include <boost/simd/include/functions/simd/split_high.hpp>
 #include <boost/simd/include/functions/simd/combine.hpp>
+#include <boost/simd/include/functions/simd/extract.hpp>
+#include <boost/simd/include/functions/simd/make.hpp>
 #include <boost/simd/sdk/meta/is_upgradable.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -51,7 +53,7 @@ namespace boost { namespace simd { namespace ext
       return eval(a0, simd::meta::is_upgradable<A0>());
     }
 
-    BOOST_FORCEINLINE result_type eval(A0 const& a0, boost::mpl::true_) const
+    BOOST_FORCEINLINE result_type eval2(A0 const& a0, boost::mpl::true_) const
     {
       typename simd::meta::vector_of< base_t
                                     , A0::static_size/2
@@ -60,9 +62,21 @@ namespace boost { namespace simd { namespace ext
       return boost::simd::combine(a00,a01);
     }
 
+    BOOST_FORCEINLINE result_type eval2(A0 const& a0, boost::mpl::false_) const
+    {
+      return make<result_type>( static_cast<base_t>( extract<0>(a0) )
+                              , static_cast<base_t>( extract<1>(a0) )
+                              );
+    }
+
     BOOST_FORCEINLINE result_type eval(A0 const& a0, boost::mpl::false_) const
     {
       return a0;
+    }
+
+    BOOST_FORCEINLINE result_type eval(A0 const& a0, boost::mpl::true_) const
+    {
+      return eval2(a0, boost::mpl::bool_<(A0::static_size>=4)>());
     }
   };
 } } }
