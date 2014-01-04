@@ -6,13 +6,23 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/sdk/unit/exhaustive.hpp>
-#include <nt2/include/functions/fast_rec.hpp>
-#include <nt2/include/functions/rec.hpp>
-
 #include <boost/simd/sdk/simd/native.hpp>
+#include <nt2/include/functions/fast_rec.hpp>
 #include <nt2/include/constants/valmin.hpp>
 #include <nt2/include/constants/valmax.hpp>
+
+#include <nt2/sdk/unit/exhaustive.hpp>
+
+#define NT2_ASSERTS_AS_TRAP
+#include <nt2/sdk/error/assert_as_trap.hpp>
+
+struct raw_rec
+{
+  float operator()(float x) const
+  {
+    return 1.f/x;
+  }
+};
 
 int main()
 {
@@ -22,7 +32,7 @@ int main()
   nt2::exhaustive_test<n_t> ( nt2::Valmin<float>()
                             , nt2::Valmax<float>()
                             , nt2::functor<nt2::tag::fast_rec_>()
-                            , nt2::functor<nt2::tag::rec_>()
+                            , raw_rec()
                             );
 
   return 0;

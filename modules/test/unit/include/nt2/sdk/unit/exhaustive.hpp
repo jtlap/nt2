@@ -28,13 +28,10 @@
 #include <cstdio>
 #include <cstddef>
 
-#define NT2_ASSERTS_AS_TRAP
-#include <nt2/sdk/error/assert_as_trap.hpp>
-
 namespace nt2
 {
   /*!
-    @brief Exhaustive precision test for single precision driver
+    @brief Exhaustive precision test for single precision
 
     Perform a ULP test on every representable single precision value
     in a given interval. Results are reported using a bucket histogram that
@@ -64,6 +61,11 @@ namespace nt2
     #include <nt2/include/constants/valmax.hpp>
 
     #include <nt2/sdk/unit/exhaustive.hpp>
+
+    // specific to nt2 tests: specify assert handling
+    #define NT2_ASSERTS_AS_TRAP
+    #include <nt2/sdk/error/assert_as_trap.hpp>
+
     #include <cmath>
     #include <cstdlib>
 

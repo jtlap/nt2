@@ -6,13 +6,17 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/sdk/unit/exhaustive.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <cmath>
-
 #include <boost/simd/sdk/simd/native.hpp>
+#include <nt2/include/functions/abs.hpp>
 #include <nt2/include/constants/valmin.hpp>
 #include <nt2/include/constants/valmax.hpp>
+
+#include <nt2/sdk/unit/exhaustive.hpp>
+
+#define NT2_ASSERTS_AS_TRAP
+#include <nt2/sdk/error/assert_as_trap.hpp>
+
+#include <cmath>
 
 struct raw_abs
 {

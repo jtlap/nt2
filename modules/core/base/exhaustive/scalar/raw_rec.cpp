@@ -6,11 +6,14 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/sdk/unit/exhaustive.hpp>
-#include <nt2/include/functions/raw_ec.hpp>
-
+#include <nt2/include/functions/raw_rec.hpp>
 #include <nt2/include/constants/valmin.hpp>
 #include <nt2/include/constants/valmax.hpp>
+
+#include <nt2/sdk/unit/exhaustive.hpp>
+
+#define NT2_ASSERTS_AS_TRAP
+#include <nt2/sdk/error/assert_as_trap.hpp>
 
 struct raw_rec
 {
@@ -24,7 +27,7 @@ int main()
 {
   nt2::exhaustive_test<float> ( nt2::Valmin<float>()
                               , nt2::Valmax<float>()
-                              , nt2::functor<nt2::tag::rec_>()
+                              , nt2::functor<nt2::tag::raw_rec_>()
                               , raw_rec()
                               );
 
