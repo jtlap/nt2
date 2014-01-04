@@ -104,7 +104,7 @@ NT2_TEST_CASE_TPL( logspace_pi, NT2_REAL_TYPES )
   ref = nt2::exp10(nt2::linspace(T(2),nt2::Pi<T>(), 7));
 
   NT2_TEST_EQUAL( xr.extent(), nt2::of_size(1,7 ) );
-  NT2_TEST_ULP_EQUAL( xr, ref, 1 );
+  NT2_TEST_ULP_EQUAL( xr, ref, 5 );
 
   nt2::table<T> xd1 = nt2::logspace(T(2),nt2::Pi<T>(),1, nt2::regular_);
   nt2::table<T> xd2 = nt2::logspace(T(2),nt2::Pi<T>(),1);
