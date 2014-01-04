@@ -12,6 +12,7 @@
 
 #include <nt2/sdk/unit/exhaustive.hpp>
 #include <cmath>
+#include <cstdlib>
 
 struct raw_exp
 {
@@ -21,10 +22,14 @@ struct raw_exp
   }
 };
 
-int main()
+int main(int argc, char* argv[])
 {
-  nt2::exhaustive_test<float> ( nt2::Valmin<float>()
-                              , nt2::Valmax<float>()
+  float mini = nt2::Valmin<float>();
+  float maxi = nt2::Valmax<float>();
+  if(argc >= 2) mini = std::atof(argv[1]);
+  if(argc >= 3) maxi = std::atof(argv[2]);
+  nt2::exhaustive_test<float> ( mini
+                              , maxi
                               , nt2::functor<nt2::tag::exp_>()
                               , raw_exp()
                               );

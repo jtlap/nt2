@@ -13,6 +13,7 @@
 
 #include <nt2/sdk/unit/exhaustive.hpp>
 #include <cmath>
+#include <cstdlib>
 
 struct raw_exp
 {
@@ -22,13 +23,17 @@ struct raw_exp
   }
 };
 
-int main()
+int main(int argc, char* argv[])
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION             ext_t;
   typedef boost::simd::native<float,ext_t>           n_t;
+  float mini = nt2::Valmin<float>();
+  float maxi = nt2::Valmax<float>();
+  if(argc >= 2) mini = std::atof(argv[1]);
+  if(argc >= 3) maxi = std::atof(argv[2]);
 
-  nt2::exhaustive_test<n_t> ( nt2::Valmin<float>()
-                            , nt2::Valmax<float>()
+  nt2::exhaustive_test<n_t> (mini
+                            , maxi
                             , nt2::functor<nt2::tag::exp_>()
                             , raw_exp()
                             );
