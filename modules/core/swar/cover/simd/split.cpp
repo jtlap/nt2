@@ -62,15 +62,11 @@ NT2_TEST_CASE_TPL ( split_splitable,  NT2_SIMD_SPLITABLE_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, T(-1e30), T(1e30));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
-      {
-        vT a0 = aligned_load<vT>(&tab_a0[0],j);
-        r_t v = split(a0);
-        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value/2; i++)
-        {
-          NT2_TEST_EQUAL( boost::fusion::get<0>(v)[i],a0[i]);
-          NT2_TEST_EQUAL( boost::fusion::get<1>(v)[i],a0[i+cardinal_of<n_t>::value/2]);
-        }
-      }
-
+    {
+      vT a0 = aligned_load<vT>(&tab_a0[0],j);
+      r_t v = split(a0);
+      for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
+        NT2_TEST_EQUAL(v[i], a0[i]);
+    }
   }
 } // end of test for lt_64_
