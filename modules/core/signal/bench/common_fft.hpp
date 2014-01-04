@@ -119,14 +119,14 @@ struct complex_fft
 //==============================================================================
 // Base Apple vDSP Complex FFT experiment
 //==============================================================================
-class apple_fft_test
+struct apple_fft
 {
-  apple_fft_test( std::size_t n )
-                : log2length_( boost::simd::ilog2( n ) )
-                , fft_instance_ ( ::vDSP_create_fftsetup( log2length_
-                                                        , kFFTRadix2
-                                                        )
-                                )
+  apple_fft( std::size_t n )
+           : log2length_( boost::simd::ilog2( n ) )
+           , fft_instance_ ( ::vDSP_create_fftsetup( log2length_
+                                                   , kFFTRadix2
+                                                   )
+                           )
   {
     if ( !fft_instance_ )
     {
@@ -135,7 +135,7 @@ class apple_fft_test
     }
   }
 
-  ~apple_fft_test() { ::vDSP_destroy_fftsetup( fft_instance_ ); }
+  ~apple_fft() { ::vDSP_destroy_fftsetup( fft_instance_ ); }
 
   FFTSetup     instance()  const  { return fft_instance_; }
   std::size_t log2length() const  { return log2length_  ; }
@@ -147,11 +147,11 @@ class apple_fft_test
 //==============================================================================
 // Base Apple vDSP Real FFT experiment
 //==============================================================================
-class apple_real_fft_test : public apple_fft_test, public real_fft_test
+struct apple_real_fft : public apple_fft, public real_fft
 {
-  apple_real_fft_test( std::size_t n ) : apple_fft_test(n), real_fft_test(n) {}
+  apple_real_fft( std::size_t n ) : apple_fft(n), real_fft(n) {}
 
-  DSPSplitComplex split_data() const
+  DSPSplitComplex split_data()
   {
     DSPSplitComplex complex_data =  { &real_frequency_data_[0]
                                     , &imag_frequency_data_[0]

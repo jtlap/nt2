@@ -133,10 +133,10 @@ NT2_REGISTER_BENCHMARK( fft_real_inverse )
 // Apple Complex Forward/Inverse FFT
 //==============================================================================
 template <FFTDirection direction>
-class apple_complex_fft : public apple_fft_test, public complex_fft_test
+class apple_complex_fft : public apple_fft, public complex_fft
 {
   public:
-  apple_complex_fft( std::size_t n ): apple_fft_test(n), complex_fft_test(n) {}
+  apple_complex_fft( std::size_t n ): apple_fft(n), complex_fft(n) {}
 
   void operator()()
   {
@@ -144,7 +144,7 @@ class apple_complex_fft : public apple_fft_test, public complex_fft_test
     ::vDSP_fft_zip( instance(), &complex_data, 1, log2length(), direction );
   }
 
-  DSPSplitComplex split_data() const
+  DSPSplitComplex split_data()
   {
     DSPSplitComplex complex_data = { &real_data_[0], &imag_data_[0] };
     return complex_data;
@@ -180,10 +180,10 @@ NT2_REGISTER_BENCHMARK( apple_fft_inverse )
 //==============================================================================
 // Apple Real Forward FFT
 //==============================================================================
-class apple_real_forward_fft : public apple_real_fft_test
+class apple_real_forward_fft : public apple_real_fft
 {
   public:
-  apple_real_forward_fft( std::size_t n ) : apple_real_fft_test(n) {}
+  apple_real_forward_fft( std::size_t n ) : apple_real_fft(n) {}
 
   void operator()()
   {
@@ -211,10 +211,10 @@ NT2_REGISTER_BENCHMARK( apple_fft_real_forward )
 //==============================================================================
 // Apple Real Inverse FFT
 //==============================================================================
-class apple_real_inverse_fft : public apple_real_fft_test
+class apple_real_inverse_fft : public apple_real_fft
 {
   public:
-  apple_real_inverse_fft( std::size_t n ) : apple_real_fft_test(n) {}
+  apple_real_inverse_fft( std::size_t n ) : apple_real_fft(n) {}
 
   void operator()()
   {
