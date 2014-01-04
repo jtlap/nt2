@@ -14,7 +14,6 @@
 #include <boost/simd/include/functions/simd/tofloat.hpp>
 #include <boost/simd/include/functions/simd/toint.hpp>
 #include <boost/simd/include/functions/simd/touint.hpp>
-#include <boost/simd/include/functions/simd/make.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/preprocessor/make.hpp>
 #include <boost/simd/include/constants/allbits.hpp>

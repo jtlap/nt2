@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_PREPROCESSOR_MAKE_HPP_INCLUDED
 #define BOOST_SIMD_PREPROCESSOR_MAKE_HPP_INCLUDED
 
+#include <boost/simd/include/functions/simd/make.hpp>
 #include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
