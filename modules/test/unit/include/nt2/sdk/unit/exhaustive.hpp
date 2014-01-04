@@ -18,7 +18,6 @@
 #include <nt2/include/functions/iround.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/ilog2.hpp>
-#include <nt2/include/functions/all.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/constants/nan.hpp>
@@ -52,63 +51,6 @@ namespace nt2
     @param  maxi Upper    bound of the test interval
     @param  test_f        Function to test
     @param  reference_f   Reference function to compare to
-
-    ****************************************************************************
-    @par How to use it :
-
-    0) write a standard main file (with argc and argv parameters if you intend using step 3o)
-
-    1) include the right files: nt2/sdk/unit/exhaustive.hpp is mandatory
-
-    2) define a functor against which the nt2 functor will be tested
-
-    3) provide defaults for mini and maxi values for the tested range
-
-    3o) get the mini and maxi values if they are command line provided (optionnal)
-
-    4) call the test with the above described parameters
-
-    5) return 0;
-
-    ****************************************************************************
-    Here is a full example for nt2:log testing using available simd and float
-    ****************************************************************************
-    @code
-    #include <nt2/sdk/unit/exhaustive.hpp>
-    #include <nt2/include/functions/log.hpp>
-
-    #include <boost/simd/sdk/simd/native.hpp>
-    #include <nt2/include/constants/zero.hpp>
-    #include <nt2/include/constants/valmax.hpp>
-    #include <cmath>
-
-    struct std_log
-    {
-      float operator()(float x) const
-      {
-        return float(std::log(double(x)));
-      }
-    };
-
-    int main(int argc, char* argv[])
-    {
-      typedef BOOST_SIMD_DEFAULT_EXTENSION             ext_t;    //simd extension to be tested
-      typedef boost::simd::native<float,ext_t>           n_t;    //type to be tested
-      float mini = nt2::Zero<float>();                           //default min value
-      float maxi = nt2::Valmax<float>();                         //default max value
-      if(argc >= 2) mini = std::atof(argv[1]);                   //do we override default for mini ?
-      if(argc >= 3) maxi = std::atof(argv[2]);                   //do we override default for maxi ?
-
-      nt2::exhaustive_test<n_t> (mini                            //call the test
-                               , maxi
-                               , nt2::functor<nt2::tag::log_>()
-                               , std_log()
-                               );
-
-      return 0;                                                  //that's it
-    }
-    @endcode
-
   **/
 
 
