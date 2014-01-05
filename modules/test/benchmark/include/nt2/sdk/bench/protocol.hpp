@@ -84,15 +84,13 @@ namespace nt2 { namespace bench
     inline time_quantum_t run ( Experiment& e
                               , details::times_set&  t
                               , details::cycles_set& c
+                              , boost::false_type const&
                               ) const
     {
-      // We copy reference experiment
-      Experiment local(e);
-
       time_quantum_t const time_start  ( time_quantum() );
       cycles_t       const cycles_start( read_cycles() );
 
-      local();
+      e();
 
       cycles_t       const cycles_end( read_cycles() );
       time_quantum_t const time_end  ( time_quantum() );
@@ -106,6 +104,18 @@ namespace nt2 { namespace bench
       return elapsed_time;
     }
 
+    // For test with mutable input, we proceed with a copy
+    template<typename Experiment>
+    inline time_quantum_t run ( Experiment const& e
+                              , details::times_set&  t
+                              , details::cycles_set& c
+                              , boost::true_type const&
+                              ) const
+    {
+      Experiment local(e);
+      return run(local,t,c,boost::false_type() );
+    }
+
     template<typename Experiment>
     inline void display ( Experiment& e
                         , details::times_set&  t, details::cycles_set& c
@@ -114,7 +124,6 @@ namespace nt2 { namespace bench
       boost::fusion::for_each ( metrics_
                               , details::display_metric<Experiment>(e,t,c)
                               );
-      std::cout << std::flush;
     }
 
     protected:

@@ -11,6 +11,7 @@
 
 #include <nt2/sdk/bench/details/measure.hpp>
 #include <nt2/sdk/bench/config.hpp>
+#include <boost/accumulators/statistics/count.hpp>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -37,7 +38,9 @@ namespace nt2 { namespace details
     {
       std::cout << current_benchmark << '\t' << experiment_ << '\t'
                 << t(experiment_,current_benchmark,times_,cycles_)
-                << '\t' << t.unit() << '\t' << std::endl;
+                << '\t' << t.unit()
+                << '\t' << boost::accumulators::count(times_)
+                << std::endl;
     }
 
     Experiment          const&  experiment_;

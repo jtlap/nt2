@@ -116,8 +116,8 @@ namespace nt2 { namespace details
 
     std::size_t size() const { return size_; }
 
-   friend std::ostream&
-   operator<< ( std::ostream& os
+    friend std::ostream&
+    operator<<( std::ostream& os
               , process_functor<Function,N,BOOST_PP_ENUM_PARAMS(N,Arg)> const& p
               )
     {

@@ -34,7 +34,7 @@ struct fft_forward : complex_fft
 
 NT2_REGISTER_BENCHMARK( fft_forward )
 {
-  run_during_with< fft_forward >( 0.6
+  run_during_with< fft_forward& >( 0.6
                                 , geometric ( constants::minimum_dft_size
                                             , constants::maximum_dft_size
                                             , 2
@@ -59,7 +59,7 @@ struct fft_inverse : complex_fft
 
 NT2_REGISTER_BENCHMARK( fft_inverse )
 {
-  run_during_with< fft_inverse >( 0.6
+  run_during_with< fft_inverse& >( 0.6
                                 , geometric ( constants::minimum_dft_size
                                             , constants::maximum_dft_size
                                             , 2
@@ -88,7 +88,7 @@ struct fft_real_forward : real_fft
 
 NT2_REGISTER_BENCHMARK( fft_real_forward )
 {
-  run_during_with< fft_real_forward > ( 0.6
+  run_during_with< fft_real_forward& >( 0.6
                                       , geometric ( constants::minimum_dft_size
                                                   , constants::maximum_dft_size
                                                   , 2
@@ -117,7 +117,7 @@ struct fft_real_inverse : real_fft
 
 NT2_REGISTER_BENCHMARK( fft_real_inverse )
 {
-  run_during_with< fft_real_inverse > ( 0.6
+  run_during_with< fft_real_inverse& >( 0.6
                                       , geometric ( constants::minimum_dft_size
                                                   , constants::maximum_dft_size
                                                   , 2
@@ -155,7 +155,7 @@ NT2_REGISTER_BENCHMARK( apple_fft_forward )
 {
   fft_instance_  = ::vDSP_create_fftsetup( constants::maximum_dft_log, kFFTRadix2 );
 
-  run_during_with< apple_complex_fft<FFT_FORWARD> >
+  run_during_with< apple_complex_fft<FFT_FORWARD>& >
                                     ( 0.6
                                     , geometric ( constants::minimum_dft_size
                                                 , constants::maximum_dft_size
@@ -172,7 +172,7 @@ NT2_REGISTER_BENCHMARK( apple_fft_inverse )
 {
   fft_instance_  = ::vDSP_create_fftsetup( constants::maximum_dft_log, kFFTRadix2 );
 
-  run_during_with< apple_complex_fft<FFT_INVERSE> >
+  run_during_with< apple_complex_fft<FFT_INVERSE>& >
                                     ( 0.6
                                     , geometric ( constants::minimum_dft_size
                                                 , constants::maximum_dft_size
@@ -208,7 +208,7 @@ NT2_REGISTER_BENCHMARK( apple_fft_real_forward )
 {
   fft_instance_  = ::vDSP_create_fftsetup( constants::maximum_dft_log, kFFTRadix2 );
 
-  run_during_with< apple_real_forward_fft > ( 0.6
+  run_during_with< apple_real_forward_fft& >( 0.6
                                             , geometric ( constants::minimum_dft_size
                                                         , constants::maximum_dft_size
                                                         , 2
@@ -243,7 +243,7 @@ NT2_REGISTER_BENCHMARK( apple_fft_real_inverse )
 {
   fft_instance_  = ::vDSP_create_fftsetup( constants::maximum_dft_log, kFFTRadix2 );
 
-  run_during_with< apple_real_inverse_fft > ( 0.6
+  run_during_with< apple_real_inverse_fft& >( 0.6
                                             , geometric ( constants::minimum_dft_size
                                                         , constants::maximum_dft_size
                                                         , 2

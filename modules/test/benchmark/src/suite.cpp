@@ -22,7 +22,7 @@ namespace nt2 { namespace bench
     void run()
     {
       std::cout <<  std::string(100,'-') << std::endl;
-      std::cout << "Benchmark\tSize\t" << std::endl;
+      std::cout << "Benchmark\tSize\tResult\tUnit\tSamples #" << std::endl;
       std::cout <<  std::string(100,'-') << std::endl;
 
       // Run every registered experiments
