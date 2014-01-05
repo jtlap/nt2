@@ -35,7 +35,7 @@ struct some_task : experiment
 
 NT2_REGISTER_BENCHMARK( duration )
 {
-  run_during<some_task>( 3., absolute_time<stat::median_>() );
+  run_during<some_task>( 5., absolute_time<stat::median_>() );
 }
 
 NT2_REGISTER_BENCHMARK( iteration )
