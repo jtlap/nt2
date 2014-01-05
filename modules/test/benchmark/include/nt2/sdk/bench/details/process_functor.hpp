@@ -65,7 +65,7 @@ namespace nt2 { namespace details
 
   #define M0(z,n,t)                                                            \
   typedef typename boost::dispatch::meta::scalar_of<Arg##n>::type type_##n;    \
-  typedef typename boost::simd::allocator<type_##n> alloc_##n;                 \
+  typedef boost::simd::allocator<type_##n> alloc_##n;                          \
   /**/
 
   #define M1(z,n,t)                                                            \
@@ -94,6 +94,7 @@ namespace nt2 { namespace details
     // Result type
     typedef typename boost::dispatch::meta
             ::result_of<Function(BOOST_PP_ENUM_PARAMS(N,Arg))>::type   out_t;
+    typedef boost::simd::allocator<out_t> alloc_out;
 
     // How many stuff to process
     static const std::size_t card = BOOST_PP_REPEAT(N, M1, ~) 1;
@@ -124,9 +125,9 @@ namespace nt2 { namespace details
     }
 
     private:
-    Function            f_;
-    std::size_t         size_;
-    std::vector<out_t>  result_;
+    Function                       f_;
+    std::size_t                    size_;
+    std::vector<out_t, alloc_out>  result_;
     BOOST_PP_REPEAT(N,M5,~)
   };
 
