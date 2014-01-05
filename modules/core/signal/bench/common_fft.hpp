@@ -35,8 +35,11 @@ typedef float T;
 
 namespace constants
 {
-  static std::size_t const minimum_dft_size =    32;
-  static std::size_t const maximum_dft_size = 16384;
+  static std::size_t const minimum_dft_log = 5;
+  static std::size_t const maximum_dft_log = 14;
+
+  static std::size_t const minimum_dft_size = 1 << minimum_dft_log;
+  static std::size_t const maximum_dft_size = 1 << maximum_dft_log;
 
   static T const test_data_range_minimum = -1;
   static T const test_data_range_maximum = +1;
@@ -48,15 +51,15 @@ typedef nt2::static_fft < constants::minimum_dft_size
                         , T>                       FFT;
 
 //==============================================================================
-// BAse Real FFT Experiment
+// Base Real FFT Experiment
 //==============================================================================
 struct real_fft
 {
   real_fft( std::size_t n )
           : size_(n)
           , real_time_data_(size_)
-          , real_frequency_data_(size_/ 2 + 1)
-          , imag_frequency_data_(size_/ 2 + 1)
+          , real_frequency_data_(size_/2+1)
+          , imag_frequency_data_(size_/2+1)
   {
     nt2::roll ( real_frequency_data_
               , constants::test_data_range_minimum
@@ -119,29 +122,17 @@ struct complex_fft
 //==============================================================================
 // Base Apple vDSP Complex FFT experiment
 //==============================================================================
+FFTSetup fft_instance_ = 0;
+
 struct apple_fft
 {
   apple_fft( std::size_t n )
            : log2length_( boost::simd::ilog2( n ) )
-           , fft_instance_ ( ::vDSP_create_fftsetup( log2length_
-                                                   , kFFTRadix2
-                                                   )
-                           )
   {
-    if ( !fft_instance_ )
-    {
-      std::cerr << "Invalid vDSP instance\n";
-      std::exit(EXIT_FAILURE);
-    }
   }
 
-  ~apple_fft() { ::vDSP_destroy_fftsetup( fft_instance_ ); }
-
-  FFTSetup     instance()  const  { return fft_instance_; }
   std::size_t log2length() const  { return log2length_  ; }
-
   std::size_t log2length_;
-  FFTSetup    fft_instance_;
 };
 
 //==============================================================================

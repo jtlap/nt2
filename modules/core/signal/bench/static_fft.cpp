@@ -141,7 +141,7 @@ class apple_complex_fft : public apple_fft, public complex_fft
   void operator()()
   {
     DSPSplitComplex complex_data( split_data() );
-    ::vDSP_fft_zip( instance(), &complex_data, 1, log2length(), direction );
+    ::vDSP_fft_zip( fft_instance_, &complex_data, 1, log2length(), direction );
   }
 
   DSPSplitComplex split_data()
@@ -153,6 +153,8 @@ class apple_complex_fft : public apple_fft, public complex_fft
 
 NT2_REGISTER_BENCHMARK( apple_fft_forward )
 {
+  fft_instance_  = ::vDSP_create_fftsetup( constants::maximum_dft_log, kFFTRadix2 );
+
   run_during_with< apple_complex_fft<FFT_FORWARD> >
                                     ( 0.6
                                     , geometric ( constants::minimum_dft_size
@@ -162,10 +164,14 @@ NT2_REGISTER_BENCHMARK( apple_fft_forward )
                                     , cycles_per_element<stat::median_>()
                                     , absolute_time<stat::median_>()
                                     );
+
+  ::vDSP_destroy_fftsetup( fft_instance_ );
 }
 
 NT2_REGISTER_BENCHMARK( apple_fft_inverse )
 {
+  fft_instance_  = ::vDSP_create_fftsetup( constants::maximum_dft_log, kFFTRadix2 );
+
   run_during_with< apple_complex_fft<FFT_INVERSE> >
                                     ( 0.6
                                     , geometric ( constants::minimum_dft_size
@@ -175,6 +181,8 @@ NT2_REGISTER_BENCHMARK( apple_fft_inverse )
                                     , cycles_per_element<stat::median_>()
                                     , absolute_time<stat::median_>()
                                     );
+
+  ::vDSP_destroy_fftsetup( fft_instance_ );
 }
 
 //==============================================================================
@@ -189,15 +197,17 @@ class apple_real_forward_fft : public apple_real_fft
   {
     DSPSplitComplex split_real_data( split_data() );
     vDSP_ctoz( reinterpret_cast<DSPComplex const*>( &real_time_data_[0]), 2
-                                                  , &split_real_data, 1, size_
+                                                  , &split_real_data, 1, size_/2
                                                   );
 
-    vDSP_fft_zrip( instance(), &split_real_data, 1, log2length(), FFT_FORWARD );
+    vDSP_fft_zrip( fft_instance_, &split_real_data, 1, log2length(), FFT_FORWARD );
   }
 };
 
 NT2_REGISTER_BENCHMARK( apple_fft_real_forward )
 {
+  fft_instance_  = ::vDSP_create_fftsetup( constants::maximum_dft_log, kFFTRadix2 );
+
   run_during_with< apple_real_forward_fft > ( 0.6
                                             , geometric ( constants::minimum_dft_size
                                                         , constants::maximum_dft_size
@@ -206,6 +216,8 @@ NT2_REGISTER_BENCHMARK( apple_fft_real_forward )
                                             , cycles_per_element<stat::median_>()
                                             , absolute_time<stat::median_>()
                                             );
+
+  ::vDSP_destroy_fftsetup( fft_instance_ );
 }
 
 //==============================================================================
@@ -219,16 +231,18 @@ class apple_real_inverse_fft : public apple_real_fft
   void operator()()
   {
     DSPSplitComplex split_real_data( split_data() );
-    vDSP_fft_zrip( instance(), &split_real_data, 1, log2length(), FFT_INVERSE );
+    vDSP_fft_zrip( fft_instance_, &split_real_data, 1, log2length(), FFT_INVERSE );
     vDSP_ztoc ( &split_real_data, 1
               , reinterpret_cast<DSPComplex *>( &real_time_data_[0] ), 2
-              , size_
+              , size_/2
               );
   }
 };
 
 NT2_REGISTER_BENCHMARK( apple_fft_real_inverse )
 {
+  fft_instance_  = ::vDSP_create_fftsetup( constants::maximum_dft_log, kFFTRadix2 );
+
   run_during_with< apple_real_inverse_fft > ( 0.6
                                             , geometric ( constants::minimum_dft_size
                                                         , constants::maximum_dft_size
@@ -237,6 +251,8 @@ NT2_REGISTER_BENCHMARK( apple_fft_real_inverse )
                                             , cycles_per_element<stat::median_>()
                                             , absolute_time<stat::median_>()
                                             );
+
+  ::vDSP_destroy_fftsetup( fft_instance_ );
 }
 
 #endif
