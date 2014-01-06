@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_PREPROCESSOR_ALIGNED_TYPE_HPP_INCLUDED
 #define BOOST_SIMD_PREPROCESSOR_ALIGNED_TYPE_HPP_INCLUDED
 
+#include <boost/simd/sdk/config/compiler.hpp>
 #include <boost/simd/preprocessor/parameters.hpp>
 #include <boost/simd/preprocessor/align_on.hpp>
 
@@ -43,7 +44,7 @@
 **/
 #define BOOST_SIMD_ALIGNED_TYPE_ON_TPL(T,ALIGN) BOOST_SIMD_ALIGNED_TYPE_ON(T,ALIGN)
 #else
-#define BOOST_SIMD_ALIGNED_TYPE_ON_TPL(T,ALIGN) T
+#define BOOST_SIMD_ALIGNED_TYPE_ON_TPL(T,ALIGN) BOOST_SIMD_ALIGNED_TYPE_ON(T,BOOST_SIMD_CONFIG_ALIGNMENT)
 #endif
 
 /*!

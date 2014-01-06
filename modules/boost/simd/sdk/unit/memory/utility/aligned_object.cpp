@@ -51,3 +51,12 @@ NT2_TEST_CASE(overload_new_delete_array)
   delete[] ptr;
 }
 
+NT2_TEST_CASE(static_alignment)
+{
+  using boost::simd::is_aligned;
+
+  foo f;
+
+  NT2_TEST_GREATER_EQUAL(sizeof(foo), 16u);
+  NT2_TEST( is_aligned(&f, 16) );
+}

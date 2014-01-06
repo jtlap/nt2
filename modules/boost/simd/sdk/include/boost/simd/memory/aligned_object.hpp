@@ -12,6 +12,7 @@
 
 #include <boost/simd/preprocessor/new.hpp>
 #include <boost/simd/preprocessor/parameters.hpp>
+#include <boost/simd/preprocessor/aligned_type.hpp>
 #include <cstddef>
 
 namespace boost { namespace simd
@@ -29,7 +30,7 @@ namespace boost { namespace simd
             of child type.
   **/
   template<std::size_t Alignment = BOOST_SIMD_CONFIG_ALIGNMENT>
-  struct aligned_object
+  BOOST_SIMD_ALIGNED_TYPE_ON_TPL(struct, Alignment) aligned_object
   {
     public:
 
