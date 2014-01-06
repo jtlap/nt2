@@ -13,7 +13,7 @@
 #include <nt2/sdk/bench/setup/geometric.hpp>
 #include <nt2/sdk/bench/setup/constant.hpp>
 #include <nt2/sdk/bench/setup/combination.hpp>
-#include <nt2/sdk/bench/protocol/max_duration.hpp>
+#include <nt2/sdk/bench/protocol/until.hpp>
 #include <nt2/sdk/bench/stat/median.hpp>
 
 #include <nt2/core/container/table/table.hpp>
@@ -34,12 +34,8 @@ using namespace nt2::bench;
 template<typename T>
 struct trans_gemm_test
 {
-  trans_gemm_test() {}
-
-  template<typename Args>
-  trans_gemm_test ( Args const& a )
-                  : n_( boost::fusion::at_c<0>(a))
-                  , i_( boost::fusion::at_c<1>(a))
+  trans_gemm_test ( std::size_t n )
+                  : n_( n )
                   , a1(of_size(n_,n_))
                   , a2(of_size(n_,n_))
                   , a3(of_size(n_,n_))
@@ -52,17 +48,14 @@ struct trans_gemm_test
   {
     T alpha = T(1);
     T beta  = T(0);
-    for(int i = 0; i < i_; ++i)
-    {
-      nt2::details::gemm( "T", "N"
-                        , &n_, &n_, &n_
-                        , &alpha
-                        , a1.raw(), &n_
-                        , a2.raw(), &n_
-                        , &beta
-                        , a3.raw(), &n_
-                        );
-    }
+    nt2::details::gemm( "T", "N"
+                      , &n_, &n_, &n_
+                      , &alpha
+                      , a1.raw(), &n_
+                      , a2.raw(), &n_
+                      , &beta
+                      , a3.raw(), &n_
+                      );
   }
 
   std::size_t size() const { return n_; }
@@ -83,12 +76,11 @@ NT2_REGISTER_BENCHMARK_TPL( trans_gemm_test, (float)(double) )
   std::size_t m = args("min" ,   2);
   std::size_t n = args("max" , 256);
   std::size_t s = args("step",   2);
-  std::size_t i = args("iter", 100);
+  std::size_t i = args("iteration",  100);
+  std::size_t d = args("duration" , 3.);
 
-  run_during_with< trans_gemm_test<T> > ( 1.
-                                        , and_( geometric(m,n,s)
-                                              , constant(i)
-                                              )
+  run_until_with< trans_gemm_test<T>& > ( d, i
+                                        , geometric(m,n,s)
                                         , absolute_time<stat::median_>()
                                         );
 }
@@ -99,12 +91,8 @@ NT2_REGISTER_BENCHMARK_TPL( trans_gemm_test, (float)(double) )
 template<typename T>
 struct trans_mtimes_test
 {
-  trans_mtimes_test() {}
-
-  template<typename Args>
-  trans_mtimes_test ( Args const& a )
-                    : n_( boost::fusion::at_c<0>(a))
-                    , i_( boost::fusion::at_c<1>(a))
+  trans_mtimes_test ( std::size_t n )
+                    : n_(  n )
                     , a1(of_size(n_,n_))
                     , a2(of_size(n_,n_))
                     , a3(of_size(n_,n_))
@@ -115,8 +103,7 @@ struct trans_mtimes_test
 
   void operator()()
   {
-    for(int i = 0; i < i_; ++i)
-      a3 = nt2::mtimes(a1, a2);
+    a3 = nt2::mtimes(a1, a2);
   }
 
   std::size_t size() const { return n_; }
@@ -136,12 +123,11 @@ NT2_REGISTER_BENCHMARK_TPL( trans_mtimes_test, (float)(double) )
   std::size_t m = args("min" ,   2);
   std::size_t n = args("max" , 256);
   std::size_t s = args("step",   2);
-  std::size_t i = args("iter", 100);
+  std::size_t i = args("iteration",  100);
+  std::size_t d = args("duration" , 3.);
 
-  run_during_with< trans_mtimes_test<T> > ( 1.
-                                          , and_( geometric(m,n,s)
-                                                , constant(i)
-                                                )
+  run_until_with< trans_mtimes_test<T>& > ( d, i
+                                          , geometric(m,n,s)
                                           , absolute_time<stat::median_>()
                                           , speedup < trans_gemm_test<T>
                                                     , absolute_time<stat::median_>

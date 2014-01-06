@@ -13,7 +13,7 @@
 #include <nt2/sdk/bench/setup/geometric.hpp>
 #include <nt2/sdk/bench/setup/constant.hpp>
 #include <nt2/sdk/bench/setup/combination.hpp>
-#include <nt2/sdk/bench/protocol/max_iteration.hpp>
+#include <nt2/sdk/bench/protocol/until.hpp>
 #include <nt2/sdk/bench/stat/median.hpp>
 
 #include <nt2/linalg/details/blas/mm.hpp>
@@ -72,12 +72,13 @@ NT2_REGISTER_BENCHMARK_TPL( gemm_test, (float)(double) )
   std::size_t m = args("min" ,    2);
   std::size_t n = args("max" , 1024);
   std::size_t s = args("step",    2);
-  std::size_t i = args("iter",  100);
+  std::size_t i = args("iteration", 100);
+  std::size_t d = args("duration" , 3.);
 
-  run_over_with< gemm_test<T> > ( i
-                                , geometric(m,n,s)
-                                , absolute_time<stat::median_>()
-                                );
+  run_until_with< gemm_test<T>& > ( d, i
+                                  , geometric(m,n,s)
+                                  , absolute_time<stat::median_>()
+                                  );
 }
 
 //==============================================================================
@@ -118,13 +119,14 @@ NT2_REGISTER_BENCHMARK_TPL( mtimes_test, (float)(double) )
   std::size_t m = args("min" ,    2);
   std::size_t n = args("max" , 1024);
   std::size_t s = args("step",    2);
-  std::size_t i = args("iter",  100);
+  std::size_t i = args("iteration",  100);
+  std::size_t d = args("duration" , 3.);
 
-  run_over_with< mtimes_test<T> > ( i
-                                  , geometric(m,n,s)
-                                  , absolute_time<stat::median_>()
-                                  , speedup < gemm_test<T>
-                                            , absolute_time<stat::median_>
-                                            >()
-                                  );
+  run_until_with< mtimes_test<T>& > ( d, i
+                                    , geometric(m,n,s)
+                                    , absolute_time<stat::median_>()
+                                    , speedup < gemm_test<T>
+                                              , absolute_time<stat::median_>
+                                              >()
+                                    );
 }

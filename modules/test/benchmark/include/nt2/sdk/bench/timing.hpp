@@ -10,7 +10,7 @@
 #define NT2_SDK_BENCH_TIMING_HPP_INCLUDED
 
 #include <nt2/sdk/bench/benchmark.hpp>
-#include <nt2/sdk/bench/protocol/max_duration.hpp>
+#include <nt2/sdk/bench/protocol/until.hpp>
 #include <nt2/sdk/bench/metric/cycles_per_element.hpp>
 #include <nt2/sdk/bench/details/process_functor.hpp>
 #include <nt2/sdk/bench/setup/combination.hpp>
@@ -48,7 +48,7 @@ NT2_REGISTER_BENCHMARK_NAMED                                                   \
 , nt2::type_id<FUNC( BOOST_PP_SEQ_FOR_EACH_I(NT2_TIMING_TYPES,~,RANGE) )>()    \
 )                                                                              \
 {                                                                              \
-  nt2::bench::run_during_with                                                  \
+  nt2::bench::run_until_with                                                   \
     <                                                                          \
       nt2::details::process_functor                                            \
       < CODE                                                                   \
@@ -56,7 +56,8 @@ NT2_REGISTER_BENCHMARK_NAMED                                                   \
       , BOOST_PP_SEQ_FOR_EACH_I(NT2_TIMING_TYPES,~,RANGE)                      \
       >                                                                        \
     >                                                                          \
-    ( 3.                                                                       \
+    ( nt2::bench::args("duration",1.)                                          \
+    , nt2::bench::args("iteration",1000000U)                                   \
     , nt2::bench::and_                                                         \
       ( nt2::bench::fixed(nt2::bench::args("samples",1024u))                   \
       , BOOST_PP_SEQ_FOR_EACH_I(NT2_TIMING_RANGE_ELEM,~,RANGE)                 \
