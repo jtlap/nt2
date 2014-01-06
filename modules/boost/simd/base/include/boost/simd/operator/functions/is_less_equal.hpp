@@ -31,7 +31,8 @@ namespace boost { namespace simd
     };
   }
   /*!
-    Returns True<result_type>() or False<result_type>() according a0 is less or equal to a1 or not.
+    Returns True<result_type>() or False<result_type>() depending on whether a0 is
+    less than or equal to a1 or not.
     Infix notation can be used with operator '<='.
 
     @par Semantic:
