@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
   {
 
     typedef typename meta::as_logical<A0>::type result_type;
-    inline result_type operator()(A0 const&, A0 const&)const
+    BOOST_FORCEINLINE result_type operator()(A0 const&, A0 const&)const
     {
       return boost::simd::False<result_type>();
     }
@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace ext
                                    )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return boost::simd::l_or(boost::simd::is_nan(a0), boost::simd::is_nan(a1));
     }
