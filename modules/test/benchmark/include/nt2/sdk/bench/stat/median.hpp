@@ -10,8 +10,8 @@
 #define NT2_SDK_BENCH_STAT_MEDIAN_HPP_INCLUDED
 
 #include <boost/accumulators/statistics/median.hpp>
-#include <cstdlib>
-#include <iostream>
+#include <boost/accumulators/statistics/count.hpp>
+#include <boost/accumulators/statistics/mean.hpp>
 #include <string>
 
 namespace nt2 { namespace bench { namespace stat
@@ -23,25 +23,19 @@ namespace nt2 { namespace bench { namespace stat
     median value of its samples.
 
     @note The median algorithm requires a minimal amount of samples to be
-    correct. currently, this minimum is set to 5 and any experiment providing
-    less than this amount of samples will make the benchmark terminates with a
-    failure. In this case, it is advised to modify the benchmark code or
-    parameters so that enough samples are taken.
+    correct. Currently, this minimum is set to 3 and any experiment providing
+    less than this amount of samples will make use the average value of samples
+    instead.
   **/
   struct median_
   {
     /// @brief Samples processing function
     template<typename Samples> static inline double evaluate(Samples const& d)
     {
-      if( std::size_t n = boost::accumulators::count(d) < 5 )
-      {
-        std::cerr << "Only " << n << " samples for median computing "
-                  << "while at least 5 are required.\n";
-
-        std::exit(EXIT_FAILURE);
-      }
-
-      return boost::accumulators::median(d);
+      if( boost::accumulators::count(d) < 3 )
+        return boost::accumulators::mean(d);
+      else
+        return boost::accumulators::median(d);
     }
 
     /// @brief Statistics display
