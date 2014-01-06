@@ -59,7 +59,7 @@ namespace nt2
     size_type phi_sz = phi.extent();
 
     std::ptrdiff_t found = -1;
-    for(std::size_t i=0; i!=sz.size(); ++i)
+    for(i=0; i!=sz.size(); ++i)
     {
       if(phi_sz[i] != sz[i])
       {
