@@ -36,7 +36,7 @@
 #pragma warning(disable: 4146) // unary minus operator applied to unsigned type
 #endif
 
-NT2_TEST_CASE_TPL ( shift_left_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( shift_left_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES )
 {
   using nt2::shift_left;
   using nt2::tag::shift_left_;
@@ -48,13 +48,18 @@ NT2_TEST_CASE_TPL ( shift_left_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES)
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::as_unsigned<T>::type siT;
   typedef native<iT,ext_t>                       ivT;
+  typedef native<siT,ext_t>                       sivT;
   typedef typename nt2::meta::call<shift_left_(vT,ivT)>::type r_t;
   typedef typename nt2::meta::call<shift_left_(T,iT)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
 
-
+  NT2_TEST_EQUAL(shift_left(nt2::Mone<vT>(),nt2::One<sivT>())[0], sr_t(-nt2::Two<sr_t>()));
+  NT2_TEST_EQUAL(shift_left(nt2::One<vT>(),nt2::One<sivT>())[0], nt2::Two<sr_t>());
+  NT2_TEST_EQUAL(shift_left(nt2::One<vT>(),nt2::Zero<sivT>())[0], nt2::One<sr_t>());
+  NT2_TEST_EQUAL(shift_left(nt2::Zero<vT>(),nt2::One<sQQ  ivT>())[0], nt2::Zero<sr_t>());
   // specific values tests
   NT2_TEST_EQUAL(shift_left(nt2::Mone<vT>(),nt2::One<ivT>())[0], sr_t(-nt2::Two<sr_t>()));
   NT2_TEST_EQUAL(shift_left(nt2::One<vT>(),nt2::One<ivT>())[0], nt2::Two<sr_t>());
