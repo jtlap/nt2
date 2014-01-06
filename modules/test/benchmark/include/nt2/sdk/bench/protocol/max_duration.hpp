@@ -11,6 +11,7 @@
 #define NT2_SDK_BENCH_PROTOCOL_MAX_DURATION_HPP_INCLUDED
 
 #include <nt2/sdk/bench/details/display_metric.hpp>
+#include <nt2/sdk/bench/details/measure.hpp>
 #include <nt2/sdk/bench/setup/fixed.hpp>
 #include <nt2/sdk/bench/protocol.hpp>
 #include <boost/fusion/include/vector.hpp>
