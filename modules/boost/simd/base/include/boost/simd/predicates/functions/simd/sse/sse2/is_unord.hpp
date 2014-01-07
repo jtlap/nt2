@@ -11,22 +11,9 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/predicates/functions/is_unord.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
-#include <boost/simd/include/constants/false.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_unord_, boost::simd::tag::sse2_, (A0)
-                            , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
-                            )
-  {
-    typedef typename meta::as_logical<A0>::type result_type;
-    inline result_type operator()(const A0&, const A0&)const
-    {
-      return boost::simd::False<result_type>();
-    }
-  };
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_unord_, boost::simd::tag::sse2_,(A0)
                             , ((simd_<double_<A0>,boost::simd::tag::sse_>))
                               ((simd_<double_<A0>,boost::simd::tag::sse_>))
