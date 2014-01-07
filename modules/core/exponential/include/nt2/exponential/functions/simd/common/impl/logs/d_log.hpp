@@ -25,6 +25,8 @@
 #include <nt2/include/constants/invlog_2.hpp>
 #include <nt2/include/constants/invlog_10.hpp>
 #include <nt2/include/constants/log_2olog_10.hpp>
+#include <nt2/include/constants/log_2hi.hpp>
+#include <nt2/include/constants/log_2lo.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/sqrt_2o_2.hpp>
 #include <nt2/include/constants/mone.hpp>
@@ -75,12 +77,10 @@ namespace nt2 { namespace details
 
     static inline A0 log(const A0& a0)
     {
-      // ln(2)hi  =  6.93147180369123816490e-01  or  0x3fe62e42fee00000
-      // ln(2)lo  =  1.90821492927058770002e-10  or  0x3dea39ef35793c76
       A0 dk, hfsq, s, R, f;
       kernel_log(a0, dk, hfsq, s, R, f);
-      A0 y =  nt2::mul(dk, double_constant<A0, 0x3fe62e42fee00000ll>())-
-        ((hfsq-(s*(hfsq+R)+nt2::mul(dk,double_constant<A0, 0x3dea39ef35793c76ll>())))-f);
+      A0 y =  nt2::mul(dk, Log_2hi<A0>())-
+        ((hfsq-(s*(hfsq+R)+nt2::mul(dk,Log_2lo<A0>())))-f);
       return finalize(a0, y);
     }
 
