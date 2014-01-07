@@ -30,23 +30,21 @@ namespace nt2
                                 );
   }
   /*!
-    Generates constant MaxLog used in logarithm computations
+    Generates constant MaxLog used in logarithm/exponential computations
 
     @par Semantic:
 
     @code
-    T r = Log_10<T>();
+    T r = Maxlog<T>();
     @endcode
 
     is similar to:
 
     @code
-    if T is integral
-    r = T(2)
-    else if T is double
-    r = 709.78271289338400;
+    if T is double
+      r = 709.78271289338400;
     else if T is float
-    r = 88.722839355468750;
+      r = 88.722839355468750;
 
     @endcode
 

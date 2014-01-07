@@ -26,7 +26,7 @@ namespace nt2
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Log_2hi, double
                                 , 0, 0x3f318000UL        //0.693359375f
-                                , 0x3fe62e42fefa39efULL
+                                , 0x3fe62e42fee00000ULL  //6.93147180369123816490e-01
                                 );
   }
  /*!

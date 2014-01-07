@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_EXPONENTIAL_CONSTANTS_LOG10_2HI_HPP_INCLUDED
-#define NT2_EXPONENTIAL_CONSTANTS_LOG10_2HI_HPP_INCLUDED
+#ifndef NT2_EXPONENTIAL_CONSTANTS_INVLOG10_2_HPP_INCLUDED
+#define NT2_EXPONENTIAL_CONSTANTS_INVLOG10_2_HPP_INCLUDED
 
 #include <boost/simd/constant/hierarchy.hpp>
 #include <boost/simd/constant/register.hpp>
@@ -17,31 +17,35 @@ namespace nt2
   namespace tag
   {
     /*!
-      @brief log10_2hi generic tag
+      @brief invlog10_2 generic tag
 
-      Represents the log10_2hi constant in generic contexts.
+      Represents the invlog10_2 constant in generic contexts.
 
       @par Models:
       Hierarchy
     **/
-    BOOST_SIMD_CONSTANT_REGISTER( Log10_2hi, double
-                                , 0, 0x3e9a0000ul // 3.0078125E-1f
-                                , 0x3fd3440000000000ull // 0.301025390625
+    BOOST_SIMD_CONSTANT_REGISTER( Invlog10_2, double
+                                , 0, 0x40549a78
+                                , 0x400a934f0979a372ll
                                 );
   }
  /*!
-    Generates constant log10_2hi.This constant is coupled with Log10_2lo and is
-    used in the float logarithms computations
-    We have abs( double(log10_2hi<float>())+double(Log10_2lo<float>()) - Log10(2.0) < 3e-11
+    Generates constant  1/log10(2).
 
     @par Semantic:
 
     @code
-    T r = log10_2hi<T>();
+    T r = invlog10_2<T>();
     @endcode
 
-  **/
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Log10_2hi, Log10_2hi);
+
+    is similar to:
+
+    @code
+    T r =  T(3.321928094887362e+00);
+    @endcode
+ **/
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Invlog10_2, Invlog10_2);
 }
 
 #endif
