@@ -17,6 +17,7 @@
 #include <boost/simd/sdk/config.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/dispatch/meta/as_unsigned.hpp>
 #include <boost/simd/include/functions/splat.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/two.hpp>
