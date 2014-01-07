@@ -70,7 +70,7 @@ NT2_TEST_CASE_TPL( load_offset,  BOOST_SIMD_SIMD_TYPES)
   BOOST_PP_SEQ_FOR_EACH(NT2_TEST_LOAD, load_offset, BOOST_SIMD_TYPES)
 }
 
-template<class T, class U>
+template<class T, class U, std::size_t N>
 struct nt2_test_run_load_gather
 {
   static void call()
@@ -84,7 +84,7 @@ struct nt2_test_run_load_gather
 
     typedef native<T,ext_t>                                       vT;
     typedef typename boost::dispatch::meta::
-            make_integer< 4, unsigned>::type                      iT;
+            make_integer< N, unsigned>::type                      iT;
 
     typedef typename boost::simd::meta
                           ::vector_of<iT,cardinal_of<vT>::value>::type viT;
@@ -113,12 +113,20 @@ struct nt2_test_run_load_gather
   }
 };
 
-NT2_TEST_CASE_TPL( load_gather, BOOST_SIMD_SIMD_TYPES)
+template<class T, class U>
+struct nt2_test_run_load_gather32 : nt2_test_run_load_gather<T,U,4>
+{};
+
+template<class T, class U>
+struct nt2_test_run_load_gather64 : nt2_test_run_load_gather<T,U,8>
+{};
+
+NT2_TEST_CASE_TPL( load_gather32, BOOST_SIMD_SIMD_TYPES)
 {
-  BOOST_PP_SEQ_FOR_EACH(NT2_TEST_LOAD, load_gather, BOOST_SIMD_TYPES)
+  BOOST_PP_SEQ_FOR_EACH(NT2_TEST_LOAD, load_gather32, BOOST_SIMD_TYPES)
 }
 
-NT2_TEST_CASE_TPL ( load_gather_logical
+NT2_TEST_CASE_TPL ( load_gather32_logical
                   , BOOST_PP_SEQ_TRANSFORM( NT2_TEST_APPLY
                                           , boost::simd::logical
                                           , BOOST_SIMD_SIMD_TYPES
@@ -126,7 +134,28 @@ NT2_TEST_CASE_TPL ( load_gather_logical
                   )
 {
   BOOST_PP_SEQ_FOR_EACH ( NT2_TEST_LOAD
-                        , load_gather
+                        , load_gather32
+                        , BOOST_PP_SEQ_TRANSFORM( NT2_TEST_APPLY
+                                                , boost::simd::logical
+                                                , BOOST_SIMD_TYPES
+                                                )
+                        )
+}
+
+NT2_TEST_CASE_TPL( load_gather64, BOOST_SIMD_SIMD_TYPES)
+{
+  BOOST_PP_SEQ_FOR_EACH(NT2_TEST_LOAD, load_gather64, BOOST_SIMD_SIMD_TYPES)
+}
+
+NT2_TEST_CASE_TPL ( load_gather64_logical
+                  , BOOST_PP_SEQ_TRANSFORM( NT2_TEST_APPLY
+                                          , boost::simd::logical
+                                          , BOOST_SIMD_SIMD_TYPES
+                                          )
+                  )
+{
+  BOOST_PP_SEQ_FOR_EACH ( NT2_TEST_LOAD
+                        , load_gather64
                         , BOOST_PP_SEQ_TRANSFORM( NT2_TEST_APPLY
                                                 , boost::simd::logical
                                                 , BOOST_SIMD_TYPES
