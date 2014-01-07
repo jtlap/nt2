@@ -51,7 +51,6 @@ NT2_EXPERIMENT(sigmadelta_scalar)
 
     for(int k=1; k<nb_frames; k++)
     {
-      #pragma simd
       for(int i=0; i < size; i++)
       {
         if(background_img[i] < frames[k][i])

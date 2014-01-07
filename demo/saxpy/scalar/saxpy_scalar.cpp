@@ -34,7 +34,6 @@ NT2_EXPERIMENT(Taxpy_scalar)
 
     inline void Taxpy_work(std::size_t const& s) const
     {
-      #pragma simd
       for(std::size_t i = 0; i<size; i++)
         Y[i] = Y[i] + alpha*(X[i]);
     }

@@ -52,7 +52,6 @@ NT2_EXPERIMENT(rgb2yuv_scalar)
   {
     std::size_t size = r.size();
 
-    #pragma simd
     for(std::size_t it = 0; it < size; it++)
       rgb2yuv_work(r[it], g[it], b[it], &y[it], &u[it], &v[it]);
   }
