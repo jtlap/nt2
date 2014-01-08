@@ -8,25 +8,27 @@
 //==============================================================================
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_IMPL_LOGS_F_LOG_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_IMPL_LOGS_F_LOG_HPP_INCLUDED
+
 #include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/fast_frexp.hpp>
+#include <nt2/include/functions/simd/is_less.hpp>
+#include <nt2/include/functions/simd/seladd.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/minusone.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/include/functions/simd/fma.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/is_equal.hpp>
 #include <nt2/include/functions/simd/is_nan.hpp>
 #include <nt2/include/functions/simd/is_ltz.hpp>
-#include <nt2/include/functions/simd/is_equal.hpp>
-#include <nt2/include/functions/simd/is_eqz.hpp>
-#include <nt2/include/functions/simd/is_inf.hpp>
-#include <nt2/include/functions/simd/fast_frexp.hpp>
-#include <nt2/include/functions/simd/fma.hpp>
-#include <nt2/include/functions/simd/multiplies.hpp>
-#include <nt2/include/functions/simd/divides.hpp>
-#include <nt2/include/functions/simd/seladd.hpp>
-#include <nt2/include/functions/simd/if_allbits_else.hpp>
-#include <nt2/include/functions/simd/if_else_zero.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/logical_or.hpp>
-#include <nt2/include/functions/simd/minusone.hpp>
+#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/mhalf.hpp>
+#include <nt2/include/constants/Minf.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/log_2hi.hpp>
 #include <nt2/include/constants/log_2lo.hpp>
@@ -36,8 +38,9 @@
 #include <nt2/include/constants/log10_2hi.hpp>
 #include <nt2/include/constants/log10_2lo.hpp>
 #include <nt2/include/constants/sqrt_2o_2.hpp>
-#include <boost/simd/sdk/config.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
+#include <boost/simd/sdk/config.hpp>
+#include <boost/typeof/typeof.hpp>
 
   //////////////////////////////////////////////////////////////////////////////
   // how to compute the various logarithms

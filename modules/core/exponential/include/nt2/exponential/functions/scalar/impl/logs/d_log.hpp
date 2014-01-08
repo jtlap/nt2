@@ -21,6 +21,9 @@
 #include <nt2/include/functions/scalar/genmask.hpp>
 #include <nt2/include/functions/scalar/minusone.hpp>
 #include <nt2/include/functions/scalar/fma.hpp>
+#include <nt2/include/functions/scalar/bitwise_and.hpp>
+#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
+#include <nt2/include/constants/real_splat.hpp>
 #include <nt2/include/constants/invlog_2.hpp>
 #include <nt2/include/constants/invlog_10.hpp>
 #include <nt2/include/constants/log_2olog_10.hpp>

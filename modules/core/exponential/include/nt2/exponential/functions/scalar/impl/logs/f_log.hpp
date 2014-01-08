@@ -16,16 +16,14 @@
 #include <nt2/include/functions/scalar/is_ltz.hpp>
 #include <nt2/include/functions/scalar/is_eqz.hpp>
 #include <nt2/include/functions/scalar/fast_frexp.hpp>
-#include <nt2/include/functions/scalar/genmask.hpp>
 #include <nt2/include/functions/scalar/fma.hpp>
 #include <nt2/include/functions/scalar/multiplies.hpp>
-#include <nt2/include/functions/scalar/unary_minus.hpp>
 #include <nt2/include/functions/scalar/plus.hpp>
+#include <nt2/include/constants/real_splat.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/mhalf.hpp>
-#include <nt2/include/constants/zero.hpp>
 #include <boost/simd/sdk/config.hpp>
 
 namespace nt2 { namespace details

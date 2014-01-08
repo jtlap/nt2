@@ -8,20 +8,27 @@
 //==============================================================================
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_IMPL_LOGS_D_LOG_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_IMPL_LOGS_D_LOG_HPP_INCLUDED
+
 #include <nt2/include/functions/simd/minusone.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
+#include <nt2/include/functions/simd/is_greater.hpp>
 #include <nt2/include/functions/simd/is_ltz.hpp>
 #include <nt2/include/functions/simd/is_equal.hpp>
 #include <nt2/include/functions/simd/is_nan.hpp>
 #include <nt2/include/functions/simd/fast_frexp.hpp>
 #include <nt2/include/functions/simd/seladd.hpp>
 #include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/simd/bitwise_and.hpp>
 #include <nt2/include/functions/simd/logical_or.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
 #include <nt2/include/functions/simd/if_else_zero.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/include/constants/invlog_2.hpp>
 #include <nt2/include/constants/invlog_10.hpp>
 #include <nt2/include/constants/log_2olog_10.hpp>
@@ -30,7 +37,10 @@
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/sqrt_2o_2.hpp>
 #include <nt2/include/constants/mone.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/minf.hpp>
 #include <boost/simd/sdk/config.hpp>
+#include <boost/typeof/typeof.hpp>
 
 namespace nt2 { namespace details
 {
