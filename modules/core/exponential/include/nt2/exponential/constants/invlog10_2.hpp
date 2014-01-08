@@ -25,8 +25,8 @@ namespace nt2
       Hierarchy
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Invlog10_2, double
-                                , 0, 0x40549a78
-                                , 0x400a934f0979a372ll
+                                , 0, 0x40549a78UL
+                                , 0x400a934f0979a372ULL
                                 );
   }
  /*!
