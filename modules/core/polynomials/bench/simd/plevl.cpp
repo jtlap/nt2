@@ -36,7 +36,7 @@ struct plevl_
 
   void operator()()
   {
-    for(std::size_t i=0;i<size_;++i)
+    for(std::size_t i=0;i<size_;i+=vT::static_size)
     {
       boost::simd::
       aligned_store ( nt2::plevl(boost::simd::aligned_load<vT>(&in[i]),coeff)
