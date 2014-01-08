@@ -158,9 +158,6 @@ namespace nt2 { namespace details
   private:
     static inline A0 finalize(const A0& a0, const A0& y)
     {
-    #ifdef NT2_NO_LOG_FINALIZATION
-      return y;
-    #endif
     #ifdef BOOST_SIMD_NO_NANS
       BOOST_AUTO_TPL(test, nt2::is_ltz(a0));
     #else
