@@ -79,7 +79,7 @@ NT2_REGISTER_BENCHMARK_TPL( trans_gemm_test, (float)(double) )
   std::size_t i = args("iteration",  100);
   std::size_t d = args("duration" , 3.);
 
-  run_until_with< trans_gemm_test<T>& > ( d, i
+  run_until_with< trans_gemm_test<T>  > ( d, i
                                         , geometric(m,n,s)
                                         , absolute_time<stat::median_>()
                                         );
@@ -126,7 +126,7 @@ NT2_REGISTER_BENCHMARK_TPL( trans_mtimes_test, (float)(double) )
   std::size_t i = args("iteration",  100);
   std::size_t d = args("duration" , 3.);
 
-  run_until_with< trans_mtimes_test<T>& > ( d, i
+  run_until_with< trans_mtimes_test<T>  > ( d, i
                                           , geometric(m,n,s)
                                           , absolute_time<stat::median_>()
                                           , speedup < trans_gemm_test<T>

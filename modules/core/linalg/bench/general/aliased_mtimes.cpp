@@ -82,7 +82,7 @@ NT2_REGISTER_BENCHMARK_TPL( gemm_test, (float)(double) )
   std::size_t i = args("iteration",  100);
   std::size_t d = args("duration" , 3.);
 
-  run_until_with< gemm_test<T>& > ( d, i
+  run_until_with< gemm_test<T>  > ( d, i
                                   , geometric(m,n,s)
                                   , absolute_time<stat::median_>()
                                   );
@@ -128,7 +128,7 @@ NT2_REGISTER_BENCHMARK_TPL( alias_mtimes_test, (float)(double) )
   std::size_t i = args("iteration",  100);
   std::size_t d = args("duration" , 3.);
 
-  run_until_with< alias_mtimes_test<T>& > (d, i
+  run_until_with< alias_mtimes_test<T> > (d, i
                                           , geometric(m,n,s)
                                           , absolute_time<stat::median_>()
                                           , speedup < gemm_test<T>
