@@ -6,6 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+
+#include <hpx/config.hpp>
+
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/unit/details/prng.hpp>
 #include <nt2/sdk/bench/metric/absolute_time.hpp>
