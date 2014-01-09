@@ -9,6 +9,8 @@
 
 SET( SOURCES
   asymmetric_table.cpp
+  c_vs_table.cpp
+  plus.cpp
   small_table.cpp
   sum.cpp
 # List of scalar test files for toolbox fuzzy
