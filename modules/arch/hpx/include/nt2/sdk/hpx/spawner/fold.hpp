@@ -17,8 +17,6 @@
 
 #include <nt2/sdk/shared_memory/spawner.hpp>
 
-#include <cstdio>
-
 #ifndef BOOST_NO_EXCEPTIONS
 #include <boost/exception_ptr.hpp>
 #endif
