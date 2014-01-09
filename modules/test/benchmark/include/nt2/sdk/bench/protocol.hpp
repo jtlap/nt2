@@ -103,7 +103,7 @@ namespace nt2 { namespace bench
     {
       /* We copy reference experiment depending on whether they have
        * experiment_is_immutable or not */
-      typename details:::experiment_copy<Experiment>::type local(e);
+      typename details::experiment_copy<Experiment>::type local(e);
 
       time_quantum_t const time_start  ( time_quantum() );
       cycles_t       const cycles_start( read_cycles() );
