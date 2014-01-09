@@ -51,7 +51,7 @@ elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUXX OR CMAKE_CXX_COMPILER_
   if(NT2_ARCH_X86) # valgrind doesn't support SSE4 or AVX
      set(NT2_FLAGS_TESTDEBUG "${NT2_FLAGS_TESTDEBUG} -mno-sse4.1 -mno-sse4.2 -mno-avx")
   endif()
-  set(NT2_FLAGS_BENCH "-DNDEBUG -O3 -fomit-frame-pointer")
+  set(NT2_FLAGS_BENCH "-DNDEBUG -O3 -fomit-frame-pointer -fno-exceptions")
 
 elseif(CMAKE_CXX_COMPILER_ID MATCHES "Intel")
   if(UNIX)
