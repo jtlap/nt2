@@ -88,6 +88,8 @@ namespace nt2 { namespace details
   template< typename Function,BOOST_PP_ENUM_PARAMS(N,typename Arg)>
   struct process_functor<Function,N,BOOST_PP_ENUM_PARAMS(N,Arg)>
   {
+    typedef void experiment_is_immutable;
+
     // Computes scalar version of Args so we know what to store in in_i
     BOOST_PP_REPEAT(N,M0,~)
 

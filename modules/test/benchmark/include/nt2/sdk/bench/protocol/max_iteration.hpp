@@ -85,9 +85,6 @@ namespace nt2 { namespace bench
                 : parent(metrics_type(BOOST_PP_ENUM_PARAMS(N,m))), iteration_(i)
     {}
 
-    typedef typename boost::is_reference<Experiment>::type is_stateful;
-    typedef typename boost::remove_reference<Experiment>::type experiment_t;
-
     inline void run() { run(fixed(0)); }
 
     template<typename Workbench> inline void run(Workbench w)
@@ -97,11 +94,11 @@ namespace nt2 { namespace bench
         details::times_set  times_;
         details::cycles_set cycles_;
 
-        experiment_t e(w());
+        Experiment e(w());
 
         for(std::size_t i=0;i<iteration_;++i)
         {
-          parent::run(e,times_,cycles_, is_stateful());
+          parent::run(e,times_,cycles_);
         }
 
         parent::display(e,times_,cycles_);

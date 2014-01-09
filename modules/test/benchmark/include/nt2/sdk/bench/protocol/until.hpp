@@ -16,8 +16,6 @@
 #include <nt2/sdk/bench/protocol.hpp>
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/make_vector.hpp>
-#include <boost/type_traits/remove_reference.hpp>
-#include <boost/type_traits/is_reference.hpp>
 
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
@@ -92,9 +90,6 @@ namespace nt2 { namespace bench
 
     inline void run() { run(fixed(0)); }
 
-    typedef typename boost::is_reference<Experiment>::type is_stateful;
-    typedef typename boost::remove_reference<Experiment>::type experiment_t;
-
     template<typename Workbench> inline void run(Workbench w)
     {
       time_quantum_t const total_duration( to_timequantums(duration_*1000000) );
@@ -106,11 +101,11 @@ namespace nt2 { namespace bench
         details::times_set  times_;
         details::cycles_set cycles_;
 
-        experiment_t e(w());
+        Experiment e(w());
 
         do
         {
-          duration += parent::run(e,times_,cycles_,is_stateful());
+          duration += parent::run(e,times_,cycles_);
           iter++;
         } while( duration < total_duration && iter < iteration_ );
 

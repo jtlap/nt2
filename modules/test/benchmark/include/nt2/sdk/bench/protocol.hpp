@@ -19,6 +19,21 @@
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 
+namespace nt2 { namespace details
+{
+  template<class Experiment, class Enable = void>
+  struct experiment_copy
+  {
+    typedef Experiment type;
+  };
+
+  template<class Experiment>
+  struct experiment_copy<Experiment, typename Experiment::experiment_is_immutable>
+  {
+    typedef Experiment& type;
+  };
+} }
+
 namespace nt2 { namespace bench
 {
 #if defined(DOXYGEN_ONLY)
@@ -84,13 +99,16 @@ namespace nt2 { namespace bench
     inline time_quantum_t run ( Experiment& e
                               , details::times_set&  t
                               , details::cycles_set& c
-                              , boost::false_type const&
                               ) const
     {
+      /* We copy reference experiment depending on whether they have
+       * experiment_is_immutable or not */
+      typename details:::experiment_copy<Experiment>::type local(e);
+
       time_quantum_t const time_start  ( time_quantum() );
       cycles_t       const cycles_start( read_cycles() );
 
-      e();
+      local();
 
       cycles_t       const cycles_end( read_cycles() );
       time_quantum_t const time_end  ( time_quantum() );
@@ -102,18 +120,6 @@ namespace nt2 { namespace bench
       c(burned_cycles);
 
       return elapsed_time;
-    }
-
-    // For test with mutable input, we proceed with a copy
-    template<typename Experiment>
-    inline time_quantum_t run ( Experiment const& e
-                              , details::times_set&  t
-                              , details::cycles_set& c
-                              , boost::true_type const&
-                              ) const
-    {
-      Experiment local(e);
-      return run(local,t,c,boost::false_type() );
     }
 
     template<typename Experiment>
