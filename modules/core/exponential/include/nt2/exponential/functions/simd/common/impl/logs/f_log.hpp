@@ -28,7 +28,7 @@
 #include <nt2/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/mhalf.hpp>
-#include <nt2/include/constants/Minf.hpp>
+#include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/log_2hi.hpp>
 #include <nt2/include/constants/log_2lo.hpp>
