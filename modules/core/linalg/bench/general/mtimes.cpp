@@ -1,119 +1,132 @@
-
 //==============================================================================
-//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2013   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 container mtimes"
+#include <nt2/sdk/bench/benchmark.hpp>
+#include <nt2/sdk/unit/details/prng.hpp>
+#include <nt2/sdk/bench/metric/absolute_time.hpp>
+#include <nt2/sdk/bench/metric/speedup.hpp>
+#include <nt2/sdk/bench/setup/geometric.hpp>
+#include <nt2/sdk/bench/setup/constant.hpp>
+#include <nt2/sdk/bench/setup/combination.hpp>
+#include <nt2/sdk/bench/protocol/until.hpp>
+#include <nt2/sdk/bench/stat/median.hpp>
 
-#include <nt2/core/container/table/table.hpp>
-#include <nt2/include/functions/of_size.hpp>
-#include <nt2/operator/operator.hpp>
-#include <nt2/include/functions/function.hpp>
-#include <nt2/include/functions/mtimes.hpp>
-#include <nt2/include/functions/rand.hpp>
-#include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/zero.hpp>
-#include <nt2/table.hpp>
-#include <nt2/sdk/timing/now.hpp>
-#include <nt2/sdk/unit/details/helpers.hpp>
-#include <nt2/sdk/bench/perform_benchmark.hpp>
-#include <nt2/sdk/unit/module.hpp>
 #include <nt2/linalg/details/blas/mm.hpp>
+#include <nt2/include/functions/of_size.hpp>
+#include <nt2/include/functions/mtimes.hpp>
+#include <nt2/table.hpp>
 
-template<class T> struct mtimes_test : nt2::details::base_experiment
+using nt2::table;
+using nt2::of_size;
+using namespace nt2::bench;
+
+//==============================================================================
+// mtimes with xGEMM benchmark
+//==============================================================================
+template<typename T>
+struct gemm_test
 {
-  mtimes_test(std::size_t n, std::size_t m, T const& min, T const& max )
-    : a1(nt2::of_size(n,m)),
-      a2(nt2::of_size(m,n)),
-      a3(nt2::of_size(n,n))
-    , N(n), M(m)
+  gemm_test ( std::size_t n )
+            : n_( n )
+            , a1(of_size(n_,n_))
+            , a2(of_size(n_,n_))
+            , a3(of_size(n_,n_))
   {
-    for(size_t i = 1; i <= N * M; ++i)
-    {
-      a1(i) = roll<T>(min,max);
-      a2(i) = roll<T>(min,max);
-    }
+    nt2::roll(a1,-10.,10.);
+    nt2::roll(a2,-10.,10.);
   }
 
-  void run() const
+  void operator()()
   {
-    for(int i = 0; i < 100; ++i)
-      a3 = mtimes(a1, a2);
+    T alpha(1);
+    T beta(0);
+    nt2::details::gemm( "N", "N"
+                      , &n_, &n_, &n_
+                      , &alpha
+                      , a1.raw(), &n_
+                      , a2.raw(), &n_
+                      , &beta
+                      , a3.raw(), &n_
+                      );
   }
 
-  void reset() {}
+  std::size_t size() const { return n_; }
 
-  mutable nt2::table<T> a1,a2,a3;
-  std::size_t N,M;
+  friend std::ostream& operator<<(std::ostream& os, gemm_test<T> const& p)
+  {
+    return os << "(" << p.size() << "x" << p.size() << ")";
+  }
+
+  private:
+  int   n_;
+  nt2::table<T> a1,a2,a3;
 };
 
-template<class T> struct gemm_test : nt2::details::base_experiment
+NT2_REGISTER_BENCHMARK_TPL( gemm_test, (float)(double) )
 {
-  gemm_test(std::size_t n, std::size_t m, T const& min, T const& max )
-    : a1(nt2::of_size(m, n)),
-      a2(nt2::of_size(n, m)),
-      a3(nt2::of_size(m, m))
-    , N(n), M(m)
-  {
-    for(int i = 1; i <= N * M; ++i)
-    {
-      a1(i) = roll<T>(min,max);
-      a2(i) = roll<T>(min,max);
-    }
-  }
+  std::size_t m = args("min" ,    2);
+  std::size_t n = args("max" , 1024);
+  std::size_t s = args("step",    2);
+  std::size_t i = args("iteration", 100);
+  std::size_t d = args("duration" , 3.);
 
-
-  void run() const
-  {
-    T alpha = nt2::One<T>();
-    T beta  = nt2::Zero<T>();
-    for(int i = 0; i < 100; ++i)
-      nt2::details::gemm( "N", "N"
-                          , &M, &M, &N
-                          , &alpha
-                          , a1.raw(), &M
-                          , a2.raw(), &N
-                          , &beta
-                          , a3.raw(), &M
-      );
-
-  }
-
-  void reset() {}
-
-  mutable nt2::table<T> a1,a2,a3;
-  nt2_la_int N,M;
-
-};
-
-template<class T> void do_test()
-{
-  std::cout << "Size\tmtimes (c/e)\tmtimes (s)\tgemm (c/e)\tgemm (s)\tG(c/e)\tG(s)\n";
-
-  for(int N=1;N<=256;N*=2)
-  {
-    std::cout.precision(3);
-    std::cout << N << "^2\t";
-    mtimes_test<T> tt(N,N,-.28319, .28319);
-    nt2::benchmark_result_t dv = nt2::perform_benchmark( tt, 1. );
-    std::cout << std::scientific << dv.first/(double)(N*N) << "\t";
-    std::cout << std::scientific << dv.second << "\t";
-
-    gemm_test<T> vv(N,N,-.28319, .28319);
-    nt2::benchmark_result_t dw = nt2::perform_benchmark( vv, 1. );
-    std::cout << std::scientific << dw.first/(double)(N*N) << "\t";
-    std::cout << std::scientific << dw.second << "\t";
-
-    std::cout << std::fixed << (double)dw.first/dv.first << "\t";
-    std::cout << std::fixed << (double)dw.second/dv.second << "\n";
-  }
+  run_until_with< gemm_test<T>& > ( d, i
+                                  , geometric(m,n,s)
+                                  , absolute_time<stat::median_>()
+                                  );
 }
 
-NT2_TEST_CASE_TPL( small_table, (double)(float) )
+//==============================================================================
+// mtimes with table benchmark
+//==============================================================================
+template<typename T>
+struct mtimes_test
 {
-  do_test<T>();
+  mtimes_test ( std::size_t n )
+              : n_( n )
+              , a1(of_size(n_,n_))
+              , a2(of_size(n_,n_))
+              , a3(of_size(n_,n_))
+  {
+    nt2::roll(a1,-10.,10.);
+    nt2::roll(a2,-10.,10.);
+  }
+
+  void operator()()
+  {
+    a3 = nt2::mtimes(a1, a2);
+  }
+
+  std::size_t size() const { return n_; }
+
+  friend std::ostream& operator<<(std::ostream& os, mtimes_test<T> const& p)
+  {
+    return os << p.a1.extent();
+  }
+
+  private:
+  int   n_;
+  nt2::table<T,nt2::_2D> a1,a2,a3;
+};
+
+NT2_REGISTER_BENCHMARK_TPL( mtimes_test, (float)(double) )
+{
+  std::size_t m = args("min" ,    2);
+  std::size_t n = args("max" , 1024);
+  std::size_t s = args("step",    2);
+  std::size_t i = args("iteration",  100);
+  std::size_t d = args("duration" , 3.);
+
+  run_until_with< mtimes_test<T>& > ( d, i
+                                    , geometric(m,n,s)
+                                    , absolute_time<stat::median_>()
+                                    , speedup < gemm_test<T>
+                                              , absolute_time<stat::median_>
+                                              >()
+                                    );
 }

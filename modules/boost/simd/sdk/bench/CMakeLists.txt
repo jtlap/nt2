@@ -8,6 +8,4 @@
 ##############################################################################
 
 nt2_module_use_modules(test.benchmark)
-ADD_SUBDIRECTORY(common)
-ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

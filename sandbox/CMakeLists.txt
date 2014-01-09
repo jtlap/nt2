@@ -21,7 +21,6 @@ set( SOURCES
 #    table_dim.cpp
      transform_pass.cpp
 #    table.cpp
-#    index_test.cpp
    )
 
 foreach(src ${SOURCES})

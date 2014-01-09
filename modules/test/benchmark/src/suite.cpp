@@ -1,35 +1,79 @@
 //==============================================================================
-//         Copyright 2003 - 2012 LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2009 - 2013 LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //         Copyright 2012 - 2013 MetaScale SAS
-//         Copyright 2012        Domagoj Saric, Little Endian Ltd.
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <nt2/sdk/bench/config.hpp>
-#include <nt2/sdk/bench/details/suite.hpp>
+#include <nt2/sdk/bench/suite.hpp>
+#include <nt2/sdk/bench/args.hpp>
+#include <nt2/sdk/bench/metric/speedup.hpp>
+#include <boost/foreach.hpp>
 #include <iostream>
 #include <iomanip>
 
-namespace nt2 { namespace details
+namespace nt2 { namespace bench
 {
-  NT2_TEST_BENCHMARK_DECL
-  benchmark_suite::benchmark_suite(unit_test const* t_) : test_suite(t_) {}
-
-  NT2_TEST_BENCHMARK_DECL benchmark_suite::~benchmark_suite()  {}
-
-  NT2_TEST_BENCHMARK_DECL void benchmark_suite::report() const {}
-  NT2_TEST_BENCHMARK_DECL void benchmark_suite::process() const
+  struct benchmark_suite
   {
-    std::cout << "CTEST_FULL_OUTPUT\n[Benchmark]\t\t[Size]\t[Value]\t[Unit]\n";
+    // RUN ALL THE EXPERIMENTS !!!
+    void run()
+    {
+      std::cout <<  std::string(100,'-') << std::endl;
+      std::cout << "Benchmark\tSize\tResult\tUnit\tSamples #" << std::endl;
+      std::cout <<  std::string(100,'-') << std::endl;
 
-    std::cout <<  "-------------------------------------------"
-                  "-------------------------------------------"
-              << std::endl;
+      // Run every registered experiments
+      for(std::size_t i=0;i<experiments_.size();++i)
+      {
+        details::current_benchmark = ids_[i];
+        experiments_[i]();
+      }
+    }
 
-    test_suite::process();
-  }
+    void register_benchmark ( std::string const&              name
+                            , boost::function<void()> const&  fn
+                            )
+    {
+      ids_.push_back(name);
+      experiments_.push_back(fn);
+    }
+
+    std::vector< boost::function<void()> > experiments_;
+    std::vector< std::string >             ids_;
+  };
 } }
 
+namespace nt2 { namespace details
+{
+  // Text ID of current benchmark being run
+  NT2_TEST_BENCHMARK_DECL std::string current_benchmark;
+
+  // Global benchmark_suite
+  bench::benchmark_suite benchmarker_;
+
+  // Put an experiment in the benchmark suite
+  NT2_TEST_BENCHMARK_DECL
+  bool register_benchmark ( std::string const&              name
+                          , boost::function<void()> const&  fn
+                          )
+  {
+    if(fn) benchmarker_.register_benchmark(name, fn);
+    return fn;
+  }
+
+} }
+
+// Prebuilt main
+NT2_TEST_BENCHMARK_DECL int main(int argc, const char** argv)
+{
+  std::cout << "CTEST_FULL_OUTPUT" << std::endl;
+
+  // process option commands
+  nt2::details::fill_args_map(argc,argv);
+
+  // run all registered experiments
+  nt2::details::benchmarker_.run();
+}

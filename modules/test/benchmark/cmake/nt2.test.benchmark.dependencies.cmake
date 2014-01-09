@@ -8,8 +8,8 @@
 ################################################################################
 SET ( NT2_TEST.BENCHMARK_DEPENDENCIES_EXTRA
       boost.dispatch
-      boost.simd.base
       boost.simd.sdk
+      sdk.config
       sdk.error
       sdk.meta
       sdk.timing

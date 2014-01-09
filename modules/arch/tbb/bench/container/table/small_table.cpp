@@ -1,132 +1,120 @@
 //==============================================================================
-//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2013   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/table.hpp>
+#include <nt2/sdk/bench/benchmark.hpp>
+#include <nt2/sdk/unit/details/prng.hpp>
+#include <nt2/sdk/bench/metric/cycles_per_element.hpp>
+#include <nt2/sdk/bench/metric/speedup.hpp>
+#include <nt2/sdk/bench/setup/geometric.hpp>
+#include <nt2/sdk/bench/protocol/max_duration.hpp>
+#include <nt2/sdk/bench/stat/median.hpp>
+
 #include <nt2/include/functions/cos.hpp>
 #include <nt2/include/functions/sin.hpp>
 #include <nt2/include/functions/sqrt.hpp>
+#include <nt2/table.hpp>
 
-#include <nt2/sdk/bench/benchmark.hpp>
+#include <vector>
+#include <cmath>
 
-template< typename Container
-        , typename Tag = boost::dispatch::default_site<void>::type
-        >
-NT2_EXPERIMENT(small_table)
+using nt2::table;
+using nt2::of_size;
+using namespace nt2::bench;
+
+//==============================================================================
+// std::vector based plus benchmark
+//==============================================================================
+template<typename T>
+struct small_vector
 {
-  public:
-  small_table ( std::size_t s0, std::size_t s1, bool status = false )
-              : NT2_EXPERIMENT_CTOR(1.,status ? "cycles/elements" : "speed-up")
-              , d0(s0), d1(s1)
-              , is_ref(status)
-  {}
-
-  virtual void run() const
+  small_vector() {}
+  small_vector( std::size_t n ) : size_(n*n), a0(size_),a1(size_),a2(size_)
   {
-    a2 = nt2::sqrt(nt2::cos(a0)/nt2::sin(a0) + a1*a1/a0);
+    nt2::roll(a0,-3.1415/4., 3.1415/4.);
+    nt2::roll(a1,-3.1415/4., 3.1415/4.);
   }
 
-  virtual double compute(nt2::benchmark_result_t const& r) const
+  void operator()()
   {
-    if(is_ref)
+    for(std::size_t i = 0; i < size_; ++i)
     {
-      nt2::reference_timing().second = double(r.first);
-      return r.first/double(d0*d1);
-    }
-    else
-    {
-      return nt2::reference_timing().first / nt2::reference_timing().second;
+      a2[i]  = std::sqrt(std::cos(a0[i])/std::sin(a0[i]) + a1[i]*a1[i]/a0[i] );
     }
   }
 
-  virtual void info(std::ostream& os) const { os << d0 << "x" << d1; }
+  std::size_t size() const { return size_; }
 
-  virtual void reset() const
+  friend std::ostream& operator<<(std::ostream& os, small_vector<T> const& p)
   {
-    a0.resize(nt2::of_size((is_ref ? d0:1), (is_ref ? d1:1)));
-    a1.resize(nt2::of_size((is_ref ? d0:1), (is_ref ? d1:1)));
-    a2.resize(nt2::of_size((is_ref ? d0:1), (is_ref ? d1:1)));
-
-    nt2::roll ( a0, -.28319, .28319 );
-    nt2::roll ( a1, -.28319, .28319 );
+    return os << "(" << p.size_ << ")";
   }
 
   private:
-          std::size_t               d0,d1;
-          bool                      is_ref;
-  mutable Container                 a0,a1,a2;
+  std::size_t size_;
+  std::vector<T> a0,a1,a2;
 };
 
-template<typename T> NT2_EXPERIMENT(small_table< std::vector<T> >)
+NT2_REGISTER_BENCHMARK_TPL( small_vector, (float)(double) )
 {
-  public:
-  small_table ( std::size_t s0, std::size_t s1)
-              : NT2_EXPERIMENT_CTOR(1.,"cycles/elements")
-              , d0(s0), d1(s1)
-  {}
+  std::size_t mn = args("min" , 2   );
+  std::size_t mx = args("max" , 2048);
+  std::size_t s  = args("step", 2   );
 
-  virtual void run() const
+  run_during_with< small_vector<T> >( 1.
+                                    , geometric(mn,mx,s)
+                                    , cycles_per_element<stat::median_>()
+                                    );
+}
+
+//==============================================================================
+// nt2::table based plus benchmark
+//==============================================================================
+template<typename T>
+struct small_table
+{
+  small_table() {}
+  small_table ( std::size_t n )
+              : size_(n*n)
+              , a0(nt2::_2D(n,n)),a1(nt2::_2D(n,n)),a2(nt2::_2D(n,n))
   {
-    for(std::size_t i=0; i<d0*d1; ++i)
-      a2[i] = std::sqrt(std::cos(a0[i])/std::sin(a0[i]) + a1[i]*a1[i]/a0[i]);
+    nt2::roll(a0,-3.1415/4., 3.1415/4.);
+    nt2::roll(a1,-3.1415/4., 3.1415/4.);
   }
 
-  virtual double compute(nt2::benchmark_result_t const& r) const
+  void operator()()
   {
-    nt2::reference_timing() = r;
-    return r.first/double(d0*d1);
+    a2  = nt2::sqrt ( nt2::cos(a0)/nt2::sin(a0) + a1*a1/a0 );
   }
 
-  virtual void info(std::ostream& os) const { os << d0 << "x" << d1; }
+  std::size_t size()   const { return size_; }
 
-  virtual void reset() const
+  friend std::ostream& operator<<(std::ostream& os, small_table<T> const& p)
   {
-    a0.resize(d0*d1);
-    a1.resize(d0*d1);
-    a2.resize(d0*d1);
-
-    nt2::roll ( a0, -.28319, .28319 );
-    nt2::roll ( a1, -.28319, .28319 );
+    return os << "(" << p.a0.extent() << ")";
   }
 
   private:
-          std::size_t               d0,d1;
-          bool                      is_ref;
-  mutable std::vector<T>            a0,a1,a2;
+  std::size_t size_;
+  nt2::table<T,nt2::_2D> a0,a1,a2;
 };
 
-#define NT2_TABLE_EXP(T,N)                                                    \
-NT2_RUN_EXPERIMENT_TPL( small_table, (std::vector<T>) , (1<<N , 1<<N));       \
-NT2_RUN_EXPERIMENT_TPL( small_table, (nt2::table<T>)  , (1<<N , 1<<N,true));  \
-NT2_RUN_EXPERIMENT_TPL( small_table, (nt2::table<T>)  , (1<<N , 1<<N));       \
-/**/
 
-NT2_TABLE_EXP(double ,  1 );
-NT2_TABLE_EXP(double ,  2 );
-NT2_TABLE_EXP(double ,  3 );
-NT2_TABLE_EXP(double ,  4 );
-NT2_TABLE_EXP(double ,  5 );
-NT2_TABLE_EXP(double ,  6 );
-NT2_TABLE_EXP(double ,  7 );
-NT2_TABLE_EXP(double ,  8 );
-NT2_TABLE_EXP(double ,  9 );
-NT2_TABLE_EXP(double , 10 );
-NT2_TABLE_EXP(double , 11 );
-NT2_TABLE_EXP(double , 12 );
+NT2_REGISTER_BENCHMARK_TPL( small_table, (float)(double) )
+{
+  std::size_t mn = args("min" , 2   );
+  std::size_t mx = args("max" , 2048);
+  std::size_t s  = args("step", 2   );
 
-NT2_TABLE_EXP(float ,  1 );
-NT2_TABLE_EXP(float ,  2 );
-NT2_TABLE_EXP(float ,  3 );
-NT2_TABLE_EXP(float ,  4 );
-NT2_TABLE_EXP(float ,  5 );
-NT2_TABLE_EXP(float ,  6 );
-NT2_TABLE_EXP(float ,  7 );
-NT2_TABLE_EXP(float ,  8 );
-NT2_TABLE_EXP(float ,  9 );
-NT2_TABLE_EXP(float , 10 );
-NT2_TABLE_EXP(float , 11 );
-NT2_TABLE_EXP(float , 12 );
+  run_during_with< small_table<T> >( 1.
+                                  , geometric(mn,mx,s)
+                                  , cycles_per_element<stat::median_>()
+                                  , speedup < small_vector<T>
+                                            , cycles_per_element<stat::median_>
+                                            >()
+                                  );
+}

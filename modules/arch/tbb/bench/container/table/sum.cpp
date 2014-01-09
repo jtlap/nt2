@@ -6,93 +6,75 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/core/container/table/table.hpp>
-#include <nt2/include/functions/of_size.hpp>
-#include <nt2/include/functions/sum.hpp>
-#include <nt2/include/functions/plus.hpp>
-
 #include <nt2/sdk/bench/benchmark.hpp>
+#include <nt2/sdk/unit/details/prng.hpp>
+#include <nt2/sdk/bench/metric/cycles_per_element.hpp>
+#include <nt2/sdk/bench/metric/speedup.hpp>
+#include <nt2/sdk/bench/setup/repeat.hpp>
+#include <nt2/sdk/bench/setup/arithmetic.hpp>
+#include <nt2/sdk/bench/setup/geometric.hpp>
+#include <nt2/sdk/bench/protocol/max_duration.hpp>
+#include <nt2/sdk/bench/stat/median.hpp>
 
-template< typename T, int N
-        , class Tag = boost::dispatch::default_site<void>::type
-        >
-NT2_EXPERIMENT(sum_over)
+#include <nt2/include/functions/sum.hpp>
+#include <nt2/table.hpp>
+
+using namespace nt2::bench;
+
+//==============================================================================
+// nt2::table based plus benchmark
+//==============================================================================
+template<typename T>
+struct table_sum
 {
-  public:
-  sum_over( std::size_t s0, std::size_t s1 )
-          : NT2_EXPERIMENT_CTOR(1.,"cycles/operations")
-          , d0(s0), d1(s1)
-  {}
+  table_sum() {}
 
-  virtual void run() const { a1 = nt2::sum(a0,N); }
-
-  virtual double compute(nt2::benchmark_result_t const& r) const
+  template<typename Setup>
+  table_sum ( Setup const& s )
+              : size_(boost::fusion::at_c<1>(s)*boost::fusion::at_c<1>(s))
+              , dim_(boost::fusion::at_c<0>(s))
+              , a0(nt2::_2D ( boost::fusion::at_c<1>(s)
+                            , boost::fusion::at_c<1>(s)
+                            )
+                  )
+              , a1(nt2::_2D ( boost::fusion::at_c<1>(s)
+                            , boost::fusion::at_c<1>(s)
+                            )
+                  )
   {
-    return r.first/double(d0*d1);
+    nt2::roll(a1,-3.1415/4., 3.1415/4.);
   }
 
-  virtual void info(std::ostream& os) const { os << d0 << "x" << d1; }
-
-  virtual void reset() const
+  void operator()()
   {
-    a0.resize(nt2::of_size(d0,d1));
-    a1.resize(nt2::of_size( N==1 ? 1 : d0
-                          , N==2 ? 1 : d1
-                          )
-                );
-
-    for(std::size_t i=1; i<=d0*d1; ++i) a0(i) = T(1);
+    a1  = nt2::sum ( a0, dim_ );
   }
+
+  std::size_t size()   const { return size_;        }
+  nt2::_2D    extent() const { return a0.extent();  }
+  std::size_t dim()    const { return dim_;         }
 
   private:
-          std::size_t                               d0,d1;
-  mutable nt2::container::table<T, nt2::settings()> a0,a1;
+  std::size_t size_,dim_;
+  nt2::table<T> a0,a1;
 };
 
+template<typename T>
+std::ostream& operator<<(std::ostream& os, table_sum<T> const& p)
+{
+  return os << "(" << p.extent() << ") @ " << p.dim();
+}
 
-#define NT2_SUM_EXP(T,D,N)                                        \
-NT2_RUN_EXPERIMENT_TPL( sum_over, ((T,D)), (1<<N,1<<N) )          \
-NT2_RUN_EXPERIMENT_TPL( sum_over, ((T,D)), ((1<<N)-1,(1<<N)-1 ) ) \
-NT2_RUN_EXPERIMENT_TPL( sum_over, ((T,D)), (1   ,1<<N) )          \
-NT2_RUN_EXPERIMENT_TPL( sum_over, ((T,D)), (1<<N,1   ) )          \
-/**/
+NT2_REGISTER_BENCHMARK_TPL( table_sum, (float)(double) )
+{
+  std::size_t mn = args("min" , 2   );
+  std::size_t mx = args("max" , 2048);
+  std::size_t s  = args("step", 2   );
 
-NT2_SUM_EXP(double , 1,  4 );
-NT2_SUM_EXP(double , 1,  5 );
-NT2_SUM_EXP(double , 1,  6 );
-NT2_SUM_EXP(double , 1,  7 );
-NT2_SUM_EXP(double , 1,  8 );
-NT2_SUM_EXP(double , 1,  9 );
-NT2_SUM_EXP(double , 1, 10 );
-NT2_SUM_EXP(double , 1, 11 );
-NT2_SUM_EXP(double , 1, 12 );
-
-NT2_SUM_EXP(float , 1,  4 );
-NT2_SUM_EXP(float , 1,  5 );
-NT2_SUM_EXP(float , 1,  6 );
-NT2_SUM_EXP(float , 1,  7 );
-NT2_SUM_EXP(float , 1,  8 );
-NT2_SUM_EXP(float , 1,  9 );
-NT2_SUM_EXP(float , 1, 10 );
-NT2_SUM_EXP(float , 1, 11 );
-NT2_SUM_EXP(float , 1, 12 );
-
-NT2_SUM_EXP(double , 2,  4 );
-NT2_SUM_EXP(double , 2,  5 );
-NT2_SUM_EXP(double , 2,  6 );
-NT2_SUM_EXP(double , 2,  7 );
-NT2_SUM_EXP(double , 2,  8 );
-NT2_SUM_EXP(double , 2,  9 );
-NT2_SUM_EXP(double , 2, 10 );
-NT2_SUM_EXP(double , 2, 11 );
-NT2_SUM_EXP(double , 2, 12 );
-
-NT2_SUM_EXP(float , 2,  4 );
-NT2_SUM_EXP(float , 2,  5 );
-NT2_SUM_EXP(float , 2,  6 );
-NT2_SUM_EXP(float , 2,  7 );
-NT2_SUM_EXP(float , 2,  8 );
-NT2_SUM_EXP(float , 2,  9 );
-NT2_SUM_EXP(float , 2, 10 );
-NT2_SUM_EXP(float , 2, 11 );
-NT2_SUM_EXP(float , 2, 12 );
+  run_during_with< table_sum<T> > ( 1.
+                                    , repeat( arithmetic(1,2)
+                                            , geometric(mn,mx,s)
+                                            )
+                                    , cycles_per_element<stat::median_>()
+                                    );
+}
