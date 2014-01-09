@@ -20,13 +20,28 @@ namespace boost { namespace simd { namespace ext
                                     , boost::simd::tag::avx_
                                     , (A0)
                                     , ((simd_<double_<A0>,boost::simd::tag::avx_>))
+                                    )
+  {
+    typedef typename dispatch::meta::downgrade<A0>::type                result_type;
+    typedef typename meta::retarget<result_type,simd::tag::sse_>::type  htype;
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    {
+      return _mm256_cvtpd_ps(a0);
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::group_
+                                    , boost::simd::tag::avx_
+                                    , (A0)
+                                    , ((simd_<double_<A0>,boost::simd::tag::avx_>))
                                       ((simd_<double_<A0>,boost::simd::tag::avx_>))
                                     )
   {
     typedef typename dispatch::meta::downgrade<A0>::type                result_type;
     typedef typename meta::retarget<result_type,simd::tag::sse_>::type  htype;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       htype       r0 = _mm256_cvtpd_ps(a0);
       htype       r1 = _mm256_cvtpd_ps(a1);

@@ -93,9 +93,24 @@ namespace boost { namespace simd { namespace ext
 
     typedef typename dispatch::meta::downgrade<A0>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return group(a0, a1);
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::groups_, tag::cpu_,
+                                     ((simd_<floating_<A0>,X>))
+                                   )
+  {
+    typedef typename dispatch::meta::downgrade<typename A0::value_type>::type base_t;
+    typedef typename simd::meta::vector_of< base_t
+                                          , A0::static_size
+                                          >::type result_type;
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    {
+      return group(a0);
     }
   };
 } } }
