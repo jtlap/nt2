@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename dispatch::meta::downgrade<A0>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return _mm_packus_epi32( (a0 & 0x7FFFFFFF) | shri(a0 & 0xF0000000, 1)
                              , (a1 & 0x7FFFFFFF) | shri(a1 & 0xF0000000, 1)

@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename dispatch::meta::downgrade<A0>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return _mm_movelh_ps(_mm_cvtpd_ps(a0), _mm_cvtpd_ps(a1));
     }

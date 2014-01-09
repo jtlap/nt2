@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename dispatch::meta::downgrade<A0>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return _mm_movelh_ps(_mm_cvtpd_ps(a0), _mm_cvtpd_ps(a1));
     }
@@ -48,7 +48,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename dispatch::meta::downgrade<A0>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return _mm_packs_epi16(a0, a1);
     }
@@ -67,7 +67,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename dispatch::meta::downgrade<A0>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return _mm_packus_epi16( (a0 & 0x7FFF) | shri(a0 & 0xF000, 1)
                              , (a1 & 0x7FFF) | shri(a1 & 0xF000, 1)
@@ -87,7 +87,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename dispatch::meta::downgrade<A0>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return _mm_packs_epi32(a0, a1);
     }
