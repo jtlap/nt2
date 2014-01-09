@@ -29,7 +29,6 @@
 #include <nt2/sdk/error/assert_as_flexible.hpp>
 #include <boost/preprocessor/cat.hpp>
 
-#include <iostream>
 
 #if !defined(NT2_UNIT_MAIN_SUITE)
 /// INTERNAL ONLY
