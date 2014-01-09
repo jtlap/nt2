@@ -65,12 +65,6 @@ std::ostream& operator<<(std::ostream& os, table_sum<T> const& p)
   return os << "(" << p.extent() << ") @ " << p.dim();
 }
 
-template<typename T>
-std::ostream& operator<<(std::ostream& os, table_sum<T> const& p)
-{
-  return os << "(" << p.extent() << ") @ " << p.dim();
-}
-
 NT2_REGISTER_BENCHMARK_TPL( table_sum, (float)(double) )
 {
   std::size_t mn = args("min" , 2   );
