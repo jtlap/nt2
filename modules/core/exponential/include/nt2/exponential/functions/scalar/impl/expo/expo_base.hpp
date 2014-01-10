@@ -11,12 +11,14 @@
 
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/zero.hpp>
-#include <nt2/include/functions/scalar/is_nan.hpp>
 #include <nt2/exponential/functions/scalar/impl/selection_tags.hpp>
 #include <nt2/exponential/functions/scalar/impl/expo/f_expo_reduction.hpp>
 #include <nt2/exponential/functions/scalar/impl/expo/d_expo_reduction.hpp>
-#include <nt2/exponential/functions/scalar/impl/expo/expo_finalization.hpp>
+#include <nt2/exponential/functions/scalar/impl/expo/expo_scale.hpp>
 #include <boost/simd/sdk/config.hpp>
+#ifndef BOOST_SIMD_NO_INVALIDS
+#include <nt2/include/functions/scalar/is_nan.hpp>
+#endif
 
 namespace nt2 { namespace details
 {
@@ -25,26 +27,45 @@ namespace nt2 { namespace details
              class Style ,
              class Speed_Tag = fast_tag,
              class base_A0 = typename meta::scalar_of<A0>::type>
-             struct exponential{};
+  struct exponential{};
 
 
   template < class A0, class Tag,  class Speed_Tag>
-  struct exponential< A0, Tag, tag::not_simd_type, Speed_Tag >
+  struct exponential< A0, Tag, tag::not_simd_type, Speed_Tag, double>
   {
     typedef exp_reduction<A0,Tag>                        reduc_t;
-    typedef exp_finalization<A0,Tag,Speed_Tag>        finalize_t;
     // compute exp(ax) where a is 1, 2 or ten depending on Tag
     static inline A0 expa(const A0& a0)
     {
       if (reduc_t::isgemaxlog(a0)) return Inf<A0>();
       if (reduc_t::isleminlog(a0)) return Zero<A0>();
-#ifndef BOOST_SIMD_NO_INVALIDS
-      if (is_nan(a0)) return a0;
-#endif
+      #ifndef BOOST_SIMD_NO_INVALIDS
+        if (is_nan(a0)) return a0;
+      #endif
       A0 hi, lo, x;
       A0 k = reduc_t::reduce(a0, hi, lo, x);
       A0 c = reduc_t::approx(x);
-      return finalize_t::finalize(a0, x, c, k, hi, lo);
+      c = reduc_t::finalize(x, c, hi, lo);
+      return  scale(c, k);
+    }
+  };
+
+  template < class A0, class Tag,  class Speed_Tag>
+  struct exponential< A0, Tag, tag::not_simd_type, Speed_Tag, float>
+  {
+    typedef exp_reduction<A0,Tag>                        reduc_t;
+    // compute exp(ax) where a is 1, 2 or ten depending on Tag
+    static inline A0 expa(const A0& a0)
+    {
+      if (reduc_t::isgemaxlog(a0)) return Inf<A0>();
+      if (reduc_t::isleminlog(a0)) return Zero<A0>();
+      #ifndef BOOST_SIMD_NO_INVALIDS
+        if (is_nan(a0)) return a0;
+      #endif
+      A0 x;
+      A0 k = reduc_t::reduce(a0, x);
+      x = reduc_t::approx(x);
+      return scale(x, k);
     }
   };
 } }

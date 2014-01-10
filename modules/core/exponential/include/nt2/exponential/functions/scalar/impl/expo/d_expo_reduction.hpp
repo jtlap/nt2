@@ -9,20 +9,35 @@
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPO_D_EXPO_REDUCTION_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPO_D_EXPO_REDUCTION_HPP_INCLUDED
 
-#include <nt2/include/functions/simd/oneplus.hpp>
-#include <nt2/include/functions/simd/round2even.hpp>
-#include <nt2/include/functions/simd/sqr.hpp>
-#include <nt2/include/functions/simd/is_greater_equal.hpp>
-#include <nt2/include/functions/simd/is_less_equal.hpp>
-#include <nt2/include/functions/simd/multiplies.hpp>
-#include <nt2/include/functions/simd/minus.hpp>
-#include <nt2/include/functions/simd/plus.hpp>
-#include <nt2/include/functions/simd/unary_minus.hpp>
-#include <nt2/include/constants/log_2.hpp>
-#include <nt2/include/constants/invlog_2.hpp>
-#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/exponential/functions/scalar/impl/selection_tags.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
+#include <nt2/include/functions/simd/is_greater_equal.hpp>
+#include <nt2/include/constants/maxlog.hpp>
+#include <nt2/include/functions/simd/is_less_equal.hpp>
+#include <nt2/include/constants/minlog.hpp>
+#include <nt2/include/functions/simd/round2even.hpp>
+#include <nt2/include/constants/invlog_2.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/fnms.hpp>
+#include <nt2/include/constants/log_2hi.hpp>
+#include <nt2/include/constants/log_2lo.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/functions/simd/oneminus.hpp>
+#include <nt2/include/constants/minlog2.hpp>
+#include <nt2/include/constants/maxlog2.hpp>
+#include <nt2/include/constants/log_2.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
+#include <nt2/include/constants/minlog10.hpp>
+#include <nt2/include/constants/maxlog10.hpp>
+#include <nt2/include/constants/invlog10_2.hpp>
+#include <nt2/include/constants/log10_2hi.hpp>
+#include <nt2/include/constants/log10_2lo.hpp>
+#include <nt2/include/functions/simd/oneplus.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
 
 namespace nt2 { namespace details
 {
@@ -31,20 +46,20 @@ namespace nt2 { namespace details
     typedef typename meta::as_logical<A0>::type bA0;
     static inline bA0 isgemaxlog(const A0 & a0)
     {
-      return nt2::ge(a0,double_constant<A0,0x4086232bdd7abcd2ll>());
+      return nt2::ge(a0,Maxlog<A0>());
     }
 
     static inline bA0 isleminlog(const A0 & a0)
     {
-      return nt2::le(a0,double_constant<A0,0xc086232bdd7abcd2ll>());
+      return nt2::le(a0,Minlog<A0>());
     }
 
     static inline A0 reduce(const A0& a0, A0& hi, A0& lo, A0& x)
     {
       A0 k  = nt2::round2even(Invlog_2<A0>()*a0);
-      hi    = a0 - k * double_constant<A0,0x3fe62e42fee00000ll>();
-      lo    =      k * double_constant<A0,0x3dea39ef35793c76ll>();
-      x     = hi-lo;
+      hi = fnms(k, Log_2hi<A0>(), a0); //a0-k*L
+      lo = k*Log_2lo<A0>();
+      x  = hi-lo;
       return k;
     }
 
@@ -52,13 +67,20 @@ namespace nt2 { namespace details
     {
       typedef typename meta::scalar_of<A0>::type sA0;
       A0 const t = nt2::sqr(x);
-      return x - t*nt2::horner<NT2_HORNER_COEFF_T(sA0, 5,
-                                                  ( 0x3e66376972bea4d0ll, 0xbebbbd41c5d26bf1ll
-                                                  , 0x3f11566aaf25de2cll, 0xbf66c16c16bebd93ll
-                                                  , 0x3fc555555555553ell
-                                                  )
-                                                 )> (t);
+      return fnms(t, nt2::horner<NT2_HORNER_COEFF_T(sA0, 5,
+                                                    ( 0x3e66376972bea4d0ll, 0xbebbbd41c5d26bf1ll
+                                                    , 0x3f11566aaf25de2cll, 0xbf66c16c16bebd93ll
+                                                    , 0x3fc555555555553ell
+                                                    )
+                                                   )>(t), x); //x-h*t
     }
+
+    static inline A0 finalize(const A0& x, const A0& c,
+                              const A0& hi,const A0& lo)
+    {
+      return  nt2::oneminus(((lo-(x*c)/(nt2::Two<A0>()-c))-hi));
+    }
+
   };
 
   template < class A0 > struct exp_reduction < A0, two_tag, double>
@@ -66,12 +88,12 @@ namespace nt2 { namespace details
     typedef typename meta::as_logical<A0>::type bA0;
     static inline bA0 isgemaxlog(const A0 & a0)
     {
-      return nt2::ge(a0,double_constant<A0,0x408ff80000000000ll>());
+      return nt2::ge(a0,Maxlog2<A0>());
     }
 
     static inline bA0 isleminlog(const A0 & a0)
     {
-      return nt2::le(a0,double_constant<A0,0xc08ff00000000000ll>());
+      return nt2::le(a0,Minlog2<A0>());
     }
 
     static inline A0 reduce(const A0& a0, const A0&, const A0&, A0& x)
@@ -85,14 +107,20 @@ namespace nt2 { namespace details
     {
       typedef typename meta::scalar_of<A0>::type sA0;
       const A0 t =  nt2::sqr(x);
-      return x - t*nt2::horner<NT2_HORNER_COEFF_T(sA0, 5,
-                                                  ( 0x3e66376972bea4d0ll
-                                                  , 0xbebbbd41c5d26bf1ll
-                                                  , 0x3f11566aaf25de2cll
-                                                  , 0xbf66c16c16bebd93ll
-                                                  , 0x3fc555555555553ell
-                                                  )
-                                                 )> (t);
+      return fnms(t, nt2::horner<NT2_HORNER_COEFF_T(sA0, 5,
+                                                    ( 0x3e66376972bea4d0ll
+                                                    , 0xbebbbd41c5d26bf1ll
+                                                    , 0x3f11566aaf25de2cll
+                                                    , 0xbf66c16c16bebd93ll
+                                                    , 0x3fc555555555553ell
+                                                    )
+                                                   )> (t), x); //x-h*t
+    }
+
+    static inline A0 finalize(const A0& x, const A0& c,
+                              const A0&,   const A0& )
+    {
+      return nt2::oneminus(((-(x*c)/(nt2::Two<A0>()-c))-x));
     }
   };
 
@@ -101,19 +129,19 @@ namespace nt2 { namespace details
     typedef typename meta::as_logical<A0>::type bA0;
     static inline bA0 isgemaxlog(const A0 & a0)
     {
-      return nt2::ge(a0,double_constant<A0,0x40734413509f79fell>());
+      return nt2::ge(a0,Maxlog10<A0>());
     }
 
     static inline bA0 isleminlog(const A0 & a0)
     {
-      return nt2::le(a0,double_constant<A0,0xc0734413509f79fell>());
+      return nt2::le(a0,Minlog10<A0>());
     }
 
     static inline A0 reduce(const A0& a0, A0&, A0&, A0& x)
     {
-      A0 k  = round2even(double_constant<A0,0x400a934f0979a372ll>()*a0);
-      x     = a0-k*double_constant<A0,0x3fd3440000000000ll>();
-      x    -=  k*double_constant<A0,0x3ed3509f79fef312ll>();
+      A0 k  = round2even(Invlog10_2<A0>()*a0);
+      x = fnms(k, Log10_2hi<A0>(), a0);
+      x = fnms(k, Log10_2lo<A0>(), x);
       return k;
     }
 
@@ -135,6 +163,13 @@ namespace nt2 { namespace details
                                                  )> (xx)-px);
       return nt2::oneplus(x2+x2);
     }
+
+    static inline A0 finalize(const A0&,  const A0& c,
+                              const A0&,  const A0& )
+    {
+      return c;
+    }
+
   };
 } }
 

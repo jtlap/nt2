@@ -11,7 +11,6 @@
 
 #include <nt2/sdk/simd/tags.hpp>
 #include <nt2/polynomials/functions/scalar/impl/horner.hpp>
-//#include <nt2/exponential/constants.hpp>
 #include <nt2/exponential/functions/scalar/impl/selection_tags.hpp>
 #include <nt2/exponential/functions/scalar/impl/expo/expo_base.hpp>
 #include <nt2/exponential/functions/simd/common/impl/expo/expo_base.hpp>
