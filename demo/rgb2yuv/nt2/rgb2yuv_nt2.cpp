@@ -1,12 +1,28 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2012 - 2013   MetaScale SAS
+//         Copyright 2009 - 2013 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2014 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+#include <nt2/sdk/bench/benchmark.hpp>
+#include <nt2/sdk/bench/experiment.hpp>
+#include <nt2/sdk/unit/details/prng.hpp>
+
+#include <nt2/sdk/bench/metric/absolute_time.hpp>
+#include <nt2/sdk/bench/metric/cycles_per_element.hpp>
+
+#include <nt2/sdk/bench/protocol/max_iteration.hpp>
+#include <nt2/sdk/bench/protocol/max_duration.hpp>
+
+#include <nt2/sdk/bench/setup/geometric.hpp>
+#include <nt2/sdk/bench/setup/combination.hpp>
+
+#include <nt2/sdk/bench/stat/average.hpp>
+#include <nt2/sdk/bench/stat/median.hpp>
+#include <nt2/sdk/bench/stat/min.hpp>
+#include <nt2/sdk/bench/stat/max.hpp>
 
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <fstream>
@@ -16,7 +32,11 @@
 #include <nt2/include/functions/minus.hpp>
 #include <nt2/include/functions/sum.hpp>
 
+#include <boost/fusion/include/at.hpp>
 
+#include <iostream>
+
+using namespace nt2::bench;
 using namespace nt2;
 
 template<typename K>
@@ -27,52 +47,56 @@ BOOST_FORCEINLINE void rgb2yuv_work(const table<K>& r, const table<K>& g, const 
   v = K(0.877f)*(r - y);
 }
 
-template<typename T>
-NT2_EXPERIMENT(rgb2yuv_nt2)
+template<typename T> struct rgb2yuv_nt2
 {
-  public :
-    rgb2yuv_nt2(int h, int w)
-    : NT2_EXPERIMENT_CTOR( 1,"cycles/elements"), height(h), width(w), size(h*w)
+  template<typename Setup>
+  rgb2yuv_nt2(Setup const& s)
+                    :  height(boost::fusion::at_c<0>(s))
+                    ,  width(boost::fusion::at_c<1>(s))
+                    ,  size_(height*width)
   {
-    y.resize(nt2::of_size(size));
-    u.resize(nt2::of_size(size));
-    v.resize(nt2::of_size(size));
-    r.resize(nt2::of_size(size));
-    g.resize(nt2::of_size(size));
-    b.resize(nt2::of_size(size));
+    y.resize(nt2::of_size(size_));
+    u.resize(nt2::of_size(size_));
+    v.resize(nt2::of_size(size_));
+    r.resize(nt2::of_size(size_));
+    g.resize(nt2::of_size(size_));
+    b.resize(nt2::of_size(size_));
 
-    for(int i=1; i<=size; i++)
+    for(std::size_t i=1; i<=size_; i++)
       r(i) = g(i) = b(i) = y(i) = u(i) = v(i) = T(i-1);
   }
-  virtual void info(std::ostream& os) const { os <<size; }
 
-  BOOST_FORCEINLINE virtual void run() const
+  void operator()()
   {
     rgb2yuv_work(r, g, b, y, u, v);
   }
 
-  virtual double compute(nt2::benchmark_result_t const& r) const
+  friend std::ostream& operator<<(std::ostream& os, rgb2yuv_nt2<T> const& p)
   {
-    return r.first/double(size);
+    return os << "(" << p.size() << ")";
   }
 
-  virtual void reset() const
-  {
-  }
+  std::size_t size() const { return size_ ; }
 
   private:
-    int height;
-    int width;
-    int size;
-    mutable nt2::table<T> y, u, v;
-    nt2::table<T> r, g, b;
+    std::size_t height, width, size_;
+    nt2::table<T> r, g, b, y, u, v;
 };
 
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv_nt2,(float),(32,32));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv_nt2,(float),(64,64));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv_nt2,(float),(128,128));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv_nt2,(float),(256,256));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv_nt2,(float),(512,512));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv_nt2,(float),(1024,1024));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv_nt2,(float),(2048,2048));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv_nt2,(float),(4196,4196));
+NT2_REGISTER_BENCHMARK_TPL( rgb2yuv_nt2, (float) )
+{
+
+  std::size_t hmin = args("hmin", 32);
+  std::size_t hmax = args("hmax", 128);
+  std::size_t hstep = args("hstep", 2);
+  std::size_t wmin = args("wmin", 32);
+  std::size_t wmax = args("wmax", 128);
+  std::size_t wstep = args("wstep", 2);
+
+  run_during_with< rgb2yuv_nt2<float> > ( 1.
+                                          , and_( geometric(hmin,hmax,hstep)
+                                                , geometric(wmin,wmax,wstep)
+                                                )
+                                          , cycles_per_element<stat::median_>()
+                                          );
+}

@@ -1,24 +1,34 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2012 - 2013   MetaScale SAS
+//         Copyright 2009 - 2013 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2014 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-
 #include <nt2/sdk/bench/benchmark.hpp>
-#include <fstream>
-#include <boost/simd/sdk/simd/pack.hpp>
-#include <boost/simd/include/functions/aligned_load.hpp>
-#include  <boost/simd/operator/functions/multiplies.hpp>
-#include <boost/simd/arithmetic/functions/muls.hpp>
-#include <boost/simd/include/functions/plus.hpp>
-#include <boost/simd/include/functions/sum.hpp>
-#include <boost/simd/include/functions/aligned_store.hpp>
-#include <boost/simd/memory/allocator.hpp>
+#include <nt2/sdk/bench/experiment.hpp>
+#include <nt2/sdk/unit/details/prng.hpp>
 
+#include <nt2/sdk/bench/metric/absolute_time.hpp>
+#include <nt2/sdk/bench/metric/cycles_per_element.hpp>
+
+#include <nt2/sdk/bench/protocol/max_iteration.hpp>
+#include <nt2/sdk/bench/protocol/max_duration.hpp>
+
+#include <nt2/sdk/bench/setup/geometric.hpp>
+#include <nt2/sdk/bench/setup/combination.hpp>
+
+#include <nt2/sdk/bench/stat/average.hpp>
+#include <nt2/sdk/bench/stat/median.hpp>
+#include <nt2/sdk/bench/stat/min.hpp>
+#include <nt2/sdk/bench/stat/max.hpp>
+
+#include <boost/fusion/include/at.hpp>
+
+#include <iostream>
+
+using namespace nt2::bench;
 using namespace nt2;
 
 template<typename K, typename L>
@@ -29,59 +39,58 @@ BOOST_FORCEINLINE void rgb2yuv_work(const K& r, const K& g, const K& b, L *y, L 
   *v = 0.877f*(r - *y);
 }
 
-template<typename T>
-NT2_EXPERIMENT(rgb2yuv_scalar)
+template<typename T> struct rgb2yuv_scalar
 {
-  public :
-    rgb2yuv_scalar(int h, int w)
-    : NT2_EXPERIMENT_CTOR(1,"cycles/elements"), height(h), width(w), size(h*w)
+  template<typename Setup>
+  rgb2yuv_scalar(Setup const& s)
+                    :  height(boost::fusion::at_c<0>(s))
+                    ,  width(boost::fusion::at_c<1>(s))
+                    ,  size_(height*width)
   {
-    y.resize(size);
-    u.resize(size);
-    v.resize(size);
-    r.resize(size);
-    g.resize(size);
-    b.resize(size);
-    for(int i=0; i<size; i++)
+    y.resize(size_);
+    u.resize(size_);
+    v.resize(size_);
+    r.resize(size_);
+    g.resize(size_);
+    b.resize(size_);
+    for(std::size_t i=0; i<size_; i++)
       r[i] = g[i] = b[i] = y[i] = u[i] = v[i] = T(i);
   }
 
-  virtual void info(std::ostream& os) const { os <<size; }
-
-  BOOST_FORCEINLINE virtual void run() const
+  void operator()()
   {
-    std::size_t size = r.size();
-
-    for(std::size_t it = 0; it < size; it++)
+    for(std::size_t it = 0; it < size_; it++)
       rgb2yuv_work(r[it], g[it], b[it], &y[it], &u[it], &v[it]);
   }
 
-  virtual double compute(nt2::benchmark_result_t const& r) const
+  friend std::ostream& operator<<(std::ostream& os, rgb2yuv_scalar<T> const& p)
   {
-    return r.first/double(size);
+    return os << "(" << p.size() << ")";
   }
 
-  virtual void reset()
-  {
-  }
+  std::size_t size() const { return size_ ; }
 
   private:
     int height;
     int width;
-    int size;
-    std::vector<T,boost::simd::allocator<T> > r;
-    std::vector<T,boost::simd::allocator<T> > g;
-    std::vector<T,boost::simd::allocator<T> > b;
-    mutable std::vector<T,boost::simd::allocator<T> > y;
-    mutable std::vector<T,boost::simd::allocator<T> > u;
-    mutable std::vector<T,boost::simd::allocator<T> > v;
+    int size_;
+    std::vector<T> r, g, b, y, u, v;
 };
 
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv_scalar,(float),(32,32));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv_scalar,(float),(64,64));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv_scalar,(float),(128,128));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv_scalar,(float),(256,256));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv_scalar,(float),(512,512));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv_scalar,(float),(1024,1024));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv_scalar,(float),(2048,2048));
-NT2_RUN_EXPERIMENT_TPL(rgb2yuv_scalar,(float),(4196,4196));
+NT2_REGISTER_BENCHMARK_TPL( rgb2yuv_scalar, (float) )
+{
+
+  std::size_t hmin = args("hmin", 32);
+  std::size_t hmax = args("hmax", 128);
+  std::size_t hstep = args("hstep", 2);
+  std::size_t wmin = args("wmin", 32);
+  std::size_t wmax = args("wmax", 128);
+  std::size_t wstep = args("wstep", 2);
+
+  run_during_with< rgb2yuv_scalar<float> > ( 1.
+                                          , and_( geometric(hmin,hmax,hstep)
+                                                , geometric(wmin,wmax,wstep)
+                                                )
+                                          , cycles_per_element<stat::median_>()
+                                          );
+}

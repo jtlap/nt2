@@ -89,9 +89,9 @@ namespace nt2
   }
 }
 
-template<typename T> struct blackandscholes_simd
+template<typename T> struct blackandscholes_nt2
 {
-  blackandscholes_simd(std::size_t n)
+  blackandscholes_nt2(std::size_t n)
                     :  size_(n)
   {
     Sa.resize(nt2::of_size(size_));
@@ -110,7 +110,7 @@ template<typename T> struct blackandscholes_simd
     R = nt2::blackandscholes(Sa, Xa, Ta, ra, va);
   }
 
-  friend std::ostream& operator<<(std::ostream& os, blackandscholes_simd<T> const& p)
+  friend std::ostream& operator<<(std::ostream& os, blackandscholes_nt2<T> const& p)
   {
     return os << "(" << p.size()<< ")";
   }
@@ -122,13 +122,13 @@ template<typename T> struct blackandscholes_simd
   std::size_t size_;
 };
 
-NT2_REGISTER_BENCHMARK_TPL( blackandscholes_simd, (float) )
+NT2_REGISTER_BENCHMARK_TPL( blackandscholes_nt2, (float) )
 {
   std::size_t size_min = args("size_min", 16);
   std::size_t size_max = args("size_max", 4096);
   std::size_t size_step = args("size_step", 2);
 
-  run_during_with< blackandscholes_simd<float> > ( 1.
+  run_during_with< blackandscholes_nt2<float> > ( 1.
                                           , geometric(size_min,size_max,size_step)
                                           , cycles_per_element<stat::median_>()
                                           );

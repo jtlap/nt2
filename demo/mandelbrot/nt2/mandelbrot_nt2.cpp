@@ -1,17 +1,35 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2012 - 2013   MetaScale SAS
+//         Copyright 2009 - 2013 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2014 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-
-#include <nt2/table.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
+#include <nt2/sdk/bench/experiment.hpp>
+#include <nt2/sdk/unit/details/prng.hpp>
+
+#include <nt2/sdk/bench/metric/absolute_time.hpp>
+#include <nt2/sdk/bench/metric/cycles_per_element.hpp>
+
+#include <nt2/sdk/bench/protocol/max_iteration.hpp>
+#include <nt2/sdk/bench/protocol/max_duration.hpp>
+
+#include <nt2/sdk/bench/setup/geometric.hpp>
+#include <nt2/sdk/bench/setup/combination.hpp>
+#include <nt2/sdk/bench/setup/constant.hpp>
+
+#include <nt2/sdk/bench/stat/average.hpp>
+#include <nt2/sdk/bench/stat/median.hpp>
+#include <nt2/sdk/bench/stat/min.hpp>
+#include <nt2/sdk/bench/stat/max.hpp>
+
+#include <boost/fusion/include/at.hpp>
+
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/strip.hpp>
+
 #include <nt2/include/functions/any.hpp>
 #include <nt2/include/functions/seladd.hpp>
 #include <nt2/include/functions/plus.hpp>
@@ -25,7 +43,13 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/functions/arrayfun.hpp>
 
-#include "../include/utils.hpp"
+#include <nt2/table.hpp>
+
+#include <vector>
+#include <iostream>
+
+using namespace nt2::bench;
+using namespace nt2;
 
 namespace mandelbrot
 {
@@ -77,63 +101,73 @@ namespace mandelbrot
   };
 }
 
-template<typename T> NT2_EXPERIMENT(mandelbrot_nt2)
+template<typename T> struct mandelbrot_nt2
 {
-public:
   typedef T value_type;
-
-  mandelbrot_nt2( std::size_t const& h, std::size_t const& w
-                , value_type const& a0, value_type const& a1
-                , value_type const& b0, value_type const& b1
-                , std::size_t const& max_iter
-                )
-  : NT2_EXPERIMENT_CTOR(1., "cycles/elements")
-  , julia(max_iter), h_(h), w_(w), max_iter_(max_iter), size_(h_*w_), a0_(a0), a1_(a1), b0_(b0), b1_(b1)
+  template<typename Setup>
+  mandelbrot_nt2(Setup const& s)
+                    :  h_(boost::fusion::at_c<0>(s))
+                    ,  w_(boost::fusion::at_c<1>(s))
+                    ,  a0_(boost::fusion::at_c<2>(s))
+                    ,  a1_(boost::fusion::at_c<3>(s))
+                    ,  b0_(boost::fusion::at_c<4>(s))
+                    ,  b1_(boost::fusion::at_c<5>(s))
+                    ,  max_iter_(boost::fusion::at_c<6>(s))
+                    ,  julia(max_iter_)
+                    ,  size_(h_*w_)
   {
     A.resize(nt2::of_size(h_,w_));
     B.resize(nt2::of_size(h_,w_));
     C.resize(nt2::of_size(h_,w_));
+
+    A=nt2::expand_to(nt2::linspace(a0_,a1_,h_),h_,w_);
+    B=nt2::expand_to(nt2::colvect(nt2::linspace(b0_,b1_,w_)),h_,w_);
   }
 
-  virtual void run() const
+  void operator()()
   {
     C = arrayfun(julia, A, B);
   }
 
-  virtual double compute(nt2::benchmark_result_t const& r) const
+  friend std::ostream& operator<<(std::ostream& os, mandelbrot_nt2<T> const& p)
   {
-    return r.first/double(h_*w_);
+    return os << "(" << p.h_ << " x " << p.w_ << ")";
   }
 
-  virtual void info(std::ostream& os) const { os << h_ << "x" << w_; }
-
-  virtual void reset() const
-  {
-    static int pass = 0;
-    if(pass==1)
-    {
-      utils::save_pgm(C,h_,w_, "test_pgm.pgm");
-    }
-    C.resize(nt2::of_size(h_,w_));
-    A.resize(nt2::of_size(h_,w_));
-
-    A=nt2::expand_to(nt2::linspace(a0_,a1_,h_),h_,w_);
-    B=nt2::expand_to(nt2::colvect(nt2::linspace(b0_,b1_,w_)),h_,w_);
-    pass++;
-  }
+  std::size_t size() const { return size_ ; }
 
   private:
-    mutable nt2::table<value_type> A, B;
-    mutable nt2::table<int> C;
+    nt2::table<value_type> A, B;
+    nt2::table<int> C;
     mandelbrot::step julia;
-    std::size_t h_, w_, max_iter_, size_;
-    mutable std::size_t step_size_;
+    std::size_t h_, w_, max_iter_, size_, step_size_, aligned_sz, it;
     value_type a0_, a1_, b0_, b1_;
 };
 
-NT2_RUN_EXPERIMENT_TPL( mandelbrot_nt2, (float), (100,100,-1.5f,0.5f,-1.0f,1.0f,256));
-NT2_RUN_EXPERIMENT_TPL( mandelbrot_nt2, (float), (200,200,-1.5f,0.5f,-1.0f,1.0f,256));
-NT2_RUN_EXPERIMENT_TPL( mandelbrot_nt2, (float), (400,400,-1.5f,0.5f,-1.0f,1.0f,256));
-NT2_RUN_EXPERIMENT_TPL( mandelbrot_nt2, (float), (800,800,-1.5f,0.5f,-1.0f,1.0f,256));
-NT2_RUN_EXPERIMENT_TPL( mandelbrot_nt2, (float), (1600,1600,-1.5f,0.5f,-1.0f,1.0f,256));
-NT2_RUN_EXPERIMENT_TPL( mandelbrot_nt2, (float), (3200,3200,-1.5f,0.5f,-1.0f,1.0f,256));
+NT2_REGISTER_BENCHMARK_TPL( mandelbrot_nt2, (float) )
+{
+
+  std::size_t hmin = args("hmin", 100);
+  std::size_t hmax = args("hmax", 1600);
+  std::size_t hstep = args("hstep", 2);
+  std::size_t wmin = args("wmin", 100);
+  std::size_t wmax = args("wmax",1600);
+  std::size_t wstep = args("wstep", 2);
+  T xmin = args("xmin", -1.5);
+  T xmax = args("xmax", 1.5);
+  T ymin = args("ymin", -1.5);
+  T ymax = args("ymax", 1.5);
+  T max_iter = args("max_iter", 256);
+
+  run_during_with< mandelbrot_nt2<float> > ( 1.
+                                          , and_( geometric(hmin,hmax,hstep)
+                                                , geometric(wmin,wmax,wstep)
+                                                , constant(xmin)
+                                                , constant(xmax)
+                                                , constant(ymin)
+                                                , constant(ymax)
+                                                , constant(max_iter)
+                                                )
+                                          , cycles_per_element<stat::median_>()
+                                          );
+}

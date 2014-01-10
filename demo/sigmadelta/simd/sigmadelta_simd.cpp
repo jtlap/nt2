@@ -1,13 +1,32 @@
 //==============================================================================
-// Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
-// Copyright 2009 - 2013 LRI UMR 8623 CNRS/Univ Paris Sud XI
-// Copyright 2012 - 2013 MetaScale SAS
+//         Copyright 2009 - 2013 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2014 MetaScale SAS
 //
-// Distributed under the Boost Software License, Version 1.0.
-// See accompanying file LICENSE.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+#include <nt2/sdk/bench/benchmark.hpp>
+#include <nt2/sdk/bench/experiment.hpp>
+#include <nt2/sdk/unit/details/prng.hpp>
+
+#include <nt2/sdk/bench/metric/absolute_time.hpp>
+#include <nt2/sdk/bench/metric/cycles_per_element.hpp>
+
+#include <nt2/sdk/bench/protocol/max_iteration.hpp>
+#include <nt2/sdk/bench/protocol/max_duration.hpp>
+
+#include <nt2/sdk/bench/setup/geometric.hpp>
+#include <nt2/sdk/bench/setup/combination.hpp>
+#include <nt2/sdk/bench/setup/constant.hpp>
+
+#include <nt2/sdk/bench/stat/average.hpp>
+#include <nt2/sdk/bench/stat/median.hpp>
+#include <nt2/sdk/bench/stat/min.hpp>
+#include <nt2/sdk/bench/stat/max.hpp>
+
 #include <boost/simd/sdk/simd/pack.hpp>
+
 #include <boost/simd/include/functions/max.hpp>
 #include <boost/simd/include/functions/min.hpp>
 #include <boost/simd/include/functions/minus.hpp>
@@ -18,12 +37,13 @@
 #include <boost/simd/include/functions/is_less.hpp>
 #include <boost/simd/include/functions/is_greater.hpp>
 #include <boost/simd/include/functions/aligned_store.hpp>
+
 #include <boost/simd/memory/allocator.hpp>
 
-#include <nt2/sdk/bench/benchmark.hpp>
-#include <iostream>
-#include <string>
+#include <boost/fusion/include/at.hpp>
 
+#include <iostream>
+using namespace nt2::bench;
 using namespace nt2;
 
 template<class Pixel>
@@ -48,27 +68,27 @@ BOOST_FORCEINLINE Pixel do_work(Pixel &bkg, const Pixel &fr, Pixel &var)
   return boost::simd::if_zero_else_one( diff_img < var );
 }
 
-
-template<typename T> NT2_EXPERIMENT(sigmadelta_simd)
+template<typename T> struct sigmadelta_simd
 {
-public:
-
-  sigmadelta_simd( std::size_t const& h, std::size_t const& w, std::size_t const& seq)
-  : NT2_EXPERIMENT_CTOR(1., "cycles/elements")
-  , height(h), width(w), size(h*w), nb_frames(seq)
+  template<typename Setup>
+  sigmadelta_simd(Setup const& s)
+                    :  nb_frames(boost::fusion::at_c<0>(s))
+                    ,  height(boost::fusion::at_c<1>(s))
+                    ,  width(boost::fusion::at_c<2>(s))
+                    ,  size_(height*width)
   {
-    frames.resize(seq);
-    variance_img.resize(size);
-    background_img.resize(size);
-    etiquette_binaire.resize(size);
-    for(std::size_t k=0; k<nb_frames; k++)
-      frames[k].resize(size);
+    image_variance.resize(size_);
+    background_img.resize(size_);
+    binary_label.resize(size_);
+    frames.resize(nb_frames);
 
-    for(std::size_t k=0; k<nb_frames; k++)
+    for(int k=0; k<nb_frames; k++)
+      frames[k].resize(size_);
+    for(int k=0; k<nb_frames; k++)
     {
-      for(std::size_t j=0; j<width; j++)
+      for(int j=0; j<width; j++)
       {
-        for(std::size_t i=0; i<height;i++)
+        for(int i=0; i<height;i++)
         {
           if(i>(height/4) && i<(height/2) && j>((width/4)+k%10) && j<((width/2)+k%10))
             frames[k][i*width+j] = 255;
@@ -77,12 +97,12 @@ public:
         }
       }
     }
-    std::fill(variance_img.begin(),variance_img.end(),1);
+    std::fill(image_variance.begin(), image_variance.end(), 1);
     background_img = frames[0];
-    std::fill(etiquette_binaire.begin(),etiquette_binaire.end(),0);
+    std::fill(binary_label.begin(), binary_label.end(), 0);
   }
 
-  virtual void run() const
+  void operator()()
   {
     using boost::simd::pack;
     using boost::simd::aligned_load;
@@ -90,8 +110,8 @@ public:
 
     typedef pack<T> type;
 
-    step_size=boost::simd::meta::cardinal_of<type>::value;
-    aligned_sz = size & ~(step_size-1);
+    step_size = boost::simd::meta::cardinal_of<type>::value;
+    aligned_sz = size_ & ~(step_size-1);
     for(std::size_t k=1; k<nb_frames; k++)
     {
       it         = 0;
@@ -99,46 +119,50 @@ public:
       {
         type bkg(&background_img[it]);
         type fr(&frames[k][it]);
-        type var(&variance_img[it]);
-        aligned_store(do_work(bkg,fr,var),&etiquette_binaire[it]);
-        aligned_store(var,&variance_img[it]);
+        type var(&image_variance[it]);
+        aligned_store(do_work(bkg,fr,var),&binary_label[it]);
+        aligned_store(var,&image_variance[it]);
       }
-      for(std::size_t m=size; it != m; it++)
+      for(std::size_t m=size_; it != m; it++)
       {
-        etiquette_binaire[it] = do_work(background_img[it],frames[k][it], variance_img[it]);
+        binary_label[it] = do_work(background_img[it],frames[k][it], image_variance[it]);
       }
     }
   }
 
-  virtual double compute(nt2::benchmark_result_t const& r) const
+  friend std::ostream& operator<<(std::ostream& os, sigmadelta_simd<T> const& p)
   {
-    return r.first/double(height*width)/nb_frames;
+    return os << "(" << p.height << " x " << p.width << " @" << p.nb_frames << ")";
   }
 
-  virtual void info(std::ostream& os) const { os << height << "x" << width;}
+  std::size_t size() const { return size_ * nb_frames; }
 
-  virtual void reset() const
-  {
-    std::fill(variance_img.begin(),variance_img.end(),1);
-    background_img = frames[0];
-    std::fill(etiquette_binaire.begin(),etiquette_binaire.end(),0);
-  }
-
+  private:
   std::size_t height;
   std::size_t width;
-  std::size_t size;
-  mutable std::size_t aligned_sz;
-  mutable std::size_t it;
-  mutable std::vector< std::vector<T, boost::simd::allocator<T> > > frames;
-  mutable std::vector<T, boost::simd::allocator<T> > variance_img, background_img, etiquette_binaire;
-  static const T N=3;
-  mutable std::size_t step_size;
+  std::size_t size_, aligned_sz, it, step_size;
+  std::vector< std::vector<T, boost::simd::allocator<T> > > frames;
+  std::vector<T, boost::simd::allocator<T> > image_variance, background_img, binary_label;
+  static const T N=3;//call sigma
   std::size_t nb_frames;
 };
 
-NT2_RUN_EXPERIMENT_TPL( sigmadelta_simd, (nt2::uint8_t), (32,32,100));
-NT2_RUN_EXPERIMENT_TPL( sigmadelta_simd, (nt2::uint8_t), (64,64,100));
-NT2_RUN_EXPERIMENT_TPL( sigmadelta_simd, (nt2::uint8_t), (256,256,100));
-NT2_RUN_EXPERIMENT_TPL( sigmadelta_simd, (nt2::uint8_t), (512,512,100));
-NT2_RUN_EXPERIMENT_TPL( sigmadelta_simd, (nt2::uint8_t), (2048,2048,100));
-NT2_RUN_EXPERIMENT_TPL( sigmadelta_simd, (nt2::uint8_t), (4096,4096,100));
+NT2_REGISTER_BENCHMARK( sigmadelta_simd )
+{
+
+  std::size_t frame = args("frame", 5);
+  std::size_t hmin = args("hmin", 32);
+  std::size_t hmax = args("hmax", 128);
+  std::size_t hstep = args("hstep", 2);
+  std::size_t wmin = args("wmin", 32);
+  std::size_t wmax = args("wmax", 128);
+  std::size_t wstep = args("wstep", 2);
+
+  run_during_with< sigmadelta_simd<nt2::uint8_t> > ( 1.
+                                          , and_( constant( frame )
+                                                , geometric(hmin,hmax,hstep)
+                                                , geometric(wmin,wmax,wstep)
+                                                )
+                                          , cycles_per_element<stat::median_>()
+                                          );
+}

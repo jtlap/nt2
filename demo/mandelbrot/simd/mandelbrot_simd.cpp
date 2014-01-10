@@ -1,14 +1,30 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2012 - 2013   MetaScale SAS
+//         Copyright 2009 - 2013 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2014 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <iostream>
 #include <nt2/sdk/bench/benchmark.hpp>
+#include <nt2/sdk/bench/experiment.hpp>
+#include <nt2/sdk/unit/details/prng.hpp>
+
+#include <nt2/sdk/bench/metric/absolute_time.hpp>
+#include <nt2/sdk/bench/metric/cycles_per_element.hpp>
+
+#include <nt2/sdk/bench/protocol/max_iteration.hpp>
+#include <nt2/sdk/bench/protocol/max_duration.hpp>
+
+#include <nt2/sdk/bench/setup/geometric.hpp>
+#include <nt2/sdk/bench/setup/combination.hpp>
+#include <nt2/sdk/bench/setup/constant.hpp>
+
+#include <nt2/sdk/bench/stat/average.hpp>
+#include <nt2/sdk/bench/stat/median.hpp>
+#include <nt2/sdk/bench/stat/min.hpp>
+#include <nt2/sdk/bench/stat/max.hpp>
+
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/any.hpp>
@@ -19,9 +35,18 @@
 #include <boost/simd/include/functions/is_less.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/one.hpp>
-#include "../include/utils.hpp"
 #include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/simd/include/functions/aligned_store.hpp>
+#include <boost/simd/memory/allocator.hpp>
+
+#include <vector>
+#include <boost/fusion/include/at.hpp>
+
+#include <iostream>
+
+using namespace nt2::bench;
+using namespace nt2;
+
 
 namespace mandelbrot
 {
@@ -73,65 +98,24 @@ namespace mandelbrot
   };
 }
 
-template<typename T> NT2_EXPERIMENT(mandelbrot_simd)
+template<typename T> struct mandelbrot_simd
 {
-public:
   typedef T value_type;
-
-  mandelbrot_simd( std::size_t const& h, std::size_t const& w
-                , value_type const& a0, value_type const& a1
-                , value_type const& b0, value_type const& b1
-                , std::size_t const& max_iter
-                )
-  : NT2_EXPERIMENT_CTOR(1., "cycles/elements")
-  , julia(max_iter), h_(h), w_(w), max_iter_(max_iter), size_(h_*w_), a0_(a0), a1_(a1), b0_(b0), b1_(b1)
+  template<typename Setup>
+  mandelbrot_simd(Setup const& s)
+                    :  h_(boost::fusion::at_c<0>(s))
+                    ,  w_(boost::fusion::at_c<1>(s))
+                    ,  a0_(boost::fusion::at_c<2>(s))
+                    ,  a1_(boost::fusion::at_c<3>(s))
+                    ,  b0_(boost::fusion::at_c<4>(s))
+                    ,  b1_(boost::fusion::at_c<5>(s))
+                    ,  max_iter_(boost::fusion::at_c<6>(s))
+                    ,  julia(max_iter_)
+                    ,  size_(h_*w_)
   {
     A.resize(size_);
     B.resize(size_);
     C.resize(size_);
-  }
-
-  virtual void run() const
-  {
-    using boost::simd::pack;
-    using boost::simd::aligned_store;
-
-    typedef pack<value_type> type;
-
-    step_size_  = boost::simd::meta::cardinal_of<type>::value;
-    aligned_sz = size_ & ~(step_size_-1);
-    std::size_t it = 0;
-    //std::cout<<"aligned size "<<aligned_sz<<" step_size " << step_size_ <<'\n';
-
-    for(std::size_t m=aligned_sz; it != m; it+=step_size_)
-    {
-      type A_pack = (&A[it]);
-      type B_pack = (&B[it]);
-      aligned_store(julia(A_pack, B_pack), &C[it]);
-    }
-
-    for(std::size_t m=size_; it != m; it++)
-    {
-      C[it]=julia(A[it],B[it]);
-    }
-  }
-
-  virtual double compute(nt2::benchmark_result_t const& r) const
-  {
-    return r.first/double(h_*w_);
-  }
-
-  virtual void info(std::ostream& os) const { os << h_ << "x" << w_; }
-
-  virtual void reset() const
-  {
-    static int pass = 0;
-    if(pass==1)
-    {
-      utils::save_pgm(C,h_,w_, "test_pgm.pgm");
-    }
-    C.resize(size_);
-    A.resize(size_);
 
     T interval_A=(a1_-a0_)/(h_-1);
     T new_val=a0_;
@@ -144,32 +128,79 @@ public:
       }
       new_val=a0_;
     }
-    B.resize(size_);
     new_val=b0_;
     T interval_B=(b1_-b0_)/(w_-1);
-    for (std::size_t jj=0;jj<w_;jj++){
-      for (std::size_t ii=0;ii<h_;ii++){
+    for (std::size_t jj=0;jj<w_;jj++)
+    {
+      for (std::size_t ii=0;ii<h_;ii++)
+      {
         B[jj*h_+ii]=new_val;
       }
       new_val+=interval_B;
     }
-    pass++;
   }
 
+  void operator()()
+  {
+    using boost::simd::pack;
+    using boost::simd::aligned_store;
+
+    typedef pack<value_type> type;
+
+    step_size_  = boost::simd::meta::cardinal_of<type>::value;
+    aligned_sz = size_ & ~(step_size_-1);
+    std::size_t it = 0;
+
+    for(std::size_t m=aligned_sz; it != m; it+=step_size_)
+    {
+      type A_pack = (&A[it]);
+      type B_pack = (&B[it]);
+      aligned_store(julia(A_pack, B_pack), &C[it]);
+    }
+
+    for(std::size_t m=size_; it != m; it++)
+      C[it]=julia(A[it],B[it]);
+  }
+
+  friend std::ostream& operator<<(std::ostream& os, mandelbrot_simd<T> const& p)
+  {
+    return os << "(" << p.h_ << " x " << p.w_ << ")";
+  }
+
+  std::size_t size() const { return size_ ; }
+
   private:
-    mutable std::vector<value_type, boost::simd::allocator<value_type> > A, B;
-    mutable std::vector<int, boost::simd::allocator<int> > C;
+    std::vector<value_type, boost::simd::allocator<value_type> > A, B;
+    std::vector<int, boost::simd::allocator<int> > C;
     mandelbrot::step julia;
-    std::size_t h_, w_, max_iter_, size_;
-    mutable std::size_t step_size_;
-    mutable std::size_t aligned_sz;
-    mutable std::size_t it;
+    std::size_t h_, w_, max_iter_, size_, step_size_, aligned_sz, it;
     value_type a0_, a1_, b0_, b1_;
 };
 
-NT2_RUN_EXPERIMENT_TPL( mandelbrot_simd, (float), (100,100,-1.5,0.5,-1.0,1.0,256));
-NT2_RUN_EXPERIMENT_TPL( mandelbrot_simd, (float), (200,200,-1.5,0.5,-1.0,1.0,256));
-NT2_RUN_EXPERIMENT_TPL( mandelbrot_simd, (float), (400,400,-1.5,0.5,-1.0,1.0,256));
-NT2_RUN_EXPERIMENT_TPL( mandelbrot_simd, (float), (800,800,-1.5,0.5,-1.0,1.0,256));
-NT2_RUN_EXPERIMENT_TPL( mandelbrot_simd, (float), (1600,1600,-1.5,0.5,-1.0,1.0,256));
-NT2_RUN_EXPERIMENT_TPL( mandelbrot_simd, (float), (3200,3200,-1.5,0.5,-1.0,1.0,256));
+NT2_REGISTER_BENCHMARK_TPL( mandelbrot_simd, (float) )
+{
+
+  std::size_t hmin = args("hmin", 100);
+  std::size_t hmax = args("hmax", 1600);
+  std::size_t hstep = args("hstep", 2);
+  std::size_t wmin = args("wmin", 100);
+  std::size_t wmax = args("wmax",1600);
+  std::size_t wstep = args("wstep", 2);
+  T xmin = args("xmin", -1.5);
+  T xmax = args("xmax", 1.5);
+  T ymin = args("ymin", -1.5);
+  T ymax = args("ymax", 1.5);
+  T max_iter = args("max_iter", 256);
+
+  run_during_with< mandelbrot_simd<float> > ( 1.
+                                          , and_( geometric(hmin,hmax,hstep)
+                                                , geometric(wmin,wmax,wstep)
+                                                , constant(xmin)
+                                                , constant(xmax)
+                                                , constant(ymin)
+                                                , constant(ymax)
+                                                , constant(max_iter)
+                                                )
+                                          , cycles_per_element<stat::median_>()
+                                          );
+}

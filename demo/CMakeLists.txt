@@ -41,10 +41,10 @@ add_subdirectory(rgb2yuv/nt2)
 add_subdirectory(rgb2yuv/simd)
 
 #saxpy
-add_subdirectory(saxpy/scalar)
-add_subdirectory(saxpy/nt2)
-add_subdirectory(saxpy/simd)
-add_subdirectory(saxpy/mkl)
+#add_subdirectory(saxpy/scalar)
+#add_subdirectory(saxpy/nt2)
+#add_subdirectory(saxpy/simd)
+#add_subdirectory(saxpy/mkl)
 
 #sigmadelta
 add_subdirectory(sigmadelta/scalar)
@@ -52,7 +52,7 @@ add_subdirectory(sigmadelta/nt2)
 add_subdirectory(sigmadelta/simd)
 
 #sdot
-add_subdirectory(sdot/scalar)
-add_subdirectory(sdot/nt2)
-add_subdirectory(sdot/simd)
-add_subdirectory(sdot/mkl)
+#add_subdirectory(sdot/scalar)
+#add_subdirectory(sdot/nt2)
+#add_subdirectory(sdot/simd)
+#add_subdirectory(sdot/mkl)

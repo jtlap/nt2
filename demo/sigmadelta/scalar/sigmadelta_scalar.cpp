@@ -1,32 +1,51 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2012 - 2013 MetaScale SAS
+//         Copyright 2009 - 2013 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2014 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <stdlib.h>
 #include <nt2/sdk/bench/benchmark.hpp>
+#include <nt2/sdk/bench/experiment.hpp>
+#include <nt2/sdk/unit/details/prng.hpp>
+
+#include <nt2/sdk/bench/metric/absolute_time.hpp>
+#include <nt2/sdk/bench/metric/cycles_per_element.hpp>
+
+#include <nt2/sdk/bench/protocol/max_iteration.hpp>
+#include <nt2/sdk/bench/protocol/max_duration.hpp>
+
+#include <nt2/sdk/bench/setup/geometric.hpp>
+#include <nt2/sdk/bench/setup/combination.hpp>
+#include <nt2/sdk/bench/setup/constant.hpp>
+
+#include <nt2/sdk/bench/stat/average.hpp>
+#include <nt2/sdk/bench/stat/median.hpp>
+#include <nt2/sdk/bench/stat/min.hpp>
+#include <nt2/sdk/bench/stat/max.hpp>
+
+#include <boost/fusion/include/at.hpp>
+
 #include <iostream>
+using namespace nt2::bench;
 
-using namespace nt2;
-
-template<typename T>
-NT2_EXPERIMENT(sigmadelta_scalar)
+template<typename T> struct sigmadelta_scalar
 {
-   public :
-      sigmadelta_scalar(int h, int w, int seq)
-      : NT2_EXPERIMENT_CTOR(1,"cycles/element"),
-      height(h), width(w), size(h*w), nb_frames(seq)
+  template<typename Setup>
+  sigmadelta_scalar(Setup const& s)
+                    :  nb_frames(boost::fusion::at_c<0>(s))
+                    ,  height(boost::fusion::at_c<1>(s))
+                    ,  width(boost::fusion::at_c<2>(s))
+                    ,  size_(height*width)
   {
-    frames.resize(seq);
-    variance_img.resize(size);
-    background_img.resize(size);
-    etiquette_binaire.resize(size);
+    variance_img.resize(size_);
+    background_img.resize(size_);
+    binary_label.resize(size_);
+    frames.resize(nb_frames);
+
     for(int k=0; k<nb_frames; k++)
-      frames[k].resize(size);
+      frames[k].resize(size_);
     for(int k=0; k<nb_frames; k++)
     {
       for(int j=0; j<width; j++)
@@ -42,16 +61,15 @@ NT2_EXPERIMENT(sigmadelta_scalar)
     }
     std::fill(variance_img.begin(), variance_img.end(), 1);
     background_img = frames[0];
-    std::fill(etiquette_binaire.begin(), etiquette_binaire.end(), 0);
+    std::fill(binary_label.begin(), binary_label.end(), 0);
   }
 
-  BOOST_FORCEINLINE virtual void run() const
+  void operator()()
   {
     unsigned char d,mul;
-
     for(int k=1; k<nb_frames; k++)
     {
-      for(int i=0; i < size; i++)
+      for(int i=0; i < size_; i++)
       {
         if(background_img[i] < frames[k][i])
         {
@@ -83,39 +101,50 @@ NT2_EXPERIMENT(sigmadelta_scalar)
         }
         if(d < variance_img[i])
         {
-          etiquette_binaire[i] = 0;
+          binary_label[i] = 0;
         }
         else
         {
-          etiquette_binaire[i] = 1;
+          binary_label[i] = 1;
         }
       }
     }
   }
 
-  virtual double compute(nt2::benchmark_result_t const& r) const
+  friend std::ostream& operator<<(std::ostream& os, sigmadelta_scalar<T> const& p)
   {
-    return r.first/double(height*width)/nb_frames;
+    return os << "(" << p.height << " x " << p.width << " @" << p.nb_frames << ")";
   }
 
-  virtual void info(std::ostream& os) const { os << height << "x" << width;}
+  std::size_t size() const { return size_ * nb_frames; }
 
-  virtual void reset()
-  {
-  }
-
-  int height;
-  int width;
-  int size;
+  private:
+  std::size_t height;
+  std::size_t width;
+  std::size_t size_;
   std::vector<std::vector<T> > frames;
-  mutable std::vector<T>  variance_img, background_img, diff_img, etiquette_binaire;
-  static const T N=3;
+  std::vector<T>  variance_img, background_img, diff_img, binary_label;
+  static const T N=3;//call sigma
   int nb_frames;
 };
 
-NT2_RUN_EXPERIMENT_TPL( sigmadelta_scalar, (nt2::uint8_t), (32,32,100));
-NT2_RUN_EXPERIMENT_TPL( sigmadelta_scalar, (nt2::uint8_t), (64,64,100));
-NT2_RUN_EXPERIMENT_TPL( sigmadelta_scalar, (nt2::uint8_t), (256,256,100));
-NT2_RUN_EXPERIMENT_TPL( sigmadelta_scalar, (nt2::uint8_t), (512,512,100));
-NT2_RUN_EXPERIMENT_TPL( sigmadelta_scalar, (nt2::uint8_t), (2048,2048,100));
-NT2_RUN_EXPERIMENT_TPL( sigmadelta_scalar, (nt2::uint8_t), (4096,4096,100));
+NT2_REGISTER_BENCHMARK( sigmadelta_scalar )
+{
+
+  std::size_t frame = args("frame", 5);
+  std::size_t hmin = args("hmin", 32);
+  std::size_t hmax = args("hmax", 128);
+  std::size_t hstep = args("hstep", 2);
+  std::size_t wmin = args("wmin", 32);
+  std::size_t wmax = args("wmax", 128);
+  std::size_t wstep = args("wstep", 2);
+
+  run_during_with< sigmadelta_scalar<nt2::uint8_t> > ( 1.
+                                          , and_( constant( frame )
+                                                , geometric(hmin,hmax,hstep)
+                                                , geometric(wmin,wmax,wstep)
+                                                )
+                                          , cycles_per_element<stat::median_>()
+                                          );
+}
+
