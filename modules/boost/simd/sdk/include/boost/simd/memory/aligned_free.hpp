@@ -21,18 +21,19 @@
 #include <malloc.h>
 #endif
 
-#if defined(BOOST_SIMD_DEFAULT_FREE) && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
+#if defined(BOOST_SIMD_CUSTOM_FREE) && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
 /// INTERNAL ONLY
 #define BOOST_SIMD_MEMORY_NO_BUILTINS
 #endif
 
-#if !defined(BOOST_SIMD_DEFAULT_FREE)
-/// INTERNAL ONLY
-#define BOOST_SIMD_DEFAULT_FREE std::free
-#endif
-
 namespace boost { namespace simd
 {
+#if defined(BOOST_SIMD_CUSTOM_FREE)
+  void default_free_fn(void*);
+#else
+  inline void default_free_fn(void* ptr) { std::free(ptr); }
+#endif
+
   /*!
     @brief Low level aligned memory deallocation
 
@@ -103,7 +104,7 @@ namespace boost { namespace simd
 
     #else
 
-    aligned_free(ptr, BOOST_SIMD_DEFAULT_FREE);
+    aligned_free(ptr, default_free_fn);
 
     #endif
   }

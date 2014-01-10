@@ -7,20 +7,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <cstdlib>
-
-static bool         had_realloc;
-static std::size_t  realloc_size;
-
-static void* stateful_realloc(void* ptr, std::size_t sz)
-{
-  had_realloc  = true;
-  realloc_size = sz;
-  return std::realloc(ptr,sz);
-}
-
-#define BOOST_SIMD_MEMORY_NO_BUILTINS
-#define BOOST_SIMD_DEFAULT_REALLOC   stateful_realloc
+#define BOOST_SIMD_CUSTOM_REALLOC
 
 #include <boost/simd/memory/aligned_realloc.hpp>
 #include <boost/simd/memory/is_aligned.hpp>
@@ -28,6 +15,20 @@ static void* stateful_realloc(void* ptr, std::size_t sz)
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <cstdlib>
+
+static bool         had_realloc;
+static std::size_t  realloc_size;
+
+namespace boost { namespace simd
+{
+  void* default_realloc_fn(void* ptr, std::size_t sz)
+  {
+    had_realloc  = true;
+    realloc_size = sz;
+    return std::realloc(ptr,sz);
+  }
+} }
 
 static void reset_status()
 {

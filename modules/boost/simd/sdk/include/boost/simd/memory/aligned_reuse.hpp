@@ -159,7 +159,7 @@ namespace boost { namespace simd
 
     #else
 
-    return aligned_reuse(ptr, size, alignment, BOOST_SIMD_DEFAULT_REALLOC);
+    return aligned_reuse(ptr, size, alignment, default_realloc_fn);
 
     #endif
   }

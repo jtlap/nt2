@@ -28,14 +28,9 @@
 #include <malloc.h>
 #endif
 
-#if defined(BOOST_SIMD_DEFAULT_REALLOC) && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
+#if defined(BOOST_SIMD_CUSTOM_REALLOC) && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
 /// INTERNAL ONLY
 #define BOOST_SIMD_MEMORY_NO_BUILTINS
-#endif
-
-#if !defined(BOOST_SIMD_DEFAULT_REALLOC)
-/// INTERNAL ONLY
-#define BOOST_SIMD_DEFAULT_REALLOC std::realloc
 #endif
 
 #ifndef BOOST_SIMD_REALLOC_SHRINK_THRESHOLD
@@ -44,6 +39,15 @@
 
 namespace boost { namespace simd
 {
+#if defined(BOOST_SIMD_CUSTOM_REALLOC)
+  void* default_realloc_fn(void*, std::size_t);
+#else
+  inline void* default_realloc_fn(void* ptr, std::size_t sz)
+  {
+    return std::realloc(sz);
+  }
+#endif
+
   /*!
     @brief Low level aligned memory reallocation
 
@@ -210,7 +214,7 @@ namespace boost { namespace simd
 
     #else
 
-    return aligned_realloc(ptr, size, alignment, BOOST_SIMD_DEFAULT_REALLOC);
+    return aligned_realloc(ptr, size, alignment, default_realloc_fn);
 
     #endif
   }

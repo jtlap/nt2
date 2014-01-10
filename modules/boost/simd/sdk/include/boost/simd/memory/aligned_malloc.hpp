@@ -25,18 +25,19 @@
 #include <malloc.h>
 #endif
 
-#if defined(BOOST_SIMD_DEFAULT_MALLOC) && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
+#if defined(BOOST_SIMD_CUSTOM_MALLOC) && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
 /// INTERNAL ONLY
 #define BOOST_SIMD_MEMORY_NO_BUILTINS
 #endif
 
-#if !defined(BOOST_SIMD_DEFAULT_MALLOC)
-/// INTERNAL ONLY
-#define BOOST_SIMD_DEFAULT_MALLOC std::malloc
-#endif
-
 namespace boost { namespace simd
 {
+#if defined(BOOST_SIMD_CUSTOM_MALLOC)
+  void* default_malloc_fn(std::size_t);
+#else
+  inline void* default_malloc_fn(std::size_t sz) { return std::malloc(sz); }
+#endif
+
   /*!
     @brief Low level aligned memory allocation
 
@@ -142,7 +143,7 @@ namespace boost { namespace simd
 
     #else
 
-    return aligned_malloc( size, alignment, BOOST_SIMD_DEFAULT_MALLOC );
+    return aligned_malloc( size, alignment, default_malloc_fn );
 
     #endif
   }
