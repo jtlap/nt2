@@ -113,10 +113,12 @@ template<typename T> struct mandelbrot_scalar
   std::size_t size() const { return size_ ; }
 
   private:
+
+    std::size_t h_, w_;
+    T a0_, a1_, b0_, b1_;
+    std::size_t max_iter_, size_;
     std::vector<value_type> A, B;
     std::vector<int> C;
-    std::size_t size_, h_, w_, max_iter_;
-    float a0_, a1_, b0_, b1_;
 };
 
 NT2_REGISTER_BENCHMARK_TPL( mandelbrot_scalar, (float) )

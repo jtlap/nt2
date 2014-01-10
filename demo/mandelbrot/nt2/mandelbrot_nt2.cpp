@@ -113,8 +113,8 @@ template<typename T> struct mandelbrot_nt2
                     ,  b0_(boost::fusion::at_c<4>(s))
                     ,  b1_(boost::fusion::at_c<5>(s))
                     ,  max_iter_(boost::fusion::at_c<6>(s))
-                    ,  julia(max_iter_)
                     ,  size_(h_*w_)
+                    ,  julia(max_iter_)
   {
     A.resize(nt2::of_size(h_,w_));
     B.resize(nt2::of_size(h_,w_));
@@ -137,11 +137,12 @@ template<typename T> struct mandelbrot_nt2
   std::size_t size() const { return size_ ; }
 
   private:
+    std::size_t h_, w_;
+    value_type a0_, a1_, b0_, b1_;
+    std::size_t max_iter_, size_, step_size_, aligned_sz, it;
+    mandelbrot::step julia;
     nt2::table<value_type> A, B;
     nt2::table<int> C;
-    mandelbrot::step julia;
-    std::size_t h_, w_, max_iter_, size_, step_size_, aligned_sz, it;
-    value_type a0_, a1_, b0_, b1_;
 };
 
 NT2_REGISTER_BENCHMARK_TPL( mandelbrot_nt2, (float) )
