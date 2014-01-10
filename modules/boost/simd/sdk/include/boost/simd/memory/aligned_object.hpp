@@ -30,7 +30,7 @@ namespace boost { namespace simd
             of child type.
   **/
   template<std::size_t Alignment = BOOST_SIMD_CONFIG_ALIGNMENT>
-  BOOST_SIMD_ALIGNED_TYPE_ON_TPL(struct, Alignment) aligned_object
+  BOOST_SIMD_ALIGNED_TYPE_ON_MPL(struct, Alignment) aligned_object
   {
     public:
 
