@@ -47,7 +47,7 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::deinterleave_first_
                                    , boost::simd::tag::sse2_
-                                   , (A0)(A1)
+                                   , (A0)
                                    , ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
                                      ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
                                    )
