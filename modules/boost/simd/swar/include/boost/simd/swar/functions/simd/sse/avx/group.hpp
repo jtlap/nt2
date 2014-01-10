@@ -22,10 +22,8 @@ namespace boost { namespace simd { namespace ext
                                     , ((simd_<double_<A0>,boost::simd::tag::avx_>))
                                     )
   {
-    typedef typename dispatch::meta::downgrade<typename A0::value_type>::type base_t;
-    typedef typename simd::meta::vector_of< base_t
-                                          , A0::static_size
-                                          >::type result_type;
+    typedef typename dispatch::meta::downgrade<A0>::type                dtype;
+    typedef typename meta::retarget<dtype,simd::tag::sse_>::type        result_type;
 
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
