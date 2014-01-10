@@ -35,6 +35,8 @@ using namespace nt2::bench;
 template<typename T>
 struct memcpy_bandwidth
 {
+  typedef void experiment_is_immutable;
+
   public:
   memcpy_bandwidth( std::size_t s = 0 )
                   : size_(s/sizeof(T))
@@ -78,6 +80,8 @@ NT2_REGISTER_BENCHMARK_TPL( memcpy_bandwidth, BOOST_SIMD_SIMD_TYPES )
 template<typename T>
 struct C_bandwidth
 {
+  typedef void experiment_is_immutable;
+
   public:
   C_bandwidth ( std::size_t s = 0 )
               : size_(s/sizeof(T)), out(size_), in(size_)
@@ -122,6 +126,8 @@ NT2_REGISTER_BENCHMARK_TPL( C_bandwidth, BOOST_SIMD_SIMD_TYPES )
 template<typename T>
 struct aligned_simd_bandwidth
 {
+  typedef void experiment_is_immutable;
+
   public:
   typedef boost::simd::native<T,BOOST_SIMD_DEFAULT_EXTENSION> vT;
 
@@ -174,6 +180,8 @@ NT2_REGISTER_BENCHMARK_TPL( aligned_simd_bandwidth, BOOST_SIMD_SIMD_TYPES )
 template<typename T>
 struct unaligned_simd_bandwidth
 {
+  typedef void experiment_is_immutable;
+
   public:
   typedef boost::simd::native<T,BOOST_SIMD_DEFAULT_EXTENSION> vT;
 
@@ -223,6 +231,8 @@ NT2_REGISTER_BENCHMARK_TPL( unaligned_simd_bandwidth, BOOST_SIMD_SIMD_TYPES )
 template<typename T>
 struct non_temporal_simd_bandwidth
 {
+  typedef void experiment_is_immutable;
+
   public:
   typedef boost::simd::native<T,BOOST_SIMD_DEFAULT_EXTENSION> vT;
 
