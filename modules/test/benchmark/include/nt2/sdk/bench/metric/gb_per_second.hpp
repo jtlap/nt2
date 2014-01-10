@@ -52,7 +52,7 @@ namespace nt2 { namespace bench
     /// @brief Metric display
     inline std::string unit() const
     {
-      return "Gb/s" + Stat::unit();
+      return "GB/s" + Stat::unit();
     }
 
     private:
