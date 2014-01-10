@@ -25,12 +25,13 @@ namespace nt2
       Hierarchy
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Minlog, double
-                                , 0, 0xc2b17218UL
+                                , 0, 0xc2b0c0a5UL
                                 , 0xc086232bdd7abcd2ULL
                                 );
   }
   /*!
     Generates constant Minlog used in logarithm/exponential computations
+    nt2::log(x) return  0 if x is less than Minlog (underflow)
 
     @par Semantic:
 
@@ -44,9 +45,10 @@ namespace nt2
     if T is double
       r = -708.3964185322641;
     else if T is float
-      r = -88.72283935546875;
-
+      r = -88.3762626647949
     @endcode
+
+    @see @{Maxlog}
 
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Minlog, Minlog);
