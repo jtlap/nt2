@@ -1,6 +1,6 @@
 //==============================================================================
 //         Copyright 2009 - 2013 LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2012 - 2013 MetaScale SAS
+//         Copyright 2012 - 2014 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -17,10 +17,10 @@
 namespace nt2 { namespace bench
 {
   /*!
-    @brief Gygabytes per second metric
+    @brief Gigabytes per second metric
 
-    This metric extract bandwidth based informations from a
-    set of timing samples and return a measure in Gb/s.
+    This metric extracts bandwidth based information from a
+    set of timing samples and returns a measure in Gb/s.
 
     @tparam Stat Statistic to compute over the provided samples
   **/
