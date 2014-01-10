@@ -25,14 +25,12 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
     {
-      typedef typename meta::retarget<A0, boost::simd::tag::sse_ >::type svtype;
+      result_type x = _mm256_permute2f128_ps(a0,a1,0x20);
+      result_type y = _mm256_permute2f128_ps(a0,a1,0x31);
 
-      svtype a00 = _mm256_extractf128_ps(a0, 0);
-      svtype a01 = _mm256_extractf128_ps(a0, 1);
-      svtype a10 = _mm256_extractf128_ps(a1, 0);
-      svtype a11 = _mm256_extractf128_ps(a1, 1);
-      __m256 that = _mm256_castps128_ps256(boost::simd::deinterleave_second(a00, a01));
-      return _mm256_insertf128_ps(that,  boost::simd::deinterleave_second(a10, a11), 1);
+      return _mm256_unpackhi_ps ( _mm256_unpacklo_ps(x,y)
+                                , _mm256_unpackhi_ps(x,y)
+                                );
      }
   };
 
@@ -46,15 +44,10 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
     {
-      typedef typename meta::retarget<A0, boost::simd::tag::sse_ >::type svtype;
-
-      svtype a00 = _mm256_extractf128_pd(a0, 0);
-      svtype a01 = _mm256_extractf128_pd(a0, 1);
-      svtype a10 = _mm256_extractf128_pd(a1, 0);
-      svtype a11 = _mm256_extractf128_pd(a1, 1);
-      __m256d that = _mm256_castpd128_pd256(boost::simd::deinterleave_second(a00, a01));
-      return  _mm256_insertf128_pd(that,  boost::simd::deinterleave_second(a10, a11), 1);
-     }
+      return _mm256_unpackhi_pd ( _mm256_permute2f128_pd(a0,a1,0x20)
+                                , _mm256_permute2f128_pd(a0,a1,0x31)
+                                );
+    }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::deinterleave_second_

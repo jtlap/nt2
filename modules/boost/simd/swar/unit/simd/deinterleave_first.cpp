@@ -6,13 +6,13 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.swar toolbox - deinterleave_first"
-
-#include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/include/functions/deinterleave_first.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 
 NT2_TEST_CASE_TPL(deinterleave_first, BOOST_SIMD_SIMD_TYPES)
 {
@@ -23,15 +23,18 @@ NT2_TEST_CASE_TPL(deinterleave_first, BOOST_SIMD_SIMD_TYPES)
   typedef native<T,ext_t>                      vT;
 
   const std::size_t card = cardinal_of<vT>::value;
-  vT a,b,c;
+  vT a,b,c,ref;
 
   for(std::size_t i=1; i<=card; ++i)
   {
     a[i-1]=T(i);
     b[i-1]=T(i*10);
   }
-  c = boost::simd::deinterleave_first(a,b);
 
   for(std::size_t i=0; i<card; ++i)
-    NT2_TEST_EQUAL(c[i],(i<(card/2)?a[i*2]:b[(i-card/2)*2]));
+    ref[i] = i<(card/2) ? a[i*2] : b[(i-card/2)*2];
+
+  c = boost::simd::deinterleave_first(a,b);
+
+  NT2_TEST_EQUAL(c,ref);
 }
