@@ -14,6 +14,7 @@
 #include <nt2/sdk/error/throw_exception.hpp>
 #include <boost/function.hpp>
 #include <string>
+#include <vector>
 
 namespace nt2
 {
@@ -22,15 +23,21 @@ namespace nt2
     // Text ID of current benchmark being run
     extern NT2_TEST_BENCHMARK_DECL std::string current_benchmark;
 
-    /// INTERNAL ONLY
-    NT2_TEST_BENCHMARK_DECL
-    bool register_benchmark ( std::string const&
-                            , boost::function<void()> const&
-                            );
+    // Structure holding all the benchmarks
+    struct BOOST_SYMBOL_VISIBLE benchmark_suite
+    {
+      // RUN ALL THE EXPERIMENTS !!!
+      void NT2_TEST_BENCHMARK_DECL run();
+
+      void NT2_TEST_BENCHMARK_DECL
+      register_benchmark( std::string const&              name
+                        , boost::function<void()> const&  fn
+                        );
+
+      std::vector< boost::function<void()> > experiments_;
+      std::vector< std::string >             ids_;
+    };
   }
 }
-
-/// INTERNAL ONLY
-NT2_TEST_BENCHMARK_DECL int main(int argc, const char** argv);
 
 #endif

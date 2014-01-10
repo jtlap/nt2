@@ -69,4 +69,31 @@ BOOST_PP_SEQ_FOR_EACH(NT2_PP_TPL_BENCH,NAME,TYPES);                            \
 template<typename T> void bench_##NAME()                                       \
 /**/
 
+namespace nt2 { namespace details
+{
+  // Global benchmark_suite
+  benchmark_suite benchmarker_;
+
+  // Put an experiment in the benchmark suite
+  bool register_benchmark ( std::string const&              name
+                          , boost::function<void()> const&  fn
+                          )
+  {
+    if(fn) benchmarker_.register_benchmark(name, fn);
+    return fn;
+  }
+} }
+
+/// INTERNAL ONLY -- Prebuilt main
+int main(int argc, const char** argv)
+{
+  std::cout << "CTEST_FULL_OUTPUT" << std::endl;
+
+  // process option commands
+  nt2::details::fill_args_map(argc,argv);
+
+  // run all registered experiments
+  nt2::details::benchmarker_.run();
+}
+
 #endif

@@ -16,7 +16,7 @@ namespace nt2
   {
     NT2_TEST_BENCHMARK_DECL std::map<std::string,std::string> args_map;
 
-    void fill_args_map(int argc, const char** argv)
+    void NT2_TEST_BENCHMARK_DECL fill_args_map(int argc, const char** argv)
     {
       for(int i=1;i<argc;++i)
       {

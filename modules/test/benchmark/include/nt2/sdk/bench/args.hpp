@@ -24,7 +24,7 @@ namespace nt2
     extern NT2_TEST_BENCHMARK_DECL std::map<std::string,std::string> args_map;
 
     // Fill the argument map from the command line contents
-    void fill_args_map(int argc,const char**argv);
+    void NT2_TEST_BENCHMARK_DECL fill_args_map(int argc,const char**argv);
   }
 
   namespace bench
