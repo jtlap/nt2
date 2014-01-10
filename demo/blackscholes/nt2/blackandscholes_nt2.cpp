@@ -1,12 +1,32 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2012 - 2013   MetaScale SAS
+//         Copyright 2009 - 2013 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2014 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+#include <nt2/sdk/bench/benchmark.hpp>
+#include <nt2/sdk/bench/experiment.hpp>
+#include <nt2/sdk/unit/details/prng.hpp>
+
+#include <nt2/sdk/bench/metric/absolute_time.hpp>
+#include <nt2/sdk/bench/metric/cycles_per_element.hpp>
+
+#include <nt2/sdk/bench/protocol/max_iteration.hpp>
+#include <nt2/sdk/bench/protocol/max_duration.hpp>
+
+#include <nt2/sdk/bench/setup/geometric.hpp>
+#include <nt2/sdk/bench/setup/combination.hpp>
+#include <nt2/sdk/bench/setup/constant.hpp>
+
+#include <nt2/sdk/bench/stat/average.hpp>
+#include <nt2/sdk/bench/stat/median.hpp>
+#include <nt2/sdk/bench/stat/min.hpp>
+#include <nt2/sdk/bench/stat/max.hpp>
+
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/log.hpp>
@@ -24,7 +44,12 @@
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
+
+#include <vector>
 #include <iostream>
+
+using namespace nt2::bench;
+using namespace nt2;
 
 namespace nt2
 {
@@ -64,13 +89,10 @@ namespace nt2
   }
 }
 
-template<typename T> NT2_EXPERIMENT(blackandscholes_nt2)
+template<typename T> struct blackandscholes_simd
 {
-public:
-  typedef T value_type;
-  blackandscholes_nt2( std::size_t const& n)
-  : NT2_EXPERIMENT_CTOR(1., "cycles/elements")
-  , size_(n)
+  blackandscholes_simd(std::size_t n)
+                    :  size_(n)
   {
     Sa.resize(nt2::of_size(size_));
     Xa.resize(nt2::of_size(size_));
@@ -80,37 +102,34 @@ public:
     R.resize(nt2::of_size(size_));
 
     for(std::size_t i = 1; i <= size_; ++i)
-      Sa(i) = Xa(i) = Ta(i) = ra(i) = va(i) = value_type(i);
+      Sa(i) = Xa(i) = Ta(i) = ra(i) = va(i) = T(i);
   }
 
-  virtual void run () const
+  void operator()()
   {
     R = nt2::blackandscholes(Sa, Xa, Ta, ra, va);
   }
 
-  virtual double compute(nt2::benchmark_result_t const& r) const
+  friend std::ostream& operator<<(std::ostream& os, blackandscholes_simd<T> const& p)
   {
-    return r.first/double(size_);
+    return os << "(" << p.size()<< ")";
   }
 
-  virtual void info(std::ostream& os) const { os << size_; }
+  std::size_t size() const { return size_ ; }
 
-  virtual void reset() const
-  {}
-
- private:
-  mutable nt2::table<value_type> Sa, Xa, Ta, ra, va, R;
+  private:
+  nt2::table<T> Sa, Xa, Ta, ra, va, R;
   std::size_t size_;
 };
 
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_nt2, (float), (16));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_nt2, (float), (32));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_nt2, (float), (64));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_nt2, (float), (128));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_nt2, (float), (256));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_nt2, (float), (512));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_nt2, (float), (1024));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_nt2, (float), (2048));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_nt2, (float), (20480));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_nt2, (float), (204800));
-NT2_RUN_EXPERIMENT_TPL( blackandscholes_nt2, (float), (1024*1024));
+NT2_REGISTER_BENCHMARK_TPL( blackandscholes_simd, (float) )
+{
+  std::size_t size_min = args("size_min", 16);
+  std::size_t size_max = args("size_max", 4096);
+  std::size_t size_step = args("size_step", 2);
+
+  run_during_with< blackandscholes_simd<float> > ( 1.
+                                          , geometric(size_min,size_max,size_step)
+                                          , cycles_per_element<stat::median_>()
+                                          );
+}
