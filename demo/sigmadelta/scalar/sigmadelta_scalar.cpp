@@ -84,7 +84,7 @@ template<typename T> struct sigmadelta_scalar
         }
 
         d = abs(background_img[i]-frames[k][i]);
-        mul = N * d;
+        mul = sigma * d;
         if(d != 0)
         {
           if(variance_img[i] < mul)
@@ -124,7 +124,7 @@ template<typename T> struct sigmadelta_scalar
   std::size_t size_;
   std::vector<std::vector<T> > frames;
   std::vector<T>  variance_img, background_img, diff_img, binary_label;
-  static const T N=3;//call sigma
+  static const T sigma=3;
   int nb_frames;
 };
 

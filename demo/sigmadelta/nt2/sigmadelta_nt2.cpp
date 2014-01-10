@@ -128,7 +128,6 @@ template<typename T> struct sigmadelta_nt2
   std::size_t size_;
   std::vector<table<T> > frames;
   nt2::table<T> image_variance, background_img, binary_label, mul_img, diff_img;
-  static const T N=3;
   std::size_t step_size, nb_frames;
 };
 

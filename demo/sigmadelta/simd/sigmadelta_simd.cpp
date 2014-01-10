@@ -143,7 +143,6 @@ template<typename T> struct sigmadelta_simd
   std::size_t size_, aligned_sz, it, step_size;
   std::vector< std::vector<T, boost::simd::allocator<T> > > frames;
   std::vector<T, boost::simd::allocator<T> > image_variance, background_img, binary_label;
-  static const T N=3;//call sigma
   std::size_t nb_frames;
 };
 
