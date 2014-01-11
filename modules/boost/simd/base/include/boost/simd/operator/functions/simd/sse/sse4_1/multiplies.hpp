@@ -9,17 +9,18 @@
 #ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_SIMD_SSE_SSE4_1_MULTIPLIES_HPP_INCLUDED
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_SIMD_SSE_SSE4_1_MULTIPLIES_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
-#include <boost/simd/operator/functions/multiplies.hpp>
-#include <boost/simd/operator/functions/simd/sse/sse4_1/multiplies.hpp>
 
+#include <boost/simd/operator/functions/multiplies.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, boost::simd::tag::sse4_1_
-                            , (A0)
-                            , ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::multiplies_
+                                    , boost::simd::tag::sse4_1_
+                                    , (A0)
+                                    , ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef A0 result_type;
 
@@ -29,7 +30,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 } } }
-
 
 #endif
 #endif

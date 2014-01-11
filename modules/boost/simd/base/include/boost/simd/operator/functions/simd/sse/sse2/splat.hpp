@@ -12,108 +12,118 @@
 
 #include <boost/simd/operator/functions/splat.hpp>
 #include <boost/simd/include/functions/simd/make.hpp>
+#include <boost/dispatch/attributes.hpp>
 
-//==============================================================================
-// Implementation when type A0 is double
-//==============================================================================
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_, boost::simd::tag::sse2_, (A0)(A1)
-                            , (scalar_< fundamental_<A0> >)
-                              ((target_< simd_< double_<A1>, boost::simd::tag::sse_ > >))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::splat_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)(A1)
+                                    , (scalar_< fundamental_<A0> >)
+                                      ((target_ < simd_ < double_<A1>
+                                                        , boost::simd::tag::sse_
+                                                        >
+                                                >
+                                      ))
                       )
   {
     typedef typename A1::type result_type;
+
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&) const
     {
       return _mm_set1_pd(double(a0));
     }
   };
-} } }
 
-//==============================================================================
-// Implementation when type A0 is float
-//==============================================================================
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_, boost::simd::tag::sse2_, (A0)(A1)
-                            , (scalar_< fundamental_<A0> >)
-                              ((target_< simd_< single_<A1>, boost::simd::tag::sse_ > >))
-                      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::splat_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)(A1)
+                                    , (scalar_< fundamental_<A0> >)
+                                      ((target_ < simd_ < single_<A1>
+                                                        , boost::simd::tag::sse_
+                                                        >
+                                                >
+                                      ))
+                                    )
   {
     typedef typename A1::type result_type;
+
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&) const
     {
       return _mm_set1_ps(float(a0));
     }
   };
-} } }
 
-//==============================================================================
-// Implementation when type A0 is ints8
-//==============================================================================
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_, boost::simd::tag::sse2_, (A0)(A1)
-                            , (scalar_< fundamental_<A0> >)
-                              ((target_< simd_< ints8_<A1>, boost::simd::tag::sse_ > >))
-                      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::splat_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)(A1)
+                                    , (scalar_< fundamental_<A0> >)
+                                      ((target_ < simd_ < ints8_<A1>
+                                                        , boost::simd::tag::sse_
+                                                        >
+                                                >
+                                      ))
+                                    )
   {
     typedef typename A1::type result_type;
+
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&) const
     {
       return _mm_set1_epi8(a0);
     }
   };
-} } }
 
-//==============================================================================
-// Implementation when type A0 is ints16
-//==============================================================================
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_, boost::simd::tag::sse2_, (A0)(A1)
-                            , (scalar_< fundamental_<A0> >)
-                              ((target_< simd_< ints16_<A1>, boost::simd::tag::sse_ > >))
-                      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::splat_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)(A1)
+                                    , (scalar_< fundamental_<A0> >)
+                                      ((target_ < simd_ < ints16_<A1>
+                                                        , boost::simd::tag::sse_
+                                                        >
+                                                >
+                                      ))
+                                    )
   {
     typedef typename A1::type result_type;
+
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&) const
     {
       return _mm_set1_epi16(a0);
     }
   };
-} } }
 
-//==============================================================================
-// Implementation when type A0 is ints32
-//==============================================================================
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_, boost::simd::tag::sse2_, (A0)(A1)
-                            , (scalar_< fundamental_<A0> >)
-                              ((target_< simd_< ints32_<A1>, boost::simd::tag::sse_ > >))
-                      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::splat_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)(A1)
+                                    , (scalar_< fundamental_<A0> >)
+                                      ((target_ < simd_ < ints32_<A1>
+                                                        , boost::simd::tag::sse_
+                                                        >
+                                                >
+                                      ))
+                                    )
   {
     typedef typename A1::type result_type;
+
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&) const
     {
       return _mm_set1_epi32(a0);
     }
   };
-} } }
 
-//==============================================================================
-// Implementation when type A0 is ints64
-//==============================================================================
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_, boost::simd::tag::sse2_, (A0)(A1)
-                            , (scalar_< fundamental_<A0> >)
-                              ((target_< simd_< ints64_<A1>, boost::simd::tag::sse_ > >))
-                      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::splat_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)(A1)
+                                    , (scalar_< fundamental_<A0> >)
+                                      ((target_ < simd_ < ints64_<A1>
+                                                        , boost::simd::tag::sse_
+                                                        >
+                                                >
+                                      ))
+                                    )
   {
     typedef typename A1::type result_type;
+
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&) const
     {
 #ifdef BOOST_SIMD_ARCH_X86_64

@@ -8,14 +8,15 @@
 //==============================================================================
 #ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_SCALAR_MAKE_HPP_INCLUDED
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_SCALAR_MAKE_HPP_INCLUDED
+
 #include <boost/simd/operator/functions/make.hpp>
+#include <boost/dispatch/attributes.hpp>
 #include <boost/dispatch/meta/as.hpp>
-#include <boost/dispatch/functor/preprocessor/call.hpp>
-// TODO Are this includes necessary and why ?
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::make_, tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::make_, tag::cpu_
+                                    , (A0)
                                     , (target_< scalar_< fundamental_<A0> > >)
                                     )
   {

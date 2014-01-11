@@ -11,6 +11,7 @@
 
 #include <boost/simd/operator/functions/value.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
+#include <boost/dispatch/attributes.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
 
 namespace boost { namespace simd { namespace ext

@@ -16,16 +16,19 @@
 #include <boost/simd/include/functions/simd/if_allbits_else.hpp>
 #include <boost/simd/include/constants/nan.hpp>
 #include <boost/simd/sdk/config/compiler.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divides_, boost::simd::tag::sse2_
-                            , (A0)
-                            , ((simd_<double_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<double_<A0>,boost::simd::tag::sse_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::divides_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_<double_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<double_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef A0 result_type;
+
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 const that = _mm_div_pd(a0,a1);
@@ -38,13 +41,15 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divides_, boost::simd::tag::sse2_
-                            , (A0)
-                            , ((simd_<single_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<single_<A0>,boost::simd::tag::sse_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::divides_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_<single_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<single_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef A0 result_type;
+
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 const that = _mm_div_ps(a0,a1);

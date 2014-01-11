@@ -13,14 +13,16 @@
 #include <boost/simd/operator/functions/multiplies.hpp>
 #include <boost/simd/include/constants/int_splat.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, boost::simd::tag::sse2_
-                                   , (A0)
-                                   , ((simd_<double_<A0>,boost::simd::tag::sse_>))
-                                     ((simd_<double_<A0>,boost::simd::tag::sse_>))
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::multiplies_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_<double_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<double_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef A0 result_type;
 
@@ -30,11 +32,12 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, boost::simd::tag::sse2_
-                                   , (A0)
-                                   , ((simd_<single_<A0>,boost::simd::tag::sse_>))
-                                     ((simd_<single_<A0>,boost::simd::tag::sse_>))
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::multiplies_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_<single_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<single_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef A0 result_type;
 
@@ -44,38 +47,40 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, boost::simd::tag::sse2_
-                                   , (A0)
-                                   , ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
-                                     ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::multiplies_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::upgrade<A0,signed>::type  type;
-
       type mask = integral_constant<type,0x00FF>();
-      return _mm_or_si128(
-        _mm_and_si128(mask, _mm_mullo_epi16(a0,a1)),
-        _mm_slli_epi16(
-          _mm_and_si128(mask,
-                        _mm_mullo_epi16(_mm_srli_epi16(a0(), 8),
-                                        _mm_srli_epi16(a1(), 8)
-                                       )
-                       ),
-          8
-        )
-      );
+
+      return _mm_or_si128 ( _mm_and_si128(mask, _mm_mullo_epi16(a0,a1))
+                          , _mm_slli_epi16
+                            ( _mm_and_si128 ( mask
+                                            , _mm_mullo_epi16
+                                              ( _mm_srli_epi16(a0(), 8)
+                                              , _mm_srli_epi16(a1(), 8)
+                                              )
+                                            )
+                            , 8
+                            )
+                          );
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, boost::simd::tag::sse2_
-                                   , (A0)
-                                   , ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
-                                     ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::multiplies_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef A0 result_type;
 
@@ -85,11 +90,12 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, boost::simd::tag::sse2_
-                                   , (A0)
-                                   , ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
-                                     ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::multiplies_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef A0 result_type;
 
@@ -123,7 +129,6 @@ namespace boost { namespace simd { namespace ext
 
   };
 } } }
-
 
 #endif
 #endif

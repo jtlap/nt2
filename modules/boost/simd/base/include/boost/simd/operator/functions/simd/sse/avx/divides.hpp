@@ -11,50 +11,56 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
 #include <boost/simd/operator/functions/divides.hpp>
+#include <boost/simd/sdk/config/compiler.hpp>
+#include <boost/dispatch/attributes.hpp>
+
+#if defined(BOOST_SIMD_COMPILER_GCC) && BOOST_SIMD_GCC_VERSION < 40603
 #include <boost/simd/include/functions/simd/is_eqz.hpp>
 #include <boost/simd/include/functions/simd/logical_and.hpp>
 #include <boost/simd/include/functions/simd/if_allbits_else.hpp>
 #include <boost/simd/include/constants/nan.hpp>
-#include <boost/simd/sdk/config/compiler.hpp>
+#endif
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divides_, boost::simd::tag::avx_
-                            , (A0)
-                            , ((simd_<double_<A0>,boost::simd::tag::avx_>))
-                              ((simd_<double_<A0>,boost::simd::tag::avx_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::divides_
+                                    , boost::simd::tag::avx_
+                                    , (A0)
+                                    , ((simd_<double_<A0>,boost::simd::tag::avx_>))
+                                      ((simd_<double_<A0>,boost::simd::tag::avx_>))
+                                    )
   {
     typedef A0 result_type;
 
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 const that = _mm256_div_pd(a0,a1);
 #if defined(BOOST_SIMD_COMPILER_GCC) && BOOST_SIMD_GCC_VERSION < 40603
       // workaround for GCC bug #50396 fixed in 4.6.3
+      A0 const that = _mm256_div_pd(a0,a1);
       return if_nan_else(logical_and(is_eqz(a0), is_eqz(a1)), that);
 #else
-      return that;
+      return _mm256_div_pd(a0,a1);
 #endif
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divides_, boost::simd::tag::avx_
-                            , (A0)
-                            , ((simd_<single_<A0>,boost::simd::tag::avx_>))
-                              ((simd_<single_<A0>,boost::simd::tag::avx_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::divides_
+                                    , boost::simd::tag::avx_
+                                    , (A0)
+                                    , ((simd_<single_<A0>,boost::simd::tag::avx_>))
+                                      ((simd_<single_<A0>,boost::simd::tag::avx_>))
+                                    )
   {
     typedef A0 result_type;
 
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 const that = _mm256_div_ps(a0,a1);
 #if defined(BOOST_SIMD_COMPILER_GCC) && BOOST_SIMD_GCC_VERSION < 40603
       // workaround for GCC bug #50396 fixed in 4.6.3
+      A0 const that = _mm256_div_ps(a0,a1);
       return if_nan_else(logical_and(is_eqz(a0), is_eqz(a1)), that);
 #else
-      return that;
+      return _mm256_div_ps(a0,a1);
 #endif
     }
   };

@@ -8,37 +8,45 @@
 //==============================================================================
 #ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_SCALAR_SHIFT_LEFT_HPP_INCLUDED
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_SCALAR_SHIFT_LEFT_HPP_INCLUDED
+
 #include <boost/simd/operator/functions/shift_left.hpp>
-#include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
-#include <boost/simd/include/constants/zero.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/assert.hpp>
 #include <boost/simd/operator/functions/details/assert_utils.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/dispatch/attributes.hpp>
+#include <boost/assert.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shift_left_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< floating_<A0> >)(scalar_< integer_<A1> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shift_left_, tag::cpu_
+                                    , (A0)(A1)
+                                    , (scalar_< floating_<A0> >)
+                                      (scalar_< integer_<A1> >)
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::as_integer<A0, signed>::type itype;
       return bitwise_cast<result_type>(shift_left(bitwise_cast<itype>(a0),a1));
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shift_left_ , tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shift_left_ , tag::cpu_
+                                    , (A0)(A1)
+                                    , (scalar_< integer_<A0> >)
+                                      (scalar_< integer_<A1> >)
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      BOOST_ASSERT_MSG(assert_good_shift<A0>(a1), "shift_left: a shift is out of range");
+      BOOST_ASSERT_MSG( assert_good_shift<A0>(a1)
+                      , "shift_left: a shift is out of range"
+                      );
+
       return a0 << a1;
     }
   };

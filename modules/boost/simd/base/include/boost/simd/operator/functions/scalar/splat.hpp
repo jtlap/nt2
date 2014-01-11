@@ -10,16 +10,19 @@
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_SCALAR_SPLAT_HPP_INCLUDED
 
 #include <boost/simd/operator/functions/splat.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_ , tag::cpu_ , (A0)(A1)
-                            , (scalar_< unspecified_<A0> >)
-                              (target_< scalar_< unspecified_<A1> > >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::splat_ , tag::cpu_
+                                    , (A0)(A1)
+                                    , (scalar_< unspecified_<A0> >)
+                                      (target_< scalar_< unspecified_<A1> > >)
+                                    )
   {
     typedef typename A1::type result_type;
-    inline result_type operator()(const A0& a0, const A1&) const
+
+    BOOST_FORCEINLINE result_type operator()(const A0& a0, const A1&) const
     {
       return static_cast<result_type>(a0);
     }
