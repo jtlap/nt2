@@ -13,6 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/euler/include/functions/beta.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
+#include <nt2/include/constants/eps.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
