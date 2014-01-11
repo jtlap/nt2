@@ -11,29 +11,21 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
 #include <boost/simd/operator/functions/bitwise_and.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
-#include <boost/simd/sdk/meta/make_dependent.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::bitwise_and_
                                     , boost::simd::tag::avx_
                                     , (A0)
-                                    , ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
-                                      ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
+                                    , ((simd_<single_<A0>,boost::simd::tag::avx_>))
+                                      ((simd_<single_<A0>,boost::simd::tag::avx_>))
                                     )
   {
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
     {
-      typedef typename meta::make_dependent < native<float,tag::avx_>
-                                            , A0
-                                            >::type                     type;
-
-      return bitwise_cast<A0>( _mm256_and_ps ( bitwise_cast<type>(a0)
-                                             , bitwise_cast<type>(a1)
-                                             )
-                             );
+      return _mm256_and_ps(a0, a1);
     }
   };
 
@@ -48,6 +40,27 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
     {
       return _mm256_and_pd(a0, a1);
+    }
+  };
+
+  // just pretend to carry on bitwise operations of arbitrary size using f32
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::bitwise_and_
+                                    , boost::simd::tag::avx_
+                                    , (A0)
+                                    , ((simd_<integer_<A0>,boost::simd::tag::avx_>))
+                                      ((simd_<integer_<A0>,boost::simd::tag::avx_>))
+                                    )
+  {
+    typedef A0 result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
+    {
+      typedef typename A0::template rebind<float>::type type;
+
+      return bitwise_cast<A0>( _mm256_and_ps ( bitwise_cast<type>(a0)
+                                             , bitwise_cast<type>(a1)
+                                             )
+                             );
     }
   };
 } } }
