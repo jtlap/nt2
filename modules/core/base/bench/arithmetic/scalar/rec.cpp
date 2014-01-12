@@ -30,53 +30,11 @@ using nt2::tag::rec_;
 
 namespace n1 {
   typedef float T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(rec_,(RS(T,T(-10),T(10))))
 }
 namespace n2 {
   typedef double T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(rec_,(RS(T,T(-10),T(10))))
-}
-namespace n3 {
-  typedef nt2::uint8_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(rec_,(RS(T,0,100)))
-}
-namespace n4 {
-  typedef nt2::uint16_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(rec_,(RS(T,0,100)))
-}
-namespace n5 {
-  typedef nt2::uint32_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(rec_,(RS(T,0,100)))
-}
-namespace n6 {
-  typedef nt2::uint64_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(rec_,(RS(T,0,100)))
-}
-namespace n7 {
-  typedef nt2::int8_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(rec_,(RS(T,-100,100)))
-}
-namespace n8 {
-  typedef nt2::int16_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(rec_,(RS(T,-100,100)))
-}
-namespace n9 {
-  typedef nt2::int32_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(rec_,(RS(T,-100,100)))
-}
-namespace n10 {
-  typedef nt2::int64_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(rec_,(RS(T,-100,100)))
 }
 
 #undef RS
