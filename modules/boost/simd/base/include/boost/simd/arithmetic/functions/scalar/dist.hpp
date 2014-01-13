@@ -15,14 +15,13 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::dist_, tag::cpu_
-                                   , (A0)
-                                   , (scalar_< arithmetic_<A0> >)
-                                     (scalar_< arithmetic_<A0> >)
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::dist_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< arithmetic_<A0> >)
+                                      (scalar_< arithmetic_<A0> >)
+                                    )
   {
     typedef A0 result_type;
-
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return (a0>a1) ? a0-a1 : a1-a0;
@@ -36,13 +35,11 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef A0 result_type;
-
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return boost::simd::abs(a0 - a1);
     }
   };
 } } }
-
 
 #endif

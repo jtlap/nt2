@@ -10,8 +10,7 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_MAX_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/max.hpp>
-#include <boost/simd/include/functions/scalar/is_unord.hpp>
-#include <boost/simd/include/constants/nan.hpp>
+#include <boost/dispatch/attributes.hpp>
 #include <boost/mpl/max.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -23,7 +22,7 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE result_type operator()(A0 a0, A0 a1) const
     {
       return (a0 > a1) ? a0 : a1;
     }
@@ -68,7 +67,6 @@ namespace boost { namespace simd { namespace ext
       return result_type();
     }
   };
-
 } } }
 
 #endif

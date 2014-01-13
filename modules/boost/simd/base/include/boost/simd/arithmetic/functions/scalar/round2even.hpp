@@ -14,16 +14,18 @@
 #include <boost/simd/include/constants/twotonmb.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/sdk/config/enforce_precision.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round2even_, tag::cpu_
-                            , (A0)
-                            , (scalar_< floating_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::round2even_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< floating_<A0> >)
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
       boost::simd::config::enforce_precision<A0> enforcer;
 
@@ -36,18 +38,18 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round2even_, tag::cpu_
-                            , (A0)
-                            , (scalar_< integer_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::round2even_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< integer_<A0> >)
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return a0;
     }
   };
 } } }
-
 
 #endif

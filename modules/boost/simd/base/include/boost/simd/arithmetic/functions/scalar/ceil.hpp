@@ -11,6 +11,7 @@
 
 #include <boost/simd/arithmetic/functions/ceil.hpp>
 #include <boost/simd/sdk/math.hpp>
+#include <boost/dispatch/attributes.hpp>
 #include <cmath>
 
 namespace boost { namespace simd { namespace ext
@@ -22,7 +23,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
       #ifdef BOOST_SIMD_HAS_CEILF
       return ::ceilf(a0);
@@ -39,7 +40,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return ::ceil(a0);
     }

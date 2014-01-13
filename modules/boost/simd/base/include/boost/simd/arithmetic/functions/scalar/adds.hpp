@@ -14,8 +14,9 @@
 #include <boost/simd/include/functions/scalar/min.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/zero.hpp>
-#include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/dispatch/meta/as_unsigned.hpp>
+#include <boost/dispatch/meta/upgrade.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -26,7 +27,8 @@ namespace boost { namespace simd { namespace ext
                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return a0+a1;
     }
@@ -40,7 +42,8 @@ namespace boost { namespace simd { namespace ext
                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::upgrade<A0>::type utype;
       return static_cast<A0>(boost::simd::saturate<A0>(utype(a0)+utype(a1)));
@@ -55,7 +58,8 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::upgrade<A0>::type utype;
       return static_cast<A0>(boost::simd::min(utype(boost::simd::Valmax<A0>()), utype(a0+a1)));
@@ -70,7 +74,8 @@ namespace boost { namespace simd { namespace ext
                                       )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::as_unsigned<A0>::type utype;
 
@@ -95,7 +100,8 @@ namespace boost { namespace simd { namespace ext
                                       )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 res = a0 + a1;
       res |= -(res < a0);
@@ -103,6 +109,5 @@ namespace boost { namespace simd { namespace ext
     }
   };
 } } }
-
 
 #endif

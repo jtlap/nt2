@@ -16,6 +16,7 @@
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/dispatch/meta/as_unsigned.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -24,13 +25,15 @@ namespace boost { namespace simd { namespace ext
 #pragma warning(disable: 4723) // potential divide by 0
 #endif
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divs_, tag::cpu_, (A0)
-                                  , (scalar_< floating_<A0> >)
-                                    (scalar_< floating_<A0> >)
-                                  )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::divs_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< floating_<A0> >)
+                                      (scalar_< floating_<A0> >)
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return a0/a1;
     }
@@ -40,13 +43,15 @@ namespace boost { namespace simd { namespace ext
 #pragma warning(pop)
 #endif
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divs_, tag::cpu_ , (A0)
-                                   , (scalar_< int_<A0> >)
-                                     (scalar_< int_<A0> >)
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::divs_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< int_<A0> >)
+                                      (scalar_< int_<A0> >)
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::as_unsigned<A0>::type utype;
       A0 const aa0 = a0 + !((a1 + One<A0>()) | ((utype)a0 + Valmin<A0>()));
@@ -59,18 +64,17 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divs_, tag::cpu_ , (A0)
-                                   , (scalar_< uint_<A0> >)
-                                     (scalar_< uint_<A0> >)
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::divs_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< uint_<A0> >)
+                                      (scalar_< uint_<A0> >)
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      if (a1)
-        return a0/a1;
-      else
-        return genmask(a0);
+      return a1 ? a0/a1 : genmask(a0);
     }
   };
 } } }
