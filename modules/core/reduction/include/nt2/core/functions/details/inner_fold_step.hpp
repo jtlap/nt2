@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_INNER_FOLD_STEP_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_INNER_FOLD_STEP_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_DETAILS_INNER_FOLD_STEP_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_DETAILS_INNER_FOLD_STEP_HPP_INCLUDED
 
 /*!
   @file

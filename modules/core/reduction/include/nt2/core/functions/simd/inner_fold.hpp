@@ -10,7 +10,7 @@
 #define NT2_CORE_FUNCTIONS_SIMD_INNER_FOLD_HPP_INCLUDED
 
 #include <nt2/core/functions/inner_fold.hpp>
-#include <nt2/core/functions/inner_fold_step.hpp>
+#include <nt2/core/functions/details/inner_fold_step.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/meta/is_vectorizable.hpp>
 
