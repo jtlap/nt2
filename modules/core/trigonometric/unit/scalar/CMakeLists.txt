@@ -8,6 +8,8 @@
 ##############################################################################
 
 SET( SOURCES
+  pio_2lo.cpp
+  pio_4lo.cpp
   nbd_atan2.cpp
   proper_tanpi.cpp
   rem_pio2_straight.cpp
