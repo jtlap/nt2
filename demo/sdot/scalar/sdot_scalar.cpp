@@ -63,7 +63,7 @@ template<typename T> struct sdot_scalar
     typename std::vector<T> X, Y;
 };
 
-NT2_REGISTER_BENCHMARK_TPL( sdot_scalar, (float)(double) )
+NT2_REGISTER_BENCHMARK_TPL( sdot_scalar, NT2_SIMD_REAL_TYPES )
 {
   std::size_t size_min = args("size_min", 16);
   std::size_t size_max = args("size_max", 4096);

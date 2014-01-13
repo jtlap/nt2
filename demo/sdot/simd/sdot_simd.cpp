@@ -85,11 +85,13 @@ template<typename T> struct sdot_simd
     typename std::vector<T, boost::simd::allocator<T> > X, Y;
 };
 
-NT2_REGISTER_BENCHMARK_TPL( sdot_simd, (float)(double) )
+NT2_REGISTER_BENCHMARK_TPL( sdot_simd, NT2_SIMD_REAL_TYPES )
 {
   std::size_t size_min = args("size_min", 16);
   std::size_t size_max = args("size_max", 4096);
   std::size_t size_step = args("size_step", 2);
+
+
 
   run_during_with< sdot_simd<T> > ( 1.
                                       , geometric(size_min,size_max,size_step)

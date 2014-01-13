@@ -65,7 +65,7 @@ template<typename T> struct sdot_nt2
     nt2::table<T> X, Y;
 };
 
-NT2_REGISTER_BENCHMARK_TPL( sdot_nt2, (float)(double) )
+NT2_REGISTER_BENCHMARK_TPL( sdot_nt2, NT2_SIMD_REAL_TYPES )
 {
   std::size_t size_min = args("size_min", 16);
   std::size_t size_max = args("size_max", 4096);

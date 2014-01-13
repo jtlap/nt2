@@ -84,7 +84,7 @@ template<typename T> struct axpy_simd
     typename std::vector<T, boost::simd::allocator<T> > X, Y;
 };
 
-NT2_REGISTER_BENCHMARK_TPL( axpy_simd, (float)(double) )
+NT2_REGISTER_BENCHMARK_TPL( axpy_simd, NT2_SIMD_REAL_TYPES )
 {
   std::size_t size_min = args("size_min", 16);
   std::size_t size_max = args("size_max", 4096);
