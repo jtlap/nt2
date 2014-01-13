@@ -9,6 +9,9 @@
 
 SET( SOURCES
   sin.cpp
+  acos.cpp
+  asin.cpp
+  atan.cpp
 # List of simd test files for toolbox arithmetic
    )
 

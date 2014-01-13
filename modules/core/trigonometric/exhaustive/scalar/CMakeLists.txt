@@ -8,7 +8,10 @@
 ##############################################################################
 
 SET( SOURCES
-# List of simd test files for toolbox arithmetic
-   )
+  # List of simd test files for toolbox arithmetic
+  acos.cpp
+  asin.cpp
+  atan.cpp
+  )
 
 nt2_module_add_tests(core.trigonometric.scalar.exhaustive ${SOURCES})
