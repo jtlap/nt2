@@ -11,33 +11,13 @@ else
 fi
 
 var=args[${FIRST}]
-if [ "${!var}" == "-o" ];then #i need to find a better way of doing this
-  var1=args[${FIRST}+1]
-  var2=args[${FIRST}+2]
-  RUN_ARGS=("${!var} ${!var1} ${!var2}")
-  ((FIRST=${FIRST}+3))
-fi
-var=args[${FIRST}]
-if [ "${!var}" == "-o" ];then
+while [ ${!var} == "-o" ];do
   var1=args[${FIRST}+1]
   var2=args[${FIRST}+2]
   RUN_ARGS=("${RUN_ARGS} ${!var} ${!var1} ${!var2}")
   ((FIRST=${FIRST}+3))
-fi
-var=args[${FIRST}]
-if [ "${!var}" == "-o" ];then
-  var1=args[${FIRST}+1]
-  var2=args[${FIRST}+2]
-  RUN_ARGS=("${RUN_ARGS} ${!var} ${!var1} ${!var2}")
-  ((FIRST=${FIRST}+3))
-fi
-var=args[${FIRST}]
-if [ "${!var}" == "-o" ];then
-  var1=args[${FIRST}+1]
-  var2=args[${FIRST}+2]
-  RUN_ARGS=("${RUN_ARGS} ${!var} ${!var1} ${!var2}")
-  ((FIRST=${FIRST}+3))
-fi
+  var=args[${FIRST}]
+done
 
 ((NUM_TEST=${LAST}-${FIRST}))
 
