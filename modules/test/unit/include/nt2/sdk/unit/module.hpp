@@ -29,25 +29,22 @@
 #include <nt2/sdk/error/assert_as_flexible.hpp>
 #include <boost/preprocessor/cat.hpp>
 
-
 #if !defined(NT2_UNIT_MAIN_SUITE)
 /// INTERNAL ONLY
 #define NT2_UNIT_MAIN_SUITE nt2::details::unit_tests
 #endif
 
 #if defined(NT2_USE_HPX)
-
 int hpx_main(int argc, char* argv[])
 {
   int res = nt2::details::unit_main(argc,argv,NT2_UNIT_MAIN_SUITE);
   hpx::finalize();
   return res;
 }
-
 #endif
 
 /*!
-  @brief Embedded main for testing purpose.
+  @brief Embedded main for testing purposes.
 
   This function is used as an entry point for the current test.
   In normal mode, it's basically a @c main(). In driver mode, it is a unique
@@ -57,13 +54,9 @@ int hpx_main(int argc, char* argv[])
 NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int argc, char* argv[])
 {
 #if defined(NT2_USE_HPX)
-
   return hpx::init(argc, argv);
-
 #else
-
   return nt2::details::unit_main(argc,argv,NT2_UNIT_MAIN_SUITE);
-
 #endif
 }
 
