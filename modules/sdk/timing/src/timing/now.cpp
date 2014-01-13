@@ -156,6 +156,11 @@ namespace nt2
   };
 
   static max_cpu_freq_scoped max_cpu_freq_init;
+
+  NT2_SDK_TIMING_DECL double get_cpu_freq ()
+  {
+    return((double)max_cpu_freq/1000000000);
+  }
 }
 
 #ifdef BOOST_SIMD_OS_LINUX
