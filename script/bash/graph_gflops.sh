@@ -22,7 +22,7 @@ done
 ((NUM_TEST=${LAST}-${FIRST}))
 
 var=args[${FIRST}]
-if [ "$1" == "arm" ];then
+if [ "$1" == "-s" ];then
   ${run} ./${!var} "${RUN_ARGS}" | tee res.txt
 else
   ${run} ./${!var} ${RUN_ARGS} | tee res.txt
@@ -37,7 +37,7 @@ BENCH_NAME=$(head -n 1 res.txt | tr "_"  "\n"|sed -n 1p)
 TYPE=$(head -n 1 res.txt | tr "_"  "\n" | sed 1d | tr "<" "\n" | tr ">" "\n" | sed -n 2p)
 for ((i=${FIRST}+1;i<${LAST};i++));do
     var=args[${i}]
-    if [ "$1" == "arm" ];then
+    if [ "$1" == "-s" ];then
       ${run} ./${!var} "${RUN_ARGS}" | sed 1,4d  | tee temp.txt; cat temp.txt >> res.txt
     else
       ${run} ./${!var} ${RUN_ARGS} | sed 1,4d  | tee temp.txt; cat temp.txt >> res.txt
