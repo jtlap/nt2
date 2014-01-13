@@ -157,9 +157,10 @@ namespace nt2
 
   static max_cpu_freq_scoped max_cpu_freq_init;
 
-  NT2_SDK_TIMING_DECL double get_cpu_freq ()
+  NT2_SDK_TIMING_DECL
+  BOOST_DISPATCH_NOTHROW unsigned long get_cpu_freq ()
   {
-    return((double)max_cpu_freq/1000000000);
+    return(max_cpu_freq);
   }
 }
 
