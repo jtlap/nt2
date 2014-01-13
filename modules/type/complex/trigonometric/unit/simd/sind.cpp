@@ -49,7 +49,7 @@ NT2_TEST_CASE_TPL ( sind, NT2_SIMD_REAL_TYPES)
   size_t N =  sizeof(a)/sizeof(cT);
   for(size_t i=0; i < N; ++i)
   {
-    NT2_TEST_ULP_EQUAL(nt2::sind(nt2::splat<vcT>(a[i])), nt2::splat<vcT>(nt2::sind(a[i])), 1.5);
+    NT2_TEST_ULP_EQUAL(nt2::sind(nt2::splat<vcT>(a[i])), nt2::splat<vcT>(nt2::sind(a[i])), 11);
   }
 
 }

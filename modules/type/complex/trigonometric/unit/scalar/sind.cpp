@@ -39,15 +39,15 @@ NT2_TEST_CASE_TPL ( sind,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(nt2::sind(cT(nt2::Inf<T>())), cT(nt2::Nan<T>()), 2);
-  NT2_TEST_ULP_EQUAL(nt2::sind(cT(nt2::Minf<T>())), cT(nt2::Nan<T>()), 2);
-  NT2_TEST_ULP_EQUAL(nt2::sind(cT(1, 1)),std::sin(nt2::Deginrad<T>()*cT(1.0, 1.0)), 2);
-  NT2_TEST_ULP_EQUAL(nt2::sind(cT(1, 10)),std::sin(nt2::Deginrad<T>()*cT(1.0, 10.0)), 2);
-  NT2_TEST_ULP_EQUAL(nt2::sind(cT(10, 1)),std::sin(nt2::Deginrad<T>()*cT(10.0, 1.0)), 2);
-  NT2_TEST_ULP_EQUAL(nt2::sind(cT(10, 10)),std::sin(nt2::Deginrad<T>()*cT(10.0, 10.0)), 2);
-  NT2_TEST_ULP_EQUAL(nt2::sind(cT(0, 1)),std::sin(nt2::Deginrad<T>()*cT(0.0, 1.0)), 2);
-  NT2_TEST_ULP_EQUAL(nt2::sind(cT(0, 10)),std::sin(nt2::Deginrad<T>()*cT(0.0, 10.0)), 2);
-  NT2_TEST_ULP_EQUAL(nt2::sind(cT(10, 0)),std::sin(nt2::Deginrad<T>()*cT(10.0, 0.0)), 2);
+  NT2_TEST_ULP_EQUAL(nt2::sind(cT(nt2::Inf<T>())), cT(nt2::Nan<T>()), 3);
+  NT2_TEST_ULP_EQUAL(nt2::sind(cT(nt2::Minf<T>())), cT(nt2::Nan<T>()), 3);
+  NT2_TEST_ULP_EQUAL(nt2::sind(cT(1, 1)),std::sin(nt2::Deginrad<T>()*cT(1.0, 1.0)), 3);
+  NT2_TEST_ULP_EQUAL(nt2::sind(cT(1, 10)),std::sin(nt2::Deginrad<T>()*cT(1.0, 10.0)), 3);
+  NT2_TEST_ULP_EQUAL(nt2::sind(cT(10, 1)),std::sin(nt2::Deginrad<T>()*cT(10.0, 1.0)), 3);
+  NT2_TEST_ULP_EQUAL(nt2::sind(cT(10, 10)),std::sin(nt2::Deginrad<T>()*cT(10.0, 10.0)), 3);
+  NT2_TEST_ULP_EQUAL(nt2::sind(cT(0, 1)),std::sin(nt2::Deginrad<T>()*cT(0.0, 1.0)), 3);
+  NT2_TEST_ULP_EQUAL(nt2::sind(cT(0, 10)),std::sin(nt2::Deginrad<T>()*cT(0.0, 10.0)), 3);
+  NT2_TEST_ULP_EQUAL(nt2::sind(cT(10, 0)),std::sin(nt2::Deginrad<T>()*cT(10.0, 0.0)), 3);
 
 
 

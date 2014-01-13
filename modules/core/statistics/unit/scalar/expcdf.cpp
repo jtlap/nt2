@@ -71,7 +71,7 @@ NT2_TEST_CASE_TPL ( expcdf_2, NT2_REAL_TYPES)
                                    0.086899283717737654809, 0.079955585370676748869,
                                    0.074038921357684028823, 0.06893722029597722234,
                                    0.064493014968382264551);
-  NT2_TEST_ULP_EQUAL(expcdf(nt2::One<T>(), a+T(10)), r3, 1);
+  NT2_TEST_ULP_EQUAL(expcdf(nt2::One<T>(), a+T(10)), r3, 1.5);
 
   nt2::tie(r, plo, pup) = nt2::expcdf(a, nt2::ones(size(a), nt2::meta::as_<T>()), T(0.5), T(0.05));
    nt2::table<T> rr = nt2::cons<T>(0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
