@@ -13,7 +13,7 @@
 #include <nt2/sdk/bench/details/display_metric.hpp>
 #include <nt2/sdk/bench/details/measure.hpp>
 #include <boost/fusion/include/for_each.hpp>
-
+#include <nt2/sdk/bench/args.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
@@ -105,10 +105,13 @@ namespace nt2 { namespace bench
        * experiment_is_immutable or not */
       typename details::experiment_copy<Experiment>::type local(e);
 
+      std::size_t iterations = args("nt2.protocol.repeat",1);
+
       time_quantum_t const time_start  ( time_quantum() );
       cycles_t       const cycles_start( read_cycles() );
 
-      local();
+      for ( std::size_t i=0; i<iterations; i++ )
+        local();
 
       cycles_t       const cycles_end( read_cycles() );
       time_quantum_t const time_end  ( time_quantum() );
@@ -116,8 +119,8 @@ namespace nt2 { namespace bench
       cycles_t       const burned_cycles( cycles_end - cycles_start );
       time_quantum_t const elapsed_time ( time_end   - time_start   );
 
-      t(to_microseconds(elapsed_time));
-      c(burned_cycles);
+      t(to_microseconds(elapsed_time/iterations));
+      c(burned_cycles/iterations);
 
       return elapsed_time;
     }
