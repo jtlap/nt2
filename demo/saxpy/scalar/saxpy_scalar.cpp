@@ -1,84 +1,82 @@
 //==============================================================================
 //         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2012 - 2013 MetaScale SAS
+//         Copyright 2012 - 2014   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <iostream>
-#include <vector>
 #include <nt2/sdk/bench/benchmark.hpp>
+#include <nt2/sdk/bench/experiment.hpp>
+#include <nt2/sdk/unit/details/prng.hpp>
 
-#ifdef __ANDROID__
-  #define TURBOFREQ 1.008000
-#else
-  #define TURBOFREQ 3.401
-#endif
-#define NOPS 2.0
+#include <nt2/sdk/bench/metric/absolute_time.hpp>
+#include <nt2/sdk/bench/metric/gflops.hpp>
 
-template<typename T>
-NT2_EXPERIMENT(Taxpy_scalar)
+#include <nt2/sdk/bench/protocol/max_duration.hpp>
+
+#include <nt2/sdk/bench/setup/geometric.hpp>
+#include <nt2/sdk/bench/setup/constant.hpp>
+#include <nt2/sdk/bench/setup/combination.hpp>
+
+#include <nt2/sdk/bench/stat/average.hpp>
+#include <nt2/sdk/bench/stat/median.hpp>
+#include <nt2/sdk/bench/stat/min.hpp>
+#include <nt2/sdk/bench/stat/max.hpp>
+
+#include <boost/fusion/include/at.hpp>
+
+#include <vector>
+
+using namespace nt2::bench;
+using namespace nt2;
+
+template<typename T> struct axpy_scalar
 {
-  public:
+  typedef void experiment_is_immutable;
+  template<typename Setup>
+  axpy_scalar(Setup const& s)
+              :  size_(boost::fusion::at_c<0>(s))
+              ,  alpha(boost::fusion::at_c<1>(s))
+  {
+    X.resize(size_); Y.resize(size_);
+    for(std::size_t i = 0; i<size_; ++i)
+      X[i] = Y[i] = T(i);
+  }
 
-    Taxpy_scalar(std::size_t const& s, T const& a)
-    : NT2_EXPERIMENT_CTOR(1., "GFLOPS"),
-      alpha(a), size(s)
-    {
+  void operator()()
+  {
+    for(std::size_t i = 0; i<size_; i++)
+      Y[i] = Y[i] + alpha*(X[i]);
+  }
 
-      X.resize(s); Y.resize(s);
-      for(std::size_t i = 0; i<size; ++i) X[i] = Y[i] = T(i);
-    }
+  friend std::ostream& operator<<(std::ostream& os, axpy_scalar<T> const& p)
+  {
+    return os << "(" << p.size() << ")";
+  }
 
-    inline void Taxpy_work(std::size_t const& s) const
-    {
-      for(std::size_t i = 0; i<size; i++)
-        Y[i] = Y[i] + alpha*(X[i]);
-    }
-    virtual void run() const
-    {
-      Taxpy_work(size);
-    }
-    virtual double compute(nt2::benchmark_result_t const& r) const
-    {
-      return(double(size)*NOPS*TURBOFREQ/r.first);
-    }
+  std::size_t size() const { return size_ ; }
+  std::size_t flops() const { return 2 ; }
 
-    virtual void info(std::ostream& os) const { os << size; }
-
-    virtual void reset() const
-    {
-    }
   private:
+    std::size_t size_, step_size_;
     T alpha;
-    std::size_t size;
-    mutable typename std::vector<T> X, Y;
+    std::vector<T> X, Y;
 };
 
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (float), (16,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (float), (32,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (float), (64,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (float), (128,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (float), (256,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (float), (512,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (float), (1024,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (float), (2048,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (float), (4096,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (float), (8192,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (float), (16384,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (float), (163840,2.7f));
+NT2_REGISTER_BENCHMARK_TPL( axpy_scalar, (float) )
+{
+  std::size_t size_min = args("size_min", 16);
+  std::size_t size_max = args("size_max", 4096);
+  std::size_t size_step = args("size_step", 2);
 
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (double), (16,2.7));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (double), (32,2.7));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (double), (64,2.7));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (double), (128,2.7));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (double), (256,2.7));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (double), (512,2.7));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (double), (1024,2.7));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (double), (2048,2.7));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (double), (4096,2.7));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (double), (8192,2.7));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (double), (16384,2.7));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_scalar, (double), (163840,2.7));
+  T alpha = args("alpha", 1.);
+
+  run_during_with< axpy_scalar<T> > ( 1.
+                                    , and_( geometric(size_min,size_max,size_step)
+                                          , constant(alpha)
+                                    )
+                                    , gflops<stat::median_>()
+                                    );
+}

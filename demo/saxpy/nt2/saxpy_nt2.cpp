@@ -1,79 +1,81 @@
 //==============================================================================
 //         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2012 - 2013 MetaScale SAS
+//         Copyright 2012 - 2014   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <iostream>
-#include <vector>
 #include <nt2/sdk/bench/benchmark.hpp>
+#include <nt2/sdk/bench/experiment.hpp>
+#include <nt2/sdk/unit/details/prng.hpp>
+
+#include <nt2/sdk/bench/metric/absolute_time.hpp>
+#include <nt2/sdk/bench/metric/gflops.hpp>
+
+#include <nt2/sdk/bench/protocol/max_duration.hpp>
+
+#include <nt2/sdk/bench/setup/geometric.hpp>
+#include <nt2/sdk/bench/setup/constant.hpp>
+#include <nt2/sdk/bench/setup/combination.hpp>
+
+#include <nt2/sdk/bench/stat/average.hpp>
+#include <nt2/sdk/bench/stat/median.hpp>
+#include <nt2/sdk/bench/stat/min.hpp>
+#include <nt2/sdk/bench/stat/max.hpp>
+
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/table.hpp>
 
-#ifdef __ANDROID__
-  #define TURBOFREQ 1.008000
-#else
-  #define TURBOFREQ 3.401
-#endif
-#define NOPS 2.0
+#include <boost/fusion/include/at.hpp>
 
-template<typename T>
-NT2_EXPERIMENT(Taxpy_nt2)
+#include <vector>
+
+using namespace nt2::bench;
+using namespace nt2;
+
+template<typename T> struct axpy_nt2
 {
-  public:
+  template<typename Setup>
+  axpy_nt2(Setup const& s)
+              :  size_(boost::fusion::at_c<0>(s))
+              ,  alpha(boost::fusion::at_c<1>(s))
+  {
+    X.resize(nt2::of_size(size_)); Y.resize(nt2::of_size(size_));
+    for(std::size_t i = 1; i<=size_; ++i) X(i) = Y(i) = T(i-1);
+  }
 
-    Taxpy_nt2(std::size_t const& s, T const& a)
-    : NT2_EXPERIMENT_CTOR(1., "GFLOPS"),
-      alpha(a), size(s)
-    {
-      X.resize(nt2::of_size(s)); Y.resize(nt2::of_size(s));
-      for(std::size_t i = 1; i<=size; ++i) X(i) = Y(i) = T(i-1);
-    }
+  void operator()()
+  {
+    Y = nt2::fma(alpha, X, Y);
+  }
 
-    virtual void run() const
-    {
-      Y = nt2::fma(alpha, X, Y);
-    }
-    virtual double compute(nt2::benchmark_result_t const& r) const
-    {
-      return(double(size)*NOPS*TURBOFREQ/r.first);
-    }
+  friend std::ostream& operator<<(std::ostream& os, axpy_nt2<T> const& p)
+  {
+    return os << "(" << p.size() << ")";
+  }
 
-    virtual void info(std::ostream& os) const { os << size; }
+  std::size_t size() const { return size_ ; }
+  std::size_t flops() const { return 2 ; }
 
-    virtual void reset() const
-    {
-    }
   private:
     T alpha;
-    std::size_t size;
-    mutable nt2::table<T> X, Y;
+    std::size_t size_;
+    nt2::table<T> X, Y;
 };
-NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (float), (16,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (float), (32,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (float), (64,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (float), (128,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (float), (256,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (float), (512,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (float), (1024,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (float), (2048,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (float), (4096,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (float), (8192,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (float), (16384,2.7f));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (float), (163840,2.7f));
 
-NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (double), (16,2.7));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (double), (32,2.7));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (double), (64,2.7));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (double), (128,2.7));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (double), (256,2.7));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (double), (512,2.7));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (double), (1024,2.7));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (double), (2048,2.7));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (double), (4096,2.7));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (double), (8192,2.7));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (double), (16384,2.7));
-NT2_RUN_EXPERIMENT_TPL( Taxpy_nt2, (double), (163840,2.7));
+NT2_REGISTER_BENCHMARK_TPL( axpy_nt2, (float) )
+{
+  std::size_t size_min = args("size_min", 16);
+  std::size_t size_max = args("size_max", 4096*8);
+  std::size_t size_step = args("size_step", 2);
+  T alpha = args("alpha", 1.);
+
+  run_during_with< axpy_nt2<T> > ( 1.
+                                , and_( geometric(size_min,size_max,size_step)
+                                      , constant(alpha)
+                                      )
+                                , gflops<stat::median_>()
+                                );
+}

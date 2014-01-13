@@ -1,16 +1,28 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2012 - 2013 MetaScale SAS
+//         Copyright 2009 - 2013 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2014 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <iostream>
-#include <vector>
 #include <nt2/sdk/bench/benchmark.hpp>
-#include <boost/simd/sdk/simd/pack.hpp>
+#include <nt2/sdk/bench/experiment.hpp>
+#include <nt2/sdk/unit/details/prng.hpp>
+
+#include <nt2/sdk/bench/metric/absolute_time.hpp>
+#include <nt2/sdk/bench/metric/gflops.hpp>
+
+#include <nt2/sdk/bench/protocol/max_duration.hpp>
+
+#include <nt2/sdk/bench/setup/geometric.hpp>
+
+#include <nt2/sdk/bench/stat/average.hpp>
+#include <nt2/sdk/bench/stat/median.hpp>
+#include <nt2/sdk/bench/stat/min.hpp>
+#include <nt2/sdk/bench/stat/max.hpp>
+
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/memory/allocator.hpp>
 #include <boost/simd/include/functions/aligned_store.hpp>
 #include <boost/simd/include/functions/multiplies.hpp>
@@ -18,86 +30,69 @@
 #include <boost/simd/include/functions/muls.hpp>
 #include <boost/simd/include/functions/plus.hpp>
 #include <boost/simd/include/functions/sum.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 
-#ifdef __ANDROID__
-  #define TURBOFREQ 1.008000
-#else
-  #define TURBOFREQ 3.401
-#endif
+#include <vector>
 
-#define NOPS 2.0
+using namespace nt2::bench;
+using namespace nt2;
 
 template <class A0>
-BOOST_FORCEINLINE __attribute__((flatten)) A0 Tdot_work(A0 const& X, A0 const& Y)
+BOOST_FORCEINLINE A0 Tdot_work(A0 const& X, A0 const& Y)
 {
   return(X*Y);
 }
 
-template<typename T>
-NT2_EXPERIMENT(Tdot_simd)
+template<typename T> struct sdot_simd
 {
-  public:
+    typedef void experiment_is_immutable;
+  sdot_simd(std::size_t n)
+                  :  size_(n)
+  {
+    X.resize(size_); Y.resize(size_);
+    for(std::size_t i = 0; i<size_; ++i)
+      X[i] = Y[i] = T(i);
+  }
 
-    Tdot_simd(std::size_t const& s)
-    : NT2_EXPERIMENT_CTOR(1., "GFLOPS"),
-    size(s)
-    {
-      X.resize(s); Y.resize(s);
-      for(std::size_t i = 0; i<size; ++i) X[i] = Y[i] = T(i);
-    }
+  void operator()()
+  {
+    using boost::simd::native;
+    using boost::simd::aligned_load;
+    using boost::simd::aligned_store;
 
-    virtual void run() const
-    {
-      using boost::simd::pack;
-      using boost::simd::native;
-      using boost::simd::aligned_store;
-      typedef pack<T> type;
-      step_size = boost::simd::meta::cardinal_of<type>::value;
-      type res_pack = type(0.);
-      for (std::size_t i = 0; i<size; i+=step_size){
-        type X_pack(&X[i]);
-        type Y_pack(&Y[i]);
-        res_pack += Tdot_work(X_pack, Y_pack);
-      }
-      res = boost::simd::sum(res_pack);
+    typedef native<T, BOOST_SIMD_DEFAULT_EXTENSION> type;
+    step_size = boost::simd::meta::cardinal_of<type>::value;
+    type res_pack = boost::simd::Zero<type>();
+    for (std::size_t i = 0; i<size_; i+=step_size){
+      type X_pack = aligned_load<type>(&X[i]);
+      type Y_pack = aligned_load<type>(&Y[i]);
+      res_pack += Tdot_work(X_pack, Y_pack);
     }
-    virtual double compute(nt2::benchmark_result_t const& r) const
-    {
-      return(double(size)*NOPS*TURBOFREQ/r.first);
-    }
+    res_ = boost::simd::sum(res_pack);
+  }
 
-    virtual void info(std::ostream& os) const { os << size; }
+  friend std::ostream& operator<<(std::ostream& os, sdot_simd<T> const& p)
+  {
+    return os << "(" << p.size() << ")";
+  }
 
-    virtual void reset() const
-    {
-    }
+  std::size_t size() const { return size_ ; }
+  std::size_t flops() const { return 2 ; }
+
   private:
-    mutable T res;
-    std::size_t size;
-    mutable std::size_t step_size;
-    mutable typename std::vector<T, boost::simd::allocator<T> > X, Y;
+    T res_;
+    std::size_t size_, step_size;
+    typename std::vector<T, boost::simd::allocator<T> > X, Y;
 };
 
-NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (float), (16));
-NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (float), (32));
-NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (float), (64));
-NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (float), (128));
-NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (float), (256));
-NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (float), (512));
-NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (float), (1024));
-NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (float), (2048));
-NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (float), (4096));
-NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (float), (8192));
-NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (float), (16384));
+NT2_REGISTER_BENCHMARK_TPL( sdot_simd, (float)(double) )
+{
+  std::size_t size_min = args("size_min", 16);
+  std::size_t size_max = args("size_max", 4096);
+  std::size_t size_step = args("size_step", 2);
 
-NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (double), (16));
-NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (double), (32));
-NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (double), (64));
-NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (double), (128));
-NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (double), (256));
-NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (double), (512));
-NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (double), (1024));
-NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (double), (2048));
-NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (double), (4096));
-NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (double), (8192));
-NT2_RUN_EXPERIMENT_TPL( Tdot_simd, (double), (16384));
+  run_during_with< sdot_simd<T> > ( 1.
+                                      , geometric(size_min,size_max,size_step)
+                                      , gflops<stat::median_>()
+                                      );
+}

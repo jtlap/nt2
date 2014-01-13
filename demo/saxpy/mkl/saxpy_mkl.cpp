@@ -1,120 +1,115 @@
 //==============================================================================
 //         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2012 - 2013 MetaScale SAS
+//         Copyright 2012 - 2014   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <nt2/sdk/bench/benchmark.hpp>
+#include <nt2/sdk/bench/experiment.hpp>
+#include <nt2/sdk/unit/details/prng.hpp>
+
+#include <nt2/sdk/bench/metric/absolute_time.hpp>
+#include <nt2/sdk/bench/metric/gflops.hpp>
+
+#include <nt2/sdk/bench/protocol/max_duration.hpp>
+#include <nt2/sdk/bench/protocol/until.hpp>
+
+#include <nt2/sdk/bench/setup/geometric.hpp>
+#include <nt2/sdk/bench/setup/constant.hpp>
+#include <nt2/sdk/bench/setup/combination.hpp>
+
+#include <nt2/sdk/bench/stat/average.hpp>
+#include <nt2/sdk/bench/stat/median.hpp>
+#include <nt2/sdk/bench/stat/min.hpp>
+#include <nt2/sdk/bench/stat/max.hpp>
+
 #include <nt2/linalg/details/blas/blas1.hpp>
-#include <iostream>
+#include <nt2/sdk/bench/benchmark.hpp>
+
+#include <boost/fusion/include/at.hpp>
+
 #include <cmath>
 #include <cstdlib>
+#include <vector>
 
-#ifdef __ANDROID__
-  #define TURBOFREQ 1.008000
-#else
-  #define TURBOFREQ 3.401
-#endif
-#define NOPS 2.0
+using namespace nt2::bench;
+using namespace nt2;
 
-template<typename T>
-NT2_EXPERIMENT(daxpy_mkl)
+template<typename T> struct fortran_axpy;
+
+template<> struct fortran_axpy<float>
 {
-  public:
-    daxpy_mkl(std::size_t const& s, double const& a)
-    : NT2_EXPERIMENT_CTOR(1., "GFLOPS"), alpha(a), size(s)
-    {
-      incx = incy = 1;
-      x.resize(s);
-      y.resize(s);
-      for(int i = 0; i<size; i++) x[i] = y[i] = i;
-    }
-
-  virtual void reset()
+  static BOOST_FORCEINLINE
+  void run( nt2_la_int s, float alpha, float* x, nt2_la_int incx, float* y, nt2_la_int incy )
   {
+    NT2_F77NAME(saxpy)( &s, &alpha, x, &incx, y, &incy);
   }
-  virtual void info(std::ostream& os) const { os << size; }
-
-  virtual void run() const
-  {
-    NT2_F77NAME(daxpy)(&size, &alpha, &x[0], &incx, &y[0], &incy);
-  }
-
-  virtual double compute(nt2::benchmark_result_t const& r) const
-  {
-    return(double(size)*NOPS*TURBOFREQ/r.first);
-  }
-
-private:
-  nt2_la_int incx, incy;
-  double      alpha;
-  std::vector<double> x;
-  mutable std::vector<double> y;
-  nt2_la_int size;
 };
 
-template<typename T>
-NT2_EXPERIMENT(saxpy_mkl)
+template<> struct fortran_axpy<double>
 {
-  public:
-    saxpy_mkl(std::size_t const& s, float const& a)
-    : NT2_EXPERIMENT_CTOR(1., "GFLOPS"), alpha(a), size(s)
-    {
-      incx = incy = 1;
-      x.resize(s);
-      y.resize(s);
-      for(int i = 0; i<size; i++) x[i] = y[i] = i;
-    }
-
-  virtual void reset()
+  static BOOST_FORCEINLINE
+  void run( nt2_la_int s, double alpha, double* x, nt2_la_int incx, double* y, nt2_la_int incy )
   {
+    NT2_F77NAME(daxpy)( &s, &alpha, x, &incx, y, &incy);
   }
-
-  virtual void info(std::ostream& os) const { os << size; }
-
-  virtual void run() const
-  {
-    NT2_F77NAME(saxpy)(&size, &alpha, &x[0], &incx, &y[0], &incy);
-  }
-
-  virtual double compute(nt2::benchmark_result_t const& r) const
-  {
-    return(double(size)*NOPS*TURBOFREQ/r.first);
-  }
-
-private:
-  nt2_la_int incx, incy;
-  float      alpha;
-  std::vector<float> x;
-  mutable std::vector<float> y;
-  nt2_la_int size;
 };
 
-NT2_RUN_EXPERIMENT_TPL( saxpy_mkl, (float), (16,2.7f));
-NT2_RUN_EXPERIMENT_TPL( saxpy_mkl, (float), (32,2.7f));
-NT2_RUN_EXPERIMENT_TPL( saxpy_mkl, (float), (64,2.7f));
-NT2_RUN_EXPERIMENT_TPL( saxpy_mkl, (float), (128,2.7f));
-NT2_RUN_EXPERIMENT_TPL( saxpy_mkl, (float), (256,2.7f));
-NT2_RUN_EXPERIMENT_TPL( saxpy_mkl, (float), (512,2.7f));
-NT2_RUN_EXPERIMENT_TPL( saxpy_mkl, (float), (1024,2.7f));
-NT2_RUN_EXPERIMENT_TPL( saxpy_mkl, (float), (2048,2.7f));
-NT2_RUN_EXPERIMENT_TPL( saxpy_mkl, (float), (4096,2.7f));
-NT2_RUN_EXPERIMENT_TPL( saxpy_mkl, (float), (8192,2.7f));
-NT2_RUN_EXPERIMENT_TPL( saxpy_mkl, (float), (16384,2.7f));
-NT2_RUN_EXPERIMENT_TPL( saxpy_mkl, (float), (163840,2.7f));
+template<typename T> struct axpy_mkl
+{
+ template<typename Setup>
+  axpy_mkl(Setup const& s)
+              :  size_(boost::fusion::at_c<0>(s))
+              ,  alpha(boost::fusion::at_c<1>(s))
+  {
+    incx = incy = 1;
+    x.resize(size_);
+    y.resize(size_);
+    for(int i = 0; i<size_; i++) x[i] = y[i] = T(i);
+  }
 
-NT2_RUN_EXPERIMENT_TPL( saxpy_mkl, (double), (16,2.7f));
-NT2_RUN_EXPERIMENT_TPL( saxpy_mkl, (double), (32,2.7f));
-NT2_RUN_EXPERIMENT_TPL( saxpy_mkl, (double), (64,2.7f));
-NT2_RUN_EXPERIMENT_TPL( saxpy_mkl, (double), (128,2.7f));
-NT2_RUN_EXPERIMENT_TPL( saxpy_mkl, (double), (256,2.7f));
-NT2_RUN_EXPERIMENT_TPL( saxpy_mkl, (double), (512,2.7f));
-NT2_RUN_EXPERIMENT_TPL( saxpy_mkl, (double), (1024,2.7f));
-NT2_RUN_EXPERIMENT_TPL( saxpy_mkl, (double), (2048,2.7f));
-NT2_RUN_EXPERIMENT_TPL( saxpy_mkl, (double), (4096,2.7f));
-NT2_RUN_EXPERIMENT_TPL( saxpy_mkl, (double), (8192,2.7f));
-NT2_RUN_EXPERIMENT_TPL( saxpy_mkl, (double), (16384,2.7f));
-NT2_RUN_EXPERIMENT_TPL( saxpy_mkl, (double), (163840,2.7f));
+  void operator()()
+  {
+    fortran_axpy<T>::run(size_, alpha, &x[0], incx, &y[0], incy);
+  }
+
+  friend std::ostream& operator<<(std::ostream& os, axpy_mkl<T> const& p)
+  {
+    return os << "(" << p.size()  << ")";
+  }
+
+  void reset()
+  {
+    x.resize(size_);
+    y.resize(size_);
+    for(int i = 0; i<size_; i++) x[i] = y[i] = T(i);
+  }
+
+  std::size_t size() const { return size_ ; }
+  std::size_t flops() const { return 2 ; }
+
+  private:
+    nt2_la_int incx, incy;
+    T      alpha;
+    std::vector<T> x, y;
+    nt2_la_int size_;
+};
+
+NT2_REGISTER_BENCHMARK_TPL( axpy_mkl, (float)(double) )
+{
+  std::size_t size_min = args("size_min", 16);
+  std::size_t size_max = args("size_max", 4096);
+  std::size_t size_step = args("size_step", 2);
+
+  T alpha = args("alpha", 1.);
+
+  run_during_with< axpy_mkl<T> > ( 1.
+                                  , and_( geometric(size_min,size_max,size_step)
+                                        , constant(alpha)
+                                  )
+                                  , gflops<stat::median_>()
+                                  );
+}

@@ -1,7 +1,7 @@
 ################################################################################
 #         Copyright 2003 - 2012 LASMEA UMR 6602 CNRS/Univ. Clermont II
 #         Copyright 2009 - 2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
-#         Copyright 2012 - 2013 MetaScale SAS
+#         Copyright 2012 - 2014 MetaScale SAS
 #
 #          Distributed under the Boost Software License, Version 1.0.
 #                 See accompanying file LICENSE.txt or copy at
@@ -41,10 +41,10 @@ add_subdirectory(rgb2yuv/nt2)
 add_subdirectory(rgb2yuv/simd)
 
 #saxpy
-#add_subdirectory(saxpy/scalar)
-#add_subdirectory(saxpy/nt2)
-#add_subdirectory(saxpy/simd)
-#add_subdirectory(saxpy/mkl)
+add_subdirectory(saxpy/scalar)
+add_subdirectory(saxpy/nt2)
+add_subdirectory(saxpy/simd)
+add_subdirectory(saxpy/mkl)
 
 #sigmadelta
 add_subdirectory(sigmadelta/scalar)
@@ -52,7 +52,7 @@ add_subdirectory(sigmadelta/nt2)
 add_subdirectory(sigmadelta/simd)
 
 #sdot
-#add_subdirectory(sdot/scalar)
-#add_subdirectory(sdot/nt2)
-#add_subdirectory(sdot/simd)
-#add_subdirectory(sdot/mkl)
+add_subdirectory(sdot/scalar)
+add_subdirectory(sdot/nt2)
+add_subdirectory(sdot/simd)
+add_subdirectory(sdot/mkl)
