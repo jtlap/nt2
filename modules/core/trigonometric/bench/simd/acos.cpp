@@ -6,11 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_BENCH_MODULE "nt2 trigonometric toolbox - acos/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of trigonometric components in simd mode
-//////////////////////////////////////////////////////////////////////////////
 #include <nt2/trigonometric/include/functions/acos.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
@@ -40,30 +35,6 @@ namespace n2 {
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(acos_,(RS(vT,nt2::Mone<T>(),nt2::One<T>())))
-}
-namespace n3 {
-  typedef nt2::int32_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
-  NT2_TIMING(acos_,(RS(vT,nt2::Zero<T>(),nt2::One<T>())))
-}
-namespace n4 {
-  typedef nt2::int64_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
-  NT2_TIMING(acos_,(RS(vT,nt2::Zero<T>(),nt2::One<T>())))
-}
-namespace n5 {
-  typedef nt2::uint32_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
-  NT2_TIMING(acos_,(RS(vT,nt2::Zero<T>(),nt2::One<T>())))
-}
-namespace n6 {
-  typedef nt2::uint64_t T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
-  NT2_TIMING(acos_,(RS(vT,nt2::Zero<T>(),nt2::One<T>())))
 }
 
 #undef RS

@@ -6,11 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_BENCH_MODULE "nt2 trigonometric toolbox - asin/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of trigonometric components in simd mode
-//////////////////////////////////////////////////////////////////////////////
 #include <nt2/trigonometric/include/functions/asin.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
