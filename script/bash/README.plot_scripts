@@ -1,6 +1,6 @@
-graph_gflops: produces a graph for each executable passed, of the benchmark size versus the GFLOPS sustained by the benchmark. Each executable passed should have the same number of sizes and the same sizes.
+graph_gflops: Produces a graph for each executable passed of the benchmark size versus the GFLOPS sustained by the benchmark. Each executable passed should have the same number of sizes and the same sizes.
 
-bar_speedup: produces a bar chart for each benchmark size for each executable. Each executable passed should have the same number of sizes and the same sizes.
+bar_speedup: Produces a bar chart for each benchmark size for each executable. Each executable passed should have the same number of sizes and the same sizes.
 
 Example usage:
 
@@ -12,6 +12,8 @@ Requirements: octave and imagemagick
 
 As many benchmark arguments as required may be passed, all preceeded by -o.
 
-In order for the input to be properly parsed, the folder hierarchy should be as follows: <EXTENSION_NAME><BENCHNAME><TYPE><EXECUTABLE>, where TYPE is scalar, simd, mkl etc. The script should be ran from the parent directory.
+In order for the input to be properly parsed, the folder hierarchy should be as follows: <EXTENSION_NAME><BENCHNAME><TYPE><EXECUTABLE>, where TYPE is scalar, simd, mkl etc and EXECUTABLE is the bactual benchmark. The script should be run from the parent directory.
 
-If a script is required to run your the benchmark, then the first argument should be -s followed by the script name.
+If a script is required to run your benchmark, then the first argument should be -s followed by the script name. The script should take the executable as the first argument. The run command in the script should have "${*:2}" after it to ensure that all arguments apart from the executable name which are passed to the script are subsequently passed to the executable.
+
+ssh android ~/benchmarks/$(basename "$1") ${*:2}
