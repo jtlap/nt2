@@ -7,31 +7,21 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-# avoid re-checking every time
-if(DEFINED HPX_CXX_FLAGS AND NOT HPX_CXX_FLAGS)
-  set(HPX_FOUND 0)
-else()
-  find_package(PkgConfig)
-  pkg_check_modules(HPX_VARIABLE QUIET hpx_application)
-  if(HPX_VARIABLE_FOUND)
-    set(HPX_CXX_FLAGS "-DNT2_USE_HPX")
-    set(HPX_FOUND 1)
-    foreach(tmp ${HPX_VARIABLE_CFLAGS})
-      set(HPX_CXX_FLAGS "${HPX_CXX_FLAGS} ${tmp}")
-    endforeach()
-  else()
-    set(HPX_FOUND 0)
-  endif ()
+if(NOT DEFINED HPX_ROOT)
+  set(HPX_ROOT $ENV{HPX_ROOT})
+endif()
+find_path(HPX_INCLUDE_DIR hpx/hpx.hpp PATHS HPX_ROOT)
+find_library(HPX_LIBRARY hpx PATHS HPX_ROOT/lib PATH_SUFFIXES hpx)
+
+if(NOT HPX_INCLUDE_DIR OR NOT HPX_LIBRARY)
+  set(NT2_ARCH.HPX_DEPENDENCIES_FOUND 0)
 endif()
 
-set(NT2_ARCH.HPX_DEPENDENCIES_FOUND ${HPX_FOUND})
-set(NT2_ARCH.HPX_COMPILE_FLAGS ${HPX_CXX_FLAGS})
-set(NT2_ARCH.HPX_DEPENDENCIES_INCLUDE_DIR ${HPX_VARIABLE_INCLUDE_DIRS})
-set(NT2_ARCH.HPX_DEPENDENCIES_LIBRARY_DIR ${HPX_VARIABLE_LIBRARY_DIRS})
-set(NT2_ARCH.HPX_DEPENDENCIES_LIBRARIES   ${HPX_VARIABLE_LIBRARIES})
+set(NT2_ARCH.HPX_DEPENDENCIES_INCLUDE_DIR ${HPX_INCLUDE_DIR})
+set(NT2_ARCH.HPX_DEPENDENCIES_LIBRARIES   ${HPX_LIBRARY})
 
-set ( NT2_ARCH.HPX_DEPENDENCIES_EXTRA
-      arch.shared_memory
-      boost.dispatch
-      sdk.functor
-    )
+set( NT2_ARCH.HPX_DEPENDENCIES_EXTRA
+     arch.shared_memory
+     boost.dispatch
+     sdk.functor
+   )
