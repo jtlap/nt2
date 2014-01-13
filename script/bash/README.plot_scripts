@@ -1,0 +1,17 @@
+graph_gflops: produces a graph for each executable passed, of the benchmark size versus the GFLOPS sustained by the benchmark. Each executable passed should have the same number of sizes and the same sizes.
+
+bar_speedup: produces a bar chart for each benchmark size for each executable. Each executable passed should have the same number of sizes and the same sizes.
+
+Example usage:
+
+graph_gflops -o size_min 32 -o size_max 2048 -o size_step 2 -o alpha 0.5 sse2/saxpy/scalar/saxpy_scalar sse4.2/saxpy/mkl/saxpy_mkl sse2/saxpy/simd/saxpy_simd sse3/saxpy/simd/saxpy_simd sse4.2/saxpy/simd/saxpy_simd
+
+bar_speedup -s android_run -o size_min 32 neon/blackscholes/scalar/blackandscholes_scalar neon/blackscholes/simd/blackandscholes_simd neon/blackscholes/nt2/blackandscholes_nt2
+
+Requirements: octave and imagemagick
+
+As many benchmark arguments as required may be passed, all preceeded by -o.
+
+In order for the input to be properly parsed, the folder hierarchy should be as follows: <EXTENSION_NAME><BENCHNAME><TYPE><EXECUTABLE>, where TYPE is scalar, simd, mkl etc. The script should be ran from the parent directory.
+
+If a script is required to run your the benchmark, then the first argument should be -s followed by the script name.

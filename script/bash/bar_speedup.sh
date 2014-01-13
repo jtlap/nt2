@@ -3,7 +3,7 @@ FIRST=0
 LAST=$#
 args=( "$@" )
 
-if [ "$1" == "arm" ];then
+if [ "$1" == "-s" ];then
   run=$2
   ((FIRST=${FIRST}+2))
 else
