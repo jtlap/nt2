@@ -25,13 +25,13 @@ static std::size_t  malloc_size;
 
 namespace boost { namespace simd
 {
-  void default_free_fn(void* ptr)
+  void custom_free_fn(void* ptr)
   {
     had_free  = true;
     return std::free(ptr);
   }
 
-  void* default_malloc_fn(std::size_t sz)
+  void* custom_malloc_fn(std::size_t sz)
   {
     had_malloc  = true;
     malloc_size = sz;

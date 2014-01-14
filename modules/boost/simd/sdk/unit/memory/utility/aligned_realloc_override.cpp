@@ -22,7 +22,7 @@ static std::size_t  realloc_size;
 
 namespace boost { namespace simd
 {
-  void* default_realloc_fn(void* ptr, std::size_t sz)
+  void* custom_realloc_fn(void* ptr, std::size_t sz)
   {
     had_realloc  = true;
     realloc_size = sz;
