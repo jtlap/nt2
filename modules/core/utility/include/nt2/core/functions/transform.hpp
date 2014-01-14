@@ -33,19 +33,11 @@ namespace nt2
    *
    * \param a0 Expression to store result in
    * \param a1 Expression to evaluate
-   * \param a2 Optional linear offset
-   * \param a3 Optional number of element to process
+   * \param a2 Optional pair containing linear offset and number of element to process
    * \return nothing
    */
   //============================================================================
 
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::transform_, transform, 4)
-  /// @overload
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::transform_, transform, (A0&)(A1 const&)(A2 const&)(A3 const&), 4)
-  /// @overload
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::transform_, transform, (A0 const&)(A1&)(A2 const&)(A3 const&), 4)
-  /// @overload
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::transform_, transform, (A0&)(A1&)(A2 const&)(A3 const&), 4)
   /// @overload
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::transform_, transform, 2)
   /// @overload
@@ -54,6 +46,14 @@ namespace nt2
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::transform_, transform, (A0 const&)(A1&), 2)
   /// @overload
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::transform_, transform, (A0&)(A1&), 2)
+  /// @overload
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::transform_, transform, 3)
+  /// @overload
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::transform_, transform, (A0&)(A1 const&)(A2 const&), 3)
+  /// @overload
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::transform_, transform, (A0 const&)(A1&)(A2 const&), 3)
+  /// @overload
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::transform_, transform, (A0&)(A1&)(A2 const&), 3)
 }
 
 #endif

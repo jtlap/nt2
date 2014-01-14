@@ -39,7 +39,6 @@ else()
       set(TBB_CXX_FLAGS "-DNT2_USE_TBB")
       set(TBB_FOUND 1)
       set(TBB_LIBRARY tbb)
-      message(STATUS "TBB_LIBRARY=${TBB_LIBRARY}")
     else()
       set(TBB_FOUND 0)
       message(STATUS "TBB not found")
@@ -53,4 +52,10 @@ set(NT2_ARCH.TBB_DEPENDENCIES_INCLUDE_DIR ${TBB_INCLUDE_PATH})
 set(NT2_ARCH.TBB_DEPENDENCIES_LIBRARY_DIR ${TBB_LIBRARY_PATH})
 set(NT2_ARCH.TBB_DEPENDENCIES_LIBRARIES        ${TBB_LIBRARY})
 
-set(NT2_ARCH.TBB_DEPENDENCIES_EXTRA core.utility)
+set(NT2_ARCH.TBB_DEPENDENCIES_EXTRA
+    arch.shared_memory
+    boost.dispatch
+    boost.simd.sdk
+    sdk.config
+    sdk.functor
+    )

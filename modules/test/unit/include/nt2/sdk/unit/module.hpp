@@ -15,6 +15,10 @@
   @brief Main Unit test module header
 **/
 
+#if defined(NT2_USE_HPX)
+#include <hpx/hpx_init.hpp>
+#endif
+
 #include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/unit/io.hpp>
 #include <nt2/sdk/unit/test_case.hpp>
@@ -30,16 +34,30 @@
 #define NT2_UNIT_MAIN_SUITE nt2::details::unit_tests
 #endif
 
+#if defined(NT2_USE_HPX)
+int hpx_main(int argc, char* argv[])
+{
+  int res = nt2::details::unit_main(argc,argv,NT2_UNIT_MAIN_SUITE);
+  hpx::finalize();
+  return res;
+}
+#endif
+
 /*!
-  @brief Embedded main for testing purpose.
+  @brief Embedded main for testing purposes.
 
   This function is used as an entry point for the current test.
   In normal mode, it's basically a @c main(). In driver mode, it is a unique
   symbol callable from the driver @c main().
 **/
+
 NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int argc, char* argv[])
 {
+#if defined(NT2_USE_HPX)
+  return hpx::init(argc, argv);
+#else
   return nt2::details::unit_main(argc,argv,NT2_UNIT_MAIN_SUITE);
+#endif
 }
 
 #endif
