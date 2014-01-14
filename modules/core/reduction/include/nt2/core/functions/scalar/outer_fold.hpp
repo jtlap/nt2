@@ -84,7 +84,6 @@ namespace nt2 { namespace ext
      extent_type ext = in.extent();
      std::size_t ibound  = boost::fusion::at_c<0>(ext);
      std::size_t mbound =  boost::fusion::at_c<1>(ext);
-     std::size_t obound =  boost::fusion::at_c<2>(ext);
      std::size_t id;
      std::size_t begin = range.first;
      std::size_t size  = range.second;

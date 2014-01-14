@@ -55,7 +55,6 @@ namespace nt2 { namespace ext
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
       std::size_t bound  = boost::fusion::at_c<0>(ext);
       std::size_t ibound = (boost::fusion::at_c<0>(ext)/N) * N;
-      std::size_t obound = nt2::numel(boost::fusion::pop_front(ext));
       std::size_t begin = range.first;
       std::size_t size  = range.second;
 

@@ -67,7 +67,6 @@ namespace nt2 { namespace ext
     {
       extent_type ext = in.extent();
       std::size_t ibound  = boost::fusion::at_c<0>(ext);
-      std::size_t obound =  nt2::numel(boost::fusion::pop_front(ext));
       std::size_t begin = range.first;
       std::size_t size = range.second;
 
