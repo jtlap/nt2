@@ -154,9 +154,8 @@ namespace nt2
       buffer[sz-1] = '\0';
       max_cpu_freq = ::strtoul(buffer, NULL, 10)*1000;
       #elif defined (BOOST_SIMD_OS_MAC_OS)
-      unsigned long freq;
       size_t len = sizeof(uint64_t);
-      int fd = sysctlbyname("hw.cpufrequency_max", &freq, &len, NULL, 0);
+      int fd = sysctlbyname("hw.cpufrequency_max", &max_cpu_freq, &len, NULL, 0);
       if(fd < 0)
         return;
       #endif
