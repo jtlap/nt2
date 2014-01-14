@@ -9,6 +9,7 @@
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_IMPL_INVTRIG_D_INVTRIG_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_IMPL_INVTRIG_D_INVTRIG_HPP_INCLUDED
 
+#include <nt2/trigonometric/functions/scalar/impl/trigo/selection_tags.hpp>
 #include <nt2/sdk/simd/tags.hpp>
 #include <nt2/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/include/functions/simd/bitofsign.hpp>
@@ -30,6 +31,7 @@
 #include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/simd/fma.hpp>
+#include <nt2/include/functions/simd/fms.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/minusone.hpp>
 #include <nt2/include/functions/simd/oneplus.hpp>
@@ -38,6 +40,8 @@
 #include <nt2/include/constants/real_splat.hpp>
 #include <nt2/include/constants/pio_2.hpp>
 #include <nt2/include/constants/pio_4.hpp>
+#include <nt2/include/constants/pio_2lo.hpp>
+#include <nt2/include/constants/pio_4lo.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/sqrteps.hpp>
@@ -76,7 +80,7 @@ namespace nt2 { namespace details
                                                      )>(zz1);
       zz1 =  nt2::sqrt(zz1+zz1);
       A0 z = nt2::Pio_4<A0>()-zz1;
-      zz1 = fma(zz1, vp, morebits);
+      zz1 = fms(zz1, vp, Pio_2lo<A0>()); //morebits);
       z =  z-zz1;
       zz1 = z+nt2::Pio_4<A0>();
       A0 zz2 = nt2::sqr(a0);
@@ -113,11 +117,14 @@ namespace nt2 { namespace details
     static inline A0_n acos(const A0_n a0_n)
     {
       const A0 a0 = a0_n;
-      const A0 as = asin(nt2::sqrt(nt2::Half<A0>() - nt2::Half<A0>()*a0) );
-      A0 z1 = nt2::Two<A0>() * as;
-      const A0 as1 = asin(a0);
-      A0 z2 = ((nt2::Pio_4<A0>() - as1)+double_constant<A0, 0x3c91a62633145c07ll>())+ nt2::Pio_4<A0>();
-      return nt2::if_nan_else( nt2::gt(nt2::abs(a0),nt2::One<A0>()), nt2::if_else( nt2::gt(a0,nt2::Half<A0>()), z1, z2));
+      typedef typename meta::as_logical<A0>::type    bA0;
+      A0 x = nt2::abs(a0);
+      bA0 x_larger_05 = gt(x, nt2::Half<A0>());
+      x  = if_else(x_larger_05, nt2::sqrt(fma(nt2::Mhalf<A0>(), x, nt2::Half<A0>())), a0);
+      x  = asin(x);
+      x =  seladd(x_larger_05, x, x);
+      x  = nt2::if_else(lt(a0, nt2::Mhalf<A0>()), nt2::Pi<A0>()-x, x);
+      return nt2::if_else(x_larger_05, x, nt2::Pio_2<A0>()-x);
     }
 
     static inline A0_n atan(const A0_n a0_n)
@@ -130,12 +137,10 @@ namespace nt2 { namespace details
     static inline A0_n kernel_atan(const A0_n a0_n)
     {
       typedef typename meta::scalar_of<A0>::type sA0;
-      const A0 tan3pio8  = double_constant<A0, 0x4003504f333f9de6ll>();
-      const A0 tanpio8 = double_constant<A0, 0x3fda827999fcef31ll>();
       const A0 a0 = a0_n;
       const A0 x =  nt2::abs(a0);
-      const bA0 flag1 = nt2::lt(x,  tan3pio8);
-      const bA0 flag2 = nt2::logical_and(nt2::ge(x, tanpio8), flag1);
+      const bA0 flag1 = nt2::lt(x,  Tan_3pio_8<A0>());
+      const bA0 flag2 = nt2::logical_and(nt2::ge(x, Tanpio_8<A0>()), flag1);
       A0 yy = nt2::if_zero_else(flag1, nt2::Pio_2<A0>());
       yy = nt2::if_else(flag2, nt2::Pio_4<A0>(), yy);
       A0 xx = nt2::if_else(flag1, x, -nt2::rec(x));
@@ -157,9 +162,8 @@ namespace nt2 { namespace details
                                                0x4068519efbbd62ecll)
                                              )>(z);
       z = nt2::fma(xx, z, xx);
-      const A0 morebits = double_constant<A0, 0x3c91a62633145c07ll>();
-      z = nt2::seladd(flag2, z, nt2::mul(Half<A0>(), morebits));
-      z = z+nt2::if_zero_else(flag1, morebits);
+      z = nt2::seladd(flag2, z, Pio_4lo<A0>());
+      z = z+nt2::if_zero_else(flag1, Pio_2lo<A0>());
       return yy + z;
     }
   };

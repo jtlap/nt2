@@ -8,26 +8,31 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_INVTRIG_D_INVTRIG_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_INVTRIG_D_INVTRIG_HPP_INCLUDED
-#include <nt2/include/functions/sign.hpp>
-#include <nt2/include/functions/minusone.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/fma.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/bitofsign.hpp>
-#include <nt2/include/functions/is_inf.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/bitwise_xor.hpp>
-#include <nt2/include/constants/sqrteps.hpp>
-#include <nt2/include/constants/nan.hpp>
-#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/functions/abs.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/two.hpp>
+#include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/sqrteps.hpp>
+#include <nt2/include/functions/oneminus.hpp>
+#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
+#include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/constants/pio_4.hpp>
-#include <nt2/include/constants/pio_2.hpp>
+#include <nt2/include/constants/pio_2lo.hpp>
+#include <nt2/include/functions/sqr.hpp>
+#include <nt2/include/functions/bitwise_xor.hpp>
+#include <nt2/include/functions/bitofsign.hpp>
 #include <nt2/include/constants/half.hpp>
+#include <nt2/include/constants/mhalf.hpp>
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/functions/fma.hpp>
+#include <nt2/include/constants/pio_4lo.hpp>
+#include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/is_inf.hpp>
+#include <nt2/include/constants/tan_3pio_8.hpp>
+#include <nt2/include/constants/pio_2.hpp>
+#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/functions/minusone.hpp>
+#include <nt2/include/functions/oneplus.hpp>
 
 namespace nt2 { namespace details
 {
@@ -60,7 +65,7 @@ namespace nt2 { namespace details
                                          )>(zz);
         zz = nt2::sqrt(zz+zz);
         A0 z = nt2::Pio_4<A0>()-zz;
-        zz = nt2::fma(zz, vp, double_constant<double,0xbc91a62633145c07ull>());
+        zz = nt2::fma(zz, vp, Pio_2lo<A0>());
         z =  z-zz;
         zz = z+nt2::Pio_4<A0>();
       }
@@ -93,12 +98,12 @@ namespace nt2 { namespace details
       if ((abs(a0) > One<A0>())) return nt2::Nan<A0>();
       if( a0 > nt2::Half<A0>() )
       {
-        return nt2::Two<A0>() * asin(  nt2::sqrt(nt2::Half<A0>() - nt2::Half<A0>()*a0) ) ;
+        return nt2::Two<A0>() * asin(  nt2::sqrt(fma(nt2::Mhalf<A0>(), a0, nt2::Half<A0>()) )) ;
       }
       A0 z = nt2::Pio_4<A0>() - asin(a0);
-      z = z + double_constant<double,0x3c91a62633145c07ull>();//6.123233995736765886130E-17
+      z = z + nt2::Pio_4lo<A0>();
       z = z + nt2::Pio_4<A0>();
-      return( z );
+      return z;
     }
 
     static inline A0 atan(const A0& a0)
@@ -113,13 +118,13 @@ namespace nt2 { namespace details
       if (is_inf(a0)) return nt2::Pio_2<A0>();
       A0 x =  nt2::abs(a0);
       A0 y;
-      A0 flag = (x >  double_constant<double,0x4003504f333f9de6ull>());
+      A0 flag = (x > Tan_3pio_8<A0>());
       if (flag)
       {
         y =  nt2::Pio_2<A0>();
         x =  -nt2::rec(x);
       }
-      else if ((x <=  double_constant<double,0x3fe51eb851eb851full>()))
+      else if ((x <=  double_constant<double,0x3fe51eb851eb851full>())) //0.66
       {
         y = nt2::Zero<A0>();
       }
@@ -146,8 +151,7 @@ namespace nt2 { namespace details
                                             0x4068519efbbd62ecll)
                                           )>(z);
       z = nt2::fma(x, z, x);
-      static const A0 morebits = double_constant<double,0x3c91a62633145c07ull>();
-      z += flag * morebits;
+      z += flag * Pio_2lo<A0>();
       return y + z;
     }
   };
@@ -155,7 +159,4 @@ namespace nt2 { namespace details
 
 
 #endif
-
-// /////////////////////////////////////////////////////////////////////////////
-// End of d_invtrig.hpp
 // /////////////////////////////////////////////////////////////////////////////

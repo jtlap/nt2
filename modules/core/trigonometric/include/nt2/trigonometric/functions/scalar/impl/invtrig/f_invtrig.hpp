@@ -8,6 +8,8 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_INVTRIG_F_INVTRIG_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_INVTRIG_F_INVTRIG_HPP_INCLUDED
+#include <nt2/trigonometric/functions/scalar/impl/trigo/selection_tags.hpp>
+#include <nt2/sdk/simd/tags.hpp>
 #include <nt2/include/functions/simd/bitofsign.hpp>
 #include <nt2/include/functions/simd/oneminus.hpp>
 #include <nt2/include/functions/simd/minusone.hpp>
@@ -25,7 +27,6 @@
 #include <nt2/include/functions/simd/abs.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/plus.hpp>
-#include <nt2/sdk/simd/tags.hpp>
 #include <nt2/include/constants/pio_2.hpp>
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/half.hpp>
@@ -33,7 +34,7 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/nan.hpp>
-
+#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
 
 namespace nt2 { namespace details {
   template < class A0,
@@ -51,7 +52,7 @@ namespace nt2 { namespace details {
       A0 sign, x, z;
       x = nt2::abs(a0);
       sign = nt2::bitofsign(a0);
-      if ((x < single_constant<A0,0x38d1b717>())) return a0;
+      if ((x < single_constant<A0,0x38d1b717>())) return a0; //1.0e-4
       if ((x >  nt2::One<A0>())) return nt2::Nan<A0>();
       bool bx_larger_05    = (x > nt2::Half<A0>());
       if (bx_larger_05)
@@ -63,11 +64,14 @@ namespace nt2 { namespace details {
       {
         z = nt2::sqr(x);
       }
-      A0 z1 = nt2::fma(z,  single_constant<A0,0x3d2cb352>(),
-                       single_constant<A0,0x3cc617e3>());
-      z1 = nt2::fma(z1, z, single_constant<A0,0x3d3a3ec7>());
-      z1 = nt2::fma(z1, z, single_constant<A0,0x3d9980f6>());
-      z1 = nt2::fma(z1, z, single_constant<A0,0x3e2aaae4>());
+      A0 z1 = horner<NT2_HORNER_COEFF_T(A0, 5,
+                                        ( 0x3d2cb352,
+                                          0x3cc617e3,
+                                          0x3d3a3ec7,
+                                          0x3d9980f6,
+                                          0x3e2aaae4
+                                        )
+                                       )> (z);
       z1 = nt2::fma(z1, z*x, x);
       if(bx_larger_05)
       {
@@ -97,25 +101,31 @@ namespace nt2 { namespace details {
       if (nt2::is_eqz(a0))  return nt2::Zero<A0>();
       if (nt2::is_inf(a0))  return nt2::Pio_2<A0>();
       A0 x = nt2::abs(a0);
-      A0 y;
-      if( x >single_constant<A0,0x401a827a>())//2.414213562373095 )  /* tan 3pi/8 */
+      A0 y = 0.0;
+      A0 more = Zero<A0>();
+      if( x > Tan_3pio_8<A0>())
       {
         y = nt2::Pio_2<A0>();
+        more = Pio_2lo<A0>();
         x = -nt2::rec(x);
       }
-      else if( x > single_constant<A0,0x3ed413cd>()) //0.4142135623730950f ) /* tan pi/8 */
+      else if( x > Tanpio_8<A0>())
       {
         y = nt2::Pio_4<A0>();
+        more =  Pio_4lo<A0>();
         x = nt2::minusone(x)/nt2::oneplus(x);
       }
-      else
-        y = 0.0;
-
       A0 z = nt2::sqr(x);
-      A0 z1 = nt2::fma(z,  single_constant<A0,0x3da4f0d1>(),single_constant<A0,0xbe0e1b85>());
-      A0 z2 = nt2::fma(z,  single_constant<A0,0x3e4c925f>(),single_constant<A0,0xbeaaaa2a>());
-      z1 = nt2::fma(z1, sqr(z), z2);
-      return  nt2::add(y, nt2::fma(x, mul( z1, z), x));
+      A0 z1 = horner<NT2_HORNER_COEFF_T(A0, 4,
+                                         ( 0x3da4f0d1ul  //  8.5460119e-02
+                                         , 0xbe0e1b85ul  // -1.4031009e-01
+                                         , 0x3e4c925ful  //  1.9991724e-01
+                                         , 0xbeaaaa2aul  // -3.3333293e-01
+                                         )
+                                       )> (z);
+      z1 = nt2::fma(x, mul( z1, z), x);
+
+      return y+(z1+more);
     }
   };
 } }
@@ -123,7 +133,3 @@ namespace nt2 { namespace details {
 
 
 #endif
-
-// /////////////////////////////////////////////////////////////////////////////
-// End of f_invtrig.hpp
-// /////////////////////////////////////////////////////////////////////////////
