@@ -52,7 +52,7 @@ namespace nt2
 
        std::size_t middle = begin + (size/(2*grain))*grain;
 
-       hpx::lcos::future<result_type>
+       hpx::lcos::unique_future<result_type>
           other_out = hpx::async((*this),w,middle,begin+size-middle,grain);
        result_type my_out = (*this)(w, begin, middle-begin, grain);
        return w.bop_( my_out, other_out.get() );
