@@ -70,6 +70,6 @@ NT2_TEST_CASE_TPL ( asin_real,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(nt2::asin(cT(nt2::Mone  <T>(), nt2::Mone <T>())), cT(-0.666239432492515, -1.061275061905036), 2);
   NT2_TEST_ULP_EQUAL(nt2::asin(cT(1, 1)),  boost::math::asin(cT(1, 1)), 1);
   NT2_TEST_ULP_EQUAL(nt2::asin(cT(1, 10)),  boost::math::asin(cT(1, 10)), 1);
-  NT2_TEST_ULP_EQUAL(nt2::asin(cT(10, 10)),  boost::math::asin(cT(10, 10)), 1);
+  NT2_TEST_ULP_EQUAL(nt2::asin(cT(10, 10)),  boost::math::asin(cT(10, 10)), 1.5);
   NT2_TEST_ULP_EQUAL(nt2::asin(cT(10, 1)),  boost::math::asin(cT(10, 1)), 1);
 }
