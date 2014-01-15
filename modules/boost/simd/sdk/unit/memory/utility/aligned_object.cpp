@@ -51,6 +51,10 @@ NT2_TEST_CASE(overload_new_delete_array)
   delete[] ptr;
 }
 
+// Clang bug, doesn't deal properly with alignment in empty base classes
+// http://llvm.org/bugs/show_bug.cgi?id=14564
+// fixed in clang 3.4
+#if !defined(__clang__) || (__clang_major__ >= 3 && __clang_minor__ >= 4)
 NT2_TEST_CASE(static_alignment)
 {
   using boost::simd::is_aligned;
@@ -60,3 +64,4 @@ NT2_TEST_CASE(static_alignment)
   NT2_TEST_GREATER_EQUAL(sizeof(foo), 16u);
   NT2_TEST( is_aligned(&f, 16) );
 }
+#endif
