@@ -1,111 +1,60 @@
 //==============================================================================
-//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2013   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 trigonometric toolbox - nbd_atan2/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of trigonometric components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 11/02/2011
-///
 #include <nt2/trigonometric/include/functions/nbd_atan2.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/trigonometric/constants.hpp>
 
-#include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_signed.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/meta/downgrade.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/type_traits/common_type.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-
-#include <nt2/constant/constant.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/include/functions/splat.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <boost/simd/sdk/config.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 
+#include <nt2/include/constants/half.hpp>
+#include <nt2/include/constants/mhalf.hpp>
+#include <nt2/include/constants/mone.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/pi.hpp>
+#include <nt2/include/constants/pio_2.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/minf.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/threepio_4.hpp>
 
-NT2_TEST_CASE_TPL ( nbd_atan2_real__2_0,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( nbd_atan2_real_2,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::nbd_atan2;
   using nt2::tag::nbd_atan2_;
   using boost::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>                  vT;
+
   typedef typename nt2::meta::call<nbd_atan2_(vT,vT)>::type r_t;
-  typedef typename nt2::meta::call<nbd_atan2_(T,T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  typedef vT wished_r_t;
+
+  // return type conformity test
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
+
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Half<vT>(), nt2::Half<vT>())[0], nt2::Pi<sr_t>()/4, 0.5);
-  //  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Inf<vT>(), nt2::Inf<vT>())[0], nt2::Pi<sr_t>()/4, 0.5);
-  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Inf<vT>(),nt2::One<vT>())[0], nt2::Pio_2<sr_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Mhalf<vT>(), nt2::Mhalf<vT>())[0], -3*nt2::Pi<sr_t>()/4, 0.5);
-  //  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Minf<vT>(), nt2::Minf<vT>())[0], -3*nt2::Pi<sr_t>()/4, 0.5);
-  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Minf<vT>(),nt2::One<vT>())[0], -nt2::Pio_2<sr_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Mone<vT>(), nt2::Mone<vT>())[0], -3*nt2::Pi<sr_t>()/4, 0.5);
-  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Nan<vT>(), nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::One<vT>(), nt2::One<vT>())[0], nt2::Pi<sr_t>()/4, 0.5);
-  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::One<vT>(),nt2::Inf<vT>())[0], nt2::Zero<sr_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::One<vT>(),nt2::Minf<vT>())[0], nt2::Pi<sr_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Zero<sr_t>(), 0.5);
-  //  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Nan<vT>(), nt2::Zero<vT>())[0], nt2::Nan<sr_t>(), 0.5);
-  //  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Zero<vT>(), nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0.5);
-} // end of test for floating_
-
-NT2_TEST_CASE_TPL ( nbd_atan2_int_convert__2_0,  NT2_SIMD_INT_CONVERT_TYPES)
-{
-  using nt2::nbd_atan2;
-  using nt2::tag::nbd_atan2_;
-  using boost::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<nbd_atan2_(vT,vT)>::type r_t;
-  typedef typename nt2::meta::call<nbd_atan2_(T,T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::One<vT>(), nt2::One<vT>())[0], nt2::Pi<sr_t>()/4, 0.5);
-  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Zero<sr_t>(), 0.5);
-} // end of test for int_convert_
-
-NT2_TEST_CASE_TPL ( nbd_atan2_uint_convert__2_0,  NT2_SIMD_UINT_CONVERT_TYPES)
-{
-  using nt2::nbd_atan2;
-  using nt2::tag::nbd_atan2_;
-  using boost::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<nbd_atan2_(vT,vT)>::type r_t;
-  typedef typename nt2::meta::call<nbd_atan2_(T,T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::One<vT>(), nt2::One<vT>())[0], nt2::Pi<sr_t>()/4, 0.5);
-  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Zero<sr_t>(), 0.5);
-} // end of test for uint_convert_
+#ifndef BOOST_SIMD_NO_INVALIDS
+  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Inf<vT>(),nt2::One<vT>()), nt2::Pio_2<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Minf<vT>(),nt2::One<vT>()), -nt2::Pio_2<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Nan<vT>(), nt2::Nan<vT>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::One<vT>(),nt2::Inf<vT>()), nt2::Zero<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::One<vT>(),nt2::Minf<vT>()), nt2::Pi<r_t>(), 0.5);
+#endif
+  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Half<vT>(), nt2::Half<vT>()), nt2::Pio_4<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Mhalf<vT>(), nt2::Mhalf<vT>()), -nt2::Threepio_4<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Mone<vT>(), nt2::Mone<vT>()), -nt2::Threepio_4<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::One<vT>(), nt2::One<vT>()), nt2::Pio_4<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Zero<vT>(), nt2::Zero<vT>()), nt2::Zero<r_t>(), 0.5);
+}
