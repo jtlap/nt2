@@ -22,6 +22,7 @@
 #include <nt2/include/functions/simd/is_inf.hpp>
 #include <nt2/include/functions/simd/is_nan.hpp>
 #include <nt2/include/functions/simd/logical_and.hpp>
+#include <nt2/include/functions/simd/logical_or.hpp>
 #include <nt2/include/functions/simd/copysign.hpp>
 #include <nt2/include/functions/simd/signnz.hpp>
 #include <nt2/include/functions/simd/is_gtz.hpp>
