@@ -38,7 +38,7 @@ namespace nt2
     spawner() {}
 
     template<typename Worker>
-    result_type operator()(Worker & w, std::size_t begin, std::size_t size, std::size_t grain)
+    result_type operator()(Worker w, std::size_t begin, std::size_t size, std::size_t  grain)
     {
 
       BOOST_ASSERT_MSG( size % grain == 0, "Reduce size not divisible by grain");
@@ -52,8 +52,8 @@ namespace nt2
 
        std::size_t middle = begin + (size/(2*grain))*grain;
 
-       hpx::lcos::unique_future<result_type>
-          other_out = hpx::async((*this),w,middle,begin+size-middle,grain);
+       hpx::lcos::shared_future<result_type>
+         other_out = hpx::async(*this,w,middle*1,begin+size-middle,grain*1);
        result_type my_out = (*this)(w, begin, middle-begin, grain);
        return w.bop_( my_out, other_out.get() );
 
