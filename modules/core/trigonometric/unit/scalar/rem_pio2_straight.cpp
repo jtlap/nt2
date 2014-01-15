@@ -8,23 +8,17 @@
 //==============================================================================
 #include <nt2/trigonometric/include/functions/rem_pio2_straight.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <nt2/trigonometric/constants.hpp>
-
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_signed.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/meta/downgrade.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/type_traits/common_type.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
-#include <nt2/constant/constant.hpp>
-
+#include <nt2/include/constants/pio_2.hpp>
+#include <nt2/include/constants/pio_4.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/zero.hpp>
 
 NT2_TEST_CASE_TPL ( rem_pio2_straight_real__1_0,  NT2_REAL_TYPES)
 {
@@ -32,7 +26,7 @@ NT2_TEST_CASE_TPL ( rem_pio2_straight_real__1_0,  NT2_REAL_TYPES)
   using nt2::rem_pio2_straight;
   using nt2::tag::rem_pio2_straight_;
   typedef typename nt2::meta::as_integer<T>::type iT;
- typedef std::pair<iT, T>  r_t;
+  typedef std::pair<iT, T>  r_t;
 
 
   NT2_TEST_TYPE_IS( (typename boost::dispatch::meta::call<rem_pio2_straight_(T)>::type)
