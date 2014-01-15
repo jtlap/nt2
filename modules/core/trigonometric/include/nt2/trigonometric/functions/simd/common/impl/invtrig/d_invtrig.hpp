@@ -61,7 +61,6 @@ namespace nt2 { namespace details
       typedef typename meta::scalar_of<A0>::type sA0;
       A0 x = nt2::abs(a0);
       const bA0 small_=  nt2::lt(x, nt2::Sqrteps<A0>());
-      const A0 morebits = double_constant<A0, 0xbc91a62633145c07ll>();
       const A0 ct1      = double_constant<A0, 0x3fe4000000000000ll>();
       A0 zz1 = nt2::oneminus(x);
       const A0 vp = zz1*horner< NT2_HORNER_COEFF_T(sA0, 5,
@@ -80,7 +79,7 @@ namespace nt2 { namespace details
                                                      )>(zz1);
       zz1 =  nt2::sqrt(zz1+zz1);
       A0 z = nt2::Pio_4<A0>()-zz1;
-      zz1 = fms(zz1, vp, Pio_2lo<A0>()); //morebits);
+      zz1 = fms(zz1, vp, Pio_2lo<A0>());
       z =  z-zz1;
       zz1 = z+nt2::Pio_4<A0>();
       A0 zz2 = nt2::sqr(a0);
