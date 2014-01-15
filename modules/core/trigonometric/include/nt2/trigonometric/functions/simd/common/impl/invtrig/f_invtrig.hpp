@@ -44,7 +44,7 @@
 #include <nt2/include/constants/mhalf.hpp>
 #include <nt2/include/constants/tan_3pio_8.hpp>
 #include <nt2/include/constants/tanpio_8.hpp>
-#include <nt2/table.hpp>
+
 namespace nt2 { namespace details
 {
   template < class A0 >
