@@ -13,6 +13,7 @@
 #include <nt2/include/functions/simd/atand.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/include/functions/simd/bitofsign.hpp>
+#include <nt2/include/functions/simd/bitwise_or.hpp>
 #include <nt2/include/functions/simd/is_inf.hpp>
 #include <nt2/include/functions/simd/is_eqz.hpp>
 #include <nt2/include/functions/simd/is_nez.hpp>
