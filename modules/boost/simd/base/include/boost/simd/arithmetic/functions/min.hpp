@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace tag
     struct min_ : ext::elementwise_<min_>
     {
       /// @brief Parent hierarchy
-       typedef ext::elementwise_<min_> parent;
+      typedef ext::elementwise_<min_> parent;
     };
   }
   /*!
@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace tag
     is similar to:
 
     @code
-    T r =  if (x > y) ? y : x;
+    T r =  if (x < y) ? x : y;
     @endcode
 
     @param  a0

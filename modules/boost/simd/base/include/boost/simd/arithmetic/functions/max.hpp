@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace tag
     is similar to:
 
     @code
-    T r =  if (x < y) ? y : x;
+    T r =  if (x > y) ? x : y;
     @endcode
 
     @param  a0

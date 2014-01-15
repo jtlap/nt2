@@ -8,10 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_MINMAG_HPP_INCLUDED
 #define BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_MINMAG_HPP_INCLUDED
+
 #include <boost/simd/ieee/functions/minmag.hpp>
 #include <boost/simd/include/functions/scalar/abs.hpp>
-#include <boost/simd/include/functions/scalar/min.hpp>
-
 
 namespace boost { namespace simd { namespace ext
 {
@@ -24,9 +23,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 aa0 =  boost::simd::abs(a0);
-      A0 aa1 =  boost::simd::abs(a1);
-      return (aa0 < aa1) ? a0 : (aa0 > aa1) ? a1 : boost::simd::min(a0, a1);
+      return abs(a0) < abs(a1) ? a0 : a1;
     }
   };
 } } }
