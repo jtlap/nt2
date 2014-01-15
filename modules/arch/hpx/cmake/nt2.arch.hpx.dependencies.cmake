@@ -8,6 +8,7 @@
 ################################################################################
 
 include(nt2.boost)
+find_package(Boost 1.53.0 QUIET COMPONENTS program_options thread system serialization)
 
 if(NOT DEFINED HPX_ROOT)
   set(HPX_ROOT $ENV{HPX_ROOT})
@@ -39,8 +40,10 @@ if(NOT DEFINED HPX_LIBRARY_DIR)
   endif()
 endif()
 find_library(HPX_LIBRARY hpx PATHS ${HPX_LIBRARY_DIR} PATH_SUFFIXES hpx)
+find_library(HPX_LIBRARY_INIT hpx_init PATHS ${HPX_LIBRARY_DIR} PATH_SUFFIXES hpx)
+find_library(HPX_LIBRARY_SERIALIZATION hpx_serialization PATHS ${HPX_LIBRARY_DIR} PATH_SUFFIXES hpx)
 
-if(NOT HPX_INCLUDE_DIR OR NOT HPX_INCLUDE_BINARY_DIR OR NOT HPX_LIBRARY)
+if(NOT Boost_FOUND OR NOT HPX_INCLUDE_DIR OR NOT HPX_INCLUDE_BINARY_DIR OR NOT HPX_LIBRARY)
   set(NT2_ARCH.HPX_DEPENDENCIES_FOUND 0)
 endif()
 
@@ -54,7 +57,10 @@ if(HPX_BINARY_ROOT)
   list(APPEND NT2_ARCH.HPX_DEPENDENCIES_INCLUDE_DIR ${HPX_INCLUDE_BINARY_DIR})
 endif()
 
-set(NT2_ARCH.HPX_DEPENDENCIES_LIBRARIES   ${HPX_LIBRARY})
+set( NT2_ARCH.HPX_DEPENDENCIES_LIBRARIES ${HPX_LIBRARY} ${HPX_LIBRARY_INIT} ${HPX_LIBRARY_SERIALIZATION}
+                                         ${Boost_PROGRAM_OPTIONS_LIBRARY} ${Boost_THREAD_LIBRARY}
+                                         ${Boost_SYSTEM_LIBRARY} ${Boost_SERIALIZATION_LIBRARY}
+   )
 
 set( NT2_ARCH.HPX_DEPENDENCIES_EXTRA
      arch.shared_memory
