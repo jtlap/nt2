@@ -15,12 +15,10 @@
 #include <nt2/include/functions/simd/bitofsign.hpp>
 #include <nt2/include/functions/simd/bitwise_or.hpp>
 #include <nt2/include/functions/simd/is_inf.hpp>
-#include <nt2/include/functions/simd/is_eqz.hpp>
 #include <nt2/include/functions/simd/is_nez.hpp>
-#include <nt2/include/functions/simd/bitofsign.hpp>
 #include <nt2/include/functions/simd/if_else_zero.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/_90.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>

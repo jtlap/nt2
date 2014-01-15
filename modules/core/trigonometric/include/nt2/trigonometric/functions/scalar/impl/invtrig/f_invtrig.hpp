@@ -8,25 +8,23 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_INVTRIG_F_INVTRIG_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_INVTRIG_F_INVTRIG_HPP_INCLUDED
-#include <nt2/trigonometric/functions/scalar/impl/trigo/selection_tags.hpp>
-#include <nt2/sdk/simd/tags.hpp>
-#include <nt2/include/functions/simd/bitofsign.hpp>
-#include <nt2/include/functions/simd/oneminus.hpp>
-#include <nt2/include/functions/simd/minusone.hpp>
-#include <nt2/include/functions/simd/oneplus.hpp>
-#include <nt2/include/functions/simd/sqr.hpp>
-#include <nt2/include/functions/simd/sqrt.hpp>
-#include <nt2/include/functions/simd/bitwise_notand.hpp>
-#include <nt2/include/functions/simd/bitwise_xor.hpp>
-#include <nt2/include/functions/simd/rec.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/simd/sign.hpp>
-#include <nt2/include/functions/simd/is_ltz.hpp>
-#include <nt2/include/functions/simd/is_eqz.hpp>
-#include <nt2/include/functions/simd/is_inf.hpp>
-#include <nt2/include/functions/simd/abs.hpp>
-#include <nt2/include/functions/simd/multiplies.hpp>
-#include <nt2/include/functions/simd/plus.hpp>
+
+#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
+#include <nt2/include/functions/scalar/bitofsign.hpp>
+#include <nt2/include/functions/scalar/oneminus.hpp>
+#include <nt2/include/functions/scalar/minusone.hpp>
+#include <nt2/include/functions/scalar/oneplus.hpp>
+#include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/functions/scalar/sqrt.hpp>
+#include <nt2/include/functions/scalar/bitwise_xor.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
+#include <nt2/include/functions/scalar/is_eqz.hpp>
+#include <nt2/include/functions/scalar/is_inf.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/multiplies.hpp>
+#include <nt2/include/functions/scalar/fma.hpp>
+#include <nt2/include/functions/scalar/multiplies.hpp>
+#include <nt2/include/constants/real_splat.hpp>
 #include <nt2/include/constants/pio_2.hpp>
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/half.hpp>
@@ -34,7 +32,7 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/nan.hpp>
-#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
+#include <nt2/sdk/simd/tags.hpp>
 
 namespace nt2 { namespace details {
   template < class A0,

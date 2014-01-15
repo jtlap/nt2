@@ -9,26 +9,19 @@
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_IMPL_INVTRIG_F_INVTRIG_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_IMPL_INVTRIG_F_INVTRIG_HPP_INCLUDED
 
-#include <nt2/sdk/simd/tags.hpp>
-#include <nt2/sdk/meta/as_logical.hpp>
+#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
 #include <nt2/include/functions/simd/bitofsign.hpp>
 #include <nt2/include/functions/simd/is_greater.hpp>
-#include <nt2/include/constants/half.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/oneminus.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
-#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/include/functions/simd/fma.hpp>
-#include <nt2/include/constants/pio_2.hpp>
-#include <nt2/include/constants/pio_2lo.hpp>
 #include <nt2/include/functions/simd/sqrt.hpp>
 #include <nt2/include/functions/simd/bitwise_xor.hpp>
 #include <nt2/include/functions/simd/is_greater_equal.hpp>
 #include <nt2/include/functions/simd/logical_and.hpp>
 #include <nt2/include/functions/simd/if_zero_else.hpp>
-#include <nt2/include/constants/pio_4.hpp>
-#include <nt2/include/constants/pio_4lo.hpp>
 #include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/minusone.hpp>
@@ -41,9 +34,16 @@
 #include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/constants/real_splat.hpp>
+#include <nt2/include/constants/pio_4.hpp>
+#include <nt2/include/constants/half.hpp>
+#include <nt2/include/constants/pio_4lo.hpp>
 #include <nt2/include/constants/mhalf.hpp>
+#include <nt2/include/constants/pio_2.hpp>
+#include <nt2/include/constants/pio_2lo.hpp>
 #include <nt2/include/constants/tan_3pio_8.hpp>
 #include <nt2/include/constants/tanpio_8.hpp>
+#include <nt2/sdk/simd/tags.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 
 namespace nt2 { namespace details
 {

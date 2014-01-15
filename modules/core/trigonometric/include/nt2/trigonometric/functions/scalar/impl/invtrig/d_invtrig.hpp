@@ -8,31 +8,34 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_INVTRIG_D_INVTRIG_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_INVTRIG_D_INVTRIG_HPP_INCLUDED
-#include <nt2/include/functions/abs.hpp>
+
+#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/oneminus.hpp>
+#include <nt2/include/functions/scalar/sqrt.hpp>
+#include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/functions/scalar/bitwise_xor.hpp>
+#include <nt2/include/functions/scalar/bitofsign.hpp>
+#include <nt2/include/functions/scalar/fma.hpp>
+#include <nt2/include/functions/scalar/is_eqz.hpp>
+#include <nt2/include/functions/scalar/is_inf.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
+#include <nt2/include/functions/scalar/minusone.hpp>
+#include <nt2/include/functions/scalar/oneplus.hpp>
+#include <nt2/include/constants/real_splat.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/sqrteps.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
-#include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/constants/pio_4.hpp>
 #include <nt2/include/constants/pio_2lo.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/bitwise_xor.hpp>
-#include <nt2/include/functions/bitofsign.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/mhalf.hpp>
 #include <nt2/include/constants/two.hpp>
-#include <nt2/include/functions/fma.hpp>
 #include <nt2/include/constants/pio_4lo.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/constants/tan_3pio_8.hpp>
 #include <nt2/include/constants/pio_2.hpp>
-#include <nt2/include/functions/rec.hpp>
 #include <nt2/include/constants/zero.hpp>
-#include <nt2/include/functions/minusone.hpp>
-#include <nt2/include/functions/oneplus.hpp>
+#include <nt2/sdk/simd/tags.hpp>
 
 namespace nt2 { namespace details
 {
