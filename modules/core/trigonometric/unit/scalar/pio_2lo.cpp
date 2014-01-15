@@ -23,7 +23,7 @@ NT2_TEST_CASE ( Pio_2lo)
   using nt2::Pio_2lo;
   NT2_TEST_LESSER(nt2::abs(double(Pio_2lo<float>())+double(nt2::Pio_2<float>()) -nt2::Pio_2<double>()), 10*nt2::Eps<double>());
   long double pio_2 = 1.57079632679489661923132169164l;
-  NT2_TEST_LESSER(std::abs((long double)(Pio_2lo<double>())+(long double)(nt2::Pio_2<double>()) -pio_2), 10*LDBL_EPSILON);
+  NT2_TEST_LESSER(double(std::abs((long double)(Pio_2lo<double>())+(long double)(nt2::Pio_2<double>()) -pio_2)), 1.0e-30);
 
 }
 

@@ -24,6 +24,6 @@ NT2_TEST_CASE ( Pio_4lo)
   using nt2::Pio_4lo;
   NT2_TEST_LESSER(nt2::abs(double(Pio_4lo<float>())+double(nt2::Pio_4<float>()) -nt2::Pio_4<double>()), 10*nt2::Eps<double>());
   long double pio_4 = 0.78539816339744830961566084582l;
-  NT2_TEST_LESSER(std::abs((long double)(Pio_4lo<double>())+(long double)(nt2::Pio_4<double>()) -pio_4), 10*LDBL_EPSILON);
+  NT2_TEST_LESSER(double(std::abs((long double)(Pio_4lo<double>())+(long double)(nt2::Pio_4<double>()) -pio_4)), 1.0e-30);
 } // end of test for floating_
 
