@@ -61,7 +61,7 @@ namespace nt2 { namespace ext
     typedef typename boost::remove_reference<In>::type::extent_type            extent_type;
 
     BOOST_FORCEINLINE result_type operator()(Out& out, In& in
-                                            , Neutral const& neutral, Bop const& bop, Uop const& uop
+                                            , Neutral const& neutral, Bop const& bop, Uop const&
                                             , Range const& range
                                             ) const
     {
