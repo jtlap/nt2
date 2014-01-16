@@ -13,6 +13,7 @@
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/abs.hpp>
 #include <boost/simd/include/functions/simd/is_greater.hpp>
+#include <boost/simd/include/functions/simd/max.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -25,7 +26,9 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return if_else( abs(a0) > abs(a1), a0, a1 );
+      A0 aa0 = abs(a0);
+      A0 aa1 = abs(a1);
+      return if_else( aa0 > aa1, a0, if_else( aa1 > aa0, a1, max(a0, a1) ) );
     }
   };
 } } }

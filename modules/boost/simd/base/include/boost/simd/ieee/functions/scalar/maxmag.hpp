@@ -11,6 +11,7 @@
 
 #include <boost/simd/ieee/functions/maxmag.hpp>
 #include <boost/simd/include/functions/scalar/abs.hpp>
+#include <boost/simd/include/functions/scalar/max.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -23,7 +24,9 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return abs(a0) > abs(a1) ? a0 : a1;
+      A0 aa0 = abs(a0);
+      A0 aa1 = abs(a1);
+      return aa0 > aa1 ? a0 : aa1 > aa0 ? a1 : max(a0, a1);
     }
   };
 } } }
