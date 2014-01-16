@@ -8,43 +8,38 @@
 //==============================================================================
 #ifndef NT2_IEEE_FUNCTIONS_COMPLEX_GENERIC_MAXNUMMAG_HPP_INCLUDED
 #define NT2_IEEE_FUNCTIONS_COMPLEX_GENERIC_MAXNUMMAG_HPP_INCLUDED
+
 #include <nt2/ieee/functions/maxnummag.hpp>
-#include <nt2/include/functions/maxnummag.hpp>
 #include <nt2/include/functions/maxmag.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/bitwise_cast.hpp>
-#include <nt2/sdk/complex/meta/as_complex.hpp>
-#include <nt2/sdk/complex/meta/as_dry.hpp>
 #include <nt2/include/functions/real.hpp>
-
-
+#include <nt2/include/functions/bitwise_cast.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( boost::simd::tag::maxnummag_, tag::cpu_,
-                                     (A0),
-                                     (generic_<complex_<floating_<A0> > >)
-                                     (generic_<complex_<floating_<A0> > >)
-                                   )
+                              (A0),
+                              (generic_<complex_<floating_<A0> > >)
+                              (generic_<complex_<floating_<A0> > >)
+                            )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return if_else(is_nan(a0),
-                     a1,
-                     if_else(is_nan(a1),
-                             a0,
-                             maxmag(a0, a1)
-                            )
-                    );
+      typedef typename meta::as_logical<A0>::type lA0;
+      const lA0 cond = is_nan(a0);
+      const A0 a = if_else(cond, a0, a1);
+      const A0 b = if_else(cond, a1, a0);
+      return minmag(a, b);
     }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( boost::simd::tag::maxnummag_, tag::cpu_,
-                                     (A0),
-                                     (generic_<dry_<floating_<A0> > >)
-                                     (generic_<dry_<floating_<A0> > >)
+                              (A0),
+                              (generic_<dry_<floating_<A0> > >)
+                              (generic_<dry_<floating_<A0> > >)
                             )
   {
     typedef A0 result_type;
