@@ -15,6 +15,7 @@
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/is_real.hpp>
+#include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/arg.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
