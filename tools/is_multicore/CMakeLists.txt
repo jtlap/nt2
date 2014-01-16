@@ -8,12 +8,18 @@
 ################################################################################
 cmake_minimum_required(VERSION 2.6)
 
-set(NT2_SOURCE_ROOT ${CMAKE_SOURCE_DIR}/../..)
-set(CMAKE_MODULE_PATH ${NT2_SOURCE_ROOT}/cmake)
-find_package(NT2 REQUIRED COMPONENTS boost.simd.config ${NT2_MODULES_GLOBAL})
-include_directories(${NT2_INCLUDE_DIR})
-link_directories(${NT2_LIBRARY_DIR})
-link_libraries(${NT2_LIBRARIES})
+set(NT2_DIR ${CMAKE_SOURCE_DIR}/../../cmake)
+
+# from global modules, only *.config modules are added
+set(NT2_MODULES_GLOBAL_CONFIG)
+foreach(module ${NT2_MODULES_GLOBAL})
+  if("${module}" MATCHES "\\.config$")
+    list(APPEND NT2_MODULES_GLOBAL_CONFIG ${module})
+  endif()
+endforeach()
+
+find_package(NT2 REQUIRED COMPONENTS boost.simd.config ${NT2_MODULES_GLOBAL_CONFIG})
+include(${NT2_USE_FILE})
 
 add_executable(is_multicore is_multicore.cpp)
 set_target_properties(is_multicore
