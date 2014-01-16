@@ -11,6 +11,7 @@
 extern "C" {extern long double cephes_acosl(long double);}
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/unit/tests/cover.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
