@@ -9,6 +9,8 @@
 #ifndef NT2_CORE_UTILITY_DETAILS_RANDS_HPP_INCLUDED
 #define NT2_CORE_UTILITY_DETAILS_RANDS_HPP_INCLUDED
 
+#include <nt2/sdk/config/types.hpp>
+
 #define NT2_DEF_RAND(NAME,TYPE)                                                \
 void NAME(TYPE* data, std::size_t i0, std::size_t i1)                          \
 /**/
