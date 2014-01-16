@@ -8,10 +8,12 @@
 //==============================================================================
 #ifndef BOOST_SIMD_IEEE_FUNCTIONS_SIMD_COMMON_MAXNUM_HPP_INCLUDED
 #define BOOST_SIMD_IEEE_FUNCTIONS_SIMD_COMMON_MAXNUM_HPP_INCLUDED
+
 #include <boost/simd/ieee/functions/maxnum.hpp>
 #include <boost/simd/include/functions/simd/max.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/is_nan.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -37,8 +39,10 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      const A0 a = select(is_nan(a0),a1,a0);
-      const A0 b = select(is_nan(a1),a0,a1);
+      typedef typename meta::as_logical<A0>::type lA0;
+      const lA0 cond = is_nan(a0);
+      const A0 a = if_else(cond,a0,a1);
+      const A0 b = if_else(cond,a1,a0);
       return boost::simd::max(a, b);
     }
   };

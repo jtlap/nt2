@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_MAXNUM_HPP_INCLUDED
 #define BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_MAXNUM_HPP_INCLUDED
+
 #include <boost/simd/ieee/functions/maxnum.hpp>
 #include <boost/simd/include/functions/scalar/max.hpp>
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
@@ -32,7 +33,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       if (is_nan(a0)) return a1;
-      else return a0 <=  a1 ? a1 : a0;
+      else return boost::simd::max(a1, a0);
     }
   };
 } } }

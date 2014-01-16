@@ -8,14 +8,13 @@
 //==============================================================================
 #ifndef BOOST_SIMD_IEEE_FUNCTIONS_SIMD_COMMON_MINNUM_HPP_INCLUDED
 #define BOOST_SIMD_IEEE_FUNCTIONS_SIMD_COMMON_MINNUM_HPP_INCLUDED
+
 #include <boost/simd/ieee/functions/minnum.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/simd/min.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/is_nan.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+#include <boost/simd/sdk/meta/as_logical.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minnum_, tag::cpu_,
@@ -31,11 +30,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minnum_, tag::cpu_,
                          (A0)(X),
                          ((simd_<floating_<A0>,X>))
@@ -45,8 +39,10 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      const A0 a = select(is_nan(a0),a1,a0);
-      const A0 b = select(is_nan(a1),a0,a1);
+      typedef typename meta::as_logical<A0>::type lA0;
+      const lA0 cond = is_nan(a0);
+      const A0 a = if_else(cond,a0,a1);
+      const A0 b = if_else(cond,a1,a0);
       return boost::simd::min(a, b);
     }
   };

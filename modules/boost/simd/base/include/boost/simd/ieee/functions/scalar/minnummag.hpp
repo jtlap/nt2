@@ -8,9 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_MINNUMMAG_HPP_INCLUDED
 #define BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_MINNUMMAG_HPP_INCLUDED
+
 #include <boost/simd/ieee/functions/minnummag.hpp>
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
-#include <boost/simd/include/functions/scalar/abs.hpp>
 #include <boost/simd/include/functions/scalar/minmag.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -39,12 +39,7 @@ namespace boost { namespace simd { namespace ext
     {
       if (is_nan(a0))
         return a1;
-      else if (is_nan(a1))
-        return a0;
-      else
-      {
-        return minmag(a0, a1);
-      }
+      return minmag(a1, a0);
     }
   };
 } } }

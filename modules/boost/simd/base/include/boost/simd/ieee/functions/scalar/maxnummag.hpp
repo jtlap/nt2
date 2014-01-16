@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_MAXNUMMAG_HPP_INCLUDED
 #define BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_MAXNUMMAG_HPP_INCLUDED
+
 #include <boost/simd/ieee/functions/maxnummag.hpp>
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
 #include <boost/simd/include/functions/scalar/maxmag.hpp>
@@ -36,12 +37,7 @@ namespace boost { namespace simd { namespace ext
     {
       if (is_nan(a0))
         return a1;
-      else if (is_nan(a1))
-        return a0;
-      else
-      {
-        return maxmag(a0, a1);
-      }
+      return maxmag(a1, a0);
     }
   };
 } } }
