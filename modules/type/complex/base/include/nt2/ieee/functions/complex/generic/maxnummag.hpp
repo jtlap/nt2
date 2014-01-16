@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
       const lA0 cond = is_nan(a0);
       const A0 a = if_else(cond, a0, a1);
       const A0 b = if_else(cond, a1, a0);
-      return minmag(a, b);
+      return maxmag(a, b);
     }
   };
 
