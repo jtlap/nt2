@@ -41,7 +41,6 @@ NT2_TEST_CASE_TPL ( exp2_real__1_0,  NT2_REAL_TYPES)
 
   using nt2::exp2;
   using nt2::tag::exp2_;
-  #include <nt2/include/functions/sqr.hpp>
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<exp2_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
@@ -58,7 +57,6 @@ NT2_TEST_CASE_TPL ( exp2_real__1_0,  NT2_REAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    #include <nt2/include/functions/sqr.hpp>
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
@@ -79,7 +77,6 @@ NT2_TEST_CASE_TPL ( exp2_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 
   using nt2::exp2;
   using nt2::tag::exp2_;
-  #include <nt2/include/functions/sqr.hpp>
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<exp2_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
@@ -117,7 +114,6 @@ NT2_TEST_CASE_TPL ( exp2_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
   using nt2::exp2;
   using nt2::tag::exp2_;
-  #include <nt2/include/functions/sqr.hpp>
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<exp2_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
@@ -134,7 +130,6 @@ NT2_TEST_CASE_TPL ( exp2_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    #include <nt2/include/functions/sqr.hpp>
     NT2_CREATE_BUF(tab_a0,T, NR, -10, 10);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
