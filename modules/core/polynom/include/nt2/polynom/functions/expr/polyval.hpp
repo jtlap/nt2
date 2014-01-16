@@ -15,6 +15,8 @@
 #include <nt2/include/functions/repnum.hpp>
 #include <nt2/include/functions/vandermonde.hpp>
 #include <nt2/include/functions/sqrt.hpp>
+#include <nt2/include/functions/sqr.hpp>
+#include <nt2/include/functions/sum.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/functions/inf.hpp>
 #include <nt2/include/functions/tr_solve.hpp>
