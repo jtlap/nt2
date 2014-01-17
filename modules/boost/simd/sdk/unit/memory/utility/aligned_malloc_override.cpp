@@ -7,28 +7,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <cstdlib>
-
-static bool         had_malloc;
-static bool         had_free;
-static std::size_t  malloc_size;
-
-static void* stateful_malloc(std::size_t sz)
-{
-  had_malloc  = true;
-  malloc_size = sz;
-  return malloc(sz);
-}
-
-static void stateful_free(void* ptr)
-{
-  had_free  = true;
-  return free(ptr);
-}
-
-#define BOOST_SIMD_MEMORY_NO_BUILTINS
-#define BOOST_SIMD_DEFAULT_MALLOC   stateful_malloc
-#define BOOST_SIMD_DEFAULT_FREE     stateful_free
+#define BOOST_SIMD_CUSTOM_FREE
+#define BOOST_SIMD_CUSTOM_MALLOC
 
 #include <boost/simd/memory/aligned_malloc.hpp>
 #include <boost/simd/memory/aligned_free.hpp>
@@ -37,8 +17,29 @@ static void stateful_free(void* ptr)
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <cstdlib>
 
-static void reset_status()
+static bool         had_malloc;
+static bool         had_free;
+static std::size_t  malloc_size;
+
+namespace boost { namespace simd
+{
+  void custom_free_fn(void* ptr)
+  {
+    had_free  = true;
+    return std::free(ptr);
+  }
+
+  void* custom_malloc_fn(std::size_t sz)
+  {
+    had_malloc  = true;
+    malloc_size = sz;
+    return std::malloc(sz);
+  }
+} }
+
+void reset_status()
 {
   had_free    = false;
   had_malloc  = false;
