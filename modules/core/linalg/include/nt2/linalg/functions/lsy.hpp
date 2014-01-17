@@ -47,7 +47,6 @@ namespace nt2
                                   , 4
                                   );
 
-
 }
 
 #endif

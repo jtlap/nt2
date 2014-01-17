@@ -72,6 +72,7 @@ SET( SOURCES
   triw.cpp
   vandermonde.cpp
   sobol.cpp
+  llspgen.cpp
   )
 
 nt2_module_add_tests(core.linalg.functions.unit ${SOURCES})

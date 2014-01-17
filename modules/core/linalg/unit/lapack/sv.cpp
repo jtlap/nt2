@@ -15,6 +15,7 @@
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/cons.hpp>
 #include <nt2/include/functions/of_size.hpp>
+#include <nt2/include/functions/colon.hpp>
 
 #include <nt2/table.hpp>
 

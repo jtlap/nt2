@@ -49,9 +49,9 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<type_t>::type rtype_t;
     typedef rtype_t result_type;
     typedef typename meta::option<A0,nt2::tag::shape_>::type shape;
-    typedef nt2::table<type_t,shape>  matrix_type;
-    typedef nt2::table<type_t>  entry_type;
-    typedef nt2::table<result_type>  base_type;
+    typedef nt2::container::table<type_t,shape>  matrix_type;
+    typedef nt2::container::table<type_t>  entry_type;
+    typedef nt2::container::table<result_type>  base_type;
 
     NT2_FUNCTOR_CALL(2)
     {

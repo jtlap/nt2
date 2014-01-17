@@ -19,6 +19,8 @@
 #include <nt2/linalg/details/lapack/pocon.hpp>
 #include <nt2/linalg/details/lapack/lange.hpp>
 
+#include <nt2/core/container/table/table.hpp>
+
 namespace nt2 { namespace details
 {
   template<class T> struct cholesky_result
@@ -28,7 +30,7 @@ namespace nt2 { namespace details
     typedef typename source_t::index_type                   index_t;
     typedef typename meta::as_real<type_t>::type            base_t;
     typedef T                                               data_t;
-    typedef nt2::table<type_t,index_t>                      result_type;
+    typedef nt2::container::table<type_t,index_t>           result_type;
 
     template<class Input>
     cholesky_result ( char uplo, Input& xpr )

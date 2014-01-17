@@ -16,8 +16,7 @@
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
-
-#include <stdio.h>
+#include <nt2/table.hpp>
 
 extern "C"
 {
@@ -61,7 +60,7 @@ namespace nt2 { namespace ext
       nt2_la_int n = nt2::width(a0);
       nt2_la_int ld = m;
 
-     if(a1 =='I')
+     if(a1 == 'I' || 'i')
      {
         nt2::table<result_type> work(nt2::of_size(m,1));
         norm = NT2_F77NAME(dlange)( &a1, &m, &n, a0.raw(), &ld, work.raw());
@@ -91,7 +90,7 @@ namespace nt2 { namespace ext
       nt2_la_int n = nt2::width(a0);
       nt2_la_int ld = m;
 
-      if(a1 =='I')
+      if(a1 == 'I' || 'i')
       {
         nt2::table<result_type> work(nt2::of_size(m,1));
         norm = NT2_F77NAME(slange)( &a1, &m, &n, a0.raw(), &ld, work.raw());
@@ -121,7 +120,7 @@ namespace nt2 { namespace ext
       nt2_la_int n = nt2::width(a0);
       nt2_la_int ld = m;
 
-     if(a1 =='I')
+     if(a1 == 'I' || 'i')
      {
         nt2::table<result_type> work(nt2::of_size(m,1));
         norm = NT2_F77NAME(zlange)( &a1, &m, &n, a0.raw(), &ld, work.raw());
@@ -151,7 +150,7 @@ namespace nt2 { namespace ext
       nt2_la_int n = nt2::width(a0);
       nt2_la_int ld = m;
 
-      if(a1 =='I')
+      if(a1 == 'I' || 'i')
       {
         nt2::table<result_type> work(nt2::of_size(m,1));
         norm = NT2_F77NAME(clange)( &a1, &m, &n, a0.raw(), &ld, work.raw());

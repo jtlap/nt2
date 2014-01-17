@@ -14,6 +14,8 @@
 #include <nt2/linalg/details/utility/options.hpp>
 #include <nt2/linalg/details/utility/workspace.hpp>
 #include <nt2/linalg/details/lapack/hstrf.hpp>
+#include <nt2/core/container/table/table.hpp>
+
 // TODO:
 // these are the kind of syntaxes to be enforced by nt2::chol
 //  ldl     ldl factorization.

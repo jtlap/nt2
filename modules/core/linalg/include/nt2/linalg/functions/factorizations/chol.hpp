@@ -15,11 +15,8 @@
 #include <nt2/linalg/options.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/sdk/meta/concrete.hpp>
+#include <nt2/core/container/table/table.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
-
-#include <nt2/table.hpp>
-
-#include <iostream>
 
 namespace nt2 { namespace ext
 {
@@ -54,7 +51,7 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<1> const& , boost::mpl::long_<1> const&
               ) const
     {
-      nt2::table<type_t> work = boost::proto::child_c<0>(a0);
+      nt2::container::table<type_t> work = boost::proto::child_c<0>(a0);
 
 
       nt2_la_int info = nt2::potrf( boost::proto::value(work),'U');
@@ -82,7 +79,7 @@ namespace nt2 { namespace ext
               , nt2::policy<ext::lower_> const&
               ) const
     {
-      nt2::table<type_t> work = boost::proto::child_c<0>(a0);
+      nt2::container::table<type_t> work = boost::proto::child_c<0>(a0);
 
       nt2_la_int info = nt2::potrf(  boost::proto::value(work),'L');
 
@@ -109,7 +106,7 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<1> const& , boost::mpl::long_<2> const&
               ) const
     {
-      nt2::table<type_t> work = boost::proto::child_c<0>(a0);
+      nt2::container::table<type_t> work = boost::proto::child_c<0>(a0);
 
       nt2_la_int info = nt2::potrf(  boost::proto::value(work),'U');
 
@@ -137,7 +134,7 @@ namespace nt2 { namespace ext
               , nt2::policy<ext::lower_> const&
               ) const
     {
-      nt2::table<type_t> work = boost::proto::child_c<0>(a0);
+      nt2::container::table<type_t> work = boost::proto::child_c<0>(a0);
 
       nt2_la_int info = nt2::potrf(  boost::proto::value(work),'L');
 

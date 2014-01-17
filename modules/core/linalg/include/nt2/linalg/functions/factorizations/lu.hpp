@@ -24,6 +24,7 @@
 #include <nt2/sdk/meta/concrete.hpp>
 #include <nt2/sdk/error/warning.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
+#include <nt2/core/container/table/table.hpp>
 
 namespace nt2 { namespace ext
 {

@@ -21,7 +21,6 @@
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/cons.hpp>
 #include <nt2/include/functions/rand.hpp>
-#include <iostream>
 
 #include <nt2/table.hpp>
 #include <nt2/sdk/unit/module.hpp>

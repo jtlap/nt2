@@ -23,6 +23,7 @@
 
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/sqrteps.hpp>
+#include <nt2/core/container/table/table.hpp>
 
 
 namespace nt2 { namespace ext
@@ -37,8 +38,8 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<value_type>::type result_type;
     BOOST_FORCEINLINE result_type operator()(const A0& s, const A1 &tol) const
     {
-      typedef table<result_type> tab_t;
-      typedef table<value_type>  vtab_t;
+      typedef container::table<result_type> tab_t;
+      typedef container::table<value_type>  vtab_t;
       vtab_t x =  nt2::asum1(s, 1)(_);
       size_t cnt = 0;
       result_type e =  nt2::vecnorm(x);
