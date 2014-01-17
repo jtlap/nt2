@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace tag
     };
   }
   /*!
-    Returns the least element strictly greater than the parameter
+    Returns the smallest element strictly greater than the parameter
 
     @par Semantic:
 
@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace tag
     T r = next(a0);
     @endcode
 
-    computes the least value strictly greater than a0 in type T
+    computes the smallest value strictly greater than a0 in type T
 
     @param a0
 

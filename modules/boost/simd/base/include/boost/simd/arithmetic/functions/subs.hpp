@@ -38,7 +38,7 @@ namespace boost { namespace simd {
     T r = subs(x, y);
     @endcode
 
-    The function coincide with minus for floating point parameters.
+    This function coincides with minus for floating point parameters.
     For integers is similar to:
 
     @code
