@@ -28,22 +28,21 @@
 #include <malloc.h>
 #endif
 
-#if defined(BOOST_SIMD_DEFAULT_REALLOC) && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
-/// INTERNAL ONLY
-#define BOOST_SIMD_MEMORY_NO_BUILTINS
-#endif
-
-#if !defined(BOOST_SIMD_DEFAULT_REALLOC)
-/// INTERNAL ONLY
-#define BOOST_SIMD_DEFAULT_REALLOC std::realloc
-#endif
-
 #ifndef BOOST_SIMD_REALLOC_SHRINK_THRESHOLD
 #define BOOST_SIMD_REALLOC_SHRINK_THRESHOLD 32
 #endif
 
 namespace boost { namespace simd
 {
+#if defined(BOOST_SIMD_CUSTOM_REALLOC)
+  void* custom_realloc_fn(void*, std::size_t);
+#else
+  inline void* custom_realloc_fn(void* ptr, std::size_t sz)
+  {
+    return std::realloc(sz);
+  }
+#endif
+
   /*!
     @brief Low level aligned memory reallocation
 
@@ -131,7 +130,7 @@ namespace boost { namespace simd
   inline void* aligned_realloc(void* ptr, std::size_t size, std::size_t alignment)
   {
     // Do we want to use built-ins special aligned free/alloc ?
-    #if defined( _MSC_VER ) && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
+    #if defined( _MSC_VER ) && !defined(BOOST_SIMD_CUSTOM_REALLOC)
 
     std::size_t* const oldptr = static_cast<std::size_t*>(ptr)-1;
 
@@ -166,7 +165,7 @@ namespace boost { namespace simd
     #elif (     defined( BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN )            \
             ||  (defined( _GNU_SOURCE ) && !defined( __ANDROID__ ))            \
           )                                                                    \
-       && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
+       && !defined(BOOST_SIMD_CUSTOM_REALLOC)
 
     // Resizing to 0 free the pointer data and return
     if(size == 0)
@@ -210,7 +209,7 @@ namespace boost { namespace simd
 
     #else
 
-    return aligned_realloc(ptr, size, alignment, BOOST_SIMD_DEFAULT_REALLOC);
+    return aligned_realloc(ptr, size, alignment, custom_realloc_fn);
 
     #endif
   }
