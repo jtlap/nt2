@@ -93,7 +93,6 @@ NT2_TEST_CASE_TPL ( exp2_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    #include <nt2/include/functions/sqr.hpp>
     NT2_CREATE_BUF(tab_a0,T, NR, 0, 10);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
