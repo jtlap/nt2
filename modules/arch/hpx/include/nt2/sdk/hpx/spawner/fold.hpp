@@ -23,6 +23,8 @@
 #include <boost/exception_ptr.hpp>
 #endif
 
+#include <cstdio>
+
 namespace nt2
 {
   namespace tag
@@ -54,7 +56,9 @@ namespace nt2
 
        hpx::lcos::shared_future<result_type>
          other_out = hpx::async(*this,w,middle*1,begin+size-middle,grain*1);
+
        result_type my_out = (*this)(w, begin, middle-begin, grain);
+
        return w.bop_( my_out, other_out.get() );
 
     }

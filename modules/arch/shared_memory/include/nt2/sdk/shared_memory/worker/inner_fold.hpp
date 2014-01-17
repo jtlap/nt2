@@ -17,8 +17,6 @@
 #include <nt2/sdk/config/cache.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 
-#include <iostream>
-
 namespace nt2
 {
 
@@ -82,7 +80,7 @@ namespace nt2
     {
       extent_type ext = in_.extent();
       std::size_t top_cache_line_size = config::top_cache_size(2)/sizeof(value_type);
-      std::size_t grain  = 16*top_cache_line_size;
+      std::size_t grain  = top_cache_line_size;
 
       std::size_t bound  = boost::fusion::at_c<0>(ext);
       std::size_t ibound = (bound/grain) * grain;
@@ -96,22 +94,26 @@ namespace nt2
       for(std::size_t j = begin, k=begin*bound; j < begin+size; ++j, k+=bound)
       {
         target_type vec_out;
+        value_type s_out = neutral_(nt2::meta::as_<value_type>());
 
-       if( (size == obound) && (grain < ibound) )
-          vec_out = s( w, k, ibound, grain );
+      if( (size == obound) && (grain < ibound) )
+      {
+         vec_out = s( w, k, ibound, grain );
+          s_out = uop_( vec_out );
+      }
 
-        else
-        {
-          vec_out = neutral_(nt2::meta::as_<target_type>());
-          w(vec_out, k, ibound);
-        }
+      else if( ibound != 0 )
+      {
+         vec_out = neutral_(nt2::meta::as_<target_type>());
+         w(vec_out, k, ibound);
+         s_out = uop_( vec_out );
+      }
 
-        value_type s_out = uop_( vec_out );
+      for(std::size_t i = ibound; i != bound; ++i)
+        s_out = bop_(s_out, nt2::run(in_, i+k, meta::as_<value_type>()));
 
-        for(std::size_t i = ibound; i != bound; ++i)
-          s_out = bop_(s_out, nt2::run(in_, i+k, meta::as_<value_type>()));
+      nt2::run(out_, j, s_out);
 
-        nt2::run(out_, j, s_out);
       }
     }
 
