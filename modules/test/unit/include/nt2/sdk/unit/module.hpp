@@ -54,7 +54,9 @@ int hpx_main(int argc, char* argv[])
 NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int argc, char* argv[])
 {
 #if defined(NT2_USE_HPX)
-  return hpx::init(argc, argv);
+  std::vector<std::string> cfg;
+  cfg.push_back("hpx.parcel.port=0");
+  return hpx::init(cfg);
 #else
   return nt2::details::unit_main(argc,argv,NT2_UNIT_MAIN_SUITE);
 #endif
