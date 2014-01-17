@@ -24,7 +24,7 @@
 #include <nt2/sdk/meta/concrete.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
 
-#include <nt2/table.hpp>
+#include <nt2/core/container/table/table.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -51,8 +51,8 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
-      nt2::table<type_t> s ;
-      nt2::table<ctype_t> u, vt;
+      nt2::container::table<type_t> s ;
+      nt2::container::table<ctype_t> u, vt;
       eval(a0, a1, s, u , vt, N0(), N1());
     }
 
@@ -60,12 +60,12 @@ namespace nt2 { namespace ext
     /// INTERNAL ONLY - S = SVD(A)
     BOOST_FORCEINLINE
     void eval ( A0& a0, A1& a1
-              , nt2::table<type_t>& s    , nt2::table<ctype_t>& u
-              , nt2::table<ctype_t>& vt
+              , nt2::container::table<type_t>& s    , nt2::container::table<ctype_t>& u
+              , nt2::container::table<ctype_t>& vt
               , boost::mpl::long_<1> const& , boost::mpl::long_<1> const&
               ) const
     {
-      nt2::table<ctype_t> work = boost::proto::child_c<0>(a0);
+      nt2::container::table<ctype_t> work = boost::proto::child_c<0>(a0);
 
       nt2_la_int  m  = nt2::height(work);
       nt2_la_int  n  = nt2::width(work);
@@ -86,12 +86,12 @@ namespace nt2 { namespace ext
     /// INTERNAL ONLY - [U,S,V] = SVD(X)
     BOOST_FORCEINLINE
     void eval ( A0& a0, A1& a1
-              , nt2::table<type_t>& s    , nt2::table<ctype_t>& u
-              , nt2::table<ctype_t>& vt
+              , nt2::container::table<type_t>& s    , nt2::container::table<ctype_t>& u
+              , nt2::container::table<ctype_t>& vt
               , boost::mpl::long_<1> const& , boost::mpl::long_<3> const&
               ) const
     {
-      nt2::table<ctype_t> work = boost::proto::child_c<0>(a0);
+      nt2::container::table<ctype_t> work = boost::proto::child_c<0>(a0);
 
       char jobu = 'A';
       char jobvt = 'A';
@@ -124,8 +124,8 @@ namespace nt2 { namespace ext
     /// INTERNAL ONLY - [U,S,V] = SVD(X,0/econ)
     BOOST_FORCEINLINE
     void eval ( A0& a0, A1& a1
-              , nt2::table<type_t>& s    , nt2::table<ctype_t>& u
-              , nt2::table<ctype_t>& vt
+              , nt2::container::table<type_t>& s    , nt2::container::table<ctype_t>& u
+              , nt2::container::table<ctype_t>& vt
               , boost::mpl::long_<2> const& , boost::mpl::long_<3> const&
               ) const
     {
@@ -136,12 +136,12 @@ namespace nt2 { namespace ext
     /// INTERNAL ONLY - [U,S,V] = SVD(X,0)
     BOOST_FORCEINLINE
     void eval ( A0& a0, A1& a1
-              , nt2::table<type_t>& s    , nt2::table<ctype_t>& u
-              , nt2::table<ctype_t>& vt
+              , nt2::container::table<type_t>& s    , nt2::container::table<ctype_t>& u
+              , nt2::container::table<ctype_t>& vt
               , int const&
               ) const
     {
-      nt2::table<ctype_t> work = boost::proto::child_c<0>(a0);
+      nt2::container::table<ctype_t> work = boost::proto::child_c<0>(a0);
 
       char jobu = 'A';
       char jobvt = 'A';
@@ -172,12 +172,12 @@ namespace nt2 { namespace ext
     /// INTERNAL ONLY - [U,S,V] = SVD(X,econ)
     template<typename P> BOOST_FORCEINLINE
     void eval ( A0& a0, A1& a1
-              , nt2::table<type_t>& s    , nt2::table<ctype_t>& u
-              , nt2::table<ctype_t>& vt
+              , nt2::container::table<type_t>& s    , nt2::container::table<ctype_t>& u
+              , nt2::container::table<ctype_t>& vt
               , P const&
               ) const
     {
-      nt2::table<ctype_t> work = boost::proto::child_c<0>(a0);
+      nt2::container::table<ctype_t> work = boost::proto::child_c<0>(a0);
 
       char jobu = 'A';
       char jobvt = 'A';

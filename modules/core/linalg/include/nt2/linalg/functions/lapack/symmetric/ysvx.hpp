@@ -143,12 +143,12 @@ namespace nt2 { namespace ext
         char fact = 'N';
         char uplo = 'L';
 
-        nt2::table<T> af(nt2::of_size(n,n));
-        nt2::table<T> ferr(nt2::of_size(nhrs,1));
-        nt2::table<T> berr(nt2::of_size(nhrs,1));
+        nt2::container::table<T> af(nt2::of_size(n,n));
+        nt2::container::table<T> ferr(nt2::of_size(nhrs,1));
+        nt2::container::table<T> berr(nt2::of_size(nhrs,1));
 
 
-        nt2::table<nt2_la_int> iwork(nt2::of_size(n,1));
+        nt2::container::table<nt2_la_int> iwork(nt2::of_size(n,1));
 
         NT2_F77NAME(dsysvx)( &fact       , &uplo
                            , &n          , &nhrs
@@ -234,12 +234,12 @@ namespace nt2 { namespace ext
         char fact = 'N';
         char uplo = 'L';
 
-        nt2::table<T> af(nt2::of_size(n,n));
-        nt2::table<T> ferr(nt2::of_size(nhrs,1));
-        nt2::table<T> berr(nt2::of_size(nhrs,1));
+        nt2::container::table<T> af(nt2::of_size(n,n));
+        nt2::container::table<T> ferr(nt2::of_size(nhrs,1));
+        nt2::container::table<T> berr(nt2::of_size(nhrs,1));
 
 
-        nt2::table<nt2_la_int> iwork(nt2::of_size(n,1));
+        nt2::container::table<nt2_la_int> iwork(nt2::of_size(n,1));
 
         NT2_F77NAME(ssysvx)( &fact       , &uplo
                            , &n          , &nhrs
@@ -327,12 +327,12 @@ namespace nt2 { namespace ext
         char fact = 'N';
         char uplo = 'L';
 
-        nt2::table<std::complex<T> > af(nt2::of_size(n,n));
-        nt2::table<T> ferr(nt2::of_size(nhrs,1));
-        nt2::table<T> berr(nt2::of_size(nhrs,1));
+        nt2::container::table<std::complex<T> > af(nt2::of_size(n,n));
+        nt2::container::table<T> ferr(nt2::of_size(nhrs,1));
+        nt2::container::table<T> berr(nt2::of_size(nhrs,1));
 
 
-        nt2::table<T> rwork(nt2::of_size(n,1));
+        nt2::container::table<T> rwork(nt2::of_size(n,1));
 
         NT2_F77NAME(zsysvx)( &fact       , &uplo
                            , &n          , &nhrs
@@ -418,12 +418,12 @@ namespace nt2 { namespace ext
         char fact = 'N';
         char uplo = 'L';
 
-        nt2::table<std::complex<T> > af(nt2::of_size(n,n));
-        nt2::table<T> ferr(nt2::of_size(nhrs,1));
-        nt2::table<T> berr(nt2::of_size(nhrs,1));
+        nt2::container::table<std::complex<T> > af(nt2::of_size(n,n));
+        nt2::container::table<T> ferr(nt2::of_size(nhrs,1));
+        nt2::container::table<T> berr(nt2::of_size(nhrs,1));
 
 
-        nt2::table<T> rwork(nt2::of_size(n,1));
+        nt2::container::table<T> rwork(nt2::of_size(n,1));
 
         NT2_F77NAME(csysvx)( &fact       , &uplo
                            , &n          , &nhrs

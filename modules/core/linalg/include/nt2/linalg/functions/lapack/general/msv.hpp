@@ -19,7 +19,7 @@
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
 
-#include <nt2/table.hpp>
+#include <nt2/core/container/table/table.hpp>
 
 extern "C"
 {
@@ -62,8 +62,8 @@ namespace nt2 { namespace ext
         nt2_la_int  ldb = a1.leading_size();
         nt2_la_int iter,info;
 
-        nt2::table<float> swork(nt2::of_size(n*(n+nhrs),1));
-        nt2::table<nt2_la_int> ipiv(nt2::of_size(n,1));
+        nt2::container::table<float> swork(nt2::of_size(n*(n+nhrs),1));
+        nt2::container::table<nt2_la_int> ipiv(nt2::of_size(n,1));
         w.resize_main(n*nhrs);
 
         NT2_F77NAME(dsgesv)( &n, &nhrs, a0.raw(), &lda, ipiv.raw() , a1.raw()
@@ -92,9 +92,9 @@ namespace nt2 { namespace ext
         nt2_la_int  ldb = a1.leading_size();
         nt2_la_int iter,info;
 
-        nt2::table<std::complex<float> > swork(nt2::of_size(n*(n+nhrs),1));
-        nt2::table<double> rwork(nt2::of_size(n,1));
-        nt2::table<nt2_la_int> ipiv(nt2::of_size(n,1));
+        nt2::container::table<std::complex<float> > swork(nt2::of_size(n*(n+nhrs),1));
+        nt2::container::table<double> rwork(nt2::of_size(n,1));
+        nt2::container::table<nt2_la_int> ipiv(nt2::of_size(n,1));
         w.resize_main(n*nhrs);
 
         NT2_F77NAME(zcgesv)( &n, &nhrs, a0.raw(), &lda, ipiv.raw() , a1.raw()

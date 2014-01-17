@@ -16,6 +16,7 @@
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/functions/issquare.hpp>
 #include <nt2/include/functions/is_nan.hpp>
+#include <nt2/core/container/table/table.hpp>
 
 namespace nt2{ namespace ext
 {
@@ -28,9 +29,9 @@ namespace nt2{ namespace ext
     typedef typename meta::as_real<type_t>::type rtype_t;
     typedef typename meta::as_floating<rtype_t>::type result_type;
     typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
-    typedef nt2::table<type_t>  entry_type;
-    typedef nt2::table<type_t,shape>  matrix_type;
-    typedef nt2::table<rtype_t>  base_type;
+    typedef nt2::container::table<type_t>  entry_type;
+    typedef nt2::container::table<type_t,shape>  matrix_type;
+    typedef nt2::container::table<rtype_t>  base_type;
 
     NT2_FUNCTOR_CALL(1)
     {

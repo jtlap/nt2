@@ -15,7 +15,7 @@
 #include <nt2/include/functions/width.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 
-#include <nt2/table.hpp>
+#include <nt2/core/container/table/table.hpp>
 
 extern "C"
 {
@@ -67,8 +67,8 @@ namespace nt2 { namespace ext
       nt2_la_int ld = n;
       nt2_la_int info;
 
-      nt2::table<result_type> work(nt2::of_size(4*n,1));
-      nt2::table<nt2_la_int>  iwork(nt2::of_size(n,1));
+      nt2::container::table<result_type> work(nt2::of_size(4*n,1));
+      nt2::container::table<nt2_la_int>  iwork(nt2::of_size(n,1));
 
       NT2_F77NAME(dgecon) ( &a1, &n, a0.raw(), &ld, &a2, &rcond , work.raw()
                           , iwork.raw(), &info
@@ -95,8 +95,8 @@ namespace nt2 { namespace ext
       nt2_la_int ld = n;
       nt2_la_int info;
 
-      nt2::table<result_type> work(nt2::of_size(4*n,1));
-      nt2::table<nt2_la_int>  iwork(nt2::of_size(n,1));
+      nt2::container::table<result_type> work(nt2::of_size(4*n,1));
+      nt2::container::table<nt2_la_int>  iwork(nt2::of_size(n,1));
 
       NT2_F77NAME(sgecon) ( &a1, &n, a0.raw(), &ld, &a2, &rcond , work.raw()
                           , iwork.raw(), &info
@@ -123,8 +123,8 @@ namespace nt2 { namespace ext
       nt2_la_int ld = n;
       nt2_la_int info;
 
-      nt2::table<std::complex<result_type> > work(nt2::of_size(2*n,1));
-      nt2::table<double>      rwork(nt2::of_size(2*n,1));
+      nt2::container::table<std::complex<result_type> > work(nt2::of_size(2*n,1));
+      nt2::container::table<double>      rwork(nt2::of_size(2*n,1));
 
       NT2_F77NAME(zgecon) ( &a1, &n, a0.raw(), &ld, &a2, &rcond , work.raw()
                           , rwork.raw(), &info
@@ -151,8 +151,8 @@ namespace nt2 { namespace ext
       nt2_la_int ld = n;
       nt2_la_int info;
 
-      nt2::table<std::complex<result_type> > work(nt2::of_size(2*n,1));
-      nt2::table<float>  rwork(nt2::of_size(2*n,1));
+      nt2::container::table<std::complex<result_type> > work(nt2::of_size(2*n,1));
+      nt2::container::table<float>  rwork(nt2::of_size(2*n,1));
 
       NT2_F77NAME(cgecon) ( &a1, &n, a0.raw(), &ld, &a2, &rcond , work.raw()
                           , rwork.raw(), &info

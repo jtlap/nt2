@@ -19,9 +19,7 @@
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
 
-#include <nt2/table.hpp>
-
-#include <iostream>
+#include <nt2/core/container/table/table.hpp>
 
 extern "C"
 {
@@ -101,17 +99,17 @@ namespace nt2 { namespace ext
         char trans = 'N';
         char equed = 'N';
 
-        nt2::table<T> af(nt2::of_size(n,n));
+        nt2::container::table<T> af(nt2::of_size(n,n));
 
-        nt2::table<T> r(nt2::of_size(n,1));
-        nt2::table<T> c(nt2::of_size(n,1));
-        nt2::table<T> ferr(nt2::of_size(nhrs,1));
-        nt2::table<T> berr(nt2::of_size(nhrs,1));
+        nt2::container::table<T> r(nt2::of_size(n,1));
+        nt2::container::table<T> c(nt2::of_size(n,1));
+        nt2::container::table<T> ferr(nt2::of_size(nhrs,1));
+        nt2::container::table<T> berr(nt2::of_size(nhrs,1));
         details::workspace<typename A2::value_type> work;
         work.resize_main(4*n);
 
-        nt2::table<nt2_la_int> ipiv(nt2::of_size(n,1));
-        nt2::table<nt2_la_int> iwork(nt2::of_size(n,1));
+        nt2::container::table<nt2_la_int> ipiv(nt2::of_size(n,1));
+        nt2::container::table<nt2_la_int> iwork(nt2::of_size(n,1));
 
         NT2_F77NAME(sgesvx)( &fact       , &trans
                            , &n          , &nhrs
@@ -150,17 +148,17 @@ namespace nt2 { namespace ext
         char trans = 'N';
         char equed = 'N';
 
-        nt2::table<T> af(nt2::of_size(n,n));
+        nt2::container::table<T> af(nt2::of_size(n,n));
 
-        nt2::table<T> r(nt2::of_size(n,1));
-        nt2::table<T> c(nt2::of_size(n,1));
-        nt2::table<T> ferr(nt2::of_size(nhrs,1));
-        nt2::table<T> berr(nt2::of_size(nhrs,1));
+        nt2::container::table<T> r(nt2::of_size(n,1));
+        nt2::container::table<T> c(nt2::of_size(n,1));
+        nt2::container::table<T> ferr(nt2::of_size(nhrs,1));
+        nt2::container::table<T> berr(nt2::of_size(nhrs,1));
         details::workspace<typename A2::value_type> work;
         work.resize_main(4*n);
 
-        nt2::table<nt2_la_int> ipiv(nt2::of_size(n,1));
-        nt2::table<nt2_la_int> iwork(nt2::of_size(n,1));
+        nt2::container::table<nt2_la_int> ipiv(nt2::of_size(n,1));
+        nt2::container::table<nt2_la_int> iwork(nt2::of_size(n,1));
 
         NT2_F77NAME(dgesvx)( &fact       , &trans
                            , &n          , &nhrs
@@ -200,17 +198,17 @@ namespace nt2 { namespace ext
         char trans = 'N';
         char equed = 'N';
 
-        nt2::table<std::complex<T> > af(nt2::of_size(n,n));
+        nt2::container::table<std::complex<T> > af(nt2::of_size(n,n));
 
-        nt2::table<T> r(nt2::of_size(n,1));
-        nt2::table<T> c(nt2::of_size(n,1));
-        nt2::table<T> ferr(nt2::of_size(nhrs,1));
-        nt2::table<T> berr(nt2::of_size(nhrs,1));
-        nt2::table<T> rwork(nt2::of_size(2*n,1));
+        nt2::container::table<T> r(nt2::of_size(n,1));
+        nt2::container::table<T> c(nt2::of_size(n,1));
+        nt2::container::table<T> ferr(nt2::of_size(nhrs,1));
+        nt2::container::table<T> berr(nt2::of_size(nhrs,1));
+        nt2::container::table<T> rwork(nt2::of_size(2*n,1));
         details::workspace<typename A2::value_type> work;
         work.resize_main(2*n);
 
-        nt2::table<nt2_la_int> ipiv(nt2::of_size(n,1));
+        nt2::container::table<nt2_la_int> ipiv(nt2::of_size(n,1));
 
 
         NT2_F77NAME(cgesvx)( &fact       , &trans
@@ -251,18 +249,18 @@ namespace nt2 { namespace ext
         char trans = 'N';
         char equed = 'N';
 
-        nt2::table<std::complex<T> > af(nt2::of_size(n,n));
+        nt2::container::table<std::complex<T> > af(nt2::of_size(n,n));
 
-        nt2::table<T> r(nt2::of_size(n,1));
-        nt2::table<T> c(nt2::of_size(n,1));
-        nt2::table<T> ferr(nt2::of_size(nhrs,1));
-        nt2::table<T> berr(nt2::of_size(nhrs,1));
-        nt2::table<T> rwork(nt2::of_size(2*n,1));
+        nt2::container::table<T> r(nt2::of_size(n,1));
+        nt2::container::table<T> c(nt2::of_size(n,1));
+        nt2::container::table<T> ferr(nt2::of_size(nhrs,1));
+        nt2::container::table<T> berr(nt2::of_size(nhrs,1));
+        nt2::container::table<T> rwork(nt2::of_size(2*n,1));
 
         details::workspace<typename A2::value_type> work;
         work.resize_main(2*n);
 
-        nt2::table<nt2_la_int> ipiv(nt2::of_size(n,1));
+        nt2::container::table<nt2_la_int> ipiv(nt2::of_size(n,1));
 
         NT2_F77NAME(zgesvx)( &fact       , &trans
                            , &n          , &nhrs

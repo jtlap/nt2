@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_DETAILS_EXTRACT_QR_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_DETAILS_EXTRACT_QR_HPP_INCLUDED
 
-#include <nt2/table.hpp>
+#include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/expand.hpp>
 #include <nt2/include/functions/width.hpp>
