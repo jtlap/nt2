@@ -38,12 +38,11 @@ namespace nt2
     template<typename Worker>
     void operator()(Worker & w, std::size_t begin, std::size_t size, std::size_t grain)
     {
-      std::size_t nblocks  = size/grain;
-      std::size_t ibound   = nblocks * grain;
       std::size_t leftover = size % grain;
+      std::size_t nblocks  = size/grain;
 
       std::vector< hpx::lcos::unique_future<void> > barrier;
-      barrier.reserve(nblocks+1);
+      barrier.reserve(nblocks);
 
 #ifndef BOOST_NO_EXCEPTIONS
       boost::exception_ptr exception;
@@ -56,11 +55,11 @@ namespace nt2
 
       for(std::size_t n=0;n<nblocks;++n)
       {
-         // Call operation
-         barrier.push_back ( hpx::async(w, begin+n*grain, grain) );
-      }
+         std::size_t chunk = (n<nblocks-1) ? grain : grain+leftover;
 
-      if(leftover) barrier.push_back ( hpx::async(w, begin+ibound,leftover) );
+         // Call operation
+         barrier.push_back ( hpx::async(w, begin+n*grain, chunk) );
+      }
 
       hpx::lcos::wait(barrier);
 
