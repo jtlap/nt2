@@ -26,6 +26,8 @@
 #include <nt2/include/functions/simd/is_ltz.hpp>
 #include <nt2/include/functions/simd/logical_or.hpp>
 #include <nt2/polynomials/functions/scalar/impl/horner.hpp>
+#include <nt2/exponential/functions/scalar/impl/logs/f_kernel.hpp>
+
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/mhalf.hpp>
 #include <nt2/include/constants/inf.hpp>
@@ -37,7 +39,6 @@
 #include <nt2/include/constants/log10_elo.hpp>
 #include <nt2/include/constants/log10_2hi.hpp>
 #include <nt2/include/constants/log10_2lo.hpp>
-#include <nt2/include/constants/sqrt_2o_2.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
 #include <boost/simd/sdk/config.hpp>
 #include <boost/typeof/typeof.hpp>
@@ -64,8 +65,7 @@
   //
   // in this approximation one can choose a best approximation rational function given by remez algorithm.
   // there exist a classical solution which is a polynomial p8 one of degree 8 that gives 0.5ulps everywhere
-  // the classical compution being to consider p8 = xp3_1(x*x)+p4_2(x*x) this can be a gain of 2 cycles on the pipeline
-  // this is what is done in the log impl;
+  // this is what is done in the kernel_t::log impl;
   // Now,  it is possible to choose a rational fraction or a polynomial of lesser degree to approximate g
   // providing faster but less accurate logs.
   // 2) computing log?(2^e)
@@ -83,39 +83,10 @@ namespace nt2 { namespace details
   template < class A0 >
   struct logarithm< A0, tag::simd_type, float>
   {
-    typedef typename meta::as_logical<A0>::type              lA0;
-    typedef typename meta::as_integer<A0, signed>::type int_type;
-    typedef typename meta::scalar_of<A0>::type               sA0;
-    static inline void kernel_log(const A0& a0,
-                                  A0& fe,
-                                  A0& x,
-                                  A0& x2,
-                                  A0& y)
-    {
-      int_type e;
-      nt2::fast_frexp(a0, x, e);
-      lA0 xltsqrthf = lt(x, Sqrt_2o_2<A0>());
-      fe = seladd(xltsqrthf, nt2::tofloat(e), Mone<A0>());
-      x =  minusone(seladd(xltsqrthf, x, x));
-      x2 = sqr(x);
-      // polynom degree 7:  7.8  cycles/value // 0.5 ulp max for non denormal [1.17546e-38,  3.40282e+38]
-      // 2130706656 values computed.
-      // 2127648316 values (99.86%)  within 0.0 ULPs
-      //    3058340 values (0.14%)   within 0.5 ULPs
-      // the finalization (managing a0 < 0) takes 1.5 ulp
-      y =  horner< NT2_HORNER_COEFF_T( sA0
-                                     , 8
-                                     , (0xbda5dff0, //     -8.0993533e-02
-                                        0x3e0229f9, //      1.2711324e-01
-                                        0xbe04d6b7, //     -1.2972532e-01
-                                        0x3e116e80, //      1.4202309e-01
-                                        0xbe2a6aa0, //     -1.6642237e-01
-                                        0x3e4cd0a3, //      2.0001464e-01
-                                        0xbe800064, //     -2.5000298e-01
-                                        0x3eaaaaa9  //      3.3333328e-01
-                                       )
-                                      )>(x)*x*x2;
-    }
+    typedef typename meta::as_logical<A0>::type                 lA0;
+    typedef typename meta::as_integer<A0, signed>::type    int_type;
+    typedef typename meta::scalar_of<A0>::type                  sA0;
+    typedef kernel<A0, tag::not_simd_type, float>          kernel_t;
 
     static inline A0 log(const A0& a0)
     {
@@ -126,7 +97,7 @@ namespace nt2 { namespace details
       // log(a0) = fe*Log_2hi+ (0.5f*x*x +(fe*Log_2lo+y))
       // These operations are order dependent: the parentheses do matter
       A0 x, fe, x2, y;
-      kernel_log(a0, fe, x, x2, y);
+      kernel_t::log(a0, fe, x, x2, y);
       y = nt2::fma(fe, Log_2lo<A0>(), y);
       y = nt2::fma(Mhalf<A0>(), x2, y);
       return finalize(a0,  nt2::fma(Log_2hi<A0>(), fe, x+y));
@@ -138,9 +109,8 @@ namespace nt2 { namespace details
       //log2(a0) = ((l2em1*x+(l2em1*(y+x*x/2)))+(y+x*x/2)))+x+fe for best results
       // once again the order is very important.
       A0 x, fe, x2, y;
-      kernel_log(a0, fe, x, x2, y);
+      kernel_t::log(a0, fe, x, x2, y);
       y =  nt2::fma(Mhalf<A0>(),x2, y);
-      // multiply log of fraction by log2(e)
       A0 z = nt2::fma(x,Log2_em1<A0>(),y*Log2_em1<A0>());
       return finalize(a0, ((z+y)+x)+fe);
     }
@@ -150,7 +120,7 @@ namespace nt2 { namespace details
       // here there are two multiplication:  log of fraction by log10(e) and base 2 exponent by log10(2)
       // and we have to split log10(e) and log10(2) in two parts to get extra precision when needed
       A0 x, fe, x2, y;
-      kernel_log(a0, fe, x, x2, y);
+      kernel_t::log(a0, fe, x, x2, y);
       y =  nt2::amul(y, Mhalf<A0>(), x2);
       A0 z = mul(x+y, Log10_elo<A0>());
       z = nt2::amul(z, y, Log10_ehi<A0>());
