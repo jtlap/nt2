@@ -11,6 +11,8 @@ SET( SOURCES
       mtimes.cpp
       aliased_mtimes.cpp
       transatimesb.cpp
+      rbenchsv.cpp
+      rbench.cpp
    )
 
 nt2_module_add_tests(core.linalg.general.bench ${SOURCES})
