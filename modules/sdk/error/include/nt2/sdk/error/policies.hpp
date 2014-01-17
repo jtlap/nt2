@@ -18,6 +18,7 @@ namespace nt2
                 , boost::math::policies::pole_error<boost::math::policies::errno_on_error>
                 , boost::math::policies::overflow_error<boost::math::policies::errno_on_error>
                 , boost::math::policies::evaluation_error<boost::math::policies::errno_on_error>
+                , boost::math::policies::rounding_error<boost::math::policies::errno_on_error>
                 > nt2_policy;
 }
 
