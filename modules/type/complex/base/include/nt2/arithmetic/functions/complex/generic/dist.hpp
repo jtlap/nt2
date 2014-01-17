@@ -81,9 +81,8 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::dist_, tag::cpu_, (A0)(A1)
-                            ,  (generic_< complex_< arithmetic_<A0> > >)
-                               (generic_< arithmetic_<A1> >)
-
+                            , (generic_< complex_< arithmetic_<A0> > >)
+                              (generic_< arithmetic_<A1> >)
                             )
   {
     typedef typename meta::as_real<A0>::type result_type;
@@ -92,7 +91,6 @@ namespace nt2 { namespace ext
       return nt2::abs(nt2::minus(a0, a1));
     }
   };
-
 } }
 
 #endif

@@ -14,34 +14,38 @@
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
-#include <nt2/sdk/complex/meta/as_dry.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ulpdist_, tag::cpu_, (A0)
-                            , (generic_< complex_< arithmetic_<A0> > >)
-                              (generic_< complex_< arithmetic_<A0> > >)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ulpdist_, tag::cpu_
+                            , (A0)
+                            , (generic_< complex_< floating_<A0> > >)
+                              (generic_< complex_< floating_<A0> > >)
                             )
   {
     typedef typename meta::as_real<A0>::type result_type;
-    NT2_FUNCTOR_CALL_REPEAT(2)
+
+    BOOST_FORCEINLINE NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return nt2::max(ulpdist(nt2::real(a0), nt2::real(a1)),ulpdist(nt2::imag(a0), nt2::imag(a1)));
+      return nt2::max ( nt2::ulpdist(nt2::real(a0), nt2::real(a1))
+                      , nt2::ulpdist(nt2::imag(a0), nt2::imag(a1))
+                      );
     }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ulpdist_, tag::cpu_, (A0)
-                            , (generic_< dry_< arithmetic_<A0> > >)
-                              (generic_< dry_< arithmetic_<A0> > >)
+                            , (generic_< dry_< floating_<A0> > >)
+                              (generic_< dry_< floating_<A0> > >)
                             )
   {
     typedef typename meta::as_real<A0>::type result_type;
-    NT2_FUNCTOR_CALL_REPEAT(2)
+
+    BOOST_FORCEINLINE NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return ulpdist(nt2::real(a0), nt2::real(a1));
+      return nt2::ulpdist(nt2::real(a0), nt2::real(a1));
     }
   };
-
 } }
 
 #endif

@@ -7,12 +7,13 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <boost/simd/ieee/include/functions/ulpdist.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
 
 #include <boost/dispatch/functor/meta/call.hpp>
+
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/module.hpp>
+
 #include <boost/simd/sdk/config.hpp>
 
 #include <boost/simd/include/constants/mone.hpp>
@@ -21,55 +22,104 @@
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/nan.hpp>
+#include <boost/simd/include/constants/eps.hpp>
 
 NT2_TEST_CASE_TPL ( ulpdist_real,  BOOST_SIMD_REAL_TYPES)
 {
   using boost::simd::ulpdist;
   using boost::simd::tag::ulpdist_;
-  typedef typename boost::dispatch::meta::call<ulpdist_(T,T)>::type r_t;
-  typedef T wished_r_t;
 
-  // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
+  NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<ulpdist_(T,T)>::type
+                  , T
+                  );
 
-  // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
-  NT2_TEST_EQUAL(ulpdist(boost::simd::Inf<T>(), boost::simd::Inf<T>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(ulpdist(boost::simd::Minf<T>(), boost::simd::Minf<T>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(ulpdist(boost::simd::Nan<T>(), boost::simd::Nan<T>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(ulpdist(boost::simd::Inf<T>(), boost::simd::Inf<T>()), boost::simd::Zero<T>());
+  NT2_TEST_EQUAL(ulpdist(boost::simd::Minf<T>(), boost::simd::Minf<T>()), boost::simd::Zero<T>());
+  NT2_TEST_EQUAL(ulpdist(boost::simd::Nan<T>(), boost::simd::Nan<T>()), boost::simd::Zero<T>());
 #endif
-  NT2_TEST_EQUAL(ulpdist(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(ulpdist(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(ulpdist(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
+
+  NT2_TEST_EQUAL(ulpdist(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::Zero<T>());
+  NT2_TEST_EQUAL(ulpdist(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::Zero<T>());
+  NT2_TEST_EQUAL(ulpdist(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<T>());
+
+  NT2_TEST_EQUAL( ulpdist(boost::simd::One<T>(), boost::simd::One<T>()+boost::simd::Eps<T>())
+                , T(0.5)
+                );
+
+  NT2_TEST_EQUAL( ulpdist(boost::simd::One<T>(), boost::simd::One<T>()-boost::simd::Eps<T>())
+                , T(0.5)
+                );
+
+  NT2_TEST_EQUAL( ulpdist(boost::simd::One<T>(), boost::simd::One<T>()-boost::simd::Eps<T>()/2)
+                , T(0.25)
+                );
 }
 
-NT2_TEST_CASE_TPL ( ulpdist_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( ulpdist_signed_integral,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::ulpdist;
   using boost::simd::tag::ulpdist_;
-  typedef typename boost::dispatch::meta::call<ulpdist_(T,T)>::type r_t;
-  typedef T wished_r_t;
 
-  // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
+  NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<ulpdist_(T,T)>::type
+                  , T
+                  );
 
-  // specific values tests
-  NT2_TEST_EQUAL(ulpdist(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(ulpdist(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(ulpdist(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::Zero<T>());
+  NT2_TEST_EQUAL(ulpdist(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::Zero<T>());
+  NT2_TEST_EQUAL(ulpdist(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<T>());
+
+  NT2_TEST_EQUAL( ulpdist(boost::simd::Zero<T>(), boost::simd::Valmin<T>())
+                , boost::simd::Valmax<T>()
+                );
+
+  NT2_TEST_EQUAL( ulpdist(boost::simd::Valmin<T>(), boost::simd::Zero<T>())
+                , boost::simd::Valmax<T>()
+                );
+
+  NT2_TEST_EQUAL( ulpdist(boost::simd::Zero<T>(), boost::simd::Valmax<T>())
+                , boost::simd::Valmax<T>()
+                );
+
+  NT2_TEST_EQUAL( ulpdist(boost::simd::Valmax<T>(), boost::simd::Zero<T>())
+                , boost::simd::Valmax<T>()
+                );
+
+  NT2_TEST_EQUAL( ulpdist(boost::simd::Valmin<T>(), boost::simd::Valmax<T>())
+                , boost::simd::Valmax<T>()
+                );
 }
 
-NT2_TEST_CASE_TPL ( ulpdist_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( ulpdist_unsigned_integral,  BOOST_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::ulpdist;
   using boost::simd::tag::ulpdist_;
-  typedef typename boost::dispatch::meta::call<ulpdist_(T,T)>::type r_t;
-  typedef T wished_r_t;
 
-  // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
+  NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<ulpdist_(T,T)>::type
+                  , T
+                  );
 
-  // specific values tests
-  NT2_TEST_EQUAL(ulpdist(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(ulpdist(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(ulpdist(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(ulpdist(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::Zero<T>());
+  NT2_TEST_EQUAL(ulpdist(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::Zero<T>());
+  NT2_TEST_EQUAL(ulpdist(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<T>());
+
+  NT2_TEST_EQUAL( ulpdist(boost::simd::Zero<T>(), boost::simd::Valmin<T>())
+                , boost::simd::Zero<T>()
+                );
+
+  NT2_TEST_EQUAL( ulpdist(boost::simd::Valmin<T>(), boost::simd::Zero<T>())
+                , boost::simd::Zero<T>()
+                );
+
+  NT2_TEST_EQUAL( ulpdist(boost::simd::Zero<T>(), boost::simd::Valmax<T>())
+                , boost::simd::Valmax<T>()
+                );
+
+  NT2_TEST_EQUAL( ulpdist(boost::simd::Valmax<T>(), boost::simd::Zero<T>())
+                , boost::simd::Valmax<T>()
+                );
+
+  NT2_TEST_EQUAL( ulpdist(boost::simd::Valmin<T>(), boost::simd::Valmax<T>())
+                , boost::simd::Valmax<T>()
+                );
 }
