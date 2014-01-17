@@ -13,7 +13,7 @@
 #include <nt2/sdk/bench/protocol/max_duration.hpp>
 #include <nt2/sdk/bench/metric/absolute_time.hpp>
 #include <nt2/sdk/bench/setup/geometric.hpp>
-#include <nt2/sdk/bench/stat/median.hpp>
+#include <nt2/sdk/bench/stats/median.hpp>
 #include <nt2/signal/static_fft.hpp>
 #include "common_fft.hpp"
 
@@ -39,8 +39,8 @@ NT2_REGISTER_BENCHMARK( fft_forward )
                                             , constants::maximum_dft_size
                                             , 2
                                             )
-                                , cycles_per_element<stat::median_>()
-                                , absolute_time<stat::median_>()
+                                , cycles_per_element<stats::median_>()
+                                , absolute_time<stats::median_>()
                                 );
 }
 
@@ -64,8 +64,8 @@ NT2_REGISTER_BENCHMARK( fft_inverse )
                                             , constants::maximum_dft_size
                                             , 2
                                             )
-                                , cycles_per_element<stat::median_>()
-                                , absolute_time<stat::median_>()
+                                , cycles_per_element<stats::median_>()
+                                , absolute_time<stats::median_>()
                                 );
 }
 
@@ -93,8 +93,8 @@ NT2_REGISTER_BENCHMARK( fft_real_forward )
                                                   , constants::maximum_dft_size
                                                   , 2
                                                   )
-                                      , cycles_per_element<stat::median_>()
-                                      , absolute_time<stat::median_>()
+                                      , cycles_per_element<stats::median_>()
+                                      , absolute_time<stats::median_>()
                                       );
 }
 
@@ -122,8 +122,8 @@ NT2_REGISTER_BENCHMARK( fft_real_inverse )
                                                   , constants::maximum_dft_size
                                                   , 2
                                                   )
-                                      , cycles_per_element<stat::median_>()
-                                      , absolute_time<stat::median_>()
+                                      , cycles_per_element<stats::median_>()
+                                      , absolute_time<stats::median_>()
                                       );
 }
 
@@ -161,8 +161,8 @@ NT2_REGISTER_BENCHMARK( apple_fft_forward )
                                                 , constants::maximum_dft_size
                                                 , 2
                                                 )
-                                    , cycles_per_element<stat::median_>()
-                                    , absolute_time<stat::median_>()
+                                    , cycles_per_element<stats::median_>()
+                                    , absolute_time<stats::median_>()
                                     );
 
   ::vDSP_destroy_fftsetup( fft_instance_ );
@@ -178,8 +178,8 @@ NT2_REGISTER_BENCHMARK( apple_fft_inverse )
                                                 , constants::maximum_dft_size
                                                 , 2
                                                 )
-                                    , cycles_per_element<stat::median_>()
-                                    , absolute_time<stat::median_>()
+                                    , cycles_per_element<stats::median_>()
+                                    , absolute_time<stats::median_>()
                                     );
 
   ::vDSP_destroy_fftsetup( fft_instance_ );
@@ -213,8 +213,8 @@ NT2_REGISTER_BENCHMARK( apple_fft_real_forward )
                                                         , constants::maximum_dft_size
                                                         , 2
                                                         )
-                                            , cycles_per_element<stat::median_>()
-                                            , absolute_time<stat::median_>()
+                                            , cycles_per_element<stats::median_>()
+                                            , absolute_time<stats::median_>()
                                             );
 
   ::vDSP_destroy_fftsetup( fft_instance_ );
@@ -248,8 +248,8 @@ NT2_REGISTER_BENCHMARK( apple_fft_real_inverse )
                                                         , constants::maximum_dft_size
                                                         , 2
                                                         )
-                                            , cycles_per_element<stat::median_>()
-                                            , absolute_time<stat::median_>()
+                                            , cycles_per_element<stats::median_>()
+                                            , absolute_time<stats::median_>()
                                             );
 
   ::vDSP_destroy_fftsetup( fft_instance_ );

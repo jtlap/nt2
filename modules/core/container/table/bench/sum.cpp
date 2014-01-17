@@ -14,7 +14,7 @@
 #include <nt2/sdk/bench/setup/arithmetic.hpp>
 #include <nt2/sdk/bench/setup/geometric.hpp>
 #include <nt2/sdk/bench/protocol/max_duration.hpp>
-#include <nt2/sdk/bench/stat/median.hpp>
+#include <nt2/sdk/bench/stats/median.hpp>
 
 #include <nt2/include/functions/sum.hpp>
 #include <nt2/table.hpp>
@@ -75,6 +75,6 @@ NT2_REGISTER_BENCHMARK_TPL( table_sum, (float)(double) )
                                     , repeat( arithmetic(1,2)
                                             , geometric(mn,mx,s)
                                             )
-                                    , cycles_per_element<stat::median_>()
+                                    , cycles_per_element<stats::median_>()
                                     );
 }

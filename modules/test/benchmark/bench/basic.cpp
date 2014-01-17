@@ -18,10 +18,10 @@
 
 #include <nt2/sdk/bench/setup/arithmetic.hpp>
 
-#include <nt2/sdk/bench/stat/average.hpp>
-#include <nt2/sdk/bench/stat/median.hpp>
-#include <nt2/sdk/bench/stat/min.hpp>
-#include <nt2/sdk/bench/stat/max.hpp>
+#include <nt2/sdk/bench/stats/average.hpp>
+#include <nt2/sdk/bench/stats/median.hpp>
+#include <nt2/sdk/bench/stats/min.hpp>
+#include <nt2/sdk/bench/stats/max.hpp>
 #include <cmath>
 
 using namespace nt2::bench;
@@ -35,15 +35,15 @@ struct some_task : experiment
 
 NT2_REGISTER_BENCHMARK( duration )
 {
-  run_during<some_task>( 3., absolute_time<stat::median_>() );
+  run_during<some_task>( 3., absolute_time<stats::median_>() );
 }
 
 NT2_REGISTER_BENCHMARK( iteration )
 {
-  run_over<some_task>( 1, absolute_time<stat::median_>() );
-  run_over<some_task>( 2, absolute_time<stat::median_>() );
-  run_over<some_task>( 3, absolute_time<stat::median_>() );
-  run_over<some_task>( 5, absolute_time<stat::median_>() );
+  run_over<some_task>( 1, absolute_time<stats::median_>() );
+  run_over<some_task>( 2, absolute_time<stats::median_>() );
+  run_over<some_task>( 3, absolute_time<stats::median_>() );
+  run_over<some_task>( 5, absolute_time<stats::median_>() );
 }
 
 // can even be template functor
@@ -58,10 +58,10 @@ template<typename T> struct init_data : experiment
 NT2_REGISTER_BENCHMARK_TPL( templates, (int)(short) )
 {
   run_during< init_data<T> >( 3.
-                            , absolute_time<stat::min_>()
-                            , absolute_time<stat::average_>()
-                            , absolute_time<stat::median_>()
-                            , absolute_time<stat::max_>()
+                            , absolute_time<stats::min_>()
+                            , absolute_time<stats::average_>()
+                            , absolute_time<stats::median_>()
+                            , absolute_time<stats::max_>()
                             );
 }
 
@@ -99,6 +99,6 @@ NT2_REGISTER_BENCHMARK_TPL( stateful, (double)(float) )
                                                     , args("max",1000)
                                                     , args("step",50)
                                                     )
-                                        , cycles_per_element<stat::median_>()
+                                        , cycles_per_element<stats::median_>()
                                         );
 }

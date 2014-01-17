@@ -20,10 +20,10 @@
 #include <nt2/sdk/bench/setup/combination.hpp>
 #include <nt2/sdk/bench/setup/constant.hpp>
 
-#include <nt2/sdk/bench/stat/average.hpp>
-#include <nt2/sdk/bench/stat/median.hpp>
-#include <nt2/sdk/bench/stat/min.hpp>
-#include <nt2/sdk/bench/stat/max.hpp>
+#include <nt2/sdk/bench/stats/average.hpp>
+#include <nt2/sdk/bench/stats/median.hpp>
+#include <nt2/sdk/bench/stats/min.hpp>
+#include <nt2/sdk/bench/stats/max.hpp>
 
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/strip.hpp>
@@ -129,6 +129,6 @@ NT2_REGISTER_BENCHMARK_TPL( blackandscholes_simd, (float) )
 
   run_during_with< blackandscholes_simd<float> > ( 1.
                                           , geometric(size_min,size_max,size_step)
-                                          , cycles_per_element<stat::median_>()
+                                          , cycles_per_element<stats::median_>()
                                           );
 }

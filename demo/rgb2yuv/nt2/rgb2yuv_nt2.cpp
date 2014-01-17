@@ -19,10 +19,10 @@
 #include <nt2/sdk/bench/setup/geometric.hpp>
 #include <nt2/sdk/bench/setup/combination.hpp>
 
-#include <nt2/sdk/bench/stat/average.hpp>
-#include <nt2/sdk/bench/stat/median.hpp>
-#include <nt2/sdk/bench/stat/min.hpp>
-#include <nt2/sdk/bench/stat/max.hpp>
+#include <nt2/sdk/bench/stats/average.hpp>
+#include <nt2/sdk/bench/stats/median.hpp>
+#include <nt2/sdk/bench/stats/min.hpp>
+#include <nt2/sdk/bench/stats/max.hpp>
 
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <fstream>
@@ -97,6 +97,6 @@ NT2_REGISTER_BENCHMARK_TPL( rgb2yuv_nt2, (float) )
                                           , and_( geometric(hmin,hmax,hstep)
                                                 , geometric(wmin,wmax,wstep)
                                                 )
-                                          , cycles_per_element<stat::median_>()
+                                          , cycles_per_element<stats::median_>()
                                           );
 }

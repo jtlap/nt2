@@ -23,11 +23,12 @@
 #include <nt2/sdk/bench/metric/gb_per_second.hpp>
 #include <nt2/sdk/bench/protocol/max_duration.hpp>
 #include <nt2/sdk/bench/setup/fixed.hpp>
-#include <nt2/sdk/bench/stat/median.hpp>
-#include <nt2/sdk/bench/stat/min.hpp>
-#include <nt2/sdk/bench/stat/max.hpp>
+#include <nt2/sdk/bench/stats/median.hpp>
+#include <nt2/sdk/bench/stats/min.hpp>
+#include <nt2/sdk/bench/stats/max.hpp>
 
 using namespace nt2::bench;
+
 
 //==============================================================================
 // memcpy bandwidth benchmark
@@ -67,9 +68,9 @@ NT2_REGISTER_BENCHMARK_TPL( memcpy_bandwidth, BOOST_SIMD_SIMD_TYPES )
 
   run_during_with< memcpy_bandwidth<T> >( 3.
                                         , fixed(bytes)
-                                        , gb_per_second<stat::min_>(2)
-                                        , gb_per_second<stat::median_>(2)
-                                        , gb_per_second<stat::max_>(2)
+                                        , gb_per_second<stats::min_>(2)
+                                        , gb_per_second<stats::median_>(2)
+                                        , gb_per_second<stats::max_>(2)
                                         );
 }
 
@@ -114,9 +115,9 @@ NT2_REGISTER_BENCHMARK_TPL( C_bandwidth, BOOST_SIMD_SIMD_TYPES )
 
   run_during_with< C_bandwidth<T> > ( 3.
                                     , fixed(bytes)
-                                    , gb_per_second<stat::min_>(2)
-                                    , gb_per_second<stat::median_>(2)
-                                    , gb_per_second<stat::max_>(2)
+                                    , gb_per_second<stats::min_>(2)
+                                    , gb_per_second<stats::median_>(2)
+                                    , gb_per_second<stats::max_>(2)
                                     );
 }
 
@@ -168,9 +169,9 @@ NT2_REGISTER_BENCHMARK_TPL( aligned_simd_bandwidth, BOOST_SIMD_SIMD_TYPES )
 
   run_during_with< aligned_simd_bandwidth<T> >( 3.
                                               , fixed(bytes)
-                                              , gb_per_second<stat::min_>(2)
-                                              , gb_per_second<stat::median_>(2)
-                                              , gb_per_second<stat::max_>(2)
+                                              , gb_per_second<stats::min_>(2)
+                                              , gb_per_second<stats::median_>(2)
+                                              , gb_per_second<stats::max_>(2)
                                               );
 }
 
@@ -219,9 +220,9 @@ NT2_REGISTER_BENCHMARK_TPL( unaligned_simd_bandwidth, BOOST_SIMD_SIMD_TYPES )
 
   run_during_with< unaligned_simd_bandwidth<T> >( 3.
                                                 , fixed(bytes)
-                                                , gb_per_second<stat::min_>(2)
-                                                , gb_per_second<stat::median_>(2)
-                                                , gb_per_second<stat::max_>(2)
+                                                , gb_per_second<stats::min_>(2)
+                                                , gb_per_second<stats::median_>(2)
+                                                , gb_per_second<stats::max_>(2)
                                                 );
 }
 
@@ -270,8 +271,8 @@ NT2_REGISTER_BENCHMARK_TPL( non_temporal_simd_bandwidth, BOOST_SIMD_SIMD_TYPES )
 
   run_during_with< non_temporal_simd_bandwidth<T> > ( 3.
                                                     , fixed(bytes)
-                                                    , gb_per_second<stat::min_>(2)
-                                                    , gb_per_second<stat::median_>(2)
-                                                    , gb_per_second<stat::max_>(2)
+                                                    , gb_per_second<stats::min_>(2)
+                                                    , gb_per_second<stats::median_>(2)
+                                                    , gb_per_second<stats::max_>(2)
                                                     );
 }

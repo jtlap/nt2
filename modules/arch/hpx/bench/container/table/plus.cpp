@@ -15,7 +15,7 @@
 #include <nt2/sdk/bench/metric/speedup.hpp>
 #include <nt2/sdk/bench/setup/geometric.hpp>
 #include <nt2/sdk/bench/protocol/max_duration.hpp>
-#include <nt2/sdk/bench/stat/median.hpp>
+#include <nt2/sdk/bench/stats/median.hpp>
 
 #include <nt2/include/functions/plus.hpp>
 #include <nt2/table.hpp>
@@ -68,7 +68,7 @@ NT2_REGISTER_BENCHMARK_TPL( vector_plus, (float)(double) )
 
   run_during_with< vector_plus<T> >( 1.
                                     , geometric(mn,mx,s)
-                                    , cycles_per_element<stat::median_>()
+                                    , cycles_per_element<stats::median_>()
                                     );
 }
 
@@ -110,9 +110,9 @@ NT2_REGISTER_BENCHMARK_TPL( table_plus, (float)(double) )
 
   run_during_with< table_plus<T> >( 1.
                                   , geometric(mn,mx,s)
-                                  , cycles_per_element<stat::median_>()
+                                  , cycles_per_element<stats::median_>()
                                   , speedup < vector_plus<T>
-                                            , cycles_per_element<stat::median_>
+                                            , cycles_per_element<stats::median_>
                                             >()
                                   );
 }

@@ -9,8 +9,8 @@
 #ifndef NT2_SDK_BENCH_DETAILS_COMPUTE_STAT_HPP_INCLUDED
 #define NT2_SDK_BENCH_DETAILS_COMPUTE_STAT_HPP_INCLUDED
 
-#include <nt2/sdk/bench/stat/min.hpp>
-#include <nt2/sdk/bench/stat/max.hpp>
+#include <nt2/sdk/bench/stats/min.hpp>
+#include <nt2/sdk/bench/stats/max.hpp>
 
 namespace nt2 { namespace details
 {
@@ -20,14 +20,14 @@ namespace nt2 { namespace details
     typedef S type;
   };
 
-  template<> struct compute_state<bench::stat::min_>
+  template<> struct compute_state<bench::stats::min_>
   {
-    typedef bench::stat::max_ type;
+    typedef bench::stats::max_ type;
   };
 
-  template<> struct compute_state<bench::stat::max_>
+  template<> struct compute_state<bench::stats::max_>
   {
-    typedef bench::stat::min_ type;
+    typedef bench::stats::min_ type;
   };
 } }
 

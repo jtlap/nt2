@@ -20,10 +20,10 @@
 #include <nt2/sdk/bench/setup/combination.hpp>
 #include <nt2/sdk/bench/setup/constant.hpp>
 
-#include <nt2/sdk/bench/stat/average.hpp>
-#include <nt2/sdk/bench/stat/median.hpp>
-#include <nt2/sdk/bench/stat/min.hpp>
-#include <nt2/sdk/bench/stat/max.hpp>
+#include <nt2/sdk/bench/stats/average.hpp>
+#include <nt2/sdk/bench/stats/median.hpp>
+#include <nt2/sdk/bench/stats/min.hpp>
+#include <nt2/sdk/bench/stats/max.hpp>
 
 #include <boost/simd/sdk/simd/pack.hpp>
 
@@ -162,6 +162,6 @@ NT2_REGISTER_BENCHMARK( sigmadelta_simd )
                                                 , geometric(hmin,hmax,hstep)
                                                 , geometric(wmin,wmax,wstep)
                                                 )
-                                          , cycles_per_element<stat::median_>()
+                                          , cycles_per_element<stats::median_>()
                                           );
 }

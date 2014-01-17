@@ -20,10 +20,10 @@
 #include <nt2/sdk/bench/setup/constant.hpp>
 #include <nt2/sdk/bench/setup/combination.hpp>
 
-#include <nt2/sdk/bench/stat/average.hpp>
-#include <nt2/sdk/bench/stat/median.hpp>
-#include <nt2/sdk/bench/stat/min.hpp>
-#include <nt2/sdk/bench/stat/max.hpp>
+#include <nt2/sdk/bench/stats/average.hpp>
+#include <nt2/sdk/bench/stats/median.hpp>
+#include <nt2/sdk/bench/stats/min.hpp>
+#include <nt2/sdk/bench/stats/max.hpp>
 
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/table.hpp>
@@ -76,6 +76,6 @@ NT2_REGISTER_BENCHMARK_TPL( axpy_nt2, NT2_SIMD_REAL_TYPES )
                                 , and_( geometric(size_min,size_max,size_step)
                                       , constant(alpha)
                                       )
-                                , gflops<stat::median_>()
+                                , gflops<stats::median_>()
                                 );
 }

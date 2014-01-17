@@ -12,8 +12,8 @@
 #include <nt2/sdk/bench/metric/speedup.hpp>
 #include <nt2/sdk/bench/setup/fixed.hpp>
 #include <nt2/sdk/bench/protocol/max_duration.hpp>
-#include <nt2/sdk/bench/stat/median.hpp>
-#include <nt2/sdk/bench/stat/min.hpp>
+#include <nt2/sdk/bench/stats/median.hpp>
+#include <nt2/sdk/bench/stats/min.hpp>
 
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
@@ -64,7 +64,7 @@ NT2_REGISTER_BENCHMARK( raw_C )
   std::size_t n = args("size", 2e3);
 
   run_during_with<raw_C>( 3., fixed(n*n)
-                        , absolute_time<stat::median_>()
+                        , absolute_time<stats::median_>()
                         );
 }
 
@@ -110,9 +110,9 @@ NT2_REGISTER_BENCHMARK( per_element )
   std::size_t n = args("size", 2e3);
 
   run_during_with<per_element>( 3., fixed(n)
-                              , absolute_time<stat::median_>()
+                              , absolute_time<stats::median_>()
                               , speedup < raw_C
-                                        , absolute_time<stat::median_>
+                                        , absolute_time<stats::median_>
                                         >()
                               );
 }
@@ -152,9 +152,9 @@ NT2_REGISTER_BENCHMARK( per_table )
   std::size_t n = args("size", 2e3);
 
   run_during_with<per_table>( 3., fixed(n)
-                            , absolute_time<stat::median_>()
+                            , absolute_time<stats::median_>()
                             , speedup < raw_C
-                                      , absolute_time<stat::median_>
+                                      , absolute_time<stats::median_>
                                       >()
                             );
 }
@@ -198,9 +198,9 @@ NT2_REGISTER_BENCHMARK( per_column )
   std::size_t n = args("size", 2e3);
 
   run_during_with<per_column> ( 3., fixed(n)
-                              , absolute_time<stat::median_>()
+                              , absolute_time<stats::median_>()
                               , speedup < raw_C
-                                        , absolute_time<stat::median_>
+                                        , absolute_time<stats::median_>
                                         >()
                               );
 }

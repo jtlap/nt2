@@ -11,7 +11,7 @@
 #include <nt2/sdk/bench/metric/cycles_per_element.hpp>
 #include <nt2/sdk/bench/setup/geometric.hpp>
 #include <nt2/sdk/bench/protocol/max_duration.hpp>
-#include <nt2/sdk/bench/stat/median.hpp>
+#include <nt2/sdk/bench/stats/median.hpp>
 
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/norm.hpp>
@@ -55,6 +55,6 @@ NT2_REGISTER_BENCHMARK_TPL( norm_test, (float)(double) )
 
   run_during_with< norm_test<T> > ( 1.
                                   , geometric(m,n,s)
-                                  , cycles_per_element<stat::median_>()
+                                  , cycles_per_element<stats::median_>()
                                   );
 }

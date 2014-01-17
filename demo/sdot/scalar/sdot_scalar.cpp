@@ -18,10 +18,10 @@
 
 #include <nt2/sdk/bench/setup/geometric.hpp>
 
-#include <nt2/sdk/bench/stat/average.hpp>
-#include <nt2/sdk/bench/stat/median.hpp>
-#include <nt2/sdk/bench/stat/min.hpp>
-#include <nt2/sdk/bench/stat/max.hpp>
+#include <nt2/sdk/bench/stats/average.hpp>
+#include <nt2/sdk/bench/stats/median.hpp>
+#include <nt2/sdk/bench/stats/min.hpp>
+#include <nt2/sdk/bench/stats/max.hpp>
 
 #include <vector>
 
@@ -71,6 +71,6 @@ NT2_REGISTER_BENCHMARK_TPL( sdot_scalar, NT2_SIMD_REAL_TYPES )
 
   run_during_with< sdot_scalar<T> > ( 1.
                                         , geometric(size_min,size_max,size_step)
-                                        , gflops<stat::median_>()
+                                        , gflops<stats::median_>()
                                         );
 }

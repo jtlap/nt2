@@ -15,7 +15,7 @@
 #include <nt2/sdk/bench/details/process_functor.hpp>
 #include <nt2/sdk/bench/setup/combination.hpp>
 #include <nt2/sdk/bench/setup/fixed.hpp>
-#include <nt2/sdk/bench/stat/median.hpp>
+#include <nt2/sdk/bench/stats/median.hpp>
 #include <nt2/sdk/meta/type_id.hpp>
 
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
@@ -62,7 +62,7 @@ NT2_REGISTER_BENCHMARK_NAMED                                                   \
       ( nt2::bench::fixed(nt2::bench::args("samples",1024u))                   \
       , BOOST_PP_SEQ_FOR_EACH_I(NT2_TIMING_RANGE_ELEM,~,RANGE)                 \
       )                                                                        \
-    , nt2::bench::cycles_per_element<nt2::bench::stat::median_>()              \
+    , nt2::bench::cycles_per_element<nt2::bench::stats::median_>()              \
     );                                                                         \
 }                                                                              \
 /**/

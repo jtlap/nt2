@@ -14,7 +14,7 @@
 #include <nt2/sdk/bench/setup/constant.hpp>
 #include <nt2/sdk/bench/setup/combination.hpp>
 #include <nt2/sdk/bench/protocol/until.hpp>
-#include <nt2/sdk/bench/stat/median.hpp>
+#include <nt2/sdk/bench/stats/median.hpp>
 
 #include <nt2/linalg/details/blas/mm.hpp>
 #include <nt2/include/functions/of_size.hpp>
@@ -77,7 +77,7 @@ NT2_REGISTER_BENCHMARK_TPL( gemm_test, (float)(double) )
 
   run_until_with< gemm_test<T>  > ( d, i
                                   , geometric(m,n,s)
-                                  , absolute_time<stat::median_>()
+                                  , absolute_time<stats::median_>()
                                   );
 }
 
@@ -124,9 +124,9 @@ NT2_REGISTER_BENCHMARK_TPL( mtimes_test, (float)(double) )
 
   run_until_with< mtimes_test<T>  > ( d, i
                                     , geometric(m,n,s)
-                                    , absolute_time<stat::median_>()
+                                    , absolute_time<stats::median_>()
                                     , speedup < gemm_test<T>
-                                              , absolute_time<stat::median_>
+                                              , absolute_time<stats::median_>
                                               >()
                                     );
 }
