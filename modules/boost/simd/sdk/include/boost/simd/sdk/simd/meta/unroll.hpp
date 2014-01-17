@@ -9,12 +9,9 @@
 #ifndef BOOST_SIMD_SDK_SIMD_META_UNROLL_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_META_UNROLL_HPP_INCLUDED
 
-#include <boost/dispatch/attributes.hpp>
-
 ////////////////////////////////////////////////////////////////////////////////
 // Specializations for unroll (Duff's devices optimization)
 ////////////////////////////////////////////////////////////////////////////////
-
 
 namespace boost{ namespace simd{ namespace meta{
 
@@ -26,7 +23,7 @@ namespace boost{ namespace simd{ namespace meta{
   struct unroll<0>
   {
     template<class SimdInputIterator, class SimdOutputIterator, class UnOp>
-    BOOST_FORCEINLINE static void
+    inline static void
     apply( SimdInputIterator& in, SimdInputIterator const& end
          , SimdOutputIterator& out, UnOp f)
     {
@@ -35,7 +32,7 @@ namespace boost{ namespace simd{ namespace meta{
     }
 
     template<class SimdInputIterator, class SimdOutputIterator, class BinOp>
-    BOOST_FORCEINLINE static void
+    inline static void
     apply( SimdInputIterator& in1, SimdInputIterator& in2
          , SimdInputIterator const& end, SimdOutputIterator& out, BinOp f)
     {
@@ -49,7 +46,7 @@ namespace boost{ namespace simd{ namespace meta{
   struct unroll<2>
   {
     template<class SimdInputIterator, class SimdOutputIterator, class UnOp>
-    BOOST_FORCEINLINE static void
+    inline static void
     apply( SimdInputIterator& in, SimdInputIterator const& end
          , SimdOutputIterator& out, UnOp f)
     {
@@ -66,7 +63,7 @@ namespace boost{ namespace simd{ namespace meta{
     }
 
     template<class SimdInputIterator, class SimdOutputIterator, class BinOp>
-    BOOST_FORCEINLINE static void
+    inline static void
     apply( SimdInputIterator& in1, SimdInputIterator& in2
          , SimdInputIterator const& end, SimdOutputIterator& out, BinOp f)
     {
@@ -87,7 +84,7 @@ namespace boost{ namespace simd{ namespace meta{
   struct unroll<4>
   {
     template<class SimdInputIterator, class SimdOutputIterator, class UnOp>
-    BOOST_FORCEINLINE static void
+    inline static void
     apply( SimdInputIterator& in, SimdInputIterator const& end
          , SimdOutputIterator& out, UnOp f)
     {
@@ -106,7 +103,7 @@ namespace boost{ namespace simd{ namespace meta{
     }
 
     template<class SimdInputIterator, class SimdOutputIterator, class BinOp>
-    BOOST_FORCEINLINE static void
+    inline static void
     apply( SimdInputIterator& in1, SimdInputIterator& in2
          , SimdInputIterator const& end, SimdOutputIterator& out, BinOp f)
     {
@@ -130,7 +127,7 @@ namespace boost{ namespace simd{ namespace meta{
   struct unroll<8>
   {
     template<class SimdInputIterator, class SimdOutputIterator, class UnOp>
-    BOOST_FORCEINLINE static void
+    inline static void
     apply( SimdInputIterator& in, SimdInputIterator const& end
          , SimdOutputIterator& out, UnOp f)
     {
@@ -153,7 +150,7 @@ namespace boost{ namespace simd{ namespace meta{
     }
 
     template<class SimdInputIterator, class SimdOutputIterator, class BinOp>
-    BOOST_FORCEINLINE static void
+    inline static void
     apply( SimdInputIterator& in1, SimdInputIterator& in2
          , SimdInputIterator const& end, SimdOutputIterator& out, BinOp f)
     {
@@ -180,7 +177,7 @@ namespace boost{ namespace simd{ namespace meta{
   struct unroll<16>
   {
     template<class SimdInputIterator, class SimdOutputIterator, class UnOp>
-    BOOST_FORCEINLINE static void
+    inline static void
     apply( SimdInputIterator& in, SimdInputIterator const& end
          , SimdOutputIterator& out, UnOp f)
     {
@@ -211,7 +208,7 @@ namespace boost{ namespace simd{ namespace meta{
     }
 
     template<class SimdInputIterator, class SimdOutputIterator, class BinOp>
-    BOOST_FORCEINLINE static void
+    inline static void
     apply( SimdInputIterator& in1, SimdInputIterator& in2
          , SimdInputIterator const& end, SimdOutputIterator& out, BinOp f)
     {
