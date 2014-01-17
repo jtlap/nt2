@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2014 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -20,42 +21,42 @@
 #include <boost/simd/include/functions/simd/complement.hpp>
 #include <boost/simd/include/functions/simd/genmask.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
-#include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::adds_, tag::cpu_,
-                          (A0)(X),
-                          ((simd_<floating_<A0>,X>))
-                          ((simd_<floating_<A0>,X>))
-                         )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::adds_, tag::cpu_
+                                    , (A0)(X)
+                                    , ((simd_<floating_<A0>,X>))
+                                      ((simd_<floating_<A0>,X>))
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return a0+a1; }
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return a0+a1; }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::adds_, tag::cpu_,
-                          (A0)(X),
-                          ((simd_<uint_<A0>,X>))
-                          ((simd_<uint_<A0>,X>))
-                         )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::adds_, tag::cpu_
+                                    , (A0)(X)
+                                    , ((simd_<uint_<A0>,X>))
+                                      ((simd_<uint_<A0>,X>))
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 a0pa1 = a0+a1;
       return a0pa1 | genmask(a0pa1 < a0);
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::adds_, tag::cpu_,
-                          (A0)(X),
-                          ((simd_<int_<A0>,X>))
-                          ((simd_<int_<A0>,X>))
-                         )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::adds_, tag::cpu_
+                                    , (A0)(X)
+                                    , ((simd_<int_<A0>,X>))
+                                      ((simd_<int_<A0>,X>))
+                                    )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
@@ -67,7 +68,7 @@ namespace boost { namespace simd { namespace ext
       utype uy = bitwise_cast<utype>(a1);
       utype res = ux + uy;
 
-      ux = shrai(ux, sizeof(stype)*CHAR_BIT-1) + static_cast<typename meta::scalar_of<utype>::type>(Valmax<stype>());
+      ux = shift_right(ux, sizeof(stype)*CHAR_BIT-1) + static_cast<typename meta::scalar_of<utype>::type>(Valmax<stype>());
 
       return bitwise_cast<A0>(if_else(bitwise_cast<A0>((ux ^ uy) | ~(uy ^ res)) >=  Zero<A0>(), ux, res));
 

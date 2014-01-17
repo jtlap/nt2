@@ -18,6 +18,7 @@
 #include <boost/dispatch/meta/property_of.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 #include <boost/simd/constant/impl/constant_type.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 //==============================================================================
 // Forward all constant call to the SIMD version of themselves that splat
