@@ -43,6 +43,9 @@ namespace boost { namespace simd { namespace tag
     T r = (is_nan(a0) ? a1 : (isnan(a1) ? a0 : max(a0, a1));
     @endcode
 
+    @par Alias:
+    @c fmax
+
     @param a0
 
     @param a1
@@ -50,6 +53,7 @@ namespace boost { namespace simd { namespace tag
     @return a value of same type as the inputs
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::maxnum_, maxnum, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::maxnum_, fmax, 2)
 } }
 
 #endif
