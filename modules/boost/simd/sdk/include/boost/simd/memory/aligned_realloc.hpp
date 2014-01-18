@@ -39,7 +39,7 @@ namespace boost { namespace simd
 #else
   inline void* custom_realloc_fn(void* ptr, std::size_t sz)
   {
-    return std::realloc(sz);
+    return std::realloc(ptr,sz);
   }
 #endif
 
