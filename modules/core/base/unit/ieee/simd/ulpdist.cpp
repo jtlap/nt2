@@ -27,7 +27,7 @@
 #include <nt2/include/constants/valmin.hpp>
 #include <nt2/include/constants/valmax.hpp>
 
-NT2_TEST_CASE_TPL ( ulpdist_real,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( ulpdist_real,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using nt2::ulpdist;
   using nt2::tag::ulpdist_;
@@ -63,7 +63,7 @@ NT2_TEST_CASE_TPL ( ulpdist_real,  BOOST_SIMD_REAL_TYPES)
                 );
 }
 
-NT2_TEST_CASE_TPL ( ulpdist_signed_integral,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( ulpdist_signed_integral,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::ulpdist;
   using nt2::tag::ulpdist_;
@@ -101,7 +101,7 @@ NT2_TEST_CASE_TPL ( ulpdist_signed_integral,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
                 );
 }
 
-NT2_TEST_CASE_TPL ( ulpdist_unsigned_integral,  BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( ulpdist_unsigned_integral,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   using nt2::ulpdist;
   using nt2::tag::ulpdist_;
