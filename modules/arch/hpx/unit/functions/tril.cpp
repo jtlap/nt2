@@ -7,8 +7,6 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 
-#include <hpx/config.hpp>
-
 #include <nt2/table.hpp>
 #include <nt2/include/functions/tril.hpp>
 

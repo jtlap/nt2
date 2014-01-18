@@ -8,8 +8,6 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2::linspace function"
 
-#include <hpx/config.hpp>
-
 #include <nt2/table.hpp>
 #include <nt2/include/functions/linspace.hpp>
 #include <nt2/include/functions/predecessor.hpp>

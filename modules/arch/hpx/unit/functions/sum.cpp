@@ -8,8 +8,6 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2 function sum"
 
-#include <hpx/config.hpp>
-
 #include <nt2/table.hpp>
 #include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/of_size.hpp>
