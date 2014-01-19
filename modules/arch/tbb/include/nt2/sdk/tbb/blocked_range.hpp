@@ -58,7 +58,9 @@ public:
 
     //! True if range is divisible.
     /** Unspecified if end()<begin(). */
-    bool is_divisible() const {return my_grainsize<size();}
+    bool is_divisible() const {
+        return ( size() >= (2*my_grainsize) );
+    }
 
     //! Split range.
     /** The new Range *this has the second half, the old range r has the first half.
