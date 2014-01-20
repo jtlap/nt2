@@ -6,11 +6,11 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_KERNEL_F_LOG_HPP_INCLUDED
-#define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_KERNEL_F_LOG_HPP_INCLUDED
+#ifndef NT2_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_LOGS_F_KERNEL_HPP_INCLUDED
+#define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_LOGS_F_KERNEL_HPP_INCLUDED
 #include <nt2/sdk/meta/as_logical.hpp>
 #include <boost/simd/sdk/config.hpp>
-#include <nt2/include/functions/scalar/fast_frexp.hpp>
+#include <nt2/include/functions/simd/fast_frexp.hpp>
 #include <nt2/include/functions/simd/is_less.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/include/functions/simd/seladd.hpp>
