@@ -7,7 +7,7 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <nt2/include/functions/log.hpp>
-#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/smallestposval.hpp>
 #include <nt2/include/constants/valmax.hpp>
 
 #include <nt2/sdk/unit/exhaustive.hpp>
@@ -28,7 +28,7 @@ struct raw_log
 
 int main(int argc, char* argv[])
 {
-  float mini = nt2::Zero<float>();
+  float mini = nt2::Smallestposval<float>();
   float maxi = nt2::Valmax<float>();
   if(argc >= 2) mini = std::atof(argv[1]);
   if(argc >= 3) maxi = std::atof(argv[2]);

@@ -9,6 +9,8 @@
 
 SET(SOURCES
     log.cpp
+    log2.cpp
+    log10.cpp
     exp.cpp
    )
 
