@@ -10,17 +10,12 @@
 #define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_LOGS_F_LOG_HPP_INCLUDED
 
 #include <nt2/include/functions/scalar/sqr.hpp>
-#include <nt2/include/functions/scalar/is_nan.hpp>
 #include <nt2/include/functions/scalar/is_ltz.hpp>
 #include <nt2/include/functions/scalar/is_eqz.hpp>
 #include <nt2/include/functions/scalar/fma.hpp>
 #include <nt2/include/constants/nan.hpp>
-#include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/mhalf.hpp>
-#include <nt2/sdk/meta/as_logical.hpp>
-#include <boost/simd/sdk/config.hpp>
-#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/exponential/functions/scalar/impl/logs/f_kernel.hpp>
 
 #include <nt2/include/constants/log_2hi.hpp>
@@ -30,6 +25,17 @@
 #include <nt2/include/constants/log10_elo.hpp>
 #include <nt2/include/constants/log10_2hi.hpp>
 #include <nt2/include/constants/log10_2lo.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
+#include <boost/simd/sdk/config.hpp>
+
+#ifndef BOOST_SIMD_NO_NANS
+#include <nt2/include/functions/simd/is_nan.hpp>
+#endif
+#ifndef BOOST_SIMD_NO_INFINITIES
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/functions/simd/is_equal.hpp>
+#endif
 
 namespace nt2 { namespace details
 {
@@ -45,13 +51,14 @@ namespace nt2 { namespace details
   template < class A0 >
   struct logarithm< A0, tag::not_simd_type, float>
   {
-    typedef typename meta::as_logical<A0>::type                 lA0;
     typedef typename meta::as_integer<A0, signed>::type    int_type;
     typedef typename meta::scalar_of<A0>::type                  sA0;
     typedef kernel<A0, tag::not_simd_type, float>          kernel_t;
     static inline A0 log(const A0& a0)
     {
+#ifndef BOOST_SIMD_NO_INFINITIES
       if (a0 == nt2::Inf<A0>()) return a0;
+#endif
       if (nt2::is_eqz(a0)) return nt2::Minf<A0>();
 #ifdef BOOST_SIMD_NO_NANS
       if (nt2::is_ltz(a0)) return nt2::Nan<A0>();
@@ -67,7 +74,9 @@ namespace nt2 { namespace details
 
     static inline A0 log2(const A0& a0)
     {
+#ifndef BOOST_SIMD_NO_INFINITIES
       if (a0 == nt2::Inf<A0>()) return a0;
+#endif
       if (nt2::is_eqz(a0)) return nt2::Minf<A0>();
 #ifdef BOOST_SIMD_NO_NANS
       if (nt2::is_ltz(a0)) return nt2::Nan<A0>();
@@ -83,7 +92,9 @@ namespace nt2 { namespace details
 
     static inline A0 log10(const A0& a0)
     {
+#ifndef BOOST_SIMD_NO_INFINITIES
       if (a0 == nt2::Inf<A0>()) return a0;
+#endif
       if (nt2::is_eqz(a0)) return nt2::Minf<A0>();
 #ifdef BOOST_SIMD_NO_NANS
       if (nt2::is_ltz(a0)) return nt2::Nan<A0>();

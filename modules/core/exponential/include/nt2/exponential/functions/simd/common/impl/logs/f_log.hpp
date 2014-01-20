@@ -10,27 +10,17 @@
 #define NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_IMPL_LOGS_F_LOG_HPP_INCLUDED
 
 #include <nt2/include/functions/simd/sqr.hpp>
-#include <nt2/include/functions/simd/fast_frexp.hpp>
-#include <nt2/include/functions/simd/is_less.hpp>
-#include <nt2/include/functions/simd/seladd.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
-#include <nt2/include/functions/simd/minusone.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/plus.hpp>
 #include <nt2/include/functions/simd/fma.hpp>
 #include <nt2/include/functions/simd/is_eqz.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/simd/is_equal.hpp>
-#include <nt2/include/functions/simd/is_nan.hpp>
 #include <nt2/include/functions/simd/is_ltz.hpp>
 #include <nt2/include/functions/simd/logical_or.hpp>
-#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/exponential/functions/scalar/impl/logs/f_kernel.hpp>
 
-#include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/mhalf.hpp>
-#include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/log_2hi.hpp>
 #include <nt2/include/constants/log_2lo.hpp>
@@ -40,8 +30,17 @@
 #include <nt2/include/constants/log10_2hi.hpp>
 #include <nt2/include/constants/log10_2lo.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/config.hpp>
-#include <boost/typeof/typeof.hpp>
+
+#ifndef BOOST_SIMD_NO_NANS
+#include <nt2/include/functions/simd/is_nan.hpp>
+#endif
+#ifndef BOOST_SIMD_NO_INFINITIES
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/functions/simd/is_equal.hpp>
+#endif
 
   //////////////////////////////////////////////////////////////////////////////
   // how to compute the various logarithms
@@ -86,7 +85,7 @@ namespace nt2 { namespace details
     typedef typename meta::as_logical<A0>::type                 lA0;
     typedef typename meta::as_integer<A0, signed>::type    int_type;
     typedef typename meta::scalar_of<A0>::type                  sA0;
-    typedef kernel<A0, tag::not_simd_type, float>          kernel_t;
+    typedef kernel<A0, tag::simd_type, float>              kernel_t;
 
     static inline A0 log(const A0& a0)
     {
@@ -100,7 +99,7 @@ namespace nt2 { namespace details
       kernel_t::log(a0, fe, x, x2, y);
       y = nt2::fma(fe, Log_2lo<A0>(), y);
       y = nt2::fma(Mhalf<A0>(), x2, y);
-      return finalize(a0,  nt2::fma(Log_2hi<A0>(), fe, x+y));
+      return finalize(a0, nt2::fma(Log_2hi<A0>(), fe, x+y));
     }
 
     static inline A0 log2(const A0& a0)
