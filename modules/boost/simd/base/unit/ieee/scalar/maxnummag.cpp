@@ -18,6 +18,8 @@
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/mtwo.hpp>
+#include <boost/simd/include/constants/two.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/nan.hpp>
@@ -41,10 +43,16 @@ NT2_TEST_CASE_TPL ( maxnummag_real,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(maxnummag(boost::simd::One<T>(),boost::simd::Nan<T>()), boost::simd::One<r_t>());
 #endif
   NT2_TEST_EQUAL(maxnummag(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::Mone<r_t>());
-  NT2_TEST_EQUAL(maxnummag(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(maxnummag(boost::simd::One<T>(),  boost::simd::One<T>()),  boost::simd::One<r_t>());
   NT2_TEST_EQUAL(maxnummag(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(maxnummag(boost::simd::Mone<T>(), boost::simd::Zero<T>()), boost::simd::Mone<r_t>());
-  NT2_TEST_EQUAL(maxnummag(boost::simd::Mone<T>(), boost::simd::One<T>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(maxnummag(boost::simd::Mone<T>(), boost::simd::One <T>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(maxnummag(boost::simd::One <T>(), boost::simd::Mone<T>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(maxnummag(boost::simd::One <T>(), boost::simd::Two <T>()), boost::simd::Two<r_t>());
+  NT2_TEST_EQUAL(maxnummag(boost::simd::Two <T>(), boost::simd::One <T>()), boost::simd::Two<r_t>());
+  NT2_TEST_EQUAL(maxnummag(boost::simd::Mtwo<T>(), boost::simd::One <T>()), boost::simd::Mtwo<r_t>());
+  NT2_TEST_EQUAL(maxnummag(boost::simd::One <T>(), boost::simd::Mtwo<T>()), boost::simd::Mtwo<r_t>());
+  NT2_TEST_EQUAL(maxnummag(boost::simd::Two <T>(), boost::simd::Mone<T>()), boost::simd::Two<r_t>());
+  NT2_TEST_EQUAL(maxnummag(boost::simd::Mone<T>(), boost::simd::Two <T>()), boost::simd::Two<r_t>());
 }
 
 NT2_TEST_CASE_TPL ( maxnummag_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)

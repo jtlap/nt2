@@ -17,6 +17,8 @@
 
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/two.hpp>
+#include <boost/simd/include/constants/mtwo.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/minf.hpp>
@@ -33,13 +35,52 @@ NT2_TEST_CASE_TPL ( minnummag_real,  BOOST_SIMD_SIMD_REAL_TYPES)
 
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
-  NT2_TEST_EQUAL(minnummag(boost::simd::Inf<vT>(), boost::simd::Inf<vT>()), boost::simd::Inf<r_t>());
+  NT2_TEST_EQUAL(minnummag(boost::simd::Inf<vT>(),  boost::simd::Inf<vT>()), boost::simd::Inf<r_t>());
   NT2_TEST_EQUAL(minnummag(boost::simd::Minf<vT>(), boost::simd::Minf<vT>()), boost::simd::Minf<r_t>());
-  NT2_TEST_EQUAL(minnummag(boost::simd::Nan<vT>(), boost::simd::Nan<vT>()), boost::simd::Nan<r_t>());
-  NT2_TEST_EQUAL(minnummag(boost::simd::Nan<vT>(),boost::simd::One<vT>()), boost::simd::One<r_t>());
-  NT2_TEST_EQUAL(minnummag(boost::simd::One<vT>(),boost::simd::Nan<vT>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(minnummag(boost::simd::Nan<vT>(),  boost::simd::Nan<vT>()), boost::simd::Nan<r_t>());
+  NT2_TEST_EQUAL(minnummag(boost::simd::Nan<vT>(),  boost::simd::One<vT>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(minnummag(boost::simd::One<vT>(),  boost::simd::Nan<vT>()), boost::simd::One<r_t>());
 #endif
+  NT2_TEST_EQUAL(minnummag(boost::simd::Mone<vT>(), boost::simd::Mone<vT>()), boost::simd::Mone<r_t>());
+  NT2_TEST_EQUAL(minnummag(boost::simd::One<vT>(),  boost::simd::One<vT>()),  boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(minnummag(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(minnummag(boost::simd::Mone<vT>(), boost::simd::One <vT>()), boost::simd::Mone<r_t>());
+  NT2_TEST_EQUAL(minnummag(boost::simd::One <vT>(), boost::simd::Mone<vT>()), boost::simd::Mone<r_t>());
+  NT2_TEST_EQUAL(minnummag(boost::simd::One <vT>(), boost::simd::Two <vT>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(minnummag(boost::simd::Two <vT>(), boost::simd::One <vT>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(minnummag(boost::simd::Mtwo<vT>(), boost::simd::One <vT>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(minnummag(boost::simd::One <vT>(), boost::simd::Mtwo<vT>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(minnummag(boost::simd::Two <vT>(), boost::simd::Mone<vT>()), boost::simd::Mone<r_t>());
+  NT2_TEST_EQUAL(minnummag(boost::simd::Mone<vT>(), boost::simd::Two <vT>()), boost::simd::Mone<r_t>());
+}
+
+NT2_TEST_CASE_TPL ( minnummag_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
+{
+  using boost::simd::minnummag;
+  using boost::simd::tag::minnummag_;
+  using boost::simd::native;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>                  vT;
+  typedef typename boost::dispatch::meta::call<minnummag_(vT,vT)>::type r_t;
+
+  // specific values tests
+  NT2_TEST_EQUAL(minnummag(boost::simd::One<vT>(), boost::simd::One<vT>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(minnummag(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
+}
+
+NT2_TEST_CASE_TPL ( minnummag_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+{
+  using boost::simd::minnummag;
+  using boost::simd::tag::minnummag_;
+  using boost::simd::native;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>                  vT;
+  typedef typename boost::dispatch::meta::call<minnummag_(vT,vT)>::type r_t;
+
+  // specific values tests
   NT2_TEST_EQUAL(minnummag(boost::simd::Mone<vT>(), boost::simd::Mone<vT>()), boost::simd::Mone<r_t>());
   NT2_TEST_EQUAL(minnummag(boost::simd::One<vT>(), boost::simd::One<vT>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(minnummag(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(minnummag(boost::simd::Mone<vT>(), boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(minnummag(boost::simd::Mone<vT>(), boost::simd::One<vT>()), boost::simd::Mone<r_t>());
 }

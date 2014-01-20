@@ -18,6 +18,8 @@
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/two.hpp>
+#include <boost/simd/include/constants/mtwo.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/nan.hpp>
@@ -40,8 +42,16 @@ NT2_TEST_CASE_TPL ( minnum_real,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(minnum(boost::simd::One<vT>(),boost::simd::Nan<vT>()), boost::simd::One<r_t>());
 #endif
   NT2_TEST_EQUAL(minnum(boost::simd::Mone<vT>(), boost::simd::Mone<vT>()), boost::simd::Mone<r_t>());
-  NT2_TEST_EQUAL(minnum(boost::simd::One<vT>(), boost::simd::One<vT>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(minnum(boost::simd::One<vT>(),  boost::simd::One<vT>()),  boost::simd::One<r_t>());
   NT2_TEST_EQUAL(minnum(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(minnum(boost::simd::Mone<vT>(), boost::simd::One <vT>()), boost::simd::Mone<r_t>());
+  NT2_TEST_EQUAL(minnum(boost::simd::One <vT>(), boost::simd::Mone<vT>()), boost::simd::Mone<r_t>());
+  NT2_TEST_EQUAL(minnum(boost::simd::One <vT>(), boost::simd::Two <vT>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(minnum(boost::simd::Two <vT>(), boost::simd::One <vT>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(minnum(boost::simd::Mtwo<vT>(), boost::simd::One <vT>()), boost::simd::Mtwo<r_t>());
+  NT2_TEST_EQUAL(minnum(boost::simd::One <vT>(), boost::simd::Mtwo<vT>()), boost::simd::Mtwo<r_t>());
+  NT2_TEST_EQUAL(minnum(boost::simd::Two <vT>(), boost::simd::Mone<vT>()), boost::simd::Mone<r_t>());
+  NT2_TEST_EQUAL(minnum(boost::simd::Mone<vT>(), boost::simd::Two <vT>()), boost::simd::Mone<r_t>());
 }
 
 

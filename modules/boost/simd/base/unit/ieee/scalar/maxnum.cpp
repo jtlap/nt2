@@ -18,6 +18,8 @@
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/mtwo.hpp>
+#include <boost/simd/include/constants/two.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/nan.hpp>
@@ -34,17 +36,27 @@ NT2_TEST_CASE_TPL ( maxnum_real,  BOOST_SIMD_REAL_TYPES)
 
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
-  NT2_TEST_EQUAL(maxnum(boost::simd::Inf<T>(), boost::simd::Inf<T>()), boost::simd::Inf<r_t>());
+  NT2_TEST_EQUAL(maxnum(boost::simd::Inf<T>(),  boost::simd::Inf<T>()),  boost::simd::Inf<r_t>());
   NT2_TEST_EQUAL(maxnum(boost::simd::Minf<T>(), boost::simd::Minf<T>()), boost::simd::Minf<r_t>());
-  NT2_TEST_EQUAL(maxnum(boost::simd::Nan<T>(), boost::simd::Nan<T>()), boost::simd::Nan<r_t>());
-  NT2_TEST_EQUAL(maxnum(boost::simd::Nan<T>(),boost::simd::One<T>()), boost::simd::One<r_t>());
-  NT2_TEST_EQUAL(maxnum(boost::simd::One<T>(),boost::simd::Nan<T>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(maxnum(boost::simd::Nan<T>(),  boost::simd::Nan<T>()),  boost::simd::Nan<r_t>());
+  NT2_TEST_EQUAL(maxnum(boost::simd::Nan<T>(),  boost::simd::One<T>()),  boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(maxnum(boost::simd::One<T>(),  boost::simd::Nan<T>()),  boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(maxnum(boost::simd::Nan<T>(),  boost::simd::One <T>()), boost::simd::One<r_t>());
 #endif
   NT2_TEST_EQUAL(maxnum(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::Mone<r_t>());
-  NT2_TEST_EQUAL(maxnum(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(maxnum(boost::simd::One<T>(),  boost::simd::One<T>()),  boost::simd::One<r_t>());
   NT2_TEST_EQUAL(maxnum(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(maxnum(boost::simd::Mone<T>(), boost::simd::One<T>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(maxnum(boost::simd::Mone<T>(), boost::simd::One <T>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(maxnum(boost::simd::One <T>(), boost::simd::Mone<T>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(maxnum(boost::simd::One <T>(), boost::simd::Two <T>()), boost::simd::Two<r_t>());
+  NT2_TEST_EQUAL(maxnum(boost::simd::Two <T>(), boost::simd::One <T>()), boost::simd::Two<r_t>());
+  NT2_TEST_EQUAL(maxnum(boost::simd::Mtwo<T>(), boost::simd::One <T>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(maxnum(boost::simd::One <T>(), boost::simd::Mtwo<T>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(maxnum(boost::simd::Two <T>(), boost::simd::Mone<T>()), boost::simd::Two<r_t>());
+  NT2_TEST_EQUAL(maxnum(boost::simd::Mone<T>(), boost::simd::Two <T>()), boost::simd::Two<r_t>());
 }
+
+
 
 NT2_TEST_CASE_TPL ( maxnum_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
 {
