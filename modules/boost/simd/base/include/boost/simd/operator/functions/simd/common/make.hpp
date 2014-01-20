@@ -25,10 +25,10 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::make_, tag::cpu_
-                                   , (A0)(X)
-                                   , ((target_< simd_< unspecified_<A0>, X > >))
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::make_, tag::cpu_
+                                    , (A0)(X)
+                                    , ((target_< simd_< unspecified_<A0>, X > >))
+                                    )
   {
     typedef typename A0::type result_type;
     typedef typename meta::scalar_of<result_type>::type stype;
@@ -46,11 +46,11 @@ namespace boost { namespace simd { namespace ext
     #undef M0
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::make_, tag::cpu_
-                                      , (A0)(X)
-                                      , (simd::meta::is_logical_mask<A0>)
-                                      , ((target_< simd_< logical_<A0>, X > >))
-                                      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::make_, tag::cpu_
+                                       , (A0)(X)
+                                       , (simd::meta::is_logical_mask<A0>)
+                                       , ((target_< simd_< logical_<A0>, X > >))
+                                       )
   {
     typedef typename A0::type result_type;
     typedef typename meta::scalar_of<result_type>::type stype;
