@@ -9,10 +9,8 @@
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_SECD_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_SECD_HPP_INCLUDED
 
-#include <nt2/trigonometric/functions/sec.hpp>
-#include <nt2/include/functions/simd/secpi.hpp>
-#include <nt2/include/constants/oneo_180.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/trigonometric/functions/rec.hpp>
+#include <nt2/include/functions/simd/cosd.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 namespace nt2 { namespace ext
 {
@@ -24,7 +22,7 @@ namespace nt2 { namespace ext
     typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-       return secpi(Oneo_180<result_type>()*tofloat(a0));
+       return rec(cosd(tofloat(a0)));
     }
   };
 } }
