@@ -33,6 +33,7 @@
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/config.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 
 #ifndef BOOST_SIMD_NO_NANS
 #include <nt2/include/functions/simd/is_nan.hpp>
@@ -130,10 +131,11 @@ namespace nt2 { namespace details
   private:
     static inline A0 finalize(const A0& a0, const A0& y)
     {
+      typedef typename meta::as_logical<A0>::type              lA0;
     #ifdef BOOST_SIMD_NO_NANS
-      BOOST_AUTO_TPL(test, nt2::is_ltz(a0));
+      lA0 test =  nt2::is_ltz(a0);
     #else
-      BOOST_AUTO_TPL(test, nt2::logical_or(nt2::is_ltz(a0), nt2::is_nan(a0)));
+      lA0 test =  nt2::logical_or(nt2::is_ltz(a0), nt2::is_nan(a0));
     #endif
       A0 y1 = nt2::if_nan_else(test, y);
     #ifndef BOOST_SIMD_NO_INFINITIES
