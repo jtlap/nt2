@@ -54,7 +54,7 @@ NT2_TEST_CASE_TPL ( minnummag_real,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(minnummag(boost::simd::Mone<vT>(), boost::simd::Two <vT>()), boost::simd::Mone<r_t>());
 }
 
-NT2_TEST_CASE_TPL ( minnummag_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( minnummag_unsigned_int,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::minnummag;
   using boost::simd::tag::minnummag_;
@@ -68,7 +68,7 @@ NT2_TEST_CASE_TPL ( minnummag_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(minnummag(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
 }
 
-NT2_TEST_CASE_TPL ( minnummag_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( minnummag_signed_int,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::minnummag;
   using boost::simd::tag::minnummag_;
