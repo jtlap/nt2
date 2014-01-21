@@ -30,7 +30,7 @@
 #include <boost/simd/sdk/config.hpp>
 
 #ifndef BOOST_SIMD_NO_NANS
-#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/include/functions/scalar/is_nan.hpp>
 #endif
 #ifndef BOOST_SIMD_NO_INFINITIES
 #include <nt2/include/constants/inf.hpp>
