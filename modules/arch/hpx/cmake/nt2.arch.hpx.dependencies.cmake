@@ -31,6 +31,7 @@ if(HPX_ROOT)
 endif()
 
 if(NOT HPX_INCLUDE_EXTERNAL_DIRS)
+  find_file(HPX_INCLUDE_EXTERNAL_DIRS hpx/external PATHS ${HPX_ROOT} NO_DEFAULT_PATH)
   find_file(HPX_INCLUDE_EXTERNAL_DIRS hpx/external)
 endif()
 
