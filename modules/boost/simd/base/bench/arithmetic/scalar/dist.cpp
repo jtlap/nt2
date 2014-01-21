@@ -8,9 +8,12 @@
 //==============================================================================
 #include <boost/simd/arithmetic/include/functions/dist.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
 
 //////////////////////////////////////////////////////////////////////////////
 // scalar runtime benchmark for functor<dist_> from boost.simd.arithmetic
