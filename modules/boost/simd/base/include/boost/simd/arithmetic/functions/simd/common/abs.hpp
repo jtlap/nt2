@@ -13,6 +13,7 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/mzero.hpp>
 #include <boost/simd/include/constants/maxleftshift.hpp>
+#include <boost/simd/include/functions/simd/bitwise_notand.hpp>
 #include <boost/simd/include/functions/simd/bitwise_xor.hpp>
 #include <boost/simd/include/functions/simd/shr.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>

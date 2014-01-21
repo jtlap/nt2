@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2014 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -26,33 +27,36 @@
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 // perhaps divs for signed integral types must invoke correct Valmin entry and invoke  divfix
 // also call simply divfix for unsigned
 // also rdivide has to be defined as divs for float and as divfix for integers
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divs_, tag::cpu_, (A0)(X)
-                            , ((simd_<floating_<A0>,X>))
-                              ((simd_<floating_<A0>,X>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::divs_, tag::cpu_, (A0)(X)
+                                    , ((simd_<floating_<A0>,X>))
+                                      ((simd_<floating_<A0>,X>))
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return a0/a1;
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divs_, tag::cpu_, (A0)(X)
-                            , ((simd_<uint_<A0>,X>))
-                              ((simd_<uint_<A0>,X>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::divs_, tag::cpu_, (A0)(X)
+                                    , ((simd_<uint_<A0>,X>))
+                                      ((simd_<uint_<A0>,X>))
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::as_logical<A0>::type bA0;
+
+
       const bA0 iseqza1 = is_eqz(a1);
       const A0 aa1 = if_else(iseqza1, One<A0>(), a1);
       const A0 aa0 = if_else(iseqza1, genmask(a0), a0);
@@ -60,14 +64,14 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divs_, tag::cpu_, (A0)(X)
-                            , ((simd_<int_<A0>,X>))
-                              ((simd_<int_<A0>,X>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::divs_, tag::cpu_, (A0)(X)
+                                    , ((simd_<int_<A0>,X>))
+                                      ((simd_<int_<A0>,X>))
+                                    )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::as_logical<A0>::type bA0;
       typedef typename meta::scalar_of<A0>::type sA0;

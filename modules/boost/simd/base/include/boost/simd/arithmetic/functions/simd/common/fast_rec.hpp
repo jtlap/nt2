@@ -13,6 +13,7 @@
 #include <boost/simd/arithmetic/functions/fast_rec.hpp>
 #include <boost/simd/include/functions/simd/raw_rec.hpp>
 #include <boost/simd/include/functions/simd/refine_rec.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
