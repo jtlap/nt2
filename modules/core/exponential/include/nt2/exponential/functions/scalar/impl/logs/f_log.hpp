@@ -30,11 +30,10 @@
 #include <boost/simd/sdk/config.hpp>
 
 #ifndef BOOST_SIMD_NO_NANS
-#include <nt2/include/functions/simd/is_nan.hpp>
+#include <nt2/include/functions/is_nan.hpp>
 #endif
 #ifndef BOOST_SIMD_NO_INFINITIES
 #include <nt2/include/constants/inf.hpp>
-#include <nt2/include/functions/simd/is_equal.hpp>
 #endif
 
 namespace nt2 { namespace details
