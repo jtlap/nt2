@@ -16,7 +16,6 @@
 #include <nt2/include/functions/simd/is_greater.hpp>
 #include <nt2/include/functions/simd/is_ltz.hpp>
 #include <nt2/include/functions/simd/is_equal.hpp>
-#include <nt2/include/functions/simd/is_nan.hpp>
 #include <nt2/include/functions/simd/fast_frexp.hpp>
 #include <nt2/include/functions/simd/seladd.hpp>
 #include <nt2/include/functions/simd/plus.hpp>
@@ -37,10 +36,15 @@
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/sqrt_2o_2.hpp>
 #include <nt2/include/constants/mone.hpp>
-#include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <boost/simd/sdk/config.hpp>
-#include <boost/typeof/typeof.hpp>
+
+#ifndef BOOST_SIMD_NO_NANS
+#include <nt2/include/functions/simd/is_nan.hpp>
+#endif
+#ifndef BOOST_SIMD_NO_INFINITIES
+#include <nt2/include/constants/inf.hpp>
+#endif
 
 namespace nt2 { namespace details
 {

@@ -11,7 +11,6 @@
 
 #include <nt2/include/functions/scalar/sqr.hpp>
 #include <nt2/include/functions/scalar/tofloat.hpp>
-#include <nt2/include/functions/scalar/is_nan.hpp>
 #include <nt2/include/functions/scalar/is_ltz.hpp>
 #include <nt2/include/functions/scalar/is_eqz.hpp>
 #include <nt2/include/functions/scalar/is_greater.hpp>
@@ -31,10 +30,16 @@
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/two.hpp>
-#include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <boost/simd/sdk/config.hpp>
+
+#ifndef BOOST_SIMD_NO_NANS
+#include <nt2/include/functions/scalar/is_nan.hpp>
+#endif
+#ifndef BOOST_SIMD_NO_INFINITIES
+#include <nt2/include/constants/inf.hpp>
+#endif
 
 namespace nt2 { namespace details
 {
@@ -83,7 +88,9 @@ namespace nt2 { namespace details
     {
       // ln(2)hi  =  6.93147180369123816490e-01  or  0x3fe62e42fee00000
       // ln(2)lo  =  1.90821492927058770002e-10  or  0x3dea39ef35793c76
+#ifndef BOOST_SIMD_NO_INFINITIES
       if (a0 == Inf<A0>()) return a0;
+#endif
       if (is_eqz(a0)) return nt2::Minf<A0>();
 #ifdef BOOST_SIMD_NO_NANS
       if (nt2::is_ltz(a0)) return nt2::Nan<A0>();
@@ -98,7 +105,9 @@ namespace nt2 { namespace details
 
     static inline A0 log2(const A0& a0)
     {
+#ifndef BOOST_SIMD_NO_INFINITIES
       if (a0 == nt2::Inf<A0>()) return a0;
+#endif
       if (nt2::is_eqz(a0)) return nt2::Minf<A0>();
 #ifdef BOOST_SIMD_NO_NANS
       if (nt2::is_ltz(a0)) return nt2::Nan<A0>();
@@ -112,7 +121,9 @@ namespace nt2 { namespace details
 
     static inline A0 log10(const A0& a0)
     {
+#ifndef BOOST_SIMD_NO_INFINITIES
       if (a0 == nt2::Inf<A0>()) return a0;
+#endif
       if (nt2::is_eqz(a0)) return nt2::Minf<A0>();
 #ifdef BOOST_SIMD_NO_NANS
       if (nt2::is_ltz(a0)) return nt2::Nan<A0>();
