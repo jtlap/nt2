@@ -8,50 +8,41 @@
 //==============================================================================
 #include <nt2/trigonometric/include/functions/fast_sincos.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/fusion/tuple.hpp>
 extern "C" {extern long double cephes_sinl(long double);}
 extern "C" {extern long double cephes_cosl(long double);}
-
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/unit/tests/cover.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/constant/constant.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
+
+#include <nt2/include/constants/pio_4.hpp>
+#include <boost/fusion/include/std_pair.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/aligned_load.hpp>
-#include <nt2/constant/constant.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
 
 
-NT2_TEST_CASE_TPL ( fast_sincos_real__1_0,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( fast_sincos_real,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::fast_sincos;
   using nt2::tag::fast_sincos_;
   using nt2::aligned_load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
-  typedef typename boost::dispatch::meta::as_floating<T>::type ftype;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
+  typedef native<T,ext_t>                vT;
   typedef typename nt2::meta::call<fast_sincos_(vT)>::type r_t;
   typedef typename nt2::meta::call<fast_sincos_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-
 
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    typedef typename boost::dispatch::meta::as_floating<T>::type ftype;
-    NT2_CREATE_BUF(tab_a0,T, NR, -nt2::Pi<T>()/4, nt2::Pi<T>()/4);
-
-    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
+    NT2_CREATE_BUF(tab_a0,T, NR, -nt2::Pio_4<T>(), nt2::Pio_4<T>());
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<vT>::value)
       {
         vT a0 = aligned_load<vT>(&tab_a0[0],j);
         r_t r = nt2::fast_sincos(a0);
-        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
+        for(nt2::uint32_t i = 0; i< cardinal_of<vT>::value; i++)
         {
 
           sr_t sr =  nt2::fast_sincos(a0[i]);
