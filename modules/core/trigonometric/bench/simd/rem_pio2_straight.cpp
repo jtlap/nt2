@@ -14,6 +14,7 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/pio_2.hpp>
+#include <nt2/include/constants/pio_4.hpp>
 
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 //////////////////////////////////////////////////////////////////////////////

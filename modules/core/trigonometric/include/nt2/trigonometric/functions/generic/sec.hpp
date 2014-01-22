@@ -12,20 +12,18 @@
 #include <nt2/trigonometric/functions/sec.hpp>
 #include <nt2/include/functions/simd/cos.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
 
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sec_, tag::cpu_
                             , (A0)
-                            , (generic_< arithmetic_<A0> >)
+                            , (generic_< floating_<A0> >)
                             )
   {
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::rec(nt2::cos(nt2::tofloat(a0)));
+      return nt2::rec(nt2::cos(a0));
     }
   };
 } }

@@ -10,20 +10,18 @@
 #define NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_ACOSPI_HPP_INCLUDED
 #include <nt2/trigonometric/functions/acospi.hpp>
 #include <nt2/include/functions/simd/acos.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
-#include <nt2/include/constants/invpi.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acospi_, tag::cpu_
                             , (A0)
-                            , (generic_< arithmetic_<A0> >)
+                            , (generic_< floating_<A0> >)
                             )
   {
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::Invpi<result_type>()*(nt2::acos(nt2::tofloat(a0)));
+      return nt2::Invpi<result_type>()*(nt2::acos(a0));
     }
   };
 } }

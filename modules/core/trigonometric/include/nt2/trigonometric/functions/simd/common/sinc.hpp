@@ -32,14 +32,6 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinc_, boost::simd::tag::simd_
                             , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                            )
-  {
-    BOOST_DISPATCH_RETURNS(1, (A0 const& a0), nt2::sinc(nt2::tofloat(a0)));
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinc_, boost::simd::tag::simd_
-                            , (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                             )
   {

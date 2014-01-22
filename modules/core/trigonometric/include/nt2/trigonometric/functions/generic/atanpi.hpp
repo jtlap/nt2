@@ -9,7 +9,8 @@
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_ATANPI_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_ATANPI_HPP_INCLUDED
 #include <nt2/trigonometric/functions/atanpi.hpp>
-#include <nt2/include/functions/atan.hpp>
+#include <nt2/include/functions/simd/atan.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/constants/invpi.hpp>
 
 namespace nt2 { namespace ext
@@ -22,7 +23,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::Invpi<result_type>()*(nt2::atan(nt2::tofloat(a0)));
+      return nt2::Invpi<result_type>()*(nt2::atan(a0));
     }
   };
 } }
