@@ -35,7 +35,10 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef A0 result_type;
-    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return a0+a1; }
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      return a0+a1;
+    }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::adds_, tag::cpu_
@@ -71,7 +74,6 @@ namespace boost { namespace simd { namespace ext
       ux = shift_right(ux, sizeof(stype)*CHAR_BIT-1) + static_cast<typename meta::scalar_of<utype>::type>(Valmax<stype>());
 
       return bitwise_cast<A0>(if_else(bitwise_cast<A0>((ux ^ uy) | ~(uy ^ res)) >=  Zero<A0>(), ux, res));
-
     }
   };
 } } }

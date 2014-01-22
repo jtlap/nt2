@@ -15,14 +15,20 @@
 #include <boost/simd/include/functions/simd/split.hpp>
 #include <boost/simd/include/functions/simd/group.hpp>
 #include <boost/simd/include/functions/simd/unary_minus.hpp>
-#include <boost/simd/include/functions/simd/ldexp.hpp>
-#include <boost/simd/include/functions/simd/maxmag.hpp>
-#include <boost/simd/include/functions/simd/minmag.hpp>
-#include <boost/simd/include/functions/simd/exponent.hpp>
+
 #include <boost/simd/sdk/meta/is_upgradable.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/attributes.hpp>
+
+#ifndef BOOST_SIMD_DONT_CARE_FMA_OVERFLOW
+#include <boost/simd/include/functions/simd/ldexp.hpp>
+#include <boost/simd/include/functions/simd/exponent.hpp>
+#include <boost/simd/include/functions/simd/maxmag.hpp>
+#include <boost/simd/include/functions/simd/minmag.hpp>
+#include <boost/simd/arithmetic/functions/two_prod.hpp>
+#include <boost/simd/arithmetic/functions/two_add.hpp>
+#endif
 
 namespace boost { namespace simd { namespace ext
 {

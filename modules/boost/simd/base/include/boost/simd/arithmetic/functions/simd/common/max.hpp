@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef A0 result_type;
-    /*BOOST_FORCEINLINE*/ BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return if_else(gt(a0, a1), a0, a1);
     }

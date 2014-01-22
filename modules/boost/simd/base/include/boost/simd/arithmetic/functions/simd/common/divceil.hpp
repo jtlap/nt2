@@ -44,7 +44,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
- BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::divceil_, tag::cpu_, (A0)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::divceil_, tag::cpu_, (A0)(X)
                                       , (simd::meta::is_upgradable_as_real_on_ext<A0, X>)
                                       , ((simd_< uint_<A0>, X>))
                                         ((simd_< uint_<A0>, X>))
@@ -52,7 +52,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::upgrade<A0>::type ivtype;
       ivtype a0l, a0h, a1l, a1h;
@@ -71,7 +71,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::upgrade<A0>::type ivtype;
       ivtype a0l, a0h, a1l, a1h;
