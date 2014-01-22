@@ -96,6 +96,7 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef A0 result_type;
+
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       if (a1 == 0 || a0 == 0) return Zero<A0>();
@@ -118,8 +119,13 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef A0 result_type;
+<<<<<<< HEAD
     typedef typename dispatch::meta::as_unsigned<result_type>::type untype;
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+=======
+
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+>>>>>>> recursive inling failing build on arm
     {
       if (a1 == 0 || a0 == 0) return Zero<result_type>();
       result_type sign =  b_xor(bitofsign(a0), bitofsign(a1));
