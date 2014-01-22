@@ -13,6 +13,7 @@
 #include <boost/simd/arithmetic/functions/dist.hpp>
 #include <boost/simd/include/functions/simd/abs.hpp>
 #include <boost/simd/include/functions/simd/max.hpp>
+#include <boost/simd/include/functions/simd/min.hpp>
 #include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/dispatch/attributes.hpp>
 
