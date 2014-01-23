@@ -25,8 +25,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    BOOST_FORCEINLINE
-    result_type operator()(A0 const& a0, A0 const& a1, A0 const& a2) const
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
     {
      return vec_nmsub(a0(),a1(),a2());
     }
