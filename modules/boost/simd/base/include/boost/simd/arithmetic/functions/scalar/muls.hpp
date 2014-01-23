@@ -98,15 +98,15 @@ namespace boost { namespace simd { namespace ext
     {
       if (a1 == 0 || a0 == 0) return Zero<A0>();
       if (a1 >= a0)
-      {
-        A0 z = Valmax<A0>()/a1;
-        if (z < a0)
-          return  Valmax<A0>();
-        else
-          return a0*a1;
-      }
+        return aux(a0, a1);
       else
-        return muls(a1, a0);
+        return aux(a1, a0);
+    }
+  private :
+    static inline A0 aux(const A0& mini,  const A0& maxi)
+    {
+      A0 z = Valmax<A0>()/maxi;
+      return (z < mini) ? Valmax<A0>() : mini*maxi;
     }
   };
 
@@ -116,23 +116,27 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
+    typedef typename dispatch::meta::as_unsigned<result_type>::type untype;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       if (a1 == 0 || a0 == 0) return Zero<result_type>();
-      typedef typename dispatch::meta::as_unsigned<result_type>::type untype;
       result_type sign =  b_xor(bitofsign(a0), bitofsign(a1));
       untype aa0 = boost::simd::abs(a0);
       untype aa1 = boost::simd::abs(a1);
       if (aa1 >= aa0)
-      {
-        untype z = Valmax<result_type>()/aa1;
-        if (z < aa0)
-          return sign ? Valmin<result_type>():Valmax<result_type>();
-        else
-          return a0*a1;
-      }
+        return aux(a0, a1, sign, aa0, aa1);
       else
-        return muls(a1, a0);
+        return aux(a1, a0, sign, aa1, aa0);
+    }
+  private :
+    static inline A0 aux(const A0& mini,  const A0& maxi,
+                         const A0& sign,
+                         const untype& amini, const untype& amaxi)
+    {
+        untype z = Valmax<result_type>()/amaxi;
+        return (z < amini)
+          ? ( sign ? Valmin<result_type>():Valmax<result_type>())
+          : mini*maxi;
     }
   };
 } } }
