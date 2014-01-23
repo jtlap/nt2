@@ -12,6 +12,7 @@
 
 #include <boost/simd/arithmetic/functions/fast_rec.hpp>
 #include <boost/simd/include/functions/scalar/refine_rec.hpp>
+#include <boost/simd/include/functions/scalar/raw_rec.hpp>
 #include <boost/simd/sdk/config.hpp>
 
 namespace boost { namespace simd { namespace ext
