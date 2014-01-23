@@ -106,7 +106,7 @@ namespace boost { namespace simd { namespace ext
         return aux(a1, a0);
     }
   private :
-    static inline A0 aux(const A0& mini,  const A0& maxi)
+    static BOOST_FORCEINLINE A0 aux(const A0& mini,  const A0& maxi)
     {
       A0 z = Valmax<A0>()/maxi;
       return (z < mini) ? Valmax<A0>() : mini*maxi;
@@ -132,7 +132,7 @@ namespace boost { namespace simd { namespace ext
         return aux(a1, a0, sign, aa1, aa0);
     }
   private :
-    static inline A0 aux(const A0& mini,  const A0& maxi,
+    static BOOST_FORCEINLINE A0 aux(const A0& mini,  const A0& maxi,
                          const A0& sign,
                          const untype& amini, const untype& amaxi)
     {
