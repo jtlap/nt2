@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return  vec_re( a0() );
+      return vec_re( a0() );
     }
   };
 } } }
