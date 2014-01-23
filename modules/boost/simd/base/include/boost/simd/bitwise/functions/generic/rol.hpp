@@ -1,6 +1,6 @@
 //==============================================================================
 //         Copyright 2009 - 2013 LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2012 - 2013 MetaScale SAS
+//         Copyright 2012 - 2014 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -21,19 +21,20 @@
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/mpl/equal_to.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::rol_, tag::cpu_
-                                      , (A0)(A1)
-                                      , (boost::mpl::equal_to
-                                          < boost::simd::meta::cardinal_of<A0>
-                                          , boost::simd::meta::cardinal_of<A1>
-                                          >
-                                        )
-                                      , (generic_< integer_<A0> >)
-                                        (generic_< integer_<A1> >)
-                                      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::rol_, tag::cpu_
+                                       , (A0)(A1)
+                                       , (boost::mpl::equal_to
+                                           < boost::simd::meta::cardinal_of<A0>
+                                           , boost::simd::meta::cardinal_of<A1>
+                                           >
+                                         )
+                                       , (generic_< integer_<A0> >)
+                                         (generic_< integer_<A1> >)
+                                       )
   {
     typedef A0 result_type;
 
@@ -47,16 +48,16 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::rol_, tag::cpu_
-                                      , (A0)(A1)
-                                      , (boost::mpl::equal_to
-                                          < boost::simd::meta::cardinal_of<A0>
-                                          , boost::simd::meta::cardinal_of<A1>
-                                          >
-                                        )
-                                      , (generic_< floating_<A0> >)
-                                        (generic_< integer_<A1> >)
-                                      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::rol_, tag::cpu_
+                                       , (A0)(A1)
+                                       , (boost::mpl::equal_to
+                                           < boost::simd::meta::cardinal_of<A0>
+                                           , boost::simd::meta::cardinal_of<A1>
+                                           >
+                                         )
+                                       , (generic_< floating_<A0> >)
+                                         (generic_< integer_<A1> >)
+                                       )
   {
     typedef A0 result_type;
 
