@@ -25,13 +25,13 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef A0 result_type;
-    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return subs(One<result_type>(), a0);
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::oneminus_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::oneminus_, tag::cpu_
                                     , (A0)
                                     , (generic_<unsigned_<A0> >)
                                     )
