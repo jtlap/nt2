@@ -1,4 +1,3 @@
-//==============================================================================
 //         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
@@ -17,7 +16,7 @@
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 
-NT2_TEST_CASE_TPL ( pow2_real__1_0,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( pow2,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::pow2;
   using nt2::tag::pow2_;

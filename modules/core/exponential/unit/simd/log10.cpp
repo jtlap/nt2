@@ -1,4 +1,3 @@
-//==============================================================================
 //         Copyright 2003 - 2013   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
@@ -24,7 +23,7 @@
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
 
-NT2_TEST_CASE_TPL ( log10_real_1,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( log10,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::log10;
   using nt2::tag::log10_;
