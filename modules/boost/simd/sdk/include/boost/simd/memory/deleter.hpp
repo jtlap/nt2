@@ -24,14 +24,11 @@ namespace boost { namespace simd
     done using the proper alignment aware deallocation function.
 
     @tparam T Type of data to delete
-    @tparam Align Alignment boundary used. By default, it is equal to the
-            preferred SIMD alignment boundary.
     @tparam Allocator Type of allocator used for the allocation. By default, it
             is equal to @c void, meaning no allocator have been used to perform
             the allocation.
   **/
   template< class T
-          , std::size_t Align = BOOST_SIMD_CONFIG_ALIGNMENT
           , class Allocator = void
           >
   struct deleter : Allocator
@@ -48,20 +45,20 @@ namespace boost { namespace simd
     /// Performs the deletion of the pointer @c x
     void operator()(T * x)
     {
-      boost::simd::deallocate ( static_cast<Allocator&>(*this), x, 0u, Align );
+      boost::simd::deallocate ( static_cast<Allocator&>(*this), x );
     }
   };
 
   /// INTERNAL ONLY
-  template<class T, std::size_t Align>
-  struct deleter<T, Align>
+  template<class T>
+  struct deleter<T>
   {
     typedef void  result_type;
     typedef T*    argument_type;
 
     void operator()(T * x) const
     {
-      boost::simd::deallocate( x, 0u, Align );
+      boost::simd::deallocate( x );
     }
   };
 } }
