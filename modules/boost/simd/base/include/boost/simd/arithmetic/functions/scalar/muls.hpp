@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef A0 result_type;
-    BOOST_FORCEINLINE OOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::upgrade<A0>::type utype;
       utype res = utype(a0)*utype(a1);
@@ -66,9 +66,9 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::muls_, tag::cpu_
-                                     , (A0)
-                                     , (scalar_< int32_<A0> >)(scalar_< int32_<A0> >)
-                                     )
+                                    , (A0)
+                                    , (scalar_< int32_<A0> >)(scalar_< int32_<A0> >)
+                                    )
   {
 
     typedef A0 result_type;
@@ -119,13 +119,8 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef A0 result_type;
-<<<<<<< HEAD
     typedef typename dispatch::meta::as_unsigned<result_type>::type untype;
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-=======
-
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
->>>>>>> recursive inling failing build on arm
     {
       if (a1 == 0 || a0 == 0) return Zero<result_type>();
       result_type sign =  b_xor(bitofsign(a0), bitofsign(a1));
