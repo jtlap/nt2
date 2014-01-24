@@ -41,14 +41,14 @@ namespace nt2
       boost::exception_ptr exception;
 #endif
 
-      std::size_t leftover = size % grain;
-      std::size_t nblocks  = size/grain;
+      std::size_t    leftover = size % grain;
+      std::ptrdiff_t nblocks  = size/grain;
 
       #pragma omp parallel
       {
         // Dispatch group of blocks over each threads
         #pragma omp for schedule(static)
-        for(std::size_t n=0;n<nblocks;++n)
+        for(std::ptrdiff_t n=0;n<nblocks;++n)
         {
 #ifndef BOOST_NO_EXCEPTIONS
           try
