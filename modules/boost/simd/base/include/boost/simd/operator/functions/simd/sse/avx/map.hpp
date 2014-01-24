@@ -41,7 +41,7 @@
 namespace boost { namespace simd { namespace ext
 {
   #define M0(z,n,h) ((simd_< unspecified_<A##n>, boost::simd::tag::avx_ >))
-  #define M1(z,n,t) simd::native<typename meta::scalar_of<A##n>::type, tag::sse_>
+  #define M1(z,n,t) simd::native<typename meta::scalar_of<A##n>::type, tag::sse_> const&
   #define M2(z,n,t) (A##n)
 
   #define M3(z,n,t)                                                            \

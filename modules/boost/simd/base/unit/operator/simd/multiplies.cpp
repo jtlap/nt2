@@ -9,6 +9,7 @@
 #include <boost/simd/operator/include/functions/multiplies.hpp>
 #include <boost/simd/include/functions/enumerate.hpp>
 #include <boost/simd/include/functions/splat.hpp>
+#include <boost/simd/include/functions/scalar/unary_minus.hpp>
 
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
@@ -61,7 +62,7 @@ NT2_TEST_CASE_TPL ( multiplies_integer,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 
   T step = (Valmax<T>() - Valmin<T>() ) / 8*(vT::static_size-1);
   vT v = enumerate<vT>( Valmin<T>()/4, step );
-  vT w = enumerate<vT>( Valmax<T>()/4, -step );
+  vT w = enumerate<vT>( Valmax<T>()/4, boost::simd::unary_minus(step) );
 
   vT ref;
   for(std::size_t i=0;i<vT::static_size;++i)
