@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef A1 result_type;
-    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return is_nez(a0) ? a1 :Zero<result_type>();
     }
@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef A1 result_type;
-    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return is_nez(a0) ? a1 :Zero<result_type>();
     }
