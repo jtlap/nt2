@@ -8,25 +8,30 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_COSD_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_COSD_HPP_INCLUDED
+
 #include <nt2/trigonometric/functions/cosd.hpp>
-#include <nt2/include/functions/sincosd.hpp>
-#include <nt2/include/functions/sinhcosh.hpp>
-#include <nt2/include/functions/sinh.hpp>
-#include <nt2/include/functions/cosh.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
-#include <nt2/include/functions/sin.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/sign.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/if_zero_else.hpp>
 #include <nt2/include/functions/is_real.hpp>
 #include <nt2/include/functions/is_imag.hpp>
-#include <nt2/include/functions/bitwise_cast.hpp>
-#include <nt2/sdk/complex/meta/as_complex.hpp>
-#include <nt2/sdk/complex/meta/as_real.hpp>
-#include <nt2/include/functions/cosd.hpp>
+#include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/is_invalid.hpp>
+#include <nt2/include/functions/simd/sincosd.hpp>
+#include <nt2/include/functions/simd/sinhcosh.hpp>
+#include <nt2/include/functions/simd/if_zero_else.hpp>
+#include <nt2/include/functions/simd/bitwise_cast.hpp>
+#include <nt2/include/functions/simd/is_inf.hpp>
+#include <nt2/include/functions/simd/logical_and.hpp>
+#include <nt2/include/functions/simd/logical_or.hpp>
+#include <nt2/include/functions/simd/is_nan.hpp>
+#include <nt2/include/functions/simd/none.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/constants/deginrad.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/complex/hierarchy.hpp>
 
 namespace nt2 { namespace ext
 {

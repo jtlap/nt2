@@ -11,9 +11,12 @@
 
 #include <nt2/trigonometric/functions/cscd.hpp>
 #include <nt2/include/functions/sind.hpp>
+#include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/rec.hpp>
-#include <nt2/sdk/complex/complex.hpp>
 #include <nt2/include/constants/cnan.hpp>
+#include <nt2/sdk/complex/hierarchy.hpp>
+
 //cscd(x+iy)=rec(sind(x+iy)).
 namespace nt2 { namespace ext
 {

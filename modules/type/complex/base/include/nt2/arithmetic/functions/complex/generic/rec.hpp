@@ -8,28 +8,30 @@
 //==============================================================================
 #ifndef NT2_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_REC_HPP_INCLUDED
 #define NT2_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_REC_HPP_INCLUDED
+
 #include <nt2/arithmetic/functions/rec.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
+#include <nt2/include/functions/sqr_abs.hpp>
+#include <nt2/include/functions/conj.hpp>
 #include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/divides.hpp>
-#include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/functions/is_real.hpp>
 #include <nt2/include/functions/is_imag.hpp>
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/is_finite.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/functions/simd/is_eqz.hpp>
 #include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/functions/simd/plus.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
-#include <nt2/include/functions/sqr_abs.hpp>
+#include <nt2/include/functions/simd/exponent.hpp>
 #include <nt2/include/functions/simd/copysign.hpp>
-#include <nt2/arithmetic/functions/complex/generic/conj.hpp>
-#include <nt2/include/functions/all.hpp>
+#include <nt2/include/functions/simd/all.hpp>
 #include <nt2/include/functions/simd/ldexp.hpp>
 #include <nt2/include/constants/inf.hpp>
-#include <nt2/sdk/complex/complex.hpp>
+#include <nt2/sdk/complex/hierarchy.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 
