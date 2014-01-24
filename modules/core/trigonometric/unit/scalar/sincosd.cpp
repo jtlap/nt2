@@ -19,7 +19,7 @@
 #include <boost/fusion/include/vector_tie.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
 NT2_TEST_CASE_TPL ( sincosd_real__1_0,  NT2_REAL_TYPES)
@@ -40,8 +40,8 @@ NT2_TEST_CASE_TPL ( sincosd_real__1_0,  NT2_REAL_TYPES)
     for(size_t i=0; i < N; ++i)
     {
       sincosd(a[i], s, c);
-      NT2_TEST_EQUAL(s, nt2::sind(a[i]));
-      NT2_TEST_EQUAL(c, nt2::cosd(a[i]));
+      NT2_TEST_ULP_EQUAL(s, nt2::sind(a[i]), 0.5);
+      NT2_TEST_ULP_EQUAL(c, nt2::cosd(a[i]), 0.5);
     }
   }
 
@@ -50,8 +50,8 @@ NT2_TEST_CASE_TPL ( sincosd_real__1_0,  NT2_REAL_TYPES)
     for(size_t i=0; i < N; ++i)
     {
       s = sincosd(a[i], c);
-      NT2_TEST_EQUAL(s, nt2::sind(a[i]));
-      NT2_TEST_EQUAL(c, nt2::cosd(a[i]));
+      NT2_TEST_ULP_EQUAL(s, nt2::sind(a[i]), 0.5);
+      NT2_TEST_ULP_EQUAL(c, nt2::cosd(a[i]), 0.5);
     }
   }
 
@@ -60,8 +60,8 @@ NT2_TEST_CASE_TPL ( sincosd_real__1_0,  NT2_REAL_TYPES)
     for(size_t i=0; i < N; ++i)
     {
       boost::fusion::vector_tie(s, c) = sincosd(a[i]);
-      NT2_TEST_EQUAL(s, nt2::sind(a[i]));
-      NT2_TEST_EQUAL(c, nt2::cosd(a[i]));
+      NT2_TEST_ULP_EQUAL(s, nt2::sind(a[i]), 0.5);
+      NT2_TEST_ULP_EQUAL(c, nt2::cosd(a[i]), 0.5);
     }
   }
 
@@ -69,8 +69,8 @@ NT2_TEST_CASE_TPL ( sincosd_real__1_0,  NT2_REAL_TYPES)
     for(size_t i=0; i < N; ++i)
     {
       std::pair<T,T> p = sincosd(a[i]);
-      NT2_TEST_EQUAL(p.first,  nt2::sind(a[i]));
-      NT2_TEST_EQUAL(p.second, nt2::cosd(a[i]));
+      NT2_TEST_ULP_EQUAL(p.first,  nt2::sind(a[i]), 0.5);
+      NT2_TEST_ULP_EQUAL(p.second, nt2::cosd(a[i]), 0.5);
     }
   }
 
