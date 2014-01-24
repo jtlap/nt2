@@ -13,6 +13,7 @@
 #include <boost/simd/bitwise/functions/hi.hpp>
 #include <boost/simd/include/functions/simd/shr.hpp>
 #include <boost/simd/include/functions/simd/lo.hpp>
+#include <boost/simd/include/constants/int_splat.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/attributes.hpp>
@@ -27,7 +28,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_integer<A0,unsigned>::type  result_type;
     typedef typename dispatch::meta::scalar_of<result_type>::type   s_t;
 
-    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       const s_t half_bits = sizeof(s_t)*(CHAR_BIT/2);
       return lo( shri(a0, half_bits) );
