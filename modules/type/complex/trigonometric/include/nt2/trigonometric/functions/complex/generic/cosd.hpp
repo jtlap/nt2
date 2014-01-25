@@ -31,6 +31,7 @@
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
 #include <nt2/sdk/complex/hierarchy.hpp>
 
 namespace nt2 { namespace ext

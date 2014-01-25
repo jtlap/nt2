@@ -20,7 +20,8 @@
 #include <nt2/include/functions/is_imag.hpp>
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/is_finite.hpp>
-#include <nt2/include/functions/simd/divides.hpp>
+#include <nt2/include/functions/divides.hpp>
+#include <nt2/include/functions/ldexp.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/functions/simd/is_eqz.hpp>
 #include <nt2/include/functions/simd/unary_minus.hpp>
@@ -29,7 +30,7 @@
 #include <nt2/include/functions/simd/exponent.hpp>
 #include <nt2/include/functions/simd/copysign.hpp>
 #include <nt2/include/functions/simd/all.hpp>
-#include <nt2/include/functions/simd/ldexp.hpp>
+#include <nt2/include/functions/simd/is_less.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/sdk/complex/hierarchy.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
