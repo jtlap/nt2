@@ -14,10 +14,6 @@
 #include <nt2/include/functions/scalar/toint.hpp>
 #include <nt2/include/constants/one.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A1 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow2_, tag::cpu_
@@ -66,7 +62,7 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow2_, tag::cpu_
                               , (A0)
-                              , (scalar_< arithmetic_<A0> >)
+                              , (scalar_< integer_<A0> >)
                               )
   {
 
@@ -75,6 +71,20 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL_REPEAT(1)
     {
       return nt2::fast_ldexp(One<A0>(), a0);
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow2_, tag::cpu_
+                              , (A0)
+                              , (scalar_< floating_<A0> >)
+                              )
+  {
+
+    typedef A0 result_type;
+
+    NT2_FUNCTOR_CALL_REPEAT(1)
+    {
+      return nt2::fast_ldexp(One<A0>(), toint(a0));
     }
   };
 } }

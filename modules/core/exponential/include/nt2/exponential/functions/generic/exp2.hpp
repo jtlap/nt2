@@ -12,25 +12,24 @@
 #include <nt2/exponential/functions/exp2.hpp>
 #include <nt2/exponential/functions/scalar/impl/expo.hpp>
 #include <nt2/exponential/functions/simd/common/impl/expo.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
-#include <nt2/include/functions/simd/fast_ldexp.hpp>
-#include <nt2/include/constants/one.hpp>
+//#include <nt2/include/functions/simd/fast_ldexp.hpp>
+//#include <nt2/include/constants/one.hpp>
 #include <boost/simd/sdk/simd/meta/is_native.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
+//#include <boost/dispatch/meta/as_floating.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::exp2_, tag::cpu_
-                            , (A0)
-                            , (generic_< arithmetic_<A0> >)
-                            )
-  {
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::fast_ldexp(nt2::One<result_type>(), a0);
-    }
-  };
+//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::exp2_, tag::cpu_
+//                             , (A0)
+//                             , (generic_< arithmetic_<A0> >)
+//                             )
+//   {
+//     typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
+//     NT2_FUNCTOR_CALL(1)
+//     {
+//       return nt2::fast_ldexp(nt2::One<result_type>(), a0);
+//     }
+//  };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::exp2_, tag::cpu_
                             , (A0)

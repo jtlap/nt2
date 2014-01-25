@@ -15,21 +15,11 @@
 #include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/is_invalid.hpp>
 #include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/half.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expm1_, tag::cpu_
-                            , (A0)
-                            , (scalar_< arithmetic_<A0> >)
-                            )
-  {
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return minusone(nt2::exp(a0));
-    }
-  };
-
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expm1_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)
@@ -41,11 +31,11 @@ namespace nt2 { namespace ext
       const A0 u = nt2::exp(a0);
       if( is_invalid(u) || (nt2::abs(a0) > Half<A0>()))
       {
-        return u-One<A0>();
+        return minusone(u);
       }
       else if (u!=One<A0>())
       {
-        return (u-One<A0>())*a0/nt2::log(u);
+        return minusone(u)*a0/nt2::log(u);
       }
       else
       {

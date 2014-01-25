@@ -11,7 +11,6 @@
 
 #include <nt2/exponential/functions/nthroot.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/include/functions/simd/pow.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/is_eqz.hpp>
@@ -39,23 +38,9 @@
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nthroot_, tag::cpu_
-                            , (A0)(A1)(X)
-                            , ((simd_<integer_<A0>,X>))
-                              ((simd_<integer_<A1>,X>))
-                            )
-  {
-    typedef typename meta::as_floating<A0>::type result_type;
-    NT2_FUNCTOR_CALL(2)
-    {
-      return nt2::nthroot(nt2::tofloat(a0), a1);
-    }
-  };
-
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nthroot_, tag::cpu_
                             , (A0)(A1)(X)
                             , ((simd_<floating_<A0>,X>))

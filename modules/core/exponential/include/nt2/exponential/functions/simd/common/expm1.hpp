@@ -11,8 +11,6 @@
 
 #include <nt2/exponential/functions/expm1.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/include/functions/simd/log.hpp>
 #include <nt2/include/functions/simd/exp.hpp>
@@ -31,27 +29,6 @@
 #include <nt2/include/functions/simd/logical_and.hpp>
 #include <nt2/include/functions/simd/logical_not.hpp>
 
-namespace nt2 { namespace ext
-{
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expm1_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                            )
-  {
-
-    typedef typename meta::as_floating<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::exp(tofloat(a0))-One<result_type>();
-    }
-  };
-} }
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is double
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expm1_, tag::cpu_
@@ -91,10 +68,7 @@ namespace nt2 { namespace ext
       return sel(eq(a0, Minf<A0>()),Mone<A0>(), sel(eq(a0, Inf<A0>()), a0, y));
     }
   };
-} }
 
-namespace nt2 { namespace ext
-{
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expm1_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<single_<A0>,X>))

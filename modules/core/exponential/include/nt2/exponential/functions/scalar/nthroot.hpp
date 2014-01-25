@@ -18,32 +18,10 @@
 #include <nt2/include/functions/scalar/is_odd.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nthroot_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)
-                            )
-  {
-
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      return nt2::nthroot(result_type(a0),a1);
-    }
-  };
-} }
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
+#include <nt2/include/constants/nan.hpp>
+#ifndef BOOST_SIMD_NO_INFINITIES
+#include <nt2/include/functions/scalar/is_inf.hpp>
+#endif
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nthroot_, tag::cpu_
@@ -61,7 +39,9 @@ namespace nt2 { namespace ext
       if (!a0) return Zero<type>();
       bool is_ltza0 = is_ltz(a0);
       if (!is_odd(a1) && is_ltza0) return Nan<type>();
+#ifndef BOOST_SIMD_NO_INFINITIES
       if (is_inf(a0)) return a0;
+#endif
       type aa1 = type(a1);
       type x = nt2::abs(a0);
       type y = nt2::pow(x,rec(aa1));

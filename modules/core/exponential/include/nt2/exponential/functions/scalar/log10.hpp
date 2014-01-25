@@ -99,7 +99,6 @@ namespace nt2 { namespace ext
         (a0 >= 100ull)? 2 :
         (a0 >= 10ull)? 1 : 0;
     }
-
   };
 
 } }

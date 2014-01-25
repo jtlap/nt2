@@ -12,29 +12,6 @@
 #include <nt2/include/functions/scalar/is_flint.hpp>
 #include <nt2/include/functions/scalar/pow.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A1 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::realpow_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< arithmetic_<A0> >)
-                              (scalar_< integer_<A1> >)
-                            )
-  {
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      return nt2::pow(result_type(a0), a1);
-    }
-  };
-} }
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A1 is double
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::realpow_, tag::cpu_
