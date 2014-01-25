@@ -10,6 +10,7 @@
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_GENERIC_ASSIGN_HPP_INCLUDED
 
 #include <boost/simd/operator/functions/assign.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -21,8 +22,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0& result_type;
 
-    BOOST_FORCEINLINE
-    result_type operator()(A0& a0, const A0& a1) const
+    BOOST_FORCEINLINE result_type operator()(A0& a0, const A0& a1) const
     {
       return a0 = a1;
     }
@@ -36,8 +36,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A1& result_type;
 
-    BOOST_FORCEINLINE
-    result_type operator()(A0& a0, const A1& a1) const
+    BOOST_FORCEINLINE result_type operator()(A0& a0, const A1& a1) const
     {
       a0 = a1;
       return a1;

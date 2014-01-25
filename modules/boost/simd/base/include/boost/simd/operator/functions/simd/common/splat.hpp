@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2014 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -23,6 +24,7 @@
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/simd/meta/is_logical_mask.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -50,17 +52,17 @@ namespace boost { namespace simd { namespace ext
     #undef M0
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::splat_, tag::cpu_
-                                      , (A0)(A1)(X)(Y)
-                                      , (mpl::equal_to
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::splat_, tag::cpu_
+                                       , (A0)(A1)(X)(Y)
+                                       , (mpl::equal_to
                                         < boost::simd::meta::cardinal_of<A0>
-                                        , boost::simd::meta
+                                          ,  boost::simd::meta
                                           ::cardinal_of<typename A1::type>
                                         >
                                         )
-                                      , ((simd_< unspecified_<A0>, X >))
-                                        ((target_< simd_< unspecified_<A1>, Y > >))
-                                      )
+                                       , ((simd_< unspecified_<A0>, X >))
+                                         ((target_< simd_< unspecified_<A1>, Y > >))
+                                       )
   {
     typedef typename A1::type                           result_type;
     typedef typename meta::scalar_of<result_type>::type sA1;
@@ -80,17 +82,17 @@ namespace boost { namespace simd { namespace ext
   //============================================================================
   // Splatting a SIMD value to another can use toint, touint or tofloat (optimizations)
   //============================================================================
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::splat_, tag::cpu_
-                                      , (A0)(A1)(X)
-                                      , (mpl::equal_to
-                                          < boost::simd::meta::cardinal_of<A0>
-                                          , boost::simd::meta
-                                            ::cardinal_of<typename A1::type>
-                                          >
-                                        )
-                                      , ((simd_< arithmetic_<A0>, X >))
-                                        ((target_< simd_< floating_<A1>, X > >))
-                                    )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::splat_, tag::cpu_
+                                       , (A0)(A1)(X)
+                                       , (mpl::equal_to
+                                           < boost::simd::meta::cardinal_of<A0>
+                                           , boost::simd::meta
+                                             ::cardinal_of<typename A1::type>
+                                           >
+                                         )
+                                       , ((simd_< arithmetic_<A0>, X >))
+                                         ((target_< simd_< floating_<A1>, X > >))
+                                      )
   {
     typedef typename A1::type result_type;
 
@@ -100,17 +102,17 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::splat_, tag::cpu_
-                                      , (A0)(A1)(X)
-                                      , (mpl::equal_to
-                                          < boost::simd::meta::cardinal_of<A0>
-                                          , boost::simd::meta
-                                            ::cardinal_of<typename A1::type>
-                                          >
-                                        )
-                                      , ((simd_< arithmetic_<A0>, X >))
-                                        ((target_< simd_< int_<A1>, X > >))
-                                      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::splat_, tag::cpu_
+                                       , (A0)(A1)(X)
+                                       , (mpl::equal_to
+                                           < boost::simd::meta::cardinal_of<A0>
+                                           , boost::simd::meta
+                                             ::cardinal_of<typename A1::type>
+                                           >
+                                         )
+                                       , ((simd_< arithmetic_<A0>, X >))
+                                         ((target_< simd_< int_<A1>, X > >))
+                                       )
   {
     typedef typename A1::type result_type;
 
@@ -121,17 +123,17 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::splat_, tag::cpu_
-                                      , (A0)(A1)(X)
-                                      , (mpl::equal_to
-                                          < boost::simd::meta::cardinal_of<A0>
-                                          , boost::simd::meta
-                                            ::cardinal_of<typename A1::type>
-                                          >
-                                        )
-                                      , ((simd_< arithmetic_<A0>, X >))
-                                        ((target_< simd_< uint_<A1>, X > >))
-                                      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::splat_, tag::cpu_
+                                       , (A0)(A1)(X)
+                                       , (mpl::equal_to
+                                           < boost::simd::meta::cardinal_of<A0>
+                                           , boost::simd::meta
+                                             ::cardinal_of<typename A1::type>
+                                           >
+                                         )
+                                       , ((simd_< arithmetic_<A0>, X >))
+                                         ((target_< simd_< uint_<A1>, X > >))
+                                       )
   {
     typedef typename A1::type result_type;
 
@@ -145,12 +147,12 @@ namespace boost { namespace simd { namespace ext
   //============================================================================
   // splat logical is genmask + splat
   //============================================================================
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::splat_, tag::cpu_
-                                      , (A0)(A1)(X)
-                                      , (boost::simd::meta::is_logical_mask<typename A1::type>)
-                                      , (scalar_< unspecified_<A0>  >)
-                                        ((target_< simd_< logical_<A1>, X > >))
-                                      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::splat_, tag::cpu_
+                                       , (A0)(A1)(X)
+                                       , (boost::simd::meta::is_logical_mask<typename A1::type>)
+                                       , (scalar_< unspecified_<A0>  >)
+                                         ((target_< simd_< logical_<A1>, X > >))
+                                       )
   {
     typedef typename A1::type result_type;
 

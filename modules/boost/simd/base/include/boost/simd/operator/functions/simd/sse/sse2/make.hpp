@@ -12,31 +12,32 @@
 
 #include <boost/simd/operator/functions/make.hpp>
 #include <boost/simd/operator/functions/simd/details/make_helper.hpp>
+#include <boost/dispatch/attributes.hpp>
 
-//==============================================================================
-// make for double
-//==============================================================================
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::make_, boost::simd::tag::sse2_, (A0)
-                            , ((target_< simd_< double_<A0>, boost::simd::tag::sse_ > >))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::make_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((target_ < simd_ < double_<A0>
+                                                        , boost::simd::tag::sse_
+                                                        >
+                                                >
+                                      ))
+                                    )
   {
-    BOOST_SIMD_MAKE_BODY(2)
-    {
-      return _mm_setr_pd(a0, a1);
-    }
+    BOOST_SIMD_MAKE_BODY(2) { return _mm_setr_pd(a0, a1); }
   };
-} } }
 
-//==============================================================================
-// make for 64bits integers
-//==============================================================================
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::make_, boost::simd::tag::sse2_, (A0)
-                            , ((target_< simd_< ints64_<A0>, boost::simd::tag::sse_ > >))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::make_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((target_ < simd_ < ints64_<A0>
+                                                        , boost::simd::tag::sse_
+                                                        >
+                                                >
+                                      ))
+                                    )
   {
     BOOST_SIMD_MAKE_BODY(2)
     {
@@ -51,64 +52,58 @@ namespace boost { namespace simd { namespace ext
 #endif
     }
   };
-} } }
 
-//==============================================================================
-// make for float
-//==============================================================================
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::make_, boost::simd::tag::sse2_, (A0)
-                            , ((target_< simd_< single_<A0>, boost::simd::tag::sse_ > >))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::make_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((target_ < simd_ < single_<A0>
+                                                        , boost::simd::tag::sse_
+                                                        >
+                                                >
+                                      ))
+                                    )
   {
-    BOOST_SIMD_MAKE_BODY(4)
-    {
-      return _mm_setr_ps(a0, a1, a2, a3);
-    }
+    BOOST_SIMD_MAKE_BODY(4) { return _mm_setr_ps(a0, a1, a2, a3); }
   };
-} } }
 
-//==============================================================================
-// make for 32 bits integer
-//==============================================================================
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::make_, boost::simd::tag::sse2_, (A0)
-                            , ((target_< simd_< ints32_<A0>, boost::simd::tag::sse_ > >))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::make_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((target_ < simd_ < ints32_<A0>
+                                                        , boost::simd::tag::sse_
+                                                        >
+                                                >
+                                      ))
+                                    )
   {
-    BOOST_SIMD_MAKE_BODY(4)
-    {
-      return _mm_setr_epi32(a0, a1, a2, a3);
-    }
+    BOOST_SIMD_MAKE_BODY(4) { return _mm_setr_epi32(a0, a1, a2, a3); }
   };
-} } }
 
-//==============================================================================
-// make for 16 bits integer
-//==============================================================================
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::make_, boost::simd::tag::sse2_, (A0)
-                            , ((target_< simd_< ints16_<A0>, boost::simd::tag::sse_ > >))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::make_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((target_ < simd_ < ints16_<A0>
+                                                        , boost::simd::tag::sse_
+                                                        >
+                                                >
+                                      ))
+                                    )
   {
     BOOST_SIMD_MAKE_BODY(8)
     {
       return _mm_setr_epi16(a0, a1, a2, a3 , a4, a5, a6, a7 );
     }
   };
-} } }
 
-//==============================================================================
-// make for 8 bits integer
-//==============================================================================
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::make_, boost::simd::tag::sse2_, (A0)
-                            , ((target_< simd_< ints8_<A0>, boost::simd::tag::sse_ > >))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::make_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((target_ < simd_ < ints8_<A0>
+                                                        , boost::simd::tag::sse_
+                                                        >
+                                                >
+                                      ))
+                                    )
   {
     BOOST_SIMD_MAKE_BODY(16)
     {

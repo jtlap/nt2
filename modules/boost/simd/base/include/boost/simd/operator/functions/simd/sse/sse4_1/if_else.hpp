@@ -13,48 +13,67 @@
 #include <boost/simd/operator/functions/if_else.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/functions/simd/genmask.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_, boost::simd::tag::sse4_1_
-                            , (A0)(A1)
-                            , ((simd_<logical_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<single_<A1>,boost::simd::tag::sse_>))
-                              ((simd_<single_<A1>,boost::simd::tag::sse_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::if_else_
+                                    , boost::simd::tag::sse4_1_
+                                    , (A0)(A1)
+                                    , ((simd_<logical_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<single_<A1>,boost::simd::tag::sse_>))
+                                      ((simd_<single_<A1>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef A1 result_type;
-    inline result_type operator()(A0 const& a0,A1 const& a1,A1 const& a2) const
+
+    BOOST_FORCEINLINE
+    result_type operator()(A0 const& a0,A1 const& a1,A1 const& a2) const
     {
-      return bitwise_cast<result_type>(_mm_blendv_ps(a2, a1, bitwise_cast<A1>(genmask(a0))));
+      return bitwise_cast<A1> ( _mm_blendv_ps ( a2, a1
+                                              , bitwise_cast<A1>(genmask(a0))
+                                              )
+                              );
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_, boost::simd::tag::sse4_1_
-                            , (A0)(A1)
-                            , ((simd_<logical_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<double_<A1>,boost::simd::tag::sse_>))
-                              ((simd_<double_<A1>,boost::simd::tag::sse_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::if_else_
+                                    , boost::simd::tag::sse4_1_
+                                    , (A0)(A1)
+                                    , ((simd_<logical_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<double_<A1>,boost::simd::tag::sse_>))
+                                      ((simd_<double_<A1>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef A1 result_type;
-    inline result_type operator()(A0 const& a0,A1 const& a1,A1 const& a2) const
+
+    BOOST_FORCEINLINE
+    result_type operator()(A0 const& a0,A1 const& a1,A1 const& a2) const
     {
-      return bitwise_cast<result_type>(_mm_blendv_pd(a2, a1, bitwise_cast<A1>(genmask(a0))));
+      return bitwise_cast<A1> ( _mm_blendv_pd ( a2, a1
+                                              , bitwise_cast<A1>(genmask(a0))
+                                              )
+                              );
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_, boost::simd::tag::sse4_1_
-                            , (A0)(A1)
-                            , ((simd_<logical_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<integer_<A1>,boost::simd::tag::sse_>))
-                              ((simd_<integer_<A1>,boost::simd::tag::sse_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::if_else_
+                                    , boost::simd::tag::sse4_1_
+                                    , (A0)(A1)
+                                    , ((simd_<logical_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<integer_<A1>,boost::simd::tag::sse_>))
+                                      ((simd_<integer_<A1>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef A1 result_type;
-    inline result_type operator()(A0 const& a0,A1 const& a1,A1 const& a2) const
+
+    BOOST_FORCEINLINE
+    result_type operator()(A0 const& a0,A1 const& a1,A1 const& a2) const
     {
-      return bitwise_cast<A1>(_mm_blendv_epi8(a2, a1, bitwise_cast<A1>(genmask(a0))));
+      return bitwise_cast<A1> ( _mm_blendv_epi8 ( a2, a1
+                                                , bitwise_cast<A1>(genmask(a0))
+                                                )
+                              );
     }
   };
 } } }

@@ -11,16 +11,16 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/operator/functions/minus.hpp>
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/dispatch/functor/preprocessor/call.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minus_, boost::simd::tag::sse2_
-                            , (A0)
-                            , ((simd_<double_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<double_<A0>,boost::simd::tag::sse_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::minus_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_<double_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<double_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef A0 result_type;
 
@@ -29,15 +29,13 @@ namespace boost { namespace simd { namespace ext
       return _mm_sub_pd(a0,a1);
     }
   };
-} } }
 
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minus_, boost::simd::tag::sse2_
-                            , (A0)
-                            , ((simd_<single_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<single_<A0>,boost::simd::tag::sse_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::minus_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_<single_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<single_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef A0 result_type;
 
@@ -46,15 +44,13 @@ namespace boost { namespace simd { namespace ext
       return _mm_sub_ps(a0,a1);
     }
   };
-} } }
 
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minus_, boost::simd::tag::sse2_
-                            , (A0)
-                            , ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::minus_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef A0 result_type;
 
@@ -63,15 +59,13 @@ namespace boost { namespace simd { namespace ext
       return _mm_sub_epi8(a0,a1);
     }
   };
-} } }
 
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minus_, boost::simd::tag::sse2_
-                            , (A0)
-                            , ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::minus_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef A0 result_type;
 
@@ -80,15 +74,13 @@ namespace boost { namespace simd { namespace ext
       return _mm_sub_epi16(a0,a1);
     }
   };
-} } }
 
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minus_, boost::simd::tag::sse2_
-                            , (A0)
-                            , ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::minus_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef A0 result_type;
 
@@ -97,15 +89,13 @@ namespace boost { namespace simd { namespace ext
       return _mm_sub_epi32(a0,a1);
     }
   };
-} } }
 
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minus_, boost::simd::tag::sse2_
-                            , (A0)
-                            , ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::minus_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef A0 result_type;
 

@@ -15,48 +15,51 @@
 #include <boost/simd/include/functions/scalar/is_nltz.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_xor.hpp>
 #include <boost/simd/include/constants/zero.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minmod_, tag::cpu_
-                            , (A0)
-                            , (scalar_< int_<A0> >)
-                              (scalar_< int_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::minmod_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< int_<A0> >)
+                                      (scalar_< int_<A0> >)
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return is_gez(b_xor(a0, a1)) ? boost::simd::min(a0, a1): Zero<A0>();
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minmod_, tag::cpu_
-                            , (A0)
-                            , (scalar_< uint_<A0> >)
-                              (scalar_< uint_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::minmod_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< uint_<A0> >)
+                                      (scalar_< uint_<A0> >)
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return boost::simd::min(a0,a1);
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minmod_, tag::cpu_
-                            , (A0)
-                            , (scalar_< floating_<A0> >)
-                              (scalar_< floating_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::minmod_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< floating_<A0> >)
+                                      (scalar_< floating_<A0> >)
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return is_nltz(a0*a1) ? boost::simd::min(a0,a1) : Zero<A0>();
     }
   };
 } } }
-
 
 #endif

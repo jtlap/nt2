@@ -12,6 +12,7 @@
 
 #include <boost/simd/operator/functions/bitwise_and.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -26,8 +27,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
     {
-      A0 other = simd::bitwise_cast<A0>( a1 );
-      return vec_and(a0(),other());
+      return vec_and(a0(), simd::bitwise_cast<A0>(a1)());
     }
   };
 } } }

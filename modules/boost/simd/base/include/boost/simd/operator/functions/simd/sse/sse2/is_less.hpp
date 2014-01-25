@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2014 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -19,46 +20,47 @@
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/swar/functions/details/shuffle.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_less_, boost::simd::tag::sse2_
-                            , (A0)
-                            , ((simd_<double_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<double_<A0>,boost::simd::tag::sse_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::is_less_, boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_<double_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<double_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef typename meta::as_logical<A0>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return _mm_cmplt_pd(a0,a1);
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_less_, boost::simd::tag::sse2_
-                            , (A0)
-                            , ((simd_<single_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<single_<A0>,boost::simd::tag::sse_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::is_less_, boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_<single_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<single_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef typename meta::as_logical<A0>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return _mm_cmplt_ps(a0,a1);
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_less_, boost::simd::tag::sse2_
-                            , (A0)
-                            , ((simd_<unsigned_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<unsigned_<A0>,boost::simd::tag::sse_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::is_less_, boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_<unsigned_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<unsigned_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef typename meta::as_logical<A0>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::as_integer<A0, signed>::type stype;
       return  bitwise_cast<result_type>
@@ -69,39 +71,39 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_less_, boost::simd::tag::sse2_
-                            , (A0)
-                            , ((simd_<int8_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<int8_<A0>,boost::simd::tag::sse_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::is_less_, boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_<int8_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<int8_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef typename meta::as_logical<A0>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return _mm_cmplt_epi8(a0,a1);
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_less_, boost::simd::tag::sse2_
-                            , (A0)
-                            , ((simd_<int16_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<int16_<A0>,boost::simd::tag::sse_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::is_less_, boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_<int16_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<int16_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef typename meta::as_logical<A0>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return _mm_cmplt_epi16(a0,a1);
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_less_, boost::simd::tag::sse2_
-                            , (A0)
-                            , ((simd_<int32_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<int32_<A0>,boost::simd::tag::sse_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::is_less_, boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_<int32_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<int32_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef typename meta::as_logical<A0>::type result_type;
 
@@ -111,11 +113,11 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_less_, boost::simd::tag::sse2_
-                            , (A0)
-                            , ((simd_<int64_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<int64_<A0>,boost::simd::tag::sse_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::is_less_, boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_<int64_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<int64_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef typename meta::as_logical<A0>::type result_type;
 

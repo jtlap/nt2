@@ -11,16 +11,19 @@
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 #include <boost/simd/operator/functions/splat.hpp>
-#include <boost/simd/sdk/simd/category.hpp>
-#include <boost/dispatch/meta/scalar_of.hpp>
-#include <boost/dispatch/functor/preprocessor/call.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_, boost::simd::tag::vmx_, (A0)(A1)
-                            , (scalar_< fundamental_<A0> >)
-                              ((target_<simd_<arithmetic_<A1>,boost::simd::tag::vmx_> >))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::splat_
+                                    , boost::simd::tag::vmx_, (A0)(A1)
+                                    , (scalar_< fundamental_<A0> >)
+                                      ((target_ < simd_ < arithmetic_<A1>
+                                                        ,boost::simd::tag::vmx_
+                                                        >
+                                                >
+                                      ))
+                                    )
   {
     typedef typename A1::type result_type;
 

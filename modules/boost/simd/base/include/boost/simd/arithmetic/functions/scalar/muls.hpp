@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2014 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -20,28 +21,29 @@
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/dispatch/meta/as_unsigned.hpp>
-#
+#include <boost/dispatch/attributes.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::muls_, tag::cpu_
-                            , (A0)
-                            , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::muls_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return a0*a1;
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::muls_, tag::cpu_
-                            , (A0)
-                            , (scalar_< unsigned_<A0> >)(scalar_< unsigned_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::muls_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< unsigned_<A0> >)(scalar_< unsigned_<A0> >)
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::upgrade<A0>::type utype;
       utype res = utype(a0)*utype(a1);
@@ -49,28 +51,28 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::muls_, tag::cpu_
-                            , (A0)
-                            , (scalar_< integer_<A0> >)(scalar_< integer_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::muls_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< integer_<A0> >)(scalar_< integer_<A0> >)
+                                    )
   {
 
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::upgrade<A0>::type uptype;
       return A0(saturate<A0>(static_cast<uptype>(a0)*static_cast<uptype>(a1)));
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::muls_, tag::cpu_
-                                   , (A0)
-                                   , (scalar_< int32_<A0> >)(scalar_< int32_<A0> >)
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::muls_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< int32_<A0> >)(scalar_< int32_<A0> >)
+                                    )
   {
 
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::as_unsigned<A0>::type untype;
       typedef typename dispatch::meta::upgrade<A0>::type utype;
@@ -88,13 +90,14 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::muls_, tag::cpu_
-                            , (A0)
-                            , (scalar_< uint64_<A0> >)(scalar_< uint64_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::muls_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< uint64_<A0> >)(scalar_< uint64_<A0> >)
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       if (a1 == 0 || a0 == 0) return Zero<A0>();
       if (a1 >= a0)
@@ -103,21 +106,21 @@ namespace boost { namespace simd { namespace ext
         return aux(a1, a0);
     }
   private :
-    static inline A0 aux(const A0& mini,  const A0& maxi)
+    static BOOST_FORCEINLINE A0 aux(const A0& mini,  const A0& maxi)
     {
       A0 z = Valmax<A0>()/maxi;
       return (z < mini) ? Valmax<A0>() : mini*maxi;
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::muls_, tag::cpu_
-                            , (A0)
-                            , (scalar_< int64_<A0> >)(scalar_< int64_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::muls_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< int64_<A0> >)(scalar_< int64_<A0> >)
+                                    )
   {
     typedef A0 result_type;
     typedef typename dispatch::meta::as_unsigned<result_type>::type untype;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       if (a1 == 0 || a0 == 0) return Zero<result_type>();
       result_type sign =  b_xor(bitofsign(a0), bitofsign(a1));
@@ -129,7 +132,7 @@ namespace boost { namespace simd { namespace ext
         return aux(a1, a0, sign, aa1, aa0);
     }
   private :
-    static inline A0 aux(const A0& mini,  const A0& maxi,
+    static BOOST_FORCEINLINE A0 aux(const A0& mini,  const A0& maxi,
                          const A0& sign,
                          const untype& amini, const untype& amaxi)
     {

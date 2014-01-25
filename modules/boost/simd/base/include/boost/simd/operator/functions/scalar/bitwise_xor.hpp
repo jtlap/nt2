@@ -12,26 +12,30 @@
 #include <boost/simd/operator/functions/bitwise_xor.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/dispatch/attributes.hpp>
 #include <boost/mpl/sizeof.hpp>
 #include <boost/mpl/equal_to.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::bitwise_xor_ , tag::cpu_, (A0)(A1)
-                                , (boost::mpl::equal_to < boost::mpl::sizeof_<A0>
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::bitwise_xor_, tag::cpu_
+                                      , (A0)(A1)
+                                      , (boost::mpl::
+                                                equal_to< boost::mpl::sizeof_<A0>
                                                         , boost::mpl::sizeof_<A1>
                                                         >
-                                  )
-                                , (scalar_< fundamental_<A0> >)
-                                  (scalar_< fundamental_<A1> >)
-                                )
+                                        )
+                                      , (scalar_< fundamental_<A0> >)
+                                        (scalar_< fundamental_<A1> >)
+                                      )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      typedef typename dispatch::meta::as_integer<A0, unsigned>::type bts;
-      return bitwise_cast<A0>(bts(bitwise_cast<bts>(a0) ^ bitwise_cast<bts>(a1)));
+      typedef typename dispatch::meta::as_integer<A0, unsigned>::type b_t;
+      return bitwise_cast<A0>(b_t(bitwise_cast<b_t>(a0) ^ bitwise_cast<b_t>(a1)));
     }
   };
 } } }

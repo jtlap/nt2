@@ -10,25 +10,23 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_MIN_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/min.hpp>
-#include <boost/simd/include/functions/scalar/is_unord.hpp>
-#include <boost/simd/include/constants/nan.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::min_, tag::cpu_
-                            , (A0)
-                            , (scalar_< arithmetic_<A0> >)
-                              (scalar_< arithmetic_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::min_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< arithmetic_<A0> >)
+                                      (scalar_< arithmetic_<A0> >)
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+
+    BOOST_FORCEINLINE result_type operator()(A0 a0, A0 a1) const
     {
       return (a0 < a1) ? a0 : a1;
     }
   };
-
 } } }
-
 
 #endif

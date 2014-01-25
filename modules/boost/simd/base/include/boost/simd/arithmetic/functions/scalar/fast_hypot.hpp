@@ -10,11 +10,9 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_FAST_HYPOT_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/fast_hypot.hpp>
+#include <boost/simd/include/functions/scalar/is_inf.hpp>
 #include <boost/simd/include/functions/scalar/sqrt.hpp>
 #include <boost/simd/include/functions/scalar/sqr.hpp>
-#include <boost/simd/include/functions/scalar/is_nan.hpp>
-#include <boost/simd/include/functions/scalar/is_inf.hpp>
-#include <boost/simd/include/functions/scalar/ldexp.hpp>
 #include <boost/simd/include/functions/scalar/fma.hpp>
 #include <boost/simd/include/constants/eps.hpp>
 #include <boost/simd/include/constants/inf.hpp>
@@ -23,16 +21,18 @@
 #include <boost/simd/sdk/config.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_hypot_, tag::cpu_
-                            , (A0)
-                            , (scalar_< double_<A0> >)
-                              (scalar_< double_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::fast_hypot_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< double_<A0> >)
+                                      (scalar_< double_<A0> >)
+                                    )
   {
     typedef A0 result_type;
+
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
 #if !defined(BOOST_SIMD_NO_NANS) && !defined(BOOST_SIMD_NO_INFINITIES)
@@ -50,14 +50,15 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_hypot_, tag::cpu_
-                            , (A0)
-                            , (scalar_< single_<A0> >)
-                              (scalar_< single_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::fast_hypot_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< single_<A0> >)
+                                      (scalar_< single_<A0> >)
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
 #if !defined(BOOST_SIMD_NO_NANS) && !defined(BOOST_SIMD_NO_INFINITIES)
       // flibc do that in ::fast_hypotf(a0, a1) in asm with no more speed!
@@ -70,6 +71,5 @@ namespace boost { namespace simd { namespace ext
     }
   };
 } } }
-
 
 #endif

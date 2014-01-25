@@ -10,6 +10,7 @@
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_SCALAR_DIVIDES_HPP_INCLUDED
 
 #include <boost/simd/operator/functions/divides.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 #ifdef BOOST_MSVC
   #pragma warning(push)
@@ -18,13 +19,15 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divides_, tag::cpu_, (A0)
-                            , (scalar_< fundamental_<A0> >)
-                              (scalar_< fundamental_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::divides_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< fundamental_<A0> >)
+                                      (scalar_< fundamental_<A0> >)
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return a0/a1; }
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return a0/a1; }
   };
 } } }
 

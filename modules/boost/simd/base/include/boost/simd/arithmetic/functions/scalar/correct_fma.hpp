@@ -16,6 +16,7 @@
 #include <boost/simd/include/functions/max.hpp>
 #include <boost/simd/include/functions/exponent.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -28,9 +29,12 @@ namespace boost { namespace simd { namespace ext
                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
     {
-      return static_cast<A0>(static_cast<double>(a0)*static_cast<double>(a1)+static_cast<double>(a2));
+      return static_cast<A0>( static_cast<double>(a0)*static_cast<double>(a1)
+                            + static_cast<double>(a2)
+                            );
     }
   };
 
@@ -43,6 +47,7 @@ namespace boost { namespace simd { namespace ext
                                    )
   {
     typedef A0 result_type;
+
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
     {
       result_type p, rp, s, rs;
@@ -74,7 +79,8 @@ namespace boost { namespace simd { namespace ext
                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
     {
      return a0*a1+a2;
     }

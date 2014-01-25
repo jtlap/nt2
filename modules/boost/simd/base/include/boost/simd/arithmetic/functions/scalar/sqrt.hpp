@@ -12,30 +12,33 @@
 #include <boost/simd/arithmetic/functions/sqrt.hpp>
 #include <boost/simd/include/functions/scalar/is_gez.hpp>
 #include <boost/simd/sdk/math.hpp>
+#include <boost/dispatch/attributes.hpp>
 #include <boost/assert.hpp>
 #include <cmath>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sqrt_, tag::cpu_
-                            , (A0)
-                            , (scalar_< double_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::sqrt_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< double_<A0> >)
+                                    )
   {
     typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return ::sqrt(a0);
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sqrt_, tag::cpu_
-                            , (A0)
-                            , (scalar_< single_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::sqrt_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< single_<A0> >)
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
       #ifdef BOOST_SIMD_HAS_SQRTF
       return ::sqrtf(a0);
@@ -45,20 +48,21 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sqrt_, tag::cpu_
-                            , (A0)
-                            , (scalar_< integer_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::sqrt_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< integer_<A0> >)
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
       BOOST_ASSERT_MSG(is_gez(a0), "sqrt input is negative");
+
       return A0(sqrt(double(a0)));
     }
   };
 
 } } }
-
 
 #endif

@@ -14,6 +14,7 @@
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -24,7 +25,8 @@ namespace boost { namespace simd { namespace ext
                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       if (!a0) return  Zero<result_type>();
       if(a1)
@@ -44,7 +46,7 @@ namespace boost { namespace simd { namespace ext
                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       if (!a0) return  Zero<result_type>();
       if(a1)
@@ -70,7 +72,7 @@ namespace boost { namespace simd { namespace ext
                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return trunc(a0/a1);
     }
@@ -81,6 +83,5 @@ namespace boost { namespace simd { namespace ext
 #endif
 
 } } }
-
 
 #endif

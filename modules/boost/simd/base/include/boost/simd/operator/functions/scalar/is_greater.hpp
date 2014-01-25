@@ -8,8 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_SCALAR_IS_GREATER_HPP_INCLUDED
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_SCALAR_IS_GREATER_HPP_INCLUDED
+
 #include <boost/simd/operator/functions/is_greater.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -20,7 +22,8 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return result_type(a0 > a1);
     }

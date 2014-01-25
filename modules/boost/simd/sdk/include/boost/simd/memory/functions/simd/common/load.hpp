@@ -18,6 +18,7 @@
 #include <boost/simd/sdk/meta/iterate.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/mpl/equal_to.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

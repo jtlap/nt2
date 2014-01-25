@@ -14,49 +14,60 @@
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/functions/simd/splat.hpp>
 #include <boost/dispatch/meta/as_unsigned.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shift_right_, boost::simd::tag::vmx_, (A0)(A1)
-                            , ((simd_<int_<A0>,boost::simd::tag::vmx_>))
-                              ((simd_<integer_<A1>,boost::simd::tag::vmx_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shift_right_
+                                    , boost::simd::tag::vmx_
+                                    , (A0)(A1)
+                                    , ((simd_<int_<A0>,boost::simd::tag::vmx_>))
+                                      ((simd_<integer_<A1>,boost::simd::tag::vmx_>))
+                                    )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
     {
+      BOOST_ASSERT_MSG( assert_good_shift<A0>(a1)
+                      , "shift_right: a shift is out of range"
+                      );
+
      typedef typename dispatch::meta::as_unsigned<A1>::type type;
-     BOOST_ASSERT_MSG(assert_good_shift<A0>(a1), "shift_right: a shift is out of range");
-     type shift = simd::bitwise_cast<type>(a1);
-     return vec_sra(a0(), shift());
+     return vec_sra(a0(), bitwise_cast<type>(a1)());
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shift_right_, boost::simd::tag::vmx_, (A0)(A1)
-                            , ((simd_<uint_<A0>,boost::simd::tag::vmx_>))
-                              ((simd_<integer_<A1>,boost::simd::tag::vmx_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shift_right_
+                                    , boost::simd::tag::vmx_
+                                    , (A0)(A1)
+                                    , ((simd_<uint_<A0>,boost::simd::tag::vmx_>))
+                                      ((simd_<integer_<A1>,boost::simd::tag::vmx_>))
+                                    )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
     {
+      BOOST_ASSERT_MSG( assert_good_shift<A0>(a1)
+                      , "shift_right: a shift is out of range"
+                      );
+
      typedef typename dispatch::meta::as_unsigned<A1>::type type;
-     BOOST_ASSERT_MSG(assert_good_shift<A0>(a1), "shift_right: a shift is out of range");
-     type shift = simd::bitwise_cast<type>(a1);
-     return vec_sr(a0(), shift());
+     return vec_sr(a0(), bitwise_cast<type>(a1)());
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shift_right_, boost::simd::tag::vmx_, (A0)(A1)
-                                   , ((simd_<integer_<A0>,boost::simd::tag::vmx_>))
-                                     (scalar_<integer_<A1> >)
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shift_right_
+                                    , boost::simd::tag::vmx_
+                                    , (A0)(A1)
+                                    , ((simd_<integer_<A0>,boost::simd::tag::vmx_>))
+                                      (scalar_<integer_<A1> >)
+                                    )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return a0 >> splat<A0>(a1);
     }

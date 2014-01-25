@@ -11,14 +11,16 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
 #include <boost/simd/operator/functions/multiplies.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, boost::simd::tag::avx_
-                            , (A0)
-                            , ((simd_<double_<A0>,boost::simd::tag::avx_>))
-                              ((simd_<double_<A0>,boost::simd::tag::avx_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::multiplies_
+                                    , boost::simd::tag::avx_
+                                    , (A0)
+                                    , ((simd_<double_<A0>,boost::simd::tag::avx_>))
+                                      ((simd_<double_<A0>,boost::simd::tag::avx_>))
+                                    )
   {
     typedef A0 result_type;
 
@@ -28,11 +30,12 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, boost::simd::tag::avx_
-                            , (A0)
-                            , ((simd_<single_<A0>,boost::simd::tag::avx_>))
-                              ((simd_<single_<A0>,boost::simd::tag::avx_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::multiplies_
+                                    , boost::simd::tag::avx_
+                                    , (A0)
+                                    , ((simd_<single_<A0>,boost::simd::tag::avx_>))
+                                      ((simd_<single_<A0>,boost::simd::tag::avx_>))
+                                    )
   {
     typedef A0 result_type;
 
@@ -42,8 +45,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 } } }
-
-
 
 #endif
 #endif

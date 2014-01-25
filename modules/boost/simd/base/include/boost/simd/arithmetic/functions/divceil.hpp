@@ -46,7 +46,7 @@ namespace boost { namespace simd {
 
     for integral types, if y is null, it returns Valmax (resp. Valmin)
     if x is positive (resp. negative), and 0 if x is null.
-    Take also care that dividing Valmin by -1 for signed integral types has
+    Take care also that dividing Valmin by -1 for signed integral types has
     undefined behaviour.
 
     @see  @funcref{divides}, @funcref{fast_divides}, @funcref{rec}, @funcref{fast_rec}, @funcref{divs}, @funcref{divfloor},

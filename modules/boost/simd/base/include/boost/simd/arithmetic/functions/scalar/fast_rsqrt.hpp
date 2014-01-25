@@ -13,6 +13,7 @@
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
 #include <boost/simd/include/functions/scalar/rsqrt.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -38,9 +39,7 @@ namespace boost { namespace simd { namespace ext
       A0 x2 = a0 * 0.5f;
       A0 y2 = bitwise_cast<A0>(y);
 
-      // Newton-Rhapson refinement steps
-      // - We do 2 NR steps for precision purpose
-      // TODO: Fit this # of NR step into the policy from issue #281
+      // Newton-Rhapson refinement steps: 2 NR steps for precision purpose
       y2    = y2 * ( 1.5f - ( x2 * y2 * y2 ) );
       return  y2 * ( 1.5f - ( x2 * y2 * y2 ) );
     }
@@ -59,7 +58,6 @@ namespace boost { namespace simd { namespace ext
       return simd::rsqrt(a0);
     }
   };
-
 } } }
 
 #endif

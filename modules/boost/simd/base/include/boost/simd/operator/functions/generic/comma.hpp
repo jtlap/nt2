@@ -8,18 +8,21 @@
 //==============================================================================
 #ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_GENERIC_COMMA_HPP_INCLUDED
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_GENERIC_COMMA_HPP_INCLUDED
+
 #include <boost/simd/operator/functions/comma.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::comma_, tag::cpu_, (A0)(A1)
-                            , (generic_<unspecified_<A0> >)
-                              (generic_<unspecified_<A1> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::comma_, tag::cpu_
+                                    , (A0)(A1)
+                                    , (generic_<unspecified_<A0> >)
+                                      (generic_<unspecified_<A1> >)
+                                    )
   {
     typedef A1 result_type;
-    BOOST_FORCEINLINE
-    result_type operator()(const A0&, const A1& a1) const
+
+    BOOST_FORCEINLINE result_type operator()(const A0&, const A1& a1) const
     {
       return a1;
     }

@@ -1,6 +1,6 @@
 //==============================================================================
 //         Copyright 2009 - 2013 LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2012 - 2013 MetaScale SAS
+//         Copyright 2012 - 2014 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -10,17 +10,17 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_REFINE_REC_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/refine_rec.hpp>
-#include <boost/simd/include/functions/simd/raw_rec.hpp>
 #include <boost/simd/include/functions/simd/fnms.hpp>
 #include <boost/simd/include/functions/simd/fma.hpp>
 #include <boost/simd/include/constants/one.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION (  boost::simd::tag::refine_rec_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::refine_rec_, tag::cpu_
                                     , (A0)
-                                    , ((generic_< floating_<A0> >))
-                                      ((generic_< floating_<A0> >))
+                                    , (generic_< floating_<A0> >)
+                                      (generic_< floating_<A0> >)
                                     )
   {
     typedef A0 result_type;

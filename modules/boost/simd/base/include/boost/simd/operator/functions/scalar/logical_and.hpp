@@ -8,29 +8,37 @@
 //==============================================================================
 #ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_SCALAR_LOGICAL_AND_HPP_INCLUDED
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_SCALAR_LOGICAL_AND_HPP_INCLUDED
+
 #include <boost/simd/operator/functions/logical_and.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_and_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< fundamental_<A0> >)
-                              (scalar_< fundamental_<A1> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::logical_and_, tag::cpu_
+                                    , (A0)(A1)
+                                    , (scalar_< fundamental_<A0> >)
+                                      (scalar_< fundamental_<A1> >)
+                                    )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2) { return result_type(a0 && a1); }
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
+    {
+      return result_type(a0 && a1);
+    }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_and_, tag::cpu_
-                             , (A0)(A1)
-                            , (scalar_< logical_<A0> >)
-                              (scalar_< logical_<A1> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::logical_and_, tag::cpu_
+                                    , (A0)(A1)
+                                    , (scalar_< logical_<A0> >)
+                                      (scalar_< logical_<A1> >)
+                                    )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2) { return result_type(a0.value() && a1.value()); }
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
+    {
+      return result_type(a0.value() && a1.value());
+    }
   };
 
 } } }

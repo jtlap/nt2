@@ -17,6 +17,7 @@
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/sdk/config.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -26,7 +27,8 @@ namespace boost { namespace simd { namespace ext
                                    )
   {
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
     #ifndef BOOST_SIMD_NO_NANS
       if (boost::simd::is_nan(a0))       return Zero<result_type>();
@@ -37,6 +39,5 @@ namespace boost { namespace simd { namespace ext
     }
   };
 } } }
-
 
 #endif

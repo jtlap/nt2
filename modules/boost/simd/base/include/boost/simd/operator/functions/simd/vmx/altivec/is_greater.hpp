@@ -12,16 +12,20 @@
 
 #include <boost/simd/operator/functions/is_greater.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_greater_, boost::simd::tag::vmx_, (A0)
-                            , ((simd_<arithmetic_<A0>, boost::simd::tag::vmx_>))
-                              ((simd_<arithmetic_<A0>, boost::simd::tag::vmx_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::is_greater_
+                                    , boost::simd::tag::vmx_
+                                    , (A0)
+                                    , ((simd_<arithmetic_<A0>, boost::simd::tag::vmx_>))
+                                      ((simd_<arithmetic_<A0>, boost::simd::tag::vmx_>))
+                                    )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return vec_cmpgt(a0(),a1());
     }

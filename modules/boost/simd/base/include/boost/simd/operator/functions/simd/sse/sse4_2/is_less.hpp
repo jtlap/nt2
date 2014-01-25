@@ -12,17 +12,20 @@
 
 #include <boost/simd/operator/functions/is_less.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_less_, boost::simd::tag::sse4_2_
-                            , (A0)
-                            , ((simd_<int64_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<int64_<A0>,boost::simd::tag::sse_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::is_less_
+                                    , boost::simd::tag::sse4_2_
+                                    , (A0)
+                                    , ((simd_<int64_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<int64_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return _mm_cmpgt_epi64(a1,a0);
     }

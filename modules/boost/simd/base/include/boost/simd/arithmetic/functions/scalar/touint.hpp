@@ -8,30 +8,34 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_TOUINT_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_TOUINT_HPP_INCLUDED
+
 #include <boost/simd/arithmetic/functions/touint.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::touint_, tag::cpu_ , (A0)
-                            , (scalar_< integer_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::touint_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< integer_<A0> >)
+                                    )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned> ::type result_type;
 
-    BOOST_FORCEINLINE  result_type
-    operator()(A0 const& a0) const
+    BOOST_FORCEINLINE  result_type operator()(A0 const& a0) const
     {
       return a0;
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::touint_, tag::cpu_, (A0)
-                            , (scalar_< floating_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::touint_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< floating_<A0> >)
+                                    )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned> ::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return result_type(a0);
     }

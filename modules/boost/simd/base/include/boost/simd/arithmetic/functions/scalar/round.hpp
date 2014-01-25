@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_ROUND_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_ROUND_HPP_INCLUDED
+
 #include <boost/simd/arithmetic/functions/round.hpp>
 #include <boost/simd/include/functions/scalar/toint.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_or.hpp>
@@ -16,29 +17,30 @@
 #include <boost/simd/include/constants/maxflint.hpp>
 #include <boost/simd/include/constants/half.hpp>
 #include <boost/simd/sdk/math.hpp>
+#include <boost/dispatch/attributes.hpp>
 #include <cmath>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round_, tag::cpu_
-                            , (A0)
-                            , (scalar_< integer_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::round_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< integer_<A0> >)
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return a0;
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round_, tag::cpu_
-                            , (A0)
-                            , (scalar_< single_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::round_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< single_<A0> >)
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
 #ifdef BOOST_SIMD_HAS_ROUNDF
       return ::roundf(a0);
@@ -52,13 +54,14 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round_, tag::cpu_
-                            , (A0)
-                            , (scalar_< double_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::round_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< double_<A0> >)
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
 #ifdef BOOST_SIMD_HAS_ROUND
       return ::round(a0);
@@ -72,6 +75,5 @@ namespace boost { namespace simd { namespace ext
      }
   };
 } } }
-
 
 #endif

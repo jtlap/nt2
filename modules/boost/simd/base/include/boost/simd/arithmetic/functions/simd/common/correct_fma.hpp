@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2014 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -14,31 +15,34 @@
 #include <boost/simd/include/functions/simd/split.hpp>
 #include <boost/simd/include/functions/simd/group.hpp>
 #include <boost/simd/include/functions/simd/unary_minus.hpp>
-#include <boost/simd/include/functions/simd/ldexp.hpp>
-#include <boost/simd/include/functions/simd/maxmag.hpp>
-#include <boost/simd/include/functions/simd/minmag.hpp>
-#include <boost/simd/include/functions/simd/is_inf.hpp>
-#include <boost/simd/include/functions/simd/exponent.hpp>
-#include <boost/simd/include/functions/simd/logical_andnot.hpp>
-#include <boost/simd/include/functions/simd/logical_or.hpp>
-#include <boost/simd/include/functions/simd/any.hpp>
+
 #include <boost/simd/sdk/meta/is_upgradable.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/dispatch/attributes.hpp>
+
+#ifndef BOOST_SIMD_DONT_CARE_FMA_OVERFLOW
+#include <boost/simd/include/functions/simd/ldexp.hpp>
+#include <boost/simd/include/functions/simd/exponent.hpp>
+#include <boost/simd/include/functions/simd/maxmag.hpp>
+#include <boost/simd/include/functions/simd/minmag.hpp>
+#include <boost/simd/arithmetic/functions/two_prod.hpp>
+#include <boost/simd/arithmetic/functions/two_add.hpp>
+#endif
 
 namespace boost { namespace simd { namespace ext
 {
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::correct_fma_, tag::cpu_
-                                      , (A0)(X)
-                                      , ( simd::meta::is_upgradable_on_ext<A0,X> )
-                                      , ((simd_<single_<A0>,X>))
-                                        ((simd_<single_<A0>,X>))
-                                        ((simd_<single_<A0>,X>))
-                                      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::correct_fma_, tag::cpu_
+                                       , (A0)(X)
+                                       , ( simd::meta::is_upgradable_on_ext<A0,X> )
+                                       , ((simd_<single_<A0>,X>))
+                                         ((simd_<single_<A0>,X>))
+                                         ((simd_<single_<A0>,X>))
+                                       )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
     {
       typedef typename dispatch::meta::upgrade<A0>::type ivtype;
       ivtype a0l, a0h, a1l, a1h, a2l, a2h;
@@ -49,12 +53,12 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::correct_fma_, tag::cpu_
-                                      , (A0)(X)
-                                      , ((simd_<floating_<A0>,X>))
-                                        ((simd_<floating_<A0>,X>))
-                                        ((simd_<floating_<A0>,X>))
-                                      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::correct_fma_, tag::cpu_
+                                    , (A0)(X)
+                                    , ((simd_<floating_<A0>,X>))
+                                      ((simd_<floating_<A0>,X>))
+                                      ((simd_<floating_<A0>,X>))
+                                    )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
@@ -80,15 +84,15 @@ namespace boost { namespace simd { namespace ext
   };
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::correct_fma_, tag::cpu_
-                                      , (A0)(X)
-                                      , ((simd_< integer_<A0>,X >))
-                                        ((simd_< integer_<A0>,X >))
-                                        ((simd_< integer_<A0>,X >))
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::correct_fma_, tag::cpu_
+                                    , (A0)(X)
+                                    , ((simd_< integer_<A0>,X >))
+                                      ((simd_< integer_<A0>,X >))
+                                      ((simd_< integer_<A0>,X >))
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
     {
       return a0*a1+a2;
     }

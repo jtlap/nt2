@@ -11,6 +11,7 @@
 
 #include <boost/simd/arithmetic/functions/abs.hpp>
 #include <boost/simd/sdk/math.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -21,20 +22,21 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
       A0 mask = a0 >> (sizeof(result_type)*8 - 1);
       return (a0 + mask) ^ mask;
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, tag::cpu_
-                            , (A0)
-                            , (scalar_< single_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::abs_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< single_<A0> >)
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
       #ifdef BOOST_SIMD_HAS_FABSF
        return ::fabsf(a0);
@@ -44,41 +46,43 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, tag::cpu_
-                            , (A0)
-                            , (scalar_< double_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::abs_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< double_<A0> >)
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
        return ::fabs(a0);
     }
   };
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, tag::cpu_
-                            , (A0)
-                            , (scalar_< unsigned_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::abs_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< unsigned_<A0> >)
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return a0;
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, tag::cpu_
-                            , (A0)
-                            , (scalar_< bool_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::abs_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< bool_<A0> >)
+                                    )
   {
     typedef A0& result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return a0;
     }
   };
 } } }
-
 
 #endif

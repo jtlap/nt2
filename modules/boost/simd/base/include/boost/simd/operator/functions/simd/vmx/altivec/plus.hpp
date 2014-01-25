@@ -11,19 +11,20 @@
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 #include <boost/simd/operator/functions/plus.hpp>
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/dispatch/functor/preprocessor/call.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_, boost::simd::tag::vmx_, (A0)
-                            , ((simd_<arithmetic_<A0>,boost::simd::tag::vmx_>))
-                              ((simd_<arithmetic_<A0>,boost::simd::tag::vmx_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::plus_
+                                    , boost::simd::tag::vmx_
+                                    , (A0)
+                                    , ((simd_<arithmetic_<A0>,boost::simd::tag::vmx_>))
+                                      ((simd_<arithmetic_<A0>,boost::simd::tag::vmx_>))
+                                    )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return vec_add(a0(),a1());
     }

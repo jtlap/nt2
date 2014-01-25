@@ -10,6 +10,9 @@
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_SIMD_VMX_ALTIVEC_COMPLEMENT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
+#include <boost/simd/operator/functions/complement.hpp>
+#include <boost/dispatch/attributes.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::complement_, boost::simd::tag::vmx_, (A0)
@@ -18,7 +21,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return vec_nor(a0(), a0());
     }

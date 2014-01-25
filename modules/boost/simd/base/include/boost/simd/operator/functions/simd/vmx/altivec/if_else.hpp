@@ -11,25 +11,27 @@
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 #include <boost/simd/operator/functions/if_else.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_, boost::simd::tag::vmx_
-             , (A0)(A1)
-             , ((simd_< logical_<A0>, boost::simd::tag::vmx_ >))
-               ((simd_< arithmetic_<A1>, boost::simd::tag::vmx_ >))
-               ((simd_< arithmetic_<A1>, boost::simd::tag::vmx_ >))
-             )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::if_else_
+                                    , boost::simd::tag::vmx_
+                                    , (A0)(A1)
+                                    , ((simd_< logical_<A0>, boost::simd::tag::vmx_ >))
+                                      ((simd_< arithmetic_<A1>, boost::simd::tag::vmx_ >))
+                                      ((simd_< arithmetic_<A1>, boost::simd::tag::vmx_ >))
+                                    )
   {
     typedef A1 result_type;
-    inline result_type operator()(const A0& a0, const A1& a1, const A1&a2) const
+
+    BOOST_FORCEINLINE
+    result_type operator()(const A0& a0, const A1& a1, const A1&a2) const
     {
       return vec_sel(a2(), a1(), a0());
     }
   };
-
 } } }
 
 #endif
-
 #endif
