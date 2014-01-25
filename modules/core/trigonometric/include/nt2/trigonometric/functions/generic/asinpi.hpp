@@ -10,6 +10,7 @@
 #define NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_ASINPI_HPP_INCLUDED
 #include <nt2/trigonometric/functions/asinpi.hpp>
 #include <nt2/include/functions/simd/asin.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/constants/invpi.hpp>
 
 namespace nt2 { namespace ext

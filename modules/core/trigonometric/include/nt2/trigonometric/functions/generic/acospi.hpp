@@ -10,6 +10,9 @@
 #define NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_ACOSPI_HPP_INCLUDED
 #include <nt2/trigonometric/functions/acospi.hpp>
 #include <nt2/include/functions/simd/acos.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/constants/invpi.hpp>
+
 
 namespace nt2 { namespace ext
 {
