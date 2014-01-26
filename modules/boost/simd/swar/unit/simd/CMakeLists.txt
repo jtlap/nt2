@@ -9,6 +9,9 @@
 
 SET( SOURCES
   shuffle.cpp
+  shuffle2.cpp
+  shuffle4.cpp
+  shuffle8.cpp
   all_reduce.cpp
   broadcast.cpp
   combine.cpp
