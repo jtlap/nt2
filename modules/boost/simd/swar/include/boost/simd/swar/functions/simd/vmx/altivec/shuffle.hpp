@@ -13,138 +13,124 @@
 #include <boost/simd/swar/functions/shuffle.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/functions/simd/make.hpp>
+#include <boost/simd/swar/functions/details/topology.hpp>
+#include <boost/simd/swar/functions/details/perm.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
-#include <boost/simd/swar/functions/details/perm.hpp>
-#include <boost/dispatch/meta/any.hpp>
-#include <boost/mpl/integral_c.hpp>
-#include <boost/mpl/range_c.hpp>
-#include <boost/mpl/contains.hpp>
-#include <boost/mpl/transform.hpp>
-#include <boost/mpl/copy.hpp>
-#include <boost/mpl/vector.hpp>
-#include <boost/mpl/back_inserter.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/mpl/at.hpp>
-#include <boost/mpl/equal_to.hpp>
-#include <boost/mpl/apply_wrap.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_
-                                    , boost::simd::tag::vmx_
-                                    , (A0)(P)
-                                    , ((simd_< arithmetic_<A0>
-                                             , boost::simd::tag::vmx_
-                                             >
-                                      ))
-                                      (target_< unspecified_<P> >)
-                                    )
+  // VMX has a full permute unit
+  template<std::size_t N> struct vmx_permute
   {
-    typedef A0                                     result_type;
-    typedef typename P::type                       permutation_t;
-
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, P const&) const
+    template<typename T,typename P>
+    BOOST_FORCEINLINE static T call(T const& a0, P const& p)
     {
-      return shuffle<permutation_t>(a0,a0);
+      return call(a0,a0,p);
+    }
+
+    template<typename T,typename P>
+    BOOST_FORCEINLINE static T call(T const& a0, T const& a1, P const& p)
+    {
+      return call(a0,a1,p,typename details::perform_zeroing<P,N>::type());
+    }
+
+    template<typename T,typename P>
+    BOOST_FORCEINLINE static T call ( T const& a0, T const& a1, P const& p
+                                    , boost::mpl::true_ const&
+                                    )
+    {
+      typedef typename meta::scalar_of<T>::type                s_t;
+
+      __vector char mask =  { details::zero_mask<s_t,P, 0,N>::value
+                            , details::zero_mask<s_t,P, 1,N>::value
+                            , details::zero_mask<s_t,P, 2,N>::value
+                            , details::zero_mask<s_t,P, 3,N>::value
+                            , details::zero_mask<s_t,P, 4,N>::value
+                            , details::zero_mask<s_t,P, 5,N>::value
+                            , details::zero_mask<s_t,P, 6,N>::value
+                            , details::zero_mask<s_t,P, 7,N>::value
+                            , details::zero_mask<s_t,P, 8,N>::value
+                            , details::zero_mask<s_t,P, 9,N>::value
+                            , details::zero_mask<s_t,P,10,N>::value
+                            , details::zero_mask<s_t,P,11,N>::value
+                            , details::zero_mask<s_t,P,12,N>::value
+                            , details::zero_mask<s_t,P,13,N>::value
+                            , details::zero_mask<s_t,P,14,N>::value
+                            , details::zero_mask<s_t,P,15,N>::value
+                            };
+
+      T that = vec_and( call(a0,a1,p,boost::mpl::false_())()
+                      , bitwise_cast<T>(mask)()
+                      );
+
+      return that;
+    }
+
+    template<typename T,typename P>
+    BOOST_FORCEINLINE static T call ( T const& a0, T const& a1, P const&
+                                    , boost::mpl::false_ const&
+                                    )
+    {
+      typedef typename T::template rebind<unsigned char>::type mask_type;
+
+      T that = vec_perm(a0(),a1(),details::permute<P,mask_type,N>::call()());
+
+      return that;
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_
                                     , boost::simd::tag::vmx_
-                                    , (A0)(P)
-                                    , ((simd_< arithmetic_<A0>
-                                             , boost::simd::tag::vmx_
-                                             >
-                                      ))
-                                      ((simd_< arithmetic_<A0>
-                                             , boost::simd::tag::vmx_
-                                             >
+                                    , (T)(P)
+                                    , ((simd_ < arithmetic_<T>
+                                              , boost::simd::tag::vmx_
+                                              >
                                       ))
                                       (target_< unspecified_<P> >)
                                     )
   {
-    typedef A0                                     result_type;
-    typedef typename meta::scalar_of<A0>::type     scalar_t;
-    typedef P                                      permutation_t;
-    typedef meta::cardinal_of<result_type>         card_t;
+    typedef T  result_type;
 
-    typedef typename A0::template rebind<unsigned char>::type mask_type;
-
-    typedef mpl::vector<>                          empty_t;
-    typedef typename mpl::copy< mpl::range_c<int,0,card_t::value>
-                              , mpl::back_inserter<empty_t>
-                              >::type range_t;
-
-    typedef typename mpl::transform< range_t
-                                   , mpl::apply_wrap2< typename
-                                                       permutation_t::type
-                                                     , mpl::_1
-                                                     , card_t
-                                                     >
-                                   >::type result_t;
-
-    template<std::size_t I>
-    struct  mask_t
-          : mpl::int_< mpl::at_c < result_t
-                                  , I/sizeof(scalar_t)
-                                  >::type::value == -1
-                      ? 0x00 : 0xFF
-                      >
-    {};
-
-    template<bool B> struct selector {};
-
-    BOOST_FORCEINLINE result_type
-    operator()(A0 const& a0, A0 const& a1, P const&) const
+    BOOST_FORCEINLINE result_type operator()(T const& a0,P const&) const
     {
-      return eval( a0
-                 , a1
-                 , selector< dispatch::meta::any_seq< mpl::equal_to
-                                                      < mpl::_1
-                                                      , mpl::int_<-1>
-                                                      >
-                                                   , result_t
-                                                   >::type::value
-                              >()
-                 );
+      typename P::type p;
+
+      return details::shuffler< details::default_matcher
+                              , vmx_permute<meta::cardinal_of<T>::value>
+                              , meta::cardinal_of<T>::value
+                              , 16
+                              >::process(a0,p);
     }
+  };
 
-    BOOST_FORCEINLINE result_type eval( A0 const& a0, A0 const& a1
-                                      , selector<false> const&) const
-    {
-      result_type that = vec_perm( a0()
-                                 , a1()
-                                 , details::permute < P
-                                                    , mask_type
-                                                    , card_t::value
-                                                    >::call()()
-                                 );
-      return that;
-    }
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_
+                                    , boost::simd::tag::vmx_
+                                    , (T)(P)
+                                    , ((simd_ < arithmetic_<T>
+                                              , boost::simd::tag::vmx_
+                                              >
+                                      ))
+                                      ((simd_ < arithmetic_<T>
+                                              , boost::simd::tag::vmx_
+                                              >
+                                      ))
+                                      (target_< unspecified_<P> >)
+                                    )
+  {
+    typedef T  result_type;
 
-    BOOST_FORCEINLINE result_type eval( A0 const& a0, A0 const& a1
-                                      , selector<true> const&) const
+    BOOST_FORCEINLINE
+    result_type operator()(T const& a0,T const& a1, P const&) const
     {
-      __vector char mask = { mask_t<0 >::value, mask_t<1 >::value
-                           , mask_t<2 >::value, mask_t<3 >::value
-                           , mask_t<4 >::value, mask_t<5 >::value
-                           , mask_t<6 >::value, mask_t<7 >::value
-                           , mask_t<8 >::value, mask_t<9 >::value
-                           , mask_t<10>::value, mask_t<11>::value
-                           , mask_t<12>::value, mask_t<13>::value
-                           , mask_t<14>::value, mask_t<15>::value
-                           };
-      result_type that = vec_and( vec_perm( a0()
-                                          , a1()
-                                          , details::permute< P
-                                                            , mask_type
-                                                            , card_t::value
-                                                            >::call()()
-                                          )
-                                , bitwise_cast<A0>(mask)()
-                                );
-      return that;
+      typename P::type p;
+
+      return details::shuffler< details::default_matcher
+                              , vmx_permute<meta::cardinal_of<T>::value>
+                              , meta::cardinal_of<T>::value
+                              , 16
+                              >::process(a0,a1,p);
     }
   };
 } } }
