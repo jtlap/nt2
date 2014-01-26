@@ -21,7 +21,7 @@
 namespace boost { namespace simd { namespace details
 {
   //============================================================================
-  // Adapt a permutation to be forced into the [0 ... Cardinal[ range
+  // Adapt a permutation of [C ... 2*C[ to be into [0 ... C[
   //============================================================================
   template<typename Permutation, std::size_t Cardinal>
   struct remap
@@ -35,6 +35,21 @@ namespace boost { namespace simd { namespace details
     {};
   };
 
+  //============================================================================
+  // Adapt a permutation of [0 ... 2*C[ to be into the [0 ... C[
+  //============================================================================
+  template<typename Permutation, std::size_t Cardinal>
+  struct clamp
+  {
+    template<typename I, typename C>
+    struct  apply
+          : boost::mpl::int_
+            < (mpl::apply<Permutation,I,C>::type::value >= C::value)
+            ? (mpl::apply<Permutation,I,C>::type::value - C::value)
+            : mpl::apply<Permutation,I,C>::type::value
+            >
+    {};
+  };
   //============================================================================
   // Adapt a permutation to be remove all -1
   //============================================================================

@@ -231,6 +231,5 @@ NT2_TEST_CASE_TPL( other_shuffle, BOOST_SIMD_SIMD_TYPES)
 
   binary_shuffle<T,0,-1,2,6>();
   binary_shuffle<T,0,3,7,-1>();
-
   binary_shuffle<T,7,4,-1,3>();
 }
