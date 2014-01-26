@@ -16,6 +16,7 @@
 #include <boost/simd/include/functions/scalar/bitfloating.hpp>
 #include <boost/simd/include/functions/scalar/abs.hpp>
 #include <boost/simd/include/functions/scalar/is_gez.hpp>
+#include <boost/simd/include/functions/scalar/is_nan.hpp>
 #include <boost/assert.hpp>
 
 
