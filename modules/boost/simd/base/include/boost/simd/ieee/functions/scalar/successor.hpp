@@ -17,30 +17,30 @@
 #include <boost/simd/include/functions/scalar/abs.hpp>
 #include <boost/simd/include/functions/scalar/is_gez.hpp>
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
 #include <boost/assert.hpp>
-
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::successor_, tag::cpu_
-                            , (A0)
-                            , (scalar_< arithmetic_<A0> >)
-                            )
+                                   , (A0)
+                                   , (scalar_< arithmetic_<A0> >)
+                                   )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
-       return  oneplus(a0);
+       return oneplus(a0);
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::successor_, tag::cpu_
-                            , (A0)
-                            , (scalar_< floating_<A0> >)
-                            )
+                                   , (A0)
+                                   , (scalar_< floating_<A0> >)
+                                   )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
       if (is_nan(a0)) return a0;
       return bitfloating(oneplus(bitinteger(a0)));
@@ -48,26 +48,26 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::successor_, tag::cpu_
-                            , (A0)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< integer_<A0> >)
-                            )
+                                   , (A0)
+                                   , (scalar_< arithmetic_<A0> >)(scalar_< integer_<A0> >)
+                                   )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       BOOST_ASSERT_MSG(is_gez(a1), "predecessor rank must be non negative");
-       if (Valmax<A0>()-a1 <  a0) return Valmax<A0>();
+      if (Valmax<A0>()-a1 < a0) return Valmax<A0>();
       return a0+a1;
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::successor_, tag::cpu_
-                             , (A0)(A1)
-                            , (scalar_< floating_<A0> >)(scalar_< integer_<A1> >)
-                            )
+                                   , (A0)(A1)
+                                   , (scalar_< floating_<A0> >)(scalar_< integer_<A1> >)
+                                   )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
     {
       BOOST_ASSERT_MSG(is_gez(a1), "predecessor rank must be non negative");
       typedef typename dispatch::meta::as_integer<A0, signed>::type itype;
