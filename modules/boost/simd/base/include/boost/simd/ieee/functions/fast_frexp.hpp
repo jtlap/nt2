@@ -117,8 +117,8 @@ namespace boost { namespace simd { namespace tag
     @param a2 L-Value that will receive the exponent of @c a0
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL( tag::fast_frexp_
-                                            , fast_frexp,(A0 const&)(A1&)(A2&)
-                                            , 3
+                                            , fast_frexp,(A0 const&)(A0&)(A1&)
+                                            , 2
                                             )
 } }
 

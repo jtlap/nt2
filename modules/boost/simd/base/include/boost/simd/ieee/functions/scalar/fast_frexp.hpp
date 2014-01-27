@@ -15,8 +15,16 @@
 #include <boost/fusion/include/std_pair.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/simd/sdk/config/compiler.hpp>
-#include <boost/simd/sdk/math.hpp>
-#include <cmath>
+#include <boost/simd/include/functions/scalar/bitwise_or.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_andnot.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_and.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
+#include <boost/simd/include/constants/maxexponentm1.hpp>
+#include <boost/simd/include/constants/mask1frexp.hpp>
+#include <boost/simd/include/constants/mask2frexp.hpp>
+#include <boost/simd/include/constants/nbmantissabits.hpp>
+#include <boost/simd/include/functions/scalar/shr.hpp>
+#include <boost/simd/sdk/meta/scalar_of.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -29,70 +37,40 @@ namespace boost { namespace simd { namespace ext
                                           >
                                         )
                                       , (scalar_< floating_<A0> >)
-                                        (scalar_< floating_<A0> >)
                                         (scalar_< integer_<A2> >)
                                       )
   {
-    typedef void result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0,A0 & a1,A2 & a2) const
-    {
-      a1 = boost::simd::fast_frexp(a0, a2);
-    }
-  };
-
-  // frexpf appears to be buggy on GCC 4.6.3
-  #if defined(BOOST_SIMD_HAS_FREXPF) && !(defined(__GNUC__) && BOOST_SIMD_GCC_VERSION < 40700)
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_frexp_, tag::cpu_
-                                   , (A0)(A2)
-                                   , (scalar_< single_<A0> >)
-                                     (scalar_< int32_<A2> >)
-                                   )
-  {
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,A2 & a2) const
     {
-      return ::frexpf(a0, &a2);
+      A0 a1;
+      fast_frexp(a0, a1, a2);
+      return a1;
     }
   };
-  #endif
-
-  #ifdef BOOST_SIMD_HAS_FREXP
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_frexp_, tag::cpu_
-                                   , (A0)(A2)
-                                   , (scalar_< double_<A0> >)
-                                     (scalar_< int64_<A2> >)
-                                   )
-  {
-    typedef A0 result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0,A2 & a2) const
-    {
-      int r;
-      A0 that = ::frexp(a0, &r);
-      a2 = r;
-      return that;
-    }
-  };
-  #endif
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::fast_frexp_, tag::cpu_
-                                      , (A0)(A2)
+                                      , (A0)(A1)
                                       , ( boost::is_same
                                           < typename dispatch::meta::
                                                      as_integer<A0,signed>::type
-                                          , A2
+                                          , A1
                                           >
                                         )
                                       , (scalar_< floating_<A0> >)
-                                        (scalar_< integer_<A2> >)
+                                        (scalar_< floating_<A0> >)
+                                        (scalar_< integer_<A1> >)
                                       )
   {
-    typedef A0 result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0,A2 & a2) const
+    typedef void result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0,A0 & r0,A1 & r1) const
     {
-      int r;
-      A0 that = std::frexp(a0, &r);
-      a2 = r;
-      return that;
+      typedef typename meta::scalar_of<A0>::type                      s_type;
+
+      r1  = simd::bitwise_cast<A1>(b_and(Mask1frexp<A0>(), a0));
+      A0  x = b_andnot(a0, Mask1frexp<A0>());
+      r1  = shr(r1,Nbmantissabits<s_type>()) - Maxexponentm1<A0>();
+      r0  = b_or(x,Mask2frexp<A0>());
     }
   };
 

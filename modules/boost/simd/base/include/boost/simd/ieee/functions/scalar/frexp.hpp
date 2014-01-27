@@ -22,7 +22,9 @@
 #include <boost/simd/include/constants/mask1frexp.hpp>
 #include <boost/simd/include/constants/mask2frexp.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
+#include <boost/simd/include/constants/twotonmb.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -35,7 +37,7 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef void result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0,A0 & r0,A1& r1) const
+    BOOST_FORCEINLINE result_type operator()(A0 a0,A0 & r0,A1& r1) const
     {
       if (a0 == 0 || is_invalid(a0))
       {
@@ -46,6 +48,15 @@ namespace boost { namespace simd { namespace ext
       {
         typedef typename dispatch::meta::as_integer<A0, signed>::type int_type;
         r1 = simd::bitwise_cast<int_type>(b_and(Mask1frexp<A0>(), a0));  // extract exp.
+#ifndef BOOST_SIMD_NO_DENORMAL
+        A1 t =  Zero<A0>();
+        if(is_eqz(r1)) // denormal
+        {
+          a0 *= Twotonmb<A0>();
+          r1 = simd::bitwise_cast<int_type>(b_and(Mask1frexp<A0>(), a0));  // extract exp. again
+          t = Nbmantissabits<A0>();
+        }
+#endif
         A0 x  = b_andnot(a0, Mask1frexp<A0>());                          // clear exp. in a0
         r1 = shri(r1,Nbmantissabits<A0>())- Maxexponentm1<A0>();         // compute exp.
         if (r1 > Limitexponent<A0>())
@@ -54,7 +65,10 @@ namespace boost { namespace simd { namespace ext
           r0   = a0;
           return;
         }
-        r0 = b_or(x,Mask2frexp<A0>());                                   // insert exp.+1 in x
+        r0 = b_or(x,Mask2frexp<A0>());                                    // insert exp.+1 in x
+#ifndef BOOST_SIMD_NO_DENORMAL
+        r1 -= t;
+#endif
       }
     }
   };

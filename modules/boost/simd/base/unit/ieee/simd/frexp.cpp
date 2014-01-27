@@ -11,13 +11,70 @@
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/half.hpp>
+#include <boost/simd/include/constants/limitexponent.hpp>
+#include <boost/simd/include/constants/mindenormal.hpp>
+#include <boost/simd/include/constants/minexponent.hpp>
+#include <boost/simd/include/constants/halfeps.hpp>
+#include <boost/simd/include/constants/nbmantissabits.hpp>
+#include <boost/simd/include/constants/smallestposval.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/two.hpp>
+#include <boost/simd/include/constants/four.hpp>
+#include <boost/simd/include/functions/divides.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/fusion/include/vector_tie.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
+
+NT2_TEST_CASE_TPL( frexp0, BOOST_SIMD_SIMD_REAL_TYPES)
+{
+  using boost::simd::frexp;
+  using boost::simd::tag::frexp_;
+  using boost::simd::native;
+
+  typedef native<T,BOOST_SIMD_DEFAULT_EXTENSION>            vT;
+  typedef typename boost::dispatch::meta::as_integer<vT,signed>::type viT;
+
+  {
+    viT e;
+    vT  m;
+
+    frexp(boost::simd::Valmax<vT>(), m, e);
+    NT2_TEST_ULP_EQUAL(m, boost::simd::One<vT>()-boost::simd::Halfeps<vT>(), 1);
+    NT2_TEST_EQUAL(e, boost::simd::Limitexponent<vT>());
+  }
+
+  {
+    viT e;
+    vT  m;
+
+    frexp(boost::simd::Mindenormal<vT>(), m, e);
+    NT2_TEST_ULP_EQUAL(m, boost::simd::Half<vT>(), 1);
+    NT2_TEST_EQUAL(e, boost::simd::Minexponent<vT>()-boost::simd::Nbmantissabits<vT>()+boost::simd::One<viT>());
+  }
+
+  {
+    viT e;
+    vT  m;
+
+    frexp(boost::simd::Smallestposval<vT>()/boost::simd::Two<vT>(), m, e);
+    NT2_TEST_ULP_EQUAL(m, boost::simd::Half<vT>(), 1);
+    NT2_TEST_EQUAL(e, boost::simd::Minexponent<vT>());
+  }
+
+  {
+    viT e;
+    vT  m;
+
+    frexp(boost::simd::Smallestposval<vT>()/boost::simd::Four<vT>(), m, e);
+    NT2_TEST_ULP_EQUAL(m, boost::simd::Half<vT>(), 1);
+    NT2_TEST_EQUAL(e, boost::simd::Minexponent<vT>()-boost::simd::One<viT>());
+  }
+}
 
 NT2_TEST_CASE_TPL( frexp, BOOST_SIMD_SIMD_REAL_TYPES)
 {

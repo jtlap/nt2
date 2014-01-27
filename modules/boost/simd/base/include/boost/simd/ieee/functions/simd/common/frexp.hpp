@@ -19,6 +19,7 @@
 #include <boost/simd/include/functions/simd/is_greater.hpp>
 #include <boost/simd/include/functions/simd/seladd.hpp>
 #include <boost/simd/include/functions/simd/is_nez.hpp>
+#include <boost/simd/include/functions/simd/logical_and.hpp>
 #include <boost/simd/include/functions/simd/if_else_zero.hpp>
 #include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/simd/include/functions/simd/splat.hpp>
@@ -30,6 +31,16 @@
 #include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/simd/sdk/config.hpp>
+
+#ifndef BOOST_SIMD_NO_DENORMAL
+#include <boost/simd/include/constants/twotonmb.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/smallestposval.hpp>
+#include <boost/simd/include/functions/simd/is_eqz.hpp>
+#include <boost/simd/include/functions/simd/selsub.hpp>
+#include <boost/simd/include/functions/simd/abs.hpp>
+#endif
 
 namespace boost { namespace simd { namespace ext
 {
@@ -50,22 +61,30 @@ namespace boost { namespace simd { namespace ext
                                       )
   {
     typedef void result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0,A1 & r0,A2 & r1) const
+    BOOST_FORCEINLINE result_type operator()(A0 a0,A1 & r0,A2 & r1) const
     {
       typedef typename meta::as_logical<A0>::type bA0;
       typedef typename dispatch::meta::as_integer<A0, signed>::type      int_type;
       typedef typename meta::as_logical<int_type>::type                 bint_type;
       typedef typename meta::scalar_of<A0>::type                           s_type;
 
-      r1  = simd::bitwise_cast<int_type>(b_and(Mask1frexp<A0>(), a0));
+#ifndef BOOST_SIMD_NO_DENORMAL
+      bA0 iseqzr1 = lt(simd::abs(a0), Smallestposval<A0>());
+      a0 = if_else(iseqzr1, Twotonmb<A0>()*a0, a0);
+      A2 t = if_else_zero(iseqzr1,Nbmantissabits<A0>());
+#endif
+      r1 = simd::bitwise_cast<int_type>(b_and(a0, Mask1frexp<A0>())); //extract exp.
       A0  x   = b_andnot(a0, Mask1frexp<A0>());
-      r1  = sub(shri(r1,Nbmantissabits<s_type>()), Maxexponentm1<A0>());
+      r1  = shri(r1,Nbmantissabits<s_type>()) - Maxexponentm1<A0>();
       r0  = b_or(x,Mask2frexp<A0>());
 
       bA0       test0 = is_nez(a0);
       bint_type test1 = gt(r1,Limitexponent<A0>());
 
       r1 = if_else_zero(logical_notand(test1, test0), r1);
+#ifndef BOOST_SIMD_NO_DENORMAL
+      r1 -= t ;
+#endif
       r0 = if_else_zero(test0, seladd(test1,r0,a0));
     }
   };
