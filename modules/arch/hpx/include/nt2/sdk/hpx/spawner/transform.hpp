@@ -63,7 +63,7 @@ namespace nt2
          barrier.push_back ( hpx::async(w, begin+n*grain, chunk) );
       }
 
-      hpx::lcos::wait(barrier);
+      hpx::wait_all(barrier);
 
 #ifndef BOOST_NO_EXCEPTIONS
       }
