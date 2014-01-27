@@ -95,7 +95,7 @@ for ((kk=0;kk<${nb_experiments};kk++));do
       ((pos=${jj}*${nb_sizes}*${nb_experiments}+${ll}+${kk}*${nb_sizes}))
       SIZE[count]=$(sed -n ${pos}p res.txt | tr "(" "\n" | tr ")" "\n" | sed -n 2p)
       CYC[count]=$(sed -n ${pos}p res.txt | cut -f3 )
-      UNIT=$(sed -n ${pos}p res.txt | cut -f4 )
+      UNIT=$(sed -n ${pos}p res.txt | cut -f4 | tr " " "\n" | sed -n 1p)
       ((count++))
     done
   done
