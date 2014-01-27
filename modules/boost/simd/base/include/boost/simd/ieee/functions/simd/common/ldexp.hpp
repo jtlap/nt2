@@ -10,22 +10,26 @@
 #define BOOST_SIMD_IEEE_FUNCTIONS_SIMD_COMMON_LDEXP_HPP_INCLUDED
 
 #include <boost/simd/ieee/functions/ldexp.hpp>
-#include <boost/simd/include/functions/simd/splat.hpp>
 #include <boost/simd/include/functions/simd/shift_left.hpp>
-#include <boost/simd/include/functions/simd/is_nez.hpp>
-#include <boost/simd/include/functions/simd/is_finite.hpp>
-#include <boost/simd/include/functions/simd/if_else.hpp>
-#include <boost/simd/include/functions/simd/logical_and.hpp>
-#include <boost/simd/include/functions/simd/rshl.hpp>
-#include <boost/simd/include/functions/simd/bitwise_andnot.hpp>
-#include <boost/simd/include/functions/simd/bitwise_and.hpp>
-#include <boost/simd/include/functions/simd/bitwise_or.hpp>
+#include <boost/simd/include/functions/simd/is_less.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
-#include <boost/simd/include/constants/ldexpmask.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/rshl.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
-#include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/include/constants/maxexponent.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/mpl/equal_to.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
+#include <boost/simd/sdk/config.hpp>
+
+#ifndef BOOST_SIMD_NO_DENORMAL
+#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/selsub.hpp>
+#include <boost/simd/include/constants/minexponent.hpp>
+#include <boost/simd/include/constants/smallestposval.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#endif
 
 namespace boost { namespace simd { namespace ext
 {
@@ -62,20 +66,23 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      // No denormal provision
-      typedef typename meta::scalar_of<result_type>::type             s_type;
-      typedef typename dispatch::meta::as_integer<result_type, signed>::type  int_type;
+      typedef typename meta::scalar_of<result_type>::type    sA0;
+      typedef typename dispatch::meta::as_integer<A0>::type  iA0;
+      typedef typename meta::as_logical<iA0>::type           bA0;
 
-      // clear exponent in x
-      result_type const x = b_andnot(a0, Ldexpmask<A0>());
-
-      // extract exponent and compute the new one
-      int_type e    = b_and(Ldexpmask<A0>(), a0);
-      e += shli(a1, Nbmantissabits<s_type>());
-      return select( logical_and(is_nez(a0),is_finite(a0))
-                     , b_or(x, e)
-                     , a0
-                     );
+      iA0 e = a1;
+#ifndef BOOST_SIMD_NO_DENORMAL
+      bA0 denormal =  lt(e, Minexponent<A0>());
+      e = selsub(denormal, e, Minexponent<A0>());
+      A0 f = if_else(denormal, Smallestposval<A0>(), One<A0>());
+#endif
+      e += Maxexponent<A0>();
+      e = shl(e, Nbmantissabits<A0>());
+#ifndef BOOST_SIMD_NO_DENORMAL
+      return a0*bitwise_cast<A0>(e)*f;
+#else
+      return a0*bitwise_cast<A0>(e);
+#endif
     }
   };
 

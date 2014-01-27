@@ -10,13 +10,18 @@
 #define BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_LDEXP_HPP_INCLUDED
 #include <boost/simd/ieee/functions/ldexp.hpp>
 #include <boost/simd/include/constants/ldexpmask.hpp>
-#include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/functions/scalar/is_finite.hpp>
-#include <boost/simd/include/functions/scalar/is_nez.hpp>
-#include <boost/simd/include/functions/scalar/bitwise_andnot.hpp>
-#include <boost/simd/include/functions/scalar/bitwise_or.hpp>
+#include <boost/simd/include/constants/maxexponent.hpp>
+#include <boost/simd/include/constants/nbmantissabits.hpp>
+#include <boost/simd/include/functions/scalar/shift_left.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
+#include <boost/simd/sdk/config.hpp>
+
+#ifndef BOOST_SIMD_NO_DENORMAL
+#include <boost/simd/include/constants/minexponent.hpp>
+#include <boost/simd/include/constants/smallestposval.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#endif
 
 namespace boost { namespace simd { namespace ext
 {
@@ -33,18 +38,26 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
+    typedef typename dispatch::meta::as_integer<A0>::type iA0;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      // No denormal provision
-      typedef typename dispatch::meta::as_integer<result_type, unsigned>::type  int_type;
-      // clear exponent in x
-      result_type const x(b_andnot(a0, Ldexpmask<result_type>()));
-      // extract exponent and compute the new one
-      int_type e    = b_and(Ldexpmask<result_type>(), a0);
-      e += int_type(a1) << Nbmantissabits<result_type>(); //nmb;
-      // provisions for limit values
-      if (is_nez(a0)&&is_finite(a0)) return  b_or(x, e);
-      return a0;
+      iA0 e =  a1;
+#ifndef BOOST_SIMD_NO_DENORMAL
+      A0 f = One<A0>();
+      if (BOOST_UNLIKELY(e < Minexponent<A0>()))
+      {
+        e -= Minexponent<A0>();
+        f = Smallestposval<A0>();
+      }
+#endif
+      e += Maxexponent<A0>();
+      e = shl(e, Nbmantissabits<A0>());
+#ifndef BOOST_SIMD_NO_DENORMAL
+      return a0*bitwise_cast<A0>(e)*f;
+#else
+      return a0*bitwise_cast<A0>(e);
+#endif
+
     }
   };
 } } }

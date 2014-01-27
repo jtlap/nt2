@@ -15,8 +15,11 @@
 #include <boost/simd/include/functions/simd/bitwise_or.hpp>
 #include <boost/simd/include/functions/simd/shift_left.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/constants/ldexpmask.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
+#include <boost/simd/include/constants/maxexponent.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/mpl/equal_to.hpp>
@@ -75,15 +78,10 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      // No denormal provision
-      typedef typename meta::scalar_of<result_type>::type             s_type;
-      typedef typename dispatch::meta::as_integer<result_type, signed>::type  int_type;
-      // clear exponent in x
-      result_type const x = b_andnot(a0, Ldexpmask<A0>());
-      // extract exponent and compute the new one
-      int_type e = b_and(Ldexpmask<A0>(), a0);
-      e += shli(a1, Nbmantissabits<s_type>());
-      return b_or(x, e);
+      typedef typename meta::scalar_of<result_type>::type  sA0;
+      A1 ik =  a1+Maxexponent<A0>();
+      ik = shl(ik, Nbmantissabits<sA0>());
+      return a0*bitwise_cast<A0>(ik);;
     }
   };
 

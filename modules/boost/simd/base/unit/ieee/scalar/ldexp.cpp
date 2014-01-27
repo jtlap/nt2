@@ -19,12 +19,17 @@
 #include <boost/simd/include/constants/four.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/minexponent.hpp>
+#include <boost/simd/include/constants/smallestposval.hpp>
+
+#include <boost/simd/include/functions/dec.hpp>
 
 NT2_TEST_CASE_TPL ( ldexp_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
 
   using boost::simd::ldexp;
   using boost::simd::tag::ldexp_;
+  using boost::simd::dec;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<ldexp_(T,iT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
@@ -33,7 +38,7 @@ NT2_TEST_CASE_TPL ( ldexp_real__2_0,  BOOST_SIMD_REAL_TYPES)
 
   // return type conformity test
   NT2_TEST_TYPE_IS(r_t, wished_r_t);
-  std::cout << std::endl;
+
 #ifndef BOOST_SIMD_NO_INVALIDS
   NT2_TEST_EQUAL(ldexp(boost::simd::Inf<T>(),  2), boost::simd::Inf<r_t>());
   NT2_TEST_EQUAL(ldexp(boost::simd::Minf<T>(), 2), boost::simd::Minf<r_t>());
@@ -42,4 +47,10 @@ NT2_TEST_CASE_TPL ( ldexp_real__2_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(ldexp(boost::simd::Mone<T>(), 2), -boost::simd::Four<r_t>());
   NT2_TEST_EQUAL(ldexp(boost::simd::One<T>(),  2), boost::simd::Four<r_t>());
   NT2_TEST_EQUAL(ldexp(boost::simd::Zero<T>(), 2), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(ldexp(boost::simd::One <T>(), boost::simd::Minexponent<T>()), boost::simd::Smallestposval<r_t>());
+  NT2_TEST_EQUAL(ldexp(boost::simd::One <T>(), dec(boost::simd::Minexponent<T>())), boost::simd::Smallestposval<T>()/2);
+  NT2_TEST_EQUAL(ldexp(boost::simd::Two <T>(), dec(boost::simd::Minexponent<T>())), boost::simd::Smallestposval<T>());
+  NT2_TEST_EQUAL(ldexp(boost::simd::Two <T>(), dec(boost::simd::Minexponent<T>()-1)), boost::simd::Smallestposval<T>()/2);
+  NT2_TEST_EQUAL(ldexp(boost::simd::One <T>(), boost::simd::Minexponent<T>()-5), boost::simd::Smallestposval<T>()/32);
 }
+

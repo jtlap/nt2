@@ -9,12 +9,15 @@
 #ifndef BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_FAST_LDEXP_HPP_INCLUDED
 #define BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_FAST_LDEXP_HPP_INCLUDED
 #include <boost/simd/ieee/functions/fast_ldexp.hpp>
-#include <boost/simd/include/constants/ldexpmask.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_andnot.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_or.hpp>
+#include <boost/simd/include/functions/scalar/shift_left.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
+#include <boost/simd/include/constants/maxexponent.hpp>
+#include <boost/simd/include/constants/minexponent.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -38,14 +41,11 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      // No denormal provision
-      typedef typename dispatch::meta::as_integer<A0, unsigned>::type int_type;
-      // clear exponent in x
-      A0 const x(b_andnot(a0, Ldexpmask<A0>()));
-      // extract exponent and compute the new one
-      int_type e    = b_and(Ldexpmask<A0>(), a0);
-      e += int_type(a1) << Nbmantissabits<A0>();
-      return b_or(x, e);
+      typedef typename meta::scalar_of<result_type>::type            sA0;
+      typedef typename dispatch::meta::as_integer<A0>::type          iA0;
+      iA0 ik =  a1+Maxexponent<A0>();
+      ik = shl(ik, Nbmantissabits<sA0>());
+      return a0*bitwise_cast<A0>(ik);;
     }
   };
 } } }
