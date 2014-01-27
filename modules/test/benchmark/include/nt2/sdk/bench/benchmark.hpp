@@ -88,7 +88,7 @@ namespace nt2 { namespace details
 int main(int argc, const char** argv)
 {
   std::cout << "CTEST_FULL_OUTPUT" << std::endl;
-
+  std::cout<<" Architecture "<<BOOST_SIMD_STRING;
   // process option commands
   nt2::details::fill_args_map(argc,argv);
 
