@@ -38,6 +38,8 @@
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/smallestposval.hpp>
 #include <boost/simd/include/functions/simd/is_eqz.hpp>
+#include <boost/simd/include/functions/simd/is_nez.hpp>
+#include <boost/simd/include/functions/simd/logical_and.hpp>
 #include <boost/simd/include/functions/simd/selsub.hpp>
 #include <boost/simd/include/functions/simd/abs.hpp>
 #endif
@@ -69,9 +71,9 @@ namespace boost { namespace simd { namespace ext
       typedef typename meta::scalar_of<A0>::type                           s_type;
 
 #ifndef BOOST_SIMD_NO_DENORMAL
-      bA0 iseqzr1 = lt(simd::abs(a0), Smallestposval<A0>());
-      a0 = if_else(iseqzr1, Twotonmb<A0>()*a0, a0);
-      A2 t = if_else_zero(iseqzr1,Nbmantissabits<A0>());
+      bA0 test = logical_and(lt(simd::abs(a0), Smallestposval<A0>()), is_nez(a0));
+      a0 = if_else(test, Twotonmb<A0>()*a0, a0);
+      A2 t = if_else_zero(test,Nbmantissabits<A0>());
 #endif
       r1 = simd::bitwise_cast<int_type>(b_and(a0, Mask1frexp<A0>())); //extract exp.
       A0  x   = b_andnot(a0, Mask1frexp<A0>());
