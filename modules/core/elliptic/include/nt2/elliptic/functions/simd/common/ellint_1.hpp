@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_ELLIPTIC_FUNCTIONS_SIMD_ELLINT_1_HPP_INCLUDED
-#define NT2_ELLIPTIC_FUNCTIONS_SIMD_ELLINT_1_HPP_INCLUDED
+#ifndef NT2_ELLIPTIC_FUNCTIONS_SIMD_COMMON_ELLINT_1_HPP_INCLUDED
+#define NT2_ELLIPTIC_FUNCTIONS_SIMD_COMMON_ELLINT_1_HPP_INCLUDED
 
 #include <nt2/elliptic/functions/ellint_1.hpp>
 #include <nt2/include/functions/simd/is_greater.hpp>
