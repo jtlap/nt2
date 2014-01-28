@@ -12,6 +12,7 @@ SET(SOURCES
     log2.cpp
     log10.cpp
     exp.cpp
+    cbrt.cpp
    )
 
 nt2_module_add_tests(core.exponential.scalar.exhaustive ${SOURCES})

@@ -48,37 +48,3 @@ NT2_TEST_CASE_TPL ( cbrt_real,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(cbrt(T(8)), T(2), 0.5);
 }
 
-NT2_TEST_CASE_TPL ( cbrt_unsigned_int,  NT2_UNSIGNED_TYPES)
-{
-  using nt2::cbrt;
-  using nt2::tag::cbrt_;
-
-
-  typedef typename nt2::meta::call<cbrt_(T)>::type r_t;
-  typedef typename nt2::meta::as_floating<T>::type wished_r_t;
-  typedef typename nt2::meta::call<cbrt_(T)>::type r_t;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(cbrt(nt2::One<T>()), nt2::One<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(cbrt(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
-}
-
-NT2_TEST_CASE_TPL ( cbrt_signed_int,  NT2_INTEGRAL_SIGNED_TYPES)
-{
-  using nt2::cbrt;
-  using nt2::tag::cbrt_;
-
-  typedef typename nt2::meta::call<cbrt_(T)>::type r_t;
-  typedef typename nt2::meta::as_floating<T>::type wished_r_t;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(cbrt(nt2::Mone<T>()), nt2::Mone<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(cbrt(nt2::One<T>()), nt2::One<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(cbrt(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
-}
