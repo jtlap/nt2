@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2014 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -22,6 +23,7 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/sdk/config.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 #ifndef BOOST_SIMD_NO_DENORMAL
 #include <boost/simd/include/functions/simd/if_else.hpp>
@@ -33,35 +35,43 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::ldexp_, tag::cpu_,(A0)(A1)(X)
-                                      , (boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
-                                                              , boost::simd::meta::cardinal_of<A1>
-                                                              >
-                                        )
-                                      , ((simd_<arithmetic_<A0>,X>))
-                                        ((simd_<integer_<A1>,X>))
-                                      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::ldexp_, tag::cpu_,(A0)(A1)(X)
+                                       , (boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
+                                                               , boost::simd::meta::cardinal_of<A1>
+                                                               >
+                                         )
+                                       , ((simd_<arithmetic_<A0>,X>))
+                                         ((simd_<integer_<A1>,X>))
+                                       )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2) { return rshl(a0, a1); }
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
+    {
+      return rshl(a0, a1);
+    }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::ldexp_, tag::cpu_, (A0)(A1)(X)
-                                    , ((simd_<arithmetic_<A0>,X>))(scalar_< integer_<A1> >)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::ldexp_, tag::cpu_
+                                    , (A0)(A1)(X)
+                                    , ((simd_<arithmetic_<A0>,X>))
+                                      (scalar_< integer_<A1> >)
                                     )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2) { return rshl(a0, a1); }
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
+    {
+      return rshl(a0, a1);
+    }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::ldexp_, tag::cpu_,(A0)(A1)(X)
-                                      , (boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
-                                                              , boost::simd::meta::cardinal_of<A1>
-                                                              >
-                                        )
-                                      , ((simd_<floating_<A0>,X>))
-                                        ((simd_<integer_<A1>,X>))
-                                      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::ldexp_, tag::cpu_,(A0)(A1)(X)
+                                       , (boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
+                                                               , boost::simd::meta::cardinal_of<A1>
+                                                               >
+                                         )
+                                       , ((simd_<floating_<A0>,X>))
+                                         ((simd_<integer_<A1>,X>))
+                                       )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
@@ -86,12 +96,14 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::ldexp_, tag::cpu_, (A0)(A1)(X)
-                                    , ((simd_<floating_<A0>,X>))(scalar_< integer_<A1> >)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::ldexp_, tag::cpu_
+                                    , (A0)(A1)(X)
+                                    , ((simd_<floating_<A0>,X>))
+                                      (scalar_< integer_<A1> >)
                                     )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::as_integer<A0>::type iA0;
       return ldexp(a0, boost::simd::splat<iA0>(a1));

@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2014 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -26,14 +27,15 @@
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/operator/functions/details/assert_utils.hpp>
+#include <boost/dispatch/attributes.hpp>
 #include <boost/assert.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::successor_, tag::cpu_
-                                   , (A0)(X)
-                                   , ((simd_<arithmetic_<A0>,X>))
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::successor_, tag::cpu_
+                                    , (A0)(X)
+                                    , ((simd_<arithmetic_<A0>,X>))
+                                    )
   {
     typedef A0 result_type;
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
@@ -42,10 +44,10 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::successor_, tag::cpu_
-                                   , (A0)(X)
-                                   , ((simd_<floating_<A0>,X>))
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::successor_, tag::cpu_
+                                    , (A0)(X)
+                                    , ((simd_<floating_<A0>,X>))
+                                    )
   {
     typedef A0 result_type;
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
@@ -54,10 +56,10 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::successor_, tag::cpu_
-                                   , (A0)(X)
-                                   , ((simd_<integer_<A0>,X>))((simd_<integer_<A0>,X>))
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::successor_, tag::cpu_
+                                    , (A0)(X)
+                                    , ((simd_<integer_<A0>,X>))((simd_<integer_<A0>,X>))
+                                    )
   {
     typedef A0 result_type;
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
@@ -69,10 +71,10 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::successor_, tag::cpu_
-                                   , (A0)(A1)(X)
-                                   , ((simd_<floating_<A0>,X>))((simd_<integer_<A1>,X>))
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::successor_, tag::cpu_
+                                    , (A0)(A1)(X)
+                                    , ((simd_<floating_<A0>,X>))((simd_<integer_<A1>,X>))
+                                    )
   {
     typedef A0 result_type;
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
@@ -82,6 +84,5 @@ namespace boost { namespace simd { namespace ext
     }
   };
 } } }
-
 
 #endif
