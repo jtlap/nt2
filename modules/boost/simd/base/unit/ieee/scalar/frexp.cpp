@@ -19,7 +19,7 @@
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/fusion/include/vector_tie.hpp>
-
+#include <boost/simd/sdk/config.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL( frexp0, BOOST_SIMD_SIMD_REAL_TYPES)
     NT2_TEST_ULP_EQUAL(m, boost::simd::One<T>()-boost::simd::Halfeps<T>(), 1);
     NT2_TEST_EQUAL(e, boost::simd::Limitexponent<T>());
   }
-
+#ifndef BOOST_SIMD_NO_DENORMALS
   {
     iT e;
     T  m;
@@ -49,7 +49,7 @@ NT2_TEST_CASE_TPL( frexp0, BOOST_SIMD_SIMD_REAL_TYPES)
     NT2_TEST_ULP_EQUAL(m, boost::simd::Half<T>(), 1);
     NT2_TEST_EQUAL(e, boost::simd::Minexponent<T>()-boost::simd::Nbmantissabits<T>()+boost::simd::One<T>());
   }
-
+#endif
 
   {
     iT e;
