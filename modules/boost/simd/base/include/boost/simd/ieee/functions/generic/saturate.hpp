@@ -1,7 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2012 - 2013 MetaScale SAS
+//         Copyright 2012 - 2014 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -22,15 +22,16 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/mpl/comparison.hpp>
 #include <boost/mpl/sizeof.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::saturate_, tag::cpu_
-                                      , (A0)(T)
-                                      , (is_same<typename meta::scalar_of<typename T::type>::type, typename meta::scalar_of<A0>::type>)
-                                      , (generic_< arithmetic_<A0> >)
-                                        (target_< generic_<arithmetic_<T> > >)
-                                      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::saturate_, tag::cpu_
+                                       , (A0)(T)
+                                       , (is_same<typename meta::scalar_of<typename T::type>::type, typename meta::scalar_of<A0>::type>)
+                                       , (generic_< arithmetic_<A0> >)
+                                         (target_< generic_<arithmetic_<T> > >)
+                                       )
   {
     typedef A0 result_type;
 
@@ -78,12 +79,12 @@ namespace boost { namespace simd { namespace ext
   };
 
   // if target is greater or equal and signed->unsigned, just need to check if negative
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::saturate_, tag::cpu_
-                                      , (A0)(T)
-                                      , (mpl::greater_equal< mpl::sizeof_<typename meta::scalar_of<typename T::type>::type>, mpl::sizeof_<typename meta::scalar_of<A0>::type> >)
-                                      , (generic_< int_<A0> >)
-                                        (target_< generic_< uint_<T> > >)
-                                      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::saturate_, tag::cpu_
+                                       , (A0)(T)
+                                       , (mpl::greater_equal< mpl::sizeof_<typename meta::scalar_of<typename T::type>::type>, mpl::sizeof_<typename meta::scalar_of<A0>::type> >)
+                                       , (generic_< int_<A0> >)
+                                         (target_< generic_< uint_<T> > >)
+                                       )
   {
     typedef A0 result_type;
 
@@ -94,12 +95,12 @@ namespace boost { namespace simd { namespace ext
   };
 
   // if target is strictly greater, nothing to saturate
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::saturate_, tag::cpu_
-                                      , (A0)(T)
-                                      , (mpl::greater< mpl::sizeof_<typename meta::scalar_of<typename T::type>::type>, mpl::sizeof_<typename meta::scalar_of<A0>::type> >)
-                                      , (generic_< integer_<A0> >)
-                                        (target_< generic_< arithmetic_<T> > >)
-                                      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::saturate_, tag::cpu_
+                                       , (A0)(T)
+                                       , (mpl::greater< mpl::sizeof_<typename meta::scalar_of<typename T::type>::type>, mpl::sizeof_<typename meta::scalar_of<A0>::type> >)
+                                       , (generic_< integer_<A0> >)
+                                         (target_< generic_< arithmetic_<T> > >)
+                                       )
   {
     typedef A0 result_type;
 
