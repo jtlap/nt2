@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2009 - 2014 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2014 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -11,6 +12,7 @@
 
 #include <boost/simd/swar/functions/reverse.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/preprocessor/make.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -21,15 +23,17 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(A0 const& a0) const
+    BOOST_FORCEINLINE result_type operator()(const A0& a0) const
     {
-      result_type that;
-      std::size_t n = meta::cardinal_of<A0>::value-1;
-      for(std::size_t i=0;i<= n;++i) that[i] = a0[n-i];
-      return that;
+      return eval(a0,typename simd::meta::cardinal_of<result_type>::type());
     }
-  };
 
+    #define M0(z, n, t) extract<meta::cardinal_of<A0>::value-1-n>(a0)
+
+    BOOST_SIMD_PP_IMPLEMENT_WITH_MAKE(1, M0)
+
+    #undef M0
+  };
 } } }
 
 #endif
