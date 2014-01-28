@@ -22,10 +22,10 @@
 #  define BOOST_SIMD_HAS_AVX_SUPPORT
 #endif
 #if defined(_MSC_VER) && _MSC_VER < 1700
-   #undef BOOST_SIMD_HAS_FMA_SUPPORT
+   #undef BOOST_SIMD_HAS_FMA3_SUPPORT
 #endif
 
-#if !defined(BOOST_SIMD_DETECTED) && defined(BOOST_SIMD_HAS_FMA_SUPPORT)
+#if !defined(BOOST_SIMD_DETECTED) && defined(BOOST_SIMD_HAS_FMA3_SUPPORT)
 
 ////////////////////////////////////////////////////////////////////////////////
 // AVX extensions flags
