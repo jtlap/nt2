@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2014 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -8,6 +9,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_EPS_HPP_INCLUDED
 #define BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_EPS_HPP_INCLUDED
+
 #include <boost/simd/ieee/functions/eps.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/nan.hpp>
@@ -18,22 +20,26 @@
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::eps_, tag::cpu_
-                            , (A0)
-                            , (scalar_< arithmetic_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::eps_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< arithmetic_<A0> >)
+                                    )
   {
     typedef A0 result_type;
-    inline result_type operator()(A0 const &)const { return One<A0>(); }
+    BOOST_FORCEINLINE result_type operator()(A0 const &)const
+    {
+      return One<A0>();
+    }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::eps_, tag::cpu_
-                            , (A0)
-                            , (scalar_< floating_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::eps_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< floating_<A0> >)
+                                    )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)

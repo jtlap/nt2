@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2014 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -12,6 +13,7 @@
 #include <boost/simd/ieee/functions/minmag.hpp>
 #include <boost/simd/include/functions/scalar/abs.hpp>
 #include <boost/simd/include/functions/scalar/min.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -22,7 +24,7 @@ namespace boost { namespace simd { namespace ext
                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 aa0 = abs(a0);
       A0 aa1 = abs(a1);

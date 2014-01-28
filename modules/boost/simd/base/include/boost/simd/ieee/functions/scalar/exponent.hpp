@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2014 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -20,13 +21,14 @@
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/sdk/math.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::exponent_, tag::cpu_
-                            , (A0)
-                            , (scalar_< integer_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::exponent_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< integer_<A0> >)
+                                    )
   {
     typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0) const
@@ -36,13 +38,13 @@ namespace boost { namespace simd { namespace ext
   };
 
 #ifdef BOOST_SIMD_HAS_ILOGB
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::exponent_, tag::cpu_
-                            , (A0)
-                            , (scalar_< double_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::exponent_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< double_<A0> >)
+                                    )
   {
     typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
       if (is_invalid(a0) || is_eqz(a0)) return Zero<result_type>();
       return ::ilogb(a0);
@@ -51,13 +53,13 @@ namespace boost { namespace simd { namespace ext
 #endif
 
 #ifdef BOOST_SIMD_HAS_ILOGBF
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::exponent_, tag::cpu_
-                            , (A0)
-                            , (scalar_< single_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::exponent_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< single_<A0> >)
+                                    )
   {
     typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
       if (is_invalid(a0) || is_eqz(a0)) return Zero<result_type>();
       return ::ilogbf(a0);
@@ -65,13 +67,13 @@ namespace boost { namespace simd { namespace ext
   };
 #endif
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::exponent_, tag::cpu_
-                            , (A0)
-                            , (scalar_< floating_<A0> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::exponent_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< floating_<A0> >)
+                                    )
   {
     typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
       if (is_invalid(a0) || is_eqz(a0)) return Zero<result_type>();
       const int nmb = int(Nbmantissabits<A0>());

@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2014 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -20,6 +21,7 @@
 #include <boost/simd/include/functions/scalar/dist.hpp>
 #include <boost/simd/include/functions/scalar/subs.hpp>
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
