@@ -93,8 +93,6 @@ template<typename T> struct mandelbrot_scalar
   void operator()()
   {
     std::size_t i, j;
-    float da, db;
-    float a, b;
 
     for(i=0; i<h_; i++)
     {
