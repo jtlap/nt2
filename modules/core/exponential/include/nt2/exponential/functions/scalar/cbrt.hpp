@@ -12,7 +12,7 @@
 #include <nt2/exponential/functions/cbrt.hpp>
 #include <nt2/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
-#include <nt2/include/functions/scalar/frexp.hpp>
+#include <nt2/include/functions/scalar/fast_frexp.hpp>
 #include <nt2/include/functions/scalar/is_gez.hpp>
 #include <nt2/include/functions/scalar/fast_ldexp.hpp>
 #include <nt2/include/functions/scalar/bitofsign.hpp>
@@ -69,7 +69,7 @@ namespace nt2 { namespace ext
       const A0 CBRT4I = double_constant< A0, 0x3fe428a2f98d728bll> ();
       typedef typename meta::as_integer<A0, signed>::type int_type;
       int_type e;
-      A0 x = frexp(z, e);
+      A0 x = fast_frexp(z, e);
       x = horner < NT2_HORNER_COEFF_T(A0, 5,
                             (0xbfc13c93386fdff6ll,
                              0x3fe17e1fc7e59d58ll,
@@ -126,7 +126,7 @@ namespace nt2 { namespace ext
       const A0 CBRT4I = single_constant< A0, 0x3f214518> ();
       typedef typename meta::as_integer<A0, signed>::type int_type;
       int_type e;
-      A0 x = frexp(z, e);
+      A0 x = fast_frexp(z, e);
       x = horner < NT2_HORNER_COEFF_T(A0, 5,
                                       (0xbe09e49a,
                                        0x3f0bf0fe,
