@@ -6,11 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_BENCH_MODULE "nt2 exponential toolbox - log/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of exponential components in simd mode
-//////////////////////////////////////////////////////////////////////////////
 #include <nt2/exponential/include/functions/log.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
@@ -18,15 +13,8 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-
-//////////////////////////////////////////////////////////////////////////////
-// simd runtime benchmark for functor<log_> from exponential
-//////////////////////////////////////////////////////////////////////////////
 using nt2::tag::log_;
 
-//////////////////////////////////////////////////////////////////////////////
-// range macro
-//////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, (V1) ,(V2))
 
 namespace n1 {

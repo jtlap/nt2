@@ -26,7 +26,6 @@
 #include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 
-
 namespace nt2 { namespace details
 {
   template < class A0,
@@ -48,16 +47,19 @@ namespace nt2 { namespace details
                            A0& y)
     {
       int_type e;
-      nt2::fast_frexp(a0, x, e);
+      x = nt2::fast_frexp(a0, e);
       lA0 xltsqrthf = lt(x, Sqrt_2o_2<A0>());
       fe = seladd(xltsqrthf, nt2::tofloat(e), Mone<A0>());
       x =  minusone(seladd(xltsqrthf, x, x));
       x2 = sqr(x);
-      // polynom degree 7:  7.8  cycles/value // 0.5 ulp max for non denormal [1.17546e-38,  3.40282e+38]
+      // performances informations using this kernel for nt2::log
+      // exhaustive and bench tests with g++-4.7 sse4.2 or scalar give:
+      // at most 0.5 ulp  for input in [0, 3.40282e+38]
       // 2130706656 values computed.
       // 2127648316 values (99.86%)  within 0.0 ULPs
       //    3058340 values (0.14%)   within 0.5 ULPs
-      // the finalization (managing a0 < 0) takes 1.5 ulp
+      // bench produces  8.9 cycles/value (simd) 34.5 cycles/value (scalar) full computation
+      // bench produces  7.1 cycles/value (simd) 32.2 cycles/value (scalar) with NO_DENORMAL, NO_INVALIDS etc.
       y =  horner< NT2_HORNER_COEFF_T( sA0
                                      , 8
                                      , (0xbda5dff0, //     -8.0993533e-02

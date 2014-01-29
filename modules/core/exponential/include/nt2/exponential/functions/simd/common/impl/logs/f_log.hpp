@@ -42,6 +42,13 @@
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/functions/simd/is_equal.hpp>
 #endif
+#ifndef BOOST_SIMD_NO_DENORMAL
+#include <nt2/include/constants/smallestposval.hpp>
+#include <nt2/include/constants/twotonmb.hpp>
+#include <nt2/include/constants/mlogtwo2nmb.hpp>
+#include <nt2/include/constants/mlog2two2nmb.hpp>
+#include <nt2/include/constants/mlog10two2nmb.hpp>
+#endif
 
   //////////////////////////////////////////////////////////////////////////////
   // how to compute the various logarithms
@@ -72,8 +79,10 @@
   // see the explanations relative to each case
   // 3) finalize
   // This is simply treating invalid entries
+  // 4) For denormal we use the fact that log(x) =  log?(x*y)-log?(y) and that if y is
+  // the constant two2nmb if x is denormal x*y and y are not.
   //////////////////////////////////////////////////////////////////////////////
-
+#define BBOOST_SIMD_NO_DENORMAL
 namespace nt2 { namespace details
 {
   //////////////////////////////////////////////////////////////////////////////
@@ -90,6 +99,13 @@ namespace nt2 { namespace details
 
     static inline A0 log(const A0& a0)
     {
+      A0 z =  abs(a0);
+#ifndef BOOST_SIMD_NO_DENORMAL
+      A0 t = Zero<A0>();
+      lA0 denormal = lt(z, Smallestposval<A0>());
+      z = if_else(denormal, z*Twotonmb<A0>(), z);
+      t = if_else_zero(denormal, Mlogtwo2nmb<A0>());
+#endif
       //log(2.0) in double is 6.931471805599453e-01
       //double(0.693359375f)+double(-0.00021219444f)  is  6.931471805600000e-01 at 1.0e-14 of log(2.0)
       // let us call Log_2hi 0.693359375f anf Log_2lo -0.00021219444f
@@ -97,36 +113,60 @@ namespace nt2 { namespace details
       // log(a0) = fe*Log_2hi+ (0.5f*x*x +(fe*Log_2lo+y))
       // These operations are order dependent: the parentheses do matter
       A0 x, fe, x2, y;
-      kernel_t::log(a0, fe, x, x2, y);
+      kernel_t::log(z, fe, x, x2, y);
       y = nt2::fma(fe, Log_2lo<A0>(), y);
       y = nt2::fma(Mhalf<A0>(), x2, y);
+#ifdef BOOST_SIMD_NO_DENORMAL
       return finalize(a0, nt2::fma(Log_2hi<A0>(), fe, x+y));
+#else
+      return finalize(a0, nt2::fma(Log_2hi<A0>(), fe, x+y+t));
+#endif
     }
 
     static inline A0 log2(const A0& a0)
     {
+      A0 z =  abs(a0);
+#ifndef BOOST_SIMD_NO_DENORMAL
+      lA0 denormal = lt(z, Smallestposval<A0>());
+      z = if_else(denormal, z*Twotonmb<A0>(), z);
+      A0 t = if_else_zero(denormal, Mlog2two2nmb<A0>());
+#endif
       //here let l2em1 = log2(e)-1, the computation is done as:
       //log2(a0) = ((l2em1*x+(l2em1*(y+x*x/2)))+(y+x*x/2)))+x+fe for best results
       // once again the order is very important.
       A0 x, fe, x2, y;
-      kernel_t::log(a0, fe, x, x2, y);
+      kernel_t::log(z, fe, x, x2, y);
       y =  nt2::fma(Mhalf<A0>(),x2, y);
-      A0 z = nt2::fma(x,Log2_em1<A0>(),y*Log2_em1<A0>());
+      z = nt2::fma(x,Log2_em1<A0>(),y*Log2_em1<A0>());
+#ifdef BOOST_SIMD_NO_DENORMAL
       return finalize(a0, ((z+y)+x)+fe);
+#else
+      return finalize(a0, ((z+y)+x)+fe+t);
+#endif
     }
 
     static inline A0 log10(const A0& a0)
     {
+      A0 z =  abs(a0);
+#ifndef BOOST_SIMD_NO_DENORMAL
+      lA0 denormal = lt(z, Smallestposval<A0>());
+      z = if_else(denormal, z*Twotonmb<A0>(), z);
+      A0 t = if_else_zero(denormal, Mlog10two2nmb<A0>());
+#endif
       // here there are two multiplication:  log of fraction by log10(e) and base 2 exponent by log10(2)
       // and we have to split log10(e) and log10(2) in two parts to get extra precision when needed
       A0 x, fe, x2, y;
-      kernel_t::log(a0, fe, x, x2, y);
+      kernel_t::log(z, fe, x, x2, y);
       y =  nt2::amul(y, Mhalf<A0>(), x2);
-      A0 z = mul(x+y, Log10_elo<A0>());
+      z = mul(x+y, Log10_elo<A0>());
       z = nt2::amul(z, y, Log10_ehi<A0>());
       z = nt2::amul(z, x, Log10_ehi<A0>());
       z = nt2::amul(z, fe, Log10_2hi<A0>());
+#ifdef BOOST_SIMD_NO_DENORMAL
       return finalize(a0, nt2::amul(z, fe, Log10_2lo<A0>()));
+#else
+      return finalize(a0, nt2::amul(z+t, fe, Log10_2lo<A0>()));
+#endif
     }
   private:
     static inline A0 finalize(const A0& a0, const A0& y)
