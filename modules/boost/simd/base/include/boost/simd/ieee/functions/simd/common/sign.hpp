@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef A0 result_type;
-    BOOST_FORCEINLINE OOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return if_one_else_zero(a0);
     }
