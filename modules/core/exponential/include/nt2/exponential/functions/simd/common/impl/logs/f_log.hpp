@@ -9,17 +9,16 @@
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_IMPL_LOGS_F_LOG_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_IMPL_LOGS_F_LOG_HPP_INCLUDED
 
-#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/plus.hpp>
 #include <nt2/include/functions/simd/fma.hpp>
 #include <nt2/include/functions/simd/is_eqz.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/if_else_zero.hpp>
 #include <nt2/include/functions/simd/is_ltz.hpp>
-#include <nt2/include/functions/simd/logical_or.hpp>
 #include <nt2/exponential/functions/scalar/impl/logs/f_kernel.hpp>
-
 #include <nt2/include/constants/mhalf.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/log_2hi.hpp>
@@ -37,12 +36,14 @@
 
 #ifndef BOOST_SIMD_NO_NANS
 #include <nt2/include/functions/simd/is_nan.hpp>
+#include <nt2/include/functions/simd/logical_or.hpp>
 #endif
 #ifndef BOOST_SIMD_NO_INFINITIES
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/functions/simd/is_equal.hpp>
 #endif
-#ifndef BOOST_SIMD_NO_DENORMAL
+#ifndef BOOST_SIMD_NO_DENORMALS
+#include <nt2/include/functions/simd/is_less.hpp>
 #include <nt2/include/constants/smallestposval.hpp>
 #include <nt2/include/constants/twotonmb.hpp>
 #include <nt2/include/constants/mlogtwo2nmb.hpp>
@@ -82,7 +83,7 @@
   // 4) For denormal we use the fact that log(x) =  log?(x*y)-log?(y) and that if y is
   // the constant two2nmb if x is denormal x*y and y are not.
   //////////////////////////////////////////////////////////////////////////////
-#define BBOOST_SIMD_NO_DENORMAL
+
 namespace nt2 { namespace details
 {
   //////////////////////////////////////////////////////////////////////////////
@@ -99,8 +100,8 @@ namespace nt2 { namespace details
 
     static inline A0 log(const A0& a0)
     {
-      A0 z =  abs(a0);
-#ifndef BOOST_SIMD_NO_DENORMAL
+      A0 z = abs(a0);
+#ifndef BOOST_SIMD_NO_DENORMALS
       A0 t = Zero<A0>();
       lA0 denormal = lt(z, Smallestposval<A0>());
       z = if_else(denormal, z*Twotonmb<A0>(), z);
@@ -116,7 +117,7 @@ namespace nt2 { namespace details
       kernel_t::log(z, fe, x, x2, y);
       y = nt2::fma(fe, Log_2lo<A0>(), y);
       y = nt2::fma(Mhalf<A0>(), x2, y);
-#ifdef BOOST_SIMD_NO_DENORMAL
+#ifdef BOOST_SIMD_NO_DENORMALS
       return finalize(a0, nt2::fma(Log_2hi<A0>(), fe, x+y));
 #else
       return finalize(a0, nt2::fma(Log_2hi<A0>(), fe, x+y+t));
@@ -126,7 +127,7 @@ namespace nt2 { namespace details
     static inline A0 log2(const A0& a0)
     {
       A0 z =  abs(a0);
-#ifndef BOOST_SIMD_NO_DENORMAL
+#ifndef BOOST_SIMD_NO_DENORMALS
       lA0 denormal = lt(z, Smallestposval<A0>());
       z = if_else(denormal, z*Twotonmb<A0>(), z);
       A0 t = if_else_zero(denormal, Mlog2two2nmb<A0>());
@@ -138,7 +139,7 @@ namespace nt2 { namespace details
       kernel_t::log(z, fe, x, x2, y);
       y =  nt2::fma(Mhalf<A0>(),x2, y);
       z = nt2::fma(x,Log2_em1<A0>(),y*Log2_em1<A0>());
-#ifdef BOOST_SIMD_NO_DENORMAL
+#ifdef BOOST_SIMD_NO_DENORMALS
       return finalize(a0, ((z+y)+x)+fe);
 #else
       return finalize(a0, ((z+y)+x)+fe+t);
@@ -148,7 +149,7 @@ namespace nt2 { namespace details
     static inline A0 log10(const A0& a0)
     {
       A0 z =  abs(a0);
-#ifndef BOOST_SIMD_NO_DENORMAL
+#ifndef BOOST_SIMD_NO_DENORMALS
       lA0 denormal = lt(z, Smallestposval<A0>());
       z = if_else(denormal, z*Twotonmb<A0>(), z);
       A0 t = if_else_zero(denormal, Mlog10two2nmb<A0>());
@@ -157,12 +158,12 @@ namespace nt2 { namespace details
       // and we have to split log10(e) and log10(2) in two parts to get extra precision when needed
       A0 x, fe, x2, y;
       kernel_t::log(z, fe, x, x2, y);
-      y =  nt2::amul(y, Mhalf<A0>(), x2);
+      y = nt2::amul(y, Mhalf<A0>(), x2);
       z = mul(x+y, Log10_elo<A0>());
       z = nt2::amul(z, y, Log10_ehi<A0>());
       z = nt2::amul(z, x, Log10_ehi<A0>());
       z = nt2::amul(z, fe, Log10_2hi<A0>());
-#ifdef BOOST_SIMD_NO_DENORMAL
+#ifdef BOOST_SIMD_NO_DENORMALS
       return finalize(a0, nt2::amul(z, fe, Log10_2lo<A0>()));
 #else
       return finalize(a0, nt2::amul(z+t, fe, Log10_2lo<A0>()));
@@ -173,9 +174,9 @@ namespace nt2 { namespace details
     {
       typedef typename meta::as_logical<A0>::type              lA0;
     #ifdef BOOST_SIMD_NO_NANS
-      lA0 test =  nt2::is_ltz(a0);
+      lA0 test = nt2::is_ltz(a0);
     #else
-      lA0 test =  nt2::logical_or(nt2::is_ltz(a0), nt2::is_nan(a0));
+      lA0 test = nt2::logical_or(nt2::is_ltz(a0), nt2::is_nan(a0));
     #endif
       A0 y1 = nt2::if_nan_else(test, y);
     #ifndef BOOST_SIMD_NO_INFINITIES

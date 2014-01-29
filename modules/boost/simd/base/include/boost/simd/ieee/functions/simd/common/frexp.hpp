@@ -33,7 +33,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/simd/sdk/config.hpp>
 
-#ifndef BOOST_SIMD_NO_DENORMAL
+#ifndef BOOST_SIMD_NO_DENORMALS
 #include <boost/simd/include/constants/twotonmb.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/smallestposval.hpp>
@@ -70,7 +70,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename meta::as_logical<int_type>::type                 bint_type;
       typedef typename meta::scalar_of<A0>::type                           s_type;
 
-#ifndef BOOST_SIMD_NO_DENORMAL
+#ifndef BOOST_SIMD_NO_DENORMALS
       bA0 test = logical_and(lt(simd::abs(a0), Smallestposval<A0>()), is_nez(a0));
       a0 = if_else(test, Twotonmb<A0>()*a0, a0);
       A2 t = if_else_zero(test,Nbmantissabits<A0>());
@@ -84,7 +84,7 @@ namespace boost { namespace simd { namespace ext
       bint_type test1 = gt(r1,Limitexponent<A0>());
 
       r1 = if_else_zero(logical_notand(test1, test0), r1);
-#ifndef BOOST_SIMD_NO_DENORMAL
+#ifndef BOOST_SIMD_NO_DENORMALS
       r1 -= t ;
 #endif
       r0 = if_else_zero(test0, seladd(test1,r0,a0));

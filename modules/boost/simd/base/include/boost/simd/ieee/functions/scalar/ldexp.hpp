@@ -19,7 +19,7 @@
 #include <boost/simd/sdk/config.hpp>
 #include <boost/dispatch/attributes.hpp>
 
-#ifndef BOOST_SIMD_NO_DENORMAL
+#ifndef BOOST_SIMD_NO_DENORMALS
 #include <boost/simd/include/constants/minexponent.hpp>
 #include <boost/simd/include/constants/smallestposval.hpp>
 #include <boost/simd/include/constants/one.hpp>
@@ -51,7 +51,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
     {
       iA0 e =  a1;
-#ifndef BOOST_SIMD_NO_DENORMAL
+#ifndef BOOST_SIMD_NO_DENORMALS
       A0 f = One<A0>();
       if (BOOST_UNLIKELY(e < Minexponent<A0>()))
       {
@@ -61,7 +61,7 @@ namespace boost { namespace simd { namespace ext
 #endif
       e += Maxexponent<A0>();
       e = shl(e, Nbmantissabits<A0>());
-#ifndef BOOST_SIMD_NO_DENORMAL
+#ifndef BOOST_SIMD_NO_DENORMALS
       return a0*bitwise_cast<A0>(e)*f;
 #else
       return a0*bitwise_cast<A0>(e);

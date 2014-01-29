@@ -10,30 +10,28 @@
 #define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_CBRT_HPP_INCLUDED
 
 #include <nt2/exponential/functions/cbrt.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/include/constants/three.hpp>
-#include <nt2/include/constants/two.hpp>
-#include <nt2/include/constants/third.hpp>
-#include <nt2/include/constants/twotonmb.hpp>
-#include <nt2/include/constants/smallestposval.hpp>
-#include <nt2/include/constants/one.hpp>
+#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/frexp.hpp>
-#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/include/functions/scalar/is_gez.hpp>
 #include <nt2/include/functions/scalar/fast_ldexp.hpp>
 #include <nt2/include/functions/scalar/bitofsign.hpp>
 #include <nt2/include/functions/scalar/sqr.hpp>
 #include <nt2/include/functions/scalar/negate.hpp>
 #include <nt2/include/functions/scalar/bitwise_or.hpp>
+#include <nt2/include/constants/three.hpp>
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/constants/third.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/real_splat.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 #include <boost/simd/sdk/config.hpp>
 
 #ifndef BOOST_SIMD_NO_INFINITIES
 #include <nt2/include/constants/inf.hpp>
 #endif
 
-#ifndef BOOST_SIMD_NO_DENORMAL
+#ifndef BOOST_SIMD_NO_DENORMALS
 #include <nt2/include/constants/smallestposval.hpp>
 #include <nt2/include/constants/twotonmb.hpp>
 #include <nt2/include/constants/twotomnmbo_3.hpp>
@@ -47,7 +45,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -55,14 +53,14 @@ namespace nt2 { namespace ext
 #ifndef BOOST_SIMD_NO_INFINITIES
       if (z == nt2::Inf<A0>() || (z == 0)) return a0;
 #else
-      if  (z == 0) return a0;
+      if (z == 0) return a0;
 #endif
-#ifndef BOOST_SIMD_NO_DENORMAL
+#ifndef BOOST_SIMD_NO_DENORMALS
       A0 f = One<A0>();
       if (z < Smallestposval<A0>())
       {
-        z*=Twotonmb<A0>();
-        f = Twotomnmbo_3<A0>();
+        z *= Twotonmb<A0>();
+        f  = Twotomnmbo_3<A0>();
       }
 #endif
       const A0 CBRT2  = double_constant< A0, 0x3ff428a2f98d728bll> ();
@@ -92,7 +90,7 @@ namespace nt2 { namespace ext
       x = fast_ldexp(x*fact, e);
       x = x-(x-z/sqr(x))*Third<A0>();
       x = x-(x-z/sqr(x))*Third<A0>(); //two newton passes
-#ifndef BOOST_SIMD_NO_DENORMAL
+#ifndef BOOST_SIMD_NO_DENORMALS
       return b_or(x, bitofsign(a0))*f;
 #else
       return b_or(x, bitofsign(a0));
@@ -114,7 +112,7 @@ namespace nt2 { namespace ext
 #else
       if  (z == 0) return a0;
 #endif
-#ifndef BOOST_SIMD_NO_DENORMAL
+#ifndef BOOST_SIMD_NO_DENORMALS
       A0 f = One<A0>();
       if (z < Smallestposval<A0>())
       {
@@ -149,7 +147,7 @@ namespace nt2 { namespace ext
       fact = (rem == Two<int_type>()) ? cbrt4 : fact;
       x = fast_ldexp(x*fact, e);
       x = x-(x-z/sqr(x))*Third<A0>();
-#ifndef BOOST_SIMD_NO_DENORMAL
+#ifndef BOOST_SIMD_NO_DENORMALS
       return b_or(x, bitofsign(a0))*f;
 #else
       return b_or(x, bitofsign(a0));

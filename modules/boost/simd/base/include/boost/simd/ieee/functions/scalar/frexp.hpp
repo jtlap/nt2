@@ -28,7 +28,7 @@
 #include <boost/simd/predicates/functions/is_eqz.hpp>
 #include <boost/dispatch/attributes.hpp>
 
-#ifndef BOOST_SIMD_NO_DENORMAL
+#ifndef BOOST_SIMD_NO_DENORMALS
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/twotonmb.hpp>
 #endif
@@ -55,7 +55,7 @@ namespace boost { namespace simd { namespace ext
       {
         typedef typename dispatch::meta::as_integer<A0, signed>::type int_type;
         r1 = simd::bitwise_cast<int_type>(b_and(Mask1frexp<A0>(), a0));  // extract exp.
-#ifndef BOOST_SIMD_NO_DENORMAL
+#ifndef BOOST_SIMD_NO_DENORMALS
         A1 t =  Zero<A0>();
         if(is_eqz(r1)) // denormal
         {
@@ -73,7 +73,7 @@ namespace boost { namespace simd { namespace ext
           return;
         }
         r0 = b_or(x,Mask2frexp<A0>());                                    // insert exp.+1 in x
-#ifndef BOOST_SIMD_NO_DENORMAL
+#ifndef BOOST_SIMD_NO_DENORMALS
         r1 -= t;
 #endif
       }

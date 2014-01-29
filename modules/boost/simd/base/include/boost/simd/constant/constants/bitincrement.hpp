@@ -61,7 +61,7 @@ namespace boost { namespace simd
     is similar to
 
     @code
-    if NO_DENORMAL
+    if NO_DENORMALS
       r =  Smallestpositivevalue<T>();
     else
       r =  minDenormal<T>();

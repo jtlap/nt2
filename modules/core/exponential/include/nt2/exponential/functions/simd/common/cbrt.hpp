@@ -8,37 +8,39 @@
 //==============================================================================
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_CBRT_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_CBRT_HPP_INCLUDED
+
 #include <nt2/exponential/functions/cbrt.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/include/constants/three.hpp>
-#include <nt2/include/constants/two.hpp>
-#include <nt2/include/constants/third.hpp>
-#include <nt2/include/constants/inf.hpp>
-#include <nt2/include/constants/one.hpp>
+#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
 #include <nt2/include/functions/simd/fast_frexp.hpp>
-#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/include/functions/simd/is_gez.hpp>
 #include <nt2/include/functions/simd/is_equal.hpp>
 #include <nt2/include/functions/simd/fast_ldexp.hpp>
 #include <nt2/include/functions/simd/bitofsign.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/functions/simd/is_eqz.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/include/functions/simd/bitwise_or.hpp>
 #include <nt2/include/functions/simd/negate.hpp>
+#include <nt2/include/constants/three.hpp>
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/constants/third.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/real_splat.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 #include <boost/simd/sdk/config.hpp>
 
 #ifndef BOOST_SIMD_NO_INFINITIES
 #include <nt2/include/functions/simd/is_inf.hpp>
+#include <nt2/include/functions/simd/logical_or.hpp>
 #endif
 
-#ifndef BOOST_SIMD_NO_DENORMAL
+#ifndef BOOST_SIMD_NO_DENORMALS
+#include <nt2/include/functions/simd/is_less.hpp>
 #include <nt2/include/constants/smallestposval.hpp>
 #include <nt2/include/constants/twotonmb.hpp>
 #include <nt2/include/constants/twotomnmbo_3.hpp>
@@ -60,7 +62,7 @@ namespace nt2 { namespace ext
       typedef typename meta::scalar_of<A0>::type             stype;
       typedef typename meta::as_logical<int_type>::type     b_type;
       A0 z =  nt2::abs(a0);
-#ifndef BOOST_SIMD_NO_DENORMAL
+#ifndef BOOST_SIMD_NO_DENORMALS
       typedef typename meta::as_logical<A0>::type             b_A0;
       b_A0 denormal = lt(z, Smallestposval<A0>());
       z = if_else(denormal, z*Twotonmb<A0>(), z);
@@ -92,7 +94,7 @@ namespace nt2 { namespace ext
       x = fast_ldexp(x*fact, e);
       x = x-(x-z/sqr(x))*Third<A0>();
       x = x-(x-z/sqr(x))*Third<A0>(); //two newton passes
-#ifndef BOOST_SIMD_NO_DENORMAL
+#ifndef BOOST_SIMD_NO_DENORMALS
       x = b_or(x, bitofsign(a0))*f;
 #else
       x = b_or(x, bitofsign(a0));
@@ -110,14 +112,14 @@ namespace nt2 { namespace ext
                             , ((simd_<single_<A0>,X>))
                             )
   {
-    typedef typename meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
       A0 z =  nt2::abs(a0);
       typedef typename meta::as_integer<A0, signed>::type int_type;
       typedef typename meta::scalar_of<A0>::type             stype;
       typedef typename meta::as_logical<int_type>::type     b_type;
-#ifndef BOOST_SIMD_NO_DENORMAL
+#ifndef BOOST_SIMD_NO_DENORMALS
       typedef typename meta::as_logical<A0>::type             b_A0;
       b_A0 denormal = lt(z, Smallestposval<A0>());
       z = if_else(denormal, z*Twotonmb<A0>(), z);
@@ -149,7 +151,7 @@ namespace nt2 { namespace ext
       fact = if_else(is_equal(rem, Two<int_type>()), cbrt4, fact);
       x = fast_ldexp(x*fact, e);
       x = x-(x-z/sqr(x))*Third<A0>();
-#ifndef BOOST_SIMD_NO_DENORMAL
+#ifndef BOOST_SIMD_NO_DENORMALS
       x = b_or(x, bitofsign(a0))*f;
 #else
       x = b_or(x, bitofsign(a0));

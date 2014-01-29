@@ -25,7 +25,7 @@
 #include <boost/simd/sdk/config.hpp>
 #include <boost/dispatch/attributes.hpp>
 
-#ifndef BOOST_SIMD_NO_DENORMAL
+#ifndef BOOST_SIMD_NO_DENORMALS
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/selsub.hpp>
 #include <boost/simd/include/constants/minexponent.hpp>
@@ -81,14 +81,14 @@ namespace boost { namespace simd { namespace ext
       typedef typename meta::as_logical<iA0>::type           bA0;
 
       iA0 e = a1;
-#ifndef BOOST_SIMD_NO_DENORMAL
+#ifndef BOOST_SIMD_NO_DENORMALS
       bA0 denormal =  lt(e, Minexponent<A0>());
       e = selsub(denormal, e, Minexponent<A0>());
       A0 f = if_else(denormal, Smallestposval<A0>(), One<A0>());
 #endif
       e += Maxexponent<A0>();
       e = shl(e, Nbmantissabits<A0>());
-#ifndef BOOST_SIMD_NO_DENORMAL
+#ifndef BOOST_SIMD_NO_DENORMALS
       return a0*bitwise_cast<A0>(e)*f;
 #else
       return a0*bitwise_cast<A0>(e);

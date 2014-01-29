@@ -9,16 +9,15 @@
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_LOGS_F_LOG_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_LOGS_F_LOG_HPP_INCLUDED
 
-#include <nt2/include/functions/scalar/sqr.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/is_ltz.hpp>
 #include <nt2/include/functions/scalar/is_eqz.hpp>
 #include <nt2/include/functions/scalar/fma.hpp>
+#include <nt2/exponential/functions/scalar/impl/logs/f_kernel.hpp>
+#include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/mhalf.hpp>
-#include <nt2/exponential/functions/scalar/impl/logs/f_kernel.hpp>
-
 #include <nt2/include/constants/log_2hi.hpp>
 #include <nt2/include/constants/log_2lo.hpp>
 #include <nt2/include/constants/log2_em1.hpp>
@@ -36,7 +35,7 @@
 #ifndef BOOST_SIMD_NO_INFINITIES
 #include <nt2/include/constants/inf.hpp>
 #endif
-#ifndef BOOST_SIMD_NO_DENORMAL
+#ifndef BOOST_SIMD_NO_DENORMALS
 #include <nt2/include/constants/smallestposval.hpp>
 #include <nt2/include/constants/twotonmb.hpp>
 #include <nt2/include/constants/mlogtwo2nmb.hpp>
@@ -68,9 +67,9 @@ namespace nt2 { namespace details
 #else
       if (BOOST_UNLIKELY(nt2::is_nan(a0)||nt2::is_ltz(a0))) return nt2::Nan<A0>();
 #endif
-      A0 z =  nt2::abs(a0) ;
-#ifndef BOOST_SIMD_NO_DENORMAL
-      A0 t =  Zero<A0>();
+      A0 z = nt2::abs(a0);
+#ifndef BOOST_SIMD_NO_DENORMALS
+      A0 t = Zero<A0>();
       if(BOOST_UNLIKELY(z < Smallestposval<A0>()))
       {
         z *= Twotonmb<A0>();
@@ -81,10 +80,10 @@ namespace nt2 { namespace details
       kernel_t::log(z, fe, x, x2, y);
       y = nt2::fma(fe, Log_2lo<A0>(), y);
       y = nt2::fma(Mhalf<A0>(), x2, y);
-#ifdef BOOST_SIMD_NO_DENORMAL
-       return nt2::fma(Log_2hi<A0>(), fe, x+y);
+#ifdef BOOST_SIMD_NO_DENORMALS
+      return nt2::fma(Log_2hi<A0>(), fe, x+y);
 #else
-     return nt2::fma(Log_2hi<A0>(), fe, x+y+t);
+      return nt2::fma(Log_2hi<A0>(), fe, x+y+t);
 #endif
     }
 
@@ -99,9 +98,9 @@ namespace nt2 { namespace details
 #else
       if (BOOST_UNLIKELY(nt2::is_nan(a0)||nt2::is_ltz(a0))) return nt2::Nan<A0>();
 #endif
-      A0 z =  nt2::abs(a0);
-#ifndef BOOST_SIMD_NO_DENORMAL
-      A0 t =  Zero<A0>();
+      A0 z = nt2::abs(a0);
+#ifndef BOOST_SIMD_NO_DENORMALS
+      A0 t = Zero<A0>();
       if (BOOST_UNLIKELY(z < Smallestposval<A0>()))
       {
         z *= Twotonmb<A0>();
@@ -110,12 +109,12 @@ namespace nt2 { namespace details
 #endif
       A0 x, fe, x2, y;
       kernel_t::log(z, fe, x, x2, y);
-      y =  nt2::fma(Mhalf<A0>(),x2, y);
+      y = nt2::fma(Mhalf<A0>(),x2, y);
       z = nt2::fma(x,Log2_em1<A0>(),y*Log2_em1<A0>());
-#ifdef BOOST_SIMD_NO_DENORMAL
-      return  ((z+y)+x)+fe;
+#ifdef BOOST_SIMD_NO_DENORMALS
+      return ((z+y)+x)+fe;
 #else
-      return  ((z+y)+x)+fe+t;
+      return ((z+y)+x)+fe+t;
 #endif
     }
 
@@ -124,15 +123,15 @@ namespace nt2 { namespace details
 #ifndef BOOST_SIMD_NO_INFINITIES
       if (BOOST_UNLIKELY(a0 == nt2::Inf<A0>())) return a0;
 #endif
-      if (nt2::is_eqz(a0)) return nt2::Minf<A0>();
+      if (BOOST_UNLIKELY(nt2::is_eqz(a0))) return nt2::Minf<A0>();
 #ifdef BOOST_SIMD_NO_NANS
       if (BOOST_UNLIKELY(nt2::is_ltz(a0))) return nt2::Nan<A0>();
 #else
       if (BOOST_UNLIKELY(nt2::is_nan(a0)||nt2::is_ltz(a0))) return nt2::Nan<A0>();
 #endif
-      A0 z =  nt2::abs(a0);
-#ifndef BOOST_SIMD_NO_DENORMAL
-      A0 t =  0;
+      A0 z = nt2::abs(a0);
+#ifndef BOOST_SIMD_NO_DENORMALS
+      A0 t = Zero<A0>();
       if (BOOST_UNLIKELY(z < Smallestposval<A0>()))
       {
         z *= Twotonmb<A0>();
@@ -141,12 +140,12 @@ namespace nt2 { namespace details
 #endif
       A0 x, fe, x2, y;
       kernel_t::log(z, fe, x, x2, y);
-      y =  nt2::amul(y, Mhalf<A0>(), x2);
+      y = nt2::amul(y, Mhalf<A0>(), x2);
       z = mul(x+y, Log10_elo<A0>());
       z = nt2::amul(z, y, Log10_ehi<A0>());
       z = nt2::amul(z, x, Log10_ehi<A0>());
       z = nt2::amul(z, fe, Log10_2hi<A0>());
-#ifdef BOOST_SIMD_NO_DENORMAL
+#ifdef BOOST_SIMD_NO_DENORMALS
       return nt2::amul(z, fe, Log10_2lo<A0>());
 #else
       return nt2::amul(z+t, fe, Log10_2lo<A0>());

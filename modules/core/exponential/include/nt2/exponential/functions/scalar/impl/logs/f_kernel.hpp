@@ -59,7 +59,7 @@ namespace nt2 { namespace details
       // 2127648316 values (99.86%)  within 0.0 ULPs
       //    3058340 values (0.14%)   within 0.5 ULPs
       // bench produces  8.9 cycles/value (simd) 34.5 cycles/value (scalar) full computation
-      // bench produces  7.1 cycles/value (simd) 32.2 cycles/value (scalar) with NO_DENORMAL, NO_INVALIDS etc.
+      // bench produces  7.1 cycles/value (simd) 32.2 cycles/value (scalar) with NO_DENORMALS, NO_INVALIDS etc.
       y =  horner< NT2_HORNER_COEFF_T( sA0
                                      , 8
                                      , (0xbda5dff0, //     -8.0993533e-02
