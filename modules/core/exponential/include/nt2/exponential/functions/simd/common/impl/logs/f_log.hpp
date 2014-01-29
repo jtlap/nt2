@@ -9,7 +9,6 @@
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_IMPL_LOGS_F_LOG_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_IMPL_LOGS_F_LOG_HPP_INCLUDED
 
-#include <nt2/include/functions/simd/abs.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/plus.hpp>
 #include <nt2/include/functions/simd/fma.hpp>
@@ -43,6 +42,7 @@
 #include <nt2/include/functions/simd/is_equal.hpp>
 #endif
 #ifndef BOOST_SIMD_NO_DENORMALS
+#include <nt2/include/functions/simd/abs.hpp>
 #include <nt2/include/functions/simd/is_less.hpp>
 #include <nt2/include/constants/smallestposval.hpp>
 #include <nt2/include/constants/twotonmb.hpp>
@@ -100,10 +100,10 @@ namespace nt2 { namespace details
 
     static inline A0 log(const A0& a0)
     {
-      A0 z = abs(a0);
+      A0 z = a0;
 #ifndef BOOST_SIMD_NO_DENORMALS
       A0 t = Zero<A0>();
-      lA0 denormal = lt(z, Smallestposval<A0>());
+      lA0 denormal = lt(nt2::abs(z), Smallestposval<A0>());
       z = if_else(denormal, z*Twotonmb<A0>(), z);
       t = if_else_zero(denormal, Mlogtwo2nmb<A0>());
 #endif
@@ -126,9 +126,9 @@ namespace nt2 { namespace details
 
     static inline A0 log2(const A0& a0)
     {
-      A0 z =  abs(a0);
+      A0 z =  a0;
 #ifndef BOOST_SIMD_NO_DENORMALS
-      lA0 denormal = lt(z, Smallestposval<A0>());
+      lA0 denormal = lt(nt2::abs(z), Smallestposval<A0>());
       z = if_else(denormal, z*Twotonmb<A0>(), z);
       A0 t = if_else_zero(denormal, Mlog2two2nmb<A0>());
 #endif
@@ -148,9 +148,9 @@ namespace nt2 { namespace details
 
     static inline A0 log10(const A0& a0)
     {
-      A0 z =  abs(a0);
+      A0 z = a0;
 #ifndef BOOST_SIMD_NO_DENORMALS
-      lA0 denormal = lt(z, Smallestposval<A0>());
+      lA0 denormal = lt(nt2::abs(z), Smallestposval<A0>());
       z = if_else(denormal, z*Twotonmb<A0>(), z);
       A0 t = if_else_zero(denormal, Mlog10two2nmb<A0>());
 #endif
