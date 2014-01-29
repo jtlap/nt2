@@ -135,6 +135,7 @@
 #define BOOST_DISPATCH_NOVTABLE
 
 #else
+
 #ifndef BOOST_FORCEINLINE
 #  if defined(__GNUC__)
 #    define BOOST_FORCEINLINE inline __attribute__((always_inline))
@@ -142,6 +143,22 @@
 #     define BOOST_FORCEINLINE __forceinline
 #  else
 #    define BOOST_FORCEINLINE inline
+#  endif
+#endif
+
+#ifndef BOOST_LIKELY
+#  if defined(__GNUC__)
+#    define BOOST_LIKELY(x) __builtin_expect(x, 1)
+#  else
+#    define BOOST_LIKELY(x) x
+#  endif
+#endif
+
+#ifndef BOOST_UNLIKELY
+#  if defined(__GNUC__)
+#    define BOOST_UNLIKELY(x) __builtin_expect(x, 0)
+#  else
+#    define BOOST_UNLIKELY(x) x
 #  endif
 #endif
 
