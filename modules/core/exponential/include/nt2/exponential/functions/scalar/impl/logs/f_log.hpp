@@ -9,7 +9,6 @@
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_LOGS_F_LOG_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_LOGS_F_LOG_HPP_INCLUDED
 
-#include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/is_ltz.hpp>
 #include <nt2/include/functions/scalar/is_eqz.hpp>
 #include <nt2/include/functions/scalar/fma.hpp>
@@ -36,6 +35,7 @@
 #include <nt2/include/constants/inf.hpp>
 #endif
 #ifndef BOOST_SIMD_NO_DENORMALS
+#include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/constants/smallestposval.hpp>
 #include <nt2/include/constants/twotonmb.hpp>
 #include <nt2/include/constants/mlogtwo2nmb.hpp>
@@ -67,10 +67,10 @@ namespace nt2 { namespace details
 #else
       if (BOOST_UNLIKELY(nt2::is_nan(a0)||nt2::is_ltz(a0))) return nt2::Nan<A0>();
 #endif
-      A0 z = nt2::abs(a0);
+      A0 z = a0;
 #ifndef BOOST_SIMD_NO_DENORMALS
       A0 t = Zero<A0>();
-      if(BOOST_UNLIKELY(z < Smallestposval<A0>()))
+      if(BOOST_UNLIKELY(nt2::abs(z) < Smallestposval<A0>()))
       {
         z *= Twotonmb<A0>();
         t = Mlogtwo2nmb<A0>();
@@ -98,10 +98,10 @@ namespace nt2 { namespace details
 #else
       if (BOOST_UNLIKELY(nt2::is_nan(a0)||nt2::is_ltz(a0))) return nt2::Nan<A0>();
 #endif
-      A0 z = nt2::abs(a0);
+      A0 z = a0;
 #ifndef BOOST_SIMD_NO_DENORMALS
       A0 t = Zero<A0>();
-      if (BOOST_UNLIKELY(z < Smallestposval<A0>()))
+      if (BOOST_UNLIKELY(nt2::abs(z) < Smallestposval<A0>()))
       {
         z *= Twotonmb<A0>();
         t = Mlog2two2nmb<A0>();
@@ -129,10 +129,10 @@ namespace nt2 { namespace details
 #else
       if (BOOST_UNLIKELY(nt2::is_nan(a0)||nt2::is_ltz(a0))) return nt2::Nan<A0>();
 #endif
-      A0 z = nt2::abs(a0);
+      A0 z = a0;
 #ifndef BOOST_SIMD_NO_DENORMALS
       A0 t = Zero<A0>();
-      if (BOOST_UNLIKELY(z < Smallestposval<A0>()))
+      if (BOOST_UNLIKELY(nt2::abs(z) < Smallestposval<A0>()))
       {
         z *= Twotonmb<A0>();
         t = Mlog10two2nmb<A0>();
