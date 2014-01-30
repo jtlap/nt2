@@ -130,7 +130,7 @@ namespace nt2 { namespace ext
       const A0 CBRT2I = single_constant< A0, 0x3f4b2ff5> ();
       const A0 CBRT4I = single_constant< A0, 0x3f214518> ();
       int_type e;
-      A0 x = frexp(z, e);
+      A0 x = fast_frexp(z, e);
       x = horner < NT2_HORNER_COEFF_T(stype, 5,
                             (0xbe09e49a,
                              0x3f0bf0fe,

@@ -13,7 +13,6 @@
 #include <boost/simd/ieee/functions/nextafter.hpp>
 #include <boost/simd/include/functions/simd/is_equal.hpp>
 #include <boost/simd/include/functions/simd/is_greater.hpp>
-#include <boost/simd/include/functions/simd/seladd.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/next.hpp>
 #include <boost/simd/include/functions/simd/prev.hpp>

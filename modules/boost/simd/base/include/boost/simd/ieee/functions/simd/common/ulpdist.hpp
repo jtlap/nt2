@@ -16,7 +16,6 @@
 #include <boost/simd/include/functions/simd/is_equal.hpp>
 #include <boost/simd/include/functions/simd/is_nan.hpp>
 #include <boost/simd/include/functions/simd/max.hpp>
-#include <boost/simd/include/functions/simd/min.hpp>
 #include <boost/simd/include/functions/simd/abs.hpp>
 #include <boost/simd/include/functions/simd/frexp.hpp>
 #include <boost/simd/include/functions/simd/ldexp.hpp>
@@ -25,7 +24,6 @@
 #include <boost/simd/include/functions/simd/logical_and.hpp>
 #include <boost/simd/include/functions/simd/logical_or.hpp>
 #include <boost/simd/include/constants/eps.hpp>
-#include <boost/simd/include/constants/zero.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext

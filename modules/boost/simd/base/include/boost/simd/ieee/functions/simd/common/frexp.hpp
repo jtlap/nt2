@@ -10,38 +10,37 @@
 #define BOOST_SIMD_IEEE_FUNCTIONS_SIMD_COMMON_FREXP_HPP_INCLUDED
 
 #include <boost/simd/ieee/functions/frexp.hpp>
-#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
-#include <boost/simd/include/functions/simd/bitwise_and.hpp>
-#include <boost/simd/include/functions/simd/bitwise_or.hpp>
-#include <boost/simd/include/functions/simd/bitwise_andnot.hpp>
-#include <boost/simd/include/functions/simd/logical_notand.hpp>
-#include <boost/simd/include/functions/simd/shr.hpp>
-#include <boost/simd/include/functions/simd/is_greater.hpp>
-#include <boost/simd/include/functions/simd/seladd.hpp>
-#include <boost/simd/include/functions/simd/is_nez.hpp>
-#include <boost/simd/include/functions/simd/logical_and.hpp>
+
 #include <boost/simd/include/functions/simd/if_else_zero.hpp>
+#include <boost/simd/include/functions/simd/bitwise_and.hpp>
+#include <boost/simd/include/functions/simd/bitwise_andnot.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/bitwise_or.hpp>
+#include <boost/simd/include/functions/simd/shr.hpp>
 #include <boost/simd/include/functions/simd/minus.hpp>
-#include <boost/simd/include/functions/simd/splat.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
+#include <boost/simd/include/functions/simd/is_nez.hpp>
+#include <boost/simd/include/functions/simd/is_greater.hpp>
+#include <boost/simd/include/functions/simd/logical_notand.hpp>
+#include <boost/simd/include/functions/simd/seladd.hpp>
 #include <boost/simd/include/constants/maxexponentm1.hpp>
 #include <boost/simd/include/constants/limitexponent.hpp>
 #include <boost/simd/include/constants/mask1frexp.hpp>
 #include <boost/simd/include/constants/mask2frexp.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
+#include <boost/simd/sdk/config.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/simd/sdk/config.hpp>
 
 #ifndef BOOST_SIMD_NO_DENORMALS
-#include <boost/simd/include/constants/twotonmb.hpp>
-#include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/include/constants/smallestposval.hpp>
-#include <boost/simd/include/functions/simd/is_eqz.hpp>
+#include <boost/simd/include/functions/simd/is_less.hpp>
 #include <boost/simd/include/functions/simd/is_nez.hpp>
-#include <boost/simd/include/functions/simd/logical_and.hpp>
-#include <boost/simd/include/functions/simd/selsub.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/abs.hpp>
+#include <boost/simd/include/functions/simd/logical_and.hpp>
+#include <boost/simd/include/constants/twotonmb.hpp>
+#include <boost/simd/include/constants/smallestposval.hpp>
 #endif
 
 namespace boost { namespace simd { namespace ext

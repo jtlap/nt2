@@ -11,8 +11,6 @@
 #define BOOST_SIMD_IEEE_FUNCTIONS_SIMD_COMMON_SIGNNZ_HPP_INCLUDED
 
 #include <boost/simd/ieee/functions/signnz.hpp>
-#include <boost/simd/include/functions/simd/is_nan.hpp>
-#include <boost/simd/include/functions/simd/if_allbits_else.hpp>
 #include <boost/simd/include/functions/simd/bitwise_or.hpp>
 #include <boost/simd/include/functions/simd/bitwise_and.hpp>
 #include <boost/simd/include/functions/simd/shift_right.hpp>
@@ -20,6 +18,11 @@
 #include <boost/simd/include/constants/signmask.hpp>
 #include <boost/simd/sdk/config.hpp>
 #include <boost/dispatch/attributes.hpp>
+
+#ifndef BOOST_SIMD_NO_NANS
+#include <boost/simd/include/functions/simd/if_allbits_else.hpp>
+#include <boost/simd/include/functions/simd/is_nan.hpp>
+#endif
 
 namespace boost { namespace simd { namespace ext
 {

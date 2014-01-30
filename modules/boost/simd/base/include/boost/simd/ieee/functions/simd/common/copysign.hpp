@@ -9,6 +9,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_IEEE_FUNCTIONS_SIMD_COMMON_COPYSIGN_HPP_INCLUDED
 #define BOOST_SIMD_IEEE_FUNCTIONS_SIMD_COMMON_COPYSIGN_HPP_INCLUDED
+
 #include <boost/simd/ieee/functions/copysign.hpp>
 #include <boost/simd/include/functions/simd/abss.hpp>
 #include <boost/simd/include/functions/simd/bitofsign.hpp>
@@ -44,7 +45,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return  bitwise_or(bitofsign(a1), boost::simd::abs(a0));
+      return bitwise_or(bitofsign(a1), boost::simd::abs(a0));
     }
   };
 

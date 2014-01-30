@@ -12,24 +12,23 @@
 
 #include <boost/simd/ieee/functions/frexp.hpp>
 #include <boost/simd/include/functions/scalar/is_invalid.hpp>
-#include <boost/simd/include/functions/scalar/bitwise_notand.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_andnot.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_and.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_or.hpp>
 #include <boost/simd/include/functions/scalar/shr.hpp>
-#include <boost/simd/include/functions/scalar/minus.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
 #include <boost/simd/include/constants/limitexponent.hpp>
 #include <boost/simd/include/constants/maxexponentm1.hpp>
 #include <boost/simd/include/constants/mask1frexp.hpp>
 #include <boost/simd/include/constants/mask2frexp.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/sdk/config.hpp>
-#include <boost/simd/predicates/functions/is_eqz.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/attributes.hpp>
 
 #ifndef BOOST_SIMD_NO_DENORMALS
-#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/functions/scalar/is_eqz.hpp>
 #include <boost/simd/include/constants/twotonmb.hpp>
 #endif
 

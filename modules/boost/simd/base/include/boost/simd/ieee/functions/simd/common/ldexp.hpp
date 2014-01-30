@@ -12,20 +12,20 @@
 
 #include <boost/simd/ieee/functions/ldexp.hpp>
 #include <boost/simd/include/functions/simd/shift_left.hpp>
-#include <boost/simd/include/functions/simd/is_less.hpp>
 #include <boost/simd/include/functions/simd/multiplies.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/functions/simd/rshl.hpp>
-#include <boost/simd/include/functions/simd/plus.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/simd/include/constants/maxexponent.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/sdk/config.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/attributes.hpp>
 
 #ifndef BOOST_SIMD_NO_DENORMALS
+#include <boost/simd/include/functions/simd/is_less.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/selsub.hpp>
 #include <boost/simd/include/constants/minexponent.hpp>
@@ -40,22 +40,9 @@ namespace boost { namespace simd { namespace ext
                                                                , boost::simd::meta::cardinal_of<A1>
                                                                >
                                          )
-                                       , ((simd_<arithmetic_<A0>,X>))
-                                         ((simd_<integer_<A1>,X>))
+                                       , ((simd_<integer_<A0>,X>))
+                                         (generic_<integer_<A1> >)
                                        )
-  {
-    typedef A0 result_type;
-    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
-    {
-      return rshl(a0, a1);
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::ldexp_, tag::cpu_
-                                    , (A0)(A1)(X)
-                                    , ((simd_<arithmetic_<A0>,X>))
-                                      (scalar_< integer_<A1> >)
-                                    )
   {
     typedef A0 result_type;
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
@@ -74,9 +61,8 @@ namespace boost { namespace simd { namespace ext
                                        )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      typedef typename meta::scalar_of<result_type>::type    sA0;
       typedef typename dispatch::meta::as_integer<A0>::type  iA0;
       typedef typename meta::as_logical<iA0>::type           bA0;
 
@@ -96,19 +82,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::ldexp_, tag::cpu_
-                                    , (A0)(A1)(X)
-                                    , ((simd_<floating_<A0>,X>))
-                                      (scalar_< integer_<A1> >)
-                                    )
-  {
-    typedef A0 result_type;
-    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
-    {
-      typedef typename dispatch::meta::as_integer<A0>::type iA0;
-      return ldexp(a0, boost::simd::splat<iA0>(a1));
-    }
-  };
 } } }
 
 #endif

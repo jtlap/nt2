@@ -17,7 +17,7 @@
 #include <boost/simd/sdk/config.hpp>
 #include <boost/dispatch/attributes.hpp>
 
-#ifdef BOOST_SIMD_NO_NANS
+#ifndef BOOST_SIMD_NO_NANS
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
 #endif
 
