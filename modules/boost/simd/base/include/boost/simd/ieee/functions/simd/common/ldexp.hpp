@@ -63,7 +63,6 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      typedef typename meta::scalar_of<result_type>::type    sA0;
       typedef typename dispatch::meta::as_integer<A0>::type  iA0;
       typedef typename meta::as_logical<iA0>::type           bA0;
 

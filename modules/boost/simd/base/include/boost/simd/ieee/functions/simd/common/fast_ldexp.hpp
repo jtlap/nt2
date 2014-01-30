@@ -13,7 +13,7 @@
 #include <boost/simd/include/functions/simd/rshl.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/shift_left.hpp>
-#include <boost/simd/include/functions/simd/mutliplies.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/simd/include/constants/maxexponent.hpp>
