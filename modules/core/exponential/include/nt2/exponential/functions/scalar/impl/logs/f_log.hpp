@@ -132,7 +132,7 @@ namespace nt2 { namespace details
       A0 z = a0;
 #ifndef BOOST_SIMD_NO_DENORMALS
       A0 t = Zero<A0>();
-    if (BOOST_UNLIKELY(nt2::abs(z) < Smallestposval<A0>()))
+      if (BOOST_UNLIKELY(nt2::abs(z) < Smallestposval<A0>()))
       {
         z *= Twotonmb<A0>();
         t = Mlog10two2nmb<A0>();
