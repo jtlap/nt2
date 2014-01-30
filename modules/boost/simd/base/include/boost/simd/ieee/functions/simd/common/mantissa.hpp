@@ -12,17 +12,17 @@
 
 #include <boost/simd/ieee/functions/mantissa.hpp>
 #include <boost/simd/include/functions/simd/is_eqz.hpp>
-#include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/logical_or.hpp>
-#include <boost/simd/include/functions/simd/bitwise_or.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/bitwise_and.hpp>
+#include <boost/simd/include/functions/simd/bitwise_or.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/mantissamask.hpp>
+#include <boost/simd/sdk/config.hpp>
+
+#ifndef BOOST_SIMD_NO_INVALIDS
 #include <boost/simd/include/functions/simd/is_invalid.hpp>
-#include <boost/simd/include/functions/simd/splat.hpp>
-#include <boost/simd/include/functions/simd/splat.hpp>
-#include <boost/simd/include/constants/nbmantissabits.hpp>
-#include <boost/simd/include/constants/maxexponent.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/dispatch/attributes.hpp>
+#endif
 
 namespace boost { namespace simd { namespace ext
 {
@@ -46,14 +46,12 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef typename dispatch::meta::as_integer<A0, unsigned>::type  int_type;
-      typedef typename meta::scalar_of<int_type>::type      sint_type;
-      typedef typename meta::scalar_of<A0>::type               s_type;
-      const sint_type n1 = ((2*Maxexponent<s_type>()+1)<<Nbmantissabits<s_type>());
-      const sint_type n2 = (sizeof(sint_type)-2);
-      const int_type  mask0 = (splat<int_type>((n1<<2)>>2));
-      const int_type  mask1 = (splat<int_type>((~n1)|n2));
-      return select(logical_or(is_invalid(a0),is_eqz(a0)),a0,b_or(b_and(a0,mask1),mask0));
+      A0 r = b_or(b_and(a0,Mantissamask<A0>()),One<A0>());
+      #ifndef BOOST_SIMD_NO_INVALIDS
+      return if_else(logical_or(is_invalid(a0),is_eqz(a0)),a0,r);
+      #else
+      return if_else(is_eqz(a0),a0,r);
+      #endif
     }
   };
 
