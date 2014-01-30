@@ -11,7 +11,6 @@
 #define BOOST_SIMD_IEEE_FUNCTIONS_SIMD_COMMON_PREV_HPP_INCLUDED
 
 #include <boost/simd/ieee/functions/prev.hpp>
-#include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/functions/simd/dec.hpp>
 #include <boost/simd/include/functions/simd/if_allbits_else.hpp>
 #include <boost/simd/include/functions/simd/next.hpp>

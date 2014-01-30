@@ -18,7 +18,6 @@
 #include <boost/simd/include/functions/simd/bitwise_and.hpp>
 #include <boost/simd/include/functions/simd/is_invalid.hpp>
 #include <boost/simd/include/functions/simd/splat.hpp>
-#include <boost/simd/include/functions/simd/splat.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/simd/include/constants/maxexponent.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
