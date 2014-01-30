@@ -9,14 +9,14 @@
 //==============================================================================
 #ifndef BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_LDEXP_HPP_INCLUDED
 #define BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_LDEXP_HPP_INCLUDED
+
 #include <boost/simd/ieee/functions/ldexp.hpp>
-#include <boost/simd/include/constants/ldexpmask.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/constants/maxexponent.hpp>
-#include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/simd/include/functions/scalar/shift_left.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
+#include <boost/simd/include/constants/maxexponent.hpp>
+#include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/simd/sdk/config.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/attributes.hpp>
 
 #ifndef BOOST_SIMD_NO_DENORMALS

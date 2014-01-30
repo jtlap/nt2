@@ -11,15 +11,11 @@
 #define BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_FAST_LDEXP_HPP_INCLUDED
 
 #include <boost/simd/ieee/functions/fast_ldexp.hpp>
-#include <boost/simd/include/constants/nbmantissabits.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/functions/scalar/bitwise_andnot.hpp>
-#include <boost/simd/include/functions/scalar/bitwise_or.hpp>
 #include <boost/simd/include/functions/scalar/shift_left.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
 #include <boost/simd/include/constants/maxexponent.hpp>
-#include <boost/simd/include/constants/minexponent.hpp>
+#include <boost/simd/include/constants/nbmantissabits.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -48,7 +44,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<A0>::type          iA0;
       iA0 ik =  a1+Maxexponent<A0>();
       ik = shl(ik, Nbmantissabits<sA0>());
-      return a0*bitwise_cast<A0>(ik);;
+      return a0*bitwise_cast<A0>(ik);
     }
   };
 } } }

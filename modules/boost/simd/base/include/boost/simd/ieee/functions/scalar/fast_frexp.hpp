@@ -11,22 +11,20 @@
 #define BOOST_SIMD_IEEE_FUNCTIONS_SCALAR_FAST_FREXP_HPP_INCLUDED
 
 #include <boost/simd/ieee/functions/fast_frexp.hpp>
-#include <boost/dispatch/meta/adapted_traits.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/fusion/include/std_pair.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <boost/simd/sdk/config/compiler.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_or.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_andnot.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_and.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
+#include <boost/simd/include/functions/scalar/shr.hpp>
 #include <boost/simd/include/constants/maxexponentm1.hpp>
 #include <boost/simd/include/constants/mask1frexp.hpp>
 #include <boost/simd/include/constants/mask2frexp.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
-#include <boost/simd/include/functions/scalar/shr.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/attributes.hpp>
+#include <boost/fusion/include/std_pair.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
