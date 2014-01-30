@@ -39,7 +39,7 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef A0 result_type;
-    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_FORCEINLINE result_type operator()(A0 const&) const
     {
       return One<A0>();
     }
