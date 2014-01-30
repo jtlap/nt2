@@ -16,6 +16,7 @@
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/simd/include/constants/smallestposval.hpp>
 #include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/functions/ldexp.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/fusion/include/vector_tie.hpp>
@@ -32,43 +33,50 @@ NT2_TEST_CASE_TPL( frexp0, BOOST_SIMD_SIMD_REAL_TYPES)
 
   typedef typename boost::dispatch::meta::as_integer<T,signed>::type iT;
 
+
   {
     iT e;
     T  m;
-
-    frexp(boost::simd::Valmax<T>(), m, e);
+    T  a = boost::simd::Valmax<T>();
+    frexp(a, m, e);
     NT2_TEST_ULP_EQUAL(m, boost::simd::One<T>()-boost::simd::Halfeps<T>(), 1);
     NT2_TEST_EQUAL(e, boost::simd::Limitexponent<T>());
+    NT2_TEST_EQUAL(ldexp(m,e),a);
   }
-#ifndef BOOST_SIMD_NO_DENORMALS
+
+  #ifndef BOOST_SIMD_NO_DENORMALS
   {
     iT e;
     T  m;
-
-    frexp(boost::simd::Mindenormal<T>(), m, e);
+    T a = boost::simd::Mindenormal<T>();
+    frexp(a, m, e);
     NT2_TEST_ULP_EQUAL(m, boost::simd::Half<T>(), 1);
     NT2_TEST_EQUAL(e, boost::simd::Minexponent<T>()-boost::simd::Nbmantissabits<T>()+boost::simd::One<T>());
+    NT2_TEST_EQUAL(ldexp(m,e),a);
   }
-#endif
 
   {
     iT e;
     T  m;
-
-    frexp(boost::simd::Smallestposval<T>()/2, m, e);
+    T a = boost::simd::Smallestposval<T>()/2;
+    frexp(a, m, e);
     NT2_TEST_ULP_EQUAL(m, boost::simd::Half<T>(), 1);
     NT2_TEST_EQUAL(e, boost::simd::Minexponent<T>());
+    NT2_TEST_EQUAL(ldexp(m,e),a);
   }
 
 
   {
     iT e;
     T  m;
-
-    frexp(boost::simd::Smallestposval<T>()/4, m, e);
+    T a = boost::simd::Smallestposval<T>()/4;
+    frexp(a, m, e);
     NT2_TEST_ULP_EQUAL(m, boost::simd::Half<T>(), 1);
     NT2_TEST_EQUAL(e, boost::simd::Minexponent<T>()-boost::simd::One<T>());
+    NT2_TEST_EQUAL(ldexp(m,e),a);
   }
+  #endif
+
 }
 
 NT2_TEST_CASE_TPL( frexp, BOOST_SIMD_SIMD_REAL_TYPES)

@@ -21,6 +21,7 @@
 #include <boost/simd/include/constants/two.hpp>
 #include <boost/simd/include/constants/four.hpp>
 #include <boost/simd/include/functions/divides.hpp>
+#include <boost/simd/include/functions/ldexp.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/fusion/include/vector_tie.hpp>
@@ -33,6 +34,7 @@
 NT2_TEST_CASE_TPL( frexp0, BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::frexp;
+  using boost::simd::ldexp;
   using boost::simd::tag::frexp_;
   using boost::simd::native;
 
@@ -42,38 +44,42 @@ NT2_TEST_CASE_TPL( frexp0, BOOST_SIMD_SIMD_REAL_TYPES)
   {
     viT e;
     vT  m;
-
-    frexp(boost::simd::Valmax<vT>(), m, e);
+    vT  a = boost::simd::Valmax<vT>();
+    frexp(a, m, e);
     NT2_TEST_ULP_EQUAL(m, boost::simd::One<vT>()-boost::simd::Halfeps<vT>(), 1);
     NT2_TEST_EQUAL(e, boost::simd::Limitexponent<vT>());
+    NT2_TEST_EQUAL(ldexp(m,e),a);
   }
 #ifndef BOOST_SIMD_NO_DENORMALS
   {
     viT e;
     vT  m;
-
-    frexp(boost::simd::Mindenormal<vT>(), m, e);
+    vT  a = boost::simd::Mindenormal<vT>();
+    frexp(a, m, e);
     NT2_TEST_ULP_EQUAL(m, boost::simd::Half<vT>(), 1);
     NT2_TEST_EQUAL(e, boost::simd::Minexponent<vT>()-boost::simd::Nbmantissabits<vT>()+boost::simd::One<viT>());
-  }
+    NT2_TEST_EQUAL(ldexp(m,e),a);
+ }
 
   {
     viT e;
     vT  m;
-
-    frexp(boost::simd::Smallestposval<vT>()/boost::simd::Two<vT>(), m, e);
+    vT  a = boost::simd::Smallestposval<vT>()/boost::simd::Two<vT>();
+    frexp(a, m, e);
     NT2_TEST_ULP_EQUAL(m, boost::simd::Half<vT>(), 1);
     NT2_TEST_EQUAL(e, boost::simd::Minexponent<vT>());
-  }
+    NT2_TEST_EQUAL(ldexp(m,e),a);
+ }
 
   {
     viT e;
     vT  m;
-
-    frexp(boost::simd::Smallestposval<vT>()/boost::simd::Four<vT>(), m, e);
+    vT  a = boost::simd::Smallestposval<vT>()/boost::simd::Four<vT>();
+    frexp(a, m, e);
     NT2_TEST_ULP_EQUAL(m, boost::simd::Half<vT>(), 1);
     NT2_TEST_EQUAL(e, boost::simd::Minexponent<vT>()-boost::simd::One<viT>());
-  }
+    NT2_TEST_EQUAL(ldexp(m,e),a);
+ }
 #endif
 }
 
