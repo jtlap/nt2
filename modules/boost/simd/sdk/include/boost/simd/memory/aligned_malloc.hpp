@@ -29,9 +29,9 @@
 namespace boost { namespace simd
 {
 #if defined(BOOST_SIMD_CUSTOM_MALLOC)
-  BOOST_SIMD_MALLOC void* custom_malloc_fn(std::size_t);
+  BOOST_DISPATCH_NOTHROW BOOST_SIMD_MALLOC void* custom_malloc_fn(std::size_t);
 #else
-  BOOST_FORCEINLINE BOOST_SIMD_MALLOC void* custom_malloc_fn(std::size_t sz) { return std::malloc(sz); }
+  BOOST_FORCEINLINE BOOST_DISPATCH_NOTHROW BOOST_SIMD_MALLOC void* custom_malloc_fn(std::size_t sz) { return std::malloc(sz); }
 #endif
 
   /*!
