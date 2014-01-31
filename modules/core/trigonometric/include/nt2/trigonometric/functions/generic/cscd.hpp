@@ -10,23 +10,11 @@
 #define NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_CSCD_HPP_INCLUDED
 #include <nt2/trigonometric/functions/cscd.hpp>
 #include <nt2/include/functions/simd/cscpi.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/constants/oneo_180.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cscd_, tag::cpu_
-                            , (A0)
-                            , (generic_< arithmetic_<A0> >)
-                            )
-  {
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::cscd(tofloat(a0));
-    }
-  };
-
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cscd_, tag::cpu_
                             , (A0)
                             , (generic_< floating_<A0> >)
@@ -35,7 +23,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::cscpi(nt2::Oneo_180<result_type>()*nt2::tofloat(a0));
+      return nt2::cscpi(nt2::Oneo_180<result_type>()*a0);
     }
   };
 } }

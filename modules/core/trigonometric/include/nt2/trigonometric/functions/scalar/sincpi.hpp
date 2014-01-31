@@ -12,7 +12,6 @@
 #include <nt2/trigonometric/functions/sincpi.hpp>
 #include <nt2/include/functions/scalar/sinpi.hpp>
 #include <nt2/include/constants/invpi.hpp>
-#include <nt2/include/constants/eps.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <boost/simd/sdk/config.hpp>
 
@@ -22,24 +21,11 @@
 #endif
 
 #if !defined(BOOST_SIMD_NO_INFINITIES)
-#include <nt2/include/functions/simd/is_inf.hpp>
+#include <nt2/include/functions/scalar/is_inf.hpp>
 #include <nt2/include/constants/zero.hpp>
 #endif
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sincpi_, tag::cpu_
-                            , (A0)
-                            , (scalar_< arithmetic_<A0> >)
-                            )
-  {
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      result_type z(a0);
-      return a0 ? nt2::Invpi<A0>()*nt2::sinpi(z)/z : nt2::One<result_type>();
-    }
-  };
-
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sincpi_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)
