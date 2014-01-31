@@ -40,6 +40,7 @@
 #include <nt2/polynomials/functions/scalar/impl/poleval.hpp>
 #include <nt2/euler/constants/digammalargelim.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/pi.hpp>
