@@ -13,6 +13,7 @@
 #include <boost/simd/preprocessor/new.hpp>
 #include <boost/simd/preprocessor/parameters.hpp>
 #include <boost/simd/preprocessor/aligned_type.hpp>
+#include <boost/simd/sdk/config/compiler.hpp>
 #include <cstddef>
 
 namespace boost { namespace simd
@@ -29,6 +30,11 @@ namespace boost { namespace simd
     @tparam Alignment Alignment boundary in bytes to use for dynamic allocation
             of child type.
   **/
+
+  #ifdef BOOST_SIMD_COMPILER_MSVC
+  #pragma warning( push )
+  #pragma warning( disable : 4324 )
+  #endif
   template<std::size_t Alignment = BOOST_SIMD_CONFIG_ALIGNMENT>
   BOOST_SIMD_ALIGNED_TYPE_ON_MPL(struct, Alignment) aligned_object
   {
@@ -46,6 +52,9 @@ namespace boost { namespace simd
     BOOST_SIMD_MEMORY_OVERLOAD_NEW_DELETE(Alignment)
     #endif
   };
+  #ifdef BOOST_SIMD_COMPILER_MSVC
+  #pragma warning( pop )
+  #endif
 } }
 
 #endif
