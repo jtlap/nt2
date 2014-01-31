@@ -38,14 +38,14 @@ namespace boost { namespace simd
 
     @return A pointer to a memory block of @c nbytes bytes, aligned on @c align.
   **/
-  BOOST_FORCEINLINE BOOST_SIMD_MALLOC BOOST_DISPATCH_NOTHROW void*
-  allocate( std::size_t nbytes, std::size_t align, std::nothrow_t const & )
+  BOOST_FORCEINLINE BOOST_SIMD_MALLOC BOOST_DISPATCH_NOTHROW BOOST_SIMD_ALLOC_SIZE(1)
+  void* allocate( std::size_t nbytes, std::size_t align, std::nothrow_t const & )
   {
     return aligned_malloc(nbytes, align);
   }
 
   /// @overload
-  BOOST_FORCEINLINE BOOST_SIMD_MALLOC
+  BOOST_FORCEINLINE BOOST_SIMD_MALLOC BOOST_SIMD_ALLOC_THROWS BOOST_SIMD_ALLOC_SIZE(1)
   void* allocate( std::size_t nbytes, std::size_t align )
   {
     void* result = allocate(nbytes, align, std::nothrow_t());
@@ -74,7 +74,7 @@ namespace boost { namespace simd
             by using compiler specific attributes.
   **/
   template<std::size_t Alignment>
-  BOOST_FORCEINLINE BOOST_DISPATCH_NOTHROW
+  BOOST_FORCEINLINE BOOST_DISPATCH_NOTHROW BOOST_SIMD_ALLOC_SIZE(1)
   typename meta::align_ptr<void,Alignment>::type
   allocate(std::size_t nbytes, std::nothrow_t const & t)
   {
@@ -83,20 +83,20 @@ namespace boost { namespace simd
 
   /// @overload
   template<std::size_t Alignment>
-  BOOST_FORCEINLINE
+  BOOST_FORCEINLINE BOOST_SIMD_ALLOC_THROWS BOOST_SIMD_ALLOC_SIZE(1)
   typename meta::align_ptr<void,Alignment>::type allocate(std::size_t nbytes)
   {
     return align_ptr<Alignment>( allocate( nbytes, Alignment) );
   }
 
-  BOOST_FORCEINLINE BOOST_SIMD_MALLOC BOOST_DISPATCH_NOTHROW
+  BOOST_FORCEINLINE BOOST_SIMD_MALLOC BOOST_DISPATCH_NOTHROW BOOST_SIMD_ALLOC_SIZE(1)
   meta::align_ptr<void>::type
   allocate(std::size_t nbytes, std::nothrow_t const & t)
   {
     return allocate<BOOST_SIMD_CONFIG_ALIGNMENT>( nbytes, t );
   }
 
-  BOOST_FORCEINLINE BOOST_SIMD_MALLOC
+  BOOST_FORCEINLINE BOOST_SIMD_MALLOC BOOST_SIMD_ALLOC_THROWS BOOST_SIMD_ALLOC_SIZE(1)
   meta::align_ptr<void>::type allocate( std::size_t nbytes )
   {
     return allocate<BOOST_SIMD_CONFIG_ALIGNMENT>(nbytes);

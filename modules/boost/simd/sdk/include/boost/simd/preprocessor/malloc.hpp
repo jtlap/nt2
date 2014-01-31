@@ -25,10 +25,16 @@
 #else
 #if defined(BOOST_SIMD_COMPILER_MSVC)
 #define BOOST_SIMD_MALLOC   __declspec(restrict)
+#define BOOST_SIMD_ALLOC_SIZE(n)
+#define BOOST_SIMD_ALLOC_THROWS
 #elif defined(BOOST_SIMD_GCC_LIKE)
 #define BOOST_SIMD_MALLOC   __attribute__ ((malloc))
+#define BOOST_SIMD_ALLOC_SIZE(n) __attribute__((alloc_size(n)))
+#define BOOST_SIMD_ALLOC_THROWS __attribute__((returns_nonnull))
 #else
 #define BOOST_SIMD_MALLOC
+#define BOOST_SIMD_ALLOC_SIZE(n)
+#define BOOST_SIMD_ALLOC_THROWS
 #endif
 #endif
 
