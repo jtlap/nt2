@@ -1,7 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2012 - 2013   MetaScale SAS
+//         Copyright 2012 - 2014   MetaScale SAS
 //         Copyright 2013          Domagoj Saric, Little Endian Ltd.
 //
 //          Distributed under the Boost Software License, Version 1.0.
@@ -14,6 +14,7 @@
 #include <boost/simd/memory/details/posix.hpp>
 #include <boost/simd/memory/details/aligned_stash.hpp>
 #include <boost/simd/memory/align_on.hpp>
+#include <boost/simd/preprocessor/malloc.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/assert.hpp>
 
@@ -28,9 +29,9 @@
 namespace boost { namespace simd
 {
 #if defined(BOOST_SIMD_CUSTOM_MALLOC)
-  void* custom_malloc_fn(std::size_t);
+  BOOST_SIMD_MALLOC void* custom_malloc_fn(std::size_t);
 #else
-  inline void* custom_malloc_fn(std::size_t sz) { return std::malloc(sz); }
+  BOOST_FORCEINLINE BOOST_SIMD_MALLOC void* custom_malloc_fn(std::size_t sz) { return std::malloc(sz); }
 #endif
 
   /*!
@@ -77,7 +78,7 @@ namespace boost { namespace simd
     @return Pointer referencing the newly allocated memory block.
   **/
   template<typename AllocFunction>
-  inline void* aligned_malloc ( std::size_t size, std::size_t alignment
+  BOOST_FORCEINLINE void* aligned_malloc ( std::size_t size, std::size_t alignment
                               , AllocFunction malloc_fn
                               )
   {
@@ -96,7 +97,7 @@ namespace boost { namespace simd
   }
 
   /// @overload
-  inline void* aligned_malloc(std::size_t size, std::size_t alignment)
+  BOOST_FORCEINLINE void* aligned_malloc(std::size_t size, std::size_t alignment)
   {
     // Do we want to use built-ins special aligned free/alloc ?
     #if defined( _MSC_VER ) && !defined(BOOST_SIMD_CUSTOM_MALLOC)
