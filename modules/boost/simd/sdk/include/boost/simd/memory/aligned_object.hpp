@@ -13,6 +13,7 @@
 #include <boost/simd/preprocessor/new.hpp>
 #include <boost/simd/preprocessor/parameters.hpp>
 #include <boost/simd/preprocessor/aligned_type.hpp>
+#include <boost/simd/sdk/config/compiler.hpp>
 #include <cstddef>
 
 namespace boost { namespace simd
