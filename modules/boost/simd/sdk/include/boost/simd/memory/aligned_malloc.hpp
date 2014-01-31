@@ -31,7 +31,7 @@ namespace boost { namespace simd
 #if defined(BOOST_SIMD_CUSTOM_MALLOC)
   BOOST_DISPATCH_NOTHROW BOOST_SIMD_MALLOC void* custom_malloc_fn(std::size_t);
 #else
-  BOOST_FORCEINLINE BOOST_DISPATCH_NOTHROW BOOST_SIMD_MALLOC void* custom_malloc_fn(std::size_t sz) { return std::malloc(sz); }
+  inline BOOST_DISPATCH_NOTHROW BOOST_SIMD_MALLOC void* custom_malloc_fn(std::size_t sz) { return std::malloc(sz); }
 #endif
 
   /*!
@@ -78,7 +78,7 @@ namespace boost { namespace simd
     @return Pointer referencing the newly allocated memory block.
   **/
   template<typename AllocFunction>
-  BOOST_FORCEINLINE void* aligned_malloc ( std::size_t size, std::size_t alignment
+  inline void* aligned_malloc ( std::size_t size, std::size_t alignment
                               , AllocFunction malloc_fn
                               )
   {
@@ -97,7 +97,7 @@ namespace boost { namespace simd
   }
 
   /// @overload
-  BOOST_FORCEINLINE void* aligned_malloc(std::size_t size, std::size_t alignment)
+  inline void* aligned_malloc(std::size_t size, std::size_t alignment)
   {
     // Do we want to use built-ins special aligned free/alloc ?
     #if defined( _MSC_VER ) && !defined(BOOST_SIMD_CUSTOM_MALLOC)
