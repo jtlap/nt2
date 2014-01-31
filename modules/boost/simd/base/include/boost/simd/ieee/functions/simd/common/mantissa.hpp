@@ -12,15 +12,15 @@
 
 #include <boost/simd/ieee/functions/mantissa.hpp>
 #include <boost/simd/include/functions/simd/is_eqz.hpp>
-#include <boost/simd/include/functions/simd/logical_or.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/bitwise_or.hpp>
 #include <boost/simd/include/functions/simd/bitwise_and.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/mantissamask.hpp>
 #include <boost/simd/sdk/config.hpp>
 
 #ifndef BOOST_SIMD_NO_INVALIDS
-#include <boost/simd/include/functions/simd/bitwise_or.hpp>
+#include <boost/simd/include/functions/simd/logical_or.hpp>
 #include <boost/simd/include/functions/simd/is_invalid.hpp>
 #endif
 
