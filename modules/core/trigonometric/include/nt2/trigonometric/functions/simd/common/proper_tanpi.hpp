@@ -18,7 +18,7 @@
 #include <nt2/include/functions/simd/negif.hpp>
 #include <nt2/include/functions/simd/is_ltz.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
-#include <nt2/include/functions/simd/is_nle.hpp>
+#include <nt2/include/functions/simd/is_not_less_equal.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/constants/quarter.hpp>
 #include <nt2/include/constants/half.hpp>
