@@ -11,17 +11,16 @@
 
 #include <nt2/trigonometric/functions/atan2.hpp>
 #include <nt2/trigonometric/functions/simd/common/impl/invtrig.hpp>
-#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/is_gtz.hpp>
 #include <nt2/include/functions/simd/is_eqz.hpp>
 #include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
-#include <nt2/include/constants/pi.hpp>
 #include <nt2/include/functions/simd/signnz.hpp>
 #include <nt2/include/functions/simd/is_ltz.hpp>
-#include <nt2/include/functions/simd/atan.hpp>
+#include <nt2/include/constants/pi.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/sdk/config.hpp>
 
 #ifndef BOOST_SIMD_NO_INFINITIES

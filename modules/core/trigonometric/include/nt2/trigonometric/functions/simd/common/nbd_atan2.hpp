@@ -11,7 +11,7 @@
 
 #include <nt2/trigonometric/functions/nbd_atan2.hpp>
 #include <nt2/trigonometric/functions/simd/common/impl/invtrig.hpp>
-
+#include <nt2/include/functions/simd/signnz.hpp>
 #include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/minus.hpp>

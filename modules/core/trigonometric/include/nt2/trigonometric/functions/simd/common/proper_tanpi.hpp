@@ -8,19 +8,20 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_PROPER_TANPI_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_PROPER_TANPI_HPP_INCLUDED
+
 #include <nt2/trigonometric/functions/proper_tanpi.hpp>
 #include <nt2/trigonometric/functions/simd/common/impl/trigo.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
 #include <nt2/include/functions/simd/is_less_equal.hpp>
-#include <nt2/include/constants/quarter.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/constants/half.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/functions/simd/negif.hpp>
 #include <nt2/include/functions/simd/is_ltz.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
-#include <nt2/include/functions/is_nle.hpp>
+#include <nt2/include/functions/simd/is_nle.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/constants/quarter.hpp>
+#include <nt2/include/constants/half.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
 
 namespace nt2 { namespace ext

@@ -19,7 +19,7 @@
 #endif
 
 #if !defined(BOOST_SIMD_NO_DENORMALS)
-#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/constants/eps.hpp>
 #endif
 

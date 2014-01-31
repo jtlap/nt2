@@ -12,7 +12,6 @@
 #include <nt2/trigonometric/functions/sincpi.hpp>
 #include <nt2/include/functions/scalar/sinpi.hpp>
 #include <nt2/include/constants/invpi.hpp>
-#include <nt2/include/constants/eps.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <boost/simd/sdk/config.hpp>
 
@@ -22,7 +21,7 @@
 #endif
 
 #if !defined(BOOST_SIMD_NO_INFINITIES)
-#include <nt2/include/functions/simd/is_inf.hpp>
+#include <nt2/include/functions/scalar/is_inf.hpp>
 #include <nt2/include/constants/zero.hpp>
 #endif
 namespace nt2 { namespace ext

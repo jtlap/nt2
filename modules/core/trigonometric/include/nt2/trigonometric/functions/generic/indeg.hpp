@@ -8,8 +8,10 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_INDEG_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_INDEG_HPP_INCLUDED
+
 #include <nt2/trigonometric/functions/indeg.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/constants/radindeg.hpp>
 #include <nt2/include/constants/radindegr.hpp>
 
