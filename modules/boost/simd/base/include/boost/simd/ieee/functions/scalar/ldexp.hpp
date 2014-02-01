@@ -14,7 +14,9 @@
 #include <boost/simd/include/functions/scalar/shift_left.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
 #include <boost/simd/include/constants/maxexponent.hpp>
+#include <boost/simd/include/constants/limitexponent.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
+#include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/sdk/config.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/attributes.hpp>
@@ -22,7 +24,6 @@
 #ifndef BOOST_SIMD_NO_DENORMALS
 #include <boost/simd/include/constants/minexponent.hpp>
 #include <boost/simd/include/constants/smallestposval.hpp>
-#include <boost/simd/include/constants/one.hpp>
 #endif
 
 namespace boost { namespace simd { namespace ext
@@ -51,22 +52,20 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
     {
       iA0 e =  a1;
-#ifndef BOOST_SIMD_NO_DENORMALS
       A0 f = One<A0>();
+#ifndef BOOST_SIMD_NO_DENORMALS
       if (BOOST_UNLIKELY(e < Minexponent<A0>()))
       {
         e -= Minexponent<A0>();
         f = Smallestposval<A0>();
       }
 #endif
+      iA0 b = (e == Limitexponent<A0>());
+      f += A0(b);
+      e -= b;
       e += Maxexponent<A0>();
       e = shl(e, Nbmantissabits<A0>());
-#ifndef BOOST_SIMD_NO_DENORMALS
       return a0*bitwise_cast<A0>(e)*f;
-#else
-      return a0*bitwise_cast<A0>(e);
-#endif
-
     }
   };
 } } }
