@@ -9,6 +9,18 @@
 #ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_DETAILS_ASSERT_UTILS_HPP_INCLUDED
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_DETAILS_ASSERT_UTILS_HPP_INCLUDED
 
+namespace boost { namespace simd
+{
+  template<class T>
+  bool assert_all( T const& t );
+
+  template<class T>
+  bool assert_is_mask( T const& t );
+
+  template<class A0, class A1>
+  bool assert_good_shift( A1 const& t );
+} }
+
 #include <boost/simd/include/functions/simd/extract.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/constants/zero.hpp>
@@ -19,7 +31,6 @@
 
 namespace boost { namespace simd
 {
-
   template<class T>
   bool assert_all( T const& t )
   {
@@ -64,7 +75,6 @@ namespace boost { namespace simd
     }
     return true;
   }
-
 } }
 
 #endif
