@@ -37,9 +37,6 @@
 #include <boost/simd/include/constants/smallestposval.hpp>
 #endif
 
-
-#include <nt2/table.hpp>
-
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::ldexp_, tag::cpu_,(A0)(A1)(X)
