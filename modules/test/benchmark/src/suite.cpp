@@ -18,13 +18,11 @@ namespace nt2 { namespace details
   NT2_TEST_BENCHMARK_DECL
   void benchmark_suite::run()
   {
-    std::cout<<" Data Types "<<experiments_.size()<<std::endl;
     std::cout <<  std::string(100,'-') << std::endl;
     std::cout << "Benchmark\tSize\tResult\tUnit\tSamples #" << std::endl;
     std::cout <<  std::string(100,'-') << std::endl;
 
     // Run every registered experiments
-
     for(std::size_t i=0;i<experiments_.size();++i)
     {
       details::current_benchmark = ids_[i];

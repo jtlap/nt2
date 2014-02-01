@@ -13,6 +13,7 @@
 #include <nt2/sdk/bench/config.hpp>
 #include <nt2/sdk/bench/suite.hpp>
 #include <nt2/sdk/bench/args.hpp>
+#include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 
 /// INTERNAL ONLY
@@ -88,7 +89,7 @@ namespace nt2 { namespace details
 int main(int argc, const char** argv)
 {
   std::cout << "CTEST_FULL_OUTPUT" << std::endl;
-  std::cout<<" Architecture "<<BOOST_SIMD_STRING;
+  std::cout << "Architecture: " << BOOST_SIMD_STRING << std::endl;
   // process option commands
   nt2::details::fill_args_map(argc,argv);
 
