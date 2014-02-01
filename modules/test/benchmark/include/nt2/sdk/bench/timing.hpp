@@ -42,11 +42,20 @@ BOOST_PP_COMMA_IF(i) nt2::bench                                                \
 /**/
 
 /// INTERNAL ONLY
+/// We generate a string externally so we're sure its .c_str() is valid all along
 #define NT2_TIMING_IMPL(NAME, FUNC, CODE, RANGE )                              \
-NT2_REGISTER_BENCHMARK_NAMED                                                   \
-( NAME                                                                         \
-, nt2::type_id<FUNC( BOOST_PP_SEQ_FOR_EACH_I(NT2_TIMING_TYPES,~,RANGE) )>()    \
-)                                                                              \
+std::string const BOOST_PP_CAT(str_,NAME)                                      \
+                    = nt2::type_id<FUNC                                        \
+                            (BOOST_PP_SEQ_FOR_EACH_I(NT2_TIMING_TYPES,~,RANGE))\
+                                  >();                                         \
+void BOOST_PP_CAT(NT2_UNIT_PREFIX,NAME)();                                     \
+nt2::details::bench const                                                      \
+BOOST_PP_CAT(NAME,NT2_UNIT_PREFIX)                                             \
+                        ( &nt2::details::benchmarks                            \
+                        , BOOST_PP_CAT(NT2_UNIT_PREFIX,NAME)                   \
+                        , BOOST_PP_CAT(str_,NAME).c_str()                      \
+                        );                                                     \
+void BOOST_PP_CAT(NT2_UNIT_PREFIX,NAME)()                                      \
 {                                                                              \
   nt2::bench::run_until_with                                                   \
     <                                                                          \
@@ -62,7 +71,7 @@ NT2_REGISTER_BENCHMARK_NAMED                                                   \
       ( nt2::bench::fixed(nt2::bench::args("samples",1024u))                   \
       , BOOST_PP_SEQ_FOR_EACH_I(NT2_TIMING_RANGE_ELEM,~,RANGE)                 \
       )                                                                        \
-    , nt2::bench::cycles_per_element<nt2::bench::stats::median_>()              \
+    , nt2::bench::cycles_per_element<nt2::bench::stats::median_>()             \
     );                                                                         \
 }                                                                              \
 /**/

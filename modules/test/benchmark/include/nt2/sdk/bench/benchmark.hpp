@@ -13,32 +13,19 @@
 #include <nt2/sdk/bench/config.hpp>
 #include <nt2/sdk/bench/suite.hpp>
 #include <nt2/sdk/bench/args.hpp>
+#include <nt2/sdk/bench/details/bench.hpp>
+
+#define NT2_UNIT_MAIN_SUITE nt2::details::benchmarks
+
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/details/base_case.hpp>
 #include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 
-/// INTERNAL ONLY
-#define NT2_PP_TPL_BENCH(r,name,type)                                          \
-&& nt2::details::register_benchmark ( BOOST_PP_STRINGIZE(name<type>)           \
-                                    , &bench_##name<type>                      \
-                                    )                                          \
-/**/
-
-/*!
-  @brief Single benchmark registration with specific ID
-
-  Create and register a function as a benchmark by creating all the needed
-  boilerplate code around the body of the benchmark function itself while using
-  a use-defined ID.
-
-  @param ID   Identifier of the registered benchmark
-  @param NAME Experiment type used in this benchmark
-**/
-#define NT2_REGISTER_BENCHMARK_NAMED(ID,NAME)                                  \
-void bench_##ID();                                                             \
-bool BOOST_PP_CAT(registered_,ID)                                              \
-                        = nt2::details::register_benchmark(NAME,&bench_##ID);  \
-void bench_##ID()                                                              \
-/**/
+/*
+  Note: We use the factorized TEST_BASE_* macro but without any suffix so the
+  display and the speedup identification works without any changes
+*/
 
 /*!
   @brief Single benchmark registration
@@ -46,10 +33,10 @@ void bench_##ID()                                                              \
   Create and register a function as a benchmark by creating all the needed
   boilerplate code around the body of the benchmark function itself.
 
-  @param NAME Experiment type used in this benchmark
+  @param Name Experiment type used in this benchmark
 **/
-#define NT2_REGISTER_BENCHMARK(NAME)                                           \
-NT2_REGISTER_BENCHMARK_NAMED(NAME,BOOST_PP_STRINGIZE(NAME))                    \
+#define NT2_REGISTER_BENCHMARK(Name)                                           \
+NT2_TEST_BASE_CASE(Name,nt2::details::bench,nt2::details::benchmarks,)         \
 /**/
 
 /*!
@@ -60,41 +47,15 @@ NT2_REGISTER_BENCHMARK_NAMED(NAME,BOOST_PP_STRINGIZE(NAME))                    \
   that every instantiation of said function for a type inside the preprocessor
   sequence TYPES is run independently.
 
-  @param NAME   Experiment type used in this benchmark
-  @param TYPES  Preprocessor sequence of type to pass to the benchmark function
+  @param Name   Experiment type used in this benchmark
+  @param Types  Preprocessor sequence of type to pass to the benchmark function
 **/
-#define NT2_REGISTER_BENCHMARK_TPL(NAME,TYPES)                                 \
-template<typename T> void bench_##NAME();                                      \
-bool BOOST_PP_CAT(registered_,NAME) = true                                     \
-BOOST_PP_SEQ_FOR_EACH(NT2_PP_TPL_BENCH,NAME,TYPES);                            \
-template<typename T> void bench_##NAME()                                       \
+#define NT2_REGISTER_BENCHMARK_TPL(Name, Types)                                \
+NT2_TEST_BASE_CASE_TPL( Name, Types                                            \
+                      , nt2::details::bench                                    \
+                      , nt2::details::benchmarks                               \
+                      ,                                                        \
+                      )                                                        \
 /**/
-
-namespace nt2 { namespace details
-{
-  // Global benchmark_suite
-  benchmark_suite benchmarker_;
-
-  // Put an experiment in the benchmark suite
-  bool register_benchmark ( std::string const&              name
-                          , boost::function<void()> const&  fn
-                          )
-  {
-    if(fn) benchmarker_.register_benchmark(name, fn);
-    return fn;
-  }
-} }
-
-/// INTERNAL ONLY -- Prebuilt main
-int main(int argc, const char** argv)
-{
-  std::cout << "CTEST_FULL_OUTPUT" << std::endl;
-  std::cout << "Architecture: " << BOOST_SIMD_STRING << std::endl;
-  // process option commands
-  nt2::details::fill_args_map(argc,argv);
-
-  // run all registered experiments
-  nt2::details::benchmarker_.run();
-}
 
 #endif
