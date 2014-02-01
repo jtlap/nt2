@@ -106,14 +106,14 @@ namespace nt2{ namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqrtm_, tag::cpu_
-                              , (A0)
-                              , (scalar_<fundamental_<A0> >)
-    )
+                            , (A0)
+                            , (scalar_<fundamental_<A0> >)
+                            )
   {
-    typedef typename nt2::meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::sqrt(nt2::tofloat(a0));
+      return nt2::sqrt(a0);
     }
   };
 } }
