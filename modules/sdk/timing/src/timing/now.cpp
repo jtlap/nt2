@@ -167,7 +167,7 @@ namespace nt2
   NT2_SDK_TIMING_DECL
   BOOST_DISPATCH_NOTHROW unsigned long get_cpu_freq ()
   {
-    return(max_cpu_freq);
+    return max_cpu_freq;
   }
 }
 

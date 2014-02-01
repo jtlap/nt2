@@ -33,7 +33,7 @@ namespace nt2
   BOOST_DISPATCH_NOTHROW seconds_t      now();
 
   NT2_SDK_TIMING_DECL
-  BOOST_DISPATCH_NOTHROW unsigned long  get_cpu_freq ();
+  BOOST_DISPATCH_NOTHROW unsigned long  get_cpu_freq();
 
   NT2_SDK_TIMING_DECL
   BOOST_DISPATCH_NOTHROW microseconds_t to_microseconds( time_quantum_t );
