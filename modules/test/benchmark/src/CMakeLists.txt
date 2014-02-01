@@ -11,7 +11,7 @@ include(NT2Module)
 nt2_module_source_setup(test.benchmark)
 
 set ( SOURCES
-      args.cpp
+      bench.cpp
       priority.cpp
       speedup.cpp
       suite.cpp

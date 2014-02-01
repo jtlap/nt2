@@ -8,26 +8,25 @@
 //==============================================================================
 #include <nt2/sdk/bench/config.hpp>
 #include <nt2/sdk/bench/suite.hpp>
-#include <nt2/sdk/bench/metric/speedup.hpp>
-#include <boost/simd/sdk/simd/extensions.hpp>
+#include <nt2/sdk/bench/details/bench.hpp>
 #include <iostream>
-#include <iomanip>
+#include <string>
 
 namespace nt2 { namespace details
 {
+  NT2_TEST_BENCHMARK_DECL std::string current_benchmark;
+
   NT2_TEST_BENCHMARK_DECL
-  bench_suite::bench_suite(unit_test const* t_) : test_suite(t_) {}
+  bench::bench (test_suite const* s, ptr_fun_t c, const char* n)
+        : unit_test(s,c,n)
+  {}
 
-  NT2_TEST_BENCHMARK_DECL bench_suite::~bench_suite() {}
+  NT2_TEST_BENCHMARK_DECL bench::~bench() {}
 
-  NT2_TEST_BENCHMARK_DECL void bench_suite::process() const
+  NT2_TEST_BENCHMARK_DECL void bench::process() const
   {
-    std::cout << "CTEST_FULL_OUTPUT" << std::endl;
-    std::cout << "Architecture: " << BOOST_SIMD_STRING << std::endl;
-    std::cout <<  std::string(100,'-') << std::endl;
-    std::cout << "Benchmark\tSize\tResult\tUnit\tSamples #" << std::endl;
-    std::cout <<  std::string(100,'-');
-
-    if(test_suite::tests) test_suite::tests->process();
+    if(name) current_benchmark = name;
+    if(call) call();
+    advance();
   }
 } }
