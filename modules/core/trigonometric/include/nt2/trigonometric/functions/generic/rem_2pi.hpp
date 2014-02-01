@@ -32,7 +32,6 @@
 #include <nt2/include/constants/pix2_2.hpp>
 #include <nt2/include/constants/pix2_3.hpp>
 #include <nt2/trigonometric/functions/scalar/impl/trigo/selection_tags.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
 
 namespace nt2 { namespace ext
 {

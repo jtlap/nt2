@@ -13,8 +13,6 @@
 #include <nt2/trigonometric/functions/scalar/impl/trigo.hpp>
 #include <nt2/trigonometric/functions/simd/common/impl/trigo.hpp>
 #include <boost/simd/sdk/simd/meta/is_native.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-
 
 namespace nt2 { namespace ext
 {

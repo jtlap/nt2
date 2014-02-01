@@ -16,6 +16,7 @@
 #include <boost/simd/memory/aligned_malloc.hpp>
 #include <boost/simd/memory/is_aligned.hpp>
 #include <boost/simd/memory/align_on.hpp>
+#include <boost/simd/preprocessor/malloc.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/config.hpp>
 
@@ -35,9 +36,10 @@
 namespace boost { namespace simd
 {
 #if defined(BOOST_SIMD_CUSTOM_REALLOC)
-  void* custom_realloc_fn(void*, std::size_t);
+  BOOST_DISPATCH_NOTHROW BOOST_SIMD_ALLOC_SIZE(2) void* custom_realloc_fn(void*, std::size_t);
 #else
-  inline void* custom_realloc_fn(void* ptr, std::size_t sz)
+  BOOST_DISPATCH_NOTHROW BOOST_SIMD_ALLOC_SIZE(2) inline
+  void* custom_realloc_fn(void* ptr, std::size_t sz)
   {
     return std::realloc(ptr,sz);
   }
@@ -96,6 +98,7 @@ namespace boost { namespace simd
     @return Pointer referencing the newly allocated memory block.
   **/
   template<typename ReallocFunction>
+  BOOST_DISPATCH_NOTHROW BOOST_SIMD_ALLOC_SIZE(2)
   inline void* aligned_realloc( void* ptr, std::size_t size, std::size_t alignment
                               , ReallocFunction realloc_fn
                               )
@@ -127,6 +130,7 @@ namespace boost { namespace simd
   }
 
   /// @overload
+  BOOST_DISPATCH_NOTHROW BOOST_SIMD_ALLOC_SIZE(2)
   inline void* aligned_realloc(void* ptr, std::size_t size, std::size_t alignment)
   {
     // Do we want to use built-ins special aligned free/alloc ?

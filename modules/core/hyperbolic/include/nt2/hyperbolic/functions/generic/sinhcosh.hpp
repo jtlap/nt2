@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_HYPERBOLIC_FUNCTIONS_GENERIC_SINHCOSH_HPP_INCLUDED
 #define NT2_HYPERBOLIC_FUNCTIONS_GENERIC_SINHCOSH_HPP_INCLUDED
+
 #include <nt2/hyperbolic/functions/sinhcosh.hpp>
 #include <boost/fusion/include/std_pair.hpp>
 #include <nt2/trigonometric/functions/scalar/impl/trigo.hpp>
@@ -29,7 +30,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,A0 & a2) const
     {
       A0 a1;
-      sinhcosh(tofloat(a0),a1, a2);
+      sinhcosh(a0, a1, a2);
       return a1;
     }
   };
@@ -43,7 +44,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       A0 first, second;
-      sinhcosh(tofloat(a0), first, second);
+      sinhcosh(a0, first, second);
       return result_type(first, second);
     }
   };

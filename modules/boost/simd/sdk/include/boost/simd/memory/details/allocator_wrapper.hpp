@@ -10,6 +10,8 @@
 #ifndef BOOST_SIMD_MEMORY_DETAILS_ALLOCATOR_WRAPPER_HPP_INCLUDED
 #define BOOST_SIMD_MEMORY_DETAILS_ALLOCATOR_WRAPPER_HPP_INCLUDED
 
+#include <boost/config.hpp>
+
 namespace boost { namespace simd { namespace details
 {
   template<typename Allocator> struct allocator_malloc
@@ -20,7 +22,18 @@ namespace boost { namespace simd { namespace details
 
     void* operator()(std::size_t sz)
     {
+      #ifndef BOOST_NO_EXCEPTIONS
+      try
+      {
+        return alloc.allocate(sz/sizeof(typename Allocator::value_type));
+      }
+      catch(...)
+      {
+        return 0;
+      }
+      #else
       return alloc.allocate(sz/sizeof(typename Allocator::value_type));
+      #endif
     }
 
     Allocator& alloc;

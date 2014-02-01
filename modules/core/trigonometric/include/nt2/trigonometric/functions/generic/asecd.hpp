@@ -19,7 +19,7 @@ namespace nt2 { namespace ext
                             , (generic_< floating_<A0> >)
                             )
   {
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
       return nt2::indeg(nt2::asec(a0));

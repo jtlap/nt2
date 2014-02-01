@@ -13,6 +13,7 @@
 #include <boost/simd/memory/aligned_malloc.hpp>
 #include <boost/simd/memory/aligned_free.hpp>
 #include <boost/simd/memory/is_aligned.hpp>
+#include <boost/simd/preprocessor/malloc.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -31,7 +32,7 @@ namespace boost { namespace simd
     return std::free(ptr);
   }
 
-  void* custom_malloc_fn(std::size_t sz)
+  BOOST_DISPATCH_NOTHROW BOOST_SIMD_MALLOC void* custom_malloc_fn(std::size_t sz)
   {
     had_malloc  = true;
     malloc_size = sz;

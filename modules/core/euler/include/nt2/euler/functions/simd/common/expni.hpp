@@ -35,6 +35,7 @@
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
 #include <nt2/include/functions/simd/if_else_allbits.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/include/constants/expnibig.hpp>
 #include <nt2/include/constants/euler.hpp>
 #include <nt2/include/constants/eps.hpp>

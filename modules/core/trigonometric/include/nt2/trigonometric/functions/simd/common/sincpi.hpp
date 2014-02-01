@@ -8,11 +8,14 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_SINCPI_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_SINCPI_HPP_INCLUDED
+
 #include <nt2/trigonometric/functions/sincpi.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/include/functions/simd/divides.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/sinpi.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
 #include <nt2/include/constants/invpi.hpp>
+#include <nt2/include/constants/one.hpp>
 #include <boost/simd/sdk/config.hpp>
 
 #if !defined(BOOST_SIMD_NO_DENORMALS)
@@ -20,7 +23,6 @@
 #include <nt2/include/functions/simd/is_less.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
 #include <nt2/include/constants/eps.hpp>
-#include <nt2/include/constants/one.hpp>
 #endif
 
 #if !defined(BOOST_SIMD_NO_INFINITIES)
@@ -30,14 +32,6 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sincpi_, boost::simd::tag::simd_
-                            , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                            )
-  {
-    BOOST_DISPATCH_RETURNS(1, (A0 const& a0), nt2::sincpi(nt2::tofloat(a0)));
-  };
-
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sincpi_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))

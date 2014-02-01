@@ -13,6 +13,7 @@
 #include <nt2/include/functions/simd/erfinv.hpp>
 #include <nt2/include/functions/simd/oneminus.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 
 namespace nt2 { namespace ext
 {

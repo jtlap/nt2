@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2014 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -11,19 +12,22 @@
 
 #include <boost/simd/reduction/functions/posmax.hpp>
 #include <boost/simd/include/constants/zero.hpp>
+#include <boost/dispatch/attributes.hpp>
+#include <cstddef>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::posmax_, tag::cpu_,
-                        (A0),
-                        (scalar_<fundamental_<A0> > )
-                       )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::posmax_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_<fundamental_<A0> > )
+                                    )
   {
     typedef std::size_t result_type;
-    inline result_type operator()(A0 const&)const
+    BOOST_FORCEINLINE result_type operator()(A0 const&)const
     {
       return Zero<result_type>();
     }
   };
 } } }
+
 #endif

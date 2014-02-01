@@ -25,19 +25,6 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asec_, tag::cpu_
                             , (A0)
-                            , (scalar_< arithmetic_<A0> >)
-                            )
-  {
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::asec(result_type(a0));
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asec_, tag::cpu_
-                            , (A0)
                             , (scalar_< double_<A0> >)
                             )
   {

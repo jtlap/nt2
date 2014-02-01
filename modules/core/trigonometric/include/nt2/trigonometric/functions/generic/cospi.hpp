@@ -12,11 +12,11 @@
 #include <nt2/trigonometric/functions/scalar/impl/trigo.hpp>
 #include <nt2/trigonometric/functions/simd/common/impl/trigo.hpp>
 #include <boost/simd/sdk/simd/meta/is_native.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/include/functions/simd/is_odd.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
+#include <nt2/include/constants/mone.hpp>
 
 namespace nt2 { namespace ext
 {

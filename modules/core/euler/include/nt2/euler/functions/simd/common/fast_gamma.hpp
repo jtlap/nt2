@@ -41,7 +41,7 @@
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
-
+#include <nt2/sdk/meta/as_floating.hpp>
 
 namespace nt2 { namespace ext
 {

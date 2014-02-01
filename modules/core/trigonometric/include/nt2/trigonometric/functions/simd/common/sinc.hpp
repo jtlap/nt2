@@ -11,9 +11,9 @@
 
 #include <nt2/trigonometric/functions/sinc.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/simd/sin.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <boost/simd/sdk/config.hpp>
 
@@ -30,14 +30,6 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinc_, boost::simd::tag::simd_
-                            , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                            )
-  {
-    BOOST_DISPATCH_RETURNS(1, (A0 const& a0), nt2::sinc(nt2::tofloat(a0)));
-  };
-
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinc_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))

@@ -17,6 +17,7 @@
 #include <boost/simd/memory/aligned_realloc.hpp>
 #include <boost/simd/memory/align_ptr.hpp>
 #include <boost/simd/meta/align_ptr.hpp>
+#include <boost/simd/preprocessor/malloc.hpp>
 
 #include <boost/dispatch/attributes.hpp>
 #include <boost/dispatch/meta/enable_if_type.hpp>
@@ -40,8 +41,8 @@ namespace boost { namespace simd
     @pre @c align is a power of 2
     @post Returned pointer is aligned on @c align
   **/
-  BOOST_FORCEINLINE void*
-  reallocate(void* ptr, std::size_t nbytes, std::size_t align)
+  BOOST_FORCEINLINE BOOST_SIMD_ALLOC_SIZE(2)
+  void* reallocate(void* ptr, std::size_t nbytes, std::size_t align)
   {
     return aligned_realloc(ptr,nbytes,align);
   }
@@ -64,14 +65,15 @@ namespace boost { namespace simd
     @post Returned pointer is aligned on @c Alignment
   **/
   template<std::size_t Alignment>
-  BOOST_FORCEINLINE typename meta::align_ptr<void ,Alignment>::type
+  BOOST_FORCEINLINE BOOST_SIMD_ALLOC_SIZE(2)
+  typename meta::align_ptr<void ,Alignment>::type
   reallocate( void* ptr, std::size_t nbytes )
   {
     return align_ptr<Alignment>(reallocate(ptr, nbytes, Alignment));
   }
 
   /// INTERNAL ONLY
-  BOOST_FORCEINLINE
+  BOOST_FORCEINLINE BOOST_SIMD_ALLOC_SIZE(2)
   meta::align_ptr<void ,BOOST_SIMD_CONFIG_ALIGNMENT>::type
   reallocate( void* ptr, std::size_t nbytes )
   {
