@@ -48,13 +48,13 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef A0 result_type;
-    typedef typename dispatch::meta::as_integer<A0, signed>::type iA0;
+    typedef typename dispatch::meta::as_integer<A0>::type iA0;
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
     {
       iA0 e =  a1;
       A0 f = One<A0>();
 #ifndef BOOST_SIMD_NO_DENORMALS
-      if (e < Minexponent<A0>())
+      if (BOOST_UNLIKELY(e < Minexponent<A0>()))
       {
         e -= Minexponent<A0>();
         f = Smallestposval<A0>();
