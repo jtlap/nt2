@@ -11,6 +11,7 @@ include(NT2Module)
 nt2_module_source_setup(test.unit)
 
 set(SOURCES
+    args.cpp
     main.cpp
     unit_test.cpp
     stats.cpp

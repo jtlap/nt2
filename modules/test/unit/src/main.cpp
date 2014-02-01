@@ -12,6 +12,7 @@
 #include <cstring>
 #include <stdexcept>
 #include <iostream>
+#include <nt2/sdk/unit/args.hpp>
 #include <nt2/sdk/unit/stats.hpp>
 #include <nt2/sdk/unit/config.hpp>
 #include <nt2/sdk/unit/details/main.hpp>
@@ -54,6 +55,8 @@ namespace nt2
         else if(!strcmp(argv[i], "--assert-ignore"))
           assert_mode = assert_mode_t(ASSERT_IGNORE);
       }
+
+      fill_args_map(argc,argv);
 
       if(float_debug)
         float_control_debug();
