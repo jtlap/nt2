@@ -9,6 +9,7 @@
 #ifndef NT2_LINALG_DETAILS_UTILITY_F77_WRAPPER_HPP_INCLUDED
 #define NT2_LINALG_DETAILS_UTILITY_F77_WRAPPER_HPP_INCLUDED
 
+#include <nt2/sdk/config/types.hpp>
 #include <boost/preprocessor/cat.hpp>
 
 // INTERNAL ONLY
