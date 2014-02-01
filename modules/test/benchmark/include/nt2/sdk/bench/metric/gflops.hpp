@@ -26,8 +26,6 @@ namespace nt2 { namespace bench
   **/
   template<typename Stat> struct gflops
   {
-    gflops(std::size_t t = 1){}
-
     /// @brief Evaluation of the metric in GFLOPS
     template<typename Experiment> inline
     double operator() ( Experiment const& e
