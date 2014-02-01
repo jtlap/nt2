@@ -6,33 +6,21 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/sdk/bench/benchmark.hpp>
-#include <nt2/sdk/bench/experiment.hpp>
-#include <nt2/sdk/unit/details/prng.hpp>
 
-#include <nt2/sdk/bench/metric/absolute_time.hpp>
-#include <nt2/sdk/bench/metric/gflops.hpp>
-
-#include <nt2/sdk/bench/protocol/max_duration.hpp>
-
-#include <nt2/sdk/bench/setup/geometric.hpp>
-
-#include <nt2/sdk/bench/stats/average.hpp>
-#include <nt2/sdk/bench/stats/median.hpp>
-#include <nt2/sdk/bench/stats/min.hpp>
-#include <nt2/sdk/bench/stats/max.hpp>
-
-#include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/memory/allocator.hpp>
-#include <boost/simd/include/functions/aligned_store.hpp>
+#include <boost/simd/sdk/simd/pack.hpp>
+#include <boost/simd/include/functions/aligned_load.hpp>
 #include <boost/simd/include/functions/multiplies.hpp>
-#include <boost/simd/include/functions/muls.hpp>
-#include <boost/simd/include/functions/muls.hpp>
 #include <boost/simd/include/functions/plus.hpp>
 #include <boost/simd/include/functions/sum.hpp>
 #include <boost/simd/include/constants/zero.hpp>
-
+#include <boost/simd/memory/allocator.hpp>
 #include <vector>
+
+#include <nt2/sdk/bench/benchmark.hpp>
+#include <nt2/sdk/bench/metric/gflops.hpp>
+#include <nt2/sdk/bench/protocol/max_duration.hpp>
+#include <nt2/sdk/bench/setup/geometric.hpp>
+#include <nt2/sdk/bench/stats/median.hpp>
 
 using namespace nt2::bench;
 using namespace nt2;
@@ -56,17 +44,17 @@ template<typename T> struct sdot_simd
 
   void operator()()
   {
-    using boost::simd::native;
+    using boost::simd::pack;
     using boost::simd::aligned_load;
-    using boost::simd::aligned_store;
 
-    typedef native<T, BOOST_SIMD_DEFAULT_EXTENSION> type;
-    step_size = boost::simd::meta::cardinal_of<type>::value;
+    typedef pack<T> type;
+    std::size_t step_size = boost::simd::meta::cardinal_of<type>::value;
     type res_pack = boost::simd::Zero<type>();
-    for (std::size_t i = 0; i<size_; i+=step_size){
+    for (std::size_t i = 0; i<size_; i+=step_size)
+    {
       type X_pack = aligned_load<type>(&X[i]);
       type Y_pack = aligned_load<type>(&Y[i]);
-      res_pack += Tdot_work(X_pack, Y_pack);
+      res_pack += X_pack * Y_pack;
     }
     res_ = boost::simd::sum(res_pack);
   }
@@ -76,13 +64,13 @@ template<typename T> struct sdot_simd
     return os << "(" << p.size() << ")";
   }
 
-  std::size_t size() const { return size_ ; }
-  std::size_t flops() const { return 2 ; }
+  std::size_t size() const { return size_; }
+  std::size_t flops() const { return 2; }
 
-  private:
-    T res_;
-    std::size_t size_, step_size;
-    typename std::vector<T, boost::simd::allocator<T> > X, Y;
+private:
+  T res_;
+  std::size_t size_;
+  typename std::vector<T, boost::simd::allocator<T> > X, Y;
 };
 
 NT2_REGISTER_BENCHMARK_TPL( sdot_simd, NT2_SIMD_REAL_TYPES )
@@ -91,10 +79,8 @@ NT2_REGISTER_BENCHMARK_TPL( sdot_simd, NT2_SIMD_REAL_TYPES )
   std::size_t size_max = args("size_max", 4096);
   std::size_t size_step = args("size_step", 2);
 
-
-
   run_during_with< sdot_simd<T> > ( 1.
-                                      , geometric(size_min,size_max,size_step)
-                                      , gflops<stats::median_>()
-                                      );
+                                  , geometric(size_min,size_max,size_step)
+                                  , gflops<stats::median_>()
+                                  );
 }

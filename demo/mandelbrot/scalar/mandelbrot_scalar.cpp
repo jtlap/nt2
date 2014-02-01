@@ -6,30 +6,19 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+
+#include "../include/utils.hpp"
+#include <boost/fusion/include/at.hpp>
+#include <vector>
+#include <iostream>
+
 #include <nt2/sdk/bench/benchmark.hpp>
-#include <nt2/sdk/bench/experiment.hpp>
-#include <nt2/sdk/unit/details/prng.hpp>
-
-#include <nt2/sdk/bench/metric/absolute_time.hpp>
-#include <nt2/sdk/bench/metric/cycles_per_element.hpp>
-
-#include <nt2/sdk/bench/protocol/max_iteration.hpp>
 #include <nt2/sdk/bench/protocol/max_duration.hpp>
-
+#include <nt2/sdk/bench/metric/cycles_per_element.hpp>
+#include <nt2/sdk/bench/stats/median.hpp>
 #include <nt2/sdk/bench/setup/geometric.hpp>
 #include <nt2/sdk/bench/setup/combination.hpp>
 #include <nt2/sdk/bench/setup/constant.hpp>
-
-#include <nt2/sdk/bench/stats/average.hpp>
-#include <nt2/sdk/bench/stats/median.hpp>
-#include <nt2/sdk/bench/stats/min.hpp>
-#include <nt2/sdk/bench/stats/max.hpp>
-
-#include "../include/utils.hpp"
-#include <vector>
-#include <boost/fusion/include/at.hpp>
-
-#include <iostream>
 
 using namespace nt2::bench;
 using namespace nt2;
@@ -108,20 +97,18 @@ template<typename T> struct mandelbrot_scalar
     return os << "(" << p.h_ << " x " << p.w_ << ")";
   }
 
-  std::size_t size() const { return size_ ; }
+  std::size_t size() const { return size_; }
 
-  private:
-
-    std::size_t h_, w_;
-    T a0_, a1_, b0_, b1_;
-    std::size_t max_iter_, size_;
-    std::vector<value_type> A, B;
-    std::vector<int> C;
+private:
+  std::size_t h_, w_;
+  T a0_, a1_, b0_, b1_;
+  std::size_t max_iter_, size_;
+  std::vector<value_type> A, B;
+  std::vector<int> C;
 };
 
 NT2_REGISTER_BENCHMARK_TPL( mandelbrot_scalar, (float) )
 {
-
   std::size_t hmin = args("hmin", 100);
   std::size_t hmax = args("hmax", 1600);
   std::size_t hstep = args("hstep", 2);
@@ -135,14 +122,14 @@ NT2_REGISTER_BENCHMARK_TPL( mandelbrot_scalar, (float) )
   T max_iter = args("max_iter", 256);
 
   run_during_with< mandelbrot_scalar<float> > ( 1.
-                                          , and_( geometric(hmin,hmax,hstep)
-                                                , geometric(wmin,wmax,wstep)
-                                                , constant(xmin)
-                                                , constant(xmax)
-                                                , constant(ymin)
-                                                , constant(ymax)
-                                                , constant(max_iter)
-                                                )
-                                          , cycles_per_element<stats::median_>()
-                                          );
+                                              , and_( geometric(hmin,hmax,hstep)
+                                                    , geometric(wmin,wmax,wstep)
+                                                    , constant(xmin)
+                                                    , constant(xmax)
+                                                    , constant(ymin)
+                                                    , constant(ymax)
+                                                    , constant(max_iter)
+                                                    )
+                                              , cycles_per_element<stats::median_>()
+                                              );
 }

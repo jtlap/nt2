@@ -6,27 +6,16 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/sdk/bench/benchmark.hpp>
-#include <nt2/sdk/bench/experiment.hpp>
-#include <nt2/sdk/unit/details/prng.hpp>
-
-#include <nt2/sdk/bench/metric/absolute_time.hpp>
-#include <nt2/sdk/bench/metric/cycles_per_element.hpp>
-
-#include <nt2/sdk/bench/protocol/max_iteration.hpp>
-#include <nt2/sdk/bench/protocol/max_duration.hpp>
-
-#include <nt2/sdk/bench/setup/geometric.hpp>
-#include <nt2/sdk/bench/setup/combination.hpp>
-
-#include <nt2/sdk/bench/stats/average.hpp>
-#include <nt2/sdk/bench/stats/median.hpp>
-#include <nt2/sdk/bench/stats/min.hpp>
-#include <nt2/sdk/bench/stats/max.hpp>
 
 #include <boost/fusion/include/at.hpp>
-
 #include <iostream>
+
+#include <nt2/sdk/bench/benchmark.hpp>
+#include <nt2/sdk/bench/metric/cycles_per_element.hpp>
+#include <nt2/sdk/bench/protocol/max_duration.hpp>
+#include <nt2/sdk/bench/setup/geometric.hpp>
+#include <nt2/sdk/bench/setup/combination.hpp>
+#include <nt2/sdk/bench/stats/median.hpp>
 
 using namespace nt2::bench;
 using namespace nt2;
@@ -68,7 +57,7 @@ template<typename T> struct rgb2yuv_scalar
     return os << "(" << p.size() << ")";
   }
 
-  std::size_t size() const { return size_ ; }
+  std::size_t size() const { return size_; }
 
   private:
     int height;
@@ -79,13 +68,12 @@ template<typename T> struct rgb2yuv_scalar
 
 NT2_REGISTER_BENCHMARK_TPL( rgb2yuv_scalar, (float) )
 {
-
-  std::size_t hmin = args("hmin", 32);
-  std::size_t hmax = args("hmax", 128);
-  std::size_t hstep = args("hstep", 2);
-  std::size_t wmin = args("wmin", 32);
-  std::size_t wmax = args("wmax", 128);
-  std::size_t wstep = args("wstep", 2);
+  std::size_t hmin  = args("hmin",  32);
+  std::size_t hmax  = args("hmax", 128);
+  std::size_t hstep = args("hstep",  2);
+  std::size_t wmin  = args("wmin",  32);
+  std::size_t wmax  = args("wmax", 128);
+  std::size_t wstep = args("wstep",  2);
 
   run_during_with< rgb2yuv_scalar<float> > ( 1.
                                           , and_( geometric(hmin,hmax,hstep)

@@ -7,30 +7,20 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+
+#include <nt2/table.hpp>
+#include <nt2/include/functions/plus.hpp>
+#include <nt2/include/functions/multiplies.hpp>
+#include <boost/fusion/include/at.hpp>
+#include <vector>
+
 #include <nt2/sdk/bench/benchmark.hpp>
-#include <nt2/sdk/bench/experiment.hpp>
-#include <nt2/sdk/unit/details/prng.hpp>
-
-#include <nt2/sdk/bench/metric/absolute_time.hpp>
 #include <nt2/sdk/bench/metric/gflops.hpp>
-
 #include <nt2/sdk/bench/protocol/max_duration.hpp>
-
 #include <nt2/sdk/bench/setup/geometric.hpp>
 #include <nt2/sdk/bench/setup/constant.hpp>
 #include <nt2/sdk/bench/setup/combination.hpp>
-
-#include <nt2/sdk/bench/stats/average.hpp>
 #include <nt2/sdk/bench/stats/median.hpp>
-#include <nt2/sdk/bench/stats/min.hpp>
-#include <nt2/sdk/bench/stats/max.hpp>
-
-#include <nt2/include/functions/fma.hpp>
-#include <nt2/table.hpp>
-
-#include <boost/fusion/include/at.hpp>
-
-#include <vector>
 
 using namespace nt2::bench;
 using namespace nt2;
@@ -39,8 +29,8 @@ template<typename T> struct axpy_nt2
 {
   template<typename Setup>
   axpy_nt2(Setup const& s)
-              :  size_(boost::fusion::at_c<0>(s))
-              ,  alpha(boost::fusion::at_c<1>(s))
+              :  alpha(boost::fusion::at_c<1>(s))
+              ,  size_(boost::fusion::at_c<0>(s))
   {
     X.resize(nt2::of_size(size_)); Y.resize(nt2::of_size(size_));
     for(std::size_t i = 1; i<=size_; ++i) X(i) = Y(i) = T(i-1);
@@ -48,7 +38,7 @@ template<typename T> struct axpy_nt2
 
   void operator()()
   {
-    Y = nt2::fma(alpha, X, Y);
+    Y = alpha * X + Y;
   }
 
   friend std::ostream& operator<<(std::ostream& os, axpy_nt2<T> const& p)
@@ -56,13 +46,13 @@ template<typename T> struct axpy_nt2
     return os << "(" << p.size() << ")";
   }
 
-  std::size_t size() const { return size_ ; }
-  std::size_t flops() const { return 2 ; }
+  std::size_t size() const { return size_; }
+  std::size_t flops() const { return 2; }
 
-  private:
-    T alpha;
-    std::size_t size_;
-    nt2::table<T> X, Y;
+private:
+  T alpha;
+  std::size_t size_;
+  nt2::table<T> X, Y;
 };
 
 NT2_REGISTER_BENCHMARK_TPL( axpy_nt2, NT2_SIMD_REAL_TYPES )

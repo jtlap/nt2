@@ -6,28 +6,17 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/sdk/bench/benchmark.hpp>
-#include <nt2/sdk/bench/experiment.hpp>
-#include <nt2/sdk/unit/details/prng.hpp>
-
-#include <nt2/sdk/bench/metric/absolute_time.hpp>
-#include <nt2/sdk/bench/metric/gflops.hpp>
-
-#include <nt2/sdk/bench/protocol/max_duration.hpp>
-#include <nt2/sdk/bench/protocol/until.hpp>
-
-#include <nt2/sdk/bench/setup/geometric.hpp>
-
-#include <nt2/sdk/bench/stats/average.hpp>
-#include <nt2/sdk/bench/stats/median.hpp>
-#include <nt2/sdk/bench/stats/min.hpp>
-#include <nt2/sdk/bench/stats/max.hpp>
 
 #include <nt2/linalg/details/blas/blas1.hpp>
 #include <cmath>
 #include <cstdlib>
-
 #include <vector>
+
+#include <nt2/sdk/bench/benchmark.hpp>
+#include <nt2/sdk/bench/metric/gflops.hpp>
+#include <nt2/sdk/bench/protocol/max_duration.hpp>
+#include <nt2/sdk/bench/setup/geometric.hpp>
+#include <nt2/sdk/bench/stats/median.hpp>
 
 using namespace nt2::bench;
 using namespace nt2;
@@ -74,25 +63,25 @@ template<typename T> struct dot_mkl
     return os << "(" << p.size() << ")";
   }
 
-  std::size_t size() const { return size_ ; }
-  std::size_t flops() const { return 2 ; }
+  std::size_t size() const { return size_; }
+  std::size_t flops() const { return 2; }
 
-  private:
-    nt2_la_int incx, incy;
-    T res_;
-    std::vector<T> x;
-    std::vector<T> y;
-    nt2_la_int size_;
+private:
+  nt2_la_int incx, incy;
+  T res_;
+  std::vector<T> x;
+  std::vector<T> y;
+  nt2_la_int size_;
 };
 
 NT2_REGISTER_BENCHMARK_TPL( dot_mkl, NT2_SIMD_REAL_TYPES )
 {
-  std::size_t size_min = args("size_min", 16);
-  std::size_t size_max = args("size_max", 4096);
-  std::size_t size_step = args("size_step", 2);
+  std::size_t size_min  = args("size_min",   16);
+  std::size_t size_max  = args("size_max", 4096);
+  std::size_t size_step = args("size_step",   2);
 
   run_during_with< dot_mkl<T> > ( 1.
-                                  , geometric(size_min,size_max,size_step)
-                                  , gflops<stats::median_>()
-                                  );
+                                , geometric(size_min,size_max,size_step)
+                                , gflops<stats::median_>()
+                                );
 }

@@ -6,27 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/sdk/bench/benchmark.hpp>
-#include <nt2/sdk/bench/experiment.hpp>
-#include <nt2/sdk/unit/details/prng.hpp>
-
-#include <nt2/sdk/bench/metric/absolute_time.hpp>
-#include <nt2/sdk/bench/metric/cycles_per_element.hpp>
-
-#include <nt2/sdk/bench/protocol/max_iteration.hpp>
-#include <nt2/sdk/bench/protocol/max_duration.hpp>
-
-#include <nt2/sdk/bench/setup/geometric.hpp>
-#include <nt2/sdk/bench/setup/combination.hpp>
-#include <nt2/sdk/bench/setup/constant.hpp>
-
-#include <nt2/sdk/bench/stats/average.hpp>
-#include <nt2/sdk/bench/stats/median.hpp>
-#include <nt2/sdk/bench/stats/min.hpp>
-#include <nt2/sdk/bench/stats/max.hpp>
 
 #include <nt2/table.hpp>
-
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/adds.hpp>
@@ -39,10 +20,16 @@
 #include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/zeros.hpp>
-
 #include <boost/fusion/include/at.hpp>
-
 #include <iostream>
+
+#include <nt2/sdk/bench/benchmark.hpp>
+#include <nt2/sdk/bench/metric/cycles_per_element.hpp>
+#include <nt2/sdk/bench/protocol/max_duration.hpp>
+#include <nt2/sdk/bench/setup/geometric.hpp>
+#include <nt2/sdk/bench/setup/combination.hpp>
+#include <nt2/sdk/bench/setup/constant.hpp>
+#include <nt2/sdk/bench/stats/median.hpp>
 
 using namespace nt2::bench;
 using namespace nt2;
@@ -73,10 +60,10 @@ template<typename T> struct sigmadelta_nt2
 {
   template<typename Setup>
   sigmadelta_nt2(Setup const& s)
-                    :  nb_frames(boost::fusion::at_c<0>(s))
-                    ,  height(boost::fusion::at_c<1>(s))
+                    :  height(boost::fusion::at_c<1>(s))
                     ,  width(boost::fusion::at_c<2>(s))
                     ,  size_(height*width)
+                    ,  nb_frames(boost::fusion::at_c<0>(s))
   {
     frames.resize(nb_frames);
     image_variance.resize(nt2::of_size(height,width));
@@ -84,6 +71,7 @@ template<typename T> struct sigmadelta_nt2
     mul_img.resize(nt2::of_size(height,width));
     background_img.resize(nt2::of_size(height,width));
     binary_label.resize(nt2::of_size(height,width));
+
     for(std::size_t k=0; k<nb_frames; k++)
       frames[k].resize(nt2::of_size(height,width));
 
@@ -104,6 +92,7 @@ template<typename T> struct sigmadelta_nt2
     for (std::size_t i=1;i<=height;i++)
       for (std::size_t j=1;j<=width;j++)
         background_img(i,j) = frames[0](i,j);
+
     binary_label = zeros(nt2::of_size(height,width),nt2::meta::as_<T>());
   }
 
@@ -111,7 +100,7 @@ template<typename T> struct sigmadelta_nt2
   {
     for(std::size_t k=1; k<nb_frames; k++)
     {
-      do_work(background_img, frames[k], image_variance, diff_img, mul_img, binary_label );
+      do_work(background_img, frames[k], image_variance, diff_img, mul_img, binary_label);
     }
   }
 
@@ -122,18 +111,17 @@ template<typename T> struct sigmadelta_nt2
 
   std::size_t size() const { return size_ * nb_frames; }
 
-  private:
+private:
   std::size_t height;
   std::size_t width;
   std::size_t size_;
   std::vector<table<T> > frames;
   nt2::table<T> image_variance, background_img, binary_label, mul_img, diff_img;
-  std::size_t step_size, nb_frames;
+  std::size_t nb_frames;
 };
 
 NT2_REGISTER_BENCHMARK( sigmadelta_nt2 )
 {
-
   std::size_t frame = args("frame", 5);
   std::size_t hmin = args("hmin", 32);
   std::size_t hmax = args("hmax", 128);
@@ -143,10 +131,10 @@ NT2_REGISTER_BENCHMARK( sigmadelta_nt2 )
   std::size_t wstep = args("wstep", 2);
 
   run_during_with< sigmadelta_nt2<nt2::uint8_t> > ( 1.
-                                          , and_( constant( frame )
-                                                , geometric(hmin,hmax,hstep)
-                                                , geometric(wmin,wmax,wstep)
-                                                )
-                                          , cycles_per_element<stats::median_>()
-                                          );
+                                                  , and_( constant( frame )
+                                                        , geometric(hmin,hmax,hstep)
+                                                        , geometric(wmin,wmax,wstep)
+                                                        )
+                                                  , cycles_per_element<stats::median_>()
+                                                  );
 }

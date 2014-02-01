@@ -1,13 +1,13 @@
 //[hello
 
-#include <iostream>
-#include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/sdk/simd/pack.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/include/functions/splat.hpp>
 #include <boost/simd/include/functions/plus.hpp>
 #include <boost/simd/include/functions/multiplies.hpp>
+#include <iostream>
 
-int main(int argc, const char *argv[])
+int main()
 {
   typedef boost::simd::pack<float> p_t;
 

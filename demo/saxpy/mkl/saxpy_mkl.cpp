@@ -7,33 +7,20 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/sdk/bench/benchmark.hpp>
-#include <nt2/sdk/bench/experiment.hpp>
-#include <nt2/sdk/unit/details/prng.hpp>
-
-#include <nt2/sdk/bench/metric/absolute_time.hpp>
-#include <nt2/sdk/bench/metric/gflops.hpp>
-
-#include <nt2/sdk/bench/protocol/max_duration.hpp>
-#include <nt2/sdk/bench/protocol/until.hpp>
-
-#include <nt2/sdk/bench/setup/geometric.hpp>
-#include <nt2/sdk/bench/setup/constant.hpp>
-#include <nt2/sdk/bench/setup/combination.hpp>
-
-#include <nt2/sdk/bench/stats/average.hpp>
-#include <nt2/sdk/bench/stats/median.hpp>
-#include <nt2/sdk/bench/stats/min.hpp>
-#include <nt2/sdk/bench/stats/max.hpp>
 
 #include <nt2/linalg/details/blas/blas1.hpp>
-#include <nt2/sdk/bench/benchmark.hpp>
-
 #include <boost/fusion/include/at.hpp>
-
 #include <cmath>
 #include <cstdlib>
 #include <vector>
+
+#include <nt2/sdk/bench/benchmark.hpp>
+#include <nt2/sdk/bench/metric/gflops.hpp>
+#include <nt2/sdk/bench/protocol/max_duration.hpp>
+#include <nt2/sdk/bench/setup/geometric.hpp>
+#include <nt2/sdk/bench/setup/constant.hpp>
+#include <nt2/sdk/bench/setup/combination.hpp>
+#include <nt2/sdk/bench/stats/median.hpp>
 
 using namespace nt2::bench;
 using namespace nt2;
@@ -62,8 +49,8 @@ template<typename T> struct axpy_mkl
 {
  template<typename Setup>
   axpy_mkl(Setup const& s)
-              :  size_(boost::fusion::at_c<0>(s))
-              ,  alpha(boost::fusion::at_c<1>(s))
+              :  alpha(boost::fusion::at_c<1>(s))
+              ,  size_(boost::fusion::at_c<0>(s))
   {
     incx = incy = 1;
     x.resize(size_);
@@ -88,14 +75,14 @@ template<typename T> struct axpy_mkl
     for(int i = 0; i<size_; i++) x[i] = y[i] = T(i);
   }
 
-  std::size_t size() const { return size_ ; }
-  std::size_t flops() const { return 2 ; }
+  std::size_t size() const { return size_; }
+  std::size_t flops() const { return 2; }
 
-  private:
-    nt2_la_int incx, incy;
-    T      alpha;
-    std::vector<T> x, y;
-    nt2_la_int size_;
+private:
+  nt2_la_int incx, incy;
+  T alpha;
+  std::vector<T> x, y;
+  nt2_la_int size_;
 };
 
 NT2_REGISTER_BENCHMARK_TPL( axpy_mkl, NT2_SIMD_REAL_TYPES )
@@ -103,7 +90,6 @@ NT2_REGISTER_BENCHMARK_TPL( axpy_mkl, NT2_SIMD_REAL_TYPES )
   std::size_t size_min = args("size_min", 16);
   std::size_t size_max = args("size_max", 4096);
   std::size_t size_step = args("size_step", 2);
-
   T alpha = args("alpha", 1.);
 
   run_during_with< axpy_mkl<T> > ( 1.

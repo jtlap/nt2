@@ -7,27 +7,17 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+
+#include <boost/fusion/include/at.hpp>
+#include <vector>
+
 #include <nt2/sdk/bench/benchmark.hpp>
-#include <nt2/sdk/bench/experiment.hpp>
-#include <nt2/sdk/unit/details/prng.hpp>
-
-#include <nt2/sdk/bench/metric/absolute_time.hpp>
 #include <nt2/sdk/bench/metric/gflops.hpp>
-
 #include <nt2/sdk/bench/protocol/max_duration.hpp>
-
 #include <nt2/sdk/bench/setup/geometric.hpp>
 #include <nt2/sdk/bench/setup/constant.hpp>
 #include <nt2/sdk/bench/setup/combination.hpp>
-
-#include <nt2/sdk/bench/stats/average.hpp>
 #include <nt2/sdk/bench/stats/median.hpp>
-#include <nt2/sdk/bench/stats/min.hpp>
-#include <nt2/sdk/bench/stats/max.hpp>
-
-#include <boost/fusion/include/at.hpp>
-
-#include <vector>
 
 using namespace nt2::bench;
 using namespace nt2;
@@ -56,21 +46,20 @@ template<typename T> struct axpy_scalar
     return os << "(" << p.size() << ")";
   }
 
-  std::size_t size() const { return size_ ; }
-  std::size_t flops() const { return 2 ; }
+  std::size_t size() const { return size_; }
+  std::size_t flops() const { return 2; }
 
   private:
-    std::size_t size_, step_size_;
+    std::size_t size_;
     T alpha;
     std::vector<T> X, Y;
 };
 
 NT2_REGISTER_BENCHMARK_TPL( axpy_scalar, NT2_SIMD_REAL_TYPES )
 {
-  std::size_t size_min = args("size_min", 16);
-  std::size_t size_max = args("size_max", 4096);
+  std::size_t size_min  = args("size_min", 16);
+  std::size_t size_max  = args("size_max", 4096);
   std::size_t size_step = args("size_step", 2);
-
   T alpha = args("alpha", 1.);
 
   run_during_with< axpy_scalar<T> > ( 1.
