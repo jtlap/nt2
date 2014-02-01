@@ -7,16 +7,17 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <nt2/ieee/include/functions/bitfloating.hpp>
-#include <vector>
 #include <nt2/include/functions/bitinteger.hpp>
-
-#include <nt2/sdk/unit/tests/cover.hpp>
-#include <nt2/sdk/unit/module.hpp>
+#include <nt2/include/functions/min.hpp>
+#include <nt2/include/functions/max.hpp>
 #include <nt2/include/constants/valmax.hpp>
 #include <nt2/include/constants/valmin.hpp>
 #include <nt2/include/constants/zero.hpp>
-#include <nt2/include/functions/min.hpp>
-#include <nt2/include/functions/max.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
+#include <vector>
+
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/cover.hpp>
 
 NT2_TEST_CASE_TPL ( bitfloating,  NT2_INT_CONVERT_TYPES)
 {
