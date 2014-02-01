@@ -14,11 +14,16 @@
 #include <boost/simd/include/functions/simd/shift_left.hpp>
 #include <boost/simd/include/functions/simd/multiplies.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
+#include <boost/simd/include/functions/simd/seladd.hpp>
+#include <boost/simd/include/functions/simd/selsub.hpp>
+#include <boost/simd/include/functions/simd/is_equal.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/functions/simd/rshl.hpp>
 #include <boost/simd/include/functions/simd/multiplies.hpp>
+#include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/simd/include/constants/maxexponent.hpp>
+#include <boost/simd/include/constants/limitexponent.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/sdk/config.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
@@ -30,8 +35,10 @@
 #include <boost/simd/include/functions/simd/selsub.hpp>
 #include <boost/simd/include/constants/minexponent.hpp>
 #include <boost/simd/include/constants/smallestposval.hpp>
-#include <boost/simd/include/constants/one.hpp>
 #endif
+
+
+#include <nt2/table.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -67,18 +74,18 @@ namespace boost { namespace simd { namespace ext
       typedef typename meta::as_logical<iA0>::type           bA0;
 
       iA0 e = a1;
+      A0 f = One<A0>();
 #ifndef BOOST_SIMD_NO_DENORMALS
       bA0 denormal =  lt(e, Minexponent<A0>());
       e = selsub(denormal, e, Minexponent<A0>());
-      A0 f = if_else(denormal, Smallestposval<A0>(), One<A0>());
+      f = if_else(denormal, Smallestposval<A0>(), One<A0>());
 #endif
+      bA0 test = eq(e, Limitexponent<A0>());
+      f = seladd(test, f, One<A0>());
+      e = selsub(test, e, One<iA0>());
       e += Maxexponent<A0>();
       e = shl(e, Nbmantissabits<A0>());
-#ifndef BOOST_SIMD_NO_DENORMALS
       return a0*bitwise_cast<A0>(e)*f;
-#else
-      return a0*bitwise_cast<A0>(e);
-#endif
     }
   };
 

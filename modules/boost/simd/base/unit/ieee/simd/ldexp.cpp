@@ -24,6 +24,8 @@
 #include <boost/simd/include/constants/minexponent.hpp>
 #include <boost/simd/include/constants/halfeps.hpp>
 #include <boost/simd/include/constants/smallestposval.hpp>
+#include <boost/simd/include/constants/maxexponent.hpp>
+#include <boost/simd/include/constants/limitexponent.hpp>
 
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/zero.hpp>
@@ -60,6 +62,7 @@ NT2_TEST_CASE_TPL ( ldexp_real,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(ldexp(boost::simd::Zero<vT>(), Two<ivT>()), boost::simd::Zero<r_t>());
   NT2_TEST_EQUAL(ldexp(boost::simd::One <vT>(), boost::simd::Minexponent<vT>()), boost::simd::Smallestposval<r_t>());
   NT2_TEST_EQUAL(ldexp(boost::simd::One<vT>()-boost::simd::Halfeps<vT>(),  boost::simd::Maxexponent<vT>()), boost::simd::Valmax<vT>()/Two<vT>());
+  NT2_TEST_EQUAL(ldexp(boost::simd::One<vT>()-boost::simd::Halfeps<vT>(),  boost::simd::Limitexponent<vT>()), boost::simd::Valmax<vT>());
 #ifndef BOOST_SIMD_NO_DENORMALS
   NT2_TEST_EQUAL(ldexp(boost::simd::One <vT>(), dec(boost::simd::Minexponent<vT>())), boost::simd::Smallestposval<vT>()/Two<vT>());
   NT2_TEST_EQUAL(ldexp(boost::simd::Two <vT>(), dec(boost::simd::Minexponent<vT>())), boost::simd::Smallestposval<vT>());

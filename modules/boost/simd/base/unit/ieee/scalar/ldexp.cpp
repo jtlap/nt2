@@ -57,6 +57,7 @@ NT2_TEST_CASE_TPL ( ldexp_real__2_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(ldexp(boost::simd::Zero<T>(), 2), boost::simd::Zero<r_t>());
   NT2_TEST_EQUAL(ldexp(boost::simd::One <T>(), boost::simd::Minexponent<T>()), boost::simd::Smallestposval<r_t>());
   NT2_TEST_EQUAL(ldexp(boost::simd::One<T>()-boost::simd::Halfeps<T>(),  boost::simd::Maxexponent<T>()), boost::simd::Valmax<T>()/2);
+  NT2_TEST_EQUAL(ldexp(boost::simd::One<T>()-boost::simd::Halfeps<T>(),  boost::simd::Limitexponent<T>()), boost::simd::Valmax<T>());
 #ifndef BOOST_SIMD_NO_DENORMALS
   NT2_TEST_EQUAL(ldexp(boost::simd::One <T>(), dec(boost::simd::Minexponent<T>())), boost::simd::Smallestposval<T>()/2);
   NT2_TEST_EQUAL(ldexp(boost::simd::Two <T>(), dec(boost::simd::Minexponent<T>())), boost::simd::Smallestposval<T>());
