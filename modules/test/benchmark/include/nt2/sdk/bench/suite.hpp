@@ -27,9 +27,9 @@ namespace nt2
     struct BOOST_SYMBOL_VISIBLE benchmark_suite
     {
       // RUN ALL THE EXPERIMENTS !!!
-      void NT2_TEST_BENCHMARK_DECL run();
+      NT2_TEST_BENCHMARK_DECL void run();
 
-      void NT2_TEST_BENCHMARK_DECL
+      NT2_TEST_BENCHMARK_DECL void
       register_benchmark( std::string const&              name
                         , boost::function<void()> const&  fn
                         );

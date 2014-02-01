@@ -9,13 +9,13 @@
 #include <nt2/sdk/bench/config.hpp>
 #include <nt2/sdk/bench/suite.hpp>
 #include <nt2/sdk/bench/metric/speedup.hpp>
-#include <boost/foreach.hpp>
 #include <iostream>
 #include <iomanip>
 
 namespace nt2 { namespace details
 {
   // RUN ALL THE EXPERIMENTS !!!
+  NT2_TEST_BENCHMARK_DECL
   void benchmark_suite::run()
   {
     std::cout<<" Data Types "<<experiments_.size()<<std::endl;
@@ -33,6 +33,7 @@ namespace nt2 { namespace details
     }
   }
 
+  NT2_TEST_BENCHMARK_DECL
   void benchmark_suite::register_benchmark( std::string const& name
                                           , boost::function<void()> const& fn
                                           )
