@@ -11,33 +11,24 @@
 #define NT2_SDK_BENCH_SUITE_HPP_INCLUDED
 
 #include <nt2/sdk/bench/config.hpp>
+#include <nt2/sdk/unit/details/suite.hpp>
+#include <nt2/sdk/unit/details/unit_test.hpp>
 #include <nt2/sdk/error/throw_exception.hpp>
-#include <boost/function.hpp>
 #include <string>
-#include <vector>
 
-namespace nt2
+namespace nt2 { namespace details
 {
-  namespace details
+  extern NT2_TEST_BENCHMARK_DECL std::string current_benchmark;
+
+  struct BOOST_SYMBOL_VISIBLE bench_suite : public test_suite
   {
-    // Text ID of current benchmark being run
-    extern NT2_TEST_BENCHMARK_DECL std::string current_benchmark;
+    NT2_TEST_BENCHMARK_DECL bench_suite(unit_test const* t_);
 
-    // Structure holding all the benchmarks
-    struct BOOST_SYMBOL_VISIBLE benchmark_suite
-    {
-      // RUN ALL THE EXPERIMENTS !!!
-      NT2_TEST_BENCHMARK_DECL void run();
+    NT2_TEST_BENCHMARK_DECL virtual ~bench_suite();
+    NT2_TEST_BENCHMARK_DECL virtual void process() const;
+  };
 
-      NT2_TEST_BENCHMARK_DECL void
-      register_benchmark( std::string const&              name
-                        , boost::function<void()> const&  fn
-                        );
-
-      std::vector< boost::function<void()> > experiments_;
-      std::vector< std::string >             ids_;
-    };
-  }
-}
+  bench_suite const benchmarks(&dummy);
+} }
 
 #endif

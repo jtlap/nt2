@@ -21,6 +21,7 @@
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
 #include <boost/dispatch/preprocessor/strip.hpp>
+#include <nt2/sdk/unit/details/base_case.hpp>
 
 #include <boost/mpl/for_each.hpp>
 #include <boost/mpl/not.hpp>
@@ -53,36 +54,9 @@
 
   @usage{test_case.cpp}
 **/
-#define NT2_TEST_CASE(Name)                                               \
-void BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)();                                \
-nt2::details::unit_test const                                             \
-BOOST_PP_CAT(Name,NT2_UNIT_PREFIX)                                        \
-                        ( &nt2::details::unit_tests                       \
-                        , BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)              \
-                        , BOOST_PP_STRINGIZE(BOOST_PP_CAT(Name,_test))    \
-                        );                                                \
-void BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)()                                 \
+#define NT2_TEST_CASE(Name)                                                     \
+NT2_TEST_BASE_CASE(Name,nt2::details::unit_test,nt2::details::unit_tests,_test) \
 /**/
-
-/// INTERNAL ONLY
-/// Generate one given instanciation of a template test case
-#define NT2_PP_TPL_CASES(r,name,type)                           \
-printf( "With T = [%s]\n"                                       \
-      , nt2::type_id<BOOST_DISPATCH_PP_STRIP(type)>().c_str()); \
-BOOST_PP_CAT(tpl_, BOOST_PP_CAT(NT2_UNIT_PREFIX,name))          \
-                  <BOOST_DISPATCH_PP_STRIP(type)>();            \
-/**/
-
-namespace nt2 { namespace details
-{
-  inline void report_empty(boost::mpl::true_ const&)
-  {
-    std::cout << "Test skipped: Types PP sequence is empty.\n";
-    ::nt2::unit::test_count()++;
-  }
-
-  inline void report_empty(boost::mpl::false_ const&) {}
-} }
 
 /*!
   @brief Type-dependant test case registration macro
@@ -96,26 +70,11 @@ namespace nt2 { namespace details
   @usage{test_case_tpl.cpp}
 **/
 #define NT2_TEST_CASE_TPL(Name, Types)                                         \
-template<class T> void BOOST_PP_CAT ( tpl_                                     \
-                                    , BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)       \
-                                    )();                                       \
-void BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)();                                     \
-                                                                               \
-nt2::details::unit_test const                                                  \
-BOOST_PP_CAT(Name,NT2_UNIT_PREFIX)                                             \
-            ( &nt2::details::unit_tests                                        \
-            , BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)                               \
-            , BOOST_PP_STRINGIZE(BOOST_PP_CAT(Name,_test))                     \
-            );                                                                 \
-void BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)()                                      \
-{                                                                              \
-  nt2::details::report_empty(boost::mpl::bool_<!BOOST_PP_SEQ_SIZE(Types)>());  \
-  BOOST_PP_SEQ_FOR_EACH(NT2_PP_TPL_CASES,Name,Types);                          \
-}                                                                              \
-                                                                               \
-template<class T> void BOOST_PP_CAT ( tpl_                                     \
-                                    , BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)       \
-                                    )()                                        \
+NT2_TEST_BASE_CASE_TPL( Name, Types                                            \
+                      , nt2::details::unit_test                                \
+                      , nt2::details::unit_tests                               \
+                      , _test                                                  \
+                      )                                                        \
 /**/
 
 /*!
@@ -128,52 +87,11 @@ template<class T> void BOOST_PP_CAT ( tpl_                                     \
   inside the whole test suite.
 **/
 #define NT2_TEST_CASE_TPL_MPL(Name, TypeList)                                  \
-template<class T> void BOOST_PP_CAT ( tpl_mpl_                                 \
-                                    , BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)       \
-                                    )();                                       \
-struct BOOST_PP_CAT( tpl_fun_mpl_, BOOST_PP_CAT(NT2_UNIT_PREFIX, Name) )       \
-{                                                                              \
-  template<class T>                                                            \
-  void operator()(T const&) const                                              \
-  {                                                                            \
-    printf("With T = [%s]\n", nt2::type_id<T>().c_str());                      \
-    BOOST_PP_CAT( tpl_mpl_, BOOST_PP_CAT(NT2_UNIT_PREFIX,Name) )<T>();         \
-  }                                                                            \
-};                                                                             \
-void BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)();                                     \
-                                                                               \
-void BOOST_PP_CAT(NT2_UNIT_PREFIX,BOOST_PP_CAT(Name,_impl))                    \
-                                  (boost::mpl::true_ const&)                   \
-{                                                                              \
-  std::cout << "Test skipped: Types MPL list is empty.\n";                     \
-  ::nt2::unit::test_count()++;                                                 \
-}                                                                              \
-void BOOST_PP_CAT(NT2_UNIT_PREFIX,BOOST_PP_CAT(Name,_impl))                    \
-                                  (boost::mpl::false_ const&)                  \
-{                                                                              \
-  using namespace boost::mpl;                                                  \
-  boost::mpl::for_each<BOOST_DISPATCH_PP_STRIP(TypeList)>                      \
-  (BOOST_PP_CAT( tpl_fun_mpl_, BOOST_PP_CAT(NT2_UNIT_PREFIX, Name) )());       \
-}                                                                              \
-                                                                               \
-nt2::details::unit_test const                                                  \
-BOOST_PP_CAT(Name,NT2_UNIT_PREFIX)                                             \
-            ( &nt2::details::unit_tests                                        \
-            , BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)                               \
-            , BOOST_PP_STRINGIZE(BOOST_PP_CAT(Name,_test))                     \
-            );                                                                 \
-void BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)()                                      \
-{                                                                              \
-  using namespace boost::mpl;                                                  \
-  static const int sz = boost::mpl                                             \
-                             ::size<BOOST_DISPATCH_PP_STRIP(TypeList)>::value; \
-  BOOST_PP_CAT(NT2_UNIT_PREFIX,BOOST_PP_CAT(Name,_impl))                       \
-              ( boost::mpl::bool_<!sz>());                                     \
-}                                                                              \
-                                                                               \
-template<class T> void BOOST_PP_CAT ( tpl_mpl_                                 \
-                                    , BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)       \
-                                    )()                                        \
+NT2_TEST_BASE_CASE_TPL_MPL( Name, TypeList                                     \
+                          , nt2::details::unit_test                            \
+                          , nt2::details::unit_tests                           \
+                          , _test                                              \
+                          )                                                    \
 /**/
 
 #endif

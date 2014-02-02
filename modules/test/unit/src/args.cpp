@@ -6,17 +6,17 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/sdk/bench/config.hpp>
-#include <nt2/sdk/bench/args.hpp>
+#include <nt2/sdk/unit/config.hpp>
+#include <nt2/sdk/unit/args.hpp>
 #include <cstdlib>
 
 namespace nt2
 {
   namespace details
   {
-    NT2_TEST_BENCHMARK_DECL std::map<std::string,std::string> args_map;
+    NT2_TEST_UNIT_DECL std::map<std::string,std::string> args_map;
 
-    void NT2_TEST_BENCHMARK_DECL fill_args_map(int argc, const char** argv)
+    void NT2_TEST_UNIT_DECL fill_args_map(int argc, char** argv)
     {
       for(int i=1;i<argc;++i)
       {
