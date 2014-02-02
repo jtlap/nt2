@@ -34,7 +34,7 @@ inline void unary_shuffle()
   a[4] = T(-1);
   a[5] = T(77);
   a[6] = T(23);
-  a[3] = boost::simd::Valmin<T>();
+  a[7] = boost::simd::Valmin<T>();
 
   ref[0] = (IA == -1) ? 0 : a[IA];
   ref[1] = (IB == -1) ? 0 : a[IB];
@@ -90,27 +90,27 @@ inline void binary_shuffle()
   NT2_TEST_EQUAL( (shuffle<IA,IB,IC,ID,IE,IF,IG,IH>(a,b)), ref);
 }
 
-NT2_TEST_CASE_TPL( identity_shuffle, (float))
+NT2_TEST_CASE_TPL( identity_shuffle, BOOST_SIMD_SIMD_TYPES)
 {
   unary_shuffle <T, 0, 1, 2, 3, 4, 5, 6, 7>();
   binary_shuffle<T, 0, 1, 2, 3, 4, 5, 6, 7>();
   binary_shuffle<T, 8, 9,10,11,12,13,14,15>();
 }
 
-NT2_TEST_CASE_TPL( zero_shuffle, (float))
+NT2_TEST_CASE_TPL( zero_shuffle, BOOST_SIMD_SIMD_TYPES)
 {
   unary_shuffle <T,-1,-1,-1,-1,-1,-1,-1,-1>();
   binary_shuffle<T,-1,-1,-1,-1,-1,-1,-1,-1>();
 }
 
-NT2_TEST_CASE_TPL( reverse_shuffle, (float))
+NT2_TEST_CASE_TPL( reverse_shuffle, BOOST_SIMD_SIMD_TYPES)
 {
   unary_shuffle <T,7 ,6 ,5 ,4 ,3 ,2 ,1,0>();
   binary_shuffle<T,7 ,6 ,5 ,4 ,3 ,2 ,1,0>();
   binary_shuffle<T,15,14,13,12,11,10,9,8>();
 }
 
-NT2_TEST_CASE_TPL( interleave_shuffle, (float))
+NT2_TEST_CASE_TPL( interleave_shuffle, BOOST_SIMD_SIMD_TYPES)
 {
   unary_shuffle <T, 0, 0, 1, 1, 2, 2, 3, 3>();
   binary_shuffle<T, 0, 0, 1, 1, 2, 2, 3, 3>();
@@ -122,7 +122,7 @@ NT2_TEST_CASE_TPL( interleave_shuffle, (float))
   binary_shuffle<T, 4,12, 5,13, 6,14, 7,15>();
 }
 
-NT2_TEST_CASE_TPL( broadcast_shuffle, (float))
+NT2_TEST_CASE_TPL( broadcast_shuffle, BOOST_SIMD_SIMD_TYPES)
 {
   unary_shuffle <T,0,0,0,0,0,0,0,0>();
   unary_shuffle <T,1,1,1,1,1,1,1,1>();
@@ -150,7 +150,7 @@ NT2_TEST_CASE_TPL( broadcast_shuffle, (float))
   binary_shuffle<T,15,15,15,15,15,15,15,15>();
 }
 
-NT2_TEST_CASE_TPL( repeat_shuffle, (float))
+NT2_TEST_CASE_TPL( repeat_shuffle, BOOST_SIMD_SIMD_TYPES)
 {
   unary_shuffle <T, 0, 1, 2, 3, 0, 1, 2, 3>();
   unary_shuffle <T, 4, 5, 6, 7, 4, 5, 6, 7>();
@@ -161,7 +161,7 @@ NT2_TEST_CASE_TPL( repeat_shuffle, (float))
   binary_shuffle<T,12,13,14,15,12,13,14,15>();
 }
 
-NT2_TEST_CASE_TPL( avx_shuffle, (float))
+NT2_TEST_CASE_TPL( avx_shuffle, BOOST_SIMD_SIMD_TYPES)
 {
   unary_shuffle <T, 0, 0, 2, 2, 4, 4, 6, 6>();
   binary_shuffle<T, 0, 0, 2, 2, 4, 4, 6, 6>();

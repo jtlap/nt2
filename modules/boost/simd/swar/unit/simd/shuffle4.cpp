@@ -176,51 +176,109 @@ NT2_TEST_CASE_TPL( avx_style_shuffle, BOOST_SIMD_SIMD_TYPES)
 {
   unary_shuffle <T, 0, 0, 2, 2>();
   binary_shuffle<T, 0, 0, 2, 2>();
-
-  unary_shuffle <T, 1,-1, 2,-1>();
-  binary_shuffle<T, 1,-1, 2,-1>();
-
-  unary_shuffle <T,-1, 0,-1, 2>();
-  binary_shuffle<T,-1, 0,-1, 2>();
-
   binary_shuffle<T, 4, 4, 6, 6>();
 
+  // <0, 4, 2, 6> is interleave_even
+  binary_shuffle<T, 4, 0, 6, 2>();
+  // <0, 0, 2, 2> is just up
+
   binary_shuffle<T, 1, 4, 2, 6>();
+  binary_shuffle<T, 5, 0, 6, 2>();
+  unary_shuffle <T, 1, 0, 2, 2>();
   binary_shuffle<T, 1, 0, 2, 2>();
+
+  binary_shuffle<T, 0, 5, 2, 6>();
+  binary_shuffle<T, 4, 1, 6, 2>();
+  unary_shuffle <T, 0, 1, 2, 2>();
+  binary_shuffle<T, 0, 1, 2, 2>();
+
+  binary_shuffle<T, 1,5,2,6>();
+  binary_shuffle<T, 5,1,6,2>();
+  unary_shuffle <T, 1,1,2,2>();
+  binary_shuffle<T, 1,1,2,2>();
+
+  binary_shuffle<T, 0,4,3,6>();
+  binary_shuffle<T, 4,0,7,2>();
+  unary_shuffle <T, 0,0,3,2>();
+  binary_shuffle<T, 0,0,3,2>();
+
+  binary_shuffle<T, 1,4,3,6>();
+  binary_shuffle<T, 5,0,7,2>();
+  unary_shuffle <T, 1,0,3,2>();
+  binary_shuffle<T, 1,0,3,2>();
+
+  binary_shuffle<T, 0,5,3,6>();
+  binary_shuffle<T, 4,1,7,2>();
+  unary_shuffle <T, 0,1,3,2>();
+  binary_shuffle<T, 0,1,3,2>();
+
+  binary_shuffle<T, 1,5,3,6>();
+  binary_shuffle<T, 5,1,7,2>();
+  unary_shuffle <T, 1,1,3,2>();
+  binary_shuffle<T, 1,1,3,2>();
+
+  binary_shuffle<T, 0,4,2,7>();
+  binary_shuffle<T, 4,0,6,3>();
+  unary_shuffle <T, 0,0,2,3>();
+  binary_shuffle<T, 0,0,2,3>();
+
+  binary_shuffle<T, 1,4,2,7>();
+  binary_shuffle<T, 5,0,6,3>();
+  unary_shuffle <T, 1,0,2,3>();
+  binary_shuffle<T, 1,0,2,3>();
+
+  binary_shuffle<T, 0,5,2,7>();
+  binary_shuffle<T, 4,1,6,3>();
+  // Dupe shuffle of <0 5 2 7> is <0 1 2 3>
+
+  binary_shuffle<T, 1,5,2,7>();
+  binary_shuffle<T, 5,1,6,3>();
+  unary_shuffle <T, 1,1,2,3>();
+  binary_shuffle<T, 1,1,2,3>();
+
+  binary_shuffle<T, 0,4,3,7>();
+  binary_shuffle<T, 4,0,7,3>();
+  unary_shuffle <T, 0,0,3,3>();
+  binary_shuffle<T, 0,0,3,3>();
+
+  binary_shuffle<T, 1,4,3,7>();
+  binary_shuffle<T, 5,0,7,3>();
+  unary_shuffle <T, 1,0,3,3>();
+  binary_shuffle<T, 1,0,3,3>();
+
+  binary_shuffle<T, 0,5,3,7>();
+  binary_shuffle<T, 4,1,7,3>();
+  unary_shuffle <T, 0,1,3,3>();
+  binary_shuffle<T, 0,1,3,3>();
+
+  // <1,5,3,7> is interleave_odd
+  binary_shuffle<T, 5,1,7,3>();
+  unary_shuffle <T, 1,1,3,3>();
+  binary_shuffle<T, 1,1,3,3>();
 }
 
 NT2_TEST_CASE_TPL( avx_zero_shuffle, BOOST_SIMD_SIMD_TYPES)
 {
-  unary_shuffle<T,0,-1,2,-1>();
-  unary_shuffle<T,0,-1,3,-1>();
-  unary_shuffle<T,1,-1,3,-1>();
-  unary_shuffle<T,1,-1,2,-1>();
+  unary_shuffle <T, 1,-1, 2,-1>();
+  binary_shuffle<T, 1,-1, 2,-1>();
+  binary_shuffle<T, 4,-1, 6,-1>();
+  unary_shuffle <T,-1, 0,-1, 2>();
+  binary_shuffle<T,-1, 0,-1, 2>();
 
-  binary_shuffle<T,0,-1,2,-1>();
-  binary_shuffle<T,0,-1,3,-1>();
-  binary_shuffle<T,1,-1,2,-1>();
-  binary_shuffle<T,1,-1,3,-1>();
+  binary_shuffle<T,-1, 4,-1, 6>();
+  unary_shuffle <T, 0,-1, 2,-1>();
+  binary_shuffle<T, 0,-1, 2,-1>();
+  binary_shuffle<T, 5,-1, 6,-1>();
+  unary_shuffle <T,-1, 1,-1, 2>();
+  binary_shuffle<T,-1, 1,-1, 2>();
 
-  unary_shuffle<T,-1,0,-1,2>();
-  unary_shuffle<T,-1,0,-1,3>();
-  unary_shuffle<T,-1,1,-1,2>();
-  unary_shuffle<T,-1,1,-1,3>();
-
-  binary_shuffle<T,-1,0,-1,2>();
-  binary_shuffle<T,-1,0,-1,3>();
-  binary_shuffle<T,-1,1,-1,2>();
-  binary_shuffle<T,-1,1,-1,3>();
-
-  binary_shuffle<T,4,-1,6,-1>();
-  binary_shuffle<T,4,-1,7,-1>();
-  binary_shuffle<T,5,-1,6,-1>();
-  binary_shuffle<T,5,-1,7,-1>();
-
-  binary_shuffle<T,-1,4,-1,6>();
-  binary_shuffle<T,-1,4,-1,7>();
-  binary_shuffle<T,-1,5,-1,6>();
-  binary_shuffle<T,-1,5,-1,7>();
-
+  binary_shuffle<T,-1, 5,-1, 6>();
+  unary_shuffle <T, 1,-1, 2,-1>();
+  binary_shuffle<T, 1,-1, 2,-1>();
+  binary_shuffle<T, 5,-1, 6,-1>();
+  unary_shuffle <T,-1, 1,-1, 2>();
+  binary_shuffle<T,-1, 1,-1, 2>();
+  binary_shuffle<T,-1, 5,-1, 6>();
 }
 
 NT2_TEST_CASE_TPL( other_shuffle, BOOST_SIMD_SIMD_TYPES)
@@ -231,5 +289,6 @@ NT2_TEST_CASE_TPL( other_shuffle, BOOST_SIMD_SIMD_TYPES)
 
   binary_shuffle<T,0,-1,2,6>();
   binary_shuffle<T,0,3,7,-1>();
+
   binary_shuffle<T,7,4,-1,3>();
 }
