@@ -26,7 +26,12 @@ namespace nt2 { namespace details
   NT2_TEST_BENCHMARK_DECL void bench::process() const
   {
     if(name) current_benchmark = name;
-    if(call) call();
+    if(call)
+    {
+      call();
+      std::cout <<  std::string(100,'-') << std::endl;
+    }
+
     advance();
   }
 } }

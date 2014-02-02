@@ -8,10 +8,7 @@
 //==============================================================================
 #include <nt2/sdk/bench/config.hpp>
 #include <nt2/sdk/bench/suite.hpp>
-#include <nt2/sdk/bench/metric/speedup.hpp>
-#include <boost/simd/sdk/simd/extensions.hpp>
 #include <iostream>
-#include <iomanip>
 
 namespace nt2 { namespace details
 {
@@ -22,9 +19,6 @@ namespace nt2 { namespace details
 
   NT2_TEST_BENCHMARK_DECL void bench_suite::process() const
   {
-    std::cout << "CTEST_FULL_OUTPUT" << std::endl;
-    std::cout << "Architecture: " << BOOST_SIMD_STRING << std::endl;
-    std::cout <<  std::string(100,'-') << std::endl;
     std::cout << "Benchmark\tSize\tResult\tUnit\tSamples #" << std::endl;
     std::cout <<  std::string(100,'-');
 

@@ -23,6 +23,7 @@ namespace nt2 { namespace details
     NT2_TEST_UNIT_DECL virtual void report() const;
     NT2_TEST_UNIT_DECL virtual void process() const;
     NT2_TEST_UNIT_DECL unit_test const* link(unit_test const* n) const;
+
     mutable unit_test const*  tests;
   };
 

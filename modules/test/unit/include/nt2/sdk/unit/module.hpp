@@ -28,10 +28,29 @@
 #include <nt2/sdk/error/throw_exception.hpp>
 #include <nt2/sdk/error/assert_as_flexible.hpp>
 #include <boost/preprocessor/cat.hpp>
+#include <boost/simd/sdk/simd/extensions.hpp>
+#include <iostream>
+#include <string>
 
 #if !defined(NT2_UNIT_MAIN_SUITE)
 /// INTERNAL ONLY
 #define NT2_UNIT_MAIN_SUITE nt2::details::unit_tests
+
+namespace nt2 { namespace details
+{
+  inline void unit_test_prologue() {}
+} }
+
+#else
+
+namespace nt2 { namespace details
+{
+  inline void unit_test_prologue()
+  {
+    std::cout << "CTEST_FULL_OUTPUT" << std::endl;
+  }
+} }
+
 #endif
 
 #if defined(NT2_USE_HPX)
@@ -62,6 +81,10 @@ private:
 
 NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int argc, char* argv[])
 {
+  ::nt2::details::unit_test_prologue();
+  std::cout << "Architecture: " << BOOST_SIMD_STRING << std::endl;
+  std::cout <<  std::string(100,'-') << std::endl;
+
 #if defined(NT2_USE_HPX)
   std::vector<std::string> cfg;
   cfg.push_back("hpx.parcel.port=0");
