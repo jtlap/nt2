@@ -17,7 +17,7 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/property_of.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
-#include <boost/simd/constant/impl/constant_type.hpp>
+#include <boost/simd/constant/constant_value.hpp>
 #include <boost/dispatch/attributes.hpp>
 
 //==============================================================================
@@ -36,13 +36,12 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef typename A0::type                                     base_type;
-    typedef typename dispatch::meta::property_of<base_type>::type disp_type;
-    typedef typename boost::mpl::apply<Tag,disp_type>::type       value_type;
-    typedef typename value_type::value_type                       result_type;
+    typedef typename meta::constant_value<Tag, base_type>::type   mpl_type;
+    typedef typename mpl_type::value_type                         result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const&) const
     {
-      return boost::simd::splat<result_type>( result_type(value_type()) );
+      return boost::simd::splat<result_type>( result_type(mpl_type()) );
     }
   };
 
@@ -56,20 +55,20 @@ namespace boost { namespace simd { namespace ext
                                     , ((target_< simd_< arithmetic_<A0>,X> >))
                                     )
   {
-    typedef details::constant_type<A0,Tag>    constant_t;
-    typedef typename constant_t::value_type   value_type;
-    typedef typename constant_t::type         result_type;
+    typedef typename A0::type                                     base_type;
+    typedef typename meta::constant_value<Tag, base_type>::type   mpl_type;
+    typedef typename mpl_type::value_type                         scalar_type;
+    typedef boost::simd::native<scalar_type, X>                   result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const&) const
     {
       typedef typename dispatch::meta::
-                       as_integer<typename value_type::value_type>::type
-                                                                    pattern_type;
-      typedef boost::simd::native<pattern_type,X>                   tmp_type;
+                       as_integer<scalar_type>::type              pattern_type;
+      typedef boost::simd::native<pattern_type,X>                 tmp_type;
 
       return  bitwise_cast<result_type>
               ( boost::simd::
-                splat<tmp_type>( pattern_type(value_type::value) )
+                splat<tmp_type>( pattern_type(mpl_type::value) )
               );
     }
   };
