@@ -35,12 +35,21 @@
 #endif
 
 #if defined(NT2_USE_HPX)
-int hpx_main(int argc, char* argv[])
+struct hpx_initializer
 {
-  int res = nt2::details::unit_main(argc,argv,NT2_UNIT_MAIN_SUITE);
-  hpx::finalize();
-  return res;
-}
+  hpx_initializer(int argc_, char** argv_) : argc(argc_), argv(argv_) {}
+
+  int operator()(boost::program_options::variables_map&) const
+  {
+    int res = nt2::details::unit_main(argc,argv,NT2_UNIT_MAIN_SUITE);
+    hpx::finalize();
+    return res;
+  }
+
+private:
+  int argc;
+  char** argv;
+};
 #endif
 
 /*!
@@ -56,7 +65,12 @@ NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int argc, char* argv[])
 #if defined(NT2_USE_HPX)
   std::vector<std::string> cfg;
   cfg.push_back("hpx.parcel.port=0");
-  return hpx::init(cfg);
+
+  using boost::program_options::options_description;
+  options_description desc_commandline("Usage: " HPX_APPLICATION_STRING " [options]");
+  char *dummy_argv[1] = { HPX_APPLICATION_STRING };
+
+  return hpx::init(hpx_initializer(argc, argv), boost::program_options::options_description(), 1, dummy_argv, cfg);
 #else
   return nt2::details::unit_main(argc,argv,NT2_UNIT_MAIN_SUITE);
 #endif
