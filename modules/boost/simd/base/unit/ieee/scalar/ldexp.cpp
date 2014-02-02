@@ -6,17 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+
 #include <boost/simd/ieee/include/functions/ldexp.hpp>
-
-#include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/sdk/config.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-
+#include <boost/simd/include/functions/dec.hpp>
 #include <boost/simd/include/constants/limitexponent.hpp>
-#include <boost/simd/include/constants/mindenormal.hpp>
 #include <boost/simd/include/constants/minexponent.hpp>
 #include <boost/simd/include/constants/halfeps.hpp>
 #include <boost/simd/include/constants/smallestposval.hpp>
@@ -29,10 +22,15 @@
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/nan.hpp>
+#include <boost/simd/sdk/config.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
-#include <boost/simd/include/functions/dec.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
-NT2_TEST_CASE_TPL ( ldexp_real__2_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL(ldexp_real__2_0, BOOST_SIMD_REAL_TYPES)
 {
 
   using boost::simd::ldexp;
@@ -40,9 +38,7 @@ NT2_TEST_CASE_TPL ( ldexp_real__2_0,  BOOST_SIMD_REAL_TYPES)
   using boost::simd::dec;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<ldexp_(T,iT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef T wished_r_t;
-
 
   // return type conformity test
   NT2_TEST_TYPE_IS(r_t, wished_r_t);

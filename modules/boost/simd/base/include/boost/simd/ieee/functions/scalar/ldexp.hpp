@@ -17,6 +17,7 @@
 #include <boost/simd/include/constants/limitexponent.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/constant/constant_value.hpp>
 #include <boost/simd/sdk/config.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/attributes.hpp>
@@ -54,7 +55,7 @@ namespace boost { namespace simd { namespace ext
       iA0 e =  a1;
       A0 f = One<A0>();
 #ifndef BOOST_SIMD_NO_DENORMALS
-      if (BOOST_UNLIKELY(e < Minexponent<A0>()))
+      if (BOOST_UNLIKELY((e < meta::constant_value<tag::Minexponent, A0>::value)))
       {
         e -= Minexponent<A0>();
         f = Smallestposval<A0>();
