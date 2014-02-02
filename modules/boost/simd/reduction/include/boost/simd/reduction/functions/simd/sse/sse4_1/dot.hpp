@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_REDUCTION_FUNCTIONS_SIMD_SSE_SSE4_1_DOT_HPP_INCLUDED
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_SIMD_SSE_SSE4_1_DOT_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
 
 #include <boost/simd/reduction/functions/dot.hpp>
 #include <boost/simd/include/functions/simd/sum.hpp>
@@ -45,7 +46,7 @@ namespace boost { namespace simd { namespace ext
         return r[0];
       }
   };
-
-
 } } }
+
+#endif
 #endif
