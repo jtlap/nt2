@@ -14,6 +14,7 @@
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/details/prng.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/config.hpp>
@@ -27,7 +28,7 @@
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/nan.hpp>
-
+#include <boost/simd/include/constants/sqrtvalmax.hpp>
 
 NT2_TEST_CASE_TPL ( multiplies_real,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
@@ -47,10 +48,11 @@ NT2_TEST_CASE_TPL ( multiplies_real,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(multiplies(boost::simd::Mzero<vT>(), boost::simd::One<vT>()), boost::simd::Mzero<r_t>());
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( multiplies_integer,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( multiplies_integer, BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
   using boost::simd::Valmin;
   using boost::simd::Valmax;
+  using boost::simd::Sqrtvalmax;
   using boost::simd::splat;
   using boost::simd::enumerate;
   using boost::simd::multiplies;
@@ -60,11 +62,17 @@ NT2_TEST_CASE_TPL ( multiplies_integer,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef native<T,ext_t>                  vT;
   typedef typename boost::dispatch::meta::call<multiplies_(vT,vT)>::type r_t;
 
-  T step = (Valmax<T>() - Valmin<T>() ) / 8*(vT::static_size-1);
-  vT v = enumerate<vT>( Valmin<T>()/4, step );
-  vT w = enumerate<vT>( Valmax<T>()/4, boost::simd::unary_minus(step) );
+  vT v,w,ref;
 
-  vT ref;
+  nt2::roll(v,T(0),Sqrtvalmax<T>());
+  nt2::roll(w,T(0),Sqrtvalmax<T>());
+
+  for(std::size_t i=0;i<vT::static_size;++i)
+    v[i] *= i%2 ? -1 : 1;
+
+  for(std::size_t i=0;i<vT::static_size/2;++i)
+    w[i] *= -1;
+
   for(std::size_t i=0;i<vT::static_size;++i)
     ref[i] = v[i] * w[i];
 

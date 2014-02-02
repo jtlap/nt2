@@ -7,24 +7,28 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_SQR_HPP_INCLUDED
-#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_SQR_HPP_INCLUDED
-#include <boost/simd/arithmetic/functions/sqr.hpp>
-#include <boost/simd/include/functions/simd/multiplies.hpp>
+#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_DEC_HPP_INCLUDED
+#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_DEC_HPP_INCLUDED
+
+#include <boost/simd/arithmetic/functions/dec.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
+#include <boost/simd/include/constants/one.hpp>
 #include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::sqr_, tag::cpu_
-                                    , (A0)(X)
-                                    , ((simd_<arithmetic_<A0>,X>))
-                                    )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::dec_, tag::cpu_
+                                   , (A0)
+                                   , ((generic_< arithmetic_<A0> >))
+                                   )
   {
     typedef A0 result_type;
-    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return a0*a0;
+      return a0-One<result_type>();
     }
   };
 } } }
+
 #endif

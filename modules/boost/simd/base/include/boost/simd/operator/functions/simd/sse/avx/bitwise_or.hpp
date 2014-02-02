@@ -11,52 +11,59 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
 #include <boost/simd/operator/functions/bitwise_or.hpp>
-#include <boost/simd/include/functions/simd/genmask.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_or_, boost::simd::tag::avx_
-                            , (A0)(A1)
-                            , ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
-                              ((simd_<arithmetic_<A1>,boost::simd::tag::avx_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::bitwise_or_
+                                    , boost::simd::tag::avx_
+                                    , (A0)
+                                    , ((simd_<double_<A0>,boost::simd::tag::avx_>))
+                                      ((simd_<double_<A0>,boost::simd::tag::avx_>))
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
-    {
-      typedef native<float, tag::avx_> ftype;
-      return bitwise_cast<A0>( _mm256_or_ps ( bitwise_cast<ftype>(a0)
-                                            , bitwise_cast<ftype>(a1)
-                                            )
-                             );
-    }
-  };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_or_, boost::simd::tag::avx_
-                            , (A0)(A1)
-                            , ((simd_<double_<A0>,boost::simd::tag::avx_>))
-                              ((simd_<double_<A1>,boost::simd::tag::avx_>))
-                            )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
     {
       return _mm256_or_pd(a0, a1);
     }
   };
 
-//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::bitwise_or_, boost::simd::tag::avx_,
-//                                 (A0),
-//                                 ((simd_<logical_<A0>,boost::simd::tag::avx_>))
-//                                 ((simd_<logical_<A0>,boost::simd::tag::avx_>))
-//                               )
-//   {
-//     typedef A0 result_type;
-//     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-//     {
-//       return bitwise_cast<result_type>(bitwise_or(genmask(a0), genmask(a1)));
-//     }
-//   };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::bitwise_or_
+                                    , boost::simd::tag::avx_
+                                    , (A0)
+                                    , ((simd_<single_<A0>,boost::simd::tag::avx_>))
+                                      ((simd_<single_<A0>,boost::simd::tag::avx_>))
+                                    )
+  {
+    typedef A0 result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
+    {
+      return _mm256_or_ps(a0, a1);
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::bitwise_or_
+                                    , boost::simd::tag::avx_
+                                    , (A0)
+                                    , ((simd_<integer_<A0>,boost::simd::tag::avx_>))
+                                      ((simd_<integer_<A0>,boost::simd::tag::avx_>))
+                                    )
+  {
+    typedef A0 result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
+    {
+      typedef typename A0::template rebind<float>::type type;
+
+      return bitwise_cast<A0>( _mm256_or_ps ( bitwise_cast<type>(a0)
+                                            , bitwise_cast<type>(a1)
+                                            )
+                             );
+    }
+  };
 } } }
 
 #endif

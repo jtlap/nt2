@@ -11,80 +11,93 @@
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 #include <boost/simd/operator/functions/multiplies.hpp>
-#include <boost/dispatch/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/upgrade.hpp>
-#include <boost/simd/include/constants/digits.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/include/constants/mzero.hpp>
-#include <boost/simd/include/constants/zero.hpp>
+#include <boost/dispatch/meta/as_unsigned.hpp>
+#include <boost/dispatch/meta/downgrade.hpp>
+#include <boost/dispatch/meta/upgrade.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, boost::simd::tag::vmx_, (A0)
-                            , ((simd_<single_<A0>,boost::simd::tag::vmx_>))
-                              ((simd_<single_<A0>,boost::simd::tag::vmx_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::multiplies_
+                                    , boost::simd::tag::vmx_
+                                    , (A0)
+                                    , ((simd_<single_<A0>,boost::simd::tag::vmx_>))
+                                      ((simd_<single_<A0>,boost::simd::tag::vmx_>))
+                                    )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return vec_madd(a0(),a1(), boost::simd::Mzero<A0>()());
     }
   };
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, boost::simd::tag::vmx_, (A0)
-                            , ((simd_<type16_<A0>,boost::simd::tag::vmx_>))
-                              ((simd_<type16_<A0>,boost::simd::tag::vmx_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::multiplies_
+                                    , boost::simd::tag::vmx_, (A0)
+                                    , ((simd_<type16_<A0>,boost::simd::tag::vmx_>))
+                                      ((simd_<type16_<A0>,boost::simd::tag::vmx_>))
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return vec_mladd(a0(),a1(),Zero<A0>()());
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, boost::simd::tag::vmx_, (A0)
-                            , ((simd_<type8_<A0>,boost::simd::tag::vmx_>))
-                              ((simd_<type8_<A0>,boost::simd::tag::vmx_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::multiplies_
+                                    , boost::simd::tag::vmx_, (A0)
+                                    , ((simd_<type8_<A0>,boost::simd::tag::vmx_>))
+                                      ((simd_<type8_<A0>,boost::simd::tag::vmx_>))
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename dispatch::meta::upgrade<A0>::type uptype;
+      typedef typename dispatch::meta::upgrade<A0>::type::native_type uptype;
       uptype l = vec_mule(a0(),a1());
       uptype r = vec_mulo(a0(),a1());
-      return vec_mergel(vec_pack(l(),l()),vec_pack(r(),r()));
+      return vec_mergel(vec_pack(l,l),vec_pack(r,r));
     }
   };
 
-/*
- * TODO : FINISH THIS
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2,int32_t )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::multiplies_
+                                    , boost::simd::tag::vmx_, (A0)
+                                    , ((simd_<uint32_<A0>,boost::simd::tag::vmx_>))
+                                      ((simd_<uint32_<A0>,boost::simd::tag::vmx_>))
+                                    )
+  {
+    typedef A0 result_type;
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      static inline type_t Multiply( const type_t& a, const type_t& b, const ttt::boxed<2>&, const true_t&  )
-      {
-        typedef __vu32_4 cast_t;
-        type_t r  = type_t( av_multiply<__vu32_4>::Multiply(cast_t(a),cast_t(b), ttt::boxed<2>(), false_t()) );
-        return vec_sel(r,vec_sub(vec_splat_u32(0), r),vec_cmpgt(vec_splat_u32(0), vec_xor(a, b)));
-      }
+      typedef typename dispatch::meta::downgrade<A0,unsigned>::type s_t;
+
+      // reinterpret as u16
+      s_t short0 = bitwise_cast<s_t>(a0);
+      s_t short1 = bitwise_cast<s_t>(a1);
+
+      // shifting constant
+      typename A0::native_type shift_ = vec_splat_u32(-16);
+
+      // Compute high part of the product
+      A0 high    = vec_msum ( short0()
+                            , bitwise_cast<s_t>(vec_rl(a1(), shift_))()
+                            , vec_splat_u32(0)
+                            );
+
+      // Complete by adding low part of the 16 bits product
+      return vec_add( vec_sl(high(), shift_)
+                    , vec_mulo(short0(), short1())
+                    );
     }
-
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2,uint32_t )
-    {
-
-      static inline type_t Multiply( const type_t& a, const type_t& b, const ttt::boxed<2>&, const false_t&  )
-      {
-        typedef __vu16_8 short_t;
-        type_t sixteen = type_t(vec_vspltisw (-16));
-        type_t low = vec_mulo (short_t(a),short_t(b));
-        type_t high = vec_msum (short_t(a),short_t(vec_rl(b, sixteen)),vec_splat_u32(0));
-        return vec_add(vec_sl(high, sixteen),low);
-      }
-
-*/
+  };
 } } }
 
 #endif
