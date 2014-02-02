@@ -38,24 +38,19 @@ namespace boost { namespace simd {
 
     For every parameters of type T0
     @code
-    T0 r = deinterleave_first(a0,a1);
+    T0 r = deinterleave_first(a,b);
     @endcode
 
-    is similar to:
+    is equivalent to :
 
     @code
-    T0 r;
-    const std::size_t middle = meta::cardinal_of<T0>::value/2;
-    for(std::size_t i=0,j=middle;i<middle;++i,++j)
-    {
-      r[i] = a0[i*2];
-      r[j] = a1[i*2];
-    }
+    r = [ a[0] a[2] ... a[n/2] b[0] b[2] ... b[n/2] ]
     @endcode
 
-    @param a0
+    with <tt> n = cardinal_of<T>::value </tt>
 
-    @param a1
+    @param a0 First vector to deinterleave
+    @param a1 Second vector to deinterleave
 
     @return a value of the same type as the parameters
   **/

@@ -39,25 +39,19 @@ namespace boost { namespace simd {
     For every parameters of type T0:
 
     @code
-    T0 r = interleave_second(a0,a1);
+    T0 r = interleave_second(a,b);
     @endcode
 
-    is similar to:
+    is equivalent to :
 
     @code
-      T0 r;
-      size_t n = meta::cardinal_of<T0>::value;
-      size_t  middle = meta::cardinal_of<T0>::value/2;
-      for(size_t i=0;i<n/2;++i)
-      {
-        r[i*2]   = a0[middle];
-        r[i*2+1] = a1[middle++];
-      }
+    r = [ a[n/2-1] b[n/2-1] a[n/2] b[n/2] ... a[n-1] b[n-1] ]
     @endcode
 
-    @param a0
+    with <tt> n = cardinal_of<T>::value </tt>
 
-    @param a1
+    @param a0 First vector to interleave
+    @param a1 Second vector to interleave
 
     @return a value of the same type as the parameters
   **/

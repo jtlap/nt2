@@ -36,27 +36,22 @@ namespace boost { namespace simd {
 
     @par Semantic:
 
-    For every parameters of types respectively T0:
+    For every parameters of types respectively T, the following code:
 
     @code
-    T0 r = interleave_first(a0,a1);
+    T r = interleave_first(a,b);
     @endcode
 
-    is similar to:
+    is equivalent to :
 
     @code
-      T0 r;
-      const std::size_t middle = meta::cardinal_of<A0>::value/2;
-      for(std::size_t i=0;i<middle;++i)
-      {
-        r[i*2]   = a0[i];
-        r[i*2+1] = a1[i];
-      }
+    r = [ a[0] b[0] a[1] b[1] ... a[n/2-1] b[n/2-1] ]
     @endcode
 
-    @param a0
+    with <tt> n = cardinal_of<T>::value </tt>
 
-    @param a1
+    @param a0 First vector to interleave
+    @param a1 Second vector to interleave
 
     @return a value of the same type as the parameters
   **/
