@@ -30,7 +30,6 @@ NT2_TEST_CASE_TPL ( correct_fma_real,  BOOST_SIMD_SIMD_REAL_TYPES)
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
-  typedef typename boost::dispatch::meta::call<correct_fma_(vT,vT,vT)>::type r_t;
 
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
@@ -55,7 +54,6 @@ NT2_TEST_CASE_TPL ( correct_fma_si,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
-  typedef typename boost::dispatch::meta::call<correct_fma_(vT,vT,vT)>::type r_t;
 
   // specific values tests
   NT2_TEST_EQUAL(correct_fma(boost::simd::Mone<vT>(), boost::simd::Mone<vT>(), boost::simd::Mone<vT>()), boost::simd::Zero<vT>());
@@ -71,7 +69,6 @@ NT2_TEST_CASE_TPL ( correct_fma_ui,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
-  typedef typename boost::dispatch::meta::call<correct_fma_(vT,vT,vT)>::type r_t;
 
   // specific values tests
   NT2_TEST_EQUAL(correct_fma(boost::simd::One<vT>(), boost::simd::One<vT>(), boost::simd::One<vT>()), boost::simd::Two<vT>());
