@@ -11,7 +11,6 @@
 
 #include <nt2/trigonometric/functions/acotd.hpp>
 #include <nt2/include/functions/simd/atand.hpp>
-#include <nt2/include/constants/_90.hpp>
 #include <nt2/include/functions/simd/if_else_zero.hpp>
 #include <nt2/include/functions/simd/if_zero_else.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
@@ -19,10 +18,11 @@
 #include <nt2/include/functions/simd/bitofsign.hpp>
 #include <nt2/include/functions/simd/bitwise_or.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/constants/_90.hpp>
 #include <boost/simd/sdk/config.hpp>
 
 #ifndef BOOST_SIMD_NO_INFINITIES
-#include <nt2/include/functions/is_inf.hpp>
+#include <nt2/include/functions/simd/is_inf.hpp>
 #endif
 
 namespace nt2 { namespace ext

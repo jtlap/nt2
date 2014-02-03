@@ -9,17 +9,17 @@
 #ifndef NT2_ELLIPTIC_FUNCTIONS_SIMD_COMMON_AM_HPP_INCLUDED
 #define NT2_ELLIPTIC_FUNCTIONS_SIMD_COMMON_AM_HPP_INCLUDED
 
-#include <nt2/include/functions/am.hpp>
+#include <nt2/elliptic/functions/am.hpp>
 #include <nt2/elliptic/functions/generic/details/am_kernel.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
-#include <nt2/include/constants/half.hpp>
-#include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/two.hpp>
-#include <nt2/include/constants/pio_2.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/functions/simd/atan.hpp>
 #include <nt2/include/functions/simd/exp.hpp>
+#include <nt2/include/constants/half.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/constants/pio_2.hpp>
 
 namespace nt2 { namespace ext
 {

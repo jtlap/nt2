@@ -11,9 +11,8 @@
 #if defined(BOOST_SIMD_HAS_VMX_SUPPORT)
 
 #include <boost/simd/arithmetic/functions/fast_rsqrt.hpp>
-#include <boost/simd/include/functions/times.hpp>
-#include <boost/simd/include/functions/minus.hpp>
-#include <boost/simd/include/functions/sqr.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

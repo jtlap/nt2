@@ -11,7 +11,7 @@
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 #include <boost/simd/operator/functions/multiplies.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/constants/mzero.hpp>
 #include <boost/dispatch/meta/as_unsigned.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>

@@ -10,7 +10,8 @@
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_SIMD_COMMON_INBTRUE_HPP_INCLUDED
 
 #include <boost/simd/reduction/functions/inbtrue.hpp>
-#include <boost/simd/include/functions/if_one_else_zero.hpp>
+#include <boost/simd/include/functions/simd/if_one_else_zero.hpp>
+#include <boost/simd/include/functions/simd/extract.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 
 namespace boost { namespace simd { namespace ext

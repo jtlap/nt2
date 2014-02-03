@@ -8,16 +8,18 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_SCALAR_PROPER_TANPI_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_SCALAR_PROPER_TANPI_HPP_INCLUDED
+
 #include <nt2/trigonometric/functions/proper_tanpi.hpp>
 #include <nt2/trigonometric/functions/scalar/impl/trigo.hpp>
+#include <nt2/include/functions/scalar/is_ltz.hpp>
+#include <nt2/include/functions/scalar/negif.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
+#include <nt2/include/functions/scalar/is_nan.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/quarter.hpp>
-#include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/include/functions/negif.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/is_nan.hpp>
+
 // compute atan (pi*x)  for -1/2 <= x << 1/2 else return nan
 namespace nt2 { namespace ext
 {

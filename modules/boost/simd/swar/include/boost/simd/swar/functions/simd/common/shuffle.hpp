@@ -10,8 +10,8 @@
 #define BOOST_SIMD_SWAR_FUNCTIONS_SIMD_COMMON_SHUFFLE_HPP_INCLUDED
 
 #include <boost/simd/swar/functions/shuffle.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
-#include <boost/simd/include/functions/make.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/make.hpp>
 #include <boost/simd/sdk/meta/as_arithmetic.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 

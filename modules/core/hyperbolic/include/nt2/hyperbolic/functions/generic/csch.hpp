@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_HYPERBOLIC_FUNCTIONS_GENERIC_CSCH_HPP_INCLUDED
 #define NT2_HYPERBOLIC_FUNCTIONS_GENERIC_CSCH_HPP_INCLUDED
+
 #include <nt2/hyperbolic/functions/csch.hpp>
 #include <nt2/include/functions/sinh.hpp>
 #include <nt2/include/functions/rec.hpp>

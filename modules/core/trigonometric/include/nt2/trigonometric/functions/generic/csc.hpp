@@ -8,9 +8,10 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_CSC_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_CSC_HPP_INCLUDED
+
 #include <nt2/trigonometric/functions/csc.hpp>
-#include <nt2/include/functions/sin.hpp>
-#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/simd/sin.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
 
 namespace nt2 { namespace ext
 {

@@ -10,8 +10,8 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
 #include <boost/simd/swar/functions/split_high.hpp>
-#include <boost/simd/include/functions/combine.hpp>
-#include <boost/simd/include/functions/split.hpp>
+#include <boost/simd/include/functions/simd/combine.hpp>
+#include <boost/simd/include/functions/simd/split.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
 
 namespace boost { namespace simd { namespace ext

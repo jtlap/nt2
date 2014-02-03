@@ -9,8 +9,11 @@
 #ifndef BOOST_SIMD_REDUCTION_FUNCTIONS_SIMD_SSE_AVX_HMSB_HPP_INCLUDED
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_SIMD_SSE_AVX_HMSB_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
+
 #include <boost/simd/reduction/functions/hmsb.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/bitwise_or.hpp>
+#include <boost/simd/include/functions/simd/shift_left.hpp>
 #include <boost/simd/sdk/simd/meta/retarget.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/dispatch/attributes.hpp>
@@ -37,6 +40,27 @@ namespace boost { namespace simd { namespace ext
 
       return      result_type(_mm_movemask_epi8(a00))
               | ( result_type(_mm_movemask_epi8(a01)) << 16 );
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::hmsb_
+                                    , boost::simd::tag::avx_
+                                    , (A0)
+                                    , ((simd_ < type16_<A0>
+                                              , boost::simd::tag::avx_
+                                              >
+                                      ))
+                                    )
+  {
+    typedef std::size_t result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
+    {
+      typedef typename meta::retarget<A0, boost::simd::tag::sse_>::type r_t;
+
+      r_t a00 = _mm256_extractf128_si256(a0, 0);
+      r_t a01 = _mm256_extractf128_si256(a0, 1);
+
+      return hmsb(a00) | (hmsb(a01)<<8);
     }
   };
 
@@ -71,27 +95,6 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::as_floating<A0>::type vdouble;
       return _mm256_movemask_pd(bitwise_cast<vdouble>(a0));
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::hmsb_
-                                    , boost::simd::tag::avx_
-                                    , (A0)
-                                    , ((simd_ < type16_<A0>
-                                              , boost::simd::tag::avx_
-                                              >
-                                      ))
-                                    )
-  {
-    typedef std::size_t result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
-    {
-      typedef typename meta::retarget<A0, boost::simd::tag::sse_>::type r_t;
-
-      r_t a00 = _mm256_extractf128_si256(a0, 0);
-      r_t a01 = _mm256_extractf128_si256(a0, 1);
-
-      return hmsb(a00) | (hmsb(a01)<<8);
     }
   };
 } } }

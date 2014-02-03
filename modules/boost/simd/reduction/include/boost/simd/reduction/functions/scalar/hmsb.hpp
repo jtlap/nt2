@@ -11,7 +11,7 @@
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_SCALAR_HMSB_HPP_INCLUDED
 
 #include <boost/simd/reduction/functions/hmsb.hpp>
-#include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_and.hpp>
 #include <boost/simd/include/constants/signmask.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <cstddef>

@@ -8,9 +8,10 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_ASECD_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_ASECD_HPP_INCLUDED
+
 #include <nt2/trigonometric/functions/asecd.hpp>
-#include <nt2/include/functions/indeg.hpp>
-#include <nt2/include/functions/asec.hpp>
+#include <nt2/include/functions/simd/indeg.hpp>
+#include <nt2/include/functions/simd/asec.hpp>
 
 namespace nt2 { namespace ext
 {

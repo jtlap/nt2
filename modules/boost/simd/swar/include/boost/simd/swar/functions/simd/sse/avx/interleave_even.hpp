@@ -11,7 +11,7 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
 #include <boost/simd/swar/functions/interleave_even.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/simd/swar/functions/details/shuffle.hpp>
 

@@ -11,9 +11,9 @@
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_SCALAR_NBTRUE_HPP_INCLUDED
 
 #include <boost/simd/reduction/functions/nbtrue.hpp>
+#include <boost/simd/include/functions/scalar/is_nez.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext

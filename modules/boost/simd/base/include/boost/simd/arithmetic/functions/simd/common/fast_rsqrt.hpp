@@ -11,7 +11,7 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_FAST_RSQRT_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/fast_rsqrt.hpp>
-#include <boost/simd/include/functions/rsqrt.hpp>
+#include <boost/simd/include/functions/simd/rsqrt.hpp>
 #include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext

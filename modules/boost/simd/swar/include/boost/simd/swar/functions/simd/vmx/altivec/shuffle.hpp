@@ -9,13 +9,14 @@
 #ifndef BOOST_SIMD_SWAR_FUNCTIONS_SIMD_VMX_ALTIVEC_SHUFFLE_HPP_INCLUDED
 #define BOOST_SIMD_SWAR_FUNCTIONS_SIMD_VMX_ALTIVEC_SHUFFLE_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
+
 #include <boost/simd/swar/functions/shuffle.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
-#include <boost/simd/include/functions/make.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/make.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/any.hpp>
 #include <boost/simd/swar/functions/details/perm.hpp>
+#include <boost/dispatch/meta/any.hpp>
 #include <boost/mpl/integral_c.hpp>
 #include <boost/mpl/range_c.hpp>
 #include <boost/mpl/contains.hpp>

@@ -8,13 +8,14 @@
 //==============================================================================
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_CSCPI_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_CSCPI_HPP_INCLUDED
+
 #include <nt2/trigonometric/functions/cscpi.hpp>
-#include <nt2/include/functions/sinpi.hpp>
-#include <nt2/include/functions/if_allbits_else.hpp>
-#include <nt2/include/functions/logical_andnot.hpp>
-#include <nt2/include/functions/is_flint.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/simd/sinpi.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/logical_andnot.hpp>
+#include <nt2/include/functions/simd/is_flint.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
 
 namespace nt2 { namespace ext
 {

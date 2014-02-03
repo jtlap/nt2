@@ -10,15 +10,16 @@
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_SIMD_VMX_ALTIVEC_IMPL_DIVIDES_FLOAT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
+#include <boost/simd/operator/functions/divides.hpp>
+#include <boost/simd/include/functions/simd/rec.hpp>
 #include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/include/functions/rec.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divides_, boost::simd::tag::vmx_, (A0)
-                            , ((simd_<single_<A0>,boost::simd::tag::vmx_>))
-                              ((simd_<single_<A0>,boost::simd::tag::vmx_>))
-                            )
+                                   , ((simd_<single_<A0>,boost::simd::tag::vmx_>))
+                                     ((simd_<single_<A0>,boost::simd::tag::vmx_>))
+                                   )
   {
     typedef A0 result_type;
 

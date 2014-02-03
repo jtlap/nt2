@@ -9,8 +9,9 @@
 #ifndef BOOST_SIMD_SWAR_FUNCTIONS_SIMD_SSE_SSSE3_SHUFFLE_HPP_INCLUDED
 #define BOOST_SIMD_SWAR_FUNCTIONS_SIMD_SSE_SSSE3_SHUFFLE_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSSE3_SUPPORT
+
 #include <boost/simd/swar/functions/shuffle.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/swar/functions/details/perm.hpp>
 

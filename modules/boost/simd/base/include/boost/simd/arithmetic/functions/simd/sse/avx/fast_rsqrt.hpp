@@ -11,10 +11,10 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_FAST_RSQRT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
-#include <boost/simd/arithmetic/functions/rsqrt.hpp>
-#include <boost/simd/include/functions/times.hpp>
-#include <boost/simd/include/functions/minus.hpp>
-#include <boost/simd/include/functions/sqr.hpp>
+#include <boost/simd/arithmetic/functions/fast_rsqrt.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
+#include <boost/simd/include/functions/simd/sqr.hpp>
 #include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext

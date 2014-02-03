@@ -9,12 +9,12 @@
 #ifndef BOOST_SIMD_SWAR_FUNCTIONS_SIMD_SSE_SSE2_CUMPROD_HPP_INCLUDED
 #define BOOST_SIMD_SWAR_FUNCTIONS_SIMD_SSE_SSE2_CUMPROD_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+
 #include <boost/simd/swar/functions/cumprod.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
 #include <boost/simd/include/constants/one.hpp>
-#include <boost/simd/include/functions/bitwise_or.hpp>
-
-
+#include <boost/dispatch/meta/as_integer.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type8_

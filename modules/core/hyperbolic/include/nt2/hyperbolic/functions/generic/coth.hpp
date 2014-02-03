@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_HYPERBOLIC_FUNCTIONS_GENERIC_COTH_HPP_INCLUDED
 #define NT2_HYPERBOLIC_FUNCTIONS_GENERIC_COTH_HPP_INCLUDED
+
 #include <nt2/hyperbolic/functions/coth.hpp>
 #include <nt2/include/functions/tanh.hpp>
 #include <nt2/include/functions/rec.hpp>

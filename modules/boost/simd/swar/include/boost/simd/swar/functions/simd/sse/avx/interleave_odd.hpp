@@ -12,7 +12,7 @@
 
 #include <boost/simd/swar/functions/interleave_odd.hpp>
 #include <boost/simd/swar/functions/details/shuffle.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 
 namespace boost { namespace simd { namespace ext

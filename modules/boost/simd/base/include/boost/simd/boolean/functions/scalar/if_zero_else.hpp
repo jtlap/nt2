@@ -9,8 +9,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_BOOLEAN_FUNCTIONS_SCALAR_IF_ZERO_ELSE_HPP_INCLUDED
 #define BOOST_SIMD_BOOLEAN_FUNCTIONS_SCALAR_IF_ZERO_ELSE_HPP_INCLUDED
+
 #include <boost/simd/boolean/functions/if_zero_else.hpp>
-#include <boost/simd/include/functions/is_eqz.hpp>
+#include <boost/simd/include/functions/scalar/is_eqz.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/dispatch/attributes.hpp>
 
@@ -26,7 +27,7 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return is_eqz(a0) ? a1 : Zero<result_type>();
+      return a0 ? a1 : Zero<result_type>();
     }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::if_zero_else_
@@ -39,7 +40,7 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return is_eqz(a0) ?  a1 :Zero<result_type>();
+      return is_eqz(a0) ? a1 : Zero<result_type>();
     }
   };
 } } }
