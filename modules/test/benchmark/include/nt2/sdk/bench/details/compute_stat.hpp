@@ -20,14 +20,14 @@ namespace nt2 { namespace details
     typedef S type;
   };
 
-  template<> struct compute_state<bench::stats::min_>
+  template<> struct compute_state<nt2::bench::stats::min_>
   {
-    typedef bench::stats::max_ type;
+    typedef nt2::bench::stats::max_ type;
   };
 
-  template<> struct compute_state<bench::stats::max_>
+  template<> struct compute_state<nt2::bench::stats::max_>
   {
-    typedef bench::stats::min_ type;
+    typedef nt2::bench::stats::min_ type;
   };
 } }
 
