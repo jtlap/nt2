@@ -15,6 +15,7 @@ SET ( SOURCES
       fast_rec.cpp
       raw_rec.cpp
       rec.cpp
+      hypot.cpp
     # List of simd test files for toolbox arithmetic
     )
 
