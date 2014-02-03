@@ -14,6 +14,12 @@
 
 namespace boost { namespace simd { namespace details
 {
+  template<class T>
+  inline T divceil(T a, T b)
+  {
+    return (a / b) + !!(a % b);
+  }
+
   template<typename Allocator> struct allocator_malloc
   {
     allocator_malloc(Allocator& a) : alloc(a)
@@ -25,14 +31,14 @@ namespace boost { namespace simd { namespace details
       #ifndef BOOST_NO_EXCEPTIONS
       try
       {
-        return alloc.allocate((sz-1)/sizeof(typename Allocator::value_type)+1);
+        return alloc.allocate(details::divceil(sz, sizeof(typename Allocator::value_type)));
       }
       catch(...)
       {
         return 0;
       }
       #else
-      return alloc.allocate((sz-1)/sizeof(typename Allocator::value_type)+1);
+      return alloc.allocate(details::divceil(sz, sizeof(typename Allocator::value_type)));
       #endif
     }
 
@@ -49,7 +55,7 @@ namespace boost { namespace simd { namespace details
     void operator()(void* ptr)
     {
       typedef typename Allocator::pointer type;
-      return alloc.deallocate(type(ptr), (sz-1) / sizeof(typename Allocator::value_type) + 1);
+      return alloc.deallocate(type(ptr), details::divceil(sz, sizeof(typename Allocator::value_type)));
     }
 
     Allocator& alloc;
