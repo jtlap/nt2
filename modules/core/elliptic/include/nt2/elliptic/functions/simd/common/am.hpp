@@ -12,6 +12,8 @@
 #include <nt2/elliptic/functions/am.hpp>
 #include <nt2/elliptic/functions/generic/details/am_kernel.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/is_equal.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/functions/simd/atan.hpp>
