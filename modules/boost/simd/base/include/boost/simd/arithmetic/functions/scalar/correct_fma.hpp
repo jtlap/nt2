@@ -10,11 +10,11 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_CORRECT_FMA_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/correct_fma.hpp>
-#include <boost/simd/include/functions/two_add.hpp>
-#include <boost/simd/include/functions/two_prod.hpp>
-#include <boost/simd/include/functions/ldexp.hpp>
-#include <boost/simd/include/functions/max.hpp>
-#include <boost/simd/include/functions/exponent.hpp>
+#include <boost/simd/include/functions/scalar/two_add.hpp>
+#include <boost/simd/include/functions/scalar/two_prod.hpp>
+#include <boost/simd/include/functions/scalar/ldexp.hpp>
+#include <boost/simd/include/functions/scalar/max.hpp>
+#include <boost/simd/include/functions/scalar/exponent.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/attributes.hpp>
 
@@ -55,7 +55,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename boost::dispatch::meta::as_integer<A0>::type iA0;
       iA0 e0 = exponent(a0);
       iA0 e1 = exponent(a1);
-      iA0 e = -boost::simd::max(e0, e1);
+      iA0 e = -boost::simd::max(e0, e1)/2;
       result_type ae2  = ldexp(a2, e);
       bool choose = (e0 > e1);
       result_type amax = choose ? ldexp(a0, e) : ldexp(a1, e);

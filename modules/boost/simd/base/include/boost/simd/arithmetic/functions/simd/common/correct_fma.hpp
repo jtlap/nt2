@@ -9,13 +9,14 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_CORRECT_FMA_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_CORRECT_FMA_HPP_INCLUDED
+
 #include <boost/simd/arithmetic/functions/correct_fma.hpp>
 #include <boost/simd/include/functions/simd/multiplies.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/split.hpp>
 #include <boost/simd/include/functions/simd/group.hpp>
-#include <boost/simd/include/functions/simd/unary_minus.hpp>
-
+#include <boost/simd/include/functions/simd/two_prod.hpp>
+#include <boost/simd/include/functions/simd/two_add.hpp>
 #include <boost/simd/sdk/meta/is_upgradable.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
@@ -26,8 +27,8 @@
 #include <boost/simd/include/functions/simd/exponent.hpp>
 #include <boost/simd/include/functions/simd/maxmag.hpp>
 #include <boost/simd/include/functions/simd/minmag.hpp>
-#include <boost/simd/arithmetic/functions/two_prod.hpp>
-#include <boost/simd/arithmetic/functions/two_add.hpp>
+#include <boost/simd/include/functions/simd/shift_right.hpp>
+#include <boost/simd/include/functions/simd/unary_minus.hpp>
 #endif
 
 namespace boost { namespace simd { namespace ext
@@ -68,7 +69,7 @@ namespace boost { namespace simd { namespace ext
         typedef typename boost::dispatch::meta::as_integer<A0>::type iA0;
         result_type amax =  maxmag(a0, a1);
         result_type amin =  minmag(a0, a1);
-        iA0 e0 = -exponent(amax);
+        iA0 e0 = -shr(exponent(amax), 1);
         amax = ldexp(amax, e0);
         result_type a02 = ldexp(a2, e0);
         two_prod(amax, amin, p, rp);
