@@ -25,14 +25,14 @@ namespace boost { namespace simd { namespace details
       #ifndef BOOST_NO_EXCEPTIONS
       try
       {
-        return alloc.allocate(sz/sizeof(typename Allocator::value_type));
+        return alloc.allocate((sz-1)/sizeof(typename Allocator::value_type)+1);
       }
       catch(...)
       {
         return 0;
       }
       #else
-      return alloc.allocate(sz/sizeof(typename Allocator::value_type));
+      return alloc.allocate((sz-1)/sizeof(typename Allocator::value_type)+1);
       #endif
     }
 
@@ -49,7 +49,7 @@ namespace boost { namespace simd { namespace details
     void operator()(void* ptr)
     {
       typedef typename Allocator::pointer type;
-      return alloc.deallocate(type(ptr), sz / sizeof(typename Allocator::value_type));
+      return alloc.deallocate(type(ptr), (sz-1) / sizeof(typename Allocator::value_type) + 1);
     }
 
     Allocator& alloc;
