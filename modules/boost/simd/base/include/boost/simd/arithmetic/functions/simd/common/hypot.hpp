@@ -12,6 +12,7 @@
 
 #include <boost/simd/arithmetic/functions/hypot.hpp>
 #include <boost/simd/include/functions/simd/abs.hpp>
+#include <boost/simd/include/functions/simd/min.hpp>
 #include <boost/simd/include/functions/simd/max.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/unary_minus.hpp>
@@ -20,6 +21,7 @@
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/sqr.hpp>
 #include <boost/simd/include/functions/simd/sqrt.hpp>
+#include <boost/simd/include/constants/maxexponentm1.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 #ifndef BOOST_SIMD_NO_INVALIDS
@@ -31,10 +33,6 @@
 #include <boost/simd/include/constants/inf.hpp>
 #endif
 
-#ifdef BOOST_SIMD_NO_DENORMALS
-#include <boost/simd/include/constants/maxexponentm1.hpp>
-#include <boost/simd/include/functions/simd/min.hpp>
-#endif
 
 namespace boost { namespace simd { namespace ext
 {
@@ -52,9 +50,7 @@ namespace boost { namespace simd { namespace ext
       result_type r =  boost::simd::abs(a0);
       result_type i =  boost::simd::abs(a1);
       iA0 e =  exponent(boost::simd::max(i, r));
-      #ifdef BOOST_SIMD_NO_DENORMALS
-      e = boost::simd::min(e, Maxexponentm1<A0>());
-      #endif
+      e = boost::simd::min(boost::simd::max(e,Minexponent<A0>()),Maxexponentm1<A0>());
       result_type res =  ldexp(sqrt(sqr(ldexp(r, -e))+sqr(ldexp(i, -e))), e);
       #ifndef BOOST_SIMD_NO_INVALIDS
       typedef typename meta::as_logical<result_type>::type             lA0;

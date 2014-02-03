@@ -18,17 +18,17 @@
 #include <boost/simd/include/functions/scalar/sqr.hpp>
 #include <boost/simd/include/functions/scalar/sqrt.hpp>
 #include <boost/simd/include/functions/scalar/max.hpp>
+#include <boost/simd/include/functions/scalar/min.hpp>
+#include <boost/simd/include/constants/maxexponentm1.hpp>
+#include <boost/simd/include/constants/minexponent.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 
 #ifndef BOOST_SIMD_NO_INVALIDS
 #include <boost/simd/include/functions/scalar/is_inf.hpp>
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #endif
-
-#ifdef BOOST_SIMD_NO_DENORMALS
-#include <boost/simd/include/constants/maxexponentm1.hpp>
-#include <boost/simd/include/functions/scalar/min.hpp>
-#endif
+#include <iostream>
 
 
 namespace boost { namespace simd { namespace ext
@@ -51,9 +51,7 @@ namespace boost { namespace simd { namespace ext
       A0 r =  boost::simd::abs(a0);
       A0 i =  boost::simd::abs(a1);
       iA0 e =  exponent(boost::simd::max(i, r));
-      #ifdef BOOST_SIMD_NO_DENORMALS
-      e = boost::simd::min(e, Maxexponentm1<A0>());
-      #endif
+      e = boost::simd::min(boost::simd::max(e,Minexponent<A0>()),Maxexponentm1<A0>());
       return ldexp(sqrt(sqr(ldexp(r, -e))+sqr(ldexp(i, -e))), e);
     }
   };

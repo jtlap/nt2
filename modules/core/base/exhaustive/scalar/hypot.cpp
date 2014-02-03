@@ -21,7 +21,7 @@ struct raw_hypot
 {
   float operator()(float x) const
   {
-    return ::hypotf(x, nt2::rec(x));
+    return float(::hypot(x, nt2::rec(x)));
   }
 };
 struct hypot0
