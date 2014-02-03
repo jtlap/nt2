@@ -55,7 +55,7 @@ namespace boost { namespace simd { namespace ext
         typedef typename dispatch::meta::as_integer<A0, signed>::type int_type;
         r1 = simd::bitwise_cast<int_type>(b_and(Mask1frexp<A0>(), a0));  // extract exp.
 #ifndef BOOST_SIMD_NO_DENORMALS
-        A1 t =  Zero<A0>();
+        A1 t = Zero<A1>();
         if(is_eqz(r1)) // denormal
         {
           a0 *= Twotonmb<A0>();
