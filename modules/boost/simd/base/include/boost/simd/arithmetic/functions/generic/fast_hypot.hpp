@@ -13,6 +13,7 @@
 #include <boost/simd/include/functions/simd/sqrt.hpp>
 #include <boost/simd/include/functions/simd/sqr.hpp>
 #include <boost/simd/include/functions/simd/fma.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

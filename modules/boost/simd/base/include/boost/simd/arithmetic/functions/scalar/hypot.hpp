@@ -28,7 +28,6 @@
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #endif
-#include <iostream>
 
 
 namespace boost { namespace simd { namespace ext

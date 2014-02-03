@@ -6,7 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define BOOST_SIMD_NO_DENORMALS
 #include <nt2/include/functions/abs.hpp>
 
 #include <boost/dispatch/functor/meta/call.hpp>
