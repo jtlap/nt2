@@ -13,10 +13,6 @@
 #include <boost/simd/arithmetic/functions/hypot.hpp>
 #include <boost/simd/include/functions/simd/abs.hpp>
 #include <boost/simd/include/functions/simd/max.hpp>
-#include <boost/simd/include/functions/simd/is_inf.hpp>
-#include <boost/simd/include/functions/simd/is_nan.hpp>
-#include <boost/simd/include/functions/simd/logical_and.hpp>
-#include <boost/simd/include/functions/simd/logical_or.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/unary_minus.hpp>
 #include <boost/simd/include/functions/simd/exponent.hpp>
@@ -24,9 +20,21 @@
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/sqr.hpp>
 #include <boost/simd/include/functions/simd/sqrt.hpp>
-#include <boost/simd/include/constants/inf.hpp>
-#include <boost/dispatch/attributes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+
+#ifndef BOOST_SIMD_NO_INVALIDS
+#include <boost/simd/sdk/meta/as_logical.hpp>
+#include <boost/simd/include/functions/simd/logical_and.hpp>
+#include <boost/simd/include/functions/simd/logical_or.hpp>
+#include <boost/simd/include/functions/simd/is_inf.hpp>
+#include <boost/simd/include/functions/simd/is_nan.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#endif
+
+#ifdef BOOST_SIMD_NO_DENORMALS
+#include <boost/simd/include/constants/maxexponentm1.hpp>
+#include <boost/simd/include/functions/simd/min.hpp>
+#endif
 
 namespace boost { namespace simd { namespace ext
 {
@@ -40,15 +48,22 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename dispatch::meta::as_integer<result_type>::type itype;
+      typedef typename dispatch::meta::as_integer<result_type>::type   iA0;
       result_type r =  boost::simd::abs(a0);
       result_type i =  boost::simd::abs(a1);
-      itype e =  exponent(boost::simd::max(i, r));
-      return  if_else( logical_or(logical_and(is_nan(a0), is_inf(a1)),
-                                  logical_and(is_nan(a1), is_inf(a0))),
-                       Inf<result_type>(),
-                       ldexp(sqrt(sqr(ldexp(r, -e))+sqr(ldexp(i, -e))), e)
-                       );
+      iA0 e =  exponent(boost::simd::max(i, r));
+      #ifdef BOOST_SIMD_NO_DENORMALS
+      e = boost::simd::min(e, Maxexponentm1<A0>());
+      #endif
+      result_type res =  ldexp(sqrt(sqr(ldexp(r, -e))+sqr(ldexp(i, -e))), e);
+      #ifndef BOOST_SIMD_NO_INVALIDS
+      typedef typename meta::as_logical<result_type>::type             lA0;
+      lA0 test = logical_or(logical_and(is_nan(a0), is_inf(a1)),
+                            logical_and(is_nan(a1), is_inf(a0)));
+      return if_else(test, Inf<result_type>(), res);
+      #else
+      return res;
+      #endif
     }
   };
 } } }
