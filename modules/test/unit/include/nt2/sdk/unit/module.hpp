@@ -91,7 +91,7 @@ NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int argc, char* argv[])
 
   using boost::program_options::options_description;
   options_description desc_commandline("Usage: " HPX_APPLICATION_STRING " [options]");
-  char *dummy_argv[1] = { HPX_APPLICATION_STRING };
+  char *dummy_argv[1] = { const_cast<char*>(HPX_APPLICATION_STRING) };
 
   return hpx::init(hpx_initializer(argc, argv), boost::program_options::options_description(), 1, dummy_argv, cfg);
 #else
