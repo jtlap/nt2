@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_SCALAR_POW2_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_POW2_HPP_INCLUDED
+
 #include <nt2/exponential/functions/pow2.hpp>
 #include <nt2/include/functions/scalar/fast_ldexp.hpp>
 #include <nt2/include/functions/scalar/ldexp.hpp>
@@ -50,10 +51,10 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow2_, tag::cpu_
-                              , (A0)(A1)
-                              , (scalar_< integer_<A0> >)
+                            , (A0)(A1)
+                            , (scalar_< integer_<A0> >)
                               (scalar_< integer_<A1> >)
-                              )
+                            )
   {
 
     typedef A0 result_type;
@@ -65,9 +66,9 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow2_, tag::cpu_
-                              , (A0)
-                              , (scalar_< arithmetic_<A0> >)
-                              )
+                            , (A0)
+                            , (scalar_< arithmetic_<A0> >)
+                            )
   {
 
     typedef A0 result_type;
