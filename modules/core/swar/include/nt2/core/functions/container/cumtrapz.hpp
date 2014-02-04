@@ -6,10 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SWAR_FUNCTIONS_CONTAINER_CUMTRAPZ_HPP_INCLUDED
-#define NT2_SWAR_FUNCTIONS_CONTAINER_CUMTRAPZ_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_CONTAINER_CUMTRAPZ_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_CONTAINER_CUMTRAPZ_HPP_INCLUDED
 
-#include <nt2/swar/functions/cumtrapz.hpp>
+#include <nt2/core/functions/cumtrapz.hpp>
 #include <nt2/include/functions/adjfun.hpp>
 #include <nt2/include/functions/putalong.hpp>
 #include <nt2/include/functions/diff.hpp>
@@ -38,10 +38,10 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cumtrapz_, tag::cpu_
-                              , (A0)(A1)
-                              , ((ast_<A0, nt2::container::domain>))
+                            , (A0)(A1)
+                            , ((ast_<A0, nt2::container::domain>))
                               ((ast_<A1, nt2::container::domain>))
-                              )
+                            )
   {
     typedef typename  meta::call<tag::cumtrapz_(const A0&, size_t)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& x, A1 const& y) const
@@ -52,10 +52,10 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cumtrapz_, tag::cpu_
-                              , (A0)(A1)
-                              , (scalar_<unspecified_ < A0> >)
+                            , (A0)(A1)
+                            , (scalar_<unspecified_ < A0> >)
                               ((ast_<A1, nt2::container::domain>))
-                              )
+                            )
   {
     typedef typename  meta::call<tag::cumtrapz_(const A1&, size_t)>::type          T0;
     typedef typename  meta::call<tag::multiplies_(T0, A0 const&)>::type   result_type;
@@ -67,11 +67,11 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cumtrapz_, tag::cpu_
-                              , (A0)(A1)(A2)
-                              , (scalar_<unspecified_ < A0> >)
+                            , (A0)(A1)(A2)
+                            , (scalar_<unspecified_ < A0> >)
                               ((ast_<A1, nt2::container::domain>))
                                (scalar_<integer_<A2> > )
-                              )
+                            )
   {
     typedef typename  meta::call<tag::cumtrapz_(const A1&, size_t)>::type          T0;
     typedef typename  meta::call<tag::multiplies_(T0, A0 const&)>::type   result_type;
@@ -81,8 +81,8 @@ namespace nt2 { namespace ext
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cumtrapz_, tag::cpu_
-                              , (A0)(A1)
-                              , ((ast_<A0, nt2::container::domain>))
+                            , (A0)(A1)
+                            , ((ast_<A0, nt2::container::domain>))
                               (scalar_<integer_<A1> > )
                             )
   {
@@ -107,11 +107,11 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cumtrapz_, tag::cpu_
-                              , (A0)(A1)(A2)
-                              , ((ast_<A0, nt2::container::domain>))
+                            , (A0)(A1)(A2)
+                            , ((ast_<A0, nt2::container::domain>))
                               ((ast_<A1, nt2::container::domain>))
                               (scalar_<integer_<A2> > )
-    )
+                            )
   {
     typedef typename A0::value_type                                                           value_type;
     typedef typename meta::as_real<value_type>::type                                           real_type;

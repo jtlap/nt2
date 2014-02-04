@@ -6,16 +6,14 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_SWAR_FUNCTIONS_CUMTRAPZ_HPP_INCLUDED
-#define BOOST_SIMD_SWAR_FUNCTIONS_CUMTRAPZ_HPP_INCLUDED
-#include <boost/simd/include/functor.hpp>
-#include <boost/dispatch/include/functor.hpp>
-#include <boost/simd/operator/functions/multiplies.hpp>
-#include <boost/simd/constant/constants/one.hpp>
+#ifndef NT2_CORE_FUNCTIONS_CUMTRAPZ_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_CUMTRAPZ_HPP_INCLUDED
 
+#include <nt2/include/functor.hpp>
 
-
-namespace boost { namespace simd { namespace tag
+namespace nt2
+{
+  namespace tag
   {
    /*!
      @brief cumtrapz generic tag
@@ -25,10 +23,10 @@ namespace boost { namespace simd { namespace tag
      @par Models:
         Hierarchy
    **/
-    struct cumtrapz_ : tag::formal_
+    struct cumtrapz_ : boost::dispatch::tag::formal_
     {
       /// @brief Parent hierarchy
-      typedef tag::formal_ parent;
+      typedef boost::dispatch::tag::formal_ parent;
     };
   }
   /*!  Computes the cumulate trapz of the vector elements using the
@@ -94,6 +92,6 @@ namespace boost { namespace simd { namespace tag
     @return a value of the same type as the second parameter
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::cumtrapz_, cumtrapz, 1)
-} }
+}
 
 #endif
