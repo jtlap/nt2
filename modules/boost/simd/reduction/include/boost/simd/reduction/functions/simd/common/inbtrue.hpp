@@ -11,8 +11,7 @@
 
 #include <boost/simd/reduction/functions/inbtrue.hpp>
 #include <boost/simd/include/functions/simd/if_one_else_zero.hpp>
-#include <boost/simd/include/functions/simd/extract.hpp>
-#include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/include/functions/simd/sum.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -24,11 +23,7 @@ namespace boost { namespace simd { namespace ext
     typedef std::size_t result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      result_type z = (result_type)if_one_else_zero(a0[0]);
-      for(size_t i = 1; i< boost::simd::meta::cardinal_of<A0>::value; ++i)
-        z += (result_type)if_one_else_zero(a0[i]);
-
-      return z;
+      return sum(if_one_else_zero(a0));
     }
   };
 
@@ -41,7 +36,7 @@ namespace boost { namespace simd { namespace ext
     typedef std::size_t result_type;
     inline result_type operator()(A0 const & a0, A1 const &) const
     {
-      return boost::simd::inbtrue(a0);
+      return sum(if_one_else_zero(a0));
     }
   };
 } } }

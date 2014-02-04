@@ -11,9 +11,9 @@
 
 #include <boost/simd/reduction/functions/nbtrue.hpp>
 #include <boost/simd/include/functions/simd/if_one_else_zero.hpp>
-#include <boost/simd/include/functions/simd/extract.hpp>
-#include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/include/functions/simd/sum.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/simd/sdk/meta/as_arithmetic.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -22,15 +22,11 @@ namespace boost { namespace simd { namespace ext
                                    , ((simd_<unspecified_<A0>,X>))
                                    )
   {
-    typedef typename meta::scalar_of<A0>::type result_type;
+    typedef typename meta::as_arithmetic<A0>::type arith_t;
+    typedef typename meta::scalar_of<arith_t>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      result_type z = a0[0] != 0;
-      for(size_t i = 1; i< boost::simd::meta::cardinal_of<A0>::value; ++i)
-      {
-        z += if_one_else_zero(a0[i]);
-      }
-      return z;
+      return sum(if_one_else_zero(a0));
     }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nbtrue_, tag::cpu_
@@ -39,15 +35,12 @@ namespace boost { namespace simd { namespace ext
                                      (scalar_< integer_<A1> > )
                                    )
   {
-    typedef typename meta::scalar_of<A0>::type result_type;
+    typedef typename meta::as_arithmetic<A0>::type arith_t;
+    typedef typename meta::scalar_of<arith_t>::type result_type;
+
     inline result_type operator()(A0 const & a0, A1 const &) const
     {
-      result_type z = a0[0] != 0;
-      for(size_t i = 1; i< boost::simd::meta::cardinal_of<A0>::value; ++i)
-      {
-        z += if_one_else_zero(a0[i]);
-      }
-      return z;
+      return sum(if_one_else_zero(a0));
     }
   };
 } } }
