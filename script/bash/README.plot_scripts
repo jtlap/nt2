@@ -6,7 +6,7 @@ RUN_ARGS="-o size_min 32 -o size_max 2048" RUN_CMD="" plot_benchmarks  bar saxpy
 creates a bar chart using the executables passed as arguments.
 
 RUN_ARGS="-o size_min 32 -o size_max 2048" RUN_CMD="ANROID_SCRIPT" plot_benchmarks  graph -
-creates a graph from an existing output.txt file. output.txt contains the entire output from a a benchmark.
+creates a graph from an existing output.txt file. output.txt contains the entire output from a benchmark.
 
 Requirements: octave and imagemagick
 
