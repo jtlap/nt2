@@ -15,15 +15,12 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/include/constants/two.hpp>
-#include <boost/simd/include/constants/mtwo.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/nan.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
-#include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/sqrt_2.hpp>
 #include <boost/simd/sdk/config.hpp>
 
@@ -45,9 +42,13 @@ NT2_TEST_CASE_TPL ( hypot_real,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(hypot(boost::simd::Inf<T>(), boost::simd::Inf<T>()), boost::simd::Inf<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(hypot(boost::simd::Minf<T>(), boost::simd::Minf<T>()), boost::simd::Inf<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(hypot(boost::simd::Nan<T>(), boost::simd::Nan<T>()), boost::simd::Nan<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(hypot(boost::simd::Nan<T>(), boost::simd::Inf<T>()), boost::simd::Inf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(hypot(boost::simd::Inf<T>(), boost::simd::Nan<T>()), boost::simd::Inf<r_t>(), 0);
 #endif
   NT2_TEST_ULP_EQUAL(hypot(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::Sqrt_2<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(hypot(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::Sqrt_2<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(hypot(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<T>(), 0);
+  NT2_TEST_ULP_EQUAL(hypot(boost::simd::Valmax<T>(), boost::simd::Zero<T>()), boost::simd::Valmax<T>(), 0.5);
+  NT2_TEST_ULP_EQUAL(hypot(boost::simd::Zero<T>(), boost::simd::Valmax<T>()), boost::simd::Valmax<T>(), 0.5);
 } // end of test for floating_
 

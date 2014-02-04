@@ -9,26 +9,11 @@
 #ifndef NT2_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_ABS_HPP_INCLUDED
 #define NT2_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_ABS_HPP_INCLUDED
 #include <nt2/arithmetic/functions/abs.hpp>
-#include <nt2/include/functions/real.hpp>
-#include <nt2/include/functions/imag.hpp>
-#include <nt2/include/functions/simd/logical_and.hpp>
-#include <nt2/include/functions/simd/logical_or.hpp>
+#include <nt2/include/functions/simd/real.hpp>
+#include <nt2/include/functions/simd/imag.hpp>
 #include <nt2/include/functions/simd/hypot.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
-#include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_logical.hpp>
-#include <nt2/include/functions/simd/is_less.hpp>
-#include <nt2/include/functions/simd/is_nan.hpp>
-#include <nt2/include/functions/simd/is_inf.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/simd/sqr.hpp>
-#include <nt2/include/functions/simd/exponent.hpp>
-#include <nt2/include/functions/ldexp.hpp>
-#include <nt2/include/functions/simd/sqrt.hpp>
-#include <nt2/include/functions/simd/unary_minus.hpp>
-#include <nt2/include/constants/inf.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -37,21 +22,9 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename meta::as_real<A0>::type       result_type;
-    typedef typename meta::as_logical<result_type>::type ltype;
     NT2_FUNCTOR_CALL(1)
     {
-    typedef typename meta::as_integer<result_type>::type itype;
-      //      return hypot(nt2::real(a0),nt2::imag(a0));
-      result_type r =  nt2::abs(nt2::real(a0));
-      result_type i =  nt2::abs(nt2::imag(a0));
-      ltype test = logical_and(logical_or(is_nan(r),is_nan(i)),
-                               logical_or(is_inf(r),is_inf(i)));
-      // nan^2 + inf^2 is always inf whatever nan is
-      itype e =  if_else(lt(r, i), exponent(i), exponent(r));
-      return if_else(test,
-                     Inf<result_type>(),
-                     ldexp(sqrt(sqr(ldexp(r, -e))+sqr(ldexp(i, -e))), e)
-                     );
+      return hypot(nt2::real(a0),nt2::imag(a0));
     }
   };
 
