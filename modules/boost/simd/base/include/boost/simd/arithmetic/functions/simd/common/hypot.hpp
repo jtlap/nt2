@@ -18,7 +18,7 @@
 #include <boost/simd/include/functions/simd/unary_minus.hpp>
 #include <boost/simd/include/functions/simd/exponent.hpp>
 #include <boost/simd/include/functions/simd/ldexp.hpp>
-include <boost/simd/include/functions/simd/sqr.hpp>
+#include <boost/simd/include/functions/simd/sqr.hpp>
 #include <boost/simd/include/functions/simd/sqrt.hpp>
 #include <boost/simd/include/constants/maxexponentm1.hpp>
 #include <boost/simd/include/constants/minexponent.hpp>
