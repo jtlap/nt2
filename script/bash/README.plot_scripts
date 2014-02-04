@@ -1,19 +1,15 @@
-graph_gflops: Produces a graph for each executable passed of the benchmark size versus the GFLOPS sustained by the benchmark. Each executable passed should have the same number of sizes and the same sizes.
-
-bar_speedup: Produces a bar chart for each benchmark size for each executable. Each executable passed should have the same number of sizes and the same sizes.
+plot_benchmarks: produces either a bar chart or a graph of the benchmark results
 
 Example usage:
 
-graph_gflops -o size_min 32 -o size_max 2048 -o size_step 2 -o alpha 0.5 sse2/saxpy/scalar/saxpy_scalar sse4.2/saxpy/mkl/saxpy_mkl sse2/saxpy/simd/saxpy_simd sse3/saxpy/simd/saxpy_simd sse4.2/saxpy/simd/saxpy_simd
+RUN_ARGS="-o size_min 32 -o size_max 2048" RUN_CMD="" plot_benchmarks  bar saxpy_scalar sse4.2/saxpy/mkl/saxpy_mkl saxpy/simd/saxpy_simd sse3/saxpy/simd/saxpy_simd simd/saxpy_simd
+creates a bar chart using the executables passed as arguments.
 
-bar_speedup -s android_run -o size_min 32 neon/blackscholes/scalar/blackandscholes_scalar neon/blackscholes/simd/blackandscholes_simd neon/blackscholes/nt2/blackandscholes_nt2
+RUN_ARGS="-o size_min 32 -o size_max 2048" RUN_CMD="ANROID_SCRIPT" plot_benchmarks  graph -
+creates a graph from an existing output.txt file. output.txt contains the entire output from a a benchmark.
 
 Requirements: octave and imagemagick
 
-As many benchmark arguments as required may be passed, all preceeded by -o.
+The directory where the scripts lie, (NT2_DIR)/script/bash/, should be added to the PATH variable so that the required scritps will be found.
 
-In order for the input to be properly parsed, the folder hierarchy should be as follows: <EXTENSION_NAME><BENCHNAME><TYPE><EXECUTABLE>, where TYPE is scalar, simd, mkl etc and EXECUTABLE is the bactual benchmark. The script should be run from the parent directory.
-
-If a script is required to run your benchmark, then the first argument should be -s followed by the script name. The script should take the executable as the first argument. The run command in the script should have "${*:2}" after it to ensure that all arguments apart from the executable name which are passed to the script are subsequently passed to the executable.
-
-ssh android ~/benchmarks/$(basename "$1") ${*:2}
+If a script is required to run your benchmark, then RUN_CMD should contain the script name. The script should take the executable as the first argument. The run command in the script should have "${*:2}" after it to ensure that all arguments apart from the executable name which are passed to the script are subsequently passed to the executable.
