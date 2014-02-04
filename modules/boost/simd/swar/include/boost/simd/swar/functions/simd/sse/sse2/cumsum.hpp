@@ -9,19 +9,18 @@
 #ifndef BOOST_SIMD_SWAR_FUNCTIONS_SIMD_SSE_SSE2_CUMSUM_HPP_INCLUDED
 #define BOOST_SIMD_SWAR_FUNCTIONS_SIMD_SSE_SSE2_CUMSUM_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-#include <boost/simd/swar/functions/cumsum.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is type8_
-/////////////////////////////////////////////////////////////////////////////
+#include <boost/simd/swar/functions/cumsum.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::cumsum_, boost::simd::tag::sse2_,
-                         (A0),
-                         ((simd_<type8_<A0>,boost::simd::tag::sse_>))
-                        )
+                                    (A0),
+                                    ((simd_<type8_<A0>,boost::simd::tag::sse_>))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
@@ -63,15 +62,10 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is type64_
-/////////////////////////////////////////////////////////////////////////////
-
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::cumsum_, boost::simd::tag::sse2_,
-                         (A0),
-                         ((simd_<type64_<A0>,boost::simd::tag::sse_>))
-                        )
+                                    (A0),
+                                    ((simd_<type64_<A0>,boost::simd::tag::sse_>))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
@@ -83,15 +77,10 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is type16_
-/////////////////////////////////////////////////////////////////////////////
-
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::cumsum_, boost::simd::tag::sse2_,
-                         (A0),
-                         ((simd_<type16_<A0>,boost::simd::tag::sse_>))
-                        )
+                                    (A0),
+                                    ((simd_<type16_<A0>,boost::simd::tag::sse_>))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
@@ -116,15 +105,10 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is type32_
-/////////////////////////////////////////////////////////////////////////////
-
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::cumsum_, boost::simd::tag::sse2_,
-                         (A0),
-                         ((simd_<type32_<A0>,boost::simd::tag::sse_>))
-                        )
+                                    (A0),
+                                    ((simd_<type32_<A0>,boost::simd::tag::sse_>))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)

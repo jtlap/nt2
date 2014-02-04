@@ -9,8 +9,11 @@
 #ifndef BOOST_SIMD_SWAR_FUNCTIONS_SIMD_SSE_AVX_CUMSUM_HPP_INCLUDED
 #define BOOST_SIMD_SWAR_FUNCTIONS_SIMD_SSE_AVX_CUMSUM_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
+
 #include <boost/simd/swar/functions/cumsum.hpp>
 #include <boost/simd/include/functions/simd/splat.hpp>
+#include <boost/simd/include/functions/simd/extract.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -19,9 +22,9 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::cumsum_, boost::simd::tag::avx_,
-                         (A0),
-                         ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
-                        )
+                                    (A0),
+                                    ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
@@ -44,9 +47,9 @@ namespace boost { namespace simd { namespace ext
 
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::cumsum_, boost::simd::tag::avx_,
-                         (A0),
-                         ((simd_<double_<A0>,boost::simd::tag::avx_>))
-                        )
+                                    (A0),
+                                    ((simd_<double_<A0>,boost::simd::tag::avx_>))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
@@ -69,9 +72,9 @@ namespace boost { namespace simd { namespace ext
 
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::cumsum_, boost::simd::tag::avx_,
-                         (A0),
-                         ((simd_<single_<A0>,boost::simd::tag::avx_>))
-                        )
+                                    (A0),
+                                    ((simd_<single_<A0>,boost::simd::tag::avx_>))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
