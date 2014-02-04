@@ -18,14 +18,15 @@
 #include <boost/simd/include/functions/simd/unary_minus.hpp>
 #include <boost/simd/include/functions/simd/exponent.hpp>
 #include <boost/simd/include/functions/simd/ldexp.hpp>
-#include <boost/simd/include/functions/simd/if_else.hpp>
-#include <boost/simd/include/functions/simd/sqr.hpp>
+include <boost/simd/include/functions/simd/sqr.hpp>
 #include <boost/simd/include/functions/simd/sqrt.hpp>
 #include <boost/simd/include/constants/maxexponentm1.hpp>
+#include <boost/simd/include/constants/minexponent.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 #ifndef BOOST_SIMD_NO_INVALIDS
 #include <boost/simd/sdk/meta/as_logical.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/logical_and.hpp>
 #include <boost/simd/include/functions/simd/logical_or.hpp>
 #include <boost/simd/include/functions/simd/is_inf.hpp>

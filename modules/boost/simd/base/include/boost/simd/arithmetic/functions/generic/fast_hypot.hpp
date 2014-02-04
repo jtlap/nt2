@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return boost::simd::sqrt(boost::simd::fma(a0, a0, a1*a1));
+      return boost::simd::sqrt(boost::simd::fma(a0, a0, sqr(a1)));
     }
   };
 
