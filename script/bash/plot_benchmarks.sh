@@ -111,10 +111,10 @@ done
 # generate M-file
 if [ $plot == "bar" ]; then
   for ((kk=0;kk<${nb_data_types};kk++));do
-    generate_bar_chart.sh $nb_data_types $NUM_TEST $nb_sizes "${LEGEND[@]}" "${TITLE[kk]}" "${PLOT_NAME[kk]}" $kk
+    "$(dirname "${BASH_SOURCE[0]}")/generate_bar_chart.sh" $nb_data_types $NUM_TEST $nb_sizes "${LEGEND[@]}" "${TITLE[kk]}" "${PLOT_NAME[kk]}" $kk
   done
 elif [ $plot == "graph" ]; then
   for ((kk=0;kk<${nb_data_types};kk++));do
-    generate_graph.sh $nb_data_types $NUM_TEST $nb_sizes "${LEGEND[@]}" "${TITLE[kk]}" "${PLOT_NAME[kk]}" $kk
+    "$(dirname "${BASH_SOURCE[0]}")/generate_graph.sh" $nb_data_types $NUM_TEST $nb_sizes "${LEGEND[@]}" "${TITLE[kk]}" "${PLOT_NAME[kk]}" $kk
   done
 fi
