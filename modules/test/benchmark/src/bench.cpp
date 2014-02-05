@@ -29,7 +29,7 @@ namespace nt2 { namespace details
     if(call)
     {
       call();
-      std::cout <<  std::string(100,'-') << std::endl;
+      std::cout <<  std::string(80,'-') << std::endl;
     }
 
     advance();

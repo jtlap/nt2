@@ -20,7 +20,7 @@ namespace nt2 { namespace details
   NT2_TEST_BENCHMARK_DECL void bench_suite::process() const
   {
     std::cout << "Benchmark\tSize\tResult\tUnit\tSamples #" << std::endl;
-    std::cout <<  std::string(100,'-');
+    std::cout <<  std::string(80,'-');
 
     if(test_suite::tests) test_suite::tests->process();
   }

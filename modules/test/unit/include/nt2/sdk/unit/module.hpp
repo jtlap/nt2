@@ -83,7 +83,7 @@ NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int argc, char* argv[])
 {
   ::nt2::details::unit_test_prologue();
   std::cout << "Architecture: " << BOOST_SIMD_STRING << std::endl;
-  std::cout <<  std::string(100,'-') << std::endl;
+  std::cout <<  std::string(80,'-') << std::endl;
 
 #if defined(NT2_USE_HPX)
   std::vector<std::string> cfg;
