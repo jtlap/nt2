@@ -15,6 +15,7 @@
 #include <nt2/include/constants/valmin.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/functions/trunc.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 
 static inline double standardnextafter(const double & a0,  const double& a1)
 {
