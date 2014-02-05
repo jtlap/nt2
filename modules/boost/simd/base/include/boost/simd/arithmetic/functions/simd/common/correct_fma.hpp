@@ -69,7 +69,7 @@ namespace boost { namespace simd { namespace ext
         typedef typename boost::dispatch::meta::as_integer<A0>::type iA0;
         result_type amax =  maxmag(a0, a1);
         result_type amin =  minmag(a0, a1);
-        iA0 e0 = -shr(exponent(amax), 1);
+        iA0 e0 = -shift_right(exponent(amax), 1);
         amax = ldexp(amax, e0);
         result_type a02 = ldexp(a2, e0);
         two_prod(amax, amin, p, rp);
