@@ -69,7 +69,7 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<result_type>::type sr_t;
       static const A0 Vax = splat<A0>(boost::simd::Valmax<sr_t>());
