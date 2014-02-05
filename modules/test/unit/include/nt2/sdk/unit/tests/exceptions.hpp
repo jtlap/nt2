@@ -21,6 +21,14 @@
 #include <boost/dispatch/preprocessor/once.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
 
+#ifdef __GNUC__
+// INTERNAL ONLY
+#define NT2_UNUSED_EXPR (void)
+#else
+// INTERNAL ONLY
+#define NT2_UNUSED_EXPR
+#endif
+
 /*!
   @brief Check exception being thrown
 
@@ -33,7 +41,7 @@
 do {                                                                           \
   ::nt2::unit::test_count()++;                                                 \
   bool caught = false;                                                         \
-  try             { BOOST_DISPATCH_PP_STRIP(X); }                              \
+  try { NT2_UNUSED_EXPR (BOOST_DISPATCH_PP_STRIP(X)); }                        \
   catch( E& ex )                                                               \
   {                                                                            \
     ::boost::dispatch::ignore_unused(ex);                                      \
@@ -62,7 +70,7 @@ do {                                                                           \
   );                                                                           \
   ::nt2::unit::test_count()++;                                                 \
   bool caught = false;                                                         \
-  try             { BOOST_DISPATCH_PP_STRIP(X); }                              \
+  try { NT2_UNUSED_EXPR (BOOST_DISPATCH_PP_STRIP(X)); }                        \
   catch( nt2::assert_exception& ex )  {                                        \
     ::nt2::unit::pass(#X " asserts ");                                         \
     std::cout << "with message:\n\t'" << ex.what() << "'\n";                   \
@@ -90,7 +98,7 @@ do {                                                                           \
 do {                                                                           \
   bool nt2_test_no_throw = true;                                               \
   ::nt2::unit::test_count()++;                                                 \
-  try { BOOST_DISPATCH_PP_STRIP(X); }                                          \
+  try { NT2_UNUSED_EXPR (BOOST_DISPATCH_PP_STRIP(X)); }                        \
   catch(...)                                                                   \
   {                                                                            \
     ::nt2::unit::fail( #X " should not throw"                                  \
@@ -119,7 +127,7 @@ do {                                                                           \
   );                                                                           \
   bool nt2_test_no_throw = true;                                               \
   ::nt2::unit::test_count()++;                                                 \
-  try { BOOST_DISPATCH_PP_STRIP(X); }                                          \
+  try { NT2_UNUSED_EXPR (BOOST_DISPATCH_PP_STRIP(X)); }                        \
   catch(nt2::assert_exception& ex)                                             \
   {                                                                            \
     ::nt2::unit::fail( #X " should not assert "                                \
