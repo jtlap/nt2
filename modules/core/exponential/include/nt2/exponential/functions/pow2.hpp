@@ -28,11 +28,12 @@ namespace nt2 { namespace tag
     };
   }
   /*!
-     Returns  base 2 power of input
+     Returns  base 2 power of input (the result is undefined on overflow and
+     the functor asserts for invalid input)
 
     @par Semantic:
 
-    For every parameter of floating type T0
+    For every parameter of type T0
 
     @code
     T0 r = pow2(x);
@@ -47,11 +48,12 @@ namespace nt2 { namespace tag
     @see @funcref{exp2}, @funcref{trunc}
     @param a0
 
-    @return a value of the same type as the parameter
+    @return a value of the same type as the first parameter
   **/
   NT2_FUNCTION_IMPLEMENTATION(tag::pow2_, pow2, 1)
   /*!
-    Returns \f$ x 2^y\f$.
+    Returns \f$ x 2^y\f$.  (the result is undefined on overflow and
+    the functor asserts for invalid second parameter )
 
     @par Semantic:
 

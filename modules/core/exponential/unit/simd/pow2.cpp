@@ -7,17 +7,25 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <nt2/exponential/include/functions/pow2.hpp>
-#include <nt2/exponential/include/functions/logspace_sub.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/exceptions.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 
-#include <nt2/constant/constant.hpp>
+#include <nt2/include/constants/four.hpp>
+#include <nt2/include/constants/mone.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/minf.hpp>
+#include <nt2/include/constants/nan.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 
-NT2_TEST_CASE_TPL ( pow2_real__1_0,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( pow2_real,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::pow2;
   using nt2::tag::pow2_;
@@ -26,16 +34,28 @@ NT2_TEST_CASE_TPL ( pow2_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                         vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
+  typedef native<iT,ext_t>                       viT;
   typedef typename nt2::meta::call<pow2_(vT)>::type r_t;
 
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
-   NT2_TEST_ULP_EQUAL(pow2(nt2::Inf<vT>()), nt2::Inf<r_t>(), 0);
-   NT2_TEST_ULP_EQUAL(pow2(nt2::Minf<vT>()), nt2::Zero<r_t>(), 0);
-   NT2_TEST_ULP_EQUAL(pow2(nt2::Nan<vT>()), nt2::Nan<r_t>(), 0);
+  NT2_TEST_ASSERT(pow2(nt2::Inf<vT>()));
+  NT2_TEST_ASSERT(pow2(nt2::Minf<vT>()));
+  NT2_TEST_ASSERT(pow2(nt2::Nan<vT>()));
+  NT2_TEST_ASSERT(pow2(nt2::One<vT>(), nt2::Inf<vT>()));
+  NT2_TEST_ASSERT(pow2(nt2::One<vT>(), nt2::Minf<vT>()));
+  NT2_TEST_ASSERT(pow2(nt2::One<vT>(), nt2::Nan<vT>()));
 #endif
-   NT2_TEST_ULP_EQUAL(pow2(nt2::One<vT>()), nt2::Two<r_t>(), 0);
-   NT2_TEST_ULP_EQUAL(pow2(nt2::Zero<vT>()), nt2::One<r_t>(), 0);
-   NT2_TEST_ULP_EQUAL(pow2(nt2::Mone<vT>()), nt2::Half<r_t>(), 0);;
+  NT2_TEST_EQUAL(pow2(nt2::Inf<vT>(),  nt2::Two<viT>()), nt2::Inf<r_t>());
+  NT2_TEST_EQUAL(pow2(nt2::Minf<vT>(), nt2::Two<viT>()), nt2::Minf<r_t>());
+  NT2_TEST_EQUAL(pow2(nt2::Nan<vT>(),  nt2::Two<viT>()), nt2::Nan<r_t>());
+  NT2_TEST_EQUAL(pow2(nt2::Inf<vT>(),  nt2::splat<vT>(T(2.5))), nt2::Inf<r_t>());
+  NT2_TEST_EQUAL(pow2(nt2::Minf<vT>(), nt2::splat<vT>(T(2.5))), nt2::Minf<r_t>());
+  NT2_TEST_EQUAL(pow2(nt2::Nan<vT>(),  nt2::splat<vT>(T(2.5))), nt2::Nan<r_t>());
+  NT2_TEST_EQUAL(pow2(nt2::Mone<vT>(), nt2::Two<viT>()), -nt2::Four<r_t>());
+  NT2_TEST_EQUAL(pow2(nt2::One<vT>(),  nt2::Two<viT>()), nt2::Four<r_t>());
+  NT2_TEST_EQUAL(pow2(nt2::Zero<vT>(), nt2::Two<viT>()), nt2::Zero<r_t>());
+  NT2_TEST_EQUAL(pow2(nt2::Mone<vT>(), nt2::splat<vT>(T(2.5))), -nt2::Four<r_t>());
+  NT2_TEST_EQUAL(pow2(nt2::One<vT>(),  nt2::splat<vT>(T(2.5))), nt2::Four<r_t>());
+  NT2_TEST_EQUAL(pow2(nt2::Zero<vT>(), nt2::splat<vT>(T(2.5))), nt2::Zero<r_t>());
 } // end of test for floating_
