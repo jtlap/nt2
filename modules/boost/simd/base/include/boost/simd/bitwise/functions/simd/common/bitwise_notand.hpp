@@ -9,6 +9,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_BITWISE_FUNCTIONS_SIMD_COMMON_BITWISE_NOTAND_HPP_INCLUDED
 #define BOOST_SIMD_BITWISE_FUNCTIONS_SIMD_COMMON_BITWISE_NOTAND_HPP_INCLUDED
+
 #include <boost/simd/bitwise/functions/bitwise_notand.hpp>
 #include <boost/simd/include/functions/simd/complement.hpp>
 #include <boost/simd/include/functions/simd/bitwise_and.hpp>
@@ -18,7 +19,8 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::bitwise_notand_, tag::cpu_,(A0)(A1)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::bitwise_notand_
+                                       , tag::cpu_,(A0)(A1)(X)
                                        , (boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
                                                                , boost::simd::meta::cardinal_of<A1>
                                                                >
@@ -28,7 +30,10 @@ namespace boost { namespace simd { namespace ext
                                        )
   {
     typedef A0 result_type;
-    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2) { return bitwise_and(complement(a0), a1); }
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
+    {
+      return bitwise_and(complement(a0), a1);
+    }
   };
 } } }
 

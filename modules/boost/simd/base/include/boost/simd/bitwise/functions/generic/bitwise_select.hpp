@@ -9,6 +9,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_BITWISE_FUNCTIONS_GENERIC_BITWISE_SELECT_HPP_INCLUDED
 #define BOOST_SIMD_BITWISE_FUNCTIONS_GENERIC_BITWISE_SELECT_HPP_INCLUDED
+
 #include <boost/simd/bitwise/functions/bitwise_select.hpp>
 #include <boost/simd/include/functions/simd/bitwise_andnot.hpp>
 #include <boost/simd/include/functions/simd/bitwise_and.hpp>
