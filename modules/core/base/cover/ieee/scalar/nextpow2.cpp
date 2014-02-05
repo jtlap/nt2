@@ -16,6 +16,7 @@
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/functions/frexp.hpp>
 #include <nt2/include/functions/abs.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 
 NT2_TEST_CASE_TPL ( nextpow2,  NT2_REAL_TYPES)
 {
