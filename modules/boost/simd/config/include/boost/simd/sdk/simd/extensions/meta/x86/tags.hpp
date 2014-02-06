@@ -38,8 +38,8 @@ namespace boost { namespace simd { namespace tag
 #endif
   BOOST_DISPATCH_HIERARCHY_CLASS(avx2_, fma3_);
 
-  // Tag hierarchy for larrabee extensions
-  BOOST_DISPATCH_HIERARCHY_CLASS(lrb_, simd_);
+  // Tag hierarchy for mic extensions
+  BOOST_DISPATCH_HIERARCHY_CLASS(mic_, sse2_);
 } } }
 
 #endif

@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2014 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -14,9 +15,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Check for the most recent SSE family extension
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/sdk/simd/extensions/x86/lrb.hpp>
+#include <boost/simd/sdk/simd/extensions/x86/mic.hpp>
 
-#ifndef BOOST_SIMD_HAS_LRB_SUPPORT
+#ifndef BOOST_SIMD_HAS_MIC_SUPPORT
 #include <boost/simd/sdk/simd/extensions/x86/avx2.hpp>
 #include <boost/simd/sdk/simd/extensions/x86/fma3.hpp>
 #include <boost/simd/sdk/simd/extensions/x86/xop.hpp>
