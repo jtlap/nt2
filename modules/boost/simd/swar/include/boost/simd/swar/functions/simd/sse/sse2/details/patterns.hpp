@@ -17,7 +17,7 @@
 #include <boost/simd/swar/functions/details/reverse_pattern.hpp>
 #include <boost/simd/swar/functions/details/repeat_pattern.hpp>
 #include <boost/simd/swar/functions/details/zero_pattern.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

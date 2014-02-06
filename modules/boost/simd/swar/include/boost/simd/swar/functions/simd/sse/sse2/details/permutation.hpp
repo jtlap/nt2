@@ -66,7 +66,7 @@ namespace boost { namespace simd { namespace ext
       f_t v = bitwise_cast<f_t>(a0);
 
       return bitwise_cast<T>(_mm_shuffle_pd (v, v
-                                            , details::shuffle_mask<P,2>::value
+                                            , (details::shuffle_mask<P,2>::value)
                                             )
                             );
     }
@@ -88,10 +88,9 @@ namespace boost { namespace simd { namespace ext
 
       return bitwise_cast<T>( _mm_shuffle_pd( bitwise_cast<f_t>(a0)
                                             , bitwise_cast<f_t>(a1)
-                                            , details
-                                            ::shuffle_mask< details::clamp<P,2>
-                                                          , 2
-                                                          >::value
+                                            , ( details::shuffle_mask
+                                                < details::clamp<P,2>, 2>::value
+                                              )
                                             )
                             );
     }
@@ -141,7 +140,7 @@ namespace boost { namespace simd { namespace ext
                                         , boost::mpl::false_ const&
                                         )
     {
-      return _mm_shuffle_ps(a0, a0, details::shuffle_mask<P,4>::value);
+      return _mm_shuffle_ps(a0, a0, (details::shuffle_mask<P,4>::value));
     }
 
     // No use proper intrinsic for integers
@@ -150,7 +149,7 @@ namespace boost { namespace simd { namespace ext
                                           , boost::mpl::false_ const&
                                           )
     {
-      return _mm_shuffle_epi32(a0, details::shuffle_mask<P,4>::value);
+      return _mm_shuffle_epi32(a0, (details::shuffle_mask<P,4>::value));
     }
 
     // Two arguments check zeroing
@@ -196,7 +195,7 @@ namespace boost { namespace simd { namespace ext
 
     // Direct use _mm_shuffle_ps
     template<typename T, typename P>
-    BOOST_FORCEINLINE static T call ( T const& a0, T const& a1, P const& p
+    BOOST_FORCEINLINE static T call ( T const& a0, T const& a1, P const&
                                     , details::direct_ const&
                                     )
     {
@@ -204,10 +203,9 @@ namespace boost { namespace simd { namespace ext
 
       return bitwise_cast<T>( _mm_shuffle_ps( bitwise_cast<f_t>(a0)
                                             , bitwise_cast<f_t>(a1)
-                                            , details
-                                            ::shuffle_mask< details::clamp<P,4>
-                                                          , 4
-                                                          >::value
+                                            , (details::shuffle_mask
+                                                <details::clamp<P,4>, 4>::value
+                                              )
                                             )
                             );
     }

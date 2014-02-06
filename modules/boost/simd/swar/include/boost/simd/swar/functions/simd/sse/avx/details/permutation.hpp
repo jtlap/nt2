@@ -103,7 +103,7 @@ namespace boost { namespace simd { namespace ext
 
       return bitwise_cast<T>( _mm256_shuffle_pd ( bitwise_cast<f_t>(a0)
                                                 , bitwise_cast<f_t>(a1)
-                                                , details::avx_mask<P,4>::value
+                                                , (details::avx_mask<P,4>::value)
                                             )
                             );
     }
@@ -163,7 +163,7 @@ namespace boost { namespace simd { namespace ext
 
       return bitwise_cast<T>( _mm256_shuffle_ps ( bitwise_cast<f_t>(a0)
                                                 , bitwise_cast<f_t>(a1)
-                                                , details::avx_mask<P,8>::value
+                                                , (details::avx_mask<P,8>::value)
                                             )
                             );
     }
