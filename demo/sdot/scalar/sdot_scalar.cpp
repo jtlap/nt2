@@ -19,11 +19,11 @@
 using namespace nt2::bench;
 using namespace nt2;
 
-template<typename T> struct sdot_scalar
+template<typename T> struct dot_scalar
 {
   typedef void experiment_is_immutable;
 
-  sdot_scalar(std::size_t n)
+  dot_scalar(std::size_t n)
                   :  size_(n)
   {
     X.resize(size_); Y.resize(size_);
@@ -40,7 +40,7 @@ template<typename T> struct sdot_scalar
     }
   }
 
-  friend std::ostream& operator<<(std::ostream& os, sdot_scalar<T> const& p)
+  friend std::ostream& operator<<(std::ostream& os, dot_scalar<T> const& p)
   {
     return os << "(" << p.size()  << ")";
   }
@@ -54,13 +54,13 @@ private:
   typename std::vector<T> X, Y;
 };
 
-NT2_REGISTER_BENCHMARK_TPL( sdot_scalar, NT2_SIMD_REAL_TYPES )
+NT2_REGISTER_BENCHMARK_TPL( dot_scalar, NT2_SIMD_REAL_TYPES )
 {
   std::size_t size_min  = args("size_min",   16);
   std::size_t size_max  = args("size_max", 4096);
   std::size_t size_step = args("size_step",   2);
 
-  run_during_with< sdot_scalar<T> > ( 1.
+  run_during_with< dot_scalar<T> > ( 1.
                                     , geometric(size_min,size_max,size_step)
                                     , gflops<stats::median_>()
                                     );

@@ -31,10 +31,10 @@ BOOST_FORCEINLINE A0 Tdot_work(A0 const& X, A0 const& Y)
   return(X*Y);
 }
 
-template<typename T> struct sdot_simd
+template<typename T> struct dot_simd
 {
     typedef void experiment_is_immutable;
-  sdot_simd(std::size_t n)
+  dot_simd(std::size_t n)
                   :  size_(n)
   {
     X.resize(size_); Y.resize(size_);
@@ -59,7 +59,7 @@ template<typename T> struct sdot_simd
     res_ = boost::simd::sum(res_pack);
   }
 
-  friend std::ostream& operator<<(std::ostream& os, sdot_simd<T> const& p)
+  friend std::ostream& operator<<(std::ostream& os, dot_simd<T> const& p)
   {
     return os << "(" << p.size() << ")";
   }
@@ -73,13 +73,13 @@ private:
   typename std::vector<T, boost::simd::allocator<T> > X, Y;
 };
 
-NT2_REGISTER_BENCHMARK_TPL( sdot_simd, NT2_SIMD_REAL_TYPES )
+NT2_REGISTER_BENCHMARK_TPL( dot_simd, NT2_SIMD_REAL_TYPES )
 {
   std::size_t size_min = args("size_min", 16);
   std::size_t size_max = args("size_max", 4096);
   std::size_t size_step = args("size_step", 2);
 
-  run_during_with< sdot_simd<T> > ( 1.
+  run_during_with< dot_simd<T> > ( 1.
                                   , geometric(size_min,size_max,size_step)
                                   , gflops<stats::median_>()
                                   );

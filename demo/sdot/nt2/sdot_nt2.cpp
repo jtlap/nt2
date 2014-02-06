@@ -21,10 +21,10 @@
 using namespace nt2::bench;
 using namespace nt2;
 
-template<typename T> struct sdot_nt2
+template<typename T> struct dot_nt2
 {
   typedef void experiment_is_immutable;
-  sdot_nt2(std::size_t n)
+  dot_nt2(std::size_t n)
                   :  size_(n)
   {
     X.resize(nt2::of_size(size_)); Y.resize(nt2::of_size(size_));
@@ -37,7 +37,7 @@ template<typename T> struct sdot_nt2
     res_ = nt2::globalsum(X*Y);
   }
 
-  friend std::ostream& operator<<(std::ostream& os, sdot_nt2<T> const& p)
+  friend std::ostream& operator<<(std::ostream& os, dot_nt2<T> const& p)
   {
     return os << "(" << p.size() << ")";
   }
@@ -51,13 +51,13 @@ private:
   nt2::table<T> X, Y;
 };
 
-NT2_REGISTER_BENCHMARK_TPL( sdot_nt2, NT2_SIMD_REAL_TYPES )
+NT2_REGISTER_BENCHMARK_TPL( dot_nt2, NT2_SIMD_REAL_TYPES )
 {
   std::size_t size_min  = args("size_min",   16);
   std::size_t size_max  = args("size_max", 4096);
   std::size_t size_step = args("size_step",   2);
 
-  run_during_with< sdot_nt2<T> > ( 1.
+  run_during_with< dot_nt2<T> > ( 1.
                                  , geometric(size_min,size_max,size_step)
                                  , gflops<stats::median_>()
                                  );
