@@ -64,8 +64,8 @@ namespace boost { namespace simd { namespace details
                                   , &boost::simd::is_supported<tag::avx2_>
                                   , &registration_list
                                   );
-  support_registration x86_lrb    ( "lrb"
-                                  , &boost::simd::is_supported<tag::lrb_>
+  support_registration x86_mic    ( "xmic"
+                                  , &boost::simd::is_supported<tag::mic_>
                                   , &registration_list
                                   );
 } } }
