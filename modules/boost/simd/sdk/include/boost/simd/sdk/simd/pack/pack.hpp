@@ -95,6 +95,13 @@ namespace boost { namespace simd
       proto::value(*this) = p;
     }
 
+#if defined(BOOST_MSVC) || defined(DOXYGEN_ONLY)
+    BOOST_FORCEINLINE pack(pack const& other)
+    {
+      proto::value(*this) = proto::value(other);
+    }
+#endif
+
     template<class ScalarIterator>
     BOOST_FORCEINLINE pack( ScalarIterator i
         , typename enable_if< dispatch::meta::is_iterator<ScalarIterator> >::type* = 0)
