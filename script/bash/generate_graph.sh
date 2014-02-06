@@ -67,7 +67,7 @@ for ((ii=10#0;ii<(${NUM_TEST});ii++));do
   var=cyc${ii}
   echo ${!var} >> ${filename}
 done
-echo ${TITLE[kk]}  >> ${filename}
+echo ${TITLE}  >> ${filename}
 
 X="$X ];"
 echo $X>>${filename}
