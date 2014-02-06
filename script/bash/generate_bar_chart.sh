@@ -52,7 +52,7 @@ done
 cyc="${cyc} ];"
 
 echo ${cyc} >> ${filename}
-echo ${TITLE[kk]} >> ${filename}
+echo ${TITLE} >> ${filename}
 X="$X ];"
 echo $X>>${filename}
 
