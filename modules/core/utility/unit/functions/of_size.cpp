@@ -20,6 +20,30 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
+template<class T>
+struct scoped_ptr
+{
+  scoped_ptr() : p(0) {}
+  scoped_ptr(T* t) : p(t) {}
+
+  scoped_ptr& operator=(T* t)
+  {
+    delete p;
+    p = t;
+    return *this;
+  }
+
+  ~scoped_ptr()
+  {
+    delete p;
+  }
+
+private:
+  T* p;
+  scoped_ptr(scoped_ptr<T> const& other);
+  scoped_ptr<T>& operator=(scoped_ptr<T> const& other);
+};
+
 ////////////////////////////////////////////////////////////////////////////
 ////// Test of_size initializations
 ////////////////////////////////////////////////////////////////////////////
@@ -66,19 +90,21 @@ NT2_TEST_CASE( init_of_size )
   NT2_TEST_EQUAL( spec1d.size(), 1u );
   NT2_TEST_EQUAL( spec1d[0], 42u );
 
-  NT2_TEST_ASSERT( (of_size_<42> spec1b(63)) );
-  NT2_TEST_ASSERT( (of_size_<42> spec1b(2,21)) );
-  NT2_TEST_ASSERT( (of_size_<42> spec1b(2,3,7)) );
-  NT2_TEST_ASSERT( (of_size_<42> spec1b(2,1,3,7)) );
+  scoped_ptr< of_size_<42> > p1;
+  NT2_TEST_ASSERT( (p1 = new of_size_<42>(63)) );
+  NT2_TEST_ASSERT( (p1 = new of_size_<42>(2,21)) );
+  NT2_TEST_ASSERT( (p1 = new of_size_<42>(2,3,7)) );
+  NT2_TEST_ASSERT( (p1 = new of_size_<42>(2,1,3,7)) );
 
   of_size_<6,9>     spec2;
   NT2_TEST_EQUAL( spec2.size(), 2u );
   NT2_TEST_EQUAL( spec2[0], 6u );
   NT2_TEST_EQUAL( spec2[1], 9u );
 
-  NT2_TEST_ASSERT( (of_size_<6,9> spec2b(54)) );
-  NT2_TEST_ASSERT( (of_size_<6,9> spec2b(3,2,9)) );
-  NT2_TEST_ASSERT( (of_size_<6,9> spec2b(3,1,6,3)) );
+  scoped_ptr< of_size_<6,9> > p2;
+  NT2_TEST_ASSERT( (p2 = new of_size_<6,9>(54)) );
+  NT2_TEST_ASSERT( (p2 = new of_size_<6,9>(3,2,9)) );
+  NT2_TEST_ASSERT( (p2 = new of_size_<6,9>(3,1,6,3)) );
 
   of_size_<4,2,6>     spec3;
   NT2_TEST_EQUAL( spec3.size(), 3u );
@@ -86,9 +112,10 @@ NT2_TEST_CASE( init_of_size )
   NT2_TEST_EQUAL( spec3[1], 2u );
   NT2_TEST_EQUAL( spec3[2], 6u );
 
-  NT2_TEST_ASSERT( (of_size_<4,2,6> spec3b(48)) );
-  NT2_TEST_ASSERT( (of_size_<4,2,6> spec3b(4,12)) );
-  NT2_TEST_ASSERT( (of_size_<4,2,6> spec3b(4,1,6,2)) );
+  scoped_ptr< of_size_<4,2,6> > p3;
+  NT2_TEST_ASSERT( (p3 = new of_size_<4,2,6>(48)) );
+  NT2_TEST_ASSERT( (p3 = new of_size_<4,2,6>(4,12)) );
+  NT2_TEST_ASSERT( (p3 = new of_size_<4,2,6>(4,1,6,2)) );
 
   of_size_<1,3,5,7>     spec4;
   NT2_TEST_EQUAL( spec4.size(), 4u );
@@ -97,9 +124,10 @@ NT2_TEST_CASE( init_of_size )
   NT2_TEST_EQUAL( spec4[2], 5u );
   NT2_TEST_EQUAL( spec4[3], 7u );
 
-  NT2_TEST_ASSERT( (of_size_<1,3,5,7> spec4b(105)) );
-  NT2_TEST_ASSERT( (of_size_<1,3,5,7> spec4b(3,35)) );
-  NT2_TEST_ASSERT( (of_size_<1,3,5,7> spec4b(45,1,7)) );
+  scoped_ptr< of_size_<1,3,5,7> > p4;
+  NT2_TEST_ASSERT( (p4 = new of_size_<1,3,5,7>(105)) );
+  NT2_TEST_ASSERT( (p4 = new of_size_<1,3,5,7>(3,35)) );
+  NT2_TEST_ASSERT( (p4 = new of_size_<1,3,5,7>(45,1,7)) );
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -211,6 +239,8 @@ NT2_TEST_CASE( of_size_range )
   using nt2::_1D;
   using nt2::_0D;
 
+  scoped_ptr<_0D> p0; scoped_ptr<_1D> p1; scoped_ptr<_2D> p2; scoped_ptr<_3D> p3;
+
   std::size_t range[4]   = {2,3,4,5};
   std::size_t range11[4] = {2,1,1,1};
   std::size_t range21[4] = {2,3,1,1};
@@ -229,10 +259,10 @@ NT2_TEST_CASE( of_size_range )
   _0D s04(&ones[0],&ones[0]+4);
   NT2_TEST_EQUAL( s04.size(), 0u );
 
-  NT2_TEST_ASSERT( (_0D ss(&range[0],&range[0]+1)) );
-  NT2_TEST_ASSERT( (_0D ss(&range[0],&range[0]+2)) );
-  NT2_TEST_ASSERT( (_0D ss(&range[0],&range[0]+3)) );
-  NT2_TEST_ASSERT( (_0D ss(&range[0],&range[0]+4)) );
+  NT2_TEST_ASSERT( (p0 = new _0D(&range[0],&range[0]+1)) );
+  NT2_TEST_ASSERT( (p0 = new _0D(&range[0],&range[0]+2)) );
+  NT2_TEST_ASSERT( (p0 = new _0D(&range[0],&range[0]+3)) );
+  NT2_TEST_ASSERT( (p0 = new _0D(&range[0],&range[0]+4)) );
 
   // 1D: Exact range size
   _1D s11(&range[0],&range[0]+1);
@@ -244,9 +274,9 @@ NT2_TEST_CASE( of_size_range )
   NT2_TEST_EQUAL( s114[0], 2u );
 
   // 1D: Bigger range size
-  NT2_TEST_ASSERT( (_1D ss(&range[0],&range[0]+2)) );
-  NT2_TEST_ASSERT( (_1D ss(&range[0],&range[0]+3)) );
-  NT2_TEST_ASSERT( (_1D ss(&range[0],&range[0]+4)) );
+  NT2_TEST_ASSERT( (p1 = new _1D(&range[0],&range[0]+2)) );
+  NT2_TEST_ASSERT( (p1 = new _1D(&range[0],&range[0]+3)) );
+  NT2_TEST_ASSERT( (p1 = new _1D(&range[0],&range[0]+4)) );
 
   // 2D: Smaller range size
   _2D s21(&range[0],&range[0]+1);
@@ -266,8 +296,8 @@ NT2_TEST_CASE( of_size_range )
   NT2_TEST_EQUAL( s224[1], 3u );
 
   // 2D: Bigger range size
-  NT2_TEST_ASSERT( (_2D ss(&range[0],&range[0]+3)) );
-  NT2_TEST_ASSERT( (_2D ss(&range[0],&range[0]+4)) );
+  NT2_TEST_ASSERT( (p2 = new _2D(&range[0],&range[0]+3)) );
+  NT2_TEST_ASSERT( (p2 = new _2D(&range[0],&range[0]+4)) );
 
   // 3D: Smaller range size
   _3D s31(&range[0],&range[0]+1);
@@ -296,7 +326,7 @@ NT2_TEST_CASE( of_size_range )
   NT2_TEST_EQUAL( s33[2], 4u );
 
   // 3D: Bigger range size
-  NT2_TEST_ASSERT( (_3D ss(&range[0],&range[0]+4)) );
+  NT2_TEST_ASSERT( (p3 = new _3D(&range[0],&range[0]+4)) );
 
   // 4D: Smaller range size
   _4D s41(&range[0],&range[0]+1);
@@ -342,6 +372,8 @@ NT2_TEST_CASE( of_size_extra_constructor )
   using nt2::_1D;
   using nt2::_0D;
 
+  scoped_ptr<_0D> p0; scoped_ptr<_1D> p1; scoped_ptr<_2D> p2; scoped_ptr<_3D> p3;
+
   _0D s01(1);
   NT2_TEST_EQUAL( s01.size(), 0u );
   _0D s02(1,1);
@@ -351,10 +383,10 @@ NT2_TEST_CASE( of_size_extra_constructor )
   _0D s04(1,1,1,boost::mpl::int_<1>());
   NT2_TEST_EQUAL( s04.size(), 0u );
 
-  NT2_TEST_ASSERT( (_0D ss(3)      ) );
-  NT2_TEST_ASSERT( (_0D ss(2,2)    ) );
-  NT2_TEST_ASSERT( (_0D ss(3,1,3)  ) );
-  NT2_TEST_ASSERT( (_0D ss(4,1,3,1)) );
+  NT2_TEST_ASSERT( (p0 = new _0D(3)      ) );
+  NT2_TEST_ASSERT( (p0 = new _0D(2,2)    ) );
+  NT2_TEST_ASSERT( (p0 = new _0D(3,1,3)  ) );
+  NT2_TEST_ASSERT( (p0 = new _0D(4,1,3,1)) );
 
   _1D s11(2);
   NT2_TEST_EQUAL( s11.size(), 1u );
@@ -369,9 +401,9 @@ NT2_TEST_CASE( of_size_extra_constructor )
   NT2_TEST_EQUAL( s14.size(), 1u );
   NT2_TEST_EQUAL( s14[0], 2u );
 
-  NT2_TEST_ASSERT( (_1D ss(2,2)    ) );
-  NT2_TEST_ASSERT( (_1D ss(3,1,3)  ) );
-  NT2_TEST_ASSERT( (_1D ss(4,1,3,1)) );
+  NT2_TEST_ASSERT( (p1 = new _1D(2,2)    ) );
+  NT2_TEST_ASSERT( (p1 = new _1D(3,1,3)  ) );
+  NT2_TEST_ASSERT( (p1 = new _1D(4,1,3,1)) );
 
   of_size_<2> sd11(2);
   NT2_TEST_EQUAL( sd11.size(), 1u );
@@ -386,10 +418,11 @@ NT2_TEST_CASE( of_size_extra_constructor )
   NT2_TEST_EQUAL( sd14.size(), 1u );
   NT2_TEST_EQUAL( sd14[0], 2u );
 
-  NT2_TEST_ASSERT( (of_size_<2> ss(3)      ) );
-  NT2_TEST_ASSERT( (of_size_<2> ss(2,2)    ) );
-  NT2_TEST_ASSERT( (of_size_<2> ss(3,1,3)  ) );
-  NT2_TEST_ASSERT( (of_size_<2> ss(4,1,3,1)) );
+  scoped_ptr< of_size_<2> > ps2;
+  NT2_TEST_ASSERT( (ps2 = new of_size_<2>(3)      ) );
+  NT2_TEST_ASSERT( (ps2 = new of_size_<2>(2,2)    ) );
+  NT2_TEST_ASSERT( (ps2 = new of_size_<2>(3,1,3)  ) );
+  NT2_TEST_ASSERT( (ps2 = new of_size_<2>(4,1,3,1)) );
 
   _2D s21(2);
   NT2_TEST_EQUAL( s21.size(), 2u );
@@ -408,8 +441,8 @@ NT2_TEST_CASE( of_size_extra_constructor )
   NT2_TEST_EQUAL( s24[0], 2u );
   NT2_TEST_EQUAL( s24[1], 3u );
 
-  NT2_TEST_ASSERT( (_2D ss(2,1,3)  ) );
-  NT2_TEST_ASSERT( (_2D ss(2,1,3,4)) );
+  NT2_TEST_ASSERT( (p2 = new _2D(2,1,3)  ) );
+  NT2_TEST_ASSERT( (p2 = new _2D(2,1,3,4)) );
 
   of_size_<2,3> sd21(2);
   NT2_TEST_EQUAL( sd21.size(), 2u );
@@ -428,10 +461,11 @@ NT2_TEST_CASE( of_size_extra_constructor )
   NT2_TEST_EQUAL( sd24[0], 2u );
   NT2_TEST_EQUAL( sd24[1], 3u );
 
-  NT2_TEST_ASSERT( (of_size_<2,3> ss(3)      ) );
-  NT2_TEST_ASSERT( (of_size_<2,3> ss(2,2)    ) );
-  NT2_TEST_ASSERT( (of_size_<2,3> ss(2,3,3)  ) );
-  NT2_TEST_ASSERT( (of_size_<2,3> ss(2,3,4,1)) );
+  scoped_ptr< of_size_<2,3> > ps3;
+  NT2_TEST_ASSERT( (ps3 = new of_size_<2,3>(3)      ) );
+  NT2_TEST_ASSERT( (ps3 = new of_size_<2,3>(2,2)    ) );
+  NT2_TEST_ASSERT( (ps3 = new of_size_<2,3>(2,3,3)  ) );
+  NT2_TEST_ASSERT( (ps3 = new of_size_<2,3>(2,3,4,1)) );
 
   _3D s31(3);
   NT2_TEST_EQUAL( s31.size(), 3u );
@@ -454,7 +488,7 @@ NT2_TEST_CASE( of_size_extra_constructor )
   NT2_TEST_EQUAL( s34[1], 4u );
   NT2_TEST_EQUAL( s34[2], 5u );
 
-  NT2_TEST_ASSERT( (_3D ss(2,1,3,5)) );
+  NT2_TEST_ASSERT( (p3 = new _3D(2,1,3,5)) );
 
   of_size_<2,3,4> sd31(2);
   NT2_TEST_EQUAL( sd31.size(), 3u );
@@ -477,10 +511,11 @@ NT2_TEST_CASE( of_size_extra_constructor )
   NT2_TEST_EQUAL( sd34[1], 3u );
   NT2_TEST_EQUAL( sd34[2], 4u );
 
-  NT2_TEST_ASSERT( (of_size_<2,3,4> ss(3)      ) );
-  NT2_TEST_ASSERT( (of_size_<2,3,4> ss(2,2)    ) );
-  NT2_TEST_ASSERT( (of_size_<2,3,4> ss(2,3,3)  ) );
-  NT2_TEST_ASSERT( (of_size_<2,3,4> ss(2,3,4,5)) );
+  scoped_ptr< of_size_<2,3,4> > ps4;
+  NT2_TEST_ASSERT( (ps4 = new of_size_<2,3,4>(3)      ) );
+  NT2_TEST_ASSERT( (ps4 = new of_size_<2,3,4>(2,2)    ) );
+  NT2_TEST_ASSERT( (ps4 = new of_size_<2,3,4>(2,3,3)  ) );
+  NT2_TEST_ASSERT( (ps4 = new of_size_<2,3,4>(2,3,4,5)) );
 
   _4D s41(4);
   NT2_TEST_EQUAL( s41.size(), 4u );
@@ -531,10 +566,11 @@ NT2_TEST_CASE( of_size_extra_constructor )
   NT2_TEST_EQUAL( sd44[2], 4u );
   NT2_TEST_EQUAL( sd44[3], 5u );
 
-  NT2_TEST_ASSERT( (of_size_<2,3,4,5> ss(3)      ) );
-  NT2_TEST_ASSERT( (of_size_<2,3,4,5> ss(2,2)    ) );
-  NT2_TEST_ASSERT( (of_size_<2,3,4,5> ss(2,3,3)  ) );
-  NT2_TEST_ASSERT( (of_size_<2,3,4,5> ss(2,3,4,7)) );
+  scoped_ptr< of_size_<2,3,4,5> > ps5;
+  NT2_TEST_ASSERT( (ps5 = new of_size_<2,3,4,5>(3)      ) );
+  NT2_TEST_ASSERT( (ps5 = new of_size_<2,3,4,5>(2,2)    ) );
+  NT2_TEST_ASSERT( (ps5 = new of_size_<2,3,4,5>(2,3,3)  ) );
+  NT2_TEST_ASSERT( (ps5 = new of_size_<2,3,4,5>(2,3,4,7)) );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
