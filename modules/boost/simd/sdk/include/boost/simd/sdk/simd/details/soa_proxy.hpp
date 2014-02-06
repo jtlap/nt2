@@ -68,7 +68,7 @@ namespace boost { namespace simd { namespace details
   template<class T>
   struct soa_iterator_base
   {
-    soa_iterator_base(T& data_, std::size_t index_ = 0) : data(data_), index(index_) {}
+    BOOST_FORCEINLINE soa_iterator_base(T& data_, std::size_t index_ = 0) : data(data_), index(index_) {}
 
   //protected:
     friend class iterator_core_access;
