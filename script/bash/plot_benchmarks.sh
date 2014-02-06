@@ -24,7 +24,7 @@ shift
 #separators
 data_type_seperator="With" #how experiments with diferent data types are separated
 arch_separator="Arch"
-start_data="CTEST_FULL_OUTPUT|---|Benchmark" #number of lines printed before the experiment results
+start_data="CTEST_FULL_OUTPUT|---|Benchmark|Site:" #number of lines printed before the experiment results
 
 #positions
 arch_pos=2 #position of architecture
