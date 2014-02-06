@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(__m256 const a0, __m256 const a1) const
+    BOOST_FORCEINLINE result_type operator()(__m256 const a0, __m256 const a1) const
     {
       return _mm256_unpacklo_ps ( details::shuffle<0,2,1,3>(a0,a0)
                                 , details::shuffle<0,2,1,3>(a1,a1)
@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(__m256d const a0, __m256d const a1) const
+    BOOST_FORCEINLINE result_type operator()(__m256d const a0, __m256d const a1) const
     {
       return _mm256_unpacklo_pd(a0,a1);
     }
@@ -58,7 +58,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(__m256i const a0, __m256i const a1) const
+    BOOST_FORCEINLINE result_type operator()(__m256i const a0, __m256i const a1) const
     {
       typedef typename boost::dispatch::meta::as_floating<A0>::type  ftype;
       return  bitwise_cast<result_type>
@@ -78,7 +78,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(A0 const& a0, A1 const& a1) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
       typedef typename boost::dispatch::meta::as_floating<A0>::type  ftype;
       return bitwise_cast<result_type>

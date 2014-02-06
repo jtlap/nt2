@@ -20,7 +20,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(A0 const& a0) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       return a0;
     }

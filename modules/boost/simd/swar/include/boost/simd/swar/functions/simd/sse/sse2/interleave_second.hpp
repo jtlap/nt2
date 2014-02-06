@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(__m128 const a0, __m128 const a1) const
+    BOOST_FORCEINLINE result_type operator()(__m128 const a0, __m128 const a1) const
     {
       return _mm_unpackhi_ps(a0,a1);
     }
@@ -38,7 +38,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(__m128d const a0, __m128d const a1) const
+    BOOST_FORCEINLINE result_type operator()(__m128d const a0, __m128d const a1) const
     {
       return _mm_unpackhi_pd(a0,a1);
     }
@@ -54,7 +54,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(__m128i const a0, __m128i const a1) const
+    BOOST_FORCEINLINE result_type operator()(__m128i const a0, __m128i const a1) const
     {
       return _mm_unpackhi_epi8(a0,a1);
     }
@@ -69,7 +69,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(__m128i const a0, __m128i const a1) const
+    BOOST_FORCEINLINE result_type operator()(__m128i const a0, __m128i const a1) const
     {
       return _mm_unpackhi_epi16(a0,a1);
     }
@@ -84,7 +84,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(__m128i const a0, __m128i const a1) const
+    BOOST_FORCEINLINE result_type operator()(__m128i const a0, __m128i const a1) const
     {
       return _mm_unpackhi_epi32(a0,a1);
     }
@@ -99,7 +99,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(A0 const& a0, A1 const& a1) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
       return _mm_unpackhi_epi64(a0,a1);
     }

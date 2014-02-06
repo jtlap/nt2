@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(A0 const& a0, A0 const& a1) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
     {
       // 0x20 is SCR1[0:127]|SRC2[0:127] according to Intel AVX manual
       // The result of unpack_*_ps puts parts in the proper pairs beforehand
@@ -71,7 +71,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(A0 const& a0, A0 const& a1) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
     {
       typedef typename boost::dispatch::meta::as_floating<A0>::type  ftype;
       return  bitwise_cast<result_type>
