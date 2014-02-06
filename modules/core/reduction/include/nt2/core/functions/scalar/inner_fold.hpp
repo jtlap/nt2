@@ -22,13 +22,13 @@ namespace nt2 { namespace ext
   // General inner_fold
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::inner_fold_, tag::cpu_
-                              , (Out)(In)(Neutral)(Bop)(Uop)
-                              , ((ast_< Out, nt2::container::domain>))
-                                ((ast_< In, nt2::container::domain>))
-                                (unspecified_<Neutral>)
-                                (unspecified_<Bop>)
-                                (unspecified_<Uop>)
-                             )
+                            , (Out)(In)(Neutral)(Bop)(Uop)
+                            , ((ast_< Out, nt2::container::domain>))
+                              ((ast_< In, nt2::container::domain>))
+                              (unspecified_<Neutral>)
+                              (unspecified_<Bop>)
+                              (unspecified_<Uop>)
+                            )
   {
     typedef void                                                              result_type;
     typedef typename In::extent_type                                          extent_type;

@@ -22,17 +22,13 @@ namespace nt2 { namespace ext
   // Partial inner_fold with offset/size
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION_IF ( nt2::tag::inner_fold_, boost::simd::tag::simd_
-                                , (Out)(S0)(K0)(In)(Neutral)(Bop)(Uop)(Range)
+                                , (Out)(In)(Neutral)(Bop)(Uop)(Range)
                                 , ( boost::simd::meta::
                                     is_vectorizable < typename Out::value_type
                                                     , BOOST_SIMD_DEFAULT_EXTENSION
                                                     >
                                   )
-                                , ((expr_ < container_<K0,unspecified_<Out>,S0>
-                                          , nt2::tag::terminal_
-                                          , boost::mpl::long_<0>
-                                          >
-                                  ))
+                                , ((ast_< Out, nt2::container::domain>))
                                   ((ast_< In, nt2::container::domain>))
                                   (unspecified_<Neutral>)
                                   (unspecified_<Bop>)
