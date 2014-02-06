@@ -12,6 +12,11 @@
 #include <boost/simd/operator/functions/if_else.hpp>
 #include <boost/dispatch/attributes.hpp>
 
+#ifdef BOOST_SIMD_BRANCH_FREE_IF_ELSE
+#include <boost/simd/include/functions/scalar/genmask.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_select.hpp>
+#endif
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::if_else_, tag::cpu_
@@ -26,7 +31,11 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(const A0& a0, const A1& a1,const A1& a2) const
     {
+      #ifdef BOOST_SIMD_BRANCH_FREE_IF_ELSE
+      return bitwise_select(genmask(a0), a1, a2);
+      #else
       return a0 ? a1 : a2;
+      #endif
     }
   };
 } } }
