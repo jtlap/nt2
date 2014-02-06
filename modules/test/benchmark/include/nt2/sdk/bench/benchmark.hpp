@@ -19,7 +19,6 @@
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/details/base_case.hpp>
-#include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 
 /*

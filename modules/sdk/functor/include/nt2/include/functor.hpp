@@ -14,6 +14,7 @@
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 #include <nt2/sdk/functor/preprocessor/dispatch.hpp>
 #include <nt2/sdk/functor/preprocessor/function.hpp>
+#include <nt2/sdk/functor/site.hpp>
 #include <nt2/sdk/simd/category.hpp>
 
 #endif
