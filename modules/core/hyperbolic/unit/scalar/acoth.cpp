@@ -1,4 +1,3 @@
-//==============================================================================
 //         Copyright 2003 - 2013   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
@@ -23,7 +22,7 @@
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
 
-NT2_TEST_CASE_TPL ( acoth_real,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( acoth,  NT2_REAL_TYPES)
 {
   using nt2::acoth;
   using nt2::tag::acoth_;
@@ -39,7 +38,7 @@ NT2_TEST_CASE_TPL ( acoth_real,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(acoth(nt2::Minf<T>()), nt2::Zero<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(acoth(nt2::Mone<T>()), nt2::Minf<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(acoth(nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
+#endif
   NT2_TEST_ULP_EQUAL(acoth(nt2::One<T>()), nt2::Inf<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(acoth(nt2::Zero<T>()), nt2::Nan<r_t>(), 0.5);
-#endif
 }

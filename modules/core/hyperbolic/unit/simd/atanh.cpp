@@ -1,4 +1,3 @@
-//==============================================================================
 //         Copyright 2003 - 2013   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
@@ -24,7 +23,7 @@
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
 
-NT2_TEST_CASE_TPL ( atanh_real_1,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( atanh,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::atanh;
   using nt2::tag::atanh_;
@@ -43,8 +42,8 @@ NT2_TEST_CASE_TPL ( atanh_real_1,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(atanh(nt2::Inf<vT>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(atanh(nt2::Minf<vT>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(atanh(nt2::Nan<vT>()), nt2::Nan<r_t>(), 0.5);
+#endif
   NT2_TEST_ULP_EQUAL(atanh(nt2::Mone<vT>()), nt2::Minf<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(atanh(nt2::One<vT>()), nt2::Inf<r_t>(), 0.5);
-#endif
   NT2_TEST_ULP_EQUAL(atanh(nt2::Zero<vT>()), nt2::Zero<r_t>(), 0.5);
 }
