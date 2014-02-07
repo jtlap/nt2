@@ -137,6 +137,24 @@ namespace boost { namespace simd { namespace ext
       return call(a0,a0,p,details::direct_());
     }
 
+    // Two arguments with a 0
+    template<typename T, typename P>
+    BOOST_FORCEINLINE static T call ( T const& a0, P const& p
+                                    , details::r_zero_ const&
+                                    )
+    {
+      return call(a0,Zero<T>(),p,details::direct_());
+    }
+
+    // Two arguments with a 0
+    template<typename T, typename P>
+    BOOST_FORCEINLINE static T call ( T const& a0, P const& p
+                                    , details::l_zero_ const&
+                                    )
+    {
+      return call(Zero<T>(),a0,p,details::direct_());
+    }
+
     // Two arguments duplicate
     template<typename T, typename P>
     BOOST_FORCEINLINE static T call ( T const& a0, P const& p
@@ -166,6 +184,15 @@ namespace boost { namespace simd { namespace ext
                                                 , (details::avx_mask<P,8>::value)
                                             )
                             );
+    }
+
+    // Two arguments swapped
+    template<typename T, typename P>
+    BOOST_FORCEINLINE static T call ( T const& a0, T const& a1, P const& p
+                                    , details::swap_ const&
+                                    )
+    {
+      return call(a1,a0,p,details::direct_());
     }
 
     // Two arguments mixed

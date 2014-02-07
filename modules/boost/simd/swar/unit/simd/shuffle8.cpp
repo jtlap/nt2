@@ -171,6 +171,12 @@ NT2_TEST_CASE_TPL( avx_shuffle, BOOST_SIMD_SIMD_TYPES)
   binary_shuffle<T, 1, 1, 3, 3, 5, 5, 7, 7>();
   binary_shuffle<T, 9, 9,11,11,13,13,15,15>();
 
-
-  binary_shuffle<T, 0, 3,8,11,4,7,12,15>();
+  binary_shuffle<T,0,3,8,11,4,7,12,15>();
+  binary_shuffle<T,8,11,8,11,12,15,12,15>();
+  binary_shuffle<T,0,3,0,3,4,7,4,7>();
+  binary_shuffle<T,3,2,9,8,7,6,13,12>();
+  binary_shuffle<T,3,2,1,0,7,6,5,4>();
+  binary_shuffle<T,8,11,0,3,12,15,4,7>();
+  binary_shuffle<T,0,3,-1,-1,4,7,-1,-1>();
+  binary_shuffle<T,-1,-1,8,11,-1,-1,12,15>();
 }

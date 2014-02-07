@@ -117,8 +117,34 @@ namespace boost { namespace simd { namespace details
                                   &&  (p4 <  8 && p5 <  8 && p4 >=4 && p5 >= 4)
                                   &&  (p6 >=12 && p7 >= 12);
 
+    // Check for shuffle_ps(a0,a0) calls (~65536 calls)
+    static const bool dupe_shf  =   (p0 < 4 && p1 < 4 && p0 >=0 && p1 >= 0)
+                                &&  (p2 < 4 && p3 < 4 && p2 >=0 && p3 >= 0)
+                                &&  (p4 < 8 && p5 < 8 && p4 >=4 && p5 >= 4)
+                                &&  (p6 >=4 && p7 >= 4);
+
+    // Check for shuffle_pd(a0,zero) calls
+    static const bool r_zero_shf  =   (p0  <  4 && p1  <  4 && p0 >=0 && p1 >= 0)
+                                  &&  (p2 == -1 && p3 == -1)
+                                  &&  (p4  <  8 && p5 <  8 && p4 >=4 && p5 >= 4)
+                                  &&  (p6 == -1 && p7 == -1);
+
+    // Check for shuffle_ps(zero,a0) calls (~65536 calls)
+    static const bool l_zero_shf  =   (p0 == -1 && p1 == -1)
+                                  &&  (p2 <   4 && p3  <  4 && p2 >=0 && p3 >= 0)
+                                  &&  (p4 == -1 && p5 == -1)
+                                  &&  (p6 >=  4 && p7 >=  4);
+
+    // Check for shuffle_ps(a1,a0) calls (~65536 calls)
+    static const bool swap_shf  =   (p0 < 12 && p1 < 12 && p0 >=8 && p1 >= 8)
+                                &&  (p2 < 4  && p3 < 4  && p2 >=0 && p3 >= 0)
+                                &&  (p4 >=12 && p5 >= 12)
+                                &&  (p6 <  8 && p7 <  8 && p6 >=4 && p7 >= 4);
     // Compute topology mask
-    typedef boost::mpl::int_< int(direct_shf)> type;
+    typedef boost::mpl::int_< int(direct_shf)
+                            + int(swap_shf  )*2 + int(dupe_shf  )*4
+                            + int(r_zero_shf)*8 + int(l_zero_shf)*16
+                            > type;
   };
 
 } } }
