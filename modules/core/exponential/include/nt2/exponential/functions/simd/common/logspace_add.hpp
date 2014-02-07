@@ -14,7 +14,6 @@
 #include <nt2/include/functions/simd/max.hpp>
 #include <nt2/include/functions/simd/log1p.hpp>
 #include <nt2/include/functions/simd/exp.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
@@ -23,21 +22,11 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::logspace_add_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_< arithmetic_<A0>, X>))((simd_< arithmetic_<A0>, X >))
-                            )
-  {
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-    NT2_FUNCTOR_CALL_REPEAT(2)
-    {
-      return nt2::logspace_add(tofloat(a0), tofloat(a1));
-    }
-  };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::logspace_add_, tag::cpu_
                             , (A0)(X)
-                            , ((simd_< floating_<A0>, X >))((simd_< floating_<A0>, X >))
+                            , ((simd_< floating_<A0>, X >))
+                              ((simd_< floating_<A0>, X >))
                             )
   {
     typedef A0 result_type;

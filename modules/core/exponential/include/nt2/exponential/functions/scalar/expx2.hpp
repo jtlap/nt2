@@ -10,7 +10,6 @@
 #define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_EXPX2_HPP_INCLUDED
 #include <nt2/exponential/functions/expx2.hpp>
 #include <nt2/include/functions/scalar/exp.hpp>
-#include <nt2/include/functions/scalar/is_inf.hpp>
 #include <nt2/include/functions/scalar/sqr.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/floor.hpp>
@@ -20,29 +19,12 @@
 #include <nt2/include/constants/maxlog.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/two.hpp>
+#include <boost/simd/sdk/config.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expx2_, tag::cpu_
-                            , (A0)
-                            , (scalar_< arithmetic_<A0> >)
-                            )
-  {
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::expx2(result_type(a0));
-    }
-  };
-} }
+#ifndef BOOST_SIMD_NO_INFINITIES
+#include <nt2/include/functions/scalar/is_inf.hpp>
+#endif
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expx2_, tag::cpu_
@@ -53,7 +35,9 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
+#ifndef BOOST_SIMD_NO_INFINITIES
       if (nt2::is_inf(a0)) return nt2::Inf<A0>();
+#endif
       A0 x =  nt2::abs(a0);
       /* Represent x as an exact multiple of 1/32 plus a residual.  */
       A0 m = nt2::Expx2c1<A0>() * nt2::floor(nt2::Expx2c2<A0>() * x + Half<A0>());

@@ -46,6 +46,7 @@
 #include <nt2/include/constants/twotomnmbo_3.hpp>
 #endif
 
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cbrt_, tag::cpu_

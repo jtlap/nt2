@@ -9,32 +9,24 @@
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_LOG1P_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_LOG1P_HPP_INCLUDED
 #include <nt2/exponential/functions/log1p.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/inf.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/constants/eps.hpp>
 #include <nt2/include/functions/simd/log.hpp>
 #include <nt2/include/functions/simd/oneplus.hpp>
 #include <nt2/include/functions/simd/is_nez.hpp>
+#include <nt2/include/functions/simd/is_less.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/seladd.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is integer
-/////////////////////////////////////////////////////////////////////////////
+#ifndef BOOST_SIMD_NO_INFINITIES
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/functions/is_equal.hpp>
+#endif
+
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log1p_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                            )
-  {
-    typedef typename meta::as_floating<A0 > ::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      log(oneplus(tofloat(a0)));
-    }
-  };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log1p_, tag::cpu_
                             , (A0)(X)
@@ -49,9 +41,9 @@ namespace nt2 { namespace ext
                               a0,
                               seladd(is_nez(u),
                                      log(u),
-                                     -((u-One<A0>())-a0)/u)
+                                     (a0-minusone(u))/u)
                              ); // cancels errors with IEEE arithmetic
-#ifdef BOOST_SIMD_NO_INVALIDS
+#ifdef BOOST_SIMD_NO_INFINITIES
       return r;
 #else
       return if_else(eq(u, Inf<A0>()),u, r);

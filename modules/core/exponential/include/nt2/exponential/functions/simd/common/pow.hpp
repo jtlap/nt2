@@ -22,6 +22,7 @@
 #include <nt2/include/functions/simd/log.hpp>
 #include <nt2/include/functions/simd/negif.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
 #include <nt2/include/functions/simd/if_else_zero.hpp>
 #include <nt2/include/functions/simd/logical_and.hpp>
@@ -29,19 +30,6 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                              ((simd_<arithmetic_<A0>,X>))
-                            )
-  {
-    typedef typename meta::as_floating<A0>::type result_type;
-    NT2_FUNCTOR_CALL_REPEAT(2)
-    {
-      return nt2::pow(tofloat(a0), tofloat(a1));
-    }
-  };
-
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))
@@ -56,7 +44,6 @@ namespace nt2 { namespace ext
       bA0 allz = l_and(is_eqz(a0), is_eqz(a1));
       A0 res =  exp(a1*log(nt2::abs(a0)));
       res =  select(l_and(is_odd(a1), isltza0), -res, res);
-      //     bA0 invalid =  logical_andnot(isltza0, is_flint(a1));
       bA0 invalid =  l_and(isltza0, logical_not( is_flint(a1)));
       return select(invalid, Nan<result_type>(), select(allz, One<A0>(), res));
     }
@@ -64,11 +51,11 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
                             , (A0)(A1)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
+                            , ((simd_<floating_<A0>,X>))
                               ((simd_<integer_<A1>,X>))
                             )
   {
-    typedef typename meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
         typedef A1                    int_type;
@@ -103,32 +90,18 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
                             , (A0)(A1)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                              ((scalar_<integer_<A1> >))
-                            )
-  {
-    typedef typename meta::as_floating<A0>::type result_type;
-    NT2_FUNCTOR_CALL_REPEAT(2)
-    {
-      return nt2::pow(tofloat(a0), a1);
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
-                            , (A0)(A1)(X)
                             , ((simd_<floating_<A0>,X>))
                               ((scalar_<integer_<A1> >))
                             )
   {
-    typedef typename meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-        typedef result_type r_type;
-        r_type sign_x = bitofsign(a0);
-        r_type x = b_xor(a0, sign_x);//x = nt2::abs(a0)
-        if (is_even(a1)) sign_x = Zero<r_type>();
+        result_type sign_x = bitofsign(a0);
+        result_type x = b_xor(a0, sign_x);//x = nt2::abs(a0)
+        if (is_even(a1)) sign_x = Zero<result_type>();
         A1 n = nt2::abs(a1);
-        r_type ret = One<r_type>();
+        result_type ret = One<result_type>();
         for(A1 t = n; t > 0; t >>= 1)
         {
           if(is_odd(t)) ret*=x;

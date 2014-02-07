@@ -13,21 +13,21 @@
 #include <nt2/include/functions/simd/log.hpp>
 #include <nt2/include/functions/simd/is_nltz.hpp>
 #include <nt2/include/functions/simd/all.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/assert.hpp>
+#include <boost/simd/operator/functions/details/assert_utils.hpp>
 
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::reallog_, tag::cpu_
                             , (A0)
-                            , (generic_< arithmetic_<A0> >)
+                            , (generic_< floating_<A0> >)
                             )
   {
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      BOOST_ASSERT_MSG(nt2::all(nt2::is_nltz(a0)), "reallog cannot produce complex result.");
-      return nt2::log(nt2::tofloat(a0));
+      BOOST_ASSERT_MSG(boost::simd::assert_all(nt2::is_nltz(a0)), "reallog cannot produce complex result.");
+      return nt2::log(a0);
     }
   };
 } }
