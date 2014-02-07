@@ -16,8 +16,6 @@
 // Check for the most recent SSE family extension
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/sdk/simd/extensions/x86/mic.hpp>
-
-#ifndef BOOST_SIMD_HAS_MIC_SUPPORT
 #include <boost/simd/sdk/simd/extensions/x86/avx2.hpp>
 #include <boost/simd/sdk/simd/extensions/x86/fma3.hpp>
 #include <boost/simd/sdk/simd/extensions/x86/xop.hpp>
@@ -30,7 +28,6 @@
 #include <boost/simd/sdk/simd/extensions/x86/sse3.hpp>
 #include <boost/simd/sdk/simd/extensions/x86/sse2.hpp>
 #include <boost/simd/sdk/simd/extensions/x86/sse.hpp>
-#endif
 
 #if   defined(BOOST_SIMD_HAS_SSE_SUPPORT)
   #if defined(BOOST_SIMD_ARCH_X86_64)
