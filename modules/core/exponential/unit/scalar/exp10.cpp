@@ -1,4 +1,3 @@
-//==============================================================================
 //         Copyright 2003 - 2013   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
@@ -41,39 +40,6 @@ NT2_TEST_CASE_TPL ( exp10_real,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(exp10(nt2::Minf<T>()), nt2::Zero<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(exp10(nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
 #endif
-  NT2_TEST_ULP_EQUAL(exp10(nt2::Mone<T>()), nt2::One<r_t>()/10, 0);
-  NT2_TEST_ULP_EQUAL(exp10(nt2::One<T>()), nt2::Ten<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(exp10(nt2::Zero<T>()), nt2::One<r_t>(), 0);
-}
-
-NT2_TEST_CASE_TPL ( exp10_unsigned_int,  NT2_UNSIGNED_TYPES)
-{
-  using nt2::exp10;
-  using nt2::tag::exp10_;
-
-  typedef typename nt2::meta::call<exp10_(T)>::type r_t;
-  typedef T wished_r_t;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(exp10(nt2::One<T>()), nt2::Ten<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(exp10(nt2::Zero<T>()), nt2::One<r_t>(), 0);
-}
-
-NT2_TEST_CASE_TPL ( exp10_signed_int,  NT2_INTEGRAL_SIGNED_TYPES)
-{
-  using nt2::exp10;
-  using nt2::tag::exp10_;
-
-  typedef typename nt2::meta::call<exp10_(T)>::type r_t;
-  typedef T wished_r_t;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
-
-  // specific values tests
   NT2_TEST_ULP_EQUAL(exp10(nt2::Mone<T>()), nt2::One<r_t>()/10, 0);
   NT2_TEST_ULP_EQUAL(exp10(nt2::One<T>()), nt2::Ten<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(exp10(nt2::Zero<T>()), nt2::One<r_t>(), 0);

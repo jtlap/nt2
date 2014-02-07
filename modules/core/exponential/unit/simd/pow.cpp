@@ -1,4 +1,3 @@
-//==============================================================================
 //         Copyright 2003 - 2013   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
@@ -27,7 +26,7 @@
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
 
-NT2_TEST_CASE_TPL ( pow_real_2,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( pow,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::pow;
   using nt2::tag::pow_;
@@ -55,7 +54,7 @@ NT2_TEST_CASE_TPL ( pow_real_2,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(pow(nt2::splat<vT>(-1),nt2::splat<vT>(6)), nt2::One<r_t>(), 0);
 }
 
-NT2_TEST_CASE_TPL ( pow_real__2_1,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( pow_1,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::pow;
   using nt2::tag::pow_;
@@ -83,7 +82,7 @@ NT2_TEST_CASE_TPL ( pow_real__2_1,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(pow(nt2::Zero<vT>(),3), nt2::Zero<r_t>(), 0);
 }
 
-NT2_TEST_CASE_TPL ( powi_real_2,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( powi,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::pow;
   using nt2::tag::pow_;

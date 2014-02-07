@@ -1,4 +1,3 @@
-//==============================================================================
 //         Copyright 2003 - 2013   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
@@ -25,7 +24,7 @@
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/exp_1.hpp>
 
-NT2_TEST_CASE_TPL ( exp_real_1,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( exp,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::exp;
   using nt2::tag::exp_;
