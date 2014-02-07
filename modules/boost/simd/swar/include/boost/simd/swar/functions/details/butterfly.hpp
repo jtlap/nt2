@@ -11,7 +11,6 @@
 #define BOOST_SIMD_SWAR_FUNCTIONS_DETAILS_BUTTERFLY_HPP_INCLUDED
 
 #include <boost/simd/include/functions/simd/shuffle.hpp>
-#include <boost/simd/ieee/include/functions/next.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/dispatch/attributes.hpp>

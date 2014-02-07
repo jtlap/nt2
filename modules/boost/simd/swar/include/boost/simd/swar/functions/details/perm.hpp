@@ -18,7 +18,7 @@ namespace boost { namespace simd { namespace details
 {
   // Result of the meta permutation
   template<class P, class Card, int I>
-  struct index_ : boost::mpl::apply < typename P::type
+  struct index_ : boost::mpl::apply < P
                                     , boost::mpl::int_<I>
                                     , Card
                                     >::type

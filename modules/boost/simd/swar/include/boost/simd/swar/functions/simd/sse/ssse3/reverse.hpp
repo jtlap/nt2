@@ -11,36 +11,49 @@
 #ifdef BOOST_SIMD_HAS_SSSE3_SUPPORT
 
 #include <boost/simd/swar/functions/reverse.hpp>
-#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
-#include <boost/simd/sdk/meta/make_dependent.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reverse_, boost::simd::tag::ssse3_
-                                   , (A0)
-                                   , ((simd_<type8_<A0>,boost::simd::tag::sse_>))
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::reverse_
+                                    , boost::simd::tag::ssse3_
+                                    , (A0)
+                                    , ((simd_ < ints8_<A0>
+                                              , boost::simd::tag::sse_
+                                              >
+                                      ))
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      result_type indices = make<result_type>(15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0);
-      return simd::bitwise_cast<A0>(_mm_shuffle_epi8(a0, indices));
+      return _mm_shuffle_epi8 ( a0
+                              , _mm_set_epi8( 0, 1, 2, 3, 4, 5, 6, 7
+                                            , 8, 9,10,11,12,13,14,15
+                                            )
+                              );
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reverse_, boost::simd::tag::ssse3_
-                                   , (A0)
-                                   , ((simd_<type16_<A0>,boost::simd::tag::sse_>))
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::reverse_
+                                    , boost::simd::tag::ssse3_
+                                    , (A0)
+                                    , ((simd_ < ints16_<A0>
+                                              , boost::simd::tag::sse_
+                                              >
+                                      ))
+                                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename meta::make_dependent<int8_t, A0>::type int8;
-      typedef simd::native<int8, boost::simd::tag::sse_> type8;
-      type8 indices = make<type8>(14, 15, 12, 13, 10, 11, 8, 9, 6, 7, 4, 5, 2, 3, 0, 1);
-      return simd::bitwise_cast<A0>(_mm_shuffle_epi8(simd::bitwise_cast<type8>(a0), indices));
+      return _mm_shuffle_epi8 ( a0
+                              , _mm_set_epi8( 1, 0, 3, 2, 5, 4, 7, 6
+                                            , 9, 8,11,10,13,12,15,14
+                                            )
+                              );
     }
   };
 } } }

@@ -11,38 +11,10 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/swar/functions/repeat_lower_half.hpp>
-#include <boost/simd/swar/functions/details/shuffle.hpp>
+#include <boost/simd/include/functions/simd/interleave_first.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::repeat_lower_half_
-                                   , boost::simd::tag::sse2_
-                                   , (A0)
-                                   , ((simd_<single_<A0>,boost::simd::tag::sse_>))
-                                   )
-  {
-    typedef A0 result_type;
-
-    BOOST_FORCEINLINE result_type operator()(__m128 const a0) const
-    {
-      return _mm_movelh_ps(a0,a0);
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::repeat_lower_half_
-                                   , boost::simd::tag::sse2_
-                                   , (A0)
-                                   , ((simd_<type32_<A0>,boost::simd::tag::sse_>))
-                                   )
-  {
-    typedef A0 result_type;
-
-    BOOST_FORCEINLINE result_type operator()(__m128i const a0) const
-    {
-      return  details::shuffle<0, 1, 0, 1>(a0, a0);
-    }
-  };
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::repeat_lower_half_
                                    , boost::simd::tag::sse2_
                                    , (A0)
@@ -51,23 +23,37 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    BOOST_FORCEINLINE result_type operator()(__m128i const a0) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return  details::shuffle<0, 1, 0, 1>(a0, a0);
+      return interleave_first(a0, a0);
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::repeat_lower_half_
                                    , boost::simd::tag::sse2_
                                    , (A0)
-                                   , ((simd_<double_<A0>,boost::simd::tag::sse_>))
+                                   , ((simd_<single_<A0>,boost::simd::tag::sse_>))
                                    )
   {
     typedef A0 result_type;
 
-    BOOST_FORCEINLINE result_type operator()(__m128d const a0) const
+    BOOST_FORCEINLINE result_type operator()(__m128 a0) const
     {
-      return _mm_unpacklo_pd(a0,a0);
+      return _mm_movelh_ps(a0,a0);
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::repeat_lower_half_
+                                   , boost::simd::tag::sse2_
+                                   , (A0)
+                                   , ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
+                                   )
+  {
+    typedef A0 result_type;
+
+    BOOST_FORCEINLINE result_type operator()(__m128i a0) const
+    {
+      return _mm_shuffle_epi32(a0, _MM_SHUFFLE(1,0,1,0) );
     }
   };
 } } }

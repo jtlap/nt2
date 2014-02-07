@@ -7,20 +7,22 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_SWAR_FUNCTIONS_SIMD_COMMON_BROADCAST_HPP_INCLUDED
-#define BOOST_SIMD_SWAR_FUNCTIONS_SIMD_COMMON_BROADCAST_HPP_INCLUDED
+#ifndef BOOST_SIMD_SWAR_FUNCTIONS_SIMD_SSE_SSSE3_BROADCAST_HPP_INCLUDED
+#define BOOST_SIMD_SWAR_FUNCTIONS_SIMD_SSE_SSSE3_BROADCAST_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_SSSE3_SUPPORT
 
 #include <boost/simd/swar/functions/broadcast.hpp>
-#include <boost/simd/include/functions/simd/extract.hpp>
-#include <boost/simd/include/functions/simd/splat.hpp>
 #include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::broadcast_
-                                    , boost::simd::tag::cpu_
-                                    , (A0)(X)(A1)
-                                    , ((simd_< unspecified_<A0>, X >))
+                                    , boost::simd::tag::ssse3_
+                                    , (A0)(A1)
+                                    , ((simd_ < ints8_<A0>
+                                              , boost::simd::tag::sse_
+                                              >
+                                      ))
                                       (mpl_integral_< scalar_< integer_<A1> > >)
                                     )
   {
@@ -28,9 +30,10 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&) const
     {
-      return splat<A0>( extract<A1::value>(a0) );
+      return _mm_shuffle_epi8(a0, _mm_set1_epi8(A1::value) );
     }
   };
 } } }
 
+#endif
 #endif
