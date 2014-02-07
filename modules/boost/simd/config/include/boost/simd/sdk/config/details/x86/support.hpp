@@ -64,7 +64,7 @@ namespace boost { namespace simd { namespace details
                                   , &boost::simd::is_supported<tag::avx2_>
                                   , &registration_list
                                   );
-  support_registration x86_mic    ( "xmic"
+  support_registration x86_mic    ( "mic"
                                   , &boost::simd::is_supported<tag::mic_>
                                   , &registration_list
                                   );
