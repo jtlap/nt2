@@ -11,7 +11,7 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/swar/functions/repeat_lower_half.hpp>
-#include <boost/simd/include/functions/interleave_first.hpp>
+#include <boost/simd/include/functions/simd/interleave_first.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

@@ -10,7 +10,7 @@
 #define BOOST_SIMD_SWAR_FUNCTIONS_DETAILS_REVERSE_PATTERN_HPP_INCLUDED
 
 #include <boost/simd/swar/functions/details/default_matcher.hpp>
-#include <boost/simd/include/functions/reverse.hpp>
+#include <boost/simd/include/functions/simd/reverse.hpp>
 #include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace details

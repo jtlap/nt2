@@ -12,7 +12,7 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
 #include <boost/simd/swar/functions/broadcast.hpp>
-#include <boost/simd/include/functions/combine.hpp>
+#include <boost/simd/include/functions/simd/combine.hpp>
 #include <boost/simd/sdk/simd/meta/retarget.hpp>
 #include <boost/dispatch/attributes.hpp>
 

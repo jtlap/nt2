@@ -18,7 +18,7 @@
 #include <boost/simd/swar/functions/details/default_matcher.hpp>
 #include <boost/simd/swar/functions/details/zero_pattern.hpp>
 #include <boost/simd/swar/functions/details/filler.hpp>
-#include <boost/simd/include/functions/aligned_load.hpp>
+#include <boost/simd/include/functions/simd/aligned_load.hpp>
 #include <boost/dispatch/attributes.hpp>
 
 #include <boost/preprocessor/repetition/enum.hpp>

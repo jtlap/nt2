@@ -9,9 +9,9 @@
 #ifndef BOOST_SIMD_SWAR_FUNCTIONS_SIMD_SSE_SSE2_DETAILS_PERMUTATION_HPP_INCLUDED
 #define BOOST_SIMD_SWAR_FUNCTIONS_SIMD_SSE_SSE2_DETAILS_PERMUTATION_HPP_INCLUDED
 
-#include <boost/simd/include/functions/bitwise_cast.hpp>
-#include <boost/simd/include/functions/bitwise_and.hpp>
-#include <boost/simd/include/functions/make.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/bitwise_and.hpp>
+#include <boost/simd/include/functions/simd/make.hpp>
 #include <boost/simd/swar/functions/details/default_permutation.hpp>
 #include <boost/simd/swar/functions/simd/sse/sse2/details/topology.hpp>
 #include <boost/simd/swar/functions/details/topology.hpp>
