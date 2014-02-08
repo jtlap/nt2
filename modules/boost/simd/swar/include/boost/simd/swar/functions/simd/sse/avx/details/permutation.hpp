@@ -114,7 +114,6 @@ namespace boost { namespace simd { namespace ext
                                     , details::swap_ const&
                                     )
     {
-      typedef typename dispatch::meta::as_floating<T>::type f_t;
       return call(a1,a0,p,details::direct_());
     }
   };
