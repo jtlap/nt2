@@ -11,7 +11,7 @@
 
 
 #include <nt2/statistics/functions/normrnd.hpp>
-#include <nt2/include/functions/norminv.hpp>
+#include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/randn.hpp>
 
 namespace nt2 { namespace ext
@@ -103,7 +103,7 @@ namespace nt2 { namespace ext
   {
     typedef meta::as_<A0>                                                           TGT;
     typedef typename meta::call<tag::randn_(const A1&, const A2&,const A3&, const A4,TGT)>::type T1;
-    typedef typename meta::call<tag::norminv_(T1,A0 const&,A0 const&)>::type result_type;
+    typedef typename meta::call<tag::fma_(T1,A0 const&,A0 const&)>::type result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& mu, A0 const& sig,
                                              A1 const& a1, A2 const& a2,
