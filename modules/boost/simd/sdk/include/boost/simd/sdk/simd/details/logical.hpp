@@ -111,12 +111,12 @@ namespace boost { namespace simd
     static BOOST_FORCEINLINE  std::size_t size() { return meta::cardinal_of< native<value_type, Extension> >::value; }
     static BOOST_FORCEINLINE        bool empty() { return false; }
 
-    reference operator[](std::size_t i)
+    BOOST_FORCEINLINE reference operator[](std::size_t i)
     {
       return reference(*this, i);
     }
 
-    const_reference operator[](std::size_t i) const
+    BOOST_FORCEINLINE const_reference operator[](std::size_t i) const
     {
       return typename dispatch::make_functor<tag::extract_, value_type>::type()(*this, i);
     }
