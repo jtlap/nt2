@@ -118,8 +118,8 @@ namespace boost { namespace simd { namespace details
     template<typename T, typename P>
     static BOOST_FORCEINLINE T process(T const& a0, P const&)
     {
-      typedef typename meta::scalar_of<T>::type                 s_t;
-      typedef aligned_array<s_t,Cardinal,Cardinal*sizeof(s_t)>  data_t;
+      typedef typename meta::scalar_of<T>::type                       s_t;
+      typedef aligned_array<s_t,Cardinal,BOOST_SIMD_CONFIG_ALIGNMENT> data_t;
 
       data_t that;
       meta::iterate<Cardinal>( unary_filler<data_t,T,P>(a0,that) );
@@ -130,8 +130,8 @@ namespace boost { namespace simd { namespace details
     template<typename T, typename P>
     static BOOST_FORCEINLINE T process(T const& a0, T const& a1, P const&)
     {
-      typedef typename meta::scalar_of<T>::type                 s_t;
-      typedef aligned_array<s_t,Cardinal,Cardinal*sizeof(s_t)>  data_t;
+      typedef typename meta::scalar_of<T>::type                       s_t;
+      typedef aligned_array<s_t,Cardinal,BOOST_SIMD_CONFIG_ALIGNMENT> data_t;
 
       data_t that;
       meta::iterate<Cardinal>( binary_filler<data_t,T,P>(a0,a1,that) );
