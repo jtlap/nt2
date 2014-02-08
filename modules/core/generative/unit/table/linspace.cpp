@@ -16,6 +16,7 @@
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests.hpp>
+#include <boost/simd/sdk/config.hpp>
 #include <boost/dispatch/meta/nth_hierarchy.hpp>
 
 NT2_TEST_CASE( hierarchy )
@@ -106,6 +107,7 @@ NT2_TEST_CASE_TPL( linspace_with_size, NT2_REAL_TYPES )
   NT2_TEST_EQUAL( xn1(1), 9 );
 }
 
+#ifndef BOOST_SIMD_NO_DENORMALS
 NT2_TEST_CASE_TPL( linspace_worst, NT2_REAL_TYPES )
 {
   for(size_t i = 0; i < 8; ++i)
@@ -116,6 +118,7 @@ NT2_TEST_CASE_TPL( linspace_worst, NT2_REAL_TYPES )
     NT2_TEST(nt2::globalall(z));
   }
 }
+#endif
 
 NT2_TEST_CASE_TPL( linspace_best, NT2_REAL_TYPES )
 {
