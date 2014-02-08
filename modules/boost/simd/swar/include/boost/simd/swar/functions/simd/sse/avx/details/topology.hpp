@@ -35,11 +35,7 @@ namespace boost { namespace simd { namespace details
   template<typename P>
   struct  avx_mask<P,8>
         : boost::mpl::int_
-          < ( ((details::permuted<details::fix_zero<P>,7,8>::value)&3)<<14
-            | ((details::permuted<details::fix_zero<P>,6,8>::value)&3)<<12
-            | ((details::permuted<details::fix_zero<P>,5,8>::value)&3)<<10
-            | ((details::permuted<details::fix_zero<P>,4,8>::value)&3)<<8
-            | ((details::permuted<details::fix_zero<P>,3,8>::value)&3)<<6
+          < ( ((details::permuted<details::fix_zero<P>,3,8>::value)&3)<<6
             | ((details::permuted<details::fix_zero<P>,2,8>::value)&3)<<4
             | ((details::permuted<details::fix_zero<P>,1,8>::value)&3)<<2
             | ((details::permuted<details::fix_zero<P>,0,8>::value)&3)
@@ -114,32 +110,32 @@ namespace boost { namespace simd { namespace details
     // Check for shuffle_ps(a0,a1) calls (~65536 calls)
     static const bool direct_shf  =   (p0 < 4  && p1 < 4  && p0 >=0 && p1 >= 0)
                                   &&  (p2 < 12 && p3 < 12 && p2 >=8 && p3 >= 8)
-                                  &&  (p4 <  8 && p5 <  8 && p4 >=4 && p5 >= 4)
-                                  &&  (p6 >=12 && p7 >= 12);
+                                  &&  (p4 == p0+4 && p5 == p1+4)
+                                  &&  (p6 == p2+4 && p7 == p3+4);
 
     // Check for shuffle_ps(a0,a0) calls (~65536 calls)
     static const bool dupe_shf  =   (p0 < 4 && p1 < 4 && p0 >=0 && p1 >= 0)
                                 &&  (p2 < 4 && p3 < 4 && p2 >=0 && p3 >= 0)
-                                &&  (p4 < 8 && p5 < 8 && p4 >=4 && p5 >= 4)
-                                &&  (p6 >=4 && p7 >= 4);
+                                &&  (p4 == p0+4 && p5 == p1+4)
+                                &&  (p6 == p2+4 && p7 == p3+4);
 
     // Check for shuffle_pd(a0,zero) calls
     static const bool r_zero_shf  =   (p0  <  4 && p1  <  4 && p0 >=0 && p1 >= 0)
                                   &&  (p2 == -1 && p3 == -1)
-                                  &&  (p4  <  8 && p5 <  8 && p4 >=4 && p5 >= 4)
+                                  &&  (p4 == p0+4 && p5 == p1+4)
                                   &&  (p6 == -1 && p7 == -1);
 
     // Check for shuffle_ps(zero,a0) calls (~65536 calls)
     static const bool l_zero_shf  =   (p0 == -1 && p1 == -1)
-                                  &&  (p2 <   4 && p3  <  4 && p2 >=0 && p3 >= 0)
+                                  &&  (p2 < 4 && p3 < 4 && p2 >=0 && p3 >= 0)
                                   &&  (p4 == -1 && p5 == -1)
-                                  &&  (p6 >=  4 && p7 >=  4);
+                                  &&  (p6 == p2+4 && p7 == p3+4);
 
     // Check for shuffle_ps(a1,a0) calls (~65536 calls)
     static const bool swap_shf  =   (p0 < 12 && p1 < 12 && p0 >=8 && p1 >= 8)
                                 &&  (p2 < 4  && p3 < 4  && p2 >=0 && p3 >= 0)
-                                &&  (p4 >=12 && p5 >= 12)
-                                &&  (p6 <  8 && p7 <  8 && p6 >=4 && p7 >= 4);
+                                &&  (p4 == p0+4 && p5 == p1+4)
+                                &&  (p6 == p2+4 && p7 == p3+4);
     // Compute topology mask
     typedef boost::mpl::int_< int(direct_shf)
                             + int(swap_shf  )*2 + int(dupe_shf  )*4
