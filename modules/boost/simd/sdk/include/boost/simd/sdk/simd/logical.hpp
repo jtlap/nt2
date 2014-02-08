@@ -77,7 +77,7 @@ namespace boost { namespace simd
      **/
     //==========================================================================
     BOOST_FORCEINLINE operator bool() const { return value_; }
-    bool value() const {return value_; }
+    BOOST_FORCEINLINE bool value() const {return value_; }
 
   private:
     bool  value_;
