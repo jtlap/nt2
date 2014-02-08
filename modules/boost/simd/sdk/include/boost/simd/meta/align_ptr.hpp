@@ -77,7 +77,7 @@ template<typename T> struct align_ptr<T,n>                                     \
 };                                                                             \
 /**/
 
-  BOOST_SIMD_PP_REPEAT_POWER_OF_2(M0, ~)
+  BOOST_SIMD_PP_REPEAT_POWER_OF_2_BIG(M0, ~)
 
 #undef M0
 
