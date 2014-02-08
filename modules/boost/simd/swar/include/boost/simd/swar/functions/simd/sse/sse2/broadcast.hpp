@@ -102,6 +102,11 @@ namespace boost { namespace simd { namespace ext
                                           )
                             > fix_t;
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wshadow"
+#endif // __clang__
+
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&) const
     {
       return _mm_shufflehi_epi16( _mm_shufflelo_epi16
@@ -111,6 +116,11 @@ namespace boost { namespace simd { namespace ext
                                 , fix_t::value
                                 );
     }
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif // __clang__
+
   };
 } } }
 
