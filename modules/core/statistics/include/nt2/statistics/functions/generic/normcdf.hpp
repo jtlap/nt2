@@ -10,18 +10,27 @@
 #define NT2_STATISTICS_FUNCTIONS_GENERIC_NORMCDF_HPP_INCLUDED
 #include <nt2/statistics/functions/normcdf.hpp>
 #include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/norminv.hpp>
-#include <nt2/include/functions/atanpi.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/erfc.hpp>
-#include <nt2/include/functions/globalall.hpp>
-#include <nt2/include/functions/is_gez.hpp>
-#include <nt2/include/functions/colvect.hpp>
-#include <nt2/include/constants/half.hpp>
-#include <nt2/include/constants/sqrt_2o_2.hpp>
+#include <nt2/include/functions/erf.hpp>
+#include <nt2/include/functions/fma.hpp>
+#include <nt2/include/functions/sign.hpp>
+#include <nt2/include/functions/multiplies.hpp>
+#include <nt2/include/functions/divides.hpp>
+#include <nt2/include/functions/unary_minus.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/functions/tie.hpp>
+#include <nt2/include/functions/sqrt.hpp>
+#include <nt2/include/functions/norminv.hpp>
+#include <nt2/include/functions/erfc.hpp>
+#include <nt2/include/functions/is_gez.hpp>
+#include <nt2/include/functions/globalall.hpp>
+#include <nt2/include/functions/oneminus.hpp>
+#include <nt2/include/functions/is_ltz.hpp>
+
+#include <nt2/include/constants/half.hpp>
+#include <nt2/include/constants/sqrt_2o_2.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <boost/simd/operator/functions/details/assert_utils.hpp>
+#include <boost/assert.hpp>
 #include <nt2/core/container/table/table.hpp>
 
 namespace nt2 { namespace ext
@@ -32,7 +41,10 @@ namespace nt2 { namespace ext
                             )
   {
     typedef A0 result_type;
-    NT2_FUNCTOR_CALL(1){ return Half<A0>()*nt2::erfc(-Sqrt_2o_2<A0>()*a0); }
+    NT2_FUNCTOR_CALL(1)
+    {
+      return Half<A0>()*(fma(sign(a0), nt2::erf(Sqrt_2o_2<A0>()*nt2::abs(a0)), One<A0>()));
+    }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::normcdf0_, tag::cpu_
@@ -42,7 +54,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef A0 result_type;
-    NT2_FUNCTOR_CALL(2){ return Half<A0>()*nt2::erfc(Sqrt_2o_2<A0>()*(a1-a0)); }
+    NT2_FUNCTOR_CALL(2){ return normcdf(a0-a1); }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::normcdf0_, tag::cpu_
@@ -55,8 +67,8 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(3)
     {
-      BOOST_ASSERT_MSG(nt2::globalall(nt2::is_gez(nt2::colvect(a2))), "sigma(s) must be positive");
-      return Half<A0>()*nt2::erfc(Sqrt_2o_2<A0>()*((a1-a0)/a2));
+      BOOST_ASSERT_MSG(boost::simd::assert_all(nt2::is_gez(nt2::colvect(a2))), "sigma(s) must be positive");
+      return normcdf((a0-a1)/a2);
     }
   };
 
@@ -99,7 +111,7 @@ namespace nt2 { namespace ext
 
     }
     ////////////////////////////////////////////
-    // Not enough output to computes all ouputs
+    // Not enough outputs to computes all ouputs
     ////////////////////////////////////////////
     template < class T >
       BOOST_FORCEINLINE static void doit(const A0& a0, A1& a1,
@@ -141,7 +153,7 @@ namespace nt2 { namespace ext
       const In2& sigma = boost::proto::child_c<2>(a0);
       BOOST_AUTO_TPL(z, (x-mu)/sigma);
       BOOST_AUTO_TPL(zvar, pcov(1,1) + (Two<value_type>()*pcov(1,2) + pcov(2,2)*z)*z);
-      BOOST_ASSERT_MSG(nt2::globalall(nt2::is_gez(zvar)), "Covariance matrix must be positive");
+      BOOST_ASSERT_MSG(globalall(nt2::is_gez(zvar)), "Covariance matrix must be positive");
       value_type normz = -nt2::norminv(alpha*nt2::Half<value_type>());
       BOOST_AUTO_TPL(halfwidth, normz*nt2::sqrt(zvar)/sigma);
       boost::proto::child_c<0>(a1) = Half<value_type>()*nt2::erfc(-Sqrt_2o_2<value_type>()*z);
