@@ -10,8 +10,7 @@
 #define BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_COMMON_INSERT_HPP_INCLUDED
 
 #include <boost/simd/memory/functions/insert.hpp>
-#include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/include/constants/allbits.hpp>
+#include <boost/simd/include/functions/scalar/genmask.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/details/aliasing.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
@@ -39,7 +38,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename meta::scalar_of<A1>::type      stype;
       typedef typename meta::may_alias<stype>::type*  rtype;
 
-      reinterpret_cast<rtype>(&a1)[a2] = a0;
+      reinterpret_cast<rtype>(&a1.data_)[a2] = a0;
     }
   };
 
@@ -62,8 +61,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename meta::scalar_of<typename A1::type>::type stype;
       typedef typename meta::may_alias<stype>::type*            rtype;
 
-      reinterpret_cast<rtype>(&a1.data_)[a2] = a0 ? Allbits<stype>()
-                                                  : Zero<stype>();
+      reinterpret_cast<rtype>(&a1.data_)[a2] = genmask(a0);
     }
   };
 
