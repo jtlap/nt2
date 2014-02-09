@@ -95,7 +95,7 @@ template<typename T> struct rgb2yuv_simd
     std::vector<T,boost::simd::allocator<T> > r, g, b, y, u, v;
 };
 
-NT2_REGISTER_BENCHMARK( rgb2yuv_simd )
+NT2_REGISTER_BENCHMARK_TPL( rgb2yuv_simd, (float) )
 {
   std::size_t hmin = args("hmin", 32);
   std::size_t hmax = args("hmax", 128);
@@ -104,10 +104,10 @@ NT2_REGISTER_BENCHMARK( rgb2yuv_simd )
   std::size_t wmax = args("wmax", 128);
   std::size_t wstep = args("wstep", 2);
 
-  run_during_with< rgb2yuv_simd<nt2::uint8_t> > ( 1.
-                                                , and_( geometric(hmin,hmax,hstep)
-                                                      , geometric(wmin,wmax,wstep)
-                                                      )
-                                                , cycles_per_element<stats::median_>()
-                                                );
+  run_during_with< rgb2yuv_simd<T> >( 1.
+                                    , and_( geometric(hmin,hmax,hstep)
+                                          , geometric(wmin,wmax,wstep)
+                                          )
+                                    , cycles_per_element<stats::median_>()
+                                    );
 }
