@@ -8,10 +8,11 @@
 //==============================================================================
 #ifndef NT2_POLYNOMIALS_FUNCTIONS_SCALAR_HERMITE_HPP_INCLUDED
 #define NT2_POLYNOMIALS_FUNCTIONS_SCALAR_HERMITE_HPP_INCLUDED
+
 #include <nt2/polynomials/functions/hermite.hpp>
-#include <boost/math/special_functions.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/sdk/meta/adapted_traits.hpp>
+#include <nt2/include/functions/scalar/oneplus.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -39,30 +40,30 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::hermite_, tag::cpu_,
                              (A0)(A1),
                              (scalar_< integer_<A0> > )(scalar_< floating_<A1> > )
-                        )
+                            )
   {
     typedef A1 result_type;
     NT2_FUNCTOR_CALL(2)
+    {
+      A1 p0 = One<A1>();
+      if(a0 == 0) return p0;
+      A1 p1 = a1+a1;
+      A0 c = 1;
+      while(c < a0)
       {
-        A1 p0 = One<A1>();
-        if(a0 == 0) return p0;
-        A1 p1 = a1+a1;
-        A0 c = 1;
-        while(c < a0)
-          {
-            std::swap(p0, p1);
-            p1 = hermite_next(c, a1, p0, p1);
-            ++c;
-          }
-        return p1;
+        std::swap(p0, p1);
+        p1 = hermite_next(c, a1, p0, p1);
+        ++c;
       }
+      return p1;
+    }
   private:
     template <class T, class T1, class T2>
-      static inline T
-      hermite_next(const uint32_t& n, const T& x, const T1& Hn, const T2& Hnm1)
-      {
-        return (2 * x * Hn - 2 * n * Hnm1);
-      }
+    static inline T
+    hermite_next(const uint32_t& n, const T& x, const T1& Hn, const T2& Hnm1)
+    {
+      return (2 * x * Hn - 2 * n * Hnm1);
+    }
   };
 } }
 

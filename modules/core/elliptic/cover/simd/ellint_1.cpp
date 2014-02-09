@@ -16,7 +16,6 @@
 #include <nt2/elliptic/include/functions/ellint_1.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <boost/math/special_functions.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

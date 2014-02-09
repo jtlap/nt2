@@ -8,9 +8,11 @@
 //==============================================================================
 #ifndef NT2_EULER_FUNCTIONS_SCALAR_BETA_HPP_INCLUDED
 #define NT2_EULER_FUNCTIONS_SCALAR_BETA_HPP_INCLUDED
+
 #include <nt2/euler/functions/beta.hpp>
-#include <boost/math/special_functions.hpp>
+#include <boost/math/special_functions/beta.hpp>
 #include <nt2/sdk/error/policies.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 
 /**
  * \ingroup euler_beta

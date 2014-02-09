@@ -8,11 +8,13 @@
 //==============================================================================
 #ifndef NT2_HYPERBOLIC_FUNCTIONS_SCALAR_SINHC_HPP_INCLUDED
 #define NT2_HYPERBOLIC_FUNCTIONS_SCALAR_SINHC_HPP_INCLUDED
+
 #include <nt2/hyperbolic/functions/sinhc.hpp>
-#include <boost/math/special_functions.hpp>
-#include <nt2/include/constants/real.hpp>
+#include <boost/math/special_functions/sinhc.hpp>
 #include <nt2/include/functions/scalar/is_nan.hpp>
 #include <nt2/include/functions/scalar/is_inf.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/inf.hpp>
 #include <nt2/sdk/error/policies.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

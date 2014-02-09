@@ -8,8 +8,9 @@
 //==============================================================================
 #ifndef NT2_ELLIPTIC_FUNCTIONS_SCALAR_ELLIK_HPP_INCLUDED
 #define NT2_ELLIPTIC_FUNCTIONS_SCALAR_ELLIK_HPP_INCLUDED
+
 #include <nt2/elliptic/functions/ellik.hpp>
-#include <boost/math/special_functions.hpp>
+#include <boost/math/special_functions/ellint_1.hpp>
 #include <nt2/include/functions/scalar/is_ltz.hpp>
 #include <nt2/include/functions/scalar/is_eqz.hpp>
 #include <nt2/include/functions/scalar/sqrt.hpp>

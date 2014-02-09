@@ -8,9 +8,11 @@
 //==============================================================================
 #ifndef NT2_EULER_FUNCTIONS_SCALAR_DIGAMMA_HPP_INCLUDED
 #define NT2_EULER_FUNCTIONS_SCALAR_DIGAMMA_HPP_INCLUDED
+
 #include <nt2/euler/functions/digamma.hpp>
-#include <boost/math/special_functions.hpp>
+#include <boost/math/special_functions/digamma.hpp>
 #include <nt2/sdk/error/policies.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 
 namespace nt2 { namespace ext
 {

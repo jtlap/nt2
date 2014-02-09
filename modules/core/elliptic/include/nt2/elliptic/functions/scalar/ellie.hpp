@@ -8,8 +8,9 @@
 //==============================================================================
 #ifndef NT2_ELLIPTIC_FUNCTIONS_SCALAR_ELLIE_HPP_INCLUDED
 #define NT2_ELLIPTIC_FUNCTIONS_SCALAR_ELLIE_HPP_INCLUDED
+
 #include <nt2/elliptic/functions/ellie.hpp>
-#include <boost/math/special_functions.hpp>
+#include <boost/math/special_functions/ellint_2.hpp>
 #include <nt2/include/functions/scalar/is_ltz.hpp>
 #include <nt2/include/functions/scalar/sin.hpp>
 #include <nt2/include/functions/scalar/is_eqz.hpp>
