@@ -121,7 +121,7 @@ namespace nt2 { namespace ext
       std::size_t nb = 0;
       if ((nb = (nt2::inbtrue(test1) > 0)))
       {
-        r1 = nt2::oneminus(a0*nt2::polevl( xx, erf0_P4 )/nt2::polevl( xx, erf0_Q4 ));
+        r1 = nt2::oneminus(x*nt2::polevl( xx, erf0_P4 )/nt2::polevl( xx, erf0_Q4 ));
         if (nb >= meta::cardinal_of<A0>::value)
           return nt2::if_else(test0, nt2::Two<A0>()-r1, r1);
       }
