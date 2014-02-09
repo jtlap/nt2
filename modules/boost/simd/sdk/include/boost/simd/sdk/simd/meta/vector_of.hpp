@@ -11,11 +11,11 @@
 
 #include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/simd/sdk/simd/native_fwd.hpp>
+#include <boost/simd/sdk/meta/cardinal_as.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/dispatch/meta/primitive_of.hpp>
 #include <boost/fusion/include/fold.hpp>
-#include <boost/mpl/sizeof.hpp>
 #include <boost/mpl/greater.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/apply.hpp>
@@ -82,28 +82,19 @@ namespace details
 #ifdef BOOST_SIMD_DETECTED
   /* We use boost::mpl::sizeof_ rather than sizeof because MSVC has trouble
    * with sizeof of dependent names in SFINAE contexts */
-  #define BOOST_SIMD_LOCAL(z,d,r)                                              \
-  template<class T,std::size_t Card>                                           \
-  struct vector_of2< T, Card, false                                            \
-                   , typename boost::                                          \
-                     enable_if_c < (   Card*sizeof                             \
-                                            ( typename dispatch::meta          \
-                                                      ::primitive_of<T>::type  \
-                                            )                                  \
-                                   ==  boost::mpl::                            \
-                                       sizeof_< typename meta::                \
-                                                as_simd<T,r>::type             \
-                                              >::value                         \
-                                   )                                           \
-                                 >::type                                       \
-                   >                                                           \
-  {                                                                            \
-    typedef simd::native<T,r> type;                                            \
-  };                                                                           \
+  #define BOOST_SIMD_LOCAL(z,d,r)                                                                  \
+  template<class T,std::size_t Card>                                                               \
+  struct vector_of2< T, Card, false                                                                \
+                   , typename boost::                                                              \
+                     enable_if_c < meta::cardinal_as<T, r>::value == Card >::type                  \
+                   >                                                                               \
+  {                                                                                                \
+    typedef simd::native<T,r> type;                                                                \
+  };                                                                                               \
   /**/
   BOOST_PP_SEQ_FOR_EACH(BOOST_SIMD_LOCAL,~,BOOST_SIMD_TAG_SEQ)
+  #undef BOOST_SIMD_LOCAL
 #endif
-#undef BOOST_SIMD_LOCAL
 
   template<class T, std::size_t Card>
   struct vector_of : vector_of2<T, Card, fusion::traits::is_sequence<T>::value>
