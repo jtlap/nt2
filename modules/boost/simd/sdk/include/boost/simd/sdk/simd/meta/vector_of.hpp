@@ -16,6 +16,7 @@
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/dispatch/meta/primitive_of.hpp>
 #include <boost/fusion/include/fold.hpp>
+#include <boost/mpl/sizeof.hpp>
 #include <boost/mpl/greater.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/apply.hpp>
