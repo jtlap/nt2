@@ -40,6 +40,11 @@ add_subdirectory(rgb2yuv/scalar)
 add_subdirectory(rgb2yuv/nt2)
 add_subdirectory(rgb2yuv/simd)
 
+#rgb2grey
+add_subdirectory(rgb2grey/scalar)
+add_subdirectory(rgb2grey/nt2)
+add_subdirectory(rgb2grey/simd)
+
 #saxpy
 add_subdirectory(saxpy/scalar)
 add_subdirectory(saxpy/nt2)
