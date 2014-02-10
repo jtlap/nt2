@@ -11,6 +11,7 @@
 
 #include <boost/simd/memory/aligned_malloc.hpp>
 #include <boost/simd/memory/aligned_free.hpp>
+#include <boost/simd/memory/aligned_realloc.hpp>
 #include <boost/simd/memory/is_aligned.hpp>
 #include <boost/simd/preprocessor/malloc.hpp>
 
@@ -40,15 +41,19 @@ namespace boost { namespace simd
 
   void* custom_realloc_fn(void* ptr, std::size_t sz)
   {
+    had_realloc  = true;
+    realloc_size = sz;
     return std::realloc(ptr,sz);
   }
 } }
 
 void reset_status()
 {
-  had_free    = false;
-  had_malloc  = false;
-  malloc_size = 0;
+  had_free     = false;
+  had_malloc   = false;
+  had_realloc  = false;
+  malloc_size  = 0;
+  realloc_size = 0;
 }
 
 //==============================================================================
@@ -74,4 +79,52 @@ NT2_TEST_CASE(aligned_malloc)
   aligned_free( ptr );
 
   NT2_TEST( had_free );
+}
+
+NT2_TEST_CASE(aligned_realloc)
+{
+  using boost::simd::aligned_free;
+  using boost::simd::aligned_realloc;
+  using boost::simd::is_aligned;
+
+  char *ptr(0), *ptr2(0);
+
+  reset_status();
+  NT2_TEST( is_aligned(ptr = static_cast<char*>(aligned_realloc(ptr,5,8)), 8) );
+  for(int i=0;i<5;++i) ptr[i] = 10*i;
+  for(int i=0;i<5;++i) NT2_TEST_EQUAL(ptr[i],10*i);
+
+  NT2_TEST( had_realloc );
+  NT2_TEST_GREATER_EQUAL( realloc_size, 5u );
+
+  reset_status();
+  NT2_TEST( is_aligned(ptr = static_cast<char*>(aligned_realloc(ptr,3,8)), 8) );
+  for(int i=0;i<3;++i) ptr[i] = 10*i;
+  for(int i=0;i<3;++i) NT2_TEST_EQUAL(ptr[i],10*i);
+
+  NT2_TEST( had_realloc );
+  NT2_TEST_GREATER_EQUAL( realloc_size, 3u );
+
+  reset_status();
+  NT2_TEST( is_aligned(ptr2 = static_cast<char*>(aligned_realloc(ptr,2,16)), 16) );
+  for(int i=0;i<2;++i) ptr2[i] = 10*i;
+  for(int i=0;i<2;++i) NT2_TEST_EQUAL(ptr2[i],10*i);
+
+  NT2_TEST( had_realloc );
+  NT2_TEST_GREATER_EQUAL( realloc_size, 2u );
+
+  reset_status();
+  NT2_TEST( is_aligned(ptr = static_cast<char*>(aligned_realloc(ptr2,7,8)), 8) );
+  for(int i=0;i<7;++i) ptr[i] = 10*i;
+  for(int i=0;i<7;++i) NT2_TEST_EQUAL(ptr[i],10*i);
+
+  NT2_TEST( had_realloc );
+  NT2_TEST_GREATER_EQUAL( realloc_size, 7u );
+
+  reset_status();
+  ptr = static_cast<char*>(aligned_realloc(ptr,0,8));
+  NT2_TEST( !ptr || (std::free(ptr), true) );
+
+  NT2_TEST( had_realloc );
+  NT2_TEST_EQUAL( realloc_size, 0u );
 }

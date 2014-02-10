@@ -18,7 +18,6 @@ SET( SOURCES
     aligned_output_range.cpp
     aligned_object.cpp
     aligned_realloc.cpp
-    aligned_realloc_override.cpp
     allocate.cpp
     allocator.cpp
     allocator_adaptor.cpp
