@@ -20,9 +20,8 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <cstdlib>
 
-static bool         had_malloc;
-static bool         had_free;
-static std::size_t  malloc_size;
+static bool         had_malloc, had_free, had_realloc;
+static std::size_t  malloc_size, realloc_size;
 
 namespace boost { namespace simd
 {
