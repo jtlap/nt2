@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return is_eqz(a0); }
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1) { return is_eqz(a0); }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_not_, tag::cpu_
@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return mask2logical(complement(genmask(a0))); }
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1) { return mask2logical(complement(genmask(a0))); }
   };
 } } }
 

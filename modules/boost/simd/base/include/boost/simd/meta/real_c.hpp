@@ -21,7 +21,7 @@ namespace boost { namespace simd { namespace meta
    typedef real_c                                       type;
    typedef typename dispatch::meta::as_floating<Type>::type value_type;
 
-   operator value_type() const
+   BOOST_FORCEINLINE operator value_type() const
    {
      return bitwise_cast<value_type>(Value);
    }
