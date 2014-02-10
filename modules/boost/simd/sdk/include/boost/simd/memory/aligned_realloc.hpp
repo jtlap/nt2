@@ -35,7 +35,12 @@
 
 namespace boost { namespace simd
 {
-#if defined(BOOST_SIMD_CUSTOM_REALLOC)
+#if defined(BOOST_SIMD_CUSTOM_MEMORY_HANDLERS)
+
+  #if !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
+  #define BOOST_SIMD_MEMORY_NO_BUILTINS
+  #endif
+
   BOOST_DISPATCH_NOTHROW BOOST_SIMD_ALLOC_SIZE(2) void* custom_realloc_fn(void*, std::size_t);
 #else
   BOOST_DISPATCH_NOTHROW BOOST_SIMD_ALLOC_SIZE(2) inline
@@ -134,7 +139,7 @@ namespace boost { namespace simd
   inline void* aligned_realloc(void* ptr, std::size_t size, std::size_t alignment)
   {
     // Do we want to use built-ins special aligned free/alloc ?
-    #if defined( _MSC_VER ) && !defined(BOOST_SIMD_CUSTOM_REALLOC)
+    #if defined( _MSC_VER ) && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
 
     std::size_t* const oldptr = static_cast<std::size_t*>(ptr)-1;
 
@@ -169,7 +174,8 @@ namespace boost { namespace simd
     #elif (     defined( BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN )            \
             ||  (defined( _GNU_SOURCE ) && !defined( __ANDROID__ ))            \
           )                                                                    \
-       && !defined(BOOST_SIMD_CUSTOM_REALLOC)
+        && !defined(BOOST_SIMD_CUSTOM_REALLOC)                                 \
+        && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
 
     // Resizing to 0 free the pointer data and return
     if(size == 0)
@@ -178,7 +184,7 @@ namespace boost { namespace simd
       return 0;
     }
 
-    #ifdef __ANDROID__
+    #if defined(__ANDROID__) && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
     // https://groups.google.com/forum/?fromgroups=#!topic/android-ndk/VCEUpMfSh_o
     std::size_t const oldSize( ::dlmalloc_usable_size( ptr ) );
     #else

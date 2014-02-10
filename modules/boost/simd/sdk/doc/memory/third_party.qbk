@@ -16,21 +16,23 @@ Some compiler may provide sub-par allocation functions set or lead to huge
 binary when linked statically against the standard library. In this case, it
 could be interesting to not use the specific allocation function but to force
 the use of the pointer stashing allocation algorithm. This can be done by defining
-the =BOOST_SIMD_NO_BUILTINS= preprocessor symbol.
+the =BOOST_SIMD_MEMORY_NO_BUILTINS= preprocessor symbol.
 [endsect]
 
 [section Global customization]
 All usage of standard =malloc= and related functions inside Boost.SIMD can be
-changed by a set of preprocessor symbols. Each of these symbol control one
-global function override. The symbols are:
+forced to use a user-definable set of functions as soon as the
+=BOOST_SIMD_CUSTOM_MEMORY_HANDLERS= preprocessor symbol is defined. To provide
+the custom memory handlers, the user has to implement the following functions:
 
-* =BOOST_SIMD_DEFAULT_MALLOC=
-* =BOOST_SIMD_DEFAULT_REALLOC=
-* =BOOST_SIMD_DEFAULT_FREE=
+* =void* custom_malloc_fn(std::size_t)=
+* =void  custom_free_fn(void*)=
+* =void* custom_realloc_fn(void*, std::size_t)=
 
-This overload is global to the whole compilation unit and affects every memory
-related components of Boost.SIMD. Note that defining any of those symbols
-also defines =BOOST_SIMD_NO_BUILTINS=.
+in the namespace ==boost::simd==. Those overloads are global to the whole
+compilation unit and affects every memory related components of Boost.SIMD.
+Note that defining =BOOST_SIMD_CUSTOM_MEMORY_HANDLERS= also defines
+=BOOST_SIMD_MEMORY_NO_BUILTINS=.
 
 Let's consider as an example we want to use
 [@http://g.oswego.edu/dl/html/malloc.html Doug Lea's =malloc= implementation]
@@ -40,6 +42,24 @@ inside Boost.SIMD. The code will looks like:
     #include <dlmalloc.h>
     #include <boost/simd/memory/aligned_malloc.hpp>
     #include <boost/simd/memory/aligned_free.hpp>
+
+    namespace boost { namespace simd
+    {
+      void custom_free_fn(void* ptr)
+      {
+        return ::dlfree(ptr);
+      }
+
+      void* custom_malloc_fn(std::size_t sz)
+      {
+        return ::dlmalloc(sz);
+      }
+
+      void* custom_realloc_fn(void* ptr, std::size_t sz)
+      {
+        return ::dlrealloc(ptr,sz);
+      }
+    } }
 
     int main()
     {
@@ -54,7 +74,7 @@ inside Boost.SIMD. The code will looks like:
 and it will get compiled using:
 
 ``
-    g++ main.cpp -II/path/to/boost -I/path/to/dlmalloc -DBOOST_SIMD_NO_BUILTINS -DBOOST_SIMD_DEFAULT_MALLOC=dlmalloc -DBOOST_SIMD_DEFAULT_FREE=dlfree
+    g++ main.cpp -II/path/to/boost -I/path/to/dlmalloc -DBOOST_SIMD_CUSTOM_MEMORY_HANDLERS
 ``
 
 Note that the definition of the custom allocation functions used must be done
