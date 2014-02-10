@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
                              )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return is_ltz(a0);
     }
@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
                              )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-    inline result_type operator()(const A0&)const
+    BOOST_FORCEINLINE result_type operator()(const A0&)const
     {
       return boost::simd::False<result_type>();
     }
@@ -55,7 +55,7 @@ namespace boost { namespace simd { namespace ext
                              )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return is_equal(b_or(bitofsign(a0), One<A0>()), Mone<A0>());
     }
