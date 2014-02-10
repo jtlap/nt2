@@ -33,13 +33,13 @@ namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
-  NT2_TIMING(erfc_,(RS(vT,T(0),T(10))))
+  NT2_TIMING(erfc_,(RS(vT,T(-6),T(6))))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
-  NT2_TIMING(erfc_,(RS(vT,T(0),T(10))))
+  NT2_TIMING(erfc_,(RS(vT,T(-6),T(6))))
 }
 
 #undef RS
