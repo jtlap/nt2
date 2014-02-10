@@ -7,7 +7,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define BOOST_SIMD_CUSTOM_REALLOC
+#define BOOST_SIMD_CUSTOM_MEMORY_HANDLERS
 
 #include <boost/simd/memory/aligned_realloc.hpp>
 #include <boost/simd/memory/is_aligned.hpp>
@@ -27,6 +27,16 @@ namespace boost { namespace simd
     had_realloc  = true;
     realloc_size = sz;
     return std::realloc(ptr,sz);
+  }
+
+  void custom_free_fn(void* ptr)
+  {
+    return std::free(ptr);
+  }
+
+  BOOST_DISPATCH_NOTHROW BOOST_SIMD_MALLOC void* custom_malloc_fn(std::size_t sz)
+  {
+    return std::malloc(sz);
   }
 } }
 

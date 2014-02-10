@@ -28,7 +28,12 @@
 
 namespace boost { namespace simd
 {
-#if defined(BOOST_SIMD_CUSTOM_MALLOC)
+#if defined(BOOST_SIMD_CUSTOM_MEMORY_HANDLERS)
+
+  #if !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
+  #define BOOST_SIMD_MEMORY_NO_BUILTINS
+  #endif
+
   BOOST_DISPATCH_NOTHROW BOOST_SIMD_MALLOC BOOST_SIMD_ALLOC_SIZE(1) void* custom_malloc_fn(std::size_t);
 #else
   BOOST_DISPATCH_NOTHROW BOOST_SIMD_MALLOC BOOST_SIMD_ALLOC_SIZE(1)  inline
@@ -103,7 +108,7 @@ namespace boost { namespace simd
   inline void* aligned_malloc(std::size_t size, std::size_t alignment)
   {
     // Do we want to use built-ins special aligned free/alloc ?
-    #if defined( _MSC_VER ) && !defined(BOOST_SIMD_CUSTOM_MALLOC)
+    #if defined( _MSC_VER ) && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
 
     // we need to store alignment for _aligned_realloc
     std::size_t* ptr = static_cast<std::size_t*>(::_aligned_offset_malloc(size+sizeof(std::size_t), alignment, sizeof(std::size_t)));
@@ -113,7 +118,7 @@ namespace boost { namespace simd
     return ptr;
 
     #elif     defined( BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN )              \
-          && !defined(BOOST_SIMD_CUSTOM_MALLOC)
+          && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
 
     alignment = std::max(alignment,sizeof(void*));
 
@@ -126,7 +131,8 @@ namespace boost { namespace simd
     return result;
 
     #elif     defined( _GNU_SOURCE ) && !defined( __ANDROID__ )                \
-          && !defined(BOOST_SIMD_CUSTOM_MALLOC)
+          && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
+
     /*
       Inexplicable yet consistently reproducible SIGSEGVs encountered on
       Android (4.1.3 emulator) with memalign (as if it actually allocates
