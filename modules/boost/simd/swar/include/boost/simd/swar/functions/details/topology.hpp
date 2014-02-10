@@ -59,9 +59,9 @@ namespace boost { namespace simd { namespace details
     template<typename I, typename C>
     struct  apply
           : boost::mpl::int_
-            < mpl::apply<Permutation,I,C>::type::value < 0
-            ? I::value
-            : mpl::apply<Permutation,I,C>::type::value
+            < (mpl::apply<Permutation,I,C>::type::value >= 0)
+            ? mpl::apply<Permutation,I,C>::type::value
+            : I::value
             >
     {};
   };
