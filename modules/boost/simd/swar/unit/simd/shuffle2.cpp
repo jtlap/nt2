@@ -27,8 +27,11 @@ template<typename T, int IA, int IB> void unary_shuffle()
   a[0] = boost::simd::Valmax<T>();
   a[1] = T(66);
 
-  ref[0] = (IA == -1) ? 0 : a[IA];
-  ref[1] = (IB == -1) ? 0 : a[IB];
+  std::size_t ia = static_cast<std::size_t>(IA);
+  std::size_t ib = static_cast<std::size_t>(IB);
+
+  ref[0] = (IA == -1) ? 0 : a[ia];
+  ref[1] = (IB == -1) ? 0 : a[ib];
 
   NT2_TEST_EQUAL( (shuffle<IA,IB>(a)), ref);
 }
@@ -48,8 +51,11 @@ template<typename T, int IA, int IB> void binary_shuffle()
   b[0] = T(99);
   b[1] = boost::simd::Valmin<T>();
 
-  ref[0] = (IA == -1) ? 0 : (IA<2 ? a[IA] : b[IA-2]);
-  ref[1] = (IB == -1) ? 0 : (IB<2 ? a[IB] : b[IB-2]);;
+  std::size_t ia = static_cast<std::size_t>(IA);
+  std::size_t ib = static_cast<std::size_t>(IB);
+
+  ref[0] = (IA == -1) ? 0 : (IA<2 ? a[ia] : b[ia-2]);
+  ref[1] = (IB == -1) ? 0 : (IB<2 ? a[ib] : b[ib-2]);;
 
   NT2_TEST_EQUAL( (shuffle<IA,IB>(a,b)), ref);
 }
