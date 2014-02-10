@@ -36,14 +36,23 @@ inline void unary_shuffle()
   a[6] = T(23);
   a[7] = boost::simd::Valmin<T>();
 
-  ref[0] = (IA == -1) ? 0 : a[IA];
-  ref[1] = (IB == -1) ? 0 : a[IB];
-  ref[2] = (IC == -1) ? 0 : a[IC];
-  ref[3] = (ID == -1) ? 0 : a[ID];
-  ref[4] = (IE == -1) ? 0 : a[IE];
-  ref[5] = (IF == -1) ? 0 : a[IF];
-  ref[6] = (IG == -1) ? 0 : a[IG];
-  ref[7] = (IH == -1) ? 0 : a[IH];
+  std::size_t ia = static_cast<std::size_t>(IA);
+  std::size_t ib = static_cast<std::size_t>(IB);
+  std::size_t ic = static_cast<std::size_t>(IC);
+  std::size_t id = static_cast<std::size_t>(ID);
+  std::size_t ie = static_cast<std::size_t>(IE);
+  std::size_t jf = static_cast<std::size_t>(IF);
+  std::size_t ig = static_cast<std::size_t>(IG);
+  std::size_t ih = static_cast<std::size_t>(IH);
+
+  ref[0] = (IA == -1) ? 0 : a[ia];
+  ref[1] = (IB == -1) ? 0 : a[ib];
+  ref[2] = (IC == -1) ? 0 : a[ic];
+  ref[3] = (ID == -1) ? 0 : a[id];
+  ref[4] = (IE == -1) ? 0 : a[ie];
+  ref[5] = (IF == -1) ? 0 : a[jf];
+  ref[6] = (IG == -1) ? 0 : a[ig];
+  ref[7] = (IH == -1) ? 0 : a[ih];
 
   NT2_TEST_EQUAL( (shuffle<IA,IB,IC,ID,IE,IF,IG,IH>(a)), ref);
 }
@@ -78,14 +87,23 @@ inline void binary_shuffle()
   b[6] = T(42);
   b[7] = T(-1);
 
-  ref[0] = (IA == -1) ? 0 : (IA<8 ? a[IA] : b[IA-8]);
-  ref[1] = (IB == -1) ? 0 : (IB<8 ? a[IB] : b[IB-8]);
-  ref[2] = (IC == -1) ? 0 : (IC<8 ? a[IC] : b[IC-8]);
-  ref[3] = (ID == -1) ? 0 : (ID<8 ? a[ID] : b[ID-8]);
-  ref[4] = (IE == -1) ? 0 : (IE<8 ? a[IE] : b[IE-8]);
-  ref[5] = (IF == -1) ? 0 : (IF<8 ? a[IF] : b[IF-8]);
-  ref[6] = (IG == -1) ? 0 : (IG<8 ? a[IG] : b[IG-8]);
-  ref[7] = (IH == -1) ? 0 : (IH<8 ? a[IH] : b[IH-8]);
+  std::size_t ia = static_cast<std::size_t>(IA);
+  std::size_t ib = static_cast<std::size_t>(IB);
+  std::size_t ic = static_cast<std::size_t>(IC);
+  std::size_t id = static_cast<std::size_t>(ID);
+  std::size_t ie = static_cast<std::size_t>(IE);
+  std::size_t jf = static_cast<std::size_t>(IF);
+  std::size_t ig = static_cast<std::size_t>(IG);
+  std::size_t ih = static_cast<std::size_t>(IH);
+
+  ref[0] = (IA == -1) ? 0 : (IA<8 ? a[ia] : b[ia-8]);
+  ref[1] = (IB == -1) ? 0 : (IB<8 ? a[ib] : b[ib-8]);
+  ref[2] = (IC == -1) ? 0 : (IC<8 ? a[ic] : b[ic-8]);
+  ref[3] = (ID == -1) ? 0 : (ID<8 ? a[id] : b[id-8]);
+  ref[4] = (IE == -1) ? 0 : (IE<8 ? a[ie] : b[ie-8]);
+  ref[5] = (IF == -1) ? 0 : (IF<8 ? a[jf] : b[jf-8]);
+  ref[6] = (IG == -1) ? 0 : (IG<8 ? a[ig] : b[ig-8]);
+  ref[7] = (IH == -1) ? 0 : (IH<8 ? a[ih] : b[ih-8]);
 
   NT2_TEST_EQUAL( (shuffle<IA,IB,IC,ID,IE,IF,IG,IH>(a,b)), ref);
 }

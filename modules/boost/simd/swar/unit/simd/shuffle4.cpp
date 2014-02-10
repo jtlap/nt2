@@ -30,10 +30,15 @@ inline void unary_shuffle()
   a[2] = T(99);
   a[3] = boost::simd::Valmin<T>();
 
-  ref[0] = (IA == -1) ? 0 : a[IA];
-  ref[1] = (IB == -1) ? 0 : a[IB];
-  ref[2] = (IC == -1) ? 0 : a[IC];
-  ref[3] = (ID == -1) ? 0 : a[ID];
+  std::size_t ia = static_cast<std::size_t>(IA);
+  std::size_t ib = static_cast<std::size_t>(IB);
+  std::size_t ic = static_cast<std::size_t>(IC);
+  std::size_t id = static_cast<std::size_t>(ID);
+
+  ref[0] = (IA == -1) ? 0 : a[ia];
+  ref[1] = (IB == -1) ? 0 : a[ib];
+  ref[2] = (IC == -1) ? 0 : a[ic];
+  ref[3] = (ID == -1) ? 0 : a[id];
 
   NT2_TEST_EQUAL( (shuffle<IA,IB,IC,ID>(a)), ref);
 }
@@ -58,10 +63,15 @@ inline void binary_shuffle()
   b[2] = boost::simd::Valmax<T>();
   b[3] = T(44);
 
-  ref[0] = (IA == -1) ? 0 : (IA<4 ? a[IA] : b[IA-4]);
-  ref[1] = (IB == -1) ? 0 : (IB<4 ? a[IB] : b[IB-4]);;
-  ref[2] = (IC == -1) ? 0 : (IC<4 ? a[IC] : b[IC-4]);;
-  ref[3] = (ID == -1) ? 0 : (ID<4 ? a[ID] : b[ID-4]);;
+  std::size_t ia = static_cast<std::size_t>(IA);
+  std::size_t ib = static_cast<std::size_t>(IB);
+  std::size_t ic = static_cast<std::size_t>(IC);
+  std::size_t id = static_cast<std::size_t>(ID);
+
+  ref[0] = (IA == -1) ? 0 : (IA<4 ? a[ia] : b[ia-4]);
+  ref[1] = (IB == -1) ? 0 : (IB<4 ? a[ib] : b[ib-4]);;
+  ref[2] = (IC == -1) ? 0 : (IC<4 ? a[ic] : b[ic-4]);;
+  ref[3] = (ID == -1) ? 0 : (ID<4 ? a[id] : b[id-4]);;
 
   NT2_TEST_EQUAL( (shuffle<IA,IB,IC,ID>(a,b)), ref);
 }
