@@ -16,6 +16,7 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/include/functions/simd/fma.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
@@ -139,5 +140,15 @@ boost::mpl::vector< BOOST_PP_ENUM(Size                                        \
                                   ,Seq)                                       \
                                  ) >                                          \
 /**/
+////////////////////////////////////////////////////////////////////////////////
+// Computing a rationnal fraction P/Q at value x
+// with Horner coefs of type "type"
+// where P and Q lists of coefficients have respectively n and m elements
+// Coefficients are given in decreasing powers and hexadecimal form as in Horner
+////////////////////////////////////////////////////////////////////////////////
 
+#define NT2_HORNER_RAT(type, n, m, x, P, Q)      \
+  horner < NT2_HORNER_COEFF_T(type, n, P) > (x)/ \
+  horner < NT2_HORNER_COEFF_T(type, n, Q) > (x)  \
+/**/
 #endif
