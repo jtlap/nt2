@@ -28,6 +28,7 @@ add_subdirectory(helloworld/simd)
 #blackscholes
 add_subdirectory(blackscholes/scalar)
 add_subdirectory(blackscholes/nt2)
+add_subdirectory(blackscholes/nt2_merged)
 add_subdirectory(blackscholes/simd)
 
 #mandelbrot

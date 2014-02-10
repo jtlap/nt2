@@ -34,9 +34,47 @@
 using namespace nt2::bench;
 using namespace nt2;
 
-template<typename T> struct blackandscholes_nt2
+namespace nt2
 {
-  blackandscholes_nt2(std::size_t n)
+  namespace tag
+  {
+    struct blackandscholes_ : ext::elementwise_<blackandscholes_> { typedef ext::elementwise_<blackandscholes_> parent; };
+  }
+  NT2_FUNCTION_IMPLEMENTATION(tag::blackandscholes_, blackandscholes, 5)
+
+  namespace ext
+  {
+    NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::blackandscholes_, tag::cpu_
+                              , (A0)(A1)(A2)(A3)(A4)
+                              , (generic_< arithmetic_<A0> >)
+                                (generic_< arithmetic_<A1> >)
+                                (generic_< arithmetic_<A2> >)
+                                (generic_< arithmetic_<A3> >)
+                                (generic_< arithmetic_<A4> >)
+                              )
+    {
+      typedef A0 result_type;
+      NT2_FUNCTOR_CALL(5)
+      {
+        A0 da   = nt2::sqrt(a2);
+        A0 tmp1 = nt2::log(a0/a1);
+        A0 tmp2 = nt2::sqr(a4);
+        A0 tmp4 = nt2::fma(tmp2,nt2::Half<A0>(),a3);
+        A0 tmp3 = (tmp4*a2)/(a4*da);
+        A0 ed   = nt2::exp(-a3*a2);
+        A0 d1   = tmp1 + tmp3;
+        A0 d2   = nt2::fnms(a4,da,d1);
+        A0 fd1  = nt2::fastnormcdf(d1);
+        A0 fd2  = nt2::fastnormcdf(d2);
+        return nt2::fnms(a1*ed, fd2, a0*fd1);
+      }
+    };
+  }
+}
+
+template<typename T> struct blackandscholes_nt2_merged
+{
+  blackandscholes_nt2_merged(std::size_t n)
                     :  size_(n)
   {
     Sa.resize(nt2::of_size(size_));
@@ -52,14 +90,10 @@ template<typename T> struct blackandscholes_nt2
 
   void operator()()
   {
-    nt2::table<T> da = nt2::sqrt(Ta);
-    nt2::table<T> d1 = nt2::log(Sa/Xa) + (nt2::fma(nt2::sqr(va),T(0.5),ra)*Ta)/(va*da);
-    nt2::table<T> d2 = nt2::fnms(va,da,d1);
-
-    R = nt2::fnms(Xa*nt2::exp(-ra*Ta),nt2::fastnormcdf(d2),Sa*nt2::fastnormcdf(d1));
+    R = nt2::blackandscholes(Sa, Xa, Ta, ra, va);
   }
 
-  friend std::ostream& operator<<(std::ostream& os, blackandscholes_nt2<T> const& p)
+  friend std::ostream& operator<<(std::ostream& os, blackandscholes_nt2_merged<T> const& p)
   {
     return os << "(" << p.size() << ")";
   }
@@ -71,13 +105,13 @@ template<typename T> struct blackandscholes_nt2
   std::size_t size_;
 };
 
-NT2_REGISTER_BENCHMARK_TPL( blackandscholes_nt2, (float) )
+NT2_REGISTER_BENCHMARK_TPL( blackandscholes_nt2_merged, (float) )
 {
-  std::size_t size_min  = args("size_min" , 16);
-  std::size_t size_max  = args("size_max" , size_min);
-  std::size_t size_step = args("size_step", 2);
+  std::size_t size_min  = args("size_min",   16);
+  std::size_t size_max  = args("size_max", 4096);
+  std::size_t size_step = args("size_step",   2);
 
-  run_during_with< blackandscholes_nt2<float> > ( 1.
+  run_during_with< blackandscholes_nt2_merged<float> > ( 1.
                                                 , geometric(size_min,size_max,size_step)
                                                 , cycles_per_element<stats::median_>()
                                                 );
