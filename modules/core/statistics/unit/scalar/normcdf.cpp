@@ -54,9 +54,9 @@ NT2_TEST_CASE_TPL ( normcdf_2,  NT2_REAL_TYPES)
                                   0.999968328758166769, 0.99999971334842807646
                                 );
 
-  NT2_TEST_ULP_EQUAL(normcdf(a), r0, 3);
-  NT2_TEST_ULP_EQUAL(normcdf(a, nt2::Zero<T>()), r0, 3);
-  NT2_TEST_ULP_EQUAL(normcdf(a, nt2::Zero<T>(), nt2::One<T>()), r0, 3);
+  NT2_TEST_ULP_EQUAL(normcdf(a), r0, 5);
+  NT2_TEST_ULP_EQUAL(normcdf(a, nt2::Zero<T>()), r0, 5);
+  NT2_TEST_ULP_EQUAL(normcdf(a, nt2::Zero<T>(), nt2::One<T>()), r0, 5);
   nt2::table<T> r1 =  nt2::repnum(T(0.5), 1, 11);
   NT2_TEST_ULP_EQUAL(normcdf(a, a), r1, 1);
   NT2_TEST_ULP_EQUAL(normcdf(a, a, T(2)),r1, 1);
@@ -92,7 +92,7 @@ NT2_TEST_CASE_TPL ( normcdf_2,  NT2_REAL_TYPES)
                                    0.96178675376250588602, 0.9749999999999999778, 0.99991896541289493339, 0.99999999991295407398,
                                    1.0, 1.0, 1.0
                                   );
-  NT2_TEST_ULP_EQUAL(r, rr, 3);
+  NT2_TEST_ULP_EQUAL(r, rr, 5);
   NT2_TEST_ULP_EQUAL(plo, pplo, 600);
   NT2_TEST_ULP_EQUAL(pup, ppup, 1);
 } // end of test for floating_
