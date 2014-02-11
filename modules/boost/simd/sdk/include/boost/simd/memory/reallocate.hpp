@@ -119,13 +119,13 @@ namespace boost { namespace simd
     if(ptr == 0)
       return allocate(alloc, nbytes, align);
 
-    details::aligned_block_header& old( details::get_block_header( ptr ) );
-    std::size_t const oldSize( old.allocated_size );
+    details::aligned_block_header* hdr = static_cast<details::aligned_block_header*>(ptr) - 1;
+    std::size_t const oldSize( hdr->allocated_size );
 
     // Return if idempotent reallocation or small shrink is performed with good alignment
     if( ( oldSize - nbytes ) < BOOST_SIMD_REALLOC_SHRINK_THRESHOLD && is_aligned(ptr, align) )
     {
-      old.used_size = nbytes;
+      hdr->used_size = nbytes;
       return ptr;
     }
 
@@ -134,7 +134,7 @@ namespace boost { namespace simd
     if( !fresh_ptr )
       return 0;
 
-    std::memcpy( fresh_ptr, ptr, std::min( nbytes, oldSize ) );
+    std::memcpy( fresh_ptr, ptr, std::min( nbytes, hdr->used_size ) );
     deallocate(alloc, ptr);
 
     return fresh_ptr;

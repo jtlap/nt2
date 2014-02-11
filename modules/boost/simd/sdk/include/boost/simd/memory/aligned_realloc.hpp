@@ -108,30 +108,32 @@ namespace boost { namespace simd
                               , ReallocFunction realloc_fn
                               )
   {
-    details::aligned_block_header hdr = {0,0,0};
+    details::aligned_block_header* hdr = 0;
     if(ptr)
-      hdr = details::get_block_header(ptr);
+      hdr = static_cast<details::aligned_block_header*>(ptr) - 1;
 
     std::size_t nsz = size
                     ? size + alignment + sizeof(details::aligned_block_header)
                     : 0u;
 
-    void* fresh_ptr = realloc_fn( static_cast<char*>(ptr) - hdr.offset, nsz );
+    std::size_t old_size = hdr ? hdr->used_size : 0;
+    std::size_t old_offset = hdr ? hdr->offset : 0;
+
+    void* fresh_ptr = realloc_fn( static_cast<char*>(ptr) - old_offset, nsz );
     if(!fresh_ptr || !nsz)
       return fresh_ptr;
 
-    std::size_t old_size = hdr.used_size;
-    std::size_t old_offset = hdr.offset;
+    std::size_t offset = simd::align_on(static_cast<char const*>(fresh_ptr)+sizeof(details::aligned_block_header), alignment) - static_cast<char const*>(fresh_ptr);
 
-    hdr.offset = simd::align_on(static_cast<char const*>(fresh_ptr)+sizeof(details::aligned_block_header), alignment) - static_cast<char const*>(fresh_ptr);
-    hdr.allocated_size = size + alignment + sizeof(details::aligned_block_header) - hdr.offset;
-    hdr.used_size = size;
+    if(offset != old_offset)
+      std::memmove(static_cast<char*>(fresh_ptr) + offset, static_cast<char const*>(fresh_ptr) + old_offset, std::min(size, old_size));
 
-    if(hdr.offset != old_offset)
-      std::memmove(static_cast<char*>(fresh_ptr) + hdr.offset, static_cast<char const*>(fresh_ptr) + old_offset, std::min(size, old_size));
+    hdr = reinterpret_cast<details::aligned_block_header*>(static_cast<char*>(fresh_ptr) + offset) - 1;
+    hdr->offset = offset;
+    hdr->allocated_size = size + alignment + sizeof(details::aligned_block_header) - offset;
+    hdr->used_size = size;
 
-    *(reinterpret_cast<details::aligned_block_header*>(static_cast<char*>(fresh_ptr) + hdr.offset) - 1) = hdr;
-    return static_cast<char*>(fresh_ptr) + hdr.offset;
+    return static_cast<char*>(fresh_ptr) + offset;
   }
 
   /// @overload
