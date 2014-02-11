@@ -25,7 +25,7 @@ static std::size_t  malloc_size, realloc_size;
 
 namespace boost { namespace simd
 {
-  void custom_free_fn(void* ptr)
+  void custom_free_fn(void* ptr, std::size_t)
   {
     had_free  = true;
     return std::free(ptr);

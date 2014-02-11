@@ -26,7 +26,7 @@ static void* stateful_malloc(std::size_t sz)
   return std::malloc(sz);
 }
 
-static void stateful_free(void* ptr)
+static void stateful_free(void* ptr, std::size_t)
 {
   had_free  = true;
   return std::free(ptr);

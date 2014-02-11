@@ -50,16 +50,15 @@ namespace boost { namespace simd { namespace details
 
   template<typename Allocator> struct allocator_free
   {
-    allocator_free(Allocator& a, std::size_t s) : alloc(a), sz(s) {}
+    allocator_free(Allocator& a) : alloc(a) {}
 
-    void operator()(void* ptr)
+    void operator()(void* ptr, std::size_t sz)
     {
       typedef typename Allocator::pointer type;
       return alloc.deallocate(type(ptr), details::divceil(sz, sizeof(typename Allocator::value_type)));
     }
 
     Allocator& alloc;
-    std::size_t sz;
 
     private:
     allocator_free& operator=(allocator_free const&);

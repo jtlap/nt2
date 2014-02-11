@@ -47,10 +47,8 @@ namespace boost { namespace simd
     if(!ptr)
       return;
 
-    details::aligned_block_header* hdr = static_cast<details::aligned_block_header*>(ptr) - 1;
-
     return aligned_free ( ptr
-                        , details::allocator_free<Allocator>(alloc, hdr->allocated_size + hdr->offset)
+                        , details::allocator_free<Allocator>(alloc)
                         );
   }
 } }

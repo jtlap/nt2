@@ -29,9 +29,9 @@ namespace boost { namespace simd
   #define BOOST_SIMD_MEMORY_NO_BUILTINS
   #endif
 
-  void custom_free_fn(void*);
+  void custom_free_fn(void*, std::size_t);
 #else
-  inline void custom_free_fn(void* ptr) { std::free(ptr); }
+  inline void custom_free_fn(void* ptr, std::size_t) { std::free(ptr); }
 #endif
 
   /*!
@@ -81,7 +81,8 @@ namespace boost { namespace simd
       return;
 
     details::aligned_block_header* hdr = static_cast<details::aligned_block_header*>(ptr) - 1;
-    free_fn( static_cast<char*>(ptr) - hdr->offset );
+    std::size_t offset = hdr->offset;
+    free_fn( static_cast<char*>(ptr) - offset, offset + hdr->allocated_size );
   }
 
   /// @overload
