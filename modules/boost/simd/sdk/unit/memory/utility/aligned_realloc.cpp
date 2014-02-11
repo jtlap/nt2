@@ -23,7 +23,7 @@ static void reset_status()
   realloc_size = 0;
 }
 
-static void* stateful_realloc(void* ptr, std::size_t sz)
+static void* stateful_realloc(void* ptr, std::size_t sz, std::size_t)
 {
   had_realloc  = true;
   realloc_size = sz;

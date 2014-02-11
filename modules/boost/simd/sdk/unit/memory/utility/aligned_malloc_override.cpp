@@ -38,7 +38,7 @@ namespace boost { namespace simd
     return std::malloc(sz);
   }
 
-  void* custom_realloc_fn(void* ptr, std::size_t sz)
+  void* custom_realloc_fn(void* ptr, std::size_t sz, std::size_t)
   {
     had_realloc  = true;
     realloc_size = sz;

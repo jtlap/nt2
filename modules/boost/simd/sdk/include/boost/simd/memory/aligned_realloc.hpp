@@ -41,10 +41,10 @@ namespace boost { namespace simd
   #define BOOST_SIMD_MEMORY_NO_BUILTINS
   #endif
 
-  BOOST_DISPATCH_NOTHROW BOOST_SIMD_ALLOC_SIZE(2) void* custom_realloc_fn(void*, std::size_t);
+  BOOST_DISPATCH_NOTHROW BOOST_SIMD_ALLOC_SIZE(2) void* custom_realloc_fn(void*, std::size_t, std::size_t);
 #else
   BOOST_DISPATCH_NOTHROW BOOST_SIMD_ALLOC_SIZE(2) inline
-  void* custom_realloc_fn(void* ptr, std::size_t sz)
+  void* custom_realloc_fn(void* ptr, std::size_t sz, std::size_t)
   {
     return std::realloc(ptr,sz);
   }
@@ -119,7 +119,7 @@ namespace boost { namespace simd
     std::size_t old_size = hdr ? hdr->allocated_size : 0;
     std::size_t old_offset = hdr ? hdr->offset : 0;
 
-    void* fresh_ptr = realloc_fn( static_cast<char*>(ptr) - old_offset, nsz );
+    void* fresh_ptr = realloc_fn( static_cast<char*>(ptr) - old_offset, nsz, old_size );
     if(!fresh_ptr || !nsz)
       return fresh_ptr;
 
