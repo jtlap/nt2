@@ -152,43 +152,46 @@ namespace nt2 { namespace ext
       A0 r1 = nt2::Zero<A0>();
       bA0 test1 = nt2::lt(x, Twothird<A0>());
       std::size_t nb = 0;
-      A0 z =  x/oneplus(x);
+      A0 z = x/oneplus(x);
       if ((nb = (nt2::inbtrue(test1) > 0)))
       {
+        // approximation of erfc(z./(1-z))./(1-z) on [0 0.4]
+        // with a polynomial of degree 8 gives 2 ulp on [0 2/3] for erfc
+        // (exhaustive test against float(erfc(double(x))))
         r1 = oneminus(z)*
-          NT2_HORNER_RAT(sA0, 6, 6, z,
-                  (0xbaf40a7f,
-                   0x40c782f9,
-                   0xc1aca6f2,
-                   0x41d78512,
-                   0xc1691dd2,
-                   0x4039d503
-                  ),
-                  (0xc0589801,
-                   0x417dc4e2,
-                   0xc1ef2da7,
-                   0x41e621db,
-                   0xc16326fa,
-                   0x4039d503
-                  )
-                 );
+          horner < NT2_HORNER_COEFF_T(sA0, 9,
+                                      (
+                                        0x41aa8e55,  //   2.1319498e+01
+                                        0x401b5680,  //   2.4271545e+00
+                                        0xc010d956,  //  -2.2632651e+00
+                                        0x3f2cff3b,  //   6.7576951e-01
+                                        0xc016c985,  //  -2.3560498e+00
+                                        0xbffc9284,  //  -1.9732213e+00
+                                        0xbfa11698,  //  -1.2585020e+00
+                                        0xbe036d7e,  //  -1.2834737e-01
+                                        0x3f7ffffe   //   9.9999988e-01
+                                      )
+                                     )> (z);
         if (nb >= meta::cardinal_of<A0>::value)
           return nt2::if_else(test0, nt2::Two<A0>()-r1, r1);
       }
       z-= nt2::splat<A0>(0.4);
+      // approximation of erfc(z1./(1-z1))).*exp((z1./(1-z1)).^2) (z1 =  z+0.4) on [0 0.5]
+      // with a polynomial of degree 7 gives 8 ulp on [2/3 inf] for erfc
+      // (exhaustive test against float(erfc(double(x))))
       A0 r2 =   exp(-sqr(x))*
-          NT2_HORNER_RAT(sA0, 4, 4, z,
-                  (0xbf66666b,
-                   0x400687d6,
-                   0xc0030a50,
-                   0x3f2a8670
-                  ),
-                  (0xbcff909e,
-                   0x3f81d559,
-                   0xbf989f05,
-                   0x3f9e1a65
-                  )
-                 );
+          horner < NT2_HORNER_COEFF_T(sA0, 8,
+                                      (
+                                        0x3f1d56a3, //     6.1460322e-01
+                                        0xbf96c6af, //    -1.1779383e+00
+                                        0x3ec8fa31, //     3.9253381e-01
+                                        0x3d538579, //     5.1640961e-02
+                                        0x3ecbecd4, //     3.9829123e-01
+                                        0x3e233bd3, //     1.5940790e-01
+                                        0xbf918995, //    -1.1370112e+00
+                                        0x3f0a0e89  //     5.3928429e-01
+                                      )
+                                     )> (z);
       r1 = if_else(test1, r1, r2);
       #ifndef BOOST_SIMD_NO_INFINITIES
       r1 = if_zero_else( eq(x, Inf<A0>()), r1);

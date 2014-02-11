@@ -131,22 +131,19 @@ namespace nt2 { namespace ext
       if (x < Twothird<A0>())
       {
         r1 = oneminus(z)*
-          NT2_HORNER_RAT(A0, 6, 6, z,
-                  (0xbaf40a7f,//  -1.8618851e-03
-                   0x40c782f9,//   6.2347379e+00
-                   0xc1aca6f2,//  -2.1581516e+01
-                   0x41d78512,//   2.6939976e+01
-                   0xc1691dd2,//  -1.4569780e+01
-                   0x4039d503 //   2.9036262e+00
-                  ),
-                  (0xc0589801,//  -3.3842776e+00
-                   0x417dc4e2,//   1.5860567e+01
-                   0xc1ef2da7,//  -2.9897291e+01
-                   0x41e621db,//   2.8766531e+01
-                   0xc16326fa,//  -1.4197016e+01
-                   0x4039d503 //   2.9036262e+00
-                  )
-                 );
+          horner < NT2_HORNER_COEFF_T(A0, 9,
+                                      (
+                                        0x41aa8e55,
+                                        0x401b5680,
+                                        0xc010d956,
+                                        0x3f2cff3b,
+                                        0xc016c985,
+                                        0xbffc9284,
+                                        0xbfa11698,
+                                        0xbe036d7e,
+                                        0x3f7ffffe
+                                      )
+                                     )> (z);
       }
       #ifndef BOOST_SIMD_NO_INFINITIES
       else if (BOOST_UNLIKELY(x == Inf<A0>()))
@@ -158,18 +155,18 @@ namespace nt2 { namespace ext
       {
        z-= 0.4f;
         r1 = exp(-sqr(x))*
-          NT2_HORNER_RAT(A0, 4, 4, z,
-                  (0xbf66666b,//  -9.0000027e-01
-                   0x400687d6,//   2.1020408e+00
-                   0xc0030a50,//  -2.0475044e+00
-                   0x3f2a8670 //   6.6611385e-01
-                  ),
-                  (0xbcff909e,//  -3.1196889e-02
-                   0x3f81d559,//   1.0143234e+00
-                   0xbf989f05,//  -1.1923529e+00
-                   0x3f9e1a65 //   1.2351805e+00
-                  )
-                 );
+          horner < NT2_HORNER_COEFF_T(A0, 8,
+                                      (
+                                        0x3f1d56a3,
+                                        0xbf96c6af,
+                                        0x3ec8fa31,
+                                        0x3d538579,
+                                        0x3ecbecd4,
+                                        0x3e233bd3,
+                                        0xbf918995,
+                                        0x3f0a0e89
+                                      )
+                                     )> (z);
       }
       return (a0 < 0.0f) ? 2.0f-r1 : r1;
     }
