@@ -31,12 +31,12 @@ using nt2::tag::erfc_;
 namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(erfc_,(RS(T,T(0),T(10))))
+  NT2_TIMING(erfc_,(RS(T,T(-6),T(6))))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(erfc_,(RS(T,T(0),T(10))))
+  NT2_TIMING(erfc_,(RS(T,T(-6),T(6))))
 }
 
 #undef RS

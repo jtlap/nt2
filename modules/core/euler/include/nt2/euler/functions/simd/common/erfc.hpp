@@ -10,105 +10,44 @@
 #define NT2_EULER_FUNCTIONS_SIMD_COMMON_ERFC_HPP_INCLUDED
 
 #include <nt2/euler/functions/erfc.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
-#include <nt2/include/functions/simd/is_ltz.hpp>
-#include <nt2/include/functions/simd/is_less.hpp>
-#include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/simd/is_ltz.hpp>
 #include <nt2/include/functions/simd/inbtrue.hpp>
 #include <nt2/include/functions/simd/oneminus.hpp>
-#include <nt2/include/functions/simd/polevl.hpp>
+#include <nt2/include/functions/simd/is_less.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/simd/if_else_zero.hpp>
-#include <nt2/include/functions/simd/minus.hpp>
-#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/functions/simd/logical_andnot.hpp>
 #include <nt2/include/functions/simd/exp.hpp>
-#include <nt2/include/functions/simd/is_inf.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/two.hpp>
+#include <nt2/include/constants/twothird.hpp>
+#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
+
+#ifndef BOOST_SIMD_NO_INFINITIES
+#include <nt2/include/functions/simd/if_zero_else.hpp>
+#include <nt2/include/functions/simd/is_equal.hpp>
+#include <nt2/include/constants/inf.hpp>
+#endif
 
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::erfc_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                            )
-  {
-    typedef typename meta::as_floating<A0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return erfc(tofloat(a0));
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::erfc_, tag::cpu_
                               , (A0)(X)
-                              , ((simd_<floating_<A0>,X>))
+                              , ((simd_<double_<A0>,X>))
                               )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<A0>::type sA0;
-
-      static const boost::array<sA0, 5> erf0_P4 = {{
-          sA0(6.49254556481904E-05),
-          sA0(1.20339380863079E-03),
-          sA0(4.03259488531795E-02),
-          sA0(0.135894887627278   ),
-          sA0(1.12837916709551    )
-      }};
-      static const boost::array<sA0, 5> erf0_Q4 = {{
-          sA0(3.64915280629351E-04),
-          sA0(8.49717371168693E-03),
-          sA0(8.69936222615386E-02),
-          sA0(0.453767041780003   ),
-          sA0(1                   )
-      }};
-
-      static const boost::array<sA0, 7> erfc1_P5 = {{
-          sA0(0                   ),
-          sA0(7.06940843763253E-03),
-          sA0(7.14193832506776E-02),
-          sA0(0.331899559578213   ),
-          sA0(0.878115804155882   ),
-          sA0(1.33154163936765    ),
-          sA0(0.999999992049799   )
-      }};
-      static const boost::array<sA0, 7> erfc1_Q5 = {{
-          sA0(1.25304936549413E-02),
-          sA0(0.126579413030178   ),
-          sA0(0.594651311286482   ),
-          sA0(1.61876655543871    ),
-          sA0(2.65383972869776    ),
-          sA0(2.45992070144246    ),
-          sA0(1                   )
-      }};
-
-      static const boost::array<sA0, 7> erfc2_P5 = {{
-          sA0(0                   ),
-          sA0(2.25716982919218E-02),
-          sA0(0.157289620742839   ),
-          sA0(0.581528574177741   ),
-          sA0(1.26739901455873    ),
-          sA0(1.62356584489367    ),
-          sA0(0.99992114009714    )
-      }};
-      static const boost::array<sA0, 7> erfc2_Q5 = {{
-          sA0(4.00072964526861E-02),
-          sA0(0.278788439273629   ),
-          sA0(1.05074004614827    ),
-          sA0(2.38574194785344    ),
-          sA0(3.37367334657285    ),
-          sA0(2.75143870676376    ),
-          sA0(1                   )
-      }};
       typedef typename meta::as_logical<A0>::type bA0;
 
       A0 x =  nt2::abs(a0);
@@ -121,7 +60,21 @@ namespace nt2 { namespace ext
       std::size_t nb = 0;
       if ((nb = (nt2::inbtrue(test1) > 0)))
       {
-        r1 = nt2::oneminus(x*nt2::polevl( xx, erf0_P4 )/nt2::polevl( xx, erf0_Q4 ));
+        r1 = nt2::oneminus(x*
+                           NT2_HORNER_RAT(sA0, 5, 5, xx,
+                               (0x3f110512d5b20332ull,
+                                0x3f53b7664358865aull,
+                                0x3fa4a59a4f02579cull,
+                                0x3fc16500f106c0a5ull,
+                                0x3ff20dd750429b61ull
+                               ),
+                               (0x3f37ea4332348252ull,
+                                0x3f8166f75999dbd1ull,
+                                0x3fb64536ca92ea2full,
+                                0x3fdd0a84eb1ca867ull,
+                                0x3ff0000000000000ull
+                               ))
+                          );
         if (nb >= meta::cardinal_of<A0>::value)
           return nt2::if_else(test0, nt2::Two<A0>()-r1, r1);
       }
@@ -131,19 +84,119 @@ namespace nt2 { namespace ext
       A0 ex = nt2::exp(-xx);
       if ((nb1 = (nt2::inbtrue(test3) > 0)))
       {
-        A0 z = ex*nt2::polevl(x, erfc1_P5)/nt2::polevl(x, erfc1_Q5);
+        A0 z = ex*NT2_HORNER_RAT(sA0, 7, 7, x,
+                      (0x0ull,
+                       0x3f7cf4cfe0aacbb4ull,
+                       0x3fb2488a6b5cb5e5ull,
+                       0x3fd53dd7a67c7e9full,
+                       0x3fec1986509e687bull,
+                       0x3ff54dfe9b258a60ull,
+                       0x3feffffffbbb552bull
+                      ),
+                      (0x3f89a996639b0d00ull,
+                       0x3fc033c113a7deeeull,
+                       0x3fe307622fcff772ull,
+                       0x3ff9e677c2777c3cull,
+                       0x40053b1052dca8bdull,
+                       0x4003adeae79b9708ull,
+                       0x3ff0000000000000ull
+                      )
+                     );
+
         r1 = nt2::if_else(test1, r1, z);
         nb+= nb1;
         if (nb >= meta::cardinal_of<A0>::value)
           return nt2::if_else(test0, Two<A0>()-r1, r1);
       }
-      A0 z =  ex*nt2::polevl(x, erfc2_P5)/nt2::polevl(x, erfc2_Q5);
-      r1 = nt2::if_else(test2, r1, z);
-      return if_else( nt2::is_inf(a0)
-                    , nt2::if_else_zero(test0, Two<A0>())
-                    , nt2::if_else(test0, nt2::Two<A0>()-r1, r1)
+      A0 z =  ex*NT2_HORNER_RAT(sA0, 7, 7, x,
+                     (0x0ll,
+                      0x3f971d0907ea7a92ull,
+                      0x3fc42210f88b9d43ull,
+                      0x3fe29be1cff90d94ull,
+                      0x3ff44744306832aeull,
+                      0x3ff9fa202deb88e5ull,
+                      0x3fefff5a9e697ae2ull
+                     ),
+                     (0x3fa47bd61bbb3843ull,
+                      0x3fd1d7ab774bb837ull,
+                      0x3ff0cfd4cb6cde9full,
+                      0x400315ffdfd5ce91ull,
+                      0x400afd487397568full,
+                      0x400602f24bf3fdb6ull,
+                      0x3ff0000000000000ull
+                     )
                     );
+      r1 = nt2::if_else(test2, r1, z);
+      #ifndef BOOST_SIMD_NO_INFINITIES
+      r1 = if_zero_else( eq(x, Inf<A0>()), r1);
+      #endif
+      return  nt2::if_else(test0, nt2::Two<A0>()-r1, r1);
       }
   };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::erfc_, tag::cpu_
+                              , (A0)(X)
+                              , ((simd_<single_<A0>,X>))
+                              )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename meta::scalar_of<A0>::type sA0;
+      typedef typename meta::as_logical<A0>::type bA0;
+
+      A0 x =  nt2::abs(a0);
+      bA0 test0 = nt2::is_ltz(a0);
+      A0 r1 = nt2::Zero<A0>();
+      bA0 test1 = nt2::lt(x, Twothird<A0>());
+      std::size_t nb = 0;
+      A0 z = x/oneplus(x);
+      if ((nb = (nt2::inbtrue(test1) > 0)))
+      {
+        // approximation of erfc(z./(1-z))./(1-z) on [0 0.4]
+        // with a polynomial of degree 8 gives 2 ulp on [0 2/3] for erfc
+        // (exhaustive test against float(erfc(double(x))))
+        r1 = oneminus(z)*
+          horner < NT2_HORNER_COEFF_T(sA0, 9,
+                                      (
+                                        0x41aa8e55,  //   2.1319498e+01
+                                        0x401b5680,  //   2.4271545e+00
+                                        0xc010d956,  //  -2.2632651e+00
+                                        0x3f2cff3b,  //   6.7576951e-01
+                                        0xc016c985,  //  -2.3560498e+00
+                                        0xbffc9284,  //  -1.9732213e+00
+                                        0xbfa11698,  //  -1.2585020e+00
+                                        0xbe036d7e,  //  -1.2834737e-01
+                                        0x3f7ffffe   //   9.9999988e-01
+                                      )
+                                     )> (z);
+        if (nb >= meta::cardinal_of<A0>::value)
+          return nt2::if_else(test0, nt2::Two<A0>()-r1, r1);
+      }
+      z-= nt2::splat<A0>(0.4);
+      // approximation of erfc(z1./(1-z1))).*exp((z1./(1-z1)).^2) (z1 =  z+0.4) on [0 0.5]
+      // with a polynomial of degree 7 gives 8 ulp on [2/3 inf] for erfc
+      // (exhaustive test against float(erfc(double(x))))
+      A0 r2 =   exp(-sqr(x))*
+          horner < NT2_HORNER_COEFF_T(sA0, 8,
+                                      (
+                                        0x3f1d56a3, //     6.1460322e-01
+                                        0xbf96c6af, //    -1.1779383e+00
+                                        0x3ec8fa31, //     3.9253381e-01
+                                        0x3d538579, //     5.1640961e-02
+                                        0x3ecbecd4, //     3.9829123e-01
+                                        0x3e233bd3, //     1.5940790e-01
+                                        0xbf918995, //    -1.1370112e+00
+                                        0x3f0a0e89  //     5.3928429e-01
+                                      )
+                                     )> (z);
+      r1 = if_else(test1, r1, r2);
+      #ifndef BOOST_SIMD_NO_INFINITIES
+      r1 = if_zero_else( eq(x, Inf<A0>()), r1);
+      #endif
+      return nt2::if_else(test0, nt2::Two<A0>()-r1, r1);
+    }
+  };
 } }
+
 #endif
