@@ -43,7 +43,7 @@
 #define BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES (boost::simd::int64_t)(boost::simd::int32_t)
 
 #define BOOST_SIMD_SIMD_INT_CONVERT_TYPES  (boost::simd::int64_t)(boost::simd::int32_t)
-#define BOOST_SIMD_SIMD_UINT_CONVERT_TYPES (boost::simd::uint64_t)boost::simd::uint32_t)
+#define BOOST_SIMD_SIMD_UINT_CONVERT_TYPES (boost::simd::uint64_t)(boost::simd::uint32_t)
 
 #define BOOST_SIMD_SIMD_REAL_GROUPABLE_TYPES (double)
 #define BOOST_SIMD_SIMD_REAL_SPLITABLE_TYPES (float)
