@@ -148,9 +148,15 @@ namespace nt2 { namespace ext
                   )
                  );
       }
+      #ifndef BOOST_SIMD_NO_INFINITIES
+      else if (BOOST_UNLIKELY(x == Inf<A0>()))
+      {
+        r1 = Zero<A0>();
+      }
+      #endif
       else
       {
-        z-= 0.4f;
+       z-= 0.4f;
         r1 = exp(-sqr(x))*
           NT2_HORNER_RAT(A0, 4, 4, z,
                   (0xbf66666b,//  -9.0000027e-01

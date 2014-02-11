@@ -39,10 +39,6 @@
 #include <nt2/include/constants/inf.hpp>
 #endif
 
-#define NT2_RAT(type, n, m, x, P, Q)             \
-  horner < NT2_HORNER_COEFF_T(type, n, P) > (x)/ \
-  horner < NT2_HORNER_COEFF_T(type, n, Q) > (x)  \
-
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::erfc_, tag::cpu_
@@ -67,7 +63,7 @@ namespace nt2 { namespace ext
       if ((nb = (nt2::inbtrue(test1) > 0)))
       {
         r1 = nt2::oneminus(x*
-                           NT2_RAT(sA0, 5, 5, xx,
+                           NT2_HORNER_RAT(sA0, 5, 5, xx,
                                (0x3f110512d5b20332ull,
                                 0x3f53b7664358865aull,
                                 0x3fa4a59a4f02579cull,
@@ -90,7 +86,7 @@ namespace nt2 { namespace ext
       A0 ex = nt2::exp(-xx);
       if ((nb1 = (nt2::inbtrue(test3) > 0)))
       {
-        A0 z = ex*NT2_RAT(sA0, 7, 7, x,
+        A0 z = ex*NT2_HORNER_RAT(sA0, 7, 7, x,
                       (0x0ull,
                        0x3f7cf4cfe0aacbb4ull,
                        0x3fb2488a6b5cb5e5ull,
@@ -114,8 +110,7 @@ namespace nt2 { namespace ext
         if (nb >= meta::cardinal_of<A0>::value)
           return nt2::if_else(test0, Two<A0>()-r1, r1);
       }
-//      A0 z =  ex*nt2::polevl(x, erfc2_P5)/nt2::polevl(x, erfc2_Q5);
-      A0 z =  ex*NT2_RAT(sA0, 7, 7, x,
+      A0 z =  ex*NT2_HORNER_RAT(sA0, 7, 7, x,
                      (0x0ll,
                       0x3f971d0907ea7a92ull,
                       0x3fc42210f88b9d43ull,
@@ -161,7 +156,7 @@ namespace nt2 { namespace ext
       if ((nb = (nt2::inbtrue(test1) > 0)))
       {
         r1 = oneminus(z)*
-          NT2_RAT(sA0, 6, 6, z,
+          NT2_HORNER_RAT(sA0, 6, 6, z,
                   (0xbaf40a7f,
                    0x40c782f9,
                    0xc1aca6f2,
@@ -182,7 +177,7 @@ namespace nt2 { namespace ext
       }
       z-= nt2::splat<A0>(0.4);
       A0 r2 =   exp(-sqr(x))*
-          NT2_RAT(sA0, 4, 4, z,
+          NT2_HORNER_RAT(sA0, 4, 4, z,
                   (0xbf66666b,
                    0x400687d6,
                    0xc0030a50,
@@ -195,9 +190,12 @@ namespace nt2 { namespace ext
                   )
                  );
       r1 = if_else(test1, r1, r2);
+      #ifndef BOOST_SIMD_NO_INFINITIES
+      r1 = if_zero_else( eq(x, Inf<A0>()), r1);
+      #endif
       return nt2::if_else(test0, nt2::Two<A0>()-r1, r1);
     }
   };
 } }
-#undef NT2_RAT
+
 #endif
