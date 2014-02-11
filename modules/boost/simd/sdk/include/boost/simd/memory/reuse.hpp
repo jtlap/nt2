@@ -123,7 +123,6 @@ namespace boost { namespace simd
     // Return if idempotent reallocation or small shrink is performed with good alignment
     if( ( oldSize - nbytes ) < BOOST_SIMD_REALLOC_SHRINK_THRESHOLD && is_aligned(ptr, align) )
     {
-      hdr->used_size = nbytes;
       return ptr;
     }
 

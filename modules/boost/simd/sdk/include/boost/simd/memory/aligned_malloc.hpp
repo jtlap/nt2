@@ -98,7 +98,6 @@ namespace boost { namespace simd
     details::aligned_block_header* hdr = reinterpret_cast<details::aligned_block_header*>(static_cast<char*>(ptr) + offset) - 1;
     hdr->offset = offset;
     hdr->allocated_size = size + alignment + sizeof(details::aligned_block_header) - offset;
-    hdr->used_size = size;
 
     return static_cast<char*>(ptr) + offset;
   }

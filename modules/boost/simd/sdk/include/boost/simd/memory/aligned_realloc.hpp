@@ -116,7 +116,7 @@ namespace boost { namespace simd
                     ? size + alignment + sizeof(details::aligned_block_header)
                     : 0u;
 
-    std::size_t old_size = hdr ? hdr->used_size : 0;
+    std::size_t old_size = hdr ? hdr->allocated_size : 0;
     std::size_t old_offset = hdr ? hdr->offset : 0;
 
     void* fresh_ptr = realloc_fn( static_cast<char*>(ptr) - old_offset, nsz );
@@ -131,7 +131,6 @@ namespace boost { namespace simd
     hdr = reinterpret_cast<details::aligned_block_header*>(static_cast<char*>(fresh_ptr) + offset) - 1;
     hdr->offset = offset;
     hdr->allocated_size = size + alignment + sizeof(details::aligned_block_header) - offset;
-    hdr->used_size = size;
 
     return static_cast<char*>(fresh_ptr) + offset;
   }

@@ -125,7 +125,6 @@ namespace boost { namespace simd
     // Return if idempotent reallocation or small shrink is performed with good alignment
     if( ( oldSize - nbytes ) < BOOST_SIMD_REALLOC_SHRINK_THRESHOLD && is_aligned(ptr, align) )
     {
-      hdr->used_size = nbytes;
       return ptr;
     }
 
@@ -134,7 +133,7 @@ namespace boost { namespace simd
     if( !fresh_ptr )
       return 0;
 
-    std::memcpy( fresh_ptr, ptr, std::min( nbytes, hdr->used_size ) );
+    std::memcpy( fresh_ptr, ptr, std::min( nbytes, oldSize ) );
     deallocate(alloc, ptr);
 
     return fresh_ptr;

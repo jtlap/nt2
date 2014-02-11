@@ -19,7 +19,6 @@ namespace boost { namespace simd { namespace details
   {
     std::size_t offset;
     std::size_t allocated_size;
-    std::size_t used_size;
   };
 } } }
 
