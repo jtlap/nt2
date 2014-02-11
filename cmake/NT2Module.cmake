@@ -220,6 +220,13 @@ macro(nt2_module_main module)
     endif()
     project(NT2_${NT2_CURRENT_MODULE_U})
     set(NT2_BINARY_DIR ${PROJECT_BINARY_DIR})
+
+    if(NOT NT2_VERSION_STRING)
+      message(FATAL_ERROR "NT2_VERSION_STRING must be manually specified when building a module standalone")
+    endif()
+    include(nt2.parse_version)
+    nt2_parse_version("${NT2_VERSION_STRING}" NT2_VERSION)
+
     nt2_postconfigure_init()
   endif()
 
@@ -322,8 +329,8 @@ macro(nt2_module_add_library libname)
   endif()
 
   foreach(target ${targets})
-    set_property(TARGET ${target} PROPERTY VERSION 3.0.0)
-    set_property(TARGET ${target} PROPERTY SOVERSION 3)
+    set_property(TARGET ${target} PROPERTY VERSION ${NT2_VERSION_MAJOR}.${NT2_VERSION_MINOR}.${NT2_VERSION_PATCH})
+    set_property(TARGET ${target} PROPERTY SOVERSION ${NT2_VERSION_MAJOR})
     set_property(TARGET ${target} PROPERTY FOLDER lib)
 
     set(FLAGS "-D${macro_name}_SOURCE")

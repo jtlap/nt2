@@ -16,24 +16,46 @@ if(NOT CMAKE_GENERATOR MATCHES "Make|Ninja")
   set(CMAKE_CONFIGURATION_TYPES Release Debug NT2Test NT2TestDebug NT2Bench CACHE STRING "" FORCE)
 endif()
 project(NT2)
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
-################################################################################
-# If GIT repo, verify pre-commit hooks are well set-up
-################################################################################
-if(IS_DIRECTORY ${PROJECT_SOURCE_DIR}/.git/hooks)
-  execute_process(COMMAND ${CMAKE_COMMAND} -E copy
-                  ${PROJECT_SOURCE_DIR}/script/git/pre-commit
-                  ${PROJECT_SOURCE_DIR}/.git/hooks
+find_package(Git QUIET)
+if(GIT_EXECUTABLE)
+  execute_process(COMMAND ${GIT_EXECUTABLE} describe --tags
+                  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+                  OUTPUT_VARIABLE NT2_VERSION_STRING
+                  OUTPUT_STRIP_TRAILING_WHITESPACE
                  )
 endif()
+if(NOT NT2_VERSION_STRING)
+  if(NOT EXISTS ${PROJECT_SOURCE_DIR}/tagname)
+    message(FATAL_ERROR "NT2_VERSION_STRING must be specified manually if no tagname file nor Git")
+  endif()
+  file(READ tagname NT2_VERSION_STRING)
+  string(REGEX REPLACE "[ \r\n\t]+$" "" NT2_VERSION_STRING "${NT2_VERSION_STRING}")
+endif()
+
+include(nt2.parse_version)
+nt2_parse_version("${NT2_VERSION_STRING}" NT2_VERSION)
+
+set(nt2_release "(release)")
+if(NT2_VERSION_IS_PRERELEASE)
+  set(nt2_release "(pre-release)")
+endif()
+
+message(STATUS "[nt2] Configuring NT2 version ${NT2_VERSION_STRING} ${nt2_release}")
+
+################################################################################
+# Install pre-commit git hook
+################################################################################
+execute_process(COMMAND ${CMAKE_COMMAND} -E copy
+                ${PROJECT_SOURCE_DIR}/script/git/pre-commit
+                ${PROJECT_SOURCE_DIR}/.git/hooks
+               )
 
 ################################################################################
 # Set-up NT2 CMake environment
 ################################################################################
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 include(nt2.compiler.options)
-
-set(NT2_VERSION "3.0.0")
 include(nt2.package)
 
 ################################################################################
@@ -47,6 +69,10 @@ include(nt2.boost)
 if(NOT Boost_FOUND)
   message(FATAL_ERROR "NT2 requires a recent version of Boost but none recent enough was found")
 endif()
+
+set(NT2_CURRENT_MODULE main)
+nt2_module_configure_file(version.hpp.in nt2/version.hpp)
+set(NT2_CURRENT_MODULE)
 
 nt2_configure_tests()
 nt2_postconfigure_init()
