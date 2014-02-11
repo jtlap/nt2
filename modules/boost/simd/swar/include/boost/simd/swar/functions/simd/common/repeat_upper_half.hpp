@@ -12,6 +12,9 @@
 #include <boost/simd/swar/functions/repeat_upper_half.hpp>
 #include <boost/simd/include/functions/simd/extract.hpp>
 #include <boost/simd/include/functions/simd/make.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/sdk/meta/is_bitwise_logical.hpp>
+#include <boost/simd/sdk/meta/as_arithmetic.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/preprocessor/make.hpp>
 
@@ -36,6 +39,23 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_PP_IMPLEMENT_WITH_MAKE(1, M0)
 
     #undef M0
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::repeat_upper_half_, tag::cpu_
+                                      , (A0)(X)
+                                      , ( boost::simd::meta::is_bitwise_logical<A0> )
+                                      , ((simd_< logical_<A0>, X>))
+                                      )
+  {
+    typedef A0 result_type;
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      typedef typename meta::as_arithmetic<A0>::type type;
+      return bitwise_cast<result_type>(
+        repeat_upper_half( bitwise_cast<type>(a0) )
+      );
+    }
   };
 } } }
 

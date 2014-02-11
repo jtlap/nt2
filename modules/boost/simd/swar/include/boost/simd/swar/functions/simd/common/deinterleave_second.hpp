@@ -10,6 +10,11 @@
 #define BOOST_SIMD_SWAR_FUNCTIONS_SIMD_COMMON_DEINTERLEAVE_SECOND_HPP_INCLUDED
 
 #include <boost/simd/swar/functions/deinterleave_second.hpp>
+#include <boost/simd/include/functions/simd/insert.hpp>
+#include <boost/simd/include/functions/simd/extract.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/sdk/meta/is_bitwise_logical.hpp>
+#include <boost/simd/sdk/meta/as_arithmetic.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -32,6 +37,24 @@ namespace boost { namespace simd { namespace ext
         that[j] = a1[(i*2)+1];
       }
       return that;
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::deinterleave_second_, tag::cpu_
+                                      , (A0)(X)
+                                      , ( boost::simd::meta::is_bitwise_logical<A0> )
+                                      , ((simd_< logical_<A0>, X>))
+                                        ((simd_< logical_<A0>, X>))
+                                      )
+  {
+    typedef A0 result_type;
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      typedef typename meta::as_arithmetic<A0>::type type;
+      return bitwise_cast<result_type>(
+        deinterleave_first( bitwise_cast<type>(a0), bitwise_cast<type>(a1) )
+      );
     }
   };
 } } }
