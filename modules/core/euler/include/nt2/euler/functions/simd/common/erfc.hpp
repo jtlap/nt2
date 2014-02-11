@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_EULER_FUNCTIONS_SIMD_COMMON_ERFC_HPP_INCLUDED
 #define NT2_EULER_FUNCTIONS_SIMD_COMMON_ERFC_HPP_INCLUDED
+
 #include <nt2/euler/functions/erfc.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
@@ -22,20 +23,17 @@
 #include <nt2/include/functions/simd/logical_andnot.hpp>
 #include <nt2/include/functions/simd/exp.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
-#include <nt2/include/functions/simd/if_else_zero.hpp>
-#include <nt2/include/functions/simd/if_zero_else.hpp>
-#include <nt2/include/functions/simd/is_equal.hpp>
 #include <nt2/include/functions/simd/unary_minus.hpp>
-
-#include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
-
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/twothird.hpp>
+#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
 
 #ifndef BOOST_SIMD_NO_INFINITIES
+#include <nt2/include/functions/simd/if_zero_else.hpp>
+#include <nt2/include/functions/simd/is_equal.hpp>
 #include <nt2/include/constants/inf.hpp>
 #endif
 

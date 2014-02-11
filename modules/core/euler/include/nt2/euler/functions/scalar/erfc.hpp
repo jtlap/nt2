@@ -15,7 +15,6 @@
 #include <nt2/include/functions/scalar/oneminus.hpp>
 #include <nt2/include/functions/scalar/sqrt.hpp>
 #include <nt2/include/functions/scalar/exp.hpp>
-
 #include <nt2/include/functions/scalar/oneplus.hpp>
 
 #include <nt2/include/constants/pi.hpp>
