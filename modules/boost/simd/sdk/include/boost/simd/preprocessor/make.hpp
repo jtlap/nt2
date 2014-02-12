@@ -12,8 +12,11 @@
 #include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
 #include <boost/simd/sdk/meta/iterate.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
+#include <boost/simd/include/functions/simd/aligned_load.hpp>
 
 #define BOOST_SIMD_PP_DETAILS_MAKE(z, Cardinal, Args)                          \
 BOOST_FORCEINLINE                                                              \
@@ -80,12 +83,16 @@ result_type eval( BOOST_PP_ENUM_BINARY_PARAMS ( Args                           \
                 , boost::mpl::size_t<N> const&                                 \
                 ) const                                                        \
 {                                                                              \
-  result_type that;                                                            \
-  meta::iterate<N>( generic_make< result_type                                  \
+  typedef typename meta::scalar_of<result_type>::type         s_t;             \
+  typedef aligned_array<s_t,N,BOOST_SIMD_CONFIG_ALIGNMENT> data_t;             \
+                                                                               \
+  data_t that;                                                                 \
+                                                                               \
+  meta::iterate<N>( generic_make< data_t                                       \
                                  , N                                           \
                                  , BOOST_PP_ENUM_PARAMS(Args,A)                \
                                  >(BOOST_PP_ENUM_PARAMS(Args,a),that) );       \
-  return that;                                                                 \
+  return aligned_load<result_type>(&that[0]);                                  \
 }                                                                              \
 /**/
 
