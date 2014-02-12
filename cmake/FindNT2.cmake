@@ -261,10 +261,12 @@ endmacro()
 function(nt2_find_modules)
 
   nt2_find_log("nt2_find_modules ${ARGN}")
+  set(MODULES ${ARGN})
+  nt2_expand_submodules(MODULES)
 
   # load dependencies for all required components
   # build queue of all indirect dependencies
-  set(EXTRA_REST ${ARGN})
+  set(EXTRA_REST ${MODULES})
   set(EXTRA)
   while(EXTRA_REST)
     list(GET EXTRA_REST 0 COMPONENT)
@@ -281,6 +283,7 @@ function(nt2_find_modules)
     list(APPEND EXTRA ${COMPONENT})
     list(REMOVE_ITEM EXTRA_REST ${COMPONENT})
     if(NT2_${COMPONENT_U}_DEPENDENCIES_FOUND)
+      nt2_expand_submodules(NT2_${COMPONENT_U}_DEPENDENCIES_EXTRA)
       foreach(extra ${NT2_${COMPONENT_U}_DEPENDENCIES_EXTRA})
         list(FIND EXTRA ${extra} extra_found)
         if(extra_found EQUAL -1)
