@@ -112,7 +112,7 @@ NT2_REGISTER_BENCHMARK_TPL( blackandscholes_nt2_merged, (float) )
   std::size_t size_step = args("size_step",   2);
 
   run_during_with< blackandscholes_nt2_merged<float> > ( 1.
-                                                , geometric(size_min,size_max,size_step)
-                                                , cycles_per_element<stats::median_>()
-                                                );
+                                                       , geometric(size_min,size_max,size_step)
+                                                       , cycles_per_element<stats::median_>()
+                                                       );
 }
