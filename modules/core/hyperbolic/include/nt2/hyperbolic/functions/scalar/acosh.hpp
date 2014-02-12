@@ -9,41 +9,17 @@
 #ifndef NT2_HYPERBOLIC_FUNCTIONS_SCALAR_ACOSH_HPP_INCLUDED
 #define NT2_HYPERBOLIC_FUNCTIONS_SCALAR_ACOSH_HPP_INCLUDED
 #include <nt2/hyperbolic/functions/acosh.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/sqrteps.hpp>
 
 #include <nt2/include/functions/scalar/minusone.hpp>
 #include <nt2/include/functions/scalar/log1p.hpp>
 #include <nt2/include/functions/scalar/sqrt.hpp>
 #include <nt2/include/functions/scalar/sqr.hpp>
-#include <nt2/include/functions/scalar/oneminus.hpp>
+#include <nt2/include/constants/eps.hpp>
+#include <nt2/include/constants/oneotwoeps.hpp>
+#include <nt2/include/constants/log_2.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acosh_, tag::cpu_
-                            , (A0)
-                            , (scalar_< arithmetic_<A0> >)
-                            )
-  {
-
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::acosh(result_type(a0));
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is floating_
-  /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acosh_
                             , tag::cpu_
                             , (A0)
@@ -55,7 +31,10 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       A0 t = minusone(a0);
-      return nt2::log1p(t+nt2::sqrt((t+t)+sqr(t)));
+      if(BOOST_LIKELY(t <= Oneotwoeps<A0>()))
+        return log1p(t+nt2::sqrt(t+t+sqr(t)));
+      else
+        return log(t)+Log_2<A0>();
     }
   };
 } }
