@@ -1,10 +1,5 @@
 //==============================================================================
-//         Copyright 2014 LRI UMR 8623 CNRS/Univ Paris Sud XI
 //         Copyright 2014 MetaScale SAS
-//
-//          Distributed under the Boost Software License, Version 1.0.
-//                 See accompanying file LICENSE.txt or copy at
-//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_SDK_SIMD_EXTENSIONS_X86_MIC_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_EXTENSIONS_X86_MIC_HPP_INCLUDED
@@ -50,8 +45,8 @@
 #define BOOST_SIMD_SIMD_INT_CONVERT_TYPES  (boost::simd::int64_t)(boost::simd::int32_t)
 #define BOOST_SIMD_SIMD_UINT_CONVERT_TYPES (boost::simd::uint64_t)(boost::simd::uint32_t)
 
-#define BOOST_SIMD_SIMD_REAL_GROUPABLE_TYPES (boost::simd::int64_t)(boost::simd::uint64_t)(double)
-#define BOOST_SIMD_SIMD_REAL_SPLITABLE_TYPES (boost::simd::int32_t)(boost::simd::uint32_t)(float)
+#define BOOST_SIMD_SIMD_REAL_GROUPABLE_TYPES (double)
+#define BOOST_SIMD_SIMD_REAL_SPLITABLE_TYPES (float)
 
 #define BOOST_SIMD_SIMD_GROUPABLE_TYPES (double)(boost::simd::int64_t)(boost::simd::uint64_t)
 #define BOOST_SIMD_SIMD_SPLITABLE_TYPES (float)(boost::simd::int32_t)(boost::simd::uint32_t)
