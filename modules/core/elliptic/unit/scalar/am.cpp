@@ -6,6 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+#define _USE_MATH_DEFINES // for MSVC to define _M_PI_2
 #include <nt2/elliptic/include/functions/am.hpp>
 
 #include <nt2/sdk/functor/meta/call.hpp>

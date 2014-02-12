@@ -38,7 +38,6 @@ namespace nt2 { namespace ext
       case 'm': return am(u,sqrt(nt2::abs(x)), tol);
       default : return am(u,x, tol);
       }
-      return am(u, x, tol);
     }
   };
 
