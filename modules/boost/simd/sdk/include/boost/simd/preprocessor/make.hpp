@@ -17,6 +17,8 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
 #include <boost/simd/include/functions/simd/aligned_load.hpp>
+#include <boost/simd/memory/aligned_array.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
 
 #define BOOST_SIMD_PP_DETAILS_MAKE(z, Cardinal, Args)                          \
 BOOST_FORCEINLINE                                                              \
