@@ -1,4 +1,3 @@
-//==============================================================================
 //         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
@@ -18,7 +17,7 @@
 #include <nt2/include/functions/splat.hpp>
 #include <boost/fusion/include/vector_tie.hpp>
 
-NT2_TEST_CASE_TPL(sinhcosh_table, NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL(sinhcosh, NT2_SIMD_REAL_TYPES)
 {
   using nt2::sinhcosh;
   using nt2::tag::sinhcosh_;
