@@ -62,31 +62,34 @@ namespace boost { namespace simd { namespace ext
                                       )
   {
     typedef void result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 a0,A1 & r0,A2 & r1) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 & r0, A2 & r1) const
     {
       typedef typename meta::as_logical<A0>::type bA0;
       typedef typename dispatch::meta::as_integer<A0, signed>::type      int_type;
       typedef typename meta::as_logical<int_type>::type                 bint_type;
       typedef typename meta::scalar_of<A0>::type                           s_type;
 
+
 #ifndef BOOST_SIMD_NO_DENORMALS
       bA0 test = logical_and(lt(simd::abs(a0), Smallestposval<A0>()), is_nez(a0));
-      a0 = if_else(test, Twotonmb<A0>()*a0, a0);
+      A0 aa0 = if_else(test, Twotonmb<A0>()*a0, a0);
       A2 t = if_else_zero(test,Nbmantissabits<A0>());
+#else
+      A0 aa0 = a0;
 #endif
-      r1 = simd::bitwise_cast<int_type>(b_and(a0, Mask1frexp<A0>())); //extract exp.
-      A0  x   = b_andnot(a0, Mask1frexp<A0>());
+      r1 = simd::bitwise_cast<int_type>(b_and(aa0, Mask1frexp<A0>())); //extract exp.
+      A0  x   = b_andnot(aa0, Mask1frexp<A0>());
       r1  = shri(r1,Nbmantissabits<s_type>()) - Maxexponentm1<A0>();
       r0  = b_or(x,Mask2frexp<A0>());
 
-      bA0       test0 = is_nez(a0);
+      bA0       test0 = is_nez(aa0);
       bint_type test1 = gt(r1,Limitexponent<A0>());
 
       r1 = if_else_zero(logical_notand(test1, test0), r1);
 #ifndef BOOST_SIMD_NO_DENORMALS
       r1 -= t ;
 #endif
-      r0 = if_else_zero(test0, seladd(test1,r0,a0));
+      r0 = if_else_zero(test0, seladd(test1,r0,aa0));
     }
   };
 } } }
