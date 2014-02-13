@@ -15,13 +15,15 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/config.hpp>
 
+#include <nt2/include/functions/rec.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/valmax.hpp>
-#include <nt2/include/constants/maxlog.hpp>
-#include <nt2/include/constants/log_2.hpp>
+#include <nt2/include/constants/eps.hpp>
+#include <nt2/include/constants/sqrteps.hpp>
+#include <nt2/include/constants/oneosqrteps.hpp>
 #include <boost/math/special_functions/asinh.hpp>
 
 NT2_TEST_CASE_TPL ( asinh,  NT2_REAL_TYPES)
@@ -44,6 +46,12 @@ NT2_TEST_CASE_TPL ( asinh,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(asinh(nt2::Valmax<T>()), boost::math::asinh(nt2::Valmax<T>()), 0.5);
   NT2_TEST_ULP_EQUAL(asinh(nt2::rec(nt2::Sqrteps<T>())*2),  boost::math::asinh(nt2::rec(nt2::Sqrteps<T>())*2), 0.5);
   NT2_TEST_ULP_EQUAL(asinh(nt2::Eps<T>()), nt2::Eps<T>(), 0.5);
+ for(T i=T(0.1); i <= T(1.1); i+= T(0.5))
+ {
+   T ri =  nt2::rec(i);
+   NT2_TEST_ULP_EQUAL(asinh(i), boost::math::asinh(i), 0.5);
+   NT2_TEST_ULP_EQUAL(asinh(ri), boost::math::asinh(ri), 0.5);
+ }
 }
 
 
