@@ -26,7 +26,7 @@ namespace boost { namespace simd
      @par Models:
         Hierarchy
    **/
-    BOOST_SIMD_CONSTANT_REGISTER(Oneosqrteps,double,0,0X4A800000UL,0x4320000000000000ULL);
+    BOOST_SIMD_CONSTANT_REGISTER(Oneosqrteps,double,0,0x453504f3UL,0x4190000000000000ULL);
   }
   /*!
     Generates \f$1/\sqrt\epsilon/f$

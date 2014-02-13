@@ -27,7 +27,7 @@ namespace boost { namespace simd
         Hierarchy
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Sqrteps, double, 1
-                                , 0x453504F2ULL, 0x4190000000000000ULL
+                                , 0x39B504F3, 0x3E50000000000000ULL
                                 );
   }
   /*!
