@@ -9,48 +9,16 @@
 #ifndef NT2_HYPERBOLIC_FUNCTIONS_SIMD_COMMON_ATANH_HPP_INCLUDED
 #define NT2_HYPERBOLIC_FUNCTIONS_SIMD_COMMON_ATANH_HPP_INCLUDED
 #include <nt2/hyperbolic/functions/atanh.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/include/constants/half.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/simd/sqr.hpp>
-#include <nt2/include/functions/simd/fma.hpp>
 #include <nt2/include/functions/simd/log1p.hpp>
-#include <nt2/include/functions/simd/log.hpp>
-#include <nt2/include/functions/simd/oneminus.hpp>
-#include <nt2/include/functions/simd/oneplus.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
-#include <nt2/include/functions/simd/sign.hpp>
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::atanh_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                            )
-  {
-
-    typedef typename meta::as_floating<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::atanh(tofloat(a0));
-    }
-  };
-} }
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
+#include <nt2/include/functions/simd/fma.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/bitwise_xor.hpp>
+#include <nt2/include/functions/simd/bitofsign.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::atanh_, tag::cpu_
@@ -59,20 +27,18 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
+      typedef typename meta::as_logical<A0>::type bA0;
       A0 absa0 = nt2::abs(a0);
-//       const A0 small_mask    = is_lt(absa0, Twotom10<A0>());  /* x <  2**-10 */
-//       return select(small_mask,
-//              a0*madd(Third<A0>(), sqr(a0), One<A0>()),
-//              sign(a0)*Half<A0>()*log1p(Two<A0>()*absa0/(One<A0>()-absa0))
-//              );
       A0 t =  absa0+absa0;
-      return sign(a0)*Half<A0>()*sel(lt(absa0, Half<A0>()), log1p(t+t*absa0/(One<A0>()-absa0)), log1p(t/(One<A0>()-absa0)));
-
-     }
+      A0 z1 = oneminus(absa0);
+      bA0 test =  lt(absa0, Half<A0>());
+      A0 tmp = if_else(test, absa0, t)/z1;
+      return b_xor(bitofsign(a0), Half<A0>()*log1p(if_else(test, fma(t,tmp,t), tmp)));
+    }
   };
 } }
 
