@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_CONSTANT_CONSTANTS_SQRTEPS_HPP_INCLUDED
-#define BOOST_SIMD_CONSTANT_CONSTANTS_SQRTEPS_HPP_INCLUDED
+#ifndef BOOST_SIMD_CONSTANT_CONSTANTS_ONEOSQRTEPS_HPP_INCLUDED
+#define BOOST_SIMD_CONSTANT_CONSTANTS_ONEOSQRTEPS_HPP_INCLUDED
 
 #include <boost/simd/include/functor.hpp>
 #include <boost/simd/constant/register.hpp>
@@ -19,39 +19,37 @@ namespace boost { namespace simd
   namespace tag
   {
    /*!
-     @brief Sqrteps generic tag
+     @brief Oneosqrteps generic tag
 
-     Represents the Sqrteps constant in generic contexts.
+     Represents the Oneosqrteps constant in generic contexts.
 
      @par Models:
         Hierarchy
    **/
-    BOOST_SIMD_CONSTANT_REGISTER( Sqrteps, double, 1
-                                , 0x453504F2ULL, 0x4190000000000000ULL
-                                );
+    BOOST_SIMD_CONSTANT_REGISTER(Oneosqrteps,double,0,0X4A800000UL,0x4320000000000000ULL);
   }
   /*!
-    Generate square root of constant Eps
-    square root of constant Eps
+    Generates \f$1/\sqrt\epsilon/f$
 
     @par Semantic:
 
     @code
-    T r = Sqrteps<T>();
+    T r = Oneosqrteps<T>();
     @endcode
 
     is similar to:
 
     @code
     if T is integral
-      r = 1
+      r = T(0)
     else if T is double
-      r =  Pow(2,-26);
+      r =  pow(2.0, 26);
     else if T is float
-      r =  pow(2,-11.5f);
+      r =  pow(2.0f, 11.5);
     @endcode
+
   **/
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Sqrteps, Sqrteps)
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Oneosqrteps, Oneosqrteps)
 } }
 
 #include <boost/simd/constant/common.hpp>
