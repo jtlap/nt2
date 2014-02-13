@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL ( asinh_real__1_0,  NT2_REAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-1), T(1));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     for(nt2::uint32_t j =0; j < NR; ++j )
@@ -63,7 +63,7 @@ NT2_TEST_CASE_TPL ( asinh_real__1_0,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::asinh(a0),::cephes_asinhl(a0),1.5);
+        NT2_TEST_ULP_EQUAL( nt2::asinh(a0),::cephes_asinhl(a0),2);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
