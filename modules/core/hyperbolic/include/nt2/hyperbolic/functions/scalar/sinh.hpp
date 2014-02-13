@@ -10,55 +10,54 @@
 #define NT2_HYPERBOLIC_FUNCTIONS_SCALAR_SINH_HPP_INCLUDED
 
 #include <nt2/hyperbolic/functions/sinh.hpp>
-#include <nt2/include/functions/scalar/is_ltz.hpp>
-#include <nt2/include/functions/scalar/is_nez.hpp>
-#include <nt2/include/functions/scalar/average.hpp>
-#include <nt2/include/functions/scalar/negif.hpp>
-#include <nt2/include/functions/scalar/is_inf.hpp>
-#include <nt2/include/functions/scalar/expm1.hpp>
-#include <nt2/include/functions/scalar/oneplus.hpp>
-#include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/exp.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/rec.hpp>
+#include <nt2/include/functions/scalar/fms.hpp>
+#include <nt2/include/functions/scalar/bitofsign.hpp>
+#include <nt2/include/functions/scalar/bitwise_xor.hpp>
+
 #include <nt2/include/constants/half.hpp>
+#include <nt2/include/constants/maxlog.hpp>
+#include <nt2/include/constants/log_2.hpp>
+#include <nt2/hyperbolic/functions/details/sinh_kernel.hpp>
 
 
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinh_, tag::cpu_
                             , (A0)
-                            , (scalar_< arithmetic_<A0> >)
+                            , ((scalar_<floating_<A0> >))
                             )
   {
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      const result_type tmp=nt2::expm1(nt2::abs(a0));
-      result_type r = nt2::average(tmp, tmp/(oneplus(tmp)));
-      return negif(is_ltz(a0), r);
-    }
-  };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinh_, tag::cpu_
-                            , (A0)
-                            , (scalar_< floating_<A0> >)
-                            )
-  {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      A0 tmp = nt2::exp(a0);
-      if ( nt2::abs(a0) > static_cast<A0>(0.6))
+      result_type x = nt2::abs(a0);
+      if( x < 1.0f)
       {
-        return (tmp-rec(tmp))*Half<A0>();
+       A0 x2 = sqr(x);
+       return details::sinh_kernel<A0>::compute(a0, x2);
       }
-      else if (is_nez(a0))
+      else
       {
-        return -tmp*nt2::expm1(-(a0+a0))*Half<A0>();
+        A0 r;
+        if (BOOST_UNLIKELY( x > Maxlog<A0>()-Log_2<A0>()))
+        {
+          A0 tmp = exp(Half<A0>()*x);
+          r = (Half<A0>()*tmp)*tmp;
+        }
+        else
+        {
+          A0 tmp = exp(x);
+          r =  fms(tmp, Half<A0>(), Half<A0>()*rec(tmp));
+        }
+        return b_xor(r, bitofsign(a0));
       }
-      else return a0;
     }
   };
+
 } }
 
 
