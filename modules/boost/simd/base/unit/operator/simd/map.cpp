@@ -16,7 +16,6 @@
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/two.hpp>
-#include <boost/simd/include/constants/allbits.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
@@ -96,14 +95,12 @@ NT2_TEST_CASE_TPL ( map_logical, (float)(boost::simd::int32_t)(boost::simd::uint
   using boost::simd::logical;
   using boost::simd::native;
   using boost::simd::map;
-  using boost::simd::bitwise_cast;
-  using boost::simd::Allbits;
+  using boost::simd::True;
   using boost::mpl::_;
   typedef native<T, BOOST_SIMD_DEFAULT_EXTENSION> in_type;
   typedef native<logical<T>, BOOST_SIMD_DEFAULT_EXTENSION> out_type;
-  typedef native<typename boost::dispatch::meta::as_integer<T, unsigned>::type, BOOST_SIMD_DEFAULT_EXTENSION> mask_type;
 
   in_type a;
   NT2_TEST_EXPR_TYPE( map(logical_f(), a), _, out_type );
-  NT2_TEST_EQUAL( bitwise_cast<mask_type>( map(logical_f(), a) ), Allbits<mask_type>() );
+  NT2_TEST_EQUAL( map(logical_f(), a), True<out_type>() );
 }
