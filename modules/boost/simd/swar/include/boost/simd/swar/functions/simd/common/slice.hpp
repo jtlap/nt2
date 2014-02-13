@@ -27,9 +27,9 @@ namespace boost { namespace simd { namespace ext
                                             A1::static_size == A0::static_size/2
                                           >
                                         )
-                                      , ((simd_<arithmetic_<A0>,X>))
-                                        ((simd_<arithmetic_<A1>,Y>))
-                                        ((simd_<arithmetic_<A1>,Y>))
+                                      , ((simd_<unspecified_<A0>,X>))
+                                        ((simd_<unspecified_<A1>,Y>))
+                                        ((simd_<unspecified_<A1>,Y>))
                                       )
   {
     typedef void result_type;
