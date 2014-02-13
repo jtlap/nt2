@@ -9,7 +9,7 @@
 #ifndef NT2_INTERPOL_FUNCTIONS_GENERIC_BSEARCH_HPP_INCLUDED
 #define NT2_INTERPOL_FUNCTIONS_GENERIC_BSEARCH_HPP_INCLUDED
 /////////////////////////////////////////////////////////////////////
-/// by          : J. Falcou and J.T. Lapresté
+/// by          : J. Falcou and J.T. LaprestÃ©
 /// description :
 ///  Perform a binary search of an array of values.
 ///  The parameters index_lo and index_hi provide an initial bracket,

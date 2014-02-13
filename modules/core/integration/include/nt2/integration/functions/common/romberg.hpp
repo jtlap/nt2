@@ -188,7 +188,7 @@ namespace nt2 { namespace details
     //                [y, dint_] = ZeroNeville( h, s)
     //                Calcule la valeur en zero (y) du polynome qui aux points h(i)
     //                prend les valeurs s(i)
-    //                dint_ est de plus une évaluation de l'erreur absolue en ce point.
+    //                dint_ est de plus une Ã©valuation de l'erreur absolue en ce point.
     {
       vtab_t  c(s),  d(s);
       dint_ = Zero<value_t>();

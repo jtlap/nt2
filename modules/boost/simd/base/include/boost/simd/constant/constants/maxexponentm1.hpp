@@ -48,7 +48,7 @@ namespace boost { namespace simd
 
   }
   /*!
-    Generates the maximum exposant of floating point numbers minus oné
+    Generates the maximum exposant of floating point numbers minus one
 
     @par Semantic:
 
