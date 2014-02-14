@@ -13,6 +13,7 @@
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <boost/simd/sdk/meta/is_downgradable.hpp>
 
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -20,7 +21,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test that downgrade is correct for SIMD types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(downgrade_native, BOOST_SIMD_SIMD_TYPES)
+
+template<class T>
+struct test_type : boost::simd::meta::is_downgradable_on_ext< boost::simd::native<T, BOOST_SIMD_DEFAULT_EXTENSION> > {};
+
+NT2_TEST_CASE_TPL_MPL ( downgrade_native
+                      , NT2_TEST_SEQ_MPL_FILTER ( BOOST_SIMD_SIMD_TYPES
+                                                , test_type<_>
+                                                )
+                      )
 {
   using boost::simd::native;
   using boost::dispatch::meta::downgrade;
@@ -37,7 +46,11 @@ NT2_TEST_CASE_TPL(downgrade_native, BOOST_SIMD_SIMD_TYPES)
 ////////////////////////////////////////////////////////////////////////////////
 // Test that downgrade is correct for SIMD logical types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(downgrade_logical_native, BOOST_SIMD_SIMD_TYPES)
+NT2_TEST_CASE_TPL_MPL ( downgrade_logical
+                      , NT2_TEST_SEQ_MPL_FILTER ( BOOST_SIMD_SIMD_TYPES
+                                                , test_type<_>
+                                                )
+                      )
 {
   using boost::simd::logical;
   using boost::simd::native;
