@@ -70,9 +70,7 @@ if(NOT Boost_FOUND)
   message(FATAL_ERROR "NT2 requires a recent version of Boost but none recent enough was found")
 endif()
 
-set(NT2_CURRENT_MODULE main)
 nt2_module_configure_file(version.hpp.in nt2/version.hpp)
-set(NT2_CURRENT_MODULE)
 
 nt2_configure_tests()
 nt2_postconfigure_init()

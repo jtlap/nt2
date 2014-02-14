@@ -570,9 +570,12 @@ endmacro()
 # mark a header file for installation
 # useful when some header files are generated
 macro(nt2_module_install_file header)
-  string(TOUPPER ${NT2_CURRENT_MODULE} NT2_CURRENT_MODULE_U)
 
   if(PROJECT_NAME MATCHES "^NT2")
+    set(COMPONENT_STR)
+    if(NT2_CURRENT_MODULE)
+      set(COMPONENT_STR COMPONENT ${NT2_CURRENT_MODULE})
+    endif()
     string(REGEX REPLACE "^(.*)/[^/]+$" "\\1" ${header}_path ${header})
     install(FILES ${NT2_BINARY_DIR}/include/${header}
             DESTINATION include/${${header}_path}
