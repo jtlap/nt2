@@ -22,6 +22,7 @@
 #include <nt2/include/functions/simd/is_less.hpp>
 
 #include <nt2/sdk/meta/as_logical.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/simd/inbtrue.hpp>
 #include <nt2/hyperbolic/functions/details/sinh_kernel.hpp>
 

@@ -22,6 +22,7 @@
 #include <nt2/include/functions/simd/is_less.hpp>
 #include <nt2/include/constants/mtwo.hpp>
 #include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/fiveo_8.hpp>
 
 #include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
@@ -40,7 +41,7 @@ namespace nt2 { namespace ext
     {
        typedef typename meta::as_logical<A0>::type bA0;
        result_type x = nt2::abs(a0);
-       bA0 test0= lt(x, nt2::splat<A0>(0.625));
+       bA0 test0= lt(x, Fiveo_8<A0>());
        A0 bts = bitofsign(a0);
        std::size_t nb;
        A0 z = One<A0>();
