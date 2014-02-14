@@ -8,51 +8,35 @@
 //==============================================================================
 #ifndef NT2_HYPERBOLIC_FUNCTIONS_SIMD_COMMON_SINHC_HPP_INCLUDED
 #define NT2_HYPERBOLIC_FUNCTIONS_SIMD_COMMON_SINHC_HPP_INCLUDED
-
 #include <nt2/hyperbolic/functions/sinhc.hpp>
-#include <nt2/include/functions/simd/sinh.hpp>
-#include <nt2/include/functions/simd/oneplus.hpp>
-#include <nt2/include/functions/simd/fma.hpp>
-#include <nt2/include/functions/simd/rec.hpp>
-#include <nt2/include/functions/simd/sqr.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/is_less.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
+#include <nt2/hyperbolic/functions/details/sinhc_kernel.hpp>
+#include <nt2/include/functions/simd/inbtrue.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/functions/simd/is_greater.hpp>
+#include <nt2/include/constants/maxlog.hpp>
+#include <nt2/include/functions/simd/exp.hpp>
+#include <nt2/include/constants/log_2.hpp>
+#include <nt2/include/constants/half.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
-#include <nt2/include/functions/simd/is_equal.hpp>
-#include <nt2/include/functions/simd/is_greater_equal.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/oneo_6.hpp>
-#include <nt2/include/constants/moneo_6.hpp>
-#include <nt2/include/constants/oneo_120.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/average.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
+
+
+#ifndef BOOST_SIMD_NO_INFINITIES
 #include <nt2/include/constants/inf.hpp>
-#include <nt2/include/constants/fourthrooteps.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
+#include <nt2/include/functions/simd/is_equal.hpp>
+#endif
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinhc_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                            )
-  {
-
-    typedef typename meta::as_floating<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::sinhc(tofloat(a0));
-    }
-  };
-} }
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinhc_, tag::cpu_
@@ -61,15 +45,29 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      A0 a = nt2::abs(a0);
-      A0 r1 = sel(eq(a, Inf<A0>()), a, sinh(a)*rec(a));
-      A0 a2 = sqr(a);
-      A0 r2 = oneplus(a2*fma(a2, Oneo_120<A0>(), Oneo_6<A0>()));
-      return sel(ge(a,Four<A0>()*Four<A0>()*Fourthrooteps<A0>()), r1, r2);
+      typedef typename meta::as_logical<A0>::type bA0;
+      result_type x = nt2::abs(a0);
+      bA0 lt1= lt(x, One<A0>());
+      std::size_t nb;
+      A0 z = Zero<A0>();
+      if( ( nb = inbtrue(lt1)) > 0)
+      {
+        z = details::sinhc_kernel<A0>::compute(sqr(x));
+        if(nb >= meta::cardinal_of<A0>::value) return z;
+      }
+      bA0 test1 = gt(x, Maxlog<A0>()-Log_2<A0>());
+      A0 fac = if_else(test1, Half<A0>(), One<A0>());
+      A0 tmp = exp(x*fac);
+      A0 tmp1 = (Half<A0>()*tmp)/x;
+      A0 r =  if_else(test1, tmp1*tmp, average(tmp, -rec(tmp))/x);
+      #ifndef BOOST_SIMD_NO_INFINITIES
+      r = if_else(eq(x, Inf<A0>()), x, r);
+      #endif
+      return if_else(lt1, z, r);
     }
   };
 } }
