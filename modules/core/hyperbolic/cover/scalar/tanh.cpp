@@ -32,17 +32,15 @@ extern "C" { long double cephes_tanhl(long double); }
 #include <nt2/sdk/unit/module.hpp>
 
 #include <nt2/constant/constant.hpp>
+#include <cmath>
 
 
-NT2_TEST_CASE_TPL ( tanh_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( tanh_real__1_0, NT2_REAL_TYPES)
 {
 
   using nt2::tanh;
   using nt2::tag::tanh_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<tanh_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
@@ -55,18 +53,21 @@ NT2_TEST_CASE_TPL ( tanh_real__1_0,  NT2_REAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    T a0;
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-0.625), T(0.625));
+    NT2_CREATE_BUF(tab_a1,T, NR, T( 0.625), T(10));
+    NT2_CREATE_BUF(tab_a2,T, NR, T(-10),    T(-0.625));
+    T a0, a1, a2;
     for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for param "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << "  a0 = "<< (a0 = tab_a0[j])
+                  << "  a1 = "<< (a1 = tab_a1[j])
+                  << "  a2 = "<< (a2 = tab_a2[j])
                   << std::endl;
         NT2_TEST_ULP_EQUAL( nt2::tanh(a0),::cephes_tanhl(a0),1.0);
-        ulp0=nt2::max(ulpd,ulp0);
-     }
-     std::cout << "max ulp found is: " << ulp0 << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::tanh(a1),::cephes_tanhl(a1),1.0);
+        NT2_TEST_ULP_EQUAL( nt2::tanh(a2),::cephes_tanhl(a2),1.0);
+      }
    }
 } // end of test for floating_
 

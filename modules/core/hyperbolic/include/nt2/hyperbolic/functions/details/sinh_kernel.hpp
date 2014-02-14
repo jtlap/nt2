@@ -22,7 +22,7 @@ namespace nt2 { namespace details
   template < class A0 >
   struct sinh_kernel < A0, float >
   {
-    // computes asinh for abs(a0) < 1 and x2 =  sqr(a0) for float
+    // computes sinh for abs(a0) < 1 and x2 =  sqr(a0) for float
     static BOOST_FORCEINLINE A0 compute(const A0& a0, const A0& x2)
     {
       typedef typename meta::scalar_of<A0>::type sA0;
@@ -39,7 +39,7 @@ namespace nt2 { namespace details
   template < class A0 >
   struct sinh_kernel < A0, double >
   {
-    // computes asinh for abs(a0) < 1 and x2 =  sqr(a0) for doubles
+    // computes sinh for abs(a0) < 1 and x2 =  sqr(a0) for doubles
     static  BOOST_FORCEINLINE A0 compute(const A0& a0, const A0& x2)
     {
       typedef typename meta::scalar_of<A0>::type sA0;

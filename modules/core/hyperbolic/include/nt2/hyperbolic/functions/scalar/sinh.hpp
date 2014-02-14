@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       result_type x = nt2::abs(a0);
-      if( x < 1.0f)
+      if( x < A0(1.0))
       {
        A0 x2 = sqr(x);
        return details::sinh_kernel<A0>::compute(a0, x2);
