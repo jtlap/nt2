@@ -15,6 +15,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/config.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
+#include <boost/math/special_functions/acosh.hpp>
 
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
@@ -44,4 +45,5 @@ NT2_TEST_CASE_TPL ( acosh,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(acosh(nt2::Zero<vT>()), nt2::Nan<r_t>(), 0.5);
 #endif
   NT2_TEST_ULP_EQUAL(acosh(nt2::One<vT>()), nt2::Zero<r_t>(), 0.5);
+ NT2_TEST_ULP_EQUAL(acosh(nt2::Valmax<vT>()), nt2::::boost::simd::acosh(Valmax<vT>()), 0.5);
 }

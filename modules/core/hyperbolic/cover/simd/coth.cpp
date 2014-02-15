@@ -41,7 +41,7 @@ NT2_TEST_CASE_TPL ( coth,  NT2_SIMD_REAL_TYPES)
         for(nt2::uint32_t i = 0; i< cardinal_of<vT>::value; i++)
         {
 
-          NT2_TEST_ULP_EQUAL( v[i],T(nt2::coth (a0[i])), 2.0);
+          NT2_TEST_ULP_EQUAL( v[i],T(1.0l/(::cephes_tanhl(a0[i]))), 2.0);
         }
       }
   }

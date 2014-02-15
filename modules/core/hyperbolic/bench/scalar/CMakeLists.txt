@@ -21,6 +21,7 @@ SET( SOURCES
   acsch.cpp
   acoth.cpp
   acosh.cpp
+  sinhcosh.cpp
 # List of scalar test files for toolbox hyperbolic
    )
 

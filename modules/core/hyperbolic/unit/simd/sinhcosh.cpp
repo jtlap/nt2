@@ -23,7 +23,7 @@ NT2_TEST_CASE_TPL(sinhcosh, NT2_SIMD_REAL_TYPES)
   using nt2::tag::sinhcosh_;
   using boost::simd::native;
   typedef native<T,BOOST_SIMD_DEFAULT_EXTENSION>            vT;
-  vT a[] = {nt2::Zero<vT>(), nt2::One<vT>(), nt2::splat<vT>(-5), nt2::splat<vT>(5)};
+  vT a[] = {nt2::Zero<vT>(), nt2::Half<A0q > (), nt2::One<vT>(), nt2::splat<vT>(-5), nt2::splat<vT>(5)};
   size_t N =  sizeof(a)/sizeof(vT);
   NT2_TEST_TYPE_IS( (typename boost::dispatch::meta::call<sinhcosh_(vT)>::type)
                   , (std::pair<vT,vT>)
