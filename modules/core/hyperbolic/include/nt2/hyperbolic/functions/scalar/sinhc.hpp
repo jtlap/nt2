@@ -9,21 +9,21 @@
 #ifndef NT2_HYPERBOLIC_FUNCTIONS_SCALAR_SINHC_HPP_INCLUDED
 #define NT2_HYPERBOLIC_FUNCTIONS_SCALAR_SINHC_HPP_INCLUDED
 #include <nt2/hyperbolic/functions/sinhc.hpp>
+
 #include <nt2/hyperbolic/functions/details/sinhc_kernel.hpp>
-#include <nt2/include/functions/scalar/abs.hpp>
-#include <nt2/include/functions/scalar/sqr.hpp>
-#include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/half.hpp>
-#include <nt2/include/constants/zero.hpp>
-#include <nt2/include/constants/maxlog.hpp>
+#include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/log_2.hpp>
+#include <nt2/include/constants/maxlog.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/average.hpp>
 #include <nt2/include/functions/scalar/exp.hpp>
 #include <nt2/include/functions/scalar/if_else.hpp>
-#include <nt2/include/functions/scalar/average.hpp>
 #include <nt2/include/functions/scalar/rec.hpp>
-#include <boost/simd/sdk/config.hpp>
+#include <nt2/include/functions/scalar/sqr.hpp>
+
 #ifndef BOOST_SIMD_NO_INFINITIES
-#include <nt2/include/constants/inf.hpp>
 #endif
 
 namespace nt2 { namespace ext
@@ -38,11 +38,19 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      //////////////////////////////////////////////////////////////////////////////
+      // if x = abs(a0) is less than 1 sinhc is computed using a polynomial(float)
+      // respectively rational(double) approx inspired from cephes sinh approx.
+      // else according x < Threshold e =  exp(x) or exp(x/2) is respectively
+      // computed
+      // * in the first case sinh is ((e-rec(e))/2)/x
+      // * in the second     sinh is (e/2/x)*e (avoiding undue overflow)
+      // Threshold is Maxlog - Log_2 defined in Maxshlog
+      //////////////////////////////////////////////////////////////////////////////
       result_type x = nt2::abs(a0);
       #ifndef BOOST_SIMD_NO_INFINITIES
       if (x == Inf<A0>()) return x;
       #endif
-      A0 z = Zero<A0>();
       if( x < One<A0>())
       {
         return details::sinhc_kernel<A0>::compute(sqr(x));
@@ -59,6 +67,5 @@ namespace nt2 { namespace ext
   };
 
 } }
-
 
 #endif

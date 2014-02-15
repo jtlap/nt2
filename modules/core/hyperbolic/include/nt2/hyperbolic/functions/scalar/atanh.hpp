@@ -9,15 +9,14 @@
 #ifndef NT2_HYPERBOLIC_FUNCTIONS_SCALAR_ATANH_HPP_INCLUDED
 #define NT2_HYPERBOLIC_FUNCTIONS_SCALAR_ATANH_HPP_INCLUDED
 #include <nt2/hyperbolic/functions/atanh.hpp>
+
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
-#include <nt2/include/functions/scalar/log1p.hpp>
-#include <nt2/include/functions/scalar/fma.hpp>
-#include <nt2/include/functions/scalar/oneminus.hpp>
 #include <nt2/include/functions/scalar/bitofsign.hpp>
 #include <nt2/include/functions/scalar/bitwise_xor.hpp>
-
-
+#include <nt2/include/functions/scalar/fma.hpp>
+#include <nt2/include/functions/scalar/log1p.hpp>
+#include <nt2/include/functions/scalar/oneminus.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -45,6 +44,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 
 #endif

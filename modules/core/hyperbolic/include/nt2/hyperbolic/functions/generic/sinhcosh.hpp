@@ -11,9 +11,6 @@
 
 #include <nt2/hyperbolic/functions/sinhcosh.hpp>
 #include <boost/fusion/include/std_pair.hpp>
-#include <nt2/trigonometric/functions/scalar/impl/trigo.hpp>
-#include <nt2/trigonometric/functions/simd/common/impl/trigo.hpp>
-#include <boost/simd/sdk/simd/meta/is_native.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -26,7 +23,6 @@ namespace nt2 { namespace ext
                             )
   {
     typedef A0 result_type;
-    typedef typename boost::simd::meta::is_native<A0>::type is_native_t;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,A0 & a2) const
     {
       A0 a1;

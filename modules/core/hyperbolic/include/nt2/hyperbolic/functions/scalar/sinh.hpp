@@ -10,18 +10,18 @@
 #define NT2_HYPERBOLIC_FUNCTIONS_SCALAR_SINH_HPP_INCLUDED
 
 #include <nt2/hyperbolic/functions/sinh.hpp>
-#include <nt2/include/functions/scalar/exp.hpp>
+
+#include <nt2/hyperbolic/functions/details/sinh_kernel.hpp>
+#include <nt2/include/constants/half.hpp>
+#include <nt2/include/constants/log_2.hpp>
+#include <nt2/include/constants/maxlog.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
-#include <nt2/include/functions/scalar/rec.hpp>
-#include <nt2/include/functions/scalar/fms.hpp>
 #include <nt2/include/functions/scalar/bitofsign.hpp>
 #include <nt2/include/functions/scalar/bitwise_xor.hpp>
-
-#include <nt2/include/constants/half.hpp>
-#include <nt2/include/constants/maxlog.hpp>
-#include <nt2/include/constants/log_2.hpp>
-#include <nt2/hyperbolic/functions/details/sinh_kernel.hpp>
-
+#include <nt2/include/functions/scalar/exp.hpp>
+#include <nt2/include/functions/scalar/fms.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
+#include <nt2/include/functions/scalar/sqr.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -34,6 +34,15 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
+      //////////////////////////////////////////////////////////////////////////////
+      // if x = abs(a0) is less than 1 sinh is computed using a polynomial(float)
+      // respectively rational(double) approx from cephes.
+      // else according x < Threshold e =  exp(x) or exp(x/2) is respectively
+      // computed
+      // * in the first case sinh is (e-rec(e))/2
+      // * in the second     sinh is (e/2)*e (avoiding undue overflow)
+      // Threshold is Maxlog - Log_2 defined in Maxshlog
+      //////////////////////////////////////////////////////////////////////////////
       result_type x = nt2::abs(a0);
       if( x < A0(1.0))
       {
@@ -59,6 +68,5 @@ namespace nt2 { namespace ext
   };
 
 } }
-
 
 #endif

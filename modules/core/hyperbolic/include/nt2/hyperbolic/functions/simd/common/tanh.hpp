@@ -17,7 +17,6 @@
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
-#include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/functions/simd/fma.hpp>
 #include <nt2/include/functions/simd/is_less.hpp>
 #include <nt2/include/constants/mtwo.hpp>
@@ -32,28 +31,34 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tanh_, tag::cpu_
-                            , (A0)
-                            , ((generic_<floating_<A0> >))
+                            , (A0)(X)
+                            , ((simd_<floating_<A0>, X>))
                             )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-       typedef typename meta::as_logical<A0>::type bA0;
-       result_type x = nt2::abs(a0);
-       bA0 test0= lt(x, Fiveo_8<A0>());
-       A0 bts = bitofsign(a0);
-       std::size_t nb;
-       A0 z = One<A0>();
-       if( ( nb = inbtrue(test0)) > 0)
-       {
-         A0 x2 = sqr(x);
-         z = details::tanh_kernel<A0>::compute(x, x2);
-         if(nb >= meta::cardinal_of<A0>::value) return  b_xor(z, bts);
-       }
-       A0 r = fma(Mtwo<A0>(), rec(oneplus(exp(x+x))), One<A0>());
-       return b_xor(if_else(test0, z, r), bts);
-     }
+      //////////////////////////////////////////////////////////////////////////////
+      // if x = abs(a0) is less than 5/8 tanh is computed using a polynomial(float)
+      // (respectively rational(double)) approx from cephes.
+      // else
+      // tanh(a0) is  sign(a0)*(1 - 2/(exp(2*x)+1))
+      //////////////////////////////////////////////////////////////////////////////
+      typedef typename meta::as_logical<A0>::type bA0;
+      result_type x = nt2::abs(a0);
+      bA0 test0= lt(x, Fiveo_8<A0>());
+      A0 bts = bitofsign(a0);
+      std::size_t nb;
+      A0 z = One<A0>();
+      if( ( nb = inbtrue(test0)) > 0)
+      {
+        A0 x2 = sqr(x);
+        z = details::tanh_kernel<A0>::tanh(x, x2);
+        if(nb >= meta::cardinal_of<A0>::value) return  b_xor(z, bts);
+      }
+      A0 r = fma(Mtwo<A0>(), rec(oneplus(exp(x+x))), One<A0>());
+      return b_xor(if_else(test0, z, r), bts);
+    }
   };
 } }
 

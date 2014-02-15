@@ -33,6 +33,13 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      //////////////////////////////////////////////////////////////////////////////
+      // if x = abs(a0) according x < Threshold e =  exp(x) or exp(x/2) is
+      // respectively computed
+      // *  in the first case cosh (e+rec(e))/2
+      // *  in the second     cosh is (e/2)*e (avoiding undue overflow)
+      // Threshold is Maxlog - Log_2 defined in Maxshlog
+      //////////////////////////////////////////////////////////////////////////////
       typedef typename meta::as_logical<A0>::type bA0;
       result_type x = nt2::abs(a0);
       bA0 test1 = gt(x, Maxlog<A0>()-Log_2<A0>());

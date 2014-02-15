@@ -49,6 +49,15 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      //////////////////////////////////////////////////////////////////////////////
+      // if x = abs(a0) is less than 1 sinhc is computed using a polynomial(float)
+      // respectively rational(double) approx inspired from cephes sinh approx.
+      // else according x < Threshold e =  exp(x) or exp(x/2) is respectively
+      // computed
+      // * in the first case sinh is ((e-rec(e))/2)/x
+      // * in the second     sinh is (e/2/x)*e (avoiding undue overflow)
+      // Threshold is Maxlog - Log_2 defined in Maxshlog
+      //////////////////////////////////////////////////////////////////////////////
       typedef typename meta::as_logical<A0>::type bA0;
       result_type x = nt2::abs(a0);
       bA0 lt1= lt(x, One<A0>());

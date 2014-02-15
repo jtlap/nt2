@@ -10,13 +10,13 @@
 #define NT2_HYPERBOLIC_FUNCTIONS_SCALAR_ACOSH_HPP_INCLUDED
 #include <nt2/hyperbolic/functions/acosh.hpp>
 
-#include <nt2/include/functions/scalar/minusone.hpp>
-#include <nt2/include/functions/scalar/log1p.hpp>
-#include <nt2/include/functions/scalar/sqrt.hpp>
-#include <nt2/include/functions/scalar/sqr.hpp>
-#include <nt2/include/constants/eps.hpp>
-#include <nt2/include/constants/oneotwoeps.hpp>
 #include <nt2/include/constants/log_2.hpp>
+#include <nt2/include/constants/oneotwoeps.hpp>
+#include <nt2/include/functions/scalar/log.hpp>
+#include <nt2/include/functions/scalar/log1p.hpp>
+#include <nt2/include/functions/scalar/minusone.hpp>
+#include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/functions/scalar/sqrt.hpp>
 
 namespace nt2 { namespace ext
 {

@@ -9,21 +9,23 @@
 #ifndef NT2_HYPERBOLIC_FUNCTIONS_SCALAR_ASINH_HPP_INCLUDED
 #define NT2_HYPERBOLIC_FUNCTIONS_SCALAR_ASINH_HPP_INCLUDED
 #include <nt2/hyperbolic/functions/asinh.hpp>
+
+#include <nt2/include/constants/log_2.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/oneosqrteps.hpp>
+#include <nt2/include/constants/sqrteps.hpp>
+#include <nt2/include/constants/zero.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
-#include <nt2/include/functions/scalar/log.hpp>
-#include <nt2/include/functions/scalar/log1p.hpp>
-#include <nt2/include/functions/scalar/sqrt.hpp>
 #include <nt2/include/functions/scalar/bitofsign.hpp>
 #include <nt2/include/functions/scalar/bitwise_xor.hpp>
 #include <nt2/include/functions/scalar/fma.hpp>
+#include <nt2/include/functions/scalar/hypot.hpp>
+#include <nt2/include/functions/scalar/log.hpp>
+#include <nt2/include/functions/scalar/log1p.hpp>
 #include <nt2/include/functions/scalar/rec.hpp>
-
-#include <nt2/include/constants/oneosqrteps.hpp>
-#include <nt2/include/constants/sqrteps.hpp>
-#include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/log_2.hpp>
+#include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/functions/scalar/sqrt.hpp>
 #include <nt2/polynomials/functions/scalar/impl/horner.hpp>
-
 
 namespace nt2 { namespace ext
 {
@@ -110,6 +112,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 
 #endif
