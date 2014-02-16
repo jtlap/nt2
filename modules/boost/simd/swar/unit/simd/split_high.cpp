@@ -33,8 +33,11 @@ NT2_TEST_CASE_TPL( split_high, BOOST_SIMD_SIMD_SPLITABLE_TYPES)
                   , uvT
                   );
 
-  vT origin = enumerate<vT>(1);
-  uvT ref   = enumerate<uvT>(1+cardinal_of<uvT>::value);
+  vT origin = enumerate<vT>(-1);
+  uvT ref;
+
+  for(std::size_t i=0;i<cardinal_of<uvT>::value;++i)
+    ref[i] = origin[i+cardinal_of<uvT>::value];
 
   NT2_TEST_EQUAL(ref, split_high(origin) );
 }
@@ -50,8 +53,11 @@ NT2_TEST_CASE_TPL( split_high_pack, BOOST_SIMD_SIMD_SPLITABLE_TYPES)
   typedef pack<T>                                           vT;
   typedef typename boost::dispatch::meta::upgrade<vT>::type uvT;
 
-  vT origin = enumerate<vT>(1);
-  uvT ref   = enumerate<uvT>(1+cardinal_of<uvT>::value);
+  vT origin = enumerate<vT>(-1);
+  uvT ref;
+
+  for(std::size_t i=0;i<cardinal_of<uvT>::value;++i)
+    ref[i] = origin[i+cardinal_of<uvT>::value];
 
   NT2_TEST_EQUAL(ref, split_high(origin) );
 }
