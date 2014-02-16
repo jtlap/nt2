@@ -9,17 +9,17 @@
 #ifndef NT2_HYPERBOLIC_FUNCTIONS_GENERIC_COSH_HPP_INCLUDED
 #define NT2_HYPERBOLIC_FUNCTIONS_GENERIC_COSH_HPP_INCLUDED
 #include <nt2/hyperbolic/functions/cosh.hpp>
-#include <nt2/include/functions/simd/abs.hpp>
-#include <nt2/include/functions/simd/exp.hpp>
-#include <nt2/include/functions/simd/rec.hpp>
-#include <nt2/include/functions/simd/average.hpp>
-#include <nt2/include/functions/simd/is_greater.hpp>
-#include <nt2/include/functions/simd/multiplies.hpp>
-#include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/include/constants/half.hpp>
-#include <nt2/include/constants/maxlog.hpp>
 #include <nt2/include/constants/log_2.hpp>
+#include <nt2/include/constants/maxlog.hpp>
 #include <nt2/include/constants/one.hpp>
+#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/average.hpp>
+#include <nt2/include/functions/exp.hpp>
+#include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/is_greater.hpp>
+#include <nt2/include/functions/rec.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -50,6 +50,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 
 #endif

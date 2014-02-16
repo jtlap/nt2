@@ -9,40 +9,37 @@
 #ifndef NT2_HYPERBOLIC_FUNCTIONS_SIMD_COMMON_ASINH_HPP_INCLUDED
 #define NT2_HYPERBOLIC_FUNCTIONS_SIMD_COMMON_ASINH_HPP_INCLUDED
 #include <nt2/hyperbolic/functions/asinh.hpp>
-#include <nt2/include/functions/simd/abs.hpp>
-#include <nt2/include/functions/simd/is_greater.hpp>
-#include <nt2/include/functions/simd/bitofsign.hpp>
-#include <nt2/include/functions/simd/sqr.hpp>
-#include <nt2/include/functions/simd/plus.hpp>
-#include <nt2/include/functions/simd/divides.hpp>
-#include <nt2/include/functions/simd/oneplus.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/simd/bitwise_xor.hpp>
-#include <nt2/include/functions/simd/log1p.hpp>
-#include <nt2/include/functions/simd/inbtrue.hpp>
-#include <nt2/include/functions/simd/is_less.hpp>
-#include <nt2/include/functions/simd/bitofsign.hpp>
-#include <nt2/include/functions/simd/log.hpp>
-#include <nt2/include/functions/simd/average.hpp>
-#include <nt2/include/functions/simd/multiplies.hpp>
-#include <nt2/include/functions/simd/minusone.hpp>
-#include <nt2/include/functions/simd/hypot.hpp>
-#include <nt2/include/functions/simd/seladd.hpp>
-
-
-#include <nt2/sdk/meta/as_logical.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/log_2.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/oneosqrteps.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/average.hpp>
+#include <nt2/include/functions/bitofsign.hpp>
+#include <nt2/include/functions/bitwise_xor.hpp>
+#include <nt2/include/functions/bitwise_xor.hpp>
+#include <nt2/include/functions/divides.hpp>
+#include <nt2/include/functions/hypot.hpp>
+#include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/inbtrue.hpp>
+#include <nt2/include/functions/is_greater.hpp>
+#include <nt2/include/functions/is_less.hpp>
+#include <nt2/include/functions/log.hpp>
+#include <nt2/include/functions/minusone.hpp>
+#include <nt2/include/functions/multiplies.hpp>
+#include <nt2/include/functions/oneplus.hpp>
+#include <nt2/include/functions/plus.hpp>
+#include <nt2/include/functions/sqr.hpp>
 #include <nt2/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
 
 #ifndef BOOST_SIMD_NO_INFINITIES
-#include <nt2/include/functions/simd/is_equal.hpp>
 #include <nt2/include/constants/inf.hpp>
+#include <nt2/include/functions/is_equal.hpp>
 #endif
+
 
 namespace nt2 { namespace ext
 {

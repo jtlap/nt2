@@ -10,25 +10,25 @@
 #define NT2_HYPERBOLIC_FUNCTIONS_SIMD_COMMON_COTH_HPP_INCLUDED
 
 #include <nt2/hyperbolic/functions/coth.hpp>
-#include <nt2/include/functions/simd/exp.hpp>
-#include <nt2/include/functions/simd/minus.hpp>
-#include <nt2/include/functions/simd/bitofsign.hpp>
-#include <nt2/include/functions/simd/bitwise_xor.hpp>
-#include <nt2/include/functions/simd/plus.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/simd/rec.hpp>
-#include <nt2/include/functions/simd/abs.hpp>
-#include <nt2/include/functions/simd/fma.hpp>
-#include <nt2/include/functions/simd/is_less.hpp>
-#include <nt2/include/constants/two.hpp>
-#include <nt2/include/constants/one.hpp>
+#include <nt2/hyperbolic/functions/details/tanh_kernel.hpp>
 #include <nt2/include/constants/fiveo_8.hpp>
-
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/bitofsign.hpp>
+#include <nt2/include/functions/bitwise_xor.hpp>
+#include <nt2/include/functions/coth.hpp>
+#include <nt2/include/functions/exp.hpp>
+#include <nt2/include/functions/fma.hpp>
+#include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/inbtrue.hpp>
+#include <nt2/include/functions/is_less.hpp>
+#include <nt2/include/functions/minusone.hpp>
+#include <nt2/include/functions/plus.hpp>
+#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/sqr.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/include/functions/simd/inbtrue.hpp>
-#include <nt2/hyperbolic/functions/details/tanh_kernel.hpp>
-
 
 namespace nt2 { namespace ext
 {
@@ -54,8 +54,7 @@ namespace nt2 { namespace ext
       A0 z = One<A0>();
       if( ( nb = inbtrue(test0)) > 0)
       {
-        A0 x2 = sqr(x);
-        z = details::tanh_kernel<A0>::coth(x, x2);
+        z = details::tanh_kernel<A0>::coth(x, sqr(x));
         if(nb >= meta::cardinal_of<A0>::value) return  b_xor(z, bts);
       }
       A0 r = fma(Two<A0>(), rec(minusone(exp(x+x))), One<A0>());
@@ -63,6 +62,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 
 #endif

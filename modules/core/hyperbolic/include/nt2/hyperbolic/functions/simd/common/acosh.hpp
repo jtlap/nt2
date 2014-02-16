@@ -9,15 +9,16 @@
 #ifndef NT2_HYPERBOLIC_FUNCTIONS_SIMD_COMMON_ACOSH_HPP_INCLUDED
 #define NT2_HYPERBOLIC_FUNCTIONS_SIMD_COMMON_ACOSH_HPP_INCLUDED
 #include <nt2/hyperbolic/functions/acosh.hpp>
-#include <nt2/include/functions/simd/log1p.hpp>
-#include <nt2/include/functions/simd/minusone.hpp>
-#include <nt2/include/functions/simd/sqrt.hpp>
-#include <nt2/include/functions/simd/sqr.hpp>
-#include <nt2/include/functions/simd/plus.hpp>
-#include <nt2/include/functions/simd/is_greater.hpp>
-#include <nt2/include/functions/simd/seladd.hpp>
-#include <nt2/include/constants/oneotwoeps.hpp>
 #include <nt2/include/constants/log_2.hpp>
+#include <nt2/include/constants/oneotwoeps.hpp>
+#include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/is_greater.hpp>
+#include <nt2/include/functions/log1p.hpp>
+#include <nt2/include/functions/minusone.hpp>
+#include <nt2/include/functions/plus.hpp>
+#include <nt2/include/functions/seladd.hpp>
+#include <nt2/include/functions/sqr.hpp>
+#include <nt2/include/functions/sqrt.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
 
 namespace nt2 { namespace ext
@@ -40,6 +41,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 
 #endif

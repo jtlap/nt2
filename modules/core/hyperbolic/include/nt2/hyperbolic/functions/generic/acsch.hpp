@@ -10,13 +10,8 @@
 #define NT2_HYPERBOLIC_FUNCTIONS_GENERIC_ACSCH_HPP_INCLUDED
 
 #include <nt2/hyperbolic/functions/acsch.hpp>
-#include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/asinh.hpp>
-
-#if !defined( BOOST_SIMD_NO_INVALIDS )
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/if_allbits_else.hpp>
-#endif
+#include <nt2/include/functions/rec.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -28,12 +23,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      result_type r = nt2::asinh(nt2::rec(a0));
-#if !defined( BOOST_SIMD_NO_INVALIDS )
-      return r;
-#else
-      return if_nan_else(is_eqz(a0), r);
-#endif
+      return nt2::asinh(nt2::rec(a0));
     }
   };
 } }

@@ -10,20 +10,19 @@
 #define NT2_HYPERBOLIC_FUNCTIONS_SCALAR_TANH_HPP_INCLUDED
 
 #include <nt2/hyperbolic/functions/tanh.hpp>
-
 #include <nt2/hyperbolic/functions/details/tanh_kernel.hpp>
 #include <nt2/include/constants/fiveo_8.hpp>
 #include <nt2/include/constants/mtwo.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/include/functions/scalar/abs.hpp>
-#include <nt2/include/functions/scalar/bitofsign.hpp>
-#include <nt2/include/functions/scalar/bitwise_xor.hpp>
-#include <nt2/include/functions/scalar/exp.hpp>
-#include <nt2/include/functions/scalar/fma.hpp>
-#include <nt2/include/functions/scalar/oneplus.hpp>
-#include <nt2/include/functions/scalar/rec.hpp>
-#include <nt2/include/functions/scalar/sqr.hpp>
-#include <nt2/include/functions/scalar/tanh.hpp>
+#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/bitofsign.hpp>
+#include <nt2/include/functions/bitwise_xor.hpp>
+#include <nt2/include/functions/exp.hpp>
+#include <nt2/include/functions/fma.hpp>
+#include <nt2/include/functions/oneplus.hpp>
+#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/sqr.hpp>
+#include <nt2/include/functions/tanh.hpp>
 
 namespace nt2 { namespace ext
 {

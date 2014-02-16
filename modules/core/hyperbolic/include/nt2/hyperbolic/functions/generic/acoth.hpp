@@ -10,8 +10,8 @@
 #define NT2_HYPERBOLIC_FUNCTIONS_GENERIC_ACOTH_HPP_INCLUDED
 
 #include <nt2/hyperbolic/functions/acoth.hpp>
-#include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/atanh.hpp>
+#include <nt2/include/functions/rec.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -27,6 +27,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 
 #endif

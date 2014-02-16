@@ -10,26 +10,25 @@
 #define NT2_HYPERBOLIC_FUNCTIONS_SCALAR_COTH_HPP_INCLUDED
 
 #include <nt2/hyperbolic/functions/coth.hpp>
-
 #include <nt2/hyperbolic/functions/details/tanh_kernel.hpp>
 #include <nt2/include/constants/fiveo_8.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/two.hpp>
-#include <nt2/include/functions/scalar/abs.hpp>
-#include <nt2/include/functions/scalar/bitofsign.hpp>
-#include <nt2/include/functions/scalar/bitwise_xor.hpp>
-#include <nt2/include/functions/scalar/coth.hpp>
-#include <nt2/include/functions/scalar/exp.hpp>
-#include <nt2/include/functions/scalar/fma.hpp>
-#include <nt2/include/functions/scalar/minusone.hpp>
-#include <nt2/include/functions/scalar/rec.hpp>
-#include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/bitofsign.hpp>
+#include <nt2/include/functions/bitwise_xor.hpp>
+#include <nt2/include/functions/coth.hpp>
+#include <nt2/include/functions/exp.hpp>
+#include <nt2/include/functions/fma.hpp>
+#include <nt2/include/functions/minusone.hpp>
+#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/sqr.hpp>
 
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::coth_, tag::cpu_
                             , (A0)
-                            , (scalar_< unspecified_<A0> >)
+                            , (scalar_< floating_<A0> >)
                             )
   {
     typedef A0 result_type;
@@ -42,16 +41,16 @@ namespace nt2 { namespace ext
       // coth(a0) is  sign(a0)*(1 + 2/(exp(2*x)-1))
       //////////////////////////////////////////////////////////////////////////////
       result_type x = nt2::abs(a0);
+      A0 r;
       if( x < Fiveo_8<A0>())
       {
-       A0 x2 = sqr(x);
-       return details::tanh_kernel<A0>::coth(a0, x2);
+        r = details::tanh_kernel<A0>::coth(x, sqr(x));
       }
       else
       {
-       A0 r = fma(Two<A0>(), rec(minusone(exp(x+x))), One<A0>());
-       return b_xor(r, bitofsign(a0));
+        r = fma(Two<A0>(), rec(minusone(exp(x+x))), One<A0>());
       }
+      return b_xor(r, bitofsign(a0));
     }
   };
 } }

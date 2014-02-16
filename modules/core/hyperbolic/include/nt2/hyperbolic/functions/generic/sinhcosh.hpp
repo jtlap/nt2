@@ -10,7 +10,7 @@
 #define NT2_HYPERBOLIC_FUNCTIONS_GENERIC_SINHCOSH_HPP_INCLUDED
 
 #include <nt2/hyperbolic/functions/sinhcosh.hpp>
-#include <boost/fusion/include/std_pair.hpp>
+#include <nt2/include/functions/sinhcosh.hpp>
 
 namespace nt2 { namespace ext
 {

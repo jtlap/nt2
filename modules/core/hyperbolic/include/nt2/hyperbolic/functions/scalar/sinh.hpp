@@ -10,18 +10,17 @@
 #define NT2_HYPERBOLIC_FUNCTIONS_SCALAR_SINH_HPP_INCLUDED
 
 #include <nt2/hyperbolic/functions/sinh.hpp>
-
 #include <nt2/hyperbolic/functions/details/sinh_kernel.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/log_2.hpp>
 #include <nt2/include/constants/maxlog.hpp>
-#include <nt2/include/functions/scalar/abs.hpp>
-#include <nt2/include/functions/scalar/bitofsign.hpp>
-#include <nt2/include/functions/scalar/bitwise_xor.hpp>
-#include <nt2/include/functions/scalar/exp.hpp>
-#include <nt2/include/functions/scalar/fms.hpp>
-#include <nt2/include/functions/scalar/rec.hpp>
-#include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/bitofsign.hpp>
+#include <nt2/include/functions/bitwise_xor.hpp>
+#include <nt2/include/functions/exp.hpp>
+#include <nt2/include/functions/fms.hpp>
+#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/sqr.hpp>
 
 namespace nt2 { namespace ext
 {

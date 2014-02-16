@@ -10,15 +10,19 @@
 #define NT2_HYPERBOLIC_FUNCTIONS_SIMD_COMMON_ATANH_HPP_INCLUDED
 #include <nt2/hyperbolic/functions/atanh.hpp>
 #include <nt2/include/constants/half.hpp>
-#include <nt2/include/functions/simd/abs.hpp>
-#include <nt2/include/functions/simd/log1p.hpp>
-#include <nt2/include/functions/simd/fma.hpp>
-#include <nt2/include/functions/simd/plus.hpp>
-#include <nt2/include/functions/simd/divides.hpp>
-#include <nt2/include/functions/simd/multiplies.hpp>
-#include <nt2/include/functions/simd/bitwise_xor.hpp>
-#include <nt2/include/functions/simd/bitofsign.hpp>
+#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/bitofsign.hpp>
+#include <nt2/include/functions/bitwise_xor.hpp>
+#include <nt2/include/functions/divides.hpp>
+#include <nt2/include/functions/fma.hpp>
+#include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/is_less.hpp>
+#include <nt2/include/functions/log1p.hpp>
+#include <nt2/include/functions/multiplies.hpp>
+#include <nt2/include/functions/oneminus.hpp>
+#include <nt2/include/functions/plus.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::atanh_, tag::cpu_
@@ -41,6 +45,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 
 #endif

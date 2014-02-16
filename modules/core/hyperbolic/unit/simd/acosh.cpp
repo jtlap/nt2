@@ -45,5 +45,5 @@ NT2_TEST_CASE_TPL ( acosh,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(acosh(nt2::Zero<vT>()), nt2::Nan<r_t>(), 0.5);
 #endif
   NT2_TEST_ULP_EQUAL(acosh(nt2::One<vT>()), nt2::Zero<r_t>(), 0.5);
- NT2_TEST_ULP_EQUAL(acosh(nt2::Valmax<vT>()), nt2::::boost::simd::acosh(Valmax<vT>()), 0.5);
+  NT2_TEST_ULP_EQUAL(acosh(nt2::Valmax<vT>()), nt2::splat<vT>(nt2::acosh(nt2::Valmax<T>())), 0.5);
 }

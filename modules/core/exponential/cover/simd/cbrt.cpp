@@ -36,7 +36,7 @@ NT2_TEST_CASE_TPL ( cbrt,  NT2_SIMD_REAL_TYPES)
         vT v = cbrt(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<vT>::value; i++)
         {
-          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::cbrt (a0[i])), 2.5);
+          NT2_TEST_ULP_EQUAL( v[i],nt2::cbrt (a0[i]), 2.5);
         }
       }
   }

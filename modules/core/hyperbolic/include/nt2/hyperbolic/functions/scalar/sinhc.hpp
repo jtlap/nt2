@@ -9,22 +9,23 @@
 #ifndef NT2_HYPERBOLIC_FUNCTIONS_SCALAR_SINHC_HPP_INCLUDED
 #define NT2_HYPERBOLIC_FUNCTIONS_SCALAR_SINHC_HPP_INCLUDED
 #include <nt2/hyperbolic/functions/sinhc.hpp>
-
 #include <nt2/hyperbolic/functions/details/sinhc_kernel.hpp>
 #include <nt2/include/constants/half.hpp>
-#include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/log_2.hpp>
 #include <nt2/include/constants/maxlog.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/include/functions/scalar/abs.hpp>
-#include <nt2/include/functions/scalar/average.hpp>
-#include <nt2/include/functions/scalar/exp.hpp>
-#include <nt2/include/functions/scalar/if_else.hpp>
-#include <nt2/include/functions/scalar/rec.hpp>
-#include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/average.hpp>
+#include <nt2/include/functions/exp.hpp>
+#include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/sqr.hpp>
 
 #ifndef BOOST_SIMD_NO_INFINITIES
+#include <nt2/include/constants/inf.hpp>
 #endif
+
+
 
 namespace nt2 { namespace ext
 {

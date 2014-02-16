@@ -9,33 +9,33 @@
 #ifndef NT2_HYPERBOLIC_FUNCTIONS_SIMD_COMMON_SINHC_HPP_INCLUDED
 #define NT2_HYPERBOLIC_FUNCTIONS_SIMD_COMMON_SINHC_HPP_INCLUDED
 #include <nt2/hyperbolic/functions/sinhc.hpp>
-#include <nt2/include/functions/simd/abs.hpp>
-#include <nt2/include/functions/simd/is_less.hpp>
+#include <nt2/hyperbolic/functions/details/sinhc_kernel.hpp>
+#include <nt2/include/constants/half.hpp>
+#include <nt2/include/constants/log_2.hpp>
+#include <nt2/include/constants/maxlog.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
+#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/average.hpp>
+#include <nt2/include/functions/divides.hpp>
+#include <nt2/include/functions/exp.hpp>
+#include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/inbtrue.hpp>
+#include <nt2/include/functions/is_greater.hpp>
+#include <nt2/include/functions/is_less.hpp>
+#include <nt2/include/functions/minus.hpp>
+#include <nt2/include/functions/multiplies.hpp>
+#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/sqr.hpp>
+#include <nt2/include/functions/unary_minus.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
-#include <nt2/hyperbolic/functions/details/sinhc_kernel.hpp>
-#include <nt2/include/functions/simd/inbtrue.hpp>
-#include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/include/constants/zero.hpp>
-#include <nt2/include/functions/simd/is_greater.hpp>
-#include <nt2/include/constants/maxlog.hpp>
-#include <nt2/include/functions/simd/exp.hpp>
-#include <nt2/include/constants/log_2.hpp>
-#include <nt2/include/constants/half.hpp>
-#include <nt2/include/functions/simd/multiplies.hpp>
-#include <nt2/include/functions/simd/divides.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/simd/rec.hpp>
-#include <nt2/include/functions/simd/average.hpp>
-#include <nt2/include/functions/simd/unary_minus.hpp>
-
 
 #ifndef BOOST_SIMD_NO_INFINITIES
 #include <nt2/include/constants/inf.hpp>
-#include <nt2/include/functions/simd/is_equal.hpp>
+#include <nt2/include/functions/eq.hpp>
 #endif
+
 
 namespace nt2 { namespace ext
 {
@@ -80,6 +80,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 
 #endif
