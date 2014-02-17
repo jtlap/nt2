@@ -69,8 +69,10 @@ NT2_TEST_CASE(muls_special)
   using boost::simd::Valmin;
   using boost::simd::Valmax;
 
+#ifndef BOOST_SIMD_HAS_MIC_SUPPORT
   typedef boost::simd::native<short int, BOOST_SIMD_DEFAULT_EXTENSION> vT1;
   NT2_TEST_EQUAL(muls(splat<vT1>(-5165), splat<vT1>(23258)), Valmin<vT1>());
+#endif
 
   typedef int T2;
   typedef boost::simd::native<int, BOOST_SIMD_DEFAULT_EXTENSION> vT2;
