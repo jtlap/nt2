@@ -74,18 +74,18 @@ if [ ${types} == "0" ];then
   nb_data_types=1
 else
   ((nb_sizes=${sizes[1]}-${sizes[0]}))
+  ii=2
+  while ((ii<${nb_data_types}*${nb_experiments}));do
+    ((pos=$ii-1))
+    ((my_nb_sizes=${sizes[ii]}-${sizes[pos]}))
+    if [ $nb_sizes -ne $my_nb_sizes ]
+      then
+      echo "inconsistent number of sizes, has $my_nb_sizes, previous had $nb_sizes" >&2
+      exit 1
+    fi
+    ((ii++))
+  done
 fi
-ii=2
-while ((ii<${nb_data_types}*${nb_experiments}));do
-  ((pos=$ii-1))
-  ((my_nb_sizes=${sizes[ii]}-${sizes[pos]}))
-  if [ $nb_sizes -ne $my_nb_sizes ]
-    then
-    echo "inconsistent number of sizes, has $my_nb_sizes, previous had $nb_sizes" >&2
-    exit 1
-  fi
-  ((ii++))
-done
 ((nb_sizes--)) #$nb_sizes counts the line containing $arch_separator
 arch_lines=($(grep -n ${arch_separator}  res.txt | cut -f1 -d:)) #find the line numbers on which architecture is printed
 

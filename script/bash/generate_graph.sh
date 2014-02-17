@@ -13,8 +13,8 @@ for ((jj=0;jj<${NUM_TEST};jj++));do
   for ((ll=1;ll<=${nb_sizes};ll++));do
     ((pos=${jj}*${nb_sizes}*${nb_data_types}+${ll}+${kk}*${nb_sizes}))
     SIZE[count]=$(sed -n ${pos}p res.txt | tr "(" "\n" | tr ")" "\n" | sed -n 2p)
-    CYC[count]=$(sed -n ${pos}p res.txt | cut -f3 )
-    UNIT=$(sed -n ${pos}p res.txt | cut -f4 | tr " " "\n" | sed -n 1p)
+    CYC[count]=$(sed -n ${pos}p res.txt  | tr ")" "\n" |  sed -n 2p | awk '{ print $1 }')
+    UNIT=$(sed -n ${pos}p res.txt  | tr ")" "\n" |  sed -n 2p | awk '{ print $2 }')
     ((count++))
   done
 done
