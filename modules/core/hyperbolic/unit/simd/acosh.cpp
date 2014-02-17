@@ -1,4 +1,3 @@
-//==============================================================================
 //         Copyright 2003 - 2013   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
@@ -16,6 +15,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/config.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
+#include <boost/math/special_functions/acosh.hpp>
 
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
@@ -23,7 +23,7 @@
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
 
-NT2_TEST_CASE_TPL ( acosh_real_1,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( acosh,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::acosh;
   using nt2::tag::acosh_;
@@ -45,4 +45,5 @@ NT2_TEST_CASE_TPL ( acosh_real_1,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(acosh(nt2::Zero<vT>()), nt2::Nan<r_t>(), 0.5);
 #endif
   NT2_TEST_ULP_EQUAL(acosh(nt2::One<vT>()), nt2::Zero<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(acosh(nt2::Valmax<vT>()), nt2::splat<vT>(nt2::acosh(nt2::Valmax<T>())), 0.5);
 }
