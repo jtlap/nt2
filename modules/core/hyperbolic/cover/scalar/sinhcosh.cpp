@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/hyperbolic/include/functions/csch.hpp>
+#include <nt2/hyperbolic/include/functions/sinhcosh.hpp>
 
 #include <nt2/sdk/unit/tests/cover.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
@@ -14,13 +14,13 @@
 
 #include <iostream>
 
-#include <nt2/include/functions/rec.hpp>
+extern "C" { long double cephes_coshl(long double); }
 extern "C" { long double cephes_sinhl(long double); }
 
-NT2_TEST_CASE_TPL ( csch,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( sinhcosh,  NT2_REAL_TYPES)
 {
-  using nt2::csch;
-  using nt2::tag::csch_;
+  using nt2::sinhcosh;
+  using nt2::tag::sinhcosh_;
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
@@ -30,7 +30,10 @@ NT2_TEST_CASE_TPL ( csch,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< (a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::csch(a0),1.0l/(::cephes_sinhl(a0)),1.0);
+        T  ch;
+        T sh =  sinhcosh(a0, ch);
+        NT2_TEST_ULP_EQUAL( ch,::cephes_coshl(a0),0.5);
+        NT2_TEST_ULP_EQUAL( sh,::cephes_sinhl(a0),0.5);
      }
    }
 } // end of test for floating_

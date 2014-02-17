@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/hyperbolic/include/functions/tanh.hpp>
+#include <nt2/hyperbolic/include/functions/sinhcosh.hpp>
 
 #include <nt2/sdk/unit/tests/cover.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
@@ -17,10 +17,13 @@
 #include <boost/simd/sdk/simd/native.hpp>
 #include <iostream>
 
-NT2_TEST_CASE_TPL ( tanh,  NT2_SIMD_REAL_TYPES)
+#include <nt2/include/functions/aligned_load.hpp>
+#include <nt2/include/functions/aligned_load.hpp>
+
+NT2_TEST_CASE_TPL ( sinhcosh,  NT2_SIMD_REAL_TYPES)
 {
-  using nt2::tanh;
-  using nt2::tag::tanh_;
+  using nt2::sinhcosh;
+  using nt2::tag::sinhcosh_;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   using nt2::aligned_load;
@@ -33,11 +36,14 @@ NT2_TEST_CASE_TPL ( tanh,  NT2_SIMD_REAL_TYPES)
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<vT>::value)
       {
         vT a0 = aligned_load<vT>(&tab_a0[0],j);
-        vT v = tanh(a0);
+        vT vch;
+        vT vsh = sinhcosh(a0, vch);
         for(nt2::uint32_t i = 0; i< cardinal_of<vT>::value; i++)
         {
-
-          NT2_TEST_ULP_EQUAL( v[i],T(nt2::tanh (a0[i])), 1.5);
+          T ch;
+          T sh = nt2::sinhcosh (a0[i], ch);
+          NT2_TEST_ULP_EQUAL( vch[i],ch, 0.5);
+          NT2_TEST_ULP_EQUAL( vsh[i],sh, 0.5);
         }
       }
   }
