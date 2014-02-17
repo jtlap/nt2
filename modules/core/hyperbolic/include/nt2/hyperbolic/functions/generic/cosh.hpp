@@ -9,55 +9,45 @@
 #ifndef NT2_HYPERBOLIC_FUNCTIONS_GENERIC_COSH_HPP_INCLUDED
 #define NT2_HYPERBOLIC_FUNCTIONS_GENERIC_COSH_HPP_INCLUDED
 #include <nt2/hyperbolic/functions/cosh.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/constants/half.hpp>
+#include <nt2/include/constants/log_2.hpp>
+#include <nt2/include/constants/maxlog.hpp>
+#include <nt2/include/constants/one.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
-#include <nt2/include/functions/simd/exp.hpp>
-#include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/average.hpp>
+#include <nt2/include/functions/simd/exp.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/is_greater.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cosh_, tag::cpu_
                             , (A0)
-                            , ((generic_<arithmetic_<A0> >))
+                            , ((generic_<floating_<A0> >))
                             )
   {
 
-    typedef typename meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      /* __ieee754_cosh(x)//TODO ???
-       * Method :
-       * mathematically cosh(x) if defined to be (exp(x)+exp(-x))/2
-       *    1. Replace x by |x| (cosh(x) = cosh(-x)).
-       *    2.
-       *                                                  [ exp(x) - 1 ]^2
-       *        0        <= x <= ln2/2  :  cosh(x) := 1 + -------------------
-       *                                                   2*exp(x)
-       *
-       *                                            exp(x) +  1/exp(x)
-       *        ln2/2    <= x <= 22     :  cosh(x) := -------------------
-       *                                                  2
-       *        22       <= x <= lnovft :  cosh(x) := exp(x)/2
-       *        lnovft   <= x <= ln2ovft:  cosh(x) := exp(x/2)/2 * exp(x/2)
-       *        ln2ovft  <  x     :  cosh(x) := huge*huge (overflow)
-       *
-       * Special cases:
-       *    cosh(x) is |x| if x is +INF, -INF, or NaN.
-       *    only cosh(0)=1 is exact for finite x.
-       */
-      const result_type tmp= nt2::exp(nt2::tofloat(nt2::abs(a0)));
-      return nt2::average(tmp, rec(tmp));
+      //////////////////////////////////////////////////////////////////////////////
+      // if x = abs(a0) according x < Threshold e =  exp(x) or exp(x/2) is
+      // respectively computed
+      // *  in the first case cosh (e+rec(e))/2
+      // *  in the second     cosh is (e/2)*e (avoiding undue overflow)
+      // Threshold is Maxlog - Log_2 defined in Maxshlog
+      //////////////////////////////////////////////////////////////////////////////
+      typedef typename meta::as_logical<A0>::type bA0;
+      result_type x = nt2::abs(a0);
+      bA0 test1 = gt(x, Maxlog<A0>()-Log_2<A0>());
+      A0 fac = if_else(test1, Half<A0>(), One<A0>());
+      A0 tmp = exp(x*fac);
+      A0 tmp1 = Half<A0>()*tmp;
+      return if_else(test1, tmp1*tmp, nt2::average(tmp, rec(tmp)));
     }
   };
 } }
-
-
 #endif
