@@ -186,6 +186,11 @@ include(nt2.directive)
 ################################################################################
 include(ExternalProject)
 
+# Restore /EHsc to CMAKE_CXX_FLAGS
+if(MSVC AND NOT CMAKE_CXX_FLAGS MATCHES "/EH")
+  set(CMAKE_CXX_FLAGS "/EHsc ${CMAKE_CXX_FLAGS}")
+endif()
+
 # we want to build those external projects with the same configuration
 set(CMAKE_OPTIONS)
 foreach(var NT2_SIMD_FLAGS NT2_MODULES_BLACKLIST
