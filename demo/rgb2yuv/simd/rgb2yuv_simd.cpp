@@ -52,7 +52,7 @@ template<typename T> struct rgb2yuv_simd
     r.resize(size_);
     g.resize(size_);
     b.resize(size_);
-    for(int i=0; i<size_; i++)
+    for(std::size_t i=0; i<size_; i++)
       r[i] = g[i] = b[i] = y[i] = u[i] = v[i] = T(i);
   }
 
@@ -88,11 +88,11 @@ template<typename T> struct rgb2yuv_simd
 
   std::size_t size() const { return size_; }
 
-  private:
-    int height;
-    int width;
-    int size_;
-    std::vector<T,boost::simd::allocator<T> > r, g, b, y, u, v;
+private:
+  std::size_t height;
+  std::size_t width;
+  std::size_t size_;
+  std::vector<T,boost::simd::allocator<T> > r, g, b, y, u, v;
 };
 
 NT2_REGISTER_BENCHMARK_TPL( rgb2yuv_simd, (float) )

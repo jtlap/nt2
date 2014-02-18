@@ -59,11 +59,11 @@ template<typename T> struct rgb2yuv_scalar
 
   std::size_t size() const { return size_; }
 
-  private:
-    int height;
-    int width;
-    int size_;
-    std::vector<T> r, g, b, y, u, v;
+private:
+  std::size_t height;
+  std::size_t width;
+  std::size_t size_;
+  std::vector<T> r, g, b, y, u, v;
 };
 
 NT2_REGISTER_BENCHMARK_TPL( rgb2yuv_scalar, (float) )
