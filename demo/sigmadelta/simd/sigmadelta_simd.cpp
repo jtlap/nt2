@@ -70,13 +70,13 @@ struct sigmadelta_simd
     binary_label.resize(size_);
     frames.resize(nb_frames);
 
-    for(int k=0; k<nb_frames; k++)
+    for(std::size_t k=0; k<nb_frames; k++)
       frames[k].resize(size_);
-    for(int k=0; k<nb_frames; k++)
+    for(std::size_t k=0; k<nb_frames; k++)
     {
-      for(int j=0; j<width; j++)
+      for(std::size_t j=0; j<width; j++)
       {
-        for(int i=0; i<height;i++)
+        for(std::size_t i=0; i<height;i++)
         {
           if(i>(height/4) && i<(height/2) && j>((width/4)+k%10) && j<((width/2)+k%10))
             frames[k][i*width+j] = 255;

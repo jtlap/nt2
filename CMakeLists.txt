@@ -18,6 +18,9 @@ endif()
 project(NT2)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
+if(GIT_EXECUTABLE AND NOT EXISTS GIT_EXECUTABLE)
+  unset(GIT_EXECUTABLE CACHE)
+endif()
 find_package(Git QUIET)
 if(GIT_EXECUTABLE)
   execute_process(COMMAND ${GIT_EXECUTABLE} describe --tags
@@ -27,7 +30,9 @@ if(GIT_EXECUTABLE)
                  )
 endif()
 if(NOT NT2_VERSION_STRING)
-  if(NOT EXISTS ${PROJECT_SOURCE_DIR}/tagname)
+  if((NOT GIT_EXECUTABLE OR NOT EXISTS GIT_EXECUTABLE) AND IS_DIRECTORY ${PROJECT_SOURCE_DIR}/.git)
+    message(FATAL_ERROR "Git not found, verify your GIT_EXECUTABLE variable or specify NT2_VERSION_STRING manually" )
+  elseif(NOT EXISTS ${PROJECT_SOURCE_DIR}/tagname)
     message(FATAL_ERROR "NT2_VERSION_STRING must be specified manually if no tagname file nor Git")
   endif()
   file(READ tagname NT2_VERSION_STRING)
@@ -180,6 +185,11 @@ include(nt2.directive)
 # external projects: demo and sandbox
 ################################################################################
 include(ExternalProject)
+
+# Restore /EHsc to CMAKE_CXX_FLAGS
+if(MSVC AND NOT CMAKE_CXX_FLAGS MATCHES "/EH")
+  set(CMAKE_CXX_FLAGS "/EHsc ${CMAKE_CXX_FLAGS}")
+endif()
 
 # we want to build those external projects with the same configuration
 set(CMAKE_OPTIONS)

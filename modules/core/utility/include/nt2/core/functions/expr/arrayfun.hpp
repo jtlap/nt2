@@ -18,13 +18,27 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/dispatch/meta/result_of.hpp>
+#include <boost/dispatch/meta/as_ref.hpp>
 
 namespace nt2 { namespace ext
 {
   #define M0(z, n, t) (A##n)
   #define M1(z, n, t) (generic_< unspecified_<A##n> >)
 
-  #define M3(z, n, t) typename meta::call<tag::run_(typename boost::proto::result_of::child_c<Expr&, n+1>::type, State const&, typename boost::simd::ext::adapt_data<typename boost::proto::result_of::child_c<Expr, n+1>::type, Data>::type)>::type
+  #define M3(z, n, t)                                                                              \
+  typename boost::dispatch::meta::                                                                 \
+  as_ref< typename meta::                                                                          \
+          call< tag::run_( typename boost::proto::result_of::child_c<Expr&, n+1>::type             \
+                         , State const&                                                            \
+                         , typename boost::simd::ext::                                             \
+                           adapt_data< typename boost::proto::result_of::child_c<Expr, n+1>::type  \
+                                     , Data                                                        \
+                                     >::type                                                       \
+                         )                                                                         \
+              >::type                                                                              \
+        >::type                                                                                    \
+  /**/
+
   #define M4(z, n, t) nt2::run(boost::proto::child_c<n+1>(expr), state, boost::simd::ext::adapt_data<typename boost::proto::result_of::child_c<Expr, n+1>::type, Data>::call(data))
 
   #define M2(z, n, t)                                                                              \

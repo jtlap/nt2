@@ -56,7 +56,7 @@ namespace mandelbrot
     template<class T>
     typename result<step(T,T)>::type operator()(T const& a, T const& b) const
     {
-      typedef typename result<step(T,T)>::type iter_type;
+      typedef typename result<step(T const&, T const&)>::type iter_type;
       typedef typename boost::simd::meta::scalar_of<T>::type s_type;
       iter_type iter = nt2::Zero<iter_type>();
       iter_type const o = nt2::One<iter_type>();

@@ -70,6 +70,7 @@ namespace boost { namespace simd { namespace ext
   #define M3(z,n,t) typename meta::extension_of<BOOST_PP_CAT(A,n)>::type
   #define M4(z,n,t) meta::cardinal_of<BOOST_PP_CAT(A,n)>::value
   #define M5(z,n,t) typename vector_on_ext< typename meta::scalar_of<A##n>::type, N, X >::type
+  #define M5r(z,n,t) M5(z,n,t) const&
   #define M6(z,n,t) splat<M5(z,n,t)>(a##n)
   #define M7(z,n,t) BOOST_PP_EXPR_IF(n, ||) (meta::cardinal_of<A##n>::value == 1u)
   #define M8(z,n,t) typename meta::scalar_of<A##n>::type
@@ -80,6 +81,7 @@ namespace boost { namespace simd { namespace ext
   #undef M8
   #undef M7
   #undef M6
+  #undef M5r
   #undef M5
   #undef M4
   #undef M3
@@ -97,7 +99,7 @@ namespace boost { namespace simd { namespace ext
 #else
 #define n BOOST_PP_ITERATION()
 
-  template<BOOST_PP_ENUM_PARAMS(n, class A), class X, std::size_t N, class Callee, class Result = boost::dispatch::meta::result_of<Callee(BOOST_PP_ENUM(n, M5, ~))>, class Enable = void>
+  template<BOOST_PP_ENUM_PARAMS(n, class A), class X, std::size_t N, class Callee, class Result = boost::dispatch::meta::result_of<Callee(BOOST_PP_ENUM(n, M5r, ~))>, class Enable = void>
   struct BOOST_PP_CAT(splat_impl, n)
   {
   };
@@ -124,7 +126,7 @@ namespace boost { namespace simd { namespace ext
        : BOOST_PP_CAT(splat_impl, n)< BOOST_PP_ENUM_PARAMS(n, A)
                                     , X, N
                                     , typename boost::dispatch::meta::
-                                      dispatch_call<Tag(BOOST_PP_ENUM(n, M5, ~))>::type
+                                      dispatch_call<Tag(BOOST_PP_ENUM(n, M5r, ~))>::type
                                     >
   {
   };

@@ -38,7 +38,7 @@ template<typename T> struct rgb2grey_simd
     r.resize(size_);
     g.resize(size_);
     b.resize(size_);
-    for(int i=0; i<size_; i++)
+    for(std::size_t i=0; i<size_; i++)
       r[i] = g[i] = b[i] = gr[i] = T(i);
   }
 

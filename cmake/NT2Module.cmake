@@ -325,6 +325,12 @@ macro(nt2_module_add_library libname)
     get_property(TARGET_SUPPORTS_SHARED_LIBS GLOBAL PROPERTY TARGET_SUPPORTS_SHARED_LIBS)
   endif()
 
+  # Use lib prefix for static libraries like Boost does
+  if(WIN32)
+    set(OLD_CMAKE_STATIC_LIBRARY_PREFIX ${CMAKE_STATIC_LIBRARY_PREFIX})
+    set(CMAKE_STATIC_LIBRARY_PREFIX lib)
+  endif()
+
   if(TARGET_SUPPORTS_SHARED_LIBS)
     set(targets ${libname} ${libname}_static)
     if(NOT CMAKE_CONFIGURATION_TYPES)
@@ -345,7 +351,7 @@ macro(nt2_module_add_library libname)
     endif()
 
     # create symbolic links on Windows for DLLs to avoid having to set PATH
-    if(WIN32)
+    if(WIN32 AND PROJECT_NAME MATCHES "^NT2")
       foreach(debug_dir unit debug cover exhaustive)
         if(NOT IS_DIRECTORY ${NT2_BINARY_DIR}/${debug_dir})
           file(MAKE_DIRECTORY ${NT2_BINARY_DIR}/${debug_dir})
@@ -405,6 +411,10 @@ macro(nt2_module_add_library libname)
              DESTINATION . COMPONENT ${NT2_CURRENT_MODULE}
              FILES_MATCHING PATTERN "*${libname}.*" PATTERN "*${libname}_d.*"
            )
+  endif()
+
+  if(WIN32)
+    set(CMAKE_STATIC_LIBRARY_PREFIX ${OLD_CMAKE_STATIC_LIBRARY_PREFIX})
   endif()
 
 endmacro()

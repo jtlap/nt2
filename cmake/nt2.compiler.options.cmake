@@ -12,11 +12,6 @@ set(NT2_COMPILER_OPTIONS_INCLUDED 1)
 
 include(nt2.info)
 
-# Use lib prefix for static libraries like Boost does
-if(WIN32)
-  set(CMAKE_STATIC_LIBRARY_PREFIX lib)
-endif()
-
 # Remove /EHsc from CMAKE_CXX_FLAGS and re-add per configuration; useful to avoid 'overriding' warnings
 if(CMAKE_CXX_FLAGS MATCHES "/EHsc")
   string(REPLACE " /EHsc" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")

@@ -9,6 +9,9 @@
 
 # only available since 2.8.3
 include(CMakeParseArguments OPTIONAL RESULT_VARIABLE CMakeParseArguments_FOUND)
+if(WAVE_EXECUTABLE AND NOT EXISTS WAVE_EXECUTABLE)
+  unset(WAVE_EXECUTABLE CACHE)
+endif()
 find_program(WAVE_EXECUTABLE wave $ENV{BOOST_ROOT}/dist/bin)
 
 macro(nt2_preprocess target)

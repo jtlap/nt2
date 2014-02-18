@@ -34,13 +34,13 @@ template<typename T> struct sigmadelta_scalar
     binary_label.resize(size_);
     frames.resize(nb_frames);
 
-    for(int k=0; k<nb_frames; k++)
+    for(std::size_t k=0; k<nb_frames; k++)
       frames[k].resize(size_);
-    for(int k=0; k<nb_frames; k++)
+    for(std::size_t k=0; k<nb_frames; k++)
     {
-      for(int j=0; j<width; j++)
+      for(std::size_t j=0; j<width; j++)
       {
-        for(int i=0; i<height;i++)
+        for(std::size_t i=0; i<height;i++)
         {
           if(i>(height/4) && i<(height/2) && j>((width/4)+k%10) && j<((width/2)+k%10))
             frames[k][i*width+j] = 255;
@@ -57,9 +57,9 @@ template<typename T> struct sigmadelta_scalar
   void operator()()
   {
     unsigned char d,mul;
-    for(int k=1; k<nb_frames; k++)
+    for(std::size_t k=1; k<nb_frames; k++)
     {
-      for(int i=0; i < size_; i++)
+      for(std::size_t i=0; i < size_; i++)
       {
         if(background_img[i] < frames[k][i])
         {
@@ -115,7 +115,7 @@ template<typename T> struct sigmadelta_scalar
   std::vector<std::vector<T> > frames;
   std::vector<T>  variance_img, background_img, diff_img, binary_label;
   static const T sigma=3;
-  int nb_frames;
+  std::size_t nb_frames;
 };
 
 NT2_REGISTER_BENCHMARK( sigmadelta_scalar )
