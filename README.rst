@@ -51,5 +51,5 @@ Contact
 
 :Website: http://nt2.metascale.org
 :Mailing List: `nt2-dev <http://groups.google.com/group/nt2-dev>`_
-:Repository: `nt2 on GitHub <http://github/MetaScale/nt2>`_
+:Repository: `nt2 on GitHub <http://github.com/MetaScale/nt2>`_
 :IRC: #nt2 at `irc.freenode.net <http://freenode.net>`_
