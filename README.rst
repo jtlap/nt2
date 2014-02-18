@@ -15,17 +15,17 @@ About **NT**:sup:`2`
 --------------------
 The **Numerical Template Toolbox** (**NT**:sup:`2`) is an Open Source C++ library
 aimed at simplifying the development, debugging and optimization of high-performance
-computing application by providing a **Matlab** like syntax that ease the transition
+computing applications by providing a **Matlab** like syntax that eases the transition
 between prototype and actual application.
 
-So What is This About ?
+So What is This About?
 :::::::::::::::::::::::
-Do you ever wanted to use your multi-core machines to its fullest or to take
-advantage of your processor's SIMD extension but never did because of the
-impressive learning curve ? By pushing the limits of the C++ language, **NT**:sup:`2`
-uses template meta-programming to its fullest and automatize those tasks. Reaping
-the reward of parallelism has never been so easy and straightforward. Performances
-of **NT**:sup:`2` code is then on the par with hand-written, optimized C code while
+Did you ever want to use your multi-core machines to their fullest extent or to take
+advantage of your processor's SIMD extensions but never did because of the
+steep learning curve? By pushing the limits of the C++ language, **NT**:sup:`2`
+uses template meta-programming to its fullest and automatizes these tasks. Reaping
+the reward of parallelism has never been so easy and straightforward. Performance
+of **NT**:sup:`2` code is on the par with hand-written, optimized C code while
 keeping a high level of abstraction.
 
 -------------
