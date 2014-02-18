@@ -3,7 +3,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  template<class A0, class X, std::size_t N, class Callee, class Result = boost::dispatch::meta::result_of<Callee(typename vector_on_ext< typename meta::scalar_of<A0>::type, N, X >::type)>, class Enable = void>
+  template<class A0, class X, std::size_t N, class Callee, class Result = boost::dispatch::meta::result_of<Callee(typename vector_on_ext< typename meta::scalar_of<A0>::type, N, X >::type const&)>, class Enable = void>
   struct splat_impl1
   {
   };
@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
        : splat_impl1< A0
                                     , X, N
                                     , typename boost::dispatch::meta::
-                                      dispatch_call<Tag(typename vector_on_ext< typename meta::scalar_of<A0>::type, N, X >::type)>::type
+                                      dispatch_call<Tag(typename vector_on_ext< typename meta::scalar_of<A0>::type, N, X >::type const&)>::type
                                     >
   {
   };
@@ -66,7 +66,7 @@ namespace boost { namespace simd { namespace ext
   {
   };
   } } } namespace boost { namespace dispatch { namespace meta { template< class Tag , class A0 > BOOST_FORCEINLINE typename boost::enable_if< mpl::not_< any < mpl::or_ < boost::proto:: is_expr<mpl::_> , boost::dispatch:: meta::is_proxy<mpl::_> > , A0 > > , boost::simd::ext::splat_or_map1< Tag, A0 > >::type dispatching( elementwise_<Tag>, tag::formal_ , unspecified_<A0> const , adl_helper = adl_helper() ) { return boost::simd::ext::splat_or_map1< Tag, A0 >(); } } } } namespace boost { namespace simd { namespace ext {
-  template<class A0 , class A1, class X, std::size_t N, class Callee, class Result = boost::dispatch::meta::result_of<Callee(typename vector_on_ext< typename meta::scalar_of<A0>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A1>::type, N, X >::type)>, class Enable = void>
+  template<class A0 , class A1, class X, std::size_t N, class Callee, class Result = boost::dispatch::meta::result_of<Callee(typename vector_on_ext< typename meta::scalar_of<A0>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A1>::type, N, X >::type const&)>, class Enable = void>
   struct splat_impl2
   {
   };
@@ -89,7 +89,7 @@ namespace boost { namespace simd { namespace ext
        : splat_impl2< A0 , A1
                                     , X, N
                                     , typename boost::dispatch::meta::
-                                      dispatch_call<Tag(typename vector_on_ext< typename meta::scalar_of<A0>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A1>::type, N, X >::type)>::type
+                                      dispatch_call<Tag(typename vector_on_ext< typename meta::scalar_of<A0>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A1>::type, N, X >::type const&)>::type
                                     >
   {
   };
@@ -129,7 +129,7 @@ namespace boost { namespace simd { namespace ext
   {
   };
   } } } namespace boost { namespace dispatch { namespace meta { template< class Tag , class A0 , class A1 > BOOST_FORCEINLINE typename boost::enable_if< mpl::not_< any < mpl::or_ < boost::proto:: is_expr<mpl::_> , boost::dispatch:: meta::is_proxy<mpl::_> > , A0 , A1 > > , boost::simd::ext::splat_or_map2< Tag, A0 , A1 > >::type dispatching( elementwise_<Tag>, tag::formal_ , unspecified_<A0> const , unspecified_<A1> const , adl_helper = adl_helper() ) { return boost::simd::ext::splat_or_map2< Tag, A0 , A1 >(); } } } } namespace boost { namespace simd { namespace ext {
-  template<class A0 , class A1 , class A2, class X, std::size_t N, class Callee, class Result = boost::dispatch::meta::result_of<Callee(typename vector_on_ext< typename meta::scalar_of<A0>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A1>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A2>::type, N, X >::type)>, class Enable = void>
+  template<class A0 , class A1 , class A2, class X, std::size_t N, class Callee, class Result = boost::dispatch::meta::result_of<Callee(typename vector_on_ext< typename meta::scalar_of<A0>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A1>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A2>::type, N, X >::type const&)>, class Enable = void>
   struct splat_impl3
   {
   };
@@ -152,7 +152,7 @@ namespace boost { namespace simd { namespace ext
        : splat_impl3< A0 , A1 , A2
                                     , X, N
                                     , typename boost::dispatch::meta::
-                                      dispatch_call<Tag(typename vector_on_ext< typename meta::scalar_of<A0>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A1>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A2>::type, N, X >::type)>::type
+                                      dispatch_call<Tag(typename vector_on_ext< typename meta::scalar_of<A0>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A1>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A2>::type, N, X >::type const&)>::type
                                     >
   {
   };
@@ -192,7 +192,7 @@ namespace boost { namespace simd { namespace ext
   {
   };
   } } } namespace boost { namespace dispatch { namespace meta { template< class Tag , class A0 , class A1 , class A2 > BOOST_FORCEINLINE typename boost::enable_if< mpl::not_< any < mpl::or_ < boost::proto:: is_expr<mpl::_> , boost::dispatch:: meta::is_proxy<mpl::_> > , A0 , A1 , A2 > > , boost::simd::ext::splat_or_map3< Tag, A0 , A1 , A2 > >::type dispatching( elementwise_<Tag>, tag::formal_ , unspecified_<A0> const , unspecified_<A1> const , unspecified_<A2> const , adl_helper = adl_helper() ) { return boost::simd::ext::splat_or_map3< Tag, A0 , A1 , A2 >(); } } } } namespace boost { namespace simd { namespace ext {
-  template<class A0 , class A1 , class A2 , class A3, class X, std::size_t N, class Callee, class Result = boost::dispatch::meta::result_of<Callee(typename vector_on_ext< typename meta::scalar_of<A0>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A1>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A2>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A3>::type, N, X >::type)>, class Enable = void>
+  template<class A0 , class A1 , class A2 , class A3, class X, std::size_t N, class Callee, class Result = boost::dispatch::meta::result_of<Callee(typename vector_on_ext< typename meta::scalar_of<A0>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A1>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A2>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A3>::type, N, X >::type const&)>, class Enable = void>
   struct splat_impl4
   {
   };
@@ -215,7 +215,7 @@ namespace boost { namespace simd { namespace ext
        : splat_impl4< A0 , A1 , A2 , A3
                                     , X, N
                                     , typename boost::dispatch::meta::
-                                      dispatch_call<Tag(typename vector_on_ext< typename meta::scalar_of<A0>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A1>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A2>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A3>::type, N, X >::type)>::type
+                                      dispatch_call<Tag(typename vector_on_ext< typename meta::scalar_of<A0>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A1>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A2>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A3>::type, N, X >::type const&)>::type
                                     >
   {
   };
@@ -255,7 +255,7 @@ namespace boost { namespace simd { namespace ext
   {
   };
   } } } namespace boost { namespace dispatch { namespace meta { template< class Tag , class A0 , class A1 , class A2 , class A3 > BOOST_FORCEINLINE typename boost::enable_if< mpl::not_< any < mpl::or_ < boost::proto:: is_expr<mpl::_> , boost::dispatch:: meta::is_proxy<mpl::_> > , A0 , A1 , A2 , A3 > > , boost::simd::ext::splat_or_map4< Tag, A0 , A1 , A2 , A3 > >::type dispatching( elementwise_<Tag>, tag::formal_ , unspecified_<A0> const , unspecified_<A1> const , unspecified_<A2> const , unspecified_<A3> const , adl_helper = adl_helper() ) { return boost::simd::ext::splat_or_map4< Tag, A0 , A1 , A2 , A3 >(); } } } } namespace boost { namespace simd { namespace ext {
-  template<class A0 , class A1 , class A2 , class A3 , class A4, class X, std::size_t N, class Callee, class Result = boost::dispatch::meta::result_of<Callee(typename vector_on_ext< typename meta::scalar_of<A0>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A1>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A2>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A3>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A4>::type, N, X >::type)>, class Enable = void>
+  template<class A0 , class A1 , class A2 , class A3 , class A4, class X, std::size_t N, class Callee, class Result = boost::dispatch::meta::result_of<Callee(typename vector_on_ext< typename meta::scalar_of<A0>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A1>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A2>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A3>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A4>::type, N, X >::type const&)>, class Enable = void>
   struct splat_impl5
   {
   };
@@ -278,7 +278,7 @@ namespace boost { namespace simd { namespace ext
        : splat_impl5< A0 , A1 , A2 , A3 , A4
                                     , X, N
                                     , typename boost::dispatch::meta::
-                                      dispatch_call<Tag(typename vector_on_ext< typename meta::scalar_of<A0>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A1>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A2>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A3>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A4>::type, N, X >::type)>::type
+                                      dispatch_call<Tag(typename vector_on_ext< typename meta::scalar_of<A0>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A1>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A2>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A3>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A4>::type, N, X >::type const&)>::type
                                     >
   {
   };
@@ -318,7 +318,7 @@ namespace boost { namespace simd { namespace ext
   {
   };
   } } } namespace boost { namespace dispatch { namespace meta { template< class Tag , class A0 , class A1 , class A2 , class A3 , class A4 > BOOST_FORCEINLINE typename boost::enable_if< mpl::not_< any < mpl::or_ < boost::proto:: is_expr<mpl::_> , boost::dispatch:: meta::is_proxy<mpl::_> > , A0 , A1 , A2 , A3 , A4 > > , boost::simd::ext::splat_or_map5< Tag, A0 , A1 , A2 , A3 , A4 > >::type dispatching( elementwise_<Tag>, tag::formal_ , unspecified_<A0> const , unspecified_<A1> const , unspecified_<A2> const , unspecified_<A3> const , unspecified_<A4> const , adl_helper = adl_helper() ) { return boost::simd::ext::splat_or_map5< Tag, A0 , A1 , A2 , A3 , A4 >(); } } } } namespace boost { namespace simd { namespace ext {
-  template<class A0 , class A1 , class A2 , class A3 , class A4 , class A5, class X, std::size_t N, class Callee, class Result = boost::dispatch::meta::result_of<Callee(typename vector_on_ext< typename meta::scalar_of<A0>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A1>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A2>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A3>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A4>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A5>::type, N, X >::type)>, class Enable = void>
+  template<class A0 , class A1 , class A2 , class A3 , class A4 , class A5, class X, std::size_t N, class Callee, class Result = boost::dispatch::meta::result_of<Callee(typename vector_on_ext< typename meta::scalar_of<A0>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A1>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A2>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A3>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A4>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A5>::type, N, X >::type const&)>, class Enable = void>
   struct splat_impl6
   {
   };
@@ -341,7 +341,7 @@ namespace boost { namespace simd { namespace ext
        : splat_impl6< A0 , A1 , A2 , A3 , A4 , A5
                                     , X, N
                                     , typename boost::dispatch::meta::
-                                      dispatch_call<Tag(typename vector_on_ext< typename meta::scalar_of<A0>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A1>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A2>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A3>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A4>::type, N, X >::type , typename vector_on_ext< typename meta::scalar_of<A5>::type, N, X >::type)>::type
+                                      dispatch_call<Tag(typename vector_on_ext< typename meta::scalar_of<A0>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A1>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A2>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A3>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A4>::type, N, X >::type const&, typename vector_on_ext< typename meta::scalar_of<A5>::type, N, X >::type const&)>::type
                                     >
   {
   };
