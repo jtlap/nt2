@@ -33,5 +33,5 @@ NT2_TEST_CASE_TPL(normest, NT2_REAL_TYPES)
   typedef typename nt2::meta::as_complex<T>::type  cT;
 
   nt2::table<cT> n = cT(1, 1)*nt2::ones(10, 10, nt2::meta::as_<T>());
-  NT2_TEST_ULP_EQUAL(normest(n, T(1.0e-6)), nt2::Ten<T>()*nt2::Sqrt_2<T>(), 0.5);
+  NT2_TEST_ULP_EQUAL(normest(n, T(1.0e-6)), nt2::Ten<T>()*nt2::Sqrt_2<T>(), 1.5);
 }
