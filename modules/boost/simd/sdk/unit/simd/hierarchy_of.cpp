@@ -79,6 +79,7 @@ NT2_TEST_CASE(simd_category)
                       , ( simd_< int32_< native<boost::simd::int32_t, ext_t> >, ext_t > )
                       );
   }
+  #ifndef BOOST_SIMD_HAS_MIC_SUPPORT
   {
     native<boost::simd::uint16_t, ext_t> p;
     NT2_TEST_EXPR_TYPE( p, hierarchy_
@@ -103,6 +104,7 @@ NT2_TEST_CASE(simd_category)
                       , ( simd_< int8_< native<boost::simd::int8_t, ext_t> >, ext_t > )
                       );
   }
+  #endif
 }
 
 NT2_TEST_CASE(pack_category)
@@ -173,6 +175,7 @@ NT2_TEST_CASE(pack_category)
                         )
                       );
   }
+  #ifndef BOOST_SIMD_HAS_MIC_SUPPORT
   {
     pack<boost::simd::uint16_t> p;
     NT2_TEST_EXPR_TYPE( p, hierarchy_
@@ -209,6 +212,7 @@ NT2_TEST_CASE(pack_category)
                         )
                       );
   }
+  #endif
 }
 
 NT2_TEST_CASE_TPL(pack_expr_category, BOOST_SIMD_SIMD_TYPES)
