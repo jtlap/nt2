@@ -6,13 +6,11 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_IMPL_EXPO_HPP_INCLUDED
-#define NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_IMPL_EXPO_HPP_INCLUDED
+#ifndef NT2_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPONENTIAL_HPP_INCLUDED
+#define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPONENTIAL_HPP_INCLUDED
 
 #include <nt2/sdk/simd/tags.hpp>
 #include <nt2/polynomials/functions/scalar/impl/horner.hpp>
-#include <nt2/exponential/functions/scalar/impl/selection_tags.hpp>
 #include <nt2/exponential/functions/scalar/impl/expo/expo_base.hpp>
-#include <nt2/exponential/functions/simd/common/impl/expo/expo_base.hpp>
 
 #endif

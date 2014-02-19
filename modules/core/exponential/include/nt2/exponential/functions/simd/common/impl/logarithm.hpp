@@ -6,10 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_IMPL_LOGS_HPP_INCLUDED
-#define NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_IMPL_LOGS_HPP_INCLUDED
+#ifndef NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_IMPL_LOGARITHM_HPP_INCLUDED
+#define NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_IMPL_LOGARITHM_HPP_INCLUDED
 
-#include <nt2/exponential/functions/scalar/impl/logs.hpp>
+#include <nt2/exponential/functions/scalar/impl/logarithm.hpp>
 #include <nt2/exponential/functions/simd/common/impl/logs/f_log.hpp>
 #include <nt2/exponential/functions/simd/common/impl/logs/d_log.hpp>
 

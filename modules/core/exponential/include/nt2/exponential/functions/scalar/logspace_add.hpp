@@ -9,37 +9,35 @@
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_SCALAR_LOGSPACE_ADD_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_LOGSPACE_ADD_HPP_INCLUDED
 #include <nt2/exponential/functions/logspace_add.hpp>
-#include <nt2/include/functions/scalar/logspace_add.hpp>
+#include <boost/simd/sdk/config.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
-#include <nt2/include/functions/scalar/max.hpp>
-#include <nt2/include/functions/scalar/log1p.hpp>
 #include <nt2/include/functions/scalar/exp.hpp>
+#include <nt2/include/functions/scalar/log1p.hpp>
+#include <nt2/include/functions/scalar/max.hpp>
+
+#ifndef BOOST_SIMD_NO_NANS
 #include <nt2/include/functions/scalar/is_nan.hpp>
+#endif
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::logspace_add_, tag::cpu_
-                            , (A0)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)
-                            )
-  {
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-    NT2_FUNCTOR_CALL_REPEAT(2)
-    {
-      return nt2::logspace_add(result_type(a0), result_type(a1));
-    }
-  };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::logspace_add_, tag::cpu_
                             , (A0)
-                            , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)
+                            , (scalar_< floating_<A0> >)
+                              (scalar_< floating_<A0> >)
                             )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       A0 tmp = -nt2::abs(a0-a1);
-      return is_nan(tmp) ? a0+a1 : nt2::max(a0,a1)+nt2::log1p(nt2::exp(tmp));
+      A0 r = nt2::max(a0,a1)+nt2::log1p(nt2::exp(tmp));
+      #ifndef BOOST_SIMD_NO_NANS
+      return is_nan(tmp) ? a0+a1 : r;
+      #else
+      return r;
+      #endif
     }
   };
 } }

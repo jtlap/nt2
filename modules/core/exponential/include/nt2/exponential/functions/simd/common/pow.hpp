@@ -9,39 +9,43 @@
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_POW_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_POW_HPP_INCLUDED
 #include <nt2/exponential/functions/pow.hpp>
-#include <nt2/sdk/meta/as_logical.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
+#include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/include/functions/simd/any.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/simd/seladd.hpp>
-#include <nt2/include/functions/simd/is_eqz.hpp>
-#include <nt2/include/functions/simd/is_nez.hpp>
-#include <nt2/include/functions/simd/is_even.hpp>
-#include <nt2/include/functions/simd/exp.hpp>
-#include <nt2/include/functions/simd/log.hpp>
-#include <nt2/include/functions/simd/negif.hpp>
+#include <nt2/include/constants/zero.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/any.hpp>
+#include <nt2/include/functions/simd/bitofsign.hpp>
+#include <nt2/include/functions/simd/bitwise_xor.hpp>
+#include <nt2/include/functions/simd/exp.hpp>
+#include <nt2/include/functions/simd/fma.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/if_else_zero.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/is_even.hpp>
+#include <nt2/include/functions/simd/is_flint.hpp>
+#include <nt2/include/functions/simd/is_gtz.hpp>
+#include <nt2/include/functions/simd/is_inf.hpp>
+#include <nt2/include/functions/simd/is_ltz.hpp>
+#include <nt2/include/functions/simd/is_nan.hpp>
+#include <nt2/include/functions/simd/is_odd.hpp>
+#include <nt2/include/functions/simd/log.hpp>
 #include <nt2/include/functions/simd/logical_and.hpp>
 #include <nt2/include/functions/simd/logical_not.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/oneminus.hpp>
+#include <nt2/include/functions/simd/oneplus.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/shr.hpp>
+#include <nt2/include/functions/simd/signnz.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                              ((simd_<arithmetic_<A0>,X>))
-                            )
-  {
-    typedef typename meta::as_floating<A0>::type result_type;
-    NT2_FUNCTOR_CALL_REPEAT(2)
-    {
-      return nt2::pow(tofloat(a0), tofloat(a1));
-    }
-  };
-
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))
@@ -55,20 +59,19 @@ namespace nt2 { namespace ext
       bA0 isltza0 = is_ltz(a0);
       bA0 allz = l_and(is_eqz(a0), is_eqz(a1));
       A0 res =  exp(a1*log(nt2::abs(a0)));
-      res =  select(l_and(is_odd(a1), isltza0), -res, res);
-      //     bA0 invalid =  logical_andnot(isltza0, is_flint(a1));
+      res =  if_else(l_and(is_odd(a1), isltza0), -res, res);
       bA0 invalid =  l_and(isltza0, logical_not( is_flint(a1)));
-      return select(invalid, Nan<result_type>(), select(allz, One<A0>(), res));
+      return if_else(invalid, Nan<result_type>(), if_else(allz, One<A0>(), res));
     }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
                             , (A0)(A1)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
+                            , ((simd_<floating_<A0>,X>))
                               ((simd_<integer_<A1>,X>))
                             )
   {
-    typedef typename meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
         typedef A1                    int_type;
@@ -80,37 +83,29 @@ namespace nt2 { namespace ext
         int_type n = nt2::abs(a1);
         r_type n_oddf = if_else_zero(is_odd(n), One<r_type>());
         r_type nf = n_oddf;
-        r_type y = madd(n_oddf,x,oneminus(n_oddf));
+        r_type y = fma(n_oddf,x,oneminus(n_oddf));
         r_type w = x;
         n = shri(n,1);
         while( nt2::any(n) )
         {
           w =sqr(w);
           n_oddf = if_else_zero(is_odd(n), One<r_type>());
-          y = y*madd(n_oddf,w,oneminus(n_oddf));
+          y = y*fma(n_oddf,w,oneminus(n_oddf));
           n = shri(n,1);
         }
 
         w = b_xor(y, sign_x);
-        y = madd(nf, w, (oneminus(nf))*y);
+        y = fma(nf, w, (oneminus(nf))*y);
 
         w = rec(y);
         x = tofloat(shri(oneplus(sign_n),1));  // 1 if positive, else 0
-        r_type r = sel(is_even(a1), nt2::abs(a00), a00);
-        return if_nan_else(is_nan(a00), sel(is_inf(a00), sel(is_gtz(a1), r, rec(r)), madd(x,y,oneminus(x)*w)));
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
-                            , (A0)(A1)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                              ((scalar_<integer_<A1> >))
-                            )
-  {
-    typedef typename meta::as_floating<A0>::type result_type;
-    NT2_FUNCTOR_CALL_REPEAT(2)
-    {
-      return nt2::pow(tofloat(a0), a1);
+        r_type r = if_else(is_even(a1), nt2::abs(a00), a00);
+        return if_nan_else(is_nan(a00),
+                           if_else(is_inf(a00),
+                                   if_else(is_gtz(a1), r, rec(r)),
+                                   fma(x,y,oneminus(x)*w)
+                                  )
+                          );
     }
   };
 
@@ -120,15 +115,14 @@ namespace nt2 { namespace ext
                               ((scalar_<integer_<A1> >))
                             )
   {
-    typedef typename meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-        typedef result_type r_type;
-        r_type sign_x = bitofsign(a0);
-        r_type x = b_xor(a0, sign_x);//x = nt2::abs(a0)
-        if (is_even(a1)) sign_x = Zero<r_type>();
+        result_type sign_x = bitofsign(a0);
+        result_type x = b_xor(a0, sign_x);
+        if (is_even(a1)) sign_x = Zero<result_type>();
         A1 n = nt2::abs(a1);
-        r_type ret = One<r_type>();
+        result_type ret = One<result_type>();
         for(A1 t = n; t > 0; t >>= 1)
         {
           if(is_odd(t)) ret*=x;

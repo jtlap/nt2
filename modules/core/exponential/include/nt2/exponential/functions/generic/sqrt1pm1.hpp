@@ -10,32 +10,17 @@
 #define NT2_EXPONENTIAL_FUNCTIONS_GENERIC_SQRT1PM1_HPP_INCLUDED
 
 #include <nt2/exponential/functions/sqrt1pm1.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
-#include <nt2/include/functions/simd/sqrt.hpp>
-#include <nt2/include/functions/simd/oneplus.hpp>
-#include <nt2/include/functions/simd/minusone.hpp>
-#include <nt2/include/functions/simd/abs.hpp>
-#include <nt2/include/functions/simd/is_less.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/constants/half.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/is_less.hpp>
+#include <nt2/include/functions/simd/minusone.hpp>
+#include <nt2/include/functions/simd/oneplus.hpp>
+#include <nt2/include/functions/simd/sqrt.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqrt1pm1_, tag::cpu_
-                            , (A0)
-                            , (generic_< arithmetic_<A0> >)
-                            )
-  {
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::minusone(nt2::sqrt(oneplus(nt2::tofloat(a0))));
-    }
-  };
-
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqrt1pm1_, tag::cpu_
                             , (A0)
                             , (generic_< floating_<A0> >)
@@ -46,11 +31,10 @@ namespace nt2 { namespace ext
     {
       A0 tmp =  nt2::sqrt(oneplus(a0));
       return  nt2::if_else(lt(nt2::abs(a0),  nt2::Half<A0>()),
-                           a0/ nt2::oneplus(tmp),
+                           a0/nt2::oneplus(tmp),
                            nt2::minusone(tmp));
     }
   };
 } }
-
 
 #endif

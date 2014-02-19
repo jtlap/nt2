@@ -10,39 +10,20 @@
 #define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_LOG1P_HPP_INCLUDED
 
 #include <nt2/exponential/functions/log1p.hpp>
+#include <boost/simd/sdk/config.hpp>
+#include <boost/simd/sdk/config/enforce_precision.hpp>
+#include <nt2/include/constants/eps.hpp>
+#include <nt2/include/constants/mone.hpp>
+#include <nt2/include/constants/nan.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/log.hpp>
 #include <nt2/include/functions/scalar/minusone.hpp>
 #include <nt2/include/functions/scalar/oneplus.hpp>
-#include <nt2/include/constants/eps.hpp>
+
+#ifndef BOOST_SIMD_NO_INFINITIES
 #include <nt2/include/constants/inf.hpp>
-#include <nt2/include/constants/mone.hpp>
-#include <boost/simd/sdk/config/enforce_precision.hpp>
+#endif
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log1p_, tag::cpu_
-                            , (A0)
-                            , (scalar_< arithmetic_<A0> >)
-                            )
-  {
-
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::log(oneplus(result_type(a0)));
-    }
-  };
-} }
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log1p_, tag::cpu_
@@ -51,23 +32,22 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
       boost::simd::config::enforce_precision<A0> enforcer;
 
-      typedef result_type type;
       if (nt2::abs(a0) < Eps<A0>()) return a0;
-      if (a0 < Mone<A0>())   return Nan<A0>();
-#ifndef BOOST_SIMD_NO_INVALIDS
+      if (Mone<A0>() > a0)   return Nan<A0>();
+      #ifndef BOOST_SIMD_NO_INFINITIES
       if (a0 == Inf<A0>())   return Inf<A0>();
-#endif
-      type u = oneplus(a0);
-      type uu = u;
-      type t =(minusone(uu)-a0);
-      type v = u;
-      type r =nt2::log(v);
+      #endif
+      result_type u = oneplus(a0);
+      result_type uu = u;
+      result_type t =(minusone(uu)-a0);
+      result_type v = u;
+      result_type r =nt2::log(v);
       if (t)
         return r*(a0/minusone(v)); //-t/u; /* cancels errors with IEEE arithmetic */
       else
@@ -75,6 +55,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 
 #endif
