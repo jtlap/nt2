@@ -14,7 +14,7 @@
 
 #define BOOST_SIMD_BYTES      16
 #define BOOST_SIMD_BITS       128
-#define BOOST_SIMD_STRING     "simd_emulation"
+#define BOOST_SIMD_STRING     "simd_emulation_16"
 #define BOOST_SIMD_CARDINALS  (2)(4)(8)(16)
 
 #ifndef BOOST_SIMD_DEFAULT_EXTENSION
