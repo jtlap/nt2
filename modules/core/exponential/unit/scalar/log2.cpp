@@ -1,4 +1,3 @@
-//==============================================================================
 //         Copyright 2003 - 2013   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
@@ -43,24 +42,6 @@ NT2_TEST_CASE_TPL ( log2_real,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(log2(nt2::Mone<T>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(log2(nt2::Zero<T>()), nt2::Minf<r_t>(), 0);
 #endif
-  NT2_TEST_ULP_EQUAL(log2(nt2::One<T>()), nt2::Zero<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(log2(T(2)), T(1), 0);
-  NT2_TEST_ULP_EQUAL(log2(T(8)), T(3), 0);
-  NT2_TEST_ULP_EQUAL(log2(T(64)), T(6), 0);
-}
-
-NT2_TEST_CASE_TPL ( log2_unsigned_int,  NT2_INTEGRAL_TYPES)
-{
-  using nt2::log2;
-  using nt2::tag::log2_;
-
-  typedef typename nt2::meta::call<log2_(T)>::type r_t;
-  typedef T wished_r_t;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
-
-  // specific values tests
   NT2_TEST_ULP_EQUAL(log2(nt2::One<T>()), nt2::Zero<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(log2(T(2)), T(1), 0);
   NT2_TEST_ULP_EQUAL(log2(T(8)), T(3), 0);

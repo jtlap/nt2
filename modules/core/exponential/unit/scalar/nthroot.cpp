@@ -1,4 +1,3 @@
-//==============================================================================
 //         Copyright 2003 - 2013   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
@@ -54,37 +53,4 @@ NT2_TEST_CASE_TPL ( nthroot_real,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(nthroot(T(-8),iT(3)), r_t(-2), 0.5);
   NT2_TEST_ULP_EQUAL(nthroot(T(256),iT(4)), r_t(4), 0.5);
   NT2_TEST_ULP_EQUAL(nthroot(T(8),iT(3)), r_t(2), 0.5);
-}
-
-NT2_TEST_CASE_TPL ( nthroot_signed_int,  NT2_INTEGRAL_SIGNED_TYPES)
-{
-  using nt2::nthroot;
-  using nt2::tag::nthroot_;
-  typedef typename nt2::meta::as_integer<T>::type          iT;
-  typedef typename nt2::meta::call<nthroot_(T,iT)>::type r_t;
-  typedef typename nt2::meta::as_floating<T>::type wished_r_t;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(nthroot(T(-8),iT(3)), r_t(-2), 0.5);
-  NT2_TEST_ULP_EQUAL(nthroot(T(8),iT(3)), r_t(2), 0.5);
-  NT2_TEST_ULP_EQUAL(nthroot(T(81),iT(4)), r_t(3), 0.5);
-}
-
-NT2_TEST_CASE_TPL ( nthroot_unsigned_int,  NT2_UNSIGNED_TYPES)
-{
-  using nt2::nthroot;
-  using nt2::tag::nthroot_;
-  typedef typename nt2::meta::as_integer<T>::type          iT;
-  typedef typename nt2::meta::call<nthroot_(T,iT)>::type r_t;
-  typedef typename nt2::meta::as_floating<T>::type wished_r_t;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(nthroot(T(8),iT(3)), r_t(2), 0.5);
-  NT2_TEST_ULP_EQUAL(nthroot(T(81),iT(4)), r_t(3), 0.5);
 }
