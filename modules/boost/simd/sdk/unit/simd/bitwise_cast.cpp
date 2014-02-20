@@ -69,6 +69,7 @@ NT2_TEST_CASE_TPL(floating, BOOST_SIMD_SIMD_REAL_TYPES )
   }
 }
 
+#ifndef BOOST_SIMD_HAS_MIC_SUPPORT
 NT2_TEST_CASE_TPL(integer, BOOST_SIMD_SIMD_INTEGRAL_TYPES )
 {
   using boost::simd::native;
@@ -95,3 +96,4 @@ NT2_TEST_CASE_TPL(integer, BOOST_SIMD_SIMD_INTEGRAL_TYPES )
 
   NT2_TEST_EQUAL(y, ref);
 }
+#endif
