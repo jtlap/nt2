@@ -21,12 +21,32 @@ using nt2::tag::expm1_;
 namespace n1 {
   typedef float T;
   typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
-  NT2_TIMING(expm1_,(RS(vT,T(0.1),T(10))))
+  NT2_TIMING(expm1_,(RS(vT,T(0),T(1))))
 }
 namespace n2 {
   typedef double T;
   typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
-  NT2_TIMING(expm1_,(RS(vT,T(0.1),T(10))))
+  NT2_TIMING(expm1_,(RS(vT,T(0),T(1))))
+}
+namespace n1 {
+  typedef float T;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
+  NT2_TIMING(expm1_,(RS(vT,T(0.5),T(100))))
+}
+namespace n2 {
+  typedef double T;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
+  NT2_TIMING(expm1_,(RS(vT,T(0.5),T(100))))
+}
+namespace n1 {
+  typedef float T;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
+  NT2_TIMING(expm1_,(RS(vT,T(-0.5),T(0.5))))
+}
+namespace n2 {
+  typedef double T;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
+  NT2_TIMING(expm1_,(RS(vT,T(-0.5),T(0.5))))
 }
 
 #undef RS

@@ -15,12 +15,30 @@ using nt2::tag::expm1_;
 
 #define RS(T,V1,V2) (T, (V1) ,(V2))
 
+
 namespace n1 {
   typedef float T;
-  NT2_TIMING(expm1_,(RS(T,T(0.1),T(10))))
+  NT2_TIMING(expm1_,(RS(T,T(0),T(1))))
 }
 namespace n2 {
   typedef double T;
-  NT2_TIMING(expm1_,(RS(T,T(0.1),T(10))))
+  NT2_TIMING(expm1_,(RS(T,T(0),T(1))))
 }
+namespace n1 {
+  typedef float T;
+  NT2_TIMING(expm1_,(RS(T,T(0.5),T(100))))
+}
+namespace n2 {
+  typedef double T;
+  NT2_TIMING(expm1_,(RS(T,T(0.5),T(100))))
+}
+namespace n1 {
+  typedef float T;
+  NT2_TIMING(expm1_,(RS(T,T(-0.5),T(0.5))))
+}
+namespace n2 {
+  typedef double T;
+  NT2_TIMING(expm1_,(RS(T,T(-0.5),T(0.5))))
+}
+
 #undef RS
