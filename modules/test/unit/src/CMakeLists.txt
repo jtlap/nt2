@@ -21,7 +21,8 @@ set(SOURCES
     float_debug.cpp
    )
 
-if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+include(nt2.info)
+if(NT2_COMPILER_GCC_LIKE)
   add_definitions(-fvisibility=hidden)
 endif()
 

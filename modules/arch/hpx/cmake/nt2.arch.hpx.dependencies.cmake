@@ -7,6 +7,7 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
+include(nt2.info)
 include(nt2.boost)
 find_package(Boost 1.53.0 QUIET COMPONENTS program_options thread system serialization)
 
@@ -54,7 +55,7 @@ if(NOT Boost_FOUND OR NOT HPX_INCLUDE_DIR OR NOT HPX_INCLUDE_BINARY_DIR OR NOT H
 endif()
 
 set(NT2_ARCH.HPX_COMPILE_FLAGS "-DNT2_USE_HPX")
-if(CMAKE_COMPILER_IS_GNUCXX)
+if(NT2_COMPILER_GCC_LIKE)
   set(NT2_ARCH.HPX_COMPILE_FLAGS "${NT2_ARCH.HPX_COMPILE_FLAGS} -std=c++0x -include hpx/config.hpp")
 elseif(MSVC)
   set(NT2_ARCH.HPX_COMPILE_FLAGS "${NT2_ARCH.HPX_COMPILE_FLAGS} /FIhpx/config.hpp")

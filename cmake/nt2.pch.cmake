@@ -9,6 +9,8 @@
 
 set(NT2_WITH_PCH 0 CACHE BOOL "Whether to use precompiled headers on platforms that support it")
 
+include(nt2.info)
+
 macro(nt2_pch_file build_type out in)
   if(IS_ABSOLUTE ${in})
     set(arg ${in})
@@ -50,7 +52,7 @@ macro(nt2_pch name)
   endif()
 
   if( NT2_WITH_PCH
-      AND (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+      AND NT2_COMPILER_GCC_LIKE
       AND CMAKE_GENERATOR MATCHES "Make" OR
          (CMAKE_GENERATOR MATCHES "Ninja" AND CMAKE_VERSION VERSION_EQUAL 2.8.10 OR CMAKE_VERSION VERSION_GREATER 2.8.10) # correct OBJECT_DEPENDS handling requires CMake 2.8.10
     )

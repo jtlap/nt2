@@ -11,6 +11,7 @@
 # Setup some compliler options
 ################################################################################
 include(CheckCXXCompilerFlag)
+include(nt2.info)
 
 ################################################################################
 # Add Extra warning level
@@ -21,7 +22,7 @@ if(NT2_EXTRA_WARNINGS)
   message(STATUS "[nt2] extra warnings enabled")
 endif()
 
-if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+if(NT2_COMPILER_GCC_LIKE)
   set(HAS_GCC_WALL 1)
   set(HAS_GCC_WEXTRA 1)
   set(HAS_GCC_WSHADOW 1)
