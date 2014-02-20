@@ -23,7 +23,7 @@ struct std_log1p
 {
   float operator()(float x) const
   {
-    return float(nt2::log1p(double(x)));
+    return float(::log1p(double(x)));
   }
 };
 

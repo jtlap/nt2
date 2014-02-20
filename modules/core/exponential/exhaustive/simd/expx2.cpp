@@ -43,18 +43,22 @@ template < class T>  T operator()(T x) const
   }
 };
 
+
+
 int main(int argc, char* argv[])
 {
-  float mini = -9.4f;
-  float maxi = 9.4f);
+  typedef BOOST_SIMD_DEFAULT_EXTENSION             ext_t;
+  typedef boost::simd::native<float,ext_t>           n_t;
+  float mini = -9.4;
+  float maxi = 9.4;
   if(argc >= 2) mini = std::atof(argv[1]);
   if(argc >= 3) maxi = std::atof(argv[2]);
-  nt2::exhaustive_test<float> ( mini
+  nt2::exhaustive_test<n_t> ( mini
                               , maxi
                               , nt2::functor<nt2::tag::expx2_>()
                               , raw_expx2p()
                               );
- nt2::exhaustive_test<float> ( mini
+ nt2::exhaustive_test<n_t> ( mini
                               , maxi
                               , expx2m()
                               , raw_expx2m()

@@ -17,10 +17,10 @@ using nt2::tag::log1p_;
 
 namespace n1 {
   typedef float T;
-  NT2_TIMING(log1p_,(RS(T,T(0.1),T(10))))
+  NT2_TIMING(log1p_,(RS(T,T(-1),T(10))))
 }
 namespace n2 {
   typedef double T;
-  NT2_TIMING(log1p_,(RS(T,T(0.1),T(10))))
+  NT2_TIMING(log1p_,(RS(T,T(-1),T(10))))
 }
 #undef RS

@@ -17,6 +17,7 @@ SET(SOURCES
     cbrt.cpp
     expm1.cpp
     log1p.cpp
+    expx2.cpp
    )
 
 nt2_module_add_tests(core.exponential.simd.exhaustive ${SOURCES})
