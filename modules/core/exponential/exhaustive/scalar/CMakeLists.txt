@@ -8,11 +8,19 @@
 ##############################################################################
 
 SET(SOURCES
-    log.cpp
-    log2.cpp
-    log10.cpp
-    exp.cpp
-    cbrt.cpp
+  cbrt.cpp
+  exp10.cpp
+  exp2.cpp
+  exp.cpp
+  expm1.cpp
+  expx2.cpp
+  log10.cpp
+  log1p.cpp
+  log2.cpp
+  log.cpp
+#  nthroot.cpp
+#  pow.cpp
+  sqrt1pm1.cpp
    )
 
 nt2_module_add_tests(core.exponential.scalar.exhaustive ${SOURCES})
