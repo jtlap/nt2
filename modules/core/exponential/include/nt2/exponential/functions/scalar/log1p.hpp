@@ -12,10 +12,9 @@
 #include <nt2/exponential/functions/log1p.hpp>
 #include <boost/simd/sdk/config.hpp>
 #include <boost/simd/sdk/config/enforce_precision.hpp>
-#include <nt2/include/constants/eps.hpp>
+#include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/nan.hpp>
-#include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/log.hpp>
 #include <nt2/include/functions/scalar/minusone.hpp>
 #include <nt2/include/functions/scalar/oneplus.hpp>
@@ -37,21 +36,13 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       boost::simd::config::enforce_precision<A0> enforcer;
-
-      if (nt2::abs(a0) < Eps<A0>()) return a0;
       if (Mone<A0>() > a0)   return Nan<A0>();
       #ifndef BOOST_SIMD_NO_INFINITIES
       if (a0 == Inf<A0>())   return Inf<A0>();
       #endif
+      if (a0 == Mone<A0>())   return Minf<A0>();
       result_type u = oneplus(a0);
-      result_type uu = u;
-      result_type t =(minusone(uu)-a0);
-      result_type v = u;
-      result_type r =nt2::log(v);
-      if (t)
-        return r*(a0/minusone(v)); //-t/u; /* cancels errors with IEEE arithmetic */
-      else
-        return r;
+      return log(u)+(a0-minusone(u))/u;
     }
   };
 } }

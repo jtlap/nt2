@@ -30,7 +30,6 @@
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/negate.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
-#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>

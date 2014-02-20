@@ -17,9 +17,7 @@
 #include <nt2/include/functions/simd/toint.hpp>
 
 #ifndef BOOST_SIMD_NO_INVALIDS
-#include <boost/assert.hpp>
 #include <boost/simd/operator/functions/details/assert_utils.hpp>
-#include <boost/simd/sdk/config.hpp>
 #include <nt2/include/functions/simd/is_finite.hpp>
 #endif
 

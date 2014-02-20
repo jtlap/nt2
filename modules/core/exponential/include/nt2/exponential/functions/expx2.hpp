@@ -32,20 +32,20 @@ namespace nt2 { namespace tag
 
     @par Semantic:
 
-    For every parameter of floating type T0
+    For every parameters of floating type T0
 
     @code
-    T0 r = expx2(x);
+    T0 r = expx2(x, s);
     @endcode
 
     is similar to:
 
     @code
-    T0 r =  exp(x*x);;
+    T0 r =  exp(x*x);
     @endcode
 
     @par Note:
-    provisions are made for otaining correct results for large a0
+    provisions are made for obtaining correct results for large x
 
     @see @funcref{exp}
     @param a0
@@ -53,6 +53,33 @@ namespace nt2 { namespace tag
     @return a value of the same type as the parameter
   **/
   NT2_FUNCTION_IMPLEMENTATION(tag::expx2_, expx2, 1)
+  /*!
+    exponential of square function: \f$e^{x^2}\f$
+
+    @par Semantic:
+
+    For every parameters of floating type T0
+
+    @code
+    T0 r = expx2(x, s);
+    @endcode
+
+    is similar to:
+
+    @code
+    T0 r =  exp(signz(s)*x*x);
+    @endcode
+
+    @par Note:
+    provisions are made for obtaining correct results for large x
+
+    @see @funcref{exp}
+    @param a0
+    @param a1
+
+    @return a value of the same type as the parameter
+  **/
+  NT2_FUNCTION_IMPLEMENTATION(tag::expx2_, expx2, 2)
 }
 
 #endif

@@ -19,6 +19,8 @@
 #include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/exp.hpp>
 #include <nt2/include/functions/scalar/floor.hpp>
+#include <nt2/include/functions/scalar/fma.hpp>
+#include <nt2/include/functions/scalar/signnz.hpp>
 #include <nt2/include/functions/scalar/sqr.hpp>
 
 #ifndef BOOST_SIMD_NO_INFINITIES
@@ -35,9 +37,9 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-#ifndef BOOST_SIMD_NO_INFINITIES
+      #ifndef BOOST_SIMD_NO_INFINITIES
       if (nt2::is_inf(a0)) return nt2::Inf<A0>();
-#endif
+      #endif
       A0 x =  nt2::abs(a0);
       /* Represent x as an exact multiple of 1/32 plus a residual.  */
       A0 m = nt2::Expx2c1<A0>() * nt2::floor(nt2::Expx2c2<A0>() * x + Half<A0>());
@@ -48,6 +50,32 @@ namespace nt2 { namespace ext
       if ((u+u1) > nt2::Maxlog<A0>()) return nt2::Inf<A0>();
       /* u is exact, u1 is small.  */
       return nt2::exp(u) * nt2::exp(u1);
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expx2_, tag::cpu_
+                            , (A0)
+                            , ((scalar_<floating_<A0> >))
+                              ((scalar_<floating_<A0> >))
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_FORCEINLINE result_type operator()(const A0& a0,  const A0 & s) const
+    {
+      A0 sgn =  signnz(s);
+      A0 x =  a0*sgn;
+      #ifndef BOOST_SIMD_NO_INFINITIES
+      if (nt2::is_inf(a0)) return nt2::Inf<A0>();
+      #endif
+      // Represent x as an exact multiple of 1/32 plus a residual.
+      A0 m = Expx2c1<A0>()*nt2::floor(fma(Expx2c2<A0>(), x, nt2::Half<A0>()));
+      A0 f =  x-m;
+      // x**2 = m**2 + 2mf + f**2
+      A0 u = sgn*nt2::sqr(m);
+      A0 u1 = sgn*fma(m+m,f,sqr(f));
+      // u is exact, u1 is small.
+      if (u+u1 >  nt2::Maxlog<A0>()) return nt2::Inf<A0>();
+      return nt2::exp(u)*nt2::exp(u1);
     }
   };
 } }

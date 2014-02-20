@@ -28,7 +28,6 @@ namespace nt2 { namespace details
   struct expm1_kernel;
 } }
 
-
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expm1_, tag::cpu_

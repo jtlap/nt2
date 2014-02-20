@@ -12,7 +12,6 @@
 #include <nt2/exponential/functions/sqrt1pm1.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
-#include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/is_less.hpp>
 #include <nt2/include/functions/simd/minusone.hpp>
