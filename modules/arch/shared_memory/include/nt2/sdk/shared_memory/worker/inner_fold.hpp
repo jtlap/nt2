@@ -93,24 +93,16 @@ namespace nt2
 
       for(std::size_t j = begin, k=begin*bound; j < begin+size; ++j, k+=bound)
       {
-        target_type vec_out;
-        value_type s_out;
+        target_type vec_out = neutral_(nt2::meta::as_<target_type>());
+        value_type s_out = neutral_(nt2::meta::as_<value_type>());
 
         if( (size == obound) && (grain < ibound) )
-        {
            vec_out = s( w, k, ibound, grain );
-           s_out = uop_( vec_out );
-        }
 
         else if( ibound != 0 )
-        {
-           vec_out = neutral_(nt2::meta::as_<target_type>());
            w(vec_out, k, ibound);
-           s_out = uop_( vec_out );
-        }
 
-        else
-          s_out = neutral_(nt2::meta::as_<value_type>());
+        s_out = uop_( vec_out );
 
         for(std::size_t i = ibound; i != bound; ++i)
           s_out = bop_(s_out, nt2::run(in_, i+k, meta::as_<value_type>()));

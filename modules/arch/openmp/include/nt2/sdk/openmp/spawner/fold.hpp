@@ -42,7 +42,6 @@ namespace nt2
 #endif
 
       BOOST_ASSERT_MSG( size % grain == 0, "Reduce size not divisible by grain");
-
       std::ptrdiff_t nblocks  = size/grain;
       result_type reduced_out = w.neutral_(nt2::meta::as_<result_type>());
 

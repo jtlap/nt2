@@ -75,9 +75,9 @@ private:
 
 NT2_REGISTER_BENCHMARK_TPL( dot_simd, NT2_SIMD_REAL_TYPES )
 {
-  std::size_t size_min = args("size_min", 16);
-  std::size_t size_max = args("size_max", 4096);
-  std::size_t size_step = args("size_step", 2);
+  std::size_t size_min  = args("size_min",   16*16);
+  std::size_t size_max  = args("size_max", 4096*4096);
+  std::size_t size_step = args("size_step",   4*4);
 
   run_during_with< dot_simd<T> > ( 1.
                                   , geometric(size_min,size_max,size_step)
