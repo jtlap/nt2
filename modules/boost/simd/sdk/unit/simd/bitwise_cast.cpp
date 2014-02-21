@@ -69,15 +69,19 @@ NT2_TEST_CASE_TPL(floating, BOOST_SIMD_SIMD_REAL_TYPES )
   }
 }
 
-#ifndef BOOST_SIMD_HAS_MIC_SUPPORT
 NT2_TEST_CASE_TPL(integer, BOOST_SIMD_SIMD_INTEGRAL_TYPES )
 {
   using boost::simd::native;
   using boost::simd::splat;
   using boost::simd::bitwise_cast;
 
+#ifndef BOOST_SIMD_HAS_MIC_SUPPORT
   typedef native<T,BOOST_SIMD_DEFAULT_EXTENSION> vT;
   typedef native<uint8_t,BOOST_SIMD_DEFAULT_EXTENSION> v8T;
+#else
+  typedef native<T,BOOST_SIMD_DEFAULT_EXTENSION> vT;
+  typedef native<uint32_t,BOOST_SIMD_DEFAULT_EXTENSION> v8T;
+#endif
 
   vT  x = boost::simd::One<vT>();
   v8T y = bitwise_cast<v8T>(x);
@@ -96,4 +100,3 @@ NT2_TEST_CASE_TPL(integer, BOOST_SIMD_SIMD_INTEGRAL_TYPES )
 
   NT2_TEST_EQUAL(y, ref);
 }
-#endif
