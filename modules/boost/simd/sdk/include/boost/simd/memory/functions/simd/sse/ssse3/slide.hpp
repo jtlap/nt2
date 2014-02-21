@@ -38,26 +38,26 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(A0 const& a0, A0 const& a1, N const&) const
     {
-      return eval ( a1, a0
+      return eval ( a0, a1
                   , boost::mpl::bool_<N::value==0>()
                   , boost::mpl::bool_<N::value==A0::static_size>()
                   );
     }
 
     BOOST_FORCEINLINE
-    result_type eval( A0 const& , A0 const& a1
+    result_type eval( A0 const& a0, A0 const&
                     , boost::mpl::true_ const&, boost::mpl::false_ const&
                     ) const
     {
-      return a1;
+      return a0;
     }
 
     BOOST_FORCEINLINE
-    result_type eval( A0 const& a0, A0 const&
+    result_type eval( A0 const&, A0 const& a1
                     , boost::mpl::false_ const&, boost::mpl::true_ const&
                     ) const
     {
-      return a0;
+      return a1;
     }
 
     BOOST_FORCEINLINE
@@ -69,8 +69,8 @@ namespace boost { namespace simd { namespace ext
       typedef typename A0::template rebind<unsigned char>::type u8type;
 
       return bitwise_cast <result_type>
-                          ( u8type( _mm_alignr_epi8 ( bitwise_cast<u8type>(a0)
-                                                    , bitwise_cast<u8type>(a1)
+                          ( u8type( _mm_alignr_epi8 ( bitwise_cast<u8type>(a1)
+                                                    , bitwise_cast<u8type>(a0)
                                                     , N::value * sizeof(scalar_type)
                                                     )
                                   )

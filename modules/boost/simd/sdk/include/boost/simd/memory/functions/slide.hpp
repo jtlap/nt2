@@ -33,29 +33,56 @@ namespace boost { namespace simd
   }
 
   /*!
-    @brief Compute a shifted value
+    @brief Shifted truncation of two vectors
 
+    Compute a vector made of the first elements of the vector obtained by
+    shifting the concatenation of @c a0 and @c a1 by @c N elements on the left
+    or on the right depending on the sign of @c N.
 
     @par Semantic:
 
-    @tparam Misalignment
+    @tparam N
     @param  a0
     @param  a1
   **/
-  template<int Misalignement, typename A0, typename A1>
+  template<int N, typename A0, typename A1>
   BOOST_FORCEINLINE
   typename boost::dispatch::meta
                 ::call<tag::slide_( A0 const&, A1 const&
-                                  , mpl::int_<Misalignement> const&
+                                  , mpl::int_<N> const&
                                   )>::type
   slide(A0 const& a0, A1 const& a1)
   {
     typename  boost::dispatch::meta
             ::dispatch_call<tag::slide_ ( A0 const&, A1 const&
-                                        , mpl::int_<Misalignement> const&
+                                        , mpl::int_<N> const&
                                         )>::type          callee;
 
-    return callee(a0, a1, mpl::int_<Misalignement>());
+    return callee(a0, a1, mpl::int_<N>());
+  }
+
+  /*!
+    @brief Global vector shifting
+
+    Compute a vector made of the first elements of the vector obtained by
+    shifting left the concatenation of @c a0 by @c N elements on the left or
+    on the right depending on the sign of @c N.
+
+    @tparam N
+    @param  a0
+  **/
+  template<int N, typename A0>
+  BOOST_FORCEINLINE
+  typename boost::dispatch::meta
+                ::call<tag::slide_(A0 const&, mpl::int_<N> const&)>::type
+  slide(A0 const& a0)
+  {
+    typename  boost::dispatch::meta
+            ::dispatch_call<tag::slide_ ( A0 const&
+                                        , mpl::int_<N> const&
+                                        )>::type          callee;
+
+    return callee(a0, mpl::int_<N>());
   }
 } }
 
