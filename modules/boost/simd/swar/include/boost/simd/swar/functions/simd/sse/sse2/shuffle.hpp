@@ -11,6 +11,7 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/swar/functions/shuffle.hpp>
+#include <boost/simd/swar/functions/details/shuffler.hpp>
 #include <boost/simd/swar/functions/simd/sse/sse2/details/patterns.hpp>
 #include <boost/simd/swar/functions/simd/sse/sse2/details/permutation.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>

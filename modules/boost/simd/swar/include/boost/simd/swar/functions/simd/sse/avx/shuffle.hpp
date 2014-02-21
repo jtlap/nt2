@@ -11,6 +11,7 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
 #include <boost/simd/swar/functions/shuffle.hpp>
+#include <boost/simd/swar/functions/details/shuffler.hpp>
 #include <boost/simd/swar/functions/simd/sse/avx/details/patterns.hpp>
 #include <boost/simd/swar/functions/simd/sse/avx/details/permutation.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
