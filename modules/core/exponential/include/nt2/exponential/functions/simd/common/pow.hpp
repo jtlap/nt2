@@ -36,6 +36,7 @@
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/oneminus.hpp>
 #include <nt2/include/functions/simd/oneplus.hpp>
+#include <nt2/include/functions/simd/negif.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/shr.hpp>
 #include <nt2/include/functions/simd/signnz.hpp>
@@ -59,8 +60,8 @@ namespace nt2 { namespace ext
       bA0 isltza0 = is_ltz(a0);
       bA0 allz = l_and(is_eqz(a0), is_eqz(a1));
       A0 res =  exp(a1*log(nt2::abs(a0)));
-      res =  if_else(l_and(is_odd(a1), isltza0), -res, res);
-      bA0 invalid =  l_and(isltza0, logical_not( is_flint(a1)));
+      res =  negif(l_and(is_odd(a1), isltza0), res);
+      bA0 invalid =  l_and(isltza0, l_not( is_flint(a1)));
       return if_else(invalid, Nan<result_type>(), if_else(allz, One<A0>(), res));
     }
   };
@@ -78,7 +79,7 @@ namespace nt2 { namespace ext
         typedef result_type             r_type;
         r_type a00 =  tofloat(a0);
         r_type sign_x = bitofsign(a00);
-        r_type x = b_xor(a00, sign_x);//x = nt2::abs(a0)
+        r_type x = b_xor(a00, sign_x);
         int_type sign_n = signnz( a1 );
         int_type n = nt2::abs(a1);
         r_type n_oddf = if_else_zero(is_odd(n), One<r_type>());
@@ -100,13 +101,15 @@ namespace nt2 { namespace ext
         w = rec(y);
         x = tofloat(shri(oneplus(sign_n),1));  // 1 if positive, else 0
         r_type r = if_else(is_even(a1), nt2::abs(a00), a00);
-        return if_nan_else(is_nan(a00),
-                           if_else(is_inf(a00),
-                                   if_else(is_gtz(a1), r, rec(r)),
-                                   fma(x,y,oneminus(x)*w)
-                                  )
-                          );
-    }
+        A0 r1 = fma(x,y,oneminus(x)*w);
+        #ifndef BOOST_SIMD_NO_INFINITIES
+        r1 =  if_else(is_inf(a00), if_else(is_gtz(a1), r, rec(r)), r1);
+        #endif
+        #ifndef BOOST_SIMD_NO_INVALIDS
+        r1 =  if_nan_else(is_nan(a00), r1);
+        #endif
+        return r1;
+     }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_

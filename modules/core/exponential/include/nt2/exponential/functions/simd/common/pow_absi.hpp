@@ -10,9 +10,9 @@
 #define NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_POW_ABSI_HPP_INCLUDED
 #include <nt2/exponential/functions/pow_absi.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/include/functions/simd/abs.hpp>
-#include <nt2/include/functions/simd/is_ltz.hpp>
-#include <nt2/include/functions/simd/is_odd.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/is_ltz.hpp>
+#include <nt2/include/functions/scalar/is_odd.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>

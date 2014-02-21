@@ -101,12 +101,6 @@ namespace nt2 { namespace ext
       r =  if_else(l_and(is_inf(a0), is_ltz(a1)), b_and(r, Mzero<A0>()), r);
       #endif
       return r;
-//       return if_nan_else(is_nan(a0),
-//                          if_else(is_inf(a0),
-//                                  if_else(is_gtz(a1), r, rec(r)),
-//                                  fma(x,y,oneminus(x)*w)
-//                                 )
-//                         );
     }
   };
 
