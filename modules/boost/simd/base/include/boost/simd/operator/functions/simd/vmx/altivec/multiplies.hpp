@@ -86,9 +86,11 @@ namespace boost { namespace simd { namespace ext
       // shifting constant
       typename A0::native_type shift_ = vec_splat_u32(-16);
 
+      A0 sf = vec_rl(a1(), shift_);
+
       // Compute high part of the product
       A0 high    = vec_msum ( short0()
-                            , bitwise_cast<s_t>(vec_rl(a1(), shift_))()
+                            , bitwise_cast<s_t>(sf)()
                             , vec_splat_u32(0)
                             );
 
