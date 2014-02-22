@@ -31,8 +31,12 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(T const& ) const
     {
+      typedef typename result_type::template rebind<unsigned char>::type u8type;
+
       // [0 1 2 ... 12 15]
-      return bitwise_cast<result_type>( vec_lvsl(0,(unsigned char*)(0)) );
+      u8type that = vec_lvsl(0,(unsigned char*)(0));
+
+      return bitwise_cast<result_type>(that);
     }
   };
 } } }
