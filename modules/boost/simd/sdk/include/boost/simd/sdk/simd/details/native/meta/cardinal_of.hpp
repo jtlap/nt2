@@ -9,19 +9,39 @@
 #ifndef BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_META_CARDINAL_OF_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_META_CARDINAL_OF_HPP_INCLUDED
 
-#include <boost/mpl/size_t.hpp>
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/sdk/meta/cardinal_as.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
+#include <boost/simd/sdk/simd/details/max_value.hpp>
+#include <boost/mpl/size_t.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace simd { namespace details
+{
+  template<class T, class X, bool B = false>
+  struct cardinal_of_native
+       : boost::mpl::size_t< sizeof(typename meta::as_simd<T, X>::type)/sizeof(T) >
+  {
+  };
+
+  template<class T, class X>
+  struct cardinal_of_native<T, X, true>
+       : meta::cardinal_of< native< typename max_value< T, meta::cardinal_as<mpl::_, X> >::type
+                                  , X
+                                  >
+                          >
+  {
+  };
+}
+
+namespace meta
 {
   ////////////////////////////////////////////////////////////////////////////
   // Overload for SIMD native types
   ////////////////////////////////////////////////////////////////////////////
   template<class T, class X>
   struct  cardinal_of< native<T,X> >
-        : boost::mpl::size_t< native<T,X>::static_size >
+       :  details::cardinal_of_native<T, X, boost::fusion::traits::is_sequence<T>::value>
   {};
 } } }
 

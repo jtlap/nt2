@@ -11,11 +11,8 @@
 
 #include <boost/simd/sdk/simd/meta/is_native.hpp>
 #include <boost/dispatch/functor/functor.hpp>
-#include <boost/dispatch/meta/is_iterator.hpp>
 #include <boost/dispatch/meta/sfinae_enable_if.hpp>
 #include <boost/type_traits/is_fundamental.hpp>
-#include <boost/dispatch/meta/proxy.hpp>
-#include <boost/dispatch/meta/is_scalar.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
 #include <boost/utility/enable_if.hpp>

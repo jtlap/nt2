@@ -110,7 +110,7 @@ namespace boost { namespace simd
       cur = f(cur, boost::simd::aligned_load<vT>(begin));
 
     // reduce cur
-    for(U const* b = cur.begin(); b != cur.end(); ++b)
+    for(typename vU::const_iterator b = cur.begin(); b != cur.end(); ++b)
       init = f(init, *b);
 
     // epilogue
