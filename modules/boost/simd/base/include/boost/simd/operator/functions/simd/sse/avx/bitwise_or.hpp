@@ -56,12 +56,10 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
     {
-      typedef typename A0::template rebind<float>::type type;
-
-      return bitwise_cast<A0>( _mm256_or_ps ( bitwise_cast<type>(a0)
-                                            , bitwise_cast<type>(a1)
-                                            )
-                             );
+      return _mm256_castps_si256(_mm256_or_ps( _mm256_castsi256_ps(a0)
+                                             , _mm256_castsi256_ps(a1)
+                                             )
+                                );
     }
   };
 } } }

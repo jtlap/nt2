@@ -35,11 +35,10 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE static T call(T const& a0, P const&)
     {
       typedef typename T::template rebind<unsigned char>::type m_t;
-      return  bitwise_cast<T>
-                            ( _mm_shuffle_epi8( bitwise_cast<m_t>(a0)
-                                              , details::permute<P,m_t,N>::call()
-                                              )
-                            );
+      m_t const that = _mm_shuffle_epi8( bitwise_cast<m_t>(a0)
+                                       , details::permute<P,m_t,N>::call()
+                                       );
+      return bitwise_cast<T>(that);
     }
 
     // Keep a0 indexing, zero out the other

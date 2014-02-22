@@ -30,32 +30,6 @@ namespace boost { namespace simd
     };
   }
 
-  namespace details
-  {
-    template<typename A0, typename T>
-    struct bitwise_cast_impl
-    {
-      typedef typename  dispatch::meta
-                        ::call<tag::bitwise_cast_ ( A0 const&
-                                                  , dispatch::meta::as_<T> const&
-                                                  )
-                              >::type                             type;
-
-      static BOOST_FORCEINLINE type call(A0 const& a0)
-      {
-        typename  boost::dispatch::meta
-                  ::dispatch_call<tag::bitwise_cast_( A0 const&
-                                                    , boost::dispatch::meta
-                                                                ::as_<T> const&
-                                                    )
-                                  >::type                callee;
-
-        dispatch::meta::as_<T> const target = {};
-        return callee(a0, target);
-      }
-    };
-  }
-
   /*!
     @brief Bitwise cast
 
@@ -76,14 +50,25 @@ namespace boost { namespace simd
   **/
   template<typename Target, typename Value>
   BOOST_FORCEINLINE
-  #if !defined(DOXYGEN_ONLY)
-  typename details::bitwise_cast_impl<Value, Target>::type
-  #else
-  unspecified
-  #endif
+  typename boost::dispatch::meta::
+  result_of< typename boost::dispatch::meta::
+             dispatch_call<tag::bitwise_cast_( Value const&
+                                             , boost::dispatch::meta::as_<Target> const&
+                                             )
+                          >::type
+             ( Value const&
+             , boost::dispatch::meta::as_<Target> const&
+             )
+           >::type
   bitwise_cast(Value const& value)
   {
-    return details::bitwise_cast_impl<Value, Target>::call(value);
+    typename boost::dispatch::meta::
+    dispatch_call<tag::bitwise_cast_( Value const&
+                                    , boost::dispatch::meta::as_<Target> const&
+                                    )
+                 >::type callee;
+    dispatch::meta::as_<Target> const target = {};
+    return callee(value, target);
   }
 } }
 

@@ -31,10 +31,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(A0 const& a0,A1 const& a1,A1 const& a2) const
     {
-      return bitwise_cast<A1> ( _mm256_blendv_ps( a2, a1
-                                                , bitwise_cast<A1>(genmask(a0))
-                                                )
-                              );
+      return _mm256_blendv_ps(a2, a1, bitwise_cast<A1>(genmask(a0)));
     }
   };
 
@@ -51,10 +48,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(A0 const& a0,A1 const& a1,A1 const& a2) const
     {
-      return bitwise_cast<A1> ( _mm256_blendv_pd( a2, a1
-                                                , bitwise_cast<A1>(genmask(a0))
-                                                )
-                              );
+      return _mm256_blendv_pd(a2, a1, bitwise_cast<A1>(genmask(a0)));
     }
   };
 

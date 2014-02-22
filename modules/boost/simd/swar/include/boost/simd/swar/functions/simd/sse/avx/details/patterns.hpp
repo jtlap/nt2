@@ -58,7 +58,7 @@ namespace boost { namespace simd { namespace ext
     static BOOST_FORCEINLINE T process(T const& a0, P const&)
     {
       typedef typename boost::dispatch::meta::as_floating<T>::type i_t;
-      return bitwise_cast<T>(_mm256_movedup_pd( bitwise_cast<i_t>(a0) ));
+      return bitwise_cast<T>(i_t(_mm256_movedup_pd( bitwise_cast<i_t>(a0) )));
     }
   };
 
@@ -72,7 +72,7 @@ namespace boost { namespace simd { namespace ext
     static BOOST_FORCEINLINE T process(T const& a0, P const&)
     {
       typedef typename boost::dispatch::meta::as_floating<T>::type i_t;
-      return bitwise_cast<T>(_mm256_moveldup_ps( bitwise_cast<i_t>(a0) ));
+      return bitwise_cast<T>(i_t(_mm256_moveldup_ps( bitwise_cast<i_t>(a0) )));
     }
   };
 
@@ -83,7 +83,7 @@ namespace boost { namespace simd { namespace ext
     static BOOST_FORCEINLINE T process(T const& a0, P const&)
     {
       typedef typename boost::dispatch::meta::as_floating<T>::type i_t;
-      return bitwise_cast<T>(_mm256_movehdup_ps( bitwise_cast<i_t>(a0) ));
+      return bitwise_cast<T>(i_t(_mm256_movehdup_ps( bitwise_cast<i_t>(a0) )));
     }
   };
 } } }

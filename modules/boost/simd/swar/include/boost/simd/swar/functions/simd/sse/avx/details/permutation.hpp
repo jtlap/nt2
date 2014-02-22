@@ -101,10 +101,11 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::as_floating<T>::type f_t;
 
-      return bitwise_cast<T>( _mm256_shuffle_pd ( bitwise_cast<f_t>(a0)
-                                                , bitwise_cast<f_t>(a1)
-                                                , (details::avx_mask<P,4>::value)
-                                            )
+      return bitwise_cast<T>( f_t(_mm256_shuffle_pd ( bitwise_cast<f_t>(a0)
+                                                    , bitwise_cast<f_t>(a1)
+                                                    , (details::avx_mask<P,4>::value)
+                                                    )
+                                 )
                             );
     }
 
@@ -178,10 +179,11 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::as_floating<T>::type f_t;
 
-      return bitwise_cast<T>( _mm256_shuffle_ps ( bitwise_cast<f_t>(a0)
-                                                , bitwise_cast<f_t>(a1)
-                                                , (details::avx_mask<P,8>::value)
-                                            )
+      return bitwise_cast<T>(f_t(_mm256_shuffle_ps ( bitwise_cast<f_t>(a0)
+                                                   , bitwise_cast<f_t>(a1)
+                                                   , (details::avx_mask<P,8>::value)
+                                                   )
+                                )
                             );
     }
 

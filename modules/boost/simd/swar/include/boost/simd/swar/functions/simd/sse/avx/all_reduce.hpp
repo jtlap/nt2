@@ -13,6 +13,7 @@
 
 #include <boost/simd/swar/functions/all_reduce.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -34,36 +35,17 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, Tag const&) const
     {
-      return eval(a0, dispatch::functor<base>());
-    }
+      typedef typename dispatch::meta::as_floating<A0>::type ftype;
+      dispatch::functor<base> op;
 
-    BOOST_FORCEINLINE
-    result_type eval(__m256d a0, dispatch::functor<base> const& op) const
-    {
-      A0          xs    = _mm256_permute_pd(a0, _MM_SHUFFLE2(2,1) );
-      result_type that  = op( xs
-                            , bitwise_cast<A0>(_mm256_permute2f128_pd(xs,xs,1))
-                            );
-      result_type pthat = _mm256_permute_pd(that, _MM_SHUFFLE2(2,1));
+      ftype a = _mm256_permute_pd(bitwise_cast<ftype>(a0), _MM_SHUFFLE2(2,1));
+      ftype b = _mm256_permute2f128_pd(a,a,1);
+      result_type that = op( bitwise_cast<A0>(a)
+                           , bitwise_cast<A0>(b)
+                           );
+      ftype pthat = _mm256_permute_pd(bitwise_cast<ftype>(that), _MM_SHUFFLE2(2,1));
 
-      return op(that,pthat);
-    }
-
-    BOOST_FORCEINLINE
-    result_type eval(__m256i a0, dispatch::functor<base> const& op) const
-    {
-      __m256d     xs    = _mm256_permute_pd(_mm256_castsi256_pd(a0), _MM_SHUFFLE2(2,1));
-      result_type that  = op( bitwise_cast<A0>(xs)
-                            , bitwise_cast<A0>(_mm256_permute2f128_pd(xs,xs,1))
-                            );
-
-      return op ( that
-                , bitwise_cast<result_type>
-                          ( _mm256_permute_pd ( bitwise_cast<__m256d>(that)
-                                              , _MM_SHUFFLE2(2,1)
-                                              )
-                          )
-                );
+      return op(that, bitwise_cast<result_type>(pthat));
     }
   };
 
@@ -84,45 +66,20 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, Tag const&) const
     {
-      return eval(a0, dispatch::functor<base>());
-    }
+      typedef typename dispatch::meta::as_floating<A0>::type ftype;
+      dispatch::functor<base> op;
 
-    BOOST_FORCEINLINE
-    result_type eval(__m256 a0, dispatch::functor<base> const& op) const
-    {
-      A0          xs    = _mm256_permute_ps(a0, _MM_SHUFFLE( 0,3,2,1 ) );
-      result_type that  = op( xs
-                            , bitwise_cast<A0>(_mm256_permute2f128_ps(xs,xs,1))
+      ftype a = _mm256_permute_ps(bitwise_cast<ftype>(a0), _MM_SHUFFLE( 0,3,2,1 ));
+      ftype b = _mm256_permute2f128_ps(a,a,1);
+      result_type that  = op( bitwise_cast<A0>(a)
+                            , bitwise_cast<A0>(b)
                             );
-      result_type pthat = _mm256_permute_ps(that, _MM_SHUFFLE( 1,0,3,2 ));
+      ftype pthat = _mm256_permute_ps(bitwise_cast<ftype>(that), _MM_SHUFFLE( 1,0,3,2 ));
 
-      that  = op(that,pthat);
-      pthat = _mm256_permute_ps(that,_MM_SHUFFLE(2,3,0,1));
+      that  = op(that, bitwise_cast<result_type>(pthat));
+      pthat = _mm256_permute_ps(bitwise_cast<ftype>(that), _MM_SHUFFLE(2,3,0,1));
 
-      return op(that,pthat);
-    }
-
-    BOOST_FORCEINLINE
-    result_type eval(__m256i a0, dispatch::functor<base> const& op) const
-    {
-      __m256      xs    = _mm256_permute_ps(_mm256_castsi256_ps(a0),_MM_SHUFFLE(0,3,2,1));
-      result_type that  = op( bitwise_cast<A0>(xs)
-                            , bitwise_cast<A0>(_mm256_permute2f128_ps(xs,xs,1))
-                            );
-      result_type pthat = bitwise_cast<result_type>
-                          ( _mm256_permute_ps ( bitwise_cast<__m256>(that)
-                                              , _MM_SHUFFLE( 1,0,3,2 )
-                                              )
-                          );
-
-      that  = op(that,pthat);
-      pthat = bitwise_cast<result_type>
-              ( _mm256_permute_ps ( bitwise_cast<__m256>(that)
-                                  , _MM_SHUFFLE( 2,3,0,1 )
-                                  )
-              );
-
-      return op(that,pthat);
+      return op(that, bitwise_cast<result_type>(pthat));
     }
   };
 } } }

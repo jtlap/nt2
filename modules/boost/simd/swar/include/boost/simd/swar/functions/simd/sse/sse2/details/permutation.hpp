@@ -65,9 +65,10 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_floating<T>::type f_t;
       f_t v = bitwise_cast<f_t>(a0);
 
-      return bitwise_cast<T>(_mm_shuffle_pd (v, v
-                                            , (details::shuffle_mask<P,2>::value)
-                                            )
+      return bitwise_cast<T>( f_t(_mm_shuffle_pd (v, v
+                                                 , (details::shuffle_mask<P,2>::value)
+                                                 )
+                                 )
                             );
     }
 
@@ -86,12 +87,13 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::as_floating<T>::type f_t;
 
-      return bitwise_cast<T>( _mm_shuffle_pd( bitwise_cast<f_t>(a0)
-                                            , bitwise_cast<f_t>(a1)
-                                            , ( details::shuffle_mask
-                                                < details::clamp<P,2>, 2>::value
-                                              )
-                                            )
+      return bitwise_cast<T>( f_t(_mm_shuffle_pd( bitwise_cast<f_t>(a0)
+                                                , bitwise_cast<f_t>(a1)
+                                                , ( details::shuffle_mask
+                                                    < details::clamp<P,2>, 2>::value
+                                                  )
+                                                )
+                                 )
                             );
     }
 
@@ -201,12 +203,13 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::as_floating<T>::type f_t;
 
-      return bitwise_cast<T>( _mm_shuffle_ps( bitwise_cast<f_t>(a0)
-                                            , bitwise_cast<f_t>(a1)
-                                            , (details::shuffle_mask
-                                                <details::clamp<P,4>, 4>::value
-                                              )
-                                            )
+      return bitwise_cast<T>( f_t(_mm_shuffle_ps( bitwise_cast<f_t>(a0)
+                                                , bitwise_cast<f_t>(a1)
+                                                , (details::shuffle_mask
+                                                    <details::clamp<P,4>, 4>::value
+                                                  )
+                                                )
+                                 )
                             );
     }
 

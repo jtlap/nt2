@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_cast_, tag::cpu_, (A0)(A1)
                             , (generic_< unspecified_<A0> >)
-                              (target_< unspecified_<A1> >)
+                              (target_< generic_< unspecified_<A1> > >)
                             )
   {
     typedef typename A1::type const& result_type;
@@ -46,7 +46,7 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::bitwise_cast_, tag::cpu_, (A0)(A1)
                             , (mpl::not_< is_same<A0, typename A1::type > >)
                             , (generic_< unspecified_<A0> >)
-                              (target_< unspecified_<A1> >)
+                              (target_< generic_< unspecified_<A1> > >)
                             )
   {
     typedef typename A1::type result_type;
@@ -68,7 +68,7 @@ namespace boost { namespace simd { namespace ext
   BOOST_DISPATCH_REGISTER_TO_IF((boost)(simd)(ext), boost::simd::tag::bitwise_cast_, tag::cpu_, (A0)(A1)
                             , (is_same<A0, typename A1::type>)
                             , (generic_< unspecified_<A0> >)
-                              (target_< unspecified_<A1> >)
+                              (target_< generic_< unspecified_<A1> > >)
                             , dispatch::identity
                             );
 

@@ -11,7 +11,6 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/operator/functions/bitwise_and.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -19,18 +18,14 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::bitwise_and_
                                     , boost::simd::tag::sse2_
                                     , (A0)
-                                    , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
-                                      ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
+                                    , ((simd_<integer_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<integer_<A0>,boost::simd::tag::sse_>))
                                     )
   {
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
     {
-      typedef typename dispatch::meta::as_integer< A0 >::type type;
-      return bitwise_cast<A0>( _mm_and_si128 ( bitwise_cast<type>( a0 )
-                                             , bitwise_cast<type>( a1 )
-                                             )
-                             );
+      return _mm_and_si128(a0, a1);
     }
   };
 
