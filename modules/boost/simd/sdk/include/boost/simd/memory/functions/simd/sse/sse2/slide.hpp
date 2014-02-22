@@ -38,16 +38,18 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(A0 const& a0, A0 const& a1, N const&) const
     {
+      typedef typename A0::template rebind<unsigned char>::type u8type;
+
       // Compute relative offsets for shifted loads pair
       static const std::size_t cardinal = meta::cardinal_of<A0>::value;
       static const std::size_t shifta   = (16u/cardinal)*(N::value);
       static const std::size_t shiftb   = (16u/cardinal)*(cardinal-N::value);
 
       // Shift everything in place
-      __m128i sa = _mm_srli_si128(bitwise_cast<__m128i>(a0),shifta);
-      __m128i sb = _mm_slli_si128(bitwise_cast<__m128i>(a1),shiftb);
+      __m128i sa = _mm_srli_si128(bitwise_cast<u8type>(a0),shifta);
+      __m128i sb = _mm_slli_si128(bitwise_cast<u8type>(a1),shiftb);
 
-      return bitwise_cast<result_type>(_mm_or_si128(sa,sb));
+      return bitwise_cast<result_type>(u8type(_mm_or_si128(sa,sb)));
     }
   };
 } } }
