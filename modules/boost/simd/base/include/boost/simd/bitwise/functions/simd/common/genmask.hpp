@@ -49,7 +49,7 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<logical_<A0>,X>))
                             )
   {
-    typedef typename A0::type const& result_type;
+    typedef typename A0::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return bitwise_cast<typename A0::type>(a0);
