@@ -42,24 +42,25 @@ namespace boost { namespace simd { namespace ext
                                     )
     {
       typedef typename meta::scalar_of<T>::type                s_t;
+      typedef typename T::template rebind<unsigned char>::type m_t;
 
-      __vector char mask =  { details::zero_mask<s_t,P, 0,N>::value
-                            , details::zero_mask<s_t,P, 1,N>::value
-                            , details::zero_mask<s_t,P, 2,N>::value
-                            , details::zero_mask<s_t,P, 3,N>::value
-                            , details::zero_mask<s_t,P, 4,N>::value
-                            , details::zero_mask<s_t,P, 5,N>::value
-                            , details::zero_mask<s_t,P, 6,N>::value
-                            , details::zero_mask<s_t,P, 7,N>::value
-                            , details::zero_mask<s_t,P, 8,N>::value
-                            , details::zero_mask<s_t,P, 9,N>::value
-                            , details::zero_mask<s_t,P,10,N>::value
-                            , details::zero_mask<s_t,P,11,N>::value
-                            , details::zero_mask<s_t,P,12,N>::value
-                            , details::zero_mask<s_t,P,13,N>::value
-                            , details::zero_mask<s_t,P,14,N>::value
-                            , details::zero_mask<s_t,P,15,N>::value
-                            };
+      m_t mask = make<m_t>( details::zero_mask<s_t,P, 0,N>::value
+                          , details::zero_mask<s_t,P, 1,N>::value
+                          , details::zero_mask<s_t,P, 2,N>::value
+                          , details::zero_mask<s_t,P, 3,N>::value
+                          , details::zero_mask<s_t,P, 4,N>::value
+                          , details::zero_mask<s_t,P, 5,N>::value
+                          , details::zero_mask<s_t,P, 6,N>::value
+                          , details::zero_mask<s_t,P, 7,N>::value
+                          , details::zero_mask<s_t,P, 8,N>::value
+                          , details::zero_mask<s_t,P, 9,N>::value
+                          , details::zero_mask<s_t,P,10,N>::value
+                          , details::zero_mask<s_t,P,11,N>::value
+                          , details::zero_mask<s_t,P,12,N>::value
+                          , details::zero_mask<s_t,P,13,N>::value
+                          , details::zero_mask<s_t,P,14,N>::value
+                          , details::zero_mask<s_t,P,15,N>::value
+                          );
 
       T that = vec_and( call(a0,a1,p,boost::mpl::false_())()
                       , bitwise_cast<T>(mask)()
