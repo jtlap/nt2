@@ -27,10 +27,12 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::as_integer< A0 >::type int_type;
-      return bitwise_cast<A0>( _mm_andnot_si128( simd::bitwise_cast<int_type>(a1)
-                                               , simd::bitwise_cast<int_type>(a0)
-                                               )
-                             );
+
+      int_type that = _mm_andnot_si128( simd::bitwise_cast<int_type>(a1)
+                                      , simd::bitwise_cast<int_type>(a0)
+                                      );
+
+      return bitwise_cast<A0>( that );
     }
   };
 
