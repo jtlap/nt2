@@ -8,11 +8,12 @@
 //==============================================================================
 #ifndef BOOST_SIMD_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_LTZ_HPP_INCLUDED
 #define BOOST_SIMD_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_LTZ_HPP_INCLUDED
+
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/predicates/functions/is_ltz.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
-#include <boost/simd/sdk/meta/make_dependent.hpp>
-#include <boost/simd/swar/functions/details/shuffle.hpp>
+#include <boost/dispatch/meta/downgrade.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -23,16 +24,16 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef typename meta::as_logical<A0>::type                     result_type;
-    typedef typename meta::make_dependent<int32_t,A0>::type         int32_type;
-    typedef boost::simd::native<int32_type,boost::simd::tag::sse_>  type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return  bitwise_cast<result_type>
-              (
-                details::shuffle<1,1,3,3>
-                ( is_ltz(bitwise_cast<type>(a0))() )
-              );
+      typedef typename boost::dispatch::meta::downgrade<A0>::type  i32type;
+
+      i32type that = _mm_shuffle_epi32( is_ltz(bitwise_cast<i32type>(a0))
+                                      , _MM_SHUFFLE(3,3,1,1)
+                                      );
+
+      return  bitwise_cast<result_type>(that);
     }
   };
 } } }
