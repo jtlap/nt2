@@ -9,6 +9,8 @@
 #ifndef BOOST_SIMD_BITWISE_FUNCTIONS_SIMD_SSE_SSE2_BITWISE_NOTAND_HPP_INCLUDED
 #define BOOST_SIMD_BITWISE_FUNCTIONS_SIMD_SSE_SSE2_BITWISE_NOTAND_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+
+#include <boost/simd/bitwise/functions/bitwise_notand.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/mpl/equal_to.hpp>
 
@@ -26,13 +28,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      typedef typename dispatch::meta::as_integer< A0 >::type int_type;
-
-      int_type that = _mm_andnot_si128( simd::bitwise_cast<int_type>(a0)
-                                      , simd::bitwise_cast<int_type>(a1)
-                                      );
-
-      return bitwise_cast<A0>( that );
+      return _mm_andnot_si128(a0, a1);
     }
   };
 
