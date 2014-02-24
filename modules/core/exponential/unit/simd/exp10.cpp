@@ -26,7 +26,7 @@
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/oneo_10.hpp>
 
-NT2_TEST_CASE_TPL ( exp10_real_1,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( exp10,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::exp10;
   using nt2::tag::exp10_;

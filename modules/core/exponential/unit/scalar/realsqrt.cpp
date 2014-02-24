@@ -1,4 +1,4 @@
-//         Copyright 2003 - 2013   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//==============================================================================
 //         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
@@ -23,7 +23,7 @@
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/nan.hpp>
 
-NT2_TEST_CASE_TPL ( realsqrt_real,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( realsqrt,  NT2_REAL_TYPES)
 {
   using nt2::realsqrt;
   using nt2::tag::realsqrt_;

@@ -26,7 +26,7 @@
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
 
-NT2_TEST_CASE_TPL ( exp2_real_1,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( exp2,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::exp2;
   using nt2::tag::exp2_;
@@ -50,42 +50,4 @@ NT2_TEST_CASE_TPL ( exp2_real_1,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(exp2(nt2::Mone<vT>()), nt2::Half<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(exp2(nt2::One<vT>()), nt2::Two<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(exp2(nt2::Zero<vT>()), nt2::One<r_t>(), 0);
-}
-
-NT2_TEST_CASE_TPL ( exp2_unsigned_int,  NT2_SIMD_UNSIGNED_TYPES)
-{
-  using nt2::exp2;
-  using nt2::tag::exp2_;
-  using boost::simd::native;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>                  vT;
-
-  typedef vT wished_rt;
-
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS(vT, wished_rt);
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(exp2(nt2::One<vT>()), nt2::Two<vT>(), 0);
-  NT2_TEST_ULP_EQUAL(exp2(nt2::Zero<vT>()), nt2::One<vT>(), 0);
-}
-
-NT2_TEST_CASE_TPL ( exp2_signed_int,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
-{
-  using nt2::exp2;
-  using nt2::tag::exp2_;
-  using boost::simd::native;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>                  vT;
-
-  typedef vT wished_rt;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS(vT, wished_rt);
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(exp2(nt2::Mone<vT>()), nt2::Half<vT>(), 0);
-  NT2_TEST_ULP_EQUAL(exp2(nt2::One<vT>()), nt2::Two<vT>(), 0);
-  NT2_TEST_ULP_EQUAL(exp2(nt2::Zero<vT>()), nt2::One<vT>(), 0);
 }
