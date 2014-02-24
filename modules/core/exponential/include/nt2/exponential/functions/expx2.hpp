@@ -35,7 +35,7 @@ namespace nt2 { namespace tag
     For every parameters of floating type T0
 
     @code
-    T0 r = expx2(x, s);
+    T0 r = expx2(x);
     @endcode
 
     is similar to:
