@@ -10,15 +10,15 @@
 #define NT2_EXPONENTIAL_FUNCTIONS_GENERIC_POW2_HPP_INCLUDED
 
 #include <nt2/exponential/functions/pow2.hpp>
+#include <boost/assert.hpp>
+#include <boost/simd/sdk/config.hpp>
+#include <nt2/include/constants/one.hpp>
 #include <nt2/include/functions/simd/fast_ldexp.hpp>
 #include <nt2/include/functions/simd/toint.hpp>
-#include <nt2/include/constants/one.hpp>
-#include <boost/simd/sdk/config.hpp>
 
 #ifndef BOOST_SIMD_NO_INVALIDS
-#include <nt2/include/functions/simd/is_finite.hpp>
 #include <boost/simd/operator/functions/details/assert_utils.hpp>
-#include <boost/assert.hpp>
+#include <nt2/include/functions/simd/is_finite.hpp>
 #endif
 
 namespace nt2 { namespace ext
@@ -49,7 +49,8 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       #ifndef BOOST_SIMD_NO_INVALIDS
-      BOOST_ASSERT_MSG(boost::simd::assert_all(is_finite(a1)), "pow2 is not defined for an invalid second parameter");
+      BOOST_ASSERT_MSG(boost::simd::assert_all(is_finite(a1)),
+                       "pow2 is not defined for an invalid second parameter");
       #endif
       return nt2::fast_ldexp(a0, nt2::toint(a1));
     }
@@ -93,12 +94,12 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL_REPEAT(1)
     {
       #ifndef BOOST_SIMD_NO_INVALIDS
-      BOOST_ASSERT_MSG(boost::simd::assert_all(is_finite(a0)), "pow2 with one parameter is not defined for an invalid entry");
+      BOOST_ASSERT_MSG(boost::simd::assert_all(is_finite(a0)),
+                       "pow2 with one parameter is not defined for an invalid entry");
       #endif
       return nt2::fast_ldexp(One<A0>(), toint(a0));
     }
   };
 } }
-
 
 #endif

@@ -10,11 +10,12 @@
 #define NT2_EXPONENTIAL_FUNCTIONS_GENERIC_LOG2_HPP_INCLUDED
 
 #include <nt2/exponential/functions/log2.hpp>
-#include <nt2/exponential/functions/scalar/impl/logs.hpp>
-#include <nt2/exponential/functions/simd/common/impl/logs.hpp>
+#include <boost/simd/sdk/simd/meta/is_native.hpp>
+#include <nt2/exponential/functions/scalar/impl/logarithm.hpp>
+#include <nt2/exponential/functions/simd/common/impl/logarithm.hpp>
 #include <nt2/include/functions/simd/frexp.hpp>
 #include <nt2/include/functions/simd/ilog2.hpp>
-#include <boost/simd/sdk/simd/meta/is_native.hpp>
+#include <nt2/include/functions/simd/log2.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -70,6 +71,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 
 #endif

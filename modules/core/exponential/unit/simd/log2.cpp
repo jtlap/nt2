@@ -1,5 +1,4 @@
 //==============================================================================
-//         Copyright 2003 - 2013   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
@@ -24,7 +23,7 @@
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
 
-NT2_TEST_CASE_TPL ( log2_real_1,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( log2,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::log2;
   using nt2::tag::log2_;
@@ -48,4 +47,25 @@ NT2_TEST_CASE_TPL ( log2_real_1,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(log2(nt2::Zero<vT>()), nt2::Minf<r_t>(), 0);
 #endif
   NT2_TEST_ULP_EQUAL(log2(nt2::One<vT>()), nt2::Zero<r_t>(), 0);
+}
+
+NT2_TEST_CASE_TPL ( log2_int,  NT2_SIMD_INTEGRAL_TYPES)
+{
+  using nt2::log2;
+  using nt2::tag::log2_;
+  using boost::simd::native;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+
+  typedef native<T,ext_t>                  vT;
+  typedef typename nt2::meta::call<log2_(vT)>::type r_t;
+  typedef vT wished_r_t;
+
+  // return type conformity test
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(log2(nt2::One<vT>()), nt2::Zero<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(log2(nt2::splat<vT>(2)), nt2::splat<vT>(1), 0);
+  NT2_TEST_ULP_EQUAL(log2(nt2::splat<vT>(8)), nt2::splat<vT>(3), 0);
+  NT2_TEST_ULP_EQUAL(log2(nt2::splat<vT>(64)), nt2::splat<vT>(6), 0);
 }

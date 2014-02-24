@@ -7,8 +7,8 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <nt2/include/functions/exp.hpp>
-#include <nt2/include/constants/valmin.hpp>
-#include <nt2/include/constants/valmax.hpp>
+#include <nt2/include/constants/minlog.hpp>
+#include <nt2/include/constants/maxlog.hpp>
 
 #include <nt2/sdk/unit/exhaustive.hpp>
 
@@ -28,8 +28,8 @@ struct raw_exp
 
 int main(int argc, char* argv[])
 {
-  float mini = nt2::Valmin<float>();
-  float maxi = nt2::Valmax<float>();
+  float mini = nt2::Minlog<float>();
+  float maxi = nt2::Maxlog<float>();
   if(argc >= 2) mini = std::atof(argv[1]);
   if(argc >= 3) maxi = std::atof(argv[2]);
   nt2::exhaustive_test<float> ( mini

@@ -10,41 +10,38 @@
 #define NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_LOGSPACE_ADD_HPP_INCLUDED
 
 #include <nt2/exponential/functions/logspace_add.hpp>
+#include <boost/simd/sdk/config.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
-#include <nt2/include/functions/simd/max.hpp>
-#include <nt2/include/functions/simd/log1p.hpp>
 #include <nt2/include/functions/simd/exp.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
-#include <nt2/include/functions/simd/unary_minus.hpp>
+#include <nt2/include/functions/simd/log1p.hpp>
+#include <nt2/include/functions/simd/max.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
+
+#ifndef BOOST_SIMD_NO_NANS
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/is_nan.hpp>
-#include <nt2/include/functions/simd/plus.hpp>
+#endif
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::logspace_add_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_< arithmetic_<A0>, X>))((simd_< arithmetic_<A0>, X >))
-                            )
-  {
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-    NT2_FUNCTOR_CALL_REPEAT(2)
-    {
-      return nt2::logspace_add(tofloat(a0), tofloat(a1));
-    }
-  };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::logspace_add_, tag::cpu_
                             , (A0)(X)
-                            , ((simd_< floating_<A0>, X >))((simd_< floating_<A0>, X >))
+                            , ((simd_< floating_<A0>, X >))
+                              ((simd_< floating_<A0>, X >))
                             )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       A0 tmp = -nt2::abs(a0-a1);
-      return if_else(is_nan(tmp), a0+a1, nt2::max(a0,a1)+nt2::log1p(nt2::exp(tmp)));
+      A0 r = nt2::max(a0,a1)+nt2::log1p(nt2::exp(tmp));
+      #ifndef BOOST_SIMD_NO_NANS
+      r = if_else(is_nan(tmp), a0+a1, r);
+      #endif
+      return r;
     }
   };
 } }

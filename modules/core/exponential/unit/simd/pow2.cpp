@@ -1,5 +1,4 @@
 //==============================================================================
-//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
@@ -25,7 +24,7 @@
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 
-NT2_TEST_CASE_TPL ( pow2_real,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( pow2,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::pow2;
   using nt2::tag::pow2_;
@@ -58,4 +57,4 @@ NT2_TEST_CASE_TPL ( pow2_real,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(pow2(nt2::Mone<vT>(), nt2::splat<vT>(T(2.5))), -nt2::Four<r_t>());
   NT2_TEST_EQUAL(pow2(nt2::One<vT>(),  nt2::splat<vT>(T(2.5))), nt2::Four<r_t>());
   NT2_TEST_EQUAL(pow2(nt2::Zero<vT>(), nt2::splat<vT>(T(2.5))), nt2::Zero<r_t>());
-} // end of test for floating_
+}

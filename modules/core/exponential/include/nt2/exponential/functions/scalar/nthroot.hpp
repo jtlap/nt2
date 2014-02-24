@@ -9,41 +9,21 @@
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_SCALAR_NTHROOT_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_NTHROOT_HPP_INCLUDED
 #include <nt2/exponential/functions/nthroot.hpp>
-#include <nt2/include/functions/scalar/signnz.hpp>
-#include <nt2/include/functions/scalar/pow.hpp>
-#include <nt2/include/functions/scalar/abs.hpp>
-#include <nt2/include/functions/scalar/minusone.hpp>
-#include <nt2/include/functions/scalar/rec.hpp>
-#include <nt2/include/functions/scalar/is_ltz.hpp>
-#include <nt2/include/functions/scalar/is_odd.hpp>
+#include <boost/simd/sdk/config.hpp>
+#include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/is_ltz.hpp>
+#include <nt2/include/functions/scalar/is_odd.hpp>
+#include <nt2/include/functions/scalar/minusone.hpp>
+#include <nt2/include/functions/scalar/pow.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
 
+#ifndef BOOST_SIMD_NO_INFINITIES
+#include <nt2/include/functions/scalar/is_inf.hpp>
+#endif
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nthroot_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)
-                            )
-  {
-
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      return nt2::nthroot(result_type(a0),a1);
-    }
-  };
-} }
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nthroot_, tag::cpu_
@@ -56,22 +36,23 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename boost::dispatch::meta::as_floating<A0>::type type;
-      if (!a1) return One<type>();
-      if (!a0) return Zero<type>();
+      if (!a1) return One<A0>();
+      if (!a0) return Zero<A0>();
       bool is_ltza0 = is_ltz(a0);
-      if (!is_odd(a1) && is_ltza0) return Nan<type>();
+      bool is_odda1 = is_odd(a1);
+      if (is_ltza0 && !is_odda1) return Nan<A0>();
+      #ifndef BOOST_SIMD_NO_INFINITIES
       if (is_inf(a0)) return a0;
-      type aa1 = type(a1);
-      type x = nt2::abs(a0);
-      type y = nt2::pow(x,rec(aa1));
+      #endif
+      A0 aa1 = static_cast<A0>(a1);
+      A0 x = nt2::abs(a0);
+      A0 y = nt2::pow(x,rec(aa1));
       // Correct numerical errors (since, e.g., 64^(1/3) is not exactly 4)
       // by one iteration of Newton's method
       if (y) y -= (nt2::pow(y, a1) - x) / (aa1* nt2::pow(y,minusone(a1)));
-      return (is_ltza0) ? -y : y;
+      return (is_ltza0 && is_odda1)? -y : y;
     }
   };
 } }
-
 
 #endif

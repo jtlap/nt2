@@ -10,26 +10,13 @@
 #define NT2_EXPONENTIAL_FUNCTIONS_GENERIC_LOG_HPP_INCLUDED
 
 #include <nt2/exponential/functions/log.hpp>
-#include <nt2/exponential/functions/scalar/impl/logs.hpp>
-#include <nt2/exponential/functions/simd/common/impl/logs.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
 #include <boost/simd/sdk/simd/meta/is_native.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
+#include <nt2/exponential/functions/scalar/impl/logarithm.hpp>
+#include <nt2/exponential/functions/simd/common/impl/logarithm.hpp>
+#include <nt2/include/functions/simd/log.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log_, tag::cpu_
-                            , (A0)
-                            , (generic_< arithmetic_<A0> >)
-                            )
-  {
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::log(nt2::tofloat(a0));
-    }
-  };
-
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log_, tag::cpu_
                             , (A0)
                             , (generic_< floating_<A0> >)
@@ -43,6 +30,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 
 #endif

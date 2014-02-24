@@ -10,40 +10,41 @@
 #define NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_CBRT_HPP_INCLUDED
 
 #include <nt2/exponential/functions/cbrt.hpp>
-#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
-#include <nt2/include/functions/simd/abs.hpp>
-#include <nt2/include/functions/simd/fast_frexp.hpp>
-#include <nt2/include/functions/simd/is_gez.hpp>
-#include <nt2/include/functions/simd/is_equal.hpp>
-#include <nt2/include/functions/simd/fast_ldexp.hpp>
-#include <nt2/include/functions/simd/bitofsign.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/simd/divides.hpp>
-#include <nt2/include/functions/simd/multiplies.hpp>
-#include <nt2/include/functions/simd/minus.hpp>
-#include <nt2/include/functions/simd/is_eqz.hpp>
-#include <nt2/include/functions/simd/sqr.hpp>
-#include <nt2/include/functions/simd/bitwise_or.hpp>
-#include <nt2/include/functions/simd/negate.hpp>
-#include <nt2/include/constants/three.hpp>
-#include <nt2/include/constants/two.hpp>
-#include <nt2/include/constants/third.hpp>
+#include <boost/simd/sdk/config.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/real_splat.hpp>
-#include <nt2/sdk/meta/as_logical.hpp>
+#include <nt2/include/constants/third.hpp>
+#include <nt2/include/constants/three.hpp>
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/bitofsign.hpp>
+#include <nt2/include/functions/simd/bitwise_or.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
+#include <nt2/include/functions/simd/fast_frexp.hpp>
+#include <nt2/include/functions/simd/fast_ldexp.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/is_equal.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/is_gez.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/negate.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <boost/simd/sdk/config.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
+
+#ifndef BOOST_SIMD_NO_DENORMALS
+#include <nt2/include/constants/smallestposval.hpp>
+#include <nt2/include/constants/twotomnmbo_3.hpp>
+#include <nt2/include/constants/twotonmb.hpp>
+#include <nt2/include/functions/simd/is_less.hpp>
+#endif
 
 #ifndef BOOST_SIMD_NO_INFINITIES
 #include <nt2/include/functions/simd/is_inf.hpp>
 #include <nt2/include/functions/simd/logical_or.hpp>
-#endif
-
-#ifndef BOOST_SIMD_NO_DENORMALS
-#include <nt2/include/functions/simd/is_less.hpp>
-#include <nt2/include/constants/smallestposval.hpp>
-#include <nt2/include/constants/twotonmb.hpp>
-#include <nt2/include/constants/twotomnmbo_3.hpp>
 #endif
 
 namespace nt2 { namespace ext
@@ -84,16 +85,16 @@ namespace nt2 { namespace ext
       const b_type flag = is_gez(e);
       int_type e1 =  nt2::abs(e);
       int_type rem = e1;
-      e1 = rdiv(e1, Three<int_type>());
-      rem = sub(rem, mul(e1, Three<int_type>()));
+      e1 /= Three<int_type>();
+      rem -= e1*Three<int_type>();
       e =  negate(e1, e);
       const A0 cbrt2 = if_else(flag, CBRT2, CBRT2I);
       const A0 cbrt4 = if_else(flag, CBRT4, CBRT4I);
       A0 fact = if_else(is_equal(rem, One<int_type>()), cbrt2, One<A0>());
       fact = if_else(is_equal(rem, Two<int_type>()), cbrt4, fact);
       x = fast_ldexp(x*fact, e);
-      x = x-(x-z/sqr(x))*Third<A0>();
-      x = x-(x-z/sqr(x))*Third<A0>(); //two newton passes
+      x -= (x-z/sqr(x))*Third<A0>();
+      x -= (x-z/sqr(x))*Third<A0>(); //two newton passes
 #ifndef BOOST_SIMD_NO_DENORMALS
       x = b_or(x, bitofsign(a0))*f;
 #else
@@ -141,16 +142,16 @@ namespace nt2 { namespace ext
       const b_type flag = is_gez(e);
       int_type e1 =  nt2::abs(e);
       int_type rem = e1;
-      e1 = e1/Three<int_type>();
-      rem = rem-e1*Three<int_type>();
-      e =  negate(e1, e);
+      e1 /= Three<int_type>();
+      rem -= e1*Three<int_type>();
+      e = negate(e1, e);
 
       const A0 cbrt2 = if_else(flag, CBRT2, CBRT2I);
       const A0 cbrt4 = if_else(flag, CBRT4, CBRT4I);
       A0 fact = if_else(is_equal(rem, One<int_type>()), cbrt2, One<A0>());
       fact = if_else(is_equal(rem, Two<int_type>()), cbrt4, fact);
       x = fast_ldexp(x*fact, e);
-      x = x-(x-z/sqr(x))*Third<A0>();
+      x -= (x-z/sqr(x))*Third<A0>();
 #ifndef BOOST_SIMD_NO_DENORMALS
       x = b_or(x, bitofsign(a0))*f;
 #else

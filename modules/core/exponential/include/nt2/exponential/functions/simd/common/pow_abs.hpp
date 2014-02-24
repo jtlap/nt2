@@ -10,60 +10,46 @@
 #define NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_POW_ABS_HPP_INCLUDED
 
 #include <nt2/exponential/functions/pow_abs.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
-#include <nt2/include/functions/simd/is_eqz.hpp>
-#include <nt2/include/functions/simd/logical_and.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/simd/is_eqz.hpp>
-#include <nt2/include/functions/simd/exp.hpp>
-#include <nt2/include/functions/simd/log.hpp>
-#include <nt2/include/functions/simd/abs.hpp>
-#include <nt2/include/functions/simd/multiplies.hpp>
-#include <nt2/include/functions/simd/abs.hpp>
-#include <nt2/include/functions/simd/signnz.hpp>
-#include <nt2/include/functions/simd/any.hpp>
-#include <nt2/include/functions/simd/if_else_zero.hpp>
-#include <nt2/include/functions/simd/is_odd.hpp>
-#include <nt2/include/functions/simd/oneminus.hpp>
-#include <nt2/include/functions/simd/fma.hpp>
-#include <nt2/include/functions/simd/shr.hpp>
-#include <nt2/include/functions/simd/sqr.hpp>
-#include <nt2/include/functions/simd/rec.hpp>
-#include <nt2/include/functions/simd/if_allbits_else.hpp>
-#include <nt2/include/functions/simd/is_nan.hpp>
-#include <nt2/include/functions/simd/is_inf.hpp>
-#include <nt2/include/functions/simd/is_gtz.hpp>
-#include <nt2/include/functions/simd/pow_absi.hpp>
+#include <boost/simd/sdk/config.hpp>
 #include <nt2/include/constants/one.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/any.hpp>
+#include <nt2/include/functions/simd/exp.hpp>
+#include <nt2/include/functions/simd/fma.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/if_else_zero.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/is_odd.hpp>
+#include <nt2/include/functions/simd/log.hpp>
+#include <nt2/include/functions/simd/logical_and.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/oneminus.hpp>
+#include <nt2/include/functions/simd/oneplus.hpp>
+#include <nt2/include/functions/simd/pow_absi.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/shr.hpp>
+#include <nt2/include/functions/simd/signnz.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+#ifndef BOOST_SIMD_NO_INFINITIES
+#include <nt2/include/constants/mzero.hpp>
+#include <nt2/include/functions/simd/is_inf.hpp>
+#include <nt2/include/functions/simd/is_ltz.hpp>
+#endif
+
+#ifndef BOOST_SIMD_NO_NANS
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/is_nan.hpp>
+#endif
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_abs_, tag::cpu_
                             , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
-                            )
-  {
-    typedef typename meta::as_floating<A0>::type result_type;
-    NT2_FUNCTOR_CALL_REPEAT(2)
-    {
-      return nt2::pow_abs(tofloat(a0), tofloat(a1));
-    }
-  };
-} }
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_abs_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<floating_<A0>,X>))((simd_<floating_<A0>,X>))
+                            , ((simd_<floating_<A0>,X>))
+                              ((simd_<floating_<A0>,X>))
                             )
   {
     typedef A0 result_type;
@@ -75,63 +61,57 @@ namespace nt2 { namespace ext
 
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A1 is integer_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_abs_, tag::cpu_
                             , (A0)(A1)(X)
-                            , ((simd_<arithmetic_<A0>,X>))((simd_<integer_<A1>,X>))
+                            , ((simd_<floating_<A0>,X>))
+                              ((simd_<integer_<A1>,X>))
                             )
   {
-    typedef typename meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
-    {
+   {
       typedef result_type r_type;
-      r_type a00 =  tofloat(a0);
-      r_type x = nt2::abs(a00);
-      r_type r = x;
+      r_type x = nt2::abs(a0);
       A1 sign_n = signnz( a1 );
       A1 n = nt2::abs(a1);
       r_type n_oddf = if_else_zero(is_odd(n), One<r_type>());
       r_type nf = n_oddf;
-      r_type y = madd(n_oddf,x,oneminus(n_oddf));
+      r_type y = fma(n_oddf,x,oneminus(n_oddf));
       r_type w = x;
       n = shri(n,1);
       while( nt2::any(n) )
       {
         w =sqr(w);
         n_oddf = if_else_zero(is_odd(n), One<r_type>());
-        y = y*madd(n_oddf,w,oneminus(n_oddf));
+        y = y*fma(n_oddf,w,oneminus(n_oddf));
         n = shri(n,1);
       }
 
       w = y; //b_xor(y, sign_x);
-      y = madd(nf, w, (oneminus(nf))*y);
+      y = fma(nf, w, (oneminus(nf))*y);
 
       w = rec(y);
       x = tofloat(shri(oneplus(sign_n),1));  // 1 if positive, else 0
-      return if_nan_else(is_nan(a00), sel(is_inf(a00), sel(is_gtz(a1), r, rec(r)), madd(x,y,oneminus(x)*w)));
+      A0 r =  fma(x,y,oneminus(x)*w);
+      #ifndef BOOST_SIMD_NO_NANS
+      r =  if_nan_else(is_nan(a0), a0, r);
+      #endif
+      #ifndef BOOST_SIMD_NO_INFINITIES
+      r =  if_else(l_and(is_inf(a0), is_ltz(a1)), b_and(r, Mzero<A0>()), r);
+      #endif
+      return r;
     }
   };
-} }
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A1 is scalar integer_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_abs_, tag::cpu_
                             , (A0)(A1)(X)
-                            , ((simd_<arithmetic_<A0>,X>))(scalar_< integer_<A1> >)
+                            , ((simd_<floating_<A0>,X>))
+                              (scalar_< integer_<A1> >)
                             )
   {
 
-    typedef typename meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -139,6 +119,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 
 #endif

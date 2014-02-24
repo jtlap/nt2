@@ -9,7 +9,7 @@
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_SCALAR_EXP10_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_EXP10_HPP_INCLUDED
 #include <nt2/exponential/functions/exp10.hpp>
-#include <nt2/exponential/functions/scalar/impl/expo.hpp>
+#include <nt2/exponential/functions/scalar/impl/exponential.hpp>
 
 namespace nt2 {  namespace details
   {
@@ -84,33 +84,27 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename boost::common_type<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
         return details::specExp10(a0);
-      }
+    }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::exp10_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)
                             )
   {
 
-    typedef typename boost::common_type<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-         return nt2::details::
-                exponential<A0,ten_tag, tag::not_simd_type, accu_tag>::expa(a0);
+      return nt2::details::
+        exponential<A0,ten_tag, tag::not_simd_type, accu_tag>
+        ::expa(a0);
       }
   };
 } }

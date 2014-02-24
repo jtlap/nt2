@@ -1,5 +1,4 @@
 //==============================================================================
-//         Copyright 2003 - 2013   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
@@ -25,7 +24,7 @@
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/exp_1.hpp>
 
-NT2_TEST_CASE_TPL ( log_real_1,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( log,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::log;
   using nt2::tag::log_;

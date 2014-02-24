@@ -10,8 +10,9 @@
 #define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_LOG10_HPP_INCLUDED
 
 #include <nt2/exponential/functions/log10.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
 #include <boost/assert.hpp>
+#include <nt2/include/functions/scalar/log10.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -27,7 +28,7 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_integer<A0, unsigned>::type ui_type;
       BOOST_ASSERT_MSG( a0 > 0, "log10 is not defined for zero or negative integers." );
-      return result_type(log10(ui_type(a0)));
+      return static_cast<result_type>(log10(static_cast<ui_type>(a0)));
     }
   };
 
@@ -103,6 +104,5 @@ namespace nt2 { namespace ext
   };
 
 } }
-
 
 #endif

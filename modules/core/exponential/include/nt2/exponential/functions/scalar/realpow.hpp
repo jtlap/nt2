@@ -9,32 +9,11 @@
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_SCALAR_REALPOW_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_REALPOW_HPP_INCLUDED
 #include <nt2/exponential/functions/realpow.hpp>
+#include <boost/assert.hpp>
 #include <nt2/include/functions/scalar/is_flint.hpp>
+#include <nt2/include/functions/scalar/is_nltz.hpp>
 #include <nt2/include/functions/scalar/pow.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A1 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::realpow_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< arithmetic_<A0> >)
-                              (scalar_< integer_<A1> >)
-                            )
-  {
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      return nt2::pow(result_type(a0), a1);
-    }
-  };
-} }
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A1 is double
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::realpow_, tag::cpu_
@@ -48,7 +27,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      BOOST_ASSERT_MSG( !(a0 <  0) || is_flint(a1),"realpow cannot produce complex result." );
+      BOOST_ASSERT_MSG( is_nltz(a0) || is_flint(a1),
+                        "realpow cannot produce complex result." );
       return  pow(a0, a1);
     }
   };
