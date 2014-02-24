@@ -23,6 +23,7 @@
 #ifdef BOOST_MSVC
 #pragma warning(push)
 #pragma warning(disable: 4512) // custom operator= required
+#pragma warning(disable: 4522) // multiple operator=
 #endif
 
 namespace boost { namespace simd { namespace tag
@@ -56,7 +57,7 @@ namespace boost { namespace simd
 
     BOOST_FORCEINLINE soa_proxy& operator=(soa_proxy const& other)
     {
-      return *this = other();
+      return const_cast<soa_proxy&>(*this = other());
     }
 
     BOOST_FORCEINLINE soa_proxy const& operator=(soa_proxy const& other) const
