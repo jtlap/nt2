@@ -39,7 +39,8 @@ namespace nt2 { namespace ext
       if (!a1) return One<A0>();
       if (!a0) return Zero<A0>();
       bool is_ltza0 = is_ltz(a0);
-      if (!is_odd(a1) && is_ltza0) return Nan<A0>();
+      bool is_odda1 = is_odd(a1);
+      if (is_ltza0 && !is_odda1) return Nan<A0>();
       #ifndef BOOST_SIMD_NO_INFINITIES
       if (is_inf(a0)) return a0;
       #endif
@@ -49,7 +50,7 @@ namespace nt2 { namespace ext
       // Correct numerical errors (since, e.g., 64^(1/3) is not exactly 4)
       // by one iteration of Newton's method
       if (y) y -= (nt2::pow(y, a1) - x) / (aa1* nt2::pow(y,minusone(a1)));
-      return is_ltza0, y? -y : y;
+      return (is_ltza0 && is_odda1)? -y : y;
     }
   };
 } }
