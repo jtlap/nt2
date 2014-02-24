@@ -25,7 +25,7 @@
 #include <nt2/include/constants/nan.hpp>
 #include <boost/fusion/include/vector_tie.hpp>
 
-NT2_TEST_CASE_TPL(sinhcosh_table, NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL(sinhcosh, NT2_REAL_TYPES)
 {
   using nt2::sinhcosh;
   using nt2::tag::sinhcosh_;

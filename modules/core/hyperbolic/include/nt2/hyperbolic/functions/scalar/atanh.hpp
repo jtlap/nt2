@@ -9,41 +9,14 @@
 #ifndef NT2_HYPERBOLIC_FUNCTIONS_SCALAR_ATANH_HPP_INCLUDED
 #define NT2_HYPERBOLIC_FUNCTIONS_SCALAR_ATANH_HPP_INCLUDED
 #include <nt2/hyperbolic/functions/atanh.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/real.hpp>
-
-#include <nt2/include/functions/scalar/log1p.hpp>
+#include <nt2/include/constants/half.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/bitofsign.hpp>
+#include <nt2/include/functions/scalar/bitwise_xor.hpp>
 #include <nt2/include/functions/scalar/fma.hpp>
-#include <nt2/include/functions/scalar/sqr.hpp>
-#include <nt2/include/functions/scalar/sign.hpp>
-#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/log1p.hpp>
+#include <nt2/include/functions/scalar/oneminus.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::atanh_, tag::cpu_
-                            , (A0)
-                            , (scalar_< arithmetic_<A0> >)
-                            )
-  {
-
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::atanh(result_type(a0));
-    }
-  };
-} }
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::atanh_, tag::cpu_
@@ -51,22 +24,23 @@ namespace nt2 { namespace ext
                             , (scalar_< floating_<A0> >)
                             )
   {
-
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
+    // Exhaustive test for: boost::dispatch::functor<nt2::tag::atanh_, boost::simd::tag::sse4_2_>
+    //              versus: float(boost::simd::atanh(double))
+    //              With T: float
+    //            in range: [-1, 1]
+    // 2130706432 values computed.
+    // 1965486672 values (92.25%)  within 0.0 ULPs
+    //  165215696 values (7.75%) within 0.5 ULPs in range [-9.999999404e-01, 9.999999404e-01]. Example: -9.999999404e-01 returns -8.664339066e+00 instead of -8.664340019e+00
+    //       4064 values (0.00%) within 1.0 ULPs in range [-1.243482381e-01, 1.243482381e-01]. Example: -1.243482381e-01 returns -1.249951422e-01 instead of -1.249951646e-01
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
       A0 absa0 = nt2::abs(a0);
-      //     const A0 small_mask    = lt(absa0, Twotom10<A0>());  /* x <  2**-10 */
-      //     if (small_mask) { return a0*fma(Third<A0>(), sqr(a0), One<A0>()); }
       A0 t =  absa0+absa0;
-      if (absa0 < Half<A0>())
-        return sign(a0)*Half<A0>()*log1p(t+t*absa0/(One<A0>()-absa0));
-      else
-        return sign(a0)*Half<A0>()*log1p(t/(One<A0>()-absa0));
+      A0 z1 = oneminus(absa0);
+      return b_xor(bitofsign(a0), Half<A0>()*log1p((absa0 < Half<A0>()) ? fma(t, absa0/z1, t) : t/z1));
     }
   };
 } }
-
-
 #endif

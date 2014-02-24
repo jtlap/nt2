@@ -22,7 +22,7 @@
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
 
-NT2_TEST_CASE_TPL ( acosh_real,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( acosh,  NT2_REAL_TYPES)
 {
   using nt2::acosh;
   using nt2::tag::acosh_;
@@ -37,35 +37,8 @@ NT2_TEST_CASE_TPL ( acosh_real,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(acosh(nt2::Inf<T>()), nt2::Inf<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(acosh(nt2::Minf<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(acosh(nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(acosh(nt2::Zero<T>()), nt2::Nan<r_t>(), 0.5);
 #endif
+  NT2_TEST_ULP_EQUAL(acosh(nt2::Zero<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(acosh(nt2::One<T>()), nt2::Zero<r_t>(), 0.5);
 }
 
-NT2_TEST_CASE_TPL ( acosh_unsigned_int,  NT2_UNSIGNED_TYPES)
-{
-  using nt2::acosh;
-  using nt2::tag::acosh_;
-  typedef typename nt2::meta::call<acosh_(T)>::type r_t;
-  typedef typename nt2::meta::as_floating<T>::type wished_r_t;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(acosh(nt2::One<T>()), nt2::Zero<r_t>(), 0.5);
-}
-
-NT2_TEST_CASE_TPL ( acosh_signed_int,  NT2_INTEGRAL_SIGNED_TYPES)
-{
-  using nt2::acosh;
-  using nt2::tag::acosh_;
-  typedef typename nt2::meta::call<acosh_(T)>::type r_t;
-  typedef typename nt2::meta::as_floating<T>::type wished_r_t;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(acosh(nt2::One<T>()), nt2::Zero<r_t>(), 0.5);
-}

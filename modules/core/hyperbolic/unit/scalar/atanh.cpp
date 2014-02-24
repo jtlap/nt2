@@ -23,7 +23,7 @@
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
 
-NT2_TEST_CASE_TPL ( atanh_real,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( atanh,  NT2_REAL_TYPES)
 {
   using nt2::atanh;
   using nt2::tag::atanh_;
@@ -41,33 +41,5 @@ NT2_TEST_CASE_TPL ( atanh_real,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(atanh(nt2::Mone<T>()), nt2::Minf<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(atanh(nt2::One<T>()), nt2::Inf<r_t>(), 0.5);
 #endif
-  NT2_TEST_ULP_EQUAL(atanh(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
-}
-
-NT2_TEST_CASE_TPL ( atanh_unsigned_int,  NT2_UNSIGNED_TYPES)
-{
-  using nt2::atanh;
-  using nt2::tag::atanh_;
-  typedef typename nt2::meta::call<atanh_(T)>::type r_t;
-  typedef typename nt2::meta::as_floating<T>::type wished_r_t;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(atanh(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
-}
-
-NT2_TEST_CASE_TPL ( atanh_signed_int,  NT2_INTEGRAL_SIGNED_TYPES)
-{
-  using nt2::atanh;
-  using nt2::tag::atanh_;
-  typedef typename nt2::meta::call<atanh_(T)>::type r_t;
-  typedef typename nt2::meta::as_floating<T>::type wished_r_t;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
-
-  // specific values tests
   NT2_TEST_ULP_EQUAL(atanh(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
 }

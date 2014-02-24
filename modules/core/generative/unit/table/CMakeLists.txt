@@ -35,6 +35,7 @@ falses.cpp
 fifteen.cpp
 fill_pattern.cpp
 five.cpp
+fiveo_8.cpp
 four.cpp
 fourthrooteps.cpp
 freqspace1.cpp
@@ -78,6 +79,8 @@ nbexponentbits.cpp
 nbmantissabits.cpp
 ndgrid.cpp
 nine.cpp
+oneotwoeps.cpp
+oneosqrteps.cpp
 oneo_10.cpp
 oneo_120.cpp
 oneo_12.cpp

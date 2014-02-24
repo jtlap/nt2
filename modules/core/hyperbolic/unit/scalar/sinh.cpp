@@ -25,7 +25,7 @@
 #include <nt2/include/functions/is_positive.hpp>
 #include <nt2/include/functions/is_negative.hpp>
 
-NT2_TEST_CASE_TPL ( sinh_real,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( sinh,  NT2_REAL_TYPES)
 {
   using nt2::sinh;
   using nt2::tag::sinh_;
@@ -44,32 +44,4 @@ NT2_TEST_CASE_TPL ( sinh_real,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(sinh(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
   NT2_TEST(nt2::is_negative(nt2::sinh(nt2::Mzero<T>() )));
   NT2_TEST(nt2::is_positive(nt2::sinh(nt2::Zero<T>() )));
-}
-
-NT2_TEST_CASE_TPL ( sinh_unsigned_int,  NT2_UNSIGNED_TYPES)
-{
-  using nt2::sinh;
-  using nt2::tag::sinh_;
-  typedef typename nt2::meta::call<sinh_(T)>::type r_t;
-  typedef typename nt2::meta::as_floating<T>::type wished_r_t;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(sinh(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
-}
-
-NT2_TEST_CASE_TPL ( sinh_signed_int,  NT2_INTEGRAL_SIGNED_TYPES)
-{
-  using nt2::sinh;
-  using nt2::tag::sinh_;
-  typedef typename nt2::meta::call<sinh_(T)>::type r_t;
-  typedef typename nt2::meta::as_floating<T>::type wished_r_t;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(sinh(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
 }

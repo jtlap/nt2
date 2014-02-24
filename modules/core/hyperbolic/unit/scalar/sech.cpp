@@ -22,7 +22,7 @@
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
 
-NT2_TEST_CASE_TPL ( sech_real,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( sech,  NT2_REAL_TYPES)
 {
   using nt2::sech;
   using nt2::tag::sech_;

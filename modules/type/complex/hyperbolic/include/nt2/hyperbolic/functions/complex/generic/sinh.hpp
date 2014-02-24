@@ -24,12 +24,14 @@
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/include/constants/nan.hpp>
+#include <nt2/include/functions/is_inf.hpp>
+
 
 //sinh(x+iy)=sinh(x)cos(y)+i.cosh(x)sin(y).
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinh_, tag::cpu_, (A0)
-                            , (generic_< complex_< arithmetic_<A0> > >)
+                            , (generic_< complex_< floating_<A0> > >)
                             )
   {
     typedef A0 result_type;
@@ -55,7 +57,7 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinh_, tag::cpu_, (A0)
-                            , (generic_< dry_< arithmetic_<A0> > >)
+                            , (generic_< dry_< floating_<A0> > >)
                             )
   {
     typedef A0 result_type;

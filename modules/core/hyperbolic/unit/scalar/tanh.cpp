@@ -23,7 +23,7 @@
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
 
-NT2_TEST_CASE_TPL ( tanh_real,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( tanh,  NT2_REAL_TYPES)
 {
   using nt2::tanh;
   using nt2::tag::tanh_;
@@ -41,33 +41,5 @@ NT2_TEST_CASE_TPL ( tanh_real,  NT2_REAL_TYPES)
 #endif
   NT2_TEST_ULP_EQUAL(tanh(nt2::Mone<T>()), T(-7.615941559557649e-01), 0.5);
   NT2_TEST_ULP_EQUAL(tanh(nt2::One<T>()), T(7.615941559557649e-01), 0.5);
-  NT2_TEST_ULP_EQUAL(tanh(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
-}
-
-NT2_TEST_CASE_TPL ( tanh_unsigned_int,  NT2_UNSIGNED_TYPES)
-{
-  using nt2::tanh;
-  using nt2::tag::tanh_;
-  typedef typename nt2::meta::call<tanh_(T)>::type r_t;
-  typedef typename nt2::meta::as_floating<T>::type wished_r_t;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(tanh(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
-}
-
-NT2_TEST_CASE_TPL ( tanh_signed_int,  NT2_INTEGRAL_SIGNED_TYPES)
-{
-  using nt2::tanh;
-  using nt2::tag::tanh_;
-  typedef typename nt2::meta::call<tanh_(T)>::type r_t;
-  typedef typename nt2::meta::as_floating<T>::type wished_r_t;
-
-  // return type conformity test
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
-
-  // specific values tests
   NT2_TEST_ULP_EQUAL(tanh(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
 }

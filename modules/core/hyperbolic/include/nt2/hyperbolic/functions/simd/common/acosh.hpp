@@ -9,33 +9,36 @@
 #ifndef NT2_HYPERBOLIC_FUNCTIONS_SIMD_COMMON_ACOSH_HPP_INCLUDED
 #define NT2_HYPERBOLIC_FUNCTIONS_SIMD_COMMON_ACOSH_HPP_INCLUDED
 #include <nt2/hyperbolic/functions/acosh.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/constants/log_2.hpp>
+#include <nt2/include/constants/oneotwoeps.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/is_greater.hpp>
+#include <nt2/include/functions/simd/log1p.hpp>
+#include <nt2/include/functions/simd/minusone.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/include/functions/simd/seladd.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/sqrt.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acosh_, tag::cpu_
                             , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
+                            , ((simd_<floating_<A0>,X>))
                             )
   {
 
-    typedef typename meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      const result_type t = minusone(tofloat(a0));
-      return log1p(t+sqrt((t+t)+sqr(t)));
+      typedef typename meta::as_logical<A0>::type bA0;
+      result_type t = minusone(a0);
+      bA0 test = gt(t,Oneotwoeps<A0>());
+      A0 z = if_else(test, a0, t+sqrt(t+t+sqr(t)));
+      return seladd(test, log1p(z), Log_2<A0>());
     }
   };
 } }
-
-
 #endif

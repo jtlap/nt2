@@ -23,7 +23,7 @@
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
 
-NT2_TEST_CASE_TPL ( csch_real_1,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( csch,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::csch;
   using nt2::tag::csch_;
