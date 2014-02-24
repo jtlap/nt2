@@ -21,8 +21,8 @@ namespace boost { namespace simd { namespace ext
                                                         , boost::simd::meta::cardinal_of<A1>
                                                         >
                                   )
-                                , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
-                                  ((simd_<arithmetic_<A1>,boost::simd::tag::sse_>))
+                                , ((simd_<integer_<A0>,boost::simd::tag::sse_>))
+                                  ((simd_<integer_<A1>,boost::simd::tag::sse_>))
                               )
   {
     typedef A0 result_type;
