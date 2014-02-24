@@ -30,6 +30,14 @@ namespace boost { namespace simd { namespace details
         : boost::mpl::int_<((0>index_<P,Card,Idx>::value)?-1:(Offset+Inc))>
   {};
 
+  template<std::size_t Bytes, int N>
+  struct  bit_count
+        : boost::mpl::int_< 1 <<  ( boost::static_log2<Bytes>::value
+                                  - boost::static_log2<N>::value
+                                  )
+                          >
+  {};
+
   // Permute specialization
   template<class P, class Type, int N> struct permute
   {
@@ -39,15 +47,8 @@ namespace boost { namespace simd { namespace details
     struct  mask_
           : generate_ < P
                       , boost::mpl::int_<N>
-                      , ( ( index_< P
-                                  , boost::mpl::int_<N>
-                                  , (I / (Bytes/N))
-                                  >::value
-                          ) <<
-                          ( boost::static_log2<Bytes>::value
-                          - boost::static_log2<N>::value
-                          )
-                        )
+                      , index_<P, boost::mpl::int_<N>, (I / (Bytes/N))>::value
+                      * bit_count<Bytes,N>::value
                       , I / (Bytes/N)
                       , I % (Bytes/N)
                       >
