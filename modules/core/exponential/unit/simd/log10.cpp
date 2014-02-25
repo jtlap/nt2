@@ -157,7 +157,7 @@ NT2_TEST_CASE_TPL ( log10_unsigned_uint64,  (uint64_t))
   NT2_TEST_ULP_EQUAL(log10(nt2::splat<vT>(10000000000000000000ull)), nt2::splat<vT>(19), 0);
 }
 
-NT2_TEST_CASE_TPL ( log10_signed_int,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( log10_signed_int,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::log10;
   using nt2::tag::log10_;
