@@ -48,11 +48,12 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(const A0& a0) const
     {
-      typedef typename dispatch::meta::as_signed<A0>::type  s_t;
-      typedef typename result_type::value_type              r_t;
+      typedef typename dispatch::meta::as_signed<A0>::type      s_t;
+      typedef typename dispatch::meta::upgrade<A0,signed>::type sr_t;
+      typedef typename result_type::value_type                  r_t;
 
-      return  bitwise_cast<result_type>(vec_unpackl( bitwise_cast<s_t>(a0)() ))
-            & r_t(0x00FF);
+      sr_t that = vec_unpackl( bitwise_cast<s_t>(a0)() );
+      return  bitwise_cast<result_type>(that) & r_t(0x00FF);
     }
   };
 
@@ -86,11 +87,12 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(const A0& a0) const
     {
-      typedef typename dispatch::meta::as_signed<A0>::type  s_t;
-      typedef typename result_type::value_type              r_t;
+      typedef typename dispatch::meta::as_signed<A0>::type      s_t;
+      typedef typename dispatch::meta::upgrade<A0,signed>::type sr_t;
+      typedef typename result_type::value_type                  r_t;
 
-      return  bitwise_cast<result_type>(vec_unpackl( bitwise_cast<s_t>(a0)() ))
-            & r_t(0x0000FFFF);
+      sr_t that = vec_unpackl( bitwise_cast<s_t>(a0)() );
+      return  bitwise_cast<result_type>(that) & r_t(0x0000FFFF);
     }
   };
 } } }
