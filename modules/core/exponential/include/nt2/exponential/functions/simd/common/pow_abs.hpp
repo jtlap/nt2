@@ -40,7 +40,6 @@
 #endif
 
 #ifndef BOOST_SIMD_NO_NANS
-#include <nt2/include/functions/simd/if_allbits_else.hpp>
 #include <nt2/include/functions/simd/is_nan.hpp>
 #endif
 
@@ -95,7 +94,7 @@ namespace nt2 { namespace ext
       x = tofloat(shri(oneplus(sign_n),1));  // 1 if positive, else 0
       A0 r =  fma(x,y,oneminus(x)*w);
       #ifndef BOOST_SIMD_NO_NANS
-      r =  if_nan_else(is_nan(a0), a0, r);
+      r =  if_else(is_nan(a0), a0, r);
       #endif
       #ifndef BOOST_SIMD_NO_INFINITIES
       r =  if_else(l_and(is_inf(a0), is_ltz(a1)), b_and(r, Mzero<A0>()), r);
