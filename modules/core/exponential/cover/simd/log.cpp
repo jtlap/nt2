@@ -7,37 +7,31 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <nt2/exponential/include/functions/log.hpp>
-
-#include <nt2/sdk/unit/tests/cover.hpp>
-#include <nt2/sdk/unit/tests/ulp.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/aligned_load.hpp>
-#include <iostream>
+#include <boost/simd/sdk/simd/io.hpp>
+#include <vector>
 
-NT2_TEST_CASE_TPL ( log,  NT2_SIMD_REAL_TYPES)
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/cover.hpp>
+#include <nt2/sdk/unit/args.hpp>
+
+NT2_TEST_CASE_TPL(log,  NT2_SIMD_REAL_TYPES)
 {
-  using nt2::log;
-  using nt2::tag::log_;
   using boost::simd::native;
-  using nt2::meta::cardinal_of;
-  using nt2::aligned_load;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
 
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(0.1), T(10));
-    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<vT>::value)
-      {
-        vT a0 = aligned_load<vT>(&tab_a0[0],j);
-        vT v = log(a0);
-        for(nt2::uint32_t i = 0; i< cardinal_of<vT>::value; i++)
-        {
+  using nt2::unit::args;
+  const std::size_t NR = args("samples", NT2_NB_RANDOM_TEST);
+  const double ulpd = args("ulpd", 0.5);
+  const T min = args("min", T(0));
+  const T max = args("max", T(10));
 
-          NT2_TEST_ULP_EQUAL( v[i],T(nt2::log (a0[i])), 0.5);
-        }
-      }
-  }
-} // end of test for floating_
+  NT2_CREATE_BUF(in0, T, NR, min, max);
+
+  std::vector<T> ref(NR);
+  for(std::size_t i=0; i!=NR; ++i)
+    ref[i] = std::log(in0[i]);
+
+  NT2_COVER_ULP_EQUAL(nt2::tag::log_, ((vT,in0)), ref, ulpd);
+}
