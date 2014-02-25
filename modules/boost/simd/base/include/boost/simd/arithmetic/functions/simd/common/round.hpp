@@ -12,11 +12,9 @@
 
 #include <boost/simd/arithmetic/functions/round.hpp>
 #include <boost/simd/include/functions/simd/trunc.hpp>
-#include <boost/simd/include/functions/simd/is_ltz.hpp>
-#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/copysign.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/constants/half.hpp>
-#include <boost/simd/include/constants/mhalf.hpp>
 #include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -41,7 +39,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      result_type inc = if_else(is_ltz(a0), Mhalf<result_type>(), Half<result_type>());
+      result_type inc = copysign(Half<result_type>(), a0);
       return trunc(a0+inc);
     }
   };
