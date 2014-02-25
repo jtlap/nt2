@@ -165,7 +165,7 @@ NT2_TEST_CASE( prod_3D )
 
 
   r = prod(a(nt2::_));
-  NT2_TEST_EQUAL(r(1),nt2::exp2(nt2::numel(a))) ;
+  NT2_TEST_EQUAL(r(1),nt2::exp2(T(nt2::numel(a))));
 
   r1 = prod(a,2);
   for(std::size_t k = 1; k <= O; ++k)
@@ -253,7 +253,7 @@ NT2_TEST_CASE( prod_4D )
 
 
   r = prod(a(nt2::_));
-  NT2_TEST_EQUAL(r(1),(nt2::exp2(nt2::numel(a)))) ;
+  NT2_TEST_EQUAL(r(1),(nt2::exp2(T(nt2::numel(a)))));
 
 
   r = prod(a,4);
@@ -333,16 +333,16 @@ NT2_TEST_CASE( prod )
   r = prod(prod(a));
   for(std::size_t l = 1; l <= P; ++l)
     for(std::size_t k = 1; k <= O; ++k)
-      NT2_TEST_EQUAL(r(1,1,k,l),nt2::exp2(N*M)) ;
+      NT2_TEST_EQUAL(r(1,1,k,l),nt2::exp2(T(N*M)));
 
 
   r = prod(prod(prod(a)));
   for(std::size_t l = 1; l <= P; ++l)
-    NT2_TEST_EQUAL(r(1,1,1,l),nt2::exp2(N*M*O)) ;
+    NT2_TEST_EQUAL(r(1,1,1,l),nt2::exp2(T(N*M*O)));
 
 
   r = prod(prod(prod(prod(a))));
-  NT2_TEST_EQUAL(r(1,1,1,1),nt2::exp2(nt2::numel(a))) ;
+  NT2_TEST_EQUAL(r(1,1,1,1),nt2::exp2(T(nt2::numel(a))));
 
 
 
