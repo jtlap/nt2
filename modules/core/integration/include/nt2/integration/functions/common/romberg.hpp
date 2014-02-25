@@ -22,6 +22,7 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/eps.hpp>
 #include <nt2/include/functions/exp2.hpp>
+#include <nt2/include/functions/fast_ldexp.hpp>
 #include <nt2/include/functions/average.hpp>
 #include <nt2/include/functions/diff.hpp>
 #include <nt2/include/functions/globalsum.hpp>
