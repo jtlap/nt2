@@ -83,7 +83,9 @@ namespace nt2 { namespace ext
     {
       return nt2::fast_ldexp(One<A0>(), a0);
     }
-  };  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow2_, tag::cpu_
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow2_, tag::cpu_
                             , (A0)
                             , (generic_< floating_<A0> >)
                             )
