@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_SWAR_FUNCTIONS_SIMD_VMX_ALTIVEC_LOOKUP_HPP_INCLUDED
 #define BOOST_SIMD_SWAR_FUNCTIONS_SIMD_VMX_ALTIVEC_LOOKUP_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 #include <boost/simd/swar/functions/lookup.hpp>
 #include <boost/simd/include/functions/bitwise_cast.hpp>
@@ -101,4 +102,5 @@ namespace boost { namespace simd { namespace ext
   };
 } } }
 
+#endif
 #endif
