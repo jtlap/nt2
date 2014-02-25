@@ -7,17 +7,15 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_VMX_ALTIVEC_ROUND_HPP_INCLUDED
-#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_VMX_ALTIVEC_ROUND_HPP_INCLUDED
+#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_VMX_ALTIVEC_ROUND2EVEN_HPP_INCLUDED
+#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_VMX_ALTIVEC_ROUND2EVEN_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
-#include <boost/simd/arithmetic/functions/round.hpp>
-#include <boost/simd/include/functions/unary_minus.hpp>
-#include <boost/simd/include/functions/ceil.hpp>
+#include <boost/simd/arithmetic/functions/round2even.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::round_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::round2even_
                                     , boost::simd::tag::vmx_
                                     , (A0)
                                     , ((simd_< single_<A0>
