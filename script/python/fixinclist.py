@@ -242,6 +242,8 @@ class Fix_includes_in_file() :
             l.append('#include <boost/assert.hpp>')
         if t.find('BOOST_SIMD_NO') != -1 :
             l.append('#include <boost/simd/sdk/config.hpp>')
+        if t.find('BOOST_FORCEINLINE') != -1 :
+            l.append('#include <boost/dispatch/attributes.hpp>')
         return l
 
 
