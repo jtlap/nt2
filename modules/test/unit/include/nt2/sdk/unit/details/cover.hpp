@@ -186,6 +186,7 @@ namespace nt2 { namespace details
                                                                                \
     if(ulps.empty())                                                           \
     {                                                                          \
+      std::cout << "For " << out.size() << " samples: \n";                     \
       ::nt2::details::ulp_pass(desc, ulpd, N);                                 \
     }                                                                          \
     else                                                                       \
