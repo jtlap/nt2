@@ -84,6 +84,34 @@ namespace boost { namespace simd { namespace ext
       return _mm256_castpd_si256(a0);
     }
   };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_cast_, boost::simd::tag::avx_
+                                   , (A0)(A1)
+                                   , ((simd_< double_<A0>, boost::simd::tag::avx_ >))
+                                     ((target_< simd_< single_<A1>, boost::simd::tag::avx_ > >))
+                                   )
+  {
+    typedef typename A1::type result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&) const
+    {
+      return _mm256_castpd_ps(a0);
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_cast_, boost::simd::tag::avx_
+                                   , (A0)(A1)
+                                   , ((simd_< single_<A0>, boost::simd::tag::avx_ >))
+                                     ((target_< simd_< double_<A1>, boost::simd::tag::avx_ > >))
+                                   )
+  {
+    typedef typename A1::type result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&) const
+    {
+      return _mm256_castps_pd(a0);
+    }
+  };
 } } }
 
 #endif
