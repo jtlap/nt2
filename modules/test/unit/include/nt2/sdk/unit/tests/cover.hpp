@@ -44,14 +44,14 @@ do                                                                             \
 /*!
   @brief Perform precision coverage test on arbitrary function
 
-  For a given function @c FUNC, checks if the applciation of @c FUNC on the
+  For a given function @c FUNC, checks if the application of @c FUNC on the
   set of data @c INPUTS is within a given ULP tolerance relatively to a set
   of reference value @c REF
 
   @param FUNC   Polymorphic function to test
   @param INPUTS Preprocessor sequence of tuples containing references data and
                 the types to use to perform the computation.
-  @param REF    Reference data to cehck against
+  @param REF    Reference data to check against
   @param N      Maximum ULP tolerance
 **/
 #define NT2_COVER_FN_ULP_EQUAL(FUNC, INPUTS, REF, N)                           \
@@ -79,7 +79,7 @@ do                                                                             \
   @param TAG    Tag for the function to test.
   @param INPUTS Preprocessor sequence of tuples containing references data and
                 the types to use to perform the computation.
-  @param REF    Reference data to cehck against
+  @param REF    Reference data to check against
   @param N      Maximum ULP tolerance
 **/
 #define NT2_COVER_ULP_EQUAL(TAG, INPUTS, REF, N)                               \
