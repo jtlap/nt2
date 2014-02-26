@@ -459,9 +459,6 @@ def main(argv):
         pprint('variable NT2_BINARY_ROOT is not present your enironment please set it to use the script')
         sys.exit(1);
 
-    d['dirbase'] = nsr+"/modules/"+d['supermod']+d['add']
-    d['binarybase'] = nbr+"/include/"
-
     parser = argparse.ArgumentParser(description='find corect includes for an nt2 functor implementation.')
     parser.add_argument('-s','--save', dest='s', action='store_true',
                    help='make a copy of each treated file with an appended _ to its name')
@@ -483,9 +480,10 @@ def main(argv):
     parser.add_argument('-u','--module', dest='module', action='store',
                         default="exponential",
                         help='module in which functor files are found')
-    parser.add_argument('--super', dest='supermod', action='store',
+    parser.add_argument('--supermod', dest='supermod', action='store',
                         default="core",
                         help='super module in which functor files are found')
+
 
     print argv
     args = parser.parse_args(argv)
@@ -502,8 +500,12 @@ def main(argv):
     d['write'] = args.w
     d['save'] = args.s
     d['show_only'] = (not args.w) and args.show
+    d['supermod'] = args.supermod
     if d['supermod'] == 'type'+"/" :
         d['add']="complex"+"/"
+
+    d['dirbase'] = nsr+"/modules/"+d['supermod']+d['add']
+    d['binarybase'] = nbr+"/include/"
 
     pprint ('mode        is    "'+ d['mode']       +'"')
     pprint ('module      is    "'+ d['module']     +'"')
