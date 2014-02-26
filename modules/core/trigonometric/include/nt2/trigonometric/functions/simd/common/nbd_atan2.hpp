@@ -11,9 +11,8 @@
 
 #include <nt2/trigonometric/functions/nbd_atan2.hpp>
 #include <nt2/trigonometric/functions/simd/common/impl/invtrig.hpp>
-#include <nt2/include/functions/simd/signnz.hpp>
+#include <nt2/include/functions/simd/negatenz.hpp>
 #include <nt2/include/functions/simd/divides.hpp>
-#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/if_else_zero.hpp>
@@ -37,7 +36,7 @@ namespace nt2 { namespace ext
       A0 a0 = a0_n;
       A0 a1 = a1_n;
       A0 z = details::invtrig_base<result_type,radian_tag, tag::simd_type>::kernel_atan(a0/a1);
-      z = nt2::if_else(nt2::is_gtz(a1), z, nt2::Pi<A0>()-z)*nt2::signnz(a0);
+      z = nt2::negatenz(nt2::if_else(nt2::is_gtz(a1), z, nt2::Pi<A0>()-z), a0);
       return nt2::if_else(nt2::is_eqz(a0), nt2::if_else_zero(nt2::is_ltz(a1), nt2::Pi<A0>()), z);
     }
   };
