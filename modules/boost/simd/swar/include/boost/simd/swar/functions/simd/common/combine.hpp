@@ -1,7 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2012 - 2013 MetaScale SAS
+//         Copyright 2012 - 2014 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -15,12 +15,13 @@
 #include <boost/simd/include/functions/simd/extract.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
+#include <boost/simd/sdk/meta/is_bitwise_logical.hpp>
 #include <boost/simd/sdk/meta/iterate.hpp>
 #include <boost/dispatch/meta/fusion.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/size.hpp>
-#include <boost/mpl/equal_to.hpp>
 #include <boost/mpl/sizeof.hpp>
+#include <boost/mpl/and.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -51,28 +52,46 @@ namespace boost { namespace simd { namespace ext
 
   // combine logical by combining internal representation
   // Only valid if native<T,X> and native<logical<T><X> has same size
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::combine_
-                                      , tag::cpu_
-                                      , (A0)(X)
-                                      , ( mpl::equal_to < mpl::sizeof_<A0>
-                                                        , mpl::sizeof_<typename A0::type>
-                                                        >
-                                        )
-                                      , ((simd_<logical_<A0>,X>))
-                                        ((simd_<logical_<A0>,X>))
-                                      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::combine_
+                                    , tag::cpu_
+                                    , (A0)(X)
+                                    , ((simd_<logical_<A0>,X>))
+                                      ((simd_<logical_<A0>,X>))
+                                    )
   {
     typedef typename  meta::vector_of < typename A0::value_type
                                       , A0::static_size * 2
                                       >::type                     result_type;
 
+
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
+    {
+      return eval( a0, a1
+                 , boost::mpl::bool_<   simd::meta::is_bitwise_logical<A0>::value
+                                    &&  simd::meta::is_bitwise_logical<result_type>::value
+                                    >()
+                 );
+    }
+
+    BOOST_FORCEINLINE result_type eval(A0 const& a0, A0 const& a1, boost::mpl::true_ const&) const
     {
       typedef typename A0::type type;
       return bitwise_cast<result_type>( boost::simd::combine( bitwise_cast<type>(a0)
                                                             , bitwise_cast<type>(a1)
                                                             )
                                       );
+    }
+
+    BOOST_FORCEINLINE result_type eval(A0 const& a0, A0 const& a1, boost::mpl::false_ const&) const
+    {
+      result_type that;
+      for(size_t i=0; i!=A0::static_size; ++i)
+      {
+        that[i]                 = a0[i];
+        that[i+A0::static_size] = a1[i];
+      }
+
+      return that;
     }
   };
 
