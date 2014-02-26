@@ -11,6 +11,7 @@
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_SIMD_COMMON_MAXIMUM_HPP_INCLUDED
 
 #include <boost/simd/reduction/functions/maximum.hpp>
+#include <boost/simd/include/functions/simd/extract.hpp>
 #include <boost/simd/include/functions/simd/splatted_maximum.hpp>
 #include <boost/dispatch/attributes.hpp>
 
@@ -25,7 +26,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return splatted_maximum(a0)[0];
+      return extract<0>(splatted_maximum(a0));
     }
   };
 } } }

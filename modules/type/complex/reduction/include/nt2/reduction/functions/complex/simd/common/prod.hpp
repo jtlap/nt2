@@ -13,6 +13,7 @@
 #include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/shuffle.hpp>
+#include <nt2/include/functions/extract.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 

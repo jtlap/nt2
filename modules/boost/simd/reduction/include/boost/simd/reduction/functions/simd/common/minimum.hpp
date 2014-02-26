@@ -11,6 +11,7 @@
 #define BOOST_SIMD_REDUCTION_FUNCTIONS_SIMD_COMMON_MINIMUM_HPP_INCLUDED
 
 #include <boost/simd/reduction/functions/minimum.hpp>
+#include <boost/simd/include/functions/simd/extract.hpp>
 #include <boost/simd/include/functions/simd/splatted_minimum.hpp>
 #include <boost/dispatch/attributes.hpp>
 
@@ -26,7 +27,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return splatted_minimum(a0)[0];
+      return extract<0>(splatted_minimum(a0));
     }
   };
 } } }
