@@ -26,7 +26,6 @@ class Fix_includes_in_file() :
         self.base = d['base']
         self.root = d['binarybase']
         self.module = d['module']
-        self.rep = d['rep']
         self.fname = fname
         self.fnamedirect = d['fnamedirect']
         self.modeloc = "simd/common" if self.mode =="simd" else self.mode
@@ -437,7 +436,6 @@ def main(argv):
          'mode' :"all"+"/",
          'names' :"dgammainc",
          'base' : 'nt2'+'/',
-         'rep' :'nt2_200v'+"/",
          'show_only' : True,
          'save' : False,
          'fname' : "",
