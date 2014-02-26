@@ -12,7 +12,7 @@
 #include <nt2/sdk/bench/metric/speedup.hpp>
 #include <nt2/sdk/bench/setup/geometric.hpp>
 #include <nt2/sdk/bench/setup/combination.hpp>
-#include <nt2/sdk/bench/protocol/max_duration.hpp>
+#include <nt2/sdk/bench/protocol/until.hpp>
 #include <nt2/sdk/bench/stats/median.hpp>
 
 #include <nt2/include/functions/plus.hpp>
@@ -61,8 +61,10 @@ NT2_REGISTER_BENCHMARK_TPL( vector_subscript1D, (float)(double) )
   std::size_t mn = args("min1D" , 2);
   std::size_t mx = args("max1D" , 4096);
   std::size_t s  = args("step1D", 2);
+  std::size_t i = args("iteration", 1000);
+  std::size_t d = args("duration" , 1.);
 
-  run_during_with< vector_subscript1D<T> >( 1.
+  run_until_with< vector_subscript1D<T> > ( d, i
                                           , geometric(mn,mx,s)
                                           , cycles_per_element<stats::median_>()
                                           );
@@ -112,8 +114,10 @@ NT2_REGISTER_BENCHMARK_TPL( vector_subscript2D, (float)(double) )
   std::size_t mn = args("min2D" , 2);
   std::size_t mx = args("max2D" , 4096);
   std::size_t s  = args("step2D", 2);
+  std::size_t i = args("iteration", 1000);
+  std::size_t d = args("duration" , 1.);
 
-  run_during_with< vector_subscript2D<T> >( 1.
+  run_until_with< vector_subscript2D<T> > ( d, i
                                           , and_( geometric(mn,mx,s)
                                                 , geometric(mn,mx,s)
                                                 )
@@ -158,14 +162,16 @@ NT2_REGISTER_BENCHMARK_TPL( table_subscript1D, (float)(double) )
   std::size_t mn = args("min1D" , 2);
   std::size_t mx = args("max1D" , 4096);
   std::size_t s  = args("step1D", 2);
+  std::size_t i = args("iteration", 1000);
+  std::size_t d = args("duration" , 1.);
 
-  run_during_with< table_subscript1D<T> > ( 1.
-                                          , geometric(mn,mx,s)
-                                          , cycles_per_element<stats::median_>()
-                                          , speedup < vector_subscript1D<T>
-                                                    , cycles_per_element<stats::median_>
-                                                    >()
-                                          );
+  run_until_with< table_subscript1D<T> >( d, i
+                                        , geometric(mn,mx,s)
+                                        , cycles_per_element<stats::median_>()
+                                        , speedup < vector_subscript1D<T>
+                                                  , cycles_per_element<stats::median_>
+                                                  >()
+                                        );
 }
 
 //==============================================================================
@@ -210,14 +216,16 @@ NT2_REGISTER_BENCHMARK_TPL( table_subscript2D, (float)(double) )
   std::size_t mn = args("min2D" , 2);
   std::size_t mx = args("max2D" , 4096);
   std::size_t s  = args("step2D", 2);
+  std::size_t i = args("iteration", 1000);
+  std::size_t d = args("duration" , 1.);
 
-  run_during_with< table_subscript2D<T> > ( 1.
-                                          , and_( geometric(mn,mx,s)
-                                                , geometric(mn,mx,s)
-                                                )
-                                          , cycles_per_element<stats::median_>()
-                                          , speedup < vector_subscript2D<T>
-                                                    , cycles_per_element<stats::median_>
-                                                    >()
-                                          );
+  run_until_with< table_subscript2D<T> >( d, i
+                                        , and_( geometric(mn,mx,s)
+                                              , geometric(mn,mx,s)
+                                              )
+                                        , cycles_per_element<stats::median_>()
+                                        , speedup < vector_subscript2D<T>
+                                                  , cycles_per_element<stats::median_>
+                                                  >()
+                                        );
 }
