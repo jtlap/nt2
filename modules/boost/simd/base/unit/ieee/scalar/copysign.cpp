@@ -40,6 +40,7 @@ NT2_TEST_CASE_TPL ( copysign_real,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(copysign(boost::simd::Inf<T>(), boost::simd::Minf<T>()), boost::simd::Minf<r_t>());
   NT2_TEST_EQUAL(copysign(boost::simd::Minf<T>(), boost::simd::Inf<T>()), boost::simd::Inf<r_t>());
   NT2_TEST_EQUAL(copysign(boost::simd::Nan<T>(), boost::simd::Inf<T>()), boost::simd::Nan<r_t>());
+  NT2_TEST_EQUAL(copysign(boost::simd::One<T>(), boost::simd::Nan<T>()), boost::simd::Mone<r_t>());
 #endif
   NT2_TEST_EQUAL(copysign(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::Mone<r_t>());
   NT2_TEST_EQUAL(copysign(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::One<r_t>());
