@@ -66,7 +66,7 @@ namespace boost { namespace simd { namespace ext
       u8n slt = {1,1,3,3,5,5,7,7,9,9,11,11,13,13,15,15};
       u8n msk = vec_add( inc, vec_sl(vec_perm(v1,v1,slt), vec_splat_u8(1)) );
 
-      return vec_perm(a0(),a0(), mask);
+      return vec_perm(a0(),a0(), msk);
     }
   };
 
