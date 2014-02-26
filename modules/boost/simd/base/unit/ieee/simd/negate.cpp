@@ -45,6 +45,7 @@ NT2_TEST_CASE_TPL ( negate_real,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(negate(boost::simd::Mone<vT>(), boost::simd::Mone<vT>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(negate(boost::simd::One<vT>(), boost::simd::One<vT>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(negate(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(negate(boost::simd::One<vT>(), boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
 }
 
 NT2_TEST_CASE_TPL ( negate_si,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
@@ -60,4 +61,5 @@ NT2_TEST_CASE_TPL ( negate_si,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_EQUAL(negate(boost::simd::Mone<vT>(), boost::simd::Mone<vT>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(negate(boost::simd::One<vT>(), boost::simd::One<vT>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(negate(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(negate(boost::simd::One<vT>(), boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
 }

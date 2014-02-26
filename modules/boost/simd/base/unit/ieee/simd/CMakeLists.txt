@@ -30,6 +30,7 @@ SET( SOURCES
   minnummag.cpp
   modf.cpp
   negate.cpp
+  negatenz.cpp
   nextafter.cpp
   next.cpp
   nextpow2.cpp
