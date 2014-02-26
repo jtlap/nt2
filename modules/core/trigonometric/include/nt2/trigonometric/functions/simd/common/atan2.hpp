@@ -15,9 +15,8 @@
 #include <nt2/include/functions/simd/is_gtz.hpp>
 #include <nt2/include/functions/simd/is_eqz.hpp>
 #include <nt2/include/functions/simd/divides.hpp>
-#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
-#include <nt2/include/functions/simd/signnz.hpp>
+#include <nt2/include/functions/simd/negatenz.hpp>
 #include <nt2/include/functions/simd/is_ltz.hpp>
 #include <nt2/include/constants/pi.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
@@ -34,8 +33,6 @@
 #include <nt2/include/functions/simd/logical_or.hpp>
 #include <nt2/include/functions/simd/is_nan.hpp>
 #endif
-
-
 
 
 namespace nt2 { namespace ext
@@ -60,7 +57,7 @@ namespace nt2 { namespace ext
 #endif
       A0 z = details::invtrig_base<result_type,radian_tag, tag::simd_type>::kernel_atan(a0/a1);
       //A0 z = atan(abs(a0/a1));  // case a1 > 0,  a0 > 0
-      z = nt2::if_else(nt2::is_gtz(a1), z, nt2::Pi<A0>()-z)*nt2::signnz(a0);
+      z = nt2::negatenz(nt2::if_else(nt2::is_gtz(a1), z, nt2::Pi<A0>()-z), a0);
       z =  nt2::if_else( nt2::is_eqz(a0),
                          nt2::if_else_zero( nt2::is_ltz(a1),  nt2::Pi<A0>()),
                          z);
