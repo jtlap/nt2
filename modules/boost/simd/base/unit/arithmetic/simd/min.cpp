@@ -36,6 +36,8 @@ NT2_TEST_CASE_TPL ( min_real, BOOST_SIMD_SIMD_REAL_TYPES )
   NT2_TEST_EQUAL(min(boost::simd::Inf<vT>(), boost::simd::Inf<vT>()), boost::simd::Inf<r_t>());
   NT2_TEST_EQUAL(min(boost::simd::Minf<vT>(), boost::simd::Minf<vT>()), boost::simd::Minf<r_t>());
   NT2_TEST_EQUAL(min(boost::simd::Nan<vT>(), boost::simd::Nan<vT>()), boost::simd::Nan<r_t>());
+  NT2_TEST_EQUAL(min(boost::simd::Nan<vT>(), boost::simd::One<vT>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(min(boost::simd::One<vT>(), boost::simd::Nan<vT>()), boost::simd::Nan<r_t>());
 #endif
   NT2_TEST_EQUAL(min(boost::simd::Mone<vT>(), boost::simd::Mone<vT>()), boost::simd::Mone<r_t>());
   NT2_TEST_EQUAL(min(boost::simd::One<vT>(), boost::simd::One<vT>()), boost::simd::One<r_t>());
