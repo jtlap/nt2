@@ -23,7 +23,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 #define BOOST_SIMD_DETECTED
 #define BOOST_SIMD_MIC
-#define BOOST_SIMD_SSE_FAMILY
 #define BOOST_SIMD_STRING             "MIC"
 #define BOOST_SIMD_STRING_LIST        "MIC SSE2"
 #define BOOST_SIMD_BYTES              64
