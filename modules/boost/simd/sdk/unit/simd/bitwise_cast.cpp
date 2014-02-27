@@ -79,26 +79,27 @@ NT2_TEST_CASE_TPL(integer, BOOST_SIMD_SIMD_INTEGRAL_TYPES )
   using boost::simd::bitwise_cast;
 
 #ifndef BOOST_SIMD_HAS_MIC_SUPPORT
-  typedef native<T,BOOST_SIMD_DEFAULT_EXTENSION> vT;
-  typedef native<uint8_t,BOOST_SIMD_DEFAULT_EXTENSION> v8T;
+  typedef uint8_t U;
 #else
-  typedef native<T,BOOST_SIMD_DEFAULT_EXTENSION> vT;
-  typedef native<uint32_t,BOOST_SIMD_DEFAULT_EXTENSION> v8T;
+  typedef uint32_t U;
 #endif
 
+typedef native<T,BOOST_SIMD_DEFAULT_EXTENSION> vT;
+typedef native<U,BOOST_SIMD_DEFAULT_EXTENSION> vU;
+
   vT  x = boost::simd::One<vT>();
-  v8T y = bitwise_cast<v8T>(x);
+  vU y = bitwise_cast<v8T>(x);
 
-  v8T ref;
+  vU ref;
 
-  for(std::size_t i=0; i!=v8T::static_size; ++i)
+  for(std::size_t i=0; i!=vU::static_size; ++i)
   {
 #ifdef BOOST_LITTLE_ENDIAN
     std::size_t j = i;
 #else
-    std::size_t j = v8T::static_size-i-1;
+    std::size_t j = vU::static_size-i-1;
 #endif
-      ref[j] = (i % sizeof(T)) ? 0u : 1u;
+      ref[j] = (i % sizeof(T)/sizeof(U)) ? 0u : 1u;
   }
 
   NT2_TEST_EQUAL(y, ref);
