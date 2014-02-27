@@ -88,7 +88,7 @@ typedef native<T,BOOST_SIMD_DEFAULT_EXTENSION> vT;
 typedef native<U,BOOST_SIMD_DEFAULT_EXTENSION> vU;
 
   vT  x = boost::simd::One<vT>();
-  vU y = bitwise_cast<v8T>(x);
+  vU y = bitwise_cast<vU>(x);
 
   vU ref;
 
@@ -99,7 +99,7 @@ typedef native<U,BOOST_SIMD_DEFAULT_EXTENSION> vU;
 #else
     std::size_t j = vU::static_size-i-1;
 #endif
-      ref[j] = (i % sizeof(T)/sizeof(U)) ? 0u : 1u;
+      ref[j] = (i % (sizeof(T)/sizeof(U))) ? 0u : 1u;
   }
 
   NT2_TEST_EQUAL(y, ref);
