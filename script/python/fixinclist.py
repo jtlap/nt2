@@ -504,7 +504,7 @@ def main(argv):
     if d['supermod'] == 'type'+"/" :
         d['add']="complex"+"/"
 
-    d['dirbase'] = nsr+"/modules/"+d['supermod']+d['add']
+    d['dirbase'] = addslash(nsr+"/modules/"+d['supermod']+d['add'])
     d['binarybase'] = nbr+"/include/"
 
     pprint ('mode        is    "'+ d['mode']       +'"')
