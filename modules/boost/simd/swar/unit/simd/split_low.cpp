@@ -23,6 +23,7 @@ NT2_TEST_CASE_TPL( split_low, BOOST_SIMD_SIMD_SPLITABLE_TYPES )
   using boost::simd::tag::split_low_;
   using boost::simd::native;
   using boost::simd::enumerate;
+  using boost::simd::meta::cardinal_of;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION                      ext_t;
   typedef native<T,ext_t>                                   vT;
@@ -32,8 +33,11 @@ NT2_TEST_CASE_TPL( split_low, BOOST_SIMD_SIMD_SPLITABLE_TYPES )
                   , uvT
                   );
 
-  vT origin = enumerate<vT>(1);
-  uvT ref   = enumerate<uvT>(1);
+  vT origin = enumerate<vT>(-1);
+  uvT ref;
+
+  for(std::size_t i=0;i<cardinal_of<uvT>::value;++i)
+    ref[i] = origin[i];
 
   NT2_TEST_EQUAL(ref, split_low(origin) );
 }
@@ -45,12 +49,16 @@ NT2_TEST_CASE_TPL( split_low_pack, BOOST_SIMD_SIMD_SPLITABLE_TYPES)
   using boost::simd::tag::split_low_;
   using boost::simd::pack;
   using boost::simd::enumerate;
+  using boost::simd::meta::cardinal_of;
 
   typedef pack<T>                                           vT;
   typedef typename boost::dispatch::meta::upgrade<vT>::type uvT;
 
-  vT origin = enumerate<vT>(1);
-  uvT ref   = enumerate<uvT>(1);
+  vT origin = enumerate<vT>(-1);
+  uvT ref;
+
+  for(std::size_t i=0;i<cardinal_of<uvT>::value;++i)
+    ref[i] = origin[i];
 
   NT2_TEST_EQUAL(ref, split_low(origin) );
 }

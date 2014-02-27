@@ -291,6 +291,19 @@ NT2_TEST_CASE_TPL( avx_zero_shuffle, BOOST_SIMD_SIMD_TYPES)
   binary_shuffle<T,-1, 5,-1, 6>();
 }
 
+NT2_TEST_CASE_TPL( vmx_shuffle, BOOST_SIMD_SIMD_TYPES)
+{
+  // vec_slo
+  binary_shuffle<T,1,2,3,4>();
+  binary_shuffle<T,2,3,4,5>();
+  binary_shuffle<T,3,4,5,6>();
+
+  // vec_slo + zeroing
+  unary_shuffle<T,1, 2, 3,-1>();
+  unary_shuffle<T,2, 3,-1,-1>();
+  unary_shuffle<T,3,-1,-1,-1>();
+}
+
 NT2_TEST_CASE_TPL( other_shuffle, BOOST_SIMD_SIMD_TYPES)
 {
   binary_shuffle<T,0,7,2,6>();

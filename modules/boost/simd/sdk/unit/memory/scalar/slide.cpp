@@ -13,7 +13,24 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
-NT2_TEST_CASE_TPL( slide, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL( unary_slide, BOOST_SIMD_TYPES)
+{
+  using boost::mpl::int_;
+  using boost::simd::slide;
+  using boost::simd::tag::slide_;
+
+  typedef typename boost::dispatch::meta::call<slide_(T, int_<0>)>::type rT;
+
+  NT2_TEST_TYPE_IS( rT, T );
+
+  T v = T(42);
+
+  NT2_TEST_EQUAL( slide<-1>(v), T(0)  );
+  NT2_TEST_EQUAL( slide< 0>(v), v     );
+  NT2_TEST_EQUAL( slide< 1>(v), T(0)  );
+}
+
+NT2_TEST_CASE_TPL( binary_slide, BOOST_SIMD_TYPES)
 {
   using boost::mpl::int_;
   using boost::simd::slide;

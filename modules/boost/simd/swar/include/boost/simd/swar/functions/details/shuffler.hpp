@@ -16,6 +16,7 @@
 #include <boost/simd/swar/functions/details/identity_pattern.hpp>
 #include <boost/simd/swar/functions/details/repeat_pattern.hpp>
 #include <boost/simd/swar/functions/details/default_matcher.hpp>
+#include <boost/simd/swar/functions/details/slide_pattern.hpp>
 #include <boost/simd/swar/functions/details/zero_pattern.hpp>
 #include <boost/simd/swar/functions/details/filler.hpp>
 #include <boost/simd/include/functions/simd/aligned_load.hpp>

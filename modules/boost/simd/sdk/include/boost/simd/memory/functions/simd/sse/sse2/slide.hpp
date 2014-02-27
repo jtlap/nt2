@@ -18,7 +18,76 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  /// INTERNAL ONLY - slide between scalar values
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::slide_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)(N)
+                                    , ((simd_< arithmetic_<A0>
+                                            , boost::simd::tag::sse_
+                                            >
+                                      ))
+                                      (mpl_integral_< scalar_< integer_<N> > >)
+                                    )
+  {
+    typedef A0 result_type;
+
+    BOOST_FORCEINLINE
+    result_type operator()(A0 const& a0, N const&) const
+    {
+      return eval ( a0
+                  , boost::mpl::bool_<N::value==0>()
+                  , boost::mpl::bool_ <   (N::value ==  A0::static_size)
+                                      ||  (N::value == -A0::static_size)
+                                      >()
+                  );
+    }
+
+    BOOST_FORCEINLINE
+    result_type eval( A0 const& a0
+                    , boost::mpl::true_ const&, boost::mpl::false_ const&
+                    ) const
+    {
+      return a0;
+    }
+
+    BOOST_FORCEINLINE
+    result_type eval( A0 const&
+                    , boost::mpl::false_ const&, boost::mpl::true_ const&
+                    ) const
+    {
+      return Zero<A0>();
+    }
+
+    BOOST_FORCEINLINE
+    result_type eval( A0 const& a0
+                    , boost::mpl::false_ const&, boost::mpl::false_ const&
+                    ) const
+    {
+      return eval(a0, mpl::bool_<(N::value>=0)>());
+    }
+
+    BOOST_FORCEINLINE
+    result_type eval( A0 const& a0, boost::mpl::true_ const& ) const
+    {
+      typedef typename A0::template rebind<unsigned char>::type u8type;
+
+      static const std::size_t s = (16u/meta::cardinal_of<A0>::value)*(N::value);
+      u8type that = _mm_srli_si128(bitwise_cast<u8type>(a0),s);
+
+      return bitwise_cast<result_type>(that);
+    }
+
+    BOOST_FORCEINLINE
+    result_type eval( A0 const& a0, boost::mpl::false_ const& ) const
+    {
+      typedef typename A0::template rebind<unsigned char>::type u8type;
+
+      static const std::size_t s = (16u/meta::cardinal_of<A0>::value)*(-N::value);
+      u8type that = _mm_slli_si128(bitwise_cast<u8type>(a0),s);
+
+      return bitwise_cast<result_type>(that);
+    }
+  };
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::slide_
                                     , boost::simd::tag::sse2_
                                     , (A0)(N)
