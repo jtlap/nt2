@@ -13,7 +13,7 @@
 #include <nt2/include/functions/load.hpp>
 #include <nt2/include/functions/store.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/simd/maximum.hpp>
+#include <boost/simd/include/functions/simd/maximum.hpp>
 #include <nt2/sdk/memory/category.hpp>
 #include <nt2/sdk/simd/category.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
   template<class T, class A0, class X>
   std::size_t maxpos(boost::simd::native<A0, X> const& a0)
   {
-    return nt2::maximum(a0);
+    return boost::simd::maximum(a0);
   }
 
   //============================================================================
