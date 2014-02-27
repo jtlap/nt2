@@ -14,8 +14,6 @@ SET ( NT2_CORE.SDK_DEPENDENCIES_EXTRA
       boost.simd.sdk
       core.base
       core.sdk
-      core.container.view
-      core.reduction
       core.restructuring
       core.settings
       core.swar
