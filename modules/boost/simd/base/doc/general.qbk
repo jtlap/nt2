@@ -37,18 +37,18 @@ For example, the following code generates the constant 0 in various type:
 All Boost.SIMD functions are accessible through various headers. Let's say we
 want to use the boost::simd::plus functions, you may have to include:
 
-* `boost/simd/include/functions/plus.hpp` to access both scalar and SIMD variants
-of the function. This is the default behavior you may watn for using the functions
-in your code.
+* `boost/simd/include/functions/plus.hpp` includes all variants of plus.
 
-* `boost/simd/include/functions/scalar/plus.hpp` to access the scalar only variant
-of the function. This is the recommended when you are working with strictly
-scalar types as it reduces the compilation times by omitting the SIMD specific
-variants.
+* `boost/simd/include/functions/scalar/plus.hpp` includes all scalar variants of plus. 
+This is the recommended when you are working with strictly scalar types as it reduces 
+the compilation times by omitting the SIMD specific variants.
+
+* `boost/simd/include/functions/sid/plus.hpp` includes all SIMD variants of plus. 
 
 For constants, the root folder is `constants` instead of
 `functions`. So using the `Zero` constant will require you to include
-`boost/simd/include/constants/zero.hpp`
+`boost/simd/include/constants/zero.hpp`. No mechanism to only include scalar 
+constants exists
 
 [endsect]
 
