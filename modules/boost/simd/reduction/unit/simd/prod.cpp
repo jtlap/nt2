@@ -15,6 +15,7 @@
 #include <boost/simd/sdk/simd/io.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
@@ -40,7 +41,7 @@ NT2_TEST_CASE_TPL ( prod_real, BOOST_SIMD_SIMD_REAL_TYPES)
   for(std::size_t i=0;i<n;++i) fact *= i%2 ? T(i+1) : T(1)/(i+1);
 
   vT vn = boost::simd::load<vT>(&data[0]);
-  NT2_TEST_EQUAL(prod(vn), T( fact ) );
+  NT2_TEST_ULP_EQUAL(prod(vn), T( fact ), 0.5 );
 }
 
 NT2_TEST_CASE_TPL ( prod_int, BOOST_SIMD_SIMD_INTEGRAL_TYPES)
