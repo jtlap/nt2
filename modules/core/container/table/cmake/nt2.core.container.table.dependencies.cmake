@@ -13,7 +13,6 @@ SET ( NT2_CORE.CONTAINER.TABLE_DEPENDENCIES_EXTRA
       core.base
       core.container.placeholders
       core.sdk
-      core.settings
       core.utility
       sdk.functor
     )

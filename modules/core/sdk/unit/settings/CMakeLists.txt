@@ -23,4 +23,4 @@ SET( SOURCES
    )
 
 include(CheckCXXCompilerFlag)
-nt2_module_add_tests(core.settings.unit ${SOURCES})
+nt2_module_add_tests(core.sdk.settings.unit ${SOURCES})

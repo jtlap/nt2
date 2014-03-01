@@ -19,7 +19,6 @@ SET ( NT2_CORE.UTILITY_DEPENDENCIES_EXTRA
       core.generative
       core.restructuring
       core.sdk
-      core.settings
       sdk.config
       sdk.functor
       sdk.meta

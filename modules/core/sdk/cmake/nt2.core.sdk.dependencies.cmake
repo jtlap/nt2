@@ -15,8 +15,6 @@ SET ( NT2_CORE.SDK_DEPENDENCIES_EXTRA
       core.base
       core.sdk
       core.restructuring
-      core.settings
-      core.swar
       core.utility
       sdk.config
       sdk.functor
