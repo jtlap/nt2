@@ -66,9 +66,9 @@ namespace nt2 { namespace ext
       }};
       static const A0 C = (nt2::Pi<A0>()*nt2::Pi<A0>())/nt2::Six<A0>();
       A0 x = a0;
-      if( x < nt2::Zero<A0>() )        return nt2::Nan<A0>();
+      if( x < nt2::Zero<A0>() ) return nt2::Zero<A0>();
       if( x == nt2::One<A0>() ) return nt2::Zero<A0>();
-      if( nt2::is_eqz(x) )       return C ;
+      if( nt2::is_eqz(x) )      return C ;
       int flag = 0;
       if( x > nt2::Two<A0>() ){ x = rec(x); flag |= 2;}
       A0 w;
