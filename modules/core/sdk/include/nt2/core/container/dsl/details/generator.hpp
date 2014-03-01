@@ -80,7 +80,4 @@ namespace nt2 { namespace details
   };
 } }
 
-#include <nt2/core/container/dsl/details/generator/terminal.hpp>
-//#include <nt2/core/container/dsl/details/generator/nullary_function.hpp>
-
 #endif
