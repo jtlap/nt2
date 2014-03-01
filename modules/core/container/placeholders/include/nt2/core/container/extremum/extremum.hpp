@@ -9,7 +9,7 @@
 #ifndef NT2_CORE_CONTAINER_EXTREMUM_EXTREMUM_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_EXTREMUM_EXTREMUM_HPP_INCLUDED
 
-#include <nt2/core/utility/fix_index.hpp>
+#include <nt2/sdk/meta/fix_index.hpp>
 
 namespace nt2 { namespace container
 {
