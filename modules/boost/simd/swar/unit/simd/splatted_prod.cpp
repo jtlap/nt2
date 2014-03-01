@@ -17,7 +17,7 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
-NT2_TEST_CASE_TPL ( splatted_prod, BOOST_SIMD_SIMD_TYPES)
+NT2_TEST_CASE_TPL ( splatted_prod_real, BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::splatted_prod;
   using boost::simd::tag::splatted_prod_;
@@ -36,8 +36,34 @@ NT2_TEST_CASE_TPL ( splatted_prod, BOOST_SIMD_SIMD_TYPES)
   T data[n];
   T fact = 1;
 
-  for(std::size_t i=0;i<n;++i) data[i] = i+1;
-  for(std::size_t i=0;i<n;++i) fact *= (i+1);
+  for(std::size_t i=0;i<n;++i) data[i] = i%2 ? T(i+1) : T(1)/(i+1);
+  for(std::size_t i=0;i<n;++i) fact *= i%2 ? T(i+1) : T(1)/(i+1);
+
+  vT vn = boost::simd::load<vT>(&data[0]);
+  NT2_TEST_EQUAL(splatted_prod(vn), splat<vT>( fact ) );
+}
+
+NT2_TEST_CASE_TPL ( splatted_prod_int, BOOST_SIMD_SIMD_INTEGRAL_TYPES)
+{
+  using boost::simd::splatted_prod;
+  using boost::simd::tag::splatted_prod_;
+  using boost::simd::native;
+  using boost::simd::splat;
+
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>               vT;
+
+  NT2_TEST_TYPE_IS( typename boost::dispatch::meta
+                                            ::call<splatted_prod_(vT)>::type
+                  , vT
+                  );
+
+  static const std::size_t n = vT::static_size;
+  T data[n];
+  T fact = 1;
+
+  for(std::size_t i=0;i<n;++i) data[i] = T(i+1);
+  for(std::size_t i=0;i<n;++i) fact *= T(i+1);
 
   vT vn = boost::simd::load<vT>(&data[0]);
   NT2_TEST_EQUAL(splatted_prod(vn), splat<vT>( fact ) );
