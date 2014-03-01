@@ -19,7 +19,6 @@ set( SOURCES
      pack.cpp
 #    foo.cpp
 #    table_dim.cpp
-     transform_pass.cpp
 #    table.cpp
    )
 

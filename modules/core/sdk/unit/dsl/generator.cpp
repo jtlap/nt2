@@ -14,7 +14,6 @@
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/sum.hpp>
-#include <nt2/include/functions/optimize.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
