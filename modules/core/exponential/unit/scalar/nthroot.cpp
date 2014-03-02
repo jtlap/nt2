@@ -45,6 +45,11 @@ NT2_TEST_CASE_TPL ( nthroot,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(nthroot(nt2::Nan<T>(),iT(4)), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(nthroot(nt2::Mone<T>(),iT(4)), nt2::Nan<r_t>(), 0.5);
 #endif
+  NT2_TEST_ULP_EQUAL(nthroot(nt2::Mone<T>(),iT(0)), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nthroot(nt2::One <T>(),iT(0)), nt2::One<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nthroot(nt2::Half<T>(),iT(0)), nt2::Zero<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nthroot(nt2::Two <T>(),iT(0)), nt2::Inf <r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nthroot(nt2::Zero<T>(),iT(0)), nt2::Zero<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(nthroot(nt2::Mone<T>(),iT(3)), nt2::Mone<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(nthroot(nt2::One<T>(),iT(3)), nt2::One<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(nthroot(nt2::One<T>(),iT(4)), nt2::One<r_t>(), 0.5);

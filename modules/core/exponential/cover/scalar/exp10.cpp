@@ -1,36 +1,38 @@
 //==============================================================================
-//         Copyright 2003 - 2013   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2014   LASMEA UMR 6602 CNRS/UBP
+//         Copyright 2009 - 2014   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+// cover for functor exp10 in scalar mode
 #include <nt2/exponential/include/functions/exp10.hpp>
-
-#include <nt2/sdk/unit/tests/cover.hpp>
-#include <nt2/sdk/unit/tests/ulp.hpp>
-#include <nt2/sdk/unit/module.hpp>
-
+#include <boost/simd/sdk/simd/io.hpp>
+#include <cmath>
 #include <iostream>
+#include <nt2/sdk/unit/args.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/cover.hpp>
+#include <vector>
 
-#include <nt2/include/functions/log10.hpp>
 extern "C" { long double cephes_exp10l(long double); }
 
-NT2_TEST_CASE_TPL ( exp10,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL(exp10_0,  NT2_SIMD_REAL_TYPES)
 {
-  using nt2::exp10;
-  using nt2::tag::exp10_;
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
-    T a0;
-    for(nt2::uint32_t j =0; j < NR; ++j )
-      {
-        std::cout << "for param "
-                  << "  a0 = "<< (a0 = tab_a0[j])
-                  << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::exp10(a0),::cephes_exp10l(a0),0.5);
-     }
-   }
-} // end of test for floating_
+  using nt2::unit::args;
+  const std::size_t NR = args("samples", NT2_NB_RANDOM_TEST);
+  const double ulpd = args("ulpd", 0.5);
+
+  const T min = args("min", T(-37));
+  const T max = args("max", T(37));
+  std::cout << "Argument samples #0 chosen in range: [" << min << ",  " << max << "]" << std::endl;
+  NT2_CREATE_BUF(a0,T, NR, min, max);
+
+  std::vector<T> ref(NR);
+  for(std::size_t i=0; i!=NR; ++i)
+    ref[i] = ::cephes_exp10l(a0[i]);
+
+  NT2_COVER_ULP_EQUAL(nt2::tag::exp10_, ((T, a0)), ref, ulpd);
+
+}

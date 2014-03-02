@@ -43,11 +43,16 @@ NT2_TEST_CASE_TPL ( nthroot,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(nthroot(nt2::Inf<vT>(),nt2::splat<ivT>(3)), nt2::Inf<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(nthroot(nt2::Inf<vT>(),nt2::splat<ivT>(4)), nt2::Inf<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(nthroot(nt2::Minf<vT>(),nt2::splat<ivT>(3)), nt2::Minf<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(nthroot(nt2::Minf<vT>(),nt2::splat<ivT>(4)), nt2::Nan<r_t>(), 0.5);
+   NT2_TEST_ULP_EQUAL(nthroot(nt2::Minf<vT>(),nt2::splat<ivT>(4)), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(nthroot(nt2::Nan<vT>(),nt2::splat<ivT>(3)), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(nthroot(nt2::Nan<vT>(),nt2::splat<ivT>(4)), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(nthroot(nt2::Mone<vT>(),nt2::splat<ivT>(4)), nt2::Nan<r_t>(), 0.5);
 #endif
+  NT2_TEST_ULP_EQUAL(nthroot(nt2::Mone<vT>(),nt2::splat<ivT>(0)), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nthroot(nt2::One <vT>(),nt2::splat<ivT>(0)), nt2::One<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nthroot(nt2::Half<vT>(),nt2::splat<ivT>(0)), nt2::Zero<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nthroot(nt2::Two <vT>(),nt2::splat<ivT>(0)), nt2::Inf <r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nthroot(nt2::Zero<vT>(),nt2::splat<ivT>(0)), nt2::Zero<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(nthroot(nt2::Mone<vT>(),nt2::splat<ivT>(3)), nt2::Mone<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(nthroot(nt2::One<vT>(),nt2::splat<ivT>(3)), nt2::One<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(nthroot(nt2::One<vT>(),nt2::splat<ivT>(4)), nt2::One<r_t>(), 0.5);
