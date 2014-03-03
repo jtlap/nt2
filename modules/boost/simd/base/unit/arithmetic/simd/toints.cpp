@@ -6,13 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+
 #include <boost/simd/arithmetic/include/functions/toints.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/include/functions/splat.hpp>
 #include <boost/simd/include/functions/multiplies.hpp>
 #include <boost/simd/include/functions/load.hpp>
@@ -25,6 +22,11 @@
 #include <boost/simd/include/constants/two.hpp>
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
+#include <algorithm>
+
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 
 NT2_TEST_CASE_TPL ( toints_real,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
@@ -75,14 +77,15 @@ NT2_TEST_CASE_TPL ( toints_real2,   BOOST_SIMD_SIMD_REAL_TYPES)
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION                                ext_t;
   typedef native<T,ext_t>                                                vT;
-  typedef typename boost::dispatch::meta::call<toints_(vT)>::type      r_t;
   typedef typename boost::dispatch::meta::call<toints_(T)>::type        iT;
   typedef native<iT,ext_t>                                              ivT;
 
-  T data[] = {boost::simd::One<T>(), boost::simd::Inf<T>(), boost::simd::Minf<T>(), boost::simd::Nan<T>(),boost::simd::One<T>(), boost::simd::Inf<T>(), boost::simd::Minf<T>(), boost::simd::Nan<T>(), };
-  iT idat[] = {boost::simd::One<iT>(), boost::simd::Inf<iT>(), boost::simd::Minf<iT>(), boost::simd::Nan<iT>(), boost::simd::One<iT>(), boost::simd::Inf<iT>(), boost::simd::Minf<iT>(), boost::simd::Nan<iT>()};
-  boost::simd::uint32_t NR =  (sizeof(data)/sizeof(T));
-  for(nt2::uint32_t j = 0; j < NR;j+=boost::simd::meta::cardinal_of<vT>::value)
+  static const std::size_t NR = std::max(boost::simd::meta::cardinal_of<vT>::value, std::size_t(8));
+
+  T data[] = { boost::simd::One<T>(), boost::simd::Inf<T>(), boost::simd::Minf<T>(), boost::simd::Nan<T>(),boost::simd::One<T>(), boost::simd::Inf<T>(), boost::simd::Minf<T>(), boost::simd::Nan<T>() };
+  iT idat[] = { boost::simd::One<iT>(), boost::simd::Inf<iT>(), boost::simd::Minf<iT>(), boost::simd::Nan<iT>(), boost::simd::One<iT>(), boost::simd::Inf<iT>(), boost::simd::Minf<iT>(), boost::simd::Nan<iT>() };
+
+  for(std::size_t j = 0; j < NR; j+=boost::simd::meta::cardinal_of<vT>::value)
   {
     vT   a =  boost::simd::load<vT>(&data[0],j);
     ivT ia =  boost::simd::load<ivT>(&idat[0],j);
