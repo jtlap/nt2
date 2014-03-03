@@ -80,7 +80,7 @@ NT2_TEST_CASE_TPL ( toints_real2,   BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<toints_(T)>::type        iT;
   typedef native<iT,ext_t>                                              ivT;
 
-  static const std::size_t NR = std::max(boost::simd::meta::cardinal_of<vT>::value, std::size_t(8));
+  static const std::size_t NR = boost::simd::meta::cardinal_of<vT>::value > std::size_t(8) ? boost::simd::meta::cardinal_of<vT>::value : std::size_t(8);
 
   T data[NR] = { boost::simd::One<T>(), boost::simd::Inf<T>(), boost::simd::Minf<T>(), boost::simd::Nan<T>(),boost::simd::One<T>(), boost::simd::Inf<T>(), boost::simd::Minf<T>(), boost::simd::Nan<T>() };
   iT idat[NR] = { boost::simd::One<iT>(), boost::simd::Inf<iT>(), boost::simd::Minf<iT>(), boost::simd::Nan<iT>(), boost::simd::One<iT>(), boost::simd::Inf<iT>(), boost::simd::Minf<iT>(), boost::simd::Nan<iT>() };
