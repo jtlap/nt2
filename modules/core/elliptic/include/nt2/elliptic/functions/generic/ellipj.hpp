@@ -12,13 +12,14 @@
 #include <nt2/elliptic/functions/ellipj.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <nt2/include/constants/eps.hpp>
-#include <nt2/include/functions/am.hpp>
-#include <nt2/include/functions/if_zero_else.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/sincos.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/sqrt.hpp>
+#include <nt2/include/functions/simd/am.hpp>
+#include <nt2/include/functions/simd/if_zero_else.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/oneminus.hpp>
+#include <nt2/include/functions/simd/sincos.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/sqrt.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 
 namespace nt2 { namespace ext
