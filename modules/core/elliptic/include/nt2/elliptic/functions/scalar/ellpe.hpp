@@ -10,38 +10,21 @@
 #define NT2_ELLIPTIC_FUNCTIONS_SCALAR_ELLPE_HPP_INCLUDED
 
 #include <nt2/elliptic/functions/ellpe.hpp>
-#include <boost/math/special_functions/ellint_2.hpp>
-#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
-#include <nt2/include/functions/scalar/is_ltz.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/pio_2.hpp>
+#include <nt2/include/functions/scalar/ellint_2.hpp>
 #include <nt2/include/functions/scalar/is_eqz.hpp>
+#include <nt2/include/functions/scalar/is_ltz.hpp>
+#include <nt2/include/functions/scalar/log.hpp>
 #include <nt2/include/functions/scalar/oneminus.hpp>
 #include <nt2/include/functions/scalar/sqrt.hpp>
-#include <nt2/include/functions/scalar/log.hpp>
+#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/sdk/error/policies.hpp>
-#include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/nan.hpp>
-#include <nt2/include/constants/pi.hpp>
-#include <nt2/include/constants/pio_2.hpp>
-#include <nt2/include/constants/eps.hpp>
-
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ellpe_, tag::cpu_
-                            , (A0)
-                            , (scalar_< arithmetic_<A0> >)
-                            )
-  {
-
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::ellpe(result_type(a0));
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ellpe_, tag::cpu_
+   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ellpe_, tag::cpu_
                             , (A0)
                             , (scalar_< double_<A0> >)
                             )
@@ -51,11 +34,10 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef result_type type;
-      if (a0>nt2::One<A0>()||(nt2::is_ltz(a0))) return nt2::Nan<type>();
-      if (nt2::is_eqz(a0))  return nt2::One<type>();
-      if (a0 == nt2::One<A0>()) return nt2::Pio_2<type>();
-      return boost::math::ellint_2(nt2::sqrt(nt2::oneminus(type(a0))), nt2_policy());
+      if (a0>nt2::One<A0>()||(nt2::is_ltz(a0))) return nt2::Nan<A0>();
+      if (nt2::is_eqz(a0))  return nt2::One<A0>();
+      if (a0 == nt2::One<A0>()) return nt2::Pio_2<A0>();
+      return nt2::ellint_2(nt2::sqrt(nt2::oneminus(A0(a0))));
     }
   };
 
@@ -98,6 +80,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 
 #endif

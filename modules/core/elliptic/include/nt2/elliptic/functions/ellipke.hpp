@@ -33,8 +33,8 @@ namespace nt2 { namespace tag
     is similar to:
 
     @code
-    T0 k = ellik(x);
-    T0 e = ellie(x);
+    T0 k = ellpk(1-x);
+    T0 e = ellpe(1-x);
     @endcode
 
     @see @funcref{ellint_1}, @funcref{ellint_2}
@@ -59,8 +59,8 @@ namespace nt2 { namespace tag
     is similar to:
 
     @code
-    T0 k = ellik(x);
-    T0 e = ellie(x);
+    T0 k = ellpk(1-x);
+    T0 e = ellpe(1-x);
     @endcode
 
     @see @funcref{ellint_1}, @funcref{ellint_2}

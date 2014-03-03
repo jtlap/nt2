@@ -10,16 +10,16 @@
 #define NT2_ELLIPTIC_FUNCTIONS_SCALAR_ELLINT_1_HPP_INCLUDED
 
 #include <nt2/elliptic/functions/ellint_1.hpp>
-#include <nt2/include/functions/scalar/oneminus.hpp>
-#include <nt2/include/functions/scalar/average.hpp>
-#include <nt2/include/functions/scalar/abs.hpp>
-#include <nt2/include/functions/scalar/sqrt.hpp>
-#include <nt2/include/functions/scalar/sqr.hpp>
 #include <nt2/include/constants/eps.hpp>
-#include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/pio_2.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/average.hpp>
+#include <nt2/include/functions/scalar/oneminus.hpp>
+#include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/functions/scalar/sqrt.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -49,6 +49,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 
 #endif

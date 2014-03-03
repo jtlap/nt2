@@ -12,6 +12,7 @@
 #include <nt2/elliptic/functions/ellipke.hpp>
 #include <boost/fusion/include/std_pair.hpp>
 #include <nt2/include/constants/eps.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -64,7 +65,6 @@ namespace nt2 { namespace ext
       return a2;
     }
   };
-
 
 } }
 #endif

@@ -10,18 +10,16 @@
 #define NT2_ELLIPTIC_FUNCTIONS_GENERIC_ELLIPJ_HPP_INCLUDED
 
 #include <nt2/elliptic/functions/ellipj.hpp>
-#include <nt2/include/functions/simd/sincos.hpp>
-#include <nt2/include/functions/simd/sqrt.hpp>
-#include <nt2/include/functions/simd/oneminus.hpp>
-#include <nt2/include/functions/simd/if_zero_else.hpp>
-#include <nt2/include/functions/simd/sqr.hpp>
-#include <nt2/include/functions/simd/multiplies.hpp>
-#include <nt2/include/functions/simd/is_eqz.hpp>
-#include <nt2/include/functions/simd/am.hpp>
-#include <nt2/include/constants/eps.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <boost/fusion/include/std_pair.hpp>
+#include <nt2/include/constants/eps.hpp>
+#include <nt2/include/functions/am.hpp>
+#include <nt2/include/functions/if_zero_else.hpp>
+#include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/oneminus.hpp>
+#include <nt2/include/functions/sincos.hpp>
+#include <nt2/include/functions/sqr.hpp>
+#include <nt2/include/functions/sqrt.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -79,7 +77,6 @@ namespace nt2 { namespace ext
     }
   };
 
-
   NT2_FUNCTOR_IMPLEMENTATION(  nt2::tag::ellipj_, tag::cpu_,
                                (A0)(A1)(A2),
                                (generic_<unspecified_<A0> >)
@@ -98,7 +95,6 @@ namespace nt2 { namespace ext
       return result_type(s, c);
     }
   };
-
 
   NT2_FUNCTOR_IMPLEMENTATION(  nt2::tag::ellipj_, tag::cpu_,
                                (A0)(A1)(A2),

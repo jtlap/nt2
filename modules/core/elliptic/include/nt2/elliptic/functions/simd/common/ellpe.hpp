@@ -9,30 +9,21 @@
 #ifndef NT2_ELLIPTIC_FUNCTIONS_SIMD_COMMON_ELLPE_HPP_INCLUDED
 #define NT2_ELLIPTIC_FUNCTIONS_SIMD_COMMON_ELLPE_HPP_INCLUDED
 #include <nt2/elliptic/functions/ellpe.hpp>
-#include <nt2/include/functions/simd/is_ltz.hpp>
-#include <nt2/include/functions/simd/is_eqz.hpp>
-#include <nt2/include/functions/simd/log.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
-#include <nt2/include/functions/simd/if_allbits_else.hpp>
-#include <nt2/include/functions/simd/logical_or.hpp>
-#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/constants/one.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/is_greater.hpp>
+#include <nt2/include/functions/simd/is_ltz.hpp>
+#include <nt2/include/functions/simd/log.hpp>
+#include <nt2/include/functions/simd/logical_or.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellpe_, tag::cpu_,
-                        (A0)(X),
-                        ((simd_<integer_<A0>,X>))
-                       )
-  {
-    typedef A0 result_type;
-    NT2_FUNCTOR_CALL_REPEAT(1)
-    {
-      return nt2::ellpe(nt2::tofloat(a0));
-    }
-  };
-
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellpe_, tag::cpu_,
                         (A0)(X),
                         ((simd_<single_<A0>,X>))

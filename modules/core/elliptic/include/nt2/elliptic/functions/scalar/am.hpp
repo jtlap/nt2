@@ -10,13 +10,16 @@
 #define NT2_ELLIPTIC_FUNCTIONS_SCALAR_AM_HPP_INCLUDED
 
 #include <nt2/elliptic/functions/am.hpp>
+#include <boost/dispatch/attributes.hpp>
 #include <nt2/elliptic/functions/generic/details/am_kernel.hpp>
-#include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/pio_2.hpp>
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/atan.hpp>
 #include <nt2/include/functions/scalar/exp.hpp>
+#include <nt2/include/functions/scalar/is_equal.hpp>
+#include <nt2/include/functions/scalar/is_eqz.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -29,7 +32,6 @@ namespace nt2 { namespace ext
                              )
   {
     typedef A0 result_type;
-    typedef std::vector<A0> vtype;
     BOOST_FORCEINLINE result_type operator()(const A0 & u, const A1 & x,
                                              const A2 & tol) const
     {
