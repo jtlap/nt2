@@ -28,7 +28,6 @@
 #include <nt2/include/functions/simd/is_nez.hpp>
 #include <nt2/include/functions/simd/logical_and.hpp>
 #include <nt2/include/functions/simd/logical_andnot.hpp>
-#include <nt2/include/functions/simd/logical_notand.hpp>
 #include <nt2/include/functions/simd/logical_or.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/functions/simd/minusone.hpp>
@@ -39,7 +38,7 @@
 #include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
-#include <iostream>
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nthroot_, tag::cpu_
