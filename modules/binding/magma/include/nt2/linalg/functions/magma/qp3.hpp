@@ -20,8 +20,6 @@
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/linalg/details/utility/options.hpp>
 #include <nt2/linalg/details/utility/workspace.hpp>
-#include <nt2/linalg/details/utility/exception.hpp>
-
 #include <nt2/table.hpp>
 
 #include <nt2/include/functions/of_size.hpp>

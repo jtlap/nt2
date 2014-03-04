@@ -16,30 +16,8 @@
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
-#include <nt2/table.hpp>
-
-extern "C"
-{
-  double NT2_F77NAME(dlange)( const char* norm     , const nt2_la_int* m
-                          , const nt2_la_int* n    , const double* a
-                          , const nt2_la_int* lda  , double* work
-                          );
-
-  float NT2_F77NAME(slange)( const char* norm      , const nt2_la_int* m
-                          , const nt2_la_int* n    , const float* a
-                          , const nt2_la_int* lda  , float* work
-                          );
-
-  double NT2_F77NAME(zlange)( const char* norm     , const nt2_la_int* m
-                          , const nt2_la_int* n    , const nt2_la_complex* a
-                          , const nt2_la_int* lda  , double* work
-                          );
-
-  float NT2_F77NAME(clange)( const char* norm      , const nt2_la_int* m
-                          , const nt2_la_int* n    , const nt2_la_complex* a
-                          , const nt2_la_int* lda  , float* work
-                          );
-}
+#include <nt2/linalg/details/lapack/lange.hpp>
+#include <nt2/core/container/table/table.hpp>
 
 
 namespace nt2 { namespace ext
@@ -62,7 +40,7 @@ namespace nt2 { namespace ext
 
      if(a1 == 'I' || 'i')
      {
-        nt2::table<result_type> work(nt2::of_size(m,1));
+        nt2::container::table<result_type> work(nt2::of_size(m,1));
         norm = NT2_F77NAME(dlange)( &a1, &m, &n, a0.raw(), &ld, work.raw());
       }
       else
@@ -92,7 +70,7 @@ namespace nt2 { namespace ext
 
       if(a1 == 'I' || 'i')
       {
-        nt2::table<result_type> work(nt2::of_size(m,1));
+        nt2::container::table<result_type> work(nt2::of_size(m,1));
         norm = NT2_F77NAME(slange)( &a1, &m, &n, a0.raw(), &ld, work.raw());
       }
       else
@@ -122,7 +100,7 @@ namespace nt2 { namespace ext
 
      if(a1 == 'I' || 'i')
      {
-        nt2::table<result_type> work(nt2::of_size(m,1));
+        nt2::container::table<result_type> work(nt2::of_size(m,1));
         norm = NT2_F77NAME(zlange)( &a1, &m, &n, a0.raw(), &ld, work.raw());
       }
       else
@@ -152,7 +130,7 @@ namespace nt2 { namespace ext
 
       if(a1 == 'I' || 'i')
       {
-        nt2::table<result_type> work(nt2::of_size(m,1));
+        nt2::container::table<result_type> work(nt2::of_size(m,1));
         norm = NT2_F77NAME(clange)( &a1, &m, &n, a0.raw(), &ld, work.raw());
       }
       else
