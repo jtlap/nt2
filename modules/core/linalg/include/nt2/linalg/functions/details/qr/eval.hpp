@@ -28,6 +28,8 @@ namespace nt2 { namespace ext
                         , nt2::policy<ext::pivot_> const&
                         )
   {
+    ip = nt2::zeros(nt2::width(work),1,nt2::meta::as_<nt2_la_int>());
+
     return nt2::qp3( boost::proto::value(work),  boost::proto::value(ip)
                    ,  boost::proto::value(tau) );
   }
@@ -61,6 +63,8 @@ namespace nt2 { namespace ext
                         , nt2::policy<ext::matrix_> const&
                         )
   {
+    ip = nt2::zeros(nt2::width(work),1,nt2::meta::as_<nt2_la_int>());
+
     return nt2::qp3( boost::proto::value(work), boost::proto::value(ip)
                    , boost::proto::value(tau) );
   }
@@ -73,6 +77,8 @@ namespace nt2 { namespace ext
                         , int const&
                         )
   {
+    ip = nt2::zeros(nt2::width(work),1,nt2::meta::as_<nt2_la_int>());
+
     return nt2::qp3( boost::proto::value(work), boost::proto::value(ip)
                    , boost::proto::value(tau) );
   }
@@ -85,6 +91,8 @@ namespace nt2 { namespace ext
                         , nt2::policy<ext::vector_> const&
                         )
   {
+    ip = nt2::zeros(nt2::width(work),1,nt2::meta::as_<nt2_la_int>());
+
     return nt2::qp3( boost::proto::value(work), boost::proto::value(ip)
                    , boost::proto::value(tau) );
   }

@@ -19,9 +19,8 @@
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/linalg/details/utility/options.hpp>
 #include <nt2/linalg/details/utility/workspace.hpp>
-#include <nt2/linalg/details/utility/exception.hpp>
 
-#include <nt2/table.hpp>
+#include <nt2/core/container/table/table.hpp>
 
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/height.hpp>
@@ -46,7 +45,7 @@ namespace nt2 { namespace ext
         details::workspace<typename A0::value_type> w;
         nt2_la_int  m  = nt2::height(a0);
         nt2_la_int  n  = nt2::width(a0);
-        nt2_la_int  ld = a0.leading_size();
+        nt2_la_int  ld = ((m+31)/32)*32;
         nt2_la_int lwork_query = -1;
 
         magma_dgeqrf (m, n, 0, ld, 0, w.main()
@@ -80,7 +79,7 @@ namespace nt2 { namespace ext
 
         a1.resize( nt2::of_size(std::min(n, m), 1) );
 
-        magma_dgeqrf (m, n, a0.raw(), ld, a1.raw(), a2.main()
+        magma_dgeqrf (m, n, a0.raw(), m, a1.raw(), a2.main()
                             , wn, &that
                             );
         return that;
@@ -98,14 +97,12 @@ namespace nt2 { namespace ext
 
      BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
      {
+        details::workspace<typename A0::value_type> w;
         result_type that;
         nt2_la_int  m  = nt2::height(a0);
         nt2_la_int  n  = nt2::width(a0);
-        nt2_la_int  ld = a0.leading_size();
+        nt2_la_int  ld = ((m+31)/32)*32;
         nt2_la_int lwork_query = -1;
-
-        details::workspace<typename A0::value_type> w;
-        a1.resize( nt2::of_size(std::min(n, m), 1) );
 
         magma_sgeqrf(m, n, 0, ld, 0, w.main()
                           , lwork_query, &that
@@ -134,13 +131,15 @@ namespace nt2 { namespace ext
         nt2_la_int  m  = nt2::height(a0);
         nt2_la_int  n  = nt2::width(a0);
         nt2_la_int  ld = a0.leading_size();
+        nt2_la_int  ldda = ((m+31)/32)*32;
         nt2_la_int  wn = a2.main_size();
 
         a1.resize( nt2::of_size(std::min(n, m), 1) );
 
-        magma_sgeqrf (m, n, a0.raw(), ld, a1.raw(), a2.main()
+        magma_sgeqrf(m, n, a0.raw(), m, a1.raw(), a2.main()
                             , wn, &that
                             );
+
         return that;
      }
   };

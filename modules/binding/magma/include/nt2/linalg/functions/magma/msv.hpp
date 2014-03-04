@@ -24,12 +24,10 @@
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
 
-#include <nt2/table.hpp>
+#include <nt2/core/container/table/table.hpp>
 
 #include <magma.h>
 #include <cublas.h>
-#include <stdio.h>
-
 
 namespace nt2 { namespace ext
 {
@@ -54,7 +52,7 @@ namespace nt2 { namespace ext
         nt2::container::table<double> copyb(nt2::of_size(ldb,nhrs));
         copyb = a1;
 
-        nt2::table<nt2_la_int> ipiv(nt2::of_size(n,1));
+        nt2::container::table<nt2_la_int> ipiv(nt2::of_size(n,1));
 
         details::magma_buffer<float>      swork(n*(n+nhrs),1);
         details::magma_buffer<double>     dwork(n*nhrs,1);
@@ -99,7 +97,7 @@ namespace nt2 { namespace ext
         nt2_la_int iter,info;
         char trans = 'N';
 
-        nt2::table<nt2_la_int> ipiv(nt2::of_size(n,1));
+        nt2::container::table<nt2_la_int> ipiv(nt2::of_size(n,1));
         A1 copyb(a1);
 
         details::magma_buffer<std::complex<float> >      swork(n*(n+nhrs),1);

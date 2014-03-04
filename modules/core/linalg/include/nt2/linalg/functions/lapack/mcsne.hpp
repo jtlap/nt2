@@ -52,11 +52,19 @@ namespace nt2{ namespace ext
       double cte = anrm*eps*nt2::sqrt( type_t(na));
       double xnrm, rnrm;
 
-      nt2::table<float> sa,sb,sx,sr;
+      nt2::container::table<float> sa,sb,sx,sr,sr1(nt2::of_size(na,na));
       sa = nt2::cast<float>(a);
-
       sr = nt2::qr(sa,nt2::no_pivot_);
-      sr= nt2::triu( sr( _(1,na), _ ) );
+
+      size_t size_n = sizeof(float)*(na);
+
+      for(size_t i= 0; i < na; i++ )
+      {
+        std::memcpy(sr1.raw()+i*na ,sr.raw()+i*lda , size_n );
+      }
+
+      boost::proto::value(sr).swap(boost::proto::value(sr1) );
+
       sx= nt2::mtimes(nt2::trans(sa),nt2::cast<float>(b));
 
       nt2::trsm('l','u','t','n',boost::proto::value(sr),boost::proto::value(sx));
@@ -64,8 +72,8 @@ namespace nt2{ namespace ext
 
       x = nt2::cast<double>(sx);
       e = b - nt2::mtimes(a,x);
-
-      for(size_t i = 1; i<=10;++i)
+      size_t i;
+      for( i = 1; i<=10;++i)
       {
         sx = nt2::cast<float> (nt2::mtimes(nt2::trans(a),e) ) ;
 
@@ -79,7 +87,7 @@ namespace nt2{ namespace ext
 
         xnrm = nt2::maximum(nt2::abs(x(_)));
 
-        if(rnrm < xnrm*cte) {return x; }
+        if(rnrm < xnrm*cte) { break; }
       }
       return x;
     }
