@@ -1,41 +1,40 @@
 //==============================================================================
-//         Copyright 2003 - 2013   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2014   LASMEA UMR 6602 CNRS/UBP
+//         Copyright 2009 - 2014   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+// cover for functor rem_pio2_cephes in scalar mode
 #include <nt2/trigonometric/include/functions/rem_pio2_cephes.hpp>
-#include <nt2/trigonometric/include/functions/rem_pio2_medium.hpp>
-
-#include <nt2/sdk/unit/tests/cover.hpp>
-#include <nt2/sdk/unit/tests/ulp.hpp>
-#include <nt2/sdk/unit/module.hpp>
+#include <boost/fusion/include/std_pair.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+#include <cmath>
 #include <iostream>
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/zero.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/include/functions/scalar/rem_pio2_medium.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/unit/args.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/cover.hpp>
+#include <vector>
 
-NT2_TEST_CASE_TPL ( rem_pio2_cephes_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL(rem_pio2_cephes_0,  NT2_SIMD_REAL_TYPES)
 {
-  using nt2::rem_pio2_cephes;
-  using nt2::tag::rem_pio2_cephes_;
-  typedef typename nt2::meta::call<rem_pio2_cephes_(T)>::type r_t;
+  using nt2::unit::args;
+  const std::size_t NR = args("samples", NT2_NB_RANDOM_TEST);
+  const double ulpd = args("ulpd",  0.5);
 
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Zero<T>(), 20*nt2::Pi<T>());
-    T a0;
-    for(nt2::uint32_t j =0; j < NR; ++j )
-      {
-        std::cout << "for param "
-                  << "  a0 = "<< (a0 = tab_a0[j])
-                  << std::endl;
-        r_t r = nt2::rem_pio2_cephes(a0);
-        r_t rm= nt2::rem_pio2_medium(a0);
-        NT2_TEST_ULP_EQUAL( r.second, rm.second, 0.5);
-        NT2_TEST_ULP_EQUAL( r.first, rm.first, 0);
-     }
-   }
-} // end of test for floating_
+  const T min = args("min", nt2::Zero<T>());
+  const T max = args("max", 20*nt2::Pi<T>());
+  std::cout << "Argument samples #0 chosen in range: [" << min << ",  " << max << "]" << std::endl;
+  NT2_CREATE_BUF(a0,T, NR, min, max);
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  std::vector<std::pair<iT, T> > ref(NR);
+  for(std::size_t i=0; i!=NR; ++i)
+    ref[i] = nt2::rem_pio2_medium(a0[i]);
+
+  NT2_COVER_ULP_EQUAL(nt2::tag::rem_pio2_cephes_, ((T, a0)), ref, ulpd);
+}

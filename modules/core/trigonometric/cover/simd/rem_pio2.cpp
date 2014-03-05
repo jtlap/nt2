@@ -1,41 +1,46 @@
 //==============================================================================
-//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2014   LASMEA UMR 6602 CNRS/UBP
+//         Copyright 2009 - 2014   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+// cover for functor rem_pio2 in simd mode
 #include <nt2/trigonometric/include/functions/rem_pio2.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests/cover.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/module.hpp>
-
-#include <nt2/include/constants/pio_4.hpp>
-#include <boost/fusion/include/std_pair.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/aligned_load.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
+#include <cmath>
+#include <iostream>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/pi.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/unit/args.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/cover.hpp>
+#include <vector>
 
-NT2_TEST_CASE_TPL ( rem_pio2_real__1_0,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL(rem_pio2_0,  NT2_SIMD_REAL_TYPES)
 {
-  using nt2::rem_pio2;
-  using nt2::tag::rem_pio2_;
-  using nt2::aligned_load;
   using boost::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>                vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<rem_pio2_(vT)>::type r_t;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>                  vT;
 
-  r_t r = nt2::rem_pio2(nt2::Zero<vT>());
-  NT2_TEST_EQUAL(boost::fusion::get<0>(r), nt2::Zero<ivT>());
-  NT2_TEST_EQUAL(boost::fusion::get<1>(r), nt2::Zero<vT>());
-  NT2_TEST_EQUAL(boost::fusion::get<2>(r), nt2::Zero<vT>());
- } // end of test for floating_
+  using nt2::unit::args;
+  const std::size_t NR = args("samples", NT2_NB_RANDOM_TEST);
+  const double ulpd = args("ulpd", 1);
+
+  typedef typename nt2::meta::as_integer<vT>::type ivT;
+  const T min = args("min", nt2::Zero<T>());
+  const T max = args("max", 64*nt2::Pi<T>());
+  std::cout << "Argument samples #0 chosen in range: [" << min << ",  " << max << "]" << std::endl;
+  NT2_CREATE_BUF(a0,T, NR, min, max);
+
+  typedef typename nt2::meta::call<nt2::tag::rem_pio2_(T)>::type sr_t;
+
+  std::vector<sr_t> ref(NR);
+  for(std::size_t i=0; i!=NR; ++i)
+    ref[i] = nt2::rem_pio2(a0[i]);
+
+  NT2_COVER_ULP_EQUAL(nt2::tag::rem_pio2_, ((vT, a0)), ref, ulpd);
+}
