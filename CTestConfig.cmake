@@ -24,7 +24,7 @@ endif()
 set(CTEST_MEMORYCHECK_SUPPRESSIONS_FILE ${SOURCE_DIRECTORY}/valgrind.supp)
 list(APPEND CTEST_CUSTOM_WARNING_EXCEPTION "You are using gcc version \".*\"")
 list(APPEND CTEST_CUSTOM_WARNING_EXCEPTION "[0-9]+ shortened to [0-9]+")
-list(APPEND CTEST_CUSTOM_WARNING_EXCEPTION "warning: ‘<anonymous>’ may be used uninitialized in this function")
+list(APPEND CTEST_CUSTOM_WARNING_EXCEPTION "[^a-zA-Z0-9]*anonymous[^a-zA-Z0-9]* may be used uninitialized in this function")
 list(APPEND CTEST_CUSTOM_WARNING_EXCEPTION "The ABI for passing parameters with [0-9]+-byte alignment has changed")
 
 set(CTEST_CUSTOM_POST_TEST "${SOURCE_DIRECTORY}/cmake/bench/CDashBench/benchLauncher.py")
