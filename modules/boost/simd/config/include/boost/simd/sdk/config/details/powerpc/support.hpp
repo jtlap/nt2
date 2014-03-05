@@ -16,18 +16,18 @@
 namespace boost { namespace simd { namespace details
 {
   // register detection of VMX extensions
-  support_registration ppc_vmx( "vmx"
-                              , &boost::simd::is_supported<tag::vmx_>
-                              , &registration_list
-                              );
-  support_registration ppc_vsx( "vsx"
-                              , &boost::simd::is_supported<tag::vsx_>
-                              , &registration_list
-                              );
-  support_registration ppc_qpx( "qpx"
-                              , &boost::simd::is_supported<tag::qpx_>
-                              , &registration_list
-                              );
+  static support_registration ppc_vmx ( "vmx"
+                                      , &boost::simd::is_supported<tag::vmx_>
+                                      , &registration_list
+                                      );
+  static support_registration ppc_vsx ( "vsx"
+                                      , &boost::simd::is_supported<tag::vsx_>
+                                      , &registration_list
+                                      );
+  static support_registration ppc_qpx ( "qpx"
+                                      , &boost::simd::is_supported<tag::qpx_>
+                                      , &registration_list
+                                      );
 
 } } }
 

@@ -37,7 +37,7 @@ namespace boost { namespace simd
       support_registration& operator=(support_registration const&);
     };
 
-    support_registration registration_list(0,0,0);
+    static support_registration registration_list(0,0,0);
   }
 } }
 
