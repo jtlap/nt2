@@ -9,22 +9,20 @@
 #ifndef NT2_ELLIPTIC_FUNCTIONS_SCALAR_ELLIPKE_HPP_INCLUDED
 #define NT2_ELLIPTIC_FUNCTIONS_SCALAR_ELLIPKE_HPP_INCLUDED
 #include <nt2/elliptic/functions/ellipke.hpp>
-#include <nt2/include/functions/scalar/is_greater.hpp>
-#include <nt2/include/functions/scalar/is_equal.hpp>
-#include <nt2/include/functions/scalar/is_ltz.hpp>
-#include <nt2/include/functions/scalar/sqr.hpp>
-#include <nt2/include/functions/scalar/ldexp.hpp>
-#include <nt2/include/functions/scalar/sqrt.hpp>
-#include <nt2/include/functions/scalar/sqr.hpp>
-#include <nt2/include/functions/scalar/average.hpp>
-#include <nt2/include/functions/scalar/oneminus.hpp>
+#include <nt2/include/constants/half.hpp>
+#include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/inf.hpp>
-#include <nt2/include/constants/eps.hpp>
 #include <nt2/include/constants/pio_2.hpp>
-#include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/zero.hpp>
+#include <nt2/include/functions/scalar/average.hpp>
+#include <nt2/include/functions/scalar/is_equal.hpp>
+#include <nt2/include/functions/scalar/is_greater.hpp>
+#include <nt2/include/functions/scalar/is_ltz.hpp>
+#include <nt2/include/functions/scalar/ldexp.hpp>
+#include <nt2/include/functions/scalar/oneminus.hpp>
+#include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/functions/scalar/sqrt.hpp>
 
 namespace nt2 { namespace ext
 {

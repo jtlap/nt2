@@ -25,7 +25,7 @@ NT2_TEST_CASE_TPL(log,  NT2_SIMD_REAL_TYPES)
   const std::size_t NR = args("samples", NT2_NB_RANDOM_TEST);
   const double ulpd = args("ulpd", 0.5);
   const T min = args("min", T(0));
-  const T max = args("max", T(10));
+  const T max = args("max", T(100));
 
   NT2_CREATE_BUF(in0, T, NR, min, max);
 

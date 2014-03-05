@@ -31,10 +31,15 @@ namespace nt2 { namespace tag
     nth root function: \f$\sqrt[a_1]{a_0}\f$
     \arg a1 must be of integer type
     \arg if a1 is even and a0 negative the result is nan
+    \arg if a0 is null the result is zero
+    \arg if a0 is one  the result is one
 
     @par Semantic:
 
     For every parameters of  floating type T0 and integral type T1:
+    nthroot is more expansive than pow(a0, rec(tofloat(a1))) because
+    it takes care of some limits issues that pow does not mind of.
+    See if it suits you better.
 
     @code
     T0 r = nthroot(x, n);

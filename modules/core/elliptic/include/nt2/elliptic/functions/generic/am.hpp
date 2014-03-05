@@ -10,11 +10,11 @@
 #define NT2_ELLIPTIC_FUNCTIONS_GENERIC_AM_HPP_INCLUDED
 
 #include <nt2/elliptic/functions/am.hpp>
-#include <nt2/include/functions/simd/sqrt.hpp>
-#include <nt2/include/functions/simd/sin.hpp>
-#include <nt2/include/functions/simd/colon.hpp>
-#include <nt2/include/functions/simd/abs.hpp>
+#include <boost/dispatch/attributes.hpp>
 #include <nt2/include/constants/eps.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/sin.hpp>
+#include <nt2/include/functions/simd/sqrt.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 
 namespace nt2 { namespace ext
@@ -34,9 +34,9 @@ namespace nt2 { namespace ext
     {
       switch (choice)
       {
-      case 'a': return am(u, nt2::sin(x), tol);
-      case 'm': return am(u,sqrt(nt2::abs(x)), tol);
-      default : return am(u,x, tol);
+      case 'a': return am(u,nt2::sin(x), tol);
+      case 'm': return am(u,nt2::sqrt(nt2::abs(x)), tol);
+      default : return am(u,x,tol);
       }
     }
   };

@@ -6,84 +6,69 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 elliptic toolbox - ellipke/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// cover test behavior of elliptic components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 21/02/2011
-///
+// cover for functor ellik in scalar mode
 #include <nt2/elliptic/include/functions/ellipke.hpp>
+
+#include <boost/simd/sdk/simd/io.hpp>
+#include <cmath>
+#include <iostream>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <boost/fusion/tuple.hpp>
-extern "C" {long double cephes_ellikl(long double,long double);}
-#include <nt2/trigonometric/constants.hpp>
-
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/include/constants/eps.hpp>
+#include <nt2/include/functions/ellpk.hpp>
+#include <nt2/include/functions/ellpe.hpp>
+#include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_signed.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/type_traits/common_type.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/args.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/cover.hpp>
+#include <vector>
 
-#include <nt2/constant/constant.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/include/functions/splat.hpp>
-
-
-
-
-
-NT2_TEST_CASE_TPL ( ellipke_real__1_0,  NT2_SIMD_REAL_TYPES)
+template < class T > struct ellipk1
 {
-  using nt2::ellipke;
-  using nt2::tag::ellipke_;
-  using nt2::aligned_load;
-  using boost::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef typename boost::dispatch::meta::as_floating<T>::type etype;
-  typedef boost::fusion::tuple<etype,etype> rtype;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<ellipke_(vT)>::type r_t;
-  typedef typename nt2::meta::call<ellipke_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
+  T operator()(const T & x)
+  {
+    typedef typename nt2::meta::scalar_of<T>::type sT;
+    T a1 = nt2::Zero<T>();
+    T a0 = nt2::ellipke(x, nt2::Eps<sT>(),a1);
+    return a0;
+  }
+};
 
-} // end of test for floating_
-
-NT2_TEST_CASE_TPL ( ellipke_real__2_1,  NT2_SIMD_REAL_TYPES)
+ template < class T > struct ellipk2
 {
-  using nt2::ellipke;
-  using nt2::tag::ellipke_;
-  using nt2::aligned_load;
-  using boost::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef T scalar;
-  typedef typename boost::dispatch::meta::as_floating<T>::type etype;
-  typedef boost::fusion::tuple<etype,etype> rtype;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<ellipke_(vT,scalar)>::type r_t;
-  typedef typename nt2::meta::call<ellipke_(T,scalar)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
+  T operator()(const T & x)
+  {
+    typedef typename nt2::meta::scalar_of<T>::type sT;
+    T a1 = nt2::Zero<T>();
+    T a0 = nt2::ellipke(x, nt2::Eps<sT>(), a1);
+    return a1;
+  }
+};
 
-} // end of test for floating_
+
+NT2_TEST_CASE_TPL(ellipke_0,  NT2_SIMD_REAL_TYPES)
+{
+  using boost::simd::native;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>                  vT;
+
+  using nt2::unit::args;
+  const std::size_t NR = args("samples", NT2_NB_RANDOM_TEST);
+  const double ulpd = args("ulpd", 2);
+
+  const T min0 = args("min0", T(0));
+  const T max0 = args("max0", T(1));
+  std::cout << "Argument samples #0 chosen in range: [" << min0 << ",  " << max0 << "]" << std::endl;
+  NT2_CREATE_BUF(a0,T, NR, min0, max0);
+
+  std::vector<T> ref1(NR), ref2(NR);
+  for(std::size_t i=0; i!=NR; ++i)
+  {
+    nt2::ellipke(a0[i], nt2::Eps<T>(),ref1[i],ref2[i]);
+  }
+
+  NT2_COVER_FN_ULP_EQUAL(ellipk1<vT>() , ((vT, a0)), ref1, ulpd);
+  NT2_COVER_FN_ULP_EQUAL(ellipk2<vT>() , ((vT, a0)), ref2, ulpd);
+
+}

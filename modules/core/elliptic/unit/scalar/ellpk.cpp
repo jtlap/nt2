@@ -18,11 +18,13 @@
 #include <boost/simd/sdk/config.hpp>
 
 #include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/pi.hpp>
+#include <nt2/include/constants/pio_2.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/half.hpp>
+#include <nt2/include/constants/quarter.hpp>
 
 NT2_TEST_CASE_TPL ( ellpk_real__1_0,  NT2_REAL_TYPES)
 {
@@ -37,8 +39,10 @@ NT2_TEST_CASE_TPL ( ellpk_real__1_0,  NT2_REAL_TYPES)
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
   NT2_TEST_ULP_EQUAL(ellpk(nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(ellpk(nt2::Pi<T>()/nt2::Two<T>()), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(ellpk(nt2::Zero<T>()), nt2::Inf<r_t>(), 0);
 #endif
-  NT2_TEST_ULP_EQUAL(ellpk(nt2::One<T>()), nt2::Pi<r_t>()/2, 0);
+  NT2_TEST_ULP_EQUAL(ellpk(nt2::Pio_2<T>()), nt2::Nan<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(ellpk(nt2::Zero<T>()), nt2::Inf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(ellpk(nt2::One<T>()), nt2::Pio_2<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(ellpk(nt2::Half<T>()), T(1.854074677301372), 1);
+  NT2_TEST_ULP_EQUAL(ellpk(nt2::Quarter<T>()), T(2.15651564749964), 4);
 }

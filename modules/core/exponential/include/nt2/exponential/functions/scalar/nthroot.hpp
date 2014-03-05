@@ -19,6 +19,7 @@
 #include <nt2/include/functions/scalar/minusone.hpp>
 #include <nt2/include/functions/scalar/pow.hpp>
 #include <nt2/include/functions/scalar/rec.hpp>
+#include <nt2/include/functions/scalar/sign.hpp>
 
 #ifndef BOOST_SIMD_NO_INFINITIES
 #include <nt2/include/functions/scalar/is_inf.hpp>
@@ -36,16 +37,17 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      if (!a1) return One<A0>();
-      if (!a0) return Zero<A0>();
       bool is_ltza0 = is_ltz(a0);
       bool is_odda1 = is_odd(a1);
       if (is_ltza0 && !is_odda1) return Nan<A0>();
+      A0 x = nt2::abs(a0);
+      if (x == One<A0>())  return a0;
+      if (!a1) return (x < One<A0>()) ? Zero<A0>() : sign(a0)*Inf<A0>();
+      if (!a0) return Zero<A0>();
       #ifndef BOOST_SIMD_NO_INFINITIES
-      if (is_inf(a0)) return a0;
+      if (is_inf(a0)) return (a1) ? a0 : One<A0>();
       #endif
       A0 aa1 = static_cast<A0>(a1);
-      A0 x = nt2::abs(a0);
       A0 y = nt2::pow(x,rec(aa1));
       // Correct numerical errors (since, e.g., 64^(1/3) is not exactly 4)
       // by one iteration of Newton's method

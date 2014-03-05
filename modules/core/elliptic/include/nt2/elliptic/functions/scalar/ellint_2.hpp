@@ -10,29 +10,13 @@
 #define NT2_ELLIPTIC_FUNCTIONS_SCALAR_ELLINT_2_HPP_INCLUDED
 #include <nt2/elliptic/functions/ellint_2.hpp>
 #include <boost/math/special_functions/ellint_2.hpp>
-#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
-#include <nt2/include/functions/scalar/sqrt.hpp>
-#include <nt2/include/functions/scalar/abs.hpp>
-#include <nt2/include/functions/scalar/oneminus.hpp>
-#include <nt2/sdk/error/policies.hpp>
-#include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/sdk/error/policies.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ellint_2_, tag::cpu_
-                            , (A0)
-                            , (scalar_< arithmetic_<A0> >)
-                            )
-  {
-
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::ellint_2(result_type(a0));
-    }
-  };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ellint_2_, tag::cpu_
                             , (A0)

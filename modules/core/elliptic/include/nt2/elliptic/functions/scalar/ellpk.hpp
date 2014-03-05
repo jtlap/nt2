@@ -10,40 +10,15 @@
 #define NT2_ELLIPTIC_FUNCTIONS_SCALAR_ELLPK_HPP_INCLUDED
 
 #include <nt2/elliptic/functions/ellpk.hpp>
-#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
-#include <nt2/include/functions/scalar/log.hpp>
-#include <nt2/include/functions/scalar/is_ltz.hpp>
 #include <nt2/include/constants/eps.hpp>
-#include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/half.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/real_splat.hpp>
+#include <nt2/include/functions/scalar/is_ltz.hpp>
+#include <nt2/include/functions/scalar/log.hpp>
+#include <nt2/polynomials/functions/scalar/impl/horner.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ellpk_, tag::cpu_
-                            , (A0)
-                            , (scalar_< arithmetic_<A0> >)
-                            )
-  {
-
-    typedef typename boost::common_type<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(1)
-    {
-        return nt2::ellpk(result_type(a0));
-      }
-  };
-} }
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is double
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ellpk_, tag::cpu_
@@ -76,14 +51,7 @@ namespace nt2 { namespace ext
                 ) ) > (a0);
       }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is float
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ellpk_, tag::cpu_
                             , (A0)
                             , (scalar_< single_<A0> >)
@@ -117,6 +85,5 @@ namespace nt2 { namespace ext
       }
   };
 } }
-
 
 #endif

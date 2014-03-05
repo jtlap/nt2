@@ -1,74 +1,44 @@
 //==============================================================================
-//         Copyright 2003 - 2013   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2014   LASMEA UMR 6602 CNRS/UBP
+//         Copyright 2009 - 2014   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+// cover for functor pow in scalar mode
 #include <nt2/exponential/include/functions/pow.hpp>
-
-#include <nt2/sdk/unit/tests/cover.hpp>
-#include <nt2/sdk/unit/tests/ulp.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/include/constants/half.hpp>
-#include <nt2/include/constants/two.hpp>
-
+#include <boost/simd/sdk/simd/io.hpp>
+#include <cmath>
 #include <iostream>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/unit/args.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/cover.hpp>
+#include <vector>
 
+extern "C" { long double cephes_powil(long double,int); }
 extern "C" { long double cephes_powl(long double,long double); }
-extern "C" { long double cephes_powil(long double,int); }
-extern "C" { long double cephes_powil(long double,int); }
 
-NT2_TEST_CASE_TPL ( pow_real,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL(pow_1,  NT2_SIMD_REAL_TYPES)
 {
-  using nt2::pow;
-  using nt2::tag::pow_;
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(10));
-    NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
-    T a0;
-    T a1;
-    for(nt2::uint32_t j =0; j < NR; ++j )
-      {
-        std::cout << "for params "
-                  << "  a0 = "<< (a0 = tab_a0[j])
-                  << ", a1 = "<< (a1 = tab_a1[j])
-                  << std::endl;
-        std::cout<< ", p1 = "<< nt2::pow(a0,a1)
-                 << ", p2 = "<< ::cephes_powl(a0,a1)
-                 << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::pow(a0,a1),::cephes_powl(a0,a1),12.5);
-        NT2_TEST_ULP_EQUAL( nt2::pow(a0,nt2::Two<T>()),nt2::sqr(a0),1);
-        NT2_TEST_ULP_EQUAL( nt2::pow(a0,nt2::Half<T>()),nt2::sqrt(a0),1);
-     }
-   }
-}
+  using nt2::unit::args;
+  const std::size_t NR = args("samples", NT2_NB_RANDOM_TEST);
+  const double ulpd = args("ulpd", 2);
 
-NT2_TEST_CASE_TPL ( pow_real1,  NT2_REAL_TYPES)
-{
-  using nt2::pow;
-  using nt2::tag::pow_;
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(10));
-    NT2_CREATE_BUF(tab_a1,iT, NR, iT(-10), iT(10));
-    T a0;
-    iT a1;
-    for(nt2::uint32_t j =0; j < NR; ++j )
-      {
-        std::cout << "for params "
-                  << "  a0 = "<< (a0 = tab_a0[j])
-                  << ", a1 = "<< (a1 = tab_a1[j])
-                  << std::endl;
-        std::cout<< ", p1 = "<< nt2::pow(a0,a1)
-                 << ", p2 = "<< ::cephes_powl(a0,(long double)a1)
-                 << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::pow(a0,a1),::cephes_powl(a0,(long double)a1),12.5);
-        NT2_TEST_ULP_EQUAL( nt2::pow(a0,nt2::Two<T>()),nt2::sqr(a0),1);
-        NT2_TEST_ULP_EQUAL( nt2::pow(a0,nt2::Half<T>()),nt2::sqrt(a0),1);
-     }
-   }
+  const T min1_0 = args("min1_0", T(0));
+  const T max1_0 = args("max1_0", T(100));
+  std::cout << "Argument samples #0 chosen in range: [" << min1_0 << ",  " << max1_0 << "]" << std::endl;
+  NT2_CREATE_BUF(a0,T, NR, min1_0, max1_0);
+  const iT min1_1 = args("min1_1", iT(-10));
+  const iT max1_1 = args("max1_1", iT(10));
+  std::cout << "Argument samples #1 chosen in range: [" << min1_1 << ",  " << max1_1 << "]" << std::endl;
+  NT2_CREATE_BUF(a1,iT, NR, min1_1, max1_1);
+
+  std::vector<T> ref(NR);
+  for(std::size_t i=0; i!=NR; ++i)
+    ref[i] = ::cephes_powl(a0[i],(long double)a1[i]);
+
+  NT2_COVER_ULP_EQUAL(nt2::tag::pow_, ((T, a0))((iT, a1)), ref, ulpd);
 }
