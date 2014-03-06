@@ -23,6 +23,7 @@
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/pi2o_6.hpp>
 
 NT2_TEST_CASE_TPL ( spence_real,  NT2_SIMD_REAL_TYPES)
 {
@@ -46,5 +47,5 @@ NT2_TEST_CASE_TPL ( spence_real,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(spence(nt2::Mone<vT>()), nt2::Nan<r_t>(), 0.5);
 #endif
   NT2_TEST_ULP_EQUAL(spence(nt2::One<vT>()), nt2::Zero<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(spence(nt2::Zero<vT>()), nt2::splat<r_t>(1.6449340668482264061), 0.5);
+  NT2_TEST_ULP_EQUAL(spence(nt2::Zero<vT>()), nt2::Pi2o_6<vT>(), 0.5);
 }
