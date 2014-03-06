@@ -26,6 +26,7 @@ list(APPEND CTEST_CUSTOM_WARNING_EXCEPTION "You are using gcc version \".*\"")
 list(APPEND CTEST_CUSTOM_WARNING_EXCEPTION "[0-9]+ shortened to [0-9]+")
 list(APPEND CTEST_CUSTOM_WARNING_EXCEPTION ".*anonymous.* may be used uninitialized in this function")
 list(APPEND CTEST_CUSTOM_WARNING_EXCEPTION "The ABI for passing parameters with [0-9]+-byte alignment has changed")
+list(APPEND CTEST_CUSTOM_WARNING_EXCEPTION "GCC vector passed by reference: non-standard ABI extension with no compatibility guarantee")
 
 set(CTEST_CUSTOM_POST_TEST "${SOURCE_DIRECTORY}/cmake/bench/CDashBench/benchLauncher.py")
 
