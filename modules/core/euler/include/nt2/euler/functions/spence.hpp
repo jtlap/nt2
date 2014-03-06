@@ -24,7 +24,7 @@ namespace nt2 { namespace tag
     struct spence_ : ext::elementwise_<spence_> { typedef ext::elementwise_<spence_> parent; };
   }
   /*!
-    Computes the spence function or dilogarithm
+    Computes the spence function or dilogarithm for a0 >= 0 (else return Nan)
 
 
     @par Semantic:
@@ -37,7 +37,7 @@ namespace nt2 { namespace tag
 
     Computes \f$\mathop{\mbox{Li}_2}(x)=\int_1^{x} \frac{\log t}{t-1}\mbox{d}t\f$
 
-    @param a0
+    @param a0 must be greater or equal zero
 
     @return a value of the same type as the parameter
   **/

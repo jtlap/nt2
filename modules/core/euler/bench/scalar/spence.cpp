@@ -31,12 +31,12 @@ using nt2::tag::spence_;
 namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(spence_,(RS(T,T(-100),T(100))))
+  NT2_TIMING(spence_,(RS(T,T(0),T(100))))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(spence_,(RS(T,T(-100),T(100))))
+  NT2_TIMING(spence_,(RS(T,T(0),T(100))))
 }
 
 #undef RS
