@@ -22,7 +22,7 @@ NT2_TEST_CASE_TPL(spence_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::unit::args;
   const std::size_t NR = args("samples", NT2_NB_RANDOM_TEST*100);
-  const double ulpd = args("ulpd", 2);
+  const double ulpd = args("ulpd", 2.5);
 
   typedef typename nt2::meta::as_integer<T>::type iT;
   const T min = args("min", T(0));
