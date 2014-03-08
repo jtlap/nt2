@@ -31,7 +31,7 @@ namespace nt2 { namespace details
     typedef typename meta::scalar_of<A0>::type sA0;
     // computes erf(a0)/a0 for float or float vectors
     // xx is sqr(a0) and 0 <= abs(x) <= 2/3
-    static BOOST_FORCEINLINE A0 erf1(const A0& a0, const A0& xx)
+    static BOOST_FORCEINLINE A0 erf1(const A0& xx)
     {
       return horner<NT2_HORNER_COEFF_T(sA0, 6,
                                        (0xba1fc83b, //  -6.095205117313012e-04
