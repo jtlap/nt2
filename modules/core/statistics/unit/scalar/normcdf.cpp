@@ -28,7 +28,7 @@ NT2_TEST_CASE_TPL ( normcdf_1,  (float)(double))//NT2_REAL_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(normcdf(nt2::Nan<T>()), nt2::Nan<T>(), 0.5);
   NT2_TEST_ULP_EQUAL(normcdf(nt2::One<T>()), T(0.841344746068542948585232545632), 1.5);
-  NT2_TEST_ULP_EQUAL(normcdf(nt2::Mone<T>()), T(0.158655253931457051414767454368), 5.5);
+  NT2_TEST_ULP_EQUAL(normcdf(nt2::Mone<T>()), T(0.158655253931457051414767454368), 6);
   NT2_TEST_ULP_EQUAL(normcdf(nt2::Zero<T>()), nt2::Half<T>(), 0.5);
   NT2_TEST_ULP_EQUAL(normcdf(nt2::Inf<T>()), nt2::One<T>(), 0.5);
   NT2_TEST_ULP_EQUAL(normcdf(nt2::Minf<T>()), nt2::Zero<T>(), 0.5);
@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL ( normcdf_2,  NT2_REAL_TYPES)
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(normcdf(nt2::Nan<T>(), nt2::One<T>()), nt2::Nan<T>(), 0.5);
-  NT2_TEST_ULP_EQUAL(normcdf(nt2::Zero<T>(), nt2::One<T>() ), T(0.158655253931457051414767454368), 5.5);
+  NT2_TEST_ULP_EQUAL(normcdf(nt2::Zero<T>(), nt2::One<T>() ), T(0.158655253931457051414767454368), 6);
   NT2_TEST_ULP_EQUAL(normcdf(nt2::Mone<T>(), nt2::One<T>()),  T(0.0227501319481792072002826371665), 25);
   NT2_TEST_ULP_EQUAL(normcdf(nt2::Inf<T>(), nt2::One<T>()), nt2::One<T>(), 0.5);
   NT2_TEST_ULP_EQUAL(normcdf(nt2::Minf<T>(), nt2::One<T>()), nt2::Zero<T>(), 0.5);
