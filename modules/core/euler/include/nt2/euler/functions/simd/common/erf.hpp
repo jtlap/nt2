@@ -58,9 +58,9 @@ namespace nt2 { namespace ext
       A0 lim2 = nt2::splat<A0>(2.2);
       bA0 test1 = nt2::lt(x, lim1);
       A0 r1 = nt2::Zero<A0>();
-      std::size_t nb = nt2::inbtrue(test1) > 0;
+      std::size_t nb = nt2::inbtrue(test1);
 
-      if(nb)
+      if(nb > 0)
       {
         r1 = a0*details::erf_kernel<A0>::erf1(xx);
         if(nb >= meta::cardinal_of<A0>::value) return r1;
@@ -68,9 +68,9 @@ namespace nt2 { namespace ext
       bA0 test2 = nt2::lt(x, lim2);
       bA0 test3 = nt2::logical_andnot(test2, test1);
 
-      std::size_t nb1 = nt2::inbtrue(test3) > 0;
+      std::size_t nb1 = nt2::inbtrue(test3);
       A0 ex = nt2::exp(-xx);
-      if(nb1)
+      if(nb1 > 0)
       {
         A0 z = oneminus(ex*details::erf_kernel<A0>::erfc2(x));
         A0 r2 = nt2::negif(is_ltz(a0), z);
@@ -103,8 +103,8 @@ namespace nt2 { namespace ext
       A0 x =  nt2::abs(a0);
       A0 r1 = nt2::Zero<A0>();
       bA0 test1 = nt2::lt(x, Twothird<A0>());
-      std::size_t nb = 0;
-      if ((nb = (nt2::inbtrue(test1) > 0)))
+      std::size_t nb = nt2::inbtrue(test1);
+      if(nb > 0)
       {
         r1 =  a0*details::erf_kernel<A0>::erf1(sqr(x));
         if(nb >= meta::cardinal_of<A0>::value)

@@ -62,8 +62,8 @@ namespace nt2 { namespace ext
       bA0 test0 = nt2::is_ltz(a0);
       bA0 test1 = nt2::lt(x, lim1);
       A0 r1 = nt2::Zero<A0>();
-      std::size_t nb = 0;
-      if ((nb = (nt2::inbtrue(test1) > 0)))
+      std::size_t nb = nt2::inbtrue(test1);
+      if(nb > 0)
       {
         r1 = nt2::oneminus(x*details::erf_kernel<A0>::erf1(xx));
         if (nb >= meta::cardinal_of<A0>::value)
@@ -71,13 +71,14 @@ namespace nt2 { namespace ext
       }
       bA0 test2 = nt2::lt(x, lim2);
       bA0 test3 = nt2::logical_andnot(test2, test1);
-      std::size_t nb1 = 0;
       A0 ex = nt2::exp(-xx);
-      if ((nb1 = (nt2::inbtrue(test3) > 0)))
+
+      std::size_t nb1 = nt2::inbtrue(test3);
+      if(nb1 > 0)
       {
         A0 z = ex*details::erf_kernel<A0>::erfc2(x);
         r1 = nt2::if_else(test1, r1, z);
-        nb+= nb1;
+        nb += nb1;
         if (nb >= meta::cardinal_of<A0>::value)
           return nt2::if_else(test0, Two<A0>()-r1, r1);
       }
@@ -105,16 +106,17 @@ namespace nt2 { namespace ext
       bA0 test0 = nt2::is_ltz(a0);
       A0 r1 = nt2::Zero<A0>();
       bA0 test1 = nt2::lt(x, Twothird<A0>());
-      std::size_t nb = 0;
       A0 z = x/oneplus(x);
-      if ((nb = (nt2::inbtrue(test1) > 0)))
+
+      std::size_t nb = nt2::inbtrue(test1);
+      if(nb > 0)
       {
         r1 = details::erf_kernel<A0>::erfc3(z);
         if (nb >= meta::cardinal_of<A0>::value)
           return nt2::if_else(test0, nt2::Two<A0>()-r1, r1);
       }
-      z-= nt2::splat<A0>(0.4);
-      A0 r2 =   exp(-sqr(x))*details::erf_kernel<A0>::erfc2(z);
+      z -= nt2::splat<A0>(0.4);
+      A0 r2 = exp(-sqr(x))*details::erf_kernel<A0>::erfc2(z);
       r1 = if_else(test1, r1, r2);
       #ifndef BOOST_SIMD_NO_INFINITIES
       r1 = if_zero_else( eq(x, Inf<A0>()), r1);
