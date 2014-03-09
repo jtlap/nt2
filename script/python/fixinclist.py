@@ -199,7 +199,32 @@ class Fix_includes_in_file() :
         return self.get_ids(self.complement_range(ranges))
 
     def get_ids(self,ranges=[]) :
-        d = {'*':'multiplies','/':'divides','+':'plus','-':'minus'}
+        d = {'*': 'multiplies'
+            ,'/': 'divides'
+            ,'+': 'plus'
+            ,'-': 'minus'
+            ,'%': 'modulo'
+         #  ,'&': 'bitwise_and'
+            ,'|': 'bitwise_or'
+            ,'^': 'bitwise_xor'
+            ,'~': 'complement'
+            ,'!': 'logical_not'
+         #  ,'<': 'is_less'
+         #  ,'>': 'is_greater'
+            ,'<=': 'is_less_equal'
+            ,'>=': 'is_greater_equal'
+            ,'==': 'is_equal'
+            ,'!=': 'is_not_equal'
+            ,'<<': 'shift_left'
+            ,'>>': 'shift_right'
+            ,'&&': 'logical_and'
+            ,'||': 'logical_or'
+            }
+
+        keys = d.keys()
+        keys.sort(key=len, reverse=True)
+        keypattern = "|".join(map(re.escape, keys))
+
         ll =" ".join(self.zone(ranges))
         s =list(set(re.findall(re.compile('[A-Za-z][a-z0-9_]+ *[(<]'), ll)))
         s1 = []
@@ -214,14 +239,14 @@ class Fix_includes_in_file() :
             if e[-2] !='_' :
                 s1.append(e[:-1])
         if self.mode == 'simd/' :
-            s =list(set(re.findall(re.compile('[\*/+-]'), ll)))
+            s =list(set(re.findall(re.compile(keypattern), ll)))
             for e in s :
                 s1.append(d[e])
 ##                if '-' in s :
 ##                    s1.append('unary_minus')
-            s =list(set(re.findall(re.compile('[\*/+-]='), ll)))
+            s =list(set(re.findall(re.compile("(" + keypattern + ")="), ll)))
             for e in s :
-                s1.append(d[e[0]])
+                s1.append(d[e])
             s =list(set(re.findall(re.compile('[,=+\*/><\([] *-'), ll)))
             if s :
                 s1.append('unary_minus')
