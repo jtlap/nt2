@@ -72,7 +72,7 @@ namespace nt2 { namespace ext
       A0 ex = nt2::exp(-xx);
       if(nb1)
       {
-        A0 z = oneminus(exp(-xx)*details::erf_kernel<A0>::erfc2(x));
+        A0 z = oneminus(ex*details::erf_kernel<A0>::erfc2(x));
         A0 r2 = nt2::negif(is_ltz(a0), z);
         r1 = nt2::if_else(test1, r1, r2);
         nb+= nb1;
@@ -80,7 +80,7 @@ namespace nt2 { namespace ext
       }
       A0 z = nt2::negif(
         nt2::is_ltz(a0),
-        nt2::oneminus(exp(-xx)*details::erf_kernel<A0>::erfc3(x)));
+        nt2::oneminus(ex*details::erf_kernel<A0>::erfc3(x)));
       #ifndef BOOST_SIMD_NO_INFINITIES
       z = nt2::if_else(nt2::is_inf(a0), nt2::sign(a0), z);
       #endif
