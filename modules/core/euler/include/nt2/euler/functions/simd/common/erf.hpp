@@ -10,7 +10,6 @@
 #define NT2_EULER_FUNCTIONS_SIMD_COMMON_ERF_HPP_INCLUDED
 
 #include <nt2/euler/functions/erf.hpp>
-#include <boost/simd/sdk/config.hpp>
 #include <nt2/euler/functions/details/erf_kernel.hpp>
 #include <nt2/include/constants/twothird.hpp>
 #include <nt2/include/constants/zero.hpp>
@@ -38,6 +37,7 @@
 #include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -63,7 +63,7 @@ namespace nt2 { namespace ext
       if(nb)
       {
         r1 = a0*details::erf_kernel<A0>::erf1(xx);
-      if (nb >= meta::cardinal_of<A0>::value) return r1;
+        if(nb >= meta::cardinal_of<A0>::value) return r1;
       }
       bA0 test2 = nt2::lt(x, lim2);
       bA0 test3 = nt2::logical_andnot(test2, test1);
@@ -75,17 +75,18 @@ namespace nt2 { namespace ext
         A0 z = oneminus(ex*details::erf_kernel<A0>::erfc2(x));
         A0 r2 = nt2::negif(is_ltz(a0), z);
         r1 = nt2::if_else(test1, r1, r2);
-        nb+= nb1;
-        if (nb >= meta::cardinal_of<A0>::value) return r1;
+        nb += nb1;
+        if(nb >= meta::cardinal_of<A0>::value) return r1;
       }
-      A0 z = nt2::negif(
-        nt2::is_ltz(a0),
-        nt2::oneminus(ex*details::erf_kernel<A0>::erfc3(x)));
+      A0 z = nt2::negif( nt2::is_ltz(a0)
+                       , nt2::oneminus(ex*details::erf_kernel<A0>::erfc3(x))
+                       );
       #ifndef BOOST_SIMD_NO_INFINITIES
       z = nt2::if_else(nt2::is_inf(a0), nt2::sign(a0), z);
       #endif
-      return nt2::if_else(nt2::is_inf(a0), nt2::sign(a0),
-                          nt2::if_else(test2, r1, z));
+      return nt2::if_else( nt2::is_inf(a0), nt2::sign(a0)
+                         , nt2::if_else(test2, r1, z)
+                         );
     }
   };
 
@@ -106,7 +107,7 @@ namespace nt2 { namespace ext
       if ((nb = (nt2::inbtrue(test1) > 0)))
       {
         r1 =  a0*details::erf_kernel<A0>::erf1(sqr(x));
-        if (nb >= meta::cardinal_of<A0>::value)
+        if(nb >= meta::cardinal_of<A0>::value)
           return r1;
       }
       A0 z = x/oneplus(x);

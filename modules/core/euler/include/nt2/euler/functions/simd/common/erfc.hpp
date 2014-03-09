@@ -10,7 +10,6 @@
 #define NT2_EULER_FUNCTIONS_SIMD_COMMON_ERFC_HPP_INCLUDED
 
 #include <nt2/euler/functions/erfc.hpp>
-#include <boost/simd/sdk/config.hpp>
 #include <nt2/euler/functions/details/erf_kernel.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/twothird.hpp>
@@ -35,6 +34,7 @@
 #include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 #ifndef BOOST_SIMD_NO_INFINITIES
 #include <nt2/include/constants/inf.hpp>
