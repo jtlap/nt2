@@ -71,14 +71,14 @@ namespace nt2 { namespace ext
       A0 q =  nt2::abs(a0);
       A0 x = a0;
       bA0 test0 = gt(q, nt2::Fastgammalargelim<A0>());
-      std::size_t nb = 0;
-      if ((nb = (nt2::inbtrue(test0) > 0)))
+      std::size_t nb = nt2::inbtrue(test0);
+      if(nb > 0)
       {
         bA0 negative = nt2::is_ltz(a0);
         A0 s =  nt2::stirling(q);
-        std::size_t nb1 = 0;
         A0 r1 = nt2::Zero<A0>();
-        if ((nb1 = (nt2::inbtrue(negative) > 0)))
+        std::size_t nb1 = nt2::inbtrue(negative);
+        if(nb1 > 0)
         {
           A0 p = nt2::floor(q);
           //              A0 test1 = is_equal(p, q); //must return Nan<A0>();

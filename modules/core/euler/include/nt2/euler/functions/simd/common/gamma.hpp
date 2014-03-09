@@ -40,6 +40,7 @@
 #include <nt2/include/functions/simd/is_eqz.hpp>
 #include <nt2/include/functions/simd/is_flint.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/any.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/pi.hpp>
@@ -95,7 +96,7 @@ namespace nt2 { namespace ext
       A0 y = a0;
       std::size_t nb1, nb2;
       bA0 lezy =  nt2::is_lez(y);
-      if (nt2::inbtrue(lezy) > 0)
+      if (nt2::any(lezy))
       {
         y =  nt2::if_else(lezy, nt2::oneminus(y), y);
         fact =  nt2::if_else(lezy, nt2::Pi<A0>()/nt2::sinpi(y), nt2::One<A0>());
