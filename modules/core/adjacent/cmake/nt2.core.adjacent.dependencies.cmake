@@ -11,7 +11,7 @@ SET ( NT2_CORE.ADJACENT_DEPENDENCIES_EXTRA
       boost.simd.swar
       core.container.table
       core.sdk
-      core.utility
+      core.base
       sdk.functor
       sdk.meta
     )

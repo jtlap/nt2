@@ -10,9 +10,8 @@
 SET ( NT2_CORE.CONTAINER.TABLE_DEPENDENCIES_EXTRA
       boost.dispatch
       boost.simd.sdk
-      core.base
       core.container.placeholders
       core.sdk
-      core.utility
+      core.base
       sdk.functor
     )

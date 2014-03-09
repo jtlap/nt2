@@ -20,7 +20,6 @@ else()
         boost.simd.reduction
         boost.simd.sdk
         boost.simd.swar
-        core.base
         core.combinatorial
         core.container.placeholders
         core.container.table
@@ -32,7 +31,7 @@ else()
         core.restructuring
         core.sdk
         core.trigonometric
-        core.utility
+        core.base
         sdk.error
         sdk.functor
         sdk.meta

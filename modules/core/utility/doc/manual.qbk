@@ -1,9 +1,0 @@
-[library Utility Functions
-  [quickbook 1.5]
-]
-
-[section Overview]
-This module provides implementation of utility functions.
-[endsect]
-
-[xinclude reference.xml]

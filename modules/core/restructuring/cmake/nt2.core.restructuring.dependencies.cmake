@@ -11,12 +11,11 @@ SET ( NT2_CORE.RESTRUCTURING_DEPENDENCIES_EXTRA
       boost.simd.base
       boost.simd.reduction
       boost.simd.swar
-      core.base
       core.container.table
       core.extractive
       core.generative
       core.sdk
-      core.utility
+      core.base
       sdk.config
       sdk.functor
       sdk.meta

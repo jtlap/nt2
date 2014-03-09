@@ -9,7 +9,6 @@
 
 SET ( NT2_CORE.POLYNOM_DEPENDENCIES_EXTRA
       boost.simd.base
-      core.base
       core.container.placeholders
       core.container.table
       core.generative
@@ -17,7 +16,7 @@ SET ( NT2_CORE.POLYNOM_DEPENDENCIES_EXTRA
       core.reduction
       core.restructuring
       core.sdk
-      core.utility
+      core.base
       sdk.error
       sdk.functor
       sdk.meta

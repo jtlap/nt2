@@ -10,13 +10,12 @@
 SET ( NT2_CORE.INTERPOL_DEPENDENCIES_EXTRA
       boost.simd.base
       core.adjacent
-      core.base
       core.container.table
       core.generative
       core.reduction
       core.restructuring
       core.sdk
-      core.utility
+      core.base
       sdk.functor
       sdk.meta
       sdk.simd

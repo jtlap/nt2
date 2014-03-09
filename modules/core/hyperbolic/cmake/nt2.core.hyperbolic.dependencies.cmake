@@ -12,12 +12,11 @@ SET ( NT2_CORE.HYPERBOLIC_DEPENDENCIES_EXTRA
       boost.simd.base
       boost.simd.reduction
       boost.simd.sdk
-      core.base
       core.exponential
       core.polynomials
       core.sdk
       core.trigonometric
-      core.utility
+      core.base
       sdk.error
       sdk.functor
       sdk.meta

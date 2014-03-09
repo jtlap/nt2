@@ -23,7 +23,6 @@
 [xinclude core.generative.xml]
 [xinclude core.reduction.xml]
 [xinclude core.restructuring.xml]
-[xinclude core.utility.xml]
 [xinclude core.interpol.xml]
 [xinclude core.integration.xml]
 [xinclude core.optimization.xml]

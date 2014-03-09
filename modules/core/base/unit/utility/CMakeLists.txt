@@ -42,4 +42,4 @@ SET( SOURCES
 # List of test files for toolbox core.utility
    )
 
-nt2_module_add_tests(core.utility.functions.unit ${SOURCES})
+nt2_module_add_tests(core.base.utility.unit ${SOURCES})

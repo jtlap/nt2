@@ -12,13 +12,12 @@ SET ( NT2_CORE.OPTIMIZATION_DEPENDENCIES_EXTRA
       boost.simd.reduction
       boost.simd.swar
       core.adjacent
-      core.base
       core.container.table
       core.generative
       core.linalg
       core.reduction
       core.restructuring
-      core.utility
+      core.base
       sdk.functor
       sdk.option
     )

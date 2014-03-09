@@ -23,7 +23,6 @@ SET ( NT2_CORE.INTEGRATION_DEPENDENCIES_EXTRA
       core.reduction
       core.restructuring
       core.trigonometric
-      core.utility
       sdk.functor
       sdk.meta
       sdk.option

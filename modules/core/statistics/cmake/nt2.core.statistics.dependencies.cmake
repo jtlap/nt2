@@ -10,7 +10,6 @@
 SET ( NT2_CORE.STATISTICS_DEPENDENCIES_EXTRA
       boost.simd.base
       boost.simd.reduction
-      core.base
       core.container.placeholders
       core.container.table
       core.euler
@@ -20,7 +19,7 @@ SET ( NT2_CORE.STATISTICS_DEPENDENCIES_EXTRA
       core.restructuring
       core.sdk
       core.trigonometric
-      core.utility
+      core.base
       sdk.config
       sdk.functor
     )

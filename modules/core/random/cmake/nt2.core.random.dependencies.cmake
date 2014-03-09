@@ -9,7 +9,7 @@
 
 SET ( NT2_CORE.RANDOM_DEPENDENCIES_EXTRA
       core.sdk
-      core.utility
+      core.base
       sdk.config
       sdk.functor
       sdk.timing

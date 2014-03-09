@@ -20,7 +20,6 @@ SET ( NT2_CORE.BASE_DEPENDENCIES_EXTRA
       core.reduction
       core.restructuring
       core.sdk
-      core.utility
       sdk.config
       sdk.functor
       sdk.meta
