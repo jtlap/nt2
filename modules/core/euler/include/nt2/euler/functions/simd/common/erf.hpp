@@ -105,7 +105,7 @@ namespace nt2 { namespace ext
       std::size_t nb = 0;
       if ((nb = (nt2::inbtrue(test1) > 0)))
       {
-        r1 =  a0*details::erf_kernel<A0>::erf1(a0, sqr(x));
+        r1 =  a0*details::erf_kernel<A0>::erf1(sqr(x));
         if (nb >= meta::cardinal_of<A0>::value)
           return r1;
       }

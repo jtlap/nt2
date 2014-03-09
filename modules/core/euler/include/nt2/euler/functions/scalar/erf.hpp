@@ -91,7 +91,7 @@ namespace nt2 { namespace ext
       A0 x =  nt2::abs(a0);
       if (x < Twothird<A0>())
       {
-        return a0*details::erf_kernel<A0>::erf1(a0, sqr(x));
+        return a0*details::erf_kernel<A0>::erf1(sqr(x));
       }
       else
       {
