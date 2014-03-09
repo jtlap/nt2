@@ -10,50 +10,36 @@
 #define NT2_BESSEL_FUNCTIONS_SIMD_COMMON_I0_HPP_INCLUDED
 
 #include <nt2/bessel/functions/i0.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
+#include <boost/simd/sdk/config.hpp>
+#include <nt2/include/constants/eight.hpp>
+#include <nt2/include/constants/half.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/two.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
-#include <nt2/include/functions/simd/is_less_equal.hpp>
-#include <nt2/include/functions/simd/inbtrue.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
+#include <nt2/include/functions/simd/exp.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
 #include <nt2/include/functions/simd/if_else_allbits.hpp>
-#include <nt2/include/functions/simd/sqrt.hpp>
-#include <nt2/include/functions/simd/tchebeval.hpp>
-#include <nt2/include/functions/simd/exp.hpp>
-#include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/simd/inbtrue.hpp>
+#include <nt2/include/functions/simd/is_greater_equal.hpp>
+#include <nt2/include/functions/simd/is_less_equal.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
-#include <nt2/include/functions/simd/divides.hpp>
-#include <nt2/include/functions/simd/bitwise_and.hpp>
-#include <nt2/include/functions/simd/is_inf.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/real.hpp>
+#include <nt2/include/functions/simd/rsqrt.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/simd/tchebeval.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+#ifndef BOOST_SIMD_NO_INFINITIES
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/is_equal.hpp>
+#endif
+
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::i0_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                            )
-  {
-
-    typedef typename meta::as_floating<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::i0(tofloat(a0));
-    }
-  };
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is double
-  /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::i0_, tag::cpu_
                      , (A0)(X)
                      , ((simd_<double_<A0>,X>))
@@ -126,30 +112,23 @@ namespace nt2 { namespace ext
           }};
       A0 x =  nt2::abs(a0);
       A0 r = Nan<A0>();
-      std::size_t nb = 0;
       bA0 test = le(x,  Eight<A0>());
-      if( (nb = inbtrue(test)) > 0)
+      std::size_t nb = inbtrue(test);
+      if( nb > 0)
       {
         A0 y = x*Half<A0>() - Two<A0>();
         r = if_else_nan(test,exp(x) * tchebeval( y, A));
-        //b_ornot(exp(x) * tchebeval( y, A), test);
+        if (nb >= meta::cardinal_of<A0>::value)
+          return r;
       }
-      if (nb >= meta::cardinal_of<A0>::value)
-      {
-        return r;
-      }
-      r &= if_nan_else(test, exp(x) * tchebeval( splat<A0>(32.0)/x - Two<A0>(), B) / sqrt(x));
-      return  sel(is_inf(x), x, r);
+      r &= if_nan_else(test, exp(x) * tchebeval( splat<A0>(32.0)/x - Two<A0>(), B)*rsqrt(x));
+      #ifndef BOOST_SIMD_NO_INFINITIES
+      r =   if_else(eq(x, Inf<A0>()), x, r);
+      #endif
+      return r;
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is float
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::i0_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<single_<A0>,X>))
@@ -186,7 +165,6 @@ namespace nt2 { namespace ext
             6.76795274409476084995E-1f
           }};
 
-
       /* Chebyshev coefficients for exp(-x) sqrt(x) I0(x)
        * in the inverted interval [8,infinity].
        *
@@ -205,25 +183,22 @@ namespace nt2 { namespace ext
           }};
       A0 x =  nt2::abs(a0);
       A0 r = Nan<A0>();
-      std::size_t nb = 0;
       bA0 test = le(x, Eight<A0>());
-      if( (nb = inbtrue(test)) > 0)
+      std::size_t nb = inbtrue(test);
+      if(nb > 0)
       {
         A0 y = x*Half<A0>() - Two<A0>();
         r = if_else_nan(test,exp(x) * tchebeval( y, A));
-        //b_ornot(exp(x) * tchebeval( y, A), test);
+        if (nb >= meta::cardinal_of<A0>::value)
+          return r;
       }
-      if (nb >= meta::cardinal_of<A0>::value)
-      {
-        return r;
-      }
-      r &= if_nan_else(test, exp(x) * tchebeval( splat<A0>(32.0)/x - Two<A0>(), B) / sqrt(x));
-      //      r &= b_or(exp(x) * tchebeval( splat<A0>(32.0f)/x - Two<A0>(), B) / sqrt(x), test);
-      r =  sel(is_inf(x), x, r);
+      r &= if_nan_else(test, exp(x) * tchebeval( splat<A0>(32.0)/x - Two<A0>(), B)*rsqrt(x));
+      #ifndef BOOST_SIMD_NO_INFINITIES
+      r =   if_else(eq(x, Inf<A0>()), x, r);
+      #endif
       return r;
     }
   };
 } }
-
 
 #endif
