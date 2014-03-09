@@ -8,42 +8,52 @@
 //==============================================================================
 #ifndef NT2_EULER_FUNCTIONS_SIMD_COMMON_EXPNI_HPP_INCLUDED
 #define NT2_EULER_FUNCTIONS_SIMD_COMMON_EXPNI_HPP_INCLUDED
+
 #include <nt2/euler/functions/expni.hpp>
-#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/digits.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
-#include <nt2/include/functions/simd/log.hpp>
-#include <nt2/include/functions/simd/exp.hpp>
-#include <nt2/include/functions/simd/oneplus.hpp>
-#include <nt2/include/functions/simd/sqr.hpp>
-#include <nt2/include/functions/simd/rec.hpp>
-#include <nt2/include/functions/simd/abs.hpp>
-#include <nt2/include/functions/simd/pow.hpp>
-#include <nt2/include/functions/simd/gamma.hpp>
-#include <nt2/include/functions/simd/is_eqz.hpp>
-#include <nt2/include/functions/simd/is_nez.hpp>
 #include <nt2/include/functions/simd/is_ltz.hpp>
-#include <nt2/include/functions/simd/is_eqz.hpp>
-#include <nt2/include/functions/simd/is_odd.hpp>
-#include <nt2/include/functions/simd/bitwise_ornot.hpp>
-#include <nt2/include/functions/simd/logical_or.hpp>
-#include <nt2/include/functions/simd/seladd.hpp>
-#include <nt2/include/functions/simd/inbtrue.hpp>
-#include <nt2/include/functions/simd/any.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
 #include <nt2/include/functions/simd/if_else_allbits.hpp>
-#include <nt2/sdk/meta/as_logical.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
+#include <nt2/include/functions/simd/exp.hpp>
+#include <nt2/include/functions/simd/log.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/pow.hpp>
+#include <nt2/include/functions/simd/gamma.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/oneplus.hpp>
+#include <nt2/include/functions/simd/inbtrue.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/is_less_equal.hpp>
+#include <nt2/include/functions/simd/seladd.hpp>
+#include <nt2/include/functions/simd/is_less.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/logical_or.hpp>
+#include <nt2/include/functions/simd/is_nan.hpp>
+#include <nt2/include/functions/simd/bitwise_and.hpp>
+#include <nt2/include/functions/simd/is_nez.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/is_greater.hpp>
+#include <nt2/include/functions/simd/any.hpp>
+#include <nt2/include/functions/scalar/is_odd.hpp>
 #include <nt2/include/constants/expnibig.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/eight.hpp>
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/constants/maxlog.hpp>
+#include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/euler.hpp>
 #include <nt2/include/constants/eps.hpp>
-#include <nt2/include/constants/maxlog.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A1 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expni_, tag::cpu_
@@ -58,9 +68,6 @@ namespace nt2 { namespace ext
     }
   };
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A1 is floating_
-  /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::expni_, tag::cpu_,
                       (A0)(A1)(X),
                       ((scalar_<integer_<A0> > ))
@@ -89,8 +96,8 @@ namespace nt2 { namespace ext
       }
       A1 r =  nt2::Nan<A1>();
       bA1 test1 = le(a1, nt2::One<A1>());
-      std::size_t nb = 0;
-      if ((nb = nt2::inbtrue(test1)) > 0)
+      std::size_t nb = nt2::inbtrue(test1);
+      if(nb > 0)
       {
         A1 xx = nt2::if_else(test1, x, One<A1>());
         A1 y1 = case_1(xx, sn, n);
