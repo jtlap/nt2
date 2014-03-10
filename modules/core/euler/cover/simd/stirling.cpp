@@ -26,11 +26,11 @@ NT2_TEST_CASE_TPL(stirling_0,  NT2_SIMD_REAL_TYPES)
 
   using nt2::unit::args;
   const std::size_t NR = args("samples", NT2_NB_RANDOM_TEST);
-  const double ulpd = args("ulpd",  2.5);
+  const double ulpd = args("ulpd",  64);
 
   typedef typename nt2::meta::as_integer<vT>::type ivT;
-  const T min = args("min", T(-1e30));
-  const T max = args("max", T(1e30));
+  const T min = args("min", T(0));
+  const T max = args("max", T(36));
   std::cout << "Argument samples #0 chosen in range: [" << min << ",  " << max << "]" << std::endl;
   NT2_CREATE_BUF(a0,T, NR, min, max);
 

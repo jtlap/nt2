@@ -25,8 +25,8 @@ NT2_TEST_CASE_TPL(stirling_0,  NT2_SIMD_REAL_TYPES)
   const double ulpd = args("ulpd", 0.5);
 
   typedef typename nt2::meta::as_integer<T>::type iT;
-  const T min = args("min", T(-1e30));
-  const T max = args("max", T(1e30));
+  const T min = args("min", T(0));
+  const T max = args("max", T(36));
   std::cout << "Argument samples #0 chosen in range: [" << min << ",  " << max << "]" << std::endl;
   NT2_CREATE_BUF(a0,T, NR, min, max);
 
