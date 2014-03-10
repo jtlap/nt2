@@ -57,7 +57,7 @@ namespace nt2 { namespace details
     }
     // computes dawson(a0)/a0 for double or double vectors
     // xx is sqr(a0) and 3.25 <= abs(a0) <= 6.25
-    static BOOST_FORCEINLINE A0 dawson2(const A0& x, const A0 & xx)
+    static BOOST_FORCEINLINE A0 dawson2(const A0& ox2, const A0 & x)
     {
       /* interval 3.25 to 6.25 */
       A0 num = horner<NT2_HORNER_COEFF_T(sA0, 11,
@@ -73,7 +73,7 @@ namespace nt2 { namespace details
                                           0xb1251d8a,
                                           0x2e1dfe15
                                          )
-                                        )> (x);
+                                        )> (ox2);
       A0 denom = horner<NT2_HORNER_COEFF_T(sA0, 11,
                                            (0x3f800000,
                                             0xbf21c042,
@@ -87,12 +87,12 @@ namespace nt2 { namespace details
                                             0xb1a8d160,
                                             0x2e9dfe10
                                            )
-                                          )> (x);
-      return nt2::rec(xx)+x*num/(denom*xx);
+                                          )> (ox2);
+      return nt2::rec(x)+ox2*num/(denom*x);
     }
     // computes dawson(a0)/a0 for double or double vectors
     // xx is sqr(a0) and    6.25 < abs(a0) < 1.0e9
-    static BOOST_FORCEINLINE A0 dawson3(const A0& x, const A0 & xx)
+    static BOOST_FORCEINLINE A0 dawson3(const A0& ox2, const A0 & x)
     {
       /* 6.25 to infinity */
       A0 num = horner<NT2_HORNER_COEFF_T(sA0, 5,
@@ -102,7 +102,7 @@ namespace nt2 { namespace details
                                           0x3c8708d6,
                                           0xb9ff3ce5
                                          )
-                                        )> (x);
+                                        )> (ox2);
       A0 denom =  horner<NT2_HORNER_COEFF_T(sA0, 6,
                                             (0x3f800000,
                                              0xc02caf51,
@@ -111,8 +111,8 @@ namespace nt2 { namespace details
                                              0x3d0d0443,
                                              0xba7f3ce5
                                             )
-                                           )> (x);
-      return nt2::rec(xx)+x*num/(denom*xx);
+                                           )> (ox2);
+      return nt2::rec(x)+ox2*num/(denom*x);
     }
 };
 
@@ -153,7 +153,7 @@ namespace nt2 { namespace details
 
     // computes dawson(a0)/a0 for double or double vectors
     // xx is sqr(a0) and 3.25 <= abs(a0) <= 6.25
-    static BOOST_FORCEINLINE A0 dawson2(const A0& x, const A0 & xx)
+    static BOOST_FORCEINLINE A0 dawson2(const A0& ox2, const A0 & x)
     {
       /* interval 3.25 to 6.25 */
       A0 num = horner<NT2_HORNER_COEFF_T(sA0, 11,
@@ -169,7 +169,7 @@ namespace nt2 { namespace details
                                           0xbe24a3b14d9709f0ll,//(-2.40274520828250956942E-9)
                                           0x3dc3bfc2ac32b39ell //(3.59233385440928410398E-11)
                                          )
-                                        )> (x);
+                                        )> (ox2);
       A0 denom = horner<NT2_HORNER_COEFF_T(sA0, 11,
                                            (0x3ff0000000000000ll, //(1.00000000000000000000E0),
                                             0xbfe438083f2d47c7ll, //(-6.31839869873368190192E-1)
@@ -183,13 +183,13 @@ namespace nt2 { namespace details
                                             0xbe351a2c0f7cf15cll, //(-4.91324691331920606875E-9)
                                             0x3dd3bfc202a6b560ll  //(7.18466403235734541950E-11)
                                            )
-                                          )> (x);
-      return nt2::rec(xx)+x*num/(denom*xx);
+                                          )> (ox2);
+      return nt2::rec(x)+ox2*num/(denom*x);
     }
 
     // computes dawson(a0)/a0 for double or double vectors
     // xx is sqr(a0) and    6.25 < abs(a0) < 1.0e9
-    static BOOST_FORCEINLINE A0 dawson3(const A0& x, const A0 & xx)
+    static BOOST_FORCEINLINE A0 dawson3(const A0& ox2, const A0 & x)
     {
       /* 6.25 to infinity */
       A0 num = horner<NT2_HORNER_COEFF_T(sA0, 5,
@@ -199,7 +199,7 @@ namespace nt2 { namespace details
                                           0x3f90e11ab3d4d36bll, //(1.64837047825189632310E-2),
                                           0xbf3fe79cad3d09fbll  //(-4.86827613020462700845E-4)
                                          )
-                                        )> (x);
+                                        )> (ox2);
       A0 denom =  horner<NT2_HORNER_COEFF_T(sA0, 6,
                                             (0x3ff0000000000000ll,//(1.00000000000000000000E0),
                                              0xc00595ea2e7576e2ll,//(-2.69820057197544900361E0),
@@ -208,8 +208,8 @@ namespace nt2 { namespace details
                                              0x3fa1a0885fe44f2dll,//(3.44278924041233391079E-2),
                                              0xbf4fe79cad3d0a8dll //(-9.73655226040941223894E-4)
                                             )
-                                           )> (x);
-      return nt2::rec(xx)+x*num/(denom*xx);
+                                           )> (ox2);
+      return nt2::rec(x)+ox2*num/(denom*x);
     }
   };
 } }
