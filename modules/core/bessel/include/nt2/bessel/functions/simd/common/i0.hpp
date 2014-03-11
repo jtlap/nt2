@@ -16,6 +16,7 @@
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/bitwise_and.hpp>
 #include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/simd/exp.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
