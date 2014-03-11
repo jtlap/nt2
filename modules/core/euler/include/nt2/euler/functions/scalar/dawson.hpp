@@ -26,23 +26,23 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      A0 x =  nt2::abs(a0);
+      A0 x = nt2::abs(a0);
       A0 xx = nt2::sqr(x);
       if( x < static_cast<A0>(3.25) )
       {
-        return a0 * details::dawson_kernel<A0>::dawson1(xx);
+        return a0*details::dawson_kernel<A0>::dawson1(xx);
       }
-      xx =  rec(xx);
+      xx = rec(xx);
       if( x < static_cast<A0>(6.25) )
       {
-        A0 y =   details::dawson_kernel<A0>::dawson2(xx, x);
-        return  nt2::copysign( nt2::Half<A0>()*y, a0);
+        A0 y = details::dawson_kernel<A0>::dawson2(xx, x);
+        return nt2::copysign( nt2::Half<A0>()*y, a0);
       }
       if( x > static_cast<A0>(1.0e9) )
         return  nt2::Half<A0>()* nt2::copysign(rec(x), a0);
       /* 6.25 to 1.0e9 */
-      A0 y =   details::dawson_kernel<A0>::dawson3(xx, x);
-      return  nt2::copysign( nt2::Half<A0>()*y, a0);
+      A0 y = details::dawson_kernel<A0>::dawson3(xx, x);
+      return nt2::copysign( nt2::Half<A0>()*y, a0);
     }
   };
 
