@@ -8,11 +8,12 @@
 ##############################################################################
 
 SET(SOURCES
-  dawson.cpp
-  erf.cpp
-  erfc.cpp
-  spence.cpp
-  stirling.cpp
-  )
+    dawson.cpp
+    digamma.cpp
+    erf.cpp
+    erfc.cpp
+    spence.cpp
+    stirling.cpp
+   )
 
 nt2_module_add_tests(core.euler.simd.exhaustive ${SOURCES})
