@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef NT2_EULER_FUNCTIONS_DETAILS_DIGAMMA_KERNEL_HPP_INCLUDED
 #define NT2_EULER_FUNCTIONS_DETAILS_DIGAMMA_KERNEL_HPP_INCLUDED
-#include <boost/dispatch/attributes.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/real_splat.hpp>
 #include <nt2/include/constants/two.hpp>
@@ -22,6 +21,8 @@
 #include <nt2/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 
+#include <boost/dispatch/attributes.hpp>
+
 namespace nt2 { namespace details
 {
   template < class A0, class sA0 = typename meta::scalar_of<A0>::type >
@@ -33,19 +34,6 @@ namespace nt2 { namespace details
     typedef typename meta::scalar_of<A0>::type sA0;
     static BOOST_FORCEINLINE A0 digamma_1_2(const A0& a0)
     {
-      //
-      // Now the approximation, we use the form:
-      //
-      // digamma(x) = (x - root) * (Y + R(x-1))
-      //
-      // Where root is the location of the positive root of digamma,
-      // Y is a constant, and R is optimised for low nt2::absolute error
-      // compared to Y.
-      //
-      // Maximum Deviation Found:              3.388e-010
-      // At float precision, max error found:  2.008725e-008
-      //
-//      static const A0 Y = nt2::splat<A0>(0.99558162689208984);
       const A0 Y    = single_constant<A0,0x3f7ede70>(); //0.99558162689208984
       const A0 root = single_constant<A0,0x3fbb16c0>(); //1.461631774902344e+00
       const A0 root_minor = single_constant<A0,0x34c6ad7c>();  //0.3700660185912626595423257213284682051735604e-6 L;
@@ -96,15 +84,6 @@ namespace nt2 { namespace details
     // xx is sqr(a0) and 0 <= abs(a0) <= 3.25
     static BOOST_FORCEINLINE A0 digamma_1_2(const A0& a0)
     {
-      //
-      // Now the approximation, we use the form:
-      //
-      // digamma(x) = (x - root) * (Y + R(x-1))
-      //
-      // Where root is the location of the positive root of digamma,
-      // Y is a constant, and R is optimised for low nt2::absolute error
-      // compared to Y.
-      //
       const A0 Y = double_constant<A0,0x3fefdbce00000000ll>(); // 0.99558162689208984;
       const A0 root1 = double_constant<A0,0x3ff762d863400001ll>();   // 1569415565.0 / 1073741824uL;
       const A0 root2 = double_constant<A0,0x3df6be3f6e000000ll>();   // 381566830.0 / 1073741824uL) / 1073741824uL;
