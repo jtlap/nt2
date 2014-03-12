@@ -10,7 +10,6 @@
 #define NT2_EULER_FUNCTIONS_SCALAR_STIRLING_HPP_INCLUDED
 
 #include <nt2/euler/functions/stirling.hpp>
-#include <boost/simd/sdk/config.hpp>
 #include <nt2/euler/functions/details/stirling_kernel.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/inf.hpp>
@@ -24,6 +23,8 @@
 #include <nt2/include/functions/scalar/is_eqz.hpp>
 #include <nt2/include/functions/scalar/pow.hpp>
 #include <nt2/include/functions/scalar/rec.hpp>
+
+#include <boost/simd/sdk/config.hpp>
 
 #ifndef BOOST_SIMD_NO_INVALIDS
 #include <nt2/include/functions/scalar/is_nan.hpp>

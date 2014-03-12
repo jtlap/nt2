@@ -10,7 +10,6 @@
 #define NT2_EULER_FUNCTIONS_SIMD_COMMON_STIRLING_HPP_INCLUDED
 
 #include <nt2/euler/functions/stirling.hpp>
-#include <boost/simd/sdk/config.hpp>
 #include <nt2/euler/functions/details/stirling_kernel.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/one.hpp>
@@ -26,6 +25,8 @@
 #include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
+
+#include <boost/simd/sdk/config.hpp>
 
 #ifndef BOOST_SIMD_NO_INFINITIES
 #include <nt2/include/constants/inf.hpp>
