@@ -9,14 +9,15 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ABS_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ABS_HPP_INCLUDED
+
 #include <boost/simd/arithmetic/functions/abs.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/constants/mzero.hpp>
-#include <boost/simd/include/constants/maxleftshift.hpp>
 #include <boost/simd/include/functions/simd/bitwise_notand.hpp>
 #include <boost/simd/include/functions/simd/bitwise_xor.hpp>
-#include <boost/simd/include/functions/simd/shr.hpp>
+#include <boost/simd/include/functions/simd/shift_right.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
+#include <boost/simd/include/constants/mzero.hpp>
+#include <boost/simd/include/constants/maxleftshift.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -31,7 +32,7 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::as_integer<result_type, signed>::type int_type;
       typedef typename meta::scalar_of<int_type>::type                      sint_type;
-      result_type const s = shr(a0, Maxleftshift<sint_type>());
+      result_type const s = a0 >> Maxleftshift<sint_type>();
       return (a0+s)^s;
     }
   };

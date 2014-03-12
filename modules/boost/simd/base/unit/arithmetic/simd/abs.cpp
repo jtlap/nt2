@@ -75,4 +75,6 @@ NT2_TEST_CASE_TPL ( abs_signed_int,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_EQUAL(abs(boost::simd::Valmax<vT>()), boost::simd::Valmax<r_t>());
   NT2_TEST_EQUAL(abs(boost::simd::Valmin<vT>()), boost::simd::Valmin<r_t>());
   NT2_TEST_EQUAL(abs(boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(abs(boost::simd::splat<vT>(-3)), boost::simd::splat<vT>(3));
+
 } // end of test for signed_int_
