@@ -85,9 +85,9 @@ namespace nt2 { namespace ext
       bA0 lthalf = lt(x,Half<A0>());
       A0 x2 = nt2::sqr(x);
       A0 z = Zero<A0>();
-      std::size_t nb;
+      std::size_t nb = inbtrue(lthalf);
       A0 bts = bitofsign(a0);
-      if( ( nb = inbtrue(lthalf)) > 0)
+      if(nb > 0)
       {
         z = horner < NT2_HORNER_COEFF_T(sA0, 5,
                                         ( 0x3ca4d6e6
