@@ -66,10 +66,10 @@ NT2_TEST_CASE_TPL ( nbtrue_real__1_0,  NT2_SIMD_REAL_TYPES)
       {
         vT a0 = aligned_load<vT>(&tab_a0[0],j);
         r_t v = nt2::nbtrue(a0);
-        T z = a0[0] != 0;
+        T z = T(a0[0]) != 0;
         for(nt2::uint32_t i = 1; i< cardinal_of<n_t>::value; ++i)
         {
-          z+=a0[i] != 0 ;
+          z += T(a0[i]) != 0;
         }
         NT2_TEST_EQUAL( v,z);
       }
