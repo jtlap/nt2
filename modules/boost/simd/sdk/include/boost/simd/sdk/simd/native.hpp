@@ -204,6 +204,9 @@ namespace boost { namespace simd
       return reference(const_cast<native&>(*this), i);
     }
 
+    Scalar*       data()       { return reinterpret_cast<Scalar*>(&data_);       }
+    Scalar const* data() const { return reinterpret_cast<Scalar const*>(&data_); }
+
     //==========================================================================
     // Inner data
     //==========================================================================
