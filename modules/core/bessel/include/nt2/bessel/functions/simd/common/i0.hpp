@@ -10,7 +10,6 @@
 #define NT2_BESSEL_FUNCTIONS_SIMD_COMMON_I0_HPP_INCLUDED
 
 #include <nt2/bessel/functions/i0.hpp>
-#include <boost/simd/sdk/config.hpp>
 #include <nt2/include/constants/eight.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/nan.hpp>
@@ -22,7 +21,6 @@
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
 #include <nt2/include/functions/simd/if_else_allbits.hpp>
 #include <nt2/include/functions/simd/inbtrue.hpp>
-#include <nt2/include/functions/simd/is_greater_equal.hpp>
 #include <nt2/include/functions/simd/is_less_equal.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
@@ -32,6 +30,7 @@
 #include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 #ifndef BOOST_SIMD_NO_INFINITIES
 #include <nt2/include/constants/inf.hpp>
