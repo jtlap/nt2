@@ -84,9 +84,7 @@ namespace nt2 { namespace ext
       #ifndef BOOST_SIMD_NO_INFINITIES
       z = nt2::if_else(nt2::is_inf(a0), nt2::sign(a0), z);
       #endif
-      return nt2::if_else( nt2::is_inf(a0), nt2::sign(a0)
-                         , nt2::if_else(test2, r1, z)
-                         );
+      return nt2::if_else(test2, r1, z);
     }
   };
 
