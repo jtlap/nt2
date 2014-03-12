@@ -35,10 +35,10 @@ inline void unary_shuffle()
   std::size_t ic = static_cast<std::size_t>(IC);
   std::size_t id = static_cast<std::size_t>(ID);
 
-  ref[0] = (IA == -1) ? 0 : a[ia];
-  ref[1] = (IB == -1) ? 0 : a[ib];
-  ref[2] = (IC == -1) ? 0 : a[ic];
-  ref[3] = (ID == -1) ? 0 : a[id];
+  ref[0] = (IA == -1) ? T(0) : a[ia];
+  ref[1] = (IB == -1) ? T(0) : a[ib];
+  ref[2] = (IC == -1) ? T(0) : a[ic];
+  ref[3] = (ID == -1) ? T(0) : a[id];
 
   NT2_TEST_EQUAL( (shuffle<IA,IB,IC,ID>(a)), ref);
 }
@@ -68,10 +68,10 @@ inline void binary_shuffle()
   std::size_t ic = static_cast<std::size_t>(IC);
   std::size_t id = static_cast<std::size_t>(ID);
 
-  ref[0] = (IA == -1) ? 0 : (IA<4 ? a[ia] : b[ia-4]);
-  ref[1] = (IB == -1) ? 0 : (IB<4 ? a[ib] : b[ib-4]);;
-  ref[2] = (IC == -1) ? 0 : (IC<4 ? a[ic] : b[ic-4]);;
-  ref[3] = (ID == -1) ? 0 : (ID<4 ? a[id] : b[id-4]);;
+  ref[0] = (IA == -1) ? T(0) : (IA<4 ? a[ia] : b[ia-4]);
+  ref[1] = (IB == -1) ? T(0) : (IB<4 ? a[ib] : b[ib-4]);;
+  ref[2] = (IC == -1) ? T(0) : (IC<4 ? a[ic] : b[ic-4]);;
+  ref[3] = (ID == -1) ? T(0) : (ID<4 ? a[id] : b[id-4]);;
 
   NT2_TEST_EQUAL( (shuffle<IA,IB,IC,ID>(a,b)), ref);
 }
