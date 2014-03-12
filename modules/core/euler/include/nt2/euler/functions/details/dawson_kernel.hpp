@@ -8,13 +8,14 @@
 //==============================================================================
 #ifndef NT2_EULER_FUNCTIONS_DETAILS_DAWSON_KERNEL_HPP_INCLUDED
 #define NT2_EULER_FUNCTIONS_DETAILS_DAWSON_KERNEL_HPP_INCLUDED
-#include <boost/dispatch/attributes.hpp>
 #include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/plus.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
+
+#include <boost/dispatch/attributes.hpp>
 
 namespace nt2 { namespace details
 {
