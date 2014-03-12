@@ -20,11 +20,8 @@
 */
 namespace boost { namespace simd
 {
-  namespace details
-  {
   template<class T, class X>
   struct soa_proxy;
-  }
 
   template<class Expr, class ResultType>
   struct expression;
@@ -67,7 +64,7 @@ namespace nt2
     }
 
     template<class T, class X>
-    T eval(boost::simd::details::soa_proxy<T, X> const& t)
+    T eval(boost::simd::soa_proxy<T, X> const& t)
     {
       return t;
     }

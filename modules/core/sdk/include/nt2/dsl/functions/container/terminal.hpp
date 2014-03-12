@@ -10,9 +10,9 @@
 #define NT2_DSL_FUNCTIONS_CONTAINER_TERMINAL_HPP_INCLUDED
 
 #include <nt2/dsl/functions/terminal.hpp>
-#include <boost/simd/include/functions/load.hpp>
-#include <boost/simd/include/functions/store.hpp>
-#include <boost/simd/include/functions/splat.hpp>
+#include <nt2/include/functions/load.hpp>
+#include <nt2/include/functions/store.hpp>
+#include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/simd/maximum.hpp>
 #include <nt2/sdk/memory/category.hpp>
 #include <nt2/sdk/simd/category.hpp>
