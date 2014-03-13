@@ -55,7 +55,7 @@ namespace nt2 { namespace ext
       A0 x = nt2::abs(a0);
       bA0 lt1= lt(x, One<A0>());
       A0 bts = bitofsign(a0);
-      if(any(lt1))
+      if(nt2::any(lt1))
       {
         a1 = details::sinh_kernel<A0>::compute(x, sqr(x));
       }
