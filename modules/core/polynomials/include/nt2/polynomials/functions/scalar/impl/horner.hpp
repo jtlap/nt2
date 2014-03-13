@@ -149,6 +149,6 @@ boost::mpl::vector< BOOST_PP_ENUM(Size                                        \
 
 #define NT2_HORNER_RAT(type, n, m, x, P, Q)      \
   horner < NT2_HORNER_COEFF_T(type, n, P) > (x)/ \
-  horner < NT2_HORNER_COEFF_T(type, n, Q) > (x)  \
+  horner < NT2_HORNER_COEFF_T(type, m, Q) > (x)  \
 /**/
 #endif
