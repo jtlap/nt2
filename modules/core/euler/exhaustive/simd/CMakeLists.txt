@@ -12,6 +12,7 @@ SET(SOURCES
   erf.cpp
   erfc.cpp
   spence.cpp
+  stirling.cpp
   )
 
 nt2_module_add_tests(core.euler.simd.exhaustive ${SOURCES})

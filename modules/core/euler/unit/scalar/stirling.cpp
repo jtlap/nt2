@@ -16,10 +16,13 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/config.hpp>
 
+#include <nt2/include/functions/round.hpp>
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/constants/one.hpp>
 
 NT2_TEST_CASE_TPL ( stirling_real,  NT2_REAL_TYPES)
 {
@@ -38,4 +41,6 @@ NT2_TEST_CASE_TPL ( stirling_real,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(stirling(nt2::Mone<T>()), nt2::Nan<T>(), 0.5);
   NT2_TEST_ULP_EQUAL(stirling(nt2::Nan<T>()),  nt2::Nan<T>(), 0.5);
 #endif
+  NT2_TEST_ULP_EQUAL(nt2::round(stirling(nt2::One<T>())),  nt2::One<T>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nt2::round(stirling(nt2::Two<T>())),  nt2::One<T>(), 0.5);
 }

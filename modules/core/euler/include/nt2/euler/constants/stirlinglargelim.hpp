@@ -17,8 +17,8 @@ namespace nt2
   namespace tag
   {
     BOOST_SIMD_CONSTANT_REGISTER( Stirlinglargelim, double
-                                , 0, 0x41d628f6         // 35.0399895f
-                                , 0x4061e083ba3443d4ll  // 172.0
+                                , 0, 0x420c28f3ll         // 35.0399895f
+                                , 0x4065800000000000ULL    // 172.0
                                 );
   }
 
