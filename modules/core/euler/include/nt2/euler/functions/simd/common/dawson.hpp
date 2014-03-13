@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
       A0 lim2 = nt2::splat<A0>(6.25);
       bA0 test1 = lt(x, lim1);
       A0 r1 = nt2::Zero<A0>();
-      int32_t nb = inbtrue(test1);
+      std::size_t nb = inbtrue(test1);
       if( nb > 0 )
       {
         r1 = x * details::dawson_kernel<A0>::dawson1(xx);
