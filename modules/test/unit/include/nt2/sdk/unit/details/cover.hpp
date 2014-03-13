@@ -16,6 +16,7 @@
 #include <nt2/sdk/unit/details/ulp.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/details/io_fix.hpp>
+#include <boost/simd/operator/specific/utils.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
 #include <nt2/sdk/meta/type_id.hpp>
 #include <nt2/include/functions/load.hpp>
@@ -80,6 +81,14 @@ BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(INPUTS), NT2_COVER_VAR, INPUTS )              \
 + std::string(" )")                                                            \
 /**/
 
+#define NT2_COVER_CARD(z,n,t)                                                  \
+meta::cardinal_of<BOOST_PP_CAT(type_,n)>::value                                \
+/**/
+
+#define NT2_COVER_CARDT(z,n,t)                                                 \
+meta::cardinal_of<typename boost::mpl::at_c<Types,n>::type>::value             \
+/**/
+
 namespace nt2 { namespace details
 {
   #define NT2_COVER_COMPUTE(z,n,t)                                             \
@@ -94,7 +103,13 @@ namespace nt2 { namespace details
     Data out(ref.size());                                                      \
                                                                                \
     BOOST_PP_REPEAT(n,NT2_COVER_INPUT_TYPES,~)                                 \
-    std::size_t cc = meta::cardinal_of<type_0>::value;                         \
+                                                                               \
+    static  const std::size_t                                                  \
+            cc = BOOST_DISPATCH_FOLD( n                                        \
+                                    , boost::simd::ext::cardinal_common<       \
+                                    , >::value                                 \
+                                    , NT2_COVER_CARD, ~                        \
+                                    );                                         \
                                                                                \
     for(std::size_t i=0; i<out.size(); i+=cc)                                  \
     {                                                                          \
@@ -124,10 +139,12 @@ namespace nt2 { namespace details
                           )                                                    \
   {                                                                            \
     int ib = -1;                                                               \
-    std::size_t cc = nt2::meta                                                 \
-                        ::cardinal_of < typename boost::mpl                    \
-                                                      ::at_c<Types,0>::type    \
-                                      >::value;                                \
+    static  const std::size_t                                                  \
+            cc = BOOST_DISPATCH_FOLD( n                                        \
+                                    , boost::simd::ext::cardinal_common<       \
+                                    , >::value                                 \
+                                    , NT2_COVER_CARDT, ~                       \
+                                    );                                         \
                                                                                \
     BOOST_PP_REPEAT(n,NT2_COVER_INPUT_TYPES,~)                                 \
                                                                                \
