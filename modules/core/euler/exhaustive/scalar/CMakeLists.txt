@@ -10,7 +10,9 @@
 SET(SOURCES
  erf.cpp
  erfc.cpp
-spence.cpp
+ erfinv.cpp
+ erfcinv.cpp
+ spence.cpp
  )
 
 nt2_module_add_tests(core.euler.scalar.exhaustive ${SOURCES})

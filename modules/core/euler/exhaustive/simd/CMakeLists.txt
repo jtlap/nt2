@@ -10,6 +10,8 @@
 SET(SOURCES
   erf.cpp
   erfc.cpp
+  erfinv.cpp
+  erfcinv.cpp
   spence.cpp
   )
 
