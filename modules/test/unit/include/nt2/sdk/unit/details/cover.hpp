@@ -208,6 +208,8 @@ namespace nt2 { namespace details
     }                                                                          \
     else                                                                       \
     {                                                                          \
+      std::cout << " *** Cover tests failed with a maximum of "                \
+                << ulpd << " ULPs. ***\n";                                     \
       ::nt2::details::ulp_fail( desc, file, line, ulps.size(), N, true );      \
       display_cover_fails ( desc, f                                            \
                           , out, ref                                           \
