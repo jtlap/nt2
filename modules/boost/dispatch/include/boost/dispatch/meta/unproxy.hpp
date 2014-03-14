@@ -31,7 +31,7 @@ namespace boost { namespace dispatch
 
       typedef typename mpl::eval_if < is_proxy<T>
                                     , value_<T>
-                                    , mpl::identity<T const&>
+                                    , mpl::identity<T&>
                                     >::type         type;
     };
   }
@@ -45,7 +45,13 @@ namespace boost { namespace dispatch
     @param t Value to unproxify
   **/
   template<class T>
-  BOOST_FORCEINLINE typename meta::unproxy<T>::type unproxy(T const& t)
+  BOOST_FORCEINLINE typename meta::unproxy<T const>::type unproxy(T const& t)
+  {
+    return t;
+  }
+
+  template<class T>
+  BOOST_FORCEINLINE typename meta::unproxy<T>::type unproxy(T& t)
   {
     return t;
   }
