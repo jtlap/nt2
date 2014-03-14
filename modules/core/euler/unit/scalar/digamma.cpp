@@ -29,5 +29,5 @@ NT2_TEST_CASE_TPL ( digamma_real,  NT2_REAL_TYPES)
   NT2_TEST_TYPE_IS(r_t, wished_r_t);
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(digamma(nt2::One<T>()), T(-0.57721566490153286555), 1.5);
+  NT2_TEST_ULP_EQUAL(digamma(nt2::One<T>()), T(-0.57721566490153286555), 0.5);
 }
