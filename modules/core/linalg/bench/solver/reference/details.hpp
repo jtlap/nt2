@@ -33,6 +33,32 @@ extern "C"
                           ,const nt2_la_int* ldb, nt2_la_int* info
                           );
 
+  void NT2_F77NAME(dgesvx)( const char* fact    , const char* trans
+                          , const nt2_la_int* n , const nt2_la_int* nrhs
+                          , const double* a     , const nt2_la_int* lda
+                          , double* af          , const nt2_la_int* ldaf
+                          , nt2_la_int* ipiv    , const char* equed
+                          , double* r           , double* c
+                          , const double* b     , const nt2_la_int* ldb
+                          , double* x           , const nt2_la_int* ldx
+                          , double* rcond       , double* ferr
+                          , double* berr        , double* work
+                          , nt2_la_int* iwork   , nt2_la_int* info
+                          );
+
+  void NT2_F77NAME(sgesvx)( const char* fact    , const char* trans
+                          , const nt2_la_int* n , const nt2_la_int* nrhs
+                          , const float* a      , const nt2_la_int* lda
+                          , float* af           , const nt2_la_int* ldaf
+                          , nt2_la_int* ipiv    , const char* equed
+                          , float* r            , float* c
+                          , const float* b      , const nt2_la_int* ldb
+                          , float* x            , const nt2_la_int* ldx
+                          , float* rcond        , float* ferr
+                          , float* berr         , float* work
+                          , nt2_la_int* iwork   , nt2_la_int* info
+                          );
+
 }
 
 #endif

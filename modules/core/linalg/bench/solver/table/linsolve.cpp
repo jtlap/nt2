@@ -8,14 +8,21 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <nt2/sdk/bench/benchmark.hpp>
+#include <nt2/linalg/details/utility/llspgen.hpp>
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/linsolve.hpp>
 #include <nt2/include/functions/rand.hpp>
+#include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/transpose.hpp>
+#include <nt2/include/functions/ls.hpp>
 #include "../../flops/solve.hpp"
 #include "../../flops/lu.hpp"
+#include "../../flops/qr.hpp"
+
+#include <nt2/include/functions/mcsne.hpp>
+#include <iostream>
 
 template<typename T> struct linsolve;
 
@@ -23,19 +30,27 @@ template<typename T> NT2_EXPERIMENT(linsolve< nt2::table<T> >)
 {
   public:
   linsolve( std::size_t h_, std::size_t w_)
-      : NT2_EXPRIMENT_CTOR(130.,"GFLOPS")
+      : NT2_EXPRIMENT_CTOR(1.0,"GFLOPS")
       , h(h_), w(w_)
   {}
 
   virtual void run() const
   {
-    result = nt2::linsolve(a,b,nt2::classic_);
+    // result = b;
+    //  ac = a;
+    nt2::ls(boost::proto::value(a),boost::proto::value(b) );
+    // result = mcsne(a,b);
+    // result = nt2::mtimes(a,b);
+    // result = nt2::linsolve(a,b);
   }
 
   virtual double compute(nt2::benchmark_result_t const& r) const
   {
-    return ((FLOPS_GETRF(h,w)+ FLOPS_DGETRS(h,w))/r.second)/1000.;
-    //return r.second/1000000.;
+     // return ((FLOPS_GETRF(h,w)+ FLOPS_DGETRS(h,1))/r.second)/1000.;
+     // return ((FLOPS_DGEMM(h,w,w))/r.second)/1000.;
+    return ((FLOPS_GEQRF(h,w)+ FLOPS_DGETRS(h,1))/r.second)/1000.;
+    // return (FLOPS_GEQRF(h,w)+ FLOPS_DGETRS(h,1));
+    // return r.second/1000000.;
   }
 
   virtual void info(std::ostream& os) const
@@ -45,28 +60,33 @@ template<typename T> NT2_EXPERIMENT(linsolve< nt2::table<T> >)
 
   virtual void reset() const
   {
+    nr = 1;
+    nt2::tie(a,x,r,b)= nt2::llspgen(h,w,nr,nr,nt2::meta::as_<T>());
     result = nt2::zeros(h,w, nt2::meta::as_<T>());
-    a  = nt2::rand(h,w, nt2::meta::as_<T>());
-    a = a + nt2::transpose(a);
-    b  = nt2::rand(h,1, nt2::meta::as_<T>());
+    // a  = nt2::rand(h,w, nt2::meta::as_<T>());
+    // b  = nt2::rand(w,w, nt2::meta::as_<T>());
+    // a = a + nt2::transpose(a);
+    // b  = nt2::rand(h,1, nt2::meta::as_<T>());
   }
 
   private:
   std::size_t   h,w;
+  mutable std::size_t nr;
   mutable nt2::table<T> b, result;
-  mutable nt2::table<T> a;
+  mutable nt2::table<T> a,x,r,ac;
 };
 
-// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<double>), (200,200) );
-// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<double>), (500,500) );
-// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<double>), (800,800) );
-NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<double>), (1000,1000) );
-// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<double>), (2000,2000) );
-// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<double>), (4000,4000) );
-// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<double>), (6000,6000) );
-// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<double>), (8000,8000) );
-// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<double>), (10000,10000) );
-// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<double>), (12000,12000) );
-
-
-
+// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>), (2000,200) );
+NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>), (500,500) );
+NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>), (3000,3000) );
+NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>), (5000,5000) );
+// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>), (300,3000) );
+// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>), (500,5000) );
+// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>), (800,8000) );
+// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>), (8000,800) );
+// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>), (10000,1000) );
+// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>), (13000,3000) );
+// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>), (15000,5000) );
+// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>), (18000,8000) );
+// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<float>), (20000,10000) );
+// NT2_RUN_EXPERIMENT_TPL( linsolve, (nt2::table<double>)(nt2::table<float>), (4000,4000) );

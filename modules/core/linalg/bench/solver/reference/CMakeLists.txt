@@ -9,6 +9,7 @@
 
 SET(  SOURCES
       linsolve.cpp
+      refine.cpp
    )
 
 nt2_module_add_tests(core.linalg.solver.reference.bench ${SOURCES})

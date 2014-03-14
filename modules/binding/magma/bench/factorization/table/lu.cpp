@@ -63,7 +63,7 @@ template<typename T> NT2_EXPERIMENT(lu_1< nt2::table<T> >)
 // NT2_RUN_EXPERIMENT_TPL( lu_1, (nt2::table<float>), (7000,7000) );
 // NT2_RUN_EXPERIMENT_TPL( lu_1, (nt2::table<float>), (8000,8000) );
 // NT2_RUN_EXPERIMENT_TPL( lu_1, (nt2::table<float>), (9000,9000) );
- NT2_RUN_EXPERIMENT_TPL( lu_1, (nt2::table<double>), (10000,10000) );
+ NT2_RUN_EXPERIMENT_TPL( lu_1, (nt2::table<double>), (20000,20000) );
 // NT2_RUN_EXPERIMENT_TPL( lu_1, (nt2::table<float>), (10004,10004) );
 
 
