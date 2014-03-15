@@ -9,7 +9,7 @@
 ################################################################################
 
 SET( SOURCES
-# List of simd test files for toolbox operator
+      plus.cpp
    )
 
 nt2_module_add_tests(type.complex.base.operator.simd.bench ${SOURCES})

@@ -8,6 +8,7 @@
 ################################################################################
 
 SET( SOURCES
+      plus.cpp
    )
 
 nt2_module_add_tests(type.complex.base.operator.scalar.bench ${SOURCES})
