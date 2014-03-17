@@ -76,7 +76,7 @@ namespace nt2 { namespace ext
                         ) const
     {
       type_t rcond;
-      nt2::table<nt2_la_int> piv(nt2::of_size(a0.leading_size(),1));
+      nt2::container::table<nt2_la_int> piv(nt2::of_size(a0.leading_size(),1));
       a2.resize(nt2::of_size(a0.leading_size(),1));
       nt2_la_int iter = nt2::ysvx( boost::proto::value(a0),boost::proto::value(piv)
                                  , boost::proto::value(a1),boost::proto::value(a2)

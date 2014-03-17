@@ -53,7 +53,7 @@ namespace nt2 { namespace ext
                                 , boost::proto::child_c<0>(a0)
                                 );
 
-      nt2::table<nt2_la_int> ip;
+      nt2::container::table<nt2_la_int> ip;
       nt2_la_int lapack_info = nt2::trf(boost::proto::value(out),boost::proto::value(ip));
 
       NT2_WARNING ( lapack_info <= 0
@@ -89,13 +89,13 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
-      nt2::table<nt2_la_int> ip;
+      nt2::container::table<nt2_la_int> ip;
       decomp(a0, a1, ip, N1());
     }
 
     /// INTERNAL ONLY - [L,U] = LU(A)
     BOOST_FORCEINLINE
-    void decomp ( A0& a0, A1& a1, nt2::table<nt2_la_int>& ip
+    void decomp ( A0& a0, A1& a1, nt2::container::table<nt2_la_int>& ip
                 , boost::mpl::long_<2> const&
                 ) const
     {
@@ -126,7 +126,7 @@ namespace nt2 { namespace ext
 
     /// INTERNAL ONLY - [L,U,P] = LU(A)
     BOOST_FORCEINLINE
-    void decomp ( A0& a0, A1& a1, nt2::table<nt2_la_int>& ip
+    void decomp ( A0& a0, A1& a1, nt2::container::table<nt2_la_int>& ip
                 , boost::mpl::long_<3> const&
                 ) const
     {
@@ -152,7 +152,7 @@ namespace nt2 { namespace ext
 
     /// INTERNAL ONLY
     BOOST_FORCEINLINE
-    void extract_p(A1& a1, nt2::table<nt2_la_int>& ip) const
+    void extract_p(A1& a1, nt2::container::table<nt2_la_int>& ip) const
     {
       typedef typename boost::proto::result_of
                                  ::child_c<A1&,2>::value_type::value_type t_t;

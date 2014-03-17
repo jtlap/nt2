@@ -10,12 +10,8 @@
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_LAPACK_BSV_HPP_INCLUDED
 
 #include <nt2/linalg/functions/bsv.hpp>
-#include <nt2/core/container/table/kind.hpp>
-#include <nt2/dsl/functions/terminal.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
-
-#include <nt2/table.hpp>
 
 extern "C"
 {

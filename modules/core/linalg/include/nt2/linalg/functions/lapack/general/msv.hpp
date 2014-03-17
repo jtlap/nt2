@@ -10,8 +10,7 @@
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_LAPACK_MSV_HPP_INCLUDED
 
 #include <nt2/linalg/functions/msv.hpp>
-#include <nt2/dsl/functions/terminal.hpp>
-#include <nt2/core/container/table/kind.hpp>
+#include <nt2/sdk/memory/container.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/linalg/details/utility/workspace.hpp>
 
@@ -19,7 +18,8 @@
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
 
-#include <nt2/core/container/table/table.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
+#include <boost/dispatch/meta/downgrade.hpp>
 
 extern "C"
 {
@@ -52,6 +52,8 @@ namespace nt2 { namespace ext
                             )
   {
      typedef nt2_la_int result_type;
+     typedef typename A0::value_type v_t;
+     typedef typename boost::dispatch::meta::downgrade<v_t>::type f_t;
 
      BOOST_FORCEINLINE result_type operator()(A0& a0, A1 const& a1, A2& a2) const
      {
@@ -62,8 +64,8 @@ namespace nt2 { namespace ext
         nt2_la_int  ldb = a1.leading_size();
         nt2_la_int iter,info;
 
-        nt2::container::table<float> swork(nt2::of_size(n*(n+nhrs),1));
-        nt2::container::table<nt2_la_int> ipiv(nt2::of_size(n,1));
+        nt2::memory::container<tag::table_, f_t, nt2::_2D> swork(nt2::of_size(n*(n+nhrs),1));
+        nt2::memory::container<tag::table_, nt2_la_int, nt2::_2D> ipiv(nt2::of_size(n,1));
         w.resize_main(n*nhrs);
 
         NT2_F77NAME(dsgesv)( &n, &nhrs, a0.raw(), &lda, ipiv.raw() , a1.raw()
@@ -82,6 +84,10 @@ namespace nt2 { namespace ext
                             )
   {
      typedef nt2_la_int result_type;
+     typedef typename A0::value_type v_t;
+     typedef typename boost::dispatch::meta::downgrade<v_t>::type f_t;
+     typedef typename nt2::meta::as_real<f_t>::type   r_t;
+     typedef typename nt2::meta::as_real<v_t>::type   d_t;
 
      BOOST_FORCEINLINE result_type operator()(A0& a0, A1 const& a1, A2& a2) const
      {
@@ -92,9 +98,9 @@ namespace nt2 { namespace ext
         nt2_la_int  ldb = a1.leading_size();
         nt2_la_int iter,info;
 
-        nt2::container::table<std::complex<float> > swork(nt2::of_size(n*(n+nhrs),1));
-        nt2::container::table<double> rwork(nt2::of_size(n,1));
-        nt2::container::table<nt2_la_int> ipiv(nt2::of_size(n,1));
+        nt2::memory::container<tag::table_, f_t, nt2::_2D> swork(nt2::of_size(n*(n+nhrs),1));
+        nt2::memory::container<tag::table_, d_t, nt2::_2D> rwork(nt2::of_size(n,1));
+        nt2::memory::container<tag::table_, nt2_la_int, nt2::_2D> ipiv(nt2::of_size(n,1));
         w.resize_main(n*nhrs);
 
         NT2_F77NAME(zcgesv)( &n, &nhrs, a0.raw(), &lda, ipiv.raw() , a1.raw()

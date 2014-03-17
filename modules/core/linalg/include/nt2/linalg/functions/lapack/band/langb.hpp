@@ -10,16 +10,14 @@
 #define NT2_LINALG_FUNCTIONS_LAPACK_LANGB_HPP_INCLUDED
 
 #include <nt2/linalg/functions/langb.hpp>
-#include <nt2/core/container/table/kind.hpp>
-#include <nt2/dsl/functions/terminal.hpp>
+#include <nt2/sdk/memory/container.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/core/settings/option.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
-#include <nt2/table.hpp>
 
-#include <stdio.h>
+#include <nt2/sdk/meta/as_real.hpp>
 
 extern "C"
 {
@@ -57,7 +55,7 @@ namespace nt2 { namespace ext
                               (scalar_< ints8_<A1> >)             //  norm
                             )
   {
-    typedef double  result_type;
+    typedef typename A0::value_type  result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0& a0, A1 a1) const
     {
@@ -71,7 +69,7 @@ namespace nt2 { namespace ext
 
      if(a1 =='I')
      {
-        nt2::table<result_type> work(nt2::of_size(n,1));
+        nt2::memory::container<tag::table_, result_type, nt2::_2D> work(nt2::of_size(n,1));
         norm = NT2_F77NAME(dlangb)( &a1, &n, &kl, &ku, a0.raw(), &ld, work.raw());
       }
       else
@@ -90,7 +88,7 @@ namespace nt2 { namespace ext
                               (scalar_< ints8_<A1> >)             //  norm
                             )
   {
-    typedef float result_type;
+    typedef typename A0::value_type result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0& a0, A1 a1) const
     {
@@ -104,7 +102,7 @@ namespace nt2 { namespace ext
 
      if(a1 =='I')
      {
-        nt2::table<result_type> work(nt2::of_size(n,1));
+        nt2::memory::container<tag::table_, result_type, nt2::_2D> work(nt2::of_size(n,1));
         norm = NT2_F77NAME(slangb)( &a1, &n, &kl, &ku, a0.raw(), &ld, work.raw());
       }
       else
@@ -123,7 +121,8 @@ namespace nt2 { namespace ext
                               (scalar_< ints8_<A1> >)             //  norm
                             )
   {
-    typedef float result_type;
+     typedef typename A0::value_type v_t;
+     typedef typename nt2::meta::as_real<v_t>::type   result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0& a0, A1 a1) const
     {
@@ -137,7 +136,7 @@ namespace nt2 { namespace ext
 
      if(a1 =='I')
      {
-        nt2::table<result_type> work(nt2::of_size(n,1));
+        nt2::memory::container<tag::table_, result_type, nt2::_2D> work(nt2::of_size(n,1));
         norm = NT2_F77NAME(clangb)( &a1, &n, &kl, &ku, a0.raw(), &ld, work.raw());
       }
       else
@@ -156,7 +155,8 @@ namespace nt2 { namespace ext
                               (scalar_< ints8_<A1> >)             //  norm
                             )
   {
-    typedef float result_type;
+     typedef typename A0::value_type v_t;
+     typedef typename nt2::meta::as_real<v_t>::type   result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0& a0, A1 a1) const
     {
@@ -170,12 +170,12 @@ namespace nt2 { namespace ext
 
      if(a1 =='I')
      {
-        nt2::table<result_type> work(nt2::of_size(n,1));
-        norm = NT2_F77NAME(clangb)( &a1, &n, &kl, &ku, a0.raw(), &ld, work.raw());
+        nt2::memory::container<tag::table_, result_type, nt2::_2D> work(nt2::of_size(n,1));
+        norm = NT2_F77NAME(zlangb)( &a1, &n, &kl, &ku, a0.raw(), &ld, work.raw());
       }
       else
       {
-        norm = NT2_F77NAME(clangb)( &a1, &n, &kl, &ku, a0.raw(), &ld, 0);
+        norm = NT2_F77NAME(zlangb)( &a1, &n, &kl, &ku, a0.raw(), &ld, 0);
       }
 
       return norm;

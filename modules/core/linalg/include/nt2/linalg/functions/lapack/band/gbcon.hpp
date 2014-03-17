@@ -10,12 +10,11 @@
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_LAPACK_GBCON_HPP_INCLUDED
 
 #include <nt2/linalg/functions/gbcon.hpp>
-#include <nt2/core/container/table/kind.hpp>
-#include <nt2/dsl/functions/terminal.hpp>
+#include <nt2/sdk/memory/container.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 
-#include <nt2/table.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 
 extern "C"
 {
@@ -66,7 +65,7 @@ namespace nt2 { namespace ext
                               (scalar_< floating_<A2> >)            //  anorm
                             )
   {
-    typedef double  result_type;
+    typedef typename A0::value_type  result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&a1, A2 const& a2) const
     {
@@ -80,8 +79,8 @@ namespace nt2 { namespace ext
       nt2_la_int info;
       char norm = '1';
 
-      nt2::table<result_type> work(nt2::of_size(3*n,1));
-      nt2::table<nt2_la_int>  iwork(nt2::of_size(n,1));
+      nt2::memory::container<tag::table_, result_type, nt2::_2D> work(nt2::of_size(3*n,1));
+      nt2::memory::container<tag::table_, nt2_la_int , nt2::_2D> iwork(nt2::of_size(n,1));
 
       NT2_F77NAME(dgbcon) ( &norm, &n, &ku, &kl, a0.raw(), &ld, a1.raw(), &a2, &rcond
                           , work.raw(), iwork.raw(), &info
@@ -99,7 +98,7 @@ namespace nt2 { namespace ext
                               (scalar_< floating_<A2> >)            //  anorm
                             )
   {
-    typedef float  result_type;
+    typedef typename A0::value_type  result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&a1, A2 const& a2) const
     {
@@ -113,8 +112,8 @@ namespace nt2 { namespace ext
       nt2_la_int info;
       char norm = '1';
 
-      nt2::table<result_type> work(nt2::of_size(3*n,1));
-      nt2::table<nt2_la_int>  iwork(nt2::of_size(n,1));
+      nt2::memory::container<tag::table_, result_type, nt2::_2D> work(nt2::of_size(3*n,1));
+      nt2::memory::container<tag::table_, nt2_la_int , nt2::_2D> iwork(nt2::of_size(n,1));
 
       NT2_F77NAME(sgbcon) ( &norm, &n, &ku, &kl, a0.raw(), &ld, a1.raw(), &a2, &rcond
                           , work.raw(), iwork.raw(), &info
@@ -133,7 +132,8 @@ namespace nt2 { namespace ext
                               (scalar_< floating_<A2> >)            //  anorm
                             )
   {
-    typedef float  result_type;
+     typedef typename A0::value_type v_t;
+     typedef typename nt2::meta::as_real<v_t>::type   result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&a1, A2 const& a2) const
     {
@@ -147,8 +147,8 @@ namespace nt2 { namespace ext
       nt2_la_int info;
       char norm = '1';
 
-      nt2::table<std::complex<result_type> > work(nt2::of_size(2*n,1));
-      nt2::table<float>  rwork(nt2::of_size(n,1));
+      nt2::memory::container<tag::table_, v_t, nt2::_2D> work(nt2::of_size(2*n,1));
+      nt2::memory::container<tag::table_, result_type, nt2::_2D>  rwork(nt2::of_size(n,1));
 
       NT2_F77NAME(cgbcon) ( &norm, &n, &ku, &kl, a0.raw(), &ld, a1.raw(), &a2, &rcond
                           , work.raw(), rwork.raw(), &info
@@ -166,7 +166,8 @@ namespace nt2 { namespace ext
                               (scalar_< floating_<A2> >)            //  anorm
                             )
   {
-    typedef double  result_type;
+     typedef typename A0::value_type v_t;
+     typedef typename nt2::meta::as_real<v_t>::type   result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&a1, A2 const& a2) const
     {
@@ -180,8 +181,8 @@ namespace nt2 { namespace ext
       nt2_la_int info;
       char norm = '1';
 
-      nt2::table<std::complex<result_type> > work(nt2::of_size(2*n,1));
-      nt2::table<double>  rwork(nt2::of_size(n,1));
+      nt2::memory::container<tag::table_, v_t, nt2::_2D> work(nt2::of_size(2*n,1));
+      nt2::memory::container<tag::table_, result_type, nt2::_2D>  rwork(nt2::of_size(n,1));
 
       NT2_F77NAME(zgbcon) ( &norm, &n, &ku, &kl, a0.raw(), &ld, a1.raw(), &a2, &rcond
                           , work.raw(), rwork.raw(), &info

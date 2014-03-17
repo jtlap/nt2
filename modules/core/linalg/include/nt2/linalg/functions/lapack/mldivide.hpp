@@ -11,8 +11,7 @@
 
 #include <nt2/linalg/functions/mldivide.hpp>
 #include <nt2/linalg/functions/details/eval_mldivide.hpp>
-#include <nt2/include/functions/sv.hpp>
-#include <nt2/include/functions/lsy.hpp>
+#include <nt2/include/functions/linsolve.hpp>
 
 #include <nt2/dsl/functions/terminal.hpp>
 #include <nt2/core/container/table/kind.hpp>
@@ -20,11 +19,6 @@
 
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
-
-#include <nt2/table.hpp>
-
-
-
 
 namespace nt2 { namespace ext
 {
@@ -56,8 +50,7 @@ namespace nt2 { namespace ext
 
         if (eval_param(a0,a1,that)) return that;
 
-        if (m == n) nt2::sv(entry,piv,that);
-        else        nt2::lsy(entry,that,piv);
+        that = nt2::linsolve(entry,that);
 
 
         return that;
@@ -92,8 +85,7 @@ namespace nt2 { namespace ext
 
         if (eval_param(a0,a1,that)) return that;
 
-        if (m == n) nt2::sv(entry,piv,that);
-        else        nt2::lsy(entry,that,piv);
+        that = nt2::linsolve(entry,that);
 
 
         return that;

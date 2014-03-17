@@ -10,14 +10,13 @@
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_LAPACK_LANSY_HPP_INCLUDED
 
 #include <nt2/linalg/functions/lange.hpp>
-#include <nt2/core/container/table/kind.hpp>
-#include <nt2/dsl/functions/terminal.hpp>
+#include <nt2/sdk/memory/container.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/sdk/meta/type_id.hpp>
-#include <stdio.h>
+#include <nt2/sdk/meta/as_real.hpp>
 
 extern "C"
 {
@@ -52,7 +51,7 @@ namespace nt2 { namespace ext
                               (unspecified_<nt2::symmetric_>)             //  norm
                             )
   {
-    typedef double  result_type;
+    typedef typename A0::value_type  result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0& a0, A1 a1, nt2::symmetric_ const&) const
     {
@@ -63,7 +62,7 @@ namespace nt2 { namespace ext
 
      if(a1 =='I'|| a1 =='1'|| a1 =='O')
      {
-        nt2::table<result_type> work(nt2::of_size(n,1));
+        nt2::memory::container<tag::table_, result_type, nt2::_2D> work(nt2::of_size(n,1));
         norm = NT2_F77NAME(dlansy)( &a1, &uplo, &n, a0.raw(), &ld, work.raw());
       }
       else
@@ -83,7 +82,7 @@ namespace nt2 { namespace ext
                               (unspecified_<nt2::symmetric_>)             //  norm
                             )
   {
-    typedef float result_type;
+    typedef typename A0::value_type result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0& a0, A1 a1, nt2::symmetric_ const&) const
     {
@@ -95,7 +94,7 @@ namespace nt2 { namespace ext
 
       if(a1 =='I' || a1 =='1'|| a1 =='O')
       {
-        nt2::table<result_type> work(nt2::of_size(n,1));
+        nt2::memory::container<tag::table_, result_type, nt2::_2D> work(nt2::of_size(n,1));
         norm = NT2_F77NAME(slansy)( &a1, &uplo, &n, a0.raw(), &ld, work.raw());
       }
       else
@@ -115,7 +114,8 @@ namespace nt2 { namespace ext
                               (unspecified_<nt2::symmetric_>)             //  norm
                             )
   {
-    typedef double  result_type;
+     typedef typename A0::value_type v_t;
+     typedef typename nt2::meta::as_real<v_t>::type   result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0& a0, A1 a1, nt2::symmetric_ const&) const
     {
@@ -126,7 +126,7 @@ namespace nt2 { namespace ext
 
      if(a1 =='I'|| a1 =='1'|| a1 =='O')
      {
-        nt2::table<result_type> work(nt2::of_size(n,1));
+        nt2::memory::container<tag::table_, result_type, nt2::_2D> work(nt2::of_size(n,1));
         norm = NT2_F77NAME(zlansy)( &a1, &uplo, &n, a0.raw(), &ld, work.raw());
       }
       else
@@ -146,7 +146,8 @@ namespace nt2 { namespace ext
                               (unspecified_<nt2::symmetric_>)             //  norm
                             )
   {
-    typedef float result_type;
+     typedef typename A0::value_type v_t;
+     typedef typename nt2::meta::as_real<v_t>::type   result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0& a0, A1 a1, nt2::symmetric_ const&) const
     {
@@ -158,7 +159,7 @@ namespace nt2 { namespace ext
 
       if(a1 =='I' || a1 =='1'|| a1 =='O')
       {
-        nt2::table<result_type> work(nt2::of_size(n,1));
+        nt2::memory::container<tag::table_, result_type, nt2::_2D> work(nt2::of_size(n,1));
         norm = NT2_F77NAME(clansy)( &a1, &uplo, &n, a0.raw(), &ld, work.raw());
       }
       else

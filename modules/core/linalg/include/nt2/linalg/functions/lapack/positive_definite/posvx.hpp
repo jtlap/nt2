@@ -10,16 +10,15 @@
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_LAPACK_POSVX_HPP_INCLUDED
 
 #include <nt2/linalg/functions/posvx.hpp>
-#include <nt2/dsl/functions/terminal.hpp>
-#include <nt2/core/container/table/kind.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/linalg/details/utility/workspace.hpp>
-
+#include <nt2/sdk/memory/container.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
 
-#include <nt2/table.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
+
 
 extern "C"
 {
@@ -83,7 +82,7 @@ namespace nt2 { namespace ext
                             )
   {
      typedef nt2_la_int result_type;
-     typedef double T;
+     typedef typename A0::value_type T;
 
      BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1, A2& a2, A3& a3) const
      {
@@ -95,16 +94,16 @@ namespace nt2 { namespace ext
         char equed  = 'N';
         char uplo  = 'L';
 
-        nt2::table<T> af(nt2::of_size(n,n));
+        nt2::memory::container<tag::table_, T, nt2::_2D> af(nt2::of_size(n,n));
 
-        nt2::table<T> s(nt2::of_size(n,1));
-        nt2::table<T> ferr(nt2::of_size(nhrs,1));
-        nt2::table<T> berr(nt2::of_size(nhrs,1));
+        nt2::memory::container<tag::table_, T, nt2::_2D> s(nt2::of_size(n,1));
+        nt2::memory::container<tag::table_, T, nt2::_2D> ferr(nt2::of_size(nhrs,1));
+        nt2::memory::container<tag::table_, T, nt2::_2D> berr(nt2::of_size(nhrs,1));
         details::workspace<typename A2::value_type> work;
         work.resize_main(3*n);
 
-        nt2::table<nt2_la_int> ipiv(nt2::of_size(n,1));
-        nt2::table<nt2_la_int> iwork(nt2::of_size(n,1));
+        nt2::memory::container<tag::table_, nt2_la_int, nt2::_2D> ipiv(nt2::of_size(n,1));
+        nt2::memory::container<tag::table_, nt2_la_int, nt2::_2D> iwork(nt2::of_size(n,1));
 
         a2 = a1;
 
@@ -132,7 +131,7 @@ namespace nt2 { namespace ext
                             )
   {
      typedef nt2_la_int result_type;
-     typedef float T;
+     typedef typename A0::value_type T;
 
      BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1, A2& a2, A3& a3) const
      {
@@ -144,16 +143,16 @@ namespace nt2 { namespace ext
         char uplo  = 'L';
         char equed = 'N';
 
-        nt2::table<T> af(nt2::of_size(n,n));
+        nt2::memory::container<tag::table_, T, nt2::_2D> af(nt2::of_size(n,n));
 
-        nt2::table<T> s(nt2::of_size(n,1));
-        nt2::table<T> ferr(nt2::of_size(nhrs,1));
-        nt2::table<T> berr(nt2::of_size(nhrs,1));
+        nt2::memory::container<tag::table_, T, nt2::_2D> s(nt2::of_size(n,1));
+        nt2::memory::container<tag::table_, T, nt2::_2D> ferr(nt2::of_size(nhrs,1));
+        nt2::memory::container<tag::table_, T, nt2::_2D> berr(nt2::of_size(nhrs,1));
         details::workspace<typename A2::value_type> work;
         work.resize_main(3*n);
 
-        nt2::table<nt2_la_int> ipiv(nt2::of_size(n,1));
-        nt2::table<nt2_la_int> iwork(nt2::of_size(n,1));
+        nt2::memory::container<tag::table_, nt2_la_int, nt2::_2D> ipiv(nt2::of_size(n,1));
+        nt2::memory::container<tag::table_, nt2_la_int, nt2::_2D> iwork(nt2::of_size(n,1));
 
         a2 = a1;
 
@@ -182,7 +181,8 @@ namespace nt2 { namespace ext
                             )
   {
      typedef nt2_la_int result_type;
-     typedef double T;
+     typedef typename A0::value_type v_t;
+     typedef typename nt2::meta::as_real<v_t>::type   T;
 
      BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1, A2& a2, A3& a3) const
      {
@@ -194,16 +194,16 @@ namespace nt2 { namespace ext
         char uplo  = 'L';
         char equed = 'N';
 
-        nt2::table<std::complex<T> > af(nt2::of_size(n,n));
+        nt2::memory::container<tag::table_, v_t, nt2::_2D> af(nt2::of_size(n,n));
 
-        nt2::table<T> s(nt2::of_size(n,1));
-        nt2::table<T> ferr(nt2::of_size(nhrs,1));
-        nt2::table<T> berr(nt2::of_size(nhrs,1));
+        nt2::memory::container<tag::table_, T, nt2::_2D> s(nt2::of_size(n,1));
+        nt2::memory::container<tag::table_, T, nt2::_2D> ferr(nt2::of_size(nhrs,1));
+        nt2::memory::container<tag::table_, T, nt2::_2D> berr(nt2::of_size(nhrs,1));
         details::workspace<typename A2::value_type> work;
         work.resize_main(2*n);
 
-        nt2::table<nt2_la_int> ipiv(nt2::of_size(n,1));
-        nt2::table<T> rwork(nt2::of_size(n,1));
+        nt2::memory::container<tag::table_, nt2_la_int, nt2::_2D> ipiv(nt2::of_size(n,1));
+        nt2::memory::container<tag::table_, T, nt2::_2D> rwork(nt2::of_size(n,1));
 
         a2 = a1;
 
@@ -232,7 +232,8 @@ namespace nt2 { namespace ext
                             )
   {
      typedef nt2_la_int result_type;
-     typedef float T;
+     typedef typename A0::value_type v_t;
+     typedef typename nt2::meta::as_real<v_t>::type   T;
 
      BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1, A2& a2, A3& a3) const
      {
@@ -244,16 +245,16 @@ namespace nt2 { namespace ext
         char uplo  = 'L';
         char equed = 'N';
 
-        nt2::table<std::complex<T> > af(nt2::of_size(n,n));
+        nt2::memory::container<tag::table_, v_t, nt2::_2D> af(nt2::of_size(n,n));
 
-        nt2::table<T> s(nt2::of_size(n,1));
-        nt2::table<T> ferr(nt2::of_size(nhrs,1));
-        nt2::table<T> berr(nt2::of_size(nhrs,1));
+        nt2::memory::container<tag::table_, T, nt2::_2D> s(nt2::of_size(n,1));
+        nt2::memory::container<tag::table_, T, nt2::_2D> ferr(nt2::of_size(nhrs,1));
+        nt2::memory::container<tag::table_, T, nt2::_2D> berr(nt2::of_size(nhrs,1));
         details::workspace<typename A2::value_type> work;
         work.resize_main(2*n);
 
-        nt2::table<nt2_la_int> ipiv(nt2::of_size(n,1));
-        nt2::table<T> rwork(nt2::of_size(n,1));
+        nt2::memory::container<tag::table_, nt2_la_int, nt2::_2D> ipiv(nt2::of_size(n,1));
+        nt2::memory::container<tag::table_, T, nt2::_2D> rwork(nt2::of_size(n,1));
 
         a2 = a1;
 

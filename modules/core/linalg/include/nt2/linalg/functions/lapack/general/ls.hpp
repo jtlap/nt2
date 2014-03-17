@@ -10,8 +10,6 @@
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_LAPACK_LS_HPP_INCLUDED
 
 #include <nt2/linalg/functions/ls.hpp>
-#include <nt2/dsl/functions/terminal.hpp>
-#include <nt2/core/container/table/kind.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/linalg/details/utility/workspace.hpp>
 
@@ -50,7 +48,7 @@ namespace nt2 { namespace ext
                             )
   {
      typedef nt2_la_int result_type;
-     typedef double T ;
+     typedef typename A0::value_type T ;
 
      BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
      {
@@ -83,7 +81,7 @@ namespace nt2 { namespace ext
                             )
   {
      typedef nt2_la_int result_type;
-     typedef double T ;
+     typedef typename A0::value_type T ;
 
      BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1,A2& a2) const
      {
@@ -113,7 +111,7 @@ namespace nt2 { namespace ext
                             )
   {
      typedef nt2_la_int result_type;
-     typedef float T ;
+     typedef typename A0::value_type T ;
 
      BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
      {
@@ -147,7 +145,7 @@ namespace nt2 { namespace ext
                             )
   {
      typedef nt2_la_int result_type;
-     typedef float T ;
+     typedef typename A0::value_type T ;
 
      BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1,A2& a2) const
      {

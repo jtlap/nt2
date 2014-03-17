@@ -12,13 +12,10 @@
 #include <nt2/linalg/functions/mqr.hpp>
 
 #include <nt2/dsl/functions/terminal.hpp>
-#include <nt2/core/container/table/kind.hpp>
 #include <nt2/core/numeric_class.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/linalg/details/utility/options.hpp>
 #include <nt2/linalg/details/utility/workspace.hpp>
-
-#include <nt2/table.hpp>
 
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/height.hpp>

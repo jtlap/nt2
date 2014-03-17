@@ -11,13 +11,10 @@
 
 #include <nt2/linalg/functions/posv.hpp>
 #include <nt2/include/functions/zeros.hpp>
-#include <nt2/core/container/table/kind.hpp>
 #include <nt2/linalg/details/utility/workspace.hpp>
-#include <nt2/dsl/functions/terminal.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 
-#include <nt2/table.hpp>
 
 extern "C"
 {

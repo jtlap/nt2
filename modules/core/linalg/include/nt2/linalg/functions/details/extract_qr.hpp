@@ -24,7 +24,7 @@ namespace nt2{
 
 /// INTERNAL ONLY - Helper for Q/R extraction
 template<typename W,typename A1,typename type_t> BOOST_FORCEINLINE
-void extract_qr(A1& a1, W& work, nt2::table<type_t>& tau, int const&)
+void extract_qr(A1& a1, W& work, nt2::container::table<type_t>& tau, int const&)
  {
     nt2_la_int  m  = nt2::height(work);
     nt2_la_int  n  = nt2::width(work);
@@ -36,7 +36,7 @@ void extract_qr(A1& a1, W& work, nt2::table<type_t>& tau, int const&)
     if(m < n)
      {
       /// TODO: Remove when aliasing works
-      nt2::table<type_t> local(work);
+      nt2::container::table<type_t> local(work);
       work = nt2::expand(local,nt2::of_size(m,m));
      }
 
@@ -48,7 +48,7 @@ void extract_qr(A1& a1, W& work, nt2::table<type_t>& tau, int const&)
 /// INTERNAL ONLY - Helper for Q/R extraction
 template<typename W,typename A1, typename type_t, typename Policy>
 BOOST_FORCEINLINE
-void extract_qr(A1& a1, W& work, nt2::table<type_t>& tau, Policy const&)
+void extract_qr(A1& a1, W& work, nt2::container::table<type_t>& tau, Policy const&)
   {
      nt2_la_int  m  = nt2::height(work);
      nt2_la_int  n  = nt2::width(work);
@@ -58,7 +58,7 @@ void extract_qr(A1& a1, W& work, nt2::table<type_t>& tau, Policy const&)
 
     if (m>n)
       {
-        nt2::table<type_t> complete_q = nt2::eye(m,m, nt2::meta::as_<type_t>());
+        nt2::container::table<type_t> complete_q = nt2::eye(m,m, nt2::meta::as_<type_t>());
         nt2::mqr( boost::proto::value(work), boost::proto::value(tau)
                 , boost::proto::value(complete_q) );
         boost::proto::child_c<0>(a1) = complete_q;
@@ -68,7 +68,7 @@ void extract_qr(A1& a1, W& work, nt2::table<type_t>& tau, Policy const&)
         if(m < n)
         {
           /// TODO: Remove when aliasing works
-          nt2::table<type_t> local(work);
+          nt2::container::table<type_t> local(work);
           work = nt2::expand(local,nt2::of_size(m,m));
         }
 

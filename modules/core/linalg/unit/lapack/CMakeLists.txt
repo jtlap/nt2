@@ -18,6 +18,7 @@ SET ( SOURCES
       swap.cpp
       sv.cpp
       svx.cpp
+      ls.cpp
       lsy.cpp
       con.cpp
       msv.cpp

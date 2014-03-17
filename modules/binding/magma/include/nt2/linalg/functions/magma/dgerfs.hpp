@@ -20,7 +20,7 @@
 #include <nt2/include/functions/pow.hpp>
 #include <magma.h>
 
-#include <nt2/table.hpp>
+#include <nt2/core/container/table/table.hpp>
 
 #define BWDMAX 1.0
 #define ITERMAX 5

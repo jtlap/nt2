@@ -25,6 +25,13 @@
 namespace nt2 { namespace ext
 {
 
+template<typename T, typename mat, typename vec>
+mat orthr(T const epsi, mat const& u, vec const& s)
+{
+  size_t r = size_t(sum(if_one_else_zero(gt(s, epsi))(_)));
+  return u(_, _(One<size_t>(), r));
+}
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::orth_, tag::cpu_
                             , (A0)
                             , ((ast_<A0, nt2::container::domain>))
@@ -92,14 +99,6 @@ namespace nt2 { namespace ext
       return orthr(epsir,u,s);
     }
   };
-
-
-template<typename T, typename mat, typename vec>
-mat orthr(T const epsi, mat const& u, vec const& s)
-{
-  size_t r = size_t(sum(if_one_else_zero(gt(s, epsi))(_)));
-  return u(_, _(One<size_t>(), r));
-}
 
 
 } }

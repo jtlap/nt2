@@ -24,6 +24,16 @@
 namespace nt2{ namespace ext
 {
 
+template<typename T,typename vect,typename mat>
+mat rnull(T const epsi, vect const& s,mat const& v)
+{
+  size_t j = numel(s);
+  for(; (j > 0) && (s(j)<= epsi); j--);
+  j++;
+  return nt2::fliplr(trans(v(_(j, last_index<1>(v) ), _)));
+
+}
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::null_, tag::cpu_
                             , (A0)
                             , ((ast_<A0, nt2::container::domain>))
@@ -90,16 +100,6 @@ namespace nt2{ namespace ext
       return rnull(epsi_,s,v);
     }
   };
-
-template<typename T,typename vect,typename mat>
-mat rnull(T const epsi, vect const& s,mat const& v)
-{
-  size_t j = numel(s);
-  for(; (j > 0) && (s(j)<= epsi); j--);
-  j++;
-  return nt2::fliplr(trans(v(_(j, last_index<1>(v) ), _)));
-
-}
 
 } }
 

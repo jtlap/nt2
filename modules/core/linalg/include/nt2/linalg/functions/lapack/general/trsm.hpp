@@ -10,8 +10,6 @@
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_LAPACK_TRSM_HPP_INCLUDED
 
 #include <nt2/linalg/functions/trsm.hpp>
-#include <nt2/dsl/functions/terminal.hpp>
-#include <nt2/core/container/table/kind.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/linalg/details/blas/blas3.hpp>
 #include <complex>

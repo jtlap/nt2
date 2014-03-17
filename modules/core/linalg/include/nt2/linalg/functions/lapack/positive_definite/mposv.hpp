@@ -10,16 +10,15 @@
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_LAPACK_MPOSV_HPP_INCLUDED
 
 #include <nt2/linalg/functions/mposv.hpp>
-#include <nt2/dsl/functions/terminal.hpp>
-#include <nt2/core/container/table/kind.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/linalg/details/utility/workspace.hpp>
-
+#include <nt2/sdk/memory/container.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
 
-#include <nt2/table.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
+#include <boost/dispatch/meta/downgrade.hpp>
 
 extern "C"
 {
@@ -53,6 +52,8 @@ namespace nt2 { namespace ext
                             )
   {
      typedef nt2_la_int result_type;
+     typedef typename A0::value_type v_t;
+     typedef typename boost::dispatch::meta::downgrade<v_t>::type f_t;
 
      BOOST_FORCEINLINE result_type operator()(A0& a0, A1 const& a1, A2& a2) const
      {
@@ -64,7 +65,7 @@ namespace nt2 { namespace ext
         nt2_la_int iter,info;
         char uplo = 'L';
 
-        nt2::table<float> swork(nt2::of_size(n*(n+nhrs),1));
+        nt2::memory::container<tag::table_, f_t, nt2::_2D> swork(nt2::of_size(n*(n+nhrs),1));
         w.resize_main(n*nhrs);
 
         NT2_F77NAME(dsposv)( &uplo, &n, &nhrs, a0.raw(), &lda, a1.raw()
@@ -84,6 +85,9 @@ namespace nt2 { namespace ext
                             )
   {
      typedef nt2_la_int result_type;
+     typedef typename A0::value_type v_t;
+     typedef typename boost::dispatch::meta::downgrade<v_t>::type f_t;
+     typedef typename nt2::meta::as_real<v_t>::type   r_t;
 
      BOOST_FORCEINLINE result_type operator()(A0& a0, A1 const& a1, A2& a2) const
      {
@@ -95,8 +99,8 @@ namespace nt2 { namespace ext
         nt2_la_int iter,info;
         char uplo = 'L';
 
-        nt2::table<double> rwork(nt2::of_size(n,1));
-        nt2::table<std::complex<float> > swork(nt2::of_size(n*(n+nhrs),1));
+        nt2::memory::container<tag::table_, r_t, nt2::_2D> rwork(nt2::of_size(n,1));
+        nt2::memory::container<tag::table_, f_t, nt2::_2D> swork(nt2::of_size(n*(n+nhrs),1));
         w.resize_main(n*nhrs);
 
         NT2_F77NAME(zcposv)( &uplo, &n, &nhrs, a0.raw(), &lda, a1.raw()

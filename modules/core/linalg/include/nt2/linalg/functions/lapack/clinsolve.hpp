@@ -64,7 +64,7 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()( A0 const& a0, A1 const& a1, A2 const& a2  ) const
     {
-      nt2::table<nt2_la_int> piv;
+      nt2::container::table<nt2_la_int> piv;
       shape_analysis(a0,a1,a2,piv,N2(),shape());
     }
 
@@ -74,7 +74,7 @@ namespace nt2 { namespace ext
     /// INTERNAL ONLY - Rectangular shape, no usable informations
     BOOST_FORCEINLINE
     void shape_analysis ( A0 const& a0, A1 const& a1 , A2 const& a2
-                        , nt2::table<nt2_la_int>& piv, N2 const&
+                        , nt2::container::table<nt2_la_int>& piv, N2 const&
                         , nt2::rectangular_ const&
                         ) const
     {
@@ -84,7 +84,7 @@ namespace nt2 { namespace ext
     /// INTERNAL ONLY - symmetric shape - square matrix
     BOOST_FORCEINLINE
     void shape_analysis ( A0 const& a0, A1 const& a1 , A2 const& a2
-                        , nt2::table<nt2_la_int>& piv, N2 const&
+                        , nt2::container::table<nt2_la_int>& piv, N2 const&
                         , nt2::symmetric_ const&
                         ) const
     {
@@ -94,7 +94,7 @@ namespace nt2 { namespace ext
     /// INTERNAL ONLY - positive definite shape - square matrix
     BOOST_FORCEINLINE
     void shape_analysis ( A0 const& a0, A1 const& a1 , A2 const& a2
-                        , nt2::table<nt2_la_int>& piv, N2 const&
+                        , nt2::container::table<nt2_la_int>& piv, N2 const&
                         , nt2::positive_definite_ const&
                         ) const
     {
@@ -105,18 +105,38 @@ namespace nt2 { namespace ext
     template<int U, int L>
     BOOST_FORCEINLINE
     void shape_analysis ( A0 const& a0, A1 const& a1 , A2 const& a2
-                        , nt2::table<nt2_la_int>& piv, N2 const&
+                        , nt2::container::table<nt2_la_int>& piv, N2 const&
                         , nt2::band_diagonal_<U,L> const&
                         ) const
     {
       eval(a0, a1, a2, piv, N2(), shape());
     }
 
+    /// INTERNAL ONLY - upper triangular matrix
+    BOOST_FORCEINLINE
+    void shape_analysis ( A0 const& a0, A1 const& a1 , A2 const& a2
+                        , N2 const&
+                        , nt2::upper_triangular_ const&
+                        ) const
+    {
+      eval(a0, a1, a2, N2(), shape());
+    }
+
+    /// INTERNAL ONLY - upper triangular matrix
+    BOOST_FORCEINLINE
+    void shape_analysis ( A0 const& a0, A1 const& a1 , A2 const& a2
+                        , N2 const&
+                        , nt2::lower_triangular_ const&
+                        ) const
+    {
+      eval(a0, a1, a2, N2(), shape());
+    }
+
     /// INTERNAL ONLY - No info on this shape
     template<typename sh>
     BOOST_FORCEINLINE
     void shape_analysis ( A0 const& a0, A1 const& a1, A2 const& a2
-                        , nt2::table<nt2_la_int>& piv, N2 const&
+                        , nt2::container::table<nt2_la_int>& piv, N2 const&
                         , sh const&
              ) const
     {
@@ -126,7 +146,7 @@ namespace nt2 { namespace ext
     //==========================================================================
     /// INTERNAL ONLY - X = LINSOLVE(A,B) - rectangular shape
     BOOST_FORCEINLINE
-    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2, nt2::table<nt2_la_int>& piv
+    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2, nt2::container::table<nt2_la_int>& piv
               , boost::mpl::long_<1> const&
               ) const
     {
@@ -151,7 +171,7 @@ namespace nt2 { namespace ext
     //==========================================================================
     /// INTERNAL ONLY - X = LINSOLVE(A,B) - positive definite shape
     BOOST_FORCEINLINE
-    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2, nt2::table<nt2_la_int>& piv
+    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2, nt2::container::table<nt2_la_int>& piv
               , boost::mpl::long_<1> const&, nt2::positive_definite_ const&
               ) const
     {
@@ -166,7 +186,7 @@ namespace nt2 { namespace ext
     //==========================================================================
     /// INTERNAL ONLY - X = LINSOLVE(A,B) - symmetric shape
     BOOST_FORCEINLINE
-    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2, nt2::table<nt2_la_int>& piv
+    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2, nt2::container::table<nt2_la_int>& piv
               , boost::mpl::long_<1> const&, nt2::symmetric_ const&
               ) const
     {
@@ -183,7 +203,7 @@ namespace nt2 { namespace ext
     /// INTERNAL ONLY - X = LINSOLVE(A,B) - band shape
     template<int U, int L>
     BOOST_FORCEINLINE
-    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2, nt2::table<nt2_la_int>& piv
+    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2, nt2::container::table<nt2_la_int>& piv
               , boost::mpl::long_<1> const&, nt2::band_diagonal_<U,L> const&
               ) const
     {
@@ -199,7 +219,7 @@ namespace nt2 { namespace ext
     //==========================================================================
     /// INTERNAL ONLY - [X,R] = LINSOLVE(A,B) -- Rectangular shape
     BOOST_FORCEINLINE
-    void eval( A0 const& a0, A1 const& a1 , A2 const& a2, nt2::table<nt2_la_int>& piv
+    void eval( A0 const& a0, A1 const& a1 , A2 const& a2, nt2::container::table<nt2_la_int>& piv
               , boost::mpl::long_<2> const&
               ) const
     {
@@ -233,7 +253,7 @@ namespace nt2 { namespace ext
     //==========================================================================
     /// INTERNAL ONLY - [X,R] = LINSOLVE(A,B) -- symmetric shape
     BOOST_FORCEINLINE
-    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2, nt2::table<nt2_la_int>& piv
+    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2, nt2::container::table<nt2_la_int>& piv
               , boost::mpl::long_<2> const&, nt2::symmetric_ const&
               ) const
     {
@@ -257,7 +277,7 @@ namespace nt2 { namespace ext
     //==========================================================================
     /// INTERNAL ONLY - [X,R] = LINSOLVE(A,B) -- positive definite shape
     BOOST_FORCEINLINE
-    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2, nt2::table<nt2_la_int>& piv
+    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2, nt2::container::table<nt2_la_int>& piv
               , boost::mpl::long_<2> const&, nt2::positive_definite_ const&
               ) const
     {
@@ -277,7 +297,7 @@ namespace nt2 { namespace ext
     /// INTERNAL ONLY - [X,R] = LINSOLVE(A,B) -- general band shape
     template<int U, int L>
     BOOST_FORCEINLINE
-    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2, nt2::table<nt2_la_int>& piv
+    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2, nt2::container::table<nt2_la_int>& piv
               , boost::mpl::long_<2> const&, nt2::band_diagonal_<U,L> const&
               ) const
     {

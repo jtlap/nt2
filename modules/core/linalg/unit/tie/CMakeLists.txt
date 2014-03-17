@@ -9,13 +9,12 @@
 
 SET( SOURCES
      balance.cpp
-#    chol.cpp
-#    geneig.cpp
      lsq_lse_solve.cpp
      planerot.cpp
+     qrdelete.cpp
+     qrinsert.cpp
      rref.cpp
      schur.cpp
-     svd.cpp
      svd_solve.cpp
      symeig.cpp
      tr_solve.cpp

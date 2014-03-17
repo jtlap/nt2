@@ -10,9 +10,8 @@
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_LAPACK_YSVX_HPP_INCLUDED
 
 #include <nt2/linalg/functions/ysvx.hpp>
-#include <nt2/dsl/functions/terminal.hpp>
 #include <nt2/include/functions/zeros.hpp>
-#include <nt2/core/container/table/kind.hpp>
+#include <nt2/sdk/memory/container.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/linalg/details/utility/workspace.hpp>
 
@@ -20,7 +19,7 @@
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
 
-#include <nt2/table.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 
 extern "C"
 {
@@ -86,7 +85,7 @@ namespace nt2 { namespace ext
                             )
   {
      typedef nt2_la_int result_type;
-     typedef double T;
+     typedef typename A0::value_type T;
 
      BOOST_FORCEINLINE result_type operator()( A0 const& a0, A1& a1, A2 const& a2
                                              , A3& a3, A4& a4) const
@@ -130,7 +129,7 @@ namespace nt2 { namespace ext
                             )
   {
      typedef nt2_la_int result_type;
-     typedef double T;
+     typedef typename A0::value_type T;
 
      BOOST_FORCEINLINE result_type operator() (A0 const& a0, A1& a1, A2 const& a2
                                             , A3& a3, A4& a4, A5& a5) const
@@ -143,12 +142,12 @@ namespace nt2 { namespace ext
         char fact = 'N';
         char uplo = 'L';
 
-        nt2::container::table<T> af(nt2::of_size(n,n));
-        nt2::container::table<T> ferr(nt2::of_size(nhrs,1));
-        nt2::container::table<T> berr(nt2::of_size(nhrs,1));
+        nt2::memory::container<tag::table_, T, nt2::_2D> af(nt2::of_size(n,n));
+        nt2::memory::container<tag::table_, T, nt2::_2D> ferr(nt2::of_size(nhrs,1));
+        nt2::memory::container<tag::table_, T, nt2::_2D> berr(nt2::of_size(nhrs,1));
 
 
-        nt2::container::table<nt2_la_int> iwork(nt2::of_size(n,1));
+        nt2::memory::container<tag::table_, nt2_la_int, nt2::_2D> iwork(nt2::of_size(n,1));
 
         NT2_F77NAME(dsysvx)( &fact       , &uplo
                            , &n          , &nhrs
@@ -176,7 +175,7 @@ namespace nt2 { namespace ext
                             )
   {
      typedef nt2_la_int result_type;
-     typedef float T;
+     typedef typename A0::value_type T;
 
      BOOST_FORCEINLINE result_type operator()( A0 const& a0, A1& a1, A2 const& a2
                                              , A3& a3, A4& a4) const
@@ -221,7 +220,7 @@ namespace nt2 { namespace ext
                             )
   {
      typedef nt2_la_int result_type;
-     typedef float T;
+     typedef typename A0::value_type T;
 
      BOOST_FORCEINLINE result_type operator() (A0 const& a0, A1& a1, A2 const& a2
                                             , A3& a3, A4& a4, A5& a5) const
@@ -234,12 +233,12 @@ namespace nt2 { namespace ext
         char fact = 'N';
         char uplo = 'L';
 
-        nt2::container::table<T> af(nt2::of_size(n,n));
-        nt2::container::table<T> ferr(nt2::of_size(nhrs,1));
-        nt2::container::table<T> berr(nt2::of_size(nhrs,1));
+        nt2::memory::container<tag::table_, T, nt2::_2D> af(nt2::of_size(n,n));
+        nt2::memory::container<tag::table_, T, nt2::_2D> ferr(nt2::of_size(nhrs,1));
+        nt2::memory::container<tag::table_, T, nt2::_2D> berr(nt2::of_size(nhrs,1));
 
 
-        nt2::container::table<nt2_la_int> iwork(nt2::of_size(n,1));
+        nt2::memory::container<tag::table_, nt2_la_int, nt2::_2D> iwork(nt2::of_size(n,1));
 
         NT2_F77NAME(ssysvx)( &fact       , &uplo
                            , &n          , &nhrs
@@ -314,7 +313,8 @@ namespace nt2 { namespace ext
                             )
   {
      typedef nt2_la_int result_type;
-     typedef double T;
+     typedef typename A0::value_type v_t;
+     typedef typename nt2::meta::as_real<v_t>::type   T;
 
      BOOST_FORCEINLINE result_type operator() (A0 const& a0, A1& a1, A2 const& a2
                                             , A3& a3, A4& a4, A5& a5) const
@@ -327,12 +327,12 @@ namespace nt2 { namespace ext
         char fact = 'N';
         char uplo = 'L';
 
-        nt2::container::table<std::complex<T> > af(nt2::of_size(n,n));
-        nt2::container::table<T> ferr(nt2::of_size(nhrs,1));
-        nt2::container::table<T> berr(nt2::of_size(nhrs,1));
+        nt2::memory::container<tag::table_, v_t, nt2::_2D> af(nt2::of_size(n,n));
+        nt2::memory::container<tag::table_, T, nt2::_2D> ferr(nt2::of_size(nhrs,1));
+        nt2::memory::container<tag::table_, T, nt2::_2D> berr(nt2::of_size(nhrs,1));
 
 
-        nt2::container::table<T> rwork(nt2::of_size(n,1));
+        nt2::memory::container<tag::table_, T, nt2::_2D> rwork(nt2::of_size(n,1));
 
         NT2_F77NAME(zsysvx)( &fact       , &uplo
                            , &n          , &nhrs
@@ -360,7 +360,8 @@ namespace nt2 { namespace ext
                             )
   {
      typedef nt2_la_int result_type;
-     typedef float T;
+     typedef typename A0::value_type v_t;
+     typedef typename nt2::meta::as_real<v_t>::type   T;
 
      BOOST_FORCEINLINE result_type operator()( A0 const& a0, A1& a1, A2 const& a2
                                              , A3& a3, A4& a4) const
@@ -405,7 +406,8 @@ namespace nt2 { namespace ext
                             )
   {
      typedef nt2_la_int result_type;
-     typedef float T;
+     typedef typename A0::value_type v_t;
+     typedef typename nt2::meta::as_real<v_t>::type   T;
 
      BOOST_FORCEINLINE result_type operator() (A0 const& a0, A1& a1, A2 const& a2
                                             , A3& a3, A4& a4, A5& a5) const
@@ -418,12 +420,12 @@ namespace nt2 { namespace ext
         char fact = 'N';
         char uplo = 'L';
 
-        nt2::container::table<std::complex<T> > af(nt2::of_size(n,n));
-        nt2::container::table<T> ferr(nt2::of_size(nhrs,1));
-        nt2::container::table<T> berr(nt2::of_size(nhrs,1));
+        nt2::memory::container<tag::table_, v_t, nt2::_2D> af(nt2::of_size(n,n));
+        nt2::memory::container<tag::table_, T, nt2::_2D> ferr(nt2::of_size(nhrs,1));
+        nt2::memory::container<tag::table_, T, nt2::_2D> berr(nt2::of_size(nhrs,1));
 
 
-        nt2::container::table<T> rwork(nt2::of_size(n,1));
+        nt2::memory::container<tag::table_, T, nt2::_2D> rwork(nt2::of_size(n,1));
 
         NT2_F77NAME(csysvx)( &fact       , &uplo
                            , &n          , &nhrs

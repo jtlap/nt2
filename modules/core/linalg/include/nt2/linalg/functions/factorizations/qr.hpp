@@ -41,8 +41,8 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
-      nt2::table<nt2_la_int>  ip;
-      nt2::table<type_t>      tau;
+      nt2::container::table<nt2_la_int>  ip;
+      nt2::container::table<type_t>      tau;
       // ip = nt2::zeros(nt2::width(a0),1,nt2::meta::as_<nt2_la_int>());
       eval(a0, a1, tau, ip, N0(), N1());
     }
@@ -51,7 +51,7 @@ namespace nt2 { namespace ext
     /// INTERNAL ONLY - X = QR(A)
     BOOST_FORCEINLINE
     void eval ( A0& a0, A1& a1
-              , nt2::table<type_t>& tau     , nt2::table<nt2_la_int>& ip
+              , nt2::container::table<type_t>& tau , nt2::container::table<nt2_la_int>& ip
               , boost::mpl::long_<1> const& , boost::mpl::long_<1> const&
               ) const
     {
@@ -70,7 +70,7 @@ namespace nt2 { namespace ext
     /// INTERNAL ONLY - [Q,R] = QR(A)
     BOOST_FORCEINLINE
     void eval ( A0& a0, A1& a1
-              , nt2::table<type_t>& tau, nt2::table<nt2_la_int>& ip
+              , nt2::container::table<type_t>& tau, nt2::container::table<nt2_la_int>& ip
               , boost::mpl::long_<1> const&, boost::mpl::long_<2> const&
               ) const
     {
@@ -80,7 +80,7 @@ namespace nt2 { namespace ext
     /// INTERNAL ONLY - [Q,R,P] = QR(A)
     BOOST_FORCEINLINE
     void eval ( A0& a0, A1& a1
-              , nt2::table<type_t>& tau, nt2::table<nt2_la_int>& ip
+              , nt2::container::table<type_t>& tau, nt2::container::table<nt2_la_int>& ip
               , boost::mpl::long_<1> const&, boost::mpl::long_<3> const&
               ) const
     {
@@ -92,7 +92,7 @@ namespace nt2 { namespace ext
     /// INTERNAL ONLY - X = QR(A,{0/{no_}pivot_})
     BOOST_FORCEINLINE
     void eval ( A0& a0, A1& a1
-              , nt2::table<type_t>& tau, nt2::table<nt2_la_int>& ip
+              , nt2::container::table<type_t>& tau, nt2::container::table<nt2_la_int>& ip
               , boost::mpl::long_<2> const&, boost::mpl::long_<1> const&
               ) const
     {
@@ -113,7 +113,7 @@ namespace nt2 { namespace ext
     /// INTERNAL ONLY - [Q,R] = QR(A,{0/{no_}pivot_})
     BOOST_FORCEINLINE
     void eval ( A0& a0, A1& a1
-              , nt2::table<type_t>& tau, nt2::table<nt2_la_int>& ip
+              , nt2::container::table<type_t>& tau, nt2::container::table<nt2_la_int>& ip
               , boost::mpl::long_<2> const&, boost::mpl::long_<2> const&
               ) const
     {
@@ -124,7 +124,7 @@ namespace nt2 { namespace ext
     /// INTERNAL ONLY - [Q,R,P] = QR(A,{0/matrix/vector)
     BOOST_FORCEINLINE
     void eval ( A0& a0, A1& a1
-              , nt2::table<type_t>& tau, nt2::table<nt2_la_int>& ip
+              , nt2::container::table<type_t>& tau, nt2::container::table<nt2_la_int>& ip
               , boost::mpl::long_<2> const&, boost::mpl::long_<3> const&
               ) const
     {
