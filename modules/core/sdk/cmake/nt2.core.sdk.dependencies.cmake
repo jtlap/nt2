@@ -12,7 +12,6 @@ SET ( NT2_CORE.SDK_DEPENDENCIES_EXTRA
       boost.simd.base
       boost.simd.reduction
       boost.simd.sdk
-      core.restructuring
       core.base
       sdk.config
       sdk.functor
