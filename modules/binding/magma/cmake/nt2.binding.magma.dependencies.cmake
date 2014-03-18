@@ -12,34 +12,46 @@ if(DEFINED MAGMA_CXX_FLAGS AND NOT MAGMA_CXX_FLAGS)
   set(MAGMA_FOUND 0)
 else()
 
+  if(NOT DEFINED MAGMA_ROOT AND DEFINED ENV{MAGMA_ROOT})
+    set(MAGMA_ROOT $ENV{MAGMA_ROOT})
+  endif()
+
   # try to find libmagma
   find_library( MAGMA_MAGMA_LIBRARY
                 NAMES magma
-                PATHS /usr/local/lib /usr/lib ${MAGMA_ROOT}/lib
+                PATHS ${MAGMA_ROOT}/lib
               )
 
   # try to find libmagmablas
   find_library( MAGMA_MAGMABLAS_LIBRARY
                 NAMES magmablas
-                PATHS /usr/local/lib /usr/lib ${MAGMA_ROOT}/lib
+                PATHS ${MAGMA_ROOT}/lib
               )
 
-  # try find cublas
-  find_library( CUBLAS_LIBRARY
-              NAMES cublas
-              PATHS /usr/local/cuda/lib64  ${CUDA_ROOT}/lib64
-            )
+  # try to find Intel C Runtime (if MAGMA was built with ICC)
+  include(nt2.info)
+  if(NT2_ARCH_X86_64)
+    set(NT2_INTEL_LIBRARY_SUFFIXES intel64)
+  else()
+    set(NT2_INTEL_LIBRARY_SUFFIXES ia32)
+  endif()
+  set(INTEL_ROOT /opt/intel/composerxe)
+  find_library( INTEL_RC_LIBRARY
+                NAMES irc
+                PATHS ${INTEL_ROOT}/lib
+                PATH_SUFFIXES ${NT2_INTEL_LIBRARY_SUFFIXES}
+              )
 
-  # try find cudart
-  find_library(  CUDART_LIBRARY
-              NAMES cudart
-              PATHS /usr/local/cuda/lib64  ${CUDA_ROOT}/lib64
-            )
+  # CUDA-related stuff
+  find_package(CUDA)
+  set(CUBLAS_LIBRARY ${CUDA_CUBLAS_LIBRARIES})
+  set(CUDART_LIBRARY ${CUDA_CUDART_LIBRARY})
+  set(CUBLAS_HEADER ${CUDA_INCLUDE_DIRS})
 
   # try find magma.h
   find_path(  MAGMA_MAGMA_HEADER
               NAMES magma.h
-              PATHS /usr/local/include /usr/include ${MAGMA_ROOT}/include
+              PATHS ${MAGMA_ROOT}/include
             )
 
   # try find common_magma.h
@@ -54,21 +66,19 @@ else()
               PATHS /usr/local/control /usr/control ${MAGMA_ROOT}/interface_cuda
             )
 
-  # try find cublas.h
-  find_path( CUBLAS_HEADER
-              NAMES cublas.h
-              PATHS /usr/local/cuda/include /usr/include ${CUDA_ROOT}/include
-            )
-
   # if everything is there ...
-  if(MAGMA_MAGMA_LIBRARY AND MAGMA_MAGMABLAS_LIBRARY AND MAGMA_MAGMA_HEADER
+  if(MAGMA_MAGMA_LIBRARY AND MAGMA_MAGMA_HEADER
     AND CUBLAS_LIBRARY AND CUDART_LIBRARY AND CUBLAS_HEADER AND MAGMA_COMMON_HEADER )
     set(MAGMA_FOUND 1)
     set(MAGMA_INCLUDE_PATH "${MAGMA_MAGMA_HEADER}/" "${MAGMA_COMMON_HEADER}/" "${CUDA_ERROR_HEADER}/")
-    set(MAGMA_CXX_FLAGS "-DNT2_USE_MAGMA")
-    set(MAGMA_LIBRARY ${MAGMA_MAGMA_LIBRARY} ${MAGMA_MAGMABLAS_LIBRARY}
-        ${CUDART_LIBRARY} ${CUBLAS_LIBRARY}
-       )
+    set(MAGMA_CXX_FLAGS "-DNT2_USE_MAGMA -DHAVE_CUBLAS")
+    set(MAGMA_LIBRARY ${MAGMA_MAGMA_LIBRARY} ${CUDART_LIBRARY} ${CUBLAS_LIBRARY})
+    if(MAGMA_MAGMABLAS_LIBRARY)
+      list(APPEND MAGMA_LIBRARY ${MAGMA_MAGMABLAS_LIBRARY})
+    endif()
+    if(INTEL_RC_LIBRARY)
+      list(APPEND MAGMA_LIBRARY ${INTEL_RC_LIBRARY})
+    endif()
     set(CUDA_INCLUDE_PATH "${CUBLAS_HEADER}/")
   endif()
 endif()
