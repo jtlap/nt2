@@ -151,9 +151,6 @@ lddx, c_one, dworkd, N);
             magma_dgetmatrix( 1, 1, dworkd+i*N+j-1, 1, &Rnrmv, 1 );
             Rnrm = NT2_F77NAME(dlange)( "F", &ione, &ione, &Rnrmv, &ione, NULL );
 
-            std::cout << Rnrm << std::endl;
-            std::cout << Xnrm << std::endl;
-
             if( Rnrm >  Xnrm *cte ){
                 goto L20;
             }
@@ -480,9 +477,6 @@ lddx, c_one, dworkd, N);
             magma_zgetmatrix( 1, 1, dworkd+i*N+j-1, 1, &Rnrmv, 1 );
             Rnrm = NT2_F77NAME(zlange)( "F", &ione, &ione, &Rnrmv, &ione, NULL );
 
-            std::cout << Rnrm << std::endl;
-            std::cout << Xnrm << std::endl;
-
             if( Rnrm >  Xnrm *cte ){
                 goto L20;
             }
@@ -654,9 +648,6 @@ lddx, c_one, dworkd, N);
             j = magma_icamax ( N, dworkd+i*N, 1 );
             magma_cgetmatrix( 1, 1, dworkd+i*N+j-1, 1, &Rnrmv, 1 );
             Rnrm = NT2_F77NAME(clange)( "F", &ione, &ione, &Rnrmv, &ione, NULL );
-
-            std::cout << Rnrm << std::endl;
-            std::cout << Xnrm << std::endl;
 
             if( Rnrm >  Xnrm *cte ){
                 goto L20;

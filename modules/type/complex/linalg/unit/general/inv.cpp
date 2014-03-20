@@ -63,7 +63,7 @@ NT2_TEST_CASE_TPL(inv_nowarn, NT2_REAL_TYPES)
   nn = n;
   n(1, 1) = nt2::Eps<T>()*nt2::Half<cT>();
   nn(1, 1) = nt2::rec(n(1, 1));
-  nt2::table<cT> invn = nt2::inv(n, false);
+  nt2::table<cT> invn = nt2::inv(n);
   NT2_TEST_ULP_EQUAL(invn, nn, 0.5);
  }
 NT2_TEST_CASE_TPL(inv_3, NT2_REAL_TYPES)

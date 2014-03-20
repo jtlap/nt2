@@ -48,8 +48,8 @@ namespace nt2{ namespace ext
       nt2::gesvd( boost::proto::value(work), boost::proto::value(s)
                 , boost::proto::value(u), boost::proto::value(v),'N','N');
 
-      type_t r =  s(1)/s(nt2::min(m,n));
-      return is_nan(r) ? Inf<type_t>() : r;
+      rtype_t r =  s(1)/s(nt2::min(m,n));
+      return is_nan(r) ? Inf<rtype_t>() : r;
     }
   };
 

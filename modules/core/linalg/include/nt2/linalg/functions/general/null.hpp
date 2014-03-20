@@ -18,6 +18,7 @@
 #include <nt2/include/functions/eps.hpp>
 #include <nt2/include/functions/fliplr.hpp>
 #include <nt2/dsl/functions/terminal.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 
 #include <nt2/core/container/table/table.hpp>
 
@@ -41,14 +42,16 @@ mat rnull(T const epsi, vect const& s,mat const& v)
   {
     typedef typename A0::value_type type_t;
     typedef nt2::table<type_t>  result_type;
+    typedef typename meta::as_real<type_t>::type rtype_t;
     typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
 
-    typedef nt2::table<type_t>  entry_type;
+    typedef nt2::table<rtype_t> rentry_type;
     typedef nt2::table<type_t,shape>  matrix_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a) const
     {
-      entry_type u,s,v;
+      result_type u,v;
+      rentry_type s;
       matrix_type work(a);
 
       nt2_la_int  m  = nt2::height(work);
@@ -60,7 +63,7 @@ mat rnull(T const epsi, vect const& s,mat const& v)
       nt2::gesvd(boost::proto::value(work),boost::proto::value(s)
                 ,boost::proto::value(u),boost::proto::value(v),'N','A');
 
-      type_t epsi = nt2::eps(s(1));
+      rtype_t epsi = nt2::eps(s(1));
 
       return rnull(epsi,s,v);
     }
@@ -76,14 +79,16 @@ mat rnull(T const epsi, vect const& s,mat const& v)
 
     typedef typename A0::value_type type_t;
     typedef nt2::table<type_t> result_type;
+    typedef typename meta::as_real<type_t>::type rtype_t;
     typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
 
-    typedef nt2::table<type_t>  entry_type;
+    typedef nt2::table<rtype_t>  rentry_type;
     typedef nt2::table<type_t,shape>  matrix_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const epsi) const
     {
-      entry_type u,s,v;
+      result_type u,v;
+      rentry_type s;
 
       matrix_type work(a);
       nt2_la_int  m  = nt2::height(work);
@@ -95,7 +100,7 @@ mat rnull(T const epsi, vect const& s,mat const& v)
       nt2::gesvd(boost::proto::value(work),boost::proto::value(s)
                 ,boost::proto::value(u),boost::proto::value(v),'N','A');
 
-      type_t epsi_ =  epsi < 0 ? nt2::eps(s(1)) : epsi;
+      rtype_t epsi_ =  epsi < 0 ? nt2::eps(s(1)) : epsi;
 
       return rnull(epsi_,s,v);
     }

@@ -13,6 +13,7 @@
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/norm.hpp>
+#include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/include/constants/i.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>

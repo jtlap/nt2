@@ -62,7 +62,6 @@ NT2_TEST_CASE_TPL(csne, NT2_REAL_TYPES )
   NT2_TEST_ULP_EQUAL(s1, s2(_(1,n)), T(100));
 }
 
-
 NT2_TEST_CASE_TPL(msne, (double) )
 {
   using nt2::_;
@@ -71,20 +70,13 @@ NT2_TEST_CASE_TPL(msne, (double) )
 
   t_t a,x,r,b;
   clock_t start,end;
-  size_t m=20000,n=10000,q=1,nr=1;
+  size_t m=2000,n=1000,q=1,nr=1;
 
   nt2::tie(a,x,r,b)= nt2::llspgen(m,n,q,nr, nt2::meta::as_<T>());
 
-  start = clock();
   t_t s1 = nt2::mcsne(a,b);
-  end = clock();
-  std::cout << "mcsne: " << (end-start)/10000000. << std::endl;
-
-  start = clock();
   t_t s2 = nt2::linsolve(a,b);
-  end = clock();
-  std::cout << "dgelsy: " << (end-start)/10000000. << std::endl;
 
-  NT2_TEST_ULP_EQUAL(s1(_(1,10)), s2(_(1,10)), T(10000000));
+  NT2_TEST_ULP_EQUAL(s1(_(1,n)), s2(_(1,n)), T(10000000));
 }
 
