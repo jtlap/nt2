@@ -109,7 +109,7 @@ namespace nt2 { namespace ext
         nt2_la_int n   = nt2::width(a0);
         nt2_la_int lda = a0.leading_size();
 
-        magma_spotrf(a1,n,(cuFloatComplex*)a0.raw(),lda,&that);
+        magma_cpotrf(a1,n,(cuFloatComplex*)a0.raw(),lda,&that);
 
         return that;
      }
