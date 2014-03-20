@@ -68,8 +68,7 @@ NT2_TEST_CASE_TPL(msne, (double) )
   typedef nt2::table<T>           t_t;
 
   t_t a,x,r,b;
-  clock_t start,end;
-  size_t m=20,n=10,q=6,nr=1;
+  size_t m=20,n=10,q=1,nr=1;
 
   nt2::tie(a,x,r,b)= nt2::llspgen(m,n,q,nr);
   t_t s1 = nt2::mcsne(a,b);

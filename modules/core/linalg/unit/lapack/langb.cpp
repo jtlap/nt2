@@ -13,6 +13,7 @@
 #include <nt2/table.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
 NT2_TEST_CASE_TPL(band, NT2_REAL_TYPES )
@@ -27,5 +28,5 @@ NT2_TEST_CASE_TPL(band, NT2_REAL_TYPES )
 
   rnorm = nt2::langb(boost::proto::value(a),norm);
 
-
+  NT2_TEST_EQUAL(rnorm,T(5));
 }
