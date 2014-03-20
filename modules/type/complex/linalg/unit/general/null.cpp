@@ -11,19 +11,15 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/null.hpp>
 #include <nt2/include/functions/eye.hpp>
-#include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/ten.hpp>
-#include <nt2/include/constants/eps.hpp>
-#include <nt2/include/functions/isulpequal.hpp>
 #include <nt2/include/functions/zeros.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/include/functions/norm.hpp>
+#include <nt2/include/constants/eps.hpp>
+#include <nt2/include/constants/i.hpp>
+#include <nt2/sdk/complex/meta/as_complex.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/exceptions.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/complex/meta/as_complex.hpp>
-#include <nt2/include/constants/i.hpp>
 
 NT2_TEST_CASE_TPL(null, NT2_REAL_TYPES)
 {
