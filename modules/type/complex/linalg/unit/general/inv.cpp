@@ -11,12 +11,13 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/inv.hpp>
 #include <nt2/include/functions/eye.hpp>
+#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/cons.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/ten.hpp>
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/include/constants/two.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/cons.hpp>
+#include <nt2/include/constants/half.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
