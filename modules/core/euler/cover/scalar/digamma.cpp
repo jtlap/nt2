@@ -12,6 +12,7 @@
 #include <cmath>
 #include <iostream>
 #include <nt2/boost_math/include/functions/digamma.hpp>
+#include <nt2/include/constants/smallestposval.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/unit/args.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -22,10 +23,10 @@ NT2_TEST_CASE_TPL(digamma_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::unit::args;
   const std::size_t NR = args("samples", NT2_NB_RANDOM_TEST);
-  const double ulpd = args("ulpd", 128);
+  const double ulpd = args("ulpd", 4);
 
-  const T min = args("min", T(-10));
-  const T max = args("max", T(10));
+  const T min = args("min", nt2::Smallestposval<T>());
+  const T max = args("max", T(30));
   std::cout << "Argument samples #0 chosen in range: [" << min << ",  " << max << "]" << std::endl;
   NT2_CREATE_BUF(a0,T, NR, min, max);
 

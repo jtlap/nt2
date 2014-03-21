@@ -11,6 +11,7 @@
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <cmath>
+#include <nt2/include/constants/smallestposval.hpp>
 #include <iostream>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/unit/args.hpp>
@@ -29,7 +30,7 @@ NT2_TEST_CASE_TPL(digamma_0,  NT2_SIMD_REAL_TYPES)
   const double ulpd = args("ulpd",  128);
 
   typedef typename nt2::meta::as_integer<vT>::type ivT;
-  const T min = args("min", T(-10));
+  const T min = args("min", nt2::Smallestposval<T>());
   const T max = args("max", T(10));
   std::cout << "Argument samples #0 chosen in range: [" << min << ",  " << max << "]" << std::endl;
   NT2_CREATE_BUF(a0,T, NR, min, max);
