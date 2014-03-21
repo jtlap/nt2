@@ -126,7 +126,11 @@ c_one, dworkd, N);
         }
 
         for(i=0;i<NRHS;i++){
+#if MAGMA_VERSION_MAJOR <= 1 && MAGMA_VERSION_MINOR < 4
             magmablas_daxpycp(dworkd+i*N, dX+i*lddx, N, dB+i*lddb);
+#else
+            magmablas_daxpycp(N, dworkd+i*N, dX+i*lddx, dB+i*lddb);
+#endif
         }
 
         //magmablas_dlacpy(MagmaUpperLower, N, NRHS, dB, lddb, dworkd, N);
@@ -290,7 +294,11 @@ c_one, dworks, N);
             magmablas_slag2d(N,NRHS,dB,N,dBd.raw(),N,&info1);
             magmablas_slag2d(N,c_one,dworks,N,dworkd.raw(),N,&info1);
 
-            magmablas_daxpycp( dworkd.raw()+i*N, dXd.raw()+i*lddx, N, dBd.raw()+i*lddb);
+#if MAGMA_VERSION_MAJOR <= 1 && MAGMA_VERSION_MINOR < 4
+            magmablas_daxpycp(dworkd.raw()+i*N, dXd.raw()+i*lddx, N, dBd.raw()+i*lddb);
+#else
+            magmablas_daxpycp(N, dworkd.raw()+i*N, dXd.raw()+i*lddx, dBd.raw()+i*lddb);
+#endif
 
             magmablas_dlag2s(N,NRHS,dXd.raw(),N,dX,N,&info1);
             magmablas_dlag2s(N,NRHS,dBd.raw(),N,dB,N,&info1);
@@ -452,7 +460,11 @@ c_one, dworkd, N);
         }
 
         for(i=0;i<NRHS;i++){
+#if MAGMA_VERSION_MAJOR <= 1 && MAGMA_VERSION_MINOR < 4
             magmablas_zaxpycp(dworkd+i*N, dX+i*lddx, N, dB+i*lddb);
+#else
+            magmablas_zaxpycp(N, dworkd+i*N, dX+i*lddx, dB+i*lddb);
+#endif
         }
 
         //magmablas_dlacpy(MagmaUpperLower, N, NRHS, dB, lddb, dworkd, N);
@@ -619,8 +631,19 @@ c_one, dworkd, N);
             magmablas_clag2z(N,NRHS,dB,N,(cuDoubleComplex*)dBd.raw(),N,&info1);
             magmablas_clag2z(N,r_one,dworkd,N,(cuDoubleComplex*)dworkz.raw(),N,&info1);
 
+#if MAGMA_VERSION_MAJOR <= 1 && MAGMA_VERSION_MINOR < 4
             magmablas_zaxpycp( (cuDoubleComplex*)dworkz.raw()+i*N
-                , (cuDoubleComplex*)dXd.raw()+i*lddx, N, (cuDoubleComplex*)dBd.raw()+i*lddb);
+                             , (cuDoubleComplex*)dXd.raw()+i*lddx
+                             , N
+                             , (cuDoubleComplex*)dBd.raw()+i*lddb
+                             );
+#else
+            magmablas_zaxpycp( N
+                             , (cuDoubleComplex*)dworkz.raw()+i*N
+                             , (cuDoubleComplex*)dXd.raw()+i*lddx
+                             , (cuDoubleComplex*)dBd.raw()+i*lddb
+                             );
+#endif
 
             magmablas_zlag2c(N,NRHS,(cuDoubleComplex*)dXd.raw(),N,dX,N,&info1);
             magmablas_zlag2c(N,NRHS,(cuDoubleComplex*)dBd.raw(),N,dB,N,&info1);
