@@ -17,8 +17,8 @@ namespace nt2
   namespace tag
   {
     BOOST_SIMD_CONSTANT_REGISTER( Digammalargelim, double
-                                , 0, 0x41200000LL
-                                , 0x4034000000000000ULL
+                                , 0, 0x41200000LL //10
+                                , 0x4034000000000000ULL //20
                                 );
   }
 
