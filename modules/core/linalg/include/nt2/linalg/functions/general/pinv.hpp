@@ -59,7 +59,7 @@ namespace nt2{ namespace ext
       nt2::gesvd(boost::proto::value(out),boost::proto::value(s)
                 ,boost::proto::value(u), boost::proto::value(v),'A','A');
 
-      value_type epsi = (tol <0  ? nt2::eps(s(1)) : tol)*length(out);
+      rtype_t epsi = (tol <0  ? nt2::eps(s(1)) : tol)*length(out);
       entry_type w1 = nt2::if_else( nt2::gt(s, epsi), nt2::rec(s), nt2::Zero<rtype_t>());
       out = mtimes(trans(conj(v)), mtimes(from_diag(w1), trans(conj(u))));
 

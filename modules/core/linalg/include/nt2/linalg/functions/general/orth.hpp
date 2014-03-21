@@ -59,7 +59,7 @@ mat orthr(T const epsi, mat const& u, vec const& s)
       nt2::gesvd( boost::proto::value(work),boost::proto::value(s)
                 , boost::proto::value(u),boost::proto::value(v),'A','N');
 
-      type_t epsi = nt2::max(m, n)*nt2::eps(s(1));
+      rtype_t epsi = nt2::max(m, n)*nt2::eps(s(1));
 
       return orthr(epsi,u,s);
     }
@@ -94,7 +94,7 @@ mat orthr(T const epsi, mat const& u, vec const& s)
       nt2::gesvd( boost::proto::value(work),boost::proto::value(s)
                 , boost::proto::value(u),boost::proto::value(v),'A','N');
 
-      type_t epsir = epsi<0 ? nt2::max(m, n)*nt2::eps(s(1)) : epsi;
+      rtype_t epsir = epsi<0 ? nt2::max(m, n)*nt2::eps(s(1)) : epsi;
 
       return orthr(epsir,u,s);
     }

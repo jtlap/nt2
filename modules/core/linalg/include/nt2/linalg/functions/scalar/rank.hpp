@@ -50,7 +50,7 @@ namespace nt2{ namespace ext
       nt2::gesvd( boost::proto::value(work), boost::proto::value(s)
                 , boost::proto::value(u), boost::proto::value(v),'N','N');
 
-      type_t epsi = nt2::max(n, m)*nt2::eps(s(1));
+      rtype_t epsi = nt2::max(n, m)*nt2::eps(s(1));
 
       return size_t(inbtrue(gt(s, epsi)));
     }
@@ -74,7 +74,7 @@ namespace nt2{ namespace ext
       entry_type u,v;
       base_type s;
       matrix_type work(a0);
-      type_t epsi = a1;
+      rtype_t epsi = a1;
 
       nt2_la_int  m  = nt2::height(work);
       nt2_la_int  n  = nt2::width(work);
