@@ -8,7 +8,6 @@
 ##############################################################################
 
 SET( SOURCES
-  site.cpp
 # List of test files for toolbox binding.magma
    )
 
