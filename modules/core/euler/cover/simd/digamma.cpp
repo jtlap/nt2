@@ -31,7 +31,7 @@ NT2_TEST_CASE_TPL(digamma_0,  NT2_SIMD_REAL_TYPES)
 
   typedef typename nt2::meta::as_integer<vT>::type ivT;
   const T min = args("min", nt2::Smallestposval<T>());
-  const T max = args("max", T(10));
+  const T max = args("max", T(30));
   std::cout << "Argument samples #0 chosen in range: [" << min << ",  " << max << "]" << std::endl;
   NT2_CREATE_BUF(a0,T, NR, min, max);
 
