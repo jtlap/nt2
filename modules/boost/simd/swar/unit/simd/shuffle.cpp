@@ -92,7 +92,7 @@ NT2_TEST_CASE_TPL ( shuffle, BOOST_SIMD_SIMD_TYPES)
   NT2_TEST_EQUAL(shuffled,reference);
 
   for(std::size_t i=0; i < vT::static_size;++i)
-    reference[i] = i%2 ? origin[i/2] : 0;
+    reference[i] = i%2 ? origin[i/2] : T(0);
   hnull = shuffle<half_null_>(origin);
   NT2_TEST_EQUAL(hnull,reference);
 

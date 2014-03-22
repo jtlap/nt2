@@ -17,6 +17,12 @@ template<typename Type> struct fill
   {
     v = Type(1+i+m);
   }
+
+  template<typename SOARef>
+  inline void operator()(SOARef v, std::size_t i, int m = 0) const
+  {
+    v = Type(1+i+m);
+  }
 };
 
 template<typename Type> struct fill< boost::simd::logical<Type> >

@@ -68,10 +68,10 @@ NT2_TEST_CASE_TPL ( multiplies_integer, BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   nt2::roll(w,T(0),Sqrtvalmax<T>());
 
   for(std::size_t i=0;i<vT::static_size;++i)
-    v[i] *= i%2 ? -1 : 1;
+    v[i] *= i%2 ? T(-1) : T(1);
 
   for(std::size_t i=0;i<vT::static_size/2;++i)
-    w[i] *= -1;
+    w[i] *= T(-1);
 
   for(std::size_t i=0;i<vT::static_size;++i)
     ref[i] = v[i] * w[i];

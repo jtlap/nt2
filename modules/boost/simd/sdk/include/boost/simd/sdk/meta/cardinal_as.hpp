@@ -19,7 +19,7 @@
 
 /* WKRD: for some unknown reason, MSVC seems to require this even if
  * cardinal_as isn't instantiated */
-#include <boost/simd/sdk/simd/details/native/meta/cardinal_of.hpp>
+#include <boost/simd/sdk/simd/details/native/meta/cardinal_of_declare.hpp>
 
 namespace boost { namespace simd
 {
@@ -32,7 +32,7 @@ namespace boost { namespace simd
     };
 
     template<class T, class X>
-    struct cardinal_as<T, X, typename dispatch::meta::na_>
+    struct cardinal_as<T, X, dispatch::meta::na_>
          : mpl::size_t<1>
     {
     };
@@ -50,7 +50,6 @@ namespace boost { namespace simd
     {
     };
   }
-
 } }
 
 #endif

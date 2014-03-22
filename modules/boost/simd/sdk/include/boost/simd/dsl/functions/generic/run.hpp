@@ -21,6 +21,7 @@
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/dispatch/meta/as_ref.hpp>
+#include <boost/dispatch/meta/identity.hpp>
 
 #include <boost/dispatch/details/parameters.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
@@ -79,10 +80,12 @@ namespace boost { namespace simd { namespace ext
   /**/
 
   #define M1(z,n,t)                                                                                \
-  typename dispatch::meta::dispatch_call<                                                          \
-    tag::run_(typename boost::proto::result_of::child_c<Expr&, n>::type)                           \
-  >::type()                                                                                        \
-  ( boost::proto::child_c<n>(expr) )                                                               \
+  boost::dispatch::id(                                                                             \
+    typename dispatch::meta::dispatch_call<                                                        \
+      tag::run_(typename boost::proto::result_of::child_c<Expr&, n>::type)                         \
+    >::type()                                                                                      \
+    ( boost::proto::child_c<n>(expr) )                                                             \
+  )                                                                                                \
   /**/
 
   //============================================================================
@@ -112,18 +115,20 @@ namespace boost { namespace simd { namespace ext
   /**/
 
   #define M1d(z,n,t)                                                                               \
-  typename dispatch::meta::dispatch_call<                                                          \
-    tag::run_( typename boost::proto::result_of::child_c<Expr&, n>::type                           \
-             , State const&                                                                        \
-             , typename adapt_data< typename boost::proto::result_of::                             \
-                                    child_c<Expr&, n>::value_type                                  \
-                                  , Data                                                           \
-                                  >::type                                                          \
-             )                                                                                     \
-  >::type()                                                                                        \
-  ( boost::proto::child_c<n>(expr)                                                                 \
-  , state                                                                                          \
-  , adapt_data<typename boost::proto::result_of::child_c<Expr&, n>::value_type, Data>::call(data)  \
+  boost::dispatch::id(                                                                             \
+    typename dispatch::meta::dispatch_call<                                                        \
+      tag::run_( typename boost::proto::result_of::child_c<Expr&, n>::type                         \
+               , State const&                                                                      \
+               , typename adapt_data< typename boost::proto::result_of::                           \
+                                      child_c<Expr&, n>::value_type                                \
+                                    , Data                                                         \
+                                    >::type                                                        \
+              )                                                                                    \
+    >::type()                                                                                      \
+    ( boost::proto::child_c<n>(expr)                                                               \
+    , state                                                                                        \
+    , adapt_data<typename boost::proto::result_of::child_c<Expr&, n>::value_type, Data>::call(data)\
+    )                                                                                              \
   )                                                                                                \
   /**/
 

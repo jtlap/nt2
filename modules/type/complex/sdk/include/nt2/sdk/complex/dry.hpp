@@ -44,6 +44,7 @@ namespace nt2
   }
 }
 
+#include <nt2/include/functions/extract.hpp>
 
 namespace boost { namespace simd
 {
@@ -54,9 +55,9 @@ namespace boost { namespace simd
     const std::size_t size = meta::cardinal_of<boost::simd::native<T, Ext> >::value;
     os << "{";
     for(std::size_t i = 0;  i < size; ++i)
-      {
-        os << v[i] << ((i+1 == size) ? "}" :", ");
-      }
+    {
+      os << v[i] << ((i+1 == size) ? "}" :", ");
+    }
     return os;
   }
 } }

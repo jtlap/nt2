@@ -16,6 +16,10 @@
 #include <boost/range/iterator_range_core.hpp>
 #include <complex>
 
+#include <vector>
+#include <algorithm>
+#include <iterator>
+
 namespace nt2
 {
   namespace details
@@ -41,10 +45,14 @@ namespace nt2
             )
   {
     typedef boost::iterator_range<typename Range::value_type *> range_t;
+
+    std::vector<typename Range::value_type> buffer;
+    std::copy(data.begin(), data.end(), std::back_inserter(buffer));
     details::prng_fill_impl
     (
-      range_t( &*data.begin(), (&*(data.end()-1))+1 ), minimum, maximum
+      range_t( &*buffer.begin(), (&*(buffer.end()-1))+1 ), minimum, maximum
     );
+    std::copy(buffer.begin(), buffer.end(), data.begin());
   }
 }
 

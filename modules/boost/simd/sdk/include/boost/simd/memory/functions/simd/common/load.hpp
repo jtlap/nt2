@@ -82,7 +82,13 @@ namespace boost { namespace simd { namespace ext
     {
       result_type that;
       for(std::size_t i=0; i!=meta::cardinal_of<result_type>::value; ++i)
-        that[i] = static_cast<stype>(a0[a1[i]]);
+      {
+        stype value = static_cast<stype>(a0[a1[i]]);
+#if defined(__INTEL_COMPILER) && defined(__MIC__)
+        asm volatile(""::"m"(value));
+#endif
+        that[i] = value;
+      }
       return that;
     }
   };

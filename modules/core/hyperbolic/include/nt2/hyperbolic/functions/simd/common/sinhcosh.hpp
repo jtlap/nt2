@@ -21,7 +21,7 @@
 #include <nt2/include/functions/simd/bitwise_xor.hpp>
 #include <nt2/include/functions/simd/exp.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/simd/inbtrue.hpp>
+#include <nt2/include/functions/simd/any.hpp>
 #include <nt2/include/functions/simd/is_greater.hpp>
 #include <nt2/include/functions/simd/is_less.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
@@ -55,8 +55,7 @@ namespace nt2 { namespace ext
       A0 x = nt2::abs(a0);
       bA0 lt1= lt(x, One<A0>());
       A0 bts = bitofsign(a0);
-      std::size_t nb;
-      if( ( nb = inbtrue(lt1)) > 0)
+      if(nt2::any(lt1))
       {
         a1 = details::sinh_kernel<A0>::compute(x, sqr(x));
       }

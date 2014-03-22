@@ -65,6 +65,10 @@ namespace boost { namespace dispatch
       return a0;
     }
   };
+
+  template<class T> BOOST_FORCEINLINE T&       id(T      & t) { return t; }
+  template<class T> BOOST_FORCEINLINE T const& id(T const& t) { return t; }
+
 } }
 
 #endif

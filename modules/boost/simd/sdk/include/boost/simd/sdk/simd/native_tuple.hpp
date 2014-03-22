@@ -11,10 +11,10 @@
 
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/simd/details/soa_proxy.hpp>
-#include <boost/simd/sdk/simd/details/make_soa.hpp>
-#include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/sdk/simd/meta/vector_of.hpp>
+#include <boost/simd/sdk/meta/cardinal_as.hpp>
 #include <boost/simd/sdk/tuple.hpp>
-#include <boost/simd/memory/aligned_object.hpp>
+#include <boost/simd/preprocessor/new.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
@@ -22,6 +22,23 @@
 
 namespace boost { namespace simd
 {
+  namespace details
+  {
+    // Build the sequence of proper native
+    template<class T, class X>
+    struct make_soa
+    {
+      template<class Sig>
+      struct result;
+
+      template<class This, class U>
+      struct result<This(U)>
+      {
+        typedef typename meta::vector_of<U, meta::cardinal_as<T, X>::value>::type type;
+      };
+    };
+  }
+
   template<class T, class X>
   struct  native< T, X
                 , typename  boost
@@ -50,10 +67,10 @@ namespace boost { namespace simd
     // Range interface
     ////////////////////////////////////////////////////////////////////////////
     typedef std::size_t                                          size_type;
-    typedef details::soa_proxy<value_type, X>                    reference;
+    typedef soa_proxy<value_type, X>                             reference;
     typedef value_type const                                     const_reference;
-    typedef details::soa_iterator<value_type, X>                 iterator;
-    typedef details::soa_const_iterator<value_type, X>           const_iterator;
+    typedef soa_iterator<value_type, X>                          iterator;
+    typedef soa_const_iterator<value_type, X>                    const_iterator;
 
     BOOST_FORCEINLINE
     iterator       begin()       { return iterator(*this);               };
@@ -75,7 +92,7 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Array like interface
     ////////////////////////////////////////////////////////////////////////////
-    enum v_size { static_size = details::max_cardinal_<T,X>::type::value };
+    enum v_size { static_size = meta::cardinal_as<T, X>::value };
 
     static BOOST_FORCEINLINE  std::size_t size() { return static_size; }
     static BOOST_FORCEINLINE        bool empty() { return false; }
@@ -87,8 +104,7 @@ namespace boost { namespace simd
 
     const_reference operator[](std::size_t i) const
     {
-      typename dispatch::make_functor<tag::extract_, value_type>::type callee;
-      return callee(*this, i);
+      return reference(const_cast<native&>(*this), i);
     }
   };
 

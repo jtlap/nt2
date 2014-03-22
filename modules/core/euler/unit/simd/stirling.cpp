@@ -17,12 +17,14 @@
 #include <boost/simd/sdk/config.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 
+#include <nt2/include/functions/round.hpp>
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/two.hpp>
 
 NT2_TEST_CASE_TPL ( stirling_real,  NT2_SIMD_REAL_TYPES)
 {
@@ -40,11 +42,11 @@ NT2_TEST_CASE_TPL ( stirling_real,  NT2_SIMD_REAL_TYPES)
 
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
-  NT2_TEST_ULP_EQUAL(stirling(nt2::Inf<vT>()),  stirling(nt2::Inf<vT>() ),  0.5);
-  NT2_TEST_ULP_EQUAL(stirling(nt2::Minf<vT>()), stirling(nt2::Minf<vT>()), 0.5);
-  NT2_TEST_ULP_EQUAL(stirling(nt2::Nan<vT>()),  stirling(nt2::Nan<vT>() ),  0.5);
+  NT2_TEST_ULP_EQUAL(stirling(nt2::Inf<vT>()),  nt2::Inf<vT>(), 0.5);
+  NT2_TEST_ULP_EQUAL(stirling(nt2::Minf<vT>()), nt2::Nan<vT>(), 0.5);
+  NT2_TEST_ULP_EQUAL(stirling(nt2::Nan<vT>()),  nt2::Nan<vT>(), 0.5);
 #endif
-  NT2_TEST_ULP_EQUAL(stirling(nt2::Mone<vT>()), stirling(nt2::Mone<vT>()), 0.5);
-  NT2_TEST_ULP_EQUAL(stirling(nt2::One<vT>()),  stirling(nt2::One<vT>() ),  0.5);
-  NT2_TEST_ULP_EQUAL(stirling(nt2::Zero<vT>()), stirling(nt2::Zero<vT>()), 0.5);
+  NT2_TEST_ULP_EQUAL(stirling(nt2::Mone<vT>()), nt2::Nan<vT>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nt2::round(stirling(nt2::One<vT>())), nt2::One<vT>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nt2::round(stirling(nt2::Two<vT>())), nt2::One<vT>(), 0.5);
 }

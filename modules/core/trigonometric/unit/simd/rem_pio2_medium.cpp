@@ -10,11 +10,13 @@
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/fusion/include/std_pair.hpp>
-#include <nt2/include/functions/splat.hpp>
+#include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/constants/pio_2.hpp>
 #include <nt2/include/constants/pio_4.hpp>
+#include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/half.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>

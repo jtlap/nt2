@@ -38,7 +38,7 @@ namespace nt2 { namespace tag
     T0 r = dawson(a0);
     @endcode
 
-    Computes  \f$ D(a_0)=e^{-x^2}\int_0^{a_0} e^{-t^2} \mbox{d}t\f$
+    Computes  \f$ D(a_0)=e^{-x^2}\int_0^{a_0} e^{t^2} \mbox{d}t\f$
 
     @param a0
 

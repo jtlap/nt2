@@ -26,11 +26,10 @@ NT2_TEST_CASE_TPL(dawson_0,  NT2_SIMD_REAL_TYPES)
 
   using nt2::unit::args;
   const std::size_t NR = args("samples", NT2_NB_RANDOM_TEST);
-  const double ulpd = args("ulpd",  2.5);
+  const double ulpd = args("ulpd",  8);
 
-  typedef typename nt2::meta::as_integer<vT>::type ivT;
-  const T min = args("min", T(-100));
-  const T max = args("max", T(100));
+  const T min = args("min", T(0));
+  const T max = args("max", T(3.25));
   std::cout << "Argument samples #0 chosen in range: [" << min << ",  " << max << "]" << std::endl;
   NT2_CREATE_BUF(a0,T, NR, min, max);
 
@@ -41,3 +40,5 @@ NT2_TEST_CASE_TPL(dawson_0,  NT2_SIMD_REAL_TYPES)
   NT2_COVER_ULP_EQUAL(nt2::tag::dawson_, ((vT, a0)), ref, ulpd);
 
 }
+
+
