@@ -8,8 +8,7 @@
 //==============================================================================
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/digamma.hpp>
-#include <nt2/include/constants/minlog.hpp>
-#include <nt2/include/constants/maxlog.hpp>
+#include <nt2/include/constants/smallestposval.hpp>
 
 #include <nt2/sdk/unit/exhaustive.hpp>
 
@@ -19,12 +18,12 @@
 #include <cmath>
 #include <cstdlib>
 #include <boost/math/special_functions/digamma.hpp>
-
+#include <nt2/sdk/error/policies.hpp>
 struct raw_digamma
 {
   float operator()(float x) const
   {
-    return float(boost::math::digamma(double(x)));
+    return float(boost::math::digamma(x, nt2::nt2_policy()));
   }
 };
 
@@ -32,8 +31,8 @@ int main(int argc, char* argv[])
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION             ext_t;
   typedef boost::simd::native<float,ext_t>           n_t;
-  float mini = -6.0f;
-  float maxi = 6.0f;
+  float mini = nt2::Smallestposval<float>();
+  float maxi = 30.0f;
   if(argc >= 2) mini = std::atof(argv[1]);
   if(argc >= 3) maxi = std::atof(argv[2]);
 

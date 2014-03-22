@@ -17,7 +17,7 @@ using nt2::tag::digamma_;
 
 namespace n1 {
   typedef float T;
-  NT2_TIMING(digamma_,(RS(T,T(-20),T(20))))
+  NT2_TIMING(digamma_,(RS(T,T(-40),T(40))))
 }
 namespace n2 {
   typedef double T;
@@ -33,7 +33,7 @@ namespace n4 {
 }
 namespace n5 {
   typedef float T;
-  NT2_TIMING(digamma_,(RS(T,T(2),T(10))))
+  NT2_TIMING(digamma_,(RS(T,T(2),T(20))))
 }
 namespace n6 {
   typedef double T;
@@ -41,7 +41,7 @@ namespace n6 {
 }
 namespace n7 {
   typedef float T;
-  NT2_TIMING(digamma_,(RS(T,T(10),T(20))))
+  NT2_TIMING(digamma_,(RS(T,T(20),T(40))))
 }
 namespace n8 {
   typedef double T;
