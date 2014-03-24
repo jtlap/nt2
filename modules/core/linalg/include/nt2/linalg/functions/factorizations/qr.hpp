@@ -43,7 +43,6 @@ namespace nt2 { namespace ext
     {
       nt2::container::table<nt2_la_int>  ip;
       nt2::container::table<type_t>      tau;
-      // ip = nt2::zeros(nt2::width(a0),1,nt2::meta::as_<nt2_la_int>());
       eval(a0, a1, tau, ip, N0(), N1());
     }
 
