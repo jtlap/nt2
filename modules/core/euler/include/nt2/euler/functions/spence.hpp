@@ -32,10 +32,10 @@ namespace nt2 { namespace tag
     For every parameter of floating type T0
 
     @code
-    T0 r = spence(x);
+    T0 r = spence(a0);
     @endcode
 
-    Computes \f$\mathop{\mbox{Li}_2}(x)=\int_1^{x} \frac{\log t}{t-1}\mbox{d}t\f$
+    Computes \f$\mathop{\mbox{Li}_2}(a_0)=\int_1^{x} \frac{\log t}{t-1}\mbox{d}t\f$
 
     @param a0 must be greater or equal zero
 

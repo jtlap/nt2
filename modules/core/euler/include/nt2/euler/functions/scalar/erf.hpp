@@ -10,7 +10,6 @@
 #define NT2_EULER_FUNCTIONS_SCALAR_ERF_HPP_INCLUDED
 
 #include <nt2/euler/functions/erf.hpp>
-#include <boost/simd/sdk/config.hpp>
 #include <nt2/euler/functions/details/erf_kernel.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/pi.hpp>
@@ -26,6 +25,8 @@
 #include <nt2/include/functions/scalar/sqr.hpp>
 #include <nt2/include/functions/scalar/sqrt.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
+
+#include <boost/simd/sdk/config.hpp>
 
 #ifndef BOOST_SIMD_NO_INVALIDS
 #include <nt2/include/functions/scalar/is_nan.hpp>

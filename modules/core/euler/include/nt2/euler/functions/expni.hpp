@@ -27,7 +27,8 @@ namespace nt2 { namespace tag
     Computes the exponential integral function
     @par Semantic:
 
-    For every parameters of floating types respectively T0, T1:
+    For every parameters of scalar integer type I0 and
+    floating type T1:
 
     @code
     T0 r = expni(a0,a1);
@@ -36,11 +37,11 @@ namespace nt2 { namespace tag
     Computes \f$ E_{a_0}(a_1)=\int_0^\infty \frac{e^{-a_1t}}{t^{a_0}} \mbox{d}t\f$
 
 
-    @param a0
+    @param a0 is a scalar positive integer
 
-    @param a1
+    @param a1 a floating value
 
-    @return a value of the same type as the parameter
+    @return a value of the same type as the second parameter
   **/
   NT2_FUNCTION_IMPLEMENTATION(tag::expni_, expni, 2)
 }

@@ -32,7 +32,7 @@ namespace nt2
   }
   /*!
     Computes Beta function :
-        \f$ B(a_0,a_1)=\int_0^1 t^{a_0-1}(1-t)^{a_1-1}\mbox{d}t\f$]
+        \f$ B(a_0,a_1)=\int_0^1 t^{a_0-1}(1-t)^{a_1-1}\mbox{d}t\f$
 
     @par Semantic:
 

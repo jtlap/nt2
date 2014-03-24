@@ -38,7 +38,7 @@ namespace nt2 { namespace tag
     T0 r = dgammainc(x, a);
     @endcode
 
-    Computes:  \f$ \mathop{\mbox{dgammainc}}(x, a)=\frac{x^{a-1}e^{-x}}{\gamma(x)}\f$
+    Computes:  \f$ \mathop{\mbox{dgammainc}}(x, a)=\frac{x^{a-1}e^{-x}}{\Gamma(x)}\f$
 
     @param a0
 

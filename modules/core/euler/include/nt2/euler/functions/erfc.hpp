@@ -44,7 +44,8 @@ namespace nt2 { namespace tag
     T0 r = one-erf(x);
     @endcode
 
-    @param a0
+  @see @funcref{erf}, @funcref{erfinv}, @funcref{erfcinv}
+  @param a0
 
     @return a value of the same type as the parameter
   **/

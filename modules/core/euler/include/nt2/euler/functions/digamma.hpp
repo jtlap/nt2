@@ -28,7 +28,7 @@ namespace nt2 { namespace tag
     };
   }
   /*!
-    Computes digamma function,  i.e. the logarithmic derivative of the \f$\gamma\f$ function
+    Computes digamma function,  i.e. the logarithmic derivative of the \f$\Gamma\f$ function
 
     @par Semantic:
 
@@ -38,7 +38,14 @@ namespace nt2 { namespace tag
     T0 r = digamma(x);
     @endcode
 
-    Computes:  \f$\Psi(a_0) = \frac{\Gamma^prime(x)}{\Gamma(x}\f$
+    Computes:  \f$\Digamma(a_0) = \frac{\Gamma^\prime(x)}{\Gamma(x}\f$
+
+    Note: The function is reliable for positive values, but can be inaccurate
+    at negative inputs around its poles that are the non-positives integers.
+
+    float version is as good as boost/math one, but the double version
+    is computed using double (!) and can be not so accurate than boost/math
+    which uses long double in these circumstances.
 
     @param a0
 
