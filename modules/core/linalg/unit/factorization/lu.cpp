@@ -85,5 +85,7 @@ NT2_TEST_CASE_TPL(singular_lu, NT2_REAL_TYPES )
   // Make it singular
   a(2,nt2::_) = T(0);
 
+  NT2_TEST_WARNING_EXCEPT_BEGIN()
   NT2_TEST_ASSERT(lu = nt2::lu(a));
+  NT2_TEST_WARNING_EXCEPT_END()
 }

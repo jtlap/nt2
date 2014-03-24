@@ -20,13 +20,18 @@
 
 #define NT2_ASSERTS_AS_FLEXIBLE_SOURCE
 #include <nt2/sdk/error/assert_as_flexible.hpp>
+
+#define NT2_WARNINGS_AS_FLEXIBLE_SOURCE
+#include <nt2/sdk/error/warning_as_flexible.hpp>
+
 #include <stdexcept>
 
 void float_control_debug();
 
 namespace nt2
 {
-  BOOST_SYMBOL_EXPORT assert_mode_t assert_mode;
+  BOOST_SYMBOL_EXPORT log_mode_t assert_mode;
+  BOOST_SYMBOL_EXPORT log_mode_t warning_mode;
 
   namespace details
   {
@@ -36,7 +41,8 @@ namespace nt2
       bool no_catch = false;
       bool float_debug = false;
 
-      assert_mode = ASSERT_EXCEPT;
+      assert_mode = LOG_EXCEPT;
+      warning_mode = LOG_PRINT;
 
       for(int i=1; i<argc; ++i)
       {
@@ -45,15 +51,15 @@ namespace nt2
         else if(!strcmp(argv[i], "--float-debug"))
           float_debug = true;
         else if(!strcmp(argv[i], "--assert-stackdump"))
-          assert_mode = assert_mode_t(ASSERT_LOG | ASSERT_STACKDUMP | ASSERT_ABORT);
+          assert_mode = log_mode_t(LOG_PRINT | LOG_STACKDUMP | LOG_ABORT);
         else if(!strcmp(argv[i], "--assert-abort"))
-          assert_mode = assert_mode_t(ASSERT_LOG | ASSERT_ABORT);
+          assert_mode = log_mode_t(LOG_PRINT | LOG_ABORT);
         else if(!strcmp(argv[i], "--assert-trap"))
-          assert_mode = assert_mode_t(ASSERT_LOG | ASSERT_TRAP);
+          assert_mode = log_mode_t(LOG_PRINT | LOG_TRAP);
         else if(!strcmp(argv[i], "--assert-log"))
-          assert_mode = assert_mode_t(ASSERT_LOG);
+          assert_mode = log_mode_t(LOG_PRINT);
         else if(!strcmp(argv[i], "--assert-ignore"))
-          assert_mode = assert_mode_t(ASSERT_IGNORE);
+          assert_mode = log_mode_t(LOG_IGNORE);
       }
 
       fill_args_map(argc,argv);

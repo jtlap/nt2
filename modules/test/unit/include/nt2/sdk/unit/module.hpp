@@ -31,6 +31,7 @@
 #include <nt2/sdk/unit/details/main.hpp>
 #include <nt2/sdk/error/throw_exception.hpp>
 #include <nt2/sdk/error/assert_as_flexible.hpp>
+#include <nt2/sdk/error/warning_as_flexible.hpp>
 #include <nt2/sdk/functor/site.hpp>
 #include <nt2/sdk/meta/type_id.hpp>
 #include <boost/preprocessor/cat.hpp>
