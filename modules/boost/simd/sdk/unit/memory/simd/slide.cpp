@@ -34,7 +34,7 @@ struct test_slide1
   U*  data;
 };
 
-template<typename T,typename U>
+template<typename T,typename U, int Card>
 struct test_slide2
 {
   test_slide2(T const& l_, T const& r_, U* d_) : l(l_), r(r_), data(d_) {}
@@ -44,7 +44,8 @@ struct test_slide2
     using boost::simd::load;
     using boost::simd::slide;
 
-    NT2_TEST_EQUAL( slide<I>(l,r), load<T>(&data[I]) );
+    int offset =  (I-Card >= 0) ? I-Card : I+Card;
+    NT2_TEST_EQUAL( slide<I-Card>(l,r), load<T>(&data[offset]) );
   }
 
   T   l,r;
@@ -92,16 +93,18 @@ NT2_TEST_CASE_TPL( binary_slide, BOOST_SIMD_SIMD_TYPES )
 
   static const std::size_t card = vT::static_size;
 
-  T data[2*card];
+  T data[3*card];
 
-  for(std::size_t i = 0;i<2*card;++i) data[i] = T(1+i);
+  for(std::size_t i = 0;i<card;++i) data[       i] = T(1+i);
+  for(std::size_t i = 0;i<card;++i) data[  card+i] = T(1+i+card);
+  for(std::size_t i = 0;i<card;++i) data[2*card+i] = T(1+i);
 
   typedef typename boost::dispatch::meta::call<slide_(vT, vT, int_<0>)>::type rT;
 
   NT2_TEST_TYPE_IS( rT, vT );
 
-  vT vl = load<vT>(&data[0]);
-  vT vr = load<vT>(&data[card]);
+  vT va = load<vT>(&data[0]);
+  vT vb = load<vT>(&data[card]);
 
-  boost::simd::meta::iterate< card+1 >( test_slide2<vT,T>(vl,vr,&data[0]));
+  boost::simd::meta::iterate< 2*card+1 >( test_slide2<vT,T,card>(va,vb,&data[0]));
 }

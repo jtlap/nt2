@@ -58,10 +58,24 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(A0 const& a0, A0 const& a1, N const&) const
     {
+      return side ( a0, a1
+                  , boost::mpl::bool_< (N::value>=0) >()
+                  );
+    }
+
+    BOOST_FORCEINLINE
+    result_type side(A0 const& a0, A0 const& a1, boost::mpl::true_ const&) const
+    {
       return eval ( a0, a1
                   , boost::mpl::bool_<N::value==0>()
                   , boost::mpl::bool_<N::value==A0::static_size>()
                   );
+    }
+
+    BOOST_FORCEINLINE
+    result_type side(A0 const& a0, A0 const& a1, boost::mpl::false_ const&) const
+    {
+      return slide<A0::static_size + N::value>(a1,a0);
     }
 
     BOOST_FORCEINLINE
