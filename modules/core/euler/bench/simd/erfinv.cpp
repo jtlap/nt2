@@ -10,7 +10,6 @@
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
@@ -20,13 +19,11 @@ using nt2::tag::erfinv_;
 
 namespace n1 {
   typedef float T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(erfinv_,(RS(vT,T(-1),T(1))))
 }
 namespace n2 {
   typedef double T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(erfinv_,(RS(vT,T(-1),T(1))))
 }

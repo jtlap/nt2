@@ -26,8 +26,8 @@ struct raw_erfcinv
 
 int main(int argc, char* argv[])
 {
-  float mini = -1.0f;
-  float maxi = 1.0f;
+  float mini = 0.0f;
+  float maxi = 2.0f;
   if(argc >= 2) mini = std::atof(argv[1]);
   if(argc >= 3) maxi = std::atof(argv[2]);
   nt2::exhaustive_test<float> ( mini
@@ -38,4 +38,6 @@ int main(int argc, char* argv[])
 
   return 0;
 }
+
+
 

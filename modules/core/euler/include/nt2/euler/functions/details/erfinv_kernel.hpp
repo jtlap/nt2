@@ -8,13 +8,15 @@
 //==============================================================================
 #ifndef NT2_EULER_FUNCTIONS_DETAILS_ERFINV_KERNEL_HPP_INCLUDED
 #define NT2_EULER_FUNCTIONS_DETAILS_ERFINV_KERNEL_HPP_INCLUDED
+#include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/plus.hpp>
 #include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/include/functions/scalar/polevl.hpp>
-#include <boost/array.hpp>
+
+#include <boost/dispatch/attributes.hpp>
 
 namespace nt2 { namespace details
 {
@@ -54,6 +56,22 @@ namespace nt2 { namespace details
                                         0x40354f7e) //   2.83297682f
                                       )> (w);
     }
+    static BOOST_FORCEINLINE A0 erfcinv2(const A0& w)
+    {
+      return NT2_HORNER_RAT(sA0, 5, 5, w,
+                            (0x3b3a8aee,
+                             0x3ba62c57,
+                             0xbc8bcf63,
+                             0x3c98e17c,
+                             0xbbaf8bfe
+                            ),
+                            (0x321631b2,
+                             0x3b3a73c1,
+                             0x3ba9025f,
+                             0xbc5d80aa,
+                             0x3c2f4022)
+                           );
+    }
   };
 
   template < class A0 >
@@ -63,6 +81,7 @@ namespace nt2 { namespace details
 
     static BOOST_FORCEINLINE A0 erfinv1(const A0& w)
     {
+// Please joël can you extend HORNER to degree 22 at least ?   (23 coefs here)
 //         return horner<NT2_HORNER_COEFF_T(sA0, 23,
 //                                          (0xbbb135d2e746e627ll,
 //                                           0xbc08ddf93324d327ll,
@@ -89,8 +108,6 @@ namespace nt2 { namespace details
 //                                           0x3ffa755e7c99ae86ll
 //                                          )
 //                                         )> (w);
-
-
 
       A0  p =  splat < A0>(-3.6444120640178196996e-21);
       p =   splat < A0>(-1.685059138182016589e-19) + p*w;

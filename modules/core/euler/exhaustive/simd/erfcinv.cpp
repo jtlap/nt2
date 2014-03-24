@@ -30,8 +30,8 @@ int main(int argc, char* argv[])
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION             ext_t;
   typedef boost::simd::native<float,ext_t>           n_t;
-  float mini = -1.0f;
-  float maxi = 1.0f;
+  float mini = 0.0f;
+  float maxi = 2.0f;
   if(argc >= 2) mini = std::atof(argv[1]);
   if(argc >= 3) maxi = std::atof(argv[2]);
 
@@ -43,3 +43,4 @@ int main(int argc, char* argv[])
 
   return 0;
 }
+
