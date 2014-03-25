@@ -38,7 +38,6 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef result_type type;
       if (is_eqz(a1)) return One<result_type>();
       result_type x = nt2::abs(a0);
       if (is_eqz(x)) return x;
