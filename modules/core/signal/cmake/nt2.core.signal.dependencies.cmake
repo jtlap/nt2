@@ -13,12 +13,11 @@ SET ( NT2_CORE.SIGNAL_DEPENDENCIES_EXTRA
       boost.simd.sdk
       boost.simd.swar
       core.adjacent
-      core.base
       core.exponential
       core.reduction
       core.restructuring
       core.sdk
       core.trigonometric
-      core.utility
+      core.base
       sdk.functor
     )

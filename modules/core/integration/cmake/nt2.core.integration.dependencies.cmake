@@ -13,6 +13,7 @@ SET ( NT2_CORE.INTEGRATION_DEPENDENCIES_EXTRA
       boost.simd.swar
       core.adjacent
       core.base
+      core.sdk
       core.container.table
       core.exponential
       core.generative
@@ -22,8 +23,6 @@ SET ( NT2_CORE.INTEGRATION_DEPENDENCIES_EXTRA
       core.reduction
       core.restructuring
       core.trigonometric
-      core.utility
-      sdk.dsl
       sdk.functor
       sdk.meta
       sdk.option

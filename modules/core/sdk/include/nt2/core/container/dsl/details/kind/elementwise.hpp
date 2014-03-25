@@ -15,13 +15,18 @@
 #include <boost/proto/detail/deduce_domain.hpp>
 #include <boost/proto/traits.hpp>
 
+namespace boost { namespace simd { namespace tag
+{
+  struct terminal_;
+} } }
+
 namespace nt2 { namespace ext
 {
   //============================================================================
   // default kind_of for 0-2 arity
   //============================================================================
   template<typename Domain, typename Expr>
-  struct kind_of<nt2::tag::terminal_, Domain, 0, Expr>
+  struct kind_of<boost::simd::tag::terminal_, Domain, 0, Expr>
   {
     typedef typename Expr::kind_type  type;
   };
