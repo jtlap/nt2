@@ -12,6 +12,7 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/size_as.hpp>
 #include <nt2/sdk/meta/value_as.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
@@ -39,6 +40,14 @@ namespace nt2 { namespace ext
   struct  size_of<tag::svd_,Domain,N,Expr>
         : meta::size_as<Expr,0>
   {};
+
+  template<class Domain, class Expr>
+  struct  value_type<tag::svd_,Domain,1,Expr>
+  {
+    typedef typename boost::proto::result_of::child_c<Expr&,0>::value_type child0;
+    typedef typename child0::value_type c_type;
+    typedef typename nt2::meta::as_real<c_type>::type  type;
+  };
 
   template<class Domain, int N, class Expr>
   struct  value_type<tag::svd_,Domain,N,Expr>

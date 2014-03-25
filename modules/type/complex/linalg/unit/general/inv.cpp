@@ -22,60 +22,52 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
-#include <nt2/include/constants/i.hpp>
 
-NT2_TEST_CASE_TPL(inv, NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL(inv_identity, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_complex<T>::type  cT;
   using nt2::inv;
-  using nt2::tag::inv_;
+
   nt2::table<cT> n = nt2::eye(10, 10, nt2::meta::as_<cT>());
   nt2::table<cT> invn = nt2::inv(n);
+
   NT2_TEST_ULP_EQUAL(invn, n, 0.5);
 }
 
-NT2_TEST_CASE_TPL(inv_1, NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL(inv_regular, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_complex<T>::type  cT;
   using nt2::inv;
-  using nt2::tag::inv_;
-  nt2::table<cT> n = nt2::eye(10, 10, nt2::meta::as_<cT>()), nn;
-  nn = n;
-  n(1, 1) = nt2::Eps<T>()*nt2::Half<cT>();
-  nn(1, 1) = nt2::rec(n(1, 1));
-  nt2::table<cT> invn = nt2::inv(n);
-  NT2_TEST_ULP_EQUAL(invn, nn, 0.5);
- }
-NT2_TEST_CASE_TPL(inv_2, NT2_REAL_TYPES)
-{
-  typedef typename nt2::meta::as_complex<T>::type  cT;
-  using nt2::inv;
-  using nt2::tag::inv_;
-  nt2::table<cT> n = nt2::eye(10, 8, nt2::meta::as_<cT>()), nn;
-  NT2_TEST_ASSERT(nt2::inv(n));
- }
-NT2_TEST_CASE_TPL(inv_nowarn, NT2_REAL_TYPES)
-{
-  typedef typename nt2::meta::as_complex<T>::type  cT;
-  using nt2::inv;
-  using nt2::tag::inv_;
-  nt2::table<cT> n = nt2::eye(10, 10, nt2::meta::as_<cT>()), nn;
-  nn = n;
-  n(1, 1) = nt2::Eps<T>()*nt2::Half<cT>();
-  nn(1, 1) = nt2::rec(n(1, 1));
-  nt2::table<cT> invn = nt2::inv(n);
-  NT2_TEST_ULP_EQUAL(invn, nn, 0.5);
- }
-NT2_TEST_CASE_TPL(inv_3, NT2_REAL_TYPES)
-{
-  typedef typename nt2::meta::as_complex<T>::type  cT;
-  using nt2::inv;
-  using nt2::tag::inv_;
+
   nt2::table<cT> a = nt2::cons(nt2::of_size(2, 2),
                                cT(1, 1), cT(1, -1),
                                cT(0, 1), cT(2));
+
   nt2::table<cT> inva = nt2::cons(nt2::of_size(2, 2),
                                   cT(1, -1), cT(0, 1),
                                   cT(-0.5, -0.5), cT(1));
+
   NT2_TEST_ULP_EQUAL(inva, inv(a), 0.5);
+}
+
+NT2_TEST_CASE_TPL(inv_singular, NT2_REAL_TYPES)
+{
+  typedef typename nt2::meta::as_complex<T>::type  cT;
+  using nt2::inv;
+  using nt2::tag::inv_;
+  nt2::table<cT> n = nt2::eye(10, 10, nt2::meta::as_<cT>()), nn;
+  nn = n;
+  n(1, 1) = nt2::Eps<T>()*nt2::Half<cT>();
+  nn(1, 1) = nt2::rec(n(1, 1));
+  nt2::table<cT> invn = nt2::inv(n);
+  NT2_TEST_ULP_EQUAL(invn, nn, 0.5);
+ }
+
+NT2_TEST_CASE_TPL(inv_non_square, NT2_REAL_TYPES)
+{
+  typedef typename nt2::meta::as_complex<T>::type  cT;
+  using nt2::inv;
+  using nt2::tag::inv_;
+  nt2::table<cT> n = nt2::eye(10, 8, nt2::meta::as_<cT>()), invn;
+  NT2_TEST_ASSERT(invn = nt2::inv(n));
  }
