@@ -46,7 +46,3 @@ NT2_TEST_CASE_TPL ( erfcinv_real, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(erfcinv(T(1.0e-8)), T( 4.052237243871390e+00), 10);
   NT2_TEST_ULP_EQUAL(erfcinv(T(1.0e-9)), T( 4.320005417e+00), 10);
 }
-
-
-
-

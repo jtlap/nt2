@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef NT2_EULER_FUNCTIONS_DETAILS_ERFINV_KERNEL_HPP_INCLUDED
 #define NT2_EULER_FUNCTIONS_DETAILS_ERFINV_KERNEL_HPP_INCLUDED
-#include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/plus.hpp>
 #include <nt2/include/functions/simd/splat.hpp>
