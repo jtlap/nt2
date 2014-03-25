@@ -41,8 +41,6 @@ namespace nt2
 #include <nt2/sdk/error/backtrace.hpp>
 #include <iostream>
 
-#warning warnings source
-
 namespace nt2
 {
   // INTERNAL ONLY

@@ -42,8 +42,6 @@ namespace nt2
 #include <boost/assert.hpp>
 #include <iostream>
 
-#warning asserts source
-
 namespace boost
 {
   // INTERNAL ONLY
