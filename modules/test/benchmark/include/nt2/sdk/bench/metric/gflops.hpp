@@ -35,7 +35,7 @@ namespace nt2 { namespace bench
                       ) const
     {
       unsigned long freq = get_cpu_freq();
-      double m = ( e.flops() * e.size() * (double)freq / (Stat::evaluate(c) * 1000000000. ));
+      double m = ( e.flops() * (double)freq / (Stat::evaluate(c) * 1000000000. ));
       details::measures_map[details::identify_result(name,e,*this)] = m;
       return m;
     }

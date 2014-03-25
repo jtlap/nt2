@@ -60,7 +60,7 @@ template<typename T> struct axpy_simd
   }
 
   std::size_t size() const { return size_; }
-  std::size_t flops() const { return 2; }
+  double flops() const { return 2.*size_; }
 
 private:
   T alpha;
