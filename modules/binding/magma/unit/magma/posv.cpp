@@ -30,10 +30,10 @@ using nt2::_;
 typedef nt2::table<T>         t_t;
 typedef nt2::table<nt2_la_int>       t_i;
 
-nt2_la_int n = 6000;
+nt2_la_int n = 2000;
 
-t_t a = nt2::rand(6000, 6000, nt2::meta::as_<T>());
-t_t b = nt2::rand(6000,1,nt2::meta::as_<T>() );
+t_t a = nt2::rand(2000, 2000, nt2::meta::as_<T>());
+t_t b = nt2::rand(2000,1,nt2::meta::as_<T>() );
 t_t x(b);
 
 a = a + nt2::transpose(a);
@@ -54,11 +54,11 @@ typedef std::complex<T>              cT;
 typedef nt2::table<cT>               t_t;
 typedef nt2::table<nt2_la_int>       t_i;
 
-nt2_la_int n = 6000;
+nt2_la_int n = 2000;
 
-t_t a = T(10)* nt2::ones (6000, 6000, nt2::meta::as_<cT>())
-           - T(4)*nt2::eye  (6000, 6000, nt2::meta::as_<cT>());
-t_t b = nt2::ones (6000, 1, nt2::meta::as_<cT>());
+t_t a = T(10)* nt2::ones (2000, 2000, nt2::meta::as_<cT>())
+           - T(4)*nt2::eye  (2000, 2000, nt2::meta::as_<cT>());
+t_t b = nt2::ones (2000, 1, nt2::meta::as_<cT>());
 t_t x(b);
 
 a = a + nt2::transpose(a);

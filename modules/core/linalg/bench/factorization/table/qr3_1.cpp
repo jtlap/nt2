@@ -7,56 +7,66 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/sdk/bench/benchmark.hpp>
+#define BOOST_ENABLE_ASSERT_HANDLER
+#define NT2_ENABLE_WARNING_HANDLER
 
 #include <nt2/table.hpp>
+#include <boost/fusion/include/at.hpp>
 #include <nt2/include/functions/qr.hpp>
 #include <nt2/include/functions/rand.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include "../../flops/qr.hpp"
 
-template<typename T> struct qr_3_1;
+#include <nt2/sdk/bench/benchmark.hpp>
+#include <nt2/sdk/bench/metric/gflops.hpp>
+#include <nt2/sdk/bench/protocol/max_duration.hpp>
+#include <nt2/sdk/bench/setup/geometric.hpp>
+#include <nt2/sdk/bench/setup/constant.hpp>
+#include <nt2/sdk/bench/setup/combination.hpp>
+#include <nt2/sdk/bench/stats/median.hpp>
 
-template<typename T> NT2_EXPERIMENT(qr_3_1< nt2::table<T> >)
+using namespace nt2::bench;
+using namespace nt2;
+
+template<typename T> struct qr3_1_nt2
 {
-  public:
-  qr_3_1( std::size_t h_, std::size_t w_)
-      : NT2_EXPRIMENT_CTOR(1.,"GFLOPS")
-      , h(h_), w(w_)
-  {}
+  qr3_1_nt2(std::size_t n)
+              :  size_(n)
+  {
+    Q = nt2::zeros(n,n, nt2::meta::as_<T>());
+    R = nt2::zeros(n,n, nt2::meta::as_<T>());
+    P = nt2::zeros(n,n, nt2::meta::as_<T>());
+    input  = nt2::rand(n,n, nt2::meta::as_<T>());
+  }
 
-  virtual void run() const
+  void operator()()
   {
     nt2::tie(Q,R,P) = nt2::qr(input);
   }
 
-  virtual double compute(nt2::benchmark_result_t const& r) const
+  friend std::ostream& operator<<(std::ostream& os, qr3_1_nt2<T> const& p)
   {
-    return ( (FLOPS_GEQRF(h,w) + FLOPS_ORGQR(h,w,k)) /r.second)/1000.;
+    return os << "(" << p.size() << ")";
   }
 
-  virtual void info(std::ostream& os) const
-  {
-    os << "(" << h << "x" << w << ")";
-  }
+  std::size_t size() const { return size_; }
+  std::size_t flops() const { return ( FLOPS_GEQRF(size_,size_)
+                                     + FLOPS_ORGQR(size_,size_,size_) )/size_; }
 
-  virtual void reset() const
-  {
-    k = std::min(h,w);
-    Q = nt2::zeros(h,w, nt2::meta::as_<T>());
-    R = nt2::zeros(h,w, nt2::meta::as_<T>());
-    input  = nt2::rand(h,w, nt2::meta::as_<T>());
-  }
-
-  private:
-  std::size_t   h,w;
-  mutable std::size_t k;
-  mutable nt2::table<T> input, Q,R, P;
+private:
+  std::size_t size_;
+  nt2::table<T> input, Q,R,P;
 };
 
-NT2_RUN_EXPERIMENT_TPL( qr_3_1, (nt2::table<float>)(nt2::table<double>), (4,4) );
-NT2_RUN_EXPERIMENT_TPL( qr_3_1, (nt2::table<float>)(nt2::table<double>), (63,65) );
-NT2_RUN_EXPERIMENT_TPL( qr_3_1, (nt2::table<float>)(nt2::table<double>), (1025,1025) );
-NT2_RUN_EXPERIMENT_TPL( qr_3_1, (nt2::table<float>)(nt2::table<double>), (2049,2049) );
+NT2_REGISTER_BENCHMARK_TPL( qr3_1_nt2, NT2_SIMD_REAL_TYPES )
+{
+  std::size_t size_min = args("size_min", 16);
+  std::size_t size_max = args("size_max", 4096);
+  std::size_t size_step = args("size_step", 10);
 
+  run_during_with< qr3_1_nt2<T> > ( 1.
+                                ,  geometric(size_min,size_max,size_step)
+                                , gflops<stats::median_>()
+                                );
+}

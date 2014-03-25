@@ -29,8 +29,8 @@ NT2_TEST_CASE_TPL(trf, (float) )
   typedef nt2::table<T>           t_t;
   typedef nt2::table<nt2_la_int>  i_t;
 
-  t_t in  = nt2::ones (6000, 6000, nt2::meta::as_<T>())
-          + T(10)*nt2::eye  (6000,6000, nt2::meta::as_<T>());
+  t_t in  = nt2::ones (2000, 2000, nt2::meta::as_<T>())
+          + T(10)*nt2::eye  (2000,2000, nt2::meta::as_<T>());
   t_t ref(in),l,u;
   i_t pv;
 
@@ -49,8 +49,8 @@ NT2_TEST_CASE_TPL(trfc, (float) )
   typedef nt2::table<cT>          t_t;
   typedef nt2::table<nt2_la_int>  i_t;
 
-  t_t in  = nt2::ones (6000, 6000, nt2::meta::as_<cT>())
-          + T(10)*nt2::eye  (6000,6000, nt2::meta::as_<cT>());
+  t_t in  = nt2::ones (2000, 2000, nt2::meta::as_<cT>())
+          + T(10)*nt2::eye  (2000,2000, nt2::meta::as_<cT>());
   t_t ref(in),l,u;
   i_t pv;
 

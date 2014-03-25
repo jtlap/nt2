@@ -30,8 +30,8 @@ using nt2::_;
 typedef nt2::table<T>         t_t;
 typedef nt2::table<nt2_la_int>       t_i;
 
-t_t a = nt2::rand(6000, 6000, nt2::meta::as_<T>());
-t_t b = nt2::rand(6000,1,nt2::meta::as_<T>() );
+t_t a = nt2::rand(2000, 2000, nt2::meta::as_<T>());
+t_t b = nt2::rand(2000,1,nt2::meta::as_<T>() );
 t_i ipiv;
 
 nt2_la_int p = 5;
@@ -49,8 +49,8 @@ using nt2::_;
 typedef nt2::table<T>         t_t;
 typedef nt2::table<nt2_la_int>       t_i;
 
-t_t a = nt2::rand(6000, 6000, nt2::meta::as_<T>());
-t_t b = nt2::rand(6000,1,nt2::meta::as_<T>() );
+t_t a = nt2::rand(2000, 2000, nt2::meta::as_<T>());
+t_t b = nt2::rand(2000,1,nt2::meta::as_<T>() );
 t_i ipiv;
 
 nt2_la_int p = 5;

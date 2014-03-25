@@ -7,7 +7,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/sdk/bench/benchmark.hpp>
+#define BOOST_ENABLE_ASSERT_HANDLER
+#define NT2_ENABLE_WARNING_HANDLER
+
 #include <nt2/sdk/magma/magma.hpp>
 
 #include <nt2/table.hpp>
@@ -16,57 +18,62 @@
 #include <nt2/include/functions/zeros.hpp>
 #include <magma.h>
 #include "../../flops/lu.hpp"
+#include <boost/fusion/include/at.hpp>
 
-template<typename T> struct lu_1;
+#include <nt2/sdk/bench/benchmark.hpp>
+#include <nt2/sdk/bench/metric/absolute_time.hpp>
+#include <nt2/sdk/bench/metric/gflops.hpp>
+#include <nt2/sdk/bench/protocol/max_duration.hpp>
+#include <nt2/sdk/bench/setup/geometric.hpp>
+#include <nt2/sdk/bench/setup/constant.hpp>
+#include <nt2/sdk/bench/setup/combination.hpp>
+#include <nt2/sdk/bench/stats/median.hpp>
 
-template<typename T> NT2_EXPERIMENT(lu_1< nt2::table<T> >)
+using namespace nt2::bench;
+using namespace nt2;
+
+template<typename T> struct lu_nt2
 {
-  public:
-  lu_1( std::size_t h_, std::size_t w_)
-      : NT2_EXPRIMENT_CTOR(1.,"GFLOPS")
-      , h(h_), w(w_)
-  {}
-
-  virtual void run() const
-  {
-    result = nt2::lu(input);
-  }
-
-  virtual double compute(nt2::benchmark_result_t const& r) const
-  {
-    return (FLOPS_GETRF(h,w)/r.second)/1000.;
-  }
-
-  virtual void info(std::ostream& os) const
-  {
-    os << "(" << h << "x" << w << ")";
-  }
-
-  virtual void reset() const
+  template<typename Setup>
+  lu_nt2(Setup const& s)
+              :  w(boost::fusion::at_c<1>(s))
+              ,  h(boost::fusion::at_c<0>(s))
   {
     result = nt2::zeros(h,w, nt2::meta::as_<T>());
     input  = nt2::rand(h,w, nt2::meta::as_<T>());
+    }
+
+  void operator()()
+  {
+  result = nt2::lu(input);
   }
 
-  private:
-  std::size_t   h,w;
-  mutable nt2::table<T> input, result;
+  friend std::ostream& operator<<(std::ostream& os, lu_nt2<T> const& p)
+  {
+    return os << "(" << p.size() << ")";
+  }
 
+  std::size_t size() const { return h*w; }
+  std::size_t flops() const {
+       return (FLOPS_GETRF(h,w)/size());
+  }
+
+private:
+  std::size_t w,h,nr;
+  nt2::table<T> input, result;
 };
 
+NT2_REGISTER_BENCHMARK_TPL( lu_nt2, (float)(double) )
+{
+  std::size_t size_min = args("size_min", 16);
+  std::size_t size_max = args("size_max", 4096);
+  std::size_t size_step = args("size_step", 10);
 
-// NT2_RUN_EXPERIMENT_TPL( lu_1, (nt2::table<float>), (1023,1025) );
-// NT2_RUN_EXPERIMENT_TPL( lu_1, (nt2::table<float>), (2047,2048) );
-// NT2_RUN_EXPERIMENT_TPL( lu_1, (nt2::table<float>), (4000,4000) );
-// NT2_RUN_EXPERIMENT_TPL( lu_1, (nt2::table<float>), (5000,5000) );
-// NT2_RUN_EXPERIMENT_TPL( lu_1, (nt2::table<float>), (6000,6000) );
-// NT2_RUN_EXPERIMENT_TPL( lu_1, (nt2::table<float>), (7000,7000) );
-// NT2_RUN_EXPERIMENT_TPL( lu_1, (nt2::table<float>), (8000,8000) );
-// NT2_RUN_EXPERIMENT_TPL( lu_1, (nt2::table<float>), (9000,9000) );
- NT2_RUN_EXPERIMENT_TPL( lu_1, (nt2::table<double>), (20000,20000) );
-// NT2_RUN_EXPERIMENT_TPL( lu_1, (nt2::table<float>), (10004,10004) );
+  run_during_with< lu_nt2<T> > ( 1.
+                                , and_( geometric(size_min,size_max,size_step)
+                                      , geometric(size_min,size_max,size_step)
+                                      )
+                                , gflops<stats::median_>()
+                                );
+}
 
-
- // NT2_RUN_EXPERIMENT_TPL( lu_1, (nt2::table<double>), (1023,1025) );
- // NT2_RUN_EXPERIMENT_TPL( lu_1, (nt2::table<double>), (2048,2048) );
- // NT2_RUN_EXPERIMENT_TPL( lu_1, (nt2::table<double>), (12000,12000) );
