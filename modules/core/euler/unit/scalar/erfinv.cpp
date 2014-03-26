@@ -46,7 +46,3 @@ NT2_TEST_CASE_TPL ( erfinv_real, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(erfinv(nt2::One<T>()),    nt2::Inf<T>()   , 2);
   NT2_TEST_ULP_EQUAL(erfinv(nt2::Mone <T>()),  nt2::Minf<T>()   , 2);
 }
-
-
-
-
