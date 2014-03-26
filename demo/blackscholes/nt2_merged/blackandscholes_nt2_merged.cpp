@@ -35,44 +35,6 @@
 using namespace nt2::bench;
 using namespace nt2;
 
-namespace nt2
-{
-  namespace tag
-  {
-    struct blackandscholes_ : ext::elementwise_<blackandscholes_> { typedef ext::elementwise_<blackandscholes_> parent; };
-  }
-  NT2_FUNCTION_IMPLEMENTATION(tag::blackandscholes_, blackandscholes, 5)
-
-  namespace ext
-  {
-    NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::blackandscholes_, tag::cpu_
-                              , (A0)(A1)(A2)(A3)(A4)
-                              , (generic_< arithmetic_<A0> >)
-                                (generic_< arithmetic_<A1> >)
-                                (generic_< arithmetic_<A2> >)
-                                (generic_< arithmetic_<A3> >)
-                                (generic_< arithmetic_<A4> >)
-                              )
-    {
-      typedef A0 result_type;
-      NT2_FUNCTOR_CALL(5)
-      {
-        A0 da   = nt2::sqrt(a2);
-        A0 tmp1 = nt2::log(a0/a1);
-        A0 tmp2 = nt2::sqr(a4);
-        A0 tmp4 = nt2::fma(tmp2,nt2::Half<A0>(),a3);
-        A0 tmp3 = (tmp4*a2)/(a4*da);
-        A0 ed   = nt2::exp(-a3*a2);
-        A0 d1   = tmp1 + tmp3;
-        A0 d2   = nt2::fnms(a4,da,d1);
-        A0 fd1  = nt2::fastnormcdf(d1);
-        A0 fd2  = nt2::fastnormcdf(d2);
-        return nt2::fnms(a1*ed, fd2, a0*fd1);
-      }
-    };
-  }
-}
-
 template<typename T> struct blackandscholes_nt2_merged
 {
   blackandscholes_nt2_merged(std::size_t n)
