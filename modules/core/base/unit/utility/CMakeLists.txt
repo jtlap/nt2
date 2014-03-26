@@ -27,7 +27,6 @@ SET( SOURCES
   max_extent.cpp
   nblines.cpp
   ndims.cpp
-  numel.cpp
   ofsameheight.cpp
   ofsamewidth.cpp
   of_size.cpp
