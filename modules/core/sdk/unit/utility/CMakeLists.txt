@@ -9,6 +9,8 @@
 
 SET( SOURCES
     numel.cpp
+    of_size.cpp
+    of_size_max.cpp
     max_extent.cpp
    )
 

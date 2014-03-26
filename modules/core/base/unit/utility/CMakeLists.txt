@@ -28,8 +28,6 @@ SET( SOURCES
   ndims.cpp
   ofsameheight.cpp
   ofsamewidth.cpp
-  of_size.cpp
-  of_size_max.cpp
   relative_index.cpp
   relative_size.cpp
   size.cpp
