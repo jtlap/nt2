@@ -19,6 +19,7 @@ SET ( NT2_CORE.BASE_DEPENDENCIES_EXTRA
       core.generative
       core.reduction
       core.restructuring
+      core.swar
       core.sdk
       sdk.config
       sdk.functor
