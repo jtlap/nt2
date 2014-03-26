@@ -66,8 +66,6 @@ namespace nt2 { namespace ext
     {
       A0 a00 = oneminus(a0);
       A0 w = -log(a0*(Two<A0>()-a0));
-      //   A0 w = - log(oneminus(a0)*oneplus(a0));
-
       if (BOOST_UNLIKELY(w == Inf<A0>()))
       {
         return signnz(a00)*w;
