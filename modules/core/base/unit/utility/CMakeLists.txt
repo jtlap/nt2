@@ -24,7 +24,6 @@ SET( SOURCES
   havesamesize.cpp
   length.cpp
   linesstride.cpp
-  max_extent.cpp
   nblines.cpp
   ndims.cpp
   ofsameheight.cpp

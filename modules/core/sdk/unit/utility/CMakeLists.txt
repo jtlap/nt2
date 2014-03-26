@@ -9,6 +9,7 @@
 
 SET( SOURCES
     numel.cpp
+    max_extent.cpp
    )
 
 nt2_module_add_tests(core.sdk.utility.unit ${SOURCES})
