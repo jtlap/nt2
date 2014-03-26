@@ -6,10 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_ASSIGN_HPP_INCLUDED
-#define NT2_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_ASSIGN_HPP_INCLUDED
+#ifndef NT2_MEMORY_FUNCTIONS_COMPLEX_GENERIC_ASSIGN_HPP_INCLUDED
+#define NT2_MEMORY_FUNCTIONS_COMPLEX_GENERIC_ASSIGN_HPP_INCLUDED
 
-#include <nt2/operator/functions/assign.hpp>
+#include <nt2/memory/functions/assign.hpp>
 #include <nt2/sdk/complex/hierarchy.hpp>
 #include <nt2/sdk/meta/real_of.hpp>
 #include <boost/type_traits/is_same.hpp>

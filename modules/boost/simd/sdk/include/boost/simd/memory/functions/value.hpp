@@ -9,8 +9,8 @@
 /*!
  * \file
 **/
-#ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_VALUE_HPP_INCLUDED
-#define BOOST_SIMD_OPERATOR_FUNCTIONS_VALUE_HPP_INCLUDED
+#ifndef BOOST_SIMD_MEMORY_FUNCTIONS_VALUE_HPP_INCLUDED
+#define BOOST_SIMD_MEMORY_FUNCTIONS_VALUE_HPP_INCLUDED
 
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>

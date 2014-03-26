@@ -6,10 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_OPERATOR_FUNCTIONS_CONTAINER_ASSIGN_HPP_INCLUDED
-#define NT2_OPERATOR_FUNCTIONS_CONTAINER_ASSIGN_HPP_INCLUDED
+#ifndef NT2_MEMORY_FUNCTIONS_CONTAINER_ASSIGN_HPP_INCLUDED
+#define NT2_MEMORY_FUNCTIONS_CONTAINER_ASSIGN_HPP_INCLUDED
 
-#include <nt2/operator/functions/assign.hpp>
+#include <nt2/memory/functions/assign.hpp>
 #include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/core/container/dsl/domain.hpp>
 #include <boost/proto/expr.hpp>

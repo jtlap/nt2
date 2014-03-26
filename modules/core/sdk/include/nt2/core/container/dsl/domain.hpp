@@ -15,7 +15,7 @@
 #include <nt2/core/container/view/view.hpp>
 #include <nt2/core/container/view/shared_view.hpp>
 #include <nt2/dsl/functions/run.hpp>
-#include <nt2/operator/functions/assign.hpp>
+#include <nt2/memory/functions/assign.hpp>
 #include <nt2/sdk/memory/container_ref.hpp>
 #include <nt2/sdk/memory/container_shared_ref.hpp>
 #include <boost/proto/domain.hpp>

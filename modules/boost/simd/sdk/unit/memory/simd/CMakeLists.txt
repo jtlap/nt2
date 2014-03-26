@@ -20,6 +20,7 @@ SET( SOURCES
   store.cpp
   scatter.cpp
   slide.cpp
+  value.cpp
   )
 
 nt2_module_add_tests(boost.simd.sdk.memory.simd.unit ${SOURCES})

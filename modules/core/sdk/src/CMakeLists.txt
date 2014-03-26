@@ -28,6 +28,14 @@ nt2_module_postconfigure(gather_includes ---ignore details --ignore preprocessed
                         )
 
 nt2_module_postconfigure(gather_includes ---ignore details --ignore preprocessed
+                                         nt2/memory/functions boost/simd/memory/functions
+                                         --out  nt2/memory/include/functions
+                                          nt2/memory/include/functions
+                                         --out  nt2/memory/functions.hpp
+                                         --out  nt2/include/functions
+                        )
+
+nt2_module_postconfigure(gather_includes ---ignore details --ignore preprocessed
                                          --max 1 nt2/core/functions
                                          nt2/core/functions/generic nt2/core/functions/scalar
                                          --out nt2/core/include/functions/scalar

@@ -9,6 +9,7 @@
 
 set( SOURCES
     extract.cpp
+    value.cpp
    )
 
 nt2_module_add_tests(type.complex.sdk.memory.scalar.unit ${SOURCES})

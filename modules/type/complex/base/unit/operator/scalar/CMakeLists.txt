@@ -22,7 +22,6 @@ set( SOURCES
     plus.cpp
     real.cpp
     sqrti.cpp
-    value.cpp
     unary_minus.cpp
    )
 

@@ -34,7 +34,6 @@ SET(SOURCES
     splat.cpp
     unary_minus.cpp
     unary_plus.cpp
-    value.cpp
     )
 
 nt2_module_add_tests(boost.simd.base.operator.scalar.unit ${SOURCES})

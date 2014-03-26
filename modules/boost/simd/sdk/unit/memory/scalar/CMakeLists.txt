@@ -16,6 +16,7 @@ SET( SOURCES
   load.cpp
   store.cpp
   slide.cpp
+  value.cpp
   )
 
 nt2_module_add_tests(boost.simd.sdk.memory.scalar.unit ${SOURCES})
