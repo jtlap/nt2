@@ -32,7 +32,7 @@ NT2_TEST_CASE_TPL(stirling_0,  NT2_SIMD_REAL_TYPES)
 
   std::vector<T> ref(NR);
   for(std::size_t i=0; i!=NR; ++i)
-    ref[i] = nt2::stirling(a0[i]);
+    ref[i] = nt2::stirling(double(a0[i]));
 
   NT2_COVER_ULP_EQUAL(nt2::tag::stirling_, ((T, a0)), ref, ulpd);
 

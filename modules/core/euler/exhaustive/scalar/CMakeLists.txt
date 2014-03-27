@@ -14,6 +14,7 @@ SET(SOURCES
     spence.cpp
     stirling.cpp
     digamma.cpp
+    gamma.cpp
    )
 
 nt2_module_add_tests(core.euler.scalar.exhaustive ${SOURCES})
