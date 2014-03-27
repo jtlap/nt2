@@ -14,7 +14,6 @@ SET ( NT2_CORE.BASE_DEPENDENCIES_EXTRA
       core.adjacent
       core.container.placeholders
       core.container.table
-      core.generative
       core.reduction
       core.restructuring
       core.sdk
