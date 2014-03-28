@@ -13,17 +13,29 @@
 #include <boost/simd/bitwise/functions/bitwise_andnot.hpp>
 #include <boost/simd/include/functions/simd/bitwise_and.hpp>
 #include <boost/simd/include/functions/simd/complement.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/mpl/equal_to.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_andnot_
+                                   , tag::cpu_, (A0)(X)
+                                   , ((simd_<arithmetic_<A0>,X>))
+                                     ((simd_<arithmetic_<A0>,X>))
+                                   )
+  {
+    typedef A0 result_type;
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      return bitwise_and(a0, complement(a1));
+    }
+  };
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::bitwise_andnot_
                                        , tag::cpu_, (A0)(A1)(X)
-                                       , (boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
-                                                               , boost::simd::meta::cardinal_of<A1>
-                                                               >
-                                         )
+                                       , (boost::mpl::not_ < is_same<A0, A1> >)
                                        , ((simd_<arithmetic_<A0>,X>))
                                          ((simd_<arithmetic_<A1>,X>))
                                        )
@@ -31,7 +43,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return bitwise_and(a0,complement(a1));
+      return bitwise_andnot(a0, bitwise_cast<A0>(a1));
     }
   };
 } } }
