@@ -53,7 +53,7 @@ namespace boost { namespace simd { namespace ext
           unproxy< typename boost::remove_reference<_A##n>::type >::type      \
   b##n##_t;                                                                   \
   /**/
-  #define M3(z,n,t) b##n##_t const&
+  #define M3(z,n,t) b##n##_t
   /**/
   #define M4(z,n,t) boost::dispatch::unproxy(a##n)
   /**/
