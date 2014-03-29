@@ -11,7 +11,7 @@
 #define BOOST_SIMD_BITWISE_FUNCTIONS_SIMD_COMMON_BITWISE_NOTOR_HPP_INCLUDED
 
 #include <boost/simd/bitwise/functions/bitwise_notor.hpp>
-#include <boost/simd/include/functions/simd/bitwise_and.hpp>
+#include <boost/simd/include/functions/simd/bitwise_or.hpp>
 #include <boost/simd/include/functions/simd/complement.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return bitwise_and(complement(a0), a1);
+      return bitwise_or(complement(a0), a1);
     }
   };
 
