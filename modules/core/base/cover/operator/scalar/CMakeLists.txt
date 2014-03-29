@@ -11,7 +11,6 @@
 SET( SOURCES
   unary_plus.cpp
   unary_minus.cpp
-  splat.cpp
   shift_right.cpp
   shift_left.cpp
   plus.cpp

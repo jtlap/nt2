@@ -16,6 +16,7 @@ SET( SOURCES
   load.cpp
   store.cpp
   slide.cpp
+  splat.cpp
   value.cpp
   )
 

@@ -31,7 +31,6 @@ SET(SOURCES
     plus.cpp
     shift_left.cpp
     shift_right.cpp
-    splat.cpp
     unary_minus.cpp
     unary_plus.cpp
     )

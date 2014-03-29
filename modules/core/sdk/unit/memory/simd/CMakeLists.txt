@@ -8,21 +8,8 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)
-
 SET( SOURCES
-  array_buffer.cpp
-  array_buffer_non_pod.cpp
-  buffer.cpp
-  buffer_non_pod.cpp
-  composite_buffer.cpp
-  composite_reference.cpp
-  container.cpp
-  container_non_pod.cpp
-  composite_container.cpp
-  fixed_allocator.cpp
-## List of scalar test files for toolbox core.memory
+  splat.cpp
    )
 
-nt2_module_add_tests(core.sdk.memory.unit ${SOURCES})
+nt2_module_add_tests(core.sdk.memory.simd.unit ${SOURCES})

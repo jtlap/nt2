@@ -16,10 +16,15 @@ SET( SOURCES
   aligned_scatter.cpp
   stream.cpp
   load.cpp
-  gather.cpp
   store.cpp
+  extract.cpp
+  gather.cpp
+  insert.cpp
+  load.cpp
+  make.cpp
   scatter.cpp
   slide.cpp
+  splat.cpp
   value.cpp
   )
 

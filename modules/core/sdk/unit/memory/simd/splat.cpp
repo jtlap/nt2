@@ -7,10 +7,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <boost/simd/operator/include/functions/splat.hpp>
+#include <nt2/memory/include/functions/splat.hpp>
 
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
+#include <nt2/include/native.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -22,8 +22,8 @@
 
 NT2_TEST_CASE_TPL ( splat,  BOOST_SIMD_SIMD_TYPES)
 {
-  using boost::simd::splat;
-  using boost::simd::tag::splat_;
+  using nt2::splat;
+  using nt2::tag::splat_;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -39,8 +39,8 @@ NT2_TEST_CASE_TPL ( splat,  BOOST_SIMD_SIMD_TYPES)
 
 NT2_TEST_CASE_TPL ( splat_id,  BOOST_SIMD_SIMD_TYPES)
 {
-  using boost::simd::splat;
-  using boost::simd::tag::splat_;
+  using nt2::splat;
+  using nt2::tag::splat_;
   using boost::simd::native;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -55,8 +55,8 @@ NT2_TEST_CASE_TPL ( splat_id,  BOOST_SIMD_SIMD_TYPES)
 
 NT2_TEST_CASE_TPL ( far_too_big_splat,  BOOST_SIMD_SIMD_TYPES)
 {
-  using boost::simd::splat;
-  using boost::simd::tag::splat_;
+  using nt2::splat;
+  using nt2::tag::splat_;
   using boost::simd::meta::vector_of;
   using boost::simd::meta::cardinal_of;
 
@@ -72,13 +72,13 @@ NT2_TEST_CASE_TPL ( far_too_big_splat,  BOOST_SIMD_SIMD_TYPES)
 
 NT2_TEST_CASE_TPL ( bool_test,  BOOST_SIMD_SIMD_TYPES)
 {
-  using boost::simd::splat;
-  using boost::simd::tag::splat_;
+  using nt2::splat;
+  using nt2::tag::splat_;
   using boost::simd::meta::cardinal_of;
   using boost::simd::native;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::simd::meta::as_logical<T>::type lT;
+  typedef typename nt2::meta::as_logical<T>::type lT;
   typedef native<lT,ext_t>               vT;
   typedef typename boost::dispatch::meta::call<splat_(lT, boost::dispatch::meta::as_<vT>)>::type r_t;
 
