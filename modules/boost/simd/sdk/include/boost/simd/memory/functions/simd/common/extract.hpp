@@ -54,7 +54,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 a1) const
     {
       typedef typename meta::scalar_of<typename A0::type>::type type;
-      return result_type(extract(typename A0::type(a0()), a1));
+      return result_type(extract(bitwise_cast<typename A0::type>(a0), a1));
     }
   };
 
