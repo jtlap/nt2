@@ -75,6 +75,22 @@ namespace boost { namespace simd
                                   )>::type          callee;
     return callee(ptr,boost::dispatch::meta::as_<Type>());
   }
+
+  /// @overload for mask
+  template<typename Type,typename Pointer,typename Offset,typename Old,typename Mask>
+  BOOST_FORCEINLINE Type
+  load(Pointer const& ptr, Offset const& offset, Old const& old, Mask const& mask)
+  {
+    typename  boost::dispatch::meta
+            ::dispatch_call<tag::load_
+                                  ( Pointer const&
+                                  , Offset const&
+                                  , boost::dispatch::meta::as_<Type> const
+                                  , Old const&
+                                  , Mask const&
+                                  )>::type          callee;
+    return callee(ptr,offset,boost::dispatch::meta::as_<Type>(),old,mask);
+  }
 } }
 
 #endif
