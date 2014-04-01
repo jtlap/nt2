@@ -8,8 +8,6 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 
-#define BOOST_ENABLE_ASSERT_HANDLER
-#define NT2_ENABLE_WARNING_HANDLER
 
 #include <nt2/table.hpp>
 #include <boost/fusion/include/at.hpp>

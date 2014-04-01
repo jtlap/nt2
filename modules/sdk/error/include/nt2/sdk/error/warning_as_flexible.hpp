@@ -27,10 +27,6 @@ namespace nt2
 #endif
 }
 
-#if !defined(NT2_WARNINGS_AS_FLEXIBLE_SOURCE) && !defined(NT2_ENABLE_WARNING_HANDLER)
-#error NT2_ENABLE_WARNING_HANDLER must be defined to use NT2_WARNINGS_AS_FLEXIBLE
-#endif
-
 #if defined(NT2_WARNINGS_AS_FLEXIBLE_SOURCE) && defined(BOOST_NO_EXCEPTIONS)
 #error Exceptions must be enabled to use NT2_WARNINGS_AS_FLEXIBLE
 #endif

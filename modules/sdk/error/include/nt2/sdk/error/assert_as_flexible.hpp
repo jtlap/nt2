@@ -27,10 +27,6 @@ namespace nt2
 #endif
 }
 
-#if !defined(NT2_ASSERTS_AS_FLEXIBLE_SOURCE) && !defined(BOOST_ENABLE_ASSERT_HANDLER)
-#error BOOST_ENABLE_ASSERT_HANDLER must be defined to use NT2_ASSERTS_AS_FLEXIBLE
-#endif
-
 #if defined(NT2_ASSERTS_AS_FLEXIBLE_SOURCE) && defined(BOOST_NO_EXCEPTIONS)
 #error Exceptions must be enabled to use NT2_ASSERTS_AS_FLEXIBLE
 #endif

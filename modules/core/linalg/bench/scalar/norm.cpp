@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define BOOST_ENABLE_ASSERT_HANDLER
-#define NT2_ENABLE_WARNING_HANDLER
 
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/unit/details/prng.hpp>
