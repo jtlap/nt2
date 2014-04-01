@@ -70,3 +70,23 @@ NT2_TEST_CASE( store_sequence )
   NT2_TEST_EQUAL(boost::fusion::at_c<1>(v) , sf);
   NT2_TEST_EQUAL(boost::fusion::at_c<2>(v) , sc);
 }
+
+NT2_TEST_CASE_TPL( mask_store ,  BOOST_SIMD_SIMD_TYPES)
+{
+  using boost::simd::logical;
+  logical<T> mask = logical<T>(1);
+  mask_store_runner< T, T, logical<T> >(mask);
+
+  mask = logical<T>(0);
+  mask_store_runner< T, T, logical<T> >(mask);
+}
+
+NT2_TEST_CASE_TPL( mask_store_offset ,  BOOST_SIMD_SIMD_TYPES)
+{
+  using boost::simd::logical;
+  logical<T> mask = logical<T>(1);
+  mask_store_runner< T, T, logical<T> >(mask, true);
+
+  mask = logical<T>(0);
+  mask_store_runner< T, T, logical<T> >(mask, true);
+}
