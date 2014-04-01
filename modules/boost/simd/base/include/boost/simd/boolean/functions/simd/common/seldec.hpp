@@ -14,6 +14,7 @@
 #include <boost/simd/include/functions/simd/genmask.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/selsub.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/dispatch/attributes.hpp>
 
@@ -28,7 +29,7 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return a1 + genmask(a0);
+      return a1 + bitwise_cast<A1>(genmask(a0));
     }
   };
 
