@@ -100,7 +100,6 @@ namespace nt2 { namespace ext
                 ) const
     {
       nt2_la_int info;
-      typedef typename meta::concrete<A0>::type  c_t;
 
       if( nt2::issquare(boost::proto::child_c<0>(a0)) )
       {
