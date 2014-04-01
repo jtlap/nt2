@@ -23,4 +23,15 @@ namespace n2 {
   typedef double T;
   NT2_TIMING(pow_,(RS(T,T(0),T(10)))(RS(T,T(0),T(10))))
 }
+namespace n3 {
+  typedef float T;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(pow_,(RS(T,T(0),T(10)))(RS(iT,iT(-10),iT(10))))
+}
+namespace n4 {
+  typedef double T;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(pow_,(RS(T,T(0),T(10)))(RS(iT,iT(-10),iT(10))))
+}
+
 #undef RS

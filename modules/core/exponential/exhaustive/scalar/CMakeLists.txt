@@ -19,7 +19,7 @@ SET(SOURCES
   log2.cpp
   log.cpp
 #  nthroot.cpp
-#  pow.cpp
+  pow.cpp
   sqrt1pm1.cpp
    )
 
