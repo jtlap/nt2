@@ -114,7 +114,7 @@ namespace nt2 { namespace ext
       z = details::pow_kernel<A0>::pow2(Wb)*Wb; //
       i = (e/Sixteen<iA0>()) + (e>=0);
       e = fms(i, Sixteen<iA0>(), e);
-      w =  details::pow_kernel<A0>::Twomio16(e);
+      w =  details::pow_kernel<A0>::twomio16(e);
       z = fma(w, z, w);
       z = ldexp( z, i );
       return  (ltza0 && nt2::is_odd(a1)) ? -z : z;

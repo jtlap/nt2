@@ -90,10 +90,10 @@ namespace nt2 { namespace ext
       bA0 allz = l_and(is_eqz(a0), is_eqz(a1));
 
       typedef typename meta::as_integer<A0>::type iA0;
-      typedef typename boost::mpl::false_     is_simd;
+//      typedef typename boost::mpl::false_     is_simd;
       iA0 e;
       A0 x = frexp( nt2::abs(a0), e );
-      iA0 i  = details::pow_kernel<A0>::select(x, is_simd());
+      iA0 i  = details::pow_kernel<A0>::select(x); //, is_simd());
       A0 z = sqr(x);
       A0 w = details::pow_kernel<A0>::pow1(x, z);
       w = fma(Mhalf<A0>(), z, w);
@@ -127,7 +127,7 @@ namespace nt2 { namespace ext
       z = details::pow_kernel<A0>::pow2(Wb)*Wb; //
       i = selinc(is_gtz(e), (e/Sixteen<iA0>()));
       e = (i*Sixteen<iA0>()) - e;
-      w =  details::pow_kernel<A0>::Twomio16(e, is_simd());
+      w =  details::pow_kernel<A0>::twomio16(e); //, is_simd());
       z = fma(w, z, w);      //   2**-e * ( 1 + (2**Wb-1) )
       z = ldexp( z, i );  //   multiply by integer power of 2
 
