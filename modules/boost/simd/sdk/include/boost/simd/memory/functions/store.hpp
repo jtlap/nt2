@@ -73,6 +73,20 @@ namespace boost { namespace simd
                                         )>::type          callee;
     callee(val, ptr);
   }
+
+  /// @overload for mask
+  template<typename Value, typename Pointer, typename Offset, typename Mask>
+  BOOST_FORCEINLINE void
+  store(Value const& val, Pointer const& ptr, Offset const& offset, Mask const& mask)
+  {
+    typename  boost::dispatch::meta
+            ::dispatch_call<tag::store_ ( Value const&
+                                        , Pointer const&
+                                        , Offset const&
+                                        , Mask const&
+                                        )>::type          callee;
+    callee(val, ptr, offset, mask);
+  }
 } }
 
 #endif
