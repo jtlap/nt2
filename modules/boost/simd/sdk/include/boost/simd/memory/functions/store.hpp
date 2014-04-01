@@ -74,7 +74,7 @@ namespace boost { namespace simd
     callee(val, ptr);
   }
 
-  /// @overload for mask
+  /// @overload for mask scatter
   template<typename Value, typename Pointer, typename Offset, typename Mask>
   BOOST_FORCEINLINE void
   store(Value const& val, Pointer const& ptr, Offset const& offset, Mask const& mask)
