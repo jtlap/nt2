@@ -37,7 +37,7 @@ NT2_TEST_CASE_TPL(sne, NT2_REAL_TYPES )
   t_t s1 = nt2::sne(a,b);
   t_t s2 = nt2::linsolve(a,b);
 
-  NT2_TEST_ULP_EQUAL(s1(_(1,n)), s2(_(1,n)), T(100));
+  NT2_TEST_ULP_EQUAL(s1(_(1,n)), s2(_(1,n)), T(150));
 }
 
 

@@ -45,7 +45,7 @@ NT2_TEST_CASE_TPL(gesvd, NT2_REAL_TYPES )
                               ,boost::proto::value(u), boost::proto::value(vt)
                               ,jobu,jobvt);
 
-  NT2_TEST_ULP_EQUAL(nt2::mtimes(nt2::mtimes(u,nt2::from_diag(s)),vt), a,T(200));
+  NT2_TEST_ULP_EQUAL(nt2::mtimes(nt2::mtimes(u,nt2::from_diag(s)),vt), a,T(450));
 
   NT2_TEST_EQUAL(info, 0);
 

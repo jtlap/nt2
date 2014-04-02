@@ -30,7 +30,7 @@ NT2_TEST_CASE_TPL(inv, NT2_REAL_TYPES)
 
   NT2_TEST_ULP_EQUAL( (nt2::mtimes(invn, n))
                     , nt2::eye(10, 10, nt2::meta::as_<T>())
-                    , 8
+                    , 15
                     );
 
   nt2::table<T> invn2 = nt2::zeros(10,10, nt2::meta::as_<T>());
