@@ -6,10 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_SCALAR_MAKE_HPP_INCLUDED
-#define BOOST_SIMD_OPERATOR_FUNCTIONS_SCALAR_MAKE_HPP_INCLUDED
+#ifndef BOOST_SIMD_MEMORY_FUNCTIONS_SCALAR_MAKE_HPP_INCLUDED
+#define BOOST_SIMD_MEMORY_FUNCTIONS_SCALAR_MAKE_HPP_INCLUDED
 
-#include <boost/simd/operator/functions/make.hpp>
+#include <boost/simd/memory/functions/make.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/dispatch/meta/as.hpp>
 

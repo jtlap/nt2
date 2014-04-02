@@ -20,7 +20,6 @@ SET( SOURCES
   modulo.cpp
   minus.cpp
 #  map.cpp
-#  make.cpp
   logical_or.cpp
   logical_not.cpp
   logical_and.cpp

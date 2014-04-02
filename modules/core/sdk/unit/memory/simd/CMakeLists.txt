@@ -8,8 +8,9 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-SET( SOURCES
-  splat.cpp
-   )
+SET ( SOURCES
+      splat.cpp
+      make.cpp
+    )
 
 nt2_module_add_tests(core.sdk.memory.simd.unit ${SOURCES})

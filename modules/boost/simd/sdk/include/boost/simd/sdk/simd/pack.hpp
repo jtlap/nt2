@@ -18,7 +18,6 @@
 #include <boost/simd/sdk/simd/pack/call.hpp>
 #include <boost/simd/sdk/simd/pack/domain.hpp>
 #include <boost/simd/sdk/simd/pack/pack.hpp>
-#include <boost/simd/sdk/simd/pack/make.hpp>
 #include <boost/simd/sdk/simd/pack/io.hpp>
 
 #endif

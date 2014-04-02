@@ -1,19 +1,18 @@
 //==============================================================================
 //         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2009 - 2014   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2014   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <boost/simd/operator/include/functions/make.hpp>
+#include <nt2/memory/include/functions/make.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
-
-
 
 template<class T> T fibo(std::size_t n)
 {
@@ -30,7 +29,7 @@ struct make_fibo<T, n>                                                         \
   typedef boost::simd::native<T, BOOST_SIMD_DEFAULT_EXTENSION> type;           \
   static type call()                                                           \
   {                                                                            \
-    return boost::simd::make<type>(BOOST_PP_ENUM(n, M1, ~));                   \
+    return nt2::make<type>(BOOST_PP_ENUM(n, M1, ~));                           \
   }                                                                            \
 };                                                                             \
 /**/

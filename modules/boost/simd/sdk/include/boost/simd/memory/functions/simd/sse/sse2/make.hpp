@@ -6,11 +6,11 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_MAKE_HPP_INCLUDED
-#define BOOST_SIMD_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_MAKE_HPP_INCLUDED
+#ifndef BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_SSE_SSE2_MAKE_HPP_INCLUDED
+#define BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_SSE_SSE2_MAKE_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
-#include <boost/simd/operator/functions/make.hpp>
+#include <boost/simd/memory/functions/make.hpp>
 #include <boost/simd/operator/functions/simd/details/make_helper.hpp>
 #include <boost/dispatch/attributes.hpp>
 

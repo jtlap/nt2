@@ -17,7 +17,6 @@ SET( SOURCES
   multiplies.cpp
   modulo.cpp
   minus.cpp
-#  make.cpp
   logical_or.cpp
   logical_not.cpp
   logical_and.cpp

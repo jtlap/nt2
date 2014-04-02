@@ -10,7 +10,6 @@
 SET( SOURCES
   unary_plus.cpp
   map.cpp
-#  make.cpp
   if_else.cpp
   is_less_equal.cpp
   is_less.cpp

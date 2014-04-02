@@ -8,15 +8,10 @@
 ################################################################################
 
 SET( SOURCES
-  extract.cpp
-  insert.cpp
-  aligned_load.cpp
   aligned_gather.cpp
-  aligned_store.cpp
+  aligned_load.cpp
   aligned_scatter.cpp
-  stream.cpp
-  load.cpp
-  store.cpp
+  aligned_store.cpp
   extract.cpp
   gather.cpp
   insert.cpp
@@ -25,6 +20,8 @@ SET( SOURCES
   scatter.cpp
   slide.cpp
   splat.cpp
+  store.cpp
+  stream.cpp
   value.cpp
   )
 

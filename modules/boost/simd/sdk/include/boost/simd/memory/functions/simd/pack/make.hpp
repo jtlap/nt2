@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_SDK_SIMD_PACK_MAKE_HPP_INCLUDED
-#define BOOST_SIMD_SDK_SIMD_PACK_MAKE_HPP_INCLUDED
+#ifndef BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_PACK_MAKE_HPP_INCLUDED
+#define BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_PACK_MAKE_HPP_INCLUDED
 
 #include <boost/simd/include/functions/make.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
