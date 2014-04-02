@@ -10,6 +10,7 @@
 SET( SOURCES
   expx2.cpp
   pow.cpp
+  pow_abs.cpp
   nthroot.cpp
   log2.cpp
   log1p.cpp

@@ -43,6 +43,7 @@ NT2_TEST_CASE_TPL ( pow,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(pow(nt2::Inf<T>(), nt2::Inf<T>()), nt2::Inf<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(pow(nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(pow(nt2::Minf<T>(), nt2::Minf<T>()), nt2::Nan<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(pow(nt2::Inf<T>(), nt2::Minf<T>()), nt2::Zero<r_t>(), 0);
 #endif
   NT2_TEST_ULP_EQUAL(pow(T(-1),T(6)), T(1), 0);
   NT2_TEST_ULP_EQUAL(pow(nt2::Mone<T>(), nt2::Mone<T>()), nt2::Mone<r_t>(), 0);
