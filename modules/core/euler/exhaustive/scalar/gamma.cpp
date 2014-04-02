@@ -16,12 +16,13 @@
 #include <cmath>
 #include <cstdlib>
 
+extern "C" { double cephes_gamma(double x); }
 
 struct raw_gamma
 {
   float operator()(float x) const
   {
-    return nt2::gamma(double(x));
+    return ::cephes_gamma(double(x));
   }
 };
 
