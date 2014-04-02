@@ -10,12 +10,15 @@
 #define NT2_SDK_META_POLICY_HPP_INCLUDED
 
 #include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace nt2
 {
   template<typename Option>
   struct policy : boost::dispatch::meta::unspecified_< policy<Option> >
   {
+    BOOST_FORCEINLINE policy() {}
+
     typedef boost::dispatch::meta::unspecified_< policy<Option> > parent;
     typedef Option                                                option_type;
 
