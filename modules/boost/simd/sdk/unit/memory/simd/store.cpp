@@ -14,6 +14,10 @@
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/sdk/meta/as_arithmetic.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/splat.hpp>
+#include <boost/simd/sdk/simd/meta/vector_of.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -38,6 +42,9 @@
 #include "../common/foo.hpp"
 #include "fill.hpp"
 
+#include <stdlib.h>
+#include <time.h>
+
 #define NT2_TEST_STORE(r, data, elem) BOOST_PP_CAT(nt2_test_run_, data)<T, elem>::call();
 
 template<class T, class U>
@@ -59,10 +66,59 @@ struct nt2_test_run_store
 };
 
 template<class T, class U>
+struct nt2_test_run_mask_store
+{
+  static void call(bool offset = false)
+  {
+    std::cout << "With U = " << nt2::type_id<U>() << std::endl;
+    using boost::simd::logical;
+    using boost::simd::native;
+    using boost::simd::pack;
+    using boost::simd::meta::cardinal_of;
+    using boost::simd::insert;
+
+    typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+    typedef native<T,ext_t>               vT;
+    typedef native<logical<T>, ext_t>     vlT;
+
+    static const std::size_t card = cardinal_of<vT>::value;
+
+    vlT mask;
+    vT v;
+
+    srand(time(NULL));
+
+    vT actual;
+    for (std::size_t i=0;i<card;i++)
+      insert(logical<T>(rand()%2), mask, i);
+
+    mask_store_runner< U, native<T,ext_t>, vlT>(mask,offset);
+    mask_store_runner< logical<U>, native<logical<T>,ext_t>, vlT>(mask,offset);
+  }
+};
+
+
+template<class T, class U>
 struct nt2_test_run_store_offset
 {
   static void call() { nt2_test_run_store<T,U>::call(true); }
 };
+
+template<class T, class U>
+struct nt2_test_run_mask_store_offset
+{
+  static void call() { nt2_test_run_mask_store<T,U>::call(true); }
+};
+
+NT2_TEST_CASE_TPL( mask_store,  BOOST_SIMD_SIMD_TYPES)
+{
+  BOOST_PP_SEQ_FOR_EACH(NT2_TEST_STORE, mask_store, BOOST_SIMD_TYPES)
+}
+
+NT2_TEST_CASE_TPL( mask_store_offset,  BOOST_SIMD_SIMD_TYPES)
+{
+  BOOST_PP_SEQ_FOR_EACH(NT2_TEST_STORE, mask_store_offset, BOOST_SIMD_TYPES)
+}
 
 NT2_TEST_CASE_TPL( store,  BOOST_SIMD_SIMD_TYPES)
 {
@@ -74,6 +130,7 @@ NT2_TEST_CASE_TPL( store_offset,  BOOST_SIMD_SIMD_TYPES)
   BOOST_PP_SEQ_FOR_EACH(NT2_TEST_STORE, store_offset, BOOST_SIMD_TYPES)
 }
 
+
 template<class T, class U>
 struct nt2_test_run_store_scatter
 {
@@ -81,53 +138,103 @@ struct nt2_test_run_store_scatter
   {
     std::cout << "With U = " << nt2::type_id<U>() << std::endl;
     using boost::simd::store;
-    using boost::simd::load;
     using boost::simd::tag::store_;
     using boost::simd::native;
     using boost::simd::meta::cardinal_of;
 
     typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
     typedef native<T,ext_t>               vT;
-    typedef typename boost::dispatch::meta::as_integer<vT>::type viT;
-    typedef typename boost::dispatch::meta::as_integer<T>::type  iT;
+    typedef typename boost::simd::meta::vector_of<int32_t, vT::static_size>::type viT;
 
     typedef typename boost::dispatch::meta::call<store_(vT,U*,viT)>::type  rT;
 
     NT2_TEST_TYPE_IS( rT, void );
 
     static const std::size_t card = cardinal_of<vT>::value;
-
-    T data[card*3];
-    U out[card*3];
-
-    for(size_t i=0;i<cardinal_of<vT>::value*3;++i)
-    {
+    std::vector<T, boost::simd::allocator<T> > out(card*10+1);
+    viT data;
+    for(size_t i=0;i<cardinal_of<vT>::value;++i)
       data[i] = T(1+i);
-      out[i]  = U(0);
-    }
+
+    srand(time(NULL));
 
     viT index;
+    vT actual;
+    for (std::size_t i=0;i<card;i++)
+      index[i] = rand()%10 + i*10;
 
-    // Spread out the scatter values
-    index[0] = cardinal_of<vT>::value*3 -1;
-    index[cardinal_of<viT>::value-1] = 0;
+    store(data,&out[0],index);
 
-    for(std::size_t i=1;i<cardinal_of<viT>::value-1;++i)
-    {
-      index[i] = iT(i*(cardinal_of<vT>::value*3)/(cardinal_of<vT>::value-1));
-    }
+    for (std::size_t i=0;i<card;i++)
+      actual[i]=out[index[i]];
 
-    vT v = load<vT>(&data[0]);
-    store(v,&out[0],index);
-    vT ref = load<vT>(&out[0],index);
-
-    NT2_TEST_EQUAL( ref, v );
+    NT2_TEST_EQUAL(actual,data );
   }
 };
 
+template<class T, class U>
+struct nt2_test_run_mask_store_scatter
+{
+  static void call()
+  {
+    std::cout << "With U = " << nt2::type_id<U>() << std::endl;
+    using boost::simd::store;
+    using boost::simd::tag::store_;
+    using boost::simd::native;
+    using boost::simd::meta::cardinal_of;
+    using boost::simd::insert;
+    using boost::simd::logical;
+    using boost::simd::if_else;
+
+    typedef BOOST_SIMD_DEFAULT_EXTENSION ext_t;
+    typedef native<T,ext_t>               vT;
+    typedef native<logical<T>, ext_t>     vlT;
+    typedef typename boost::simd::meta::vector_of<int32_t, vT::static_size>::type viT;
+
+    typedef typename boost::dispatch::meta::call<store_(vT,U*,viT,vlT)>::type  rT;
+
+    NT2_TEST_TYPE_IS( rT, void );
+
+    static const std::size_t card = cardinal_of<vT>::value;
+
+    vlT mask;
+    vT v;
+
+    srand(time(NULL));
+
+    viT index;
+    vT actual;
+    for (std::size_t i=0;i<card;i++)
+    {
+      index[i] = rand()%10 + i*10;
+      insert(logical<T>(rand()%2), mask, i);
+    }
+    index[0]=8;
+      //insert(logical<T>(0), mask, 0);
+
+    std::vector<T, boost::simd::allocator<T> > out(card*10+1);
+    vT data;
+    for(size_t i=0;i<cardinal_of<vT>::value;++i)
+      data[i] = if_else(mask[i],T(1+i),T(-42));
+
+    store(data,&out[0],index,mask);
+
+    for (std::size_t i=0;i<card;i++)
+      actual[i]=if_else(mask[i],out[index[i]],T(-42));
+
+    NT2_TEST_EQUAL(actual,data);
+  }
+};
+
+
 NT2_TEST_CASE_TPL(store_scatter, BOOST_SIMD_SIMD_TYPES )
 {
-  BOOST_PP_SEQ_FOR_EACH(NT2_TEST_STORE, store_scatter, BOOST_SIMD_TYPES)
+  BOOST_PP_SEQ_FOR_EACH(NT2_TEST_STORE,store_scatter,BOOST_SIMD_TYPES);
+}
+
+NT2_TEST_CASE_TPL(mask_store_scatter, BOOST_SIMD_SIMD_TYPES )
+{
+  BOOST_PP_SEQ_FOR_EACH(NT2_TEST_STORE,mask_store_scatter,BOOST_SIMD_TYPES);
 }
 
 NT2_TEST_CASE( store_sequence_pointer )
@@ -204,3 +311,4 @@ NT2_TEST_CASE(tuple_native_isomorphism)
   NT2_TEST_EQUAL(boost::fusion::at_c<1>(rgb),boost::fusion::at_c<1>(drgb));
   NT2_TEST_EQUAL(boost::fusion::at_c<2>(rgb),boost::fusion::at_c<2>(drgb));
 }
+
