@@ -24,6 +24,7 @@
 #ifndef BOOST_SIMD_NO_INFINITIES
 #include <nt2/include/functions/scalar/is_inf.hpp>
 #endif
+#include <iostream>
 
 namespace nt2 { namespace ext
 {
