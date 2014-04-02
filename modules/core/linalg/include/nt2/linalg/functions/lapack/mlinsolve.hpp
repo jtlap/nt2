@@ -21,6 +21,8 @@
 
 #include <nt2/core/container/table/table.hpp>
 
+#include <boost/dispatch/meta/ignore_unused.hpp>
+
 namespace nt2 { namespace ext
 {
   //============================================================================
@@ -67,6 +69,7 @@ namespace nt2 { namespace ext
       matrix_type entry(a0);
       nt2_la_int iter = nt2::mposv( boost::proto::value(entry)
                                   , boost::proto::value(a1) ,var);
+      boost::dispatch::ignore_unused(iter);
       a2 = var;
     }
 
@@ -95,6 +98,7 @@ namespace nt2 { namespace ext
       entry_type entry(a0);
       nt2_la_int iter = nt2::msv(boost::proto::value(entry)
                        ,boost::proto::value(a1),boost::proto::value(a2) );
+      boost::dispatch::ignore_unused(iter);
     }
 
     /// INTERNAL ONLY -

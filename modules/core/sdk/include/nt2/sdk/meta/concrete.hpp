@@ -32,7 +32,7 @@ namespace nt2
       }
 
       template<typename Values>
-      static BOOST_FORCEINLINE type shallow_call(Expr& a0, Values const& v)
+      static BOOST_FORCEINLINE type shallow_call(Expr&, Values const& v)
       {
         type that = v;
         return that;

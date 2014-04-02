@@ -171,7 +171,7 @@ namespace nt2 { namespace ext
     //==========================================================================
     /// INTERNAL ONLY - X = LINSOLVE(A,B) - positive definite shape
     BOOST_FORCEINLINE
-    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2, nt2::container::table<nt2_la_int>& piv
+    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2, nt2::container::table<nt2_la_int>& /*piv*/
               , boost::mpl::long_<1> const&, nt2::positive_definite_ const&
               ) const
     {
@@ -277,7 +277,7 @@ namespace nt2 { namespace ext
     //==========================================================================
     /// INTERNAL ONLY - [X,R] = LINSOLVE(A,B) -- positive definite shape
     BOOST_FORCEINLINE
-    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2, nt2::container::table<nt2_la_int>& piv
+    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2, nt2::container::table<nt2_la_int>& /*piv*/
               , boost::mpl::long_<2> const&, nt2::positive_definite_ const&
               ) const
     {
