@@ -16,6 +16,7 @@
 #include <nt2/sdk/meta/concrete.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/zeros.hpp>
+#include <boost/dispatch/meta/ignore_unused.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -62,6 +63,7 @@ namespace nt2 { namespace ext
                                   );
 
       nt2_la_int info = eval_qrfull(work, tau, ip, nt2::policy<ext::pivot_>());
+      boost::dispatch::ignore_unused(info);
 
       boost::proto::child_c<0>(a1) = work;
     }
@@ -69,7 +71,7 @@ namespace nt2 { namespace ext
     /// INTERNAL ONLY - [Q,R] = QR(A)
     BOOST_FORCEINLINE
     void eval ( A0& a0, A1& a1
-              , nt2::container::table<type_t>& tau, nt2::container::table<nt2_la_int>& ip
+              , nt2::container::table<type_t>& tau, nt2::container::table<nt2_la_int>& /*ip*/
               , boost::mpl::long_<1> const&, boost::mpl::long_<2> const&
               ) const
     {
@@ -112,7 +114,7 @@ namespace nt2 { namespace ext
     /// INTERNAL ONLY - [Q,R] = QR(A,{0/{no_}pivot_})
     BOOST_FORCEINLINE
     void eval ( A0& a0, A1& a1
-              , nt2::container::table<type_t>& tau, nt2::container::table<nt2_la_int>& ip
+              , nt2::container::table<type_t>& tau, nt2::container::table<nt2_la_int>& /*ip*/
               , boost::mpl::long_<2> const&, boost::mpl::long_<2> const&
               ) const
     {

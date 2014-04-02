@@ -26,6 +26,8 @@
 
 #include <nt2/core/container/table/table.hpp>
 
+#include <boost/dispatch/meta/ignore_unused.hpp>
+
 namespace nt2 { namespace ext
 {
   //============================================================================
@@ -60,7 +62,7 @@ namespace nt2 { namespace ext
     /// INTERNAL ONLY - S = SVD(A)
     BOOST_FORCEINLINE
     void eval ( A0& a0, A1& a1
-              , nt2::container::table<type_t>& s    , nt2::container::table<ctype_t>& u
+              , nt2::container::table<type_t>& /*s*/    , nt2::container::table<ctype_t>& u
               , nt2::container::table<ctype_t>& vt
               , boost::mpl::long_<1> const& , boost::mpl::long_<1> const&
               ) const
@@ -79,6 +81,7 @@ namespace nt2 { namespace ext
                         , boost::proto::value(boost::proto::child_c<0>(a1))
                         , boost::proto::value(u), boost::proto::value(vt)
                         , jobu,jobvt);
+      boost::dispatch::ignore_unused(info);
 
     }
 
@@ -106,6 +109,7 @@ namespace nt2 { namespace ext
       nt2_la_int info = nt2::gesvd( boost::proto::value(work), boost::proto::value(s)
                                   , boost::proto::value(u), boost::proto::value(vt)
                                   , jobu,jobvt);
+      boost::dispatch::ignore_unused(info);
 
       boost::proto::child_c<0>(a1) = u;
       boost::proto::child_c<2>(a1) = nt2::trans(vt);
@@ -136,7 +140,7 @@ namespace nt2 { namespace ext
     /// INTERNAL ONLY - [U,S,V] = SVD(X,0)
     BOOST_FORCEINLINE
     void eval ( A0& a0, A1& a1
-              , nt2::container::table<type_t>& s    , nt2::container::table<ctype_t>& u
+              , nt2::container::table<type_t>& s    , nt2::container::table<ctype_t>& /*u*/
               , nt2::container::table<ctype_t>& vt
               , int const&
               ) const
@@ -163,6 +167,7 @@ namespace nt2 { namespace ext
       nt2_la_int info = nt2::gesvd( boost::proto::value(work), boost::proto::value(s)
                        , boost::proto::value(boost::proto::child_c<0>(a1))
                        , boost::proto::value(vt),jobu,jobvt );
+      boost::dispatch::ignore_unused(info);
 
       boost::proto::child_c<2>(a1) = nt2::trans(vt);
       boost::proto::child_c<1>(a1) = nt2::from_diag(s);
@@ -172,7 +177,7 @@ namespace nt2 { namespace ext
     /// INTERNAL ONLY - [U,S,V] = SVD(X,econ)
     template<typename P> BOOST_FORCEINLINE
     void eval ( A0& a0, A1& a1
-              , nt2::container::table<type_t>& s    , nt2::container::table<ctype_t>& u
+              , nt2::container::table<type_t>& s    , nt2::container::table<ctype_t>& /*u*/
               , nt2::container::table<ctype_t>& vt
               , P const&
               ) const
@@ -210,6 +215,7 @@ namespace nt2 { namespace ext
       nt2_la_int info = nt2::gesvd( boost::proto::value(work), boost::proto::value(s)
                        , boost::proto::value(boost::proto::child_c<0>(a1))
                        ,  boost::proto::value(vt), jobu, jobvt );
+      boost::dispatch::ignore_unused(info);
 
       boost::proto::child_c<1>(a1) = nt2::from_diag(s);
       boost::proto::child_c<2>(a1) = nt2::trans(vt);

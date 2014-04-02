@@ -17,6 +17,7 @@
 #include <nt2/linalg/functions/details/extract_qr.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/sdk/meta/concrete.hpp>
+#include <boost/dispatch/meta/ignore_unused.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -48,7 +49,7 @@ namespace nt2 { namespace ext
   template<typename W,typename type_t> BOOST_FORCEINLINE
   nt2_la_int eval_qrfull( W& work
                         , nt2::container::table<type_t>& tau
-                        , nt2::container::table<nt2_la_int>& ip
+                        , nt2::container::table<nt2_la_int>& /*ip*/
                         , nt2::policy<ext::no_pivot_> const&
                         )
   {
@@ -115,6 +116,7 @@ namespace nt2 { namespace ext
                                 );
 
     nt2_la_int info = eval_qrfull( work, tau, ip, p);
+    boost::dispatch::ignore_unused(info);
 
     extract_qr(a1,work,tau,p);
   }
@@ -134,6 +136,7 @@ namespace nt2 { namespace ext
                                 );
 
     nt2_la_int info = eval_qrfull( work, tau, nt2::policy<ext::no_pivot_>());
+    boost::dispatch::ignore_unused(info);
 
     extract_qr(a1,work,tau,p);
   }

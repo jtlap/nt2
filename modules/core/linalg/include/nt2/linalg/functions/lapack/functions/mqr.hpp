@@ -169,8 +169,8 @@ namespace nt2 { namespace ext
      {
         result_type that;
         nt2_la_int  m  = nt2::height(a0);
-        nt2_la_int  n  = nt2::width(a0);
-        nt2_la_int  ld = a0.leading_size();
+        //nt2_la_int  n  = nt2::width(a0);
+        //nt2_la_int  ld = a0.leading_size();
         nt2_la_int  wn = a3.main_size();
         nt2_la_int  k  = a1.leading_size();
         char side  = 'L';
@@ -232,8 +232,8 @@ namespace nt2 { namespace ext
      {
         result_type that;
         nt2_la_int  m  = nt2::height(a0);
-        nt2_la_int  n  = nt2::width(a0);
-        nt2_la_int  ld = a0.leading_size();
+        //nt2_la_int  n  = nt2::width(a0);
+        //nt2_la_int  ld = a0.leading_size();
         nt2_la_int  wn = a3.main_size();
         nt2_la_int  k  = a1.leading_size();
         char side  = 'L';
@@ -292,8 +292,8 @@ namespace nt2 { namespace ext
      {
         result_type that;
         nt2_la_int  m  = nt2::height(a0);
-        nt2_la_int  n  = nt2::width(a0);
-        nt2_la_int  ld = a0.leading_size();
+        //nt2_la_int  n  = nt2::width(a0);
+        //nt2_la_int  ld = a0.leading_size();
         nt2_la_int  wn = a3.main_size();
         nt2_la_int  k  = a1.leading_size();
         char side  = 'L';
