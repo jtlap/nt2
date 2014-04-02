@@ -9,6 +9,8 @@
 
 nt2_module_use_modules(test.unit)
 
+ADD_SUBDIRECTORY(predicates)
+
 SET( SOURCES
   table_settings.cpp
   resize.cpp

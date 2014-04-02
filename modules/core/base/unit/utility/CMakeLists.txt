@@ -8,8 +8,6 @@
 ##############################################################################
 
 SET( SOURCES
-  arecatcompatible.cpp
-  arecrosscompatible.cpp
   as_index.cpp
   as_size.cpp
   as_subscript.cpp
@@ -21,13 +19,10 @@ SET( SOURCES
   first_last_index.cpp
   firstnonsingleton.cpp
   firstoflength.cpp
-  havesamesize.cpp
   length.cpp
   linesstride.cpp
   nblines.cpp
   ndims.cpp
-  ofsameheight.cpp
-  ofsamewidth.cpp
   relative_index.cpp
   relative_size.cpp
   size.cpp
