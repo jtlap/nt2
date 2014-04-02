@@ -10,18 +10,23 @@
 #ifndef NT2_CORE_FUNCTIONS_DETAILS_COLON_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_DETAILS_COLON_HPP_INCLUDED
 
+#include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/include/functions/simd/fma.hpp>
 #include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/functions/simd/enumerate.hpp>
 #include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/core/functions/table/details/is_vectorizable_indexer.hpp>
 #include <nt2/core/container/extremum/extremum.hpp>
+#include <nt2/core/utility/of_size.hpp>
 #include <nt2/sdk/meta/as_signed.hpp>
 #include <nt2/sdk/meta/is_signed.hpp>
 #include <nt2/sdk/meta/constant_adaptor.hpp>
+#include <nt2/sdk/meta/as.hpp>
 #include <boost/mpl/bool.hpp>
 
 namespace nt2 { namespace tag
 {
+  struct table_;
   struct colon_;
   struct unity_colon_;
 } }
@@ -159,6 +164,80 @@ namespace nt2 { namespace details
     {
       return end_.index(b,s);
     }
+  };
+} }
+
+namespace nt2 { namespace ext
+{
+  // _(a, b)
+  template<std::size_t N, std::size_t Cardinal>
+  struct is_multiple_of
+    : boost::mpl::bool_< !(N % Cardinal) >
+  {
+  };
+
+  template<std::size_t N>
+  struct is_multiple_of<N, 0>
+       : boost::mpl::false_
+  {
+  };
+
+  template<class T, std::ptrdiff_t N, class Cardinal>
+  struct is_vectorizable_indexer<
+    nt2::container::expression<
+      boost::proto::basic_expr<
+          nt2::tag::colon_
+        , boost::proto::list3<
+              nt2::container::expression<
+                  boost::proto::basic_expr<
+                      boost::proto::tag::terminal
+                    , boost::proto::term<
+                          nt2::of_size_<1l, N, 1l, 1l>
+                      >
+                    , 0l
+                  >
+                , nt2::of_size_<1l, N, 1l, 1l>
+              >
+            , nt2::container::expression<
+                  boost::proto::basic_expr<
+                      boost::proto::tag::terminal
+                    , boost::proto::term<
+                          nt2::meta::constant_<nt2::tag::unity_colon_, T>
+                      >
+                    , 0l
+                  >
+                , nt2::meta::constant_<nt2::tag::unity_colon_, T>
+              >
+            , nt2::container::expression<
+                  boost::proto::basic_expr<
+                      boost::proto::tag::terminal
+                    , boost::proto::term<
+                          boost::dispatch::meta::as_<T>
+                      >
+                    , 0l
+                  >
+                , boost::dispatch::meta::as_<T>
+              >
+          >
+        , 3l
+      >
+    , nt2::memory::container<
+          tag::table_
+        , T
+        , nt2::settings(
+            nt2::of_size_<
+                1l
+              , N
+              , 1l
+              , 1l
+            >
+          )
+      >
+    >
+  , Cardinal
+  >
+    : is_multiple_of<std::size_t(N < 0 ? -N : N), Cardinal::value>
+  {
   };
 } }
 
