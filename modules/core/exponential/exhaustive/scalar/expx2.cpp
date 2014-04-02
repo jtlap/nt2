@@ -39,14 +39,14 @@ struct expx2m
 {
 template < class T>  T operator()(T x) const
   {
-    return nt2::expx2(x, Mtwo<T>());
+    return nt2::expx2(x, nt2::Mtwo<T>());
   }
 };
 
 int main(int argc, char* argv[])
 {
   float mini = -9.4f;
-  float maxi = 9.4f);
+  float maxi = 9.4f;
   if(argc >= 2) mini = std::atof(argv[1]);
   if(argc >= 3) maxi = std::atof(argv[2]);
   nt2::exhaustive_test<float> ( mini

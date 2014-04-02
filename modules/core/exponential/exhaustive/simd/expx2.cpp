@@ -9,6 +9,7 @@
 #include <nt2/include/functions/expx2.hpp>
 #include <nt2/include/constants/minlog.hpp>
 #include <nt2/include/constants/mtwo.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 
 extern "C" { double cephes_expx2(double x, int sign);}
 
@@ -35,11 +36,12 @@ struct raw_expx2m
   }
 };
 
+template < class T >
 struct expx2m
 {
-template < class T>  T operator()(T x) const
+  T operator()(T x) const
   {
-    return nt2::expx2(x, Mtwo<T>());
+    return nt2::expx2(x, nt2::Mtwo<T>());
   }
 };
 
@@ -54,15 +56,15 @@ int main(int argc, char* argv[])
   if(argc >= 2) mini = std::atof(argv[1]);
   if(argc >= 3) maxi = std::atof(argv[2]);
   nt2::exhaustive_test<n_t> ( mini
-                              , maxi
-                              , nt2::functor<nt2::tag::expx2_>()
-                              , raw_expx2p()
-                              );
- nt2::exhaustive_test<n_t> ( mini
-                              , maxi
-                              , expx2m()
-                              , raw_expx2m()
-                              );
+                            , maxi
+                            , nt2::functor<nt2::tag::expx2_>()
+                            , raw_expx2p()
+                            );
+  nt2::exhaustive_test<n_t> ( mini
+                            , maxi
+                            , expx2m<n_t>()
+                            , raw_expx2m()
+                            );
 
   return 0;
 }
