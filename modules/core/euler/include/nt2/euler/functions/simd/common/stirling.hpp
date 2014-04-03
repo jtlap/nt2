@@ -17,15 +17,20 @@
 #include <nt2/include/constants/stirlingsplitlim.hpp>
 #include <nt2/include/functions/simd/exp.hpp>
 #include <nt2/include/functions/simd/fma.hpp>
+#include <nt2/include/functions/simd/group.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/is_less.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/pow.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/split.hpp>
 #include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
+#include <nt2/sdk/meta/upgrade.hpp>
 
+#include <boost/simd/sdk/meta/is_upgradable.hpp>
+#include <boost/dispatch/attributes.hpp>
 #include <boost/simd/sdk/config.hpp>
 
 #ifndef BOOST_SIMD_NO_INFINITIES
@@ -37,7 +42,7 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::stirling_, tag::cpu_
                             , (A0)(X)
-                            , ((simd_<floating_<A0>,X>))
+                            , ((simd_<double_<A0>,X>))
                             )
   {
     typedef A0 result_type;
@@ -59,6 +64,52 @@ namespace nt2 { namespace ext
       #endif
       return y;
     }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::stirling_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<single_<A0>,X>))
+                            )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename boost::simd::meta::is_upgradable_on_ext<A0>::type conversion_allowed;
+      A0 w = nt2::rec(a0);
+      w = fma(w,details::stirling_kernel<A0>::stirling1(w), nt2::One<A0>());
+      A0 y = nt2::exp(-a0);
+      A0 z =  a0 - nt2::Half<A0>();
+      use_conversion(y, a0, z,  conversion_allowed());
+      y *= nt2::Sqrt_2pi<A0>()*w;
+      #ifndef BOOST_SIMD_NO_INFINITIES
+      y = if_else(eq(a0, Inf<A0>()), a0, y);
+      #endif
+      return y;
+    }
+  private :
+    static BOOST_FORCEINLINE void use_conversion(A0& y, const A0& a0, const A0& z, boost::mpl::false_)
+    {
+      typedef typename meta::as_logical<A0>::type bA0;
+      bA0 test = is_less(a0, nt2::Stirlingsplitlim<A0>());
+      A0 v =  nt2::pow(a0,if_else(test, z, Half<A0>()*z));
+      y *= v;
+      y = if_else(test,y, y*v); /* Avoid overflow in pow() */
+    }
+
+    static BOOST_FORCEINLINE void use_conversion(A0& y, const A0 & a0, const A0& z, boost::mpl::true_)
+    {
+      typedef typename meta::upgrade<A0>::type uA0;
+      uA0 a01, a02;
+      uA0 z1, z2;
+      uA0 y1, y2;
+      nt2::split(a0, a01, a02);
+      nt2::split(z , z1 , z2);
+      nt2::split(y, y1, y2);
+      a01 = nt2::pow(a01, z1);
+      a02 = nt2::pow(a02, z2);
+      y = nt2::group(y1*a01, y2*a02);
+    }
+
   };
 } }
 
