@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2012 LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2009 - 2014 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2014   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -24,13 +25,12 @@
 #include <boost/simd/preprocessor/stack_buffer.hpp>
 
 #include "fill.hpp"
-#include <assert.h>
+
 template<typename Type, typename Target>
 inline void aligned_store_runner(bool offset = false)
 {
   using boost::simd::aligned_load;
   using boost::simd::aligned_store;
-  using boost::simd::allocator;
   using boost::simd::tag::aligned_store_;
   using boost::simd::meta::cardinal_of;
   using boost::dispatch::meta::as_;
@@ -73,11 +73,9 @@ inline void aligned_store_runner(bool offset = false)
 template<typename Type, typename Target>
 inline void store_runner(bool offset = false)
 {
-  using boost::simd::load;
   using boost::simd::store;
   using boost::simd::tag::store_;
   using boost::simd::meta::cardinal_of;
-  using boost::dispatch::meta::as_;
   using boost::simd::insert;
   using boost::simd::meta::scalar_of;
 
@@ -119,15 +117,12 @@ inline void store_runner(bool offset = false)
 template<typename Type, typename Target, typename Mask>
 inline void mask_store_runner(bool offset = false)
 {
-  using boost::simd::load;
   using boost::simd::store;
   using boost::simd::tag::store_;
   using boost::simd::meta::cardinal_of;
-  using boost::dispatch::meta::as_;
   using boost::simd::insert;
   using boost::simd::meta::scalar_of;
   using boost::simd::meta::as_logical;
-  using boost::simd::logical;
   using boost::simd::if_else;
 
   if(!offset)
