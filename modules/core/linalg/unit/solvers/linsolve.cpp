@@ -32,9 +32,6 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
-
-#include <iostream>
-
 NT2_TEST_CASE_TPL(linsolv_fast, NT2_REAL_TYPES )
 {
 using nt2::_;
@@ -773,9 +770,7 @@ nt2::table<T> b = nt2::rand(7, 1, nt2::meta::as_<T>());
 
 nt2::table<T> x = nt2::ones(nt2::of_size(7,1),nt2::meta::as_<T>());
 nt2::table<T> x1(b);
-T rcond,rcond1,anorm;
-char norm = '1';
-
+T rcond;
 
 // X = linsolve(A,B)
 
@@ -809,9 +804,7 @@ nt2::table<cT> b = nt2::ones(7, 1, nt2::meta::as_<cT>());
 
 nt2::table<cT> x = nt2::ones(nt2::of_size(7,1),nt2::meta::as_<cT>());
 nt2::table<cT> x1(b);
-T rcond,rcond1,anorm;
-char norm = '1';
-
+T rcond;
 
 // X = linsolve(A,B)
 

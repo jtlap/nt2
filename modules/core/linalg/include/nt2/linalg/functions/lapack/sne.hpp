@@ -41,13 +41,11 @@ namespace nt2{ namespace ext
 
      BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const& b) const
     {
-      nt2_la_int n = nt2::width(b);
-      nt2_la_int ldb = b.leading_size();
       nt2_la_int na = nt2::width(a);
       t_t r = nt2::qr(a,nt2::no_pivot_);
       r= nt2::triu( r( _(1,na), _ ) );
 
-      t_t x= nt2::mtimes(nt2::trans(a),b);
+      t_t x = nt2::mtimes(nt2::trans(a),b);
 
       nt2::trsm('l','u','t','n',boost::proto::value(r),boost::proto::value(x));
 

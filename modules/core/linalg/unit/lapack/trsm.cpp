@@ -32,7 +32,6 @@ char lside = 'l';
 char uplo = 'u';
 char lplo = 'l';
 char diag = 'n';
-char udiag = 'u';
 char notrans= 'n';
 
 

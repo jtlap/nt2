@@ -41,6 +41,7 @@ nt2_la_int p = nt2::sv(boost::proto::value(a),boost::proto::value(ipiv)
                       ,boost::proto::value(b));
 
 NT2_TEST_EQUAL(b,x);
+NT2_TEST_EQUAL(p,0);
 
 
 }
@@ -69,6 +70,7 @@ nt2_la_int p = nt2::sv(boost::proto::value(a),boost::proto::value(ipiv)
                       ,boost::proto::value(b));
 
 NT2_TEST_EQUAL(b,x);
+NT2_TEST_EQUAL(p,0);
 
 
 }

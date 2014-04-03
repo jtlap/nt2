@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
       nt2_la_int n = nt2::width(a0);
       nt2_la_int ku = shape::ud;
       nt2_la_int kl = shape::ld;
-      nt2_la_int ld = kl+ku+1;
+      nt2_la_int ld = n;
 
      if(a1 =='I')
      {
@@ -98,7 +98,7 @@ namespace nt2 { namespace ext
       nt2_la_int n = nt2::width(a0);
       nt2_la_int ku = shape::ud;
       nt2_la_int kl = shape::ld;
-      nt2_la_int ld = kl+ku+1;
+      nt2_la_int ld = n;
 
      if(a1 =='I')
      {
@@ -132,7 +132,7 @@ namespace nt2 { namespace ext
       nt2_la_int n = nt2::width(a0);
       nt2_la_int ku = shape::ud;
       nt2_la_int kl = shape::ld;
-      nt2_la_int ld = kl+ku+1;
+      nt2_la_int ld = n;
 
      if(a1 =='I')
      {
@@ -166,7 +166,7 @@ namespace nt2 { namespace ext
       nt2_la_int n = nt2::width(a0);
       nt2_la_int ku = shape::ud;
       nt2_la_int kl = shape::ld;
-      nt2_la_int ld = kl+ku+1;
+      nt2_la_int ld = n;
 
      if(a1 =='I')
      {

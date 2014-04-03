@@ -51,7 +51,9 @@ nt2_la_int p2 = nt2::sv( boost::proto::value(a2), boost::proto::value(piv)
 
 NT2_TEST_ULP_EQUAL(x, x1, T(10) );
 NT2_TEST_ULP_EQUAL(x, b, T(10) );
-
+NT2_TEST_EQUAL(T(p),T(0));
+NT2_TEST_EQUAL(T(p1),T(0));
+NT2_TEST_EQUAL(T(p2),T(0));
 }
 
 
@@ -87,5 +89,8 @@ nt2_la_int p2 = nt2::sv( boost::proto::value(a2), boost::proto::value(piv)
 
 NT2_TEST_ULP_EQUAL(x, x1, T(10) );
 NT2_TEST_ULP_EQUAL(x, b, T(10) );
+NT2_TEST_EQUAL(T(p),T(0));
+NT2_TEST_EQUAL(T(p1),T(0));
+NT2_TEST_EQUAL(T(p2),T(0));
 
 }

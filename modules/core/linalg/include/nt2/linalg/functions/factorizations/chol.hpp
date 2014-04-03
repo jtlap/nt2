@@ -17,6 +17,7 @@
 #include <nt2/sdk/meta/concrete.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
+#include <boost/dispatch/meta/ignore_unused.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -55,6 +56,7 @@ namespace nt2 { namespace ext
 
 
       nt2_la_int info = nt2::potrf( boost::proto::value(work),'U');
+      boost::dispatch::ignore_unused(info);
 
       boost::proto::child_c<0>(a1) = nt2::triu(work);
     }
@@ -82,6 +84,7 @@ namespace nt2 { namespace ext
       nt2::container::table<type_t> work = boost::proto::child_c<0>(a0);
 
       nt2_la_int info = nt2::potrf(  boost::proto::value(work),'L');
+      boost::dispatch::ignore_unused(info);
 
       boost::proto::child_c<0>(a1) = nt2::tril(work);
     }

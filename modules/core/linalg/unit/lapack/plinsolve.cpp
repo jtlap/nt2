@@ -16,6 +16,7 @@
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/cons.hpp>
+#include <boost/dispatch/meta/ignore_unused.hpp>
 
 #include <nt2/table.hpp>
 
@@ -30,7 +31,6 @@ using nt2::_;
 typedef nt2::table<T>           t_t;
 typedef nt2::table<nt2_la_int>  t_i;
 
-T rcond,rcond1, anorm;
 t_t lu;
 
 t_t a = nt2::cons<T>(nt2::of_size(3,3),2,1,1,1,2,2,2,5,7);
@@ -44,5 +44,6 @@ nt2_la_int iter = nt2::sv( boost::proto::value(a), boost::proto::value(piv)
                          , boost::proto::value(x1) );
 
 NT2_TEST_ULP_EQUAL(x(_(1,3)), x1 , T(10));
+NT2_TEST_EQUAL(T(iter)>=T(0)?true:false, true);
 
 }

@@ -30,28 +30,26 @@ NT2_TEST_CASE_TPL(clinsolve, NT2_REAL_TYPES )
   using nt2::_;
 
 
-  typedef nt2::table<T, nt2::symmetric_>      t_t;
-  typedef nt2::table<nt2_la_int>                t_i;
+typedef nt2::table<T, nt2::symmetric_>      t_t;
+typedef nt2::table<nt2_la_int>                t_i;
 
+t_t lu;
 
- T rcond,rcond1, anorm;
- t_t lu;
+t_t a = nt2::cons<T>(nt2::of_size(3,3),2,1,1,1,1,1,1,1,2);
+t_t b = nt2::cons<T>(nt2::of_size(3,1),1,2,5);
 
- t_t a = nt2::cons<T>(nt2::of_size(3,3),2,1,1,1,1,1,1,1,2);
- t_t b = nt2::cons<T>(nt2::of_size(3,1),1,2,5);
+t_t a1(a);
+t_t b1(b);
 
- t_t a1(a);
- t_t b1(b);
+t_t x = nt2::ones(nt2::of_size(10,1), nt2::meta::as_<T>() );
+t_i piv;
 
- t_t x = nt2::ones(nt2::of_size(10,1), nt2::meta::as_<T>() );
- t_i piv;
+nt2::clinsolve(a,b,nt2::tie( x(nt2::_(T(3),T(5))) ) );
 
- nt2::clinsolve(a,b,nt2::tie( x(nt2::_(T(3),T(5))) ) );
-
- nt2::sv( boost::proto::value(a1),boost::proto::value(piv)
+nt2::sv( boost::proto::value(a1),boost::proto::value(piv)
         , boost::proto::value(b1));
 
- NT2_TEST_ULP_EQUAL(b1, x(nt2::_(T(3),T(5))), T(10) );
+NT2_TEST_ULP_EQUAL(b1, x(nt2::_(T(3),T(5))), T(10) );
 
 
 }

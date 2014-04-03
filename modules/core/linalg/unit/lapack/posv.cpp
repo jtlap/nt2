@@ -26,8 +26,7 @@
 
 NT2_TEST_CASE_TPL(posv, NT2_REAL_TYPES )
 {
-  using nt2::_;
-
+using nt2::_;
 
 typedef nt2::table<T>         t_t;
 
@@ -49,6 +48,9 @@ nt2_la_int p2 = nt2::lsy  ( boost::proto::value(a2),boost::proto::value(piv)
 
 NT2_TEST_ULP_EQUAL( x, x1, T(10) );
 NT2_TEST_ULP_EQUAL( x, b , T(10) );
+NT2_TEST_EQUAL( T(p)>=T(0)?true:false,true );
+NT2_TEST_EQUAL( T(p2), T(0) );
+NT2_TEST_EQUAL( T(p1), T(0) );
 
 }
 
@@ -80,6 +82,9 @@ nt2_la_int p2 = nt2::lsy  ( boost::proto::value(a2),boost::proto::value(piv)
 
 NT2_TEST_ULP_EQUAL( x, x1, T(10) );
 NT2_TEST_ULP_EQUAL( x, b , T(10) );
+NT2_TEST_EQUAL( T(p)>=T(0)?true:false,true );
+NT2_TEST_EQUAL( T(p2), T(0) );
+NT2_TEST_EQUAL( T(p1), T(0) );
 
 }
 
@@ -104,6 +109,8 @@ nt2_la_int p2 = nt2::lsy ( boost::proto::value(a1),boost::proto::value(piv)
                          , boost::proto::value(b));
 
 NT2_TEST_ULP_EQUAL( x, b , T(10) );
+NT2_TEST_EQUAL( T(p)>=T(0)?true:false,true );
+NT2_TEST_EQUAL( T(p2), T(0) );
 
 }
 
@@ -131,5 +138,6 @@ nt2_la_int p2 = nt2::lsy ( boost::proto::value(a1),boost::proto::value(piv)
                          , boost::proto::value(b));
 
 NT2_TEST_ULP_EQUAL( x, b , T(10) );
-
+NT2_TEST_EQUAL( T(p)>=T(0)?true:false,true );
+NT2_TEST_EQUAL( T(p2), T(0) );
 }

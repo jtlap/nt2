@@ -15,7 +15,6 @@
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/cons.hpp>
-
 #include <nt2/table.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
@@ -44,6 +43,8 @@ nt2_la_int p1 = nt2::lsy(boost::proto::value(a1),boost::proto::value(piv)
                         ,boost::proto::value(b));
 
 NT2_TEST_ULP_EQUAL(x,b,T(10));
+NT2_TEST_EQUAL(T(p),T(0));
+NT2_TEST_EQUAL(T(p1),T(0));
 
 }
 
@@ -75,5 +76,7 @@ nt2_la_int p1 = nt2::lsy(boost::proto::value(a1),boost::proto::value(piv)
                         ,boost::proto::value(b));
 
 NT2_TEST_ULP_EQUAL(x,b,T(30));
+NT2_TEST_EQUAL(T(p),T(0));
+NT2_TEST_EQUAL(T(p1),T(0));
 
 }

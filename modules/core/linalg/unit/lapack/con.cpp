@@ -90,6 +90,7 @@ NT2_TEST_CASE_TPL(sycon, NT2_REAL_TYPES )
  rcond1 = nt2::con(boost::proto::value(lu),norm,anorm);
 
  NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
+ NT2_TEST_EQUAL(p, T(0) );
 
 }
 
@@ -123,5 +124,6 @@ NT2_TEST_CASE_TPL(pocon, NT2_REAL_TYPES )
  rcond1 = nt2::con(boost::proto::value(lu),norm,anorm);
 
  NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
+ NT2_TEST_EQUAL(p,T(0));
 
 }
