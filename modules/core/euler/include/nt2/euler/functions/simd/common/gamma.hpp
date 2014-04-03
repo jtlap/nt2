@@ -78,7 +78,7 @@ namespace nt2 { namespace ext
       if(nb > 0)
       {
         //treat negative large with reflection
-        r = large_negative(q, test);
+        r = large_negative(q);
         if (nb >= meta::cardinal_of<A0>::value)
           return nt2::if_nan_else(nan_result, r);
       }
@@ -88,10 +88,9 @@ namespace nt2 { namespace ext
     }
 
   private :
-    static inline A0 large_negative(A0 q, const bA0& test)
+    static inline A0 large_negative(A0 q)
     {
       A0 st =  nt2::stirling(q);
-      A0 r1 = nt2::Zero<A0>();
       A0 p = nt2::floor(q);
       A0 sgngam = nt2::negif(nt2::is_even(p), One<A0>());
       A0 z = q - p;
