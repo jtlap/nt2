@@ -9,19 +9,15 @@
 #ifndef NT2_POLYNOMIALS_FUNCTIONS_SCALAR_IMPL_HORNER_HPP_INCLUDED
 #define NT2_POLYNOMIALS_FUNCTIONS_SCALAR_IMPL_HORNER_HPP_INCLUDED
 
-#include <boost/mpl/at.hpp>
-#include <boost/mpl/size.hpp>
-#include <boost/mpl/vector.hpp>
-#include <boost/mpl/pop_front.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/include/functions/simd/fma.hpp>
 #include <nt2/include/functions/simd/divides.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <boost/preprocessor/seq/for_each.hpp>
-#include <boost/preprocessor/tuple/to_seq.hpp>
+#include <nt2/include/constants/real_splat.hpp>
 #include <boost/dispatch/preprocessor/strip.hpp>
+#include <boost/preprocessor/repetition/repeat.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/tuple/elem.hpp>
 
 namespace nt2
 {
@@ -36,110 +32,70 @@ namespace nt2
 
   namespace details
   {
-    template<int N, class Seq> struct static_horner_
+    template<class V, V Coeff, class Next>
+    struct horner_unroll
     {
-      template<class Sig> struct result;
-      template<class This,class T> struct result<This(T)> : meta::strip<T> {};
-
-      template<class T> BOOST_FORCEINLINE
-      T operator()(T const& x) const
+      template<class T>
+      static BOOST_FORCEINLINE T call(T const& x)
       {
-        static_horner_<N-2,typename boost::mpl::pop_front< typename boost::mpl::pop_front<Seq>::type >::type> callee;
-        return callee.eval(x,fma(x,Const<T,boost::mpl::at_c<Seq,0>::type::value>(),Const<T,boost::mpl::at_c<Seq,1>::type::value>() ));
-      }
-
-      template<class T> BOOST_FORCEINLINE
-      T eval(T const& x, T const& l) const
-      {
-        static_horner_<N-1,typename boost::mpl::pop_front<Seq>::type> callee;
-        return callee.eval(x,fma(x,l,Const<T,boost::mpl::at_c<Seq,0>::type::value>()));
+        return fma(x, Next::call(x), Const<T, Coeff>());
       }
     };
 
-    template<class Seq> struct static_horner_<2,Seq>
+    template<class V, V Coeff>
+    struct horner_unroll<V, Coeff, void>
     {
-      template<class Sig> struct result;
-      template<class This,class T> struct result<This(T)> : meta::strip<T> {};
-
-      template<class T> BOOST_FORCEINLINE
-      T operator()(T const& x) const
+      template<class T>
+      static BOOST_FORCEINLINE T call(T const&)
       {
-        return fma( x
-                  , Const<T,boost::mpl::at_c<Seq,0>::type::value>()
-                  , Const<T,boost::mpl::at_c<Seq,1>::type::value>()
-                  );
-      }
-
-      template<class T> BOOST_FORCEINLINE
-      T eval(T const& x, T const& l) const
-      {
-        static_horner_<1,typename boost::mpl::pop_front<Seq>::type> callee;
-        return callee.eval(x , fma( x, l, Const<T,boost::mpl::at_c<Seq,0>::type::value>()) );
-      }
-    };
-
-    template<class Seq> struct static_horner_<1,Seq>
-    {
-      template<class Sig> struct result;
-      template<class This,class T> struct result<This(T)> : meta::strip<T> {};
-
-      template<class T> BOOST_FORCEINLINE
-      T operator()(T const& ) const
-      {
-        return Const<T, boost::mpl::at_c<Seq,0>::type::value >();
-      }
-
-      template<class T> BOOST_FORCEINLINE
-      T eval(T const& x, T const& l) const
-      {
-        return fma( x, l
-                  , Const<T,boost::mpl::at_c<Seq,0>::type::value>()
-                  );
+        return Const<T, Coeff>();
       }
     };
   }
+
 
   //////////////////////////////////////////////////////////////////////////////
   /// @brief Static Horner scheme
   //////////////////////////////////////////////////////////////////////////////
-  template<class Coeff,class Type>
+  template<class Coeff, class Type>
   static BOOST_FORCEINLINE Type horner( Type const& x )
   {
-    details::static_horner_<boost::mpl::size<Coeff>::value,Coeff> callee;
-    return callee(x);
+    return Coeff::call(x);
   }
 }
 
-#define NT2_COEFF_GEN(z,n,text)                                           \
-boost::mpl::integral_c< BOOST_DISPATCH_PP_STRIP(BOOST_PP_TUPLE_ELEM(3,0,text))       \
-                      , BOOST_PP_TUPLE_ELEM(BOOST_PP_TUPLE_ELEM(3,1,text) \
-                                           ,n                             \
-                                           ,BOOST_PP_TUPLE_ELEM(3,2,text) \
-                                           )                              \
-                      >                                                   \
+#define NT2_COEFF_GEN(z,n,text)                                               \
+nt2::details::                                                                \
+horner_unroll< BOOST_DISPATCH_PP_STRIP(BOOST_PP_TUPLE_ELEM(3,0,text))         \
+             , BOOST_PP_TUPLE_ELEM( BOOST_PP_TUPLE_ELEM(3,1,text)             \
+                                  , n                                         \
+                                  , BOOST_PP_TUPLE_ELEM(3,2,text)             \
+                                  )                                           \
+             ,                                                                \
 /**/
 
-////////////////////////////////////////////////////////////////////////////////
-// Horner coefficient building macro
-////////////////////////////////////////////////////////////////////////////////
+#define NT2_COEFF_GEN2(z,n,text) >
+
 #define NT2_HORNER_COEFF(Type, Size, Seq)                                     \
-boost::mpl::vector< BOOST_PP_ENUM(Size                                        \
-                                 ,NT2_COEFF_GEN                               \
-                                 ,((nt2::meta::as_integer<Type, unsigned>::type),Size,Seq)\
-                                 ) >                                          \
+BOOST_PP_REPEAT(Size, NT2_COEFF_GEN, ( (nt2::meta::as_integer<Type, unsigned>::type) \
+                                     , Size                                   \
+                                     , Seq                                    \
+                                     )                                        \
+               )                                                              \
+void                                                                          \
+BOOST_PP_REPEAT(Size, NT2_COEFF_GEN2, ~)                                      \
 /**/
 
-////////////////////////////////////////////////////////////////////////////////
-// Horner coefficient building macro for template dependant Type
-////////////////////////////////////////////////////////////////////////////////
 #define NT2_HORNER_COEFF_T(Type, Size, Seq)                                   \
-boost::mpl::vector< BOOST_PP_ENUM(Size                                        \
-                                 ,NT2_COEFF_GEN                               \
-                                 ,((typename nt2::meta::as_integer<Type, unsigned>::type)\
-                                  ,Size                                       \
-                                  ,Seq)                                       \
-                                 ) >                                          \
+BOOST_PP_REPEAT(Size, NT2_COEFF_GEN, ( (typename nt2::meta::as_integer<Type, unsigned>::type) \
+                                     , Size                                   \
+                                     , Seq                                    \
+                                     )                                        \
+               )                                                              \
+void                                                                          \
+BOOST_PP_REPEAT(Size, NT2_COEFF_GEN2, ~)                                      \
 /**/
+
 ////////////////////////////////////////////////////////////////////////////////
 // Computing a rationnal fraction P/Q at value x
 // with Horner coefs of type "type"
