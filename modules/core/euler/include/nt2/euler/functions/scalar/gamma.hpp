@@ -50,7 +50,6 @@ namespace nt2 { namespace ext
       #endif
 
       A0 x = a0;
-      int32_t sgngam = 1;
       A0 q = nt2::abs(x);
       if(x < A0(-33.0))
       {
