@@ -18,6 +18,7 @@
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
+#include <boost/preprocessor/tuple/reverse.hpp>
 
 namespace nt2
 {
@@ -79,7 +80,7 @@ horner_unroll< BOOST_DISPATCH_PP_STRIP(BOOST_PP_TUPLE_ELEM(3,0,text))         \
 #define NT2_HORNER_COEFF(Type, Size, Seq)                                     \
 BOOST_PP_REPEAT(Size, NT2_COEFF_GEN, ( (nt2::meta::as_integer<Type, unsigned>::type) \
                                      , Size                                   \
-                                     , Seq                                    \
+                                     , BOOST_PP_TUPLE_REVERSE(Size, Seq)      \
                                      )                                        \
                )                                                              \
 void                                                                          \
@@ -89,7 +90,7 @@ BOOST_PP_REPEAT(Size, NT2_COEFF_GEN2, ~)                                      \
 #define NT2_HORNER_COEFF_T(Type, Size, Seq)                                   \
 BOOST_PP_REPEAT(Size, NT2_COEFF_GEN, ( (typename nt2::meta::as_integer<Type, unsigned>::type) \
                                      , Size                                   \
-                                     , Seq                                    \
+                                     , BOOST_PP_TUPLE_REVERSE(Size, Seq)      \
                                      )                                        \
                )                                                              \
 void                                                                          \
