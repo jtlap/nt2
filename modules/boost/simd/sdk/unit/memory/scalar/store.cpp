@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2012 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2014   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -28,22 +29,22 @@ NT2_TEST_CASE_TPL( store,  BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::logical;
 
-  scalar_store_runner< T, T >();
-  scalar_store_runner< logical<T>, logical<T> >();
+  store_runner< T, T >();
+  store_runner< logical<T>, logical<T> >();
 }
 
 NT2_TEST_CASE_TPL( store_offset,  BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::logical;
 
-  scalar_store_runner< T, T >(true);
-  scalar_store_runner< logical<T>, logical<T> >(true);
+  store_runner< T, T >(true);
+  store_runner< logical<T>, logical<T> >(true);
 }
 
 NT2_TEST_CASE( store_sequence_pointer )
 {
-  scalar_store_runner< foo, foo >();
-  scalar_store_runner< foo, foo >(true);
+  store_runner< foo, foo >();
+  store_runner< foo, foo >(true);
 }
 
 NT2_TEST_CASE( store_sequence )
@@ -64,6 +65,7 @@ NT2_TEST_CASE( store_sequence )
   vector<double,float,char> v;
 
   v = load< vector<double,float,char> >(make_vector(&d, &f, &c), 0);
+
   store(v,make_vector(&sd, &sf, &sc),0);
 
   NT2_TEST_EQUAL(boost::fusion::at_c<0>(v) , sd);
@@ -74,23 +76,15 @@ NT2_TEST_CASE( store_sequence )
 NT2_TEST_CASE_TPL( mask_store ,  BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::logical;
-  logical<T> mask = logical<T>(1);
-  scalar_mask_store_runner< T, T, logical<T> >(mask);
-  scalar_mask_store_runner< logical<T>, logical<T>, logical<T> >(mask);
 
-  mask = logical<T>(0);
-  scalar_mask_store_runner< T, T, logical<T> >(mask);
-  scalar_mask_store_runner< logical<T>, logical<T>, logical<T> >(mask);
+  mask_store_runner< T, T, logical<T> >();
+  mask_store_runner< logical<T>, logical<T>, logical<T> >();
 }
 
 NT2_TEST_CASE_TPL( mask_store_offset ,  BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::logical;
-  logical<T> mask = logical<T>(1);
-  scalar_mask_store_runner< T, T, logical<T> >(mask, true);
-  scalar_mask_store_runner< logical<T>, logical<T>, logical<T> >(mask, true);
 
-  mask = logical<T>(0);
-  scalar_mask_store_runner< T, T, logical<T> >(mask, true);
-  scalar_mask_store_runner< logical<T>, logical<T>, logical<T> >(mask, true);
+  mask_store_runner< T, T, logical<T> >(true);
+  mask_store_runner< logical<T>, logical<T>, logical<T> >(true);
 }
