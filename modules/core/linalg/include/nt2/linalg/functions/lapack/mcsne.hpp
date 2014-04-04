@@ -42,8 +42,8 @@ namespace nt2{ namespace ext
     {
       nt2_la_int lda = a.leading_size();
       nt2_la_int na = nt2::width(a);
-      nt2_la_int n = nt2::width(b);
-      nt2_la_int ldb = b.leading_size();
+      //nt2_la_int n = nt2::width(b);
+      //nt2_la_int ldb = b.leading_size();
 
       t_t e,x;
 
@@ -58,9 +58,9 @@ namespace nt2{ namespace ext
 
       size_t size_n = sizeof(float)*(na);
 
-      for(size_t i= 0; i < na; i++ )
+      for(nt2_la_int i=0; i<na; i++)
       {
-        std::memcpy(sr1.raw()+i*na ,sr.raw()+i*lda , size_n );
+        std::memcpy(sr1.raw()+i*na, sr.raw()+i*lda, size_n);
       }
 
       boost::proto::value(sr).swap(boost::proto::value(sr1) );
