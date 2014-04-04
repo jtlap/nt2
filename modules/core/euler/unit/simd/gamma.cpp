@@ -45,10 +45,12 @@ NT2_TEST_CASE_TPL ( gamma_real,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(gamma(nt2::Inf<vT>()), nt2::Inf<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(gamma(nt2::Minf<vT>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(gamma(nt2::Nan<vT>()), nt2::Nan<r_t>(), 0);
+#endif
   NT2_TEST_ULP_EQUAL(gamma(nt2::Mone<vT>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(gamma(nt2::Mtwo<vT>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(gamma(nt2::Mzero<vT>()), nt2::Minf<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(gamma(nt2::Zero<vT>()), nt2::Inf<r_t>(), 0);
-#endif
   NT2_TEST_ULP_EQUAL(gamma(nt2::One<vT>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(gamma(nt2::splat<vT>(-35)), nt2::Nan<r_t>(), 0);
 }
+

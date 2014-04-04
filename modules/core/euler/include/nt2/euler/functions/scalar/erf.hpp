@@ -46,7 +46,6 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::scalar_of<A0>::type sA0;
       #ifndef BOOST_SIMD_NO_INVALIDS
       if(is_nan(a0)) return a0;
       #endif
@@ -81,7 +80,6 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::scalar_of<A0>::type sA0;
       #ifndef BOOST_SIMD_NO_INVALIDS
       if(is_nan(a0)) return a0;
       #endif

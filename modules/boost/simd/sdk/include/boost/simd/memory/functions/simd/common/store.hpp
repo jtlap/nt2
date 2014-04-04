@@ -38,6 +38,29 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
+  /// INTERNAL ONLY - SIMD masked store without offset
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
+                                    , tag::cpu_
+                                    , (A0)(A1)(A2)(X)
+                                    , ((simd_< unspecified_<A0>, X >))
+                                      (iterator_<unspecified_<A1> >)
+                                      ((simd_< logical_<A2>
+                                             , X
+                                             >
+                                      ))
+                                    )
+  {
+    typedef void result_type;
+    typedef typename boost::pointee<A1>::type stype;
+
+    BOOST_FORCEINLINE result_type operator()(const A0& a0, A1 a1, const A2& a2) const
+    {
+      for(std::size_t i=0; i!=meta::cardinal_of<A0>::value; ++i)
+        if (a2[i])
+          a1[i] = static_cast<stype>(a0[i]);
+    }
+  };
+
   /// INTERNAL ONLY - SIMD store via scalar emulation with offset
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
                                     , tag::cpu_
@@ -53,6 +76,28 @@ namespace boost { namespace simd { namespace ext
     operator()(const A0& a0, A1 a1, A2 a2) const
     {
       boost::simd::store(a0,a1+a2);
+    }
+  };
+
+  /// INTERNAL ONLY - masked SIMD store via scalar emulation with offset
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
+                                    , tag::cpu_
+                                    , (A0)(A1)(A2)(A3)(X)
+                                    , ((simd_< unspecified_<A0>, X >))
+                                      (iterator_< unspecified_<A1> >)
+                                      (scalar_< integer_<A2> >)
+                                      ((simd_< logical_<A3>
+                                             , X
+                                             >
+                                      ))
+                                    )
+  {
+    typedef void result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(const A0& a0, A1 a1, A2 a2, A3 const& a3) const
+    {
+      boost::simd::store(a0,a1+a2,a3);
     }
   };
 
@@ -81,6 +126,35 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
+  /// INTERNAL ONLY - masked SIMD scatter store via scalar emulation
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::store_
+                                      , tag::cpu_
+                                      , (A0)(A1)(A2)(A3)(X)(Y)
+                                      , (mpl::equal_to
+                                            < boost::simd::meta::cardinal_of<A0>
+                                            , boost::simd::meta::cardinal_of<A2>
+                                            >
+                                        )
+                                      , ((simd_< unspecified_<A0>, X >))
+                                        (iterator_< scalar_< unspecified_<A1> > >)
+                                        ((simd_< integer_<A2>, Y >))
+                                        ((simd_< logical_<A3>
+                                               , X
+                                               >
+                                        ))
+                                      )
+  {
+    typedef void result_type;
+    typedef typename boost::pointee<A1>::type stype;
+
+    BOOST_FORCEINLINE result_type
+    operator()(const A0& a0, A1 a1, A2 const& a2, A3 const& a3) const
+    {
+      for(std::size_t i=0; i<meta::cardinal_of<A0>::value; ++i)
+        if (a3[i])
+          a1[a2[i]] = static_cast<stype>(a0[i]);
+    }
+  };
   /// INTERNAL ONLY - SIMD store for Fusion Sequence with offset
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
                                     , tag::cpu_

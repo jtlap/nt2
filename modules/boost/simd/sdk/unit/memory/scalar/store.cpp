@@ -28,22 +28,22 @@ NT2_TEST_CASE_TPL( store,  BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::logical;
 
-  store_runner< T, T >();
-  store_runner< logical<T>, logical<T> >();
+  scalar_store_runner< T, T >();
+  scalar_store_runner< logical<T>, logical<T> >();
 }
 
 NT2_TEST_CASE_TPL( store_offset,  BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::logical;
 
-  store_runner< T, T >(true);
-  store_runner< logical<T>, logical<T> >(true);
+  scalar_store_runner< T, T >(true);
+  scalar_store_runner< logical<T>, logical<T> >(true);
 }
 
 NT2_TEST_CASE( store_sequence_pointer )
 {
-  store_runner< foo, foo >();
-  store_runner< foo, foo >(true);
+  scalar_store_runner< foo, foo >();
+  scalar_store_runner< foo, foo >(true);
 }
 
 NT2_TEST_CASE( store_sequence )
@@ -69,4 +69,28 @@ NT2_TEST_CASE( store_sequence )
   NT2_TEST_EQUAL(boost::fusion::at_c<0>(v) , sd);
   NT2_TEST_EQUAL(boost::fusion::at_c<1>(v) , sf);
   NT2_TEST_EQUAL(boost::fusion::at_c<2>(v) , sc);
+}
+
+NT2_TEST_CASE_TPL( mask_store ,  BOOST_SIMD_SIMD_TYPES)
+{
+  using boost::simd::logical;
+  logical<T> mask = logical<T>(1);
+  scalar_mask_store_runner< T, T, logical<T> >(mask);
+  scalar_mask_store_runner< logical<T>, logical<T>, logical<T> >(mask);
+
+  mask = logical<T>(0);
+  scalar_mask_store_runner< T, T, logical<T> >(mask);
+  scalar_mask_store_runner< logical<T>, logical<T>, logical<T> >(mask);
+}
+
+NT2_TEST_CASE_TPL( mask_store_offset ,  BOOST_SIMD_SIMD_TYPES)
+{
+  using boost::simd::logical;
+  logical<T> mask = logical<T>(1);
+  scalar_mask_store_runner< T, T, logical<T> >(mask, true);
+  scalar_mask_store_runner< logical<T>, logical<T>, logical<T> >(mask, true);
+
+  mask = logical<T>(0);
+  scalar_mask_store_runner< T, T, logical<T> >(mask, true);
+  scalar_mask_store_runner< logical<T>, logical<T>, logical<T> >(mask, true);
 }

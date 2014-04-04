@@ -10,11 +10,8 @@
 #define NT2_CORE_FUNCTIONS_TABLE_DETAILS_IS_VECTORIZABLE_INDEXER_HPP_INCLUDED
 
 #include <nt2/core/container/dsl/forward.hpp>
-#include <nt2/core/functions/scalar/colon.hpp>
 #include <nt2/sdk/memory/forward/container.hpp>
-#include <nt2/core/utility/of_size.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/sdk/meta/as.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/fold.hpp>
@@ -24,7 +21,6 @@
 #include <boost/mpl/find_if.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_same.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -46,20 +42,6 @@ namespace nt2 { namespace ext
   {
   };
 
-  template<>
-  struct is_vectorizable_scalar< nt2::container::
-                                 expression< boost::proto::
-                                             basic_expr< boost::proto::tag::terminal
-                                                       , boost::proto::term<nt2::container::colon_>
-                                                       , 0l
-                                                       >
-                                           , nt2::container::colon_
-                                           >
-                               >
-       : boost::mpl::false_
-  {
-  };
-
   template<class Id, class Cardinal, class Enable = void>
   struct is_vectorizable_indexer_impl
        : boost::mpl::false_
@@ -75,93 +57,6 @@ namespace nt2 { namespace ext
   // scalar
   template<class Id>
   struct is_vectorizable_indexer_impl< Id, boost::mpl::size_t<1u>, typename boost::enable_if_c< Id::extent_type::static_size == 0u >::type >
-       : boost::mpl::true_
-  {
-  };
-
-  // _(a, b)
-  template<std::size_t N, std::size_t Cardinal>
-  struct is_multiple_of
-    : boost::mpl::bool_< !(N % Cardinal) >
-  {
-  };
-
-  template<std::size_t N>
-  struct is_multiple_of<N, 0>
-       : boost::mpl::false_
-  {
-  };
-
-  template<class T, std::ptrdiff_t N, class Cardinal>
-  struct is_vectorizable_indexer<
-    nt2::container::expression<
-      boost::proto::basic_expr<
-          nt2::tag::colon_
-        , boost::proto::list3<
-              nt2::container::expression<
-                  boost::proto::basic_expr<
-                      boost::proto::tag::terminal
-                    , boost::proto::term<
-                          nt2::of_size_<1l, N, 1l, 1l>
-                      >
-                    , 0l
-                  >
-                , nt2::of_size_<1l, N, 1l, 1l>
-              >
-            , nt2::container::expression<
-                  boost::proto::basic_expr<
-                      boost::proto::tag::terminal
-                    , boost::proto::term<
-                          nt2::meta::constant_<nt2::tag::unity_colon_, T>
-                      >
-                    , 0l
-                  >
-                , nt2::meta::constant_<nt2::tag::unity_colon_, T>
-              >
-            , nt2::container::expression<
-                  boost::proto::basic_expr<
-                      boost::proto::tag::terminal
-                    , boost::proto::term<
-                          boost::dispatch::meta::as_<T>
-                      >
-                    , 0l
-                  >
-                , boost::dispatch::meta::as_<T>
-              >
-          >
-        , 3l
-      >
-    , nt2::memory::container<
-          tag::table_
-        , T
-        , nt2::settings(
-            nt2::of_size_<
-                1l
-              , N
-              , 1l
-              , 1l
-            >
-          )
-      >
-    >
-  , Cardinal
-  >
-    : is_multiple_of<std::size_t(N < 0 ? -N : N), Cardinal::value>
-  {
-  };
-
-  // _
-  template<class Cardinal>
-  struct is_vectorizable_indexer< nt2::container::
-                                  expression< boost::proto::
-                                              basic_expr< boost::proto::tag::terminal
-                                                        , boost::proto::term<nt2::container::colon_>
-                                                        , 0l
-                                                        >
-                                            , nt2::container::colon_
-                                            >
-                                , Cardinal
-                                >
        : boost::mpl::true_
   {
   };

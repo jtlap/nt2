@@ -35,18 +35,57 @@ namespace boost { namespace simd { namespace ext
     operator()(A0 a0, A1 a1, A2 const&) const { return *(a0+a1); }
   };
 
-  /// INTERNAL ONLY
+  /// INTERNAL ONLY - masked scalar load offset
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
                                     , tag::cpu_
-                                    , (A0)(A2)
+                                    , (A0)(A1)(A2)(A3)(A4)
                                     , (iterator_< unspecified_<A0> >)
+                                      (scalar_< integer_<A1> >)
                                       (target_< unspecified_<A2> >)
+                                      (unspecified_<A3>)
+                                      (scalar_< fundamental_<A4> >)
                                     )
   {
     typedef typename A2::type result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 a0, A2 const&) const { return *a0; }
+    operator()(A0 a0, A1 a1, A2 const&, A3 const& a3, A4 const& a4) const
+    {
+      return (a4 ? *(a0+a1) : a3);
+    }
+  };
+
+  /// INTERNAL ONLY
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
+                                    , tag::cpu_
+                                    , (A0)(A1)
+                                    , (iterator_< unspecified_<A0> >)
+                                      (target_< unspecified_<A1> >)
+                                    )
+  {
+    typedef typename A1::type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 a0, A1 const&) const { return *a0; }
+  };
+
+  /// INTERNAL ONLY - masked scalar load
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
+                                    , tag::cpu_
+                                    , (A0)(A1)(A2)(A3)
+                                    , (iterator_< unspecified_<A0> >)
+                                      (target_< unspecified_<A1> >)
+                                      (unspecified_<A2>)
+                                      (scalar_< fundamental_<A3> >)
+                                    )
+  {
+    typedef typename A1::type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 a0, A1 const&, A2 const& a2, A3 const& a3) const
+    {
+      return (a3 ? *a0 : a2);
+    }
   };
 
   /// INTERNAL ONLY

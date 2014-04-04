@@ -29,6 +29,32 @@ NT2_TEST_CASE_TPL( load,  BOOST_SIMD_SIMD_TYPES)
   load_runner< logical<T>, logical<T> >();
 }
 
+NT2_TEST_CASE_TPL( masked_load,  BOOST_SIMD_SIMD_TYPES)
+{
+  using boost::simd::logical;
+
+  logical<T> mask = logical<T>(1);
+  masked_load_runner< T, T, logical<T> >(mask);
+  masked_load_runner< logical<T>, logical<T>, logical<T> >(mask);
+
+  mask = logical<T>(0);
+  masked_load_runner< T, T, logical<T> >(mask);
+  masked_load_runner< logical<T>, logical<T>, logical<T> >(mask);
+}
+
+NT2_TEST_CASE_TPL( masked_load_offset,  BOOST_SIMD_SIMD_TYPES)
+{
+  using boost::simd::logical;
+
+  logical<T> mask = logical<T>(1);
+  masked_load_runner< T, T, logical<T> >(mask,true);
+  masked_load_runner< logical<T>, logical<T>, logical<T> >(mask,true);
+
+  mask = logical<T>(0);
+  masked_load_runner< T, T, logical<T> >(mask,true);
+  masked_load_runner< logical<T>, logical<T>, logical<T> >(mask,true);
+}
+
 NT2_TEST_CASE_TPL( load_offset,  BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::logical;

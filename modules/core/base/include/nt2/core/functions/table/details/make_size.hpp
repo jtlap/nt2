@@ -9,14 +9,12 @@
 #ifndef NT2_CORE_FUNCTIONS_TABLE_DETAILS_MAKE_SIZE_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_TABLE_DETAILS_MAKE_SIZE_HPP_INCLUDED
 
-#include <nt2/sdk/meta/is_colon.hpp>
 #include <nt2/core/settings/size.hpp>
 #include <nt2/core/functions/table/details/is_definitely_vector.hpp>
 #include <nt2/include/functions/extent.hpp>
 #include <nt2/include/functions/relative_size.hpp>
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/of_size.hpp>
-#include <nt2/core/functions/colon.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
 #include <boost/fusion/include/mpl.hpp>
 #include <boost/fusion/include/at_c.hpp>
@@ -29,6 +27,11 @@
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
+
+namespace nt2 { namespace tag
+{
+  struct relative_colon_;
+} }
 
 namespace nt2 { namespace details
 {

@@ -104,6 +104,57 @@ inline void load_runner(bool offset = false)
   }
 }
 
+template<typename Type, typename Target, typename Mask>
+inline void masked_load_runner(Mask mask, bool offset = false)
+{
+  using boost::simd::load;
+  using boost::simd::tag::load_;
+  using boost::simd::meta::cardinal_of;
+  using boost::dispatch::meta::as_;
+  using boost::simd::splat;
+  using boost::simd::if_else;
+
+  if(!offset)
+    NT2_TEST_TYPE_IS( (typename boost::dispatch::meta
+                              ::call<load_( Type*, as_<Target>, Target, Mask)>::type
+                      )
+                    , Target
+                    );
+  else
+    NT2_TEST_TYPE_IS( (typename boost::dispatch::meta
+                              ::call<load_( Type*, int, as_<Target>, Target, Mask)>::type
+                      )
+                    , Target
+                    );
+
+  static const std::size_t cd = cardinal_of<Target>::value;
+  static const std::size_t sz = cd*3;
+
+  Type    data[sz];
+  Target  ref[sz];
+  Target old=splat<Target>(42);
+
+  for(std::size_t i=0;i<sz;++i)
+  {
+    if (mask)
+    {
+      fill<Type>()(data[i],i);
+      fill<Target>()(ref[i/cd],i/cd);
+    }
+    else
+    {
+      data[i]=splat<Type>(42);
+      ref[i/cd]=splat<Target>(42);
+    }
+  }
+
+  for(std::size_t i=0;i<3;++i)
+  {
+    if(!offset) NT2_TEST_EQUAL(load<Target>(&data[i*cd], old, mask), ref[i]);
+    else        NT2_TEST_EQUAL(load<Target>(&data[0], i*cd, old, mask), ref[i]);
+  }
+}
+
 template<typename Type, typename Target, typename Misalignment>
 inline void misaligned_load_runner(Misalignment const&, bool offset = false)
 {

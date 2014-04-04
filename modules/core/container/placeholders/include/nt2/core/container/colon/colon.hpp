@@ -9,11 +9,15 @@
 #ifndef NT2_CORE_CONTAINER_COLON_COLON_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_COLON_COLON_HPP_INCLUDED
 
-#include <nt2/sdk/meta/as.hpp>
 #include <nt2/include/functions/colon.hpp>
+#include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/core/container/dsl/domain.hpp>
 #include <nt2/core/container/table/kind.hpp>
+#include <nt2/core/functions/table/details/is_vectorizable_indexer.hpp>
+#include <nt2/sdk/memory/forward/container.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <nt2/sdk/meta/as.hpp>
+#include <boost/mpl/bool.hpp>
 
 namespace nt2 { namespace container
 {
@@ -71,4 +75,39 @@ namespace nt2
   container::colon_ const _ = {};
 }
 
+namespace nt2 { namespace ext
+{
+  /// INTERNAL ONLY
+  template<>
+  struct is_vectorizable_scalar
+            < nt2::container::expression
+                    < boost::proto::
+                            basic_expr< boost::proto::tag::terminal
+                                      , boost::proto::term<nt2::container::colon_>
+                                      , 0l
+                                      >
+                    , nt2::container::colon_
+                    >
+            >
+        : boost::mpl::false_
+  {
+  };
+
+  /// INTERNAL ONLY
+  template<class Cardinal>
+  struct is_vectorizable_indexer
+            < nt2::container::expression
+                    < boost::proto::
+                            basic_expr< boost::proto::tag::terminal
+                                      , boost::proto::term<nt2::container::colon_>
+                                      , 0l
+                                      >
+                    , nt2::container::colon_
+                    >
+            , Cardinal
+            >
+        : boost::mpl::true_
+  {
+  };
+} }
 #endif
