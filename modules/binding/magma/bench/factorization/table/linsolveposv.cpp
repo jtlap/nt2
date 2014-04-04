@@ -59,7 +59,7 @@ template<typename T> struct linsolveposv_nt2
 
   std::size_t size() const { return h*w; }
   std::size_t flops() const {
- return ((FLOPS_DPOTRF(h)+ FLOPS_DPOTRS(h,1))/size()); }
+ return ((FLOPS_DPOTRF(h)+ FLOPS_DPOTRS(h,1))); }
 
 private:
   std::size_t w,h,nr;

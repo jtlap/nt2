@@ -67,7 +67,7 @@ template<typename T> struct linsolve_nt2
   std::size_t flops() const {
        // return ((FLOPS_GETRF(h,w)+ FLOPS_DGETRS(h,1))/r.second)/1000.;
      // return ((FLOPS_DGEMM(h,w,w))/r.second)/1000.;
-    return ((FLOPS_GEQRF(h,w)+ FLOPS_DGETRS(h,1))/size());
+    return ((FLOPS_GEQRF(h,w)+ FLOPS_DGETRS(h,1)));
     // return (FLOPS_GEQRF(h,w)+ FLOPS_DGETRS(h,1));
   }
 

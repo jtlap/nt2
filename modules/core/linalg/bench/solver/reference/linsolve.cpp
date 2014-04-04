@@ -63,7 +63,7 @@ template<typename T> struct sgesv_nt2
 
   std::size_t size() const { return h*w; }
   std::size_t flops() const {
-    return ((FLOPS_GETRF(h,w)+ FLOPS_DGETRS(h,1))/size());
+    return ((FLOPS_GETRF(h,w)+ FLOPS_DGETRS(h,1)));
   }
 
 private:
@@ -119,7 +119,7 @@ template<typename T> struct dgesv_nt2
 
   std::size_t size() const { return h*w; }
   std::size_t flops() const {
-    return ((FLOPS_GETRF(h,w)+ FLOPS_DGETRS(h,1))/size());
+    return ((FLOPS_GETRF(h,w)+ FLOPS_DGETRS(h,1)));
   }
 
 private:
@@ -196,7 +196,7 @@ template<typename T> struct dgesvx_nt2
 
   std::size_t size() const { return h*w; }
   std::size_t flops() const {
-    return ((FLOPS_GETRF(h,w)+ FLOPS_DGETRS(h,1))/size());
+    return ((FLOPS_GETRF(h,w)+ FLOPS_DGETRS(h,1)));
   }
 
 private:
@@ -274,7 +274,7 @@ template<typename T> struct sgesvx_nt2
 
   std::size_t size() const { return h*w; }
   std::size_t flops() const {
-    return ((FLOPS_GETRF(h,w)+ FLOPS_DGETRS(h,1))/size());
+    return ((FLOPS_GETRF(h,w)+ FLOPS_DGETRS(h,1)));
   }
 
 private:

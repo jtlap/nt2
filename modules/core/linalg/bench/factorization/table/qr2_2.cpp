@@ -49,7 +49,7 @@ template<typename T> struct qr2_2_nt2
 
   std::size_t size() const { return size_; }
   std::size_t flops() const { return ( FLOPS_GEQRF(size_,size_)
-                                     + FLOPS_ORGQR(size_,size_,size_) )/size_; }
+                                     + FLOPS_ORGQR(size_,size_,size_) ); }
 
 private:
   std::size_t size_;

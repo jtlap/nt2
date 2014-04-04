@@ -53,7 +53,7 @@ template<typename T> struct lu_nt2
 
   std::size_t size() const { return h*w; }
   std::size_t flops() const {
-       return (FLOPS_GETRF(h,w)/size());
+       return (FLOPS_GETRF(h,w));
   }
 
 private:

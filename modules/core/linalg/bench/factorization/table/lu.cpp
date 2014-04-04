@@ -47,7 +47,7 @@ template<typename T> struct lu1_nt2
   }
 
   std::size_t size() const { return size_; }
-  std::size_t flops() const { return FLOPS_GETRF(size_,size_)/size_; }
+  std::size_t flops() const { return FLOPS_GETRF(size_,size_); }
 
 private:
   std::size_t size_;

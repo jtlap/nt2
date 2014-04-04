@@ -64,7 +64,7 @@ template<typename T> struct qr_float_nt2
   }
 
   std::size_t size() const { return size_; }
-  std::size_t flops() const { return FLOPS_GEQRF(size_,size_)/size_; }
+  std::size_t flops() const { return FLOPS_GEQRF(size_,size_); }
 
 private:
   std::size_t size_;
@@ -121,7 +121,7 @@ template<typename T> struct qr_double_nt2
   }
 
   std::size_t size() const { return size_; }
-  std::size_t flops() const { return FLOPS_GEQRF(size_,size_)/size_; }
+  std::size_t flops() const { return FLOPS_GEQRF(size_,size_); }
 
 private:
   std::size_t size_;
