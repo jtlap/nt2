@@ -18,7 +18,8 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::size_, tag::cpu_
-                            , (A0), (scalar_< unspecified_<A0> >)
+                            , (A0)
+                            , (scalar_< unspecified_<A0> >)
                             )
   {
     typedef container::
@@ -50,4 +51,3 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-

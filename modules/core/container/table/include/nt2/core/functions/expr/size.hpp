@@ -66,4 +66,3 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-
