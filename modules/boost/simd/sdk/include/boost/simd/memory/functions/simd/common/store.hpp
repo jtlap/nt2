@@ -29,12 +29,30 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef void result_type;
-    typedef typename boost::pointee<A1>::type stype;
 
-    BOOST_FORCEINLINE result_type operator()(const A0& a0, A1 a1) const
+    struct local_
     {
-      for(std::size_t i=0; i!=meta::cardinal_of<A0>::value; ++i)
-        a1[i] = static_cast<stype>(a0[i]);
+      local_( A0 const& a0_, A1 const& a1_ )
+            : a0(a0_), a1(a1_) {}
+
+      template<int I> BOOST_FORCEINLINE void operator()() const
+      {
+        typedef typename boost::pointee<A1>::type stype;
+          a1[I] = static_cast<stype>( extract<I>(a0) );
+      }
+
+      A0 const& a0;
+      A1 const& a1;
+
+      private:
+      local_& operator=(local_ const&);
+    };
+
+    BOOST_FORCEINLINE result_type
+    operator()(const A0& a0, A1 a1) const
+    {
+      static const int N = meta::cardinal_of<A0>::value;
+      meta::iterate<N>(local_(a0,a1));
     }
   };
 
@@ -51,13 +69,32 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef void result_type;
-    typedef typename boost::pointee<A1>::type stype;
 
-    BOOST_FORCEINLINE result_type operator()(const A0& a0, A1 a1, const A2& a2) const
+    struct local_
     {
-      for(std::size_t i=0; i!=meta::cardinal_of<A0>::value; ++i)
-        if (a2[i])
-          a1[i] = static_cast<stype>(a0[i]);
+      local_( A0 const& a0_, A1 const& a1_, A2 const& a2_)
+            : a0(a0_), a1(a1_), a2(a2_) {}
+
+      template<int I> BOOST_FORCEINLINE void operator()() const
+      {
+        typedef typename boost::pointee<A1>::type stype;
+        if (a2[I])
+          a1[I] = static_cast<stype>( extract<I>(a0) );
+      }
+
+      A0 const& a0;
+      A1 const& a1;
+      A2 const& a2;
+
+      private:
+      local_& operator=(local_ const&);
+    };
+
+    BOOST_FORCEINLINE result_type
+    operator()(const A0& a0, A1 a1, A2 const& a2) const
+    {
+      static const int N = meta::cardinal_of<A0>::value;
+      meta::iterate<N>(local_(a0,a1,a2));
     }
   };
 
@@ -116,13 +153,31 @@ namespace boost { namespace simd { namespace ext
                                       )
   {
     typedef void result_type;
-    typedef typename boost::pointee<A1>::type stype;
+
+    struct local_
+    {
+      local_( A0 const& a0_, A1 const& a1_, A2 const& a2_)
+            : a0(a0_), a1(a1_), a2(a2_) {}
+
+      template<int I> BOOST_FORCEINLINE void operator()() const
+      {
+        typedef typename boost::pointee<A1>::type stype;
+        a1[ extract<I>(a2) ] = static_cast<stype>( extract<I>(a0) );
+      }
+
+      A0 const& a0;
+      A1 const& a1;
+      A2 const& a2;
+
+      private:
+      local_& operator=(local_ const&);
+    };
 
     BOOST_FORCEINLINE result_type
     operator()(const A0& a0, A1 a1, A2 const& a2) const
     {
-      for(std::size_t i=0; i<meta::cardinal_of<A0>::value; ++i)
-        a1[a2[i]] = static_cast<stype>(a0[i]);
+      static const int N = meta::cardinal_of<A0>::value;
+      meta::iterate<N>(local_(a0,a1,a2));
     }
   };
 
@@ -145,16 +200,35 @@ namespace boost { namespace simd { namespace ext
                                       )
   {
     typedef void result_type;
-    typedef typename boost::pointee<A1>::type stype;
+
+    struct local_
+    {
+      local_( A0 const& a0_, A1 const& a1_, A2 const& a2_, A3 const& a3_)
+            : a0(a0_), a1(a1_), a2(a2_), a3(a3_) {}
+
+      template<int I> BOOST_FORCEINLINE void operator()() const
+      {
+        typedef typename boost::pointee<A1>::type stype;
+        if (a3[I]) a1[a2[I]] = static_cast<stype>(a0[I]);
+      }
+
+      A0 const& a0;
+      A1 const& a1;
+      A2 const& a2;
+      A3 const& a3;
+
+      private:
+      local_& operator=(local_ const&);
+    };
 
     BOOST_FORCEINLINE result_type
     operator()(const A0& a0, A1 a1, A2 const& a2, A3 const& a3) const
     {
-      for(std::size_t i=0; i<meta::cardinal_of<A0>::value; ++i)
-        if (a3[i])
-          a1[a2[i]] = static_cast<stype>(a0[i]);
+      static const int N = meta::cardinal_of<A0>::value;
+      meta::iterate<N>(local_(a0,a1,a2,a3));
     }
   };
+
   /// INTERNAL ONLY - SIMD store for Fusion Sequence with offset
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
                                     , tag::cpu_
