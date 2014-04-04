@@ -37,6 +37,29 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
+  /// INTERNAL ONLY masked pack store with offset
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
+                                    , tag::cpu_
+                                    , (A0)(A1)(A2)(A3)(X)(Tag)(Arity)
+                                    , ((ast_<A0, boost::simd::domain>))
+                                      (iterator_< scalar_< fundamental_<A1> > >)
+                                      (scalar_< integer_<A2> >)
+                                      ((expr_ < simd_< logical_<A3>, X >
+                                              , Tag, Arity
+                                              >
+                                      ))
+                                    )
+  {
+    typedef void result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 const& a0, A1 a1, A2 const& a2, const A3& a3) const
+    {
+      boost::simd::store(evaluate(a0),a1,a2,evaluate(a3));
+    }
+  };
+
+
   /// INTERNAL ONLY pack store with offset
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
                                     , tag::cpu_
@@ -69,6 +92,27 @@ namespace boost { namespace simd { namespace ext
     operator()(A0 const& a0, A1 a1) const
     {
       boost::simd::store(evaluate(a0),a1);
+    }
+  };
+
+  /// INTERNAL ONLY pack store without offset
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
+                                    , tag::cpu_
+                                    , (A0)(A1)(A2)(X)(Tag)(Arity)
+                                    , ((ast_<A0, boost::simd::domain>))
+                                      (iterator_< scalar_< fundamental_<A1> > >)
+                                      ((expr_ < simd_< logical_<A2>, X >
+                                              , Tag, Arity
+                                              >
+                                      ))
+                                    )
+  {
+    typedef void result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 const& a0, A1 a1, A2 const& a2) const
+    {
+      boost::simd::store(evaluate(a0),a1,evaluate(a2));
     }
   };
 } } }
