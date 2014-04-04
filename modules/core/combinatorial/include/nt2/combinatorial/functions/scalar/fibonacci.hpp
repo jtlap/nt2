@@ -10,18 +10,17 @@
 #define NT2_COMBINATORIAL_FUNCTIONS_SCALAR_FIBONACCI_HPP_INCLUDED
 
 #include <nt2/combinatorial/functions/fibonacci.hpp>
-#include <nt2/include/functions/cons.hpp>
-#include <nt2/include/functions/linsolve.hpp>
-#include <nt2/include/functions/vertcat.hpp>
-#include <nt2/include/functions/scalar/minusone.hpp>
+#include <nt2/core/container/table/table.hpp>
+#include <nt2/include/constants/gold.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/functions/scalar/cons.hpp>
 #include <nt2/include/functions/scalar/is_flint.hpp>
-#include <nt2/include/functions/scalar/round.hpp>
+#include <nt2/include/functions/scalar/linsolve.hpp>
+#include <nt2/include/functions/scalar/minusone.hpp>
+#include <nt2/include/functions/scalar/of_size.hpp>
 #include <nt2/include/functions/scalar/pow.hpp>
 #include <nt2/include/functions/scalar/rec.hpp>
-#include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/gold.hpp>
-#include <nt2/include/constants/cgold.hpp>
-#include <nt2/core/container/table/table.hpp>
+#include <nt2/include/functions/scalar/round.hpp>
 
 namespace nt2 { namespace ext
 {

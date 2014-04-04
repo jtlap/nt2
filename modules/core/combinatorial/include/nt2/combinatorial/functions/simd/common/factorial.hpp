@@ -10,25 +10,45 @@
 #define NT2_COMBINATORIAL_FUNCTIONS_SIMD_COMMON_FACTORIAL_HPP_INCLUDED
 
 #include <nt2/combinatorial/functions/factorial.hpp>
-#include <nt2/include/functions/simd/bitwise_cast.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
-#include <nt2/include/functions/simd/toint.hpp>
+#include <nt2/include/constants/eight.hpp>
+#include <nt2/include/constants/eleven.hpp>
+#include <nt2/include/constants/fact_10.hpp>
+#include <nt2/include/constants/fact_11.hpp>
+#include <nt2/include/constants/fact_12.hpp>
+#include <nt2/include/constants/fact_4.hpp>
+#include <nt2/include/constants/fact_5.hpp>
+#include <nt2/include/constants/fact_6.hpp>
+#include <nt2/include/constants/fact_7.hpp>
+#include <nt2/include/constants/fact_8.hpp>
+#include <nt2/include/constants/fact_9.hpp>
+#include <nt2/include/constants/five.hpp>
+#include <nt2/include/constants/four.hpp>
+#include <nt2/include/constants/nine.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/seven.hpp>
+#include <nt2/include/constants/six.hpp>
+#include <nt2/include/constants/ten.hpp>
+#include <nt2/include/constants/three.hpp>
+#include <nt2/include/constants/twelve.hpp>
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/constants/valmax.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
 #include <nt2/include/functions/simd/abss.hpp>
-#include <nt2/include/functions/simd/group.hpp>
-#include <nt2/include/functions/simd/split.hpp>
-#include <nt2/include/functions/simd/trunc.hpp>
-#include <nt2/include/functions/simd/is_ltz.hpp>
-#include <nt2/include/functions/simd/is_less.hpp>
-#include <nt2/include/functions/simd/is_greater.hpp>
-#include <nt2/include/functions/simd/is_less_equal.hpp>
-#include <nt2/include/functions/simd/round2even.hpp>
 #include <nt2/include/functions/simd/all.hpp>
+#include <nt2/include/functions/simd/bitwise_cast.hpp>
+#include <nt2/include/functions/simd/gamma.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/sdk/meta/as_logical.hpp>
+#include <nt2/include/functions/simd/is_equal.hpp>
+#include <nt2/include/functions/simd/is_greater.hpp>
+#include <nt2/include/functions/simd/is_greater_equal.hpp>
+#include <nt2/include/functions/simd/is_less_equal.hpp>
+#include <nt2/include/functions/simd/oneplus.hpp>
+#include <nt2/include/functions/simd/round2even.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/toint.hpp>
+#include <nt2/include/functions/simd/trunc.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -161,7 +181,3 @@ namespace nt2 { namespace ext
   };
 } }
 #endif
-
-// /////////////////////////////////////////////////////////////////////////////
-// End of factorial.hpp
-// /////////////////////////////////////////////////////////////////////////////

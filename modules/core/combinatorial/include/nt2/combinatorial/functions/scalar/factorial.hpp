@@ -9,10 +9,14 @@
 #ifndef NT2_COMBINATORIAL_FUNCTIONS_SCALAR_FACTORIAL_HPP_INCLUDED
 #define NT2_COMBINATORIAL_FUNCTIONS_SCALAR_FACTORIAL_HPP_INCLUDED
 #include <nt2/combinatorial/functions/factorial.hpp>
-#include <nt2/include/functions/scalar/gamma.hpp>
-#include <nt2/include/functions/scalar/trunc.hpp>
-#include <nt2/include/functions/scalar/round2even.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/valmax.hpp>
 #include <nt2/include/functions/scalar/abss.hpp>
+#include <nt2/include/functions/scalar/gamma.hpp>
+#include <nt2/include/functions/scalar/round2even.hpp>
+#include <nt2/include/functions/scalar/trunc.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 
 namespace nt2 { namespace ext
 {

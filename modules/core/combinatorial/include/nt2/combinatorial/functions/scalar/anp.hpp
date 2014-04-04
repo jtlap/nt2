@@ -9,20 +9,16 @@
 #ifndef NT2_COMBINATORIAL_FUNCTIONS_SCALAR_ANP_HPP_INCLUDED
 #define NT2_COMBINATORIAL_FUNCTIONS_SCALAR_ANP_HPP_INCLUDED
 #include <nt2/combinatorial/functions/anp.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/digits.hpp>
-
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/functions/scalar/exp.hpp>
+#include <nt2/include/functions/scalar/gammaln.hpp>
+#include <nt2/include/functions/scalar/is_less.hpp>
+#include <nt2/include/functions/scalar/is_ngez.hpp>
 #include <nt2/include/functions/scalar/oneplus.hpp>
 #include <nt2/include/functions/scalar/round2even.hpp>
-#include <nt2/include/functions/scalar/gammaln.hpp>
-#include <nt2/include/functions/scalar/exp.hpp>
-#include <nt2/include/functions/scalar/is_ngez.hpp>
-#include <nt2/include/functions/scalar/exp.hpp>
-#include <nt2/include/functions/scalar/is_less.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::anp_, tag::cpu_
@@ -45,6 +41,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 
 #endif
