@@ -45,14 +45,14 @@ inline void unary_shuffle()
   std::size_t ig = static_cast<std::size_t>(IG);
   std::size_t ih = static_cast<std::size_t>(IH);
 
-  ref[0] = (IA == -1) ? 0 : a[ia];
-  ref[1] = (IB == -1) ? 0 : a[ib];
-  ref[2] = (IC == -1) ? 0 : a[ic];
-  ref[3] = (ID == -1) ? 0 : a[id];
-  ref[4] = (IE == -1) ? 0 : a[ie];
-  ref[5] = (IF == -1) ? 0 : a[jf];
-  ref[6] = (IG == -1) ? 0 : a[ig];
-  ref[7] = (IH == -1) ? 0 : a[ih];
+  ref[0] = (IA == -1) ? T(0) : a[ia];
+  ref[1] = (IB == -1) ? T(0) : a[ib];
+  ref[2] = (IC == -1) ? T(0) : a[ic];
+  ref[3] = (ID == -1) ? T(0) : a[id];
+  ref[4] = (IE == -1) ? T(0) : a[ie];
+  ref[5] = (IF == -1) ? T(0) : a[jf];
+  ref[6] = (IG == -1) ? T(0) : a[ig];
+  ref[7] = (IH == -1) ? T(0) : a[ih];
 
   NT2_TEST_EQUAL( (shuffle<IA,IB,IC,ID,IE,IF,IG,IH>(a)), ref);
 }
@@ -96,14 +96,14 @@ inline void binary_shuffle()
   std::size_t ig = static_cast<std::size_t>(IG);
   std::size_t ih = static_cast<std::size_t>(IH);
 
-  ref[0] = (IA == -1) ? 0 : (IA<8 ? a[ia] : b[ia-8]);
-  ref[1] = (IB == -1) ? 0 : (IB<8 ? a[ib] : b[ib-8]);
-  ref[2] = (IC == -1) ? 0 : (IC<8 ? a[ic] : b[ic-8]);
-  ref[3] = (ID == -1) ? 0 : (ID<8 ? a[id] : b[id-8]);
-  ref[4] = (IE == -1) ? 0 : (IE<8 ? a[ie] : b[ie-8]);
-  ref[5] = (IF == -1) ? 0 : (IF<8 ? a[jf] : b[jf-8]);
-  ref[6] = (IG == -1) ? 0 : (IG<8 ? a[ig] : b[ig-8]);
-  ref[7] = (IH == -1) ? 0 : (IH<8 ? a[ih] : b[ih-8]);
+  ref[0] = (IA == -1) ? T(0) : (IA<8 ? a[ia] : b[ia-8]);
+  ref[1] = (IB == -1) ? T(0) : (IB<8 ? a[ib] : b[ib-8]);
+  ref[2] = (IC == -1) ? T(0) : (IC<8 ? a[ic] : b[ic-8]);
+  ref[3] = (ID == -1) ? T(0) : (ID<8 ? a[id] : b[id-8]);
+  ref[4] = (IE == -1) ? T(0) : (IE<8 ? a[ie] : b[ie-8]);
+  ref[5] = (IF == -1) ? T(0) : (IF<8 ? a[jf] : b[jf-8]);
+  ref[6] = (IG == -1) ? T(0) : (IG<8 ? a[ig] : b[ig-8]);
+  ref[7] = (IH == -1) ? T(0) : (IH<8 ? a[ih] : b[ih-8]);
 
   NT2_TEST_EQUAL( (shuffle<IA,IB,IC,ID,IE,IF,IG,IH>(a,b)), ref);
 }

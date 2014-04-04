@@ -1,9 +1,0 @@
-[library Container's Settings
-  [quickbook 1.5]
-]
-
-[section Overview]
-This module provides the definition of the container settings system.
-[endsect]
-
-[xinclude reference.xml]

@@ -6,11 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_BENCH_MODULE "nt2 euler toolbox - dawson/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of euler components in simd mode
-//////////////////////////////////////////////////////////////////////////////
 #include <nt2/euler/include/functions/dawson.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
@@ -19,27 +14,49 @@
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
-//////////////////////////////////////////////////////////////////////////////
-// simd runtime benchmark for functor<dawson_> from euler
-//////////////////////////////////////////////////////////////////////////////
 using nt2::tag::dawson_;
 
-//////////////////////////////////////////////////////////////////////////////
-// range macro
-//////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, (V1) ,(V2))
 
+// benches tests on each computing branch of dawson
 namespace n1 {
   typedef float T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(dawson_,(RS(vT,T(-100),T(100))))
 }
 namespace n2 {
   typedef double T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
   NT2_TIMING(dawson_,(RS(vT,T(-100),T(100))))
 }
-
+namespace n3 {
+  typedef float T;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
+  NT2_TIMING(dawson_,(RS(vT,T(0),T(3.25))))
+}
+namespace n4 {
+  typedef double T;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
+  NT2_TIMING(dawson_,(RS(vT,T(0),T(3.25))))
+}
+namespace n5 {
+  typedef float T;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
+  NT2_TIMING(dawson_,(RS(vT,T(3.25),T(6.25))))
+}
+namespace n6 {
+  typedef double T;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
+  NT2_TIMING(dawson_,(RS(vT,T(3.25),T(6.25))))
+}
+namespace n7 {
+  typedef float T;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
+  NT2_TIMING(dawson_,(RS(vT,T(6.25),T(10))))
+}
+namespace n8 {
+  typedef double T;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
+  NT2_TIMING(dawson_,(RS(vT,T(6.25),T(10))))
+}
 #undef RS

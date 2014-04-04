@@ -25,7 +25,6 @@ NT2_TEST_CASE_TPL( load,  BOOST_SIMD_SIMD_TYPES)
   using boost::simd::logical;
 
   load_runner< T, T >();
-  load_runner< foo, foo >();
   load_runner< logical<T>, logical<T> >();
 }
 
@@ -34,8 +33,15 @@ NT2_TEST_CASE_TPL( load_offset,  BOOST_SIMD_SIMD_TYPES)
   using boost::simd::logical;
 
   load_runner< T, T >(true);
-  load_runner< foo, foo >(true);
   load_runner< logical<T>, logical<T> >(true);
+}
+
+NT2_TEST_CASE_TPL( load_sequence_pointer,  BOOST_SIMD_SIMD_TYPES)
+{
+  using boost::simd::logical;
+
+  load_runner< foo, foo >();
+  load_runner< foo, foo >(true);
 }
 
 NT2_TEST_CASE( load_sequence )
@@ -65,3 +71,23 @@ NT2_TEST_CASE( load_sequence )
     NT2_TEST_EQUAL(boost::fusion::at_c<2>(v) , cdata[i]);
   }
 }
+
+NT2_TEST_CASE_TPL( mask_load,  BOOST_SIMD_SIMD_TYPES)
+{
+  using boost::simd::logical;
+
+  masked_load_runner< T, T, logical<T>  >();
+  masked_load_runner< logical<T>, logical<T>, logical<T>  >();
+}
+
+NT2_TEST_CASE_TPL( masked_load_offset,  BOOST_SIMD_SIMD_TYPES)
+{
+  using boost::simd::logical;
+
+  masked_load_runner< T, T, logical<T> >(true);
+  masked_load_runner< logical<T>, logical<T>, logical<T>  >(true);
+}
+
+
+
+

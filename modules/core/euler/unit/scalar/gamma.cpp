@@ -40,11 +40,12 @@ NT2_TEST_CASE_TPL ( gamma_real,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(gamma(nt2::Inf<T>()), nt2::Inf<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(gamma(nt2::Minf<T>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(gamma(nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
+#endif
+  NT2_TEST_ULP_EQUAL(gamma(nt2::Two<T>()), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(gamma(nt2::Mone<T>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(gamma(nt2::Mtwo<T>()), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(gamma(nt2::Mzero<T>()), nt2::Minf<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(gamma(nt2::Zero<T>()), nt2::Inf<r_t>(), 0);
-#endif
-  NT2_TEST_TYPE_IS(r_t, wished_r_t);
+  NT2_TEST_ULP_EQUAL(gamma(nt2::Mzero<T>()), nt2::Minf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(gamma(T(-35)),nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(gamma(nt2::One<T>()), nt2::One<r_t>(), 0);
 }

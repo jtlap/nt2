@@ -11,13 +11,14 @@
 
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
-#include <boost/simd/sdk/meta/zero_initialize.hpp>
-#include <boost/dispatch/meta/property_of.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/simd/sdk/simd/details/native/meta.hpp>
 #include <boost/simd/sdk/simd/details/operators.hpp>
 #include <boost/simd/sdk/simd/details/logical.hpp>
-#include <boost/simd/memory/aligned_object.hpp>
+#include <boost/simd/sdk/simd/details/soa_proxy.hpp>
+#include <boost/simd/sdk/details/aliasing.hpp>
+#include <boost/simd/sdk/meta/as_arithmetic.hpp>
+#include <boost/simd/preprocessor/new.hpp>
 #include <boost/simd/sdk/config/compiler.hpp>
 #include <boost/fusion/adapted/boost_array.hpp>
 #include <boost/mpl/assert.hpp>
@@ -68,18 +69,19 @@ namespace boost { namespace simd
       (Scalar)
     );
 
+    // @brief underlying arithmetic type (if logical)
+    typedef native<typename meta::as_arithmetic<Scalar>::type, Extension> type;
+
     //==========================================================================
     // native<S,E> models RandomAccessRange and FusionRandomAccessSequence
     //==========================================================================
-    typedef Scalar                                          value_type;
-    typedef typename meta::may_alias<Scalar>::type&         reference;
-    typedef typename meta::may_alias<Scalar>::type const&   const_reference;
-    typedef typename meta::may_alias<Scalar>::type*         pointer;
-    typedef typename meta::may_alias<Scalar>::type const*   const_pointer;
-    typedef pointer                                         iterator;
-    typedef const_pointer                                   const_iterator;
-    typedef std::size_t                                     size_type;
-    typedef boost::fusion::boost_array_tag                  fusion_tag;
+    typedef Scalar                                               value_type;
+    typedef std::size_t                                          size_type;
+    typedef soa_proxy<value_type, Extension>                     reference;
+    typedef value_type const                                     const_reference;
+    typedef soa_iterator<value_type, Extension>                  iterator;
+    typedef soa_const_iterator<value_type, Extension>            const_iterator;
+    typedef boost::fusion::boost_array_tag                       fusion_tag;
 
     /*!
       @brief Internal type rebinder
@@ -108,9 +110,7 @@ namespace boost { namespace simd
     };
 
     /// @brief Number of element stored in a native type
-    enum v_size { static_size = sizeof(native_type)/sizeof(value_type)
-                              ? sizeof(native_type)/sizeof(value_type) : 1
-                };
+    enum v_size { static_size = meta::cardinal_of< native<Scalar, Extension> >::value };
 
     /// @brief Default constructor
     BOOST_FORCEINLINE native() {}
@@ -176,35 +176,36 @@ namespace boost { namespace simd
     **/
     static BOOST_FORCEINLINE bool         empty() { return false; }
 
-    /// @brief Random access to a given native scalar element
-    BOOST_FORCEINLINE reference operator[](std::size_t i) { return data()[i]; }
-
-    /// @overload
-    BOOST_FORCEINLINE const_reference operator[](std::size_t i) const { return data()[i]; }
-
     /// @brief Access to the beginning of the native register data in memory
-    BOOST_FORCEINLINE iterator       begin()       { return data(); };
-
-    /// @overload
-    BOOST_FORCEINLINE const_iterator begin() const { return data(); };
+    BOOST_FORCEINLINE
+    iterator       begin()       { return iterator(*this);               };
 
     /// @brief Access to past the end of the native register data in memory
-    BOOST_FORCEINLINE iterator       end()        { return data() + static_size; };
+    BOOST_FORCEINLINE
+    iterator       end()         { return iterator(*this, size());       };
 
     /// @overload
-    BOOST_FORCEINLINE const_iterator end()  const { return data() + static_size; };
+    BOOST_FORCEINLINE
+    const_iterator begin() const { return const_iterator(*this);         };
 
-    /// @brief Returns a pointer to the data of the native in memory
-    BOOST_FORCEINLINE pointer data()
+    /// @overload
+    BOOST_FORCEINLINE
+    const_iterator end()   const { return const_iterator(*this, size()); };
+
+    /// @brief Random access to a given native scalar element
+    BOOST_FORCEINLINE reference operator[](std::size_t i)
     {
-      return reinterpret_cast<iterator>(&data_);
+      return reference(*this, i);
     }
 
     /// @overload
-    BOOST_FORCEINLINE const_pointer data() const
+    BOOST_FORCEINLINE const_reference operator[](std::size_t i) const
     {
-      return const_cast<native&>(*this).data();
+      return reference(const_cast<native&>(*this), i);
     }
+
+    Scalar*       data()       { return reinterpret_cast<Scalar*>(&data_);       }
+    Scalar const* data() const { return reinterpret_cast<Scalar const*>(&data_); }
 
     //==========================================================================
     // Inner data

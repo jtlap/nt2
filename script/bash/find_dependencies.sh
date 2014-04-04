@@ -29,9 +29,13 @@ do
   file=$(echo "$i" | sed -r 's@^#include <([^>]+)>$@\1@')
   in_module=
 
-  while [ "$file" != "" ] && [ -e "$nt2_binary_include/${file}" ]
+  while [ "$file" != "" ] && [ -e "$nt2_binary_include/${file}" ] && [ "$in_module" == "" ]
   do
-    file=$(grep -E "^#include <([^>]+)>$" "$nt2_binary_include/$file" | head -n 1 | sed -r 's@^#include <([^>]+)>$@\1@')
+    in_module=$(grep -Eo "Automatically generated for module [^ ]+" "$nt2_binary_include/$file" | cut -d' ' -f5)
+    if [ "$in_module" == "" ]
+    then
+      file=$(grep -E "^#include <([^>]+)>$" "$nt2_binary_include/$file" | head -n 1 | sed -r 's@^#include <([^>]+)>$@\1@')
+    fi
   done
 
   if [ $VERBOSE ]; then echo "looking for $file"; fi

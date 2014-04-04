@@ -19,7 +19,6 @@
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/inbtrue.hpp>
 #include <nt2/include/functions/simd/is_greater_equal.hpp>
-#include <nt2/include/functions/simd/is_inf.hpp>
 #include <nt2/include/functions/simd/is_less.hpp>
 #include <nt2/include/functions/simd/is_ltz.hpp>
 #include <nt2/include/functions/simd/logical_andnot.hpp>
@@ -29,7 +28,6 @@
 #include <nt2/include/functions/simd/oneminus.hpp>
 #include <nt2/include/functions/simd/oneplus.hpp>
 #include <nt2/include/functions/simd/plus.hpp>
-#include <nt2/include/functions/simd/sign.hpp>
 #include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/include/functions/simd/unary_minus.hpp>
@@ -38,6 +36,11 @@
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/config.hpp>
+
+#ifndef BOOST_SIMD_NO_INFINITIES
+#include <nt2/include/functions/simd/is_inf.hpp>
+#include <nt2/include/functions/simd/sign.hpp>
+#endif
 
 namespace nt2 { namespace ext
 {
@@ -84,9 +87,7 @@ namespace nt2 { namespace ext
       #ifndef BOOST_SIMD_NO_INFINITIES
       z = nt2::if_else(nt2::is_inf(a0), nt2::sign(a0), z);
       #endif
-      return nt2::if_else( nt2::is_inf(a0), nt2::sign(a0)
-                         , nt2::if_else(test2, r1, z)
-                         );
+      return nt2::if_else(test2, r1, z);
     }
   };
 

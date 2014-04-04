@@ -8,9 +8,13 @@
 ##############################################################################
 
 SET(SOURCES
- erf.cpp
- erfc.cpp
-spence.cpp
- )
+    dawson.cpp
+    erf.cpp
+    erfc.cpp
+    spence.cpp
+    stirling.cpp
+    digamma.cpp
+    gamma.cpp
+   )
 
 nt2_module_add_tests(core.euler.scalar.exhaustive ${SOURCES})

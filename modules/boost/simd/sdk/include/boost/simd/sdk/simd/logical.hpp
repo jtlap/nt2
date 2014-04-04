@@ -16,7 +16,9 @@
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <boost/dispatch/meta/proxy.hpp>
 #include <boost/dispatch/attributes.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <boost/assert.hpp>
 #include <climits>
 #include <ostream>
@@ -52,7 +54,10 @@ namespace boost { namespace simd
      **/
     //==========================================================================
     template<class U>
-    BOOST_FORCEINLINE explicit logical(U v) : value_(v != 0)  {}
+    BOOST_FORCEINLINE explicit logical(U v, typename boost::disable_if< boost::dispatch::meta::is_proxy<U> >::type* =0)
+                                      : value_(v != 0)
+    {
+    }
 
     BOOST_FORCEINLINE logical& operator=(bool v)
     {

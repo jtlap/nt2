@@ -7,7 +7,7 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_LOGARITHM_HPP_INCLUDED
-#define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_LOGARITM_HPP_INCLUDED
+#define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_LOGARITHM_HPP_INCLUDED
 
 #include <nt2/sdk/simd/tags.hpp>
 #include <nt2/polynomials/functions/scalar/impl/horner.hpp>

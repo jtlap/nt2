@@ -54,6 +54,44 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
+  /// INTERNAL ONLY - scalar masked store
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
+                                    , tag::cpu_
+                                    , (A0)(A1)(A2)
+                                    , (unspecified_<A0>)
+                                      (iterator_< unspecified_<A1> >)
+                                      (scalar_< fundamental_<A2> >)
+                                    )
+  {
+    typedef void result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 a1, A2 const& a2) const
+    {
+      if (a2)
+        *a1 = a0;
+    }
+  };
+
+  /// INTERNAL ONLY - Scalar masked offset store
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
+                                    , tag::cpu_
+                                    , (A0)(A1)(A2)(A3)
+                                    , (unspecified_<A0>)
+                                      (iterator_< unspecified_<A1> >)
+                                      (scalar_< integer_<A2> >)
+                                      (scalar_< fundamental_<A3> >)
+                                    )
+  {
+    typedef void result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 const& a0, A1 a1, A2 a2, A3 const& a3) const
+    {
+      if (a3)
+      *(a1+a2) = a0;
+    }
+  };
+
   /// INTERNAL ONLY - Fusion sequence store with offset
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
                                     , tag::cpu_

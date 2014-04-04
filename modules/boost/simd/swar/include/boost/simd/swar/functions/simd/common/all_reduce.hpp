@@ -12,6 +12,8 @@
 
 #include <boost/simd/swar/functions/all_reduce.hpp>
 #include <boost/simd/swar/functions/details/butterfly.hpp>
+#include <boost/simd/include/functions/insert.hpp>
+#include <boost/simd/include/functions/extract.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -61,7 +63,7 @@ namespace boost { namespace simd { namespace ext
 
       // Roll over a loop to save cycles
       for(std::size_t i=2;i<A0::static_size;++i)
-        that[0] = callee( static_cast<stype>(that[0]), a0[i]);
+        that[0] = callee( static_cast<stype>(that[0]), a0[i] );
 
       //  Splat manually
       for(std::size_t i=1;i<A0::static_size;++i)

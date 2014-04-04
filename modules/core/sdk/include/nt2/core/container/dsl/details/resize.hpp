@@ -10,8 +10,6 @@
 #define NT2_CORE_CONTAINER_DSL_DETAILS_RESIZE_HPP_INCLUDED
 
 #include <nt2/dsl/functions/terminal.hpp>
-#include <nt2/core/functions/function.hpp>
-#include <nt2/core/functions/colvect.hpp>
 #include <nt2/core/settings/size.hpp>
 #include <nt2/sdk/meta/is_container.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
@@ -62,20 +60,6 @@ namespace nt2 { namespace ext
                       , "Resizing scalar to size other than 1"
                       );
     }
-  };
-
-  //============================================================================
-  // resize function expression - do nothing
-  //============================================================================
-  template<class Domain, int N, class Expr>
-  struct resize<nt2::tag::function_, Domain, N, Expr>
-  {
-    template<class Sz> BOOST_FORCEINLINE void operator()(Expr&, Sz const&) {}
-  };
-  template<class Domain, int N, class Expr>
-  struct resize<nt2::tag::colvect_, Domain, N, Expr>
-  {
-    template<class Sz> BOOST_FORCEINLINE void operator()(Expr&, Sz const&) {}
   };
 } }
 

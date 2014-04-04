@@ -29,12 +29,72 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef void result_type;
-    typedef typename boost::pointee<A1>::type stype;
 
-    BOOST_FORCEINLINE result_type operator()(const A0& a0, A1 a1) const
+    struct local_
     {
-      for(std::size_t i=0; i!=meta::cardinal_of<A0>::value; ++i)
-        a1[i] = static_cast<stype>(a0[i]);
+      local_( A0 const& a0_, A1 const& a1_ )
+            : a0(a0_), a1(a1_) {}
+
+      template<int I> BOOST_FORCEINLINE void operator()() const
+      {
+        typedef typename boost::pointee<A1>::type stype;
+          a1[I] = static_cast<stype>( extract<I>(a0) );
+      }
+
+      A0 const& a0;
+      A1 const& a1;
+
+      private:
+      local_& operator=(local_ const&);
+    };
+
+    BOOST_FORCEINLINE result_type
+    operator()(const A0& a0, A1 a1) const
+    {
+      static const int N = meta::cardinal_of<A0>::value;
+      meta::iterate<N>(local_(a0,a1));
+    }
+  };
+
+  /// INTERNAL ONLY - SIMD masked store without offset
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
+                                    , tag::cpu_
+                                    , (A0)(A1)(A2)(X)
+                                    , ((simd_< unspecified_<A0>, X >))
+                                      (iterator_<unspecified_<A1> >)
+                                      ((simd_< logical_<A2>
+                                             , X
+                                             >
+                                      ))
+                                    )
+  {
+    typedef void result_type;
+
+    struct local_
+    {
+      local_( A0 const& a0_, A1 const& a1_, A2 const& a2_)
+            : a0(a0_), a1(a1_), a2(a2_) {}
+
+      template<int I> BOOST_FORCEINLINE void operator()() const
+      {
+        typedef typename boost::pointee<A1>::type stype;
+        if (a2[I])
+          a1[I] = static_cast<stype>( extract<I>(a0) );
+      }
+
+      A0 const& a0;
+      A1 const& a1;
+      A2 const& a2;
+
+      private:
+      local_& operator=(local_ const&);
+    };
+
+    BOOST_FORCEINLINE result_type
+    operator()(const A0& a0, A1 a1, A2 const& a2) const
+    {
+      static const int N = meta::cardinal_of<A0>::value;
+      meta::iterate<N>(local_(a0,a1,a2));
     }
   };
 
@@ -56,6 +116,28 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
+  /// INTERNAL ONLY - masked SIMD store via scalar emulation with offset
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
+                                    , tag::cpu_
+                                    , (A0)(A1)(A2)(A3)(X)
+                                    , ((simd_< unspecified_<A0>, X >))
+                                      (iterator_< unspecified_<A1> >)
+                                      (scalar_< integer_<A2> >)
+                                      ((simd_< logical_<A3>
+                                             , X
+                                             >
+                                      ))
+                                    )
+  {
+    typedef void result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(const A0& a0, A1 a1, A2 a2, A3 const& a3) const
+    {
+      boost::simd::store(a0,a1+a2,a3);
+    }
+  };
+
   /// INTERNAL ONLY - SIMD scatter store via scalar emulation
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::store_
                                       , tag::cpu_
@@ -71,13 +153,79 @@ namespace boost { namespace simd { namespace ext
                                       )
   {
     typedef void result_type;
-    typedef typename boost::pointee<A1>::type stype;
+
+    struct local_
+    {
+      local_( A0 const& a0_, A1 const& a1_, A2 const& a2_)
+            : a0(a0_), a1(a1_), a2(a2_) {}
+
+      template<int I> BOOST_FORCEINLINE void operator()() const
+      {
+        typedef typename boost::pointee<A1>::type stype;
+        a1[ extract<I>(a2) ] = static_cast<stype>( extract<I>(a0) );
+      }
+
+      A0 const& a0;
+      A1 const& a1;
+      A2 const& a2;
+
+      private:
+      local_& operator=(local_ const&);
+    };
 
     BOOST_FORCEINLINE result_type
     operator()(const A0& a0, A1 a1, A2 const& a2) const
     {
-      for(std::size_t i=0; i<meta::cardinal_of<A0>::value; ++i)
-        a1[a2[i]] = static_cast<stype>(a0[i]);
+      static const int N = meta::cardinal_of<A0>::value;
+      meta::iterate<N>(local_(a0,a1,a2));
+    }
+  };
+
+  /// INTERNAL ONLY - masked SIMD scatter store via scalar emulation
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::store_
+                                      , tag::cpu_
+                                      , (A0)(A1)(A2)(A3)(X)(Y)
+                                      , (mpl::equal_to
+                                            < boost::simd::meta::cardinal_of<A0>
+                                            , boost::simd::meta::cardinal_of<A2>
+                                            >
+                                        )
+                                      , ((simd_< unspecified_<A0>, X >))
+                                        (iterator_< scalar_< unspecified_<A1> > >)
+                                        ((simd_< integer_<A2>, Y >))
+                                        ((simd_< logical_<A3>
+                                               , X
+                                               >
+                                        ))
+                                      )
+  {
+    typedef void result_type;
+
+    struct local_
+    {
+      local_( A0 const& a0_, A1 const& a1_, A2 const& a2_, A3 const& a3_)
+            : a0(a0_), a1(a1_), a2(a2_), a3(a3_) {}
+
+      template<int I> BOOST_FORCEINLINE void operator()() const
+      {
+        typedef typename boost::pointee<A1>::type stype;
+        if (a3[I]) a1[a2[I]] = static_cast<stype>(a0[I]);
+      }
+
+      A0 const& a0;
+      A1 const& a1;
+      A2 const& a2;
+      A3 const& a3;
+
+      private:
+      local_& operator=(local_ const&);
+    };
+
+    BOOST_FORCEINLINE result_type
+    operator()(const A0& a0, A1 a1, A2 const& a2, A3 const& a3) const
+    {
+      static const int N = meta::cardinal_of<A0>::value;
+      meta::iterate<N>(local_(a0,a1,a2,a3));
     }
   };
 

@@ -42,7 +42,11 @@ NT2_TEST_CASE_TPL(jni_0,  NT2_SIMD_REAL_TYPES)
 
   std::vector<T> ref(NR);
   for(std::size_t i=0; i!=NR; ++i)
-    ref[i] = nt2::jni(a0[i], a1[i]);
+  {
+    // Use only some values to compute proper reference (#714)
+    std::size_t ii = vT::static_size*(i/vT::static_size);
+    ref[i] = nt2::jni(a0[ii],a1[i]);
+  }
 
   NT2_COVER_ULP_EQUAL(nt2::tag::jni_, ((iT, a0))((vT, a1)), ref, ulpd);
 

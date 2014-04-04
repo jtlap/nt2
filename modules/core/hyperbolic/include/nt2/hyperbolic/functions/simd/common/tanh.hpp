@@ -49,9 +49,9 @@ namespace nt2 { namespace ext
       result_type x = nt2::abs(a0);
       bA0 test0= lt(x, Fiveo_8<A0>());
       A0 bts = bitofsign(a0);
-      std::size_t nb;
+      std::size_t nb = inbtrue(test0);
       A0 z = One<A0>();
-      if( ( nb = inbtrue(test0)) > 0)
+      if(nb > 0)
       {
         A0 x2 = sqr(x);
         z = details::tanh_kernel<A0>::tanh(x, x2);

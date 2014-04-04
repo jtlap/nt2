@@ -55,14 +55,14 @@ namespace nt2 { namespace ext
       // computed
       // * in the first case sinh is ((e-rec(e))/2)/x
       // * in the second     sinh is (e/2/x)*e (avoiding undue overflow)
-      // Threshold is Maxlog - Log_2 defined in Maxshlog
+      // Threshold is Maxlog - Log_2
       //////////////////////////////////////////////////////////////////////////////
       typedef typename meta::as_logical<A0>::type bA0;
       result_type x = nt2::abs(a0);
       bA0 lt1= lt(x, One<A0>());
-      std::size_t nb;
+      std::size_t nb = inbtrue(lt1);
       A0 z = Zero<A0>();
-      if( ( nb = inbtrue(lt1)) > 0)
+      if( nb > 0)
       {
         z = details::sinhc_kernel<A0>::compute(sqr(x));
         if(nb >= meta::cardinal_of<A0>::value) return z;

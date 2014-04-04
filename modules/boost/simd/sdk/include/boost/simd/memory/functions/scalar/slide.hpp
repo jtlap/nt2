@@ -44,7 +44,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 a0, A0 a1, N const&) const
     {
-      return N::value==0 ? a0 : (N::value==1 ? a1 : 0);
+      return N::value == 1 ? a1 : ( (N::value == -1 || !N::value) ? a0 : 0);
     }
   };
 } } }

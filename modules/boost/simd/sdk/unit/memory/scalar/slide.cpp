@@ -43,7 +43,8 @@ NT2_TEST_CASE_TPL( binary_slide, BOOST_SIMD_TYPES)
   T l = T(42);
   T r = T(69);
 
-  NT2_TEST_EQUAL( slide<-1>(l,r), T(0)  );
+  NT2_TEST_EQUAL( slide<-2>(l,r), T(0)  );
+  NT2_TEST_EQUAL( slide<-1>(l,r), l     );
   NT2_TEST_EQUAL( slide< 0>(l,r), l     );
   NT2_TEST_EQUAL( slide< 1>(l,r), r     );
   NT2_TEST_EQUAL( slide< 2>(l,r), T(0)  );

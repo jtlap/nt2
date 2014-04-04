@@ -107,6 +107,47 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(A0 const& a0, A0 const& a1, N const&) const
     {
+      return side ( a0, a1
+                  , boost::mpl::bool_< (N::value>=0) >()
+                  );
+    }
+
+    BOOST_FORCEINLINE
+    result_type side(A0 const& a0, A0 const& a1, boost::mpl::true_ const&) const
+    {
+      return eval ( a0, a1
+                  , boost::mpl::bool_<N::value==0>()
+                  , boost::mpl::bool_<N::value==A0::static_size>()
+                  );
+    }
+
+    BOOST_FORCEINLINE
+    result_type side(A0 const& a0, A0 const& a1, boost::mpl::false_ const&) const
+    {
+      return slide<A0::static_size + N::value>(a1,a0);
+    }
+
+    BOOST_FORCEINLINE
+    result_type eval( A0 const& a0, A0 const&
+                    , boost::mpl::true_ const&, boost::mpl::false_ const&
+                    ) const
+    {
+      return a0;
+    }
+
+    BOOST_FORCEINLINE
+    result_type eval( A0 const&, A0 const& a1
+                    , boost::mpl::false_ const&, boost::mpl::true_ const&
+                    ) const
+    {
+      return a1;
+    }
+
+    BOOST_FORCEINLINE
+    result_type eval( A0 const& a0, A0 const& a1
+                    , boost::mpl::false_ const&, boost::mpl::false_ const&
+                    ) const
+    {
       typedef typename A0::template rebind<unsigned char>::type u8type;
 
       // Compute relative offsets for shifted loads pair
@@ -115,10 +156,11 @@ namespace boost { namespace simd { namespace ext
       static const std::size_t shiftb   = (16u/cardinal)*(cardinal-N::value);
 
       // Shift everything in place
-      __m128i sa = _mm_srli_si128(bitwise_cast<u8type>(a0),shifta);
-      __m128i sb = _mm_slli_si128(bitwise_cast<u8type>(a1),shiftb);
+      u8type s = _mm_or_si128 ( _mm_srli_si128(bitwise_cast<u8type>(a0),shifta)
+                              , _mm_slli_si128(bitwise_cast<u8type>(a1),shiftb)
+                              );
 
-      return bitwise_cast<result_type>(u8type(_mm_or_si128(sa,sb)));
+      return bitwise_cast<result_type>(s);
     }
   };
 } } }

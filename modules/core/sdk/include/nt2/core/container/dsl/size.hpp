@@ -11,7 +11,6 @@
 
 #include <nt2/core/container/dsl/details/trait_transform.hpp>
 #include <nt2/include/functions/extent.hpp>
-#include <nt2/dsl/functions/terminal.hpp>
 #include <boost/proto/traits.hpp>
 
 namespace nt2 { namespace ext
@@ -40,7 +39,6 @@ namespace nt2 { namespace container
   {};
 } }
 
-#include <nt2/core/container/dsl/details/size/terminal.hpp>
 #include <nt2/core/container/dsl/details/size/elementwise.hpp>
 
 #endif

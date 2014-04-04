@@ -9,18 +9,10 @@
 
 SET ( NT2_CORE.SDK_DEPENDENCIES_EXTRA
       boost.dispatch
-      boost.simd.base
       boost.simd.reduction
       boost.simd.sdk
       core.base
-      core.container.view
-      core.reduction
-      core.restructuring
-      core.settings
-      core.swar
-      core.utility
       sdk.config
-      sdk.dsl
       sdk.functor
       sdk.meta
       sdk.simd

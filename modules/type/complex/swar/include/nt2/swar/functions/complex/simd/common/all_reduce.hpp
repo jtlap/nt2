@@ -12,6 +12,8 @@
 #include <nt2/swar/functions/all_reduce.hpp>
 #include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/include/functions/shuffle.hpp>
+#include <nt2/include/functions/insert.hpp>
+#include <nt2/include/functions/extract.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 

@@ -12,15 +12,19 @@
 #include <boost/dispatch/meta/any.hpp>
 #include <boost/dispatch/meta/proxy.hpp>
 #include <boost/dispatch/meta/unproxy.hpp>
-
 #include <boost/dispatch/functor/functor.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
+#include <boost/type_traits/remove_reference.hpp>
+
 #include <boost/dispatch/details/parameters.hpp>
 #include <boost/dispatch/functor/preprocessor/dispatch.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
+#include <boost/preprocessor/facilities/intercept.hpp>
+#include <boost/preprocessor/arithmetic/inc.hpp>
 #include <boost/preprocessor/selection/min.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -44,10 +48,12 @@ namespace boost { namespace simd { namespace ext
   /**/
   #define M1(z,n,t) (unspecified_<A##n>)
   /**/
-  #define M2(z,n,t)                                                     \
-  typedef typename boost::dispatch::meta::unproxy<A##n>::type b##n##_t; \
+  #define M2(z,n,t)                                                           \
+  typedef typename boost::dispatch::meta::                                    \
+          unproxy< typename boost::remove_reference<_A##n>::type >::type      \
+  b##n##_t;                                                                   \
   /**/
-  #define M3(z,n,t) b##n##_t const&
+  #define M3(z,n,t) b##n##_t
   /**/
   #define M4(z,n,t) boost::dispatch::unproxy(a##n)
   /**/
@@ -63,13 +69,23 @@ namespace boost { namespace simd { namespace ext
                                       , BOOST_PP_REPEAT(n,M1,~)               \
                                       )                                       \
   {                                                                           \
-    BOOST_PP_REPEAT(n,M2,~)                                                   \
-    typedef typename dispatch::meta::call                                     \
-            <Func(BOOST_PP_ENUM(n,M3,~))>::type  result_type;                 \
-    BOOST_FORCEINLINE result_type                                             \
-    operator()(BOOST_PP_ENUM_BINARY_PARAMS(n,A, const& a)) const              \
+    template<class Sig>                                                       \
+    struct result;                                                            \
+                                                                              \
+    template<class This, BOOST_PP_ENUM_PARAMS(n, class _A)>                   \
+    struct result<This(BOOST_PP_ENUM_PARAMS(n, _A))>                          \
     {                                                                         \
-      typename dispatch::make_functor<Func,A0>::type callee;                  \
+      BOOST_PP_REPEAT(n,M2,~)                                                 \
+      typedef typename dispatch::meta::call                                   \
+              <Func(BOOST_PP_ENUM(n,M3,~))>::type type;                       \
+    };                                                                        \
+                                                                              \
+    template<BOOST_PP_ENUM_PARAMS(n, class _A)>                               \
+    BOOST_FORCEINLINE                                                         \
+    typename result<implement(BOOST_PP_ENUM_BINARY_PARAMS(n, _A, & BOOST_PP_INTERCEPT))>::type \
+    operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, _A, & a)) const                 \
+    {                                                                         \
+      typename dispatch::make_functor<Func, _A0>::type callee;                \
       return callee ( BOOST_PP_ENUM(n,M4,~) );                                \
     }                                                                         \
   };                                                                          \

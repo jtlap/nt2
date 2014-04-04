@@ -10,10 +10,8 @@
 SET ( NT2_CORE.EXTRACTIVE_DEPENDENCIES_EXTRA
       boost.simd.base
       boost.simd.swar
-      core.base
       core.sdk
-      core.utility
-      sdk.dsl
+      core.base
       sdk.functor
       sdk.meta
     )

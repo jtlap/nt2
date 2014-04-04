@@ -12,11 +12,7 @@
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/simd/details/native/meta/cardinal_of.hpp>
-#include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
-#include <boost/simd/memory/aligned_object.hpp>
-#include <boost/simd/sdk/simd/details/soa_proxy.hpp>
-#include <boost/simd/sdk/config/compiler.hpp>
 
 namespace boost { namespace simd { namespace meta
 {
@@ -25,112 +21,5 @@ namespace boost { namespace simd { namespace meta
         : cardinal_of< simd::native<T, X> >
   {};
 } } }
-
-namespace boost { namespace simd
-{
-  template<class Scalar,class Extension>
-  struct native<logical<Scalar>, Extension>
-  {
-    typedef Extension                                       extension_type;
-    typedef typename meta::
-            as_simd<logical<Scalar>, Extension>::type          native_type;
-    typedef native<logical<Scalar>, Extension>                   this_type;
-    typedef native<Scalar, Extension>                                 type;
-
-    typedef logical<Scalar>                                     value_type;
-
-    template<class U>
-    struct rebind
-    {
-      typedef native<U, extension_type> type;
-    };
-
-    ////////////////////////////////////////////////////////////////////////////
-    // vector size
-    ////////////////////////////////////////////////////////////////////////////
-    enum s_size { static_size = meta::cardinal_of<native>::value };
-
-    BOOST_FORCEINLINE native() {}
-    BOOST_FORCEINLINE native(native_type const& data) : data_(data) {}
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Assignment operator from native vector type
-    ////////////////////////////////////////////////////////////////////////////
-    BOOST_FORCEINLINE native& operator=(native const& s)
-    {
-      data_ = s.data_;
-      return *this;
-    }
-
-    BOOST_FORCEINLINE native& operator=(native_type const& s)
-    {
-      data_ = s;
-      return *this;
-    }
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Type casting operator for compatibility with intrinsic functions
-    // Use operator() for explicit conversion.
-    ////////////////////////////////////////////////////////////////////////////
-    BOOST_FORCEINLINE operator native_type &           ()             { return data_; }
-    BOOST_FORCEINLINE          native_type & operator()()             { return data_; }
-
-    BOOST_FORCEINLINE operator native_type const&           ()  const { return data_; }
-    BOOST_FORCEINLINE          native_type const& operator()()  const { return data_; }
-
-    ////////////////////////////////////////////////////////////////////////////
-    // new/delete operator to force alignment on heap of native values
-    ////////////////////////////////////////////////////////////////////////////
-    BOOST_SIMD_MEMORY_OVERLOAD_NEW_DELETE_SIMD()
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Range interface
-    ////////////////////////////////////////////////////////////////////////////
-    typedef std::size_t                                          size_type;
-    typedef details::soa_proxy<value_type, Extension>            reference;
-    typedef value_type const                                     const_reference;
-    typedef details::soa_iterator<value_type, Extension>         iterator;
-    typedef details::soa_const_iterator<value_type, Extension>   const_iterator;
-    typedef boost::fusion::boost_array_tag                       fusion_tag;
-
-    BOOST_FORCEINLINE
-    iterator       begin()       { return iterator(*this);               };
-
-    BOOST_FORCEINLINE
-    iterator       end()         { return iterator(*this, size());       };
-
-    BOOST_FORCEINLINE
-    const_iterator begin() const { return const_iterator(*this);         };
-
-    BOOST_FORCEINLINE
-    const_iterator end()   const { return const_iterator(*this, size()); };
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Array like interface
-    ////////////////////////////////////////////////////////////////////////////
-    static BOOST_FORCEINLINE  std::size_t size() { return meta::cardinal_of< native<value_type, Extension> >::value; }
-    static BOOST_FORCEINLINE        bool empty() { return false; }
-
-    BOOST_FORCEINLINE reference operator[](std::size_t i)
-    {
-      return reference(*this, i);
-    }
-
-    BOOST_FORCEINLINE const_reference operator[](std::size_t i) const
-    {
-      return typename dispatch::make_functor<tag::extract_, value_type>::type()(*this, i);
-    }
-
-#if defined(BOOST_SIMD_COMPILER_GCC) && BOOST_SIMD_GCC_VERSION == 40603
-    // workaround for GCC bug #52407 affecting GCC 4.6
-    union
-    {
-#endif
-      native_type data_;
-#if defined(BOOST_SIMD_COMPILER_GCC) && BOOST_SIMD_GCC_VERSION == 40603
-    };
-#endif
-  };
-} }
 
 #endif

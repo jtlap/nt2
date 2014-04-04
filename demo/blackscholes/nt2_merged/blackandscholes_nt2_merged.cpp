@@ -21,6 +21,7 @@
 #include <nt2/include/functions/unary_minus.hpp>
 #include <nt2/include/functions/plus.hpp>
 #include <nt2/include/functions/minus.hpp>
+#include <nt2/include/functions/tie.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <vector>
 #include <iostream>
@@ -34,44 +35,6 @@
 using namespace nt2::bench;
 using namespace nt2;
 
-namespace nt2
-{
-  namespace tag
-  {
-    struct blackandscholes_ : ext::elementwise_<blackandscholes_> { typedef ext::elementwise_<blackandscholes_> parent; };
-  }
-  NT2_FUNCTION_IMPLEMENTATION(tag::blackandscholes_, blackandscholes, 5)
-
-  namespace ext
-  {
-    NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::blackandscholes_, tag::cpu_
-                              , (A0)(A1)(A2)(A3)(A4)
-                              , (generic_< arithmetic_<A0> >)
-                                (generic_< arithmetic_<A1> >)
-                                (generic_< arithmetic_<A2> >)
-                                (generic_< arithmetic_<A3> >)
-                                (generic_< arithmetic_<A4> >)
-                              )
-    {
-      typedef A0 result_type;
-      NT2_FUNCTOR_CALL(5)
-      {
-        A0 da   = nt2::sqrt(a2);
-        A0 tmp1 = nt2::log(a0/a1);
-        A0 tmp2 = nt2::sqr(a4);
-        A0 tmp4 = nt2::fma(tmp2,nt2::Half<A0>(),a3);
-        A0 tmp3 = (tmp4*a2)/(a4*da);
-        A0 ed   = nt2::exp(-a3*a2);
-        A0 d1   = tmp1 + tmp3;
-        A0 d2   = nt2::fnms(a4,da,d1);
-        A0 fd1  = nt2::fastnormcdf(d1);
-        A0 fd2  = nt2::fastnormcdf(d2);
-        return nt2::fnms(a1*ed, fd2, a0*fd1);
-      }
-    };
-  }
-}
-
 template<typename T> struct blackandscholes_nt2_merged
 {
   blackandscholes_nt2_merged(std::size_t n)
@@ -82,6 +45,9 @@ template<typename T> struct blackandscholes_nt2_merged
     Ta.resize(nt2::of_size(size_));
     ra.resize(nt2::of_size(size_));
     va.resize(nt2::of_size(size_));
+    da.resize(nt2::of_size(size_));
+    d1.resize(nt2::of_size(size_));
+    d2.resize(nt2::of_size(size_));
     R.resize(nt2::of_size(size_));
 
     for(std::size_t i = 1; i <= size_; ++i)
@@ -90,7 +56,11 @@ template<typename T> struct blackandscholes_nt2_merged
 
   void operator()()
   {
-    R = nt2::blackandscholes(Sa, Xa, Ta, ra, va);
+    nt2::tie(da,d1,d2,R) = nt2::tie ( nt2::sqrt(Ta)
+                                    , nt2::log(Sa/Xa) + (nt2::fma(nt2::sqr(va),T(0.5),ra)*Ta)/(va*da)
+                                    , nt2::fnms(va,da,d1)
+                                    , nt2::fnms(Xa*nt2::exp(-ra*Ta),nt2::fastnormcdf(d2),Sa*nt2::fastnormcdf(d1))
+                                    );
   }
 
   friend std::ostream& operator<<(std::ostream& os, blackandscholes_nt2_merged<T> const& p)
@@ -101,7 +71,7 @@ template<typename T> struct blackandscholes_nt2_merged
   std::size_t size() const { return size_; }
 
   private:
-  nt2::table<T> Sa, Xa, Ta, ra, va, R;
+  nt2::table<T> Sa, Xa, Ta, ra, va, R, da, d1, d2;
   std::size_t size_;
 };
 

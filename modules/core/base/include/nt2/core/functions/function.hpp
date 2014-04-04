@@ -10,9 +10,11 @@
 #ifndef NT2_CORE_FUNCTIONS_FUNCTION_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_FUNCTION_HPP_INCLUDED
 
+#include <nt2/sdk/parameters.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/simd/category.hpp>
-#include <nt2/sdk/parameters.hpp>
+#include <nt2/core/container/dsl/details/resize.hpp>
+#include <nt2/core/container/dsl/details/generator.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
 namespace nt2
@@ -55,5 +57,40 @@ namespace boost { namespace dispatch { namespace meta
     typedef boost::proto::tag::function type;
   };
 } } }
+
+
+namespace nt2 { namespace ext
+{
+  //============================================================================
+  // resize function expression - do nothing
+  //============================================================================
+  template<class Domain, int N, class Expr>
+  struct resize<nt2::tag::function_, Domain, N, Expr>
+  {
+    template<class Sz> BOOST_FORCEINLINE void operator()(Expr&, Sz const&) {}
+  };
+} }
+
+namespace nt2 { namespace details
+{
+  //==========================================================================
+  // Generator nullary function call case - handle expr()
+  //==========================================================================
+  template<class Domain, class Expr>
+  struct  generator<tag::function_, Domain, 1, Expr>
+  {
+    typedef typename boost::proto::result_of::child_c<Expr,0>::type   expr_t;
+    typedef typename boost::dispatch::meta::semantic_of<expr_t>::type sema_t;
+
+    typedef container::expression < typename boost::remove_const<Expr>::type
+                                  , sema_t
+                                  >                               result_type;
+
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return result_type(e);
+    }
+  };
+} }
 
 #endif

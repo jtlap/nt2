@@ -20,10 +20,17 @@ nt2_module_postconfigure(gather_includes ---ignore details --ignore preprocessed
                         )
 
 nt2_module_postconfigure(gather_includes ---ignore details --ignore preprocessed
+                                         nt2/dsl/functions boost/simd/dsl/functions
+                                         --out  nt2/dsl/include/functions
+                                          nt2/dsl/include/functions
+                                         --out  nt2/dsl/functions.hpp
+                                         --out  nt2/include/functions
+                        )
+
+nt2_module_postconfigure(gather_includes ---ignore details --ignore preprocessed
                                          --max 1 nt2/core/functions
                                          nt2/core/functions/generic nt2/core/functions/scalar
                                          --out nt2/core/include/functions/scalar
                                          nt2/core/include/functions/scalar
                                          --out nt2/include/functions/scalar
                         )
-

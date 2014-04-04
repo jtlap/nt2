@@ -11,12 +11,11 @@ SET ( NT2_CORE.ELLIPTIC_DEPENDENCIES_EXTRA
       boost.dispatch
       boost.simd.base
       boost.simd.reduction
-      core.base
       core.exponential
       core.polynomials
       core.sdk
       core.trigonometric
-      core.utility
+      core.base
       sdk.error
       sdk.functor
       sdk.meta
