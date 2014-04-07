@@ -78,7 +78,7 @@ namespace boost { namespace simd { namespace ext
       template<int I> BOOST_FORCEINLINE void operator()() const
       {
         typedef typename boost::pointee<A1>::type stype;
-        if (a2[I])
+        if (extract<I>(a2))
           a1[I] = static_cast<stype>( extract<I>(a0) );
       }
 
@@ -209,7 +209,7 @@ namespace boost { namespace simd { namespace ext
       template<int I> BOOST_FORCEINLINE void operator()() const
       {
         typedef typename boost::pointee<A1>::type stype;
-        if (a3[I]) a1[a2[I]] = static_cast<stype>(a0[I]);
+        if (extract<I>(a3)) a1[extract<I>(a2)] = static_cast<stype>(extract<I>(a0));
       }
 
       A0 const& a0;
