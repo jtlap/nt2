@@ -141,7 +141,7 @@ inline void masked_load_runner(bool offset = false)
   static const std::size_t offset_dist = offset ? cd/2 : 0;
 
   std::vector<Type>  data(cd);
-  std::vector<Type>  ref(cd);
+  std::vector<s_type>  ref(cd);
 
   Mask  mask;
 
