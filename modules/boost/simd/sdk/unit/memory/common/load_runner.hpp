@@ -21,6 +21,8 @@
 #include <boost/simd/preprocessor/stack_buffer.hpp>
 
 #include <vector>
+#include <cstdlib>
+#include <time.h>
 #include "fill.hpp"
 
 template<typename Type, typename Target>
