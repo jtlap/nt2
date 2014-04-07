@@ -37,7 +37,7 @@ NT2_TEST_CASE( insert_foo )
   using boost::simd::insert;
   using boost::simd::tag::insert_;
 
-  typedef typename boost::dispatch::meta::call<insert_(foo, foo&, int)>::type rT;
+  typedef boost::dispatch::meta::call<insert_(foo, foo&, int)>::type rT;
 
   NT2_TEST_TYPE_IS( rT, void );
 
