@@ -6,27 +6,29 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+#include <nt2/table.hpp>
 #include <nt2/elliptic/include/functions/scalar/ellipj.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 
+#include <nt2/include/functions/reshape.hpp>
+#include <nt2/include/functions/cons.hpp>
+#include <nt2/include/functions/colon.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/pio_2.hpp>
 #include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/eps.hpp>
-#include <nt2/include/functions/reshape.hpp>
-#include <nt2/include/functions/cons.hpp>
-#include <nt2/include/functions/colon.hpp>
-#include <boost/dispatch/functor/meta/call.hpp>
+
+#include <boost/fusion/tuple.hpp>
 #include <boost/fusion/include/vector_tie.hpp>
-#include <nt2/table.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <boost/fusion/include/vector_tie.hpp>
 
 NT2_TEST_CASE_TPL ( ellipj_real__1_0,  NT2_REAL_TYPES)
 {

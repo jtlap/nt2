@@ -10,14 +10,14 @@
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 
-#include <nt2/include/constants/pio2_3.hpp>
-#include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/pio_2.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/invpi.hpp>
+#include <nt2/include/constants/third.hpp>
+#include <nt2/include/constants/half.hpp>
 #include <nt2/include/functions/sinpi.hpp>
 #include <nt2/include/functions/cospi.hpp>
 #include <nt2/include/functions/splat.hpp>

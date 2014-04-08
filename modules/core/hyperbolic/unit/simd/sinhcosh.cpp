@@ -7,18 +7,23 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <nt2/hyperbolic/include/functions/sinhcosh.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests/ulp.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
-#include <nt2/sdk/unit/module.hpp>
+
+#include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/cosh.hpp>
 #include <nt2/include/functions/sinh.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/half.hpp>
-#include <nt2/include/constants/valmax.hpp>
-#include <nt2/include/functions/splat.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/minf.hpp>
+
 #include <boost/fusion/include/vector_tie.hpp>
+
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
 NT2_TEST_CASE_TPL(sinhcosh, NT2_SIMD_REAL_TYPES)
 {

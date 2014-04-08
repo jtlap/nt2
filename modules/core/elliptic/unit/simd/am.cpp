@@ -7,24 +7,23 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <nt2/elliptic/include/functions/am.hpp>
-
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
-#include <nt2/sdk/unit/tests/ulp.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/sdk/config.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
+#include <boost/simd/sdk/config.hpp>
 
+#include <nt2/include/functions/splat.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/pio_2.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/half.hpp>
 
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 
 NT2_TEST_CASE_TPL ( am_real,  NT2_SIMD_REAL_TYPES)
 {

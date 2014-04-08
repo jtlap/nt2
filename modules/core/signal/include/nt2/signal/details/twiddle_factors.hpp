@@ -20,6 +20,7 @@
 #include <nt2/include/functions/simd/sinecosine.hpp>
 #include <nt2/include/functions/simd/sincosd.hpp>
 #include <nt2/include/functions/simd/sincospi.hpp>
+#include <nt2/include/constants/mzero.hpp>
 
 #include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/simd/include/functions/simd/enumerate.hpp>

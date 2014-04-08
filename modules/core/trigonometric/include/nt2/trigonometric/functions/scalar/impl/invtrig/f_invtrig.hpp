@@ -32,6 +32,7 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/simd/tags.hpp>
 
 namespace nt2 { namespace details {

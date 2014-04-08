@@ -10,22 +10,21 @@
 #include <nt2/elliptic/include/functions/am.hpp>
 
 #include <nt2/sdk/functor/meta/call.hpp>
+#include <boost/simd/sdk/config.hpp>
+
+#include <nt2/include/functions/colon.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/minf.hpp>
+#include <nt2/include/constants/pio_2.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/sdk/config.hpp>
-
-#include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/pi.hpp>
-#include <nt2/include/constants/pio_2.hpp>
-#include <nt2/include/constants/zero.hpp>
-#include <nt2/include/constants/eps.hpp>
-#include <nt2/include/functions/colon.hpp>
-
-
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////

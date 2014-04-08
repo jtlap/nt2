@@ -10,22 +10,24 @@
 
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
-#include <boost/simd/sdk/simd/io.hpp>
+
 #include <boost/simd/sdk/simd/native.hpp>
-#include <complex>
+#include <boost/simd/sdk/simd/io.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/dry.hpp>
-#include <nt2/sdk/unit/tests/ulp.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/config.hpp>
+#include <complex>
 
+#include <nt2/include/functions/splat.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/mone.hpp>
+
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
 NT2_TEST_CASE_TPL ( min_real,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
