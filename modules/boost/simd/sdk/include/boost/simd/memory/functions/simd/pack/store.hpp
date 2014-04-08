@@ -59,8 +59,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-
-  /// INTERNAL ONLY pack store with offset
+  /// INTERNAL ONLY pack scatter
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)(X)
@@ -77,6 +76,29 @@ namespace boost { namespace simd { namespace ext
       boost::simd::store(evaluate(a0),a1,a2);
     }
   };
+
+  /// INTERNAL ONLY mask pack scatter
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
+                                    , tag::cpu_
+                                    , (A0)(A1)(A2)(A3)(X)(Tag)(Arity)
+                                    , ((ast_<A0, boost::simd::domain>))
+                                      (iterator_< scalar_< fundamental_<A1> > >)
+                                      ((simd_< integer_<A2>, X >))
+                                      ((expr_ < simd_< logical_<A3>, X >
+                                              , Tag, Arity
+                                              >
+                                      ))
+                                    )
+  {
+    typedef void result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 const& a0, A1 a1, A2 const& a2, const A3& a3) const
+    {
+      boost::simd::store(evaluate(a0),a1,a2,evaluate(a3));
+    }
+  };
+
 
   /// INTERNAL ONLY pack store without offset
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
@@ -95,7 +117,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  /// INTERNAL ONLY pack store without offset
+  /// INTERNAL ONLY mask pack store without offset
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)(X)(Tag)(Arity)
