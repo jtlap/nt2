@@ -15,7 +15,7 @@
 #include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/simd/exp10.hpp>
 #include <nt2/include/functions/simd/sqrt.hpp>
-#include <nt2/include/constants/ten.hpp>
+#include <nt2/include/constants/twenty.hpp>
 
 namespace nt2 { namespace ext
 {
