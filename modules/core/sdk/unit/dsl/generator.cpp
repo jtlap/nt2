@@ -14,7 +14,6 @@
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/sum.hpp>
-#include <nt2/include/functions/optimize.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -25,6 +24,8 @@
 
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/is_reference.hpp>
+
+#include "as_node.hpp"
 
 // plus-like function with perfect forwarding
 namespace nt2
@@ -403,17 +404,6 @@ NT2_TEST_CASE( expr_lifetime )
   expr_lifetime_2_t(nt2::pplus(boost::proto::child_c<0>(nt2::tie(a0)), a1));
   expr_lifetime_2_ts(nt2::pplus(boost::proto::child_c<0>(nt2::tie(a2)), a1));
   expr_lifetime_assign(nt2::assign(i, nt2::sum(a0(nt2::_))));
-
-  expr_lifetime_0(nt2::optimize(a0));
-  expr_lifetime_2_t(nt2::optimize(nt2::pplus(a0, a1)));
-  expr_lifetime_2_i(nt2::optimize(nt2::pplus(a0, i)));
-  expr_lifetime_2_ir(nt2::optimize(nt2::pplus(a0, boost::proto::as_child(i))));
-  expr_lifetime_tie_i(nt2::optimize(nt2::tie(i)));
-  expr_lifetime_tie_t(nt2::optimize(nt2::tie(a0)));
-  expr_lifetime_tie_ts(nt2::optimize(nt2::tie(a2)));
-  expr_lifetime_2_t(nt2::optimize(nt2::pplus(boost::proto::child_c<0>(nt2::optimize(nt2::tie(a0))), a1)));
-  expr_lifetime_2_ts(nt2::optimize(nt2::pplus(boost::proto::child_c<0>(nt2::optimize(nt2::tie(a2))), a1)));
-  expr_lifetime_assign(nt2::optimize(nt2::assign(i, nt2::sum(a0(nt2::_)))));
 }
 
 template<class T>
@@ -491,5 +481,101 @@ NT2_TEST_CASE( extent_type )
   NT2_TEST_EXPR_TYPE( nt2::assign(a0, a4)
                     , extent_type<_>
                     , (of_size_<1, 2>)
+                    );
+}
+
+
+NT2_TEST_CASE( function )
+{
+  using boost::mpl::_;
+  using nt2::table;
+  typedef double T;
+
+  table<T> a0, a1, a2;
+
+  NT2_TEST_EXPR_TYPE( a0(a1)
+                    , as_node<_>
+                    , ( node2 < nt2::tag::function_
+                              , boost::proto::tag::terminal
+                              , node4< nt2::tag::function_index_
+                                     , node1 < nt2::tag::aggregate_
+                                             , boost::proto::tag::terminal
+                                             >
+                                     , boost::proto::tag::terminal
+                                     , boost::proto::tag::terminal
+                                     , boost::proto::tag::terminal
+                                     >
+                              >
+                      )
+                    );
+}
+
+NT2_TEST_CASE( fma )
+{
+  using boost::mpl::_;
+  using nt2::table;
+  typedef double T;
+
+  table<T> a0, a1, a2;
+
+  NT2_TEST_EXPR_TYPE( a0 * a1 + a2 * a0
+                    , as_node<_>
+                    , ( node3< nt2::tag::fma_
+                             , boost::proto::tag::terminal
+                             , boost::proto::tag::terminal
+                             , node2< boost::proto::tag::multiplies
+                                    , boost::proto::tag::terminal
+                                    , boost::proto::tag::terminal
+                                    >
+                             >
+                      )
+                    );
+
+  NT2_TEST_EXPR_TYPE( a0 * a1 + a2
+                    , as_node<_>
+                    , ( node3< nt2::tag::fma_
+                             , boost::proto::tag::terminal
+                             , boost::proto::tag::terminal
+                             , boost::proto::tag::terminal
+                             >
+                      )
+                    );
+
+  NT2_TEST_EXPR_TYPE( a0 + a1 * a2
+                    , as_node<_>
+                    , ( node3< nt2::tag::fma_
+                             , boost::proto::tag::terminal
+                             , boost::proto::tag::terminal
+                             , boost::proto::tag::terminal
+                             >
+                      )
+                    );
+
+  NT2_TEST_EXPR_TYPE( a0 * a1 + (a2 * a0 + a1)
+                    , as_node<_>
+                    , ( node3< nt2::tag::fma_
+                             , boost::proto::tag::terminal
+                             , boost::proto::tag::terminal
+                             , node3< nt2::tag::fma_
+                                    , boost::proto::tag::terminal
+                                    , boost::proto::tag::terminal
+                                    , boost::proto::tag::terminal
+                                    >
+                             >
+                      )
+                    );
+
+  NT2_TEST_EXPR_TYPE( a0 + a1 * (a2 * a0 + a1)
+                    , as_node<_>
+                    , ( node3< nt2::tag::fma_
+                             , boost::proto::tag::terminal
+                             , node3< nt2::tag::fma_
+                                    , boost::proto::tag::terminal
+                                    , boost::proto::tag::terminal
+                                    , boost::proto::tag::terminal
+                                    >
+                             , boost::proto::tag::terminal
+                             >
+                      )
                     );
 }

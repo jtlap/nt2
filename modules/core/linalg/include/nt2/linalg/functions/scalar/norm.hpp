@@ -9,18 +9,19 @@
 #ifndef NT2_LINALG_FUNCTIONS_SCALAR_NORM_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_SCALAR_NORM_HPP_INCLUDED
 #include <nt2/linalg/functions/norm.hpp>
-#include <nt2/include/functions/scalar/norm.hpp>
-#include <nt2/include/functions/scalar/isvector.hpp>
-#include <nt2/include/functions/scalar/ismatrix.hpp>
-#include <nt2/include/functions/scalar/vecnorm.hpp>
-#include <nt2/include/functions/scalar/is_nan.hpp>
-#include <nt2/include/functions/scalar/isempty.hpp>
-#include <nt2/include/functions/scalar/globalmax.hpp>
-#include <nt2/include/functions/scalar/asum1.hpp>
-#include <nt2/include/functions/scalar/svd.hpp>
+#include <nt2/include/functions/norm.hpp>
+#include <nt2/include/functions/isvector.hpp>
+#include <nt2/include/functions/ismatrix.hpp>
+#include <nt2/include/functions/vecnorm.hpp>
+#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/include/functions/isempty.hpp>
+#include <nt2/include/functions/globalmax.hpp>
+#include <nt2/include/functions/asum1.hpp>
+#include <nt2/include/functions/gesvd.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/core/container/table/table.hpp>
+#include <nt2/sdk/meta/property_of.hpp>
 #include <string>
 
 // *     DLANGE = ( max(abs(A(i,j))), NORM = 'M' or 'm'
@@ -47,6 +48,11 @@ namespace nt2 { namespace ext
     typedef typename meta::strip<typename A0::value_type>::type type_t;
     typedef typename meta::as_real<type_t>::type rtype_t;
     typedef rtype_t result_type;
+    typedef typename meta::option<A0,nt2::tag::shape_>::type shape;
+    typedef nt2::container::table<type_t,shape>  matrix_type;
+    typedef nt2::container::table<type_t>  entry_type;
+    typedef nt2::container::table<result_type>  base_type;
+
     NT2_FUNCTOR_CALL(2)
     {
       if (isvector(a0))
@@ -60,7 +66,17 @@ namespace nt2 { namespace ext
         } else if (a1 == 'I'|| a1 == 'i'|| a1 == Inf<A1>()){
           return nt2::globalmax(nt2::asum1(a0, 2));
         } else if (a1 == Two<A1>()){
-          return nt2::details::svd_result<A0>(a0, 'N', 'N').norm();
+        entry_type u,v;
+        base_type s;
+        matrix_type work(a0);
+
+        nt2_la_int  m  = nt2::height(work);
+        nt2_la_int  n  = nt2::width(work);
+
+        s.resize(nt2::of_size(std::min(m,n), 1));
+        nt2::gesvd(boost::proto::value(work),boost::proto::value(s)
+                  ,boost::proto::value(u),boost::proto::value(v),'N','N');
+        return s(1);
         } else if (a1 == '1' || a1 == 'O' || a1 == 'o' ||a1 == One<A1>()) {
          return nt2::globalmax(nt2::asum1(a0, 1));
         } else if (a1 == 'F' || a1 == 'f' || a1 == 'E' ||a1 == 'e'){
@@ -90,6 +106,7 @@ namespace nt2 { namespace ext
     typedef typename A0::value_type type_t;
     typedef typename meta::as_real<type_t>::type rtype_t;
     typedef typename meta::as_floating<rtype_t>::type result_type;
+
     BOOST_FORCEINLINE result_type operator()(A0& a0, const char * a1) const
     {
       if (strcmp(a1, "fro") == 0)
@@ -117,6 +134,7 @@ namespace nt2 { namespace ext
     typedef typename A0::value_type type_t;
     typedef typename meta::as_real<type_t>::type rtype_t;
     typedef typename meta::as_floating<rtype_t>::type result_type;
+
     NT2_FUNCTOR_CALL(1)
     {
       if (isvector(a0))

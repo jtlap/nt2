@@ -19,6 +19,10 @@
 #include <hpx/hpx_init.hpp>
 #endif
 
+#if defined(DNT2_USE_MAGMA)
+#include <magma.h>
+#endif
+
 #include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/unit/io.hpp>
 #include <nt2/sdk/unit/test_case.hpp>
@@ -27,6 +31,7 @@
 #include <nt2/sdk/unit/details/main.hpp>
 #include <nt2/sdk/error/throw_exception.hpp>
 #include <nt2/sdk/error/assert_as_flexible.hpp>
+#include <nt2/sdk/error/warning_as_flexible.hpp>
 #include <nt2/sdk/functor/site.hpp>
 #include <nt2/sdk/meta/type_id.hpp>
 #include <boost/preprocessor/cat.hpp>
@@ -86,6 +91,10 @@ NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int argc, char* argv[])
   std::cout << "Architecture: " << BOOST_SIMD_STRING << "\n";
   std::cout << "Site: " << nt2::type_id<boost::dispatch::default_site<int>::type>() << "\n",
   std::cout <<  std::string(80,'-') << std::endl;
+
+#if defined(NT2_USE_MAGMA)
+  magma_init();
+#endif
 
 #if defined(NT2_USE_HPX)
   std::vector<std::string> cfg;

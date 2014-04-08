@@ -8,7 +8,6 @@
 ##############################################################################
 
 nt2_module_use_modules( test.benchmark
-                        core.utility
                         core.generative
                         core.base
                         core.trigonometric

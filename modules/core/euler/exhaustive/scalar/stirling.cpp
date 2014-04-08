@@ -13,7 +13,7 @@
 
 #define NT2_ASSERTS_AS_TRAP
 #include <nt2/sdk/error/assert_as_trap.hpp>
-#include <nt2/include/functions/scalar/fast_gamma.hpp>
+#include <nt2/include/functions/scalar/gamma.hpp>
 
 #include <cmath>
 #include <cstdlib>
@@ -24,7 +24,7 @@ struct raw_stirling
 {
   float operator()(float x) const
   {
-    return nt2::fast_gamma(double(x));
+    return nt2::gamma(double(x));
   }
 };
 

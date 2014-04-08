@@ -47,14 +47,14 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::bitwise_xor_
                                     , boost::simd::tag::avx_
-                                    , (A0)
+                                    , (A0)(A1)
                                     , ((simd_<integer_<A0>,boost::simd::tag::avx_>))
-                                      ((simd_<integer_<A0>,boost::simd::tag::avx_>))
+                                      ((simd_<integer_<A1>,boost::simd::tag::avx_>))
                                     )
   {
     typedef A0 result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
       return _mm256_castps_si256(_mm256_xor_ps( _mm256_castsi256_ps(a0)
                                               , _mm256_castsi256_ps(a1)

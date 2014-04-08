@@ -11,14 +11,12 @@ SET ( NT2_CORE.GENERATIVE_DEPENDENCIES_EXTRA
       boost.dispatch
       boost.simd.base
       boost.simd.swar
-      core.base
       core.container.placeholders
       core.exponential
       core.fuzzy
       core.sdk
-      core.utility
+      core.base
       sdk.config
-      sdk.dsl
       sdk.functor
       sdk.meta
     )

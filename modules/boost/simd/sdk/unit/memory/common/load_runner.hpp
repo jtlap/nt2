@@ -21,6 +21,8 @@
 #include <boost/simd/preprocessor/stack_buffer.hpp>
 
 #include <vector>
+#include <cstdlib>
+#include <time.h>
 #include "fill.hpp"
 
 template<typename Type, typename Target>
@@ -104,6 +106,67 @@ inline void load_runner(bool offset = false)
   }
 }
 
+template<typename Type, typename Target, typename Mask>
+inline void masked_load_runner(bool offset = false)
+{
+  using boost::simd::load;
+  using boost::simd::tag::load_;
+  using boost::simd::meta::cardinal_of;
+  using boost::simd::insert;
+  using boost::simd::extract;
+  using boost::simd::meta::scalar_of;
+  using boost::simd::meta::as_logical;
+  using boost::simd::if_else;
+  using boost::simd::splat;
+  using boost::dispatch::meta::as_;
+
+  if(!offset)
+    NT2_TEST_TYPE_IS( (typename boost::dispatch::meta
+                              ::call<load_( Type*, as_<Target>, Target, Mask)>::type
+                      )
+                    , Target
+                    );
+  else
+    NT2_TEST_TYPE_IS( (typename boost::dispatch::meta
+                              ::call<load_( Type*, int, as_<Target>, Target, Mask)>::type
+                      )
+                    , Target
+                    );
+
+  typedef typename scalar_of<Target>::type s_type;
+  typedef typename as_logical<s_type>::type l_type;
+
+  static const std::size_t cd = cardinal_of<Target>::value;
+
+  static const std::size_t offset_dist = offset ? cd/2 : 0;
+
+  std::vector<Type>  data(cd);
+  std::vector<s_type>  ref(cd);
+
+  Mask  mask;
+
+  srand(time(NULL));
+
+  for(size_t i=0;i<cd;++i)
+    insert(l_type(rand()%2), mask, i);
+  for(std::size_t i=0;i<cd;++i)
+  {
+    fill<Type>()(data[i],65+i);
+  }
+
+  Target v;
+  Target old=splat<Target>(42);
+
+  for(std::size_t j=0;j<cd;++j) ref[j]=if_else(extract(mask,j),s_type(data[j]),extract(old,j));
+
+  if (!offset) v = load<Target>(&data[0],old,mask);
+  else         v = load<Target>(&data[0],offset_dist,old,mask);
+
+  for(std::size_t j=0;j<cd;++j)
+    NT2_TEST_EQUAL(extract(v,j),ref[j]);
+}
+
+
 template<typename Type, typename Target, typename Misalignment>
 inline void misaligned_load_runner(Misalignment const&, bool offset = false)
 {
@@ -154,8 +217,6 @@ inline void misaligned_load_runner(Misalignment const&, bool offset = false)
     if(!offset) NT2_TEST_EQUAL((aligned_load<Target,ms>(&data[ms+i*cd])), ref[i]);
     else        NT2_TEST_EQUAL((aligned_load<Target,ms>(&data[0],ms+i*cd)), ref[i]);
   }
-
-  std::cout << "\n";
 }
 
 #endif

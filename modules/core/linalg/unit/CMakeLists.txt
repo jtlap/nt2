@@ -7,7 +7,7 @@
 ##                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_use_modules(test.unit core.utility)
+nt2_module_use_modules(test.unit core.base)
 
 ADD_SUBDIRECTORY(tie)
 ADD_SUBDIRECTORY(functions)
@@ -15,3 +15,4 @@ ADD_SUBDIRECTORY(factorization)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(general)
 ADD_SUBDIRECTORY(solvers)
+ADD_SUBDIRECTORY(lapack)

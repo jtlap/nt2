@@ -9,6 +9,7 @@
 
 SET ( NT2_SDK.FUNCTOR_DEPENDENCIES_EXTRA
       boost.dispatch
+      boost.simd.sdk
       sdk.meta
       sdk.simd
     )

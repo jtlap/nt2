@@ -1,6 +1,6 @@
 //==============================================================================
 //         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -9,46 +9,133 @@
 #ifndef NT2_LINALG_FUNCTIONS_FACTORIZATIONS_QR_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_FACTORIZATIONS_QR_HPP_INCLUDED
 
-#include <nt2/linalg/functions/qr.hpp>
-#include <nt2/options.hpp>
-#include <nt2/core/container/table/table.hpp>
-#include <nt2/include/functions/issquare.hpp>
-#include <nt2/linalg/functions/details/qr.hpp>
+#include <nt2/linalg/functions/details/qr/eval.hpp>
+#include <nt2/linalg/functions/details/qr/pivot.hpp>
+#include <nt2/include/functions/tie.hpp>
+#include <nt2/linalg/options.hpp>
+#include <nt2/sdk/meta/concrete.hpp>
+#include <nt2/include/functions/width.hpp>
+#include <nt2/include/functions/zeros.hpp>
+#include <boost/dispatch/meta/ignore_unused.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::factorization::qr_, tag::cpu_
-                            , (A0)(A1)
-                            , ((ast_<A0, nt2::container::domain>))
-                              (scalar_< type8_<A1> >)
+  //============================================================================
+  //[Q,R] = QR(A)
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::qr_, tag::cpu_
+                            , (A0)(N0)(A1)(N1)
+                            , ((node_<A0, nt2::tag::qr_
+                                    , N0, nt2::container::domain
+                                      >
+                              ))
+                              ((node_<A1, nt2::tag::tie_
+                                    , N1, nt2::container::domain
+                                     >
+                              ))
                             )
   {
-    typedef typename meta::strip<A0>::type                            base_t;
-    typedef typename base_t::value_type                              value_t;
-    typedef typename base_t::settings_type                        settings_t;
-    typedef details::qr_result< container::table<value_t,settings_t> >      result_type;
+    typedef void  result_type;
+    typedef typename boost::proto::result_of::child_c<A1&,0>::value_type c0_t;
+    typedef typename boost::proto::result_of::child_c<A0&,0>::value_type child0;
+    typedef typename child0::value_type type_t;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
+    BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
-      result_type that(a0, a1);
-      return that;
+      nt2::container::table<nt2_la_int>  ip;
+      nt2::container::table<type_t>      tau;
+      eval(a0, a1, tau, ip, N0(), N1());
     }
-  };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::factorization::qr_, tag::cpu_
-                            , (A0)(A1)(IP)
-                            , ((ast_<A0, nt2::container::domain>))
-                              (scalar_< type8_<A1> >)
-                              (unspecified_< IP >)
-                            )
-  {
-    typedef details::qr_result<A0&> result_type;
-
-    BOOST_FORCEINLINE result_type
-    operator()(A0& a0, A1 const& a1 , IP const&) const
+    //==========================================================================
+    /// INTERNAL ONLY - X = QR(A)
+    BOOST_FORCEINLINE
+    void eval ( A0& a0, A1& a1
+              , nt2::container::table<type_t>& tau , nt2::container::table<nt2_la_int>& ip
+              , boost::mpl::long_<1> const& , boost::mpl::long_<1> const&
+              ) const
     {
-      result_type that(a0, a1);
-      return that;
+      typedef typename boost::proto::result_of::child_c<A1&,0>::type s0_t;
+      typedef typename meta::concrete<s0_t>::type                     c_t;
+
+      c_t work = shallow_concrete ( boost::proto::child_c<0>(a1)
+                                  , boost::proto::child_c<0>(a0)
+                                  );
+
+      nt2_la_int info = eval_qrfull(work, tau, ip, nt2::policy<ext::pivot_>());
+      boost::dispatch::ignore_unused(info);
+
+      boost::proto::child_c<0>(a1) = work;
+    }
+
+    /// INTERNAL ONLY - [Q,R] = QR(A)
+    BOOST_FORCEINLINE
+    void eval ( A0& a0, A1& a1
+              , nt2::container::table<type_t>& tau, nt2::container::table<nt2_la_int>& /*ip*/
+              , boost::mpl::long_<1> const&, boost::mpl::long_<2> const&
+              ) const
+    {
+      eval_qr( a0, a1, tau, nt2::policy<ext::no_pivot_>() );
+    }
+
+    /// INTERNAL ONLY - [Q,R,P] = QR(A)
+    BOOST_FORCEINLINE
+    void eval ( A0& a0, A1& a1
+              , nt2::container::table<type_t>& tau, nt2::container::table<nt2_la_int>& ip
+              , boost::mpl::long_<1> const&, boost::mpl::long_<3> const&
+              ) const
+    {
+      eval_qr( a0, a1, tau, ip, nt2::policy<ext::pivot_>());
+      extract_p(a1,ip,nt2::policy<ext::matrix_>());
+    }
+
+    //==========================================================================
+    /// INTERNAL ONLY - X = QR(A,{0/{no_}pivot_})
+    BOOST_FORCEINLINE
+    void eval ( A0& a0, A1& a1
+              , nt2::container::table<type_t>& tau, nt2::container::table<nt2_la_int>& ip
+              , boost::mpl::long_<2> const&, boost::mpl::long_<1> const&
+              ) const
+    {
+      typedef typename boost::proto::result_of::child_c<A1&,0>::type s0_t;
+      typedef typename meta::concrete<s0_t>::type                     c_t;
+
+
+      c_t work = shallow_concrete ( boost::proto::child_c<0>(a1)
+                                  , boost::proto::child_c<0>(a0)
+                                  );
+
+      eval_qrfull(work,tau,ip,boost::proto::value(boost::proto::child_c<1>(a0)));
+      boost::proto::child_c<0>(a1) = work;
+
+    }
+
+    //==========================================================================
+    /// INTERNAL ONLY - [Q,R] = QR(A,{0/{no_}pivot_})
+    BOOST_FORCEINLINE
+    void eval ( A0& a0, A1& a1
+              , nt2::container::table<type_t>& tau, nt2::container::table<nt2_la_int>& /*ip*/
+              , boost::mpl::long_<2> const&, boost::mpl::long_<2> const&
+              ) const
+    {
+      eval_qr(a0,a1,tau,boost::proto::value(boost::proto::child_c<1>(a0)) );
+    }
+
+    //==========================================================================
+    /// INTERNAL ONLY - [Q,R,P] = QR(A,{0/matrix/vector)
+    BOOST_FORCEINLINE
+    void eval ( A0& a0, A1& a1
+              , nt2::container::table<type_t>& tau, nt2::container::table<nt2_la_int>& ip
+              , boost::mpl::long_<2> const&, boost::mpl::long_<3> const&
+              ) const
+    {
+      typedef typename boost::proto::result_of::child_c<A0&,1>::type  child1;
+      typedef typename boost::proto::result_of::value<child1>::type   v_t;
+
+      v_t p = boost::proto::value(boost::proto::child_c<1>(a0));
+
+      eval_qr(a0,a1,tau,ip,p);
+      extract_p(a1,ip,p);
     }
   };
 } }

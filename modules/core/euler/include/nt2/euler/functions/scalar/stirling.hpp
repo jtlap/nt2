@@ -14,7 +14,6 @@
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/quarter.hpp>
 #include <nt2/include/constants/sqrt_2pi.hpp>
 #include <nt2/include/constants/stirlinglargelim.hpp>
 #include <nt2/include/constants/stirlingsplitlim.hpp>
@@ -49,7 +48,7 @@ namespace nt2 { namespace ext
       A0 y = nt2::exp(-a0);
       if(nt2::is_eqz(y)) return nt2::Inf<A0>();
       A0 z =  a0 - nt2::Half<A0>();
-      if( a0 > nt2::Stirlingsplitlim<A0>() )
+      if( a0 >= nt2::Stirlingsplitlim<A0>() )
       { /* Avoid overflow in pow() */
         const A0 v = nt2::pow(a0,z*Half<A0>());
         y *= v;

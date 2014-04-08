@@ -15,11 +15,12 @@
   @brief Exceptions and assertions related testing macros
 **/
 
-#include <iostream>
 #include <nt2/sdk/unit/stats.hpp>
+#include <nt2/sdk/error/assert_exception.hpp>
 #include <boost/dispatch/preprocessor/strip.hpp>
 #include <boost/dispatch/preprocessor/once.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
+#include <iostream>
 
 #ifdef __GNUC__
 // INTERNAL ONLY
@@ -54,6 +55,32 @@ do {                                                                           \
 } BOOST_DISPATCH_ONCE                                                          \
 /**/
 
+#define NT2_TEST_WARNING_NOFATAL_BEGIN()                                       \
+{                                                                              \
+  nt2::log_mode_t old_warning_mode = nt2::warning_mode;                        \
+  nt2::warning_mode = nt2::log_mode_t(                                         \
+      (nt2::warning_mode & ~nt2::LOG_EXCEPT & ~nt2::LOG_ABORT)                 \
+  );                                                                           \
+/**/
+
+#define NT2_TEST_WARNING_NOFATAL_END()                                         \
+  nt2::warning_mode = old_warning_mode;                                        \
+}                                                                              \
+/**/
+
+#define NT2_TEST_WARNING_EXCEPT_BEGIN()                                        \
+{                                                                              \
+  nt2::log_mode_t old_warning_mode = nt2::warning_mode;                        \
+  nt2::warning_mode = nt2::log_mode_t(                                         \
+      (nt2::warning_mode & ~nt2::LOG_ABORT) | nt2::LOG_EXCEPT                  \
+  );                                                                           \
+/**/
+
+#define NT2_TEST_WARNING_EXCEPT_END()                                          \
+  nt2::warning_mode = old_warning_mode;                                        \
+}
+/**/
+
 /*!
   @brief Check runtime assertion failing
 
@@ -64,9 +91,9 @@ do {                                                                           \
 **/
 #define NT2_TEST_ASSERT(X)                                                     \
 do {                                                                           \
-  nt2::assert_mode_t old_assert_mode = nt2::assert_mode;                       \
-  nt2::assert_mode = nt2::assert_mode_t(                                       \
-    (nt2::assert_mode & ~nt2::ASSERT_ABORT) | nt2::ASSERT_EXCEPT               \
+  nt2::log_mode_t old_assert_mode = nt2::assert_mode;                          \
+  nt2::assert_mode = nt2::log_mode_t(                                          \
+    (nt2::assert_mode & ~nt2::LOG_ABORT) | nt2::LOG_EXCEPT                     \
   );                                                                           \
   ::nt2::unit::test_count()++;                                                 \
   bool caught = false;                                                         \
@@ -121,9 +148,9 @@ do {                                                                           \
 **/
 #define NT2_TEST_NO_ASSERT(X)                                                  \
 do {                                                                           \
-  nt2::assert_mode_t old_assert_mode = nt2::assert_mode;                       \
-  nt2::assert_mode = nt2::assert_mode_t(                                       \
-    (nt2::assert_mode & ~nt2::ASSERT_ABORT) | nt2::ASSERT_EXCEPT               \
+  nt2::log_mode_t old_assert_mode = nt2::assert_mode;                          \
+  nt2::assert_mode = nt2::log_mode_t(                                          \
+    (nt2::assert_mode & ~nt2::LOG_ABORT) | nt2::LOG_EXCEPT                     \
   );                                                                           \
   bool nt2_test_no_throw = true;                                               \
   ::nt2::unit::test_count()++;                                                 \

@@ -13,6 +13,7 @@
 #include <nt2/core/functions/tie.hpp>
 
 #include <nt2/core/container/table/table.hpp>
+#include <nt2/table.hpp>
 
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/vandermonde.hpp>
@@ -23,7 +24,11 @@
 #include <nt2/include/functions/length.hpp>
 #include <nt2/include/functions/oneplus.hpp>
 #include <nt2/include/functions/subs.hpp>
-#include <nt2/include/functions/qr.hpp>
+#include <nt2/include/functions/ls.hpp>
+#include <nt2/include/functions/height.hpp>
+#include <nt2/include/functions/width.hpp>
+#include <nt2/include/functions/colon.hpp>
+#include <nt2/include/functions/triu.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/stdev.hpp>
 #include <nt2/include/functions/mean.hpp>
@@ -91,6 +96,7 @@ namespace nt2 {
         BOOST_AUTO_TPL(p, boost::proto::child_c<0>(a1));
         BOOST_AUTO_TPL(vnd, nt2::vandermonde(nt2::colvect(x), l));
         p = nt2::rowvect(nt2::linsolve(vnd, nt2::colvect(y)));
+        p.resize(of_size(nt2::width(vnd),1u ));
       }
 
       BOOST_FORCEINLINE
@@ -102,13 +108,13 @@ namespace nt2 {
         BOOST_AUTO_TPL(vnd, nt2::vandermonde(nt2::colvect(x), l));
         typedef typename nt2::meta::call<nt2::tag::colvect_(y_type const &)>::type cy_t;
         typedef typename nt2::meta::call<nt2::tag::vandermonde_(cy_t const &, size_t const &)>::type vnd_t;
-        typedef typename nt2::meta::call<nt2::tag::factorization::qr_(vnd_t const&, char)>::type qr_type;
-        qr_type res = nt2::factorization::qr(vnd, 'N');
-        s.r = res.r();
-        res.solve(colvect(y), p);
-        p.resize(of_size(1u, numel(p)));
+        nt2::container::table<value_type> fact = vnd;
+        p = nt2::colvect(y);
+        nt2::ls( boost::proto::value(fact),boost::proto::value(p) );
+        s.r = nt2::triu(fact(nt2::_(1, std::min(nt2::height(fact),nt2::width(fact))), nt2::_) );
+        p.resize(of_size(nt2::width(vnd),1u ));
         s.df = nt2::subs(nt2::length(y), nt2::oneplus(l));
-        s.normr = nt2::norm(colvect(y)-nt2::mtimes(vnd, nt2::colvect(p)));
+        s.normr = nt2::norm(colvect(y)-nt2::mtimes(vnd, p));
       }
 
       BOOST_FORCEINLINE
@@ -124,13 +130,13 @@ namespace nt2 {
         BOOST_AUTO_TPL(vnd, nt2::vandermonde(nt2::colvect(x), l));
         typedef typename nt2::meta::call<nt2::tag::colvect_(x_type const &)>::type cx_t;
         typedef typename nt2::meta::call<nt2::tag::vandermonde_(cx_t const &, size_t const &)>::type vnd_t;
-        typedef typename nt2::meta::call<nt2::tag::factorization::qr_(vnd_t const&, char)>::type qr_type;
-        qr_type res = nt2::factorization::qr(vnd, 'N');
-        r = res.r();
-        res.solve(colvect(y), p);
-        p.resize(of_size(1u, numel(p)));
+        nt2::container::table<value_type> fact = vnd;
+        p = colvect(y);
+        nt2::ls(boost::proto::value(fact),boost::proto::value(p) );
+        r = nt2::triu(fact(nt2::_(1, std::min(nt2::height(fact),nt2::width(fact))), nt2::_) );
+        p.resize(of_size(nt2::width(vnd),1u ));
         df = df_type(nt2::subs(nt2::numel(y), l));
-        normr = nt2::norm(colvect(y)-nt2::mtimes(vnd, nt2::colvect(p)));
+        normr = nt2::norm(colvect(y)-nt2::mtimes(vnd, p));
       }
 
       BOOST_FORCEINLINE
@@ -149,19 +155,14 @@ namespace nt2 {
         BOOST_AUTO_TPL(r, boost::proto::child_c<1>(a1));
         BOOST_AUTO_TPL(df, boost::proto::child_c<2>(a1));
         BOOST_AUTO_TPL(normr, boost::proto::child_c<3>(a1));
-        BOOST_AUTO_TPL(vnd, nt2::vandermonde((nt2::colvect(x)-mu(1))/mu(2), l));
-        typedef typename nt2::meta::call<nt2::tag::colvect_(x_type const &)>::type cx_t;
-        typedef typename nt2::meta::call<nt2::tag::minus_(cx_t, value_type)>::type tmp1_t;
-        typedef typename nt2::meta::call<nt2::tag::divides_(tmp1_t, value_type)>::type tmp2_t;
-        typedef typename nt2::meta::call<nt2::tag::vandermonde_(tmp2_t const &, size_t const &)>::type vnd_t;
-        typedef typename nt2::meta::call<nt2::tag::factorization::qr_(vnd_t const&, char)>::type qr_type;
-        //       BOOST_AUTO_TPL(res, nt2::factorization::qr(vnd, 'N'));
-        qr_type res = nt2::factorization::qr(vnd, 'N');
-        r = res.r();
-        res.solve(colvect(y), p);
-        p.resize(of_size(1u, numel(p)));
+        BOOST_AUTO_TPL(vnd, nt2::vandermonde( (nt2::colvect(x)-mu(1))/mu(2), l));
+        nt2::container::table<value_type> fact = vnd;
+        p = colvect(y);
+        nt2::ls(boost::proto::value(fact),boost::proto::value(p) );
+        r = nt2::triu(fact(nt2::_(1, std::min(nt2::height(fact),nt2::width(fact))), nt2::_) );
+        p.resize(of_size(nt2::width(vnd),1u ));
         df = df_type(nt2::subs(nt2::numel(y), l));
-        normr = nt2::norm(colvect(y)-nt2::mtimes(vnd, nt2::colvect(p)));
+        normr = nt2::norm(colvect(y)-nt2::mtimes(vnd, p));
       }
 
 

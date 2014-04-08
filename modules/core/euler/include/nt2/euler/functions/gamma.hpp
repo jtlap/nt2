@@ -36,8 +36,6 @@ namespace nt2 { namespace tag
 
     Computes \f$ \displaystyle \Gamma(a_0)=\int_0^\infty t^{a_0-1}e^{-t}dt\f$
 
-    @see @funcref{fast_gamma}
-
     @param a0
 
     @return a value of the same type as the parameter

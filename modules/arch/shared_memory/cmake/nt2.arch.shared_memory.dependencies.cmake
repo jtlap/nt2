@@ -9,6 +9,6 @@
 
 set ( NT2_ARCH.SHARED_MEMORY_DEPENDENCIES_EXTRA
       core.reduction
-      core.utility
+      core.base
       sdk.config
     )

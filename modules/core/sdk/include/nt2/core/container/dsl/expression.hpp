@@ -25,7 +25,7 @@
 #include <nt2/operator/functions/assign.hpp>
 #include <nt2/include/functions/evaluate.hpp>
 #include <nt2/include/functions/scalar/numel.hpp>
-#include <nt2/core/utility/fix_index.hpp>
+#include <nt2/sdk/meta/fix_index.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/meta/enable_if_type.hpp>
 #include <boost/proto/traits.hpp>

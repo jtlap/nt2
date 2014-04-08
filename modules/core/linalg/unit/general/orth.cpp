@@ -24,16 +24,12 @@ NT2_TEST_CASE_TPL(orth, NT2_REAL_TYPES)
 {
   using nt2::orth;
   using nt2::tag::orth_;
-  std::cout << std::setprecision(20);
   nt2::table<T> n = nt2::eye(10, 10, nt2::meta::as_<T>());
   n(3, 5) = T(2);
   n(4, 4) = T(0);
   n(1, 1) = 5*nt2::Eps<T>();
   nt2::table<T> orthn = nt2::orth(n);
-  NT2_DISPLAY(n);
-  NT2_DISPLAY(orthn);
   nt2::table<T> orthn1 = nt2::orth(n,  100*nt2::Eps<T>());
-  NT2_DISPLAY(orthn1);
   T rn[100] = {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 1, 0, 0, 0, 0, 0,
@@ -55,6 +51,5 @@ NT2_TEST_CASE_TPL(orth, NT2_REAL_TYPES)
           a(i, j) = rn[k++];
         }
     }
-  NT2_DISPLAY(orthn1-a);
   NT2_TEST_ULP_EQUAL(a, orthn1, 1.0);
 }

@@ -707,6 +707,8 @@ macro(nt2_module_simd_toolbox name base)
                    "#include <boost/simd/${name}/include/functions/${file}.hpp>\n"
                    "#include <nt2/include/functor.hpp>\n"
                    "\n"
+                   "/* Automatically generated for module ${NT2_CURRENT_MODULE} */\n"
+                   "\n"
                    "namespace nt2\n"
                    "{\n"
                    "  namespace tag\n"

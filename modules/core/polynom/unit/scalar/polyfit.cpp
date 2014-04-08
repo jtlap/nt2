@@ -60,12 +60,10 @@ NT2_TEST_CASE_TPL ( plevl_real__2_0,  NT2_REAL_TYPES)
   nt2::table<T> x =  reshape(nt2::_(T(1), T(4)), nt2::of_size(2, 2));
   nt2::table<T> p =  nt2::_(T(1), T(3));
   nt2::table<T> y =  nt2::polyval(p, x);
-  std::cout << 1 << std::endl;
   nt2::table<T> r;
   T df, normr;
   nt2::table<T> mu;
   nt2::tie(p, r, df, normr, mu) = polyfit(x, y, 2);
-  std::cout << 2 << std::endl;
   NT2_TEST_ULP_EQUAL(polyval(p, (x-mu(1))/mu(2)), y, 10);
 }
 
@@ -82,9 +80,8 @@ NT2_TEST_CASE_TPL ( plevl_real__3_0,  NT2_REAL_TYPES)
   nt2::table<T> y(nt2::of_size(1,6), b+0, b+6);
   nt2::table<T> zz(nt2::of_size(1,4), c+0, c+4);
   nt2::table<T> z = polyfit(x, y, 3);
-  std::cout << x << "\n";
-  std::cout << y << "\n";
-  std::cout << z << "\n";
+  NT2_DISPLAY(z);
+  NT2_DISPLAY(zz);
   NT2_TEST_ULP_EQUAL(z, zz, 500);
 }
 

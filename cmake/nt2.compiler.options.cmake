@@ -21,12 +21,13 @@ if(CMAKE_CXX_FLAGS MATCHES "/EHsc")
   endforeach()
 endif()
 
+
 # MSVC12 needs /FS if building in debug in parallel
 if(MSVC AND (MSVC_VERSION EQUAL 1800 OR MSVC_VERSION GREATER 1800))
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /FS")
 endif()
 
-set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} -DBOOST_ENABLE_ASSERT_HANDLER -DNT2_ASSERTS_AS_FLEXIBLE")
+set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} -DBOOST_ENABLE_ASSERT_HANDLER -DNT2_ENABLE_WARNING_HANDLER")
 set(NT2_FLAGS_BENCH "${CMAKE_CXX_FLAGS_RELEASE}")
 
 # No debug symbols in tests because of excessive time and memory costs at compile time;

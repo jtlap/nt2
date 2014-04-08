@@ -8,11 +8,16 @@
 //==============================================================================
 #ifndef NT2_LINALG_FUNCTIONS_SCALAR_RCOND_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_SCALAR_RCOND_HPP_INCLUDED
+
 #include <nt2/linalg/functions/rcond.hpp>
-#include <nt2/include/functions/lu.hpp>
+#include <nt2/include/functions/trf.hpp>
+#include <nt2/include/functions/tri.hpp>
+#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/norm.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/functions/issquare.hpp>
+#include <nt2/core/container/table/table.hpp>
 
 namespace nt2{ namespace ext
 {
@@ -23,11 +28,16 @@ namespace nt2{ namespace ext
   {
     typedef typename A0::value_type type_t;
     typedef typename meta::as_real<type_t>::type rtype_t;
-    typedef typename meta::as_floating<rtype_t>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<rtype_t>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
       BOOST_ASSERT_MSG(issquare(a0), "rcond for non square matrix");
-      return nt2::details::lu_result<A0>(a0).rcond();
+      nt2::container::table<type_t>  lu(a0);
+      nt2::container::table<nt2_la_int>               ip;
+
+      nt2::trf(boost::proto::value(lu), boost::proto::value(ip) );
+      nt2::tri(boost::proto::value(lu), boost::proto::value(ip) );
+      return nt2::rec(nt2::norm(a0, 1) * nt2::norm(lu, 1));
     }
   };
 
@@ -37,7 +47,7 @@ namespace nt2{ namespace ext
                             )
   {
     typedef typename meta::as_real<A0>::type rtype_t;
-    typedef typename meta::as_floating<rtype_t>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<rtype_t>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
       return a0 ? One<A0>() : Zero<A0>();
@@ -52,7 +62,7 @@ namespace nt2{ namespace ext
   {
     typedef typename A0::value_type                   type_t;
     typedef typename meta::as_real<type_t>::type      rtype_t;
-    typedef typename meta::as_floating<rtype_t>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<rtype_t>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -60,7 +70,12 @@ namespace nt2{ namespace ext
                       , "rcondition number of non square matrix"
                       );
       {
-        return nt2::details::lu_result<A0>(a0).rcond(a1);
+        nt2::container::table<type_t>  lu(a0);
+        nt2::container::table<nt2_la_int>               ip;
+
+      nt2::trf(boost::proto::value(lu), boost::proto::value(ip) );
+      nt2::tri(boost::proto::value(lu), boost::proto::value(ip) );
+        return nt2::rec(nt2::norm(a0, a1)*nt2::norm(lu, a1));
       }
     }
   };
@@ -72,7 +87,7 @@ namespace nt2{ namespace ext
                             )
   {
     typedef typename meta::as_real<A0>::type rtype_t;
-    typedef typename meta::as_floating<rtype_t>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<rtype_t>::type result_type;
     result_type operator()(A0 const & a0,  A1 const&)
     {
       return a0 ? One<A0>() : Zero<A0>();

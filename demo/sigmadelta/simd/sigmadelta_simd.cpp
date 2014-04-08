@@ -24,6 +24,7 @@
 
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/protocol/max_duration.hpp>
+#include <nt2/sdk/bench/metric/fps.hpp>
 #include <nt2/sdk/bench/metric/cycles_per_element.hpp>
 #include <nt2/sdk/bench/stats/median.hpp>
 #include <nt2/sdk/bench/setup/geometric.hpp>
@@ -123,7 +124,8 @@ struct sigmadelta_simd
     return os << "(" << p.height << " x " << p.width << " @" << p.nb_frames << ")";
   }
 
-  std::size_t size() const { return size_ * nb_frames; }
+  std::size_t size()         const { return size_ * nb_frames; }
+  std::size_t frame_count()  const { return nb_frames; }
 
   private:
   std::size_t height;
@@ -150,5 +152,6 @@ NT2_REGISTER_BENCHMARK( sigmadelta_simd )
                                                          , geometric(wmin,wmax,wstep)
                                                          )
                                                    , cycles_per_element<stats::median_>()
+                                                   , fps<stats::median_>()
                                                    );
 }

@@ -12,7 +12,6 @@ SET( SOURCES
   erf.cpp
   erfc.cpp
   erfcinv.cpp
-  fast_gamma.cpp
   spence.cpp
   stirling.cpp
   dawson.cpp

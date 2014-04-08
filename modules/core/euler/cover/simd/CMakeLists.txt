@@ -14,7 +14,6 @@ SET( SOURCES
   signgam.cpp
   gammaln.cpp
   gamma.cpp
-  fast_gamma.cpp
   expni.cpp
   digamma.cpp
   dawson.cpp

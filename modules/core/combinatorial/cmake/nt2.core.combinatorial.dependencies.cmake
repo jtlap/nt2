@@ -11,7 +11,6 @@ SET ( NT2_CORE.COMBINATORIAL_DEPENDENCIES_EXTRA
       boost.simd.base
       boost.simd.reduction
       boost.simd.swar
-      core.base
       core.container.table
       core.euler
       core.exponential
@@ -20,7 +19,7 @@ SET ( NT2_CORE.COMBINATORIAL_DEPENDENCIES_EXTRA
       core.reduction
       core.restructuring
       core.sdk
-      core.utility
+      core.base
       sdk.functor
       sdk.meta
       sdk.simd

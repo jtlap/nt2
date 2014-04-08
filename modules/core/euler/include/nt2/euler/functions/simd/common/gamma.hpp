@@ -10,159 +10,137 @@
 #define NT2_EULER_FUNCTIONS_SIMD_COMMON_GAMMA_HPP_INCLUDED
 
 #include <nt2/euler/functions/gamma.hpp>
-#include <nt2/include/functions/simd/is_less.hpp>
-#include <nt2/include/functions/simd/is_greater.hpp>
-#include <nt2/include/functions/simd/multiplies.hpp>
-#include <nt2/include/functions/simd/divides.hpp>
-#include <nt2/include/functions/simd/plus.hpp>
-#include <nt2/include/functions/simd/splat.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
-#include <nt2/include/functions/simd/is_lez.hpp>
-#include <nt2/include/functions/simd/inbtrue.hpp>
-#include <nt2/include/functions/simd/sqr.hpp>
-#include <nt2/include/functions/simd/log.hpp>
-#include <nt2/include/functions/simd/exp.hpp>
-#include <nt2/include/functions/simd/trunc.hpp>
-#include <nt2/include/functions/simd/frac.hpp>
-#include <nt2/include/functions/simd/bitwise_ornot.hpp>
-#include <nt2/include/functions/simd/logical_not.hpp>
-#include <nt2/include/functions/simd/logical_and.hpp>
-#include <nt2/include/functions/simd/sinpi.hpp>
-#include <nt2/include/functions/simd/negif.hpp>
-#include <nt2/include/functions/simd/is_odd.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/simd/sqrt.hpp>
-#include <nt2/include/functions/simd/maximum.hpp>
-#include <nt2/include/functions/simd/if_allbits_else.hpp>
-#include <nt2/include/functions/simd/minusone.hpp>
-#include <nt2/include/functions/simd/oneplus.hpp>
-#include <nt2/include/functions/simd/seladd.hpp>
-#include <nt2/include/functions/simd/is_eqz.hpp>
-#include <nt2/include/functions/simd/is_flint.hpp>
-#include <nt2/include/functions/simd/rec.hpp>
-#include <nt2/include/functions/simd/any.hpp>
-#include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/zero.hpp>
-#include <nt2/include/constants/pi.hpp>
-#include <nt2/include/constants/two.hpp>
-#include <nt2/include/constants/nan.hpp>
+#include <nt2/euler/functions/details/gamma_kernel.hpp>
 #include <nt2/include/constants/half.hpp>
+#include <nt2/include/constants/mone.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/pi.hpp>
+#include <nt2/include/constants/three.hpp>
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/any.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
+#include <nt2/include/functions/simd/floor.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/inbtrue.hpp>
+#include <nt2/include/functions/simd/is_even.hpp>
+#include <nt2/include/functions/simd/is_flint.hpp>
+#include <nt2/include/functions/simd/is_greater_equal.hpp>
+#include <nt2/include/functions/simd/is_less.hpp>
+#include <nt2/include/functions/simd/is_ltz.hpp>
+#include <nt2/include/functions/simd/logical_and.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/negif.hpp>
+#include <nt2/include/functions/simd/seladd.hpp>
+#include <nt2/include/functions/simd/selsub.hpp>
+#include <nt2/include/functions/simd/sinpi.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/simd/stirling.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
+
+#include <boost/simd/sdk/config.hpp>
+
+#ifndef BOOST_SIMD_NO_INVALIDS
+#include <nt2/include/functions/simd/is_nan.hpp>
+#include <nt2/include/functions/simd/logical_or.hpp>
+#endif
+
+#ifndef BOOST_SIMD_NO_INFINITIES
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/functions/simd/is_equal.hpp>
+#endif
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gamma_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::gamma_, tag::cpu_,
+                             (A0)(X),
+                             ((simd_<floating_<A0>,X>))
                             )
   {
-    typedef typename meta::as_floating<A0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return map(functor<tag::gamma_>(), tofloat(a0));
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::gamma_, tag::cpu_,
-                       (A0)(X),
-                       ((simd_<floating_<A0>,X>))
-                       )
-  {
     typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type bA0;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_logical<A0>::type bA0;
-      const double g_p[] = { -1.71618513886549492533811,
-                             24.7656508055759199108314,-379.804256470945635097577,
-                             629.331155312818442661052,866.966202790413211295064,
-                             -31451.2729688483675254357,-36144.4134186911729807069,
-                             66456.1438202405440627855 };
-      const double g_q[] = { -30.8402300119738975254353,
-                             315.350626979604161529144,-1015.15636749021914166146,
-                             -3107.77167157231109440444,22538.1184209801510330112,
-                             4755.84627752788110767815,-134659.959864969306392456,
-                             -115132.259675553483497211 };
-      const double g_c[] = { -.001910444077728,8.4171387781295e-4,
-                             -5.952379913043012e-4,7.93650793500350248e-4,
-                             -.002777777777777681622553,.08333333333333333331554247,
-                             .0057083835261 };
-      //     const  double g_xbig = 171.624;
-      //return map(functor<tag::gamma_>(), tofloat(a0));
-      const std::size_t Card = meta::cardinal_of<A0>::value;
-      const A0 LOGSQRT2PI =  nt2::log(nt2::sqrt(Two<A0>()*nt2::Pi<A0>()));
-      A0 res =  nt2::Nan<A0>();
-      A0 fact =  nt2::One<A0>();
-      A0 y = a0;
-      std::size_t nb1, nb2;
-      bA0 lezy =  nt2::is_lez(y);
-      if (nt2::any(lezy))
+      bA0 nan_result = logical_and(is_ltz(a0), is_flint(a0));
+      #ifndef BOOST_SIMD_NO_INVALIDS
+      nan_result = logical_or(nt2::is_nan(a0), nan_result);
+      #endif
+      A0 q = nt2::abs(a0);
+      bA0 test = lt(a0, nt2::splat<A0>(-33.0));
+      std::size_t nb = nt2::inbtrue(test);
+      A0 r =  Nan<A0>();
+      if(nb > 0)
       {
-        y =  nt2::if_else(lezy, nt2::oneminus(y), y);
-        fact =  nt2::if_else(lezy, nt2::Pi<A0>()/nt2::sinpi(y), nt2::One<A0>());
+        //treat negative large with reflection
+        r = large_negative(q);
+        if (nb >= meta::cardinal_of<A0>::value)
+          return nt2::if_nan_else(nan_result, r);
       }
-      bA0 lteps = nt2::lt(y, Eps<A0>());
-      if ((nb1 = nt2::inbtrue(lteps)) > 0)
-      {
-        A0 r1 =  nt2::if_nan_else(lteps, nt2::rec(y));
-        res &=  r1;
-        if(nb1 > Card)
-          return finalize(a0, res, fact, lezy);
-        y = nt2::if_nan_else(lteps, y);
-      }
-      bA0 lt12 = lt(y, nt2::splat<A0>(12));
-      if ((nb2 = nt2::inbtrue(lt12)) > 0)
-      {
-        bA0 islt1 = lt(y, nt2::One<A0>());
-        A0 y1 = y;
-        A0 n =  nt2::minusone(nt2::trunc(y));
-        A0 z = nt2::frac(y);
-        y =  nt2::oneplus(z);
-        A0 xnum =  nt2::Zero<A0>();
-        A0 xden =  nt2::One<A0>();
-        for (int32_t i = 0; i < 8; ++i)
-        {
-          xnum = (xnum + nt2::splat<A0>(g_p[i])) * z;
-          xden = xden * z +nt2::splat<A0>( g_q[i]);
-        }
-        A0 r = nt2::oneplus(xnum/xden);
-        r =  nt2::if_else(nt2::lt(y1, y), r/y1, r);
-        A0 r1 =  r;
-        for (int32_t i = 0; i < nt2::maximum(n); ++i)
-        {
-          //            bA0 t = b_andnot(lt(splat<A0>(i), n), islt1);
-          bA0 t = nt2::logical_and(nt2::lt(nt2::splat<A0>(i), n),
-                                   nt2::logical_not(islt1)); //logical_andnot
-          r *= if_else(t, y, nt2::One<A0>());
-          y = seladd(t, y, nt2::One<A0>()) ;
-        }
-        r =  nt2::if_else(nt2::gt(y1, y), r1, r);
-        res =  res & r;
-        if(nb1+nb2 > Card) return finalize(a0, res, fact, lezy);
-        y = if_nan_else(lteps, y);
-      }
-      A0 ysq = nt2::sqr(y);
-      A0 sum =  nt2::splat<A0>(g_c[6]);
-      for (int32_t i = 0; i < 6; ++i) sum = (sum/ysq) + nt2::splat<A0>(g_c[i]);
-      sum = (sum/y) - y + LOGSQRT2PI;
-      sum += (y - nt2::Half<A0>())*nt2::log(y);
-      res = nt2::if_else(eq(a0, nt2::Inf<A0>()), a0, nt2::if_else(lt12, res, nt2::exp(sum)));
-      return finalize(a0, res, fact, lezy);
-    }
-  private :
-    template < class AA0, class bAA0 >
-      static inline AA0 finalize(const AA0& a0, const AA0& res,
-                                 const AA0& fact, const bAA0& lezy)
-    {
-      bAA0 eqza0 = nt2::is_eqz(a0);
-      bAA0 integer =  nt2::logical_and(nt2::is_flint(a0), nt2::logical_not(eqza0));
-      return nt2::if_else(eqza0, nt2::rec(a0),
-                          nt2::if_else(lezy,
-                                       nt2::if_nan_else(integer, fact/res),
-                                       res)
-                         );
+      A0 r1 = other(a0, test);
+      A0 r2 = if_else(test, r, r1);
+      return nt2::if_nan_else(nan_result, r2);
     }
 
+  private :
+    static inline A0 large_negative(A0 q)
+    {
+      A0 st =  nt2::stirling(q);
+      A0 p = nt2::floor(q);
+      A0 sgngam = nt2::negif(nt2::is_even(p), One<A0>());
+      A0 z = q - p;
+      bA0 test2 = lt(z, nt2::Half<A0>() );
+      z = nt2::selsub(test2, z, nt2::One<A0>());
+      z = q*nt2::sinpi(z);
+      z =  nt2::abs(z);
+      return sgngam*nt2::Pi<A0>()/(z*st);
+    }
+
+    static inline A0 other(const A0& q, const bA0& test)
+    {
+      A0 x =  nt2::if_else(test, Two<A0>(), q);
+      #ifndef BOOST_SIMD_NO_INFINITIES
+      bA0 inf_result = eq(q, Inf<A0>());
+      x = if_else(inf_result, Two<A0>(), x);
+      #endif
+      A0 z = nt2::One<A0>();
+      bA0 test1 = ge(x,Three<A0>());
+      while( nt2::any(test1) )
+      {
+        x = nt2::seladd(test1, x, nt2::Mone<A0>());
+        z = nt2::if_else(   test1, z*x, z);
+        test1 = ge(x,Three<A0>());
+      }
+      //all x are less than 3
+      test1 = nt2::is_ltz(x);
+      while( nt2::any(test1) )
+      {
+        z = nt2::if_else(test1, z/x, z);
+        x = nt2::seladd(test1, x, nt2::One<A0>());
+        test1 = nt2::is_ltz(x);
+      }
+      //all x are greater than 0 and less than 3
+      bA0 test2 = lt(x,nt2::Two<A0>());
+      while( nt2::any(test2))
+      {
+        z = nt2::if_else(test2, z/x, z);
+        x = nt2::seladd(test2, x, nt2::One<A0>());
+        test2 = lt(x,nt2::Two<A0>());
+      }
+      //all x are greater equal 2 and less than 3
+      x = z*details::gamma_kernel<A0>::gamma1(x-nt2::Two<A0>());
+      #ifndef BOOST_SIMD_NO_INFINITIES
+      return if_else(inf_result, q, x);
+      #else
+      return x;
+      #endif
+    }
   };
 } }
+
 #endif

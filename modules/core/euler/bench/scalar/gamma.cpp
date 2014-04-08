@@ -6,37 +6,32 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_BENCH_MODULE "nt2 euler toolbox - gamma/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of euler components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
 #include <nt2/euler/include/functions/gamma.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 
-
-//////////////////////////////////////////////////////////////////////////////
-// scalar runtime benchmark for functor<gamma_> from euler
-//////////////////////////////////////////////////////////////////////////////
 using nt2::tag::gamma_;
 
-//////////////////////////////////////////////////////////////////////////////
-// range macro
-//////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
 namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(gamma_,(RS(T,T(0),T(10))))
+  NT2_TIMING(gamma_,(RS(T,T(-33),T(36))))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(gamma_,(RS(T,T(0),T(10))))
+  NT2_TIMING(gamma_,(RS(T,T(-33),T(36))))
 }
-
+namespace n3 {
+  typedef float T;
+  NT2_TIMING(gamma_,(RS(T,T(-36),T(-33))))
+}
+namespace n4 {
+  typedef double T;
+  NT2_TIMING(gamma_,(RS(T,T(-36),T(-33))))
+}
 #undef RS

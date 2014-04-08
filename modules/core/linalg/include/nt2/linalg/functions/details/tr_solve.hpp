@@ -17,6 +17,8 @@
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/sdk/error/warning.hpp>
+#include <nt2/core/container/table/table.hpp>
+
 namespace nt2 {namespace details
 {
   //============================================================================

@@ -7,7 +7,7 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-nt2_module_use_modules(test.benchmark core.utility)
+nt2_module_use_modules(test.benchmark core.base)
 
 if(APPLE)
   nt2_module_use_link_flags(-framework Accelerate)
