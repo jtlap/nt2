@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename meta::as_arithmetic<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return if_else_zero(a0, Allbits<result_type>());
     }
@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return genmask(is_nez(a0));
     }
@@ -50,7 +50,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename A0::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return bitwise_cast<typename A0::type>(a0);
     }
