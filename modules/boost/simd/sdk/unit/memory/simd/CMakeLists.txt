@@ -11,10 +11,14 @@ SET( SOURCES
   extract.cpp
   insert.cpp
   aligned_load.cpp
+  aligned_gather.cpp
   aligned_store.cpp
+  aligned_scatter.cpp
   stream.cpp
   load.cpp
+  gather.cpp
   store.cpp
+  scatter.cpp
   slide.cpp
   )
 
