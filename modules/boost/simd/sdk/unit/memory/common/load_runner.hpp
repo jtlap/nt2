@@ -286,7 +286,7 @@ inline void masked_misaligned_load_runner(Misalignment const&, bool offset = fal
   {
     fill<Type>()(data[i],i);
     fill<Target>()(ref[i/cd],i/cd,ms);
-    ref[i/cd]=if_else(mask,ref[i/cd],extract(old,i));
+    ref[i/cd]=if_else(mask,ref[i/cd],old);
   }
 
   std::size_t mn = Misalignment::value < 0 ? 1 : 0;
