@@ -110,8 +110,7 @@ inline void masked_aligned_load_runner(bool offset = false)
 
   for(size_t i=0;i<cd;++i)
     insert(l_type(rand()%2), mask, i);
-  for(size_t i=0;i<cd;++i)
-    std::cout<<extract(mask,i)<<'\n';
+
   for(std::size_t i=0;i<sz;++i)
   {
     fill<Type>()(data[i],i);
