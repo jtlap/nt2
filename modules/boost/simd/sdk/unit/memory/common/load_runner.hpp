@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2012 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2014   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -65,6 +66,66 @@ inline void aligned_load_runner(bool offset = false)
     else        NT2_TEST_EQUAL(aligned_load<Target>(&data[0],i*cd), ref[i]);
   }
 }
+
+template<typename Type, typename Target, typename Mask>
+inline void masked_aligned_load_runner(bool offset = false)
+{
+  using boost::simd::aligned_load;
+  using boost::simd::tag::aligned_load_;
+  using boost::simd::meta::cardinal_of;
+  using boost::dispatch::meta::as_;
+  using boost::simd::allocator;
+  using boost::simd::extract;
+  using boost::simd::splat;
+  using boost::simd::meta::scalar_of;
+  using boost::simd::meta::as_logical;
+
+  if(!offset)
+    NT2_TEST_TYPE_IS( (typename boost::dispatch::meta
+                              ::call<aligned_load_( Type*, as_<Target>)>::type
+                      )
+                    , Target
+                    );
+  else
+    NT2_TEST_TYPE_IS( (typename boost::dispatch::meta
+                              ::call<aligned_load_( Type*, int, as_<Target>)>::type
+                      )
+                    , Target
+                    );
+
+  static const std::size_t cd = cardinal_of<Target>::value;
+  static const std::size_t sz = cd*3;
+
+  typedef typename scalar_of<Target>::type s_type;
+  typedef typename as_logical<s_type>::type l_type;
+
+  BOOST_SIMD_ALIGNED_STACK_BUFFER( data, Type   , sz );
+  BOOST_SIMD_ALIGNED_STACK_BUFFER( ref , Target , sz );
+
+  Target old=splat<Target>(65);
+
+  Mask  mask;
+
+  srand(time(NULL));
+
+  for(size_t i=0;i<cd;++i)
+    insert(l_type(rand()%2), mask, i);
+  for(size_t i=0;i<cd;++i)
+    std::cout<<extract(mask,i)<<'\n';
+  for(std::size_t i=0;i<sz;++i)
+  {
+    fill<Type>()(data[i],i);
+    fill<Target>()(ref[i/cd],i/cd);
+    ref[i/cd]=if_else(mask,ref[i/cd],old);
+  }
+
+  for(std::size_t i=0;i<3;++i)
+  {
+    if(!offset) NT2_TEST_EQUAL(aligned_load<Target>(&data[i*cd],old,mask)  , ref[i]);
+    else        NT2_TEST_EQUAL(aligned_load<Target>(&data[0],i*cd,old,mask), ref[i]);
+  }
+}
+
 
 template<typename Type, typename Target>
 inline void load_runner(bool offset = false)
@@ -166,6 +227,78 @@ inline void masked_load_runner(bool offset = false)
     NT2_TEST_EQUAL(extract(v,j),ref[j]);
 }
 
+template<typename Type, typename Target, typename Mask, typename Misalignment>
+inline void masked_misaligned_load_runner(Misalignment const&, bool offset = false)
+{
+  using boost::simd::aligned_load;
+  using boost::simd::splat;
+  using boost::simd::tag::aligned_load_;
+  using boost::simd::meta::cardinal_of;
+  using boost::dispatch::meta::as_;
+  using boost::simd::meta::scalar_of;
+  using boost::simd::meta::as_logical;
+  using boost::simd::extract;
+
+  static const int ms = Misalignment::value;
+  std::cout << "Misaligned load test with Misalignment = " << ms << "\n";
+
+  if(!offset)
+    NT2_TEST_TYPE_IS( (typename boost::dispatch::meta
+                              ::call<aligned_load_( Type*, as_<Target>
+                                          , Misalignment
+                                          , Target
+                                          , Mask
+                                          )
+                                    >::type
+                      )
+                    , Target
+                    );
+  else
+    NT2_TEST_TYPE_IS( (typename boost::dispatch::meta
+                              ::call<aligned_load_( Type*, int, as_<Target>
+                                          , Misalignment
+                                          , Target
+                                          , Mask
+                                          )
+                                    >::type
+                      )
+                    , Target
+                    );
+
+  static const std::size_t cd = cardinal_of<Target>::value;
+  static const std::size_t sz = cd*3;
+
+  typedef typename scalar_of<Target>::type s_type;
+  typedef typename as_logical<s_type>::type l_type;
+
+  BOOST_SIMD_ALIGNED_STACK_BUFFER( data, Type   , sz );
+  BOOST_SIMD_ALIGNED_STACK_BUFFER( ref , Target , sz );
+
+  Target old=splat<Target>(65);
+
+  Mask  mask;
+
+  srand(time(NULL));
+
+  for(size_t i=0;i<cd;++i)
+    insert(l_type(rand()%2), mask, i);
+
+  for(std::size_t i=0;i<sz;++i)
+  {
+    fill<Type>()(data[i],i);
+    fill<Target>()(ref[i/cd],i/cd,ms);
+    ref[i/cd]=if_else(mask,ref[i/cd],extract(old,i));
+  }
+
+  std::size_t mn = Misalignment::value < 0 ? 1 : 0;
+  std::size_t mx = Misalignment::value < 0 ? 3 : 2;
+
+  for(std::size_t i=mn;i<mx;++i)
+  {
+    if(!offset) NT2_TEST_EQUAL((aligned_load<Target,ms>(&data[ms+i*cd],old,mask)), ref[i]);
+    else        NT2_TEST_EQUAL((aligned_load<Target,ms>(&data[0],ms+i*cd,old,mask)), ref[i]);
+  }
+}
 
 template<typename Type, typename Target, typename Misalignment>
 inline void misaligned_load_runner(Misalignment const&, bool offset = false)

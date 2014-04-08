@@ -23,12 +23,28 @@
 #include "../common/store_runner.hpp"
 #include "../common/foo.hpp"
 
+NT2_TEST_CASE_TPL( mask_store,  BOOST_SIMD_SIMD_TYPES)
+{
+  using boost::simd::logical;
+
+  masked_aligned_store_runner< T, T, logical<T> >();
+  masked_aligned_store_runner< logical<T>, logical<T>, logical<T> >();
+}
+
 NT2_TEST_CASE_TPL( store,  BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::logical;
 
   aligned_store_runner< T, T >();
   aligned_store_runner< logical<T>, logical<T> >();
+}
+
+NT2_TEST_CASE_TPL( mask_store_offset,  BOOST_SIMD_SIMD_TYPES)
+{
+  using boost::simd::logical;
+
+  masked_aligned_store_runner< T, T, logical<T>  >(true);
+  masked_aligned_store_runner< logical<T>, logical<T>, logical<T>  >(true);
 }
 
 NT2_TEST_CASE_TPL( store_offset,  BOOST_SIMD_SIMD_TYPES)

@@ -32,6 +32,24 @@
 #define NT2_TEST_ALIGNED_STORE(r, data, elem) BOOST_PP_CAT(nt2_test_run_, data)<T, elem>::call();
 
 template<class T, class U>
+struct nt2_test_run_mask_aligned_store
+{
+  static void call(bool offset = false)
+  {
+    std::cout << "With U = " << nt2::type_id<U>() << std::endl;
+    using boost::simd::logical;
+    using boost::simd::native;
+    using boost::simd::pack;
+
+    typedef BOOST_SIMD_DEFAULT_EXTENSION ext_t;
+
+    masked_aligned_store_runner< U           , native<T,ext_t>          , native<logical<T>,ext_t>  >(offset);
+    masked_aligned_store_runner< logical<U>  , native<logical<T>,ext_t> , native<logical<T>,ext_t>  >(offset);
+    masked_aligned_store_runner< U           , pack<T>                  , pack<logical<T > >  >(offset);
+  }
+};
+
+template<class T, class U>
 struct nt2_test_run_aligned_store
 {
   static void call(bool offset = false)
@@ -54,6 +72,12 @@ struct nt2_test_run_aligned_store_offset
 {
   static void call() { nt2_test_run_aligned_store<T,U>::call(true); }
 };
+
+NT2_TEST_CASE_TPL( mask_store,  BOOST_SIMD_SIMD_TYPES)
+{
+  BOOST_PP_SEQ_FOR_EACH(NT2_TEST_ALIGNED_STORE, mask_aligned_store, BOOST_SIMD_TYPES)
+}
+
 
 NT2_TEST_CASE_TPL( store,  BOOST_SIMD_SIMD_TYPES)
 {
@@ -127,9 +151,125 @@ struct nt2_test_run_aligned_store_scatter
   }
 };
 
+template<class T, class U>
+struct nt2_test_run_mask_aligned_store_scatter
+{
+  static void call()
+  {
+    std::cout << "With U = " << nt2::type_id<U>() << std::endl;
+    using boost::simd::aligned_store;
+    using boost::simd::tag::aligned_store_;
+    using boost::simd::native;
+    using boost::simd::meta::cardinal_of;
+    using boost::simd::insert;
+    using boost::simd::logical;
+    using boost::simd::if_else;
+
+    typedef BOOST_SIMD_DEFAULT_EXTENSION ext_t;
+    typedef native<T,ext_t>               vT;
+    typedef native<logical<T>, ext_t>     vlT;
+    typedef typename boost::simd::meta::vector_of<int32_t, vT::static_size>::type viT;
+
+    typedef typename boost::dispatch::meta::call<aligned_store_(vT,U*,viT,vlT)>::type  rT;
+
+
+    NT2_TEST_TYPE_IS( rT, void );
+
+    static const std::size_t card = cardinal_of<vT>::value;
+
+    vlT mask;
+    vT v;
+
+    srand(time(NULL));
+
+    viT index;
+    vT actual;
+    for (std::size_t i=0;i<card;i++)
+    {
+      index[i] = rand()%10 + i*10;
+      insert(logical<T>(rand()%2), mask, i);
+    }
+    index[0]=8;
+
+    std::vector<T, boost::simd::allocator<T> > out(card*10+1);
+    vT data;
+    for(size_t i=0;i<cardinal_of<vT>::value;++i)
+      data[i] = if_else(mask[i],T(1+i),T(-42));
+
+    aligned_store(data,&out[0],index,mask);
+
+    for (std::size_t i=0;i<card;i++)
+      actual[i]=if_else(mask[i],out[index[i]],T(-42));
+
+    NT2_TEST_EQUAL(actual,data);
+  }
+};
+
+NT2_TEST_CASE_TPL(mask_store_scatter, BOOST_SIMD_SIMD_TYPES )
+{
+  BOOST_PP_SEQ_FOR_EACH(NT2_TEST_ALIGNED_STORE, mask_aligned_store_scatter, BOOST_SIMD_TYPES)
+}
+
 NT2_TEST_CASE_TPL(store_scatter, BOOST_SIMD_SIMD_TYPES )
 {
   BOOST_PP_SEQ_FOR_EACH(NT2_TEST_ALIGNED_STORE, aligned_store_scatter, BOOST_SIMD_TYPES)
+}
+
+template<class T, class U>
+struct nt2_test_run_aligned_store_scatter_pack
+{
+  static void call()
+  {
+    std::cout << "With U = " << nt2::type_id<U>() << std::endl;
+    using boost::simd::aligned_store;
+    using boost::simd::aligned_load;
+    using boost::simd::tag::aligned_store_;
+    using boost::simd::pack;
+    using boost::simd::native;
+    using boost::simd::meta::cardinal_of;
+
+    typedef pack<T>               vT;
+    typedef BOOST_SIMD_DEFAULT_EXTENSION            ext_t;
+
+    typedef typename boost::dispatch::meta::as_integer<T>::type  iT;
+    typedef native<iT,ext_t> viT;
+
+    typedef typename boost::dispatch::meta::call<aligned_store_(vT,U*,viT)>::type  rT;
+
+    NT2_TEST_TYPE_IS( rT, void );
+
+    std::size_t card = cardinal_of<vT>::value;
+    BOOST_SIMD_ALIGNED_STACK_BUFFER( data,  T, card*3 );
+    BOOST_SIMD_ALIGNED_STACK_BUFFER( out ,  U, card*3 );
+
+    for(size_t i=0;i<cardinal_of<vT>::value*3;++i)
+    {
+      data[i] = T(1+i);
+      out[i]  = U(0);
+    }
+
+    viT index;
+
+    // Spread out the scatter values
+    index[0] = cardinal_of<vT>::value*3 -1;
+    index[cardinal_of<viT>::value-1] = 0;
+
+    for(std::size_t i=1;i<cardinal_of<viT>::value-1;++i)
+    {
+      index[i] = iT(i*(cardinal_of<vT>::value*3)/(cardinal_of<vT>::value-1));
+    }
+
+    vT v = aligned_load<vT>(&data[0]);
+    aligned_store(v,&out[0],index);
+    vT ref = aligned_load<vT>(&out[0],index);
+
+    NT2_TEST_EQUAL( ref, v );
+  }
+};
+
+NT2_TEST_CASE_TPL(store_scatter_pack, BOOST_SIMD_SIMD_TYPES )
+{
+  BOOST_PP_SEQ_FOR_EACH(NT2_TEST_ALIGNED_STORE, aligned_store_scatter_pack, BOOST_SIMD_TYPES)
 }
 
 NT2_TEST_CASE( store_sequence )
@@ -180,3 +320,4 @@ NT2_TEST_CASE( store_sequence )
   NT2_TEST_EQUAL(boost::fusion::at_c<1>(v) , fref);
   NT2_TEST_EQUAL(boost::fusion::at_c<2>(v) , cref);
 }
+

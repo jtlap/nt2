@@ -20,11 +20,25 @@
 #include "../common/load_runner.hpp"
 #include "../common/foo.hpp"
 
+NT2_TEST_CASE_TPL( masked_aligned_load,  BOOST_SIMD_SIMD_TYPES)
+{
+  using boost::simd::logical;
+  masked_aligned_load_runner< T, T, logical<T> >();
+  masked_aligned_load_runner< logical<T>, logical<T>, logical<T> >();
+}
+
 NT2_TEST_CASE_TPL( aligned_load,  BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::logical;
   aligned_load_runner< T, T >();
   aligned_load_runner< logical<T>, logical<T> >();
+}
+
+NT2_TEST_CASE_TPL( masked_aligned_load_offset,  BOOST_SIMD_SIMD_TYPES)
+{
+  using boost::simd::logical;
+  masked_aligned_load_runner< T, T, logical<T> >(true);
+  masked_aligned_load_runner< logical<T>, logical<T>, logical<T> >(true);
 }
 
 NT2_TEST_CASE_TPL( aligned_load_offset,  BOOST_SIMD_SIMD_TYPES)
@@ -40,11 +54,25 @@ NT2_TEST_CASE( aligned_load_sequence_pointer )
   aligned_load_runner< bar, bar >(true);
 }
 
+NT2_TEST_CASE_TPL( masked_aligned_load_suboffset_forward,  BOOST_SIMD_SIMD_TYPES)
+{
+  using boost::simd::logical;
+  masked_misaligned_load_runner< T, T, logical<T> >(boost::mpl::int_<1>());
+  masked_misaligned_load_runner< logical<T>, logical<T>, logical<T> >(boost::mpl::int_<1>());
+}
+
 NT2_TEST_CASE_TPL( aligned_load_suboffset_forward,  BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::logical;
   misaligned_load_runner< T, T >(boost::mpl::int_<1>());
   misaligned_load_runner< logical<T>, logical<T> >(boost::mpl::int_<1>());
+}
+
+NT2_TEST_CASE_TPL( masked_aligned_load_suboffset_backward,  BOOST_SIMD_SIMD_TYPES)
+{
+  using boost::simd::logical;
+  masked_misaligned_load_runner< T, T, logical<T> >(boost::mpl::int_<-1>());
+  masked_misaligned_load_runner< logical<T>, logical<T>, logical<T> >(boost::mpl::int_<-1>());
 }
 
 NT2_TEST_CASE_TPL( aligned_load_suboffset_backward,  BOOST_SIMD_SIMD_TYPES)
