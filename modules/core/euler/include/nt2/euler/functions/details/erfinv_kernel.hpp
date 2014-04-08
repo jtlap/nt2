@@ -81,29 +81,29 @@ namespace nt2 { namespace details
     static BOOST_FORCEINLINE A0 erfinv1(const A0& w)
     {
         return horner<NT2_HORNER_COEFF_T(sA0, 23,
-                                         (0xbbb135d2e746e627ll,
-                                          0xbc08ddf93324d327ll,
-                                          0x3c37b83eef0b7c9fll,
-                                          0x3c69ba72cd589b91ll,
-                                          0xbca33689090a6b96ll,
-                                          0x3c782e11898132e0ll,
-                                          0x3cfde4acfd9e26ball,
-                                          0xbd26d33eed66c487ll,
-                                          0xbd36f2167040d8e2ll,
-                                          0x3d872a22c2d77e20ll,
-                                          0xbdac8859c4e5c0afll,
-                                          0xbdcdc583d118a561ll,
-                                          0x3e120f47ccf46b3cll,
-                                          0xbe31a9e38dc84d60ll,
-                                          0xbe5f36cd6d3d46a9ll,
-                                          0x3e9c6b4f5d03b787ll,
-                                          0xbeb6e8a5434ae8a2ll,
-                                          0xbeed1d1f7b8736f6ll,
-                                          0x3f2879c2a212f024ll,
-                                          0xbf4845769484fca8ll,
-                                          0xbf78b6c33114f909ll,
-                                          0x3fcebd80d9b13e28ll,
-                                          0x3ffa755e7c99ae86ll
+                                         (0xbbb135d2e746e627ll,  //  -3.6444120640178196996e-21
+                                          0xbc08ddf93324d327ll,  //  -1.685059138182016589e-19
+                                          0x3c37b83eef0b7c9fll,  //   1.2858480715256400167e-18
+                                          0x3c69ba72cd589b91ll,  //   1.115787767802518096e-17
+                                          0xbca33689090a6b96ll,  //  -1.333171662854620906e-16
+                                          0x3c782e11898132e0ll,  //   2.0972767875968561637e-17
+                                          0x3cfde4acfd9e26ball,  //   6.6376381343583238325e-15
+                                          0xbd26d33eed66c487ll,  //  -4.0545662729752068639e-14
+                                          0xbd36f2167040d8e2ll,  //  -8.1519341976054721522e-14
+                                          0x3d872a22c2d77e20ll,  //   2.6335093153082322977e-12
+                                          0xbdac8859c4e5c0afll,  //  -1.2975133253453532498e-11
+                                          0xbdcdc583d118a561ll,  //  -5.4154120542946279317e-11
+                                          0x3e120f47ccf46b3cll,  //   1.051212273321532285e-09
+                                          0xbe31a9e38dc84d60ll,  //  -4.1126339803469836976e-09
+                                          0xbe5f36cd6d3d46a9ll,  //  -2.9070369957882005086e-08
+                                          0x3e9c6b4f5d03b787ll,  //   4.2347877827932403518e-07
+                                          0xbeb6e8a5434ae8a2ll,  //  -1.3654692000834678645e-06
+                                          0xbeed1d1f7b8736f6ll,  //  -1.3882523362786468719e-05
+                                          0x3f2879c2a212f024ll,  //   0.0001867342080340571352
+                                          0xbf4845769484fca8ll,  //  -0.00074070253416626697512
+                                          0xbf78b6c33114f909ll,  //  -0.0060336708714301490533
+                                          0x3fcebd80d9b13e28ll,  //   0.24015818242558961693
+                                          0x3ffa755e7c99ae86ll   //   1.6536545626831027356
                                          )
                                         )> (w);
     }
