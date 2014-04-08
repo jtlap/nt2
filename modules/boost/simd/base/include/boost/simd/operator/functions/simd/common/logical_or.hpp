@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return mask2logical(b_or(genmask(a0), genmask(a1)));
     }
