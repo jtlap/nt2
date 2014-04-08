@@ -1,7 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2012 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2011 - 2012   MetaScale SAS
+//         Copyright 2011 - 2014   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -21,60 +21,151 @@
 namespace boost { namespace simd { namespace ext
 {
   /// INTERNAL ONLY - Regular scalar load with offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::aligned_load_ , tag::cpu_
-                                   , (A0)(A1)(A2)
-                                   , (iterator_< unspecified_<A0> >)
-                                     (scalar_< integer_<A1> >)
-                                     (target_< unspecified_<A2> >)
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_ , tag::cpu_
+                                    , (A0)(A1)(A2)
+                                    , (iterator_< unspecified_<A0> >)
+                                      (scalar_< integer_<A1> >)
+                                      (target_< unspecified_<A2> >)
+                                    )
   {
     typedef typename A2::type result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 a0, A1 a1, A2 const&) const { return *(a0+a1); }
+    operator()(A0 a0, A1 a1, A2 const&) const
+    {
+      return *(a0+a1);
+    }
+  };
+
+  /// INTERNAL ONLY - masked scalar load with offset
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
+                                    , tag::cpu_
+                                    , (A0)(A1)(A2)(A3)(A4)
+                                    , (iterator_< unspecified_<A0> >)
+                                      (scalar_< integer_<A1> >)
+                                      (target_< unspecified_<A2> >)
+                                      (unspecified_<A3>)
+                                      (scalar_< fundamental_<A4> >)
+                                    )
+  {
+    typedef typename A2::type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 a0, A1 a1, A2 const&, A3 const& a3, A4 const& a4) const
+    {
+      return (a4 ? *(a0+a1) : a3);
+    }
   };
 
   /// INTERNAL ONLY - Regular scalar load without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::aligned_load_ , tag::cpu_
-                                   , (A0)(A2)
-                                   , (iterator_< unspecified_<A0> >)
-                                     (target_< unspecified_<A2> >)
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_ , tag::cpu_
+                                    , (A0)(A2)
+                                    , (iterator_< unspecified_<A0> >)
+                                      (target_< unspecified_<A2> >)
+                                    )
   {
     typedef typename A2::type result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 a0, A2 const&) const { return *a0; }
+    operator()(A0 a0, A2 const&) const
+    {
+      return *a0;
+    }
+  };
+
+  /// INTERNAL ONLY - masked regular scalar load without offset
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
+                                    , tag::cpu_
+                                    , (A0)(A1)(A2)(A3)
+                                    , (iterator_< unspecified_<A0> >)
+                                      (target_< unspecified_<A1> >)
+                                      (unspecified_<A2>)
+                                      (scalar_< fundamental_<A3> >)
+                                    )
+  {
+    typedef typename A1::type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 a0, A1 const&, A2 const& a2, A3 const& a3) const
+    {
+      return (a3 ? *a0 : a2);
+    }
   };
 
   /// INTERNAL ONLY - scalar load with misalignment and offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::aligned_load_ , tag::cpu_
-                                   , (A0)(A1)(A2)(A3)
-                                   , (iterator_< unspecified_<A0> >)
-                                     (scalar_< integer_<A1> >)
-                                     (target_< scalar_< unspecified_<A2> > >)
-                                     (mpl_integral_< scalar_< integer_<A3> > >)
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_ , tag::cpu_
+                                    , (A0)(A1)(A2)(A3)
+                                    , (iterator_< unspecified_<A0> >)
+                                      (scalar_< integer_<A1> >)
+                                      (target_< scalar_< unspecified_<A2> > >)
+                                      (mpl_integral_< scalar_< integer_<A3> > >)
+                                    )
   {
     typedef typename A2::type result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 a0, A1 a1, A2 const&, A3 const&) const { return *(a0+a1); }
+    operator()(A0 a0, A1 a1, A2 const&, A3 const&) const
+    {
+      return *(a0+a1);
+    }
+  };
+
+  /// INTERNAL ONLY - masked scalar load with misalignment and offset
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_ , tag::cpu_
+                                    , (A0)(A1)(A2)(A3)(A4)(A5)
+                                    , (iterator_< unspecified_<A0> >)
+                                      (scalar_< integer_<A1> >)
+                                      (target_< scalar_< unspecified_<A2> > >)
+                                      (mpl_integral_< scalar_< integer_<A3> > >)
+                                      (unspecified_<A4>)
+                                      (scalar_< fundamental_<A5> >)
+                                    )
+  {
+    typedef typename A2::type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 a0, A1 a1, A2 const&, A3 const&, A4 const& a4, A5 const& a5) const
+    {
+      return a4 ? *(a0+a1) : a5;
+    }
   };
 
   /// INTERNAL ONLY - scalar load with misalignment and without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::aligned_load_
-                                   , tag::cpu_
-                                   , (A0)(A2)(A3)
-                                   , (iterator_< unspecified_<A0> >)
-                                     (target_< unspecified_<A2> >)
-                                     (mpl_integral_< scalar_< integer_<A3> > >)
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
+                                    , tag::cpu_
+                                    , (A0)(A2)(A3)
+                                    , (iterator_< unspecified_<A0> >)
+                                      (target_< unspecified_<A2> >)
+                                      (mpl_integral_< scalar_< integer_<A3> > >)
+                                    )
   {
     typedef typename A2::type result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 a0, A2 const&, A3 const&) const { return *a0; }
+    operator()(A0 a0, A2 const&, A3 const&) const
+    {
+      return *a0;
+    }
+  };
+
+  /// INTERNAL ONLY - masked scalar load with misalignment and without offset
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
+                                    , tag::cpu_
+                                    , (A0)(A2)(A3)(A4)(A5)
+                                    , (iterator_< unspecified_<A0> >)
+                                      (target_< unspecified_<A2> >)
+                                      (mpl_integral_< scalar_< integer_<A3> > >)
+                                      (unspecified_<A4>)
+                                      (scalar_< fundamental_<A5> >)
+                                    )
+  {
+    typedef typename A2::type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 a0, A2 const&, A3 const&, A4 const& a4, A5 const& a5) const
+    {
+      return a5 ? *a0 : a4;
+    }
   };
 
   /// INTERNAL ONLY - Scalar FusionSequence load with offset
