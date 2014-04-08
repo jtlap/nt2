@@ -41,6 +41,7 @@ namespace nt2 { namespace tag
 
     Computes: \f$\displaystyle \frac{2}{\sqrt\pi}\int_0^{x} e^{-t^2}\mbox{d}t\f$
 
+    @see @funcref{erfc}, @funcref{erfinv}, @funcref{erfcinv}
     @param a0
 
     @return a value of the same type as the parameter

@@ -6,21 +6,21 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/euler/include/functions/erfinv.hpp>
+#include <nt2/euler/include/functions/erfcinv.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <cmath>
 
-using nt2::tag::erfinv_;
+using nt2::tag::erfcinv_;
 
 #define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
 namespace n1 {
   typedef float T;
-  NT2_TIMING(erfinv_,(RS(T,T(-1),T(1))))
+  NT2_TIMING(erfcinv_,(RS(T,T(0),T(2))))
 }
 namespace n2 {
   typedef double T;
-  NT2_TIMING(erfinv_,(RS(T,T(-1),T(1))))
+  NT2_TIMING(erfcinv_,(RS(T,T(0),T(2))))
 }
 #undef RS

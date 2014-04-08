@@ -37,12 +37,12 @@ NT2_TEST_CASE_TPL ( erfinv_real, NT2_REAL_TYPES)
 
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
-  NT2_TEST_ULP_EQUAL(erfinv(nt2::One<T>()      ),  nt2::Inf<T>()   , 10);
-  NT2_TEST_ULP_EQUAL(erfinv(nt2::Nan<T>()      ),  nt2::Nan<T>()   , 10);
+  NT2_TEST_ULP_EQUAL(erfinv(nt2::Nan<T>()      ),  nt2::Nan<T>()   , 2);
 #endif
-  NT2_TEST_ULP_EQUAL(erfinv(nt2::Zero<T>()     ),  nt2::Mzero<T>() , 10);
-  NT2_TEST_ULP_EQUAL(erfinv(T(0.52049987781304653768274665389196) ),  nt2::Half<T>()  , 10);
-  NT2_TEST_ULP_EQUAL(erfinv(T(0.842700792949714869341220635082610) ),  nt2::One<T>()   , 10);
-  NT2_TEST_ULP_EQUAL(erfinv(T(0.99532226501895273416206925636725) ),  nt2::Two<T>()   , 10);
-  NT2_TEST_ULP_EQUAL(erfinv(nt2::Zero<T>()     ),  nt2::Zero<T>()  , 10);
+  NT2_TEST_ULP_EQUAL(erfinv(T(0.52049987781304653768274665389196) ),  nt2::Half<T>()  , 2);
+  NT2_TEST_ULP_EQUAL(erfinv(T(0.84270079294971486934122063508262) ),  nt2::One<T>()   , 2);
+  NT2_TEST_ULP_EQUAL(erfinv(T(0.99532226501895273416206925636725) ),  nt2::Two<T>()   , 2);
+  NT2_TEST_ULP_EQUAL(erfinv(nt2::Zero<T>()),   nt2::Zero<T>()  , 2);
+  NT2_TEST_ULP_EQUAL(erfinv(nt2::One<T>()),    nt2::Inf<T>()   , 2);
+  NT2_TEST_ULP_EQUAL(erfinv(nt2::Mone <T>()),  nt2::Minf<T>()   , 2);
 }

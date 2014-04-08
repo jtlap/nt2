@@ -26,6 +26,7 @@
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/six.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/euler.hpp>
 #include <nt2/include/constants/eight.hpp>

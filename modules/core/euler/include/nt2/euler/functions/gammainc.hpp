@@ -36,11 +36,7 @@ namespace nt2 { namespace tag
     T0 r = gammainc(a0,a1);
     @endcode
 
-    is similar to:
-
-    @code
-    T0 r = ;
-    @endcode
+    returns the computed integral.
 
     @param a0
 

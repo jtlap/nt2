@@ -6,34 +6,38 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-// cover for functor erfinv in scalar mode
-#include <nt2/euler/include/functions/erfinv.hpp>
+// cover for functor erfcinv in simd mode
+#include <nt2/euler/include/functions/erfcinv.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <cmath>
 #include <iostream>
-#include <nt2/boost_math/include/functions/erf_inv.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/unit/args.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/cover.hpp>
 #include <vector>
 
-NT2_TEST_CASE_TPL(erfinv_0,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL(erfcinv_0,  NT2_SIMD_REAL_TYPES)
 {
+  using boost::simd::native;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>                  vT;
+
   using nt2::unit::args;
   const std::size_t NR = args("samples", NT2_NB_RANDOM_TEST);
-  const double ulpd = args("ulpd", 25.0);
+  const double ulpd = args("ulpd",  0.0);
 
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  const T min = args("min", T(-1));
-  const T max = args("max", T(1));
+  typedef typename nt2::meta::as_integer<vT>::type ivT;
+  const T min = args("min", T(0));
+  const T max = args("max", T(2));
   std::cout << "Argument samples #0 chosen in range: [" << min << ",  " << max << "]" << std::endl;
   NT2_CREATE_BUF(a0,T, NR, min, max);
 
   std::vector<T> ref(NR);
   for(std::size_t i=0; i!=NR; ++i)
-    ref[i] = nt2::boost_math::erf_inv(a0[i]);
+    ref[i] = nt2::erfcinv(a0[i]);
 
-  NT2_COVER_ULP_EQUAL(nt2::tag::erfinv_, ((T, a0)), ref, ulpd);
+  NT2_COVER_ULP_EQUAL(nt2::tag::erfcinv_, ((vT, a0)), ref, ulpd);
 
 }

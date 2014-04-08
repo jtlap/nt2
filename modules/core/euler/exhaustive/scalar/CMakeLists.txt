@@ -8,6 +8,8 @@
 ##############################################################################
 
 SET(SOURCES
+    erfinv.cpp
+    erfcinv.cpp
     dawson.cpp
     erf.cpp
     erfc.cpp

@@ -40,7 +40,7 @@ namespace nt2 { namespace tag
 
     satisfies  @c x==erf(r)
 
-    @see @funcref{erf}
+    @see @funcref{erf}, @funcref{erfc}, @funcref{erfcinv}
     @param a0
 
     @return a value of the same type as the parameter

@@ -10,93 +10,102 @@
 #define NT2_EULER_FUNCTIONS_SIMD_COMMON_ERFINV_HPP_INCLUDED
 
 #include <nt2/euler/functions/erfinv.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
-#include <nt2/include/functions/simd/abs.hpp>
-#include <nt2/include/functions/simd/splat.hpp>
-#include <nt2/include/functions/simd/is_ltz.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/simd/is_less.hpp>
-#include <nt2/include/functions/simd/sqr.hpp>
-#include <nt2/include/functions/simd/multiplies.hpp>
-#include <nt2/include/functions/simd/divides.hpp>
-#include <nt2/include/functions/simd/unary_minus.hpp>
-#include <nt2/include/functions/simd/polevl.hpp>
-#include <nt2/include/functions/simd/log.hpp>
-#include <nt2/include/functions/simd/sqrt.hpp>
-#include <nt2/include/functions/simd/oneminus.hpp>
-#include <nt2/include/functions/simd/erf.hpp>
-#include <nt2/include/functions/simd/minus.hpp>
-#include <nt2/include/functions/simd/is_equal.hpp>
-#include <nt2/include/functions/simd/exp.hpp>
-#include <nt2/include/constants/sqrtpio_2.hpp>
-#include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/mone.hpp>
-#include <nt2/include/constants/half.hpp>
-#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/five.hpp>
 #include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/real_splat.hpp>
+#include <nt2/include/constants/three.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/inbtrue.hpp>
+#include <nt2/include/functions/simd/is_equal.hpp>
+#include <nt2/include/functions/simd/is_less.hpp>
+#include <nt2/include/functions/simd/log.hpp>
+#include <nt2/include/functions/simd/logical_andnot.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/oneminus.hpp>
+#include <nt2/include/functions/simd/oneplus.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/include/functions/simd/signnz.hpp>
+#include <nt2/include/functions/simd/sqrt.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::erfinv_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                            )
-  {
-    typedef typename meta::as_floating<A0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::erfinv(nt2::tofloat(a0));
-   }
-  };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::erfinv_, tag::cpu_
                             , (A0)(X)
-                            , ((simd_<floating_<A0>,X>))
+                            , ((simd_<single_<A0>,X>))
                             )
   {
     typedef typename meta::as_floating<A0>::type result_type;
     typedef typename meta::scalar_of<A0>::type sA0;
     NT2_FUNCTOR_CALL(1)
     {
-      static const boost::array<sA0, 4 > a = {{
-          sA0(-0.14110320437680104),
-          sA0(0.92661860147244357),
-          sA0(-1.6601283962374516),
-          sA0(0.88622692374517353)
-        }};
-      static const boost::array<sA0, 5 > b = {{
-          sA0( 0.01197270616590528),
-          sA0(-0.33198239813321595),
-          sA0( 1.46060340345661088),
-          sA0(-2.13505380615258078),
-          sA0(1)
-        }};
-
-      static const boost::array<sA0, 4 > c = {{
-          sA0(1.82365845766309853),
-          sA0(3.60874665878559364),
-          sA0(  -1.87267416351196),
-          sA0( -1.994216456587148)
-        }};
-      static const boost::array<sA0, 3 >d = {{
-          sA0(1.81848952562894617),
-          sA0(3.74146294065960872),
-          sA0(1)
-        }};
       typedef typename meta::as_logical<A0>::type bA0;
+      A0 w = -log(oneminus(a0)*oneplus(a0));
+      bA0 test = lt(w, Five<A0>());
+      const A0 Two5 =  single_constant<A0, 0x40200000>();  //2.5
+      w = if_else(test, w-Two5, sqrt(w)-Three<A0>());
+      int32_t nb =  inbtrue(test);
+      A0 r1;
+      if (nb > 0)
+      {
+        r1 = a0*details::erfinv_kernel<A0>::erfinv1(w);
+        if(nb >= meta::cardinal_of<A0>::value) return r1;
+      }
+      A0 r2 = a0*details::erfinv_kernel<A0>::erfinv2(w);
+      return if_else (eq(w, Inf<A0>()), signnz(a0)*w,
+                      if_else(test, r1, r2)
+                     );
+    }
 
-      A0 x =  nt2::abs(a0);
-      A0 lim = splat<A0>(0.7);
-      A0 sign = nt2::if_else(nt2::is_ltz(a0), nt2::Mone<A0>(), nt2::One<A0>());
-      bA0 test =  nt2::lt(x, lim);
-      A0 xx =  nt2::sqr(x);
-      A0 res =  a0*nt2::polevl(xx, a)/nt2::polevl(xx, b);
-      A0 z = nt2::sqrt(-nt2::log(nt2::oneminus(x)*nt2::Half<A0>()));
-      res =  nt2::if_else(test, res, sign*nt2::polevl(z, c)/nt2::polevl(z, d));
-      res -= (nt2::erf(res)-a0)*nt2::Sqrtpio_2<A0>()/nt2::exp(-nt2::sqr(res));
-      res -= (nt2::erf(res)-a0)*nt2::Sqrtpio_2<A0>()/nt2::exp(-nt2::sqr(res));
-      return nt2::if_else(eq(x, nt2::One<A0>()), a0*nt2::Inf<A0>(), res);
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::erfinv_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<double_<A0>,X>))
+                            )
+  {
+    typedef typename meta::as_floating<A0>::type result_type;
+    typedef typename meta::scalar_of<A0>::type sA0;
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename meta::as_logical<A0>::type bA0;
+      A0 w = -log(oneminus(a0)*oneplus(a0));
+      const A0 Six25    =  double_constant<A0, 0x4019000000000000ll>(); //6.25
+      const A0 Three125 =  double_constant<A0, 0x4009000000000000ll>(); //3.125
+      const A0 Three25  =  double_constant<A0, 0x400a000000000000ll>(); //3.25
+      const A0 Sixteen  =  double_constant<A0, 0x4030000000000000ll>(); //16.0
+      bA0 test1 = lt(w, Six25);
+      bA0 test2 = lt(w, Sixteen);
+      w =  if_else(test1, w, sqrt(w));
+      w -= if_else(test1, Three125,
+                   if_else(test2, Three25,
+                           Five<A0>()
+                          )
+                  );
+      int32_t nb = inbtrue(test1);
+      A0 r1;
+      if (nb > 0)
+      {
+        r1 = a0*details::erfinv_kernel<A0>::erfinv1(w);
+        if(nb >= meta::cardinal_of<A0>::value) return r1;
+      }
+      bA0 test3 = nt2::logical_andnot(test2, test1);
+      int32_t nb1 = inbtrue(test3);
+      if (nb1 > 0)
+      {
+        A0 r2 = a0*details::erfinv_kernel<A0>::erfinv2(w);
+        r1 = nt2::if_else(test1, r1, r2);
+        nb += nb1;
+        if(nb >= meta::cardinal_of<A0>::value) return r1;
+      }
+      r1 = if_else(test2, r1, a0*details::erfinv_kernel<A0>::erfinv3(w));
+      return if_else (eq(w, Inf<A0>()), signnz(a0)*w, r1);
     }
   };
 } }

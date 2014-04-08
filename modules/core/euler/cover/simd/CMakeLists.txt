@@ -21,6 +21,7 @@ SET( SOURCES
   erf.cpp
   erfc.cpp
   erfinv.cpp
+  erfcinv.cpp
 # List of simd test files for toolbox euler
    )
 

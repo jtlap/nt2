@@ -6,21 +6,25 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/euler/include/functions/erfinv.hpp>
+#include <nt2/euler/include/functions/erfcinv.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <cmath>
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
-using nt2::tag::erfinv_;
+using nt2::tag::erfcinv_;
 
-#define RS(T,V1,V2) (T, T(V1) ,T(V2))
+#define RS(T,V1,V2) (T, (V1) ,(V2))
 
 namespace n1 {
   typedef float T;
-  NT2_TIMING(erfinv_,(RS(T,T(-1),T(1))))
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
+  NT2_TIMING(erfcinv_,(RS(vT,T(-1),T(1))))
 }
 namespace n2 {
   typedef double T;
-  NT2_TIMING(erfinv_,(RS(T,T(-1),T(1))))
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
+  NT2_TIMING(erfcinv_,(RS(vT,T(-1),T(1))))
 }
 #undef RS

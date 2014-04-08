@@ -10,106 +10,75 @@
 #define NT2_EULER_FUNCTIONS_SCALAR_ERFINV_HPP_INCLUDED
 
 #include <nt2/euler/functions/erfinv.hpp>
-#include <nt2/include/functions/scalar/polevl.hpp>
-#include <nt2/include/functions/scalar/erf.hpp>
-#include <nt2/include/functions/scalar/abs.hpp>
-#include <nt2/include/functions/scalar/oneminus.hpp>
-#include <nt2/include/functions/scalar/is_nan.hpp>
-#include <nt2/include/functions/scalar/sqr.hpp>
-#include <nt2/include/functions/scalar/sqrt.hpp>
-#include <nt2/include/functions/scalar/is_ltz.hpp>
-#include <nt2/include/functions/scalar/exp.hpp>
+#include <nt2/euler/functions/details/erfinv_kernel.hpp>
+#include <nt2/include/constants/five.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/real_splat.hpp>
+#include <nt2/include/constants/three.hpp>
 #include <nt2/include/functions/scalar/log.hpp>
-#include <nt2/include/constants/sqrtpio_2.hpp>
-#include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/mone.hpp>
-#include <nt2/include/constants/nan.hpp>
-#include <boost/simd/sdk/config.hpp>
+#include <nt2/include/functions/scalar/oneminus.hpp>
+#include <nt2/include/functions/scalar/oneplus.hpp>
+#include <nt2/include/functions/scalar/signnz.hpp>
+#include <nt2/include/functions/scalar/sqrt.hpp>
 
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::erfinv_, tag::cpu_
                             , (A0)
-                            , (scalar_< arithmetic_<A0> >)
+                            , (scalar_< double_<A0> >)
                             )
   {
-
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::erfinv(result_type(a0));
-    }
-  };
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::erfinv_, tag::cpu_
-                            , (A0)
-                            , (scalar_< floating_<A0> >)
-                            )
-  {
-    // This is inspired from scilab
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
+    {
+      A0 w = - log(oneminus(a0)*oneplus(a0));
+      if (BOOST_UNLIKELY(w == Inf<A0>()))
       {
-        static const boost::array<A0, 4 > a = {{
-            A0(-0.14110320437680104),
-            A0(0.92661860147244357),
-            A0(-1.6601283962374516),
-            A0(0.88622692374517353)
-          }};
-        static const boost::array<A0, 5 > b = {{
-            A0( 0.01197270616590528),
-            A0(-0.33198239813321595),
-            A0( 1.46060340345661088),
-            A0(-2.13505380615258078),
-            A0(1)
-          }};
-
-        static const boost::array<A0, 4 > c = {{
-            A0(1.82365845766309853),
-            A0(3.60874665878559364),
-            A0(  -1.87267416351196),
-            A0( -1.994216456587148)
-          }};
-        static const boost::array<A0, 3 >d = {{
-            A0(1.81848952562894617),
-            A0(3.74146294065960872),
-            A0(1)
-          }};
-
-        A0 x =  nt2::abs(a0);
-        A0 res;
-#ifndef BOOST_SIMD_NO_INVALIDS
-        if(nt2::is_nan(a0)) return nt2::Nan<A0>();
-#endif
-        if(x>nt2::One<A0>()) return nt2::Nan<A0>();
-        if(x == nt2::One<A0>()) return a0*Inf<A0>();
-        if(x<= A0(0.7))
-        {
-          //       a1*y + a2*y^3 + a3*y^5 + a4*y^7
-          //res= --------------------------------------
-          //     1 + b1*y^2 + b2*y^4 + b3*y^6 + b4*y^8
-
-          A0 xx =  nt2::sqr(x);
-          res =  a0*nt2::polevl(xx, a)/nt2::polevl(xx, b);
-        }
-        else
-        {
-          // 0.7 < x < 1
-          //       c1 + c2*z + c3*z^2 + c4*z^3
-          //  x= ------------------------------ ; z = sqrt(-log(1-y)/2)
-          //         1 + d1*z + d2*z^2
-          // -1 < y < 0.7
-          //      - c1 - c2*z - c3*z^2 - c4*z^3
-          //  x= ------------------------------ ; z = sqrt(-log(1+y)/2)
-          //         1 + d1*z + d2*z^2
-          A0 sign = nt2::is_ltz(a0)?nt2::Mone<A0>():nt2::One<A0>();
-          A0 z = nt2::sqrt(-nt2::log(nt2::oneminus(sign*a0)*nt2::Half<A0>()));
-          res =  sign*nt2::polevl(z, c)/nt2::polevl(z, d);
-        }
-        res -= (nt2::erf(res)-a0)*nt2::Sqrtpio_2<A0>()/nt2::exp(-nt2::sqr(res));
-        res -= (nt2::erf(res)-a0)*nt2::Sqrtpio_2<A0>()/nt2::exp(-nt2::sqr(res));
-        return res;
+        return signnz(a0)*w;
       }
+      else if ( w < 6.25)  // abs(a0) <  9.990343066500631e-01
+      {
+        w -= 3.125000;
+        return a0*details::erfinv_kernel<A0>::erfinv1(w);
+      }
+      else if ( w < 16.000000 ) // abs(a0) <  9.999999437324111e-01
+      {
+        w = sqrt(w) - 3.250000;
+        return a0*details::erfinv_kernel<A0>::erfinv2(w);
+      }
+      else
+      {
+        w = sqrt(w) - Five<A0>();
+        return a0*details::erfinv_kernel<A0>::erfinv3(w);
+      }
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::erfinv_, tag::cpu_
+                            , (A0)
+                            , (scalar_< single_<A0> >)
+                            )
+  {
+    // This is taken from Approximating the erfinv function of Mike Giles
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1)
+    {
+      A0 w = - log(oneminus(a0)*oneplus(a0));
+      if (BOOST_UNLIKELY(w == Inf<A0>()))
+      {
+        return signnz(a0)*w;
+      }
+      else if ( w < Five<A0>() ) // abs(a0) <  9.966253323094464e-01
+      {
+        w -= single_constant<A0, 0x40200000> (); //2.500000f;
+        return a0*details::erfinv_kernel<A0>::erfinv1(w);
+      }
+      else
+      {
+        w = sqrt(w) - Three<A0>();
+        return a0*details::erfinv_kernel<A0>::erfinv2(w);
+      }
+    }
   };
 } }
 
