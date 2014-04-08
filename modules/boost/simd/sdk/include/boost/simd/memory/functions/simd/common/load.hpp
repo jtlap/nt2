@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2014               MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -94,39 +95,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  /// INTERNAL ONLY - SIMD mask load via Scalar emulation with simd offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
-                                    , tag::cpu_
-                                    , (A0)(A1)(A2)(A3)(A4)(X)
-                                    , (iterator_<unspecified_<A0> >)
-                                      ((simd_< integer_<A1>
-                                             , X
-                                             >
-                                      ))
-                                      ((target_<simd_< unspecified_<A2>, X> >))
-                                      ((simd_< unspecified_<A3>, X>))
-                                      ((simd_< logical_<A4>
-                                             , X
-                                             >
-                                      ))
-                                    )
-  {
-    typedef typename A2::type result_type;
-    typedef typename meta::scalar_of<result_type>::type stype;
-
-    BOOST_FORCEINLINE result_type operator()(A0 a0, A1 a1, A2 const&, A3 const& a3, A4 const& a4) const
-    {
-      result_type that;
-
-      for(std::size_t i=0; i!=meta::cardinal_of<result_type>::value; ++i)
-        if (a4[i])
-          that[i] = static_cast<stype>(a0[a1[i]]);
-        else
-          that[i] = static_cast<stype>(a3[i]);
-      return that;
-    }
-  };
-
   /// INTERNAL ONLY - SIMD load via Scalar emulation with offset
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
                                     , tag::cpu_
@@ -144,20 +112,20 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - Unaligned gather
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::load_
-                                      , tag::cpu_
-                                      , (A0)(A1)(A2)(X)(Y)
-                                      , (mpl::equal_to
-                                        < boost::simd::meta
-                                          ::cardinal_of<A1>
-                                        , boost::simd::meta
-                                          ::cardinal_of<typename A2::type>
-                                        >
-                                        )
-                                      , (iterator_< unspecified_<A0> >)
-                                        ((simd_< integer_<A1>, X >))
-                                        ((target_<simd_<unspecified_<A2>, Y> >))
-                                      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::load_
+                                       , tag::cpu_
+                                       , (A0)(A1)(A2)(X)(Y)
+                                       , (mpl::equal_to
+                                         < boost::simd::meta
+                                           ::cardinal_of<A1>
+                                         , boost::simd::meta
+                                           ::cardinal_of<typename A2::type>
+                                         >
+                                         )
+                                       , (iterator_< unspecified_<A0> >)
+                                         ((simd_< integer_<A1>, X >))
+                                         ((target_<simd_<unspecified_<A2>, Y> >))
+                                       )
   {
     typedef typename A2::type                           result_type;
     typedef typename meta::scalar_of<result_type>::type stype;
@@ -179,25 +147,25 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - Unaligned gather
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::load_
-                                      , tag::cpu_
-                                      , (A0)(A1)(A2)(A3)(A4)(X)(Y)
-                                      , (mpl::equal_to
-                                        < boost::simd::meta
-                                          ::cardinal_of<A1>
-                                        , boost::simd::meta
-                                          ::cardinal_of<typename A2::type>
-                                        >
-                                        )
-                                      , (iterator_< unspecified_<A0> >)
-                                        ((simd_< integer_<A1>, X >))
-                                        ((target_<simd_<unspecified_<A2>, Y> >))
-                                        ((simd_< unspecified_<A3>, Y>))
-                                        ((simd_< logical_<A4>
-                                               , Y
-                                               >
-                                        ))
-                                      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::load_
+                                       , tag::cpu_
+                                       , (A0)(A1)(A2)(A3)(A4)(X)(Y)
+                                       , (mpl::equal_to
+                                         < boost::simd::meta
+                                           ::cardinal_of<A1>
+                                         , boost::simd::meta
+                                           ::cardinal_of<typename A2::type>
+                                         >
+                                         )
+                                       , (iterator_< unspecified_<A0> >)
+                                         ((simd_< integer_<A1>, X >))
+                                         ((target_<simd_<unspecified_<A2>, Y> >))
+                                         ((simd_< unspecified_<A3>, Y>))
+                                         ((simd_< logical_<A4>
+                                                , Y
+                                                >
+                                         ))
+                                       )
   {
     typedef typename A2::type                           result_type;
     typedef typename meta::scalar_of<result_type>::type stype;
@@ -219,7 +187,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - SIMD unaligned load for Fusion Sequence
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)(X)
                                     , (fusion_sequence_<A0>)
@@ -247,7 +215,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - SIMD unaligned load for Fusion Sequence
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
                                     , tag::cpu_
                                     , (A0)(A2)(X)
                                     , (fusion_sequence_<A0>)
@@ -272,8 +240,6 @@ namespace boost { namespace simd { namespace ext
       return that;
     }
   };
-
-
 } } }
 
 #endif
