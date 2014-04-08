@@ -1,7 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2011 - 2012   MetaScale SAS
+//         Copyright 2011 - 2014   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -43,11 +43,11 @@ namespace boost { namespace simd
     @par Semantic:
 
     Depending on the type of its arguments, store exhibits different semantics.
-    For any @c x of type @c Value, @c ptr of type @c Pointer and @c offset
-    of type @c Offset, consider:
+    For any @c x of type @c Value, @c ptr of type @c Pointer, @c offset
+    of type @c Offset and @c mask of type @c Mask, consider:
 
     @code
-    aligned_store(x,ptr,offset);
+    aligned_store(x,ptr,offset,mask);
     @endcode
 
 
@@ -56,14 +56,16 @@ namespace boost { namespace simd
 
       @code
       for(int i=0;i<Value::static_size;++i)
-        *(ptr+offset+i) = x[i];
+        if mask[i]
+          *(ptr+offset+i) = x[i];
       @endcode
 
     - If @c offset is a SIMD integral register:
 
       @code
       for(int i=0;i<Value::static_size;++i)
-        *(ptr+offset[i]) = x[i];
+        if mask[i]
+          *(ptr+offset[i]) = x[i];
       @endcode
 
       In this case, the store operation is equivalent to a scatter operation.
@@ -80,7 +82,8 @@ namespace boost { namespace simd
     If @c x is a scalar value, this code is equivalent to:
 
     @code
-    *(ptr+offset) = x;
+    if (mask)
+      *(ptr+offset) = x;
     @endcode
 
     @usage{memory/aligned_store.cpp}
@@ -98,6 +101,7 @@ namespace boost { namespace simd
     @param val    Value to store
     @param ptr    Memory location to store @c val to
     @param offset Optional memory offset.
+    @param mask   Optional logical mask. Only stores values for which the mask is true.
 
   **/
   template<typename Value, typename Pointer, typename Offset>
@@ -110,6 +114,20 @@ namespace boost { namespace simd
                                                 , Offset const&
                                                 )>::type          callee;
     callee(val, ptr, offset);
+  }
+
+  /// @overload
+  template<typename Value, typename Pointer, typename Offset, typename Mask>
+  BOOST_FORCEINLINE void
+  aligned_store(Value const& val, Pointer const& ptr, Offset const& offset, Mask const& mask)
+  {
+    typename  boost::dispatch::meta
+            ::dispatch_call<tag::aligned_store_ ( Value const&
+                                                , Pointer const&
+                                                , Offset const&
+                                                , Mask const&
+                                                )>::type          callee;
+    callee(val, ptr, offset, mask);
   }
 
   /// @overload

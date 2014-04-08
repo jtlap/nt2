@@ -1,7 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2011 - 2012   MetaScale SAS
+//         Copyright 2011 - 2014   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -48,7 +48,8 @@ namespace boost { namespace simd
 
     @param ptr    Memory location to load data from.
     @param offset Optional memory offset.
-
+    @param mask   Optional logical mask. Only loads values for which the mask is true.
+    @param old    Optional (Required for masked variant) Returns the corresponding entry from old if the mask is set to false.
     @return A value of type @c Type loaded from target memory block
   **/
   template<typename Type,typename Pointer,typename Offset>

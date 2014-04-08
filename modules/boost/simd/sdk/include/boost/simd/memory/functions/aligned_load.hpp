@@ -1,7 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2011 - 2012   MetaScale SAS
+//         Copyright 2011 - 2014   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -46,11 +46,11 @@ namespace boost { namespace simd
     @par Semantic
 
     Depending on the type of its arguments, aligned_load exhibits different semantics.
-    For any type @c Type, @c ptr of type @c Pointer and @c offset of type @c
-    Offset, consider:
+    For any type @c Type, @c ptr of type @c Pointer, @c offset of type @c
+    Offset, @c old of type @c Old and @c mask of type @c Mask, consider:
 
     @code
-    Type x = aligned_load<Type>(ptr,offset);
+    Type x = aligned_load<Type>(ptr,offset,old,mask);
     @endcode
 
     If @c Type is a SIMD value, this code is equivalent to:
@@ -58,14 +58,20 @@ namespace boost { namespace simd
 
       @code
       for(int i=0;i<Value::static_size;++i)
-        x[i] = *(ptr+offset+i);
+        if (mask[i])
+          x[i] = *(ptr+offset+i);
+        else
+          x[i] = old[i]
       @endcode
 
     - If @c offset is a SIMD integral register:
 
       @code
       for(int i=0;i<Value::static_size;++i)
-        x[i] = *(ptr+offset[i]);
+        if (mask[i])
+          x[i] = *(ptr+offset[i]);
+        else
+          x[i] = old[i];
       @endcode
 
       In this case, the aligned_load operation is equivalent to a gather operation.
@@ -82,7 +88,10 @@ namespace boost { namespace simd
     If @c Type is a scalar type, then it is equivalent to:
 
     @code
-    x = *(ptr+offset);
+    if (mask)
+      x = *(ptr+offset);
+    else
+      x = old;
     @endcode
 
     @par Misalignment handling
@@ -92,11 +101,11 @@ namespace boost { namespace simd
     a specific amount. In this case, aligned_load can be issued by using an
     architecture specific strategy to perform this aligned_loading efficiently.
 
-    For any type @c T, any pointer @c ptr and value of misalignment @c M, the
-    call:
+    For any type @c T, any pointer @c ptr, value of misalignment @c M, value(s)
+    @c old and logical mask @c mask , the call:
 
     @code
-    aligned_load<T, M>(ptr);
+    aligned_load<T, M>(ptr,old,mask);
     @endcode
 
     implies that
@@ -115,6 +124,9 @@ namespace boost { namespace simd
 
     @param ptr    Memory location to aligned_load data from.
     @param offset Optional memory offset.
+    @param mask   Optional logical mask. Only loads values for which the mask is true.
+    @param old    Optional (Required for masked variant) Returns the corresponding
+                  entry from old if the mask is set to false.
 
     @return A value of type @c Type aligned_loaded from target memory block
   **/
@@ -161,6 +173,69 @@ namespace boost { namespace simd
                                               )>::type          callee;
 
     return callee(ptr,offset,boost::dispatch::meta::as_<Type>());
+  }
+
+  /// @overload
+  template<typename Type,typename Pointer,typename Old, typename Mask>
+  BOOST_FORCEINLINE Type aligned_load(Pointer const& ptr,Old const& old, Mask const& mask)
+  {
+    typename  boost::dispatch::meta
+            ::dispatch_call<tag::aligned_load_( Pointer const&
+                                              , boost::dispatch::meta::as_<Type> const&
+                                              , Old const&
+                                              , Mask const&
+                                              )>::type          callee;
+
+    return callee(ptr,boost::dispatch::meta::as_<Type>(),old,mask);
+  }
+
+ /// @overload
+  template<typename Type,int Misalignment,typename Pointer,typename Old, typename Mask>
+  BOOST_FORCEINLINE Type aligned_load(Pointer const& ptr,Old const& old, Mask const& mask)
+  {
+    typename  boost::dispatch::meta
+            ::dispatch_call<tag::aligned_load_( Pointer const&
+                                              , boost::dispatch::meta::as_<Type> const&
+                                              , boost::mpl::int_<Misalignment> const&
+                                              , Old const&
+                                              , Mask const&
+                                              )>::type          callee;
+
+    return callee ( ptr,boost::dispatch::meta::as_<Type>()
+                  , boost::mpl::int_<Misalignment>(),old,mask);
+  }
+
+ /// @overload
+  template<typename Type,typename Pointer,typename Offset,typename Old, typename Mask>
+  BOOST_FORCEINLINE Type aligned_load(Pointer const& ptr, Offset const& offset, Old const& old, Mask const& mask)
+  {
+    typename  boost::dispatch::meta
+            ::dispatch_call<tag::aligned_load_( Pointer const&
+                                              , Offset const&
+                                              , boost::dispatch::meta::as_<Type> const&
+                                              , Old const&
+                                              , Mask const&
+                                              )>::type          callee;
+
+    return callee ( ptr,offset,boost::dispatch::meta::as_<Type>()
+                  , old,mask);
+  }
+
+ /// @overload
+  template<typename Type,int Misalignment,typename Pointer,typename Offset,typename Old, typename Mask>
+  BOOST_FORCEINLINE Type aligned_load(Pointer const& ptr, Offset const& offset, Old const& old, Mask const& mask)
+  {
+    typename  boost::dispatch::meta
+            ::dispatch_call<tag::aligned_load_( Pointer const&
+                                              , Offset const&
+                                              , boost::dispatch::meta::as_<Type> const&
+                                              , boost::mpl::int_<Misalignment> const&
+                                              , Old const&
+                                              , Mask const&
+                                              )>::type          callee;
+
+    return callee ( ptr,offset,boost::dispatch::meta::as_<Type>()
+                  , boost::mpl::int_<Misalignment>(),old,mask);
   }
 
   /// @overload
