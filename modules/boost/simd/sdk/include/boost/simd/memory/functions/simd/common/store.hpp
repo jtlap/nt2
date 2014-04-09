@@ -32,8 +32,8 @@ namespace boost { namespace simd { namespace ext
 
     struct local_
     {
-      local_( A0 const& a0_, A1 const& a1_ )
-            : a0(a0_), a1(a1_) {}
+      BOOST_FORCEINLINE local_( A0 const& a0_, A1 const& a1_ )
+                              : a0(a0_), a1(a1_) {}
 
       template<int I> BOOST_FORCEINLINE void operator()() const
       {
@@ -72,8 +72,8 @@ namespace boost { namespace simd { namespace ext
 
     struct local_
     {
-      local_( A0 const& a0_, A1 const& a1_, A2 const& a2_)
-            : a0(a0_), a1(a1_), a2(a2_) {}
+      BOOST_FORCEINLINE local_( A0 const& a0_, A1 const& a1_, A2 const& a2_)
+                             : a0(a0_), a1(a1_), a2(a2_) {}
 
       template<int I> BOOST_FORCEINLINE void operator()() const
       {
@@ -156,8 +156,8 @@ namespace boost { namespace simd { namespace ext
 
     struct local_
     {
-      local_( A0 const& a0_, A1 const& a1_, A2 const& a2_)
-            : a0(a0_), a1(a1_), a2(a2_) {}
+      BOOST_FORCEINLINE local_( A0 const& a0_, A1 const& a1_, A2 const& a2_)
+                              : a0(a0_), a1(a1_), a2(a2_) {}
 
       template<int I> BOOST_FORCEINLINE void operator()() const
       {
@@ -203,8 +203,8 @@ namespace boost { namespace simd { namespace ext
 
     struct local_
     {
-      local_( A0 const& a0_, A1 const& a1_, A2 const& a2_, A3 const& a3_)
-            : a0(a0_), a1(a1_), a2(a2_), a3(a3_) {}
+      BOOST_FORCEINLINE local_( A0 const& a0_, A1 const& a1_, A2 const& a2_, A3 const& a3_)
+                              : a0(a0_), a1(a1_), a2(a2_), a3(a3_) {}
 
       template<int I> BOOST_FORCEINLINE void operator()() const
       {
