@@ -18,10 +18,6 @@
 #include <nt2/sdk/unit/tests/cover.hpp>
 #include <vector>
 
-extern "C" {long double cephes_gammal(long double);}
-extern "C" {long double cephes_logl  (long double);}
-extern "C" { double     cephes_lgam  (double); }
-
 NT2_TEST_CASE_TPL(gammaln_0,  NT2_SIMD_REAL_TYPES)
 {
   using boost::simd::native;
@@ -29,7 +25,7 @@ NT2_TEST_CASE_TPL(gammaln_0,  NT2_SIMD_REAL_TYPES)
   typedef native<T,ext_t>                  vT;
 
   using nt2::unit::args;
-  const std::size_t NR = args("samples", NT2_NB_RANDOM_TEST*128*128);
+  const std::size_t NR = args("samples", NT2_NB_RANDOM_TEST);
   const double ulpd = args("ulpd",  32);
 
   typedef typename nt2::meta::as_integer<vT>::type ivT;

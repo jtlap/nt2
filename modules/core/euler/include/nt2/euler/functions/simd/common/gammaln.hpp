@@ -79,7 +79,7 @@ namespace nt2 { namespace ext
       inf_result = eq(q, Inf<A0>());
       #endif
       bA0 test = lt(a0, nt2::splat<A0>(-34.0));
-      std::size_t nb = nt2::inbtrue(test);
+      size_t nb = nt2::inbtrue(test);
       A0 r =  Nan<A0>();
       if(nb > 0)
       {
@@ -111,7 +111,7 @@ namespace nt2 { namespace ext
     {
       A0 x =  xx;
       bA0 test = lt(x, nt2::splat<A0>(13.0) );
-      int32_t nb = inbtrue(test);
+      size_t nb = inbtrue(test);
       A0 r1 = Zero<A0>();
       if (nb > 0)
       {
@@ -166,7 +166,7 @@ namespace nt2 { namespace ext
       inf_result = logical_or(eq(x, Inf<A0>()), inf_result);
       #endif
       bA0 ltza0 = is_ltz(a0);
-      std::size_t nb = nt2::inbtrue(ltza0);
+      size_t nb = nt2::inbtrue(ltza0);
       A0 r, r1 =  other(q);
       if(nb > 0)
       {
@@ -194,7 +194,7 @@ namespace nt2 { namespace ext
     static inline A0 other(const A0& x)
     {
       bA0 xlt650 = lt(x, nt2::splat<A0>(6.50) );
-      int32_t nb = inbtrue(xlt650);
+      size_t nb = inbtrue(xlt650);
       A0 r0x = x;
       A0 r0z = x;
       A0 r0s = One<A0>();
