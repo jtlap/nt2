@@ -100,7 +100,6 @@ namespace nt2 { namespace ext
     {
       A0 w = gammaln(q);
       A0 p = nt2::floor(q);
-//      A0 sgngam = nt2::negif(nt2::is_even(p), One<A0>());
       A0 z = q - p;
       bA0 test2 = lt(z, nt2::Half<A0>() );
       z = nt2::selsub(test2, z, nt2::One<A0>());
@@ -138,7 +137,6 @@ namespace nt2 { namespace ext
           test2 = lt(u,Two<A0>());
         }
         z = nt2::abs(z);
-//        if( u == 2.0 ) return( nt2::log(z) );
         x +=  p-Two<A0>();
         r1 = x * details::gammaln_kernel<A0>::gammaln1(x)+nt2::log(z);
         if (nb >= meta::cardinal_of<A0>::value) return r1;
@@ -186,7 +184,6 @@ namespace nt2 { namespace ext
     static inline A0 negative(const A0& q,  const A0& w)
     {
       A0 p = nt2::floor(q);
-//      A0 sgngam = nt2::negif(nt2::is_even(p), One<A0>());
       A0 z = q - p;
       bA0 test2 = lt(z, nt2::Half<A0>() );
       z = nt2::selsub(test2, z, nt2::One<A0>());
