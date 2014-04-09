@@ -11,10 +11,10 @@
 
 #include <nt2/linalg/functions/chebspec.hpp>
 #include <nt2/core/container/table/table.hpp>
+#include <nt2/include/constants/six.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
-#include <nt2/include/constants/pi.hpp>
 #include <nt2/include/functions/colon.hpp>
 #include <nt2/include/functions/colvect.hpp>
 #include <nt2/include/functions/rowvect.hpp>

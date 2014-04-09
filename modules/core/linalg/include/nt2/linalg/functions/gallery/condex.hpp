@@ -13,7 +13,7 @@
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/core/container/dsl.hpp>
 
-#include <nt2/include/constants/two.hpp>
+#include <nt2/include/constants/four.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/functions/colon.hpp>

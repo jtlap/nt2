@@ -10,9 +10,11 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/det.hpp>
 #include <nt2/include/functions/eye.hpp>
-#include <nt2/include/constants/one.hpp>
 #include <nt2/include/functions/kms.hpp>
 #include <nt2/include/functions/binomial.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/ten.hpp>
+#include <nt2/include/constants/mone.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
