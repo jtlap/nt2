@@ -19,6 +19,8 @@
 
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/constants/mtwo.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
@@ -43,8 +45,10 @@ NT2_TEST_CASE_TPL ( gammaln_real,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(gammaln(nt2::Inf<vT>()), nt2::Inf<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(gammaln(nt2::Minf<vT>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(gammaln(nt2::Nan<vT>()), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(gammaln(nt2::Mone<vT>()), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(gammaln(nt2::Zero<vT>()), nt2::Inf<r_t>(), 0);
 #endif
+  NT2_TEST_ULP_EQUAL(gammaln(nt2::Mone<vT>()), nt2::Inf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(gammaln(nt2::Mtwo<vT>()), nt2::Inf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(gammaln(nt2::Zero<vT>()), nt2::Inf<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(gammaln(nt2::One<vT>()), nt2::Zero<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(gammaln(nt2::Two<vT>()), nt2::Zero<r_t>(), 0);
 }

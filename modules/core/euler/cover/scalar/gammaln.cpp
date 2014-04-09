@@ -18,24 +18,26 @@
 #include <nt2/sdk/unit/tests/cover.hpp>
 #include <vector>
 
-extern "C" {long double cephes_lgaml(long double);}
+extern "C" {double cephes_lgam(double);}
+extern "C" {float  cephes_lgamf(float); }
+
 //extern "C" {long double cephes_logl  (long double);}
 
 NT2_TEST_CASE_TPL(gammaln_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::unit::args;
-  const std::size_t NR = args("samples", NT2_NB_RANDOM_TEST);
-  const double ulpd = args("ulpd", 1.5);
+  const std::size_t NR = args("samples", 4); //NT2_NB_RANDOM_TEST);
+  const double ulpd = args("ulpd", 4);
 
   typedef typename nt2::meta::as_integer<T>::type iT;
   const T min = args("min", T(0));
-  const T max = args("max", T(10));
+  const T max = args("max", T(36));
   std::cout << "Argument samples #0 chosen in range: [" << min << ",  " << max << "]" << std::endl;
   NT2_CREATE_BUF(a0,T, NR, min, max);
 
   std::vector<T> ref(NR);
   for(std::size_t i=0; i!=NR; ++i)
-    ref[i] = ::cephes_lgaml(a0[i]); //cephes_logl(std::abs(cephes_gammal(a0[i])));
+    ref[i] = ::cephes_lgam(a0[i]); //cephes_logl(std::abs(cephes_gammal(a0[i])));
 
   NT2_COVER_ULP_EQUAL(nt2::tag::gammaln_, ((T, a0)), ref, ulpd);
 
