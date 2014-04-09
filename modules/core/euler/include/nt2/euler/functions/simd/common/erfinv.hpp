@@ -50,17 +50,18 @@ namespace nt2 { namespace ext
       bA0 test = lt(w, Five<A0>());
       const A0 Two5 =  single_constant<A0, 0x40200000>();  //2.5
       w = if_else(test, w-Two5, sqrt(w)-Three<A0>());
-      int32_t nb =  inbtrue(test);
+      std::size_t nb = inbtrue(test);
       A0 r1;
-      if (nb > 0)
+      if(nb > 0)
       {
         r1 = a0*details::erfinv_kernel<A0>::erfinv1(w);
         if(nb >= meta::cardinal_of<A0>::value) return r1;
       }
       A0 r2 = a0*details::erfinv_kernel<A0>::erfinv2(w);
-      return if_else (eq(w, Inf<A0>()), signnz(a0)*w,
-                      if_else(test, r1, r2)
-                     );
+      return if_else( eq(w, Inf<A0>())
+                    , signnz(a0)*w
+                    , if_else(test, r1, r2)
+                    );
     }
 
   };
@@ -88,16 +89,16 @@ namespace nt2 { namespace ext
                            Five<A0>()
                           )
                   );
-      int32_t nb = inbtrue(test1);
+      std::size_t nb = inbtrue(test1);
       A0 r1;
-      if (nb > 0)
+      if(nb > 0)
       {
         r1 = a0*details::erfinv_kernel<A0>::erfinv1(w);
         if(nb >= meta::cardinal_of<A0>::value) return r1;
       }
       bA0 test3 = nt2::logical_andnot(test2, test1);
-      int32_t nb1 = inbtrue(test3);
-      if (nb1 > 0)
+      std::size_t nb1 = inbtrue(test3);
+      if(nb1 > 0)
       {
         A0 r2 = a0*details::erfinv_kernel<A0>::erfinv2(w);
         r1 = nt2::if_else(test1, r1, r2);
@@ -105,7 +106,7 @@ namespace nt2 { namespace ext
         if(nb >= meta::cardinal_of<A0>::value) return r1;
       }
       r1 = if_else(test2, r1, a0*details::erfinv_kernel<A0>::erfinv3(w));
-      return if_else (eq(w, Inf<A0>()), signnz(a0)*w, r1);
+      return if_else(eq(w, Inf<A0>()), signnz(a0)*w, r1);
     }
   };
 } }
