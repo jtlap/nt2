@@ -45,11 +45,12 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_abs_, tag::cpu_
                             , (A0)(A1)
-                            , (scalar_< unspecified_<A0> >)(scalar_< floating_<A1> >)
+                            , (scalar_< floating_<A0> >)
+                              (scalar_< floating_<A1> >)
                             )
   {
 
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
