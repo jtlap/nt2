@@ -24,6 +24,8 @@
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/preprocessor/stack_buffer.hpp>
 
+#include <vector>
+
 #include "fill.hpp"
 
 template<typename Type, typename Target>
@@ -99,8 +101,8 @@ inline void store_runner(bool offset = false)
   static const std::size_t offset_dist = offset ? cd/2 : 0;
   static const std::size_t sz = cd + offset_dist;
 
-  Type  data[sz];
-  Type  out[sz];
+  std::vector<Type>  data(sz);
+  std::vector<Type>  out(sz);
 
   for(std::size_t i=0;i<sz;++i) fill<Type>()(data[i],65+i);
 
@@ -146,9 +148,10 @@ inline void mask_store_runner(bool offset = false)
   static const std::size_t offset_dist = offset ? cd/2 : 0;
   static const std::size_t sz = cd + offset_dist;
 
-  Type  data[sz];
-  Type  out[sz];
-  Type  ref[sz];
+  std::vector<Type>  data(sz);
+  std::vector<Type>  out(sz);
+  std::vector<Type>  ref(sz);
+
   Mask  mask;
 
   srand(time(NULL));
@@ -198,8 +201,8 @@ inline void scalar_mask_store_runner(Mask mask, bool offset = false)
   static const std::size_t cd = cardinal_of<Target>::value;
   static const std::size_t sz = cd*3;
 
-  Type  data[sz];
-  Type  out[sz];
+  std::vector<Type>  data(sz);
+  std::vector<Type>  out(sz);
 
   for(std::size_t i=0;i<sz;++i) fill<Type>()(data[i],65+i);
 
@@ -239,8 +242,8 @@ inline void scalar_store_runner(bool offset = false)
   static const std::size_t cd = cardinal_of<Target>::value;
   static const std::size_t sz = cd*3;
 
-  Type  data[sz];
-  Type  out[sz];
+  std::vector<Type>  data(sz);
+  std::vector<Type>  out(sz);
 
   for(std::size_t i=0;i<sz;++i) fill<Type>()(data[i],65+i);
 

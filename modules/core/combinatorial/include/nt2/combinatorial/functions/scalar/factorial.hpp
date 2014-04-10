@@ -17,6 +17,8 @@
 #include <nt2/include/functions/scalar/round2even.hpp>
 #include <nt2/include/functions/scalar/trunc.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
+#include <nt2/include/functions/scalar/abss.hpp>
+#include <nt2/include/constants/valmax.hpp>
 
 namespace nt2 { namespace ext
 {
