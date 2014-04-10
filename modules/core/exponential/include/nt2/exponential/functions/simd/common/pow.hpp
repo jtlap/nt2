@@ -9,6 +9,7 @@
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_POW_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_POW_HPP_INCLUDED
 #include <nt2/exponential/functions/pow.hpp>
+#include <nt2/exponential/functions/details/pow_kernel.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
@@ -16,53 +17,57 @@
 #include <nt2/include/functions/simd/any.hpp>
 #include <nt2/include/functions/simd/bitofsign.hpp>
 #include <nt2/include/functions/simd/bitwise_xor.hpp>
-#include <nt2/include/functions/simd/exp.hpp>
 #include <nt2/include/functions/simd/fma.hpp>
-#include <nt2/include/functions/simd/if_allbits_else.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/if_else_zero.hpp>
-#include <nt2/include/functions/simd/is_eqz.hpp>
 #include <nt2/include/functions/simd/is_even.hpp>
 #include <nt2/include/functions/simd/is_flint.hpp>
-#include <nt2/include/functions/simd/is_gtz.hpp>
-#include <nt2/include/functions/simd/is_inf.hpp>
 #include <nt2/include/functions/simd/is_ltz.hpp>
-#include <nt2/include/functions/simd/is_nan.hpp>
 #include <nt2/include/functions/simd/is_odd.hpp>
-#include <nt2/include/functions/simd/log.hpp>
 #include <nt2/include/functions/simd/logical_and.hpp>
-#include <nt2/include/functions/simd/logical_not.hpp>
-#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/logical_andnot.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/negif.hpp>
 #include <nt2/include/functions/simd/oneminus.hpp>
 #include <nt2/include/functions/simd/oneplus.hpp>
-#include <nt2/include/functions/simd/negif.hpp>
+#include <nt2/include/functions/simd/pow_abs.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/shr.hpp>
 #include <nt2/include/functions/simd/signnz.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
-#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
+
+#include <boost/simd/sdk/config.hpp>
+
+#ifndef BOOST_SIMD_NO_INVALIDS
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/is_nan.hpp>
+#endif
+
+#ifndef BOOST_SIMD_NO_INFINITIES
+#include <nt2/include/functions/simd/is_gtz.hpp>
+#include <nt2/include/functions/simd/is_inf.hpp>
+#endif
 
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
                             , (A0)(X)
-                            , ((simd_<floating_<A0>,X>))
-                              ((simd_<floating_<A0>,X>))
+                            , ((simd_< floating_<A0>,X>))
+                              ((simd_< floating_<A0>,X>))
                             )
   {
     typedef A0 result_type;
+
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename meta::as_logical<A0>::type                 bA0;
-      bA0 isltza0 = is_ltz(a0);
-      bA0 allz = l_and(is_eqz(a0), is_eqz(a1));
-      A0 res =  exp(a1*log(nt2::abs(a0)));
-      res =  negif(l_and(is_odd(a1), isltza0), res);
-      bA0 invalid =  l_and(isltza0, l_not( is_flint(a1)));
-      return if_else(invalid, Nan<result_type>(), if_else(allz, One<A0>(), res));
+      typedef typename meta::as_logical<A0>::type bA0;
+      bA0 ltza0 = is_ltz(a0);
+      A0 z = pow_abs(a0, a1);
+      z =  negif(l_and(is_odd(a1), ltza0), z);
+      bA0 invalid =  l_andnot(ltza0, is_flint(a1));
+      return if_else(invalid, Nan<result_type>(), z);
     }
   };
 

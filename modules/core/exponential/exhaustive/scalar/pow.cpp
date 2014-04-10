@@ -6,11 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/include/functions/expx2.hpp>
-#include <nt2/include/constants/minlog.hpp>
-#include <nt2/include/constants/mtwo.hpp>
-
-extern "C" { double cephes_expx2(double x, int sign);}
+#include <nt2/include/functions/pow.hpp>
+#include <nt2/include/constants/one.hpp>
 
 #include <nt2/sdk/unit/exhaustive.hpp>
 
@@ -20,44 +17,31 @@ extern "C" { double cephes_expx2(double x, int sign);}
 #include <cmath>
 #include <cstdlib>
 
-struct raw_expx2p
+struct raw_pow
 {
   float operator()(float x) const
   {
-    return ::cephes_expx2(double(x), 0);
+    return std::pow(double(x), double(0.5f*x-0.25f));
   }
 };
-struct raw_expx2m
+struct pow0
 {
   float operator()(float x) const
   {
-    return ::cephes_expx2(double(x), -1);
-  }
-};
-
-struct expx2m
-{
-template < class T>  T operator()(T x) const
-  {
-    return nt2::expx2(x, nt2::Mtwo<T>());
+    return nt2::pow(x, 0.5f*x-0.25f);
   }
 };
 
 int main(int argc, char* argv[])
 {
-  float mini = -9.4f;
-  float maxi = 9.4f;
+  float mini = nt2::One<float>();
+  float maxi = 40.0f;
   if(argc >= 2) mini = std::atof(argv[1]);
   if(argc >= 3) maxi = std::atof(argv[2]);
   nt2::exhaustive_test<float> ( mini
                               , maxi
-                              , nt2::functor<nt2::tag::expx2_>()
-                              , raw_expx2p()
-                              );
- nt2::exhaustive_test<float> ( mini
-                              , maxi
-                              , expx2m()
-                              , raw_expx2m()
+                              , pow0()
+                              , raw_pow()
                               );
 
   return 0;

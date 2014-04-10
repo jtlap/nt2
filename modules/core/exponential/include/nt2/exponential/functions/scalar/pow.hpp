@@ -9,8 +9,6 @@
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_SCALAR_POW_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_POW_HPP_INCLUDED
 #include <nt2/exponential/functions/pow.hpp>
-#include <boost/simd/sdk/config.hpp>
-#include <cmath>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/one.hpp>
@@ -24,63 +22,39 @@
 #include <nt2/include/functions/scalar/is_odd.hpp>
 #include <nt2/include/functions/scalar/oneminus.hpp>
 #include <nt2/include/functions/scalar/oneplus.hpp>
-#include <nt2/include/functions/scalar/pow.hpp>
+#include <nt2/include/functions/scalar/pow_abs.hpp>
 #include <nt2/include/functions/scalar/rec.hpp>
 #include <nt2/include/functions/scalar/shr.hpp>
 #include <nt2/include/functions/scalar/signnz.hpp>
 #include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 
-#ifndef BOOST_SIMD_NO_INFINITIES
-#include <nt2/include/constants/minf.hpp>
+#include <boost/simd/sdk/config.hpp>
+
+#ifndef BOOST_SIMD_NO_INVALIDS
+#include <nt2/include/functions/scalar/is_nan.hpp>
 #endif
 
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
                             , (A0)
-                            , (scalar_< double_<A0> >)
-                              (scalar_< double_<A0> >)
+                            , (scalar_< floating_<A0> >)
+                              (scalar_< floating_<A0> >)
                             )
   {
-
     typedef A0 result_type;
 
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
+      typedef typename meta::as_integer<A0>::type  iA0;
       bool ltza0 = is_ltz(a0);
-      #ifndef BOOST_SIMD_NO_INFINITIES
-      if( (a0 == a1 && a0 == Minf<A0>()) ||  (ltza0 && !is_flint(a1)) )
-      #else
-      if( (ltza0 && !is_flint(a1)) )
+      if( (ltza0 && !is_flint(a1)) ) return Nan<A0>();
+      #ifndef BOOST_SIMD_NO_INVALIDS
+      if(is_nan(a0) || is_nan(a1)) return Nan<A0>();
       #endif
-        return Nan<A0>();
-
-      A0 res = ::pow(nt2::abs(a0), a1);
-      return  (ltza0&&nt2::is_odd(a1)) ? -res : res;
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
-                            , (A0)
-                            , (scalar_< single_<A0> >)
-                              (scalar_< single_<A0> >)
-                            )
-  {
-
-    typedef A0 result_type;
-
-    NT2_FUNCTOR_CALL_REPEAT(2)
-    {
-      bool ltza0 = is_ltz(a0);
-      #ifndef BOOST_SIMD_NO_INFINITIES
-      if( (a0 == a1 && a0 == Minf<A0>()) ||  (ltza0 && !is_flint(a1)) )
-      #else
-      if( (ltza0 && !is_flint(a1)) )
-      #endif
-        return Nan<A0>();
-
-      A0 res =  ::powf(nt2::abs(a0), a1);
-      return  (ltza0&&nt2::is_odd(a1)) ? -res : res;
+      A0 z = pow_abs(a0, a1);
+      return  (ltza0 && nt2::is_odd(a1)) ? -z : z;
     }
   };
 
@@ -99,7 +73,7 @@ namespace nt2 { namespace ext
       result_type x = nt2::abs(a0);
       if (is_eqz(a0)) return (is_gtz(a1)) ? a0 : isodda1 ? rec(a0) : Inf<result_type>();
       #ifndef BOOST_SIMD_NO_INFINITIES
-      if (x == Inf<A0>()) return (isodda1&&is_ltz(a0)) ? -x : x;
+      if (x == Inf<A0>()) return (isodda1 && is_ltz(a0)) ? -x : x;
       #endif
       A1 sign_n = signnz(a1);
       A1 n = nt2::abs(a1);

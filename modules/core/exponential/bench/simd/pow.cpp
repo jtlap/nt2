@@ -44,19 +44,16 @@ namespace n4 {
   typedef typename nt2::meta::scalar_of<viT>::type iT;
   NT2_TIMING(pow_,(RS(vT,T(0),T(10)))(RS(viT,iT(-10),iT(10))))
 }
-
-namespace n3 {
+namespace n5 {
   typedef float T;
   typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
-  typedef typename nt2::meta::as_integer<vT>::type viT;
-  typedef typename nt2::meta::scalar_of<viT>::type iT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(pow_,(RS(vT,T(0),T(10)))(RS(iT,iT(-10),iT(10))))
 }
-namespace n4 {
+namespace n6 {
   typedef double T;
   typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type vT;
-  typedef typename nt2::meta::as_integer<vT>::type viT;
-  typedef typename nt2::meta::scalar_of<viT>::type iT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(pow_,(RS(vT,T(0),T(10)))(RS(iT,iT(-10),iT(10))))
 }
 #undef RS

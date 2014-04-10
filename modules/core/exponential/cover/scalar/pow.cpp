@@ -20,7 +20,29 @@
 extern "C" { long double cephes_powil(long double,int); }
 extern "C" { long double cephes_powl(long double,long double); }
 
-NT2_TEST_CASE_TPL(pow_1,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL(pow_1,  NT2_REAL_TYPES)
+{
+  using nt2::unit::args;
+  const std::size_t NR = args("samples", NT2_NB_RANDOM_TEST);
+  const double ulpd = args("ulpd", 2);
+
+  const T min1_0 = args("min1_0", T(0));
+  const T max1_0 = args("max1_0", T(100));
+  std::cout << "Argument samples #0 chosen in range: [" << min1_0 << ",  " << max1_0 << "]" << std::endl;
+  NT2_CREATE_BUF(a0,T, NR, min1_0, max1_0);
+  const T min1_1 = args("min1_1", T(-10));
+  const T max1_1 = args("max1_1", T(10));
+  std::cout << "Argument samples #1 chosen in range: [" << min1_1 << ",  " << max1_1 << "]" << std::endl;
+  NT2_CREATE_BUF(a1,T, NR, min1_1, max1_1);
+
+  std::vector<T> ref(NR);
+  for(std::size_t i=0; i!=NR; ++i)
+    ref[i] = ::cephes_powl(a0[i],a1[i]);
+
+  NT2_COVER_ULP_EQUAL(nt2::tag::pow_, ((T, a0))((T, a1)), ref, ulpd);
+}
+
+NT2_TEST_CASE_TPL(pow_2,  NT2_REAL_TYPES)
 {
   using nt2::unit::args;
   const std::size_t NR = args("samples", NT2_NB_RANDOM_TEST);
