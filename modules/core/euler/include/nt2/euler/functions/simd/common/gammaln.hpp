@@ -59,7 +59,6 @@
 #include <nt2/sdk/meta/cardinal_of.hpp>
 
 #include <boost/simd/sdk/config.hpp>
-#include <nt2/table.hpp>
 
 namespace nt2 { namespace ext
 {
