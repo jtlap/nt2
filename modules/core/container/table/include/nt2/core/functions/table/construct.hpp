@@ -142,10 +142,8 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1 const& a1, A2 const& a2, A3 const& a3) const
     {
-      std::size_t range_size = std::distance(a2,a3);
-
       BOOST_ASSERT_MSG
-      ( nt2::numel(a1) >= range_size
+      ( nt2::numel(a1) >= std::distance(a2,a3)
       , "Source range is larger than destination container."
       );
 
