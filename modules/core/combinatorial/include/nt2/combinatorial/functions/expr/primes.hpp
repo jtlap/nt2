@@ -30,19 +30,18 @@ namespace nt2 { namespace ext
     typedef nt2::container::table<A0>  result_type;
     inline result_type operator()(A0 const& n) const
     {
-      if (n < 2)
-        return zeros(1,0,meta::as_<A0>());
-
+      if (n < 2) return zeros(1,0,meta::as_<A0>());
       result_type p = _(One<A0>(), Two<A0>(), n);
       size_t q = length(p);
-      size_t l = sqrt(n);
+      size_t l = nt2::sqrt(n);
       p(1) = Two<A0>();
       for (size_t k = 3; k <= l; k+= 2)
         {
           if (p((k+1) >>  1))
             p(_((sqr(k)+1) >> 1, k, q)) = Zero<A0>();
         }
-      return nt2::rowvect(p(is_gtz(p))); //rowvect should be unnecessary
+//      return nt2::rowvect(p(is_gtz(p))); //rowvect should be unnecessary
+      return              p(is_gtz(p)) ;
     }
   };
 } }

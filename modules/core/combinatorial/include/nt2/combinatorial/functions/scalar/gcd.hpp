@@ -18,7 +18,8 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gcd_, tag::cpu_
                             , (A0)
-                            , (scalar_< integer_<A0> >)(scalar_< integer_<A0> >)
+                            , (scalar_< integer_<A0> >)
+                              (scalar_< integer_<A0> >)
                             )
   {
     typedef A0 result_type;
@@ -34,13 +35,11 @@ namespace nt2 { namespace ext
       return a;
     }
   };
-} }
 
-namespace nt2 { namespace ext
-{
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gcd_, tag::cpu_
                             , (A0)
-                            , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)
+                            , (scalar_< floating_<A0> >)
+                              (scalar_< floating_<A0> >)
                             )
   {
     typedef A0 result_type;

@@ -6,26 +6,14 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_BENCH_MODULE "nt2 combinatorial toolbox - anp/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of combinatorial components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
 #include <nt2/combinatorial/include/functions/anp.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 
-
-//////////////////////////////////////////////////////////////////////////////
-// scalar runtime benchmark for functor<anp_> from combinatorial
-//////////////////////////////////////////////////////////////////////////////
 using nt2::tag::anp_;
 
-//////////////////////////////////////////////////////////////////////////////
-// range macro
-//////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
 namespace n1 {

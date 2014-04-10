@@ -6,21 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_BENCH_MODULE "nt2 combinatorial toolbox - cnp/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of combinatorial components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
 #include <nt2/combinatorial/include/functions/cnp.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 
-
-//////////////////////////////////////////////////////////////////////////////
-// scalar runtime benchmark for functor<cnp_> from combinatorial
-//////////////////////////////////////////////////////////////////////////////
 using nt2::tag::cnp_;
 
 //////////////////////////////////////////////////////////////////////////////

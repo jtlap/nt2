@@ -59,11 +59,13 @@ namespace nt2 { namespace ext
       A0 x = a0;
       n = Zero<A0>();
       d = Zero<A0>();
+      #ifndef BOOST_SIMD_NO_INVALIDS
       if (is_not_finite(x))
       { // Special case for inf, -inf, NaN
         if (is_not_nan(x)) n = nt2::sign(x);
       }
       else
+      #endif
       {
         size_t k = 0;
         tab_t c = nt2::eye(2, meta::as_<A0>());

@@ -17,6 +17,7 @@
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/isempty.hpp>
+#include <nt2/core/container/table/table.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -33,7 +34,7 @@ namespace nt2 { namespace ext
       result_type p;
       size_t m = m0;
       size_t n = nt2::length(v0);
-      if (n == m)
+      if (n == m || n == 0)
       {
         return nt2::rowvect(v0);
       }
