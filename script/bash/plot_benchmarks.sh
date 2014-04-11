@@ -18,7 +18,6 @@ prev_nb_sizes=0
 nb_sizes=0
 prev_nb_experiments=0
 nb_experiments=0
-LEGEND=""
 plot=$1
 shift
 #separators
@@ -90,13 +89,14 @@ fi
 arch_lines=($(grep -n ${arch_separator}  res.txt | cut -f1 -d:)) #find the line numbers on which architecture is printed
 
 #the legend contains the benchmark name and the architecture type
-LEGEND="legend(\" $(sed -n 3p res.txt  | awk -v temp=${name_pos} '{ print $temp }' | tr "_" " " | sed "s/$BENCH_NAME//g") $(sed -n 1p res.txt | awk -v temp=${arch_pos} '{ print $temp }')\" "
+LEG[0]="$(sed -n 3p res.txt  | awk -v temp=${name_pos} '{ print $temp }' | tr "_" " " | sed "s/$BENCH_NAME//g") $(sed -n 1p res.txt | awk -v temp=${arch_pos} '{ print $temp }')"
 
 for ((ii=1;ii<${nb_experiments};ii++));do
   ((pos=${arch_lines[ii]}+2))
-  LEGEND="${LEGEND} , \"$(sed  -n ${pos}p res.txt | awk -v temp=${name_pos} ' { print $temp }' | tr "_" " " | sed "s/$BENCH_NAME//g") $(sed -n ${arch_lines[ii]}p res.txt | awk -v temp=${arch_pos} '{ print $temp }')\" "
+  LEG[ii]=" Z $(sed  -n ${pos}p res.txt | awk -v temp=${name_pos} ' { print $temp }' | tr "_" " " | sed "s/$BENCH_NAME//g")"
+  LEG[ii]="${LEG[ii]} $(sed -n ${arch_lines[ii]}p res.txt | awk -v temp=${arch_pos} '{ print $temp }')"
 done
-LEGEND="${LEGEND} ) "
+
 NUM_TEST=${nb_experiments}
 
 mv res3.txt res.txt
@@ -111,10 +111,10 @@ done
 # generate M-file
 if [ $plot == "bar" ]; then
   for ((kk=0;kk<${nb_data_types};kk++));do
-    "$(dirname "${BASH_SOURCE[0]}")/generate_bar_chart.sh" $nb_data_types $NUM_TEST $nb_sizes "${LEGEND[@]}" "${TITLE[kk]}" "${PLOT_NAME[kk]}" $kk
+    "$(dirname "${BASH_SOURCE[0]}")/generate_bar_chart_tex.sh" $nb_data_types $NUM_TEST $nb_sizes "${TITLE[kk]}" "${PLOT_NAME[kk]}" $kk "${LEG[*]}"
   done
 elif [ $plot == "graph" ]; then
   for ((kk=0;kk<${nb_data_types};kk++));do
-    "$(dirname "${BASH_SOURCE[0]}")/generate_graph.sh" $nb_data_types $NUM_TEST $nb_sizes "${LEGEND[@]}" "${TITLE[kk]}" "${PLOT_NAME[kk]}" $kk
+    "$(dirname "${BASH_SOURCE[0]}")/generate_graph_tex.sh" $nb_data_types $NUM_TEST $nb_sizes "${TITLE[kk]}" "${PLOT_NAME[kk]}" $kk "${LEG[*]}"
   done
 fi
