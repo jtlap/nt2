@@ -16,7 +16,7 @@
 #include <boost/simd/sdk/config/compiler.hpp>
 #include <cstddef>
 
-namespace boost { namespace simd
+namespace boost { namespace simd { namespace meta
 {
   /*!
     @brief Imbue a type with aligned new and delete overloads
@@ -55,6 +55,11 @@ namespace boost { namespace simd
   #ifdef BOOST_SIMD_COMPILER_MSVC
   #pragma warning( pop )
   #endif
+} } }
+
+namespace boost { namespace simd
+{
+  using meta::aligned_object;
 } }
 
 #endif
