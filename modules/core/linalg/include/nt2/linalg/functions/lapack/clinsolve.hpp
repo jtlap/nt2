@@ -226,20 +226,21 @@ namespace nt2 { namespace ext
       entry_type work(a1);
       matrix_type entry(a0);
 
-      eval_param( a0, a1, boost::proto::child_c<0>(a2));
+      eval_param( entry, a1, boost::proto::child_c<0>(a2));
 
       if (issquare(entry))
       {
         nt2::gesv( boost::proto::value(entry), boost::proto::value(piv)
                , boost::proto::value(work) );
         char norm = '1';
-        type_t anorm = nt2::lange(boost::proto::value(a0),norm);
-        boost::proto::child_c<1>(a2) = nt2::gecon(boost::proto::value(entry),norm,anorm);
+
+        type_t anorm = nt2::lange(boost::proto::value(entry),norm);
+        boost::proto::child_c<1>(a2) = nt2::con(boost::proto::value(entry),norm,anorm);
       }
       else
       {
         nt2_la_int rank;
-        nt2_la_int n = nt2::width(a0);
+        nt2_la_int n = nt2::width(entry);
         piv = nt2::zeros(n,1, nt2::meta::as_<nt2_la_int>());
 
         nt2::gelsy( boost::proto::value(entry), boost::proto::value(piv)
@@ -261,11 +262,11 @@ namespace nt2 { namespace ext
       matrix_type entry(a0);
       char norm = '1';
 
-      piv = nt2::zeros(a0.leading_size(), 1, nt2::meta::as_<nt2_la_int>() );
+      piv = nt2::zeros(entry.leading_size(), 1, nt2::meta::as_<nt2_la_int>() );
 
       typedef typename meta::hierarchy_of<nt2::symmetric_>::stripped h_;
 
-      type_t anorm = nt2::lange(boost::proto::value(a0), norm, h_());
+      type_t anorm = nt2::lange(boost::proto::value(entry), norm, h_());
 
       nt2::sysv( boost::proto::value(entry),boost::proto::value(piv)
               , boost::proto::value(work));
@@ -286,7 +287,7 @@ namespace nt2 { namespace ext
 
       char norm = '1';
       typedef typename meta::hierarchy_of<nt2::symmetric_>::stripped h_;
-      type_t anorm = nt2::lange(boost::proto::value(a0) ,norm, h_());
+      type_t anorm = nt2::lange(boost::proto::value(entry) ,norm, h_());
       nt2::posv(boost::proto::value(entry), boost::proto::value(work));
       boost::proto::child_c<1>(a2) = nt2::pocon(boost::proto::value(entry),anorm);
 
@@ -305,8 +306,29 @@ namespace nt2 { namespace ext
       matrix_type entry(a0);
 
       char norm = '1';
-      type_t anorm = nt2::langb(boost::proto::value(a0),norm);
-      nt2::gbsv( boost::proto::value(entry), boost::proto::value(piv)
+
+      type_t anorm = nt2::langb(boost::proto::value(entry),norm);
+      nt2::bsv( boost::proto::value(entry), boost::proto::value(piv)
+              , boost::proto::value(work));
+      boost::proto::child_c<1>(a2) = nt2::gbcon( boost::proto::value(entry)
+                                               , boost::proto::value(piv),anorm);
+
+      boost::proto::child_c<0>(a2) = work;
+    }
+
+    //==========================================================================
+    /// INTERNAL ONLY - [X,R] = LINSOLVE(A,B) -- upper triangular shape
+    BOOST_FORCEINLINE
+    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2, nt2::container::table<nt2_la_int>& piv
+              , boost::mpl::long_<2> const&, nt2::upper_triangul const&
+              ) const
+    {
+      entry_type work(a1);
+      matrix_type entry(a0);
+
+      char norm = '1';
+      type_t anorm = nt2::langb(boost::proto::value(entry),norm);
+      nt2::bsv( boost::proto::value(entry), boost::proto::value(piv)
               , boost::proto::value(work));
       boost::proto::child_c<1>(a2) = nt2::gbcon( boost::proto::value(entry)
                                                , boost::proto::value(piv),anorm);
