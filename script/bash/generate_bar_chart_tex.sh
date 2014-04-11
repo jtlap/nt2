@@ -46,11 +46,21 @@ echo "\begin{document}" >> ${filename}
 echo "\ifstandalone" >> ${filename}
 echo "\begin{tikzpicture}[scale=1.0]" >> ${filename}
 echo "\fi" >> ${filename}
+echo "\definecolor{darkpastelgreen}{rgb}{0.01, 0.75, 0.24}" >> ${filename}
+echo "\definecolor{darkred}{rgb}{0.55, 0.0, 0.0}" >> ${filename}
+echo "\definecolor{darkpastelred}{rgb}{0.76, 0.23, 0.13}" >> ${filename}
+echo "\definecolor{darkgoldenrod}{rgb}{0.72, 0.53, 0.04}" >> ${filename}
+echo "\definecolor{darkseagreen}{rgb}{0.56, 0.74, 0.56}" >> ${filename}
+echo "\definecolor{denim}{rgb}{0.08, 0.38, 0.74}" >> ${filename}
+echo "\definecolor{deepsaffron}{rgb}{1.0, 0.6, 0.2}" >> ${filename}
+echo "\definecolor{flame}{rgb}{0.89, 0.35, 0.13}" >> ${filename}
+echo "\definecolor{fulvous}{rgb}{0.86, 0.52, 0.0}" >> ${filename}
+echo "\definecolor{harvardcrimson}{rgb}{0.98, 0.85, 0.37}" >> ${filename}
 echo "\pgfplotsset{grid style={dotted,gray}}" >> ${filename}
 echo "\pgfplotsset{every axis/.append style={legend style={font=\tiny,line width=1pt,mark size=1pt},}}" >> ${filename}
 echo "\begin{axis}" >> ${filename}
 echo "[ybar,enlargelimits=false,width=10.5cm,height=7cm," >> ${filename}
-echo " bar width=2pt,area legend,legend pos=south east," >> ${filename}
+echo " bar width=15pt,area legend,legend pos=south east," >> ${filename}
 echo "legend style={at={(0.8,0.99)},anchor=north,legend cell align=left,draw=none}," >> ${filename}
 echo "tick align=outside," >> ${filename}
 echo "xlabel=\textbf{Size},">> ${filename}
@@ -68,14 +78,13 @@ for ((ii=0;ii<${nb_sizes};ii++));do
 done
 echo "}">> ${filename}
 echo "]" >> ${filename}
-
 echo "\def \myBox#1{\rotatebox{90}{\scalebox{.4}{#1}}}" >> ${filename}
 
-colors[0]="red"
-colors[1]="yellow"
-colors[2]="blue"
-colors[3]="green"
-colors[4]="pink"
+colors[0]="darkpastelgreen"
+colors[1]="denim"
+colors[2]="deepsaffron"
+colors[3]="flame"
+colors[4]="harvardcrimson"
 colors[5]="cyan"
 colors[6]="orange"
 colors[7]="gray"
@@ -86,6 +95,7 @@ for ((ii=0;ii<${NUM_TEST};ii++));do
   ((le_pos=$ii+1))
   echo "\addlegendentry{{\scalebox{0.6}{${le[$le_pos]}}}}"  >> ${filename}
 done
+
 for ((ii=0;ii<${NUM_TEST};ii++));do
   ((color_pos=$ii%7))
   echo "\addplot[draw=black,fill=${colors[$color_pos]}," >> ${filename}
