@@ -12,7 +12,7 @@ int main()
 {
   foo* ptr = new foo;
 
-  BOOST_ASSERT( is_aligned(ptr,16) );
+  BOOST_ASSERT( boost::simd::is_aligned(ptr,16) );
 
   delete ptr;
 }
