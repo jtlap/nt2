@@ -6,10 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_LAPACK_CON_HPP_INCLUDED
-#define NT2_TOOLBOX_LINALG_FUNCTIONS_LAPACK_CON_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_LAPACK_GECON_HPP_INCLUDED
+#define NT2_TOOLBOX_LINALG_FUNCTIONS_LAPACK_GECON_HPP_INCLUDED
 
-#include <nt2/linalg/functions/con.hpp>
+#include <nt2/linalg/functions/gecon.hpp>
 #include <nt2/sdk/memory/container.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
@@ -49,7 +49,7 @@ extern "C"
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::con_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gecon_, tag::cpu_
                             , (A0)(S0)(A1)(A2)
                             , ((container_< nt2::tag::table_, double_<A0>, S0 >))
                               (scalar_< ints8_<A1> >)            //  norm
@@ -77,7 +77,7 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::con_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gecon_, tag::cpu_
                             , (A0)(S0)(A1)(A2)
                             , ((container_< nt2::tag::table_, single_<A0>, S0 >))
                               (scalar_< ints8_<A1> >)             //  norm
@@ -105,7 +105,7 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::con_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gecon_, tag::cpu_
                             , (A0)(S0)(A1)(A2)
                             , ((container_< nt2::tag::table_, complex_<double_<A0> >, S0 >))
                               (scalar_< ints8_<A1> >)            //  norm
@@ -134,7 +134,7 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::con_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gecon_, tag::cpu_
                             , (A0)(S0)(A1)(A2)
                             , ((container_< nt2::tag::table_, complex_<single_<A0> >, S0 >))
                               (scalar_< ints8_<A1> >)             //  norm

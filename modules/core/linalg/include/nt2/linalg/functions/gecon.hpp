@@ -6,13 +6,13 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_CON_HPP_INCLUDED
-#define NT2_TOOLBOX_LINALG_FUNCTIONS_CON_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_GECON_HPP_INCLUDED
+#define NT2_TOOLBOX_LINALG_FUNCTIONS_GECON_HPP_INCLUDED
 
 /*!
   @file
   @brief Defines and implements lapack gecon function that estimates the
-  reciprocal of the condition number of a matrix A in the 1-norm or infinity norm
+  reciprocal of the gecondition number of a matrix A in the 1-norm or infinity norm
 **/
 
 #include <nt2/include/functor.hpp>
@@ -22,7 +22,7 @@ namespace nt2
   namespace tag
   {
     /// @brief Defines gecon function tag
-    struct con_ : boost::dispatch::tag::formal_
+    struct gecon_ : boost::dispatch::tag::formal_
     {
       /// INTERNAL ONLY
       typedef boost::dispatch::tag::formal_  parent;
@@ -37,11 +37,11 @@ namespace nt2
 
     @return
   **/
-  NT2_FUNCTION_IMPLEMENTATION (tag::con_, con
+  NT2_FUNCTION_IMPLEMENTATION (tag::gecon_, gecon
                                   , 3
                                   );
 
-  NT2_FUNCTION_IMPLEMENTATION (tag::con_, con
+  NT2_FUNCTION_IMPLEMENTATION (tag::gecon_, gecon
                                   , 2
                                   );
 

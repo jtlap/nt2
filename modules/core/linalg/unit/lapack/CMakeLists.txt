@@ -20,7 +20,7 @@ SET ( SOURCES
       svx.cpp
       ls.cpp
       lsy.cpp
-      con.cpp
+      gecon.cpp
       msv.cpp
       clinsolve.cpp
       plinsolve.cpp

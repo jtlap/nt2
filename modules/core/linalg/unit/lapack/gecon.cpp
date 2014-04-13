@@ -11,7 +11,7 @@
 #include <nt2/include/functions/posv.hpp>
 #include <nt2/include/functions/lu.hpp>
 #include <nt2/include/functions/lange.hpp>
-#include <nt2/include/functions/con.hpp>
+#include <nt2/include/functions/gecon.hpp>
 #include <nt2/include/functions/pocon.hpp>
 #include <nt2/include/functions/sycon.hpp>
 #include <nt2/include/functions/eye.hpp>
@@ -52,7 +52,7 @@ NT2_TEST_CASE_TPL(con, NT2_REAL_TYPES )
 
  lu = nt2::lu(a1);
  anorm = nt2::lange(boost::proto::value(a1), norm);
- rcond1 = nt2::con(boost::proto::value(lu),norm,anorm);
+ rcond1 = nt2::gecon(boost::proto::value(lu),norm,anorm);
 
  NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
  NT2_TEST_EQUAL(p, 0 );
@@ -87,7 +87,7 @@ NT2_TEST_CASE_TPL(sycon, NT2_REAL_TYPES )
 
  lu = nt2::lu(a1);
  anorm = nt2::lange(boost::proto::value(a1), norm);
- rcond1 = nt2::con(boost::proto::value(lu),norm,anorm);
+ rcond1 = nt2::gecon(boost::proto::value(lu),norm,anorm);
 
  NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
  NT2_TEST_EQUAL(p, T(0) );
@@ -121,7 +121,7 @@ NT2_TEST_CASE_TPL(pocon, NT2_REAL_TYPES )
 
  lu = nt2::lu(a1);
  anorm = nt2::lange(boost::proto::value(a1), norm);
- rcond1 = nt2::con(boost::proto::value(lu),norm,anorm);
+ rcond1 = nt2::gecon(boost::proto::value(lu),norm,anorm);
 
  NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
  NT2_TEST_EQUAL(p,T(0));

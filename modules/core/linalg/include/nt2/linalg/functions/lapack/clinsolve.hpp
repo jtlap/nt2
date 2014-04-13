@@ -22,7 +22,7 @@
 #include <nt2/include/functions/lange.hpp>
 #include <nt2/include/functions/lansy.hpp>
 #include <nt2/include/functions/langb.hpp>
-#include <nt2/include/functions/con.hpp>
+#include <nt2/include/functions/gecon.hpp>
 #include <nt2/include/functions/sycon.hpp>
 #include <nt2/include/functions/pocon.hpp>
 #include <nt2/include/functions/gbcon.hpp>
@@ -234,7 +234,7 @@ namespace nt2 { namespace ext
                , boost::proto::value(work) );
         char norm = '1';
         type_t anorm = nt2::lange(boost::proto::value(a0),norm);
-        boost::proto::child_c<1>(a2) = nt2::con(boost::proto::value(entry),norm,anorm);
+        boost::proto::child_c<1>(a2) = nt2::gecon(boost::proto::value(entry),norm,anorm);
       }
       else
       {

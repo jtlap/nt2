@@ -18,7 +18,7 @@
 #include <nt2/include/functions/pocon.hpp>
 #include <nt2/include/functions/lange.hpp>
 #include <nt2/include/functions/lansy.hpp>
-#include <nt2/include/functions/con.hpp>
+#include <nt2/include/functions/gecon.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/zeros.hpp>
@@ -61,7 +61,7 @@ nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
 t_t lu = nt2::lu(a);
 anorm = nt2::lange(boost::proto::value(a), norm);
-rcond1 = nt2::con( boost::proto::value(lu),norm,anorm);
+rcond1 = nt2::gecon( boost::proto::value(lu),norm,anorm);
 
 NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
 
@@ -105,7 +105,7 @@ nt2::tie(x,rcond) = nt2::linsolve(a,b);
 t_t lu = nt2::lu(a);
 anorm = nt2::lange(boost::proto::value(a), norm);
 std::cout<< "anorm" << anorm << std::endl;
-rcond1 = nt2::con( boost::proto::value(lu),norm,anorm);
+rcond1 = nt2::gecon( boost::proto::value(lu),norm,anorm);
 
 NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
 
@@ -143,7 +143,7 @@ nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
 t_t lu = nt2::lu(a);
 anorm = nt2::lange( boost::proto::value(a), norm);
-rcond1 = nt2::con( boost::proto::value(lu),norm,anorm);
+rcond1 = nt2::gecon( boost::proto::value(lu),norm,anorm);
 
 NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
 
@@ -187,7 +187,7 @@ nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
 t_t lu = nt2::lu(a);
 anorm = nt2::lange( boost::proto::value(a), norm);
-rcond1 = nt2::con( boost::proto::value(lu),norm,anorm);
+rcond1 = nt2::gecon( boost::proto::value(lu),norm,anorm);
 
 NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
 
@@ -225,7 +225,7 @@ nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
 t_t lu = nt2::lu(a);
 anorm = nt2::lange( boost::proto::value(a), norm);
-rcond1 = nt2::con( boost::proto::value(lu),norm,anorm);
+rcond1 = nt2::gecon( boost::proto::value(lu),norm,anorm);
 
 NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
 }
@@ -268,7 +268,7 @@ nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
 t_t lu = nt2::lu(a);
 anorm = nt2::lange( boost::proto::value(a), norm);
-rcond1 = nt2::con( boost::proto::value(lu),norm,anorm);
+rcond1 = nt2::gecon( boost::proto::value(lu),norm,anorm);
 
 NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
 }
@@ -345,7 +345,7 @@ nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
 t_t lu = nt2::lu(a);
 anorm = nt2::lange( boost::proto::value(a), norm);
-rcond1 = nt2::con( boost::proto::value(lu),norm,anorm);
+rcond1 = nt2::gecon( boost::proto::value(lu),norm,anorm);
 
 NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
 
@@ -382,7 +382,7 @@ nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
 t_t lu = nt2::lu(a);
 anorm = nt2::lange( boost::proto::value(a), norm);
-rcond1 = nt2::con( boost::proto::value(lu),norm,anorm);
+rcond1 = nt2::gecon( boost::proto::value(lu),norm,anorm);
 
 NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
 
@@ -550,7 +550,7 @@ nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
 t_t lu = nt2::lu(a);
 anorm = nt2::lange( boost::proto::value(a), norm);
-rcond1 = nt2::con(  boost::proto::value(lu),norm,anorm);
+rcond1 = nt2::gecon(  boost::proto::value(lu),norm,anorm);
 
 NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
 
@@ -626,7 +626,7 @@ nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
 t_t lu = nt2::lu(a);
 anorm = nt2::lange(  boost::proto::value(a), norm);
-rcond1 = nt2::con(  boost::proto::value(lu),norm,anorm);
+rcond1 = nt2::gecon(  boost::proto::value(lu),norm,anorm);
 
 NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
 
@@ -704,7 +704,7 @@ nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
 t_t lu = nt2::lu(a);
 anorm = nt2::lange( boost::proto::value(a), norm);
-rcond1 = nt2::con(  boost::proto::value(lu) ,norm,anorm);
+rcond1 = nt2::gecon(  boost::proto::value(lu) ,norm,anorm);
 
 NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
 
