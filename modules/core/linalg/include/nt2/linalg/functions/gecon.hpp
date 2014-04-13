@@ -12,7 +12,7 @@
 /*!
   @file
   @brief Defines and implements lapack gecon function that estimates the
-  reciprocal of the gecondition number of a matrix A in the 1-norm or infinity norm
+  reciprocal of the condition number of a matrix A in the 1-norm or infinity norm
 **/
 
 #include <nt2/include/functor.hpp>
