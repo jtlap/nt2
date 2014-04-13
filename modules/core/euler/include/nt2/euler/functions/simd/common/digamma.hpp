@@ -58,7 +58,6 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_logical<A0>::type bA0;
-      typedef typename meta::scalar_of<A0>::type sA0;
       A0 result = nt2::Zero<A0>();
       A0 x = a0;
       bA0 test = nt2::is_lez(a0);
