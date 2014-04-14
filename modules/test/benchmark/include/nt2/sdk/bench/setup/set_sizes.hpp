@@ -18,19 +18,20 @@ namespace nt2 { namespace bench
     with a value following a set_sizes progression of step @c s
     between @c mn and @c mx.
   **/
+  template <class T>
   struct set_sizes
   {
     /*
       Initialize an set_sizes progression.
 
-      @param s  std::vector<std::size_t> of the required steps
+      @param s  std::vector<T> of the required steps
     */
-    set_sizes(std::vector<std::size_t> s )//= 1)
+    set_sizes(std::vector<T> s )//= 1)
               : step_(s), min_(s[0]), num_iter_(s.size())
     {count=0;}
 
     /// @brief Type returned by a call to set_sizes
-    typedef std::size_t result_type;
+    typedef T result_type;
 
     /// @brief Current value of the progression
     inline result_type operator()() const { return min_; }
@@ -42,7 +43,7 @@ namespace nt2 { namespace bench
     inline bool done() const  { return count >= num_iter_; }
 
     private:
-    std::vector<std::size_t> step_;
+    std::vector<T> step_;
     std::size_t   min_, num_iter_;
     std::size_t count;
   };
