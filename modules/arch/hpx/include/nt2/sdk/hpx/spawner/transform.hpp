@@ -43,7 +43,7 @@ namespace nt2
       std::size_t leftover = size % grain;
       std::size_t nblocks  = size/grain;
 
-      std::vector< hpx::lcos::unique_future<void> > barrier;
+      std::vector< hpx::lcos::future<void> > barrier;
       barrier.reserve(nblocks);
 
 #ifndef BOOST_NO_EXCEPTIONS
