@@ -45,7 +45,7 @@ namespace nt2 { namespace bench
     /// @brief Metric display
     inline std::string unit() const
     {
-      return "FPS" + Stat::unit();
+      return "Frames/s" + Stat::unit();
     }
   };
 } }
