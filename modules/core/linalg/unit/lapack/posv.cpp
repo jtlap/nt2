@@ -8,8 +8,8 @@
 //==============================================================================
 #include <nt2/include/functions/posv.hpp>
 #include <nt2/include/functions/posvx.hpp>
-#include <nt2/include/functions/lsy.hpp>
-#include <nt2/include/functions/mposv.hpp>
+#include <nt2/include/functions/gelsy.hpp>
+#include <nt2/include/functions/pomsv.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/ones.hpp>
@@ -43,7 +43,7 @@ nt2::table<nt2_la_int> piv = nt2::zeros(3,1, nt2::meta::as_<nt2_la_int>());
 nt2_la_int p  = nt2::posv ( boost::proto::value(a),boost::proto::value(x));
 nt2_la_int p1 = nt2::posvx( boost::proto::value(a1),boost::proto::value(b)
                           , boost::proto::value(x1),rcond);
-nt2_la_int p2 = nt2::lsy  ( boost::proto::value(a2),boost::proto::value(piv)
+nt2_la_int p2 = nt2::gelsy  ( boost::proto::value(a2),boost::proto::value(piv)
                           , boost::proto::value(b));
 
 NT2_TEST_ULP_EQUAL( x, x1, T(10) );
@@ -77,7 +77,7 @@ nt2::table<nt2_la_int> piv = nt2::zeros(3,1, nt2::meta::as_<nt2_la_int>());
 nt2_la_int p  = nt2::posv ( boost::proto::value(a),boost::proto::value(x));
 nt2_la_int p1 = nt2::posvx( boost::proto::value(a1),boost::proto::value(b)
                           , boost::proto::value(x1),rcond);
-nt2_la_int p2 = nt2::lsy  ( boost::proto::value(a2),boost::proto::value(piv)
+nt2_la_int p2 = nt2::gelsy  ( boost::proto::value(a2),boost::proto::value(piv)
                           , boost::proto::value(b));
 
 NT2_TEST_ULP_EQUAL( x, x1, T(10) );
@@ -103,9 +103,9 @@ t_t b = nt2::cons<T>(nt2::of_size(3,1),1,2,5);
 t_t x(nt2::of_size(3,1));
 
 
-nt2_la_int p = nt2::mposv( boost::proto::value(a),boost::proto::value(b)
+nt2_la_int p = nt2::pomsv( boost::proto::value(a),boost::proto::value(b)
                          , boost::proto::value(x));
-nt2_la_int p2 = nt2::lsy ( boost::proto::value(a1),boost::proto::value(piv)
+nt2_la_int p2 = nt2::gelsy ( boost::proto::value(a1),boost::proto::value(piv)
                          , boost::proto::value(b));
 
 NT2_TEST_ULP_EQUAL( x, b , T(10) );
@@ -132,9 +132,9 @@ t_t b = nt2::cons<cT>(nt2::of_size(3,1),cT(1,0),cT(2,0),cT(5,0));
 t_t x(nt2::of_size(3,1));
 
 
-nt2_la_int p = nt2::mposv( boost::proto::value(a),boost::proto::value(b)
+nt2_la_int p = nt2::pomsv( boost::proto::value(a),boost::proto::value(b)
                          , boost::proto::value(x));
-nt2_la_int p2 = nt2::lsy ( boost::proto::value(a1),boost::proto::value(piv)
+nt2_la_int p2 = nt2::gelsy ( boost::proto::value(a1),boost::proto::value(piv)
                          , boost::proto::value(b));
 
 NT2_TEST_ULP_EQUAL( x, b , T(10) );

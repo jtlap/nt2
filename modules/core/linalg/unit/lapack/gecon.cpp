@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/include/functions/svx.hpp>
-#include <nt2/include/functions/ysv.hpp>
+#include <nt2/include/functions/gesvx.hpp>
+#include <nt2/include/functions/sysv.hpp>
 #include <nt2/include/functions/posv.hpp>
 #include <nt2/include/functions/lu.hpp>
 #include <nt2/include/functions/lange.hpp>
@@ -47,7 +47,7 @@ NT2_TEST_CASE_TPL(con, NT2_REAL_TYPES )
  t_i ipiv;
  char norm = '1';
 
- nt2_la_int p = nt2::svx( boost::proto::value(a),boost::proto::value(b)
+ nt2_la_int p = nt2::gesvx( boost::proto::value(a),boost::proto::value(b)
                         , boost::proto::value(x),rcond);
 
  lu = nt2::lu(a1);
@@ -79,7 +79,7 @@ NT2_TEST_CASE_TPL(sycon, NT2_REAL_TYPES )
  char norm = '1';
 
  anorm = nt2::lange(boost::proto::value(a), norm);
- nt2_la_int p = nt2::ysv( boost::proto::value(a), boost::proto::value(piv)
+ nt2_la_int p = nt2::sysv( boost::proto::value(a), boost::proto::value(piv)
                         , boost::proto::value(x));
 
  rcond = nt2::sycon( boost::proto::value(a),boost::proto::value(piv)

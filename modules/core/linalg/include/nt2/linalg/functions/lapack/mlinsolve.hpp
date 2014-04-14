@@ -11,8 +11,8 @@
 
 #include <nt2/linalg/functions/mlinsolve.hpp>
 #include <nt2/linalg/functions/clinsolve.hpp>
-#include <nt2/include/functions/msv.hpp>
-#include <nt2/include/functions/mposv.hpp>
+#include <nt2/include/functions/gemsv.hpp>
+#include <nt2/include/functions/pomsv.hpp>
 #include <nt2/linalg/options.hpp>
 #include <nt2/sdk/meta/concrete.hpp>
 #include <nt2/sdk/meta/settings_of.hpp>
@@ -67,7 +67,7 @@ namespace nt2 { namespace ext
     {
       entry_type var(a2);
       matrix_type entry(a0);
-      nt2_la_int iter = nt2::mposv( boost::proto::value(entry)
+      nt2_la_int iter = nt2::pomsv( boost::proto::value(entry)
                                   , boost::proto::value(a1) ,var);
       boost::dispatch::ignore_unused(iter);
       a2 = var;
@@ -96,7 +96,7 @@ namespace nt2 { namespace ext
     void eval ( A0 const& a0, A1 const& a1 , A2& a2, double const) const
     {
       entry_type entry(a0);
-      nt2_la_int iter = nt2::msv(boost::proto::value(entry)
+      nt2_la_int iter = nt2::gemsv(boost::proto::value(entry)
                        ,boost::proto::value(a1),boost::proto::value(a2) );
       boost::dispatch::ignore_unused(iter);
     }

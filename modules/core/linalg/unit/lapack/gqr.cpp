@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/include/functions/qp3.hpp>
-#include <nt2/include/functions/qrf.hpp>
+#include <nt2/include/functions/geqp3.hpp>
+#include <nt2/include/functions/geqrf.hpp>
 #include <nt2/include/functions/gqr.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/zeros.hpp>
@@ -40,8 +40,8 @@ NT2_TEST_CASE_TPL(gqr_square, NT2_REAL_TYPES )
   t_t q_p3(q);
   t_t q_rf(q);
 
-  nt2::qrf( boost::proto::value(q_rf),boost::proto::value(tau_rf));
-  nt2::qp3( boost::proto::value(q_p3), boost::proto::value(jpvt)
+  nt2::geqrf( boost::proto::value(q_rf),boost::proto::value(tau_rf));
+  nt2::geqp3( boost::proto::value(q_p3), boost::proto::value(jpvt)
           , boost::proto::value(tau_q3));
 
 
@@ -79,8 +79,8 @@ NT2_TEST_CASE_TPL(gqr_non_square, NT2_REAL_TYPES )
   t_t q_p3(q);
   t_t q_rf(q);
 
-  nt2::qrf( boost::proto::value(q_rf),boost::proto::value(tau_rf));
-  nt2::qp3( boost::proto::value(q_p3), boost::proto::value(jpvt)
+  nt2::geqrf( boost::proto::value(q_rf),boost::proto::value(tau_rf));
+  nt2::geqp3( boost::proto::value(q_p3), boost::proto::value(jpvt)
           , boost::proto::value(tau_q3));
 
 
@@ -122,8 +122,8 @@ NT2_TEST_CASE_TPL(gqr_square_complex, NT2_REAL_TYPES )
   t_t q_p3(q);
   t_t q_rf(q);
 
-  nt2::qrf( boost::proto::value(q_rf),boost::proto::value(tau_rf));
-  nt2::qp3( boost::proto::value(q_p3), boost::proto::value(jpvt)
+  nt2::geqrf( boost::proto::value(q_rf),boost::proto::value(tau_rf));
+  nt2::geqp3( boost::proto::value(q_p3), boost::proto::value(jpvt)
           , boost::proto::value(tau_q3));
 
 
@@ -162,8 +162,8 @@ NT2_TEST_CASE_TPL(gqr_non_square_complex, NT2_REAL_TYPES )
   t_t q_p3(q);
   t_t q_rf(q);
 
-  nt2::qrf( boost::proto::value(q_rf),boost::proto::value(tau_rf));
-  nt2::qp3( boost::proto::value(q_p3), boost::proto::value(jpvt)
+  nt2::geqrf( boost::proto::value(q_rf),boost::proto::value(tau_rf));
+  nt2::geqp3( boost::proto::value(q_p3), boost::proto::value(jpvt)
           , boost::proto::value(tau_q3));
 
 

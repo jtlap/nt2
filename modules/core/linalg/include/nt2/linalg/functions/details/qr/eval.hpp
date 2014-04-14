@@ -9,8 +9,8 @@
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_DETAILS_QR_EVAL_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_DETAILS_QR_EVAL_HPP_INCLUDED
 
-#include <nt2/include/functions/qp3.hpp>
-#include <nt2/include/functions/qrf.hpp>
+#include <nt2/include/functions/geqp3.hpp>
+#include <nt2/include/functions/geqrf.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/linalg/options.hpp>
@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
   {
     ip = nt2::zeros(nt2::width(work),1,nt2::meta::as_<nt2_la_int>());
 
-    return nt2::qp3( boost::proto::value(work),  boost::proto::value(ip)
+    return nt2::geqp3( boost::proto::value(work),  boost::proto::value(ip)
                    ,  boost::proto::value(tau) );
   }
 
@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
                         , nt2::policy<ext::no_pivot_> const&
                         )
   {
-    return nt2::qrf( boost::proto::value(work),  boost::proto::value(tau));
+    return nt2::geqrf( boost::proto::value(work),  boost::proto::value(tau));
   }
 
   /// INTERNAL ONLY - compute a full QR matrix with pivoting
@@ -53,7 +53,7 @@ namespace nt2 { namespace ext
                         , nt2::policy<ext::no_pivot_> const&
                         )
   {
-    return nt2::qrf( boost::proto::value(work), boost::proto::value(tau));
+    return nt2::geqrf( boost::proto::value(work), boost::proto::value(tau));
   }
 
   /// INTERNAL ONLY - compute a full QR matrix with pivoting
@@ -66,7 +66,7 @@ namespace nt2 { namespace ext
   {
     ip = nt2::zeros(nt2::width(work),1,nt2::meta::as_<nt2_la_int>());
 
-    return nt2::qp3( boost::proto::value(work), boost::proto::value(ip)
+    return nt2::geqp3( boost::proto::value(work), boost::proto::value(ip)
                    , boost::proto::value(tau) );
   }
 
@@ -80,7 +80,7 @@ namespace nt2 { namespace ext
   {
     ip = nt2::zeros(nt2::width(work),1,nt2::meta::as_<nt2_la_int>());
 
-    return nt2::qp3( boost::proto::value(work), boost::proto::value(ip)
+    return nt2::geqp3( boost::proto::value(work), boost::proto::value(ip)
                    , boost::proto::value(tau) );
   }
 
@@ -94,7 +94,7 @@ namespace nt2 { namespace ext
   {
     ip = nt2::zeros(nt2::width(work),1,nt2::meta::as_<nt2_la_int>());
 
-    return nt2::qp3( boost::proto::value(work), boost::proto::value(ip)
+    return nt2::geqp3( boost::proto::value(work), boost::proto::value(ip)
                    , boost::proto::value(tau) );
   }
 

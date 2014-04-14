@@ -8,27 +8,27 @@
 ##############################################################################
 
 SET ( SOURCES
-      trf.cpp
-      tri.cpp
-      qrf.cpp
-      qp3.cpp
+      getrf.cpp
+      getri.cpp
+      geqrf.cpp
+      geqp3.cpp
       gqr.cpp
       mqr.cpp
       laswp.cpp
       swap.cpp
-      sv.cpp
-      svx.cpp
-      ls.cpp
-      lsy.cpp
+      gesv.cpp
+      gesvx.cpp
+      gels.cpp
+      gelsy.cpp
       gecon.cpp
-      msv.cpp
+      gemsv.cpp
       clinsolve.cpp
       plinsolve.cpp
       mlinsolve.cpp
-      ysvx.cpp
+      sysvx.cpp
       posv.cpp
       langb.cpp
-      bsv.cpp
+      gbsv.cpp
       gesvd.cpp
       potrf.cpp
       trsm.cpp

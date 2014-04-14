@@ -14,11 +14,11 @@
 
 #include <nt2/include/functions/issquare.hpp>
 #include <nt2/include/functions/zeros.hpp>
-#include <nt2/include/functions/lsy.hpp>
-#include <nt2/include/functions/sv.hpp>
-#include <nt2/include/functions/bsv.hpp>
+#include <nt2/include/functions/gelsy.hpp>
+#include <nt2/include/functions/gesv.hpp>
+#include <nt2/include/functions/gbsv.hpp>
 #include <nt2/include/functions/posv.hpp>
-#include <nt2/include/functions/ysv.hpp>
+#include <nt2/include/functions/sysv.hpp>
 #include <nt2/include/functions/lange.hpp>
 #include <nt2/include/functions/lansy.hpp>
 #include <nt2/include/functions/langb.hpp>
@@ -155,13 +155,13 @@ namespace nt2 { namespace ext
 
       eval_param( a0, a1, work);
 
-      if (issquare(entry)) nt2::sv(boost::proto::value(entry)
+      if (issquare(entry)) nt2::gesv(boost::proto::value(entry)
                            ,boost::proto::value(piv), boost::proto::value(work));
 
       else {
         nt2_la_int n = nt2::width(a0);
         piv = nt2::zeros(n,1, nt2::meta::as_<nt2_la_int>());
-        nt2::lsy( boost::proto::value(entry) ,boost::proto::value(piv)
+        nt2::gelsy( boost::proto::value(entry) ,boost::proto::value(piv)
                 , boost::proto::value(work) );
       }
 
@@ -193,7 +193,7 @@ namespace nt2 { namespace ext
       entry_type work(a1);
       matrix_type entry(a0);
 
-      nt2::ysv( boost::proto::value(entry),boost::proto::value(piv)
+      nt2::sysv( boost::proto::value(entry),boost::proto::value(piv)
               , boost::proto::value(work));
 
       boost::proto::child_c<0>(a2) = work;
@@ -210,7 +210,7 @@ namespace nt2 { namespace ext
       entry_type work(a1);
       matrix_type entry(a0);
 
-      nt2::bsv( boost::proto::value(entry),boost::proto::value(piv)
+      nt2::gbsv( boost::proto::value(entry),boost::proto::value(piv)
               , boost::proto::value(work));
 
       boost::proto::child_c<0>(a2) = work;
@@ -230,7 +230,7 @@ namespace nt2 { namespace ext
 
       if (issquare(entry))
       {
-        nt2::sv( boost::proto::value(entry), boost::proto::value(piv)
+        nt2::gesv( boost::proto::value(entry), boost::proto::value(piv)
                , boost::proto::value(work) );
         char norm = '1';
         type_t anorm = nt2::lange(boost::proto::value(a0),norm);
@@ -242,7 +242,7 @@ namespace nt2 { namespace ext
         nt2_la_int n = nt2::width(a0);
         piv = nt2::zeros(n,1, nt2::meta::as_<nt2_la_int>());
 
-        nt2::lsy( boost::proto::value(entry), boost::proto::value(piv)
+        nt2::gelsy( boost::proto::value(entry), boost::proto::value(piv)
                 , boost::proto::value(work), rank);
         boost::proto::child_c<1>(a2) = static_cast<type_t>(rank);
       }
@@ -267,7 +267,7 @@ namespace nt2 { namespace ext
 
       type_t anorm = nt2::lange(boost::proto::value(a0), norm, h_());
 
-      nt2::ysv( boost::proto::value(entry),boost::proto::value(piv)
+      nt2::sysv( boost::proto::value(entry),boost::proto::value(piv)
               , boost::proto::value(work));
       boost::proto::child_c<1>(a2) = nt2::sycon( boost::proto::value(entry)
                                                , boost::proto::value(piv) ,anorm);
@@ -306,7 +306,7 @@ namespace nt2 { namespace ext
 
       char norm = '1';
       type_t anorm = nt2::langb(boost::proto::value(a0),norm);
-      nt2::bsv( boost::proto::value(entry), boost::proto::value(piv)
+      nt2::gbsv( boost::proto::value(entry), boost::proto::value(piv)
               , boost::proto::value(work));
       boost::proto::child_c<1>(a2) = nt2::gbcon( boost::proto::value(entry)
                                                , boost::proto::value(piv),anorm);

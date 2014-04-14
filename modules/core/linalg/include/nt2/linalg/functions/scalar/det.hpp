@@ -11,7 +11,7 @@
 #define NT2_LINALG_FUNCTIONS_SCALAR_DET_HPP_INCLUDED
 
 #include <nt2/linalg/functions/det.hpp>
-#include <nt2/include/functions/trf.hpp>
+#include <nt2/include/functions/getrf.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/diag_of.hpp>
 #include <nt2/include/functions/issquare.hpp>
@@ -40,7 +40,7 @@ namespace nt2{ namespace ext
       nt2::container::table<nt2_la_int>               ip;
 
       // Factorize A as L/U
-      nt2_la_int  info = nt2::trf(boost::proto::value(lu),boost::proto::value(ip));
+      nt2_la_int  info = nt2::getrf(boost::proto::value(lu),boost::proto::value(ip));
       boost::dispatch::ignore_unused(info);
 
       // DET(A) is the product of LU(A) diagonal by -1 at the power of

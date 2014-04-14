@@ -10,8 +10,8 @@
 #define NT2_LINALG_FUNCTIONS_GENERAL_INV_HPP_INCLUDED
 
 #include <nt2/linalg/functions/inv.hpp>
-#include <nt2/include/functions/trf.hpp>
-#include <nt2/include/functions/tri.hpp>
+#include <nt2/include/functions/getrf.hpp>
+#include <nt2/include/functions/getri.hpp>
 #include <nt2/include/functions/run.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/norm.hpp>
@@ -54,8 +54,8 @@ namespace nt2 { namespace ext
       nt2::container::table<nt2_la_int> ip;
 
       // Factorize A as L/U and call tri
-      nt2::trf(boost::proto::value(tmp),boost::proto::value(ip));
-      nt2::tri(boost::proto::value(tmp),boost::proto::value(ip));
+      nt2::getrf(boost::proto::value(tmp),boost::proto::value(ip));
+      nt2::getri(boost::proto::value(tmp),boost::proto::value(ip));
 
       NT2_WARNING ( ( rcond_(boost::proto::child_c<0>(in),tmp) >= nt2::Eps<base_t>())
                   , "INV: matrix is singular to machine precision."

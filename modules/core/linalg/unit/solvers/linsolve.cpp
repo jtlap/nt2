@@ -13,7 +13,7 @@
 #include <nt2/include/functions/plinsolve.hpp>
 #include <nt2/include/functions/clinsolve.hpp>
 #include <nt2/include/functions/lu.hpp>
-#include <nt2/include/functions/ysv.hpp>
+#include <nt2/include/functions/sysv.hpp>
 #include <nt2/include/functions/sycon.hpp>
 #include <nt2/include/functions/pocon.hpp>
 #include <nt2/include/functions/lange.hpp>
@@ -309,7 +309,7 @@ nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
 nt2::table<nt2_la_int> piv = nt2::zeros(a.leading_size(), 1, nt2::meta::as_<nt2_la_int>() );
 t_t lu = a;
-nt2::ysv( boost::proto::value(lu),boost::proto::value(piv), boost::proto::value(b));
+nt2::sysv( boost::proto::value(lu),boost::proto::value(piv), boost::proto::value(b));
 anorm = nt2::lange( boost::proto::value(a), norm, nt2::symmetric_());
 rcond1 = nt2::sycon( boost::proto::value(lu),boost::proto::value(piv),anorm);
 
@@ -424,7 +424,7 @@ nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
 nt2::table<nt2_la_int> piv = nt2::zeros(a.leading_size(), 1, nt2::meta::as_<nt2_la_int>() );
 t_t lu = a;
-nt2::ysv( boost::proto::value(lu),boost::proto::value(piv), boost::proto::value(b));
+nt2::sysv( boost::proto::value(lu),boost::proto::value(piv), boost::proto::value(b));
 anorm = nt2::lange( boost::proto::value(a), norm, nt2::symmetric_());
 rcond1 = nt2::sycon( boost::proto::value(lu),boost::proto::value(piv),anorm);
 
@@ -463,7 +463,7 @@ nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
 nt2::table<nt2_la_int> piv = nt2::zeros(a.leading_size(), 1, nt2::meta::as_<nt2_la_int>() );
 t_t lu = a;
-nt2::ysv( boost::proto::value(lu),boost::proto::value(piv), boost::proto::value(b));
+nt2::sysv( boost::proto::value(lu),boost::proto::value(piv), boost::proto::value(b));
 anorm = nt2::lange( boost::proto::value(a), norm);
 rcond1 = nt2::sycon( boost::proto::value(lu),boost::proto::value(piv),anorm);
 NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
@@ -508,7 +508,7 @@ nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
 nt2::table<nt2_la_int> piv = nt2::zeros(a.leading_size(), 1, nt2::meta::as_<nt2_la_int>() );
 t_t lu = a;
-nt2::ysv( boost::proto::value(lu),boost::proto::value(piv), boost::proto::value(b));
+nt2::sysv( boost::proto::value(lu),boost::proto::value(piv), boost::proto::value(b));
 anorm = nt2::lange( boost::proto::value(a), norm, nt2::symmetric_() );
 rcond1 = nt2::sycon( boost::proto::value(lu),boost::proto::value(piv),anorm);
 

@@ -12,7 +12,7 @@
 #include <nt2/linalg/functions/lu.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/tie.hpp>
-#include <nt2/include/functions/trf.hpp>
+#include <nt2/include/functions/getrf.hpp>
 #include <nt2/include/functions/triu.hpp>
 #include <nt2/include/functions/tri1l.hpp>
 #include <nt2/include/functions/colon.hpp>
@@ -54,7 +54,7 @@ namespace nt2 { namespace ext
                                 );
 
       nt2::container::table<nt2_la_int> ip;
-      nt2_la_int lapack_info = nt2::trf(boost::proto::value(out),boost::proto::value(ip));
+      nt2_la_int lapack_info = nt2::getrf(boost::proto::value(out),boost::proto::value(ip));
 
       NT2_WARNING ( lapack_info <= 0
                   , "LU factorization has been completed, but U is exactly "
@@ -110,13 +110,13 @@ namespace nt2 { namespace ext
                                     , boost::proto::child_c<0>(a0)
                                     );
 
-        info = nt2::trf(boost::proto::value(work),boost::proto::value(ip));
+        info = nt2::getrf(boost::proto::value(work),boost::proto::value(ip));
         extract_lu(a1,work);
       }
       else
       {
         tab0_t work = boost::proto::child_c<0>(a0);
-        info = nt2::trf(boost::proto::value(work),boost::proto::value(ip));
+        info = nt2::getrf(boost::proto::value(work),boost::proto::value(ip));
         extract_lu(a1,work);
       }
 

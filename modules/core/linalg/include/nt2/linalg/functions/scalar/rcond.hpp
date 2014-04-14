@@ -10,8 +10,8 @@
 #define NT2_LINALG_FUNCTIONS_SCALAR_RCOND_HPP_INCLUDED
 
 #include <nt2/linalg/functions/rcond.hpp>
-#include <nt2/include/functions/trf.hpp>
-#include <nt2/include/functions/tri.hpp>
+#include <nt2/include/functions/getrf.hpp>
+#include <nt2/include/functions/getri.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/norm.hpp>
 #include <nt2/include/constants/one.hpp>
@@ -35,8 +35,8 @@ namespace nt2{ namespace ext
       nt2::container::table<type_t>  lu(a0);
       nt2::container::table<nt2_la_int>               ip;
 
-      nt2::trf(boost::proto::value(lu), boost::proto::value(ip) );
-      nt2::tri(boost::proto::value(lu), boost::proto::value(ip) );
+      nt2::getrf(boost::proto::value(lu), boost::proto::value(ip) );
+      nt2::getri(boost::proto::value(lu), boost::proto::value(ip) );
       return nt2::rec(nt2::norm(a0, 1) * nt2::norm(lu, 1));
     }
   };
@@ -73,8 +73,8 @@ namespace nt2{ namespace ext
         nt2::container::table<type_t>  lu(a0);
         nt2::container::table<nt2_la_int>               ip;
 
-      nt2::trf(boost::proto::value(lu), boost::proto::value(ip) );
-      nt2::tri(boost::proto::value(lu), boost::proto::value(ip) );
+      nt2::getrf(boost::proto::value(lu), boost::proto::value(ip) );
+      nt2::getri(boost::proto::value(lu), boost::proto::value(ip) );
         return nt2::rec(nt2::norm(a0, a1)*nt2::norm(lu, a1));
       }
     }
