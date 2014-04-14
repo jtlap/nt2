@@ -10,7 +10,6 @@
 #define BOOST_SIMD_MEMORY_FUNCTIONS_SIMD_COMMON_EXTRACT_HPP_INCLUDED
 
 #include <boost/simd/memory/functions/extract.hpp>
-#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/details/aliasing.hpp>
@@ -53,7 +52,8 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::scalar_of<A0>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 a1) const
     {
-      return result_type(extract(bitwise_cast<typename A0::type>(a0), a1));
+      typedef typename A0::type::value_type stype;
+      return result_type(reinterpret_cast<typename meta::may_alias<stype const>::type*>(&a0.data_)[a1]);
     }
   };
 
