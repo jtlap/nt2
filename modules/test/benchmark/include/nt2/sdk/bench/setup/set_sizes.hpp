@@ -26,7 +26,7 @@ namespace nt2 { namespace bench
 
       @param s  std::vector<T> of the required steps
     */
-    set_sizes(std::vector<T> s )//= 1)
+    set_sizes( std::vector<T> const& s )
               : step_(s), min_(s[0]), num_iter_(s.size())
     {count=0;}
 
@@ -44,8 +44,8 @@ namespace nt2 { namespace bench
 
     private:
     std::vector<T> step_;
-    std::size_t   min_, num_iter_;
-    std::size_t count;
+    T min_;
+    std::size_t count, num_iter_;
   };
 } }
 
