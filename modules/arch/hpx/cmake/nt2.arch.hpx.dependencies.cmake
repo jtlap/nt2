@@ -9,7 +9,7 @@
 
 include(nt2.info)
 include(nt2.boost)
-find_package(Boost 1.53.0 QUIET COMPONENTS program_options thread system serialization)
+find_package(Boost 1.53.0 QUIET COMPONENTS program_options thread system serialization filesystem)
 
 if(NOT DEFINED HPX_ROOT)
   set(HPX_ROOT $ENV{HPX_ROOT})
@@ -38,23 +38,41 @@ endif()
 
 if(NOT DEFINED HPX_LIBRARY_DIR)
   if(HPX_BINARY_ROOT)
-    set(HPX_LIBRARY_DIR ${HPX_BINARY_ROOT}/lib)
+    if(IS_DIRECTORY ${HPX_BINARY_ROOT}/lib)
+      set(HPX_LIBRARY_DIR ${HPX_BINARY_ROOT}/lib)
+    else()
+      set(HPX_LIBRARY_DIR ${HPX_BINARY_ROOT}/Release/lib ${HPX_BINARY_ROOT}/Debug/lib)
+    endif()
   else()
     set(HPX_LIBRARY_DIR ${HPX_ROOT}/lib)
   endif()
 endif()
-find_library(HPX_LIBRARY hpx PATHS ${HPX_LIBRARY_DIR} PATH_SUFFIXES hpx NO_DEFAULT_PATH)
-find_library(HPX_LIBRARY hpx PATH_SUFFIXES hpx)
-find_library(HPX_LIBRARY_INIT hpx_init PATHS ${HPX_LIBRARY_DIR} PATH_SUFFIXES hpx NO_DEFAULT_PATH)
-find_library(HPX_LIBRARY_INIT hpx_init PATH_SUFFIXES hpx)
-find_library(HPX_LIBRARY_SERIALIZATION hpx_serialization PATHS ${HPX_LIBRARY_DIR} PATH_SUFFIXES hpx NO_DEFAULT_PATH)
-find_library(HPX_LIBRARY_SERIALIZATION hpx_serialization PATH_SUFFIXES hpx)
+
+foreach(lib hpx hpx_init hpx_serialization)
+  string(TOUPPER ${lib} lib_U)
+  find_library(${lib_U}_LIBRARY_RELEASE ${lib} PATHS ${HPX_LIBRARY_DIR} PATH_SUFFIXES hpx NO_DEFAULT_PATH)
+  find_library(${lib_U}_LIBRARY_RELEASE ${lib} PATH_SUFFIXES hpx)
+
+  find_library(${lib_U}_LIBRARY_DEBUG ${lib}d PATHS ${HPX_LIBRARY_DIR} PATH_SUFFIXES hpx NO_DEFAULT_PATH)
+  find_library(${lib_U}_LIBRARY_DEBUG ${lib}d PATH_SUFFIXES hpx)
+
+  if(${lib_U}_LIBRARY_DEBUG AND ${lib_U}_LIBRARY_RELEASE)
+    set(${lib_U}_LIBRARY debug ${${lib_U}_LIBRARY_DEBUG} optimized ${${lib_U}_LIBRARY_RELEASE})
+  else()
+    set(${lib_U}_LIBRARY ${${lib_U}_LIBRARY_RELEASE})
+  endif()
+endforeach()
 
 if(NOT Boost_FOUND OR NOT HPX_INCLUDE_DIR OR NOT HPX_INCLUDE_BINARY_DIR OR NOT HPX_LIBRARY)
   set(NT2_ARCH.HPX_DEPENDENCIES_FOUND 0)
 endif()
 
 set(NT2_ARCH.HPX_COMPILE_FLAGS "-DNT2_USE_HPX -DNOMINMAX")
+
+if(NOT Boost_USE_STATIC_LIBS)
+ set(NT2_ARCH.HPX_COMPILE_FLAGS "${NT2_ARCH.HPX_COMPILE_FLAGS} -DBOOST_ALL_DYN_LINK")
+endif()
+
 if(NT2_COMPILER_GCC_LIKE)
   set(NT2_ARCH.HPX_COMPILE_FLAGS "${NT2_ARCH.HPX_COMPILE_FLAGS} -std=c++0x -include hpx/config.hpp")
 elseif(MSVC)
@@ -66,10 +84,11 @@ if(HPX_BINARY_ROOT)
   list(APPEND NT2_ARCH.HPX_DEPENDENCIES_INCLUDE_DIR ${HPX_INCLUDE_BINARY_DIR})
 endif()
 
-set( NT2_ARCH.HPX_DEPENDENCIES_LIBRARIES ${HPX_LIBRARY} ${HPX_LIBRARY_INIT} ${HPX_LIBRARY_SERIALIZATION}
-                                         ${Boost_PROGRAM_OPTIONS_LIBRARY} ${Boost_THREAD_LIBRARY}
-                                         ${Boost_SYSTEM_LIBRARY} ${Boost_SERIALIZATION_LIBRARY}
-   )
+set( NT2_ARCH.HPX_DEPENDENCIES_LIBRARIES ${HPX_LIBRARY} ${HPX_INIT_LIBRARY} ${HPX_SERIALIZATION_LIBRARY} )
+
+foreach(lib PROGRAM_OPTIONS THREAD SYSTEM SERIALIZATION FILESYSTEM)
+  list(APPEND NT2_ARCH.HPX_DEPENDENCIES_LIBRARIES debug ${Boost_${lib}_LIBRARY_DEBUG} optimized ${Boost_${lib}_LIBRARY_RELEASE})
+endforeach()
 
 set( NT2_ARCH.HPX_DEPENDENCIES_EXTRA
      arch.shared_memory
